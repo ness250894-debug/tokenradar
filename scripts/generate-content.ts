@@ -77,7 +77,7 @@ async function callClaude(
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: "claude-haiku-4-5-20241022",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: maxTokens,
       system: systemPrompt,
       messages: [{ role: "user", content: userPrompt }],
@@ -113,7 +113,7 @@ STRICT RULES:
 5. Always present data and analysis objectively.
 6. Include at least 3 specific data points from the provided data.
 7. Reference at least 1 real-world development or event.
-8. Write 1,000-2,000 words.
+8. Strictly follow the word count instructions provided in each specific prompt.
 9. Use markdown formatting with proper headings (## for sections).
 10. Include a FAQ section at the end with 3-5 questions and answers.
 11. End every article with: "---\\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
@@ -159,6 +159,8 @@ ${refsStr || "No recent articles found."}`;
       slug: "overview",
       prompt: `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).
 
+TARGET LENGTH: 1,200 - 1,500 words.
+
 Cover:
 1. What ${tokenName} is and what problem it solves
 2. How the technology works (simplified)
@@ -178,6 +180,8 @@ ${commonContext}`,
 
 CRITICAL: You are NOT making predictions. You are analyzing data trends, historical patterns, and market conditions to discuss possible scenarios.
 
+TARGET LENGTH: 1,000 - 1,200 words. Be analytical and concise.
+
 Cover:
 1. Current price and recent performance (30d, 1y trends)
 2. Technical analysis of key support/resistance levels
@@ -196,6 +200,8 @@ ${commonContext}`,
       title: `How to Buy ${tokenName} (${symbol.toUpperCase()}) — Step-by-Step Guide`,
       slug: "how-to-buy",
       prompt: `Write a practical step-by-step guide for buying ${tokenName} (${symbol.toUpperCase()}).
+
+TARGET LENGTH: 600 - 800 words. Be highly concise, actionable, and skip unnecessary filler.
 
 Cover:
 1. Quick overview of ${tokenName} and why people are interested
@@ -360,7 +366,7 @@ async function main() {
           content: result.content,
           wordCount,
           generatedAt: new Date().toISOString(),
-          model: "claude-haiku-4-5-20241022",
+          model: "claude-haiku-4-5-20251001",
           promptTokens: result.promptTokens,
           completionTokens: result.completionTokens,
         };

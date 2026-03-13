@@ -655,6 +655,36 @@ img {
   margin-bottom: var(--space-sm);
 }
 
+/* Markdown Tables */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-xl) 0;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.article-content th,
+.article-content td {
+  text-align: left;
+  padding: var(--space-md);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.article-content th {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: var(--bg-elevated);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.article-content tr:last-child td {
+  border-bottom: none;
+}
+
 /* ---- FAQ Section ---- */
 .faq-item {
   border-bottom: 1px solid var(--border-color);
@@ -702,4 +732,130 @@ img {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* ---- Scroll to Top Button ---- */
+.scroll-to-top {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: rgba(18, 19, 26, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.scroll-to-top:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+  color: var(--accent-secondary);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ---- Back to Overview Toast ---- */
+.back-toast-container {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  pointer-events: none; /* Let clicks pass through container */
+}
+
+.back-toast-btn {
+  pointer-events: auto; /* Re-enable clicks for the button */
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(18, 19, 26, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+}
+
+.back-toast-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+  color: var(--accent-secondary);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .back-toast-container {
+    bottom: var(--space-lg);
+  }
+  .back-toast-btn {
+    padding: 8px 16px;
+    font-size: var(--text-xs);
+  }
+}
+
+/* ---- Search Component ---- */
+.search-container {
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-md);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-md) var(--space-md) var(--space-md) 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-glow);
+  background: var(--bg-card-hover);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
 }

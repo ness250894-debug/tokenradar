@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
-  /** Static export for Cloudflare Pages deployment. */
-  output: "export",
+  /** Static export only for production builds (Cloudflare Pages). */
+  ...(isProd && { output: "export" }),
 
   /** No trailing slashes — cleaner URLs. */
   trailingSlash: false,

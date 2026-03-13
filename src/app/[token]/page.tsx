@@ -20,6 +20,9 @@ interface PageProps {
   params: Promise<{ token: string }>;
 }
 
+/** Reject unknown tokens at build time — returns 404 for unregistered slugs. */
+export const dynamicParams = false;
+
 /** Generate static paths for all tokens with data. */
 export async function generateStaticParams() {
   return getTokenIds().map((id) => ({ token: id }));
@@ -151,21 +154,21 @@ export default async function TokenPage({ params }: PageProps) {
         )}
 
         {/* Article Links */}
-        <div style={{ marginTop: "var(--space-xl)" }}>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-md)" }}>
+        <div style={{ marginTop: "var(--space-2xl)" }}>
+          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
             Research & <span className="gradient-text">Analysis</span>
           </h2>
-          <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--space-md)" }}>
             <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block" }}>
-              <div style={{ fontSize: "var(--text-2xl)", marginBottom: "var(--space-sm)" }}>📈</div>
-              <div style={{ fontWeight: 700 }}>Price Prediction 2026-2027</div>
+              <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
+              <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction 2026-2027</div>
               <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                 Data-driven price analysis and scenarios
               </div>
             </Link>
             <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block" }}>
-              <div style={{ fontSize: "var(--text-2xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
-              <div style={{ fontWeight: 700 }}>How to Buy {detail.name}</div>
+              <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
+              <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
               <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                 Step-by-step guide with exchange recommendations
               </div>

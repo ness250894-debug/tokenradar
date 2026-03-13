@@ -54,6 +54,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { BackToOverviewToast } from "@/components/BackToOverviewToast";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,6 +68,8 @@ export default function RootLayout({
         <Navigation />
         <main>{children}</main>
         <Footer />
+        <ScrollToTop />
+        <BackToOverviewToast />
       </body>
     </html>
   );

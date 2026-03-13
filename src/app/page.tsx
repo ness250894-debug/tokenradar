@@ -1,84 +1,33 @@
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
-
-/**
- * Mock token data for initial development.
- * Will be replaced by CoinGecko API data in Phase 2.
- */
-const MOCK_TOKENS: TokenCardData[] = [
-  {
-    id: "injective-protocol",
-    name: "Injective",
-    symbol: "INJ",
-    rank: 52,
-    price: 24.87,
-    priceChange24h: 5.32,
-    marketCap: 2_430_000_000,
-    riskScore: 5,
-    category: "DeFi",
-  },
-  {
-    id: "render-token",
-    name: "Render",
-    symbol: "RNDR",
-    rank: 58,
-    price: 7.41,
-    priceChange24h: -2.18,
-    marketCap: 2_870_000_000,
-    riskScore: 4,
-    category: "AI",
-  },
-  {
-    id: "sei-network",
-    name: "Sei",
-    symbol: "SEI",
-    rank: 71,
-    price: 0.52,
-    priceChange24h: 8.91,
-    marketCap: 1_560_000_000,
-    riskScore: 6,
-    category: "Layer 1",
-  },
-  {
-    id: "celestia",
-    name: "Celestia",
-    symbol: "TIA",
-    rank: 63,
-    price: 12.34,
-    priceChange24h: -0.45,
-    marketCap: 2_100_000_000,
-    riskScore: 5,
-    category: "Modular",
-  },
-  {
-    id: "starknet",
-    name: "Starknet",
-    symbol: "STRK",
-    rank: 89,
-    price: 1.87,
-    priceChange24h: 12.4,
-    marketCap: 1_340_000_000,
-    riskScore: 7,
-    category: "Layer 2",
-  },
-  {
-    id: "akash-network",
-    name: "Akash Network",
-    symbol: "AKT",
-    rank: 95,
-    price: 4.21,
-    priceChange24h: 3.67,
-    marketCap: 980_000_000,
-    riskScore: 6,
-    category: "AI / DePin",
-  },
-];
+import { getAllTokens, getTokenMetrics } from "@/lib/content-loader";
+import { TokenGrid } from "@/components/TokenGrid";
 
 /**
  * Homepage — hero section, stats overview, and trending token cards.
- * Static content for now; will be driven by generated data in later phases.
+ * Driven by generated data from the SSG pipeline.
  */
 export default function HomePage() {
+  const allTokensList = getAllTokens();
+
+  // For the homepage frontend, we only want to show tokens that have successfully 
+  // generated metrics so we can display their Risk Score.
+  const allTokens: TokenCardData[] = allTokensList
+    .map((token) => {
+      const metrics = getTokenMetrics(token.id);
+      return {
+        id: token.id,
+        name: token.name,
+        symbol: token.symbol,
+        rank: token.rank,
+        price: token.price,
+        priceChange24h: token.priceChange24h,
+        marketCap: token.marketCap,
+        riskScore: metrics?.riskScore || 5, // Fallback if metrics missing
+        category: "Crypto", // Simplified for the homepage
+      };
+    });
+
   return (
     <>
       {/* Hero */}
@@ -90,7 +39,7 @@ export default function HomePage() {
           </h1>
           <p className="hero-subtitle animate-in animate-delay-1">
             Proprietary Risk Scores, Growth Indexes, and AI-powered research for
-            150+ tokens — updated daily, always unbiased.
+            {allTokens.length > 0 ? ` ${allTokens.length}+ ` : " 150+ "} tokens — updated daily, always unbiased.
           </p>
           <div className="hero-cta animate-in animate-delay-2">
             <a href="#trending" className="btn btn-primary">
@@ -109,16 +58,16 @@ export default function HomePage() {
           <div className="stats-grid animate-in animate-delay-1">
             <div className="stat-card">
               <div className="stat-label">Tokens Tracked</div>
-              <div className="stat-value gradient-text">150+</div>
+              <div className="stat-value gradient-text">{allTokens.length || "150+"}</div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>
-                Ranks #50 — #200
+                Active Data Feeds
               </div>
             </div>
             <div className="stat-card">
               <div className="stat-label">Articles Published</div>
-              <div className="stat-value gradient-text">0</div>
+              <div className="stat-value gradient-text">{allTokens.length * 3}</div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>
-                Launching soon
+                AI-Generated Research
               </div>
             </div>
             <RiskScoreCard score={5} label="Avg. Market Risk" />
@@ -138,15 +87,12 @@ export default function HomePage() {
         <div className="container">
           <div className="section-header">
             <h2>
-              Trending <span className="gradient-text">Tokens</span>
+              Tracked <span className="gradient-text">Tokens</span>
             </h2>
-            <p>Mid-cap tokens with the strongest narratives and momentum.</p>
+            <p>Data-driven analysis and insights.</p>
           </div>
-          <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
-            {MOCK_TOKENS.map((token) => (
-              <TokenCard key={token.id} token={token} />
-            ))}
-          </div>
+          
+          <TokenGrid tokens={allTokens} />
         </div>
       </section>
 

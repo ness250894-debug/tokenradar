@@ -16,6 +16,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 /**
  * Generate static paths for all token-vs-token combinations.
  * Uses the pattern: /compare/token-a-vs-token-b
