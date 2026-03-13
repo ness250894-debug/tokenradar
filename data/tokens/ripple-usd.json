@@ -1,0 +1,51 @@
+{
+  "id": "ripple-usd",
+  "symbol": "rlusd",
+  "name": "Ripple USD",
+  "description": "Ripple USD (“RLUSD”), issued by Standard Custody &amp; Trust Company, LLC, a wholly owned subsidiary of Ripple Labs, is a USD denominated stablecoin created with trust, liquidity, and compliance at its core. Each RLUSD is backed by at least an equivalent amount of U.S. dollars and other cash equivalents. RLUSD is purpose-built for cross-border payments and delivers reliable access to digital dollars. As an industry leader for over a decade, Ripple has a proven track record of delivering...",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "XRP Ledger Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ripple.com/solutions/stablecoin/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://xrpscan.com/token/524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De"
+  },
+  "market": {
+    "price": 0.998555,
+    "marketCap": 1556482645,
+    "volume24h": 108089700,
+    "high24h": 1.002,
+    "low24h": 0.99518,
+    "priceChange24h": -0.12798,
+    "priceChange7d": -0.121,
+    "priceChange30d": -0.13494,
+    "priceChange1y": -0.08508,
+    "ath": 1.073,
+    "athChangePercentage": -7.16559,
+    "athDate": "2024-12-26T10:45:52.337Z",
+    "atl": 0.962292,
+    "atlDate": "2024-12-18T04:40:40.880Z",
+    "circulatingSupply": 1562628408.127282,
+    "totalSupply": 1562628408.127282,
+    "maxSupply": null,
+    "fdv": 1556482645
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-13T13:47:47.221Z"
+}

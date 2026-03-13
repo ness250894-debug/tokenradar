@@ -1,0 +1,52 @@
+{
+  "id": "global-dollar",
+  "symbol": "usdg",
+  "name": "Global Dollar",
+  "description": "Global Dollar (USDG) is a single-currency stablecoin pegged to the US dollar. USDG is fully redeemable from Paxos on a one-to-one basis for US dollars. Global Dollar (USDG) is issued by Paxos Digital Singapore (PDS), which is a Major Payments Institution supervised by the Monetary Authority of Singapore. USDG is issued in the EU by Paxos Issuance Europe Oy (PIE), an Electronic Money Institution regulated by the Finnish Financial Supervisory Authority (FIN-FSA). USDG is fully compliant with the...",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "X Layer Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Ink Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://globaldollar.com",
+    "github": "https://github.com/paxosglobal/usdg-contract",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe343167631d89B6Ffc58B88d6b7fB0228795491D"
+  },
+  "market": {
+    "price": 1,
+    "marketCap": 1750549432,
+    "volume24h": 56741276,
+    "high24h": 1.001,
+    "low24h": 0.999856,
+    "priceChange24h": 0.00409,
+    "priceChange7d": 0.01775,
+    "priceChange30d": 0.01886,
+    "priceChange1y": -0.05234,
+    "ath": 1.65,
+    "athChangePercentage": -39.56008,
+    "athDate": "2025-01-30T00:11:05.728Z",
+    "atl": 0.907561,
+    "atlDate": "2024-11-11T23:55:50.604Z",
+    "circulatingSupply": 1750418666.460603,
+    "totalSupply": 1750418666.460603,
+    "maxSupply": null,
+    "fdv": 1750549432
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 15,
+    "githubForks": 5,
+    "commits4Weeks": 1
+  },
+  "fetchedAt": "2026-03-13T13:46:34.497Z"
+}

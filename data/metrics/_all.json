@@ -1,0 +1,48 @@
+{
+  "computedAt": "2026-03-13T13:50:33.799Z",
+  "tokenCount": 3,
+  "metrics": [
+    {
+      "tokenId": "falcon-finance",
+      "tokenName": "Falcon USD",
+      "symbol": "usdf",
+      "riskScore": 5,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 3,
+      "narrativeStrength": 95,
+      "valueVsAth": 93,
+      "volatilityIndex": 0,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "Falcon USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
+      "computedAt": "2026-03-13T13:50:33.791Z"
+    },
+    {
+      "tokenId": "global-dollar",
+      "tokenName": "Global Dollar",
+      "symbol": "usdg",
+      "riskScore": 5,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 17,
+      "narrativeStrength": 30,
+      "valueVsAth": 60,
+      "volatilityIndex": 0,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "Global Dollar is a limited upside token.",
+      "computedAt": "2026-03-13T13:50:33.796Z"
+    },
+    {
+      "tokenId": "ripple-usd",
+      "tokenName": "Ripple USD",
+      "symbol": "rlusd",
+      "riskScore": 3,
+      "riskLevel": "low",
+      "growthPotentialIndex": 7,
+      "narrativeStrength": 30,
+      "valueVsAth": 93,
+      "volatilityIndex": 0,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "Ripple USD is a lower-risk, limited upside, deeply discounted vs ATH token.",
+      "computedAt": "2026-03-13T13:50:33.798Z"
+    }
+  ]
+}

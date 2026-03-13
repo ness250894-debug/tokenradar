@@ -1,0 +1,107 @@
+SYSTEM:
+You are an expert crypto analyst writing for TokenRadar.co, a data-driven crypto research platform.
+
+STRICT RULES:
+1. Write in a professional, analytical tone. No hype, no FOMO.
+2. NEVER recommend buying or selling any token.
+3. NEVER guarantee returns or profits.
+4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
+5. Always present data and analysis objectively.
+6. Include at least 3 specific data points from the provided data.
+7. Reference at least 1 real-world development or event.
+8. Write 1,000-2,000 words.
+9. Use markdown formatting with proper headings (## for sections).
+10. Include a FAQ section at the end with 3-5 questions and answers.
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+
+FORMAT:
+- Start with a brief intro paragraph (no heading)
+- Use ## for main sections
+- Use ### for subsections
+- Include bullet points and bold text for key data
+- Include a structured FAQ section at the end using ### FAQ format
+
+USER:
+Write a comprehensive overview article about Falcon USD (USDF).
+
+Cover:
+1. What Falcon USD is and what problem it solves
+2. How the technology works (simplified)
+3. Tokenomics (supply, distribution, use cases)
+4. Current market position (price, market cap, rank)
+5. TokenRadar's proprietary metrics analysis (Risk Score, Growth Index, Narrative Strength)
+6. Key risks and concerns
+7. Recent developments and roadmap
+
+
+TOKEN DATA (from CoinGecko):
+{
+  "id": "falcon-finance",
+  "symbol": "usdf",
+  "name": "Falcon USD",
+  "description": "Falcon, the next-generation platform transforming synthetic dollars into sustainable yield opportunities. Our mission is clear: Your Crypto, Your Yields. Falcon aims to empower users and institutions to unlock the true yield potential of their digital assets. Falcon is built on the foundation of trust, transparency, and robust technology. Our team of experienced professionals brings expertise from blockchain, financial engineering, and quantitative analysis to ensure we deliver a protocol that...",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "XDC Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Synthetic Dollar"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://falcon.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
+  },
+  "market": {
+    "price": 0.997525,
+    "marketCap": 1749481945,
+    "volume24h": 1448654,
+    "high24h": 0.998776,
+    "low24h": 0.996517,
+    "priceChange24h": -0.00753,
+    "priceChange7d": 0.01348,
+    "priceChange30d": 0.11207,
+    "priceChange1y": -0.23497,
+    "ath": 1.075,
+    "athChangePercentage": -7.16571,
+    "athDate": "2025-05-08T21:25:42.071Z",
+    "atl": 0.943422,
+    "atlDate": "2025-07-08T10:16:34.749Z",
+    "circulatingSupply": 1753821967.036924,
+    "totalSupply": 1753821967.036924,
+    "maxSupply": null,
+    "fdv": 1749481945
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-13T13:47:40.967Z"
+}
+
+PROPRIETARY METRICS (computed by TokenRadar):
+{
+  "tokenId": "falcon-finance",
+  "tokenName": "Falcon USD",
+  "symbol": "usdf",
+  "riskScore": 5,
+  "riskLevel": "medium",
+  "growthPotentialIndex": 3,
+  "narrativeStrength": 95,
+  "valueVsAth": 93,
+  "volatilityIndex": 0,
+  "holderConcentrationEstimate": "unknown",
+  "summary": "Falcon USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
+  "computedAt": "2026-03-13T13:50:33.791Z"
+}
+
+REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
+No recent articles found.
