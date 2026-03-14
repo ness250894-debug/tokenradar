@@ -10,7 +10,7 @@ import type { Metadata } from "next";
  * via a configurable endpoint (Formspree, Web3Forms, etc.).
  */
 
-const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+const FORM_ENDPOINT = "https://formspree.io/f/mnjgzrjr";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
