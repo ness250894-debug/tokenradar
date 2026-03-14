@@ -33,6 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction 2026-2027`,
     description: `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`,
+    alternates: {
+      canonical: `/${detail.id}/price-prediction`,
+    },
   };
 }
 
@@ -142,6 +145,35 @@ export default async function PricePredictionPage({ params }: PageProps) {
             author: { "@type": "Organization", name: "TokenRadar" },
             publisher: { "@type": "Organization", name: "TokenRadar" },
             dateModified: article?.generatedAt || detail.fetchedAt,
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tokenradar.co/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": detail.name,
+                "item": `https://tokenradar.co/${detail.id}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Price Prediction",
+                "item": `https://tokenradar.co/${detail.id}/price-prediction`
+              }
+            ]
           }),
         }}
       />

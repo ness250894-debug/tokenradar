@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
@@ -21,9 +22,7 @@ export function Navigation() {
     <nav className="nav" id="main-nav">
       <div className="container nav-inner">
         <Link href="/" className="nav-logo" aria-label="TokenRadar Home">
-          <span className="nav-logo-icon" aria-hidden="true">
-            ◈
-          </span>
+          <Image src="/icon.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" />
           <span>
             Token<span className="gradient-text">Radar</span>
           </span>

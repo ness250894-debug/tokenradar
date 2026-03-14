@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`,
     description: `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`,
+    alternates: {
+      canonical: `/${detail.id}`,
+    },
   };
 }
 
@@ -206,6 +209,29 @@ export default async function TokenPage({ params }: PageProps) {
             author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
             publisher: { "@type": "Organization", name: "TokenRadar" },
             dateModified: detail.fetchedAt,
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tokenradar.co/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": detail.name,
+                "item": `https://tokenradar.co/${detail.id}`
+              }
+            ]
           }),
         }}
       />

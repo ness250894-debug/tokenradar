@@ -32,6 +32,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`,
     description: `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`,
+    alternates: {
+      canonical: `/${detail.id}/how-to-buy`,
+    },
   };
 }
 
@@ -129,6 +132,35 @@ export default async function HowToBuyPage({ params }: PageProps) {
               { "@type": "HowToStep", name: `Buy ${detail.symbol.toUpperCase()}`, text: `Find the ${detail.symbol.toUpperCase()}/USDT trading pair and place your order.` },
               { "@type": "HowToStep", name: "Secure Your Investment", text: "Consider transferring to a hardware wallet for long-term storage." },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tokenradar.co/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": detail.name,
+                "item": `https://tokenradar.co/${detail.id}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How to Buy",
+                "item": `https://tokenradar.co/${detail.id}/how-to-buy`
+              }
+            ]
           }),
         }}
       />
