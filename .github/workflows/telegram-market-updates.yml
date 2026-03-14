@@ -1,0 +1,41 @@
+# Daily Market Updates
+# Posts quick updates to Telegram 5 times a day.
+
+name: Telegram Market Updates
+
+on:
+  schedule:
+    - cron: "0 8 * * *"  # 08:00 UTC
+    - cron: "0 12 * * *" # 12:00 UTC
+    - cron: "0 16 * * *" # 16:00 UTC
+    - cron: "0 20 * * *" # 20:00 UTC
+    - cron: "0 22 * * *" # 22:00 UTC
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  post-update:
+    name: Post Update to Telegram
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post Market Update
+        run: npx tsx scripts/post-market-updates.ts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
