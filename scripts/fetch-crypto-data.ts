@@ -145,8 +145,8 @@ function truncateDescription(html: string, maxLength: number = 500): string {
 
 async function main() {
   const args = process.argv.slice(2);
-  const startRank = parseInt(args[args.indexOf("--start") + 1] || "50", 10);
-  const endRank = parseInt(args[args.indexOf("--end") + 1] || "200", 10);
+  const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 50;
+  const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 200;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Detailed Data Fetcher      ║");

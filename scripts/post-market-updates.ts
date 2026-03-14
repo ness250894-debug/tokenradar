@@ -19,6 +19,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
+import { TwitterApi } from "twitter-api-v2";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -70,6 +71,36 @@ async function sendTelegramMessage(text: string, chatId: string): Promise<number
   const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
   if (!data.ok) throw new Error("Telegram API returned ok: false");
   return data.result.message_id;
+}
+
+// ── Twitter API ────────────────────────────────────────────────
+
+async function sendTweet(text: string): Promise<string> {
+  const apiKey = process.env.X_API_KEY;
+  const apiSecret = process.env.X_API_SECRET;
+  const accessToken = process.env.X_ACCESS_TOKEN;
+  const accessSecret = process.env.X_ACCESS_SECRET;
+
+  if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
+    throw new Error("Missing X (Twitter) credentials");
+  }
+
+  const client = new TwitterApi({
+    appKey: apiKey,
+    appSecret: apiSecret,
+    accessToken: accessToken,
+    accessSecret: accessSecret,
+  });
+
+  // Strip HTML tags roughly before sending to Twitter
+  const cleanText = text.replace(/<[^>]*>?/gm, '');
+  
+  // Truncate to 280 chars max (shouldn't be needed for these short alerts, but safe)
+  const safeText = cleanText.length > 280 ? cleanText.substring(0, 277) + "..." : cleanText;
+
+  const rwClient = client.readWrite;
+  const { data: createdTweet } = await rwClient.v2.tweet(safeText);
+  return createdTweet.id;
 }
 
 // ── Alert Generators ───────────────────────────────────────────
@@ -209,10 +240,17 @@ async function main() {
 
   try {
     const msgId = await sendTelegramMessage(message, channelId as string);
-    console.log(`Successfully posted Market Update to Telegram (Message ID: ${msgId})`);
+    console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
   } catch (error) {
-    console.error("Failed to post message:", error);
-    process.exit(1);
+    console.error("❌ Failed to post Telegram message:", error);
+  }
+
+  try {
+    const tweetId = await sendTweet(message);
+    console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
+  } catch (error) {
+    console.error("❌ Failed to post to X:", error);
+    // Don't exit 1 here so we don't crash the action if just Twitter fails
   }
 }
 

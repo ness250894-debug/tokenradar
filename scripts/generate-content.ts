@@ -275,13 +275,34 @@ async function main() {
     process.exit(1);
   }
 
-  // Filter tokens
-  let tokensToProcess = tokenFiles
-    .map((f) => f.replace(".json", ""))
-    .filter((id) => !targetToken || id === targetToken)
-    .slice(0, maxTokens);
+  // Filter tokens to find ones that actually need generation
+  let tokensToProcess: string[] = [];
+  
+  for (const f of tokenFiles) {
+    const id = f.replace(".json", "");
+    if (targetToken && id !== targetToken) continue;
 
-  console.log(`  Tokens to process: ${tokensToProcess.length}`);
+    // Check if this token is missing any generated content
+    const hasOverview = fs.existsSync(path.join(CONTENT_DIR, id, "overview.json"));
+    const hasPrice = fs.existsSync(path.join(CONTENT_DIR, id, "price-prediction.json"));
+    const hasHowToBuy = fs.existsSync(path.join(CONTENT_DIR, id, "how-to-buy.json"));
+    
+    // If targeting a specific type, check only that type for existence
+    let needsGeneration = false;
+    if (targetType) {
+      needsGeneration = !fs.existsSync(path.join(CONTENT_DIR, id, `${targetType}.json`));
+    } else {
+      needsGeneration = !hasOverview || !hasPrice || !hasHowToBuy;
+    }
+
+    if (needsGeneration || args.includes("--force")) {
+      tokensToProcess.push(id);
+    }
+    
+    if (tokensToProcess.length >= maxTokens) break;
+  }
+
+  console.log(`  Tokens needing generation: ${tokensToProcess.length}`);
   console.log();
 
   let totalArticles = 0;
