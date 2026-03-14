@@ -84,24 +84,24 @@ export default function ContactPage() {
               <div style={{ fontSize: "var(--text-2xl)", marginBottom: "var(--space-sm)" }}>🐦</div>
               <div className="stat-label">X (Twitter)</div>
               <a
-                href="https://x.com/tokenradar"
+                href="https://x.com/tokenradarco"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
               >
-                @tokenradar
+                @TokenRadarCo
               </a>
             </div>
             <div className="stat-card">
               <div style={{ fontSize: "var(--text-2xl)", marginBottom: "var(--space-sm)" }}>💬</div>
               <div className="stat-label">Telegram</div>
               <a
-                href="https://t.me/tokenradar"
+                href="https://t.me/TokenRadarCo_bot"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
               >
-                @tokenradar
+                @TokenRadarCo_bot
               </a>
             </div>
           </div>
