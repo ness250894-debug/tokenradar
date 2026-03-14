@@ -875,6 +875,15 @@ img {
   position: sticky;
   top: 100px;
   align-self: start;
+  max-height: calc(100vh - 120px - 100px); /* Viewport - Banner - Top Offset */
+  overflow-y: auto;
+  padding-bottom: var(--space-xl);
+}
+
+/* Hide scrollbar for clean sidebar UI but keep scroll functionality */
+.trending-sidebar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .sidebar-module {
