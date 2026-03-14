@@ -5,11 +5,11 @@ name: Telegram Market Updates
 
 on:
   schedule:
-    - cron: "0 8 * * *"  # 08:00 UTC
-    - cron: "0 12 * * *" # 12:00 UTC
-    - cron: "0 16 * * *" # 16:00 UTC
-    - cron: "0 20 * * *" # 20:00 UTC
-    - cron: "0 22 * * *" # 22:00 UTC
+    - cron: "17 8 * * *"  # 08:17 UTC
+    - cron: "17 12 * * *" # 12:17 UTC
+    - cron: "17 16 * * *" # 16:17 UTC
+    - cron: "17 20 * * *" # 20:17 UTC
+    - cron: "17 22 * * *" # 22:17 UTC
   workflow_dispatch:
 
 env:
