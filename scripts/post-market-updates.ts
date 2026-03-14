@@ -92,10 +92,13 @@ async function sendTweet(text: string): Promise<string> {
     accessSecret: accessSecret,
   });
 
-  // Strip HTML tags roughly before sending to Twitter
-  const cleanText = text.replace(/<[^>]*>?/gm, '');
+  // 1. Extract the URL from <a> tags and append it alongside the link text
+  let cleanText = text.replace(/<a[^>]+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi, '$2: $1');
   
-  // Truncate to 280 chars max (shouldn't be needed for these short alerts, but safe)
+  // 2. Strip any remaining HTML tags (like <b>, <i>, etc.)
+  cleanText = cleanText.replace(/<[^>]*>?/gm, '');
+  
+  // Truncate to 280 chars max
   const safeText = cleanText.length > 280 ? cleanText.substring(0, 277) + "..." : cleanText;
 
   const rwClient = client.readWrite;
