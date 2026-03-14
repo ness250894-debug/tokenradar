@@ -147,6 +147,40 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* SEO Pillar Content — Home Hub Authority */}
+      <section className="section" id="market-outlook" style={{ background: "var(--bg-secondary)" }}>
+        <div className="container">
+          <div className="article-content" style={{ marginTop: 0 }}>
+            <h2>State of the Crypto Market 2026: What to Expect</h2>
+            <p>
+              Navigating the cryptocurrency landscape requires more than just following the latest trends; it requires
+              unbiased, data-driven analysis. As the market matures heading into 2026, the gap between speculative 
+              assets and utility-driven tokens is widening. At <strong>TokenRadar</strong>, we analyze over 150 altcoins,
+              providing real-time price predictions, risk assessments, and growth potential indexes so you can build 
+              a resilient crypto portfolio.
+            </p>
+            <h3>How to Buy Altcoins Safely</h3>
+            <p>
+              When evaluating how to buy cryptocurrency, security and liquidity should be your top priorities. 
+              We track market volume across the top global exchanges. For the lowest trading fees and deepest liquidity 
+              profiles, we recommend mapping your trades through tier-one platforms like 
+              <a href="https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default" target="_blank" rel="noopener noreferrer sponsored" style={{ color: "var(--accent-secondary)" }}> Binance</a>, 
+              <a href="https://www.bybit.com/invite?ref=QONQNG" target="_blank" rel="noopener noreferrer sponsored" style={{ color: "var(--accent-secondary)" }}> Bybit</a>, 
+              <a href="https://okx.com/join/66004268" target="_blank" rel="noopener noreferrer sponsored" style={{ color: "var(--accent-secondary)" }}> OKX</a>, and 
+              <a href="https://www.kucoin.com/r/rf/FQ67QZ7A" target="_blank" rel="noopener noreferrer sponsored" style={{ color: "var(--accent-secondary)" }}> KuCoin</a>.
+            </p>
+            <h3>Proprietary Crypto Price Predictions</h3>
+            <p>
+              Our automated AI pipelines parse daily CoinGecko market data to forecast near-term volatility and 
+              long-term growth. Because market caps dictate the realistic ceiling of any token, TokenRadar assigns 
+              a dynamic <em>Risk Score</em> to every asset ranging from Safe Plays to High-Volatility gambles. 
+              Before making an entry, always compare the token's current market cap against our historical ATH models 
+              to determine your upside potential.
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
