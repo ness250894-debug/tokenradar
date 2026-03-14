@@ -84,8 +84,9 @@ export default async function HowToBuyPage({ params }: PageProps) {
             Where to Buy {detail.symbol.toUpperCase()}
           </h2>
           <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="Binance" />
-          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="Coinbase" />
+          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="OKX" />
           <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="Bybit" />
+          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="KuCoin" />
         </div>
 
         {/* Article Content */}

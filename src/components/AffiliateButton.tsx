@@ -17,11 +17,12 @@ export function AffiliateButton({
   tokenName,
   exchange = "Binance",
 }: AffiliateButtonProps) {
-  // Placeholder URLs — will be replaced with real affiliate links
+  // Referral links
   const exchangeUrls: Record<string, string> = {
-    Binance: `https://www.binance.com/en/trade/${symbol.toUpperCase()}_USDT`,
-    Coinbase: `https://www.coinbase.com/price/${tokenName.toLowerCase().replace(/\s+/g, "-")}`,
-    Bybit: `https://www.bybit.com/en/trade/spot/${symbol.toUpperCase()}/USDT`,
+    Binance: `https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default`,
+    OKX: `https://okx.com/join/66004268`,
+    Bybit: `https://www.bybit.com/invite?ref=QONQNG`,
+    KuCoin: `https://www.kucoin.com/r/rf/FQ67QZ7A`,
   };
 
   return (
