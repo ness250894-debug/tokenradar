@@ -120,8 +120,42 @@ export interface Article {
 
 /** Get all token summaries from the master list. */
 export function getAllTokens(): TokenSummary[] {
-  if (!fs.existsSync(TOKENS_FILE)) return [];
-  return JSON.parse(fs.readFileSync(TOKENS_FILE, "utf-8"));
+  const tokensDir = path.join(DATA_DIR, "tokens");
+  if (!fs.existsSync(tokensDir)) return [];
+  
+  const files = fs.readdirSync(tokensDir).filter((f) => f.endsWith(".json"));
+  const summaries: TokenSummary[] = [];
+
+  for (const file of files) {
+    try {
+      const detail: TokenDetail = JSON.parse(
+        fs.readFileSync(path.join(tokensDir, file), "utf-8")
+      );
+      
+      summaries.push({
+        id: detail.id,
+        name: detail.name,
+        symbol: detail.symbol,
+        rank: 999, // Fallback if rank isn't strictly tracked in Detail
+        price: detail.market.price,
+        marketCap: detail.market.marketCap,
+        volume24h: detail.market.volume24h,
+        priceChange24h: detail.market.priceChange24h,
+        image: "", // Safely optional in UI
+        ath: detail.market.ath,
+        athDate: detail.market.athDate,
+        atl: detail.market.atl,
+        atlDate: detail.market.atlDate,
+        circulatingSupply: detail.market.circulatingSupply,
+        totalSupply: detail.market.totalSupply,
+        maxSupply: detail.market.maxSupply,
+      });
+    } catch (e) {
+      // Skip invalid JSONs safely
+    }
+  }
+  
+  return summaries;
 }
 
 /** Get all token IDs that have detailed data. */
