@@ -7,6 +7,7 @@ const FOOTER_LINKS = [
   { href: "/terms", label: "Terms of Service" },
   { href: "/disclaimer", label: "Disclaimer" },
   { href: "/contact", label: "Contact" },
+  { href: "https://t.me/TokenRadarCo", label: "Telegram" },
 ] as const;
 
 /**

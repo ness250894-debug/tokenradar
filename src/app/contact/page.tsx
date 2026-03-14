@@ -96,12 +96,12 @@ export default function ContactPage() {
               <div style={{ fontSize: "var(--text-2xl)", marginBottom: "var(--space-sm)" }}>💬</div>
               <div className="stat-label">Telegram</div>
               <a
-                href="https://t.me/TokenRadarCo_bot"
+                href="https://t.me/TokenRadarCo"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
               >
-                @TokenRadarCo_bot
+                @TokenRadarCo
               </a>
             </div>
           </div>
