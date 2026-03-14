@@ -54,5 +54,8 @@ jobs:
   deploy:
     name: Redeploy Site
     needs: refresh
+    permissions:
+      contents: read
+      deployments: write
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
