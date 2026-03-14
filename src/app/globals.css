@@ -622,14 +622,14 @@ img {
 .article-content h2 {
   font-size: var(--text-2xl);
   font-weight: 700;
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
 }
 
 .article-content h3 {
   font-size: var(--text-xl);
   font-weight: 600;
-  margin-top: var(--space-xl);
+  margin-top: var(--space-lg);
   margin-bottom: var(--space-sm);
 }
 
@@ -682,7 +682,7 @@ img {
 /* ---- FAQ Section ---- */
 .faq-item {
   border-bottom: 1px solid var(--border-color);
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0;
 }
 
 .faq-question {
@@ -731,9 +731,9 @@ img {
 /* ---- Scroll to Top Button ---- */
 .scroll-to-top {
   position: fixed;
-  bottom: var(--space-xl);
+  bottom: 110px; /* Shifted above banner */
   right: var(--space-xl);
-  z-index: 50;
+  z-index: 99; /* Higher priority than banner */
   width: 48px;
   height: 48px;
   border-radius: var(--radius-full);
@@ -759,8 +759,8 @@ img {
 
 @media (max-width: 768px) {
   .scroll-to-top {
-    bottom: var(--space-lg);
-    right: var(--space-lg);
+    bottom: 90px;
+    right: var(--space-md);
     width: 40px;
     height: 40px;
   }
@@ -769,10 +769,10 @@ img {
 /* ---- Back to Overview Toast ---- */
 .back-toast-container {
   position: fixed;
-  bottom: var(--space-xl);
+  bottom: 110px; /* Shifted up to clear sticky banner */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
+  z-index: 99; /* Ensure above banner */
   pointer-events: none; /* Let clicks pass through container */
 }
 
@@ -803,7 +803,7 @@ img {
 
 @media (max-width: 768px) {
   .back-toast-container {
-    bottom: var(--space-lg);
+    bottom: 90px;
   }
   .back-toast-btn {
     padding: 8px 16px;
