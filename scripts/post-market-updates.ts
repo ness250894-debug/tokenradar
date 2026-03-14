@@ -189,6 +189,20 @@ async function main() {
     process.exit(1);
   }
 
+  // 1.5 Load tracking state for today to prevent duplicates
+  const TODAY = new Date().toISOString().split('T')[0];
+  const trackerFile = path.join(DATA_DIR, "posted-today.json");
+  let postedToday: { date: string, tokens: string[] } = { date: TODAY, tokens: [] };
+  
+  if (fs.existsSync(trackerFile)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(trackerFile, 'utf-8'));
+      if (parsed.date === TODAY && Array.isArray(parsed.tokens)) {
+        postedToday = parsed;
+      }
+    } catch (e) { /* ignore parse errors */ }
+  }
+
   // 2. Select Alert Strategy
   // 0 = Top Gainer, 1 = Safe Play, 2 = Spotlight
   const strategy = Math.floor(Math.random() * 3);
@@ -198,7 +212,7 @@ async function main() {
 
   if (strategy === 0) {
     // Top Gainer
-    const gainers = tokens.filter(t => t.market && t.market.priceChange24h > 5).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+    const gainers = tokens.filter(t => !postedToday.tokens.includes(t.id) && t.market && t.market.priceChange24h > 5).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
     if (gainers.length > 0) {
       targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))]; // Pick randomly from top 3
       message = createTopGainerAlert(targetToken);
@@ -214,7 +228,7 @@ async function main() {
       const metric: MetricData = JSON.parse(fs.readFileSync(path.join(metricsDir, mf), 'utf-8'));
       if (metric.riskScore <= 4) {
         const tokenId = mf.replace('.json', '');
-        const token = tokens.find(t => t.id === tokenId);
+        const token = tokens.find(t => t.id === tokenId && !postedToday.tokens.includes(t.id));
         if (token) safeTokens.push({ token, metric });
       }
     }
@@ -228,7 +242,10 @@ async function main() {
 
   if (!targetToken) {
     // Fallback Spotlight
-    targetToken = tokens[Math.floor(Math.random() * tokens.length)];
+    const availableTokens = tokens.filter(t => !postedToday.tokens.includes(t.id));
+    targetToken = availableTokens.length > 0 
+      ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
+      : tokens[Math.floor(Math.random() * tokens.length)];
     message = createSpotlightAlert(targetToken);
   }
 
@@ -236,6 +253,12 @@ async function main() {
     console.log("=== DRY RUN MODE ===");
     console.log(message);
     return;
+  }
+
+  // Save tracking info immediately after choosing token
+  if (!postedToday.tokens.includes(targetToken.id)) {
+    postedToday.tokens.push(targetToken.id);
+    fs.writeFileSync(trackerFile, JSON.stringify(postedToday, null, 2));
   }
 
   try {

@@ -236,6 +236,20 @@ function ensureContentDir(tokenId: string): string {
   return dir;
 }
 
+function isOlderThan14Days(filePath: string): boolean {
+  if (!fs.existsSync(filePath)) return true;
+  try {
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(fileContent);
+    if (!data.generatedAt) return true;
+    const diffTime = Date.now() - new Date(data.generatedAt).getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    return diffDays >= 14;
+  } catch (e) {
+    return true; // If error parsing, assume it needs regeneration
+  }
+}
+
 // ── Main ───────────────────────────────────────────────────────
 
 async function main() {
@@ -282,17 +296,16 @@ async function main() {
     const id = f.replace(".json", "");
     if (targetToken && id !== targetToken) continue;
 
-    // Check if this token is missing any generated content
-    const hasOverview = fs.existsSync(path.join(CONTENT_DIR, id, "overview.json"));
-    const hasPrice = fs.existsSync(path.join(CONTENT_DIR, id, "price-prediction.json"));
-    const hasHowToBuy = fs.existsSync(path.join(CONTENT_DIR, id, "how-to-buy.json"));
-    
-    // If targeting a specific type, check only that type for existence
+    // Check if this token is missing any generated content OR if existing content is older than 14 days
+    const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+    const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
+    const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
+
     let needsGeneration = false;
     if (targetType) {
-      needsGeneration = !fs.existsSync(path.join(CONTENT_DIR, id, `${targetType}.json`));
+      needsGeneration = isOlderThan14Days(path.join(CONTENT_DIR, id, `${targetType}.json`));
     } else {
-      needsGeneration = !hasOverview || !hasPrice || !hasHowToBuy;
+      needsGeneration = isOlderThan14Days(overviewPath) || isOlderThan14Days(pricePath) || isOlderThan14Days(howToBuyPath);
     }
 
     if (needsGeneration || args.includes("--force")) {
@@ -348,9 +361,9 @@ async function main() {
       const outputDir = ensureContentDir(tokenId);
       const outputFile = path.join(outputDir, `${config.slug}.json`);
 
-      // Skip if already generated
-      if (fs.existsSync(outputFile) && !args.includes("--force")) {
-        console.log(`  ⏭ ${config.type} — already exists (use --force to regenerate)`);
+      // Skip if already generated recently
+      if (fs.existsSync(outputFile) && !isOlderThan14Days(outputFile) && !args.includes("--force")) {
+        console.log(`  ⏭ ${config.type} — generated recently (use --force to overwrite)`);
         continue;
       }
 
