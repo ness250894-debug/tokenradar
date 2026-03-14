@@ -51,7 +51,6 @@ function buildMessage(
   tokenName: string,
   tokenId: string,
   symbol: string,
-  articleType: string,
   metrics: {
     riskScore?: number;
     riskLevel?: string;
@@ -61,36 +60,24 @@ function buildMessage(
     marketCap?: number;
   } = {}
 ): string {
-  const url = `${SITE_URL}/${tokenId}${articleType !== "overview" ? `/${articleType}` : ""}`;
+  const url = `${SITE_URL}/${tokenId}`;
 
-  let header = "";
-  let body = "";
-
-  switch (articleType) {
-    case "overview":
-      header = `📊 <b>New Analysis: ${tokenName} (${symbol.toUpperCase()})</b>`;
-      body = buildMetricsBlock(metrics);
-      break;
-    case "price-prediction":
-      header = `📈 <b>${tokenName} (${symbol.toUpperCase()}) Price Analysis 2026-2027</b>`;
-      body = buildPriceBlock(metrics);
-      break;
-    case "how-to-buy":
-      header = `🛒 <b>How to Buy ${tokenName} (${symbol.toUpperCase()})</b>`;
-      body = "Step-by-step guide with exchange comparisons and security tips.";
-      break;
-    default:
-      header = `📰 <b>${tokenName} (${symbol.toUpperCase()}) — ${articleType}</b>`;
-  }
+  const header = `🚀 <b>New Coverage: ${tokenName} (${symbol.toUpperCase()})</b>`;
+  const body = buildMetricsBlock(metrics);
 
   return [
     header,
     "",
     body,
     "",
-    `🔗 <a href="${url}">Read Full Analysis on TokenRadar</a>`,
+    "We just published our complete data-driven analysis:",
+    "✅ Overview & Risk Assessment",
+    "✅ 2026-2027 Price Prediction",
+    "✅ Step-by-Step Buying Guide",
     "",
-    `#${symbol.toUpperCase()} #crypto #analysis`,
+    `🔗 <a href="${url}">Read Full Reports on TokenRadar</a>`,
+    "",
+    `#${symbol.toUpperCase()} #crypto #TokenRadar`,
   ]
     .filter(Boolean)
     .join("\n");
@@ -285,80 +272,78 @@ async function main() {
       .readdirSync(tokenDir)
       .filter((f) => f.endsWith(".json") && !f.includes(".prompt"));
 
-    for (const file of articleFiles) {
-      if (postCount >= maxPosts) break;
+    if (articleFiles.length === 0) continue;
 
-      const article = JSON.parse(
-        fs.readFileSync(path.join(tokenDir, file), "utf-8")
-      );
+    // Skip if already posted ANY content for this token
+    if (postedLog.posts.some((p) => p.tokenId === tokenId)) {
+      continue;
+    }
 
-      // Skip if already posted
-      if (isAlreadyPosted(postedLog, tokenId, article.type)) {
-        continue;
-      }
+    const firstArticleFile = articleFiles.includes("overview.json") ? "overview.json" : articleFiles[0];
+    const article = JSON.parse(
+      fs.readFileSync(path.join(tokenDir, firstArticleFile), "utf-8")
+    );
 
-      // Load metrics
-      let metrics: {
-        riskScore?: number;
-        riskLevel?: string;
-        price?: number;
-        priceChange24h?: number;
-        growthPotential?: number;
-        marketCap?: number;
-      } = {};
+    // Load metrics
+    let metrics: {
+      riskScore?: number;
+      riskLevel?: string;
+      price?: number;
+      priceChange24h?: number;
+      growthPotential?: number;
+      marketCap?: number;
+    } = {};
 
-      const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
-      if (fs.existsSync(metricsFile)) {
-        const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
-        metrics.riskScore = m.riskScore;
-        metrics.riskLevel = m.riskLevel;
-        metrics.growthPotential = m.growthPotentialIndex;
-      }
+    const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
+    if (fs.existsSync(metricsFile)) {
+      const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
+      metrics.riskScore = m.riskScore;
+      metrics.riskLevel = m.riskLevel;
+      metrics.growthPotential = m.growthPotentialIndex;
+    }
 
-      const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
-      if (fs.existsSync(tokenFile)) {
-        const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-        metrics.price = t.market?.price;
-        metrics.priceChange24h = t.market?.priceChange24h;
-        metrics.marketCap = t.market?.marketCap;
-      }
+    const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
+    if (fs.existsSync(tokenFile)) {
+      const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
+      metrics.price = t.market?.price;
+      metrics.priceChange24h = t.market?.priceChange24h;
+      metrics.marketCap = t.market?.marketCap;
+    }
 
-      const message = buildMessage(
-        article.tokenName,
+    const message = buildMessage(
+      article.tokenName,
+      tokenId,
+      article.tokenName.toLowerCase().replace(/\s+/g, ""),
+      metrics
+    );
+
+    if (dryRun) {
+      console.log(`  📝 [${tokenId}/combined]`);
+      console.log(`     ${message.replace(/\n/g, "\n     ")}`);
+      console.log();
+      postCount++;
+      continue;
+    }
+
+    try {
+      process.stdout.write(`  📨 ${tokenId}/combined...`);
+      const msgId = await sendTelegramMessage(message, channelId!);
+      console.log(` ✓ (msg: ${msgId})`);
+
+      postedLog.posts.push({
         tokenId,
-        article.tokenName.toLowerCase().replace(/\s+/g, ""),
-        article.type,
-        metrics
-      );
+        articleType: "combined",
+        messageId: msgId,
+        postedAt: new Date().toISOString(),
+      });
+      savePostedLog(postedLog);
+      postCount++;
 
-      if (dryRun) {
-        console.log(`  📝 [${tokenId}/${article.type}]`);
-        console.log(`     ${message.replace(/\n/g, "\n     ")}`);
-        console.log();
-        postCount++;
-        continue;
-      }
-
-      try {
-        process.stdout.write(`  📨 ${tokenId}/${article.type}...`);
-        const msgId = await sendTelegramMessage(message, channelId!);
-        console.log(` ✓ (msg: ${msgId})`);
-
-        postedLog.posts.push({
-          tokenId,
-          articleType: article.type,
-          messageId: msgId,
-          postedAt: new Date().toISOString(),
-        });
-        savePostedLog(postedLog);
-        postCount++;
-
-        // Telegram rate limit: 1 msg/sec to same chat
-        await sleep(1500);
-      } catch (error) {
-        const msg = error instanceof Error ? error.message : String(error);
-        console.log(` ✗ ${msg}`);
-      }
+      // Telegram rate limit: 1 msg/sec to same chat
+      await sleep(1500);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.log(` ✗ ${msg}`);
     }
   }
 

@@ -124,40 +124,29 @@ function buildTweet(
   tokenName: string,
   tokenId: string,
   symbol: string,
-  articleType: string,
   metrics: { riskScore?: number; price?: number; priceChange24h?: number } = {}
 ): string {
-  const url = `${SITE_URL}/${tokenId}${articleType !== "overview" ? `/${articleType}` : ""}`;
+  const url = `${SITE_URL}/${tokenId}`;
   const hashtags = `#${symbol.toUpperCase()} #crypto #TokenRadar`;
 
-  let headline = "";
-  let metricLine = "";
-
-  switch (articleType) {
-    case "overview":
-      headline = `📊 New analysis: ${tokenName} ($${symbol.toUpperCase()})`;
-      if (metrics.riskScore) {
-        metricLine = `\n⚠️ Risk Score: ${metrics.riskScore}/10`;
-      }
-      break;
-    case "price-prediction":
-      headline = `📈 ${tokenName} ($${symbol.toUpperCase()}) Price Analysis 2026-2027`;
-      if (metrics.price) {
-        metricLine = `\n💰 Current: $${metrics.price.toFixed(metrics.price >= 1 ? 2 : 6)}`;
-      }
-      break;
-    case "how-to-buy":
-      headline = `🛒 How to Buy ${tokenName} ($${symbol.toUpperCase()}) — Step-by-Step`;
-      break;
-    default:
-      headline = `📰 New: ${tokenName} ($${symbol.toUpperCase()}) ${articleType}`;
+  let headline = `🚀 New Coverage: ${tokenName} ($${symbol.toUpperCase()})`;
+  
+  const metricLines = [];
+  if (metrics.price !== undefined) {
+    const priceFmt = metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6);
+    metricLines.push(`💰 $${priceFmt}`);
   }
+  if (metrics.riskScore !== undefined) {
+    metricLines.push(`⚠️ Risk Score: ${metrics.riskScore}/10`);
+  }
+  
+  const body = metricLines.join(" | ");
 
-  const tweet = `${headline}${metricLine}\n\n🔗 ${url}\n\n${hashtags}`;
+  const tweet = `${headline}\n\n${body}\n\nWe just published our complete data-driven analysis including Price Predictions for 2026 & buying guides.\n\n🔗 ${url}\n\n${hashtags}`;
 
   // Ensure within 280 chars
   if (tweet.length > 280) {
-    return `${headline}\n\n🔗 ${url}\n\n${hashtags}`.slice(0, 280);
+    return `${headline}\n${body}\n🔗 ${url}\n${hashtags}`.slice(0, 280);
   }
 
   return tweet;
@@ -273,68 +262,66 @@ async function main() {
       .readdirSync(tokenDir)
       .filter((f) => f.endsWith(".json") && !f.includes(".prompt"));
 
-    for (const file of articleFiles) {
-      if (postCount >= maxPosts) break;
+    if (articleFiles.length === 0) continue;
 
-      const article = JSON.parse(
-        fs.readFileSync(path.join(tokenDir, file), "utf-8")
-      );
+    // Skip if already posted ANY content for this token
+    if (postedLog.posts.some((p) => p.tokenId === tokenId)) {
+      continue;
+    }
 
-      // Skip if already posted
-      if (isAlreadyPosted(postedLog, tokenId, article.type)) {
-        continue;
-      }
+    const firstArticleFile = articleFiles.includes("overview.json") ? "overview.json" : articleFiles[0];
+    const article = JSON.parse(
+      fs.readFileSync(path.join(tokenDir, firstArticleFile), "utf-8")
+    );
 
-      // Load metrics for the tweet
-      let metrics: { riskScore?: number; price?: number } = {};
-      const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
-      if (fs.existsSync(metricsFile)) {
-        const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
-        metrics.riskScore = m.riskScore;
-      }
-      const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
-      if (fs.existsSync(tokenFile)) {
-        const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-        metrics.price = t.market?.price;
-      }
+    // Load metrics for the tweet
+    let metrics: { riskScore?: number; price?: number } = {};
+    const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
+    if (fs.existsSync(metricsFile)) {
+      const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
+      metrics.riskScore = m.riskScore;
+    }
+    const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
+    if (fs.existsSync(tokenFile)) {
+      const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
+      metrics.price = t.market?.price;
+    }
 
-      const tweet = buildTweet(
-        article.tokenName,
+    const tweet = buildTweet(
+      article.tokenName,
+      tokenId,
+      article.tokenName.toLowerCase().replace(/\s+/g, ""),
+      metrics
+    );
+
+    if (dryRun) {
+      console.log(`  📝 [${tokenId}/combined]`);
+      console.log(`     ${tweet.replace(/\n/g, "\n     ")}`);
+      console.log(`     (${tweet.length}/280 chars)`);
+      console.log();
+      postCount++;
+      continue;
+    }
+
+    try {
+      process.stdout.write(`  🐦 ${tokenId}/combined...`);
+      const tweetId = await postTweet(tweet);
+      console.log(` ✓ (ID: ${tweetId})`);
+
+      postedLog.posts.push({
         tokenId,
-        article.tokenName.toLowerCase().replace(/\s+/g, ""),
-        article.type,
-        metrics
-      );
+        articleType: "combined",
+        tweetId,
+        postedAt: new Date().toISOString(),
+      });
+      savePostedLog(postedLog);
+      postCount++;
 
-      if (dryRun) {
-        console.log(`  📝 [${tokenId}/${article.type}]`);
-        console.log(`     ${tweet.replace(/\n/g, "\n     ")}`);
-        console.log(`     (${tweet.length}/280 chars)`);
-        console.log();
-        postCount++;
-        continue;
-      }
-
-      try {
-        process.stdout.write(`  🐦 ${tokenId}/${article.type}...`);
-        const tweetId = await postTweet(tweet);
-        console.log(` ✓ (ID: ${tweetId})`);
-
-        postedLog.posts.push({
-          tokenId,
-          articleType: article.type,
-          tweetId,
-          postedAt: new Date().toISOString(),
-        });
-        savePostedLog(postedLog);
-        postCount++;
-
-        // Rate limit: wait 2s between posts
-        await sleep(2000);
-      } catch (error) {
-        const msg = error instanceof Error ? error.message : String(error);
-        console.log(` ✗ ${msg}`);
-      }
+      // Rate limit: wait 2s between posts
+      await sleep(2000);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.log(` ✗ ${msg}`);
     }
   }
 
