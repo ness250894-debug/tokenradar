@@ -1,23 +1,23 @@
-# Daily Market Updates
-# Posts quick updates to Telegram 5 times a day.
+# X Market Updates
+# Posts quick updates to X 5 times a day.
 
-name: Telegram Market Updates
+name: X Market Updates
 
 on:
   schedule:
-    - cron: "17 8 * * *"  # 08:17 UTC
-    - cron: "17 12 * * *" # 12:17 UTC
-    - cron: "17 16 * * *" # 16:17 UTC
-    - cron: "17 20 * * *" # 20:17 UTC
-    - cron: "17 22 * * *" # 22:17 UTC
+    - cron: "27 8 * * *"  # 08:27 UTC (Slightly offset from TG)
+    - cron: "27 12 * * *" # 12:27 UTC
+    - cron: "27 16 * * *" # 16:27 UTC
+    - cron: "27 20 * * *" # 20:27 UTC
+    - cron: "27 22 * * *" # 22:27 UTC
   workflow_dispatch:
 
 env:
   NODE_VERSION: "20"
 
 jobs:
-  post-update:
-    name: Post Update to Telegram
+  post-x:
+    name: Post Update to X
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -35,11 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Post Market Update
-        run: npx tsx scripts/post-market-updates.ts --start 50 --end 250
+      - name: Post X Update
+        run: npx tsx scripts/post-market-updates.ts --start 50 --end 250 --platform x
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
@@ -51,7 +49,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/posted-today.json
-          git diff --staged --quiet || git commit -m "chore: update social tracking logs [skip ci]"
+          git diff --staged --quiet || git commit -m "chore: update X tracking logs [skip ci]"
           git push
         continue-on-error: true
-

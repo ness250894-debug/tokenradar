@@ -207,6 +207,9 @@ async function main() {
   const dryRun = args.includes("--dry-run");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
   
+  const platformIdx = args.indexOf("--platform");
+  const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
+
   const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 50;
   const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 250;
 
@@ -345,19 +348,25 @@ async function main() {
     fs.writeFileSync(trackerFile, JSON.stringify(postedToday, null, 2));
   }
 
-  try {
-    const msgId = await sendTelegramMessage(message, channelId as string);
-    console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
-  } catch (error) {
-    console.error("❌ Failed to post Telegram message:", error);
+  const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
+  const runX = targetPlatform === "all" || targetPlatform === "x";
+
+  if (runTelegram) {
+    try {
+      const msgId = await sendTelegramMessage(message, channelId as string);
+      console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
+    } catch (error) {
+      console.error("❌ Failed to post Telegram message:", error);
+    }
   }
 
-  try {
-    const tweetId = await sendTweet(message);
-    console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
-  } catch (error) {
-    console.error("❌ Failed to post to X:", error);
-    // Don't exit 1 here so we don't crash the action if just Twitter fails
+  if (runX) {
+    try {
+      const tweetId = await sendTweet(message);
+      console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
+    } catch (error) {
+      console.error("❌ Failed to post to X:", error);
+    }
   }
 }
 
