@@ -113,8 +113,8 @@ async function sendTweet(text: string): Promise<string> {
   const footerLines = [];
   const headerLines = [];
   
-  // Keep the last 4 lines (Socials + Hashtags)
-  for (let i = 0; i < 4; i++) {
+  // Keep the last 5 lines (Socials + Website Link + Hashtags)
+  for (let i = 0; i < 5; i++) {
     const line = lines.pop();
     if (line !== undefined) footerLines.unshift(line);
   }
@@ -148,11 +148,9 @@ function createTopGainerAlert(token: TokenData): string {
     `🟢 Up <b>+${token.market.priceChange24h.toFixed(2)}%</b> today!`,
     `💰 Current Price: $${price}`,
     "",
-    "Is this a breakout or a fakeout? Discover institutional-grade risk scores and price predictions for 150+ tokens.",
+    "Is this a breakout? Discover institutional-grade risk scores on TokenRadar.",
     "",
-    `🔗 <a href="${SITE_URL}">Analyze ${sym} on TokenRadar.co</a>`,
-    "",
-    "Follow our updates:",
+    `🔗 <b>https://tokenradar.co</b>`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
@@ -166,13 +164,11 @@ function createSafePlayAlert(token: TokenData, metric: MetricData): string {
   return [
     `🛡️ <b>LOW RISK ASSET: ${token.name} (${sym})</b>`,
     "",
-    `Our AI has assigned a <b>Risk Score of ${metric.riskScore}/10</b> (${metric.riskLevel}) to $${sym}.`,
+    `Our AI assigned a <b>Risk Score of ${metric.riskScore}/10</b> to $${sym}.`,
     "",
-    "Ideal for conservative portfolios looking for long-term growth potential.",
+    "Ideal for conservative portfolios looking for growth.",
     "",
-    `🔗 <a href="${SITE_URL}">Find safe crypto plays on TokenRadar.co</a>`,
-    "",
-    "Keep in touch:",
+    `🔗 <b>https://tokenradar.co</b>`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
@@ -192,13 +188,11 @@ function createSpotlightAlert(token: TokenData): string {
     "",
     `💰 Price: $${price}`,
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
-    `📊 Market Cap: ${mc}`,
+    `📊 MCap: ${mc}`,
     "",
-    "Where will the market be in 2026? We've crunched the numbers for the top 200 tokens.",
+    "Where will the market be in 2026? Check the numbers to find out.",
     "",
-    `🔗 <a href="${SITE_URL}">Check 2026 Predictions on TokenRadar</a>`,
-    "",
-    "Stay updated:",
+    `🔗 <b>https://tokenradar.co</b>`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
