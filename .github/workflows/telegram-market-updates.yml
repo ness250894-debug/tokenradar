@@ -36,7 +36,7 @@ jobs:
         run: npm ci
 
       - name: Post Market Update
-        run: npx tsx scripts/post-market-updates.ts
+        run: npx tsx scripts/post-market-updates.ts --start 50 --end 250
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
@@ -46,11 +46,12 @@ jobs:
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      - name: Commit tracking file
+      - name: Commit tracking logs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/posted-today.json
-          git diff --staged --quiet || git commit -m "chore: track daily market update [skip ci]"
+          git diff --staged --quiet || git commit -m "chore: update social tracking logs [skip ci]"
           git push
         continue-on-error: true
+

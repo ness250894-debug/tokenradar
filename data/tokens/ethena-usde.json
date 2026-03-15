@@ -1,0 +1,45 @@
+{
+  "id": "ethena-usde",
+  "symbol": "usde",
+  "name": "Ethena USDe",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 1,
+    "marketCap": 5923811260,
+    "marketCapRank": 19,
+    "volume24h": 96991383,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0.00339,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.034,
+    "athChangePercentage": -3.32389,
+    "athDate": "2025-12-09T17:10:12.652Z",
+    "atl": 0.929486,
+    "atlDate": "2024-10-04T07:57:15.809Z",
+    "circulatingSupply": 5921266701.696718,
+    "totalSupply": 5921266701.696718,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.497Z"
+}

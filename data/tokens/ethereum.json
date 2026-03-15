@@ -1,0 +1,45 @@
+{
+  "id": "ethereum",
+  "symbol": "eth",
+  "name": "Ethereum",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 2115.84,
+    "marketCap": 255348490862,
+    "marketCapRank": 2,
+    "volume24h": 8305294412,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 2.34739,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 4946.05,
+    "athChangePercentage": -57.22149,
+    "athDate": "2025-08-24T19:21:03.333Z",
+    "atl": 0.432979,
+    "atlDate": "2015-10-20T00:00:00.000Z",
+    "circulatingSupply": 120691908.6940581,
+    "totalSupply": 120691908.6940581,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.488Z"
+}

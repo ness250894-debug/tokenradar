@@ -1,0 +1,45 @@
+{
+  "id": "ripple",
+  "symbol": "xrp",
+  "name": "XRP",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 1.42,
+    "marketCap": 86660874801,
+    "marketCapRank": 5,
+    "volume24h": 1235998386,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 1.77632,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 3.65,
+    "athChangePercentage": -61.18803,
+    "athDate": "2025-07-18T03:40:53.808Z",
+    "atl": 0.00268621,
+    "atlDate": "2014-05-22T00:00:00.000Z",
+    "circulatingSupply": 61227832454,
+    "totalSupply": 99985701766,
+    "maxSupply": 100000000000,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.489Z"
+}

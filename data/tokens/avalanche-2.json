@@ -1,0 +1,45 @@
+{
+  "id": "avalanche-2",
+  "symbol": "avax",
+  "name": "Avalanche",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 9.79,
+    "marketCap": 4227985517,
+    "marketCapRank": 26,
+    "volume24h": 176459826,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 2.5343,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 144.96,
+    "athChangePercentage": -93.24549,
+    "athDate": "2021-11-21T14:18:56.538Z",
+    "atl": 2.8,
+    "atlDate": "2020-12-31T13:15:21.540Z",
+    "circulatingSupply": 431771961.1772119,
+    "totalSupply": 463441061.1772119,
+    "maxSupply": 720000000,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.501Z"
+}

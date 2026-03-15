@@ -1,0 +1,45 @@
+{
+  "id": "dogecoin",
+  "symbol": "doge",
+  "name": "Dogecoin",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 0.096142,
+    "marketCap": 14747917535,
+    "marketCapRank": 10,
+    "volume24h": 762345023,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 2.06387,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.731578,
+    "athChangePercentage": -86.85826,
+    "athDate": "2021-05-08T05:08:23.458Z",
+    "atl": 0.0000869,
+    "atlDate": "2015-05-06T00:00:00.000Z",
+    "circulatingSupply": 153416556383.7052,
+    "totalSupply": 153416556383.7052,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.492Z"
+}

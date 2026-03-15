@@ -1,0 +1,54 @@
+{
+  "id": "gatechain-token",
+  "symbol": "gt",
+  "name": "Gate",
+  "description": "",
+  "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Proof of Stake (PoS)",
+    "Made in China",
+    "GateLayer Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gatechain.io/gatelayer",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://www.gatescan.org/gatelayer"
+  },
+  "market": {
+    "price": 7.16,
+    "marketCap": 1133103428,
+    "marketCapRank": 62,
+    "volume24h": 1563350,
+    "high24h": 7.19,
+    "low24h": 7.05,
+    "priceChange24h": 1.29954,
+    "priceChange7d": 1.80236,
+    "priceChange30d": 2.6854,
+    "priceChange1y": -66.43513,
+    "ath": 25.38,
+    "athChangePercentage": -71.78117,
+    "athDate": "2025-01-26T00:00:00.000Z",
+    "atl": 0.25754,
+    "atlDate": "2020-03-13T02:18:02.481Z",
+    "circulatingSupply": 115180573.04885802,
+    "totalSupply": 115180573.04885802,
+    "maxSupply": 300000000,
+    "fdv": 1133103428
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-15T10:20:02.189Z",
+  "lastMarketUpdate": "2026-03-15T10:42:38.640Z"
+}

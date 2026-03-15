@@ -1,0 +1,69 @@
+{
+  "id": "cosmos",
+  "symbol": "atom",
+  "name": "Cosmos Hub",
+  "description": "The Cosmos network consists of many independent, parallel blockchains, called zones, each powered by classical Byzantine fault-tolerant (BFT) consensus protocols like Tendermint. Some zones act as hubs with respect to other zones, allowing many zones to interoperate through a shared hub. The architecture uses classic BFT and Proof-of-Stake algorithms, instead of Proof-of-Work. Cosmos can interoperate with multiple other applications and cryptocurrencies, something other blockchains can’t do...",
+  "categories": [
+    "Cosmos Ecosystem",
+    "Outlier Ventures Portfolio",
+    "Mantra Ecosystem",
+    "Canto Ecosystem",
+    "Archway Ecosystem",
+    "Evmos Ecosystem",
+    "GMCI 30 Index",
+    "Terra Ecosystem",
+    "Osmosis Ecosystem",
+    "BNB Chain Ecosystem",
+    "Smart Contract Platform",
+    "Alleged SEC Securities",
+    "Pantera Capital Portfolio",
+    "Kava Ecosystem",
+    "Layer 0 (L0)",
+    "Paradigm Portfolio",
+    "Proof of Stake (PoS)",
+    "Polychain Capital Portfolio",
+    "DragonFly Capital Portfolio",
+    "Coinbase 50 Index",
+    "GMCI Index",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "http://cosmos.network/",
+    "github": "https://github.com/cosmos/cosmos",
+    "reddit": "https://www.reddit.com/r/cosmosnetwork",
+    "explorer": "https://www.mintscan.io/cosmos"
+  },
+  "market": {
+    "price": 1.85,
+    "marketCap": 922001215,
+    "marketCapRank": 73,
+    "volume24h": 26005359,
+    "high24h": 1.89,
+    "low24h": 1.84,
+    "priceChange24h": -0.61204,
+    "priceChange7d": 5.48299,
+    "priceChange30d": -6.8417,
+    "priceChange1y": -57.89975,
+    "ath": 43.84,
+    "athChangePercentage": -95.7792,
+    "athDate": "2021-09-20T00:00:00.000Z",
+    "atl": 1.16,
+    "atlDate": "2020-03-13T02:27:44.591Z",
+    "circulatingSupply": 498130230.366647,
+    "totalSupply": 498130230.366647,
+    "maxSupply": null,
+    "fdv": 924520962
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1299,
+    "githubForks": 340,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-15T10:28:11.878Z",
+  "lastMarketUpdate": "2026-03-15T10:42:38.653Z"
+}

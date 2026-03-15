@@ -33,6 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync top token data (Populate queue)
+        run: npx tsx scripts/fetch-crypto-data.ts --start 50 --end 250 --lite
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
+      - name: Compute metrics (Update scores)
+        run: npx tsx scripts/compute-metrics.ts
+
       - name: Generate AI content (1 token per run)
         run: npx tsx scripts/generate-content.ts --max 1
         env:
@@ -59,13 +67,14 @@ jobs:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      - name: Commit generated content
+      - name: Commit updated data & content
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/ data/
-          git diff --staged --quiet || git commit -m "chore: weekly content generation [skip ci]"
+          git add data/ content/
+          git diff --staged --quiet || git commit -m "chore: automated daily content update [skip ci]"
           git push
+        continue-on-error: true
 
   deploy:
     name: Redeploy Site

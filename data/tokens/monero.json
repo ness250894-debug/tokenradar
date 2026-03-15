@@ -1,0 +1,45 @@
+{
+  "id": "monero",
+  "symbol": "xmr",
+  "name": "Monero",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 357.28,
+    "marketCap": 6589249238,
+    "marketCapRank": 17,
+    "volume24h": 82625915,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": -0.59305,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 797.73,
+    "athChangePercentage": -55.21372,
+    "athDate": "2026-01-14T19:34:07.049Z",
+    "atl": 0.216177,
+    "atlDate": "2015-01-14T00:00:00.000Z",
+    "circulatingSupply": 18446744.07370955,
+    "totalSupply": 18446744.07370955,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.497Z"
+}

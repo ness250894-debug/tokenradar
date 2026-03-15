@@ -1,0 +1,60 @@
+{
+  "id": "algorand",
+  "symbol": "algo",
+  "name": "Algorand",
+  "description": "Algorand is a scalable, secure, and decentralized digital currency and smart contract platform. Its protocol uses a variation of Proof-of-Stake (PoS) called Pure PoS (PPoS) to secure the network and reach consensus on block production. Developers can build decentralized applications (dApps) using familiar programming languages, including Python, which Algorand supports natively. Its infrastructure enables various use cases, including payment systems, digital identity solutions, supply-chain...",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Algorand Ecosystem",
+    "Real World Assets (RWA)",
+    "Alleged SEC Securities",
+    "DWF Labs Portfolio",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://algorand.foundation/",
+    "github": "https://github.com/algorand/go-algorand",
+    "reddit": "https://www.reddit.com/r/AlgorandOfficial/",
+    "explorer": "https://allo.info/"
+  },
+  "market": {
+    "price": 0.091781,
+    "marketCap": 815884672,
+    "marketCapRank": 78,
+    "volume24h": 27704147,
+    "high24h": 0.092228,
+    "low24h": 0.089419,
+    "priceChange24h": 0.45871,
+    "priceChange7d": 10.60526,
+    "priceChange30d": 0.6071,
+    "priceChange1y": -54.29486,
+    "ath": 3.56,
+    "athChangePercentage": -97.42351,
+    "athDate": "2019-06-20T14:51:19.480Z",
+    "atl": 0.081545,
+    "atlDate": "2026-03-08T22:30:13.394Z",
+    "circulatingSupply": 8890198085.422396,
+    "totalSupply": 8890198085.422396,
+    "maxSupply": 10000000000,
+    "fdv": 816944084
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1427,
+    "githubForks": 521,
+    "commits4Weeks": 20
+  },
+  "fetchedAt": "2026-03-15T10:32:43.697Z",
+  "lastMarketUpdate": "2026-03-15T10:42:38.658Z"
+}

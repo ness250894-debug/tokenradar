@@ -1,0 +1,45 @@
+{
+  "id": "chainlink",
+  "symbol": "link",
+  "name": "Chainlink",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 9.26,
+    "marketCap": 6560833267,
+    "marketCapRank": 18,
+    "volume24h": 234711458,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 3.59263,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 52.7,
+    "athChangePercentage": -82.42272,
+    "athDate": "2021-05-10T00:13:57.214Z",
+    "atl": 0.148183,
+    "atlDate": "2017-11-29T00:00:00.000Z",
+    "circulatingSupply": 708099970.4525867,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.497Z"
+}

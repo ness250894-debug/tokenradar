@@ -1,0 +1,45 @@
+{
+  "id": "paypal-usd",
+  "symbol": "pyusd",
+  "name": "PayPal USD",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 0.999652,
+    "marketCap": 4130935501,
+    "marketCapRank": 28,
+    "volume24h": 25394797,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": -0.04427,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.021,
+    "athChangePercentage": -2.1176,
+    "athDate": "2023-10-23T22:44:57.056Z",
+    "atl": 0.959426,
+    "atlDate": "2024-12-05T22:31:13.430Z",
+    "circulatingSupply": 4130863286.065383,
+    "totalSupply": 4130893285.065583,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.502Z"
+}

@@ -20,6 +20,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
+import Anthropic from "@anthropic-ai/sdk";
+import { fetchFullTokenData } from "../src/lib/coingecko";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -322,10 +324,26 @@ async function main() {
   let totalCost = 0;
 
   for (const tokenId of tokensToProcess) {
-    // Load data
-    const tokenData = JSON.parse(
-      fs.readFileSync(path.join(TOKENS_DIR, `${tokenId}.json`), "utf-8")
-    );
+    // 1. Load data
+    const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
+    let tokenData = JSON.parse(fs.readFileSync(tokenFilePath, "utf-8"));
+
+    // 2. Just-In-Time (JIT) Sync: If it's a "Lite" token (no description), fetch full data
+    if (!tokenData.description || args.includes("--force-sync")) {
+      process.stdout.write(`  [JIT SYNC] Fetching full data for ${tokenData.name}... `);
+      try {
+        tokenData = await fetchFullTokenData(tokenId);
+        fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
+        console.log("✓ Done");
+      } catch (e) {
+        console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
+        // Continue anyway if we have enough local data, or skip if critical info is missing
+        if (!tokenData.description) {
+          console.log(`  ⏭ Skipping ${tokenData.name} — missing description after failed JIT sync.`);
+          continue;
+        }
+      }
+    }
 
     // Load metrics (may not exist yet)
     let metrics: Record<string, unknown> = {};

@@ -1,0 +1,45 @@
+{
+  "id": "bitcoin",
+  "symbol": "btc",
+  "name": "Bitcoin",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 71772,
+    "marketCap": 1435438506582,
+    "marketCapRank": 1,
+    "volume24h": 22445244667,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 1.78081,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 126080,
+    "athChangePercentage": -43.07451,
+    "athDate": "2025-10-06T18:57:42.558Z",
+    "atl": 67.81,
+    "atlDate": "2013-07-06T00:00:00.000Z",
+    "circulatingSupply": 20002318,
+    "totalSupply": 20002318,
+    "maxSupply": 21000000,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.487Z"
+}

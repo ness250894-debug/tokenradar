@@ -1,0 +1,51 @@
+{
+  "id": "ethereum-classic",
+  "symbol": "etc",
+  "name": "Ethereum Classic",
+  "description": "",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": "2015-07-30",
+  "links": {
+    "website": "http://ethereumclassic.org",
+    "github": "https://github.com/ethereumclassic/ethereumclassic.github.io",
+    "reddit": "https://www.reddit.com/r/EthereumClassic",
+    "explorer": "https://etc.tokenview.io/"
+  },
+  "market": {
+    "price": 8.33,
+    "marketCap": 1297906336,
+    "marketCapRank": 59,
+    "volume24h": 31013583,
+    "high24h": 8.35,
+    "low24h": 8.19,
+    "priceChange24h": 0.80182,
+    "priceChange7d": 3.24148,
+    "priceChange30d": 1.05761,
+    "priceChange1y": -53.41987,
+    "ath": 167.09,
+    "athChangePercentage": -95.01611,
+    "athDate": "2021-05-06T18:34:22.133Z",
+    "atl": 0.615038,
+    "atlDate": "2016-07-25T00:00:00.000Z",
+    "circulatingSupply": 155903639.15786,
+    "totalSupply": 155905979.2423935,
+    "maxSupply": 210700000,
+    "fdv": 1297925817
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 193,
+    "githubForks": 245,
+    "commits4Weeks": 7
+  },
+  "fetchedAt": "2026-03-15T10:17:42.905Z",
+  "lastMarketUpdate": "2026-03-15T10:42:38.637Z"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "dai",
+  "symbol": "dai",
+  "name": "Dai",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 0.999932,
+    "marketCap": 4296015741,
+    "marketCapRank": 24,
+    "volume24h": 136466316,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": -0.00352,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.22,
+    "athChangePercentage": -17.96881,
+    "athDate": "2020-03-13T03:02:50.373Z",
+    "atl": 0.88196,
+    "atlDate": "2023-03-11T07:50:50.514Z",
+    "circulatingSupply": 4296524045.540943,
+    "totalSupply": 4296524045.540943,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.500Z"
+}

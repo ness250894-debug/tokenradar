@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Fetch token data from CoinGecko
-        run: npx tsx scripts/fetch-crypto-data.ts --start 1 --end 100
+        run: npx tsx scripts/fetch-crypto-data.ts --start 50 --end 250 --lite
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 

@@ -1,0 +1,45 @@
+{
+  "id": "usd-coin",
+  "symbol": "usdc",
+  "name": "USDC",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 0.999902,
+    "marketCap": 79167872844,
+    "marketCapRank": 6,
+    "volume24h": 2147097241,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0.00004,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.043,
+    "athChangePercentage": -4.17487,
+    "athDate": "2018-11-15T00:00:00.000Z",
+    "atl": 0.877647,
+    "atlDate": "2023-03-11T08:02:13.981Z",
+    "circulatingSupply": 79175642468.78094,
+    "totalSupply": 79180463866.51459,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.490Z"
+}

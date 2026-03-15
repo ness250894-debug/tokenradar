@@ -1,0 +1,45 @@
+{
+  "id": "uniswap",
+  "symbol": "uni",
+  "name": "Uniswap",
+  "description": "",
+  "categories": [],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 3.97,
+    "marketCap": 2512111540,
+    "marketCapRank": 39,
+    "volume24h": 134483968,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 1.04433,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 44.92,
+    "athChangePercentage": -91.17695,
+    "athDate": "2021-05-03T05:25:04.822Z",
+    "atl": 1.03,
+    "atlDate": "2020-09-17T01:20:38.214Z",
+    "circulatingSupply": 633561603.6037512,
+    "totalSupply": 898188420.0366304,
+    "maxSupply": 1000000000,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-03-15T10:11:56.508Z"
+}
