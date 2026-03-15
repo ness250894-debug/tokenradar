@@ -1,15 +1,11 @@
 # Telegram Market Updates
-# Posts quick updates to Telegram 5 times a day.
+# Posts quick updates to Telegram every 2 hours (24/7).
 
 name: Telegram Market Updates
 
 on:
   schedule:
-    - cron: "17 8 * * *"  # 08:17 UTC
-    - cron: "17 12 * * *" # 12:17 UTC
-    - cron: "17 16 * * *" # 16:17 UTC
-    - cron: "17 20 * * *" # 20:17 UTC
-    - cron: "17 22 * * *" # 22:17 UTC
+    - cron: "17 */2 * * *"  # Every 2 hours at :17 (12 times a day)
   workflow_dispatch:
 
 env:
