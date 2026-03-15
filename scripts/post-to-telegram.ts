@@ -85,8 +85,9 @@ function buildMessage(
     `• <a href="https://www.kucoin.com/r/rf/FQ67QZ7A">KuCoin</a>`,
     "",
     `🐦 Follow us on X: https://x.com/tokenradarco`,
+    `👥 Join us on TG: https://t.me/TokenRadarCo`,
     "",
-    `#${sym} #crypto #TokenRadar`,
+    `#${sym} #crypto #TokenRadarCo`,
   ]
     .filter(Boolean)
     .join("\n");

@@ -156,7 +156,7 @@ function createTopGainerAlert(token: TokenData): string {
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${sym} #CryptoAlert #${token.name.replace(/\s+/g, '')}`
+    `#${sym} #CryptoAlert #TokenRadarCo`
   ].join("\n");
 }
 
@@ -176,7 +176,7 @@ function createSafePlayAlert(token: TokenData, metric: MetricData): string {
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${sym} #CryptoInvesting #TokenRadar`
+    `#${sym} #CryptoInvesting #TokenRadarCo`
   ].join("\n");
 }
 
@@ -202,7 +202,7 @@ function createSpotlightAlert(token: TokenData): string {
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${sym} #Crypto #TokenRadar`
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
