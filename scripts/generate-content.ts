@@ -358,11 +358,16 @@ async function main() {
         console.log("✓ Done (incl. prices)");
       } catch (e) {
         console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
-        // Continue anyway if we have enough local data, or skip if critical info is missing
-        if (!tokenData.description) {
-          console.log(`  ⏭ Skipping ${tokenData.name} — missing description after failed JIT sync.`);
-          continue;
-        }
+      }
+
+      // If description is STILL missing after an attempted sync (or failed sync), provide a fallback
+      // This ensures we never skip a token again.
+      if (!tokenData.description) {
+        console.log(`  ⚠️  No description found for ${tokenData.name}. Using fallback.`);
+        tokenData.description = `A cryptocurrency token known as ${tokenData.name} (${tokenData.symbol?.toUpperCase()}). It is tracked on CoinGecko with the ID "${tokenId}".`;
+        
+        // Save the updated token data with fallback to prevent future sync attempts
+        fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
       }
     }
 
