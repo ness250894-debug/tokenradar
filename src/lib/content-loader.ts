@@ -173,7 +173,59 @@ export function getTokenIds(): string[] {
 export function getTokenDetail(tokenId: string): TokenDetail | null {
   const file = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
   if (!fs.existsSync(file)) return null;
-  return JSON.parse(fs.readFileSync(file, "utf-8"));
+  
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
+    
+    // Provide safe defaults for Lite tokens missing full data
+    return {
+      id: raw.id,
+      symbol: raw.symbol,
+      name: raw.name,
+      description: raw.description || "",
+      categories: raw.categories || [],
+      genesisDate: raw.genesisDate || null,
+      links: {
+        website: raw.links?.website || null,
+        github: raw.links?.github || null,
+        reddit: raw.links?.reddit || null,
+        explorer: raw.links?.explorer || null,
+      },
+      market: {
+        price: raw.market?.price || 0,
+        marketCap: raw.market?.marketCap || 0,
+        marketCapRank: raw.market?.marketCapRank || 999,
+        volume24h: raw.market?.volume24h || 0,
+        high24h: raw.market?.high24h || 0,
+        low24h: raw.market?.low24h || 0,
+        priceChange24h: raw.market?.priceChange24h || 0,
+        priceChange7d: raw.market?.priceChange7d || 0,
+        priceChange30d: raw.market?.priceChange30d || 0,
+        priceChange1y: raw.market?.priceChange1y || 0,
+        ath: raw.market?.ath || 0,
+        athChangePercentage: raw.market?.athChangePercentage || 0,
+        athDate: raw.market?.athDate || "",
+        atl: raw.market?.atl || 0,
+        atlDate: raw.market?.atlDate || "",
+        circulatingSupply: raw.market?.circulatingSupply || 0,
+        totalSupply: raw.market?.totalSupply || null,
+        maxSupply: raw.market?.maxSupply || null,
+        fdv: raw.market?.fdv || null,
+      },
+      community: {
+        twitterFollowers: raw.community?.twitterFollowers || null,
+        redditSubscribers: raw.community?.redditSubscribers || null,
+      },
+      developer: {
+        githubStars: raw.developer?.githubStars || null,
+        githubForks: raw.developer?.githubForks || null,
+        commits4Weeks: raw.developer?.commits4Weeks || null,
+      },
+      fetchedAt: raw.fetchedAt || raw.lastMarketUpdate || new Date().toISOString(),
+    };
+  } catch (e) {
+    return null;
+  }
 }
 
 /** Load token metrics. */

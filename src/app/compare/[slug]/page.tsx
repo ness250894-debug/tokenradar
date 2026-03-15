@@ -19,11 +19,12 @@ interface PageProps {
 export const dynamicParams = false;
 
 /**
- * Generate static paths for all token-vs-token combinations.
- * Uses the pattern: /compare/token-a-vs-token-b
+ * Generate static paths for top token combinations.
+ * Building all 250*250 combinations (31,250 pages) is too heavy for build times.
+ * We limit static generation to the Top 20 tokens.
  */
 export async function generateStaticParams() {
-  const ids = getTokenIds();
+  const ids = getTokenIds().slice(0, 20); // Only static-build top 20 tokens
   const params: { slug: string }[] = [];
 
   for (let i = 0; i < ids.length; i++) {
@@ -254,50 +255,50 @@ function buildComparisonRows(
   const rows: ComparisonRow[] = [
     {
       label: "Price",
-      valueA: formatPrice(a.market.price),
-      valueB: formatPrice(b.market.price),
+      valueA: formatPrice(a.market?.price || 0),
+      valueB: formatPrice(b.market?.price || 0),
       winner: "tie",
     },
     {
       label: "Market Cap",
-      valueA: formatCompact(a.market.marketCap),
-      valueB: formatCompact(b.market.marketCap),
-      winner: a.market.marketCap > b.market.marketCap ? "A" : "B",
+      valueA: formatCompact(a.market?.marketCap || 0),
+      valueB: formatCompact(b.market?.marketCap || 0),
+      winner: (a.market?.marketCap || 0) > (b.market?.marketCap || 0) ? "A" : "B",
     },
     {
       label: "24h Volume",
-      valueA: formatCompact(a.market.volume24h),
-      valueB: formatCompact(b.market.volume24h),
-      winner: a.market.volume24h > b.market.volume24h ? "A" : "B",
+      valueA: formatCompact(a.market?.volume24h || 0),
+      valueB: formatCompact(b.market?.volume24h || 0),
+      winner: (a.market?.volume24h || 0) > (b.market?.volume24h || 0) ? "A" : "B",
     },
     {
       label: "24h Change",
-      valueA: `${a.market.priceChange24h >= 0 ? "+" : ""}${a.market.priceChange24h.toFixed(2)}%`,
-      valueB: `${b.market.priceChange24h >= 0 ? "+" : ""}${b.market.priceChange24h.toFixed(2)}%`,
-      winner: a.market.priceChange24h > b.market.priceChange24h ? "A" : "B",
+      valueA: `${(a.market?.priceChange24h || 0) >= 0 ? "+" : ""}${(a.market?.priceChange24h || 0).toFixed(2)}%`,
+      valueB: `${(b.market?.priceChange24h || 0) >= 0 ? "+" : ""}${(b.market?.priceChange24h || 0).toFixed(2)}%`,
+      winner: (a.market?.priceChange24h || 0) > (b.market?.priceChange24h || 0) ? "A" : "B",
     },
     {
       label: "30d Change",
-      valueA: `${a.market.priceChange30d >= 0 ? "+" : ""}${a.market.priceChange30d.toFixed(2)}%`,
-      valueB: `${b.market.priceChange30d >= 0 ? "+" : ""}${b.market.priceChange30d.toFixed(2)}%`,
-      winner: a.market.priceChange30d > b.market.priceChange30d ? "A" : "B",
+      valueA: `${(a.market?.priceChange30d || 0) >= 0 ? "+" : ""}${(a.market?.priceChange30d || 0).toFixed(2)}%`,
+      valueB: `${(b.market?.priceChange30d || 0) >= 0 ? "+" : ""}${(b.market?.priceChange30d || 0).toFixed(2)}%`,
+      winner: (a.market?.priceChange30d || 0) > (b.market?.priceChange30d || 0) ? "A" : "B",
     },
     {
       label: "ATH",
-      valueA: formatPrice(a.market.ath),
-      valueB: formatPrice(b.market.ath),
+      valueA: formatPrice(a.market?.ath || 0),
+      valueB: formatPrice(b.market?.ath || 0),
       winner: "tie",
     },
     {
       label: "Distance from ATH",
-      valueA: `${a.market.athChangePercentage.toFixed(1)}%`,
-      valueB: `${b.market.athChangePercentage.toFixed(1)}%`,
-      winner: a.market.athChangePercentage > b.market.athChangePercentage ? "A" : "B",
+      valueA: `${(a.market?.athChangePercentage || 0).toFixed(1)}%`,
+      valueB: `${(b.market?.athChangePercentage || 0).toFixed(1)}%`,
+      winner: (a.market?.athChangePercentage || 0) > (b.market?.athChangePercentage || 0) ? "A" : "B",
     },
     {
       label: "Circulating Supply",
-      valueA: formatSupply(a.market.circulatingSupply),
-      valueB: formatSupply(b.market.circulatingSupply),
+      valueA: formatSupply(a.market?.circulatingSupply || 0),
+      valueB: formatSupply(b.market?.circulatingSupply || 0),
       winner: "tie",
     },
   ];
