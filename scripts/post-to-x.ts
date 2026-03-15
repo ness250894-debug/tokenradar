@@ -127,6 +127,7 @@ function buildTweet(
   metrics: { riskScore?: number; price?: number; priceChange24h?: number } = {}
 ): string {
   const url = `${SITE_URL}/${tokenId}`;
+  const howToBuyUrl = `${url}/how-to-buy`;
   const hashtags = `#${symbol.toUpperCase()} #crypto #TokenRadar`;
 
   let headline = `🚀 New Coverage: ${tokenName} ($${symbol.toUpperCase()})`;
@@ -142,15 +143,32 @@ function buildTweet(
   
   const body = metricLines.join(" | ");
 
-  const tweet = `${headline}\n\n${body}\n\nWe just published our complete data-driven analysis including Price Predictions for 2026 & buying guides.\n\n🔗 ${url}\n\n👥 Join us on Telegram: https://t.me/TokenRadarCo\n\n${hashtags}`;
+  const tweet = `${headline}\n\n${body}\n\nFull analysis & Price Predictions for 2026-2027 live now!\n\n🔗 ${url}\n💰 Trade on major exchanges: ${howToBuyUrl}\n👥 TG: https://t.me/TokenRadarCo\n\n${hashtags}`;
 
   // Ensure within 280 chars
-  if (tweet.length > 280) {
-    const fallback = `${headline}\n${body}\n🔗 ${url}\n👥 TG: https://t.me/TokenRadarCo\n${hashtags}`;
-    return fallback.slice(0, 280);
+  if (tweet.length <= 280) {
+    return tweet;
   }
 
-  return tweet;
+  // Smart truncation: Keep first 3 lines and last 3 lines
+  const lines = tweet.split('\n');
+  const footerLines = [];
+  const headerLines = [];
+  
+  for (let i = 0; i < 3; i++) {
+    const line = lines.pop();
+    if (line !== undefined) footerLines.unshift(line);
+  }
+  for (let i = 0; i < 3; i++) {
+    const line = lines.shift();
+    if (line !== undefined) headerLines.push(line);
+  }
+
+  return [
+    ...headerLines,
+    "...",
+    ...footerLines
+  ].join('\n').substring(0, 277) + "...";
 }
 
 // ── X API v2 ───────────────────────────────────────────────────

@@ -61,8 +61,9 @@ function buildMessage(
   } = {}
 ): string {
   const url = `${SITE_URL}/${tokenId}`;
+  const sym = symbol.toUpperCase();
 
-  const header = `🚀 <b>New Coverage: ${tokenName} (${symbol.toUpperCase()})</b>`;
+  const header = `🚀 <b>New Coverage: ${tokenName} (${sym})</b>`;
   const body = buildMetricsBlock(metrics);
 
   return [
@@ -77,9 +78,15 @@ function buildMessage(
     "",
     `🔗 <a href="${url}">Read Full Reports on TokenRadar</a>`,
     "",
+    `💰 <b>Trade ${sym} Now:</b>`,
+    `• <a href="https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default">Binance</a>`,
+    `• <a href="https://www.bybit.com/invite?ref=QONQNG">Bybit</a>`,
+    `• <a href="https://okx.com/join/66004268">OKX</a>`,
+    `• <a href="https://www.kucoin.com/r/rf/FQ67QZ7A">KuCoin</a>`,
+    "",
     `🐦 Follow us on X: https://x.com/tokenradarco`,
     "",
-    `#${symbol.toUpperCase()} #crypto #TokenRadar`,
+    `#${sym} #crypto #TokenRadar`,
   ]
     .filter(Boolean)
     .join("\n");

@@ -100,8 +100,36 @@ async function sendTweet(text: string): Promise<string> {
   // 2. Strip any remaining HTML tags (like <b>, <i>, etc.)
   cleanText = cleanText.replace(/<[^>]*>?/gm, '');
   
-  // Truncate to 280 chars max
-  const safeText = cleanText.length > 280 ? cleanText.substring(0, 277) + "..." : cleanText;
+  // Truncate to 280 chars max (safe for X)
+  // Note: X counts ALL URLs as 23 chars. This local length check is just a broad guard.
+  if (cleanText.length <= 280) {
+    const rwClient = client.readWrite;
+    const { data: createdTweet } = await rwClient.v2.tweet(cleanText);
+    return createdTweet.id;
+  }
+
+  // If too long, we keep the FIRST few lines (header) and the LAST few lines (links/hashtags)
+  const lines = cleanText.split('\n');
+  const footerLines = [];
+  const headerLines = [];
+  
+  // Keep the last 4 lines (Socials + Hashtags)
+  for (let i = 0; i < 4; i++) {
+    const line = lines.pop();
+    if (line !== undefined) footerLines.unshift(line);
+  }
+  
+  // Keep the first 4 lines (Header + Stats)
+  for (let i = 0; i < 4; i++) {
+    const line = lines.shift();
+    if (line !== undefined) headerLines.push(line);
+  }
+
+  const safeText = [
+    ...headerLines,
+    "...",
+    ...footerLines
+  ].join('\n').substring(0, 277) + "...";
 
   const rwClient = client.readWrite;
   const { data: createdTweet } = await rwClient.v2.tweet(safeText);
@@ -111,70 +139,70 @@ async function sendTweet(text: string): Promise<string> {
 // ── Alert Generators ───────────────────────────────────────────
 
 function createTopGainerAlert(token: TokenData): string {
-  const url = `${SITE_URL}/${token.id}`;
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
+  const sym = token.symbol.toUpperCase();
   
   return [
-    `🚀 <b>MARKET MOVER: ${token.name} (${token.symbol.toUpperCase()})</b>`,
+    `🚀 <b>MARKET MOVER: ${token.name} (${sym})</b>`,
     "",
     `🟢 Up <b>+${token.market.priceChange24h.toFixed(2)}%</b> today!`,
     `💰 Current Price: $${price}`,
     "",
-    "Is this a breakout or a fakeout? Read our proprietary Risk Assessment and Price Prediction before buying.",
+    "Is this a breakout or a fakeout? Discover institutional-grade risk scores and price predictions for 150+ tokens.",
     "",
-    `🔗 <a href="${url}">Read Full Analysis on TokenRadar</a>`,
+    `🔗 <a href="${SITE_URL}">Analyze ${sym} on TokenRadar.co</a>`,
     "",
     "Follow our updates:",
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${token.symbol.toUpperCase()} #CryptoAlert #${token.name.replace(/\s+/g, '')}`
+    `#${sym} #CryptoAlert #${token.name.replace(/\s+/g, '')}`
   ].join("\n");
 }
 
 function createSafePlayAlert(token: TokenData, metric: MetricData): string {
-  const url = `${SITE_URL}/${token.id}`;
+  const sym = token.symbol.toUpperCase();
   
   return [
-    `🛡️ <b>LOW RISK ASSET: ${token.name} (${token.symbol.toUpperCase()})</b>`,
+    `🛡️ <b>LOW RISK ASSET: ${token.name} (${sym})</b>`,
     "",
-    `Our AI has assigned a <b>Risk Score of ${metric.riskScore}/10</b> (${metric.riskLevel}) to $${token.symbol.toUpperCase()}.`,
+    `Our AI has assigned a <b>Risk Score of ${metric.riskScore}/10</b> (${metric.riskLevel}) to $${sym}.`,
     "",
     "Ideal for conservative portfolios looking for long-term growth potential.",
     "",
-    `🔗 <a href="${url}">See the Data on TokenRadar</a>`,
+    `🔗 <a href="${SITE_URL}">Find safe crypto plays on TokenRadar.co</a>`,
     "",
     "Keep in touch:",
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${token.symbol.toUpperCase()} #CryptoInvesting #TokenRadar`
+    `#${sym} #CryptoInvesting #TokenRadar`
   ].join("\n");
 }
 
 function createSpotlightAlert(token: TokenData): string {
-  const url = `${SITE_URL}/${token.id}`;
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const mc = token.market.marketCap >= 1e9 ? `$${(token.market.marketCap / 1e9).toFixed(2)}B` : `$${(token.market.marketCap / 1e6).toFixed(0)}M`;
   const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
   const sign = token.market.priceChange24h >= 0 ? "+" : "";
+  const sym = token.symbol.toUpperCase();
   
   return [
-    `🔦 <b>TOKEN SPOTLIGHT: ${token.name} (${token.symbol.toUpperCase()})</b>`,
+    `🔦 <b>TOKEN SPOTLIGHT: ${token.name} (${sym})</b>`,
     "",
     `💰 Price: $${price}`,
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
     `📊 Market Cap: ${mc}`,
     "",
-    "Where will it be in 2026? We've crunched the numbers.",
+    "Where will the market be in 2026? We've crunched the numbers for the top 200 tokens.",
     "",
-    `🔗 <a href="${url}">Read 2026 Price Prediction</a>`,
+    `🔗 <a href="${SITE_URL}">Check 2026 Predictions on TokenRadar</a>`,
     "",
     "Stay updated:",
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${token.symbol.toUpperCase()} #Crypto #TokenRadar`
+    `#${sym} #Crypto #TokenRadar`
   ].join("\n");
 }
 
