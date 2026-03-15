@@ -124,26 +124,26 @@ function buildTweet(
   tokenName: string,
   tokenId: string,
   symbol: string,
-  metrics: { riskScore?: number; price?: number; priceChange24h?: number } = {}
+  metrics: { riskScore?: number; price?: number } = {}
 ): string {
   const url = `${SITE_URL}/${tokenId}`;
-  const howToBuyUrl = `${url}/how-to-buy`;
-  const hashtags = `#${symbol.toUpperCase()} #crypto #TokenRadar`;
-
-  let headline = `🚀 New Coverage: ${tokenName} ($${symbol.toUpperCase()})`;
+  const sym = symbol.toUpperCase();
+  const hashtags = `#${sym} #crypto #TokenRadarCo`;
   
-  const metricLines = [];
-  if (metrics.price !== undefined) {
-    const priceFmt = metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6);
-    metricLines.push(`💰 $${priceFmt}`);
-  }
-  if (metrics.riskScore !== undefined) {
-    metricLines.push(`⚠️ Risk Score: ${metrics.riskScore}/10`);
-  }
-  
-  const body = metricLines.join(" | ");
+  const priceFmt = metrics.price !== undefined 
+    ? (metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6))
+    : "0.00";
 
-  const tweet = `${headline}\n\n${body}\n\nFull analysis & Price Predictions for 2026-2027 live now!\n\n🔗 ${url}\n💰 Trade on major exchanges: ${howToBuyUrl}\n👥 TG: https://t.me/TokenRadarCo\n\n${hashtags}`;
+  // New multi-line template per user request
+  const tweet = [
+    `🚀 New Coverage: ${tokenName} (`,
+    `${tokenName} · $${priceFmt}`,
+    `)`,
+    `💰 $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
+    `🔗 ${url}`,
+    `👥 TG: https://t.me/TokenRadarCo`,
+    hashtags
+  ].join("\n");
 
   // Ensure within 280 chars
   if (tweet.length <= 280) {
@@ -293,23 +293,27 @@ async function main() {
       fs.readFileSync(path.join(tokenDir, firstArticleFile), "utf-8")
     );
 
-    // Load metrics for the tweet
+    // Load metrics and symbol for the tweet
     let metrics: { riskScore?: number; price?: number } = {};
+    let symbol = tokenId.toUpperCase(); // Fallback
+
     const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
     if (fs.existsSync(metricsFile)) {
       const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
       metrics.riskScore = m.riskScore;
     }
+
     const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
     if (fs.existsSync(tokenFile)) {
       const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
       metrics.price = t.market?.price;
+      if (t.symbol) symbol = t.symbol.toUpperCase();
     }
 
     const tweet = buildTweet(
       article.tokenName,
       tokenId,
-      article.tokenName.toLowerCase().replace(/\s+/g, ""),
+      symbol,
       metrics
     );
 
