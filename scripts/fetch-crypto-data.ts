@@ -38,6 +38,7 @@ interface CoinDetail {
   };
   categories: string[];
   genesis_date: string | null;
+  market_cap_rank: number | null;
   market_data: {
     current_price: { usd: number };
     market_cap: { usd: number };
@@ -95,6 +96,7 @@ export interface TokenDetailData {
   market: {
     price: number;
     marketCap: number;
+    marketCapRank: number;
     volume24h: number;
     high24h: number;
     low24h: number;
@@ -145,55 +147,87 @@ function truncateDescription(html: string, maxLength: number = 500): string {
 
 async function main() {
   const args = process.argv.slice(2);
-  const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 50;
-  const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 200;
+  const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 1;
+  const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 100;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Detailed Data Fetcher      ║");
   console.log("╚══════════════════════════════════════════╝");
   console.log();
-  console.log(`  Token range: #${startRank} — #${endRank}`);
+  console.log(`  Sync range: #${startRank} — #${endRank}`);
   console.log();
 
   ensureDirs();
 
-  // Step 1: Load token list (from keyword generator or fetch fresh)
-  let tokenIds: { id: string; name: string; rank: number }[];
+  // Step 1: Fetch Top 250 market data (1 API call)
+  console.log("▶ Step 1: Fetching Top 250 global market data for Sidebars...");
+  const globalTokens = await fetchTokensByRank(1, 250);
+  fs.writeFileSync(TOKENS_FILE, JSON.stringify(globalTokens, null, 2));
+  console.log(` ✓ Saved 250 tokens to tokens.json\n`);
 
-  if (fs.existsSync(TOKENS_FILE)) {
-    console.log("▶ Step 1: Loading token list from existing data...");
-    const raw = JSON.parse(fs.readFileSync(TOKENS_FILE, "utf-8"));
-    tokenIds = raw
-      .filter((t: { rank: number }) => t.rank >= startRank && t.rank <= endRank)
-      .map((t: { id: string; name: string; rank: number }) => ({
-        id: t.id,
-        name: t.name,
-        rank: t.rank,
-      }));
-  } else {
-    console.log("▶ Step 1: Fetching token list from CoinGecko...");
-    const tokens = await fetchTokensByRank(startRank, endRank);
-    tokenIds = tokens.map((t) => ({
-      id: t.id,
-      name: t.name,
-      rank: t.market_cap_rank,
-    }));
-  }
-
-  console.log(`  ✓ ${tokenIds.length} tokens to process`);
-  console.log();
-
-  // Step 2: Fetch detailed data for each token
-  console.log("▶ Step 2: Fetching detailed data...");
+  // Step 2: Sync individual data files
+  console.log(`▶ Step 2: Syncing individual token data (Details/Charts for #${startRank}-#${endRank})...`);
+  
   let successCount = 0;
   let errorCount = 0;
 
-  for (let i = 0; i < tokenIds.length; i++) {
-    const { id, name, rank } = tokenIds[i];
-    const pct = Math.round(((i + 1) / tokenIds.length) * 100);
-    process.stdout.write(`  [${pct}%] #${rank} ${name} (${id})...`);
+  for (let i = 0; i < globalTokens.length; i++) {
+    const token = globalTokens[i];
+    const { id, name, market_cap_rank: rank } = token;
+    const isTargetRange = rank >= startRank && rank <= endRank;
+    const pct = Math.round(((i + 1) / globalTokens.length) * 100);
 
     try {
+      if (!isTargetRange) {
+        // LITE SYNC (Just save market data from the list call)
+        const liteData: TokenDetailData = {
+          id: token.id,
+          symbol: token.symbol,
+          name: token.name,
+          description: "", 
+          categories: [],
+          genesisDate: null,
+          links: { website: null, github: null, reddit: null, explorer: null },
+          market: {
+            price: token.current_price,
+            marketCap: token.market_cap,
+            marketCapRank: token.market_cap_rank,
+            volume24h: token.total_volume,
+            high24h: 0,
+            low24h: 0,
+            priceChange24h: token.price_change_percentage_24h,
+            priceChange7d: 0,
+            priceChange30d: 0,
+            priceChange1y: 0,
+            ath: token.ath,
+            athChangePercentage: token.ath_change_percentage,
+            athDate: token.ath_date,
+            atl: token.atl,
+            atlDate: token.atl_date,
+            circulatingSupply: token.circulating_supply,
+            totalSupply: token.total_supply,
+            maxSupply: token.max_supply,
+            fdv: null,
+          },
+          community: { twitterFollowers: null, redditSubscribers: null },
+          developer: { githubStars: null, githubForks: null, commits4Weeks: null },
+          fetchedAt: new Date().toISOString(),
+        };
+
+        const filePath = path.join(TOKENS_DIR, `${id}.json`);
+        if (fs.existsSync(filePath)) {
+          const existing = JSON.parse(fs.readFileSync(filePath, "utf-8")) as TokenDetailData;
+          liteData.description = existing.description || "";
+          liteData.categories = existing.categories || [];
+          liteData.links = existing.links || liteData.links;
+        }
+
+        fs.writeFileSync(filePath, JSON.stringify(liteData, null, 2));
+        continue; 
+      }
+
+      process.stdout.write(`  [${pct}%] #${rank} ${name} (${id}) [FULL+AI]...`);
+
       // Fetch detailed coin info
       const detail = await fetchCoinGecko<CoinDetail>(
         `/coins/${id}`,
@@ -249,6 +283,7 @@ async function main() {
         market: {
           price: detail.market_data?.current_price?.usd ?? 0,
           marketCap: detail.market_data?.market_cap?.usd ?? 0,
+          marketCapRank: detail.market_cap_rank ?? 999,
           volume24h: detail.market_data?.total_volume?.usd ?? 0,
           high24h: detail.market_data?.high_24h?.usd ?? 0,
           low24h: detail.market_data?.low_24h?.usd ?? 0,

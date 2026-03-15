@@ -19,8 +19,7 @@ export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) 
   // 2. High Volume strategy (highest 24h volume)
   const highVolume = [...otherTokens]
     .filter(t => !topGainers.find(g => g.id === t.id)) // Avoid duplicates
-    // Since volume24h isn't directly on TokenSummary, we sort by marketCap as a proxy for liquidity
-    .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0))
+    .sort((a, b) => (b.volume24h || 0) - (a.volume24h || 0))
     .slice(0, 3);
 
   return (

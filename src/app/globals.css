@@ -875,19 +875,12 @@ img {
   position: sticky;
   top: 100px;
   align-self: start;
-  height: calc(100vh - 200px); /* Strictly defined height (viewport minus header & bottom banner) */
-  overflow-y: auto;
+  height: auto;
   padding-bottom: var(--space-xl);
+  z-index: 10; /* Lower than fixed banner and buttons */
 }
 
-/* Custom scrollbar for sidebar to make it obvious it's scrollable */
-.trending-sidebar::-webkit-scrollbar {
-  width: 4px;
-}
-.trending-sidebar::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
+
 
 .sidebar-module {
   background: var(--bg-card);

@@ -49,6 +49,7 @@ export interface TokenDetail {
   market: {
     price: number;
     marketCap: number;
+    marketCapRank: number;
     volume24h: number;
     high24h: number;
     low24h: number;
@@ -136,7 +137,7 @@ export function getAllTokens(): TokenSummary[] {
         id: detail.id,
         name: detail.name,
         symbol: detail.symbol,
-        rank: 999, // Fallback if rank isn't strictly tracked in Detail
+        rank: detail.market.marketCapRank || 999,
         price: detail.market.price,
         marketCap: detail.market.marketCap,
         volume24h: detail.market.volume24h,
