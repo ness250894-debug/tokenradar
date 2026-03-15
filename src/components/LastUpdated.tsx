@@ -10,10 +10,14 @@ interface LastUpdatedProps {
  * Used on article pages to show data freshness for E-E-A-T signals.
  */
 export function LastUpdated({ date }: LastUpdatedProps) {
-  const formatted = format(new Date(date), "MMM d, yyyy 'at' HH:mm 'UTC'");
+  if (!date) return null;
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return null;
+
+  const formatted = format(d, "MMM d, yyyy 'at' HH:mm 'UTC'");
 
   return (
-    <time className="last-updated" dateTime={new Date(date).toISOString()}>
+    <time className="last-updated" dateTime={d.toISOString()}>
       <span aria-hidden="true">⟳</span> Last updated: {formatted}
     </time>
   );

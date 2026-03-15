@@ -263,6 +263,8 @@ export interface TokenDetailData {
     githubForks: number | null;
     commits4Weeks: number | null;
   };
+  chart30d?: MarketChartData;
+  chart1y?: MarketChartData;
   fetchedAt: string;
 }
 
@@ -353,6 +355,8 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
       githubForks: detail.developer_data?.forks ?? null,
       commits4Weeks: detail.developer_data?.commit_count_4_weeks ?? null,
     },
+    chart30d,
+    chart1y,
     fetchedAt: new Date().toISOString(),
   };
 }

@@ -91,8 +91,28 @@ async function main() {
       } else {
         // FULL MODE: Fetch everything (Details + Charts)
         const fullData = await fetchFullTokenData(t.id);
-        fs.writeFileSync(tokenFile, JSON.stringify(fullData, null, 2));
-        console.log("✓ Saved");
+        
+        // Split charts into separate files for getPriceHistory logic
+        const { chart30d, chart1y, ...detailOnly } = fullData;
+        
+        const PRICES_DIR = path.join(DATA_DIR, "prices");
+        if (!fs.existsSync(PRICES_DIR)) {
+          fs.mkdirSync(PRICES_DIR, { recursive: true });
+        }
+
+        fs.writeFileSync(
+          path.join(PRICES_DIR, `${t.id}.json`),
+          JSON.stringify({
+            id: t.id,
+            name: t.name,
+            chart30d: chart30d?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart1y: chart1y?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            fetchedAt: new Date().toISOString()
+          }, null, 2)
+        );
+
+        fs.writeFileSync(tokenFile, JSON.stringify(detailOnly, null, 2));
+        console.log("✓ Saved (incl. prices)");
       }
     } catch (error) {
       console.log(`✗ Failed: ${error instanceof Error ? error.message : String(error)}`);

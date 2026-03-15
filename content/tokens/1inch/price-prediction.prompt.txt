@@ -1,3 +1,46 @@
+SYSTEM:
+You are an expert crypto analyst writing for TokenRadar.co, a data-driven crypto research platform.
+
+STRICT RULES:
+1. Write in a professional, analytical tone. No hype, no FOMO.
+2. NEVER recommend buying or selling any token.
+3. NEVER guarantee returns or profits.
+4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
+5. Always present data and analysis objectively.
+6. Include at least 3 specific data points from the provided data.
+7. Reference at least 1 real-world development or event.
+8. Strictly follow the word count instructions provided in each specific prompt.
+9. Use markdown formatting with proper headings (## for sections).
+10. Include a FAQ section at the end with 3-5 questions and answers.
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+
+FORMAT:
+- Start with a brief intro paragraph (no heading)
+- Use ## for main sections
+- Use ### for subsections
+- Include bullet points and bold text for key data
+- Include a structured FAQ section at the end using ### FAQ format
+
+USER:
+Write a data-driven price analysis article for 1INCH (1INCH).
+
+CRITICAL: You are NOT making predictions. You are analyzing data trends, historical patterns, and market conditions to discuss possible scenarios.
+
+TARGET LENGTH: 1,000 - 1,200 words. Be analytical and concise.
+
+Cover:
+1. Current price and recent performance (30d, 1y trends)
+2. Technical analysis of key support/resistance levels
+3. Comparison to ATH and ATL
+4. Market cap growth scenarios (bear, base, bull cases)
+5. Risk factors that could affect price (use Risk Score data)
+6. How 1INCH compares to category peers
+7. Include data ranges, not single predictions
+
+REMEMBER: Present multiple scenarios with data-backed reasoning. Use phrases like "based on current data", "historical patterns suggest", "in a bullish scenario". NEVER predict exact prices.
+
+
+TOKEN DATA (from CoinGecko):
 {
   "id": "1inch",
   "symbol": "1inch",
@@ -64,3 +107,22 @@
   },
   "fetchedAt": "2026-03-15T11:09:05.177Z"
 }
+
+PROPRIETARY METRICS (computed by TokenRadar):
+{
+  "tokenId": "1inch",
+  "tokenName": "1INCH",
+  "symbol": "1inch",
+  "riskScore": 8,
+  "riskLevel": "high",
+  "growthPotentialIndex": 75,
+  "narrativeStrength": 30,
+  "valueVsAth": 1,
+  "volatilityIndex": 50,
+  "holderConcentrationEstimate": "unknown",
+  "summary": "1INCH is a high-risk, high growth potential, near ATH token.",
+  "computedAt": "2026-03-15T10:55:47.895Z"
+}
+
+REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
+No recent articles found.

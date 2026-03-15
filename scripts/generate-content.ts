@@ -332,9 +332,30 @@ async function main() {
     if (!tokenData.description || args.includes("--force-sync")) {
       process.stdout.write(`  [JIT SYNC] Fetching full data for ${tokenData.name}... `);
       try {
-        tokenData = await fetchFullTokenData(tokenId);
+        const fullData = await fetchFullTokenData(tokenId);
+        
+        // Split charts into separate files for getPriceHistory logic
+        const { chart30d, chart1y, ...detailOnly } = fullData;
+        tokenData = detailOnly;
+
+        const PRICES_DIR = path.join(DATA_DIR, "prices");
+        if (!fs.existsSync(PRICES_DIR)) {
+          fs.mkdirSync(PRICES_DIR, { recursive: true });
+        }
+
+        fs.writeFileSync(
+          path.join(PRICES_DIR, `${tokenId}.json`),
+          JSON.stringify({
+            id: tokenId,
+            name: fullData.name,
+            chart30d: chart30d?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart1y: chart1y?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            fetchedAt: new Date().toISOString()
+          }, null, 2)
+        );
+
         fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
-        console.log("✓ Done");
+        console.log("✓ Done (incl. prices)");
       } catch (e) {
         console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
         // Continue anyway if we have enough local data, or skip if critical info is missing
