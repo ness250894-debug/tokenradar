@@ -142,11 +142,12 @@ function buildTweet(
   
   const body = metricLines.join(" | ");
 
-  const tweet = `${headline}\n\n${body}\n\nWe just published our complete data-driven analysis including Price Predictions for 2026 & buying guides.\n\n🔗 ${url}\n\n${hashtags}`;
+  const tweet = `${headline}\n\n${body}\n\nWe just published our complete data-driven analysis including Price Predictions for 2026 & buying guides.\n\n🔗 ${url}\n\n👥 Join us on Telegram: https://t.me/TokenRadarCo\n\n${hashtags}`;
 
   // Ensure within 280 chars
   if (tweet.length > 280) {
-    return `${headline}\n${body}\n🔗 ${url}\n${hashtags}`.slice(0, 280);
+    const fallback = `${headline}\n${body}\n🔗 ${url}\n👥 TG: https://t.me/TokenRadarCo\n${hashtags}`;
+    return fallback.slice(0, 280);
   }
 
   return tweet;

@@ -77,6 +77,8 @@ function buildMessage(
     "",
     `🔗 <a href="${url}">Read Full Reports on TokenRadar</a>`,
     "",
+    `🐦 Follow us on X: https://x.com/tokenradarco`,
+    "",
     `#${symbol.toUpperCase()} #crypto #TokenRadar`,
   ]
     .filter(Boolean)

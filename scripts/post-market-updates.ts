@@ -122,6 +122,10 @@ function createTopGainerAlert(token: TokenData): string {
     "",
     `🔗 <a href="${url}">Read Full Analysis on TokenRadar</a>`,
     "",
+    "Follow our updates:",
+    "🐦 X: https://x.com/tokenradarco",
+    "👥 TG: https://t.me/TokenRadarCo",
+    "",
     `#${token.symbol.toUpperCase()} #CryptoAlert #${token.name.replace(/\s+/g, '')}`
   ].join("\n");
 }
@@ -137,6 +141,10 @@ function createSafePlayAlert(token: TokenData, metric: MetricData): string {
     "Ideal for conservative portfolios looking for long-term growth potential.",
     "",
     `🔗 <a href="${url}">See the Data on TokenRadar</a>`,
+    "",
+    "Keep in touch:",
+    "🐦 X: https://x.com/tokenradarco",
+    "👥 TG: https://t.me/TokenRadarCo",
     "",
     `#${token.symbol.toUpperCase()} #CryptoInvesting #TokenRadar`
   ].join("\n");
@@ -159,6 +167,10 @@ function createSpotlightAlert(token: TokenData): string {
     "Where will it be in 2026? We've crunched the numbers.",
     "",
     `🔗 <a href="${url}">Read 2026 Price Prediction</a>`,
+    "",
+    "Stay updated:",
+    "🐦 X: https://x.com/tokenradarco",
+    "👥 TG: https://t.me/TokenRadarCo",
     "",
     `#${token.symbol.toUpperCase()} #Crypto #TokenRadar`
   ].join("\n");

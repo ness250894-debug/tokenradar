@@ -19,7 +19,6 @@ export default function HomePage() {
         id: token.id,
         name: token.name,
         symbol: token.symbol,
-        rank: token.rank,
         price: token.price,
         priceChange24h: token.priceChange24h,
         marketCap: token.marketCap,

@@ -4,7 +4,6 @@ export interface TokenCardData {
   id: string;
   name: string;
   symbol: string;
-  rank: number;
   price: number;
   priceChange24h: number;
   marketCap: number;
@@ -63,9 +62,6 @@ export function TokenCard({ token }: TokenCardProps) {
             <span>
               {token.name} <span className="token-symbol">{token.symbol.toUpperCase()}</span>
             </span>
-          </div>
-          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginTop: "var(--space-xs)" }}>
-            Rank #{token.rank}
           </div>
         </div>
         <span className={`badge badge-${riskLevel}`}>
