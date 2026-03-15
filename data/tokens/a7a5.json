@@ -2,20 +2,50 @@
   "id": "a7a5",
   "symbol": "a7a5",
   "name": "A7A5",
+  "description": "A7A5 is a digital Rouble collateralized by deposits in trusted banks with a correspondent network linked to Kyrgyzstan and high overnight interest rates.\r\n\r\nA7A5 is a rouble-backed stablecoin, maintaining a 1:1 peg to the Russian Rouble.\r\n\r\nFiat deposits in Roubles are held in top-tier banks with a correspondent network connected to Kyrgyz Republic and high overnight interest rates. A7A5 is committed to transparency: reserve reports are updated weekly, and independent firms conduct external audits quarterly ensuring full accountability and trust.\r\n\r\nA7A5 generates revenue from the interest earnings and automatically distributes 50% of this income to all token holders at a random time each day when funds are received in bank deposits. No action is required from token holders to receive these distributions - just hold tokens in the wallet.\r\n\r\nA7A5 leverages blockchain technology to provide users with direct exposure to the Russian Rouble. It enables various opportunities, including carry trade with other stablecoins and earning on providing liquidity on DeFi platforms such as Curve, Uniswap, and Convex.\r\n\r\nA7A5 is a stablecoin issued in Kyrgyzstan by the company Old Vector, fully compliant with Kyrgyz legislation on virtual asset service providers (VASP) enacted on January 21, 2022 - the Law of the Kyrgyz Republic “On Virtual Assets” No. 12. The token is regulated under the country’s comprehensive digital asset framework, operates under state supervision, and meets all requirements for fiat backing, regular independent audits, and investor protection.",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Fiat-backed Stablecoin",
+    "RUB Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://a7a5.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6fA0BE17e4beA2fCfA22ef89BF8ac9aab0AB0fc9"
+  },
   "market": {
-    "price": 0.01240659,
-    "marketCap": 486267714,
-    "marketCapRank": 97,
-    "volume24h": 2061.36,
-    "priceChange24h": 3.01124,
+    "price": 0.01237812,
+    "marketCap": 485164542,
+    "marketCapRank": 99,
+    "volume24h": 3647.38,
+    "high24h": 0.01245838,
+    "low24h": 0.01223725,
+    "priceChange24h": 1.1504,
+    "priceChange7d": -1.68162,
+    "priceChange30d": -4.6921,
+    "priceChange1y": 0,
     "ath": 0.229635,
-    "athChangePercentage": -94.59749,
+    "athChangePercentage": -94.60963,
     "athDate": "2025-08-14T23:03:39.275Z",
     "atl": 0.00001048,
     "atlDate": "2025-08-21T17:38:27.654Z",
     "circulatingSupply": 39195741204.29073,
     "totalSupply": 39195741204.29073,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 485164542
   },
-  "lastMarketUpdate": "2026-03-15T10:55:46.925Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-15T19:54:12.244Z"
 }
