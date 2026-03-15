@@ -65,6 +65,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* AdSense & CMP (Publisher: Place your ID below) */}
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> */}
+
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
             <script
