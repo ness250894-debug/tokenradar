@@ -69,10 +69,10 @@ export default function PrivacyPage() {
           <p>
             For privacy-related inquiries, email{" "}
             <a
-              href="mailto:privacy@tokenradar.co"
+              href="mailto:contact@tokenradar.co"
               style={{ color: "var(--accent-secondary)" }}
             >
-              privacy@tokenradar.co
+              contact@tokenradar.co
             </a>
             .
           </p>
