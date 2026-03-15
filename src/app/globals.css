@@ -854,31 +854,19 @@ img {
   color: var(--text-muted);
 }
 
-/* ---- Token Page Layout Grid ---- */
-.token-layout-grid {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: var(--space-2xl);
-  margin-top: var(--space-xl);
+/* ---- Token Page Layout ---- */
+.token-main-content {
+  max-width: 800px;
+  margin: 0 auto;
   padding-bottom: 120px; /* Space for sticky banner */
 }
 
-@media (max-width: 992px) {
-  .token-layout-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
+@media (max-width: 768px) {
+  .token-main-content {
+    padding-bottom: 80px;
   }
 }
 
-/* ---- Trending Sidebar ---- */
-.trending-sidebar {
-  position: sticky;
-  top: 100px;
-  align-self: start;
-  height: auto;
-  padding-bottom: var(--space-xl);
-  z-index: 10; /* Lower than fixed banner and buttons */
-}
 
 
 

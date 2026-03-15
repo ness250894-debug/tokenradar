@@ -22,14 +22,9 @@ export default async function TokenLayout({ children, params }: LayoutProps) {
   return (
     <>
       <div className="container">
-        <div className="token-layout-grid">
-          {/* Main Content Area (Overview, How to Buy, Price Prediction) */}
-          <div className="token-main-content">
-            {children}
-          </div>
-          
-          {/* Global Sidebar */}
-          <TrendingSidebar currentTokenId={tokenId} />
+        {/* Main Content Area (Overview, How to Buy, Price Prediction) centered via CSS */}
+        <div className="token-main-content">
+          {children}
         </div>
       </div>
       
