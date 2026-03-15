@@ -1,7 +1,21 @@
 {
-  "computedAt": "2026-03-13T18:51:59.426Z",
-  "tokenCount": 3,
+  "computedAt": "2026-03-15T07:15:02.373Z",
+  "tokenCount": 6,
   "metrics": [
+    {
+      "tokenId": "bitget-token",
+      "tokenName": "Bitget Token",
+      "symbol": "bgb",
+      "riskScore": 7,
+      "riskLevel": "high",
+      "growthPotentialIndex": 31,
+      "narrativeStrength": 45,
+      "valueVsAth": 26,
+      "volatilityIndex": 21,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "Bitget Token is a high-risk token.",
+      "computedAt": "2026-03-15T07:15:02.366Z"
+    },
     {
       "tokenId": "falcon-finance",
       "tokenName": "Falcon USD",
@@ -14,13 +28,13 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Falcon USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-13T18:51:59.420Z"
+      "computedAt": "2026-03-15T07:15:02.368Z"
     },
     {
       "tokenId": "global-dollar",
       "tokenName": "Global Dollar",
       "symbol": "usdg",
-      "riskScore": 5,
+      "riskScore": 6,
       "riskLevel": "medium",
       "growthPotentialIndex": 17,
       "narrativeStrength": 30,
@@ -28,21 +42,49 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Global Dollar is a limited upside token.",
-      "computedAt": "2026-03-13T18:51:59.423Z"
+      "computedAt": "2026-03-15T07:15:02.369Z"
+    },
+    {
+      "tokenId": "htx-dao",
+      "tokenName": "HTX DAO",
+      "symbol": "htx",
+      "riskScore": 7,
+      "riskLevel": "high",
+      "growthPotentialIndex": 24,
+      "narrativeStrength": 95,
+      "valueVsAth": 43,
+      "volatilityIndex": 17,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "HTX DAO is a high-risk, limited upside, strong narrative token.",
+      "computedAt": "2026-03-15T07:15:02.370Z"
+    },
+    {
+      "tokenId": "pepe",
+      "tokenName": "Pepe",
+      "symbol": "pepe",
+      "riskScore": 6,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 39,
+      "narrativeStrength": 95,
+      "valueVsAth": 12,
+      "volatilityIndex": 58,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "Pepe is a strong narrative, near ATH token.",
+      "computedAt": "2026-03-15T07:15:02.371Z"
     },
     {
       "tokenId": "ripple-usd",
       "tokenName": "Ripple USD",
       "symbol": "rlusd",
-      "riskScore": 3,
-      "riskLevel": "low",
+      "riskScore": 5,
+      "riskLevel": "medium",
       "growthPotentialIndex": 7,
       "narrativeStrength": 30,
       "valueVsAth": 93,
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Ripple USD is a lower-risk, limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-13T18:51:59.425Z"
+      "summary": "Ripple USD is a limited upside, deeply discounted vs ATH token.",
+      "computedAt": "2026-03-15T07:15:02.372Z"
     }
   ]
 }
