@@ -158,13 +158,10 @@ function createTopGainerAlert(token: TokenData): string {
     "",
     "Is this a breakout? Discover institutional-grade risk scores on TokenRadar.",
     "",
-    `🔗 https://tokenradar.co`,
+    `🔗 tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
-    "",
-    `#${sym} #Crypto #TokenRadarCo`,
-    "",
-    ...REFERRAL_LINKS
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
@@ -178,13 +175,10 @@ function createSafePlayAlert(token: TokenData, metric: MetricData): string {
     "",
     "Ideal for conservative portfolios looking for growth.",
     "",
-    `🔗 https://tokenradar.co`,
+    `🔗 tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
-    "",
-    `#${sym} #Crypto #TokenRadarCo`,
-    "",
-    ...REFERRAL_LINKS
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
@@ -204,13 +198,10 @@ function createSpotlightAlert(token: TokenData): string {
     "",
     "Where will the market be in 2026? Check the numbers to find out.",
     "",
-    `🔗 https://tokenradar.co`,
+    `🔗 tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
-    "",
-    `#${sym} #Crypto #TokenRadarCo`,
-    "",
-    ...REFERRAL_LINKS
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
@@ -366,7 +357,8 @@ async function main() {
 
   if (runTelegram) {
     try {
-      const msgId = await sendTelegramMessage(message, channelId as string);
+      const tgMessage = message + "\n\n" + REFERRAL_LINKS.join("\n");
+      const msgId = await sendTelegramMessage(tgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
     } catch (error) {
       console.error("❌ Failed to post Telegram message:", error);
