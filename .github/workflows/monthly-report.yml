@@ -1,22 +1,12 @@
-# Daily Reporting
-# Sends Daily/Weekly/Monthly metrics summaries to Telegram.
+# Monthly Reporting
+# Sends Monthly metrics summaries to Telegram on the 1st.
 
-name: Daily Report
+name: Monthly Report
 
 on:
   schedule:
-    - cron: "0 9 * * *"  # 9 AM UTC
+    - cron: "0 9 1 * *"  # 9 AM UTC on the 1st of every month
   workflow_dispatch:
-    inputs:
-      period:
-        description: 'Report period'
-        required: true
-        default: '--daily'
-        type: choice
-        options:
-          - --daily
-          - --weekly
-          - --monthly
 
 jobs:
   report:
@@ -35,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Send Report
-        run: npx tsx scripts/send-report.ts ${{ github.event.inputs.period || '--daily' }}
+        run: npx tsx scripts/send-report.ts --monthly
         env:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
