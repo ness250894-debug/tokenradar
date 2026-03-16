@@ -128,21 +128,20 @@ function buildTweet(
 ): string {
   const url = `${SITE_URL}/${tokenId}`;
   const sym = symbol.toUpperCase();
-  const hashtags = `#${sym} #crypto #TokenRadarCo`;
-  
   const priceFmt = metrics.price !== undefined 
     ? (metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6))
     : "0.00";
 
-  // New multi-line template per user request
   const tweet = [
     `🚀 New Coverage: ${tokenName} (`,
     `${tokenName} · $${priceFmt}`,
     `)`,
     `💰 $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
     `🔗 ${url}`,
+    `🐦 X: https://x.com/tokenradarco`,
     `👥 TG: https://t.me/TokenRadarCo`,
-    hashtags
+    "",
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 
   // Ensure within 280 chars

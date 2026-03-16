@@ -76,18 +76,11 @@ function buildMessage(
     "✅ 2026-2027 Price Prediction",
     "✅ Step-by-Step Buying Guide",
     "",
-    `🔗 <a href="${url}">Read Full Reports on TokenRadar</a>`,
+    `🔗 <a href="${url}">${SITE_URL.replace('https://', '')}/${tokenId}</a>`,
+    `🐦 X: https://x.com/tokenradarco`,
+    `👥 TG: https://t.me/TokenRadarCo`,
     "",
-    `💰 <b>Trade ${sym} Now:</b>`,
-    `• <a href="https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default">Binance</a>`,
-    `• <a href="https://www.bybit.com/invite?ref=QONQNG">Bybit</a>`,
-    `• <a href="https://okx.com/join/66004268">OKX</a>`,
-    `• <a href="https://www.kucoin.com/r/rf/FQ67QZ7A">KuCoin</a>`,
-    "",
-    `🐦 Follow us on X: https://x.com/tokenradarco`,
-    `👥 Join us on TG: https://t.me/TokenRadarCo`,
-    "",
-    `#${sym} #crypto #TokenRadarCo`,
+    `#${sym} #Crypto #TokenRadarCo`,
   ]
     .filter(Boolean)
     .join("\n");

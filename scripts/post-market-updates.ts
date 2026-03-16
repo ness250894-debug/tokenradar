@@ -150,11 +150,11 @@ function createTopGainerAlert(token: TokenData): string {
     "",
     "Is this a breakout? Discover institutional-grade risk scores on TokenRadar.",
     "",
-    `🔗 <b>https://tokenradar.co</b>`,
+    `🔗 https://tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${sym} #CryptoAlert #TokenRadarCo`
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
@@ -168,11 +168,11 @@ function createSafePlayAlert(token: TokenData, metric: MetricData): string {
     "",
     "Ideal for conservative portfolios looking for growth.",
     "",
-    `🔗 <b>https://tokenradar.co</b>`,
+    `🔗 https://tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
-    `#${sym} #CryptoInvesting #TokenRadarCo`
+    `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 }
 
@@ -192,7 +192,7 @@ function createSpotlightAlert(token: TokenData): string {
     "",
     "Where will the market be in 2026? Check the numbers to find out.",
     "",
-    `🔗 <b>https://tokenradar.co</b>`,
+    `🔗 https://tokenradar.co`,
     "🐦 X: https://x.com/tokenradarco",
     "👥 TG: https://t.me/TokenRadarCo",
     "",
