@@ -221,12 +221,24 @@ async function main() {
   console.log(`  Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log();
 
-  if (!dryRun && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
-    console.error("  ✗ Missing Telegram credentials in environment.");
-    process.exit(1);
+  const TODAY = new Date().toISOString().split('T')[0];
+  const trackerFile = path.join(DATA_DIR, "posted-today.json");
+  
+  const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
+  const runX = targetPlatform === "all" || targetPlatform === "x";
+
+  if (!dryRun) {
+    if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
+      console.error("  ✗ Missing Telegram credentials (required for telegram/all platform).");
+      process.exit(1);
+    }
+    if (runX && (!process.env.X_API_KEY || !process.env.X_API_SECRET || !process.env.X_ACCESS_TOKEN || !process.env.X_ACCESS_SECRET)) {
+      console.error("  ✗ Missing X (Twitter) credentials (required for x/all platform).");
+      process.exit(1);
+    }
   }
 
-  // 1. Fetch fresh market data (1 API call for up to 250 tokens)
+  // 1. Fetch fresh market data
   console.log(`▶ Step 1: Fetching fresh market data for ranks 1-250...`);
   let freshMarkets: CoinGeckoToken[] = [];
   try {
@@ -276,11 +288,8 @@ async function main() {
     process.exit(1);
   }
 
-  // 1.5 Load tracking state for today to prevent duplicates
-  const TODAY = new Date().toISOString().split('T')[0];
-  const trackerFile = path.join(DATA_DIR, "posted-today.json");
+  // Load tracking state for today to prevent duplicates
   let postedToday: { date: string, tokens: string[] } = { date: TODAY, tokens: [] };
-  
   if (fs.existsSync(trackerFile)) {
     try {
       const parsed = JSON.parse(fs.readFileSync(trackerFile, 'utf-8'));
@@ -291,26 +300,21 @@ async function main() {
   }
 
   // 2. Select Alert Strategy
-  // 0 = Top Gainer, 1 = Safe Play, 2 = Spotlight
   const strategy = Math.floor(Math.random() * 3);
-  
   let targetToken: TokenData | undefined;
   let message = "";
 
   if (strategy === 0) {
-    // Top Gainer (among candidates)
     const gainers = candidateTokens.filter(t => !postedToday.tokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
     if (gainers.length > 0) {
-      targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))]; // Pick randomly from top 3
+      targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
       message = createTopGainerAlert(targetToken);
     }
   } 
   
   if (strategy === 1 && !targetToken) {
-    // Safe Play (Risk <= 4)
     const metricsFiles = fs.readdirSync(metricsDir).filter(f => f.endsWith('.json'));
     const safeTokens: { token: TokenData, metric: MetricData }[] = [];
-    
     for (const mf of metricsFiles) {
       const metric: MetricData = JSON.parse(fs.readFileSync(path.join(metricsDir, mf), 'utf-8'));
       if (metric.riskScore <= 4) {
@@ -319,7 +323,6 @@ async function main() {
         if (token) safeTokens.push({ token, metric });
       }
     }
-    
     if (safeTokens.length > 0) {
       const selected = safeTokens[Math.floor(Math.random() * safeTokens.length)];
       targetToken = selected.token;
@@ -328,7 +331,6 @@ async function main() {
   }
 
   if (!targetToken) {
-    // Fallback Spotlight
     const availableTokens = candidateTokens.filter(t => !postedToday.tokens.includes(t.id));
     targetToken = availableTokens.length > 0 
       ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
@@ -342,14 +344,11 @@ async function main() {
     return;
   }
 
-  // Save tracking info immediately after choosing token
+  // Save tracking info immediately
   if (!postedToday.tokens.includes(targetToken.id)) {
     postedToday.tokens.push(targetToken.id);
     fs.writeFileSync(trackerFile, JSON.stringify(postedToday, null, 2));
   }
-
-  const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
-  const runX = targetPlatform === "all" || targetPlatform === "x";
 
   if (runTelegram) {
     try {
