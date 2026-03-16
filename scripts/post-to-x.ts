@@ -133,10 +133,8 @@ function buildTweet(
     : "0.00";
 
   const tweet = [
-    `🚀 New Coverage: ${tokenName} (`,
-    `${tokenName} · $${priceFmt}`,
-    `)`,
-    `💰 $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
+    `🚀 New Coverage: ${tokenName} ( $${sym} - $${priceFmt} )`,
+    `💰 Current Price: $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
     `🔗 ${url}`,
     `🐦 X: https://x.com/tokenradarco`,
     `👥 TG: https://t.me/TokenRadarCo`,
