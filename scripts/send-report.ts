@@ -11,6 +11,7 @@
 import * as dotenv from "dotenv";
 import * as path from "path";
 import { getUsageSummary, getRemainingBalance } from "../src/lib/reporter";
+import { getVisitorStats } from "../src/lib/visitor-fetcher";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -67,7 +68,10 @@ async function main() {
   // 3. Gather CoinGecko Data
   const cgStats = getUsageSummary("coingecko", days);
 
-  // 4. Build message
+  // 4. Gather Visitor Data
+  const visitorStats = await getVisitorStats(days);
+
+  // 5. Build message
   let report = `📊 *TokenRadar ${periodLabel} Report*\n`;
   report += `_${new Date().toLocaleDateString()}_\n\n`;
 
@@ -85,6 +89,10 @@ async function main() {
 
   report += `*🦎 CoinGecko*\n`;
   report += `• API Calls: ${cgStats.units.toLocaleString()}\n`;
+  report += `\n`;
+
+  report += `*👥 Visitors*\n`;
+  report += `• Unique Visitors: ${visitorStats.uniques.toLocaleString()}\n`;
   report += `\n`;
 
   // GitHub Actions (Placeholder for now, could be improved with GH API)
