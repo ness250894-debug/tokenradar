@@ -13,6 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { logError, trackUsage } from "./reporter";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -129,6 +130,9 @@ export async function fetchCoinGecko<T>(
   console.log(`  [api] GET ${url.pathname}${url.search}`);
   lastRequestTime = Date.now();
   const currentCount = incrementCounter();
+  
+  // Track usage for reporting (units = 1, cost = 0 for free tier if not specified)
+  trackUsage("coingecko", 1, 0);
 
   const response = await fetch(url.toString(), {
     headers: {
@@ -139,6 +143,7 @@ export async function fetchCoinGecko<T>(
 
   if (response.status === 429) {
     console.warn("  [rate limited] 429 — waiting 60s before retry...");
+    await logError("CoinGecko", "Rate limited (429)", false); // non-fatal alert
     await sleep(60_000);
     return fetchCoinGecko<T>(endpoint, params, cacheKey, cacheTtlMs);
   }

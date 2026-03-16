@@ -16,6 +16,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
+import { logError } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -139,4 +140,7 @@ async function main() {
   console.log(`╚══════════════════════════════════════════╝`);
 }
 
-main().catch(console.error);
+main().catch(async (error) => {
+  await logError("fetch-crypto-data", error);
+  process.exit(1);
+});

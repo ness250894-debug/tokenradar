@@ -23,6 +23,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
 import * as dotenv from "dotenv";
+import { logError, trackUsage } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -30,6 +31,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const POSTED_FILE = path.join(DATA_DIR, "x-posted.json");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+const X_COST_PER_POST = 0.50; // User mentioned pay-per-use. Adjusting to a placeholder.
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -337,6 +339,9 @@ async function main() {
       savePostedLog(postedLog);
       postCount++;
 
+      // Track usage for reporting
+      trackUsage("x", 1, X_COST_PER_POST);
+
       // Rate limit: wait 2s between posts
       await sleep(2000);
     } catch (error) {
@@ -354,7 +359,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("post-to-x", error);
   process.exit(1);
 });

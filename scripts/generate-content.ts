@@ -22,6 +22,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import Anthropic from "@anthropic-ai/sdk";
 import { fetchFullTokenData } from "../src/lib/coingecko";
+import { logError, trackUsage } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -101,6 +102,14 @@ async function callClaude(
     promptTokens: data.usage?.input_tokens || 0,
     completionTokens: data.usage?.output_tokens || 0,
   };
+}
+
+/**
+ * Estimate Claude 4.5 Haiku cost.
+ * ($1.00 / 1M input, $5.00 / 1M output tokens)
+ */
+function calculateClaudeCost(promptTokens: number, completionTokens: number): number {
+  return (promptTokens / 1_000_000) * 1.0 + (completionTokens / 1_000_000) * 5.0;
 }
 
 // ── Prompt Templates ───────────────────────────────────────────
@@ -473,10 +482,11 @@ async function main() {
         const wordCount = result.content.split(/\s+/).length;
 
         // Estimate cost (Haiku: $1/M input, $5/M output)
-        const cost =
-          (result.promptTokens / 1_000_000) * 1.0 +
-          (result.completionTokens / 1_000_000) * 5.0;
+        const cost = calculateClaudeCost(result.promptTokens, result.completionTokens);
         totalCost += cost;
+
+        // Track usage for reporting
+        trackUsage("claude", result.promptTokens + result.completionTokens, cost);
 
         const article: GeneratedArticle = {
           tokenId,
@@ -517,7 +527,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("generate-content", error);
   process.exit(1);
 });
