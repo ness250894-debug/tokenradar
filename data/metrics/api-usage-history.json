@@ -1,0 +1,56 @@
+{
+  "history": [
+    {
+      "date": "2026-03-16",
+      "provider": "coingecko",
+      "units": 1,
+      "cost": 0
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "coingecko",
+      "units": 1,
+      "cost": 0
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "coingecko",
+      "units": 1,
+      "cost": 0
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "coingecko",
+      "units": 1,
+      "cost": 0
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "claude",
+      "units": 3419,
+      "cost": 0.011911
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "claude",
+      "units": 3824,
+      "cost": 0.013632
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "claude",
+      "units": 3073,
+      "cost": 0.009865
+    },
+    {
+      "date": "2026-03-16",
+      "provider": "x",
+      "units": 1,
+      "cost": 0.5
+    }
+  ],
+  "initialBalances": {
+    "claude": 0,
+    "x": 0
+  }
+}

@@ -2,20 +2,53 @@
   "id": "aerodrome-finance",
   "symbol": "aero",
   "name": "Aerodrome Finance",
+  "description": "Aerodrome Finance is a next-generation AMM designed to serve as Base's central liquidity hub, combining a powerful liquidity incentive engine, vote-lock governance model, and friendly user experience. Aerodrome inherits the latest features from Velodrome V2.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Automated Market Maker (AMM)",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight",
+    "Made in USA",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://aerodrome.finance/",
+    "github": "https://github.com/aerodrome-finance",
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+  },
   "market": {
-    "price": 0.343487,
-    "marketCap": 316707407,
-    "marketCapRank": 132,
-    "volume24h": 11922773,
-    "priceChange24h": 2.40184,
+    "price": 0.354939,
+    "marketCap": 328104494,
+    "marketCapRank": 129,
+    "volume24h": 14357655,
+    "high24h": 0.355805,
+    "low24h": 0.333456,
+    "priceChange24h": 5.6879,
+    "priceChange7d": 9.58357,
+    "priceChange30d": 6.8398,
+    "priceChange1y": -30.63565,
     "ath": 2.32,
-    "athChangePercentage": -85.16887,
+    "athChangePercentage": -84.68045,
     "athDate": "2024-12-07T14:00:38.622Z",
     "atl": 0.00001861,
     "atlDate": "2023-10-17T01:23:50.860Z",
-    "circulatingSupply": 921953521.387953,
+    "circulatingSupply": 921943974.0640346,
     "totalSupply": 1857446325.276151,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 661034188
   },
-  "lastMarketUpdate": "2026-03-16T09:31:47.127Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-16T22:03:15.945Z"
 }
