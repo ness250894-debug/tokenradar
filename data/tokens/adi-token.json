@@ -2,20 +2,48 @@
   "id": "adi-token",
   "symbol": "adi",
   "name": "ADI",
+  "description": "ADI Chain is an Ethereum Layer 2 developed by the ADI Foundation to support government, enterprise, and institutional digital infrastructure. It is built on zkSync’s zkStack and powered by the Airbender prover, which delivers GPU accelerated zero knowledge proofs for fast, low cost, and secure transactions. The chain includes modular Layer 3 capabilities that let nations and enterprises deploy compliant, region specific systems for payments, e invoicing, land registries, and stablecoins. ADI Chain aims to bridge traditional systems with modern blockchain architecture and onboard one billion people by 2030.",
+  "categories": [
+    "Infrastructure",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://token.adi.foundation/",
+    "github": "https://github.com/ADI-Foundation-Labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x8b1484d57abbe239bb280661377363b03c89caea"
+  },
   "market": {
-    "price": 3.76,
-    "marketCap": 365684532,
-    "marketCapRank": 120,
-    "volume24h": 3030195,
-    "priceChange24h": -1.48645,
+    "price": 3.74,
+    "marketCap": 364138111,
+    "marketCapRank": 122,
+    "volume24h": 3135469,
+    "high24h": 3.9,
+    "low24h": 3.74,
+    "priceChange24h": -1.75822,
+    "priceChange7d": 20.81827,
+    "priceChange30d": 24.10478,
+    "priceChange1y": 0,
     "ath": 3.9,
-    "athChangePercentage": -4.16668,
+    "athChangePercentage": -4.03357,
     "athDate": "2026-03-15T14:30:06.425Z",
     "atl": 0.975425,
     "atlDate": "2025-12-10T09:46:25.812Z",
     "circulatingSupply": 97364999.92,
     "totalSupply": 999999999,
-    "maxSupply": 999999999
+    "maxSupply": 999999999,
+    "fdv": 3739928217
   },
-  "lastMarketUpdate": "2026-03-16T08:38:53.897Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-16T09:31:54.277Z"
 }
