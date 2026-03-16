@@ -317,6 +317,25 @@ async function main() {
     if (tokensToProcess.length >= maxTokens) break;
   }
 
+  // Also check content/tokens directory to catch tokens that have content but no detailed data yet
+  if (tokensToProcess.length < maxTokens && fs.existsSync(CONTENT_DIR)) {
+    const contentDirs = fs.readdirSync(CONTENT_DIR);
+    for (const id of contentDirs) {
+      if (targetToken && id !== targetToken) continue;
+      if (tokensToProcess.includes(id)) continue;
+
+      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      const needsGeneration = targetType 
+        ? isOlderThan14Days(path.join(CONTENT_DIR, id, `${targetType}.json`))
+        : isOlderThan14Days(overviewPath);
+
+      if (needsGeneration || args.includes("--force")) {
+        tokensToProcess.push(id);
+      }
+      if (tokensToProcess.length >= maxTokens) break;
+    }
+  }
+
   console.log(`  Tokens needing generation: ${tokensToProcess.length}`);
   console.log();
 
@@ -326,7 +345,11 @@ async function main() {
   for (const tokenId of tokensToProcess) {
     // 1. Load data
     const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
-    let tokenData = JSON.parse(fs.readFileSync(tokenFilePath, "utf-8"));
+    let tokenData: any = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
+    
+    if (fs.existsSync(tokenFilePath)) {
+      tokenData = JSON.parse(fs.readFileSync(tokenFilePath, "utf-8"));
+    }
 
     // 2. Just-In-Time (JIT) Sync: If it's a "Lite" token (no description), fetch full data
     if (!tokenData.description || args.includes("--force-sync")) {
@@ -404,6 +427,26 @@ async function main() {
     for (const config of filteredConfigs) {
       const outputDir = ensureContentDir(tokenId);
       const outputFile = path.join(outputDir, `${config.slug}.json`);
+
+      // 3. Ensure metadata file exists in TOKENS_DIR so Next.js builds the route
+      const metadataFile = path.join(TOKENS_DIR, `${tokenId}.json`);
+      if (!fs.existsSync(metadataFile)) {
+        if (dryRun) {
+          console.log(`  [DRY-RUN] Would create metadata file: ${metadataFile}`);
+        } else {
+          process.stdout.write(`  [META] Creating basic metadata for ${tokenId}... `);
+          const metaData = {
+            id: tokenId,
+            symbol: tokenData.symbol || tokenId.split('-')[0],
+            name: tokenData.name || tokenId,
+            description: tokenData.description || "",
+            market: tokenData.market || { price: 0, marketCap: 0, marketCapRank: 9999 },
+            lastMarketUpdate: new Date().toISOString()
+          };
+          fs.writeFileSync(metadataFile, JSON.stringify(metaData, null, 2));
+          console.log("✓ Created");
+        }
+      }
 
       // Skip if already generated recently
       if (fs.existsSync(outputFile) && !isOlderThan14Days(outputFile) && !args.includes("--force")) {

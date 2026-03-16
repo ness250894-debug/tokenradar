@@ -159,14 +159,27 @@ export function getAllTokens(): TokenSummary[] {
   return summaries;
 }
 
-/** Get all token IDs that have detailed data. */
+/** Get all token IDs that have detailed data or content. */
 export function getTokenIds(): string[] {
   const tokensDir = path.join(DATA_DIR, "tokens");
-  if (!fs.existsSync(tokensDir)) return [];
-  return fs
-    .readdirSync(tokensDir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""));
+  const ids = new Set<string>();
+
+  if (fs.existsSync(tokensDir)) {
+    fs.readdirSync(tokensDir)
+      .filter((f) => f.endsWith(".json"))
+      .forEach((f) => ids.add(f.replace(".json", "")));
+  }
+
+  if (fs.existsSync(CONTENT_DIR)) {
+    fs.readdirSync(CONTENT_DIR)
+      .forEach((dir) => {
+        if (fs.statSync(path.join(CONTENT_DIR, dir)).isDirectory()) {
+          ids.add(dir);
+        }
+      });
+  }
+
+  return Array.from(ids);
 }
 
 /** Load detailed token data. */

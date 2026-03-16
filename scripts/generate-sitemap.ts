@@ -13,14 +13,29 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
-/** Load token IDs from data directory. */
+/** Load token IDs from data and content directories. */
 function getTokenIds(): string[] {
   const tokensDir = path.join(DATA_DIR, "tokens");
-  if (!fs.existsSync(tokensDir)) return [];
-  return fs
-    .readdirSync(tokensDir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""));
+  const contentDir = path.resolve(__dirname, "../content/tokens");
+  
+  const ids = new Set<string>();
+  
+  if (fs.existsSync(tokensDir)) {
+    fs.readdirSync(tokensDir)
+      .filter((f) => f.endsWith(".json"))
+      .forEach((f) => ids.add(f.replace(".json", "")));
+  }
+  
+  if (fs.existsSync(contentDir)) {
+    fs.readdirSync(contentDir)
+      .forEach((dir) => {
+        if (fs.statSync(path.join(contentDir, dir)).isDirectory()) {
+          ids.add(dir);
+        }
+      });
+  }
+  
+  return Array.from(ids);
 }
 
 function buildSitemap(): string {
