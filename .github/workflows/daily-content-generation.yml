@@ -6,8 +6,8 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "37 7 * * *"  # 07:37 UTC daily
-    - cron: "37 19 * * *" # 19:37 UTC daily
+    - cron: "30 13 * * *"  # 09:30 AM EDT / US Prime Time Morning
+    - cron: "30 21 * * *"  # 05:30 PM EDT / US Prime Time Evening
   workflow_dispatch:
 
 env:
