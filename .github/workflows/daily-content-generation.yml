@@ -87,4 +87,6 @@ jobs:
       contents: read
       deployments: write
     uses: ./.github/workflows/deploy.yml
+    with:
+      ref: main
     secrets: inherit

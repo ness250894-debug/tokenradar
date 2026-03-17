@@ -92,7 +92,12 @@ async function sendTweet(text: string): Promise<string> {
   const accessSecret = process.env.X_ACCESS_SECRET;
 
   if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
-    throw new Error("Missing X (Twitter) credentials");
+    const missing = [];
+    if (!apiKey) missing.push("X_API_KEY");
+    if (!apiSecret) missing.push("X_API_SECRET");
+    if (!accessToken) missing.push("X_ACCESS_TOKEN");
+    if (!accessSecret) missing.push("X_ACCESS_SECRET");
+    throw new Error(`Missing X (Twitter) credentials: ${missing.join(", ")}`);
   }
 
   const client = new TwitterApi({
@@ -140,8 +145,13 @@ async function sendTweet(text: string): Promise<string> {
   ].join('\n').substring(0, 277) + "...";
 
   const rwClient = client.readWrite;
-  const { data: createdTweet } = await rwClient.v2.tweet(safeText);
-  return createdTweet.id;
+  try {
+    const { data: createdTweet } = await rwClient.v2.tweet(safeText);
+    return createdTweet.id;
+  } catch (e: any) {
+    console.error("  ✗ Tweet failure detail:", e.data || e.message || e);
+    throw e;
+  }
 }
 
 // ── Alert Generators ───────────────────────────────────────────
@@ -286,10 +296,11 @@ async function main() {
   // Filter by rank strategy (Default 50-250)
   const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank);
   
-  console.log(`  Candidates in range: ${candidateTokens.length}`);
+  console.log(`  Merged Tokens: ${tokens.length}`);
+  console.log(`  Candidates in range #${startRank}-#${endRank}: ${candidateTokens.length}`);
 
   if (candidateTokens.length === 0) {
-    console.error("  ✗ No tokens found in the target rank range. Run fetch-crypto-data first.");
+    console.error("  ✗ No tokens found in the target rank range. Ensure data/tokens/ exists and contains valid JSON.");
     process.exit(1);
   }
 

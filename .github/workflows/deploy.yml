@@ -8,7 +8,18 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit SHA, branch or tag to deploy'
+        required: false
+        default: 'main'
   workflow_call:
+    inputs:
+      ref:
+        description: 'Commit SHA, branch or tag to deploy'
+        required: false
+        type: string
+        default: 'main'
 
 env:
   NODE_VERSION: "20"
@@ -24,6 +35,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
