@@ -18,6 +18,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { logError } from "../src/lib/reporter";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -384,7 +385,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("compute-metrics", error);
   process.exit(1);
 });

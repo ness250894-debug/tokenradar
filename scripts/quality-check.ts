@@ -19,6 +19,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { logError } from "../src/lib/reporter";
 
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
@@ -234,7 +235,7 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("quality-check", error);
   process.exit(1);
 });

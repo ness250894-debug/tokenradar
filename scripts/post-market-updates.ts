@@ -21,6 +21,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import { TwitterApi } from "twitter-api-v2";
 import { fetchTokensByRank, CoinGeckoToken } from "../src/lib/coingecko";
+import { logError } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -372,6 +373,7 @@ async function main() {
       const msgId = await sendTelegramMessage(tgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
     } catch (error) {
+      await logError("post-market-updates-telegram", error, false);
       console.error("❌ Failed to post Telegram message:", error);
     }
   }
@@ -381,9 +383,13 @@ async function main() {
       const tweetId = await sendTweet(message);
       console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
     } catch (error) {
+      await logError("post-market-updates-x", error, false);
       console.error("❌ Failed to post to X:", error);
     }
   }
 }
 
-main().catch(console.error);
+main().catch(async (error) => {
+  await logError("post-market-updates", error);
+  process.exit(1);
+});

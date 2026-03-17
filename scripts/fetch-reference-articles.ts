@@ -19,6 +19,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { logError } from "../src/lib/reporter";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_FILE = path.join(DATA_DIR, "tokens.json");
@@ -277,7 +278,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("fetch-reference-articles", error);
   process.exit(1);
 });

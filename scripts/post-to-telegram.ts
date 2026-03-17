@@ -22,6 +22,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
+import { logError } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -351,6 +352,7 @@ async function main() {
       // Telegram rate limit: 1 msg/sec to same chat
       await sleep(1500);
     } catch (error) {
+      await logError("post-to-telegram-single", error, false);
       const msg = error instanceof Error ? error.message : String(error);
       console.log(` ✗ ${msg}`);
     }
@@ -365,7 +367,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("post-to-telegram", error);
   process.exit(1);
 });
