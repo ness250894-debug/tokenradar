@@ -15,12 +15,15 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../../data");
 const LOGS_DIR = path.join(DATA_DIR, "logs");
+const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 const METRICS_DIR = path.join(DATA_DIR, "metrics");
-const USAGE_FILE = path.join(METRICS_DIR, "api-usage-history.json");
-const ERRORS_FILE = path.join(LOGS_DIR, "errors.json");
+const USAGE_DIR = path.join(METRICS_DIR, "usage");
+
+const LEGACY_USAGE_FILE = path.join(METRICS_DIR, "api-usage-history.json");
+const LEGACY_ERRORS_FILE = path.join(LOGS_DIR, "errors.json");
 
 // Ensure directories exist
-[LOGS_DIR, METRICS_DIR].forEach(dir => {
+[LOGS_DIR, ERRORS_DIR, METRICS_DIR, USAGE_DIR].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -74,18 +77,13 @@ async function sendTelegramAlert(message: string): Promise<void> {
 export async function logError(source: string, error: any, isFatal = true): Promise<void> {
   const errorMsg = error instanceof Error ? error.stack || error.message : String(error);
   const timestamp = new Date().toISOString();
+  const id = Math.random().toString(36).substring(2, 8);
 
-  // Save to file
-  let errors = [];
-  if (fs.existsSync(ERRORS_FILE)) {
-    try {
-      errors = JSON.parse(fs.readFileSync(ERRORS_FILE, "utf-8"));
-    } catch (e) {
-      errors = [];
-    }
-  }
-  errors.push({ timestamp, source, message: errorMsg, isFatal });
-  fs.writeFileSync(ERRORS_FILE, JSON.stringify(errors.slice(-100), null, 2));
+  const errorRecord = { timestamp, source, message: errorMsg, isFatal };
+  
+  // Save to decentralized file
+  const errorFile = path.join(ERRORS_DIR, `${timestamp.replace(/[:.]/g, "-")}-${id}.json`);
+  fs.writeFileSync(errorFile, JSON.stringify(errorRecord, null, 2));
 
   console.error(`  [reporter] ERROR in ${source}: ${errorMsg}`);
 
@@ -101,46 +99,59 @@ export async function logError(source: string, error: any, isFatal = true): Prom
  */
 export function trackUsage(provider: string, units: number, cost: number): void {
   const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const timestamp = Date.now();
+  const id = Math.random().toString(36).substring(2, 8);
   
-  let data: ApiUsageHistory = { history: [], initialBalances: {} };
+  const record: UsageRecord = { date, provider, units, cost };
   
-  if (fs.existsSync(USAGE_FILE)) {
+  const usageFile = path.join(USAGE_DIR, `${date}-${timestamp}-${id}.json`);
+  fs.writeFileSync(usageFile, JSON.stringify(record, null, 2));
+  
+  console.log(`  [reporter] Tracked ${provider} usage: ${units} units, $${cost.toFixed(4)}`);
+}
+
+/**
+ * Loads all usage records, combining legacy file and new decentralized folder.
+ */
+function loadAllHistory(): UsageRecord[] {
+  let history: UsageRecord[] = [];
+
+  // 1. Load legacy data if it exists
+  if (fs.existsSync(LEGACY_USAGE_FILE)) {
     try {
-      data = JSON.parse(fs.readFileSync(USAGE_FILE, "utf-8"));
+      const data = JSON.parse(fs.readFileSync(LEGACY_USAGE_FILE, "utf-8"));
+      if (Array.isArray(data.history)) {
+        history = history.concat(data.history);
+      }
     } catch (e) {
-      data = { history: [], initialBalances: {} };
+      console.warn("  [reporter] Failed to parse legacy usage file.");
     }
   }
 
-  // Use values from env if not set in file
-  data.initialBalances.claude = data.initialBalances.claude || Number(process.env.INITIAL_CLAUDE_BALANCE || 0);
-  data.initialBalances.x = data.initialBalances.x || Number(process.env.INITIAL_X_BALANCE || 0);
+  // 2. Load decentralized data
+  if (fs.existsSync(USAGE_DIR)) {
+    const files = fs.readdirSync(USAGE_DIR).filter(f => f.endsWith(".json"));
+    for (const f of files) {
+      try {
+        const record = JSON.parse(fs.readFileSync(path.join(USAGE_DIR, f), "utf-8"));
+        history.push(record);
+      } catch (e) { /* skip corrupt files */ }
+    }
+  }
 
-  data.history.push({ date, provider, units, cost });
-  
-  // Keep only last 365 days of history to avoid file bloating
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - 365);
-  const cutoffStr = cutoff.toISOString().split("T")[0];
-  
-  data.history = data.history.filter(h => h.date >= cutoffStr);
-
-  fs.writeFileSync(USAGE_FILE, JSON.stringify(data, null, 2));
-  console.log(`  [reporter] Tracked ${provider} usage: ${units} units, $${cost.toFixed(4)}`);
+  return history;
 }
 
 /**
  * Gets usage stats for a specific period.
  */
 export function getUsageSummary(provider: string, days: number): { units: number; cost: number } {
-  if (!fs.existsSync(USAGE_FILE)) return { units: 0, cost: 0 };
-  
-  const data: ApiUsageHistory = JSON.parse(fs.readFileSync(USAGE_FILE, "utf-8"));
+  const history = loadAllHistory();
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - days);
   const cutoffStr = cutoff.toISOString().split("T")[0];
 
-  return data.history
+  return history
     .filter(h => h.provider === provider && h.date >= cutoffStr)
     .reduce(
       (acc, h) => ({ units: acc.units + h.units, cost: acc.cost + h.cost }),
@@ -150,17 +161,25 @@ export function getUsageSummary(provider: string, days: number): { units: number
 
 /**
  * Calculates remaining balance for a provider.
- * Returns null if no initial balance is set.
  */
 export function getRemainingBalance(provider: string): number | null {
-  if (!fs.existsSync(USAGE_FILE)) return null;
+  const history = loadAllHistory();
   
-  const data: ApiUsageHistory = JSON.parse(fs.readFileSync(USAGE_FILE, "utf-8"));
-  const initial = data.initialBalances[provider];
+  // Load initial balance from legacy file or env
+  let initial = Number(process.env[`INITIAL_${provider.toUpperCase()}_BALANCE`] || 0);
   
-  if (initial === undefined || initial === 0) return null;
+  if (fs.existsSync(LEGACY_USAGE_FILE)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(LEGACY_USAGE_FILE, "utf-8"));
+      if (data.initialBalances && data.initialBalances[provider]) {
+        initial = data.initialBalances[provider];
+      }
+    } catch (e) { /* ignore */ }
+  }
   
-  const totalCost = data.history
+  if (initial === 0) return null;
+  
+  const totalCost = history
     .filter(h => h.provider === provider)
     .reduce((sum, h) => sum + h.cost, 0);
 

@@ -238,8 +238,11 @@ async function main() {
   console.log();
 
   const TODAY = new Date().toISOString().split('T')[0];
-  const trackerFile = path.join(DATA_DIR, "posted-today.json");
+  const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
+  const LEGACY_TRACKER_FILE = path.join(DATA_DIR, "posted-today.json");
   
+  if (!fs.existsSync(POSTED_DIR)) fs.mkdirSync(POSTED_DIR, { recursive: true });
+
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
 
@@ -305,16 +308,34 @@ async function main() {
     process.exit(1);
   }
 
-  // Load tracking state for today to prevent duplicates
-  let postedToday: { date: string, tokens: string[] } = { date: TODAY, tokens: [] };
-  if (fs.existsSync(trackerFile)) {
-    try {
-      const parsed = JSON.parse(fs.readFileSync(trackerFile, 'utf-8'));
-      if (parsed.date === TODAY && Array.isArray(parsed.tokens)) {
-        postedToday = parsed;
-      }
-    } catch (e) { /* ignore parse errors */ }
-  }
+  /**
+   * Decentralized tracking check:
+   * Combines legacy JSON and new folder-based markers to find already posted tokens.
+   */
+  const getPostedToday = (): string[] => {
+    const posted = new Set<string>();
+    
+    // 1. Check legacy file
+    if (fs.existsSync(LEGACY_TRACKER_FILE)) {
+      try {
+        const parsed = JSON.parse(fs.readFileSync(LEGACY_TRACKER_FILE, 'utf-8'));
+        if (parsed.date === TODAY && Array.isArray(parsed.tokens)) {
+          parsed.tokens.forEach((t: string) => posted.add(t));
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 2. Check decentralized folder
+    if (fs.existsSync(POSTED_DIR)) {
+      fs.readdirSync(POSTED_DIR).forEach(f => {
+        posted.add(f.replace('.json', ''));
+      });
+    }
+
+    return Array.from(posted);
+  };
+
+  const postedTodayTokens = getPostedToday();
 
   // 2. Select Alert Strategy
   const strategy = Math.floor(Math.random() * 3);
@@ -322,7 +343,7 @@ async function main() {
   let message = "";
 
   if (strategy === 0) {
-    const gainers = candidateTokens.filter(t => !postedToday.tokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+    const gainers = candidateTokens.filter(t => !postedTodayTokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
     if (gainers.length > 0) {
       targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
       message = createTopGainerAlert(targetToken);
@@ -336,7 +357,7 @@ async function main() {
       const metric: MetricData = JSON.parse(fs.readFileSync(path.join(metricsDir, mf), 'utf-8'));
       if (metric.riskScore <= 4) {
         const tokenId = mf.replace('.json', '');
-        const token = candidateTokens.find(t => t.id === tokenId && !postedToday.tokens.includes(t.id));
+        const token = candidateTokens.find(t => t.id === tokenId && !postedTodayTokens.includes(t.id));
         if (token) safeTokens.push({ token, metric });
       }
     }
@@ -348,7 +369,7 @@ async function main() {
   }
 
   if (!targetToken) {
-    const availableTokens = candidateTokens.filter(t => !postedToday.tokens.includes(t.id));
+    const availableTokens = candidateTokens.filter(t => !postedTodayTokens.includes(t.id));
     targetToken = availableTokens.length > 0 
       ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
       : candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
@@ -361,10 +382,13 @@ async function main() {
     return;
   }
 
-  // Save tracking info immediately
-  if (!postedToday.tokens.includes(targetToken.id)) {
-    postedToday.tokens.push(targetToken.id);
-    fs.writeFileSync(trackerFile, JSON.stringify(postedToday, null, 2));
+  // Save tracking info immediately (Decentralized)
+  const trackerFile = path.join(POSTED_DIR, `${targetToken.id}.json`);
+  if (!fs.existsSync(trackerFile)) {
+    fs.writeFileSync(trackerFile, JSON.stringify({ 
+      postedAt: new Date().toISOString(), 
+      platform: targetPlatform 
+    }, null, 2));
   }
 
   if (runTelegram) {
