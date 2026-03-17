@@ -47,6 +47,12 @@
       "provider": "x",
       "units": 1,
       "cost": 0.5
+    },
+    {
+      "date": "2026-03-17",
+      "provider": "coingecko",
+      "units": 1,
+      "cost": 0
     }
   ],
   "initialBalances": {
