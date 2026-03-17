@@ -2,20 +2,54 @@
   "id": "aethir",
   "symbol": "ath",
   "name": "Aethir",
+  "description": "Aethir is the only Enterprise-grade AI-focused GPU-as-a-service provider in the market. It’s a decentralized cloud computing infrastructure allows GPU providers (containers) to meet Enterprise clients who need powerful H100’s chips for professional AI/ML tasks. \r\n\r\nAethir also support cloud gaming clients with their virtual computing phones and GPU's with contracts with the world’s largest telecommunication company. Everything within Aethir ecosystem will be decentralized and community-owned.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Impossible Finance Launchpad",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Animoca Brands Portfolio",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.aethir.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xbe0ed4138121ecfc5c0e56b40517da27e6c5226b"
+  },
   "market": {
-    "price": 0.00649784,
-    "marketCap": 119275617,
-    "marketCapRank": 246,
-    "volume24h": 17633404,
-    "priceChange24h": 0.51532,
+    "price": 0.00640293,
+    "marketCap": 117383779,
+    "marketCapRank": 249,
+    "volume24h": 10740013,
+    "high24h": 0.00664741,
+    "low24h": 0.00633566,
+    "priceChange24h": 0.32157,
+    "priceChange7d": 5.76359,
+    "priceChange30d": 4.46716,
+    "priceChange1y": -81.90206,
     "ath": 0.118536,
-    "athChangePercentage": -94.53976,
+    "athChangePercentage": -94.6185,
     "athDate": "2024-06-12T10:00:49.718Z",
     "atl": 0.00487815,
     "atlDate": "2026-02-24T05:31:01.833Z",
     "circulatingSupply": 18367688543,
     "totalSupply": 42000000000,
-    "maxSupply": 42000000000
+    "maxSupply": 42000000000,
+    "fdv": 268412582
   },
-  "lastMarketUpdate": "2026-03-17T07:31:31.309Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-17T14:38:01.284Z"
 }
