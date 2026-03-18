@@ -22,6 +22,7 @@ import * as dotenv from "dotenv";
 import { TwitterApi } from "twitter-api-v2";
 import { fetchTokensByRank, CoinGeckoToken } from "../src/lib/coingecko";
 import { logError } from "../src/lib/reporter";
+import { generateTokenSummary } from "../src/lib/gemini";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -49,6 +50,7 @@ interface TokenData {
   symbol: string;
   name: string;
   rank: number;
+  description?: string;
   market: {
     price: number;
     priceChange24h: number;
@@ -157,63 +159,93 @@ async function sendTweet(text: string): Promise<string> {
 
 // ── Alert Generators ───────────────────────────────────────────
 
-function createTopGainerAlert(token: TokenData): string {
+function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const sym = token.symbol.toUpperCase();
   
-  return [
+  const lines = [
     `🚀 <b>MARKET MOVER: ${token.name} (${sym})</b>`,
     "",
     `🟢 Up <b>+${token.market.priceChange24h.toFixed(2)}%</b> today!`,
     `💰 Current Price: $${price}`,
     "",
-    "Is this a breakout? Discover institutional-grade risk scores on TokenRadar.",
-    "",
-    `🔗 tokenradar.co`,
-    "🐦 X: https://x.com/tokenradarco",
-    "👥 TG: https://t.me/TokenRadarCo",
-    `#${sym} #Crypto #TokenRadarCo`
-  ].join("\n");
+  ];
+
+  if (aiSummary) {
+    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
+    lines.push(aiSummary);
+    lines.push("");
+  } else {
+    lines.push("Is this a breakout? Discover institutional-grade risk scores on TokenRadar.");
+    lines.push("");
+  }
+
+  lines.push(`🔗 tokenradar.co`);
+  lines.push("🐦 X: https://x.com/tokenradarco");
+  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(`#${sym} #Crypto #TokenRadarCo`);
+
+  return lines.join("\n");
 }
 
-function createSafePlayAlert(token: TokenData, metric: MetricData): string {
+function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: string = ""): string {
   const sym = token.symbol.toUpperCase();
   
-  return [
+  const lines = [
     `🛡️ <b>LOW RISK ASSET: ${token.name} (${sym})</b>`,
     "",
     `Our AI assigned a <b>Risk Score of ${metric.riskScore}/10</b> to $${sym}.`,
     "",
-    "Ideal for conservative portfolios looking for growth.",
-    "",
-    `🔗 tokenradar.co`,
-    "🐦 X: https://x.com/tokenradarco",
-    "👥 TG: https://t.me/TokenRadarCo",
-    `#${sym} #Crypto #TokenRadarCo`
-  ].join("\n");
+  ];
+
+  if (aiSummary) {
+    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
+    lines.push(aiSummary);
+    lines.push("");
+  } else {
+    lines.push("Ideal for conservative portfolios looking for growth.");
+    lines.push("");
+  }
+
+  lines.push(`🔗 tokenradar.co`);
+  lines.push("🐦 X: https://x.com/tokenradarco");
+  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(`#${sym} #Crypto #TokenRadarCo`);
+
+  return lines.join("\n");
 }
 
-function createSpotlightAlert(token: TokenData): string {
+function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const mc = token.market.marketCap >= 1e9 ? `$${(token.market.marketCap / 1e9).toFixed(2)}B` : `$${(token.market.marketCap / 1e6).toFixed(0)}M`;
   const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
   const sign = token.market.priceChange24h >= 0 ? "+" : "";
   const sym = token.symbol.toUpperCase();
   
-  return [
+  const lines = [
     `🔦 <b>TOKEN SPOTLIGHT: ${token.name} (${sym})</b>`,
     "",
     `💰 Price: $${price}`,
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
     `📊 MCap: ${mc}`,
     "",
-    "Where will the market be in 2026? Check the numbers to find out.",
-    "",
-    `🔗 tokenradar.co`,
-    "🐦 X: https://x.com/tokenradarco",
-    "👥 TG: https://t.me/TokenRadarCo",
-    `#${sym} #Crypto #TokenRadarCo`
-  ].join("\n");
+  ];
+
+  if (aiSummary) {
+    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
+    lines.push(aiSummary);
+    lines.push("");
+  } else {
+    lines.push("Where will the market be in 2026? Check the numbers to find out.");
+    lines.push("");
+  }
+
+  lines.push(`🔗 tokenradar.co`);
+  lines.push("🐦 X: https://x.com/tokenradarco");
+  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(`#${sym} #Crypto #TokenRadarCo`);
+
+  return lines.join("\n");
 }
 
 // ── Main ───────────────────────────────────────────────────────
@@ -289,6 +321,7 @@ async function main() {
       symbol: local.symbol,
       name: local.name,
       rank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
+      description: local.description || "",
       market: {
         price: fresh?.current_price || local.market?.price || 0,
         priceChange24h: fresh?.price_change_percentage_24h || local.market?.priceChange24h || 0,
@@ -346,7 +379,6 @@ async function main() {
     const gainers = candidateTokens.filter(t => !postedTodayTokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
     if (gainers.length > 0) {
       targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
-      message = createTopGainerAlert(targetToken);
     }
   } 
   
@@ -364,7 +396,6 @@ async function main() {
     if (safeTokens.length > 0) {
       const selected = safeTokens[Math.floor(Math.random() * safeTokens.length)];
       targetToken = selected.token;
-      message = createSafePlayAlert(targetToken, selected.metric);
     }
   }
 
@@ -373,7 +404,41 @@ async function main() {
     targetToken = availableTokens.length > 0 
       ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
       : candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
-    message = createSpotlightAlert(targetToken);
+  }
+
+  if (!targetToken) {
+    console.error("  ✗ Could not select a target token.");
+    process.exit(1);
+  }
+
+  // 3. Generate AI Summary (if key is set)
+  let aiSummary = "";
+  let targetMetric: MetricData | undefined;
+
+  // Load metrics for context if available
+  const metricsFile = path.join(metricsDir, `${targetToken.id}.json`);
+  if (fs.existsSync(metricsFile)) {
+    targetMetric = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
+  }
+
+  if (process.env.GEMINI_API_KEY) {
+    console.log(`▶ Step 3: Generating Deep Insight for ${targetToken.name}...`);
+    aiSummary = await generateTokenSummary(
+      targetToken.name, 
+      targetToken.symbol, 
+      targetToken.description || "", 
+      targetMetric || {}
+    );
+    if (aiSummary) console.log(` ✓ Summary generated (${aiSummary.length} chars)`);
+  }
+
+  // 4. Construct Final Message
+  if (strategy === 0) {
+    message = createTopGainerAlert(targetToken, aiSummary);
+  } else if (strategy === 1 && targetMetric) {
+    message = createSafePlayAlert(targetToken, targetMetric, aiSummary);
+  } else {
+    message = createSpotlightAlert(targetToken, aiSummary);
   }
 
   if (dryRun) {
