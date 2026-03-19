@@ -2,20 +2,50 @@
   "id": "apenft",
   "symbol": "nft",
   "name": "AINFT",
+  "description": "AINFT exclusively uses NFTs as its official governance token within the ecosystem. Holders of the token can participate in AINFT governance.",
+  "categories": [
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ainft.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/tfczxzphnthnsqr5by8tvxsdcfrrz6cpnq"
+  },
   "market": {
-    "price": 3.32129e-7,
-    "marketCap": 330112475,
-    "marketCapRank": 124,
-    "volume24h": 15364663,
-    "priceChange24h": -0.29746,
+    "price": 3.31731e-7,
+    "marketCap": 328521358,
+    "marketCapRank": 125,
+    "volume24h": 9378218,
+    "high24h": 3.3641e-7,
+    "low24h": 3.31047e-7,
+    "priceChange24h": -0.32146,
+    "priceChange7d": -0.7398,
+    "priceChange30d": -4.99029,
+    "priceChange1y": -24.55926,
     "ath": 0.00000753,
-    "athChangePercentage": -95.59001,
+    "athChangePercentage": -95.59238,
     "athDate": "2021-09-05T00:10:47.823Z",
     "atl": 2.98737e-7,
     "atlDate": "2023-06-10T04:30:05.717Z",
     "circulatingSupply": 990105667256391.5,
     "totalSupply": 990105667256391.5,
-    "maxSupply": 999990000000000
+    "maxSupply": 999990000000000,
+    "fdv": 328521358
   },
-  "lastMarketUpdate": "2026-03-19T07:16:54.884Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-19T14:15:05.406Z"
 }
