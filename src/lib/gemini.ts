@@ -33,14 +33,40 @@ async function callGemini(model: string, prompt: string, retries: number = 3): P
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.2,
-            maxOutputTokens: 1024,
+            maxOutputTokens: 2048,
           },
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        
+        let fullText = "";
+        let thoughtSignature = "";
+
+        for (const part of parts) {
+          if (part.text) {
+            fullText += part.text;
+          }
+          if (part.thought_signature) {
+            thoughtSignature = part.thought_signature;
+          }
+          if (part.thoughtSignature) {
+            thoughtSignature = part.thoughtSignature;
+          }
+          if (part.functionCall?.thought_signature) {
+            thoughtSignature = part.functionCall.thought_signature;
+          }
+        }
+
+        if (thoughtSignature) {
+          console.log(`  [Gemini 3.1] Captured thought signature (${thoughtSignature.length} chars)`);
+        } else {
+          console.log("  [Gemini 3.1] No thought signature found in response parts.");
+        }
+
+        return fullText.trim() || "";
       }
 
       const errText = await response.text();
@@ -118,12 +144,12 @@ export async function generateTokenSummary(
     7. No introductory or concluding filler — start directly with the analysis.
   `;
 
-  // Try Gemini 2.5 Flash
-  let text = await callGemini("gemini-2.5-flash", prompt, 3);
+  // Try Gemini 3.1 Flash Lite Preview
+  let text = await callGemini("gemini-3.1-flash-lite-preview", prompt, 3);
   if (text) return text;
 
   // Fallback to Gemini 1.5 Flash
-  console.log(`  [fallback] gemini-2.5 failed, trying gemini-1.5-flash...`);
+  console.log(`  [fallback] gemini-3.1-flash-lite failed, trying gemini-1.5-flash...`);
   text = await callGemini("gemini-1.5-flash", prompt, 3);
   if (text) return text;
 
