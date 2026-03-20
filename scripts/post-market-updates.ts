@@ -52,6 +52,33 @@ interface TokenData {
   };
 }
 
+// ── Utilities ──────────────────────────────────────────────────
+
+/**
+ * Sanitize AI-generated HTML so it's safe for Telegram's strict HTML parser.
+ * Escapes raw &, <, > in text while preserving allowed TG tags: <b>, <i>, <a>, <code>.
+ */
+function sanitizeHtmlForTelegram(html: string): string {
+  // 1. Temporarily replace allowed tags with placeholders
+  const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  const placeholders: string[] = [];
+  let sanitized = html.replace(allowedTags, (match) => {
+    placeholders.push(match);
+    return `\x00TAG${placeholders.length - 1}\x00`;
+  });
+
+  // 2. Escape remaining HTML-special characters
+  sanitized = sanitized
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // 3. Restore allowed tags
+  sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
+
+  return sanitized;
+}
+
 // ── Alert Generators ───────────────────────────────────────────
 
 function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string {
@@ -68,7 +95,7 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string 
 
   if (aiSummary) {
     lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(aiSummary);
+    lines.push(sanitizeHtmlForTelegram(aiSummary));
     lines.push("");
   } else {
     lines.push("Is this a breakout? Discover institutional-grade risk scores on TokenRadar.");
@@ -93,7 +120,7 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
 
   if (aiSummary) {
     lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(aiSummary);
+    lines.push(sanitizeHtmlForTelegram(aiSummary));
     lines.push("");
   } else {
     lines.push("Ideal for conservative portfolios looking for growth.");
@@ -124,7 +151,7 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string 
 
   if (aiSummary) {
     lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(aiSummary);
+    lines.push(sanitizeHtmlForTelegram(aiSummary));
     lines.push("");
   } else {
     lines.push("Where will the market be in 2026? Check the numbers to find out.");
