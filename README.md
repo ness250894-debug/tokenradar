@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TokenRadar
+
+Data-driven crypto analysis platform with AI-powered content generation, proprietary risk metrics, and automated social publishing.
+
+**Live:** [tokenradar.co](https://tokenradar.co)
+
+## Tech Stack
+
+- **Frontend:** Next.js 15 (static export), TypeScript, Vanilla CSS
+- **AI:** Gemini 3.1 Flash Lite (primary), Claude Haiku (fallback)
+- **Data:** CoinGecko API (free tier)
+- **Hosting:** Cloudflare Pages
+- **CI/CD:** GitHub Actions (22+ automated runs/day)
+- **Social:** X API v2 (pay-per-use), Telegram Bot API
+
+## Project Structure
+
+```
+scripts/           # Automation scripts (data fetching, content gen, social posting)
+src/lib/           # Shared libraries (API clients, config, utilities)
+src/app/           # Next.js app router pages
+content/tokens/    # Generated article JSON files
+data/              # Token data, metrics, price histories
+tests/             # Vitest unit tests
+.github/workflows/ # CI/CD automation
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Run tests
+npm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | Purpose |
+|---|---|
+| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |
+| `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |
+| `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |
+| `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |
+| `npx tsx scripts/send-report.ts` | Send daily usage/cost reports |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+Copy `.env.example` to `.env.local` and configure:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Required | Purpose |
+|---|---|---|
+| `GEMINI_API_KEY` | Yes | AI content generation |
+| `ANTHROPIC_API_KEY` | Yes | Claude fallback |
+| `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |
+| `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |
+| `X_API_KEY` | For X | X posting |
+| `X_API_SECRET` | For X | X posting |
+| `X_ACCESS_TOKEN` | For X | X posting |
+| `X_ACCESS_SECRET` | For X | X posting |
+| `COINGECKO_API_KEY` | No | Optional Pro tier |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deployed automatically via GitHub Actions to Cloudflare Pages on every push to `main`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Manual deploy: `npm run build` → Cloudflare Pages.

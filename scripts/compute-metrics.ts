@@ -19,6 +19,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError } from "../src/lib/reporter";
+import { safeReadJson } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -241,9 +242,8 @@ async function main() {
   }[] = [];
 
   for (const file of tokenFiles) {
-    const raw = JSON.parse(
-      fs.readFileSync(path.join(TOKENS_DIR, file), "utf-8")
-    );
+    const raw = safeReadJson<any>(path.join(TOKENS_DIR, file), null);
+    if (!raw || !raw.id) continue;
     allTokenData.push({
       id: raw.id,
       name: raw.name,
@@ -283,7 +283,7 @@ async function main() {
     let volatility = 10; // default
     const priceFile = path.join(PRICES_DIR, `${token.id}.json`);
     if (fs.existsSync(priceFile)) {
-      const priceData = JSON.parse(fs.readFileSync(priceFile, "utf-8"));
+      const priceData = safeReadJson<any>(priceFile, {});
       if (priceData.chart30d?.length > 0) {
         volatility = computeVolatility(priceData.chart30d);
       }

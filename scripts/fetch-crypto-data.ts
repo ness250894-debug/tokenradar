@@ -17,6 +17,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
 import { logError } from "../src/lib/reporter";
+import { safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -122,15 +123,19 @@ async function main() {
 
   // 3. Update master tokens.json (summary for grid/search)
   const allFiles = fs.readdirSync(TOKENS_DIR).filter(f => f.endsWith(".json"));
-  const tokensSummary = allFiles.map(f => {
-    const data = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, f), "utf-8"));
-    return {
-      id: data.id,
-      symbol: data.symbol,
-      name: data.name,
-      market: data.market,
-    };
-  }).sort((a, b) => (a.market?.marketCapRank || 9999) - (b.market?.marketCapRank || 9999));
+  const tokensSummary = allFiles
+    .map(f => {
+      const data = safeReadJson<any>(path.join(TOKENS_DIR, f), null);
+      if (!data || !data.id) return null;
+      return {
+        id: data.id,
+        symbol: data.symbol,
+        name: data.name,
+        market: data.market,
+      };
+    })
+    .filter(Boolean)
+    .sort((a: any, b: any) => (a.market?.marketCapRank || 9999) - (b.market?.marketCapRank || 9999));
 
   fs.writeFileSync(path.join(DATA_DIR, "tokens.json"), JSON.stringify(tokensSummary, null, 2));
 

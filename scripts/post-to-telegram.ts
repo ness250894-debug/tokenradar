@@ -23,13 +23,15 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError } from "../src/lib/reporter";
+import { sendTelegramMessage } from "../src/lib/telegram";
+import { SITE_URL, REFERRAL_LINKS_HTML, SOCIAL_FOOTER } from "../src/lib/config";
+import { sleep, safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const POSTED_FILE = path.join(DATA_DIR, "telegram-posted.json");
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -78,16 +80,11 @@ function buildMessage(
     "✅ Step-by-Step Buying Guide",
     "",
     `🔗 <a href="${url}">${SITE_URL.replace('https://', '')}/${tokenId}</a>`,
-    `🐦 X: https://x.com/tokenradarco`,
-    `👥 TG: https://t.me/TokenRadarCo`,
+    ...SOCIAL_FOOTER.slice(1),
     "",
     `#${sym} #Crypto #TokenRadarCo`,
     "",
-    "💳 <b>Trade on top exchanges:</b>",
-    '<a href="https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default">Binance</a> | ' +
-    '<a href="https://www.bybit.com/invite?ref=QONQNG">ByBit</a> | ' +
-    '<a href="https://okx.com/join/66004268">OKX</a> | ' +
-    '<a href="https://www.kucoin.com/r/rf/FQ67QZ7A">KuCoin</a>',
+    ...REFERRAL_LINKS_HTML,
   ]
     .filter(Boolean)
     .join("\n");
@@ -156,57 +153,8 @@ function buildPriceBlock(metrics: {
   return lines.join("\n");
 }
 
-// ── Telegram API ───────────────────────────────────────────────
-
-/**
- * Send a message to a Telegram channel via the Bot API.
- *
- * @returns Message ID if successful
- */
-async function sendTelegramMessage(
-  text: string,
-  chatId: string
-): Promise<number> {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  if (!botToken) {
-    throw new Error("TELEGRAM_BOT_TOKEN is not set in .env.local");
-  }
-
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: false,
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as {
-    ok: boolean;
-    result: { message_id: number };
-  };
-
-  if (!data.ok) {
-    throw new Error("Telegram API returned ok: false");
-  }
-
-  return data.result.message_id;
-}
 
 // ── Utilities ──────────────────────────────────────────────────
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 function loadPostedLog(): PostedLog {
   if (!fs.existsSync(POSTED_FILE)) {
@@ -284,8 +232,14 @@ async function main() {
 
     if (articleFiles.length === 0) continue;
 
-    // Skip if already posted ANY content for this token
-    if (postedLog.posts.some((p) => p.tokenId === tokenId)) {
+    // Skip if posted within the last 30 days
+    const REPOST_COOLDOWN_DAYS = 30;
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - REPOST_COOLDOWN_DAYS);
+    const recentlyPosted = postedLog.posts.some(
+      (p) => p.tokenId === tokenId && new Date(p.postedAt) > cutoffDate
+    );
+    if (recentlyPosted) {
       continue;
     }
 

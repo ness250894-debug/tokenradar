@@ -19,23 +19,17 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { TwitterApi } from "twitter-api-v2";
 import { fetchTokensByRank, CoinGeckoToken } from "../src/lib/coingecko";
 import { logError } from "../src/lib/reporter";
 import { generateTokenSummary } from "../src/lib/gemini";
+import { sendTelegramMessage } from "../src/lib/telegram";
+import { postTweet } from "../src/lib/x-client";
+import { SITE_URL, REFERRAL_LINKS_HTML, SOCIAL_FOOTER } from "../src/lib/config";
+import { safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../data");
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-
-const REFERRAL_LINKS = [
-  "💳 <b>Trade on top exchanges:</b>",
-  '<a href="https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default">Binance</a> | ' +
-  '<a href="https://www.bybit.com/invite?ref=QONQNG">ByBit</a> | ' +
-  '<a href="https://okx.com/join/66004268">OKX</a> | ' +
-  '<a href="https://www.kucoin.com/r/rf/FQ67QZ7A">KuCoin</a>'
-];
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -56,105 +50,6 @@ interface TokenData {
     priceChange24h: number;
     marketCap: number;
   };
-}
-
-// ── Telegram API ───────────────────────────────────────────────
-
-async function sendTelegramMessage(text: string, chatId: string): Promise<number> {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  if (!botToken) throw new Error("TELEGRAM_BOT_TOKEN is not set");
-
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: false,
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
-  if (!data.ok) throw new Error("Telegram API returned ok: false");
-  return data.result.message_id;
-}
-
-// ── Twitter API ────────────────────────────────────────────────
-
-async function sendTweet(text: string): Promise<string> {
-  const apiKey = process.env.X_API_KEY;
-  const apiSecret = process.env.X_API_SECRET;
-  const accessToken = process.env.X_ACCESS_TOKEN;
-  const accessSecret = process.env.X_ACCESS_SECRET;
-
-  if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
-    const missing = [];
-    if (!apiKey) missing.push("X_API_KEY");
-    if (!apiSecret) missing.push("X_API_SECRET");
-    if (!accessToken) missing.push("X_ACCESS_TOKEN");
-    if (!accessSecret) missing.push("X_ACCESS_SECRET");
-    throw new Error(`Missing X (Twitter) credentials: ${missing.join(", ")}`);
-  }
-
-  const client = new TwitterApi({
-    appKey: apiKey,
-    appSecret: apiSecret,
-    accessToken: accessToken,
-    accessSecret: accessSecret,
-  });
-
-  // 1. Extract the URL from <a> tags and append it alongside the link text
-  let cleanText = text.replace(/<a[^>]+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi, '$2: $1');
-  
-  // 2. Strip any remaining HTML tags (like <b>, <i>, etc.)
-  cleanText = cleanText.replace(/<[^>]*>?/gm, '');
-  
-  // Truncate to 280 chars max (safe for X)
-  // Note: X counts ALL URLs as 23 chars. This local length check is just a broad guard.
-  if (cleanText.length <= 280) {
-    const rwClient = client.readWrite;
-    const { data: createdTweet } = await rwClient.v2.tweet(cleanText);
-    return createdTweet.id;
-  }
-
-  // If too long, we keep the FIRST few lines (header) and the LAST few lines (links/hashtags)
-  const lines = cleanText.split('\n');
-  const footerLines = [];
-  const headerLines = [];
-  
-  // Keep the last 5 lines (Socials + Website Link + Hashtags)
-  for (let i = 0; i < 5; i++) {
-    const line = lines.pop();
-    if (line !== undefined) footerLines.unshift(line);
-  }
-  
-  // Keep the first 4 lines (Header + Stats)
-  for (let i = 0; i < 4; i++) {
-    const line = lines.shift();
-    if (line !== undefined) headerLines.push(line);
-  }
-
-  const safeText = [
-    ...headerLines,
-    "...",
-    ...footerLines
-  ].join('\n').substring(0, 277) + "...";
-
-  const rwClient = client.readWrite;
-  try {
-    const { data: createdTweet } = await rwClient.v2.tweet(safeText);
-    return createdTweet.id;
-  } catch (e: any) {
-    console.error("  ✗ Tweet failure detail:", e.data || e.message || e);
-    throw e;
-  }
 }
 
 // ── Alert Generators ───────────────────────────────────────────
@@ -180,9 +75,7 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string 
     lines.push("");
   }
 
-  lines.push(`🔗 tokenradar.co`);
-  lines.push("🐦 X: https://x.com/tokenradarco");
-  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(...SOCIAL_FOOTER);
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -207,9 +100,7 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
     lines.push("");
   }
 
-  lines.push(`🔗 tokenradar.co`);
-  lines.push("🐦 X: https://x.com/tokenradarco");
-  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(...SOCIAL_FOOTER);
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -240,9 +131,7 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string 
     lines.push("");
   }
 
-  lines.push(`🔗 tokenradar.co`);
-  lines.push("🐦 X: https://x.com/tokenradarco");
-  lines.push("👥 TG: https://t.me/TokenRadarCo");
+  lines.push(...SOCIAL_FOOTER);
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -313,7 +202,8 @@ async function main() {
   
   // Merge fresh market data with local static details
   const tokens: TokenData[] = tokenFiles.map(f => {
-    const local: any = JSON.parse(fs.readFileSync(path.join(tokensDir, f), 'utf-8'));
+    const local: any = safeReadJson(path.join(tokensDir, f), null);
+    if (!local || !local.id) return null;
     const fresh = freshMarkets.find(t => t.id === local.id);
     
     return {
@@ -328,7 +218,7 @@ async function main() {
         marketCap: fresh?.market_cap || local.market?.marketCap || 0,
       }
     };
-  });
+  }).filter(Boolean) as TokenData[];
 
   // Filter by rank strategy (Default 50-250)
   const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank);
@@ -458,7 +348,7 @@ async function main() {
 
   if (runTelegram) {
     try {
-      const tgMessage = message + "\n\n" + REFERRAL_LINKS.join("\n");
+      const tgMessage = message + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
       const msgId = await sendTelegramMessage(tgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
     } catch (error) {
@@ -469,7 +359,7 @@ async function main() {
 
   if (runX) {
     try {
-      const tweetId = await sendTweet(message);
+      const tweetId = await postTweet(message);
       console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
     } catch (error) {
       await logError("post-market-updates-x", error, false);

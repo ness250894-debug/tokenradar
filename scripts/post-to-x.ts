@@ -21,17 +21,17 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as crypto from "crypto";
 import * as dotenv from "dotenv";
 import { logError, trackUsage } from "../src/lib/reporter";
+import { postTweet, validateXCredentials } from "../src/lib/x-client";
+import { SITE_URL, SOCIAL_FOOTER, X_COST_PER_POST } from "../src/lib/config";
+import { sleep, safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const POSTED_FILE = path.join(DATA_DIR, "x-posted.json");
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-const X_COST_PER_POST = 0.50; // User mentioned pay-per-use. Adjusting to a placeholder.
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -42,78 +42,6 @@ interface PostedLog {
     tweetId: string;
     postedAt: string;
   }[];
-}
-
-// ── OAuth 1.0a Signature ───────────────────────────────────────
-
-/**
- * Generate OAuth 1.0a signature for X API v2.
- * Required for user-context endpoints (posting tweets).
- */
-function generateOAuthHeader(
-  method: string,
-  url: string,
-  params: Record<string, string> = {}
-): string {
-  const apiKey = process.env.X_API_KEY!;
-  const apiSecret = process.env.X_API_SECRET!;
-  const accessToken = process.env.X_ACCESS_TOKEN!;
-  const accessSecret = process.env.X_ACCESS_SECRET!;
-
-  const timestamp = Math.floor(Date.now() / 1000).toString();
-  const nonce = crypto.randomBytes(16).toString("hex");
-
-  const oauthParams: Record<string, string> = {
-    oauth_consumer_key: apiKey,
-    oauth_nonce: nonce,
-    oauth_signature_method: "HMAC-SHA1",
-    oauth_timestamp: timestamp,
-    oauth_token: accessToken,
-    oauth_version: "1.0",
-    ...params,
-  };
-
-  // Sort and encode parameters
-  const sortedParams = Object.keys(oauthParams)
-    .sort()
-    .map(
-      (key) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(oauthParams[key])}`
-    )
-    .join("&");
-
-  // Create signature base string
-  const signatureBase = [
-    method.toUpperCase(),
-    encodeURIComponent(url),
-    encodeURIComponent(sortedParams),
-  ].join("&");
-
-  // Create signing key
-  const signingKey = `${encodeURIComponent(apiSecret)}&${encodeURIComponent(accessSecret)}`;
-
-  // Generate HMAC-SHA1 signature
-  const signature = crypto
-    .createHmac("sha1", signingKey)
-    .update(signatureBase)
-    .digest("base64");
-
-  // Build Authorization header
-  const authParams = {
-    oauth_consumer_key: apiKey,
-    oauth_nonce: nonce,
-    oauth_signature: signature,
-    oauth_signature_method: "HMAC-SHA1",
-    oauth_timestamp: timestamp,
-    oauth_token: accessToken,
-    oauth_version: "1.0",
-  };
-
-  const authHeader = Object.entries(authParams)
-    .map(([k, v]) => `${encodeURIComponent(k)}="${encodeURIComponent(v)}"`)
-    .join(", ");
-
-  return `OAuth ${authHeader}`;
 }
 
 // ── Post Builder ───────────────────────────────────────────────
@@ -128,7 +56,6 @@ function buildTweet(
   symbol: string,
   metrics: { riskScore?: number; price?: number } = {}
 ): string {
-  const url = `${SITE_URL}/${tokenId}`;
   const sym = symbol.toUpperCase();
   const priceFmt = metrics.price !== undefined 
     ? (metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6))
@@ -137,22 +64,17 @@ function buildTweet(
   const tweet = [
     `🚀 New Coverage: ${tokenName} ( $${sym} - $${priceFmt} )`,
     `💰 Current Price: $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
-    `🔗 tokenradar.co/${tokenId}`,
-    `🐦 X: https://x.com/tokenradarco`,
-    `👥 TG: https://t.me/TokenRadarCo`,
+    ...SOCIAL_FOOTER,
     "",
     `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
 
-  // Ensure within 280 chars
-  if (tweet.length <= 280) {
-    return tweet;
-  }
+  if (tweet.length <= 280) return tweet;
 
   // Smart truncation: Keep first 3 lines and last 3 lines
   const lines = tweet.split('\n');
-  const footerLines = [];
-  const headerLines = [];
+  const footerLines: string[] = [];
+  const headerLines: string[] = [];
   
   for (let i = 0; i < 3; i++) {
     const line = lines.pop();
@@ -163,50 +85,12 @@ function buildTweet(
     if (line !== undefined) headerLines.push(line);
   }
 
-  return [
-    ...headerLines,
-    "...",
-    ...footerLines
-  ].join('\n').substring(0, 277) + "...";
-}
-
-// ── X API v2 ───────────────────────────────────────────────────
-
-/**
- * Post a tweet using X API v2.
- *
- * @returns Tweet ID if successful
- */
-async function postTweet(text: string): Promise<string> {
-  const url = "https://api.twitter.com/2/tweets";
-  const authHeader = generateOAuthHeader("POST", url);
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: authHeader,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`X API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as {
-    data: { id: string; text: string };
-  };
-
-  return data.data.id;
+  return [...headerLines, "...", ...footerLines]
+    .join('\n')
+    .substring(0, 277) + "...";
 }
 
 // ── Utilities ──────────────────────────────────────────────────
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 function loadPostedLog(): PostedLog {
   if (!fs.existsSync(POSTED_FILE)) {
@@ -249,10 +133,10 @@ async function main() {
 
   // Verify credentials
   if (!dryRun) {
-    const required = ["X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET"];
-    const missing = required.filter((k) => !process.env[k]);
-    if (missing.length > 0) {
-      console.error(`  ✗ Missing env vars: ${missing.join(", ")}`);
+    try {
+      validateXCredentials();
+    } catch (e: any) {
+      console.error(`  ✗ ${e.message}`);
       console.error("    Add to .env.local or use --dry-run");
       process.exit(1);
     }
@@ -282,8 +166,14 @@ async function main() {
 
     if (articleFiles.length === 0) continue;
 
-    // Skip if already posted ANY content for this token
-    if (postedLog.posts.some((p) => p.tokenId === tokenId)) {
+    // Skip if posted within the last 30 days
+    const REPOST_COOLDOWN_DAYS = 30;
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - REPOST_COOLDOWN_DAYS);
+    const recentlyPosted = postedLog.posts.some(
+      (p) => p.tokenId === tokenId && new Date(p.postedAt) > cutoffDate
+    );
+    if (recentlyPosted) {
       continue;
     }
 
@@ -309,7 +199,7 @@ async function main() {
       if (t.symbol) symbol = t.symbol.toUpperCase();
     }
 
-    const tweet = buildTweet(
+    const tweetText = buildTweet(
       article.tokenName,
       tokenId,
       symbol,
@@ -318,8 +208,8 @@ async function main() {
 
     if (dryRun) {
       console.log(`  📝 [${tokenId}/combined]`);
-      console.log(`     ${tweet.replace(/\n/g, "\n     ")}`);
-      console.log(`     (${tweet.length}/280 chars)`);
+      console.log(`     ${tweetText.replace(/\n/g, "\n     ")}`);
+      console.log(`     (${tweetText.length}/280 chars)`);
       console.log();
       postCount++;
       continue;
@@ -327,8 +217,10 @@ async function main() {
 
     try {
       process.stdout.write(`  🐦 ${tokenId}/combined...`);
-      const tweetId = await postTweet(tweet);
+      const tweetId = await postTweet(tweetText);
       console.log(` ✓ (ID: ${tweetId})`);
+
+      postCount++;
 
       postedLog.posts.push({
         tokenId,
@@ -337,14 +229,11 @@ async function main() {
         postedAt: new Date().toISOString(),
       });
       savePostedLog(postedLog);
-      postCount++;
-
-      // Track usage for reporting
-      trackUsage("x", 1, X_COST_PER_POST);
 
       // Rate limit: wait 2s between posts
       await sleep(2000);
     } catch (error) {
+      await logError("post-to-x-single", error, false);
       const msg = error instanceof Error ? error.message : String(error);
       console.log(` ✗ ${msg}`);
     }

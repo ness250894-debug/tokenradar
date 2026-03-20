@@ -117,7 +117,7 @@ async function callClaude(prompt: string): Promise<string> {
 /**
  * Generate a detailed analysis for a token with multi-model fallback.
  * 
- * Strategy: Gemini 2.5 -> Gemini 1.5 -> Claude Haiku
+ * Strategy: Gemini 3.1 Flash Lite -> Claude Haiku
  */
 export async function generateTokenSummary(
   tokenName: string,
@@ -148,12 +148,7 @@ export async function generateTokenSummary(
   let text = await callGemini("gemini-3.1-flash-lite-preview", prompt, 3);
   if (text) return text;
 
-  // Fallback to Gemini 1.5 Flash
-  console.log(`  [fallback] gemini-3.1-flash-lite failed, trying gemini-1.5-flash...`);
-  text = await callGemini("gemini-1.5-flash", prompt, 3);
-  if (text) return text;
-
-  // Final fallback to Claude
-  console.log(`  [fallback] gemini-1.5 failed, trying Claude Haiku...`);
+  // Fallback to Claude Haiku
+  console.log(`  [fallback] gemini-3.1-flash-lite failed, trying Claude Haiku...`);
   return await callClaude(prompt);
 }
