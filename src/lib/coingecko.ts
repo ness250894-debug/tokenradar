@@ -78,7 +78,8 @@ export async function fetchCoinGecko<T>(
   endpoint: string,
   params: Record<string, string | number> = {},
   cacheKey?: string,
-  cacheTtlMs: number = 24 * 60 * 60 * 1000
+  cacheTtlMs: number = 24 * 60 * 60 * 1000,
+  maxRetries: number = 3
 ): Promise<T> {
   ensureCacheDir();
 
@@ -139,10 +140,13 @@ export async function fetchCoinGecko<T>(
   });
 
   if (response.status === 429) {
-    console.warn("  [rate limited] 429 — waiting 60s before retry...");
+    if (maxRetries <= 0) {
+      throw new Error(`CoinGecko API rate limited (429) for ${endpoint} — max retries exhausted.`);
+    }
+    console.warn(`  [rate limited] 429 — waiting 60s before retry (${maxRetries} retries left)...`);
     await logError("CoinGecko", "Rate limited (429)", false); // non-fatal alert
     await sleep(60_000);
-    return fetchCoinGecko<T>(endpoint, params, cacheKey, cacheTtlMs);
+    return fetchCoinGecko<T>(endpoint, params, cacheKey, cacheTtlMs, maxRetries - 1);
   }
 
   if (!response.ok) {

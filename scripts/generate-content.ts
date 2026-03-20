@@ -20,7 +20,6 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import Anthropic from "@anthropic-ai/sdk";
 import { fetchFullTokenData } from "../src/lib/coingecko";
 import { logError, trackUsage } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";

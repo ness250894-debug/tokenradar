@@ -188,11 +188,15 @@ async function checkArticle(
   const issues: string[] = [];
   const warnings: string[] = [];
 
-  // Word count
+  // Word count — thresholds vary by article type
   const words = content.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
-  if (wordCount < 800) issues.push(`Word count too low: ${wordCount} (min 1,000)`);
-  else if (wordCount < 1000) warnings.push(`Word count borderline: ${wordCount} (target 1,000+)`);
+  const articleType = raw.type || raw.slug || "";
+  const isShortForm = articleType === "how-to-buy";
+  const minFail = isShortForm ? 500 : 800;
+  const minWarn = isShortForm ? 600 : 1000;
+  if (wordCount < minFail) issues.push(`Word count too low: ${wordCount} (min ${minFail})`);
+  else if (wordCount < minWarn) warnings.push(`Word count borderline: ${wordCount} (target ${minWarn}+)`);
   if (wordCount > 2500) warnings.push(`Word count high: ${wordCount} (target max 2,000)`);
 
   // FAQ section

@@ -76,6 +76,7 @@ async function callGemini(model: string, prompt: string, retries: number = 3): P
       console.warn(`  ⚠ Gemini fetch error (${model}, attempt ${i + 1}): ${error instanceof Error ? error.message : String(error)}`);
     }
   }
+  console.warn(`  ⚠ [Gemini] All retries exhausted for model "${model}". Check if this model is still available.`);
   return "";
 }
 

@@ -276,7 +276,8 @@ async function main() {
     const metricsFiles = fs.readdirSync(metricsDir).filter(f => f.endsWith('.json'));
     const safeTokens: { token: TokenData, metric: MetricData }[] = [];
     for (const mf of metricsFiles) {
-      const metric: MetricData = JSON.parse(fs.readFileSync(path.join(metricsDir, mf), 'utf-8'));
+      const metric = safeReadJson<MetricData | null>(path.join(metricsDir, mf), null);
+      if (!metric) continue;
       if (metric.riskScore <= 4) {
         const tokenId = mf.replace('.json', '');
         const token = candidateTokens.find(t => t.id === tokenId && !postedTodayTokens.includes(t.id));

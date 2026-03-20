@@ -257,6 +257,7 @@ async function main() {
       growthPotential?: number;
       marketCap?: number;
     } = {};
+    let symbol = tokenId; // Fallback
 
     const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
     if (fs.existsSync(metricsFile)) {
@@ -272,12 +273,13 @@ async function main() {
       metrics.price = t.market?.price;
       metrics.priceChange24h = t.market?.priceChange24h;
       metrics.marketCap = t.market?.marketCap;
+      if (t.symbol) symbol = t.symbol;
     }
 
     const message = buildMessage(
       article.tokenName,
       tokenId,
-      article.tokenName.toLowerCase().replace(/\s+/g, ""),
+      symbol,
       metrics
     );
 

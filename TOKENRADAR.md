@@ -2,10 +2,10 @@
 
 > **Project:** Crypto Programmatic SEO Platform
 > **Domain:** tokenradar.co ($6.98/yr on Namecheap)
-> **AI Provider:** Claude Haiku 4.5 (~$0.015/article)
-> **Token Range:** #50-#200 by market cap, expanding to #500
+> **AI Provider:** Claude Haiku 4.5 (~$0.015/article) + Gemini 3.1 Flash Lite (social summaries)
+> **Token Range:** #50-#250 by market cap, expanding to #500
 > **Total 6-Month Cost:** ~$30
-> **Status:** Pre-development
+> **Status:** Live in production
 
 ---
 
@@ -90,9 +90,10 @@ CoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly
 | **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |
 | **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |
 | **AI Content** | Claude Haiku 4.5 API | ~$22.50 / 6 months |
+| **AI Summaries** | Gemini 3.1 Flash Lite (free) + Claude fallback | $0 |
 | **Domain** | Namecheap (tokenradar.co) | $6.98/yr |
 | **Charts** | Recharts (lightweight) | $0 |
-| **Social APIs** | X Free Tier + Telegram Bot | $0 |
+| **Social APIs** | X Pay-per-use ($0.01/post) + Telegram Bot | $0–$5 |
 | **Analytics** | Google Search Console + Plausible Free | $0 |
 
 ---
@@ -128,35 +129,60 @@ tokenradar/
 │   │   └── TokenCard.tsx             # Token summary card for listings
 │   ├── lib/
 │   │   ├── coingecko.ts              # CoinGecko API client with rate limiting
-│   │   ├── metrics.ts                # Risk Score, Growth Index computation
+│   │   ├── config.ts                 # Centralized config (URLs, handles, referrals)
 │   │   ├── content-loader.ts         # Load generated content from JSON
-│   │   └── seo.ts                    # SEO metadata helpers
+│   │   ├── gemini.ts                 # Gemini 3.1 + Claude fallback for AI summaries
+│   │   ├── markdown.ts               # Markdown rendering utilities
+│   │   ├── reporter.ts               # Error logging + API usage tracking
+│   │   ├── telegram.ts               # Telegram Bot API client
+│   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)
+│   │   ├── visitor-fetcher.ts         # Cloudflare analytics fetcher
+│   │   └── x-client.ts               # X (Twitter) API v2 client
 │   └── styles/
 │       └── globals.css               # Global styles, design tokens
-├── content/                          # Generated articles (JSON/MDX)
-│   ├── tokens/                       # Per-token articles
-│   └── comparisons/                  # Comparison articles
+├── content/                          # Generated articles (JSON)
+│   └── tokens/                       # Per-token articles
 ├── data/
-│   ├── tokens.json                   # Token metadata cache
+│   ├── tokens.json                   # Token metadata summary
+│   ├── tokens/                       # Per-token detail JSON files
+│   ├── metrics/                      # Computed proprietary metrics
+│   ├── prices/                       # Historical price data cache
+│   ├── references/                   # Reference article snippets
 │   ├── keywords.json                 # Generated keyword list
-│   └── prices/                       # Historical price data cache
+│   ├── logs/                         # Error logs (decentralized)
+│   └── posted/                       # Social post tracking (daily folders)
 ├── scripts/
 │   ├── keyword-generator.ts          # Phase 1: Keyword research
-│   ├── fetch-crypto-data.ts          # Phase 2: CoinGecko data fetcher
+│   ├── fetch-crypto-data.ts          # Phase 2: CoinGecko data fetcher (--lite / full)
 │   ├── fetch-reference-articles.ts   # Phase 2: Reference article scraper
-│   ├── generate-content.ts           # Phase 3: AI content generator
+│   ├── generate-content.ts           # Phase 3: AI content generator (Claude)
 │   ├── compute-metrics.ts            # Phase 3: Unique metric computation
-│   ├── quality-check.ts              # Phase 4: Content quality validation
-│   ├── social-poster.ts              # Phase 6: Auto-post to social media
-│   └── refresh-data.ts               # Phase 8: Daily data refresh
+│   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)
+│   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)
+│   ├── post-to-telegram.ts           # Phase 6: Article announcements (Telegram)
+│   ├── post-to-x.ts                  # Phase 6: Article announcements (X/Twitter)
+│   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers
+│   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation
+│   └── send-report.ts               # Reporting: Daily/weekly/monthly summaries
+├── tests/
+│   ├── config.test.ts
+│   ├── content-loader.test.ts
+│   ├── utils.test.ts
+│   └── x-client.test.ts
 ├── .github/
 │   └── workflows/
-│       ├── daily-refresh.yml         # Daily data + price refresh
-│       ├── weekly-content.yml        # Weekly content regeneration
-│       └── deploy.yml                # Auto-deploy to Cloudflare Pages
+│       ├── daily-refresh.yml         # Daily data + price refresh + deploy
+│       ├── daily-content-generation.yml # 3x/day: generate + deploy + social
+│       ├── deploy.yml                # Build & deploy to Cloudflare Pages
+│       ├── social-tg-market.yml      # TG market updates (every 2h)
+│       ├── social-x-market.yml       # X market updates (6x/day)
+│       ├── daily-report.yml          # Daily metrics report
+│       ├── weekly-report.yml         # Weekly metrics report
+│       └── monthly-report.yml        # Monthly metrics report
 ├── .env.example                      # Required environment variables
 ├── package.json
 ├── tsconfig.json
+├── vitest.config.ts
 ├── next.config.ts
 └── TOKENRADAR.md                     # This file
 ```
@@ -357,12 +383,12 @@ All pages are **pre-rendered at build time** for:
 
 ## Phase 6 — Automated Social Promotion
 
-### Script: `scripts/social-poster.ts`
+### Scripts: `scripts/post-market-updates.ts`, `post-to-x.ts`, `post-to-telegram.ts`
 
 | Platform | Method | Cost | Limit |
 |----------|--------|------|-------|
-| **X (Twitter)** | X API free tier | $0 | ~500 posts/month |
-| **Telegram** | Bot API (own channel) | $0 | Unlimited |
+| **X (Twitter)** | X API v2 (pay-per-use) | ~$0.01/post | ~6 posts/day |
+| **Telegram** | Bot API (own channel) | $0 | 12 posts/day |
 | **Reddit** | Manual initially, automate later | $0 | Rate-limited |
 
 ### Post Format
@@ -419,18 +445,18 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 
 ```yaml
 # .github/workflows/daily-refresh.yml
-# Runs daily at 6:00 UTC
-# 1. Fetches latest CoinGecko data
-# 2. Recomputes proprietary metrics
-# 3. Updates timestamps
-# 4. Commits and triggers Cloudflare Pages rebuild
+# Runs daily at 06:23 UTC
+# 1. Fetches latest CoinGecko data (lite mode)
+# 2. Fetches reference articles from RSS feeds
+# 3. Recomputes proprietary metrics
+# 4. Commits [skip ci] and triggers explicit deploy
 
-# .github/workflows/weekly-content.yml
-# Runs every Monday at 8:00 UTC
-# 1. Regenerates price prediction articles
-# 2. Generates new articles for recently added tokens
-# 3. Runs quality checks
-# 4. Commits and deploys
+# .github/workflows/daily-content-generation.yml
+# Runs 3x/day (09:30, 13:30, 17:30 EDT)
+# 1. Syncs token data, computes metrics
+# 2. Generates 1 AI article per run
+# 3. Quality checks with auto-fix
+# 4. Deploys, then posts to X + Telegram
 ```
 
 ---
@@ -651,4 +677,4 @@ npm run build
 
 ---
 
-*Last updated: 2026-03-13*
+*Last updated: 2026-03-20*

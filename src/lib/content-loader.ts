@@ -289,7 +289,11 @@ export function getPriceHistory(tokenId: string): PriceHistory | null {
 export function getArticle(tokenId: string, slug: string): Article | null {
   const file = path.join(CONTENT_DIR, tokenId, `${slug}.json`);
   if (!fs.existsSync(file)) return null;
-  return JSON.parse(fs.readFileSync(file, "utf-8"));
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch (e) {
+    return null;
+  }
 }
 
 /** Get all article slugs for a token. */
