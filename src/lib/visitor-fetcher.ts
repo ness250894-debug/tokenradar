@@ -35,7 +35,7 @@ export async function getVisitorStats(days: number): Promise<VisitorStats> {
       viewer {
         zones(filter: { zoneTag: $zoneId }) {
           httpRequests1dGroups(
-            limit: 1,
+            limit: 100,
             filter: { date_geq: $startDate, date_leq: $endDate }
           ) {
             sum {
@@ -67,7 +67,10 @@ export async function getVisitorStats(days: number): Promise<VisitorStats> {
     }
 
     const json = await response.json() as any;
-    const uniques = json.data?.viewer?.zones?.[0]?.httpRequests1dGroups?.[0]?.sum?.uniques || 0;
+    // Note: sum.uniques across httpRequests1dGroups is the sum of per-day uniques,
+    // not true cross-day unique visitors. This is a Cloudflare API limitation.
+    const groups = json.data?.viewer?.zones?.[0]?.httpRequests1dGroups ?? [];
+    const uniques = groups.reduce((acc: number, g: any) => acc + (g?.sum?.uniques ?? 0), 0);
 
     return { uniques };
   } catch (error) {

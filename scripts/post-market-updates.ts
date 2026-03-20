@@ -24,7 +24,7 @@ import { logError } from "../src/lib/reporter";
 import { generateTokenSummary } from "../src/lib/gemini";
 import { sendTelegramMessage } from "../src/lib/telegram";
 import { postTweet } from "../src/lib/x-client";
-import { SITE_URL, REFERRAL_LINKS_HTML, SOCIAL_FOOTER } from "../src/lib/config";
+import { SITE_URL, REFERRAL_LINKS_HTML, SOCIAL_FOOTER, STABLECOIN_IDS } from "../src/lib/config";
 import { safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -220,8 +220,8 @@ async function main() {
     };
   }).filter(Boolean) as TokenData[];
 
-  // Filter by rank strategy (Default 50-250)
-  const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank);
+  // Filter by rank strategy (Default 50-250), exclude stablecoins
+  const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank && !STABLECOIN_IDS.has(t.id));
   
   console.log(`  Merged Tokens: ${tokens.length}`);
   console.log(`  Candidates in range #${startRank}-#${endRank}: ${candidateTokens.length}`);
