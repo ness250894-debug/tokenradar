@@ -2,20 +2,60 @@
   "id": "arbitrum",
   "symbol": "arb",
   "name": "Arbitrum",
+  "description": "Arbitrum is one of the leading Ethereum scaling solutions bringing cheap transactions to tens of thousands of users in an environment that feels very similar to Ethereum. It is an optimistic rollup and the leading L2 in terms of TVL. Some of the largest dApps live on Arbitrum include GMX, Radiant, Uniswap V3, and Gains Network.",
+  "categories": [
+    "Smart Contract Platform",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Arbitrum Nova Ecosystem",
+    "Layer 2 (L2)",
+    "eGirl Capital Portfolio",
+    "Rollup",
+    "Alameda Research Portfolio",
+    "Pantera Capital Portfolio",
+    "GMCI Layer 2 Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://arbitrum.io/",
+    "github": "https://github.com/ArbitrumFoundation/docs",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x912ce59144191c1204e64559fe8253a0e49e6548"
+  },
   "market": {
-    "price": 0.100461,
-    "marketCap": 607710332,
+    "price": 0.099965,
+    "marketCap": 603851495,
     "marketCapRank": 90,
-    "volume24h": 49462522,
-    "priceChange24h": -0.68813,
+    "volume24h": 46828061,
+    "high24h": 0.1013,
+    "low24h": 0.098005,
+    "priceChange24h": 0.65525,
+    "priceChange7d": -4.84805,
+    "priceChange30d": -10.50081,
+    "priceChange1y": -73.11719,
     "ath": 2.39,
-    "athChangePercentage": -95.77412,
+    "athChangePercentage": -95.82347,
     "athDate": "2024-01-12T12:29:59.231Z",
     "atl": 0.088935,
     "atlDate": "2026-02-23T01:30:53.292Z",
     "circulatingSupply": 6040824145,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 999617735
   },
-  "lastMarketUpdate": "2026-03-20T07:15:07.131Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 96,
+    "githubForks": 122,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-20T14:10:14.700Z"
 }
