@@ -38,13 +38,14 @@ const PROHIBITED_PHRASES = [
   "will definitely",
   "sure thing",
   "can't lose",
-  "risk-free",
-  "act now",
-  "buy now",
-  "don't miss",
+  "risk-free investment",
+  "act now before",
+  "buy now before",
+  "don't miss out",
   "once in a lifetime",
-  "financial advice",
-  "not investment advice", // wrong — should be "not financial advice"
+  "i recommend buying",
+  "we recommend buying",
+  "this is financial advice",
 ];
 
 // ── Check Functions ────────────────────────────────────────────
