@@ -2,45 +2,51 @@
   "id": "aster-2",
   "symbol": "aster",
   "name": "Aster",
-  "description": "",
-  "categories": [],
+  "description": "Aster is a next-generation decentralized perpetual exchange that combines non-custodial trading with advanced features like hidden orders and multi-chain support. The platform emerged from the merger of Astherus and APX Finance in late 2024, with APX token holders able to migrate their holdings to ASTER.\n\nAster addresses the gap between centralized and decentralized exchanges by enabling traders to maintain full control of their assets while accessing deep liquidity and CEX-grade trading tools. The platform supports trading of both cryptocurrency perpetuals and U.S. stocks with up to 100x leverage, all settled on-chain in crypto without requiring traditional financial infrastructure.\n\nThe platform offers two distinct trading modes to accommodate different user needs. Simple Mode provides one-click, MEV-resistant trading with up to 1001x leverage for beginners, while Pro Mode delivers a full order book with advanced features like automated grid trading and hidden orders that remain invisible until execution. \n\nAster operates across BNB Chain, Ethereum, Solana, and Arbitrum without requiring bridging, with liquidity pooled across markets to support large trades with minimal slippage. A distinctive feature allows users to deposit yield-generating assets like asBNB or USDF as collateral, earning passive returns while trading, maximizing capital efficiency compared to platforms where collateral sits idle.\n\nAster received backing from YZi Labs (formerly Binance Labs), which holds a minority stake through a private fund managing over $10 billion on behalf of early Binance executives. Changpeng Zhao, founder of Binance, serves in an advisory role and has personally invested over $2.5 million worth of ASTER tokens. \n\nThe ASTER token serves multiple functions including governance rights, staking rewards through liquidity provision, and earning incentives through the platform's points program for traders and liquidity providers.\n",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Perpetuals",
+    "Made in China"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://www.asterdex.com/en",
+    "github": "https://github.com/asterdex/api-docs",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://bscscan.com/token/0x000Ae314E2A2172a039B26378814C252734f556A"
   },
   "market": {
-    "price": 0.681531,
-    "marketCap": 1674237960,
-    "marketCapRank": 50,
-    "volume24h": 159108386,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 0.11463,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "price": 0.686517,
+    "marketCap": 1685520024,
+    "marketCapRank": 51,
+    "volume24h": 160719547,
+    "high24h": 0.691635,
+    "low24h": 0.679109,
+    "priceChange24h": -0.60856,
+    "priceChange7d": -2.4299,
+    "priceChange30d": -2.44285,
     "priceChange1y": 0,
     "ath": 2.41,
-    "athChangePercentage": -71.70585,
+    "athChangePercentage": -71.49886,
     "athDate": "2025-09-24T11:18:14.634Z",
     "atl": 0.099713,
     "atlDate": "2025-09-17T12:05:36.771Z",
     "circulatingSupply": 2455859719.12999,
     "totalSupply": 7822529124.604758,
     "maxSupply": 8000000000,
-    "fdv": null
+    "fdv": 5368803997
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 86,
+    "githubForks": 29,
+    "commits4Weeks": 36
   },
-  "fetchedAt": "2026-03-15T10:11:56.514Z",
-  "lastMarketUpdate": "2026-03-20T14:10:07.534Z"
+  "fetchedAt": "2026-03-20T21:54:03.582Z"
 }
