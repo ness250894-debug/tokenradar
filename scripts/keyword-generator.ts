@@ -20,6 +20,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, type CoinGeckoToken } from "../src/lib/coingecko";
+import { logError } from "../src/lib/reporter";
+import { sleep } from "../src/lib/utils";
 
 // ── Configuration ──────────────────────────────────────────────
 
@@ -257,11 +259,6 @@ function generateComparisonKeywords(
   return keywords;
 }
 
-// ── Utilities ──────────────────────────────────────────────────
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 function ensureDataDir(): void {
   if (!fs.existsSync(DATA_DIR)) {
@@ -274,14 +271,10 @@ function ensureDataDir(): void {
 async function main() {
   const args = process.argv.slice(2);
   const skipAutocomplete = args.includes("--skip-autocomplete");
-  const startRank = parseInt(
-    args[args.indexOf("--start") + 1] || "50",
-    10
-  );
-  const endRank = parseInt(
-    args[args.indexOf("--end") + 1] || "200",
-    10
-  );
+  const startIdx = args.indexOf("--start");
+  const endIdx = args.indexOf("--end");
+  const startRank = startIdx !== -1 ? parseInt(args[startIdx + 1], 10) : 50;
+  const endRank = endIdx !== -1 ? parseInt(args[endIdx + 1], 10) : 200;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║   TokenRadar — Keyword Research Engine   ║");
@@ -411,7 +404,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 }
 
-main().catch((error) => {
-  console.error("\n✖ Fatal error:", error);
+main().catch(async (error) => {
+  await logError("keyword-generator", error);
   process.exit(1);
 });

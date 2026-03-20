@@ -10,7 +10,7 @@
 
 import * as dotenv from "dotenv";
 import * as path from "path";
-import { getUsageSummary, getRemainingBalance } from "../src/lib/reporter";
+import { getUsageSummary, getRemainingBalance, logError } from "../src/lib/reporter";
 import { getVisitorStats } from "../src/lib/visitor-fetcher";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -111,4 +111,8 @@ async function main() {
   }
 }
 
-main().catch(console.error);
+main().catch(async (error) => {
+  await logError("send-report", error);
+  process.exit(1);
+});
+

@@ -23,6 +23,7 @@ import * as dotenv from "dotenv";
 import Anthropic from "@anthropic-ai/sdk";
 import { fetchFullTokenData } from "../src/lib/coingecko";
 import { logError, trackUsage } from "../src/lib/reporter";
+import { sleep } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -233,11 +234,6 @@ ${commonContext}`,
   ];
 }
 
-// ── Utilities ──────────────────────────────────────────────────
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 function ensureContentDir(tokenId: string): string {
   const dir = path.join(CONTENT_DIR, tokenId);

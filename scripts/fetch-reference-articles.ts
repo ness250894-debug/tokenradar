@@ -20,6 +20,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError } from "../src/lib/reporter";
+import { sleep } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_FILE = path.join(DATA_DIR, "tokens.json");
@@ -184,16 +185,13 @@ function findTokenArticles(
     .slice(0, maxArticles);
 }
 
-// ── Main ───────────────────────────────────────────────────────
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 async function main() {
   const args = process.argv.slice(2);
-  const startRank = parseInt(args[args.indexOf("--start") + 1] || "50", 10);
-  const endRank = parseInt(args[args.indexOf("--end") + 1] || "200", 10);
+  const startIdx = args.indexOf("--start");
+  const endIdx = args.indexOf("--end");
+  const startRank = startIdx !== -1 ? parseInt(args[startIdx + 1], 10) : 50;
+  const endRank = endIdx !== -1 ? parseInt(args[endIdx + 1], 10) : 200;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Reference Article Scraper  ║");

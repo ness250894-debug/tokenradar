@@ -163,7 +163,8 @@ function checkArticle(
 
 async function main() {
   const args = process.argv.slice(2);
-  const targetToken = args[args.indexOf("--token") + 1] || null;
+  const tokenIdx = args.indexOf("--token");
+  const targetToken = tokenIdx !== -1 ? args[tokenIdx + 1] : null;
   const autoFix = args.includes("--fix");
 
   console.log("╔══════════════════════════════════════════╗");

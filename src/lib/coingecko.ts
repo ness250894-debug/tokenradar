@@ -14,6 +14,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError, trackUsage } from "./reporter";
+import { sleep } from "./utils";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -61,10 +62,6 @@ function incrementCounter(): number {
   return counter.count;
 }
 
-/** Sleep for a given number of milliseconds. */
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 let lastRequestTime = 0;
 
