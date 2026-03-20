@@ -347,18 +347,15 @@ async function main() {
 
   // Save tracking info immediately (Decentralized)
   const trackerFile = path.join(POSTED_DIR, `${targetToken.id}.json`);
-  if (!fs.existsSync(trackerFile)) {
-    fs.writeFileSync(trackerFile, JSON.stringify({ 
-      postedAt: new Date().toISOString(), 
-      platform: targetPlatform 
-    }, null, 2));
-  }
+
+  let posted = false;
 
   if (runTelegram) {
     try {
       const tgMessage = message + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
       const msgId = await sendTelegramMessage(tgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
+      posted = true;
     } catch (error) {
       await logError("post-market-updates-telegram", error, false);
       console.error("❌ Failed to post Telegram message:", error);
@@ -369,10 +366,24 @@ async function main() {
     try {
       const tweetId = await postTweet(message);
       console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
+      posted = true;
     } catch (error) {
       await logError("post-market-updates-x", error, false);
       console.error("❌ Failed to post to X:", error);
     }
+  }
+
+  // Only mark as posted if at least one platform succeeded
+  if (posted && !fs.existsSync(trackerFile)) {
+    fs.writeFileSync(trackerFile, JSON.stringify({ 
+      postedAt: new Date().toISOString(), 
+      platform: targetPlatform 
+    }, null, 2));
+  }
+
+  if (!posted) {
+    console.error("❌ Failed to post on all target platforms.");
+    process.exit(1);
   }
 }
 
