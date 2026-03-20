@@ -12,14 +12,17 @@
  * Usage:
  *   npx tsx scripts/quality-check.ts
  *   npx tsx scripts/quality-check.ts --token injective-protocol
- *   npx tsx scripts/quality-check.ts --fix  (auto-append disclaimer if missing)
+ *   npx tsx scripts/quality-check.ts --fix  (auto-fix: append disclaimer, AI-rewrite prohibited phrases)
  *
- * Cost: $0
+ * Cost: $0 without --fix, ~$0.001 per AI rewrite with --fix
  */
 
 import * as fs from "fs";
 import * as path from "path";
-import { logError } from "../src/lib/reporter";
+import * as dotenv from "dotenv";
+import { logError, trackUsage } from "../src/lib/reporter";
+
+dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
@@ -48,6 +51,114 @@ const PROHIBITED_PHRASES = [
   "this is financial advice",
 ];
 
+// ── AI Paragraph Rewriter ──────────────────────────────────────
+
+/**
+ * Rewrite a paragraph to remove prohibited phrases using Claude Haiku.
+ * Only sends the offending paragraph (~200-500 chars), keeping cost minimal.
+ *
+ * @returns Rewritten paragraph, or null on failure.
+ */
+async function aiRewriteParagraph(
+  paragraph: string,
+  prohibitedPhrases: string[]
+): Promise<string | null> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+
+  const prompt = `Rewrite the following paragraph to remove or rephrase these prohibited phrases: ${prohibitedPhrases.map((p) => `"${p}"`).join(", ")}.
+
+RULES:
+1. Keep the same meaning, tone, length, and formatting (including any HTML tags).
+2. Only change the parts that contain prohibited phrases. Keep everything else identical.
+3. Use professional, analytical crypto language. No hype.
+4. Return ONLY the rewritten paragraph, nothing else.
+
+PARAGRAPH:
+${paragraph}`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 512,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+
+    if (!response.ok) {
+      console.warn(`    ⚠ AI rewrite API error: ${response.status}`);
+      return null;
+    }
+
+    const data = (await response.json()) as any;
+    const text = data.content?.[0]?.text?.trim();
+
+    if (text && data.usage) {
+      const cost =
+        (data.usage.input_tokens / 1_000_000) * 1.0 +
+        (data.usage.output_tokens / 1_000_000) * 5.0;
+      trackUsage("claude", data.usage.input_tokens + data.usage.output_tokens, cost);
+    }
+
+    return text || null;
+  } catch (error) {
+    console.warn(`    ⚠ AI rewrite error: ${error instanceof Error ? error.message : String(error)}`);
+    return null;
+  }
+}
+
+/**
+ * Find paragraphs containing prohibited phrases and rewrite them with AI.
+ *
+ * @returns Updated content string and lists of fixed/failed phrases.
+ */
+async function fixProhibitedPhrases(
+  content: string,
+  foundPhrases: string[]
+): Promise<{ content: string; fixed: string[]; failed: string[] }> {
+  const fixed: string[] = [];
+  const failed: string[] = [];
+  let updatedContent = content;
+
+  // Split content into paragraphs (separated by double newlines)
+  const paragraphs = content.split(/\n\n+/);
+
+  for (const paragraph of paragraphs) {
+    const paragraphLower = paragraph.toLowerCase();
+    const matchingPhrases = foundPhrases.filter((p) => paragraphLower.includes(p));
+    if (matchingPhrases.length === 0) continue;
+
+    console.log(`    🤖 AI-rewriting paragraph with: "${matchingPhrases.join('", "')}"`);
+    const rewritten = await aiRewriteParagraph(paragraph, matchingPhrases);
+
+    if (rewritten) {
+      // Verify the rewrite actually removed the prohibited phrases
+      const rewrittenLower = rewritten.toLowerCase();
+      const stillPresent = matchingPhrases.filter((p) => rewrittenLower.includes(p));
+
+      if (stillPresent.length === 0) {
+        updatedContent = updatedContent.replace(paragraph, rewritten);
+        fixed.push(...matchingPhrases);
+        console.log(`    ✓ Fixed: "${matchingPhrases.join('", "')}"`);
+      } else {
+        failed.push(...stillPresent);
+        console.log(`    ✗ AI rewrite still contains: "${stillPresent.join('", "')}"`);
+      }
+    } else {
+      failed.push(...matchingPhrases);
+    }
+  }
+
+  return { content: updatedContent, fixed, failed };
+}
+
 // ── Check Functions ────────────────────────────────────────────
 
 interface QualityResult {
@@ -67,13 +178,13 @@ interface QualityResult {
   };
 }
 
-function checkArticle(
+async function checkArticle(
   filePath: string,
   autoFix: boolean = false
-): QualityResult {
+): Promise<QualityResult> {
   const raw = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  const content: string = raw.content || "";
-  const contentLower = content.toLowerCase();
+  let content: string = raw.content || "";
+  let contentLower = content.toLowerCase();
   const issues: string[] = [];
   const warnings: string[] = [];
 
@@ -101,9 +212,10 @@ function checkArticle(
 
   if (!hasDisclaimer) {
     if (autoFix) {
-      // Auto-append disclaimer
       raw.content +=
         "\n\n---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*";
+      content = raw.content;
+      contentLower = content.toLowerCase();
       fs.writeFileSync(filePath, JSON.stringify(raw, null, 2));
       warnings.push("Disclaimer was missing — auto-appended");
     } else {
@@ -124,8 +236,22 @@ function checkArticle(
       foundProhibited.push(phrase);
     }
   }
+
   if (foundProhibited.length > 0) {
-    issues.push(`Prohibited phrases found: "${foundProhibited.join('", "')}"`);
+    if (autoFix && process.env.ANTHROPIC_API_KEY) {
+      // Targeted AI fix: rewrite only the offending paragraphs
+      const result = await fixProhibitedPhrases(content, foundProhibited);
+      if (result.fixed.length > 0) {
+        raw.content = result.content;
+        fs.writeFileSync(filePath, JSON.stringify(raw, null, 2));
+        warnings.push(`AI-fixed prohibited phrases: "${result.fixed.join('", "')}"`);
+      }
+      if (result.failed.length > 0) {
+        issues.push(`Prohibited phrases (AI fix failed): "${result.failed.join('", "')}"`);
+      }
+    } else {
+      issues.push(`Prohibited phrases found: "${foundProhibited.join('", "')}"`);
+    }
   }
 
   // Sentence length (readability)
@@ -173,6 +299,13 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
   console.log();
 
+  if (autoFix && process.env.ANTHROPIC_API_KEY) {
+    console.log("  Mode: --fix with AI rewrite (Claude Haiku)");
+  } else if (autoFix) {
+    console.log("  Mode: --fix (disclaimer only, no ANTHROPIC_API_KEY for AI rewrite)");
+  }
+  console.log();
+
   if (!fs.existsSync(CONTENT_DIR)) {
     console.log("  No content found. Run generate-content first.");
     return;
@@ -203,7 +336,7 @@ async function main() {
 
     for (const file of articleFiles) {
       const filePath = path.join(dirPath, file);
-      const result = checkArticle(filePath, autoFix);
+      const result = await checkArticle(filePath, autoFix);
 
       const status = result.passed ? "✓ PASS" : "✗ FAIL";
       console.log(
