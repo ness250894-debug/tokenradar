@@ -4,6 +4,19 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "TokenRadar terms of service — usage rules, limitations, and legal information.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms of Service | TokenRadar",
+    description:
+      "TokenRadar terms of service — usage rules, limitations, and legal information.",
+  },
+  twitter: {
+    title: "Terms of Service | TokenRadar",
+    description:
+      "TokenRadar terms of service — usage rules, limitations, and legal information.",
+  },
 };
 
 /**

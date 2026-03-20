@@ -1,7 +1,8 @@
-import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import { type TokenCardData } from "@/components/TokenCard";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { getAllTokens, getTokenMetrics } from "@/lib/content-loader";
 import { TokenGrid } from "@/components/TokenGrid";
+import Link from "next/link";
 
 /**
  * Homepage — hero section, stats overview, and trending token cards.
@@ -38,15 +39,15 @@ export default function HomePage() {
           </h1>
           <p className="hero-subtitle animate-in animate-delay-1">
             Proprietary Risk Scores, Growth Indexes, and AI-powered research for
-            {allTokens.length > 0 ? ` ${allTokens.length}+ ` : " 150+ "} tokens — updated daily, always unbiased.
+            {allTokens.length > 0 ? ` ${allTokens.length}+ ` : " 250+ "} tokens — updated daily, always unbiased.
           </p>
           <div className="hero-cta animate-in animate-delay-2">
             <a href="#trending" className="btn btn-primary">
               Explore Tokens
             </a>
-            <a href="/about" className="btn btn-secondary">
+            <Link href="/about" className="btn btn-secondary">
               Our Methodology
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -57,7 +58,7 @@ export default function HomePage() {
           <div className="stats-grid animate-in animate-delay-1">
             <div className="stat-card">
               <div className="stat-label">Tokens Tracked</div>
-              <div className="stat-value gradient-text">{allTokens.length || "150+"}</div>
+              <div className="stat-value gradient-text">{allTokens.length || "250+"}</div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>
                 Active Data Feeds
               </div>
@@ -155,7 +156,7 @@ export default function HomePage() {
             <p>
               Navigating the cryptocurrency landscape requires more than just following the latest trends; it requires
               unbiased, data-driven analysis. As the market matures heading into 2026, the gap between speculative 
-              assets and utility-driven tokens is widening. At <strong>TokenRadar</strong>, we analyze over 150 altcoins,
+              assets and utility-driven tokens is widening. At <strong>TokenRadar</strong>, we analyze over 250 tokens,
               providing real-time price predictions, risk assessments, and growth potential indexes so you can build 
               a resilient crypto portfolio.
             </p>
@@ -174,12 +175,50 @@ export default function HomePage() {
               Our automated AI pipelines parse daily CoinGecko market data to forecast near-term volatility and 
               long-term growth. Because market caps dictate the realistic ceiling of any token, TokenRadar assigns 
               a dynamic <em>Risk Score</em> to every asset ranging from Safe Plays to High-Volatility gambles. 
-              Before making an entry, always compare the token's current market cap against our historical ATH models 
+              Before making an entry, always compare the token&apos;s current market cap against our historical ATH models 
               to determine your upside potential.
             </p>
           </div>
         </div>
       </section>
+
+      {/* JSON-LD Structured Data — Organization & WebSite */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "TokenRadar",
+            url: process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co",
+            logo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"}/og-image.png`,
+            sameAs: [
+              "https://x.com/tokenradarco",
+              "https://t.me/TokenRadarCo",
+            ],
+            description:
+              "Unbiased, data-driven analysis for 250+ crypto tokens with proprietary Risk Scores, Growth Indexes, and AI-powered research.",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "TokenRadar",
+            url: process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co",
+            description:
+              "Data-driven crypto analysis and token research platform with proprietary metrics, updated daily.",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"}/?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
     </>
   );
 }

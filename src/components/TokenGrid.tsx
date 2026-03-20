@@ -86,7 +86,7 @@ export function TokenGrid({ tokens }: TokenGridProps) {
           <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
           <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No tokens found</h3>
           <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-            We couldn't find any tokens matching "{searchQuery}".
+            We couldn&apos;t find any tokens matching &quot;{searchQuery}&quot;.
           </p>
         </div>
       )}

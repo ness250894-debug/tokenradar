@@ -4,6 +4,19 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy | TokenRadar",
+    description:
+      "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+  },
+  twitter: {
+    title: "Privacy Policy | TokenRadar",
+    description:
+      "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+  },
 };
 
 /**

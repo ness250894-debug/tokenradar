@@ -31,17 +31,24 @@ dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
-const POSTED_FILE = path.join(DATA_DIR, "telegram-posted.json");
+const POSTED_DIR = path.join(DATA_DIR, "posted");
+
+// Ensure posted dir exists
+if (!fs.existsSync(POSTED_DIR)) {
+  fs.mkdirSync(POSTED_DIR, { recursive: true });
+}
 
 // ── Types ──────────────────────────────────────────────────────
 
+interface PostRecord {
+  tokenId: string;
+  articleType: string;
+  messageId: number;
+  postedAt: string;
+}
+
 interface PostedLog {
-  posts: {
-    tokenId: string;
-    articleType: string;
-    messageId: number;
-    postedAt: string;
-  }[];
+  posts: PostRecord[];
 }
 
 // ── Message Builder ────────────────────────────────────────────
@@ -127,54 +134,48 @@ function buildMetricsBlock(metrics: {
   return lines.join("\n");
 }
 
-/** Build price summary for prediction posts. */
-function buildPriceBlock(metrics: {
-  price?: number;
-  priceChange24h?: number;
-  riskScore?: number;
-}): string {
-  const lines: string[] = [];
-
-  if (metrics.price !== undefined) {
-    const priceFmt = metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6);
-    lines.push(`💰 <b>Current Price:</b> $${priceFmt}`);
-  }
-  if (metrics.priceChange24h !== undefined) {
-    const emoji = metrics.priceChange24h >= 0 ? "🟢" : "🔴";
-    lines.push(`${emoji} <b>24h Change:</b> ${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`);
-  }
-  if (metrics.riskScore !== undefined) {
-    lines.push(`⚠️ <b>Risk Score:</b> ${metrics.riskScore}/10`);
-  }
-
-  lines.push("");
-  lines.push("Data-driven scenarios for 2026-2027 based on historical trends and proprietary metrics.");
-
-  return lines.join("\n");
-}
 
 
 // ── Utilities ──────────────────────────────────────────────────
 
 function loadPostedLog(): PostedLog {
-  if (!fs.existsSync(POSTED_FILE)) {
-    return { posts: [] };
+  const posts: PostRecord[] = [];
+  if (!fs.existsSync(POSTED_DIR)) return { posts };
+
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  // Scan recent daily folders
+  const dateDirs = fs.readdirSync(POSTED_DIR)
+    .filter(d => fs.statSync(path.join(POSTED_DIR, d)).isDirectory());
+
+  for (const dateDir of dateDirs) {
+    // Only check folders from the last 30 days
+    if (new Date(dateDir) >= thirtyDaysAgo) {
+      const dirPath = path.join(POSTED_DIR, dateDir);
+      const files = fs.readdirSync(dirPath).filter(f => f.endsWith("-telegram.json"));
+      
+      for (const file of files) {
+        const record = safeReadJson<PostRecord>(path.join(dirPath, file), null as unknown as PostRecord);
+        if (record) posts.push(record);
+      }
+    }
   }
-  return JSON.parse(fs.readFileSync(POSTED_FILE, "utf-8"));
+
+  return { posts };
 }
 
-function savePostedLog(log: PostedLog): void {
-  fs.writeFileSync(POSTED_FILE, JSON.stringify(log, null, 2));
-}
+function saveSinglePostRecord(record: PostRecord): void {
+  const dateStr = record.postedAt.split("T")[0]; // YYYY-MM-DD
+  const dailyDir = path.join(POSTED_DIR, dateStr);
+  
+  if (!fs.existsSync(dailyDir)) {
+    fs.mkdirSync(dailyDir, { recursive: true });
+  }
 
-function isAlreadyPosted(
-  log: PostedLog,
-  tokenId: string,
-  articleType: string
-): boolean {
-  return log.posts.some(
-    (p) => p.tokenId === tokenId && p.articleType === articleType
-  );
+  const id = Math.random().toString(36).substring(2, 6);
+  const filePath = path.join(dailyDir, `${record.tokenId}-telegram-${id}.json`);
+  fs.writeFileSync(filePath, JSON.stringify(record, null, 2));
 }
 
 // ── Main ───────────────────────────────────────────────────────
@@ -244,12 +245,12 @@ async function main() {
     }
 
     const firstArticleFile = articleFiles.includes("overview.json") ? "overview.json" : articleFiles[0];
-    const article = JSON.parse(
-      fs.readFileSync(path.join(tokenDir, firstArticleFile), "utf-8")
-    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const article = safeReadJson<any>(path.join(tokenDir, firstArticleFile), null);
+    if (!article) continue;
 
     // Load metrics
-    let metrics: {
+    const metrics: {
       riskScore?: number;
       riskLevel?: string;
       price?: number;
@@ -261,19 +262,25 @@ async function main() {
 
     const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
     if (fs.existsSync(metricsFile)) {
-      const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
-      metrics.riskScore = m.riskScore;
-      metrics.riskLevel = m.riskLevel;
-      metrics.growthPotential = m.growthPotentialIndex;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const m = safeReadJson<any>(metricsFile, null);
+      if (m) {
+        metrics.riskScore = m.riskScore;
+        metrics.riskLevel = m.riskLevel;
+        metrics.growthPotential = m.growthPotentialIndex;
+      }
     }
 
     const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
     if (fs.existsSync(tokenFile)) {
-      const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-      metrics.price = t.market?.price;
-      metrics.priceChange24h = t.market?.priceChange24h;
-      metrics.marketCap = t.market?.marketCap;
-      if (t.symbol) symbol = t.symbol;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const t = safeReadJson<any>(tokenFile, null);
+      if (t) {
+        metrics.price = t.market?.price;
+        metrics.priceChange24h = t.market?.priceChange24h;
+        metrics.marketCap = t.market?.marketCap;
+        if (t.symbol) symbol = t.symbol;
+      }
     }
 
     const message = buildMessage(
@@ -296,13 +303,15 @@ async function main() {
       const msgId = await sendTelegramMessage(message, channelId!);
       console.log(` ✓ (msg: ${msgId})`);
 
-      postedLog.posts.push({
+      const record: PostRecord = {
         tokenId,
         articleType: "combined",
         messageId: msgId,
         postedAt: new Date().toISOString(),
-      });
-      savePostedLog(postedLog);
+      };
+      
+      postedLog.posts.push(record);
+      saveSinglePostRecord(record);
       postCount++;
 
       // Telegram rate limit: 1 msg/sec to same chat

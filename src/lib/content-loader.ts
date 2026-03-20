@@ -8,7 +8,6 @@ import * as path from "path";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
-const TOKENS_FILE = path.join(DATA_DIR, "tokens.json");
 const METRICS_DIR = path.join(DATA_DIR, "metrics");
 const PRICES_DIR = path.join(DATA_DIR, "prices");
 
@@ -151,7 +150,7 @@ export function getAllTokens(): TokenSummary[] {
         totalSupply: detail.market.totalSupply,
         maxSupply: detail.market.maxSupply,
       });
-    } catch (e) {
+    } catch (_e) {
       // Skip invalid JSONs safely
     }
   }
@@ -236,7 +235,7 @@ export function getTokenDetail(tokenId: string): TokenDetail | null {
       },
       fetchedAt: raw.fetchedAt || raw.lastMarketUpdate || new Date().toISOString(),
     };
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -261,7 +260,7 @@ export function getTokenMetrics(tokenId: string): TokenMetrics | null {
       summary: raw.summary || "",
       computedAt: raw.computedAt || new Date().toISOString(),
     };
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -280,7 +279,7 @@ export function getPriceHistory(tokenId: string): PriceHistory | null {
       chart1y: raw.chart1y || [],
       fetchedAt: raw.fetchedAt || new Date().toISOString(),
     };
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -291,7 +290,7 @@ export function getArticle(tokenId: string, slug: string): Article | null {
   if (!fs.existsSync(file)) return null;
   try {
     return JSON.parse(fs.readFileSync(file, "utf-8"));
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { Metadata } from "next";
 
 /**
  * Contact page — E-E-A-T signal with a functional contact form.

@@ -3,7 +3,20 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About TokenRadar — Methodology & Data Sources",
   description:
-    "Learn how TokenRadar calculates Risk Scores, Growth Indexes, and analyzes 150+ crypto tokens using real CoinGecko data and AI-powered research.",
+    "Learn how TokenRadar calculates Risk Scores, Growth Indexes, and analyzes 250+ crypto tokens using real CoinGecko data and AI-powered research.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About TokenRadar — Methodology & Data Sources",
+    description:
+      "Learn how TokenRadar calculates Risk Scores, Growth Indexes, and analyzes 250+ crypto tokens using real CoinGecko data and AI-powered research.",
+  },
+  twitter: {
+    title: "About TokenRadar — Methodology & Data Sources",
+    description:
+      "Learn how TokenRadar calculates Risk Scores, Growth Indexes, and analyzes 250+ crypto tokens using real CoinGecko data and AI-powered research.",
+  },
 };
 
 /**
@@ -20,8 +33,8 @@ export default function AboutPage() {
           </h1>
           <p style={{ fontSize: "var(--text-lg)", marginTop: "var(--space-lg)" }}>
             TokenRadar is an independent crypto research platform that provides
-            unbiased, data-driven analysis for mid-cap cryptocurrency tokens
-            ranked #50–#200 by market capitalization.
+            unbiased, data-driven analysis for the top 250 cryptocurrency tokens
+            by market capitalization.
           </p>
 
           <h2 id="methodology">Our Methodology</h2>

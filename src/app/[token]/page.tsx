@@ -34,11 +34,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
+  const title = `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`;
+  const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
+
   return {
-    title: `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`,
-    description: `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`,
+    title,
+    description,
     alternates: {
       canonical: `/${detail.id}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      title,
+      description,
     },
   };
 }
@@ -208,6 +220,7 @@ export default async function TokenPage({ params }: PageProps) {
             description: detail.description,
             author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
             publisher: { "@type": "Organization", name: "TokenRadar" },
+            datePublished: detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
           }),
         }}

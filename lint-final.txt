@@ -1,0 +1,56 @@
+
+> tokenradar@0.1.0 lint
+> eslint
+
+
+D:\tokenradar\scripts\generate-content.ts
+  254:12  warning  '_e' is defined but never used                              @typescript-eslint/no-unused-vars
+  299:7   error    'tokensToProcess' is never reassigned. Use 'const' instead  prefer-const
+
+D:\tokenradar\scripts\keyword-generator.ts
+  334:7  error  'autocompleteKeywords' is never reassigned. Use 'const' instead  prefer-const
+
+D:\tokenradar\scripts\post-market-updates.ts
+  292:16  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\tokenradar\scripts\post-to-telegram.ts
+  138:10  warning  'buildPriceBlock' is defined but never used         @typescript-eslint/no-unused-vars
+  184:83  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  273:34  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  277:9   error    'metrics' is never reassigned. Use 'const' instead  prefer-const
+  289:30  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  299:30  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+D:\tokenradar\scripts\post-to-x.ts
+   25:20  warning  'trackUsage' is defined but never used              @typescript-eslint/no-unused-vars
+   27:35  warning  'X_COST_PER_POST' is defined but never used         @typescript-eslint/no-unused-vars
+  123:83  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  167:17  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  210:34  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  214:9   error    'metrics' is never reassigned. Use 'const' instead  prefer-const
+  219:30  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  225:30  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+D:\tokenradar\scripts\quality-check.ts
+  100:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\tokenradar\src\components\TokenGrid.tsx
+  89:22  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  89:50  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  89:64  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\tokenradar\src\lib\content-loader.ts
+  153:14  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  238:12  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  263:12  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  282:12  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  293:12  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\tokenradar\src\lib\reporter.ts
+  125:14  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  137:16  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+  176:14  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 30 problems (17 errors, 13 warnings)
+  4 errors and 0 warnings potentially fixable with the `--fix` option.
+

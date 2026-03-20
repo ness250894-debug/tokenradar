@@ -242,6 +242,7 @@ async function main() {
   }[] = [];
 
   for (const file of tokenFiles) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const raw = safeReadJson<any>(path.join(TOKENS_DIR, file), null);
     if (!raw || !raw.id) continue;
     allTokenData.push({
@@ -283,6 +284,7 @@ async function main() {
     let volatility = 10; // default
     const priceFile = path.join(PRICES_DIR, `${token.id}.json`);
     if (fs.existsSync(priceFile)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const priceData = safeReadJson<any>(priceFile, {});
       if (priceData.chart30d?.length > 0) {
         volatility = computeVolatility(priceData.chart30d);

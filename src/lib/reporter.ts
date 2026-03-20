@@ -20,7 +20,6 @@ const METRICS_DIR = path.join(DATA_DIR, "metrics");
 const USAGE_DIR = path.join(METRICS_DIR, "usage");
 
 const LEGACY_USAGE_FILE = path.join(METRICS_DIR, "api-usage-history.json");
-const LEGACY_ERRORS_FILE = path.join(LOGS_DIR, "errors.json");
 
 // Ensure directories exist
 [LOGS_DIR, ERRORS_DIR, METRICS_DIR, USAGE_DIR].forEach(dir => {
@@ -74,7 +73,7 @@ async function sendTelegramAlert(message: string): Promise<void> {
 /**
  * Logs an error and sends an immediate alert to Telegram.
  */
-export async function logError(source: string, error: any, isFatal = true): Promise<void> {
+export async function logError(source: string, error: unknown, isFatal = true): Promise<void> {
   const errorMsg = error instanceof Error ? error.stack || error.message : String(error);
   const timestamp = new Date().toISOString();
   const id = Math.random().toString(36).substring(2, 8);
@@ -123,7 +122,7 @@ function loadAllHistory(): UsageRecord[] {
       if (Array.isArray(data.history)) {
         history = history.concat(data.history);
       }
-    } catch (e) {
+    } catch (_e) {
       console.warn("  [reporter] Failed to parse legacy usage file.");
     }
   }
@@ -135,7 +134,7 @@ function loadAllHistory(): UsageRecord[] {
       try {
         const record = JSON.parse(fs.readFileSync(path.join(USAGE_DIR, f), "utf-8"));
         history.push(record);
-      } catch (e) { /* skip corrupt files */ }
+      } catch (_e) { /* skip corrupt files */ }
     }
   }
 
@@ -174,7 +173,7 @@ export function getRemainingBalance(provider: string): number | null {
       if (data.initialBalances && data.initialBalances[provider]) {
         initial = data.initialBalances[provider];
       }
-    } catch (e) { /* ignore */ }
+    } catch (_e) { /* ignore */ }
   }
   
   if (initial === 0) return null;

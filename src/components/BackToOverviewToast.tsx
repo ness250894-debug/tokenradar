@@ -10,18 +10,18 @@ export function BackToOverviewToast() {
 
   // Check if we are on a subpage (e.g. /[token]/price-prediction or /[token]/how-to-buy)
   // And NOT on the root /compare or /contact pages
-  const isSubpage =
+  const isSubpage = Boolean(
     pathname &&
     pathname.split("/").length > 2 &&
-    !pathname.startsWith("/compare");
+    !pathname.startsWith("/compare")
+  );
 
   useEffect(() => {
     // Only animate in after mount to prevent hydration mismatch
-    if (isSubpage) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    const timeout = setTimeout(() => {
+      setIsVisible(isSubpage);
+    }, 50);
+    return () => clearTimeout(timeout);
   }, [isSubpage]);
 
   if (!isVisible) return null;

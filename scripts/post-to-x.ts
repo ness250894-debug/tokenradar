@@ -22,26 +22,33 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { logError, trackUsage } from "../src/lib/reporter";
+import { logError } from "../src/lib/reporter";
 import { postTweet, validateXCredentials } from "../src/lib/x-client";
-import { SITE_URL, SOCIAL_FOOTER, X_COST_PER_POST } from "../src/lib/config";
+import { SITE_URL, SOCIAL_FOOTER } from "../src/lib/config";
 import { sleep, safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
-const POSTED_FILE = path.join(DATA_DIR, "x-posted.json");
+const POSTED_DIR = path.join(DATA_DIR, "posted");
+
+// Ensure posted dir exists
+if (!fs.existsSync(POSTED_DIR)) {
+  fs.mkdirSync(POSTED_DIR, { recursive: true });
+}
 
 // ── Types ──────────────────────────────────────────────────────
 
+interface PostRecord {
+  tokenId: string;
+  articleType: string;
+  tweetId: string;
+  postedAt: string;
+}
+
 interface PostedLog {
-  posts: {
-    tokenId: string;
-    articleType: string;
-    tweetId: string;
-    postedAt: string;
-  }[];
+  posts: PostRecord[];
 }
 
 // ── Post Builder ───────────────────────────────────────────────
@@ -96,24 +103,43 @@ function buildTweet(
 // ── Utilities ──────────────────────────────────────────────────
 
 function loadPostedLog(): PostedLog {
-  if (!fs.existsSync(POSTED_FILE)) {
-    return { posts: [] };
+  const posts: PostRecord[] = [];
+  if (!fs.existsSync(POSTED_DIR)) return { posts };
+
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  // Scan recent daily folders
+  const dateDirs = fs.readdirSync(POSTED_DIR)
+    .filter(d => fs.statSync(path.join(POSTED_DIR, d)).isDirectory());
+
+  for (const dateDir of dateDirs) {
+    // Only check folders from the last 30 days
+    if (new Date(dateDir) >= thirtyDaysAgo) {
+      const dirPath = path.join(POSTED_DIR, dateDir);
+      const files = fs.readdirSync(dirPath).filter(f => f.endsWith("-x.json"));
+      
+      for (const file of files) {
+        const record = safeReadJson<PostRecord>(path.join(dirPath, file), null as unknown as PostRecord);
+        if (record) posts.push(record);
+      }
+    }
   }
-  return JSON.parse(fs.readFileSync(POSTED_FILE, "utf-8"));
+
+  return { posts };
 }
 
-function savePostedLog(log: PostedLog): void {
-  fs.writeFileSync(POSTED_FILE, JSON.stringify(log, null, 2));
-}
+function saveSinglePostRecord(record: PostRecord): void {
+  const dateStr = record.postedAt.split("T")[0]; // YYYY-MM-DD
+  const dailyDir = path.join(POSTED_DIR, dateStr);
+  
+  if (!fs.existsSync(dailyDir)) {
+    fs.mkdirSync(dailyDir, { recursive: true });
+  }
 
-function isAlreadyPosted(
-  log: PostedLog,
-  tokenId: string,
-  articleType: string
-): boolean {
-  return log.posts.some(
-    (p) => p.tokenId === tokenId && p.articleType === articleType
-  );
+  const id = Math.random().toString(36).substring(2, 6);
+  const filePath = path.join(dailyDir, `${record.tokenId}-x-${id}.json`);
+  fs.writeFileSync(filePath, JSON.stringify(record, null, 2));
 }
 
 // ── Main ───────────────────────────────────────────────────────
@@ -138,7 +164,8 @@ async function main() {
   if (!dryRun) {
     try {
       validateXCredentials();
-    } catch (e: any) {
+    } catch (_e: unknown) {
+      const e = _e as Error;
       console.error(`  ✗ ${e.message}`);
       console.error("    Add to .env.local or use --dry-run");
       process.exit(1);
@@ -181,25 +208,29 @@ async function main() {
     }
 
     const firstArticleFile = articleFiles.includes("overview.json") ? "overview.json" : articleFiles[0];
-    const article = JSON.parse(
-      fs.readFileSync(path.join(tokenDir, firstArticleFile), "utf-8")
-    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const article = safeReadJson<any>(path.join(tokenDir, firstArticleFile), null);
+    if (!article) continue;
 
     // Load metrics and symbol for the tweet
-    let metrics: { riskScore?: number; price?: number } = {};
+    const metrics: { riskScore?: number; price?: number } = {};
     let symbol = tokenId.toUpperCase(); // Fallback
 
     const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
     if (fs.existsSync(metricsFile)) {
-      const m = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
-      metrics.riskScore = m.riskScore;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const m = safeReadJson<any>(metricsFile, null);
+      if (m) metrics.riskScore = m.riskScore;
     }
 
     const tokenFile = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
     if (fs.existsSync(tokenFile)) {
-      const t = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-      metrics.price = t.market?.price;
-      if (t.symbol) symbol = t.symbol.toUpperCase();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const t = safeReadJson<any>(tokenFile, null);
+      if (t) {
+        metrics.price = t.market?.price;
+        if (t.symbol) symbol = t.symbol.toUpperCase();
+      }
     }
 
     const tweetText = buildTweet(
@@ -225,13 +256,15 @@ async function main() {
 
       postCount++;
 
-      postedLog.posts.push({
+      const record: PostRecord = {
         tokenId,
         articleType: "combined",
         tweetId,
         postedAt: new Date().toISOString(),
-      });
-      savePostedLog(postedLog);
+      };
+
+      postedLog.posts.push(record);
+      saveSinglePostRecord(record);
 
       // Rate limit: wait 2s between posts
       await sleep(2000);

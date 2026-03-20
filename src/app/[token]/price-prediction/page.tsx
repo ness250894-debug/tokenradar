@@ -8,7 +8,6 @@ import {
   getArticle,
   getTokenIds,
   formatPrice,
-  formatCompact,
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
@@ -30,11 +29,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
+  const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction 2026-2027`;
+  const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
+
   return {
-    title: `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction 2026-2027`,
-    description: `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`,
+    title,
+    description,
     alternates: {
       canonical: `/${detail.id}/price-prediction`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      title,
+      description,
     },
   };
 }
@@ -144,6 +155,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
             headline: `${detail.name} Price Prediction 2026-2027`,
             author: { "@type": "Organization", name: "TokenRadar" },
             publisher: { "@type": "Organization", name: "TokenRadar" },
+            datePublished: article?.generatedAt || detail.fetchedAt,
             dateModified: article?.generatedAt || detail.fetchedAt,
           }),
         }}

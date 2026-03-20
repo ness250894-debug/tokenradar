@@ -52,9 +52,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const b = getTokenDetail(parsed.tokenB);
   if (!a || !b) return { title: "Comparison Not Found" };
 
+  const title = `${a.name} vs ${b.name} — Side-by-Side Comparison`;
+  const description = `Compare ${a.name} (${a.symbol.toUpperCase()}) and ${b.name} (${b.symbol.toUpperCase()}) — price, market cap, risk score, growth potential, and more.`;
+
   return {
-    title: `${a.name} vs ${b.name} — Side-by-Side Comparison`,
-    description: `Compare ${a.name} (${a.symbol.toUpperCase()}) and ${b.name} (${b.symbol.toUpperCase()}) — price, market cap, risk score, growth potential, and more.`,
+    title,
+    description,
+    alternates: {
+      canonical: `/compare/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      title,
+      description,
+    },
   };
 }
 
@@ -228,6 +243,32 @@ export default async function ComparePage({ params }: PageProps) {
             "@type": "Article",
             headline: `${detailA.name} vs ${detailB.name} — Comparison`,
             author: { "@type": "Organization", name: "TokenRadar" },
+            publisher: { "@type": "Organization", name: "TokenRadar" },
+            datePublished: detailA.fetchedAt,
+            dateModified: detailA.fetchedAt > detailB.fetchedAt ? detailA.fetchedAt : detailB.fetchedAt,
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tokenradar.co/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": `${detailA.name} vs ${detailB.name}`,
+                "item": `https://tokenradar.co/compare/${slug}`
+              }
+            ]
           }),
         }}
       />

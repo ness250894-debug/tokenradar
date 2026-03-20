@@ -97,7 +97,7 @@ ${paragraph}`;
       return null;
     }
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as { content?: { text?: string }[]; usage?: { input_tokens: number; output_tokens: number } };
     const text = data.content?.[0]?.text?.trim();
 
     if (text && data.usage) {

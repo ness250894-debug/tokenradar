@@ -4,7 +4,7 @@
  * Generates long-tail crypto keywords using a Template × Token matrix.
  *
  * Steps:
- * 1. Fetch tokens #50-#200 from CoinGecko
+ * 1. Fetch tokens #1-#250 from CoinGecko
  * 2. Generate all template × token combinations
  * 3. Query Google Autocomplete for real search suggestions
  * 4. Deduplicate and output to data/keywords.json
@@ -273,8 +273,8 @@ async function main() {
   const skipAutocomplete = args.includes("--skip-autocomplete");
   const startIdx = args.indexOf("--start");
   const endIdx = args.indexOf("--end");
-  const startRank = startIdx !== -1 ? parseInt(args[startIdx + 1], 10) : 50;
-  const endRank = endIdx !== -1 ? parseInt(args[endIdx + 1], 10) : 200;
+  const startRank = startIdx !== -1 ? parseInt(args[startIdx + 1], 10) : 1;
+  const endRank = endIdx !== -1 ? parseInt(args[endIdx + 1], 10) : 250;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║   TokenRadar — Keyword Research Engine   ║");
@@ -331,7 +331,7 @@ async function main() {
   console.log(`  ✓ Generated ${comparisonKeywords.length} comparison keywords`);
 
   // Step 4: Autocomplete suggestions
-  let autocompleteKeywords: Keyword[] = [];
+  const autocompleteKeywords: Keyword[] = [];
   if (!skipAutocomplete) {
     console.log("▶ Step 4: Fetching Google Autocomplete suggestions...");
     console.log(`  (This will take ~${Math.round((tokens.length * 27 * 0.3) / 60)} minutes for ${tokens.length} tokens)`);

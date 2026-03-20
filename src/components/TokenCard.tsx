@@ -51,6 +51,7 @@ export function TokenCard({ token }: TokenCardProps) {
         <div>
           <div className="token-name">
             {token.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={token.imageUrl}
                 alt={`${token.name} logo`}

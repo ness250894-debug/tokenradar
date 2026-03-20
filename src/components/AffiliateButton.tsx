@@ -7,6 +7,8 @@ interface AffiliateButtonProps {
   exchange?: string;
 }
 
+import Link from "next/link";
+
 /**
  * Affiliate CTA button for "How to Buy" articles.
  * Links to major exchanges with proper disclosure.
@@ -78,9 +80,9 @@ export function AffiliateButton({
         }}
       >
         This link may be an affiliate link. See our{" "}
-        <a href="/disclaimer" style={{ color: "var(--accent-secondary)" }}>
-          disclaimer
-        </a>{" "}
+          <Link href="/disclaimer" className="affiliate-disclaimer-link">
+            Affiliate Disclaimer
+          </Link>{" "}
         for details.
       </div>
     </div>

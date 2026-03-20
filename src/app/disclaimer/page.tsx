@@ -4,6 +4,19 @@ export const metadata: Metadata = {
   title: "Financial Disclaimer",
   description:
     "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+  alternates: {
+    canonical: "/disclaimer",
+  },
+  openGraph: {
+    title: "Financial Disclaimer | TokenRadar",
+    description:
+      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+  },
+  twitter: {
+    title: "Financial Disclaimer | TokenRadar",
+    description:
+      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+  },
 };
 
 /**

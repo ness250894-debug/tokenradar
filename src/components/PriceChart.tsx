@@ -113,12 +113,12 @@ export function PriceChart({
               fontSize: "var(--text-sm)",
               color: "var(--text-primary)",
             }}
-            formatter={(value: any) => {
+            formatter={(value: unknown) => {
               const num = Number(value);
               if (isNaN(num)) return [String(value), "Price"];
               return [`$${num.toFixed(num >= 1 ? 2 : 6)}`, "Price"];
             }}
-            labelFormatter={(label: any) => String(label)}
+            labelFormatter={(label: unknown) => String(label)}
           />
           <Area
             type="monotone"

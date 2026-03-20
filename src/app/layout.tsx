@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | TokenRadar",
   },
   description:
-    "Unbiased, data-driven analysis for 150+ crypto tokens. Proprietary Risk Score, Growth Index, and AI-powered research updated daily.",
+    "Unbiased, data-driven analysis for 250+ crypto tokens. Proprietary Risk Score, Growth Index, and AI-powered research updated daily.",
   keywords: [
     "crypto analysis",
     "token research",
@@ -40,13 +40,22 @@ export const metadata: Metadata = {
     siteName: "TokenRadar",
     title: "TokenRadar — Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 150+ crypto tokens with proprietary metrics.",
+      "Unbiased, data-driven analysis for 250+ crypto tokens with proprietary metrics.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "TokenRadar — Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 150+ crypto tokens with proprietary metrics.",
+      "Unbiased, data-driven analysis for 250+ crypto tokens with proprietary metrics.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

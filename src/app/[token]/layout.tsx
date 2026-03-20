@@ -1,4 +1,3 @@
-import { TrendingSidebar } from "@/components/TrendingSidebar";
 import { StickyBanner } from "@/components/StickyBanner";
 import { notFound } from "next/navigation";
 import { getTokenDetail } from "@/lib/content-loader";

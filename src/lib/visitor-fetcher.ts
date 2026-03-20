@@ -66,11 +66,11 @@ export async function getVisitorStats(days: number): Promise<VisitorStats> {
       return { uniques: 0 };
     }
 
-    const json = await response.json() as any;
+    const json = await response.json() as { data?: { viewer?: { zones?: { httpRequests1dGroups?: { sum?: { uniques?: number } }[] }[] } } };
     // Note: sum.uniques across httpRequests1dGroups is the sum of per-day uniques,
     // not true cross-day unique visitors. This is a Cloudflare API limitation.
     const groups = json.data?.viewer?.zones?.[0]?.httpRequests1dGroups ?? [];
-    const uniques = groups.reduce((acc: number, g: any) => acc + (g?.sum?.uniques ?? 0), 0);
+    const uniques = groups.reduce((acc: number, g: { sum?: { uniques?: number } }) => acc + (g?.sum?.uniques ?? 0), 0);
 
     return { uniques };
   } catch (error) {

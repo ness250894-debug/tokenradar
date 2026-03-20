@@ -24,7 +24,7 @@ import { logError } from "../src/lib/reporter";
 import { generateTokenSummary } from "../src/lib/gemini";
 import { sendTelegramMessage } from "../src/lib/telegram";
 import { postTweet } from "../src/lib/x-client";
-import { SITE_URL, REFERRAL_LINKS_HTML, SOCIAL_FOOTER, STABLECOIN_IDS } from "../src/lib/config";
+import { REFERRAL_LINKS_HTML, SOCIAL_FOOTER, STABLECOIN_IDS } from "../src/lib/config";
 import { safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -245,6 +245,7 @@ async function main() {
   
   // Merge fresh market data with local static details
   const tokens: TokenData[] = tokenFiles.map(f => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const local: any = safeReadJson(path.join(tokensDir, f), null);
     if (!local || !local.id) return null;
     const fresh = freshMarkets.find(t => t.id === local.id);
@@ -288,7 +289,7 @@ async function main() {
         if (parsed.date === TODAY && Array.isArray(parsed.tokens)) {
           parsed.tokens.forEach((t: string) => posted.add(t));
         }
-      } catch (e) { /* ignore */ }
+      } catch (_e) { /* ignore */ }
     }
 
     // 2. Check decentralized folder
@@ -352,7 +353,7 @@ async function main() {
   // Load metrics for context if available
   const metricsFile = path.join(metricsDir, `${targetToken.id}.json`);
   if (fs.existsSync(metricsFile)) {
-    targetMetric = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
+    targetMetric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
   }
 
   if (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY) {

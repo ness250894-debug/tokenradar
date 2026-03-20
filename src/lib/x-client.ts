@@ -7,7 +7,7 @@
  */
 
 import { TwitterApi } from "twitter-api-v2";
-import { logError, trackUsage } from "./reporter";
+import { trackUsage } from "./reporter";
 import { X_COST_PER_POST } from "./config";
 
 /**
@@ -112,8 +112,9 @@ export async function postTweet(text: string): Promise<string> {
     const { data: createdTweet } = await rwClient.v2.tweet(cleanText);
     trackUsage("x", 1, X_COST_PER_POST);
     return createdTweet.id;
-  } catch (e: any) {
-    console.error("  ✗ Tweet failure detail:", e.data || e.message || e);
+  } catch (_e: unknown) {
+    const e = _e as Record<string, unknown>;
+    console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
     throw e;
   }
 }

@@ -106,7 +106,7 @@ async function callClaude(prompt: string): Promise<string> {
     });
 
     if (response.ok) {
-      const data = await response.json() as any;
+      const data = await response.json() as { content?: { text?: string }[] };
       return data.content?.[0]?.text?.trim() || "";
     }
     console.warn(`  ⚠ Claude API error: ${response.status}`);

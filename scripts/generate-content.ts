@@ -251,7 +251,7 @@ function isOlderThan14Days(filePath: string): boolean {
     const diffTime = Date.now() - new Date(data.generatedAt).getTime();
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     return diffDays >= 14;
-  } catch (e) {
+  } catch (_e) {
     return true; // If error parsing, assume it needs regeneration
   }
 }
@@ -296,7 +296,7 @@ async function main() {
   }
 
   // Filter tokens to find ones that actually need generation
-  let tokensToProcess: string[] = [];
+  const tokensToProcess: string[] = [];
   
   for (const f of tokenFiles) {
     const id = f.replace(".json", "");
@@ -349,6 +349,7 @@ async function main() {
   for (const tokenId of tokensToProcess) {
     // 1. Load data
     const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let tokenData: any = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
     
     if (fs.existsSync(tokenFilePath)) {
