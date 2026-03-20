@@ -54,26 +54,42 @@ interface TokenData {
 
 // ── Utilities ──────────────────────────────────────────────────
 
+/** Max characters for AI summary within a TG message (leaves room for header/footer). */
+const MAX_AI_SUMMARY_CHARS = 2500;
+/** Telegram's hard limit per message. */
+const TG_MESSAGE_LIMIT = 4096;
+
 /**
- * Sanitize AI-generated HTML so it's safe for Telegram's strict HTML parser.
- * Escapes raw &, <, > in text while preserving allowed TG tags: <b>, <i>, <a>, <code>.
+ * Sanitize and truncate AI-generated HTML for Telegram.
+ * Escapes raw &, <, > while preserving allowed TG tags.
+ * Truncates to MAX_AI_SUMMARY_CHARS at the nearest sentence boundary.
  */
-function sanitizeHtmlForTelegram(html: string): string {
-  // 1. Temporarily replace allowed tags with placeholders
+function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMARY_CHARS): string {
+  // 1. Truncate at sentence boundary if too long
+  let text = html;
+  if (text.length > maxLength) {
+    text = text.substring(0, maxLength);
+    const lastSentence = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"));
+    if (lastSentence > maxLength * 0.6) {
+      text = text.substring(0, lastSentence + 1);
+    }
+  }
+
+  // 2. Temporarily replace allowed tags with placeholders
   const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
   const placeholders: string[] = [];
-  let sanitized = html.replace(allowedTags, (match) => {
+  let sanitized = text.replace(allowedTags, (match) => {
     placeholders.push(match);
     return `\x00TAG${placeholders.length - 1}\x00`;
   });
 
-  // 2. Escape remaining HTML-special characters
+  // 3. Escape remaining HTML-special characters
   sanitized = sanitized
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-  // 3. Restore allowed tags
+  // 4. Restore allowed tags
   sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
 
   return sanitized;
@@ -379,7 +395,11 @@ async function main() {
 
   if (runTelegram) {
     try {
-      const tgMessage = message + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
+      let tgMessage = message + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
+      if (tgMessage.length > TG_MESSAGE_LIMIT) {
+        console.warn(`  ⚠ Message too long (${tgMessage.length}/${TG_MESSAGE_LIMIT}), trimming...`);
+        tgMessage = tgMessage.substring(0, TG_MESSAGE_LIMIT - 3) + "...";
+      }
       const msgId = await sendTelegramMessage(tgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
       posted = true;
