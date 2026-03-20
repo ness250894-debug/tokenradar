@@ -311,15 +311,22 @@ async function main() {
     targetMetric = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
   }
 
-  if (process.env.GEMINI_API_KEY) {
+  if (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY) {
     console.log(`▶ Step 3: Generating Deep Insight for ${targetToken.name}...`);
     aiSummary = await generateTokenSummary(
       targetToken.name, 
       targetToken.symbol, 
       targetToken.description || "", 
-      targetMetric || {}
+      {
+        ...targetMetric,
+        price: targetToken.market.price,
+        priceChange24h: targetToken.market.priceChange24h,
+        marketCap: targetToken.market.marketCap,
+      }
     );
     if (aiSummary) console.log(` ✓ Summary generated (${aiSummary.length} chars)`);
+  } else {
+    console.warn("  ⚠ No GEMINI_API_KEY or ANTHROPIC_API_KEY set — skipping AI summary.");
   }
 
   // 4. Construct Final Message

@@ -1,23 +1,20 @@
 import * as dotenv from "dotenv";
 import * as path from "path";
+import { sleep } from "./utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
-
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-
-/** Sleep for a given number of milliseconds. */
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 /**
  * Call Gemini API with retries.
  */
 async function callGemini(model: string, prompt: string, retries: number = 3): Promise<string> {
-  if (!GEMINI_API_KEY) return "";
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.warn("  [Gemini] GEMINI_API_KEY not set, skipping.");
+    return "";
+  }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   for (let i = 0; i <= retries; i++) {
     try {
@@ -86,14 +83,18 @@ async function callGemini(model: string, prompt: string, retries: number = 3): P
  * Call Claude API as final fallback.
  */
 async function callClaude(prompt: string): Promise<string> {
-  if (!ANTHROPIC_API_KEY) return "";
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    console.warn("  [Claude] ANTHROPIC_API_KEY not set, skipping.");
+    return "";
+  }
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": ANTHROPIC_API_KEY,
+        "x-api-key": apiKey,
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
@@ -114,6 +115,14 @@ async function callClaude(prompt: string): Promise<string> {
   return "";
 }
 
+export interface MarketContext {
+  riskScore?: number;
+  growthPotentialIndex?: number;
+  price?: number;
+  priceChange24h?: number;
+  marketCap?: number;
+}
+
 /**
  * Generate a detailed analysis for a token with multi-model fallback.
  * 
@@ -123,16 +132,33 @@ export async function generateTokenSummary(
   tokenName: string,
   symbol: string,
   description: string,
-  metrics: any = {}
+  metrics: MarketContext = {}
 ): Promise<string> {
+  const priceStr = metrics.price !== undefined
+    ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
+    : "N/A";
+  const changeStr = metrics.priceChange24h !== undefined
+    ? `${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`
+    : "N/A";
+  const mcapStr = metrics.marketCap
+    ? metrics.marketCap >= 1e9
+      ? `$${(metrics.marketCap / 1e9).toFixed(2)}B`
+      : `$${(metrics.marketCap / 1e6).toFixed(0)}M`
+    : "N/A";
+
   const prompt = `
     You are a senior crypto analyst at TokenRadar.co.
     Provide a "Deep Insight & Analysis" for ${tokenName} (${symbol.toUpperCase()}).
     
-    DATA FOR CONTEXT:
-    Description: ${description.substring(0, 1500)}
-    Risk Score: ${metrics.riskScore || "N/A"}/10
-    Growth Index: ${metrics.growthPotentialIndex || "N/A"}/10
+    MARKET DATA:
+    Current Price: ${priceStr}
+    24h Change: ${changeStr}
+    Market Cap: ${mcapStr}
+    Risk Score: ${metrics.riskScore ?? "N/A"}/10
+    Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/10
+    
+    BACKGROUND:
+    ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
     STRICT RULES:
     1. TARGET LENGTH: approximately 2000 - 2500 characters.
@@ -142,13 +168,18 @@ export async function generateTokenSummary(
     5. Use HTML tags for formatting: <b>, <i>, <a>, <code>.
     6. Ensure the tone is data-driven and matches a premium research platform.
     7. No introductory or concluding filler — start directly with the analysis.
+    8. Reference specific numbers from the market data provided.
   `;
 
-  // Try Gemini 3.1 Flash Lite Preview
+  // Try Gemini 3.1 Flash Lite
   let text = await callGemini("gemini-3.1-flash-lite-preview", prompt, 3);
   if (text) return text;
 
   // Fallback to Claude Haiku
-  console.log(`  [fallback] gemini-3.1-flash-lite failed, trying Claude Haiku...`);
-  return await callClaude(prompt);
+  console.log(`  [fallback] Gemini failed, trying Claude Haiku...`);
+  text = await callClaude(prompt);
+  if (text) return text;
+
+  console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty.`);
+  return "";
 }
