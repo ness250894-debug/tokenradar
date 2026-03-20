@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-03-20T20:50:24.995Z",
+  "source": "post-market-updates-telegram",
+  "message": "Error: Telegram API error 400: {\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: message is too long\"}\n    at sendTelegramMessage (/home/runner/work/tokenradar/tokenradar/src/lib/telegram.ts:37:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async main (/home/runner/work/tokenradar/tokenradar/scripts/post-market-updates.ts:360:21)",
+  "isFatal": false
+}
