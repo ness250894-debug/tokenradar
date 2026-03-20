@@ -61,10 +61,13 @@ function buildTweet(
     ? (metrics.price >= 1 ? metrics.price.toFixed(2) : metrics.price.toFixed(6))
     : "0.00";
 
+  const tokenUrl = `${SITE_URL}/${tokenId}`;
+
   const tweet = [
     `🚀 New Coverage: ${tokenName} ( $${sym} - $${priceFmt} )`,
     `💰 Current Price: $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
-    ...SOCIAL_FOOTER,
+    `🔗 ${tokenUrl}`,
+    ...SOCIAL_FOOTER.slice(1),
     "",
     `#${sym} #Crypto #TokenRadarCo`
   ].join("\n");
