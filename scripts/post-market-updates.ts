@@ -295,11 +295,7 @@ async function main() {
     process.exit(1);
   }
 
-  /**
-   * Decentralized tracking check:
-   * Combines legacy JSON and new folder-based markers to find already posted tokens.
-   */
-  const getPostedToday = (): string[] => {
+  const getRecentlyPosted = (): string[] => {
     const posted = new Set<string>();
     
     // 1. Check legacy file
@@ -312,17 +308,32 @@ async function main() {
       } catch (_e) { /* ignore */ }
     }
 
-    // 2. Check decentralized folder
-    if (fs.existsSync(POSTED_DIR)) {
-      fs.readdirSync(POSTED_DIR).forEach(f => {
-        posted.add(f.replace('.json', ''));
-      });
+    // 2. Scan recent daily folders within 30 days
+    const PARENT_POSTED_DIR = path.join(DATA_DIR, "posted");
+    if (!fs.existsSync(PARENT_POSTED_DIR)) return Array.from(posted);
+
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const dateDirs = fs.readdirSync(PARENT_POSTED_DIR)
+      .filter(d => fs.statSync(path.join(PARENT_POSTED_DIR, d)).isDirectory());
+
+    for (const dateDir of dateDirs) {
+      if (new Date(dateDir) >= thirtyDaysAgo) {
+        const dirPath = path.join(PARENT_POSTED_DIR, dateDir);
+        fs.readdirSync(dirPath).forEach(f => {
+          // Exclude social-specific logs which include a dash
+          if (!f.includes("-telegram-") && !f.includes("-x-")) {
+            posted.add(f.replace('.json', ''));
+          }
+        });
+      }
     }
 
     return Array.from(posted);
   };
 
-  const postedTodayTokens = getPostedToday();
+  const recentlyPostedTokens = getRecentlyPosted();
 
   // 2. Select Alert Strategy
   const strategy = Math.floor(Math.random() * 3);
@@ -330,7 +341,7 @@ async function main() {
   let message = "";
 
   if (strategy === 0) {
-    const gainers = candidateTokens.filter(t => !postedTodayTokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+    const gainers = candidateTokens.filter(t => !recentlyPostedTokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
     if (gainers.length > 0) {
       targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
     }
@@ -344,7 +355,7 @@ async function main() {
       if (!metric) continue;
       if (metric.riskScore <= 4) {
         const tokenId = mf.replace('.json', '');
-        const token = candidateTokens.find(t => t.id === tokenId && !postedTodayTokens.includes(t.id));
+        const token = candidateTokens.find(t => t.id === tokenId && !recentlyPostedTokens.includes(t.id));
         if (token) safeTokens.push({ token, metric });
       }
     }
@@ -355,7 +366,7 @@ async function main() {
   }
 
   if (!targetToken) {
-    const availableTokens = candidateTokens.filter(t => !postedTodayTokens.includes(t.id));
+    const availableTokens = candidateTokens.filter(t => !recentlyPostedTokens.includes(t.id));
     targetToken = availableTokens.length > 0 
       ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
       : candidateTokens[Math.floor(Math.random() * candidateTokens.length)];

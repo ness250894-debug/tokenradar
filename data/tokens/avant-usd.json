@@ -2,20 +2,47 @@
   "id": "avant-usd",
   "symbol": "avusd",
   "name": "Avant USD",
+  "description": "Avant is a DeFi platform established in June 2024 with the mission to create a more inclusive financial system through a DeFi-powered stable-value token. The platform introduces avUSD, a stable-value token, and savUSD, its staked, yield-bearing counterpart. \n\nMission and Vision\nAvant's mission is to provide a DeFi-backed stable-value token that aligns with the core principles of decentralization: being accessible 24/7, open to everyone, and offering equal financial opportunities regardless of investment size. Avant seeks to bridge the gap between DeFi and traditional finance (TradFi), becoming a global financial powerhouse that innovates how yield is generated and value is stored across financial markets.",
+  "categories": [
+    "Stablecoins",
+    "Avalanche Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.avantprotocol.com/",
+    "github": "https://github.com/Avant-Protocol",
+    "reddit": null,
+    "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
+  },
   "market": {
-    "price": 0.999462,
-    "marketCap": 128186924,
+    "price": 0.999448,
+    "marketCap": 128185072,
     "marketCapRank": 229,
-    "volume24h": 83914,
-    "priceChange24h": -0.02158,
+    "volume24h": 84287,
+    "high24h": 0.9999,
+    "low24h": 0.999237,
+    "priceChange24h": -0.01369,
+    "priceChange7d": -0.01848,
+    "priceChange30d": 0.00019,
+    "priceChange1y": 0.14392,
     "ath": 1.059,
-    "athChangePercentage": -5.59404,
+    "athChangePercentage": -5.58574,
     "athDate": "2025-10-10T21:48:29.498Z",
     "atl": 0.967857,
     "atlDate": "2025-02-03T02:55:43.866Z",
     "circulatingSupply": 128255925.30021,
     "totalSupply": 128255925.30021,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 128185072
   },
-  "lastMarketUpdate": "2026-03-21T17:50:39.962Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-21T18:57:43.675Z"
 }

@@ -1,0 +1,111 @@
+SYSTEM:
+You are an expert crypto analyst writing for TokenRadar.co, a data-driven crypto research platform.
+
+STRICT RULES:
+1. Write in a professional, analytical tone. No hype, no FOMO.
+2. NEVER recommend buying or selling any token.
+3. NEVER guarantee returns or profits.
+4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
+5. Always present data and analysis objectively.
+6. Include at least 3 specific data points from the provided data.
+7. Reference at least 1 real-world development or event.
+8. Strictly follow the word count instructions provided in each specific prompt.
+9. Use markdown formatting with proper headings (## for sections).
+10. Include a FAQ section at the end with 3-5 questions and answers.
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+
+FORMAT:
+- Start with a brief intro paragraph (no heading)
+- Use ## for main sections
+- Use ### for subsections
+- Include bullet points and bold text for key data
+- Include a structured FAQ section at the end using ### FAQ format
+
+USER:
+Write a practical step-by-step guide for buying Avant USD (AVUSD).
+
+TARGET LENGTH: 600 - 800 words. Be highly concise, actionable, and skip unnecessary filler.
+
+Cover:
+1. Quick overview of Avant USD and why people are interested
+2. Which major exchanges list AVUSD (Binance, Coinbase, Bybit, etc.)
+3. Step-by-step process:
+   - Create/verify exchange account
+   - Deposit funds (fiat or crypto)
+   - Find the AVUSD trading pair
+   - Place your order (market vs limit)
+4. How to store AVUSD safely (exchanges vs wallets)
+5. Key considerations before buying (Risk Score, volatility data)
+6. Tax implications overview (general, not specific advice)
+
+Note: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.
+
+
+TOKEN DATA (from CoinGecko):
+{
+  "id": "avant-usd",
+  "symbol": "avusd",
+  "name": "Avant USD",
+  "description": "Avant is a DeFi platform established in June 2024 with the mission to create a more inclusive financial system through a DeFi-powered stable-value token. The platform introduces avUSD, a stable-value token, and savUSD, its staked, yield-bearing counterpart. \n\nMission and Vision\nAvant's mission is to provide a DeFi-backed stable-value token that aligns with the core principles of decentralization: being accessible 24/7, open to everyone, and offering equal financial opportunities regardless of investment size. Avant seeks to bridge the gap between DeFi and traditional finance (TradFi), becoming a global financial powerhouse that innovates how yield is generated and value is stored across financial markets.",
+  "categories": [
+    "Stablecoins",
+    "Avalanche Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.avantprotocol.com/",
+    "github": "https://github.com/Avant-Protocol",
+    "reddit": null,
+    "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
+  },
+  "market": {
+    "price": 0.999448,
+    "marketCap": 128185072,
+    "marketCapRank": 229,
+    "volume24h": 84287,
+    "high24h": 0.9999,
+    "low24h": 0.999237,
+    "priceChange24h": -0.01369,
+    "priceChange7d": -0.01848,
+    "priceChange30d": 0.00019,
+    "priceChange1y": 0.14392,
+    "ath": 1.059,
+    "athChangePercentage": -5.58574,
+    "athDate": "2025-10-10T21:48:29.498Z",
+    "atl": 0.967857,
+    "atlDate": "2025-02-03T02:55:43.866Z",
+    "circulatingSupply": 128255925.30021,
+    "totalSupply": 128255925.30021,
+    "maxSupply": null,
+    "fdv": 128185072
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-21T18:57:43.675Z"
+}
+
+PROPRIETARY METRICS (computed by TokenRadar):
+{
+  "tokenId": "avant-usd",
+  "tokenName": "Avant USD",
+  "symbol": "avusd",
+  "riskScore": 6,
+  "riskLevel": "medium",
+  "growthPotentialIndex": 37,
+  "narrativeStrength": 30,
+  "valueVsAth": 94,
+  "volatilityIndex": 50,
+  "holderConcentrationEstimate": "unknown",
+  "summary": "Avant USD is a deeply discounted vs ATH token.",
+  "computedAt": "2026-03-21T17:50:41.025Z"
+}
+
+REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
+No recent articles found.

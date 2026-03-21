@@ -117,7 +117,7 @@ function loadPostedLog(): PostedLog {
     // Only check folders from the last 30 days
     if (new Date(dateDir) >= thirtyDaysAgo) {
       const dirPath = path.join(POSTED_DIR, dateDir);
-      const files = fs.readdirSync(dirPath).filter(f => f.endsWith("-x.json"));
+      const files = fs.readdirSync(dirPath).filter(f => f.includes("-x-") && f.endsWith(".json"));
       
       for (const file of files) {
         const record = safeReadJson<PostRecord>(path.join(dirPath, file), null as unknown as PostRecord);
@@ -182,7 +182,13 @@ async function main() {
   const tokenDirs = fs
     .readdirSync(CONTENT_DIR)
     .filter((d) => fs.statSync(path.join(CONTENT_DIR, d)).isDirectory())
-    .filter((d) => !targetToken || d === targetToken);
+    .filter((d) => !targetToken || d === targetToken)
+    .map(d => {
+      const article = safeReadJson<any>(path.join(CONTENT_DIR, d, "overview.json"), null);
+      return { id: d, generatedAt: article ? new Date(article.generatedAt || 0).getTime() : 0 };
+    })
+    .sort((a, b) => b.generatedAt - a.generatedAt)
+    .map(item => item.id);
 
   let postCount = 0;
 
