@@ -12,18 +12,18 @@
     "explorer": null
   },
   "market": {
-    "price": 9.79,
-    "marketCap": 4227985517,
+    "price": 9.49,
+    "marketCap": 4097189731,
     "marketCapRank": 26,
-    "volume24h": 176459826,
+    "volume24h": 214329885,
     "high24h": 0,
     "low24h": 0,
-    "priceChange24h": 2.5343,
+    "priceChange24h": 0.12385,
     "priceChange7d": 0,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 144.96,
-    "athChangePercentage": -93.24549,
+    "athChangePercentage": -93.45799,
     "athDate": "2021-11-21T14:18:56.538Z",
     "atl": 2.8,
     "atlDate": "2020-12-31T13:15:21.540Z",
@@ -41,5 +41,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-03-15T10:11:56.501Z"
+  "fetchedAt": "2026-03-15T10:11:56.501Z",
+  "lastMarketUpdate": "2026-03-21T13:56:01.269Z"
 }
