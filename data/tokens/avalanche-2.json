@@ -2,45 +2,60 @@
   "id": "avalanche-2",
   "symbol": "avax",
   "name": "Avalanche",
-  "description": "",
-  "categories": [],
+  "description": "Avalanche is a high throughput smart contract blockchain&nbsp;platform. Validators secure the network through a proof-of-stake consensus protocol. It is said to be fast, low cost, and environmental friendly.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Avalanche Ecosystem",
+    "Proof of Stake (PoS)",
+    "DragonFly Capital Portfolio",
+    "DeFiance Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "Galaxy Digital Portfolio",
+    "GMCI Index",
+    "Polychain Capital Portfolio",
+    "World Liberty Financial Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://www.avax.network",
+    "github": "https://github.com/ava-labs/avalanchego",
+    "reddit": "https://www.reddit.com/r/Avax",
+    "explorer": "https://snowtrace.io/"
   },
   "market": {
-    "price": 9.49,
-    "marketCap": 4097189731,
+    "price": 9.5,
+    "marketCap": 4103010883,
     "marketCapRank": 26,
-    "volume24h": 214329885,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 0.12385,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 190642766,
+    "high24h": 9.63,
+    "low24h": 9.44,
+    "priceChange24h": 0.72017,
+    "priceChange7d": -0.68347,
+    "priceChange30d": 7.81261,
+    "priceChange1y": -48.45786,
     "ath": 144.96,
-    "athChangePercentage": -93.45799,
+    "athChangePercentage": -93.44896,
     "athDate": "2021-11-21T14:18:56.538Z",
     "atl": 2.8,
     "atlDate": "2020-12-31T13:15:21.540Z",
     "circulatingSupply": 431771961.1772119,
     "totalSupply": 463441061.1772119,
     "maxSupply": 720000000,
-    "fdv": null
+    "fdv": 4403953680
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 2100,
+    "githubForks": 655,
+    "commits4Weeks": 50
   },
-  "fetchedAt": "2026-03-15T10:11:56.501Z",
-  "lastMarketUpdate": "2026-03-21T13:56:01.269Z"
+  "fetchedAt": "2026-03-21T17:50:46.268Z"
 }
