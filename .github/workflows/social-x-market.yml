@@ -41,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Post X Update
-        run: npx tsx scripts/post-market-updates.ts --start 50 --end 250 --platform x
+        run: npx tsx scripts/post-market-updates.ts --start 1 --end 250 --platform x
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}

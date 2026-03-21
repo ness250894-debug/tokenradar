@@ -92,6 +92,26 @@ function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMAR
   // 4. Restore allowed tags
   sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
 
+  // 5. Ensure all allowed tags are closed
+  const stack: string[] = [];
+  const finalTagRegex = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  let match;
+  while ((match = finalTagRegex.exec(sanitized)) !== null) {
+    const isClosing = match[0].startsWith('</');
+    const tagName = match[1].toLowerCase();
+    if (isClosing) {
+      const idx = stack.lastIndexOf(tagName);
+      if (idx !== -1) stack.splice(idx, 1);
+    } else {
+      stack.push(tagName);
+    }
+  }
+
+  while (stack.length > 0) {
+    const tagName = stack.pop();
+    sanitized += `</${tagName}>`;
+  }
+
   return sanitized;
 }
 
@@ -190,7 +210,7 @@ async function main() {
   const platformIdx = args.indexOf("--platform");
   const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
 
-  const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 50;
+  const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 1;
   const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 250;
 
   console.log(`╔══════════════════════════════════════════╗`);
@@ -264,7 +284,7 @@ async function main() {
     };
   }).filter(Boolean) as TokenData[];
 
-  // Filter by rank strategy (Default 50-250), exclude stablecoins
+  // Filter by rank strategy (Default 1-250), exclude stablecoins
   const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank && !STABLECOIN_IDS.has(t.id));
   
   console.log(`  Merged Tokens: ${tokens.length}`);
