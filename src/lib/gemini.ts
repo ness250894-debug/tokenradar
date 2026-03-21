@@ -4,116 +4,131 @@ import { sleep } from "./utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 
-/**
- * Call Gemini API with retries.
- */
-async function callGemini(model: string, prompt: string, retries: number = 3): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.warn("  [Gemini] GEMINI_API_KEY not set, skipping.");
-    return "";
-  }
+export type AIResult = { 
+  content: string; 
+  promptTokens: number; 
+  completionTokens: number; 
+  provider: string; 
+  model: string; 
+  cost: number;
+};
 
+async function callGeminiAPI(
+  systemPrompt: string,
+  userPrompt: string,
+  maxTokens: number = 4000,
+  retries: number = 3
+): Promise<AIResult> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not set. Add it to .env.local");
+  const model = "gemini-3.1-flash-lite-preview";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
+  let lastError: Error | null = null;
   for (let i = 0; i <= retries; i++) {
     try {
       if (i > 0) {
-        console.log(`  [retry ${i}/${retries}] calling ${model}...`);
+        console.log(`\n  [retry ${i}/${retries}] calling Gemini...`);
         await sleep(2000);
       }
-
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.2,
-            maxOutputTokens: 2048,
-          },
+          systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
+          contents: [{ parts: [{ text: userPrompt }] }],
+          generationConfig: { maxOutputTokens: maxTokens }
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const parts = data.candidates?.[0]?.content?.parts || [];
-        
-        let fullText = "";
-        let thoughtSignature = "";
-
-        for (const part of parts) {
-          if (part.text) {
-            fullText += part.text;
-          }
-          if (part.thought_signature) {
-            thoughtSignature = part.thought_signature;
-          }
-          if (part.thoughtSignature) {
-            thoughtSignature = part.thoughtSignature;
-          }
-          if (part.functionCall?.thought_signature) {
-            thoughtSignature = part.functionCall.thought_signature;
-          }
-        }
-
-        if (thoughtSignature) {
-          console.log(`  [Gemini 3.1] Captured thought signature (${thoughtSignature.length} chars)`);
-        } else {
-          console.log("  [Gemini 3.1] No thought signature found in response parts.");
-        }
-
-        return fullText.trim() || "";
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Gemini HTTP ${response.status}: ${errorText}`);
       }
-
-      const errText = await response.text();
-      console.warn(`  ⚠ Gemini API error (${model}, attempt ${i + 1}): ${response.status} - ${errText}`);
       
-      // Only retry on 503 (unavailable) or 429 (rate limit)
-      if (response.status !== 503 && response.status !== 429) break;
-
-    } catch (error) {
-      console.warn(`  ⚠ Gemini fetch error (${model}, attempt ${i + 1}): ${error instanceof Error ? error.message : String(error)}`);
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const promptTokens = data.usageMetadata?.promptTokenCount || 0;
+      const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
+      
+      const cost = (promptTokens / 1_000_000) * 0.075 + (completionTokens / 1_000_000) * 0.30;
+      
+      return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
+    } catch (e) {
+      lastError = e instanceof Error ? e : new Error(String(e));
+      if (i < retries) console.log(`  ⚠ Gemini failed (${lastError.message}), retrying...`);
     }
   }
-  console.warn(`  ⚠ [Gemini] All retries exhausted for model "${model}". Check if this model is still available.`);
-  return "";
+  throw lastError;
 }
 
-/**
- * Call Claude API as final fallback.
- */
-async function callClaude(prompt: string): Promise<string> {
+async function callClaudeAPI(
+  systemPrompt: string,
+  userPrompt: string,
+  maxTokens: number = 4000,
+  retries: number = 3
+): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.warn("  [Claude] ANTHROPIC_API_KEY not set, skipping.");
-    return "";
-  }
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Add it to .env.local");
+  const model = "claude-haiku-4-5-20251001";
 
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 1024,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
+  let lastError: Error | null = null;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      if (i > 0) {
+        console.log(`\n  [retry ${i}/${retries}] calling Claude...`);
+        await sleep(2000);
+      }
+      
+      const messages = [{ role: "user", content: userPrompt }];
+      
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+        },
+        body: JSON.stringify({
+          model,
+          max_tokens: maxTokens,
+          system: systemPrompt || undefined,
+          messages,
+        }),
+      });
 
-    if (response.ok) {
-      const data = await response.json() as { content?: { text?: string }[] };
-      return data.content?.[0]?.text?.trim() || "";
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Claude HTTP ${response.status}: ${errorText}`);
+      }
+      
+      const data = await response.json() as any;
+      const text = data.content?.[0]?.text || "";
+      const promptTokens = data.usage?.input_tokens || 0;
+      const completionTokens = data.usage?.output_tokens || 0;
+      
+      const cost = (promptTokens / 1_000_000) * 1.0 + (completionTokens / 1_000_000) * 5.0;
+
+      return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost };
+    } catch (e) {
+      lastError = e instanceof Error ? e : new Error(String(e));
+      if (i < retries) console.log(`  ⚠ Claude failed (${lastError.message}), retrying...`);
     }
-    console.warn(`  ⚠ Claude API error: ${response.status}`);
-  } catch (error) {
-    console.warn(`  ⚠ Claude fetch error: ${error instanceof Error ? error.message : String(error)}`);
   }
-  return "";
+  throw lastError;
+}
+
+export async function callAIWithFallback(
+  systemPrompt: string,
+  userPrompt: string,
+  maxTokens: number = 4000
+): Promise<AIResult> {
+  try {
+    return await callGeminiAPI(systemPrompt, userPrompt, maxTokens);
+  } catch (error) {
+    console.log(`  ⚠ All Gemini attempts failed. Falling back to Claude...`);
+    return await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
+  }
 }
 
 export interface MarketContext {
@@ -172,15 +187,11 @@ export async function generateTokenSummary(
     8. Reference specific numbers from the market data provided.
   `;
 
-  // Try Gemini 3.1 Flash Lite
-  let text = await callGemini("gemini-3.1-flash-lite-preview", prompt, 3);
-  if (text) return text;
-
-  // Fallback to Claude Haiku
-  console.log(`  [fallback] Gemini failed, trying Claude Haiku...`);
-  text = await callClaude(prompt);
-  if (text) return text;
-
-  console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty.`);
-  return "";
+  try {
+    const result = await callAIWithFallback("", prompt, 2048);
+    return result.content || "";
+  } catch (error) {
+    console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty or errored.`);
+    return "";
+  }
 }

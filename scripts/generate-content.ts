@@ -55,62 +55,7 @@ interface GeneratedArticle {
   completionTokens?: number;
 }
 
-// ── Claude API ─────────────────────────────────────────────────
-
-/**
- * Call Claude Haiku 4.5 API via Anthropic's Messages endpoint.
- */
-async function callClaude(
-  systemPrompt: string,
-  userPrompt: string,
-  maxTokens: number = 4000
-): Promise<{ content: string; promptTokens: number; completionTokens: number }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error(
-      "ANTHROPIC_API_KEY is not set. Add it to .env.local"
-    );
-  }
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: maxTokens,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userPrompt }],
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Claude API error: ${response.status} — ${error}`);
-  }
-
-  const data = (await response.json()) as {
-    content: { type: string; text: string }[];
-    usage: { input_tokens: number; output_tokens: number };
-  };
-
-  return {
-    content: data.content[0]?.text || "",
-    promptTokens: data.usage?.input_tokens || 0,
-    completionTokens: data.usage?.output_tokens || 0,
-  };
-}
-
-/**
- * Estimate Claude 4.5 Haiku cost.
- * ($1.00 / 1M input, $5.00 / 1M output tokens)
- */
-function calculateClaudeCost(promptTokens: number, completionTokens: number): number {
-  return (promptTokens / 1_000_000) * 1.0 + (completionTokens / 1_000_000) * 5.0;
-}
+import { callAIWithFallback, AIResult } from "../src/lib/gemini";
 
 // ── Prompt Templates ───────────────────────────────────────────
 
@@ -464,15 +409,14 @@ async function main() {
       process.stdout.write(`  🤖 ${config.type}...`);
 
       try {
-        const result = await callClaude(SYSTEM_PROMPT, config.prompt);
+        const result = await callAIWithFallback(SYSTEM_PROMPT, config.prompt);
         const wordCount = result.content.split(/\s+/).length;
 
-        // Estimate cost (Haiku: $1/M input, $5/M output)
-        const cost = calculateClaudeCost(result.promptTokens, result.completionTokens);
-        totalCost += cost;
+        // Add the returned cost
+        totalCost += result.cost;
 
         // Track usage for reporting
-        trackUsage("claude", result.promptTokens + result.completionTokens, cost);
+        trackUsage(result.provider, result.promptTokens + result.completionTokens, result.cost);
 
         const article: GeneratedArticle = {
           tokenId,
@@ -483,7 +427,7 @@ async function main() {
           content: result.content,
           wordCount,
           generatedAt: new Date().toISOString(),
-          model: "claude-haiku-4-5-20251001",
+          model: result.model,
           promptTokens: result.promptTokens,
           completionTokens: result.completionTokens,
         };
@@ -491,7 +435,7 @@ async function main() {
         fs.writeFileSync(outputFile, JSON.stringify(article, null, 2));
         totalArticles++;
         console.log(
-          ` ✓ ${wordCount} words ($${cost.toFixed(4)})`
+          ` ✓ ${wordCount} words ($${result.cost.toFixed(4)})`
         );
 
         // Rate limit between articles

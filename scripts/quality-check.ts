@@ -53,8 +53,10 @@ const PROHIBITED_PHRASES = [
 
 // ── AI Paragraph Rewriter ──────────────────────────────────────
 
+import { callAIWithFallback } from "../src/lib/gemini";
+
 /**
- * Rewrite a paragraph to remove prohibited phrases using Claude Haiku.
+ * Rewrite a paragraph to remove prohibited phrases using Gemini / Claude fallback.
  * Only sends the offending paragraph (~200-500 chars), keeping cost minimal.
  *
  * @returns Rewritten paragraph, or null on failure.
@@ -63,9 +65,6 @@ async function aiRewriteParagraph(
   paragraph: string,
   prohibitedPhrases: string[]
 ): Promise<string | null> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return null;
-
   const prompt = `Rewrite the following paragraph to remove or rephrase these prohibited phrases: ${prohibitedPhrases.map((p) => `"${p}"`).join(", ")}.
 
 RULES:
@@ -78,36 +77,13 @@ PARAGRAPH:
 ${paragraph}`;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 512,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
+    const result = await callAIWithFallback("", prompt, 512);
 
-    if (!response.ok) {
-      console.warn(`    ⚠ AI rewrite API error: ${response.status}`);
-      return null;
+    if (result.content) {
+      trackUsage(result.provider, result.promptTokens + result.completionTokens, result.cost);
+      return result.content;
     }
-
-    const data = (await response.json()) as { content?: { text?: string }[]; usage?: { input_tokens: number; output_tokens: number } };
-    const text = data.content?.[0]?.text?.trim();
-
-    if (text && data.usage) {
-      const cost =
-        (data.usage.input_tokens / 1_000_000) * 1.0 +
-        (data.usage.output_tokens / 1_000_000) * 5.0;
-      trackUsage("claude", data.usage.input_tokens + data.usage.output_tokens, cost);
-    }
-
-    return text || null;
+    return null;
   } catch (error) {
     console.warn(`    ⚠ AI rewrite error: ${error instanceof Error ? error.message : String(error)}`);
     return null;
