@@ -156,7 +156,7 @@ export async function generateTokenSummary(
     24h Change: ${changeStr}
     Market Cap: ${mcapStr}
     Risk Score: ${metrics.riskScore ?? "N/A"}/10
-    Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/10
+    Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
     
     BACKGROUND:
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
