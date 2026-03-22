@@ -2,20 +2,53 @@
   "id": "dash",
   "symbol": "dash",
   "name": "Dash",
+  "description": "Dash (DASH) is digital cash designed to offer financial freedom to everyone. Payments are instant, easy and secure, with near-zero fees.\nBuilt to support real life use cases, Dash is the leading decentralized payment solution. Users can purchase goods at thousands of merchants and trade it at major exchanges and brokers around the globe.\nSince its creation in 2014, Dash has demonstrated leadership in innovation and pioneered groundbreaking features such as:\n-Two-tier network with incentivized nodes and decentralized project governance (Masternodes)\n-Instantly settled payments (InstantSend)\n-Instantly immutable blockchain (ChainLocks)\n-Optional privacy (PrivateSend)",
+  "categories": [
+    "Masternodes",
+    "Payment Solutions",
+    "Alleged SEC Securities",
+    "Proof of Stake (PoS)",
+    "Proof of Work (PoW)",
+    "Made in USA",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": "2014-01-19",
+  "links": {
+    "website": "https://www.dash.org",
+    "github": "https://github.com/dashpay/tenderdash",
+    "reddit": "https://www.reddit.com/r/dashpay",
+    "explorer": "https://chainz.cryptoid.info/dash/"
+  },
   "market": {
-    "price": 32.08,
-    "marketCap": 405234759,
+    "price": 32,
+    "marketCap": 403560165,
     "marketCapRank": 113,
-    "volume24h": 61173840,
-    "priceChange24h": -1.72545,
+    "volume24h": 46708809,
+    "high24h": 33.05,
+    "low24h": 31.14,
+    "priceChange24h": -2.53949,
+    "priceChange7d": -4.15788,
+    "priceChange30d": -5.23954,
+    "priceChange1y": 37.59031,
     "ath": 1493.59,
-    "athChangePercentage": -97.85009,
+    "athChangePercentage": -97.85899,
     "athDate": "2017-12-20T00:00:00.000Z",
     "atl": 0.213899,
     "atlDate": "2014-02-14T00:00:00.000Z",
     "circulatingSupply": 12632221.83301365,
-    "totalSupply": 12632970.5514938,
-    "maxSupply": 18920000
+    "totalSupply": 12633003.63257455,
+    "maxSupply": 18920000,
+    "fdv": 403585141
   },
-  "lastMarketUpdate": "2026-03-22T16:51:05.867Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 89,
+    "githubForks": 49,
+    "commits4Weeks": 204
+  },
+  "fetchedAt": "2026-03-22T17:55:46.529Z"
 }

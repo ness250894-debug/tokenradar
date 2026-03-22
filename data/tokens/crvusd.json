@@ -2,20 +2,59 @@
   "id": "crvusd",
   "symbol": "crvusd",
   "name": "crvUSD",
+  "description": "crvUSD is a collateralized-debt-position (CDP) stablecoin pegged to the US Dollar",
+  "categories": [
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Polygon Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Fraxtal Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://curve.finance",
+    "github": "https://github.com/curvefi/curve-contract",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xf939e0a03fb07f59a73314e73794be0e57ac1b4e"
+  },
   "market": {
-    "price": 0.999475,
-    "marketCap": 259606808,
+    "price": 0.99944,
+    "marketCap": 259356591,
     "marketCapRank": 144,
-    "volume24h": 17134344,
-    "priceChange24h": -0.04704,
+    "volume24h": 18704588,
+    "high24h": 1.006,
+    "low24h": 0.990221,
+    "priceChange24h": -0.06083,
+    "priceChange7d": -0.04859,
+    "priceChange30d": 0.08739,
+    "priceChange1y": -0.01116,
     "ath": 1.11,
-    "athChangePercentage": -9.68639,
+    "athChangePercentage": -9.72966,
     "athDate": "2024-06-13T03:27:06.616Z",
     "atl": 0.949016,
     "atlDate": "2023-08-08T06:24:06.210Z",
-    "circulatingSupply": 259734199.4963087,
-    "totalSupply": 259599075.3756929,
-    "maxSupply": null
+    "circulatingSupply": 259599075.3756929,
+    "totalSupply": 259606040.6856929,
+    "maxSupply": null,
+    "fdv": 259363549
   },
-  "lastMarketUpdate": "2026-03-22T16:51:05.878Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1101,
+    "githubForks": 413,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T17:49:40.142Z"
 }

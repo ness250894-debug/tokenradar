@@ -16,18 +16,18 @@
     "explorer": "https://taostats.io/subnets/64/chart"
   },
   "market": {
-    "price": 24.32,
-    "marketCap": 112869585,
-    "marketCapRank": 243,
-    "volume24h": 2924273,
+    "price": 24.13,
+    "marketCap": 111983005,
+    "marketCapRank": 244,
+    "volume24h": 2875011,
     "high24h": 25.76,
     "low24h": 24.03,
-    "priceChange24h": -0.80918,
+    "priceChange24h": -1.45278,
     "priceChange7d": -3.49032,
     "priceChange30d": 28.52143,
     "priceChange1y": 0,
     "ath": 104.42,
-    "athChangePercentage": -76.83852,
+    "athChangePercentage": -76.89412,
     "athDate": "2025-06-10T11:46:43.336Z",
     "atl": 13.04,
     "atlDate": "2026-02-06T00:25:26.113Z",
@@ -45,5 +45,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:58:22.149Z"
+  "fetchedAt": "2026-03-22T16:58:22.149Z",
+  "lastMarketUpdate": "2026-03-22T17:46:54.163Z"
 }

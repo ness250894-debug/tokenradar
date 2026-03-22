@@ -2,20 +2,58 @@
   "id": "cow-protocol",
   "symbol": "cow",
   "name": "CoW Protocol",
+  "description": "COW token allows its holders the right to govern and curate the infrastructure of the CoW Protocol ecosystem through the CowDAO. Additionally, COW token holders receive fee discounts when trading on CowSwap &amp; some other perks.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Polygon Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "MEV Protection",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Intent",
+    "Delphi Ventures Portfolio",
+    "Blockchain Capital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://cow.fi",
+    "github": "https://github.com/gnosis/cow-token/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdef1ca1fb7fbcdc777520aa7f396b4e015f497ab"
+  },
   "market": {
-    "price": 0.21574,
-    "marketCap": 120682473,
+    "price": 0.215759,
+    "marketCap": 120688560,
     "marketCapRank": 239,
-    "volume24h": 5058933,
-    "priceChange24h": -3.92933,
+    "volume24h": 4111042,
+    "high24h": 0.226127,
+    "low24h": 0.215357,
+    "priceChange24h": -3.65394,
+    "priceChange7d": -6.01847,
+    "priceChange30d": 7.13321,
+    "priceChange1y": -31.04603,
     "ath": 2.22,
-    "athChangePercentage": -90.28082,
+    "athChangePercentage": -90.27489,
     "athDate": "2022-03-28T16:24:17.921Z",
     "atl": 0.03987045,
     "atlDate": "2022-11-09T18:32:42.225Z",
     "circulatingSupply": 559277820.2452873,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 215793575
   },
-  "lastMarketUpdate": "2026-03-22T16:51:05.917Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 67,
+    "githubForks": 4,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T17:48:20.827Z"
 }
