@@ -277,6 +277,11 @@ async function main() {
   console.log(`  Tokens needing generation: ${tokensToProcess.length}`);
   console.log();
 
+  const alertFile = path.join(DATA_DIR, "latest-batch-alert.txt");
+  if (fs.existsSync(alertFile)) {
+    fs.writeFileSync(alertFile, "");
+  }
+
   let totalArticles = 0;
   let totalCost = 0;
   const generatedTokens = new Set<string>();
@@ -453,8 +458,8 @@ async function main() {
       const links = Array.from(generatedTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\n');
       
       const message = `🚀 *Hourly Content Generation Complete*\n\nGenerated ${totalArticles} articles across ${generatedTokens.size} tokens.\n\n*Tokens Covered:*\n${links}`;
-      await sendTelegramAlert(message);
-      console.log(`  [TELEMETRY] Sent hourly generation report to Telegram.`);
+      fs.writeFileSync(alertFile, message);
+      console.log(`  [TELEMETRY] Saved hourly generation report payload to disk for post-deployment dispatch.`);
     } catch (e) {
       console.error(`  [TELEMETRY] Failed to send report:`, e);
     }

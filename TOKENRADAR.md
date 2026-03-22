@@ -159,8 +159,7 @@ tokenradar/
 │   ├── compute-metrics.ts            # Phase 3: Unique metric computation
 │   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)
 │   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)
-│   ├── post-to-telegram.ts           # Phase 6: Article announcements (Telegram)
-│   ├── post-to-x.ts                  # Phase 6: Article announcements (X/Twitter)
+
 │   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers
 │   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation
 │   └── send-report.ts               # Reporting: Daily/weekly/monthly summaries
@@ -383,7 +382,7 @@ All pages are **pre-rendered at build time** for:
 
 ## Phase 6 — Automated Social Promotion
 
-### Scripts: `scripts/post-market-updates.ts`, `post-to-x.ts`, `post-to-telegram.ts`
+### Scripts: `scripts/post-market-updates.ts`
 
 | Platform | Method | Cost | Limit |
 |----------|--------|------|-------|
