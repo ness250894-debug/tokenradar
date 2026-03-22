@@ -50,8 +50,8 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-      - name: Generate AI content (1 token per run)
-        run: npx tsx scripts/generate-content.ts --max 1
+      - name: Generate AI content (10 tokens per run)
+        run: npx tsx scripts/generate-content.ts --max 10
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
