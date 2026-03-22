@@ -2,20 +2,59 @@
   "id": "filecoin",
   "symbol": "fil",
   "name": "Filecoin",
+  "description": "The Filecoin network achieves staggering economies of scale by allowing anyone worldwide to participate as storage providers. It also makes storage resemble a commodity or utility by decoupling hard-drive space from additional services. On this robust global market the price of storage will be driven by supply and demand, not corporate pricing departments, and miners will compete on factors like reputation for reliability as well as price.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Storage",
+    "Layer 1 (L1)",
+    "DePIN",
+    "Alleged SEC Securities",
+    "Pantera Capital Portfolio",
+    "GMCI DePIN Index",
+    "GMCI 30 Index",
+    "Sequoia Capital Portfolio",
+    "Blockchain Capital Portfolio",
+    "GMCI Index",
+    "Made in USA",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://filecoin.io/",
+    "github": "https://github.com/filecoin-project/lotus",
+    "reddit": null,
+    "explorer": "https://filfox.info/en"
+  },
   "market": {
-    "price": 0.867001,
-    "marketCap": 661433100,
+    "price": 0.865692,
+    "marketCap": 660836206,
     "marketCapRank": 86,
-    "volume24h": 95368766,
-    "priceChange24h": -6.86534,
+    "volume24h": 93535490,
+    "high24h": 0.934973,
+    "low24h": 0.864521,
+    "priceChange24h": -7.33537,
+    "priceChange7d": -2.79061,
+    "priceChange30d": -9.01041,
+    "priceChange1y": -71.48692,
     "ath": 236.84,
-    "athChangePercentage": -99.63415,
+    "athChangePercentage": -99.63438,
     "athDate": "2021-04-01T13:29:41.564Z",
     "atl": 0.812608,
     "atlDate": "2026-02-06T00:30:17.896Z",
-    "circulatingSupply": 762988270,
-    "totalSupply": 1957950722,
-    "maxSupply": null
+    "circulatingSupply": 762988892,
+    "totalSupply": 1957950655,
+    "maxSupply": null,
+    "fdv": 1695810643
   },
-  "lastMarketUpdate": "2026-03-22T19:43:10.307Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T20:50:31.888Z"
 }

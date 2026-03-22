@@ -2,20 +2,64 @@
   "id": "frax",
   "symbol": "frax",
   "name": "Legacy Frax Dollar",
+  "description": "The first fractional-algorithmic stablecoin",
+  "categories": [
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Seigniorage",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Fantom Ecosystem",
+    "Harmony Ecosystem",
+    "Arbitrum Ecosystem",
+    "Moonriver Ecosystem",
+    "Moonbeam Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Aurora Ecosystem",
+    "Polygon zkEVM Ecosystem",
+    "Evmos Ecosystem",
+    "Boba Network Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://frax.finance",
+    "github": "https://github.com/fraxfinance/frax-solidity",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x853d955acef822db058eb8505911ed77f175b99e"
+  },
   "market": {
-    "price": 0.991924,
-    "marketCap": 273705334,
-    "marketCapRank": 135,
-    "volume24h": 2636135,
-    "priceChange24h": -0.00363,
+    "price": 0.991619,
+    "marketCap": 273640716,
+    "marketCapRank": 136,
+    "volume24h": 2681599,
+    "high24h": 0.993328,
+    "low24h": 0.988793,
+    "priceChange24h": 0.0584,
+    "priceChange7d": -0.14942,
+    "priceChange30d": 0.00392,
+    "priceChange1y": -0.77071,
     "ath": 1.14,
-    "athChangePercentage": -13.06305,
+    "athChangePercentage": -13.04554,
     "athDate": "2021-02-07T12:55:35.766Z",
     "atl": 0.874536,
     "atlDate": "2023-03-11T07:50:39.316Z",
     "circulatingSupply": 275935184.0102677,
     "totalSupply": 275935184.0102677,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 273640716
   },
-  "lastMarketUpdate": "2026-03-22T19:43:10.326Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T20:58:33.102Z"
 }

@@ -2,25 +2,30 @@
   "id": "figure-heloc",
   "symbol": "figr_heloc",
   "name": "Figure Heloc",
-  "description": "",
-  "categories": [],
+  "description": "This project is building the foundational protocol layer for institutional debt markets on blockchain. Powered by Provenance Blockchain, Figure Connect and Figure Markets are transforming the way loan assets are originated, traded, and settled. Figure Connect functions as a primary market for credit—standardizing and tokenizing debt assets such as HELOCs and private credit into composable on-chain formats. Figure Markets acts as a secondary trading venue, enabling 24/7 settlement of these digital loan assets through decentralized custody, with support for both crypto and fiat on/off ramps. Together, they offer an integrated protocol for real-world asset finance, with deep roots in the lending ecosystem.",
+  "categories": [
+    "Real World Assets (RWA)",
+    "Made in USA",
+    "Provenance Ecosystem",
+    "Tokenized Private Credit"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://www.figure.com",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://explorer.provenance.io/nft/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x"
   },
   "market": {
     "price": 1,
     "marketCap": 15843541913,
     "marketCapRank": 9,
     "volume24h": 296306884,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.14463,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "high24h": 1,
+    "low24h": 1,
+    "priceChange24h": 0,
+    "priceChange7d": -0.27511,
+    "priceChange30d": -2.98251,
     "priceChange1y": 0,
     "ath": 1.049,
     "athChangePercentage": -4.68189,
@@ -30,17 +35,16 @@
     "circulatingSupply": 15843541913.347,
     "totalSupply": 15843541913.347,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 15843541913
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.492Z",
-  "lastMarketUpdate": "2026-03-22T19:43:10.254Z"
+  "fetchedAt": "2026-03-22T20:49:04.390Z"
 }

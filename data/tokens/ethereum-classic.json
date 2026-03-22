@@ -17,22 +17,22 @@
     "explorer": "https://etc.tokenview.io/"
   },
   "market": {
-    "price": 8.07,
-    "marketCap": 1256756992,
+    "price": 8.06,
+    "marketCap": 1258124767,
     "marketCapRank": 60,
-    "volume24h": 34822279,
+    "volume24h": 34423915,
     "high24h": 8.41,
     "low24h": 8.04,
-    "priceChange24h": -3.6695,
+    "priceChange24h": -4.03284,
     "priceChange7d": -3.22969,
     "priceChange30d": -6.34841,
     "priceChange1y": -55.0713,
     "ath": 167.09,
-    "athChangePercentage": -95.178,
+    "athChangePercentage": -95.16996,
     "athDate": "2021-05-06T18:34:22.133Z",
     "atl": 0.615038,
     "atlDate": "2016-07-25T00:00:00.000Z",
-    "circulatingSupply": 156000745.3768419,
+    "circulatingSupply": 156001310.3954502,
     "totalSupply": 156001310.3954502,
     "maxSupply": 210700000,
     "fdv": 1256756992
@@ -46,5 +46,6 @@
     "githubForks": 245,
     "commits4Weeks": 11
   },
-  "fetchedAt": "2026-03-22T19:43:16.633Z"
+  "fetchedAt": "2026-03-22T19:43:16.633Z",
+  "lastMarketUpdate": "2026-03-22T20:47:34.382Z"
 }

@@ -2,20 +2,57 @@
   "id": "gala",
   "symbol": "gala",
   "name": "GALA",
+  "description": "GALA is designed to power the Gala Games ecosystem to support gaming re-imagined to benefit creators and players, alike.",
+  "categories": [
+    "Smart Contract Platform",
+    "Gaming (GameFi)",
+    "NFT",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "Play To Earn",
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Gaming Platform",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "GalaChain Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gala.com/",
+    "github": "https://github.com/GalaChain/sdk",
+    "reddit": "https://www.reddit.com/r/GoGalaGames/",
+    "explorer": "https://etherscan.io/token/0xd1d2eb1b1e90b638588728b4130137d262c87cae"
+  },
   "market": {
-    "price": 0.00304441,
-    "marketCap": 144518391,
+    "price": 0.00303928,
+    "marketCap": 144349213,
     "marketCapRank": 209,
-    "volume24h": 26515389,
-    "priceChange24h": -8.23734,
+    "volume24h": 26668422,
+    "high24h": 0.00334175,
+    "low24h": 0.00303127,
+    "priceChange24h": -8.87848,
+    "priceChange7d": -12.31622,
+    "priceChange30d": -22.60912,
+    "priceChange1y": -82.4608,
     "ath": 0.824837,
-    "athChangePercentage": -99.63127,
+    "athChangePercentage": -99.63088,
     "athDate": "2021-11-26T01:03:48.731Z",
     "atl": 0.00013475,
     "atlDate": "2020-12-28T08:46:48.367Z",
-    "circulatingSupply": 47496028581.81961,
-    "totalSupply": 47496028564.8196,
-    "maxSupply": 50000000000
+    "circulatingSupply": 47496028337.48598,
+    "totalSupply": 47496028339.48599,
+    "maxSupply": 50000000000,
+    "fdv": 144349213
   },
-  "lastMarketUpdate": "2026-03-22T19:43:10.363Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 139,
+    "githubForks": 43,
+    "commits4Weeks": 5
+  },
+  "fetchedAt": "2026-03-22T20:59:55.874Z"
 }

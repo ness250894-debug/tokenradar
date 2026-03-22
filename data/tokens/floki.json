@@ -2,20 +2,60 @@
   "id": "floki",
   "symbol": "floki",
   "name": "FLOKI",
+  "description": "FLOKI is the utility token of the Floki Ecosystem. The Floki Ecosystem is a community-powered ecosystem that aims to give people control of their finances through four key utility offerings:\n\n- The Valhalla NFT Metaverse Game.\n- The Floki University Crypto Education platform.\n- DeFi.\n- The FlokiPlaces NFT &amp; Merchandise Marketplace.",
+  "categories": [
+    "Gaming (GameFi)",
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Metaverse",
+    "Meme",
+    "Play To Earn",
+    "Ethereum Ecosystem",
+    "Telegram Apps",
+    "Dog-Themed",
+    "DWF Labs Portfolio",
+    "RPG",
+    "On-chain Gaming",
+    "TokenFi Launchpad",
+    "GMCI Meme Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.floki.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xcf0c122c6b73ff809c693db761e7baebe62b6a2e"
+  },
   "market": {
-    "price": 0.00002837,
-    "marketCap": 273760732,
-    "marketCapRank": 136,
-    "volume24h": 22389722,
-    "priceChange24h": -4.53032,
+    "price": 0.00002834,
+    "marketCap": 273704479,
+    "marketCapRank": 135,
+    "volume24h": 22111144,
+    "high24h": 0.00003004,
+    "low24h": 0.0000283,
+    "priceChange24h": -5.38998,
+    "priceChange7d": -4.0573,
+    "priceChange30d": -7.40538,
+    "priceChange1y": -55.21194,
     "ath": 0.00034495,
-    "athChangePercentage": -91.77776,
+    "athChangePercentage": -91.77597,
     "athDate": "2024-06-05T07:25:59.137Z",
     "atl": 8.428e-8,
     "atlDate": "2021-07-06T01:11:20.438Z",
-    "circulatingSupply": 9654461489807,
+    "circulatingSupply": 9654461090454,
     "totalSupply": 10000000000000,
-    "maxSupply": 10000000000000
+    "maxSupply": 10000000000000,
+    "fdv": 283500525
   },
-  "lastMarketUpdate": "2026-03-22T19:43:10.326Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T20:54:21.489Z"
 }

@@ -2,20 +2,52 @@
   "id": "flying-tulip",
   "symbol": "ft",
   "name": "Flying Tulip",
+  "description": "A cryptocurrency token known as Flying Tulip (FT). It is tracked on CoinGecko with the ID \"flying-tulip\".",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Derivatives",
+    "Perpetuals",
+    "Avalanche Ecosystem",
+    "Base Ecosystem",
+    "Sonic Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://flyingtulip.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x5DD1A7A369e8273371d2DBf9d83356057088082c"
+  },
   "market": {
-    "price": 0.097927,
-    "marketCap": 159500647,
-    "marketCapRank": 196,
-    "volume24h": 125471,
-    "priceChange24h": 1.38587,
+    "price": 0.098063,
+    "marketCap": 159891818,
+    "marketCapRank": 195,
+    "volume24h": 126712,
+    "high24h": 0.098771,
+    "low24h": 0.096063,
+    "priceChange24h": 1.48886,
+    "priceChange7d": -0.4494,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 0.299855,
-    "athChangePercentage": -67.36816,
+    "athChangePercentage": -67.23357,
     "athDate": "2026-02-23T13:55:11.412Z",
     "atl": 0.095207,
     "atlDate": "2026-03-19T18:51:22.756Z",
     "circulatingSupply": 1630495945.451805,
     "totalSupply": 9988164821.544897,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 979472434
   },
-  "lastMarketUpdate": "2026-03-22T19:43:10.359Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T20:55:46.246Z"
 }
