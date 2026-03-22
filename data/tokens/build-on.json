@@ -2,20 +2,49 @@
   "id": "build-on",
   "symbol": "b",
   "name": "BUILDon",
+  "description": "A cryptocurrency token known as BUILDon (B). It is tracked on CoinGecko with the ID \"build-on\".",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "World Liberty Financial Portfolio",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://buildon.online/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x6bdcCe4A559076e37755a78Ce0c06214E59e4444"
+  },
   "market": {
-    "price": 0.218419,
-    "marketCap": 218420914,
+    "price": 0.217762,
+    "marketCap": 217775411,
     "marketCapRank": 158,
-    "volume24h": 4137940,
-    "priceChange24h": -1.34802,
+    "volume24h": 4046429,
+    "high24h": 0.225211,
+    "low24h": 0.214776,
+    "priceChange24h": -0.99918,
+    "priceChange7d": 20.01905,
+    "priceChange30d": 65.51732,
+    "priceChange1y": 0,
     "ath": 0.731588,
-    "athChangePercentage": -70.17356,
+    "athChangePercentage": -70.22234,
     "athDate": "2025-08-31T21:31:16.268Z",
     "atl": 0.082973,
     "atlDate": "2025-10-10T21:31:21.514Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 217775411
   },
-  "lastMarketUpdate": "2026-03-22T15:19:28.392Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:53:54.998Z"
 }

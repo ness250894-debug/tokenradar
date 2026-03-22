@@ -2,20 +2,48 @@
   "id": "btse-token",
   "symbol": "btse",
   "name": "BTSE Token",
+  "description": "The BTSE token powers the BTSE ecosystem and enhances your trading experience.\n",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.btse.com/en/ref",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/btsecom/",
+    "explorer": "https://blockstream.info/liquid/asset/b00b0ff0b11ebd47f7c6f57614c046dbbd204e84bf01178baf2be3713a206eb7"
+  },
   "market": {
-    "price": 1.46,
-    "marketCap": 236226815,
+    "price": 1.45,
+    "marketCap": 235688444,
     "marketCapRank": 152,
-    "volume24h": 2663496,
-    "priceChange24h": -0.33311,
+    "volume24h": 2710093,
+    "high24h": 1.48,
+    "low24h": 1.45,
+    "priceChange24h": -0.43657,
+    "priceChange7d": -1.84644,
+    "priceChange30d": -8.90503,
+    "priceChange1y": 12.25644,
     "ath": 9.21,
-    "athChangePercentage": -84.15476,
+    "athChangePercentage": -84.19981,
     "athDate": "2022-03-23T09:11:07.549Z",
     "atl": 0.06191,
     "atlDate": "2025-10-10T22:48:11.249Z",
     "circulatingSupply": 162061501,
     "totalSupply": 200000000,
-    "maxSupply": 200000000
+    "maxSupply": 200000000,
+    "fdv": 290862965
   },
-  "lastMarketUpdate": "2026-03-22T15:19:28.391Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:52:27.299Z"
 }

@@ -2,45 +2,48 @@
   "id": "canton-network",
   "symbol": "cc",
   "name": "Canton",
-  "description": "",
-  "categories": [],
+  "description": "Canton Coin (CC), the network’s native utility token, was designed to reward real network usage over speculation. It aligns the success of the network with the participants who make it work, fairly rewarding app builders and app users, as well as those operating decentralized infrastructure. The result is a fundamentally different model where rewards flow to those creating value through real activity, not only miners or early investors.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Privacy Blockchain"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://www.canton.network/",
     "github": null,
     "reddit": null,
     "explorer": null
   },
   "market": {
-    "price": 0.142544,
-    "marketCap": 5430339445,
+    "price": 0.142545,
+    "marketCap": 5431819534,
     "marketCapRank": 20,
-    "volume24h": 5633829,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -2.23609,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "volume24h": 5062683,
+    "high24h": 0.14562,
+    "low24h": 0.142186,
+    "priceChange24h": -1.76974,
+    "priceChange7d": -6.00554,
+    "priceChange30d": -10.0637,
     "priceChange1y": 0,
     "ath": 0.194152,
-    "athChangePercentage": -26.48174,
+    "athChangePercentage": -26.56823,
     "athDate": "2026-02-03T08:02:08.411Z",
     "atl": 0.059024,
     "atlDate": "2025-12-06T10:32:09.784Z",
     "circulatingSupply": 38093107604.14258,
     "totalSupply": 38093107604.14258,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 5431819534
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.498Z",
-  "lastMarketUpdate": "2026-03-22T15:19:28.358Z"
+  "fetchedAt": "2026-03-22T15:55:25.619Z"
 }

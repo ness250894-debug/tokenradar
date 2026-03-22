@@ -2,20 +2,58 @@
   "id": "blockstack",
   "symbol": "stx",
   "name": "Stacks",
+  "description": "Stacks brings Apps and Smart Contracts to Bitcoin. Apps built on Stacks inherit all of Bitcoin’s powers. They run their logic on the blockchain with smart contracts, are controlled by code instead of companies, and are accessible to anyone. This enables decentralized apps to do things that regular apps can’t.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 2 (L2)",
+    "Bitcoin Sidechains",
+    "Stacks Ecosystem",
+    "SideChain",
+    "GMCI Layer 2 Index",
+    "GMCI 30 Index",
+    "Blockchain Capital Portfolio",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "http://stacks.co/",
+    "github": "https://github.com/stacks-network",
+    "reddit": "https://www.reddit.com/r/stacks",
+    "explorer": "https://explorer.stacks.co/"
+  },
   "market": {
-    "price": 0.235169,
-    "marketCap": 431964142,
+    "price": 0.234547,
+    "marketCap": 430777917,
     "marketCapRank": 107,
-    "volume24h": 10223922,
-    "priceChange24h": -4.34238,
+    "volume24h": 11980162,
+    "high24h": 0.247508,
+    "low24h": 0.234353,
+    "priceChange24h": -4.89758,
+    "priceChange7d": -7.66837,
+    "priceChange30d": -5.96041,
+    "priceChange1y": -62.62567,
     "ath": 3.86,
-    "athChangePercentage": -93.9247,
+    "athChangePercentage": -93.92213,
     "athDate": "2024-04-01T12:34:58.342Z",
     "atl": 0.04559639,
     "atlDate": "2020-03-13T02:29:26.415Z",
     "circulatingSupply": 1836394644.10214,
     "totalSupply": 1836394644.10214,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 430777917
   },
-  "lastMarketUpdate": "2026-03-22T15:19:28.381Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:48:08.700Z"
 }

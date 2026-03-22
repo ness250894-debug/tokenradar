@@ -18,23 +18,23 @@
     "explorer": "https://bch.tokenview.io/"
   },
   "market": {
-    "price": 468.94,
-    "marketCap": 9383897640,
+    "price": 468.41,
+    "marketCap": 9377452793,
     "marketCapRank": 14,
-    "volume24h": 167791507,
+    "volume24h": 170247442,
     "high24h": 469.32,
     "low24h": 458.6,
-    "priceChange24h": 0.09671,
+    "priceChange24h": 0.00082,
     "priceChange7d": 1.13603,
     "priceChange30d": -13.9078,
     "priceChange1y": 44.79918,
     "ath": 3785.82,
-    "athChangePercentage": -87.61315,
+    "athChangePercentage": -87.62725,
     "athDate": "2017-12-20T00:00:00.000Z",
     "atl": 76.93,
     "atlDate": "2018-12-16T00:00:00.000Z",
     "circulatingSupply": 20010774.89665078,
-    "totalSupply": 20010796.77165078,
+    "totalSupply": 20011099.89665078,
     "maxSupply": 21000000,
     "fdv": 9383907898
   },
@@ -47,5 +47,6 @@
     "githubForks": 224,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:28:01.712Z"
+  "fetchedAt": "2026-03-22T15:28:01.712Z",
+  "lastMarketUpdate": "2026-03-22T15:45:10.091Z"
 }

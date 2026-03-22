@@ -2,12 +2,28 @@
   "id": "blockchain-capital",
   "symbol": "bcap",
   "name": "Blockchain Capital",
+  "description": "As a sector-specific and stage-agnostic fund managed by BC Manager, BC III DLVF will be a leading investor in the cryptocurrency and blockchain technology industry. BC III DLVF’s core business strategy is to leverage the proprietary resources and experience of BC Manager with the objective of generating growth and income from its investments. BC III DLVF holdings will primarily consist of new and growing blockchain technology and cryptocurrency businesses and ICOs.\n\nBlockchain Capital continues to be focused on the nexus of the industry where blockchain-based innovations are augmenting and replacing legacy systems and infrastructure. As one of the earliest and most active investors in the blockchain industry, Blockchain Capital has valuable access to information, robust access to proprietary dealflow, and an extensive network that helps guide strategic investment opportunities.\n\nIn three broad categories, Blockchain Capital’s portfolios include companies that are facilitating the growth of the Bitcoin ecosystem, companies that are providing blockchain-based technology solutions to financial institutions and companies that are enabling non-financial institutions to leverage blockchain technology. The firm sees opportunity to add efficiency and enable new opportunities across each of these major categories.\n\nAs with any nascent technology, it remains to be seen exactly where blockchain technology will have its biggest impact. As such, Blockchain Capital takes a diversified approach to its portfolio by investing in a wide-range of use cases and applications—often beginning at the seed level. This diversified, early-stage strategy allows the firm to continue investing into successful portfolio companies in subsequent investment rounds while reducing portfolio exposure to less-successful companies and helping them find strategic alternatives.\n\n\n\n",
+  "categories": [
+    "ZkSync Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.blockchaincapital.com/",
+    "github": "https://github.com/BlockchainCap",
+    "reddit": null,
+    "explorer": "https://explorer.zksync.io/token/0x57fD71a86522Dc06D6255537521886057c1772A3"
+  },
   "market": {
     "price": 22.99,
     "marketCap": 209487432,
     "marketCapRank": 162,
     "volume24h": 0,
+    "high24h": 22.99,
+    "low24h": 22.99,
     "priceChange24h": 0,
+    "priceChange7d": 0.5247,
+    "priceChange30d": 0.56868,
+    "priceChange1y": 0,
     "ath": 28.41,
     "athChangePercentage": -19.07779,
     "athDate": "2025-07-28T21:00:06.621Z",
@@ -15,7 +31,17 @@
     "atlDate": "2025-06-02T20:50:02.462Z",
     "circulatingSupply": 9112111,
     "totalSupply": 9112111,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 209487432
   },
-  "lastMarketUpdate": "2026-03-22T15:19:28.393Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:46:46.001Z"
 }

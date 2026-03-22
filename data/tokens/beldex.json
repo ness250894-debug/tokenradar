@@ -31,23 +31,23 @@
     "explorer": "https://explorer.beldex.io/"
   },
   "market": {
-    "price": 0.079932,
-    "marketCap": 608320064,
-    "marketCapRank": 88,
-    "volume24h": 10271141,
+    "price": 0.079954,
+    "marketCap": 608272187,
+    "marketCapRank": 87,
+    "volume24h": 10764514,
     "high24h": 0.08052,
     "low24h": 0.079842,
-    "priceChange24h": -0.07856,
+    "priceChange24h": -0.26183,
     "priceChange7d": -1.05163,
     "priceChange30d": -0.39501,
     "priceChange1y": 6.33533,
     "ath": 0.450785,
-    "athChangePercentage": -82.26711,
+    "athChangePercentage": -82.25964,
     "athDate": "2018-12-17T00:00:00.000Z",
     "atl": 0.00027519,
     "atlDate": "2019-11-01T11:05:12.090Z",
-    "circulatingSupply": 7606383744.827932,
-    "totalSupply": 9936683370.763655,
+    "circulatingSupply": 7606384187.27762,
+    "totalSupply": 9936684486.523762,
     "maxSupply": null,
     "fdv": 794685631
   },
@@ -60,5 +60,6 @@
     "githubForks": 26,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:20:56.139Z"
+  "fetchedAt": "2026-03-22T15:20:56.139Z",
+  "lastMarketUpdate": "2026-03-22T15:45:10.109Z"
 }

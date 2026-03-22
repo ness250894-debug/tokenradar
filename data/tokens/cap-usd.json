@@ -2,20 +2,48 @@
   "id": "cap-usd",
   "symbol": "cusd",
   "name": "Cap USD",
+  "description": "Cap is a stablecoin protocol that provides credible financial guarantees via two products: the dollar-denominated cUSD and the yield-bearing stcUSD. \n\ncUSD is a digital dollar issued on the Ethereum blockchain that can be used on any network. cUSD's reserve is backed by blue chip stablecoins such as USDC, USDT, pyUSD, BUIDL, and BENJI, i.e. issued by regulated institutions with transparent attestations. It is 1:1 redeemable for any of the available reserve assets. \n\nstcUSD is a savings product issued by staking cUSD. Any cUSD holder has open access to stcUSD.  Yield is generated via an autonomous layer of operators, who self-select in and out based on the current hurdle rate of the protocol. The risk of yield generation is covered, meaning users have full downside protection that is verifiable by code.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://cap.app/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xcccc62962d17b8914c62d74ffb843d73b2a3cccc"
+  },
   "market": {
-    "price": 0.980614,
-    "marketCap": 125872341,
-    "marketCapRank": 230,
-    "volume24h": 121989,
-    "priceChange24h": -0.21894,
+    "price": 0.999337,
+    "marketCap": 98329742,
+    "marketCapRank": 270,
+    "volume24h": 89014,
+    "high24h": 1.032,
+    "low24h": 0.962127,
+    "priceChange24h": 1.63541,
+    "priceChange7d": 2.8865,
+    "priceChange30d": -0.12989,
+    "priceChange1y": 0,
     "ath": 1.17,
-    "athChangePercentage": -16.26582,
+    "athChangePercentage": -14.54288,
     "athDate": "2025-10-10T21:42:31.469Z",
     "atl": 0.946058,
     "atlDate": "2026-02-02T03:25:52.673Z",
-    "circulatingSupply": 128388547.8658169,
-    "totalSupply": 128388547.8658169,
-    "maxSupply": null
+    "circulatingSupply": 98337399.94644998,
+    "totalSupply": 98337399.94644998,
+    "maxSupply": null,
+    "fdv": 98329742
   },
-  "lastMarketUpdate": "2026-03-22T07:10:39.025Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:56:58.319Z"
 }
