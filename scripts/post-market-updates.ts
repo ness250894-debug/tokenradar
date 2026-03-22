@@ -138,7 +138,11 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string 
     lines.push("");
   }
 
-  lines.push(...SOCIAL_FOOTER);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const displayUrl = siteUrl.replace("https://", "");
+  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
+  lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -163,7 +167,11 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
     lines.push("");
   }
 
-  lines.push(...SOCIAL_FOOTER);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const displayUrl = siteUrl.replace("https://", "");
+  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
+  lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -194,7 +202,11 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string 
     lines.push("");
   }
 
-  lines.push(...SOCIAL_FOOTER);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const displayUrl = siteUrl.replace("https://", "");
+  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
+  lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
@@ -387,7 +399,8 @@ async function main() {
     targetMetric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
   }
 
-  if (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY) {
+  // Only generate AI summaries if the platform is NOT 'x' (X has a 280-character limit)
+  if ((process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY) && targetPlatform !== "x") {
     console.log(`▶ Step 3: Generating Deep Insight for ${targetToken.name}...`);
     aiSummary = await generateTokenSummary(
       targetToken.name, 
@@ -401,6 +414,8 @@ async function main() {
       }
     );
     if (aiSummary) console.log(` ✓ Summary generated (${aiSummary.length} chars)`);
+  } else if (targetPlatform === "x") {
+    console.log("  [X PLATFORM] Bypassing AI Insight generation to respect 280-character tweet limits.");
   } else {
     console.warn("  ⚠ No GEMINI_API_KEY or ANTHROPIC_API_KEY set — skipping AI summary.");
   }
