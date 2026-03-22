@@ -2,20 +2,52 @@
   "id": "dogwifcoin",
   "symbol": "wif",
   "name": "dogwifhat",
+  "description": "Literally a dog wif a hat, dogwifhat (WIF) is a meme coin that's part of the ever-growing ecosystem of digital currencies on the Solana blockchain. This token brings a lighthearted twist to cryptocurrency, featuring a playful dog with a hat as its mascot, symbolising a more whimsical approach to the often serious domain of digital finance.",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Dog-Themed",
+    "Solana Meme",
+    "GMCI Meme Index",
+    "GMCI Index",
+    "Unichain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://dogwifcoin.org",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/dogwifhat",
+    "explorer": "https://solscan.io/token/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm"
+  },
   "market": {
-    "price": 0.174085,
-    "marketCap": 173984611,
-    "marketCapRank": 187,
-    "volume24h": 79562065,
-    "priceChange24h": -3.54511,
+    "price": 0.172244,
+    "marketCap": 172041780,
+    "marketCapRank": 189,
+    "volume24h": 78878496,
+    "high24h": 0.182081,
+    "low24h": 0.171223,
+    "priceChange24h": -4.32757,
+    "priceChange7d": 3.55005,
+    "priceChange30d": -23.63734,
+    "priceChange1y": -66.73286,
     "ath": 4.83,
-    "athChangePercentage": -96.39335,
+    "athChangePercentage": -96.43101,
     "athDate": "2024-03-31T09:34:58.366Z",
     "atl": 0.00155464,
     "atlDate": "2023-12-13T07:13:50.873Z",
     "circulatingSupply": 998926392,
     "totalSupply": 998926392,
-    "maxSupply": 998926392
+    "maxSupply": 998926392,
+    "fdv": 172041780
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.146Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:00:59.975Z"
 }

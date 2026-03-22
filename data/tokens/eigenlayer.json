@@ -2,20 +2,55 @@
   "id": "eigenlayer",
   "symbol": "eigen",
   "name": "EigenCloud (prev. EigenLayer)",
+  "description": "EigenCloud is a developer platform that makes any app onchain or offchain provably verifiable. A platform for verifiable apps, services, and AI powered by the EIGEN token.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Data Availability",
+    "Restaking",
+    "Polychain Capital Portfolio",
+    "AI Framework",
+    "Made in USA",
+    "x402 Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.eigencloud.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83"
+  },
   "market": {
-    "price": 0.190221,
-    "marketCap": 123067052,
-    "marketCapRank": 236,
-    "volume24h": 17041596,
-    "priceChange24h": -6.04905,
+    "price": 0.188385,
+    "marketCap": 121950564,
+    "marketCapRank": 237,
+    "volume24h": 17664862,
+    "high24h": 0.201696,
+    "low24h": 0.188481,
+    "priceChange24h": -6.51533,
+    "priceChange7d": -11.81656,
+    "priceChange30d": -5.19018,
+    "priceChange1y": -84.46097,
     "ath": 5.65,
-    "athChangePercentage": -96.63135,
+    "athChangePercentage": -96.66158,
     "athDate": "2024-12-17T03:45:30.422Z",
     "atl": 0.17053,
     "atlDate": "2026-02-23T02:05:33.374Z",
     "circulatingSupply": 647138882.415015,
     "totalSupply": 1807820861.92712,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 340676136
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.162Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:05:04.130Z"
 }

@@ -2,20 +2,48 @@
   "id": "dexe",
   "symbol": "dexe",
   "name": "DeXe",
+  "description": "1. Using the DeXe Utility token in the ecosystem:\n1.1 Programmed redemption and burning of tokens for a certain % of the traders’ compensation.\n1.2 Control over DeXe treasury better. One of the DeXe functionality includes farming rewards with DeXe.network from social trading activity.\n1.3 Use of the token by the holders for casting a ballot and settling on choices regarding:\na. The timespan and adjustment of the percentage of tokens burned.\nb. Effect on the number of remunerations got for farming (increase or decline the percent of accrual)\nc. Voting for the date of burning tokens and ascertaining the reward for farming (details below).\n1.4 Work of the system for insuring users’ deposits by staking tokens on DEX.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://dexe.network/",
+    "github": "https://github.com/dexe-network/dexe",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xde4ee8057785a7e8e800db58f9784845a5c2cbd6"
+  },
   "market": {
-    "price": 6.9,
-    "marketCap": 322440225,
-    "marketCapRank": 127,
-    "volume24h": 29964807,
-    "priceChange24h": 10.72738,
+    "price": 6.94,
+    "marketCap": 324213990,
+    "marketCapRank": 125,
+    "volume24h": 30173105,
+    "high24h": 6.97,
+    "low24h": 6.29,
+    "priceChange24h": 8.5277,
+    "priceChange7d": 32.61276,
+    "priceChange30d": 187.96402,
+    "priceChange1y": -60.5501,
     "ath": 32.38,
-    "athChangePercentage": -78.64301,
+    "athChangePercentage": -78.68668,
     "athDate": "2021-03-08T13:29:57.935Z",
     "atl": 0.671563,
     "atlDate": "2020-11-06T19:31:40.144Z",
-    "circulatingSupply": 46752636.689831376,
+    "circulatingSupply": 46751386.35500994,
     "totalSupply": 96504599.33609451,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 669245207
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.130Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T18:58:16.888Z"
 }

@@ -2,20 +2,55 @@
   "id": "elrond-erd-2",
   "symbol": "egld",
   "name": "MultiversX",
+  "description": "What is MultiversX \n\nMultiversX is a blockchain protocol that offers true horizontal scalability by using all aspects of sharding (Network, Transaction &amp; State). The project describes itself as a technology ecosystem for the new internet, which includes decentralized finance, real world assets and the Metaverse. Its smart contracts execution platform is reportedly capable of up to 100,000 transactions per second, 6-second latency and a $0.002 transaction cost. MultiversX is governed and secured through the EGLD token. EGLD, or Electronic Gold, is MultiversX's native token. It acts as a store of value currency to pay for network usage. The coin also serves as a medium of exchange between platform users and validators. Users pay transaction fees in EGLD and validators participate in the consensus process. EGLD allows developers to deploy smart contracts, protocols, and dApps on the platform. It empowers participants to perform any network action. Through staking and validation rewards, as well as transaction fees, EGLD manages the MultiversX network. Plus, EGLD is endowed with the functionality of a governance token, so its holders can vote on network decisions. \n\nHow does MultiversX Work \n\nAccording to the MultiversX crypto team, the project implements three types of parallelization: state, transactions, and network, using the parallel processing method to speed up the time and increase the number of transactions. MultiversX uses Adaptive State Sharding to scale while sharing infrastructure to support a growing number of applications/transactions on the ledger. A variation of the traditional PoS operational protocol guarantees the connection to the platform of all sections of the network, separated during sharding. Hence, the integrated environment is involved in the development of dApps, which are imitations of products and services. MultiversX combines three sharding methods to create its own unique adaptive one. It divides the network into four shards: three being execution shards that process transactions, validating 30,000 transactions per second, and Metachain is the fourth shard that coordinates and completes transactions. Sharding types include: State sharding where the history of the network, or state, is distributed across different sections of the network, or shards. Segments have their own ledger, nodes store the state of each segment; Transaction sharding where transactions are mapped to segments and processed, segments process transactions in parallel and nodes capture the state of the entire network; Network sharding where the nodes are grouped into segments and then processed. Network slicing contributes to optimizing communications. \n\nWhat makes MultiversX Unique \n\nMultiversX describes itself as a blockchain platform for the new internet economy, decentralized applications and enterprise use. Its main selling point is its high scalability, stating that it is the first blockchain network in which state, network and transaction ... [truncated]",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "MultiversX Ecosystem",
+    "Binance Launchpad",
+    "DWF Labs Portfolio",
+    "Proof of Stake (PoS)",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://multiversx.com/",
+    "github": "https://github.com/multiversx/mx-chain-go",
+    "reddit": "https://www.reddit.com/r/elrondnetwork/",
+    "explorer": "https://explorer.multiversx.com/"
+  },
   "market": {
-    "price": 3.94,
-    "marketCap": 116581247,
+    "price": 3.93,
+    "marketCap": 116322716,
     "marketCapRank": 240,
-    "volume24h": 5038110,
-    "priceChange24h": -3.91931,
+    "volume24h": 5062250,
+    "high24h": 4.1,
+    "low24h": 3.93,
+    "priceChange24h": -3.73342,
+    "priceChange7d": -8.3091,
+    "priceChange30d": -14.7293,
+    "priceChange1y": -78.57384,
     "ath": 545.64,
-    "athChangePercentage": -99.27683,
+    "athChangePercentage": -99.27888,
     "athDate": "2021-11-23T10:33:26.737Z",
     "atl": 3.83,
     "atlDate": "2026-02-06T00:25:47.996Z",
-    "circulatingSupply": 29565859,
-    "totalSupply": 29565859,
-    "maxSupply": null
+    "circulatingSupply": 29572645,
+    "totalSupply": 29572645,
+    "maxSupply": null,
+    "fdv": 116322716
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.163Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:06:29.302Z"
 }

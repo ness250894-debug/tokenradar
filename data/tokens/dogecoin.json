@@ -2,45 +2,55 @@
   "id": "dogecoin",
   "symbol": "doge",
   "name": "Dogecoin",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "Dogecoin is an open-source digital currency based on the \"Doge\" meme that functions as a peer-to-peer medium for fast payments and digital tipping. Unlike projects backed by corporate entities, its value is driven by a global community, and the project is managed by a decentralized group of volunteers and the non-profit Dogecoin Foundation rather than a formal company.\n\nOriginally created in 2013 by software engineers Billy Markus and Jackson Palmer as a market parody, the project held no public sale or venture capital rounds. The network operates as a fork of LuckyCoin, which itself was a fork of Litecoin, using a proof of work consensus mechanism. It employs the Scrypt algorithm to ensure the mining process remains fast and efficient, with new blocks processed every 60 seconds. A unique technical feature is its use of merged mining, allowing miners to secure Dogecoin simultaneously with other Scrypt-based networks like Litecoin.\n\nTo keep transaction fees low and the network running indefinitely, Dogecoin features an uncapped supply where new coins are added forever. In a major regulatory milestone in March 2026, a joint SEC and CFTC framework officially classified Dogecoin as a digital commodity, placing it in the same asset category as gold or oil.",
+  "categories": [
+    "Smart Contract Platform",
+    "Meme",
+    "Dog-Themed",
+    "Elon Musk-Inspired",
+    "Proof of Work (PoW)",
+    "GMCI Meme Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Coinbase 50 Index",
+    "4chan-Themed"
+  ],
+  "genesisDate": "2013-12-08",
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "http://dogecoin.com/",
+    "github": "https://github.com/dogecoin/dogecoin",
+    "reddit": "https://www.reddit.com/r/dogecoin/",
+    "explorer": "https://doge.tokenview.io/"
   },
   "market": {
-    "price": 0.09146,
-    "marketCap": 14040533956,
+    "price": 0.090738,
+    "marketCap": 13927754097,
     "marketCapRank": 10,
-    "volume24h": 831930311,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -2.87581,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 870600121,
+    "high24h": 0.094323,
+    "low24h": 0.090621,
+    "priceChange24h": -3.54378,
+    "priceChange7d": -5.01411,
+    "priceChange30d": -10.34471,
+    "priceChange1y": -46.25569,
     "ath": 0.731578,
-    "athChangePercentage": -87.49823,
+    "athChangePercentage": -87.59695,
     "athDate": "2021-05-08T05:08:23.458Z",
     "atl": 0.0000869,
     "atlDate": "2015-05-06T00:00:00.000Z",
-    "circulatingSupply": 153515216383.7052,
-    "totalSupply": 169229573126.5791,
+    "circulatingSupply": 153518056383.7052,
+    "totalSupply": 153518246383.7052,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 13927771335
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 14334,
+    "githubForks": 2844,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.492Z",
-  "lastMarketUpdate": "2026-03-22T17:46:54.094Z"
+  "fetchedAt": "2026-03-22T18:59:34.039Z"
 }

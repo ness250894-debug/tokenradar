@@ -2,20 +2,49 @@
   "id": "doublezero",
   "symbol": "2z",
   "name": "DoubleZero",
+  "description": "DoubleZero is a high-performance global network of independently contributed links, purpose-built for\nblockchain and other distributed systems. It provides direct, low-latency routing that strengthens validator\nperformance and supports faster, fairer participation worldwide.\n\n2Z Tokens are used to access the network’s connectivity service, and, on the other side, reward network contributors and resource providers based on performance and reliability. 2Z Tokens can also be staked to enhance the security of the network.",
+  "categories": [
+    "Infrastructure",
+    "Solana Ecosystem",
+    "Binance Alpha Spotlight",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://doublezero.xyz/",
+    "github": "http://github.com/doublezerofoundation",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/J6pQQ3FAcJQeWPPGppWRb4nM8jU3wLyYbRrLh7feMfvd"
+  },
   "market": {
-    "price": 0.073189,
-    "marketCap": 254049768,
+    "price": 0.072744,
+    "marketCap": 252398993,
     "marketCapRank": 145,
-    "volume24h": 5586265,
-    "priceChange24h": -3.38446,
+    "volume24h": 5610831,
+    "high24h": 0.075514,
+    "low24h": 0.07269,
+    "priceChange24h": -3.63526,
+    "priceChange7d": -14.90787,
+    "priceChange30d": -4.24738,
+    "priceChange1y": 0,
     "ath": 0.893679,
-    "athChangePercentage": -91.80307,
+    "athChangePercentage": -91.85713,
     "athDate": "2025-10-02T13:11:45.813Z",
     "atl": 0.065927,
     "atlDate": "2026-02-24T13:26:12.060Z",
     "circulatingSupply": 3471417500,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 727077607
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.134Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:02:21.281Z"
 }

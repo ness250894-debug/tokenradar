@@ -2,20 +2,49 @@
   "id": "ecash",
   "symbol": "xec",
   "name": "eCash",
+  "description": "eCash (XEC) is a Layer-1 digital cash network, developed by Bitcoin ABC. It was created on Nov 15th, 2020, and has since distinguished itself from its predecessors and other Bitcoin clients by integrating the breakthrough Avalanche consensus with its core proof-of-work (PoW) layer, extending its security and fundamental capabilities.\n\nThis Nakamoto/Avalanche hybrid consensus integration gives it unique properties for a Bitcoin-like chain, such as instant transaction finality, staking rewards, extensibility through subnets, and flexible protocol governance.\n\nThe development roadmap is set with three main goals:\nScaling transaction throughput from ~100 tps to more than 5.000.000 tps\nImproving the payment experience with a less than 3 second transaction finality time\nExtending the protocol and establishing fork-free upgrades, allowing for more rapid, iterative development",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Bitcoin Fork",
+    "Proof of Work (PoW)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://e.cash/",
+    "github": "https://github.com/bitcoin-abc",
+    "reddit": "https://www.reddit.com/r/ecash/",
+    "explorer": "https://ecash.coin.dance/"
+  },
   "market": {
-    "price": 0.00000683,
-    "marketCap": 136709577,
+    "price": 0.0000068,
+    "marketCap": 135923561,
     "marketCapRank": 217,
-    "volume24h": 2989209,
-    "priceChange24h": -2.65942,
+    "volume24h": 3030463,
+    "high24h": 0.00000706,
+    "low24h": 0.00000678,
+    "priceChange24h": -3.50144,
+    "priceChange7d": -5.4538,
+    "priceChange30d": -14.46062,
+    "priceChange1y": -69.10525,
     "ath": 0.00038001,
-    "athChangePercentage": -98.20114,
+    "athChangePercentage": -98.21244,
     "athDate": "2021-09-04T17:09:31.137Z",
     "atl": 0.0000067,
     "atlDate": "2026-03-09T02:25:59.208Z",
-    "circulatingSupply": 20004454672580,
-    "totalSupply": 20004467172580,
-    "maxSupply": 21000000000000
+    "circulatingSupply": 20004479672580,
+    "totalSupply": 20004479672580,
+    "maxSupply": 21000000000000,
+    "fdv": 135923561
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.156Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:03:43.026Z"
 }

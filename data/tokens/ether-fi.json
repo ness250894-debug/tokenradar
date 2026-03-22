@@ -2,20 +2,57 @@
   "id": "ether-fi",
   "symbol": "ethfi",
   "name": "Ether.fi",
+  "description": "A cryptocurrency token known as Ether.fi (ETHFI). It is tracked on CoinGecko with the ID \"ether-fi\".",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Binance Launchpool",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Scroll Ecosystem",
+    "Restaking",
+    "Liquid Restaking Governance Tokens",
+    "Ether.fi Ecosystem",
+    "Consensys Portfolio",
+    "OKX Ventures Portfolio",
+    "Neobank"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.ether.fi/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xfe0c30065b384f05761f15d0cc899d4f9f9cc0eb"
+  },
   "market": {
-    "price": 0.557922,
-    "marketCap": 439967448,
+    "price": 0.553396,
+    "marketCap": 436334060,
     "marketCapRank": 105,
-    "volume24h": 53600273,
-    "priceChange24h": -5.80214,
+    "volume24h": 53319017,
+    "high24h": 0.603357,
+    "low24h": 0.553433,
+    "priceChange24h": -6.97735,
+    "priceChange7d": 0.66984,
+    "priceChange30d": 16.56709,
+    "priceChange1y": -18.15518,
     "ath": 8.53,
-    "athChangePercentage": -93.46025,
+    "athChangePercentage": -93.49886,
     "athDate": "2024-03-27T23:14:46.721Z",
     "atl": 0.396031,
     "atlDate": "2026-02-06T00:21:50.168Z",
     "circulatingSupply": 788764625,
     "totalSupply": 998535999,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 552376783
   },
-  "lastMarketUpdate": "2026-03-22T17:46:54.125Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:10:46.380Z"
 }
