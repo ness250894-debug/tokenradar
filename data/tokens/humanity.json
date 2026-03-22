@@ -2,20 +2,52 @@
   "id": "humanity",
   "symbol": "h",
   "name": "Humanity",
+  "description": "Humanity Protocol is a blockchain featuring a native Proof of Humanity (PoH) consensus mechanism that verifies users' uniqueness as humans through decentralized identifiers (DID) and verifiable credentials (VC), combining privacy-preserving human recognition, decentralized storage, and zero-knowledge proofs to enable sybil resistance, self-sovereign identity, and user-owned data for innovative and inclusive applications.\n",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Privacy Blockchain",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.humanity.org/",
+    "github": "https://github.com/humanity-org/hp-basic-token/tree/master",
+    "reddit": null,
+    "explorer": "https://humanity-mainnet.explorer.alchemy.com/"
+  },
   "market": {
-    "price": 0.092002,
-    "marketCap": 167960759,
+    "price": 0.092988,
+    "marketCap": 169295086,
     "marketCapRank": 189,
-    "volume24h": 15883710,
-    "priceChange24h": -3.10302,
+    "volume24h": 16679204,
+    "high24h": 0.101286,
+    "low24h": 0.091533,
+    "priceChange24h": -1.66765,
+    "priceChange7d": -24.89023,
+    "priceChange30d": -42.8115,
+    "priceChange1y": 0,
     "ath": 0.388387,
-    "athChangePercentage": -76.29899,
+    "athChangePercentage": -76.06474,
     "athDate": "2025-10-25T09:06:05.244Z",
     "atl": 0.01810273,
     "atlDate": "2025-06-27T01:20:39.339Z",
     "circulatingSupply": 1825000000,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 927644307
   },
-  "lastMarketUpdate": "2026-03-22T21:45:40.684Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 7,
+    "githubForks": 1,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T22:53:31.801Z"
 }

@@ -25,7 +25,7 @@
     "volume24h": 111880,
     "high24h": 0,
     "low24h": 0,
-    "priceChange24h": 0,
+    "priceChange24h": null,
     "priceChange7d": -0.04436,
     "priceChange30d": 0.33978,
     "priceChange1y": 3.72104,
@@ -48,5 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:58:47.892Z"
+  "fetchedAt": "2026-03-22T21:58:47.892Z",
+  "lastMarketUpdate": "2026-03-22T22:47:43.570Z"
 }

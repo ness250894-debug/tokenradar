@@ -2,20 +2,63 @@
   "id": "injective-protocol",
   "symbol": "inj",
   "name": "Injective",
+  "description": "Injective is an interoperable Layer 1 blockchain designed for DeFi applications. It provides developers with on-chain financial infrastructure modules to build dApps such as decentralized exchanges, prediction markets, and lending protocols. Its decentralized cross-chain bridging infrastructure offers compatibility with most blockchains, including EVM chains like Ethereum and non-EVM chains like Solana.",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Cosmos Ecosystem",
+    "Layer 1 (L1)",
+    "Terra Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Binance Launchpad",
+    "Osmosis Ecosystem",
+    "Proof of Stake (PoS)",
+    "Pantera Capital Portfolio",
+    "Secret Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://injective.com",
+    "github": "https://github.com/InjectiveLabs/injective-helix-demo",
+    "reddit": "https://www.reddit.com/r/injective/",
+    "explorer": "https://explorer.injective.network/"
+  },
   "market": {
-    "price": 2.94,
-    "marketCap": 293666305,
+    "price": 2.96,
+    "marketCap": 295949981,
     "marketCapRank": 130,
-    "volume24h": 39384388,
-    "priceChange24h": -5.5842,
+    "volume24h": 39609015,
+    "high24h": 3.12,
+    "low24h": 2.92,
+    "priceChange24h": -4.74058,
+    "priceChange7d": -4.37962,
+    "priceChange30d": -12.54764,
+    "priceChange1y": -70.19455,
     "ath": 52.62,
-    "athChangePercentage": -94.43294,
+    "athChangePercentage": -94.39059,
     "athDate": "2024-03-14T15:06:22.124Z",
     "atl": 0.657401,
     "atlDate": "2020-11-03T16:19:30.576Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 295949981
   },
-  "lastMarketUpdate": "2026-03-22T21:45:40.672Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 117,
+    "githubForks": 79,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T22:59:13.631Z"
 }

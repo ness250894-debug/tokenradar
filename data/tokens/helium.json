@@ -2,20 +2,57 @@
   "id": "helium",
   "symbol": "hnt",
   "name": "Helium",
+  "description": "Helium is a decentralized machine network powered by a physical blockchain. The network is created by gateways who also double as miners on our network. These gateway operators can earn tokens based on coverage they provide as well as transaction fees gained from machines connecting to their gateway\n\nHelium is a new cryptocurrency. Hotspots earn for providing and validating wireless coverage and when devices on the network connect to the internet through Hospots\n\nHelium is mined and distributed to Hotspot Owners, Helium Inc, and investors.\nThere is no pre-mine of Helium, and every month approximately 5,000,000 new Helium are minted.\n\nAt the end of each mining period, roughly every 30 to 60 mins, Helium is distributed according to the allocation shown:",
+  "categories": [
+    "Communication",
+    "Internet of Things (IOT)",
+    "Smart Contract Platform",
+    "Solana Ecosystem",
+    "DePIN",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Alameda Research Portfolio",
+    "Pantera Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.helium.com/",
+    "github": "https://github.com/helium/erlang-hbbft",
+    "reddit": "https://www.reddit.com/r/HeliumNetwork",
+    "explorer": "https://solscan.io/token/hntyvp6yfm1hg25tn9wglqm12b8tqmcknkrdu1oxwux"
+  },
   "market": {
-    "price": 1.15,
-    "marketCap": 211667316,
+    "price": 1.16,
+    "marketCap": 215090714,
     "marketCapRank": 161,
-    "volume24h": 3370163,
-    "priceChange24h": -8.12561,
+    "volume24h": 3432138,
+    "high24h": 1.24,
+    "low24h": 1.14,
+    "priceChange24h": -6.22597,
+    "priceChange7d": -4.9981,
+    "priceChange30d": -19.94097,
+    "priceChange1y": -64.56742,
     "ath": 54.88,
-    "athChangePercentage": -97.91226,
+    "athChangePercentage": -97.8775,
     "athDate": "2021-11-12T23:08:25.301Z",
     "atl": 0.113248,
     "atlDate": "2020-04-18T00:19:10.902Z",
-    "circulatingSupply": 184690582.0403021,
+    "circulatingSupply": 184690572.4412912,
     "totalSupply": 184690572.4412912,
-    "maxSupply": 223000000
+    "maxSupply": 223000000,
+    "fdv": 215090714
   },
-  "lastMarketUpdate": "2026-03-22T21:45:40.678Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T22:52:08.777Z"
 }

@@ -2,20 +2,47 @@
   "id": "infinifi-usd",
   "symbol": "iusd",
   "name": "InfiniFi USD",
+  "description": "A cryptocurrency token known as InfiniFi USD (IUSD). It is tracked on CoinGecko with the ID \"infinifi-usd\".",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Yield-Bearing Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x48f9e38f3070AD8945DFEae3FA70987722E3D89c"
+  },
   "market": {
-    "price": 0.999913,
-    "marketCap": 144588481,
-    "marketCapRank": 207,
-    "volume24h": 264668,
-    "priceChange24h": 0.05743,
+    "price": 0.999698,
+    "marketCap": 144184221,
+    "marketCapRank": 208,
+    "volume24h": 300704,
+    "high24h": 1.001,
+    "low24h": 0.998538,
+    "priceChange24h": 0.06698,
+    "priceChange7d": -0.073,
+    "priceChange30d": 0.03881,
+    "priceChange1y": 0,
     "ath": 1.38,
-    "athChangePercentage": -27.41151,
+    "athChangePercentage": -27.4473,
     "athDate": "2026-01-11T04:35:54.115Z",
     "atl": 0.243118,
     "atlDate": "2026-01-04T19:15:08.862Z",
-    "circulatingSupply": 144601121.9136801,
-    "totalSupply": 144601121.9136801,
-    "maxSupply": null
+    "circulatingSupply": 144236218.4268052,
+    "totalSupply": 144236218.4268052,
+    "maxSupply": null,
+    "fdv": 144184221
   },
-  "lastMarketUpdate": "2026-03-22T21:45:40.689Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T22:57:52.111Z"
 }

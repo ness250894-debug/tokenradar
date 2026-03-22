@@ -2,45 +2,54 @@
   "id": "hedera-hashgraph",
   "symbol": "hbar",
   "name": "Hedera",
-  "description": "",
-  "categories": [],
+  "description": "Hedera is a decentralized public network where developers can build secure, fair applications with near real-time consensus. The platform is owned and governed by a council of global innovators including Avery Dennison, Boeing, Deutsche Telekom, DLA Piper, FIS (WorldPay), Google, IBM, LG Electronics, Magalu, Nomura, Swirlds, Tata Communications, University College London (UCL), Wipro, and Zain Group. \n\nThe Hedera Consensus Service (HCS) acts as a trust layer for any application or permissioned network and allows for the creation of an immutable and verifiable log of messages. Application messages are submitted to the Hedera network for consensus, given a trusted timestamp, and fairly ordered. Use HCS to track assets across a supply chain, create auditable logs of events in an advertising platform, or even use it as a decentralized ordering service.\n\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Hedera Ecosystem",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Outlier Ventures Portfolio",
+    "Made in USA",
+    "Directed Acyclic Graph (DAG)"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://www.hedera.com/",
+    "github": "https://github.com/hashgraph",
+    "reddit": "https://www.reddit.com/r/Hedera/",
+    "explorer": "https://hashscan.io/"
   },
   "market": {
-    "price": 0.088726,
-    "marketCap": 3842874728,
+    "price": 0.089364,
+    "marketCap": 3863652746,
     "marketCapRank": 28,
-    "volume24h": 86854232,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -4.67871,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 92038355,
+    "high24h": 0.09367,
+    "low24h": 0.088229,
+    "priceChange24h": -4.59674,
+    "priceChange7d": -6.44638,
+    "priceChange30d": -10.48096,
+    "priceChange1y": -51.23894,
     "ath": 0.569229,
-    "athChangePercentage": -84.41518,
+    "athChangePercentage": -84.31602,
     "athDate": "2021-09-15T10:40:28.318Z",
     "atl": 0.00986111,
     "atlDate": "2020-01-02T17:30:24.852Z",
-    "circulatingSupply": 43303446052.11433,
+    "circulatingSupply": 43303446052.11658,
     "totalSupply": 50000000000,
     "maxSupply": 50000000000,
-    "fdv": null
+    "fdv": 4461137737
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.501Z",
-  "lastMarketUpdate": "2026-03-22T21:45:40.649Z"
+  "fetchedAt": "2026-03-22T22:50:45.052Z"
 }

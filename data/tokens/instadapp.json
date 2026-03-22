@@ -2,20 +2,56 @@
   "id": "instadapp",
   "symbol": "fluid",
   "name": "Fluid",
+  "description": "On Instadapp, users and developers manage and build their DeFi portfolio - the world's most advanced platform to start leveraging the full potential of Decentralized Finance.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Solana Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Coinbase Ventures Portfolio",
+    "Pantera Capital Portfolio",
+    "Binance Alpha Spotlight",
+    "Plasma Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://fluid.io/",
+    "github": "https://github.com/instadapp/dsa-connect",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6f40d4a6237c257fff2db00fa0510deeecd303eb"
+  },
   "market": {
-    "price": 1.92,
-    "marketCap": 151127003,
+    "price": 1.93,
+    "marketCap": 151325749,
     "marketCapRank": 202,
-    "volume24h": 10325909,
-    "priceChange24h": -17.46671,
+    "volume24h": 10595763,
+    "high24h": 2.34,
+    "low24h": 1.91,
+    "priceChange24h": -17.69865,
+    "priceChange7d": -16.45827,
+    "priceChange30d": -8.01972,
+    "priceChange1y": -61.54258,
     "ath": 24.4,
-    "athChangePercentage": -92.10525,
+    "athChangePercentage": -92.09516,
     "athDate": "2021-06-16T20:02:32.097Z",
     "atl": 0.366538,
     "atlDate": "2022-12-28T16:20:48.360Z",
     "circulatingSupply": 78532543.82034639,
     "totalSupply": 100000000,
-    "maxSupply": 100000000
+    "maxSupply": 100000000,
+    "fdv": 192691770
   },
-  "lastMarketUpdate": "2026-03-22T21:45:40.688Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T23:00:30.239Z"
 }
