@@ -2,20 +2,52 @@
   "id": "conflux-token",
   "symbol": "cfx",
   "name": "Conflux",
+  "description": "What is Conflux \nConflux is a permissionless Layer 1 blockchain connecting decentralized economies across borders and protocols. Recently migrated to hybrid PoW/PoS consensus, Conflux provides a fast, secure, and scalable blockchain environment with zero congestion, low fees, and improved network security.\nAs the only regulatory compliant public blockchain in China, Conflux provides a unique advantage for projects building and expanding into Asia. In the region, Conflux has collaborated with global brands and government entities on blockchain and metaverse initiatives, including the city of Shanghai, McDonald's China, and Oreos. \nTo learn more about Conflux, visit confluxnetwork.org/\n \n\nWhat is the Conflux (CFX) Token? \nCFX is the native token for the Conflux Network. It is a hard-capped scarce asset used to pay fees, and secure the network through staking. Each CFX contains 10^18 Drip. Transactions on Conflux are handled similarly to those on the Ethereum network, with CFX playing a similar role as ETH. Users submit a contract with a gas limit and a gas price; the latter is denominated in CFX.\nUsers can interact with Conflux Network ecosystem applications through wallets. Users can use CFX to participate in governance votes, stake their tokens to earn network interest, or pay for the network's storage and transaction fees.\n\n\nWhere can I buy the Conflux token (CFX)?\nCFX is supported across leading exchanges such as Binance, KuCoin, OKEX, Gate, and MEXC\n\n\nWhere can I stake the Conflux token (CFX)? \nCFX can be staked at any of the Staking Pools operated by the Conflux community. For the latest information please view the Conflux Forum",
+  "categories": [
+    "Smart Contract Platform",
+    "DWF Labs Portfolio",
+    "Proof of Work (PoW)",
+    "GMCI Layer 1 Index",
+    "Sequoia Capital Portfolio",
+    "GMCI Index",
+    "Made in China"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://confluxnetwork.org/",
+    "github": "https://github.com/Conflux-Chain/",
+    "reddit": "https://www.reddit.com/r/Conflux_Network/",
+    "explorer": "https://www.confluxscan.io/"
+  },
   "market": {
-    "price": 0.061456,
-    "marketCap": 319043210,
-    "marketCapRank": 128,
-    "volume24h": 9620729,
-    "priceChange24h": -4.8386,
+    "price": 0.061571,
+    "marketCap": 319883719,
+    "marketCapRank": 129,
+    "volume24h": 9462770,
+    "high24h": 0.064206,
+    "low24h": 0.061045,
+    "priceChange24h": -3.87701,
+    "priceChange7d": 1.83373,
+    "priceChange30d": 18.38638,
+    "priceChange1y": -31.4445,
     "ath": 1.7,
-    "athChangePercentage": -96.3832,
+    "athChangePercentage": -96.37742,
     "athDate": "2021-03-27T03:43:35.178Z",
     "atl": 0.02199898,
     "atlDate": "2022-12-30T08:16:30.345Z",
     "circulatingSupply": 5189835932.13,
-    "totalSupply": 5194327654.06,
-    "maxSupply": null
+    "totalSupply": 5194341369.71,
+    "maxSupply": null,
+    "fdv": 320161419
   },
-  "lastMarketUpdate": "2026-03-22T15:45:10.117Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 49,
+    "githubForks": 10,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T17:02:41.945Z"
 }

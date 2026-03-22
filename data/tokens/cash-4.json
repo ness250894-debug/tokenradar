@@ -2,20 +2,48 @@
   "id": "cash-4",
   "symbol": "cash",
   "name": "CASH",
+  "description": "A stablecoin built for real-world utility.\n\nDesigned by Phantom using Open Issuance by Bridge and Stripe, and launching first on Solana.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.usecash.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH"
+  },
   "market": {
-    "price": 0.998906,
-    "marketCap": 124477758,
+    "price": 0.998989,
+    "marketCap": 124293472,
     "marketCapRank": 233,
-    "volume24h": 5725673,
-    "priceChange24h": -0.03217,
+    "volume24h": 6331886,
+    "high24h": 1.034,
+    "low24h": 0.734835,
+    "priceChange24h": -0.02056,
+    "priceChange7d": -0.19553,
+    "priceChange30d": -0.08219,
+    "priceChange1y": 0,
     "ath": 1.058,
-    "athChangePercentage": -5.54738,
+    "athChangePercentage": -5.69404,
     "athDate": "2025-11-15T20:50:58.067Z",
     "atl": 0.734835,
     "atlDate": "2026-03-22T02:35:25.288Z",
-    "circulatingSupply": 124530304.486621,
-    "totalSupply": 124530304.476621,
-    "maxSupply": null
+    "circulatingSupply": 124530304.476621,
+    "totalSupply": 124530304.358738,
+    "maxSupply": null,
+    "fdv": 124293472
   },
-  "lastMarketUpdate": "2026-03-22T15:45:10.142Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T16:51:12.178Z"
 }

@@ -2,20 +2,54 @@
   "id": "chiliz",
   "symbol": "chz",
   "name": "Chiliz",
+  "description": "Chiliz is a fintech platform for the sports industry to allow global fans to get closer to their favorite sports teams and clubs.",
+  "categories": [
+    "Smart Contract Platform",
+    "Sports",
+    "NFT",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Alleged SEC Securities",
+    "Chiliz Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.chiliz.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x3506424f91fd33084466f402d5d97f05f8e3b4af"
+  },
   "market": {
-    "price": 0.03491338,
-    "marketCap": 361030512,
-    "marketCapRank": 118,
-    "volume24h": 26277960,
-    "priceChange24h": -4.15031,
+    "price": 0.03497727,
+    "marketCap": 361725507,
+    "marketCapRank": 117,
+    "volume24h": 27504029,
+    "high24h": 0.03626832,
+    "low24h": 0.03466583,
+    "priceChange24h": -3.40128,
+    "priceChange7d": -7.01879,
+    "priceChange30d": -3.33469,
+    "priceChange1y": -23.85519,
     "ath": 0.878633,
-    "athChangePercentage": -96.02941,
+    "athChangePercentage": -96.01528,
     "athDate": "2021-03-13T08:04:21.200Z",
     "atl": 0.00410887,
     "atlDate": "2019-09-28T00:00:00.000Z",
-    "circulatingSupply": 10344011049,
-    "totalSupply": 10344090457,
-    "maxSupply": null
+    "circulatingSupply": 10344169916,
+    "totalSupply": 10344169916,
+    "maxSupply": null,
+    "fdv": 361725507
   },
-  "lastMarketUpdate": "2026-03-22T15:45:10.115Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T16:57:00.844Z"
 }

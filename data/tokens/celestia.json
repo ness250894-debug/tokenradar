@@ -2,20 +2,61 @@
   "id": "celestia",
   "symbol": "tia",
   "name": "Celestia",
+  "description": "Celestia is a data availability network that allows developers to easily create a new blockchain.",
+  "categories": [
+    "Smart Contract Platform",
+    "Cosmos Ecosystem",
+    "Layer 1 (L1)",
+    "Data Availability",
+    "Modular Blockchain",
+    "Osmosis Ecosystem",
+    "eGirl Capital Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Proof of Stake (PoS)",
+    "Secret Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Delphi Ventures Portfolio",
+    "Galaxy Digital Portfolio",
+    "Blockchain Capital Portfolio",
+    "OKX Ventures Portfolio",
+    "Polychain Capital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://celestia.org/",
+    "github": "https://github.com/celestiaorg/celestia-node",
+    "reddit": null,
+    "explorer": "https://celenium.io/"
+  },
   "market": {
-    "price": 0.316121,
-    "marketCap": 282966048,
+    "price": 0.316661,
+    "marketCap": 283352348,
     "marketCapRank": 133,
-    "volume24h": 23899282,
-    "priceChange24h": -5.56057,
+    "volume24h": 23637847,
+    "high24h": 0.334768,
+    "low24h": 0.315801,
+    "priceChange24h": -5.29495,
+    "priceChange7d": -9.38837,
+    "priceChange30d": -1.81682,
+    "priceChange1y": -90.68587,
     "ath": 20.85,
-    "athChangePercentage": -98.48358,
+    "athChangePercentage": -98.48326,
     "athDate": "2024-02-10T14:30:02.495Z",
     "atl": 0.279957,
     "atlDate": "2026-02-06T00:31:00.989Z",
     "circulatingSupply": 894834345.553538,
     "totalSupply": 1164261820.455795,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 368667477
   },
-  "lastMarketUpdate": "2026-03-22T15:45:10.118Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 996,
+    "githubForks": 1066,
+    "commits4Weeks": 45
+  },
+  "fetchedAt": "2026-03-22T16:52:41.690Z"
 }
