@@ -21,7 +21,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
-import { logError, trackUsage } from "../src/lib/reporter";
+import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -70,16 +70,15 @@ STRICT RULES:
 6. Include at least 3 specific data points from the provided data.
 7. Reference at least 1 real-world development or event.
 8. Strictly follow the word count instructions provided in each specific prompt.
-9. Use markdown formatting with proper headings (## for sections).
-10. Include a FAQ section at the end with 3-5 questions and answers.
+9. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
+10. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
 11. End every article with: "---\\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
 
 FORMAT:
 - Start with a brief intro paragraph (no heading)
-- Use ## for main sections
-- Use ### for subsections
+- Use ## for all main sections and subsections
 - Include bullet points and bold text for key data
-- Include a structured FAQ section at the end using ### FAQ format`;
+- Include a structured FAQ section at the end using ## FAQ format`;
 
 /**
  * Build article-specific prompts.
@@ -414,9 +413,6 @@ async function main() {
 
         // Add the returned cost
         totalCost += result.cost;
-
-        // Track usage for reporting
-        trackUsage(result.provider, result.promptTokens + result.completionTokens, result.cost);
 
         const article: GeneratedArticle = {
           tokenId,

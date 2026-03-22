@@ -73,7 +73,8 @@ function buildTweet(
   const tweet = [
     `🚀 New Coverage: ${tokenName} ( $${sym} - $${priceFmt} )`,
     `💰 Current Price: $${priceFmt} | ⚠️ Risk Score: ${metrics.riskScore || 'N/A'}/10`,
-    `🔗 ${tokenUrl}`,
+    `🔗 Token Report: ${tokenUrl}`,
+    `🌐 Main Site: ${SITE_URL}`,
     ...SOCIAL_FOOTER.slice(1),
     "",
     `#${sym} #Crypto #TokenRadarCo`

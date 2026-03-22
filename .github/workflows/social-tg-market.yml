@@ -36,7 +36,7 @@ jobs:
         run: npm ci
 
       - name: Post Telegram Update
-        run: npx tsx scripts/post-market-updates.ts --start 1 --end 250 --platform telegram
+        run: npx tsx scripts/post-to-telegram.ts --max 1
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}

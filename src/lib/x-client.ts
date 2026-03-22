@@ -7,7 +7,6 @@
  */
 
 import { TwitterApi } from "twitter-api-v2";
-import { trackUsage } from "./reporter";
 import { X_COST_PER_POST } from "./config";
 
 /**
@@ -110,7 +109,6 @@ export async function postTweet(text: string): Promise<string> {
   try {
     const rwClient = client.readWrite;
     const { data: createdTweet } = await rwClient.v2.tweet(cleanText);
-    trackUsage("x", 1, X_COST_PER_POST);
     return createdTweet.id;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;

@@ -7,9 +7,7 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "30 13 * * *" # 09:30 AM EDT / US Prime Time Morning
-    - cron: "30 17 * * *" # 01:30 PM EDT / US Prime Time Afternoon
-    - cron: "30 21 * * *" # 05:30 PM EDT / US Prime Time Evening
+    - cron: "0 * * * *" # Run at the top of every hour (24/7 JIT updates)
   workflow_dispatch:
 
 concurrency:
@@ -96,6 +94,7 @@ jobs:
   post-social:
     name: Post to Social Media
     needs: deploy
+    if: false # Temporarily disabled to prevent spamming during high-volume generation
     runs-on: ubuntu-latest
     permissions:
       contents: write

@@ -13,6 +13,8 @@ export type AIResult = {
   cost: number;
 };
 
+let lastGeminiRequestTime = 0;
+
 async function callGeminiAPI(
   systemPrompt: string,
   userPrompt: string,
@@ -31,6 +33,14 @@ async function callGeminiAPI(
         console.log(`\n  [retry ${i}/${retries}] calling Gemini...`);
         await sleep(2000);
       }
+      const elapsed = Date.now() - lastGeminiRequestTime;
+      if (elapsed < 4100) {
+        const waitTime = 4100 - elapsed;
+        process.stdout.write(` [4s pace limit...] `);
+        await sleep(waitTime);
+      }
+      
+      lastGeminiRequestTime = Date.now();
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -177,14 +187,15 @@ export async function generateTokenSummary(
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
     STRICT RULES:
-    1. TARGET LENGTH: approximately 2000 - 2500 characters.
+    1. TARGET LENGTH: approximately 1200 - 1500 characters.
     2. Be analytical, professional, and objective.
     3. DO NOT use hype, FOMO, or financial advice.
     4. Cover technology, tokenomics, market position, and risks.
-    5. Use HTML tags for formatting: <b>, <i>, <a>, <code>.
-    6. Ensure the tone is data-driven and matches a premium research platform.
-    7. No introductory or concluding filler — start directly with the analysis.
-    8. Reference specific numbers from the market data provided.
+    5. ABSOLUTELY NO MARKDOWN HEADERS (no #, ##, or ###). Do NOT use any HTML header tags (<h1>-<h6>). If you must segment sections, use bold <b> tags instead.
+    6. ABSOLUTELY NO NUMBERED OR BULLETED LISTS. Write entirely in paragraph form.
+    7. Ensure the tone is data-driven and matches a premium research platform.
+    8. No introductory or concluding filler — start directly with the analysis.
+    9. Reference specific numbers from the market data provided.
   `;
 
   try {

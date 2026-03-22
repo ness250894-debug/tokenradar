@@ -20,7 +20,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { logError, trackUsage } from "../src/lib/reporter";
+import { logError } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -80,7 +80,6 @@ ${paragraph}`;
     const result = await callAIWithFallback("", prompt, 512);
 
     if (result.content) {
-      trackUsage(result.provider, result.promptTokens + result.completionTokens, result.cost);
       return result.content;
     }
     return null;

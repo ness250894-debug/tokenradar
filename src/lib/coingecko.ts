@@ -13,7 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { logError, trackUsage } from "./reporter";
+import { logError } from "./reporter";
 import { sleep } from "./utils";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
@@ -128,9 +128,6 @@ export async function fetchCoinGecko<T>(
   console.log(`  [api] GET ${url.pathname}${url.search}`);
   lastRequestTime = Date.now();
   const currentCount = incrementCounter();
-  
-  // Track usage for reporting (units = 1, cost = 0 for free tier if not specified)
-  trackUsage("coingecko", 1, 0);
 
   const response = await fetch(url.toString(), {
     headers: {
@@ -290,7 +287,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
       developer_data: "true",
     },
     `coin-detail-${tokenId}`,
-    24 * 60 * 60 * 1000 // 24h cache
+    30 * 24 * 60 * 60 * 1000 // 30-day static cache
   );
 
   // 2. Fetch 30-day price history
@@ -416,7 +413,7 @@ export async function fetchTokensByRank(
       per_page: perPage,
       page,
       sparkline: "false",
-      price_change_percentage: "24h",
+      price_change_percentage: "24h,7d,30d,1y",
     },
     `tokens-page-${page}`,
     12 * 60 * 60 * 1000 // 12h cache
