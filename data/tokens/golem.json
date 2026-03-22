@@ -2,20 +2,51 @@
   "id": "golem",
   "symbol": "glm",
   "name": "Golem",
+  "description": "What Is Golem Network?\n\nGolem Network is an open-source, decentralized computing platform that is building an ecosystem to provide computing power to the AI industry. A peer-to-peer marketplace for distributed computing resources. Users engage directly on the Golem platform, exchanging GLM tokens for the utilization of their idle computing resources.\n\nGolem allows to break down tasks into smaller subtasks and distribute them across multiple providers, enabling parallel processing. This approach boosts efficiency and speeds up the completion of complex computations.\n\nWhat is GLM?\n\nGLM or Golem Network Token is needed to pay for computations on the network and is the currency that drives the marketplace. As a Requestor, you set a bid for an amount of GLM you are willing to pay to have your task completed. As a Provider, you earn GLM by computing tasks for Requestors.\n\nHow can I get involved?\n\nIf you want to stay up to date with the latest developments and updates, join the Golem Network Discord community here: https://chat.golem.network/\n\nOn Discord you can also find support to become a Provider or a Requestor in the Golem platform.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Energi Ecosystem",
+    "GMCI DePIN Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://golem.network/",
+    "github": "https://github.com/golemfactory/golem",
+    "reddit": "https://www.reddit.com/r/GolemProject",
+    "explorer": "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429"
+  },
   "market": {
-    "price": 0.128564,
-    "marketCap": 128474013,
-    "marketCapRank": 224,
-    "volume24h": 6238407,
-    "priceChange24h": -1.20741,
+    "price": 0.126882,
+    "marketCap": 126847718,
+    "marketCapRank": 225,
+    "volume24h": 6353412,
+    "high24h": 0.132978,
+    "low24h": 0.126364,
+    "priceChange24h": -2.4882,
+    "priceChange7d": -4.71062,
+    "priceChange30d": -25.25508,
+    "priceChange1y": -55.25518,
     "ath": 1.32,
-    "athChangePercentage": -90.29932,
+    "athChangePercentage": -90.42525,
     "athDate": "2018-04-13T09:13:22.739Z",
     "atl": 0.00913753,
     "atlDate": "2016-12-12T00:00:00.000Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 126847718
   },
-  "lastMarketUpdate": "2026-03-22T20:47:34.435Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 20,
+    "githubForks": 3,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T21:53:06.630Z"
 }

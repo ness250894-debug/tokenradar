@@ -2,7 +2,7 @@
   "id": "gatechain-token",
   "symbol": "gt",
   "name": "Gate",
-  "description": "",
+  "description": "A cryptocurrency token known as Gate (GT). It is tracked on CoinGecko with the ID \"gatechain-token\".",
   "categories": [
     "Smart Contract Platform",
     "Exchange-based Tokens",
@@ -20,18 +20,18 @@
     "explorer": "https://www.gatescan.org/gatelayer"
   },
   "market": {
-    "price": 6.59,
+    "price": 6.56,
     "marketCap": 1133103428,
     "marketCapRank": 63,
-    "volume24h": 1882211,
-    "high24h": 7.19,
-    "low24h": 7.05,
-    "priceChange24h": -3.54295,
-    "priceChange7d": 1.80236,
-    "priceChange30d": 2.6854,
-    "priceChange1y": -66.43513,
+    "volume24h": 1961515,
+    "high24h": 6.87,
+    "low24h": 6.56,
+    "priceChange24h": -4.04101,
+    "priceChange7d": -8.19653,
+    "priceChange30d": -8.30815,
+    "priceChange1y": -71.45123,
     "ath": 25.38,
-    "athChangePercentage": -73.9861,
+    "athChangePercentage": -74.16085,
     "athDate": "2025-01-26T00:00:00.000Z",
     "atl": 0.25754,
     "atlDate": "2020-03-13T02:18:02.481Z",
@@ -49,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:20:02.189Z",
-  "lastMarketUpdate": "2026-03-22T20:47:34.383Z"
+  "fetchedAt": "2026-03-22T21:45:47.622Z"
 }

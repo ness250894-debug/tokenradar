@@ -2,14 +2,21 @@
   "id": "hashnote-usyc",
   "symbol": "usyc",
   "name": "Circle USYC",
-  "description": "",
-  "categories": [],
+  "description": "USYC: Tokenized Money Market Fund\n\nHashnote International Short Duration Yield Fund Ltd. invests in short-term U.S. Treasury Bills and performs repo/reverse repo activities as the underlying asset of the USYC token.\n\nUSYC earns short-term Fed rate returns. Tokenization enables the fund to deliver rapid transactions, onchain transparency, and seamless composability—while maintaining strong controls across regulatory and credit dimensions.\n",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Treasury Bills (T-Bills)"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://usyc.hashnote.com/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0x136471a34f6ef19fe571effc1ca711fdb8e49f2b"
   },
   "market": {
     "price": 1.12,
@@ -18,10 +25,10 @@
     "volume24h": 111880,
     "high24h": 0,
     "low24h": 0,
-    "priceChange24h": null,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "priceChange24h": 0,
+    "priceChange7d": -0.04436,
+    "priceChange30d": 0.33978,
+    "priceChange1y": 3.72104,
     "ath": 1.12,
     "athChangePercentage": -0.08072,
     "athDate": "2026-03-16T11:51:05.283Z",
@@ -30,17 +37,16 @@
     "circulatingSupply": 2190663953.772504,
     "totalSupply": 2190663953.772504,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 2450906535
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.510Z",
-  "lastMarketUpdate": "2026-03-22T20:47:34.373Z"
+  "fetchedAt": "2026-03-22T21:58:47.892Z"
 }

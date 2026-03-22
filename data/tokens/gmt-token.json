@@ -2,20 +2,49 @@
   "id": "gmt-token",
   "symbol": "gomining",
   "name": "GoMining Token",
+  "description": "GoMining helps people everywhere unlock Bitcoin’s full potential. Built on real-world mining infrastructure and powered by the GOMINING utility token, it combines digital mining, wallet, and finance products into one simple, secure ecosystem. From earning Bitcoin daily to spending it with ease, GoMining turns Bitcoin from a distant cryptocurrency into part of everyday life — accessible to anyone, anywhere, regardless of income or experience.\n\nDigital Miners are GoMining’s core innovation — NFT-like assets backed by real Bitcoin mining power hosted in GoMining’s data centers. Each miner earns daily Bitcoin rewards automatically, with all operations (hardware, electricity, and maintenance) handled by GoMining.\n\nUsers can start with any budget through flexible options like Mine-Now-Pay-Later, and can trade or upgrade miners anytime. This mining experience also extends into Miner Wars, a competitive GameFi arena where players use their mining power to join clans and compete for Bitcoin and GOMINING rewards — merging real mining and gameplay into one dynamic ecosystem.\n\nThe GoMining Wallet is a secure and rewarding way to hold, spend, and grow your crypto. Within one app, users can store digital assets, buy crypto with fiat, top up their crypto, and spend anywhere with the GoMining Card (available in supported regions). Every transaction becomes more powerful — with cashback in mining power and transparent crypto-to-fiat conversion. The wallet connects seamlessly with GoMining’s mining and finance products, creating a unified experience for Bitcoin holders and newcomers alike.\n\nGoMining’s Bitcoin Finance suite is designed to help users get more from their Bitcoin — without complexity. It enables earning passive income in BTC on supported assets held in your account, without needing to lock funds. It also provides access to liquidity against Bitcoin or mining assets, all within a trusted and regulated environment (available in supported regions). By bridging mining, payments, and finance, GoMining empowers people to participate in the Bitcoin economy fully — easily, securely, and globally.\n\nGOMINING is the utility token that powers the GoMining ecosystem. It’s directly connected to real Bitcoin mining operations and plays a central role across all products — from digital mining and maintenance discounts to governance and rewards. Holders can use GOMINING to pay maintenance fees and receive up to 20% off, increasing demand as the ecosystem grows. The token follows a deflationary model, where a portion of maintenance fees paid in GOMINING is permanently burned each week, steadily reducing supply.",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "TON Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gomining.com/",
+    "github": "https://github.com/gomining-token/smart",
+    "reddit": "https://www.reddit.com/r/GoMiningToken/",
+    "explorer": "https://etherscan.io/token/0x7ddc52c4de30e94be3a6a0a2b259b2850f421989"
+  },
   "market": {
-    "price": 0.304003,
-    "marketCap": 123089346,
-    "marketCapRank": 235,
-    "volume24h": 13388054,
-    "priceChange24h": -1.34972,
+    "price": 0.302248,
+    "marketCap": 122547087,
+    "marketCapRank": 236,
+    "volume24h": 13486815,
+    "high24h": 0.309578,
+    "low24h": 0.301306,
+    "priceChange24h": -1.89362,
+    "priceChange7d": 3.71975,
+    "priceChange30d": -7.56444,
+    "priceChange1y": -33.03325,
     "ath": 0.564703,
-    "athChangePercentage": -46.16215,
+    "athChangePercentage": -46.37489,
     "athDate": "2024-12-16T19:47:13.362Z",
     "atl": 0.069487,
     "atlDate": "2022-11-10T00:18:31.110Z",
     "circulatingSupply": 405275709.1636765,
     "totalSupply": 405275709.1636765,
-    "maxSupply": 436915240
+    "maxSupply": 436915240,
+    "fdv": 122547087
   },
-  "lastMarketUpdate": "2026-03-22T20:47:34.438Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 6,
+    "githubForks": 5,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T21:50:07.958Z"
 }

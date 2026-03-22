@@ -2,20 +2,56 @@
   "id": "gnosis",
   "symbol": "gno",
   "name": "Gnosis",
+  "description": "Founded in 2015, Gnosis has evolved into a full-stack ecosystem bridging decentralised technology with everyday finance. Gnosis’ mission is to empower every person with greater financial agency and access, while supporting the creation of an open and collectively-owned financial system that benefits all. From its origins in decentralised prediction markets, Gnosis has grown into a full-spectrum provider spanning asset management, decentralised trading, and payments. Its industry-leading innovations include Safe, securing over $58 billion in assets; CoW Protocol, which has protected more than $130 billion in trades; and Gnosis Pay, enabling over $100m in payments to date, via crypto-native cards, for a growing ecosystem of wallets. Gnosis delivers a seamless, collectively-owned financial experience that puts accessibility and ownership at its core.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "Gnosis Chain Ecosystem",
+    "MEV Protection",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "SideChain",
+    "Energi Ecosystem"
+  ],
+  "genesisDate": "2017-04-18",
+  "links": {
+    "website": "https://www.gnosis.io/",
+    "github": "https://github.com/gnosis/safe-contracts/",
+    "reddit": "https://www.reddit.com/r/gnosisPM",
+    "explorer": "https://etherscan.io/token/0x6810e776880c02933d47db1b9fc05908e5386b96"
+  },
   "market": {
-    "price": 125.03,
-    "marketCap": 330419092,
-    "marketCapRank": 122,
-    "volume24h": 3419830,
-    "priceChange24h": -3.88905,
+    "price": 124.09,
+    "marketCap": 327896016,
+    "marketCapRank": 126,
+    "volume24h": 4289420,
+    "high24h": 129.8,
+    "low24h": 124.08,
+    "priceChange24h": -4.39494,
+    "priceChange7d": -5.3564,
+    "priceChange30d": 6.59041,
+    "priceChange1y": -4.12086,
     "ath": 644.2,
-    "athChangePercentage": -80.57076,
+    "athChangePercentage": -80.71188,
     "athDate": "2021-11-08T17:33:29.302Z",
     "atl": 6.88,
     "atlDate": "2020-03-13T02:24:11.825Z",
     "circulatingSupply": 2639589,
     "totalSupply": 3000000,
-    "maxSupply": 3000000
+    "maxSupply": 3000000,
+    "fdv": 372667127
   },
-  "lastMarketUpdate": "2026-03-22T20:47:34.400Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 2121,
+    "githubForks": 1116,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T21:51:39.431Z"
 }

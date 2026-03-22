@@ -2,20 +2,57 @@
   "id": "gho",
   "symbol": "gho",
   "name": "GHO",
+  "description": "A cryptocurrency token known as GHO (GHO). It is tracked on CoinGecko with the ID \"gho\".",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Avalanche Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin",
+    "Ink Ecosystem",
+    "Plasma Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gho.xyz/",
+    "github": "https://github.com/aave/gho-core",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f"
+  },
   "market": {
-    "price": 0.999202,
-    "marketCap": 583587930,
+    "price": 0.999141,
+    "marketCap": 583499247,
     "marketCapRank": 91,
-    "volume24h": 19319444,
-    "priceChange24h": -0.05576,
+    "volume24h": 20010108,
+    "high24h": 1,
+    "low24h": 0.998987,
+    "priceChange24h": -0.05006,
+    "priceChange7d": -0.09774,
+    "priceChange30d": -0.04102,
+    "priceChange1y": -0.04003,
     "ath": 1.03,
-    "athChangePercentage": -2.98569,
+    "athChangePercentage": -2.94933,
     "athDate": "2024-02-28T17:15:58.387Z",
     "atl": 0.917065,
     "atlDate": "2023-10-24T04:41:04.568Z",
     "circulatingSupply": 584000000,
     "totalSupply": 584000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 583499247
   },
-  "lastMarketUpdate": "2026-03-22T20:47:34.392Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 264,
+    "githubForks": 119,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T21:48:29.759Z"
 }
