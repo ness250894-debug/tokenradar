@@ -21,7 +21,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
-import { logError } from "../src/lib/reporter";
+import { logError, sendTelegramAlert } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -279,6 +279,7 @@ async function main() {
 
   let totalArticles = 0;
   let totalCost = 0;
+  const generatedTokens = new Set<string>();
 
   for (const tokenId of tokensToProcess) {
     // 1. Load data
@@ -430,6 +431,7 @@ async function main() {
 
         fs.writeFileSync(outputFile, JSON.stringify(article, null, 2));
         totalArticles++;
+        generatedTokens.add(tokenId);
         console.log(
           ` ✓ ${wordCount} words ($${result.cost.toFixed(4)})`
         );
@@ -442,6 +444,20 @@ async function main() {
       }
     }
     console.log();
+  }
+
+  // 4. Dispatch Telegram Telemetry Report
+  if (totalArticles > 0 && !dryRun) {
+    try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tokenradar.co';
+      const links = Array.from(generatedTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\n');
+      
+      const message = `🚀 *Hourly Content Generation Complete*\n\nGenerated ${totalArticles} articles across ${generatedTokens.size} tokens.\n\n*Tokens Covered:*\n${links}`;
+      await sendTelegramAlert(message);
+      console.log(`  [TELEMETRY] Sent hourly generation report to Telegram.`);
+    } catch (e) {
+      console.error(`  [TELEMETRY] Failed to send report:`, e);
+    }
   }
 
   console.log("╔══════════════════════════════════════════╗");

@@ -25,7 +25,7 @@ const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 /**
  * Sends a notification to Telegram.
  */
-async function sendTelegramAlert(message: string): Promise<void> {
+export async function sendTelegramAlert(message: string): Promise<void> {
   const token = process.env.TELEGRAM_REPORT_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_REPORT_CHAT_ID;
 
