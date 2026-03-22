@@ -2,12 +2,29 @@
   "id": "fidelity-digital-interest-token",
   "symbol": "fdit",
   "name": "Fidelity Digital Interest Token",
+  "description": "A cryptocurrency token known as Fidelity Digital Interest Token (FDIT). It is tracked on CoinGecko with the ID \"fidelity-digital-interest-token\".",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.fidelity.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x48ab4e39ac59f4e88974804b04a991b3a402717f"
+  },
   "market": {
     "price": 1,
     "marketCap": 175970458,
     "marketCapRank": 185,
     "volume24h": 0,
+    "high24h": 1,
+    "low24h": 1,
     "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 1,
     "athChangePercentage": 0,
     "athDate": "2025-09-17T02:05:03.335Z",
@@ -15,7 +32,17 @@
     "atlDate": "2025-09-17T02:05:03.335Z",
     "circulatingSupply": 175970458.48,
     "totalSupply": 175970458.48,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 175970458
   },
-  "lastMarketUpdate": "2026-03-22T18:58:10.723Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:56:00.193Z"
 }

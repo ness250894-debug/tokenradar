@@ -2,45 +2,60 @@
   "id": "ethereum",
   "symbol": "eth",
   "name": "Ethereum",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "Ethereum is a global, open-source platform for decentralized applications. In other words, it is a decentralized blockchain platform that enables developers to build and deploy smart contracts and applications without central authority control. Unlike Bitcoin, which primarily functions as digital currency, Ethereum operates as a programmable global computer where developers can create any type of decentralized service. \n\nThe platform hosts over $14 billion in DeFi applications with hundreds of thousands of active users across financial protocols, NFT marketplaces, and gaming platforms. Its transition to Proof of Stake in September 2022 reduced energy consumption by over 99%, addressing environmental concerns while strengthening network security.\n\nThe network operates through thousands of independent validator nodes that process transactions and execute smart contracts on the Ethereum Virtual Machine. Smart contracts are self-executing programs written in Solidity that automatically carry out agreements when conditions are met, eliminating intermediaries like banks or brokers. \n\nValidators stake ETH as collateral to propose and validate blocks, earning rewards for honest participation while facing penalties for malicious behavior. The EIP-1559 upgrade introduced a dynamic base fee mechanism that burns ETH with each transaction, creating deflationary pressure during high network activity when more ETH is burned than issued to validators.\n\nVitalik Buterin proposed Ethereum in 2013, but seven co-founders helped build it, including Gavin Wood who created Solidity and the EVM technical specification, and Joseph Lubin who founded ConsenSys. The project launched in July 2015 after raising over $18 million through crowdfunding, quickly becoming the largest blockchain developer community. Major milestones include the 2020 Beacon Chain launch, the 2021 London hard fork implementing fee burning, and the 2022 Merge to Proof of Stake. \n\nEther (ETH) serves multiple functions: paying transaction fees (gas), staking to secure the network and earn 3-5% annual yields, serving as collateral in DeFi protocols, and purchasing NFTs and digital assets. The asset is increasingly adopted by traditional institutions, with publicly traded companies adding ETH to corporate treasuries to generate staking yields while maintaining blockchain exposure, and in 2024, the SEC approved spot Ethereum ETFs, allowing traditional investors to gain exposure through conventional brokerage accounts.\n\nEthereum's roadmap focuses on dramatically increasing transaction capacity to over 100,000 per second, reducing confirmation times, and enhancing decentralization while maintaining security against future threats like quantum computing.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "FTX Holdings",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Alameda Research Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "Delphi Ventures Portfolio",
+    "Galaxy Digital Portfolio",
+    "GMCI Index",
+    "World Liberty Financial Portfolio",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": "2015-07-30",
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://www.ethereum.org/",
+    "github": "https://github.com/ethereum/go-ethereum",
+    "reddit": "https://www.reddit.com/r/ethereum",
+    "explorer": "https://etherscan.io/"
   },
   "market": {
-    "price": 2069.11,
-    "marketCap": 249828664989,
+    "price": 2065.27,
+    "marketCap": 249266854888,
     "marketCapRank": 2,
-    "volume24h": 14131276776,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -3.82151,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 15097675393,
+    "high24h": 2155.93,
+    "low24h": 2055.32,
+    "priceChange24h": -3.96741,
+    "priceChange7d": -2.13388,
+    "priceChange30d": 5.08095,
+    "priceChange1y": 3.65111,
     "ath": 4946.05,
-    "athChangePercentage": -58.16635,
+    "athChangePercentage": -58.24406,
     "athDate": "2025-08-24T19:21:03.333Z",
     "atl": 0.432979,
     "atlDate": "2015-10-20T00:00:00.000Z",
     "circulatingSupply": 120691743.1238975,
     "totalSupply": 120691743.1238975,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 249266854888
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 44422,
+    "githubForks": 19618,
+    "commits4Weeks": 41
   },
-  "fetchedAt": "2026-03-15T10:11:56.488Z",
-  "lastMarketUpdate": "2026-03-22T18:58:10.656Z"
+  "fetchedAt": "2026-03-22T19:46:00.031Z"
 }

@@ -2,20 +2,59 @@
   "id": "fetch-ai",
   "symbol": "fet",
   "name": "Artificial Superintelligence Alliance",
+  "description": "|The Artificial Superintelligence (ASI) Alliance is the world’s largest open-source initiative dedicated to decentralized Artificial General Intelligence (AGI). Formed in April 2024, the ASI Alliance unites SingularityNET, Fetch.ai, and Ocean Protocol, with CUDOS joining as a network member shortly after. The ASI Alliance was established through a community-approved tokenomic merger—combining $AGIX, $FET, and $OCEAN into a single token: $FET. This unified token underpins a collaborative framework designed to scale open-source AI and stand as the largest open-sourced, independent entity in AI research and development. The Alliance is committed to accelerating the advancement of decentralized Artificial General Intelligence (AGI) and, ultimately, Artificial Superintelligence (ASI). It provides a robust, open-source innovation stack, empowering developers, enterprises, and researchers globally to build ethical, scalable, and groundbreaking AI solutions. This ensures that advanced intelligence remains a shared, accessible resource, fostering innovation beyond centralized systems and promoting a future where AI benefits all.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Cardano Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance Launchpad",
+    "DWF Labs Portfolio",
+    "Osmosis Ecosystem",
+    "AI Agents",
+    "GMCI DePIN Index",
+    "GMCI Index",
+    "Outlier Ventures Portfolio",
+    "AI Agent Launchpad",
+    "Governance"
+  ],
+  "genesisDate": "2019-02-25",
+  "links": {
+    "website": "https://www.superintelligence.io/",
+    "github": "https://github.com/fetchai/fetchd",
+    "reddit": "https://www.reddit.com/r/FetchAI_Community/",
+    "explorer": "https://explore.fetch.ai/"
+  },
   "market": {
-    "price": 0.208151,
-    "marketCap": 470303680,
-    "marketCapRank": 102,
-    "volume24h": 81368236,
-    "priceChange24h": -7.39118,
+    "price": 0.208608,
+    "marketCap": 471435419,
+    "marketCapRank": 101,
+    "volume24h": 82469284,
+    "high24h": 0.225849,
+    "low24h": 0.208075,
+    "priceChange24h": -7.14849,
+    "priceChange7d": 5.15252,
+    "priceChange30d": 23.06345,
+    "priceChange1y": -60.03405,
     "ath": 3.45,
-    "athChangePercentage": -93.94994,
+    "athChangePercentage": -93.95526,
     "athDate": "2024-03-28T17:21:18.050Z",
     "atl": 0.00816959,
     "atlDate": "2020-03-13T02:24:18.347Z",
     "circulatingSupply": 2259968963.4676576,
     "totalSupply": 2714384546.672,
-    "maxSupply": 2714384546.672
+    "maxSupply": 2714384546.672,
+    "fdv": 566227695
   },
-  "lastMarketUpdate": "2026-03-22T18:58:10.690Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 124,
+    "githubForks": 41,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:54:33.222Z"
 }

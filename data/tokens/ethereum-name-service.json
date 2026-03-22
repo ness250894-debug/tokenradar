@@ -2,20 +2,50 @@
   "id": "ethereum-name-service",
   "symbol": "ens",
   "name": "Ethereum Name Service",
+  "description": "The Ethereum Name Service (ENS) is a distributed, open, and extensible naming system based on the Ethereum blockchain.\n\nENS’s job is to map human-readable names like ‘alice.eth’ to machine-readable identifiers such as Ethereum addresses, other cryptocurrency addresses, content hashes, and metadata. ENS also supports ‘reverse resolution’, making it possible to associate metadata such as canonical names or interface descriptions with Ethereum addresses.\n\nENS has similar goals to DNS, the Internet’s Domain Name Service, but has significantly different architecture due to the capabilities and constraints provided by the Ethereum blockchain. Like DNS, ENS operates on a system of dot-separated hierarchical names called domains, with the owner of a domain having full control over subdomains.\n\nTop-level domains, like ‘.eth’ and ‘.test’, are owned by smart contracts called registrars, which specify rules governing the allocation of their subdomains. Anyone may, by following the rules imposed by these registrar contracts, obtain ownership of a domain for their own use. ENS also supports importing in DNS names already owned by the user for use on ENS.\n\nBecause of the hierarchal nature of ENS, anyone who owns a domain at any level may configure subdomains - for themselves or others - as desired. For instance, if Alice owns 'alice.eth', she can create 'pay.alice.eth' and configure it as she wishes.\n\nENS is deployed on the Ethereum main network and on several test networks. If you use a library such as the ensjs Javascript library, or an end-user application, it will automatically detect the network you are interacting with and use the ENS deployment on that network.",
+  "categories": [
+    "NFT",
+    "Ethereum Ecosystem",
+    "Decentralized Identifier (DID)",
+    "Name Service",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ens.domains/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xc18360217d8f7ab5e7c516566761ea12ce7f9d72"
+  },
   "market": {
-    "price": 5.91,
-    "marketCap": 226980831,
+    "price": 5.89,
+    "marketCap": 226091083,
     "marketCapRank": 155,
-    "volume24h": 16069756,
-    "priceChange24h": -4.66386,
+    "volume24h": 16188587,
+    "high24h": 6.21,
+    "low24h": 5.88,
+    "priceChange24h": -4.81899,
+    "priceChange7d": -3.59344,
+    "priceChange30d": -11.43866,
+    "priceChange1y": -65.01255,
     "ath": 83.4,
-    "athChangePercentage": -92.90841,
+    "athChangePercentage": -92.93912,
     "athDate": "2021-11-11T02:20:01.099Z",
     "atl": 5.01,
     "atlDate": "2026-02-06T00:25:50.342Z",
     "circulatingSupply": 38380013.53099827,
     "totalSupply": 100000000,
-    "maxSupply": 100000000
+    "maxSupply": 100000000,
+    "fdv": 589085470
   },
-  "lastMarketUpdate": "2026-03-22T18:58:10.711Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:44:34.323Z"
 }

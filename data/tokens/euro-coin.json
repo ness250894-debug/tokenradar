@@ -2,20 +2,55 @@
   "id": "euro-coin",
   "symbol": "eurc",
   "name": "EURC",
+  "description": "Euro Coin is a stablecoin issued by Circle under the same reserve model as USD Coin (USDC). It is designed to be stable and 100% backed by euros held in euro denominated banking accounts. An Euro Coin (EUROC) will be redeemable 1:1 for the euro currency.",
+  "categories": [
+    "Stablecoins",
+    "EUR Stablecoin",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Stellar Ecosystem",
+    "World Chain Ecosystem",
+    "Base Native",
+    "MiCA-Compliant Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.circle.com",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x1abaea1f7c830bd89acc67ec4af516284b1bc33c"
+  },
   "market": {
     "price": 1.15,
-    "marketCap": 425586393,
+    "marketCap": 425306409,
     "marketCapRank": 108,
-    "volume24h": 12217370,
-    "priceChange24h": -0.17322,
+    "volume24h": 13586401,
+    "high24h": 1.16,
+    "low24h": 1.15,
+    "priceChange24h": -0.21024,
+    "priceChange7d": 1.18832,
+    "priceChange30d": -1.96566,
+    "priceChange1y": 6.78949,
     "ath": 1.35,
-    "athChangePercentage": -14.58447,
+    "athChangePercentage": -14.59656,
     "athDate": "2023-03-14T09:50:50.729Z",
     "atl": 0.052848,
     "atlDate": "2022-12-09T03:16:34.877Z",
     "circulatingSupply": 368459940.4968691,
-    "totalSupply": 368459940.4968691,
-    "maxSupply": null
+    "totalSupply": 368461438.3468691,
+    "maxSupply": null,
+    "fdv": 425308138
   },
-  "lastMarketUpdate": "2026-03-22T18:58:10.693Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T19:47:29.406Z"
 }
