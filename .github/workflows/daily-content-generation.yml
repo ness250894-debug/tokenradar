@@ -7,7 +7,7 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "0 * * * *" # Run at the top of every hour (24/7 JIT updates)
+    - cron: "27 * * * *" # Run at minute 27 past every hour to avoid GitHub Actions congestion
   workflow_dispatch:
 
 concurrency:
