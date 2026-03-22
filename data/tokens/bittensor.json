@@ -2,45 +2,51 @@
   "id": "bittensor",
   "symbol": "tao",
   "name": "Bittensor",
-  "description": "",
-  "categories": [],
+  "description": "Bittensor is an open-source protocol that powers a decentralized, blockchain-based machine learning network. Machine learning models train collaboratively and are rewarded in TAO according to the informational value they offer the collective. TAO also grants external access, allowing users to extract information from the network while tuning its activities to their needs.\n\nUltimately, BitTensors vision is to create a pure market for artificial intelligence, an incentivized arena in which consumers and producers of this valuable commodity can interact in a trustless, open and transparent context.\n\nBittensor enables:\n\n-A novel, optimized strategy for the development and distribution of artificial intelligence technology by leveraging the possibilities of a distributed ledger. Specifically, its facilitation of open access/ownership, decentralized governance, and the ability to harness globally-distributed resources of computing power and innovation within an incentivized framework.\n\n-An open-source repository of machine intelligence, accessible to anyone, anywhere, thus creating the conditions for open and permission-less innovation on a global internet scale.\n\n-Distribution of rewards and network ownership to users in direct proportion to the value they have added.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "DePIN",
+    "Bittensor Ecosystem",
+    "Polychain Capital Portfolio"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://bittensor.com/",
+    "github": "https://github.com/opentensor/BitTensor",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://taostats.io/"
   },
   "market": {
-    "price": 271.53,
-    "marketCap": 2605450216,
+    "price": 273.27,
+    "marketCap": 2624932410,
     "marketCapRank": 36,
-    "volume24h": 293427916,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.94398,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 276836683,
+    "high24h": 281.53,
+    "low24h": 264.65,
+    "priceChange24h": -1.58173,
+    "priceChange7d": -0.38335,
+    "priceChange30d": 56.47377,
+    "priceChange1y": 8.64295,
     "ath": 757.6,
-    "athChangePercentage": -63.993,
+    "athChangePercentage": -63.88223,
     "athDate": "2024-03-07T18:45:36.466Z",
     "atl": 30.83,
     "atlDate": "2023-05-14T08:57:53.732Z",
     "circulatingSupply": 9597491,
     "totalSupply": 21000000,
     "maxSupply": 21000000,
-    "fdv": null
+    "fdv": 5743540745
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 1393,
+    "githubForks": 444,
+    "commits4Weeks": 60
   },
-  "fetchedAt": "2026-03-15T10:11:56.507Z",
-  "lastMarketUpdate": "2026-03-22T13:57:46.842Z"
+  "fetchedAt": "2026-03-22T15:31:03.727Z"
 }

@@ -2,20 +2,52 @@
   "id": "berachain-bera",
   "symbol": "bera",
   "name": "Berachain",
+  "description": "The gas token of Berachain",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "Berachain Ecosystem",
+    "Binance HODLer Airdrops",
+    "Outlier Ventures Portfolio",
+    "Polychain Capital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://berachain.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
   "market": {
-    "price": 0.525492,
-    "marketCap": 120567310,
-    "marketCapRank": 239,
-    "volume24h": 15798379,
-    "priceChange24h": -5.95577,
+    "price": 0.528585,
+    "marketCap": 121452171,
+    "marketCapRank": 237,
+    "volume24h": 15741924,
+    "high24h": 0.557931,
+    "low24h": 0.517702,
+    "priceChange24h": -5.22756,
+    "priceChange7d": -19.58497,
+    "priceChange30d": -11.67165,
+    "priceChange1y": -92.14862,
     "ath": 14.83,
-    "athChangePercentage": -96.44509,
+    "athChangePercentage": -96.43501,
     "athDate": "2025-02-06T14:16:01.862Z",
     "atl": 0.349389,
     "atlDate": "2026-02-06T00:25:15.713Z",
-    "circulatingSupply": 229486167.2368325,
-    "totalSupply": 534970727.1787409,
-    "maxSupply": null
+    "circulatingSupply": 229487513.0361771,
+    "totalSupply": 534971775.6351191,
+    "maxSupply": null,
+    "fdv": 283124266
   },
-  "lastMarketUpdate": "2026-03-22T13:57:46.896Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:22:18.178Z"
 }

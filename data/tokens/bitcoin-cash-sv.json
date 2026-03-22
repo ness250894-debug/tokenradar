@@ -2,20 +2,48 @@
   "id": "bitcoin-cash-sv",
   "symbol": "bsv",
   "name": "Bitcoin SV",
+  "description": "Bitcoin SV (BSV) emerged following a hard fork of the Bitcoin Cash (BCH) blockchain in 2018, which had in turn forked from the BTC blockchain a year earlier. The goal of Bitcoin SV is to fulfil the original vision of the Bitcoin protocol and design as described in Satoshi Nakamoto’s white paper, early Bitcoin client software and known Satoshi writings. BSV aims to offer scalability and stability in line with the original description of Bitcoin as a peer-to-peer electronic cash system, as well as deliver a distributed data network that can support enterprise-level advanced blockchain applications. To this end, it has removed artificial block size limits and re-enabled Script commands and other technical capabilities which had been historically disabled or restricted by the protocol developers of the BTC blockchain. This allows the network to process tens of thousands of transactions per second while maintaining extremely low transaction fees for micropayments, in addition to offering advanced capabilities such as tokens, smart contracts, computation and other data use cases. The BSV network is unique in its capacity for unbounded on-chain scaling while also being more aligned with the original design of Bitcoin than any other blockchain.",
+  "categories": [
+    "Smart Contract Platform",
+    "Bitcoin Fork",
+    "Proof of Work (PoW)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://bitcoinsv.com/",
+    "github": "https://github.com/bitcoin-sv/bitcoin-sv",
+    "reddit": null,
+    "explorer": "http://whatsonchain.com"
+  },
   "market": {
-    "price": 14.15,
-    "marketCap": 283150169,
+    "price": 14.16,
+    "marketCap": 283209618,
     "marketCapRank": 134,
-    "volume24h": 5971641,
-    "priceChange24h": -3.13712,
+    "volume24h": 5950560,
+    "high24h": 14.61,
+    "low24h": 14.12,
+    "priceChange24h": -3.11233,
+    "priceChange7d": -5.46766,
+    "priceChange30d": -10.66709,
+    "priceChange1y": -58.08447,
     "ath": 489.75,
-    "athChangePercentage": -97.10661,
+    "athChangePercentage": -97.10952,
     "athDate": "2021-04-16T17:09:04.630Z",
     "atl": 11.56,
     "atlDate": "2026-02-06T00:26:03.938Z",
     "circulatingSupply": 20004587.5,
-    "totalSupply": 20004615.625,
-    "maxSupply": 21000000
+    "totalSupply": 20004634.375,
+    "maxSupply": 21000000,
+    "fdv": 283210281
   },
-  "lastMarketUpdate": "2026-03-22T13:57:46.871Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 605,
+    "githubForks": 299,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:26:37.563Z"
 }

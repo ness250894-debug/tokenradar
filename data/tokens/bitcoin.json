@@ -2,45 +2,53 @@
   "id": "bitcoin",
   "symbol": "btc",
   "name": "Bitcoin",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "Bitcoin is the world's first decentralized cryptocurrency, created in 2009 by the pseudonymous Satoshi Nakamoto. It enables peer-to-peer electronic cash transactions without intermediaries like banks or governments, operating on a blockchain secured by Proof of Work mining and the SHA-256 cryptographic algorithm. \n\nWith a fixed supply cap of 21 million coins and programmatic halvings every four years that reduce miner rewards, Bitcoin is designed as a deflationary digital asset often called \"digital gold.\" Its value stems from solving the double-spending problem without trusted intermediaries, creating the first truly scarce digital asset with censorship resistance and permissionless access that no government, corporation, or individual can control.\n\nBitcoin operates as a decentralized peer-to-peer network where transactions are recorded on a public ledger called the blockchain, distributed across thousands of computers globally. Transactions are grouped into blocks added approximately every 10 minutes through mining, where specialized computers compete to solve complex mathematical puzzles. \n\nBitcoin has achieved mainstream adoption through multiple vectors. The January 2024 SEC approval of 11 spot Bitcoin ETFs opened Bitcoin investment to traditional finance participants, and corporations like Strategy (formerly MicroStrategy) are using Bitcoin as a treasury reserve asset to protect against currency debasement, offering MSTR holders amplified exposure to Bitcoin. \n\nThe Bitcoin ecosystem continues to evolve with innovations like Ordinals, which emerged in January 2023 to enable NFT-like functionality directly on Bitcoin, and BRC-20 tokens, an experimental standard for creating fungible tokens using Ordinal inscriptions. BTCFi (Bitcoin Finance) represents emerging financial applications extending beyond Bitcoin's traditional role, with protocols like Babylon allowing Bitcoin holders to stake BTC to secure Proof of Stake chains. ",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "FTX Holdings",
+    "Proof of Work (PoW)",
+    "Bitcoin Ecosystem",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": "2009-01-03",
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "http://www.bitcoin.org",
+    "github": "https://github.com/bitcoin/bitcoin",
+    "reddit": "https://www.reddit.com/r/Bitcoin/",
+    "explorer": "https://mempool.space/"
   },
   "market": {
-    "price": 68730,
-    "marketCap": 1373297148843,
+    "price": 68846,
+    "marketCap": 1377350690618,
     "marketCapRank": 1,
-    "volume24h": 29472201494,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -2.81765,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 29174528776,
+    "high24h": 70719,
+    "low24h": 68211,
+    "priceChange24h": -2.54277,
+    "priceChange7d": -3.85914,
+    "priceChange30d": 3.13292,
+    "priceChange1y": -18.04382,
     "ath": 126080,
-    "athChangePercentage": -45.48693,
+    "athChangePercentage": -45.39494,
     "athDate": "2025-10-06T18:57:42.558Z",
     "atl": 67.81,
     "atlDate": "2013-07-06T00:00:00.000Z",
     "circulatingSupply": 20003043,
     "totalSupply": 20003043,
     "maxSupply": 21000000,
-    "fdv": null
+    "fdv": 1377350690618
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 73168,
+    "githubForks": 36426,
+    "commits4Weeks": 108
   },
-  "fetchedAt": "2026-03-15T10:11:56.487Z",
-  "lastMarketUpdate": "2026-03-22T13:57:46.832Z"
+  "fetchedAt": "2026-03-22T15:29:35.105Z"
 }

@@ -2,20 +2,63 @@
   "id": "beldex",
   "symbol": "bdx",
   "name": "Beldex",
+  "description": "Beldex building a decentralized confidential ecosystem in Web3 for secure digital interactions.. The concept of the project was developed in 2018, and launched in the same year. The Beldex project is committed to enhancing user data protection and their confidentiality online. BDX is an ecosystem coin that facilitates confidential transactions. \nBeldex's mission is to provide a confidential environment where data can be exchanged securely. The project is focused on individual safety and true data confidentiality with systematic research to ensure the confidentiality of individual transactions, and thus the safety of users and the security of their funds. \nBDX operates on the Beldex decentralized blockchain for performing secure transactions, while the ecosystem supports secure and confidential dApps, among them: BChat, BelNet, Beldex Browser, the Beldex protocol, and the Beldex bridge. Initially, Beldex was developed on a PoW architecture followed by a transition to the PoS consensus model in order to increase the scalability of the BDX token, lower fees and reduce transaction times.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Masternodes",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "Wallets",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Base Ecosystem",
+    "DWF Labs Portfolio",
+    "Proof of Stake (PoS)",
+    "Proof of Work (PoW)",
+    "VPN",
+    "Name Service",
+    "Privacy Blockchain",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://beldex.io/",
+    "github": "https://github.com/Beldex-Coin/beldex",
+    "reddit": null,
+    "explorer": "https://explorer.beldex.io/"
+  },
   "market": {
-    "price": 0.079906,
-    "marketCap": 607316322,
+    "price": 0.079932,
+    "marketCap": 608320064,
     "marketCapRank": 88,
-    "volume24h": 10603374,
-    "priceChange24h": -0.19348,
+    "volume24h": 10271141,
+    "high24h": 0.08052,
+    "low24h": 0.079842,
+    "priceChange24h": -0.07856,
+    "priceChange7d": -1.05163,
+    "priceChange30d": -0.39501,
+    "priceChange1y": 6.33533,
     "ath": 0.450785,
-    "athChangePercentage": -82.27604,
+    "athChangePercentage": -82.26711,
     "athDate": "2018-12-17T00:00:00.000Z",
     "atl": 0.00027519,
     "atlDate": "2019-11-01T11:05:12.090Z",
-    "circulatingSupply": 7606382660.040733,
-    "totalSupply": 9936682267.060408,
-    "maxSupply": null
+    "circulatingSupply": 7606383744.827932,
+    "totalSupply": 9936683370.763655,
+    "maxSupply": null,
+    "fdv": 794685631
   },
-  "lastMarketUpdate": "2026-03-22T13:57:46.859Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 38,
+    "githubForks": 26,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:20:56.139Z"
 }

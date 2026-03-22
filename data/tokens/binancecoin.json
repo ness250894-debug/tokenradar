@@ -2,45 +2,58 @@
   "id": "binancecoin",
   "symbol": "bnb",
   "name": "BNB",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "Binance Coin is the cryptocurrency of the Binance platform. It is a trading platform exclusively for cryptocurrencies. The name \"Binance\" is a combination of binary and finance.\n\nThus, the startup name shows that only cryptocurrencies can be traded against each other. It is not possible to trade crypto currencies against Fiat. The platform achieved an enormous success within a very short time and is focused on worldwide market with Malta headquarters. The cryptocurrency currently has a daily trading volume of 1.5 billion - 2 billion US dollars and is still increasing.\n\nIn total, there will only be 200 million BNBs. Binance uses the ERC20 token standard from Ethereum and has distributed it as follow: 50% sold on ICO, 40% to the team and 10% to Angel investors. The coin can be used to pay fees on Binance. These include trading fees, transaction fees, listing fees and others. Binance gives you a huge discount when fees are paid in BNB. \n\nThe schedule of BNB fees discount is as follow: In the first year, 50% discount on all fees, second year 25% discount, third year 12.5% discount, fourth year 6.75 % discount, and from the fifth year onwards there is no discount. This structure is used to incentivize users to buy BNB and do trades within Binance.\n\nBinance announced in a buyback plan that it would buy back up to 100 million BNB in Q1 2018. The coins are then burned. This means that they are devaluated to increase the value of the remaining coins. This benefits investors. In the future, the cryptocurrency will remain an asset on the trading platform and will be used as gas.\n\nOther tokens that are issued by exchanges include Bibox Token, OKB, Huobi Token, and more.",
+  "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Centralized Exchange (CEX) Token",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Alleged SEC Securities",
+    "FTX Holdings",
+    "Proof of Stake (PoS)",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Made in China"
+  ],
+  "genesisDate": "2017-07-08",
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://www.binance.com",
+    "github": "https://github.com/binance-exchange/binance-official-api-docs",
+    "reddit": "https://www.reddit.com/r/binance",
+    "explorer": "https://bscscan.com"
   },
   "market": {
-    "price": 630,
-    "marketCap": 85845433793,
+    "price": 630.9,
+    "marketCap": 86081240965,
     "marketCapRank": 4,
-    "volume24h": 865740477,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -2.17191,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 839660645,
+    "high24h": 642.78,
+    "low24h": 625.52,
+    "priceChange24h": -1.76433,
+    "priceChange7d": -4.46168,
+    "priceChange30d": 3.48037,
+    "priceChange1y": 0.999,
     "ath": 1369.99,
-    "athChangePercentage": -54.01452,
+    "athChangePercentage": -53.94843,
     "athDate": "2025-10-13T08:41:24.131Z",
     "atl": 0.0398177,
     "atlDate": "2017-10-19T00:00:00.000Z",
-    "circulatingSupply": 136357607.37,
-    "totalSupply": 136357607.37,
+    "circulatingSupply": 136357605.56,
+    "totalSupply": 136357605.56,
     "maxSupply": 200000000,
-    "fdv": null
+    "fdv": 86081240965
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 4243,
+    "githubForks": 2048,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.489Z",
-  "lastMarketUpdate": "2026-03-22T13:57:46.833Z"
+  "fetchedAt": "2026-03-22T15:25:06.650Z"
 }

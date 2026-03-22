@@ -2,20 +2,57 @@
   "id": "bittorrent",
   "symbol": "btt",
   "name": "BitTorrent",
+  "description": "BitTorrent was initially conceived by Bram Cohen, a peer-to-peer protocol for users to transfer files around the world. The BitTorrent Token (BTT), a TRC-10 token is created on top of the TRON blockchain platform as a way to extend the capability of BitTorrent. The token is added to introduce some economics feature on BitTorrent for networking, bandwidth, and storage resources to be shared and tradeed.\n\nSome of the other feature that BitTorrent Token (BTT) offers would be BitTorrent Speed. This is whereby BTT tokens can be big in exchange for faster download speed.\n\nList of exchanges trading BTT token can be found at https://www.coingecko.com/en/coins/bittorrent/trading_exchanges",
+  "categories": [
+    "Storage",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Alleged SEC Securities",
+    "Binance Launchpad",
+    "Tron Ecosystem",
+    "Energi Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "BitTorrent Ecosystem",
+    "GMCI DePIN Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.bittorrent.com/btt/",
+    "github": "https://github.com/bittorrent/bittorrent.org",
+    "reddit": "https://www.reddit.com/r/Bittorrent/",
+    "explorer": "https://tronscan.org/#/token20/tafjulxivgt4qwk6uzwjqwzxtsagaqnvp4"
+  },
   "market": {
-    "price": 3.32914e-7,
-    "marketCap": 328452166,
+    "price": 3.33162e-7,
+    "marketCap": 328817870,
     "marketCapRank": 125,
-    "volume24h": 8113857,
-    "priceChange24h": -1.26218,
+    "volume24h": 7977294,
+    "high24h": 3.37235e-7,
+    "low24h": 3.31328e-7,
+    "priceChange24h": -1.09964,
+    "priceChange7d": -6.24501,
+    "priceChange30d": -2.25234,
+    "priceChange1y": -51.93707,
     "ath": 0.00000343,
-    "athChangePercentage": -90.3071,
+    "athChangePercentage": -90.29634,
     "athDate": "2022-01-21T04:00:31.909Z",
     "atl": 3.04531e-7,
     "atlDate": "2026-02-06T04:10:19.280Z",
     "circulatingSupply": 987037885840674.8,
     "totalSupply": 990000000000000,
-    "maxSupply": 990000000000000
+    "maxSupply": 990000000000000,
+    "fdv": 329804657
   },
-  "lastMarketUpdate": "2026-03-22T13:57:46.868Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 427,
+    "githubForks": 110,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T15:32:30.869Z"
 }
