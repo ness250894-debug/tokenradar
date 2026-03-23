@@ -2,20 +2,47 @@
   "id": "vaulta",
   "symbol": "a",
   "name": "Vaulta",
+  "description": "Vaulta is a Web3 banking network designed to power the next generation of decentralized financial services. Built on one of the most reliable Layer 1 infrastructures in the industry, Vaulta combines real-time performance with institutional-grade features to deliver secure, scalable, and composable applications—from consumer payments to Bitcoin-native yield and tokenized assets.\nWith one-second finality, advanced on-chain memory via RAM, and integrated Bitcoin infrastructure through exSat, Vaulta serves as a financial operating system for users, developers, and institutions looking to bridge traditional finance and Web3.\n",
+  "categories": [
+    "Layer 1 (L1)",
+    "World Liberty Financial Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.vaulta.com",
+    "github": "https://github.com/VaultaFoundation/",
+    "reddit": null,
+    "explorer": "https://www.unicove.com"
+  },
   "market": {
-    "price": 0.078879,
-    "marketCap": 128541539,
+    "price": 0.078948,
+    "marketCap": 128706702,
     "marketCapRank": 227,
-    "volume24h": 12439182,
-    "priceChange24h": 1.86067,
+    "volume24h": 12626508,
+    "high24h": 0.079865,
+    "low24h": 0.07526,
+    "priceChange24h": 1.97932,
+    "priceChange7d": -6.77461,
+    "priceChange30d": -5.54987,
+    "priceChange1y": 0,
     "ath": 0.778734,
-    "athChangePercentage": -89.88038,
+    "athChangePercentage": -89.85685,
     "athDate": "2025-05-28T08:22:53.913Z",
     "atl": 0.07098,
     "atlDate": "2026-02-06T00:26:29.688Z",
-    "circulatingSupply": 1630451303.8473,
+    "circulatingSupply": 1630453618.8763,
     "totalSupply": 2100000000,
-    "maxSupply": 2100000000
+    "maxSupply": 2100000000,
+    "fdv": 165772317
   },
-  "lastMarketUpdate": "2026-03-23T17:54:49.769Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:10:14.266Z"
 }

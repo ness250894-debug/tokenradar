@@ -2,45 +2,51 @@
   "id": "world-liberty-financial",
   "symbol": "wlfi",
   "name": "World Liberty Financial",
-  "description": "",
-  "categories": [],
+  "description": "A cryptocurrency token known as World Liberty Financial (WLFI). It is tracked on CoinGecko with the ID \"world-liberty-financial\".",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Stablecoin Issuer",
+    "Made in USA",
+    "Trump-Affiliated"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://www.worldlibertyfinancial.com/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0xdA5e1988097297dCdc1f90D4dFE7909e847CBeF6"
   },
   "market": {
-    "price": 0.100366,
-    "marketCap": 2775134641,
+    "price": 0.101408,
+    "marketCap": 2807045308,
     "marketCapRank": 35,
-    "volume24h": 110329124,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 1.56707,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "volume24h": 112905906,
+    "high24h": 0.101459,
+    "low24h": 0.095363,
+    "priceChange24h": 3.86395,
+    "priceChange7d": -4.71202,
+    "priceChange30d": -15.38731,
     "priceChange1y": 0,
     "ath": 0.331336,
-    "athChangePercentage": -69.70869,
+    "athChangePercentage": -69.39409,
     "athDate": "2025-09-01T12:20:09.597Z",
     "atl": 0.08903,
     "atlDate": "2026-03-20T12:50:21.796Z",
     "circulatingSupply": 27662106969,
     "totalSupply": 100000000000,
     "maxSupply": 100000000000,
-    "fdv": null
+    "fdv": 10147619307
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.506Z",
-  "lastMarketUpdate": "2026-03-23T17:54:49.684Z"
+  "fetchedAt": "2026-03-23T18:18:13.117Z"
 }

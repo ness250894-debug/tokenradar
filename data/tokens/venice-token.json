@@ -2,20 +2,52 @@
   "id": "venice-token",
   "symbol": "vvv",
   "name": "Venice Token",
+  "description": "Venice boasts an innovative approach to generative AI with its unique privacy architecture, access to competitive features including multiple leading open-source LLM models such as DeepSeek R1, PDFs analysis, and image and code generation. An unrestricted AI Characters feature is available with its Pro version, Venice Pro. \n\nVVV is designed to minimize friction and reduce costs for AI agents and developers to access private, reliable, on-demand and perpetual AI inference via Venice.ai's API.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Base Ecosystem",
+    "AI Agents",
+    "AI Applications",
+    "Binance Alpha Spotlight",
+    "Made in USA",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://venice.ai/home",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf"
+  },
   "market": {
-    "price": 6.11,
-    "marketCap": 274239307,
+    "price": 6.15,
+    "marketCap": 275526362,
     "marketCapRank": 138,
-    "volume24h": 17946234,
-    "priceChange24h": -1.07654,
+    "volume24h": 17400599,
+    "high24h": 6.28,
+    "low24h": 5.86,
+    "priceChange24h": 0.39329,
+    "priceChange7d": -1.46093,
+    "priceChange30d": 43.85412,
+    "priceChange1y": 103.87739,
     "ath": 22.58,
-    "athChangePercentage": -72.67077,
+    "athChangePercentage": -72.92055,
     "athDate": "2025-01-28T00:06:36.780Z",
     "atl": 0.91975,
     "atlDate": "2025-12-01T18:55:48.565Z",
-    "circulatingSupply": 44926492.44634638,
+    "circulatingSupply": 44926785.18995663,
     "totalSupply": 79157273.82820281,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 485454626
   },
-  "lastMarketUpdate": "2026-03-23T17:54:49.729Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:11:50.240Z"
 }

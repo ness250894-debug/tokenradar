@@ -2,20 +2,52 @@
   "id": "wemix-token",
   "symbol": "wemix",
   "name": "WEMIX",
+  "description": "Global gaming platform with popular game titles",
+  "categories": [
+    "Smart Contract Platform",
+    "Gaming (GameFi)",
+    "NFT",
+    "Layer 1 (L1)",
+    "Play To Earn",
+    "Gaming Blockchains",
+    "WEMIX Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.wemix.com/en",
+    "github": "https://github.com/wemixarchive",
+    "reddit": null,
+    "explorer": null
+  },
   "market": {
-    "price": 0.26911,
-    "marketCap": 124403722,
-    "marketCapRank": 235,
-    "volume24h": 1125844,
-    "priceChange24h": -2.26142,
+    "price": 0.26852,
+    "marketCap": 124113108,
+    "marketCapRank": 234,
+    "volume24h": 1118805,
+    "high24h": 0.27679,
+    "low24h": 0.263863,
+    "priceChange24h": -2.75026,
+    "priceChange7d": -5.27277,
+    "priceChange30d": -13.90418,
+    "priceChange1y": -49.9532,
     "ath": 24.71,
-    "athChangePercentage": -98.91305,
+    "athChangePercentage": -98.91419,
     "athDate": "2021-11-21T17:33:44.178Z",
     "atl": 0.128398,
     "atlDate": "2021-06-22T12:52:49.089Z",
     "circulatingSupply": 462277841.3255647,
     "totalSupply": 552473209.5478008,
-    "maxSupply": 590000000
+    "maxSupply": 590000000,
+    "fdv": 148328907
   },
-  "lastMarketUpdate": "2026-03-23T17:54:49.771Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:16:04.671Z"
 }

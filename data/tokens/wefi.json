@@ -2,20 +2,47 @@
   "id": "wefi",
   "symbol": "wfi",
   "name": "WeFi",
+  "description": "WeFi Deobanking is the first fully compliant on-chain banking platform powered by stablecoins. A Deobank (short for decentralized on-chain banking) is a new class of financial institution that blends the reliability of traditional banking with the limitless possibilities of blockchain.\n\nUsers deposit fiat and instantly get stables 1:1, no exchange flow and no fees. The fiat and stablecoin streams never intersect. Users see one banking account with one unified balance, while the transaction can flow through either traditional fiat rails or stablecoin rails.\n\nAt the center of the ecosystem is the WFI token, which powers transactions, rewards, and protocol fees, positioning WeFi as a regulated, globally accessible foundation for next-generation digital banking. At the heart of the ecosystem is the WFI token, facilitating effortless transactions, rewards, and fees. Used for  remittances and stablecoins management, WeFi brings Web3 innovation to the real world—combining privacy, security, AI-enhanced compliance, and a frictionless user experience that no other platform offers.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Payment Solutions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://wefi.co/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x90c48855bb69f9d2c261efd0d8c7f35990f2dd6f"
+  },
   "market": {
-    "price": 2.18,
-    "marketCap": 178217700,
+    "price": 2.22,
+    "marketCap": 181421264,
     "marketCapRank": 187,
-    "volume24h": 74025,
-    "priceChange24h": 2.84834,
+    "volume24h": 3930027,
+    "high24h": 2.23,
+    "low24h": 2.08,
+    "priceChange24h": 4.62363,
+    "priceChange7d": -6.01453,
+    "priceChange30d": 0.14232,
+    "priceChange1y": 390.47892,
     "ath": 3,
-    "athChangePercentage": -27.20807,
+    "athChangePercentage": -27.25216,
     "athDate": "2026-01-19T11:33:02.002Z",
     "atl": 0.151329,
     "atlDate": "2024-11-25T03:57:43.725Z",
-    "circulatingSupply": 81718889.54902044,
+    "circulatingSupply": 81740394.75086184,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 2219481136
   },
-  "lastMarketUpdate": "2026-03-23T17:54:49.749Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:15:09.635Z"
 }

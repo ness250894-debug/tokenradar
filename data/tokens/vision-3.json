@@ -2,20 +2,49 @@
   "id": "vision-3",
   "symbol": "vsn",
   "name": "Vision",
+  "description": "Vision (VSN) is the native token of the Bitpanda Web3 ecosystem – a unifying force designed to make Web3 accessible, tangible, and rewarding for everyone. Beyond the scope of a typical exchange token, Vision powers a compliant, user-centric ecosystem built for the future of decentralised finance in Europe and beyond.\n\nVSN will fuel onchain activity across Bitpanda’s DeFI Wallet, Layer 2 infrastructure (Vision Chain), launchpad and interoperability protocol – unlocking real utility through staking rewards, fee discounts, governance, and early access to vetted token launches. \n\nIt also serves as the backbone of Bitpanda’s Web3 loyalty and rewards programmes, directly connecting user participation with value creation and constantly turning a share of the generated fees into buybacks, burns and rewards. Every transaction strengthens the ecosystem.\n\nVSN token is a core component for the Bitpanda Web3 ecosystem; it aligns the incentives of users, developers, institutions, and regulators around a single mission – to make Web3 accessible for everyone.\n",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "CeFi"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://vision.now/",
+    "github": "https://github.com/vision-web3",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x699ccf919c1dfdfa4c374292f42cadc9899bf753"
+  },
   "market": {
-    "price": 0.05273,
-    "marketCap": 189779916,
+    "price": 0.052822,
+    "marketCap": 189575526,
     "marketCapRank": 177,
-    "volume24h": 6311089,
-    "priceChange24h": 0.94243,
+    "volume24h": 6313232,
+    "high24h": 0.052817,
+    "low24h": 0.0513,
+    "priceChange24h": 1.16332,
+    "priceChange7d": -3.53109,
+    "priceChange30d": -0.27292,
+    "priceChange1y": 0,
     "ath": 0.223874,
-    "athChangePercentage": -76.46116,
+    "athChangePercentage": -76.44274,
     "athDate": "2025-08-11T11:13:12.424Z",
     "atl": 0.04699095,
     "atlDate": "2026-02-05T22:26:41.144Z",
     "circulatingSupply": 3597917073.780331,
     "totalSupply": 4200000000,
-    "maxSupply": 4200000000
+    "maxSupply": 4200000000,
+    "fdv": 221299489
   },
-  "lastMarketUpdate": "2026-03-23T17:54:49.745Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:13:25.635Z"
 }
