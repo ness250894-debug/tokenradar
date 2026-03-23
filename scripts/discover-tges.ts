@@ -1,11 +1,11 @@
 /**
  * TGE Discovery Script
  *
- * Scans RSS feeds for upcoming Token Generation Events (TGE),
- * uses AI to identify high-quality projects, and maintains
- * a registry of upcoming launches.
+ * Discovers upcoming Token Generation Events from:
+ * 1. RSS feeds + AI analysis (broad signal detection)
+ * 2. CryptoRank API (structured upcoming ICO/IDO/IEO data)
  *
- * Failsafe: If RSS feeds fail or AI is unavailable, existing
+ * Failsafe: If any data source fails, existing
  * data is preserved. The script never destroys data on error.
  *
  * Usage:
@@ -122,6 +122,73 @@ ${newsContext}`;
   }
 }
 
+// ── CryptoRank API ─────────────────────────────────────────
+
+/**
+ * Fetch upcoming token sales from CryptoRank's free Sandbox API.
+ * Returns [] on any failure (never throws).
+ */
+async function fetchCryptoRankUpcoming(): Promise<UpcomingTge[]> {
+  const apiKey = process.env.CRYPTORANK_API_KEY;
+  if (!apiKey) {
+    console.log("  ⚠ CRYPTORANK_API_KEY not set. Skipping CryptoRank source.");
+    return [];
+  }
+
+  console.log("  🔗 Fetching upcoming sales from CryptoRank...");
+
+  try {
+    const url = "https://api.cryptorank.io/v2/currencies/public-sales?crowdsaleStatus=upcoming&limit=20";
+    const res = await fetch(url, {
+      headers: { "X-Api-Key": apiKey },
+      signal: AbortSignal.timeout(15_000),
+    });
+
+    if (!res.ok) {
+      console.warn(`  ⚠ CryptoRank API returned ${res.status}: ${res.statusText}`);
+      return [];
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data: any = await res.json();
+    const items = data?.data || [];
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tges: UpcomingTge[] = items.map((item: any) => {
+      const name = item.name || item.key || "Unknown";
+      const symbol = item.symbol || "???";
+      const id = (item.key || name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const category = item.category?.name || item.tags?.[0]?.name || "Crypto";
+
+      // Determine expected date from sale dates
+      let expectedTge = "TBD";
+      if (item.crowdsales && item.crowdsales.length > 0) {
+        const nextSale = item.crowdsales.find((s: any) => s.status === "upcoming");
+        if (nextSale?.startDate) {
+          expectedTge = new Date(nextSale.startDate).toISOString().split("T")[0];
+        }
+      }
+
+      return {
+        id,
+        name,
+        symbol: symbol.toUpperCase(),
+        category,
+        expectedTge,
+        narrativeStrength: 70, // Default for structured API data
+        dataSource: `https://cryptorank.io/ico/${item.key || id}`,
+        discoveredAt: new Date().toISOString(),
+      };
+    }).filter((t: UpcomingTge) => t.id && t.name !== "Unknown");
+
+    console.log(`  ✓ CryptoRank: ${tges.length} upcoming sales found.`);
+    return tges;
+  } catch (e) {
+    console.warn(`  ⚠ CryptoRank fetch failed: ${e instanceof Error ? e.message : String(e)}`);
+    return [];
+  }
+}
+
 /**
  * Check if a TGE has "graduated" (is now trading on CoinGecko).
  * Returns false on any error (safe default: keep the entry).
@@ -187,15 +254,19 @@ async function main() {
     return;
   }
 
-  // 3. AI analysis
-  const discovered = await analyzeNewsWithAI(allNews);
-  console.log(`  ✨ AI identified ${discovered.length} potential TGEs.`);
+  // 3. AI analysis of RSS news
+  const discoveredFromAI = await analyzeNewsWithAI(allNews);
+  console.log(`  ✨ AI identified ${discoveredFromAI.length} potential TGEs from news.`);
 
-  // 4. Merge (never remove existing unless graduated)
+  // 4. CryptoRank structured data
+  const discoveredFromCR = await fetchCryptoRankUpcoming();
+
+  // 5. Merge all sources (never remove existing unless graduated)
+  const allDiscovered = [...discoveredFromAI, ...discoveredFromCR];
   const combined = [...existing];
   let newCount = 0;
 
-  for (const item of discovered) {
+  for (const item of allDiscovered) {
     if (!item.id || !item.name) continue; // Skip malformed entries
     if (!combined.find(e => e.id === item.id)) {
       combined.push({ ...item, discoveredAt: new Date().toISOString() });
@@ -204,7 +275,7 @@ async function main() {
     }
   }
 
-  // 5. Graduation check (with rate limiting for CoinGecko)
+  // 6. Graduation check (with rate limiting for CoinGecko)
   const active: UpcomingTge[] = [];
   for (const tge of combined) {
     const isGraduated = await checkGraduation(tge);
@@ -216,7 +287,7 @@ async function main() {
     await sleep(500); // Rate limit CoinGecko calls
   }
 
-  // 6. Save
+  // 7. Save
   fs.writeFileSync(TGE_FILE, JSON.stringify(active, null, 2));
 
   console.log();
