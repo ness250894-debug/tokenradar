@@ -2,45 +2,51 @@
   "id": "memecore",
   "symbol": "m",
   "name": "MemeCore",
-  "description": "",
-  "categories": [],
+  "description": "MemeCore is the first Layer 1 blockchain, built for Meme 2.0 — a new paradigm where meme coins transcend speculation to become engines of culture, value, and community coordination. In this new era, memes are not just content — they are currency, governance, and creative expression.\n\nMission\nTo structure and sustain the meme viral economy, empowering anyone to launch tokens, earn from cultural contributions, and build openly in a decentralized, meme-native environment.\n\nVision\nMemeCore envisions a world where meme coins are vehicles of shared ownership and viral innovation. Every social post, meme remix, and on-chain action becomes a part of an economic feedback loop — fueling a participatory ecosystem where culture is capital.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Meme",
+    "Binance Alpha Spotlight",
+    "MemeCore Ecosystem"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://memecore.com/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://memecorescan.io/"
   },
   "market": {
-    "price": 1.76,
-    "marketCap": 3044879128,
-    "marketCapRank": 34,
-    "volume24h": 8394819,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 5.86391,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "price": 1.79,
+    "marketCap": 3126283861,
+    "marketCapRank": 33,
+    "volume24h": 8712184,
+    "high24h": 1.79,
+    "low24h": 1.64,
+    "priceChange24h": 8.28523,
+    "priceChange7d": 21.94272,
+    "priceChange30d": 33.07925,
     "priceChange1y": 0,
     "ath": 2.96,
-    "athChangePercentage": -41.14611,
+    "athChangePercentage": -40.05347,
     "athDate": "2025-09-18T07:27:06.144Z",
     "atl": 0.04746135,
     "atlDate": "2025-07-04T03:56:17.448Z",
-    "circulatingSupply": 1749128781.656636,
-    "totalSupply": 5349113361.487651,
+    "circulatingSupply": 1749159651.11422,
+    "totalSupply": 5349159650.673496,
     "maxSupply": 10000000000,
-    "fdv": null
+    "fdv": 9560586121
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.507Z",
-  "lastMarketUpdate": "2026-03-23T03:26:32.965Z"
+  "fetchedAt": "2026-03-23T05:21:49.751Z"
 }

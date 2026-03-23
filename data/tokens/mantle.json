@@ -2,45 +2,57 @@
   "id": "mantle",
   "symbol": "mnt",
   "name": "Mantle",
-  "description": "",
-  "categories": [],
+  "description": "Mantle is a pioneering on-chain ecosystem dedicated to revolutionizing the future of finance and blockchain scalability, seamlessly bridging traditional finance (TradFi) and decentralized finance (DeFi). Through innovative products like Mantle Network, mETH Protocol, Function (FBTC), and Mantle Index Four (MI4), Mantle empowers users and institutions with a unified financial services platform, redefining how the world spends, saves, and invests in the Web 3.0 era.\n\nWhat is MNT?\n$MNT powers Mantle’s ecosystem, serving as the cornerstone for governance, staking, and driving innovation across the decentralized economy.",
+  "categories": [
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Mantle Ecosystem",
+    "DWF Labs Portfolio",
+    "DragonFly Capital Portfolio",
+    "GMCI Layer 2 Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "World Liberty Financial Portfolio",
+    "Made in China",
+    "Neobank"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://group.mantle.xyz/",
+    "github": "https://github.com/mantlenetworkio",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0x3c3a81e81dc49a522a592e7622a7e711c06bf354"
   },
   "market": {
-    "price": 0.713989,
-    "marketCap": 2340752203,
+    "price": 0.715287,
+    "marketCap": 2346528756,
     "marketCapRank": 40,
-    "volume24h": 39033134,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -3.58515,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 38959752,
+    "high24h": 0.74127,
+    "low24h": 0.70707,
+    "priceChange24h": -3.50522,
+    "priceChange7d": -9.83834,
+    "priceChange30d": 13.29449,
+    "priceChange1y": -9.20858,
     "ath": 2.86,
-    "athChangePercentage": -74.97892,
+    "athChangePercentage": -74.94761,
     "athDate": "2025-10-09T01:04:46.659Z",
     "atl": 0.307978,
     "atlDate": "2023-10-18T02:50:46.942Z",
     "circulatingSupply": 3277944055.53684,
     "totalSupply": 6219316794.889999,
     "maxSupply": 6219316794.89,
-    "fdv": null
+    "fdv": 4452121651
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.508Z",
-  "lastMarketUpdate": "2026-03-23T03:26:32.966Z"
+  "fetchedAt": "2026-03-23T05:18:57.441Z"
 }

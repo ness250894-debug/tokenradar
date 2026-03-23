@@ -2,45 +2,67 @@
   "id": "near",
   "symbol": "near",
   "name": "NEAR Protocol",
-  "description": "",
-  "categories": [],
+  "description": "NEAR Protocol is the blockchain for AI. A high-performance, AI-native platform built to power the next generation of decentralized applications and intelligent agents. It provides the infrastructure AI needs to transact, operate, and interact across Web2 and Web3. NEAR combines three core elements: User-Owned AI, which ensures agents act in users’ best interests; Intents and Chain Abstraction, which eliminate blockchain complexity for seamless, goal-driven transactions across chains; and a sharded blockchain architecture that delivers the scalability, speed, and low-cost execution needed for real-world AI and Web3 use. This integrated stack makes NEAR the foundation for building secure, user-owned, AI-native applications at internet scale.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Near Protocol Ecosystem",
+    "Alleged SEC Securities",
+    "FTX Holdings",
+    "Data Availability",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Alameda Research Portfolio",
+    "DragonFly Capital Portfolio",
+    "Pantera Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "Circle Ventures Portfolio",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "Chain Abstraction",
+    "CoinList Launchpad"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://near.org/",
+    "github": "https://github.com/nearprotocol/nearcore",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://nearblocks.io"
   },
   "market": {
     "price": 1.28,
-    "marketCap": 1658864989,
+    "marketCap": 1657373336,
     "marketCapRank": 49,
-    "volume24h": 110485867,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -1.23372,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 104784010,
+    "high24h": 1.3,
+    "low24h": 1.27,
+    "priceChange24h": -1.30072,
+    "priceChange7d": -8.49892,
+    "priceChange30d": 20.34419,
+    "priceChange1y": -54.0201,
     "ath": 20.44,
-    "athChangePercentage": -93.71212,
+    "athChangePercentage": -93.69425,
     "athDate": "2022-01-16T22:09:45.873Z",
     "atl": 0.526762,
     "atlDate": "2020-11-04T16:09:15.137Z",
-    "circulatingSupply": 1290887287,
-    "totalSupply": 1290887386,
+    "circulatingSupply": 1290887242,
+    "totalSupply": 1290913272,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 1657406756
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 2577,
+    "githubForks": 763,
+    "commits4Weeks": 165
   },
-  "fetchedAt": "2026-03-15T10:11:56.515Z",
-  "lastMarketUpdate": "2026-03-23T03:26:32.968Z"
+  "fetchedAt": "2026-03-23T05:31:39.919Z"
 }
