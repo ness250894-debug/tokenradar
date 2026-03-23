@@ -2,20 +2,66 @@
   "id": "lido-dao",
   "symbol": "ldo",
   "name": "Lido DAO",
+  "description": "A cryptocurrency token known as Lido DAO (LDO). It is tracked on CoinGecko with the ID \"lido-dao\".",
+  "categories": [
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Liquid Staking Governance Tokens",
+    "eGirl Capital Portfolio",
+    "Paradigm Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "Index Coop Defi Index",
+    "Alameda Research Portfolio",
+    "DragonFly Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI DeFi Index",
+    "Delphi Ventures Portfolio",
+    "Liquid Staking",
+    "GMCI Index",
+    "Coinbase 50 Index",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://stake.lido.fi/",
+    "github": "https://github.com/lidofinance/lido-dao",
+    "reddit": "https://www.reddit.com/r/lidofinance",
+    "explorer": "https://etherscan.io/token/0x5a98fcbea516cf06857215779fd812ca3bef1b32"
+  },
   "market": {
-    "price": 0.283338,
-    "marketCap": 240702987,
+    "price": 0.284516,
+    "marketCap": 241626460,
     "marketCapRank": 149,
-    "volume24h": 17146927,
-    "priceChange24h": -4.40191,
+    "volume24h": 15492731,
+    "high24h": 0.29118,
+    "low24h": 0.280115,
+    "priceChange24h": -2.03923,
+    "priceChange7d": -8.36769,
+    "priceChange30d": -13.44268,
+    "priceChange1y": -72.29046,
     "ath": 7.3,
-    "athChangePercentage": -96.11911,
+    "athChangePercentage": -96.1042,
     "athDate": "2021-08-20T08:35:20.158Z",
     "atl": 0.271383,
     "atlDate": "2026-03-08T05:01:22.939Z",
     "circulatingSupply": 849264458.5927889,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 284512625
   },
-  "lastMarketUpdate": "2026-03-22T23:47:08.978Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 473,
+    "githubForks": 270,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T03:33:38.006Z"
 }

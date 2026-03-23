@@ -2,20 +2,56 @@
   "id": "livepeer",
   "symbol": "lpt",
   "name": "Livepeer",
+  "description": "The Livepeer project aims to deliver a live video streaming network protocol that is fully decentralized, highly scalable, crypto token incentivized, and results in a solution which can serve as the live media layer in the decentralized development (web3) stack. In addition, Livepeer is meant to provide an economically efficient alternative to centralized broadcasting solutions for any existing broadcaster. In this document we describe the Livepeer Protocol - a delegated stake based protocol for incentivizing participants in a live video broadcast network in a game-theoretically secure way. We present solutions for the scalable verification of decentralized work, as well as the prevention of useless work in an attempt to game the token allocations in an inflationary system.\n\nThe Livepeer Token (LPT) is the protocol token of the Livepeer network. But it is not the medium of exchange token. Broadcasters use Ethereum's Ether (ETH) to broadcast video on the network. Nodes who contribute processing and bandwidth earn ETH in the form of fees from broadcasters. LPT is a staking token that participants who want to perform work on the network stake in order to coordinate how work gets distributed on the network, and to provide security that the work will get done honestly and correctly. LPT has the following purposes:\n\nIt serves as a bonding mechanism in a delegated proof of stake system, in which stake is delegated towards transcoders (or validators) who participate in the protocol to transcode video and validate work. The token, and potential slashing that occurs due to protocol violation, is necessary in order to secure the network against a number of attacks. More below.\nIt routes work through the network in proportion to the amount of staked and delegated token, essentially serving as a coordination mechanism.\n\nIt is a unit of account that is specific to the Livepeer ecosystem, which forms the basis of a SectorCoin concept, applicable to additional functionality to be introduced in the future. Services such as DVR, closed captioning, ad insertion/monetization, and analytics can all plug into the Livepeer ecosystem and potentially make use of the security provided by staking LPT.\n\nAn initial allocation of Livepeer Token will be distributed so that stakeholders can fulfill various roles in, and use the network, and then additional token will be issued according to algorithmically programmed issuance over time.\n\nFollowing the conventions of Ethereum and many popular ERC20 tokens, LPT will be divisible by 10 ^ 18, with larger denominations such as the LPT itself intended to be used for user level transactions such as staking, and smaller denominations intended to be used for protocol accounting.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Harmony Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "Pantera Capital Portfolio",
+    "GMCI DePIN Index",
+    "GMCI Index",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": "2018-10-01",
+  "links": {
+    "website": "https://livepeer.org/",
+    "github": "https://github.com/livepeer/livepeerjs",
+    "reddit": "https://www.reddit.com/r/livepeer",
+    "explorer": "https://etherscan.io/token/0x58b6a8a3302369daec383334672404ee733ab239"
+  },
   "market": {
-    "price": 2.25,
-    "marketCap": 111728616,
-    "marketCapRank": 250,
-    "volume24h": 6218725,
-    "priceChange24h": 0.12294,
+    "price": 2.15,
+    "marketCap": 106902251,
+    "marketCapRank": 252,
+    "volume24h": 6971554,
+    "high24h": 2.19,
+    "low24h": 2.12,
+    "priceChange24h": -1.83097,
+    "priceChange7d": -7.19451,
+    "priceChange30d": -8.83849,
+    "priceChange1y": -61.7326,
     "ath": 99.03,
-    "athChangePercentage": -97.72835,
+    "athChangePercentage": -97.82389,
     "athDate": "2021-11-09T16:58:44.554Z",
     "atl": 0.354051,
     "atlDate": "2019-10-26T22:59:09.500Z",
     "circulatingSupply": 49688954.55,
     "totalSupply": 49688954.55,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 106902251
   },
-  "lastMarketUpdate": "2026-03-21T07:05:13.787Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 71,
+    "githubForks": 33,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T03:38:01.226Z"
 }

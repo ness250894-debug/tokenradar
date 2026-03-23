@@ -2,45 +2,53 @@
   "id": "litecoin",
   "symbol": "ltc",
   "name": "Litecoin",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "Litecoin is a peer-to-peer cryptocurrency created by Charlie Lee. It was created based on the Bitcoin protocol but differs in terms of the hashing algorithm used. Litecoin uses the memory intensive Scrypt proof of work mining algorithm. Scrypt allows consumer-grade hardware such as GPU to mine those coins.\n\nWhy Litecoin?\nLitecoin is a cryptocurrency that has evolved from Bitcoin after its own popularity in the industry, this alternative, or ‘altcoin’ has emerged to allow investors to diversify their digital currency package, according to Investopedia. Litecoin is one of the most prominent altcoins and was created by former Google employee and Director of Engineering at Coinbase, Charlie Lee. Litecoin was the first to alter Bitcoin and the most significant difference is that it takes 2.5 minutes for Litecoin to generate a block, or transaction, in comparison to Bitcoin's 10 minutes.\n\n‘While this matters little to traders, miners who use hardware to run Bitcoin's network cannot switch over to Litecoin. This keeps bigger mining conglomerates away from Litecoin because they cannot easily optimize their profits by swapping to another coin, contributing to a more decentralized experience. Litecoin also has bigger blocks, and more coins in circulation, making it more affordable and swift when transacting,’ Investopedia explained.\n\nAs explained above, Litecoin can transact a lot faster than Bitcoin, but there are also a number of other characteristics that investors need to know before trading. Litecoin can handle higher volumes of transactions because of the capability of transacting faster and if Bitcoin attempted to transact on the scale of its altcoin, a code update would be needed. However, Litecoin’s blocks would be larger, but with more ‘orphaned blocks'. The faster block time of litecoin reduces the risk of double spending attacks - this is theoretical in the case of both networks having the same hashing power.\n\nLitecoin Technical Details:\nThe transaction confirmation time taken for Litecoin is about 2.5 minutes on average (as compared to Bitcoin's 10 minutes). The Litecoin network is scheduled to cap at 84 million currency units. \n\nLitecoin has inspired many other popular alternative currencies (eg. Dogecoin) because of its Scrypt hashing algorithm in order to prevent ASIC miners from mining those coins. However it is said that by the end of this year, Scrypt ASIC will enter the mass market.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": "2011-10-08",
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "http://litecoin.org",
+    "github": "https://github.com/litecoin-project/litecoin",
+    "reddit": "https://www.reddit.com/r/litecoin/",
+    "explorer": "https://chainz.cryptoid.info/ltc/"
   },
   "market": {
-    "price": 53.58,
-    "marketCap": 4124609618,
-    "marketCapRank": 25,
-    "volume24h": 323308397,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -3.40701,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 53.96,
+    "marketCap": 4153461755,
+    "marketCapRank": 24,
+    "volume24h": 284752960,
+    "high24h": 54.92,
+    "low24h": 53.19,
+    "priceChange24h": -1.59026,
+    "priceChange7d": -3.69888,
+    "priceChange30d": -2.25912,
+    "priceChange1y": -41.30596,
     "ath": 410.26,
-    "athChangePercentage": -86.94266,
+    "athChangePercentage": -86.8363,
     "athDate": "2021-05-10T03:13:07.904Z",
     "atl": 1.15,
     "atlDate": "2015-01-14T00:00:00.000Z",
     "circulatingSupply": 76972776.98347135,
-    "totalSupply": 76978495.73347135,
+    "totalSupply": 76978745.73347135,
     "maxSupply": 84000000,
-    "fdv": null
+    "fdv": 4153783829
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 4266,
+    "githubForks": 3059,
+    "commits4Weeks": 1
   },
-  "fetchedAt": "2026-03-15T10:11:56.501Z",
-  "lastMarketUpdate": "2026-03-22T23:47:08.946Z"
+  "fetchedAt": "2026-03-23T03:36:30.519Z"
 }

@@ -2,20 +2,51 @@
   "id": "lighter",
   "symbol": "lit",
   "name": "Lighter",
+  "description": "Lighter is a decentralized trading platform built for unmatched security and scale. It’s the first exchange to offer verifiable order matching and liquidations while delivering best-in-class performance on par with traditional exchanges.\n\n",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Ethereum Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://lighter.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2"
+  },
   "market": {
-    "price": 0.937339,
-    "marketCap": 234353551,
-    "marketCapRank": 151,
-    "volume24h": 19516562,
-    "priceChange24h": -11.595,
+    "price": 0.935731,
+    "marketCap": 233783907,
+    "marketCapRank": 150,
+    "volume24h": 19645472,
+    "high24h": 1.031,
+    "low24h": 0.9352,
+    "priceChange24h": -9.08361,
+    "priceChange7d": -13.62175,
+    "priceChange30d": -38.41179,
+    "priceChange1y": 0,
     "ath": 7.86,
-    "athChangePercentage": -88.04632,
+    "athChangePercentage": -88.09525,
     "athDate": "2025-12-30T09:05:21.222Z",
-    "atl": 0.941831,
-    "atlDate": "2026-03-22T23:40:31.036Z",
+    "atl": 0.9352,
+    "atlDate": "2026-03-23T02:39:55.828Z",
     "circulatingSupply": 250000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 935135629
   },
-  "lastMarketUpdate": "2026-03-22T23:47:08.979Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T03:35:07.386Z"
 }

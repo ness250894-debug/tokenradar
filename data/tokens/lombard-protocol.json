@@ -2,20 +2,52 @@
   "id": "lombard-protocol",
   "symbol": "bard",
   "name": "Lombard",
+  "description": "Lombard is building onchain Bitcoin capital markets to unlock the full potential of the defining asset of this generation. Founded in 2024, the company pioneered Bitcoin’s integration into DeFi with LBTC — the leading yield-bearing Bitcoin, secured by a decentralized consortium of 14 digital asset institutions — which today stands as the largest Bitcoin LST. Lombard is developing full-stack infrastructure to accelerate onchain BTC adoption for holders, protocols, and platforms, spanning BTC assets, a Staking SDK, and supporting services. The company is built and backed by digital asset leaders, including top DeFi protocols, institutions, and exchanges.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance HODLer Airdrops",
+    "BTCfi Protocol",
+    "Binance Alpha Spotlight",
+    "Buidlpad Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.lombard.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xf0db65d17e30a966c2ae6a21f6bba71cea6e9754"
+  },
   "market": {
-    "price": 0.487925,
-    "marketCap": 109411446,
-    "marketCapRank": 246,
-    "volume24h": 80991509,
-    "priceChange24h": -7.56313,
+    "price": 0.515703,
+    "marketCap": 116071440,
+    "marketCapRank": 242,
+    "volume24h": 91817470,
+    "high24h": 0.527338,
+    "low24h": 0.47634,
+    "priceChange24h": 3.47028,
+    "priceChange7d": -52.21964,
+    "priceChange30d": -32.26601,
+    "priceChange1y": 0,
     "ath": 1.7,
-    "athChangePercentage": -71.42262,
+    "athChangePercentage": -70.07444,
     "athDate": "2026-03-05T20:26:18.448Z",
     "atl": 0.32573,
     "atlDate": "2025-10-10T21:23:31.088Z",
     "circulatingSupply": 225000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 515873065
   },
-  "lastMarketUpdate": "2026-03-22T23:47:09.009Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T03:39:31.054Z"
 }

@@ -2,45 +2,49 @@
   "id": "leo-token",
   "symbol": "leo",
   "name": "LEO Token",
-  "description": "",
-  "categories": [],
-  "genesisDate": null,
+  "description": "A cryptocurrency token known as LEO Token (LEO). It is tracked on CoinGecko with the ID \"leo-token\".",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Sora Ecosystem"
+  ],
+  "genesisDate": "2019-05-20",
   "links": {
-    "website": null,
+    "website": "https://www.bitfinex.com/",
     "github": null,
-    "reddit": null,
-    "explorer": null
+    "reddit": "https://www.reddit.com/r/bitfinex/",
+    "explorer": "https://eosflare.io/account/bitfinexleo1"
   },
   "market": {
-    "price": 9.31,
-    "marketCap": 8579146998,
+    "price": 9.29,
+    "marketCap": 8559788089,
     "marketCapRank": 16,
-    "volume24h": 607427,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 0.95722,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 597729,
+    "high24h": 9.33,
+    "low24h": 9.19,
+    "priceChange24h": 0.65896,
+    "priceChange7d": 2.48075,
+    "priceChange30d": 7.85974,
+    "priceChange1y": -5.14597,
     "ath": 10.14,
-    "athChangePercentage": -8.09059,
+    "athChangePercentage": -8.25405,
     "athDate": "2025-03-10T09:26:43.294Z",
     "atl": 0.799859,
     "atlDate": "2019-12-24T15:14:35.376Z",
-    "circulatingSupply": 921048487.9,
+    "circulatingSupply": 921038963.9,
     "totalSupply": 985239504,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 9156443648
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.495Z",
-  "lastMarketUpdate": "2026-03-22T23:47:08.943Z"
+  "fetchedAt": "2026-03-23T03:32:17.684Z"
 }

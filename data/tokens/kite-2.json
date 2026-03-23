@@ -2,20 +2,52 @@
   "id": "kite-2",
   "symbol": "kite",
   "name": "Kite",
+  "description": "Kite enables AI agents to autonomously transact at scale with cryptographic safety and native x402 compatibility—solving the infrastructure crisis imprisoning the agent economy today.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "AI Agents",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gokite.ai/",
+    "github": "https://github.com/gokite-ai",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x904567252D8F48555b7447c67dCA23F0372E16be"
+  },
   "market": {
-    "price": 0.220276,
-    "marketCap": 396715995,
-    "marketCapRank": 115,
-    "volume24h": 58377292,
-    "priceChange24h": 3.02319,
+    "price": 0.229996,
+    "marketCap": 413592983,
+    "marketCapRank": 113,
+    "volume24h": 61207934,
+    "high24h": 0.229774,
+    "low24h": 0.212442,
+    "priceChange24h": 8.24729,
+    "priceChange7d": 5.43503,
+    "priceChange30d": -11.77435,
+    "priceChange1y": 0,
     "ath": 0.319747,
-    "athChangePercentage": -31.18235,
+    "athChangePercentage": -28.10381,
     "athDate": "2026-03-06T10:30:09.941Z",
     "atl": 0.061819,
     "atlDate": "2025-11-04T08:21:02.065Z",
     "circulatingSupply": 1800000000,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 2297738796
   },
-  "lastMarketUpdate": "2026-03-22T23:47:08.971Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T03:28:10.874Z"
 }
