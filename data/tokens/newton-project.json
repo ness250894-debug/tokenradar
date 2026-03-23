@@ -2,20 +2,47 @@
   "id": "newton-project",
   "symbol": "ab",
   "name": "AB",
+  "description": "AB (prev. Newton) is an advanced blockchain ecosystem evolving from the Newton Project, designed for decentralization, interoperability, and real-world asset (RWA) integration. It features a high-performance mainnet, industry-specific sidechains, and cross-chain compatibility with Ethereum, Solana, and other networks.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": "2018-12-18",
+  "links": {
+    "website": "https://ab.org/",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/Newton_project/",
+    "explorer": "https://explorer.newtonproject.org/"
+  },
   "market": {
-    "price": 0.00202482,
-    "marketCap": 200571441,
+    "price": 0.00202598,
+    "marketCap": 200113700,
     "marketCapRank": 168,
-    "volume24h": 4921240,
-    "priceChange24h": -1.25956,
+    "volume24h": 5067525,
+    "high24h": 0.00205168,
+    "low24h": 0.00202023,
+    "priceChange24h": -1.25253,
+    "priceChange7d": -7.66276,
+    "priceChange30d": -18.67812,
+    "priceChange1y": -88.10682,
     "ath": 0.01727373,
-    "athChangePercentage": -88.25748,
+    "athChangePercentage": -88.26851,
     "athDate": "2025-03-22T08:04:44.760Z",
     "atl": 0.0000038,
     "atlDate": "2022-10-11T02:32:18.937Z",
     "circulatingSupply": 98823661261.46,
     "totalSupply": 98823661261.46,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 200113700
   },
-  "lastMarketUpdate": "2026-03-23T05:18:51.246Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T06:44:13.794Z"
 }

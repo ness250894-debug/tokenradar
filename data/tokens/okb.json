@@ -2,45 +2,53 @@
   "id": "okb",
   "symbol": "okb",
   "name": "OKB",
-  "description": "",
-  "categories": [],
+  "description": "OKEx, the 2nd most popular cryptocurrency exchange by trading volume, launched its platform token ‘OKB‘ today with 10 trading pairs. On its official support page, OKEx describes OKB is a global utility token issued by the OK Blockchain Foundation. The total available supply of OKB will be one billion tokens (1,000,000,000), with a distribution model that allocates 60% of the supply will be given out to OKEx customers for community building and during marketing campaigns. According to OKEx, the company had officially issued OKB on ERC20 protocol earlier this month. \n\nThe company denied ICO (initial coin offering) and public fundraising. Reportedly the company had stated that it would be soon shifting the token to its official OK chain and subsequently it will be applied not only on OKEx’s platform but also on other related projects. There will be in total 1 billion tokens supplied globally out of which 600 million coins will be distributed to OKEx customers for community building and marketing campaigns. Rest will be locked up for a period of 1 year to 3 years.\n\nAccording to OKEx, the company had officially issued OKB on ERC20 protocol earlier this month. The company denied ICO (initial coin offering) and public fundraising. Reportedly the company had stated that it would be soon shifting the token to its official OK chain and subsequently it will be applied not only on OKEx’s platform but also on other related projects. There will be in total 1 billion tokens supplied globally out of which 600 million coins will be distributed to OKEx customers for community building and marketing campaigns. Rest will be locked up for a period of 1 year to 3 years.",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Sora Ecosystem",
+    "OKT Chain Ecosystem",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Made in China"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://www.okx.com/",
     "github": null,
-    "reddit": null,
-    "explorer": null
+    "reddit": "https://www.reddit.com/r/OKX/",
+    "explorer": "https://ethplorer.io/address/0x75231f58b43240c9718dd58b4967c5114342a86c"
   },
   "market": {
-    "price": 84.94,
-    "marketCap": 1782801322,
-    "marketCapRank": 46,
-    "volume24h": 15590032,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.31356,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 83.6,
+    "marketCap": 1756595858,
+    "marketCapRank": 47,
+    "volume24h": 13810359,
+    "high24h": 85.28,
+    "low24h": 83.4,
+    "priceChange24h": -1.5202,
+    "priceChange7d": -14.66953,
+    "priceChange30d": 5.34058,
+    "priceChange1y": 62.27111,
     "ath": 228.74,
-    "athChangePercentage": -62.8813,
+    "athChangePercentage": -63.28276,
     "athDate": "2025-10-05T00:00:00.000Z",
     "atl": 0.580608,
     "atlDate": "2019-01-14T00:00:00.000Z",
     "circulatingSupply": 21000000,
     "totalSupply": 21000000,
     "maxSupply": 21000000,
-    "fdv": null
+    "fdv": 1756595858
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.511Z",
-  "lastMarketUpdate": "2026-03-23T05:18:51.175Z"
+  "fetchedAt": "2026-03-23T06:51:16.694Z"
 }

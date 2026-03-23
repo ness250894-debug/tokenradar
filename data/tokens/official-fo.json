@@ -2,20 +2,48 @@
   "id": "official-fo",
   "symbol": "fo",
   "name": "Official FO",
+  "description": "A cryptocurrency token known as Official FO (FO). It is tracked on CoinGecko with the ID \"official-fo\".",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://fo.meme/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/JDzPbXboQYWVmdxXS3LbvjM52RtsV1QaSv2AzoCiai2o"
+  },
   "market": {
-    "price": 0.263719,
-    "marketCap": 263055139,
+    "price": 0.263184,
+    "marketCap": 262308417,
     "marketCapRank": 142,
-    "volume24h": 141149,
-    "priceChange24h": -0.20764,
+    "volume24h": 138700,
+    "high24h": 0.2651,
+    "low24h": 0.262962,
+    "priceChange24h": -0.33007,
+    "priceChange7d": -0.93382,
+    "priceChange30d": -2.66154,
+    "priceChange1y": 0,
     "ath": 0.830025,
-    "athChangePercentage": -68.22116,
+    "athChangePercentage": -68.31492,
     "athDate": "2025-09-28T09:54:45.813Z",
     "atl": 0.262856,
     "atlDate": "2025-12-24T07:56:51.199Z",
     "circulatingSupply": 997490221.15,
     "totalSupply": 997490221.15,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 262308417
   },
-  "lastMarketUpdate": "2026-03-23T05:18:51.230Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T06:48:21.287Z"
 }

@@ -2,20 +2,58 @@
   "id": "olympus",
   "symbol": "ohm",
   "name": "Olympus",
+  "description": "Olympus is a decentralized financial (DeFi) protocol building programmable monetary infrastructure. At its core is OHM, a treasury-backed token held and managed on-chain.\n\nThe protocol is built for solvency, self-sustaining liquidity, and policy-driven equilibrium. This guides how value, liquidity, and credit are managed, through on-chain mechanisms including Protocol Owned Liquidity (POL), Cooler Loans, Convertible Deposits (CDs), the Yield Repurchase Facility (YRF), and Range Bound Stability (RBS).\n\nTogether, these components form a programmable central bank, without human bias.",
+  "categories": [
+    "Crypto-Backed Tokens",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Rebase Tokens",
+    "Lending/Borrowing Protocols",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Berachain Ecosystem",
+    "Cross-chain Communication",
+    "Governance",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://olympusdao.finance/",
+    "github": "https://github.com/OlympusDAO",
+    "reddit": "https://www.reddit.com/r/olympusdao/",
+    "explorer": "https://etherscan.io/token/0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5"
+  },
   "market": {
-    "price": 15.81,
-    "marketCap": 247031924,
-    "marketCapRank": 148,
-    "volume24h": 150823,
-    "priceChange24h": -1.59275,
+    "price": 15.69,
+    "marketCap": 245492622,
+    "marketCapRank": 147,
+    "volume24h": 140576,
+    "high24h": 16.03,
+    "low24h": 15.65,
+    "priceChange24h": -1.23072,
+    "priceChange7d": -9.74856,
+    "priceChange30d": -10.0036,
+    "priceChange1y": -30.51536,
     "ath": 1415.26,
-    "athChangePercentage": -98.87671,
+    "athChangePercentage": -98.88983,
     "athDate": "2021-04-25T00:00:00.000Z",
     "atl": 7.54,
     "atlDate": "2022-11-26T16:36:26.296Z",
     "circulatingSupply": 15645551.38895166,
     "totalSupply": 19882495.88405398,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 311974051
   },
-  "lastMarketUpdate": "2026-03-23T05:18:51.233Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T06:52:49.509Z"
 }
