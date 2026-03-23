@@ -2,45 +2,61 @@
   "id": "tether",
   "symbol": "usdt",
   "name": "Tether",
-  "description": "",
-  "categories": [],
+  "description": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve). The primary use of Tether is that it offers some stability to the otherwise volatile crypto space and offers liquidity to exchanges who can’t deal in dollars and with banks (for example to the sometimes controversial but leading exchange Bitfinex)\n\nThe digital coins are issued by a company called Tether Limited that is governed by the laws of the British Virgin Islands, according to the legal part of its website. It is incorporated in Hong Kong. It has emerged that Jan Ludovicus van der Velde is the CEO of cryptocurrency exchange Bitfinex, which has been accused of being involved in the price manipulation of bitcoin, as well as tether. Many people trading on exchanges, including Bitfinex, will use tether to buy other cryptocurrencies like bitcoin. Tether Limited argues that using this method to buy virtual currencies allows users to move fiat in and out of an exchange more quickly and cheaply. Also, exchanges typically have rocky relationships with banks, and using Tether is a way to circumvent that.\n\nUSDT is fairly simple to use. Once on exchanges like Poloniex or Bittrex, it can be used to purchase Bitcoin and other cryptocurrencies. It can be easily transferred from an exchange to any Omni Layer enabled wallet. Tether has no transaction fees, although external wallets and exchanges may charge one. In order to convert USDT to USD and vise versa through the Tether.to Platform, users must pay a small fee. Buying and selling Tether for Bitcoin can be done through a variety of exchanges like the ones mentioned previously or through the Tether.to platform, which also allows the conversion between USD to and from your bank account.\n\n",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Near Protocol Ecosystem",
+    "Celo Ecosystem",
+    "Ethereum Ecosystem",
+    "Tezos Ecosystem",
+    "Kaia Ecosystem",
+    "Aptos Ecosystem",
+    "FTX Holdings",
+    "TON Ecosystem",
+    "Tron Ecosystem",
+    "Kava Ecosystem",
+    "Fiat-backed Stablecoin",
+    "World Liberty Financial Portfolio"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://tether.to/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7"
   },
   "market": {
-    "price": 0.999717,
-    "marketCap": 184117886765,
+    "price": 0.999814,
+    "marketCap": 184150616116,
     "marketCapRank": 3,
-    "volume24h": 78663737840,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.02252,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 83734144445,
+    "high24h": 0.999934,
+    "low24h": 0.999563,
+    "priceChange24h": -0.0098,
+    "priceChange7d": -0.02572,
+    "priceChange30d": 0.00981,
+    "priceChange1y": -0.00339,
     "ath": 1.32,
-    "athChangePercentage": -24.44738,
+    "athChangePercentage": -24.43382,
     "athDate": "2018-07-24T00:00:00.000Z",
     "atl": 0.572521,
     "atlDate": "2015-03-02T00:00:00.000Z",
     "circulatingSupply": 184184947486.8319,
     "totalSupply": 189651886422.2162,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 189616536035
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.488Z",
-  "lastMarketUpdate": "2026-03-23T13:53:10.800Z"
+  "fetchedAt": "2026-03-23T15:04:53.642Z"
 }

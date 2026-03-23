@@ -2,20 +2,55 @@
   "id": "thorchain",
   "symbol": "rune",
   "name": "THORChain",
+  "description": "THORChain is the first decentralized exchange (DEX) to swap Bitcoin, and other UTXO chains, with Ethereum, and other EVM chains.  All without using wrapped tokens.\n\nTHORChain currently supports swapping between 10 different blockchains.  Assets available to swap on THORChain include the following:\n\nBitcoin (BTC)\nEthereum (ETH)\nTether (USDT)\nBNB (BNB)\nXRPL (XRP)\nUSDC (USDC)\nTron (TRX)\nDogecoin (DOGE)\nBitcoin Cash (BCH)\nWrapped Bitcoin (WBTC)\nChainlink (LINK)\nLitecoin (LTC)\nDai (DAI)\nAvalanche (AVAX)\nAave (AAVE)\nCosmos (ATOM)",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "Bridge Governance Tokens",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Delphi Ventures Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://thorchain.org/",
+    "github": "https://github.com/thorchain",
+    "reddit": "https://www.reddit.com/r/THORChain/",
+    "explorer": "https://runescan.io/"
+  },
   "market": {
-    "price": 0.421629,
-    "marketCap": 147628234,
-    "marketCapRank": 209,
-    "volume24h": 24294054,
-    "priceChange24h": 4.6349,
+    "price": 0.421761,
+    "marketCap": 148097569,
+    "marketCapRank": 210,
+    "volume24h": 30633721,
+    "high24h": 0.422733,
+    "low24h": 0.398038,
+    "priceChange24h": 4.67027,
+    "priceChange7d": -6.66791,
+    "priceChange30d": 1.15848,
+    "priceChange1y": -66.97332,
     "ath": 20.87,
-    "athChangePercentage": -97.98884,
+    "athChangePercentage": -97.98137,
     "athDate": "2021-05-19T00:30:09.436Z",
     "atl": 0.00851264,
     "atlDate": "2019-09-28T00:00:00.000Z",
-    "circulatingSupply": 351084567,
-    "totalSupply": 424724654,
-    "maxSupply": 500000000
+    "circulatingSupply": 351084451,
+    "totalSupply": 424724242,
+    "maxSupply": 500000000,
+    "fdv": 179160968
   },
-  "lastMarketUpdate": "2026-03-23T13:53:10.911Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:13:26.063Z"
 }

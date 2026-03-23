@@ -2,20 +2,56 @@
   "id": "tezos",
   "symbol": "xtz",
   "name": "Tezos",
+  "description": "What Is Tezos (XTZ)?\n\n\nTezos is a high-performing blockchain and open-source platform for assets and applications, with a strong focus on code security, on-chain governance, and decentralization. Tezos 2.0, the upcoming step in the evolution of Tezos, aims to improve scalability (via layer 2s), composability, and to implement support to mainstream programming languages (like Javascript, Typescript, Python, and many others).\n\n\nInitially built with formal verification in mind, the Tezos protocol enables builders to avoid bugs when developing smart contracts, making it particularly suited to applications that require a high degree of security and certainty.\n\n\nTezos’ LPoS (Liquid Proof-of-Stake) consensus mechanism enables any stakeholder to take part, directly or by delegation, in the consensus process, and to be rewarded for securing the network. Rather uniquely, Tezos’ on-chain governance system also enables stakeholders to create and vote on protocol upgrade proposals. This pioneering system allows the protocol to self-amend and upgrade itself without leading to a split (or fork) in the blockchain, empowering the community without slowing down innovation.\n\n\nFirst proposed in 2014 and launched in 2018, the Tezos Mainnet has a proven track record of running uninterrupted ever since, having earned a strong reputation for technical excellence and a supportive community. \n\n\nWho Are the Founders of Tezos?\nTezos was conceived by Arthur and Kathleen Breitman in a 2014 white paper under the pseudonym L.M. Goodman in a nod to Satoshi Nakamoto, referencing a journalist who had misidentified the creator of Bitcoin.\n\n\nIn a previous paper, the Breitmans had argued that Bitcoin's biggest shortcomings were the lack of a governance process that invited contributions from its community of users, cost and centralization issues raised by its proof-of-work system, the limited expressiveness of its programming language which didn’t allow for smart contracts, and security ",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Tezos Ecosystem",
+    "Proof of Stake (PoS)",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Privacy Blockchain",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tezos.com/",
+    "github": "https://github.com/tezos/tezos-mirror",
+    "reddit": "https://www.reddit.com/r/tezos",
+    "explorer": "https://tzstats.com/"
+  },
   "market": {
-    "price": 0.391903,
-    "marketCap": 422411845,
+    "price": 0.392481,
+    "marketCap": 423520613,
     "marketCapRank": 111,
-    "volume24h": 10609137,
-    "priceChange24h": 2.43271,
+    "volume24h": 10830415,
+    "high24h": 0.393377,
+    "low24h": 0.375121,
+    "priceChange24h": 2.74893,
+    "priceChange7d": 0.03345,
+    "priceChange30d": -0.172,
+    "priceChange1y": -42.51252,
     "ath": 9.12,
-    "athChangePercentage": -95.72328,
+    "athChangePercentage": -95.70112,
     "athDate": "2021-10-04T00:41:18.025Z",
     "atl": 0.350476,
     "atlDate": "2018-12-07T00:00:00.000Z",
-    "circulatingSupply": 1079409591.658554,
-    "totalSupply": 1099371448.12664,
-    "maxSupply": null
+    "circulatingSupply": 1079412596.405862,
+    "totalSupply": 1099434983.489161,
+    "maxSupply": null,
+    "fdv": 431376639
   },
-  "lastMarketUpdate": "2026-03-23T13:53:10.859Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:05:34.219Z"
 }

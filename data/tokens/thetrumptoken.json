@@ -2,20 +2,49 @@
   "id": "thetrumptoken",
   "symbol": "great",
   "name": "TheTrumpToken",
+  "description": "TheTrumpToken is a revolutionary political cryptocurrency designed to support Donald J. Trump’s reelection and conservative causes. With a fixed supply of 21 million tokens, it merges the principles of Bitcoin with Solana’s cutting-edge technology, ensuring rapid, secure transactions at low cost. Positioned as \"America’s Cryptocurrency\" and trading under the symbol “GREAT”, TheTrumpToken aims to engage a vast, politically active user base, including Trump supporters and the global conservative community. Offering scarcity-driven value, and a global decentralized political advocacy platform, it captures the enthusiasm of millions set to reshape the political funding landscape worldwide. ",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "PolitiFi"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://thetrumptoken.com",
+    "github": "https://github.com/KM-TrumpToken/Smart-Contracts",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/8RR17XBRY8v9tA9vuuFwrFyFEK5Z5X55Yj7AfEjv7RzL"
+  },
   "market": {
-    "price": 12.14,
-    "marketCap": 254701176,
-    "marketCapRank": 153,
-    "volume24h": 3026374,
-    "priceChange24h": -0.00658,
+    "price": 12.15,
+    "marketCap": 0,
+    "marketCapRank": 999,
+    "volume24h": 2557473,
+    "high24h": 12.15,
+    "low24h": 12.13,
+    "priceChange24h": 0.02146,
+    "priceChange7d": 1.07019,
+    "priceChange30d": 17.36785,
+    "priceChange1y": 44.44116,
     "ath": 12.16,
-    "athChangePercentage": -0.19811,
+    "athChangePercentage": -0.10136,
     "athDate": "2026-03-18T10:25:15.691Z",
     "atl": 0.824774,
     "atlDate": "2024-12-28T01:32:23.354Z",
-    "circulatingSupply": 21000000,
+    "circulatingSupply": 0,
     "totalSupply": 21000000,
-    "maxSupply": 21000000
+    "maxSupply": 21000000,
+    "fdv": 255069062
   },
-  "lastMarketUpdate": "2026-03-19T07:16:54.890Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:12:03.971Z"
 }

@@ -2,45 +2,58 @@
   "id": "the-open-network",
   "symbol": "ton",
   "name": "Toncoin",
-  "description": "",
-  "categories": [],
+  "description": "TON (The Open Network) is a general-purpose&nbsp;blockchain that allows developers to build decentralized apps and tokens.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Animoca Brands Portfolio",
+    "Alleged SEC Securities",
+    "DWF Labs Portfolio",
+    "TON Ecosystem",
+    "Proof of Stake (PoS)",
+    "Pantera Capital Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "GMCI Index"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://ton.org/",
+    "github": "https://github.com/ton-blockchain/ton",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://tonviewer.com/EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   },
   "market": {
-    "price": 1.31,
-    "marketCap": 3219820047,
+    "price": 1.3,
+    "marketCap": 3202191190,
     "marketCapRank": 33,
-    "volume24h": 93319099,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 4.11639,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 96956354,
+    "high24h": 1.31,
+    "low24h": 1.25,
+    "priceChange24h": 3.34724,
+    "priceChange7d": -2.3719,
+    "priceChange30d": -2.60945,
+    "priceChange1y": -64.64146,
     "ath": 8.25,
-    "athChangePercentage": -84.19065,
+    "athChangePercentage": -84.23175,
     "athDate": "2024-06-15T00:36:51.509Z",
     "atl": 0.519364,
     "atlDate": "2021-09-21T00:33:11.092Z",
-    "circulatingSupply": 2459778312.016484,
-    "totalSupply": 5157577367.273561,
+    "circulatingSupply": 2459783509.987769,
+    "totalSupply": 5157586618.605134,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 6714240650
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 3916,
+    "githubForks": 1484,
+    "commits4Weeks": 48
   },
-  "fetchedAt": "2026-03-15T10:11:56.505Z",
-  "lastMarketUpdate": "2026-03-23T13:53:10.820Z"
+  "fetchedAt": "2026-03-23T15:07:50.280Z"
 }

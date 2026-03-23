@@ -2,20 +2,48 @@
   "id": "the9bit",
   "symbol": "9bit",
   "name": "The9bit",
+  "description": "The9bit is a social gaming platform that integrates game distribution, community hubs, and a reward system where user activities generate token-convertible points.\nthe9bit is a social gaming and digital distribution platform designed to connect players, communities, and publishers through a unified reward-driven ecosystem. The platform combines game distribution, social interaction, and a points-based incentive system that allows user activities to translate into token-convertible rewards. the9bit aims to reduce friction between Web2 gaming behavior and Web3 infrastructure by offering a familiar user experience supported by blockchain-based settlement and ownership under the hood.\nAt its core, the9bit functions as a multi-layer gaming hub. Users can access PC, mobile, and browser-based games, including licensed AAA titles distributed through official publisher and reseller agreements, as well as casual games intended for lightweight engagement. In parallel, the platform supports mobile game top-ups and digital content purchases, enabling users to earn platform points through transactions that already exist in traditional gaming ecosystems.\nA central component of the platform is the reward layer, which tracks user actions such as gameplay, content creation, participation in community activities, and transactional usage. These actions generate points that can later be converted into the9bit’s native token according to platform-defined rules. The reward system is designed to align incentives between players, creators, and community leaders, while avoiding complex blockchain terminology for end users. Wallets are automatically generated for users, with optional identity verification depending on jurisdiction and feature access.\nthe9bit also introduces a community structure known as Spaces. Spaces function as persistent community hubs similar to traditional chat servers, where members can organize discussions, events, and collaborative activities. Participation within a Space contributes to collective reward generation, which is distributed among members based on predefined contribution metrics. This system is intended to encourage long-term community building rather than isolated user engagement.\nFrom an infrastructure perspective, the9bit integrates fiat on-ramps and off-ramps, local payment methods, and backend customer relationship management tools. These features are designed to support publishers, developers, and partners by providing analytics, user engagement data, and monetization tools without requiring direct exposure to blockchain operations. Smart contracts are used primarily for reward accounting, token conversion, and settlement logic, while most user-facing interactions remain Web2-like.\nThe native token of the9bit ecosystem is used as the settlement and utility asset within the platform. It facilitates reward redemption, ecosystem incentives, and selected marketplace interactions. Token distribution is tied to actual platform usage ra... [truncated]",
+  "categories": [
+    "Gaming (GameFi)",
+    "Solana Ecosystem",
+    "Gaming Marketplace"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://the9bit.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.solana.com/address/HmMubgKx91Tpq3jmfcKQwsv5HrErqnCTTRJMB6afFR2u"
+  },
   "market": {
-    "price": 0.02416417,
-    "marketCap": 198159972,
+    "price": 0.02416709,
+    "marketCap": 198150647,
     "marketCapRank": 171,
-    "volume24h": 4779026,
-    "priceChange24h": -0.14107,
+    "volume24h": 4737495,
+    "high24h": 0.02421085,
+    "low24h": 0.02413848,
+    "priceChange24h": 0.07787,
+    "priceChange7d": -5.76474,
+    "priceChange30d": 35.98566,
+    "priceChange1y": 0,
     "ath": 0.02591205,
-    "athChangePercentage": -6.79131,
+    "athChangePercentage": -6.729,
     "athDate": "2026-03-18T05:35:41.253Z",
     "atl": 0.00589506,
     "atlDate": "2026-02-07T09:21:38.151Z",
     "circulatingSupply": 8199996207.306513,
     "totalSupply": 9999996207.306513,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 241647151
   },
-  "lastMarketUpdate": "2026-03-23T13:53:10.892Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:09:14.291Z"
 }
