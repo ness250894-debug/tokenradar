@@ -17,18 +17,18 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL"
   },
   "market": {
-    "price": 0.080644,
-    "marketCap": 180697202,
-    "marketCapRank": 185,
-    "volume24h": 9780810,
+    "price": 0.080451,
+    "marketCap": 180303079,
+    "marketCapRank": 186,
+    "volume24h": 9757874,
     "high24h": 0.081283,
     "low24h": 0.075997,
-    "priceChange24h": 4.0038,
+    "priceChange24h": 4.12351,
     "priceChange7d": -3.86817,
     "priceChange30d": 0.50988,
     "priceChange1y": 0,
     "ath": 0.759179,
-    "athChangePercentage": -89.36211,
+    "athChangePercentage": -89.40567,
     "athDate": "2025-05-14T08:10:39.605Z",
     "atl": 0.070117,
     "atlDate": "2026-02-28T10:15:43.802Z",
@@ -46,5 +46,6 @@
     "githubForks": 168,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:14:15.875Z"
+  "fetchedAt": "2026-03-23T18:14:15.875Z",
+  "lastMarketUpdate": "2026-03-23T18:50:16.081Z"
 }

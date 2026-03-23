@@ -2,20 +2,56 @@
   "id": "zksync",
   "symbol": "zk",
   "name": "ZKsync",
+  "description": "A cryptocurrency token known as ZKsync (ZK). It is tracked on CoinGecko with the ID \"zksync\".",
+  "categories": [
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Zero Knowledge (ZK)",
+    "ZkSync Ecosystem",
+    "Consensys Portfolio",
+    "Blockchain Capital Portfolio",
+    "OKX Ventures Portfolio",
+    "Privacy Blockchain",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zksync.io/",
+    "github": "https://github.com/matter-labs/zksync-era",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x66A5cFB2e9c529f14FE6364Ad1075dF3a649C0A5"
+  },
   "market": {
-    "price": 0.01817919,
-    "marketCap": 167407697,
-    "marketCapRank": 194,
-    "volume24h": 15056747,
-    "priceChange24h": 2.33814,
+    "price": 0.01827831,
+    "marketCap": 168584135,
+    "marketCapRank": 193,
+    "volume24h": 15108017,
+    "high24h": 0.01835205,
+    "low24h": 0.01715957,
+    "priceChange24h": 2.44239,
+    "priceChange7d": -9.93224,
+    "priceChange30d": -8.72951,
+    "priceChange1y": -77.11509,
     "ath": 0.320983,
-    "athChangePercentage": -94.3384,
+    "athChangePercentage": -94.30664,
     "athDate": "2024-06-17T07:44:40.385Z",
     "atl": 0.01715957,
     "atlDate": "2026-03-23T08:59:55.720Z",
     "circulatingSupply": 9218641411,
     "totalSupply": 21000000000,
-    "maxSupply": 21000000000
+    "maxSupply": 21000000000,
+    "fdv": 384033469
   },
-  "lastMarketUpdate": "2026-03-23T18:08:55.604Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 3244,
+    "githubForks": 2174,
+    "commits4Weeks": 18
+  },
+  "fetchedAt": "2026-03-23T19:03:01.403Z"
 }

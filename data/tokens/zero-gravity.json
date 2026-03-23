@@ -2,20 +2,54 @@
   "id": "zero-gravity",
   "symbol": "0g",
   "name": "0G",
+  "description": "The 0G protocol is Web3’s largest deAIOS and L1 ecosystem; infinitely scalable infrastructure comprised of an L1 (EVM) modular blockchain, low cost/ultra fast storage, verifiable AI compute, generative agents, AI Data availability (DA), and a unified service marketplace for training. \n\nFor more information on the 0G deAIOS ecosystem, see the 0G Protocol pitch deck: https://0g-labs.notion.site/0g-intro?source=copy_link\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Binance HODLer Airdrops",
+    "Binance Alpha Spotlight",
+    "AI Framework"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.0gfoundation.ai/",
+    "github": "https://github.com/0glabs",
+    "reddit": null,
+    "explorer": "https://chainscan.0g.ai/"
+  },
   "market": {
-    "price": 0.529574,
-    "marketCap": 113014184,
-    "marketCapRank": 248,
-    "volume24h": 20572960,
-    "priceChange24h": 3.04802,
+    "price": 0.527947,
+    "marketCap": 112559344,
+    "marketCapRank": 249,
+    "volume24h": 20172603,
+    "high24h": 0.558679,
+    "low24h": 0.504546,
+    "priceChange24h": 3.02528,
+    "priceChange7d": -10.42621,
+    "priceChange30d": -22.88592,
+    "priceChange1y": 0,
     "ath": 7.05,
-    "athChangePercentage": -92.48465,
+    "athChangePercentage": -92.51912,
     "athDate": "2025-09-23T02:51:08.602Z",
     "atl": 0.455121,
     "atlDate": "2026-02-06T00:20:58.507Z",
     "circulatingSupply": 213199722,
     "totalSupply": 1000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 527952583
   },
-  "lastMarketUpdate": "2026-03-23T18:08:55.624Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T19:01:10.676Z"
 }

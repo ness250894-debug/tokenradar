@@ -2,20 +2,56 @@
   "id": "zebec-network",
   "symbol": "zbcn",
   "name": "Zebec Network",
+  "description": "Zebec's integrated products - real time payroll apps, on-chain payments infrastructure and networked DePIN - serve companies of all sizes, merchants and individuals and help transcend the boundaries of traditional banking and diminish the role of financial intermediaries. ",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Solana Ecosystem",
+    "Real World Assets (RWA)",
+    "Payment Solutions",
+    "DePIN",
+    "Coinbase Ventures Portfolio",
+    "Alameda Research Portfolio",
+    "Circle Ventures Portfolio",
+    "OKX Ventures Portfolio",
+    "RWA Protocol",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zebec.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/ZBCNpuD7YMXzTHB2fhGkGi78MNsHGLRXUhRewNRm9RU"
+  },
   "market": {
-    "price": 0.00241199,
-    "marketCap": 237228013,
+    "price": 0.00244136,
+    "marketCap": 239219797,
     "marketCapRank": 152,
-    "volume24h": 7685750,
-    "priceChange24h": 3.18142,
+    "volume24h": 7577943,
+    "high24h": 0.0024413,
+    "low24h": 0.00222514,
+    "priceChange24h": 4.78319,
+    "priceChange7d": 19.55853,
+    "priceChange30d": 12.55508,
+    "priceChange1y": 99.49342,
     "ath": 0.00700261,
-    "athChangePercentage": -65.55026,
+    "athChangePercentage": -65.1487,
     "athDate": "2025-05-30T03:20:44.650Z",
     "atl": 0.00069854,
     "atlDate": "2024-08-05T13:31:51.088Z",
     "circulatingSupply": 97951717939.67068,
-    "totalSupply": 99997616410.99438,
-    "maxSupply": 100000000000
+    "totalSupply": 99997616410.91898,
+    "maxSupply": 100000000000,
+    "fdv": 244216334
   },
-  "lastMarketUpdate": "2026-03-23T18:08:55.592Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:57:04.516Z"
 }

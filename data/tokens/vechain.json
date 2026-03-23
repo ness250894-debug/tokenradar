@@ -18,18 +18,18 @@
     "explorer": "https://vechainstats.com/"
   },
   "market": {
-    "price": 0.00705762,
-    "marketCap": 606849360,
+    "price": 0.0070644,
+    "marketCap": 607679645,
     "marketCapRank": 88,
-    "volume24h": 14369987,
+    "volume24h": 14324856,
     "high24h": 0.00717391,
     "low24h": 0.00682132,
-    "priceChange24h": 1.74134,
+    "priceChange24h": 2.1038,
     "priceChange7d": -8.29715,
     "priceChange30d": -9.07209,
     "priceChange1y": -71.69038,
     "ath": 0.280991,
-    "athChangePercentage": -97.48802,
+    "athChangePercentage": -97.48454,
     "athDate": "2021-04-19T01:08:21.675Z",
     "atl": 0.00191713,
     "atlDate": "2020-03-13T02:29:59.652Z",
@@ -47,5 +47,6 @@
     "githubForks": 272,
     "commits4Weeks": 4
   },
-  "fetchedAt": "2026-03-23T18:11:02.873Z"
+  "fetchedAt": "2026-03-23T18:11:02.873Z",
+  "lastMarketUpdate": "2026-03-23T18:50:16.042Z"
 }

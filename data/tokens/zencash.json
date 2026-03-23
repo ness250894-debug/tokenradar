@@ -2,20 +2,52 @@
   "id": "zencash",
   "symbol": "zen",
   "name": "Horizen",
+  "description": "What is the project about?&nbsp;\n\nHorizen is a modular privacy-first platform designed to make privacy technology, such as zero-knowledge proofs and TEEs accessible and usable across the web. Originally launched in 2017 as a fair launch, non-ICO project, Horizen is now undergoing a major evolution with the launch of Horizen 2.0, a next-generation Layer 3 (L3) appchain deployed on Base, the Ethereum Layer 2 developed by Coinbase.\n\nHorizen 2.0 is built as an Ethereum-aligned Layer 3 appchain on Base, inheriting Ethereum's security while implementing its own application-level integrity guarantees.\n\n\n\nKey components of Horizen’s security model include:\n\nEthereum-Aligned Security:&nbsp;As an appchain deployed on Base, Horizen 2.0 benefits from Base’s rollup security and settlement on Ethereum, ensuring robust finality and composability with other L2 and L3 applications.\n\nSimplified and Secure Architecture:&nbsp;Unlike Horizen’s previous iterations (which used a hybrid PoW/PoS model), Horizen 2.0 focuses on application-level security, decentralization of its privacy layers, and composability with existing infrastructure — reducing complexity and increasing user safety.\n\nDecentralized Privacy Stack:&nbsp;Horizen’s focus on decentralizing privacy infrastructure (e.g., decentralized proof generation) allows for modular, secure applications that uphold data confidentiality without compromising performance.\n\n\n\nWhat makes your project unique?\n\nPrivacy-first Approach:&nbsp;Horizen integrates a diverse stack of privacy-enhancing technologies (PETs) — including zero-knowledge proofs (ZKPs), trusted execution environments (TEEs), attribute-based encryption (ABE), multi-party computation (MPC), and fully homomorphic encryption (FHE) — to deliver scalable, flexible, and future-ready privacy solutions across its platform.\n\nFirst Privacy Appchain on Base:&nbsp;As an L3 on Base, Horizen benefits from Ethereum’s security and Base’s scalability, while enabling a privacy layer for any app on the network. This unlocks new possibilities for private identity, DeFi, onchain gaming, and compliant confidential transactions.\n\nZero-Knowledge, Without the Trade-Offs:&nbsp;Horizen 2.0 scales ZK privacy and verification by integrating with leading zk infrastructure providers such as Fermah, zkVerify, and Singularity, optimizing proof generation for performance, cost-efficiency, and developer usability.\n\nToken Utility Expansion:&nbsp;ZEN’s updated tokenomics allocates 5 million unminted tokens toward strategic ecosystem growth. ZEN powers DAO governance, serves as a payment token in privacy apps, and supports a sustainability fund to accelerate privacy innovation.\n\nDeveloper-Centric Design:&nbsp;With EVM compatibility, privacy-friendly tooling, and the ability to embed privacy directly into smart contracts, Horizen allows developers to build privacy-first apps without requiring deep cryptographic expertise.\n\nDAO-Led Governance:&nbsp;Governed by the Horizen DAO and shaped through co... [truncated]",
+  "categories": [
+    "Zero Knowledge (ZK)",
+    "Base Ecosystem",
+    "Made in USA",
+    "Privacy Infrastructure",
+    "Base Native",
+    "Horizen Ecosystem",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.horizen.io",
+    "github": "https://github.com/HorizenOfficial",
+    "reddit": "https://www.reddit.com/r/Horizen",
+    "explorer": "https://basescan.org/token/0xf43eb8de897fbc7f2502483b2bef7bb9ea179229"
+  },
   "market": {
-    "price": 6.62,
-    "marketCap": 118402251,
-    "marketCapRank": 248,
-    "volume24h": 18862403,
-    "priceChange24h": -0.38731,
+    "price": 5.6,
+    "marketCap": 100014182,
+    "marketCapRank": 267,
+    "volume24h": 13548533,
+    "high24h": 5.63,
+    "low24h": 5.31,
+    "priceChange24h": 2.99141,
+    "priceChange7d": -14.06239,
+    "priceChange30d": -4.47943,
+    "priceChange1y": -37.03441,
     "ath": 165.92,
-    "athChangePercentage": -95.99382,
+    "athChangePercentage": -96.62796,
     "athDate": "2021-05-08T06:00:30.087Z",
     "atl": 3.26,
     "atlDate": "2019-10-17T00:00:00.000Z",
     "circulatingSupply": 17872490.73116476,
     "totalSupply": 21000000,
-    "maxSupply": 21000000
+    "maxSupply": 21000000,
+    "fdv": 117515675
   },
-  "lastMarketUpdate": "2026-03-18T07:19:53.410Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 99,
+    "githubForks": 59,
+    "commits4Weeks": 3
+  },
+  "fetchedAt": "2026-03-23T18:58:28.713Z"
 }
