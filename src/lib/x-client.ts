@@ -47,8 +47,18 @@ export function validateXCredentials(): {
  * @returns Plain text suitable for X
  */
 export function stripHtmlForX(html: string): string {
-  // Extract URLs from <a> tags: <a href="url">text</a> → text: url
-  let text = html.replace(/<a[^>]+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi, "$2: $1");
+  // Extract URLs from <a> tags: <a href="url">text</a>
+  // If text is effectively the same as URL, just return the URL to avoid duplication.
+  let text = html.replace(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]+?)<\/a>/gi, (match, url, linkText) => {
+    const cleanText = linkText.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "").replace(/<b>|<i>|<\/b>|<\/i>/gi, "");
+    const cleanUrl = url.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "");
+
+    if (cleanText === cleanUrl) {
+      return url;
+    }
+    return `${linkText}: ${url}`;
+  });
+
   // Strip remaining HTML tags
   text = text.replace(/<[^>]*>?/gm, "");
   return text;
