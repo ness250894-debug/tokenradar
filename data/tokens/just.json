@@ -2,20 +2,47 @@
   "id": "just",
   "symbol": "jst",
   "name": "JUST",
+  "description": "A cryptocurrency token known as JUST (JST). It is tracked on CoinGecko with the ID \"just\".",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tron Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.just.network/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/tcfll5dx5zjdknwuesxxi1vpwjlvmwzzy9"
+  },
   "market": {
-    "price": 0.060166,
-    "marketCap": 531472780,
+    "price": 0.059817,
+    "marketCap": 527047887,
     "marketCapRank": 97,
-    "volume24h": 31357208,
-    "priceChange24h": -1.16447,
+    "volume24h": 30791297,
+    "high24h": 0.06158,
+    "low24h": 0.058923,
+    "priceChange24h": -1.40896,
+    "priceChange7d": 7.67174,
+    "priceChange30d": 37.37559,
+    "priceChange1y": 90.40049,
     "ath": 0.193254,
-    "athChangePercentage": -68.76814,
+    "athChangePercentage": -69.01811,
     "athDate": "2021-04-05T04:34:23.454Z",
     "atl": 0.00476275,
     "atlDate": "2020-05-09T06:08:54.872Z",
     "circulatingSupply": 8815108920.581306,
     "totalSupply": 8815108920.581306,
-    "maxSupply": 9900000000
+    "maxSupply": 9900000000,
+    "fdv": 527047887
   },
-  "lastMarketUpdate": "2026-03-22T22:47:43.587Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T23:57:16.336Z"
 }

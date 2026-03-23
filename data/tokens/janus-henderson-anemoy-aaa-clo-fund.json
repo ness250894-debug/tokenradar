@@ -2,12 +2,32 @@
   "id": "janus-henderson-anemoy-aaa-clo-fund",
   "symbol": "jaaa",
   "name": "Janus Henderson Anemoy AAA CLO Fund",
+  "description": "Anemoy is a Web3 native asset manager powered by Centrifuge, offering investors seamless access to a diverse range of real world asset investment opportunities. Through its suite of tokenized funds, Anemoy bridges traditional finance and decentralized markets, enabling transparent, efficient, and secure exposure to institutional-grade assets.\n\t1.\tJanus Henderson Anemoy Treasury Fund\n\t2.\tJanus Henderson Anemoy AAA CLO Fund\n\t3.\tAnemoy Tokenized Apollo Diversified Credit Fund\n\t4.\tJanus Henderson Anemoy S&amp;P500® Fund",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.anemoy.io/",
+    "github": "https://github.com/centrifuge",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x5a0f93d040de44e78f251b03c43be9cf317dcf64"
+  },
   "market": {
     "price": 1.027,
     "marketCap": 420772673,
     "marketCapRank": 110,
     "volume24h": 0,
+    "high24h": 1.027,
+    "low24h": 1.027,
     "priceChange24h": 0,
+    "priceChange7d": 0.14733,
+    "priceChange30d": 0.01607,
+    "priceChange1y": 0,
     "ath": 1.028,
     "athChangePercentage": -0.05829,
     "athDate": "2026-03-03T16:20:06.057Z",
@@ -15,7 +35,17 @@
     "atlDate": "2025-12-06T14:10:05.491Z",
     "circulatingSupply": 409674987.464098,
     "totalSupply": 409674987.464098,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 420772673
   },
-  "lastMarketUpdate": "2026-03-22T22:47:43.590Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T23:50:08.891Z"
 }

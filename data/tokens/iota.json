@@ -2,20 +2,56 @@
   "id": "iota",
   "symbol": "iota",
   "name": "IOTA",
+  "description": "IOTA is a distributed ledger for the Internet of Things. The first ledger with microtransactions without fees as well as secure data transfer. Quantum proof. IOTA is a ground breaking new open-source distributed ledger that does not use a blockchain. Its innovative new quantum-proof protocol, known as the Tangle, gives rise to unique new features like zero fees, infinite scalability, fast transactions, secure data transfer and many others. IOTA is initially focused on serving as the backbone of the Internet-of-Things (IoT).\n\nIOTA is a cryptocurrency that has no transaction fees and requires no miners in order to process transactions. It does, however, require some computational power to submit a transaction, making it perfect for machines to use as a currency and distributed communication protocol for the Internet of Things “IoT”. The main purpose of IOTA is to solve some of the major problems with Blockchain technology, the main one being that the bigger the Blockchain (such as Bitcoin), the slower, more expensive, and also more restricting it is to actually transfer funds. Another issue with the Blockchain is size, as more and more Blocks are added, the longer the Blockchain gets, and therefore the less amount of computers are able to mine it. Right now BTC is over 150GB long, and so is ETH. If this size increased tenfold, very few computers would be able to mine it at all. Making them relatively centralized (the top 2 Bitcoin mining pools own about 56% of hashing power).\n",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "DePIN",
+    "DWF Labs Portfolio",
+    "Proof of Stake (PoS)",
+    "IOTA EVM Ecosystem",
+    "Outlier Ventures Portfolio",
+    "Directed Acyclic Graph (DAG)",
+    "IOTA Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://iota.org/",
+    "github": "https://github.com/iotaledger",
+    "reddit": "https://www.reddit.com/r/Iota",
+    "explorer": "https://explorer.iota.org/"
+  },
   "market": {
-    "price": 0.057386,
-    "marketCap": 249795053,
-    "marketCapRank": 145,
-    "volume24h": 11433724,
-    "priceChange24h": -6.26559,
+    "price": 0.057322,
+    "marketCap": 249437379,
+    "marketCapRank": 146,
+    "volume24h": 11569943,
+    "high24h": 0.06101,
+    "low24h": 0.05686,
+    "priceChange24h": -6.04521,
+    "priceChange7d": -11.36035,
+    "priceChange30d": -19.14057,
+    "priceChange1y": -68.59172,
     "ath": 5.25,
-    "athChangePercentage": -98.90507,
+    "athChangePercentage": -98.90705,
     "athDate": "2017-12-19T00:00:00.000Z",
     "atl": 0.05686,
     "atlDate": "2026-03-22T21:25:36.550Z",
     "circulatingSupply": 4351311901,
     "totalSupply": 4846128341,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 277802553
   },
-  "lastMarketUpdate": "2026-03-22T22:47:43.599Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-22T23:48:36.531Z"
 }
