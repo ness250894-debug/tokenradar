@@ -30,6 +30,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
 const METRICS_DIR = path.join(DATA_DIR, "metrics");
 const REFERENCES_DIR = path.join(DATA_DIR, "references");
+const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
 // ── Types ──────────────────────────────────────────────────────
@@ -274,6 +275,19 @@ async function main() {
     if (tokensToProcess.length >= maxTokens) break;
   }
 
+  // Check upcoming TGEs
+  const upcomingTges = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
+  for (const tge of upcomingTges) {
+    if (targetToken && tge.id !== targetToken) continue;
+    if (tokensToProcess.includes(tge.id)) continue;
+
+    const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
+    if (isMissing(tgePath) || args.includes("--force")) {
+      tokensToProcess.push(tge.id);
+    }
+    if (tokensToProcess.length >= maxTokens) break;
+  }
+
   // Also check content/tokens directory to catch tokens that have content but no detailed data yet
   if (tokensToProcess.length < maxTokens && fs.existsSync(CONTENT_DIR)) {
     const contentDirs = fs.readdirSync(CONTENT_DIR);
@@ -344,7 +358,13 @@ async function main() {
         fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
         console.log("✓ Done (incl. prices)");
       } catch (e) {
-        console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
+        // For upcoming TGEs, JIT sync will always fail (not on CG yet). 
+        // This is expected, so we just log a smaller note.
+        if (upcomingTges.find((t: any) => t.id === tokenId)) {
+          console.log(`💡 Note: ${tokenId} is a pre-launch TGE (not on CoinGecko yet)`);
+        } else {
+          console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
+        }
       }
 
       // If description is STILL missing after an attempted sync (or failed sync), provide a fallback

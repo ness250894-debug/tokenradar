@@ -1,0 +1,112 @@
+SYSTEM:
+You are an expert crypto analyst writing for TokenRadar.co, a data-driven crypto research platform.
+
+STRICT RULES:
+1. Write in a professional, analytical tone. No hype, no FOMO.
+2. NEVER recommend buying or selling any token.
+3. NEVER guarantee returns or profits.
+4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
+5. Always present data and analysis objectively.
+6. Include at least 3 specific data points from the provided data.
+7. Reference at least 1 real-world development or event.
+8. Strictly follow the word count instructions provided in each specific prompt.
+9. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
+10. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+
+FORMAT:
+- Start with a brief intro paragraph (no heading)
+- Use ## for all main sections and subsections
+- Include bullet points and bold text for key data
+- Include a structured FAQ section at the end using ## FAQ format
+
+USER:
+Write a pre-launch spotlight article for Monad (MON).
+      
+TARGET LENGTH: 800 - 1,000 words.
+
+As the token is not yet trading on major exchanges, focus on:
+1. Project Vision and Ecosystem impact
+2. Narrative Strength (why is it hyped?)
+3. Investors and Backing (if known)
+4. Expected TGE/Launch Window
+5. Category Analysis (Crypto)
+6. Comparison to successful projects in the same sector
+
+
+TOKEN DATA (from CoinGecko):
+{
+  "id": "monad",
+  "symbol": "mon",
+  "name": "Monad",
+  "description": "Monad is a high-performance Layer 1 blockchain that processes 10,000 transactions per second with near-zero fees. The platform delivers high performance without compromising on security or decentralization, creating the infrastructure needed for complex applications that require high-frequency activity.\n\nOne of Monad’s key innovations lies in how it handles transaction processing. Instead of processing transactions one at a time like traditional blockchains, Monad processes multiple transactions simultaneously through parallel execution. \n\nThe system separates the agreement process from the execution process, allowing validators to first agree on which transactions to include and in what order, then having more time to execute those transactions without slowing down consensus. This approach, combined with a custom-built database called MonadDB, dramatically increases throughput while maintaining accuracy.\n\nMonad also offers complete EVM compatibility, where applications built for Ethereum work on Monad without any code modifications, and users can connect with familiar wallets like MetaMask just as they would on Ethereum. Developers can immediately tap into Ethereum's established ecosystem of tools, libraries, and applications while benefitting from Monad’s performance improvements. The platform also runs on consumer-grade hardware rather than expensive specialized equipment, making it accessible for more people to participate in securing the network.\n\nMonad has raised approximately 244 million dollars in total funding across multiple rounds. The company secured 19 million dollars in a seed round in February 2023 led by Dragonfly Capital, followed by a 225 million dollar Series A round in April 2024 led by Paradigm at a 3 billion dollar valuation. Other notable investors include Electric Capital, Greenoaks, Coinbase Ventures, and prominent angel investors such as Naval Ravikant.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Animoca Brands Portfolio",
+    "Parallelized EVM",
+    "eGirl Capital Portfolio",
+    "Paradigm Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Galaxy Digital Portfolio",
+    "Monad Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.monad.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://monadvision.com/"
+  },
+  "market": {
+    "price": 0.02175161,
+    "marketCap": 235582670,
+    "marketCapRank": 153,
+    "volume24h": 45710534,
+    "high24h": 0.02148866,
+    "low24h": 0.02047027,
+    "priceChange24h": 2.26256,
+    "priceChange7d": -15.3131,
+    "priceChange30d": -0.74122,
+    "priceChange1y": 0,
+    "ath": 0.04882901,
+    "athChangePercentage": -55.4969,
+    "athDate": "2025-11-26T12:21:37.075Z",
+    "atl": 0.01636691,
+    "atlDate": "2026-02-06T00:35:18.919Z",
+    "circulatingSupply": 10830583396,
+    "totalSupply": 100000000000,
+    "maxSupply": 100000000000,
+    "fdv": 2083583522
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T05:26:07.759Z",
+  "lastMarketUpdate": "2026-03-23T13:45:12.652Z"
+}
+
+PROPRIETARY METRICS (computed by TokenRadar):
+{
+  "tokenId": "monad",
+  "tokenName": "Monad",
+  "symbol": "mon",
+  "riskScore": 5,
+  "riskLevel": "medium",
+  "growthPotentialIndex": 45,
+  "narrativeStrength": 60,
+  "valueVsAth": 45,
+  "volatilityIndex": 25,
+  "holderConcentrationEstimate": "unknown",
+  "summary": "Monad has moderate metrics across the board.",
+  "computedAt": "2026-03-23T13:45:18.780Z"
+}
+
+REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
+No recent articles found.
