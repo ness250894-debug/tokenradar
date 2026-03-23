@@ -30,6 +30,9 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   const visibleTges = filteredTges.slice(0, visibleCount);
   const hasMore = visibleCount < filteredTges.length;
 
+  const upcomingCount = tges.filter(t => t.status !== "released").length;
+  const releasedCount = tges.filter(t => t.status === "released").length;
+
   if (!tges || tges.length === 0) return null;
 
   return (
@@ -48,24 +51,45 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
             onChange={handleSearchChange}
           />
         </div>
+        {(upcomingCount > 0 || releasedCount > 0) && (
+          <div style={{ marginTop: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)", textAlign: "center" }}>
+            {upcomingCount > 0 && <span>{upcomingCount} upcoming</span>}
+            {upcomingCount > 0 && releasedCount > 0 && <span> · </span>}
+            {releasedCount > 0 && <span>{releasedCount} released</span>}
+          </div>
+        )}
       </div>
 
       {visibleTges.length > 0 ? (
         <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", marginTop: "var(--space-2xl)" }}>
           {visibleTges.map((tge) => {
+            const isReleased = tge.status === "released";
             const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
             return (
-              <Link href={`/upcoming/${tge.id}`} key={tge.id} className="card" style={{ display: "block", textDecoration: "none" }}>
+              <Link href={`/upcoming/${tge.id}`} key={tge.id} className="card" style={{ display: "block", textDecoration: "none", opacity: isReleased ? 0.75 : 1 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div className="token-name">
                     <span>{tge.name} <span className="token-symbol">{tge.symbol.toUpperCase()}</span></span>
                   </div>
-                  <span className={`badge badge-${strengthColor}`}>Hype {tge.narrativeStrength}/100</span>
+                  <div style={{ display: "flex", gap: "var(--space-xs)", alignItems: "center" }}>
+                    {isReleased && (
+                      <span className="badge badge-green" style={{ fontSize: "var(--text-2xs, 0.65rem)" }}>
+                        ✓ Released{tge.coingeckoRank ? ` #${tge.coingeckoRank}` : ""}
+                      </span>
+                    )}
+                    <span className={`badge badge-${strengthColor}`}>Hype {tge.narrativeStrength}/100</span>
+                  </div>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
                   <div>
-                    <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Expected Launch</div>
-                    <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginTop: "var(--space-xs)" }}>{tge.expectedTge}</div>
+                    <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+                      {isReleased ? "Launched" : "Expected Launch"}
+                    </div>
+                    <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginTop: "var(--space-xs)" }}>
+                      {isReleased && tge.graduatedAt 
+                        ? new Date(tge.graduatedAt).toLocaleDateString() 
+                        : tge.expectedTge}
+                    </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Category</div>
@@ -73,7 +97,9 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                   </div>
                 </div>
                 <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="badge badge-accent">Pre-Launch Spotlight</span>
+                  <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`}>
+                    {isReleased ? "Launch Recap" : "Pre-Launch Spotlight"}
+                  </span>
                   <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Source: {tge.dataSource}</span>
                 </div>
               </Link>

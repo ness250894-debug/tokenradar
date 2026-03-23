@@ -126,6 +126,9 @@ export interface UpcomingTge {
   narrativeStrength: number;
   dataSource: string;
   discoveredAt: string;
+  status?: "upcoming" | "released";
+  graduatedAt?: string;
+  coingeckoRank?: number;
 }
 
 // ── Loaders ────────────────────────────────────────────────────
@@ -252,11 +255,19 @@ export function getTokenDetail(tokenId: string): TokenDetail | null {
   }
 }
 
-/** Load upcoming TGEs. */
+/** Load upcoming TGEs. Sorts: upcoming first, then released. */
 export function getUpcomingTGEs(): UpcomingTge[] {
   if (!fs.existsSync(TGE_FILE)) return [];
   try {
-    return JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+    const tges: UpcomingTge[] = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+    // Sort: upcoming first, released last
+    return tges.sort((a, b) => {
+      const aReleased = a.status === "released" ? 1 : 0;
+      const bReleased = b.status === "released" ? 1 : 0;
+      if (aReleased !== bReleased) return aReleased - bReleased;
+      // Within same status, sort by narrative strength descending
+      return (b.narrativeStrength || 0) - (a.narrativeStrength || 0);
+    });
   } catch (_e) {
     return [];
   }

@@ -217,10 +217,12 @@ async function main() {
   const tokenIdx = args.indexOf("--token");
   const typeIdx = args.indexOf("--type");
   const maxIdx = args.indexOf("--max");
+  const maxTgeIdx = args.indexOf("--max-tge");
   const targetToken = tokenIdx !== -1 ? args[tokenIdx + 1] : null;
   const targetType = typeIdx !== -1 ? args[typeIdx + 1] : null;
   const dryRun = args.includes("--dry-run");
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
+  const maxTgeTokens = maxTgeIdx !== -1 ? parseInt(args[maxTgeIdx + 1], 10) : 5;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — AI Content Generator       ║");
@@ -229,7 +231,8 @@ async function main() {
   console.log(`  Mode: ${dryRun ? "DRY RUN (no API calls)" : "LIVE"}`);
   console.log(`  Target token: ${targetToken || "all"}`);
   console.log(`  Target type: ${targetType || "all"}`);
-  console.log(`  Max tokens to process: ${maxTokens}`);
+  console.log(`  Max tracked tokens: ${maxTokens}`);
+  console.log(`  Max TGE tokens:     ${maxTgeTokens}`);
   console.log();
 
   // Check for API key
@@ -275,17 +278,20 @@ async function main() {
     if (tokensToProcess.length >= maxTokens) break;
   }
 
-  // Check upcoming TGEs
-  const upcomingTges = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
+  // Build separate TGE queue (independent budget)
+  const tgeTokensToProcess: string[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const upcomingTges: any[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
   for (const tge of upcomingTges) {
     if (targetToken && tge.id !== targetToken) continue;
     if (tokensToProcess.includes(tge.id)) continue;
+    if (tgeTokensToProcess.includes(tge.id)) continue;
 
     const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
     if (isMissing(tgePath) || args.includes("--force")) {
-      tokensToProcess.push(tge.id);
+      tgeTokensToProcess.push(tge.id);
     }
-    if (tokensToProcess.length >= maxTokens) break;
+    if (tgeTokensToProcess.length >= maxTgeTokens) break;
   }
 
   // Also check content/tokens directory to catch tokens that have content but no detailed data yet
@@ -307,8 +313,15 @@ async function main() {
     }
   }
 
-  console.log(`  Tokens needing generation: ${tokensToProcess.length}`);
+  console.log(`  Tracked tokens needing generation: ${tokensToProcess.length}`);
+  console.log(`  TGE tokens needing generation:     ${tgeTokensToProcess.length}`);
   console.log();
+
+  // Combine both queues: tracked tokens first, then TGE tokens with tge-preview only
+  const allTokensToProcess = [
+    ...tokensToProcess.map(id => ({ id, isTge: false })),
+    ...tgeTokensToProcess.map(id => ({ id, isTge: true })),
+  ];
 
   const alertFile = path.join(DATA_DIR, "latest-batch-alert.txt");
   if (fs.existsSync(alertFile)) {
@@ -319,7 +332,7 @@ async function main() {
   let totalCost = 0;
   const generatedTokens = new Set<string>();
 
-  for (const tokenId of tokensToProcess) {
+  for (const { id: tokenId, isTge } of allTokensToProcess) {
     // 1. Load data
     const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -360,7 +373,7 @@ async function main() {
       } catch (e) {
         // For upcoming TGEs, JIT sync will always fail (not on CG yet). 
         // This is expected, so we just log a smaller note.
-        if (upcomingTges.find((t: any) => t.id === tokenId)) {
+        if (isTge) {
           console.log(`💡 Note: ${tokenId} is a pre-launch TGE (not on CoinGecko yet)`);
         } else {
           console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
@@ -403,9 +416,12 @@ async function main() {
       references
     );
 
-    const filteredConfigs = targetType
-      ? configs.filter((c) => c.type === targetType)
-      : configs;
+    // For TGE tokens, only generate tge-preview; for tracked tokens, skip tge-preview
+    const filteredConfigs = isTge
+      ? configs.filter((c) => c.type === "tge-preview")
+      : targetType
+        ? configs.filter((c) => c.type === targetType)
+        : configs.filter((c) => c.type !== "tge-preview");
 
     console.log(`▶ ${tokenData.name} (${tokenData.symbol.toUpperCase()}):`);
 

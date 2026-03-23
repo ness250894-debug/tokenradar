@@ -1,12 +1,11 @@
 /**
  * TGE Discovery Script
  *
- * Discovers upcoming Token Generation Events from:
- * 1. RSS feeds + AI analysis (broad signal detection)
- * 2. CryptoRank API (structured upcoming ICO/IDO/IEO data)
+ * Discovers upcoming Token Generation Events using a waterfall strategy:
+ * 1. CryptoRank API (structured, no AI needed) — checked first
+ * 2. RSS feeds (one-by-one, AI analysis in batches) — only if CryptoRank yields nothing
  *
- * Failsafe: If any data source fails, existing
- * data is preserved. The script never destroys data on error.
+ * Failsafe: If any data source fails, existing data is preserved.
  *
  * Usage:
  *   npx tsx scripts/discover-tges.ts
@@ -27,14 +26,17 @@ const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 /** RSS feed timeout in milliseconds. */
 const RSS_TIMEOUT_MS = 15_000;
 
-/** Maximum news items to send to AI (controls token usage). */
-const MAX_NEWS_ITEMS = 20;
+/** Batch size for AI analysis (controls tokens per call). */
+const AI_BATCH_SIZE = 15;
+
+/** Pause between AI batches in milliseconds. */
+const AI_BATCH_PAUSE_MS = 5_000;
 
 const RSS_FEEDS = [
-  "https://cointelegraph.com/rss",
-  "https://airdropalert.com/feed/",
-  "https://icowatchlist.com/blog/feed",  // Free — ICO/IDO/IEO focused
-  "https://foundico.com/blog/feed",      // Free — upcoming ICO lists
+  { url: "https://airdropalert.com/feed/", name: "Airdrop Alert" },
+  { url: "https://icowatchlist.com/blog/feed", name: "ICO Watch List" },
+  { url: "https://foundico.com/blog/feed", name: "Foundico" },
+  { url: "https://cointelegraph.com/rss", name: "CoinTelegraph" },
 ];
 
 interface UpcomingTge {
@@ -46,32 +48,18 @@ interface UpcomingTge {
   narrativeStrength: number;
   dataSource: string;
   discoveredAt: string;
+  status?: "upcoming" | "released";
+  graduatedAt?: string;
+  coingeckoRank?: number;
 }
 
 const parser = new Parser({
   timeout: RSS_TIMEOUT_MS,
 });
 
-/**
- * Analyze news items with AI to extract upcoming TGEs.
- * Returns [] on any failure (never throws).
- */
-async function analyzeNewsWithAI(newsItems: Record<string, unknown>[]): Promise<UpcomingTge[]> {
-  if (newsItems.length === 0) {
-    console.log("  ⚠ No news items to analyze. Skipping AI call.");
-    return [];
-  }
+// ── AI Analysis (batched) ──────────────────────────────────
 
-  // Limit news items to control token usage and stay within Gemini free tier
-  const limitedItems = newsItems.slice(0, MAX_NEWS_ITEMS);
-  console.log(`  📰 Analyzing ${limitedItems.length} news items (capped from ${newsItems.length})...`);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const newsContext = limitedItems.map((item: any) =>
-    `Title: ${item.title}\nSnippet: ${(item.contentSnippet || item.content || "").substring(0, 200)}\nSource: ${item.link}`
-  ).join("\n---\n");
-
-  const prompt = `You are a crypto research analyst. Analyze these news items and identify any crypto projects that show STRONG PRE-LAUNCH SIGNALS.
+const AI_PROMPT_TEMPLATE = `You are a crypto research analyst. Analyze these news items and identify any crypto projects that show STRONG PRE-LAUNCH SIGNALS.
 
 Look for ALL of the following indicators:
 1. **Upcoming TGE / ICO / IDO / IEO** — Explicit announcements of token sales or generation events
@@ -100,26 +88,53 @@ Return a JSON array of objects with:
 If no high-quality projects found, return [].
 
 News Items:
-${newsContext}`;
+`;
 
-  try {
-    const result = await callAIWithFallback("", prompt, 2048);
-    const text = result.content;
-    const jsonMatch = text.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) {
-      console.warn("  ⚠ AI returned no parseable JSON array.");
-      return [];
+/**
+ * Analyze news items with AI in batches to stay within rate limits.
+ * Returns [] on any failure (never throws).
+ */
+async function analyzeNewsInBatches(newsItems: Record<string, unknown>[]): Promise<UpcomingTge[]> {
+  if (newsItems.length === 0) return [];
+
+  const allResults: UpcomingTge[] = [];
+  const totalBatches = Math.ceil(newsItems.length / AI_BATCH_SIZE);
+
+  console.log(`  📰 Analyzing ${newsItems.length} items in ${totalBatches} batch(es) of ${AI_BATCH_SIZE}...`);
+
+  for (let i = 0; i < totalBatches; i++) {
+    const batch = newsItems.slice(i * AI_BATCH_SIZE, (i + 1) * AI_BATCH_SIZE);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const newsContext = batch.map((item: any) =>
+      `Title: ${item.title}\nSnippet: ${(item.contentSnippet || item.content || "").substring(0, 200)}\nSource: ${item.link}`
+    ).join("\n---\n");
+
+    const prompt = AI_PROMPT_TEMPLATE + newsContext;
+
+    try {
+      console.log(`    Batch ${i + 1}/${totalBatches} (${batch.length} items)...`);
+      const result = await callAIWithFallback("", prompt, 2048);
+      const text = result.content;
+      const jsonMatch = text.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        const parsed = JSON.parse(jsonMatch[0]);
+        if (Array.isArray(parsed)) {
+          allResults.push(...parsed.filter((t: UpcomingTge) => t.id && t.name));
+        }
+      }
+    } catch (e) {
+      console.warn(`    ⚠ Batch ${i + 1} failed: ${e instanceof Error ? e.message : String(e)}`);
     }
-    const parsed = JSON.parse(jsonMatch[0]);
-    if (!Array.isArray(parsed)) {
-      console.warn("  ⚠ AI returned non-array JSON.");
-      return [];
+
+    // Pause between batches (skip after last batch)
+    if (i < totalBatches - 1) {
+      console.log(`    ⏸ Pausing ${AI_BATCH_PAUSE_MS / 1000}s before next batch...`);
+      await sleep(AI_BATCH_PAUSE_MS);
     }
-    return parsed;
-  } catch (e) {
-    console.error("  ✗ AI Analysis failed:", e instanceof Error ? e.message : String(e));
-    return [];
   }
+
+  return allResults;
 }
 
 // ── CryptoRank API ─────────────────────────────────────────
@@ -160,9 +175,9 @@ async function fetchCryptoRankUpcoming(): Promise<UpcomingTge[]> {
       const id = (item.key || name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       const category = item.category?.name || item.tags?.[0]?.name || "Crypto";
 
-      // Determine expected date from sale dates
       let expectedTge = "TBD";
       if (item.crowdsales && item.crowdsales.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const nextSale = item.crowdsales.find((s: any) => s.status === "upcoming");
         if (nextSale?.startDate) {
           expectedTge = new Date(nextSale.startDate).toISOString().split("T")[0];
@@ -175,7 +190,7 @@ async function fetchCryptoRankUpcoming(): Promise<UpcomingTge[]> {
         symbol: symbol.toUpperCase(),
         category,
         expectedTge,
-        narrativeStrength: 70, // Default for structured API data
+        narrativeStrength: 70,
         dataSource: `https://cryptorank.io/ico/${item.key || id}`,
         discoveredAt: new Date().toISOString(),
       };
@@ -189,11 +204,13 @@ async function fetchCryptoRankUpcoming(): Promise<UpcomingTge[]> {
   }
 }
 
+// ── Graduation Check ───────────────────────────────────────
+
 /**
  * Check if a TGE has "graduated" (is now trading on CoinGecko).
- * Returns false on any error (safe default: keep the entry).
+ * Returns null if not graduated, or { rank } if graduated.
  */
-async function checkGraduation(tge: UpcomingTge): Promise<boolean> {
+async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | null> {
   try {
     const apiKey = process.env.COINGECKO_API_KEY;
     const url = apiKey
@@ -203,18 +220,21 @@ async function checkGraduation(tge: UpcomingTge): Promise<boolean> {
     const res = await fetch(url);
     if (res.status === 200) {
       const data = await res.json();
-      return !!data.market_data?.current_price?.usd;
+      if (data.market_data?.current_price?.usd) {
+        return { rank: data.market_cap_rank || 0 };
+      }
     }
   } catch (e) {
-    // On error, assume not graduated (safe: keep the entry)
-    console.warn(`  ⚠ Graduation check failed for ${tge.id} (keeping entry): ${e instanceof Error ? e.message : String(e)}`);
+    console.warn(`  ⚠ Graduation check failed for ${tge.id} (keeping status): ${e instanceof Error ? e.message : String(e)}`);
   }
-  return false;
+  return null;
 }
+
+// ── Main (Waterfall Strategy) ──────────────────────────────
 
 async function main() {
   console.log("╔══════════════════════════════════════════╗");
-  console.log("║  TokenRadar — TGE Discovery              ║");
+  console.log("║  TokenRadar — TGE Discovery (Waterfall)  ║");
   console.log("╚══════════════════════════════════════════╝");
   console.log();
 
@@ -230,44 +250,57 @@ async function main() {
     }
   }
 
-  // 2. Fetch RSS feeds (with per-feed error isolation)
-  let allNews: Record<string, unknown>[] = [];
-  let feedsSucceeded = 0;
+  // 2. Waterfall: Try sources in priority order, stop on first hit
+  let discovered: UpcomingTge[] = [];
 
-  for (const url of RSS_FEEDS) {
-    try {
-      const feed = await parser.parseURL(url);
-      const items = feed.items || [];
-      allNews = [...allNews, ...items];
-      feedsSucceeded++;
-      console.log(`  ✓ ${url} — ${items.length} items`);
-    } catch (e) {
-      console.warn(`  ⚠ Failed to parse ${url}: ${e instanceof Error ? e.message : String(e)}`);
+  // Source 1: CryptoRank (structured, no AI cost)
+  console.log("\n▶ Source 1: CryptoRank API");
+  discovered = await fetchCryptoRankUpcoming();
+
+  // Filter out entries we already have
+  const newFromCR = discovered.filter(d => !existing.find(e => e.id === d.id));
+  
+  if (newFromCR.length > 0) {
+    console.log(`  ✨ ${newFromCR.length} NEW projects from CryptoRank. Skipping RSS feeds.`);
+  } else {
+    console.log("  → No new projects from CryptoRank. Trying RSS feeds...");
+
+    // Source 2+: RSS feeds, one by one
+    for (const feed of RSS_FEEDS) {
+      console.log(`\n▶ Source: ${feed.name}`);
+      
+      try {
+        const rssFeed = await parser.parseURL(feed.url);
+        const items = rssFeed.items || [];
+        console.log(`  ✓ Fetched ${items.length} items.`);
+
+        if (items.length === 0) continue;
+
+        const aiResults = await analyzeNewsInBatches(items as Record<string, unknown>[]);
+        const newFromFeed = aiResults.filter(d => 
+          !existing.find(e => e.id === d.id) && !discovered.find(e => e.id === d.id)
+        );
+
+        discovered.push(...aiResults);
+
+        if (newFromFeed.length > 0) {
+          console.log(`  ✨ ${newFromFeed.length} NEW projects from ${feed.name}. Stopping waterfall.`);
+          break; // Short-circuit: stop checking other feeds
+        } else {
+          console.log(`  → No new projects from ${feed.name}. Trying next source...`);
+        }
+      } catch (e) {
+        console.warn(`  ⚠ Failed to fetch ${feed.name}: ${e instanceof Error ? e.message : String(e)}`);
+      }
     }
   }
 
-  console.log(`  RSS Result: ${feedsSucceeded}/${RSS_FEEDS.length} feeds OK, ${allNews.length} total items.`);
-
-  if (allNews.length === 0) {
-    console.log("  ⚠ No news items fetched. Preserving existing data.");
-    console.log(`✅ Kept ${existing.length} existing TGEs (no changes).`);
-    return;
-  }
-
-  // 3. AI analysis of RSS news
-  const discoveredFromAI = await analyzeNewsWithAI(allNews);
-  console.log(`  ✨ AI identified ${discoveredFromAI.length} potential TGEs from news.`);
-
-  // 4. CryptoRank structured data
-  const discoveredFromCR = await fetchCryptoRankUpcoming();
-
-  // 5. Merge all sources (never remove existing unless graduated)
-  const allDiscovered = [...discoveredFromAI, ...discoveredFromCR];
+  // 3. Merge (never remove existing unless graduated)
   const combined = [...existing];
   let newCount = 0;
 
-  for (const item of allDiscovered) {
-    if (!item.id || !item.name) continue; // Skip malformed entries
+  for (const item of discovered) {
+    if (!item.id || !item.name) continue;
     if (!combined.find(e => e.id === item.id)) {
       combined.push({ ...item, discoveredAt: new Date().toISOString() });
       console.log(`  ➕ New: ${item.name} (${item.symbol})`);
@@ -275,24 +308,34 @@ async function main() {
     }
   }
 
-  // 6. Graduation check (with rate limiting for CoinGecko)
-  const active: UpcomingTge[] = [];
+  // 4. Graduation check — mark as released, don't delete (SEO preservation)
+  console.log("\n▶ Graduation check...");
+  let graduatedCount = 0;
   for (const tge of combined) {
-    const isGraduated = await checkGraduation(tge);
-    if (isGraduated) {
-      console.log(`  🎓 ${tge.name} graduated (now trading on CoinGecko).`);
+    // Skip already-released tokens
+    if (tge.status === "released") continue;
+
+    const graduation = await checkGraduation(tge);
+    if (graduation) {
+      tge.status = "released";
+      tge.graduatedAt = new Date().toISOString();
+      tge.coingeckoRank = graduation.rank;
+      graduatedCount++;
+      console.log(`  🎓 ${tge.name} graduated (Rank #${graduation.rank}). Marked as released.`);
     } else {
-      active.push(tge);
+      tge.status = tge.status || "upcoming";
     }
-    await sleep(500); // Rate limit CoinGecko calls
+    await sleep(500);
   }
 
-  // 7. Save
-  fs.writeFileSync(TGE_FILE, JSON.stringify(active, null, 2));
+  // 5. Save
+  fs.writeFileSync(TGE_FILE, JSON.stringify(combined, null, 2));
 
+  const upcomingCount = combined.filter(t => t.status !== "released").length;
+  const releasedCount = combined.filter(t => t.status === "released").length;
   console.log();
-  console.log(`  Summary: ${newCount} new, ${combined.length - active.length} graduated, ${active.length} active.`);
-  console.log(`✅ Saved ${active.length} upcoming TGEs.`);
+  console.log(`  Summary: ${newCount} new, ${graduatedCount} newly graduated, ${upcomingCount} upcoming, ${releasedCount} released.`);
+  console.log(`✅ Saved ${combined.length} total TGEs (${upcomingCount} upcoming + ${releasedCount} released).`);
 }
 
 main().catch((e) => {

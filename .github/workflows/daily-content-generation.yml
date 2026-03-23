@@ -58,8 +58,8 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           CRYPTORANK_API_KEY: ${{ secrets.CRYPTORANK_API_KEY }}
 
-      - name: Generate AI content (10 tokens per run)
-        run: npx tsx scripts/generate-content.ts --max 10
+      - name: Generate AI content
+        run: npx tsx scripts/generate-content.ts --max 10 --max-tge 5
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

@@ -1,4 +1,4 @@
-import { getUpcomingTGEs, getArticle } from "@/lib/content-loader";
+import { getUpcomingTGEs, getArticle, getTokenDetail } from "@/lib/content-loader";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -21,9 +21,22 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
 
   if (!tge) return { title: "Upcoming TGE | TokenRadar" };
 
+  const isReleased = tge.status === "released";
+  const title = isReleased
+    ? `${tge.name} (${tge.symbol}) Launch Recap & Analysis | TokenRadar`
+    : `${tge.name} (${tge.symbol}) Pre-Launch Spotlight & TGE Date | TokenRadar`;
+  const description = isReleased
+    ? `${tge.name} has launched and is now trading. Read our launch recap and analysis of this ${tge.category} project.`
+    : `Comprehensive pre-launch analysis for ${tge.name}. Discover expected TGE dates, narrative strength, and project categories for this upcoming token.`;
+
+  // If token has graduated and has a main tracked page, set canonical to it
+  const tokenDetail = isReleased ? getTokenDetail(tge.id) : null;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+
   return {
-    title: `${tge.name} (${tge.symbol}) Pre-Launch Spotlight & TGE Date | TokenRadar`,
-    description: `Comprehensive pre-launch analysis for ${tge.name}. Discover expected TGE dates, narrative strength, and project categories for this upcoming token.`,
+    title,
+    description,
+    ...(tokenDetail ? { alternates: { canonical: `${siteUrl}/${tge.id}` } } : {}),
   };
 }
 
@@ -33,8 +46,9 @@ export default async function TgePage({ params }: TgePageProps) {
 
   if (!tge) return notFound();
 
-  // Load the AI-generated preview article if it exists
+  const isReleased = tge.status === "released";
   const article = getArticle(tge.id, "tge-preview");
+  const hasMainPage = isReleased ? !!getTokenDetail(tge.id) : false;
 
   return (
     <div className="container" style={{ paddingBottom: "var(--space-4xl)" }}>
@@ -45,20 +59,58 @@ export default async function TgePage({ params }: TgePageProps) {
 
       <header style={{ marginTop: "var(--space-xl)", marginBottom: "var(--space-3xl)" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-md)" }}>
-          <span className="badge badge-accent">Pre-Launch Spotlight</span>
-          <span className="last-updated">Discovered: {new Date(tge.discoveredAt).toLocaleDateString()}</span>
+          <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`}>
+            {isReleased ? "✓ Released — Launch Recap" : "Pre-Launch Spotlight"}
+          </span>
+          <span className="last-updated">
+            {isReleased && tge.graduatedAt
+              ? `Launched: ${new Date(tge.graduatedAt).toLocaleDateString()}`
+              : `Discovered: ${new Date(tge.discoveredAt).toLocaleDateString()}`}
+          </span>
         </div>
         <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800 }}>{tge.name} ({tge.symbol.toUpperCase()})</h1>
         <p style={{ fontSize: "var(--text-xl)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-          Curated launch analysis for the anticipated {tge.category} project.
+          {isReleased
+            ? `Launch recap for ${tge.name}, a ${tge.category} project now trading on major exchanges.`
+            : `Curated launch analysis for the anticipated ${tge.category} project.`}
         </p>
       </header>
 
+      {/* Graduated Banner — link to main tracked page */}
+      {isReleased && hasMainPage && (
+        <div style={{
+          padding: "var(--space-lg)",
+          background: "linear-gradient(135deg, rgba(0,200,83,0.1), rgba(0,200,83,0.05))",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid rgba(0,200,83,0.2)",
+          marginBottom: "var(--space-2xl)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}>
+          <div>
+            <strong style={{ color: "var(--green)" }}>🎓 This token has launched!</strong>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+              {tge.name} is now actively trading{tge.coingeckoRank ? ` (Rank #${tge.coingeckoRank})` : ""}. View live price data, analysis, and predictions.
+            </p>
+          </div>
+          <Link href={`/${tge.id}`} className="btn btn-primary" style={{ whiteSpace: "nowrap" }}>
+            View Full Analysis →
+          </Link>
+        </div>
+      )}
+
       <div className="stats-grid" style={{ marginBottom: "var(--space-3xl)" }}>
         <div className="stat-card">
-          <div className="stat-label">Expected TGE</div>
-          <div className="stat-value">{tge.expectedTge}</div>
-          <div className="stat-change" style={{ color: "var(--text-muted)" }}>Target Launch Window</div>
+          <div className="stat-label">{isReleased ? "Launched" : "Expected TGE"}</div>
+          <div className="stat-value">
+            {isReleased && tge.graduatedAt
+              ? new Date(tge.graduatedAt).toLocaleDateString()
+              : tge.expectedTge}
+          </div>
+          <div className="stat-change" style={{ color: "var(--text-muted)" }}>
+            {isReleased ? "Launch Date" : "Target Launch Window"}
+          </div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Narrative Strength</div>
@@ -71,12 +123,18 @@ export default async function TgePage({ params }: TgePageProps) {
           <div className="stat-change" style={{ color: "var(--text-muted)" }}>Sector Focus</div>
         </div>
         <div className="stat-card">
-          <div className="stat-label">Source</div>
+          <div className="stat-label">{isReleased ? "CoinGecko Rank" : "Source"}</div>
           <div className="stat-value" style={{ fontSize: "var(--text-base)", overflow: "hidden", textOverflow: "ellipsis" }}>
-            {new URL(tge.dataSource).hostname}
+            {isReleased && tge.coingeckoRank
+              ? `#${tge.coingeckoRank}`
+              : (() => { try { return new URL(tge.dataSource).hostname; } catch { return tge.dataSource; } })()}
           </div>
           <div className="stat-change">
-            <a href={tge.dataSource} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-secondary)" }}>View Source →</a>
+            {isReleased && hasMainPage ? (
+              <Link href={`/${tge.id}`} style={{ color: "var(--accent-secondary)" }}>View Token Page →</Link>
+            ) : (
+              <a href={tge.dataSource} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-secondary)" }}>View Source →</a>
+            )}
           </div>
         </div>
       </div>
@@ -86,17 +144,23 @@ export default async function TgePage({ params }: TgePageProps) {
           <div dangerouslySetInnerHTML={{ __html: article.content }} />
         ) : (
           <div>
-            <h2>Launch Summary</h2>
+            <h2>{isReleased ? "Launch Summary" : "Pre-Launch Summary"}</h2>
             <p>
-              {tge.name} is a high-potential project in the {tge.category} sector. 
-              Our scanners have identified this as a high-conviction launch based on early narrative strength and expected ecosystem impact.
+              {tge.name} is a {isReleased ? "recently launched" : "high-potential"} project in the {tge.category} sector. 
+              {isReleased
+                ? "This token has graduated from our upcoming launches tracker and is now actively trading on major exchanges."
+                : "Our scanners have identified this as a high-conviction launch based on early narrative strength and expected ecosystem impact."}
             </p>
-            <p>
-              While the official tokenomics and exact TGE date may still be subject to change, current market consensus points towards a 
-              <strong> {tge.expectedTge} </strong> launch window.
-            </p>
+            {!isReleased && (
+              <p>
+                While the official tokenomics and exact TGE date may still be subject to change, current market consensus points towards a 
+                <strong> {tge.expectedTge} </strong> launch window.
+              </p>
+            )}
             <blockquote>
-              Note: This is a pre-launch summary. Detailed price predictions and risk scores will be available once market liquidity is established on major exchanges.
+              {isReleased
+                ? "This project has launched. Visit the full token page for live price data and detailed analysis."
+                : "Note: This is a pre-launch summary. Detailed price predictions and risk scores will be available once market liquidity is established on major exchanges."}
             </blockquote>
           </div>
         )}
