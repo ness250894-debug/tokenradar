@@ -1,8 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import Parser from "rss-parser";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import Anthropic from "@anthropic-ai/sdk";
+import { callAIWithFallback } from "../src/lib/gemini";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
@@ -16,8 +15,7 @@ const RSS_FEEDS = [
   "https://cryptopanic.com/news/ico/rss/"              // CryptoPanic (ICO/TGE Tag)
 ];
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const anthropic = new Anthropic({ apiKey: process.env.CLAUDE_API_KEY || "" });
+
 
 interface UpcomingTge {
   id: string;
@@ -56,9 +54,8 @@ async function analyzeNewsWithAI(newsItems: any[]): Promise<UpcomingTge[]> {
   ${newsContext}`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const result = await callAIWithFallback("", prompt, 2048);
+    const text = result.content;
     const jsonMatch = text.match(/\[[\s\S]*\]/);
     return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
   } catch (e) {
