@@ -2,45 +2,50 @@
   "id": "rain",
   "symbol": "rain",
   "name": "Rain",
-  "description": "",
-  "categories": [],
+  "description": "Rain is a decentralized options protocol built on Arbitrum. It enables anyone to create and trade custom markets without restrictions, offering a permissionless framework for prediction and options trading. Public markets are resolved using Olympus AI’s oracle agent, while private markets allow creators to act as resolvers. The protocol supports secondary trading, account abstraction for smoother user experience, and a deflationary token model where 2.5% of trading volume is allocated to buy and burn the $RAIN token. Governance of the protocol is carried out by token holders through a DAO.",
+  "categories": [
+    "Gambling (GambleFi)",
+    "Decentralized Finance (DeFi)",
+    "Options",
+    "Prediction Markets",
+    "Arbitrum Ecosystem"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://rain.one",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d"
   },
   "market": {
-    "price": 0.00856827,
-    "marketCap": 4094008411,
+    "price": 0.00844416,
+    "marketCap": 4037759727,
     "marketCapRank": 26,
-    "volume24h": 19915070,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 2.8349,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "volume24h": 19040174,
+    "high24h": 0.00888478,
+    "low24h": 0.00841588,
+    "priceChange24h": -2.97175,
+    "priceChange7d": -6.15328,
+    "priceChange30d": -11.94162,
     "priceChange1y": 0,
     "ath": 0.01090099,
-    "athChangePercentage": -21.55964,
+    "athChangePercentage": -22.39563,
     "athDate": "2026-02-09T16:50:09.904Z",
     "atl": 0.00222126,
     "atlDate": "2025-09-14T08:56:57.416Z",
     "circulatingSupply": 478239961710.3791,
     "totalSupply": 1149919586116.038,
     "maxSupply": 1150000000000,
-    "fdv": null
+    "fdv": 9708722328
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.500Z",
-  "lastMarketUpdate": "2026-03-23T09:16:26.340Z"
+  "fetchedAt": "2026-03-23T10:35:14.856Z"
 }

@@ -2,20 +2,51 @@
   "id": "ribbita-by-virtuals",
   "symbol": "tibbir",
   "name": "Ribbita by Virtuals",
+  "description": "Tibbir is a stealth-launched cryptocurrency project that aims to enhance efficiency and security within the crypto and artificial intelligence (AI) sectors. The project is closely associated with Ribbit Capital, a venture capital firm known for its investments in innovative financial technologies.\n\nAs a key partner in the Agentic Finance Hackathon, Tibbir contributed to the development of new initiatives in the crypto and AI domains. \n\nWhile specific details about Tibbir's technology and roadmap remain limited due to its stealth status, the project has generated interest within the crypto community, with discussions focusing on its potential to shape the future of decentralized finance and AI integration. \n\nAs Tibbir progresses, stakeholders and enthusiasts are encouraged to monitor official channels for updates and further information about the project's developments and objectives. ",
+  "categories": [
+    "Meme",
+    "Base Ecosystem",
+    "AI Meme",
+    "Virtuals Protocol Ecosystem",
+    "DeFAI",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.virtuals.io/virtuals/18820",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xa4a2e2ca3fbfe21aed83471d28b6f65a233c6e00"
+  },
   "market": {
-    "price": 0.134035,
-    "marketCap": 133993099,
-    "marketCapRank": 216,
-    "volume24h": 1233902,
-    "priceChange24h": -2.0571,
+    "price": 0.134161,
+    "marketCap": 134223165,
+    "marketCapRank": 215,
+    "volume24h": 1213732,
+    "high24h": 0.140098,
+    "low24h": 0.131552,
+    "priceChange24h": -2.10981,
+    "priceChange7d": -11.56969,
+    "priceChange30d": -19.99893,
+    "priceChange1y": 0,
     "ath": 0.440027,
-    "athChangePercentage": -69.54338,
+    "athChangePercentage": -69.51066,
     "athDate": "2025-10-28T11:23:32.676Z",
     "atl": 0.01032004,
     "atlDate": "2025-04-07T07:41:29.320Z",
     "circulatingSupply": 999904783.797368,
     "totalSupply": 999904783.797368,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 134223165
   },
-  "lastMarketUpdate": "2026-03-23T09:16:26.383Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T10:44:07.947Z"
 }

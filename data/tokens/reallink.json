@@ -2,20 +2,50 @@
   "id": "reallink",
   "symbol": "real",
   "name": "RealLink",
+  "description": "RealLink is a revolutionary Web3 social finance ecosystem that innovatively integrates three core functions - content creation, social interaction, and crypto payments - through its native REAL token, pioneering a groundbreaking \"Social-to-Earn\" digital economic paradigm.\n\nCore Product Ecosystem: BuzzCast: A global phenomenon in video social platforms, consistently ranking in the TOP20 best-selling social apps on Google Play across 100+ countries/regions\n\nTada: One of the world's most active real-time voice social platforms\n\nDPay: An integrated multi-chain crypto payment gateway enabling seamless cross-chain digital asset transfers\n\nSeven Competitive Advantages: Authentic User Economy: Rigorous anti-fraud mechanisms ensure ecosystem vitality stems from genuine user engagement\n\nInnovative Incentive Model: Creates win-win dynamics between creators and users through REAL token rewards\n\nCross-Chain Payment Network: DPay supports major public chain assets with dramatically improved transaction speeds\n\nLimitless Scalability: Modular architecture allows rapid integration with diverse Web3 applications\n\nDual-Anchor Value System: Each REAL token is backed by actual platform consumption scenarios, ensuring stable value foundation\n\nZero-Barrier Participation: Tens of millions of BuzzCast and TADA users can instantly engage without specialized equipment\n\nHalving Mechanism: Advanced 29-phase halving protocol with final mining difficulty reaching 210,000x initial level - this sophisticated economic model guarantees long-term REAL token value",
+  "categories": [
+    "SocialFi",
+    "BNB Chain Ecosystem",
+    "Payment Solutions",
+    "Tron Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.reallink.vip/",
+    "github": "https://github.com/RealLinkOfficial",
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/tgbfbt6y2dm3rhdnpzadqywbsvfdysf834"
+  },
   "market": {
-    "price": 0.058536,
-    "marketCap": 185287784,
-    "marketCapRank": 178,
-    "volume24h": 4559452,
-    "priceChange24h": 0.68379,
+    "price": 0.058752,
+    "marketCap": 186027921,
+    "marketCapRank": 177,
+    "volume24h": 4553889,
+    "high24h": 0.059192,
+    "low24h": 0.05704,
+    "priceChange24h": 1.26982,
+    "priceChange7d": -4.58817,
+    "priceChange30d": 8.91824,
+    "priceChange1y": 754.07605,
     "ath": 0.99069,
-    "athChangePercentage": -94.06832,
+    "athChangePercentage": -94.05615,
     "athDate": "2023-01-02T08:58:38.947Z",
     "atl": 0.00023002,
     "atlDate": "2023-05-09T14:26:07.232Z",
-    "circulatingSupply": 3164758975,
-    "totalSupply": 3164758975,
-    "maxSupply": null
+    "circulatingSupply": 3166003975,
+    "totalSupply": 3166003975,
+    "maxSupply": null,
+    "fdv": 186027921
   },
-  "lastMarketUpdate": "2026-03-23T09:16:26.374Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T10:39:36.722Z"
 }

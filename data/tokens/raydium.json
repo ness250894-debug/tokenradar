@@ -2,20 +2,55 @@
   "id": "raydium",
   "symbol": "ray",
   "name": "Raydium",
+  "description": "Raydium is an automated market maker (AMM) and liquidity provider built on the Solana blockchain for the Serum decentralized exchange (DEX). Raydium has a first-mover advantage as an AMM within Serum and will be an integral part of bringing new and existing projects and protocols into the ecosystem. The protocol will act as a bridge for projects looking to expand to Solana and Serum, and in the process Raydium and the RAY token will become a foundation for enabling further development with partners, its own platform, and the ecosystem as a whole.\n\nUnlike any other AMMs, Raydium provides on-chain liquidity to a central limit orderbook, meaning that Raydium LPs get access to the entire orderflow and liquidity of Serum.\n\nLong term, Raydium aims to capture and maintain a leadership position among AMMs and liquidity providers on Serum, while leveraging the power of Solana to drive the evolution of decentralized finance (DeFi) and emerge as a leading protocol in the space alongside our partners and the community.\"",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Automated Market Maker (AMM)",
+    "Perpetuals",
+    "Solana Ecosystem",
+    "Launchpad",
+    "GMCI DeFi Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://raydium.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R"
+  },
   "market": {
-    "price": 0.579813,
-    "marketCap": 155795868,
+    "price": 0.578319,
+    "marketCap": 155472717,
     "marketCapRank": 200,
-    "volume24h": 13328795,
-    "priceChange24h": -2.52242,
+    "volume24h": 13688555,
+    "high24h": 0.592321,
+    "low24h": 0.574347,
+    "priceChange24h": -2.25153,
+    "priceChange7d": -8.6665,
+    "priceChange30d": -11.69055,
+    "priceChange1y": -67.2972,
     "ath": 16.83,
-    "athChangePercentage": -96.5446,
+    "athChangePercentage": -96.55606,
     "athDate": "2021-09-12T20:20:23.998Z",
     "atl": 0.134391,
     "atlDate": "2022-12-29T22:15:53.927Z",
     "circulatingSupply": 268700018.217795,
     "totalSupply": 555000000,
-    "maxSupply": 555000000
+    "maxSupply": 555000000,
+    "fdv": 321128961
   },
-  "lastMarketUpdate": "2026-03-23T09:16:26.379Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T10:36:39.374Z"
 }

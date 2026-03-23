@@ -2,20 +2,54 @@
   "id": "reserve-rights-token",
   "symbol": "rsr",
   "name": "Reserve Rights",
+  "description": "What Is Reserve Rights (RSR)?\n\nReserve Rights (RSR) is an ERC-20 token that serves two main purposes for the Reserve protocol: overcollateralization of Reserve stablecoins (RTokens) through staking and governing them through proposing &amp; voting on changes to their configuration.\n\nThe Reserve Rights (RSR) token was launched in May 2019 following a successful initial exchange offering IEO on the Huobi Prime platform.\n\n\nWhat is Reserve Rights (RSR) used for?\n\nBesides being the governance token for Reserve stablecoins (RTokens), by which changes to RTokens can be proposed &amp; voted for with RSR, Reserve Rights exists as a backstop to make Reserve stablecoin (RToken) holders whole in the unlikely event of a collateral token default. In order for RSR holders to provide this overcollateralization, they can decide to stake on any one RToken, or divide their RSR tokens by staking on multiple RTokens. RSR holders can also decide not to stake their RSR at all.\n\nIn return for providing this first-loss capital, RSR stakers can expect to receive a portion of the revenue the RToken they stake on makes. As a general rule, RSR stakers can expect higher returns (APYs) the bigger the market cap of the RToken they stake on becomes.\n\nIn contrast with the “staking” you see in a lot of other projects these days, RSR staking is built to last. In Reserve’s model, late participants do not pay for early participants, nor is a trust in staking of other parties required.\n\nFor more detailed information on RSR staking, please refer to the RSR staking section in the protocol documentation: https://reserve.org/protocol/reserve_rights_rsr/#reserve-rights-staking.\n\nWho are the founders of Reserve?\n\nReserve was co-founded by Nevin Freeman and Matt Elder. Freeman is a seasoned entrepreneur. He describes his life goal as \"solving the coordination problems that are stopping humanity from achieving its potential.\"\n\nMatt Elder, on the other hand, is an experienced engineer who previously worked for Google and Quixey, and worked to oversee the architecture of the Reserve protocol's technical implementation.\n\nSince its launch in 2019, the amount of contributors to the Reserve ecosystem has grown considerably, including community, engineers, and legal and compliance staff — all unified under the shared ambition to position Reserve as an open, massively scalable stablecoin platform that promotes economic prosperity.\n\n\nWhat Makes Reserve Rights Unique?\n\nUnlike other stablecoins that are typically backed by U.S. dollars (USD) held in reserve in a bank account controlled by the stablecoin issuer or a trusted custodian, Reserve stablecoins are backed by a basket of cryptocurrencies managed by smart contracts.\n\nThese baskets can consist of any ERC-20 assets. During the initial stages, RTokens mostly include other cryptocurrencies, such as liquid staking tokens (e.g. stETH) or yield-bearing DeFi position (e.g. cUSDC). Eventually, the Reserve community will transition to more diverse baskets,... [truncated]",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Coinbase Ventures Portfolio",
+    "Energi Ecosystem",
+    "Made in USA",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://reserve.org/",
+    "github": "https://github.com/reserve-protocol/rsr",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x320623b8e4ff03373931769a31fc52a4e78b5d70"
+  },
   "market": {
-    "price": 0.00183268,
-    "marketCap": 114386633,
-    "marketCapRank": 250,
-    "volume24h": 18984796,
-    "priceChange24h": 4.79333,
+    "price": 0.0015114,
+    "marketCap": 94554684,
+    "marketCapRank": 275,
+    "volume24h": 6066302,
+    "high24h": 0.00156861,
+    "low24h": 0.00150066,
+    "priceChange24h": -1.68372,
+    "priceChange7d": -15.49616,
+    "priceChange30d": -0.62375,
+    "priceChange1y": -76.23668,
     "ath": 0.117424,
-    "athChangePercentage": -98.44182,
+    "athChangePercentage": -98.7127,
     "athDate": "2021-04-16T17:45:02.062Z",
     "atl": 0.00121354,
     "atlDate": "2020-03-16T11:09:08.151Z",
     "circulatingSupply": 62553174091,
     "totalSupply": 100000000000,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 151158891
   },
-  "lastMarketUpdate": "2026-03-16T07:50:01.858Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 19,
+    "githubForks": 4,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T10:42:41.196Z"
 }

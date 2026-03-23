@@ -2,20 +2,53 @@
   "id": "re-protocol-reusd",
   "symbol": "reusd",
   "name": "Re Protocol reUSD",
+  "description": "Re Protocol (RE) is a blockchain-based platform that democratizes access to reinsurance risk by tokenizing exposure to insurance contracts. The protocol’s two deposit tokens—reUSD and reUSDe—let users choose between a principal-protected, fixed-yield product (reUSD, RF + 250 bps) or a risk-bearing, variable-yield option (reUSDe, up to ~23 % APR). Built on Ethereum, Avalanch, Arbitrum and Base, Re Protocol leverages decentralized underwriting pools to generate transparent, market-driven insurance returns. Governance and treasury functions are overseen by the Cayman-based Re Foundation to ensure regulatory compliance and capital efficiency. With integrations into DeFi ecosystems like Curve, Pendle, and Ethena, Re Protocol bridges traditional reinsurance markets and DeFi—opening institutional-grade risk diversification to crypto investors.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Insurance",
+    "Avalanche Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Ink Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://re.xyz",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x5086bf358635b81d8c47c66d1c8b9e567db70c72"
+  },
   "market": {
-    "price": 1.066,
-    "marketCap": 184257209,
+    "price": 1.067,
+    "marketCap": 184284446,
     "marketCapRank": 179,
-    "volume24h": 10375072,
-    "priceChange24h": -0.03418,
+    "volume24h": 10200474,
+    "high24h": 1.067,
+    "low24h": 1.066,
+    "priceChange24h": -0.02804,
+    "priceChange7d": -0.06075,
+    "priceChange30d": 0.42189,
+    "priceChange1y": 0,
     "ath": 1.078,
-    "athChangePercentage": -1.07113,
+    "athChangePercentage": -1.051,
     "athDate": "2025-10-10T21:39:52.994Z",
     "atl": 0.873393,
     "atlDate": "2025-07-17T08:04:08.632Z",
     "circulatingSupply": 172777434.7056145,
     "totalSupply": 172777434.7056145,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 184284446
   },
-  "lastMarketUpdate": "2026-03-23T09:16:26.374Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T10:38:07.910Z"
 }
