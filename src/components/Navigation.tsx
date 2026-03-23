@@ -5,10 +5,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/disclaimer", label: "Disclaimer" },
+  { name: "Tokens", href: "/#trending" },
+  { name: "Upcoming", href: "/upcoming" },
+  { name: "Methodology", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Disclaimer", href: "/disclaimer" },
 ] as const;
 
 /**
@@ -29,7 +30,7 @@ export function Navigation() {
         </Link>
 
         <ul className="nav-links">
-          {NAV_LINKS.map(({ href, label }) => (
+          {NAV_LINKS.map(({ href, name }) => (
             <li key={href}>
               <Link
                 href={href}
@@ -39,7 +40,7 @@ export function Navigation() {
                     : undefined
                 }
               >
-                {label}
+                {name}
               </Link>
             </li>
           ))}

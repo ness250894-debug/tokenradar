@@ -167,7 +167,7 @@ async function checkArticle(
   const words = content.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
   const articleType = raw.type || raw.slug || "";
-  const isShortForm = articleType === "how-to-buy";
+  const isShortForm = articleType === "how-to-buy" || articleType === "tge-preview";
   const minFail = isShortForm ? 500 : 800;
   const minWarn = isShortForm ? 600 : 1000;
   if (wordCount < minFail) issues.push(`Word count too low: ${wordCount} (min ${minFail})`);

@@ -6,9 +6,9 @@
  * - Uses per-token `fetchedAt` dates for accurate `lastmod` values
  * - Reads article `generatedAt` dates for content pages
  * - Includes compare pages for top-20 token combinations
+ * - Includes TGE pages
  *
  * Usage: npx tsx scripts/generate-sitemap.ts
- * Called automatically during `npm run build` via prebuild script.
  */
 
 import * as fs from "fs";
@@ -17,6 +17,7 @@ import * as path from "path";
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const PUBLIC_DIR = path.resolve(__dirname, "../public");
+const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 interface SitemapEntry {
@@ -37,19 +38,15 @@ function getTokenIds(): string[] {
       .forEach((f) => ids.add(f.replace(".json", "")));
   }
 
-  if (fs.existsSync(contentDir())) {
-    fs.readdirSync(contentDir()).forEach((dir) => {
-      if (fs.statSync(path.join(contentDir(), dir)).isDirectory()) {
+  if (fs.existsSync(CONTENT_DIR)) {
+    fs.readdirSync(CONTENT_DIR).forEach((dir) => {
+      if (fs.statSync(path.join(CONTENT_DIR, dir)).isDirectory()) {
         ids.add(dir);
       }
     });
   }
 
   return Array.from(ids);
-}
-
-function contentDir(): string {
-  return CONTENT_DIR;
 }
 
 /** Read the `fetchedAt` date from a token's data file. */
@@ -81,21 +78,30 @@ function getArticleDate(tokenId: string, slug: string): string | null {
   }
 }
 
+/** Load upcoming TGEs. */
+function getUpcomingTGEs(): any[] {
+  if (!fs.existsSync(TGE_FILE)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+  } catch {
+    return [];
+  }
+}
+
 function buildSitemap(): string {
   const tokenIds = getTokenIds();
   const now = new Date().toISOString().split("T")[0];
 
-  // Static pages always use build date
+  // Static pages
   const entries: SitemapEntry[] = [
     { url: "/", lastmod: now, changefreq: "daily", priority: "1.0" },
+    { url: "/upcoming", lastmod: now, changefreq: "daily", priority: "0.9" },
     { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.7" },
-    { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/privacy", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/terms", lastmod: now, changefreq: "yearly", priority: "0.3" },
     { url: "/contact", lastmod: now, changefreq: "monthly", priority: "0.5" },
+    { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
   ];
 
-  // Token pages — use actual data dates
+  // Token pages
   for (const id of tokenIds) {
     const tokenDate = getTokenDate(id) || now;
 
@@ -107,23 +113,41 @@ function buildSitemap(): string {
     });
 
     const predictionDate = getArticleDate(id, "price-prediction") || tokenDate;
-    entries.push({
-      url: `/${id}/price-prediction`,
-      lastmod: predictionDate,
-      changefreq: "weekly",
-      priority: "0.8",
-    });
+    if (fs.existsSync(path.join(CONTENT_DIR, id, "price-prediction.json"))) {
+      entries.push({
+        url: `/${id}/price-prediction`,
+        lastmod: predictionDate,
+        changefreq: "weekly",
+        priority: "0.8",
+      });
+    }
 
     const howToBuyDate = getArticleDate(id, "how-to-buy") || tokenDate;
-    entries.push({
-      url: `/${id}/how-to-buy`,
-      lastmod: howToBuyDate,
-      changefreq: "monthly",
-      priority: "0.7",
-    });
+    if (fs.existsSync(path.join(CONTENT_DIR, id, "how-to-buy.json"))) {
+      entries.push({
+        url: `/${id}/how-to-buy`,
+        lastmod: howToBuyDate,
+        changefreq: "monthly",
+        priority: "0.7",
+      });
+    }
   }
 
-  // Compare pages — top 20 tokens (matches generateStaticParams in compare/[slug]/page.tsx)
+  // TGE Pages
+  const tges = getUpcomingTGEs();
+  for (const tge of tges) {
+    const tgeDate = tge.discoveredAt ? new Date(tge.discoveredAt).toISOString().split("T")[0] : now;
+    if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
+      entries.push({
+        url: `/upcoming/${tge.id}`,
+        lastmod: tgeDate,
+        changefreq: "weekly",
+        priority: "0.8",
+      });
+    }
+  }
+
+  // Compare pages
   const topIds = tokenIds.slice(0, 20);
   for (let i = 0; i < topIds.length; i++) {
     for (let j = i + 1; j < topIds.length; j++) {
@@ -166,14 +190,7 @@ function main() {
   }
 
   fs.writeFileSync(outPath, sitemap, "utf-8");
-
-  const tokenCount = getTokenIds().length;
-  const topTokens = Math.min(tokenCount, 20);
-  const compareCount = (topTokens * (topTokens - 1)) / 2;
-  const totalUrls = 6 + tokenCount * 3 + compareCount;
-
   console.log(`✓ Sitemap generated: ${outPath}`);
-  console.log(`  ${totalUrls} URLs (6 static + ${tokenCount} tokens × 3 + ${compareCount} compare pages)`);
 }
 
 main();

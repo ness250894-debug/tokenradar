@@ -10,6 +10,7 @@ const DATA_DIR = path.resolve(process.cwd(), "data");
 const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
 const METRICS_DIR = path.join(DATA_DIR, "metrics");
 const PRICES_DIR = path.join(DATA_DIR, "prices");
+const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -114,6 +115,17 @@ export interface Article {
   content: string;
   wordCount: number;
   generatedAt: string;
+}
+
+export interface UpcomingTge {
+  id: string;
+  name: string;
+  symbol: string;
+  category: string;
+  expectedTge: string;
+  narrativeStrength: number;
+  dataSource: string;
+  discoveredAt: string;
 }
 
 // ── Loaders ────────────────────────────────────────────────────
@@ -237,6 +249,16 @@ export function getTokenDetail(tokenId: string): TokenDetail | null {
     };
   } catch (_e) {
     return null;
+  }
+}
+
+/** Load upcoming TGEs. */
+export function getUpcomingTGEs(): UpcomingTge[] {
+  if (!fs.existsSync(TGE_FILE)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+  } catch (_e) {
+    return [];
   }
 }
 

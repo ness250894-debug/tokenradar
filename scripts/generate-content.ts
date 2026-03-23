@@ -87,6 +87,7 @@ function buildArticleConfigs(
   tokenId: string,
   tokenName: string,
   symbol: string,
+  tgeCategory: string,
   tokenData: Record<string, unknown>,
   metrics: Record<string, unknown>,
   references: { articles: { title: string; snippet: string; source: string }[] }
@@ -171,6 +172,24 @@ Cover:
 6. Tax implications overview (general, not specific advice)
 
 Note: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.
+
+${commonContext}`,
+    },
+    {
+      type: "tge-preview",
+      title: `${tokenName} (${symbol.toUpperCase()}) Pre-Launch Spotlight — Upcoming TGE Analysis`,
+      slug: "tge-preview",
+      prompt: `Write a pre-launch spotlight article for ${tokenName} (${symbol.toUpperCase()}).
+      
+TARGET LENGTH: 800 - 1,000 words.
+
+As the token is not yet trading on major exchanges, focus on:
+1. Project Vision and Ecosystem impact
+2. Narrative Strength (why is it hyped?)
+3. Investors and Backing (if known)
+4. Expected TGE/Launch Window
+5. Category Analysis (${tgeCategory || "General"})
+6. Comparison to successful projects in the same sector
 
 ${commonContext}`,
     },
@@ -358,6 +377,7 @@ async function main() {
       tokenId,
       tokenData.name,
       tokenData.symbol,
+      tokenData.category || "Crypto",
       tokenData,
       metrics,
       references
