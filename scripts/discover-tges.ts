@@ -1,9 +1,8 @@
 /**
  * TGE Discovery Script
  *
- * Discovers upcoming Token Generation Events using a waterfall strategy:
- * 1. CryptoRank API (structured, no AI needed) — checked first
- * 2. RSS feeds (one-by-one, AI analysis in batches) — only if CryptoRank yields nothing
+ * Discovers upcoming Token Generation Events:
+ * - Scans RSS feeds (one-by-one, AI analysis in batches)
  *
  * Failsafe: If any data source fails, existing data is preserved.
  *
@@ -137,73 +136,6 @@ async function analyzeNewsInBatches(newsItems: Record<string, unknown>[]): Promi
   return allResults;
 }
 
-// ── CryptoRank API ─────────────────────────────────────────
-
-/**
- * Fetch upcoming token sales from CryptoRank's free Sandbox API.
- * Returns [] on any failure (never throws).
- */
-async function fetchCryptoRankUpcoming(): Promise<UpcomingTge[]> {
-  const apiKey = process.env.CRYPTORANK_API_KEY;
-  if (!apiKey) {
-    console.log("  ⚠ CRYPTORANK_API_KEY not set. Skipping CryptoRank source.");
-    return [];
-  }
-
-  console.log("  🔗 Fetching upcoming sales from CryptoRank...");
-
-  try {
-    const url = "https://api.cryptorank.io/v2/currencies/public-sales?crowdsaleStatus=upcoming&limit=20";
-    const res = await fetch(url, {
-      headers: { "X-Api-Key": apiKey },
-      signal: AbortSignal.timeout(15_000),
-    });
-
-    if (!res.ok) {
-      console.warn(`  ⚠ CryptoRank API returned ${res.status}: ${res.statusText}`);
-      return [];
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const data: any = await res.json();
-    const items = data?.data || [];
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tges: UpcomingTge[] = items.map((item: any) => {
-      const name = item.name || item.key || "Unknown";
-      const symbol = item.symbol || "???";
-      const id = (item.key || name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      const category = item.category?.name || item.tags?.[0]?.name || "Crypto";
-
-      let expectedTge = "TBD";
-      if (item.crowdsales && item.crowdsales.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const nextSale = item.crowdsales.find((s: any) => s.status === "upcoming");
-        if (nextSale?.startDate) {
-          expectedTge = new Date(nextSale.startDate).toISOString().split("T")[0];
-        }
-      }
-
-      return {
-        id,
-        name,
-        symbol: symbol.toUpperCase(),
-        category,
-        expectedTge,
-        narrativeStrength: 70,
-        dataSource: `https://cryptorank.io/ico/${item.key || id}`,
-        discoveredAt: new Date().toISOString(),
-      };
-    }).filter((t: UpcomingTge) => t.id && t.name !== "Unknown");
-
-    console.log(`  ✓ CryptoRank: ${tges.length} upcoming sales found.`);
-    return tges;
-  } catch (e) {
-    console.warn(`  ⚠ CryptoRank fetch failed: ${e instanceof Error ? e.message : String(e)}`);
-    return [];
-  }
-}
-
 // ── Graduation Check ───────────────────────────────────────
 
 /**
@@ -250,48 +182,34 @@ async function main() {
     }
   }
 
-  // 2. Waterfall: Try sources in priority order, stop on first hit
+  // 2. Scan RSS sources
   let discovered: UpcomingTge[] = [];
 
-  // Source 1: CryptoRank (structured, no AI cost)
-  console.log("\n▶ Source 1: CryptoRank API");
-  discovered = await fetchCryptoRankUpcoming();
+  for (const feed of RSS_FEEDS) {
+    console.log(`\\n▶ Source: ${feed.name}`);
+    
+    try {
+      const rssFeed = await parser.parseURL(feed.url);
+      const items = rssFeed.items || [];
+      console.log(`  ✓ Fetched ${items.length} items.`);
 
-  // Filter out entries we already have
-  const newFromCR = discovered.filter(d => !existing.find(e => e.id === d.id));
-  
-  if (newFromCR.length > 0) {
-    console.log(`  ✨ ${newFromCR.length} NEW projects from CryptoRank. Skipping RSS feeds.`);
-  } else {
-    console.log("  → No new projects from CryptoRank. Trying RSS feeds...");
+      if (items.length === 0) continue;
 
-    // Source 2+: RSS feeds, one by one
-    for (const feed of RSS_FEEDS) {
-      console.log(`\n▶ Source: ${feed.name}`);
-      
-      try {
-        const rssFeed = await parser.parseURL(feed.url);
-        const items = rssFeed.items || [];
-        console.log(`  ✓ Fetched ${items.length} items.`);
+      const aiResults = await analyzeNewsInBatches(items as Record<string, unknown>[]);
+      const newFromFeed = aiResults.filter(d => 
+        !existing.find(e => e.id === d.id) && !discovered.find(e => e.id === d.id)
+      );
 
-        if (items.length === 0) continue;
+      discovered.push(...aiResults);
 
-        const aiResults = await analyzeNewsInBatches(items as Record<string, unknown>[]);
-        const newFromFeed = aiResults.filter(d => 
-          !existing.find(e => e.id === d.id) && !discovered.find(e => e.id === d.id)
-        );
-
-        discovered.push(...aiResults);
-
-        if (newFromFeed.length > 0) {
-          console.log(`  ✨ ${newFromFeed.length} NEW projects from ${feed.name}. Stopping waterfall.`);
-          break; // Short-circuit: stop checking other feeds
-        } else {
-          console.log(`  → No new projects from ${feed.name}. Trying next source...`);
-        }
-      } catch (e) {
-        console.warn(`  ⚠ Failed to fetch ${feed.name}: ${e instanceof Error ? e.message : String(e)}`);
+      if (newFromFeed.length > 0) {
+        console.log(`  ✨ ${newFromFeed.length} NEW projects from ${feed.name}. Stopping scan.`);
+        break; // Short-circuit: stop checking other feeds
+      } else {
+        console.log(`  → No new projects from ${feed.name}. Trying next source...`);
       }
+    } catch (e) {
+      console.warn(`  ⚠ Failed to fetch ${feed.name}: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
