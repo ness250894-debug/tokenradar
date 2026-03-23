@@ -2,20 +2,48 @@
   "id": "onyc",
   "symbol": "onyc",
   "name": "Onchain Yield Coin",
+  "description": "Licensed to deploy digital assets as insurance collateral, OnRe provides a new class of investors with direct access consistent real-world returns. Through structured products designed to generate yield in both rising and falling markets, OnRe offers a return profile not achievable in traditional finance. With an emphasis on transparency, scalability, and capital efficiency, OnRe is redefining how capital supports reinsurance, creating access to an industry that has historically remained out of reach.\n\nThe first product, ONyc, is a multi-collateral, yield-bearing asset backed by stablecoins and used to underwrite real world private placements and accrue yield from reinsurance premiums. ONyc targets a base yield exceeding 16%, driven by reinsurance performance that remains uncorrelated across market cycles. Alongside this base return, the collateral assets themselves contribute additional yield, resulting in a compound, multi-source return designed to deliver steady performance and capture upside as markets evolve.\n\nCurrently collateralized in sUSDe, ONyc combines uncorrelated real-world yield with crypto-native yield opportunities. Through this approach, OnRe aims to connect digital asset allocators to the $750 billion reinsurance market.",
+  "categories": [
+    "Solana Ecosystem",
+    "Real World Assets (RWA)",
+    "Yield-Bearing Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://onre.finance",
+    "github": "https://github.com/onre-finance",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/5Y8NV33Vv7WbnLfq3zBcKSdYPrk7g2KoiQoe7M2tcxp5"
+  },
   "market": {
     "price": 1.086,
-    "marketCap": 139974031,
-    "marketCapRank": 211,
-    "volume24h": 712177,
-    "priceChange24h": -0.06414,
+    "marketCap": 139992843,
+    "marketCapRank": 212,
+    "volume24h": 794221,
+    "high24h": 1.087,
+    "low24h": 1.086,
+    "priceChange24h": -0.05973,
+    "priceChange7d": 0.09127,
+    "priceChange30d": 0.74483,
+    "priceChange1y": 0,
     "ath": 1.087,
-    "athChangePercentage": -0.09835,
+    "athChangePercentage": -0.09822,
     "athDate": "2026-03-22T05:35:43.923Z",
     "atl": 1.005,
     "atlDate": "2025-07-24T14:15:46.070Z",
     "circulatingSupply": 128891518.8491104,
     "totalSupply": 128891518.8491104,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 139992843
   },
-  "lastMarketUpdate": "2026-03-23T07:40:49.814Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T08:10:45.369Z"
 }

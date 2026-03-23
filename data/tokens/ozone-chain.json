@@ -2,20 +2,48 @@
   "id": "ozone-chain",
   "symbol": "ozo",
   "name": "Ozone Chain",
+  "description": "What is Ozone Chain\n\nOzone Chain is the world’s first Quantum Resistant Blockchain that has integrated bleeding edge quantum security technologies in its design. Ozone Chain believes in Quantum Secured Blockchain for solving the real-world concerns faced by Quantum Computers. Ozone Chain is a decentralized platform that enables developers to build scalable user-friendly dApps with low transactions fees without ever sacrificing on security.\n\nThe most secured Blockchain which is EVM compatible and runs on proof of authority and IBFT protocols.\n\nQuantum Random Numbers from a laser source\nLattice-based Post Quantum Cryptography\nQuantum tech tested and certified by TUV\nEVM Compatible\nProof of Authority &amp; QBFT\nBlock time – 5 seconds\nDeploy Smart Contracts and Create Dapps\nGovernance by voting\t\n\n\nUniqueness of Ozone Chain\n\nOzone chain uses quantum random numbers (QRN) and post-quantum cryptography (PQC) to make the blockchain quantum secure and quantum resistant.\n\nQuantum key distribution (QKD), in its current implementations has geographical limitations that constrain its usage within a few hundred kilometres. This is a huge drawback for a blockchain, where nodes need to be distributed globally and inter-node communications must span thousands of kilometres.\n\nThus, an architectural decision has been made to use PQC for inter-node communications, while being quantum-resistant at the same time.\n\nTests and Results\n\nThe quantum security technologies used in ozone chain have undergone various standardized tests and have passed all of them. The tests have been conducted by TÜV Rheinland which is an agency that provides testing and certification services to ensure the safety, quality, and performance of cybersecurity products and services, including quantum security solutions.\n\nEntropy test\nDiehard tests\nNIST tests\n\nOzone's QRNG has also passed the NIST SP 800-22 tests, which is a test suite standards by National Institute of Standards and Technology. NIST SP 800-22 is a statistical test suite for random and pseudorandom number generators for cryptographic applications. \n•\tFrequency (monobit) test\n•\tFrequency test within a block\n•\tRuns test\n•\tLongest run of ones in a block\n•\tBinary matrix rank test\n•\tDiscrete Fourier Transform (Spectral) test\n•\tNon-overlapping template matching test\n•\tOverlapping template matching test\n•\tMaurer's \"Universal Statistical\" test\n•\tLinear complexity test\n•\tSerial test\n•\tApproximate entropy test\n•\tCumulative sums (Cusums) test\n•\tRandom excursions test\n•\tRandom excursions variant test\n\nHow many OZO coins are there in Circulation?\n\nThe total and maximum supply is 1 billion OZO. 300 million OZO is in circulation already. The locked OZO supply is distributed over 36 months.\n\n\n\nOzone Chain - A Future Ready Quantum Blockchain\nBuilding resilience against future threats is key to ensure that vital parts of the blockchain and cryptocurrency economy keep thriving. The issue is that investments for protection from medium to long-term risk... [truncated]",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Zero Knowledge (ZK)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ozonechain.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://ozonescan.io/"
+  },
   "market": {
-    "price": 0.130862,
-    "marketCap": 124678581,
-    "marketCapRank": 230,
-    "volume24h": 207084,
-    "priceChange24h": 0.06079,
+    "price": 0.131368,
+    "marketCap": 125154333,
+    "marketCapRank": 229,
+    "volume24h": 206208,
+    "high24h": 0.132198,
+    "low24h": 0.128704,
+    "priceChange24h": 0.95703,
+    "priceChange7d": -0.08728,
+    "priceChange30d": 0.46621,
+    "priceChange1y": -9.66294,
     "ath": 0.485077,
-    "athChangePercentage": -73.02973,
+    "athChangePercentage": -72.96239,
     "athDate": "2024-04-29T09:02:20.045Z",
     "atl": 0.060046,
     "atlDate": "2023-10-07T21:15:21.451Z",
     "circulatingSupply": 954291648,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 131148934
   },
-  "lastMarketUpdate": "2026-03-23T07:40:49.819Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T08:16:27.522Z"
 }

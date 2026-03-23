@@ -2,45 +2,50 @@
   "id": "pax-gold",
   "symbol": "paxg",
   "name": "PAX Gold",
-  "description": "",
-  "categories": [],
+  "description": "PAX Gold (PAXG) is an asset-backed token where one token should represent one fine troy ounce of a London Good Delivery gold bar, stored in professional vault facilities. Anyone who owns PAXG has ownership rights to that gold under the custody of Paxos Trust Company. Since PAXG represents physical gold, its value is tied directly to the real-time market value of that physical gold.\n\nPAXG gives customers the benefits of actual physical ownership of specific gold bars with the speed and mobility of a digital asset. Customers are able to have fractional ownership of physical bars. On the Paxos platform, customers can convert their tokens to allocated gold, unallocated gold, or fiat currency (and vice versa) quickly and efficiently, reducing their exposure to settlement risk. PAXG is also available for trading on Paxos’ itBit exchange. PAXG will also be available on other crypto-asset exchanges, wallets, lending platforms and elsewhere within the crypto ecosystem. \n\nAt any time, PAXG holders can lookup the serial number, value and physical characteristics of their vaulted gold just by entering their Ethereum wallet address on the PAXG lookup tool on Paxos.com/paxgold.",
+  "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Commodities"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
+    "website": "https://www.paxos.com/paxgold/",
+    "github": "https://github.com/paxosglobal/paxos-gold-contract",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0x45804880de22913dafe09f4980848ece6ecbaf78"
   },
   "market": {
-    "price": 4205.11,
-    "marketCap": 2106434153,
-    "marketCapRank": 42,
-    "volume24h": 832946457,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -6.73301,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 4255.25,
+    "marketCap": 2144422576,
+    "marketCapRank": 43,
+    "volume24h": 895705399,
+    "high24h": 4530.49,
+    "low24h": 4162.09,
+    "priceChange24h": -5.57804,
+    "priceChange7d": -15.0187,
+    "priceChange30d": -16.90782,
+    "priceChange1y": 39.5946,
     "ath": 5619.09,
-    "athChangePercentage": -25.82991,
+    "athChangePercentage": -24.92171,
     "athDate": "2026-01-29T06:30:56.612Z",
     "atl": 1399.64,
     "atlDate": "2019-11-18T03:09:35.959Z",
     "circulatingSupply": 502777.822,
     "totalSupply": 502777.822,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 2144422576
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.509Z",
-  "lastMarketUpdate": "2026-03-23T07:40:49.759Z"
+  "fetchedAt": "2026-03-23T08:19:23.679Z"
 }

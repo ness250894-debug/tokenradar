@@ -2,45 +2,54 @@
   "id": "paypal-usd",
   "symbol": "pyusd",
   "name": "PayPal USD",
-  "description": "",
-  "categories": [],
+  "description": "PayPal USD is designed to contribute to the opportunity stablecoins offer for payments and is 100% backed by U.S. dollar deposits, short-term U.S Treasuries and similar cash equivalents. PayPal USD is redeemable 1:1 for U.S. dollars and is issued by Paxos Trust Company.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Starknet Ecosystem",
+    "Stellar Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Made in USA"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://www.paypal.com/us/digital-wallet/manage-money/crypto/pyusd",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8"
   },
   "market": {
-    "price": 0.999614,
-    "marketCap": 4100262212,
+    "price": 1,
+    "marketCap": 4096597602,
     "marketCapRank": 25,
-    "volume24h": 60411740,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.01238,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 61033454,
+    "high24h": 1.001,
+    "low24h": 0.998046,
+    "priceChange24h": 0.0133,
+    "priceChange7d": 0.02313,
+    "priceChange30d": 0.05253,
+    "priceChange1y": -0.00361,
     "ath": 1.021,
-    "athChangePercentage": -2.00652,
+    "athChangePercentage": -2.04581,
     "athDate": "2023-10-23T22:44:57.056Z",
     "atl": 0.959426,
     "atlDate": "2024-12-05T22:31:13.430Z",
     "circulatingSupply": 4102354840.685285,
     "totalSupply": 4102354840.785285,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 4096597602
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.502Z",
-  "lastMarketUpdate": "2026-03-23T07:40:49.750Z"
+  "fetchedAt": "2026-03-23T08:20:58.240Z"
 }

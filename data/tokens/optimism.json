@@ -2,20 +2,56 @@
   "id": "optimism",
   "symbol": "op",
   "name": "Optimism",
+  "description": "Optimism is more than just a single blockchain – it's a growing network of chains called the Superchain, all built on the open-source OP Stack. While OP Mainnet was the first, many prominent chains now run on the Optimism’s OP Stack, including Base (by Coinbase), Unichain (by Uniswap), Ink (by Kraken), and World Chain (by Worldcoin). The OP Stack has become the leading framework for Ethereum Layer 2 chains, powering the majority of L2 activity today.\nEvery OP Chain in the Superchain contributes back to the Optimism Collectiv and all chains follow a standardized revenue-sharing model: the greater of 2.5% of total chain revenue or 15% of onchain profit (defined as fees minus L1 gas costs) is paid back to the Optimism.\nBy aligning economic incentives across many chains, Optimism transforms Ethereum scaling into a sustainable flywheel by delivering fast, low-cost transactions while reinvesting in the future of the ecosystem. OP holders participate in governance to shape protocol upgrades, funding decisions, and more.",
+  "categories": [
+    "Smart Contract Platform",
+    "Optimism Ecosystem",
+    "Layer 2 (L2)",
+    "Paradigm Portfolio",
+    "Rollup",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI Layer 2 Index",
+    "GMCI Index",
+    "Optimism Superchain Ecosystem",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.optimism.io",
+    "github": "https://github.com/ethereum-optimism/optimism",
+    "reddit": null,
+    "explorer": "https://optimistic.etherscan.io/token/0x4200000000000000000000000000000000000042"
+  },
   "market": {
-    "price": 0.113971,
-    "marketCap": 241418870,
+    "price": 0.113871,
+    "marketCap": 241081513,
     "marketCapRank": 148,
-    "volume24h": 43686762,
-    "priceChange24h": -3.56314,
+    "volume24h": 43419940,
+    "high24h": 0.117367,
+    "low24h": 0.113242,
+    "priceChange24h": -2.4713,
+    "priceChange7d": -13.42155,
+    "priceChange30d": -13.52289,
+    "priceChange1y": -86.82798,
     "ath": 4.84,
-    "athChangePercentage": -97.65054,
+    "athChangePercentage": -97.649,
     "athDate": "2024-03-06T08:35:50.817Z",
     "atl": 0.10959,
     "atlDate": "2026-02-28T10:15:27.296Z",
     "circulatingSupply": 2117847344,
     "totalSupply": 4294967296,
-    "maxSupply": 4294967296
+    "maxSupply": 4294967296,
+    "fdv": 488910221
   },
-  "lastMarketUpdate": "2026-03-23T07:40:49.799Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T08:12:11.498Z"
 }
