@@ -29,22 +29,22 @@
     "explorer": "https://solscan.io/"
   },
   "market": {
-    "price": 90.1,
-    "marketCap": 51535907054,
+    "price": 90.62,
+    "marketCap": 51723314139,
     "marketCapRank": 7,
-    "volume24h": 4138726314,
+    "volume24h": 4228461865,
     "high24h": 90.83,
     "low24h": 85.32,
-    "priceChange24h": 3.01331,
+    "priceChange24h": 3.9776,
     "priceChange7d": -3.91623,
     "priceChange30d": 5.6771,
     "priceChange1y": -32.2386,
     "ath": 293.31,
-    "athChangePercentage": -69.28177,
+    "athChangePercentage": -69.10481,
     "athDate": "2025-01-19T11:15:27.957Z",
     "atl": 0.500801,
     "atlDate": "2020-05-11T19:35:23.449Z",
-    "circulatingSupply": 572137186.5113177,
+    "circulatingSupply": 572137171.3170108,
     "totalSupply": 572137302.1404707,
     "maxSupply": null,
     "fdv": 51535917469
@@ -58,5 +58,6 @@
     "githubForks": 3516,
     "commits4Weeks": 171
   },
-  "fetchedAt": "2026-03-23T13:23:42.862Z"
+  "fetchedAt": "2026-03-23T13:23:42.862Z",
+  "lastMarketUpdate": "2026-03-23T13:45:12.610Z"
 }
