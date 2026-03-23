@@ -2,20 +2,53 @@
   "id": "zano",
   "symbol": "zano",
   "name": "Zano",
+  "description": "What is Zano?\nZano is an open-source cryptocurrency (layer-1) and ecosystem with enterprise-grade\nprivacy, security, and scalability that operates as a robust platform for confidential\nassets and decentralized applications (dApps). \n\nConfidential Assets\nAnyone can easily issue user-creatable privacy tokens on the Zano chain; assets\nsecured by the same mechanisms that make Zano so much more secure than\nfirst-generation cryptocurrencies, namely because of hidden addresses and hidden\namounts. This unique technology can be used to create private stablecoins, shielded\nversions of existing assets, and much more, without the overhead of having to create,\nmanage, and secure your own blockchain. \n\nUntraceable Transactions with hidden amounts\nThe transactions between Zano network members are made untraceable with the help of several technologies, most importantly d/v-CLSAG Ring Signatures and Stealth Addresses. Also, the way transaction data is stored on the blockchain allows access by parties who authorized the transactions only, and none of the private data is ever publicly published. A secure scheme with a set of proofs allows for the concealment of the amount of coins\ntransferred. The Bulletproofs+ technology is used for these proofs, enabling the\ncreation of both performance-eective and size-eective proofs. \n\nBurning of all fees\nOn Zano, all network fees are being burned. With enough network usage, the daily fee\nburning could surpass the emission from block rewards, resulting in supply becoming\ndeflationary over time. This combination of small, minimalistic daily emissions, together with daily burns, results in little to no sell pressure on the exchanges.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Stake (PoS)",
+    "Proof of Work (PoW)",
+    "Zano Ecosystem",
+    "Privacy Blockchain",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zano.org",
+    "github": "https://github.com/hyle-team/zano",
+    "reddit": "https://www.reddit.com/r/Zano",
+    "explorer": "https://explorer.zano.org/"
+  },
   "market": {
     "price": 9.54,
-    "marketCap": 146010486,
-    "marketCapRank": 211,
-    "volume24h": 1761089,
-    "priceChange24h": -3.52074,
+    "marketCap": 145142694,
+    "marketCapRank": 212,
+    "volume24h": 1864260,
+    "high24h": 9.91,
+    "low24h": 9.27,
+    "priceChange24h": -2.79293,
+    "priceChange7d": 64.56735,
+    "priceChange30d": 7.15437,
+    "priceChange1y": 31.5886,
     "ath": 17.81,
-    "athChangePercentage": -46.13912,
+    "athChangePercentage": -46.4482,
     "athDate": "2025-01-07T14:41:15.393Z",
     "atl": 0.146452,
     "atlDate": "2019-12-16T19:21:13.626Z",
     "circulatingSupply": 15209336.59,
-    "totalSupply": 15210464.96,
-    "maxSupply": null
+    "totalSupply": 15210532.01,
+    "maxSupply": null,
+    "fdv": 145154101
   },
-  "lastMarketUpdate": "2026-03-23T18:08:55.611Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:46:17.527Z"
 }

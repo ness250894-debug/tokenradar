@@ -206,8 +206,19 @@ function ensureContentDir(tokenId: string): string {
   return dir;
 }
 
-function isMissing(filePath: string): boolean {
-  return !fs.existsSync(filePath);
+function isStale(filePath: string, maxAgeDays: number): boolean {
+  if (!fs.existsSync(filePath)) return true;
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    if (!data.generatedAt) return true;
+    
+    const diffMs = Date.now() - new Date(data.generatedAt).getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    return diffDays >= maxAgeDays;
+  } catch (e) {
+    return true; // Treat corrupt/unparseable files as stale
+  }
 }
 
 // ── Main ───────────────────────────────────────────────────────
@@ -266,9 +277,9 @@ async function main() {
 
     let needsGeneration = false;
     if (targetType) {
-      needsGeneration = isMissing(path.join(CONTENT_DIR, id, `${targetType}.json`));
+      needsGeneration = isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30);
     } else {
-      needsGeneration = isMissing(overviewPath) || isMissing(pricePath) || isMissing(howToBuyPath);
+      needsGeneration = isStale(overviewPath, 30) || isStale(pricePath, 30) || isStale(howToBuyPath, 30);
     }
 
     if (needsGeneration || args.includes("--force")) {
@@ -288,7 +299,7 @@ async function main() {
     if (tgeTokensToProcess.includes(tge.id)) continue;
 
     const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
-    if (isMissing(tgePath) || args.includes("--force")) {
+    if (isStale(tgePath, 7) || args.includes("--force")) {
       tgeTokensToProcess.push(tge.id);
     }
     if (tgeTokensToProcess.length >= maxTgeTokens) break;
@@ -303,8 +314,8 @@ async function main() {
 
       const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
       const needsGeneration = targetType 
-        ? isMissing(path.join(CONTENT_DIR, id, `${targetType}.json`))
-        : isMissing(overviewPath);
+        ? isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30)
+        : isStale(overviewPath, 30);
 
       if (needsGeneration || args.includes("--force")) {
         tokensToProcess.push(id);
@@ -330,7 +341,8 @@ async function main() {
 
   let totalArticles = 0;
   let totalCost = 0;
-  const generatedTokens = new Set<string>();
+  const generatedRegularTokens = new Set<string>();
+  const generatedTgeTokens = new Set<string>();
 
   for (const { id: tokenId, isTge } of allTokensToProcess) {
     // 1. Load data
@@ -450,7 +462,7 @@ async function main() {
       }
 
       // Skip if already generated recently
-      if (fs.existsSync(outputFile) && !isMissing(outputFile) && !args.includes("--force")) {
+      if (fs.existsSync(outputFile) && !isStale(outputFile, isTge ? 7 : 30) && !args.includes("--force")) {
         console.log(`  ⏭ ${config.type} — generated recently (use --force to overwrite)`);
         continue;
       }
@@ -514,7 +526,11 @@ async function main() {
 
         fs.writeFileSync(outputFile, JSON.stringify(article, null, 2));
         totalArticles++;
-        generatedTokens.add(tokenId);
+        if (isTge) {
+          generatedTgeTokens.add(tokenId);
+        } else {
+          generatedRegularTokens.add(tokenId);
+        }
         console.log(
           ` ✓ ${wordCount} words ($${result.cost.toFixed(4)})`
         );
@@ -533,9 +549,19 @@ async function main() {
   if (totalArticles > 0 && !dryRun) {
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tokenradar.co';
-      const links = Array.from(generatedTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\n');
       
-      const message = `🚀 *Hourly Content Generation Complete*\n\nGenerated ${totalArticles} articles across ${generatedTokens.size} tokens.\n\n*Tokens Covered:*\n${links}`;
+      let message = `🚀 *Hourly Content Generation Complete*\\n\\nGenerated ${totalArticles} articles.`;
+      
+      if (generatedRegularTokens.size > 0) {
+        const regularLinks = Array.from(generatedRegularTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\\n');
+        message += `\\n\\n*Tokens Covered:*\\n${regularLinks}`;
+      }
+
+      if (generatedTgeTokens.size > 0) {
+        const tgeLinks = Array.from(generatedTgeTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\\n');
+        message += `\\n\\n*Upcoming TGEs:* (Pre-Launch)\\n${tgeLinks}`;
+      }
+      
       fs.writeFileSync(alertFile, message);
       console.log(`  [TELEMETRY] Saved hourly generation report payload to disk for post-deployment dispatch.`);
     } catch (e) {

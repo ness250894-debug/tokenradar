@@ -2,20 +2,48 @@
   "id": "xdce-crowd-sale",
   "symbol": "xdc",
   "name": "XDC Network",
+  "description": "XDC Network is an enterprise-ready hybrid Blockchain technology company optimized for international trade and finance. The XDC Network is powered by the native coin called XDC. The XDC protocol is architected to support smart contracts, 2000TPS, 2seconds transaction time, KYC to Masternodes (Validator Nodes). The XDC Chain (XinFin Digital Contract) uses XinFin Delegated Proof of Stake (XDPoS), with the intending to create a ‘highly-scalable, secure, permission, and commercial grade’ blockchain network. XinFin mainnet token XDC and also creates an opportunity to utilize the XinFin’s real-world use-cases such as TradeFinex.org, helps small and medium businesses or institutions originate their own financial requirements in a digital, fully structured manner so that they can distribute it to the bank or non-bank funders themselves using a common distribution standard. ",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://xinfin.org",
+    "github": "https://github.com/XinFinOrg/XDPoSChain",
+    "reddit": "https://www.reddit.com/r/xinfin/",
+    "explorer": "https://explorer.xinfin.network"
+  },
   "market": {
-    "price": 0.03205232,
-    "marketCap": 637633869,
+    "price": 0.03185611,
+    "marketCap": 635191579,
     "marketCapRank": 87,
-    "volume24h": 20679519,
-    "priceChange24h": 3.05699,
+    "volume24h": 16485432,
+    "high24h": 0.03225233,
+    "low24h": 0.0303112,
+    "priceChange24h": 2.62657,
+    "priceChange7d": -3.73548,
+    "priceChange30d": -10.34323,
+    "priceChange1y": -55.6914,
     "ath": 0.192754,
-    "athChangePercentage": -83.39781,
+    "athChangePercentage": -83.46779,
     "athDate": "2021-08-21T04:39:48.324Z",
     "atl": 0.00039532,
     "atlDate": "2019-07-22T00:00:00.000Z",
     "circulatingSupply": 19939396101.72,
     "totalSupply": 38058410980.05,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 1212392896
   },
-  "lastMarketUpdate": "2026-03-23T18:08:55.574Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 1,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:46:04.851Z"
 }
