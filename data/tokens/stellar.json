@@ -2,45 +2,52 @@
   "id": "stellar",
   "symbol": "xlm",
   "name": "Stellar",
-  "description": "",
-  "categories": [],
+  "description": "The Stellar network is an open source, distributed, and community owned network used to facilitate cross-asset transfers of value. Stellar aims to help facilitate cross-asset transfer of value at a fraction of a penny while aiming to be an open financial system that gives people of all income levels access to low-cost financial services. Stellar can handle exchanges between fiat-based currencies and between cryptocurrencies. Stellar.org, the organization that supports Stellar, is centralized like XRP and meant to handle cross platform transactions and micro transactions like XRP. However, unlike Ripple, Stellar.org is non-profit and their platform itself is open source and decentralized. \n\nStellar was founded by Jed McCaleb in 2014. Jed McCaleb is also the founder of Mt. Gox and co-founder of Ripple, launched the network system Stellar with former lawyer Joyce Kim. Stellar is also a payment technology that aims to connect financial institutions and drastically reduce the cost and time required for cross-border transfers. In fact, both payment networks used the same protocol initially.\n\nDistributed Exchange\nThrough the use of its intermediary currency Lumens (XLM), a user can send any currency that they own to anyone else in a different currency.\n\nFor instance, if Joe wanted to send USD to Mary using her EUR, an offer is submitted to the distributed exchange selling USD for EUR. This submitted offer forms is known as an order book. The network will use the order book to find the best exchange rate for the transaction in-order to minimize the fee paid by a user.\n\nThis multi-currency transaction is possible because of \"Anchors\". Anchors are trusted entities that hold people’s deposits and can issue credit. In essence, Anchors serves as the bridge between different currencies and the Stellar network.\n\nLumens (XLM)\nLumens are the native asset (digital currency) that exist on the Stellar network that helps to facilitate multi-currency transactions and prevent spams. For multi-currency transactions, XLM is the digital intermediary that allows for such a transaction to occur at a low cost.\n\nIn-order to prevent DoS attacks (aka spams) that would inevitably occur on the Stellar network, a small fee of 0.00001 XLM is associated with every transaction that occurs on the network. This fee is small enough so it does not significantly affect the cost of transaction, but large enough so it dissuades bad actors from spamming the network. \n\nPrior to Protocol 12, Stellar had a built-in inflation mechanism conceived to allow account holders to collectively direct inflation-generated lumens toward projects built on Stellar.\n\nAs the network evolved and grew, it became increasingly clear that inflation wasn’t working as intended — account holders either didn’t set their inflation destination or joined inflation pools to claim the inflation themselves, and the operational costs associated with inflation payments continued to rise — and so a protocol change to disable in... [truncated]",
+  "categories": [
+    "Smart Contract Platform",
+    "Real World Assets (RWA)",
+    "Stellar Ecosystem",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://www.stellar.org/",
+    "github": "https://github.com/stellar/stellar-core",
+    "reddit": "https://www.reddit.com/r/stellar",
+    "explorer": "https://dashboard.stellar.org/"
   },
   "market": {
-    "price": 0.162182,
-    "marketCap": 5356538375,
+    "price": 0.163564,
+    "marketCap": 5398269667,
     "marketCapRank": 21,
-    "volume24h": 122323612,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 2.11877,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 128629953,
+    "high24h": 0.163813,
+    "low24h": 0.155433,
+    "priceChange24h": 2.39332,
+    "priceChange7d": -5.09964,
+    "priceChange30d": 0.40844,
+    "priceChange1y": -41.51363,
     "ath": 0.875563,
-    "athChangePercentage": -81.37961,
+    "athChangePercentage": -81.34334,
     "athDate": "2018-01-03T00:00:00.000Z",
     "atl": 0.00047612,
     "atlDate": "2015-03-05T00:00:00.000Z",
-    "circulatingSupply": 33011210580.72465,
+    "circulatingSupply": 33011210290.67225,
     "totalSupply": 50001786883.65895,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 8176711095
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 3118,
+    "githubForks": 969,
+    "commits4Weeks": 86
   },
-  "fetchedAt": "2026-03-15T10:11:56.499Z",
-  "lastMarketUpdate": "2026-03-23T11:58:07.619Z"
+  "fetchedAt": "2026-03-23T13:38:30.159Z"
 }

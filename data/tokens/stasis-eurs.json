@@ -2,20 +2,51 @@
   "id": "stasis-eurs",
   "symbol": "eurs",
   "name": "STASIS EURO",
+  "description": "EURS token is a virtual financial asset that is designed to digitally mirror the EURO on the condition that its value is tied to the value of its collateral.\n\nDownload STASIS Stablecoin wallet: Android: https://play.google.com/store/apps/details?id=com.stasis.stasiswallet iOS: https://itunes.apple.com/app/stasis-wallet/id1371949230",
+  "categories": [
+    "Stablecoins",
+    "EUR Stablecoin",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://stasis.net/",
+    "github": "https://github.com/STASISNET/STASIS-EURS-token-smart-contract",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdb25f211ab05b1c97d595516f45794528a807ad8"
+  },
   "market": {
-    "price": 1.24,
-    "marketCap": 154355934,
-    "marketCapRank": 201,
-    "volume24h": 8389.17,
-    "priceChange24h": 2.60096,
+    "price": 1.23,
+    "marketCap": 153138610,
+    "marketCapRank": 202,
+    "volume24h": 9026.31,
+    "high24h": 1.25,
+    "low24h": 1.041,
+    "priceChange24h": 0.1893,
+    "priceChange7d": 0.6246,
+    "priceChange30d": -2.9625,
+    "priceChange1y": 12.91703,
     "ath": 1.79,
-    "athChangePercentage": -30.19198,
+    "athChangePercentage": -31.07488,
     "athDate": "2023-03-14T12:00:06.279Z",
     "atl": 0.632498,
     "atlDate": "2026-02-13T22:12:11.988Z",
     "circulatingSupply": 124125940,
     "totalSupply": 124125940,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 153138610
   },
-  "lastMarketUpdate": "2026-03-23T11:58:07.721Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 12,
+    "githubForks": 9,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:36:30.517Z"
 }

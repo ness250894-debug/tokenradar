@@ -2,20 +2,55 @@
   "id": "spx6900",
   "symbol": "spx",
   "name": "SPX6900",
+  "description": "SPX6900 is an advanced blockchain cryptography token coin capable of limitless possibilities and scientific utilization.",
+  "categories": [
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Meme",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Bridged-Tokens",
+    "Murad Picks",
+    "Stock market-themed",
+    "4chan-Themed",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.spx6900.com",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/spx6900",
+    "explorer": "https://etherscan.io/token/0xe0f63a424a4439cbe457d80e4f4b51ad25b2c56c"
+  },
   "market": {
-    "price": 0.301065,
-    "marketCap": 280037213,
+    "price": 0.302948,
+    "marketCap": 282041277,
     "marketCapRank": 136,
-    "volume24h": 6409752,
-    "priceChange24h": 3.92551,
+    "volume24h": 6702675,
+    "high24h": 0.311549,
+    "low24h": 0.284755,
+    "priceChange24h": 3.16289,
+    "priceChange7d": -9.22697,
+    "priceChange30d": -6.37461,
+    "priceChange1y": -41.88681,
     "ath": 2.27,
-    "athChangePercentage": -86.63057,
+    "athChangePercentage": -86.66102,
     "athDate": "2025-07-28T11:24:33.852Z",
     "atl": 0.00131808,
     "atlDate": "2024-02-04T19:12:19.110Z",
     "circulatingSupply": 930993080.908372,
     "totalSupply": 930993080.908372,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 282041277
   },
-  "lastMarketUpdate": "2026-03-23T11:58:07.687Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:30:57.472Z"
 }

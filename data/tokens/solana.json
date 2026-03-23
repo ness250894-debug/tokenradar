@@ -2,45 +2,61 @@
   "id": "solana",
   "symbol": "sol",
   "name": "Solana",
-  "description": "",
-  "categories": [],
+  "description": "Solana is a high-performance Layer 1 blockchain designed for mass adoption by providing a fast, secure, and low-cost environment for decentralized applications. It distinguishes itself by scaling globally without the use of complex sharding or multiple layers, instead maintaining a single, unified ledger to avoid liquidity fragmentation. This architecture allows it to process thousands of transactions per second with sub-second finality, often at a cost of less than a penny per transaction.\n\nThe network operates on a unique hybrid model that combines Proof of Stake with an innovation called Proof of History, which functions as a decentralized clock to timestamp transactions. This system reduces the need for constant node communication, allowing the Sealevel engine to run non-conflicting smart contracts in parallel across multiple CPU cores. Further efficiency is gained through the Gulf Stream protocol, which reduces confirmation times by forwarding transactions to validators before the current block is finished.\n\nFounded in 2017 by Anatoly Yakovenko, Solana is now supported by the Switzerland-based Solana Foundation and significant institutional investors like Andreessen Horowitz and Polychain Capital. The platform’s native token, SOL, serves as the primary currency for paying transaction fees, participating in network governance, and securing the system through staking. \n\nSolana has also seen significant institutional adoption ranging from spot Solana ETFs to major partnerships including Visa's 2025 launch of USDC settlement on the network and the tokenization of public equity by firms like Galaxy Digital.",
+  "categories": [
+    "Smart Contract Platform",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "FTX Holdings",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Alameda Research Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "Delphi Ventures Portfolio",
+    "GMCI Index",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "CoinList Launchpad"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://solana.com/",
+    "github": "https://github.com/solana-labs/solana",
+    "reddit": "https://www.reddit.com/r/solana",
+    "explorer": "https://solscan.io/"
   },
   "market": {
-    "price": 89.26,
-    "marketCap": 51119067106,
+    "price": 90.1,
+    "marketCap": 51535907054,
     "marketCapRank": 7,
-    "volume24h": 3790695295,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 2.48566,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 4138726314,
+    "high24h": 90.83,
+    "low24h": 85.32,
+    "priceChange24h": 3.01331,
+    "priceChange7d": -3.91623,
+    "priceChange30d": 5.6771,
+    "priceChange1y": -32.2386,
     "ath": 293.31,
-    "athChangePercentage": -69.56798,
+    "athChangePercentage": -69.28177,
     "athDate": "2025-01-19T11:15:27.957Z",
     "atl": 0.500801,
     "atlDate": "2020-05-11T19:35:23.449Z",
-    "circulatingSupply": 572137257.2528116,
+    "circulatingSupply": 572137186.5113177,
     "totalSupply": 572137302.1404707,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 51535917469
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 11071,
+    "githubForks": 3516,
+    "commits4Weeks": 171
   },
-  "fetchedAt": "2026-03-15T10:11:56.491Z",
-  "lastMarketUpdate": "2026-03-23T11:58:07.612Z"
+  "fetchedAt": "2026-03-23T13:23:42.862Z"
 }

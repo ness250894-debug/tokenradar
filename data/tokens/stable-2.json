@@ -2,20 +2,51 @@
   "id": "stable-2",
   "symbol": "stable",
   "name": "​​Stable",
+  "description": "Stable is the first Layer 1 blockchain purpose-built for the USDT ecosystem, leveraging USDT as the native gas token to remove friction from volatile gas fees. Optimized for speed, scalability, and compliance, Stable enables seamless integration for payment processors, DeFi, RWA, fintechs, and enterprises. With instant settlement, low-cost cross-border transfers, and enterprise-ready infrastructure, it delivers a user-friendly environment that enhances capital efficiency and drives global adoption.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Payment Solutions",
+    "Stable Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.stable.xyz/",
+    "github": "https://github.com/stablelabs/stable/",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x011EBe7d75E2C9D1E0bD0be0bEf5C36f0A90075F"
+  },
   "market": {
-    "price": 0.02477155,
-    "marketCap": 523270465,
+    "price": 0.02472226,
+    "marketCap": 522326712,
     "marketCapRank": 97,
-    "volume24h": 15341710,
-    "priceChange24h": -3.92207,
+    "volume24h": 16002968,
+    "high24h": 0.02595048,
+    "low24h": 0.02435613,
+    "priceChange24h": -4.53895,
+    "priceChange7d": -11.08533,
+    "priceChange30d": -17.02759,
+    "priceChange1y": 0,
     "ath": 0.0388874,
-    "athChangePercentage": -36.14061,
+    "athChangePercentage": -36.69997,
     "athDate": "2026-02-27T01:55:43.571Z",
     "atl": 0.0092214,
     "atlDate": "2025-12-24T05:49:32.232Z",
-    "circulatingSupply": 21125834019,
+    "circulatingSupply": 21127790123,
     "totalSupply": 100000000000,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 2472225959
   },
-  "lastMarketUpdate": "2026-03-23T11:58:07.662Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:32:44.115Z"
 }

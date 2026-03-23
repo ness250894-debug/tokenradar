@@ -2,20 +2,49 @@
   "id": "sonic-3",
   "symbol": "s",
   "name": "Sonic",
+  "description": "Sonic is the highest-performing EVM L1, combining speed, incentives, and world-class infrastructure, powering the next generation of DeFi applications. The chain provides 400,000 TPS and sub-second finality.\n\nSonic's Fee Monetization (FeeM) program rewards developers with up to 90% of the fees their apps generate, adapting the Web2 ad-revenue model to a decentralized framework. Developers now directly profit from their app's traffic and user engagement.\n\nFurthermore, the Sonic Gateway provides developers and users with seamless access to vast liquidity through a native, secure bridge connected to Ethereum. With a unique fail-safe mechanism, it ensures your assets are protected in all circumstances.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Galaxy Digital Portfolio",
+    "Sonic Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://soniclabs.com",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/0xSonic",
+    "explorer": "https://sonicscan.org/"
+  },
   "market": {
-    "price": 0.04358812,
-    "marketCap": 164834286,
+    "price": 0.04367602,
+    "marketCap": 165269774,
     "marketCapRank": 194,
-    "volume24h": 15239341,
-    "priceChange24h": 3.29902,
+    "volume24h": 16020100,
+    "high24h": 0.04400555,
+    "low24h": 0.04152239,
+    "priceChange24h": 2.70998,
+    "priceChange7d": -13.95153,
+    "priceChange30d": -2.14152,
+    "priceChange1y": -91.80503,
     "ath": 1.029,
-    "athChangePercentage": -95.75111,
+    "athChangePercentage": -95.7581,
     "athDate": "2025-01-04T21:35:44.705Z",
     "atl": 0.03683683,
     "atlDate": "2026-02-28T10:16:30.456Z",
     "circulatingSupply": 3784775845,
     "totalSupply": 3885497663,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 169667993
   },
-  "lastMarketUpdate": "2026-03-23T11:58:07.720Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:25:22.082Z"
 }

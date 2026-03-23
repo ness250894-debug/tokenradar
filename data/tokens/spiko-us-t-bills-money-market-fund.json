@@ -2,12 +2,36 @@
   "id": "spiko-us-t-bills-money-market-fund",
   "symbol": "ustbl",
   "name": "Spiko US T-Bills Money Market Fund",
+  "description": "The Spiko US T-Bills Money Market Fund is a fully licensed USD money market fund operating under the EU regulatory framework. The fund exclusively invests in United States Treasury Bills with maturities of less than six months, maintaining an average portfolio maturity of no more than two months. Approved by the French Financial Markets Authority, the Spiko US T-Bills Money Market Fund is accessible to all types of investors, both professional and non-professional.",
+  "categories": [
+    "Tokenized Assets",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Starknet Ecosystem",
+    "Tokenized Treasury Bills (T-Bills)",
+    "Etherlink Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.spiko.xyz",
+    "github": "https://github.com/spiko-tech/contracts",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe4880249745eac5f1ed9d8f7df844792d560e750"
+  },
   "market": {
     "price": 1.078,
     "marketCap": 194373422,
-    "marketCapRank": 173,
+    "marketCapRank": 172,
     "volume24h": 49.95,
+    "high24h": 1.078,
+    "low24h": 1.078,
     "priceChange24h": 0,
+    "priceChange7d": 0.05952,
+    "priceChange30d": 0.26124,
+    "priceChange1y": 3.83826,
     "ath": 1.078,
     "athChangePercentage": 0,
     "athDate": "2026-03-20T17:40:05.738Z",
@@ -15,7 +39,17 @@
     "atlDate": "2024-08-20T07:05:13.591Z",
     "circulatingSupply": 180363673.40581,
     "totalSupply": 180363673.40581,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 194373422
   },
-  "lastMarketUpdate": "2026-03-23T11:58:07.707Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 13,
+    "githubForks": 2,
+    "commits4Weeks": 5
+  },
+  "fetchedAt": "2026-03-23T13:28:57.459Z"
 }
