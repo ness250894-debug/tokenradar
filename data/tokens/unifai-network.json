@@ -2,20 +2,50 @@
   "id": "unifai-network",
   "symbol": "uai",
   "name": "UnifAI Network",
+  "description": "UnifAI is an Infrastructure of autonomous AI agents that simplifies DeFi for users and developers alike. For end-users, UnifAI executes strategies on their behalf, allowing them to benefit from DeFi opportunities without being online constantly or needing deep technical knowledge. For developers and projects, UniFAI provides a modular, secure, and interoperable infrastructure to build, deploy, and scale AI agents across DeFi protocols.\n\nUnifAI empowers agents to go beyond static, predefined functions: they can discover, compose, and execute tools at runtime, making them adaptive, autonomous, and powerful.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Binance Alpha Spotlight",
+    "AI Framework",
+    "Prediction Market Tools"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://chat.unifai.network/",
+    "github": "https://github.com/unifai-network",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x3E5d4f8aee0D9B3082d5f6DA5D6e225D17ba9ea0"
+  },
   "market": {
-    "price": 0.569879,
-    "marketCap": 135861847,
-    "marketCapRank": 218,
-    "volume24h": 11722335,
-    "priceChange24h": 36.5601,
+    "price": 0.228501,
+    "marketCap": 54740910,
+    "marketCapRank": 415,
+    "volume24h": 16687220,
+    "high24h": 0.325904,
+    "low24h": 0.228757,
+    "priceChange24h": -23.11467,
+    "priceChange7d": -43.96054,
+    "priceChange30d": -5.87373,
+    "priceChange1y": 0,
     "ath": 0.609072,
-    "athChangePercentage": -5.87264,
+    "athChangePercentage": -62.39054,
     "athDate": "2026-03-19T22:01:18.151Z",
     "atl": 0.06003,
     "atlDate": "2025-11-06T23:21:15.592Z",
     "circulatingSupply": 239000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 229041465
   },
-  "lastMarketUpdate": "2026-03-20T07:15:07.184Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:47:28.329Z"
 }

@@ -2,20 +2,49 @@
   "id": "tokenize-xchange",
   "symbol": "tkx",
   "name": "Tokenize Xchange",
+  "description": "Tokenize Xchange is a fully integrated cryptocurrency exchange that offers both individuals and institutional investors a frictionless and un-sophisticated user experience. The platform will serve as not only a financial tool but also as an educational and communal instrument in proliferating the values and ideas that the blockchain has to offer. The TKX token can be used to pay transaction fees for any trades on the platform, doing so will allow for significant reductions in the fees.\n\nThe TKX token is an ERC20 token based on the Ethereum blockchain. ",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Titanchain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tokenize.exchange/",
+    "github": null,
+    "reddit": null,
+    "explorer": "http://etherscan.io/token/0x667102bd3413bfeaa3dffb48fa8288819e480a88"
+  },
   "market": {
-    "price": 1.41,
-    "marketCap": 112431586,
+    "price": 1.4,
+    "marketCap": 111620183,
     "marketCapRank": 249,
-    "volume24h": 7715.97,
-    "priceChange24h": 3.15529,
+    "volume24h": 7657.04,
+    "high24h": 1.42,
+    "low24h": 1.35,
+    "priceChange24h": 2.33875,
+    "priceChange7d": -3.2274,
+    "priceChange30d": 4.76608,
+    "priceChange1y": -96.00691,
     "ath": 50.43,
-    "athChangePercentage": -97.21732,
+    "athChangePercentage": -97.22044,
     "athDate": "2025-01-03T19:12:43.038Z",
     "atl": 0.111255,
     "atlDate": "2019-04-28T00:00:00.000Z",
     "circulatingSupply": 79995997.76037452,
     "totalSupply": 100000000,
-    "maxSupply": 100000000
+    "maxSupply": 100000000,
+    "fdv": 139532210
   },
-  "lastMarketUpdate": "2026-03-23T15:04:45.341Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:35:45.634Z"
 }

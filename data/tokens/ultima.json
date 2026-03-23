@@ -2,20 +2,47 @@
   "id": "ultima",
   "symbol": "ultima",
   "name": "Ultima",
+  "description": "Ultima (ULTIMA) is the infrastructure token of the Ultima ecosystem. \nThis cryptocurrency is based on an easily scalable Smart Blockchain that runs on the DPoS (Delegated Proof of Stake) consensus algorithm.\n\nThe Smart Blockchain network is known by its unique throughput — it can conduct up to 2000 transactions per second. Moreover, the network creates a new block every three seconds and has low transaction costs. All these factors make ULTIMA a perfect digital currency for making daily transactions around the globe.\n\nRight now, the Ultima ecosystem includes a number of innovative blockchain products, such as DeFi-U, a technology that allows users to receive staking rewards in Ultima tokens, and a marketplace.\n\nThe Ultima technical team, which has over twenty years of experience in the blockchain industry, is actively working on launching a physical crypto debit card, crypto exchange, and travel and crowdfunding platforms. \n\nULTIMA was first launched in March 2023. Currently, the project community has reached more than 2.8 million users from 120 countries.\n\nMission:\n\nTo become the world's most widespread digital currency and an ecosystem accessible to everyone in the crypto space.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Payment Solutions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ultima.io/en/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://smartexplorer.com/token20/sWd6JcnEA3QJdh3zK1NHchyU2j4cEsiUdi"
+  },
   "market": {
-    "price": 3932.11,
-    "marketCap": 148972004,
-    "marketCapRank": 208,
-    "volume24h": 11700444,
-    "priceChange24h": 1.44549,
+    "price": 3936.18,
+    "marketCap": 148764100,
+    "marketCapRank": 205,
+    "volume24h": 10532472,
+    "high24h": 3963.78,
+    "low24h": 3838.94,
+    "priceChange24h": 2.21354,
+    "priceChange7d": -4.56539,
+    "priceChange30d": -31.55261,
+    "priceChange1y": -81.55598,
     "ath": 22851,
-    "athChangePercentage": -82.72122,
+    "athChangePercentage": -82.79357,
     "athDate": "2025-02-14T11:01:57.263Z",
     "atl": 2038.41,
     "atlDate": "2024-06-12T10:32:42.600Z",
     "circulatingSupply": 37772.135734,
     "totalSupply": 100000,
-    "maxSupply": 100000
+    "maxSupply": 100000,
+    "fdv": 393846144
   },
-  "lastMarketUpdate": "2026-03-23T15:04:45.320Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:46:01.234Z"
 }

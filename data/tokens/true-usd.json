@@ -2,20 +2,53 @@
   "id": "true-usd",
   "symbol": "tusd",
   "name": "TrueUSD",
+  "description": "TUSD is the first digital asset with live on-chain attestations by independent third-party institutions and is backed 1:1 with the U.S. dollar (USD). So far, it has been listed on more than 100 trading platforms such as Binance and Huobi and is live on 12 mainstream public chains, including Ethereum, TRON, Avalanche, BSC, Fantom, and Polygon. TrueUSD is attested to in real-time by an independent, industry-specialized accounting firm in the U.S., to ensure the 1:1 ratio of its USD reserve to the circulating token supply and the 100% collateral rate. With the integration of Chainlink PoR, TrueUSD becomes the first USD-Backed stablecoin to secure minting and further ensure transparency and reliability. Users can access the relevant data via the official website tusd.io at any time. TUSD is granted statutory status as authorized digital currency and medium of exchange in the Commonwealth of Dominica, a country in the Caribbean, effective on October 7th 2022.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": "2018-03-05",
+  "links": {
+    "website": "https://tusd.io/",
+    "github": "https://github.com/trusttoken/trueUSD",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x0000000000085d4780b73119b644ae5ecd22b376"
+  },
   "market": {
-    "price": 0.999517,
-    "marketCap": 493994101,
+    "price": 0.999066,
+    "marketCap": 494188323,
     "marketCapRank": 101,
-    "volume24h": 8505663,
-    "priceChange24h": 0.02136,
+    "volume24h": 7614735,
+    "high24h": 1,
+    "low24h": 0.998064,
+    "priceChange24h": -0.03193,
+    "priceChange7d": -0.09343,
+    "priceChange30d": -0.04345,
+    "priceChange1y": -0.03561,
     "ath": 1.62,
-    "athChangePercentage": -38.27245,
+    "athChangePercentage": -38.23635,
     "athDate": "2018-08-26T20:41:09.375Z",
     "atl": 0.88355,
     "atlDate": "2020-03-12T10:47:51.380Z",
     "circulatingSupply": 494515083,
     "totalSupply": 494515083,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 494188323
   },
-  "lastMarketUpdate": "2026-03-23T15:04:45.263Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 320,
+    "githubForks": 131,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:44:38.114Z"
 }

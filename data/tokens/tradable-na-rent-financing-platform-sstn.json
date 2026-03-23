@@ -2,12 +2,30 @@
   "id": "tradable-na-rent-financing-platform-sstn",
   "symbol": "pc0000031",
   "name": "Tradable NA Rent Financing Platform SSTN",
+  "description": "This project, facilitated by Tradable.xyz on ZKsync Era, tokenizes the North America Rent Financing Platform Senior Secured Term Notes issued by Victory Park Capital Advisors. This initiative focuses on a flexible rent financing platform with significant equity raised, forming part of Tradable’s $1.7 billion in tokenized private credit assets. It provides institutional-grade private credit exposure with targeted yields of 8-15.5%. Tradable integrates traditional and decentralized finance, employing smart contracts for AML/KYC compliance to ensure regulatory standards. The platform enhances liquidity and investor access to the $1.4 trillion RWA private credit market, streamlining asset management and due diligence via a user-friendly interface. By leveraging ZKsync’s scalable and secure infrastructure, the project connects existing financial systems to blockchain, enabling broader participation in high-quality rent financing credit investments.",
+  "categories": [
+    "ZkSync Ecosystem",
+    "Real World Assets (RWA)",
+    "Tradable Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tradable.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.zksync.io/address/0xac4de1e9a9e83524f24af77972dd39d588de8164"
+  },
   "market": {
     "price": 1,
     "marketCap": 189500000,
     "marketCapRank": 179,
     "volume24h": 0,
+    "high24h": 1,
+    "low24h": 1,
     "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 189500000,
     "athChangePercentage": -100,
     "athDate": "2025-05-29T03:45:11.051Z",
@@ -15,7 +33,17 @@
     "atlDate": "2025-05-29T08:05:03.426Z",
     "circulatingSupply": 189500000,
     "totalSupply": 189500000,
-    "maxSupply": 400000000
+    "maxSupply": 400000000,
+    "fdv": 189500000
   },
-  "lastMarketUpdate": "2026-03-23T15:04:45.310Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:39:03.555Z"
 }

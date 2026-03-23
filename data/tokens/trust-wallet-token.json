@@ -2,20 +2,49 @@
   "id": "trust-wallet-token",
   "symbol": "twt",
   "name": "Trust Wallet",
+  "description": "Trust Wallet Token (TWT) 511 is a utility token that can only be used within the app. This will be used to incentivize all Trust Wallet users.\n\nWhat are the Incentives of (TWT)?\nGovernance token that will be used by anyone who wants to take part in making decisions for adding new blockchain support, tokens and product features. Will also be collected as fees for submissions to the Trust Wallet repository 59.\n\nDiscounts on DEX services and purchasing crypto within the app.\n\nCollectible Marketplace, anyone interested in trading, selling or buying digital collectibles can utilize the token in a user-friendly environment.\n\nDApp reviews and promotions to incentivize developers to work on DApps that contribute to further adoption of Web 3.0 on mobile devices.\n\nAffiliate and bounty rewards, the token can be converted to BNB or ETH, that can be used for Network Fees.\n\nVouching and User reputation, users will be able to vouch for developers of products they enjoy to show the quality of the product to the rest of the Trust Ecosystem.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Wallets",
+    "Account Abstraction",
+    "Energi Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://trustwallet.com/",
+    "github": "https://github.com/trustwallet/wallet-core",
+    "reddit": "https://www.reddit.com/r/trustapp/",
+    "explorer": "https://explorer.binance.org/asset/twt-8c2"
+  },
   "market": {
-    "price": 0.507167,
-    "marketCap": 211311203,
+    "price": 0.50301,
+    "marketCap": 209620260,
     "marketCapRank": 163,
-    "volume24h": 10513517,
-    "priceChange24h": 3.43672,
+    "volume24h": 10287288,
+    "high24h": 0.508252,
+    "low24h": 0.473042,
+    "priceChange24h": 1.29345,
+    "priceChange7d": -6.95527,
+    "priceChange30d": -5.17934,
+    "priceChange1y": -44.27206,
     "ath": 2.72,
-    "athChangePercentage": -81.40822,
+    "athChangePercentage": -81.49217,
     "athDate": "2022-12-11T23:25:46.205Z",
     "atl": 0.00277641,
     "atlDate": "2020-06-09T09:15:06.983Z",
     "circulatingSupply": 416649900,
     "totalSupply": 1000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 503108868
   },
-  "lastMarketUpdate": "2026-03-23T15:04:45.300Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T15:45:18.725Z"
 }
