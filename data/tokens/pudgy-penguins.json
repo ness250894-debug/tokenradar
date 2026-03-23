@@ -2,20 +2,56 @@
   "id": "pudgy-penguins",
   "symbol": "pengu",
   "name": "Pudgy Penguins",
+  "description": "PENGU is the official coin of Pudgy Penguins.\n\nPudgy Penguins has become the face of crypto with one of the most influential communities in the industry. From large companies wearing the Penguin, to being featured in ETF commercials, to garnering millions of followers and over 100 billion views, the Pengu has become a cultural icon making PENGU the world’s social currency.\n\nPENGU allows for the ever-expanding Pudgy Penguin fanbase and the hundreds of millions of people outside of crypto that see and share the Pudgy Penguin everyday, to join The Huddle. PENGU is a symbol for community, memes, and good vibes.\n\nBelieve in Pengu. Believe in the Prophecy.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Meme",
+    "Ethereum Ecosystem",
+    "Solana Meme",
+    "Binance HODLer Airdrops",
+    "Airdropped Tokens by NFT Projects",
+    "Abstract Ecosystem",
+    "Made in USA",
+    "HyperEVM Ecosystem",
+    "IP Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://pengu.pudgypenguins.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv"
+  },
   "market": {
-    "price": 0.00673398,
-    "marketCap": 423133956,
-    "marketCapRank": 108,
-    "volume24h": 70557023,
-    "priceChange24h": -0.76531,
+    "price": 0.00667447,
+    "marketCap": 419559975,
+    "marketCapRank": 109,
+    "volume24h": 70753162,
+    "high24h": 0.00690137,
+    "low24h": 0.00663937,
+    "priceChange24h": -1.74103,
+    "priceChange7d": -16.52984,
+    "priceChange30d": -4.09013,
+    "priceChange1y": 7.03463,
     "ath": 0.068447,
-    "athChangePercentage": -90.16881,
+    "athChangePercentage": -90.25194,
     "athDate": "2024-12-17T13:05:22.873Z",
     "atl": 0.00371517,
     "atlDate": "2025-04-09T01:31:57.832Z",
     "circulatingSupply": 62860396090,
     "totalSupply": 79751055026.94424,
-    "maxSupply": 88888888888
+    "maxSupply": 88888888888,
+    "fdv": 532296210
   },
-  "lastMarketUpdate": "2026-03-23T08:10:39.080Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T09:26:50.923Z"
 }

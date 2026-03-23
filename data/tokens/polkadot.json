@@ -2,45 +2,61 @@
   "id": "polkadot",
   "symbol": "dot",
   "name": "Polkadot",
-  "description": "",
-  "categories": [],
+  "description": "Polkadot is a platform that allows diverse blockchains to transfer messages, including value, in a trust-free fashion; sharing their unique features while pooling their security. In brief, Polkadot is a scalable heterogeneous multi-chain technology.\n\nPolkadot is heterogeneous because it is entirely flexible and makes no assumption about the nature or structure of the chains in the network. Even non-blockchain systems or data structures can become parachains if they fulfill a set of criteria.\n\nPolkadot may be considered equivalent to a set of independent chains (e.g. a set containing Ethereum, Ethereum Classic, Namecoin and Bitcoin) except with important additions: pooled security and trust-free interchain transactability.\n\nMany of the native parachains of Polkadot will be written using a Polkadot Runtime Environment SDK (e.g. Parity Technologies' Substrate).",
+  "categories": [
+    "Smart Contract Platform",
+    "Polkadot Ecosystem",
+    "BNB Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Proof of Stake (PoS)",
+    "Layer 0 (L0)",
+    "Pantera Capital Portfolio",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "Governance",
+    "Base Native"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://polkadot.com/",
+    "github": "https://github.com/paritytech/polkadot-sdk",
+    "reddit": "https://www.reddit.com/r/Polkadot",
+    "explorer": "https://polkadot.subscan.io/"
   },
   "market": {
-    "price": 1.42,
-    "marketCap": 2374478025,
+    "price": 1.41,
+    "marketCap": 2359008240,
     "marketCapRank": 39,
-    "volume24h": 122631682,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -2.45595,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 121779494,
+    "high24h": 1.45,
+    "low24h": 1.4,
+    "priceChange24h": -3.13056,
+    "priceChange7d": -12.13153,
+    "priceChange30d": 2.82128,
+    "priceChange1y": -68.37967,
     "ath": 54.98,
-    "athChangePercentage": -97.42387,
+    "athChangePercentage": -97.43882,
     "athDate": "2021-11-04T14:10:09.301Z",
     "atl": 1.15,
     "atlDate": "2026-02-06T00:25:45.413Z",
     "circulatingSupply": 1675771116.198511,
     "totalSupply": 1675771116.198511,
     "maxSupply": 2100000000,
-    "fdv": null
+    "fdv": 2359008240
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.510Z",
-  "lastMarketUpdate": "2026-03-23T08:10:39.060Z"
+  "fetchedAt": "2026-03-23T09:22:28.817Z"
 }

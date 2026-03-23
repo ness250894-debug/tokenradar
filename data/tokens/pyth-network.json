@@ -2,20 +2,56 @@
   "id": "pyth-network",
   "symbol": "pyth",
   "name": "Pyth Network",
+  "description": "Pyth Network is a decentralised oracle network designed to provide real-time financial market data to decentralised applications (dApps) across multiple blockchains.\nIt allows developer to secure smart contracts with reliable, low-latency market data from institutional sources, and build apps with high-fidelity oracle feeds designed for mission-critical systems.",
+  "categories": [
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "Oracle",
+    "Analytics",
+    "Solana Ecosystem",
+    "Neon Ecosystem",
+    "Manta Network Ecosystem",
+    "Multicoin Capital Portfolio",
+    "GMCI DeFi Index",
+    "Delphi Ventures Portfolio",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://pyth.network/",
+    "github": "https://github.com/pyth-network/",
+    "reddit": null,
+    "explorer": "https://explorer.solana.com/address/hz1jovnivvgrgniiyveozevgz58xau3rkwx8eacqbct3"
+  },
   "market": {
-    "price": 0.03921927,
-    "marketCap": 225290487,
-    "marketCapRank": 154,
-    "volume24h": 27017224,
-    "priceChange24h": -5.87936,
+    "price": 0.03965696,
+    "marketCap": 227896167,
+    "marketCapRank": 153,
+    "volume24h": 27622431,
+    "high24h": 0.04189025,
+    "low24h": 0.03827411,
+    "priceChange24h": -5.24441,
+    "priceChange7d": -21.20335,
+    "priceChange30d": -27.40432,
+    "priceChange1y": -75.63315,
     "ath": 1.2,
-    "athChangePercentage": -96.72813,
+    "athChangePercentage": -96.6952,
     "athDate": "2024-03-16T07:01:15.357Z",
     "atl": 0.03723073,
     "atlDate": "2026-02-06T00:25:46.101Z",
     "circulatingSupply": 5749982297.080236,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 396342381
   },
-  "lastMarketUpdate": "2026-03-23T08:10:39.098Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T09:29:34.385Z"
 }

@@ -2,20 +2,55 @@
   "id": "pippin",
   "symbol": "pippin",
   "name": "pippin",
+  "description": "Pippin is an SVG unicorn drawn using the latest LLM benchmarks on ChatGPT 4o. It is an autonomous AI agent on X. Pippin was created by Yohei Nakajima, a recognised innovator and thought leader in the Al VC space (followed by Jeff Bezos and Marc Andreessen). He is known for his build-in-public approach and has been at the forefront of the ‘AI for VC’ movement, launching over 100+ AI-driven prototypes, automation agents &amp; open-source projects.\n\nHis most notable build is BabyAGI (March 2023), the first popular open-source autonomous agent with task-planning capability. The project went viral on Twitter amassing millions of impressions and resulting in tens of thousands of GitHub stars, dozens of Arxiv citations, coverage across major online media publications globally, and many speaker engagements including the inaugural TED AI in San Francisco.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "AI Meme",
+    "AI Agents",
+    "Pump.fun Ecosystem",
+    "Binance Alpha Spotlight",
+    "AI Framework"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://pippin.love",
+    "github": "https://github.com/yoheinakajima/pippin_moves",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump"
+  },
   "market": {
-    "price": 0.111955,
-    "marketCap": 111961343,
-    "marketCapRank": 248,
-    "volume24h": 43785879,
-    "priceChange24h": -9.45679,
+    "price": 0.085187,
+    "marketCap": 87078211,
+    "marketCapRank": 292,
+    "volume24h": 26415605,
+    "high24h": 0.104454,
+    "low24h": 0.085509,
+    "priceChange24h": -8.23465,
+    "priceChange7d": -76.77919,
+    "priceChange30d": -82.78253,
+    "priceChange1y": 399.32533,
     "ath": 0.897199,
-    "athChangePercentage": -87.15291,
+    "athChangePercentage": -90.24433,
     "athDate": "2026-02-26T15:35:05.499Z",
     "atl": 0.0055459,
     "atlDate": "2024-12-30T00:02:49.802Z",
-    "circulatingSupply": 999937218.01526,
-    "totalSupply": 999937218.01526,
-    "maxSupply": 1000000000
+    "circulatingSupply": 999937013.862395,
+    "totalSupply": 999937013.862395,
+    "maxSupply": 1000000000,
+    "fdv": 87078211
   },
-  "lastMarketUpdate": "2026-03-19T07:16:54.908Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 15,
+    "githubForks": 3,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T09:17:56.201Z"
 }

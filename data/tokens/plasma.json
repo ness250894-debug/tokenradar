@@ -2,20 +2,51 @@
   "id": "plasma",
   "symbol": "xpl",
   "name": "Plasma",
+  "description": "Plasma is the layer 1 blockchain building the stablecoin infrastructure for a new global financial system. \n\nIt is purpose-built for global stablecoin payments, offering zero-fee USD₮ transfers and custom gas tokens to help realise the stablecoin promise of permissionless access to financial services for everyone, everywhere. \n\nPlasma’s global payments coverage and inbound suite of products position it as the native chain for stablecoin payments.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Binance HODLer Airdrops",
+    "Neobank",
+    "Echo Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.plasma.to/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://plasmascan.to/"
+  },
   "market": {
-    "price": 0.091252,
-    "marketCap": 204631061,
+    "price": 0.090643,
+    "marketCap": 202462062,
     "marketCapRank": 164,
-    "volume24h": 43885390,
-    "priceChange24h": -2.20355,
+    "volume24h": 44828107,
+    "high24h": 0.094257,
+    "low24h": 0.090104,
+    "priceChange24h": -3.47715,
+    "priceChange7d": -18.86079,
+    "priceChange30d": -8.66684,
+    "priceChange1y": 0,
     "ath": 1.68,
-    "athChangePercentage": -94.58579,
+    "athChangePercentage": -94.62058,
     "athDate": "2025-09-28T01:31:40.327Z",
     "atl": 0.073026,
     "atlDate": "2026-02-06T00:25:15.134Z",
     "circulatingSupply": 2244444444.4444,
     "totalSupply": 10000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 902058691
   },
-  "lastMarketUpdate": "2026-03-23T08:10:39.102Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T09:19:30.727Z"
 }

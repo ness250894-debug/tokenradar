@@ -2,20 +2,48 @@
   "id": "precious-metals-usd",
   "symbol": "pmusd",
   "name": "Precious Metals USD",
+  "description": "Real Asset Acquisition Corp (RAAC) is a decentralized finance (DeFi) protocol powered by real-world assets (RWAs). \n\nThe ecosystem empowers token holders through a set of custom-built products to tokenize real-world assets; deploying traditional finance assets into DeFi, with a goal to unlock liquidity and on-chain yield opportunities. This model allows RAAC to expand DeFi liquidity collateralized by RWAs.",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://raac.io/",
+    "github": "https://github.com/RegnumAurumAcquisitionCorp",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xc0c17dd08263c16f6b64e772fb9b723bf1344ddf"
+  },
   "market": {
-    "price": 0.99611,
-    "marketCap": 109446426,
-    "marketCapRank": 250,
-    "volume24h": 1660166,
-    "priceChange24h": 0.41184,
+    "price": 0.99686,
+    "marketCap": 99858536,
+    "marketCapRank": 262,
+    "volume24h": 899504,
+    "high24h": 1.003,
+    "low24h": 0.970969,
+    "priceChange24h": 2.34712,
+    "priceChange7d": 0.98558,
+    "priceChange30d": 1.21758,
+    "priceChange1y": 0,
     "ath": 1.037,
-    "athChangePercentage": -3.781,
+    "athChangePercentage": -3.88031,
     "athDate": "2026-03-04T19:10:23.689Z",
     "atl": 0.955534,
     "atlDate": "2026-01-25T17:27:40.034Z",
-    "circulatingSupply": 109701203.6222222,
-    "totalSupply": 109701203.6222222,
-    "maxSupply": null
+    "circulatingSupply": 100201203.6222222,
+    "totalSupply": 100201203.6222222,
+    "maxSupply": null,
+    "fdv": 99858536
   },
-  "lastMarketUpdate": "2026-03-19T14:14:58.691Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T09:25:18.897Z"
 }
