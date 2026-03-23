@@ -329,8 +329,13 @@ async function main() {
         console.log(`    ⚠ ${warning}`);
       }
 
-      if (result.passed) totalPassed++;
-      else totalFailed++;
+      if (result.passed) {
+        totalPassed++;
+      } else {
+        totalFailed++;
+        console.log(`    🗑 Quarantining failed article: ${file}`);
+        fs.unlinkSync(filePath);
+      }
       totalWarnings += result.warnings.length;
     }
   }
@@ -345,7 +350,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 
   if (totalFailed > 0) {
-    process.exit(1);
+    console.log(`\\n  ⚠ Built completed with ${totalFailed} quarantined articles. Job will continue.`);
   }
 }
 

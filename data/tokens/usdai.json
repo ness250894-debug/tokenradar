@@ -2,20 +2,49 @@
   "id": "usdai",
   "symbol": "usdai",
   "name": "USDai",
+  "description": "USD.AI is a yield-bearing synthetic dollar backed by loans against AI hardware, compute, and DePIN assets. Targeting 15–25% APR, it functions like a high-yield bond index tied to income-generating infrastructure equipment, paired with additional mechanisms that allow arbitrageurs to bring back USDai back to a peg.  USD.AI bridges the gap between amortizing AI hard assets and the financing needed to scale such productive infrastructure. Meanwhile, DePIN projects can achieve &gt;300% growth using debt, driving reinvestment and scalability in their network.",
+  "categories": [
+    "Arbitrum Ecosystem",
+    "Yield-Bearing Stablecoin",
+    "Synthetic Dollar",
+    "Plasma Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://usd.ai",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x0A1a1A107E45b7Ced86833863f482BC5f4ed82EF"
+  },
   "market": {
-    "price": 0.999702,
-    "marketCap": 319154850,
+    "price": 0.999679,
+    "marketCap": 313634731,
     "marketCapRank": 129,
-    "volume24h": 6826527,
-    "priceChange24h": -0.01521,
+    "volume24h": 5336748,
+    "high24h": 1,
+    "low24h": 0.999522,
+    "priceChange24h": -0.0357,
+    "priceChange7d": -0.01983,
+    "priceChange30d": -0.01841,
+    "priceChange1y": 0,
     "ath": 1.19,
-    "athChangePercentage": -15.84251,
+    "athChangePercentage": -15.82921,
     "athDate": "2025-09-04T16:12:39.608Z",
     "atl": 0.769779,
     "atlDate": "2025-09-26T20:45:27.490Z",
-    "circulatingSupply": 319249238.2758606,
-    "totalSupply": 319249238.2758606,
-    "maxSupply": null
+    "circulatingSupply": 313677996.7970516,
+    "totalSupply": 313677996.7970516,
+    "maxSupply": null,
+    "fdv": 313634731
   },
-  "lastMarketUpdate": "2026-03-23T15:31:53.021Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T17:48:58.835Z"
 }

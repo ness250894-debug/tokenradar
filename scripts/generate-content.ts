@@ -68,7 +68,7 @@ STRICT RULES:
 3. NEVER guarantee returns or profits.
 4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
 5. Always present data and analysis objectively.
-6. Include at least 3 specific data points from the provided data.
+6. Include at least 3 specific numerical data points (e.g., prices starting with $, percentages, or large numbers separated by commas). This is a strictly enforced rule.
 7. Reference at least 1 real-world development or event.
 8. Strictly follow the word count instructions provided in each specific prompt.
 9. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
@@ -470,11 +470,33 @@ async function main() {
       process.stdout.write(`  🤖 ${config.type}...`);
 
       try {
-        const result = await callAIWithFallback(SYSTEM_PROMPT, config.prompt);
-        const wordCount = result.content.split(/\s+/).length;
+        let result: AIResult | null = null;
+        let wordCount = 0;
+        let attempts = 0;
+        const maxAttempts = 2; // inline retry limit
 
-        // Add the returned cost
-        totalCost += result.cost;
+        while (attempts < maxAttempts) {
+          attempts++;
+          result = await callAIWithFallback(SYSTEM_PROMPT, config.prompt);
+          wordCount = result.content.split(/\\s+/).length;
+          
+          // Add the returned cost
+          totalCost += result.cost;
+
+          // Check data points
+          const dataPointRegex = /\\$[\\d,.]+|\\d+(\\.\\d+)?%|\\d{1,3}(,\\d{3})+/g;
+          const dataPoints = result.content.match(dataPointRegex) || [];
+          if (dataPoints.length >= 3) {
+            break; // Valid content
+          } else {
+            console.log(`\\n    ⚠ Attempt ${attempts} failed data points check (${dataPoints.length}/3).`);
+            if (attempts < maxAttempts) {
+              process.stdout.write(`    🤖 Retrying...`);
+            }
+          }
+        }
+
+        if (!result) continue; // Should not happen, but satisfies TS
 
         const article: GeneratedArticle = {
           tokenId,
