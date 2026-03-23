@@ -2,12 +2,30 @@
   "id": "sun-token",
   "symbol": "sun",
   "name": "Sun Token",
+  "description": "The SUN.io platform is TRON's first one-stop platform that supports stablecoin swap, token mining and self-governance. After the redenomination, the new SUN token, as a multifunctional governance token on the SUN platform (similar to the CRV token of Curve DAO and the EPS token of Ellipsis), will grant token holders various rights and benefits such as the voting and governance right in the community, value capture, staking rewards, etc..",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tron Ecosystem",
+    "Made in China"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://sun.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TSSMHYeV2uE9qYH95DqyoCuNCzEL1NvU3S"
+  },
   "market": {
-    "price": 0.01863239,
-    "marketCap": 357819594,
+    "price": 0.01863393,
+    "marketCap": 358201846,
     "marketCapRank": 119,
-    "volume24h": 94298234,
-    "priceChange24h": 0.64037,
+    "volume24h": 94145610,
+    "high24h": 0.01898862,
+    "low24h": 0.01812252,
+    "priceChange24h": 0.44127,
+    "priceChange7d": 12.81067,
+    "priceChange30d": 10.03603,
+    "priceChange1y": 12.02425,
     "ath": 66.45,
     "athChangePercentage": -99.97204,
     "athDate": "2020-09-11T03:18:35.837Z",
@@ -15,7 +33,17 @@
     "atlDate": "2022-11-14T04:45:13.210Z",
     "circulatingSupply": 19223093943.93119,
     "totalSupply": 19900730000,
-    "maxSupply": 19900730000
+    "maxSupply": 19900730000,
+    "fdv": 370828871
   },
-  "lastMarketUpdate": "2026-03-23T13:45:12.646Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:58:55.632Z"
 }

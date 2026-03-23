@@ -2,12 +2,34 @@
   "id": "story-2",
   "symbol": "ip",
   "name": "Story",
+  "description": "Story is a purpose-built layer 1 blockchain designed specifically to onramp intellectual property (IP) to the blockchain and make it programmable.\n\nStory tokenizes any type of IP; whether that’s an idea, an image, a real world asset, a song, an AI model, an NFT or anything in-between. By embedding usage terms, attribution, and royalty agreements directly into the blockchain, Story provides a transparent, decentralized solution for IP management. This enables IP holders to protect their work, collaborate on IP seamlessly, and unlock revenue opportunities in an AI-powered economy.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Binance Alpha Spotlight",
+    "Made in USA",
+    "Story Ecosystem",
+    "IP"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.story.foundation/",
+    "github": "https://github.com/storyprotocol",
+    "reddit": null,
+    "explorer": "https://www.storyscan.xyz/"
+  },
   "market": {
-    "price": 0.661228,
-    "marketCap": 232424078,
+    "price": 0.663578,
+    "marketCap": 233262323,
     "marketCapRank": 155,
-    "volume24h": 50011127,
-    "priceChange24h": -5.77517,
+    "volume24h": 50483456,
+    "high24h": 0.70304,
+    "low24h": 0.631579,
+    "priceChange24h": -5.48181,
+    "priceChange7d": -16.36318,
+    "priceChange30d": -39.91263,
+    "priceChange1y": -88.3778,
     "ath": 14.78,
     "athChangePercentage": -95.53297,
     "athDate": "2025-09-21T21:07:34.521Z",
@@ -15,7 +37,17 @@
     "atlDate": "2026-03-23T09:14:58.619Z",
     "circulatingSupply": 351973327.51,
     "totalSupply": 1025496479.65,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 679624483
   },
-  "lastMarketUpdate": "2026-03-23T13:45:12.653Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:53:19.868Z"
 }

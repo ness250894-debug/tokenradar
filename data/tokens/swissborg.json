@@ -2,20 +2,49 @@
   "id": "swissborg",
   "symbol": "borg",
   "name": "SwissBorg",
+  "description": "What is SwissBorg?\nSwissBorg’s flagship product is an all-encompassing crypto management app for retail users. It enables them to on &amp; off ramp, exchange crypto and fiat, earn yield, buy bundles of crypto and access its launchpad investment opportunities. SwissBorg started in the ICO era of 2017 and has over 1 million registered users as of 2024. \n\nThe app’s products range from on/off ramp, CEX &amp; DEX aggregator (MEX), staking and other passive income opportunities (Earn), cryptocurrency bundles (Thematics), and a launchpad &amp; one-time opportunities (Alpha Early Deals) and more. SwissBorg users are also entitled to airdrops if they happen as it’s one the few centralised entities redistributing them directly to their users.\n\nWhat is BORG?\nBORG is essential to the SwissBorg experience as it unlocks additional utilities in the app. The more BORG users hold in the app, the more benefits they can unlock either through Premium Tiers or ad-hoc campaigns. Benefits include lower exchange fees, higher allocation in launchpads, higher yield on Earn strategies and increased voting power in referendums proposed by SwissBorg. \n\nWhen was SwissBorg Founded?\nThe project was launched in Switzerland in 2017 and the ICO lasted from Dec 7th, 2017 to January 10th, 2018 where $50 million was raised to kickstart the project. In Q1 2023 SwissBorg performed a Series A, where 16,660 big and small individual investors raised a total of over 21 million Swiss Francs (CHF). ",
+  "categories": [
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Energi Ecosystem",
+    "CeFi"
+  ],
+  "genesisDate": "2017-11-01",
+  "links": {
+    "website": "https://swissborg.com/en/",
+    "github": "https://github.com/SwissBorg/sbci-token",
+    "reddit": "https://www.reddit.com/r/swissborg/",
+    "explorer": "https://etherscan.io/token/0x64d0f55cd8c7133a9d7102b13987235f486f2224"
+  },
   "market": {
-    "price": 0.201877,
-    "marketCap": 198316686,
+    "price": 0.202492,
+    "marketCap": 199327164,
     "marketCapRank": 170,
-    "volume24h": 690237,
-    "priceChange24h": 1.85554,
+    "volume24h": 698166,
+    "high24h": 0.203088,
+    "low24h": 0.186365,
+    "priceChange24h": 2.69835,
+    "priceChange7d": -6.20275,
+    "priceChange30d": 4.00253,
+    "priceChange1y": 4.87031,
     "ath": 1.64,
-    "athChangePercentage": -87.65042,
+    "athChangePercentage": -87.62035,
     "athDate": "2021-05-04T17:14:50.120Z",
     "atl": 0.00502687,
     "atlDate": "2019-07-28T00:00:00.000Z",
     "circulatingSupply": 981852443.4419999,
     "totalSupply": 981852443.4419999,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 199327164
   },
-  "lastMarketUpdate": "2026-03-23T13:45:12.656Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 120,
+    "githubForks": 26,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T14:02:40.610Z"
 }

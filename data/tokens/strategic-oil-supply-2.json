@@ -2,20 +2,48 @@
   "id": "strategic-oil-supply-2",
   "symbol": "sos",
   "name": "Strategic Oil Supply",
+  "description": "Strategic Oil Supply is built to represent strength, resilience, and energy independence in the digital economy. Our mission is to create a decentralized reserve that empowers holders and fuels long-term value through a strong global community.",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Pump.fun Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://sos.republican/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/DpxKNEi3XVeRByaGqYKvz2w6E2PhPgBAqdayLcQEpump"
+  },
   "market": {
-    "price": 0.00148695,
-    "marketCap": 151275180,
-    "marketCapRank": 206,
-    "volume24h": 466459,
-    "priceChange24h": -1.29472,
+    "price": 0.00091518,
+    "marketCap": 91517994,
+    "marketCapRank": 286,
+    "volume24h": 66202,
+    "high24h": 0.00099892,
+    "low24h": 0.000668,
+    "priceChange24h": 17.23572,
+    "priceChange7d": -2.48948,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 0.00976314,
-    "athChangePercentage": -84.53568,
+    "athChangePercentage": -90.63398,
     "athDate": "2026-03-13T18:34:13.332Z",
     "atl": 0.00026894,
     "atlDate": "2026-03-16T17:20:58.014Z",
     "circulatingSupply": 100000000000,
     "totalSupply": 100000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 91517994
   },
-  "lastMarketUpdate": "2026-03-19T14:14:58.674Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T13:55:08.703Z"
 }

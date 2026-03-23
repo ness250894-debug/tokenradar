@@ -2,20 +2,52 @@
   "id": "terra-luna",
   "symbol": "lunc",
   "name": "Terra Luna Classic",
+  "description": "Terra is a decentralized financial payment network that rebuilds the traditional payment stack on the blockchain. Luna is the reserve currency of the Terra platform. It has three core functions: i) mine Terra transactions through staking, ii) ensure the price stability of Terra stablecoins and iii) provide incentives for the platform’s blockchain validators.",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "Coinbase Ventures Portfolio",
+    "DeFiance Capital Portfolio",
+    "Pantera Capital Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Galaxy Digital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.terra-classic.io",
+    "github": "https://github.com/classic-terra/core",
+    "reddit": "https://www.reddit.com/r/terraluna/",
+    "explorer": "https://finder.terraclassic.community/"
+  },
   "market": {
-    "price": 0.00003755,
-    "marketCap": 204851987,
+    "price": 0.00003781,
+    "marketCap": 206644208,
     "marketCapRank": 167,
-    "volume24h": 10219946,
-    "priceChange24h": -1.3139,
+    "volume24h": 10282652,
+    "high24h": 0.00003798,
+    "low24h": 0.00003614,
+    "priceChange24h": -0.41631,
+    "priceChange7d": -10.40515,
+    "priceChange30d": 0.92029,
+    "priceChange1y": -40.79186,
     "ath": 119.18,
     "athChangePercentage": -99.99997,
     "athDate": "2022-04-05T12:24:58.854Z",
     "atl": 9.99967e-7,
     "atlDate": "2022-05-13T02:34:40.340Z",
-    "circulatingSupply": 5459747956633.479,
-    "totalSupply": 6465742524993.393,
-    "maxSupply": null
+    "circulatingSupply": 5459840140791.522,
+    "totalSupply": 6465738749837.869,
+    "maxSupply": null,
+    "fdv": 244715492
   },
-  "lastMarketUpdate": "2026-03-23T13:45:12.655Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 75,
+    "githubForks": 56,
+    "commits4Weeks": 2
+  },
+  "fetchedAt": "2026-03-23T14:08:37.876Z"
 }

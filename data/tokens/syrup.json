@@ -2,20 +2,53 @@
   "id": "syrup",
   "symbol": "syrup",
   "name": "Maple Finance",
+  "description": "- Maple is 'DeFi's Institutional Lender'. Maple Finance lending engine powers institutional yield for both Maple and Syrup; providing lenders with institutional quality yield overcollateralized by digital assets. The protocol combines the best of institutional lending and DeFi. Syrup is the team's newest product, offering permissionless access to Maple's lending engine whilst also integrated with the broader DeFi ecosystem including Balancer and Pendle Finance.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Lending/Borrowing Protocols",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://maple.finance/",
+    "github": "https://github.com/maple-labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x643C4E15d7d62Ad0aBeC4a9BD4b001aA3Ef52d66"
+  },
   "market": {
-    "price": 0.233455,
-    "marketCap": 269874332,
+    "price": 0.235558,
+    "marketCap": 272208351,
     "marketCapRank": 140,
-    "volume24h": 6248773,
-    "priceChange24h": 0.85984,
+    "volume24h": 6549279,
+    "high24h": 0.235285,
+    "low24h": 0.225496,
+    "priceChange24h": 2.02127,
+    "priceChange7d": -11.12533,
+    "priceChange30d": 1.98301,
+    "priceChange1y": 77.69718,
     "ath": 0.653229,
-    "athChangePercentage": -64.30537,
+    "athChangePercentage": -63.97795,
     "athDate": "2025-06-25T14:15:45.145Z",
     "atl": 0.085229,
     "atlDate": "2025-04-07T07:46:35.793Z",
     "circulatingSupply": 1157190702.5885315,
     "totalSupply": 1216127147.998563,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 286072093
   },
-  "lastMarketUpdate": "2026-03-23T13:45:12.650Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T14:04:45.056Z"
 }

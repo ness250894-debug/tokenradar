@@ -2,45 +2,50 @@
   "id": "tether-gold",
   "symbol": "xaut",
   "name": "Tether Gold",
-  "description": "",
-  "categories": [],
+  "description": "Each XAU₮ token represents ownership of one troy fine ounce of physical gold on a specific gold bar. XAU₮, which is available as an ERC-20 token on the Ethereum blockchain and as a TRC20 token on the TRON blockchain, can be transferred to any on-chain address from the purchasers’ Tether wallet. Furthermore, Tether Gold (XAU₮) is the only product among the competition that offers zero custody fees and has direct control over the physical gold storage, safely held in a Switzerland vault, adopting best in class security and anti-threat measures. Today, Tether Gold (XAU₮) is the best way to hold Gold. ",
+  "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Commodities"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://gold.tether.to/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38"
   },
   "market": {
-    "price": 4423.37,
-    "marketCap": 2495478833,
+    "price": 4456.1,
+    "marketCap": 2513913139,
     "marketCapRank": 37,
-    "volume24h": 1661255447,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -1.27915,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 1696000409,
+    "high24h": 4526.31,
+    "low24h": 4175.44,
+    "priceChange24h": -0.49798,
+    "priceChange7d": -10.69828,
+    "priceChange30d": -12.66347,
+    "priceChange1y": 47.11835,
     "ath": 5504.62,
-    "athChangePercentage": -19.72597,
+    "athChangePercentage": -19.30753,
     "athDate": "2026-01-29T00:00:00.000Z",
     "atl": 1447.84,
     "atlDate": "2020-03-19T13:45:41.821Z",
     "circulatingSupply": 564598.641692,
     "totalSupply": 712747.089,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 3173553990
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.506Z",
-  "lastMarketUpdate": "2026-03-23T13:45:12.626Z"
+  "fetchedAt": "2026-03-23T14:10:22.458Z"
 }
