@@ -2,20 +2,52 @@
   "id": "usual-usd",
   "symbol": "usd0",
   "name": "Usual USD",
+  "description": "USD0 is a stablecoin fully backed 1:1 by Real-World Assets (RWA) like US Treasury Bills. It provides users with a stable, secure asset that is independent of traditional banking systems, fully transferable, and accessible within the DeFi ecosystem. As the core stability asset of Usual, USD0 supports transparency and security by maintaining real-time reserves, offering a non-fractional, reliable alternative to stablecoins like USDT and USDC.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://usual.money",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x73a15fed60bf67631dc6cd7bc5b6e8da8190acf5"
+  },
   "market": {
-    "price": 0.99818,
-    "marketCap": 560937431,
+    "price": 1,
+    "marketCap": 561735002,
     "marketCapRank": 93,
-    "volume24h": 557579,
-    "priceChange24h": 0.171,
+    "volume24h": 517405,
+    "high24h": 1.005,
+    "low24h": 0.990712,
+    "priceChange24h": 0.30631,
+    "priceChange7d": 0.19086,
+    "priceChange30d": 0.26019,
+    "priceChange1y": 0.21142,
     "ath": 1.33,
-    "athChangePercentage": -24.73046,
+    "athChangePercentage": -24.73448,
     "athDate": "2024-07-12T08:28:59.311Z",
     "atl": 0.962885,
     "atlDate": "2025-04-10T08:30:51.088Z",
-    "circulatingSupply": 561660538.9242668,
+    "circulatingSupply": 561660634.9263302,
     "totalSupply": 561660634.9263302,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 561735002
   },
-  "lastMarketUpdate": "2026-03-23T15:31:53.003Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T18:02:04.647Z"
 }

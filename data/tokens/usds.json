@@ -2,45 +2,52 @@
   "id": "usds",
   "symbol": "usds",
   "name": "USDS",
-  "description": "",
-  "categories": [],
+  "description": "USDS is the stablecoin of the decentralized Sky ecosystem, designed to maintain a soft peg (a value intended to stay close) to the U.S. dollar. It functions as a versatile tool for&nbsp;decentralized finance (DeFi), allowing value to move through the system via peer-to-peer lending and saving without a middleman. The token is 'put to work' by being supplied to various protocol modules; for example, users can convert USDS into sUSDS to earn interest from protocol revenue or lock it to receive&nbsp;SKY governance tokens. As the ecosystem grows, this scales through \"Sky Stars,\" which are semi-autonomous projects that expand the stablecoin’s utility into specialized areas like institutional credit and advanced lending.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Base Native"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
+    "website": "https://sky.money/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://etherscan.io/token/0xdc035d45d973e3ec169d2276ddab16f1e407384f"
   },
   "market": {
-    "price": 0.999954,
-    "marketCap": 11605883056,
+    "price": 0.999961,
+    "marketCap": 11595347762,
     "marketCapRank": 12,
-    "volume24h": 8950300,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -0.02406,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 13816919,
+    "high24h": 1.001,
+    "low24h": 0.99863,
+    "priceChange24h": -0.0171,
+    "priceChange7d": 0.00668,
+    "priceChange30d": 0.00094,
+    "priceChange1y": -0.01881,
     "ath": 1.057,
-    "athChangePercentage": -5.43412,
+    "athChangePercentage": -5.43691,
     "athDate": "2024-10-29T05:40:51.197Z",
     "atl": 0.948265,
     "atlDate": "2024-10-03T13:19:28.826Z",
-    "circulatingSupply": 11607022571.38028,
-    "totalSupply": 11605867971.84604,
+    "circulatingSupply": 11595819748.46443,
+    "totalSupply": 11595819748.46443,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 11595347762
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:11:56.493Z",
-  "lastMarketUpdate": "2026-03-23T15:31:52.945Z"
+  "fetchedAt": "2026-03-23T18:00:25.002Z"
 }
