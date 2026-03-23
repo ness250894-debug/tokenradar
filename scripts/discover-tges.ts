@@ -33,6 +33,8 @@ const MAX_NEWS_ITEMS = 20;
 const RSS_FEEDS = [
   "https://cointelegraph.com/rss",
   "https://airdropalert.com/feed/",
+  "https://icowatchlist.com/blog/feed",  // Free — ICO/IDO/IEO focused
+  "https://foundico.com/blog/feed",      // Free — upcoming ICO lists
 ];
 
 interface UpcomingTge {
@@ -69,25 +71,36 @@ async function analyzeNewsWithAI(newsItems: Record<string, unknown>[]): Promise<
     `Title: ${item.title}\nSnippet: ${(item.contentSnippet || item.content || "").substring(0, 200)}\nSource: ${item.link}`
   ).join("\n---\n");
 
-  const prompt = `You are a crypto research analyst. Analyze these news items and identify any upcoming Token Generation Events (TGE), ICOs, or major token launches for HIGH QUALITY, VC-backed, or highly anticipated projects.
-  
-  Ignore low-quality degen/meme tokens.
-  
-  Return a JSON array of objects with:
-  {
-    "id": "kebab-case-id",
-    "name": "Project Name",
-    "symbol": "SYMBOL",
-    "category": "L1/L2/DeFi/AI/etc",
-    "expectedTge": "Rough date (e.g., Q2 2026)",
-    "narrativeStrength": 1-100 (score based on hype/investors),
-    "dataSource": "Link to news"
-  }
-  
-  If no high-quality TGEs found, return [].
-  
-  News Items:
-  ${newsContext}`;
+  const prompt = `You are a crypto research analyst. Analyze these news items and identify any crypto projects that show STRONG PRE-LAUNCH SIGNALS.
+
+Look for ALL of the following indicators:
+1. **Upcoming TGE / ICO / IDO / IEO** — Explicit announcements of token sales or generation events
+2. **Major funding rounds** — "Project X raises $50M Series A" signals an upcoming token
+3. **Testnet / Mainnet launches** — Projects launching testnets often follow with a TGE within months
+4. **Airdrop announcements** — Confirmed airdrops often accompany or precede a token launch
+5. **Token migration / Rebranding** — Existing projects launching a new or replacement token
+6. **Exchange listing announcements** — First-time listings for new tokens
+
+QUALITY FILTER:
+- Only include HIGH QUALITY, VC-backed, or highly anticipated projects
+- Ignore low-quality degen/meme tokens
+- Minimum narrative strength of 50 to be included
+
+Return a JSON array of objects with:
+{
+  "id": "kebab-case-id",
+  "name": "Project Name",
+  "symbol": "SYMBOL",
+  "category": "L1/L2/DeFi/AI/Gaming/Infrastructure/etc",
+  "expectedTge": "Rough date or stage (e.g., Q2 2026, Testnet, Funding Stage)",
+  "narrativeStrength": 1-100 (score based on hype/investors/community buzz),
+  "dataSource": "Link to the source news article"
+}
+
+If no high-quality projects found, return [].
+
+News Items:
+${newsContext}`;
 
   try {
     const result = await callAIWithFallback("", prompt, 2048);
