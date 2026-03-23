@@ -2,20 +2,59 @@
   "id": "sei-network",
   "symbol": "sei",
   "name": "Sei",
+  "description": "Sei is a high-performance Layer 1 blockchain that scales the EVM with parallelized execution, enabling faster transactions, low fees, and seamless smart contract deployment. Sei removes traditional blockchain bottlenecks while maintaining full Ethereum compatibility. The upcoming Giga upgrade will deliver 50x improvements in EVM throughput, optimizing execution, consensus, and storage to push blockchain performance to web2 levels.",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "Parallelized EVM",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "GMCI Layer 1 Index",
+    "Delphi Ventures Portfolio",
+    "Circle Ventures Portfolio",
+    "OKX Ventures Portfolio",
+    "GMCI Index",
+    "Sei Network Ecosystem",
+    "World Liberty Financial Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.sei.io",
+    "github": "https://github.com/sei-protocol",
+    "reddit": "https://www.reddit.com/r/Sei_Network/",
+    "explorer": "https://seitrace.com"
+  },
   "market": {
-    "price": 0.059277,
-    "marketCap": 399262402,
+    "price": 0.060886,
+    "marketCap": 410142835,
     "marketCapRank": 114,
-    "volume24h": 27926247,
-    "priceChange24h": -1.75634,
+    "volume24h": 34967417,
+    "high24h": 0.061586,
+    "low24h": 0.058632,
+    "priceChange24h": 1.35024,
+    "priceChange7d": -10.70896,
+    "priceChange30d": -14.68597,
+    "priceChange1y": -68.79063,
     "ath": 1.14,
-    "athChangePercentage": -94.78429,
+    "athChangePercentage": -94.65099,
     "athDate": "2024-03-16T02:30:23.904Z",
     "atl": 0.058632,
     "atlDate": "2026-03-23T09:09:57.060Z",
     "circulatingSupply": 6733333333,
     "totalSupply": 10000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 609123022
   },
-  "lastMarketUpdate": "2026-03-23T10:31:00.155Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T12:05:43.314Z"
 }

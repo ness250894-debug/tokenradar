@@ -2,20 +2,47 @@
   "id": "seeker",
   "symbol": "skr",
   "name": "Seeker",
+  "description": "Seeker is building a decentralized mobile ecosystem designed to challenge entrenched mobile incumbents through its TEEPin network architecture and community governance. It aims to solve the pain points of centralized app store gatekeeping, lack of developer freedom, and restricted user access to crypto applications. The vision is to create a community-owned platform with decentralized governance, no gatekeepers, direct developer-user access, and TEEPin security architecture.",
+  "categories": [
+    "Infrastructure",
+    "Solana Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://solanamobile.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3"
+  },
   "market": {
-    "price": 0.02044855,
-    "marketCap": 123934804,
-    "marketCapRank": 233,
-    "volume24h": 4198096,
-    "priceChange24h": -2.97251,
+    "price": 0.02097502,
+    "marketCap": 127452277,
+    "marketCapRank": 228,
+    "volume24h": 4821149,
+    "high24h": 0.02125093,
+    "low24h": 0.02031356,
+    "priceChange24h": 0.5271,
+    "priceChange7d": -9.19485,
+    "priceChange30d": 4.98256,
+    "priceChange1y": 0,
     "ath": 0.055818,
-    "athChangePercentage": -63.22349,
+    "athChangePercentage": -62.02363,
     "athDate": "2026-01-22T03:32:20.056Z",
     "atl": 0.00542271,
     "atlDate": "2026-01-21T02:11:35.450Z",
-    "circulatingSupply": 6060810827.29854,
+    "circulatingSupply": 6060810827.195605,
     "totalSupply": 10160810828.29854,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 213670830
   },
-  "lastMarketUpdate": "2026-03-23T10:31:00.206Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T12:04:08.564Z"
 }

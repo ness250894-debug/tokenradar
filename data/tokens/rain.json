@@ -18,18 +18,18 @@
     "explorer": "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d"
   },
   "market": {
-    "price": 0.00844416,
-    "marketCap": 4037759727,
-    "marketCapRank": 26,
-    "volume24h": 19040174,
+    "price": 0.00860763,
+    "marketCap": 4131697973,
+    "marketCapRank": 25,
+    "volume24h": 22272216,
     "high24h": 0.00888478,
     "low24h": 0.00841588,
-    "priceChange24h": -2.97175,
+    "priceChange24h": 0.6501,
     "priceChange7d": -6.15328,
     "priceChange30d": -11.94162,
     "priceChange1y": 0,
     "ath": 0.01090099,
-    "athChangePercentage": -22.39563,
+    "athChangePercentage": -20.25791,
     "athDate": "2026-02-09T16:50:09.904Z",
     "atl": 0.00222126,
     "atlDate": "2025-09-14T08:56:57.416Z",
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T10:35:14.856Z"
+  "fetchedAt": "2026-03-23T10:35:14.856Z",
+  "lastMarketUpdate": "2026-03-23T11:58:07.621Z"
 }

@@ -2,20 +2,52 @@
   "id": "safepal",
   "symbol": "sfp",
   "name": "SafePal",
+  "description": "SafePal is a cryptocurrency wallet that aims to provide a secure and user-friendly crypto management platform for the masses. SafePal provides hardware wallet and software wallet product lines, all paired and managed through the SafePal App, where users can easily store, manage, swap, trade, and grow their crypto wealth.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Wallets",
+    "Ethereum Ecosystem",
+    "Animoca Brands Portfolio",
+    "Binance Launchpad",
+    "Energi Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.safepal.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xd41fdb03ba84762dd66a0af1a6c8540ff1ba5dfb"
+  },
   "market": {
-    "price": 0.284161,
-    "marketCap": 142128129,
+    "price": 0.297548,
+    "marketCap": 148929936,
     "marketCapRank": 206,
-    "volume24h": 2490466,
-    "priceChange24h": -0.33252,
+    "volume24h": 2938076,
+    "high24h": 0.299804,
+    "low24h": 0.28113,
+    "priceChange24h": 4.72506,
+    "priceChange7d": 2.0356,
+    "priceChange30d": 7.15201,
+    "priceChange1y": -44.89926,
     "ath": 4.19,
-    "athChangePercentage": -93.22988,
+    "athChangePercentage": -92.87122,
     "athDate": "2021-02-09T18:30:34.250Z",
     "atl": 0.232742,
     "atlDate": "2026-02-06T00:26:27.638Z",
     "circulatingSupply": 500000000,
     "totalSupply": 500000000,
-    "maxSupply": 500000000
+    "maxSupply": 500000000,
+    "fdv": 148929936
   },
-  "lastMarketUpdate": "2026-03-23T10:31:00.193Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T12:01:15.805Z"
 }

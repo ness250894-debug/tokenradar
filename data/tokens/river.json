@@ -2,20 +2,52 @@
   "id": "river",
   "symbol": "river",
   "name": "River",
+  "description": "River is building a chain-abstraction stablecoin system that enables cross-chain collateral, yield, and liquidity—all without bridging. \n\nPowered by the omni-CDP stablecoin satUSD, users can earn, leverage, and scale across different ecosystems natively. \n\nRiver features the first omni-CDP module that allows users to collateralize assets on Chain A and mint stablecoin satUSD on Chain B—without bridging the assets.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight",
+    "Chain Abstraction",
+    "Binance Wallet IDO",
+    "Binance Buildkey TGE",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://river.inc/",
+    "github": "https://github.com/Satoshi-Protocol",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdA7AD9dea9397cffdDAE2F8a052B82f1484252B3"
+  },
   "market": {
-    "price": 26.21,
-    "marketCap": 519204727,
-    "marketCapRank": 97,
-    "volume24h": 67018767,
-    "priceChange24h": -2.50846,
+    "price": 27.19,
+    "marketCap": 533021827,
+    "marketCapRank": 96,
+    "volume24h": 70968654,
+    "high24h": 32,
+    "low24h": 24.91,
+    "priceChange24h": 0.86722,
+    "priceChange7d": 12.59986,
+    "priceChange30d": 226.46813,
+    "priceChange1y": 0,
     "ath": 87.73,
-    "athChangePercentage": -69.49966,
+    "athChangePercentage": -68.618,
     "athDate": "2026-01-26T12:05:27.820Z",
     "atl": 1.58,
     "atlDate": "2025-09-23T10:10:45.893Z",
     "circulatingSupply": 19600000,
     "totalSupply": 100000000,
-    "maxSupply": 100000000
+    "maxSupply": 100000000,
+    "fdv": 2719499116
   },
-  "lastMarketUpdate": "2026-03-23T10:31:00.150Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T11:59:43.961Z"
 }

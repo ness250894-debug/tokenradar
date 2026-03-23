@@ -2,45 +2,56 @@
   "id": "ripple",
   "symbol": "xrp",
   "name": "XRP",
-  "description": "",
-  "categories": [],
+  "description": "XRP is a decentralized digital asset and the native token of the XRP Ledger, a Layer 1 blockchain designed for high-performance global payments. Its primary value proposition is offering a fast, cost-effective alternative to traditional banking systems by enabling near-instant cross-border settlements that finalize in three to five seconds. By serving as a neutral bridge asset between different fiat currencies, it helps financial institutions lower liquidity costs and eliminates the need for pre-funded accounts.\n\nThe network is unique because it utilizes a federated consensus protocol instead of energy-intensive mining or staking. This system achieves deterministic finality through a Unique Node List of trusted validators who must reach an eighty percent agreement threshold to permanently record transactions. This infrastructure supports a sustained throughput of 1,500 transactions per second and includes a built-in decentralized exchange that allows for the automated trading of any tokenized asset without intermediaries.\n\nThe project traces its origins back to 2004 with Ryan Fugger before being co-founded in its modern form by Jed McCaleb and Chris Larsen. The company, now known as Ripple, works with major financial institutions as partners and investors to build global payment solutions. To protect the network from spam, a small amount of XRP is burned during every transaction, and the token is further utilized by institutions as collateral to access traditional markets and manage digital asset infrastructure.\n\nInstitutional adoption of the asset reached a major milestone in November 2025 when the SEC approved the first wave of spot XRP ETFs. These products, offered by major issuers including Bitwise, Grayscale, 21Shares, Canary Capital, and Franklin Templeton, are now listed on prominent exchanges like the NYSE Arca, Nasdaq, and Cboe BZX. While Ripple remains a key contributor to the ecosystem, the underlying XRP Ledger continues to operate as an open-source and decentralized network.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "FTX Holdings",
+    "Pantera Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "XRP Ledger Ecosystem",
+    "GMCI 30 Index",
+    "Blockchain Capital Portfolio",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
   "genesisDate": null,
   "links": {
-    "website": null,
-    "github": null,
-    "reddit": null,
-    "explorer": null
+    "website": "https://ripple.com/currency/",
+    "github": "https://github.com/ripple/rippled",
+    "reddit": "https://www.reddit.com/r/ripple",
+    "explorer": "https://xrpscan.com/"
   },
   "market": {
-    "price": 1.37,
-    "marketCap": 84254769313,
+    "price": 1.41,
+    "marketCap": 86840632531,
     "marketCapRank": 5,
-    "volume24h": 1765939287,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": -1.31302,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "volume24h": 2648655099,
+    "high24h": 1.43,
+    "low24h": 1.36,
+    "priceChange24h": 1.52957,
+    "priceChange7d": -4.08866,
+    "priceChange30d": -1.81007,
+    "priceChange1y": -40.75884,
     "ath": 3.65,
-    "athChangePercentage": -62.33339,
+    "athChangePercentage": -61.23396,
     "athDate": "2025-07-18T03:40:53.808Z",
     "atl": 0.00268621,
     "atlDate": "2014-05-22T00:00:00.000Z",
     "circulatingSupply": 61344583754,
     "totalSupply": 99985695443,
     "maxSupply": 100000000000,
-    "fdv": null
+    "fdv": 141541771172
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": null
+    "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
+    "githubStars": 4384,
+    "githubForks": 1525,
+    "commits4Weeks": 4
   },
-  "fetchedAt": "2026-03-15T10:11:56.489Z",
-  "lastMarketUpdate": "2026-03-23T10:31:00.115Z"
+  "fetchedAt": "2026-03-23T11:58:13.989Z"
 }

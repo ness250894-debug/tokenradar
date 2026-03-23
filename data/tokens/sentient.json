@@ -2,20 +2,50 @@
   "id": "sentient",
   "symbol": "sent",
   "name": "Sentient",
+  "description": "Sentient is building the world’s first open and community-built AGI platform, an open-source intelligence network designed to rival and complement the closed systems from OpenAI, Anthropic, Google, and others. Through the Sentient GRID, 100+ partners collaborate across agents, models, data, and compute to create a decentralized alternative to closed AGI labs. \n\nSentient addresses the most urgent risk of our time: closed-source AGI.\nToday, a handful of corporations are building AGI in secret, deciding what it knows, how it thinks, and who it serves. AGI is the most powerful technology humanity has ever created. If controlled by a few, it could lock the future into their hands, creating a fundamental threat to society.\n\nSentient’s mission is to ensure AGI is open, community-built, and not controlled by a single entity. We are achieving this through THE GRID: the world’s largest open network of intelligence. The GRID is the first real step toward open-source AGI: a decentralized fabric of specialized agents, models, datasets, tools, and compute—contributed by the world’s best builders—working together as one to deliver high-quality results.\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.sentient.xyz/",
+    "github": "https://github.com/sentient-agi",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x56a3ba04e95d34268a19b2a4474dc979babdaf76"
+  },
   "market": {
-    "price": 0.01918877,
-    "marketCap": 138846202,
+    "price": 0.01964417,
+    "marketCap": 142511023,
     "marketCapRank": 211,
-    "volume24h": 8396024,
-    "priceChange24h": -3.37887,
+    "volume24h": 10345123,
+    "high24h": 0.01987711,
+    "low24h": 0.01910575,
+    "priceChange24h": -0.15109,
+    "priceChange7d": -10.13731,
+    "priceChange30d": -16.53702,
+    "priceChange1y": 0,
     "ath": 0.04805315,
-    "athChangePercentage": -60.05131,
+    "athChangePercentage": -59.11722,
     "athDate": "2026-02-01T00:00:25.753Z",
-    "atl": 0.01910922,
-    "atlDate": "2026-03-23T09:55:09.505Z",
+    "atl": 0.01910575,
+    "atlDate": "2026-03-23T10:50:23.515Z",
     "circulatingSupply": 7237882055,
     "totalSupply": 34359738368,
-    "maxSupply": 34359738368
+    "maxSupply": 34359738368,
+    "fdv": 676529600
   },
-  "lastMarketUpdate": "2026-03-23T10:31:00.196Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-23T12:07:00.416Z"
 }
