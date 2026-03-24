@@ -1,6 +1,6 @@
 {
-  "computedAt": "2026-03-24T10:12:03.678Z",
-  "tokenCount": 271,
+  "computedAt": "2026-03-24T11:12:24.594Z",
+  "tokenCount": 273,
   "metrics": [
     {
       "tokenId": "1inch",
@@ -14,7 +14,7 @@
       "volatilityIndex": 16,
       "holderConcentrationEstimate": "unknown",
       "summary": "1INCH is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.559Z"
+      "computedAt": "2026-03-24T11:12:24.433Z"
     },
     {
       "tokenId": "a7a5",
@@ -28,7 +28,21 @@
       "volatilityIndex": 8,
       "holderConcentrationEstimate": "unknown",
       "summary": "A7A5 is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.560Z"
+      "computedAt": "2026-03-24T11:12:24.435Z"
+    },
+    {
+      "tokenId": "aave-v4",
+      "tokenName": "aave-v4",
+      "symbol": "aave",
+      "riskScore": 6,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 40,
+      "narrativeStrength": 30,
+      "valueVsAth": 100,
+      "volatilityIndex": 50,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "aave-v4 is a deeply discounted vs ATH token.",
+      "computedAt": "2026-03-24T11:12:24.436Z"
     },
     {
       "tokenId": "aave",
@@ -42,7 +56,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aave is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.560Z"
+      "computedAt": "2026-03-24T11:12:24.437Z"
     },
     {
       "tokenId": "adi-token",
@@ -50,13 +64,13 @@
       "symbol": "adi",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 17,
+      "growthPotentialIndex": 16,
       "narrativeStrength": 85,
-      "valueVsAth": 88,
+      "valueVsAth": 90,
       "volatilityIndex": 35,
       "holderConcentrationEstimate": "unknown",
       "summary": "ADI is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.561Z"
+      "computedAt": "2026-03-24T11:12:24.439Z"
     },
     {
       "tokenId": "aerodrome-finance",
@@ -70,7 +84,7 @@
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aerodrome Finance is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.561Z"
+      "computedAt": "2026-03-24T11:12:24.440Z"
     },
     {
       "tokenId": "aethir",
@@ -84,7 +98,7 @@
       "volatilityIndex": 38,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aethir is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.562Z"
+      "computedAt": "2026-03-24T11:12:24.440Z"
     },
     {
       "tokenId": "agora-dollar",
@@ -98,7 +112,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "AUSD is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.562Z"
+      "computedAt": "2026-03-24T11:12:24.441Z"
     },
     {
       "tokenId": "akash-network",
@@ -112,7 +126,7 @@
       "volatilityIndex": 82,
       "holderConcentrationEstimate": "unknown",
       "summary": "Akash Network is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.563Z"
+      "computedAt": "2026-03-24T11:12:24.443Z"
     },
     {
       "tokenId": "algorand",
@@ -126,7 +140,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Algorand is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.563Z"
+      "computedAt": "2026-03-24T11:12:24.444Z"
     },
     {
       "tokenId": "amp-token",
@@ -140,7 +154,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Amp is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.564Z"
+      "computedAt": "2026-03-24T11:12:24.446Z"
     },
     {
       "tokenId": "ape-and-pepe",
@@ -154,7 +168,7 @@
       "volatilityIndex": 47,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ape and Pepe is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.564Z"
+      "computedAt": "2026-03-24T11:12:24.447Z"
     },
     {
       "tokenId": "apenft",
@@ -168,7 +182,7 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "AINFT is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.565Z"
+      "computedAt": "2026-03-24T11:12:24.448Z"
     },
     {
       "tokenId": "apollo-diversified-credit-securitize-fund",
@@ -182,7 +196,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Apollo Diversified Credit Securitize Fund is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.565Z"
+      "computedAt": "2026-03-24T11:12:24.449Z"
     },
     {
       "tokenId": "aptos",
@@ -196,7 +210,7 @@
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aptos is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.566Z"
+      "computedAt": "2026-03-24T11:12:24.451Z"
     },
     {
       "tokenId": "arbitrum",
@@ -210,7 +224,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Arbitrum is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.566Z"
+      "computedAt": "2026-03-24T11:12:24.453Z"
     },
     {
       "tokenId": "arweave",
@@ -218,13 +232,13 @@
       "symbol": "ar",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 47,
+      "growthPotentialIndex": 46,
       "narrativeStrength": 95,
       "valueVsAth": 2,
       "volatilityIndex": 41,
       "holderConcentrationEstimate": "unknown",
       "summary": "Arweave is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.567Z"
+      "computedAt": "2026-03-24T11:12:24.454Z"
     },
     {
       "tokenId": "aster-2",
@@ -238,7 +252,7 @@
       "volatilityIndex": 11,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aster is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.567Z"
+      "computedAt": "2026-03-24T11:12:24.455Z"
     },
     {
       "tokenId": "astherus-usdf",
@@ -252,7 +266,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Aster USDF is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.567Z"
+      "computedAt": "2026-03-24T11:12:24.456Z"
     },
     {
       "tokenId": "avalanche-2",
@@ -266,7 +280,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "Avalanche is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.568Z"
+      "computedAt": "2026-03-24T11:12:24.457Z"
     },
     {
       "tokenId": "avant-usd",
@@ -280,7 +294,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Avant USD is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.568Z"
+      "computedAt": "2026-03-24T11:12:24.458Z"
     },
     {
       "tokenId": "axie-infinity",
@@ -294,7 +308,7 @@
       "volatilityIndex": 31,
       "holderConcentrationEstimate": "unknown",
       "summary": "Axie Infinity is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.569Z"
+      "computedAt": "2026-03-24T11:12:24.459Z"
     },
     {
       "tokenId": "banana-for-scale-2",
@@ -308,21 +322,21 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Banana For Scale is a high-risk, high growth potential, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.569Z"
+      "computedAt": "2026-03-24T11:12:24.460Z"
     },
     {
       "tokenId": "basic-attention-token",
       "tokenName": "Basic Attention",
       "symbol": "bat",
-      "riskScore": 7,
-      "riskLevel": "high",
-      "growthPotentialIndex": 58,
+      "riskScore": 6,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 57,
       "narrativeStrength": 30,
       "valueVsAth": 5,
       "volatilityIndex": 41,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Basic Attention is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.570Z"
+      "summary": "Basic Attention is a near ATH token.",
+      "computedAt": "2026-03-24T11:12:24.461Z"
     },
     {
       "tokenId": "beldex",
@@ -336,7 +350,7 @@
       "volatilityIndex": 4,
       "holderConcentrationEstimate": "unknown",
       "summary": "Beldex is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.570Z"
+      "computedAt": "2026-03-24T11:12:24.463Z"
     },
     {
       "tokenId": "berachain-bera",
@@ -350,7 +364,7 @@
       "volatilityIndex": 37,
       "holderConcentrationEstimate": "unknown",
       "summary": "Berachain is a high growth potential, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.571Z"
+      "computedAt": "2026-03-24T11:12:24.463Z"
     },
     {
       "tokenId": "bfusd",
@@ -364,7 +378,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "BFUSD is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.572Z"
+      "computedAt": "2026-03-24T11:12:24.466Z"
     },
     {
       "tokenId": "binancecoin",
@@ -378,7 +392,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "BNB is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.573Z"
+      "computedAt": "2026-03-24T11:12:24.466Z"
     },
     {
       "tokenId": "bitcoin-cash-sv",
@@ -392,7 +406,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Bitcoin SV is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.575Z"
+      "computedAt": "2026-03-24T11:12:24.469Z"
     },
     {
       "tokenId": "bitcoin-cash",
@@ -402,25 +416,25 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 37,
       "narrativeStrength": 60,
-      "valueVsAth": 13,
+      "valueVsAth": 12,
       "volatilityIndex": 36,
       "holderConcentrationEstimate": "unknown",
       "summary": "Bitcoin Cash is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.576Z"
+      "computedAt": "2026-03-24T11:12:24.469Z"
     },
     {
       "tokenId": "bitcoin",
       "tokenName": "Bitcoin",
       "symbol": "btc",
-      "riskScore": 3,
-      "riskLevel": "low",
+      "riskScore": 4,
+      "riskLevel": "medium",
       "growthPotentialIndex": 20,
       "narrativeStrength": 60,
-      "valueVsAth": 57,
+      "valueVsAth": 56,
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Bitcoin is a lower-risk, limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.577Z"
+      "summary": "Bitcoin is a limited upside token.",
+      "computedAt": "2026-03-24T11:12:24.470Z"
     },
     {
       "tokenId": "bitget-token",
@@ -434,7 +448,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Bitget Token is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.579Z"
+      "computedAt": "2026-03-24T11:12:24.472Z"
     },
     {
       "tokenId": "bittensor",
@@ -448,7 +462,7 @@
       "volatilityIndex": 99,
       "holderConcentrationEstimate": "unknown",
       "summary": "Bittensor is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.579Z"
+      "computedAt": "2026-03-24T11:12:24.472Z"
     },
     {
       "tokenId": "bittorrent",
@@ -462,7 +476,7 @@
       "volatilityIndex": 13,
       "holderConcentrationEstimate": "unknown",
       "summary": "BitTorrent is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.580Z"
+      "computedAt": "2026-03-24T11:12:24.473Z"
     },
     {
       "tokenId": "blackrock-usd-institutional-digital-liquidity-fund",
@@ -476,7 +490,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "BlackRock USD Institutional Digital Liquidity Fund is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.580Z"
+      "computedAt": "2026-03-24T11:12:24.474Z"
     },
     {
       "tokenId": "blockchain-capital",
@@ -490,7 +504,7 @@
       "volatilityIndex": 2,
       "holderConcentrationEstimate": "unknown",
       "summary": "Blockchain Capital is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.580Z"
+      "computedAt": "2026-03-24T11:12:24.474Z"
     },
     {
       "tokenId": "blockstack",
@@ -504,7 +518,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "Stacks is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.581Z"
+      "computedAt": "2026-03-24T11:12:24.475Z"
     },
     {
       "tokenId": "bnb48-club-token",
@@ -518,13 +532,13 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "KOGE is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.581Z"
+      "computedAt": "2026-03-24T11:12:24.475Z"
     },
     {
       "tokenId": "bonk",
       "tokenName": "Bonk",
       "symbol": "bonk",
-      "riskScore": 5,
+      "riskScore": 6,
       "riskLevel": "medium",
       "growthPotentialIndex": 38,
       "narrativeStrength": 95,
@@ -532,7 +546,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Bonk is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.582Z"
+      "computedAt": "2026-03-24T11:12:24.476Z"
     },
     {
       "tokenId": "btse-token",
@@ -546,7 +560,7 @@
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
       "summary": "BTSE Token is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.582Z"
+      "computedAt": "2026-03-24T11:12:24.477Z"
     },
     {
       "tokenId": "build-on",
@@ -560,7 +574,7 @@
       "volatilityIndex": 95,
       "holderConcentrationEstimate": "unknown",
       "summary": "BUILDon is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.583Z"
+      "computedAt": "2026-03-24T11:12:24.477Z"
     },
     {
       "tokenId": "canton-network",
@@ -568,13 +582,13 @@
       "symbol": "cc",
       "riskScore": 5,
       "riskLevel": "medium",
-      "growthPotentialIndex": 10,
+      "growthPotentialIndex": 11,
       "narrativeStrength": 95,
       "valueVsAth": 75,
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Canton is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.583Z"
+      "computedAt": "2026-03-24T11:12:24.478Z"
     },
     {
       "tokenId": "cap-usd",
@@ -588,7 +602,7 @@
       "volatilityIndex": 9,
       "holderConcentrationEstimate": "unknown",
       "summary": "Cap USD is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.584Z"
+      "computedAt": "2026-03-24T11:12:24.478Z"
     },
     {
       "tokenId": "cardano",
@@ -596,13 +610,13 @@
       "symbol": "ada",
       "riskScore": 4,
       "riskLevel": "medium",
-      "growthPotentialIndex": 38,
+      "growthPotentialIndex": 39,
       "narrativeStrength": 60,
       "valueVsAth": 9,
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "Cardano is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.584Z"
+      "computedAt": "2026-03-24T11:12:24.479Z"
     },
     {
       "tokenId": "cash-4",
@@ -612,11 +626,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 31,
       "narrativeStrength": 30,
-      "valueVsAth": 95,
+      "valueVsAth": 94,
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "CASH is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.584Z"
+      "computedAt": "2026-03-24T11:12:24.479Z"
     },
     {
       "tokenId": "celestia",
@@ -630,7 +644,7 @@
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "Celestia is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.585Z"
+      "computedAt": "2026-03-24T11:12:24.480Z"
     },
     {
       "tokenId": "chain-2",
@@ -644,7 +658,7 @@
       "volatilityIndex": 38,
       "holderConcentrationEstimate": "unknown",
       "summary": "Onyxcoin is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.585Z"
+      "computedAt": "2026-03-24T11:12:24.480Z"
     },
     {
       "tokenId": "chainlink",
@@ -654,11 +668,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 36,
       "narrativeStrength": 95,
-      "valueVsAth": 18,
+      "valueVsAth": 17,
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Chainlink is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.586Z"
+      "computedAt": "2026-03-24T11:12:24.481Z"
     },
     {
       "tokenId": "chiliz",
@@ -672,7 +686,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Chiliz is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.586Z"
+      "computedAt": "2026-03-24T11:12:24.482Z"
     },
     {
       "tokenId": "chutes",
@@ -686,7 +700,7 @@
       "volatilityIndex": 69,
       "holderConcentrationEstimate": "unknown",
       "summary": "Chutes is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.587Z"
+      "computedAt": "2026-03-24T11:12:24.482Z"
     },
     {
       "tokenId": "circle-internet-group-ondo-tokenized-stock",
@@ -696,11 +710,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 63,
       "narrativeStrength": 95,
-      "valueVsAth": 79,
+      "valueVsAth": 80,
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Circle Internet Group (Ondo Tokenized Stock) is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.587Z"
+      "summary": "Circle Internet Group (Ondo Tokenized Stock) is a strong narrative, deeply discounted vs ATH token.",
+      "computedAt": "2026-03-24T11:12:24.483Z"
     },
     {
       "tokenId": "comedian",
@@ -714,7 +728,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Comedian is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.588Z"
+      "computedAt": "2026-03-24T11:12:24.483Z"
     },
     {
       "tokenId": "compound-governance-token",
@@ -728,7 +742,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "Compound is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.588Z"
+      "computedAt": "2026-03-24T11:12:24.484Z"
     },
     {
       "tokenId": "conflux-token",
@@ -742,7 +756,7 @@
       "volatilityIndex": 58,
       "holderConcentrationEstimate": "unknown",
       "summary": "Conflux is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.588Z"
+      "computedAt": "2026-03-24T11:12:24.484Z"
     },
     {
       "tokenId": "convex-finance",
@@ -756,7 +770,7 @@
       "volatilityIndex": 44,
       "holderConcentrationEstimate": "unknown",
       "summary": "Convex Finance is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.589Z"
+      "computedAt": "2026-03-24T11:12:24.485Z"
     },
     {
       "tokenId": "cosmos",
@@ -770,7 +784,7 @@
       "volatilityIndex": 51,
       "holderConcentrationEstimate": "unknown",
       "summary": "Cosmos Hub is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.589Z"
+      "computedAt": "2026-03-24T11:12:24.486Z"
     },
     {
       "tokenId": "cow-protocol",
@@ -784,7 +798,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "CoW Protocol is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.590Z"
+      "computedAt": "2026-03-24T11:12:24.486Z"
     },
     {
       "tokenId": "crvusd",
@@ -798,7 +812,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "crvUSD is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.590Z"
+      "computedAt": "2026-03-24T11:12:24.487Z"
     },
     {
       "tokenId": "crypto-com-chain",
@@ -812,7 +826,7 @@
       "volatilityIndex": 11,
       "holderConcentrationEstimate": "unknown",
       "summary": "Cronos is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.591Z"
+      "computedAt": "2026-03-24T11:12:24.487Z"
     },
     {
       "tokenId": "curve-dao-token",
@@ -826,7 +840,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Curve DAO is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.591Z"
+      "computedAt": "2026-03-24T11:12:24.488Z"
     },
     {
       "tokenId": "cysic",
@@ -840,7 +854,7 @@
       "volatilityIndex": 97,
       "holderConcentrationEstimate": "unknown",
       "summary": "Cysic is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.591Z"
+      "computedAt": "2026-03-24T11:12:24.489Z"
     },
     {
       "tokenId": "dai",
@@ -854,7 +868,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Dai is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.592Z"
+      "computedAt": "2026-03-24T11:12:24.489Z"
     },
     {
       "tokenId": "dash",
@@ -868,7 +882,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Dash is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.592Z"
+      "computedAt": "2026-03-24T11:12:24.490Z"
     },
     {
       "tokenId": "decentraland",
@@ -882,7 +896,7 @@
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "Decentraland is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.593Z"
+      "computedAt": "2026-03-24T11:12:24.491Z"
     },
     {
       "tokenId": "decred",
@@ -896,7 +910,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "Decred is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.593Z"
+      "computedAt": "2026-03-24T11:12:24.491Z"
     },
     {
       "tokenId": "derive",
@@ -910,7 +924,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Derive is a high-risk, high growth potential, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.593Z"
+      "computedAt": "2026-03-24T11:12:24.491Z"
     },
     {
       "tokenId": "dexe",
@@ -924,7 +938,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "DeXe is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.594Z"
+      "computedAt": "2026-03-24T11:12:24.492Z"
     },
     {
       "tokenId": "dogecoin",
@@ -938,7 +952,7 @@
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
       "summary": "Dogecoin is a lower-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.594Z"
+      "computedAt": "2026-03-24T11:12:24.493Z"
     },
     {
       "tokenId": "dogwifcoin",
@@ -952,7 +966,7 @@
       "volatilityIndex": 48,
       "holderConcentrationEstimate": "unknown",
       "summary": "dogwifhat is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.595Z"
+      "computedAt": "2026-03-24T11:12:24.493Z"
     },
     {
       "tokenId": "doublezero",
@@ -960,13 +974,13 @@
       "symbol": "2z",
       "riskScore": 8,
       "riskLevel": "high",
-      "growthPotentialIndex": 38,
+      "growthPotentialIndex": 39,
       "narrativeStrength": 55,
       "valueVsAth": 9,
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "DoubleZero is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.595Z"
+      "computedAt": "2026-03-24T11:12:24.494Z"
     },
     {
       "tokenId": "ecash",
@@ -980,7 +994,7 @@
       "volatilityIndex": 24,
       "holderConcentrationEstimate": "unknown",
       "summary": "eCash is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.595Z"
+      "computedAt": "2026-03-24T11:12:24.495Z"
     },
     {
       "tokenId": "eigenlayer",
@@ -988,13 +1002,13 @@
       "symbol": "eigen",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 45,
+      "growthPotentialIndex": 44,
       "narrativeStrength": 95,
-      "valueVsAth": 4,
+      "valueVsAth": 3,
       "volatilityIndex": 29,
       "holderConcentrationEstimate": "unknown",
       "summary": "EigenCloud (prev. EigenLayer) is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.596Z"
+      "computedAt": "2026-03-24T11:12:24.495Z"
     },
     {
       "tokenId": "elrond-erd-2",
@@ -1008,7 +1022,7 @@
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "MultiversX is a high-risk, high growth potential, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.596Z"
+      "computedAt": "2026-03-24T11:12:24.496Z"
     },
     {
       "tokenId": "ethena-usde",
@@ -1022,7 +1036,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ethena USDe is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.597Z"
+      "computedAt": "2026-03-24T11:12:24.496Z"
     },
     {
       "tokenId": "ethena",
@@ -1036,7 +1050,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ethena is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.597Z"
+      "computedAt": "2026-03-24T11:12:24.497Z"
     },
     {
       "tokenId": "ether-fi",
@@ -1050,7 +1064,7 @@
       "volatilityIndex": 36,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ether.fi is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.598Z"
+      "computedAt": "2026-03-24T11:12:24.497Z"
     },
     {
       "tokenId": "ethereum-classic",
@@ -1064,7 +1078,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ethereum Classic is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.598Z"
+      "computedAt": "2026-03-24T11:12:24.498Z"
     },
     {
       "tokenId": "ethereum-name-service",
@@ -1078,13 +1092,13 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ethereum Name Service is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.598Z"
+      "computedAt": "2026-03-24T11:12:24.498Z"
     },
     {
       "tokenId": "ethereum",
       "tokenName": "Ethereum",
       "symbol": "eth",
-      "riskScore": 2,
+      "riskScore": 3,
       "riskLevel": "low",
       "growthPotentialIndex": 26,
       "narrativeStrength": 60,
@@ -1092,7 +1106,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ethereum is a lower-risk, limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.599Z"
+      "computedAt": "2026-03-24T11:12:24.499Z"
     },
     {
       "tokenId": "euro-coin",
@@ -1106,7 +1120,7 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "EURC is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.599Z"
+      "computedAt": "2026-03-24T11:12:24.500Z"
     },
     {
       "tokenId": "eutbl",
@@ -1120,7 +1134,7 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "Spiko EU T-Bills Money Market Fund is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.600Z"
+      "computedAt": "2026-03-24T11:12:24.500Z"
     },
     {
       "tokenId": "falcon-finance-ff",
@@ -1134,7 +1148,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "Falcon Finance is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.600Z"
+      "computedAt": "2026-03-24T11:12:24.501Z"
     },
     {
       "tokenId": "falcon-finance",
@@ -1148,7 +1162,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Falcon USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.601Z"
+      "computedAt": "2026-03-24T11:12:24.501Z"
     },
     {
       "tokenId": "fartcoin",
@@ -1156,13 +1170,13 @@
       "symbol": "fartcoin",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 51,
+      "growthPotentialIndex": 52,
       "narrativeStrength": 95,
       "valueVsAth": 7,
       "volatilityIndex": 56,
       "holderConcentrationEstimate": "unknown",
       "summary": "Fartcoin is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.601Z"
+      "computedAt": "2026-03-24T11:12:24.502Z"
     },
     {
       "tokenId": "fasttoken",
@@ -1176,7 +1190,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Fasttoken is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.601Z"
+      "computedAt": "2026-03-24T11:12:24.502Z"
     },
     {
       "tokenId": "fetch-ai",
@@ -1190,7 +1204,7 @@
       "volatilityIndex": 87,
       "holderConcentrationEstimate": "unknown",
       "summary": "Artificial Superintelligence Alliance is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.602Z"
+      "computedAt": "2026-03-24T11:12:24.503Z"
     },
     {
       "tokenId": "fidelity-digital-interest-token",
@@ -1204,7 +1218,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Fidelity Digital Interest Token is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.602Z"
+      "computedAt": "2026-03-24T11:12:24.503Z"
     },
     {
       "tokenId": "figure-heloc",
@@ -1218,7 +1232,7 @@
       "volatilityIndex": 7,
       "holderConcentrationEstimate": "unknown",
       "summary": "Figure Heloc is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.602Z"
+      "computedAt": "2026-03-24T11:12:24.504Z"
     },
     {
       "tokenId": "filecoin",
@@ -1232,7 +1246,7 @@
       "volatilityIndex": 30,
       "holderConcentrationEstimate": "unknown",
       "summary": "Filecoin is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.603Z"
+      "computedAt": "2026-03-24T11:12:24.504Z"
     },
     {
       "tokenId": "first-digital-usd",
@@ -1246,7 +1260,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "First Digital USD is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.603Z"
+      "computedAt": "2026-03-24T11:12:24.505Z"
     },
     {
       "tokenId": "flare-networks",
@@ -1260,7 +1274,7 @@
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
       "summary": "Flare is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.604Z"
+      "computedAt": "2026-03-24T11:12:24.505Z"
     },
     {
       "tokenId": "floki",
@@ -1274,7 +1288,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "FLOKI is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.604Z"
+      "computedAt": "2026-03-24T11:12:24.506Z"
     },
     {
       "tokenId": "flying-tulip",
@@ -1288,7 +1302,7 @@
       "volatilityIndex": 4,
       "holderConcentrationEstimate": "unknown",
       "summary": "Flying Tulip is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.604Z"
+      "computedAt": "2026-03-24T11:12:24.506Z"
     },
     {
       "tokenId": "frax-usd",
@@ -1302,7 +1316,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Frax USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.605Z"
+      "computedAt": "2026-03-24T11:12:24.507Z"
     },
     {
       "tokenId": "frax",
@@ -1316,7 +1330,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Legacy Frax Dollar is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.605Z"
+      "computedAt": "2026-03-24T11:12:24.507Z"
     },
     {
       "tokenId": "gala",
@@ -1330,7 +1344,7 @@
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "GALA is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.606Z"
+      "computedAt": "2026-03-24T11:12:24.508Z"
     },
     {
       "tokenId": "gatechain-token",
@@ -1344,7 +1358,7 @@
       "volatilityIndex": 13,
       "holderConcentrationEstimate": "unknown",
       "summary": "Gate is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.606Z"
+      "computedAt": "2026-03-24T11:12:24.509Z"
     },
     {
       "tokenId": "gekko",
@@ -1358,7 +1372,7 @@
       "volatilityIndex": 31,
       "holderConcentrationEstimate": "unknown",
       "summary": "GEKKO is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.606Z"
+      "computedAt": "2026-03-24T11:12:24.509Z"
     },
     {
       "tokenId": "gho",
@@ -1372,7 +1386,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "GHO is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.607Z"
+      "computedAt": "2026-03-24T11:12:24.510Z"
     },
     {
       "tokenId": "global-dollar",
@@ -1386,7 +1400,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Global Dollar is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.607Z"
+      "computedAt": "2026-03-24T11:12:24.510Z"
     },
     {
       "tokenId": "gmt-token",
@@ -1400,7 +1414,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "GoMining Token is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.608Z"
+      "computedAt": "2026-03-24T11:12:24.511Z"
     },
     {
       "tokenId": "gnosis",
@@ -1414,7 +1428,7 @@
       "volatilityIndex": 24,
       "holderConcentrationEstimate": "unknown",
       "summary": "Gnosis is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.608Z"
+      "computedAt": "2026-03-24T11:12:24.512Z"
     },
     {
       "tokenId": "golem",
@@ -1422,13 +1436,13 @@
       "symbol": "glm",
       "riskScore": 8,
       "riskLevel": "high",
-      "growthPotentialIndex": 42,
+      "growthPotentialIndex": 41,
       "narrativeStrength": 95,
       "valueVsAth": 10,
       "volatilityIndex": 44,
       "holderConcentrationEstimate": "unknown",
       "summary": "Golem is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.608Z"
+      "computedAt": "2026-03-24T11:12:24.512Z"
     },
     {
       "tokenId": "grass",
@@ -1442,7 +1456,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Grass is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.609Z"
+      "computedAt": "2026-03-24T11:12:24.513Z"
     },
     {
       "tokenId": "gusd",
@@ -1456,7 +1470,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "GUSD is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.609Z"
+      "computedAt": "2026-03-24T11:12:24.513Z"
     },
     {
       "tokenId": "hash-2",
@@ -1470,7 +1484,7 @@
       "volatilityIndex": 64,
       "holderConcentrationEstimate": "unknown",
       "summary": "Provenance Blockchain is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.610Z"
+      "computedAt": "2026-03-24T11:12:24.514Z"
     },
     {
       "tokenId": "hashnote-usyc",
@@ -1484,7 +1498,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Circle USYC is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.610Z"
+      "computedAt": "2026-03-24T11:12:24.514Z"
     },
     {
       "tokenId": "hastra-prime",
@@ -1494,11 +1508,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 14,
       "narrativeStrength": 30,
-      "valueVsAth": 69,
+      "valueVsAth": 68,
       "volatilityIndex": 2,
       "holderConcentrationEstimate": "unknown",
       "summary": "PRIME is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.610Z"
+      "computedAt": "2026-03-24T11:12:24.515Z"
     },
     {
       "tokenId": "havven",
@@ -1512,7 +1526,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "Synthetix is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.611Z"
+      "computedAt": "2026-03-24T11:12:24.515Z"
     },
     {
       "tokenId": "hedera-hashgraph",
@@ -1522,11 +1536,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 35,
       "narrativeStrength": 60,
-      "valueVsAth": 17,
+      "valueVsAth": 16,
       "volatilityIndex": 16,
       "holderConcentrationEstimate": "unknown",
       "summary": "Hedera is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.611Z"
+      "computedAt": "2026-03-24T11:12:24.516Z"
     },
     {
       "tokenId": "helium",
@@ -1540,7 +1554,7 @@
       "volatilityIndex": 42,
       "holderConcentrationEstimate": "unknown",
       "summary": "Helium is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.612Z"
+      "computedAt": "2026-03-24T11:12:24.516Z"
     },
     {
       "tokenId": "htx-dao",
@@ -1554,7 +1568,7 @@
       "volatilityIndex": 16,
       "holderConcentrationEstimate": "unknown",
       "summary": "HTX DAO is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.612Z"
+      "computedAt": "2026-03-24T11:12:24.517Z"
     },
     {
       "tokenId": "humanity",
@@ -1568,7 +1582,7 @@
       "volatilityIndex": 82,
       "holderConcentrationEstimate": "unknown",
       "summary": "Humanity is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.612Z"
+      "computedAt": "2026-03-24T11:12:24.518Z"
     },
     {
       "tokenId": "hyperliquid",
@@ -1582,7 +1596,7 @@
       "volatilityIndex": 69,
       "holderConcentrationEstimate": "unknown",
       "summary": "Hyperliquid is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.613Z"
+      "computedAt": "2026-03-24T11:12:24.518Z"
     },
     {
       "tokenId": "immutable-x",
@@ -1596,7 +1610,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Immutable is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.613Z"
+      "computedAt": "2026-03-24T11:12:24.519Z"
     },
     {
       "tokenId": "infinifi-usd",
@@ -1606,11 +1620,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 37,
       "narrativeStrength": 30,
-      "valueVsAth": 72,
+      "valueVsAth": 73,
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "InfiniFi USD has moderate metrics across the board.",
-      "computedAt": "2026-03-24T10:12:03.614Z"
+      "computedAt": "2026-03-24T11:12:24.519Z"
     },
     {
       "tokenId": "injective-protocol",
@@ -1624,7 +1638,7 @@
       "volatilityIndex": 32,
       "holderConcentrationEstimate": "unknown",
       "summary": "Injective is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.614Z"
+      "computedAt": "2026-03-24T11:12:24.520Z"
     },
     {
       "tokenId": "instadapp",
@@ -1638,7 +1652,7 @@
       "volatilityIndex": 30,
       "holderConcentrationEstimate": "unknown",
       "summary": "Fluid is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.614Z"
+      "computedAt": "2026-03-24T11:12:24.520Z"
     },
     {
       "tokenId": "internet-computer",
@@ -1652,13 +1666,13 @@
       "volatilityIndex": 34,
       "holderConcentrationEstimate": "unknown",
       "summary": "Internet Computer is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.615Z"
+      "computedAt": "2026-03-24T11:12:24.521Z"
     },
     {
       "tokenId": "iota",
       "tokenName": "IOTA",
       "symbol": "iota",
-      "riskScore": 7,
+      "riskScore": 8,
       "riskLevel": "high",
       "growthPotentialIndex": 40,
       "narrativeStrength": 78,
@@ -1666,7 +1680,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "IOTA is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.615Z"
+      "computedAt": "2026-03-24T11:12:24.521Z"
     },
     {
       "tokenId": "janus-henderson-anemoy-aaa-clo-fund",
@@ -1680,7 +1694,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Janus Henderson Anemoy AAA CLO Fund is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.616Z"
+      "computedAt": "2026-03-24T11:12:24.522Z"
     },
     {
       "tokenId": "janus-henderson-anemoy-treasury-fund",
@@ -1694,7 +1708,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Janus Henderson Anemoy Treasury Fund is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.616Z"
+      "computedAt": "2026-03-24T11:12:24.522Z"
     },
     {
       "tokenId": "jasmycoin",
@@ -1708,7 +1722,7 @@
       "volatilityIndex": 16,
       "holderConcentrationEstimate": "unknown",
       "summary": "JasmyCoin is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.616Z"
+      "computedAt": "2026-03-24T11:12:24.523Z"
     },
     {
       "tokenId": "jito-governance-token",
@@ -1722,7 +1736,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "Jito is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.617Z"
+      "computedAt": "2026-03-24T11:12:24.523Z"
     },
     {
       "tokenId": "jupiter-exchange-solana",
@@ -1736,7 +1750,7 @@
       "volatilityIndex": 32,
       "holderConcentrationEstimate": "unknown",
       "summary": "Jupiter is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.617Z"
+      "computedAt": "2026-03-24T11:12:24.524Z"
     },
     {
       "tokenId": "just",
@@ -1746,17 +1760,17 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 48,
       "narrativeStrength": 65,
-      "valueVsAth": 31,
+      "valueVsAth": 30,
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "JUST has moderate metrics across the board.",
-      "computedAt": "2026-03-24T10:12:03.618Z"
+      "computedAt": "2026-03-24T11:12:24.524Z"
     },
     {
       "tokenId": "kaia",
       "tokenName": "Kaia",
       "symbol": "kaia",
-      "riskScore": 7,
+      "riskScore": 8,
       "riskLevel": "high",
       "growthPotentialIndex": 52,
       "narrativeStrength": 60,
@@ -1764,7 +1778,7 @@
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
       "summary": "Kaia is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.618Z"
+      "computedAt": "2026-03-24T11:12:24.525Z"
     },
     {
       "tokenId": "kaspa",
@@ -1778,7 +1792,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Kaspa is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.618Z"
+      "computedAt": "2026-03-24T11:12:24.525Z"
     },
     {
       "tokenId": "kinesis-gold",
@@ -1792,7 +1806,7 @@
       "volatilityIndex": 29,
       "holderConcentrationEstimate": "unknown",
       "summary": "Kinesis Gold is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.619Z"
+      "computedAt": "2026-03-24T11:12:24.526Z"
     },
     {
       "tokenId": "kite-2",
@@ -1802,11 +1816,11 @@
       "riskLevel": "medium",
       "growthPotentialIndex": 11,
       "narrativeStrength": 95,
-      "valueVsAth": 75,
+      "valueVsAth": 74,
       "volatilityIndex": 56,
       "holderConcentrationEstimate": "unknown",
       "summary": "Kite is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.619Z"
+      "computedAt": "2026-03-24T11:12:24.526Z"
     },
     {
       "tokenId": "kucoin-shares",
@@ -1820,7 +1834,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "KuCoin is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.619Z"
+      "computedAt": "2026-03-24T11:12:24.526Z"
     },
     {
       "tokenId": "layerzero",
@@ -1834,7 +1848,7 @@
       "volatilityIndex": 56,
       "holderConcentrationEstimate": "unknown",
       "summary": "LayerZero is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.620Z"
+      "computedAt": "2026-03-24T11:12:24.527Z"
     },
     {
       "tokenId": "leo-token",
@@ -1848,7 +1862,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "LEO Token is a lower-risk, limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.620Z"
+      "computedAt": "2026-03-24T11:12:24.527Z"
     },
     {
       "tokenId": "lido-dao",
@@ -1862,7 +1876,7 @@
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "Lido DAO is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.621Z"
+      "computedAt": "2026-03-24T11:12:24.528Z"
     },
     {
       "tokenId": "lighter",
@@ -1870,13 +1884,13 @@
       "symbol": "lit",
       "riskScore": 7,
       "riskLevel": "high",
-      "growthPotentialIndex": 46,
+      "growthPotentialIndex": 47,
       "narrativeStrength": 65,
       "valueVsAth": 12,
       "volatilityIndex": 68,
       "holderConcentrationEstimate": "unknown",
       "summary": "Lighter is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.621Z"
+      "computedAt": "2026-03-24T11:12:24.528Z"
     },
     {
       "tokenId": "litecoin",
@@ -1890,7 +1904,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Litecoin is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.621Z"
+      "computedAt": "2026-03-24T11:12:24.529Z"
     },
     {
       "tokenId": "livepeer",
@@ -1898,13 +1912,13 @@
       "symbol": "lpt",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 51,
+      "growthPotentialIndex": 50,
       "narrativeStrength": 95,
       "valueVsAth": 2,
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Livepeer is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.622Z"
+      "computedAt": "2026-03-24T11:12:24.529Z"
     },
     {
       "tokenId": "lombard-protocol",
@@ -1918,7 +1932,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Lombard is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.622Z"
+      "computedAt": "2026-03-24T11:12:24.530Z"
     },
     {
       "tokenId": "mantle",
@@ -1932,7 +1946,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "Mantle is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.622Z"
+      "computedAt": "2026-03-24T11:12:24.530Z"
     },
     {
       "tokenId": "melania-meme",
@@ -1946,7 +1960,7 @@
       "volatilityIndex": 24,
       "holderConcentrationEstimate": "unknown",
       "summary": "Melania Meme is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.623Z"
+      "computedAt": "2026-03-24T11:12:24.531Z"
     },
     {
       "tokenId": "memecore",
@@ -1960,7 +1974,7 @@
       "volatilityIndex": 49,
       "holderConcentrationEstimate": "unknown",
       "summary": "MemeCore is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.623Z"
+      "computedAt": "2026-03-24T11:12:24.531Z"
     },
     {
       "tokenId": "midnight-3",
@@ -1968,13 +1982,13 @@
       "symbol": "night",
       "riskScore": 5,
       "riskLevel": "medium",
-      "growthPotentialIndex": 26,
+      "growthPotentialIndex": 25,
       "narrativeStrength": 95,
-      "valueVsAth": 39,
+      "valueVsAth": 40,
       "volatilityIndex": 33,
       "holderConcentrationEstimate": "unknown",
       "summary": "Midnight is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.623Z"
+      "computedAt": "2026-03-24T11:12:24.531Z"
     },
     {
       "tokenId": "mimblewimblecoin",
@@ -1988,7 +2002,7 @@
       "volatilityIndex": 78,
       "holderConcentrationEstimate": "unknown",
       "summary": "MimbleWimbleCoin is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.624Z"
+      "computedAt": "2026-03-24T11:12:24.532Z"
     },
     {
       "tokenId": "monad",
@@ -2002,7 +2016,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "Monad has moderate metrics across the board.",
-      "computedAt": "2026-03-24T10:12:03.624Z"
+      "computedAt": "2026-03-24T11:12:24.532Z"
     },
     {
       "tokenId": "monero",
@@ -2016,7 +2030,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Monero is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.624Z"
+      "computedAt": "2026-03-24T11:12:24.533Z"
     },
     {
       "tokenId": "morpho",
@@ -2030,7 +2044,7 @@
       "volatilityIndex": 64,
       "holderConcentrationEstimate": "unknown",
       "summary": "Morpho is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.625Z"
+      "computedAt": "2026-03-24T11:12:24.533Z"
     },
     {
       "tokenId": "mx-token",
@@ -2044,7 +2058,7 @@
       "volatilityIndex": 4,
       "holderConcentrationEstimate": "unknown",
       "summary": "MX has moderate metrics across the board.",
-      "computedAt": "2026-03-24T10:12:03.625Z"
+      "computedAt": "2026-03-24T11:12:24.534Z"
     },
     {
       "tokenId": "near",
@@ -2058,7 +2072,7 @@
       "volatilityIndex": 51,
       "holderConcentrationEstimate": "unknown",
       "summary": "NEAR Protocol is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.626Z"
+      "computedAt": "2026-03-24T11:12:24.534Z"
     },
     {
       "tokenId": "neo",
@@ -2066,13 +2080,13 @@
       "symbol": "neo",
       "riskScore": 7,
       "riskLevel": "high",
-      "growthPotentialIndex": 64,
+      "growthPotentialIndex": 63,
       "narrativeStrength": 30,
       "valueVsAth": 1,
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "NEO is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.626Z"
+      "computedAt": "2026-03-24T11:12:24.535Z"
     },
     {
       "tokenId": "newton-project",
@@ -2086,7 +2100,7 @@
       "volatilityIndex": 34,
       "holderConcentrationEstimate": "unknown",
       "summary": "AB is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.626Z"
+      "computedAt": "2026-03-24T11:12:24.535Z"
     },
     {
       "tokenId": "nexo",
@@ -2100,7 +2114,7 @@
       "volatilityIndex": 13,
       "holderConcentrationEstimate": "unknown",
       "summary": "NEXO is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.627Z"
+      "computedAt": "2026-03-24T11:12:24.536Z"
     },
     {
       "tokenId": "nusd-2",
@@ -2114,7 +2128,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Neutrl USD is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.627Z"
+      "computedAt": "2026-03-24T11:12:24.536Z"
     },
     {
       "tokenId": "official-fo",
@@ -2128,7 +2142,7 @@
       "volatilityIndex": 4,
       "holderConcentrationEstimate": "unknown",
       "summary": "Official FO is a high-risk, limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.627Z"
+      "computedAt": "2026-03-24T11:12:24.536Z"
     },
     {
       "tokenId": "official-trump",
@@ -2142,7 +2156,7 @@
       "volatilityIndex": 45,
       "holderConcentrationEstimate": "unknown",
       "summary": "Official Trump is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.628Z"
+      "computedAt": "2026-03-24T11:12:24.537Z"
     },
     {
       "tokenId": "okb",
@@ -2156,7 +2170,7 @@
       "volatilityIndex": 53,
       "holderConcentrationEstimate": "unknown",
       "summary": "OKB is a high-risk, limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.628Z"
+      "computedAt": "2026-03-24T11:12:24.537Z"
     },
     {
       "tokenId": "olympus",
@@ -2170,7 +2184,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Olympus is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.629Z"
+      "computedAt": "2026-03-24T11:12:24.538Z"
     },
     {
       "tokenId": "ondo-finance",
@@ -2184,7 +2198,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ondo is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.629Z"
+      "computedAt": "2026-03-24T11:12:24.539Z"
     },
     {
       "tokenId": "ondo-us-dollar-yield",
@@ -2198,7 +2212,7 @@
       "volatilityIndex": 4,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ondo US Dollar Yield is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.630Z"
+      "computedAt": "2026-03-24T11:12:24.539Z"
     },
     {
       "tokenId": "onyc",
@@ -2212,7 +2226,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Onchain Yield Coin is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.630Z"
+      "computedAt": "2026-03-24T11:12:24.540Z"
     },
     {
       "tokenId": "optimism",
@@ -2226,7 +2240,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "Optimism is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.630Z"
+      "computedAt": "2026-03-24T11:12:24.540Z"
     },
     {
       "tokenId": "origintrail",
@@ -2234,13 +2248,13 @@
       "symbol": "trac",
       "riskScore": 7,
       "riskLevel": "high",
-      "growthPotentialIndex": 39,
+      "growthPotentialIndex": 38,
       "narrativeStrength": 95,
       "valueVsAth": 9,
       "volatilityIndex": 19,
       "holderConcentrationEstimate": "unknown",
       "summary": "OriginTrail is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.631Z"
+      "computedAt": "2026-03-24T11:12:24.541Z"
     },
     {
       "tokenId": "ousg",
@@ -2254,7 +2268,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "OUSG is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.631Z"
+      "computedAt": "2026-03-24T11:12:24.541Z"
     },
     {
       "tokenId": "ozone-chain",
@@ -2268,21 +2282,21 @@
       "volatilityIndex": 3,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ozone Chain is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.632Z"
+      "computedAt": "2026-03-24T11:12:24.542Z"
     },
     {
       "tokenId": "pancakeswap-token",
       "tokenName": "PancakeSwap",
       "symbol": "cake",
-      "riskScore": 6,
-      "riskLevel": "medium",
+      "riskScore": 7,
+      "riskLevel": "high",
       "growthPotentialIndex": 43,
       "narrativeStrength": 95,
       "valueVsAth": 3,
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
-      "summary": "PancakeSwap is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.632Z"
+      "summary": "PancakeSwap is a high-risk, strong narrative, near ATH token.",
+      "computedAt": "2026-03-24T11:12:24.542Z"
     },
     {
       "tokenId": "pax-gold",
@@ -2296,7 +2310,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "PAX Gold is a lower-risk, limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.632Z"
+      "computedAt": "2026-03-24T11:12:24.543Z"
     },
     {
       "tokenId": "paypal-usd",
@@ -2310,7 +2324,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "PayPal USD is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.633Z"
+      "computedAt": "2026-03-24T11:12:24.543Z"
     },
     {
       "tokenId": "pendle",
@@ -2324,7 +2338,7 @@
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pendle is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.633Z"
+      "computedAt": "2026-03-24T11:12:24.544Z"
     },
     {
       "tokenId": "pepe",
@@ -2338,7 +2352,7 @@
       "volatilityIndex": 59,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pepe is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.634Z"
+      "computedAt": "2026-03-24T11:12:24.544Z"
     },
     {
       "tokenId": "pi-network",
@@ -2352,7 +2366,7 @@
       "volatilityIndex": 67,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pi Network is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.634Z"
+      "computedAt": "2026-03-24T11:12:24.545Z"
     },
     {
       "tokenId": "pieverse",
@@ -2366,7 +2380,7 @@
       "volatilityIndex": 39,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pieverse is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.634Z"
+      "computedAt": "2026-03-24T11:12:24.545Z"
     },
     {
       "tokenId": "pippin",
@@ -2380,7 +2394,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "pippin is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.635Z"
+      "computedAt": "2026-03-24T11:12:24.545Z"
     },
     {
       "tokenId": "plasma",
@@ -2394,7 +2408,7 @@
       "volatilityIndex": 49,
       "holderConcentrationEstimate": "unknown",
       "summary": "Plasma is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.635Z"
+      "computedAt": "2026-03-24T11:12:24.545Z"
     },
     {
       "tokenId": "pleasing-usd",
@@ -2408,7 +2422,7 @@
       "volatilityIndex": 10,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pleasing USD is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.635Z"
+      "computedAt": "2026-03-24T11:12:24.546Z"
     },
     {
       "tokenId": "polkadot",
@@ -2422,7 +2436,7 @@
       "volatilityIndex": 35,
       "holderConcentrationEstimate": "unknown",
       "summary": "Polkadot is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.636Z"
+      "computedAt": "2026-03-24T11:12:24.546Z"
     },
     {
       "tokenId": "polygon-ecosystem-token",
@@ -2436,7 +2450,7 @@
       "volatilityIndex": 30,
       "holderConcentrationEstimate": "unknown",
       "summary": "POL (ex-MATIC) is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.636Z"
+      "computedAt": "2026-03-24T11:12:24.546Z"
     },
     {
       "tokenId": "precious-metals-usd",
@@ -2450,7 +2464,7 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "Precious Metals USD is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.636Z"
+      "computedAt": "2026-03-24T11:12:24.547Z"
     },
     {
       "tokenId": "pudgy-penguins",
@@ -2464,7 +2478,7 @@
       "volatilityIndex": 27,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pudgy Penguins is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.637Z"
+      "computedAt": "2026-03-24T11:12:24.547Z"
     },
     {
       "tokenId": "pump-fun",
@@ -2478,21 +2492,21 @@
       "volatilityIndex": 30,
       "holderConcentrationEstimate": "unknown",
       "summary": "Pump.fun is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.637Z"
+      "computedAt": "2026-03-24T11:12:24.547Z"
     },
     {
       "tokenId": "pyth-network",
       "tokenName": "Pyth Network",
       "symbol": "pyth",
-      "riskScore": 6,
-      "riskLevel": "medium",
+      "riskScore": 7,
+      "riskLevel": "high",
       "growthPotentialIndex": 44,
       "narrativeStrength": 65,
       "valueVsAth": 3,
       "volatilityIndex": 36,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Pyth Network is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.638Z"
+      "summary": "Pyth Network is a high-risk, near ATH token.",
+      "computedAt": "2026-03-24T11:12:24.548Z"
     },
     {
       "tokenId": "quant-network",
@@ -2506,7 +2520,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Quant is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.638Z"
+      "computedAt": "2026-03-24T11:12:24.548Z"
     },
     {
       "tokenId": "quantum-resistant-ledger",
@@ -2520,7 +2534,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "Quantum Resistant Ledger is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.638Z"
+      "computedAt": "2026-03-24T11:12:24.549Z"
     },
     {
       "tokenId": "qubic-network",
@@ -2528,13 +2542,13 @@
       "symbol": "qubic",
       "riskScore": 10,
       "riskLevel": "high",
-      "growthPotentialIndex": 64,
+      "growthPotentialIndex": 63,
       "narrativeStrength": 95,
       "valueVsAth": 7,
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Qubic is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.639Z"
+      "computedAt": "2026-03-24T11:12:24.549Z"
     },
     {
       "tokenId": "rain",
@@ -2542,13 +2556,13 @@
       "symbol": "rain",
       "riskScore": 5,
       "riskLevel": "medium",
-      "growthPotentialIndex": 9,
+      "growthPotentialIndex": 8,
       "narrativeStrength": 65,
-      "valueVsAth": 79,
+      "valueVsAth": 81,
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
-      "summary": "Rain is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.639Z"
+      "summary": "Rain is a limited upside, deeply discounted vs ATH token.",
+      "computedAt": "2026-03-24T11:12:24.549Z"
     },
     {
       "tokenId": "raydium",
@@ -2562,7 +2576,7 @@
       "volatilityIndex": 19,
       "holderConcentrationEstimate": "unknown",
       "summary": "Raydium is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.640Z"
+      "computedAt": "2026-03-24T11:12:24.550Z"
     },
     {
       "tokenId": "re-protocol-reusd",
@@ -2570,13 +2584,13 @@
       "symbol": "reusd",
       "riskScore": 5,
       "riskLevel": "medium",
-      "growthPotentialIndex": 18,
+      "growthPotentialIndex": 19,
       "narrativeStrength": 95,
       "valueVsAth": 99,
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Re Protocol reUSD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.640Z"
+      "computedAt": "2026-03-24T11:12:24.550Z"
     },
     {
       "tokenId": "reallink",
@@ -2590,7 +2604,7 @@
       "volatilityIndex": 29,
       "holderConcentrationEstimate": "unknown",
       "summary": "RealLink is a high-risk, high growth potential, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.640Z"
+      "computedAt": "2026-03-24T11:12:24.551Z"
     },
     {
       "tokenId": "render-token",
@@ -2604,7 +2618,7 @@
       "volatilityIndex": 48,
       "holderConcentrationEstimate": "unknown",
       "summary": "Render is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.641Z"
+      "computedAt": "2026-03-24T11:12:24.551Z"
     },
     {
       "tokenId": "reserve-rights-token",
@@ -2618,7 +2632,7 @@
       "volatilityIndex": 36,
       "holderConcentrationEstimate": "unknown",
       "summary": "Reserve Rights is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.641Z"
+      "computedAt": "2026-03-24T11:12:24.552Z"
     },
     {
       "tokenId": "ribbita-by-virtuals",
@@ -2632,7 +2646,7 @@
       "volatilityIndex": 45,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ribbita by Virtuals is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.642Z"
+      "computedAt": "2026-03-24T11:12:24.552Z"
     },
     {
       "tokenId": "ripple-usd",
@@ -2646,7 +2660,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ripple USD is a lower-risk, limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.642Z"
+      "computedAt": "2026-03-24T11:12:24.553Z"
     },
     {
       "tokenId": "ripple",
@@ -2660,7 +2674,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "XRP is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.642Z"
+      "computedAt": "2026-03-24T11:12:24.554Z"
     },
     {
       "tokenId": "river",
@@ -2668,13 +2682,13 @@
       "symbol": "river",
       "riskScore": 7,
       "riskLevel": "high",
-      "growthPotentialIndex": 52,
+      "growthPotentialIndex": 50,
       "narrativeStrength": 95,
-      "valueVsAth": 24,
+      "valueVsAth": 29,
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "River is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.643Z"
+      "computedAt": "2026-03-24T11:12:24.554Z"
     },
     {
       "tokenId": "safepal",
@@ -2688,7 +2702,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "SafePal is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.643Z"
+      "computedAt": "2026-03-24T11:12:24.555Z"
     },
     {
       "tokenId": "satoshi-stablecoin",
@@ -2702,7 +2716,7 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "Satoshi Stablecoin is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.644Z"
+      "computedAt": "2026-03-24T11:12:24.555Z"
     },
     {
       "tokenId": "seeker",
@@ -2716,7 +2730,7 @@
       "volatilityIndex": 38,
       "holderConcentrationEstimate": "unknown",
       "summary": "Seeker is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.644Z"
+      "computedAt": "2026-03-24T11:12:24.555Z"
     },
     {
       "tokenId": "sei-network",
@@ -2730,7 +2744,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sei is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.644Z"
+      "computedAt": "2026-03-24T11:12:24.556Z"
     },
     {
       "tokenId": "sentient",
@@ -2738,13 +2752,13 @@
       "symbol": "sent",
       "riskScore": 5,
       "riskLevel": "medium",
-      "growthPotentialIndex": 27,
+      "growthPotentialIndex": 26,
       "narrativeStrength": 95,
       "valueVsAth": 40,
       "volatilityIndex": 31,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sentient is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.644Z"
+      "computedAt": "2026-03-24T11:12:24.556Z"
     },
     {
       "tokenId": "shiba-inu",
@@ -2758,7 +2772,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Shiba Inu is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.645Z"
+      "computedAt": "2026-03-24T11:12:24.557Z"
     },
     {
       "tokenId": "siren-2",
@@ -2772,7 +2786,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Siren is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.645Z"
+      "computedAt": "2026-03-24T11:12:24.557Z"
     },
     {
       "tokenId": "sky-protocol",
@@ -2786,7 +2800,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "sky-protocol is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.645Z"
+      "computedAt": "2026-03-24T11:12:24.558Z"
     },
     {
       "tokenId": "sky",
@@ -2800,7 +2814,7 @@
       "volatilityIndex": 36,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sky is a limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.646Z"
+      "computedAt": "2026-03-24T11:12:24.558Z"
     },
     {
       "tokenId": "societe-generale-forge-eurcv",
@@ -2814,13 +2828,13 @@
       "volatilityIndex": 5,
       "holderConcentrationEstimate": "unknown",
       "summary": "EUR CoinVertible is a lower-risk, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.647Z"
+      "computedAt": "2026-03-24T11:12:24.559Z"
     },
     {
       "tokenId": "solana",
       "tokenName": "Solana",
       "symbol": "sol",
-      "riskScore": 2,
+      "riskScore": 3,
       "riskLevel": "low",
       "growthPotentialIndex": 32,
       "narrativeStrength": 95,
@@ -2828,7 +2842,7 @@
       "volatilityIndex": 23,
       "holderConcentrationEstimate": "unknown",
       "summary": "Solana is a lower-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.647Z"
+      "computedAt": "2026-03-24T11:12:24.559Z"
     },
     {
       "tokenId": "sonic-3",
@@ -2842,7 +2856,7 @@
       "volatilityIndex": 32,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sonic is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.648Z"
+      "computedAt": "2026-03-24T11:12:24.560Z"
     },
     {
       "tokenId": "sosovalue",
@@ -2856,7 +2870,7 @@
       "volatilityIndex": 37,
       "holderConcentrationEstimate": "unknown",
       "summary": "SoSoValue is a high-risk token.",
-      "computedAt": "2026-03-24T10:12:03.648Z"
+      "computedAt": "2026-03-24T11:12:24.561Z"
     },
     {
       "tokenId": "spiko-us-t-bills-money-market-fund",
@@ -2870,7 +2884,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Spiko US T-Bills Money Market Fund is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.649Z"
+      "computedAt": "2026-03-24T11:12:24.561Z"
     },
     {
       "tokenId": "spx6900",
@@ -2884,21 +2898,21 @@
       "volatilityIndex": 30,
       "holderConcentrationEstimate": "unknown",
       "summary": "SPX6900 is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.649Z"
+      "computedAt": "2026-03-24T11:12:24.562Z"
     },
     {
       "tokenId": "stable-2",
       "tokenName": "​​Stable",
       "symbol": "stable",
-      "riskScore": 6,
+      "riskScore": 5,
       "riskLevel": "medium",
       "growthPotentialIndex": 13,
       "narrativeStrength": 95,
-      "valueVsAth": 70,
+      "valueVsAth": 69,
       "volatilityIndex": 41,
       "holderConcentrationEstimate": "unknown",
       "summary": "​​Stable is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.649Z"
+      "computedAt": "2026-03-24T11:12:24.562Z"
     },
     {
       "tokenId": "starknet",
@@ -2906,13 +2920,13 @@
       "symbol": "strk",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 47,
+      "growthPotentialIndex": 48,
       "narrativeStrength": 95,
       "valueVsAth": 1,
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "Starknet is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.650Z"
+      "computedAt": "2026-03-24T11:12:24.562Z"
     },
     {
       "tokenId": "stasis-eurs",
@@ -2920,13 +2934,13 @@
       "symbol": "eurs",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 40,
+      "growthPotentialIndex": 39,
       "narrativeStrength": 80,
       "valueVsAth": 68,
       "volatilityIndex": 9,
       "holderConcentrationEstimate": "unknown",
       "summary": "STASIS EURO is a strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.650Z"
+      "computedAt": "2026-03-24T11:12:24.563Z"
     },
     {
       "tokenId": "stellar",
@@ -2940,7 +2954,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "Stellar is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.651Z"
+      "computedAt": "2026-03-24T11:12:24.564Z"
     },
     {
       "tokenId": "story-2",
@@ -2954,7 +2968,7 @@
       "volatilityIndex": 65,
       "holderConcentrationEstimate": "unknown",
       "summary": "Story is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.651Z"
+      "computedAt": "2026-03-24T11:12:24.564Z"
     },
     {
       "tokenId": "strategic-oil-supply-2",
@@ -2968,7 +2982,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "Strategic Oil Supply is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.652Z"
+      "computedAt": "2026-03-24T11:12:24.564Z"
     },
     {
       "tokenId": "stripe-mpp",
@@ -2982,7 +2996,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "stripe-mpp is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.652Z"
+      "computedAt": "2026-03-24T11:12:24.564Z"
     },
     {
       "tokenId": "sui",
@@ -2996,7 +3010,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sui is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.652Z"
+      "computedAt": "2026-03-24T11:12:24.565Z"
     },
     {
       "tokenId": "sun-token",
@@ -3010,7 +3024,7 @@
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "Sun Token is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.653Z"
+      "computedAt": "2026-03-24T11:12:24.566Z"
     },
     {
       "tokenId": "superstate-short-duration-us-government-securities-fund-ustb",
@@ -3024,7 +3038,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Superstate Short Duration U.S. Government Securities Fund (USTB) is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.653Z"
+      "computedAt": "2026-03-24T11:12:24.566Z"
     },
     {
       "tokenId": "swissborg",
@@ -3038,7 +3052,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "SwissBorg is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.654Z"
+      "computedAt": "2026-03-24T11:12:24.567Z"
     },
     {
       "tokenId": "syrup",
@@ -3052,7 +3066,7 @@
       "volatilityIndex": 32,
       "holderConcentrationEstimate": "unknown",
       "summary": "Maple Finance is a high-risk, limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.654Z"
+      "computedAt": "2026-03-24T11:12:24.567Z"
     },
     {
       "tokenId": "telcoin",
@@ -3066,7 +3080,7 @@
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "Telcoin is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.656Z"
+      "computedAt": "2026-03-24T11:12:24.568Z"
     },
     {
       "tokenId": "templar",
@@ -3080,7 +3094,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "τemplar is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.657Z"
+      "computedAt": "2026-03-24T11:12:24.568Z"
     },
     {
       "tokenId": "terra-luna",
@@ -3094,7 +3108,7 @@
       "volatilityIndex": 35,
       "holderConcentrationEstimate": "unknown",
       "summary": "Terra Luna Classic is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.658Z"
+      "computedAt": "2026-03-24T11:12:24.569Z"
     },
     {
       "tokenId": "tether-gold",
@@ -3104,11 +3118,11 @@
       "riskLevel": "low",
       "growthPotentialIndex": 8,
       "narrativeStrength": 80,
-      "valueVsAth": 80,
+      "valueVsAth": 81,
       "volatilityIndex": 25,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tether Gold is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.658Z"
+      "computedAt": "2026-03-24T11:12:24.569Z"
     },
     {
       "tokenId": "tether",
@@ -3122,7 +3136,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tether is a lower-risk, limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.659Z"
+      "computedAt": "2026-03-24T11:12:24.570Z"
     },
     {
       "tokenId": "tezos",
@@ -3136,7 +3150,7 @@
       "volatilityIndex": 16,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tezos is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.660Z"
+      "computedAt": "2026-03-24T11:12:24.570Z"
     },
     {
       "tokenId": "the-graph",
@@ -3150,7 +3164,7 @@
       "volatilityIndex": 18,
       "holderConcentrationEstimate": "unknown",
       "summary": "The Graph is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.661Z"
+      "computedAt": "2026-03-24T11:12:24.571Z"
     },
     {
       "tokenId": "the-open-network",
@@ -3164,7 +3178,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Toncoin is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.662Z"
+      "computedAt": "2026-03-24T11:12:24.571Z"
     },
     {
       "tokenId": "the-sandbox",
@@ -3178,7 +3192,7 @@
       "volatilityIndex": 19,
       "holderConcentrationEstimate": "unknown",
       "summary": "The Sandbox is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.662Z"
+      "computedAt": "2026-03-24T11:12:24.572Z"
     },
     {
       "tokenId": "the9bit",
@@ -3192,7 +3206,7 @@
       "volatilityIndex": 46,
       "holderConcentrationEstimate": "unknown",
       "summary": "The9bit is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.662Z"
+      "computedAt": "2026-03-24T11:12:24.572Z"
     },
     {
       "tokenId": "theo-short-duration-us-treasury-fund",
@@ -3206,7 +3220,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Theo Short Duration US Treasury Fund is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.663Z"
+      "computedAt": "2026-03-24T11:12:24.572Z"
     },
     {
       "tokenId": "theta-token",
@@ -3220,7 +3234,7 @@
       "volatilityIndex": 29,
       "holderConcentrationEstimate": "unknown",
       "summary": "Theta Network is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.663Z"
+      "computedAt": "2026-03-24T11:12:24.573Z"
     },
     {
       "tokenId": "thetrumptoken",
@@ -3234,7 +3248,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "TheTrumpToken is a strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.664Z"
+      "computedAt": "2026-03-24T11:12:24.573Z"
     },
     {
       "tokenId": "thorchain",
@@ -3248,7 +3262,7 @@
       "volatilityIndex": 22,
       "holderConcentrationEstimate": "unknown",
       "summary": "THORChain is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.664Z"
+      "computedAt": "2026-03-24T11:12:24.574Z"
     },
     {
       "tokenId": "tokenize-xchange",
@@ -3262,7 +3276,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tokenize Xchange is a high-risk, high growth potential, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.664Z"
+      "computedAt": "2026-03-24T11:12:24.574Z"
     },
     {
       "tokenId": "tradable-na-rent-financing-platform-sstn",
@@ -3276,7 +3290,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tradable NA Rent Financing Platform SSTN is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.665Z"
+      "computedAt": "2026-03-24T11:12:24.575Z"
     },
     {
       "tokenId": "tradable-singapore-fintech-ssl-2",
@@ -3290,7 +3304,21 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "Tradable Singapore Fintech SSL is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.665Z"
+      "computedAt": "2026-03-24T11:12:24.575Z"
+    },
+    {
+      "tokenId": "tron-ai-ecosystem",
+      "tokenName": "tron-ai-ecosystem",
+      "symbol": "tron",
+      "riskScore": 6,
+      "riskLevel": "medium",
+      "growthPotentialIndex": 40,
+      "narrativeStrength": 30,
+      "valueVsAth": 100,
+      "volatilityIndex": 50,
+      "holderConcentrationEstimate": "unknown",
+      "summary": "tron-ai-ecosystem is a deeply discounted vs ATH token.",
+      "computedAt": "2026-03-24T11:12:24.575Z"
     },
     {
       "tokenId": "tron-ai-fund",
@@ -3304,7 +3332,7 @@
       "volatilityIndex": 50,
       "holderConcentrationEstimate": "unknown",
       "summary": "tron-ai-fund is a deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.665Z"
+      "computedAt": "2026-03-24T11:12:24.576Z"
     },
     {
       "tokenId": "tron",
@@ -3318,7 +3346,7 @@
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "TRON is a lower-risk, limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.665Z"
+      "computedAt": "2026-03-24T11:12:24.576Z"
     },
     {
       "tokenId": "true-usd",
@@ -3332,7 +3360,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "TrueUSD is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.666Z"
+      "computedAt": "2026-03-24T11:12:24.577Z"
     },
     {
       "tokenId": "trust-wallet-token",
@@ -3346,7 +3374,7 @@
       "volatilityIndex": 14,
       "holderConcentrationEstimate": "unknown",
       "summary": "Trust Wallet is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.667Z"
+      "computedAt": "2026-03-24T11:12:24.577Z"
     },
     {
       "tokenId": "ultima",
@@ -3360,7 +3388,7 @@
       "volatilityIndex": 55,
       "holderConcentrationEstimate": "unknown",
       "summary": "Ultima is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.667Z"
+      "computedAt": "2026-03-24T11:12:24.578Z"
     },
     {
       "tokenId": "undeads-games",
@@ -3374,7 +3402,7 @@
       "volatilityIndex": 32,
       "holderConcentrationEstimate": "unknown",
       "summary": "Undeads Games is a high-risk, limited upside token.",
-      "computedAt": "2026-03-24T10:12:03.667Z"
+      "computedAt": "2026-03-24T11:12:24.578Z"
     },
     {
       "tokenId": "unifai-network",
@@ -3388,7 +3416,7 @@
       "volatilityIndex": 100,
       "holderConcentrationEstimate": "unknown",
       "summary": "UnifAI Network is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.668Z"
+      "computedAt": "2026-03-24T11:12:24.579Z"
     },
     {
       "tokenId": "uniswap",
@@ -3402,7 +3430,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "Uniswap is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.668Z"
+      "computedAt": "2026-03-24T11:12:24.579Z"
     },
     {
       "tokenId": "usd-coin",
@@ -3416,7 +3444,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDC is a lower-risk, limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.668Z"
+      "computedAt": "2026-03-24T11:12:24.580Z"
     },
     {
       "tokenId": "usd1-wlfi",
@@ -3426,11 +3454,11 @@
       "riskLevel": "low",
       "growthPotentialIndex": 1,
       "narrativeStrength": 30,
-      "valueVsAth": 97,
+      "valueVsAth": 98,
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USD1 is a lower-risk, limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.669Z"
+      "computedAt": "2026-03-24T11:12:24.580Z"
     },
     {
       "tokenId": "usda-2",
@@ -3444,7 +3472,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDa is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.669Z"
+      "computedAt": "2026-03-24T11:12:24.581Z"
     },
     {
       "tokenId": "usdai",
@@ -3458,7 +3486,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDai is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.670Z"
+      "computedAt": "2026-03-24T11:12:24.582Z"
     },
     {
       "tokenId": "usdd",
@@ -3472,7 +3500,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.670Z"
+      "computedAt": "2026-03-24T11:12:24.582Z"
     },
     {
       "tokenId": "usds",
@@ -3486,7 +3514,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDS is a lower-risk, limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.670Z"
+      "computedAt": "2026-03-24T11:12:24.583Z"
     },
     {
       "tokenId": "usdtb",
@@ -3500,7 +3528,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USDtb is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.671Z"
+      "computedAt": "2026-03-24T11:12:24.584Z"
     },
     {
       "tokenId": "usual-usd",
@@ -3514,7 +3542,7 @@
       "volatilityIndex": 1,
       "holderConcentrationEstimate": "unknown",
       "summary": "Usual USD is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.671Z"
+      "computedAt": "2026-03-24T11:12:24.584Z"
     },
     {
       "tokenId": "usx",
@@ -3528,13 +3556,13 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "USX is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.671Z"
+      "computedAt": "2026-03-24T11:12:24.584Z"
     },
     {
       "tokenId": "vaulta",
       "tokenName": "Vaulta",
       "symbol": "a",
-      "riskScore": 6,
+      "riskScore": 5,
       "riskLevel": "medium",
       "growthPotentialIndex": 69,
       "narrativeStrength": 60,
@@ -3542,7 +3570,7 @@
       "volatilityIndex": 15,
       "holderConcentrationEstimate": "unknown",
       "summary": "Vaulta is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.672Z"
+      "computedAt": "2026-03-24T11:12:24.585Z"
     },
     {
       "tokenId": "vechain",
@@ -3552,11 +3580,11 @@
       "riskLevel": "high",
       "growthPotentialIndex": 40,
       "narrativeStrength": 95,
-      "valueVsAth": 2,
+      "valueVsAth": 3,
       "volatilityIndex": 17,
       "holderConcentrationEstimate": "unknown",
       "summary": "VeChain is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.672Z"
+      "computedAt": "2026-03-24T11:12:24.585Z"
     },
     {
       "tokenId": "venice-token",
@@ -3570,7 +3598,7 @@
       "volatilityIndex": 83,
       "holderConcentrationEstimate": "unknown",
       "summary": "Venice Token is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.673Z"
+      "computedAt": "2026-03-24T11:12:24.586Z"
     },
     {
       "tokenId": "virtual-protocol",
@@ -3584,7 +3612,7 @@
       "volatilityIndex": 34,
       "holderConcentrationEstimate": "unknown",
       "summary": "Virtuals Protocol is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.673Z"
+      "computedAt": "2026-03-24T11:12:24.586Z"
     },
     {
       "tokenId": "vision-3",
@@ -3598,7 +3626,7 @@
       "volatilityIndex": 10,
       "holderConcentrationEstimate": "unknown",
       "summary": "Vision has moderate metrics across the board.",
-      "computedAt": "2026-03-24T10:12:03.673Z"
+      "computedAt": "2026-03-24T11:12:24.587Z"
     },
     {
       "tokenId": "walrus-2",
@@ -3612,7 +3640,7 @@
       "volatilityIndex": 19,
       "holderConcentrationEstimate": "unknown",
       "summary": "Walrus is a high-risk, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.674Z"
+      "computedAt": "2026-03-24T11:12:24.587Z"
     },
     {
       "tokenId": "wefi",
@@ -3626,7 +3654,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "WeFi is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.674Z"
+      "computedAt": "2026-03-24T11:12:24.588Z"
     },
     {
       "tokenId": "wemix-token",
@@ -3640,7 +3668,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "WEMIX is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.674Z"
+      "computedAt": "2026-03-24T11:12:24.588Z"
     },
     {
       "tokenId": "whitebit",
@@ -3654,7 +3682,7 @@
       "volatilityIndex": 28,
       "holderConcentrationEstimate": "unknown",
       "summary": "WhiteBIT Coin is a limited upside, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.675Z"
+      "computedAt": "2026-03-24T11:12:24.589Z"
     },
     {
       "tokenId": "world-liberty-financial",
@@ -3668,7 +3696,7 @@
       "volatilityIndex": 33,
       "holderConcentrationEstimate": "unknown",
       "summary": "World Liberty Financial is a limited upside, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.675Z"
+      "computedAt": "2026-03-24T11:12:24.589Z"
     },
     {
       "tokenId": "worldcoin-wld",
@@ -3682,7 +3710,7 @@
       "volatilityIndex": 26,
       "holderConcentrationEstimate": "unknown",
       "summary": "Worldcoin is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.675Z"
+      "computedAt": "2026-03-24T11:12:24.590Z"
     },
     {
       "tokenId": "xdce-crowd-sale",
@@ -3692,11 +3720,11 @@
       "riskLevel": "high",
       "growthPotentialIndex": 35,
       "narrativeStrength": 80,
-      "valueVsAth": 16,
+      "valueVsAth": 17,
       "volatilityIndex": 21,
       "holderConcentrationEstimate": "unknown",
       "summary": "XDC Network is a high-risk, strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.676Z"
+      "computedAt": "2026-03-24T11:12:24.590Z"
     },
     {
       "tokenId": "ylds",
@@ -3710,7 +3738,7 @@
       "volatilityIndex": 0,
       "holderConcentrationEstimate": "unknown",
       "summary": "YLDS is a limited upside, strong narrative, deeply discounted vs ATH token.",
-      "computedAt": "2026-03-24T10:12:03.676Z"
+      "computedAt": "2026-03-24T11:12:24.591Z"
     },
     {
       "tokenId": "zano",
@@ -3724,7 +3752,7 @@
       "volatilityIndex": 92,
       "holderConcentrationEstimate": "unknown",
       "summary": "Zano is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.676Z"
+      "computedAt": "2026-03-24T11:12:24.591Z"
     },
     {
       "tokenId": "zcash",
@@ -3738,7 +3766,7 @@
       "volatilityIndex": 43,
       "holderConcentrationEstimate": "unknown",
       "summary": "Zcash is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.677Z"
+      "computedAt": "2026-03-24T11:12:24.592Z"
     },
     {
       "tokenId": "zebec-network",
@@ -3752,7 +3780,7 @@
       "volatilityIndex": 40,
       "holderConcentrationEstimate": "unknown",
       "summary": "Zebec Network is a high-risk, strong narrative token.",
-      "computedAt": "2026-03-24T10:12:03.677Z"
+      "computedAt": "2026-03-24T11:12:24.592Z"
     },
     {
       "tokenId": "zencash",
@@ -3766,7 +3794,7 @@
       "volatilityIndex": 31,
       "holderConcentrationEstimate": "unknown",
       "summary": "Horizen is a near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.678Z"
+      "computedAt": "2026-03-24T11:12:24.593Z"
     },
     {
       "tokenId": "zero-gravity",
@@ -3774,13 +3802,13 @@
       "symbol": "0g",
       "riskScore": 6,
       "riskLevel": "medium",
-      "growthPotentialIndex": 48,
+      "growthPotentialIndex": 47,
       "narrativeStrength": 95,
       "valueVsAth": 8,
       "volatilityIndex": 37,
       "holderConcentrationEstimate": "unknown",
       "summary": "0G is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.678Z"
+      "computedAt": "2026-03-24T11:12:24.593Z"
     },
     {
       "tokenId": "zksync",
@@ -3794,7 +3822,7 @@
       "volatilityIndex": 20,
       "holderConcentrationEstimate": "unknown",
       "summary": "ZKsync is a strong narrative, near ATH token.",
-      "computedAt": "2026-03-24T10:12:03.678Z"
+      "computedAt": "2026-03-24T11:12:24.594Z"
     }
   ]
 }
