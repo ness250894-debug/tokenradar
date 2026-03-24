@@ -263,12 +263,31 @@ async function main() {
     process.exit(1);
   }
 
+  // Load upcoming TGE data early — needed for both queue filtering and TGE processing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const upcomingTges: any[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
+
+  // Build a set of upcoming TGE IDs (status !== "released") so we can
+  // exclude them from the regular token queue. Tokens that have already
+  // graduated (status === "released") are NOT excluded.
+  const upcomingTgeIdSet = new Set<string>(
+    upcomingTges
+      .filter((t: { status?: string }) => t.status !== "released")
+      .map((t: { id: string }) => t.id)
+  );
+
   // Filter tokens to find ones that actually need generation
   const tokensToProcess: string[] = [];
   
   for (const f of tokenFiles) {
     const id = f.replace(".json", "");
     if (targetToken && id !== targetToken) continue;
+
+    // Skip upcoming TGEs that lack real market data — they belong in the TGE queue only
+    if (upcomingTgeIdSet.has(id)) {
+      const data = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, f), "utf-8"));
+      if (!data.market?.price || data.market.price === 0) continue;
+    }
 
     // Check if this token is missing any generated content
     const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
@@ -291,8 +310,6 @@ async function main() {
 
   // Build separate TGE queue (independent budget)
   const tgeTokensToProcess: string[] = [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const upcomingTges: any[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
   for (const tge of upcomingTges) {
     if (targetToken && tge.id !== targetToken) continue;
     if (tokensToProcess.includes(tge.id)) continue;
@@ -442,8 +459,9 @@ async function main() {
       const outputFile = path.join(outputDir, `${config.slug}.json`);
 
       // 3. Ensure metadata file exists in TOKENS_DIR so Next.js builds the route
+      //    BUT: skip for TGE tokens — they should only have routes under /upcoming/[token]
       const metadataFile = path.join(TOKENS_DIR, `${tokenId}.json`);
-      if (!fs.existsSync(metadataFile)) {
+      if (!fs.existsSync(metadataFile) && !isTge) {
         if (dryRun) {
           console.log(`  [DRY-RUN] Would create metadata file: ${metadataFile}`);
         } else {

@@ -173,7 +173,14 @@ export function getAllTokens(): TokenSummary[] {
   return summaries;
 }
 
-/** Get all token IDs that have detailed data or content. */
+/**
+ * Get all token IDs that should have a page on the regular /[token] route.
+ *
+ * Excludes upcoming TGE tokens that lack real market data — those should
+ * only appear under /upcoming/[token]. Tokens that have graduated
+ * (status === "released") or that have real market data (e.g. hyperliquid)
+ * are NOT excluded.
+ */
 export function getTokenIds(): string[] {
   const tokensDir = path.join(DATA_DIR, "tokens");
   const ids = new Set<string>();
@@ -193,7 +200,32 @@ export function getTokenIds(): string[] {
       });
   }
 
-  return Array.from(ids);
+  // Load upcoming TGE IDs so we can exclude pre-launch tokens without data
+  const upcomingTgeIds = new Set<string>();
+  if (fs.existsSync(TGE_FILE)) {
+    try {
+      const tges: UpcomingTge[] = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+      tges
+        .filter((t) => t.status !== "released")
+        .forEach((t) => upcomingTgeIds.add(t.id));
+    } catch {
+      // Ignore parse errors — fail open (include all tokens)
+    }
+  }
+
+  return Array.from(ids).filter((id) => {
+    if (!upcomingTgeIds.has(id)) return true;
+
+    // Upcoming TGE — only include if it has real market data
+    const tokenFile = path.join(tokensDir, `${id}.json`);
+    if (!fs.existsSync(tokenFile)) return false;
+    try {
+      const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
+      return data.market?.price > 0 && data.market?.marketCap > 0;
+    } catch {
+      return false;
+    }
+  });
 }
 
 /** Load detailed token data. */

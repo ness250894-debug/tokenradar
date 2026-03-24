@@ -27,7 +27,10 @@ interface SitemapEntry {
   priority: string;
 }
 
-/** Load token IDs from data and content directories. */
+/**
+ * Load token IDs from data and content directories.
+ * Excludes upcoming TGEs that lack real market data (same filter as content-loader).
+ */
 function getTokenIds(): string[] {
   const tokensDir = path.join(DATA_DIR, "tokens");
   const ids = new Set<string>();
@@ -46,7 +49,24 @@ function getTokenIds(): string[] {
     });
   }
 
-  return Array.from(ids);
+  // Exclude upcoming TGE tokens without real market data
+  const upcomingTgeIds = new Set<string>();
+  const tges = getUpcomingTGEs();
+  tges
+    .filter((t: any) => t.status !== "released")
+    .forEach((t: any) => upcomingTgeIds.add(t.id));
+
+  return Array.from(ids).filter((id) => {
+    if (!upcomingTgeIds.has(id)) return true;
+    const tokenFile = path.join(tokensDir, `${id}.json`);
+    if (!fs.existsSync(tokenFile)) return false;
+    try {
+      const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
+      return data.market?.price > 0 && data.market?.marketCap > 0;
+    } catch {
+      return false;
+    }
+  });
 }
 
 /** Read the `fetchedAt` date from a token's data file. */
