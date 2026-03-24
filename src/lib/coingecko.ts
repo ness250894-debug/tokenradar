@@ -426,3 +426,50 @@ export async function fetchTokensByRank(
       t.market_cap_rank <= endRank
   );
 }
+
+// ── Trending Coins ────────────────────────────────────────────
+
+/** A single trending coin item from the CoinGecko /search/trending endpoint. */
+export interface TrendingCoinItem {
+  id: string;
+  coin_id: number;
+  name: string;
+  symbol: string;
+  market_cap_rank: number | null;
+  thumb: string;
+  score: number;
+}
+
+/** Raw response shape from CoinGecko /search/trending. */
+interface TrendingResponse {
+  coins: { item: TrendingCoinItem }[];
+}
+
+/**
+ * Fetch the top trending coins from CoinGecko's search/trending endpoint.
+ * This is a zero-cost endpoint based on user search volume — a strong signal
+ * of current market interest and momentum.
+ *
+ * Results are cached for 30 minutes to avoid redundant API calls.
+ *
+ * @returns Array of trending coin items, sorted by score (highest momentum first)
+ */
+export async function fetchTrendingCoins(): Promise<TrendingCoinItem[]> {
+  try {
+    const raw = await fetchCoinGecko<TrendingResponse>(
+      "/search/trending",
+      {},
+      "trending-coins",
+      30 * 60 * 1000 // 30-minute cache
+    );
+
+    return (raw.coins || [])
+      .map((c) => c.item)
+      .sort((a, b) => a.score - b.score);
+  } catch (error) {
+    console.warn(
+      `  ⚠ Failed to fetch trending coins: ${error instanceof Error ? error.message : String(error)}`
+    );
+    return [];
+  }
+}

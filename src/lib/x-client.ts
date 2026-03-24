@@ -126,3 +126,86 @@ export async function postTweet(text: string): Promise<string> {
     throw e;
   }
 }
+
+// ── X Trends Integration ──────────────────────────────────────
+
+/** A single trend item from the X API. */
+export interface XTrendItem {
+  trend_name: string;
+  tweet_count?: number;
+}
+
+/**
+ * Fetch worldwide trending topics from the X API v2.
+ * Uses WOEID 1 (Worldwide). Falls back gracefully if the API tier
+ * does not support the Trends endpoint (requires Basic+ tier).
+ *
+ * @returns Array of trend names, or empty array on failure
+ */
+export async function fetchXTrends(): Promise<XTrendItem[]> {
+  try {
+    const creds = validateXCredentials();
+    const client = new TwitterApi({
+      appKey: creds.apiKey,
+      appSecret: creds.apiSecret,
+      accessToken: creds.accessToken,
+      accessSecret: creds.accessSecret,
+    });
+
+    // twitter-api-v2 exposes v1.1 trends endpoint via .v1.trendsAvailable()
+    // The v2 trends endpoint may require higher tier access.
+    // Fallback: use v1.1 GET trends/place (WOEID 1 = Worldwide)
+    const trends = await client.v1.trendsByPlace(1);
+
+    if (!trends || trends.length === 0 || !trends[0].trends) {
+      return [];
+    }
+
+    return trends[0].trends.map((t) => ({
+      trend_name: t.name,
+      tweet_count: t.tweet_volume ?? undefined,
+    }));
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    // 403 = tier not supported, 429 = rate limited — both are non-fatal
+    console.warn(`  ⚠ Failed to fetch X Trends: ${msg}`);
+    return [];
+  }
+}
+
+/**
+ * Match X trend names against a list of known token names/symbols.
+ * Uses case-insensitive matching against hashtags and keyword patterns.
+ *
+ * @param trends - Raw X trend items
+ * @param knownTokens - Array of { id, name, symbol } from local registry
+ * @returns Array of matched token IDs, ordered by tweet volume (highest first)
+ */
+export function matchTrendsToTokens(
+  trends: XTrendItem[],
+  knownTokens: { id: string; name: string; symbol: string }[]
+): string[] {
+  const matched = new Map<string, number>();
+
+  for (const trend of trends) {
+    const trendLC = trend.trend_name
+      .toLowerCase()
+      .replace(/^#/, "")
+      .replace(/[^a-z0-9]/g, "");
+
+    for (const token of knownTokens) {
+      const nameLC = token.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const symbolLC = token.symbol.toLowerCase();
+
+      if (trendLC === symbolLC || trendLC === nameLC) {
+        const volume = trend.tweet_count ?? 0;
+        const existing = matched.get(token.id) ?? 0;
+        matched.set(token.id, Math.max(existing, volume));
+      }
+    }
+  }
+
+  return Array.from(matched.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([id]) => id);
+}

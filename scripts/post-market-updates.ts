@@ -1,29 +1,41 @@
 /**
- * Telegram Auto-Poster — Daily Market Updates
+ * Telegram & X Auto-Poster — Daily Market Updates
  *
- * Posts short, data-driven market updates to a Telegram channel.
- * Designed to run frequently (e.g., every 4 hours).
+ * Posts short, data-driven market updates to Telegram and/or X.
+ * Designed to run frequently (e.g., every 4 hours / 5x daily).
+ *
+ * Selection Priority (tries each in order until an un-posted token is found):
+ *   1. Trending on CoinGecko (user search momentum)
+ *   2. Trending on X (matched hashtags/keywords)
+ *   3. Top Gainer (24h price increase > 2%)
+ *   4. Safe Play (Risk Score <= 4)
+ *   5. Random Spotlight (any eligible token)
+ *
+ * Deduplication: Tokens posted today are skipped. If all trending tokens
+ * have been posted, falls back to lower-priority strategies.
  *
  * Alert Types:
- * - Top Gainer (24h)
- * - Safe Play (Risk Score <= 4)
- * - Random Spotlight
+ * - 🔥 TRENDING: Token is trending on CoinGecko/X
+ * - 🚀 MARKET MOVER: Top gainer (24h)
+ * - 🛡️ LOW RISK ASSET: Safe play (Risk Score <= 4)
+ * - 🔦 TOKEN SPOTLIGHT: Random spotlight
  *
  * Usage:
  *   npx tsx scripts/post-market-updates.ts
+ *   npx tsx scripts/post-market-updates.ts --platform x --dry-run
  *
  * Requires in .env.local:
- *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID
+ *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, X_API_KEY, etc.
  */
 
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { fetchTokensByRank, CoinGeckoToken } from "../src/lib/coingecko";
+import { fetchTokensByRank, CoinGeckoToken, fetchTrendingCoins, TrendingCoinItem } from "../src/lib/coingecko";
 import { logError } from "../src/lib/reporter";
 import { generateTokenSummary } from "../src/lib/gemini";
 import { sendTelegramMessage } from "../src/lib/telegram";
-import { postTweet } from "../src/lib/x-client";
+import { postTweet, fetchXTrends, matchTrendsToTokens } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL_FOOTER, STABLECOIN_IDS } from "../src/lib/config";
 import { safeReadJson } from "../src/lib/utils";
 
@@ -51,6 +63,14 @@ interface TokenData {
     marketCap: number;
   };
 }
+
+/** Why this token was selected — used for logging and AI context. */
+type SelectionReason =
+  | "trending-coingecko"
+  | "trending-x"
+  | "top-gainer"
+  | "safe-play"
+  | "spotlight";
 
 // ── Utilities ──────────────────────────────────────────────────
 
@@ -116,6 +136,41 @@ function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMAR
 }
 
 // ── Alert Generators ───────────────────────────────────────────
+
+function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummary: string = ""): string {
+  const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
+  const sym = token.symbol.toUpperCase();
+  const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
+  const sign = token.market.priceChange24h >= 0 ? "+" : "";
+  const sourceLabel = reason === "trending-coingecko" ? "CoinGecko" : "X";
+
+  const lines = [
+    `🔥 <b>TRENDING NOW: ${token.name} (${sym})</b>`,
+    "",
+    `📈 Trending on ${sourceLabel}`,
+    `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
+    `💰 Price: $${price}`,
+    "",
+  ];
+
+  if (aiSummary) {
+    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
+    lines.push(sanitizeHtmlForTelegram(aiSummary));
+    lines.push("");
+  } else {
+    lines.push("This token is attracting major attention. Read the full analysis on TokenRadar.");
+    lines.push("");
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const displayUrl = siteUrl.replace("https://", "");
+  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
+  lines.push(...SOCIAL_FOOTER.slice(1));
+  lines.push(`#${sym} #Crypto #Trending #TokenRadarCo`);
+
+  return lines.join("\n");
+}
 
 function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
@@ -212,6 +267,213 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string 
   return lines.join("\n");
 }
 
+// ── Deduplication ──────────────────────────────────────────────
+
+/**
+ * Get all token IDs that have been posted today.
+ * Checks both legacy tracker file and the daily folder structure.
+ */
+function getTodayPostedTokens(today: string): Set<string> {
+  const posted = new Set<string>();
+
+  // 1. Check legacy file
+  const legacyFile = path.join(DATA_DIR, "posted-today.json");
+  if (fs.existsSync(legacyFile)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(legacyFile, "utf-8"));
+      if (parsed.date === today && Array.isArray(parsed.tokens)) {
+        parsed.tokens.forEach((t: string) => posted.add(t));
+      }
+    } catch (_e) { /* ignore */ }
+  }
+
+  // 2. Scan today's posted folder
+  const todayDir = path.join(DATA_DIR, "posted", today);
+  if (fs.existsSync(todayDir)) {
+    fs.readdirSync(todayDir).forEach((f) => {
+      // Exclude social-specific logs which include platform prefix
+      if (!f.includes("-telegram-") && !f.includes("-x-")) {
+        posted.add(f.replace(".json", ""));
+      }
+    });
+  }
+
+  return posted;
+}
+
+/**
+ * Get all token IDs posted in the last 30 days (for broader dedup).
+ * Used by lower-priority strategies to avoid repeating recent posts.
+ */
+function getRecentlyPostedTokens(): Set<string> {
+  const posted = new Set<string>();
+  const parentDir = path.join(DATA_DIR, "posted");
+  if (!fs.existsSync(parentDir)) return posted;
+
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const dateDirs = fs.readdirSync(parentDir)
+    .filter((d) => fs.statSync(path.join(parentDir, d)).isDirectory());
+
+  for (const dateDir of dateDirs) {
+    if (new Date(dateDir) >= thirtyDaysAgo) {
+      const dirPath = path.join(parentDir, dateDir);
+      fs.readdirSync(dirPath).forEach((f) => {
+        if (!f.includes("-telegram-") && !f.includes("-x-")) {
+          posted.add(f.replace(".json", ""));
+        }
+      });
+    }
+  }
+
+  return posted;
+}
+
+// ── Priority-Based Token Selection ─────────────────────────────
+
+interface SelectionResult {
+  token: TokenData;
+  reason: SelectionReason;
+  trendingContext?: string;
+}
+
+/**
+ * Select the best token to post about using a priority-based strategy.
+ *
+ * Priority order:
+ * 1. Trending on CoinGecko (highest search momentum)
+ * 2. Trending on X (matched hashtags)
+ * 3. Top Gainer (24h > 2%)
+ * 4. Safe Play (risk score <= 4)
+ * 5. Random Spotlight
+ *
+ * For each priority, tokens already posted TODAY are skipped.
+ * For lower priorities (3-5), tokens posted in the last 30 days are also avoided.
+ */
+async function selectToken(
+  candidateTokens: TokenData[],
+  todayPosted: Set<string>,
+  recentlyPosted: Set<string>,
+  metricsDir: string,
+  allTokens: { id: string; name: string; symbol: string }[]
+): Promise<SelectionResult | null> {
+
+  // ── Priority 1: Trending on CoinGecko ──
+  console.log("\n  ▸ Priority 1: Checking CoinGecko trending...");
+  try {
+    const trendingCoins = await fetchTrendingCoins();
+    if (trendingCoins.length > 0) {
+      console.log(`    Found ${trendingCoins.length} trending coins on CoinGecko`);
+      for (const trending of trendingCoins) {
+        if (todayPosted.has(trending.id)) {
+          console.log(`    ✗ ${trending.name} (${trending.symbol}) — already posted today`);
+          continue;
+        }
+        const token = candidateTokens.find((t) => t.id === trending.id);
+        if (token) {
+          console.log(`    ✓ Selected: ${token.name} (trending on CoinGecko, rank #${trending.score + 1})`);
+          return {
+            token,
+            reason: "trending-coingecko",
+            trendingContext: `This token is currently trending on CoinGecko (rank #${trending.score + 1} by search momentum). It is attracting significant user attention and search activity.`,
+          };
+        }
+      }
+      console.log("    No eligible trending coins matched our token registry.");
+    } else {
+      console.log("    No trending data available from CoinGecko.");
+    }
+  } catch (e) {
+    console.warn(`    ⚠ CoinGecko trending failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  // ── Priority 2: Trending on X ──
+  console.log("  ▸ Priority 2: Checking X Trends...");
+  try {
+    const xTrends = await fetchXTrends();
+    if (xTrends.length > 0) {
+      const matchedIds = matchTrendsToTokens(xTrends, allTokens);
+      console.log(`    Found ${xTrends.length} X trends, ${matchedIds.length} matched crypto tokens`);
+      for (const tokenId of matchedIds) {
+        if (todayPosted.has(tokenId)) {
+          console.log(`    ✗ ${tokenId} — already posted today`);
+          continue;
+        }
+        const token = candidateTokens.find((t) => t.id === tokenId);
+        if (token) {
+          const trend = xTrends.find((tr) =>
+            tr.trend_name.toLowerCase().replace(/^#/, "").replace(/[^a-z0-9]/g, "") ===
+            token.symbol.toLowerCase() ||
+            tr.trend_name.toLowerCase().replace(/^#/, "").replace(/[^a-z0-9]/g, "") ===
+            token.name.toLowerCase().replace(/[^a-z0-9]/g, "")
+          );
+          const tweetCount = trend?.tweet_count ? ` with ~${trend.tweet_count.toLocaleString()} tweets` : "";
+          console.log(`    ✓ Selected: ${token.name} (trending on X${tweetCount})`);
+          return {
+            token,
+            reason: "trending-x",
+            trendingContext: `This token is currently trending on X (Twitter)${tweetCount}. It is generating significant social media discussion.`,
+          };
+        }
+      }
+      console.log("    No eligible X trending tokens matched or all already posted.");
+    } else {
+      console.log("    No X trends available (API may require Basic+ tier).");
+    }
+  } catch (e) {
+    console.warn(`    ⚠ X Trends failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  // ── Priority 3: Top Gainer ──
+  console.log("  ▸ Priority 3: Checking top gainers...");
+  const gainers = candidateTokens
+    .filter((t) => !todayPosted.has(t.id) && !recentlyPosted.has(t.id) && t.market.priceChange24h > 2)
+    .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+
+  if (gainers.length > 0) {
+    // Pick randomly from top 3 gainers for variety
+    const target = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
+    console.log(`    ✓ Selected: ${target.name} (+${target.market.priceChange24h.toFixed(2)}%)`);
+    return { token: target, reason: "top-gainer" };
+  }
+  console.log("    No eligible gainers found.");
+
+  // ── Priority 4: Safe Play ──
+  console.log("  ▸ Priority 4: Checking safe plays...");
+  const metricsFiles = fs.existsSync(metricsDir) ? fs.readdirSync(metricsDir).filter((f) => f.endsWith(".json")) : [];
+  const safePlays: TokenData[] = [];
+  for (const mf of metricsFiles) {
+    const metric = safeReadJson<MetricData | null>(path.join(metricsDir, mf), null);
+    if (!metric || metric.riskScore > 4) continue;
+    const tokenId = mf.replace(".json", "");
+    if (todayPosted.has(tokenId) || recentlyPosted.has(tokenId)) continue;
+    const token = candidateTokens.find((t) => t.id === tokenId);
+    if (token) safePlays.push(token);
+  }
+
+  if (safePlays.length > 0) {
+    const target = safePlays[Math.floor(Math.random() * safePlays.length)];
+    console.log(`    ✓ Selected: ${target.name} (safe play)`);
+    return { token: target, reason: "safe-play" };
+  }
+  console.log("    No eligible safe plays found.");
+
+  // ── Priority 5: Spotlight (fallback) ──
+  console.log("  ▸ Priority 5: Fallback to random spotlight...");
+  const available = candidateTokens.filter((t) => !todayPosted.has(t.id));
+  if (available.length > 0) {
+    const target = available[Math.floor(Math.random() * available.length)];
+    console.log(`    ✓ Selected: ${target.name} (spotlight)`);
+    return { token: target, reason: "spotlight" };
+  }
+
+  // Absolute fallback: any candidate (all have been posted today)
+  console.log("    ⚠ All candidates posted today. Selecting any candidate...");
+  const target = candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
+  return target ? { token: target, reason: "spotlight" } : null;
+}
+
 // ── Main ───────────────────────────────────────────────────────
 
 async function main() {
@@ -226,16 +488,16 @@ async function main() {
   const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 250;
 
   console.log(`╔══════════════════════════════════════════╗`);
-  console.log(`║  TokenRadar — Daily Market Updates       ║`);
+  console.log(`║  TokenRadar — Daily Market Updates v2    ║`);
   console.log(`╚══════════════════════════════════════════╝`);
   console.log();
   console.log(`  Target Range: #${startRank} — #${endRank}`);
   console.log(`  Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
+  console.log(`  Platform: ${targetPlatform}`);
   console.log();
 
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
-  const LEGACY_TRACKER_FILE = path.join(DATA_DIR, "posted-today.json");
   
   if (!fs.existsSync(POSTED_DIR)) fs.mkdirSync(POSTED_DIR, { recursive: true });
 
@@ -299,6 +561,9 @@ async function main() {
   // Filter by rank strategy (Default 1-250), exclude stablecoins
   const candidateTokens = tokens.filter(t => t.rank >= startRank && t.rank <= endRank && !STABLECOIN_IDS.has(t.id));
   
+  // Build a full token registry for trend matching (includes all tokens, not just rank-filtered)
+  const allTokensRegistry = tokens.map((t) => ({ id: t.id, name: t.name, symbol: t.symbol }));
+
   console.log(`  Merged Tokens: ${tokens.length}`);
   console.log(`  Candidates in range #${startRank}-#${endRank}: ${candidateTokens.length}`);
 
@@ -307,89 +572,26 @@ async function main() {
     process.exit(1);
   }
 
-  const getRecentlyPosted = (): string[] => {
-    const posted = new Set<string>();
-    
-    // 1. Check legacy file
-    if (fs.existsSync(LEGACY_TRACKER_FILE)) {
-      try {
-        const parsed = JSON.parse(fs.readFileSync(LEGACY_TRACKER_FILE, 'utf-8'));
-        if (parsed.date === TODAY && Array.isArray(parsed.tokens)) {
-          parsed.tokens.forEach((t: string) => posted.add(t));
-        }
-      } catch (_e) { /* ignore */ }
-    }
+  // 3. Load dedup state
+  const todayPosted = getTodayPostedTokens(TODAY);
+  const recentlyPosted = getRecentlyPostedTokens();
+  console.log(`  Already posted today: ${todayPosted.size} tokens`);
+  console.log(`  Posted in last 30 days: ${recentlyPosted.size} tokens`);
 
-    // 2. Scan recent daily folders within 30 days
-    const PARENT_POSTED_DIR = path.join(DATA_DIR, "posted");
-    if (!fs.existsSync(PARENT_POSTED_DIR)) return Array.from(posted);
+  // 4. Select token using priority-based strategy
+  console.log(`\n▶ Step 2: Selecting token (priority-based)...`);
+  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry);
 
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    const dateDirs = fs.readdirSync(PARENT_POSTED_DIR)
-      .filter(d => fs.statSync(path.join(PARENT_POSTED_DIR, d)).isDirectory());
-
-    for (const dateDir of dateDirs) {
-      if (new Date(dateDir) >= thirtyDaysAgo) {
-        const dirPath = path.join(PARENT_POSTED_DIR, dateDir);
-        fs.readdirSync(dirPath).forEach(f => {
-          // Exclude social-specific logs which include a dash
-          if (!f.includes("-telegram-") && !f.includes("-x-")) {
-            posted.add(f.replace('.json', ''));
-          }
-        });
-      }
-    }
-
-    return Array.from(posted);
-  };
-
-  const recentlyPostedTokens = getRecentlyPosted();
-
-  // 2. Select Alert Strategy
-  const strategy = Math.floor(Math.random() * 3);
-  let targetToken: TokenData | undefined;
-  let message = "";
-
-  if (strategy === 0) {
-    const gainers = candidateTokens.filter(t => !recentlyPostedTokens.includes(t.id) && t.market && t.market.priceChange24h > 2).sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
-    if (gainers.length > 0) {
-      targetToken = gainers[Math.floor(Math.random() * Math.min(3, gainers.length))];
-    }
-  } 
-  
-  if (strategy === 1 && !targetToken) {
-    const metricsFiles = fs.readdirSync(metricsDir).filter(f => f.endsWith('.json'));
-    const safeTokens: { token: TokenData, metric: MetricData }[] = [];
-    for (const mf of metricsFiles) {
-      const metric = safeReadJson<MetricData | null>(path.join(metricsDir, mf), null);
-      if (!metric) continue;
-      if (metric.riskScore <= 4) {
-        const tokenId = mf.replace('.json', '');
-        const token = candidateTokens.find(t => t.id === tokenId && !recentlyPostedTokens.includes(t.id));
-        if (token) safeTokens.push({ token, metric });
-      }
-    }
-    if (safeTokens.length > 0) {
-      const selected = safeTokens[Math.floor(Math.random() * safeTokens.length)];
-      targetToken = selected.token;
-    }
-  }
-
-  if (!targetToken) {
-    const availableTokens = candidateTokens.filter(t => !recentlyPostedTokens.includes(t.id));
-    targetToken = availableTokens.length > 0 
-      ? availableTokens[Math.floor(Math.random() * availableTokens.length)]
-      : candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
-  }
-
-  if (!targetToken) {
+  if (!selection) {
     console.error("  ✗ Could not select a target token.");
     process.exit(1);
   }
 
-  // 3. Generate AI Summary (if key is set)
+  const { token: targetToken, reason, trendingContext } = selection;
+  console.log(`\n  ✦ Selected: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
+  console.log(`  ✦ Reason: ${reason}`);
+
+  // 5. Generate AI Summary (if key is set)
   let aiSummary = "";
   let targetMetric: MetricData | undefined;
 
@@ -411,6 +613,7 @@ async function main() {
         price: targetToken.market.price,
         priceChange24h: targetToken.market.priceChange24h,
         marketCap: targetToken.market.marketCap,
+        trendingContext,
       }
     );
     if (aiSummary) console.log(` ✓ Summary generated (${aiSummary.length} chars)`);
@@ -420,17 +623,21 @@ async function main() {
     console.warn("  ⚠ No GEMINI_API_KEY or ANTHROPIC_API_KEY set — skipping AI summary.");
   }
 
-  // 4. Construct Final Message
-  if (strategy === 0) {
+  // 6. Construct Final Message
+  let message = "";
+  if (reason === "trending-coingecko" || reason === "trending-x") {
+    message = createTrendingAlert(targetToken, reason, aiSummary);
+  } else if (reason === "top-gainer") {
     message = createTopGainerAlert(targetToken, aiSummary);
-  } else if (strategy === 1 && targetMetric) {
+  } else if (reason === "safe-play" && targetMetric) {
     message = createSafePlayAlert(targetToken, targetMetric, aiSummary);
   } else {
     message = createSpotlightAlert(targetToken, aiSummary);
   }
 
   if (dryRun) {
-    console.log("=== DRY RUN MODE ===");
+    console.log("\n=== DRY RUN MODE ===");
+    console.log(`Reason: ${reason}`);
     console.log(message);
     return;
   }
@@ -471,7 +678,8 @@ async function main() {
   if (posted && !fs.existsSync(trackerFile)) {
     fs.writeFileSync(trackerFile, JSON.stringify({ 
       postedAt: new Date().toISOString(), 
-      platform: targetPlatform 
+      platform: targetPlatform,
+      reason,
     }, null, 2));
   }
 

@@ -147,6 +147,8 @@ export interface MarketContext {
   price?: number;
   priceChange24h?: number;
   marketCap?: number;
+  /** Optional context about WHY this token was selected (trending, news, etc.) */
+  trendingContext?: string;
 }
 
 /**
@@ -172,6 +174,10 @@ export async function generateTokenSummary(
       : `$${(metrics.marketCap / 1e6).toFixed(0)}M`
     : "N/A";
 
+  const trendingSection = metrics.trendingContext
+    ? `\n    TRENDING CONTEXT:\n    ${metrics.trendingContext}\n    Use this context to make the analysis timely and relevant. Mention why this token is attracting attention right now.\n`
+    : "";
+
   const prompt = `
     You are a senior crypto analyst at TokenRadar.co.
     Provide a "Deep Insight & Analysis" for ${tokenName} (${symbol.toUpperCase()}).
@@ -182,7 +188,7 @@ export async function generateTokenSummary(
     Market Cap: ${mcapStr}
     Risk Score: ${metrics.riskScore ?? "N/A"}/10
     Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
-    
+    ${trendingSection}
     BACKGROUND:
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
