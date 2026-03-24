@@ -86,5 +86,27 @@
     "dataSource": "https://cointelegraph.com/news/nyse-securitize-24-7-tokenized-securities-platform",
     "discoveredAt": "2026-03-24T19:32:42.332Z",
     "status": "upcoming"
+  },
+  {
+    "id": "lombard",
+    "name": "Lombard",
+    "symbol": "LBTC",
+    "category": "DeFi",
+    "expectedTge": "Growth Phase / Institutional Rollout",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/lombard-taps-bitwise-to-bring-bitcoin-yield-and-lending-to-institutional-custody-embargo-tuesday-2-30-et",
+    "discoveredAt": "2026-03-24T21:00:49.349Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "omnes-apex-tokenized-note",
+    "name": "Omnes/Apex Bitcoin Mining Note",
+    "symbol": "TBD",
+    "category": "Infrastructure/RWA",
+    "expectedTge": "Upcoming Tokenized Issuance",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/omnes-apex-tokenized-bitcoin-mining-note-base?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "discoveredAt": "2026-03-24T21:00:49.349Z",
+    "status": "upcoming"
   }
 ]
