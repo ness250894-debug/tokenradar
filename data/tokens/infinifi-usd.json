@@ -15,18 +15,18 @@
     "explorer": "https://etherscan.io/token/0x48f9e38f3070AD8945DFEae3FA70987722E3D89c"
   },
   "market": {
-    "price": 1,
-    "marketCap": 120033852,
+    "price": 0.999017,
+    "marketCap": 119959572,
     "marketCapRank": 243,
-    "volume24h": 574103,
+    "volume24h": 606863,
     "high24h": 1.001,
     "low24h": 0.998538,
-    "priceChange24h": 0.04673,
+    "priceChange24h": -0.1102,
     "priceChange7d": -0.073,
     "priceChange30d": 0.03881,
     "priceChange1y": 0,
     "ath": 1.38,
-    "athChangePercentage": -27.42215,
+    "athChangePercentage": -27.50684,
     "athDate": "2026-01-11T04:35:54.115Z",
     "atl": 0.243118,
     "atlDate": "2026-01-04T19:15:08.862Z",
@@ -45,5 +45,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-03-22T22:57:52.111Z",
-  "lastMarketUpdate": "2026-03-24T09:11:51.798Z"
+  "lastMarketUpdate": "2026-03-24T10:12:02.765Z"
 }
