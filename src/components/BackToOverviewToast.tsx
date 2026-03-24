@@ -13,7 +13,8 @@ export function BackToOverviewToast() {
   const isSubpage = Boolean(
     pathname &&
     pathname.split("/").length > 2 &&
-    !pathname.startsWith("/compare")
+    !pathname.startsWith("/compare") &&
+    !pathname.startsWith("/upcoming")
   );
 
   useEffect(() => {

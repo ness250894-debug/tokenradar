@@ -65,20 +65,16 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
           {visibleTges.map((tge) => {
             const isReleased = tge.status === "released";
             const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
+            const sourceHostname = (() => { try { return new URL(tge.dataSource).hostname.replace('www.', ''); } catch { return tge.dataSource; } })();
             return (
               <Link href={`/upcoming/${tge.id}`} key={tge.id} className="card" style={{ display: "block", textDecoration: "none", opacity: isReleased ? 0.75 : 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <div className="token-name">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+                  <div className="token-name" style={{ minWidth: 0 }}>
                     <span>{tge.name} <span className="token-symbol">{tge.symbol.toUpperCase()}</span></span>
                   </div>
-                  <div style={{ display: "flex", gap: "var(--space-xs)", alignItems: "center" }}>
-                    {isReleased && (
-                      <span className="badge badge-green" style={{ fontSize: "var(--text-2xs, 0.65rem)" }}>
-                        ✓ Released{tge.coingeckoRank ? ` #${tge.coingeckoRank}` : ""}
-                      </span>
-                    )}
-                    <span className={`badge badge-${strengthColor}`}>Hype {tge.narrativeStrength}/100</span>
-                  </div>
+                  <span className={`badge badge-${strengthColor}`} style={{ fontSize: "0.7rem", padding: "3px 8px", whiteSpace: "nowrap", flexShrink: 0 }}>
+                    {tge.narrativeStrength}/100 Hype
+                  </span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
                   <div>
@@ -96,11 +92,13 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                     <div style={{ fontWeight: 600, marginTop: "var(--space-xs)" }}>{tge.category}</div>
                   </div>
                 </div>
-                <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`}>
-                    {isReleased ? "Launch Recap" : "Pre-Launch Spotlight"}
+                <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+                  <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`} style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
+                    {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
                   </span>
-                  <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Source: {tge.dataSource}</span>
+                  <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "140px" }}>
+                    {sourceHostname}
+                  </span>
                 </div>
               </Link>
             );

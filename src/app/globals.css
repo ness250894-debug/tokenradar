@@ -708,6 +708,37 @@ img {
   margin-bottom: var(--space-sm);
 }
 
+.article-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.article-content blockquote {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+.article-content blockquote p {
+  margin-bottom: 0;
+}
+
+.article-content hr {
+  border: none;
+  height: 1px;
+  background: var(--border-color);
+  margin: var(--space-xl) 0;
+}
+
+.article-content h2 {
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--accent-primary);
+}
+
 /* Markdown Tables */
 .article-content table {
   width: 100%;

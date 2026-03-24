@@ -1,7 +1,9 @@
 import { getUpcomingTGEs, getArticle, getTokenDetail } from "@/lib/content-loader";
+import { markdownToHtml } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
+import { LastUpdated } from "@/components/LastUpdated";
 
 interface TgePageProps {
   params: Promise<{ token: string }>;
@@ -143,37 +145,62 @@ export default async function TgePage({ params }: TgePageProps) {
 
       <div className="article-content">
         {article ? (
-          <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          <div>
+            <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
+            <div style={{ marginTop: "var(--space-lg)" }}>
+              <LastUpdated date={article.generatedAt} />
+            </div>
+          </div>
         ) : (
           <div>
             <h2>{isReleased ? "Launch Summary" : "Pre-Launch Summary"}</h2>
             <p>
-              {tge.name} is a {isReleased ? "recently launched" : "high-potential"} project in the {tge.category} sector. 
+              {tge.name} is a {isReleased ? "recently launched" : "high-potential"} project in the <strong>{tge.category}</strong> sector.{" "}
               {isReleased
                 ? "This token has graduated from our upcoming launches tracker and is now actively trading on major exchanges."
                 : "Our scanners have identified this as a high-conviction launch based on early narrative strength and expected ecosystem impact."}
             </p>
             {!isReleased && (
               <p>
-                While the official tokenomics and exact TGE date may still be subject to change, current market consensus points towards a 
-                <strong> {tge.expectedTge} </strong> launch window.
+                While the official tokenomics and exact TGE date may still be subject to change, current market consensus points towards a{" "}
+                <strong>{tge.expectedTge}</strong> launch window.
               </p>
             )}
-            <blockquote>
+            <div style={{
+              marginTop: "var(--space-lg)",
+              padding: "var(--space-lg)",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-color)",
+              borderLeft: "3px solid var(--accent-primary)",
+              borderRadius: "var(--radius-md)",
+              fontSize: "var(--text-sm)",
+              color: "var(--text-secondary)",
+              lineHeight: 1.7,
+            }}>
               {isReleased
                 ? "This project has launched. Visit the full token page for live price data and detailed analysis."
-                : "Note: This is a pre-launch summary. Detailed price predictions and risk scores will be available once market liquidity is established on major exchanges."}
-            </blockquote>
+                : "This is a pre-launch summary. Detailed price predictions and risk scores will be available once market liquidity is established on major exchanges."}
+            </div>
           </div>
         )}
+      </div>
 
-        <div style={{ marginTop: "var(--space-4xl)", padding: "var(--space-xl)", background: "var(--bg-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }}>
-          <h3>Stay Updated</h3>
-          <p style={{ margin: "var(--space-md) 0" }}>Track {tge.name} and other premium launches on Telegram.</p>
-          <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-            Join Telegram Alert Hub
-          </a>
-        </div>
+      {/* Telegram CTA */}
+      <div style={{
+        marginTop: "var(--space-3xl)",
+        padding: "var(--space-xl)",
+        background: "var(--bg-card)",
+        border: "1px solid var(--border-color)",
+        borderRadius: "var(--radius-lg)",
+        textAlign: "center",
+      }}>
+        <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700 }}>Stay Updated</h3>
+        <p style={{ margin: "var(--space-sm) 0 var(--space-md)", color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
+          Track {tge.name} and other premium launches on Telegram.
+        </p>
+        <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          Join Telegram Alert Hub
+        </a>
       </div>
       
       {/* Back Toast */}
