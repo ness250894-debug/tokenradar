@@ -329,6 +329,9 @@ async function main() {
       if (targetToken && id !== targetToken) continue;
       if (tokensToProcess.includes(id)) continue;
 
+      // Skip upcoming TGEs — they belong in the TGE queue only
+      if (upcomingTgeIdSet.has(id)) continue;
+
       const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
       const needsGeneration = targetType 
         ? isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30)
@@ -416,7 +419,10 @@ async function main() {
         tokenData.description = `A cryptocurrency token known as ${tokenData.name} (${tokenData.symbol?.toUpperCase()}). It is tracked on CoinGecko with the ID "${tokenId}".`;
         
         // Save the updated token data with fallback to prevent future sync attempts
-        fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
+        // BUT: skip for TGE tokens — don't pollute data/tokens/ with placeholder files
+        if (!isTge) {
+          fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
+        }
       }
     }
 
