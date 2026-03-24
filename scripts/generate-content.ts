@@ -550,16 +550,16 @@ async function main() {
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tokenradar.co';
       
-      let message = `🚀 *Hourly Content Generation Complete*\\n\\nGenerated ${totalArticles} articles.`;
+      let message = `🚀 *Hourly Content Generation Complete*\n\nGenerated ${totalArticles} articles.`;
       
       if (generatedRegularTokens.size > 0) {
-        const regularLinks = Array.from(generatedRegularTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\\n');
-        message += `\\n\\n*Tokens Covered:*\\n${regularLinks}`;
+        const regularLinks = Array.from(generatedRegularTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\n');
+        message += `\n\n*Tokens Covered:*\n${regularLinks}`;
       }
 
       if (generatedTgeTokens.size > 0) {
-        const tgeLinks = Array.from(generatedTgeTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\\n');
-        message += `\\n\\n*Upcoming TGEs:* (Pre-Launch)\\n${tgeLinks}`;
+        const tgeLinks = Array.from(generatedTgeTokens).map(id => `• [${id}](${siteUrl}/upcoming/${id})`).join('\n');
+        message += `\n\n*Upcoming TGEs:* (Pre-Launch)\n${tgeLinks}`;
       }
       
       fs.writeFileSync(alertFile, message);

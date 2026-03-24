@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 interface TgePageProps {
-  params: { token: string };
+  params: Promise<{ token: string }>;
 }
 
 export async function generateStaticParams() {
@@ -17,7 +17,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: TgePageProps): Promise<Metadata> {
   const tges = getUpcomingTGEs();
-  const tge = tges.find((t) => t.id === params.token);
+  const { token } = await params;
+  const tge = tges.find((t) => t.id === token);
 
   if (!tge) return { title: "Upcoming TGE | TokenRadar" };
 
@@ -42,7 +43,8 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
 
 export default async function TgePage({ params }: TgePageProps) {
   const tges = getUpcomingTGEs();
-  const tge = tges.find((t) => t.id === params.token);
+  const { token } = await params;
+  const tge = tges.find((t) => t.id === token);
 
   if (!tge) return notFound();
 
