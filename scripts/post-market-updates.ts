@@ -137,7 +137,7 @@ function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMAR
 
 // ── Alert Generators ───────────────────────────────────────────
 
-function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummary: string = ""): string {
+function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummary: string = "", isX: boolean = false): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const sym = token.symbol.toUpperCase();
   const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
@@ -164,7 +164,9 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  if (!isX) {
+    lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  }
   lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
   lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #Trending #TokenRadarCo`);
@@ -172,7 +174,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   return lines.join("\n");
 }
 
-function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string {
+function createTopGainerAlert(token: TokenData, aiSummary: string = "", isX: boolean = false): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const sym = token.symbol.toUpperCase();
   
@@ -195,7 +197,9 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string 
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  if (!isX) {
+    lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  }
   lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
   lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
@@ -203,7 +207,7 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = ""): string 
   return lines.join("\n");
 }
 
-function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: string = ""): string {
+function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: string = "", isX: boolean = false): string {
   const sym = token.symbol.toUpperCase();
   
   const lines = [
@@ -224,7 +228,9 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  if (!isX) {
+    lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  }
   lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
   lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
@@ -232,7 +238,7 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
   return lines.join("\n");
 }
 
-function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string {
+function createSpotlightAlert(token: TokenData, aiSummary: string = "", isX: boolean = false): string {
   const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
   const mc = token.market.marketCap >= 1e9 ? `$${(token.market.marketCap / 1e9).toFixed(2)}B` : `$${(token.market.marketCap / 1e6).toFixed(0)}M`;
   const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
@@ -259,7 +265,9 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = ""): string 
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  if (!isX) {
+    lines.push(`🔗 <b>Token Report:</b> <a href="${siteUrl}/${token.id}">${displayUrl}/${token.id}</a>`);
+  }
   lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
   lines.push(...SOCIAL_FOOTER.slice(1));
   lines.push(`#${sym} #Crypto #TokenRadarCo`);
@@ -625,14 +633,16 @@ async function main() {
 
   // 6. Construct Final Message
   let message = "";
+  const isX = targetPlatform === "x";
+
   if (reason === "trending-coingecko" || reason === "trending-x") {
-    message = createTrendingAlert(targetToken, reason, aiSummary);
+    message = createTrendingAlert(targetToken, reason, aiSummary, isX);
   } else if (reason === "top-gainer") {
-    message = createTopGainerAlert(targetToken, aiSummary);
+    message = createTopGainerAlert(targetToken, aiSummary, isX);
   } else if (reason === "safe-play" && targetMetric) {
-    message = createSafePlayAlert(targetToken, targetMetric, aiSummary);
+    message = createSafePlayAlert(targetToken, targetMetric, aiSummary, isX);
   } else {
-    message = createSpotlightAlert(targetToken, aiSummary);
+    message = createSpotlightAlert(targetToken, aiSummary, isX);
   }
 
   if (dryRun) {
