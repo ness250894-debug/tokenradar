@@ -1,6 +1,6 @@
 import { type TokenCardData } from "@/components/TokenCard";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
-import { getAllTokens, getTokenMetrics, getUpcomingTGEs } from "@/lib/content-loader";
+import { getAllTokens, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import Link from "next/link";
 
@@ -22,6 +22,13 @@ export default function HomePage() {
         category: "Crypto",
       };
     });
+
+  // Compute average market risk from all tracked tokens
+  const riskScores = allTokens.map((t) => t.riskScore);
+  const avgMarketRisk =
+    riskScores.length > 0
+      ? Math.round(riskScores.reduce((sum, s) => sum + s, 0) / riskScores.length)
+      : 5;
 
   return (
     <>
@@ -56,10 +63,10 @@ export default function HomePage() {
             </div>
             <div className="stat-card">
               <div className="stat-label">Articles Published</div>
-              <div className="stat-value gradient-text">{allTokens.length * 3}</div>
+              <div className="stat-value gradient-text">{getTotalArticleCount()}</div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>AI-Generated Research</div>
             </div>
-            <RiskScoreCard score={5} label="Avg. Market Risk" />
+            <RiskScoreCard score={avgMarketRisk} label="Avg. Market Risk" />
             <div className="stat-card">
               <div className="stat-label">Data Freshness</div>
               <div className="stat-value gradient-text">24h</div>

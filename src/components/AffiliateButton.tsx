@@ -27,6 +27,9 @@ export function AffiliateButton({
     KuCoin: `https://www.kucoin.com/r/rf/FQ67QZ7A`,
   };
 
+  // Don't render a button for exchanges without a valid referral link
+  if (!exchangeUrls[exchange]) return null;
+
   return (
     <div
       style={{

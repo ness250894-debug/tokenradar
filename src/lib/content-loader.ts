@@ -370,6 +370,20 @@ export function getArticleSlugs(tokenId: string): string[] {
     .map((f) => f.replace(".json", ""));
 }
 
+/** Count all published articles across all tokens. */
+export function getTotalArticleCount(): number {
+  if (!fs.existsSync(CONTENT_DIR)) return 0;
+  let count = 0;
+  for (const tokenDir of fs.readdirSync(CONTENT_DIR)) {
+    const dirPath = path.join(CONTENT_DIR, tokenDir);
+    if (!fs.statSync(dirPath).isDirectory()) continue;
+    count += fs
+      .readdirSync(dirPath)
+      .filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
+  }
+  return count;
+}
+
 /** Format price for display. */
 export function formatPrice(price: number | undefined | null): string {
   if (price === undefined || price === null) return "$0.00";

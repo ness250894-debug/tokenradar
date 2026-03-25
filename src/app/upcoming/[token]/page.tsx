@@ -11,7 +11,7 @@ interface TgePageProps {
 
 export async function generateStaticParams() {
   const tges = getUpcomingTGEs();
-  if (tges.length === 0) return [{ token: "placeholder" }];
+  if (tges.length === 0) return [];
   return tges.map((tge) => ({
     token: tge.id,
   }));
