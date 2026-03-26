@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import { formatPrice } from "./content-loader";
+import { formatPrice } from "./formatters";
 
 /**
  * Robust markdown → HTML converter for article content.

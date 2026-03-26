@@ -1,4 +1,4 @@
-import { formatPrice } from "@/lib/content-loader";
+import { formatPrice } from "@/lib/formatters";
 
 interface TokenTickerPillProps {
   name: string;
