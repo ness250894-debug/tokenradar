@@ -124,7 +124,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   const sourceLabel = reason === "trending-coingecko" ? "CoinGecko" : "X";
 
   const lines = [
-    `🔥 <b>TRENDING NOW: ${token.name} (${sym})</b>`,
+    `🔥 <b>TRENDING NOW: ${token.name} ($${sym})</b>`,
     "",
     `📈 Trending on ${sourceLabel}`,
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
@@ -158,7 +158,7 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = "", isX: boo
   const sym = token.symbol.toUpperCase();
   
   const lines = [
-    `🚀 <b>MARKET MOVER: ${token.name} (${sym})</b>`,
+    `🚀 <b>MARKET MOVER: ${token.name} ($${sym})</b>`,
     "",
     `🟢 Up <b>+${token.market.priceChange24h.toFixed(2)}%</b> today!`,
     `💰 Current Price: $${price}`,
@@ -190,9 +190,9 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
   const sym = token.symbol.toUpperCase();
   
   const lines = [
-    `🛡️ <b>LOW RISK ASSET: ${token.name} (${sym})</b>`,
+    `🛡️ <b>LOW RISK ASSET: ${token.name} ($${sym})</b>`,
     "",
-    `Our AI assigned a <b>Risk Score of ${metric.riskScore}/10</b> to $${sym}.`,
+    `Our AI assigned a <b>Risk Score of ${metric.riskScore}/10</b> to $${sym} ($${token.market.price.toFixed(2)}).`,
     "",
   ];
 
@@ -225,7 +225,7 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = "", isX: boo
   const sym = token.symbol.toUpperCase();
   
   const lines = [
-    `🔦 <b>TOKEN SPOTLIGHT: ${token.name} (${sym})</b>`,
+    `🔦 <b>TOKEN SPOTLIGHT: ${token.name} ($${sym})</b>`,
     "",
     `💰 Price: $${price}`,
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,

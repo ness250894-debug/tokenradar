@@ -15,6 +15,7 @@ import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
+import { TokenTickerPill } from "@/components/TokenTickerPill";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -79,10 +80,12 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "var(--space-lg)" }}>
           <div>
-            <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, letterSpacing: "-0.02em" }}>
-              {detail.name}{" "}
-              <span style={{ color: "var(--text-muted)" }}>{detail.symbol.toUpperCase()}</span>
-            </h1>
+            <TokenTickerPill 
+              name={detail.name} 
+              symbol={detail.symbol} 
+              price={detail.market.price} 
+              className="pill-lg"
+            />
             {detail.categories.length > 0 && (
               <div style={{ display: "flex", gap: "var(--space-sm)", marginTop: "var(--space-sm)", flexWrap: "wrap" }}>
                 {detail.categories.slice(0, 3).map((cat) => (
@@ -194,7 +197,14 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Article Content */}
         {article && (
           <div style={{ marginTop: "var(--space-2xl)" }}>
-            <div className="article-content" dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
+            <div className="article-content" dangerouslySetInnerHTML={{ 
+              __html: markdownToHtml(article.content, {
+                name: detail.name,
+                symbol: detail.symbol,
+                price: detail.market.price,
+                imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined // Assuming standard icon path
+              }) 
+            }} />
             <div style={{ marginTop: "var(--space-lg)" }}>
               <LastUpdated date={article.generatedAt} />
             </div>

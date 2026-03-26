@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TokenTickerPill } from "./TokenTickerPill";
 
 export interface TokenCardData {
   id: string;
@@ -50,19 +51,12 @@ export function TokenCard({ token }: TokenCardProps) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <div>
           <div className="token-name">
-            {token.imageUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={token.imageUrl}
-                alt={`${token.name} logo`}
-                width={28}
-                height={28}
-                style={{ borderRadius: "50%" }}
-              />
-            )}
-            <span>
-              {token.name} <span className="token-symbol">{token.symbol.toUpperCase()}</span>
-            </span>
+            <TokenTickerPill 
+              name={token.name} 
+              symbol={token.symbol} 
+              price={token.price} 
+              imageUrl={token.imageUrl} 
+            />
           </div>
         </div>
         <span className={`badge badge-${riskLevel}`}>
@@ -72,11 +66,8 @@ export function TokenCard({ token }: TokenCardProps) {
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
         <div>
-          <div style={{ fontSize: "var(--text-2xl)", fontWeight: 700 }}>
-            {formatPrice(token.price)}
-          </div>
-          <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`}>
-            {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}%
+          <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-lg)" }}>
+            {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}% (24h)
           </div>
         </div>
         <div style={{ textAlign: "right" }}>

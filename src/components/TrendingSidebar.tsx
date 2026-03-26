@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllTokens, formatPrice } from "@/lib/content-loader";
+import { TokenTickerPill } from "./TokenTickerPill";
 
 /**
  * Sidebar component displaying trending/highest-volume tokens.
@@ -31,11 +32,14 @@ export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) 
           {topGainers.map((token) => (
             <Link key={`gainer-${token.id}`} href={`/${token.id}`} className="sidebar-item">
               <div className="sidebar-item-header">
-                <span style={{ fontWeight: 600 }}>{token.name}</span>
-                <span style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)" }}>{token.symbol.toUpperCase()}</span>
+                <TokenTickerPill 
+                  name={token.name} 
+                  symbol={token.symbol} 
+                  price={token.price} 
+                  className="pill-sm" 
+                />
               </div>
               <div className="sidebar-item-price">
-                <span>{formatPrice(token.price)}</span>
                 <span className="price-up">+{token.priceChange24h.toFixed(2)}%</span>
               </div>
             </Link>
@@ -50,11 +54,14 @@ export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) 
           {highVolume.map((token) => (
             <Link key={`vol-${token.id}`} href={`/${token.id}`} className="sidebar-item">
               <div className="sidebar-item-header">
-                <span style={{ fontWeight: 600 }}>{token.name}</span>
-                <span style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)" }}>{token.symbol.toUpperCase()}</span>
+                <TokenTickerPill 
+                  name={token.name} 
+                  symbol={token.symbol} 
+                  price={token.price} 
+                  className="pill-sm" 
+                />
               </div>
               <div className="sidebar-item-price">
-                <span>{formatPrice(token.price)}</span>
                 <span className={token.priceChange24h >= 0 ? "price-up" : "price-down"}>
                   {token.priceChange24h >= 0 ? "+" : ""}{token.priceChange24h.toFixed(2)}%
                 </span>

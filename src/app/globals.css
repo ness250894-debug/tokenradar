@@ -1088,3 +1088,55 @@ img {
   transform: translateY(-2px);
   opacity: 0.9;
 }
+
+/* ---- Token Ticker Pill ---- */
+.token-ticker-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: #064e3b; /* Dark emerald/green as per screenshot */
+  color: #ecfdf5; /* Very light green text */
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+}
+
+.pill-icon {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pill-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-name {
+  letter-spacing: 0.02em;
+}
+
+.pill-divider {
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+.pill-price {
+  color: #00e676; /* Vibrant green for price */
+}
+
+/* Size Variants */
+.token-ticker-pill.pill-lg {
+  padding: 8px 18px;
+  font-size: var(--text-base);
+}
+
+.token-ticker-pill.pill-sm {
+  padding: 4px 10px;
+  font-size: var(--text-xs);
+}

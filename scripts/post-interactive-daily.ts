@@ -85,7 +85,7 @@ export function buildSentimentPoll(token: TokenData, metric?: MetricData): PollO
   const sign = change >= 0 ? "+" : "";
 
   return {
-    text: `GM! ${emoji} $${sym} is ${sign}${change.toFixed(1)}% today.${riskStr}\n\nWhat's your move?\n\n#${sym} #Crypto #TokenRadarCo`,
+    text: `GM! ${emoji} $${sym} is ${sign}${change.toFixed(1)}% today.${riskStr}\n\nWhat's your move?\n\n$${sym} #Crypto #Trending #TokenRadarCo`,
     options: ["Bullish 🚀", "Bearish 📉", "HODL 💎", "Just Watching 👀"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -102,7 +102,7 @@ export function buildPredictionPoll(token: TokenData): PollOptions {
   const high = price * 1.05;
 
   return {
-    text: `📊 $${sym} is at ${formatPrice(price)} right now.\n\nWhere does it end the day?\n\n#${sym} #Crypto #TokenRadarCo`,
+    text: `📊 $${sym} is at ${formatPrice(price)} right now.\n\nWhere does it end the day?\n\n$${sym} #Crypto #PricePrediction #TokenRadarCo`,
     options: [
       `Below ${formatPrice(low)}`,
       `${formatPrice(low)}-${formatPrice(high)}`,
