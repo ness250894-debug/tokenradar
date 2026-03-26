@@ -75,7 +75,7 @@ type SelectionReason =
 // ── Utilities ──────────────────────────────────────────────────
 
 /** Max characters for AI summary within a TG message (leaves room for header/footer). */
-const MAX_AI_SUMMARY_CHARS = 2500;
+const MAX_AI_SUMMARY_CHARS = 1200;
 /** Telegram's hard limit per message. */
 const TG_MESSAGE_LIMIT = 4096;
 

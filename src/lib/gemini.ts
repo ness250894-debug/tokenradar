@@ -193,7 +193,7 @@ export async function generateTokenSummary(
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
     STRICT RULES:
-    1. TARGET LENGTH: approximately 1200 - 1500 characters.
+    1. TARGET LENGTH: approximately 700 - 1000 characters.
     2. Be analytical, professional, and objective.
     3. DO NOT use hype, FOMO, or financial advice.
     4. Cover technology, tokenomics, market position, and risks.
