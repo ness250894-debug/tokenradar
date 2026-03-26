@@ -127,6 +127,82 @@ export async function postTweet(text: string): Promise<string> {
   }
 }
 
+// ── Poll Support ──────────────────────────────────────────────
+
+/** Options for creating a poll tweet. */
+export interface PollOptions {
+  /** The question text for the poll (max 280 chars). */
+  text: string;
+  /** Poll answer options (2-4 items, each max 25 chars). */
+  options: string[];
+  /** Duration in minutes (default: 1440 = 24h). */
+  durationMinutes?: number;
+}
+
+/**
+ * Post a poll tweet using the X API v2.
+ *
+ * If the native poll creation fails (e.g., tier restriction, API error),
+ * automatically falls back to a plain-text tweet with emoji-numbered options.
+ *
+ * @param poll - Poll configuration
+ * @returns Object with tweet ID and whether it used the native poll or fallback
+ */
+export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; native: boolean }> {
+  const creds = validateXCredentials();
+
+  const client = new TwitterApi({
+    appKey: creds.apiKey,
+    appSecret: creds.apiSecret,
+    accessToken: creds.accessToken,
+    accessSecret: creds.accessSecret,
+  });
+
+  const rwClient = client.readWrite;
+  const duration = poll.durationMinutes ?? 1440;
+
+  // ── Attempt 1: Native poll ──
+  try {
+    const { data: createdTweet } = await rwClient.v2.tweet(poll.text, {
+      poll: {
+        options: poll.options,
+        duration_minutes: duration,
+      },
+    });
+    console.log("  ✓ Native poll created successfully");
+    return { tweetId: createdTweet.id, native: true };
+  } catch (_e: unknown) {
+    const e = _e as Record<string, unknown>;
+    const errorMsg = String(e?.message || e?.data || e);
+    console.warn(`  ⚠ Native poll failed: ${errorMsg}`);
+    console.log("  ↳ Falling back to text-based poll...");
+  }
+
+  // ── Attempt 2: Text-based fallback ──
+  const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣"];
+  const fallbackLines = [
+    poll.text,
+    "",
+    ...poll.options.map((opt, i) => `${emojis[i] || "▪️"} ${opt}`),
+    "",
+    "Reply with your pick! 👇",
+  ];
+
+  let fallbackText = fallbackLines.join("\n");
+  fallbackText = truncateForX(fallbackText);
+
+  try {
+    const { data: createdTweet } = await rwClient.v2.tweet(fallbackText);
+    console.log("  ✓ Text-based fallback poll posted successfully");
+    return { tweetId: createdTweet.id, native: false };
+  } catch (_e2: unknown) {
+    const e2 = _e2 as Record<string, unknown>;
+    console.error("  ✗ Fallback tweet also failed:", e2?.data || e2?.message || e2);
+    throw e2;
+  }
+}
+
+
 // ── X Trends Integration ──────────────────────────────────────
 
 /** A single trend item from the X API. */

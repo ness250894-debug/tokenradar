@@ -108,3 +108,19 @@ export const STABLECOIN_IDS = new Set([
   "tradable-singapore-fintech-ssl-2",  // SSL
   "precious-metals-usd",   // PMUSD
 ]);
+
+// ── Interactive Poll Config ────────────────────────────────────
+
+/** Default poll duration in minutes (24 hours). */
+export const POLL_DURATION_MINUTES = 1440;
+
+/** Narrative categories rotated in the "Narrative Poll" type. */
+export const INTERACTIVE_POST_NARRATIVES = [
+  "AI Tokens",
+  "Layer 2s",
+  "RWA",
+  "DeFi",
+] as const;
+
+/** Emoji prefixes for text-based fallback polls (when native poll fails). */
+export const POLL_FALLBACK_EMOJIS = ["1\uFE0F\u20E3", "2\uFE0F\u20E3", "3\uFE0F\u20E3", "4\uFE0F\u20E3"] as const;

@@ -40,7 +40,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Post Interactive Daily Poll (first run only)
+        if: github.event.schedule == '30 11 * * *' || github.event_name == 'workflow_dispatch'
+        run: npx tsx scripts/post-interactive-daily.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
       - name: Post X Update
+        if: github.event.schedule != '30 11 * * *' || github.event_name == 'workflow_dispatch'
         run: npx tsx scripts/post-market-updates.ts --platform x
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
