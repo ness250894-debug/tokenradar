@@ -31,7 +31,7 @@ export function TokenTickerPill({
         />
       )}
       <span className="pill-text">
-        <span className="pill-name">{name.toUpperCase()}</span>
+        <span className="pill-name" title={name}>{name.toUpperCase()}</span>
         <span className="pill-divider">-</span>
         <span className="pill-price">{formatPrice(price)}</span>
       </span>

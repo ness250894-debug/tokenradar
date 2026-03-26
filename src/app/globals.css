@@ -1119,6 +1119,10 @@ img {
 
 .pill-name {
   letter-spacing: 0.02em;
+  max-width: 200px; /* Prevent long names from stretching too far */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pill-divider {
@@ -1139,4 +1143,8 @@ img {
 .token-ticker-pill.pill-sm {
   padding: 4px 10px;
   font-size: var(--text-xs);
+}
+
+.token-ticker-pill.pill-sm .pill-name {
+  max-width: 80px; /* Much smaller for sidebar */
 }
