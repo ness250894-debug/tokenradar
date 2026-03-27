@@ -3,24 +3,25 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Financial Disclaimer",
   description:
-    "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+    "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
   alternates: {
     canonical: "/disclaimer",
   },
   openGraph: {
     title: "Financial Disclaimer | TokenRadar",
     description:
-      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
   },
   twitter: {
     title: "Financial Disclaimer | TokenRadar",
     description:
-      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice.",
+      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
   },
 };
 
 /**
  * Financial disclaimer page — legally required for any crypto content site.
+ * Includes affiliate disclosure for exchange referral links.
  */
 export default function DisclaimerPage() {
   return (
@@ -62,20 +63,49 @@ export default function DisclaimerPage() {
             investment. You should only invest what you can afford to lose.
           </p>
 
+          <h2>Affiliate Disclosure</h2>
+          <p>
+            Some pages on TokenRadar — particularly &quot;How to Buy&quot;
+            guides — contain <strong>affiliate links</strong> to cryptocurrency
+            exchanges, including but not limited to Binance, Bybit, OKX, and
+            KuCoin. If you sign up or make a purchase through these links,
+            TokenRadar may receive a commission at no additional cost to you.
+          </p>
+          <p>
+            These affiliate relationships do not influence our analysis,
+            metrics, or editorial content. Our proprietary metrics (Risk Score,
+            Growth Potential Index, etc.) are computed algorithmically from
+            market data and are never altered based on affiliate partnerships.
+          </p>
+
+          <h2>Pre-Launch &amp; TGE Content</h2>
+          <p>
+            TokenRadar features analysis of upcoming Token Generation Events
+            (TGEs) and pre-launch projects. This content is inherently{" "}
+            <strong>more speculative</strong> than our coverage of established,
+            traded tokens, as pre-launch projects have no live market data,
+            limited track record, and higher uncertainty. Pre-launch content
+            should be treated with additional caution.
+          </p>
+
           <h2>Third-Party Data</h2>
           <p>
             Market data displayed on TokenRadar is sourced from third-party
-            providers, primarily CoinGecko. While we strive to ensure accuracy,
-            we cannot guarantee that all data is error-free at all times.
+            providers, primarily CoinGecko. Pre-launch project information is
+            sourced from RSS feeds including CoinTelegraph, Airdrop Alert, and
+            other aggregators. While we strive to ensure accuracy, we cannot
+            guarantee that all data is error-free at all times.
           </p>
 
           <h2>AI-Generated Content</h2>
           <p>
-            Some content on this site is generated with the assistance of
-            artificial intelligence. While all AI-generated content is reviewed
-            for accuracy and includes verified data points, it may contain
-            errors or omissions. AI-generated content should not be relied upon
-            as the sole basis for any financial decision.
+            Content on this site — including articles, social media posts on
+            our X and Telegram channels, and market update summaries — is
+            generated with the assistance of artificial intelligence. While all
+            AI-generated content undergoes automated quality checks and includes
+            verified data points, it may contain errors or omissions.
+            AI-generated content should not be relied upon as the sole basis
+            for any financial decision.
           </p>
 
           <p style={{ marginTop: "var(--space-xl)", color: "var(--text-muted)", fontStyle: "italic" }}>
