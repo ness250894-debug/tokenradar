@@ -121,12 +121,20 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   const sym = token.symbol.toUpperCase();
   const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
   const sign = token.market.priceChange24h >= 0 ? "+" : "";
-  const sourceLabel = reason === "trending-coingecko" ? "CoinGecko" : "X";
+  
+  // Phrasing logic based on platform and reason
+  let header = `🔥 <b>TRENDING NOW: ${token.name} ($${sym})</b>`;
+  let trendingLine = reason === "trending-x" ? "📈 Trending on X" : "";
+
+  if (isX) {
+    header = `🚨 <b>${token.name} ($${sym}) is trending with massive momentum!</b>`;
+    trendingLine = `🚨 Major market activity detected!`;
+  }
 
   const lines = [
-    `🔥 <b>TRENDING NOW: ${token.name} ($${sym})</b>`,
+    header,
     "",
-    `📈 Trending on ${sourceLabel}`,
+    ...(trendingLine ? [trendingLine] : []),
     `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
     `💰 Price: $${price}`,
     "",
