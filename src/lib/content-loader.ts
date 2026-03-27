@@ -287,19 +287,37 @@ export function getTokenDetail(tokenId: string): TokenDetail | null {
   }
 }
 
-/** Load upcoming TGEs. Sorts: upcoming first, then released. */
+/**
+ * Load upcoming TGEs. Sorts: upcoming first, then released.
+ * Deduplicates by symbol (case-insensitive) as a runtime safety net,
+ * keeping the entry with the highest narrativeStrength.
+ */
 export function getUpcomingTGEs(): UpcomingTge[] {
   if (!fs.existsSync(TGE_FILE)) return [];
   try {
     const tges: UpcomingTge[] = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
-    // Sort: upcoming first, released last
-    return tges.sort((a, b) => {
+
+    // Sort: upcoming first, released last; then by narrative strength desc
+    tges.sort((a, b) => {
       const aReleased = a.status === "released" ? 1 : 0;
       const bReleased = b.status === "released" ? 1 : 0;
       if (aReleased !== bReleased) return aReleased - bReleased;
-      // Within same status, sort by narrative strength descending
       return (b.narrativeStrength || 0) - (a.narrativeStrength || 0);
     });
+
+    // Deduplicate by symbol — generic symbols (TBD/N/A/TBA) are exempt
+    const GENERIC_SYMBOLS = new Set(["TBD", "N/A", "TBA", ""]);
+    const seenSymbols = new Set<string>();
+    const deduped: UpcomingTge[] = [];
+
+    for (const tge of tges) {
+      const sym = (tge.symbol || "").toUpperCase();
+      if (!GENERIC_SYMBOLS.has(sym) && seenSymbols.has(sym)) continue;
+      if (!GENERIC_SYMBOLS.has(sym)) seenSymbols.add(sym);
+      deduped.push(tge);
+    }
+
+    return deduped;
   } catch (_e) {
     return [];
   }

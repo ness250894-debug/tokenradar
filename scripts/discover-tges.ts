@@ -58,7 +58,7 @@ const parser = new Parser({
 
 // ── AI Analysis (batched) ──────────────────────────────────
 
-const AI_PROMPT_TEMPLATE = `You are a crypto research analyst. Analyze these news items and identify any crypto projects that show STRONG PRE-LAUNCH SIGNALS.
+const AI_PROMPT_BASE = `You are a crypto research analyst. Analyze these news items and identify any crypto projects that show STRONG PRE-LAUNCH SIGNALS.
 
 Look for ALL of the following indicators:
 1. **Upcoming TGE / ICO / IDO / IEO** — Explicit announcements of token sales or generation events
@@ -73,6 +73,11 @@ QUALITY FILTER:
 - Ignore low-quality degen/meme tokens
 - Minimum narrative strength of 50 to be included
 
+DUPLICATE PREVENTION:
+- If a project matches one of the EXISTING tracked projects listed below, DO NOT include it again.
+- Use the EXACT existing ID if adding updated info for a project we already track.
+- Use the project's most common/official name, not article-specific variants.
+
 Return a JSON array of objects with:
 {
   "id": "kebab-case-id",
@@ -85,19 +90,39 @@ Return a JSON array of objects with:
 }
 
 If no high-quality projects found, return [].
-
-News Items:
 `;
+
+/**
+ * Build the full AI prompt, injecting existing project context so the model
+ * can avoid creating duplicate entries with different IDs.
+ */
+function buildAIPrompt(existingTges: UpcomingTge[]): string {
+  const existingContext = existingTges
+    .map((t) => `  - ${t.id} (${t.symbol}) — ${t.name}`)
+    .join("\n");
+
+  return (
+    AI_PROMPT_BASE +
+    (existingContext
+      ? `\nEXISTING TRACKED PROJECTS (do NOT duplicate):\n${existingContext}\n\n`
+      : "") +
+    "News Items:\n"
+  );
+}
 
 /**
  * Analyze news items with AI in batches to stay within rate limits.
  * Returns [] on any failure (never throws).
  */
-async function analyzeNewsInBatches(newsItems: Record<string, unknown>[]): Promise<UpcomingTge[]> {
+async function analyzeNewsInBatches(
+  newsItems: Record<string, unknown>[],
+  existingTges: UpcomingTge[],
+): Promise<UpcomingTge[]> {
   if (newsItems.length === 0) return [];
 
   const allResults: UpcomingTge[] = [];
   const totalBatches = Math.ceil(newsItems.length / AI_BATCH_SIZE);
+  const promptTemplate = buildAIPrompt(existingTges);
 
   console.log(`  📰 Analyzing ${newsItems.length} items in ${totalBatches} batch(es) of ${AI_BATCH_SIZE}...`);
 
@@ -109,7 +134,7 @@ async function analyzeNewsInBatches(newsItems: Record<string, unknown>[]): Promi
       `Title: ${item.title}\nSnippet: ${(item.contentSnippet || item.content || "").substring(0, 200)}\nSource: ${item.link}`
     ).join("\n---\n");
 
-    const prompt = AI_PROMPT_TEMPLATE + newsContext;
+    const prompt = promptTemplate + newsContext;
 
     try {
       console.log(`    Batch ${i + 1}/${totalBatches} (${batch.length} items)...`);
@@ -195,7 +220,7 @@ async function main() {
 
       if (items.length === 0) continue;
 
-      const aiResults = await analyzeNewsInBatches(items as Record<string, unknown>[]);
+      const aiResults = await analyzeNewsInBatches(items as Record<string, unknown>[], [...existing, ...discovered]);
       const newFromFeed = aiResults.filter(d => 
         !existing.find(e => e.id === d.id) && !discovered.find(e => e.id === d.id)
       );
@@ -214,16 +239,46 @@ async function main() {
   }
 
   // 3. Merge (never remove existing unless graduated)
+  //    Dedup by ID, by symbol (case-insensitive), and by source URL path.
   const combined = [...existing];
   let newCount = 0;
 
+  /** Normalize a source URL to its path for comparison (strip query params). */
+  const normalizeSource = (url: string): string => {
+    try {
+      const u = new URL(url);
+      return u.hostname + u.pathname;
+    } catch {
+      return url;
+    }
+  };
+
+  /** Symbols that are too generic to use for dedup. */
+  const GENERIC_SYMBOLS = new Set(["TBD", "N/A", "TBA"]);
+
   for (const item of discovered) {
     if (!item.id || !item.name) continue;
-    if (!combined.find(e => e.id === item.id)) {
-      combined.push({ ...item, discoveredAt: new Date().toISOString() });
-      console.log(`  ➕ New: ${item.name} (${item.symbol})`);
-      newCount++;
+
+    // Check by exact ID
+    if (combined.find((e) => e.id === item.id)) continue;
+
+    // Check by symbol (skip generic placeholders)
+    const sym = (item.symbol || "").toUpperCase();
+    if (sym && !GENERIC_SYMBOLS.has(sym) && combined.find((e) => (e.symbol || "").toUpperCase() === sym)) {
+      console.log(`  ⏭ Skipping ${item.name} (${item.symbol}) — symbol already tracked.`);
+      continue;
     }
+
+    // Check by normalized source URL
+    const normSrc = normalizeSource(item.dataSource || "");
+    if (normSrc && combined.find((e) => normalizeSource(e.dataSource || "") === normSrc)) {
+      console.log(`  ⏭ Skipping ${item.name} — same source URL already tracked.`);
+      continue;
+    }
+
+    combined.push({ ...item, discoveredAt: new Date().toISOString() });
+    console.log(`  ➕ New: ${item.name} (${item.symbol})`);
+    newCount++;
   }
 
   // 4. Graduation check — mark as released, don't delete (SEO preservation)
