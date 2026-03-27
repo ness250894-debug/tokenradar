@@ -1,0 +1,51 @@
+{
+  "id": "polymarket",
+  "symbol": "poly",
+  "name": "Polymarket",
+  "description": "Polymarket is the world’s largest prediction market, allowing you to stay informed and profit from your knowledge by betting on future events across various topics.\nStudies show prediction markets are often more accurate than pundits because they combine news, polls, and expert opinions into a single value that represents the market’s view of an event’s odds. Our markets reflect accurate, unbiased, and real-time probabilities for the events that matter most to you. Markets seek truth.",
+  "categories": [
+    "Gambling (GambleFi)",
+    "Prediction Markets",
+    "Coinbase Ventures Portfolio",
+    "DragonFly Capital Portfolio",
+    "Blockchain Capital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://polymarket.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
+  "market": {
+    "price": 0,
+    "marketCap": 0,
+    "marketCapRank": 999,
+    "volume24h": 0,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0,
+    "athChangePercentage": 0,
+    "athDate": "",
+    "atl": 0,
+    "atlDate": "",
+    "circulatingSupply": 0,
+    "totalSupply": null,
+    "maxSupply": null,
+    "fdv": null
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-03-27T19:16:58.117Z"
+}
