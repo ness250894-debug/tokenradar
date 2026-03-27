@@ -1,9 +1,11 @@
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 import { formatPrice } from "./formatters";
 
 /**
  * Robust markdown → HTML converter for article content.
  * Injects stylized token pills for Risk Score mentions.
+ * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
  */
 export function markdownToHtml(md: string, tokenData?: { name: string; symbol: string; price: number; imageUrl?: string }): string {
   let processedMd = md;
@@ -30,6 +32,10 @@ export function markdownToHtml(md: string, tokenData?: { name: string; symbol: s
     });
   }
 
-  // Parse the markdown synchronously
-  return marked.parse(processedMd, { async: false }) as string;
+  // Parse the markdown synchronously, then sanitize to prevent XSS
+  const rawHtml = marked.parse(processedMd, { async: false }) as string;
+  return DOMPurify.sanitize(rawHtml, {
+    ADD_TAGS: ["img"],
+    ADD_ATTR: ["class", "width", "height", "alt", "src"],
+  });
 }

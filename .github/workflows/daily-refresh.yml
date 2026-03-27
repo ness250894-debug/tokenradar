@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: git-push-daily-refresh
+  group: git-push-main
   cancel-in-progress: false
 
 env:

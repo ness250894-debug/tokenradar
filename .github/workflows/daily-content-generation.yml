@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: git-push-content-gen
+  group: git-push-main
   cancel-in-progress: false
 
 env:

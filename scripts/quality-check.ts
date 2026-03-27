@@ -350,7 +350,8 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
 
   if (totalFailed > 0) {
-    console.log(`\\n  ⚠ Built completed with ${totalFailed} quarantined articles. Job will continue.`);
+    console.log(`
+  ⚠ Built completed with ${totalFailed} quarantined articles. Job will continue.`);
   }
 }
 

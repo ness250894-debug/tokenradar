@@ -20,6 +20,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { logError } from "../src/lib/reporter";
 import { safeReadJson } from "../src/lib/utils";
+import type { TokenDetail } from "../src/lib/content-loader";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -49,7 +50,7 @@ export interface TokenMetrics {
  * Compute 30-day price volatility (coefficient of variation).
  * CV = (std dev / mean) * 100
  */
-function computeVolatility(prices: { price: number }[]): number {
+export function computeVolatility(prices: { price: number }[]): number {
   if (prices.length < 2) return 0;
 
   const values = prices.map((p) => p.price);
@@ -74,7 +75,7 @@ function computeVolatility(prices: { price: number }[]): number {
  *
  * Each factor contributes 0-2.5 points, clamped to 1-10.
  */
-function computeRiskScore(
+export function computeRiskScore(
   volatility: number,
   marketCap: number,
   volume24h: number,
@@ -118,7 +119,7 @@ function computeRiskScore(
  * How much room this token has to grow relative to peers.
  * Based on: distance from ATH, market cap vs category median, and age.
  */
-function computeGrowthPotential(
+export function computeGrowthPotential(
   marketCap: number,
   categoryMedianCap: number,
   athChangePercentage: number,
@@ -173,7 +174,7 @@ const NARRATIVE_SCORES: Record<string, number> = {
   payment: 35,
 };
 
-function computeNarrativeStrength(categories: string[]): number {
+export function computeNarrativeStrength(categories: string[]): number {
   if (!categories || categories.length === 0) return 30; // default
 
   let maxScore = 30;
@@ -192,7 +193,7 @@ function computeNarrativeStrength(categories: string[]): number {
  * Value vs ATH — how far the current price is from the all-time high.
  * Returns 0-100 (100 = at ATH, 0 = nearly worthless).
  */
-function computeValueVsAth(athChangePercentage: number): number {
+export function computeValueVsAth(athChangePercentage: number): number {
   // athChangePercentage is negative (e.g., -80 = 80% below ATH)
   return Math.max(0, Math.round(100 + athChangePercentage));
 }
@@ -242,8 +243,7 @@ async function main() {
   }[] = [];
 
   for (const file of tokenFiles) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const raw = safeReadJson<any>(path.join(TOKENS_DIR, file), null);
+    const raw = safeReadJson<TokenDetail>(path.join(TOKENS_DIR, file), null as unknown as TokenDetail);
     if (!raw || !raw.id) continue;
     allTokenData.push({
       id: raw.id,

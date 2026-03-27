@@ -31,6 +31,7 @@ import {
   SOCIAL,
 } from "../src/lib/config";
 import { safeReadJson } from "../src/lib/utils";
+import { formatPrice } from "../src/lib/content-loader";
 import {
   type TokenData,
   type MetricData,
@@ -62,16 +63,6 @@ export function getPollTypeForToday(): PollType {
 }
 
 // ── Poll Generators ────────────────────────────────────────────
-
-/**
- * Format a price for display. Uses 2 decimals for prices >= $1,
- * 4 decimals for >= $0.01, 6 decimals for smaller.
- */
-function formatPrice(price: number): string {
-  if (price >= 1) return `$${price.toFixed(2)}`;
-  if (price >= 0.01) return `$${price.toFixed(4)}`;
-  return `$${price.toFixed(6)}`;
-}
 
 /**
  * Generate a Sentiment Poll.

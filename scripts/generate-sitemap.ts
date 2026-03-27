@@ -13,6 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import type { UpcomingTge } from "../src/lib/content-loader";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
@@ -53,8 +54,8 @@ function getTokenIds(): string[] {
   const upcomingTgeIds = new Set<string>();
   const tges = getUpcomingTGEs();
   tges
-    .filter((t: any) => t.status !== "released")
-    .forEach((t: any) => upcomingTgeIds.add(t.id));
+    .filter((t: UpcomingTge) => t.status !== "released")
+    .forEach((t: UpcomingTge) => upcomingTgeIds.add(t.id));
 
   return Array.from(ids).filter((id) => {
     if (!upcomingTgeIds.has(id)) return true;
@@ -99,7 +100,7 @@ function getArticleDate(tokenId: string, slug: string): string | null {
 }
 
 /** Load upcoming TGEs. */
-function getUpcomingTGEs(): any[] {
+function getUpcomingTGEs(): UpcomingTge[] {
   if (!fs.existsSync(TGE_FILE)) return [];
   try {
     return JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));

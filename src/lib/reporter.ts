@@ -23,7 +23,16 @@ const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 });
 
 /**
+ * Simple rate limiter for Telegram alerts.
+ * Max 5 alerts per 60 seconds to prevent flooding during cascade failures.
+ */
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX = 5;
+const alertTimestamps: number[] = [];
+
+/**
  * Sends a notification to Telegram.
+ * Rate-limited to prevent cascade flooding (max 5 per 60s).
  */
 export async function sendTelegramAlert(message: string): Promise<void> {
   const token = process.env.TELEGRAM_REPORT_BOT_TOKEN;
@@ -32,6 +41,19 @@ export async function sendTelegramAlert(message: string): Promise<void> {
   if (!token || !chatId) {
     console.warn("  [reporter] TELEGRAM_REPORT_BOT_TOKEN or TELEGRAM_REPORT_CHAT_ID not set.");
     return;
+  }
+
+  // Enforce rate limit
+  const now = Date.now();
+  const recentAlerts = alertTimestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  if (recentAlerts.length >= RATE_LIMIT_MAX) {
+    console.warn(`  [reporter] Telegram rate limit reached (${RATE_LIMIT_MAX}/${RATE_LIMIT_WINDOW_MS / 1000}s). Skipping alert.`);
+    return;
+  }
+  alertTimestamps.push(now);
+  // Prune old timestamps
+  while (alertTimestamps.length > 0 && now - alertTimestamps[0] > RATE_LIMIT_WINDOW_MS) {
+    alertTimestamps.shift();
   }
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;

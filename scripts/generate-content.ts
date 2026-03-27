@@ -23,6 +23,7 @@ import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
 import { logError, sendTelegramAlert } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
+import type { UpcomingTge, TokenDetail } from "../src/lib/content-loader";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -264,8 +265,7 @@ async function main() {
   }
 
   // Load upcoming TGE data early — needed for both queue filtering and TGE processing
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const upcomingTges: any[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
+  const upcomingTges: UpcomingTge[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
 
   // Build a set of upcoming TGE IDs (status !== "released") so we can
   // exclude them from the regular token queue. Tokens that have already
@@ -367,8 +367,7 @@ async function main() {
   for (const { id: tokenId, isTge } of allTokensToProcess) {
     // 1. Load data
     const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let tokenData: any = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
+    let tokenData: Partial<TokenDetail> & { id: string; symbol: string; name: string; category?: string } = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
     
     if (fs.existsSync(tokenFilePath)) {
       tokenData = JSON.parse(fs.readFileSync(tokenFilePath, "utf-8"));
@@ -514,18 +513,18 @@ async function main() {
         while (attempts < maxAttempts) {
           attempts++;
           result = await callAIWithFallback(SYSTEM_PROMPT, config.prompt);
-          wordCount = result.content.split(/\\s+/).length;
+          wordCount = result.content.split(/\s+/).length;
           
           // Add the returned cost
           totalCost += result.cost;
 
           // Check data points
-          const dataPointRegex = /\\$[\\d,.]+|\\d+(\\.\\d+)?%|\\d{1,3}(,\\d{3})+/g;
+          const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
           const dataPoints = result.content.match(dataPointRegex) || [];
           if (dataPoints.length >= 3) {
             break; // Valid content
           } else {
-            console.log(`\\n    ⚠ Attempt ${attempts} failed data points check (${dataPoints.length}/3).`);
+            console.log(`\n    ⚠ Attempt ${attempts} failed data points check (${dataPoints.length}/3).`);
             if (attempts < maxAttempts) {
               process.stdout.write(`    🤖 Retrying...`);
             }

@@ -128,7 +128,7 @@ export async function loadCandidateTokens(
   // Fetch fresh market data
   let freshMarkets: CoinGeckoToken[] = [];
   try {
-    freshMarkets = await fetchTokensByRank(1, 250);
+    freshMarkets = await fetchTokensByRank(startRank, endRank);
     console.log(` ✓ Received ${freshMarkets.length} tokens from CoinGecko`);
   } catch (e) {
     console.warn(`  ⚠ Failed to fetch live data: ${e instanceof Error ? e.message : String(e)}`);
