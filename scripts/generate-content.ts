@@ -32,6 +32,7 @@ const TOKENS_DIR = path.join(DATA_DIR, "tokens");
 const METRICS_DIR = path.join(DATA_DIR, "metrics");
 const REFERENCES_DIR = path.join(DATA_DIR, "references");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
+const PRICES_DIR = path.join(DATA_DIR, "prices");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
 // ── Types ──────────────────────────────────────────────────────
@@ -58,6 +59,48 @@ interface GeneratedArticle {
 }
 
 import { callAIWithFallback, AIResult } from "../src/lib/gemini";
+
+// ── Price History Helpers ───────────────────────────────────────
+
+interface PricePoint {
+  date: string;
+  price: number;
+}
+
+/**
+ * Load and summarize price history from data/prices/{tokenId}.json.
+ * Returns a compact text block with 30d and 1y high/low/avg stats.
+ */
+function loadPriceSummary(tokenId: string): string {
+  const pricesFile = path.join(PRICES_DIR, `${tokenId}.json`);
+  if (!fs.existsSync(pricesFile)) return "";
+
+  try {
+    const data = JSON.parse(fs.readFileSync(pricesFile, "utf-8"));
+    const parts: string[] = [];
+
+    const summarize = (label: string, points: PricePoint[]): string | null => {
+      if (!points || points.length === 0) return null;
+      const prices = points.map((p) => p.price);
+      const high = Math.max(...prices);
+      const low = Math.min(...prices);
+      const avg = prices.reduce((s, p) => s + p, 0) / prices.length;
+      const first = prices[0];
+      const last = prices[prices.length - 1];
+      const changePct = first > 0 ? (((last - first) / first) * 100).toFixed(2) : "N/A";
+      return `${label}: High $${high.toFixed(6)} | Low $${low.toFixed(6)} | Avg $${avg.toFixed(6)} | Change ${changePct}%`;
+    };
+
+    const line30d = summarize("30-Day", data.chart30d);
+    const line1y = summarize("1-Year", data.chart1y);
+    if (line30d) parts.push(line30d);
+    if (line1y) parts.push(line1y);
+
+    return parts.length > 0 ? `\nPRICE HISTORY SUMMARY:\n${parts.join("\n")}` : "";
+  } catch {
+    return "";
+  }
+}
 
 // ── Prompt Templates ───────────────────────────────────────────
 
@@ -92,10 +135,12 @@ function buildArticleConfigs(
   tgeCategory: string,
   tokenData: Record<string, unknown>,
   metrics: Record<string, unknown>,
-  references: { articles: { title: string; snippet: string; source: string }[] }
+  references: { articles: { title: string; snippet: string; source: string }[] },
+  tgeEntry?: UpcomingTge | null,
 ): ArticleConfig[] {
   const dataStr = JSON.stringify(tokenData, null, 2);
   const metricsStr = JSON.stringify(metrics, null, 2);
+  const priceSummary = loadPriceSummary(tokenId);
   const refsStr = references.articles
     .map((a) => `- [${a.source}] "${a.title}": ${a.snippet}`)
     .join("\n");
@@ -106,9 +151,21 @@ ${dataStr}
 
 PROPRIETARY METRICS (computed by TokenRadar):
 ${metricsStr}
+${priceSummary}
 
 REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
 ${refsStr || "No recent articles found."}`;
+
+  // TGE-specific context: include source, narrative, description from TGE entry
+  const tgeContext = tgeEntry ? `
+TGE ENTRY DATA (from TokenRadar discovery pipeline):
+- Source Article: ${tgeEntry.dataSource || "Unknown"}
+- Narrative Strength: ${tgeEntry.narrativeStrength ?? "N/A"}/100
+- Category: ${tgeEntry.category || "General"}
+- Status: ${tgeEntry.status || "upcoming"}
+- Expected TGE: ${tgeEntry.expectedTge || "TBD"}
+- Discovered At: ${tgeEntry.discoveredAt || "Unknown"}
+` : "";
 
   return [
     {
@@ -140,9 +197,11 @@ CRITICAL: You are NOT making predictions. You are analyzing data trends, histori
 
 TARGET LENGTH: 1,000 - 1,200 words. Be analytical and concise.
 
+IMPORTANT: Use the PRICE HISTORY SUMMARY data below to reference actual 30-day and 1-year price movements, highs, lows, and percentage changes. This is real data — cite it.
+
 Cover:
-1. Current price and recent performance (30d, 1y trends)
-2. Technical analysis of key support/resistance levels
+1. Current price and recent performance (use the 30d and 1y stats provided)
+2. Technical analysis of key support/resistance levels (use the highs/lows from price history)
 3. Comparison to ATH and ATL
 4. Market cap growth scenarios (bear, base, bull cases)
 5. Risk factors that could affect price (use Risk Score data)
@@ -187,12 +246,15 @@ TARGET LENGTH: 800 - 1,000 words.
 
 As the token is not yet trading on major exchanges, focus on:
 1. Project Vision and Ecosystem impact
-2. Narrative Strength (why is it hyped?)
-3. Investors and Backing (if known)
+2. Narrative Strength (why is it hyped? — use the Narrative Strength score provided)
+3. Investors and Backing (if known from the source article or description)
 4. Expected TGE/Launch Window
 5. Category Analysis (${tgeCategory || "General"})
 6. Comparison to successful projects in the same sector
 
+IMPORTANT: Use the TGE ENTRY DATA below for factual context about this project. Reference the source article topic, the narrative strength score, and the project description to write a well-informed analysis.
+
+${tgeContext}
 ${commonContext}`,
     },
   ];
@@ -440,6 +502,8 @@ async function main() {
     }
 
     // Build article configs
+    // For TGE tokens, look up the matching entry to enrich the prompt
+    const matchingTgeEntry = isTge ? upcomingTges.find((t: UpcomingTge) => t.id === tokenId) : null;
     const configs = buildArticleConfigs(
       tokenId,
       tokenData.name,
@@ -447,7 +511,8 @@ async function main() {
       tokenData.category || "Crypto",
       tokenData,
       metrics,
-      references
+      references,
+      matchingTgeEntry,
     );
 
     // For TGE tokens, only generate tge-preview; for tracked tokens, skip tge-preview

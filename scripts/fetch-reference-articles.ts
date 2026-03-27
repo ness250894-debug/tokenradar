@@ -89,7 +89,7 @@ function parseRssItems(
         link: link.trim(),
         pubDate: pubDate || "",
         source: sourceName,
-        snippet: cleanHtml(description || "").slice(0, 200),
+        snippet: cleanHtml(description || "").slice(0, 1000),
       });
     }
   }
