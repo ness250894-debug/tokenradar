@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, CoinGeckoToken, fetchTrendingCoins } from "../../src/lib/coingecko";
 import { fetchXTrends, matchTrendsToTokens } from "../../src/lib/x-client";
-import { STABLECOIN_IDS } from "../../src/lib/config";
+import { STABLECOIN_IDS, TRENDING_COOLDOWN_DAYS, GENERAL_COOLDOWN_DAYS } from "../../src/lib/config";
 import { safeReadJson } from "../../src/lib/utils";
 
 // ── Types ──────────────────────────────────────────────────────
@@ -82,22 +82,22 @@ export function getTodayPostedTokens(dataDir: string, today: string): Set<string
 }
 
 /**
- * Get all token IDs posted in the last 30 days (for broader dedup).
- * Used by lower-priority strategies to avoid repeating recent posts.
+ * Get all token IDs posted within the last N days.
+ * Used for both trending cooldown (short) and general cooldown (long).
  */
-export function getRecentlyPostedTokens(dataDir: string): Set<string> {
+export function getTokensPostedWithinDays(dataDir: string, days: number): Set<string> {
   const posted = new Set<string>();
   const parentDir = path.join(dataDir, "posted");
   if (!fs.existsSync(parentDir)) return posted;
 
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - days);
 
   const dateDirs = fs.readdirSync(parentDir)
     .filter((d) => fs.statSync(path.join(parentDir, d)).isDirectory());
 
   for (const dateDir of dateDirs) {
-    if (new Date(dateDir) >= thirtyDaysAgo) {
+    if (new Date(dateDir) >= cutoff) {
       const dirPath = path.join(parentDir, dateDir);
       fs.readdirSync(dirPath).forEach((f) => {
         if (!f.includes("-telegram-") && !f.includes("-x-")) {
@@ -108,6 +108,22 @@ export function getRecentlyPostedTokens(dataDir: string): Set<string> {
   }
 
   return posted;
+}
+
+/**
+ * Get all token IDs posted in the last GENERAL_COOLDOWN_DAYS (default 30).
+ * Used by lower-priority strategies to avoid repeating recent posts.
+ */
+export function getRecentlyPostedTokens(dataDir: string): Set<string> {
+  return getTokensPostedWithinDays(dataDir, GENERAL_COOLDOWN_DAYS);
+}
+
+/**
+ * Get all token IDs posted within the trending cooldown window.
+ * Used by trending strategies (CoinGecko/X) to avoid daily repeats.
+ */
+export function getTrendingCooldownTokens(dataDir: string): Set<string> {
+  return getTokensPostedWithinDays(dataDir, TRENDING_COOLDOWN_DAYS);
 }
 
 // ── Data Loading ───────────────────────────────────────────────
@@ -173,38 +189,22 @@ export async function loadCandidateTokens(
   return { candidates, allRegistry };
 }
 
-// ── Priority-Based Token Selection ─────────────────────────────
+// ── Trending Strategy Helpers ──────────────────────────────────
 
-/**
- * Select the best token to post about using a priority-based strategy.
- *
- * Priority order:
- * 1. Trending on CoinGecko (highest search momentum)
- * 2. Trending on X (matched hashtags)
- * 3. Top Gainer (24h > 2%)
- * 4. Safe Play (risk score <= 4)
- * 5. Random Spotlight
- *
- * For each priority, tokens already posted TODAY are skipped.
- * For lower priorities (3-5), tokens posted in the last 30 days are also avoided.
- */
-export async function selectToken(
+/** Check CoinGecko trending and return the first eligible token. */
+async function tryCoinGeckoTrending(
   candidateTokens: TokenData[],
-  todayPosted: Set<string>,
-  recentlyPosted: Set<string>,
-  metricsDir: string,
-  allTokens: { id: string; name: string; symbol: string }[],
+  cooldownPosted: Set<string>,
+  priorityLabel: string,
 ): Promise<SelectionResult | null> {
-
-  // ── Priority 1: Trending on CoinGecko ──
-  console.log("\n  ▸ Priority 1: Checking CoinGecko trending...");
+  console.log(`\n  ▸ ${priorityLabel}: Checking CoinGecko trending...`);
   try {
     const trendingCoins = await fetchTrendingCoins();
     if (trendingCoins.length > 0) {
       console.log(`    Found ${trendingCoins.length} trending coins on CoinGecko`);
       for (const trending of trendingCoins) {
-        if (todayPosted.has(trending.id)) {
-          console.log(`    ✗ ${trending.name} (${trending.symbol}) — already posted today`);
+        if (cooldownPosted.has(trending.id)) {
+          console.log(`    ✗ ${trending.name} (${trending.symbol}) — posted within cooldown window`);
           continue;
         }
         const token = candidateTokens.find((t) => t.id === trending.id);
@@ -224,17 +224,25 @@ export async function selectToken(
   } catch (e) {
     console.warn(`    ⚠ CoinGecko trending failed: ${e instanceof Error ? e.message : String(e)}`);
   }
+  return null;
+}
 
-  // ── Priority 2: Trending on X ──
-  console.log("  ▸ Priority 2: Checking X Trends...");
+/** Check X trending and return the first eligible token. */
+async function tryXTrending(
+  candidateTokens: TokenData[],
+  cooldownPosted: Set<string>,
+  allTokens: { id: string; name: string; symbol: string }[],
+  priorityLabel: string,
+): Promise<SelectionResult | null> {
+  console.log(`  ▸ ${priorityLabel}: Checking X Trends...`);
   try {
     const xTrends = await fetchXTrends();
     if (xTrends.length > 0) {
       const matchedIds = matchTrendsToTokens(xTrends, allTokens);
       console.log(`    Found ${xTrends.length} X trends, ${matchedIds.length} matched crypto tokens`);
       for (const tokenId of matchedIds) {
-        if (todayPosted.has(tokenId)) {
-          console.log(`    ✗ ${tokenId} — already posted today`);
+        if (cooldownPosted.has(tokenId)) {
+          console.log(`    ✗ ${tokenId} — posted within cooldown window`);
           continue;
         }
         const token = candidateTokens.find((t) => t.id === tokenId);
@@ -261,6 +269,51 @@ export async function selectToken(
   } catch (e) {
     console.warn(`    ⚠ X Trends failed: ${e instanceof Error ? e.message : String(e)}`);
   }
+  return null;
+}
+
+// ── Priority-Based Token Selection ─────────────────────────────
+
+/**
+ * Select the best token to post about using a priority-based strategy.
+ *
+ * Trending priority varies by platform:
+ *   - X:        X trending → CoinGecko → Gainer → Safe → Spotlight
+ *   - Telegram: CoinGecko → X trending → Gainer → Safe → Spotlight
+ *
+ * Cooldowns (configurable in config.ts):
+ *   - Trending strategies use TRENDING_COOLDOWN_DAYS (default 3 days)
+ *   - Lower priorities (3-5) use GENERAL_COOLDOWN_DAYS (default 30 days)
+ *
+ * @param platform - "x" or "telegram" (defaults to "telegram" priority order)
+ */
+export async function selectToken(
+  candidateTokens: TokenData[],
+  todayPosted: Set<string>,
+  recentlyPosted: Set<string>,
+  metricsDir: string,
+  allTokens: { id: string; name: string; symbol: string }[],
+  platform: "x" | "telegram" | "all" = "telegram",
+): Promise<SelectionResult | null> {
+
+  // Trending cooldown: tokens posted within TRENDING_COOLDOWN_DAYS are skipped
+  // This is a superset of todayPosted (includes today + previous N days)
+  const trendingCooldown = new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."))]);
+
+  // ── Trending priorities (platform-dependent) ──
+  const useXFirst = platform === "x";
+
+  // First trending check
+  const first = useXFirst
+    ? await tryXTrending(candidateTokens, trendingCooldown, allTokens, "Priority 1")
+    : await tryCoinGeckoTrending(candidateTokens, trendingCooldown, "Priority 1");
+  if (first) return first;
+
+  // Second trending check
+  const second = useXFirst
+    ? await tryCoinGeckoTrending(candidateTokens, trendingCooldown, "Priority 2")
+    : await tryXTrending(candidateTokens, trendingCooldown, allTokens, "Priority 2");
+  if (second) return second;
 
   // ── Priority 3: Top Gainer ──
   console.log("  ▸ Priority 3: Checking top gainers...");

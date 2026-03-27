@@ -317,7 +317,7 @@ async function main() {
 
   // 3. Select token using priority-based strategy
   console.log(`\n▶ Step 2: Selecting token (priority-based)...`);
-  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry);
+  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, targetPlatform as "x" | "telegram" | "all");
 
   if (!selection) {
     console.error("  ✗ Could not select a target token.");

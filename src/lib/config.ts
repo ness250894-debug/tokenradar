@@ -109,6 +109,19 @@ export const STABLECOIN_IDS = new Set([
   "precious-metals-usd",   // PMUSD
 ]);
 
+// ── Post Deduplication Cooldowns ───────────────────────────────
+
+/**
+ * Minimum days before a trending token (CoinGecko/X) can be posted again.
+ * Set to 0 for same-day-only dedup (old behavior).
+ */
+export const TRENDING_COOLDOWN_DAYS = 3;
+
+/**
+ * Minimum days before a non-trending token (gainer/safe/spotlight) can be
+ * posted again. Applies to priorities 3-5.
+ */
+export const GENERAL_COOLDOWN_DAYS = 30;
 // ── Interactive Poll Config ────────────────────────────────────
 
 /** Default poll duration in minutes (24 hours). */
