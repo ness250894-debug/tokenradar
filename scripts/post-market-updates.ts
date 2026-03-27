@@ -148,7 +148,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   }
   lines.push(`🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>`);
   lines.push(...SOCIAL_FOOTER.slice(1));
-  lines.push(`#${sym} #Crypto #Trending #TokenRadarCo`);
+  lines.push(`#${sym} #Crypto #TokenRadarCo`);
 
   return lines.join("\n");
 }

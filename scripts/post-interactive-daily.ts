@@ -85,7 +85,7 @@ export function buildSentimentPoll(token: TokenData, metric?: MetricData): PollO
   const sign = change >= 0 ? "+" : "";
 
   return {
-    text: `GM! ${emoji} $${sym} is ${sign}${change.toFixed(1)}% today.${riskStr}\n\nWhat's your move?\n\n$${sym} #Crypto #Trending #TokenRadarCo`,
+    text: `GM! ${emoji} $${sym} is ${sign}${change.toFixed(1)}% today.${riskStr}\n\nWhat's your move?\n\n$${sym} #Crypto #TokenRadarCo`,
     options: ["Bullish 🚀", "Bearish 📉", "HODL 💎", "Just Watching 👀"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
