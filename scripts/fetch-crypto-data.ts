@@ -118,6 +118,7 @@ async function main() {
       }
     } catch (error) {
       console.log(`✗ Failed: ${error instanceof Error ? error.message : String(error)}`);
+      await logError("fetch-crypto-data", error, false);
     }
   }
 

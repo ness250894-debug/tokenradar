@@ -23,7 +23,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
@@ -420,6 +420,14 @@ async function main() {
           // Track fix categories for summary
           const category = fix.split(":")[0] || "Other";
           fixBreakdown[category] = (fixBreakdown[category] || 0) + 1;
+        }
+
+        if (!dryRun) {
+          logActivity("format-fix", {
+            tokenId: result.tokenId,
+            articleType: result.articleType,
+            fixesCount: result.fixes.length
+          });
         }
       }
     }

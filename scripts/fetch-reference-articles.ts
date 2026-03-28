@@ -155,6 +155,7 @@ async function fetchRssFeed(
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     console.warn(`  [${sourceName}] Error: ${msg}`);
+    await logError("fetch-reference-articles", msg, false);
     return [];
   }
 }

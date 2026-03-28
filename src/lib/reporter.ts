@@ -16,9 +16,10 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 const DATA_DIR = path.resolve(__dirname, "../../data");
 const LOGS_DIR = path.join(DATA_DIR, "logs");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
+const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 
 // Ensure directories exist
-[LOGS_DIR, ERRORS_DIR].forEach(dir => {
+[LOGS_DIR, ERRORS_DIR, ACTIVITIES_DIR].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -99,4 +100,18 @@ export async function logError(source: string, error: unknown, isFatal = true): 
   }
 }
 
+/**
+ * Logs a non-error system activity (e.g., generated a post, reformatted an article)
+ * for the hourly System Report aggregation.
+ */
+export function logActivity(type: string, details: Record<string, any>): void {
+  const timestamp = new Date().toISOString();
+  const id = Math.random().toString(36).substring(2, 8);
+  const activityRecord = { timestamp, type, ...details };
+
+  const activityFile = path.join(ACTIVITIES_DIR, `${timestamp.replace(/[:.]/g, "-")}-${type}-${id}.json`);
+  fs.writeFileSync(activityFile, JSON.stringify(activityRecord, null, 2));
+
+  console.log(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
+}
 

@@ -20,7 +20,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -331,9 +331,21 @@ async function main() {
 
       if (result.passed) {
         totalPassed++;
+        if (result.warnings.length > 0) {
+          logActivity("quality-check-fixed", {
+            tokenId: result.tokenId,
+            articleType: result.articleType,
+            warnings: result.warnings
+          });
+        }
       } else {
         totalFailed++;
         console.log(`    🗑 Quarantining failed article: ${file}`);
+        logActivity("quality-check-failed", {
+          tokenId: result.tokenId,
+          articleType: result.articleType,
+          issues: result.issues
+        });
         fs.unlinkSync(filePath);
       }
       totalWarnings += result.warnings.length;

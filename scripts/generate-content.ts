@@ -21,7 +21,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
-import { logError, sendTelegramAlert } from "../src/lib/reporter";
+import { logError, sendTelegramAlert, logActivity } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
 
@@ -442,10 +442,7 @@ async function main() {
     ...tgeTokensToProcess.map(id => ({ id, isTge: true })),
   ];
 
-  const alertFile = path.join(DATA_DIR, "latest-batch-alert.txt");
-  if (fs.existsSync(alertFile)) {
-    fs.writeFileSync(alertFile, "");
-  }
+  // Removed alertFile clearing
 
   let totalArticles = 0;
   let totalCost = 0;
@@ -496,6 +493,7 @@ async function main() {
           console.log(`💡 Note: ${tokenId} is a pre-launch TGE (not on CoinGecko yet)`);
         } else {
           console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
+          await logError("generate-content JIT Sync", e, false);
         }
       }
 
@@ -650,6 +648,16 @@ async function main() {
         };
 
         fs.writeFileSync(outputFile, JSON.stringify(article, null, 2));
+        // Log the activity to the unified system reporter
+        logActivity("generate", {
+          tokenId,
+          tokenName: tokenData.name,
+          articleType: config.type,
+          isTge,
+          wordCount,
+          cost: result.cost
+        });
+
         totalArticles++;
         if (isTge) {
           generatedTgeTokens.add(tokenId);
@@ -665,34 +673,13 @@ async function main() {
       } catch (error) {
         const msg = error instanceof Error ? error.message : String(error);
         console.log(` ✗ ${msg}`);
+        await logError("generate-content AI", error, false);
       }
     }
     console.log();
   }
 
-  // 4. Dispatch Telegram Telemetry Report
-  if (totalArticles > 0 && !dryRun) {
-    try {
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tokenradar.co';
-      
-      let message = `🚀 *Hourly Content Generation Complete*\n\nGenerated ${totalArticles} articles.`;
-      
-      if (generatedRegularTokens.size > 0) {
-        const regularLinks = Array.from(generatedRegularTokens).map(id => `• [${id}](${siteUrl}/${id})`).join('\n');
-        message += `\n\n*Tokens Covered:*\n${regularLinks}`;
-      }
-
-      if (generatedTgeTokens.size > 0) {
-        const tgeLinks = Array.from(generatedTgeTokens).map(id => `• [${id}](${siteUrl}/upcoming/${id})`).join('\n');
-        message += `\n\n*Upcoming TGEs:* (Pre-Launch)\n${tgeLinks}`;
-      }
-      
-      fs.writeFileSync(alertFile, message);
-      console.log(`  [TELEMETRY] Saved hourly generation report payload to disk for post-deployment dispatch.`);
-    } catch (e) {
-      console.error(`  [TELEMETRY] Failed to send report:`, e);
-    }
-  }
+  // Removed legacy Telegram Telemetry Report in favor of unified System Report
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║       Content Generation Complete        ║");

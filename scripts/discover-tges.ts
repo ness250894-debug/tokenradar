@@ -14,6 +14,7 @@ import * as fs from "fs";
 import * as path from "path";
 import Parser from "rss-parser";
 import { callAIWithFallback } from "../src/lib/gemini";
+import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
 import * as dotenv from "dotenv";
 
@@ -149,6 +150,7 @@ async function analyzeNewsInBatches(
       }
     } catch (e) {
       console.warn(`    ⚠ Batch ${i + 1} failed: ${e instanceof Error ? e.message : String(e)}`);
+      await logError("discover-tges-ai", e, false);
     }
 
     // Pause between batches (skip after last batch)
@@ -183,6 +185,7 @@ async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | nul
     }
   } catch (e) {
     console.warn(`  ⚠ Graduation check failed for ${tge.id} (keeping status): ${e instanceof Error ? e.message : String(e)}`);
+    await logError("discover-tges-graduation", e, false);
   }
   return null;
 }
@@ -235,6 +238,7 @@ async function main() {
       }
     } catch (e) {
       console.warn(`  ⚠ Failed to fetch ${feed.name}: ${e instanceof Error ? e.message : String(e)}`);
+      await logError("discover-tges-rss", e, false);
     }
   }
 
