@@ -73,6 +73,9 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
+      - name: Fix article formatting issues
+        run: npx tsx scripts/fix-article-formatting.ts
+
       # Note: [skip ci] prevents the `on: push` trigger in deploy.yml.
       # The explicit `deploy` job below is the ONLY deploy trigger for this workflow.
       - name: Commit updated data & content
