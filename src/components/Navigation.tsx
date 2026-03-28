@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,6 +19,7 @@ const NAV_LINKS = [
  */
 export function Navigation() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="nav" id="main-nav">
@@ -28,12 +30,22 @@ export function Navigation() {
             Token<span className="gradient-text">Radar</span>
           </span>
         </Link>
+        
+        {/* Hamburger Toggle */}
+        <button 
+          className="mobile-nav-toggle" 
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {isOpen ? "✕" : "☰"}
+        </button>
 
-        <ul className="nav-links">
+        <ul className={`nav-links ${isOpen ? "open" : ""}`}>
           {NAV_LINKS.map(({ href, name }) => (
             <li key={href}>
               <Link
                 href={href}
+                onClick={() => setIsOpen(false)}
                 style={
                   pathname === href
                     ? { color: "var(--text-primary)" }

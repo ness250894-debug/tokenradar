@@ -120,6 +120,8 @@ function buildSitemap(): string {
     { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.7" },
     { url: "/contact", lastmod: now, changefreq: "monthly", priority: "0.5" },
     { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/privacy", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/terms", lastmod: now, changefreq: "yearly", priority: "0.3" },
   ];
 
   // Token pages

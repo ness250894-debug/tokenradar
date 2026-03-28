@@ -117,6 +117,11 @@ export interface Article {
   generatedAt: string;
 }
 
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
 export interface UpcomingTge {
   id: string;
   name: string;
@@ -400,6 +405,54 @@ export function getTotalArticleCount(): number {
       .filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
   }
   return count;
+}
+
+/** Extract FAQs from article markdown content for structured data. */
+export function getArticleFaqs(content: string): FAQ[] {
+  const faqs: FAQ[] = [];
+  const faqSectionMatch = content.match(/##\s*FAQ([\s\S]*?)(?:---|$)/i);
+  if (!faqSectionMatch) return faqs;
+
+  const faqText = faqSectionMatch[1].trim();
+  
+  // Try pattern 1: **Q: question** \n A: answer
+  const qnaPattern = /\*\*Q:\s*(.*?)\*\*\s*\n+(?:A:\s*)?([\s\S]*?)(?=\n+\*\*Q:|$)/gi;
+  let match;
+  let qnaFound = false;
+  while ((match = qnaPattern.exec(faqText)) !== null) {
+    qnaFound = true;
+    faqs.push({
+      question: match[1].trim(),
+      answer: match[2].trim()
+    });
+  }
+  
+  if (qnaFound) return faqs;
+  
+  // Try pattern 2: ## or ### Question \n Answer
+  const headerPattern = /#{2,3}\s*(.*?)\s*\n+([\s\S]*?)(?=\n+#{2,3}|$)/g;
+  while ((match = headerPattern.exec(faqText)) !== null) {
+    const q = match[1].trim();
+    if (q.toLowerCase() !== 'faq') {
+       faqs.push({
+         question: q,
+         answer: match[2].trim()
+       });
+    }
+  }
+  
+  return faqs;
+}
+
+/** Get related tokens based on rank proximity (simple, fast O(N) internal linking approach). */
+export function getRelatedTokens(tokenId: string, limit: number = 3): TokenSummary[] {
+  const allTokens = getAllTokens();
+  const index = allTokens.findIndex((t) => t.id === tokenId);
+  if (index === -1) return allTokens.slice(0, limit);
+
+  const startIndex = Math.max(0, index - limit);
+  const candidates = allTokens.slice(startIndex, index + limit + 1);
+  return candidates.filter((t) => t.id !== tokenId).slice(0, limit);
 }
 
 export { formatPrice, formatCompact, formatSupply } from "./formatters";

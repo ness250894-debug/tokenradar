@@ -61,6 +61,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy out --project-name=tokenradar
 
+      - name: Ping IndexNow
+        run: npx tsx scripts/ping-indexnow.ts
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
       - name: Notify on Failure
         if: failure()
         run: |

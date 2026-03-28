@@ -10,12 +10,15 @@ import {
   formatPrice,
   formatCompact,
   formatSupply,
+  getArticleFaqs,
+  getRelatedTokens,
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
 import { TokenTickerPill } from "@/components/TokenTickerPill";
+import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -64,6 +67,22 @@ export default async function TokenPage({ params }: PageProps) {
   const metrics = getTokenMetrics(tokenId);
   const priceHistory = getPriceHistory(tokenId);
   const article = getArticle(tokenId, "overview");
+  const faqs = article ? getArticleFaqs(article.content) : [];
+  
+  const relatedTokensList = getRelatedTokens(tokenId, 3);
+  const relatedTokens: TokenCardData[] = relatedTokensList.map((token) => {
+    const rMetrics = getTokenMetrics(token.id);
+    return {
+      id: token.id,
+      name: token.name,
+      symbol: token.symbol,
+      price: token.price,
+      priceChange24h: token.priceChange24h,
+      marketCap: token.marketCap,
+      riskScore: rMetrics?.riskScore || 5,
+      category: detail?.categories?.[0] || "Crypto",
+    };
+  });
 
   const isPositive = detail.market.priceChange24h >= 0;
 
@@ -217,6 +236,20 @@ export default async function TokenPage({ params }: PageProps) {
           All proprietary metrics (Risk Score, Growth Index) are computed by TokenRadar
           and should not be used as the sole basis for investment decisions.
         </div>
+        
+        {/* Related Tokens */}
+        {relatedTokens.length > 0 && (
+          <div style={{ marginTop: "var(--space-4xl)" }}>
+            <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
+              Explore Related Tokens
+            </h2>
+            <div className="stats-grid">
+              {relatedTokens.map((t) => (
+                <TokenCard key={t.id} token={t} />
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* JSON-LD Structured Data */}
@@ -228,13 +261,55 @@ export default async function TokenPage({ params }: PageProps) {
             "@type": "Article",
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
+            image: "https://tokenradar.co/og-image.png",
             author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
-            publisher: { "@type": "Organization", name: "TokenRadar" },
+            publisher: { 
+              "@type": "Organization", 
+              name: "TokenRadar",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://tokenradar.co/icon.png"
+              }
+            },
             datePublished: detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ExchangeRateSpecification",
+            currency: "USD",
+            currentExchangeRate: {
+              "@type": "UnitPriceSpecification",
+              price: detail.market.price,
+              priceCurrency: "USD"
+            }
+          }),
+        }}
+      />
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map(faq => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer
+                }
+              }))
+            }),
+          }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

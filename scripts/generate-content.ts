@@ -23,7 +23,7 @@ import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
 import { logError, sendTelegramAlert } from "../src/lib/reporter";
 import { sleep } from "../src/lib/utils";
-import type { UpcomingTge, TokenDetail } from "../src/lib/content-loader";
+import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -117,10 +117,12 @@ STRICT RULES:
 8. Strictly follow the word count instructions provided in each specific prompt.
 9. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
 10. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
-11. End every article with: "---\\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+12. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. This is critical for Google Featured Snippets.
 
 FORMAT:
 - Start with a brief intro paragraph (no heading)
+- Include a Markdown Summary Table early in the article (e.g. Price, Market Cap, Risk Score)
 - Use ## for all main sections and subsections
 - Include bullet points and bold text for key data
 - Include a structured FAQ section at the end using ## FAQ format`;
@@ -137,6 +139,7 @@ function buildArticleConfigs(
   metrics: Record<string, unknown>,
   references: { articles: { title: string; snippet: string; source: string }[] },
   tgeEntry?: UpcomingTge | null,
+  relatedTokenNames?: string[],
 ): ArticleConfig[] {
   const dataStr = JSON.stringify(tokenData, null, 2);
   const metricsStr = JSON.stringify(metrics, null, 2);
@@ -154,7 +157,10 @@ ${metricsStr}
 ${priceSummary}
 
 REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
-${refsStr || "No recent articles found."}`;
+${refsStr || "No recent articles found."}
+
+${relatedTokenNames?.length ? `SEMANTIC CLUSTERING RULE:\nYou MUST explicitly mention and compare ${tokenName} against the following market peers at least once in your analysis: ${relatedTokenNames.join(", ")}.` : ""}
+`;
 
   // TGE-specific context: include source, narrative, description from TGE entry
   const tgeContext = tgeEntry ? `
@@ -269,7 +275,14 @@ function ensureContentDir(tokenId: string): string {
   return dir;
 }
 
-function isStale(filePath: string, maxAgeDays: number): boolean {
+function isStale(filePath: string, maxAgeDays: number, tokenData?: any): boolean {
+  if (tokenData?.market?.priceChange24h) {
+    if (Math.abs(tokenData.market.priceChange24h) >= 15) {
+      console.log(`  [VOLATILITY TRIGGER] >15% move detected. Forcing update.`);
+      return true; 
+    }
+  }
+
   if (!fs.existsSync(filePath)) return true;
   try {
     const raw = fs.readFileSync(filePath, "utf-8");
@@ -357,10 +370,16 @@ async function main() {
     const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
 
     let needsGeneration = false;
+    // We parse token data early just to pass it to isStale
+    let tokenData = null;
+    try {
+      tokenData = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, f), "utf-8"));
+    } catch (e) {}
+
     if (targetType) {
-      needsGeneration = isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30);
+      needsGeneration = isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
     } else {
-      needsGeneration = isStale(overviewPath, 30) || isStale(pricePath, 30) || isStale(howToBuyPath, 30);
+      needsGeneration = isStale(overviewPath, 30, tokenData) || isStale(pricePath, 30, tokenData) || isStale(howToBuyPath, 30, tokenData);
     }
 
     if (needsGeneration || args.includes("--force")) {
@@ -395,9 +414,16 @@ async function main() {
       if (upcomingTgeIdSet.has(id)) continue;
 
       const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      
+      let tokenData = null;
+      try {
+        const p = path.join(TOKENS_DIR, `${id}.json`);
+        if(fs.existsSync(p)) tokenData = JSON.parse(fs.readFileSync(p, "utf-8"));
+      } catch (e) {}
+
       const needsGeneration = targetType 
-        ? isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30)
-        : isStale(overviewPath, 30);
+        ? isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData)
+        : isStale(overviewPath, 30, tokenData);
 
       if (needsGeneration || args.includes("--force")) {
         tokensToProcess.push(id);
@@ -504,6 +530,16 @@ async function main() {
     // Build article configs
     // For TGE tokens, look up the matching entry to enrich the prompt
     const matchingTgeEntry = isTge ? upcomingTges.find((t: UpcomingTge) => t.id === tokenId) : null;
+    
+    let relatedTokenNames: string[] = [];
+    if (!isTge) {
+      try {
+        relatedTokenNames = getRelatedTokens(tokenId, 2).map((t: any) => t.name);
+      } catch (e) {
+        // Safe fallback
+      }
+    }
+
     const configs = buildArticleConfigs(
       tokenId,
       tokenData.name,
@@ -513,6 +549,7 @@ async function main() {
       metrics,
       references,
       matchingTgeEntry,
+      relatedTokenNames
     );
 
     // For TGE tokens, only generate tge-preview; for tracked tokens, skip tge-preview

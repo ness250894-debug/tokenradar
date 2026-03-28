@@ -8,6 +8,7 @@ import {
   getTokenIds,
   formatPrice,
   formatCompact,
+  getArticleFaqs,
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
@@ -57,6 +58,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
 
   const metrics = getTokenMetrics(tokenId);
   const article = getArticle(tokenId, "how-to-buy");
+  const faqs = article ? getArticleFaqs(article.content) : [];
 
   return (
     <div className="container">
@@ -177,6 +179,40 @@ export default async function HowToBuyPage({ params }: PageProps) {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ExchangeRateSpecification",
+            currency: "USD",
+            currentExchangeRate: {
+              "@type": "UnitPriceSpecification",
+              price: detail.market.price,
+              priceCurrency: "USD"
+            }
+          }),
+        }}
+      />
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map(faq => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer
+                }
+              }))
+            }),
+          }}
+        />
+      )}
     </div>
   );
 }

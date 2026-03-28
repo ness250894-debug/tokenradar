@@ -8,6 +8,7 @@ import {
   getArticle,
   getTokenIds,
   formatPrice,
+  getArticleFaqs,
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
@@ -58,6 +59,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const metrics = getTokenMetrics(tokenId);
   const priceHistory = getPriceHistory(tokenId);
   const article = getArticle(tokenId, "price-prediction");
+  const faqs = article ? getArticleFaqs(article.content) : [];
 
   const isPositive = detail.market.priceChange30d >= 0;
 
@@ -153,13 +155,56 @@ export default async function PricePredictionPage({ params }: PageProps) {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: `${detail.name} Price Prediction 2026-2027`,
-            author: { "@type": "Organization", name: "TokenRadar" },
-            publisher: { "@type": "Organization", name: "TokenRadar" },
+            description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
+            image: "https://tokenradar.co/og-image.png",
+            author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
+            publisher: { 
+              "@type": "Organization", 
+              name: "TokenRadar",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://tokenradar.co/icon.png"
+              }
+            },
             datePublished: article?.generatedAt || detail.fetchedAt,
             dateModified: article?.generatedAt || detail.fetchedAt,
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ExchangeRateSpecification",
+            currency: "USD",
+            currentExchangeRate: {
+              "@type": "UnitPriceSpecification",
+              price: detail.market.price,
+              priceCurrency: "USD"
+            }
+          }),
+        }}
+      />
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map(faq => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer
+                }
+              }))
+            }),
+          }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

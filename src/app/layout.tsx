@@ -96,6 +96,23 @@ export default function RootLayout({
             />
           </>
         )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "TokenRadar",
+              "url": "https://tokenradar.co",
+              "description": "Unbiased, data-driven crypto analysis for 250+ tokens",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://tokenradar.co/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable}`}>
         <Navigation />

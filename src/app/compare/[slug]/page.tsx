@@ -242,8 +242,17 @@ export default async function ComparePage({ params }: PageProps) {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: `${detailA.name} vs ${detailB.name} — Comparison`,
-            author: { "@type": "Organization", name: "TokenRadar" },
-            publisher: { "@type": "Organization", name: "TokenRadar" },
+            description: `Compare ${detailA.name} (${detailA.symbol.toUpperCase()}) and ${detailB.name} (${detailB.symbol.toUpperCase()}) — price, market cap, risk score, growth potential, and more.`,
+            image: "https://tokenradar.co/og-image.png",
+            author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
+            publisher: { 
+              "@type": "Organization", 
+              name: "TokenRadar",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://tokenradar.co/icon.png"
+              }
+            },
             datePublished: detailA.fetchedAt,
             dateModified: detailA.fetchedAt > detailB.fetchedAt ? detailA.fetchedAt : detailB.fetchedAt,
           }),

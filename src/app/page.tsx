@@ -133,6 +133,21 @@ export default function HomePage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": allTokens.map((t, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 1,
+              "url": `https://tokenradar.co/${t.id}`,
+              "name": `${t.name} (${t.symbol})`
+            }))
+          }),
+        }}
+      />
     </>
   );
 }
