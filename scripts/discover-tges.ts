@@ -55,6 +55,10 @@ interface UpcomingTge {
 
 const parser = new Parser({
   timeout: RSS_TIMEOUT_MS,
+  headers: {
+    "User-Agent": "TokenRadar/1.0 RSS Reader",
+    "Accept": "application/rss+xml, application/xml, text/xml, */*"
+  }
 });
 
 // ── AI Analysis (batched) ──────────────────────────────────
