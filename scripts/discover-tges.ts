@@ -35,7 +35,6 @@ const AI_BATCH_PAUSE_MS = 5_000;
 const RSS_FEEDS = [
   { url: "https://airdropalert.com/feed/", name: "Airdrop Alert" },
   { url: "https://icowatchlist.com/blog/feed", name: "ICO Watch List" },
-  { url: "https://foundico.com/blog/feed", name: "Foundico" },
   { url: "https://cointelegraph.com/rss", name: "CoinTelegraph" },
 ];
 
