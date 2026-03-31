@@ -30,12 +30,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
+  const article = getArticle(tokenId, "price-prediction");
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction 2026-2027`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
 
   return {
     title,
     description,
+    robots: {
+      index: !!article,
+      follow: true,
+    },
     alternates: {
       canonical: `/${detail.id}/price-prediction`,
     },

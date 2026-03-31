@@ -30,12 +30,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
+  const article = getArticle(tokenId, "how-to-buy");
   const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`;
   const description = `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`;
 
   return {
     title,
     description,
+    robots: {
+      index: !!article,
+      follow: true,
+    },
     alternates: {
       canonical: `/${detail.id}/how-to-buy`,
     },

@@ -85,6 +85,8 @@ export default async function TokenPage({ params }: PageProps) {
   });
 
   const isPositive = detail.market.priceChange24h >= 0;
+  const hasPricePrediction = !!getArticle(tokenId, "price-prediction");
+  const hasHowToBuy = !!getArticle(tokenId, "how-to-buy");
 
   return (
     <div className="container">
@@ -97,6 +99,9 @@ export default async function TokenPage({ params }: PageProps) {
         </nav>
 
         {/* Header */}
+        <h1 style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", borderWidth: 0 }}>
+          {detail.name} ({detail.symbol.toUpperCase()}) Analysis, Price & Risk Score
+        </h1>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "var(--space-lg)" }}>
           <div>
             <TokenTickerPill 
@@ -196,20 +201,29 @@ export default async function TokenPage({ params }: PageProps) {
             Research & <span className="gradient-text">Analysis</span>
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--space-md)" }}>
-            <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block" }}>
-              <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
-              <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction 2026-2027</div>
-              <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                Data-driven price analysis and scenarios
-              </div>
-            </Link>
-            <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block" }}>
-              <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
-              <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
-              <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                Step-by-step guide with exchange recommendations
-              </div>
-            </Link>
+            {hasPricePrediction && (
+              <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block" }}>
+                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
+                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction 2026-2027</div>
+                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                  Data-driven price analysis and scenarios
+                </div>
+              </Link>
+            )}
+            {hasHowToBuy && (
+              <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block" }}>
+                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
+                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
+                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                  Step-by-step guide with exchange recommendations
+                </div>
+              </Link>
+            )}
+            {!hasPricePrediction && !hasHowToBuy && (
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
+                Deep-dive AI analysis and prediction models for {detail.name} are currently being generated. Check back soon.
+              </p>
+            )}
           </div>
         </div>
 
@@ -271,7 +285,7 @@ export default async function TokenPage({ params }: PageProps) {
                 url: "https://tokenradar.co/icon.png"
               }
             },
-            datePublished: detail.genesisDate || detail.fetchedAt,
+            datePublished: article?.generatedAt || detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
           }),
         }}
