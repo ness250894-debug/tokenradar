@@ -7,7 +7,7 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "27 */2 * * *" # Run at minute 27 past every 2 hours to avoid GitHub Actions congestion
+    - cron: "27 */4 * * *" # Run at minute 27 past every 4 hours (6 runs/day) to save GH compute
   workflow_dispatch:
 
 concurrency:

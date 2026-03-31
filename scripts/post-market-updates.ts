@@ -307,12 +307,6 @@ async function main() {
   const runX = targetPlatform === "all" || targetPlatform === "x";
 
   if (!dryRun) {
-    // 0. Cron Fuzzing - Sleep randomly for up to 5 minutes to avoid algorithmic footprints
-    const sleepTimeMs = Math.floor(Math.random() * 5 * 60 * 1000); 
-    const min = Math.floor(sleepTimeMs / 60000);
-    const sec = Math.floor((sleepTimeMs % 60000) / 1000);
-    console.log(`▶ Step 0: [Cron Fuzzing] Sleeping for ${min}m ${sec}s to scramble algorithmic footprint...`);
-    await new Promise(r => setTimeout(r, sleepTimeMs));
     if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
       console.error("  ✗ Missing Telegram credentials (required for telegram/all platform).");
       process.exit(1);
