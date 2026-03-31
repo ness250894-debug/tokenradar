@@ -102,7 +102,7 @@ export async function logError(source: string, error: unknown, isFatal = true): 
 
 /**
  * Logs a non-error system activity (e.g., generated a post, reformatted an article)
- * for the hourly System Report aggregation.
+ * for the daily System Report aggregation.
  */
 export function logActivity(type: string, details: Record<string, any>): void {
   const timestamp = new Date().toISOString();

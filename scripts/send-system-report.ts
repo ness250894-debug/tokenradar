@@ -90,7 +90,7 @@ async function main() {
   }
 
   // Format message
-  let message = `🚀 *Hourly System Report*\n\n`;
+  let message = `🚀 *Daily System Report*\n\n`;
 
   if (generatedRegular.size > 0 || generatedTge.size > 0) {
     message += `*📝 Content Generation*\n`;
@@ -130,8 +130,8 @@ async function main() {
     message += `\n`;
   }
 
-  if (message.trim() === `🚀 *Hourly System Report*`) {
-    message += `_No major activities logged this hour._`;
+  if (message.trim() === `🚀 *Daily System Report*`) {
+    message += `_No major activities logged today._`;
   }
 
   // Ensure within Telegram length limits
