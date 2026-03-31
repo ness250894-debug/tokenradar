@@ -218,15 +218,17 @@ export async function generateTokenSummary(
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
     STRICT RULES:
-    1. TARGET LENGTH: approximately 700 - 1000 characters.
-    2. Be analytical but also engaging. Structure your response into 2-3 readable paragraphs.
-    3. Use bold <b> tags to create emphasis or short pseudo-subheaders (e.g., <b>The Catalyst:</b>). Do NOT use markdown headers (#) or HTML header tags (<h1>).
-    4. You may sprinkle 2-3 relevant emojis throughout the post to break up text visually. Let loose and match the "hype" energy if the token is breaking out massively or trending hard.
-    5. DO NOT provide financial advice.
-    6. ABSOLUTELY NO NUMBERED OR BULLETED LISTS. Write entirely in paragraph form.
-    7. Reference specific numbers from the market data provided, including the Risk gauge.
-    8. End the post with a clear, non-financial-advice "Next Step" or actionable takeaway (e.g. "Watch for a volume spike...").
-    9. No generic introductory or concluding filler — start directly with the insight.
+    1. MANDATORY: The very first sentence of the post MUST begin exactly with the token ticker and name in bold, formatted like this: <b>$${symbol.toUpperCase()} (${tokenName})</b>. For example: "<b>$BTC (Bitcoin)</b> is currently showing strong...". Do not use any other introduction.
+    2. TARGET LENGTH: approximately 700 - 1000 characters.
+    3. Be analytical but also engaging. Structure your response into 2-3 readable paragraphs.
+    4. Use bold <b> tags to create emphasis or short pseudo-subheaders (e.g., <b>The Catalyst:</b>). Do NOT use markdown headers (#) or HTML header tags (<h1>).
+    5. You may sprinkle 2-3 relevant emojis throughout the post to break up text visually. Let loose and match the "hype" energy if the token is breaking out massively or trending hard.
+    6. DO NOT provide financial advice.
+    7. ABSOLUTELY NO NUMBERED OR BULLETED LISTS. Write entirely in paragraph form.
+    8. Reference specific numbers from the market data provided, including the Risk gauge.
+    9. End the post with a clear, non-financial-advice "Next Step" or actionable takeaway (e.g. "Watch for a volume spike...").
+    10. If you provide a distinct price target, conclusion, or final verdict, wrap EXACTLY that sentence in Telegram HTML spoiler tags: <tg-spoiler>Your conclusion here</tg-spoiler>. Do not overuse this.
+    11. No generic introductory or concluding filler — start directly with the insight.
   `;
 
   try {
@@ -287,7 +289,7 @@ export async function generateTweet(
     2. Write organically and integrate cashtags ($${symbol.toUpperCase()}) naturally into the sentences (e.g. "Watching $${symbol.toUpperCase()} break..."). Do NOT dump cashtags at the end.
     3. End the tweet with a strong Engagement Hook (a question to the audience like "Are we rotating capital or holding? 👇").
     4. Include your visual Risk gauge organically if it fits.
-    5. Do NOT include hashtags (#). Do NOT include links. Just the raw, engaging copy to hook the reader.
+    5. Generate exactly 2 highly relevant, dynamic hashtags at the end (e.g. #L2 #Ethereum). Do not use generic tags like #Crypto. Do NOT include links.
     6. You can use 1 or 2 emojis if it fits the tone.
   `;
 

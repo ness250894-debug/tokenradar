@@ -100,9 +100,10 @@ export function truncateForX(text: string, maxLength: number = 280): string {
  * Post a tweet using the twitter-api-v2 SDK.
  *
  * @param text - Tweet text (HTML will be stripped, long text truncated)
+ * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
  * @returns Tweet ID
  */
-export async function postTweet(text: string): Promise<string> {
+export async function postTweet(text: string, replyToTweetId?: string): Promise<string> {
   const creds = validateXCredentials();
 
   const client = new TwitterApi({
@@ -118,7 +119,8 @@ export async function postTweet(text: string): Promise<string> {
 
   try {
     const rwClient = client.readWrite;
-    const { data: createdTweet } = await rwClient.v2.tweet(cleanText);
+    const options = replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : undefined;
+    const { data: createdTweet } = await rwClient.v2.tweet(cleanText, options);
     return createdTweet.id;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
