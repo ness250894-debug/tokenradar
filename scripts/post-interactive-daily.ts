@@ -30,7 +30,8 @@ import {
   INTERACTIVE_POST_NARRATIVES,
   SOCIAL,
 } from "../src/lib/config";
-import { safeReadJson } from "../src/lib/utils";
+import { generatePollHook } from "../src/lib/gemini";
+import { safeReadJson, getTimeOfDay } from "../src/lib/utils";
 import { formatPrice } from "../src/lib/content-loader";
 import {
   type TokenData,
@@ -66,17 +67,17 @@ export function getPollTypeForToday(): PollType {
 
 /**
  * Generate a Sentiment Poll.
- * "What's your move on $TOKEN today?"
  */
-export function buildSentimentPoll(token: TokenData, metric?: MetricData): PollOptions {
+export async function buildSentimentPoll(token: TokenData, metric?: MetricData): Promise<PollOptions> {
   const sym = token.symbol.toUpperCase();
-  const riskStr = metric ? ` Risk: ${metric.riskScore}/10.` : "";
-  const change = token.market.priceChange24h;
-  const emoji = change >= 0 ? "🟢" : "🔴";
-  const sign = change >= 0 ? "+" : "";
+  const hook = await generatePollHook("sentiment", getTimeOfDay(), token.name, token.symbol, {
+    price: token.market.price,
+    priceChange24h: token.market.priceChange24h,
+    ...metric
+  });
 
   return {
-    text: `GM! ${emoji} $${sym} is ${sign}${change.toFixed(1)}% today.${riskStr}\n\nWhat's your move?\n\n$${sym} #Crypto #TokenRadarCo`,
+    text: `${hook}\n\n$${sym} #Crypto #TokenRadarCo`,
     options: ["Bullish 🚀", "Bearish 📉", "HODL 💎", "Just Watching 👀"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -84,16 +85,20 @@ export function buildSentimentPoll(token: TokenData, metric?: MetricData): PollO
 
 /**
  * Generate a Prediction Poll.
- * "Where does $TOKEN close today?" with price-range options.
  */
-export function buildPredictionPoll(token: TokenData): PollOptions {
+export async function buildPredictionPoll(token: TokenData): Promise<PollOptions> {
   const sym = token.symbol.toUpperCase();
   const price = token.market.price;
   const low = price * 0.95;
   const high = price * 1.05;
 
+  const hook = await generatePollHook("prediction", getTimeOfDay(), token.name, token.symbol, {
+    price: token.market.price,
+    priceChange24h: token.market.priceChange24h
+  });
+
   return {
-    text: `📊 $${sym} is at ${formatPrice(price)} right now.\n\nWhere does it end the day?\n\n$${sym} #Crypto #PricePrediction #TokenRadarCo`,
+    text: `${hook}\n\n$${sym} #Crypto #PricePrediction #TokenRadarCo`,
     options: [
       `Below ${formatPrice(low)}`,
       `${formatPrice(low)}-${formatPrice(high)}`,
@@ -106,11 +111,11 @@ export function buildPredictionPoll(token: TokenData): PollOptions {
 
 /**
  * Generate a Narrative Poll.
- * "Which crypto narrative dominates this week?"
  */
-export function buildNarrativePoll(): PollOptions {
+export async function buildNarrativePoll(): Promise<PollOptions> {
+  const hook = await generatePollHook("narrative", getTimeOfDay());
   return {
-    text: `🔍 Which crypto narrative dominates this week?\n\nVote and tell us why in the replies!\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
+    text: `${hook}\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
     options: [...INTERACTIVE_POST_NARRATIVES],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -118,24 +123,21 @@ export function buildNarrativePoll(): PollOptions {
 
 /**
  * Generate a Community Vote Poll.
- * "Which token should TokenRadar deep-dive today?"
- * Selects top 4 candidates from gainers/trending.
  */
-export function buildCommunityPoll(candidates: TokenData[]): PollOptions {
-  // Pick 4 interesting tokens: top gainers by 24h change
+export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollOptions> {
+  // Pick 4 interesting tokens
   const sorted = [...candidates]
     .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h)
     .slice(0, 4);
 
-  // Fallback if fewer than 2 candidates
-  if (sorted.length < 2) {
-    return buildNarrativePoll();
-  }
+  // Fallback
+  if (sorted.length < 2) return buildNarrativePoll();
 
   const options = sorted.map((t) => `$${t.symbol.toUpperCase()}`);
+  const hook = await generatePollHook("community vote", getTimeOfDay());
 
   return {
-    text: `🗳️ Community vote! Which token should TokenRadar deep-dive today?\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
+    text: `${hook}\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
     options,
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -202,9 +204,9 @@ async function main() {
 
   if (pollType === "narrative") {
     // Narrative polls don't need a specific token
-    poll = buildNarrativePoll();
+    poll = await buildNarrativePoll();
   } else if (pollType === "community") {
-    poll = buildCommunityPoll(candidates);
+    poll = await buildCommunityPoll(candidates);
   } else {
     // Sentiment & Prediction need a specific token
     const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY);
@@ -214,7 +216,7 @@ async function main() {
 
     if (!selection) {
       console.error("  ✗ Could not select a target token. Falling back to narrative poll.");
-      poll = buildNarrativePoll();
+      poll = await buildNarrativePoll();
     } else {
       const { token } = selection;
       selectedTokenId = token.id;
@@ -229,9 +231,9 @@ async function main() {
       }
 
       if (pollType === "sentiment") {
-        poll = buildSentimentPoll(token, metric);
+        poll = await buildSentimentPoll(token, metric);
       } else {
-        poll = buildPredictionPoll(token);
+        poll = await buildPredictionPoll(token);
       }
     }
   }

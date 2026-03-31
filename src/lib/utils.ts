@@ -34,3 +34,28 @@ export function safeReadJson<T>(filePath: string, fallback: T): T {
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+/**
+ * Determine the current time of day in string format (Morning, Afternoon, Evening)
+ * based on the UTC hour.
+ */
+export function getTimeOfDay(): string {
+  const hour = new Date().getUTCHours();
+  if (hour < 12 && hour > 4) return "Morning";
+  if (hour >= 12 && hour < 18) return "Afternoon";
+  return "Evening";
+}
+
+/**
+ * Pick a random persona/tone for social media posts.
+ * The mix includes professional, story-driven, and slightly degen/casual tones.
+ */
+export function getRandomTone(): string {
+  const tones = [
+    "Analytical (Data-Driven, institutional focus)",
+    "The Observer (Casual, conversational, spots actionable trends)",
+    "Story-Driven (Narrative-focused, explains the why behind the metrics)",
+    "Degen-lite (Engaging, slightly chaotic but highly knowledgeable)"
+  ];
+  return tones[Math.floor(Math.random() * tones.length)];
+}

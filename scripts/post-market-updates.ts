@@ -32,11 +32,11 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError } from "../src/lib/reporter";
-import { generateTokenSummary } from "../src/lib/gemini";
+import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { sendTelegramMessage } from "../src/lib/telegram";
 import { postTweet } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL_FOOTER } from "../src/lib/config";
-import { safeReadJson } from "../src/lib/utils";
+import { safeReadJson, getTimeOfDay, getRandomTone } from "../src/lib/utils";
 import {
   type TokenData,
   type MetricData,
@@ -336,56 +336,56 @@ async function main() {
   console.log(`\n  ✦ Selected: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
   console.log(`  ✦ Reason: ${reason}`);
 
-  // 5. Generate AI Summary (if key is set)
-  let aiSummary = "";
+  // 5. Build Content Properties
   let targetMetric: MetricData | undefined;
-
-  // Load metrics for context if available
   const metricsFile = path.join(metricsDir, `${targetToken.id}.json`);
   if (fs.existsSync(metricsFile)) {
     targetMetric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
   }
 
-  // Only generate AI summaries if the platform is NOT 'x' (X has a 280-character limit)
-  if ((process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY) && targetPlatform !== "x") {
-    console.log(`▶ Step 3: Generating Deep Insight for ${targetToken.name}...`);
-    aiSummary = await generateTokenSummary(
-      targetToken.name, 
-      targetToken.symbol, 
-      targetToken.description || "", 
-      {
-        ...targetMetric,
-        price: targetToken.market.price,
-        priceChange24h: targetToken.market.priceChange24h,
-        marketCap: targetToken.market.marketCap,
-        trendingContext,
-      }
-    );
-    if (aiSummary) console.log(` ✓ Summary generated (${aiSummary.length} chars)`);
-  } else if (targetPlatform === "x") {
-    console.log("  [X PLATFORM] Bypassing AI Insight generation to respect 280-character tweet limits.");
-  } else {
-    console.warn("  ⚠ No GEMINI_API_KEY or ANTHROPIC_API_KEY set — skipping AI summary.");
+  const timeOfDay = getTimeOfDay();
+  const tone = getRandomTone();
+
+  const context = {
+    ...targetMetric,
+    price: targetToken.market.price,
+    priceChange24h: targetToken.market.priceChange24h,
+    marketCap: targetToken.market.marketCap,
+    trendingContext,
+    timeOfDay,
+    tone,
+    selectionReason: reason
+  };
+
+  let tgMessage = "";
+  let xMessage = "";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const displayUrl = siteUrl.replace("https://", "");
+
+  if (runTelegram) {
+    console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
+    const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context);
+    const sanitized = sanitizeHtmlForTelegram(aiSummary);
+    tgMessage = `${sanitized}\n\n🔗 <b>Token Report:</b> <a href="${siteUrl}/${targetToken.id}">${displayUrl}/${targetToken.id}</a>\n🌐 <b>Main Site:</b> <a href="${siteUrl}">${displayUrl}</a>\n` + SOCIAL_FOOTER.slice(1).join("\n") + `\n#${targetToken.symbol.toUpperCase()} #Crypto #TokenRadarCo`;
   }
 
-  // 6. Construct Final Message
-  let message = "";
-  const isX = targetPlatform === "x";
-
-  if (reason === "trending-coingecko" || reason === "trending-x") {
-    message = createTrendingAlert(targetToken, reason, aiSummary, isX);
-  } else if (reason === "top-gainer") {
-    message = createTopGainerAlert(targetToken, aiSummary, isX);
-  } else if (reason === "safe-play" && targetMetric) {
-    message = createSafePlayAlert(targetToken, targetMetric, aiSummary, isX);
-  } else {
-    message = createSpotlightAlert(targetToken, aiSummary, isX);
+  if (runX) {
+    console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
+    const tweet = await generateTweet(targetToken.name, targetToken.symbol, context);
+    xMessage = `${tweet}\n\n${displayUrl}/${targetToken.id}`;
   }
 
   if (dryRun) {
     console.log("\n=== DRY RUN MODE ===");
-    console.log(`Reason: ${reason}`);
-    console.log(message);
+    console.log(`Reason: ${reason} | Time: ${timeOfDay} | Tone: ${tone}`);
+    if (runTelegram) {
+      console.log("\n--- TELEGRAM MESSAGE ---");
+      console.log(tgMessage);
+    }
+    if (runX) {
+      console.log("\n--- X MESSAGE ---");
+      console.log(xMessage);
+    }
     return;
   }
 
@@ -396,12 +396,12 @@ async function main() {
 
   if (runTelegram) {
     try {
-      let tgMessage = message + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
-      if (tgMessage.length > TG_MESSAGE_LIMIT) {
-        console.warn(`  ⚠ Message too long (${tgMessage.length}/${TG_MESSAGE_LIMIT}), trimming...`);
-        tgMessage = tgMessage.substring(0, TG_MESSAGE_LIMIT - 3) + "...";
+      let finalTgMessage = tgMessage + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
+      if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
+        console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming...`);
+        finalTgMessage = finalTgMessage.substring(0, TG_MESSAGE_LIMIT - 3) + "...";
       }
-      const msgId = await sendTelegramMessage(tgMessage, channelId as string);
+      const msgId = await sendTelegramMessage(finalTgMessage, channelId as string);
       console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
       posted = true;
     } catch (error) {
@@ -412,7 +412,7 @@ async function main() {
 
   if (runX) {
     try {
-      const tweetId = await postTweet(message);
+      const tweetId = await postTweet(xMessage);
       console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
       posted = true;
     } catch (error) {
