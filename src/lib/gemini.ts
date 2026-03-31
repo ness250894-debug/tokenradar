@@ -193,7 +193,7 @@ export async function generateTokenSummary(
     ? `\n    TRENDING CONTEXT:\n    ${metrics.trendingContext}\n    Use this context to make the analysis timely and relevant. Mention why this token is attracting attention right now.\n`
     : "";
 
-  const timeContext = metrics.timeOfDay ? `\n    TIME OF DAY: ${metrics.timeOfDay}. Acknowledge this time in your opening (e.g., GM, Update, Wrap-up).\n` : "";
+  const timeContext = ""; // Omitted for TG posts as requested by the user
   const reasonContext = metrics.selectionReason ? `\n    SELECTION REASON: ${metrics.selectionReason}. Integrate this reason seamlessly into why you are covering the token right now.\n` : "";
   const toneInstruction = metrics.tone 
     ? `You represent the "${metrics.tone}" persona. Write in this exact natural tone, varying the style compared to a typical stale template.` 
