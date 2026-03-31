@@ -141,6 +141,15 @@ export async function callAIWithFallback(
   }
 }
 
+function getRiskGauge(score: number | undefined): string {
+  if (score === undefined) return "N/A";
+  const numScore = Math.min(10, Math.max(1, Math.round(score)));
+  const dotsAmount = Math.ceil(numScore / 2); // 1-5 scale
+  const green = "🟢".repeat(dotsAmount);
+  const white = "⚪".repeat(5 - dotsAmount);
+  return `${green}${white}`;
+}
+
 export interface MarketContext {
   riskScore?: number;
   growthPotentialIndex?: number;
@@ -190,6 +199,8 @@ export async function generateTokenSummary(
     ? `You represent the "${metrics.tone}" persona. Write in this exact natural tone, varying the style compared to a typical stale template.` 
     : `Ensure the tone is data-driven and matches a premium research platform.`;
 
+  const riskGauge = getRiskGauge(metrics.riskScore);
+
   const prompt = `
     You are crafting a Telegram deep-dive update for TokenRadar.co.
     Provide a "Deep Insight & Analysis" for ${tokenName} (${symbol.toUpperCase()}).
@@ -199,7 +210,7 @@ export async function generateTokenSummary(
     Current Price: ${priceStr}
     24h Change: ${changeStr}
     Market Cap: ${mcapStr}
-    Risk Score: ${metrics.riskScore ?? "N/A"}/10
+    Risk: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
     Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
     ${trendingSection}${timeContext}${reasonContext}
     
@@ -208,13 +219,14 @@ export async function generateTokenSummary(
     
     STRICT RULES:
     1. TARGET LENGTH: approximately 700 - 1000 characters.
-    2. Be analytical but also engaging and human-written. Do not sound like a rigid robot.
-    3. DO NOT use financial advice.
-    4. Cover technology, tokenomics, market position, and risks appropriately.
-    5. ABSOLUTELY NO MARKDOWN HEADERS (no #, ##, or ###). Do NOT use any HTML header tags (<h1>-<h6>). If you must segment sections, use bold <b> tags instead.
+    2. Be analytical but also engaging. Structure your response into 2-3 readable paragraphs.
+    3. Use bold <b> tags to create emphasis or short pseudo-subheaders (e.g., <b>The Catalyst:</b>). Do NOT use markdown headers (#) or HTML header tags (<h1>).
+    4. You may sprinkle 2-3 relevant emojis throughout the post to break up text visually. Let loose and match the "hype" energy if the token is breaking out massively or trending hard.
+    5. DO NOT provide financial advice.
     6. ABSOLUTELY NO NUMBERED OR BULLETED LISTS. Write entirely in paragraph form.
-    7. Reference specific numbers from the market data provided.
-    8. No generic introductory or concluding filler — start directly with the insight.
+    7. Reference specific numbers from the market data provided, including the Risk gauge.
+    8. End the post with a clear, non-financial-advice "Next Step" or actionable takeaway (e.g. "Watch for a volume spike...").
+    9. No generic introductory or concluding filler — start directly with the insight.
   `;
 
   try {
@@ -255,25 +267,28 @@ export async function generateTweet(
     ? `Adopt the "${metrics.tone}" persona. Write as a human navigating crypto.` 
     : `Write engaging and concise social copy.`;
 
+  const riskGauge = getRiskGauge(metrics.riskScore);
+
   // Provide exactly instructions to keep it short so footer links won't be truncated.
-  // 180 chars limit requested by human to ensure links at the end are NOT cropped.
   const prompt = `
-    Write a single short tweet about ${tokenName} ($${symbol.toUpperCase()}) for TokenRadar's X account.
+    Write a single short tweet about ${tokenName} for TokenRadar's X account.
     ${toneInstruction}
     
     Data context:
     Price: ${priceStr}
     24h Change: ${changeStr}
     MCap: ${mcapStr}
-    Risk Score: ${metrics.riskScore ?? "N/A"}/10
+    Risk: ${riskGauge}
     ${timeContext}
     ${reasonContext}
     
     STRICT RULES:
-    1. TARGET LENGTH: MUST be cleanly under 180 characters.
-    2. Write organic, human-sounding text integrating the stats smoothly (no rigid bullets). 
-    3. Do NOT include hashtags. Do NOT include links. Just the raw, engaging copy to hook the reader.
-    4. You can use 1 or 2 emojis if it fits the tone.
+    1. TARGET LENGTH: MUST be cleanly under 160 characters.
+    2. Write organically and integrate cashtags ($${symbol.toUpperCase()}) naturally into the sentences (e.g. "Watching $${symbol.toUpperCase()} break..."). Do NOT dump cashtags at the end.
+    3. End the tweet with a strong Engagement Hook (a question to the audience like "Are we rotating capital or holding? 👇").
+    4. Include your visual Risk gauge organically if it fits.
+    5. Do NOT include hashtags (#). Do NOT include links. Just the raw, engaging copy to hook the reader.
+    6. You can use 1 or 2 emojis if it fits the tone.
   `;
 
   try {

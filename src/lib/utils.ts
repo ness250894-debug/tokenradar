@@ -37,12 +37,21 @@ export function sleep(ms: number): Promise<void> {
 
 /**
  * Determine the current time of day in string format (Morning, Afternoon, Evening)
- * based on the UTC hour.
+ * aligned to US Prime Time (America/New_York).
  */
 export function getTimeOfDay(): string {
-  const hour = new Date().getUTCHours();
-  if (hour < 12 && hour > 4) return "Morning";
-  if (hour >= 12 && hour < 18) return "Afternoon";
+  // Extract hour in Eastern Time (0-23 format)
+  // Fix: Intl.DateTimeFormat with hour12: false can return "24" for midnight instead of "0". We handle this safely.
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour: 'numeric',
+    hourCycle: 'h23'
+  });
+  const hourStr = formatter.format(new Date());
+  const hour = parseInt(hourStr, 10);
+  
+  if (hour >= 5 && hour < 12) return "Morning";
+  if (hour >= 12 && hour < 17) return "Afternoon";
   return "Evening";
 }
 
