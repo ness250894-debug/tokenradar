@@ -46,15 +46,15 @@ export async function GET() {
             {sorted.map((token, i) => (
               <div key={token.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255, 255, 255, 0.05)", padding: "24px 40px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-                  <div style={{ fontSize: "40px", fontWeight: "bold", color: "#64748B" }}>#{i + 1}</div>
+                  <div style={{ fontSize: "40px", fontWeight: "bold", color: "#64748B" }}>{`#${i + 1}`}</div>
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span style={{ fontSize: "48px", fontWeight: "bold" }}>{token.symbol.toUpperCase()}</span>
                     <span style={{ fontSize: "24px", color: "#94A3B8" }}>{token.name}</span>
                   </div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                  <span style={{ fontSize: "48px", fontWeight: "bold", color: "#4ADE80" }}>+{token.market.priceChange24h.toFixed(2)}%</span>
-                  <span style={{ fontSize: "32px", color: "#E2E8F0" }}>${token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6)}</span>
+                  <span style={{ fontSize: "48px", fontWeight: "bold", color: "#4ADE80" }}>{`+${token.market.priceChange24h.toFixed(2)}%`}</span>
+                  <span style={{ fontSize: "32px", color: "#E2E8F0" }}>{`$${token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6)}`}</span>
                 </div>
               </div>
             ))}
