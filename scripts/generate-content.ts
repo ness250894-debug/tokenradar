@@ -71,12 +71,12 @@ interface PricePoint {
  * Load and summarize price history from data/prices/{tokenId}.json.
  * Returns a compact text block with 30d and 1y high/low/avg stats.
  */
-function loadPriceSummary(tokenId: string): string {
+async function loadPriceSummary(tokenId: string): Promise<string> {
   const pricesFile = path.join(PRICES_DIR, `${tokenId}.json`);
   if (!fs.existsSync(pricesFile)) return "";
 
   try {
-    const data = JSON.parse(fs.readFileSync(pricesFile, "utf-8"));
+    const data = JSON.parse(await fs.promises.readFile(pricesFile, "utf-8"));
     const parts: string[] = [];
 
     const summarize = (label: string, points: PricePoint[]): string | null => {
@@ -130,7 +130,7 @@ FORMAT:
 /**
  * Build article-specific prompts.
  */
-function buildArticleConfigs(
+async function buildArticleConfigs(
   tokenId: string,
   tokenName: string,
   symbol: string,
@@ -140,10 +140,10 @@ function buildArticleConfigs(
   references: { articles: { title: string; snippet: string; source: string }[] },
   tgeEntry?: UpcomingTge | null,
   relatedTokenNames?: string[],
-): ArticleConfig[] {
+): Promise<ArticleConfig[]> {
   const dataStr = JSON.stringify(tokenData, null, 2);
   const metricsStr = JSON.stringify(metrics, null, 2);
-  const priceSummary = loadPriceSummary(tokenId);
+  const priceSummary = await loadPriceSummary(tokenId);
   const refsStr = references.articles
     .map((a) => `- [${a.source}] "${a.title}": ${a.snippet}`)
     .join("\n");
@@ -275,7 +275,7 @@ function ensureContentDir(tokenId: string): string {
   return dir;
 }
 
-function isStale(filePath: string, maxAgeDays: number, tokenData?: any): boolean {
+async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial<TokenDetail> & { market?: { priceChange24h?: number } }): Promise<boolean> {
   if (tokenData?.market?.priceChange24h) {
     if (Math.abs(tokenData.market.priceChange24h) >= 15) {
       console.log(`  [VOLATILITY TRIGGER] >15% move detected. Forcing update.`);
@@ -285,7 +285,7 @@ function isStale(filePath: string, maxAgeDays: number, tokenData?: any): boolean
 
   if (!fs.existsSync(filePath)) return true;
   try {
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const raw = await fs.promises.readFile(filePath, "utf-8");
     const data = JSON.parse(raw);
     if (!data.generatedAt) return true;
     
@@ -340,7 +340,7 @@ async function main() {
   }
 
   // Load upcoming TGE data early — needed for both queue filtering and TGE processing
-  const upcomingTges: UpcomingTge[] = fs.existsSync(TGE_FILE) ? JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) : [];
+  const upcomingTges: UpcomingTge[] = fs.existsSync(TGE_FILE) ? JSON.parse(await fs.promises.readFile(TGE_FILE, "utf-8")) : [];
 
   // Build a set of upcoming TGE IDs (status !== "released") so we can
   // exclude them from the regular token queue. Tokens that have already
@@ -360,7 +360,7 @@ async function main() {
 
     // Skip upcoming TGEs that lack real market data — they belong in the TGE queue only
     if (upcomingTgeIdSet.has(id)) {
-      const data = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, f), "utf-8"));
+      const data = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
       if (!data.market?.price || data.market.price === 0) continue;
     }
 
@@ -373,13 +373,13 @@ async function main() {
     // We parse token data early just to pass it to isStale
     let tokenData = null;
     try {
-      tokenData = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, f), "utf-8"));
+      tokenData = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
     } catch (e) {}
 
     if (targetType) {
-      needsGeneration = isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
+      needsGeneration = await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
     } else {
-      needsGeneration = isStale(overviewPath, 30, tokenData) || isStale(pricePath, 30, tokenData) || isStale(howToBuyPath, 30, tokenData);
+      needsGeneration = ((await isStale(overviewPath, 30, tokenData))) || ((await isStale(pricePath, 30, tokenData))) || ((await isStale(howToBuyPath, 30, tokenData)));
     }
 
     if (needsGeneration || args.includes("--force")) {
@@ -397,7 +397,7 @@ async function main() {
     if (tgeTokensToProcess.includes(tge.id)) continue;
 
     const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
-    if (isStale(tgePath, 7) || args.includes("--force")) {
+    if ((await isStale(tgePath, 7)) || args.includes("--force")) {
       tgeTokensToProcess.push(tge.id);
     }
     if (tgeTokensToProcess.length >= maxTgeTokens) break;
@@ -418,12 +418,12 @@ async function main() {
       let tokenData = null;
       try {
         const p = path.join(TOKENS_DIR, `${id}.json`);
-        if(fs.existsSync(p)) tokenData = JSON.parse(fs.readFileSync(p, "utf-8"));
+        if(fs.existsSync(p)) tokenData = JSON.parse(await fs.promises.readFile(p, "utf-8"));
       } catch (e) {}
 
       const needsGeneration = targetType 
-        ? isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData)
-        : isStale(overviewPath, 30, tokenData);
+        ? await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData)
+        : await isStale(overviewPath, 30, tokenData);
 
       if (needsGeneration || args.includes("--force")) {
         tokensToProcess.push(id);
@@ -455,7 +455,7 @@ async function main() {
     let tokenData: Partial<TokenDetail> & { id: string; symbol: string; name: string; category?: string } = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
     
     if (fs.existsSync(tokenFilePath)) {
-      tokenData = JSON.parse(fs.readFileSync(tokenFilePath, "utf-8"));
+      tokenData = JSON.parse(await fs.promises.readFile(tokenFilePath, "utf-8"));
     }
 
     // 2. Just-In-Time (JIT) Sync: If it's a "Lite" token (no description), fetch full data
@@ -473,7 +473,7 @@ async function main() {
           fs.mkdirSync(PRICES_DIR, { recursive: true });
         }
 
-        fs.writeFileSync(
+        await fs.promises.writeFile(
           path.join(PRICES_DIR, `${tokenId}.json`),
           JSON.stringify({
             id: tokenId,
@@ -484,7 +484,7 @@ async function main() {
           }, null, 2)
         );
 
-        fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
+        await fs.promises.writeFile(tokenFilePath, JSON.stringify(tokenData, null, 2));
         console.log("✓ Done (incl. prices)");
       } catch (e) {
         // For upcoming TGEs, JIT sync will always fail (not on CG yet). 
@@ -506,7 +506,7 @@ async function main() {
         // Save the updated token data with fallback to prevent future sync attempts
         // BUT: skip for TGE tokens — don't pollute data/tokens/ with placeholder files
         if (!isTge) {
-          fs.writeFileSync(tokenFilePath, JSON.stringify(tokenData, null, 2));
+          await fs.promises.writeFile(tokenFilePath, JSON.stringify(tokenData, null, 2));
         }
       }
     }
@@ -515,14 +515,14 @@ async function main() {
     let metrics: Record<string, unknown> = {};
     const metricsFile = path.join(METRICS_DIR, `${tokenId}.json`);
     if (fs.existsSync(metricsFile)) {
-      metrics = JSON.parse(fs.readFileSync(metricsFile, "utf-8"));
+      metrics = JSON.parse(await fs.promises.readFile(metricsFile, "utf-8"));
     }
 
     // Load references (may not exist)
     let references = { articles: [] as { title: string; snippet: string; source: string }[] };
     const refsFile = path.join(REFERENCES_DIR, `${tokenId}.json`);
     if (fs.existsSync(refsFile)) {
-      references = JSON.parse(fs.readFileSync(refsFile, "utf-8"));
+      references = JSON.parse(await fs.promises.readFile(refsFile, "utf-8"));
     }
 
     // Build article configs
@@ -538,7 +538,7 @@ async function main() {
       }
     }
 
-    const configs = buildArticleConfigs(
+    const configs = await buildArticleConfigs(
       tokenId,
       tokenData.name,
       tokenData.symbol,
@@ -579,13 +579,13 @@ async function main() {
             market: tokenData.market || { price: 0, marketCap: 0, marketCapRank: 9999 },
             lastMarketUpdate: new Date().toISOString()
           };
-          fs.writeFileSync(metadataFile, JSON.stringify(metaData, null, 2));
+          await fs.promises.writeFile(metadataFile, JSON.stringify(metaData, null, 2));
           console.log("✓ Created");
         }
       }
 
       // Skip if already generated recently
-      if (fs.existsSync(outputFile) && !isStale(outputFile, isTge ? 7 : 30) && !args.includes("--force")) {
+      if (fs.existsSync(outputFile) && !(await isStale(outputFile, isTge ? 7 : 30)) && !args.includes("--force")) {
         console.log(`  ⏭ ${config.type} — generated recently (use --force to overwrite)`);
         continue;
       }
@@ -595,7 +595,7 @@ async function main() {
         console.log(`     Prompt length: ${config.prompt.length} chars`);
 
         // Save prompt preview
-        fs.writeFileSync(
+        await fs.promises.writeFile(
           path.join(outputDir, `${config.slug}.prompt.txt`),
           `SYSTEM:\n${SYSTEM_PROMPT}\n\nUSER:\n${config.prompt}`
         );
@@ -647,7 +647,7 @@ async function main() {
           completionTokens: result.completionTokens,
         };
 
-        fs.writeFileSync(outputFile, JSON.stringify(article, null, 2));
+        await fs.promises.writeFile(outputFile, JSON.stringify(article, null, 2));
         // Log the activity to the unified system reporter
         logActivity("generate", {
           tokenId,
