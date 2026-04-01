@@ -13,7 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import type { UpcomingTge } from "../src/lib/content-loader";
+import { type UpcomingTge, getAllCategories } from "../src/lib/content-loader";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
@@ -168,6 +168,17 @@ function buildSitemap(): string {
         priority: "0.8",
       });
     }
+  }
+
+  // Category Pages
+  const categories = getAllCategories();
+  for (const cat of categories) {
+    entries.push({
+      url: `/category/${cat.id}`,
+      lastmod: now,
+      changefreq: "daily",
+      priority: "0.8",
+    });
   }
 
   // Compare pages

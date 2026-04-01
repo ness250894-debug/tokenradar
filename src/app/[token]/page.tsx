@@ -19,6 +19,8 @@ import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
 import { TokenTickerPill } from "@/components/TokenTickerPill";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import { ProfitCalculator } from "@/components/ProfitCalculator";
+import { SentimentPoll } from "@/components/SentimentPoll";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -41,9 +43,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`;
   const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
 
+  const article = getArticle(tokenId, "overview");
+  const isLowQuality = (detail.market.volume24h < 500000) || (article && article.wordCount < 800);
+
   return {
     title,
     description,
+    robots: isLowQuality ? { index: false, follow: true } : { index: true, follow: true },
     alternates: {
       canonical: `/${detail.id}`,
     },
@@ -195,6 +201,12 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         )}
 
+        {/* Interactive Engagement */}
+        <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+           <ProfitCalculator tokenName={detail.name} symbol={detail.symbol} currentPrice={detail.market.price} atl={detail.market.atl} />
+           <SentimentPoll tokenId={detail.id} />
+        </div>
+
         {/* Article Links */}
         <div style={{ marginTop: "var(--space-2xl)" }}>
           <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
@@ -344,6 +356,44 @@ export default async function TokenPage({ params }: PageProps) {
                 "item": `https://tokenradar.co/${detail.id}`
               }
             ]
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            "name": `${detail.name} Market Data & Proprietary Metrics`,
+            "description": `Comprehensive market dataset for ${detail.name} including price history, market capitalization, volume, and TokenRadar Risk Score.`,
+            "creator": {
+               "@type": "Organization",
+               "name": "TokenRadar"
+            },
+            "variableMeasured": ["price", "marketCap", "riskScore", "growthPotential"]
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FinancialProduct",
+            "name": `${detail.name} (${detail.symbol.toUpperCase()})`,
+            "description": detail.description || `Cryptocurrency asset ${detail.symbol.toUpperCase()}`,
+            "provider": {
+              "@type": "Organization",
+              "name": "TokenRadar Data Analytics"
+            },
+            "aggregateRating": metrics ? {
+              "@type": "AggregateRating",
+              "ratingValue": ((100 - metrics.riskScore) / 20).toFixed(1),
+              "reviewCount": 1,
+              "bestRating": "5",
+              "worstRating": "1"
+            } : undefined
           }),
         }}
       />

@@ -1,7 +1,7 @@
 /**
  * AI Content Generator — Phase 3
  *
- * Generates SEO-optimized articles using Claude Haiku 4.5.
+ * Generates SEO-optimized articles using Gemini 3.1 Flash/Pro with Claude Haiku as fallback.
  * Each article uses:
  * - Real CoinGecko data
  * - Computed proprietary metrics (Risk Score, Growth Index, etc.)
@@ -14,7 +14,7 @@
  *   npx tsx scripts/generate-content.ts --type price-prediction
  *   npx tsx scripts/generate-content.ts --dry-run  (preview prompts without calling AI)
  *
- * Cost: ~$0.015 per article (Claude Haiku 4.5)
+ * Cost: ~$0.015 per article depending on primary AI provider
  */
 
 import * as fs from "fs";
@@ -173,95 +173,66 @@ TGE ENTRY DATA (from TokenRadar discovery pipeline):
 - Discovered At: ${tgeEntry.discoveredAt || "Unknown"}
 ` : "";
 
+  const overviewTitles = [
+    `What is ${tokenName} (${symbol.toUpperCase()})? Complete Guide`,
+    `Understanding ${tokenName} (${symbol.toUpperCase()}): An In-Depth Look`,
+    `The Ultimate Guide to ${tokenName} (${symbol.toUpperCase()})`,
+    `${tokenName} (${symbol.toUpperCase()}) Explained: Fundamentals and Future Potential`
+  ];
+
+  const overviewPrompts = [
+    `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nCover:\n1. What ${tokenName} is and what problem it solves\n2. How the technology works (simplified)\n3. Tokenomics (supply, distribution, use cases)\n4. Current market position (price, market cap, rank)\n5. TokenRadar's proprietary metrics analysis (Risk Score, Growth Index, Narrative Strength)\n6. Key risks and concerns\n7. Recent developments and roadmap\n\n${commonContext}`,
+    `Create a detailed guide covering ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nStructure the article to answer:\n- The Core Problem: Why does ${tokenName} exist and what does it solve?\n- Technical Architecture: How it operates under the hood\n- Token Utility & Economics: Use cases and supply metrics\n- Market Analysis: Price, market cap, and rank review\n- TokenRadar Metrics: Deep dive into Risk Score and Narrative Strength\n- Potential Headwinds: Risks and competitor analysis\n\n${commonContext}`
+  ];
+
+  const priceTitles = [
+    `${tokenName} (${symbol.toUpperCase()}) Price Prediction 2026-2027`,
+    `${tokenName} (${symbol.toUpperCase()}) Price Forecast & Scenarios`,
+    `Will ${tokenName} (${symbol.toUpperCase()}) Surge? Price Analysis`
+  ];
+
+  const pricePrompts = [
+    `Write a data-driven price analysis article for ${tokenName} (${symbol.toUpperCase()}).\n\nCRITICAL: You are NOT making predictions. You are analyzing data trends, historical patterns, and market conditions to discuss possible scenarios.\n\nTARGET LENGTH: 1,000 - 1,200 words. Be analytical and concise.\n\nIMPORTANT: Use the PRICE HISTORY SUMMARY data below to reference actual 30-day and 1-year price movements, highs, lows, and percentage changes. This is real data — cite it.\n\nCover:\n1. Current price and recent performance (use the 30d and 1y stats provided)\n2. Technical analysis of key support/resistance levels (use the highs/lows from price history)\n3. Comparison to ATH and ATL\n4. Market cap growth scenarios (bear, base, bull cases)\n5. Risk factors that could affect price (use Risk Score data)\n6. How ${tokenName} compares to category peers\n7. Include data ranges, not single predictions\n\nREMEMBER: Present multiple scenarios with data-backed reasoning. Use phrases like "based on current data", "historical patterns suggest", "in a bullish scenario". NEVER predict exact prices.\n\n${commonContext}`,
+    `Draft an objective price trend analysis for ${tokenName} (${symbol.toUpperCase()}).\n\nCRITICAL: You are NOT making predictions. Analyze data trends and discuss scenarios.\n\nTARGET LENGTH: 1,000 - 1,200 words.\n\nIMPORTANT: Cite the PRICE HISTORY SUMMARY points provided (30-day/1-year changes, highs, lows).\n\nStructure:\n- Recent Market Action: How ${tokenName} has performed recently\n- Key Price Levels: Support and resistance based on historical highs/lows\n- Valuation Scenarios: What would it take to reach new highs? Discuss bear, base, and bull cases\n- Risk Profile: Incorporate TokenRadar's Risk Score\n- Sector Comparison: How it stacks up against ${tgeCategory || "peers"}\n\nPresent balanced scenarios with strict data reliance.\n\n${commonContext}`
+  ];
+
+  const buyTitles = [
+    `How to Buy ${tokenName} (${symbol.toUpperCase()}) — Step-by-Step Guide`,
+    `Where to Purchase ${tokenName} (${symbol.toUpperCase()}): Full Guide`,
+    `Buying ${tokenName} (${symbol.toUpperCase()}): Safest Exchanges and Steps`
+  ];
+
+  const buyPrompts = [
+    `Write a practical step-by-step guide for buying ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 600 - 800 words. Be highly concise, actionable, and skip unnecessary filler.\n\nCover:\n1. Quick overview of ${tokenName} and why people are interested\n2. Which major exchanges list ${symbol.toUpperCase()} (Binance, Coinbase, Bybit, etc.)\n3. Step-by-step process:\n   - Create/verify exchange account\n   - Deposit funds (fiat or crypto)\n   - Find the ${symbol.toUpperCase()} trading pair\n   - Place your order (market vs limit)\n4. How to store ${symbol.toUpperCase()} safely (exchanges vs wallets)\n5. Key considerations before buying (Risk Score, volatility data)\n6. Tax implications overview (general, not specific advice)\n\nNote: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.\n\n${commonContext}`,
+    `Write an actionable purchasing guide for ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 600 - 800 words.\n\nStructure:\n- Why buy ${tokenName}? Brief summary\n- Top Exchange Options for ${symbol.toUpperCase()}\n- Purchase Tutorial: From fiat deposit to holding the token\n- Securing your tokens: Hardware wallets vs Exchange storage\n- Important Risks: Mention the TokenRadar Risk Score\n\nKeep it direct and easy to follow for beginners.\n\n${commonContext}`
+  ];
+
+  const pick = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
   return [
     {
       type: "overview",
-      title: `What is ${tokenName} (${symbol.toUpperCase()})? Complete Guide`,
+      title: pick(overviewTitles),
       slug: "overview",
-      prompt: `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).
-
-TARGET LENGTH: 1,200 - 1,500 words.
-
-Cover:
-1. What ${tokenName} is and what problem it solves
-2. How the technology works (simplified)
-3. Tokenomics (supply, distribution, use cases)
-4. Current market position (price, market cap, rank)
-5. TokenRadar's proprietary metrics analysis (Risk Score, Growth Index, Narrative Strength)
-6. Key risks and concerns
-7. Recent developments and roadmap
-
-${commonContext}`,
+      prompt: pick(overviewPrompts),
     },
     {
       type: "price-prediction",
-      title: `${tokenName} (${symbol.toUpperCase()}) Price Prediction 2026-2027`,
+      title: pick(priceTitles),
       slug: "price-prediction",
-      prompt: `Write a data-driven price analysis article for ${tokenName} (${symbol.toUpperCase()}).
-
-CRITICAL: You are NOT making predictions. You are analyzing data trends, historical patterns, and market conditions to discuss possible scenarios.
-
-TARGET LENGTH: 1,000 - 1,200 words. Be analytical and concise.
-
-IMPORTANT: Use the PRICE HISTORY SUMMARY data below to reference actual 30-day and 1-year price movements, highs, lows, and percentage changes. This is real data — cite it.
-
-Cover:
-1. Current price and recent performance (use the 30d and 1y stats provided)
-2. Technical analysis of key support/resistance levels (use the highs/lows from price history)
-3. Comparison to ATH and ATL
-4. Market cap growth scenarios (bear, base, bull cases)
-5. Risk factors that could affect price (use Risk Score data)
-6. How ${tokenName} compares to category peers
-7. Include data ranges, not single predictions
-
-REMEMBER: Present multiple scenarios with data-backed reasoning. Use phrases like "based on current data", "historical patterns suggest", "in a bullish scenario". NEVER predict exact prices.
-
-${commonContext}`,
+      prompt: pick(pricePrompts),
     },
     {
       type: "how-to-buy",
-      title: `How to Buy ${tokenName} (${symbol.toUpperCase()}) — Step-by-Step Guide`,
+      title: pick(buyTitles),
       slug: "how-to-buy",
-      prompt: `Write a practical step-by-step guide for buying ${tokenName} (${symbol.toUpperCase()}).
-
-TARGET LENGTH: 600 - 800 words. Be highly concise, actionable, and skip unnecessary filler.
-
-Cover:
-1. Quick overview of ${tokenName} and why people are interested
-2. Which major exchanges list ${symbol.toUpperCase()} (Binance, Coinbase, Bybit, etc.)
-3. Step-by-step process:
-   - Create/verify exchange account
-   - Deposit funds (fiat or crypto)
-   - Find the ${symbol.toUpperCase()} trading pair
-   - Place your order (market vs limit)
-4. How to store ${symbol.toUpperCase()} safely (exchanges vs wallets)
-5. Key considerations before buying (Risk Score, volatility data)
-6. Tax implications overview (general, not specific advice)
-
-Note: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.
-
-${commonContext}`,
+      prompt: pick(buyPrompts),
     },
     {
       type: "tge-preview",
       title: `${tokenName} (${symbol.toUpperCase()}) Pre-Launch Spotlight — Upcoming TGE Analysis`,
       slug: "tge-preview",
-      prompt: `Write a pre-launch spotlight article for ${tokenName} (${symbol.toUpperCase()}).
-      
-TARGET LENGTH: 800 - 1,000 words.
-
-As the token is not yet trading on major exchanges, focus on:
-1. Project Vision and Ecosystem impact
-2. Narrative Strength (why is it hyped? — use the Narrative Strength score provided)
-3. Investors and Backing (if known from the source article or description)
-4. Expected TGE/Launch Window
-5. Category Analysis (${tgeCategory || "General"})
-6. Comparison to successful projects in the same sector
-
-IMPORTANT: Use the TGE ENTRY DATA below for factual context about this project. Reference the source article topic, the narrative strength score, and the project description to write a well-informed analysis.
-
-${tgeContext}
-${commonContext}`,
+      prompt: `Write a pre-launch spotlight article for ${tokenName} (${symbol.toUpperCase()}).\n      \nTARGET LENGTH: 800 - 1,000 words.\n\nAs the token is not yet trading on major exchanges, focus on:\n1. Project Vision and Ecosystem impact\n2. Narrative Strength (why is it hyped? — use the Narrative Strength score provided)\n3. Investors and Backing (if known from the source article or description)\n4. Expected TGE/Launch Window\n5. Category Analysis (${tgeCategory || "General"})\n6. Comparison to successful projects in the same sector\n\nIMPORTANT: Use the TGE ENTRY DATA below for factual context about this project. Reference the source article topic, the narrative strength score, and the project description to write a well-informed analysis.\n\n${tgeContext}\n${commonContext}`,
     },
   ];
 }

@@ -186,6 +186,56 @@ function findTokenArticles(
     .slice(0, maxArticles);
 }
 
+/**
+ * Optional: Fetch UGC Reddit posts to inject real human sentiment.
+ * Runs only if REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET are provided in .env.local
+ * Free tier allows 100 requests per minute.
+ */
+async function fetchRedditOAuth(tokenName: string): Promise<RssArticle[]> {
+  const clientId = process.env.REDDIT_CLIENT_ID;
+  const clientSecret = process.env.REDDIT_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return [];
+
+  try {
+    const authString = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+    const tokenRes = await fetch("https://www.reddit.com/api/v1/access_token", {
+      method: "POST",
+      headers: {
+         "Authorization": `Basic ${authString}`,
+         "Content-Type": "application/x-www-form-urlencoded",
+         "User-Agent": "TokenRadar:v1.0.0 (by /u/tokenradar)"
+      },
+      body: "grant_type=client_credentials"
+    });
+    
+    if (!tokenRes.ok) return [];
+    const tokenData = await tokenRes.json();
+    const accessToken = tokenData.access_token;
+    
+    const url = `https://oauth.reddit.com/search?q=${encodeURIComponent(tokenName + ' crypto')}&sort=new&limit=3`;
+    const response = await fetch(url, {
+       headers: { 
+         "Authorization": `Bearer ${accessToken}`,
+         "User-Agent": "TokenRadar:v1.0.0 (by /u/tokenradar)" 
+       },
+       signal: AbortSignal.timeout(5000),
+    });
+    
+    if (!response.ok) return [];
+    const data = await response.json();
+    return (data.data?.children || []).map((post: any) => ({
+      title: post.data.title,
+      link: `https://reddit.com${post.data.permalink}`,
+      pubDate: new Date(post.data.created_utc * 1000).toISOString(),
+      source: "Reddit UGC",
+      snippet: (post.data.selftext || "").substring(0, 300)
+    }));
+  } catch {
+    return [];
+  }
+}
+
+
 
 async function main() {
   const args = process.argv.slice(2);
@@ -247,11 +297,18 @@ async function main() {
       token.name,
       token.symbol
     );
+    
+    const redditPosts = await fetchRedditOAuth(token.name);
+    if (redditPosts.length > 0) {
+      await sleep(1000); // 1 req/sec max to safely stay under 100/min Reddit free tier limit
+    }
+    
+    const finalArticles = [...redditPosts, ...tokenArticles].slice(0, 6); // Reddit prioritized at top
 
     const references: TokenReferences = {
       tokenId: token.id,
       tokenName: token.name,
-      articles: tokenArticles,
+      articles: finalArticles,
       fetchedAt: new Date().toISOString(),
     };
 

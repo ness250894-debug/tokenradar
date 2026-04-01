@@ -18,6 +18,7 @@ export interface TokenSummary {
   id: string;
   name: string;
   symbol: string;
+  categories: string[];
   rank: number;
   price: number;
   marketCap: number;
@@ -156,6 +157,7 @@ export function getAllTokens(): TokenSummary[] {
         id: detail.id,
         name: detail.name,
         symbol: detail.symbol,
+        categories: detail.categories || [],
         rank: detail.market.marketCapRank || 999,
         price: detail.market.price,
         marketCap: detail.market.marketCap,
@@ -176,6 +178,40 @@ export function getAllTokens(): TokenSummary[] {
   }
   
   return summaries;
+}
+
+export interface CategorySummary {
+  id: string;
+  name: string;
+  count: number;
+}
+
+/** Get all discrete categories with at least 3 tokens */
+export function getAllCategories(): CategorySummary[] {
+  const allTokens = getAllTokens();
+  const counts: Record<string, number> = {};
+  const nameMap: Record<string, string> = {};
+  
+  for (const t of allTokens) {
+    if (!t.categories) continue;
+    for (const c of t.categories) {
+       const id = c.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+       counts[id] = (counts[id] || 0) + 1;
+       nameMap[id] = c;
+    }
+  }
+  
+  return Object.entries(counts)
+    .filter(([_, count]) => count >= 3)
+    .map(([id, count]) => ({ id, name: nameMap[id], count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/** Get all tokens belonging to a specific category slug */
+export function getTokensByCategory(categoryId: string): TokenSummary[] {
+  return getAllTokens().filter(t => 
+    (t.categories || []).some(c => c.toLowerCase().replace(/[^a-z0-9]+/g, '-') === categoryId)
+  ).sort((a, b) => a.rank - b.rank);
 }
 
 /**
@@ -444,15 +480,45 @@ export function getArticleFaqs(content: string): FAQ[] {
   return faqs;
 }
 
-/** Get related tokens based on rank proximity (simple, fast O(N) internal linking approach). */
+/** Get related tokens based on shared categories and semantic similarity. */
 export function getRelatedTokens(tokenId: string, limit: number = 3): TokenSummary[] {
   const allTokens = getAllTokens();
+  const targetToken = allTokens.find((t) => t.id === tokenId);
+  
+  // Basic fallback
   const index = allTokens.findIndex((t) => t.id === tokenId);
-  if (index === -1) return allTokens.slice(0, limit);
+  if (!targetToken || !targetToken.categories || targetToken.categories.length === 0) {
+    if (index === -1) return allTokens.slice(0, limit);
+    const startIndex = Math.max(0, index - limit);
+    return allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId).slice(0, limit);
+  }
 
+  // Semantic category matching
+  const targetCategories = new Set(targetToken.categories);
+  const candidates = allTokens
+    .filter(t => t.id !== tokenId)
+    .map(t => {
+       let sharedScore = 0;
+       (t.categories || []).forEach(c => {
+          if (targetCategories.has(c)) sharedScore += 1;
+       });
+       return { token: t, score: sharedScore };
+    })
+    .filter(t => t.score > 0)
+    .sort((a, b) => {
+       if (b.score !== a.score) return b.score - a.score;
+       return a.token.rank - b.token.rank;
+    });
+
+  if (candidates.length >= limit) {
+    return candidates.slice(0, limit).map(c => c.token);
+  }
+
+  // Fill up with nearby ranked tokens if not enough semantic matches
   const startIndex = Math.max(0, index - limit);
-  const candidates = allTokens.slice(startIndex, index + limit + 1);
-  return candidates.filter((t) => t.id !== tokenId).slice(0, limit);
+  const fallback = allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId && !candidates.some(c => c.token.id === t.id));
+  
+  return [...candidates.map(c => c.token), ...fallback].slice(0, limit);
 }
 
 export { formatPrice, formatCompact, formatSupply } from "./formatters";
