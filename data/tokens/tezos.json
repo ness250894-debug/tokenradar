@@ -24,23 +24,23 @@
     "explorer": "https://tzstats.com/"
   },
   "market": {
-    "price": 0.355519,
-    "marketCap": 384076137,
+    "price": 0.353,
+    "marketCap": 381391305,
     "marketCapRank": 111,
-    "volume24h": 13813164,
+    "volume24h": 12304895,
     "high24h": 0.393377,
     "low24h": 0.375121,
-    "priceChange24h": 1.31834,
+    "priceChange24h": -0.3596,
     "priceChange7d": 0.03345,
     "priceChange30d": -0.172,
     "priceChange1y": -42.51252,
     "ath": 9.12,
-    "athChangePercentage": -96.09388,
+    "athChangePercentage": -96.12739,
     "athDate": "2021-10-04T00:41:18.025Z",
     "atl": 0.336606,
     "atlDate": "2026-03-29T22:55:06.515Z",
-    "circulatingSupply": 1080272758.156317,
-    "totalSupply": 1100285012.143519,
+    "circulatingSupply": 1080337967.479875,
+    "totalSupply": 1100360491.180884,
     "maxSupply": null,
     "fdv": 431376639
   },
@@ -54,5 +54,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-03-23T15:05:34.219Z",
-  "lastMarketUpdate": "2026-04-01T07:56:04.818Z"
+  "lastMarketUpdate": "2026-04-01T14:09:11.139Z"
 }
