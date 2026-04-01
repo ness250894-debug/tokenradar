@@ -8,7 +8,6 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
   const [bullVotes, setBullVotes] = useState<number>(76); // mock baseline
   const [bearVotes, setBearVotes] = useState<number>(24); // mock baseline
   
-  // Use a stable pseudo-random basline derived from tokenId so it persists smoothly during SSG
   useEffect(() => {
      let hash = 0;
      for (let i = 0; i < tokenId.length; i++) {
@@ -39,60 +38,66 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
   };
 
   return (
-    <div className="card shadow-glow">
-       <div className="flex items-center gap-3 mb-6">
-         <Users className="w-5 h-5 text-accent-secondary" style={{ color: "var(--accent-secondary)" }} />
-         <h3 className="text-xl font-bold gradient-text">Community Sentiment</h3>
-       </div>
+    <div className="card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-lg)" }}>
+         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+           <Users size={18} style={{ color: "var(--accent-secondary)" }} />
+           <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, margin: 0 }}>Sentiment Poll</h3>
+         </div>
+      </div>
        
-       <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-6 px-1">How do you feel about this token today?</p>
+       <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
+         How do you feel about this token today?
+       </p>
        
        {!vote ? (
-         <div className="grid grid-cols-2 gap-4">
+         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)", marginTop: "auto" }}>
             <button 
               onClick={() => handleVote('bullish')} 
-              className="btn btn-secondary flex-1 border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-500/5 group/btn transition-all py-4"
+              className="btn btn-secondary" 
+              style={{ padding: "var(--space-sm)", border: "1px solid var(--green)", borderRadius: "var(--radius-lg)", color: "var(--green)" }}
             >
-              <TrendingUp className="w-4 h-4 text-emerald-400 group-hover/btn:scale-110 transition-transform" /> 
-              <span className="text-emerald-400 font-bold">Bullish</span>
+              <TrendingUp size={20} />
+              <span>Bullish Sentiment</span>
             </button>
             <button 
               onClick={() => handleVote('bearish')}
-              className="btn btn-secondary flex-1 border-rose-500/20 hover:border-rose-500/50 hover:bg-rose-500/5 group/btn transition-all py-4"
+              className="btn btn-secondary"
+              style={{ padding: "var(--space-sm)", border: "1px solid var(--red)", borderRadius: "var(--radius-lg)", color: "var(--red)" }}
             >
-              <TrendingDown className="w-4 h-4 text-rose-400 group-hover/btn:scale-110 transition-transform" /> 
-              <span className="text-rose-400 font-bold">Bearish</span>
+              <TrendingDown size={20} />
+              <span>Bearish Sentiment</span>
             </button>
          </div>
        ) : (
-         <div className="space-y-4 text-left">
-            <div>
-              <div className="flex justify-between text-xs mb-2 font-bold uppercase tracking-widest">
-                <span className="text-emerald-400 flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Bullish</span>
-                <span className="text-emerald-400">{bullPct}%</span>
+         <div style={{ marginTop: "auto" }}>
+            <div style={{ marginBottom: "var(--space-lg)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-xs)" }}>
+                <span className="price-up" style={{ fontSize: "var(--text-xs)", display: "flex", alignItems: "center", gap: "var(--space-xs)" }}>
+                  <TrendingUp size={14} /> Bullish
+                </span>
+                <span className="price-up" style={{ fontWeight: 600, fontSize: "var(--text-sm)" }}>{bullPct}%</span>
               </div>
-              <div className="w-full bg-bg-secondary rounded-full h-2.5 overflow-hidden p-0.5" style={{ backgroundColor: "var(--bg-secondary)" }}>
-                <div 
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.3)]" 
-                  style={{ width: `${bullPct}%`, background: "var(--green)" }}
-                ></div>
-              </div>
-            </div>
-            
-            <div>
-              <div className="flex justify-between text-xs mb-2 font-bold uppercase tracking-widest">
-                <span className="text-rose-400 flex items-center gap-1.5"><TrendingDown className="w-3 h-3" /> Bearish</span>
-                <span className="text-rose-400">{bearPct}%</span>
-              </div>
-              <div className="w-full bg-bg-secondary rounded-full h-2.5 overflow-hidden p-0.5" style={{ backgroundColor: "var(--bg-secondary)" }}>
-                <div 
-                  className="bg-rose-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(244,63,94,0.3)]" 
-                  style={{ width: `${bearPct}%`, background: "var(--red)" }}
-                ></div>
+              <div style={{ width: "100%", background: "var(--bg-secondary)", borderRadius: "var(--radius-full)", height: "8px", overflow: "hidden" }}>
+                <div style={{ width: `${bullPct}%`, background: "var(--green)", height: "100%", transition: "all 1s" }}></div>
               </div>
             </div>
             
-            <p className="text-xs text-muted text-center mt-4 italic font-medium">Thanks for voting! Your sentiment has been recorded.</p>
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-xs)" }}>
+                <span className="price-down" style={{ fontSize: "var(--text-xs)", display: "flex", alignItems: "center", gap: "var(--space-xs)" }}>
+                  <TrendingDown size={14} /> Bearish
+                </span>
+                <span className="price-down" style={{ fontWeight: 600, fontSize: "var(--text-sm)" }}>{bearPct}%</span>
+              </div>
+              <div style={{ width: "100%", background: "var(--bg-secondary)", borderRadius: "var(--radius-full)", height: "8px", overflow: "hidden" }}>
+                <div style={{ width: `${bearPct}%`, background: "var(--red)", height: "100%", transition: "all 1s" }}></div>
+              </div>
+            </div>
+            
+            <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginTop: "var(--space-lg)", textAlign: "center", fontStyle: "italic" }}>
+              Thanks for voting! Market sentiment recorded.
+            </p>
          </div>
        )}
     </div>
