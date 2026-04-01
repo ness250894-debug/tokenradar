@@ -39,52 +39,60 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
   };
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-xl">
+    <div className="card shadow-glow">
        <div className="flex items-center gap-3 mb-6">
-         <Users className="w-5 h-5 text-indigo-400" />
-         <h3 className="text-xl font-bold text-white">Community Sentiment</h3>
+         <Users className="w-5 h-5 text-accent-secondary" style={{ color: "var(--accent-secondary)" }} />
+         <h3 className="text-xl font-bold gradient-text">Community Sentiment</h3>
        </div>
        
-       <p className="text-sm text-gray-400 mb-6">How do you feel about this token today?</p>
+       <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-6 px-1">How do you feel about this token today?</p>
        
        {!vote ? (
          <div className="grid grid-cols-2 gap-4">
-           <button 
-             onClick={() => handleVote('bullish')} 
-             className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 text-emerald-400 py-3 rounded-lg transition-colors font-medium"
-           >
-             <TrendingUp className="w-4 h-4" /> Bullish
-           </button>
-           <button 
-             onClick={() => handleVote('bearish')}
-             className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 border border-rose-500/30 text-rose-400 py-3 rounded-lg transition-colors font-medium"
-           >
-             <TrendingDown className="w-4 h-4" /> Bearish
-           </button>
+            <button 
+              onClick={() => handleVote('bullish')} 
+              className="btn btn-secondary flex-1 border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-500/5 group/btn transition-all py-4"
+            >
+              <TrendingUp className="w-4 h-4 text-emerald-400 group-hover/btn:scale-110 transition-transform" /> 
+              <span className="text-emerald-400 font-bold">Bullish</span>
+            </button>
+            <button 
+              onClick={() => handleVote('bearish')}
+              className="btn btn-secondary flex-1 border-rose-500/20 hover:border-rose-500/50 hover:bg-rose-500/5 group/btn transition-all py-4"
+            >
+              <TrendingDown className="w-4 h-4 text-rose-400 group-hover/btn:scale-110 transition-transform" /> 
+              <span className="text-rose-400 font-bold">Bearish</span>
+            </button>
          </div>
        ) : (
-         <div className="space-y-4">
-           <div>
-             <div className="flex justify-between text-sm mb-1 font-medium">
-               <span className="text-emerald-400 flex items-center gap-1"><TrendingUp className="w-4 h-4" /> Bullish</span>
-               <span className="text-emerald-400">{bullPct}%</span>
-             </div>
-             <div className="w-full bg-gray-800 rounded-full h-2">
-               <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${bullPct}%` }}></div>
-             </div>
-           </div>
-           
-           <div>
-             <div className="flex justify-between text-sm mb-1 font-medium">
-               <span className="text-rose-400 flex items-center gap-1"><TrendingDown className="w-4 h-4" /> Bearish</span>
-               <span className="text-rose-400">{bearPct}%</span>
-             </div>
-             <div className="w-full bg-gray-800 rounded-full h-2">
-               <div className="bg-rose-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${bearPct}%` }}></div>
-             </div>
-           </div>
-           
-           <p className="text-xs text-gray-500 text-center mt-4">Thanks for voting! Your vote has been recorded.</p>
+         <div className="space-y-4 text-left">
+            <div>
+              <div className="flex justify-between text-xs mb-2 font-bold uppercase tracking-widest">
+                <span className="text-emerald-400 flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Bullish</span>
+                <span className="text-emerald-400">{bullPct}%</span>
+              </div>
+              <div className="w-full bg-bg-secondary rounded-full h-2.5 overflow-hidden p-0.5" style={{ backgroundColor: "var(--bg-secondary)" }}>
+                <div 
+                  className="bg-emerald-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.3)]" 
+                  style={{ width: `${bullPct}%`, background: "var(--green)" }}
+                ></div>
+              </div>
+            </div>
+            
+            <div>
+              <div className="flex justify-between text-xs mb-2 font-bold uppercase tracking-widest">
+                <span className="text-rose-400 flex items-center gap-1.5"><TrendingDown className="w-3 h-3" /> Bearish</span>
+                <span className="text-rose-400">{bearPct}%</span>
+              </div>
+              <div className="w-full bg-bg-secondary rounded-full h-2.5 overflow-hidden p-0.5" style={{ backgroundColor: "var(--bg-secondary)" }}>
+                <div 
+                  className="bg-rose-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(244,63,94,0.3)]" 
+                  style={{ width: `${bearPct}%`, background: "var(--red)" }}
+                ></div>
+              </div>
+            </div>
+            
+            <p className="text-xs text-muted text-center mt-4 italic font-medium">Thanks for voting! Your sentiment has been recorded.</p>
          </div>
        )}
     </div>
