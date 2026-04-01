@@ -392,10 +392,10 @@ async function main() {
   if (runTelegram) {
     try {
       const tgFooter = `
-${REFERRAL_LINKS_HTML.join("\n")}
-
 <b>🌐 The TokenRadar Ecosystem:</b>
 📊 <a href="${siteUrl}/${targetToken.id}">TokenRadar</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+
+${REFERRAL_LINKS_HTML.join("\n")}
 
 #${targetToken.symbol.toUpperCase()} #Crypto
 `;
