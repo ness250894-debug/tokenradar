@@ -151,12 +151,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  if (!isX) {
-    lines.push(`<b>Our social/website:</b>`);
-    lines.push(`<a href="${siteUrl}/${token.id}">TokenRadar</a> | <a href="${SOCIAL.xUrl}">X</a> | <a href="${SOCIAL.telegramUrl}">TG</a>`);
-    lines.push("");
-    lines.push(`#${sym}`);
-  } else {
+  if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);
   }
@@ -187,12 +182,7 @@ function createTopGainerAlert(token: TokenData, aiSummary: string = "", isX: boo
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  if (!isX) {
-    lines.push(`<b>Our social/website:</b>`);
-    lines.push(`<a href="${siteUrl}/${token.id}">TokenRadar</a> | <a href="${SOCIAL.xUrl}">X</a> | <a href="${SOCIAL.telegramUrl}">TG</a>`);
-    lines.push("");
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  } else {
+  if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);
   }
@@ -221,12 +211,7 @@ function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: st
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  if (!isX) {
-    lines.push(`<b>Our social/website:</b>`);
-    lines.push(`<a href="${siteUrl}/${token.id}">TokenRadar</a> | <a href="${SOCIAL.xUrl}">X</a> | <a href="${SOCIAL.telegramUrl}">TG</a>`);
-    lines.push("");
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  } else {
+  if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);
   }
@@ -261,12 +246,7 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = "", isX: boo
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
   const displayUrl = siteUrl.replace("https://", "");
-  if (!isX) {
-    lines.push(`<b>Our social/website:</b>`);
-    lines.push(`<a href="${siteUrl}/${token.id}">TokenRadar</a> | <a href="${SOCIAL.xUrl}">X</a> | <a href="${SOCIAL.telegramUrl}">TG</a>`);
-    lines.push("");
-    lines.push(`#${sym}`);
-  } else {
+  if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);
   }
@@ -379,7 +359,7 @@ async function main() {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
     const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context);
     const sanitized = sanitizeHtmlForTelegram(aiSummary);
-    tgMessage = `${sanitized}\n\n<b>Our social/website:</b>\n<a href="${siteUrl}/${targetToken.id}">TokenRadar</a> | <a href="${SOCIAL.xUrl}">X</a> | <a href="${SOCIAL.telegramUrl}">TG</a>\n\n#${targetToken.symbol.toUpperCase()}`;
+    tgMessage = sanitized;
   }
 
   if (runX) {
@@ -411,7 +391,15 @@ async function main() {
 
   if (runTelegram) {
     try {
-      let finalTgMessage = tgMessage + "\n\n" + REFERRAL_LINKS_HTML.join("\n");
+      const tgFooter = `
+${REFERRAL_LINKS_HTML.join("\n")}
+
+<b>🌐 The TokenRadar Ecosystem:</b>
+📊 <a href="${siteUrl}/${targetToken.id}">TokenRadar</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+
+#${targetToken.symbol.toUpperCase()} #Crypto
+`;
+      let finalTgMessage = tgMessage + "\n\n" + tgFooter.trim();
       if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
         console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming...`);
         finalTgMessage = finalTgMessage.substring(0, TG_MESSAGE_LIMIT - 3) + "...";

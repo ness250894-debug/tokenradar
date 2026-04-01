@@ -37,14 +37,14 @@ export async function GET() {
 
     return new ImageResponse(
       (
-        <div style={{ display: "flex", flexDirection: "column", background: "linear-gradient(to bottom, #0F172A, #020617)", width: "100%", height: "100%", padding: "60px", color: "white", fontFamily: "sans-serif" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "40px" }}>
+        <div style={{ display: "flex", flexDirection: "column", background: "linear-gradient(to bottom, #0F172A, #020617)", width: "100%", height: "100%", padding: "40px 60px", color: "white", fontFamily: "sans-serif" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
             <h1 style={{ fontSize: "64px", fontWeight: "bold", margin: 0, color: "#38BDF8" }}>Top 5 Market Movers</h1>
             <span style={{ fontSize: "32px", color: "#94A3B8" }}>TokenRadar.co</span>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%" }}>
             {sorted.map((token, i) => (
-              <div key={token.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255, 255, 255, 0.05)", padding: "24px 40px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)" }}>
+              <div key={token.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255, 255, 255, 0.05)", padding: "16px 40px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
                   <div style={{ fontSize: "40px", fontWeight: "bold", color: "#64748B" }}>{`#${i + 1}`}</div>
                   <div style={{ display: "flex", flexDirection: "column" }}>
