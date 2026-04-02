@@ -263,5 +263,38 @@
     "dataSource": "https://cointelegraph.com/news/citadel-backed-edx-national-trust-bank-charter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-02T05:54:13.913Z",
     "status": "upcoming"
+  },
+  {
+    "id": "lise-exchange",
+    "name": "Lise",
+    "symbol": "TBA",
+    "category": "Infrastructure",
+    "expectedTge": "IPO Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/lise-host-tokenized-ipo-french-defense-supplier-st-group",
+    "discoveredAt": "2026-04-02T20:58:42.269Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "altura",
+    "name": "Altura",
+    "symbol": "TBA",
+    "category": "DeFi",
+    "expectedTge": "Platform Launch Stage",
+    "narrativeStrength": 52,
+    "dataSource": "https://cointelegraph.com/news/ex-fidelity-team-targets-retail-investors-onchain-gold",
+    "discoveredAt": "2026-04-02T20:58:42.269Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "lighter",
+    "name": "Lighter",
+    "symbol": "TBA",
+    "category": "DeFi",
+    "expectedTge": "Mainnet Integration Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/wallet-in-telegram-perpetual-future-lighter-dex",
+    "discoveredAt": "2026-04-02T20:58:42.269Z",
+    "status": "upcoming"
   }
 ]
