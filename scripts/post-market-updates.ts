@@ -33,8 +33,9 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError } from "../src/lib/reporter";
 import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
-import { sendTelegramMessage } from "../src/lib/telegram";
-import { postTweet } from "../src/lib/x-client";
+import { sendTelegramMessage, sendTelegramPhoto } from "../src/lib/telegram";
+import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
+import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
 import { safeReadJson, getTimeOfDay, getRandomTone } from "../src/lib/utils";
 import {
@@ -55,7 +56,11 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 
 /** Max characters for AI summary within a TG message (leaves room for header/footer). */
 const MAX_AI_SUMMARY_CHARS = 1200;
-/** Telegram's hard limit per message. */
+/** Shortened AI summary for TG photo captions (photos have 1024 char limit). */
+const PHOTO_AI_SUMMARY_CHARS = 400;
+/** Telegram caption limit for photos. */
+const TG_CAPTION_LIMIT = 1024;
+/** Telegram's hard limit per text message. */
 const TG_MESSAGE_LIMIT = 4096;
 
 /**
@@ -240,7 +245,7 @@ function createSpotlightAlert(token: TokenData, aiSummary: string = "", isX: boo
     lines.push(sanitizeHtmlForTelegram(aiSummary));
     lines.push("");
   } else {
-    lines.push("Where will the market be in 2026? Check the numbers to find out.");
+    lines.push(`Where will the market be in ${new Date().getFullYear()}? Check the numbers to find out.`);
     lines.push("");
   }
 
@@ -387,6 +392,16 @@ async function main() {
   // Save tracking info immediately (Decentralized)
   const trackerFile = path.join(POSTED_DIR, `${targetToken.id}.json`);
 
+  // ── Fetch OG image (shared between TG and X) ──
+  let tokenImage: Buffer | null = null;
+  console.log(`▶ Fetching OG image for ${targetToken.id}...`);
+  tokenImage = await fetchTokenImage(targetToken.id);
+  if (tokenImage) {
+    console.log(`  ✓ OG image fetched (${(tokenImage.length / 1024).toFixed(1)} KB)`);
+  } else {
+    console.warn(`  ⚠ No OG image available, will post text-only.`);
+  }
+
   let posted = false;
 
   if (runTelegram) {
@@ -399,13 +414,37 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
 #${targetToken.symbol.toUpperCase()} #Crypto
 `;
-      let finalTgMessage = tgMessage + "\n\n" + tgFooter.trim();
-      if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
-        console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming...`);
-        finalTgMessage = finalTgMessage.substring(0, TG_MESSAGE_LIMIT - 3) + "...";
+
+      if (tokenImage) {
+        // ── Photo mode: short caption (1024 char limit) ──
+        const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
+        let caption = photoSummary + "\n\n" + tgFooter.trim();
+        if (caption.length > TG_CAPTION_LIMIT) {
+          // Trim the summary further to fit
+          const footerWithPadding = "\n\n" + tgFooter.trim();
+          const maxBody = TG_CAPTION_LIMIT - footerWithPadding.length - 3;
+          let cutAt = photoSummary.lastIndexOf("\n", maxBody);
+          if (cutAt < maxBody * 0.5) cutAt = photoSummary.lastIndexOf(" ", maxBody);
+          if (cutAt < maxBody * 0.5) cutAt = maxBody;
+          caption = photoSummary.substring(0, cutAt) + "..." + footerWithPadding;
+        }
+        const msgId = await sendTelegramPhoto(tokenImage, caption, channelId as string);
+        console.log(`✅ Posted photo to Telegram (Message ID: ${msgId})`);
+      } else {
+        // ── Text-only fallback ──
+        let finalTgMessage = tgMessage + "\n\n" + tgFooter.trim();
+        if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
+          console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming body...`);
+          const footerWithPadding = "\n\n" + tgFooter.trim();
+          const maxBody = TG_MESSAGE_LIMIT - footerWithPadding.length - 3;
+          let cutAt = tgMessage.lastIndexOf("\n", maxBody);
+          if (cutAt < maxBody * 0.5) cutAt = tgMessage.lastIndexOf(" ", maxBody);
+          if (cutAt < maxBody * 0.5) cutAt = maxBody;
+          finalTgMessage = tgMessage.substring(0, cutAt) + "..." + footerWithPadding;
+        }
+        const msgId = await sendTelegramMessage(finalTgMessage, channelId as string);
+        console.log(`✅ Posted text to Telegram (Message ID: ${msgId})`);
       }
-      const msgId = await sendTelegramMessage(finalTgMessage, channelId as string);
-      console.log(`✅ Successfully posted to Telegram (Message ID: ${msgId})`);
       posted = true;
     } catch (error) {
       await logError("post-market-updates-telegram", error, false);
@@ -415,10 +454,16 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
   if (runX) {
     try {
-      const tweetId = await postTweet(xMessage);
-      console.log(`✅ Successfully posted to X (Tweet ID: ${tweetId})`);
+      let tweetId: string;
+      if (tokenImage) {
+        tweetId = await postTweetWithMedia(xMessage, tokenImage);
+        console.log(`✅ Posted tweet with image to X (Tweet ID: ${tweetId})`);
+      } else {
+        tweetId = await postTweet(xMessage);
+        console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
+      }
       const replyId = await postTweet(xReplyMessage, tweetId);
-      console.log(`✅ Successfully posted reply to X (Reply ID: ${replyId})`);
+      console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
       posted = true;
     } catch (error) {
       await logError("post-market-updates-x", error, false);

@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -63,8 +65,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 
 export default function RootLayout({
   children,
@@ -90,7 +90,7 @@ export default function RootLayout({
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
 
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+                  gtag('config', '${(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "").replace(/[^A-Z0-9-]/gi, "")}');
                 `,
               }}
             />

@@ -115,7 +115,7 @@ export default function HomePage() {
       <section className="section" id="market-outlook" style={{ background: "var(--bg-secondary)" }}>
         <div className="container">
           <div className="article-content" style={{ marginTop: 0 }}>
-            <h2>State of the Crypto Market 2026: What to Expect</h2>
+            <h2>State of the Crypto Market {new Date().getFullYear()}: What to Expect</h2>
             <p>Navigating the cryptocurrency landscape requires more than just following the latest trends; it requires unbiased, data-driven analysis.</p>
           </div>
         </div>

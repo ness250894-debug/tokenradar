@@ -137,10 +137,14 @@ export interface UpcomingTge {
   coingeckoRank?: number;
 }
 
-// ── Loaders ────────────────────────────────────────────────────
+// ── Memoization ────────────────────────────────────────────────
 
-/** Get all token summaries from the master list. */
+let _allTokensCache: TokenSummary[] | null = null;
+
+/** Get all token summaries from the master list (memoized). */
 export function getAllTokens(): TokenSummary[] {
+  if (_allTokensCache) return _allTokensCache;
+
   const tokensDir = path.join(DATA_DIR, "tokens");
   if (!fs.existsSync(tokensDir)) return [];
   
@@ -177,6 +181,7 @@ export function getAllTokens(): TokenSummary[] {
     }
   }
   
+  _allTokensCache = summaries;
   return summaries;
 }
 
@@ -271,7 +276,9 @@ export function getTokenIds(): string[] {
 
 /** Load detailed token data. */
 export function getTokenDetail(tokenId: string): TokenDetail | null {
-  const file = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
+  // Sanitize tokenId to prevent path traversal
+  const sanitized = tokenId.replace(/[^a-z0-9-]/g, "");
+  const file = path.join(DATA_DIR, "tokens", `${sanitized}.json`);
   if (!fs.existsSync(file)) return null;
   
   try {

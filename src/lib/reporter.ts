@@ -9,11 +9,9 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
+import * as crypto from "crypto";
 
-dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
-
-const DATA_DIR = path.resolve(__dirname, "../../data");
+const DATA_DIR = path.resolve(process.cwd(), "data");
 const LOGS_DIR = path.join(DATA_DIR, "logs");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
@@ -83,7 +81,7 @@ export async function sendTelegramAlert(message: string): Promise<void> {
 export async function logError(source: string, error: unknown, isFatal = true): Promise<void> {
   const errorMsg = error instanceof Error ? error.stack || error.message : String(error);
   const timestamp = new Date().toISOString();
-  const id = Math.random().toString(36).substring(2, 8);
+  const id = crypto.randomUUID().substring(0, 8);
 
   const errorRecord = { timestamp, source, message: errorMsg, isFatal };
   
@@ -104,7 +102,7 @@ export async function logError(source: string, error: unknown, isFatal = true): 
  * Logs a non-error system activity (e.g., generated a post, reformatted an article)
  * for the daily System Report aggregation.
  */
-export function logActivity(type: string, details: Record<string, any>): void {
+export function logActivity(type: string, details: Record<string, string | number | boolean | null | undefined>): void {
   const timestamp = new Date().toISOString();
   const id = Math.random().toString(36).substring(2, 8);
   const activityRecord = { timestamp, type, ...details };

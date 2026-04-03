@@ -89,6 +89,25 @@ export function generateTokenOgImage({
             </div>
           </div>
         </div>
+
+        {/* Footer: Social Handles */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 32,
+            fontSize: 22,
+            color: "#5d5f72",
+            fontWeight: 500,
+            borderTop: "1px solid #1e2030",
+            paddingTop: 20,
+          }}
+        >
+          <span style={{ display: "flex", alignItems: "center" }}>🌐 tokenradar.co</span>
+          <span style={{ display: "flex", alignItems: "center" }}>𝕏 @tokenradarco</span>
+          <span style={{ display: "flex", alignItems: "center" }}>✈️ t.me/TokenRadarCo</span>
+        </div>
       </div>
     ),
     {

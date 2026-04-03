@@ -4,10 +4,7 @@
  * Fetches unique visitor data using the Cloudflare GraphQL API.
  */
 
-import * as dotenv from "dotenv";
-import * as path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 
 const CLOUDFLARE_GRAPHQL_URL = "https://api.cloudflare.com/client/v4/graphql";
 

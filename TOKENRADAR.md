@@ -138,8 +138,7 @@ tokenradar/
 │   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)
 │   │   ├── visitor-fetcher.ts         # Cloudflare analytics fetcher
 │   │   └── x-client.ts               # X (Twitter) API v2 client
-│   └── styles/
-│       └── globals.css               # Global styles, design tokens
+│   └── app.css                    # Global styles, design tokens
 ├── content/                          # Generated articles (JSON)
 │   └── tokens/                       # Per-token articles
 ├── data/
@@ -159,7 +158,9 @@ tokenradar/
 │   ├── compute-metrics.ts            # Phase 3: Unique metric computation
 │   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)
 │   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)
-
+│   ├── post-daily-poll.ts            # Phase 6: AI-generated TG polls (7 rotating themes)
+│   ├── post-daily-movers.ts          # Phase 6: Top 5 Movers image card (TG)
+│   ├── post-interactive-daily.ts     # Phase 6: Interactive X polls
 │   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers
 │   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation
 │   └── send-report.ts               # Reporting: Daily/weekly/monthly summaries
@@ -171,13 +172,9 @@ tokenradar/
 ├── .github/
 │   └── workflows/
 │       ├── daily-refresh.yml         # Daily data + price refresh + deploy
-│       ├── daily-content-generation.yml # 3x/day: generate + deploy + social
-│       ├── deploy.yml                # Build & deploy to Cloudflare Pages
-│       ├── social-tg-market.yml      # TG market updates (every 2h)
-│       ├── social-x-market.yml       # X market updates (6x/day)
-│       ├── daily-report.yml          # Daily metrics report
-│       ├── weekly-report.yml         # Weekly metrics report
-│       └── monthly-report.yml        # Monthly metrics report
+│       ├── daily-content-generation.yml # 6x/day: generate + deploy
+│       ├── social-automations.yml    # 12x/day: unified TG/X posting with exclusive slots
+│       ├── daily-system-report.yml   # Daily metrics report
 ├── .env.example                      # Required environment variables
 ├── package.json
 ├── tsconfig.json
@@ -382,21 +379,56 @@ All pages are **pre-rendered at build time** for:
 
 ## Phase 6 — Automated Social Promotion
 
-### Scripts: `scripts/post-market-updates.ts`
+### Unified Workflow: `.github/workflows/social-automations.yml`
 
-| Platform | Method | Cost | Limit |
-|----------|--------|------|-------|
-| **X (Twitter)** | X API v2 (pay-per-use) | ~$0.01/post | ~6 posts/day |
-| **Telegram** | Bot API (own channel) | $0 | 12 posts/day |
-| **Reddit** | Manual initially, automate later | $0 | Rate-limited |
+All social posting is consolidated into a single workflow with 12 scheduled runs/day.
+
+| Platform | Content | Frequency | Script |
+|----------|---------|-----------|--------|
+| **Telegram** | Market Updates | 10x/day | `post-market-updates.ts --platform telegram` |
+| **Telegram** | Daily Poll (AI, 7 rotating themes) | 1x/day @ 14:30 UTC | `post-daily-poll.ts` |
+| **Telegram** | Top 5 Movers Image | 1x/day @ 23:30 UTC | `post-daily-movers.ts` |
+| **X (Twitter)** | Market Updates | 4x/day | `post-market-updates.ts --platform x` |
+| **X (Twitter)** | Interactive Poll | 1x/day @ 11:30 UTC | `post-interactive-daily.ts` |
+
+### Daily Posting Schedule
+
+| UTC | EDT | Telegram | X |
+|-----|-----|----------|---|
+| 02:30 | 22:30 | 📊 Market Update | 📊 Market Update |
+| 05:30 | 01:30 | 📊 Market Update | — |
+| 08:30 | 04:30 | 📊 Market Update | — |
+| 11:30 | 07:30 | 📊 Market Update | 🗳️ Interactive Poll |
+| 13:30 | 09:30 | 📊 Market Update | — |
+| **14:30** | **10:30** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |
+| 16:30 | 12:30 | 📊 Market Update | — |
+| 17:30 | 13:30 | 📊 Market Update | 📊 Market Update |
+| 19:30 | 15:30 | 📊 Market Update | — |
+| 20:30 | 16:30 | 📊 Market Update | 📊 Market Update |
+| 22:30 | 18:30 | 📊 Market Update | — |
+| **23:30** | **19:30** | **🏆 Top 5 Movers** *(exclusive)* | — |
+
+> **Exclusive slots:** Regular market updates are skipped when polls or movers cards run, keeping the channel uncluttered.
+
+### TG Poll Themes (Rotate by Day of Week)
+
+| Day | Theme |
+|-----|-------|
+| Sun | Market Sentiment |
+| Mon | Token Category Battle |
+| Tue | Trading Strategy |
+| Wed | Hot Take / Prediction |
+| Thu | Community Lifestyle |
+| Fri | DeFi & Yield |
+| Sat | Technology & Innovation |
 
 ### Post Format
 
-Each auto-generated post includes:
+Each market update includes:
 - Token name and current price
 - Risk Score and ATH gap percentage
-- One-sentence summary
-- Link to full article
+- AI-generated summary (Gemini primary, Claude fallback)
+- Link to full article on tokenradar.co
 
 ### Additional Free Traffic Sources
 
@@ -451,11 +483,16 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 # 4. Commits [skip ci] and triggers explicit deploy
 
 # .github/workflows/daily-content-generation.yml
-# Runs 3x/day (09:30, 13:30, 17:30 EDT)
+# Runs 6x/day (every 4 hours at :27)
 # 1. Syncs token data, computes metrics
 # 2. Generates 1 AI article per run
 # 3. Quality checks with auto-fix
-# 4. Deploys, then posts to X + Telegram
+# 4. Deploys to Cloudflare Pages
+
+# .github/workflows/social-automations.yml
+# Runs 12x/day — unified social posting
+# Routes content to TG and X based on time slot
+# Exclusive slots for polls (14:30) and movers (23:30)
 ```
 
 ---
@@ -628,19 +665,30 @@ COINGECKO_API_KEY=           # Optional, for higher rate limits
 # Claude AI
 ANTHROPIC_API_KEY=           # Required for content generation
 
-# Social Media
-TWITTER_API_KEY=             # X API free tier
-TWITTER_API_SECRET=
-TWITTER_ACCESS_TOKEN=
-TWITTER_ACCESS_SECRET=
+# Gemini AI
+GEMINI_API_KEY=              # Primary AI for social summaries & polls
+
+# Social Media — X (Twitter)
+X_API_KEY=                   # X API v2
+X_API_SECRET=
+X_ACCESS_TOKEN=
+X_ACCESS_SECRET=
+
+# Social Media — Telegram
 TELEGRAM_BOT_TOKEN=          # Telegram Bot API
+TELEGRAM_CHANNEL_ID=         # Target channel
+
+# Error Reporting
+TELEGRAM_REPORT_BOT_TOKEN=   # Separate bot for ops alerts
+TELEGRAM_REPORT_CHAT_ID=
 
 # Analytics
-NEXT_PUBLIC_GA_ID=           # Google Analytics (optional)
+NEXT_PUBLIC_GA_MEASUREMENT_ID= # Google Analytics 4
 
 # Deployment
 CLOUDFLARE_API_TOKEN=        # Cloudflare Pages deployment
 CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_ZONE_ID=
 ```
 
 ---
@@ -676,4 +724,4 @@ npm run build
 
 ---
 
-*Last updated: 2026-03-20*
+*Last updated: April 2026*

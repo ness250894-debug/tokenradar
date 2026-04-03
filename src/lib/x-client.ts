@@ -129,6 +129,66 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
   }
 }
 
+/**
+ * Post a tweet with an attached image using the twitter-api-v2 SDK.
+ *
+ * Uploads the image via v1.uploadMedia(), then creates the tweet with
+ * the media_id attached. Falls back to text-only if media upload fails.
+ *
+ * @param text - Tweet text (HTML will be stripped, long text truncated)
+ * @param imageBuffer - PNG image as a Buffer
+ * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
+ * @returns Tweet ID
+ */
+export async function postTweetWithMedia(
+  text: string,
+  imageBuffer: Buffer,
+  replyToTweetId?: string
+): Promise<string> {
+  const creds = validateXCredentials();
+
+  const client = new TwitterApi({
+    appKey: creds.apiKey,
+    appSecret: creds.apiSecret,
+    accessToken: creds.accessToken,
+    accessSecret: creds.accessSecret,
+  });
+
+  const rwClient = client.readWrite;
+  let cleanText = stripHtmlForX(text);
+  cleanText = truncateForX(cleanText);
+
+  // Upload image via v1 media endpoint
+  let mediaId: string | undefined;
+  try {
+    mediaId = await rwClient.v1.uploadMedia(imageBuffer, { mimeType: "image/png" });
+    console.log(`  ✓ Media uploaded (media_id: ${mediaId})`);
+  } catch (_e: unknown) {
+    const e = _e as Record<string, unknown>;
+    console.warn("  ⚠ Media upload failed, falling back to text-only:", e?.message || e);
+  }
+
+  try {
+    const tweetOptions: Record<string, unknown> = {};
+    if (mediaId) {
+      tweetOptions.media = { media_ids: [mediaId] };
+    }
+    if (replyToTweetId) {
+      tweetOptions.reply = { in_reply_to_tweet_id: replyToTweetId };
+    }
+
+    const { data: createdTweet } = await rwClient.v2.tweet(
+      cleanText,
+      Object.keys(tweetOptions).length > 0 ? tweetOptions : undefined
+    );
+    return createdTweet.id;
+  } catch (_e: unknown) {
+    const e = _e as Record<string, unknown>;
+    console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
+    throw e;
+  }
+}
+
 // ── Poll Support ──────────────────────────────────────────────
 
 /** Options for creating a poll tweet. */

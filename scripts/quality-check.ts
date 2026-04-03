@@ -335,7 +335,7 @@ async function main() {
           logActivity("quality-check-fixed", {
             tokenId: result.tokenId,
             articleType: result.articleType,
-            warnings: result.warnings
+            warnings: result.warnings.join("; ")
           });
         }
       } else {
@@ -344,7 +344,7 @@ async function main() {
         logActivity("quality-check-failed", {
           tokenId: result.tokenId,
           articleType: result.articleType,
-          issues: result.issues
+          issues: result.issues.join("; ")
         });
         fs.unlinkSync(filePath);
       }

@@ -82,7 +82,7 @@ export default function TermsPage() {
           </p>
 
           <p style={{ marginTop: "var(--space-xl)", color: "var(--text-muted)", fontStyle: "italic" }}>
-            Last updated: March 2026
+            Last updated: {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
           </p>
         </div>
       </section>

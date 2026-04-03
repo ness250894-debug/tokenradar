@@ -216,7 +216,7 @@ export default async function TokenPage({ params }: PageProps) {
             {hasPricePrediction && (
               <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block" }}>
                 <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
-                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction 2026-2027</div>
+                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction {new Date().getFullYear()}-{new Date().getFullYear() + 1}</div>
                 <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                   Data-driven price analysis and scenarios
                 </div>
@@ -302,21 +302,7 @@ export default async function TokenPage({ params }: PageProps) {
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ExchangeRateSpecification",
-            currency: "USD",
-            currentExchangeRate: {
-              "@type": "UnitPriceSpecification",
-              price: detail.market.price,
-              priceCurrency: "USD"
-            }
-          }),
-        }}
-      />
+
       {faqs.length > 0 && (
         <script
           type="application/ld+json"
@@ -386,14 +372,7 @@ export default async function TokenPage({ params }: PageProps) {
             "provider": {
               "@type": "Organization",
               "name": "TokenRadar Data Analytics"
-            },
-            "aggregateRating": metrics ? {
-              "@type": "AggregateRating",
-              "ratingValue": ((100 - metrics.riskScore) / 20).toFixed(1),
-              "reviewCount": 1,
-              "bestRating": "5",
-              "worstRating": "1"
-            } : undefined
+            }
           }),
         }}
       />

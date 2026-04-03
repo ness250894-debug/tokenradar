@@ -186,7 +186,7 @@ TGE ENTRY DATA (from TokenRadar discovery pipeline):
   ];
 
   const priceTitles = [
-    `${tokenName} (${symbol.toUpperCase()}) Price Prediction 2026-2027`,
+    `${tokenName} (${symbol.toUpperCase()}) Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
     `${tokenName} (${symbol.toUpperCase()}) Price Forecast & Scenarios`,
     `Will ${tokenName} (${symbol.toUpperCase()}) Surge? Price Analysis`
   ];

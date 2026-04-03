@@ -6,11 +6,11 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 
 ## Tech Stack
 
-- **Frontend:** Next.js 15 (static export), TypeScript, Vanilla CSS
-- **AI:** Gemini 3.1 Flash Lite (primary), Claude Haiku (fallback)
+- **Frontend:** Next.js 16 (static export), TypeScript, Vanilla CSS
+- **AI:** Gemini 3.1 Flash Lite (primary), Claude Haiku 4.5 (fallback)
 - **Data:** CoinGecko API (free tier)
 - **Hosting:** Cloudflare Pages
-- **CI/CD:** GitHub Actions (22+ automated runs/day)
+- **CI/CD:** GitHub Actions (12 social + 7 content + 3 report runs/day)
 - **Social:** X API v2 (pay-per-use), Telegram Bot API
 
 ## Project Structure
@@ -46,6 +46,9 @@ npm test
 | `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |
 | `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |
 | `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |
+| `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |
+| `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |
+| `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |
 | `npx tsx scripts/send-report.ts` | Send daily usage/cost reports |
 
 ## Environment Variables

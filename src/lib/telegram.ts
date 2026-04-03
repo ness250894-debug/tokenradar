@@ -112,7 +112,7 @@ export async function sendTelegramPhoto(
 
   const response = await fetch(url, {
     method: "POST",
-    body: formData as any,
+    body: formData,
   });
 
   if (!response.ok) {

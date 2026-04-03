@@ -17,7 +17,7 @@ import { logError } from "./reporter";
 import { sleep } from "./utils";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
-const DATA_DIR = path.resolve(__dirname, "../data");
+const DATA_DIR = path.resolve(process.cwd(), "data");
 const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
 const RATE_LIMIT_DELAY_MS = 2100; // 2.1s between requests

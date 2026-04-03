@@ -1,26 +1,28 @@
 # Consolidated Social Automation Workflow
 # Unified heartbeat for all social interactions on TokenRadar
-# Total executions: 12 runs/day to save GitHub Actions compute minutes
+#
+# Total: 12 runs/day across Telegram (12 posts) and X/Twitter (5 posts)
+# Exclusive slots: Poll (14:30) and Movers (23:30) replace regular TG updates
 
 name: Social Automations
 
 on:
   schedule:
-    # --- TG & X Simultaneous Runs (6x a day) ---
-    - cron: "30 11 * * *" # Interactive Poll + TG (07:30 EDT)
-    - cron: "30 14 * * *" # X Market + TG + TG Poll (10:30 EDT)
-    - cron: "30 17 * * *" # X Market + TG (13:30 EDT)
-    - cron: "30 20 * * *" # X Market + TG (16:30 EDT)
-    - cron: "30 23 * * *" # X Market + TG + Mover Image (19:30 EDT)
-    - cron: "30 02 * * *" # X Market + TG (22:30 EDT)
+    # --- Mixed Runs (6x/day) — TG + X or exclusive content ---
+    - cron: "30 11 * * *" # TG Market + X Interactive Poll (07:30 EDT)
+    - cron: "30 14 * * *" # [EXCLUSIVE] TG Poll + X Market (10:30 EDT)
+    - cron: "30 17 * * *" # TG Market + X Market (13:30 EDT)
+    - cron: "30 20 * * *" # TG Market + X Market (16:30 EDT)
+    - cron: "30 23 * * *" # [EXCLUSIVE] TG Top 5 Movers Card (19:30 EDT)
+    - cron: "30 02 * * *" # TG Market + X Market (22:30 EDT)
     
-    # --- TG Only Runs (6x a day) ---
-    - cron: "30 05 * * *" 
-    - cron: "30 08 * * *" 
-    - cron: "30 13 * * *" 
-    - cron: "30 16 * * *" 
-    - cron: "30 19 * * *" 
-    - cron: "30 22 * * *" 
+    # --- TG Only Runs (6x/day) — Telegram market updates only ---
+    - cron: "30 05 * * *" # TG Market (01:30 EDT)
+    - cron: "30 08 * * *" # TG Market (04:30 EDT)
+    - cron: "30 13 * * *" # TG Market (09:30 EDT)
+    - cron: "30 16 * * *" # TG Market (12:30 EDT)
+    - cron: "30 19 * * *" # TG Market (15:30 EDT)
+    - cron: "30 22 * * *" # TG Market (18:30 EDT)
     
   workflow_dispatch:
 
@@ -30,7 +32,8 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
-  IS_X_MARKET_RUN: ${{ contains(fromJson('["30 14 * * *", "30 17 * * *", "30 20 * * *", "30 23 * * *", "30 02 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
+  IS_X_MARKET_RUN: ${{ contains(fromJson('["30 14 * * *", "30 17 * * *", "30 20 * * *", "30 02 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
+  IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '30 23 * * *' || github.event.schedule == '30 14 * * *' }}
 
 jobs:
   post-social:
@@ -52,8 +55,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # ─── 1. Telegram Market Update (Always Runs: 12x Day) ──────
+      # ─── 1. Telegram Market Update (10x/day, skipped during Poll & Movers slots) ──
       - name: Telegram Periodic Update
+        if: env.IS_EXCLUSIVE_SLOT != 'true'
         run: npx tsx scripts/post-market-updates.ts --platform telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -90,7 +94,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
 
-      # ─── 4. X Market Update (Runs 5x Day @ 14:30 - 02:30) ──────
+      # ─── 4. X Market Update (4x/day @ 14:30, 17:30, 20:30, 02:30) ──────
       - name: X Periodic Update
         if: env.IS_X_MARKET_RUN == 'true'
         run: npx tsx scripts/post-market-updates.ts --platform x

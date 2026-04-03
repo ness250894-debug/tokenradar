@@ -31,7 +31,7 @@ const TOKENS_FILE = path.join(DATA_DIR, "tokens.json");
 
 /** Keyword templates — {token} is replaced with the token name. */
 const TEMPLATES = [
-  "{token} price prediction 2026",
+  `{token} price prediction ${new Date().getFullYear()}`,
   "{token} price prediction 2027",
   "is {token} a good investment",
   "is {token} worth buying",
@@ -50,7 +50,7 @@ const TEMPLATES = [
   "{token} price today",
   "{token} news",
   "{token} ecosystem",
-  "{token} roadmap 2026",
+  `{token} roadmap ${new Date().getFullYear()}`,
   "should I buy {token}",
   "{token} all time high",
   "{token} market cap",

@@ -24,6 +24,6 @@ export default async function Image({ params }: { params: Promise<{ token: strin
     symbol: detail.symbol,
     price: detail.market.price,
     riskScore: metrics.riskScore,
-    subtitle: "Price Prediction 2026-2027"
+    subtitle: `Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`
   });
 }

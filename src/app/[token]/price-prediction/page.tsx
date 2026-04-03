@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = getArticle(tokenId, "price-prediction");
-  const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction 2026-2027`;
+  const year = new Date().getFullYear();
+  const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
 
   return {
@@ -81,7 +82,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
         </nav>
 
         <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, letterSpacing: "-0.02em" }}>
-          {detail.name} <span className="gradient-text">Price Prediction</span> 2026–2027
+          {detail.name} <span className="gradient-text">Price Prediction</span> {new Date().getFullYear()}–{new Date().getFullYear() + 1}
         </h1>
         <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-md)", fontSize: "var(--text-lg)", maxWidth: 680 }}>
           Data-driven analysis based on historical trends, market position, and TokenRadar&apos;s proprietary metrics.
@@ -159,7 +160,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: `${detail.name} Price Prediction 2026-2027`,
+            headline: `${detail.name} Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
             description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
             image: "https://tokenradar.co/og-image.png",
             author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
@@ -176,21 +177,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ExchangeRateSpecification",
-            currency: "USD",
-            currentExchangeRate: {
-              "@type": "UnitPriceSpecification",
-              price: detail.market.price,
-              priceCurrency: "USD"
-            }
-          }),
-        }}
-      />
+
+
       {faqs.length > 0 && (
         <script
           type="application/ld+json"
