@@ -353,26 +353,13 @@ export default async function TokenPage({ params }: PageProps) {
             "@type": "Dataset",
             "name": `${detail.name} Market Data & Proprietary Metrics`,
             "description": `Comprehensive market dataset for ${detail.name} including price history, market capitalization, volume, and TokenRadar Risk Score.`,
+            "license": "https://creativecommons.org/licenses/by-nc/4.0/",
             "creator": {
                "@type": "Organization",
-               "name": "TokenRadar"
+               "name": "TokenRadar",
+               "url": "https://tokenradar.co"
             },
             "variableMeasured": ["price", "marketCap", "riskScore", "growthPotential"]
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FinancialProduct",
-            "name": `${detail.name} (${detail.symbol.toUpperCase()})`,
-            "description": detail.description || `Cryptocurrency asset ${detail.symbol.toUpperCase()}`,
-            "provider": {
-              "@type": "Organization",
-              "name": "TokenRadar Data Analytics"
-            }
           }),
         }}
       />
