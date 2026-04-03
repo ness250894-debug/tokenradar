@@ -26,6 +26,17 @@ export function generateTokenOgImage({
   const riskColor = getRiskColor(riskScore);
   const displaySubtitle = subtitle || "Full Token Analysis & Risk Score";
 
+  // Dynamic font size: scale down for long names to prevent clipping
+  const getNameFontSize = (tokenName: string): number => {
+    const len = tokenName.length;
+    if (len <= 8) return 84;
+    if (len <= 12) return 72;
+    if (len <= 18) return 60;
+    return 48;
+  };
+
+  const nameFontSize = getNameFontSize(name);
+
   return new ImageResponse(
     (
       <div
@@ -35,7 +46,7 @@ export function generateTokenOgImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "60px 80px",
+          padding: "50px 60px",
           backgroundColor: "#0a0b0f",
           backgroundImage: "linear-gradient(135deg, #0a0b0f 0%, #181922 100%)",
           color: "#f0f0f5",
@@ -48,26 +59,34 @@ export function generateTokenOgImage({
         </div>
 
         {/* Main Content Area */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 32, color: "#9395a5", marginBottom: 12, fontWeight: 500 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 32 }}>
+          {/* Left: Token Info (constrained width) */}
+          <div style={{ display: "flex", flexDirection: "column", maxWidth: 720, flexShrink: 1 }}>
+            <span style={{ fontSize: 28, color: "#9395a5", marginBottom: 10, fontWeight: 500 }}>
               {displaySubtitle}
             </span>
-            <div style={{ display: "flex", alignItems: "baseline" }}>
-              <span style={{ fontSize: 84, fontWeight: 800, letterSpacing: "-0.03em", marginRight: 24 }}>
+            <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap" }}>
+              <span style={{
+                fontSize: nameFontSize,
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                marginRight: 16,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}>
                 {name}
               </span>
-              <span style={{ fontSize: 42, color: "#d97706", fontWeight: 700 }}>
+              <span style={{ fontSize: 36, color: "#d97706", fontWeight: 700 }}>
                 {symbol.toUpperCase()}
               </span>
             </div>
             
-            <div style={{ display: "flex", marginTop: 20, fontSize: 56, fontWeight: 800 }}>
+            <div style={{ display: "flex", marginTop: 16, fontSize: 52, fontWeight: 800 }}>
               {formatPrice(price)}
             </div>
           </div>
 
-          {/* Right Container: Risk Score Badge (very prominent) */}
+          {/* Right Container: Risk Score Badge (fixed size, never shrinks) */}
           <div
             style={{
               display: "flex",
@@ -75,17 +94,19 @@ export function generateTokenOgImage({
               alignItems: "center",
               justifyContent: "center",
               background: "#12131a",
-              padding: "40px",
+              padding: "30px 36px",
               borderRadius: "24px",
               border: `2px solid ${riskColor}40`,
-              boxShadow: `0 0 40px ${riskColor}20`
+              boxShadow: `0 0 40px ${riskColor}20`,
+              flexShrink: 0,
+              minWidth: 200,
             }}
           >
-            <div style={{ display: "flex", fontSize: 24, color: "#9395a5", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>
+            <div style={{ display: "flex", fontSize: 20, color: "#9395a5", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>
               Risk Score
             </div>
-            <div style={{ display: "flex", alignItems: "baseline", fontSize: 96, fontWeight: 800, color: riskColor, marginTop: 10 }}>
-              {riskScore}<span style={{ display: "flex", fontSize: 48, color: "#5d5f72", marginLeft: 8 }}>/10</span>
+            <div style={{ display: "flex", alignItems: "baseline", fontSize: 80, fontWeight: 800, color: riskColor, marginTop: 8 }}>
+              {riskScore}<span style={{ display: "flex", fontSize: 40, color: "#5d5f72", marginLeft: 6 }}>/10</span>
             </div>
           </div>
         </div>
@@ -101,7 +122,7 @@ export function generateTokenOgImage({
             color: "#5d5f72",
             fontWeight: 500,
             borderTop: "1px solid #1e2030",
-            paddingTop: 20,
+            paddingTop: 18,
           }}
         >
           <span style={{ display: "flex", alignItems: "center" }}>🌐 tokenradar.co</span>
@@ -116,3 +137,4 @@ export function generateTokenOgImage({
     }
   );
 }
+
