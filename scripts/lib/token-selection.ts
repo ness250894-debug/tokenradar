@@ -173,7 +173,10 @@ export async function loadCandidateTokens(
       description: local.description || "",
       market: {
         price: fresh?.current_price || local.market?.price || 0,
-        priceChange24h: fresh?.price_change_percentage_24h || local.market?.priceChange24h || 0,
+        // Only trust priceChange24h from live API — stale local values
+        // can be wildly outdated (e.g., 588,000% from a one-time pump)
+        // and permanently dominate the top-gainer selection.
+        priceChange24h: fresh?.price_change_percentage_24h ?? 0,
         marketCap: fresh?.market_cap || local.market?.marketCap || 0,
       },
     };
