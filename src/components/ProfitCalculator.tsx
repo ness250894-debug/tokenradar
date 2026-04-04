@@ -71,15 +71,25 @@ export function ProfitCalculator({
             style={{ width: "100%", accentColor: "var(--accent-primary)", cursor: "pointer" }}
           />
           {atl > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "var(--space-xs)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "var(--space-sm)" }}>
+              <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>All-Time Low: ${atl.toFixed(6)}</span>
               <button 
                 onClick={() => setPurchasePrice(atl)} 
-                className="btn btn-secondary" 
-                style={{ fontSize: "var(--text-2xs)", padding: "var(--space-2xs) var(--space-xs)", height: "auto" }}
+                style={{ 
+                  background: "transparent", 
+                  border: "1px solid var(--border-color)", 
+                  borderRadius: "var(--radius-sm)", 
+                  padding: "4px 8px", 
+                  fontSize: "var(--text-xs)", 
+                  color: "var(--text-secondary)", 
+                  cursor: "pointer",
+                  transition: "all 0.2s"
+                }}
+                onMouseOver={(e) => { e.currentTarget.style.color = "var(--accent-primary)"; e.currentTarget.style.borderColor = "var(--accent-primary)"; e.currentTarget.style.background = "rgba(0, 200, 83, 0.1)"; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.borderColor = "var(--border-color)"; e.currentTarget.style.background = "transparent"; }}
               >
                 Snap to ATL
               </button>
-              <span style={{ fontSize: "var(--text-2xs)", color: "var(--text-muted)" }}>ATL: ${atl.toFixed(6)}</span>
             </div>
           )}
         </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TokenTickerPill } from "./TokenTickerPill";
+import { CardGlare } from "./CardGlare";
 
 export interface TokenCardData {
   id: string;
@@ -47,38 +48,40 @@ export function TokenCard({ token }: TokenCardProps) {
   const riskLevel = token.riskScore <= 3 ? "green" : token.riskScore <= 6 ? "yellow" : "red";
 
   return (
-    <Link href={`/${token.id}`} className="card" id={`token-card-${token.id}`} style={{ display: "block", textDecoration: "none" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div>
-          <div className="token-name">
-            <TokenTickerPill 
-              name={token.name} 
-              symbol={token.symbol} 
-              price={token.price} 
-              imageUrl={token.imageUrl} 
-            />
+    <CardGlare style={{ height: "100%" }}>
+      <Link href={`/${token.id}`} className="card" id={`token-card-${token.id}`} style={{ display: "block", textDecoration: "none", height: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <div className="token-name">
+              <TokenTickerPill 
+                name={token.name} 
+                symbol={token.symbol} 
+                price={token.price} 
+                imageUrl={token.imageUrl} 
+              />
+            </div>
+          </div>
+          <span className={`badge badge-${riskLevel}`}>
+            Risk {token.riskScore}/10
+          </span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
+          <div>
+            <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-lg)" }}>
+              {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}% (24h)
+            </div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Market Cap</div>
+            <div style={{ fontWeight: 600 }}>{formatCompact(token.marketCap)}</div>
           </div>
         </div>
-        <span className={`badge badge-${riskLevel}`}>
-          Risk {token.riskScore}/10
-        </span>
-      </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
-        <div>
-          <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-lg)" }}>
-            {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}% (24h)
-          </div>
+        <div style={{ marginTop: "var(--space-md)" }}>
+          <span className="badge badge-accent">{token.category}</span>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Market Cap</div>
-          <div style={{ fontWeight: 600 }}>{formatCompact(token.marketCap)}</div>
-        </div>
-      </div>
-
-      <div style={{ marginTop: "var(--space-md)" }}>
-        <span className="badge badge-accent">{token.category}</span>
-      </div>
-    </Link>
+      </Link>
+    </CardGlare>
   );
 }

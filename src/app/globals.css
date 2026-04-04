@@ -37,7 +37,7 @@
   --space-4xl: 96px;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-outfit), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   --text-xs: 0.75rem;
@@ -504,14 +504,40 @@ img {
 
 .risk-meter-bar.active.low {
   background: var(--green);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
 }
 
 .risk-meter-bar.active.medium {
   background: var(--yellow);
+  box-shadow: 0 0 10px rgba(255, 215, 64, 0.4);
 }
 
 .risk-meter-bar.active.high {
   background: var(--red);
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.4);
+  animation: pulse-risk 2s infinite ease-in-out;
+}
+
+@keyframes pulse-risk {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 82, 82, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 82, 82, 0.8);
+  }
+}
+
+.ticker-track {
+  animation: ticker-slide 30s linear infinite;
+}
+
+@keyframes ticker-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ---- Hero Section ---- */

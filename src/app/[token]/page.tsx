@@ -21,6 +21,11 @@ import { TokenTickerPill } from "@/components/TokenTickerPill";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { ProfitCalculator } from "@/components/ProfitCalculator";
 import { SentimentPoll } from "@/components/SentimentPoll";
+import { ReadingProgress } from "@/components/ReadingProgress";
+import { CountUp } from "@/components/CountUp";
+import { MagneticEffect } from "@/components/MagneticEffect";
+import { CardGlare } from "@/components/CardGlare";
+import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -96,6 +101,13 @@ export default async function TokenPage({ params }: PageProps) {
 
   return (
     <div className="container">
+      <StickyConversionHeader 
+        title={detail.name} 
+        symbol={detail.symbol.toUpperCase()} 
+        price={formatPrice(detail.market.price).replace("$", "")} 
+        actionText="Track Alerts" 
+      />
+      <ReadingProgress />
       <section className="section">
         {/* Breadcrumbs */}
         <nav style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
@@ -131,6 +143,13 @@ export default async function TokenPage({ params }: PageProps) {
             <div className={isPositive ? "price-up" : "price-down"} style={{ fontSize: "var(--text-lg)", fontWeight: 600 }}>
               {isPositive ? "▲" : "▼"} {Math.abs(detail.market.priceChange24h).toFixed(2)}% (24h)
             </div>
+            <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "flex-end" }}>
+              <MagneticEffect>
+                 <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
+                   <span style={{ marginRight: "0.5rem" }}>🔔</span> Track Alerts
+                 </a>
+              </MagneticEffect>
+            </div>
           </div>
         </div>
 
@@ -138,15 +157,21 @@ export default async function TokenPage({ params }: PageProps) {
         <div className="stats-grid" style={{ marginTop: "var(--space-xl)" }}>
           <div className="stat-card">
             <div className="stat-label">Market Cap</div>
-            <div className="stat-value">{formatCompact(detail.market.marketCap)}</div>
+            <div className="stat-value">
+              <CountUp end={detail.market.marketCap} prefix="$" compact={true} />
+            </div>
           </div>
           <div className="stat-card">
             <div className="stat-label">24h Volume</div>
-            <div className="stat-value">{formatCompact(detail.market.volume24h)}</div>
+            <div className="stat-value">
+              <CountUp end={detail.market.volume24h} prefix="$" compact={true} />
+            </div>
           </div>
           <div className="stat-card">
             <div className="stat-label">Circulating Supply</div>
-            <div className="stat-value">{formatSupply(detail.market.circulatingSupply)}</div>
+            <div className="stat-value">
+              <CountUp end={detail.market.circulatingSupply} compact={true} />
+            </div>
             {detail.market.maxSupply && (
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>
                 Max: {formatSupply(detail.market.maxSupply)}
@@ -203,8 +228,12 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-           <ProfitCalculator tokenName={detail.name} symbol={detail.symbol} currentPrice={detail.market.price} atl={detail.market.atl} />
-           <SentimentPoll tokenId={detail.id} />
+           <div style={{ height: "100%" }}>
+             <ProfitCalculator tokenName={detail.name} symbol={detail.symbol} currentPrice={detail.market.price} atl={detail.market.atl} />
+           </div>
+           <CardGlare style={{ height: "100%" }}>
+             <SentimentPoll tokenId={detail.id} />
+           </CardGlare>
         </div>
 
         {/* Article Links */}
@@ -214,27 +243,42 @@ export default async function TokenPage({ params }: PageProps) {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--space-md)" }}>
             {hasPricePrediction && (
-              <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block" }}>
-                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
-                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction {new Date().getFullYear()}-{new Date().getFullYear() + 1}</div>
-                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                  Data-driven price analysis and scenarios
-                </div>
-              </Link>
+              <CardGlare style={{ height: "100%" }}>
+                <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block", height: "100%" }}>
+                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
+                  <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction {new Date().getFullYear()}-{new Date().getFullYear() + 1}</div>
+                  <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                    Data-driven price analysis and scenarios
+                  </div>
+                </Link>
+              </CardGlare>
             )}
             {hasHowToBuy && (
-              <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block" }}>
-                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
-                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
-                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                  Step-by-step guide with exchange recommendations
-                </div>
-              </Link>
+              <CardGlare style={{ height: "100%" }}>
+                <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block", height: "100%" }}>
+                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
+                  <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
+                  <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                    Step-by-step guide with exchange recommendations
+                  </div>
+                </Link>
+              </CardGlare>
             )}
             {!hasPricePrediction && !hasHowToBuy && (
               <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
                 Deep-dive AI analysis and prediction models for {detail.name} are currently being generated. Check back soon.
               </p>
+            )}
+            {relatedTokens.length > 0 && (
+              <CardGlare style={{ height: "100%" }}>
+                <Link href={`/compare/${detail.id}-vs-${relatedTokens[0].id}`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
+                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>⚖️</div>
+                  <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Compare vs {relatedTokens[0].name}</div>
+                  <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                    Side-by-side metric comparison to clarify investment choices
+                  </div>
+                </Link>
+              </CardGlare>
             )}
           </div>
         </div>
@@ -257,10 +301,15 @@ export default async function TokenPage({ params }: PageProps) {
         )}
 
         {/* Data Attribution */}
-        <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-          <strong>Data Source:</strong> CoinGecko API. Last fetched: {new Date(detail.fetchedAt).toLocaleDateString()}.
-          All proprietary metrics (Risk Score, Growth Index) are computed by TokenRadar
-          and should not be used as the sole basis for investment decisions.
+        <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-xl)", background: "var(--bg-elevated)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-sm)", color: "var(--text-muted)", display: "flex", gap: "var(--space-lg)", alignItems: "center" }}>
+          <div style={{ fontSize: "2.5rem", flexShrink: 0, opacity: 0.8 }} className="animate-pulse">
+            🛡️
+          </div>
+          <div>
+            <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "var(--space-xs)" }}>Verified by TokenRadar Engine</strong>
+            <span style={{ display: "block", marginBottom: "var(--space-xs)" }}>Data Source: CoinGecko API. Last fetched: {new Date(detail.fetchedAt).toLocaleDateString()}.</span>
+            <span>All proprietary metrics (Risk Score, Growth Index) are computed dynamically by TokenRadar and should not be used as the sole basis for investment decisions.</span>
+          </div>
         </div>
         
         {/* Related Tokens */}

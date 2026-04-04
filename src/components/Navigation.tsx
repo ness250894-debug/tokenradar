@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { HackerText } from "./HackerText";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/#trending" },
@@ -27,7 +28,9 @@ export function Navigation() {
         <Link href="/" className="nav-logo" aria-label="TokenRadar Home">
           <Image src="/icon.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" />
           <span>
-            Token<span className="gradient-text">Radar</span>
+            <span style={{ color: "var(--accent-primary)" }}>[</span>
+            <HackerText text="TokenRadar" />
+            <span style={{ color: "var(--accent-primary)" }}>]</span>
           </span>
         </Link>
         

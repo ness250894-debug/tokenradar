@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { LastUpdated } from "@/components/LastUpdated";
+import { StickyConversionHeader } from "@/components/StickyConversionHeader";
+import { CountUp } from "@/components/CountUp";
+import { ContentGate } from "@/components/ContentGate";
 
 interface TgePageProps {
   params: Promise<{ token: string }>;
@@ -57,6 +60,11 @@ export default async function TgePage({ params }: TgePageProps) {
   return (
     <div className="container" style={{ paddingBottom: "var(--space-4xl)" }}>
       {/* Breadcrumbs */}
+      <StickyConversionHeader 
+        title={tge.name} 
+        symbol={tge.symbol.toUpperCase()} 
+        actionText="Get Early Alerts" 
+      />
       <div style={{ marginTop: "var(--space-xl)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
         <Link href="/">Home</Link> / <Link href="/upcoming">Upcoming</Link> / {tge.name}
       </div>
@@ -118,7 +126,10 @@ export default async function TgePage({ params }: TgePageProps) {
         </div>
         <div className="stat-card">
           <div className="stat-label">Narrative Strength</div>
-          <div className="stat-value" style={{ color: "var(--yellow)" }}>{tge.narrativeStrength}/100</div>
+          <div className="stat-value" style={{ color: "var(--yellow)", display: "flex", alignItems: "baseline", gap: "2px" }}>
+            <CountUp end={tge.narrativeStrength} />
+            <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>/100</span>
+          </div>
           <div className="stat-change" style={{ color: "var(--text-muted)" }}>Based on AI Sentiment</div>
         </div>
         <div className="stat-card">
@@ -128,9 +139,9 @@ export default async function TgePage({ params }: TgePageProps) {
         </div>
         <div className="stat-card">
           <div className="stat-label">{isReleased ? "CoinGecko Rank" : "Source"}</div>
-          <div className="stat-value" style={{ fontSize: "var(--text-base)", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <div className="stat-value" style={{ fontSize: "var(--text-base)", overflow: "hidden", textOverflow: "ellipsis", display: "flex", alignItems: "center", gap: "4px" }}>
             {isReleased && tge.coingeckoRank
-              ? `#${tge.coingeckoRank}`
+              ? <><CountUp end={tge.coingeckoRank} prefix="#" /></>
               : (() => { try { return new URL(tge.dataSource).hostname; } catch { return tge.dataSource; } })()}
           </div>
           <div className="stat-change">
@@ -143,13 +154,20 @@ export default async function TgePage({ params }: TgePageProps) {
         </div>
       </div>
 
-      <div className="article-content">
+      <div className="article-content" style={{ position: "relative" }}>
         {article ? (
           <div>
-            <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
-            <div style={{ marginTop: "var(--space-lg)" }}>
-              <LastUpdated date={article.generatedAt} />
-            </div>
+            {isReleased ? (
+              <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
+            ) : (
+              <ContentGate htmlContent={markdownToHtml(article.content)} />
+            )}
+            
+            {isReleased && (
+              <div style={{ marginTop: "var(--space-lg)" }}>
+                <LastUpdated date={article.generatedAt} />
+              </div>
+            )}
           </div>
         ) : (
           <div>
@@ -201,6 +219,13 @@ export default async function TgePage({ params }: TgePageProps) {
         <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
           Join Telegram Alert Hub
         </a>
+      </div>
+      
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-2xl)", marginBottom: "-var(--space-xl)" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-sm)", padding: "var(--space-xs) var(--space-md)", background: "rgba(0, 200, 83, 0.1)", border: "1px solid rgba(0, 200, 83, 0.2)", borderRadius: "999px" }}>
+          <div style={{ width: 8, height: 8, backgroundColor: "var(--green)", borderRadius: "50%", animation: "pulse 2s infinite" }}></div>
+          <span style={{ fontSize: "var(--text-xs)", color: "var(--green)", fontWeight: 600 }}>Verified by TokenRadar Engine</span>
+        </div>
       </div>
       
       {/* Back Toast */}

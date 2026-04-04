@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { type UpcomingTge } from "@/lib/content-loader";
+import { CardGlare } from "./CardGlare";
 
 const TGES_PER_PAGE = 12;
 
@@ -67,40 +68,42 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
             const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
             const sourceHostname = (() => { try { return new URL(tge.dataSource).hostname.replace('www.', ''); } catch { return tge.dataSource; } })();
             return (
-              <Link href={`/upcoming/${tge.id}`} key={tge.id} className="card" style={{ display: "block", textDecoration: "none", opacity: isReleased ? 0.75 : 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
-                  <div className="token-name" style={{ minWidth: 0 }}>
-                    <span>{tge.name} <span className="token-symbol">{tge.symbol.toUpperCase()}</span></span>
-                  </div>
-                  <span className={`badge badge-${strengthColor}`} style={{ fontSize: "0.7rem", padding: "3px 8px", whiteSpace: "nowrap", flexShrink: 0 }}>
-                    {tge.narrativeStrength}/100 Hype
-                  </span>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
-                  <div>
-                    <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-                      {isReleased ? "Launched" : "Expected Launch"}
+              <CardGlare key={tge.id} style={{ height: "100%" }}>
+                <Link href={`/upcoming/${tge.id}`} className="card" style={{ display: "block", textDecoration: "none", opacity: isReleased ? 0.75 : 1, height: "100%" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+                    <div className="token-name" style={{ minWidth: 0 }}>
+                      <span>{tge.name} <span className="token-symbol">{tge.symbol.toUpperCase()}</span></span>
                     </div>
-                    <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginTop: "var(--space-xs)" }}>
-                      {isReleased && tge.graduatedAt 
-                        ? new Date(tge.graduatedAt).toLocaleDateString() 
-                        : tge.expectedTge}
+                    <span className={`badge badge-${strengthColor}`} style={{ fontSize: "0.7rem", padding: "3px 8px", whiteSpace: "nowrap", flexShrink: 0 }}>
+                      {tge.narrativeStrength}/100 Hype
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
+                    <div>
+                      <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+                        {isReleased ? "Launched" : "Expected Launch"}
+                      </div>
+                      <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginTop: "var(--space-xs)" }}>
+                        {isReleased && tge.graduatedAt 
+                          ? new Date(tge.graduatedAt).toLocaleDateString() 
+                          : tge.expectedTge}
+                      </div>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Category</div>
+                      <div style={{ fontWeight: 600, marginTop: "var(--space-xs)" }}>{tge.category}</div>
                     </div>
                   </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Category</div>
-                    <div style={{ fontWeight: 600, marginTop: "var(--space-xs)" }}>{tge.category}</div>
+                  <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+                    <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`} style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
+                      {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
+                    </span>
+                    <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "140px" }}>
+                      {sourceHostname}
+                    </span>
                   </div>
-                </div>
-                <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
-                  <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`} style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
-                    {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
-                  </span>
-                  <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "140px" }}>
-                    {sourceHostname}
-                  </span>
-                </div>
-              </Link>
+                </Link>
+              </CardGlare>
             );
           })}
         </div>

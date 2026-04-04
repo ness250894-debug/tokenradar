@@ -3,6 +3,9 @@ import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { getAllTokens, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import Link from "next/link";
+import { MagneticEffect } from "@/components/MagneticEffect";
+import { CountUp } from "@/components/CountUp";
+import { AlphaTicker } from "@/components/AlphaTicker";
 
 export default function HomePage() {
   const allTokensList = getAllTokens();
@@ -43,12 +46,16 @@ export default function HomePage() {
             {allTokens.length > 0 ? ` ${allTokens.length}+ ` : " 250+ "} tokens — updated daily, always unbiased.
           </p>
           <div className="hero-cta animate-in animate-delay-2">
-            <a href="#tokens" className="btn btn-primary">
-              Explore Tokens
-            </a>
-            <Link href="/about" className="btn btn-secondary">
-              Our Methodology
-            </Link>
+            <MagneticEffect>
+              <a href="#tokens" className="btn btn-primary">
+                Explore Tokens
+              </a>
+            </MagneticEffect>
+            <MagneticEffect>
+              <Link href="/about" className="btn btn-secondary">
+                Our Methodology
+              </Link>
+            </MagneticEffect>
           </div>
         </div>
       </section>
@@ -58,12 +65,16 @@ export default function HomePage() {
           <div className="stats-grid animate-in animate-delay-1">
             <div className="stat-card">
               <div className="stat-label">Tokens Tracked</div>
-              <div className="stat-value gradient-text">{allTokens.length || "250+"}</div>
+              <div className="stat-value gradient-text">
+                <CountUp end={allTokens.length > 0 ? allTokens.length : 250} suffix="+" />
+              </div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>Active Data Feeds</div>
             </div>
             <div className="stat-card">
               <div className="stat-label">Articles Published</div>
-              <div className="stat-value gradient-text">{getTotalArticleCount()}</div>
+              <div className="stat-value gradient-text">
+                <CountUp end={getTotalArticleCount()} />
+              </div>
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>AI-Generated Research</div>
             </div>
             <RiskScoreCard score={avgMarketRisk} label="Avg. Market Risk" />
@@ -75,6 +86,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <AlphaTicker />
 
       <section className="section" id="tokens">
         <HomeTabs trackedTokens={allTokens} upcomingTges={upcomingTges} />
