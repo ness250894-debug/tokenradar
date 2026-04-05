@@ -88,8 +88,8 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
           left: "50%",
           width: size,
           height: "2px",
-          transformOrigin: "bottom center",
-          transform: `translateX(-50%) rotate(${angle - 90}deg)`,
+          transformOrigin: "center",
+          transform: `translateX(-50%) rotate(${angle}deg)`,
           transition: "transform 0.1s linear"
         }}>
           {/* Needle itself */}
