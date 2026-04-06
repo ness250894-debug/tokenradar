@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import * as fs from "fs";
 import * as path from "path";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 type TokenData = { id: string; name: string; symbol: string; market: { price: number; priceChange24h: number } };
 
@@ -16,10 +16,16 @@ export async function GET() {
     const files = fs.readdirSync(dataDir).filter((file) => file.endsWith(".json"));
     const tokens: TokenData[] = [];
 
+    const now = Date.now();
     for (const file of files) {
       try {
         const data = JSON.parse(fs.readFileSync(path.join(dataDir, file), "utf-8"));
-        if (data && data.market && typeof data.market.priceChange24h === "number" && typeof data.market.price === "number") {
+        
+        // Only consider tokens updated recently (within 48 hours) to avoid stale pumped data
+        const updatedTime = new Date(data.lastMarketUpdate || data.fetchedAt || 0).getTime();
+        const isFresh = now - updatedTime < 48 * 60 * 60 * 1000;
+
+        if (isFresh && data && data.market && typeof data.market.priceChange24h === "number" && typeof data.market.price === "number") {
           tokens.push({
             id: data.id,
             name: data.name,
