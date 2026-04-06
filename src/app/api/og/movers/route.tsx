@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import * as fs from "fs";
 import * as path from "path";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 type TokenData = { id: string; name: string; symbol: string; market: { price: number; priceChange24h: number } };
 
