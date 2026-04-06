@@ -13,7 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { type UpcomingTge, getAllCategories } from "../src/lib/content-loader";
+import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle } from "../src/lib/content-loader";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
@@ -127,16 +127,26 @@ function buildSitemap(): string {
   // Token pages
   for (const id of tokenIds) {
     const tokenDate = getTokenDate(id) || now;
+    const detail = getTokenDetail(id);
 
-    entries.push({
-      url: `/${id}`,
-      lastmod: tokenDate,
-      changefreq: "daily",
-      priority: "0.9",
-    });
+    // If detail cannot be loaded, there's no page
+    if (!detail) continue;
 
-    const predictionDate = getArticleDate(id, "price-prediction") || tokenDate;
-    if (fs.existsSync(path.join(CONTENT_DIR, id, "price-prediction.json"))) {
+    const overviewArticle = getArticle(id, "overview");
+    const isLowQuality = (detail.market.volume24h < 500000) || (overviewArticle && overviewArticle.wordCount < 800);
+
+    if (!isLowQuality) {
+      entries.push({
+        url: `/${id}`,
+        lastmod: tokenDate,
+        changefreq: "daily",
+        priority: "0.9",
+      });
+    }
+
+    const predictionArticle = getArticle(id, "price-prediction");
+    if (predictionArticle) {
+      const predictionDate = predictionArticle.generatedAt ? new Date(predictionArticle.generatedAt).toISOString().split("T")[0] : tokenDate;
       entries.push({
         url: `/${id}/price-prediction`,
         lastmod: predictionDate,
@@ -145,8 +155,9 @@ function buildSitemap(): string {
       });
     }
 
-    const howToBuyDate = getArticleDate(id, "how-to-buy") || tokenDate;
-    if (fs.existsSync(path.join(CONTENT_DIR, id, "how-to-buy.json"))) {
+    const howToBuyArticle = getArticle(id, "how-to-buy");
+    if (howToBuyArticle) {
+      const howToBuyDate = howToBuyArticle.generatedAt ? new Date(howToBuyArticle.generatedAt).toISOString().split("T")[0] : tokenDate;
       entries.push({
         url: `/${id}/how-to-buy`,
         lastmod: howToBuyDate,
