@@ -2,28 +2,25 @@
 # Unified heartbeat for all social interactions on TokenRadar
 #
 # Total: 12 runs/day across Telegram (12 posts) and X/Twitter (5 posts)
-# Exclusive slots: Poll (14:30) and Movers (23:30) replace regular TG updates
+# Exclusive slots: Poll (14:30), Video (18:15) and Movers (23:30) replace regular TG updates
 
 name: Social Automations
 
 on:
   schedule:
-    # --- Mixed Runs (6x/day) — TG + X or exclusive content ---
-    - cron: "30 11 * * *" # TG Market + X Interactive Poll (07:30 EDT)
-    - cron: "30 14 * * *" # [EXCLUSIVE] TG Poll + X Market (10:30 EDT)
-    - cron: "30 17 * * *" # TG Market + X Market (13:30 EDT)
-    - cron: "30 20 * * *" # TG Market + X Market (16:30 EDT)
-    - cron: "30 23 * * *" # [EXCLUSIVE] TG Top 5 Movers Card (19:30 EDT)
-    - cron: "30 02 * * *" # TG Market + X Market (22:30 EDT)
-    
-    # --- TG Only Runs (6x/day) — Telegram market updates only ---
+    # --- Unified Schedule (12x/day) ---
+    - cron: "30 02 * * *" # X Market + TG Market (22:30 EDT)
     - cron: "30 05 * * *" # TG Market (01:30 EDT)
     - cron: "30 08 * * *" # TG Market (04:30 EDT)
-    - cron: "30 13 * * *" # TG Market (09:30 EDT)
-    - cron: "30 16 * * *" # TG Market (12:30 EDT)
-    - cron: "30 19 * * *" # TG Market (15:30 EDT)
-    - cron: "30 22 * * *" # TG Market (18:30 EDT)
+    - cron: "30 11 * * *" # X Poll + TG Market (07:30 EDT)
+    - cron: "00 13 * * *" # TG Market (09:00 EDT)
+    - cron: "30 14 * * *" # [EXCLUSIVE] TG Poll + X Market (10:30 EDT)
+    - cron: "00 16 * * *" # TG Market (12:00 EDT)
+    - cron: "30 17 * * *" # X Market + TG Market (13:30 EDT)
     - cron: "15 18 * * *" # [EXCLUSIVE] Daily Video Breakout (14:15 EDT)
+    - cron: "30 20 * * *" # X Market + TG Market (16:30 EDT)
+    - cron: "00 22 * * *" # TG Market (18:00 EDT)
+    - cron: "30 23 * * *" # [EXCLUSIVE] TG Top 5 Movers Card (19:30 EDT)
     
   workflow_dispatch:
 
