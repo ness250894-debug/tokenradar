@@ -93,7 +93,7 @@ async function main() {
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
   
   const platformIdx = args.indexOf("--platform");
-  const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
+  const targetPlatform = (platformIdx !== -1 && platformIdx + 1 < args.length) ? args[platformIdx + 1] : "all"; // x, telegram, all
 
   console.log(`╔══════════════════════════════════════════╗`);
   console.log(`║  TokenRadar — Daily Video Breakout       ║`);
@@ -190,10 +190,12 @@ async function main() {
     const propsFile = path.join(process.cwd(), "remotion-props.json");
     fs.writeFileSync(propsFile, propsJson);
     
-    execSync(`npx remotion render src/video/index.tsx TopGainerUpdate out.mp4 --props=remotion-props.json`, { stdio: 'inherit' });
-    
-    if (fs.existsSync(propsFile)) {
-      fs.unlinkSync(propsFile);
+    try {
+      execSync(`npx remotion render src/video/index.tsx TopGainerUpdate out.mp4 --props=remotion-props.json`, { stdio: 'inherit' });
+    } finally {
+      if (fs.existsSync(propsFile)) {
+        fs.unlinkSync(propsFile);
+      }
     }
     console.log(`  ✓ Video rendered successfully to out.mp4`);
   } catch (error) {
@@ -282,7 +284,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
     }
   }
 
-  if (runYouTube && process.env.YOUTUBE_CLIENT_ID) {
+  if (runYouTube && process.env.YOUTUBE_CLIENT_ID && process.env.YOUTUBE_REFRESH_TOKEN) {
     try {
       console.log(`\n  ▸ Debug: Starting YouTube upload process...`);
       const videoId = await uploadToYouTubeShorts(outPath, ytMetadata.title, ytMetadata.description, 'unlisted');

@@ -47,10 +47,13 @@ export function validateXCredentials(): {
  * @returns Plain text suitable for X
  */
 export function stripHtmlForX(html: string): string {
+  // Convert standard block/break tags into newlines
+  let text = html.replace(/<\/?(br|p|div|li)[^>]*>/gi, "\n");
+
   // Extract URLs from <a> tags: <a href="url">text</a>
   // If text is effectively the same as URL, just return the URL to avoid duplication.
-  let text = html.replace(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]+?)<\/a>/gi, (match, url, linkText) => {
-    const cleanText = linkText.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "").replace(/<b>|<i>|<\/b>|<\/i>/gi, "");
+  text = text.replace(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]+?)<\/a>/gi, (match, url, linkText) => {
+    const cleanText = linkText.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "").replace(/<[^>]*>?/gm, "");
     const cleanUrl = url.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "");
 
     if (cleanText === cleanUrl) {
@@ -61,7 +64,22 @@ export function stripHtmlForX(html: string): string {
 
   // Strip remaining HTML tags
   text = text.replace(/<[^>]*>?/gm, "");
-  return text;
+  
+  // Clean up excessive newlines
+  text = text.replace(/\n{3,}/g, "\n\n");
+  
+  // Decode common HTML entities
+  const entities: Record<string, string> = {
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#39;": "'",
+    "&nbsp;": " ",
+  };
+  text = text.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/gi, match => entities[match.toLowerCase()] ?? match);
+
+  return text.trim();
 }
 
 /**
@@ -77,23 +95,30 @@ export function truncateForX(text: string, maxLength: number = 280): string {
 
   const lines = text.split("\n");
   const footerLines: string[] = [];
-  const headerLines: string[] = [];
 
   // Keep the last 5 lines (socials + hashtags)
-  for (let i = 0; i < 5; i++) {
-    const line = lines.pop();
-    if (line !== undefined) footerLines.unshift(line);
+  for (let i = 0; i < 5 && lines.length > 0; i++) {
+    footerLines.unshift(lines.pop()!);
   }
 
-  // Keep the first 4 lines (header + stats)
-  for (let i = 0; i < 4; i++) {
-    const line = lines.shift();
-    if (line !== undefined) headerLines.push(line);
+  const footerText = "\n...\n" + footerLines.join("\n").trim();
+
+  // If footer text alone is too large, we must truncate the whole string
+  if (footerText.length >= maxLength) {
+    return text.substring(0, Math.max(0, maxLength - 3)) + "...";
   }
 
-  return [...headerLines, "...", ...footerLines]
-    .join("\n")
-    .substring(0, maxLength - 3) + "...";
+  // Calculate remaining length for header
+  const allowedHeaderLength = maxLength - footerText.length;
+  let headerText = lines.join("\n").trim().substring(0, allowedHeaderLength);
+
+  // Avoid cutting in the middle of a word if possible
+  const lastSpace = headerText.lastIndexOf(" ");
+  if (lastSpace > allowedHeaderLength * 0.7) {
+    headerText = headerText.substring(0, lastSpace);
+  }
+
+  return headerText + footerText;
 }
 
 /**
@@ -167,7 +192,7 @@ export async function postTweetWithMedia(
     const isVideo = mimeType.startsWith("video/");
     mediaId = await rwClient.v1.uploadMedia(mediaBuffer, { 
         mimeType: mimeType,
-        target: isVideo ? 'tweet_video' : 'tweet_image'
+        target: 'tweet'
     });
     console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
   } catch (_e: unknown) {
