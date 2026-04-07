@@ -26,6 +26,7 @@ import { CountUp } from "@/components/CountUp";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
+import { ArticleToc } from "@/components/ArticleToc";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -283,20 +284,28 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Article Content */}
+        {/* Article Content & TOC */}
         {article && (
-          <div style={{ marginTop: "var(--space-2xl)" }}>
-            <div className="article-content" dangerouslySetInnerHTML={{ 
-              __html: markdownToHtml(article.content, {
-                name: detail.name,
-                symbol: detail.symbol,
-                price: detail.market.price,
-                imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined // Assuming standard icon path
-              }) 
-            }} />
-            <div style={{ marginTop: "var(--space-lg)" }}>
-              <LastUpdated date={article.generatedAt} />
+          <div style={{ marginTop: "var(--space-2xl)", display: "flex", gap: "var(--space-2xl)", alignItems: "flex-start" }}>
+            {/* Main Content */}
+            <div style={{ flex: "1 1 auto", minWidth: 0 }}>
+              <div className="article-content" dangerouslySetInnerHTML={{ 
+                __html: markdownToHtml(article.content, {
+                  name: detail.name,
+                  symbol: detail.symbol,
+                  price: detail.market.price,
+                  imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined // Assuming standard icon path
+                }) 
+              }} />
+              <div style={{ marginTop: "var(--space-lg)" }}>
+                <LastUpdated date={article.generatedAt} />
+              </div>
             </div>
+            
+            {/* Sidebar TOC (Desktop only) */}
+            <aside className="hidden lg:block" style={{ flex: "0 0 250px" }}>
+              <ArticleToc />
+            </aside>
           </div>
         )}
 

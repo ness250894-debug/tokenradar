@@ -32,10 +32,19 @@ export function markdownToHtml(md: string, tokenData?: { name: string; symbol: s
     });
   }
 
-  // Parse the markdown synchronously, then sanitize to prevent XSS
+  // Parse the markdown synchronously
   const rawHtml = marked.parse(processedMd, { async: false }) as string;
-  return DOMPurify.sanitize(rawHtml, {
+  
+  // Inject ID into h2 and h3 tags for the Table of Contents feature
+  const htmlWithIds = rawHtml.replace(/<h([23])>(.*?)<\/h\1>/gi, (match, level, innerHtml) => {
+    // Create a slug from text content (stripping tags if any)
+    const textContext = innerHtml.replace(/<[^>]*>?/gm, '');
+    const id = textContext.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '');
+    return `<h${level} id="${id}">${innerHtml}</h${level}>`;
+  });
+
+  return DOMPurify.sanitize(htmlWithIds, {
     ADD_TAGS: ["img"],
-    ADD_ATTR: ["class", "width", "height", "alt", "src"],
+    ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
   });
 }
