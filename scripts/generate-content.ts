@@ -112,17 +112,23 @@ STRICT RULES:
 3. NEVER guarantee returns or profits.
 4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
 5. Always present data and analysis objectively.
-6. Include at least 3 specific numerical data points (e.g., prices starting with $, percentages, or large numbers separated by commas). This is a strictly enforced rule.
-7. Reference at least 1 real-world development or event.
-8. Strictly follow the word count instructions provided in each specific prompt.
-9. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
-10. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
-11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
-12. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. This is critical for Google Featured Snippets.
+6. MANDATORY: Use placeholders for ALL live market data to ensure 100% accuracy during daily updates. Use exactly these tags:
+   - {{LIVE_PRICE}} - Current price with $ prefix
+   - {{LIVE_MARKET_CAP}} - Current market cap with $ prefix
+   - {{LIVE_RANK}} - Current market cap rank
+   - {{LIVE_DATE}} - Today's date (formatted as Month Day, Year)
+   - {{LIVE_24H_CHANGE}} - 24-hour percentage change
+7. Include at least 3 specific historical numerical data points from the provided context (excluding live placeholders).
+8. Reference at least 1 real-world development or event.
+9. Strictly follow the word count instructions provided in each specific prompt.
+10. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
+11. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
+12. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+13. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. Use the placeholders defined above in this table. This is critical for Google Featured Snippets.
 
 FORMAT:
 - Start with a brief intro paragraph (no heading)
-- Include a Markdown Summary Table early in the article (e.g. Price, Market Cap, Risk Score)
+- Include a Markdown Summary Table early in the article using placeholders
 - Use ## for all main sections and subsections
 - Include bullet points and bold text for key data
 - Include a structured FAQ section at the end using ## FAQ format`;
@@ -238,8 +244,9 @@ TGE ENTRY DATA (from TokenRadar discovery pipeline):
 }
 
 
-function ensureContentDir(tokenId: string): string {
-  const dir = path.join(CONTENT_DIR, tokenId);
+function ensureContentDir(tokenId: string, isQueue = false): string {
+  const baseDir = isQueue ? path.join(DATA_DIR, "queue") : CONTENT_DIR;
+  const dir = path.join(baseDir, tokenId);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -279,6 +286,8 @@ async function main() {
   const targetToken = tokenIdx !== -1 ? args[tokenIdx + 1] : null;
   const targetType = typeIdx !== -1 ? args[typeIdx + 1] : null;
   const dryRun = args.includes("--dry-run");
+  const useQueue = args.includes("--queue");
+  const force = args.includes("--force");
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
   const maxTgeTokens = maxTgeIdx !== -1 ? parseInt(args[maxTgeIdx + 1], 10) : 5;
 
@@ -531,7 +540,7 @@ async function main() {
     console.log(`▶ ${tokenData.name} (${tokenData.symbol.toUpperCase()}):`);
 
     for (const config of filteredConfigs) {
-      const outputDir = ensureContentDir(tokenId);
+      const outputDir = ensureContentDir(tokenId, useQueue);
       const outputFile = path.join(outputDir, `${config.slug}.json`);
 
       // 3. Ensure metadata file exists in TOKENS_DIR so Next.js builds the route

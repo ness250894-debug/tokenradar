@@ -1,25 +1,24 @@
-# Daily Lightweight Publication
-# Runs 6x/day to pick templates from the queue, inject 
-# live market data, and publish them to the live site.
-# This workflow is extremely light and saves thousands of minutes/month.
+# Weekly Content Generation (Heavy)
+# Runs once a week to generate a massive batch of AI content templates in the queue.
+# This saves compute minutes by bundling heavy AI generation and setup overhead.
 
-name: Daily Content Generation
+name: Weekly Content Generation
 
 on:
   schedule:
-    - cron: "27 */4 * * *" # 6x/day (02:27, 06:27, 10:27, 14:27, 18:27, 22:27 UTC)
+    - cron: "0 0 * * 0" # Every Sunday at 00:00 UTC
   workflow_dispatch:
 
 concurrency:
-  group: git-push-main
+  group: weekly-content-gen
   cancel-in-progress: false
 
 env:
   NODE_VERSION: "20"
 
 jobs:
-  publish:
-    name: Inject Data & Publish
+  generate:
+    name: Generate Batch Content
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -44,23 +43,33 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Publish from Queue (Incorporate live data)
-        run: npx tsx scripts/publish-from-queue.ts --max 10
+      - name: Sync top token data
+        run: npx tsx scripts/fetch-crypto-data.ts --start 1 --end 250 --lite
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
+      - name: Compute metrics
+        run: npx tsx scripts/compute-metrics.ts
+
+      - name: Generate AI content into Queue
+        # Generates up to 150 tracked tokens + 50 TGE tokens
+        run: npx tsx scripts/generate-content.ts --max 150 --max-tge 50 --queue
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-      - name: Commit published articles
+      - name: Commit queued templates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/tokens/* data/queue/* data/tokens/*
+          git add data/queue/*
           if git diff --staged --quiet; then
-            echo "No new articles published from queue"
+            echo "No new templates to queue"
             exit 0
           fi
-          git commit -m "chore: publish articles from queue [skip ci]"
+          git commit -m "chore: nightly batch content generation [skip ci]"
           for i in 1 2 3; do
             git pull origin main -X ours --no-edit && git push && break
             echo "Push attempt $i failed, retrying in 5s..."
@@ -72,15 +81,4 @@ jobs:
         run: |
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}/sendMessage" \
           -H "Content-Type: application/json" \
-          -d "{\"chat_id\": \"${{ secrets.TELEGRAM_REPORT_CHAT_ID }}\", \"text\": \"❌ *Daily Publication Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
-
-  deploy:
-    name: Redeploy Site
-    needs: publish
-    permissions:
-      contents: read
-      deployments: write
-    uses: ./.github/workflows/deploy.yml
-    with:
-      ref: main
-    secrets: inherit
+          -d "{\"chat_id\": \"${{ secrets.TELEGRAM_REPORT_CHAT_ID }}\", \"text\": \"❌ *Weekly Content Generation Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
