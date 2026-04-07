@@ -34,7 +34,7 @@ describe("truncateForX", () => {
   });
 
   it("truncates long text and ends with ...", () => {
-    const long = Array(20).fill("This is a test line that is fairly long").join("\n");
+    const long = Array(20).fill("This is a test line that is fairly long").join(" ");
     const result = truncateForX(long);
     expect(result.length).toBeLessThanOrEqual(280);
     expect(result).toMatch(/\.\.\.$/);

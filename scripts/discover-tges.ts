@@ -208,7 +208,7 @@ async function main() {
     try {
       existing = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
       console.log(`  📂 Loaded ${existing.length} existing TGEs.`);
-    } catch (e) {
+    } catch {
       console.error("  ✗ Failed to parse existing TGE file. Starting fresh.");
       existing = [];
     }

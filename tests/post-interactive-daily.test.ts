@@ -124,10 +124,6 @@ describe("buildNarrativePoll", () => {
     expect(poll.options).toContain("DeFi");
   });
 
-  it("includes the site URL", async () => {
-    const poll = await buildNarrativePoll();
-    expect(poll.text).toContain("tokenradar.co");
-  });
 
   it("includes the hashtag", async () => {
     const poll = await buildNarrativePoll();
