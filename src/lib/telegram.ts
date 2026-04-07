@@ -124,3 +124,46 @@ export async function sendTelegramPhoto(
   if (!data.ok) throw new Error("Telegram API returned ok: false");
   return data.result.message_id;
 }
+
+/**
+ * Send a video to a Telegram channel/chat via the Bot API.
+ *
+ * @param videoBuffer - The video buffer (e.g. mp4)
+ * @param caption - Optional HTML caption
+ * @param chatId - Telegram chat or channel ID
+ * @param botToken - Telegram bot token
+ * @returns Message ID if successful
+ */
+export async function sendTelegramVideo(
+  videoBuffer: Buffer,
+  caption: string,
+  chatId: string,
+  botToken?: string
+): Promise<number> {
+  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
+
+  const url = `https://api.telegram.org/bot${token}/sendVideo`;
+  
+  const formData = new FormData();
+  formData.append("chat_id", chatId);
+  formData.append("caption", caption);
+  formData.append("parse_mode", "HTML");
+  
+  const blob = new Blob([new Uint8Array(videoBuffer)], { type: "video/mp4" });
+  formData.append("video", blob, "video.mp4");
+
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Telegram sendVideo API error ${response.status}: ${error}`);
+  }
+
+  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
+  if (!data.ok) throw new Error("Telegram API returned ok: false");
+  return data.result.message_id;
+}

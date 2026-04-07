@@ -24,7 +24,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError } from "../src/lib/reporter";
-import { postPoll, type PollOptions } from "../src/lib/x-client";
+import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
@@ -77,7 +77,7 @@ export async function buildSentimentPoll(token: TokenData, metric?: MetricData):
   });
 
   return {
-    text: `${hook}\n\n$${sym} #Crypto #TokenRadarCo`,
+    text: `${hook}\n\n$${sym} #TokenRadarCo`,
     options: ["Bullish 🚀", "Bearish 📉", "HODL 💎", "Just Watching 👀"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -98,7 +98,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
   });
 
   return {
-    text: `${hook}\n\n$${sym} #Crypto #PricePrediction #TokenRadarCo`,
+    text: `${hook}\n\n$${sym} #PricePrediction #TokenRadarCo`,
     options: [
       `Below ${formatPrice(low)}`,
       `${formatPrice(low)}-${formatPrice(high)}`,
@@ -115,7 +115,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
 export async function buildNarrativePoll(): Promise<PollOptions> {
   const hook = await generatePollHook("narrative", getTimeOfDay());
   return {
-    text: `${hook}\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
+    text: `${hook}\n\n#TokenRadarCo`,
     options: [...INTERACTIVE_POST_NARRATIVES],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -137,7 +137,7 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
   const hook = await generatePollHook("community vote", getTimeOfDay());
 
   return {
-    text: `${hook}\n\ntokenradar.co\n#Crypto #TokenRadarCo`,
+    text: `${hook}\n\n#TokenRadarCo`,
     options,
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -254,6 +254,20 @@ async function main() {
   try {
     const result = await postPoll(poll);
     console.log(`✅ Posted successfully (Tweet ID: ${result.tweetId}, Native poll: ${result.native})`);
+
+    // ── Post Reply (External Link) ──
+    try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+      const displaySym = selectedTokenId ? selectedTokenId.toUpperCase() : "";
+      const replyText = selectedTokenId 
+        ? `Vote above and check out the full data profile for $${displaySym} here:\n\n${siteUrl}/${selectedTokenId}`
+        : `Vote above and see what's driving the crypto markets right now on:\n\n${siteUrl}`;
+        
+      const replyId = await postTweet(replyText, result.tweetId);
+      console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);
+    } catch (err) {
+      console.warn(`  ⚠ Failed to post self-reply link:`, err);
+    }
 
     // Save tracking
     fs.writeFileSync(

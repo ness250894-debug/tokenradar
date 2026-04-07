@@ -286,9 +286,9 @@ export async function generateTweet(
     STRICT RULES:
     1. TARGET LENGTH: MUST be cleanly under 160 characters.
     2. Write organically and integrate cashtags ($${symbol.toUpperCase()}) naturally into the sentences (e.g. "Watching $${symbol.toUpperCase()} break..."). Do NOT dump cashtags at the end.
-    3. End the tweet with a strong Engagement Hook (a question to the audience like "Are we rotating capital or holding? 👇").
+    3. OPTIMIZE FOR REPLIES: End the tweet with a strong, slightly controversial or high-engagement question to spark debate (e.g. "Are we rotating capital or is this a massive bull trap? 👇"). Replies are the highest valued algorithmic metric.
     4. Include your visual Risk gauge organically if it fits.
-    5. Generate exactly 2 highly relevant, dynamic hashtags at the end (e.g. #L2 #Ethereum). Do not use generic tags like #Crypto. Do NOT include links.
+    5. STRICT HASHTAG LIMIT: Generate exactly 1 or 2 highly specific, relevant hashtags at the end (e.g. #L2). Do not use generic tags like #Crypto to avoid spam penalties. Do NOT include links.
     6. You can use 1 or 2 emojis if it fits the tone.
   `;
 
