@@ -270,7 +270,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
   if (runX) {
     try {
       // Natively uploads MP4 via chunked upload using v1.uploadMedia
-      const tweetId = await postTweetWithMedia(xMessage, videoBuffer);
+      const tweetId = await postTweetWithMedia(xMessage, videoBuffer, "video/mp4");
       console.log(`✅ Posted tweet with video to X (Tweet ID: ${tweetId})`);
       
       const replyId = await postTweet(xReplyMessage, tweetId);

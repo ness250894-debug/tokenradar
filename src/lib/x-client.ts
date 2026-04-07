@@ -130,19 +130,21 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
 }
 
 /**
- * Post a tweet with an attached image using the twitter-api-v2 SDK.
+ * Post a tweet with an attached media file (image or video) using the twitter-api-v2 SDK.
  *
- * Uploads the image via v1.uploadMedia(), then creates the tweet with
+ * Uploads the file via v1.uploadMedia(), then creates the tweet with
  * the media_id attached. Falls back to text-only if media upload fails.
  *
  * @param text - Tweet text (HTML will be stripped, long text truncated)
- * @param imageBuffer - PNG image as a Buffer
+ * @param mediaBuffer - File as a Buffer
+ * @param mimeType - Optional mime type (default: image/png, use video/mp4 for videos)
  * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
  * @returns Tweet ID
  */
 export async function postTweetWithMedia(
   text: string,
-  imageBuffer: Buffer,
+  mediaBuffer: Buffer,
+  mimeType: string = "image/png",
   replyToTweetId?: string
 ): Promise<string> {
   const creds = validateXCredentials();
@@ -158,14 +160,19 @@ export async function postTweetWithMedia(
   let cleanText = stripHtmlForX(text);
   cleanText = truncateForX(cleanText);
 
-  // Upload image via v1 media endpoint
+  // Upload media via v1 media endpoint (handles chunked uploads automatically if options provided)
   let mediaId: string | undefined;
   try {
-    mediaId = await rwClient.v1.uploadMedia(imageBuffer, { mimeType: "image/png" });
-    console.log(`  ✓ Media uploaded (media_id: ${mediaId})`);
+    // For videos, twitter-api-v2 v1.uploadMedia handles chunking internally if we pass the right type
+    const isVideo = mimeType.startsWith("video/");
+    mediaId = await rwClient.v1.uploadMedia(mediaBuffer, { 
+        mimeType: mimeType,
+        target: isVideo ? 'tweet_video' : 'tweet_image'
+    });
+    console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    console.warn("  ⚠ Media upload failed, falling back to text-only:", e?.message || e);
+    console.warn("  ⚠ Media upload failed, falling back to text-only:", e?.data || e?.message || e);
   }
 
   try {
