@@ -215,7 +215,7 @@ async function main() {
   }
 
   // 2. Scan RSS sources
-  let discovered: UpcomingTge[] = [];
+  const discovered: UpcomingTge[] = [];
 
   for (const feed of RSS_FEEDS) {
     console.log(`\\n▶ Source: ${feed.name}`);

@@ -14,7 +14,8 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import { execSync } from "child_process";
 import { logError } from "../src/lib/reporter";
-import { generateTweet, generateTokenSummary } from "../src/lib/gemini";
+import { generateTweet, generateTokenSummary, generateYoutubeMetadata } from "../src/lib/gemini";
+import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
@@ -108,6 +109,9 @@ async function main() {
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
+  const runYouTube = targetPlatform === "all" || targetPlatform === "youtube";
+
+  const force = args.includes("--force");
 
   if (!dryRun) {
     if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
@@ -117,6 +121,10 @@ async function main() {
     if (runX && (!process.env.X_API_KEY || !process.env.X_API_SECRET)) {
       console.error("  ✗ Missing X credentials.");
       process.exit(1);
+    }
+    if (runYouTube && (!process.env.YOUTUBE_CLIENT_ID || !process.env.YOUTUBE_REFRESH_TOKEN)) {
+      console.error("  ⚠ Missing YouTube credentials. Make sure to generate them to upload to YT Shorts.");
+      if (targetPlatform === 'youtube') process.exit(1);
     }
   }
 
@@ -131,11 +139,11 @@ async function main() {
   }
 
   // 2. Select the daily breakout
-  const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY); 
-  const recentlyPosted = getRecentlyPostedTokens(DATA_DIR);
+  const todayPosted = force ? new Set<string>() : getTodayPostedTokens(DATA_DIR, TODAY); 
+  const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR);
 
-  console.log(`\n▶ Step 2: Selecting Top Breakout Token...`);
-  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, targetPlatform as "x" | "telegram" | "all");
+  console.log(`\n▶ Step 2: Selecting Top Breakout Token... (Force: ${force})`);
+  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, targetPlatform as "x" | "telegram" | "all", force);
 
   if (!selection) {
     console.error("  ✗ Could not select a target token.");
@@ -199,6 +207,7 @@ async function main() {
   let tgMessage = "";
   let xMessage = "";
   let xReplyMessage = "";
+  let ytMetadata = { title: "", description: "" };
 
   if (runTelegram) {
     const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context);
@@ -210,6 +219,10 @@ async function main() {
     xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
   }
 
+  if (runYouTube) {
+    ytMetadata = await generateYoutubeMetadata(targetToken.name, targetToken.symbol, context);
+  }
+
   if (dryRun) {
     console.log("\n=== DRY RUN MODE ===");
     if (runTelegram) {
@@ -219,6 +232,11 @@ async function main() {
     if (runX) {
       console.log("\n--- X MAIN TWEET (with out.mp4) ---");
       console.log(xMessage);
+    }
+    if (runYouTube) {
+      console.log("\n--- YOUTUBE SHORTS ---");
+      console.log(`TITLE: ${ytMetadata.title}`);
+      console.log(`DESC:\n${ytMetadata.description}`);
     }
     return;
   }
@@ -261,6 +279,19 @@ ${REFERRAL_LINKS_HTML.join("\n")}
     } catch (error) {
       await logError("post-video-daily-x", error, false);
       console.error("❌ Failed to post to X:", error);
+    }
+  }
+
+  if (runYouTube && process.env.YOUTUBE_CLIENT_ID) {
+    try {
+      console.log(`\n  ▸ Debug: Starting YouTube upload process...`);
+      const videoId = await uploadToYouTubeShorts(outPath, ytMetadata.title, ytMetadata.description, 'unlisted');
+      console.log(`✅ Posted video to YouTube Shorts (Video ID: ${videoId})`);
+      posted = true;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error(`❌ Failed to post to YouTube:`, errorMessage);
+      await logError("post-video-daily-youtube", error, false);
     }
   }
 

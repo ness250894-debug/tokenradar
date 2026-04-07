@@ -336,3 +336,51 @@ export async function generatePollHook(
     return symbol ? `What's your move on $${symbol.toUpperCase()} today?` : `Which crypto narrative dominates this week?`;
   }
 }
+
+/**
+ * Generate highly optimized YouTube Shorts metadata (Title and Description).
+ * Output format is JSON containing { title, description }
+ */
+export async function generateYoutubeMetadata(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext = {}
+): Promise<{ title: string; description: string }> {
+  const priceStr = metrics.price !== undefined
+    ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
+    : "N/A";
+  const changeStr = metrics.priceChange24h !== undefined
+    ? `${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`
+    : "N/A";
+
+  const reasonContext = metrics.selectionReason ? `REASON: ${metrics.selectionReason}.` : "";
+  
+  const prompt = `
+    You are an expert YouTube SEO manager. Write the Title and Description for a YouTube Shorts video about ${tokenName} ($${symbol.toUpperCase()}).
+
+    Data context:
+    Price: ${priceStr}
+    24h Change: ${changeStr}
+    ${reasonContext}
+
+    STRICT SEO RULES:
+    1. TITLE: Front-load the keywords. Must be under 60 characters. Example format: "TokenName ($SYMBOL) Breakout! 🚀 Why It's Surging".
+    2. DESCRIPTION HOOK: Start the description with a powerful 1-2 sentence hook explaining why this token is moving today. Incorporate the price or 24h change naturally into the text.
+    3. BRANDING: Directly after the hook, add a single line: "🌐 Full data report & analytics: https://tokenradar.co"
+    4. HASHTAGS: At the very end of the description, include exactly 3 hashtags. The first MUST be #Shorts. The other two must be highly specific to the token or crypto trading. Do NOT use generic tags like #Viral.
+
+    Format your exact output as valid JSON with exactly two keys: "title" and "description". Do not include markdown blocks.
+  `;
+
+  try {
+    const result = await callAIWithFallback("", prompt, 500);
+    let content = result.content.replace(/\`\`\`json/gi, '').replace(/\`\`\`/gi, '').trim();
+    return JSON.parse(content);
+  } catch (error) {
+    console.warn(`  ⚠ AI YouTube metadata generation failed. Using fallbacks.`);
+    return {
+      title: `${tokenName} ($${symbol.toUpperCase()}) Breakout! 🚀 24h Update`,
+      description: `Watch why ${tokenName} is making moves in the market today! Current price sits around ${priceStr} with a ${changeStr} shift in the last 24h.\n\nSubscribe to TokenRadar for daily crypto intel.\n\n#Shorts #CryptoTrading #${symbol.toUpperCase()}`
+    };
+  }
+}

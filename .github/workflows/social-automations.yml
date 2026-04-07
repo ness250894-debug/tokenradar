@@ -23,6 +23,7 @@ on:
     - cron: "30 16 * * *" # TG Market (12:30 EDT)
     - cron: "30 19 * * *" # TG Market (15:30 EDT)
     - cron: "30 22 * * *" # TG Market (18:30 EDT)
+    - cron: "15 18 * * *" # [EXCLUSIVE] Daily Video Breakout (14:15 EDT)
     
   workflow_dispatch:
 
@@ -33,7 +34,8 @@ concurrency:
 env:
   NODE_VERSION: "20"
   IS_X_MARKET_RUN: ${{ contains(fromJson('["30 14 * * *", "30 17 * * *", "30 20 * * *", "30 02 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
-  IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '30 23 * * *' || github.event.schedule == '30 14 * * *' }}
+  IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '30 23 * * *' || github.event.schedule == '30 14 * * *' || github.event.schedule == '15 18 * * *' }}
+  IS_VIDEO_RUN: ${{ github.event.schedule == '15 18 * * *' || github.event_name == 'workflow_dispatch' }}
 
 jobs:
   post-social:
@@ -121,6 +123,27 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
+      # ─── 6. Daily Video Breakout (Runs 1x Day @ 18:15) ─────────
+      - name: Daily Video Breakout
+        if: env.IS_VIDEO_RUN == 'true'
+        run: npx tsx scripts/post-video-daily.ts --platform all
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
       # ─── Data State Synchronization ────────────────────────────
       - name: Commit Tracking Logs
