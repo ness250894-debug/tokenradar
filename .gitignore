@@ -54,3 +54,9 @@ data/latest-batch-alert.txt
 
 # temp
 /tmp/
+
+# diagnostic logs and cache
+data/logs/
+data/cache/
+*.mp4
+remotion-props.json

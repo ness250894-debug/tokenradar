@@ -297,11 +297,14 @@ export async function selectToken(
   metricsDir: string,
   allTokens: { id: string; name: string; symbol: string }[],
   platform: "x" | "telegram" | "all" = "telegram",
+  force: boolean = false
 ): Promise<SelectionResult | null> {
 
   // Trending cooldown: tokens posted within TRENDING_COOLDOWN_DAYS are skipped
   // This is a superset of todayPosted (includes today + previous N days)
-  const trendingCooldown = new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."))]);
+  const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."))]);
+
+
 
   // ── Trending priorities (platform-dependent) ──
   const useXFirst = platform === "x";
