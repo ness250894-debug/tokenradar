@@ -64,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/queue/*
+          git add data/queue
           if git diff --staged --quiet; then
             echo "No new templates to queue"
             exit 0
