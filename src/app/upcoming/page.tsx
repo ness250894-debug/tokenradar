@@ -4,7 +4,8 @@ import Link from "next/link";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { AlphaTicker } from "@/components/AlphaTicker";
-import { Send, Bell, Landmark, TrendingUp, ShieldCheck } from "lucide-react";
+import { XIcon, TelegramIcon } from "@/components/SocialIcons";
+import { Bell, Landmark, TrendingUp, ShieldCheck } from "lucide-react";
 
 export const metadata = {
   title: "Upcoming Token Launches & TGEs | TokenRadar",
@@ -25,18 +26,18 @@ export default function UpcomingPage() {
           <p className="hero-subtitle animate-in animate-delay-1">
             Stay ahead of the market with data-driven insights on upcoming project launches.
           </p>
-          <div className="hero-cta animate-in animate-delay-2" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center" }}>
-            <MagneticEffect>
-              <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
-                <Send size={18} style={{ marginRight: "0.5rem" }} /> Join Telegram for TGE Alerts
-              </Link>
-          </MagneticEffect>
-          <MagneticEffect>
-            <Link href="/" className="btn btn-secondary" style={{ padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
-              Explore Market
-            </Link>
-          </MagneticEffect>
-        </div>
+            <div className="hero-cta animate-in animate-delay-2" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+              <MagneticEffect>
+                <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
+                  <TelegramIcon size={18} /> Join Telegram for Alerts
+                </Link>
+              </MagneticEffect>
+              <MagneticEffect>
+                <Link href="https://x.com/tokenradarco" target="_blank" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
+                  <XIcon size={18} /> Follow on X
+                </Link>
+              </MagneticEffect>
+            </div>
         </div>
       </section>
 
