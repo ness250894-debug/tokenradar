@@ -7,7 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send } from "lucide-react";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send, X, MessageCircle, Users } from "lucide-react";
 
 export default function HomePage() {
   const allTokensList = getAllTokens();
@@ -155,18 +155,26 @@ export default function HomePage() {
         </div>
       </section>
       
-      <section className="section" id="newsletter">
+      <section className="section" id="community">
         <div className="container">
           <div className="card" style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", padding: "var(--space-3xl) var(--space-xl)", background: "linear-gradient(145deg, var(--bg-card) 0%, rgba(217, 119, 6, 0.05) 100%)", borderColor: "rgba(217, 119, 6, 0.2)" }}>
-            <Send size={48} style={{ color: "var(--accent-primary)", marginBottom: "var(--space-lg)", opacity: 0.8 }} />
-            <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>Stay Ahead of the <span className="gradient-text">Market</span></h2>
+            <Users size={48} style={{ color: "var(--accent-primary)", marginBottom: "var(--space-lg)", opacity: 0.8 }} />
+            <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>Join the <span className="gradient-text">Alpha Community</span></h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-lg)", marginBottom: "var(--space-2xl)", maxWidth: "500px", margin: "0 auto var(--space-2xl)" }}>
-              Get our weekly data-driven analysis, top risk alerts, and unbiased market reports delivered straight to your inbox.
+              Don't miss a single market pulse. Get real-time TGE alerts, narrative deep-dives, and community alpha.
             </p>
-            <form className="newsletter-form" action="#">
-              <input type="email" placeholder="Enter your email address..." required className="newsletter-input" />
-              <button type="submit" className="btn btn-primary">Subscribe Free</button>
-            </form>
+            <div className="social-cta-container" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+              <MagneticEffect>
+                <Link href="https://t.me/TokenRadarCo" target="_blank" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
+                  <MessageCircle size={20} /> Join Telegram
+                </Link>
+              </MagneticEffect>
+              <MagneticEffect>
+                <Link href="https://x.com/tokenradarco" target="_blank" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
+                  <X size={20} /> Follow on X
+                </Link>
+              </MagneticEffect>
+            </div>
           </div>
         </div>
       </section>
