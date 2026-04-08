@@ -7,7 +7,8 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send, X, MessageCircle, Users } from "lucide-react";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send, Users } from "lucide-react";
+import { XIcon, TelegramIcon } from "@/components/SocialIcons";
 
 export default function HomePage() {
   const allTokensList = getAllTokens();
@@ -166,12 +167,12 @@ export default function HomePage() {
             <div className="social-cta-container" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
               <MagneticEffect>
                 <Link href="https://t.me/TokenRadarCo" target="_blank" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
-                  <MessageCircle size={20} /> Join Telegram
+                  <TelegramIcon size={20} /> Join Telegram
                 </Link>
               </MagneticEffect>
               <MagneticEffect>
                 <Link href="https://x.com/tokenradarco" target="_blank" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
-                  <X size={20} /> Follow on X
+                  <XIcon size={20} /> Follow on X
                 </Link>
               </MagneticEffect>
             </div>

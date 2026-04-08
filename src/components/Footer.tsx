@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HackerText } from "./HackerText";
-import { Send, X, MessageCircle, Activity } from "lucide-react";
+import { XIcon, TelegramIcon } from "./SocialIcons";
+import { Activity } from "lucide-react";
 
 /**
  * Group definitions for footer columns
@@ -45,10 +46,10 @@ export function Footer() {
             </p>
             <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-sm)" }}>
               <Link href="https://x.com/tokenradarco" target="_blank" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
-                <X size={20} />
+                <XIcon size={20} />
               </Link>
               <Link href="https://t.me/TokenRadarCo" target="_blank" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
-                <MessageCircle size={20} />
+                <TelegramIcon size={20} />
               </Link>
             </div>
           </div>
