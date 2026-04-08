@@ -7,6 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send } from "lucide-react";
 
 export default function HomePage() {
   const allTokensList = getAllTokens();
@@ -37,9 +38,10 @@ export default function HomePage() {
   return (
     <>
       <section className="hero" id="hero">
+        <div className="radar-sweep" />
         <div className="container">
           <h1 className="animate-in">
-            Data-Driven <span className="gradient-text">Crypto Analysis</span>{" "}
+            Data-Driven <span className="gradient-text animated">Crypto Analysis</span>{" "}
             You Can Trust
           </h1>
           <p className="hero-subtitle animate-in animate-delay-1">
@@ -59,36 +61,51 @@ export default function HomePage() {
             </MagneticEffect>
           </div>
         </div>
+
+        <div style={{ marginTop: "var(--space-3xl)" }} className="animate-in animate-delay-3">
+          <AlphaTicker />
+        </div>
       </section>
 
-      <section className="section" id="stats">
+      <section className="section" id="stats" style={{ paddingTop: 0 }}>
         <div className="container">
-          <div className="stats-grid animate-in animate-delay-1">
-            <div className="stat-card">
-              <div className="stat-label">Tokens Tracked</div>
-              <div className="stat-value gradient-text">
-                <CountUp end={allTokens.length > 0 ? allTokens.length : 250} suffix="+" />
+          <div className="stats-grid animate-in animate-delay-3">
+            <CardGlare style={{ height: "100%" }}>
+              <div className="stat-card-premium" style={{ height: "100%" }}>
+                <Activity className="stat-watermark" />
+                <div className="stat-label">Tokens Tracked</div>
+                <div className="stat-value gradient-text">
+                  <CountUp end={allTokens.length > 0 ? allTokens.length : 250} suffix="+" />
+                </div>
+                <div className="stat-change" style={{ color: "var(--text-muted)" }}>Active Data Feeds</div>
               </div>
-              <div className="stat-change" style={{ color: "var(--text-muted)" }}>Active Data Feeds</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-label">Articles Published</div>
-              <div className="stat-value gradient-text">
-                <CountUp end={getTotalArticleCount()} />
+            </CardGlare>
+            <CardGlare style={{ height: "100%" }}>
+              <div className="stat-card-premium" style={{ height: "100%" }}>
+                <FileText className="stat-watermark" />
+                <div className="stat-label">Articles Published</div>
+                <div className="stat-value gradient-text">
+                  <CountUp end={getTotalArticleCount()} />
+                </div>
+                <div className="stat-change" style={{ color: "var(--text-muted)" }}>AI-Generated Research</div>
               </div>
-              <div className="stat-change" style={{ color: "var(--text-muted)" }}>AI-Generated Research</div>
-            </div>
-            <RiskScoreCard score={avgMarketRisk} label="Avg. Market Risk" />
-            <div className="stat-card">
-              <div className="stat-label">Data Freshness</div>
-              <div className="stat-value gradient-text">24h</div>
-              <div className="stat-change" style={{ color: "var(--green)" }}>Auto-refreshed daily</div>
-            </div>
+            </CardGlare>
+            <CardGlare style={{ height: "100%" }}>
+              <RiskScoreCard score={avgMarketRisk} label="Avg. Market Risk" />
+            </CardGlare>
+            <CardGlare style={{ height: "100%" }}>
+              <div className="stat-card-premium" style={{ height: "100%" }}>
+                <Clock className="stat-watermark" />
+                <div className="stat-label">Data Freshness</div>
+                <div className="stat-value gradient-text">24h</div>
+                <div className="stat-change" style={{ color: "var(--green)" }}>Auto-refreshed daily</div>
+              </div>
+            </CardGlare>
           </div>
         </div>
       </section>
 
-      <AlphaTicker />
+
 
       <section className="section" id="tokens">
         <HomeTabs trackedTokens={allTokens} upcomingTges={upcomingTges} />
@@ -102,8 +119,10 @@ export default function HomePage() {
           </div>
           <div className="stats-grid">
             <CardGlare style={{ height: "100%" }}>
-              <div className="card" style={{ height: "100%" }}>
-                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>📊</div>
+              <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                <div className="feature-icon-wrapper">
+                  <Database className="feature-icon" size={32} />
+                </div>
                 <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>Real-Time Data</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
                   We pull live price, volume, supply, and historical data from CoinGecko for every token — refreshed every 24 hours.
@@ -111,8 +130,10 @@ export default function HomePage() {
               </div>
             </CardGlare>
             <CardGlare style={{ height: "100%" }}>
-              <div className="card" style={{ height: "100%" }}>
-                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>🧮</div>
+              <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                <div className="feature-icon-wrapper">
+                  <ShieldCheck className="feature-icon" size={32} />
+                </div>
                 <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>Proprietary Metrics</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
                   Our Risk Score, Growth Index, and Narrative Strength are computed from real market data — not subjective ratings.
@@ -120,8 +141,10 @@ export default function HomePage() {
               </div>
             </CardGlare>
             <CardGlare style={{ height: "100%" }}>
-              <div className="card" style={{ height: "100%" }}>
-                <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>🤖</div>
+              <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                <div className="feature-icon-wrapper">
+                  <Bot className="feature-icon" size={32} />
+                </div>
                 <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>AI-Powered Analysis</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
                   Each article is generated by AI using verified data points, then validated against quality and accuracy checks.
@@ -132,11 +155,18 @@ export default function HomePage() {
         </div>
       </section>
       
-      <section className="section" id="market-outlook" style={{ background: "var(--bg-secondary)" }}>
+      <section className="section" id="newsletter">
         <div className="container">
-          <div className="article-content" style={{ marginTop: 0 }}>
-            <h2>State of the Crypto Market {new Date().getFullYear()}: What to Expect</h2>
-            <p>Navigating the cryptocurrency landscape requires more than just following the latest trends; it requires unbiased, data-driven analysis.</p>
+          <div className="card" style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", padding: "var(--space-3xl) var(--space-xl)", background: "linear-gradient(145deg, var(--bg-card) 0%, rgba(217, 119, 6, 0.05) 100%)", borderColor: "rgba(217, 119, 6, 0.2)" }}>
+            <Send size={48} style={{ color: "var(--accent-primary)", marginBottom: "var(--space-lg)", opacity: 0.8 }} />
+            <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>Stay Ahead of the <span className="gradient-text">Market</span></h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-lg)", marginBottom: "var(--space-2xl)", maxWidth: "500px", margin: "0 auto var(--space-2xl)" }}>
+              Get our weekly data-driven analysis, top risk alerts, and unbiased market reports delivered straight to your inbox.
+            </p>
+            <form className="newsletter-form" action="#">
+              <input type="email" placeholder="Enter your email address..." required className="newsletter-input" />
+              <button type="submit" className="btn btn-primary">Subscribe Free</button>
+            </form>
           </div>
         </div>
       </section>

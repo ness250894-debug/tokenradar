@@ -51,7 +51,14 @@ export function ProfitCalculator({
             step="100"
             value={investment}
             onChange={(e) => setInvestment(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "var(--accent-primary)", cursor: "pointer" }}
+            style={{ 
+              width: "100%", 
+              accentColor: "var(--accent-primary)", 
+              cursor: "pointer",
+              backgroundImage: "linear-gradient(var(--accent-primary), var(--accent-primary))",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: `${((investment - 100) / (100000 - 100)) * 100}% 100%`
+            }}
           />
         </div>
 
@@ -68,7 +75,14 @@ export function ProfitCalculator({
             step={atl / 100 || 0.00001}
             value={purchasePrice}
             onChange={(e) => setPurchasePrice(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "var(--accent-primary)", cursor: "pointer" }}
+            style={{ 
+              width: "100%", 
+              accentColor: "var(--accent-primary)", 
+              cursor: "pointer",
+              backgroundImage: "linear-gradient(var(--accent-primary), var(--accent-primary))",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: `${((purchasePrice - (atl * 0.1 || 0.000001)) / ((currentPrice * 5) - (atl * 0.1 || 0.000001))) * 100}% 100%`
+            }}
           />
           {atl > 0 && (
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "var(--space-sm)" }}>

@@ -50,9 +50,9 @@ export function TokenCard({ token }: TokenCardProps) {
   return (
     <CardGlare style={{ height: "100%" }}>
       <Link href={`/${token.id}`} className="card" id={`token-card-${token.id}`} style={{ display: "block", textDecoration: "none", height: "100%" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div>
-            <div className="token-name">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-sm)" }}>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div className="token-name" style={{ minWidth: 0 }}>
               <TokenTickerPill 
                 name={token.name} 
                 symbol={token.symbol} 
@@ -60,26 +60,26 @@ export function TokenCard({ token }: TokenCardProps) {
                 imageUrl={token.imageUrl} 
               />
             </div>
+            <div style={{ marginTop: "var(--space-xs)" }}>
+              <span className="badge badge-accent" style={{ fontSize: "0.65rem", padding: "2px 6px" }}>{token.category}</span>
+            </div>
           </div>
-          <span className={`badge badge-${riskLevel}`}>
+          <span className={`badge badge-${riskLevel}`} style={{ flexShrink: 0 }}>
             Risk {token.riskScore}/10
           </span>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-md)", marginTop: "var(--space-xl)", paddingTop: "var(--space-md)", borderTop: "1px solid var(--border-color)" }}>
           <div>
-            <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-lg)" }}>
-              {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}% (24h)
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "4px" }}>24h Change</div>
+            <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-md)", fontWeight: 600 }}>
+              {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}%
             </div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Market Cap</div>
-            <div style={{ fontWeight: 600 }}>{formatCompact(token.marketCap)}</div>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "4px" }}>Market Cap</div>
+            <div style={{ fontSize: "var(--text-md)", fontWeight: 600 }}>{formatCompact(token.marketCap)}</div>
           </div>
-        </div>
-
-        <div style={{ marginTop: "var(--space-md)" }}>
-          <span className="badge badge-accent">{token.category}</span>
         </div>
       </Link>
     </CardGlare>

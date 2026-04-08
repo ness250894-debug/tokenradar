@@ -27,6 +27,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { ArticleToc } from "@/components/ArticleToc";
+import { Globe, BarChart2, PieChart, TrendingUp, ShoppingCart, Scale, Bell } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -147,7 +148,7 @@ export default async function TokenPage({ params }: PageProps) {
             <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "flex-end" }}>
               <MagneticEffect>
                  <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
-                   <span style={{ marginRight: "0.5rem" }}>🔔</span> Track Alerts
+                   <Bell size={16} /> Track Alerts
                  </a>
               </MagneticEffect>
             </div>
@@ -157,18 +158,21 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Stats Grid */}
         <div className="stats-grid" style={{ marginTop: "var(--space-xl)" }}>
           <div className="stat-card">
+            <Globe className="stat-watermark" />
             <div className="stat-label">Market Cap</div>
             <div className="stat-value">
               <CountUp end={detail.market.marketCap} prefix="$" compact={true} />
             </div>
           </div>
           <div className="stat-card">
+            <BarChart2 className="stat-watermark" />
             <div className="stat-label">24h Volume</div>
             <div className="stat-value">
               <CountUp end={detail.market.volume24h} prefix="$" compact={true} />
             </div>
           </div>
           <div className="stat-card">
+            <PieChart className="stat-watermark" />
             <div className="stat-label">Circulating Supply</div>
             <div className="stat-value">
               <CountUp end={detail.market.circulatingSupply} compact={true} />
@@ -201,22 +205,22 @@ export default async function TokenPage({ params }: PageProps) {
               TokenRadar <span className="gradient-text">Metrics</span>
             </h2>
             <div className="stats-grid">
-              <div className="stat-card">
+              <div className="stat-card-premium">
                 <div className="stat-label">Growth Potential</div>
                 <div className="stat-value gradient-text">{metrics.growthPotentialIndex}/100</div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card-premium">
                 <div className="stat-label">Narrative Strength</div>
                 <div className="stat-value gradient-text">{metrics.narrativeStrength}/100</div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card-premium">
                 <div className="stat-label">Value vs ATH</div>
                 <div className="stat-value">{metrics.valueVsAth}%</div>
                 <div className="stat-change" style={{ color: "var(--text-muted)" }}>
                   ATH: {formatPrice(detail.market.ath)}
                 </div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card-premium">
                 <div className="stat-label">Volatility Index</div>
                 <div className="stat-value">{metrics.volatilityIndex}/100</div>
               </div>
@@ -246,7 +250,7 @@ export default async function TokenPage({ params }: PageProps) {
             {hasPricePrediction && (
               <CardGlare style={{ height: "100%" }}>
                 <Link href={`/${tokenId}/price-prediction`} className="card" style={{ display: "block", height: "100%" }}>
-                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>📈</div>
+                  <TrendingUp size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
                   <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Price Prediction {new Date().getFullYear()}-{new Date().getFullYear() + 1}</div>
                   <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                     Data-driven price analysis and scenarios
@@ -257,7 +261,7 @@ export default async function TokenPage({ params }: PageProps) {
             {hasHowToBuy && (
               <CardGlare style={{ height: "100%" }}>
                 <Link href={`/${tokenId}/how-to-buy`} className="card" style={{ display: "block", height: "100%" }}>
-                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>🛒</div>
+                  <ShoppingCart size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
                   <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
                   <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                     Step-by-step guide with exchange recommendations
@@ -273,7 +277,7 @@ export default async function TokenPage({ params }: PageProps) {
             {relatedTokens.length > 0 && (
               <CardGlare style={{ height: "100%" }}>
                 <Link href={`/compare/${detail.id}-vs-${relatedTokens[0].id}`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
-                  <div style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-sm)" }}>⚖️</div>
+                  <Scale size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
                   <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Compare vs {relatedTokens[0].name}</div>
                   <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
                     Side-by-side metric comparison to clarify investment choices
@@ -286,7 +290,7 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Article Content & TOC */}
         {article && (
-          <div style={{ marginTop: "var(--space-2xl)", display: "flex", gap: "var(--space-2xl)", alignItems: "flex-start" }}>
+          <div style={{ marginTop: "var(--space-2xl)", display: "flex", gap: "var(--space-2xl)" }}>
             {/* Main Content */}
             <div style={{ flex: "1 1 auto", minWidth: 0 }}>
               <div className="article-content" dangerouslySetInnerHTML={{ 

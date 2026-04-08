@@ -3,6 +3,8 @@ import { TgeGrid } from "@/components/TgeGrid";
 import Link from "next/link";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
+import { AlphaTicker } from "@/components/AlphaTicker";
+import { Send, Bell, Landmark, TrendingUp, ShieldCheck } from "lucide-react";
 
 export const metadata = {
   title: "Upcoming Token Launches & TGEs | TokenRadar",
@@ -15,17 +17,19 @@ export default function UpcomingPage() {
   return (
     <div className="container" style={{ paddingBottom: "var(--space-4xl)" }}>
       <section className="hero" style={{ padding: "var(--space-3xl) 0" }}>
-        <h1 className="animate-in">
-          Pre-Launch <span className="gradient-text">Spotlight</span>
-        </h1>
-        <p className="hero-subtitle animate-in animate-delay-1">
-          Stay ahead of the market with data-driven insights on upcoming project launches.
-        </p>
-        <div className="hero-cta animate-in animate-delay-2" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center" }}>
-          <MagneticEffect>
-            <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
-              <span style={{ marginRight: "0.5rem" }}>💬</span> Join Telegram for TGE Alerts
-            </Link>
+        <div className="radar-sweep" />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <h1 className="animate-in">
+            Pre-Launch <span className="gradient-text animated">Spotlight</span>
+          </h1>
+          <p className="hero-subtitle animate-in animate-delay-1">
+            Stay ahead of the market with data-driven insights on upcoming project launches.
+          </p>
+          <div className="hero-cta animate-in animate-delay-2" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center" }}>
+            <MagneticEffect>
+              <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
+                <Send size={18} style={{ marginRight: "0.5rem" }} /> Join Telegram for TGE Alerts
+              </Link>
           </MagneticEffect>
           <MagneticEffect>
             <Link href="/" className="btn btn-secondary" style={{ padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
@@ -33,7 +37,12 @@ export default function UpcomingPage() {
             </Link>
           </MagneticEffect>
         </div>
+        </div>
       </section>
+
+      <div style={{ marginBottom: "var(--space-3xl)", width: "100vw", position: "relative", left: "50%", right: "50%", marginLeft: "-50vw", marginRight: "-50vw" }} className="animate-in animate-delay-3">
+        <AlphaTicker />
+      </div>
 
       <section className="section">
         <div className="section-header">
@@ -55,7 +64,7 @@ export default function UpcomingPage() {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <MagneticEffect>
                 <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  <span style={{ marginRight: "0.5rem" }}>🔔</span> Get Alpha Drops on Telegram
+                  <Bell size={18} style={{ marginRight: "0.5rem" }} /> Get Alpha Drops on Telegram
                 </Link>
               </MagneticEffect>
             </div>
@@ -70,7 +79,10 @@ export default function UpcomingPage() {
         </div>
         <div className="stats-grid">
           <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%" }}>
+            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+              <div className="feature-icon-wrapper">
+                <Landmark className="feature-icon" size={32} />
+              </div>
               <h3>Structural Vetting</h3>
               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
                 We prioritize projects with confirmed Tier-1 and Tier-2 VC backing, focusing on infrastructure, AI, and DeFi.
@@ -78,7 +90,10 @@ export default function UpcomingPage() {
             </div>
           </CardGlare>
           <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%" }}>
+            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+              <div className="feature-icon-wrapper">
+                <TrendingUp className="feature-icon" size={32} />
+              </div>
               <h3>Narrative Analysis</h3>
               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
                 Our AI scores projects based on social sentiment, technical whitepapers, and market timing.
@@ -86,7 +101,10 @@ export default function UpcomingPage() {
             </div>
           </CardGlare>
           <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%" }}>
+            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+              <div className="feature-icon-wrapper">
+                <ShieldCheck className="feature-icon" size={32} />
+              </div>
               <h3>Anti-Rug Precautions</h3>
               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
                 We track projects with public teams and transparent development roadmaps to minimize risk.

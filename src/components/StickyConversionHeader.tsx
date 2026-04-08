@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Bell } from "lucide-react";
 import { MagneticEffect } from "./MagneticEffect";
 
 interface StickyConversionHeaderProps {
@@ -85,7 +86,7 @@ export function StickyConversionHeader({
             className="btn btn-primary"
             style={{ padding: "0.4rem 1rem", fontSize: "0.85rem" }}
           >
-            <span style={{ marginRight: "0.4rem" }}>⚡</span>
+            <Bell size={14} style={{ marginRight: "0.4rem" }} />
             {actionText}
           </a>
         </MagneticEffect>

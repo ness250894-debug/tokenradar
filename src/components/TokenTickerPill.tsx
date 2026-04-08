@@ -19,7 +19,7 @@ export function TokenTickerPill({
   className = "" 
 }: TokenTickerPillProps) {
   return (
-    <span className={`token-ticker-pill ${className}`}>
+    <span className={`token-ticker-pill ${className}`} style={{ minWidth: 0, maxWidth: "100%" }}>
       {imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element
         <img 
@@ -30,8 +30,8 @@ export function TokenTickerPill({
           height={18}
         />
       )}
-      <span className="pill-text">
-        <span className="pill-name" title={name}>{name.toUpperCase()}</span>
+      <span className="pill-text" style={{ minWidth: 0 }}>
+        <span className="pill-name" title={name} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{name.toUpperCase()}</span>
         <span className="pill-divider">-</span>
         <span className="pill-price">{formatPrice(price)}</span>
       </span>

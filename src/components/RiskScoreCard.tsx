@@ -1,4 +1,5 @@
 import { RiskMeterGauge } from "./RiskMeterGauge";
+import { Activity } from "lucide-react";
 
 interface RiskScoreCardProps {
   /** Risk score from 1 (low risk) to 10 (high risk) */
@@ -18,7 +19,8 @@ export function RiskScoreCard({ score, label = "Risk Score" }: RiskScoreCardProp
   const riskLabel = clampedScore <= 3 ? "Low Risk" : clampedScore <= 6 ? "Medium Risk" : "High Risk";
 
   return (
-    <div className="stat-card" id="risk-score-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+    <div className="stat-card-premium" id="risk-score-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>
+      <Activity className="stat-watermark" />
       <div className="stat-label" style={{ alignSelf: "flex-start", width: "100%", marginBottom: "var(--space-md)" }}>{label}</div>
       <RiskMeterGauge score={clampedScore} />
       <div className="stat-change" style={{ marginTop: "var(--space-sm)", fontWeight: 700, color: `var(--${riskLevel === "low" ? "green" : riskLevel === "medium" ? "yellow" : "red"})` }}>
