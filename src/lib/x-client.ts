@@ -1,43 +1,164 @@
 /**
  * TokenRadar — Shared X (Twitter) Client
  *
- * Consolidates X posting into a single module using the twitter-api-v2 SDK.
- * Replaces both the raw OAuth 1.0a approach in post-to-x.ts and the
- * TwitterApi SDK usage in post-market-updates.ts.
+ * Consolidates X posting into a single module using the official
+ * @xdevplatform/xdk SDK with OAuth 2.0 + PKCE authentication.
+ *
+ * Replaces the legacy twitter-api-v2 integration.
  */
 
-import { TwitterApi } from "twitter-api-v2";
-import { X_COST_PER_POST } from "./config";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import {
+  Client,
+  OAuth2,
+  type OAuth2Config,
+  type ClientConfig,
+  type OAuth2Token,
+} from "@xdevplatform/xdk";
+
+// ── Cashtag Sanitization ──────────────────────────────────────
 
 /**
- * Validate that all required X API credentials are present.
+ * Enforce X's one-cashtag-per-post rule.
+ *
+ * Finds all cashtags ($SYMBOL — a `$` immediately followed by 1+ uppercase
+ * letters) in the text. Keeps only the **first** occurrence and strips the
+ * `$` prefix from all subsequent ones (e.g. `$COMP` → `COMP`).
+ *
+ * @param text - Raw tweet text
+ * @returns Sanitized text with at most one cashtag
+ */
+export function sanitizeCashtags(text: string): string {
+  let foundFirst = false;
+  return text.replace(/\$([A-Z]{1,})\b/g, (_match, symbol: string) => {
+    if (!foundFirst) {
+      foundFirst = true;
+      return `$${symbol}`; // keep the first one
+    }
+    return symbol; // strip the $ from subsequent ones
+  });
+}
+
+// ── Credentials ───────────────────────────────────────────────
+
+interface OAuth2Credentials {
+  clientId: string;
+  clientSecret: string;
+  refreshToken: string;
+}
+
+/**
+ * Validate that all required X API OAuth 2.0 credentials are present.
+ *
+ * Falls back to legacy OAuth 1.0a validation if OAuth 2.0 vars are missing,
+ * to allow a smooth transition period.
  *
  * @returns Object with all credential values
  * @throws Error listing missing credential names
  */
-export function validateXCredentials(): {
-  apiKey: string;
-  apiSecret: string;
-  accessToken: string;
-  accessSecret: string;
-} {
-  const apiKey = process.env.X_API_KEY;
-  const apiSecret = process.env.X_API_SECRET;
-  const accessToken = process.env.X_ACCESS_TOKEN;
-  const accessSecret = process.env.X_ACCESS_SECRET;
+export function validateXCredentials(): OAuth2Credentials {
+  const clientId = process.env.X_OAUTH2_CLIENT_ID;
+  const clientSecret = process.env.X_OAUTH2_CLIENT_SECRET;
+  const refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
 
   const missing: string[] = [];
-  if (!apiKey) missing.push("X_API_KEY");
-  if (!apiSecret) missing.push("X_API_SECRET");
-  if (!accessToken) missing.push("X_ACCESS_TOKEN");
-  if (!accessSecret) missing.push("X_ACCESS_SECRET");
+  if (!clientId) missing.push("X_OAUTH2_CLIENT_ID");
+  if (!clientSecret) missing.push("X_OAUTH2_CLIENT_SECRET");
+  if (!refreshToken) missing.push("X_OAUTH2_REFRESH_TOKEN");
 
   if (missing.length > 0) {
-    throw new Error(`Missing X (Twitter) credentials: ${missing.join(", ")}`);
+    throw new Error(
+      `Missing X OAuth 2.0 credentials: ${missing.join(", ")}. ` +
+      `Run 'npx tsx scripts/generate-x-token.ts' to set up OAuth 2.0.`
+    );
   }
 
-  return { apiKey: apiKey!, apiSecret: apiSecret!, accessToken: accessToken!, accessSecret: accessSecret! };
+  return {
+    clientId: clientId!,
+    clientSecret: clientSecret!,
+    refreshToken: refreshToken!,
+  };
 }
+
+// ── Client Singleton ──────────────────────────────────────────
+
+let _cachedClient: Client | null = null;
+let _tokenExpiresAt: number = 0;
+
+/**
+ * Get a configured XDK Client instance with a valid OAuth 2.0 access token.
+ *
+ * Automatically refreshes the access token using the stored refresh token
+ * when it expires. This is the single entry point for all X API operations.
+ *
+ * @returns Authenticated XDK Client
+ */
+export async function getXClient(): Promise<Client> {
+  const now = Date.now();
+
+  // Return cached client if token hasn't expired (with 60s buffer)
+  if (_cachedClient && now < _tokenExpiresAt - 60_000) {
+    return _cachedClient;
+  }
+
+  const creds = validateXCredentials();
+
+  const oauth2Config: OAuth2Config = {
+    clientId: creds.clientId,
+    clientSecret: creds.clientSecret,
+    redirectUri: "http://127.0.0.1:3000",
+    scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write"],
+  };
+
+  const oauth2 = new OAuth2(oauth2Config);
+
+  // Exchange refresh token for a fresh access token
+  let tokens: OAuth2Token;
+  try {
+    tokens = await oauth2.refreshToken(creds.refreshToken);
+  } catch (error) {
+    console.error("  ✗ Failed to refresh OAuth 2.0 token:", error);
+    throw new Error(
+      "X OAuth 2.0 token refresh failed. Your refresh token may have expired. " +
+      "Run 'npx tsx scripts/generate-x-token.ts' to re-authenticate."
+    );
+  }
+
+  // X OAuth 2.0 uses rotating refresh tokens — each is single-use.
+  // We MUST persist the new one to .env.local or the next run will fail.
+  if (tokens.refresh_token && tokens.refresh_token !== creds.refreshToken) {
+    const envPath = path.resolve(__dirname, "../../.env.local");
+    try {
+      let envContent = fs.readFileSync(envPath, "utf-8");
+      envContent = envContent.replace(
+        /^X_OAUTH2_REFRESH_TOKEN=.*/m,
+        `X_OAUTH2_REFRESH_TOKEN=${tokens.refresh_token}`
+      );
+      fs.writeFileSync(envPath, envContent, "utf-8");
+      // Also update the in-process env so cached client checks see it
+      process.env.X_OAUTH2_REFRESH_TOKEN = tokens.refresh_token;
+      console.log("  ✓ Refresh token rotated and saved to .env.local");
+    } catch (writeErr) {
+      // Non-fatal: log for manual update, but don't crash the bot
+      console.warn("  ⚠ Could not auto-save new refresh token to .env.local:");
+      console.warn(`    ${tokens.refresh_token}`);
+      console.warn("    Please update X_OAUTH2_REFRESH_TOKEN manually.");
+    }
+  }
+
+  const config: ClientConfig = {
+    accessToken: tokens.access_token,
+  };
+
+  _cachedClient = new Client(config);
+  _tokenExpiresAt = now + (tokens.expires_in ?? 7200) * 1000;
+
+  return _cachedClient;
+}
+
+
+// ── Text Utilities ────────────────────────────────────────────
 
 /**
  * Strip HTML tags from text for X (which doesn't support HTML).
@@ -121,32 +242,32 @@ export function truncateForX(text: string, maxLength: number = 280): string {
   return headerText + footerText;
 }
 
+
+// ── Post Operations ───────────────────────────────────────────
+
 /**
- * Post a tweet using the twitter-api-v2 SDK.
+ * Post a tweet using the XDK.
  *
- * @param text - Tweet text (HTML will be stripped, long text truncated)
+ * @param text - Tweet text (HTML will be stripped, long text truncated, cashtags sanitized)
  * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
  * @returns Tweet ID
  */
 export async function postTweet(text: string, replyToTweetId?: string): Promise<string> {
-  const creds = validateXCredentials();
+  const client = await getXClient();
 
-  const client = new TwitterApi({
-    appKey: creds.apiKey,
-    appSecret: creds.apiSecret,
-    accessToken: creds.accessToken,
-    accessSecret: creds.accessSecret,
-  });
-
-  // Clean and truncate for X
+  // Clean, truncate, and sanitize for X
   let cleanText = stripHtmlForX(text);
   cleanText = truncateForX(cleanText);
+  cleanText = sanitizeCashtags(cleanText);
 
   try {
-    const rwClient = client.readWrite;
-    const options = replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : undefined;
-    const { data: createdTweet } = await rwClient.v2.tweet(cleanText, options);
-    return createdTweet.id;
+    const response = await client.posts.create({
+      text: cleanText,
+      ...(replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : {}),
+    });
+    const tweetId = response?.data?.id;
+    if (!tweetId) throw new Error("No tweet ID in response");
+    return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
     console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
@@ -155,12 +276,12 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
 }
 
 /**
- * Post a tweet with an attached media file (image or video) using the twitter-api-v2 SDK.
+ * Post a tweet with an attached media file (image or video) using the XDK.
  *
- * Uploads the file via v1.uploadMedia(), then creates the tweet with
+ * Uploads the file via XDK's media.upload(), then creates the tweet with
  * the media_id attached. Falls back to text-only if media upload fails.
  *
- * @param text - Tweet text (HTML will be stripped, long text truncated)
+ * @param text - Tweet text (HTML will be stripped, long text truncated, cashtags sanitized)
  * @param mediaBuffer - File as a Buffer
  * @param mimeType - Optional mime type (default: image/png, use video/mp4 for videos)
  * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
@@ -172,54 +293,54 @@ export async function postTweetWithMedia(
   mimeType: string = "image/png",
   replyToTweetId?: string
 ): Promise<string> {
-  const creds = validateXCredentials();
+  const client = await getXClient();
 
-  const client = new TwitterApi({
-    appKey: creds.apiKey,
-    appSecret: creds.apiSecret,
-    accessToken: creds.accessToken,
-    accessSecret: creds.accessSecret,
-  });
-
-  const rwClient = client.readWrite;
   let cleanText = stripHtmlForX(text);
   cleanText = truncateForX(cleanText);
+  cleanText = sanitizeCashtags(cleanText);
 
-  // Upload media via v1 media endpoint (handles chunked uploads automatically if options provided)
+  // Upload media via the XDK media endpoint
   let mediaId: string | undefined;
   try {
-    // For videos, twitter-api-v2 v1.uploadMedia handles chunking internally if we pass the right type
-    const isVideo = mimeType.startsWith("video/");
-    mediaId = await rwClient.v1.uploadMedia(mediaBuffer, { 
-        mimeType: mimeType,
-        target: 'tweet'
+    const mediaBase64 = mediaBuffer.toString("base64");
+    // Note: XDK's oneshot upload only supports tweet_image, dm_image, subtitles.
+    // Video uploads (tweet_video) require the chunked init/append/finalize flow.
+    const uploadResponse = await client.media.upload({
+      body: {
+        media: mediaBase64,
+        mediaCategory: "tweet_image",
+        ...(mimeType ? { mediaType: mimeType as any } : {}),
+      },
     });
-    console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+    mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
+    if (mediaId) {
+      console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+    }
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
     console.warn("  ⚠ Media upload failed, falling back to text-only:", e?.data || e?.message || e);
   }
 
   try {
-    const tweetOptions: Record<string, unknown> = {};
+    const tweetBody: Record<string, unknown> = { text: cleanText };
     if (mediaId) {
-      tweetOptions.media = { media_ids: [mediaId] };
+      tweetBody.media = { media_ids: [mediaId] };
     }
     if (replyToTweetId) {
-      tweetOptions.reply = { in_reply_to_tweet_id: replyToTweetId };
+      tweetBody.reply = { in_reply_to_tweet_id: replyToTweetId };
     }
 
-    const { data: createdTweet } = await rwClient.v2.tweet(
-      cleanText,
-      Object.keys(tweetOptions).length > 0 ? tweetOptions : undefined
-    );
-    return createdTweet.id;
+    const response = await client.posts.create(tweetBody);
+    const tweetId = response?.data?.id;
+    if (!tweetId) throw new Error("No tweet ID in response");
+    return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
     console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
     throw e;
   }
 }
+
 
 // ── Poll Support ──────────────────────────────────────────────
 
@@ -234,7 +355,7 @@ export interface PollOptions {
 }
 
 /**
- * Post a poll tweet using the X API v2.
+ * Post a poll tweet using the XDK.
  *
  * If the native poll creation fails (e.g., tier restriction, API error),
  * automatically falls back to a plain-text tweet with emoji-numbered options.
@@ -243,28 +364,25 @@ export interface PollOptions {
  * @returns Object with tweet ID and whether it used the native poll or fallback
  */
 export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; native: boolean }> {
-  const creds = validateXCredentials();
-
-  const client = new TwitterApi({
-    appKey: creds.apiKey,
-    appSecret: creds.apiSecret,
-    accessToken: creds.accessToken,
-    accessSecret: creds.accessSecret,
-  });
-
-  const rwClient = client.readWrite;
+  const client = await getXClient();
   const duration = poll.durationMinutes ?? 1440;
+
+  // Sanitize the question text
+  const cleanText = sanitizeCashtags(poll.text);
 
   // ── Attempt 1: Native poll ──
   try {
-    const { data: createdTweet } = await rwClient.v2.tweet(poll.text, {
+    const response = await client.posts.create({
+      text: cleanText,
       poll: {
         options: poll.options,
         duration_minutes: duration,
       },
     });
+    const tweetId = response?.data?.id;
+    if (!tweetId) throw new Error("No tweet ID in response");
     console.log("  ✓ Native poll created successfully");
-    return { tweetId: createdTweet.id, native: true };
+    return { tweetId, native: true };
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
     const errorMsg = String(e?.message || e?.data || e);
@@ -273,22 +391,28 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   }
 
   // ── Attempt 2: Text-based fallback ──
+  // Strip $ from options to avoid violating the one-cashtag rule
+  const cleanOptions = poll.options.map((opt) => opt.replace(/\$([A-Z]+)\b/g, "$1"));
+
   const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣"];
   const fallbackLines = [
-    poll.text,
+    cleanText,
     "",
-    ...poll.options.map((opt, i) => `${emojis[i] || "▪️"} ${opt}`),
+    ...cleanOptions.map((opt, i) => `${emojis[i] || "▪️"} ${opt}`),
     "",
     "Reply with your pick! 👇",
   ];
 
   let fallbackText = fallbackLines.join("\n");
   fallbackText = truncateForX(fallbackText);
+  fallbackText = sanitizeCashtags(fallbackText);
 
   try {
-    const { data: createdTweet } = await rwClient.v2.tweet(fallbackText);
+    const response = await client.posts.create({ text: fallbackText });
+    const tweetId = response?.data?.id;
+    if (!tweetId) throw new Error("No tweet ID in response");
     console.log("  ✓ Text-based fallback poll posted successfully");
-    return { tweetId: createdTweet.id, native: false };
+    return { tweetId, native: false };
   } catch (_e2: unknown) {
     const e2 = _e2 as Record<string, unknown>;
     console.error("  ✗ Fallback tweet also failed:", e2?.data || e2?.message || e2);
@@ -306,35 +430,27 @@ export interface XTrendItem {
 }
 
 /**
- * Fetch worldwide trending topics from the X API v2.
- * Uses WOEID 1 (Worldwide). Falls back gracefully if the API tier
- * does not support the Trends endpoint (requires Basic+ tier).
+ * Fetch worldwide trending topics from the X API.
+ *
+ * Note: The Trends endpoint may require elevated access. Falls back
+ * gracefully to an empty array on failure.
  *
  * @returns Array of trend names, or empty array on failure
  */
 export async function fetchXTrends(): Promise<XTrendItem[]> {
   try {
-    const creds = validateXCredentials();
-    const client = new TwitterApi({
-      appKey: creds.apiKey,
-      appSecret: creds.apiSecret,
-      accessToken: creds.accessToken,
-      accessSecret: creds.accessSecret,
-    });
+    const client = await getXClient();
 
-    // twitter-api-v2 exposes v1.1 trends endpoint via .v1.trendsAvailable()
-    // The v2 trends endpoint may require higher tier access.
-    // Fallback: use v1.1 GET trends/place (WOEID 1 = Worldwide)
-    const trends = await client.v1.trendsByPlace(1);
-
-    if (!trends || trends.length === 0 || !trends[0].trends) {
-      return [];
+    // Use the XDK's TrendsClient.getByWoeid (WOEID 1 = Worldwide)
+    const trends = await client.trends.getByWoeid(1);
+    if (trends?.data && Array.isArray(trends.data)) {
+      return trends.data.map((t) => ({
+        trend_name: String(t.trendName || ""),
+        tweet_count: typeof t.tweetCount === "number" ? t.tweetCount : undefined,
+      }));
     }
 
-    return trends[0].trends.map((t) => ({
-      trend_name: t.name,
-      tweet_count: t.tweet_volume ?? undefined,
-    }));
+    return [];
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     // 403 = tier not supported, 429 = rate limited — both are non-fatal

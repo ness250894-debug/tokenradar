@@ -285,7 +285,7 @@ export async function generateTweet(
     
     STRICT RULES:
     1. TARGET LENGTH: MUST be cleanly under 160 characters.
-    2. Write organically and integrate cashtags ($${symbol.toUpperCase()}) naturally into the sentences (e.g. "Watching $${symbol.toUpperCase()} break..."). Do NOT dump cashtags at the end.
+    2. Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}) in the entire tweet. Do NOT mention any other token with a cashtag. Do NOT use dollar signs for prices (write '21.64' or '0.0034', not '$21.64').
     3. OPTIMIZE FOR REPLIES: End the tweet with a strong, slightly controversial or high-engagement question to spark debate (e.g. "Are we rotating capital or is this a massive bull trap? 👇"). Replies are the highest valued algorithmic metric.
     4. Include your visual Risk gauge organically if it fits.
     5. STRICT HASHTAG LIMIT: Generate exactly 1 or 2 highly specific, relevant hashtags at the end (e.g. #L2). Do not use generic tags like #Crypto to avoid spam penalties. Do NOT include links.
@@ -325,6 +325,8 @@ export async function generatePollHook(
     1. Maximum 120 characters to leave room for poll options and hashtags.
     2. Do not include the actual poll options in your text.
     3. Do NOT include hashtags or links.
+    4. Do NOT use cashtags (e.g. $BTC, $ETH). The cashtag will be added separately by the system.
+    5. Do NOT use dollar signs for prices — write prices as plain numbers (e.g. '21.64' not '$21.64').
   `;
 
   try {
