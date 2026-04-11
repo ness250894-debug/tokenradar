@@ -12,6 +12,7 @@ import {
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
+import TradingViewWidget from "@/components/TradingViewWidget";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { LastUpdated } from "@/components/LastUpdated";
 
@@ -113,17 +114,42 @@ export default async function PricePredictionPage({ params }: PageProps) {
           {metrics && <RiskScoreCard score={metrics.riskScore} />}
         </div>
 
-        {/* 1-Year Chart */}
+        {/* 1-Year Historical Chart (Native Fallback) */}
         {priceHistory && priceHistory.chart1y.length > 0 && (
           <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
+              1-Year Price History
+            </h2>
             <PriceChart
               data={priceHistory.chart1y}
               height={320}
               isPositive={detail.market.priceChange1y >= 0}
-              label="1-Year Price History"
+              label={`${detail.symbol.toUpperCase()} Price`}
             />
           </div>
         )}
+
+        {/* Advanced Technical Chart */}
+        <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
+            Advanced Technical Chart
+          </h2>
+          <TradingViewWidget symbol={detail.symbol} />
+          
+          {/* Compliant CTA Banner directly below the widget */}
+          <div style={{ marginTop: "var(--space-md)", background: "var(--surface-color)", padding: "var(--space-lg)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border-color)" }}>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)" }}>Chart data provided by TradingView</p>
+            <p style={{ fontWeight: 600, marginBottom: "var(--space-md)" }}>Want these advanced MACD and RSI indicators for your own trades?</p>
+            <a 
+              href="https://www.tradingview.com/?aff_id=165531" 
+              target="_blank" 
+              rel="noopener noreferrer sponsored"
+              className="btn btn-primary"
+            >
+              Try TradingView Pro for 30 Days Free &rarr;
+            </a>
+          </div>
+        </div>
 
         {/* Article Content */}
         {article ? (
