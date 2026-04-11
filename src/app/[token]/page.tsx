@@ -26,6 +26,7 @@ import { CountUp } from "@/components/CountUp";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
+import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { ArticleToc } from "@/components/ArticleToc";
 import { Globe, BarChart2, PieChart, TrendingUp, ShoppingCart, Scale, Bell } from "lucide-react";
 
@@ -240,6 +241,9 @@ export default async function TokenPage({ params }: PageProps) {
              <SentimentPoll tokenId={detail.id} />
            </CardGlare>
         </div>
+
+        {/* Global Crypto Tax Software CTA */}
+        <TaxGuideCTA symbol={detail.symbol} name={detail.name} />
 
         {/* Article Links */}
         <div style={{ marginTop: "var(--space-2xl)" }}>

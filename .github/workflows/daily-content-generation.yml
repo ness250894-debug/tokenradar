@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Publish from Queue (Incorporate live data)
-        run: npx tsx scripts/publish-from-queue.ts --max 10
+        run: npx tsx scripts/publish-from-queue.ts --max 2
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
