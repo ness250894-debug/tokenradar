@@ -87,6 +87,73 @@ let _cachedClient: Client | null = null;
 let _tokenExpiresAt: number = 0;
 
 /**
+ * Path to the persistent OAuth state file.
+ * Used in CI/CD (GitHub Actions) where .env.local doesn't exist.
+ * The workflow's "Commit Tracking Logs" step pushes this back to the repo.
+ */
+const OAUTH_STATE_FILE = path.resolve(__dirname, "../../data/x-oauth-state.json");
+
+/**
+ * Read the latest refresh token, preferring the persisted state file
+ * over the environment variable (which may be stale in CI after rotation).
+ */
+function getLatestRefreshToken(envToken: string): string {
+  try {
+    if (fs.existsSync(OAUTH_STATE_FILE)) {
+      const state = JSON.parse(fs.readFileSync(OAUTH_STATE_FILE, "utf-8"));
+      if (state.refreshToken && typeof state.refreshToken === "string") {
+        console.log("  ℹ Using refresh token from state file (data/x-oauth-state.json)");
+        return state.refreshToken;
+      }
+    }
+  } catch {
+    // State file missing or corrupt — fall back to env var
+  }
+  return envToken;
+}
+
+/**
+ * Persist the new refresh token to both .env.local (local dev)
+ * and data/x-oauth-state.json (CI/CD).
+ */
+function persistRefreshToken(newToken: string): void {
+  // Always update in-process env
+  process.env.X_OAUTH2_REFRESH_TOKEN = newToken;
+
+  // 1. Persist to state file (works in both local and CI)
+  try {
+    const stateDir = path.dirname(OAUTH_STATE_FILE);
+    if (!fs.existsSync(stateDir)) {
+      fs.mkdirSync(stateDir, { recursive: true });
+    }
+    fs.writeFileSync(
+      OAUTH_STATE_FILE,
+      JSON.stringify({ refreshToken: newToken, updatedAt: new Date().toISOString() }, null, 2),
+      "utf-8"
+    );
+    console.log("  ✓ Refresh token saved to data/x-oauth-state.json");
+  } catch (err) {
+    console.warn("  ⚠ Could not save state file:", (err as Error).message);
+  }
+
+  // 2. Also update .env.local if it exists (local dev convenience)
+  const envPath = path.resolve(__dirname, "../../.env.local");
+  try {
+    if (fs.existsSync(envPath)) {
+      let envContent = fs.readFileSync(envPath, "utf-8");
+      envContent = envContent.replace(
+        /^X_OAUTH2_REFRESH_TOKEN=.*/m,
+        `X_OAUTH2_REFRESH_TOKEN=${newToken}`
+      );
+      fs.writeFileSync(envPath, envContent, "utf-8");
+      console.log("  ✓ Refresh token also saved to .env.local");
+    }
+  } catch {
+    // Non-fatal — CI won't have .env.local
+  }
+}
+
+/**
  * Get a configured XDK Client instance with a valid OAuth 2.0 access token.
  *
  * Automatically refreshes the access token using the stored refresh token
@@ -104,6 +171,9 @@ export async function getXClient(): Promise<Client> {
 
   const creds = validateXCredentials();
 
+  // Prefer the state file token over the (potentially stale) env var
+  const activeRefreshToken = getLatestRefreshToken(creds.refreshToken);
+
   const oauth2Config: OAuth2Config = {
     clientId: creds.clientId,
     clientSecret: creds.clientSecret,
@@ -116,7 +186,7 @@ export async function getXClient(): Promise<Client> {
   // Exchange refresh token for a fresh access token
   let tokens: OAuth2Token;
   try {
-    tokens = await oauth2.refreshToken(creds.refreshToken);
+    tokens = await oauth2.refreshToken(activeRefreshToken);
   } catch (error) {
     console.error("  ✗ Failed to refresh OAuth 2.0 token:", error);
     throw new Error(
@@ -126,25 +196,9 @@ export async function getXClient(): Promise<Client> {
   }
 
   // X OAuth 2.0 uses rotating refresh tokens — each is single-use.
-  // We MUST persist the new one to .env.local or the next run will fail.
-  if (tokens.refresh_token && tokens.refresh_token !== creds.refreshToken) {
-    const envPath = path.resolve(__dirname, "../../.env.local");
-    try {
-      let envContent = fs.readFileSync(envPath, "utf-8");
-      envContent = envContent.replace(
-        /^X_OAUTH2_REFRESH_TOKEN=.*/m,
-        `X_OAUTH2_REFRESH_TOKEN=${tokens.refresh_token}`
-      );
-      fs.writeFileSync(envPath, envContent, "utf-8");
-      // Also update the in-process env so cached client checks see it
-      process.env.X_OAUTH2_REFRESH_TOKEN = tokens.refresh_token;
-      console.log("  ✓ Refresh token rotated and saved to .env.local");
-    } catch (writeErr) {
-      // Non-fatal: log for manual update, but don't crash the bot
-      console.warn("  ⚠ Could not auto-save new refresh token to .env.local:");
-      console.warn(`    ${tokens.refresh_token}`);
-      console.warn("    Please update X_OAUTH2_REFRESH_TOKEN manually.");
-    }
+  // We MUST persist the new one or the next run will fail.
+  if (tokens.refresh_token && tokens.refresh_token !== activeRefreshToken) {
+    persistRefreshToken(tokens.refresh_token);
   }
 
   const config: ClientConfig = {
@@ -156,6 +210,7 @@ export async function getXClient(): Promise<Client> {
 
   return _cachedClient;
 }
+
 
 
 // ── Text Utilities ────────────────────────────────────────────

@@ -61,10 +61,9 @@ Copy `.env.example` to `.env.local` and configure:
 | `ANTHROPIC_API_KEY` | Yes | Claude fallback |
 | `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |
 | `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |
-| `X_API_KEY` | For X | X posting |
-| `X_API_SECRET` | For X | X posting |
-| `X_ACCESS_TOKEN` | For X | X posting |
-| `X_ACCESS_SECRET` | For X | X posting |
+| `X_OAUTH2_CLIENT_ID` | For X | X posting |
+| `X_OAUTH2_CLIENT_SECRET` | For X | X posting |
+| `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |
 | `COINGECKO_API_KEY` | No | Optional Pro tier |
 
 ## Deployment

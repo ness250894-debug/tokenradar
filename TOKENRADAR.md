@@ -668,11 +668,10 @@ ANTHROPIC_API_KEY=           # Required for content generation
 # Gemini AI
 GEMINI_API_KEY=              # Primary AI for social summaries & polls
 
-# Social Media — X (Twitter)
-X_API_KEY=                   # X API v2
-X_API_SECRET=
-X_ACCESS_TOKEN=
-X_ACCESS_SECRET=
+# Social Media — X (Twitter) OAuth 2.0
+X_OAUTH2_CLIENT_ID=
+X_OAUTH2_CLIENT_SECRET=
+X_OAUTH2_REFRESH_TOKEN=
 
 # Social Media — Telegram
 TELEGRAM_BOT_TOKEN=          # Telegram Bot API

@@ -25,7 +25,7 @@
  *   npx tsx scripts/post-market-updates.ts --platform x --dry-run
  *
  * Requires in .env.local:
- *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, X_API_KEY, etc.
+ *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, X_OAUTH2_CLIENT_ID, etc.
  */
 
 import * as fs from "fs";
@@ -296,8 +296,8 @@ async function main() {
       console.error("  ✗ Missing Telegram credentials (required for telegram/all platform).");
       process.exit(1);
     }
-    if (runX && (!process.env.X_API_KEY || !process.env.X_API_SECRET || !process.env.X_ACCESS_TOKEN || !process.env.X_ACCESS_SECRET)) {
-      console.error("  ✗ Missing X (Twitter) credentials (required for x/all platform).");
+    if (runX && (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN)) {
+      console.error("  ✗ Missing X (Twitter) OAuth 2.0 credentials (required for x/all platform).");
       process.exit(1);
     }
   }

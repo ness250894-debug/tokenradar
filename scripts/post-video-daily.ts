@@ -118,8 +118,8 @@ async function main() {
       console.error("  ✗ Missing Telegram credentials.");
       process.exit(1);
     }
-    if (runX && (!process.env.X_API_KEY || !process.env.X_API_SECRET)) {
-      console.error("  ✗ Missing X credentials.");
+    if (runX && (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN)) {
+      console.error("  ✗ Missing X OAuth 2.0 credentials.");
       process.exit(1);
     }
     if (runYouTube && (!process.env.YOUTUBE_CLIENT_ID || !process.env.YOUTUBE_REFRESH_TOKEN)) {
