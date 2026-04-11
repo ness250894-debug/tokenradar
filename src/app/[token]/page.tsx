@@ -27,6 +27,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
+import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleToc } from "@/components/ArticleToc";
 import { Globe, BarChart2, PieChart, TrendingUp, ShoppingCart, Scale, Bell } from "lucide-react";
 
@@ -231,6 +232,9 @@ export default async function TokenPage({ params }: PageProps) {
             </p>
           </div>
         )}
+
+        {/* Global Security / Hardware Wallet CTA */}
+        <HardwareWalletCTA symbol={detail.symbol} name={detail.name} />
 
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">

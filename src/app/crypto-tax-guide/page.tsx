@@ -13,7 +13,14 @@ export const metadata: Metadata = {
 export default function CryptoTaxGuidePage() {
   return (
     <div className="container">
-      <section className="section" style={{ minHeight: "80vh", paddingTop: "var(--space-2xl)" }}>
+      <section className="section" style={{ minHeight: "80vh", paddingTop: "var(--space-xl)" }}>
+        
+        <nav style={{ marginBottom: "var(--space-2xl)" }}>
+          <Link href="/" style={{ color: "var(--text-secondary)", display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", fontWeight: 600, fontSize: "var(--text-sm)" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+            Back to Overview
+          </Link>
+        </nav>
         
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "var(--space-4xl)", maxWidth: "800px", margin: "0 auto var(--space-4xl)" }}>

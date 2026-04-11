@@ -8,6 +8,9 @@ export function BackToOverviewToast() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
+  // Special case for global mega-guides
+  const isMegaGuide = pathname === "/crypto-tax-guide" || pathname === "/best-crypto-hardware-wallets";
+
   // Check if we are on a subpage (e.g. /[token]/price-prediction or /[token]/how-to-buy)
   // And NOT on the root /compare or /contact pages
   const isSubpage = Boolean(
@@ -17,25 +20,27 @@ export function BackToOverviewToast() {
     !pathname.startsWith("/upcoming")
   );
 
+  const shouldShow = isSubpage || isMegaGuide;
+
   useEffect(() => {
     // Only animate in after mount to prevent hydration mismatch
     const timeout = setTimeout(() => {
-      setIsVisible(isSubpage);
+      setIsVisible(shouldShow);
     }, 50);
     return () => clearTimeout(timeout);
-  }, [isSubpage]);
+  }, [shouldShow]);
 
   if (!isVisible) return null;
 
   // Extract the token slug from the URL (e.g. /bitcoin/price-prediction -> bitcoin)
   const segments = pathname.split("/").filter(Boolean);
-  if (segments.length < 2) return null;
+  if (!isMegaGuide && segments.length < 2) return null;
   
-  const tokenSlug = segments[0];
+  const targetHref = isMegaGuide ? "/" : `/${segments[0]}`;
 
   return (
     <div className="back-toast-container animate-in">
-      <Link href={`/${tokenSlug}`} className="back-toast-btn">
+      <Link href={targetHref} className="back-toast-btn">
         <svg
           width="16"
           height="16"
