@@ -155,7 +155,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const _displayUrl = siteUrl.replace("https://", "");
+  const displayUrl = siteUrl.replace("https://", "");
   if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);
@@ -358,7 +358,7 @@ async function main() {
   let xMessage = "";
   let xReplyMessage = "";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
+  const _displayUrl = siteUrl.replace("https://", "");
 
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
