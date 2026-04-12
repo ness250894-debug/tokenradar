@@ -81,15 +81,20 @@ export function markdownToHtml(md: string, tokenData?: TokenMarketData): string 
 
     const allTokens = getAllTokens();
     const linkableTokens = allTokens
-      .filter(t => t.name.toLowerCase() !== tokenData?.name?.toLowerCase())
+      .filter(t => t.name.toLowerCase() !== tokenData?.name?.toLowerCase() && t.name.length > 2)
       .sort((a, b) => b.name.length - a.name.length)
-      .slice(0, 100);
+      .slice(0, 250); // Increased slice to ensure more tokens are covered
 
     for (const t of linkableTokens) {
       const safeName = t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`\\b(${safeName})\\b`, 'i');
+      // Added 'g' flag to replace all occurrences, not just the first one
+      const regex = new RegExp(`\\b(${safeName})\\b`, 'ig');
       if (regex.test(processedMd)) {
-         processedMd = processedMd.replace(regex, `[$1](/${t.id})`);
+         processedMd = processedMd.replace(regex, (match) => {
+           // Immediately mask the new link to prevent nested links matching later
+           maskedLinks.push(`[${match}](/${t.id})`);
+           return `__MASKED_LINK_${maskedLinks.length - 1}__`;
+         });
       }
     }
 

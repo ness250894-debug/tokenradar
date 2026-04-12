@@ -837,6 +837,19 @@ input[type=range]::-moz-range-thumb:hover {
   line-height: 1.8;
 }
 
+.article-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.article-content a:hover {
+  color: var(--accent-primary-hover);
+  border-bottom-color: var(--accent-primary-hover);
+}
+
 .article-content h2 {
   font-size: var(--text-2xl);
   font-weight: 700;
