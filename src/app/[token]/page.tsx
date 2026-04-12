@@ -359,6 +359,11 @@ export default async function TokenPage({ params }: PageProps) {
             description: detail.description,
             image: "https://tokenradar.co/og-image.png",
             author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
+            reviewedBy: {
+              "@type": "Person",
+              "name": "TokenRadar Editorial Team",
+              "url": "https://tokenradar.co/about"
+            },
             publisher: { 
               "@type": "Organization", 
               name: "TokenRadar",

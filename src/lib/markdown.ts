@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { formatPrice } from "./formatters";
+import { getAllTokens } from "./content-loader";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -30,6 +31,33 @@ export function markdownToHtml(md: string, tokenData?: { name: string; symbol: s
       const score = scoreMatch ? scoreMatch[0] : "N/A";
       return `Our AI assigned a **Risk Score of ${score}** to ${pillHtml.trim()}`;
     });
+  }
+
+  // Programmatic Internal Linking
+  try {
+    const maskedLinks: string[] = [];
+    processedMd = processedMd.replace(/!?\[([^\]]*)\]\(([^)]+)\)/g, (match) => {
+      maskedLinks.push(match);
+      return `__MASKED_LINK_${maskedLinks.length - 1}__`;
+    });
+
+    const allTokens = getAllTokens();
+    const linkableTokens = allTokens
+      .filter(t => t.name.toLowerCase() !== tokenData?.name?.toLowerCase())
+      .sort((a, b) => b.name.length - a.name.length)
+      .slice(0, 100);
+
+    for (const t of linkableTokens) {
+      const safeName = t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`\\b(${safeName})\\b`, 'i');
+      if (regex.test(processedMd)) {
+         processedMd = processedMd.replace(regex, `[$1](/${t.id})`);
+      }
+    }
+
+    processedMd = processedMd.replace(/__MASKED_LINK_(\d+)__/g, (_, idx) => maskedLinks[parseInt(idx)]);
+  } catch (e) {
+    console.warn("Auto-linking failed, falling back to raw md.", e);
   }
 
   // Parse the markdown synchronously

@@ -185,6 +185,22 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "TokenRadar",
+            url: "https://tokenradar.co",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://tokenradar.co/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
             "@type": "Organization",
             name: "TokenRadar",
             url: "https://tokenradar.co",
@@ -198,7 +214,7 @@ export default function HomePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "itemListElement": allTokens.map((t, idx) => ({
+            "itemListElement": allTokens.slice(0, 50).map((t, idx) => ({
               "@type": "ListItem",
               "position": idx + 1,
               "url": `https://tokenradar.co/${t.id}`,
