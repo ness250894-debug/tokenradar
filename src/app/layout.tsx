@@ -105,12 +105,42 @@ export default function RootLayout({
               "@type": "WebSite",
               "name": "TokenRadar",
               "url": "https://tokenradar.co",
-              "description": "Unbiased, data-driven crypto analysis for 250+ tokens",
+              "description": "Unbiased, data-driven crypto analysis for 2,000+ tokens",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://tokenradar.co/?q={search_term_string}",
+                "target": "https://tokenradar.co/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "TokenRadar",
+              "url": "https://tokenradar.co",
+              "logo": "https://tokenradar.co/icon.png",
+              "sameAs": [
+                "https://x.com/TokenRadarCo"
+              ]
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Pavlo Nakonechnyi",
+              "jobTitle": "Founder & Lead Researcher",
+              "url": "https://tokenradar.co",
+              "sameAs": [
+                "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
+              ]
             })
           }}
         />

@@ -358,11 +358,16 @@ export default async function TokenPage({ params }: PageProps) {
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
             image: "https://tokenradar.co/og-image.png",
-            author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
+            author: { 
+              "@type": "Person", 
+              name: "Pavlo Nakonechnyi", 
+              url: "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/" 
+            },
             reviewedBy: {
               "@type": "Person",
-              "name": "TokenRadar Editorial Team",
-              "url": "https://tokenradar.co/about"
+              "name": "Pavlo Nakonechnyi",
+              "jobTitle": "Lead Researcher",
+              "url": "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
             },
             publisher: { 
               "@type": "Organization", 
