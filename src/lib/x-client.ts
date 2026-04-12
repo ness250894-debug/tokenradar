@@ -364,6 +364,7 @@ export async function postTweetWithMedia(
       body: {
         media: mediaBase64,
         mediaCategory: "tweet_image",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...(mimeType ? { mediaType: mimeType as any } : {}),
       },
     });

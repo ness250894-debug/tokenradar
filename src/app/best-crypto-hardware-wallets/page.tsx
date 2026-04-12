@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ShieldCheck, AlertTriangle, Key } from 'lucide-react';
+import { ShieldCheck, Key } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'The Best Crypto Hardware Wallets in 2026 | TokenRadar',
@@ -54,7 +54,7 @@ export default function HardwareWalletsPage() {
 
               <h2>2. How a Hardware Wallet Works</h2>
               <p>
-                A hardware wallet (or "cold storage") is an encrypted USB-like device that generates and stores your private keys completely offline. When you want to send crypto, you plug the device into your computer or phone and physically press a button to sign the transaction. 
+                A hardware wallet (or &quot;cold storage&quot;) is an encrypted USB-like device that generates and stores your private keys completely offline. When you want to send crypto, you plug the device into your computer or phone and physically press a button to sign the transaction. 
               </p>
               <p>
                 Because the private keys never touch your internet-connected computer, they are completely immune to malware, keyloggers, and remote hackers.
@@ -67,7 +67,7 @@ export default function HardwareWalletsPage() {
                 Ledger and Trezor are the two undisputed titans of the hardware wallet industry. Both provide military-grade security, but they cater to slightly different types of users:
               </p>
               <ul>
-                <li><strong>Ledger</strong> integrates a "Secure Element" chip, identical to the chips used in credit cards and passports. It also offers Bluetooth connectivity for mobile trading.</li>
+                <li><strong>Ledger</strong> integrates a &quot;Secure Element&quot; chip, identical to the chips used in credit cards and passports. It also offers Bluetooth connectivity for mobile trading.</li>
                 <li><strong>Trezor</strong> prides itself on being 100% open-source software, making it highly verifiable and trusted by privacy purists.</li>
               </ul>
             </div>

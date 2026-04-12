@@ -270,7 +270,7 @@ async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial
     const diffMs = Date.now() - new Date(data.generatedAt).getTime();
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
     return diffDays >= maxAgeDays;
-  } catch (e) {
+  } catch (_e) {
     return true; // Treat corrupt/unparseable files as stale
   }
 }
@@ -354,7 +354,7 @@ async function main() {
     let tokenData = null;
     try {
       tokenData = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
-    } catch (e) {}
+    } catch (_e) {}
 
     if (targetType) {
       needsGeneration = await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
@@ -512,6 +512,7 @@ async function main() {
     let relatedTokenNames: string[] = [];
     if (!isTge) {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         relatedTokenNames = getRelatedTokens(tokenId, 2).map((t: any) => t.name);
       } catch (e) {
         // Safe fallback

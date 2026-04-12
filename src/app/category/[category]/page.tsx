@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getAllCategories, getTokensByCategory, formatPrice, formatCompact, getTokenMetrics } from "@/lib/content-loader";
+import { getAllCategories, getTokensByCategory, formatCompact, getTokenMetrics } from "@/lib/content-loader";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 
 interface PageProps {

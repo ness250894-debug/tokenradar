@@ -86,7 +86,7 @@ function getTokenDate(tokenId: string): string | null {
 }
 
 /** Read the `generatedAt` date from a content article. */
-function getArticleDate(tokenId: string, slug: string): string | null {
+function _getArticleDate(tokenId: string, slug: string): string | null {
   const file = path.join(CONTENT_DIR, tokenId, `${slug}.json`);
   if (!fs.existsSync(file)) return null;
 

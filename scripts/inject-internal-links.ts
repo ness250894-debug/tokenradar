@@ -28,7 +28,7 @@ async function buildTokenMapping(): Promise<Map<string, string>> {
         if (data.name) {
           mapping.set(data.name.toLowerCase(), slug);
         }
-      } catch (e) {}
+      } catch (_e) {}
     }
   } catch (e) {
     console.error("Failed to read token data", e);

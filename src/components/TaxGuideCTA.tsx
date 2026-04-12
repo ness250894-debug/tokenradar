@@ -33,7 +33,7 @@ export function TaxGuideCTA({ symbol, name }: TaxGuideCTAProps) {
           Made profit trading {name} ({symbol.toUpperCase()}) this year?
         </h3>
         <p style={{ color: "var(--text-secondary)", maxWidth: "600px", marginBottom: "var(--space-lg)" }}>
-          The IRS and global tax agencies have drastically increased crypto audits. Don't risk massive fines. Learn how to legally calculate and automatically report your {symbol.toUpperCase()} taxes before the deadline.
+          The IRS and global tax agencies have drastically increased crypto audits. Don&apos;t risk massive fines. Learn how to legally calculate and automatically report your {symbol.toUpperCase()} taxes before the deadline.
         </p>
         
         <Link 

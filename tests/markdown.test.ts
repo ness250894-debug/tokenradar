@@ -4,7 +4,7 @@ import { markdownToHtml } from "../src/lib/markdown";
 describe("markdownToHtml", () => {
   it("converts basic markdown to HTML", () => {
     const html = markdownToHtml("## Hello World\n\nThis is a paragraph.");
-    expect(html).toContain("<h2>");
+    expect(html).toMatch(/<h2[^>]*>/);
     expect(html).toContain("Hello World");
     expect(html).toContain("<p>");
   });

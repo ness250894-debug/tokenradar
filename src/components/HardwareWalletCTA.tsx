@@ -30,10 +30,10 @@ export function HardwareWalletCTA({ symbol, name }: HardwareWalletCTAProps) {
           <ShieldAlert size={16} /> Asset Security Warning
         </div>
         <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 700, lineHeight: 1.3, marginBottom: "var(--space-sm)" }}>
-          Don't leave your {name} ({symbol.toUpperCase()}) on an exchange.
+          Don&apos;t leave your {name} ({symbol.toUpperCase()}) on an exchange.
         </h3>
         <p style={{ color: "var(--text-secondary)", maxWidth: "600px", marginBottom: "var(--space-lg)" }}>
-          Over $2 billion was stolen from centralized crypto exchanges last year. "Not your keys, not your coins." Learn how to securely store your {symbol.toUpperCase()} offline in cold storage before it's too late.
+          Over $2 billion was stolen from centralized crypto exchanges last year. &quot;Not your keys, not your coins.&quot; Learn how to securely store your {symbol.toUpperCase()} offline in cold storage before it&apos;s too late.
         </p>
         
         <Link 

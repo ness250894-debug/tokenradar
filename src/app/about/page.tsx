@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About TokenRadar — Methodology & Data Sources",
@@ -136,9 +137,9 @@ export default function AboutPage() {
             Events (TGEs). Discovered projects are analyzed by AI for
             narrative strength, VC backing, and anti-rug indicators before
             being listed on our{" "}
-            <a href="/upcoming" style={{ color: "var(--accent-secondary)" }}>
+            <Link href="/upcoming" style={{ color: "var(--accent-secondary)" }}>
               Pre-Launch Spotlight
-            </a>{" "}
+            </Link>{" "}
             page.
           </p>
           <p>
@@ -206,12 +207,12 @@ export default function AboutPage() {
           <p>
             Have questions, feedback, or partnership inquiries? Reach out via
             our{" "}
-            <a
+            <Link
               href="/contact"
               style={{ color: "var(--accent-secondary)" }}
             >
               contact page
-            </a>{" "}
+            </Link>{" "}
             or email us directly at{" "}
             <a
               href="mailto:contact@tokenradar.co"

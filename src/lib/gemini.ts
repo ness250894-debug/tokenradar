@@ -134,7 +134,7 @@ export async function callAIWithFallback(
 ): Promise<AIResult> {
   try {
     return await callGeminiAPI(systemPrompt, userPrompt, maxTokens);
-  } catch (error) {
+  } catch (_error) {
     console.log(`  ⚠ All Gemini attempts failed. Falling back to Claude...`);
     return await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
   }
@@ -233,7 +233,7 @@ export async function generateTokenSummary(
   try {
     const result = await callAIWithFallback("", prompt, 2048);
     return result.content || "";
-  } catch (error) {
+  } catch (_error) {
     console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty or errored.`);
     return "";
   }
@@ -295,7 +295,7 @@ export async function generateTweet(
   try {
     const result = await callAIWithFallback("", prompt, 256);
     return result.content || "";
-  } catch (error) {
+  } catch (_error) {
     console.warn(`  ⚠ AI tweet generation failed for ${tokenName}.`);
     return "";
   }
@@ -332,7 +332,7 @@ export async function generatePollHook(
   try {
     const result = await callAIWithFallback("", prompt, 256);
     return result.content || "";
-  } catch (error) {
+  } catch (_error) {
     console.warn(`  ⚠ AI poll hook generation failed.`);
     // Fallback template
     return symbol ? `What's your move on $${symbol.toUpperCase()} today?` : `Which crypto narrative dominates this week?`;
@@ -376,9 +376,9 @@ export async function generateYoutubeMetadata(
 
   try {
     const result = await callAIWithFallback("", prompt, 500);
-    let content = result.content.replace(/\`\`\`json/gi, '').replace(/\`\`\`/gi, '').trim();
+    const content = result.content.replace(/\`\`\`json/gi, '').replace(/\`\`\`/gi, '').trim();
     return JSON.parse(content);
-  } catch (error) {
+  } catch (_error) {
     console.warn(`  ⚠ AI YouTube metadata generation failed. Using fallbacks.`);
     return {
       title: `${tokenName} ($${symbol.toUpperCase()}) Breakout! 🚀 24h Update`,

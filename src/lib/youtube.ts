@@ -67,9 +67,11 @@ export async function uploadToYouTubeShorts(
       return res.data.id;
     }
     throw new Error('Upload succeeded but no video ID was returned.');
-  } catch (error: any) {
+  } catch (_error: unknown) {
     console.log();
-    const errorMsg = error.response?.data?.error?.message || error.message || error;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const error = _error as any;
+    const errorMsg = error.response?.data?.error?.message || error.message || String(error);
     const errorCode = error.response?.status;
     console.error(`❌ YouTube API Error [${errorCode}]: ${errorMsg}`);
     

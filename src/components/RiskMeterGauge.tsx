@@ -15,7 +15,7 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         // Simple animation
-        let start = 0;
+        const _start = 0;
         const duration = 1500;
         const startTime = performance.now();
         

@@ -33,7 +33,7 @@ export async function GET() {
             market: { price: data.market.price, priceChange24h: data.market.priceChange24h }
           });
         }
-      } catch (e) {
+      } catch (_e) {
         // Skip malformed files
       }
     }
@@ -69,6 +69,7 @@ export async function GET() {
       ),
       { width: 1200, height: 1000 }
     );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("OG Image Error:", err);
     return new Response("Error generating image", { status: 500 });

@@ -37,7 +37,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 
 const MAX_AI_SUMMARY_CHARS = 1200;
 const PHOTO_AI_SUMMARY_CHARS = 400;
-const TG_CAPTION_LIMIT = 1024;
+const _TG_CAPTION_LIMIT = 1024;
 
 function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMARY_CHARS): string {
   let text = html;
@@ -258,7 +258,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 #${targetToken.symbol.toUpperCase()} #Crypto
 `;
       const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
-      let caption = photoSummary + "\n\n" + tgFooter.trim();
+      const caption = photoSummary + "\n\n" + tgFooter.trim();
       
       const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
       console.log(`✅ Posted video to Telegram (Message ID: ${msgId})`);

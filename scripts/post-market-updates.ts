@@ -155,7 +155,7 @@ function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummar
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
+  const _displayUrl = siteUrl.replace("https://", "");
   if (isX) {
     lines.push(`🌐 Main Site: ${displayUrl}`);
     lines.push(`#${sym} #Crypto #TokenRadarCo`);

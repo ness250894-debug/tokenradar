@@ -30,6 +30,7 @@ interface ErrorRecord {
   isFatal: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function safeReadJson(file: string): any {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf-8'));
@@ -48,13 +49,13 @@ async function main() {
   }
 
   // Define collectors
-  let generatedRegular = new Set<string>();
-  let generatedTge = new Set<string>();
+  const generatedRegular = new Set<string>();
+  const generatedTge = new Set<string>();
   let formatFixes = 0;
-  let formattedTokens = new Set<string>();
-  let qualityFixes = new Set<string>();
-  let qualityFails = new Set<string>();
-  let systemErrors: Record<string, number> = {};
+  const formattedTokens = new Set<string>();
+  const qualityFixes = new Set<string>();
+  const qualityFails = new Set<string>();
+  const systemErrors: Record<string, number> = {};
   let totalCost = 0;
   let totalWords = 0;
 
@@ -121,7 +122,7 @@ async function main() {
     message += `\n`;
   }
 
-  let errorCount = Object.keys(systemErrors).length;
+  const errorCount = Object.keys(systemErrors).length;
   if (errorCount > 0) {
     message += `*⚠️ System Errors Detected*\n`;
     for (const [source, count] of Object.entries(systemErrors)) {

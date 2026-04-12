@@ -28,7 +28,7 @@ import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
-  SOCIAL,
+  
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
 import { safeReadJson, getTimeOfDay } from "../src/lib/utils";

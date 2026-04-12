@@ -14,6 +14,7 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
         hash = tokenId.charCodeAt(i) + ((hash << 5) - hash);
      }
      const bullBaseline = 50 + (Math.abs(hash) % 40);
+     // eslint-disable-next-line react-hooks/set-state-in-effect
      setBullVotes(bullBaseline);
      setBearVotes(100 - bullBaseline);
      

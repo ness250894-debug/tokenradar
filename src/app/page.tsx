@@ -7,7 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Send, Users } from "lucide-react";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Users } from "lucide-react";
 import { XIcon, TelegramIcon } from "@/components/SocialIcons";
 
 export default function HomePage() {
@@ -162,7 +162,7 @@ export default function HomePage() {
             <Users size={48} style={{ color: "var(--accent-primary)", marginBottom: "var(--space-lg)", opacity: 0.8 }} />
             <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>Join the <span className="gradient-text">Alpha Community</span></h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-lg)", marginBottom: "var(--space-2xl)", maxWidth: "500px", margin: "0 auto var(--space-2xl)" }}>
-              Don't miss a single market pulse. Get real-time TGE alerts, narrative deep-dives, and community alpha.
+              Don&apos;t miss a single market pulse. Get real-time TGE alerts, narrative deep-dives, and community alpha.
             </p>
             <div className="social-cta-container" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
               <MagneticEffect>
