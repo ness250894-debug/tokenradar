@@ -154,7 +154,17 @@ export default async function PricePredictionPage({ params }: PageProps) {
         {/* Article Content */}
         {article ? (
           <div style={{ marginTop: "var(--space-2xl)" }}>
-            <div className="article-content" dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
+            <div className="article-content" dangerouslySetInnerHTML={{ 
+              __html: markdownToHtml(article.content, {
+                name: detail.name,
+                symbol: detail.symbol,
+                price: detail.market.price,
+                marketCap: detail.market.marketCap,
+                marketCapRank: detail.market.marketCapRank,
+                priceChange24h: detail.market.priceChange24h,
+                imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined
+              }) 
+            }} />
             <div style={{ marginTop: "var(--space-lg)" }}>
               <LastUpdated date={article.generatedAt} />
             </div>

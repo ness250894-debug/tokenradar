@@ -8,11 +8,49 @@ import { getAllTokens } from "./content-loader";
  * Injects stylized token pills for Risk Score mentions.
  * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
  */
-export function markdownToHtml(md: string, tokenData?: { name: string; symbol: string; price: number; imageUrl?: string }): string {
+export interface TokenMarketData {
+  name: string;
+  symbol: string;
+  price: number;
+  marketCap?: number;
+  marketCapRank?: number;
+  priceChange24h?: number;
+  imageUrl?: string;
+}
+
+/**
+ * Robust markdown → HTML converter for article content.
+ * Injects stylized token pills for Risk Score mentions.
+ * Replaces live data placeholders ({{LIVE_PRICE}}, etc.) with real-time values.
+ * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
+ */
+export function markdownToHtml(md: string, tokenData?: TokenMarketData): string {
   let processedMd = md;
 
   if (tokenData) {
-    // Generate the raw HTML for the pill (matches TokenTickerPill component)
+    // 1. Placeholder Substitutions (used by AI templates)
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    const replacements: Record<string, string> = {
+      "{{LIVE_PRICE}}": formatPrice(tokenData.price),
+      "{{LIVE_MARKET_CAP}}": tokenData.marketCap ? formatPrice(tokenData.marketCap).replace('$', '$ ') : "N/A", // Basic format, improved below
+      "{{LIVE_RANK}}": tokenData.marketCapRank ? `#${tokenData.marketCapRank}` : "N/A",
+      "{{LIVE_DATE}}": dateStr,
+      "{{LIVE_24H_CHANGE}}": tokenData.priceChange24h ? `${tokenData.priceChange24h > 0 ? '+' : ''}${tokenData.priceChange24h.toFixed(2)}%` : "N/A",
+    };
+
+    // Use specific compact formatter for Market Cap if available
+    if (tokenData.marketCap) {
+      const { formatCompact } = require("./formatters"); 
+      replacements["{{LIVE_MARKET_CAP}}"] = formatCompact(tokenData.marketCap);
+    }
+
+    Object.entries(replacements).forEach(([tag, val]) => {
+      processedMd = processedMd.replace(new RegExp(tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "g"), val);
+    });
+
+    // 2. Risk Score Injection (Pill)
     const pillHtml = `
       <span class="token-ticker-pill pill-sm">
         ${tokenData.imageUrl ? `<img src="${tokenData.imageUrl}" alt="${tokenData.name}" class="pill-icon" width="16" height="16" />` : ""}

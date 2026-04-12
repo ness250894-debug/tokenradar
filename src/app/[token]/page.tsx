@@ -306,7 +306,10 @@ export default async function TokenPage({ params }: PageProps) {
                   name: detail.name,
                   symbol: detail.symbol,
                   price: detail.market.price,
-                  imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined // Assuming standard icon path
+                  marketCap: detail.market.marketCap,
+                  marketCapRank: detail.market.marketCapRank,
+                  priceChange24h: detail.market.priceChange24h,
+                  imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined
                 }) 
               }} />
               <div style={{ marginTop: "var(--space-lg)" }}>

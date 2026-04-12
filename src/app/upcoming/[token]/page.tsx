@@ -55,7 +55,18 @@ export default async function TgePage({ params }: TgePageProps) {
 
   const isReleased = tge.status === "released";
   const article = getArticle(tge.id, "tge-preview");
-  const hasMainPage = isReleased ? !!getTokenDetail(tge.id) : false;
+  const detail = getTokenDetail(tge.id);
+  const hasMainPage = isReleased ? !!detail : false;
+
+  const tokenData = {
+    name: tge.name,
+    symbol: tge.symbol,
+    price: detail?.market?.price ?? 0,
+    marketCap: detail?.market?.marketCap,
+    marketCapRank: detail?.market?.marketCapRank ?? tge.coingeckoRank,
+    priceChange24h: detail?.market?.priceChange24h,
+    imageUrl: detail?.id ? `/token-icons/${detail.id}.png` : undefined
+  };
 
   return (
     <div className="container" style={{ paddingBottom: "var(--space-4xl)" }}>
@@ -158,9 +169,9 @@ export default async function TgePage({ params }: TgePageProps) {
         {article ? (
           <div>
             {isReleased ? (
-              <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content) }} />
+              <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content, tokenData) }} />
             ) : (
-              <ContentGate htmlContent={markdownToHtml(article.content)} />
+              <ContentGate htmlContent={markdownToHtml(article.content, tokenData)} />
             )}
             
             {isReleased && (
