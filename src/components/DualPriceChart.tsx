@@ -85,10 +85,14 @@ export function DualPriceChart({
               fontSize: "var(--text-sm)",
               boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
             }}
-            formatter={(val: number, name: string) => [
-              `${val >= 0 ? "+" : ""}${val.toFixed(2)}%`, 
-              name === "valA" ? labelA : labelB
-            ]}
+            formatter={(val: any, name: any) => {
+              const num = Number(val);
+              if (isNaN(num)) return [String(val), name === "valA" ? labelA : labelB];
+              return [
+                `${num >= 0 ? "+" : ""}${num.toFixed(2)}%`, 
+                name === "valA" ? labelA : labelB
+              ];
+            }}
           />
           <Legend 
             verticalAlign="top" 

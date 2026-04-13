@@ -192,16 +192,18 @@ function buildSitemap(): string {
     });
   }
 
-  // Compare pages
-  const topIds = tokenIds.slice(0, 20);
+  // Compare pages (Tier 1 SEO Strategy: Top 50 Cluster)
+  const topIds = tokenIds.slice(0, 50);
   for (let i = 0; i < topIds.length; i++) {
-    for (let j = i + 1; j < topIds.length; j++) {
+    for (const j of tokenIds) {
+      if (topIds[i] === j) continue;
+      
       const dateA = getTokenDate(topIds[i]) || now;
-      const dateB = getTokenDate(topIds[j]) || now;
+      const dateB = getTokenDate(j) || now;
       const latestDate = dateA > dateB ? dateA : dateB;
 
       entries.push({
-        url: `/compare/${topIds[i]}-vs-${topIds[j]}`,
+        url: `/compare/${topIds[i]}-vs-${j}`,
         lastmod: latestDate,
         changefreq: "weekly",
         priority: "0.6",

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Key, ShieldAlert } from 'lucide-react';
 
@@ -65,11 +66,15 @@ export default function HardwareWalletsPage() {
               </p>
 
               <figure style={{ margin: "var(--space-xl) 0", borderRadius: "var(--radius-lg)", overflow: "hidden", border: "1px solid var(--border-color)", background: "var(--surface-color)" }}>
-                <img 
-                  src="https://media.go2speed.org/brand/files/trezor/169/TrezorModel3Plugged.png" 
-                  alt="Trezor Safe 3 Plugged into a laptop showing physical buttons" 
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                />
+                <div style={{ position: "relative", width: "100%", height: "400px" }}>
+                  <Image 
+                    src="/images/hardware-wallet-guide.png" 
+                    alt="Premium 3D render of a hardware wallet security confirmation showing a Bitcoin transaction being physically approved" 
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 1024px) 100vw, 800px"
+                  />
+                </div>
                 <figcaption style={{ padding: "var(--space-sm)", textAlign: "center", fontSize: "var(--text-sm)", color: "var(--text-muted)", borderTop: "1px solid var(--border-color)" }}>
                   The Trezor Safe 3 requires physical button presses to confirm transactions, preventing remote hardware attacks.
                 </figcaption>
@@ -139,8 +144,14 @@ export default function HardwareWalletsPage() {
 
                 {/* Affiliate Offer 1 */}
                 <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-sm)", border: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)" }}>
-                    <img src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280" alt="Ledger Nano X" style={{ height: "90px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }} />
+                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", position: "relative", height: "120px" }}>
+                    <Image 
+                      src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280" 
+                      alt="Ledger Nano X hardware wallet - official device for secure Bitcoin and cryptocurrency cold storage" 
+                      fill
+                      style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }}
+                      sizes="200px"
+                    />
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
                     <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>1. Ledger Nano X</span>
@@ -171,8 +182,14 @@ export default function HardwareWalletsPage() {
 
                 {/* Affiliate Offer 2 */}
                 <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", background: "linear-gradient(to top, rgba(255,255,255,0.02), transparent)" }}>
-                    <img src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png" alt="Trezor Safe 3" style={{ height: "90px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))", transform: "scale(1.1)" }} />
+                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", background: "linear-gradient(to top, rgba(255,255,255,0.02), transparent)", position: "relative", height: "120px" }}>
+                    <Image 
+                      src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png" 
+                      alt="Trezor Safe 3 cold storage hardware wallet - open-source security element for crypto assets" 
+                      fill
+                      style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))", transform: "scale(1.1)" }}
+                      sizes="200px"
+                    />
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
                     <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>2. Trezor Safe 3</span>

@@ -56,6 +56,7 @@ export function TokenCard({ token }: TokenCardProps) {
               <TokenTickerPill 
                 name={token.name} 
                 symbol={token.symbol} 
+                id={token.id}
                 price={token.price} 
                 imageUrl={token.imageUrl} 
               />

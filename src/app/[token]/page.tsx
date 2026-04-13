@@ -46,7 +46,7 @@ interface PageProps {
 }
 
 /** Reject unknown tokens at build time — returns 404 for unregistered slugs. */
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 /** Generate static paths for all tokens with data. */
 export async function generateStaticParams() {
@@ -140,6 +140,7 @@ export default async function TokenPage({ params }: PageProps) {
             <TokenTickerPill 
               name={detail.name} 
               symbol={detail.symbol} 
+              id={detail.id}
               price={detail.market.price} 
               className="pill-lg"
             />
