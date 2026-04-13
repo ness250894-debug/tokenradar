@@ -7,7 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Users } from "lucide-react";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Users, Calculator, Zap } from "lucide-react";
 import { XIcon, TelegramIcon } from "@/components/SocialIcons";
 
 export default function HomePage() {
@@ -156,29 +156,68 @@ export default function HomePage() {
         </div>
       </section>
       
-      <section className="section" id="community">
+      <section className="section" id="toolkit" style={{ background: "rgba(16, 185, 129, 0.02)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)" }}>
         <div className="container">
-          <div className="card" style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", padding: "var(--space-3xl) var(--space-xl)", background: "linear-gradient(145deg, var(--bg-card) 0%, rgba(217, 119, 6, 0.05) 100%)", borderColor: "rgba(217, 119, 6, 0.2)" }}>
-            <Users size={48} style={{ color: "var(--accent-primary)", marginBottom: "var(--space-lg)", opacity: 0.8 }} />
-            <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-md)" }}>Join the <span className="gradient-text">Alpha Community</span></h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-lg)", marginBottom: "var(--space-2xl)", maxWidth: "500px", margin: "0 auto var(--space-2xl)" }}>
-              Don&apos;t miss a single market pulse. Get real-time TGE alerts, narrative deep-dives, and community alpha.
-            </p>
-            <div className="social-cta-container" style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
-              <MagneticEffect>
-                <Link href="https://t.me/TokenRadarCo" target="_blank" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
-                  <TelegramIcon size={20} /> Join Telegram
-                </Link>
-              </MagneticEffect>
-              <MagneticEffect>
-                <Link href="https://x.com/tokenradarco" target="_blank" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
-                  <XIcon size={20} /> Follow on X
-                </Link>
-              </MagneticEffect>
-            </div>
+          <div className="section-header">
+            <h2>Essential <span className="gradient-text">Crypto Toolkit</span></h2>
+            <p>Proven tools to secure your assets and maximize your market edge.</p>
+          </div>
+          <div className="stats-grid">
+            <CardGlare style={{ height: "100%" }}>
+              <Link href="/best-crypto-hardware-wallets" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
+                <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper" style={{ background: "rgba(16, 185, 129, 0.1)" }}>
+                    <ShieldCheck className="feature-icon" size={32} style={{ color: "#10b981" }} />
+                  </div>
+                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Hardware Wallets</h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
+                    Stop &quot;Blind Signing&quot; and move your private keys offline. See the 2026 winners for top cold storage.
+                  </p>
+                  <div style={{ color: "#10b981", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                    View Comparison Guide &rarr;
+                  </div>
+                </div>
+              </Link>
+            </CardGlare>
+
+            <CardGlare style={{ height: "100%" }}>
+              <Link href="/crypto-tax-guide" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
+                <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper" style={{ background: "rgba(59, 130, 246, 0.1)" }}>
+                    <Calculator className="feature-icon" size={32} style={{ color: "#3b82f6" }} />
+                  </div>
+                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Tax & Compliance</h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
+                    Eliminate IRS stress with our automated tax guide. Integrated tips for 250+ tokens in one place.
+                  </p>
+                  <div style={{ color: "#3b82f6", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                    Start Calculating &rarr;
+                  </div>
+                </div>
+              </Link>
+            </CardGlare>
+
+            <CardGlare style={{ height: "100%" }}>
+              <Link href="https://t.me/TokenRadarCo" target="_blank" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
+                <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper" style={{ background: "rgba(247, 147, 26, 0.1)" }}>
+                    <Zap className="feature-icon" size={32} style={{ color: "#f7931a" }} />
+                  </div>
+                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Alpha Opportunity</h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
+                    Join 10k+ traders getting real-time alerts on TGEs, narative shifts, and high-growth token scanners.
+                  </p>
+                  <div style={{ color: "#f7931a", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                    Join Community &rarr;
+                  </div>
+                </div>
+              </Link>
+            </CardGlare>
           </div>
         </div>
       </section>
+      
+
 
       <script
         type="application/ld+json"

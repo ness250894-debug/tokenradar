@@ -689,7 +689,7 @@ input[type=range]::-moz-range-thumb:hover {
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   :root {
     --text-5xl: 2.25rem;
     --text-4xl: 1.75rem;
