@@ -128,28 +128,27 @@ export default function HardwareWalletsPage() {
           {/* Sidebar / Affiliate Conversion Column */}
           <div className="lg:col-span-1">
             <div style={{ position: "sticky", top: "100px" }}>
-              <div className="card" style={{ border: "2px solid #10b981", padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-md)", color: "#10b981" }}>
-                  <ShieldCheck size={24} />
-                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, margin: 0 }}>Top Hardware Wallets</h3>
+              <div className="card" style={{ border: "2px solid #10b981", padding: "var(--space-lg)", background: "var(--bg-elevated)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-sm)", color: "#10b981" }}>
+                  <ShieldCheck size={20} />
+                  <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 800, margin: 0 }}>Top Hardware Wallets</h3>
                 </div>
                 <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-lg)", fontSize: "var(--text-sm)" }}>
                   Never buy a hardware wallet from Amazon or eBay! Always buy directly from the manufacturer to avoid tampered devices.
                 </p>
 
                 {/* Affiliate Offer 1 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-md)", border: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-md) 0", marginBottom: "var(--space-sm)" }}>
-                    <img src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280" alt="Ledger Nano X" style={{ height: "120px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }} />
+                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-sm)", border: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}>
+                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)" }}>
+                    <img src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280" alt="Ledger Nano X" style={{ height: "90px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }} />
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-sm)" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>1. Ledger Nano X</span>
-                    <span className="badge badge-accent" style={{ background: "#10b981", color: "#111", fontSize: "10px", padding: "2px 6px" }}>Mobile Choice</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>1. Ledger Nano X</span>
+                    <span className="badge badge-accent" style={{ background: "#10b981", color: "#111", fontSize: "9px", padding: "1px 5px" }}>Best Mobile</span>
                   </div>
-                  <ul style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "20px" }}>
+                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
                     <li>Secure Element Chip</li>
                     <li>Bluetooth Connectivity</li>
-                    <li>Supports 5,000+ coins</li>
                   </ul>
 
                   {/* BTC Promo Badge */}
@@ -164,25 +163,24 @@ export default function HardwareWalletsPage() {
                     target="_blank" 
                     rel="noopener noreferrer sponsored" 
                     className="btn btn-primary" 
-                    style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700 }}
+                    style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
                   >
                     Buy Ledger Official
                   </a>
                 </div>
 
                 {/* Affiliate Offer 2 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-md) 0", marginBottom: "var(--space-sm)", background: "linear-gradient(to top, rgba(255,255,255,0.02), transparent)" }}>
-                    <img src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png" alt="Trezor Safe 3" style={{ height: "120px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))", transform: "scale(1.1)" }} />
+                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
+                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", background: "linear-gradient(to top, rgba(255,255,255,0.02), transparent)" }}>
+                    <img src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png" alt="Trezor Safe 3" style={{ height: "90px", objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))", transform: "scale(1.1)" }} />
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-sm)" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>2. Trezor Safe 3</span>
-                    <span className="badge badge-accent" style={{ background: "#4c1d95", color: "#fff", fontSize: "10px", padding: "2px 6px", border: "none" }}>Privacy Standard</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>2. Trezor Safe 3</span>
+                    <span className="badge badge-accent" style={{ background: "#4c1d95", color: "#fff", fontSize: "9px", padding: "1px 5px", border: "none" }}>Privacy Choice</span>
                   </div>
-                  <ul style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "20px" }}>
+                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
                     <li>EAL6+ Secure Element</li>
-                    <li>100% Open-Source Firmware</li>
-                    <li>CoinJoin & Privacy Enabled</li>
+                    <li>100% Open-Source</li>
                   </ul>
 
                   {/* Bitcoin-Only Callout */}
@@ -201,7 +199,7 @@ export default function HardwareWalletsPage() {
                     target="_blank" 
                     rel="noopener noreferrer sponsored" 
                     className="btn" 
-                    style={{ width: "100%", textAlign: "center", background: "#4c1d95", color: "#fff", border: "none", fontWeight: 700 }}
+                    style={{ width: "100%", textAlign: "center", background: "#4c1d95", color: "#fff", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
                   >
                     Get Trezor Safe 3
                   </a>

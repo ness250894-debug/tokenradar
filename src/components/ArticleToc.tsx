@@ -50,10 +50,6 @@ export function ArticleToc() {
 
   return (
     <div className="article-toc" style={{ 
-      position: "sticky", 
-      top: "100px", 
-      maxHeight: "calc(100vh - 120px)", 
-      overflowY: "auto", 
       paddingLeft: "var(--space-md)", 
       borderLeft: "1px solid var(--border-color)",
       paddingBottom: "var(--space-xl)",

@@ -150,19 +150,54 @@ export default function AboutPage() {
 
           <h2>Token Comparisons</h2>
           <p>
-            Our comparison pages provide side-by-side analysis of two tokens,
-            covering market data, risk profiles, and growth potential. These
-            are generated programmatically to cover popular &quot;Token A vs
-            Token B&quot; search queries.
+            Our comparison engine provides programmatic, side-by-side analysis
+            for over <strong>62,250 unique token pairings</strong>. Every
+            comparison analyzes:
           </p>
+          <ul>
+            <li>
+              <strong>Risk Relativity</strong> — compares proprietary risk
+              scores (e.g., Low vs High) to highlight the safer asset.
+            </li>
+            <li>
+              <strong>Market Dominance</strong> — calculates the relative
+              market cap size (e.g., "Token A is 10x larger than Token B").
+            </li>
+            <li>
+              <strong>Performance Delta</strong> — tracks 30-day and 24h price
+              divergence using normalized historical data.
+            </li>
+          </ul>
 
-          <h2>Data Sources</h2>
+          <h2>The Action Layer: Essential Toolkit</h2>
           <p>
-            All market data — prices, market caps, trading volumes, supply
-            figures, ATH/ATL records, and historical price charts — is sourced
-            from the <strong>CoinGecko API</strong> and refreshed every{" "}
-            <strong>24 hours</strong> via automated GitHub Actions workflows.
-            We cite the exact data timestamp on every article page.
+            Research without action is incomplete. We curate high-intent
+            resources specifically vetted for their role in a professional
+            crypto workflow:
+          </p>
+          <ul>
+            <li>
+              <strong>Hardware Security</strong> — comparisons of industry
+              leaders like Ledger and Trezor based on 2026 security audits.
+            </li>
+            <li>
+              <strong>Compliance Automation</strong> — guides and integrations
+              for tax automation tools (e.g., Koinly) to manage 2026 reporting
+              requirements.
+            </li>
+            <li>
+              <strong>Alpha Connectivity</strong> — direct access to our inner
+              circle for TGE alerts and narrative deep-dives.
+            </li>
+          </ul>
+
+          <h2>Data Sources & Alpha Ticker</h2>
+          <p>
+            All market data is sourced from the <strong>CoinGecko API</strong> 
+            and refreshed every <strong>24 hours</strong>. Our 
+            <strong>Alpha Ticker</strong> also tracks real-time narrative 
+            momentum across 20+ crypto categories to identify emerging trends 
+            before they hit mainstream media.
           </p>
           <p>
             Reference analysis angles are drawn from reputable outlets via

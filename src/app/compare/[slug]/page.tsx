@@ -10,13 +10,17 @@ import {
   formatSupply,
 } from "@/lib/content-loader";
 import { PriceChart } from "@/components/PriceChart";
+import { DualPriceChart } from "@/components/DualPriceChart";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
+import { EssentialCryptoToolkit } from "@/components/EssentialCryptoToolkit";
+import { CardGlare } from "@/components/CardGlare";
+import { CheckCircle2, Trophy, Scale, ArrowRight, ArrowLeft, TrendingUp, ShieldCheck } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 /**
  * Generate static paths for top token combinations.
@@ -52,8 +56,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const b = getTokenDetail(parsed.tokenB);
   if (!a || !b) return { title: "Comparison Not Found" };
 
-  const title = `${a.name} vs ${b.name} — Side-by-Side Comparison`;
-  const description = `Compare ${a.name} (${a.symbol.toUpperCase()}) and ${b.name} (${b.symbol.toUpperCase()}) — price, market cap, risk score, growth potential, and more.`;
+  const title = `${a.name} vs ${b.name} Price, Market Cap & Risk Comparison | 2026 Index`;
+  const description = `Analyze ${a.name} vs ${b.name} side-by-side. Our 2026 data-driven index compares ${a.symbol.toUpperCase()} & ${b.symbol.toUpperCase()} on risk scores, liquidity, and growth narratives.`;
 
   return {
     title,
@@ -65,10 +69,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       type: "article",
+      url: `https://tokenradar.co/compare/${slug}`,
     },
     twitter: {
       title,
       description,
+      card: "summary_large_image",
     },
   };
 }
@@ -147,23 +153,40 @@ export default async function ComparePage({ params }: PageProps) {
                     {detailB.name} ({detailB.symbol.toUpperCase()})
                   </Link>
                 </th>
-                <th style={thStyle}>Winner</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
-                <tr key={i} style={{ borderBottom: "1px solid var(--border-color)" }}>
-                  <td style={{ ...tdStyle, fontWeight: 600, color: "var(--text-muted)", fontSize: "var(--text-xs)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                <tr 
+                  key={i} 
+                  style={{ 
+                    borderBottom: "1px solid var(--border-color)",
+                    background: row.winner === "tie" ? "transparent" : "rgba(255, 183, 0, 0.02)"
+                  }}
+                  className="hover-bg"
+                >
+                  <td style={{ ...tdStyle, fontWeight: 600, color: "var(--text-muted)", fontSize: "var(--text-xs)", textTransform: "uppercase", letterSpacing: "0.06em", width: "180px" }}>
                     {row.label}
                   </td>
-                  <td style={{ ...tdStyle, color: row.winner === "A" ? "#00e676" : "var(--text-primary)" }}>
+                  <td style={{ 
+                    ...tdStyle, 
+                    color: row.winner === "A" ? "var(--green)" : "var(--text-primary)",
+                    background: row.winner === "A" ? "rgba(0, 230, 118, 0.08)" : "transparent",
+                    fontWeight: row.winner === "A" ? 700 : 400,
+                    borderLeft: row.winner === "A" ? "2px solid var(--green)" : "none"
+                  }}>
                     {row.valueA}
+                    {row.winner === "A" && <Trophy size={14} style={{ marginLeft: "8px", verticalAlign: "middle", color: "var(--accent-primary)" }} />}
                   </td>
-                  <td style={{ ...tdStyle, color: row.winner === "B" ? "#00e676" : "var(--text-primary)" }}>
+                  <td style={{ 
+                    ...tdStyle, 
+                    color: row.winner === "B" ? "var(--green)" : "var(--text-primary)",
+                    background: row.winner === "B" ? "rgba(0, 230, 118, 0.08)" : "transparent",
+                    fontWeight: row.winner === "B" ? 700 : 400,
+                    borderLeft: row.winner === "B" ? "2px solid var(--green)" : "none"
+                  }}>
                     {row.valueB}
-                  </td>
-                  <td style={{ ...tdStyle, textAlign: "center" }}>
-                    {row.winner === "A" ? "◀" : row.winner === "B" ? "▶" : "—"}
+                    {row.winner === "B" && <Trophy size={14} style={{ marginLeft: "8px", verticalAlign: "middle", color: "var(--accent-primary)" }} />}
                   </td>
                 </tr>
               ))}
@@ -172,65 +195,74 @@ export default async function ComparePage({ params }: PageProps) {
         </div>
 
         {/* Price Charts Side by Side */}
-        <div style={{ marginTop: "var(--space-2xl)" }}>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
-            30-Day <span className="gradient-text">Price History</span>
+        <div style={{ marginTop: "var(--space-3xl)" }}>
+          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", display: "flex", alignItems: "center", gap: "12px" }}>
+            <TrendingUp size={24} className="gradient-text" /> 30-Day Performance History
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-lg)" }}>
-            <div className="card" style={{ padding: "var(--space-lg)" }}>
-              {pricesA && pricesA.chart30d.length > 0 ? (
-                <PriceChart
-                  data={pricesA.chart30d}
-                  height={200}
-                  isPositive={detailA.market.priceChange30d >= 0}
-                  label={detailA.name}
-                />
-              ) : (
-                <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
-                  No chart data
-                </div>
-              )}
-            </div>
-            <div className="card" style={{ padding: "var(--space-lg)" }}>
-              {pricesB && pricesB.chart30d.length > 0 ? (
-                <PriceChart
-                  data={pricesB.chart30d}
-                  height={200}
-                  isPositive={detailB.market.priceChange30d >= 0}
-                  label={detailB.name}
-                />
-              ) : (
-                <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
-                  No chart data
-                </div>
-              )}
-            </div>
+            <CardGlare>
+              <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
+                <div style={{ fontWeight: 800, marginBottom: "var(--space-md)", fontSize: "var(--text-lg)", textAlign: "center" }}>{detailA.name} History</div>
+                {pricesA && pricesA.chart30d.length > 0 ? (
+                  <PriceChart
+                    data={pricesA.chart30d}
+                    height={250}
+                    isPositive={detailA.market.priceChange30d >= 0}
+                    label={detailA.name}
+                  />
+                ) : (
+                  <div style={{ height: 250, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
+                    No chart data
+                  </div>
+                )}
+              </div>
+            </CardGlare>
+            <CardGlare>
+              <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
+                <div style={{ fontWeight: 800, marginBottom: "var(--space-md)", fontSize: "var(--text-lg)", textAlign: "center" }}>{detailB.name} History</div>
+                {pricesB && pricesB.chart30d.length > 0 ? (
+                  <PriceChart
+                    data={pricesB.chart30d}
+                    height={250}
+                    isPositive={detailB.market.priceChange30d >= 0}
+                    label={detailB.name}
+                  />
+                ) : (
+                  <div style={{ height: 250, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
+                    No chart data
+                  </div>
+                )}
+              </div>
+            </CardGlare>
           </div>
         </div>
 
         {/* Risk Scores */}
         {metricsA && metricsB && (
-          <div style={{ marginTop: "var(--space-2xl)" }}>
-            <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
-              Risk <span className="gradient-text">Assessment</span>
+          <div style={{ marginTop: "var(--space-3xl)" }}>
+            <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", display: "flex", alignItems: "center", gap: "12px" }}>
+              <ShieldCheck size={24} className="gradient-text" /> Propriatary Risk Assessment
             </h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-lg)" }}>
-              <div className="card" style={{ padding: "var(--space-lg)", textAlign: "center" }}>
-                <div style={{ fontWeight: 700, marginBottom: "var(--space-md)" }}>{detailA.name}</div>
-                <RiskScoreCard score={metricsA.riskScore} />
-              </div>
-              <div className="card" style={{ padding: "var(--space-lg)", textAlign: "center" }}>
-                <div style={{ fontWeight: 700, marginBottom: "var(--space-md)" }}>{detailB.name}</div>
-                <RiskScoreCard score={metricsB.riskScore} />
-              </div>
+              <CardGlare style={{ height: "100%" }}>
+                <RiskScoreCard score={metricsA.riskScore} label={`${detailA.name} Safety Portfolio`} />
+              </CardGlare>
+              <CardGlare style={{ height: "100%" }}>
+                <RiskScoreCard score={metricsB.riskScore} label={`${detailB.name} Safety Portfolio`} />
+              </CardGlare>
             </div>
           </div>
         )}
 
+        {/* Essential Toolkit Section */}
+        <div style={{ marginTop: "var(--space-xl)" }}>
+           <EssentialCryptoToolkit />
+        </div>
+
         {/* Disclaimer */}
-        <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+        <div style={{ marginTop: "var(--space-3xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)", border: "1px solid var(--border-color)" }}>
           <strong>Disclaimer:</strong> This comparison is for informational purposes only.
-          Data sourced from CoinGecko API. Proprietary metrics are computed by TokenRadar.
+          Data sourced from CoinGecko API. Proprietary metrics are computed by TokenRadar based on historical volatility and smart contract indicators.
           Not financial advice — always DYOR.
         </div>
       </section>
@@ -274,8 +306,41 @@ export default async function ComparePage({ params }: PageProps) {
               {
                 "@type": "ListItem",
                 "position": 2,
+                "name": "Compare",
+                "item": "https://tokenradar.co/compare"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
                 "name": `${detailA.name} vs ${detailB.name}`,
                 "item": `https://tokenradar.co/compare/${slug}`
+              }
+            ]
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": `Is ${detailA.name} better than ${detailB.name}?`,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `${detailA.name} and ${detailB.name} serve different market roles. ${detailA.symbol.toUpperCase()} currently has a risk score of ${metricsA?.riskScore}/10, while ${detailB.symbol.toUpperCase()} has a score of ${metricsB?.riskScore}/10. Investors should consider their risk tolerance before deciding.`
+                }
+              },
+              {
+                "@type": "Question",
+                "name": `Which crypto has higher growth potential: ${detailA.symbol.toUpperCase()} or ${detailB.symbol.toUpperCase()}?`,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `Our 2026 index shows ${detailA.name} with a growth index of ${metricsA?.growthPotentialIndex}/100 and ${detailB.name} at ${metricsB?.growthPotentialIndex}/100. Growth numbers are derived from narrative volume and historical market cap data.`
+                }
               }
             ]
           }),

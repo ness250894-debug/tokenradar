@@ -6,6 +6,8 @@ import { TgeGrid } from "./TgeGrid";
 import { type TokenCardData } from "./TokenCard";
 import { type UpcomingTge } from "@/lib/content-loader";
 
+import { TrendingUp, Rocket } from "lucide-react";
+
 interface HomeTabsProps {
   trackedTokens: TokenCardData[];
   upcomingTges: UpcomingTge[];
@@ -25,11 +27,17 @@ export function HomeTabs({ trackedTokens, upcomingTges }: HomeTabsProps) {
           }}
         />
         <button className={`tab-btn ${activeTab === "tracked" ? "active" : ""}`} onClick={() => setActiveTab("tracked")}>
-          <span>📈</span> Tracked Tokens 
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <TrendingUp size={18} style={{ color: activeTab === "tracked" ? "var(--accent-primary)" : "var(--text-muted)" }} />
+            <span>Tracked Tokens</span>
+          </div>
           <span className="badge badge-accent">{trackedTokens.length}</span>
         </button>
         <button className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`} onClick={() => setActiveTab("upcoming")}>
-          <span>🚀</span> Upcoming Launches
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <Rocket size={18} style={{ color: activeTab === "upcoming" ? "var(--accent-primary)" : "var(--text-muted)" }} />
+            <span>Upcoming Launches</span>
+          </div>
           <span className="badge badge-accent">{upcomingTges.length}</span>
         </button>
       </div>

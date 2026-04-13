@@ -13,6 +13,7 @@ import {
   getArticleFaqs,
   getRelatedTokens,
 } from "@/lib/content-loader";
+import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
@@ -29,14 +30,23 @@ import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleToc } from "@/components/ArticleToc";
-import { Globe, BarChart2, PieChart, TrendingUp, ShoppingCart, Scale, Bell } from "lucide-react";
+import { 
+  Globe, 
+  BarChart2, 
+  PieChart, 
+  TrendingUp, 
+  ShoppingCart, 
+  Scale, 
+  Bell,
+  Lock
+} from "lucide-react";
 
 interface PageProps {
   params: Promise<{ token: string }>;
 }
 
 /** Reject unknown tokens at build time — returns 404 for unregistered slugs. */
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 /** Generate static paths for all tokens with data. */
 export async function generateStaticParams() {
@@ -81,6 +91,7 @@ export default async function TokenPage({ params }: PageProps) {
 
   const metrics = getTokenMetrics(tokenId);
   const priceHistory = getPriceHistory(tokenId);
+  const technical = getTokenTechnical(tokenId);
   const article = getArticle(tokenId, "overview");
   const faqs = article ? getArticleFaqs(article.content) : [];
   
@@ -233,8 +244,9 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Global Security / Hardware Wallet CTA */}
-        <HardwareWalletCTA symbol={detail.symbol} name={detail.name} />
+        {/* Hybrid Inline CTAs */}
+        <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="inline" />
+        <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="inline" />
 
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -246,8 +258,6 @@ export default async function TokenPage({ params }: PageProps) {
            </CardGlare>
         </div>
 
-        {/* Global Crypto Tax Software CTA */}
-        <TaxGuideCTA symbol={detail.symbol} name={detail.name} />
 
         {/* Article Links */}
         <div style={{ marginTop: "var(--space-2xl)" }}>
@@ -277,18 +287,22 @@ export default async function TokenPage({ params }: PageProps) {
                 </Link>
               </CardGlare>
             )}
-            {!hasPricePrediction && !hasHowToBuy && (
-              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
-                Deep-dive AI analysis and prediction models for {detail.name} are currently being generated. Check back soon.
-              </p>
-            )}
-            {relatedTokens.length > 0 && (
+            <CardGlare style={{ height: "100%" }}>
+              <Link href={`/compare`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
+                <Scale size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
+                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Comparison Engine</div>
+                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
+                  Side-by-side metric comparison for any two tokens in our database.
+                </div>
+              </Link>
+            </CardGlare>
+            {technical && (
               <CardGlare style={{ height: "100%" }}>
-                <Link href={`/compare/${detail.id}-vs-${relatedTokens[0].id}`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
-                  <Scale size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
-                  <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Compare vs {relatedTokens[0].name}</div>
+                <Link href={`/${tokenId}/transfer-to-ledger`} className="card" style={{ display: "block", height: "100%", border: "1px solid rgba(16, 185, 129, 0.4)" }}>
+                  <Lock size={32} style={{ marginBottom: "var(--space-sm)", color: "#10b981" }} />
+                  <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Transfer to Ledger Guide</div>
                   <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                    Side-by-side metric comparison to clarify investment choices
+                    Verified security steps for {technical.network} storage
                   </div>
                 </Link>
               </CardGlare>
@@ -317,9 +331,32 @@ export default async function TokenPage({ params }: PageProps) {
               </div>
             </div>
             
-            {/* Sidebar TOC (Desktop only) */}
-            <aside className="hidden lg:block" style={{ flex: "0 0 250px" }}>
-              <ArticleToc />
+            <aside className="hidden lg:block" style={{ flex: "0 0 280px" }}>
+              <div 
+                className="sidebar-sticky"
+                style={{ 
+                  position: "sticky", 
+                  top: "100px",
+                  maxHeight: "calc(100vh - 120px)",
+                  overflowY: "auto",
+                  paddingRight: "var(--space-xs)"
+                }}
+              >
+                <ArticleToc />
+                <div style={{ marginTop: "var(--space-xl)" }}>
+                  <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
+                  <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
+                </div>
+              </div>
+              <style dangerouslySetInnerHTML={{__html: `
+                .sidebar-sticky::-webkit-scrollbar {
+                  width: 4px;
+                }
+                .sidebar-sticky::-webkit-scrollbar-thumb {
+                  background-color: var(--border-color);
+                  border-radius: 4px;
+                }
+              `}} />
             </aside>
           </div>
         )}

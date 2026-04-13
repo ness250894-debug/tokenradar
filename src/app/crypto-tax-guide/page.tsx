@@ -80,73 +80,71 @@ export default function CryptoTaxGuidePage() {
           {/* Sidebar / Affiliate Conversion Column */}
           <div className="lg:col-span-1">
             <div style={{ position: "sticky", top: "100px" }}>
-              <div className="card" style={{ border: "2px solid var(--accent-primary)", padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-md)", color: "var(--accent-primary)" }}>
-                  <ShieldCheck size={24} />
-                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, margin: 0 }}>Top Rated Tax Software</h3>
+              <div className="card" style={{ border: "2px solid var(--accent-primary)", padding: "var(--space-lg)", background: "var(--bg-elevated)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }}>
+                  <ShieldCheck size={20} />
+                  <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 800, margin: 0 }}>Top Rated Tax Software</h3>
                 </div>
                 <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-lg)", fontSize: "var(--text-sm)" }}>
                   Connect your wallets and exchanges via API to auto-generate your IRS Form 8949 in minutes.
                 </p>
 
                 {/* Affiliate Offer 1 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-md)", border: "1px solid var(--border-color)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-sm)" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>1. Koinly</span>
-                    <span className="badge badge-accent" style={{ background: "#eab308", color: "#111" }}>Best Overall</span>
+                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-sm)", border: "1px solid var(--border-color)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>1. Koinly</span>
+                    <span className="badge badge-accent" style={{ background: "#eab308", color: "#111", fontSize: "10px", padding: "2px 6px" }}>Best Overall</span>
                   </div>
-                  <ul style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-md)", paddingLeft: "20px" }}>
+                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
                     <li>Supports 700+ integrations</li>
                     <li>Excellent DeFi & NFT tracking</li>
-                    <li>Free portfolio tracking</li>
                   </ul>
                   <a 
                     href="https://koinly.io/?via=28A9E9E2&utm_source=affiliate" 
                     target="_blank" 
                     rel="noopener noreferrer sponsored" 
                     className="btn btn-primary" 
-                    style={{ width: "100%", textAlign: "center" }}
+                    style={{ width: "100%", textAlign: "center", padding: "8px", fontSize: "13px" }}
                   >
                     Try Koinly Free
                   </a>
                 </div>
 
                 {/* Affiliate Offer 2 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-sm)" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>2. CoinLedger</span>
+                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>2. CoinLedger</span>
                   </div>
-                  <ul style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-md)", paddingLeft: "20px" }}>
+                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
                     <li>Seamless TurboTax integration</li>
                     <li>Easiest interface for beginners</li>
-                    <li><strong style={{color: "var(--text-primary)"}}>Use code CRYPTOTAX10 for 10% off</strong></li>
                   </ul>
                   <a 
                     href="https://coinledger.io?fpr=hrykjl" 
                     target="_blank" 
                     rel="noopener noreferrer nofollow sponsored" 
                     className="btn" 
-                    style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)" }}
+                    style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)", padding: "8px", fontSize: "13px" }}
                   >
                     Try CoinLedger Free
                   </a>
                 </div>
 
                 {/* Affiliate Offer 3 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)", marginTop: "var(--space-md)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-sm)" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>3. TokenTax</span>
+                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)", marginTop: "var(--space-sm)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>3. TokenTax</span>
                   </div>
-                  <ul style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-md)", paddingLeft: "20px" }}>
-                    <li>Premium high-volume VIP support</li>
-                    <li>Advanced DeFi & NFT calculations</li>
+                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
+                    <li>Premium VIP support</li>
+                    <li>Advanced DeFi analytics</li>
                   </ul>
                   <a 
                     href="https://tokentax.co/?via=YOUR_TOKENTAX_AFFILIATE_LINK" 
                     target="_blank" 
                     rel="noopener noreferrer sponsored" 
                     className="btn" 
-                    style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)" }}
+                    style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)", padding: "8px", fontSize: "13px" }}
                   >
                     Try TokenTax Free
                   </a>

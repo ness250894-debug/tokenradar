@@ -24,6 +24,13 @@ const LEGAL_LINKS = [
   { href: "/disclaimer", label: "Disclaimer" },
 ] as const;
 
+const COMPARISON_LINKS = [
+  { href: "/compare/bitcoin-vs-ethereum", label: "BTC vs ETH" },
+  { href: "/compare/solana-vs-ethereum", label: "SOL vs ETH" },
+  { href: "/compare/dogecoin-vs-shiba-inu", label: "DOGE vs SHIB" },
+  { href: "/compare/pepe-vs-bonk", label: "PEPE vs BONK" },
+] as const;
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -69,6 +76,16 @@ export function Footer() {
             <h4 className="footer-col-title">Resources</h4>
             <ul className="footer-col-links">
               {RESOURCE_LINKS.map(({ href, label }) => (
+                <li key={href}><Link href={href}>{label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Comparisons Column */}
+          <div>
+            <h4 className="footer-col-title">Top Pairs</h4>
+            <ul className="footer-col-links">
+              {COMPARISON_LINKS.map(({ href, label }) => (
                 <li key={href}><Link href={href}>{label}</Link></li>
               ))}
             </ul>

@@ -6,6 +6,8 @@ import { CardGlare } from "@/components/CardGlare";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { XIcon, TelegramIcon } from "@/components/SocialIcons";
 import { Bell, Landmark, TrendingUp, ShieldCheck } from "lucide-react";
+import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
+import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 
 export const metadata = {
   title: "Upcoming Token Launches & TGEs | TokenRadar",
@@ -45,75 +47,114 @@ export default function UpcomingPage() {
         <AlphaTicker />
       </div>
 
-      <section className="section">
-        <div className="section-header">
-          <h2>
-            Curated <span className="gradient-text">Upcoming Launches</span>
-          </h2>
-          <p>Hand-picked projects with significant narrative strength and VC backing.</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <section className="section">
+            <div className="section-header">
+              <h2>
+                Curated <span className="gradient-text">Upcoming Launches</span>
+              </h2>
+              <p>Hand-picked projects with significant narrative strength and VC backing.</p>
+            </div>
+
+            {upcomingTges.length > 0 ? (
+              <TgeGrid tges={upcomingTges} />
+            ) : (
+              <div className="card" style={{ textAlign: "center", padding: "var(--space-4xl) var(--space-xl)" }}>
+                <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>📡</div>
+                <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>Scanning for new TGEs...</h3>
+                <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)", maxWidth: "480px", margin: "0 auto", marginBottom: "var(--space-xl)" }}>
+                  Our AI is currently monitoring RSS feeds and VC movements for the next high-quality token launches. Want to know the second they drop?
+                </p>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <MagneticEffect>
+                    <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                      <Bell size={18} style={{ marginRight: "0.5rem" }} /> Get Alpha Drops on Telegram
+                    </Link>
+                  </MagneticEffect>
+                </div>
+              </div>
+            )}
+          </section>
+
+          <section className="section" id="how-we-curate" style={{ background: "var(--bg-secondary)", borderRadius: "var(--radius-lg)", padding: "var(--space-2xl)" }}>
+            <div className="section-header">
+              <h2>How We <span className="gradient-text">Curate Launches</span></h2>
+              <p>We filter out 99% of new tokens to focus only on projects with real institutional interest.</p>
+            </div>
+            <div className="stats-grid">
+              <CardGlare style={{ height: "100%" }}>
+                <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper">
+                    <Landmark className="feature-icon" size={32} />
+                  </div>
+                  <h3>Structural Vetting</h3>
+                  <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
+                    We prioritize projects with confirmed Tier-1 and Tier-2 VC backing, focusing on infrastructure, AI, and DeFi.
+                  </p>
+                </div>
+              </CardGlare>
+              <CardGlare style={{ height: "100%" }}>
+                <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper">
+                    <TrendingUp className="feature-icon" size={32} />
+                  </div>
+                  <h3>Narrative Analysis</h3>
+                  <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
+                    Our AI scores projects based on social sentiment, technical whitepapers, and market timing.
+                  </p>
+                </div>
+              </CardGlare>
+              <CardGlare style={{ height: "100%" }}>
+                <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
+                  <div className="feature-icon-wrapper">
+                    <ShieldCheck className="feature-icon" size={32} />
+                  </div>
+                  <h3>Anti-Rug Precautions</h3>
+                  <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
+                    We track projects with public teams and transparent development roadmaps to minimize risk.
+                  </p>
+                </div>
+              </CardGlare>
+            </div>
+          </section>
         </div>
 
-        {upcomingTges.length > 0 ? (
-          <TgeGrid tges={upcomingTges} />
-        ) : (
-          <div className="card" style={{ textAlign: "center", padding: "var(--space-4xl) var(--space-xl)" }}>
-            <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>📡</div>
-            <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>Scanning for new TGEs...</h3>
-            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)", maxWidth: "480px", margin: "0 auto", marginBottom: "var(--space-xl)" }}>
-              Our AI is currently monitoring RSS feeds and VC movements for the next high-quality token launches. Want to know the second they drop?
-            </p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <MagneticEffect>
-                <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  <Bell size={18} style={{ marginRight: "0.5rem" }} /> Get Alpha Drops on Telegram
-                </Link>
-              </MagneticEffect>
+        <aside className="lg:col-span-1">
+          <div 
+            className="sidebar-sticky"
+            style={{ 
+              position: "sticky", 
+              top: "100px",
+              maxHeight: "calc(100vh - 120px)",
+              overflowY: "auto",
+              paddingRight: "var(--space-xs)"
+            }}
+          >
+            <div className="section-header" style={{ marginBottom: "var(--space-lg)" }}>
+              <h3 style={{ fontSize: "var(--text-sm)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)" }}>Essential Toolkit</h3>
+            </div>
+            <HardwareWalletCTA symbol="TGE" name="Pre-Launch Assets" variant="sidebar" />
+            <TaxGuideCTA symbol="TGE" name="Airdrop Profits" variant="sidebar" />
+            
+            <div className="card" style={{ marginTop: "var(--space-xl)", background: "var(--bg-elevated)", border: "1px dashed var(--border-color)" }}>
+               <h4 style={{ fontSize: "var(--text-sm)", fontWeight: 600, marginBottom: "var(--space-xs)" }}>Alpha Access</h4>
+               <p style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)" }}>
+                 Upcoming token data is updated in real-time. Follow our X account for instant launch alerts.
+               </p>
             </div>
           </div>
-        )}
-      </section>
-
-      <section className="section" id="how-we-curate" style={{ background: "var(--bg-secondary)", borderRadius: "var(--radius-lg)", padding: "var(--space-2xl)" }}>
-        <div className="section-header">
-          <h2>How We <span className="gradient-text">Curate Launches</span></h2>
-          <p>We filter out 99% of new tokens to focus only on projects with real institutional interest.</p>
-        </div>
-        <div className="stats-grid">
-          <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
-              <div className="feature-icon-wrapper">
-                <Landmark className="feature-icon" size={32} />
-              </div>
-              <h3>Structural Vetting</h3>
-              <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-                We prioritize projects with confirmed Tier-1 and Tier-2 VC backing, focusing on infrastructure, AI, and DeFi.
-              </p>
-            </div>
-          </CardGlare>
-          <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
-              <div className="feature-icon-wrapper">
-                <TrendingUp className="feature-icon" size={32} />
-              </div>
-              <h3>Narrative Analysis</h3>
-              <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-                Our AI scores projects based on social sentiment, technical whitepapers, and market timing.
-              </p>
-            </div>
-          </CardGlare>
-          <CardGlare style={{ height: "100%" }}>
-            <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
-              <div className="feature-icon-wrapper">
-                <ShieldCheck className="feature-icon" size={32} />
-              </div>
-              <h3>Anti-Rug Precautions</h3>
-              <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-                We track projects with public teams and transparent development roadmaps to minimize risk.
-              </p>
-            </div>
-          </CardGlare>
-        </div>
-      </section>
+          <style dangerouslySetInnerHTML={{__html: `
+            .sidebar-sticky::-webkit-scrollbar {
+              width: 4px;
+            }
+            .sidebar-sticky::-webkit-scrollbar-thumb {
+              background-color: var(--border-color);
+              border-radius: 4px;
+            }
+          `}} />
+        </aside>
+      </div>
     </div>
   );
 }

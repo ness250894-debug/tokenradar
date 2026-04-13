@@ -40,17 +40,20 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
     return () => observer.disconnect();
   }, [score]);
 
-  // Map 0-10 score to angle (0 to 180 degrees)
-  const angle = (animatedScore / 10) * 180;
+  // Map 1-10 score to angle (-90 to +90 degrees)
+  // -90 is pointing Left, 0 is pointing Up, +90 is pointing Right
+  const angle = ((animatedScore - 1) / 9) * 180 - 90;
   
-  // Calculate color: green (low) -> yellow (med) -> red (high)
-  const getScoreColor = (val: number) => {
-    if (val <= 3) return "var(--green)";
-    if (val <= 7) return "var(--yellow)";
-    return "var(--red)";
+  // Calculate tier: low (1-3), medium (4-6), high (7-10)
+  const getRiskTier = (val: number) => {
+    if (val <= 3) return "low";
+    if (val <= 6) return "medium";
+    return "high";
   };
 
-  const needleColor = getScoreColor(animatedScore);
+  const tier = getRiskTier(score); // Use target score for tier colors to be stable
+  const tierColor = tier === "low" ? "var(--green)" : tier === "medium" ? "var(--yellow)" : "var(--red)";
+
   const displayScore = animatedScore.toFixed(1);
 
   return (
@@ -58,15 +61,21 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
       ref={meterRef} 
       style={{ 
         width: size, 
-        height: size / 2 + 20, 
+        height: size / 2 + 45, 
         position: "relative", 
         display: "flex", 
         flexDirection: "column", 
-        alignItems: "center" 
+        alignItems: "center",
+        justifyContent: "flex-end"
       }}
     >
-      <div style={{ position: "relative", width: size, height: size / 2, overflow: "hidden" }}>
-        {/* Background track */}
+      <div style={{ position: "relative", width: size, height: size / 2, overflow: "visible" }}>
+        {/* Sector Labels */}
+        <div style={{ position: "absolute", bottom: "10%", left: "5%", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>Low</div>
+        <div style={{ position: "absolute", top: "-10%", left: "50%", transform: "translateX(-50%)", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>Mid</div>
+        <div style={{ position: "absolute", bottom: "10%", right: "5%", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>High</div>
+
+        {/* Background track (Arc) - Full width */}
         <div style={{
           position: "absolute",
           top: 0,
@@ -75,48 +84,87 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
           height: size,
           borderRadius: "50%",
           boxSizing: "border-box",
-          border: `${size * 0.15}px solid var(--border-color)`,
+          border: `${size * 0.1}px solid var(--border-color)`,
           borderBottomColor: "transparent",
           borderRightColor: "transparent",
           transform: "rotate(45deg)",
+          opacity: 0.2
+        }} />
+
+        {/* Dynamic Tier Highlight (Arc) */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: size,
+          height: size,
+          borderRadius: "50%",
+          boxSizing: "border-box",
+          border: `${size * 0.1}px solid ${tierColor}`,
+          borderBottomColor: "transparent",
+          borderRightColor: "transparent",
+          transform: "rotate(45deg)",
+          opacity: 0.15,
+          filter: "blur(2px)",
+          transition: "border-color 0.5s ease"
         }} />
         
         {/* Needle container */}
         <div style={{
           position: "absolute",
-          bottom: 0,
+          bottom: "0",
           left: "50%",
-          width: size,
-          height: "2px",
-          transformOrigin: "center",
+          width: "4px", // Thicker needle
+          height: "85%",
+          backgroundColor: tierColor,
+          transformOrigin: "bottom center",
           transform: `translateX(-50%) rotate(${angle}deg)`,
-          transition: "transform 0.1s linear"
+          borderRadius: "4px",
+          boxShadow: `0 0 15px ${tierColor}`,
+          transition: "transform 0.1s linear, background-color 0.3s ease",
+          zIndex: 10
         }}>
-          {/* Needle itself */}
-          <div style={{
-            position: "absolute",
-            right: "50%",
-            top: -2,
-            width: "40%",
-            height: "4px",
-            backgroundColor: needleColor,
-            borderRadius: "4px",
-            boxShadow: `0 0 8px ${needleColor}`
-          }} />
+           {/* Needle Cap - Outer */}
+           <div style={{
+             position: "absolute",
+             bottom: -6,
+             left: "50%",
+             transform: "translateX(-50%)",
+             width: 12,
+             height: 12,
+             borderRadius: "50%",
+             backgroundColor: "var(--bg-primary)",
+             border: `2px solid ${tierColor}`,
+           }} />
+           {/* Needle Cap - Inner */}
+           <div style={{
+             position: "absolute",
+             bottom: -2,
+             left: "50%",
+             transform: "translateX(-50%)",
+             width: 4,
+             height: 4,
+             borderRadius: "50%",
+             backgroundColor: tierColor,
+           }} />
         </div>
       </div>
       
       {/* Label */}
       <div style={{ 
-        marginTop: "var(--space-xs)", 
-        fontWeight: 800, 
-        fontSize: "var(--text-xl)",
-        color: needleColor,
-        textShadow: `0 0 10px ${needleColor}40`
+        marginTop: "var(--space-md)", 
+        fontWeight: 900, 
+        fontSize: "var(--text-2xl)",
+        color: tierColor,
+        textShadow: `0 0 15px ${tierColor}30`,
+        letterSpacing: "-1px",
+        display: "flex",
+        alignItems: "baseline",
+        gap: "4px"
       }}>
         {displayScore} 
-        <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginLeft: "4px", verticalAlign: "middle", textShadow: "none" }}>
-          / 10
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", verticalAlign: "middle", textShadow: "none", fontWeight: 600, opacity: 0.7 }}>
+          SCORE
         </span>
       </div>
     </div>

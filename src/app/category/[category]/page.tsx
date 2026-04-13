@@ -8,7 +8,7 @@ interface PageProps {
   params: Promise<{ category: string }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   return getAllCategories().map((cat) => ({ category: cat.id }));

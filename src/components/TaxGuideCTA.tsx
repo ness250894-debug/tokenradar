@@ -4,9 +4,66 @@ import { Calculator } from 'lucide-react';
 interface TaxGuideCTAProps {
   symbol: string;
   name: string;
+  variant?: 'full' | 'sidebar' | 'inline';
 }
 
-export function TaxGuideCTA({ symbol, name }: TaxGuideCTAProps) {
+export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps) {
+  if (variant === 'sidebar') {
+    return (
+      <div className="card" style={{ padding: "var(--space-md)", background: "rgba(234, 179, 8, 0.05)", border: "1px solid rgba(234, 179, 8, 0.2)", marginBottom: "var(--space-md)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-xs)", color: "#eab308" }}>
+          <Calculator size={16} />
+          <h4 style={{ fontSize: "var(--text-xs)", fontWeight: 700, textTransform: "uppercase", margin: 0 }}>Tax Compliance</h4>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>1. Koinly</span>
+            <a href="https://koinly.io/?via=TOKENRADAR" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Try Free &rarr;</a>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>2. CoinLedger</span>
+            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Get Started &rarr;</a>
+          </div>
+        </div>
+        <Link 
+          href="/crypto-tax-guide" 
+          style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", textDecoration: "none", marginTop: "var(--space-sm)", display: "block" }}
+        >
+          View Guide &rarr;
+        </Link>
+      </div>
+    );
+  }
+
+  if (variant === 'inline') {
+    return (
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        gap: "var(--space-md)", 
+        padding: "var(--space-md)", 
+        background: "rgba(234, 179, 8, 0.03)", 
+        border: "1px solid rgba(234, 179, 8, 0.15)", 
+        borderRadius: "var(--radius-md)",
+        marginTop: "var(--space-xl)",
+        marginBottom: "var(--space-xl)"
+      }}>
+        <div style={{ padding: "8px", background: "rgba(234, 179, 8, 0.1)", borderRadius: "var(--radius-sm)", color: "#eab308" }}>
+          <Calculator size={20} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)" }}>Tax Season Alert: 2026 Updates</div>
+          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)" }}>
+            Automatically calculate your {name} capital gains and report to the IRS.
+          </div>
+        </div>
+        <Link href="/crypto-tax-guide" style={{ fontSize: "var(--text-xs)", color: "#eab308", fontWeight: 700, textDecoration: "none", padding: "6px 12px", border: "1px solid #eab308", borderRadius: "var(--radius-sm)" }}>
+          View Tax Guide
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       background: "linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, var(--surface-color) 100%)",

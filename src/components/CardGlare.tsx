@@ -6,9 +6,10 @@ interface CardGlareProps {
   children: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  color?: string;
 }
 
-export function CardGlare({ children, className = "", style = {} }: CardGlareProps) {
+export function CardGlare({ children, className = "", style = {}, color }: CardGlareProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
@@ -64,7 +65,7 @@ export function CardGlare({ children, className = "", style = {} }: CardGlarePro
           borderRadius: "inherit",
           background: `radial-gradient(
             circle at ${glare.x}% ${glare.y}%, 
-            rgba(255,255,255,0.15) 0%, 
+            ${color ? `${color}` : 'rgba(255,255,255,0.15)'} 0%, 
             rgba(255,255,255,0) 60%
           )`,
           opacity: glare.opacity,

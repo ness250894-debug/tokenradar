@@ -4,9 +4,59 @@ import { Lock, ShieldAlert } from 'lucide-react';
 interface HardwareWalletCTAProps {
   symbol: string;
   name: string;
+  variant?: 'full' | 'sidebar' | 'inline';
 }
 
-export function HardwareWalletCTA({ symbol, name }: HardwareWalletCTAProps) {
+export function HardwareWalletCTA({ symbol, name, variant = 'full' }: HardwareWalletCTAProps) {
+  if (variant === 'sidebar') {
+    return (
+      <div className="card" style={{ padding: "var(--space-md)", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.2)", marginBottom: "var(--space-md)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-xs)", color: "#10b981" }}>
+          <Lock size={16} />
+          <h4 style={{ fontSize: "var(--text-xs)", fontWeight: 700, textTransform: "uppercase", margin: 0 }}>Wallet Security</h4>
+        </div>
+        <p style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)" }}>
+          Protect your {symbol.toUpperCase()} in cold storage.
+        </p>
+        <Link 
+          href="/best-crypto-hardware-wallets" 
+          style={{ fontSize: "var(--text-xs)", color: "#10b981", fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}
+        >
+          View Top Wallets &rarr;
+        </Link>
+      </div>
+    );
+  }
+
+  if (variant === 'inline') {
+    return (
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        gap: "var(--space-md)", 
+        padding: "var(--space-md)", 
+        background: "rgba(16, 185, 129, 0.03)", 
+        border: "1px solid rgba(16, 185, 129, 0.15)", 
+        borderRadius: "var(--radius-md)",
+        marginTop: "var(--space-xl)",
+        marginBottom: "var(--space-xl)"
+      }}>
+        <div style={{ padding: "8px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "var(--radius-sm)", color: "#10b981" }}>
+          <Lock size={20} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)" }}>Security Alert: Self-Custody Recommended</div>
+          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)" }}>
+            Never keep large amounts of {name} on exchanges. Move to a hardware wallet.
+          </div>
+        </div>
+        <Link href="/best-crypto-hardware-wallets" style={{ fontSize: "var(--text-xs)", color: "#10b981", fontWeight: 700, textDecoration: "none", padding: "6px 12px", border: "1px solid #10b981", borderRadius: "var(--radius-sm)" }}>
+          Secure Now
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       background: "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, var(--surface-color) 100%)",
