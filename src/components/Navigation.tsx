@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -25,6 +25,16 @@ const NAV_LINKS = [
 export function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [isOpen]);
 
   return (
     <nav className="nav" id="main-nav">
@@ -68,7 +78,7 @@ export function Navigation() {
         }
       `}} />
       <div className="container nav-inner">
-        <Link href="/" className="nav-logo" aria-label="TokenRadar Home">
+        <Link href="/" className="nav-logo" aria-label="TokenRadar Home" style={{ flexShrink: 0 }}>
           <Image src="/icon.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" />
           <span>
             <span style={{ color: "var(--accent-primary)" }}>[</span>
@@ -89,19 +99,16 @@ export function Navigation() {
         <ul className={`nav-links ${isOpen ? "open" : ""}`}>
           {NAV_LINKS.map((link) => {
             const Icon = link.icon;
+            const isActive = pathname === link.href;
             return (
-              <li key={link.href} className="nav-link-item" style={{ display: "flex", alignItems: "center" }}>
+              <li key={link.href} className="nav-link-item">
                 <Link
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  style={
-                    pathname === link.href
-                      ? { color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }
-                      : { display: "flex", alignItems: "center", gap: "8px" }
-                  }
+                  className={isActive ? "active" : ""}
                 >
                   <Icon 
-                    size={16} 
+                    size={20} 
                     className="nav-icon" 
                     style={{ 
                       color: "badge" in link ? link.badgeColor : "inherit"

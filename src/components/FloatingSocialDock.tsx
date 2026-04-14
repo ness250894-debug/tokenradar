@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface SocialItem {
@@ -16,12 +16,24 @@ const SOCIALS: SocialItem[] = [
 
 export function FloatingSocialDock() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (isMobile) return null;
 
   return (
     <div
       style={{
         position: "fixed",
-        bottom: "var(--space-xl)",
+        bottom: "var(--space-2xl)", /* Increased bottom gap */
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 50,

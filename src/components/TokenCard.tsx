@@ -61,8 +61,8 @@ export function TokenCard({ token }: TokenCardProps) {
                 imageUrl={token.imageUrl} 
               />
             </div>
-            <div style={{ marginTop: "var(--space-xs)" }}>
-              <span className="badge badge-accent" style={{ fontSize: "0.65rem", padding: "2px 6px" }}>{token.category}</span>
+            <div style={{ marginTop: "var(--space-sm)" }}>
+              <span className="badge badge-accent">{token.category}</span>
             </div>
           </div>
           <span className={`badge badge-${riskLevel}`} style={{ flexShrink: 0 }}>
@@ -72,14 +72,14 @@ export function TokenCard({ token }: TokenCardProps) {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-md)", marginTop: "var(--space-xl)", paddingTop: "var(--space-md)", borderTop: "1px solid var(--border-color)" }}>
           <div>
-            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "4px" }}>24h Change</div>
-            <div className={`stat-change ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "var(--text-md)", fontWeight: 600 }}>
+            <div className="stat-label" style={{ marginBottom: "4px" }}>24h Change</div>
+            <div className={`stat-value ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "1.1rem" }}>
               {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}%
             </div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "4px" }}>Market Cap</div>
-            <div style={{ fontSize: "var(--text-md)", fontWeight: 600 }}>{formatCompact(token.marketCap)}</div>
+            <div className="stat-label" style={{ marginBottom: "4px" }}>Market Cap</div>
+            <div className="stat-value" style={{ fontSize: "1.1rem" }}>{formatCompact(token.marketCap)}</div>
           </div>
         </div>
       </Link>

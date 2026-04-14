@@ -313,9 +313,9 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Article Content & TOC */}
         {article && (
-          <div style={{ marginTop: "var(--space-2xl)", display: "flex", gap: "var(--space-2xl)" }}>
+          <div className="article-layout-row">
             {/* Main Content */}
-            <div style={{ flex: "1 1 auto", minWidth: 0 }}>
+            <div className="article-main-col">
               <div className="article-content" dangerouslySetInnerHTML={{ 
                 __html: markdownToHtml(article.content, {
                   name: detail.name,
@@ -332,7 +332,7 @@ export default async function TokenPage({ params }: PageProps) {
               </div>
             </div>
             
-            <aside className="hidden lg:block" style={{ flex: "0 0 280px" }}>
+            <aside className="article-sidebar-col hidden lg-block">
               <div 
                 className="sidebar-sticky"
                 style={{ 
