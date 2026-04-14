@@ -1,14 +1,6 @@
 /**
- * Sitemap Generator — builds sitemap.xml at build time.
- * Outputs to public/sitemap.xml so Next.js static export includes it.
- *
- * Features:
- * - Uses per-token `fetchedAt` dates for accurate `lastmod` values
- * - Reads article `generatedAt` dates for content pages
- * - Includes compare pages for top-20 token combinations
- * - Includes TGE pages
- *
- * Usage: npx tsx scripts/generate-sitemap.ts
+ * Sitemap Generator — Phase 4 (Index & Chunking)
+ * Handles scaling to 30,000+ pages for Google Search Console.
  */
 
 import * as fs from "fs";
@@ -21,6 +13,8 @@ const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
+const MAX_URLS_PER_SITEMAP = 5000; // Safe limit for fast parsing
+
 interface SitemapEntry {
   url: string;
   lastmod: string;
@@ -28,10 +22,7 @@ interface SitemapEntry {
   priority: string;
 }
 
-/**
- * Load token IDs from data and content directories.
- * Excludes upcoming TGEs that lack real market data (same filter as content-loader).
- */
+/** Load token IDs from data and content directories. */
 function getTokenIds(): string[] {
   const tokensDir = path.join(DATA_DIR, "tokens");
   const ids = new Set<string>();
@@ -50,12 +41,9 @@ function getTokenIds(): string[] {
     });
   }
 
-  // Exclude upcoming TGE tokens without real market data
-  const upcomingTgeIds = new Set<string>();
+  // Filter out TGEs without market data
   const tges = getUpcomingTGEs();
-  tges
-    .filter((t: UpcomingTge) => t.status !== "released")
-    .forEach((t: UpcomingTge) => upcomingTgeIds.add(t.id));
+  const upcomingTgeIds = new Set(tges.filter(t => t.status !== "released").map(t => t.id));
 
   return Array.from(ids).filter((id) => {
     if (!upcomingTgeIds.has(id)) return true;
@@ -63,43 +51,25 @@ function getTokenIds(): string[] {
     if (!fs.existsSync(tokenFile)) return false;
     try {
       const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-      return data.market?.price > 0 && data.market?.marketCap > 0;
+      return data.market?.price > 0;
     } catch {
       return false;
     }
   });
 }
 
-/** Read the `fetchedAt` date from a token's data file. */
 function getTokenDate(tokenId: string): string | null {
   const file = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
   if (!fs.existsSync(file)) return null;
-
   try {
     const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
     const dateStr = raw.fetchedAt || raw.lastMarketUpdate;
-    if (!dateStr) return null;
-    return new Date(dateStr).toISOString().split("T")[0];
+    return dateStr ? new Date(dateStr).toISOString().split("T")[0] : null;
   } catch {
     return null;
   }
 }
 
-/** Read the `generatedAt` date from a content article. */
-function _getArticleDate(tokenId: string, slug: string): string | null {
-  const file = path.join(CONTENT_DIR, tokenId, `${slug}.json`);
-  if (!fs.existsSync(file)) return null;
-
-  try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
-    if (!raw.generatedAt) return null;
-    return new Date(raw.generatedAt).toISOString().split("T")[0];
-  } catch {
-    return null;
-  }
-}
-
-/** Load upcoming TGEs. */
 function getUpcomingTGEs(): UpcomingTge[] {
   if (!fs.existsSync(TGE_FILE)) return [];
   try {
@@ -109,117 +79,14 @@ function getUpcomingTGEs(): UpcomingTge[] {
   }
 }
 
-function buildSitemap(): string {
-  const tokenIds = getTokenIds();
-  const now = new Date().toISOString().split("T")[0];
-
-  // Static pages
-  const entries: SitemapEntry[] = [
-    { url: "/", lastmod: now, changefreq: "daily", priority: "1.0" },
-    { url: "/upcoming", lastmod: now, changefreq: "daily", priority: "0.9" },
-    { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.7" },
-    { url: "/contact", lastmod: now, changefreq: "monthly", priority: "0.5" },
-    { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/privacy", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/terms", lastmod: now, changefreq: "yearly", priority: "0.3" },
-  ];
-
-  // Token pages
-  for (const id of tokenIds) {
-    const tokenDate = getTokenDate(id) || now;
-    const detail = getTokenDetail(id);
-
-    // If detail cannot be loaded, there's no page
-    if (!detail) continue;
-
-    const overviewArticle = getArticle(id, "overview");
-    const isLowQuality = (detail.market.volume24h < 500000) || (overviewArticle && overviewArticle.wordCount < 800);
-
-    if (!isLowQuality) {
-      entries.push({
-        url: `/${id}`,
-        lastmod: tokenDate,
-        changefreq: "daily",
-        priority: "0.9",
-      });
-    }
-
-    const predictionArticle = getArticle(id, "price-prediction");
-    if (predictionArticle) {
-      const predictionDate = predictionArticle.generatedAt ? new Date(predictionArticle.generatedAt).toISOString().split("T")[0] : tokenDate;
-      entries.push({
-        url: `/${id}/price-prediction`,
-        lastmod: predictionDate,
-        changefreq: "weekly",
-        priority: "0.8",
-      });
-    }
-
-    const howToBuyArticle = getArticle(id, "how-to-buy");
-    if (howToBuyArticle) {
-      const howToBuyDate = howToBuyArticle.generatedAt ? new Date(howToBuyArticle.generatedAt).toISOString().split("T")[0] : tokenDate;
-      entries.push({
-        url: `/${id}/how-to-buy`,
-        lastmod: howToBuyDate,
-        changefreq: "monthly",
-        priority: "0.7",
-      });
-    }
-  }
-
-  // TGE Pages
-  const tges = getUpcomingTGEs();
-  for (const tge of tges) {
-    const tgeDate = tge.discoveredAt ? new Date(tge.discoveredAt).toISOString().split("T")[0] : now;
-    if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
-      entries.push({
-        url: `/upcoming/${tge.id}`,
-        lastmod: tgeDate,
-        changefreq: "weekly",
-        priority: "0.8",
-      });
-    }
-  }
-
-  // Category Pages
-  const categories = getAllCategories();
-  for (const cat of categories) {
-    entries.push({
-      url: `/category/${cat.id}`,
-      lastmod: now,
-      changefreq: "daily",
-      priority: "0.8",
-    });
-  }
-
-  // Compare pages (Tier 1 SEO Strategy: Top 50 Cluster)
-  const topIds = tokenIds.slice(0, 50);
-  for (let i = 0; i < topIds.length; i++) {
-    for (const j of tokenIds) {
-      if (topIds[i] === j) continue;
-      
-      const dateA = getTokenDate(topIds[i]) || now;
-      const dateB = getTokenDate(j) || now;
-      const latestDate = dateA > dateB ? dateA : dateB;
-
-      entries.push({
-        url: `/compare/${topIds[i]}-vs-${j}`,
-        lastmod: latestDate,
-        changefreq: "weekly",
-        priority: "0.6",
-      });
-    }
-  }
-
+function generateXml(entries: SitemapEntry[]): string {
   const urls = entries
-    .map(
-      (e) => `  <url>
+    .map((e) => `  <url>
     <loc>${SITE_URL}${e.url}</loc>
     <lastmod>${e.lastmod}</lastmod>
     <changefreq>${e.changefreq}</changefreq>
     <priority>${e.priority}</priority>
-  </url>`
-    )
+  </url>`)
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -228,16 +95,120 @@ ${urls}
 </urlset>`;
 }
 
-function main() {
-  const sitemap = buildSitemap();
-  const outPath = path.join(PUBLIC_DIR, "sitemap.xml");
+function writeSitemap(filename: string, entries: SitemapEntry[]) {
+  const outPath = path.join(PUBLIC_DIR, filename);
+  fs.writeFileSync(outPath, generateXml(entries), "utf-8");
+  console.log(`  ✓ Written ${filename} (${entries.length} URLs)`);
+}
 
-  if (!fs.existsSync(PUBLIC_DIR)) {
-    fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+function main() {
+  const tokenIds = getTokenIds();
+  const now = new Date().toISOString().split("T")[0];
+  const sitemaps: string[] = [];
+
+  console.log("╔══════════════════════════════════════════╗");
+  console.log("║    Sitemap Index Engine — Scaling 30k+   ║");
+  console.log("╚══════════════════════════════════════════╝");
+
+  // 1. Sitemap: Main (Static + Categories + TGEs)
+  const mainEntries: SitemapEntry[] = [
+    { url: "/", lastmod: now, changefreq: "daily", priority: "1.0" },
+    { url: "/upcoming", lastmod: now, changefreq: "daily", priority: "0.9" },
+    { url: "/best-crypto-hardware-wallets", lastmod: now, changefreq: "weekly", priority: "0.8" },
+    { url: "/crypto-tax-guide", lastmod: now, changefreq: "weekly", priority: "0.8" },
+    { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.5" },
+  ];
+
+  const categories = getAllCategories();
+  categories.forEach(cat => {
+    mainEntries.push({ url: `/category/${cat.id}`, lastmod: now, changefreq: "daily", priority: "0.8" });
+  });
+
+  const tges = getUpcomingTGEs();
+  tges.forEach(tge => {
+    const date = tge.discoveredAt ? new Date(tge.discoveredAt).toISOString().split("T")[0] : now;
+    if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
+      mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date, changefreq: "weekly", priority: "0.8" });
+    }
+  });
+
+  writeSitemap("sitemap-main.xml", mainEntries);
+  sitemaps.push("sitemap-main.xml");
+
+  // 2. Sitemap: Tokens (Overview, Prediction, Buy, Ledger)
+  const tokenEntries: SitemapEntry[] = [];
+  for (const id of tokenIds) {
+    const tokenDate = getTokenDate(id) || now;
+    const detail = getTokenDetail(id);
+    if (!detail) continue;
+
+    // Filter thin content (SEO safety)
+    const overview = getArticle(id, "overview");
+    if (detail.market.volume24h > 100000 || (overview && overview.wordCount > 500)) {
+      tokenEntries.push({ url: `/${id}`, lastmod: tokenDate, changefreq: "daily", priority: "0.9" });
+    }
+
+    ["price-prediction", "how-to-buy", "transfer-to-ledger"].forEach(type => {
+      const art = getArticle(id, type);
+      if (art) {
+        const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
+        tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate, changefreq: "weekly", priority: "0.7" });
+      }
+    });
   }
 
-  fs.writeFileSync(outPath, sitemap, "utf-8");
-  console.log(`✓ Sitemap generated: ${outPath}`);
+  // Chunk tokens if we ever exceed limit, for now single file is fine for ~200-500 tokens
+  writeSitemap("sitemap-tokens.xml", tokenEntries);
+  sitemaps.push("sitemap-tokens.xml");
+
+  // 3. Sitemap: Comparisons (The Bulk)
+  console.log(`  Processing ${tokenIds.length} tokens for comparisons...`);
+  const compareEntries: SitemapEntry[] = [];
+  const topIds = tokenIds.slice(0, 100); // Focus indexing on top 100 vs all combinations
+
+  for (let i = 0; i < topIds.length; i++) {
+    for (const j of tokenIds) {
+      if (topIds[i] === j) continue;
+      
+      const dateA = getTokenDate(topIds[i]) || now;
+      const dateB = getTokenDate(j) || now;
+      const latestDate = dateA > dateB ? dateA : dateB;
+
+      compareEntries.push({
+        url: `/compare/${topIds[i]}-vs-${j}`,
+        lastmod: latestDate,
+        changefreq: "weekly",
+        priority: "0.6",
+      });
+
+      if (compareEntries.length >= MAX_URLS_PER_SITEMAP) {
+        const idx = sitemaps.filter(s => s.startsWith("sitemap-comparisons")).length + 1;
+        const name = `sitemap-comparisons-${idx}.xml`;
+        writeSitemap(name, [...compareEntries]);
+        sitemaps.push(name);
+        compareEntries.length = 0;
+      }
+    }
+  }
+
+  if (compareEntries.length > 0) {
+    const idx = sitemaps.filter(s => s.startsWith("sitemap-comparisons")).length + 1;
+    const name = `sitemap-comparisons-${idx}.xml`;
+    writeSitemap(name, compareEntries);
+    sitemaps.push(name);
+  }
+
+  // 4. Generate Sitemap Index
+  const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemaps.map(s => `  <sitemap>
+    <loc>${SITE_URL}/${s}</loc>
+    <lastmod>${now}</lastmod>
+  </sitemap>`).join("\n")}
+</sitemapindex>`;
+
+  fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), indexXml, "utf-8");
+  console.log(`\n🏁 Sitemap Index generated: sitemap.xml (points to ${sitemaps.length} chunks)`);
 }
 
 main();

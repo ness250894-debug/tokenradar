@@ -7,7 +7,7 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "27 */4 * * *" # 6x/day (02:27, 06:27, 10:27, 14:27, 18:27, 22:27 UTC)
+    - cron: "27 4 * * *" # 1x/day (04:27 UTC)
   workflow_dispatch:
 
 concurrency:
@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Publish from Queue (Incorporate live data)
-        run: npx tsx scripts/publish-from-queue.ts --max 2
+        run: npx tsx scripts/publish-from-queue.ts --max 10
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}

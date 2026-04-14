@@ -1,80 +1,95 @@
 /**
- * Semantic Internal Linking Engine
+ * Semantic Internal Linking Engine — Phase 2 (Contextual Learning)
  * 
- * Auto-injects contextual Markdown links to other TokenRadar pages 
- * inside AI-generated articles. Limits link density to protect SEO.
- * Will only run post-generation, during the daily build pipeline.
- *
- * Usage: npx tsx scripts/inject-internal-links.ts
+ * Auto-injects contextual Markdown links to:
+ * 1. Other Token Pages (e.g. "Bitcoin" -> "/bitcoin")
+ * 2. Glossary/Learn Hub Terms (e.g. "Rug pull" -> "/learn/what-is-a-rug-pull")
  */
 
 import * as fs from "fs/promises";
 import * as path from "path";
 
-const DATA_TOKENS_DIR = path.resolve(__dirname, "../data/tokens");
-const CONTENT_CURRENT = path.resolve(__dirname, "../content/tokens");
+const DATA_DIR = path.resolve(__dirname, "../data");
+const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
-const MAX_LINKS_PER_ARTICLE = 4;
+const MAX_TOKEN_LINKS = 3;
+const MAX_LEARN_LINKS = 2;
 
-async function buildTokenMapping(): Promise<Map<string, string>> {
-  const mapping = new Map<string, string>();
+interface LinkMapping {
+  name: string;
+  slug: string;
+  type: "token" | "learn";
+}
+
+async function buildAllMappings(): Promise<LinkMapping[]> {
+  const mappings: LinkMapping[] = [];
+
+  // 1. Build Token Mappings
   try {
-    const files = await fs.readdir(DATA_TOKENS_DIR);
-    for (const file of files) {
+    const tokenFiles = await fs.readdir(path.join(DATA_DIR, "tokens"));
+    for (const file of tokenFiles) {
       if (!file.endsWith(".json")) continue;
       const slug = file.replace(".json", "");
       try {
-        const data = JSON.parse(await fs.readFile(path.join(DATA_TOKENS_DIR, file), "utf-8"));
-        if (data.name) {
-          mapping.set(data.name.toLowerCase(), slug);
-        }
+        const raw = await fs.readFile(path.join(DATA_DIR, "tokens", file), "utf-8");
+        const data = JSON.parse(raw);
+        if (data.name) mappings.push({ name: data.name, slug: slug, type: "token" });
       } catch (_e) {}
     }
-  } catch (e) {
-    console.error("Failed to read token data", e);
+  } catch (_e) {
+    console.warn("⚠️ Tokens data not found. Skipping token links.");
   }
-  return mapping;
+
+  // 2. Build Learn Hub Mappings
+  try {
+    const glossaryFile = path.join(DATA_DIR, "glossary.json");
+    const raw = await fs.readFile(glossaryFile, "utf-8");
+    const glossary = JSON.parse(raw);
+    glossary.forEach((item: { title: string; slug: string }) => {
+      // Extract main term from title if possible, or use slug parts
+      let term = item.title.split("?")[0].replace("What is ", "").replace("Understanding ", "").trim();
+      if (term.includes(": ")) term = term.split(": ")[0];
+      
+      mappings.push({ name: term, slug: `learn/${item.slug}`, type: "learn" });
+      // Add common variations
+      if (term === "Rug Pull") mappings.push({ name: "rugpull", slug: `learn/${item.slug}`, type: "learn" });
+      if (term === "Market Cap") mappings.push({ name: "market capitalization", slug: `learn/${item.slug}`, type: "learn" });
+    });
+  } catch (_e) {
+    console.warn("⚠️ Glossary data not found. Skipping learn hub links.");
+  }
+
+  return mappings.sort((a, b) => b.name.length - a.name.length);
 }
 
-function injectLinks(content: string, mapping: Map<string, string>, currentSlug: string): string {
-  // Sort descending by length so we match "Bitcoin Cash" before "Bitcoin"
-  const tokenNames = Array.from(mapping.keys()).sort((a, b) => b.length - a.length);
-
-  // Split content into protected blocks vs plain text
-  // Protected: headers (#), code blocks (``` ... ``` or `...`), links ([...](...)), HTML tags
+function injectLinks(content: string, mappings: LinkMapping[], currentSlug: string): string {
   const tokenizer = /(```[\s\S]*?```|`[^`]*`|\[[^\]]+\]\([^)]+\)|^#+ .*$|<[^>]+>)/gm;
   const parts = content.split(tokenizer);
 
-  let linkedCount = 0;
+  let tokenLinked = 0;
+  let learnLinked = 0;
   const usedSlugs = new Set<string>();
 
   for (let i = 0; i < parts.length; i++) {
-    // Only process plain text parts (even indices)
-    if (i % 2 !== 0) continue;
-
-    if (linkedCount >= MAX_LINKS_PER_ARTICLE) break;
+    if (i % 2 !== 0) continue; // Skip protected parts
 
     let textPart = parts[i];
 
-    for (const tokenName of tokenNames) {
-      if (linkedCount >= MAX_LINKS_PER_ARTICLE) break;
+    for (const mapping of mappings) {
+      if (mapping.type === "token" && tokenLinked >= MAX_TOKEN_LINKS) continue;
+      if (mapping.type === "learn" && learnLinked >= MAX_LEARN_LINKS) continue;
 
-      const slug = mapping.get(tokenName)!;
-      if (slug === currentSlug || usedSlugs.has(slug)) continue;
+      if (mapping.slug.includes(currentSlug) || usedSlugs.has(mapping.slug)) continue;
 
-      // Safe word boundary matching
-      const escaped = tokenName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      // Look for the token strictly bounded by non-word chars, but allow simple punctuation
+      const escaped = mapping.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(`(^|\\s|\\(|\\b)(${escaped})($|\\s|\\)|\\b|\\.|,)`, 'i');
 
       const match = textPart.match(regex);
       if (match) {
-        // Log the injection context just for tracking during dev
-        // console.log(`Injecting link for ${tokenName} -> /${slug}`);
-        // match[1] = before, match[2] = token (cased properly), match[3] = after
-        textPart = textPart.replace(regex, `$1[$2](/${slug})$3`);
-        usedSlugs.add(slug);
-        linkedCount++;
+        textPart = textPart.replace(regex, `$1[$2](/${mapping.slug})$3`);
+        usedSlugs.add(mapping.slug);
+        if (mapping.type === "token") tokenLinked++;
+        else learnLinked++;
       }
     }
 
@@ -86,52 +101,40 @@ function injectLinks(content: string, mapping: Map<string, string>, currentSlug:
 
 async function main() {
   console.log("╔══════════════════════════════════════════╗");
-  console.log("║     Semantic Internal Linking Engine     ║");
+  console.log("║    Semantic Linking Engine — Scaled      ║");
   console.log("╚══════════════════════════════════════════╝");
-  console.log();
 
-  const mapping = await buildTokenMapping();
-  console.log(`  Loaded ${mapping.size} tokens for semantic clustering.`);
+  const mappings = await buildAllMappings();
+  console.log(`  Loaded ${mappings.length} semantic mappings (Tokens + Learn Hub).`);
 
-  if (mapping.size === 0) return;
+  if (mappings.length === 0) return;
 
-  try {
-    const tokens = await fs.readdir(CONTENT_CURRENT);
-    let updatedFiles = 0;
+  const tokens = await fs.readdir(CONTENT_DIR);
+  let updatedFiles = 0;
 
-    for (const tokenId of tokens) {
-      const tokenDir = path.join(CONTENT_CURRENT, tokenId);
-      const stat = await fs.stat(tokenDir);
-      if (!stat.isDirectory()) continue;
+  for (const tokenId of tokens) {
+    const tokenDir = path.join(CONTENT_DIR, tokenId);
+    if (!(await fs.stat(tokenDir)).isDirectory()) continue;
 
-      const articles = await fs.readdir(tokenDir);
-      for (const articleFile of articles) {
-        if (!articleFile.endsWith(".json")) continue;
-        
-        const filePath = path.join(tokenDir, articleFile);
-        try {
-          const raw = await fs.readFile(filePath, "utf-8");
-          const data = JSON.parse(raw);
-          
-          if (!data.content || typeof data.content !== "string") continue;
+    const articles = await fs.readdir(tokenDir);
+    for (const file of articles) {
+      if (!file.endsWith(".json")) continue;
+      const filePath = path.join(tokenDir, file);
+      const raw = await fs.readFile(filePath, "utf-8");
+      const data = JSON.parse(raw);
+      
+      if (!data.content) continue;
 
-          const newContent = injectLinks(data.content, mapping, tokenId);
-          
-          if (newContent !== data.content) {
-            data.content = newContent;
-            await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-            updatedFiles++;
-          }
-        } catch (e) {
-          console.error(`  Error processing ${filePath}:`, e);
-        }
+      const newContent = injectLinks(data.content, mappings, tokenId);
+      if (newContent !== data.content) {
+        data.content = newContent;
+        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+        updatedFiles++;
       }
     }
-    
-    console.log(`  ✓ Successfully injected internal links across ${updatedFiles} articles.`);
-  } catch (e) {
-    console.error("  Error reading content directory", e);
   }
+  
+  console.log(`  ✓ Successfully injected links in ${updatedFiles} articles.`);
 }
 
 main().catch(console.error);

@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "what-is-a-rug-pull",
+    "title": "What is a Rug Pull? Detection & Prevention Guide",
+    "description": "A comprehensive guide to understanding rug pulls in crypto, how they work, and the red flags you must watch for.",
+    "category": "Security",
+    "readTime": "6 min read",
+    "updatedAt": "2024-04-14",
+    "content": "Rug pulls are a type of malicious maneuver in the cryptocurrency industry where crypto developers abandon a project and run away with investors' funds. Rug pulls usually happen in decentralized finance (DeFi) ecosystems, especially on decentralized exchanges (DEXs) like Uniswap or PancakeSwap.\n\n## How a Rug Pull Works\nTypically, malicious actors create a new token, list it on a DEX, and pair it with a leading cryptocurrency like Ethereum or BNB. They then use various marketing tactics to cultivate 'hype' and attract investors. Once a significant amount of liquidity has been deposited into the pool, the developers withdraw everything, leaving investors with a worthless token that cannot be swapped back.\n\n## Common Red Flags\n1. **Unlocked Liquidity:** If the liquidity pool isn't locked via a smart contract, the developers can withdraw it at any time.\n2. **Hidden Mint Functions:** Some contracts allow developers to mint infinite new tokens, diluting the value to zero.\n3. **High Concentration:** If a few wallets hold more than 20% of the total supply, the risk of a coordinated dump is high.\n4. **Lack of Audit:** Projects that haven't been audited by reputable firms (like CertiK or Hacken) should be treated with extreme caution.\n\n## How TokenRadar Helps\nOur **Risk Score** automatically checks for these red flags by analyzing contract ownership and liquidity patterns in real-time. Before you trade, always check the Risk Gauge on the token's detail page."
+  },
+  {
+    "slug": "understanding-slippage",
+    "title": "Crypto Slippage: Why Prices Change During Trades",
+    "description": "Learn what slippage is, why it happens on decentralized exchanges, and how to set your slippage tolerance correctly.",
+    "category": "Security",
+    "readTime": "4 min read",
+    "updatedAt": "2024-04-14",
+    "content": "Slippage occurs when a trader settles for a different price than expected between the time they submit a transaction and the time it is confirmed on the blockchain.\n\n## Why Slippage Happens\n1. **High Volatility:** Prices in crypto move fast. By the time your transaction hits a block, the price may have shifted.\n2. **Low Liquidity:** In pools with low liquidity, a large order can significantly move the price (Price Impact).\n\n## Setting Slippage Tolerance\nMost wallets (like MetaMask) or DEXs (like Uniswap) allow you to set a percentage. If the price moves more than your tolerance (e.g., 0.5%), the trade will fail to prevent you from getting a bad deal."
+  },
+  {
+    "slug": "fully-diluted-valuation-fdv",
+    "title": "Market Cap vs FDV: What Truly Matters?",
+    "description": "Explaining the difference between current Market Cap and Fully Diluted Valuation (FDV) and why it's critical for long-term investors.",
+    "category": "Market Metrics",
+    "readTime": "5 min read",
+    "updatedAt": "2024-04-14",
+    "content": "Fully Diluted Valuation (FDV) is the total value of a crypto project if all its tokens were in circulation.\n\n## The Formula\n**FDV = Current Price × Total Maximum Supply**\n\n## Why FDV is a Warning Signal\nIf a project has a $100M Market Cap but a $1B FDV, it means only 10% of tokens are currently circulating. The other 90% will eventually be 'unlocked' and sold, which can create massive sell pressure on the price. Always compare these two numbers on TokenRadar to understand the potential for future inflation."
+  },
+  {
+    "slug": "token-burn-mechanics",
+    "title": "Token Burning Explained: Is it Bullish?",
+    "description": "Understanding how token burns reduce supply and whether they actually increase a token's value over time.",
+    "category": "Tokenomics",
+    "readTime": "4 min read",
+    "updatedAt": "2024-04-14",
+    "content": "Token burning is the process of permanently removing coins from the circulating supply. This is usually done by sending the tokens to a 'burn address' (a wallet that no one has the keys to).\n\n## Common Burn Strategies\n1. **Buy-back and Burn:** The project uses protocol revenue to buy tokens on the open market and burn them.\n2. **Transaction Fee Burns:** A small percentage of every trade is automatically burned (like Ethereum's EIP-1559).\n\n## The Deflationary Narrative\nIn theory, reducing supply while demand stays the same should increase price. However, burning tokens doesn't automatically create value if the project lacks utility."
+  },
+  {
+    "slug": "liquidity-depth",
+    "title": "Liquidity Depth: The 'Invisible' Security Metric",
+    "description": "Why Liquidity Depth is more important than volume when assessing the safety of a new cryptocurrency project.",
+    "category": "Market Metrics",
+    "readTime": "6 min read",
+    "updatedAt": "2024-04-14",
+    "content": "Liquidity Depth refers to the market's ability to absorb large buy or sell orders without significant price changes.\n\n## Volume vs. Depth\nA token can have $1M in daily volume but only $10k in liquidity. This is a massive red flag. This means even a small $5k sale would crash the price by 50%.\n\n## How to Check Depth\nLook for the **Liquidity Score** on TokenRadar. We measure the available funds in the top-tier pools on Uniswap, Raydium, and other DEXs to ensure you can exit your position when needed."
+  }
+]
