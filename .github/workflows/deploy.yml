@@ -64,7 +64,7 @@ jobs:
           echo "✅ 'out' directory found. Proceeding to deploy."
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy out --project-name=tokenradar --branch=${{ github.head_ref || github.ref_name }} --verbose
+        run: npx wrangler pages deploy out --project-name=tokenradar --branch=${{ github.head_ref || github.ref_name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
