@@ -167,7 +167,7 @@ function main() {
   const allTokens = getAllTokens();
   const topTokens = allTokens
     .sort((a, b) => a.rank - b.rank)
-    .slice(0, 50);
+    .slice(0, 45);
   
   const compIds = topTokens.map(t => t.id);
 
