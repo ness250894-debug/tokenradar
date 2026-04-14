@@ -53,6 +53,9 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
+      - name: Inject Semantic Internal Links
+        run: npx tsx scripts/inject-internal-links.ts
+
       - name: Commit published articles
         id: commit
         run: |
