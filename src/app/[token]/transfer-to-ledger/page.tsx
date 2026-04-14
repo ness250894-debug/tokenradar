@@ -103,6 +103,7 @@ export default async function TransferGuidePage({ params }: PageProps) {
       <TransferGuideTemplate 
         tokenName={token.name} 
         symbol={token.symbol} 
+        slug={tokenId}
         technical={technical} 
       />
     </main>

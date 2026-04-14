@@ -15,10 +15,11 @@ import type { TokenTechnical } from '@/lib/token-technical-data';
 interface TransferGuideTemplateProps {
   tokenName: string;
   symbol: string;
+  slug: string;
   technical: TokenTechnical;
 }
 
-export function TransferGuideTemplate({ tokenName, symbol, technical }: TransferGuideTemplateProps) {
+export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: TransferGuideTemplateProps) {
   const symbolUpper = symbol.toUpperCase();
   
   return (
@@ -138,7 +139,7 @@ export function TransferGuideTemplate({ tokenName, symbol, technical }: Transfer
               </p>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-lg)" }}>
                 <MagneticEffect>
-                  <Link href={`/${symbol.toLowerCase()}`} className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
+                  <Link href={`/${slug}`} className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 24px" }}>
                     <ArrowLeft size={18} /> Back to {tokenName} Overview
                   </Link>
                 </MagneticEffect>
