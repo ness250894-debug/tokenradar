@@ -31,7 +31,7 @@ export async function generateStaticParams() {
   // Sort by rank ascending (lower rank = higher market cap)
   const topTokens = allTokens
     .sort((a, b) => a.rank - b.rank)
-    .slice(0, 100);
+    .slice(0, 50);
   
   const ids = topTokens.map(t => t.id);
   const params: { slug: string }[] = [];
