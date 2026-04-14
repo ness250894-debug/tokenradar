@@ -20,7 +20,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 /**
  * Generate static paths for top token combinations.

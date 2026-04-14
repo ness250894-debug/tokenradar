@@ -5,7 +5,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle } from "../src/lib/content-loader";
+import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getAllTokens } from "../src/lib/content-loader";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
