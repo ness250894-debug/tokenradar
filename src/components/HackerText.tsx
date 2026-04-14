@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -22,7 +22,7 @@ export function HackerText({ text, className, style }: HackerTextProps) {
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     intervalRef.current = window.setInterval(() => {
-      setDisplayText((prev) => {
+      setDisplayText(() => {
         return text
           .split("")
           .map((letter, index) => {

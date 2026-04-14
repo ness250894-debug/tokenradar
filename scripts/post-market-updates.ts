@@ -37,11 +37,10 @@ import { sendTelegramMessage, sendTelegramPhoto } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
-import { safeReadJson, getTimeOfDay, getRandomTone } from "../src/lib/utils";
+import { safeReadJson } from "../src/lib/utils";
+import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
-  type TokenData,
   type MetricData,
-  type SelectionReason,
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
@@ -119,145 +118,7 @@ function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMAR
   return sanitized;
 }
 
-// ── Alert Generators ───────────────────────────────────────────
 
-function createTrendingAlert(token: TokenData, reason: SelectionReason, aiSummary: string = "", isX: boolean = false): string {
-  const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
-  const sym = token.symbol.toUpperCase();
-  const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
-  const sign = token.market.priceChange24h >= 0 ? "+" : "";
-  
-  // Phrasing logic based on platform and reason
-  let header = `🔥 <b>TRENDING NOW: ${token.name} ($${sym})</b>`;
-  let trendingLine = reason === "trending-x" ? "📈 Trending on X" : "";
-
-  if (isX) {
-    header = `🚨 <b>${token.name} ($${sym}) is trending with massive momentum!</b>`;
-    trendingLine = `🚨 Major market activity detected!`;
-  }
-
-  const lines = [
-    header,
-    "",
-    ...(trendingLine ? [trendingLine] : []),
-    `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
-    `💰 Price: $${price}`,
-    "",
-  ];
-
-  if (aiSummary) {
-    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(sanitizeHtmlForTelegram(aiSummary));
-    lines.push("");
-  } else {
-    lines.push("This token is attracting major attention. Read the full analysis on TokenRadar.");
-    lines.push("");
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
-  if (isX) {
-    lines.push(`🌐 Main Site: ${displayUrl}`);
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  }
-
-  return lines.join("\n");
-}
-
-function createTopGainerAlert(token: TokenData, aiSummary: string = "", isX: boolean = false): string {
-  const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
-  const sym = token.symbol.toUpperCase();
-  
-  const lines = [
-    `🚀 <b>MARKET MOVER: ${token.name} ($${sym})</b>`,
-    "",
-    `🟢 Up <b>+${token.market.priceChange24h.toFixed(2)}%</b> today!`,
-    `💰 Current Price: $${price}`,
-    "",
-  ];
-
-  if (aiSummary) {
-    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(sanitizeHtmlForTelegram(aiSummary));
-    lines.push("");
-  } else {
-    lines.push("Is this a breakout? Discover institutional-grade risk scores on TokenRadar.");
-    lines.push("");
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
-  if (isX) {
-    lines.push(`🌐 Main Site: ${displayUrl}`);
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  }
-
-  return lines.join("\n");
-}
-
-function createSafePlayAlert(token: TokenData, metric: MetricData, aiSummary: string = "", isX: boolean = false): string {
-  const sym = token.symbol.toUpperCase();
-  
-  const lines = [
-    `🛡️ <b>LOW RISK ASSET: ${token.name} ($${sym})</b>`,
-    "",
-    `Our AI assigned a <b>Risk Score of ${metric.riskScore}/10</b> to $${sym} ($${token.market.price.toFixed(2)}).`,
-    "",
-  ];
-
-  if (aiSummary) {
-    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(sanitizeHtmlForTelegram(aiSummary));
-    lines.push("");
-  } else {
-    lines.push("Ideal for conservative portfolios looking for growth.");
-    lines.push("");
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
-  if (isX) {
-    lines.push(`🌐 Main Site: ${displayUrl}`);
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  }
-
-  return lines.join("\n");
-}
-
-function createSpotlightAlert(token: TokenData, aiSummary: string = "", isX: boolean = false): string {
-  const price = token.market.price >= 1 ? token.market.price.toFixed(2) : token.market.price.toFixed(6);
-  const mc = token.market.marketCap >= 1e9 ? `$${(token.market.marketCap / 1e9).toFixed(2)}B` : `$${(token.market.marketCap / 1e6).toFixed(0)}M`;
-  const emoji = token.market.priceChange24h >= 0 ? "🟢" : "🔴";
-  const sign = token.market.priceChange24h >= 0 ? "+" : "";
-  const sym = token.symbol.toUpperCase();
-  
-  const lines = [
-    `🔦 <b>TOKEN SPOTLIGHT: ${token.name} ($${sym})</b>`,
-    "",
-    `💰 Price: $${price}`,
-    `${emoji} 24h: ${sign}${token.market.priceChange24h.toFixed(2)}%`,
-    `📊 MCap: ${mc}`,
-    "",
-  ];
-
-  if (aiSummary) {
-    lines.push(`📝 <b>Deep Insight & Analysis:</b>`);
-    lines.push(sanitizeHtmlForTelegram(aiSummary));
-    lines.push("");
-  } else {
-    lines.push(`Where will the market be in ${new Date().getFullYear()}? Check the numbers to find out.`);
-    lines.push("");
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const displayUrl = siteUrl.replace("https://", "");
-  if (isX) {
-    lines.push(`🌐 Main Site: ${displayUrl}`);
-    lines.push(`#${sym} #Crypto #TokenRadarCo`);
-  }
-
-  return lines.join("\n");
-}
 
 // ── Deduplication & Token Selection: imported from ./lib/token-selection.ts ──
 

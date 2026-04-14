@@ -4,13 +4,11 @@ import { useState } from "react";
 import { Calculator } from "lucide-react";
 
 export function ProfitCalculator({
-  tokenName,
-  symbol,
   currentPrice,
   atl
 }: {
-  tokenName: string;
-  symbol: string;
+  tokenName?: string;
+  symbol?: string;
   currentPrice: number;
   atl: number;
 }) {

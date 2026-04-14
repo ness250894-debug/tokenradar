@@ -4,6 +4,8 @@
  * Centralized Telegram messaging used by posting scripts and error reporting.
  */
 
+import { fetchWithRetry } from "./fetch-with-retry";
+
 /**
  * Send a message to a Telegram channel/chat via the Bot API.
  *
@@ -21,7 +23,7 @@ export async function sendTelegramMessage(
   if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -61,7 +63,7 @@ export async function sendTelegramPoll(
   if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
 
   const url = `https://api.telegram.org/bot${token}/sendPoll`;
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -110,7 +112,7 @@ export async function sendTelegramPhoto(
   const blob = new Blob([new Uint8Array(photoBuffer)], { type: "image/png" });
   formData.append("photo", blob, "image.png");
 
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     method: "POST",
     body: formData,
   });
@@ -153,7 +155,7 @@ export async function sendTelegramVideo(
   const blob = new Blob([new Uint8Array(videoBuffer)], { type: "video/mp4" });
   formData.append("video", blob, "video.mp4");
 
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     method: "POST",
     body: formData,
   });

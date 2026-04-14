@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Shield, Zap, TrendingUp, Cpu, Globe } from "lucide-react";
+import { ArrowRight, BookOpen, Shield, TrendingUp, Cpu } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Crypto Learning Hub & Glossary | TokenRadar",
@@ -85,9 +85,9 @@ export default function LearnPage() {
 
       <section className="mt-24 p-8 glass-card border-none bg-gradient-to-br from-emerald-500/10 to-transparent rounded-3xl text-center">
         <BookOpen className="w-12 h-12 text-emerald-500 mx-auto mb-6" />
-        <h2 className="text-3xl font-bold mb-4">Can't find a term?</h2>
+        <h2 className="text-3xl font-bold mb-4">Can&apos;t find a term?</h2>
         <p className="text-gray-400 mb-8">
-          Our AI analyst is constantly updating the glossary. If there's a technical term or concept you want us to cover, let us know.
+          Our AI analyst is constantly updating the glossary. If there&apos;s a technical term or concept you want us to cover, let us know.
         </p>
         <Link href="/contact" className="secondary-button inline-block">
           Suggest a Topic

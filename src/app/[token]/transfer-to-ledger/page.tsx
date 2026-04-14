@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTokenDetail, getTokenIds } from '@/lib/content-loader';
+import { getTokenDetail } from '@/lib/content-loader';
 import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
 

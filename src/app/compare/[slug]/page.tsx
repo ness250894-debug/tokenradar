@@ -10,11 +10,10 @@ import {
   formatSupply,
 } from "@/lib/content-loader";
 import { PriceChart } from "@/components/PriceChart";
-import { DualPriceChart } from "@/components/DualPriceChart";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { EssentialCryptoToolkit } from "@/components/EssentialCryptoToolkit";
 import { CardGlare } from "@/components/CardGlare";
-import { CheckCircle2, Trophy, Scale, ArrowRight, ArrowLeft, TrendingUp, ShieldCheck } from "lucide-react";
+import { Trophy, TrendingUp, ShieldCheck } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

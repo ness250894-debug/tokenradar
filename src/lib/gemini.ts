@@ -1,4 +1,5 @@
-import { sleep } from "./utils";
+import { sleep } from "./shared-utils";
+import { fetchWithRetry } from "./fetch-with-retry";
 
 export type AIResult = { 
   content: string; 
@@ -37,7 +38,7 @@ async function callGeminiAPI(
       }
       
       lastGeminiRequestTime = Date.now();
-      const response = await fetch(url, {
+      const response = await fetchWithRetry(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -88,7 +89,7 @@ async function callClaudeAPI(
       
       const messages = [{ role: "user", content: userPrompt }];
       
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -10,6 +10,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
+import { fetchWithRetry } from "./fetch-with-retry";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const LOGS_DIR = path.join(DATA_DIR, "logs");
@@ -57,7 +58,7 @@ export async function sendTelegramAlert(message: string): Promise<void> {
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithRetry(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

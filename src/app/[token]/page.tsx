@@ -15,6 +15,7 @@ import {
 } from "@/lib/content-loader";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
+import { slugify } from "@/lib/shared-utils";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
@@ -147,7 +148,13 @@ export default async function TokenPage({ params }: PageProps) {
             {detail.categories.length > 0 && (
               <div style={{ display: "flex", gap: "var(--space-sm)", marginTop: "var(--space-sm)", flexWrap: "wrap" }}>
                 {detail.categories.slice(0, 3).map((cat) => (
-                  <span key={cat} className="badge badge-accent">{cat}</span>
+                  <Link 
+                    key={cat} 
+                    href={`/category/${slugify(cat)}`} 
+                    className="badge badge-accent hover-scale"
+                  >
+                    {cat}
+                  </Link>
                 ))}
               </div>
             )}

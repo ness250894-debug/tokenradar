@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Search, ArrowRightLeft, Check, Trophy } from "lucide-react";
+import { Search, ArrowRightLeft, Trophy } from "lucide-react";
 
 interface TokenSimple {
   id: string;

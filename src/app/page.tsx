@@ -7,8 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Users, Calculator, Zap, Scale } from "lucide-react";
-import { XIcon, TelegramIcon } from "@/components/SocialIcons";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap, Scale } from "lucide-react";
 
 export default function HomePage() {
   const allTokensList = getAllTokens();

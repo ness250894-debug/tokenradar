@@ -5,7 +5,7 @@ import Link from "next/link";
 import { type UpcomingTge } from "@/lib/content-loader";
 import { CardGlare } from "./CardGlare";
 
-const TGES_PER_PAGE = 12;
+const TGES_PER_PAGE = 6;
 
 export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   const [searchQuery, setSearchQuery] = useState("");

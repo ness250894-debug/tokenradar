@@ -77,6 +77,7 @@ export function DualPriceChart({
             tickFormatter={(v) => `${v.toFixed(0)}%`}
             domain={['auto', 'auto']}
           />
+          {/* eslint-disable @typescript-eslint/no-explicit-any */}
           <Tooltip 
             contentStyle={{ 
               background: "var(--bg-card)", 
@@ -85,9 +86,12 @@ export function DualPriceChart({
               fontSize: "var(--text-sm)",
               boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
             }}
-            formatter={(val: any, name: any) => {
-              const num = Number(val);
-              if (isNaN(num)) return [String(val), name === "valA" ? labelA : labelB];
+            formatter={(
+              value: any,
+              name: any
+            ) => {
+              const num = Number(value);
+              if (isNaN(num)) return [String(value), name === "valA" ? labelA : labelB];
               return [
                 `${num >= 0 ? "+" : ""}${num.toFixed(2)}%`, 
                 name === "valA" ? labelA : labelB

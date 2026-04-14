@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { getTokenIconUrl } from "@/lib/formatters";
 
 interface TokenIconProps {
@@ -28,7 +29,7 @@ export function TokenIcon({
 }: TokenIconProps) {
   const [error, setError] = useState(false);
   const iconUrl = imageUrl || getTokenIconUrl(symbol, id);
-  const [isAvatar, setIsAvatar] = useState(!iconUrl);
+  const isAvatar = !iconUrl;
 
   const containerStyle: React.CSSProperties = {
     width: size,
@@ -55,12 +56,14 @@ export function TokenIcon({
 
   return (
     <div className={`token-icon-container ${className}`} style={containerStyle}>
-      <img
+      <Image
         src={iconUrl}
-        alt={`${name} icon`}
+        alt={`${name} (${symbol.toUpperCase()}) icon`}
+        width={size}
+        height={size}
         className="img-icon"
         onError={() => setError(true)}
-        loading="lazy"
+        unoptimized
       />
     </div>
   );

@@ -19,9 +19,9 @@ import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
-import { safeReadJson, getTimeOfDay, getRandomTone } from "../src/lib/utils";
+import { safeReadJson } from "../src/lib/utils";
+import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
-  type TokenData,
   type MetricData,
   getTodayPostedTokens,
   getRecentlyPostedTokens,

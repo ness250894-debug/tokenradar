@@ -73,6 +73,7 @@ export default async function Image({ params }: { params: Promise<{ token: strin
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '60px' }}>
           {/* Token Icon */}
           <div style={{ display: 'flex', borderRadius: '40px', overflow: 'hidden', border: '4px solid rgba(255,255,255,0.1)', background: '#111' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={getTokenIconUrl(token.symbol, tokenId)}
               alt={token.name}

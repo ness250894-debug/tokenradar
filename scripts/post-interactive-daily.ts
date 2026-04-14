@@ -28,10 +28,10 @@ import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
-  
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
-import { safeReadJson, getTimeOfDay } from "../src/lib/utils";
+import { safeReadJson } from "../src/lib/utils";
+import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
 import {
   type TokenData,

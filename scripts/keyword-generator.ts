@@ -21,7 +21,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, type CoinGeckoToken } from "../src/lib/coingecko";
 import { logError } from "../src/lib/reporter";
-import { sleep } from "../src/lib/utils";
+import { sleep } from "../src/lib/shared-utils";
 
 // ── Configuration ──────────────────────────────────────────────
 

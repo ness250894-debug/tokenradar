@@ -7,7 +7,7 @@ interface TokenGridProps {
   tokens: TokenCardData[];
 }
 
-const TOKENS_PER_PAGE = 12;
+const TOKENS_PER_PAGE = 6;
 
 export function TokenGrid({ tokens }: TokenGridProps) {
   const [searchQuery, setSearchQuery] = useState("");

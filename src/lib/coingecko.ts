@@ -14,7 +14,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError } from "./reporter";
-import { sleep } from "./utils";
+import { sleep } from "./shared-utils";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const DATA_DIR = path.resolve(process.cwd(), "data");
@@ -22,6 +22,8 @@ const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
 const RATE_LIMIT_DELAY_MS = 2100; // 2.1s between requests
 const MONTHLY_LIMIT = 9000;
+
+import { fetchWithRetry } from "./fetch-with-retry";
 
 /** Ensure cache directory exists. */
 function ensureCacheDir(): void {
@@ -129,7 +131,7 @@ export async function fetchCoinGecko<T>(
   lastRequestTime = Date.now();
   const currentCount = incrementCounter();
 
-  const response = await fetch(url.toString(), {
+  const response = await fetchWithRetry(url.toString(), {
     headers: {
       Accept: "application/json",
       "User-Agent": "TokenRadar/1.0",

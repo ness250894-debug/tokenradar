@@ -21,8 +21,8 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
-import { logError, sendTelegramAlert, logActivity } from "../src/lib/reporter";
-import { sleep } from "../src/lib/utils";
+import { logError, logActivity } from "../src/lib/reporter";
+import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -287,7 +287,7 @@ async function main() {
   const targetType = typeIdx !== -1 ? args[typeIdx + 1] : null;
   const dryRun = args.includes("--dry-run");
   const useQueue = args.includes("--queue");
-  const force = args.includes("--force");
+
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
   const maxTgeTokens = maxTgeIdx !== -1 ? parseInt(args[maxTgeIdx + 1], 10) : 5;
 
@@ -399,7 +399,7 @@ async function main() {
       try {
         const p = path.join(TOKENS_DIR, `${id}.json`);
         if(fs.existsSync(p)) tokenData = JSON.parse(await fs.promises.readFile(p, "utf-8"));
-      } catch (e) {}
+      } catch (_e) {}
 
       const needsGeneration = targetType 
         ? await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData)
@@ -514,7 +514,7 @@ async function main() {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         relatedTokenNames = getRelatedTokens(tokenId, 2).map((t: any) => t.name);
-      } catch (e) {
+      } catch (_e) {
         // Safe fallback
       }
     }

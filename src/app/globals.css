@@ -161,10 +161,64 @@ input[type=range]::-moz-range-thumb:hover {
   padding: 0 var(--space-lg);
 }
 
-/* ---- Utilities ---- */
-.hidden { display: none !important; }
-.block { display: block !important; }
 .hidden-mobile { display: none !important; }
+
+/* Flexbox Utilities */
+.flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-center { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: center !important; 
+}
+.items-center { align-items: center !important; }
+.items-start { align-items: flex-start !important; }
+.justify-between { justify-content: space-between !important; }
+.flex-1 { flex: 1 1 0% !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+
+/* Gap Utilities (using tokens) */
+.gap-xs { gap: var(--space-xs) !important; }
+.gap-sm { gap: var(--space-sm) !important; }
+.gap-md { gap: var(--space-md) !important; }
+.gap-lg { gap: var(--space-lg) !important; }
+
+/* Scaling & Animations */
+.hover-scale {
+  transition: transform var(--transition-fast) !important;
+}
+.hover-scale:hover {
+  transform: scale(1.05) !important;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-underline { text-decoration: none !important; }
+.h-full { height: 100% !important; }
+
+/* Spacing Helpers */
+.mt-xs { margin-top: var(--space-xs) !important; }
+.mt-sm { margin-top: var(--space-sm) !important; }
+.mt-md { margin-top: var(--space-md) !important; }
+.mt-lg { margin-top: var(--space-lg) !important; }
+.mt-xl { margin-top: var(--space-xl) !important; }
+
+.mb-xs { margin-bottom: var(--space-xs) !important; }
+.mb-sm { margin-bottom: var(--space-sm) !important; }
+.mb-md { margin-bottom: var(--space-md) !important; }
+.mb-1 { margin-bottom: 4px !important; }
+
+.pt-md { padding-top: var(--space-md) !important; }
+
+/* Border Helpers */
+.border-t { border-top: 1px solid var(--border-color) !important; }
+.border-color { border-color: var(--border-color) !important; }
 
 @media (min-width: 1024px) {
   .lg-hidden { display: none !important; }
@@ -460,9 +514,80 @@ input[type=range]::-moz-range-thumb:hover {
   display: none;
   background: none;
   border: none;
-  color: var(--text-primary);
-  font-size: var(--text-xl);
   cursor: pointer;
+}
+
+/* Nav Logo Pulse Animation */
+@keyframes nav-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+}
+
+.nav-logo-pulse {
+  border: 1px solid var(--accent-primary);
+  animation: nav-pulse 2s infinite;
+}
+
+.nav-link-active {
+  color: var(--text-primary) !important;
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Navigation & Badge Utilities */
+@keyframes subtle-pulse {
+  0% { opacity: 0.6; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.6; transform: scale(0.95); }
+}
+
+@keyframes badge-shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.nav-badge {
+  font-size: 8px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+  position: relative;
+  top: -1px;
+}
+
+.badge-pulse {
+  animation: subtle-pulse 2s infinite ease-in-out;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.badge-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: badge-shimmer 3s infinite linear;
+}
+
+.nav-icon {
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-link-item:hover .nav-icon {
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
 /* ---- Footer ---- */

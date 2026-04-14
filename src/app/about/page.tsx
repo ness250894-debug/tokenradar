@@ -161,7 +161,7 @@ export default function AboutPage() {
             </li>
             <li>
               <strong>Market Dominance</strong> — calculates the relative
-              market cap size (e.g., "Token A is 10x larger than Token B").
+              market cap size (e.g., &quot;Token A is 10x larger than Token B&quot;).
             </li>
             <li>
               <strong>Performance Delta</strong> — tracks 30-day and 24h price

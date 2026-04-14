@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TokenTickerPill } from "./TokenTickerPill";
 import { CardGlare } from "./CardGlare";
+import { slugify } from "@/lib/shared-utils";
 
 export interface TokenCardData {
   id: string;
@@ -49,40 +50,57 @@ export function TokenCard({ token }: TokenCardProps) {
 
   return (
     <CardGlare style={{ height: "100%" }}>
-      <Link href={`/${token.id}`} className="card" id={`token-card-${token.id}`} style={{ display: "block", textDecoration: "none", height: "100%" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-sm)" }}>
-          <div style={{ minWidth: 0, flex: 1 }}>
-            <div className="token-name" style={{ minWidth: 0 }}>
-              <TokenTickerPill 
-                name={token.name} 
-                symbol={token.symbol} 
-                id={token.id}
-                price={token.price} 
-                imageUrl={token.imageUrl} 
-              />
-            </div>
-            <div style={{ marginTop: "var(--space-sm)" }}>
-              <span className="badge badge-accent">{token.category}</span>
-            </div>
-          </div>
-          <span className={`badge badge-${riskLevel}`} style={{ flexShrink: 0 }}>
-            Risk {token.riskScore}/10
-          </span>
-        </div>
+      <div className="card block no-underline h-full relative group" style={{ cursor: 'default' }}>
+        {/* Main Background Link (Stretch Link) */}
+        <Link 
+          href={`/${token.id}`} 
+          className="absolute inset-0 z-0" 
+          aria-label={`View ${token.name} details`} 
+          id={`token-card-${token.id}`}
+        />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-md)", marginTop: "var(--space-xl)", paddingTop: "var(--space-md)", borderTop: "1px solid var(--border-color)" }}>
-          <div>
-            <div className="stat-label" style={{ marginBottom: "4px" }}>24h Change</div>
-            <div className={`stat-value ${isPositive ? "price-up" : "price-down"}`} style={{ fontSize: "1.1rem" }}>
-              {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}%
+        {/* Card Content */}
+        <div className="relative z-10 pointer-events-none flex flex-col h-full">
+          <div className="flex justify-between items-start gap-sm">
+            <div className="flex-1 min-w-0 pointer-events-auto">
+              <div className="token-name min-w-0">
+                <TokenTickerPill 
+                  name={token.name} 
+                  symbol={token.symbol} 
+                  id={token.id}
+                  price={token.price} 
+                  imageUrl={token.imageUrl} 
+                />
+              </div>
+              <div className="mt-sm">
+                <Link 
+                  href={`/category/${slugify(token.category)}`}
+                  className="badge badge-accent hover-scale inline-block relative z-20"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {token.category}
+                </Link>
+              </div>
+            </div>
+            <span className={`badge badge-${riskLevel} flex-shrink-0 relative z-20`}>
+              Risk {token.riskScore}/10
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-md mt-xl pt-md border-t border-color pointer-events-none mt-auto">
+            <div>
+              <div className="stat-label mb-1">24h Change</div>
+              <div className={`stat-value text-lg ${isPositive ? "price-up" : "price-down"}`}>
+                {isPositive ? "▲" : "▼"} {Math.abs(token.priceChange24h).toFixed(2)}%
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="stat-label mb-1">Market Cap</div>
+              <div className="stat-value text-lg">{formatCompact(token.marketCap)}</div>
             </div>
           </div>
-          <div style={{ textAlign: "right" }}>
-            <div className="stat-label" style={{ marginBottom: "4px" }}>Market Cap</div>
-            <div className="stat-value" style={{ fontSize: "1.1rem" }}>{formatCompact(token.marketCap)}</div>
-          </div>
         </div>
-      </Link>
+      </div>
     </CardGlare>
   );
 }

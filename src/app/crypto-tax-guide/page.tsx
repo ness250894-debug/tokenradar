@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Calculator, AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'The Ultimate 2026 Crypto Tax Guide | TokenRadar',

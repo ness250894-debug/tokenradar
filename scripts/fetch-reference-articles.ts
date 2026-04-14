@@ -20,7 +20,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError } from "../src/lib/reporter";
-import { sleep } from "../src/lib/utils";
+import { sleep } from "../src/lib/shared-utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_FILE = path.join(DATA_DIR, "tokens.json");

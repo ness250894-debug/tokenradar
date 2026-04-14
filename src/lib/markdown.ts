@@ -1,6 +1,6 @@
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
-import { formatPrice } from "./formatters";
+import { formatPrice, formatCompact } from "./formatters";
 import { getAllTokens } from "./content-loader";
 
 /**
@@ -42,7 +42,6 @@ export function markdownToHtml(md: string, tokenData?: TokenMarketData): string 
 
     // Use specific compact formatter for Market Cap if available
     if (tokenData.marketCap) {
-      const { formatCompact } = require("./formatters"); 
       replacements["{{LIVE_MARKET_CAP}}"] = formatCompact(tokenData.marketCap);
     }
 

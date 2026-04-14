@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTokenIds, getTokenDetail, getAllTokens } from "@/lib/content-loader";
-import { getTokenIconUrl } from "@/lib/formatters";
+import { getTokenDetail, getAllTokens } from "@/lib/content-loader";
 import { ComparisonSearch } from "@/components/ComparisonSearch";
 import { EssentialCryptoToolkit } from "@/components/EssentialCryptoToolkit";
 import { CardGlare } from "@/components/CardGlare";

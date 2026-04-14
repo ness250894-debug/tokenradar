@@ -82,7 +82,8 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           
           {/* Side A: Pros/Risk */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, gap: '20px' }}>
-            <img src={getTokenIconUrl(tokenA.symbol, tokenA.id)} width={140} height={140} style={{ borderRadius: '20px', border: '3px solid #10b981' }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={getTokenIconUrl(tokenA.symbol, tokenA.id)} alt={`${tokenA.name} icon`} width={140} height={140} style={{ borderRadius: '20px', border: '3px solid #10b981' }} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <span style={{ fontSize: 50, fontWeight: 'bold', color: 'white' }}>{tokenA.symbol}</span>
               <span style={{ fontSize: 28, color: '#10b981', fontWeight: 700 }}>Risk: {scoreA.toFixed(1)}/10</span>
@@ -96,7 +97,8 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
           {/* Side B: Pros/Risk */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, gap: '20px' }}>
-            <img src={getTokenIconUrl(tokenB.symbol, tokenB.id)} width={140} height={140} style={{ borderRadius: '20px', border: '3px solid #3b82f6' }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={getTokenIconUrl(tokenB.symbol, tokenB.id)} alt={`${tokenB.name} icon`} width={140} height={140} style={{ borderRadius: '20px', border: '3px solid #3b82f6' }} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <span style={{ fontSize: 50, fontWeight: 'bold', color: 'white' }}>{tokenB.symbol}</span>
               <span style={{ fontSize: 28, color: '#3b82f6', fontWeight: 700 }}>Risk: {scoreB.toFixed(1)}/10</span>

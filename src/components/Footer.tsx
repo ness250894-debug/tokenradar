@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HackerText } from "./HackerText";
 import { XIcon, TelegramIcon } from "./SocialIcons";
-import { Activity } from "lucide-react";
+
 
 /**
  * Group definitions for footer columns

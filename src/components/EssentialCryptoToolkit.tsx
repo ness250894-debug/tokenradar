@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShieldCheck, Calculator, Zap, ArrowRight } from "lucide-react";
+import { ShieldCheck, Calculator, Zap } from "lucide-react";
 import { CardGlare } from "@/components/CardGlare";
 
 export function EssentialCryptoToolkit() {

@@ -15,7 +15,7 @@ import * as path from "path";
 import Parser from "rss-parser";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { logError } from "../src/lib/reporter";
-import { sleep } from "../src/lib/utils";
+import { sleep } from "../src/lib/shared-utils";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });

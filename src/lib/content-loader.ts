@@ -3,6 +3,7 @@
  * Used by dynamic pages at build time (SSG) to render content.
  */
 
+import { slugify } from "@/lib/shared-utils";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -140,6 +141,8 @@ export interface UpcomingTge {
 // ── Memoization ────────────────────────────────────────────────
 
 let _allTokensCache: TokenSummary[] | null = null;
+let _tokenIdsCache: string[] | null = null;
+let _categoriesCache: CategorySummary[] | null = null;
 
 /** Get all token summaries from the master list (memoized). */
 export function getAllTokens(): TokenSummary[] {
@@ -191,8 +194,10 @@ export interface CategorySummary {
   count: number;
 }
 
-/** Get all discrete categories with at least 3 tokens */
+/** Get all discrete categories with at least 3 tokens (memoized) */
 export function getAllCategories(): CategorySummary[] {
+  if (_categoriesCache) return _categoriesCache;
+
   const allTokens = getAllTokens();
   const counts: Record<string, number> = {};
   const nameMap: Record<string, string> = {};
@@ -200,22 +205,25 @@ export function getAllCategories(): CategorySummary[] {
   for (const t of allTokens) {
     if (!t.categories) continue;
     for (const c of t.categories) {
-       const id = c.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+       const id = slugify(c);
        counts[id] = (counts[id] || 0) + 1;
        nameMap[id] = c;
     }
   }
   
-  return Object.entries(counts)
+  const result = Object.entries(counts)
     .filter(([_, count]) => count >= 3)
     .map(([id, count]) => ({ id, name: nameMap[id], count }))
     .sort((a, b) => b.count - a.count);
+
+  _categoriesCache = result;
+  return result;
 }
 
 /** Get all tokens belonging to a specific category slug */
 export function getTokensByCategory(categoryId: string): TokenSummary[] {
   return getAllTokens().filter(t => 
-    (t.categories || []).some(c => c.toLowerCase().replace(/[^a-z0-9]+/g, '-') === categoryId)
+    (t.categories || []).some(c => slugify(c) === categoryId)
   ).sort((a, b) => a.rank - b.rank);
 }
 
@@ -227,7 +235,12 @@ export function getTokensByCategory(categoryId: string): TokenSummary[] {
  * (status === "released") or that have real market data (e.g. hyperliquid)
  * are NOT excluded.
  */
+/**
+ * Get all token IDs that should have a page on the regular /[token] route. (memoized)
+ */
 export function getTokenIds(): string[] {
+  if (_tokenIdsCache) return _tokenIdsCache;
+
   const tokensDir = path.join(DATA_DIR, "tokens");
   const ids = new Set<string>();
 
@@ -259,7 +272,7 @@ export function getTokenIds(): string[] {
     }
   }
 
-  return Array.from(ids).filter((id) => {
+  const result = Array.from(ids).filter((id) => {
     if (!upcomingTgeIds.has(id)) return true;
 
     // Upcoming TGE — only include if it has real market data
@@ -272,6 +285,9 @@ export function getTokenIds(): string[] {
       return false;
     }
   });
+
+  _tokenIdsCache = result;
+  return result;
 }
 
 /** Load detailed token data. */
