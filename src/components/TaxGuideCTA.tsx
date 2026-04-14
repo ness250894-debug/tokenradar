@@ -22,7 +22,7 @@ export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>2. CoinLedger</span>
-            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Get Started &rarr;</a>
+            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>10% OFF &rarr;</a>
           </div>
         </div>
         <Link 

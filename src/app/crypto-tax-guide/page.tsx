@@ -114,6 +114,9 @@ export default function CryptoTaxGuidePage() {
                 <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
                     <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>2. CoinLedger</span>
+                    <span style={{ fontSize: "10px", padding: "2px 6px", background: "rgba(234, 179, 8, 0.1)", color: "#eab308", borderRadius: "10px", fontWeight: 700 }}>
+                      COUPON: CRYPTOTAX10
+                    </span>
                   </div>
                   <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
                     <li>Seamless TurboTax integration</li>
@@ -126,7 +129,7 @@ export default function CryptoTaxGuidePage() {
                     className="btn" 
                     style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)", padding: "8px", fontSize: "13px" }}
                   >
-                    Try CoinLedger Free
+                    Try CoinLedger (10% OFF)
                   </a>
                 </div>
 
