@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { TokenTickerPill } from "./TokenTickerPill";
 import { CardGlare } from "./CardGlare";

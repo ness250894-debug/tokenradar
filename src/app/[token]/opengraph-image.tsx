@@ -33,6 +33,16 @@ export default async function Image({ params }: { params: Promise<{ token: strin
   const riskColor = riskScore < 4 ? '#10b981' : riskScore < 7 ? '#f59e0b' : '#ef4444';
   const riskLabel = riskScore < 4 ? 'LOW RISK' : riskScore < 7 ? 'MODERATE' : 'HIGH RISK';
 
+  // --- Resilience: Verify if the icon exists ---
+  const iconUrl = getTokenIconUrl(token.symbol, tokenId);
+  let hasImage = false;
+  try {
+    const imgRes = await fetch(iconUrl, { method: 'HEAD', signal: AbortSignal.timeout(3000) });
+    hasImage = imgRes.ok;
+  } catch (e) {
+    hasImage = false;
+  }
+
   return new ImageResponse(
     (
       <div
@@ -71,16 +81,22 @@ export default async function Image({ params }: { params: Promise<{ token: strin
 
         {/* Main Content Area */}
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '60px' }}>
-          {/* Token Icon */}
-          <div style={{ display: 'flex', borderRadius: '40px', overflow: 'hidden', border: '4px solid rgba(255,255,255,0.1)', background: '#111' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={getTokenIconUrl(token.symbol, tokenId)}
-              alt={token.name}
-              width={240}
-              height={240}
-              style={{ objectFit: 'contain' }}
-            />
+          {/* Token Icon or Fallback */}
+          <div style={{ display: 'flex', borderRadius: '40px', overflow: 'hidden', border: '4px solid rgba(255,255,255,0.1)', background: '#111', width: 240, height: 240, alignItems: 'center', justifyContent: 'center' }}>
+            {hasImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={iconUrl}
+                alt={token.name}
+                width={240}
+                height={240}
+                style={{ objectFit: 'contain' }}
+              />
+            ) : (
+              <div style={{ color: 'white', fontSize: 120, fontWeight: 'bold' }}>
+                {token.symbol.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>

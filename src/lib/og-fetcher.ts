@@ -24,7 +24,7 @@ export async function fetchTokenImage(tokenId: string): Promise<Buffer | null> {
     });
 
     if (!response.ok) {
-      console.warn(`  ⚠ OG image fetch failed for "${tokenId}": HTTP ${response.status}`);
+      console.warn(`  ⚠ OG image fetch failed [HTTP ${response.status}]: ${url}`);
       return null;
     }
 
@@ -32,7 +32,7 @@ export async function fetchTokenImage(tokenId: string): Promise<Buffer | null> {
     return Buffer.from(arrayBuffer);
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
-    console.warn(`  ⚠ OG image fetch error for "${tokenId}": ${msg}`);
+    console.warn(`  ⚠ OG image fetch error for ${url}: ${msg}`);
     return null;
   }
 }
