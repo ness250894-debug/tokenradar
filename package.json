@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "clean": "npx rimraf out .next",
     "prebuild": "npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
     "build": "next build",
     "start": "next start",
