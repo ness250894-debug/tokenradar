@@ -27,7 +27,7 @@ export const dynamicParams = false;
  * We limit static generation to the Top 20 tokens.
  */
 export async function generateStaticParams() {
-  const ids = getTokenIds().slice(0, 100); // Scale to Top 100 tokens (~4,950 pages)
+  const ids = getTokenIds().slice(0, 45); // Scale to Top 45 tokens (~990 pages)
   const params: { slug: string }[] = [];
 
   for (let i = 0; i < ids.length; i++) {

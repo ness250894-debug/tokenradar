@@ -164,18 +164,17 @@ function main() {
   // 3. Sitemap: Comparisons (The Bulk)
   console.log(`  Processing ${tokenIds.length} tokens for comparisons...`);
   const compareEntries: SitemapEntry[] = [];
-  const topIds = tokenIds.slice(0, 100); // Focus indexing on top 100 vs all combinations
+  const topIds = tokenIds.slice(0, 45); // Direct match with generateStaticParams (Permutations)
 
   for (let i = 0; i < topIds.length; i++) {
-    for (const j of tokenIds) {
-      if (topIds[i] === j) continue;
+    for (let j = i + 1; j < topIds.length; j++) {
       
       const dateA = getTokenDate(topIds[i]) || now;
-      const dateB = getTokenDate(j) || now;
+      const dateB = getTokenDate(topIds[j]) || now;
       const latestDate = dateA > dateB ? dateA : dateB;
 
       compareEntries.push({
-        url: `/compare/${topIds[i]}-vs-${j}`,
+        url: `/compare/${topIds[i]}-vs-${topIds[j]}`,
         lastmod: latestDate,
         changefreq: "weekly",
         priority: "0.6",
