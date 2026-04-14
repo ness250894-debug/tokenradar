@@ -14,18 +14,18 @@
     "explorer": "https://explorer.zksync.io/token/0x57fD71a86522Dc06D6255537521886057c1772A3"
   },
   "market": {
-    "price": 83.06,
-    "marketCap": 756851940,
+    "price": 82.76,
+    "marketCap": 754118306,
     "marketCapRank": 80,
     "volume24h": 0,
     "high24h": 22.99,
     "low24h": 22.99,
-    "priceChange24h": 0,
+    "priceChange24h": -0.36118,
     "priceChange7d": 0.5247,
     "priceChange30d": 0.56868,
     "priceChange1y": 0,
     "ath": 83.06,
-    "athChangePercentage": 0,
+    "athChangePercentage": -0.36118,
     "athDate": "2026-04-07T13:40:12.294Z",
     "atl": 17.76,
     "atlDate": "2025-06-02T20:50:02.462Z",
@@ -44,5 +44,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-03-22T15:46:46.001Z",
-  "lastMarketUpdate": "2026-04-13T08:24:33.303Z"
+  "lastMarketUpdate": "2026-04-14T08:05:54.608Z"
 }
