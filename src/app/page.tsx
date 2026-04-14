@@ -23,7 +23,7 @@ export default function HomePage() {
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
       riskScore: metrics?.riskScore || 5,
-      category: "Crypto",
+      category: token.categories?.[0] || "Crypto",
     };
   });
 

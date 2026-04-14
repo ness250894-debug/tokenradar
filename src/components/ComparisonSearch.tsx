@@ -78,6 +78,12 @@ export function ComparisonSearch({ allTokens, initialTokenA, initialTokenB }: Co
 
   return (
     <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)", border: "1px solid var(--border-color)", borderTop: "2px solid var(--accent-primary)" }}>
+      <div style={{ marginBottom: "var(--space-md)", textAlign: "center" }}>
+        <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", margin: 0 }}>
+          Search for any pairing among the <strong>Top 100 assets</strong>.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 items-center">
         
         {/* Token A Selector */}

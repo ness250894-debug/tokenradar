@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTokenIds, getTokenDetail } from "@/lib/content-loader";
+import { getTokenIds, getTokenDetail, getAllTokens } from "@/lib/content-loader";
 import { Scale, TrendingUp, ShieldCheck } from "lucide-react";
 import { CardGlare } from "@/components/CardGlare";
+import { ComparisonSearch } from "@/components/ComparisonSearch";
 
 export const metadata: Metadata = {
   title: "Crypto Comparison Engine — Side-by-Side Token Analysis",
@@ -10,7 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function CompareDirectoryPage() {
-  const ids = getTokenIds().slice(0, 50); // Use top 50 as primary hub source
+  const allTokensList = getAllTokens();
+  const topTokens = allTokensList
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, 100);
+  
+  const ids = topTokens.map(t => t.id).slice(0, 50); // For alphabetic explorer
   const topComparisons = [
     ["bitcoin", "ethereum"],
     ["bitcoin", "solana"],
@@ -26,13 +32,31 @@ export default function CompareDirectoryPage() {
     <div className="container">
       <section className="section">
         <div style={{ textAlign: "center", marginBottom: "var(--space-2xl)" }}>
-          <h1 style={{ fontSize: "var(--text-5xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
+          <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
             Comparison <span className="gradient-text">Engine</span>
           </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-xl)", maxWidth: "800px", margin: "0 auto" }}>
-            The industry's most detailed side-by-side analysis for 2,000+ crypto assets. 
+          <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-lg)", maxWidth: "800px", margin: "0 auto var(--space-lg) auto" }}>
+            The industry's most detailed side-by-side analysis for top crypto assets. 
             Compare risk, performance, and fundamentals instantly.
           </p>
+          
+          <div style={{ 
+            display: "inline-block", 
+            padding: "8px 16px", 
+            background: "rgba(255,183,0,0.05)", 
+            border: "1px solid rgba(255,183,0,0.1)", 
+            borderRadius: "50px",
+            fontSize: "var(--text-xs)",
+            color: "var(--accent-primary)",
+            fontWeight: 600
+          }}>
+            ✨ Comparisons available for the Top 100 assets by Market Cap
+          </div>
+        </div>
+
+        {/* Custom Comparison Tool */}
+        <div style={{ maxWidth: "800px", margin: "0 auto var(--space-3xl) auto" }}>
+          <ComparisonSearch allTokens={topTokens} />
         </div>
 
         {/* Feature Highlights */}

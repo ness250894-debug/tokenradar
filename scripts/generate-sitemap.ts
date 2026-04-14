@@ -162,19 +162,24 @@ function main() {
   sitemaps.push("sitemap-tokens.xml");
 
   // 3. Sitemap: Comparisons (The Bulk)
-  console.log(`  Processing ${tokenIds.length} tokens for comparisons...`);
+  console.log("Adding comparison pages...");
   const compareEntries: SitemapEntry[] = [];
-  const topIds = tokenIds.slice(0, 45); // Direct match with generateStaticParams (Permutations)
+  const allTokens = getAllTokens();
+  const topTokens = allTokens
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, 100);
+  
+  const compIds = topTokens.map(t => t.id);
 
-  for (let i = 0; i < topIds.length; i++) {
-    for (let j = i + 1; j < topIds.length; j++) {
+  for (let i = 0; i < compIds.length; i++) {
+    for (let j = i + 1; j < compIds.length; j++) {
       
-      const dateA = getTokenDate(topIds[i]) || now;
-      const dateB = getTokenDate(topIds[j]) || now;
+      const dateA = getTokenDate(compIds[i]) || now;
+      const dateB = getTokenDate(compIds[j]) || now;
       const latestDate = dateA > dateB ? dateA : dateB;
 
       compareEntries.push({
-        url: `/compare/${topIds[i]}-vs-${topIds[j]}`,
+        url: `/compare/${compIds[i]}-vs-${compIds[j]}`,
         lastmod: latestDate,
         changefreq: "weekly",
         priority: "0.6",

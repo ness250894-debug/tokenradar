@@ -5,6 +5,7 @@ import {
   getTokenMetrics,
   getPriceHistory,
   getTokenIds,
+  getAllTokens,
   formatPrice,
   formatCompact,
   formatSupply,
@@ -19,15 +20,20 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 /**
  * Generate static paths for top token combinations.
- * Building all 250*250 combinations (31,250 pages) is too heavy for build times.
- * We limit static generation to the Top 20 tokens.
+ * Limit static generation to the Top 100 tokens (~4,950 pairings) to stay under Cloudflare limits.
  */
 export async function generateStaticParams() {
-  const ids = getTokenIds().slice(0, 45); // Scale to Top 45 tokens (~990 pages)
+  const allTokens = getAllTokens();
+  // Sort by rank ascending (lower rank = higher market cap)
+  const topTokens = allTokens
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, 100);
+  
+  const ids = topTokens.map(t => t.id);
   const params: { slug: string }[] = [];
 
   for (let i = 0; i < ids.length; i++) {

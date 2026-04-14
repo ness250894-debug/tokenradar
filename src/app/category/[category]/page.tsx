@@ -68,55 +68,55 @@ export default async function CategoryPage({ params }: PageProps) {
   });
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>
       {/* Header section */}
-      <div className="mb-12 border-b border-gray-800 pb-8">
-        <div className="flex items-center space-x-2 text-sm text-gray-400 mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+      <div style={{ marginBottom: "var(--space-3xl)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-xl)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-lg)" }}>
+          <Link href="/" className="hover-accent" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span>/</span>
-          <span className="text-gray-300">Category</span>
+          <span style={{ color: "var(--text-secondary)" }}>Category</span>
           <span>/</span>
-          <span className="text-white font-medium">{cat.name}</span>
+          <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>{cat.name}</span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+        <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, marginBottom: "var(--space-sm)", letterSpacing: "-0.02em" }}>
+          <span className="gradient-text">
             {cat.name}
           </span> Tokens
         </h1>
         
-        <p className="text-lg text-gray-400 mb-8 max-w-2xl">
+        <p style={{ fontSize: "var(--text-lg)", color: "var(--text-secondary)", marginBottom: "var(--space-xl)", maxWidth: "800px", lineHeight: 1.6 }}>
           Track the top tokens in the {cat.name} sector. View deep data analytics, price predictions, and risk scores to make informed decisions.
         </p>
 
         {/* Aggregate Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div>
-            <div className="text-sm text-gray-500 mb-1">Total Tokens Tracker</div>
-            <div className="text-xl font-bold text-white">{tokens.length}</div>
+        <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--space-md)" }}>
+          <div className="card" style={{ padding: "var(--space-md)" }}>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>Total Tokens Tracker</div>
+            <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{tokens.length}</div>
           </div>
-          <div>
-            <div className="text-sm text-gray-500 mb-1">Sector Market Cap</div>
-            <div className="text-xl font-bold text-white">{formatCompact(totalMarketCap)}</div>
+          <div className="card" style={{ padding: "var(--space-md)" }}>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>Sector Market Cap</div>
+            <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{formatCompact(totalMarketCap)}</div>
           </div>
-          <div className="hidden md:block">
-            <div className="text-sm text-gray-500 mb-1">24h Volume</div>
-            <div className="text-xl font-bold text-white">{formatCompact(totalVolume)}</div>
+          <div className="card" style={{ padding: "var(--space-md)" }}>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>24h Volume</div>
+            <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{formatCompact(totalVolume)}</div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "var(--space-lg)" }}>
         {tokenCards.map(token => (
           <TokenCard key={token.id} token={token} />
         ))}
       </div>
       
       {/* Category SEO Content / Footer */}
-      <section className="mt-20 border-t border-gray-800 pt-10">
-        <h2 className="text-2xl font-bold mb-4">Why monitor the {cat.name} ecosystem?</h2>
-        <div className="prose prose-invert max-w-none text-gray-300">
-          <p className="mb-4">
+      <section style={{ marginTop: "var(--space-4xl)", borderTop: "1px solid var(--border-color)", paddingTop: "var(--space-2xl)" }}>
+        <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>Why monitor the {cat.name} ecosystem?</h2>
+        <div style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "var(--text-md)" }}>
+          <p style={{ marginBottom: "var(--space-md)" }}>
             The cryptocurrency landscape is vast, but paying attention to specific sectors like <strong>{cat.name}</strong> helps investors identify trends before they go mainstream. By tracking the collective market capitalization and daily trading volume of these projects, you can gauge overall sentiment and capital flow within the sector.
           </p>
           <p>
