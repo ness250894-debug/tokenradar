@@ -81,15 +81,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Comparisons Column */}
-          <div>
-            <h4 className="footer-col-title">Top Pairs</h4>
-            <ul className="footer-col-links">
-              {COMPARISON_LINKS.map(({ href, label }) => (
-                <li key={href}><Link href={href}>{label}</Link></li>
-              ))}
-            </ul>
-          </div>
+          {/* Legal Column */}
 
           {/* Legal Column */}
           <div>

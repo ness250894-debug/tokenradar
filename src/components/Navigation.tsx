@@ -9,7 +9,7 @@ import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, S
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/#trending", icon: Activity },
-  { name: "Compare", href: "/compare", icon: Scale },
+  // { name: "Compare", href: "/compare", icon: Scale },
   { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "#10b981", icon: ShieldCheck },
   { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "#3b82f6", icon: Calculator },
   { name: "Upcoming", href: "/upcoming", icon: Clock },

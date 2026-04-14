@@ -295,6 +295,8 @@ export default async function TokenPage({ params }: PageProps) {
                 </Link>
               </CardGlare>
             )}
+            {/* Comparison Engine mothballed to stay under deployment limit */}
+            {/* 
             <CardGlare style={{ height: "100%" }}>
               <Link href={`/compare`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
                 <Scale size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
@@ -304,6 +306,7 @@ export default async function TokenPage({ params }: PageProps) {
                 </div>
               </Link>
             </CardGlare>
+            */}
             {technical && (
               <CardGlare style={{ height: "100%" }}>
                 <Link href={`/${tokenId}/transfer-to-ledger`} className="card" style={{ display: "block", height: "100%", border: "1px solid rgba(16, 185, 129, 0.4)" }}>
@@ -381,29 +384,12 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Top Comparisons (SEO Discovery Hub) */}
+        {/* Top Comparisons (Mothballed) */}
+        {/* 
         <div style={{ marginTop: "var(--space-4xl)" }}>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
-            Compare <span className="gradient-text">{detail.symbol.toUpperCase()}</span> with Top Assets
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-md)" }}>
-            {getTokenIds().slice(0, 8).filter(id => id !== tokenId).map(id => {
-              const other = getTokenDetail(id);
-              if (!other) return null;
-              return (
-                <Link 
-                  key={id} 
-                  href={`/compare/${tokenId}-vs-${id}`}
-                  className="card hover-scale"
-                  style={{ display: "flex", alignItems: "center", gap: "var(--space-md)", padding: "var(--space-md)", textDecoration: "none" }}
-                >
-                  <div style={{ fontWeight: 600 }}>{detail.symbol.toUpperCase()} vs {other.symbol.toUpperCase()}</div>
-                  <div style={{ marginLeft: "auto", color: "var(--accent-secondary)" }}>→</div>
-                </Link>
-              );
-            })}
-          </div>
+          ...
         </div>
+        */}
         
         {/* Related Tokens */}
         {relatedTokens.length > 0 && (

@@ -161,10 +161,11 @@ function main() {
   writeSitemap("sitemap-tokens.xml", tokenEntries);
   sitemaps.push("sitemap-tokens.xml");
 
-  // 3. Sitemap: Comparisons (The Bulk)
-  console.log("Adding comparison pages...");
+  // 3. Sitemap: Comparisons (Mothballed to stay under Cloudflare 20k file limit)
   const compareEntries: SitemapEntry[] = [];
+  /*
   const allTokens = getAllTokens();
+  /*
   const topTokens = allTokens
     .sort((a, b) => a.rank - b.rank)
     .slice(0, 45);
@@ -201,6 +202,7 @@ function main() {
     writeSitemap(name, compareEntries);
     sitemaps.push(name);
   }
+  */
 
   // 4. Generate Sitemap Index
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
