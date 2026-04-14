@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
 
   const article = getArticle(tokenId, "overview");
-  const isLowQuality = (detail.market.volume24h < 500000) || (article && article.wordCount < 800);
+  const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
 
   return {
     title,
@@ -378,6 +378,30 @@ export default async function TokenPage({ params }: PageProps) {
             <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "var(--space-xs)" }}>Verified by TokenRadar Engine</strong>
             <span style={{ display: "block", marginBottom: "var(--space-xs)" }}>Data Source: CoinGecko API. Last fetched: {new Date(detail.fetchedAt).toLocaleDateString()}.</span>
             <span>All proprietary metrics (Risk Score, Growth Index) are computed dynamically by TokenRadar and should not be used as the sole basis for investment decisions.</span>
+          </div>
+        </div>
+
+        {/* Top Comparisons (SEO Discovery Hub) */}
+        <div style={{ marginTop: "var(--space-4xl)" }}>
+          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
+            Compare <span className="gradient-text">{detail.symbol.toUpperCase()}</span> with Top Assets
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-md)" }}>
+            {getTokenIds().slice(0, 8).filter(id => id !== tokenId).map(id => {
+              const other = getTokenDetail(id);
+              if (!other) return null;
+              return (
+                <Link 
+                  key={id} 
+                  href={`/compare/${tokenId}-vs-${id}`}
+                  className="card hover-scale"
+                  style={{ display: "flex", alignItems: "center", gap: "var(--space-md)", padding: "var(--space-md)", textDecoration: "none" }}
+                >
+                  <div style={{ fontWeight: 600 }}>{detail.symbol.toUpperCase()} vs {other.symbol.toUpperCase()}</div>
+                  <div style={{ marginLeft: "auto", color: "var(--accent-secondary)" }}>→</div>
+                </Link>
+              );
+            })}
           </div>
         </div>
         

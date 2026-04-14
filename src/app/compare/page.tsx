@@ -1,152 +1,114 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTokenDetail, getAllTokens } from "@/lib/content-loader";
-import { ComparisonSearch } from "@/components/ComparisonSearch";
-import { EssentialCryptoToolkit } from "@/components/EssentialCryptoToolkit";
+import { getTokenIds, getTokenDetail } from "@/lib/content-loader";
+import { Scale, TrendingUp, ShieldCheck } from "lucide-react";
 import { CardGlare } from "@/components/CardGlare";
-import { TokenIcon } from "@/components/TokenIcon";
-import { Scale, TrendingUp, ShieldCheck, Zap, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Compare Cryptocurrencies — Detailed Side-by-Side Analysis",
-  description: "Use our interactive comparison tool to analyze risk, growth potential, and market metrics between any two crypto tokens. Data-driven insights for 30,000+ combinations.",
+  title: "Crypto Comparison Engine — Side-by-Side Token Analysis",
+  description: "Compare any two crypto tokens side-by-side. Analyze market cap, risk scores, and performance history with our data-driven comparison tool.",
 };
 
-export default async function CompareHubPage() {
-  const allTokensRaw = getAllTokens();
-  const allTokens = allTokensRaw.map(t => ({ id: t.id, name: t.name, symbol: t.symbol }));
-
-  // Get some popular comparisons for the "Featured" section
-  // We'll use the top tokens as bases
-  const featuredComparisons = [
-    { a: "bitcoin", b: "ethereum" },
-    { a: "solana", b: "ethereum" },
-    { a: "cardano", b: "solana" },
-    { a: "ripple", b: "solana" },
-    { a: "shiba-inu", b: "pepe" },
-    { a: "dogecoin", b: "shiba-inu" },
+export default function CompareDirectoryPage() {
+  const ids = getTokenIds().slice(0, 50); // Use top 50 as primary hub source
+  const topComparisons = [
+    ["bitcoin", "ethereum"],
+    ["bitcoin", "solana"],
+    ["ethereum", "solana"],
+    ["usdt", "usdc"],
+    ["bnb", "ethereum"],
+    ["cardano", "polkadot"],
+    ["shiba-inu", "pepe"],
+    ["avalanche", "solana"],
   ];
 
   return (
-    <main className="container section-padding">
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        {/* Hero Section */}
-        <div style={{ textAlign: "center", marginBottom: "var(--space-3xl)" }}>
-          <div className="badge" style={{ marginBottom: "var(--space-md)" }}>ANALYTICS HUB</div>
-          <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 900, marginBottom: "var(--space-md)" }}>
-             The <span className="gradient-text">Comparison</span> Engine
+    <div className="container">
+      <section className="section">
+        <div style={{ textAlign: "center", marginBottom: "var(--space-2xl)" }}>
+          <h1 style={{ fontSize: "var(--text-5xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
+            Comparison <span className="gradient-text">Engine</span>
           </h1>
-          <p style={{ fontSize: "var(--text-lg)", color: "var(--text-secondary)", maxWidth: "600px", margin: "0 auto" }}>
-            Analyze any two tokens side-by-side with our proprietary risk scores, growth metrics, and market data.
+          <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-xl)", maxWidth: "800px", margin: "0 auto" }}>
+            The industry's most detailed side-by-side analysis for 2,000+ crypto assets. 
+            Compare risk, performance, and fundamentals instantly.
           </p>
         </div>
 
-        {/* Search Tool */}
-        <ComparisonSearch allTokens={allTokens} />
-
-        {/* Feature Grid */}
-        <div className="stats-grid" style={{ marginTop: "var(--space-4xl)" }}>
-           <CardGlare style={{ height: "100%" }}>
-             <div className="card" style={{ height: "100%", textAlign: "left" }}>
-               <div className="feature-icon-wrapper" style={{ background: "rgba(16, 185, 129, 0.1)" }}>
-                 <ShieldCheck size={32} style={{ color: "#10b981" }} />
-               </div>
-               <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Institutional Risk Analysis</h3>
-               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>
-                 Our proprietary algorithm audits smart contracts, liquidity depth, and developer activity to generate a 1-10 risk score for every token.
-               </p>
-             </div>
-           </CardGlare>
-
-           <CardGlare style={{ height: "100%" }}>
-             <div className="card" style={{ height: "100%", textAlign: "left" }}>
-               <div className="feature-icon-wrapper" style={{ background: "rgba(59, 130, 246, 0.1)" }}>
-                 <TrendingUp size={32} style={{ color: "#3b82f6" }} />
-               </div>
-               <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Growth & Sentiment Metrics</h3>
-               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>
-                 Compare social volume, narrative momentum, and historical performance to identify which assets are leading the current market cycle.
-               </p>
-             </div>
-           </CardGlare>
-
-           <CardGlare style={{ height: "100%" }}>
-             <div className="card" style={{ height: "100%", textAlign: "left" }}>
-               <div className="feature-icon-wrapper" style={{ background: "rgba(247, 147, 26, 0.1)" }}>
-                 <Zap size={32} style={{ color: "#f7931a" }} />
-               </div>
-               <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Real-Time Data Sync</h3>
-               <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", lineHeight: 1.7 }}>
-                 Synchronized institutional-grade pricing feeds, supply dynamics, and market cap tracking ensures your comparison is always accurate.
-               </p>
-             </div>
-           </CardGlare>
-        </div>
-
-        {/* Featured Comparisons */}
-        <div style={{ marginTop: "var(--space-4xl)" }}>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", display: "flex", alignItems: "center", gap: "12px" }}>
-            <Scale size={24} className="gradient-text" /> Popular Benchmarks
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredComparisons.map((pair) => {
-              const detailA = getTokenDetail(pair.a);
-              const detailB = getTokenDetail(pair.b);
-              if (!detailA || !detailB) return null;
-              
-              return (
-                <CardGlare key={`${pair.a}-${pair.b}`}>
-                  <Link 
-                    href={`/compare/${pair.a}-vs-${pair.b}`}
-                    className="card hover-glow"
-                    style={{ 
-                      display: "flex", 
-                      justifyContent: "space-between", 
-                      alignItems: "center", 
-                      padding: "var(--space-md) var(--space-lg)",
-                      textDecoration: "none",
-                      border: "1px solid var(--border-color)",
-                      height: "100%"
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
-                        <TokenIcon 
-                          symbol={detailA.symbol} 
-                          name={detailA.name} 
-                          id={detailA.id} 
-                          size={24} 
-                          style={{ borderRadius: "50%" }}
-                        />
-                        <span style={{ marginLeft: "6px", fontWeight: 700, fontSize: "var(--text-sm)" }}>{detailA.symbol.toUpperCase()}</span>
-                      </div>
-                      
-                      <div style={{ fontSize: "10px", fontWeight: 800, color: "var(--text-muted)", background: "rgba(255,255,255,0.05)", padding: "2px 6px", borderRadius: "4px" }}>VS</div>
-                      
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <TokenIcon 
-                          symbol={detailB.symbol} 
-                          name={detailB.name} 
-                          id={detailB.id} 
-                          size={24} 
-                          style={{ borderRadius: "50%" }}
-                        />
-                        <span style={{ marginLeft: "6px", fontWeight: 700, fontSize: "var(--text-sm)" }}>{detailB.symbol.toUpperCase()}</span>
-                      </div>
-                    </div>
-                    
-                    <ArrowRight size={14} style={{ color: "var(--accent-primary)", opacity: 0.6, marginLeft: "var(--space-md)" }} />
-                  </Link>
-                </CardGlare>
-              );
-            })}
+        {/* Feature Highlights */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-lg)", marginBottom: "var(--space-3xl)" }}>
+          <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
+            <Scale className="gradient-text" style={{ marginBottom: "var(--space-md)" }} />
+            <h3 style={{ marginBottom: "var(--space-xs)" }}>Market Parity</h3>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>Compare market cap and volume distribution to find relative value opportunities.</p>
+          </div>
+          <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
+            <ShieldCheck className="gradient-text" style={{ marginBottom: "var(--space-md)" }} />
+            <h3 style={{ marginBottom: "var(--space-xs)" }}>Risk Differentials</h3>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>Side-by-side security ratings and risk scores for multi-chain analysis.</p>
+          </div>
+          <div className="card" style={{ padding: "var(--space-xl)", background: "var(--bg-elevated)" }}>
+            <TrendingUp className="gradient-text" style={{ marginBottom: "var(--space-md)" }} />
+            <h3 style={{ marginBottom: "var(--space-xs)" }}>Performance Matrix</h3>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>Historical gain/loss comparison relative to market averages.</p>
           </div>
         </div>
 
-        {/* Essential Toolkit Section */}
-        <EssentialCryptoToolkit />
-      </div>
-    </main>
+        {/* Popular Comparisons */}
+        <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-xl)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
+          Popular <span className="gradient-text">Comparisons</span>
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-md)" }}>
+          {topComparisons.map(([aId, bId]) => {
+            const a = getTokenDetail(aId);
+            const b = getTokenDetail(bId);
+            if (!a || !b) return null;
+            return (
+              <CardGlare key={`${aId}-vs-${bId}`}>
+                <Link 
+                  href={`/compare/${aId}-vs-${bId}`}
+                  className="card hover-scale"
+                  style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)", textDecoration: "none", padding: "var(--space-xl)" }}
+                >
+                  <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Market Battle</div>
+                  <div style={{ fontSize: "var(--text-lg)", fontWeight: 800 }}>
+                    {a.symbol.toUpperCase()} <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>vs</span> {b.symbol.toUpperCase()}
+                  </div>
+                  <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
+                    {a.name} & {b.name}
+                  </div>
+                </Link>
+              </CardGlare>
+            );
+          })}
+        </div>
+
+        {/* Alphabetic Explore Hub (Discovery for GSC) */}
+        <div style={{ marginTop: "var(--space-4xl)", padding: "var(--space-2xl)", background: "var(--bg-card)", borderRadius: "var(--radius-xl)", border: "1px solid var(--border-color)" }}>
+          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)" }}>
+            Explore All Assets
+          </h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)" }}>
+            {ids.map(id => {
+              const token = getTokenDetail(id);
+              if (!token) return null;
+              return (
+                <Link 
+                  key={id} 
+                  href={`/${id}`} 
+                  className="badge badge-accent hover-scale"
+                  style={{ padding: "0.5rem 1rem" }}
+                >
+                  {token.name} Comparisons
+                </Link>
+              );
+            })}
+          </div>
+          <p style={{ marginTop: "var(--space-xl)", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
+            Showing top assets. Use the search bar to find more specific token comparisons.
+          </p>
+        </div>
+      </section>
+    </div>
   );
 }
