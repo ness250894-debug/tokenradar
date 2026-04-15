@@ -3,52 +3,26 @@
   "symbol": "ftn",
   "name": "Fasttoken",
   "description": "What is Fasttoken (FTN)?\nFTN is the native coin of Bahamut - public, layer 1 EVM-based blockchain solution with a novelty consensus - PoSA. PoSA stands for Proof of Stake and Activity, where Activity is represented by the amount of gas spent by users when interacting with a validator-deployed smart contract. The more gas usage the given smart contract has, the more chances for the validator-deployer to become a block producer in future epochs.\n\nWhat makes Bahamut unique?\nThe main unique aspect of Bahamut is the PoSA consensus, which introduces new ways for businesses to monetize their user base, while preserving the integrity and transparency of the web3 space. \n\nHistory of Fasttoken (FTN):\nFTN was originally an ERC20 token of SoftConstruct and Fastex ecosystems. After Bahamut mainnet launched on May 3, 2023 with FTN as its native coin, the migration process started from Ethereum to Bahamut and is still an ongoing process. \n\nWhat’s next for Bahamut?\nThe infrastructure of Bahamut is constantly growing - users can expect decentralized exchanges, various apps, bridge services, and other essential aspects to be available on Bahamut before the end of the year. Also, Bahamut grant program is under way and will open the doors to everyone who wants to build a better decentralized future together.\n\nWhat can Fasttoken (FTN) be used for?\nFTN is used in a variety of providers as a gaming token, and also the native coin for Bahamut network.\n",
-  "categories": [
-    "Smart Contract Platform",
-    "BNB Chain Ecosystem",
-    "Layer 1 (L1)",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Base Ecosystem",
-    "Bahamut Ecosystem"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://bahamut.io/",
-    "github": null,
-    "reddit": "https://www.reddit.com/r/Fasttoken",
-    "explorer": "https://sahara.ftnscan.com/"
-  },
   "market": {
-    "price": 0.894334,
-    "marketCap": 388020459,
-    "marketCapRank": 110,
-    "volume24h": 69649,
-    "high24h": 1.09,
-    "low24h": 1.088,
-    "priceChange24h": -17.72149,
-    "priceChange7d": -0.16183,
-    "priceChange30d": 0.11582,
-    "priceChange1y": -72.96621,
+    "price": 0.159833,
+    "marketCap": 69345834,
+    "marketCapRank": 354,
+    "volume24h": 64819,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": -85.32507,
+    "priceChange1y": -96.13602,
     "ath": 4.61,
-    "athChangePercentage": -80.58914,
+    "athChangePercentage": -96.53095,
     "athDate": "2025-07-27T09:55:16.106Z",
-    "atl": 0.334201,
-    "atlDate": "2025-12-17T09:47:12.406Z",
+    "atl": 0.159798,
+    "atlDate": "2026-04-01T18:30:53.731Z",
     "circulatingSupply": 433865414.6,
     "totalSupply": 870742437,
     "maxSupply": 1000000000,
-    "fdv": 948335649
+    "fdv": 139173021
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-22T19:53:16.227Z",
-  "lastMarketUpdate": "2026-04-01T14:09:11.139Z"
+  "lastMarketUpdate": "2026-04-15T06:16:10.971Z"
 }

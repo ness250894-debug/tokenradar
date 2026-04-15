@@ -3,56 +3,26 @@
   "symbol": "drv",
   "name": "Derive",
   "description": "Derive is a decentralized protocol that creates programmable onchain options, perpetuals, and structured products. \n\nDerive is deployed and operates on Derive Chain, an Ethereum rollup built using the OP stack and is the home of the Derive Protocol. It is a permission-less smart contract platform.\n\nThe Derive DAO earns trading fees from the Derive Protocol and gas fees from the Derive Chain, governed by DRV token holders. Trading fees accrue to an insurance fund to foster robustness of the protocol and rollup.\n\nDerive has built an AI-powered trading app built for pro traders. In collaboration with Messari, Derive Pro translates market views into trades. The agent then prepares transactions for users and leverages smart contract wallets to make trades one-click, gasless and chainless. The app will support spot, perps and options trading on Derive, and will also plug in to spot AMMs on L2s like Optimism, Arbitrum and Base.",
-  "categories": [
-    "Smart Contract Platform",
-    "Decentralized Finance (DeFi)",
-    "Derivatives",
-    "Options",
-    "Perpetuals",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Optimism Ecosystem",
-    "Layer 2 (L2)",
-    "Base Ecosystem",
-    "DeFAI",
-    "Base Native"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://derive.xyz/",
-    "github": "https://github.com/derivexyz",
-    "reddit": null,
-    "explorer": "https://etherscan.io/token/0xB1D1eae60EEA9525032a6DCb4c1CE336a1dE71BE"
-  },
   "market": {
-    "price": 0.092608,
-    "marketCap": 92733478,
-    "marketCapRank": 281,
-    "volume24h": 778880,
-    "high24h": 0.116165,
-    "low24h": 0.079347,
-    "priceChange24h": -19.60313,
-    "priceChange7d": 5.92946,
-    "priceChange30d": 139.43395,
-    "priceChange1y": 157.14135,
+    "price": 0.078353,
+    "marketCap": 78297071,
+    "marketCapRank": 316,
+    "volume24h": 486087,
+    "high24h": 0.090279,
+    "low24h": 0.07614,
+    "priceChange24h": -12.75063,
+    "priceChange7d": -5.38755,
+    "priceChange30d": -23.71752,
+    "priceChange1y": 195.86145,
     "ath": 0.228265,
-    "athChangePercentage": -59.36499,
+    "athChangePercentage": -65.72328,
     "athDate": "2025-01-15T03:52:14.666Z",
     "atl": 0.01243699,
     "atlDate": "2025-04-07T13:31:06.926Z",
-    "circulatingSupply": 999882882.7426279,
+    "circulatingSupply": 999815537.0854421,
     "totalSupply": 1500000000,
     "maxSupply": 1500000000,
-    "fdv": 139116509
+    "fdv": 117467274
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-22T17:59:52.792Z"
+  "lastMarketUpdate": "2026-04-15T06:15:51.998Z"
 }

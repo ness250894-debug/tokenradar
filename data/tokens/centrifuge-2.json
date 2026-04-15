@@ -2,20 +2,27 @@
   "id": "centrifuge-2",
   "symbol": "cfg",
   "name": "Centrifuge",
+  "description": "",
   "market": {
-    "price": 0.19944,
-    "marketCap": 115158499,
-    "marketCapRank": 248,
-    "volume24h": 17046834,
-    "priceChange24h": 4.33954,
+    "price": 0.203569,
+    "marketCap": 117397226,
+    "marketCapRank": 241,
+    "volume24h": 12545889,
+    "high24h": 0.212074,
+    "low24h": 0.199066,
+    "priceChange24h": 1.07592,
+    "priceChange7d": 16.98424,
+    "priceChange30d": 68.67654,
+    "priceChange1y": 0,
     "ath": 0.400363,
-    "athChangePercentage": -50.0883,
+    "athChangePercentage": -48.62853,
     "athDate": "2025-08-24T23:01:33.559Z",
     "atl": 0.067185,
     "atlDate": "2026-02-06T08:57:13.670Z",
     "circulatingSupply": 577038746,
     "totalSupply": 680000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 138344459
   },
-  "lastMarketUpdate": "2026-04-14T08:05:54.649Z"
+  "lastMarketUpdate": "2026-04-15T06:15:42.604Z"
 }
