@@ -16,14 +16,36 @@ import * as path from "path";
 import { logError } from "./reporter";
 import { sleep } from "./shared-utils";
 
-const BASE_URL = "https://api.coingecko.com/api/v3";
+import { Coingecko } from "@coingecko/coingecko-typescript";
+import { fetchWithRetry } from "./fetch-with-retry";
+
+// ── Constants & Configuration ───────────────────────────────
+
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
 const RATE_LIMIT_DELAY_MS = 2100; // 2.1s between requests
-const MONTHLY_LIMIT = 9000;
+const MONTHLY_LIMIT = 9500; // Adjusted per user clarification (was 10k total, 9.5k safe limit)
 
-import { fetchWithRetry } from "./fetch-with-retry";
+// ── SDK Initialization ────────────────────────────────────────
+
+/** Singleton SDK client instance. */
+let _client: Coingecko | null = null;
+
+function getClient(): Coingecko {
+  if (!_client) {
+    const apiKey = process.env.COINGECKO_API_KEY;
+    // Determine if it's a demo or pro key based on prefix (demo keys start with CG-)
+    const isDemo = apiKey?.startsWith("CG-");
+    
+    _client = new Coingecko({
+      demoAPIKey: isDemo ? apiKey : undefined,
+      proAPIKey: !isDemo ? apiKey : undefined,
+      environment: isDemo ? "demo" : "pro",
+    });
+  }
+  return _client;
+}
 
 /** Ensure cache directory exists. */
 function ensureCacheDir(): void {
@@ -68,23 +90,41 @@ function incrementCounter(): number {
 let lastRequestTime = 0;
 
 /**
- * Fetch a CoinGecko API endpoint with rate limiting and optional caching.
- *
- * @param endpoint - API path (e.g., "/coins/markets")
- * @param params - URL query parameters
- * @param cacheKey - If provided, results are cached with this key
- * @param cacheTtlMs - Cache TTL in milliseconds (default: 24h)
- * @returns Parsed JSON response
+ * Internal logic to enforce monthly limits and rate-limiting delays.
+ * Call this before any SDK request.
  */
-export async function fetchCoinGecko<T>(
-  endpoint: string,
-  params: Record<string, string | number> = {},
-  cacheKey?: string,
-  cacheTtlMs: number = 24 * 60 * 60 * 1000,
-  maxRetries: number = 3
-): Promise<T> {
+async function enforceQuotas(): Promise<number> {
   ensureCacheDir();
 
+  // Check monthly limit
+  const counter = readCounter();
+  if (counter.count >= MONTHLY_LIMIT) {
+    throw new Error(
+      `Monthly CoinGecko API limit reached (${counter.count}/${MONTHLY_LIMIT}). ` +
+        `Resets next month. Use cached data.`
+    );
+  }
+
+  // Rate limiting — enforce 2.1s between requests
+  const elapsed = Date.now() - lastRequestTime;
+  if (elapsed < RATE_LIMIT_DELAY_MS) {
+    const waitTime = RATE_LIMIT_DELAY_MS - elapsed;
+    process.stdout.write(` [rate limit: wait ${waitTime}ms...] `);
+    await sleep(waitTime);
+  }
+
+  lastRequestTime = Date.now();
+  return incrementCounter();
+}
+
+/**
+ * Handle API responses, caching, and common error patterns.
+ */
+async function withCache<T>(
+  cacheKey: string | undefined,
+  cacheTtlMs: number,
+  fetcher: () => Promise<T>
+): Promise<T> {
   // Check cache first
   if (cacheKey) {
     const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
@@ -98,63 +138,9 @@ export async function fetchCoinGecko<T>(
     }
   }
 
-  // Check monthly limit
-  const counter = readCounter();
-  if (counter.count >= MONTHLY_LIMIT) {
-    throw new Error(
-      `Monthly CoinGecko API limit reached (${counter.count}/${MONTHLY_LIMIT}). ` +
-        `Resets next month. Use cached data or CoinMarketCap fallback.`
-    );
-  }
-
-  // Rate limiting — enforce 2.1s between requests
-  const elapsed = Date.now() - lastRequestTime;
-  if (elapsed < RATE_LIMIT_DELAY_MS) {
-    const waitTime = RATE_LIMIT_DELAY_MS - elapsed;
-    console.log(`  [rate limit] waiting ${waitTime}ms...`);
-    await sleep(waitTime);
-  }
-
-  // Build URL
-  const url = new URL(`${BASE_URL}${endpoint}`);
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, String(value));
-  }
-
-  // Add API key if available
-  const apiKey = process.env.COINGECKO_API_KEY;
-  if (apiKey) {
-    url.searchParams.set("x_cg_demo_api_key", apiKey);
-  }
-
-  console.log(`  [api] GET ${url.pathname}${url.search}`);
-  lastRequestTime = Date.now();
-  const currentCount = incrementCounter();
-
-  const response = await fetchWithRetry(url.toString(), {
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "TokenRadar/1.0",
-    },
-  });
-
-  if (response.status === 429) {
-    if (maxRetries <= 0) {
-      throw new Error(`CoinGecko API rate limited (429) for ${endpoint} — max retries exhausted.`);
-    }
-    console.warn(`  [rate limited] 429 — waiting 60s before retry (${maxRetries} retries left)...`);
-    await logError("CoinGecko", "Rate limited (429)", false); // non-fatal alert
-    await sleep(60_000);
-    return fetchCoinGecko<T>(endpoint, params, cacheKey, cacheTtlMs, maxRetries - 1);
-  }
-
-  if (!response.ok) {
-    throw new Error(
-      `CoinGecko API error: ${response.status} ${response.statusText} for ${endpoint}`
-    );
-  }
-
-  const data = (await response.json()) as T;
+  // Enforce limits and perform fetch
+  const currentCount = await enforceQuotas();
+  const data = await fetcher();
 
   // Save to cache
   if (cacheKey) {
@@ -166,62 +152,78 @@ export async function fetchCoinGecko<T>(
   return data;
 }
 
-/** Detailed coin data from CoinGecko /coins/{id} */
-export interface CoinDetail {
-  id: string;
-  symbol: string;
-  name: string;
-  description: { en: string };
-  links: {
-    homepage: string[];
-    blockchain_site: string[];
-    official_forum_url: string[];
-    subreddit_url: string;
-    repos_url: { github: string[]; bitbucket: string[] };
-  };
-  categories: string[];
-  genesis_date: string | null;
-  market_cap_rank: number | null;
-  market_data: {
-    current_price: { usd: number };
-    market_cap: { usd: number };
-    total_volume: { usd: number };
-    high_24h: { usd: number };
-    low_24h: { usd: number };
-    price_change_percentage_24h: number;
-    price_change_percentage_7d: number;
-    price_change_percentage_30d: number;
-    price_change_percentage_1y: number;
-    ath: { usd: number };
-    ath_change_percentage: { usd: number };
-    ath_date: { usd: string };
-    atl: { usd: number };
-    atl_date: { usd: string };
-    circulating_supply: number;
-    total_supply: number | null;
-    max_supply: number | null;
-    fully_diluted_valuation: { usd: number | null };
-  };
-  community_data: {
-    twitter_followers: number | null;
-    reddit_subscribers: number | null;
-    reddit_average_posts_48h: number | null;
-  };
-  developer_data: {
-    stars: number | null;
-    forks: number | null;
-    subscribers: number | null;
-    total_issues: number | null;
-    closed_issues: number | null;
-    commit_count_4_weeks: number | null;
-  };
+/**
+ * Legacy wrapper for generic endpoints not yet covered by specific SDK methods.
+ * @deprecated Use SDK methods directly via getClient() if possible.
+ */
+export async function fetchCoinGecko<T>(
+  endpoint: string,
+  params: Record<string, string | number> = {},
+  cacheKey?: string,
+  cacheTtlMs: number = 24 * 60 * 60 * 1000
+): Promise<T> {
+  return withCache(cacheKey, cacheTtlMs, async () => {
+    // Build URL for raw fetch
+    const url = new URL(`https://api.coingecko.com/api/v3${endpoint}`);
+    for (const [key, value] of Object.entries(params)) {
+      url.searchParams.set(key, String(value));
+    }
+    const apiKey = process.env.COINGECKO_API_KEY;
+    if (apiKey) url.searchParams.set("x_cg_demo_api_key", apiKey);
+
+    console.log(`  [api/raw] GET ${url.pathname}${url.search}`);
+    const response = await fetchWithRetry(url.toString(), {
+      headers: { Accept: "application/json", "User-Agent": "TokenRadar/1.0" },
+    });
+    if (!response.ok) throw new Error(`API error: ${response.status} ${response.statusText}`);
+    return (await response.json()) as T;
+  });
 }
 
-/** Market chart data from /market_chart */
-export interface MarketChartData {
-  prices: [number, number][];
-  market_caps: [number, number][];
-  total_volumes: [number, number][];
+// ── SDK Type Definitions (Exported for convenience) ──────────
+
+import type { CoinGetIDResponse } from "@coingecko/coingecko-typescript/resources/coins/coins";
+import type { MarketGetResponse } from "@coingecko/coingecko-typescript/resources/coins/markets";
+import type { MarketChartGetResponse } from "@coingecko/coingecko-typescript/resources/coins/market-chart";
+import type { GlobalGetResponse } from "@coingecko/coingecko-typescript/resources/global/global";
+import type { CategoryGetResponse } from "@coingecko/coingecko-typescript/resources/coins/categories";
+import type { TrendingGetResponse } from "@coingecko/coingecko-typescript/resources/search/trending";
+
+export type { CoinGetIDResponse as CoinDetail, MarketChartGetResponse as MarketChartData, GlobalGetResponse, CategoryGetResponse, TrendingGetResponse };
+export type CoinGeckoToken = MarketGetResponse[number];
+// The SDK's GlobalMarketData is missing many currency fields in total_market_cap and total_volume
+// We override it here to ensure 'usd' and other common fields are accessible
+export interface GlobalMarketStats {
+  active_cryptocurrencies?: number;
+  upcoming_icos?: number;
+  ongoing_icos?: number;
+  ended_icos?: number;
+  markets?: number;
+  total_market_cap?: Record<string, number>;
+  total_volume?: Record<string, number>;
+  market_cap_percentage?: Record<string, number>;
+  market_cap_change_percentage_24h_usd?: number;
+  updated_at?: number;
+}
+
+/** Augmented community data because SDK type is missing twitter_followers */
+export interface CommunityStats {
+  twitter_followers?: number | null;
+  reddit_subscribers?: number | null;
+  telegram_channel_user_count?: number | null;
+}
+
+/** Simplified DEX data structure from GeckoTerminal */
+export interface DEXPoolData {
+  id: string;
+  name: string;
+  priceUsd: number;
+  volume24h: number;
+  reserveUsd: number;
+  fdvUsd: number;
+  dexId: string;
+  poolCreatedAt: string | null;
+  priceChange24h: number;
 }
 
 /** Cleaned per-token data structure used by TokenRadar */
@@ -268,8 +270,8 @@ export interface TokenDetailData {
     githubForks: number | null;
     commits4Weeks: number | null;
   };
-  chart30d?: MarketChartData;
-  chart1y?: MarketChartData;
+  chart30d?: MarketChartGetResponse;
+  chart1y?: MarketChartGetResponse;
   fetchedAt: string;
 }
 
@@ -278,52 +280,51 @@ export interface TokenDetailData {
  * This performs 3 API calls (Details, 30d Chart, 1y Chart).
  */
 export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailData> {
+  const client = getClient();
+
   // 1. Fetch detailed coin info
-  const detail = await fetchCoinGecko<CoinDetail>(
-    `/coins/${tokenId}`,
-    {
-      localization: "false",
-      tickers: "false",
-      market_data: "true",
-      community_data: "true",
-      developer_data: "true",
-    },
+  const detail = await withCache(
     `coin-detail-${tokenId}`,
-    30 * 24 * 60 * 60 * 1000 // 30-day static cache
+    30 * 24 * 60 * 60 * 1000,
+    () => client.coins.getID(tokenId, {
+      localization: false,
+      tickers: false,
+      market_data: true,
+      community_data: true,
+      developer_data: true,
+    }) as unknown as Promise<CoinGetIDResponse>
   );
 
   // 2. Fetch 30-day price history
-  const chart30d = await fetchCoinGecko<MarketChartData>(
-    `/coins/${tokenId}/market_chart`,
-    {
+  const chart30d = await withCache(
+    `chart-30d-${tokenId}`,
+    12 * 60 * 60 * 1000,
+    () => client.coins.marketChart.get(tokenId, {
       vs_currency: "usd",
       days: "30",
       interval: "daily",
-    },
-    `chart-30d-${tokenId}`,
-    12 * 60 * 60 * 1000 // 12h cache
+    }) as unknown as Promise<MarketChartGetResponse>
   );
 
   // 3. Fetch 365-day price history
-  const chart1y = await fetchCoinGecko<MarketChartData>(
-    `/coins/${tokenId}/market_chart`,
-    {
+  const chart1y = await withCache(
+    `chart-1y-${tokenId}`,
+    24 * 60 * 60 * 1000,
+    () => client.coins.marketChart.get(tokenId, {
       vs_currency: "usd",
       days: "365",
       interval: "daily",
-    },
-    `chart-1y-${tokenId}`,
-    24 * 60 * 60 * 1000 // 24h cache
+    }) as unknown as Promise<MarketChartGetResponse>
   );
 
   // 4. Transform into clean clean format
   return {
-    id: detail.id,
-    symbol: detail.symbol,
-    name: detail.name,
+    id: detail.id || tokenId,
+    symbol: detail.symbol || "",
+    name: detail.name || "",
     description: truncateDescription(detail.description?.en || ""),
     categories: detail.categories?.filter(Boolean) || [],
-    genesisDate: detail.genesis_date,
+    genesisDate: detail.genesis_date || null,
     links: {
       website: detail.links?.homepage?.[0] || null,
       github: detail.links?.repos_url?.github?.[0] || null,
@@ -352,7 +353,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
       fdv: detail.market_data?.fully_diluted_valuation?.usd ?? null,
     },
     community: {
-      twitterFollowers: detail.community_data?.twitter_followers ?? null,
+      twitterFollowers: (detail.community_data as unknown as CommunityStats)?.twitter_followers ?? null,
       redditSubscribers: detail.community_data?.reddit_subscribers ?? null,
     },
     developer: {
@@ -372,26 +373,7 @@ function truncateDescription(text: string, maxChars: number = 3000): string {
   return text.substring(0, maxChars) + "... [truncated]";
 }
 
-/** Minimal token info from CoinGecko /coins/markets endpoint. */
-export interface CoinGeckoToken {
-  id: string;
-  symbol: string;
-  name: string;
-  image: string;
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-  total_volume: number;
-  price_change_percentage_24h: number;
-  circulating_supply: number;
-  total_supply: number | null;
-  max_supply: number | null;
-  ath: number;
-  ath_change_percentage: number;
-  ath_date: string;
-  atl: number;
-  atl_date: string;
-}
+// (Interfaces CoinGeckoToken and TrendingCoinItem removed in favor of SDK types)
 
 /**
  * Fetch tokens ranked by market cap within a given range.
@@ -404,25 +386,25 @@ export async function fetchTokensByRank(
   startRank: number = 50,
   endRank: number = 200
 ): Promise<CoinGeckoToken[]> {
-  const perPage = 250; // max per page on CoinGecko
+  const perPage = 250; 
   const page = Math.ceil(startRank / perPage);
+  const client = getClient();
 
-  const tokens = await fetchCoinGecko<CoinGeckoToken[]>(
-    "/coins/markets",
-    {
+  const tokens = await withCache(
+    `tokens-page-${page}`,
+    12 * 60 * 60 * 1000,
+    () => client.coins.markets.get({
       vs_currency: "usd",
       order: "market_cap_desc",
       per_page: perPage,
       page,
-      sparkline: "false",
+      sparkline: false,
       price_change_percentage: "24h,7d,30d,1y",
-    },
-    `tokens-page-${page}`,
-    12 * 60 * 60 * 1000 // 12h cache
+    }) as unknown as Promise<MarketGetResponse>
   );
 
-  return tokens.filter(
-    (t) =>
+  return (tokens || []).filter(
+    (t: any) =>
       t.market_cap_rank !== null &&
       t.market_cap_rank >= startRank &&
       t.market_cap_rank <= endRank
@@ -431,47 +413,97 @@ export async function fetchTokensByRank(
 
 // ── Trending Coins ────────────────────────────────────────────
 
-/** A single trending coin item from the CoinGecko /search/trending endpoint. */
-export interface TrendingCoinItem {
-  id: string;
-  coin_id: number;
-  name: string;
-  symbol: string;
-  market_cap_rank: number | null;
-  thumb: string;
-  score: number;
-}
-
-/** Raw response shape from CoinGecko /search/trending. */
-interface TrendingResponse {
-  coins: { item: TrendingCoinItem }[];
-}
+// Raw response shape matches SDK TrendingResponse
 
 /**
  * Fetch the top trending coins from CoinGecko's search/trending endpoint.
- * This is a zero-cost endpoint based on user search volume — a strong signal
- * of current market interest and momentum.
- *
- * Results are cached for 30 minutes to avoid redundant API calls.
- *
- * @returns Array of trending coin items, sorted by score (highest momentum first)
+ * This is a zero-cost endpoint based on user search volume.
  */
-export async function fetchTrendingCoins(): Promise<TrendingCoinItem[]> {
+export async function fetchTrendingCoins(): Promise<any[]> {
+  const client = getClient();
   try {
-    const raw = await fetchCoinGecko<TrendingResponse>(
-      "/search/trending",
-      {},
+    const raw = await withCache(
       "trending-coins",
-      30 * 60 * 1000 // 30-minute cache
+      30 * 60 * 1000, 
+      () => client.search.trending.get() as unknown as Promise<TrendingGetResponse>
     );
 
     return (raw.coins || [])
-      .map((c) => c.item)
-      .sort((a, b) => a.score - b.score);
+      .sort((a, b) => (a.score || 0) - (b.score || 0));
   } catch (error) {
-    console.warn(
-      `  ⚠ Failed to fetch trending coins: ${error instanceof Error ? error.message : String(error)}`
-    );
+    console.warn(`  ⚠ Failed to fetch trending coins: ${error instanceof Error ? error.message : String(error)}`);
     return [];
   }
+}
+
+// ── Global Market Data ────────────────────────────────────────
+
+/**
+ * Fetch global cryptocurrency market statistics.
+ */
+export async function fetchGlobalMarketData(): Promise<GlobalMarketStats | undefined> {
+  const client = getClient();
+  const response = await withCache(
+    "global-market-data",
+    60 * 60 * 1000, // 1 hour cache
+    () => client.global.get() as unknown as Promise<GlobalGetResponse>
+  );
+  return response?.data as unknown as GlobalMarketStats;
+}
+
+// ── Sector / Category Data ────────────────────────────────────
+
+/**
+ * Fetch the top performing coin categories (sectors).
+ */
+export async function fetchTrendingCategories(limit: number = 5): Promise<CategoryGetResponse[]> {
+  const client = getClient();
+  const categories = await withCache(
+    "trending-categories",
+    2 * 60 * 60 * 1000, // 2 hour cache
+    () => client.coins.categories.get({ order: "market_cap_change_24h_desc" }) as unknown as Promise<CategoryGetResponse[]>
+  );
+  return (categories || []).slice(0, limit);
+}
+
+// ── GeckoTerminal (On-Chain Discovery) ────────────────────────
+
+/**
+ * Search GeckoTerminal for DEX pools matching a token symbol.
+ * Useful for TGE tokens that aren't on the main CoinGecko site yet.
+ */
+export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolData[]> {
+  return withCache(`gt-search-${query}`, 60 * 60 * 1000, async () => {
+    const url = `https://api.geckoterminal.com/api/v2/search/pools?query=${encodeURIComponent(query)}`;
+    
+    // We reuse enforceQuotas even for GT to keep overall velocity in check
+    // but GT doesn't count towards the official CoinGecko 10k monthly limit.
+    // However, GT has its own rate limits, so we respect our delay.
+    await enforceQuotas(); 
+
+    console.log(`  [GT/api] GET ${url}`);
+    const response = await fetchWithRetry(url, {
+      headers: { Accept: "application/json", "User-Agent": "TokenRadar/1.0" },
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) return [];
+      throw new Error(`GeckoTerminal error: ${response.status}`);
+    }
+
+    const json = await response.json();
+    const pools = json.data || [];
+
+    return pools.map((p: any) => ({
+      id: p.id,
+      name: p.attributes.name,
+      priceUsd: parseFloat(p.attributes.base_token_price_usd || "0"),
+      volume24h: parseFloat(p.attributes.volume_usd?.h24 || "0"),
+      reserveUsd: parseFloat(p.attributes.reserve_in_usd || "0"),
+      fdvUsd: parseFloat(p.attributes.fdv_usd || "0"),
+      dexId: p.relationships?.dex?.data?.id || "unknown",
+      poolCreatedAt: p.attributes.pool_created_at || null,
+      priceChange24h: parseFloat(p.attributes.price_change_percentage?.h24 || "0"),
+    })).sort((a: any, b: any) => b.reserveUsd - a.reserveUsd); // Sort by highest liquidity
+  });
 }

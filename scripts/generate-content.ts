@@ -20,7 +20,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { fetchFullTokenData } from "../src/lib/coingecko";
+import { fetchFullTokenData, fetchGlobalMarketData, fetchTrendingCategories, searchGeckoTerminalPools, type DEXPoolData } from "../src/lib/coingecko";
 import { logError, logActivity } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
@@ -131,7 +131,8 @@ FORMAT:
 - Include a Markdown Summary Table early in the article using placeholders
 - Use ## for all main sections and subsections
 - Include bullet points and bold text for key data
-- Include a structured FAQ section at the end using ## FAQ format`;
+- Include a structured FAQ section at the end using ## FAQ format
+- INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis to ground the token's performance in broader market reality. MANDATORY: Mention the current total market cap or BTC dominance within the first two paragraphs to establish authority. This is critical for institutional-grade authority.`;
 
 /**
  * Build article-specific prompts.
@@ -146,6 +147,8 @@ async function buildArticleConfigs(
   references: { articles: { title: string; snippet: string; source: string }[] },
   tgeEntry?: UpcomingTge | null,
   relatedTokenNames?: string[],
+  macroContext?: { globalStats: string; sectorPerformance: string },
+  dexData?: DEXPoolData | null,
 ): Promise<ArticleConfig[]> {
   const dataStr = JSON.stringify(tokenData, null, 2);
   const metricsStr = JSON.stringify(metrics, null, 2);
@@ -165,7 +168,12 @@ ${priceSummary}
 REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
 ${refsStr || "No recent articles found."}
 
+
 ${relatedTokenNames?.length ? `SEMANTIC CLUSTERING RULE:\nYou MUST explicitly mention and compare ${tokenName} against the following market peers at least once in your analysis: ${relatedTokenNames.join(", ")}.` : ""}
+
+GLOBAL MARKET CONTEXT (Strategic Grounding):
+- Current Market Phase: ${macroContext?.globalStats || "Neutral / Stable"}
+- Top Performing Sectors: ${macroContext?.sectorPerformance || "Mixed performance across sectors"}
 `;
 
   // TGE-specific context: include source, narrative, description from TGE entry
@@ -177,6 +185,16 @@ TGE ENTRY DATA (from TokenRadar discovery pipeline):
 - Status: ${tgeEntry.status || "upcoming"}
 - Expected TGE: ${tgeEntry.expectedTge || "TBD"}
 - Discovered At: ${tgeEntry.discoveredAt || "Unknown"}
+
+${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
+- Current Price: $${dexData.priceUsd.toFixed(8)}
+- 24h Volume: $${dexData.volume24h.toLocaleString()}
+- Liquidity (Reserve): $${dexData.reserveUsd.toLocaleString()}
+- FDV: $${dexData.fdvUsd.toLocaleString()}
+- Dex: ${dexData.dexId}
+- Pool Created: ${dexData.poolCreatedAt}
+- 24h Change: ${dexData.priceChange24h.toFixed(2)}%
+` : ""}
 ` : "";
 
   const overviewTitles = [
@@ -290,6 +308,40 @@ async function main() {
 
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
   const maxTgeTokens = maxTgeIdx !== -1 ? parseInt(args[maxTgeIdx + 1], 10) : 5;
+  const refreshMacro = args.includes("--refresh-macro");
+  const dripMode = args.includes("--drip");
+  const maxRefreshIdx = args.indexOf("--max-refresh");
+  const maxRefresh = maxRefreshIdx !== -1 ? parseInt(args[maxRefreshIdx + 1], 10) : 5;
+
+  // Macro-Context Fetching (Institutional Grounding)
+  console.log(`▶ Step 0: Fetching Macro Market Context...`);
+  let globalStatsStr = "";
+  let sectorPerformanceStr = "";
+
+  try {
+    const globalData = await fetchGlobalMarketData();
+    if (globalData) {
+      const mcapUSD = globalData.total_market_cap?.usd || 0;
+      const mcapChange = globalData.market_cap_change_percentage_24h_usd || 0;
+      const btcDom = globalData.market_cap_percentage?.btc || 0;
+      const mcapStr = mcapUSD >= 1e12 
+        ? `$${(mcapUSD / 1e12).toFixed(2)}T` 
+        : `$${(mcapUSD / 1e9).toFixed(0)}B`;
+      globalStatsStr = `${mcapStr} Total Cap (${mcapChange >= 0 ? "+" : ""}${mcapChange.toFixed(1)}% 24h), BTC Dominance: ${btcDom.toFixed(1)}%`;
+    }
+
+    const sectors = await fetchTrendingCategories(3);
+    if (sectors.length > 0) {
+      sectorPerformanceStr = sectors
+        .map(s => `${s.name} (${s.market_cap_change_24h && s.market_cap_change_24h >= 0 ? "+" : ""}${s.market_cap_change_24h?.toFixed(1)}%)`)
+        .join(", ");
+    }
+    
+    if (globalStatsStr) console.log(`  ✦ Global: ${globalStatsStr}`);
+    if (sectorPerformanceStr) console.log(`  ✦ Sectors: ${sectorPerformanceStr}`);
+  } catch (err) {
+    console.warn("  ⚠ Failed to fetch macro context, skipping grounding...");
+  }
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — AI Content Generator       ║");
@@ -300,6 +352,9 @@ async function main() {
   console.log(`  Target type: ${targetType || "all"}`);
   console.log(`  Max tracked tokens: ${maxTokens}`);
   console.log(`  Max TGE tokens:     ${maxTgeTokens}`);
+  if (dripMode) {
+    console.log(`  Drip Mode Enabled:  Limit ${maxRefresh} refreshes + ${maxTgeTokens} TGEs`);
+  }
   console.log();
 
   // Check for API key
@@ -331,56 +386,127 @@ async function main() {
       .map((t: { id: string }) => t.id)
   );
 
-  // Filter tokens to find ones that actually need generation
-  const tokensToProcess: string[] = [];
-  
-  for (const f of tokenFiles) {
-    const id = f.replace(".json", "");
-    if (targetToken && id !== targetToken) continue;
+  // Build a set of tokens to process
+  let tokensToProcess: string[] = [];
+  let tgeTokensToProcess: string[] = [];
 
-    // Skip upcoming TGEs that lack real market data — they belong in the TGE queue only
-    if (upcomingTgeIdSet.has(id)) {
-      const data = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
-      if (!data.market?.price || data.market.price === 0) continue;
-    }
-
-    // Check if this token is missing any generated content
-    const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
-    const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
-    const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
-
-    let needsGeneration = false;
-    // We parse token data early just to pass it to isStale
-    let tokenData = null;
-    try {
-      tokenData = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
-    } catch (_e) {}
-
-    if (targetType) {
-      needsGeneration = await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
-    } else {
-      needsGeneration = ((await isStale(overviewPath, 30, tokenData))) || ((await isStale(pricePath, 30, tokenData))) || ((await isStale(howToBuyPath, 30, tokenData)));
-    }
-
-    if (needsGeneration || args.includes("--force")) {
-      tokensToProcess.push(id);
-    }
+  if (dripMode) {
+    console.log("▶ [DRIP MODE] Identifying candidates for safe daily update...");
     
-    if (tokensToProcess.length >= maxTokens) break;
-  }
-
-  // Build separate TGE queue (independent budget)
-  const tgeTokensToProcess: string[] = [];
-  for (const tge of upcomingTges) {
-    if (targetToken && tge.id !== targetToken) continue;
-    if (tokensToProcess.includes(tge.id)) continue;
-    if (tgeTokensToProcess.includes(tge.id)) continue;
-
-    const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
-    if ((await isStale(tgePath, 7)) || args.includes("--force")) {
-      tgeTokensToProcess.push(tge.id);
+    // 1. Drip TGEs (Priority: New projects awaiting spotlight)
+    for (const tge of upcomingTges) {
+      if (targetToken && tge.id !== targetToken) continue;
+      if (tge.status === "released") continue; // Released ones go to Phase 2 (Graduation)
+      
+      const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
+      if (!fs.existsSync(tgePath) || (await isStale(tgePath, 7))) {
+        tgeTokensToProcess.push(tge.id);
+      }
+      if (tgeTokensToProcess.length >= maxTgeTokens) break;
     }
-    if (tgeTokensToProcess.length >= maxTgeTokens) break;
+
+    // 2. High Priority: TGE Graduation (Newly launched tokens needing full guides)
+    const graduatedToProcess: string[] = [];
+    for (const tge of upcomingTges) {
+      if (tge.status === "released") {
+        const overviewPath = path.join(CONTENT_DIR, tge.id, "overview.json");
+        if (!fs.existsSync(overviewPath)) {
+          graduatedToProcess.push(tge.id);
+          console.log(`  🎓 [GRADUATION] Found newly released token: ${tge.name} (${tge.id}). Adding to high-priority queue.`);
+        }
+      }
+      if (graduatedToProcess.length >= maxRefresh) break;
+    }
+
+    // 3. Drip Refreshes (Priority: Oldest existing articles across all ranks)
+    const refreshCandidates: { id: string; lastGen: number }[] = [];
+    const contentDirs = fs.readdirSync(CONTENT_DIR);
+    
+    for (const id of contentDirs) {
+      if (targetToken && id !== targetToken) continue;
+      if (upcomingTgeIdSet.has(id)) continue; // Skip unreleased TGEs
+      if (graduatedToProcess.includes(id)) continue; // Already in graduation queue
+
+      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      if (fs.existsSync(overviewPath)) {
+        try {
+          const data = JSON.parse(fs.readFileSync(overviewPath, "utf-8"));
+          const lastGen = data.generatedAt ? new Date(data.generatedAt).getTime() : 0;
+          refreshCandidates.push({ id, lastGen });
+        } catch (_e) {
+          refreshCandidates.push({ id, lastGen: 0 }); 
+        }
+      }
+    }
+
+    // Sort by oldest first
+    refreshCandidates.sort((a, b) => a.lastGen - b.lastGen);
+    
+    // Fill the remaining quota after graduation with stale refreshes
+    const remainingQuota = Math.max(0, maxRefresh - graduatedToProcess.length);
+    tokensToProcess = [...graduatedToProcess, ...refreshCandidates.slice(0, remainingQuota).map(c => c.id)];
+
+    console.log(`  ✦ Selected ${tgeTokensToProcess.length} TGEs and ${tokensToProcess.length} Refreshes (${graduatedToProcess.length} graduated) for today's drip.`);
+  } else {
+    // Standard logic (Bulk or Single Token)
+    for (const f of tokenFiles) {
+      const id = f.replace(".json", "");
+      if (targetToken && id !== targetToken) continue;
+
+      // Skip upcoming TGEs that lack real market data — they belong in the TGE queue only
+      if (upcomingTgeIdSet.has(id)) {
+        const data = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
+        if (!data.market?.price || data.market.price === 0) continue;
+      }
+
+      // Check if this token is missing any generated content
+      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
+      const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
+
+      let needsGeneration = false;
+      let tokenData = null;
+      try {
+        tokenData = JSON.parse(await fs.promises.readFile(path.join(TOKENS_DIR, f), "utf-8"));
+      } catch (_e) {}
+
+      if (targetType) {
+        needsGeneration = await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
+      } else {
+        needsGeneration = ((await isStale(overviewPath, 30, tokenData))) || ((await isStale(pricePath, 30, tokenData))) || ((await isStale(howToBuyPath, 30, tokenData)));
+      }
+
+      if (refreshMacro && !needsGeneration) {
+        const metadataPath = path.join(CONTENT_DIR, id, "overview.json");
+        if (fs.existsSync(metadataPath)) {
+          const stats = fs.statSync(metadataPath);
+          const lastGen = new Date(stats.mtime);
+          const todayAtMidnight = new Date();
+          todayAtMidnight.setHours(0, 0, 0, 0);
+          if (lastGen < todayAtMidnight) {
+            needsGeneration = true;
+          }
+        }
+      }
+
+      if (needsGeneration || args.includes("--force")) {
+        tokensToProcess.push(id);
+      }
+      if (tokensToProcess.length >= maxTokens) break;
+    }
+
+    // Standard TGE selection
+    for (const tge of upcomingTges) {
+      if (targetToken && tge.id !== targetToken) continue;
+      if (tokensToProcess.includes(tge.id)) continue;
+      if (tgeTokensToProcess.includes(tge.id)) continue;
+
+      const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
+      if ((await isStale(tgePath, 7)) || args.includes("--force")) {
+        tgeTokensToProcess.push(tge.id);
+      }
+      if (tgeTokensToProcess.length >= maxTgeTokens) break;
+    }
   }
 
   // Also check content/tokens directory to catch tokens that have content but no detailed data yet
@@ -458,8 +584,8 @@ async function main() {
           JSON.stringify({
             id: tokenId,
             name: fullData.name,
-            chart30d: chart30d?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
-            chart1y: chart1y?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart30d: chart30d?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart1y: chart1y?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
             fetchedAt: new Date().toISOString()
           }, null, 2)
         );
@@ -519,6 +645,23 @@ async function main() {
       }
     }
 
+    // 3. For TGE tokens, attempt GeckoTerminal enrichment if they aren't on CG yet
+    let dexData: DEXPoolData | null = null;
+    if (isTge && (!tokenData.market?.price || tokenData.market.price === 0)) {
+      process.stdout.write(`  [DEX SYNC] Searching GeckoTerminal for ${tokenData.symbol}... `);
+      try {
+        const pools = await searchGeckoTerminalPools(tokenData.symbol);
+        if (pools.length > 0) {
+          dexData = pools[0]; // Highest liquidity per our strategy
+          console.log(`✓ Found pool on ${dexData.dexId} ($${dexData.reserveUsd.toLocaleString()} liq)`);
+        } else {
+          console.log("✗ No pools found");
+        }
+      } catch (e) {
+        console.log(`✗ GT Error: ${e instanceof Error ? e.message : String(e)}`);
+      }
+    }
+
     const configs = await buildArticleConfigs(
       tokenId,
       tokenData.name,
@@ -528,7 +671,9 @@ async function main() {
       metrics,
       references,
       matchingTgeEntry,
-      relatedTokenNames
+      relatedTokenNames,
+      { globalStats: globalStatsStr, sectorPerformance: sectorPerformanceStr },
+      dexData
     );
 
     // For TGE tokens, only generate tge-preview; for tracked tokens, skip tge-preview

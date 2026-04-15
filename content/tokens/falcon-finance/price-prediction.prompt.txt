@@ -7,35 +7,46 @@ STRICT RULES:
 3. NEVER guarantee returns or profits.
 4. NEVER use phrases like "you should invest", "guaranteed gains", "moonshot".
 5. Always present data and analysis objectively.
-6. Include at least 3 specific data points from the provided data.
-7. Reference at least 1 real-world development or event.
-8. Write 1,000-2,000 words.
-9. Use markdown formatting with proper headings (## for sections).
-10. Include a FAQ section at the end with 3-5 questions and answers.
-11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+6. MANDATORY: Use placeholders for ALL live market data to ensure 100% accuracy during daily updates. Use exactly these tags:
+   - {{LIVE_PRICE}} - Current price with $ prefix
+   - {{LIVE_MARKET_CAP}} - Current market cap with $ prefix
+   - {{LIVE_RANK}} - Current market cap rank
+   - {{LIVE_DATE}} - Today's date (formatted as Month Day, Year)
+   - {{LIVE_24H_CHANGE}} - 24-hour percentage change
+7. Include at least 3 specific historical numerical data points from the provided context (excluding live placeholders).
+8. Reference at least 1 real-world development or event.
+9. Strictly follow the word count instructions provided in each specific prompt.
+10. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
+11. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
+12. End every article with: "---
+*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+13. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. Use the placeholders defined above in this table. This is critical for Google Featured Snippets.
 
 FORMAT:
 - Start with a brief intro paragraph (no heading)
-- Use ## for main sections
-- Use ### for subsections
+- Include a Markdown Summary Table early in the article using placeholders
+- Use ## for all main sections and subsections
 - Include bullet points and bold text for key data
-- Include a structured FAQ section at the end using ### FAQ format
+- Include a structured FAQ section at the end using ## FAQ format
+- INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis to ground the token's performance in broader market reality. MANDATORY: Mention the current total market cap or BTC dominance within the first two paragraphs to establish authority. This is critical for institutional-grade authority.
 
 USER:
-Write a data-driven price analysis article for Falcon USD (USDF).
+Draft an objective price trend analysis for Falcon USD (USDF).
 
-CRITICAL: You are NOT making predictions. You are analyzing data trends, historical patterns, and market conditions to discuss possible scenarios.
+CRITICAL: You are NOT making predictions. Analyze data trends and discuss scenarios.
 
-Cover:
-1. Current price and recent performance (30d, 1y trends)
-2. Technical analysis of key support/resistance levels
-3. Comparison to ATH and ATL
-4. Market cap growth scenarios (bear, base, bull cases)
-5. Risk factors that could affect price (use Risk Score data)
-6. How Falcon USD compares to category peers
-7. Include data ranges, not single predictions
+TARGET LENGTH: 1,000 - 1,200 words.
 
-REMEMBER: Present multiple scenarios with data-backed reasoning. Use phrases like "based on current data", "historical patterns suggest", "in a bullish scenario". NEVER predict exact prices.
+IMPORTANT: Cite the PRICE HISTORY SUMMARY points provided (30-day/1-year changes, highs, lows).
+
+Structure:
+- Recent Market Action: How Falcon USD has performed recently
+- Key Price Levels: Support and resistance based on historical highs/lows
+- Valuation Scenarios: What would it take to reach new highs? Discuss bear, base, and bull cases
+- Risk Profile: Incorporate TokenRadar's Risk Score
+- Sector Comparison: How it stacks up against Crypto
+
+Present balanced scenarios with strict data reliance.
 
 
 TOKEN DATA (from CoinGecko):
@@ -60,35 +71,37 @@ TOKEN DATA (from CoinGecko):
     "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
   },
   "market": {
-    "price": 0.997525,
-    "marketCap": 1749481945,
-    "volume24h": 1448654,
-    "high24h": 0.998776,
-    "low24h": 0.996517,
-    "priceChange24h": -0.00753,
-    "priceChange7d": 0.01348,
-    "priceChange30d": 0.11207,
-    "priceChange1y": -0.23497,
+    "price": 0.99824,
+    "marketCap": 1786421968,
+    "marketCapRank": 46,
+    "volume24h": 813368,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0.05038,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 1.075,
-    "athChangePercentage": -7.16571,
+    "athChangePercentage": -7.08886,
     "athDate": "2025-05-08T21:25:42.071Z",
     "atl": 0.943422,
     "atlDate": "2025-07-08T10:16:34.749Z",
-    "circulatingSupply": 1753821967.036924,
-    "totalSupply": 1753821967.036924,
+    "circulatingSupply": 1789571419.161696,
+    "totalSupply": 1789571419.161696,
     "maxSupply": null,
-    "fdv": 1749481945
+    "fdv": null
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-03-13T13:47:40.967Z"
+  "fetchedAt": "2026-03-15T10:11:56.515Z",
+  "lastMarketUpdate": "2026-04-15T08:07:07.140Z"
 }
 
 PROPRIETARY METRICS (computed by TokenRadar):
@@ -104,8 +117,20 @@ PROPRIETARY METRICS (computed by TokenRadar):
   "volatilityIndex": 0,
   "holderConcentrationEstimate": "unknown",
   "summary": "Falcon USD is a limited upside, strong narrative, deeply discounted vs ATH token.",
-  "computedAt": "2026-03-13T18:51:59.420Z"
+  "computedAt": "2026-04-15T08:10:50.959Z"
 }
+
+PRICE HISTORY SUMMARY:
+30-Day: High $0.998304 | Low $0.994228 | Avg $0.997122 | Change 0.10%
+1-Year: High $1.046160 | Low $0.991276 | Avg $0.998721 | Change -0.18%
 
 REFERENCE ARTICLES (use as fact/style reference only — do NOT copy):
 No recent articles found.
+
+
+SEMANTIC CLUSTERING RULE:
+You MUST explicitly mention and compare Falcon USD against the following market peers at least once in your analysis: Ethena USDe, crvUSD.
+
+GLOBAL MARKET CONTEXT (Strategic Grounding):
+- Current Market Phase: $2.59T Total Cap (-0.3% 24h), BTC Dominance: 57.1%
+- Top Performing Sectors: Tradable Ecosystem (+296.6%), Music (+49.5%), Pump Fund Portfolio (+44.2%)

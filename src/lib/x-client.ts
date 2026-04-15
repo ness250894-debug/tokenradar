@@ -16,6 +16,7 @@ import {
   type ClientConfig,
   type OAuth2Token,
 } from "@xdevplatform/xdk";
+import { sleep } from "./shared-utils";
 
 // ── Cashtag Sanitization ──────────────────────────────────────
 
@@ -46,6 +47,7 @@ interface OAuth2Credentials {
   clientId: string;
   clientSecret: string;
   refreshToken: string;
+  bearerToken?: string;
 }
 
 /**
@@ -78,10 +80,41 @@ export function validateXCredentials(): OAuth2Credentials {
     clientId: clientId!,
     clientSecret: clientSecret!,
     refreshToken: refreshToken!,
+    bearerToken: process.env.X_BEARER_TOKEN,
   };
 }
 
 // ── Client Singleton ──────────────────────────────────────────
+
+const MAX_X_RETRIES = 3;
+
+/**
+ * Executes an X API call with exponential backoff retries.
+ * Handles transient errors like 503 Service Unavailable.
+ */
+async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+  let lastError: any;
+  for (let attempt = 1; attempt <= MAX_X_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (error: any) {
+      lastError = error;
+      const status = error?.status || error?.response?.status;
+      
+      // Retry on 503 (Service Unavailable) or 500 (Internal Error), or networking errors
+      const shouldRetry = status === 503 || status === 500 || !status;
+      
+      if (shouldRetry && attempt < MAX_X_RETRIES) {
+        const delay = 1000 * Math.pow(2, attempt - 1);
+        console.warn(`  ⚠ X API [${label}] failed (HTTP ${status || "Network"}), retrying in ${delay}ms... (Attempt ${attempt}/${MAX_X_RETRIES})`);
+        await sleep(delay);
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw lastError;
+}
 
 let _cachedClient: Client | null = null;
 let _tokenExpiresAt: number = 0;
@@ -211,6 +244,19 @@ export async function getXClient(): Promise<Client> {
   return _cachedClient;
 }
 
+/**
+ * Get an XDK Client authenticated via Bearer Token (App-Only).
+ * Required for specific endpoints like Trends.
+ */
+export async function getXTrendsClient(): Promise<Client> {
+  const bearerToken = process.env.X_BEARER_TOKEN;
+  if (!bearerToken) {
+    throw new Error("Missing X_BEARER_TOKEN in environment. Trends API requires a Bearer Token.");
+  }
+
+  return new Client({ bearerToken: bearerToken });
+}
+
 
 
 // ── Text Utilities ────────────────────────────────────────────
@@ -316,10 +362,13 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
   cleanText = sanitizeCashtags(cleanText);
 
   try {
-    const response = await client.posts.create({
-      text: cleanText,
-      ...(replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : {}),
-    });
+    const response = await withRetry(
+      () => client.posts.create({
+        text: cleanText,
+        ...(replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : {}),
+      }),
+      "postTweet"
+    );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
     return tweetId;
@@ -358,16 +407,17 @@ export async function postTweetWithMedia(
   let mediaId: string | undefined;
   try {
     const mediaBase64 = mediaBuffer.toString("base64");
-    // Note: XDK's oneshot upload only supports tweet_image, dm_image, subtitles.
-    // Video uploads (tweet_video) require the chunked init/append/finalize flow.
-    const uploadResponse = await client.media.upload({
-      body: {
-        media: mediaBase64,
-        mediaCategory: "tweet_image",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...(mimeType ? { mediaType: mimeType as any } : {}),
-      },
-    });
+    const uploadResponse = await withRetry(
+      () => client.media.upload({
+        body: {
+          media: mediaBase64,
+          mediaCategory: "tweet_image",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...(mimeType ? { mediaType: mimeType as any } : {}),
+        },
+      }),
+      "mediaUpload"
+    );
     mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
     if (mediaId) {
       console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
@@ -428,13 +478,16 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
 
   // ── Attempt 1: Native poll ──
   try {
-    const response = await client.posts.create({
-      text: cleanText,
-      poll: {
-        options: poll.options,
-        duration_minutes: duration,
-      },
-    });
+    const response = await withRetry(
+      () => client.posts.create({
+        text: cleanText,
+        poll: {
+          options: poll.options,
+          duration_minutes: duration,
+        },
+      }),
+      "nativePoll"
+    );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
     console.log("  ✓ Native poll created successfully");
@@ -464,7 +517,10 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   fallbackText = sanitizeCashtags(fallbackText);
 
   try {
-    const response = await client.posts.create({ text: fallbackText });
+    const response = await withRetry(
+      () => client.posts.create({ text: fallbackText }),
+      "fallbackPoll"
+    );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
     console.log("  ✓ Text-based fallback poll posted successfully");
@@ -495,10 +551,14 @@ export interface XTrendItem {
  */
 export async function fetchXTrends(): Promise<XTrendItem[]> {
   try {
-    const client = await getXClient();
+    // Trends endpoint requires App-Only (Bearer Token) authentication
+    const client = await getXTrendsClient();
 
     // Use the XDK's TrendsClient.getByWoeid (WOEID 1 = Worldwide)
-    const trends = await client.trends.getByWoeid(1);
+    const trends = await withRetry(
+      () => client.trends.getByWoeid(1),
+      "fetchTrends"
+    );
     if (trends?.data && Array.isArray(trends.data)) {
       return trends.data.map((t) => ({
         trend_name: String(t.trendName || ""),

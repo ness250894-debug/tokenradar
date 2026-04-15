@@ -156,8 +156,13 @@ export interface MarketContext {
   price?: number;
   priceChange24h?: number;
   marketCap?: number;
+  marketCapRank?: number;
   /** Optional context about WHY this token was selected (trending, news, etc.) */
   trendingContext?: string;
+  /** Global market context (e.g., "$2.4T cap, +1.2% 24h") */
+  globalStats?: string;
+  /** Sector performance context (e.g., "AI Tokens lead with +12%") */
+  sectorPerformance?: string;
   /** Time of day for contextualizing the post (e.g., Morning, Mid-day, Evening) */
   timeOfDay?: string;
   /** The persona/tone to use for generation (e.g., Analytical, Observer, Degen) */
@@ -202,33 +207,31 @@ export async function generateTokenSummary(
   const riskGauge = getRiskGauge(metrics.riskScore);
 
   const prompt = `
-    You are crafting a Telegram deep-dive update for TokenRadar.co.
+    You are an AI Analyst for TokenRadar.co, leveraging real-time market intelligence from the CoinGecko AI Agent Hub.
     Provide a "Deep Insight & Analysis" for ${tokenName} (${symbol.toUpperCase()}).
     ${toneInstruction}
     
-    MARKET DATA:
+    MARKET DATA (Source: CoinGecko):
     Current Price: ${priceStr}
     24h Change: ${changeStr}
-    Market Cap: ${mcapStr}
-    Risk: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
+    Market Cap: ${mcapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
+    Risk Factor: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
     Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
-    ${trendingSection}${timeContext}${reasonContext}
+    ${metrics.globalStats ? `GLOBAL MARKET: ${metrics.globalStats}\n    ` : ""}${metrics.sectorPerformance ? `SECTOR PERFORMANCE: ${metrics.sectorPerformance}\n    ` : ""}${trendingSection}${timeContext}${reasonContext}
     
-    BACKGROUND:
+    BACKGROUND CONTEXT:
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
-    STRICT RULES:
-    1. MANDATORY: The very first sentence of the post MUST begin exactly with the token ticker and name in bold, formatted like this: <b>$${symbol.toUpperCase()} (${tokenName})</b>. For example: "<b>$BTC (Bitcoin)</b> is currently showing strong...". Do not use any other introduction.
-    2. TARGET LENGTH: approximately 700 - 1000 characters.
-    3. Be analytical but also engaging. Structure your response into 2-3 readable paragraphs.
-    4. Use bold <b> tags to create emphasis or short pseudo-subheaders (e.g., <b>The Catalyst:</b>). Do NOT use markdown headers (#) or HTML header tags (<h1>).
-    5. You may sprinkle 2-3 relevant emojis throughout the post to break up text visually. Let loose and match the "hype" energy if the token is breaking out massively or trending hard.
-    6. DO NOT provide financial advice.
-    7. ABSOLUTELY NO NUMBERED OR BULLETED LISTS. Write entirely in paragraph form.
-    8. Reference specific numbers from the market data provided, including the Risk gauge.
-    9. End the post with a clear, non-financial-advice "Next Step" or actionable takeaway (e.g. "Watch for a volume spike...").
-    10. If you provide a distinct price target, conclusion, or final verdict, wrap EXACTLY that sentence in Telegram HTML spoiler tags: <tg-spoiler>Your conclusion here</tg-spoiler>. Do not overuse this.
-    11. No generic introductory or concluding filler — start directly with the insight.
+    STRICT ANALYSIS RULES:
+    1. MANDATORY: The very first sentence MUST begin exactly with: <b>$${symbol.toUpperCase()} (${tokenName})</b>.
+    2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis in CoinGecko's provided data.
+    3. INSIGHT: Explain the *implication* of the data. If the Risk is high, why? If the Growth Index is low, what's the bottleneck?
+    4. ATtRIBUTION: At some point in the analysis, naturally mention that the data is powered by CoinGecko (e.g., "According to CoinGecko's latest market monitoring...").
+    5. TARGET LENGTH: 700 - 1000 characters.
+    6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
+    7. SPICY ENGAGEMENT: Use 2-3 emojis. Match the market energy.
+    8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
+    9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags.
   `;
 
   try {
@@ -273,24 +276,22 @@ export async function generateTweet(
 
   // Provide exactly instructions to keep it short so footer links won't be truncated.
   const prompt = `
-    Write a single short tweet about ${tokenName} for TokenRadar's X account.
+    Write a short high-engagement tweet for TokenRadar about ${tokenName} using CoinGecko intelligence.
     ${toneInstruction}
     
-    Data context:
-    Price: ${priceStr}
-    24h Change: ${changeStr}
-    MCap: ${mcapStr}
-    Risk: ${riskGauge}
-    ${timeContext}
+    Data context (Source: CoinGecko):
+    Price: ${priceStr} | 24h: ${changeStr} | MCap: ${mcapStr}
+    Risk Profile: ${riskGauge}
+    ${metrics.globalStats ? `Global Market: ${metrics.globalStats}\n    ` : ""}${metrics.sectorPerformance ? `Sector: ${metrics.sectorPerformance}\n    ` : ""}${timeContext}
     ${reasonContext}
     
-    STRICT RULES:
-    1. TARGET LENGTH: MUST be cleanly under 160 characters.
-    2. Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}) in the entire tweet. Do NOT mention any other token with a cashtag. Do NOT use dollar signs for prices (write '21.64' or '0.0034', not '$21.64').
-    3. OPTIMIZE FOR REPLIES: End the tweet with a strong, slightly controversial or high-engagement question to spark debate (e.g. "Are we rotating capital or is this a massive bull trap? 👇"). Replies are the highest valued algorithmic metric.
-    4. Include your visual Risk gauge organically if it fits.
-    5. STRICT HASHTAG LIMIT: Generate exactly 1 or 2 highly specific, relevant hashtags at the end (e.g. #L2). Do not use generic tags like #Crypto to avoid spam penalties. Do NOT include links.
-    6. You can use 1 or 2 emojis if it fits the tone.
+    STRICT X RULES:
+    1. LENGTH: Under 160 characters.
+    2. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
+    3. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
+    4. SPARK DEBATE: End with a strong, data-driven question to drive replies (e.g. "Is this local bottom confirmed or just a bull trap? 👇").
+    5. HASHTAGS: Exactly 1 or 2 niche tags at the end.
+    6. TONE: Punchy, analytical, slightly degen if the market is hot.
   `;
 
   try {

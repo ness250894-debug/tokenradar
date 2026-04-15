@@ -187,7 +187,7 @@ function generateTemplateKeywords(tokens: CoinGeckoToken[]): Keyword[] {
   const seen = new Set<string>();
 
   for (const token of tokens) {
-    const tokenName = token.name.toLowerCase();
+    const tokenName = (token.name || "").toLowerCase();
 
     for (const template of TEMPLATES) {
       // Skip comparison templates here — handled separately
@@ -198,8 +198,8 @@ function generateTemplateKeywords(tokens: CoinGeckoToken[]): Keyword[] {
         seen.add(keyword);
         keywords.push({
           keyword,
-          token: token.name,
-          tokenId: token.id,
+          token: token.name || "",
+          tokenId: token.id || "",
           template,
           type: "template",
         });
@@ -233,11 +233,15 @@ function generateComparisonKeywords(
       const tokenB = tokens[j];
 
       // Only compare tokens within 2x market cap of each other
-      const ratio = tokenA.market_cap / tokenB.market_cap;
+      const mcapA = tokenA.market_cap || 0;
+      const mcapB = tokenB.market_cap || 0;
+      if (mcapA === 0 || mcapB === 0) continue;
+
+      const ratio = mcapA / mcapB;
       if (ratio < 0.5 || ratio > 2.0) continue;
 
-      const nameA = tokenA.name.toLowerCase();
-      const nameB = tokenB.name.toLowerCase();
+      const nameA = (tokenA.name || "").toLowerCase();
+      const nameB = (tokenB.name || "").toLowerCase();
       const keyword = `${nameA} vs ${nameB}`;
       const reverseKeyword = `${nameB} vs ${nameA}`;
 
@@ -245,11 +249,11 @@ function generateComparisonKeywords(
         seen.add(keyword);
         keywords.push({
           keyword,
-          token: tokenA.name,
-          tokenId: tokenA.id,
+          token: tokenA.name || "",
+          tokenId: tokenA.id || "",
           template: "{token} vs {rival}",
           type: "template",
-          rival: tokenB.name,
+          rival: tokenB.name || "",
         });
         count++;
       }
@@ -296,9 +300,9 @@ async function main() {
     TOKENS_FILE,
     JSON.stringify(
       tokens.map((t) => ({
-        id: t.id,
-        name: t.name,
-        symbol: t.symbol,
+        id: t.id || "",
+        name: t.name || "",
+        symbol: t.symbol || "",
         rank: t.market_cap_rank,
         price: t.current_price,
         marketCap: t.market_cap,
@@ -339,6 +343,8 @@ async function main() {
 
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
+      if (!token.id || !token.name) continue;
+
       const pct = Math.round(((i + 1) / tokens.length) * 100);
       process.stdout.write(
         `  [${pct}%] ${token.name} (${i + 1}/${tokens.length})...`

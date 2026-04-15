@@ -46,6 +46,7 @@ import {
   loadCandidateTokens,
   selectToken,
 } from "./lib/token-selection";
+import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coingecko";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -181,6 +182,38 @@ async function main() {
   console.log(`  Already posted today: ${todayPosted.size} tokens`);
   console.log(`  Posted in last 30 days: ${recentlyPosted.size} tokens`);
 
+  // 3. Fetch Macro-Market Context (Global & Sector trends)
+  console.log(`\n▶ Step 2a: Fetching Macro Market Context...`);
+  let globalStatsStr = "";
+  let sectorPerformanceStr = "";
+
+  try {
+    const globalData = await fetchGlobalMarketData();
+    if (globalData) {
+      const mcapUSD = globalData.total_market_cap?.usd || 0;
+      const mcapChange = globalData.market_cap_change_percentage_24h_usd || 0;
+      const btcDom = globalData.market_cap_percentage?.btc || 0;
+      
+      const mcapStr = mcapUSD >= 1e12 
+        ? `$${(mcapUSD / 1e12).toFixed(2)}T` 
+        : `$${(mcapUSD / 1e9).toFixed(0)}B`;
+        
+      globalStatsStr = `${mcapStr} Total Cap (${mcapChange >= 0 ? "+" : ""}${mcapChange.toFixed(1)}% 24h), BTC Dominance: ${btcDom.toFixed(1)}%`;
+    }
+
+    const sectors = await fetchTrendingCategories(3);
+    if (sectors.length > 0) {
+      sectorPerformanceStr = sectors
+        .map(s => `${s.name} (${s.market_cap_change_24h && s.market_cap_change_24h >= 0 ? "+" : ""}${s.market_cap_change_24h?.toFixed(1)}%)`)
+        .join(", ");
+    }
+    
+    if (globalStatsStr) console.log(`  ✦ Global: ${globalStatsStr}`);
+    if (sectorPerformanceStr) console.log(`  ✦ Sectors: ${sectorPerformanceStr}`);
+  } catch (err) {
+    console.warn("  ⚠ Failed to fetch macro context, skipping...");
+  }
+
   // 3. Select token using priority-based strategy
   console.log(`\n▶ Step 2: Selecting token (priority-based)...`);
   const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, targetPlatform as "x" | "telegram" | "all");
@@ -209,7 +242,10 @@ async function main() {
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
+    marketCapRank: targetToken.market.marketCapRank,
     trendingContext,
+    globalStats: globalStatsStr,
+    sectorPerformance: sectorPerformanceStr,
     timeOfDay,
     tone,
     selectionReason: reason

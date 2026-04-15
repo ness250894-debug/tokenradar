@@ -46,8 +46,15 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Generate Drip Content (Safe SEO pace)
+        run: npx tsx scripts/generate-content.ts --drip --refresh-macro --queue
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
       - name: Publish from Queue (Incorporate live data)
-        run: npx tsx scripts/publish-from-queue.ts --max 10
+        run: npx tsx scripts/publish-from-queue.ts --max 15
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}

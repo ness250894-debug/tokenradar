@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.18.0",
+    "@coingecko/coingecko-typescript": "^3.1.5",
     "@google/generative-ai": "^0.24.1",
     "@remotion/cli": "^4.0.446",
     "@xdevplatform/xdk": "^0.5.0",

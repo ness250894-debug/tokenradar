@@ -92,6 +92,10 @@ async function main() {
         console.log("✓ Updated");
       } else {
         // FULL MODE: Fetch everything (Details + Charts)
+        if (!t.id) {
+          console.log("✗ Skipped: Missing ID");
+          continue;
+        }
         const fullData = await fetchFullTokenData(t.id);
         
         // Split charts into separate files for getPriceHistory logic
@@ -107,8 +111,8 @@ async function main() {
           JSON.stringify({
             id: t.id,
             name: t.name,
-            chart30d: chart30d?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
-            chart1y: chart1y?.prices.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart30d: chart30d?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+            chart1y: chart1y?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
             fetchedAt: new Date().toISOString()
           }, null, 2)
         );
