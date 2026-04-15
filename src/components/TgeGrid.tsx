@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, Flame, Calendar, Rocket, ExternalLink } from "lucide-react";
 import { type UpcomingTge } from "@/lib/content-loader";
 import { CardGlare } from "./CardGlare";
 
@@ -40,10 +42,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
     <div className="token-grid-container">
       <div className="search-container animate-in">
         <div className="search-input-wrapper">
-          <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
+          <Search className="search-icon" size={20} />
           <input
             type="search"
             className="search-input"
@@ -61,59 +60,87 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
         )}
       </div>
 
-      {visibleTges.length > 0 ? (
-        <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", marginTop: "var(--space-2xl)" }}>
-          {visibleTges.map((tge) => {
-            const isReleased = tge.status === "released";
-            const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
-            const sourceHostname = (() => { try { return new URL(tge.dataSource).hostname.replace('www.', ''); } catch { return tge.dataSource; } })();
-            return (
-              <CardGlare key={tge.id} style={{ height: "100%" }}>
-                <Link href={`/upcoming/${tge.id}`} className="card" style={{ display: "block", textDecoration: "none", opacity: isReleased ? 0.75 : 1, height: "100%" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
-                    <div className="token-name" style={{ minWidth: 0 }}>
-                      <span>{tge.name} <span className="token-symbol">{tge.symbol.toUpperCase()}</span></span>
-                    </div>
-                    <span className={`badge badge-${strengthColor}`} style={{ fontSize: "0.7rem", padding: "3px 8px", whiteSpace: "nowrap", flexShrink: 0 }}>
-                      {tge.narrativeStrength}/100 Hype
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "var(--space-lg)" }}>
-                    <div>
-                      <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-                        {isReleased ? "Launched" : "Expected Launch"}
+      <AnimatePresence mode="popLayout">
+        {visibleTges.length > 0 ? (
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" 
+            style={{ marginTop: "var(--space-2xl)" }}
+          >
+            {visibleTges.map((tge) => {
+              const isReleased = tge.status === "released";
+              const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
+              const sourceHostname = (() => { try { return new URL(tge.dataSource).hostname.replace('www.', ''); } catch { return tge.dataSource; } })();
+              
+              return (
+                <CardGlare key={tge.id} style={{ height: "100%" }}>
+                  <Link href={`/upcoming/${tge.id}`} className="block h-full no-underline">
+                    <motion.div 
+                      className="card h-full flex flex-col"
+                      whileHover={{ y: -5 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      style={{ opacity: isReleased ? 0.75 : 1 }}
+                    >
+                      <div className="grid grid-cols-[1fr_auto] items-center gap-sm">
+                        <div className="min-w-0" style={{ overflow: "hidden" }}>
+                          <span className="text-truncate" style={{ display: "block" }}>
+                            {tge.name} <span className="token-symbol" style={{ flexShrink: 0 }}>{tge.symbol.toUpperCase()}</span>
+                          </span>
+                        </div>
+                        <span className={`badge badge-${strengthColor} flex-shrink-0 flex items-center gap-1`} style={{ fontSize: "0.7rem" }}>
+                          <Flame size={12} />
+                          {tge.narrativeStrength}/100 Hype
+                        </span>
                       </div>
-                      <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginTop: "var(--space-xs)" }}>
-                        {isReleased && tge.graduatedAt 
-                          ? new Date(tge.graduatedAt).toLocaleDateString() 
-                          : tge.expectedTge}
+                      
+                      <div className="flex justify-between items-end mt-lg">
+                        <div className="flex-1">
+                          <div className="stat-label flex items-center gap-1">
+                            <Calendar size={10} />
+                            {isReleased ? "Launched" : "Expected Launch"}
+                          </div>
+                          <div className="stat-value text-lg" style={{ marginTop: "var(--space-xs)" }}>
+                            {isReleased && tge.graduatedAt 
+                              ? new Date(tge.graduatedAt).toLocaleDateString() 
+                              : tge.expectedTge}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="stat-label">Category</div>
+                          <div className="stat-value text-base" style={{ marginTop: "var(--space-xs)" }}>{tge.category}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Category</div>
-                      <div style={{ fontWeight: 600, marginTop: "var(--space-xs)" }}>{tge.category}</div>
-                    </div>
-                  </div>
-                  <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
-                    <span className={`badge ${isReleased ? "badge-green" : "badge-accent"}`} style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
-                      {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
-                    </span>
-                    <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "140px" }}>
-                      {sourceHostname}
-                    </span>
-                  </div>
-                </Link>
-              </CardGlare>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="no-results" style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
-          <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
-          <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No project found</h3>
-          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>We couldn&apos;t find any matching launches.</p>
-        </div>
-      )}
+
+                      <div className="mt-auto pt-md flex justify-between items-center gap-sm">
+                        <span className={`badge ${isReleased ? "badge-green" : "badge-accent"} flex items-center gap-1`} style={{ fontSize: "0.7rem" }}>
+                          {isReleased ? <Rocket size={12} /> : null}
+                          {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
+                        </span>
+                        <span className="flex items-center gap-1" style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "120px" }}>
+                          <ExternalLink size={10} />
+                          {sourceHostname}
+                        </span>
+                      </div>
+                    </motion.div>
+                  </Link>
+                </CardGlare>
+              );
+            })}
+          </motion.div>
+        ) : (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="no-results" 
+            style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}
+          >
+            <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
+            <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No project found</h3>
+            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>We couldn&apos;t find any matching launches.</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {filteredTges.length > 0 && (
         <div style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>

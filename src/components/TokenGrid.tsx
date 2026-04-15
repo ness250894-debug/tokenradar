@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Search, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 
 interface TokenGridProps {
@@ -13,10 +15,8 @@ export function TokenGrid({ tokens }: TokenGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(TOKENS_PER_PAGE);
 
-  // Filter tokens based on search query
   const filteredTokens = useMemo(() => {
     if (!searchQuery.trim()) return tokens;
-
     const query = searchQuery.toLowerCase();
     return tokens.filter(
       (token) =>
@@ -25,12 +25,10 @@ export function TokenGrid({ tokens }: TokenGridProps) {
     );
   }, [tokens, searchQuery]);
 
-  // Handle Load More
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + TOKENS_PER_PAGE);
   };
 
-  // Reset pagination when search changes
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setVisibleCount(TOKENS_PER_PAGE);
@@ -44,20 +42,7 @@ export function TokenGrid({ tokens }: TokenGridProps) {
       {/* Search Bar */}
       <div className="search-container animate-in">
         <div className="search-input-wrapper">
-          <svg
-            className="search-icon"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
+          <Search className="search-icon" size={20} />
           <input
             type="search"
             className="search-input"
@@ -69,27 +54,32 @@ export function TokenGrid({ tokens }: TokenGridProps) {
       </div>
 
       {/* Grid */}
-      {visibleTokens.length > 0 ? (
-        <div
-          className="stats-grid"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            marginTop: "var(--space-2xl)",
-          }}
-        >
-          {visibleTokens.map((token) => (
-            <TokenCard key={token.id} token={token} />
-          ))}
-        </div>
-      ) : (
-        <div className="no-results" style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
-          <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
-          <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No tokens found</h3>
-          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-            We couldn&apos;t find any tokens matching &quot;{searchQuery}&quot;.
-          </p>
-        </div>
-      )}
+      <AnimatePresence mode="popLayout">
+        {visibleTokens.length > 0 ? (
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"
+            style={{ marginTop: "var(--space-2xl)" }}
+          >
+            {visibleTokens.map((token) => (
+              <TokenCard key={token.id} token={token} />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="no-results" 
+            style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}
+          >
+            <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
+            <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No tokens found</h3>
+            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
+              We couldn&apos;t find any tokens matching &quot;{searchQuery}&quot;.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Load More & Status */}
       {filteredTokens.length > 0 && (

@@ -397,7 +397,7 @@ export default async function TokenPage({ params }: PageProps) {
             <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
               Explore Related Tokens
             </h2>
-            <div className="stats-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {relatedTokens.map((t) => (
                 <TokenCard key={t.id} token={t} />
               ))}
