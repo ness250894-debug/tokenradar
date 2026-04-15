@@ -25,7 +25,7 @@ export async function uploadToYouTubeShorts(
     throw new Error('Missing YouTube OAuth credentials in .env.local (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN)');
   }
 
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, 'https://developers.google.com/oauthplayground');
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, 'http://localhost:3000');
   oauth2Client.setCredentials({ refresh_token: refreshToken });
 
   const youtube = google.youtube({

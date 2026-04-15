@@ -21,6 +21,10 @@
 8. [Phase 4 — E-E-A-T & Quality Layer](#phase-4--e-e-a-t--quality-layer)
 9. [Phase 5 — Website Build](#phase-5--website-build)
 10. [Phase 6 — Automated Social Promotion](#phase-6--automated-social-promotion)
+    - [X (Twitter) Setup](#x-twitter-setup)
+    - [Telegram Setup](#telegram-setup)
+    - [YouTube Shorts Setup](#youtube-shorts-setup)
+    - [Troubleshooting: invalid_grant](#troubleshooting-invalid_grant)
 11. [Phase 7 — Monetization](#phase-7--monetization)
 12. [Phase 8 — Automated Content Refresh](#phase-8--automated-content-refresh)
 13. [Content & Cost Schedule](#content--cost-schedule)
@@ -432,9 +436,42 @@ Each market update includes:
 
 ### Additional Free Traffic Sources
 
-- **Google Search Console** — monitor indexing, submit sitemaps
-- **IndexNow API** — instant indexing notification to Bing/Yandex
-- **Quora answers** — link to relevant articles (manual, high quality)
+### X (Twitter) Setup
+
+1. Create an app in the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard).
+2. Enable OAuth 2.0 and set the Redirect URI to `http://127.0.0.1:3000`.
+3. Fill in `X_OAUTH2_CLIENT_ID` and `X_OAUTH2_CLIENT_SECRET` in `.env.local`.
+4. Run `npx tsx scripts/generate-x-token.ts` to obtain the refresh token.
+
+### Telegram Setup
+
+1. Create a bot via [@BotFather](https://t.me/botfather).
+2. Add the bot to your channel as an administrator.
+3. Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID` in `.env.local`.
+
+### YouTube Shorts Setup
+
+1. Create a project in the [Google Cloud Console](https://console.cloud.google.com/).
+2. Enable the **YouTube Data API v3**.
+3. Configure the **OAuth Consent Screen**:
+    - User Type: External.
+    - Add the `https://www.googleapis.com/auth/youtube.upload` scope.
+4. Create **OAuth 2.0 Client IDs** (Web application):
+    - Authorized redirect URIs: `http://localhost:3000`.
+5. Fill in `YOUTUBE_CLIENT_ID` and `YOUTUBE_CLIENT_SECRET` in `.env.local`.
+6. Run `npx tsx scripts/generate-youtube-token.ts` to obtain the refresh token.
+
+### Troubleshooting: invalid_grant
+
+If you see `YouTube Upload Error: invalid_grant`, it means your refresh token is no longer valid.
+
+**Common fixes:**
+1. **Testing Mode Expiration**: If your Google Cloud project publishing status is set to "Testing", tokens expire after 7 days.
+    - **Fix**: Go to OAuth Consent Screen and set **Publishing status** to **Production**. You don't need to submit for verification if it's for personal use.
+2. **Revoked Access**: If you changed your password or manually revoked access.
+    - **Fix**: Run the generation script again.
+3. **Scope Change**: If the requested scopes in the code don't match the token.
+    - **Fix**: Run the generation script again.
 
 ---
 
