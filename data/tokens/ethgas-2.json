@@ -4,18 +4,18 @@
   "name": "ETHGas",
   "description": "ETHGas is a Blockspace Infrastructure protocol that decomposes Ethereum blockspace into tradable, composable block units, enabling real‑time block production and laying the foundation for a crypto‑native commodities market for gas. By restructuring gas as a financial primitive, ETHGas unlocks:\n- Faster block times (sub‑second confirmations vs 12‑second Ethereum blocks) through real‑time sequencing.\n- A futures/forward market for gas, enabling the creation of a native Ethereum yield curve.\n- Gas abstraction for end users via the Open Gas Initiative, removing gas volatility and shifting costs to protocols.\n- Commoditization of blockspace, similar to energy or metals markets in traditional finance.",
   "market": {
-    "price": 0.065326,
-    "marketCap": 114390111,
-    "marketCapRank": 248,
-    "volume24h": 5223452,
+    "price": 0.06722,
+    "marketCap": 117567349,
+    "marketCapRank": 242,
+    "volume24h": 5203374,
     "high24h": 0.068842,
     "low24h": 0.064031,
-    "priceChange24h": 0.09068,
+    "priceChange24h": 4.53889,
     "priceChange7d": 15.76282,
     "priceChange30d": 65.65045,
     "priceChange1y": 0,
     "ath": 0.072936,
-    "athChangePercentage": -10.14604,
+    "athChangePercentage": -7.8902,
     "athDate": "2026-04-11T16:55:26.912Z",
     "atl": 0.01667836,
     "atlDate": "2026-01-21T13:01:13.968Z",
@@ -24,5 +24,5 @@
     "maxSupply": 10000000000,
     "fdv": 653657777
   },
-  "lastMarketUpdate": "2026-04-15T06:16:04.668Z"
+  "lastMarketUpdate": "2026-04-15T08:07:07.197Z"
 }
