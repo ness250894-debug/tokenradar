@@ -33,8 +33,8 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError, logActivity } from "../src/lib/reporter";
-import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
-import { sendTelegramMessage, sendTelegramPhoto, createTelegramKeyboard } from "../src/lib/telegram";
+import { generateTokenSummary, generateTweet, callAIWithFallback } from "../src/lib/gemini";
+import { sendTelegramMessage, sendTelegramPhoto, createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
@@ -170,7 +170,6 @@ async function getSocialVibe(symbol: string): Promise<{ score: number; snippets:
   `;
 
   try {
-    const { callAIWithFallback } = require("../src/lib/gemini");
     const result = await callAIWithFallback("You are a sentiment analyst.", prompt, 64);
     const score = parseFloat(result.content.trim()) || 0.5;
     console.log(`  ✦ Social Sentiment Score: ${score.toFixed(2)}`);
@@ -442,7 +441,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
         }
 
         if (!dryRun) {
-          const api = (require("../src/lib/telegram").getApi)();
+          const api = getApi();
           const msg = await api.sendPhoto(channelId as string, new InputFile(tokenImage), {
             caption,
             parse_mode: "HTML",
@@ -471,7 +470,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
         }
         
         if (!dryRun) {
-          const api = (require("../src/lib/telegram").getApi)();
+          const api = getApi();
           const msg = await api.sendMessage(channelId as string, finalTgMessage, {
             parse_mode: "HTML",
             reply_markup: keyboard,

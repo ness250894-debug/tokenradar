@@ -6,7 +6,7 @@ import { fetchWithRetry } from "./fetch-with-retry";
  */
 let sharedApi: Api<RawApi> | null = null;
 
-function getApi(botToken?: string): Api<RawApi> {
+export function getApi(botToken?: string): Api<RawApi> {
   const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
   
   // Hard crash only if actually trying to use the API at runtime
