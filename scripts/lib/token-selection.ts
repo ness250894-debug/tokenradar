@@ -146,12 +146,13 @@ export async function loadCandidateTokens(
   allRegistry: { id: string; name: string; symbol: string }[];
   onWebsiteIds: Set<string>;
 }> {
-  // Load the current 'stable' registry from tokens.json (used for website build)
-  const registryFile = path.join(dataDir, "tokens.json");
+  // Only tokens with deep-dive articles are considered "on the website" for agents
+  const articlesDir = path.join(dataDir, "articles");
   const onWebsiteIds = new Set<string>();
-  if (fs.existsSync(registryFile)) {
-    const registry = safeReadJson<any[]>(registryFile, []);
-    registry.forEach(t => { if (t.id) onWebsiteIds.add(t.id); });
+  if (fs.existsSync(articlesDir)) {
+    const articles = fs.readdirSync(articlesDir).filter(f => f.endsWith(".md"));
+    articles.forEach(f => onWebsiteIds.add(f.replace(".md", "")));
+    console.log(` ✓ Verified ${onWebsiteIds.size} covered tokens with deep-dive articles.`);
   }
 
   // Fetch fresh market data

@@ -286,19 +286,8 @@ async function main() {
   }
 
   if (dryRun) {
-    console.log("\n=== DRY RUN MODE ===");
-    console.log(`Reason: ${reason} | Time: ${timeOfDay} | Tone: ${tone}`);
-    if (runTelegram) {
-      console.log("\n--- TELEGRAM MESSAGE ---");
-      console.log(tgMessage);
-    }
-    if (runX) {
-      console.log("\n--- X MAIN TWEET ---");
-      console.log(xMessage);
-      console.log("\n--- X REPLY TWEET ---");
-      console.log(xReplyMessage);
-    }
-    return;
+    console.log("\n=== PRELIMINARY DRY RUN INFO ===");
+    console.log(`Reason: ${selection.reason} | Time: ${timeOfDay} | Tone: ${tone}`);
   }
 
   // Save tracking info immediately (Decentralized)
@@ -325,12 +314,11 @@ async function main() {
   if (runTelegram) {
     try {
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
-      const tokenLink = isOnWebsite ? `${siteUrl}/${targetToken.id}` : siteUrl;
-      const footerCta = isOnWebsite ? "TokenRadar" : "Live Dashboard";
+      const tokenLink = `${siteUrl}/${targetToken.id}`;
 
       const tgFooter = `
 <b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${tokenLink}">${footerCta}</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+📊 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 

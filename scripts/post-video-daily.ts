@@ -84,7 +84,7 @@ async function main() {
   // 1. Load candidate tokens
   console.log(`▶ Step 1: Loading candidate tokens...`);
   const metricsDir = path.join(DATA_DIR, "metrics");
-  const { candidates: candidateTokens, allRegistry: allTokensRegistry } = await loadCandidateTokens(DATA_DIR, 1, 50);
+  const { candidates: candidateTokens, allRegistry: allTokensRegistry, onWebsiteIds } = await loadCandidateTokens(DATA_DIR, 1, 50);
 
   if (candidateTokens.length === 0) {
     console.error("  ✗ No tokens found.");
@@ -171,7 +171,10 @@ async function main() {
 
   if (runX) {
     xMessage = await generateTweet(targetToken.name, targetToken.symbol, context);
-    xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
+    const isOnWebsite = onWebsiteIds.has(targetToken.id);
+    xReplyMessage = isOnWebsite 
+      ? `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
+      : `✨ Newly discovered alpha! Discover 500+ emerging narratives on our live dashboard here:\n\n${siteUrl}`;
   }
 
   if (runYouTube) {
@@ -204,7 +207,7 @@ async function main() {
     try {
       const tgFooter = `
 <b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${siteUrl}/${targetToken.id}">TokenRadar</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+📊 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
