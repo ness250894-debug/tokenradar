@@ -187,7 +187,7 @@ async function main() {
   // ── Load candidate tokens ──
   console.log(`▶ Step 1: Loading candidate tokens...`);
   const metricsDir = path.join(DATA_DIR, "metrics");
-  const { candidates, allRegistry } = await loadCandidateTokens(DATA_DIR);
+  const { candidates, allRegistry, onWebsiteIds } = await loadCandidateTokens(DATA_DIR);
 
   console.log(`  Candidates: ${candidates.length}`);
 
@@ -259,7 +259,8 @@ async function main() {
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
       const displaySym = selectedTokenId ? selectedTokenId.toUpperCase() : "";
-      const replyText = selectedTokenId 
+      const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
+      const replyText = isOnWebsite 
         ? `Vote above and check out the full data profile for $${displaySym} here:\n\n${siteUrl}/${selectedTokenId}`
         : `Vote above and see what's driving the crypto markets right now on:\n\n${siteUrl}`;
         

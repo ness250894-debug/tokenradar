@@ -9,7 +9,7 @@
     "prebuild": "npx tsx scripts/validate-env.ts && npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
     "build": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
     "build:cf": "npm run build && npx opennextjs-cloudflare build",
-    "deploy": "npm run build:cf && npx wrangler pages deploy .open-next/",
+    "deploy": "npm run build:cf && npx shx cp .open-next/worker.js .open-next/assets/_worker.js && npx wrangler pages deploy .open-next/assets/",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

@@ -133,26 +133,6 @@ export default function CryptoTaxGuidePage() {
                   </a>
                 </div>
 
-                {/* Affiliate Offer 3 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)", marginTop: "var(--space-sm)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>3. TokenTax</span>
-                  </div>
-                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
-                    <li>Premium VIP support</li>
-                    <li>Advanced DeFi analytics</li>
-                  </ul>
-                  <a 
-                    href="https://tokentax.co/?via=YOUR_TOKENTAX_AFFILIATE_LINK" 
-                    target="_blank" 
-                    rel="noopener noreferrer sponsored" 
-                    className="btn" 
-                    style={{ width: "100%", textAlign: "center", background: "transparent", border: "1px solid var(--border-color)", borderBottom: "2px solid var(--border-color)", padding: "8px", fontSize: "13px" }}
-                  >
-                    Try TokenTax Free
-                  </a>
-                </div>
-
               </div>
             </div>
           </div>
