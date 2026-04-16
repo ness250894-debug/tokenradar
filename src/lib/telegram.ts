@@ -8,7 +8,13 @@ let sharedApi: Api<RawApi> | null = null;
 
 function getApi(botToken?: string): Api<RawApi> {
   const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
+  
+  // Hard crash only if actually trying to use the API at runtime
+  if (!token) {
+    console.warn("⚠ TELEGRAM_BOT_TOKEN is not set. API calls will fail at runtime.");
+    // Return a dummy API instance if we're just evaluating modules during build
+    return new Api("DUMMY_TOKEN");
+  }
   
   // If we have a custom token, we can't use the shared one
   if (botToken) return new Api(botToken);

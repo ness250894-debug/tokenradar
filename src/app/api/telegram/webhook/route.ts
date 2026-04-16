@@ -2,10 +2,8 @@ import { type NextRequest } from "next/server";
 import { Bot, webhookCallback } from "grammy";
 import { telegramAgent } from "@/lib/agents/telegram-agent";
 
-// Initialize the bot with the webhook
-const token = process.env.TELEGRAM_BOT_TOKEN;
-if (!token) throw new Error("TELEGRAM_BOT_TOKEN not set");
-
+// Initialize the bot (allow dummy token during build-time module evaluation)
+const token = process.env.TELEGRAM_BOT_TOKEN || "BUILD_TIME_DUMMY_TOKEN";
 const bot = new Bot(token);
 
 // Reactive Agentic Behavior: Handle incoming messages
