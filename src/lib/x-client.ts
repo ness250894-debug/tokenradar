@@ -251,7 +251,10 @@ export async function getXClient(): Promise<Client> {
 export async function getXTrendsClient(): Promise<Client> {
   const bearerToken = process.env.X_BEARER_TOKEN;
   if (!bearerToken) {
-    throw new Error("Missing X_BEARER_TOKEN in environment. Trends API requires a Bearer Token.");
+    throw new Error(
+      "Missing X_BEARER_TOKEN in environment. Trends API requires a Bearer Token (App-Only). " +
+      "Check your .env.local file or the Developer Portal."
+    );
   }
 
   return new Client({ bearerToken: bearerToken });

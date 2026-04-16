@@ -89,8 +89,9 @@ export function TokenCard({ token }: TokenCardProps) {
                 24h Change
               </div>
               <div className={`stat-value text-lg flex items-center gap-1 ${isPositive ? "price-up" : "price-down"}`}>
-                {isPositive ? "+" : ""}{token.priceChange24h.toFixed(2)}%
+                {isPositive ? "+" : ""}{(token.priceChange24h || 0).toFixed(2)}%
               </div>
+
             </div>
             <div className="text-right">
               <div className="stat-label mb-1 flex items-center gap-1 justify-end">

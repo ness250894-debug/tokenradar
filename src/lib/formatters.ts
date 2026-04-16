@@ -12,6 +12,14 @@ export function formatPrice(price: number | undefined | null): string {
   return `$${price.toFixed(6)}`;
 }
 
+/** Format percentage for display. Handles null/undefined safely. */
+export function formatPercent(value: number | undefined | null, decimals: number = 2): string {
+  if (value === undefined || value === null || isNaN(value)) return "0.00%";
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(decimals)}%`;
+}
+
+
 /** Format large numbers compactly. */
 export function formatCompact(value: number | undefined | null): string {
   if (value === undefined || value === null) return "$0.00";

@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import { FloatingSocialDock } from "@/components/FloatingSocialDock";
+import ProgressBarProvider from "@/components/ProgressBarProvider";
 import Script from "next/script";
 
 const outfit = Outfit({
@@ -145,12 +146,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${outfit.variable} ${jetbrainsMono.variable}`}>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <ScrollToTop />
-        <BackToOverviewToast />
-        <FloatingSocialDock />
+        <ProgressBarProvider>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <ScrollToTop />
+          <BackToOverviewToast />
+          <FloatingSocialDock />
+        </ProgressBarProvider>
       </body>
     </html>
   );

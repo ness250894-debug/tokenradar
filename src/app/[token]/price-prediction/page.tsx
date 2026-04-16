@@ -8,6 +8,7 @@ import {
   getArticle,
   getTokenIds,
   formatPrice,
+  formatPercent,
   getArticleFaqs,
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
@@ -95,20 +96,20 @@ export default async function PricePredictionPage({ params }: PageProps) {
             <div className="stat-label">Current Price</div>
             <div className="stat-value">{formatPrice(detail.market.price)}</div>
             <div className={`stat-change ${detail.market.priceChange24h >= 0 ? "price-up" : "price-down"}`}>
-              {detail.market.priceChange24h >= 0 ? "▲" : "▼"} {Math.abs(detail.market.priceChange24h).toFixed(2)}% (24h)
+              {formatPercent(detail.market.priceChange24h)} (24h)
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-label">All-Time High</div>
             <div className="stat-value">{formatPrice(detail.market.ath)}</div>
             <div className="stat-change price-down">
-              {detail.market.athChangePercentage.toFixed(1)}% from ATH
+              {formatPercent(detail.market.athChangePercentage, 1)} from ATH
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-label">30-Day Change</div>
             <div className={`stat-value ${isPositive ? "price-up" : "price-down"}`}>
-              {isPositive ? "+" : ""}{detail.market.priceChange30d.toFixed(2)}%
+              {formatPercent(detail.market.priceChange30d)}
             </div>
           </div>
           {metrics && <RiskScoreCard score={metrics.riskScore} />}

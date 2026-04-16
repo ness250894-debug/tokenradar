@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllTokens, } from "@/lib/content-loader";
 import { TokenTickerPill } from "./TokenTickerPill";
+import { formatPercent } from "@/lib/formatters";
 
 /**
  * Sidebar component displaying trending/highest-volume tokens.
@@ -40,7 +41,7 @@ export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) 
                 />
               </div>
               <div className="sidebar-item-price">
-                <span className="price-up">+{token.priceChange24h.toFixed(2)}%</span>
+                <span className="price-up">{formatPercent(token.priceChange24h)}</span>
               </div>
             </Link>
           ))}
@@ -63,7 +64,7 @@ export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) 
               </div>
               <div className="sidebar-item-price">
                 <span className={token.priceChange24h >= 0 ? "price-up" : "price-down"}>
-                  {token.priceChange24h >= 0 ? "+" : ""}{token.priceChange24h.toFixed(2)}%
+                  {formatPercent(token.priceChange24h)}
                 </span>
               </div>
             </Link>

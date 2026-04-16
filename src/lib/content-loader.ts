@@ -165,20 +165,21 @@ export function getAllTokens(): TokenSummary[] {
         name: detail.name,
         symbol: detail.symbol,
         categories: detail.categories || [],
-        rank: detail.market.marketCapRank || 999,
-        price: detail.market.price,
-        marketCap: detail.market.marketCap,
-        volume24h: detail.market.volume24h,
-        priceChange24h: detail.market.priceChange24h,
+        rank: detail.market?.marketCapRank ?? 999,
+        price: detail.market?.price ?? 0,
+        marketCap: detail.market?.marketCap ?? 0,
+        volume24h: detail.market?.volume24h ?? 0,
+        priceChange24h: detail.market?.priceChange24h ?? 0,
         image: "", // Safely optional in UI
-        ath: detail.market.ath,
-        athDate: detail.market.athDate,
-        atl: detail.market.atl,
-        atlDate: detail.market.atlDate,
-        circulatingSupply: detail.market.circulatingSupply,
-        totalSupply: detail.market.totalSupply,
-        maxSupply: detail.market.maxSupply,
+        ath: detail.market?.ath ?? 0,
+        athDate: detail.market?.athDate ?? "",
+        atl: detail.market?.atl ?? 0,
+        atlDate: detail.market?.atlDate ?? "",
+        circulatingSupply: detail.market?.circulatingSupply ?? 0,
+        totalSupply: detail.market?.totalSupply ?? null,
+        maxSupply: detail.market?.maxSupply ?? null,
       });
+
     } catch (_e) {
       // Skip invalid JSONs safely
     }
@@ -544,4 +545,4 @@ export function getRelatedTokens(tokenId: string, limit: number = 3): TokenSumma
   return [...candidates.map(c => c.token), ...fallback].slice(0, limit);
 }
 
-export { formatPrice, formatCompact, formatSupply } from "./formatters";
+export { formatPrice, formatCompact, formatSupply, formatPercent } from "./formatters";

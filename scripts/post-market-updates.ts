@@ -48,7 +48,26 @@ import {
 } from "./lib/token-selection";
 import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coingecko";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Try loading from multiple possible relative paths to handle different execution cwd
+const envPaths = [
+  path.resolve(process.cwd(), ".env.local"),
+  path.resolve(__dirname, "../.env.local"),
+  path.resolve(__dirname, "../../.env.local"),
+];
+
+let loaded = false;
+for (const p of envPaths) {
+  if (fs.existsSync(p)) {
+    dotenv.config({ path: p });
+    console.log(`  ℹ Loaded environment from: ${p}`);
+    loaded = true;
+    break;
+  }
+}
+
+if (!loaded) {
+  console.warn("  ⚠ No .env.local found in standard locations. Falling back to system environment.");
+}
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
@@ -158,9 +177,18 @@ async function main() {
       console.error("  ✗ Missing Telegram credentials (required for telegram/all platform).");
       process.exit(1);
     }
-    if (runX && (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN)) {
-      console.error("  ✗ Missing X (Twitter) OAuth 2.0 credentials (required for x/all platform).");
-      process.exit(1);
+    if (runX) {
+      const missingX = [];
+      if (!process.env.X_OAUTH2_CLIENT_ID) missingX.push("X_OAUTH2_CLIENT_ID");
+      if (!process.env.X_OAUTH2_CLIENT_SECRET) missingX.push("X_OAUTH2_CLIENT_SECRET");
+      if (!process.env.X_OAUTH2_REFRESH_TOKEN) missingX.push("X_OAUTH2_REFRESH_TOKEN");
+      if (!process.env.X_BEARER_TOKEN) missingX.push("X_BEARER_TOKEN");
+
+      if (missingX.length > 0) {
+        console.error(`  ✗ Missing X (Twitter) credentials: ${missingX.join(", ")}`);
+        console.error("    Run 'npx tsx scripts/generate-x-token.ts' to set up OAuth 2.0.");
+        process.exit(1);
+      }
     }
   }
 

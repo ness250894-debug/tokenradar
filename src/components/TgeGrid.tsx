@@ -94,21 +94,24 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                         </span>
                       </div>
                       
-                      <div className="flex justify-between items-end mt-lg">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-lg gap-md sm:gap-sm">
                         <div className="flex-1">
                           <div className="stat-label flex items-center gap-1">
-                            <Calendar size={10} />
+                            <Calendar size={12} />
                             {isReleased ? "Launched" : "Expected Launch"}
                           </div>
-                          <div className="stat-value text-lg" style={{ marginTop: "var(--space-xs)" }}>
+                          <div className="stat-value text-lg" style={{ marginTop: "4px" }}>
                             {isReleased && tge.graduatedAt 
                               ? new Date(tge.graduatedAt).toLocaleDateString() 
                               : tge.expectedTge}
                           </div>
                         </div>
-                        <div className="text-right">
-                          <div className="stat-label">Category</div>
-                          <div className="stat-value text-base" style={{ marginTop: "var(--space-xs)" }}>{tge.category}</div>
+                        <div className="sm:text-right">
+                          <div className="stat-label flex items-center sm:justify-end gap-1">
+                            <Rocket size={12} />
+                            Category
+                          </div>
+                          <div className="stat-value text-base" style={{ marginTop: "4px" }}>{tge.category}</div>
                         </div>
                       </div>
 

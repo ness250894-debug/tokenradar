@@ -12,6 +12,7 @@ import {
   formatSupply,
   getArticleFaqs,
   getRelatedTokens,
+  formatPercent,
 } from "@/lib/content-loader";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
@@ -30,7 +31,6 @@ import { CardGlare } from "@/components/CardGlare";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
-import { ArticleToc } from "@/components/ArticleToc";
 import { 
   Globe, 
   BarChart2, 
@@ -136,7 +136,7 @@ export default async function TokenPage({ params }: PageProps) {
         <h1 style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", borderWidth: 0 }}>
           {detail.name} ({detail.symbol.toUpperCase()}) Analysis, Price & Risk Score
         </h1>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "var(--space-lg)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "var(--space-lg)" }} id="market-stats">
           <div>
             <TokenTickerPill 
               name={detail.name} 
@@ -164,7 +164,7 @@ export default async function TokenPage({ params }: PageProps) {
               {formatPrice(detail.market.price)}
             </div>
             <div className={isPositive ? "price-up" : "price-down"} style={{ fontSize: "var(--text-lg)", fontWeight: 600 }}>
-              {isPositive ? "▲" : "▼"} {Math.abs(detail.market.priceChange24h).toFixed(2)}% (24h)
+              {formatPercent(detail.market.priceChange24h)} (24h)
             </div>
             <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "flex-end" }}>
               <MagneticEffect>
@@ -209,7 +209,7 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Price Chart */}
         {priceHistory && priceHistory.chart30d.length > 0 && (
-          <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }} id="price-chart">
             <PriceChart
               data={priceHistory.chart30d}
               height={280}
@@ -221,7 +221,7 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Metrics Summary */}
         {metrics && (
-          <div style={{ marginTop: "var(--space-xl)" }}>
+          <div style={{ marginTop: "var(--space-xl)" }} id="radar-metrics">
             <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-md)" }}>
               TokenRadar <span className="gradient-text">Metrics</span>
             </h2>
@@ -268,7 +268,7 @@ export default async function TokenPage({ params }: PageProps) {
 
 
         {/* Article Links */}
-        <div style={{ marginTop: "var(--space-2xl)" }}>
+        <div style={{ marginTop: "var(--space-2xl)" }} id="research-guides">
           <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
             Research & <span className="gradient-text">Analysis</span>
           </h2>
@@ -353,7 +353,6 @@ export default async function TokenPage({ params }: PageProps) {
                   paddingRight: "var(--space-xs)"
                 }}
               >
-                <ArticleToc />
                 <div style={{ marginTop: "var(--space-xl)" }}>
                   <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
                   <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
@@ -393,11 +392,11 @@ export default async function TokenPage({ params }: PageProps) {
         
         {/* Related Tokens */}
         {relatedTokens.length > 0 && (
-          <div style={{ marginTop: "var(--space-4xl)" }}>
+          <div style={{ marginTop: "var(--space-4xl)" }} id="related-tokens">
             <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-lg)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-sm)" }}>
               Explore Related Tokens
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedTokens.map((t) => (
                 <TokenCard key={t.id} token={t} />
               ))}
