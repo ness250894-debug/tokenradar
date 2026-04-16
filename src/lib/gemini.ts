@@ -12,6 +12,9 @@ export type AIResult = {
 
 let lastGeminiRequestTime = 0;
 
+export const PRIMARY_MODEL = "gemini-3.1-flash-lite-preview";
+export const FALLBACK_MODEL = "claude-haiku-4-5-20251001";
+
 async function callGeminiAPI(
   systemPrompt: string,
   userPrompt: string,
@@ -20,7 +23,7 @@ async function callGeminiAPI(
 ): Promise<AIResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set. Add it to .env.local");
-  const model = "gemini-3.1-flash-lite-preview";
+  const model = PRIMARY_MODEL;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   let lastError: Error | null = null;
@@ -77,7 +80,7 @@ async function callClaudeAPI(
 ): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Add it to .env.local");
-  const model = "claude-haiku-4-5-20251001";
+  const model = FALLBACK_MODEL;
 
   let lastError: Error | null = null;
   for (let i = 0; i <= retries; i++) {

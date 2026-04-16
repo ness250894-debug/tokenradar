@@ -28,12 +28,13 @@
  *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, X_OAUTH2_CLIENT_ID, etc.
  */
 
+import { InputFile } from "grammy";
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
-import { sendTelegramMessage, sendTelegramPhoto } from "../src/lib/telegram";
+import { sendTelegramMessage, sendTelegramPhoto, createTelegramKeyboard } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
@@ -424,6 +425,12 @@ ${REFERRAL_LINKS_HTML.join("\n")}
         // ── Photo mode: short caption (1024 char limit) ──
         const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
         let caption = photoSummary + "\n\n" + tgFooter.trim();
+        
+        // Use Inline Keyboard for the main CTA if available
+        const keyboard = isOnWebsite 
+          ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
+          : undefined;
+
         if (caption.length > TG_CAPTION_LIMIT) {
           // Trim the summary further to fit
           const footerWithPadding = "\n\n" + tgFooter.trim();
@@ -433,11 +440,26 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           if (cutAt < maxBody * 0.5) cutAt = maxBody;
           caption = photoSummary.substring(0, cutAt) + "..." + footerWithPadding;
         }
-        const msgId = await sendTelegramPhoto(tokenImage, caption, channelId as string);
-        console.log(`✅ Posted photo to Telegram (Message ID: ${msgId})`);
+
+        if (!dryRun) {
+          const api = (require("../src/lib/telegram").getApi)();
+          const msg = await api.sendPhoto(channelId as string, new InputFile(tokenImage), {
+            caption,
+            parse_mode: "HTML",
+            reply_markup: keyboard,
+          });
+          console.log(`✅ Posted photo to Telegram (Message ID: ${msg.message_id})`);
+        } else {
+          console.log(`✅ [DRY RUN] Would have posted photo to Telegram with caption length: ${caption.length}`);
+          console.log(`DEBUG CAPTION:\n${caption}`);
+        }
       } else {
         // ── Text-only fallback ──
         let finalTgMessage = tgMessage + "\n\n" + tgFooter.trim();
+        const keyboard = isOnWebsite 
+          ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
+          : undefined;
+
         if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
           console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming body...`);
           const footerWithPadding = "\n\n" + tgFooter.trim();
@@ -447,8 +469,18 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           if (cutAt < maxBody * 0.5) cutAt = maxBody;
           finalTgMessage = tgMessage.substring(0, cutAt) + "..." + footerWithPadding;
         }
-        const msgId = await sendTelegramMessage(finalTgMessage, channelId as string);
-        console.log(`✅ Posted text to Telegram (Message ID: ${msgId})`);
+        
+        if (!dryRun) {
+          const api = (require("../src/lib/telegram").getApi)();
+          const msg = await api.sendMessage(channelId as string, finalTgMessage, {
+            parse_mode: "HTML",
+            reply_markup: keyboard,
+          });
+          console.log(`✅ Posted text to Telegram (Message ID: ${msg.message_id})`);
+        } else {
+          console.log(`✅ [DRY RUN] Would have posted text to Telegram with length: ${finalTgMessage.length}`);
+          console.log(`DEBUG MESSAGE:\n${finalTgMessage}`);
+        }
       }
       posted = true;
     } catch (error) {
@@ -459,23 +491,32 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
   if (runX) {
     try {
-      let tweetId: string;
-      if (tokenImage) {
-        tweetId = await postTweetWithMedia(xMessage, tokenImage);
-        console.log(`✅ Posted tweet with image to X (Tweet ID: ${tweetId})`);
-      } else {
-        tweetId = await postTweet(xMessage);
-        console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
-      }
-      const replyId = await postTweet(xReplyMessage, tweetId);
-      console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+      if (!dryRun) {
+        let tweetId: string;
+        if (tokenImage) {
+          tweetId = await postTweetWithMedia(xMessage, tokenImage);
+          console.log(`✅ Posted tweet with image to X (Tweet ID: ${tweetId})`);
+        } else {
+          tweetId = await postTweet(xMessage);
+          console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
+        }
+        const replyId = await postTweet(xReplyMessage, tweetId);
+        console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
 
-      // ── Passive Engagement ──
-      if (researchTweetIds.length > 0) {
-        console.log(`▶ Performing passive engagement (liking top research tweets)...`);
-        const toLike = researchTweetIds.slice(0, 2);
-        for (const id of toLike) {
-          await likeTweet(id);
+        // ── Passive Engagement ──
+        if (researchTweetIds.length > 0) {
+          console.log(`▶ Performing passive engagement (liking top research tweets)...`);
+          const toLike = researchTweetIds.slice(0, 2);
+          for (const id of toLike) {
+            await likeTweet(id);
+          }
+        }
+      } else {
+        console.log(`✅ [DRY RUN] Would have posted to X:`);
+        console.log(`DEBUG TWEET:\n${xMessage}`);
+        console.log(`DEBUG REPLY:\n${xReplyMessage}`);
+        if (researchTweetIds.length > 0) {
+          console.log(`DEBUG: Would have liked ${Math.min(2, researchTweetIds.length)} research tweets.`);
         }
       }
       posted = true;

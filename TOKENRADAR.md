@@ -93,12 +93,12 @@ CoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly
 | **CDN** | Cloudflare (built-in) | $0 |
 | **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |
 | **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |
-| **AI Content** | Gemini 3.1 Flash Lite (primary) + Claude fallback | ~$0.001 / article |
-| **AI Summaries** | Gemini 3.1 Flash Lite (primary) + Claude fallback | $0 |
+| **AI Content** | Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 fallback | ~$0.001 / article |
+| **AI Summaries** | Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 fallback | $0 |
 | **Domain** | Namecheap (tokenradar.co) | $6.98/yr |
 | **Charts** | Recharts (lightweight) | $0 |
-| **Social APIs** | X Pay-per-use ($0.01/post) + Telegram Bot | $0–$5 |
-| **Analytics** | Google Search Console + Plausible Free | $0 |
+| **Social APIs** | X Pay-per-use + **grammY SDK** | $0–$5 |
+| **Agentic AI** | **Mastra** (Task Orchestration) | $0 |
 
 ---
 
@@ -443,11 +443,15 @@ Each market update includes:
 3. Fill in `X_OAUTH2_CLIENT_ID` and `X_OAUTH2_CLIENT_SECRET` in `.env.local`.
 4. Run `npx tsx scripts/generate-x-token.ts` to obtain the refresh token.
 
-### Telegram Setup
+### Telegram Setup (grammY + Agentic AI)
 
 1. Create a bot via [@BotFather](https://t.me/botfather).
 2. Add the bot to your channel as an administrator.
 3. Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID` in `.env.local`.
+4. **Agentic Layer:** The bot now uses **grammY** and **Mastra**.
+   - **Reactive:** Handles incoming messages via `src/app/api/telegram/webhook/route.ts`.
+   - **Proactive:** Scheduled scripts use the same SDK for consistent formatting and keyboard support.
+5. **Webhook Configuration:** Run `curl -X POST https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://your-site.com/api/telegram/webhook` to enable real-time agent replies.
 
 ### YouTube Shorts Setup
 

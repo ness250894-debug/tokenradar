@@ -1,13 +1,26 @@
-/**
- * TokenRadar — Shared Telegram Client
- *
- * Centralized Telegram messaging used by posting scripts and error reporting.
- */
-
+import { Api, RawApi, InlineKeyboard, InputFile } from "grammy";
 import { fetchWithRetry } from "./fetch-with-retry";
 
 /**
- * Send a message to a Telegram channel/chat via the Bot API.
+ * Shared Api instance (lazy loaded)
+ */
+let sharedApi: Api<RawApi> | null = null;
+
+function getApi(botToken?: string): Api<RawApi> {
+  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
+  
+  // If we have a custom token, we can't use the shared one
+  if (botToken) return new Api(botToken);
+  
+  if (!sharedApi) {
+    sharedApi = new Api(token);
+  }
+  return sharedApi;
+}
+
+/**
+ * Send a message to a Telegram channel/chat via the grammY SDK.
  *
  * @param text - HTML-formatted message text
  * @param chatId - Telegram chat or channel ID
@@ -19,33 +32,18 @@ export async function sendTelegramMessage(
   chatId: string,
   botToken?: string
 ): Promise<number> {
-  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
-
-  const url = `https://api.telegram.org/bot${token}/sendMessage`;
-  const response = await fetchWithRetry(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: false,
-    }),
+  const api = getApi(botToken);
+  
+  const message = await api.sendMessage(chatId, text, {
+    parse_mode: "HTML",
+    link_preview_options: { is_disabled: false },
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
-  if (!data.ok) throw new Error("Telegram API returned ok: false");
-  return data.result.message_id;
+  return message.message_id;
 }
 
 /**
- * Send a poll to a Telegram channel/chat via the Bot API.
+ * Send a poll to a Telegram channel/chat via the grammY SDK.
  *
  * @param question - Poll question text
  * @param options - Array of answer options (min 2, max 10)
@@ -59,33 +57,17 @@ export async function sendTelegramPoll(
   chatId: string,
   botToken?: string
 ): Promise<number> {
-  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
+  const api = getApi(botToken);
 
-  const url = `https://api.telegram.org/bot${token}/sendPoll`;
-  const response = await fetchWithRetry(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      question,
-      options,
-      is_anonymous: true,
-    }),
+  const poll = await api.sendPoll(chatId, question, options, {
+    is_anonymous: true,
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram sendPoll API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
-  if (!data.ok) throw new Error("Telegram API returned ok: false");
-  return data.result.message_id;
+  return poll.message_id;
 }
 
 /**
- * Send a photo to a Telegram channel/chat via the Bot API.
+ * Send a photo to a Telegram channel/chat via the grammY SDK.
  *
  * @param photoBuffer - The photo buffer
  * @param caption - Optional HTML caption
@@ -99,36 +81,19 @@ export async function sendTelegramPhoto(
   chatId: string,
   botToken?: string
 ): Promise<number> {
-  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
-
-  const url = `https://api.telegram.org/bot${token}/sendPhoto`;
+  const api = getApi(botToken);
   
-  const formData = new FormData();
-  formData.append("chat_id", chatId);
-  formData.append("caption", caption);
-  formData.append("parse_mode", "HTML");
-  
-  const blob = new Blob([new Uint8Array(photoBuffer)], { type: "image/png" });
-  formData.append("photo", blob, "image.png");
-
-  const response = await fetchWithRetry(url, {
-    method: "POST",
-    body: formData,
+  // grammY's InputFile handles Buffers automatically
+  const message = await api.sendPhoto(chatId, new InputFile(photoBuffer), {
+    caption,
+    parse_mode: "HTML",
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram sendPhoto API error ${response.status}: ${error}`);
-  }
-
-  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
-  if (!data.ok) throw new Error("Telegram API returned ok: false");
-  return data.result.message_id;
+  return message.message_id;
 }
 
 /**
- * Send a video to a Telegram channel/chat via the Bot API.
+ * Send a video to a Telegram channel/chat via the grammY SDK.
  *
  * @param videoBuffer - The video buffer (e.g. mp4)
  * @param caption - Optional HTML caption
@@ -142,30 +107,26 @@ export async function sendTelegramVideo(
   chatId: string,
   botToken?: string
 ): Promise<number> {
-  const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) throw new Error("TELEGRAM_BOT_TOKEN is not set");
-
-  const url = `https://api.telegram.org/bot${token}/sendVideo`;
+  const api = getApi(botToken);
   
-  const formData = new FormData();
-  formData.append("chat_id", chatId);
-  formData.append("caption", caption);
-  formData.append("parse_mode", "HTML");
-  
-  const blob = new Blob([new Uint8Array(videoBuffer)], { type: "video/mp4" });
-  formData.append("video", blob, "video.mp4");
-
-  const response = await fetchWithRetry(url, {
-    method: "POST",
-    body: formData,
+  const message = await api.sendVideo(chatId, new InputFile(videoBuffer), {
+    caption,
+    parse_mode: "HTML",
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Telegram sendVideo API error ${response.status}: ${error}`);
-  }
+  return message.message_id;
+}
 
-  const data = (await response.json()) as { ok: boolean; result: { message_id: number } };
-  if (!data.ok) throw new Error("Telegram API returned ok: false");
-  return data.result.message_id;
+/**
+ * Create a specialized Telegram keyboard (e.g. for TMA or external links).
+ * 
+ * @param buttons - Array of button objects { text: string, url: string }
+ * @returns grammY InlineKeyboard
+ */
+export function createTelegramKeyboard(buttons: { text: string, url: string }[]): InlineKeyboard {
+  const keyboard = new InlineKeyboard();
+  buttons.forEach(btn => {
+    keyboard.url(btn.text, btn.url).row();
+  });
+  return keyboard;
 }
