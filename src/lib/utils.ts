@@ -6,6 +6,8 @@
  */
 
 import * as fs from "fs";
+import * as path from "path";
+import * as dotenv from "dotenv";
 
 /**
  * Read and parse a JSON file safely. Returns the fallback value
@@ -24,5 +26,41 @@ export function safeReadJson<T>(filePath: string, fallback: T): T {
   } catch (e) {
     console.warn(`  [warn] Failed to parse ${filePath}: ${e instanceof Error ? e.message : String(e)}`);
     return fallback;
+  }
+}
+
+/**
+ * Robustly load environment variables from .env.local by searching upward from the current directory.
+ * Useful for scripts running from different subdirectories.
+ */
+export function loadEnv(): void {
+  const envPaths = [
+    path.resolve(process.cwd(), ".env.local"),
+    path.resolve(process.cwd(), "..", ".env.local"),
+    path.resolve(__dirname, "..", "..", ".env.local"), // Relative to src/lib
+  ];
+
+  let loaded = false;
+  for (const p of envPaths) {
+    if (fs.existsSync(p)) {
+      dotenv.config({ path: p });
+      loaded = true;
+      break;
+    }
+  }
+
+  if (!loaded && process.env.NODE_ENV !== "production") {
+    // In production (Cloudflare), env vars are provided by the platform.
+    // In local dev, we expect a .env.local.
+    console.warn("  [warn] No .env.local found. Using system environment variables.");
+  }
+}
+
+/**
+ * Ensure a directory exists. Sync version.
+ */
+export function ensureDirSync(dirPath: string): void {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
   }
 }

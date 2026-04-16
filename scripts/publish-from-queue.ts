@@ -18,11 +18,12 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
 import { fetchFullTokenData } from "../src/lib/coingecko";
 import { logError, sendTelegramAlert, logActivity } from "../src/lib/reporter";
+import { loadEnv, ensureDirSync } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const QUEUE_DIR = path.join(DATA_DIR, "queue");
@@ -87,7 +88,7 @@ async function main() {
 
         // 3. Inject & Publish
         const liveTokenDir = path.join(CONTENT_DIR, tokenId);
-        if (!fs.existsSync(liveTokenDir)) fs.mkdirSync(liveTokenDir, { recursive: true });
+        ensureDirSync(liveTokenDir);
 
         for (const articleFile of articles) {
             const queuePath = path.join(queueTokenDir, articleFile);

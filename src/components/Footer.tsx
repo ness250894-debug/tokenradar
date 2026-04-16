@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { HackerText } from "./HackerText";
@@ -32,7 +35,13 @@ const COMPARISON_LINKS = [
 ] as const;
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentYear = mounted ? new Date().getFullYear() : 2026;
 
   return (
     <footer className="footer" id="site-footer">
@@ -88,6 +97,16 @@ export function Footer() {
             <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-col-links">
               {LEGAL_LINKS.map(({ href, label }) => (
+                <li key={href}><Link href={href}>{label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Comparisons Column */}
+          <div>
+            <h4 className="footer-col-title">Compare</h4>
+            <ul className="footer-col-links">
+              {COMPARISON_LINKS.map(({ href, label }) => (
                 <li key={href}><Link href={href}>{label}</Link></li>
               ))}
             </ul>

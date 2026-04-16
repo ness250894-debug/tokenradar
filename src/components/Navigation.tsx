@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HackerText } from "./HackerText";
-import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, Scale } from "lucide-react";
+import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/#trending", icon: Activity },
@@ -25,7 +25,6 @@ const NAV_LINKS = [
 export function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
   // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
@@ -54,7 +53,7 @@ export function Navigation() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
-          {isOpen ? "✕" : "☰"}
+          {isOpen ? <HackerText text="✕" /> : <HackerText text="☰" />}
         </button>
 
         <ul className={`nav-links ${isOpen ? "open" : ""}`}>

@@ -19,13 +19,15 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
-import { fetchFullTokenData, fetchGlobalMarketData, fetchTrendingCategories, searchGeckoTerminalPools, type DEXPoolData } from "../src/lib/coingecko";
 import { logError, logActivity } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
+import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
+import type { DEXPoolData } from "../src/lib/coingecko";
+import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -73,10 +75,10 @@ interface PricePoint {
  */
 async function loadPriceSummary(tokenId: string): Promise<string> {
   const pricesFile = path.join(PRICES_DIR, `${tokenId}.json`);
-  if (!fs.existsSync(pricesFile)) return "";
+  const data = safeReadJson<any>(pricesFile, null);
+  if (!data) return "";
 
   try {
-    const data = JSON.parse(await fs.promises.readFile(pricesFile, "utf-8"));
     const parts: string[] = [];
 
     const summarize = (label: string, points: PricePoint[]): string | null => {
@@ -265,9 +267,7 @@ ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
 function ensureContentDir(tokenId: string, isQueue = false): string {
   const baseDir = isQueue ? path.join(DATA_DIR, "queue") : CONTENT_DIR;
   const dir = path.join(baseDir, tokenId);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+  ensureDirSync(dir);
   return dir;
 }
 
@@ -279,11 +279,10 @@ async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial
     }
   }
 
-  if (!fs.existsSync(filePath)) return true;
+  const data = safeReadJson<any>(filePath, null);
+  if (!data || !data.generatedAt) return true;
+  
   try {
-    const raw = await fs.promises.readFile(filePath, "utf-8");
-    const data = JSON.parse(raw);
-    if (!data.generatedAt) return true;
     
     const diffMs = Date.now() - new Date(data.generatedAt).getTime();
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
@@ -375,7 +374,7 @@ async function main() {
   }
 
   // Load upcoming TGE data early — needed for both queue filtering and TGE processing
-  const upcomingTges: UpcomingTge[] = fs.existsSync(TGE_FILE) ? JSON.parse(await fs.promises.readFile(TGE_FILE, "utf-8")) : [];
+  const upcomingTges = safeReadJson<UpcomingTge[]>(TGE_FILE, []);
 
   // Build a set of upcoming TGE IDs (status !== "released") so we can
   // exclude them from the regular token queue. Tokens that have already
@@ -428,9 +427,9 @@ async function main() {
       if (graduatedToProcess.includes(id)) continue; // Already in graduation queue
 
       const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
-      if (fs.existsSync(overviewPath)) {
+      const data = safeReadJson<any>(overviewPath, null);
+      if (data) {
         try {
-          const data = JSON.parse(fs.readFileSync(overviewPath, "utf-8"));
           const lastGen = data.generatedAt ? new Date(data.generatedAt).getTime() : 0;
           refreshCandidates.push({ id, lastGen });
         } catch (_e) {
@@ -575,9 +574,7 @@ async function main() {
         tokenData = detailOnly;
 
         const PRICES_DIR = path.join(DATA_DIR, "prices");
-        if (!fs.existsSync(PRICES_DIR)) {
-          fs.mkdirSync(PRICES_DIR, { recursive: true });
-        }
+        ensureDirSync(PRICES_DIR);
 
         await fs.promises.writeFile(
           path.join(PRICES_DIR, `${tokenId}.json`),
@@ -618,11 +615,8 @@ async function main() {
     }
 
     // Load metrics (may not exist yet)
-    let metrics: Record<string, unknown> = {};
     const metricsFile = path.join(METRICS_DIR, `${tokenId}.json`);
-    if (fs.existsSync(metricsFile)) {
-      metrics = JSON.parse(await fs.promises.readFile(metricsFile, "utf-8"));
-    }
+    const metrics = safeReadJson<Record<string, any>>(metricsFile, {});
 
     // Load references (may not exist)
     let references = { articles: [] as { title: string; snippet: string; source: string }[] };

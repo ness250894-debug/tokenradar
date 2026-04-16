@@ -31,14 +31,14 @@
 import { InputFile } from "grammy";
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
+
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateTokenSummary, generateTweet, callAIWithFallback } from "../src/lib/gemini";
-import { sendTelegramMessage, sendTelegramPhoto, createTelegramKeyboard, getApi } from "../src/lib/telegram";
+import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
-import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
-import { safeReadJson } from "../src/lib/utils";
+import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
+import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
   type MetricData,
@@ -48,96 +48,14 @@ import {
   selectToken,
 } from "./lib/token-selection";
 import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coingecko";
+import { sanitizeHtmlForTelegram } from "../src/lib/telegram";
 
-// Try loading from multiple possible relative paths to handle different execution cwd
-const envPaths = [
-  path.resolve(process.cwd(), ".env.local"),
-  path.resolve(__dirname, "../.env.local"),
-  path.resolve(__dirname, "../../.env.local"),
-];
-
-let loaded = false;
-for (const p of envPaths) {
-  if (fs.existsSync(p)) {
-    dotenv.config({ path: p });
-    console.log(`  ℹ Loaded environment from: ${p}`);
-    loaded = true;
-    break;
-  }
-}
-
-if (!loaded) {
-  console.warn("  ⚠ No .env.local found in standard locations. Falling back to system environment.");
-}
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
-// ── Utilities ──────────────────────────────────────────────────
-
-/** Max characters for AI summary within a TG message (leaves room for header/footer). */
-const MAX_AI_SUMMARY_CHARS = 1200;
-/** Shortened AI summary for TG photo captions (photos have 1024 char limit). */
-const PHOTO_AI_SUMMARY_CHARS = 400;
-/** Telegram caption limit for photos. */
-const TG_CAPTION_LIMIT = 1024;
-/** Telegram's hard limit per text message. */
-const TG_MESSAGE_LIMIT = 4096;
-
-/**
- * Sanitize and truncate AI-generated HTML for Telegram.
- * Escapes raw &, <, > while preserving allowed TG tags.
- * Truncates to MAX_AI_SUMMARY_CHARS at the nearest sentence boundary.
- */
-function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMARY_CHARS): string {
-  // 1. Truncate at sentence boundary if too long
-  let text = html;
-  if (text.length > maxLength) {
-    text = text.substring(0, maxLength);
-    const lastSentence = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"));
-    if (lastSentence > maxLength * 0.6) {
-      text = text.substring(0, lastSentence + 1);
-    }
-  }
-
-  // 2. Temporarily replace allowed tags with placeholders
-  const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
-  const placeholders: string[] = [];
-  let sanitized = text.replace(allowedTags, (match) => {
-    placeholders.push(match);
-    return `\x00TAG${placeholders.length - 1}\x00`;
-  });
-
-  // 3. Escape remaining HTML-special characters
-  sanitized = sanitized
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-  // 4. Restore allowed tags
-  sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
-
-  // 5. Ensure all allowed tags are closed
-  const stack: string[] = [];
-  const finalTagRegex = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
-  let match;
-  while ((match = finalTagRegex.exec(sanitized)) !== null) {
-    const isClosing = match[0].startsWith('</');
-    const tagName = match[1].toLowerCase();
-    if (isClosing) {
-      const idx = stack.lastIndexOf(tagName);
-      if (idx !== -1) stack.splice(idx, 1);
-    } else {
-      stack.push(tagName);
-    }
-  }
-
-  while (stack.length > 0) {
-    const tagName = stack.pop();
-    sanitized += `</${tagName}>`;
-  }
-
-  return sanitized;
-}
+// ── Utilities — Moved to src/lib ───────────────────────────
 
 /**
  * Perform a 'Vibe Check' on X for a specific token symbol.
@@ -209,7 +127,7 @@ async function main() {
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
   
-  if (!fs.existsSync(POSTED_DIR)) fs.mkdirSync(POSTED_DIR, { recursive: true });
+  ensureDirSync(POSTED_DIR);
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
@@ -224,7 +142,6 @@ async function main() {
       if (!process.env.X_OAUTH2_CLIENT_ID) missingX.push("X_OAUTH2_CLIENT_ID");
       if (!process.env.X_OAUTH2_CLIENT_SECRET) missingX.push("X_OAUTH2_CLIENT_SECRET");
       if (!process.env.X_OAUTH2_REFRESH_TOKEN) missingX.push("X_OAUTH2_REFRESH_TOKEN");
-      if (!process.env.X_BEARER_TOKEN) missingX.push("X_BEARER_TOKEN");
 
       if (missingX.length > 0) {
         console.error(`  ✗ Missing X (Twitter) credentials: ${missingX.join(", ")}`);
@@ -347,12 +264,12 @@ async function main() {
   let xMessage = "";
   let xReplyMessage = "";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-  const _displayUrl = siteUrl.replace("https://", "");
+
 
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
     const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context);
-    const sanitized = sanitizeHtmlForTelegram(aiSummary);
+    const sanitized = sanitizeHtmlForTelegram(aiSummary, SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS);
     tgMessage = sanitized;
   }
 
@@ -422,7 +339,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
       if (tokenImage) {
         // ── Photo mode: short caption (1024 char limit) ──
-        const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
+        const photoSummary = sanitizeHtmlForTelegram(tgMessage, SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS);
         let caption = photoSummary + "\n\n" + tgFooter.trim();
         
         // Use Inline Keyboard for the main CTA if available
@@ -430,10 +347,10 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
           : undefined;
 
-        if (caption.length > TG_CAPTION_LIMIT) {
+        if (caption.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT) {
           // Trim the summary further to fit
           const footerWithPadding = "\n\n" + tgFooter.trim();
-          const maxBody = TG_CAPTION_LIMIT - footerWithPadding.length - 3;
+          const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
           let cutAt = photoSummary.lastIndexOf("\n", maxBody);
           if (cutAt < maxBody * 0.5) cutAt = photoSummary.lastIndexOf(" ", maxBody);
           if (cutAt < maxBody * 0.5) cutAt = maxBody;
@@ -459,10 +376,10 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
           : undefined;
 
-        if (finalTgMessage.length > TG_MESSAGE_LIMIT) {
-          console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${TG_MESSAGE_LIMIT}), trimming body...`);
+        if (finalTgMessage.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT) {
+          console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT}), trimming body...`);
           const footerWithPadding = "\n\n" + tgFooter.trim();
-          const maxBody = TG_MESSAGE_LIMIT - footerWithPadding.length - 3;
+          const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT - footerWithPadding.length - 3;
           let cutAt = tgMessage.lastIndexOf("\n", maxBody);
           if (cutAt < maxBody * 0.5) cutAt = tgMessage.lastIndexOf(" ", maxBody);
           if (cutAt < maxBody * 0.5) cutAt = maxBody;

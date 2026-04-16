@@ -1,5 +1,5 @@
 import { Api, RawApi, InlineKeyboard, InputFile } from "grammy";
-import { fetchWithRetry } from "./fetch-with-retry";
+
 
 /**
  * Shared Api instance (lazy loaded)
@@ -11,9 +11,12 @@ export function getApi(botToken?: string): Api<RawApi> {
   
   // Hard crash only if actually trying to use the API at runtime
   if (!token) {
-    console.warn("⚠ TELEGRAM_BOT_TOKEN is not set. API calls will fail at runtime.");
-    // Return a dummy API instance if we're just evaluating modules during build
-    return new Api("DUMMY_TOKEN");
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("  ⚠ TELEGRAM_BOT_TOKEN is not set. API calls will fail at runtime.");
+      // Return a dummy API instance if we're just evaluating modules during build
+      return new Api("DUMMY_TOKEN");
+    }
+    throw new Error("TELEGRAM_BOT_TOKEN is required but not set in production.");
   }
   
   // If we have a custom token, we can't use the shared one
@@ -26,23 +29,78 @@ export function getApi(botToken?: string): Api<RawApi> {
 }
 
 /**
+ * Sanitize and truncate AI-generated HTML for Telegram.
+ * Escapes raw &, <, > while preserving allowed TG tags (b, i, a, code, pre).
+ */
+export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096): string {
+  // 1. Truncate at sentence boundary if too long
+  let text = html;
+  if (text.length > maxLength) {
+    text = text.substring(0, maxLength);
+    const lastSentence = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"));
+    if (lastSentence > maxLength * 0.6) {
+      text = text.substring(0, lastSentence + 1);
+    }
+  }
+
+  // 2. Temporarily replace allowed tags with placeholders
+  // We use characters that are unlikely to appear in the content
+  const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  const placeholders: string[] = [];
+  let sanitized = text.replace(allowedTags, (match) => {
+    placeholders.push(match);
+    return `\x00TAG${placeholders.length - 1}\x00`;
+  });
+
+  // 3. Escape remaining HTML-special characters
+  sanitized = sanitized
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // 4. Restore allowed tags
+  sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
+
+  // 5. Ensure all allowed tags are closed to prevent "malformed" errors on TG
+  const stack: string[] = [];
+  const finalTagRegex = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  let match;
+  while ((match = finalTagRegex.exec(sanitized)) !== null) {
+    const isClosing = match[0].startsWith('</');
+    const tagName = match[1].toLowerCase();
+    if (isClosing) {
+      const idx = stack.lastIndexOf(tagName);
+      if (idx !== -1) stack.splice(idx, 1);
+    } else {
+      stack.push(tagName);
+    }
+  }
+
+  while (stack.length > 0) {
+    const tagName = stack.pop();
+    sanitized += `</${tagName}>`;
+  }
+
+  return sanitized;
+}
+
+/**
  * Send a message to a Telegram channel/chat via the grammY SDK.
- *
- * @param text - HTML-formatted message text
- * @param chatId - Telegram chat or channel ID
- * @param botToken - Telegram bot token (defaults to env TELEGRAM_BOT_TOKEN)
- * @returns Message ID if successful
  */
 export async function sendTelegramMessage(
   text: string,
   chatId: string,
-  botToken?: string
+  options?: {
+    botToken?: string;
+    replyMarkup?: InlineKeyboard;
+  }
 ): Promise<number> {
-  const api = getApi(botToken);
+  const api = getApi(options?.botToken);
   
   const message = await api.sendMessage(chatId, text, {
     parse_mode: "HTML",
     link_preview_options: { is_disabled: false },
+    reply_markup: options?.replyMarkup,
   });
 
   return message.message_id;
@@ -50,12 +108,6 @@ export async function sendTelegramMessage(
 
 /**
  * Send a poll to a Telegram channel/chat via the grammY SDK.
- *
- * @param question - Poll question text
- * @param options - Array of answer options (min 2, max 10)
- * @param chatId - Telegram chat or channel ID
- * @param botToken - Telegram bot token
- * @returns Message ID if successful
  */
 export async function sendTelegramPoll(
   question: string,
@@ -74,12 +126,6 @@ export async function sendTelegramPoll(
 
 /**
  * Send a photo to a Telegram channel/chat via the grammY SDK.
- *
- * @param photoBuffer - The photo buffer
- * @param caption - Optional HTML caption
- * @param chatId - Telegram chat or channel ID
- * @param botToken - Telegram bot token
- * @returns Message ID if successful
  */
 export async function sendTelegramPhoto(
   photoBuffer: Buffer,
@@ -89,7 +135,6 @@ export async function sendTelegramPhoto(
 ): Promise<number> {
   const api = getApi(botToken);
   
-  // grammY's InputFile handles Buffers automatically
   const message = await api.sendPhoto(chatId, new InputFile(photoBuffer), {
     caption,
     parse_mode: "HTML",
@@ -100,12 +145,6 @@ export async function sendTelegramPhoto(
 
 /**
  * Send a video to a Telegram channel/chat via the grammY SDK.
- *
- * @param videoBuffer - The video buffer (e.g. mp4)
- * @param caption - Optional HTML caption
- * @param chatId - Telegram chat or channel ID
- * @param botToken - Telegram bot token
- * @returns Message ID if successful
  */
 export async function sendTelegramVideo(
   videoBuffer: Buffer,
@@ -124,10 +163,7 @@ export async function sendTelegramVideo(
 }
 
 /**
- * Create a specialized Telegram keyboard (e.g. for TMA or external links).
- * 
- * @param buttons - Array of button objects { text: string, url: string }
- * @returns grammY InlineKeyboard
+ * Create a specialized Telegram keyboard.
  */
 export function createTelegramKeyboard(buttons: { text: string, url: string }[]): InlineKeyboard {
   const keyboard = new InlineKeyboard();

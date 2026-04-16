@@ -11,15 +11,14 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
 import { execSync } from "child_process";
 import { logError } from "../src/lib/reporter";
 import { generateTweet, generateTokenSummary, generateYoutubeMetadata } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
-import { sendTelegramVideo } from "../src/lib/telegram";
+import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
-import { safeReadJson } from "../src/lib/utils";
+import { safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
   type MetricData,
@@ -29,61 +28,15 @@ import {
   selectToken,
 } from "./lib/token-selection";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
 // ── Utilities ──────────────────────────────────────────────────
 
-const MAX_AI_SUMMARY_CHARS = 1200;
+
 const PHOTO_AI_SUMMARY_CHARS = 400;
-const _TG_CAPTION_LIMIT = 1024;
-
-function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMARY_CHARS): string {
-  let text = html;
-  if (text.length > maxLength) {
-    text = text.substring(0, maxLength);
-    const lastSentence = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"));
-    if (lastSentence > maxLength * 0.6) {
-      text = text.substring(0, lastSentence + 1);
-    }
-  }
-
-  const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
-  const placeholders: string[] = [];
-  let sanitized = text.replace(allowedTags, (match) => {
-    placeholders.push(match);
-    return `\x00TAG${placeholders.length - 1}\x00`;
-  });
-
-  sanitized = sanitized
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-  sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
-
-  const stack: string[] = [];
-  const finalTagRegex = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
-  let match;
-  while ((match = finalTagRegex.exec(sanitized)) !== null) {
-    const isClosing = match[0].startsWith('</');
-    const tagName = match[1].toLowerCase();
-    if (isClosing) {
-      const idx = stack.lastIndexOf(tagName);
-      if (idx !== -1) stack.splice(idx, 1);
-    } else {
-      stack.push(tagName);
-    }
-  }
-
-  while (stack.length > 0) {
-    const tagName = stack.pop();
-    sanitized += `</${tagName}>`;
-  }
-
-  return sanitized;
-}
 
 // ── Main ───────────────────────────────────────────────────────
 

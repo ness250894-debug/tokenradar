@@ -20,8 +20,11 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
-import { safeReadJson } from "../src/lib/utils";
+import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import type { TokenDetail } from "../src/lib/content-loader";
+
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -207,9 +210,7 @@ async function main() {
   console.log("╚══════════════════════════════════════════╝");
   console.log();
 
-  if (!fs.existsSync(METRICS_DIR)) {
-    fs.mkdirSync(METRICS_DIR, { recursive: true });
-  }
+  ensureDirSync(METRICS_DIR);
 
   const args = process.argv.slice(2);
   const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;

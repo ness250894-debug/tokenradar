@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Shield, TrendingUp, Cpu } from "lucide-react";

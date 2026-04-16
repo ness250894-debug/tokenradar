@@ -6,7 +6,7 @@
     "dev": "next dev",
     "clean": "npx rimraf out .next",
     "consolidate": "npx tsx scripts/consolidate-data.ts",
-    "prebuild": "npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
+    "prebuild": "npx tsx scripts/validate-env.ts && npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
     "build": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
     "build:cf": "npm run build && npx opennextjs-cloudflare build",
     "deploy": "npm run build:cf && npx wrangler pages deploy .open-next/",

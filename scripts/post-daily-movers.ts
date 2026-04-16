@@ -5,12 +5,13 @@
  * a Top 5 Gainers data card and sends it directly to Telegram using the sendPhoto method.
  */
 
-import * as dotenv from "dotenv";
-import * as path from "path";
+
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPhoto } from "../src/lib/telegram";
+import { loadEnv } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 async function main() {
   const channelId = process.env.TELEGRAM_CHANNEL_ID;

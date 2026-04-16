@@ -277,7 +277,7 @@ export function stripHtmlForX(html: string): string {
 
   // Extract URLs from <a> tags: <a href="url">text</a>
   // If text is effectively the same as URL, just return the URL to avoid duplication.
-  text = text.replace(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]+?)<\/a>/gi, (match, url, linkText) => {
+  text = text.replace(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]+?)<\/a>/gi, (_match, url, linkText) => {
     const cleanText = linkText.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "").replace(/<[^>]*>?/gm, "");
     const cleanUrl = url.trim().replace(/^https?:\/\//i, "").replace(/\/$/, "");
 

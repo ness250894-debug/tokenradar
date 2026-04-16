@@ -6,7 +6,6 @@ import {
   getTokenMetrics,
   getPriceHistory,
   getArticle,
-  getTokenIds,
   getAllTokens,
   formatPrice,
   formatCompact,
@@ -37,8 +36,7 @@ import {
   BarChart2, 
   PieChart, 
   TrendingUp, 
-  ShoppingCart, 
-  Scale, 
+  ShoppingCart,
   Bell,
   Lock
 } from "lucide-react";
@@ -72,8 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = getArticle(tokenId, "overview");
   const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
 
-  const metrics = getTokenMetrics(tokenId);
-  const riskScore = metrics?.riskScore || 5;
+
 
   const ogImage = `/api/og/token/${detail.id}`;
 

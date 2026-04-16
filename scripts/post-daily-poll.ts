@@ -10,12 +10,13 @@
  *   npx tsx scripts/post-daily-poll.ts --dry-run
  */
 
-import * as dotenv from "dotenv";
-import * as path from "path";
+
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
+import { loadEnv } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 /** Poll theme categories that rotate based on the day of the week. */
 const POLL_THEMES = [
