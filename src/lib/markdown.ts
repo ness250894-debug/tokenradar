@@ -113,8 +113,13 @@ export function markdownToHtml(md: string, tokenData?: TokenMarketData): string 
     return `<h${level} id="${id}">${innerHtml}</h${level}>`;
   });
 
-  return DOMPurify.sanitize(htmlWithIds, {
-    ADD_TAGS: ["img"],
-    ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
-  });
+  try {
+    return DOMPurify.sanitize(htmlWithIds, {
+      ADD_TAGS: ["img"],
+      ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
+    });
+  } catch (e) {
+    console.warn("DOMPurify sanitization failed, returning raw HTML:", e);
+    return htmlWithIds;
+  }
 }

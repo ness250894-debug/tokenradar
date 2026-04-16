@@ -8,6 +8,8 @@
     "consolidate": "npx tsx scripts/consolidate-data.ts",
     "prebuild": "npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
     "build": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "build:cf": "npm run build && npx opennextjs-cloudflare build",
+    "deploy": "npm run build:cf && npx wrangler pages deploy .open-next/",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -39,6 +41,7 @@
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.19.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -49,6 +52,6 @@
     "tsx": "^4.21.0",
     "typescript": "^5",
     "vitest": "^4.1.0",
-    "wrangler": "^3.109.2"
+    "wrangler": "^4.83.0"
   }
 }
