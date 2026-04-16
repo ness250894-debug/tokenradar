@@ -7,6 +7,8 @@
  * 3. Balance/Budget monitoring.
  */
 
+export const MONTHLY_LIMIT = 9000;
+
 import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
@@ -112,5 +114,20 @@ export function logActivity(type: string, details: Record<string, string | numbe
   fs.writeFileSync(activityFile, JSON.stringify(activityRecord, null, 2));
 
   console.log(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
+}
+
+/**
+ * Helper to fetch the current monthly CoinGecko usage from the cache counter.
+ */
+export function getApiQuota(): { month: string; count: number } {
+  const counterFile = path.join(DATA_DIR, "cache", "api-counter.json");
+  if (!fs.existsSync(counterFile)) {
+    return { month: new Date().toISOString().substring(0, 7), count: 0 };
+  }
+  try {
+    return JSON.parse(fs.readFileSync(counterFile, "utf-8"));
+  } catch {
+    return { month: new Date().toISOString().substring(0, 7), count: 0 };
+  }
 }
 

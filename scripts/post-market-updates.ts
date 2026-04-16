@@ -31,7 +31,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { sendTelegramMessage, sendTelegramPhoto } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
@@ -413,6 +413,15 @@ ${REFERRAL_LINKS_HTML.join("\n")}
       platform: targetPlatform,
       reason,
     }, null, 2));
+
+    // Log success for the Daily Report
+    logActivity("social-post", {
+      tokenId: targetToken.id,
+      tokenName: targetToken.name,
+      platform: targetPlatform,
+      reason,
+      tone
+    });
   }
 
   if (!posted) {

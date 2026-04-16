@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
-import { sendTelegramAlert } from "../src/lib/reporter";
+import { sendTelegramAlert, getApiQuota, MONTHLY_LIMIT } from "../src/lib/reporter";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
@@ -10,27 +10,23 @@ const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 
 interface ActivityRecord {
-  timestamp: string;
   type: string;
   tokenId?: string;
   tokenName?: string;
-  articleType?: string;
-  isTge?: boolean;
-  wordCount?: number;
+  platform?: string;
+  reason?: string;
+  tokenCount?: number;
+  tokensProcessed?: number;
   cost?: number;
-  fixesCount?: number;
-  warnings?: string[];
-  issues?: string[];
+  wordCount?: number;
 }
 
 interface ErrorRecord {
-  timestamp: string;
   source: string;
   message: string;
   isFatal: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function safeReadJson(file: string): any {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf-8'));
@@ -43,115 +39,98 @@ async function main() {
   const activityFiles = fs.existsSync(ACTIVITIES_DIR) ? fs.readdirSync(ACTIVITIES_DIR).filter(f => f.endsWith(".json")) : [];
   const errorFiles = fs.existsSync(ERRORS_DIR) ? fs.readdirSync(ERRORS_DIR).filter(f => f.endsWith(".json")) : [];
 
-  if (activityFiles.length === 0 && errorFiles.length === 0) {
-    console.log("No new activities or errors to report.");
-    return;
-  }
-
-  // Define collectors
-  const generatedRegular = new Set<string>();
-  const generatedTge = new Set<string>();
-  let formatFixes = 0;
-  const formattedTokens = new Set<string>();
-  const qualityFixes = new Set<string>();
-  const qualityFails = new Set<string>();
-  const systemErrors: Record<string, number> = {};
+  // Collectors
+  const socialPosts: Array<{ name: string; platform: string; reason: string }> = [];
+  let totalDataRefreshed = 0;
+  let metricsTokensCount = 0;
+  let tgeCount = 0;
+  const errors: Record<string, number> = {};
   let totalCost = 0;
-  let totalWords = 0;
 
   // Process Activities
   for (const file of activityFiles) {
-    const filePath = path.join(ACTIVITIES_DIR, file);
-    const data: ActivityRecord = safeReadJson(filePath);
+    const data: ActivityRecord = safeReadJson(path.join(ACTIVITIES_DIR, file));
     if (!data) continue;
 
-    if (data.type === "generate") {
-      if (data.isTge && data.tokenId) generatedTge.add(data.tokenId);
-      else if (data.tokenId) generatedRegular.add(data.tokenId);
+    if (data.type === "social-post") {
+      socialPosts.push({ 
+        name: data.tokenName || data.tokenId || "Unknown", 
+        platform: data.platform || "all", 
+        reason: data.reason || "spotlight" 
+      });
+    } else if (data.type === "data-refresh") {
+      totalDataRefreshed += data.tokenCount || 0;
+    } else if (data.type === "metrics-calc") {
+      metricsTokensCount = Math.max(metricsTokensCount, data.tokensProcessed || 0);
+    } else if (data.type === "generate") {
       totalCost += data.cost || 0;
-      totalWords += data.wordCount || 0;
-    } else if (data.type === "format-fix") {
-      if (data.tokenId) formattedTokens.add(data.tokenId);
-      formatFixes += data.fixesCount || 0;
-    } else if (data.type === "quality-check-fixed") {
-      if (data.tokenId) qualityFixes.add(data.tokenId);
-    } else if (data.type === "quality-check-failed") {
-      if (data.tokenId) qualityFails.add(data.tokenId);
+    } else if (data.type === "tge-discovery") {
+      tgeCount += data.tokenCount || 0;
     }
   }
 
   // Process Errors
   for (const file of errorFiles) {
-    const filePath = path.join(ERRORS_DIR, file);
-    const data: ErrorRecord = safeReadJson(filePath);
+    const data: ErrorRecord = safeReadJson(path.join(ERRORS_DIR, file));
     if (!data) continue;
-
-    const source = data.source || "unknown";
-    systemErrors[source] = (systemErrors[source] || 0) + 1;
+    errors[data.source] = (errors[data.source] || 0) + 1;
   }
 
-  // Format message
-  let message = `🚀 *Daily System Report*\n\n`;
+  // API Quota Tracking
+  const quota = getApiQuota();
+  const usagePercent = ((quota.count / MONTHLY_LIMIT) * 100).toFixed(1);
+  const quotaStatus = quota.count > MONTHLY_LIMIT * 0.9 ? "🔴 CRITICAL" : quota.count > MONTHLY_LIMIT * 0.7 ? "🟡 HIGH" : "🟢 HEALTHY";
 
-  if (generatedRegular.size > 0 || generatedTge.size > 0) {
-    message += `*📝 Content Generation*\n`;
-    message += `• Generated: ${generatedRegular.size + generatedTge.size} articles\n`;
-    message += `• Words: ${totalWords.toLocaleString()}\n`;
-    message += `• Est Cost: $${totalCost.toFixed(4)}\n`;
-    
-    if (generatedRegular.size > 0) {
-      message += `• 🪙 Regular: ${Array.from(generatedRegular).join(", ")}\n`;
-    }
-    if (generatedTge.size > 0) {
-      message += `• 🚀 Upcoming TGEs: ${Array.from(generatedTge).join(", ")}\n`;
+  // Build Message
+  let message = `🚀 *Daily System Pulse*\n`;
+  message += `_Status: ${quotaStatus}_\n\n`;
+
+  // 1. Social Activity
+  if (socialPosts.length > 0) {
+    message += `*🤖 Social Activity*\n`;
+    for (const post of socialPosts) {
+      const pIcon = post.platform === "x" ? "𝕏" : post.platform === "telegram" ? "🔹" : "📡";
+      message += `• ${pIcon} *${post.name}* (${post.reason})\n`;
     }
     message += `\n`;
   }
 
-  if (qualityFixes.size > 0 || qualityFails.size > 0 || formatFixes > 0) {
-    message += `*🔧 Quality & Formatting*\n`;
-    if (formatFixes > 0) {
-      message += `• Formatting applied: ${formatFixes} fixes across ${formattedTokens.size} tokens\n`;
-    }
-    if (qualityFixes.size > 0) {
-      message += `• AI/Rule fixes: ${qualityFixes.size} tokens\n`;
-    }
-    if (qualityFails.size > 0) {
-      message += `• 🛑 Quarantined (Failed): ${Array.from(qualityFails).join(", ")}\n`;
-    }
-    message += `\n`;
-  }
+  // 2. Data Health
+  message += `*📊 Data Health*\n`;
+  message += `• Refreshed: ${totalDataRefreshed} token updates\n`;
+  message += `• Analyzed: ${metricsTokensCount} propriety scores\n`;
+  if (tgeCount > 0) message += `• TGEs: ${tgeCount} launches tracked\n`;
+  message += `\n`;
 
-  const errorCount = Object.keys(systemErrors).length;
-  if (errorCount > 0) {
+  // 3. API Quota
+  message += `*📡 API Quota Tracking*\n`;
+  message += `• Used: \`${quota.count}\` / ${MONTHLY_LIMIT} requests\n`;
+  message += `• Monthly Usage: \`${usagePercent}%\`\n`;
+  if (totalCost > 0) message += `• Est. AI Cost: \`$${totalCost.toFixed(4)}\`\n`;
+  message += `\n`;
+
+  // 4. Errors
+  if (Object.keys(errors).length > 0) {
     message += `*⚠️ System Errors Detected*\n`;
-    for (const [source, count] of Object.entries(systemErrors)) {
+    for (const [source, count] of Object.entries(errors)) {
       message += `• ${source}: ${count} error(s)\n`;
     }
     message += `\n`;
   }
 
-  if (message.trim() === `🚀 *Daily System Report*`) {
-    message += `_No major activities logged today._`;
+  if (activityFiles.length === 0 && errorFiles.length === 0) {
+    message += `_No major activities logged today._\n`;
   }
 
-  // Ensure within Telegram length limits
-  if (message.length > 4000) {
-    message = message.substring(0, 4000) + "\n\n... (Report truncated)";
-  }
-
+  // Dispatch
   try {
     await sendTelegramAlert(message);
-    console.log("✅ Successfully dispatched system report.");
+    console.log("✅ Successfully dispatched system pulse.");
 
-    // Cleanup: delete logs after successful dispatch
-    for (const file of activityFiles) {
-      try { fs.unlinkSync(path.join(ACTIVITIES_DIR, file)); } catch {}
-    }
-    for (const file of errorFiles) {
-      try { fs.unlinkSync(path.join(ERRORS_DIR, file)); } catch {}
-    }
-    console.log(`🧹 Cleaned up ${activityFiles.length} activity logs and ${errorFiles.length} error logs.`);
+    // Cleanup
+    activityFiles.forEach(f => fs.unlinkSync(path.join(ACTIVITIES_DIR, f)));
+    errorFiles.forEach(f => fs.unlinkSync(path.join(ERRORS_DIR, f)));
+    console.log(`🧹 Cleaned up ${activityFiles.length + errorFiles.length} logs.`);
   } catch (error) {
     console.error("❌ Failed to send alert:", error);
     process.exit(1);

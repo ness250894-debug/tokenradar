@@ -18,7 +18,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson } from "../src/lib/utils";
 import type { TokenDetail } from "../src/lib/content-loader";
 
@@ -385,6 +385,11 @@ async function main() {
   console.log(`║  Tokens:    ${String(allMetrics.length).padStart(6)}                 ║`);
   console.log(`║  Output:    data/metrics/                ║`);
   console.log("╚══════════════════════════════════════════╝");
+
+  // Log success for Daily Report
+  logActivity("metrics-calc", {
+    tokensProcessed: allMetrics.length
+  });
 }
 
 main().catch(async (error) => {

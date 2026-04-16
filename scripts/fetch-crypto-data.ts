@@ -16,7 +16,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson } from "../src/lib/utils";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
