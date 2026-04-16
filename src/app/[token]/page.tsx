@@ -69,15 +69,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const metrics = getTokenMetrics(tokenId);
   const riskScore = metrics?.riskScore || 5;
 
-  // Construct Dynamic OG Image URL
-  const ogSearchParams = new URLSearchParams({
-    symbol: detail.symbol.toUpperCase(),
-    name: detail.name,
-    price: formatPrice(detail.market.price),
-    change: detail.market.priceChange24h.toString(),
-    risk: riskScore.toString(),
-  });
-  const ogImage = `/api/og/token?${ogSearchParams.toString()}`;
+  const ogImage = `/api/og/token/${detail.id}`;
 
   return {
     title,

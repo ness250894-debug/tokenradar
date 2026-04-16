@@ -1,24 +1,37 @@
 import { ImageResponse } from 'next/og';
-import { NextRequest } from 'next/server';
+import { getTokenIds, getTokenDetail, getTokenMetrics, formatPrice } from '@/lib/content-loader';
+import { getTokenIconUrl } from '@/lib/formatters';
 
-export const runtime = 'edge';
+/** Static export configuration for Cloudflare Pages. */
+export const dynamic = "force-static";
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
+/** Pre-render image cards for all available tokens. */
+export async function generateStaticParams() {
+  return getTokenIds().map((id) => ({ id }));
+}
 
-  // Parse parameters from URL
-  const symbol = searchParams.get('symbol')?.toUpperCase() || 'TOKEN';
-  const name = searchParams.get('name') || 'TokenRadar Analysis';
-  const price = searchParams.get('price') || '0.00';
-  const change = parseFloat(searchParams.get('change') || '0');
-  const riskScore = parseFloat(searchParams.get('risk') || '5');
-  const iconUrl = searchParams.get('icon') || '';
+export async function GET(
+  _req: Request, 
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  
+  const detail = getTokenDetail(id);
+  const metrics = getTokenMetrics(id);
+
+  if (!detail) {
+    return new Response('Token not found', { status: 404 });
+  }
+
+  const symbol = detail.symbol.toUpperCase();
+  const name = detail.name;
+  const price = formatPrice(detail.market.price);
+  const change = detail.market.priceChange24h;
+  const riskScore = metrics?.riskScore || 5;
+  const iconUrl = getTokenIconUrl(detail.symbol, detail.id);
 
   const riskColor = riskScore < 4 ? '#10b981' : riskScore < 7 ? '#f59e0b' : '#ef4444';
   const riskLabel = riskScore < 4 ? 'LOW RISK' : riskScore < 7 ? 'MODERATE' : 'HIGH RISK';
-
-  // Branding Radar Sweep background
-  const radarBackground = 'radial-gradient(circle at center, rgba(16, 185, 129, 0.05) 0%, transparent 70%)';
 
   return new ImageResponse(
     (
@@ -36,7 +49,7 @@ export async function GET(req: NextRequest) {
           padding: '80px',
         }}
       >
-        {/* Decorative Radar Sweep */}
+        {/* Radar Background Glow */}
         <div 
           style={{
             position: 'absolute',
@@ -44,7 +57,7 @@ export async function GET(req: NextRequest) {
             left: '-50%',
             width: '200%',
             height: '200%',
-            background: radarBackground,
+            background: 'radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 70%)',
           }}
         />
 
@@ -58,7 +71,6 @@ export async function GET(req: NextRequest) {
 
         {/* Main Content Area */}
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '60px' }}>
-          {/* Token Icon or Fallback */}
           <div style={{ display: 'flex', borderRadius: '40px', overflow: 'hidden', border: '4px solid rgba(255,255,255,0.1)', background: '#111', width: 240, height: 240, alignItems: 'center', justifyContent: 'center' }}>
             {iconUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -96,7 +108,6 @@ export async function GET(req: NextRequest) {
               </span>
             </div>
 
-            {/* Risk Score Section */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '30px', background: 'rgba(255,255,255,0.03)', padding: '30px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 20, fontWeight: 600, marginBottom: '4px', textTransform: 'uppercase' }}>Proprietary Risk Score</span>
@@ -111,7 +122,6 @@ export async function GET(req: NextRequest) {
           </div>
         </div>
 
-        {/* Footer */}
         <div style={{ position: 'absolute', bottom: 40, left: 80, display: 'flex', color: 'rgba(255,255,255,0.3)', fontSize: 24, fontWeight: 500 }}>
           Unbiased Data-Driven Research & Market Analysis
         </div>

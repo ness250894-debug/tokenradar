@@ -22,7 +22,7 @@ import { SITE_URL } from "./config";
  */
 export async function fetchTokenImage(
   tokenId: string,
-  data?: {
+  _data?: {
     symbol: string;
     name: string;
     price: string;
@@ -31,24 +31,7 @@ export async function fetchTokenImage(
     icon?: string;
   }
 ): Promise<Buffer | null> {
-  let url: string;
-
-  if (data) {
-    // ── Dynamic Mode (Recommended) ──
-    const params = new URLSearchParams({
-      symbol: data.symbol,
-      name: data.name,
-      price: data.price,
-      change: data.change.toString(),
-      risk: data.risk.toString(),
-    });
-    if (data.icon) params.append('icon', data.icon);
-    
-    url = `${SITE_URL}/api/og/token?${params.toString()}`;
-  } else {
-    // ── Static Fallback (Requires pre-rendered page) ──
-    url = `${SITE_URL}/${tokenId}/opengraph-image`;
-  }
+  const url = `${SITE_URL}/api/og/token/${tokenId}`;
 
   try {
     const response = await fetch(url, {
