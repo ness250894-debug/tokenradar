@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -11,6 +11,7 @@ interface HackerTextProps {
 }
 
 export function HackerText({ text, className, style }: HackerTextProps) {
+  const [mounted, setMounted] = useState(false);
   const [displayText, setDisplayText] = useState(text);
   const isHovered = useRef(false);
   const intervalRef = useRef<number | null>(null);
@@ -25,7 +26,7 @@ export function HackerText({ text, className, style }: HackerTextProps) {
       setDisplayText(() => {
         return text
           .split("")
-          .map((letter, index) => {
+          .map((_, index) => {
             if (index < iteration) {
               return text[index];
             }
@@ -46,9 +47,27 @@ export function HackerText({ text, className, style }: HackerTextProps) {
 
   const handleMouseLeave = () => {
     isHovered.current = false;
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
     setDisplayText(text);
   };
+
+  useEffect(() => {
+    setMounted(true);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  if (!mounted) {
+    return (
+      <span className={className} style={{ ...style, display: "inline-block" }}>
+        {text}
+      </span>
+    );
+  }
 
   return (
     <span

@@ -20,14 +20,15 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
-import { execSync } from "child_process";
 import { searchTweets } from "../src/lib/x-client";
+import { execSync } from "child_process";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { searchTokenId } from "../src/lib/coingecko";
 import { logError, logActivity } from "../src/lib/reporter";
+import { loadEnv, safeReadJson } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const REGISTRY_FILE = path.join(DATA_DIR, "tokens.json");
@@ -53,8 +54,7 @@ async function main() {
   }
 
   // 1. Load current registry to avoid redundant ingestion
-  const registryRaw = fs.readFileSync(REGISTRY_FILE, "utf-8");
-  const registry = JSON.parse(registryRaw) as { symbol: string; id: string }[];
+  const registry = safeReadJson<{ symbol: string; id: string }[]>(REGISTRY_FILE, []);
   const existingSymbols = new Set(registry.map(t => t.symbol.toLowerCase()));
 
   console.log(`▶ Step 1: Scanning X for narrative signals...`);

@@ -9,6 +9,8 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 
+import { safeReadJson } from "../src/lib/utils";
+
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
@@ -30,11 +32,8 @@ async function buildAllMappings(): Promise<LinkMapping[]> {
     for (const file of tokenFiles) {
       if (!file.endsWith(".json")) continue;
       const slug = file.replace(".json", "");
-      try {
-        const raw = await fs.readFile(path.join(DATA_DIR, "tokens", file), "utf-8");
-        const data = JSON.parse(raw);
-        if (data.name) mappings.push({ name: data.name, slug: slug, type: "token" });
-      } catch (_e) {}
+      const data = safeReadJson<any>(path.join(DATA_DIR, "tokens", file), null);
+      if (data && data.name) mappings.push({ name: data.name, slug: slug, type: "token" });
     }
   } catch (_e) {
     console.warn("⚠️ Tokens data not found. Skipping token links.");

@@ -16,9 +16,10 @@ import Parser from "rss-parser";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
-import * as dotenv from "dotenv";
+import { loadEnv, safeReadJson } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
@@ -203,16 +204,8 @@ async function main() {
   console.log();
 
   // 1. Load existing data FIRST (failsafe: never lose data)
-  let existing: UpcomingTge[] = [];
-  if (fs.existsSync(TGE_FILE)) {
-    try {
-      existing = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
-      console.log(`  📂 Loaded ${existing.length} existing TGEs.`);
-    } catch {
-      console.error("  ✗ Failed to parse existing TGE file. Starting fresh.");
-      existing = [];
-    }
-  }
+  const existing = safeReadJson<UpcomingTge[]>(TGE_FILE, []);
+  console.log(`  📂 Loaded ${existing.length} existing TGEs.`);
 
   // 2. Scan RSS sources
   const discovered: UpcomingTge[] = [];

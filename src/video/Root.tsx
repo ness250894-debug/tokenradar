@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Composition } from "remotion";
 import { TopGainerUpdate } from "./TopGainerUpdate";
 

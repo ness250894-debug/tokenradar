@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { TokenCard, type TokenCardData } from "./TokenCard";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 

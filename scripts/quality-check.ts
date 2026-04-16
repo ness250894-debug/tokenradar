@@ -19,10 +19,11 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
 import { logError, logActivity } from "../src/lib/reporter";
+import { loadEnv, safeReadJson } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
@@ -157,7 +158,18 @@ async function checkArticle(
   filePath: string,
   autoFix: boolean = false
 ): Promise<QualityResult> {
-  const raw = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const raw = safeReadJson<any>(filePath, null);
+  if (!raw) {
+    return {
+      file: filePath,
+      tokenId: "unknown",
+      articleType: "unknown",
+      passed: false,
+      issues: ["Failed to read or parse file"],
+      warnings: [],
+      stats: { wordCount: 0, hasFaq: false, hasDisclaimer: false, dataPointCount: 0, prohibitedPhrases: [], avgSentenceLength: 0 }
+    };
+  }
   let content: string = raw.content || "";
   let contentLower = content.toLowerCase();
   const issues: string[] = [];

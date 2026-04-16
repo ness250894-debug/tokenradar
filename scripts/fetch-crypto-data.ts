@@ -15,20 +15,18 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as dotenv from "dotenv";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
-import { logError, logActivity } from "../src/lib/reporter";
-import { safeReadJson } from "../src/lib/utils";
+import { logError } from "../src/lib/reporter";
+import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+// Load environment
+loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
 
 // Ensure directories exist
-if (!fs.existsSync(TOKENS_DIR)) {
-  fs.mkdirSync(TOKENS_DIR, { recursive: true });
-}
+ensureDirSync(TOKENS_DIR);
 
 async function main() {
   const args = process.argv.slice(2);
@@ -71,10 +69,7 @@ async function main() {
     try {
       if (lite) {
         // LITE MODE: Update market data only
-        let existing: Record<string, unknown> = {};
-        if (fs.existsSync(tokenFile)) {
-          existing = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-        }
+        const existing = safeReadJson<Record<string, any>>(tokenFile, {});
 
         const liteData = {
           ...existing, // Keep everything else (description, charts, links if they exist)
@@ -115,9 +110,7 @@ async function main() {
         const { chart30d, chart1y, ...detailOnly } = fullData;
         
         const PRICES_DIR = path.join(DATA_DIR, "prices");
-        if (!fs.existsSync(PRICES_DIR)) {
-          fs.mkdirSync(PRICES_DIR, { recursive: true });
-        }
+        ensureDirSync(PRICES_DIR);
 
         fs.writeFileSync(
           path.join(PRICES_DIR, `${t.id}.json`),

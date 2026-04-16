@@ -1,8 +1,8 @@
 import { Agent } from "@mastra/core/agent";
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { sendTelegramMessage, sendTelegramPoll, sendTelegramPhoto, createTelegramKeyboard } from "../telegram";
-import { generateTokenSummary } from "../gemini";
+import { sendTelegramMessage, sendTelegramPoll, createTelegramKeyboard } from "../telegram";
+
 
 /**
  * Tool: Send an analytical update to the Telegram channel.
@@ -15,7 +15,7 @@ const postUpdateTool = createTool({
     tokenSymbol: z.string().optional().describe("The $SYMBOL of the token being discussed."),
     ctaUrl: z.string().optional().describe("A link to the full report on TokenRadar.co"),
   }),
-  execute: async ({ text, tokenSymbol, ctaUrl }) => {
+  execute: async ({ text, ctaUrl }) => {
     const channelId = process.env.TELEGRAM_CHANNEL_ID;
     if (!channelId) throw new Error("TELEGRAM_CHANNEL_ID not set");
 
@@ -26,7 +26,7 @@ const postUpdateTool = createTool({
       keyboard = createTelegramKeyboard([{ text: "📈 View Full Analytics", url: ctaUrl }]);
     }
 
-    const messageId = await sendTelegramMessage(finalMessage, channelId);
+    const messageId = await sendTelegramMessage(finalMessage, channelId, { replyMarkup: keyboard });
     return { success: true, messageId, platform: "Telegram" };
   },
 });

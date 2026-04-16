@@ -13,7 +13,7 @@ const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
-const MAX_URLS_PER_SITEMAP = 5000; // Safe limit for fast parsing
+
 
 interface SitemapEntry {
   url: string;
@@ -126,7 +126,7 @@ function main() {
   sitemaps.push("sitemap-tokens.xml");
 
   // 3. Sitemap: Comparisons (Mothballed to stay under Cloudflare 20k file limit)
-  const compareEntries: SitemapEntry[] = [];
+
   /*
   const allTokens = getAllTokens();
   /*

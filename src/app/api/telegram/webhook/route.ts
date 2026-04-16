@@ -1,4 +1,4 @@
-import { type NextRequest } from "next/server";
+
 import { Bot, webhookCallback } from "grammy";
 import { telegramAgent } from "@/lib/agents/telegram-agent";
 
