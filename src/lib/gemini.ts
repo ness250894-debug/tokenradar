@@ -213,6 +213,10 @@ export interface MarketContext {
   twitterFollowers?: number;
   redditSubscribers?: number;
   githubCommits4Weeks?: number;
+  /** Real-time social buzz/tweets found via X Search */
+  socialContext?: string;
+  /** Calculated sentiment score 0-1 (0 = bearish/scam, 1 = bullish/legit) */
+  sentimentScore?: number;
 }
 
 /**
@@ -314,16 +318,27 @@ export async function generateTweet(
 
   const timeContext = metrics.timeOfDay ? `TIME OF DAY: ${metrics.timeOfDay}. (e.g., GM for Morning).` : "";
   const reasonContext = metrics.selectionReason ? `REASON: ${metrics.selectionReason}.` : "";
-  const toneInstruction = metrics.tone 
-    ? `Adopt the "${metrics.tone}" persona. Write as a human navigating crypto.` 
-    : `Write engaging and concise social copy.`;
-
   const riskGauge = getRiskGauge(metrics.riskScore);
+
+  // Vibe Check Logic: Adjust tone based on social sentiment
+  let vibeTone = metrics.tone || "Analytical Observer";
+  if (metrics.sentimentScore !== undefined) {
+    if (metrics.sentimentScore >= 0.7) {
+      vibeTone = "Aggressive Spotlight (Extremely Bullish)";
+    } else if (metrics.sentimentScore < 0.3) {
+      vibeTone = "Conservative Researcher (Cautionary/Neutral)";
+    }
+  }
+
+  const socialContextSection = metrics.socialContext 
+    ? `\n    REAL-TIME SOCIAL BUZZ:\n    ${metrics.socialContext.substring(0, 1000)}\n    Use these tweets to reference current community sentiment or specific narratives.\n`
+    : "";
 
   // Provide exactly instructions to keep it short so footer links won't be truncated.
   const prompt = `
-    Write a short high-engagement tweet for TokenRadar about ${tokenName} using CoinGecko intelligence.
-    ${toneInstruction}
+    Write a short high-engagement tweet for TokenRadar about ${tokenName} using CoinGecko and X social intelligence.
+    PERSONA: Adopt the "${vibeTone}" persona. Write as a human navigating crypto.
+    ${socialContextSection}
     
     Data context (Source: CoinGecko):
     Price: ${priceStr} | 24h: ${changeStr} | MCap: ${mcapStr}

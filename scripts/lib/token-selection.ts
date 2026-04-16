@@ -141,7 +141,19 @@ export async function loadCandidateTokens(
   dataDir: string,
   startRank: number = 1,
   endRank: number = 250,
-): Promise<{ candidates: TokenData[]; allRegistry: { id: string; name: string; symbol: string }[] }> {
+): Promise<{ 
+  candidates: TokenData[]; 
+  allRegistry: { id: string; name: string; symbol: string }[];
+  onWebsiteIds: Set<string>;
+}> {
+  // Load the current 'stable' registry from tokens.json (used for website build)
+  const registryFile = path.join(dataDir, "tokens.json");
+  const onWebsiteIds = new Set<string>();
+  if (fs.existsSync(registryFile)) {
+    const registry = safeReadJson<any[]>(registryFile, []);
+    registry.forEach(t => { if (t.id) onWebsiteIds.add(t.id); });
+  }
+
   // Fetch fresh market data
   let freshMarkets: CoinGeckoToken[] = [];
   try {
@@ -191,7 +203,7 @@ export async function loadCandidateTokens(
 
   const allRegistry = tokens.map((t) => ({ id: t.id, name: t.name, symbol: t.symbol }));
 
-  return { candidates, allRegistry };
+  return { candidates, allRegistry, onWebsiteIds };
 }
 
 // ── Trending Strategy Helpers ──────────────────────────────────

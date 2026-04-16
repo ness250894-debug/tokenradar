@@ -34,7 +34,7 @@ import * as dotenv from "dotenv";
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { sendTelegramMessage, sendTelegramPhoto } from "../src/lib/telegram";
-import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
+import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
 import { safeReadJson } from "../src/lib/utils";
@@ -138,6 +138,48 @@ function sanitizeHtmlForTelegram(html: string, maxLength: number = MAX_AI_SUMMAR
   return sanitized;
 }
 
+/**
+ * Perform a 'Vibe Check' on X for a specific token symbol.
+ * Fetches recent tweets and uses AI to determine community sentiment.
+ * 
+ * @returns { score: number, snippets: string, tweetIds: string[] }
+ */
+async function getSocialVibe(symbol: string): Promise<{ score: number; snippets: string; tweetIds: string[] }> {
+  console.log(`▶ Vibe Checking $${symbol.toUpperCase()} on X...`);
+  const tweets = await searchTweets(`$${symbol.toUpperCase()}`, 15);
+  
+  if (tweets.length === 0) {
+    console.log(`  ⚠ No recent social activity found for $${symbol.toUpperCase()}.`);
+    return { score: 0.5, snippets: "", tweetIds: [] };
+  }
+
+  const snippets = tweets.map((t: any) => t.text).join("\n---\n");
+  const tweetIds = tweets.map((t: any) => t.id);
+
+  const prompt = `
+    Analyze the following recent tweets about $${symbol.toUpperCase()} and provide a sentiment score between 0 and 1.
+    0.0 = Extremely Bearish / Scam / Rug-pull warning
+    0.5 = Neutral / Static / Mixed
+    1.0 = Extremely Bullish / Strong Narrative / High Legitimacy
+
+    TWEETS:
+    ${snippets.substring(0, 2000)}
+
+    Respond with ONLY a decimal number.
+  `;
+
+  try {
+    const { callAIWithFallback } = require("../src/lib/gemini");
+    const result = await callAIWithFallback("You are a sentiment analyst.", prompt, 64);
+    const score = parseFloat(result.content.trim()) || 0.5;
+    console.log(`  ✦ Social Sentiment Score: ${score.toFixed(2)}`);
+    return { score, snippets, tweetIds };
+  } catch (err) {
+    console.warn("  ⚠ Vibe Check AI failed, using neutral score.");
+    return { score: 0.5, snippets, tweetIds };
+  }
+}
+
 
 
 // ── Deduplication & Token Selection: imported from ./lib/token-selection.ts ──
@@ -195,7 +237,11 @@ async function main() {
   // 1. Load candidate tokens (fetches fresh data + merges with local)
   console.log(`▶ Step 1: Loading candidate tokens for ranks ${startRank}-${endRank}...`);
   const metricsDir = path.join(DATA_DIR, "metrics");
-  const { candidates: candidateTokens, allRegistry: allTokensRegistry } = await loadCandidateTokens(DATA_DIR, startRank, endRank);
+  const { 
+    candidates: candidateTokens, 
+    allRegistry: allTokensRegistry,
+    onWebsiteIds 
+  } = await loadCandidateTokens(DATA_DIR, startRank, endRank);
 
   console.log(`  Candidates in range #${startRank}-#${endRank}: ${candidateTokens.length}`);
 
@@ -265,6 +311,18 @@ async function main() {
   const timeOfDay = getTimeOfDay();
   const tone = getRandomTone();
 
+  // ── Step 2b: X Vibe Check (Agentic Integration) ──
+  let socialContext = "";
+  let sentimentScore = 0.5;
+  let researchTweetIds: string[] = [];
+
+  if (runX) {
+    const vibe = await getSocialVibe(targetToken.symbol);
+    socialContext = vibe.snippets;
+    sentimentScore = vibe.score;
+    researchTweetIds = vibe.tweetIds;
+  }
+
   const context = {
     ...targetMetric,
     price: targetToken.market.price,
@@ -275,6 +333,8 @@ async function main() {
     twitterFollowers: (targetToken as any).community?.twitterFollowers || 0,
     redditSubscribers: (targetToken as any).community?.redditSubscribers || 0,
     githubCommits4Weeks: (targetToken as any).developer?.commits4Weeks || 0,
+    socialContext,
+    sentimentScore,
     trendingContext,
     globalStats: globalStatsStr,
     sectorPerformance: sectorPerformanceStr,
@@ -298,8 +358,14 @@ async function main() {
 
   if (runX) {
     console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
+    const isOnWebsite = onWebsiteIds.has(targetToken.id);
     xMessage = await generateTweet(targetToken.name, targetToken.symbol, context);
-    xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
+    
+    if (isOnWebsite) {
+      xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
+    } else {
+      xReplyMessage = `✨ Newly discovered alpha! Discover 500+ emerging narratives on our live dashboard here:\n\n${siteUrl}`;
+    }
   }
 
   if (dryRun) {
@@ -341,9 +407,13 @@ async function main() {
 
   if (runTelegram) {
     try {
+      const isOnWebsite = onWebsiteIds.has(targetToken.id);
+      const tokenLink = isOnWebsite ? `${siteUrl}/${targetToken.id}` : siteUrl;
+      const footerCta = isOnWebsite ? "TokenRadar" : "Live Dashboard";
+
       const tgFooter = `
 <b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${siteUrl}/${targetToken.id}">TokenRadar</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+📊 <a href="${tokenLink}">${footerCta}</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
@@ -399,6 +469,15 @@ ${REFERRAL_LINKS_HTML.join("\n")}
       }
       const replyId = await postTweet(xReplyMessage, tweetId);
       console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+
+      // ── Passive Engagement ──
+      if (researchTweetIds.length > 0) {
+        console.log(`▶ Performing passive engagement (liking top research tweets)...`);
+        const toLike = researchTweetIds.slice(0, 2);
+        for (const id of toLike) {
+          await likeTweet(id);
+        }
+      }
       posted = true;
     } catch (error) {
       await logError("post-market-updates-x", error, false);

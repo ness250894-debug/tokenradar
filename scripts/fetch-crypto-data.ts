@@ -10,6 +10,7 @@
  *
  * Usage:
  *   npx tsx scripts/fetch-crypto-data.ts --start 1 --end 100 [--lite]
+ *   npx tsx scripts/fetch-crypto-data.ts --token bitcoin
  */
 
 import * as fs from "fs";
@@ -33,19 +34,31 @@ async function main() {
   const args = process.argv.slice(2);
   const start = parseInt(args[args.indexOf("--start") + 1] || "1", 10);
   const end = parseInt(args[args.indexOf("--end") + 1] || "100", 10);
+  const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;
   const lite = args.includes("--lite");
 
   console.log(`╔══════════════════════════════════════════╗`);
   console.log(`║  TokenRadar — Detailed Data Fetcher      ║`);
   console.log(`╚══════════════════════════════════════════╝`);
   console.log();
-  console.log(`  Range: #${start} — #${end}`);
-  console.log(`  Mode:  ${lite ? "LITE (Prices Only)" : "FULL (Details + Charts)"}`);
+  if (tokenArg) {
+    console.log(`  Target:  Single Token (${tokenArg})`);
+  } else {
+    console.log(`  Range:   #${start} — #${end}`);
+  }
+  console.log(`  Mode:    ${lite ? "LITE (Prices Only)" : "FULL (Details + Charts)"}`);
   console.log();
 
-  // 1. Fetch top tokens by rank (Lite data for all)
-  const liteTokens: CoinGeckoToken[] = await fetchTokensByRank(start, end);
-  console.log(` ✓ Found ${liteTokens.length} tokens in range.`);
+  let liteTokens: CoinGeckoToken[] = [];
+
+  if (tokenArg) {
+    // If single token, we just create a dummy lite token to reuse the processing loop
+    liteTokens = [{ id: tokenArg, symbol: "", name: "", market_cap_rank: 0 } as any];
+  } else {
+    // 1. Fetch top tokens by rank (Lite data for all)
+    liteTokens = await fetchTokensByRank(start, end);
+    console.log(` ✓ Found ${liteTokens.length} tokens in range.`);
+  }
 
   // 2. Process each token
   for (let i = 0; i < liteTokens.length; i++) {

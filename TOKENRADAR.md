@@ -2,7 +2,7 @@
 
 > **Project:** Crypto Programmatic SEO Platform
 > **Domain:** tokenradar.co ($6.98/yr on Namecheap)
-> **AI Provider:** Claude Haiku 4.5 (~$0.015/article) + Gemini 3.1 Flash Lite (social summaries)
+> **AI Provider:** Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 (fallback)
 > **Token Range:** #50-#250 by market cap, expanding to #500
 > **Total 6-Month Cost:** ~$30
 > **Status:** Live in production
@@ -93,8 +93,8 @@ CoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly
 | **CDN** | Cloudflare (built-in) | $0 |
 | **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |
 | **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |
-| **AI Content** | Claude Haiku 4.5 API | ~$22.50 / 6 months |
-| **AI Summaries** | Gemini 3.1 Flash Lite (free) + Claude fallback | $0 |
+| **AI Content** | Gemini 3.1 Flash Lite (primary) + Claude fallback | ~$0.001 / article |
+| **AI Summaries** | Gemini 3.1 Flash Lite (primary) + Claude fallback | $0 |
 | **Domain** | Namecheap (tokenradar.co) | $6.98/yr |
 | **Charts** | Recharts (lightweight) | $0 |
 | **Social APIs** | X Pay-per-use ($0.01/post) + Telegram Bot | $0–$5 |
@@ -267,14 +267,14 @@ Templates:                              Tokens (#50-#200 by market cap):
 
 ## Phase 3 — AI Content Generation
 
-### Provider: Claude Haiku 4.5
+### Provider: Gemini 3.1 Flash Lite (Primary) + Claude Haiku 4.5 (Fallback)
 
 | Metric | Value |
 |--------|-------|
-| Cost per article | ~$0.015 (1.5 cents) |
-| Input token price | $1.00 / 1M tokens |
-| Output token price | $5.00 / 1M tokens |
-| Quality | Best-in-class for structured content |
+| Cost per article | ~$0.001 (0.1 cents) |
+| Input token price | $0.075 / 1M tokens |
+| Output token price | $0.30 / 1M tokens |
+| Reliability | Dual-model fallback system |
 
 ### Script: `scripts/generate-content.ts`
 
@@ -538,22 +538,22 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 
 ### 6-Month Production Plan
 
-| Month | New Articles | Focus Area | Claude Cost | Running Total |
+| Month | New Articles | Focus Area | AI Cost | Running Total |
 |-------|-------------|------------|-------------|---------------|
-| 1 | 50 | Seed pages, legal, top tokens | $0.75 | $0.75 |
-| 2 | 150 | Expand tokens + comparisons | $2.25 | $3.00 |
-| 3 | 300 | Price predictions + how-to-buy | $4.50 | $7.50 |
-| 4 | 500 | Full #50-#200 coverage | $7.50 | $15.00 |
-| 5 | 300 | Content refresh + new tokens | $4.50 | $19.50 |
-| 6 | 200 | Expand to #200-#300 + refresh | $3.00 | $22.50 |
-| **Total** | **1,500** | | | **$22.50** |
+| 1 | 50 | Seed pages, legal, top tokens | $0.05 | $0.05 |
+| 2 | 150 | Expand tokens + comparisons | $0.15 | $0.20 |
+| 3 | 300 | Price predictions + how-to-buy | $0.30 | $0.50 |
+| 4 | 500 | Full #50-#200 coverage | $0.50 | $1.00 |
+| 5 | 300 | Content refresh + new tokens | $0.30 | $1.30 |
+| 6 | 200 | Expand to #200-#300 + refresh | $0.20 | $1.50 |
+| **Total** | **1,500** | | | **~$1.50** |
 
 ### Total 6-Month Budget
 
 | Item | Cost |
 |------|------|
 | Domain (tokenradar.co) | $6.98 |
-| Claude Haiku 4.5 API | ~$22.50 |
+| Claude / Gemini API | ~$1.50 |
 | Hosting (Cloudflare Pages) | $0 |
 | CoinGecko API | $0 |
 | GitHub Actions CI/CD | $0 |
@@ -660,7 +660,8 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 
 | Provider | Cost per Article | Quality | Speed | Verdict |
 |----------|-----------------|---------|-------|---------|
-| **Claude Haiku 4.5** | ~$0.015 | ⭐⭐⭐⭐⭐ | Fast | ✅ **Selected** |
+| **Gemini 3.1 Flash Lite** | ~$0.001 | ⭐⭐⭐⭐ | Ultra Fast | ✅ **Selected (Primary)** |
+| Claude Haiku 4.5 | ~$0.015 | ⭐⭐⭐⭐⭐ | Fast | ✅ **Selected (Fallback)** |
 | GPT-4o Mini | ~$0.012 | ⭐⭐⭐⭐ | Fast | Good backup |
 | Llama 3.1 (self-hosted) | $0 (compute cost) | ⭐⭐⭐ | Depends | Not worth the infra overhead |
 | Claude Sonnet 4 | ~$0.10 | ⭐⭐⭐⭐⭐ | Medium | Overkill for this use case |

@@ -436,6 +436,36 @@ export async function fetchTrendingCoins(): Promise<any[]> {
   }
 }
 
+/**
+ * Search for a token's CoinGecko ID by its symbol or name.
+ * 
+ * @param query - The symbol or name to search for (e.g. "sol")
+ * @returns The best matching token ID or null
+ */
+export async function searchTokenId(query: string): Promise<string | null> {
+  const client = getClient();
+  try {
+    const response = await withCache(
+      `search-${query}`,
+      24 * 60 * 60 * 1000, // 24h cache is fine for search results
+      () => client.search.get({ query })
+    );
+
+    if (response?.coins && response.coins.length > 0) {
+      // Find exact symbol match first
+      const exactMatch = response.coins.find(c => c.symbol?.toLowerCase() === query.toLowerCase());
+      if (exactMatch) return exactMatch.id || null;
+      
+      // Fallback to first result
+      return response.coins[0].id || null;
+    }
+    return null;
+  } catch (error) {
+    console.warn(`  ⚠ Search failed for "${query}": ${error instanceof Error ? error.message : String(error)}`);
+    return null;
+  }
+}
+
 // ── Global Market Data ────────────────────────────────────────
 
 /**

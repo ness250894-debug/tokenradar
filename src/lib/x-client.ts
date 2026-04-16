@@ -535,6 +535,96 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   }
 }
 
+/**
+ * Search for recent tweets matching a specific query.
+ * Useful for sentiment analysis and narrative hunting.
+ *
+ * @param query - X search query (e.g. "$SOL narrative")
+ * @param maxResults - Maximum results to return (default 10)
+ * @returns Array of tweet objects
+ */
+export async function searchTweets(query: string, maxResults: number = 10) {
+  try {
+    const client = await getXClient();
+    const response = await withRetry(
+      () => client.posts.searchRecent(query, {
+        maxResults,
+        tweetFields: ["created_at", "public_metrics", "author_id", "text"],
+      }),
+      "searchTweets"
+    );
+
+    return response?.data || [];
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn(`  ⚠ X Search failed for "${query}": ${msg}`);
+    return [];
+  }
+}
+
+/**
+ * Fetch a user's profile information by their username.
+ * Useful for finding official project accounts.
+ *
+ * @param username - X handle without the @ (e.g. "solana")
+ * @returns User object or null if not found
+ */
+export async function getUserByUsername(username: string) {
+  try {
+    const client = await getXClient();
+    const response = await withRetry(
+      () => client.users.getByUsername(username, {
+        userFields: ["description", "public_metrics", "verified", "profile_image_url"],
+      }),
+      "getUserByUsername"
+    );
+
+    return response?.data || null;
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(`  ✗ Failed to fetch user @${username}: ${msg}`);
+    return null;
+  }
+}
+
+let _myUserId: string | null = null;
+
+/**
+ * Like a tweet (passive engagement).
+ * Automatically fetches and caches the authenticated user's ID if not available.
+ * 
+ * @param tweetId - ID of the tweet to like
+ * @returns success boolean
+ */
+export async function likeTweet(tweetId: string): Promise<boolean> {
+  try {
+    const client = await getXClient();
+
+    // 1. Ensure we have our own user ID
+    if (!_myUserId) {
+      const me = await withRetry(() => client.users.getMe(), "getMe");
+      _myUserId = me?.data?.id ?? null;
+    }
+
+    if (!_myUserId) throw new Error("Could not retrieve authenticated user ID");
+
+    // 2. Perform the like
+    await withRetry(
+      () => client.users.likePost(_myUserId!, {
+        body: { tweetId }
+      }),
+      "likeTweet"
+    );
+
+    return true;
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn(`  ⚠ Failed to like tweet ${tweetId}: ${msg}`);
+    return false;
+  }
+}
+
+
 
 // ── X Trends Integration ──────────────────────────────────────
 

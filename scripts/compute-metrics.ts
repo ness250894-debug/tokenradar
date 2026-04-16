@@ -12,6 +12,7 @@
  *
  * Usage:
  *   npx tsx scripts/compute-metrics.ts
+ *   npx tsx scripts/compute-metrics.ts --token bitcoin
  *
  * Cost: $0 (pure computation on cached data)
  */
@@ -210,22 +211,31 @@ async function main() {
     fs.mkdirSync(METRICS_DIR, { recursive: true });
   }
 
-  // Load all token detail files
-  if (!fs.existsSync(TOKENS_DIR)) {
-    console.error("  ✗ data/tokens/ not found. Run fetch-crypto-data first.");
-    process.exit(1);
-  }
+  const args = process.argv.slice(2);
+  const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;
 
-  const tokenFiles = fs
+  let tokenFiles = fs
     .readdirSync(TOKENS_DIR)
     .filter((f) => f.endsWith(".json"));
 
+  if (tokenArg) {
+    tokenFiles = tokenFiles.filter(f => f === `${tokenArg}.json`);
+    if (tokenFiles.length === 0) {
+      console.error(`  ✗ Token data file for "${tokenArg}" not found in data/tokens/.`);
+      process.exit(1);
+    }
+  }
+
   if (tokenFiles.length === 0) {
-    console.error("  ✗ No token files found in data/tokens/. Run fetch-crypto-data first.");
+    console.error("  ✗ No token files to process.");
     process.exit(1);
   }
 
-  console.log(`  Found ${tokenFiles.length} token data files`);
+  if (tokenArg) {
+    console.log(`  Target: Single Token (${tokenArg})`);
+  } else {
+    console.log(`  Found ${tokenFiles.length} token data files`);
+  }
   console.log();
 
   // Compute category median market caps
