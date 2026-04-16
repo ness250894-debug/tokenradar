@@ -9,8 +9,10 @@ import * as path from "path";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
-const METRICS_DIR = path.join(DATA_DIR, "metrics");
-const PRICES_DIR = path.join(DATA_DIR, "prices");
+const METRICS_FILE = path.join(DATA_DIR, "_metrics_blob.json");
+const TOKENS_FILE = path.join(DATA_DIR, "_tokens_blob.json");
+const PRICES_FILE = path.join(DATA_DIR, "_prices_blob.json");
+const REGISTRY_FILE = path.join(DATA_DIR, "_registry.json");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 
 // ── Types ──────────────────────────────────────────────────────
@@ -138,16 +140,41 @@ export interface UpcomingTge {
   coingeckoRank?: number;
 }
 
-// ── Memoization ────────────────────────────────────────────────
+// ── Cache ──────────────────────────────────────────────────────
 
 let _allTokensCache: TokenSummary[] | null = null;
 let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
 
+// Raw blobs (lazy loaded)
+let _tokensBlob: Record<string, any> | null = null;
+let _metricsBlob: Record<string, any> | null = null;
+let _pricesBlob: Record<string, any> | null = null;
+
+function loadBlob(filePath: string) {
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  } catch (e) {
+    console.error(`❌ Failed to load blob: ${filePath}`, e);
+    return null;
+  }
+}
+
 /** Get all token summaries from the master list (memoized). */
 export function getAllTokens(): TokenSummary[] {
   if (_allTokensCache) return _allTokensCache;
 
+  if (fs.existsSync(REGISTRY_FILE)) {
+    try {
+      _allTokensCache = JSON.parse(fs.readFileSync(REGISTRY_FILE, "utf-8"));
+      return _allTokensCache || [];
+    } catch (e) {
+      console.error("❌ Failed to parse registry file:", e);
+    }
+  }
+
+  // Fallback to legacy directory scanning (Dev mode safety)
   const tokensDir = path.join(DATA_DIR, "tokens");
   if (!fs.existsSync(tokensDir)) return [];
   
@@ -170,7 +197,7 @@ export function getAllTokens(): TokenSummary[] {
         marketCap: detail.market?.marketCap ?? 0,
         volume24h: detail.market?.volume24h ?? 0,
         priceChange24h: detail.market?.priceChange24h ?? 0,
-        image: "", // Safely optional in UI
+        image: "", 
         ath: detail.market?.ath ?? 0,
         athDate: detail.market?.athDate ?? "",
         atl: detail.market?.atl ?? 0,
@@ -179,10 +206,7 @@ export function getAllTokens(): TokenSummary[] {
         totalSupply: detail.market?.totalSupply ?? null,
         maxSupply: detail.market?.maxSupply ?? null,
       });
-
-    } catch (_e) {
-      // Skip invalid JSONs safely
-    }
+    } catch (_e) {}
   }
   
   _allTokensCache = summaries;
@@ -242,22 +266,19 @@ export function getTokensByCategory(categoryId: string): TokenSummary[] {
 export function getTokenIds(): string[] {
   if (_tokenIdsCache) return _tokenIdsCache;
 
-  const tokensDir = path.join(DATA_DIR, "tokens");
-  const ids = new Set<string>();
+  // Use the registry or allTokens as the source for IDs
+  const allTokens = getAllTokens();
+  const ids = new Set<string>(allTokens.map(t => t.id));
 
-  if (fs.existsSync(tokensDir)) {
-    fs.readdirSync(tokensDir)
-      .filter((f) => f.endsWith(".json"))
-      .forEach((f) => ids.add(f.replace(".json", "")));
-  }
-
+  // Also include tokens that have content but might missing from registry
   if (fs.existsSync(CONTENT_DIR)) {
-    fs.readdirSync(CONTENT_DIR)
-      .forEach((dir) => {
+    fs.readdirSync(CONTENT_DIR).forEach((dir) => {
+      try {
         if (fs.statSync(path.join(CONTENT_DIR, dir)).isDirectory()) {
           ids.add(dir);
         }
-      });
+      } catch { /* Skip invalid/inaccessible dirs */ }
+    });
   }
 
   // Load upcoming TGE IDs so we can exclude pre-launch tokens without data
@@ -277,79 +298,90 @@ export function getTokenIds(): string[] {
     if (!upcomingTgeIds.has(id)) return true;
 
     // Upcoming TGE — only include if it has real market data
+    const tokensDir = path.join(DATA_DIR, "tokens");
     const tokenFile = path.join(tokensDir, `${id}.json`);
-    if (!fs.existsSync(tokenFile)) return false;
-    try {
-      const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-      return data.market?.price > 0 && data.market?.marketCap > 0;
-    } catch {
-      return false;
+    if (fs.existsSync(tokenFile)) {
+      try {
+        const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
+        return data.market?.price > 0 && data.market?.marketCap > 0;
+      } catch { /* fail closed */ }
     }
+    return false;
   });
-
   _tokenIdsCache = result;
   return result;
 }
 
 /** Load detailed token data. */
 export function getTokenDetail(tokenId: string): TokenDetail | null {
-  // Sanitize tokenId to prevent path traversal
   const sanitized = tokenId.replace(/[^a-z0-9-]/g, "");
+  
+  // Try loading from blob first
+  if (!_tokensBlob) _tokensBlob = loadBlob(TOKENS_FILE);
+  const raw = _tokensBlob ? _tokensBlob[sanitized] : null;
+
+  if (raw) {
+    return mapRawToTokenDetail(raw);
+  }
+
+  // Fallback to single file read (Development/Scripts)
   const file = path.join(DATA_DIR, "tokens", `${sanitized}.json`);
   if (!fs.existsSync(file)) return null;
   
   try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
-    
-    // Provide safe defaults for Lite tokens missing full data
-    return {
-      id: raw.id,
-      symbol: raw.symbol,
-      name: raw.name,
-      description: raw.description || "",
-      categories: raw.categories || [],
-      genesisDate: raw.genesisDate || null,
-      links: {
-        website: raw.links?.website || null,
-        github: raw.links?.github || null,
-        reddit: raw.links?.reddit || null,
-        explorer: raw.links?.explorer || null,
-      },
-      market: {
-        price: raw.market?.price ?? 0,
-        marketCap: raw.market?.marketCap ?? 0,
-        marketCapRank: raw.market?.marketCapRank ?? 999,
-        volume24h: raw.market?.volume24h ?? 0,
-        high24h: raw.market?.high24h ?? 0,
-        low24h: raw.market?.low24h ?? 0,
-        priceChange24h: raw.market?.priceChange24h ?? 0,
-        priceChange7d: raw.market?.priceChange7d ?? 0,
-        priceChange30d: raw.market?.priceChange30d ?? 0,
-        priceChange1y: raw.market?.priceChange1y ?? 0,
-        ath: raw.market?.ath ?? 0,
-        athChangePercentage: raw.market?.athChangePercentage ?? 0,
-        athDate: raw.market?.athDate ?? "",
-        atl: raw.market?.atl ?? 0,
-        atlDate: raw.market?.atlDate ?? "",
-        circulatingSupply: raw.market?.circulatingSupply ?? 0,
-        totalSupply: raw.market?.totalSupply ?? null,
-        maxSupply: raw.market?.maxSupply ?? null,
-        fdv: raw.market?.fdv ?? null,
-      },
-      community: {
-        twitterFollowers: raw.community?.twitterFollowers ?? null,
-        redditSubscribers: raw.community?.redditSubscribers ?? null,
-      },
-      developer: {
-        githubStars: raw.developer?.githubStars ?? null,
-        githubForks: raw.developer?.githubForks ?? null,
-        commits4Weeks: raw.developer?.commits4Weeks ?? null,
-      },
-      fetchedAt: raw.fetchedAt || raw.lastMarketUpdate || new Date().toISOString(),
-    };
+    const rawFile = JSON.parse(fs.readFileSync(file, "utf-8"));
+    return mapRawToTokenDetail(rawFile);
   } catch (_e) {
     return null;
   }
+}
+
+function mapRawToTokenDetail(raw: any): TokenDetail {
+  return {
+    id: raw.id,
+    symbol: raw.symbol,
+    name: raw.name,
+    description: raw.description || "",
+    categories: raw.categories || [],
+    genesisDate: raw.genesisDate || null,
+    links: {
+      website: raw.links?.website || null,
+      github: raw.links?.github || null,
+      reddit: raw.links?.reddit || null,
+      explorer: raw.links?.explorer || null,
+    },
+    market: {
+      price: raw.market?.price ?? 0,
+      marketCap: raw.market?.marketCap ?? 0,
+      marketCapRank: raw.market?.marketCapRank ?? 999,
+      volume24h: raw.market?.volume24h ?? 0,
+      high24h: raw.market?.high24h ?? 0,
+      low24h: raw.market?.low24h ?? 0,
+      priceChange24h: raw.market?.priceChange24h ?? 0,
+      priceChange7d: raw.market?.priceChange7d ?? 0,
+      priceChange30d: raw.market?.priceChange30d ?? 0,
+      priceChange1y: raw.market?.priceChange1y ?? 0,
+      ath: raw.market?.ath ?? 0,
+      athChangePercentage: raw.market?.athChangePercentage ?? 0,
+      athDate: raw.market?.athDate ?? "",
+      atl: raw.market?.atl ?? 0,
+      atlDate: raw.market?.atlDate ?? "",
+      circulatingSupply: raw.market?.circulatingSupply ?? 0,
+      totalSupply: raw.market?.totalSupply ?? null,
+      maxSupply: raw.market?.maxSupply ?? null,
+      fdv: raw.market?.fdv ?? null,
+    },
+    community: {
+      twitterFollowers: raw.community?.twitterFollowers ?? null,
+      redditSubscribers: raw.community?.redditSubscribers ?? null,
+    },
+    developer: {
+      githubStars: raw.developer?.githubStars ?? null,
+      githubForks: raw.developer?.githubForks ?? null,
+      commits4Weeks: raw.developer?.commits4Weeks ?? null,
+    },
+    fetchedAt: raw.fetchedAt || raw.lastMarketUpdate || new Date().toISOString(),
+  };
 }
 
 /**
@@ -390,46 +422,72 @@ export function getUpcomingTGEs(): UpcomingTge[] {
 
 /** Load token metrics. */
 export function getTokenMetrics(tokenId: string): TokenMetrics | null {
-  const file = path.join(METRICS_DIR, `${tokenId}.json`);
+  // Try loading from blob
+  if (!_metricsBlob) _metricsBlob = loadBlob(METRICS_FILE);
+  const raw = _metricsBlob ? _metricsBlob[tokenId] : null;
+
+  if (raw) {
+    return mapRawToTokenMetrics(raw, tokenId);
+  }
+
+  // Fallback
+  const file = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
   if (!fs.existsSync(file)) return null;
   
   try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
-    return {
-      tokenId: raw.tokenId || tokenId,
-      tokenName: raw.tokenName || "",
-      symbol: raw.symbol || "",
-      riskScore: raw.riskScore ?? 0,
-      riskLevel: raw.riskLevel || "medium",
-      growthPotentialIndex: raw.growthPotentialIndex ?? 0,
-      narrativeStrength: raw.narrativeStrength ?? 0,
-      valueVsAth: raw.valueVsAth ?? 0,
-      volatilityIndex: raw.volatilityIndex ?? 0,
-      summary: raw.summary || "",
-      computedAt: raw.computedAt || new Date().toISOString(),
-    };
+    const rawFile = JSON.parse(fs.readFileSync(file, "utf-8"));
+    return mapRawToTokenMetrics(rawFile, tokenId);
   } catch (_e) {
     return null;
   }
 }
 
+function mapRawToTokenMetrics(raw: any, tokenId: string): TokenMetrics {
+  return {
+    tokenId: raw.tokenId || tokenId,
+    tokenName: raw.tokenName || "",
+    symbol: raw.symbol || "",
+    riskScore: raw.riskScore ?? 0,
+    riskLevel: raw.riskLevel || "medium",
+    growthPotentialIndex: raw.growthPotentialIndex ?? 0,
+    narrativeStrength: raw.narrativeStrength ?? 0,
+    valueVsAth: raw.valueVsAth ?? 0,
+    volatilityIndex: raw.volatilityIndex ?? 0,
+    summary: raw.summary || "",
+    computedAt: raw.computedAt || new Date().toISOString(),
+  };
+}
+
 /** Load price history for charts. */
 export function getPriceHistory(tokenId: string): PriceHistory | null {
-  const file = path.join(PRICES_DIR, `${tokenId}.json`);
+  // Try loading from blob
+  if (!_pricesBlob) _pricesBlob = loadBlob(PRICES_FILE);
+  const raw = _pricesBlob ? _pricesBlob[tokenId] : null;
+
+  if (raw) {
+    return mapRawToPriceHistory(raw, tokenId);
+  }
+
+  // Fallback
+  const file = path.join(DATA_DIR, "prices", `${tokenId}.json`);
   if (!fs.existsSync(file)) return null;
   
   try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
-    return {
-      id: raw.id || tokenId,
-      name: raw.name || "",
-      chart30d: raw.chart30d || [],
-      chart1y: raw.chart1y || [],
-      fetchedAt: raw.fetchedAt || new Date().toISOString(),
-    };
+    const rawFile = JSON.parse(fs.readFileSync(file, "utf-8"));
+    return mapRawToPriceHistory(rawFile, tokenId);
   } catch (_e) {
     return null;
   }
+}
+
+function mapRawToPriceHistory(raw: any, tokenId: string): PriceHistory {
+  return {
+    id: raw.id || tokenId,
+    name: raw.name || "",
+    chart30d: raw.chart30d || [],
+    chart1y: raw.chart1y || [],
+    fetchedAt: raw.fetchedAt || new Date().toISOString(),
+  };
 }
 
 /** Load a generated article for a token. */

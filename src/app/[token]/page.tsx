@@ -7,6 +7,7 @@ import {
   getPriceHistory,
   getArticle,
   getTokenIds,
+  getAllTokens,
   formatPrice,
   formatCompact,
   formatSupply,
@@ -46,12 +47,17 @@ interface PageProps {
   params: Promise<{ token: string }>;
 }
 
-/** Reject unknown tokens at build time — returns 404 for unregistered slugs. */
-export const dynamicParams = false;
+/** Enable ISR — missing tokens generate on first request. */
+export const dynamicParams = true;
 
-/** Generate static paths for all tokens with data. */
+/** Revalidate pages at most once per hour. */
+export const revalidate = 3600;
+
+/** Generate static paths for the top 300 tokens — the rest generate via ISR. */
 export async function generateStaticParams() {
-  return getTokenIds().map((id) => ({ token: id }));
+  return getAllTokens()
+    .slice(0, 300)
+    .map((t) => ({ token: t.id }));
 }
 
 /** Dynamic metadata for SEO. */

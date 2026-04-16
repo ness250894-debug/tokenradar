@@ -22,52 +22,16 @@ interface SitemapEntry {
   priority: string;
 }
 
-/** Load token IDs from data and content directories. */
+/** Load token IDs from the consolidated registry. */
 function getTokenIds(): string[] {
-  const tokensDir = path.join(DATA_DIR, "tokens");
-  const ids = new Set<string>();
-
-  if (fs.existsSync(tokensDir)) {
-    fs.readdirSync(tokensDir)
-      .filter((f) => f.endsWith(".json"))
-      .forEach((f) => ids.add(f.replace(".json", "")));
-  }
-
-  if (fs.existsSync(CONTENT_DIR)) {
-    fs.readdirSync(CONTENT_DIR).forEach((dir) => {
-      if (fs.statSync(path.join(CONTENT_DIR, dir)).isDirectory()) {
-        ids.add(dir);
-      }
-    });
-  }
-
-  // Filter out TGEs without market data
-  const tges = getUpcomingTGEs();
-  const upcomingTgeIds = new Set(tges.filter(t => t.status !== "released").map(t => t.id));
-
-  return Array.from(ids).filter((id) => {
-    if (!upcomingTgeIds.has(id)) return true;
-    const tokenFile = path.join(tokensDir, `${id}.json`);
-    if (!fs.existsSync(tokenFile)) return false;
-    try {
-      const data = JSON.parse(fs.readFileSync(tokenFile, "utf-8"));
-      return data.market?.price > 0;
-    } catch {
-      return false;
-    }
-  });
+  return getAllTokens().map(t => t.id);
 }
 
 function getTokenDate(tokenId: string): string | null {
-  const file = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
-  if (!fs.existsSync(file)) return null;
-  try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
-    const dateStr = raw.fetchedAt || raw.lastMarketUpdate;
-    return dateStr ? new Date(dateStr).toISOString().split("T")[0] : null;
-  } catch {
-    return null;
-  }
+  const detail = getTokenDetail(tokenId);
+  if (!detail) return null;
+  const dateStr = detail.fetchedAt;
+  return dateStr ? new Date(dateStr).toISOString().split("T")[0] : null;
 }
 
 function getUpcomingTGEs(): UpcomingTge[] {
