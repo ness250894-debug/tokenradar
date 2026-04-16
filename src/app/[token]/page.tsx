@@ -66,6 +66,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = getArticle(tokenId, "overview");
   const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
 
+  const metrics = getTokenMetrics(tokenId);
+  const riskScore = metrics?.riskScore || 5;
+
+  // Construct Dynamic OG Image URL
+  const ogSearchParams = new URLSearchParams({
+    symbol: detail.symbol.toUpperCase(),
+    name: detail.name,
+    price: formatPrice(detail.market.price),
+    change: detail.market.priceChange24h.toString(),
+    risk: riskScore.toString(),
+  });
+  const ogImage = `/api/og/token?${ogSearchParams.toString()}`;
+
   return {
     title,
     description,
@@ -77,10 +90,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       type: "article",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
+      card: "summary_large_image",
       title,
       description,
+      images: [ogImage],
     },
   };
 }

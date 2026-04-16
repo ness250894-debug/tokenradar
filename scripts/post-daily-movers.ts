@@ -33,16 +33,23 @@ async function main() {
     const photoBuffer = Buffer.from(arrayBuffer);
 
     console.log("▶ Generating contextual caption...");
-    const system = "";
+    const system = "You are a crypto market analyst writing for TokenRadar.co.";
     const prompt = `
-      You are writing a caption for an attached image of the TokenRadar Top 5 Market Movers today.
-      Write exactly 2 punchy, highly engaging sentences summarizing the market heat, followed by 3 trending hashtags.
-      Wrap the most impressive metric or insight in <tg-spoiler> tags so users have to tap to read it.
+      Write exactly 2 punchy, highly engaging sentences summarizing the market heat for today's Top 5 Gainers, followed by 3 trending hashtags.
+      Use the following context: TokenRadar just detected massive volatility and breakout volume across these top 5 performing assets.
+      Wrap the most impressive metric or insight in <tg-spoiler> tags.
       
-      DO NOT USE ANY LINKS. Just the raw, brilliant text.
+      DO NOT refer to 'seeing' an image. Speak naturally as if you are looking at the live data shelf.
+      DO NOT USE ANY LINKS.
     `;
     const result = await callAIWithFallback(system, prompt, 300);
-    const caption = result.content || "Top 5 Movers today! Check out the charts. #Crypto #TokenRadar";
+    
+    // Safety Fallback Logic
+    let caption = result.content;
+    if (!caption || caption.length < 10) {
+      console.warn("  ⚠ Using static fallback caption due to AI refusal or empty output.");
+      caption = "TokenRadar Top 5 Movers leading the charge today! 🚀 Double tap to see the heat. <tg-spoiler>Massive breakout volume detected across the board.</tg-spoiler>\n\n#Crypto #TokenRadar #MarketMovers";
+    }
 
     console.log("▶ Sending native photo to Telegram...");
     const msgId = await sendTelegramPhoto(photoBuffer, caption, channelId);

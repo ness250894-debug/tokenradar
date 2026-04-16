@@ -10,17 +10,49 @@
 import { SITE_URL } from "./config";
 
 /**
- * Fetch the OG image for a token from the production site.
+ * Fetch a branded data card image for a token.
+ * 
+ * Strategy:
+ * 1. If market data is provided, use the dynamic /api/og/token endpoint (GUARANTEED success).
+ * 2. If only tokenId is provided, fallback to the static /opengraph-image route (requires page to exist).
  *
- * @param tokenId - Token slug (e.g., "solana", "bitcoin")
+ * @param tokenId - Token slug (e.g., "solana")
+ * @param data - Optional market data for dynamic generation
  * @returns PNG image as a Buffer, or null if fetch fails
  */
-export async function fetchTokenImage(tokenId: string): Promise<Buffer | null> {
-  const url = `${SITE_URL}/${tokenId}/opengraph-image`;
+export async function fetchTokenImage(
+  tokenId: string,
+  data?: {
+    symbol: string;
+    name: string;
+    price: string;
+    change: number;
+    risk: number;
+    icon?: string;
+  }
+): Promise<Buffer | null> {
+  let url: string;
+
+  if (data) {
+    // ── Dynamic Mode (Recommended) ──
+    const params = new URLSearchParams({
+      symbol: data.symbol,
+      name: data.name,
+      price: data.price,
+      change: data.change.toString(),
+      risk: data.risk.toString(),
+    });
+    if (data.icon) params.append('icon', data.icon);
+    
+    url = `${SITE_URL}/api/og/token?${params.toString()}`;
+  } else {
+    // ── Static Fallback (Requires pre-rendered page) ──
+    url = `${SITE_URL}/${tokenId}/opengraph-image`;
+  }
 
   try {
     const response = await fetch(url, {
-      signal: AbortSignal.timeout(10_000), // 10s timeout
+      signal: AbortSignal.timeout(15_000), // 15s timeout
     });
 
     if (!response.ok) {

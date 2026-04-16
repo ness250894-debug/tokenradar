@@ -128,16 +128,56 @@ async function callClaudeAPI(
   throw lastError;
 }
 
+function isTechnicalRefusal(text: string): boolean {
+  const lower = text.toLowerCase();
+  const patterns = [
+    "i (don't|do not) have access to (the|this) (image|picture)",
+    "as an ai language model",
+    "as a large language model",
+    "i am sorry, (but )?i cannot",
+    "access to the image is not possible",
+    "i cannot (see|process|view) (this|the) image",
+    "i'm an ai and i don't have eyes",
+    "technical constraints prevent me",
+    "i'm sorry, i can't do that",
+    "i don't have (the )?context",
+  ];
+  
+  return patterns.some(pattern => new RegExp(pattern, 'i').test(lower));
+}
+
 export async function callAIWithFallback(
   systemPrompt: string,
   userPrompt: string,
   maxTokens: number = 4000
 ): Promise<AIResult> {
   try {
-    return await callGeminiAPI(systemPrompt, userPrompt, maxTokens);
+    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens);
+    if (isTechnicalRefusal(result.content)) {
+      console.warn(`  ⚠ Gemini response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
+      throw new Error("AI Technical Refusal Detected");
+    }
+    return result;
   } catch (_error) {
-    console.log(`  ⚠ All Gemini attempts failed. Falling back to Claude...`);
-    return await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
+    console.log(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
+    try {
+      const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
+      if (isTechnicalRefusal(result.content)) {
+        console.warn(`  ⚠ Claude response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
+        throw new Error("AI Technical Refusal Detected");
+      }
+      return result;
+    } catch (e) {
+      console.error(`  ❌ All AI models failed or refused to generate safe content.`);
+      return { 
+        content: "", 
+        promptTokens: 0, 
+        completionTokens: 0, 
+        provider: "none", 
+        model: "none", 
+        cost: 0 
+      };
+    }
   }
 }
 

@@ -320,7 +320,13 @@ async function main() {
   // ── Fetch OG image (shared between TG and X) ──
   let tokenImage: Buffer | null = null;
   console.log(`▶ Fetching OG image for ${targetToken.id}...`);
-  tokenImage = await fetchTokenImage(targetToken.id);
+  tokenImage = await fetchTokenImage(targetToken.id, {
+    symbol: targetToken.symbol.toUpperCase(),
+    name: targetToken.name,
+    price: targetToken.market.price >= 1 ? `$${targetToken.market.price.toFixed(2)}` : `$${targetToken.market.price.toFixed(6)}`,
+    change: targetToken.market.priceChange24h,
+    risk: context.riskScore || 5,
+  });
   if (tokenImage) {
     console.log(`  ✓ OG image fetched (${(tokenImage.length / 1024).toFixed(1)} KB)`);
   } else {
