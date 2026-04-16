@@ -2,52 +2,27 @@
   "id": "falcon-finance",
   "symbol": "usdf",
   "name": "Falcon USD",
-  "description": "Falcon, the next-generation platform transforming synthetic dollars into sustainable yield opportunities. Our mission is clear: Your Crypto, Your Yields. Falcon aims to empower users and institutions to unlock the true yield potential of their digital assets. Falcon is built on the foundation of trust, transparency, and robust technology. Our team of experienced professionals brings expertise from blockchain, financial engineering, and quantitative analysis to ensure we deliver a protocol that...",
-  "categories": [
-    "Stablecoins",
-    "USD Stablecoin",
-    "BNB Chain Ecosystem",
-    "XDC Ecosystem",
-    "Crypto-backed Stablecoin",
-    "Synthetic Dollar"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://falcon.finance/",
-    "github": null,
-    "reddit": null,
-    "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
-  },
+  "description": " Falcon, the next-generation platform transforming synthetic dollars into sustainable yield opportunities. Our mission is clear: Your Crypto, Your Yields. Falcon aims to empower users and institutions to unlock the true yield potential of their digital assets.  \n\nFalcon is built on the foundation of trust, transparency, and robust technology. Our team of experienced professionals brings expertise from blockchain, financial engineering, and quantitative analysis to ensure we deliver a protocol that balances reliability with performance. We are committed to enable users to make the most of their assets while adhering to the highest standards of accountability.\n\nOur mission extends beyond creating a protocol—it’s about fostering a system that prioritizes user returns and sustainable growth. ",
   "market": {
-    "price": 0.99824,
-    "marketCap": 1786421968,
-    "marketCapRank": 46,
-    "volume24h": 813368,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 0.05038,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 0.99803,
+    "marketCap": 1785592014,
+    "marketCapRank": 48,
+    "volume24h": 798010,
+    "high24h": 0.999015,
+    "low24h": 0.99773,
+    "priceChange24h": 0.01048,
+    "priceChange7d": 0.01663,
+    "priceChange30d": -0.07573,
+    "priceChange1y": -0.16635,
     "ath": 1.075,
-    "athChangePercentage": -7.08886,
+    "athChangePercentage": -7.12207,
     "athDate": "2025-05-08T21:25:42.071Z",
     "atl": 0.943422,
     "atlDate": "2025-07-08T10:16:34.749Z",
-    "circulatingSupply": 1789571419.161696,
-    "totalSupply": 1789571419.161696,
+    "circulatingSupply": 1789662413.440261,
+    "totalSupply": 1789662413.440261,
     "maxSupply": null,
-    "fdv": null
+    "fdv": 1785592014
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": null
-  },
-  "developer": {
-    "githubStars": null,
-    "githubForks": null,
-    "commits4Weeks": null
-  },
-  "fetchedAt": "2026-03-15T10:11:56.515Z",
-  "lastMarketUpdate": "2026-04-15T08:07:07.140Z"
+  "lastMarketUpdate": "2026-04-16T06:21:09.412Z"
 }

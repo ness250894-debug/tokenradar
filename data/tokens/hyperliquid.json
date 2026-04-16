@@ -2,56 +2,27 @@
   "id": "hyperliquid",
   "symbol": "hype",
   "name": "Hyperliquid",
-  "description": "Hyperliquid is a performant L1 optimized from the ground up. The vision is a fully onchain open financial system with user built applications interfacing with performant native components, all without compromising end user experience. \n\nThe Hyperliquid L1 is performant enough to operate an entire ecosystem of permissionless financial applications – every order, cancel, trade, and liquidation happens transparently on-chain with block latency &lt;1 second. The chain currently supports 100k orders / second.\n\nThe Hyperliquid L1 uses a custom consensus algorithm called HyperBFT which is heavily inspired by Hotstuff and its successors. Both the algorithm and networking stack are optimized from the ground up to support the L1. \n\nThe flagship native application is a fully onchain order book perpetuals exchange, the Hyperliquid DEX. Further developments include a native token standard, spot trading, permissionless liquidity, etc.",
-  "categories": [
-    "Decentralized Exchange (DEX)",
-    "Smart Contract Platform",
-    "Exchange-based Tokens",
-    "Decentralized Finance (DeFi)",
-    "Derivatives",
-    "Perpetuals",
-    "Layer 1 (L1)",
-    "Proof of Stake (PoS)",
-    "Hyperliquid Ecosystem",
-    "Governance"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://hyperliquid.xyz/",
-    "github": null,
-    "reddit": null,
-    "explorer": "https://app.hyperliquid.xyz/explorer/token/0x0d01dc56dcaaca66ad901c959b4011ec"
-  },
+  "description": "Hyperliquid is a layer one (L1) blockchain best known for perpetual futures and spot trading. Beyond its flagship DEX trading platform, the ecosystem supports borrowing, lending, real world assets (RWAs), and a full-fledged Ethereum Virtual Machine (EVM), making it a leading force in decentralized finance (defi). \n\nJust as electronic trading dramatically improved markets in the 2000s, Hyperliquid offers an opportunity for a massive technical upgrade of the existing financial system through a transparent, efficient, and resilient blockchain. HYPE is the native token of the Hyperliquid blockchain, with a maximum supply of 1 billion.",
   "market": {
-    "price": 43.35,
-    "marketCap": 10322862732,
+    "price": 45.4,
+    "marketCap": 10823678574,
     "marketCapRank": 13,
-    "volume24h": 365146913,
-    "high24h": 39.93,
-    "low24h": 37.63,
-    "priceChange24h": -2.61376,
-    "priceChange7d": 3.70741,
-    "priceChange30d": 27.84029,
-    "priceChange1y": 143.35814,
+    "volume24h": 325174448,
+    "high24h": 45.67,
+    "low24h": 43.19,
+    "priceChange24h": 4.39814,
+    "priceChange7d": 18.10236,
+    "priceChange30d": 12.33149,
+    "priceChange1y": 204.3859,
     "ath": 59.3,
-    "athChangePercentage": -26.90956,
+    "athChangePercentage": -23.44031,
     "athDate": "2025-09-18T03:30:30.650Z",
     "atl": 3.81,
     "atlDate": "2024-11-29T09:30:30.871Z",
     "circulatingSupply": 238385315.9541414,
     "totalSupply": 962274028.9541414,
     "maxSupply": 1000000000,
-    "fdv": 36805105477
+    "fdv": 43691217924
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-22T22:54:56.995Z",
-  "lastMarketUpdate": "2026-04-15T08:07:07.128Z"
+  "lastMarketUpdate": "2026-04-16T06:21:30.401Z"
 }
