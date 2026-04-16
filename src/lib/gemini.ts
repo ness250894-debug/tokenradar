@@ -209,6 +209,10 @@ export interface MarketContext {
   tone?: string;
   /** The specific reason this token was selected (e.g., top-gainer, safe-play) */
   selectionReason?: string;
+  // Social & Developer Stats
+  twitterFollowers?: number;
+  redditSubscribers?: number;
+  githubCommits4Weeks?: number;
 }
 
 /**
@@ -257,6 +261,8 @@ export async function generateTokenSummary(
     Market Cap: ${mcapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
     Risk Factor: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
     Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
+    COMMUNITY: ${metrics.twitterFollowers ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers, ` : ""}${metrics.redditSubscribers ? `${metrics.redditSubscribers.toLocaleString()} Reddit subs` : ""}
+    DEVELOPER: ${metrics.githubCommits4Weeks ? `${metrics.githubCommits4Weeks} GitHub commits (4-weeks)` : "No recent activity"}
     ${metrics.globalStats ? `GLOBAL MARKET: ${metrics.globalStats}\n    ` : ""}${metrics.sectorPerformance ? `SECTOR PERFORMANCE: ${metrics.sectorPerformance}\n    ` : ""}${trendingSection}${timeContext}${reasonContext}
     
     BACKGROUND CONTEXT:
@@ -265,8 +271,8 @@ export async function generateTokenSummary(
     STRICT ANALYSIS RULES:
     1. MANDATORY: The very first sentence MUST begin exactly with: <b>$${symbol.toUpperCase()} (${tokenName})</b>.
     2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis in CoinGecko's provided data.
-    3. INSIGHT: Explain the *implication* of the data. If the Risk is high, why? If the Growth Index is low, what's the bottleneck?
-    4. ATtRIBUTION: At some point in the analysis, naturally mention that the data is powered by CoinGecko (e.g., "According to CoinGecko's latest market monitoring...").
+    3. INSIGHT: Explain the *implication* of the data. Use the SOCIAL (community) or DEVELOPER (commits) stats to add institutional depth—for example, spotting "Hype vs. Fundamentals".
+    4. ATtRIBUTION: At some point in the analysis, naturally mention that the data is powered by CoinGecko.
     5. TARGET LENGTH: 700 - 1000 characters.
     6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
     7. SPICY ENGAGEMENT: Use 2-3 emojis. Match the market energy.

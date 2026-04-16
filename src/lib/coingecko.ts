@@ -25,7 +25,7 @@ const DATA_DIR = path.resolve(process.cwd(), "data");
 const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
 const RATE_LIMIT_DELAY_MS = 2100; // 2.1s between requests
-const MONTHLY_LIMIT = 9500; // Adjusted per user clarification (was 10k total, 9.5k safe limit)
+const MONTHLY_LIMIT = 9000; // Strictly safe within user limit
 
 // ── SDK Initialization ────────────────────────────────────────
 
@@ -285,7 +285,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
   // 1. Fetch detailed coin info
   const detail = await withCache(
     `coin-detail-${tokenId}`,
-    30 * 24 * 60 * 60 * 1000,
+    3 * 24 * 60 * 60 * 1000, // 3 days (72h) to stay under 9k/month quota
     () => client.coins.getID(tokenId, {
       localization: false,
       tickers: false,
@@ -298,7 +298,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
   // 2. Fetch 30-day price history
   const chart30d = await withCache(
     `chart-30d-${tokenId}`,
-    12 * 60 * 60 * 1000,
+    72 * 60 * 60 * 1000, // 3 days (72h)
     () => client.coins.marketChart.get(tokenId, {
       vs_currency: "usd",
       days: "30",
@@ -309,7 +309,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
   // 3. Fetch 365-day price history
   const chart1y = await withCache(
     `chart-1y-${tokenId}`,
-    24 * 60 * 60 * 1000,
+    72 * 60 * 60 * 1000, // 3 days (72h)
     () => client.coins.marketChart.get(tokenId, {
       vs_currency: "usd",
       days: "365",
@@ -392,7 +392,7 @@ export async function fetchTokensByRank(
 
   const tokens = await withCache(
     `tokens-page-${page}`,
-    12 * 60 * 60 * 1000,
+    2 * 60 * 60 * 1000, // 2 hours for fresh prices/movers
     () => client.coins.markets.get({
       vs_currency: "usd",
       order: "market_cap_desc",

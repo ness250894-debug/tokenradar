@@ -153,7 +153,7 @@ async function main() {
   const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
 
   const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 1;
-  const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 250;
+  const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 500;
 
   console.log(`╔══════════════════════════════════════════╗`);
   console.log(`║  TokenRadar — Daily Market Updates v2    ║`);
@@ -271,6 +271,10 @@ async function main() {
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
     marketCapRank: targetToken.market.marketCapRank,
+    // Add Community & Developer Stats
+    twitterFollowers: (targetToken as any).community?.twitterFollowers || 0,
+    redditSubscribers: (targetToken as any).community?.redditSubscribers || 0,
+    githubCommits4Weeks: (targetToken as any).developer?.commits4Weeks || 0,
     trendingContext,
     globalStats: globalStatsStr,
     sectorPerformance: sectorPerformanceStr,
