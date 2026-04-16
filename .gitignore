@@ -51,6 +51,9 @@ test-*.ts
 # AI content pipeline
 *.prompt.txt
 data/latest-batch-alert.txt
+# X OAuth 2.0 Persistence (Required for rotating tokens in CI/CD)
+# CAUTION: This file contains rotating secrets. Ensure repo stays PRIVATE.
+data/x-oauth-state.json
 
 # temp
 /tmp/
