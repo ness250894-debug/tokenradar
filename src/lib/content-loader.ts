@@ -157,7 +157,10 @@ async function fetchAsset(relativePath: string) {
   try {
     const url = `/${relativePath.replace(/\\/g, "/")}`;
     const isBrowser = typeof window !== "undefined";
-    const isNodeBuild = !isBrowser && process.env.NODE_ENV === "production" && !process.env.NEXT_RUNTIME;
+    
+    // Detect if we are in ANY Node.js environment (Next.js build, tsx scripts, etc.)
+    // Relative fetches are only valid in the Browser or Cloudflare runtime (Edge).
+    const isNode = !isBrowser && (process.env.NEXT_RUNTIME !== 'edge');
 
     // 1. In Browser: Use relative fetch (automatic origin matching)
     if (isBrowser) {
@@ -166,9 +169,9 @@ async function fetchAsset(relativePath: string) {
       return null;
     }
 
-    // 2. In Server (Node.js Build / Edge Runtime)
-    // IMPORTANT: Skip relative fetch in Node.js build process to prevent timeout stalls
-    if (!isNodeBuild) {
+    // 2. In Server (Cloudflare Edge Runtime)
+    // IMPORTANT: Skip relative fetch in all Node.js environments to prevent timeout stalls
+    if (!isNode) {
       try {
         const resp = await fetch(url, { next: { revalidate: 3600 } });
         if (resp.ok) return await resp.json();
@@ -177,7 +180,7 @@ async function fetchAsset(relativePath: string) {
       }
     }
 
-    // 3. Absolute Fallback (Used during local build or if relative fails)
+    // 3. Absolute Fallback (Mandatory for Node.js scripts and local builds)
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
     const fullUrl = new URL(url, siteUrl).toString();
     
