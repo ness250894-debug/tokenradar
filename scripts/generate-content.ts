@@ -633,7 +633,8 @@ async function main() {
     if (!isTge) {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        relatedTokenNames = getRelatedTokens(tokenId, 2).map((t: any) => t.name);
+        const related = (await getRelatedTokens(tokenId, 2)) as any[];
+        relatedTokenNames = related.map((t: any) => t.name);
       } catch (_e) {
         // Safe fallback
       }

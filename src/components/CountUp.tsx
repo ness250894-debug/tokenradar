@@ -21,7 +21,7 @@ export function CountUp({
   compact = false,
   className,
 }: CountUpProps) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(end);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {

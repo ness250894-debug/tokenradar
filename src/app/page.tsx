@@ -9,12 +9,12 @@ import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
 import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap, Scale } from "lucide-react";
 
-export default function HomePage() {
-  const allTokensList = getAllTokens();
-  const upcomingTges = getUpcomingTGEs();
+export default async function HomePage() {
+  const allTokensList = await getAllTokens();
+  const upcomingTges = await getUpcomingTGEs();
 
-  const allTokens: TokenCardData[] = allTokensList.map((token) => {
-    const metrics = getTokenMetrics(token.id);
+  const allTokens: TokenCardData[] = await Promise.all(allTokensList.map(async (token) => {
+    const metrics = await getTokenMetrics(token.id);
     return {
       id: token.id,
       name: token.name,
@@ -25,9 +25,9 @@ export default function HomePage() {
       riskScore: metrics?.riskScore || 5,
       category: token.categories?.[0] || "Crypto",
     };
-  });
+  }));
 
-  const totalArticles = getTotalArticleCount();
+  const totalArticles = await getTotalArticleCount();
 
   // ── Dynamic Pulse Calculations ──────────────────────────────
   

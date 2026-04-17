@@ -53,21 +53,20 @@ export const revalidate = 3600;
 
 /** Generate static paths for the top 300 tokens — the rest generate via ISR. */
 export async function generateStaticParams() {
-  return getAllTokens()
-    .slice(0, 300)
-    .map((t) => ({ token: t.id }));
+  const tokens = await getAllTokens();
+  return tokens.map((t) => ({ token: t.id }));
 }
 
 /** Dynamic metadata for SEO. */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { token: tokenId } = await params;
-  const detail = getTokenDetail(tokenId);
+  const detail = await getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`;
   const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
 
-  const article = getArticle(tokenId, "overview");
+  const article = await getArticle(tokenId, "overview");
   const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
 
 
@@ -105,18 +104,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function TokenPage({ params }: PageProps) {
   const { token: tokenId } = await params;
-  const detail = getTokenDetail(tokenId);
+  const detail = await getTokenDetail(tokenId);
   if (!detail) notFound();
 
-  const metrics = getTokenMetrics(tokenId);
-  const priceHistory = getPriceHistory(tokenId);
+  const metrics = await getTokenMetrics(tokenId);
+  const priceHistory = await getPriceHistory(tokenId);
   const technical = getTokenTechnical(tokenId);
-  const article = getArticle(tokenId, "overview");
+  const article = await getArticle(tokenId, "overview");
   const faqs = article ? getArticleFaqs(article.content) : [];
   
-  const relatedTokensList = getRelatedTokens(tokenId, 3);
-  const relatedTokens: TokenCardData[] = relatedTokensList.map((token) => {
-    const rMetrics = getTokenMetrics(token.id);
+  const relatedTokensList = await getRelatedTokens(tokenId, 3);
+  const relatedTokens: TokenCardData[] = await Promise.all(relatedTokensList.map(async (token) => {
+    const rMetrics = await getTokenMetrics(token.id);
     return {
       id: token.id,
       name: token.name,
@@ -127,11 +126,11 @@ export default async function TokenPage({ params }: PageProps) {
       riskScore: rMetrics?.riskScore || 5,
       category: detail?.categories?.[0] || "Crypto",
     };
-  });
+  }));
 
   const isPositive = detail.market.priceChange24h >= 0;
-  const hasPricePrediction = !!getArticle(tokenId, "price-prediction");
-  const hasHowToBuy = !!getArticle(tokenId, "how-to-buy");
+  const hasPricePrediction = !!(await getArticle(tokenId, "price-prediction"));
+  const hasHowToBuy = !!(await getArticle(tokenId, "how-to-buy"));
 
   return (
     <div className="container">
@@ -345,7 +344,7 @@ export default async function TokenPage({ params }: PageProps) {
             {/* Main Content */}
             <div className="article-main-col">
               <div className="article-content" dangerouslySetInnerHTML={{ 
-                __html: markdownToHtml(article.content, {
+                __html: await markdownToHtml(article.content, {
                   name: detail.name,
                   symbol: detail.symbol,
                   price: detail.market.price,

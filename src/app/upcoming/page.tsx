@@ -14,8 +14,8 @@ export const metadata = {
   description: "Discover and track high-potential crypto projects planning imminent Token Generation Events (TGEs) and ICOs.",
 };
 
-export default function UpcomingPage() {
-  const upcomingTges = getUpcomingTGEs();
+export default async function UpcomingPage() {
+  const upcomingTges = await getUpcomingTGEs();
 
   return (
     <div className="container" style={{ paddingBottom: "var(--space-4xl)" }}>

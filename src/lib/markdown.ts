@@ -24,7 +24,7 @@ export interface TokenMarketData {
  * Replaces live data placeholders ({{LIVE_PRICE}}, etc.) with real-time values.
  * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
  */
-export function markdownToHtml(md: string, tokenData?: TokenMarketData): string {
+export async function markdownToHtml(md: string, tokenData?: TokenMarketData): Promise<string> {
   let processedMd = md;
 
   if (tokenData) {
@@ -78,7 +78,7 @@ export function markdownToHtml(md: string, tokenData?: TokenMarketData): string 
       return `__MASKED_LINK_${maskedLinks.length - 1}__`;
     });
 
-    const allTokens = getAllTokens();
+    const allTokens = await getAllTokens();
     const linkableTokens = allTokens
       .filter(t => t.name.toLowerCase() !== tokenData?.name?.toLowerCase() && t.name.length > 2)
       .sort((a, b) => b.name.length - a.name.length)

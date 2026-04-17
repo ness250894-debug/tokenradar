@@ -6,14 +6,15 @@ export const contentType = "image/png";
 export const alt = "TokenRadar Price Prediction";
 
 export async function generateStaticParams() {
-  return getTokenIds().map((id) => ({ token: id }));
+  const ids = await getTokenIds();
+  return ids.map((id) => ({ token: id }));
 }
 
 export default async function Image({ params }: { params: Promise<{ token: string }> }) {
   const { token: tokenId } = await params;
   
-  const detail = getTokenDetail(tokenId);
-  const metrics = getTokenMetrics(tokenId);
+  const detail = await getTokenDetail(tokenId);
+  const metrics = await getTokenMetrics(tokenId);
 
   if (!detail || !metrics) {
     return new Response("Not Found", { status: 404 });

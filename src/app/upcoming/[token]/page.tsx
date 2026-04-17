@@ -13,7 +13,7 @@ interface TgePageProps {
 }
 
 export async function generateStaticParams() {
-  const tges = getUpcomingTGEs();
+  const tges = await getUpcomingTGEs();
   if (tges.length === 0) return [];
   return tges.map((tge) => ({
     token: tge.id,
@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: TgePageProps): Promise<Metadata> {
-  const tges = getUpcomingTGEs();
+  const tges = await getUpcomingTGEs();
   const { token } = await params;
   const tge = tges.find((t) => t.id === token);
 
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
     : `Comprehensive pre-launch analysis for ${tge.name}. Discover expected TGE dates, narrative strength, and project categories for this upcoming token.`;
 
   // If token has graduated and has a main tracked page, set canonical to it
-  const tokenDetail = isReleased ? getTokenDetail(tge.id) : null;
+  const tokenDetail = isReleased ? await getTokenDetail(tge.id) : null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
   return {
@@ -47,15 +47,15 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
 }
 
 export default async function TgePage({ params }: TgePageProps) {
-  const tges = getUpcomingTGEs();
+  const tges = await getUpcomingTGEs();
   const { token } = await params;
   const tge = tges.find((t) => t.id === token);
 
   if (!tge) return notFound();
 
   const isReleased = tge.status === "released";
-  const article = getArticle(tge.id, "tge-preview");
-  const detail = getTokenDetail(tge.id);
+  const article = await getArticle(tge.id, "tge-preview");
+  const detail = await getTokenDetail(tge.id);
   const hasMainPage = isReleased ? !!detail : false;
 
   const tokenData = {
@@ -169,9 +169,9 @@ export default async function TgePage({ params }: TgePageProps) {
         {article ? (
           <div>
             {isReleased ? (
-              <div dangerouslySetInnerHTML={{ __html: markdownToHtml(article.content, tokenData) }} />
+              <div dangerouslySetInnerHTML={{ __html: await markdownToHtml(article.content, tokenData) }} />
             ) : (
-              <ContentGate htmlContent={markdownToHtml(article.content, tokenData)} />
+              <ContentGate htmlContent={await markdownToHtml(article.content, tokenData)} />
             )}
             
             {isReleased && (

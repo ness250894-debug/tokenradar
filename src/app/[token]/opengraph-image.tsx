@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { getTokenDetail, getTokenMetrics } from '@/lib/content-loader';
-import { getPilotTokenIds } from '@/lib/token-technical-data';
+import { getTokenDetail, getTokenMetrics, getTokenIds } from '@/lib/content-loader';
 import { formatPrice, getTokenIconUrl } from '@/lib/formatters';
 
 // Image metadata
@@ -16,7 +15,7 @@ export const contentType = 'image/png';
  * Generate static OG images for Top 50 tokens at build time.
  */
 export async function generateStaticParams() {
-  const ids = getPilotTokenIds();
+  const ids = await getTokenIds();
   return ids.slice(0, 50).map((id) => ({
     token: id,
   }));
@@ -24,8 +23,8 @@ export async function generateStaticParams() {
 
 export default async function Image({ params }: { params: Promise<{ token: string }> }) {
   const { token: tokenId } = await params;
-  const token = getTokenDetail(tokenId);
-  const metrics = getTokenMetrics(tokenId);
+  const token = await getTokenDetail(tokenId);
+  const metrics = await getTokenMetrics(tokenId);
   
   if (!token) return new ImageResponse(<div>Token Not Found</div>);
 

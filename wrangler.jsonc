@@ -1,15 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  "pages_build_output_dir": ".open-next/assets",
   "name": "tokenradar",
-  "main": ".open-next/worker.js",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  },
   "kv_namespaces": [
     {
       "binding": "NEXT_CACHE_WORKERS_KV",
@@ -23,12 +19,9 @@
       "database_id": "92ac6df2-40b4-4c5a-ad56-68142eefcf36"
     }
   ],
-  "services": [
-    {
-      "binding": "NEXT_CACHE_REVALIDATION_WORKER",
-      "service": "tokenradar"
-    }
-  ],
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://tokenradar.co"
+  },
   "observability": {
     "enabled": true
   }

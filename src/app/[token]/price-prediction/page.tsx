@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+
+export const dynamic = "force-static";
 import {
   getTokenDetail,
   getTokenMetrics,
@@ -21,18 +23,19 @@ interface PageProps {
   params: Promise<{ token: string }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return getTokenIds().map((id) => ({ token: id }));
+  const ids = await getTokenIds();
+  return ids.map((id) => ({ token: id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { token: tokenId } = await params;
-  const detail = getTokenDetail(tokenId);
+  const detail = await getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
-  const article = getArticle(tokenId, "price-prediction");
+  const article = await getArticle(tokenId, "price-prediction");
   const year = new Date().getFullYear();
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
@@ -61,12 +64,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PricePredictionPage({ params }: PageProps) {
   const { token: tokenId } = await params;
-  const detail = getTokenDetail(tokenId);
+  const detail = await getTokenDetail(tokenId);
   if (!detail) notFound();
 
-  const metrics = getTokenMetrics(tokenId);
-  const priceHistory = getPriceHistory(tokenId);
-  const article = getArticle(tokenId, "price-prediction");
+  const metrics = await getTokenMetrics(tokenId);
+  const priceHistory = await getPriceHistory(tokenId);
+  const article = await getArticle(tokenId, "price-prediction");
   const faqs = article ? getArticleFaqs(article.content) : [];
 
   const isPositive = detail.market.priceChange30d >= 0;
@@ -156,7 +159,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
         {article ? (
           <div style={{ marginTop: "var(--space-2xl)" }}>
             <div className="article-content" dangerouslySetInnerHTML={{ 
-              __html: markdownToHtml(article.content, {
+              __html: await markdownToHtml(article.content, {
                 name: detail.name,
                 symbol: detail.symbol,
                 price: detail.market.price,
