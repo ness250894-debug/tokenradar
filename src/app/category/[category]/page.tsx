@@ -8,15 +8,16 @@ interface PageProps {
   params: Promise<{ category: string }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return getAllCategories().map((cat) => ({ category: cat.id }));
+  const categories = await getAllCategories();
+  return categories.map((cat) => ({ category: cat.id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category } = await params;
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   const cat = categories.find(c => c.id === category);
   if (!cat) return { title: "Category Not Found" };
 
@@ -43,18 +44,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   const cat = categories.find(c => c.id === category);
   
   if (!cat) notFound();
 
-  const tokens = getTokensByCategory(cat.id);
+  const tokens = await getTokensByCategory(cat.id);
   const totalMarketCap = tokens.reduce((sum, t) => sum + (t.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, t) => sum + (t.volume24h || 0), 0);
   
   // Format tokens for the TokenCard component
-  const tokenCards: TokenCardData[] = tokens.map(t => {
-    const metrics = getTokenMetrics(t.id);
+  const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (t) => {
+    const metrics = await getTokenMetrics(t.id);
     return {
       id: t.id,
       name: t.name,
@@ -65,7 +66,7 @@ export default async function CategoryPage({ params }: PageProps) {
       riskScore: metrics?.riskScore || 5,
       category: cat.name,
     };
-  });
+  }));
 
   return (
     <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>

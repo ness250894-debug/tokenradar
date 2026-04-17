@@ -7,7 +7,8 @@ export const dynamic = "force-static";
 
 /** Pre-render image cards for all available tokens. */
 export async function generateStaticParams() {
-  return getTokenIds().map((id) => ({ id }));
+  const ids = await getTokenIds();
+  return ids.map((id) => ({ id }));
 }
 
 export async function GET(
@@ -16,8 +17,8 @@ export async function GET(
 ) {
   const { id } = await params;
   
-  const detail = getTokenDetail(id);
-  const metrics = getTokenMetrics(id);
+  const detail = await getTokenDetail(id);
+  const metrics = await getTokenMetrics(id);
 
   if (!detail) {
     return new Response('Token not found', { status: 404 });

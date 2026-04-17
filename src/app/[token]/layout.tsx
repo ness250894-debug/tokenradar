@@ -15,7 +15,7 @@ export default async function TokenLayout({ children, params }: LayoutProps) {
   const { token: tokenId } = await params;
   
   // Verify token exists, otherwise 404 (handled normally by page.tsx, but good practice here)
-  const detail = getTokenDetail(tokenId);
+  const detail = await getTokenDetail(tokenId);
   if (!detail) notFound();
 
   return (

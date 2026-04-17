@@ -4,20 +4,22 @@ import { getTokenDetail } from '@/lib/content-loader';
 import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
 
+export const dynamic = "force-static";
+
 interface PageProps {
   params: Promise<{
     token: string;
   }>;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 /**
  * Metadata Generation for pSEO
  */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { token: tokenId } = await params;
-  const token = getTokenDetail(tokenId);
+  const token = await getTokenDetail(tokenId);
   const technical = getTokenTechnical(tokenId);
 
   if (!token || !technical) {
@@ -56,7 +58,7 @@ export async function generateStaticParams() {
 
 export default async function TransferGuidePage({ params }: PageProps) {
   const { token: tokenId } = await params;
-  const token = getTokenDetail(tokenId);
+  const token = await getTokenDetail(tokenId);
   const technical = getTokenTechnical(tokenId);
 
   // Safety Check: If not in pilot batch or not found, return 404

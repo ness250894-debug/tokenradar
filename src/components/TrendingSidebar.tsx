@@ -7,8 +7,8 @@ import { formatPercent } from "@/lib/formatters";
  * Sidebar component displaying trending/highest-volume tokens.
  * Injected into the [token]/layout.tsx to improve internal linking and SEO.
  */
-export function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) {
-  const allTokensList = getAllTokens();
+export async function TrendingSidebar({ currentTokenId }: { currentTokenId: string }) {
+  const allTokensList = await getAllTokens();
   
   // Filter out the current token so we don't link to the page we are already on
   const otherTokens = allTokensList.filter(t => t.id !== currentTokenId);
