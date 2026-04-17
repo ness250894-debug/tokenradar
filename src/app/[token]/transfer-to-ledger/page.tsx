@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTokenDetail } from '@/lib/content-loader';
-import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
+import { getTokenTechnical } from '@/lib/token-technical-data';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
 
 export const dynamic = "force-static";
@@ -50,10 +50,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * This prevents indexing of low-quality/incomplete guide pages.
  */
 export async function generateStaticParams() {
-  const pilotIds = getPilotTokenIds();
-  return pilotIds.map((token) => ({
-    token: token,
-  }));
+  // Pilot Lock: Return empty to keep build fast. 
+  // dynamicParams=true handles verified guides on-demand.
+  return [];
 }
 
 export default async function TransferGuidePage({ params }: PageProps) {

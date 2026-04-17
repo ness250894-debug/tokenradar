@@ -8,7 +8,6 @@ import {
   getTokenMetrics,
   getPriceHistory,
   getArticle,
-  getTokenIds,
   formatPrice,
   formatPercent,
   getArticleFaqs,
@@ -26,8 +25,8 @@ interface PageProps {
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const ids = await getTokenIds();
-  return ids.map((id) => ({ token: id }));
+  // Lazy generation to keep total static pages manageable (~300 core pages)
+  return [];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

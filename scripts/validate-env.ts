@@ -7,11 +7,15 @@ import * as dotenv from "dotenv";
 import * as path from "path";
 import * as fs from "fs";
 
-// Load environment variables from .env.local
-const envPath = path.resolve(process.cwd(), ".env.local");
-if (fs.existsSync(envPath)) {
-  dotenv.config({ path: envPath });
-}
+// Load environment variables from .env and .env.local
+const envFiles = [".env", ".env.local"];
+
+envFiles.forEach(file => {
+  const envPath = path.resolve(process.cwd(), file);
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath });
+  }
+});
 
 // Variables strictly required for the static build (sitemap, relative paths, etc.)
 const BUILD_REQUIRED = [
