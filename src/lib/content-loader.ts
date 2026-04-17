@@ -429,8 +429,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
 }
 
 function mapRawToTokenDetail(raw: Record<string, unknown>): TokenDetail | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const r = raw as any;
+  const r = raw as Record<string, unknown>;
   if (!r || !r.id) {
     throw new Error("Invalid token data: object is null or missing ID");
   }
@@ -487,7 +486,7 @@ function mapRawToTokenDetail(raw: Record<string, unknown>): TokenDetail | null {
       githubForks: r.developer?.githubForks ?? null,
       commits4Weeks: r.developer?.commits4Weeks ?? null,
     },
-    fetchedAt: r.fetchedAt || r.lastMarketUpdate || new Date().toISOString(),
+    fetchedAt: (r.fetchedAt as string) || (r.lastMarketUpdate as string) || new Date().toISOString(),
   };
 }
 
@@ -546,8 +545,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
 }
 
 function mapRawToTokenMetrics(raw: Record<string, unknown>, tokenId: string): TokenMetrics {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const r = raw as any;
+  const r = raw as Record<string, unknown>;
   return {
     tokenId: r.tokenId || tokenId,
     tokenName: r.tokenName || "",
@@ -559,7 +557,7 @@ function mapRawToTokenMetrics(raw: Record<string, unknown>, tokenId: string): To
     valueVsAth: r.valueVsAth ?? 0,
     volatilityIndex: r.volatilityIndex ?? 0,
     summary: r.summary || "",
-    computedAt: r.computedAt || new Date().toISOString(),
+    computedAt: (r.computedAt as string) || new Date().toISOString(),
   };
 }
 
@@ -584,14 +582,13 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
 }
 
 function mapRawToPriceHistory(raw: Record<string, unknown>, tokenId: string): PriceHistory {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const r = raw as any;
+  const r = raw as Record<string, unknown>;
   return {
     id: r.id || tokenId,
     name: r.name || "",
     chart30d: r.chart30d || [],
     chart1y: r.chart1y || [],
-    fetchedAt: r.fetchedAt || new Date().toISOString(),
+    fetchedAt: (r.fetchedAt as string) || new Date().toISOString(),
   };
 }
 
