@@ -147,9 +147,9 @@ let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
 
 // Raw blobs (lazy loaded)
-let _tokensBlob: Record<string, any> | null = null;
-let _metricsBlob: Record<string, any> | null = null;
-let _pricesBlob: Record<string, any> | null = null;
+let _tokensBlob: Record<string, unknown> | null = null;
+let _metricsBlob: Record<string, unknown> | null = null;
+let _pricesBlob: Record<string, unknown> | null = null;
 
 // ── Data Fetching ─────────────────────────────────────────────
 
@@ -405,7 +405,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   const raw = _tokensBlob ? _tokensBlob[sanitized] : null;
 
   if (raw) {
-    return mapRawToTokenDetail(raw);
+    return mapRawToTokenDetail(raw as Record<string, unknown>);
   }
 
   // Fallback to single file read (Development/Scripts)
@@ -413,12 +413,12 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   const relPath = `data/tokens/${sanitized}.json`;
   const rawFile = await loadBlob(file, relPath);
   if (rawFile) {
-    return mapRawToTokenDetail(rawFile);
+    return mapRawToTokenDetail(rawFile as Record<string, unknown>);
   }
   return null;
 }
 
-function mapRawToTokenDetail(raw: Record<string, any>): TokenDetail | null {
+function mapRawToTokenDetail(raw: Record<string, unknown>): TokenDetail | null {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const r = raw as any;
   if (!r || !r.id) {
@@ -522,7 +522,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   const raw = _metricsBlob ? _metricsBlob[tokenId] : null;
 
   if (raw) {
-    return mapRawToTokenMetrics(raw, tokenId);
+    return mapRawToTokenMetrics(raw as Record<string, unknown>, tokenId);
   }
 
   // Fallback
@@ -530,12 +530,12 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   const relPath = `data/metrics/${tokenId}.json`;
   const rawFile = await loadBlob(file, relPath);
   if (rawFile) {
-    return mapRawToTokenMetrics(rawFile, tokenId);
+    return mapRawToTokenMetrics(rawFile as Record<string, unknown>, tokenId);
   }
   return null;
 }
 
-function mapRawToTokenMetrics(raw: Record<string, any>, tokenId: string): TokenMetrics {
+function mapRawToTokenMetrics(raw: Record<string, unknown>, tokenId: string): TokenMetrics {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const r = raw as any;
   return {
@@ -560,7 +560,7 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   const raw = _pricesBlob ? _pricesBlob[tokenId] : null;
 
   if (raw) {
-    return mapRawToPriceHistory(raw, tokenId);
+    return mapRawToPriceHistory(raw as Record<string, unknown>, tokenId);
   }
 
   // Fallback
@@ -568,12 +568,12 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   const relPath = `data/prices/${tokenId}.json`;
   const rawFile = await loadBlob(file, relPath);
   if (rawFile) {
-    return mapRawToPriceHistory(rawFile, tokenId);
+    return mapRawToPriceHistory(rawFile as Record<string, unknown>, tokenId);
   }
   return null;
 }
 
-function mapRawToPriceHistory(raw: Record<string, any>, tokenId: string): PriceHistory {
+function mapRawToPriceHistory(raw: Record<string, unknown>, tokenId: string): PriceHistory {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const r = raw as any;
   return {
