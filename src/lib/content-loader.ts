@@ -156,29 +156,52 @@ let _pricesBlob: Record<string, any> | null = null;
 async function fetchAsset(relativePath: string) {
   try {
     const url = `/${relativePath.replace(/\\/g, "/")}`;
-    
-    // In Browser: Use relative fetch (automatic origin matching)
-    if (typeof window !== "undefined") {
+    const isBrowser = typeof window !== "undefined";
+    const isNodeBuild = !isBrowser && process.env.NODE_ENV === "production" && !process.env.NEXT_RUNTIME;
+
+    // 1. In Browser: Use relative fetch (automatic origin matching)
+    if (isBrowser) {
       const resp = await fetch(url);
       if (resp.ok) return await resp.json();
       return null;
     }
 
-    // In Server: Try relative fetch first (works natively on Cloudflare Pages Workers).
-    // In Node.js (local build), this will throw "Failed to parse URL", which we catch and switch to absolute fallback.
-    try {
-      const resp = await fetch(url, { next: { revalidate: 3600 } });
-      if (resp.ok) return await resp.json();
-      console.warn(`⚠️ Relative fetch failed for ${url} (Status: ${resp.status}). Trying absolute fallback...`);
-    } catch {
-      // Ignore "Failed to parse URL" or "Network error" for relative URL in Node.js environment
+    // 2. In Server (Node.js Build / Edge Runtime)
+    // IMPORTANT: Skip relative fetch in Node.js build process to prevent timeout stalls
+    if (!isNodeBuild) {
+      try {
+        const resp = await fetch(url, { next: { revalidate: 3600 } });
+        if (resp.ok) return await resp.json();
+      } catch {
+        // Fall back peacefully
+      }
     }
 
+    // 3. Absolute Fallback (Used during local build or if relative fails)
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
     const fullUrl = new URL(url, siteUrl).toString();
-    const fallbackResp = await fetch(fullUrl, { next: { revalidate: 3600 } });
-    if (!fallbackResp.ok) return null;
-    return await fallbackResp.json();
+    
+    // Add 3s safety timeout to prevent build hangs
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    try {
+      const fallbackResp = await fetch(fullUrl, { 
+        next: { revalidate: 3600 },
+        signal: controller.signal 
+      });
+      clearTimeout(timeoutId);
+      if (!fallbackResp.ok) return null;
+      return await fallbackResp.json();
+    } catch (e: any) {
+      clearTimeout(timeoutId);
+      if (e.name === 'AbortError') {
+        console.warn(`⏳ Network fetch timed out for ${fullUrl}`);
+      } else {
+        console.error(`❌ Network fetch failed for ${fullUrl}: ${e.message}`);
+      }
+      return null;
+    }
   } catch (e: any) {
     console.error(`❌ Fetch error for ${relativePath}: ${e.message}`);
   }
@@ -186,16 +209,26 @@ async function fetchAsset(relativePath: string) {
 }
 
 async function loadBlob(filePath: string, relativePath: string) {
+  const isServer = typeof window === "undefined";
+  const isBuild = isServer && process.env.NODE_ENV === "production" && !process.env.NEXT_RUNTIME;
+
   // 1. Try FS (Works in local Dev and SSG build)
-  if (typeof window === "undefined" && fs.existsSync(filePath)) {
+  if (isServer && fs.existsSync(filePath)) {
     try {
-      return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      if (isBuild && filePath.endsWith('_registry.json')) {
+        console.log(`\x1b[32m%s\x1b[0m`, `📦 [BUILD] Successfully loaded data from local Filesystem.`);
+      }
+      return data;
     } catch (e) {
       console.error(`❌ FS load failed for ${filePath}:`, e);
     }
   }
 
   // 2. Try Fetch (Works in SSR on Cloudflare)
+  if (isBuild && filePath.endsWith('_registry.json')) {
+    console.warn(`\x1b[33m%s\x1b[0m`, `⚠️ [BUILD] Filesystem fallback: Fetching data from network for ${relativePath}`);
+  }
   return await fetchAsset(relativePath);
 }
 
