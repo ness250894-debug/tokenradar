@@ -34,6 +34,16 @@ function consolidate() {
     const tokenId = file.replace(".json", "");
     try {
       const content = JSON.parse(fs.readFileSync(path.join(TOKENS_DIR, file), "utf-8"));
+      
+      // SKIP tokens with zero market data (Price and Market Cap and Volume are 0)
+      const market = content.market || {};
+      const hasMarket = market.price > 0 || market.marketCap > 0 || market.volume24h > 0;
+      
+      if (!hasMarket) {
+        console.warn(`⚠️ Skipping ${tokenId} during consolidation: No market data.`);
+        continue;
+      }
+
       tokensBlob[tokenId] = content;
 
       // Extract registry data (minimal set for list pages)
