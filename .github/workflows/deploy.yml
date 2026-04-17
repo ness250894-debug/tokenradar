@@ -55,11 +55,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-#      - name: Run Linting
-#        run: npm run lint
+      - name: Run Linting
+        run: npm run lint
 
-#      - name: Run Tests
-#        run: npm run test
+      - name: Run Tests
+        run: npm run test
 
       - name: Build for Cloudflare (OpenNext)
         run: npm run build:cf
