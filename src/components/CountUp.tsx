@@ -22,9 +22,16 @@ export function CountUp({
   className,
 }: CountUpProps) {
   const [value, setValue] = useState(end);
+  const [isMounted, setIsMounted] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     let startTimestamp: number | null = null;
     let observer: IntersectionObserver;
     let frameId: number;

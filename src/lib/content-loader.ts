@@ -164,18 +164,23 @@ async function fetchAsset(relativePath: string) {
       return null;
     }
 
-    // In Server: Must use absolute URL
+    // In Server: Try relative fetch first (works natively on Cloudflare Pages Workers).
+    // In Node.js (local build), this will throw "Failed to parse URL", which we catch and switch to absolute fallback.
+    try {
+      const resp = await fetch(url, { next: { revalidate: 3600 } });
+      if (resp.ok) return await resp.json();
+      console.warn(`⚠️ Relative fetch failed for ${url} (Status: ${resp.status}). Trying absolute fallback...`);
+    } catch {
+      // Ignore "Failed to parse URL" or "Network error" for relative URL in Node.js environment
+    }
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
     const fullUrl = new URL(url, siteUrl).toString();
-    
-    const resp = await fetch(fullUrl, { next: { revalidate: 3600 } });
-    if (!resp.ok) {
-      console.warn(`⚠️ Fetch failed for ${relativePath} (Status: ${resp.status}). Full URL: ${fullUrl}`);
-      return null;
-    }
-    return await resp.json();
+    const fallbackResp = await fetch(fullUrl, { next: { revalidate: 3600 } });
+    if (!fallbackResp.ok) return null;
+    return await fallbackResp.json();
   } catch (e: any) {
-    console.error(`❌ Fetch fallback fatal error for ${relativePath}. Ensure NEXT_PUBLIC_SITE_URL is correct. Error: ${e.message}`);
+    console.error(`❌ Fetch error for ${relativePath}: ${e.message}`);
   }
   return null;
 }
@@ -366,9 +371,11 @@ function mapRawToTokenDetail(raw: any): TokenDetail | null {
   }
 
   // Ensure we don't return an object with zero market data if it looks corrupted
-  const hasMarket = raw.market && (raw.market.price > 0 || raw.market.marketCap > 0);
+  const market = raw.market || {};
+  const hasMarket = market.price > 0 || market.marketCap > 0 || market.volume24h > 0;
+  
   if (!hasMarket) {
-    console.warn(`⚠️ Token ${raw.id} has zero market data. Skipping mapping.`);
+    console.warn(`⚠️ Token ${raw.id} has invalid/zero market data. Skipping mapping.`);
     return null;
   }
   
