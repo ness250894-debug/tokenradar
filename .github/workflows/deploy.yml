@@ -78,7 +78,12 @@ jobs:
           echo "✅ '.open-next' directory found. Proceeding to deploy."
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy .open-next --project-name=tokenradar --branch=${{ github.head_ref || github.ref_name }}
+        run: |
+          # Explicitly set branch to main and force deployment
+          npx wrangler pages deploy .open-next \
+            --project-name=tokenradar \
+            --branch=main \
+            --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
