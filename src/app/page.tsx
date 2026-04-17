@@ -7,7 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
-import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap, Scale } from "lucide-react";
+import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap } from "lucide-react";
 
 export default async function HomePage() {
   const allTokensList = await getAllTokens();
@@ -159,7 +159,7 @@ export default async function HomePage() {
             <h2>How <span className="gradient-text">TokenRadar</span> Works</h2>
             <p>Every analysis is built on real data, not opinions.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <CardGlare style={{ height: "100%" }}>
               <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
                 <div className="feature-icon-wrapper">
@@ -179,17 +179,6 @@ export default async function HomePage() {
                 <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>Proprietary Metrics</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
                   Our Risk Score, Growth Index, and Narrative Strength are computed from real market data — not subjective ratings.
-                </p>
-              </div>
-            </CardGlare>
-            <CardGlare style={{ height: "100%" }}>
-              <div className="card" style={{ height: "100%", position: "relative", overflow: "hidden" }}>
-                <div className="feature-icon-wrapper">
-                  <Scale className="feature-icon" size={32} />
-                </div>
-                <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>Comparison Engine</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
-                  Programmatic head-to-head analysis of price performance, risk profiles, and market dominance for 62,000+ pairings.
                 </p>
               </div>
             </CardGlare>

@@ -27,12 +27,7 @@ const LEGAL_LINKS = [
   { href: "/disclaimer", label: "Disclaimer" },
 ] as const;
 
-const COMPARISON_LINKS = [
-  { href: "/compare/bitcoin-vs-ethereum", label: "BTC vs ETH" },
-  { href: "/compare/solana-vs-ethereum", label: "SOL vs ETH" },
-  { href: "/compare/dogecoin-vs-shiba-inu", label: "DOGE vs SHIB" },
-  { href: "/compare/pepe-vs-bonk", label: "PEPE vs BONK" },
-] as const;
+
 
 export function Footer() {
   const [mounted, setMounted] = useState(false);
@@ -91,22 +86,10 @@ export function Footer() {
           </div>
 
           {/* Legal Column */}
-
-          {/* Legal Column */}
           <div>
             <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-col-links">
               {LEGAL_LINKS.map(({ href, label }) => (
-                <li key={href}><Link href={href}>{label}</Link></li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Comparisons Column */}
-          <div>
-            <h4 className="footer-col-title">Compare</h4>
-            <ul className="footer-col-links">
-              {COMPARISON_LINKS.map(({ href, label }) => (
                 <li key={href}><Link href={href}>{label}</Link></li>
               ))}
             </ul>

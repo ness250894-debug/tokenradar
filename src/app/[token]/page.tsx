@@ -312,18 +312,6 @@ export default async function TokenPage({ params }: PageProps) {
                 </Link>
               </CardGlare>
             )}
-            {/* Comparison Engine mothballed to stay under deployment limit */}
-            {/* 
-            <CardGlare style={{ height: "100%" }}>
-              <Link href={`/compare`} className="card" style={{ display: "block", background: "var(--bg-elevated)", border: "1px solid var(--accent-primary)", height: "100%" }}>
-                <Scale size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
-                <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>Comparison Engine</div>
-                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                  Side-by-side metric comparison for any two tokens in our database.
-                </div>
-              </Link>
-            </CardGlare>
-            */}
             {technical && (
               <CardGlare style={{ height: "100%" }}>
                 <Link href={`/${tokenId}/transfer-to-ledger`} className="card" style={{ display: "block", height: "100%", border: "1px solid rgba(16, 185, 129, 0.4)" }}>

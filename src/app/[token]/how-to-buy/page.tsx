@@ -7,7 +7,6 @@ import {
   getTokenDetail,
   getTokenMetrics,
   getArticle,
-  getTokenIds,
   formatPrice,
   formatCompact,
   getArticleFaqs,
@@ -24,9 +23,9 @@ interface PageProps {
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const ids = await getTokenIds();
-  console.log(`[BUILD] Generating How-to-Buy paths for ${ids.length} tokens`);
-  return ids.map((id) => ({ token: id }));
+  // Empty array means these pages are generated on-demand (ISR) 
+  // to keep build times fast while maintaining full functionality.
+  return [];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
