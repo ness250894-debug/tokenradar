@@ -292,7 +292,12 @@ async function main() {
   }
 }
 
-main().catch(async (error) => {
-  await logError("post-interactive-daily", error);
-  process.exit(1);
-});
+// Entry Point (only run if executed directly)
+const isEntryPoint = process.argv[1]?.endsWith("post-interactive-daily.ts");
+
+if (isEntryPoint) {
+  main().catch(async (error) => {
+    await logError("post-interactive-daily", error);
+    process.exit(1);
+  });
+}
