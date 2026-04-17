@@ -157,12 +157,12 @@ async function fetchAsset(relativePath: string) {
   try {
     const url = `/${relativePath.replace(/\\/g, "/")}`;
     const isBrowser = typeof window !== "undefined";
-    
-    // Detect if we are in ANY Node.js environment (Next.js build, tsx scripts, etc.)
-    // Relative fetches are only valid in the Browser or Cloudflare runtime (Edge).
     const isNode = !isBrowser && (process.env.NEXT_RUNTIME !== 'edge');
+    
+    // Diagnostic prefix for logs
+    const logPrefix = `[LOADER]`;
 
-    // 1. In Browser: Use relative fetch (automatic origin matching)
+    // 1. In Browser: Use relative fetch
     if (isBrowser) {
       const resp = await fetch(url);
       if (resp.ok) return await resp.json();
@@ -170,13 +170,19 @@ async function fetchAsset(relativePath: string) {
     }
 
     // 2. In Server (Cloudflare Edge Runtime)
-    // IMPORTANT: Skip relative fetch in all Node.js environments to prevent timeout stalls
     if (!isNode) {
       try {
         const resp = await fetch(url, { next: { revalidate: 3600 } });
-        if (resp.ok) return await resp.json();
-      } catch {
-        // Fall back peacefully
+        if (resp.ok) {
+          const data = await resp.json();
+          // Log success for critical blobs
+          if (url.includes('_blob') || url.includes('_registry')) {
+            console.info(`${logPrefix} Successfully fetched ${url} via Relative Fetch`);
+          }
+          return data;
+        }
+      } catch (err: any) {
+        // Fall back peacefully to absolute
       }
     }
 
@@ -194,33 +200,44 @@ async function fetchAsset(relativePath: string) {
         signal: controller.signal 
       });
       clearTimeout(timeoutId);
-      if (!fallbackResp.ok) return null;
-      return await fallbackResp.json();
+      
+      if (!fallbackResp.ok) {
+        console.warn(`${logPrefix} Failed to fetch ${fullUrl} (Status: ${fallbackResp.status})`);
+        return null;
+      }
+      
+      const data = await fallbackResp.json();
+      if (url.includes('_blob') || url.includes('_registry')) {
+        console.info(`${logPrefix} Successfully fetched ${url} via Absolute Fallback (${siteUrl})`);
+      }
+      return data;
     } catch (e: any) {
       clearTimeout(timeoutId);
       if (e.name === 'AbortError') {
-        console.warn(`⏳ Network fetch timed out for ${fullUrl}`);
+        console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
       } else {
-        console.error(`❌ Network fetch failed for ${fullUrl}: ${e.message}`);
+        console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${e.message}`);
       }
       return null;
     }
   } catch (e: any) {
-    console.error(`❌ Fetch error for ${relativePath}: ${e.message}`);
+    console.error(`❌ Global fetch error for ${relativePath}: ${e.message}`);
   }
   return null;
 }
 
 async function loadBlob(filePath: string, relativePath: string) {
   const isServer = typeof window === "undefined";
-  const isBuild = isServer && process.env.NODE_ENV === "production" && !process.env.NEXT_RUNTIME;
+  // Detect build or script environment (Pure Node.js, no Edge runtime)
+  const isNode = isServer && (!process.env.NEXT_RUNTIME || process.env.NEXT_RUNTIME === 'nodejs');
 
   // 1. Try FS (Works in local Dev and SSG build)
   if (isServer && fs.existsSync(filePath)) {
     try {
       const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-      if (isBuild && filePath.endsWith('_registry.json')) {
-        console.log(`\x1b[32m%s\x1b[0m`, `📦 [BUILD] Successfully loaded data from local Filesystem.`);
+      // Only log on critical file loads in Node to keep logs clean
+      if (isNode && (filePath.endsWith('_registry.json') || filePath.endsWith('_blob.json'))) {
+        console.info(`[LOADER] Found ${path.basename(filePath)} on local Filesystem.`);
       }
       return data;
     } catch (e) {
@@ -228,10 +245,6 @@ async function loadBlob(filePath: string, relativePath: string) {
     }
   }
 
-  // 2. Try Fetch (Works in SSR on Cloudflare)
-  if (isBuild && filePath.endsWith('_registry.json')) {
-    console.warn(`\x1b[33m%s\x1b[0m`, `⚠️ [BUILD] Filesystem fallback: Fetching data from network for ${relativePath}`);
-  }
   return await fetchAsset(relativePath);
 }
 
