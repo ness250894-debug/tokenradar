@@ -1,4 +1,5 @@
-import { Api, RawApi, InlineKeyboard, InputFile } from "grammy";
+import { Api, InlineKeyboard, InputFile } from "grammy";
+import type { RawApi } from "grammy";
 
 
 /**

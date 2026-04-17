@@ -55,6 +55,7 @@ export function HackerText({ text, className, style }: HackerTextProps) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);

@@ -2,7 +2,7 @@ import { getUpcomingTGEs, getArticle, getTokenDetail } from "@/lib/content-loade
 import { markdownToHtml } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { LastUpdated } from "@/components/LastUpdated";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { CountUp } from "@/components/CountUp";

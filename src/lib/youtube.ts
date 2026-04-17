@@ -36,7 +36,7 @@ export async function uploadToYouTubeShorts(
   const fileSize = fs.statSync(videoPath).size;
 
   try {
-    console.log(`  ▸ Starting YouTube upload (${(fileSize / 1024 / 1024).toFixed(2)} MB)...`);
+    console.info(`  ▸ Starting YouTube upload (${(fileSize / 1024 / 1024).toFixed(2)} MB)...`);
     const res = await youtube.videos.insert({
       part: ['snippet', 'status'],
       requestBody: {
@@ -61,14 +61,14 @@ export async function uploadToYouTubeShorts(
       },
     });
 
-    console.log();
+    console.info();
     if (res.data && res.data.id) {
-      console.log(`  ✓ YouTube upload complete! Video ID: ${res.data.id}`);
+      console.info(`  ✓ YouTube upload complete! Video ID: ${res.data.id}`);
       return res.data.id;
     }
     throw new Error('Upload succeeded but no video ID was returned.');
   } catch (_error: unknown) {
-    console.log();
+    console.info();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const error = _error as any;
     const errorMsg = error.response?.data?.error?.message || error.message || String(error);

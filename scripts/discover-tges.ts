@@ -135,7 +135,6 @@ async function analyzeNewsInBatches(
   for (let i = 0; i < totalBatches; i++) {
     const batch = newsItems.slice(i * AI_BATCH_SIZE, (i + 1) * AI_BATCH_SIZE);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newsContext = batch.map((item: any) =>
       `Title: ${item.title}\nSnippet: ${(item.contentSnippet || item.content || "").substring(0, 200)}\nSource: ${item.link}`
     ).join("\n---\n");

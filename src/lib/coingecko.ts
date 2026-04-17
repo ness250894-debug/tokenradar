@@ -132,7 +132,7 @@ async function withCache<T>(
       const stat = fs.statSync(cacheFile);
       const age = Date.now() - stat.mtimeMs;
       if (age < cacheTtlMs) {
-        console.log(`  [cache hit] ${cacheKey} (age: ${Math.round(age / 60000)}min)`);
+        console.info(`  [cache hit] ${cacheKey} (age: ${Math.round(age / 60000)}min)`);
         return JSON.parse(fs.readFileSync(cacheFile, "utf-8")) as T;
       }
     }
@@ -146,7 +146,7 @@ async function withCache<T>(
   if (cacheKey) {
     const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
     fs.writeFileSync(cacheFile, JSON.stringify(data, null, 2));
-    console.log(`  [cached] ${cacheKey} (call ${currentCount}/${MONTHLY_LIMIT} this month)`);
+    console.info(`  [cached] ${cacheKey} (call ${currentCount}/${MONTHLY_LIMIT} this month)`);
   }
 
   return data;
@@ -171,7 +171,7 @@ export async function fetchCoinGecko<T>(
     const apiKey = process.env.COINGECKO_API_KEY;
     if (apiKey) url.searchParams.set("x_cg_demo_api_key", apiKey);
 
-    console.log(`  [api/raw] GET ${url.pathname}${url.search}`);
+    console.info(`  [api/raw] GET ${url.pathname}${url.search}`);
     const response = await fetchWithRetry(url.toString(), {
       headers: { Accept: "application/json", "User-Agent": "TokenRadar/1.0" },
     });
@@ -404,7 +404,8 @@ export async function fetchTokensByRank(
   );
 
   return (tokens || []).filter(
-    (t: any) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (t: Record<string, any>) =>
       t.market_cap_rank !== null &&
       t.market_cap_rank >= startRank &&
       t.market_cap_rank <= endRank
@@ -419,7 +420,8 @@ export async function fetchTokensByRank(
  * Fetch the top trending coins from CoinGecko's search/trending endpoint.
  * This is a zero-cost endpoint based on user search volume.
  */
-export async function fetchTrendingCoins(): Promise<any[]> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function fetchTrendingCoins(): Promise<Record<string, any>[]> {
   const client = getClient();
   try {
     const raw = await withCache(
@@ -511,7 +513,7 @@ export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolDa
     // However, GT has its own rate limits, so we respect our delay.
     await enforceQuotas(); 
 
-    console.log(`  [GT/api] GET ${url}`);
+    console.info(`  [GT/api] GET ${url}`);
     const response = await fetchWithRetry(url, {
       headers: { Accept: "application/json", "User-Agent": "TokenRadar/1.0" },
     });
@@ -520,10 +522,10 @@ export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolDa
       if (response.status === 404) return [];
       throw new Error(`GeckoTerminal error: ${response.status}`);
     }
-
     const json = await response.json();
     const pools = json.data || [];
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return pools.map((p: any) => ({
       id: p.id,
       name: p.attributes.name,
@@ -534,6 +536,7 @@ export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolDa
       dexId: p.relationships?.dex?.data?.id || "unknown",
       poolCreatedAt: p.attributes.pool_created_at || null,
       priceChange24h: parseFloat(p.attributes.price_change_percentage?.h24 || "0"),
-    })).sort((a: any, b: any) => b.reserveUsd - a.reserveUsd); // Sort by highest liquidity
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    })).sort((a: Record<string, any>, b: Record<string, any>) => b.reserveUsd - a.reserveUsd); // Sort by highest liquidity
   });
 }

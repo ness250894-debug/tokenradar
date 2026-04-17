@@ -93,13 +93,15 @@ const MAX_X_RETRIES = 3;
  * Handles transient errors like 503 Service Unavailable.
  */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let lastError: any;
   for (let attempt = 1; attempt <= MAX_X_RETRIES; attempt++) {
     try {
       return await fn();
-    } catch (error: any) {
+    } catch (error: unknown) {
       lastError = error;
-      const status = error?.status || error?.response?.status;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = (error as any)?.status || (error as any)?.response?.status;
       
       // Retry on 503 (Service Unavailable) or 500 (Internal Error), or networking errors
       const shouldRetry = status === 503 || status === 500 || !status;
@@ -135,7 +137,7 @@ function getLatestRefreshToken(envToken: string): string {
     if (fs.existsSync(OAUTH_STATE_FILE)) {
       const state = JSON.parse(fs.readFileSync(OAUTH_STATE_FILE, "utf-8"));
       if (state.refreshToken && typeof state.refreshToken === "string") {
-        console.log("  ℹ Using refresh token from state file (data/x-oauth-state.json)");
+        console.info("  ℹ Using refresh token from state file (data/x-oauth-state.json)");
         return state.refreshToken;
       }
     }
@@ -164,7 +166,7 @@ function persistRefreshToken(newToken: string): void {
       JSON.stringify({ refreshToken: newToken, updatedAt: new Date().toISOString() }, null, 2),
       "utf-8"
     );
-    console.log("  ✓ Refresh token saved to data/x-oauth-state.json");
+    console.info("  ✓ Refresh token saved to data/x-oauth-state.json");
   } catch (err) {
     console.warn("  ⚠ Could not save state file:", (err as Error).message);
   }
@@ -179,7 +181,7 @@ function persistRefreshToken(newToken: string): void {
         `X_OAUTH2_REFRESH_TOKEN=${newToken}`
       );
       fs.writeFileSync(envPath, envContent, "utf-8");
-      console.log("  ✓ Refresh token also saved to .env.local");
+      console.info("  ✓ Refresh token also saved to .env.local");
     }
   } catch {
     // Non-fatal — CI won't have .env.local
@@ -423,7 +425,7 @@ export async function postTweetWithMedia(
     );
     mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
     if (mediaId) {
-      console.log(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+      console.info(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
     }
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
@@ -493,13 +495,13 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
     );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
-    console.log("  ✓ Native poll created successfully");
+    console.info("  ✓ Native poll created successfully");
     return { tweetId, native: true };
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
     const errorMsg = String(e?.message || e?.data || e);
     console.warn(`  ⚠ Native poll failed: ${errorMsg}`);
-    console.log("  ↳ Falling back to text-based poll...");
+    console.info("  ↳ Falling back to text-based poll...");
   }
 
   // ── Attempt 2: Text-based fallback ──
@@ -526,7 +528,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
     );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
-    console.log("  ✓ Text-based fallback poll posted successfully");
+    console.info("  ✓ Text-based fallback poll posted successfully");
     return { tweetId, native: false };
   } catch (_e2: unknown) {
     const e2 = _e2 as Record<string, unknown>;

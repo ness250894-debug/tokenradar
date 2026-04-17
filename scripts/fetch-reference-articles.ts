@@ -223,7 +223,7 @@ async function fetchRedditOAuth(tokenName: string): Promise<RssArticle[]> {
     
     if (!response.ok) return [];
     const data = await response.json();
-    return (data.data?.children || []).map((post: any) => ({ // eslint-disable-line @typescript-eslint/no-explicit-any
+    return (data.data?.children || []).map((post: any) => ({
       title: post.data.title,
       link: `https://reddit.com${post.data.permalink}`,
       pubDate: new Date(post.data.created_utc * 1000).toISOString(),

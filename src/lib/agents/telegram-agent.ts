@@ -19,7 +19,7 @@ const postUpdateTool = createTool({
     const channelId = process.env.TELEGRAM_CHANNEL_ID;
     if (!channelId) throw new Error("TELEGRAM_CHANNEL_ID not set");
 
-    let finalMessage = text;
+    const finalMessage = text;
     let keyboard;
 
     if (ctaUrl) {

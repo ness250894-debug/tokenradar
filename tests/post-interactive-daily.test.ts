@@ -25,6 +25,7 @@ const mockToken = {
     price: 145.23,
     priceChange24h: 3.47,
     marketCap: 70_000_000_000,
+    marketCapRank: 5,
   },
 };
 
@@ -37,6 +38,7 @@ const mockTokenCheap = {
     price: 0.00001234,
     priceChange24h: -5.2,
     marketCap: 5_000_000_000,
+    marketCapRank: 30,
   },
 };
 
@@ -136,11 +138,11 @@ describe("buildNarrativePoll", () => {
 describe("buildCommunityPoll", () => {
   it("uses top 4 tokens by 24h change", async () => {
     const candidates = [
-      { ...mockToken, id: "a", symbol: "aaa", market: { ...mockToken.market, priceChange24h: 10 } },
-      { ...mockToken, id: "b", symbol: "bbb", market: { ...mockToken.market, priceChange24h: 8 } },
-      { ...mockToken, id: "c", symbol: "ccc", market: { ...mockToken.market, priceChange24h: 6 } },
-      { ...mockToken, id: "d", symbol: "ddd", market: { ...mockToken.market, priceChange24h: 4 } },
-      { ...mockToken, id: "e", symbol: "eee", market: { ...mockToken.market, priceChange24h: 2 } },
+      { ...mockToken, id: "a", symbol: "aaa", market: { ...mockToken.market, priceChange24h: 10, marketCapRank: 1 } },
+      { ...mockToken, id: "b", symbol: "bbb", market: { ...mockToken.market, priceChange24h: 8, marketCapRank: 2 } },
+      { ...mockToken, id: "c", symbol: "ccc", market: { ...mockToken.market, priceChange24h: 6, marketCapRank: 3 } },
+      { ...mockToken, id: "d", symbol: "ddd", market: { ...mockToken.market, priceChange24h: 4, marketCapRank: 4 } },
+      { ...mockToken, id: "e", symbol: "eee", market: { ...mockToken.market, priceChange24h: 2, marketCapRank: 5 } },
     ];
     const poll = await buildCommunityPoll(candidates);
     expect(poll.options).toHaveLength(4);
