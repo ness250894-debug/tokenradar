@@ -188,6 +188,16 @@ async function fetchAsset(relativePath: string) {
 
     // 3. Absolute Fallback (Mandatory for Node.js scripts and local builds)
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+    
+    // Safety: If we are in CI or a production build, DO NOT fetch from the live site.
+    // This prevents a "stale data" loop where a new build inherits the old site's zeroed-out data.
+    if (process.env.CI || (process.env.NODE_ENV === 'production' && !isBrowser)) {
+      if (url.includes('_blob') || url.includes('_registry')) {
+        console.warn(`${logPrefix} Skipping absolute fetch for ${url} in CI/Production build environment.`);
+        return null;
+      }
+    }
+
     const fullUrl = new URL(url, siteUrl).toString();
     
     // Add 3s safety timeout to prevent build hangs
