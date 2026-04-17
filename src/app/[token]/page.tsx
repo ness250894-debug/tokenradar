@@ -388,12 +388,7 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Top Comparisons (Mothballed) */}
-        {/* 
-        <div style={{ marginTop: "var(--space-4xl)" }}>
-          ...
-        </div>
-        */}
+
         
         {/* Related Tokens */}
         {relatedTokens.length > 0 && (

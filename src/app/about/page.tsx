@@ -148,26 +148,7 @@ export default function AboutPage() {
             metrics and article generation.
           </p>
 
-          <h2>Token Comparisons</h2>
-          <p>
-            Our comparison engine provides programmatic, side-by-side analysis
-            for over <strong>62,250 unique token pairings</strong>. Every
-            comparison analyzes:
-          </p>
-          <ul>
-            <li>
-              <strong>Risk Relativity</strong> — compares proprietary risk
-              scores (e.g., Low vs High) to highlight the safer asset.
-            </li>
-            <li>
-              <strong>Market Dominance</strong> — calculates the relative
-              market cap size (e.g., &quot;Token A is 10x larger than Token B&quot;).
-            </li>
-            <li>
-              <strong>Performance Delta</strong> — tracks 30-day and 24h price
-              divergence using normalized historical data.
-            </li>
-          </ul>
+
 
           <h2>The Action Layer: Essential Toolkit</h2>
           <p>

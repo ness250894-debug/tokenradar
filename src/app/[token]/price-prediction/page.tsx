@@ -5,6 +5,7 @@ import Link from "next/link";
 export const dynamic = "force-static";
 import {
   getTokenDetail,
+  getAllTokens,
   getTokenMetrics,
   getPriceHistory,
   getArticle,
@@ -25,8 +26,8 @@ interface PageProps {
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  // Lazy generation to keep total static pages manageable (~300 core pages)
-  return [];
+  const tokens = await getAllTokens();
+  return tokens.map((t) => ({ token: t.id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
