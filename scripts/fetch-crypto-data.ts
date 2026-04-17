@@ -136,7 +136,6 @@ async function main() {
   const allFiles = fs.readdirSync(TOKENS_DIR).filter(f => f.endsWith(".json"));
   const tokensSummary = allFiles
     .map(f => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = safeReadJson<any>(path.join(TOKENS_DIR, f), null);
       if (!data || !data.id) return null;
       return {
@@ -147,7 +146,6 @@ async function main() {
       };
     })
     .filter(Boolean)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .sort((a: any, b: any) => (a.market?.marketCapRank || 9999) - (b.market?.marketCapRank || 9999));
 
   fs.writeFileSync(path.join(DATA_DIR, "tokens.json"), JSON.stringify(tokensSummary, null, 2));

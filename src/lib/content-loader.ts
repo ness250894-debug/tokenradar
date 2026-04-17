@@ -181,7 +181,7 @@ async function fetchAsset(relativePath: string) {
           }
           return data;
         }
-      } catch (err: any) {
+      } catch (_err) {
         // Fall back peacefully to absolute
       }
     }
@@ -211,17 +211,21 @@ async function fetchAsset(relativePath: string) {
         console.info(`${logPrefix} Successfully fetched ${url} via Absolute Fallback (${siteUrl})`);
       }
       return data;
-    } catch (e: any) {
+    } catch (e: unknown) {
       clearTimeout(timeoutId);
-      if (e.name === 'AbortError') {
+      const msg = e instanceof Error ? e.message : String(e);
+      const name = e instanceof Error ? e.name : "Error";
+      
+      if (name === 'AbortError') {
         console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
       } else {
-        console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${e.message}`);
+        console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${msg}`);
       }
       return null;
     }
-  } catch (e: any) {
-    console.error(`❌ Global fetch error for ${relativePath}: ${e.message}`);
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error(`❌ Global fetch error for ${relativePath}: ${msg}`);
   }
   return null;
 }
@@ -414,64 +418,66 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   return null;
 }
 
-function mapRawToTokenDetail(raw: any): TokenDetail | null {
-  if (!raw || !raw.id) {
+function mapRawToTokenDetail(raw: Record<string, any>): TokenDetail | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const r = raw as any;
+  if (!r || !r.id) {
     throw new Error("Invalid token data: object is null or missing ID");
   }
 
   // Ensure we don't return an object with zero market data if it looks corrupted
-  const market = raw.market || {};
+  const market = r.market || {};
   const hasMarket = market.price > 0 || market.marketCap > 0 || market.volume24h > 0;
   
   if (!hasMarket) {
-    console.warn(`⚠️ Token ${raw.id} has invalid/zero market data. Skipping mapping.`);
+    console.warn(`⚠️ Token ${r.id} has invalid/zero market data. Skipping mapping.`);
     return null;
   }
   
   return {
-    id: raw.id,
-    symbol: raw.symbol,
-    name: raw.name,
-    description: raw.description || "",
-    categories: raw.categories || [],
-    genesisDate: raw.genesisDate || null,
+    id: r.id,
+    symbol: r.symbol,
+    name: r.name,
+    description: r.description || "",
+    categories: r.categories || [],
+    genesisDate: r.genesisDate || null,
     links: {
-      website: raw.links?.website || null,
-      github: raw.links?.github || null,
-      reddit: raw.links?.reddit || null,
-      explorer: raw.links?.explorer || null,
+      website: r.links?.website || null,
+      github: r.links?.github || null,
+      reddit: r.links?.reddit || null,
+      explorer: r.links?.explorer || null,
     },
     market: {
-      price: raw.market?.price ?? 0,
-      marketCap: raw.market?.marketCap ?? 0,
-      marketCapRank: raw.market?.marketCapRank ?? 999,
-      volume24h: raw.market?.volume24h ?? 0,
-      high24h: raw.market?.high24h ?? 0,
-      low24h: raw.market?.low24h ?? 0,
-      priceChange24h: raw.market?.priceChange24h ?? 0,
-      priceChange7d: raw.market?.priceChange7d ?? 0,
-      priceChange30d: raw.market?.priceChange30d ?? 0,
-      priceChange1y: raw.market?.priceChange1y ?? 0,
-      ath: raw.market?.ath ?? 0,
-      athChangePercentage: raw.market?.athChangePercentage ?? 0,
-      athDate: raw.market?.athDate ?? "",
-      atl: raw.market?.atl ?? 0,
-      atlDate: raw.market?.atlDate ?? "",
-      circulatingSupply: raw.market?.circulatingSupply ?? 0,
-      totalSupply: raw.market?.totalSupply ?? null,
-      maxSupply: raw.market?.maxSupply ?? null,
-      fdv: raw.market?.fdv ?? null,
+      price: r.market?.price ?? 0,
+      marketCap: r.market?.marketCap ?? 0,
+      marketCapRank: r.market?.marketCapRank ?? 999,
+      volume24h: r.market?.volume24h ?? 0,
+      high24h: r.market?.high24h ?? 0,
+      low24h: r.market?.low24h ?? 0,
+      priceChange24h: r.market?.priceChange24h ?? 0,
+      priceChange7d: r.market?.priceChange7d ?? 0,
+      priceChange30d: r.market?.priceChange30d ?? 0,
+      priceChange1y: r.market?.priceChange1y ?? 0,
+      ath: r.market?.ath ?? 0,
+      athChangePercentage: r.market?.athChangePercentage ?? 0,
+      athDate: r.market?.athDate ?? "",
+      atl: r.market?.atl ?? 0,
+      atlDate: r.market?.atlDate ?? "",
+      circulatingSupply: r.market?.circulatingSupply ?? 0,
+      totalSupply: r.market?.totalSupply ?? null,
+      maxSupply: r.market?.maxSupply ?? null,
+      fdv: r.market?.fdv ?? null,
     },
     community: {
-      twitterFollowers: raw.community?.twitterFollowers ?? null,
-      redditSubscribers: raw.community?.redditSubscribers ?? null,
+      twitterFollowers: r.community?.twitterFollowers ?? null,
+      redditSubscribers: r.community?.redditSubscribers ?? null,
     },
     developer: {
-      githubStars: raw.developer?.githubStars ?? null,
-      githubForks: raw.developer?.githubForks ?? null,
-      commits4Weeks: raw.developer?.commits4Weeks ?? null,
+      githubStars: r.developer?.githubStars ?? null,
+      githubForks: r.developer?.githubForks ?? null,
+      commits4Weeks: r.developer?.commits4Weeks ?? null,
     },
-    fetchedAt: raw.fetchedAt || raw.lastMarketUpdate || new Date().toISOString(),
+    fetchedAt: r.fetchedAt || r.lastMarketUpdate || new Date().toISOString(),
   };
 }
 
@@ -529,19 +535,21 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   return null;
 }
 
-function mapRawToTokenMetrics(raw: any, tokenId: string): TokenMetrics {
+function mapRawToTokenMetrics(raw: Record<string, any>, tokenId: string): TokenMetrics {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const r = raw as any;
   return {
-    tokenId: raw.tokenId || tokenId,
-    tokenName: raw.tokenName || "",
-    symbol: raw.symbol || "",
-    riskScore: raw.riskScore ?? 0,
-    riskLevel: raw.riskLevel || "medium",
-    growthPotentialIndex: raw.growthPotentialIndex ?? 0,
-    narrativeStrength: raw.narrativeStrength ?? 0,
-    valueVsAth: raw.valueVsAth ?? 0,
-    volatilityIndex: raw.volatilityIndex ?? 0,
-    summary: raw.summary || "",
-    computedAt: raw.computedAt || new Date().toISOString(),
+    tokenId: r.tokenId || tokenId,
+    tokenName: r.tokenName || "",
+    symbol: r.symbol || "",
+    riskScore: r.riskScore ?? 0,
+    riskLevel: r.riskLevel || "medium",
+    growthPotentialIndex: r.growthPotentialIndex ?? 0,
+    narrativeStrength: r.narrativeStrength ?? 0,
+    valueVsAth: r.valueVsAth ?? 0,
+    volatilityIndex: r.volatilityIndex ?? 0,
+    summary: r.summary || "",
+    computedAt: r.computedAt || new Date().toISOString(),
   };
 }
 
@@ -565,13 +573,15 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   return null;
 }
 
-function mapRawToPriceHistory(raw: any, tokenId: string): PriceHistory {
+function mapRawToPriceHistory(raw: Record<string, any>, tokenId: string): PriceHistory {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const r = raw as any;
   return {
-    id: raw.id || tokenId,
-    name: raw.name || "",
-    chart30d: raw.chart30d || [],
-    chart1y: raw.chart1y || [],
-    fetchedAt: raw.fetchedAt || new Date().toISOString(),
+    id: r.id || tokenId,
+    name: r.name || "",
+    chart30d: r.chart30d || [],
+    chart1y: r.chart1y || [],
+    fetchedAt: r.fetchedAt || new Date().toISOString(),
   };
 }
 

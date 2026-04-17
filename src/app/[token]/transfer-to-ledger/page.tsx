@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTokenDetail } from '@/lib/content-loader';
 import { getTokenTechnical } from '@/lib/token-technical-data';

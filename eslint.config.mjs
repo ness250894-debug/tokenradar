@@ -22,6 +22,17 @@ const eslintConfig = defineConfig([
       "no-var": "error",
     },
   },
+  // Relax rules for scripts and scratch files
+  {
+    files: ["scripts/**/*.ts", "scratch/**/*.ts", "tests/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/consistent-type-imports": "off",
+      "no-console": "off",
+      "prefer-const": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -30,6 +41,7 @@ const eslintConfig = defineConfig([
     ".open-next/**",
     "out/**",
     "build/**",
+    "dist-cloudflare/**",
     "next-env.d.ts",
   ]),
 ]);

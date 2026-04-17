@@ -38,7 +38,7 @@ export default async function Image({ params }: { params: Promise<{ token: strin
   try {
     const imgRes = await fetch(iconUrl, { method: 'HEAD', signal: AbortSignal.timeout(3000) });
     hasImage = imgRes.ok;
-  } catch (e) {
+  } catch (_e) {
     hasImage = false;
   }
 

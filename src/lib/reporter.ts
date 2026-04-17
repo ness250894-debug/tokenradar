@@ -113,7 +113,7 @@ export function logActivity(type: string, details: Record<string, string | numbe
   const activityFile = path.join(ACTIVITIES_DIR, `${timestamp.replace(/[:.]/g, "-")}-${type}-${id}.json`);
   fs.writeFileSync(activityFile, JSON.stringify(activityRecord, null, 2));
 
-  console.log(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
+  console.info(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
 }
 
 /**

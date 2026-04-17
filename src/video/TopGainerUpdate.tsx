@@ -1,6 +1,6 @@
 
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { TopGainerProps } from "./Root";
+import type { TopGainerProps } from "./Root";
 
 export const TopGainerUpdate: React.FC<TopGainerProps> = ({
   tokenName,

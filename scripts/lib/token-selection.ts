@@ -174,7 +174,6 @@ export async function loadCandidateTokens(
 
   // Merge fresh market data with local static details
   const tokens: TokenData[] = tokenFiles.map((f) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const local: any = safeReadJson(path.join(tokensDir, f), null);
     if (!local || !local.id) return null;
     const fresh = freshMarkets.find((t) => t.id === local.id);

@@ -30,7 +30,7 @@ async function callGeminiAPI(
   for (let i = 0; i <= retries; i++) {
     try {
       if (i > 0) {
-        console.log(`\n  [retry ${i}/${retries}] calling Gemini...`);
+        console.info(`\n  [retry ${i}/${retries}] calling Gemini...`);
         await sleep(2000);
       }
       const elapsed = Date.now() - lastGeminiRequestTime;
@@ -66,7 +66,7 @@ async function callGeminiAPI(
       return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      if (i < retries) console.log(`  ⚠ Gemini failed (${lastError.message}), retrying...`);
+      if (i < retries) console.info(`  ⚠ Gemini failed (${lastError.message}), retrying...`);
     }
   }
   throw lastError;
@@ -86,7 +86,7 @@ async function callClaudeAPI(
   for (let i = 0; i <= retries; i++) {
     try {
       if (i > 0) {
-        console.log(`\n  [retry ${i}/${retries}] calling Claude...`);
+        console.info(`\n  [retry ${i}/${retries}] calling Claude...`);
         await sleep(2000);
       }
       
@@ -125,7 +125,7 @@ async function callClaudeAPI(
       return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost };
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      if (i < retries) console.log(`  ⚠ Claude failed (${lastError.message}), retrying...`);
+      if (i < retries) console.info(`  ⚠ Claude failed (${lastError.message}), retrying...`);
     }
   }
   throw lastError;
@@ -162,7 +162,7 @@ export async function callAIWithFallback(
     }
     return result;
   } catch (_error) {
-    console.log(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
+    console.info(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
     try {
       const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
       if (isTechnicalRefusal(result.content)) {
@@ -170,7 +170,7 @@ export async function callAIWithFallback(
         throw new Error("AI Technical Refusal Detected");
       }
       return result;
-    } catch (e) {
+    } catch (_e) {
       console.error(`  ❌ All AI models failed or refused to generate safe content.`);
       return { 
         content: "", 
