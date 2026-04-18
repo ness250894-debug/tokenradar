@@ -91,12 +91,16 @@ jobs:
       - name: Purge Workers KV Cache
         run: |
           echo "Listing keys in NEXT_CACHE_WORKERS_KV..."
-          npx wrangler kv:key list --namespace-id=fbe7ef84e190427b9c17292bf7e39ce0 > keys.json
+          # Use --binding instead of --namespace-id for better compatibility
+          npx wrangler kv:key list --binding NEXT_CACHE_WORKERS_KV > keys.json
+          
+          # Check if we have any keys to delete
           COUNT=$(jq '. | length' keys.json)
           if [ "$COUNT" -gt 0 ]; then
             echo "Purging $COUNT keys..."
-            jq -r '.[].name' keys.json | jq -R . | jq -s . > bulk_delete.json
-            npx wrangler kv:bulk delete --namespace-id=fbe7ef84e190427b9c17292bf7e39ce0 bulk_delete.json
+            # Format the keys into the expected JSON array for bulk delete
+            jq 'map({key: .name})' keys.json > bulk_delete.json
+            npx wrangler kv:bulk delete --binding NEXT_CACHE_WORKERS_KV bulk_delete.json
           else
             echo "Cache is already empty."
           fi
