@@ -3,48 +3,26 @@
   "symbol": "adi",
   "name": "ADI",
   "description": "ADI Chain is an Ethereum Layer 2 developed by the ADI Foundation to support government, enterprise, and institutional digital infrastructure. It is built on zkSync’s zkStack and powered by the Airbender prover, which delivers GPU accelerated zero knowledge proofs for fast, low cost, and secure transactions. The chain includes modular Layer 3 capabilities that let nations and enterprises deploy compliant, region specific systems for payments, e invoicing, land registries, and stablecoins. ADI Chain aims to bridge traditional systems with modern blockchain architecture and onboard one billion people by 2030.",
-  "categories": [
-    "Infrastructure",
-    "Ethereum Ecosystem",
-    "Layer 2 (L2)"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://token.adi.foundation/",
-    "github": "https://github.com/ADI-Foundation-Labs",
-    "reddit": null,
-    "explorer": "https://etherscan.io/token/0x8b1484d57abbe239bb280661377363b03c89caea"
-  },
   "market": {
-    "price": 4.34,
-    "marketCap": 451296522,
-    "marketCapRank": 110,
-    "volume24h": 1111390,
-    "high24h": 3.9,
-    "low24h": 3.74,
-    "priceChange24h": 3.53636,
-    "priceChange7d": 20.81827,
-    "priceChange30d": 24.10478,
+    "price": 4.38,
+    "marketCap": 454807264,
+    "marketCapRank": 112,
+    "volume24h": 550217,
+    "high24h": 4.4,
+    "low24h": 4.33,
+    "priceChange24h": 0.73156,
+    "priceChange7d": 0.47843,
+    "priceChange30d": 38.9001,
     "priceChange1y": 0,
     "ath": 4.55,
-    "athChangePercentage": -4.61213,
+    "athChangePercentage": -3.75853,
     "athDate": "2026-04-03T21:30:15.912Z",
     "atl": 0.975425,
     "atlDate": "2025-12-10T09:46:25.812Z",
     "circulatingSupply": 104035514.216296,
     "totalSupply": 999999999,
     "maxSupply": 999999999,
-    "fdv": 3739928217
+    "fdv": 4371653922
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-16T09:31:54.277Z",
-  "lastMarketUpdate": "2026-04-17T08:05:46.496Z"
+  "lastMarketUpdate": "2026-04-18T05:58:40.704Z"
 }
