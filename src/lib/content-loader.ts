@@ -9,11 +9,11 @@ import * as path from "path";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
-const METRICS_FILE = path.join(DATA_DIR, "_metrics_blob.json");
-const TOKENS_FILE = path.join(DATA_DIR, "_tokens_blob.json");
-const PRICES_FILE = path.join(DATA_DIR, "_prices_blob.json");
-const REGISTRY_FILE = path.join(DATA_DIR, "_registry.json");
-const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
+
+// Helper to get absolute path for data files
+function getFilePath(relativePath: string) {
+  return path.join(DATA_DIR, relativePath);
+}
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -186,19 +186,18 @@ async function fetchAsset(relativePath: string) {
       }
     }
 
-    // 3. Absolute Fallback (Mandatory for Node.js scripts and local builds)
+    // 3. Absolute Fallback
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+    const fullUrl = new URL(url, siteUrl).toString();
     
-    // Safety: If we are in CI, DO NOT fetch from the live site.
-    // This prevents a "stale data" loop where a new build inherits the old site's zeroed-out data.
+    // Safety Check: In CI/Build, we MUST use local data. 
+    // If we've reached this point, FS load failed.
     if (process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true") {
       if (url.includes("_blob") || url.includes("_registry")) {
-        console.warn(`${logPrefix} Skipping absolute fetch for ${url} in CI build environment.`);
-        return null;
+        console.error(`❌ [CRITICAL] Core data ${url} missing from Filesystem in CI. Build cannot safely fallback to ${fullUrl} (risk of stale data hydration).`);
+        throw new Error(`Build Failure: Local ${url} was not generated or found. Run consolidation script.`);
       }
     }
-
-    const fullUrl = new URL(url, siteUrl).toString();
     
     // Add 3s safety timeout to prevent build hangs
     const controller = new AbortController();
@@ -266,7 +265,12 @@ async function loadBlob(filePath: string, relativePath: string) {
 export async function getAllTokens(): Promise<TokenSummary[]> {
   if (_allTokensCache) return _allTokensCache;
 
-  const data = await loadBlob(REGISTRY_FILE, "data/_registry.json");
+  const relativePath = "data/_registry.json";
+  const file = getFilePath("_registry.json");
+  
+  if (!_registry) {
+    _registry = await loadBlob(file, relativePath);
+  }
   if (data) {
     _allTokensCache = data;
     return _allTokensCache || [];
@@ -411,7 +415,10 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   const sanitized = tokenId.replace(/[^a-z0-9-]/g, "");
   
   // Try loading from blob first
-  if (!_tokensBlob) _tokensBlob = await loadBlob(TOKENS_FILE, "data/_tokens_blob.json");
+  const relativePath = "data/_tokens_blob.json";
+  const file = getFilePath("_tokens_blob.json");
+  
+  if (!_tokensBlob) _tokensBlob = await loadBlob(file, relativePath);
   const raw = _tokensBlob ? _tokensBlob[sanitized] : null;
 
   if (raw) {
@@ -497,7 +504,9 @@ function mapRawToTokenDetail(r: any): TokenDetail | null {
  */
 export async function getUpcomingTGEs(): Promise<UpcomingTge[]> {
   try {
-    const tges: UpcomingTge[] = (await loadBlob(TGE_FILE, "data/upcoming-tges.json")) || [];
+    const relativePath = "data/upcoming-tges.json";
+    const file = getFilePath("upcoming-tges.json");
+    const tges: UpcomingTge[] = (await loadBlob(file, relativePath)) || [];
     if (!tges.length) return [];
 
     // Sort: upcoming first, released last; then by narrative strength desc
@@ -529,7 +538,10 @@ export async function getUpcomingTGEs(): Promise<UpcomingTge[]> {
 /** Load token metrics. */
 export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | null> {
   // Try loading from blob
-  if (!_metricsBlob) _metricsBlob = await loadBlob(METRICS_FILE, "data/_metrics_blob.json");
+  const relativePath = "data/_metrics_blob.json";
+  const file = getFilePath("_metrics_blob.json");
+  
+  if (!_metricsBlob) _metricsBlob = await loadBlob(file, relativePath);
   const raw = _metricsBlob ? _metricsBlob[tokenId] : null;
 
   if (raw) {
@@ -568,7 +580,10 @@ function mapRawToTokenMetrics(r: any, tokenId: string): TokenMetrics {
 /** Load price history for charts. */
 export async function getPriceHistory(tokenId: string): Promise<PriceHistory | null> {
   // Try loading from blob
-  if (!_pricesBlob) _pricesBlob = await loadBlob(PRICES_FILE, "data/_prices_blob.json");
+  const relativePath = "data/_prices_blob.json";
+  const file = getFilePath("_prices_blob.json");
+  
+  if (!_pricesBlob) _pricesBlob = await loadBlob(file, relativePath);
   const raw = _pricesBlob ? _pricesBlob[tokenId] : null;
 
   if (raw) {
