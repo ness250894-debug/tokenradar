@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 import { HackerText } from "./HackerText";
@@ -30,14 +30,7 @@ const LEGAL_LINKS = [
 
 
 export function Footer() {
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  const currentYear = mounted ? new Date().getFullYear() : 2026;
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="footer" id="site-footer">
@@ -57,12 +50,12 @@ export function Footer() {
               The premier data-driven analysis hub for high-potential crypto narratives, risk vetting, and market insights.
             </p>
             <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-sm)" }}>
-              <Link href="https://x.com/tokenradarco" target="_blank" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
+              <a href="https://x.com/tokenradarco" target="_blank" rel="noopener noreferrer" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
                 <XIcon size={20} />
-              </Link>
-              <Link href="https://t.me/TokenRadarCo" target="_blank" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
+              </a>
+              <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
                 <TelegramIcon size={20} />
-              </Link>
+              </a>
             </div>
           </div>
 

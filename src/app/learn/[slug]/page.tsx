@@ -48,8 +48,9 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const item = await getGlossaryItem(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const item = await getGlossaryItem(slug);
   if (!item) return { title: "Term Not Found" };
   return {
     title: `${item.title} | TokenRadar Learn`,
@@ -57,8 +58,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function GlossaryDetailPage({ params }: { params: { slug: string } }) {
-  const item = await getGlossaryItem(params.slug);
+export default async function GlossaryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const item = await getGlossaryItem(slug);
   if (!item) notFound();
 
   return (

@@ -18,11 +18,11 @@ export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>1. Koinly</span>
-            <a href="https://koinly.io/?via=TOKENRADAR" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Try Free &rarr;</a>
+            <a href="https://koinly.io/?via=TOKENRADAR" target="_blank" rel="sponsored noopener noreferrer" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Try Free &rarr;</a>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>2. CoinLedger</span>
-            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>10% OFF &rarr;</a>
+            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored noopener noreferrer" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>10% OFF &rarr;</a>
           </div>
         </div>
         <Link 

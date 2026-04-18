@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-export const dynamic = "force-static";
+
 import {
   getTokenDetail,
   getAllTokens,

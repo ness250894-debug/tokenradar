@@ -7,8 +7,6 @@ export function ProfitCalculator({
   currentPrice,
   atl
 }: {
-  tokenName?: string;
-  symbol?: string;
   currentPrice: number;
   atl: number;
 }) {

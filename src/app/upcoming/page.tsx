@@ -35,7 +35,7 @@ export default async function UpcomingPage() {
                 </Link>
               </MagneticEffect>
               <MagneticEffect>
-                <Link href="https://x.com/tokenradarco" target="_blank" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
+                <Link href="https://x.com/tokenradarco" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "0.75rem 2rem", fontSize: "1.1rem" }}>
                   <XIcon size={18} /> Follow on X
                 </Link>
               </MagneticEffect>
