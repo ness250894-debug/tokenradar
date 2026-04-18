@@ -51,7 +51,7 @@ export function StickyConversionHeader({
         borderBottom: "1px solid var(--border-color)",
         transform: isVisible ? "translateY(0)" : "translateY(-100%)",
         transition: "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
-        zIndex: 100,
+        zIndex: 99,
         padding: "var(--space-sm) 0",
         boxShadow: "0 4px 24px rgba(0, 0, 0, 0.4)"
       }}

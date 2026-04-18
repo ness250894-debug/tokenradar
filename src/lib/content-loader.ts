@@ -308,7 +308,9 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
         totalSupply: detail.market?.totalSupply ?? null,
         maxSupply: detail.market?.maxSupply ?? null,
       });
-    } catch (_e) {}
+    } catch (_e) {
+        console.warn(`⚠️ Failed to parse token file: ${file}`, _e);
+      }
     }
     _allTokensCache = summaries;
     return summaries;

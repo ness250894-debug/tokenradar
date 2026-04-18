@@ -38,7 +38,7 @@ export function AlphaTicker() {
         {/* We output twice to create a seamless infinite loop */}
         {[...ALPHA_EVENTS, ...ALPHA_EVENTS].map((event, i) => (
           <div
-            key={i}
+            key={`${event.slice(0, 20)}-${i}`}
             style={{
               fontSize: "var(--text-sm)",
               fontFamily: "var(--font-mono)",

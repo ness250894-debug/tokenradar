@@ -260,34 +260,7 @@ export default async function HomePage() {
       
 
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "TokenRadar",
-            url: "https://tokenradar.co",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: "https://tokenradar.co/search?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "TokenRadar",
-            url: "https://tokenradar.co",
-            logo: "https://tokenradar.co/og-image.png",
-          }),
-        }}
-      />
+      {/* ItemList JSON-LD — unique to home page (WebSite & Organization schemas are in layout.tsx) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

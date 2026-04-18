@@ -276,7 +276,7 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
            <div style={{ height: "100%" }}>
-             <ProfitCalculator tokenName={detail.name} symbol={detail.symbol} currentPrice={detail.market.price} atl={detail.market.atl} />
+             <ProfitCalculator currentPrice={detail.market.price} atl={detail.market.atl} />
            </div>
            <CardGlare style={{ height: "100%" }}>
              <SentimentPoll tokenId={detail.id} />

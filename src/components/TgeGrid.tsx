@@ -64,8 +64,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
         {visibleTges.length > 0 ? (
           <motion.div 
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" 
-            style={{ marginTop: "var(--space-2xl)" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-12" 
           >
             {visibleTges.map((tge) => {
               const isReleased = tge.status === "released";
@@ -82,7 +81,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                       animate={{ opacity: 1, y: 0 }}
                       style={{ opacity: isReleased ? 0.75 : 1 }}
                     >
-                      <div className="grid grid-cols-[1fr_auto] items-center gap-sm">
+                      <div className="grid grid-cols-[1fr_auto] items-center gap-2">
                         <div className="min-w-0" style={{ overflow: "hidden" }}>
                           <span className="text-truncate" style={{ display: "block" }}>
                             {tge.name} <span className="token-symbol" style={{ flexShrink: 0 }}>{tge.symbol.toUpperCase()}</span>
@@ -94,7 +93,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                         </span>
                       </div>
                       
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-lg gap-md sm:gap-sm">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-6 gap-4 sm:gap-2">
                         <div className="flex-1">
                           <div className="stat-label flex items-center gap-1">
                             <Calendar size={12} />
@@ -115,7 +114,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                         </div>
                       </div>
 
-                      <div className="mt-auto pt-md flex justify-between items-center gap-sm">
+                      <div className="mt-auto pt-4 flex justify-between items-center gap-2">
                         <span className={`badge ${isReleased ? "badge-green" : "badge-accent"} flex items-center gap-1`} style={{ fontSize: "0.7rem" }}>
                           {isReleased ? <Rocket size={12} /> : null}
                           {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}

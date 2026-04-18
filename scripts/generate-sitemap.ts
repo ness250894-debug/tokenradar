@@ -6,6 +6,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getAllTokens } from "../src/lib/content-loader";
+import { getPilotTokenIds } from "../src/lib/token-technical-data";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
@@ -66,6 +67,7 @@ function writeSitemap(filename: string, entries: SitemapEntry[]) {
 
 async function main() {
   const tokenIds = await getTokenIds();
+  const pilotIds = new Set(getPilotTokenIds());
   const now = new Date().toISOString().split("T")[0];
   const sitemaps: string[] = [];
 
@@ -111,13 +113,18 @@ async function main() {
       tokenEntries.push({ url: `/${id}`, lastmod: tokenDate, changefreq: "daily", priority: "0.9" });
     }
 
-    const types = ["price-prediction", "how-to-buy", "transfer-to-ledger"];
+    const types = ["price-prediction", "how-to-buy"];
     for (const type of types) {
       const art = await getArticle(id, type);
       if (art) {
         const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
         tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate, changefreq: "weekly", priority: "0.7" });
       }
+    }
+
+    // Static Technical Guides (no .json artifact needed)
+    if (pilotIds.has(id)) {
+      tokenEntries.push({ url: `/${id}/transfer-to-ledger`, lastmod: tokenDate, changefreq: "monthly", priority: "0.8" });
     }
   }
 
