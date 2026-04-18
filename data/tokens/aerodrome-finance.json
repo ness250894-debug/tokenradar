@@ -3,53 +3,26 @@
   "symbol": "aero",
   "name": "Aerodrome Finance",
   "description": "Aerodrome Finance is a next-generation AMM designed to serve as Base's central liquidity hub, combining a powerful liquidity incentive engine, vote-lock governance model, and friendly user experience. Aerodrome inherits the latest features from Velodrome V2.",
-  "categories": [
-    "Decentralized Exchange (DEX)",
-    "Exchange-based Tokens",
-    "Decentralized Finance (DeFi)",
-    "Automated Market Maker (AMM)",
-    "Base Ecosystem",
-    "Binance Alpha Spotlight",
-    "Made in USA",
-    "Base Native"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://aerodrome.finance/",
-    "github": "https://github.com/aerodrome-finance",
-    "reddit": null,
-    "explorer": "https://basescan.org/token/0x940181a94a35a4569e4529a3cdfb74e38fd98631"
-  },
   "market": {
-    "price": 0.413611,
-    "marketCap": 381522601,
+    "price": 0.437341,
+    "marketCap": 404645301,
     "marketCapRank": 122,
-    "volume24h": 29365528,
-    "high24h": 0.355805,
-    "low24h": 0.333456,
-    "priceChange24h": 10.06693,
-    "priceChange7d": 9.58357,
-    "priceChange30d": 6.8398,
-    "priceChange1y": -30.63565,
+    "volume24h": 42398515,
+    "high24h": 0.469241,
+    "low24h": 0.411547,
+    "priceChange24h": 5.96026,
+    "priceChange7d": 14.64939,
+    "priceChange30d": 32.58589,
+    "priceChange1y": 12.31533,
     "ath": 2.32,
-    "athChangePercentage": -82.118,
+    "athChangePercentage": -81.14049,
     "athDate": "2024-12-07T14:00:38.622Z",
     "atl": 0.00001861,
     "atlDate": "2023-10-17T01:23:50.860Z",
-    "circulatingSupply": 922416349.1470814,
+    "circulatingSupply": 922305326.7939931,
     "totalSupply": 1880295354.178586,
     "maxSupply": null,
-    "fdv": 661034188
+    "fdv": 824946640
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-16T22:03:15.945Z",
-  "lastMarketUpdate": "2026-04-17T08:05:46.498Z"
+  "lastMarketUpdate": "2026-04-18T05:58:46.971Z"
 }
