@@ -147,6 +147,7 @@ let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
 
 // Raw blobs (lazy loaded)
+let _registry: TokenSummary[] | null = null;
 let _tokensBlob: Record<string, unknown> | null = null;
 let _metricsBlob: Record<string, unknown> | null = null;
 let _pricesBlob: Record<string, unknown> | null = null;
@@ -271,8 +272,8 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
   if (!_registry) {
     _registry = await loadBlob(file, relativePath);
   }
-  if (data) {
-    _allTokensCache = data;
+  if (_registry) {
+    _allTokensCache = _registry;
     return _allTokensCache || [];
   }
 
@@ -427,9 +428,9 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   }
 
   // Fallback to single file read (Development/Scripts)
-  const file = path.join(DATA_DIR, "tokens", `${sanitized}.json`);
+  const fallbackFile = path.join(DATA_DIR, "tokens", `${sanitized}.json`);
   const relPath = `data/tokens/${sanitized}.json`;
-  const rawFile = await loadBlob(file, relPath);
+  const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToTokenDetail(rawFile as Record<string, any>);
@@ -550,9 +551,9 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   }
 
   // Fallback
-  const file = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
+  const fallbackFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
   const relPath = `data/metrics/${tokenId}.json`;
-  const rawFile = await loadBlob(file, relPath);
+  const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToTokenMetrics(rawFile as any, tokenId);
@@ -592,9 +593,9 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   }
 
   // Fallback
-  const file = path.join(DATA_DIR, "prices", `${tokenId}.json`);
+  const fallbackFile = path.join(DATA_DIR, "prices", `${tokenId}.json`);
   const relPath = `data/prices/${tokenId}.json`;
-  const rawFile = await loadBlob(file, relPath);
+  const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToPriceHistory(rawFile as any, tokenId);
