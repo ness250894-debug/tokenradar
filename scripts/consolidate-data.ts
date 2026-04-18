@@ -105,10 +105,42 @@ function consolidate() {
   fs.writeFileSync(OUTPUT_REGISTRY, JSON.stringify(registry));
 
   console.log(`✅ Consolidation complete!`);
-  console.log(`   - Tokens: ${Object.keys(tokensBlob).length}`);
-  console.log(`   - Registry: ${registry.length}`);
-  console.log(`   - Metrics: ${Object.keys(metricsBlob).length}`);
-  console.log(`   - Prices: ${Object.keys(pricesBlob).length}`);
+  console.log(`\n  - Tokens: ${Object.keys(tokensBlob).length}`);
+  console.log(`  - Registry: ${registry.length}`);
+  console.log(`  - Metrics: ${Object.keys(metricsBlob).length}`);
+  console.log(`  - Prices: ${Object.keys(pricesBlob).length}\n`);
+
+  // 5. Copy data and content to public for Edge Runtime Fetching
+  console.log("?'? Copying data & content to public folder...");
+  const publicDataDir = path.join(process.cwd(), "public", "data");
+  const publicContentDir = path.join(process.cwd(), "public", "content");
+  
+  // Clean up old ones just in case
+  if (fs.existsSync(publicDataDir)) fs.rmSync(publicDataDir, { recursive: true, force: true });
+  if (fs.existsSync(publicContentDir)) fs.rmSync(publicContentDir, { recursive: true, force: true });
+  
+  if (!fs.existsSync(path.join(process.cwd(), "public"))) {
+    fs.mkdirSync(path.join(process.cwd(), "public"));
+  }
+
+  // Recursive copy helper
+  function copyRecursiveSync(src: string, dest: string) {
+    if (!fs.existsSync(src)) return;
+    const stats = fs.statSync(src);
+    if (stats.isDirectory()) {
+      fs.mkdirSync(dest, { recursive: true });
+      fs.readdirSync(src).forEach((child) => {
+        copyRecursiveSync(path.join(src, child), path.join(dest, child));
+      });
+    } else {
+      fs.copyFileSync(src, dest);
+    }
+  }
+
+  copyRecursiveSync(DATA_DIR, publicDataDir);
+  copyRecursiveSync(path.join(process.cwd(), "content"), publicContentDir);
+
+  console.log("? Copied to public folder!");
 }
 
 consolidate();

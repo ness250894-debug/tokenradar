@@ -410,22 +410,90 @@ export async function postTweetWithMedia(
 
   // Upload media via the XDK media endpoint
   let mediaId: string | undefined;
+  const isVideo = mimeType?.startsWith("video/");
   try {
-    const mediaBase64 = mediaBuffer.toString("base64");
-    const uploadResponse = await withRetry(
-      () => client.media.upload({
-        body: {
-          media: mediaBase64,
-          mediaCategory: "tweet_image",
+    if (isVideo) {
+      // ── Chunked upload flow (required for video) ──
+      // Step 1: INIT — tell X about the file size and type
+      const initResponse = await withRetry(
+        () => client.media.initializeUpload({
+          body: {
+            mediaCategory: "tweet_video",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            mediaType: mimeType as any,
+            totalBytes: mediaBuffer.length,
+          },
+        }),
+        "mediaInitialize"
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initData = initResponse?.data as Record<string, any> | undefined;
+      const uploadMediaId = String(initData?.id ?? initData?.media_id_string ?? "");
+      if (!uploadMediaId) throw new Error("No media_id returned from INIT");
+
+      // Step 2: APPEND — send the binary payload in chunks (≤5 MB each)
+      const CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
+      let segmentIndex = 0;
+      for (let offset = 0; offset < mediaBuffer.length; offset += CHUNK_SIZE) {
+        const chunk = mediaBuffer.subarray(offset, offset + CHUNK_SIZE);
+        const chunkBase64 = chunk.toString("base64");
+        await withRetry(
+          () => client.media.appendUpload(uploadMediaId, {
+            body: { media: chunkBase64, segmentIndex },
+          }),
+          `mediaAppend_seg${segmentIndex}`
+        );
+        segmentIndex++;
+      }
+
+      // Step 3: FINALIZE
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const finalizeResponse = await withRetry(
+        () => client.media.finalizeUpload(uploadMediaId),
+        "mediaFinalize"
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const finalData = finalizeResponse?.data as Record<string, any> | undefined;
+
+      // Step 4: Poll for processing completion (video transcoding)
+      const processingInfo = finalData?.processing_info || finalData?.processingInfo;
+      if (processingInfo && processingInfo.state !== "succeeded") {
+        let state = processingInfo.state as string;
+        let checkAfterSecs = (processingInfo.check_after_secs ?? processingInfo.checkAfterSecs ?? 5) as number;
+        const MAX_POLLS = 30; // safety cap ≈ 5 min max
+        for (let i = 0; i < MAX_POLLS && state !== "succeeded"; i++) {
+          if (state === "failed") throw new Error("Video processing failed on X servers");
+          console.info(`  ⏳ Video processing (${state}), polling in ${checkAfterSecs}s...`);
+          await new Promise((r) => setTimeout(r, checkAfterSecs * 1000));
+          const statusResp = await client.media.getUploadStatus(uploadMediaId);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ...(mimeType ? { mediaType: mimeType as any } : {}),
-        },
-      }),
-      "mediaUpload"
-    );
-    mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
-    if (mediaId) {
-      console.info(`  ✓ Media uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+          const statusData = statusResp?.data as Record<string, any> | undefined;
+          const pi = statusData?.processing_info || statusData?.processingInfo;
+          state = pi?.state ?? "succeeded";
+          checkAfterSecs = (pi?.check_after_secs ?? pi?.checkAfterSecs ?? 5) as number;
+        }
+      }
+
+      mediaId = uploadMediaId;
+      console.info(`  ✓ Video uploaded via chunked flow (media_id: ${mediaId})`);
+    } else {
+      // ── One-shot upload (images / subtitles) ──
+      const mediaBase64 = mediaBuffer.toString("base64");
+      const uploadResponse = await withRetry(
+        () => client.media.upload({
+          body: {
+            media: mediaBase64,
+            mediaCategory: "tweet_image",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ...(mimeType ? { mediaType: mimeType as any } : {}),
+          },
+        }),
+        "mediaUpload"
+      );
+      mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
+      if (mediaId) {
+        console.info(`  ✓ Image uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+      }
     }
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
