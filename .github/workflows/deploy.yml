@@ -75,7 +75,26 @@ jobs:
             echo "❌ Error: '.open-next' directory not found. Build likely failed."
             exit 1
           fi
-          echo "✅ '.open-next' directory found. Proceeding to deploy."
+          
+          # Count total files in the deployment bundle
+          FILE_COUNT=$(find .open-next -type f | wc -l)
+          echo "📊 Total files in .open-next: $FILE_COUNT"
+          
+          # Breakdown by top-level directory
+          echo "📂 File count breakdown:"
+          for dir in .open-next/*/; do
+            DIR_COUNT=$(find "$dir" -type f | wc -l)
+            echo "  $(basename "$dir"): $DIR_COUNT files"
+          done
+          
+          # Cloudflare Pages limit is 20,000 files. Fail at 15,000 for safety.
+          if [ "$FILE_COUNT" -gt 15000 ]; then
+            echo "❌ Error: .open-next contains $FILE_COUNT files (limit: 15,000 for safety, CF max: 20,000)."
+            echo "   Check if consolidate-data.ts is copying unnecessary individual files to public/."
+            exit 1
+          fi
+          
+          echo "✅ Build output verified ($FILE_COUNT files, under 15,000 limit)."
 
       - name: Deploy to Cloudflare Pages
         run: |

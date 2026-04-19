@@ -26,7 +26,7 @@ function resolveDataDir(): string {
 
   for (const dir of candidates) {
     try {
-      if (fs.existsSync(dir)) return dir;
+      if (fs.existsSync(/* turbopackIgnore: true */ dir)) return dir;
     } catch {
       // continue
     }
@@ -55,7 +55,7 @@ function resolveContentDir(): string {
 
   for (const dir of candidates) {
     try {
-      if (fs.existsSync(dir)) return dir;
+      if (fs.existsSync(/* turbopackIgnore: true */ dir)) return dir;
     } catch {
       // continue
     }
@@ -297,19 +297,21 @@ async function loadBlob(filePath: string, relativePath: string) {
   const fileName = path.basename(filePath);
 
   // 1. Try FS with multiple path candidates (handles both local dev + Cloudflare Worker bundle)
+  // turbopackIgnore comments prevent Turbopack from tracing these dynamic paths,
+  // which would otherwise cause the entire project to be bundled (~13k+ files).
   if (isServer) {
     const candidates = [
       filePath,                                         // Primary: resolved via getDataDir()
-      path.resolve(process.cwd(), "data", fileName),    // Explicit cwd fallback
-      path.resolve(__dirname, "..", "..", "data", fileName), // Relative to compiled loader
-      path.resolve(__dirname, "..", "data", fileName),  // Alternate bundle layout
-      path.resolve(__dirname, "data", fileName),        // Flat bundle layout
+      `${process.cwd()}/data/${fileName}`,              // Explicit cwd fallback
+      `${__dirname}/../../data/${fileName}`,             // Relative to compiled loader
+      `${__dirname}/../data/${fileName}`,                // Alternate bundle layout
+      `${__dirname}/data/${fileName}`,                   // Flat bundle layout
     ];
 
     for (const candidate of candidates) {
       try {
-        if (fs.existsSync(candidate)) {
-          const data = JSON.parse(fs.readFileSync(candidate, "utf-8"));
+        if (fs.existsSync(/* turbopackIgnore: true */ candidate)) {
+          const data = JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ candidate, "utf-8"));
           if (isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
             console.info(`[LOADER] Found ${fileName} at ${candidate}`);
           }
@@ -353,14 +355,15 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
 
   // Fallback to legacy directory scanning (Dev mode safety)
   const tokensDir = `${getDataDir()}/tokens`;
-  if (typeof window === "undefined" && fs.existsSync(tokensDir)) {
-    const files = fs.readdirSync(tokensDir).filter((f) => f.endsWith(".json"));
+  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ tokensDir)) {
+    const files = fs.readdirSync(/* turbopackIgnore: true */ tokensDir).filter((f) => f.endsWith(".json"));
     const summaries: TokenSummary[] = [];
 
     for (const file of files) {
       try {
+        const tokenFilePath = `${tokensDir}/${file}`;
         const detail: TokenDetail = JSON.parse(
-          fs.readFileSync(path.join(tokensDir, file), "utf-8")
+          fs.readFileSync(/* turbopackIgnore: true */ tokenFilePath, "utf-8")
         );
       
       summaries.push({
@@ -453,10 +456,11 @@ export async function getTokenIds(): Promise<string[]> {
 
   // Also include tokens that have content but might missing from registry
   const contentDir = getContentDir();
-  if (typeof window === "undefined" && fs.existsSync(contentDir)) {
-    fs.readdirSync(contentDir).forEach((dir) => {
+  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ contentDir)) {
+    fs.readdirSync(/* turbopackIgnore: true */ contentDir).forEach((dir) => {
       try {
-        if (fs.statSync(`${contentDir}/${dir}`).isDirectory()) {
+        const dirPath = `${contentDir}/${dir}`;
+        if (fs.statSync(/* turbopackIgnore: true */ dirPath).isDirectory()) {
           ids.add(dir);
         }
       } catch { /* Skip invalid/inaccessible dirs */ }
@@ -707,9 +711,9 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
 /** Get all article slugs for a token. */
 export async function getArticleSlugs(tokenId: string): Promise<string[]> {
   const dir = `${getContentDir()}/${tokenId}`;
-  if (typeof window === "undefined" && fs.existsSync(dir)) {
+  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ dir)) {
     return fs
-      .readdirSync(dir)
+      .readdirSync(/* turbopackIgnore: true */ dir)
       .filter((f) => f.endsWith(".json") && !f.includes(".prompt"))
       .map((f) => f.replace(".json", ""));
   }
@@ -721,13 +725,13 @@ export async function getArticleSlugs(tokenId: string): Promise<string[]> {
 /** Count all published articles across all tokens. */
 export async function getTotalArticleCount(): Promise<number> {
   const contentDir = getContentDir();
-  if (typeof window === "undefined" && fs.existsSync(contentDir)) {
+  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ contentDir)) {
     let count = 0;
-    for (const tokenDir of fs.readdirSync(contentDir)) {
+    for (const tokenDir of fs.readdirSync(/* turbopackIgnore: true */ contentDir)) {
       const dirPath = `${contentDir}/${tokenDir}`;
-      if (!fs.statSync(dirPath).isDirectory()) continue;
+      if (!fs.statSync(/* turbopackIgnore: true */ dirPath).isDirectory()) continue;
       count += fs
-        .readdirSync(dirPath)
+        .readdirSync(/* turbopackIgnore: true */ dirPath)
         .filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
     }
     return count;

@@ -114,8 +114,12 @@ function consolidate() {
   console.log(`  - Metrics: ${Object.keys(metricsBlob).length}`);
   console.log(`  - Prices: ${Object.keys(pricesBlob).length}\n`);
 
-  // 5. Copy data and content to public for Edge Runtime Fetching
-  console.log("?'? Copying data & content to public folder...");
+  // 5. Copy ONLY essential data files to public for Edge Runtime Fetching
+  // IMPORTANT: We only copy consolidated blobs and essential top-level files.
+  // Individual token/metric/price files are NOT needed at runtime — they are
+  // already consolidated into the blob files above. Copying them would add
+  // ~1,700 unnecessary files, risking Cloudflare Pages' 20,000 file limit.
+  console.log("📦 Copying essential data & content to public folder...");
   const publicDataDir = path.join(process.cwd(), "public", "data");
   const publicContentDir = path.join(process.cwd(), "public", "content");
   
@@ -127,7 +131,26 @@ function consolidate() {
     fs.mkdirSync(path.join(process.cwd(), "public"));
   }
 
-  // Recursive copy helper
+  // Copy only essential top-level data files (blobs + config files)
+  fs.mkdirSync(publicDataDir, { recursive: true });
+  const essentialDataFiles = [
+    "_tokens_blob.json",
+    "_metrics_blob.json",
+    "_prices_blob.json",
+    "_registry.json",
+    "upcoming-tges.json",
+    "glossary.json",
+    "keywords.json",
+    "tokens.json",
+  ];
+  for (const file of essentialDataFiles) {
+    const src = path.join(DATA_DIR, file);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, path.join(publicDataDir, file));
+    }
+  }
+
+  // Recursive copy helper (used only for content articles)
   function copyRecursiveSync(src: string, dest: string) {
     if (!fs.existsSync(src)) return;
     const stats = fs.statSync(src);
@@ -141,10 +164,14 @@ function consolidate() {
     }
   }
 
-  copyRecursiveSync(DATA_DIR, publicDataDir);
-  copyRecursiveSync(path.join(process.cwd(), "content"), publicContentDir);
+  // Copy content/tokens for article serving on Edge
+  const contentTokensDir = path.join(process.cwd(), "content", "tokens");
+  if (fs.existsSync(contentTokensDir)) {
+    copyRecursiveSync(contentTokensDir, path.join(publicContentDir, "tokens"));
+  }
 
-  console.log("? Copied to public folder!");
+  const publicFileCount = essentialDataFiles.length;
+  console.log(`✅ Copied ${publicFileCount} essential data files + content articles to public folder!`);
 }
 
 consolidate();
