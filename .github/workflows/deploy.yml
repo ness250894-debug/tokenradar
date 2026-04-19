@@ -98,8 +98,9 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          # Explicitly set branch to main and force deployment
-          npx wrangler pages deploy .open-next \
+          # Let wrangler read pages_build_output_dir from wrangler.jsonc
+          # DO NOT pass .open-next as argument — that skips worker bundling
+          npx wrangler pages deploy \
             --project-name=tokenradar \
             --branch=main \
             --commit-dirty=true
