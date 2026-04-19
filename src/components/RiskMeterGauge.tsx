@@ -8,14 +8,20 @@ interface RiskMeterGaugeProps {
 }
 
 export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
-  const [animatedScore, setAnimatedScore] = useState(0);
+  // Initialize to target score to match SSR output and prevent displaying "0.0" on hydration
+  const [animatedScore, setAnimatedScore] = useState(score);
   const meterRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    if (!meterRef.current) return;
+
+    let frameId: number;
+
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        // Simple animation
-
+        // Reset to 0 then animate up - only on first intersection
+        setAnimatedScore(0);
+        
         const duration = 1500;
         const startTime = performance.now();
         
@@ -28,7 +34,9 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
           setAnimatedScore(score * ease);
           
           if (progress < 1) {
-            requestAnimationFrame(animate);
+            frameId = requestAnimationFrame(animate);
+          } else {
+            setAnimatedScore(score);
           }
         };
         requestAnimationFrame(animate);
@@ -36,14 +44,17 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
       }
     }, { threshold: 0.1 });
     
-    if (meterRef.current) observer.observe(meterRef.current);
-    return () => observer.disconnect();
+    observer.observe(meterRef.current);
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+      observer.disconnect();
+    };
   }, [score]);
 
   // Map 1-10 score to angle (-90 to +90 degrees)
   // -90 is pointing Left, 0 is pointing Up, +90 is pointing Right
   const angle = ((animatedScore - 1) / 9) * 180 - 90;
-  
+
   // Calculate tier: low (1-3), medium (4-6), high (7-10)
   const getRiskTier = (val: number) => {
     if (val <= 3) return "low";
@@ -151,7 +162,7 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
       </div>
       
       {/* Label */}
-      <div style={{ 
+      <div suppressHydrationWarning style={{ 
         marginTop: "var(--space-md)", 
         fontWeight: 900, 
         fontSize: "var(--text-2xl)",

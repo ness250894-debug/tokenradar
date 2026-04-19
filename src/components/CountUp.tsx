@@ -12,6 +12,28 @@ interface CountUpProps {
   className?: string;
 }
 
+/** Format a numeric value for display with compact notation and locale separators. */
+function formatNumber(value: number, decimals: number, compact: boolean): string {
+  if (compact) {
+    if (value >= 1e12) return (value / 1e12).toFixed(2) + "T";
+    if (value >= 1e9) return (value / 1e9).toFixed(2) + "B";
+    if (value >= 1e6) return (value / 1e6).toFixed(2) + "M";
+    if (value >= 1e3) return (value / 1e3).toFixed(2) + "K";
+    return value.toFixed(2);
+  }
+  if (decimals === 0 && value >= 1000) {
+    return Math.floor(value).toLocaleString("en-US");
+  }
+  return value.toFixed(decimals);
+}
+
+/**
+ * Animated number counter that animates from 0 to end value on first viewport intersection.
+ * 
+ * CRITICAL: Uses `suppressHydrationWarning` because the server renders the final value
+ * while the client starts at 0 for the animation effect. Without this, Cloudflare Edge
+ * hydration mismatches cause the displayed value to freeze at $0.
+ */
 export function CountUp({
   end,
   duration = 1.5,
@@ -21,73 +43,55 @@ export function CountUp({
   compact = false,
   className,
 }: CountUpProps) {
-  const [value, setValue] = useState(end);
+  // Start with the final value to match SSR output and prevent flash of $0
+  const [displayValue, setDisplayValue] = useState<string>(() => formatNumber(end, decimals, compact));
   const ref = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    let startTimestamp: number | null = null;
-    let observer: IntersectionObserver;
+    if (hasAnimated.current || !ref.current || end === 0) return;
+
     let frameId: number;
-    let hasRun = false;
+    let startTimestamp: number | null = null;
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-      
       // Easing out quint
       const easeOut = 1 - Math.pow(1 - progress, 5);
-      
-      setValue(end * easeOut);
+      const current = end * easeOut;
+      setDisplayValue(formatNumber(current, decimals, compact));
 
       if (progress < 1) {
         frameId = window.requestAnimationFrame(step);
       } else {
-        setValue(end);
+        setDisplayValue(formatNumber(end, decimals, compact));
       }
     };
 
-    const runAnimation = () => {
-      hasRun = true;
-      frameId = window.requestAnimationFrame(step);
-    };
-
-    if (ref.current) {
-      observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !hasRun) {
-            runAnimation();
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(ref.current);
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          // Brief reset to 0 then animate up — only fires ONCE on first scroll
+          setDisplayValue(formatNumber(0, decimals, compact));
+          frameId = window.requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(ref.current);
 
     return () => {
       if (frameId) window.cancelAnimationFrame(frameId);
-      if (observer) observer.disconnect();
+      observer.disconnect();
     };
-  }, [end, duration]);
-
-  // Format the number appropriately (handle compact formatting manually if needed, or rely on caller for raw numbers).
-  // This component usually handles raw numbers, but let's allow caller to pass in raw number and we format it.
-  
-  // Format based on decimals
-  let formattedValue = value.toFixed(decimals);
-  
-  if (compact) {
-    if (value >= 1e12) formattedValue = (value / 1e12).toFixed(2) + "T";
-    else if (value >= 1e9) formattedValue = (value / 1e9).toFixed(2) + "B";
-    else if (value >= 1e6) formattedValue = (value / 1e6).toFixed(2) + "M";
-    else if (value >= 1e3) formattedValue = (value / 1e3).toFixed(2) + "K";
-    else formattedValue = value.toFixed(2);
-  } else if (decimals === 0 && end >= 1000) {
-    formattedValue = Math.floor(value).toLocaleString("en-US");
-  }
+  }, [end, duration, decimals, compact]);
 
   return (
-    <span ref={ref} className={className}>
-      {prefix}{formattedValue}{suffix}
+    <span ref={ref} className={className} suppressHydrationWarning>
+      {prefix}{displayValue}{suffix}
     </span>
   );
 }
