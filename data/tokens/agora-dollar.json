@@ -3,63 +3,26 @@
   "symbol": "ausd",
   "name": "AUSD",
   "description": "AUSD, a digital dollar minted 1:1 with USD fiat. AUSD is designed to be a secure digital currency, utilizing one of the world’s largest custodian banks to safeguard assets, a big 4 auditor and a top tier fund manager. AUSD enables users to participate in trading, lending and payments. It is the most cost-efficient stablecoin to transact with due to its gas-optimized smart contract, making it ideal for traders and payments.",
-  "categories": [
-    "Stablecoins",
-    "USD Stablecoin",
-    "BNB Chain Ecosystem",
-    "Solana Ecosystem",
-    "Avalanche Ecosystem",
-    "Polygon Ecosystem",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Sui Ecosystem",
-    "Base Ecosystem",
-    "Immutable zkEVM Ecosystem",
-    "Injective Ecosystem",
-    "Core Ecosystem",
-    "Fraxtal Ecosystem",
-    "Fiat-backed Stablecoin",
-    "Plume Network Ecosystem",
-    "Katana Ecosystem",
-    "Monad Ecosystem"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://agora.finance/",
-    "github": "https://github.com/agora-finance/agora-dollar-evm",
-    "reddit": null,
-    "explorer": "https://etherscan.io/token/0x00000000efe302beaa2b3e6e1b18d08d69a9012a"
-  },
   "market": {
-    "price": 0.999966,
-    "marketCap": 216441107,
-    "marketCapRank": 171,
-    "volume24h": 40410763,
+    "price": 0.999857,
+    "marketCap": 216421935,
+    "marketCapRank": 167,
+    "volume24h": 53934104,
     "high24h": 1,
-    "low24h": 0.999617,
-    "priceChange24h": 0.00957,
-    "priceChange7d": 0.03348,
-    "priceChange30d": 0.02757,
-    "priceChange1y": 0.00689,
+    "low24h": 0.999677,
+    "priceChange24h": 0.00244,
+    "priceChange7d": -0.01076,
+    "priceChange30d": 0.00544,
+    "priceChange1y": 0.03988,
     "ath": 1.022,
-    "athChangePercentage": -2.12188,
+    "athChangePercentage": -2.1347,
     "athDate": "2024-10-05T21:15:26.099Z",
     "atl": 0.950515,
     "atlDate": "2024-12-05T22:30:43.844Z",
     "circulatingSupply": 216456853,
     "totalSupply": 216456853,
     "maxSupply": null,
-    "fdv": 216475141
+    "fdv": 216421935
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 11,
-    "githubForks": 2,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-17T19:06:47.121Z",
-  "lastMarketUpdate": "2026-04-17T08:05:46.507Z"
+  "lastMarketUpdate": "2026-04-19T06:12:49.383Z"
 }
