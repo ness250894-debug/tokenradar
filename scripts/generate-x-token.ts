@@ -70,8 +70,7 @@ async function main(): Promise<void> {
 
   const oauth2Config: OAuth2Config = {
     clientId: CLIENT_ID!,
-    // Explicitly omitting clientSecret forces the SDK to act as a Public Client
-    // which bypasses the infamous "Missing valid authorization header" X API bug
+    clientSecret: CLIENT_SECRET,
     redirectUri: REDIRECT_URI,
     scope: SCOPES,
   };
