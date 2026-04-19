@@ -52,9 +52,9 @@ if (!CLIENT_ID) {
   console.error("✗ Missing X_OAUTH2_CLIENT_ID in .env.local");
   process.exit(1);
 }
-if (!CLIENT_SECRET) {
-  console.error("✗ Missing X_OAUTH2_CLIENT_SECRET in .env.local");
-  process.exit(1);
+// Client Secret is intentionally optional for PKCE Public Client flows
+if (CLIENT_SECRET) {
+  console.info("ℹ Client Secret found, but PKCE flow on X often prefers Public Client behavior. We will omit it to prevent header errors.");
 }
 
 // ── Main Flow ──────────────────────────────────────────────────
@@ -70,7 +70,8 @@ async function main(): Promise<void> {
 
   const oauth2Config: OAuth2Config = {
     clientId: CLIENT_ID!,
-    clientSecret: CLIENT_SECRET!,
+    // Explicitly omitting clientSecret forces the SDK to act as a Public Client
+    // which bypasses the infamous "Missing valid authorization header" X API bug
     redirectUri: REDIRECT_URI,
     scope: SCOPES,
   };

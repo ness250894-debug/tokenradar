@@ -45,28 +45,21 @@ export function sanitizeCashtags(text: string): string {
 
 interface OAuth2Credentials {
   clientId: string;
-  clientSecret: string;
   refreshToken: string;
   bearerToken?: string;
 }
 
 /**
- * Validate that all required X API OAuth 2.0 credentials are present.
- *
- * Falls back to legacy OAuth 1.0a validation if OAuth 2.0 vars are missing,
- * to allow a smooth transition period.
- *
- * @returns Object with all credential values
- * @throws Error listing missing credential names
+ * Ensures required X OAuth 2.0 and API credentials exist.
+ * Note: clientSecret is intentionally omitted as X PKCE flow is more stable
+ * when treating the app as a Public Client.
  */
 export function validateXCredentials(): OAuth2Credentials {
   const clientId = process.env.X_OAUTH2_CLIENT_ID;
-  const clientSecret = process.env.X_OAUTH2_CLIENT_SECRET;
   const refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
 
   const missing: string[] = [];
   if (!clientId) missing.push("X_OAUTH2_CLIENT_ID");
-  if (!clientSecret) missing.push("X_OAUTH2_CLIENT_SECRET");
   if (!refreshToken) missing.push("X_OAUTH2_REFRESH_TOKEN");
 
   if (missing.length > 0) {
@@ -78,7 +71,6 @@ export function validateXCredentials(): OAuth2Credentials {
 
   return {
     clientId: clientId!,
-    clientSecret: clientSecret!,
     refreshToken: refreshToken!,
     bearerToken: process.env.X_BEARER_TOKEN,
   };
@@ -122,53 +114,29 @@ let _cachedClient: Client | null = null;
 let _tokenExpiresAt: number = 0;
 
 /**
- * Path to the persistent OAuth state file.
- * Used in CI/CD (GitHub Actions) where .env.local doesn't exist.
- * The workflow's "Commit Tracking Logs" step pushes this back to the repo.
- */
-const OAUTH_STATE_FILE = path.resolve(__dirname, "../../data/x-oauth-state.json");
-
-/**
- * Read the latest refresh token, preferring the persisted state file
- * over the environment variable (which may be stale in CI after rotation).
+ * Read the latest refresh token.
+ * With the secure GitHub API architecture, we simply read the environment variable.
  */
 function getLatestRefreshToken(envToken: string): string {
-  try {
-    if (fs.existsSync(OAUTH_STATE_FILE)) {
-      const state = JSON.parse(fs.readFileSync(OAUTH_STATE_FILE, "utf-8"));
-      if (state.refreshToken && typeof state.refreshToken === "string") {
-        console.info("  ℹ Using refresh token from state file (data/x-oauth-state.json)");
-        return state.refreshToken;
-      }
-    }
-  } catch {
-    // State file missing or corrupt — fall back to env var
-  }
   return envToken;
 }
 
 /**
  * Persist the new refresh token to both .env.local (local dev)
- * and data/x-oauth-state.json (CI/CD).
+ * and GITHUB_ENV (CI/CD) for secure rotation.
  */
 function persistRefreshToken(newToken: string): void {
   // Always update in-process env
   process.env.X_OAUTH2_REFRESH_TOKEN = newToken;
 
-  // 1. Persist to state file (works in both local and CI)
-  try {
-    const stateDir = path.dirname(OAUTH_STATE_FILE);
-    if (!fs.existsSync(stateDir)) {
-      fs.mkdirSync(stateDir, { recursive: true });
+  // 1. Export to GITHUB_ENV if running in GitHub Actions
+  if (process.env.GITHUB_ENV) {
+    try {
+      fs.appendFileSync(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
+      console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation");
+    } catch (err) {
+      console.error("  ✗ Failed to export to GITHUB_ENV:", (err as Error).message);
     }
-    fs.writeFileSync(
-      OAUTH_STATE_FILE,
-      JSON.stringify({ refreshToken: newToken, updatedAt: new Date().toISOString() }, null, 2),
-      "utf-8"
-    );
-    console.info("  ✓ Refresh token saved to data/x-oauth-state.json");
-  } catch (err) {
-    console.warn("  ⚠ Could not save state file:", (err as Error).message);
   }
 
   // 2. Also update .env.local if it exists (local dev convenience)
@@ -211,7 +179,6 @@ export async function getXClient(): Promise<Client> {
 
   const oauth2Config: OAuth2Config = {
     clientId: creds.clientId,
-    clientSecret: creds.clientSecret,
     redirectUri: "http://127.0.0.1:3000",
     scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write"],
   };
