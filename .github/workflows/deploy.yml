@@ -61,6 +61,16 @@ jobs:
       - name: Run Tests
         run: npm run test
 
+      - name: Consolidate Data (Blobs)
+        run: npm run consolidate
+
+      - name: Verify Data Assets exist
+        run: |
+          echo "🔍 Checking for consolidated blobs in public/data..."
+          ls -lh public/data/_registry.json || exit 1
+          ls -lh public/data/_tokens_blob.json || exit 1
+          echo "✅ All required data blobs found."
+
       - name: Build for Cloudflare (OpenNext)
         run: npm run build:cf
         env:

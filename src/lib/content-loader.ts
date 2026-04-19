@@ -15,6 +15,20 @@ function getFilePath(relativePath: string) {
   return path.join(DATA_DIR, relativePath);
 }
 
+/**
+ * Get the base origin for internal fetches.
+ * Prioritizes NEXT_PUBLIC_SITE_URL to ensure consistency between Server & Client.
+ */
+function getOrigin(): string {
+  if (typeof window !== "undefined") return window.location.origin;
+  
+  // In GHA or local production simulation, ensure we have a valid origin
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  
+  // Strip trailing slash if present
+  return siteUrl.replace(/\/$/, "");
+}
+
 // ── Types ──────────────────────────────────────────────────────
 
 export interface TokenSummary {
@@ -155,87 +169,63 @@ let _pricesBlob: Record<string, unknown> | null = null;
 // ── Data Fetching ─────────────────────────────────────────────
 
 async function fetchAsset(relativePath: string) {
+  const logPrefix = `[LOADER]`;
+  const origin = getOrigin();
+  const path = relativePath.replace(/\\/g, "/");
+  const fullUrl = `${origin}/${path}`;
+  
+  const isBrowser = typeof window !== "undefined";
+  
   try {
-    const url = `/${relativePath.replace(/\\/g, "/")}`;
-    const isBrowser = typeof window !== "undefined";
-    const isNode = !isBrowser && (process.env.NEXT_RUNTIME !== 'edge');
-    
-    // Diagnostic prefix for logs
-    const logPrefix = `[LOADER]`;
-
-    // 1. In Browser: Use relative fetch
+    // 1. In Browser: Always use relative fetch for better performance/caching
     if (isBrowser) {
-      const resp = await fetch(url);
+      const resp = await fetch(`/${path}`);
       if (resp.ok) return await resp.json();
+      console.warn(`${logPrefix} Browser fetch failed for /${path} (Status: ${resp.status})`);
       return null;
     }
 
-    // 2. In Server (Cloudflare Edge Runtime)
-    if (!isNode) {
-      try {
-        const resp = await fetch(url, { next: { revalidate: 3600 } });
-        if (resp.ok) {
-          const data = await resp.json();
-          // Log success for critical blobs
-          if (url.includes('_blob') || url.includes('_registry')) {
-            console.info(`${logPrefix} Successfully fetched ${url} via Relative Fetch`);
-          }
-          return data;
-        }
-      } catch (_err) {
-        // Fall back peacefully to absolute
-      }
-    }
-
-    // 3. Absolute Fallback
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-    const fullUrl = new URL(url, siteUrl).toString();
-    
-    // Safety Check: In CI/Build, we MUST use local data. 
-    // If we've reached this point, FS load failed.
-    if (process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true") {
-      if (url.includes("_blob") || url.includes("_registry")) {
-        console.error(`❌ [CRITICAL] Core data ${url} missing from Filesystem in CI. Build cannot safely fallback to ${fullUrl} (risk of stale data hydration).`);
-        throw new Error(`Build Failure: Local ${url} was not generated or found. Run consolidation script.`);
-      }
-    }
-    
-    // Add 3s safety timeout to prevent build hangs
+    // 2. In Server (Edge or Node fallback)
+    // We add a 3s timeout to prevent build hangs
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
 
     try {
-      const fallbackResp = await fetch(fullUrl, { 
+      // We use the full URL in server context to ensure reliable resolution on Cloudflare Edge
+      const resp = await fetch(fullUrl, { 
         next: { revalidate: 3600 },
         signal: controller.signal 
       });
       clearTimeout(timeoutId);
       
-      if (!fallbackResp.ok) {
-        console.warn(`${logPrefix} Failed to fetch ${fullUrl} (Status: ${fallbackResp.status})`);
+      if (!resp.ok) {
+        // Detailed logging for critical files (blobs)
+        if (path.includes('_blob') || path.includes('_registry')) {
+          console.warn(`${logPrefix} Server fetch failed for ${fullUrl} (Status: ${resp.status})`);
+        }
         return null;
       }
       
-      const data = await fallbackResp.json();
-      if (url.includes('_blob') || url.includes('_registry')) {
-        console.info(`${logPrefix} Successfully fetched ${url} via Absolute Fallback (${siteUrl})`);
+      const data = await resp.json();
+      if (path.includes('_blob') || path.includes('_registry')) {
+        console.info(`${logPrefix} Successfully fetched ${path} via ${fullUrl}`);
       }
       return data;
     } catch (e: unknown) {
       clearTimeout(timeoutId);
-      const msg = e instanceof Error ? e.message : String(e);
-      const name = e instanceof Error ? e.name : "Error";
-      
-      if (name === 'AbortError') {
-        console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
-      } else {
-        console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${msg}`);
+      if (path.includes('_blob') || path.includes('_registry')) {
+        const msg = e instanceof Error ? e.message : String(e);
+        if ((e as any).name === 'AbortError') {
+          console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
+        } else {
+          console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${msg}`);
+        }
       }
       return null;
     }
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
-    console.error(`❌ Global fetch error for ${relativePath}: ${msg}`);
+    console.error(`❌ Global loader error for ${path}: ${msg}`);
   }
   return null;
 }
