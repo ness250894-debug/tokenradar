@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tokenradar.co/bitcoin</loc>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -17,6 +17,12 @@
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bitcoin/transfer-to-ledger</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/ethereum</loc>
@@ -37,6 +43,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/ethereum/transfer-to-ledger</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/tether</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -55,6 +67,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/tether/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/ripple</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -71,6 +89,12 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ripple/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/binancecoin</loc>
@@ -127,6 +151,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/solana/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/tron</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -179,6 +209,12 @@
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/dogecoin/transfer-to-ledger</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/little-pepe-5</loc>
@@ -236,7 +272,7 @@
   </url>
   <url>
     <loc>https://tokenradar.co/hyperliquid</loc>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -249,6 +285,24 @@
   <url>
     <loc>https://tokenradar.co/hyperliquid/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/leo-token</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/leo-token/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/leo-token/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -271,22 +325,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/leo-token</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/leo-token/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/leo-token/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://tokenradar.co/cardano/transfer-to-ledger</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/bitcoin-cash</loc>
@@ -325,22 +367,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/memecore</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/memecore/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/memecore/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://tokenradar.co/chainlink/transfer-to-ledger</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/monero</loc>
@@ -356,6 +386,24 @@
   </url>
   <url>
     <loc>https://tokenradar.co/monero/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/memecore</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/memecore/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/memecore/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -397,24 +445,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/zcash</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zcash/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zcash/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/stellar</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -433,10 +463,22 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ravedao</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/zcash</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/zcash/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/zcash/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/dai</loc>
@@ -475,22 +517,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/avalanche-2</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/avalanche-2/price-prediction</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/avalanche-2/how-to-buy</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://tokenradar.co/litecoin/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/usd1-wlfi</loc>
@@ -527,6 +557,30 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avalanche-2</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avalanche-2/price-prediction</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avalanche-2/how-to-buy</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avalanche-2/transfer-to-ledger</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/hedera-hashgraph</loc>
@@ -599,6 +653,12 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/shiba-inu/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/the-open-network</loc>
@@ -709,24 +769,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/bittensor</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bittensor/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bittensor/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/pax-gold</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -745,8 +787,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/bittensor</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bittensor/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bittensor/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/global-dollar</loc>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -759,24 +819,6 @@
   <url>
     <loc>https://tokenradar.co/global-dollar/how-to-buy</loc>
     <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/polkadot</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/polkadot/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/polkadot/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -799,6 +841,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/polkadot</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/polkadot/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/polkadot/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/polkadot/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/uniswap</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -817,20 +883,26 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/near</loc>
+    <loc>https://tokenradar.co/uniswap/transfer-to-ledger</loc>
     <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/falcon-finance</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/near/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/falcon-finance/price-prediction</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/near/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/falcon-finance/how-to-buy</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -871,24 +943,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/falcon-finance</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/falcon-finance/price-prediction</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/falcon-finance/how-to-buy</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/sky</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -907,20 +961,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aave</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/near</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aave/price-prediction</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/near/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aave/how-to-buy</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/near/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -943,6 +997,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/htx-dao</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/htx-dao/price-prediction</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/htx-dao/how-to-buy</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/pepe</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -961,20 +1033,26 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/htx-dao</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/pepe/transfer-to-ledger</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund</loc>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/htx-dao/price-prediction</loc>
-    <lastmod>2026-04-16</lastmod>
+    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/htx-dao/how-to-buy</loc>
-    <lastmod>2026-04-16</lastmod>
+    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -997,24 +1075,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/janus-henderson-anemoy-treasury-fund/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/ripple-usd</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1033,6 +1093,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/aave</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aave/price-prediction</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aave/how-to-buy</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aave/transfer-to-ledger</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/internet-computer</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1046,6 +1130,24 @@
   </url>
   <url>
     <loc>https://tokenradar.co/internet-computer/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bfusd</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bfusd/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bfusd/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1069,6 +1171,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/bitget-token</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bitget-token/price-prediction</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bitget-token/how-to-buy</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/ethereum-classic</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -1087,42 +1207,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/bitget-token</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bitget-token/price-prediction</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bitget-token/how-to-buy</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bfusd</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bfusd/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bfusd/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/ondo-finance</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1136,42 +1220,6 @@
   </url>
   <url>
     <loc>https://tokenradar.co/ondo-finance/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/siren-2</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/siren-2/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/siren-2/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pump-fun</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pump-fun/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pump-fun/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1213,74 +1261,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/quant-network</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://tokenradar.co/pump-fun</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/quant-network/price-prediction</loc>
+    <loc>https://tokenradar.co/pump-fun/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/quant-network/how-to-buy</loc>
+    <loc>https://tokenradar.co/pump-fun/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/worldcoin-wld</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/worldcoin-wld/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/worldcoin-wld/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/algorand</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/algorand/price-prediction</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/algorand/how-to-buy</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/eutbl</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/eutbl/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/eutbl/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1298,6 +1292,24 @@
   </url>
   <url>
     <loc>https://tokenradar.co/morpho/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/quant-network</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/quant-network/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/quant-network/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1321,28 +1333,28 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/united-stables</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/render-token</loc>
+    <loc>https://tokenradar.co/eutbl</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/render-token/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/eutbl/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/render-token/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/eutbl/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/united-stables</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/polygon-ecosystem-token</loc>
@@ -1363,6 +1375,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/polygon-ecosystem-token/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/kaspa</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1376,6 +1394,66 @@
   </url>
   <url>
     <loc>https://tokenradar.co/kaspa/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/algorand</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/algorand/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/algorand/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/render-token</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/render-token/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/render-token/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/render-token/transfer-to-ledger</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nexo</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nexo/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nexo/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1395,24 +1473,6 @@
   <url>
     <loc>https://tokenradar.co/cosmos/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/nexo</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/nexo/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/nexo/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1453,20 +1513,38 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aptos</loc>
+    <loc>https://tokenradar.co/worldcoin-wld</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aptos/price-prediction</loc>
-    <lastmod>2026-03-19</lastmod>
+    <loc>https://tokenradar.co/worldcoin-wld/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/aptos/how-to-buy</loc>
-    <lastmod>2026-03-19</lastmod>
+    <loc>https://tokenradar.co/worldcoin-wld/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/blockchain-capital</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/blockchain-capital/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/blockchain-capital/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1489,6 +1567,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/arbitrum/transfer-to-ledger</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aptos</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aptos/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/aptos/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/filecoin</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -1507,19 +1609,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/blockchain-capital</loc>
+    <loc>https://tokenradar.co/dexe</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/blockchain-capital/price-prediction</loc>
+    <loc>https://tokenradar.co/dexe/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/blockchain-capital/how-to-buy</loc>
+    <loc>https://tokenradar.co/dexe/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/flare-networks</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/flare-networks/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/flare-networks/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1543,19 +1663,19 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/flare-networks</loc>
+    <loc>https://tokenradar.co/hash-2</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/flare-networks/price-prediction</loc>
+    <loc>https://tokenradar.co/hash-2/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/flare-networks/how-to-buy</loc>
+    <loc>https://tokenradar.co/hash-2/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1579,37 +1699,55 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/xdce-crowd-sale</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/beldex</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/xdce-crowd-sale/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/xdce-crowd-sale/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/hash-2</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/hash-2/price-prediction</loc>
+    <loc>https://tokenradar.co/beldex/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/hash-2/how-to-buy</loc>
+    <loc>https://tokenradar.co/beldex/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/midnight-3</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/midnight-3/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/midnight-3/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/just</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/just/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/just/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1633,42 +1771,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/midnight-3</loc>
-    <lastmod>2026-03-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/midnight-3/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/midnight-3/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/beldex</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/beldex/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/beldex/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/ousg</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
@@ -1682,6 +1784,42 @@
   </url>
   <url>
     <loc>https://tokenradar.co/ousg/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/xdce-crowd-sale</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/xdce-crowd-sale/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/xdce-crowd-sale/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ylds</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ylds/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ylds/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1723,38 +1861,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ylds</loc>
+    <loc>https://tokenradar.co/usual-usd</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ylds/price-prediction</loc>
+    <loc>https://tokenradar.co/usual-usd/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ylds/how-to-buy</loc>
+    <loc>https://tokenradar.co/usual-usd/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/just</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/just/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/just/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1777,34 +1897,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/usual-usd/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/usual-usd/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dexe</loc>
+    <loc>https://tokenradar.co/bonk/transfer-to-ledger</loc>
     <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dexe/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dexe/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/pancakeswap-token</loc>
@@ -1821,6 +1917,42 @@
   <url>
     <loc>https://tokenradar.co/pancakeswap-token/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/true-usd</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/true-usd/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/true-usd/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/a7a5</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/a7a5/price-prediction</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/a7a5/how-to-buy</loc>
+    <lastmod>2026-04-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1861,56 +1993,56 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/layerzero</loc>
+    <loc>https://tokenradar.co/siren-2</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/layerzero/price-prediction</loc>
+    <loc>https://tokenradar.co/siren-2/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/layerzero/how-to-buy</loc>
+    <loc>https://tokenradar.co/siren-2/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/true-usd</loc>
+    <loc>https://tokenradar.co/adi-token</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/adi-token/price-prediction</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/adi-token/how-to-buy</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/virtual-protocol</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/true-usd/price-prediction</loc>
+    <loc>https://tokenradar.co/virtual-protocol/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/true-usd/how-to-buy</loc>
+    <loc>https://tokenradar.co/virtual-protocol/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/a7a5</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/a7a5/price-prediction</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/a7a5/how-to-buy</loc>
-    <lastmod>2026-04-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1933,20 +2065,38 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/virtual-protocol</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/euro-coin</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/virtual-protocol/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/euro-coin/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/virtual-protocol/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/euro-coin/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/edgex</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/edgex/price-prediction</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/edgex/how-to-buy</loc>
+    <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1982,60 +2132,6 @@
   </url>
   <url>
     <loc>https://tokenradar.co/blockstack/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/adi-token</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/adi-token/price-prediction</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/adi-token/how-to-buy</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/edgex</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/edgex/price-prediction</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/edgex/how-to-buy</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/euro-coin</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/euro-coin/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/euro-coin/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2077,38 +2173,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/venice-token</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/bianrensheng</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/venice-token/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/bianrensheng/price-prediction</loc>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/venice-token/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/tezos</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/tezos/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/tezos/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/bianrensheng/how-to-buy</loc>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2131,6 +2209,42 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/layerzero</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/layerzero/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/layerzero/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/venice-token</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/venice-token/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/venice-token/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/ether-fi</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -2145,6 +2259,42 @@
   <url>
     <loc>https://tokenradar.co/ether-fi/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/tezos</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/tezos/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/tezos/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kinesis-gold</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kinesis-gold/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kinesis-gold/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2167,42 +2317,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/sei-network</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sei-network/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sei-network/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/aerodrome-finance</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/aerodrome-finance/price-prediction</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/aerodrome-finance/how-to-buy</loc>
-    <lastmod>2026-04-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/usx</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -2221,19 +2335,19 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kinesis-gold</loc>
+    <loc>https://tokenradar.co/sei-network</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kinesis-gold/price-prediction</loc>
+    <loc>https://tokenradar.co/sei-network/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kinesis-gold/how-to-buy</loc>
+    <loc>https://tokenradar.co/sei-network/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2275,20 +2389,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lido-dao</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/decred</loc>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lido-dao/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/decred/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lido-dao/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/decred/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2311,20 +2425,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/decred</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://tokenradar.co/aerodrome-finance</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/decred/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/aerodrome-finance/price-prediction</loc>
+    <lastmod>2026-04-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/decred/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/aerodrome-finance/how-to-buy</loc>
+    <lastmod>2026-04-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2347,56 +2461,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/conflux-token</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/apenft</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/conflux-token/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/apenft/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/conflux-token/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/injective-protocol</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/injective-protocol/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/injective-protocol/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bianrensheng</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bianrensheng/price-prediction</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bianrensheng/how-to-buy</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://tokenradar.co/apenft/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2419,55 +2497,55 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apenft</loc>
-    <lastmod>2026-03-19</lastmod>
+    <loc>https://tokenradar.co/lido-dao</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apenft/price-prediction</loc>
-    <lastmod>2026-03-19</lastmod>
+    <loc>https://tokenradar.co/lido-dao/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apenft/how-to-buy</loc>
-    <lastmod>2026-03-19</lastmod>
+    <loc>https://tokenradar.co/lido-dao/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/doublezero</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/doublezero/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/doublezero/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/bitcoin-cash-sv</loc>
+    <loc>https://tokenradar.co/injective-protocol</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/bitcoin-cash-sv/price-prediction</loc>
+    <loc>https://tokenradar.co/injective-protocol/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/bitcoin-cash-sv/how-to-buy</loc>
+    <loc>https://tokenradar.co/injective-protocol/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gnosis</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gnosis/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gnosis/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2491,6 +2569,60 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/bitcoin-cash-sv</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bitcoin-cash-sv/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bitcoin-cash-sv/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/crvusd</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/crvusd/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/crvusd/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/conflux-token</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/conflux-token/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/conflux-token/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/spx6900</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -2509,37 +2641,43 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/plasma</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/ravedao</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/plasma/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/kinesis-silver</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kinesis-silver/price-prediction</loc>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/plasma/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/kinesis-silver/how-to-buy</loc>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gnosis</loc>
+    <loc>https://tokenradar.co/doublezero</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gnosis/price-prediction</loc>
+    <loc>https://tokenradar.co/doublezero/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gnosis/how-to-buy</loc>
+    <loc>https://tokenradar.co/doublezero/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2563,42 +2701,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/usdai</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/usdai/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/usdai/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/kinesis-silver</loc>
-    <lastmod>2026-03-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/kinesis-silver/price-prediction</loc>
-    <lastmod>2026-03-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/kinesis-silver/how-to-buy</loc>
-    <lastmod>2026-03-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/kaia</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -2617,37 +2719,19 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/syrup</loc>
+    <loc>https://tokenradar.co/usdai</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/syrup/price-prediction</loc>
+    <loc>https://tokenradar.co/usdai/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/syrup/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/optimism</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/optimism/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/optimism/how-to-buy</loc>
+    <loc>https://tokenradar.co/usdai/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2671,60 +2755,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/the-graph</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/the-graph/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/the-graph/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/crvusd</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/crvusd/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/crvusd/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zebec-network</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zebec-network/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zebec-network/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/frax</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -2743,55 +2773,115 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/pyth-network</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pyth-network/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pyth-network/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/ape-and-pepe</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/ape-and-pepe/price-prediction</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/ape-and-pepe/how-to-buy</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kite-2</loc>
+    <loc>https://tokenradar.co/syrup</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kite-2/price-prediction</loc>
+    <loc>https://tokenradar.co/syrup/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/kite-2/how-to-buy</loc>
+    <loc>https://tokenradar.co/syrup/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/the-graph</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/the-graph/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/the-graph/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/official-fo</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/official-fo/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/official-fo/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/optimism</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/optimism/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/optimism/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/optimism/transfer-to-ledger</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/zebec-network</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/zebec-network/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/zebec-network/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2815,19 +2905,55 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/official-fo</loc>
+    <loc>https://tokenradar.co/pyth-network</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/official-fo/price-prediction</loc>
+    <loc>https://tokenradar.co/pyth-network/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/official-fo/how-to-buy</loc>
+    <loc>https://tokenradar.co/pyth-network/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kite-2</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kite-2/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/kite-2/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/plasma</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/plasma/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/plasma/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2851,20 +2977,56 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lighter</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/olympus</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lighter/price-prediction</loc>
+    <loc>https://tokenradar.co/olympus/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/lighter/how-to-buy</loc>
+    <loc>https://tokenradar.co/olympus/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ethgas-2</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ethgas-2/price-prediction</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ethgas-2/how-to-buy</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/compound-governance-token</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/compound-governance-token/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/compound-governance-token/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2887,19 +3049,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/olympus</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/lighter</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/olympus/price-prediction</loc>
+    <loc>https://tokenradar.co/lighter/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/olympus/how-to-buy</loc>
+    <loc>https://tokenradar.co/lighter/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/reallink</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/reallink/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/reallink/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2923,78 +3103,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/compound-governance-token</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/compound-governance-token/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/compound-governance-token/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/reallink</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/reallink/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/reallink/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/the-sandbox</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/the-sandbox/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/the-sandbox/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fartcoin</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fartcoin/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fartcoin/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/pendle</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -3013,48 +3121,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/genius-3</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/starknet</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/starknet/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/starknet/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/story-2</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/story-2/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/story-2/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/usda-2/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -3068,37 +3134,37 @@
   </url>
   <url>
     <loc>https://tokenradar.co/agora-dollar</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/agora-dollar/price-prediction</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/agora-dollar/how-to-buy</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/doge-strategy</loc>
-    <lastmod>2026-03-28</lastmod>
+    <loc>https://tokenradar.co/theta-token</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/doge-strategy/price-prediction</loc>
-    <lastmod>2026-03-28</lastmod>
+    <loc>https://tokenradar.co/theta-token/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/doge-strategy/how-to-buy</loc>
-    <lastmod>2026-03-28</lastmod>
+    <loc>https://tokenradar.co/theta-token/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3121,91 +3187,79 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/humanity</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/humanity/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/humanity/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dogwifcoin</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dogwifcoin/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/dogwifcoin/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/neo</loc>
+    <loc>https://tokenradar.co/undeads-games</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/neo/price-prediction</loc>
+    <loc>https://tokenradar.co/undeads-games/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/neo/how-to-buy</loc>
+    <loc>https://tokenradar.co/undeads-games/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/grass</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/doge-strategy</loc>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/grass/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/doge-strategy/price-prediction</loc>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/grass/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/doge-strategy/how-to-buy</loc>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/telcoin</loc>
+    <loc>https://tokenradar.co/the-sandbox</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/telcoin/price-prediction</loc>
+    <loc>https://tokenradar.co/the-sandbox/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/telcoin/how-to-buy</loc>
+    <loc>https://tokenradar.co/the-sandbox/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/genius-3</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/starknet</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/starknet/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/starknet/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3229,6 +3283,60 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/neo</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/neo/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/neo/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/telcoin</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/telcoin/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/telcoin/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/dogwifcoin</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/dogwifcoin/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/dogwifcoin/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/vision-3</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -3247,73 +3355,73 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/theta-token</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/theta-token/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/theta-token/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/axie-infinity</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/axie-infinity/price-prediction</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/axie-infinity/how-to-buy</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/undeads-games</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/undeads-games/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/undeads-games/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/helium</loc>
+    <loc>https://tokenradar.co/fartcoin</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/helium/price-prediction</loc>
+    <loc>https://tokenradar.co/fartcoin/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/helium/how-to-buy</loc>
+    <loc>https://tokenradar.co/fartcoin/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/humanity</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/humanity/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/humanity/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/re-protocol-reusd</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/re-protocol-reusd/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/re-protocol-reusd/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/grass</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/grass/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/grass/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3337,110 +3445,38 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/re-protocol-reusd</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/re-protocol-reusd/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/re-protocol-reusd/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/build-on</loc>
+    <loc>https://tokenradar.co/helium</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/build-on/price-prediction</loc>
+    <loc>https://tokenradar.co/helium/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/build-on/how-to-buy</loc>
+    <loc>https://tokenradar.co/helium/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/raydium</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/axie-infinity</loc>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/raydium/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/axie-infinity/price-prediction</loc>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/raydium/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/decentraland</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/decentraland/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/decentraland/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chain-2</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chain-2/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chain-2/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/trust-wallet-token</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/trust-wallet-token/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/trust-wallet-token/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/axie-infinity/how-to-buy</loc>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3463,55 +3499,151 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/sonic-3</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sonic-3/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sonic-3/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/falcon-finance-ff</loc>
+    <loc>https://tokenradar.co/build-on</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/falcon-finance-ff/price-prediction</loc>
+    <loc>https://tokenradar.co/build-on/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/falcon-finance-ff/how-to-buy</loc>
+    <loc>https://tokenradar.co/build-on/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/walrus-2</loc>
+    <loc>https://tokenradar.co/skyai</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/story-2</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/walrus-2/price-prediction</loc>
+    <loc>https://tokenradar.co/story-2/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/walrus-2/how-to-buy</loc>
+    <loc>https://tokenradar.co/story-2/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/asteroid-shiba</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/asteroid-shiba/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/asteroid-shiba/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/chain-2</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/chain-2/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/chain-2/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/decentraland</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/decentraland/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/decentraland/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apxusd</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apxusd/price-prediction</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apxusd/how-to-buy</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/raydium</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/raydium/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/raydium/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nusd-2</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nusd-2/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/nusd-2/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3553,24 +3685,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/convex-finance</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/convex-finance/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/convex-finance/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/aria-ai</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>daily</changefreq>
@@ -3589,19 +3703,55 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock</loc>
+    <loc>https://tokenradar.co/falcon-finance-ff</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/falcon-finance-ff/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/falcon-finance-ff/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/trust-wallet-token</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock/price-prediction</loc>
+    <loc>https://tokenradar.co/trust-wallet-token/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock/how-to-buy</loc>
+    <loc>https://tokenradar.co/trust-wallet-token/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/walrus-2</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/walrus-2/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/walrus-2/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3625,24 +3775,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/nusd-2</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/nusd-2/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/nusd-2/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/bnb48-club-token</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -3661,19 +3793,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gala</loc>
+    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/circle-internet-group-ondo-tokenized-stock/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/convex-finance</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gala/price-prediction</loc>
+    <loc>https://tokenradar.co/convex-finance/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/gala/how-to-buy</loc>
+    <loc>https://tokenradar.co/convex-finance/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3693,42 +3843,6 @@
   <url>
     <loc>https://tokenradar.co/satoshi-stablecoin/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zksync</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zksync/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zksync/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/basic-attention-token</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/basic-attention-token/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/basic-attention-token/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3757,55 +3871,73 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ultima</loc>
+    <loc>https://tokenradar.co/sonic-3</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ultima/price-prediction</loc>
+    <loc>https://tokenradar.co/sonic-3/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ultima/how-to-buy</loc>
+    <loc>https://tokenradar.co/sonic-3/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/jito-governance-token</loc>
+    <loc>https://tokenradar.co/fidelity-digital-interest-token</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/jito-governance-token/price-prediction</loc>
+    <loc>https://tokenradar.co/fidelity-digital-interest-token/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/jito-governance-token/how-to-buy</loc>
+    <loc>https://tokenradar.co/fidelity-digital-interest-token/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/safepal</loc>
+    <loc>https://tokenradar.co/gala</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gala/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gala/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/onyc</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/safepal/price-prediction</loc>
+    <loc>https://tokenradar.co/onyc/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/safepal/how-to-buy</loc>
+    <loc>https://tokenradar.co/onyc/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -3847,70 +3979,40 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/stasis-eurs</loc>
+    <loc>https://tokenradar.co/safepal</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/stasis-eurs/price-prediction</loc>
+    <loc>https://tokenradar.co/safepal/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/stasis-eurs/how-to-buy</loc>
+    <loc>https://tokenradar.co/safepal/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apxusd</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/zksync</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apxusd/price-prediction</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://tokenradar.co/zksync/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/apxusd/how-to-buy</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://tokenradar.co/zksync/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/skyai</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fidelity-digital-interest-token</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fidelity-digital-interest-token/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/fidelity-digital-interest-token/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/usa</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/gusd</loc>
@@ -3931,58 +4033,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/banana-for-scale-2</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/usa</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/banana-for-scale-2/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/banana-for-scale-2/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/ethgas-2</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/ethgas-2/price-prediction</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/ethgas-2/how-to-buy</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chutes</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chutes/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/chutes/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/zano</loc>
@@ -3999,6 +4053,24 @@
   <url>
     <loc>https://tokenradar.co/zano/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/basic-attention-token</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/basic-attention-token/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/basic-attention-token/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4021,28 +4093,76 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/onyc</loc>
+    <loc>https://tokenradar.co/banana-for-scale-2</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/banana-for-scale-2/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/banana-for-scale-2/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/stasis-eurs</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/onyc/price-prediction</loc>
+    <loc>https://tokenradar.co/stasis-eurs/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/onyc/how-to-buy</loc>
+    <loc>https://tokenradar.co/stasis-eurs/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/enjincoin</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/chutes</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/chutes/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/chutes/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/jito-governance-token</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/jito-governance-token/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/jito-governance-token/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/ecash</loc>
@@ -4059,6 +4179,42 @@
   <url>
     <loc>https://tokenradar.co/ecash/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pieverse</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pieverse/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pieverse/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/centrifuge-2</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/centrifuge-2/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/centrifuge-2/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4081,19 +4237,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/immutable-x</loc>
+    <loc>https://tokenradar.co/ultima</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ultima/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/ultima/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/frax-usd</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/immutable-x/price-prediction</loc>
+    <loc>https://tokenradar.co/frax-usd/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/immutable-x/how-to-buy</loc>
+    <loc>https://tokenradar.co/frax-usd/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -4117,6 +4291,60 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/sosovalue</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/sosovalue/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/sosovalue/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/immutable-x</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/immutable-x/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/immutable-x/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/ribbita-by-virtuals</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -4131,6 +4359,42 @@
   <url>
     <loc>https://tokenradar.co/ribbita-by-virtuals/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/1inch</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/1inch/price-prediction</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/1inch/how-to-buy</loc>
+    <lastmod>2026-04-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4171,42 +4435,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/luxxcoin</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/luxxcoin/price-prediction</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/luxxcoin/how-to-buy</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/1inch</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/1inch/price-prediction</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/1inch/how-to-buy</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tokenradar.co/golem</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
@@ -4225,110 +4453,44 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/eigenlayer</loc>
+    <loc>https://tokenradar.co/enjincoin</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avant-usd</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avant-usd/price-prediction</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/avant-usd/how-to-buy</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/cash-4</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/eigenlayer/price-prediction</loc>
+    <loc>https://tokenradar.co/cash-4/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/eigenlayer/how-to-buy</loc>
+    <loc>https://tokenradar.co/cash-4/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sosovalue</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sosovalue/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/sosovalue/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/theo-short-duration-us-treasury-fund/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/frax-usd</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/frax-usd/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/frax-usd/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zero-gravity</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zero-gravity/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/zero-gravity/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund</loc>
-    <lastmod>2026-03-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund/price-prediction</loc>
-    <lastmod>2026-03-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/apollo-diversified-credit-securitize-fund/how-to-buy</loc>
-    <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4351,38 +4513,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/instadapp</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/ozone-chain</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/instadapp/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://tokenradar.co/ozone-chain/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/instadapp/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/akash-network</loc>
-    <lastmod>2026-03-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/akash-network/price-prediction</loc>
-    <lastmod>2026-03-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/akash-network/how-to-buy</loc>
-    <lastmod>2026-03-17</lastmod>
+    <loc>https://tokenradar.co/ozone-chain/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4405,6 +4549,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/luxxcoin</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/luxxcoin/price-prediction</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/luxxcoin/how-to-buy</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/qubic-network</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
@@ -4419,24 +4581,6 @@
   <url>
     <loc>https://tokenradar.co/qubic-network/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/avant-usd</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/avant-usd/price-prediction</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/avant-usd/how-to-buy</loc>
-    <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4459,38 +4603,56 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/elrond-erd-2</loc>
+    <loc>https://tokenradar.co/instadapp</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/elrond-erd-2/price-prediction</loc>
+    <loc>https://tokenradar.co/instadapp/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/elrond-erd-2/how-to-buy</loc>
+    <loc>https://tokenradar.co/instadapp/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/centrifuge-2</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://tokenradar.co/societe-generale-forge-eurcv</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/centrifuge-2/price-prediction</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://tokenradar.co/societe-generale-forge-eurcv/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/centrifuge-2/how-to-buy</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://tokenradar.co/societe-generale-forge-eurcv/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/akash-network</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/akash-network/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/akash-network/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4549,55 +4711,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/pieverse</loc>
+    <loc>https://tokenradar.co/zero-gravity</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/pieverse/price-prediction</loc>
+    <loc>https://tokenradar.co/zero-gravity/price-prediction</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/pieverse/how-to-buy</loc>
+    <loc>https://tokenradar.co/zero-gravity/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/societe-generale-forge-eurcv</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/societe-generale-forge-eurcv/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/societe-generale-forge-eurcv/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/cash-4</loc>
+    <loc>https://tokenradar.co/elrond-erd-2</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/cash-4/price-prediction</loc>
+    <loc>https://tokenradar.co/elrond-erd-2/price-prediction</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/cash-4/how-to-buy</loc>
+    <loc>https://tokenradar.co/elrond-erd-2/how-to-buy</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -4657,6 +4801,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tokenradar.co/gmt-token</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gmt-token/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/gmt-token/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tokenradar.co/ontology</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>daily</changefreq>
@@ -4675,40 +4837,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/ozone-chain</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://tokenradar.co/dydx-chain</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/ozone-chain/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/ozone-chain/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/gmt-token</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/gmt-token/price-prediction</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/gmt-token/how-to-buy</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tokenradar.co/lombard-protocol</loc>
@@ -4765,20 +4897,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/amp-token</loc>
-    <lastmod>2026-03-18</lastmod>
+    <loc>https://tokenradar.co/eigenlayer</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/amp-token/price-prediction</loc>
-    <lastmod>2026-03-18</lastmod>
+    <loc>https://tokenradar.co/eigenlayer/price-prediction</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tokenradar.co/amp-token/how-to-buy</loc>
-    <lastmod>2026-03-18</lastmod>
+    <loc>https://tokenradar.co/eigenlayer/how-to-buy</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4814,24 +4946,6 @@
   </url>
   <url>
     <loc>https://tokenradar.co/melania-meme/how-to-buy</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pleasing-usd</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pleasing-usd/price-prediction</loc>
-    <lastmod>2026-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tokenradar.co/pleasing-usd/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -4928,6 +5042,24 @@
   </url>
   <url>
     <loc>https://tokenradar.co/livepeer/how-to-buy</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pleasing-usd</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pleasing-usd/price-prediction</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/pleasing-usd/how-to-buy</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -5145,6 +5277,42 @@
   <url>
     <loc>https://tokenradar.co/derive/how-to-buy</loc>
     <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bc-token</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bc-token/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/bc-token/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/amp-token</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/amp-token/price-prediction</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokenradar.co/amp-token/how-to-buy</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
