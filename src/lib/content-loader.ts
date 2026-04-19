@@ -7,12 +7,57 @@ import { slugify } from "@/lib/shared-utils";
 import * as fs from "fs";
 import * as path from "path";
 
-const DATA_DIR = path.resolve(process.cwd(), "data");
-const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
+/**
+ * Resolve the data directory path.
+ * 
+ * On local dev / CI build: `process.cwd()` points to the project root → `data/` exists.
+ * On Cloudflare Edge Worker: `process.cwd()` doesn't point to the bundled server function.
+ * We try multiple candidates to find the actual location of the data directory.
+ */
+function resolveDataDir(): string {
+  const candidates = [
+    path.resolve(process.cwd(), "data"),                     // Local dev / CI build
+    path.resolve(__dirname, "..", "..", "data"),              // Relative to compiled content-loader
+    path.resolve(__dirname, "..", "data"),                    // Alternate bundle layout
+    path.resolve(__dirname, "data"),                          // Same dir (flat bundle)
+  ];
+
+  for (const dir of candidates) {
+    try {
+      if (fs.existsSync(dir)) return dir;
+    } catch {
+      // fs.existsSync might throw on some runtimes — continue trying
+    }
+  }
+
+  // Fallback to cwd-based (will work during build)
+  return path.resolve(process.cwd(), "data");
+}
+
+// Lazily resolved once per cold start
+let _dataDirResolved: string | null = null;
+
+function getDataDir(): string {
+  if (!_dataDirResolved) _dataDirResolved = resolveDataDir();
+  return _dataDirResolved;
+}
+
+/** Content directory — resolved lazily with multi-path fallback. */
+const CONTENT_DIR = (() => {
+  const candidates = [
+    path.resolve(process.cwd(), "content/tokens"),
+    path.resolve(__dirname, "..", "..", "content/tokens"),
+    path.resolve(__dirname, "..", "content/tokens"),
+  ];
+  for (const dir of candidates) {
+    try { if (fs.existsSync(dir)) return dir; } catch { /* continue */ }
+  }
+  return path.resolve(process.cwd(), "content/tokens");
+})();
 
 // Helper to get absolute path for data files
 function getFilePath(relativePath: string) {
-  return path.join(DATA_DIR, relativePath);
+  return path.join(getDataDir(), relativePath);
 }
 
 /**
@@ -234,21 +279,34 @@ async function loadBlob(filePath: string, relativePath: string) {
   const isServer = typeof window === "undefined";
   // Detect build or script environment (Pure Node.js, no Edge runtime)
   const isNode = isServer && (!process.env.NEXT_RUNTIME || process.env.NEXT_RUNTIME === 'nodejs');
+  const fileName = path.basename(filePath);
 
-  // 1. Try FS (Works in local Dev and SSG build)
-  if (isServer && fs.existsSync(filePath)) {
-    try {
-      const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-      // Only log on critical file loads in Node to keep logs clean
-      if (isNode && (filePath.endsWith('_registry.json') || filePath.endsWith('_blob.json'))) {
-        console.info(`[LOADER] Found ${path.basename(filePath)} on local Filesystem.`);
+  // 1. Try FS with multiple path candidates (handles both local dev + Cloudflare Worker bundle)
+  if (isServer) {
+    const candidates = [
+      filePath,                                         // Primary: resolved via getDataDir()
+      path.resolve(process.cwd(), "data", fileName),    // Explicit cwd fallback
+      path.resolve(__dirname, "..", "..", "data", fileName), // Relative to compiled loader
+      path.resolve(__dirname, "..", "data", fileName),  // Alternate bundle layout
+      path.resolve(__dirname, "data", fileName),        // Flat bundle layout
+    ];
+
+    for (const candidate of candidates) {
+      try {
+        if (fs.existsSync(candidate)) {
+          const data = JSON.parse(fs.readFileSync(candidate, "utf-8"));
+          if (isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
+            console.info(`[LOADER] Found ${fileName} at ${candidate}`);
+          }
+          return data;
+        }
+      } catch {
+        // fs.existsSync or readFileSync might throw on Edge — continue trying
       }
-      return data;
-    } catch (e) {
-      console.error(`❌ FS load failed for ${filePath}:`, e);
     }
   }
 
+  // 2. HTTP Fetch Fallback (for environments where FS is completely unavailable)
   const data = await fetchAsset(relativePath);
 
   // CRITICAL: If we are in a production build and a critical asset fails to load,
@@ -279,7 +337,7 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
   }
 
   // Fallback to legacy directory scanning (Dev mode safety)
-  const tokensDir = path.join(DATA_DIR, "tokens");
+  const tokensDir = path.join(getDataDir(), "tokens");
   if (typeof window === "undefined" && fs.existsSync(tokensDir)) {
     const files = fs.readdirSync(tokensDir).filter((f) => f.endsWith(".json"));
     const summaries: TokenSummary[] = [];
@@ -431,7 +489,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   }
 
   // Fallback to single file read (Development/Scripts)
-  const fallbackFile = path.join(DATA_DIR, "tokens", `${sanitized}.json`);
+  const fallbackFile = path.join(getDataDir(), "tokens", `${sanitized}.json`);
   const relPath = `data/tokens/${sanitized}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
@@ -554,7 +612,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   }
 
   // Fallback
-  const fallbackFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
+  const fallbackFile = path.join(getDataDir(), "metrics", `${tokenId}.json`);
   const relPath = `data/metrics/${tokenId}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
@@ -602,7 +660,7 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   }
 
   // Fallback
-  const fallbackFile = path.join(DATA_DIR, "prices", `${tokenId}.json`);
+  const fallbackFile = path.join(getDataDir(), "prices", `${tokenId}.json`);
   const relPath = `data/prices/${tokenId}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
