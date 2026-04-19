@@ -45,17 +45,18 @@ export function sanitizeCashtags(text: string): string {
 
 interface OAuth2Credentials {
   clientId: string;
+  clientSecret?: string;
   refreshToken: string;
   bearerToken?: string;
 }
 
 /**
  * Ensures required X OAuth 2.0 and API credentials exist.
- * Note: clientSecret is intentionally omitted as X PKCE flow is more stable
- * when treating the app as a Public Client.
+ * Includes clientSecret for Confidential Client authentication.
  */
 export function validateXCredentials(): OAuth2Credentials {
   const clientId = process.env.X_OAUTH2_CLIENT_ID;
+  const clientSecret = process.env.X_OAUTH2_CLIENT_SECRET;
   const refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
 
   const missing: string[] = [];
@@ -71,6 +72,7 @@ export function validateXCredentials(): OAuth2Credentials {
 
   return {
     clientId: clientId!,
+    clientSecret,
     refreshToken: refreshToken!,
     bearerToken: process.env.X_BEARER_TOKEN,
   };
@@ -179,6 +181,7 @@ export async function getXClient(): Promise<Client> {
 
   const oauth2Config: OAuth2Config = {
     clientId: creds.clientId,
+    clientSecret: creds.clientSecret,
     redirectUri: "http://127.0.0.1:3000",
     scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write"],
   };
