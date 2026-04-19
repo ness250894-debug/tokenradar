@@ -15,49 +15,64 @@ import * as path from "path";
  * We try multiple candidates to find the actual location of the data directory.
  */
 function resolveDataDir(): string {
+  const cwd = process.cwd();
+  // Using template strings bypasses Turbopack's overly-aggressive path.join tracer
   const candidates = [
-    path.resolve(process.cwd(), "data"),                     // Local dev / CI build
-    path.resolve(__dirname, "..", "..", "data"),              // Relative to compiled content-loader
-    path.resolve(__dirname, "..", "data"),                    // Alternate bundle layout
-    path.resolve(__dirname, "data"),                          // Same dir (flat bundle)
+    `${cwd}/data`,
+    `${__dirname}/../../data`,
+    `${__dirname}/../data`,
+    `${__dirname}/data`,
   ];
 
   for (const dir of candidates) {
     try {
       if (fs.existsSync(dir)) return dir;
     } catch {
-      // fs.existsSync might throw on some runtimes — continue trying
+      // continue
     }
   }
 
-  // Fallback to cwd-based (will work during build)
-  return path.resolve(process.cwd(), "data");
+  return `${cwd}/data`;
 }
 
 // Lazily resolved once per cold start
 let _dataDirResolved: string | null = null;
+let _contentDirResolved: string | null = null;
 
 function getDataDir(): string {
   if (!_dataDirResolved) _dataDirResolved = resolveDataDir();
   return _dataDirResolved;
 }
 
-/** Content directory — resolved lazily with multi-path fallback. */
-const CONTENT_DIR = (() => {
+function resolveContentDir(): string {
+  const cwd = process.cwd();
   const candidates = [
-    path.resolve(process.cwd(), "content/tokens"),
-    path.resolve(__dirname, "..", "..", "content/tokens"),
-    path.resolve(__dirname, "..", "content/tokens"),
+    `${cwd}/content/tokens`,
+    `${__dirname}/../../content/tokens`,
+    `${__dirname}/../content/tokens`,
+    `${__dirname}/content/tokens`,
   ];
+
   for (const dir of candidates) {
-    try { if (fs.existsSync(dir)) return dir; } catch { /* continue */ }
+    try {
+      if (fs.existsSync(dir)) return dir;
+    } catch {
+      // continue
+    }
   }
-  return path.resolve(process.cwd(), "content/tokens");
-})();
+
+  return `${cwd}/content/tokens`;
+}
+
+function getContentDir(): string {
+  if (!_contentDirResolved) _contentDirResolved = resolveContentDir();
+  return _contentDirResolved;
+}
 
 // Helper to get absolute path for data files
 function getFilePath(relativePath: string) {
-  return path.join(getDataDir(), relativePath);
+  const base = getDataDir();
+  return `${base}/${relativePath}`;
 }
 
 /**
@@ -337,7 +352,7 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
   }
 
   // Fallback to legacy directory scanning (Dev mode safety)
-  const tokensDir = path.join(getDataDir(), "tokens");
+  const tokensDir = `${getDataDir()}/tokens`;
   if (typeof window === "undefined" && fs.existsSync(tokensDir)) {
     const files = fs.readdirSync(tokensDir).filter((f) => f.endsWith(".json"));
     const summaries: TokenSummary[] = [];
@@ -437,10 +452,11 @@ export async function getTokenIds(): Promise<string[]> {
   const ids = new Set<string>(allTokens.map(t => t.id));
 
   // Also include tokens that have content but might missing from registry
-  if (typeof window === "undefined" && fs.existsSync(CONTENT_DIR)) {
-    fs.readdirSync(CONTENT_DIR).forEach((dir) => {
+  const contentDir = getContentDir();
+  if (typeof window === "undefined" && fs.existsSync(contentDir)) {
+    fs.readdirSync(contentDir).forEach((dir) => {
       try {
-        if (fs.statSync(path.join(CONTENT_DIR, dir)).isDirectory()) {
+        if (fs.statSync(`${contentDir}/${dir}`).isDirectory()) {
           ids.add(dir);
         }
       } catch { /* Skip invalid/inaccessible dirs */ }
@@ -489,7 +505,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   }
 
   // Fallback to single file read (Development/Scripts)
-  const fallbackFile = path.join(getDataDir(), "tokens", `${sanitized}.json`);
+  const fallbackFile = `${getDataDir()}/tokens/${sanitized}.json`;
   const relPath = `data/tokens/${sanitized}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
@@ -612,7 +628,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   }
 
   // Fallback
-  const fallbackFile = path.join(getDataDir(), "metrics", `${tokenId}.json`);
+  const fallbackFile = `${getDataDir()}/metrics/${tokenId}.json`;
   const relPath = `data/metrics/${tokenId}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
@@ -660,7 +676,7 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   }
 
   // Fallback
-  const fallbackFile = path.join(getDataDir(), "prices", `${tokenId}.json`);
+  const fallbackFile = `${getDataDir()}/prices/${tokenId}.json`;
   const relPath = `data/prices/${tokenId}.json`;
   const rawFile = await loadBlob(fallbackFile, relPath);
   if (rawFile) {
@@ -683,14 +699,14 @@ function mapRawToPriceHistory(r: any, tokenId: string): PriceHistory {
 
 /** Load a generated article for a token. */
 export async function getArticle(tokenId: string, slug: string): Promise<Article | null> {
-  const file = path.join(CONTENT_DIR, tokenId, `${slug}.json`);
+  const file = `${getContentDir()}/${tokenId}/${slug}.json`;
   const relPath = `content/tokens/${tokenId}/${slug}.json`;
   return await loadBlob(file, relPath);
 }
 
 /** Get all article slugs for a token. */
 export async function getArticleSlugs(tokenId: string): Promise<string[]> {
-  const dir = path.join(CONTENT_DIR, tokenId);
+  const dir = `${getContentDir()}/${tokenId}`;
   if (typeof window === "undefined" && fs.existsSync(dir)) {
     return fs
       .readdirSync(dir)
@@ -704,10 +720,11 @@ export async function getArticleSlugs(tokenId: string): Promise<string[]> {
 
 /** Count all published articles across all tokens. */
 export async function getTotalArticleCount(): Promise<number> {
-  if (typeof window === "undefined" && fs.existsSync(CONTENT_DIR)) {
+  const contentDir = getContentDir();
+  if (typeof window === "undefined" && fs.existsSync(contentDir)) {
     let count = 0;
-    for (const tokenDir of fs.readdirSync(CONTENT_DIR)) {
-      const dirPath = path.join(CONTENT_DIR, tokenDir);
+    for (const tokenDir of fs.readdirSync(contentDir)) {
+      const dirPath = `${contentDir}/${tokenDir}`;
       if (!fs.statSync(dirPath).isDirectory()) continue;
       count += fs
         .readdirSync(dirPath)
