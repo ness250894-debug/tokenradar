@@ -97,7 +97,11 @@ function consolidate() {
     }
   }
 
-  // 4. Write Output
+  // 4. Final Validation & Write Output
+  if (Object.keys(tokensBlob).length === 0 || registry.length === 0) {
+    throw new Error("❌ CRITICAL FAILURE: Consolidation resulted in zero tokens. Check data/ directory.");
+  }
+
   console.log("💾 Writing blobs to disk...");
   fs.writeFileSync(OUTPUT_TOKENS_BLOB, JSON.stringify(tokensBlob));
   fs.writeFileSync(OUTPUT_METRICS_BLOB, JSON.stringify(metricsBlob));
