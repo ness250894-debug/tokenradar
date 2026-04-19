@@ -447,7 +447,6 @@ export async function postTweetWithMedia(
       }
 
       // Step 3: FINALIZE
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const finalizeResponse = await withRetry(
         () => client.media.finalizeUpload(uploadMediaId),
         "mediaFinalize"

@@ -51,10 +51,11 @@ export const dynamicParams = true;
 /** Revalidate pages at most once per hour. */
 export const revalidate = 3600;
 
-/** Generate static paths for the top 300 tokens — the rest generate via ISR. */
+/** Generate static paths for the top 120 tokens — the rest generate via ISR for build speed. */
 export async function generateStaticParams() {
   const tokens = await getAllTokens();
-  return tokens.map((t) => ({ token: t.id }));
+  // Filter for top 120 tokens to optimize build performance (approx 5-6 min reduction)
+  return tokens.slice(0, 120).map((t) => ({ token: t.id }));
 }
 
 /** Dynamic metadata for SEO. */

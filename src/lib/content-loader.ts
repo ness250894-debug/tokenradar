@@ -215,7 +215,7 @@ async function fetchAsset(relativePath: string) {
       clearTimeout(timeoutId);
       if (path.includes('_blob') || path.includes('_registry')) {
         const msg = e instanceof Error ? e.message : String(e);
-        if ((e as any).name === 'AbortError') {
+        if (e instanceof Error && e.name === 'AbortError') {
           console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
         } else {
           console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${msg}`);
