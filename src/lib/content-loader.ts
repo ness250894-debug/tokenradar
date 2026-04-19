@@ -186,9 +186,9 @@ async function fetchAsset(relativePath: string) {
     }
 
     // 2. In Server (Edge or Node fallback)
-    // We add a 3s timeout to prevent build hangs
+    // We add a 10s timeout to prevent build hangs but allow enough time for heavy blobs on Cloudflare
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
       // We use the full URL in server context to ensure reliable resolution on Cloudflare Edge
@@ -249,7 +249,18 @@ async function loadBlob(filePath: string, relativePath: string) {
     }
   }
 
-  return await fetchAsset(relativePath);
+  const data = await fetchAsset(relativePath);
+
+  // CRITICAL: If we are in a production build and a critical asset fails to load,
+  // we MUST throw an error to prevent a "broken" deployment (e.g. BTC 404s).
+  const isBuild = process.env.NEXT_PHASE === 'phase-production-build';
+  const isCritical = relativePath.includes('_blob') || relativePath.includes('_registry');
+  
+  if (isBuild && isCritical && !data) {
+    throw new Error(`[LOADER] CRITICAL FAILURE: Failed to load ${relativePath} during build. Aborting to prevent production 404s.`);
+  }
+
+  return data;
 }
 
 /** Get all token summaries from the master list (memoized). */
@@ -555,11 +566,17 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRawToTokenMetrics(r: any, tokenId: string): TokenMetrics {
+  const riskScore = r.riskScore ?? 5; // Default to 5 instead of 0 if missing
+  
+  if (riskScore === 0 && r.tokenId) {
+    console.warn(`[LOADER] riskScore is 0 for ${tokenId}. Check source data.`);
+  }
+
   return {
     tokenId: r.tokenId || tokenId,
     tokenName: r.tokenName || "",
     symbol: r.symbol || "",
-    riskScore: r.riskScore ?? 0,
+    riskScore: riskScore,
     riskLevel: r.riskLevel || "medium",
     growthPotentialIndex: r.growthPotentialIndex ?? 0,
     narrativeStrength: r.narrativeStrength ?? 0,
