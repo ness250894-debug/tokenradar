@@ -2,20 +2,27 @@
   "id": "genius-3",
   "symbol": "genius",
   "name": "Genius",
+  "description": "Genius Terminal is the first private and final onchain terminal.\n\nIt’s what comes after aggregators, intents bridges, and wallet extensions — a purpose-built trading OS for professional users who want DeFi without DeFi UX.",
   "market": {
-    "price": 0.634425,
-    "marketCap": 212257272,
-    "marketCapRank": 172,
-    "volume24h": 155937606,
-    "priceChange24h": -26.39482,
+    "price": 0.629283,
+    "marketCap": 211491224,
+    "marketCapRank": 170,
+    "volume24h": 56651607,
+    "high24h": 0.679133,
+    "low24h": 0.523502,
+    "priceChange24h": -4.67945,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 0.937796,
-    "athChangePercentage": -32.89361,
+    "athChangePercentage": -33.66777,
     "athDate": "2026-04-18T11:05:28.403Z",
     "atl": 0.194768,
     "atlDate": "2026-04-13T15:35:53.410Z",
     "circulatingSupply": 335377059,
-    "totalSupply": 957430353.8021811,
-    "maxSupply": 1000000000
+    "totalSupply": 954985242.223777,
+    "maxSupply": 1000000000,
+    "fdv": 603655275
   },
-  "lastMarketUpdate": "2026-04-19T07:47:54.512Z"
+  "lastMarketUpdate": "2026-04-20T06:32:41.891Z"
 }
