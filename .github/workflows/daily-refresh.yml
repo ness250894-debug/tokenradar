@@ -6,7 +6,7 @@ name: Daily Refresh
 
 on:
   schedule:
-    - cron: "23 6 * * *" # 06:23 UTC daily
+    - cron: "0 18 * * *" # 18:00 UTC daily
   workflow_dispatch:
 
 concurrency:

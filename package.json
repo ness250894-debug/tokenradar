@@ -8,8 +8,6 @@
     "consolidate": "npx tsx scripts/consolidate-data.ts",
     "prebuild": "npx tsx scripts/validate-env.ts && npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-sitemap.ts",
     "build": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
-    "build:cf": "npx opennextjs-cloudflare build",
-    "deploy": "npm run build:cf && npx wrangler pages deploy .open-next --project-name tokenradar --commit-dirty=true",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -44,7 +42,7 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.19.1",
+
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -46,10 +46,9 @@ interface PageProps {
 }
 
 /** Enable ISR — missing tokens generate on first request. */
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 /** Revalidate pages at most once per hour. */
-export const revalidate = 3600;
 
 /** Generate static paths for all tokens to ensure 100% SEO availability and prevent production 404s. */
 export async function generateStaticParams() {

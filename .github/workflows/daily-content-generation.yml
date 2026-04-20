@@ -7,7 +7,7 @@ name: Daily Content Generation
 
 on:
   schedule:
-    - cron: "27 4 * * *" # 1x/day (04:27 UTC)
+    - cron: "0 6 * * *" # 1x/day (06:00 UTC)
   workflow_dispatch:
 
 concurrency:
