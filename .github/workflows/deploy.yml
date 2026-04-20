@@ -98,10 +98,15 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          # OpenNext deploys as a Cloudflare Worker, NOT Pages static site.
-          # `wrangler deploy` reads wrangler.jsonc, bundles worker.js, and uploads assets.
-          # DO NOT use `wrangler pages deploy` — that skips worker bundling entirely.
-          npx wrangler deploy
+          # This project is Cloudflare Pages, NOT a standalone Worker.
+          # Pages expects `_worker.js` (with underscore) as the function entry point.
+          # OpenNext generates `worker.js` (no underscore), so we copy it.
+          cp .open-next/worker.js .open-next/_worker.js
+          
+          npx wrangler pages deploy .open-next \
+            --project-name=tokenradar \
+            --branch=main \
+            --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
