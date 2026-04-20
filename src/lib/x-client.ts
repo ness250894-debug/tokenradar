@@ -195,7 +195,7 @@ export async function getXClient(): Promise<Client> {
     clientId: creds.clientId,
     clientSecret: creds.clientSecret,
     redirectUri: "http://127.0.0.1:3000",
-    scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write"],
+    scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write", "like.write"],
   };
 
   const oauth2 = new OAuth2(oauth2Config);

@@ -44,6 +44,7 @@ const SCOPES = [
   "users.read",
   "offline.access",      // Required for refresh tokens
   "media.write",         // Required for media uploads
+  "like.write",          // Required for liking tweets
 ];
 
 // ── Validation ─────────────────────────────────────────────────
