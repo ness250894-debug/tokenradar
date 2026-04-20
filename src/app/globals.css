@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@plugin "@tailwindcss/typography";
 /* ---- Design Tokens ---- */
 :root {
   /* Colors — Dark-first crypto aesthetic */
@@ -437,8 +437,14 @@ input[type=range]::-moz-range-thumb:hover {
 
 .btn-primary {
   background: var(--accent-gradient);
-  color: white;
+  color: #0a0b0f;
+  font-weight: 700;
   box-shadow: var(--shadow-glow);
+}
+
+.article-content .btn-primary {
+  color: #0a0b0f;
+  border-bottom: none;
 }
 
 .btn-primary:hover {
@@ -652,8 +658,10 @@ input[type=range]::-moz-range-thumb:hover {
 
 .section-header {
   margin-bottom: var(--space-xl);
+  text-align: center;
 }
 
+.section-header h1,
 .section-header h2 {
   font-size: var(--text-3xl);
   font-weight: 800;
@@ -1652,4 +1660,29 @@ input[type=range]::-moz-range-thumb:hover {
   height: 100%;
   object-fit: contain;
   border-radius: inherit;
+}
+
+/* ---- Learn Hub Link Pills ---- */
+.learn-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: rgba(217, 119, 6, 0.05);
+  border: 1px solid rgba(217, 119, 6, 0.15);
+  text-decoration: none;
+  color: var(--accent-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: all var(--transition-base);
+}
+
+.learn-link:hover {
+  background: rgba(217, 119, 6, 0.12);
+  border-color: var(--accent-primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.1);
 }

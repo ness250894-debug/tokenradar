@@ -5,14 +5,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HackerText } from "./HackerText";
-import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info } from "lucide-react";
+import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/#trending", icon: Activity },
   { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "#10b981", icon: ShieldCheck },
   { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "#3b82f6", icon: Calculator },
   { name: "Upcoming", href: "/upcoming", icon: Clock },
-  { name: "Methodology", href: "/about", icon: BookOpen },
+  { name: "Learn", href: "/learn", icon: BookOpen },
+  { name: "Methodology", href: "/about", icon: FileText },
   { name: "Contact", href: "/contact", icon: HelpCircle },
   { name: "Disclaimer", href: "/disclaimer", icon: Info },
 ] as const;
