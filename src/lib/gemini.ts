@@ -285,6 +285,7 @@ export async function generateTokenSummary(
     7. SPICY ENGAGEMENT: Use 2-3 emojis. Match the market energy.
     8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
     9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags.
+    10. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
   `;
 
   try {
@@ -356,6 +357,7 @@ export async function generateTweet(
     4. SPARK DEBATE: End with a strong, data-driven question to drive replies (e.g. "Is this local bottom confirmed or just a bull trap? 👇").
     5. HASHTAGS: Exactly 1 or 2 niche tags at the end.
     6. TONE: Punchy, analytical, slightly degen if the market is hot.
+    7. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
   `;
 
   try {
@@ -393,6 +395,7 @@ export async function generatePollHook(
     3. Do NOT include hashtags or links.
     4. Do NOT use cashtags (e.g. $BTC, $ETH). The cashtag will be added separately by the system.
     5. Do NOT use dollar signs for prices — write prices as plain numbers (e.g. '21.64' not '$21.64').
+    6. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
   `;
 
   try {
@@ -436,6 +439,7 @@ export async function generateYoutubeMetadata(
     2. DESCRIPTION HOOK: Start the description with a powerful 1-2 sentence hook explaining why this token is moving today. Incorporate the price or 24h change naturally into the text.
     3. BRANDING: Directly after the hook, add a single line: "🌐 Full data report & analytics: https://tokenradar.co"
     4. HASHTAGS: At the very end of the description, include exactly 3 hashtags. The first MUST be #Shorts. The other two must be highly specific to the token or crypto trading. Do NOT use generic tags like #Viral.
+    5. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads in the title or description. The only permitted site is tokenradar.co.
 
     Format your exact output as valid JSON with exactly two keys: "title" and "description". Do not include markdown blocks.
   `;

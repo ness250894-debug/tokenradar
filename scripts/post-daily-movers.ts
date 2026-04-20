@@ -41,7 +41,7 @@ async function main() {
       Wrap the most impressive metric or insight in <tg-spoiler> tags.
       
       DO NOT refer to 'seeing' an image. Speak naturally as if you are looking at the live data shelf.
-      DO NOT USE ANY LINKS.
+      DO NOT USE ANY LINKS, external URLs, third-party domains, or ads. The only permitted website is tokenradar.co.
     `;
     const result = await callAIWithFallback(system, prompt, 300);
     

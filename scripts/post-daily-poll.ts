@@ -78,6 +78,7 @@ RULES:
 - Options should be meaningfully different (not overlapping).
 - Make it feel fresh and topical — reference current market conditions if possible.
 - DO NOT repeat this example: "${theme.example}"
+- NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 
 Format your response as a SINGLE JSON object:
 {

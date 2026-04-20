@@ -127,6 +127,7 @@ STRICT RULES:
 11. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
 12. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
 13. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. Use the placeholders defined above in this table. This is critical for Google Featured Snippets.
+14. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 
 FORMAT:
 - Start with a brief intro paragraph (no heading)
