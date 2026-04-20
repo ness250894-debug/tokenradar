@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-
-initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
+  /** Generate a fully static site — no server runtime needed. */
+  output: "export",
   /** Disable image optimization for static export (Cloudflare handles CDN). */
   images: {
     unoptimized: true,

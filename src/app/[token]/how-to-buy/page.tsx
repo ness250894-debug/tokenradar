@@ -21,7 +21,7 @@ interface PageProps {
   params: Promise<{ token: string }>;
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tokens = await getAllTokens();

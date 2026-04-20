@@ -12,7 +12,7 @@ interface PageProps {
   }>;
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 /**
  * Metadata Generation for pSEO
