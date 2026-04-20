@@ -98,12 +98,13 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          # This project is Cloudflare Pages, NOT a standalone Worker.
-          # Pages expects `_worker.js` (with underscore) as the function entry point.
-          # OpenNext generates `worker.js` (no underscore), so we copy it.
-          cp .open-next/worker.js .open-next/_worker.js
-          
-          npx wrangler pages deploy .open-next \
+          # Use `wrangler pages deploy` WITHOUT a directory argument.
+          # Wrangler reads `pages_build_output_dir` from wrangler.jsonc,
+          # which tells it the OpenNext bundle structure — it handles
+          # worker bundling with proper code splitting (avoids 3 MiB limit).
+          # DO NOT pass `.open-next` as arg — that treats everything as static
+          # and inlines all imports into a monolithic _worker.js.
+          npx wrangler pages deploy \
             --project-name=tokenradar \
             --branch=main \
             --commit-dirty=true
