@@ -129,7 +129,7 @@ function getLatestRefreshToken(envToken: string): string {
         return match[1].trim();
       }
     }
-  } catch (err) {
+  } catch {
     // fallback
   }
   return envToken;
