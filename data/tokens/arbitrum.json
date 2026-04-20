@@ -3,60 +3,26 @@
   "symbol": "arb",
   "name": "Arbitrum",
   "description": "Arbitrum is one of the leading Ethereum scaling solutions bringing cheap transactions to tens of thousands of users in an environment that feels very similar to Ethereum. It is an optimistic rollup and the leading L2 in terms of TVL. Some of the largest dApps live on Arbitrum include GMX, Radiant, Uniswap V3, and Gains Network.",
-  "categories": [
-    "Smart Contract Platform",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Arbitrum Nova Ecosystem",
-    "Layer 2 (L2)",
-    "eGirl Capital Portfolio",
-    "Rollup",
-    "Alameda Research Portfolio",
-    "Pantera Capital Portfolio",
-    "GMCI Layer 2 Index",
-    "GMCI 30 Index",
-    "GMCI Index",
-    "Polychain Capital Portfolio",
-    "Made in USA",
-    "Governance"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://arbitrum.io/",
-    "github": "https://github.com/ArbitrumFoundation/docs",
-    "reddit": null,
-    "explorer": "https://arbiscan.io/token/0x912ce59144191c1204e64559fe8253a0e49e6548"
-  },
   "market": {
-    "price": 0.124869,
-    "marketCap": 754067843,
+    "price": 0.124511,
+    "marketCap": 752151962,
     "marketCapRank": 81,
-    "volume24h": 87817979,
-    "high24h": 0.1013,
-    "low24h": 0.098005,
-    "priceChange24h": -6.32466,
-    "priceChange7d": -4.84805,
-    "priceChange30d": -10.50081,
-    "priceChange1y": -73.11719,
+    "volume24h": 82607760,
+    "high24h": 0.1285,
+    "low24h": 0.121494,
+    "priceChange24h": -1.4527,
+    "priceChange7d": 11.67181,
+    "priceChange30d": 24.94555,
+    "priceChange1y": -59.33413,
     "ath": 2.39,
-    "athChangePercentage": -94.78754,
+    "athChangePercentage": -94.79092,
     "athDate": "2024-01-12T12:29:59.231Z",
     "atl": 0.087087,
     "atlDate": "2026-03-29T22:50:51.753Z",
     "circulatingSupply": 6040824145,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 999617735
+    "fdv": 1245114812
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 96,
-    "githubForks": 122,
-    "commits4Weeks": 0
-  },
-  "fetchedAt": "2026-03-20T14:10:14.700Z",
-  "lastMarketUpdate": "2026-04-19T07:47:54.491Z"
+  "lastMarketUpdate": "2026-04-20T06:31:53.634Z"
 }
