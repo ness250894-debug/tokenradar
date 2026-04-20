@@ -5,7 +5,6 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
-import { FloatingSocialDock } from "@/components/FloatingSocialDock";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
 import Script from "next/script";
 
@@ -152,7 +151,6 @@ export default function RootLayout({
           <Footer />
           <ScrollToTop />
           <BackToOverviewToast />
-          <FloatingSocialDock />
         </ProgressBarProvider>
       </body>
     </html>

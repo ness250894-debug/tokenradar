@@ -56,9 +56,9 @@ export function TokenCard({ token }: TokenCardProps) {
           animate={{ opacity: 1, y: 0 }}
         >
           {/* Card Content Layer */}
-          <div className="grid grid-cols-[1fr_auto] items-center gap-sm">
-            <div className="min-w-0">
-              <div className="token-name w-full" style={{ overflow: "hidden" }}>
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-start gap-2">
+              <div className="min-w-0 flex-1" style={{ overflow: "hidden" }}>
                 <TokenTickerPill 
                   name={token.name} 
                   symbol={token.symbol} 
@@ -67,19 +67,20 @@ export function TokenCard({ token }: TokenCardProps) {
                   imageUrl={token.imageUrl} 
                 />
               </div>
-              <div className="mt-sm">
-                <div 
-                  onClick={handleCategoryClick}
-                  className="badge badge-accent hover-scale inline-block relative z-30 cursor-pointer"
-                >
-                  {token.category}
-                </div>
+              <span className={`badge badge-${riskLevel} flex-shrink-0 relative z-10 flex items-center gap-1 mt-1`}>
+                <ShieldAlert size={12} className="opacity-80" />
+                Risk {token.riskScore}/10
+              </span>
+            </div>
+            <div className="min-w-0">
+              <div 
+                onClick={handleCategoryClick}
+                className="badge badge-accent hover-scale inline-block relative z-30 cursor-pointer"
+                style={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+              >
+                {token.category}
               </div>
             </div>
-            <span className={`badge badge-${riskLevel} flex-shrink-0 relative z-10 flex items-center gap-1`}>
-              <ShieldAlert size={12} className="opacity-80" />
-              Risk {token.riskScore}/10
-            </span>
           </div>
 
           <div className="grid grid-cols-2 gap-md mt-xl pt-md border-t border-color mt-auto">
