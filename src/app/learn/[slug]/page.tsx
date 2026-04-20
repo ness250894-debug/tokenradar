@@ -64,52 +64,108 @@ export default async function GlossaryDetailPage({ params }: { params: Promise<{
   if (!item) notFound();
 
   return (
-    <article className="min-h-screen pt-24 pb-16 px-4 md:px-8 max-w-4xl mx-auto">
-      <Link 
-        href="/learn" 
-        className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 mb-12 transition-colors w-fit"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Learning Hub
-      </Link>
-
-      <header className="mb-12">
-        <div className="flex flex-wrap items-center gap-4 mb-6">
-          <span className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-sm font-medium border border-emerald-500/20">
-            <Tag className="w-3 h-3" />
-            {item.category}
-          </span>
-          <span className="flex items-center gap-2 text-gray-500 text-sm">
-            <Clock className="w-3 h-3" />
-            {item.readTime}
-          </span>
-          <span className="text-gray-500 text-sm ml-auto">
-            Updated: {item.updatedAt}
-          </span>
-        </div>
-        <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-          {item.title}
-        </h1>
-      </header>
-
-      <div className="glass-card p-8 md:p-12 border-none prose prose-invert prose-emerald max-w-none">
-        <ReactMarkdown>{item.content}</ReactMarkdown>
-      </div>
-
-      <footer className="mt-16 pt-8 border-t border-gray-800">
-        <div className="bg-gray-900/50 rounded-2xl p-8 border border-gray-800 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
-          <BookOpen className="w-12 h-12 text-emerald-500 shrink-0" />
-          <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold mb-2 text-white">Continue Your Research</h3>
-            <p className="text-gray-400">
-              Apply this knowledge by checking the live Risk Scores for trending tokens on our dashboard.
-            </p>
-          </div>
-          <Link href="/" className="primary-button whitespace-nowrap">
-            View Live Dashboard
+    <div className="container">
+      <section className="section" style={{ paddingTop: "var(--space-4xl)" }}>
+        <div className="article-content">
+          {/* Back Link */}
+          <Link 
+            href="/learn" 
+            style={{
+              color: "var(--accent-primary)",
+              fontSize: "var(--text-sm)",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "var(--space-xs)",
+              marginBottom: "var(--space-2xl)",
+              textDecoration: "none",
+              transition: "opacity 0.2s",
+            }}
+          >
+            <ArrowLeft size={16} />
+            Back to Learning Hub
           </Link>
+
+          {/* Meta Badges */}
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: "var(--space-md)",
+            marginBottom: "var(--space-lg)",
+            fontSize: "var(--text-xs)",
+            color: "var(--text-muted)",
+          }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "var(--space-xs)",
+              background: "rgba(217, 119, 6, 0.1)",
+              color: "var(--accent-primary)",
+              padding: "4px 12px",
+              borderRadius: "var(--radius-full)",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              border: "1px solid rgba(217, 119, 6, 0.2)",
+            }}>
+              <Tag size={12} />
+              {item.category}
+            </span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-xs)" }}>
+              <Clock size={14} />
+              {item.readTime}
+            </span>
+            <span style={{ fontFamily: "var(--font-mono)", opacity: 0.6 }}>
+              Updated: {item.updatedAt}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1>{item.title}</h1>
+
+          {/* Markdown Content — inherits all .article-content styles from globals.css */}
+          <ReactMarkdown>{item.content}</ReactMarkdown>
+
+          {/* Divider */}
+          <hr />
+
+          {/* CTA Footer — uses .card pattern */}
+          <div className="card" style={{
+            textAlign: "center",
+            padding: "var(--space-2xl)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+            <div className="feature-icon-wrapper" style={{ marginBottom: "var(--space-md)" }}>
+              <BookOpen size={32} />
+            </div>
+            <h3 style={{
+              fontSize: "var(--text-xl)",
+              fontWeight: 700,
+              marginBottom: "var(--space-sm)",
+            }}>
+              Continue Your Research
+            </h3>
+            <p style={{
+              color: "var(--text-secondary)",
+              fontSize: "var(--text-sm)",
+              lineHeight: 1.7,
+              maxWidth: "420px",
+              marginBottom: "var(--space-lg)",
+            }}>
+              Apply this knowledge by checking the live Risk Scores for
+              trending tokens on our dashboard.
+            </p>
+            <Link href="/" className="btn btn-primary">
+              View Live Dashboard
+            </Link>
+          </div>
         </div>
-      </footer>
-    </article>
+      </section>
+    </div>
   );
 }

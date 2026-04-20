@@ -17,7 +17,8 @@ const PLATFORM_LINKS = [
 ] as const;
 
 const RESOURCE_LINKS = [
-  { href: "/about", label: "About TokenRadar" },
+  { href: "/learn", label: "Learning Hub / Glossary" },
+  { href: "/about", label: "About / Methodology" },
   { href: "/contact", label: "Contact Us" },
 ] as const;
 
