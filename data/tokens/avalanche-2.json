@@ -3,60 +3,26 @@
   "symbol": "avax",
   "name": "Avalanche",
   "description": "Avalanche is a high throughput smart contract blockchain&nbsp;platform. Validators secure the network through a proof-of-stake consensus protocol. It is said to be fast, low cost, and environmental friendly.",
-  "categories": [
-    "Smart Contract Platform",
-    "Layer 1 (L1)",
-    "Avalanche Ecosystem",
-    "Proof of Stake (PoS)",
-    "DragonFly Capital Portfolio",
-    "DeFiance Capital Portfolio",
-    "Andreessen Horowitz (a16z) Portfolio",
-    "GMCI Layer 1 Index",
-    "GMCI 30 Index",
-    "Galaxy Digital Portfolio",
-    "GMCI Index",
-    "Polychain Capital Portfolio",
-    "World Liberty Financial Portfolio",
-    "Made in USA",
-    "Coinbase 50 Index"
-  ],
-  "genesisDate": null,
-  "links": {
-    "website": "https://www.avax.network",
-    "github": "https://github.com/ava-labs/avalanchego",
-    "reddit": "https://www.reddit.com/r/Avax",
-    "explorer": "https://snowtrace.io/"
-  },
   "market": {
-    "price": 9.33,
-    "marketCap": 4030123609,
-    "marketCapRank": 28,
-    "volume24h": 367940062,
-    "high24h": 9.63,
-    "low24h": 9.44,
-    "priceChange24h": 1.20759,
-    "priceChange7d": -0.68347,
-    "priceChange30d": 7.81261,
-    "priceChange1y": -48.45786,
+    "price": 9.35,
+    "marketCap": 4036648416,
+    "marketCapRank": 27,
+    "volume24h": 315012777,
+    "high24h": 9.41,
+    "low24h": 9.17,
+    "priceChange24h": 1.57381,
+    "priceChange7d": -0.79479,
+    "priceChange30d": 1.22725,
+    "priceChange1y": -54.22101,
     "ath": 144.96,
-    "athChangePercentage": -93.56525,
+    "athChangePercentage": -93.55099,
     "athDate": "2021-11-21T14:18:56.538Z",
     "atl": 2.8,
     "atlDate": "2020-12-31T13:15:21.540Z",
     "circulatingSupply": 431771961.1772119,
     "totalSupply": 463441061.1772119,
     "maxSupply": 720000000,
-    "fdv": 4403953680
+    "fdv": 4332723738
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 2100,
-    "githubForks": 655,
-    "commits4Weeks": 50
-  },
-  "fetchedAt": "2026-03-21T17:50:46.268Z",
-  "lastMarketUpdate": "2026-04-20T19:18:45.292Z"
+  "lastMarketUpdate": "2026-04-21T08:18:55.578Z"
 }
