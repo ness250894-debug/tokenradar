@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { getTokenIds, getTokenDetail, getTokenMetrics, formatPrice } from '@/lib/content-loader';
+import { getTokenIds, getTokenDetail, getTokenMetrics } from '@/lib/content-loader';
 import { getTokenIconUrl } from '@/lib/formatters';
 
 /** Static export configuration for Cloudflare Pages. */
@@ -26,8 +26,6 @@ export async function GET(
 
   const symbol = detail.symbol.toUpperCase();
   const name = detail.name;
-  const price = formatPrice(detail.market.price);
-  const change = detail.market.priceChange24h;
   const riskScore = metrics?.riskScore || 5;
   const iconUrl = getTokenIconUrl(detail.symbol, detail.id);
 
@@ -96,16 +94,28 @@ export async function GET(
             </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-              <span style={{ fontSize: 56, fontWeight: 600, color: '#10b981' }}>{price}</span>
+              <span style={{ 
+                fontSize: 28, 
+                fontWeight: 600, 
+                color: '#10b981',
+                background: 'rgba(16, 185, 129, 0.1)',
+                padding: '12px 24px',
+                borderRadius: '12px',
+                letterSpacing: '0.05em'
+              }}>
+                ON-CHAIN INTELLIGENCE
+              </span>
               <span style={{ 
                 fontSize: 24, 
-                padding: '8px 16px', 
-                borderRadius: '8px', 
-                background: change >= 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                color: change >= 0 ? '#10b981' : '#ef4444',
-                fontWeight: 'bold'
+                padding: '12px 24px', 
+                borderRadius: '12px', 
+                background: 'rgba(255, 255, 255, 0.05)',
+                color: 'rgba(255, 255, 255, 0.8)',
+                fontWeight: 'bold',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase'
               }}>
-                {change >= 0 ? '+' : ''}{change.toFixed(2)}%
+                {detail.categories?.[0] || 'CRYPTO ASSET'}
               </span>
             </div>
 
