@@ -37,6 +37,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`;
   const description = `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`;
 
+  const ogImage = `/og/token/${detail.id}.png`;
+
   return {
     title,
     description,
@@ -51,10 +53,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       type: "article",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
+      card: "summary_large_image",
       title,
       description,
+      images: [ogImage],
     },
   };
 }

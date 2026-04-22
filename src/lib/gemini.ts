@@ -19,7 +19,8 @@ async function callGeminiAPI(
   systemPrompt: string,
   userPrompt: string,
   maxTokens: number = 4000,
-  retries: number = 3
+  retries: number = 3,
+  jsonSchema?: object
 ): Promise<AIResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set. Add it to .env.local");
@@ -47,7 +48,10 @@ async function callGeminiAPI(
         body: JSON.stringify({
           systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
           contents: [{ parts: [{ text: userPrompt }] }],
-          generationConfig: { maxOutputTokens: maxTokens }
+          generationConfig: { 
+            maxOutputTokens: maxTokens,
+            ...(jsonSchema ? { responseMimeType: "application/json", responseSchema: jsonSchema } : {})
+          }
         }),
       });
 
@@ -76,7 +80,8 @@ async function callClaudeAPI(
   systemPrompt: string,
   userPrompt: string,
   maxTokens: number = 4000,
-  retries: number = 3
+  retries: number = 3,
+  jsonSchema?: object
 ): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Add it to .env.local");
@@ -104,6 +109,14 @@ async function callClaudeAPI(
           max_tokens: maxTokens,
           system: systemPrompt || undefined,
           messages,
+          ...(jsonSchema ? {
+            tools: [{
+              name: "generate_article_sections",
+              description: "Generate the structured sections of the token article.",
+              input_schema: jsonSchema
+            }],
+            tool_choice: { type: "tool", name: "generate_article_sections" }
+          } : {})
         }),
       });
 
@@ -112,11 +125,40 @@ async function callClaudeAPI(
         throw new Error(`Claude HTTP ${response.status}: ${errorText}`);
       }
       
-      const data = await response.json() as {
-        content?: { text?: string }[];
+      interface ClaudeToolUse {
+        type: 'tool_use';
+        id: string;
+        name: string;
+        input: any;
+      }
+
+      interface ClaudeContentBlock {
+        type: 'text' | 'tool_use';
+        text?: string;
+        id?: string;
+        name?: string;
+        input?: any;
+      }
+
+      interface ClaudeResponse {
+        content: ClaudeContentBlock[];
         usage?: { input_tokens?: number; output_tokens?: number };
-      };
-      const text = data.content?.[0]?.text || "";
+      }
+      
+      const data = await response.json() as ClaudeResponse;
+      
+      let text = "";
+      if (jsonSchema && data.content) {
+        const toolUse = data.content.find((c): c is ClaudeToolUse => c.type === "tool_use");
+        if (toolUse && toolUse.input) {
+          text = JSON.stringify(toolUse.input);
+        } else {
+          text = data.content[0]?.text || "";
+        }
+      } else {
+        text = data.content[0]?.text || "";
+      }
+      
       const promptTokens = data.usage?.input_tokens || 0;
       const completionTokens = data.usage?.output_tokens || 0;
       
@@ -152,10 +194,11 @@ function isTechnicalRefusal(text: string): boolean {
 export async function callAIWithFallback(
   systemPrompt: string,
   userPrompt: string,
-  maxTokens: number = 4000
+  maxTokens: number = 4000,
+  jsonSchema?: object
 ): Promise<AIResult> {
   try {
-    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens);
+    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
     if (isTechnicalRefusal(result.content)) {
       console.warn(`  ⚠ Gemini response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
       throw new Error("AI Technical Refusal Detected");
@@ -164,7 +207,7 @@ export async function callAIWithFallback(
   } catch (_error) {
     console.info(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
     try {
-      const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens);
+      const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
       if (isTechnicalRefusal(result.content)) {
         console.warn(`  ⚠ Claude response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
         throw new Error("AI Technical Refusal Detected");

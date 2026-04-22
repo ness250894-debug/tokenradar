@@ -40,6 +40,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
 
+  const ogImage = `/og/token/${detail.id}.png`;
+
   return {
     title,
     description,
@@ -54,10 +56,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       type: "article",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
+      card: "summary_large_image",
       title,
       description,
+      images: [ogImage],
     },
   };
 }

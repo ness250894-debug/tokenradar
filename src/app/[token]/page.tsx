@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 
 
-  const ogImage = `/api/og/token/${detail.id}`;
+  const ogImage = `/og/token/${detail.id}.png`;
 
   return {
     title,
