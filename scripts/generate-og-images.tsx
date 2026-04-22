@@ -39,11 +39,11 @@ async function getFont() {
 }
 
 async function generateOGImages() {
-  console.log("Starting static OG image generation...");
+  console.info("Starting static OG image generation...");
   const fontData = await getFont();
   
   if (!fs.existsSync(TOKENS_DIR)) {
-    console.log("No tokens dir found.");
+    console.info("No tokens dir found.");
     return;
   }
   
@@ -51,8 +51,8 @@ async function generateOGImages() {
   
   for (const file of tokenFiles) {
     const tokenId = file.replace('.json', '');
-    const tokenData = safeReadJson<any>(path.join(TOKENS_DIR, file), null);
-    const metricsData = safeReadJson<any>(path.join(METRICS_DIR, file), null);
+    const tokenData = safeReadJson<{ symbol: string; name?: string; id: string; categories?: string[] } | null>(path.join(TOKENS_DIR, file), null);
+    const metricsData = safeReadJson<{ riskScore?: number } | null>(path.join(METRICS_DIR, file), null);
     
     if (!tokenData) continue;
     
@@ -101,6 +101,7 @@ async function generateOGImages() {
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '60px' }}>
           <div style={{ display: 'flex', borderRadius: '40px', overflow: 'hidden', border: '4px solid rgba(255,255,255,0.1)', background: '#111', width: 240, height: 240, alignItems: 'center', justifyContent: 'center' }}>
             {iconUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={iconUrl}
                 alt={name}
@@ -193,13 +194,13 @@ async function generateOGImages() {
       const pngBuffer = pngData.asPng();
       
       fs.writeFileSync(path.join(OG_DIR, `${tokenId}.png`), pngBuffer);
-      console.log(`Generated OG image for ${tokenId}`);
+      console.info(`Generated OG image for ${tokenId}`);
     } catch (e) {
       console.error(`Failed to generate OG image for ${tokenId}:`, e);
     }
   }
   
-  console.log("Done.");
+  console.info("Done.");
 }
 
 generateOGImages().catch(console.error);
