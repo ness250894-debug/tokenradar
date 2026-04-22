@@ -243,7 +243,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
   if (runYouTube && process.env.YOUTUBE_CLIENT_ID && process.env.YOUTUBE_REFRESH_TOKEN) {
     try {
       console.log(`\n  ▸ Debug: Starting YouTube upload process...`);
-      const videoId = await uploadToYouTubeShorts(outPath, ytMetadata.title, ytMetadata.description, 'unlisted');
+      const videoId = await uploadToYouTubeShorts(outPath, ytMetadata.title, ytMetadata.description, 'public');
       console.log(`✅ Posted video to YouTube Shorts (Video ID: ${videoId})`);
       posted = true;
     } catch (error) {

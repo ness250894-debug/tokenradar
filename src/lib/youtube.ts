@@ -15,7 +15,7 @@ export async function uploadToYouTubeShorts(
   videoPath: string,
   title: string,
   description: string,
-  privacyStatus: 'public' | 'unlisted' | 'private' = 'unlisted'
+  privacyStatus: 'public' | 'unlisted' | 'private' = 'public'
 ): Promise<string> {
   const clientId = process.env.YOUTUBE_CLIENT_ID;
   const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
