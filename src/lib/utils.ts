@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 
-import { z } from "zod";
+import type { ZodType } from "zod";
 
 /**
  * Read and parse a JSON file safely. Returns the fallback value
@@ -20,7 +20,7 @@ import { z } from "zod";
  * @param schema - Optional Zod schema to validate the parsed JSON
  * @returns Parsed JSON data or fallback
  */
-export function safeReadJson<T>(filePath: string, fallback: T, schema?: z.ZodType<T>): T {
+export function safeReadJson<T>(filePath: string, fallback: T, schema?: ZodType<T>): T {
   try {
     if (!fs.existsSync(filePath)) return fallback;
     const raw = fs.readFileSync(filePath, "utf-8");
