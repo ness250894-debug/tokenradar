@@ -129,7 +129,7 @@ async function callClaudeAPI(
         type: 'tool_use';
         id: string;
         name: string;
-        input: any;
+        input: unknown;
       }
 
       interface ClaudeContentBlock {
@@ -137,7 +137,7 @@ async function callClaudeAPI(
         text?: string;
         id?: string;
         name?: string;
-        input?: any;
+        input?: unknown;
       }
 
       interface ClaudeResponse {
