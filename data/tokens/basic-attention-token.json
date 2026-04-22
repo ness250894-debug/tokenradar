@@ -3,54 +3,26 @@
   "symbol": "bat",
   "name": "Basic Attention",
   "description": "Basic Attention Token (BAT) is an open-source, decentralized ad exchange platform built on Ethereum platform. Basic Attention Token held an initial coin offering on May 31, 2017 for its eponymous ERC-20 utility token, raising approximately $35M USD at the time in less than 30 seconds. The Basic Attention Token aims to fix digital advertising, which is broken, fraudulent and opaque. \n\nBasic Attention Token work by having advertisers pay BAT to website publishers for the attention of users. The BAT token is designed to correctly value and price user attention within the platform. The Basic Attention Token comprises various components, including attention measurement systems, analytics dashboards and machine learning algorithms. Integration of BAT into a given host application involves implementing BAT Ads, a system that matches and displays ads to users based on locally stored data. Ad targeting is performed wholly on-device, removing the need for third-party tracking. BAT is focused on the Brave browser. Brave is an open-source, privacy-centered browser designed to block trackers and malware. It utilizes blockchain technology to anonymously and securely track user attention, which translates into rewards for publishers.\n\nA user's attention, meaning his or her focused mental engagement on digital content like advertisements, is logged through Brave. The makers of BAT indicate that the user's private data and tracking information is stored only on the user's device, ensuring that it is anonymous and private.\n\nCreated back in 2016, the Basic Attention Token has one of the biggest names behind it, that of Brendan Eich, the creator of JavaScript and the legendary co-founder of Mozilla. Other noteworthy team members include Brian Bondy, lead developer and co-founder of Brave and Scott Locklin, senior engineer, and co-founder of Kerf Software.\"\n\nBasic Attention Token is created by the team that built the Brave browser, an open-source, privacy-focused browser that blocks ads and trackers. The browser measures user attention and rewards publishers for users attention. \n\nUse the Brave browser to protect your privacy and support CoinGecko at the same time: https://brave.com/coi600",
-  "categories": [
-    "Solana Ecosystem",
-    "Avalanche Ecosystem",
-    "Polygon Ecosystem",
-    "Near Protocol Ecosystem",
-    "Harmony Ecosystem",
-    "Ethereum Ecosystem",
-    "Pantera Capital Portfolio",
-    "Energi Ecosystem",
-    "Made in USA"
-  ],
-  "genesisDate": "2017-05-29",
-  "links": {
-    "website": "https://basicattentiontoken.org/",
-    "github": "https://github.com/brave-intl/publishers",
-    "reddit": "https://www.reddit.com/r/BATProject",
-    "explorer": "https://etherscan.io/token/0x0d8775f648430679a709e98d2b0cb6250d2887ef"
-  },
   "market": {
-    "price": 0.103648,
-    "marketCap": 155113097,
-    "marketCapRank": 207,
-    "volume24h": 17928314,
-    "high24h": 0.097023,
-    "low24h": 0.092821,
-    "priceChange24h": -3.10748,
-    "priceChange7d": -6.83312,
-    "priceChange30d": -20.68283,
-    "priceChange1y": -37.98876,
+    "price": 0.106093,
+    "marketCap": 158908085,
+    "marketCapRank": 208,
+    "volume24h": 11865071,
+    "high24h": 0.107129,
+    "low24h": 0.102671,
+    "priceChange24h": -0.45666,
+    "priceChange7d": 11.132,
+    "priceChange30d": 16.09175,
+    "priceChange1y": -19.78715,
     "ath": 1.9,
-    "athChangePercentage": -94.54451,
+    "athChangePercentage": -94.41103,
     "athDate": "2021-11-28T00:23:51.354Z",
     "atl": 0.072394,
     "atlDate": "2017-07-16T00:00:00.000Z",
     "circulatingSupply": 1495724656.9526057,
     "totalSupply": 1500000000,
     "maxSupply": 1500000000,
-    "fdv": 140166536
+    "fdv": 159362304
   },
-  "community": {
-    "twitterFollowers": null,
-    "redditSubscribers": 0
-  },
-  "developer": {
-    "githubStars": 65,
-    "githubForks": 38,
-    "commits4Weeks": 189
-  },
-  "fetchedAt": "2026-03-22T15:19:34.592Z",
-  "lastMarketUpdate": "2026-04-21T19:23:25.586Z"
+  "lastMarketUpdate": "2026-04-22T08:21:49.895Z"
 }
