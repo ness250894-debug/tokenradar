@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const symbol = token.symbol.toUpperCase();
   const name = token.name;
 
+  const ogImage = `/og/token/${token.id}.png`;
+
   return {
     title: `How to Transfer ${name} (${symbol}) to Ledger: 2026 Security Guide`,
     description: `Official technical guide for transferring ${name} (${symbol}) to your Ledger hardware wallet safely. Verified ${technical.network} instructions to prevent asset loss.`,
@@ -41,7 +43,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `Secure ${name} (${symbol}) on Ledger | TokenRadar`,
       description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
-    }
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `How to Transfer ${name} (${symbol}) to Ledger`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Secure ${name} (${symbol}) on Ledger | TokenRadar`,
+      description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
+      images: [ogImage],
+    },
   };
 }
 

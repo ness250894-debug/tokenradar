@@ -680,127 +680,182 @@ async function main() {
 
     console.log(`▶ ${tokenData.name} (${tokenData.symbol.toUpperCase()}):`);
 
+    if (filteredConfigs.length === 0) continue;
+
+    const metadataFile = path.join(TOKENS_DIR, `${tokenId}.json`);
+    if (!fs.existsSync(metadataFile) && !isTge) {
+      if (dryRun) {
+        console.log(`  [DRY-RUN] Would create metadata file: ${metadataFile}`);
+      } else {
+        process.stdout.write(`  [META] Creating basic metadata for ${tokenId}... `);
+        const metaData = {
+          id: tokenId,
+          symbol: tokenData.symbol || tokenId.split('-')[0],
+          name: tokenData.name || tokenId,
+          description: tokenData.description || "",
+          market: tokenData.market || { price: 0, marketCap: 0, marketCapRank: 9999 },
+          lastMarketUpdate: new Date().toISOString()
+        };
+        await fs.promises.writeFile(metadataFile, JSON.stringify(metaData, null, 2));
+        console.log("✓ Created");
+      }
+    }
+
+    // Double check stale status (we already did it earlier, but to be safe and print logs)
+    const configsToGenerate = [];
     for (const config of filteredConfigs) {
       const outputDir = ensureContentDir(tokenId, useQueue);
       const outputFile = path.join(outputDir, `${config.slug}.json`);
-
-      // 3. Ensure metadata file exists in TOKENS_DIR so Next.js builds the route
-      //    BUT: skip for TGE tokens — they should only have routes under /upcoming/[token]
-      const metadataFile = path.join(TOKENS_DIR, `${tokenId}.json`);
-      if (!fs.existsSync(metadataFile) && !isTge) {
-        if (dryRun) {
-          console.log(`  [DRY-RUN] Would create metadata file: ${metadataFile}`);
-        } else {
-          process.stdout.write(`  [META] Creating basic metadata for ${tokenId}... `);
-          const metaData = {
-            id: tokenId,
-            symbol: tokenData.symbol || tokenId.split('-')[0],
-            name: tokenData.name || tokenId,
-            description: tokenData.description || "",
-            market: tokenData.market || { price: 0, marketCap: 0, marketCapRank: 9999 },
-            lastMarketUpdate: new Date().toISOString()
-          };
-          await fs.promises.writeFile(metadataFile, JSON.stringify(metaData, null, 2));
-          console.log("✓ Created");
-        }
-      }
-
-      // Skip if already generated recently
       if (fs.existsSync(outputFile) && !(await isStale(outputFile, isTge ? 7 : 30)) && !args.includes("--force")) {
-        console.log(`  ⏭ ${config.type} — generated recently (use --force to overwrite)`);
-        continue;
+        console.log(`  ⏭ ${config.type} — generated recently`);
+      } else {
+        configsToGenerate.push(config);
+      }
+    }
+
+    if (configsToGenerate.length === 0) continue;
+
+    const sectionsToGenerate = configsToGenerate.map(c => c.type);
+    const contentPrompt = `
+You are an expert crypto analyst and technical writer. 
+Generate a comprehensive report for ${tokenData.name} (${tokenData.symbol?.toUpperCase()}).
+
+We require the following sections to be generated: ${sectionsToGenerate.join(", ")}.
+Please use the following prompts for each section:
+
+${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.title}\nINSTRUCTIONS:\n${c.prompt}`).join("\n\n")}
+`;
+
+    process.stdout.write(`  🤖 Generating [${sectionsToGenerate.join(", ")}]...`);
+
+    try {
+
+    if (dryRun) {
+      console.log(`  [DRY-RUN] Would generate sections: ${sectionsToGenerate.join(", ")}`);
+      continue;
+    }
+
+      const properties: Record<string, any> = {};
+      for (const config of configsToGenerate) {
+        properties[config.type] = {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            content: { type: "string", description: `The markdown content for ${config.type}. Make sure it hits the target word count.` }
+          },
+          required: ["title", "content"]
+        };
       }
 
-      if (dryRun) {
-        console.log(`  📝 ${config.type}: "${config.title}"`);
-        console.log(`     Prompt length: ${config.prompt.length} chars`);
+      const jsonSchema = {
+        type: "object",
+        properties,
+        required: sectionsToGenerate
+      };
 
-        // Save prompt preview
-        await fs.promises.writeFile(
-          path.join(outputDir, `${config.slug}.prompt.txt`),
-          `SYSTEM:\n${SYSTEM_PROMPT}\n\nUSER:\n${config.prompt}`
-        );
-        continue;
-      }
+      let result: AIResult | null = null;
+      let attempts = 0;
+      const maxAttempts = 2;
+      let parsedResponse: any = null;
 
-      process.stdout.write(`  🤖 ${config.type}...`);
+      while (attempts < maxAttempts) {
+        attempts++;
+        result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 8000, jsonSchema);
+        
+        totalCost += result.cost;
 
-      try {
-        let result: AIResult | null = null;
-        let wordCount = 0;
-        let attempts = 0;
-        const maxAttempts = 2; // inline retry limit
-
-        while (attempts < maxAttempts) {
-          attempts++;
-          result = await callAIWithFallback(SYSTEM_PROMPT, config.prompt);
-          wordCount = result.content.split(/\s+/).length;
+        try {
+          parsedResponse = JSON.parse(result.content);
           
-          // Add the returned cost
-          totalCost += result.cost;
-
-          // Check data points
-          const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
-          const dataPoints = result.content.match(dataPointRegex) || [];
-          if (dataPoints.length >= 3) {
-            break; // Valid content
-          } else {
-            console.log(`\n    ⚠ Attempt ${attempts} failed data points check (${dataPoints.length}/3).`);
-            if (attempts < maxAttempts) {
-              process.stdout.write(`    🤖 Retrying...`);
+          let allPresent = true;
+          for (const req of sectionsToGenerate) {
+            if (!parsedResponse[req] || !parsedResponse[req].content || !parsedResponse[req].title) {
+              allPresent = false;
+              break;
             }
           }
+
+          if (allPresent) {
+            const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
+            const dataPoints = result.content.match(dataPointRegex) || [];
+            if (dataPoints.length >= 3 || isTge) {
+               break; 
+            } else {
+               console.log(`\n    ⚠ Attempt ${attempts} failed data points check.`);
+            }
+          } else {
+            console.log(`\n    ⚠ Attempt ${attempts} missing required sections in JSON.`);
+          }
+        } catch (err) {
+          console.log(`\n    ⚠ Attempt ${attempts} failed to parse JSON.`);
         }
+        
+        if (attempts < maxAttempts) {
+          process.stdout.write(`    🤖 Retrying...`);
+        }
+      }
 
-        if (!result) continue; // Should not happen, but satisfies TS
+      if (!result || !parsedResponse) {
+         console.log(` ✗ Failed after ${maxAttempts} attempts`);
+         continue;
+      }
 
+      for (const config of configsToGenerate) {
+        const outputDir = ensureContentDir(tokenId, useQueue);
+        const outputFile = path.join(outputDir, `${config.slug}.json`);
+        
+        const sectionData = parsedResponse[config.type];
+        if (!sectionData) continue;
+
+        const wordCount = sectionData.content.split(/\s+/).length;
+        
         const article: GeneratedArticle = {
           tokenId,
           tokenName: tokenData.name,
           type: config.type,
-          title: config.title,
+          title: sectionData.title || config.title,
           slug: config.slug,
-          content: result.content,
+          content: sectionData.content,
           wordCount,
           generatedAt: new Date().toISOString(),
           model: result.model,
-          promptTokens: result.promptTokens,
-          completionTokens: result.completionTokens,
+          promptTokens: Math.floor(result.promptTokens / sectionsToGenerate.length),
+          completionTokens: Math.floor(result.completionTokens / sectionsToGenerate.length),
         };
 
         await fs.promises.writeFile(outputFile, JSON.stringify(article, null, 2));
-        // Log the activity to the unified system reporter
+        
         logActivity("generate", {
           tokenId,
           tokenName: tokenData.name,
           articleType: config.type,
           isTge,
           wordCount,
-          cost: result.cost
+          cost: result.cost / sectionsToGenerate.length
         });
-
         totalArticles++;
-        if (isTge) {
-          generatedTgeTokens.add(tokenId);
-        } else {
-          generatedRegularTokens.add(tokenId);
-        }
-        console.log(
-          ` ✓ ${wordCount} words ($${result.cost.toFixed(4)})`
-        );
-
-        // Rate limit between articles
-        await sleep(1000);
-      } catch (error) {
-        const msg = error instanceof Error ? error.message : String(error);
-        console.log(` ✗ ${msg}`);
-        await logError("generate-content AI", error, false);
       }
+      
+      if (isTge) {
+        generatedTgeTokens.add(tokenId);
+      } else {
+        generatedRegularTokens.add(tokenId);
+      }
+      console.log(` ✓ generated successfully ($${result.cost.toFixed(4)})`);
+      
+      await sleep(1000);
+      
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.log(` ✗ ${msg}`);
+      await logError("generate-content AI", error, false);
     }
     console.log();
   }
 
-  // Removed legacy Telegram Telemetry Report in favor of unified System Report
+
+  // Final report
+
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║       Content Generation Complete        ║");
