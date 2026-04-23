@@ -162,13 +162,16 @@ jobs:
       # ─── Data State Synchronization ────────────────────────────
       - name: Update X OAuth Secret
         if: env.NEW_X_REFRESH_TOKEN != ''
-        run: gh secret set X_OAUTH2_REFRESH_TOKEN --body "${{ env.NEW_X_REFRESH_TOKEN }}"
+        run: gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_X_REFRESH_TOKEN"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Notify on Failure
         if: failure()
         run: |
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}/sendMessage" \
+          curl -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
           -H "Content-Type: application/json" \
-          -d "{\"chat_id\": \"${{ secrets.TELEGRAM_REPORT_CHAT_ID }}\", \"text\": \"❌ *Social Automation Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
+          -d "{\"chat_id\": \"$TELEGRAM_REPORT_CHAT_ID\", \"text\": \"❌ *Social Automation Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}

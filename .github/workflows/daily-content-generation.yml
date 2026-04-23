@@ -89,9 +89,12 @@ jobs:
       - name: Notify on Failure
         if: failure()
         run: |
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}/sendMessage" \
+          curl -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
           -H "Content-Type: application/json" \
-          -d "{\"chat_id\": \"${{ secrets.TELEGRAM_REPORT_CHAT_ID }}\", \"text\": \"❌ *Daily Publication Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
+          -d "{\"chat_id\": \"$TELEGRAM_REPORT_CHAT_ID\", \"text\": \"❌ *Daily Publication Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
   deploy:
     name: Redeploy Site
