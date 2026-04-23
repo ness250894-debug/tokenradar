@@ -79,6 +79,10 @@ export async function uploadToYouTubeShorts(
       console.error('   Details:', JSON.stringify(error.response.data.error.details, null, 2));
     }
     
-    throw new Error(`YouTube Upload Error: ${errorMsg}`);
+    let finalMsg = `YouTube Upload Error: ${errorMsg}`;
+    if (errorMsg.includes('invalid_grant')) {
+      finalMsg += ' (Your Refresh Token has expired or is invalid. Please regenerate it using scripts/generate-youtube-token.ts)';
+    }
+    throw new Error(finalMsg);
   }
 }
