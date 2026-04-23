@@ -189,6 +189,7 @@ async function main() {
     
     logActivity("publish-from-queue", {
       tokenId,
+      tokenName: tokenId, // Fallback if name not easily available, but tokenId is the URL slug
       articles: tokenArticleCount,
       price: liveData.price
     });
