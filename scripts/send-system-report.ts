@@ -19,6 +19,7 @@ interface ActivityRecord {
   tokensProcessed?: number;
   cost?: number;
   wordCount?: number;
+  articles?: number;
 }
 
 interface ErrorRecord {
@@ -41,6 +42,7 @@ async function main() {
 
   // Collectors
   const socialPosts: Array<{ name: string; platform: string; reason: string }> = [];
+  const publishedContent: Array<{ name: string; id: string; count: number }> = [];
   let totalDataRefreshed = 0;
   let metricsTokensCount = 0;
   let tgeCount = 0;
@@ -57,6 +59,12 @@ async function main() {
         name: data.tokenName || data.tokenId || "Unknown", 
         platform: data.platform || "all", 
         reason: data.reason || "spotlight" 
+      });
+    } else if (data.type === "publish-from-queue") {
+      publishedContent.push({
+        name: data.tokenName || data.tokenId || "Unknown",
+        id: data.tokenId || "",
+        count: data.articles || 0
       });
     } else if (data.type === "data-refresh") {
       totalDataRefreshed += data.tokenCount || 0;
@@ -85,7 +93,17 @@ async function main() {
   let message = `🚀 *Daily System Pulse*\n`;
   message += `_Status: ${quotaStatus}_\n\n`;
 
-  // 1. Social Activity
+  // 1. Published Content
+  if (publishedContent.length > 0) {
+    message += `*📝 Recently Published*\n`;
+    for (const item of publishedContent) {
+      const link = `https://tokenradar.co/${item.id}`;
+      message += `• [${item.name}](${link}) (${item.count} articles)\n`;
+    }
+    message += `\n`;
+  }
+
+  // 2. Social Activity
   if (socialPosts.length > 0) {
     message += `*🤖 Social Activity*\n`;
     for (const post of socialPosts) {
@@ -95,21 +113,21 @@ async function main() {
     message += `\n`;
   }
 
-  // 2. Data Health
+  // 3. Data Health
   message += `*📊 Data Health*\n`;
   message += `• Refreshed: ${totalDataRefreshed} token updates\n`;
   message += `• Analyzed: ${metricsTokensCount} propriety scores\n`;
   if (tgeCount > 0) message += `• TGEs: ${tgeCount} launches tracked\n`;
   message += `\n`;
 
-  // 3. API Quota
+  // 4. API Quota
   message += `*📡 API Quota Tracking*\n`;
   message += `• Used: \`${quota.count}\` / ${MONTHLY_LIMIT} requests\n`;
   message += `• Monthly Usage: \`${usagePercent}%\`\n`;
   if (totalCost > 0) message += `• Est. AI Cost: \`$${totalCost.toFixed(4)}\`\n`;
   message += `\n`;
 
-  // 4. Errors
+  // 5. Errors
   if (Object.keys(errors).length > 0) {
     message += `*⚠️ System Errors Detected*\n`;
     for (const [source, count] of Object.entries(errors)) {
