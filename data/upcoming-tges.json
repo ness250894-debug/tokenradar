@@ -417,5 +417,27 @@
     "dataSource": "https://cointelegraph.com/news/robinhood-venture-fund-invests-75m-in-openai",
     "discoveredAt": "2026-04-22T19:25:43.597Z",
     "status": "upcoming"
+  },
+  {
+    "id": "doge-strategy",
+    "name": "Doge Strategy",
+    "symbol": "DOGESTR",
+    "category": "Meme",
+    "expectedTge": "Active",
+    "narrativeStrength": 75,
+    "dataSource": "https://tokenradar.co/doge-strategy",
+    "discoveredAt": "2026-04-23T12:30:00.000Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "little-pepe-5",
+    "name": "Little Pepe",
+    "symbol": "LILPEPE",
+    "category": "Meme / Layer 2",
+    "expectedTge": "Active",
+    "narrativeStrength": 75,
+    "dataSource": "https://littlepepe.best",
+    "discoveredAt": "2026-04-23T12:30:00.000Z",
+    "status": "upcoming"
   }
 ]
