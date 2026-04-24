@@ -82,6 +82,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
             <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
               <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 32, fontWeight: 'bold', width: '30px' }}>{index + 1}</span>
               <div style={{ display: 'flex', borderRadius: '12px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.1)', background: '#111', width: 64, height: 64, alignItems: 'center', justifyContent: 'center' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={getTokenIconUrl(token.symbol, token.id)}
                   alt={token.name}

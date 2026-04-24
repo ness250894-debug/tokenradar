@@ -6,7 +6,8 @@ export const runtime = 'edge';
 export async function GET() {
   try {
     // 1. Get Top 5 Gainers
-    const movers = [...tokensData]
+    const tokens = tokensData as unknown[];
+    const movers = (tokens as Array<{ id: string; symbol: string; name: string; market: { price: number; priceChange24h: number } }>)
       .filter(t => t.market?.priceChange24h !== undefined)
       .sort((a, b) => (b.market?.priceChange24h || 0) - (a.market?.priceChange24h || 0))
       .slice(0, 5)

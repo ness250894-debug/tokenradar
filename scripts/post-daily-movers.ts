@@ -25,14 +25,14 @@ async function main() {
 
   try {
     console.log("▶ Loading token data...");
-    const tokens = safeReadJson<any[]>(tokensPath, []);
+    const tokens = safeReadJson<unknown[]>(tokensPath, []);
     
     if (tokens.length === 0) {
       throw new Error("No tokens found in data/tokens.json");
     }
 
     // 1. Selection: Top 5 Gainers (24h)
-    const movers: MoverToken[] = [...tokens]
+    const movers: MoverToken[] = (tokens as Array<{ id: string; symbol: string; name: string; market: { price: number; priceChange24h: number } }>)
       .filter(t => t.market?.priceChange24h !== undefined)
       .sort((a, b) => (b.market?.priceChange24h || 0) - (a.market?.priceChange24h || 0))
       .slice(0, 5)
