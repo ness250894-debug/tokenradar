@@ -205,8 +205,8 @@ async function generateOGImages() {
   console.info("Generating Daily Movers static image...");
   const tokensDataPath = path.join(DATA_DIR, "tokens.json");
   if (fs.existsSync(tokensDataPath)) {
-    const tokens = safeReadJson<any[]>(tokensDataPath, []);
-    const movers = [...tokens]
+    const tokens = safeReadJson<unknown[]>(tokensDataPath, []);
+    const movers = (tokens as Array<{ id: string; symbol: string; name: string; market: { price: number; priceChange24h: number } }>)
       .filter(t => t.market?.priceChange24h !== undefined)
       .sort((a, b) => (b.market?.priceChange24h || 0) - (a.market?.priceChange24h || 0))
       .slice(0, 5)

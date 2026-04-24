@@ -147,7 +147,7 @@ function persistRefreshToken(newToken: string): void {
   if (process.env.GITHUB_ENV) {
     try {
       // Mask the new token so it doesn't appear in logs
-      console.log(`::add-mask::${newToken}`);
+      console.info(`::add-mask::${newToken}`);
       fs.appendFileSync(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
       console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation");
     } catch (err) {
