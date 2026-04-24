@@ -4,6 +4,7 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
 import { getTokenIconUrl } from '../src/lib/formatters';
+import { generateMoversImage } from '../src/lib/movers-generator';
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -197,6 +198,35 @@ async function generateOGImages() {
       console.info(`Generated OG image for ${tokenId}`);
     } catch (e) {
       console.error(`Failed to generate OG image for ${tokenId}:`, e);
+    }
+  }
+
+  // --- Daily Movers Section ---
+  console.info("Generating Daily Movers static image...");
+  const tokensDataPath = path.join(DATA_DIR, "tokens.json");
+  if (fs.existsSync(tokensDataPath)) {
+    const tokens = safeReadJson<any[]>(tokensDataPath, []);
+    const movers = [...tokens]
+      .filter(t => t.market?.priceChange24h !== undefined)
+      .sort((a, b) => (b.market?.priceChange24h || 0) - (a.market?.priceChange24h || 0))
+      .slice(0, 5)
+      .map(t => ({
+        id: t.id,
+        symbol: t.symbol,
+        name: t.name,
+        price: t.market.price || 0,
+        change24h: t.market.priceChange24h || 0
+      }));
+
+    if (movers.length > 0) {
+      try {
+        const moversBuffer = await generateMoversImage(movers);
+        const moversPath = path.join(PUBLIC_DIR, "og", "movers.png");
+        fs.writeFileSync(moversPath, moversBuffer);
+        console.info("✅ Generated static movers image at public/og/movers.png");
+      } catch (e) {
+        console.error("❌ Failed to generate static movers image:", e);
+      }
     }
   }
   
