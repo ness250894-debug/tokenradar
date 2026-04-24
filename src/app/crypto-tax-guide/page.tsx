@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'The Ultimate 2026 Crypto Tax Guide | TokenRadar',
+  title: 'The Ultimate 2026 Crypto Tax Guide',
   description: 'A comprehensive guide to understanding crypto taxes, reporting airdrops and DeFi income, and automating your tax returns with top-rated software.',
   alternates: {
     canonical: '/crypto-tax-guide',

@@ -8,6 +8,8 @@ import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
 import Script from "next/script";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | TokenRadar",
   },
   description:
-    "Unbiased, data-driven analysis for 250+ crypto tokens. Proprietary Risk Score, Growth Index, and AI-powered research updated daily.",
+    "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens. Proprietary Risk Score, Growth Index, and AI-powered research updated daily.",
   keywords: [
     "crypto analysis",
     "token research",
@@ -35,16 +37,14 @@ export const metadata: Metadata = {
     "DeFi",
     "crypto risk score",
   ],
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"
-  ),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "TokenRadar",
     title: "TokenRadar — Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 250+ crypto tokens with proprietary metrics.",
+      "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
     images: [
       {
         url: "/og-image.png",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TokenRadar — Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 250+ crypto tokens with proprietary metrics.",
+      "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -103,13 +103,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "TokenRadar",
-              "url": "https://tokenradar.co",
-              "description": "Unbiased, data-driven crypto analysis for 2,000+ tokens",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://tokenradar.co/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
+              "url": siteUrl,
+              "description": "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
             })
           }}
         />
@@ -120,8 +115,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "TokenRadar",
-              "url": "https://tokenradar.co",
-              "logo": "https://tokenradar.co/icon.png",
+              "url": siteUrl,
+              "logo": `${siteUrl}/icon.png`,
               "sameAs": [
                 "https://x.com/TokenRadarCo"
               ]
@@ -136,7 +131,7 @@ export default function RootLayout({
               "@type": "Person",
               "name": "Pavlo Nakonechnyi",
               "jobTitle": "Founder & Lead Researcher",
-              "url": "https://tokenradar.co",
+              "url": siteUrl,
               "sameAs": [
                 "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
               ]

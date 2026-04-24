@@ -10,7 +10,7 @@ import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 
 export const metadata = {
-  title: "Upcoming Token Launches & TGEs | TokenRadar",
+  title: "Upcoming Token Launches & TGEs",
   description: "Discover and track high-potential crypto projects planning imminent Token Generation Events (TGEs) and ICOs.",
 };
 

@@ -97,8 +97,7 @@ CoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly
 | **AI Summaries** | Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 fallback | $0 |
 | **Domain** | Namecheap (tokenradar.co) | $6.98/yr |
 | **Charts** | Recharts (lightweight) | $0 |
-| **Social APIs** | X Pay-per-use + **grammY SDK** | $0–$5 |
-| **Agentic AI** | **Mastra** (Task Orchestration) | $0 |
+| **Social APIs** | X API + Telegram Bot API (`grammy`) | $0–$5 |
 
 ---
 
@@ -119,16 +118,16 @@ tokenradar/
 │   │   │   ├── page.tsx              # Token overview page
 │   │   │   ├── price-prediction/page.tsx
 │   │   │   ├── how-to-buy/page.tsx
-│   │   │   └── staking/page.tsx
-│   │   ├── compare/
-│   │   │   └── [slug]/page.tsx       # "[Token A] vs [Token B]"
-│   │   └── sitemap.ts                # Auto-generated XML sitemap
+│   │   │   └── transfer-to-ledger/page.tsx
+│   │   ├── upcoming/page.tsx         # Upcoming TGE landing page
+│   │   ├── upcoming/[token]/page.tsx # Upcoming token detail pages
+│   │   ├── learn/page.tsx            # Glossary / learning hub
+│   │   ├── learn/[slug]/page.tsx     # Individual learn pages
+│   │   └── robots.ts                 # Robots metadata route
 │   ├── components/
 │   │   ├── PriceChart.tsx            # Lightweight chart (recharts)
 │   │   ├── RiskScoreCard.tsx         # Proprietary metrics display
-│   │   ├── ArticleLayout.tsx         # SEO wrapper + disclaimer
 │   │   ├── AffiliateButton.tsx       # Exchange referral CTA
-│   │   ├── CookieConsent.tsx         # GDPR cookie banner
 │   │   ├── LastUpdated.tsx           # Timestamp component
 │   │   └── TokenCard.tsx             # Token summary card for listings
 │   ├── lib/
@@ -142,7 +141,7 @@ tokenradar/
 │   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)
 │   │   ├── visitor-fetcher.ts         # Cloudflare analytics fetcher
 │   │   └── x-client.ts               # X (Twitter) API v2 client
-│   └── app.css                    # Global styles, design tokens
+│   └── video/                        # Remotion video scenes and entrypoints
 ├── content/                          # Generated articles (JSON)
 │   └── tokens/                       # Per-token articles
 ├── data/
@@ -167,7 +166,7 @@ tokenradar/
 │   ├── post-interactive-daily.ts     # Phase 6: Interactive X polls
 │   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers
 │   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation
-│   └── send-report.ts               # Reporting: Daily/weekly/monthly summaries
+│   └── send-system-report.ts        # Reporting: Daily/weekly/monthly summaries
 ├── tests/
 │   ├── config.test.ts
 │   ├── content-loader.test.ts
@@ -176,9 +175,9 @@ tokenradar/
 ├── .github/
 │   └── workflows/
 │       ├── daily-refresh.yml         # Daily data + price refresh + deploy
-│       ├── daily-content-generation.yml # 6x/day: generate + deploy
+│       ├── daily-content-generation.yml # Daily queue publish + deploy
 │       ├── social-automations.yml    # 12x/day: unified TG/X posting with exclusive slots
-│       ├── daily-system-report.yml   # Daily metrics report
+│       └── weekly-content-generation.yml # Weekly queue generation
 ├── .env.example                      # Required environment variables
 ├── package.json
 ├── tsconfig.json
@@ -243,10 +242,10 @@ Templates:                              Tokens (#50-#200 by market cap):
 | Categories and tags | `/coins/{id}` |
 
 **Rate Limit Safeguards:**
-- Request queue with **2-second delays** between calls
+- Shared client with caching and a monthly quota counter
 - Local JSON cache — re-fetch only if data is **>24h old**
 - Monthly call counter — **auto-pause at 9,000 calls** (limit: 10,000)
-- Fallback: CoinMarketCap free API (10K additional calls/month)
+- Cache-first behavior to reduce unnecessary repeat calls
 
 **Output:** `data/tokens.json` + `data/prices/[token-id].json`
 
@@ -356,8 +355,8 @@ All pages are **pre-rendered at build time** for:
 | `/[token]` | Token overview (price, metrics, summary) |
 | `/[token]/price-prediction` | Price prediction article |
 | `/[token]/how-to-buy` | Step-by-step buying guide |
-| `/[token]/staking` | Staking rewards & APY analysis |
-| `/compare/[token-a]-vs-[token-b]` | Side-by-side comparison |
+| `/[token]/transfer-to-ledger` | Token transfer and wallet guidance |
+| `/upcoming/[token]` | Upcoming TGE detail page |
 | `/sitemap.xml` | Auto-generated sitemap |
 
 ### SEO Optimizations
@@ -403,13 +402,13 @@ All social posting is consolidated into a single workflow with 12 scheduled runs
 | 05:30 | 01:30 | 📊 Market Update | — |
 | 08:30 | 04:30 | 📊 Market Update | — |
 | 11:30 | 07:30 | 📊 Market Update | 🗳️ Interactive Poll |
-| 13:30 | 09:30 | 📊 Market Update | — |
+| 13:00 | 09:00 | 📊 Market Update | — |
 | **14:30** | **10:30** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |
-| 16:30 | 12:30 | 📊 Market Update | — |
+| 16:00 | 12:00 | 📊 Market Update | — |
 | 17:30 | 13:30 | 📊 Market Update | 📊 Market Update |
-| 19:30 | 15:30 | 📊 Market Update | — |
+| **18:15** | **14:15** | **🎬 Video Breakout** *(exclusive)* | **🎬 Video Breakout** *(exclusive)* |
 | 20:30 | 16:30 | 📊 Market Update | 📊 Market Update |
-| 22:30 | 18:30 | 📊 Market Update | — |
+| 22:00 | 18:00 | 📊 Market Update | — |
 | **23:30** | **19:30** | **🏆 Top 5 Movers** *(exclusive)* | — |
 
 > **Exclusive slots:** Regular market updates are skipped when polls or movers cards run, keeping the channel uncluttered.
@@ -443,15 +442,12 @@ Each market update includes:
 3. Fill in `X_OAUTH2_CLIENT_ID` and `X_OAUTH2_CLIENT_SECRET` in `.env.local`.
 4. Run `npx tsx scripts/generate-x-token.ts` to obtain the refresh token.
 
-### Telegram Setup (grammY + Agentic AI)
+### Telegram Setup
 
 1. Create a bot via [@BotFather](https://t.me/botfather).
 2. Add the bot to your channel as an administrator.
 3. Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID` in `.env.local`.
-4. **Agentic Layer:** The bot now uses **grammY** and **Mastra**.
-   - **Reactive:** Handles incoming messages via `src/app/api/telegram/webhook/route.ts`.
-   - **Proactive:** Scheduled scripts use the same SDK for consistent formatting and keyboard support.
-5. **Webhook Configuration:** Run `curl -X POST https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://your-site.com/api/telegram/webhook` to enable real-time agent replies.
+4. Scheduled scripts use the shared `grammy` client for consistent formatting, keyboard support, and media uploads.
 
 ### YouTube Shorts Setup
 
@@ -517,17 +513,17 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 
 ```yaml
 # .github/workflows/daily-refresh.yml
-# Runs daily at 06:23 UTC
+# Runs daily at 18:00 UTC
 # 1. Fetches latest CoinGecko data (lite mode)
 # 2. Fetches reference articles from RSS feeds
 # 3. Recomputes proprietary metrics
 # 4. Commits [skip ci] and triggers explicit deploy
 
 # .github/workflows/daily-content-generation.yml
-# Runs 6x/day (every 4 hours at :27)
-# 1. Syncs token data, computes metrics
-# 2. Generates 1 AI article per run
-# 3. Quality checks with auto-fix
+# Runs daily
+# 1. Generates queue content
+# 2. Publishes a bounded batch from the queue
+# 3. Injects internal links
 # 4. Deploys to Cloudflare Pages
 
 # .github/workflows/social-automations.yml
@@ -597,7 +593,7 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 | Risk | Mitigation |
 |------|------------|
 | **CoinGecko rate limit** | 2s delays, local cache, monthly counter (pause at 9K) |
-| **CoinGecko downtime** | Fallback to CoinMarketCap free API |
+| **CoinGecko downtime** | Cache-first reads and graceful degradation when live data is unavailable |
 | **Claude API costs spike** | Per-article cost cap, monthly budget alerts |
 | **X API rate limit** | Queue posts, max 15–20/day |
 

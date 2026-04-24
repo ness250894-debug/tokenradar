@@ -22,6 +22,10 @@ export const REFERRALS = [
   { name: "KuCoin", url: "https://www.kucoin.com/r/rf/FQ67QZ7A" },
 ] as const;
 
+export const REFERRAL_URLS = Object.fromEntries(
+  REFERRALS.map((referral) => [referral.name.toLowerCase(), referral.url]),
+) as Record<string, string>;
+
 /** Exchange referral links (HTML-formatted for Telegram). */
 export const REFERRAL_LINKS_HTML = [
   "💳 <b>Trade on top exchanges:</b>",

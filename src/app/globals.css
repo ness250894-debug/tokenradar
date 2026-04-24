@@ -8,6 +8,7 @@
   --bg-card: #181922;
   --bg-card-hover: #1e1f2e;
   --bg-elevated: #22233a;
+  --surface-color: rgba(18, 19, 26, 0.72);
 
   --text-primary: #f0f0f5;
   --text-secondary: #9395a5;
@@ -70,6 +71,7 @@
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
+  --transition-normal: var(--transition-base);
   --transition-slow: 400ms ease;
 
   /* Layout */
@@ -164,6 +166,14 @@ input[type=range]::-moz-range-thumb:hover {
   padding: 0 var(--space-lg);
   box-sizing: border-box;
   overflow-x: clip;
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  box-sizing: border-box;
 }
 
 .hidden-mobile { display: none !important; }
@@ -928,6 +938,10 @@ input[type=range]::-moz-range-thumb:hover {
   }
 
   .container {
+    padding: 0 var(--space-md);
+  }
+
+  .container-narrow {
     padding: 0 var(--space-md);
   }
 

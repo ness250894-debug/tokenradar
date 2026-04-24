@@ -20,12 +20,17 @@
 import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
-import { loadEnv, safeReadJson } from "../src/lib/utils";
+import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
 
 // Load environment
 loadEnv();
 
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
+const QUARANTINE_ROOT = path.resolve(__dirname, "../data/quarantine");
+const QUARANTINE_RUN_DIR = path.join(
+  QUARANTINE_ROOT,
+  new Date().toISOString().replace(/[:.]/g, "-")
+);
 
 // ── Prohibited Phrases ─────────────────────────────────────────
 
@@ -277,6 +282,14 @@ async function checkArticle(
   };
 }
 
+function quarantineArticle(filePath: string): string {
+  const relativePath = path.relative(CONTENT_DIR, filePath);
+  const targetPath = path.join(QUARANTINE_RUN_DIR, relativePath);
+  ensureDirSync(path.dirname(targetPath));
+  fs.renameSync(filePath, targetPath);
+  return targetPath;
+}
+
 // ── Main ───────────────────────────────────────────────────────
 
 async function main() {
@@ -352,13 +365,13 @@ async function main() {
         }
       } else {
         totalFailed++;
-        console.log(`    🗑 Quarantining failed article: ${file}`);
+        const quarantinedPath = quarantineArticle(filePath);
+        console.log(`    🗑 Quarantining failed article: ${path.relative(process.cwd(), quarantinedPath)}`);
         logActivity("quality-check-failed", {
           tokenId: result.tokenId,
           articleType: result.articleType,
           issues: result.issues.join("; ")
         });
-        fs.unlinkSync(filePath);
       }
       totalWarnings += result.warnings.length;
     }

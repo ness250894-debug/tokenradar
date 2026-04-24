@@ -1,7 +1,7 @@
 # Daily Lightweight Publication
-# Runs 6x/day to pick templates from the queue, inject 
+# Runs daily to pick templates from the queue, inject 
 # live market data, and publish them to the live site.
-# This workflow is extremely light and saves thousands of minutes/month.
+# This workflow stays lightweight by publishing from the queue instead of regenerating the full site catalog.
 
 name: Daily Content Generation
 

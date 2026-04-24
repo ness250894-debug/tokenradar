@@ -8,12 +8,12 @@ export const metadata: Metadata = {
     canonical: "/disclaimer",
   },
   openGraph: {
-    title: "Financial Disclaimer | TokenRadar",
+    title: "Financial Disclaimer",
     description:
       "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
   },
   twitter: {
-    title: "Financial Disclaimer | TokenRadar",
+    title: "Financial Disclaimer",
     description:
       "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
   },

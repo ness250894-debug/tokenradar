@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import {
   getTokenDetail,
-  getAllTokens,
+  getTokenIds,
   getTokenMetrics,
   getArticle,
   formatPrice,
@@ -24,8 +24,8 @@ interface PageProps {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const tokens = await getAllTokens();
-  return tokens.map((t) => ({ token: t.id }));
+  const tokenIds = await getTokenIds();
+  return tokenIds.map((token) => ({ token }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -246,4 +246,3 @@ export default async function HowToBuyPage({ params }: PageProps) {
     </div>
   );
 }
-

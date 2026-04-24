@@ -107,7 +107,7 @@ export const TOKEN_TECHNICAL_MAP: Record<string, TokenTechnical> = {
     network: "Cardano",
     standard: "Native",
     gasToken: "ADA",
-    ledgerAppName: "Cardano ADS",
+    ledgerAppName: "Cardano ADA",
     isSubtoken: false
   },
   "litecoin": {
