@@ -107,14 +107,14 @@ export function ProfitCalculator({
 
       {/* Result Card */}
       <div style={{ marginTop: "auto", paddingTop: "var(--space-lg)", borderTop: "1px solid var(--border-color)" }}>
-         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
            <div>
              <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-2xs)" }}>Current Valuation</div>
              <div style={{ fontSize: "var(--text-2xl)", fontWeight: 700, fontFamily: "var(--font-mono)" }}>
                ${currentValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
              </div>
            </div>
-           <div style={{ textAlign: "right" }}>
+           <div className="sm:text-right">
               <div className={`badge ${isPositive ? "badge-green" : "badge-red"}`} style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2xs)" }}>
                 {isPositive ? "▲" : "▼"} {roi.toFixed(2)}% ROI
               </div>

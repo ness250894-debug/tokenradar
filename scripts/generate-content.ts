@@ -123,19 +123,20 @@ STRICT RULES:
 7. Include at least 3 specific historical numerical data points from the provided context (excluding live placeholders).
 8. Reference at least 1 real-world development or event.
 9. Strictly follow the word count instructions provided in each specific prompt.
-10. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings.
+10. ONLY use markdown heading ## for sections. DO NOT use ### or deeper subheadings. Ensure headers are descriptive and at least 3 words long.
 11. Include a FAQ section at the end with 3-5 questions and answers. Format it exactly as "## FAQ".
 12. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
 13. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. Use the placeholders defined above in this table. This is critical for Google Featured Snippets.
 14. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
+15. NO MASSIVE BOLD: Do not bold entire paragraphs. Only bold short phrases (max 5-7 words) for emphasis.
 
 FORMAT:
-- Start with a brief intro paragraph (no heading)
-- Include a Markdown Summary Table early in the article using placeholders
-- Use ## for all main sections and subsections
-- Include bullet points and bold text for key data
-- Include a structured FAQ section at the end using ## FAQ format
-- INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis to ground the token's performance in broader market reality. MANDATORY: Mention the current total market cap or BTC dominance within the first two paragraphs to establish authority. This is critical for institutional-grade authority.`;
+- Start with a comprehensive intro paragraph of 3-4 sentences (no heading). This must be the very first content.
+- MANDATORY: Include the Markdown Summary Table ONLY AFTER the intro paragraph. You MUST include a header row (e.g., "| Metric | Details |") followed by the separator row for the table to render correctly. Use the placeholders defined above.
+- Use ## for all main sections. DO NOT split headers into multiple lines (e.g., "## The\n\nCore Problem" is forbidden; use "## The Core Problem").
+- Include bullet points and bold text for key data.
+- Include a structured FAQ section at the end using ## FAQ format.
+- INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis. Mention the current total market cap or BTC dominance within the first two paragraphs. This is critical for authority.`;
 
 /**
  * Build article-specific prompts.
@@ -208,8 +209,8 @@ ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
   ];
 
   const overviewPrompts = [
-    `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nCover:\n1. What ${tokenName} is and what problem it solves\n2. How the technology works (simplified)\n3. Tokenomics (supply, distribution, use cases)\n4. Current market position (price, market cap, rank)\n5. TokenRadar's proprietary metrics analysis (Risk Score, Growth Index, Narrative Strength)\n6. Key risks and concerns\n7. Recent developments and roadmap\n\n${commonContext}`,
-    `Create a detailed guide covering ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nStructure the article to answer:\n- The Core Problem: Why does ${tokenName} exist and what does it solve?\n- Technical Architecture: How it operates under the hood\n- Token Utility & Economics: Use cases and supply metrics\n- Market Analysis: Price, market cap, and rank review\n- TokenRadar Metrics: Deep dive into Risk Score and Narrative Strength\n- Potential Headwinds: Risks and competitor analysis\n\n${commonContext}`
+    `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nCover these exact sections:\n## What is ${tokenName}?\nExplain what it is and the core problem it solves.\n## Technical Architecture\nHow the technology works (simplified for investors).\n## Tokenomics and Utility\nSupply metrics, distribution, and real-world use cases.\n## Market Position\nCurrent price, market cap, and relative rank.\n## TokenRadar Metrics Analysis\nDeep dive into Risk Score, Growth Index, and Narrative Strength.\n## Risks and Challenges\nKey risks, vulnerabilities, and competitor analysis.\n## Recent Developments\nRoadmap, news, and ecosystem growth.\n\n${commonContext}`,
+    `Create a detailed guide covering ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nStructure the article with these headers:\n## The Core Problem\nWhy does ${tokenName} exist and what does it solve?\n## Technology and Operation\nHow it operates under the hood.\n## Token Economics\nUse cases and supply metrics.\n## Market Analysis\nPrice, market cap, and rank review.\n## TokenRadar Research\nDeep dive into Risk Score and Narrative Strength.\n## Potential Headwinds\nRisks and competitor analysis.\n\n${commonContext}`
   ];
 
   const priceTitles = [

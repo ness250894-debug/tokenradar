@@ -1,4 +1,4 @@
-import { sleep } from "./shared-utils";
+import { sleep, Mutex } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 
 export type AIResult = { 
@@ -10,6 +10,7 @@ export type AIResult = {
   cost: number;
 };
 
+const aiMutex = new Mutex();
 let lastGeminiRequestTime = 0;
 
 export const PRIMARY_MODEL = "gemini-3.1-flash-lite-preview";
@@ -34,40 +35,45 @@ async function callGeminiAPI(
         console.info(`\n  [retry ${i}/${retries}] calling Gemini...`);
         await sleep(2000);
       }
-      const elapsed = Date.now() - lastGeminiRequestTime;
-      if (elapsed < 4100) {
-        const waitTime = 4100 - elapsed;
-        process.stdout.write(` [4s pace limit...] `);
-        await sleep(waitTime);
-      }
-      
-      lastGeminiRequestTime = Date.now();
-      const response = await fetchWithRetry(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
-          contents: [{ parts: [{ text: userPrompt }] }],
-          generationConfig: { 
-            maxOutputTokens: maxTokens,
-            ...(jsonSchema ? { responseMimeType: "application/json", responseSchema: jsonSchema } : {})
-          }
-        }),
+
+      const result = await aiMutex.runExclusive(async () => {
+        const elapsed = Date.now() - lastGeminiRequestTime;
+        if (elapsed < 4100) {
+          const waitTime = 4100 - elapsed;
+          process.stdout.write(` [4s pace limit...] `);
+          await sleep(waitTime);
+        }
+        
+        lastGeminiRequestTime = Date.now();
+        const response = await fetchWithRetry(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
+            contents: [{ parts: [{ text: userPrompt }] }],
+            generationConfig: { 
+              maxOutputTokens: maxTokens,
+              ...(jsonSchema ? { responseMimeType: "application/json", responseSchema: jsonSchema } : {})
+            }
+          }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Gemini HTTP ${response.status}: ${errorText}`);
+        }
+        
+        const data = await response.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        const promptTokens = data.usageMetadata?.promptTokenCount || 0;
+        const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
+        
+        const cost = (promptTokens / 1_000_000) * 0.075 + (completionTokens / 1_000_000) * 0.30;
+        
+        return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Gemini HTTP ${response.status}: ${errorText}`);
-      }
-      
-      const data = await response.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      const promptTokens = data.usageMetadata?.promptTokenCount || 0;
-      const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
-      
-      const cost = (promptTokens / 1_000_000) * 0.075 + (completionTokens / 1_000_000) * 0.30;
-      
-      return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
+      return result;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (i < retries) console.info(`  ⚠ Gemini failed (${lastError.message}), retrying...`);

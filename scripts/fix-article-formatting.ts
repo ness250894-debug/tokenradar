@@ -296,7 +296,317 @@ function fixInlineHeadingMarkers(content: string): { content: string; fixes: str
   return { content: fixedLines.join("\n"), fixes };
 }
 
+/**
+ * Fix broken headers that were split into multiple lines.
+ * E.g. "## The\n\nCore Problem" -> "## The Core Problem"
+ */
+function fixBrokenHeaders(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  
+  // Match ## Word \n\n Rest of header
+  // The first word should be relatively short (common in split headers, max 20 chars)
+  // We use a regex that matches ## followed by a word, then 1-2 newlines, then the rest of the header line
+  const pattern = /(##\s+[A-Z][A-Za-z]{1,20})\s*[\r\n]+\s*([^#\n\r]{3,})/g;
+  
+  const fixed = content.replace(pattern, (_match, start, rest) => {
+    fixes.push(`Joined split header: "${start} ${rest.trim()}"`);
+    return `${start} ${rest.trim()}`;
+  });
+
+  // Also fix headers that are immediately followed by a colon (common artifact)
+  const colonPattern = /^## (.*?):\s*$/gm;
+  const result = fixed.replace(colonPattern, (_match, title) => {
+    fixes.push(`Removed trailing colon from header: "## ${title}"`);
+    return `## ${title}`;
+  });
+
+  return { content: result, fixes };
+}
+
+/**
+ * Fix excessive bolding (entire paragraphs or very long sentences).
+ * If a bold block is > 150 characters, it's probably a formatting error.
+ */
+function fixExcessiveBolding(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  // Match bold blocks: **...**
+  const boldPattern = /\*\*(.*?)\*\*/gs;
+  
+  const fixed = content.replace(boldPattern, (match, inner) => {
+    if (inner.length > 150) {
+      fixes.push(`Reduced excessive bolding (${inner.length} chars)`);
+      return inner; // Strip bold markers
+    }
+    return match;
+  });
+
+  return { content: fixed, fixes };
+}
+
+/**
+ * Fix missing newlines after headers.
+ * E.g. "## Header Text Paragraph starts here..." -> "## Header Text\n\nParagraph starts here..."
+ */
+function fixMissingNewlineAfterHeader(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  const fixedLines: string[] = [];
+
+  for (const line of lines) {
+    // Match a header followed by a paragraph start on the same line
+    // E.g. "## Header Title Paragraph text..."
+    // Criteria: Starts with ##, has a title, then a space, then something that looks like a sentence start.
+    // We look for a pattern where there's a space followed by a capitalized word of 3+ chars
+    // AND that capitalized word is followed by several lowercase words (paragraph style)
+    const match = line.match(/^(##\s+[A-Z][^#\n]+?)\s+([A-Z][a-z]{2,}\s+[a-z]{2,}\s+[a-z]{2,}.*)$/);
+    if (match && !line.includes("|") && !line.includes("FAQ")) {
+      fixes.push(`Added missing newline after header: "${match[1]}"`);
+      fixedLines.push(match[1]);
+      fixedLines.push("");
+      fixedLines.push(match[2]);
+    } else {
+      fixedLines.push(line);
+    }
+  }
+
+  return { content: fixedLines.join("\n"), fixes };
+}
+
+/**
+ * Robust Table Surgeon: Finds, validates, and repairs markdown tables.
+ * Ensures:
+ * 1. Table starts with a header (not a separator).
+ * 2. Exactly one separator row exists.
+ * 3. Separator columns match data columns.
+ * 4. No blank lines inside the table.
+ * 5. Table is preceded by a blank line.
+ */
+function fixTables(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  const result: string[] = [];
+  
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    
+    // Detect start of a table (any line with pipes)
+    if (line.startsWith("|")) {
+      const tableLines: string[] = [];
+      let j = i;
+      
+      // Collect all consecutive table lines (ignore internal blank lines)
+      while (j < lines.length && (lines[j].trim().startsWith("|") || lines[j].trim() === "")) {
+        const currentLine = lines[j].trim();
+        if (currentLine !== "") {
+          tableLines.push(currentLine);
+        }
+        j++;
+      }
+      
+      if (tableLines.length > 0) {
+        let repairedTable: string[] = [];
+        
+        // 1. Ensure it doesn't start with a separator
+        if (tableLines[0].includes(":---") || tableLines[0].includes("---:")) {
+          repairedTable.push("| Metric | Details |");
+          fixes.push("Fixed table starting with separator");
+        }
+        
+        // 2. Identify the data rows by filtering out ALL existing separators
+        let nonSeparatorRows = tableLines.filter(row => !row.includes(":---") && !row.includes("---:"));
+        
+        if (nonSeparatorRows.length === 0) {
+          nonSeparatorRows = ["| Metric | Details |", "| | |"];
+        }
+
+        const dataRow = nonSeparatorRows.length > 0 ? nonSeparatorRows[0] : "| | |";
+        
+        // Count columns in the data row to create a matching separator
+        const columnCount = (dataRow.match(/\|/g) || []).length - 1;
+        const correctSeparator = "|" + " :--- |".repeat(Math.max(1, columnCount));
+        
+        // 3. Rebuild the table: Header -> Separator -> Data
+        repairedTable.push(nonSeparatorRows[0]);
+        repairedTable.push(correctSeparator);
+        repairedTable.push(...nonSeparatorRows.slice(1));
+        
+        // Ensure double newline BEFORE the table if not at the start
+        if (result.length > 0 && result[result.length - 1] !== "") {
+          result.push("");
+        }
+        
+        result.push(...repairedTable);
+        fixes.push(`Repaired table structure (${repairedTable.length} rows)`);
+        
+        i = j; // Skip the lines we processed
+        continue;
+      }
+    }
+    
+    result.push(lines[i]);
+    i++;
+  }
+
+  return { content: result.join("\n"), fixes };
+}
+
+/**
+ * Move the market overview table from the top to after the intro.
+ * The Ethereum standard starts with an intro paragraph.
+ */
+function moveMarketTable(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  
+  // Find the table block
+  let tableStart = -1;
+  let tableEnd = -1;
+  
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim().startsWith("|")) {
+      if (tableStart === -1) tableStart = i;
+      tableEnd = i;
+    } else if (tableStart !== -1) {
+      break;
+    }
+  }
+
+  if (tableStart === -1 || tableStart > 15) return { content, fixes };
+
+  // Check if the line BEFORE the table is a Market Overview header
+  let includeHeader = false;
+  if (tableStart > 0) {
+    const prevLine = lines[tableStart - 1].trim();
+    if (prevLine.includes("Market Overview") || prevLine.includes("Market Summary")) {
+      includeHeader = true;
+      tableStart--;
+    } else if (prevLine === "" && tableStart > 1) {
+      const prevPrevLine = lines[tableStart - 2].trim();
+      if (prevPrevLine.includes("Market Overview") || prevPrevLine.includes("Market Summary")) {
+        includeHeader = true;
+        tableStart -= 2;
+      }
+    }
+  }
+
+  const tableLines = lines.splice(tableStart, tableEnd - tableStart + 1);
+  
+  // Find insertion point (after first paragraph or second ## header)
+  let insertAt = 0;
+  let paragraphCount = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line !== "" && !line.startsWith("#")) {
+      paragraphCount++;
+      if (paragraphCount === 1) {
+        insertAt = i + 1;
+        break;
+      }
+    }
+  }
+
+  lines.splice(insertAt, 0, "", ...tableLines, "");
+  fixes.push(`Moved market summary table ${includeHeader ? "with header " : ""}after intro paragraph`);
+  
+  return { content: lines.join("\n"), fixes };
+}
+
 // ── Article Processing ─────────────────────────────────────────
+
+/**
+ * Fix headers that were accidentally split into two lines.
+ * Example: "## How to buy\nBitcoin?" -> "## How to buy Bitcoin?"
+ */
+function joinSplitHeaders(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  const result: string[] = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    // If current line is a header and doesn't end with punctuation
+    if ((line.startsWith("##") || line.startsWith("###")) && 
+        !line.endsWith("?") && !line.endsWith(".") && !line.endsWith("!")) {
+      
+      // Look ahead for the next non-empty line (skip blank lines)
+      let nextLineIdx = i + 1;
+      while (nextLineIdx < lines.length && lines[nextLineIdx].trim() === "") {
+        nextLineIdx++;
+      }
+      
+      const nextLine = lines[nextLineIdx]?.trim() || "";
+      
+      // If next line is short, doesn't look like a header, and seems to be a fragment
+      if (nextLine !== "" && 
+          !nextLine.startsWith("#") && 
+          !nextLine.startsWith("|") && 
+          nextLine.length < 50) {
+        
+        result.push(`${line} ${nextLine}`);
+        fixes.push(`Joined split header: ${line} ${nextLine}`);
+        i = nextLineIdx; // Skip the lines we consumed
+        continue;
+      }
+    }
+    
+    result.push(lines[i]);
+  }
+  
+  return { content: result.join("\n"), fixes };
+}
+
+/**
+ * Ensure the ## Market Overview header is always exactly above the table.
+ */
+function syncTableHeader(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  
+  // Find the table start
+  let tableIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim().startsWith("|")) {
+      tableIdx = i;
+      break;
+    }
+  }
+
+  if (tableIdx === -1) return { content, fixes };
+
+  // Find the Market Overview header
+  let headerIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line.includes("Market Overview") || line.includes("Market Summary")) {
+      headerIdx = i;
+      break;
+    }
+  }
+
+  // If header exists but is not right before the table
+  if (headerIdx !== -1 && headerIdx !== tableIdx - 1 && headerIdx !== tableIdx - 2) {
+    const headerLine = lines[headerIdx];
+    lines.splice(headerIdx, 1);
+    
+    // Recalculate tableIdx
+    let newTableIdx = -1;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim().startsWith("|")) {
+        newTableIdx = i;
+        break;
+      }
+    }
+
+    if (newTableIdx !== -1) {
+      lines.splice(newTableIdx, 0, headerLine, "");
+      fixes.push("Synced Market Overview header position with table");
+    }
+  }
+
+  return { content: lines.join("\n"), fixes };
+}
 
 /**
  * Apply all formatting fixes to a single article's content.
@@ -307,9 +617,16 @@ function fixArticle(content: string): { content: string; allFixes: string[] } {
 
   // Order matters — fix hybrid headings first as they might interfere with other checks 
   const fixers = [
+    joinSplitHeaders,
     fixHybridHeadings,
     fixH1Headings,
     fixWrongHeadingLevels,
+    fixBrokenHeaders,
+    fixMissingNewlineAfterHeader,
+    fixTables,
+    moveMarketTable,
+    syncTableHeader,
+    fixExcessiveBolding,
     fixDuplicateFaqSections,
     fixOrphanedBoldMarkers,
     fixInlineHeadingMarkers,
@@ -322,7 +639,37 @@ function fixArticle(content: string): { content: string; allFixes: string[] } {
     allFixes.push(...result.fixes);
   }
 
+  // Final pass to restore missing newlines if the content looks like a single block
+  const newlineResult = fixMissingNewlines(current);
+  current = newlineResult.content;
+  allFixes.push(...newlineResult.fixes);
+
   return { content: current, allFixes };
+}
+
+/**
+ * Restore missing newlines for articles that were generated as a single-line block.
+ * Detects markdown markers (##, -, |) that are preceded by spaces instead of newlines.
+ */
+function fixMissingNewlines(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  let fixed = content;
+
+  // 1. Fix headers: "some text ## Header" -> "some text\n\n## Header"
+  const headerStartPattern = /([^\n])\s+(#+\s+[A-Z])/g;
+  if (headerStartPattern.test(fixed)) {
+    fixed = fixed.replace(headerStartPattern, "$1\n\n$2");
+    fixes.push("Restored missing newlines before headers");
+  }
+
+  // 2. Fix list starts: "some text\n- item" -> "some text\n\n- item"
+  const listPattern = /([^\n])\s+(-\s+[A-Z])/g; 
+  if (listPattern.test(fixed)) {
+    fixed = fixed.replace(listPattern, "$1\n$2");
+    fixes.push("Restored missing newlines for list items");
+  }
+
+  return { content: fixed, fixes };
 }
 
 /**

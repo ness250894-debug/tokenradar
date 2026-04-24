@@ -102,8 +102,11 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     console.warn("Auto-linking failed, falling back to raw md.", e);
   }
 
-  // Parse the markdown synchronously
-  const rawHtml = marked.parse(processedMd, { async: false }) as string;
+  // Parse the markdown using the modern API with explicit options
+  const rawHtml = await marked.parse(processedMd, {
+    gfm: true,
+    breaks: true,
+  });
   
   // Inject ID into h2 and h3 tags for the Table of Contents feature
   const htmlWithIds = rawHtml.replace(/<h([23])>(.*?)<\/h\1>/gi, (_match, level, innerHtml) => {
@@ -115,7 +118,7 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
 
   try {
     return DOMPurify.sanitize(htmlWithIds, {
-      ADD_TAGS: ["img"],
+      ADD_TAGS: ["img", "table", "thead", "tbody", "tr", "th", "td"],
       ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
     });
   } catch (e) {

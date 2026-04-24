@@ -45,12 +45,27 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
   }
 
   // 2. Temporarily replace allowed tags with placeholders
-  // We use characters that are unlikely to appear in the content
-  const allowedTags = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  // We strictly whitelist tags and only allow 'href' for 'a'
   const placeholders: string[] = [];
-  let sanitized = text.replace(allowedTags, (match) => {
-    placeholders.push(match);
-    return `\x00TAG${placeholders.length - 1}\x00`;
+  let sanitized = text.replace(/<\/?([a-z0-9]+)(\s[^>]*)?\s*>/gi, (match, tagName, attrs) => {
+    const tag = tagName.toLowerCase();
+    const isAllowed = ['b', 'i', 'a', 'code', 'pre'].includes(tag);
+    
+    if (isAllowed) {
+      // For 'a' tags, we only keep 'href'
+      if (tag === 'a' && attrs) {
+        const hrefMatch = attrs.match(/href="([^"]*)"/i);
+        if (hrefMatch) {
+          const replacement = match.startsWith('</') ? '</a>' : `<a href="${hrefMatch[1]}">`;
+          placeholders.push(replacement);
+          return `\x00TAG${placeholders.length - 1}\x00`;
+        }
+      } else if (tag !== 'a') {
+        placeholders.push(match);
+        return `\x00TAG${placeholders.length - 1}\x00`;
+      }
+    }
+    return ""; // Strip all other tags
   });
 
   // 3. Escape remaining HTML-special characters

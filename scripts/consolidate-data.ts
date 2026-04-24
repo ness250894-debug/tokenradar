@@ -116,9 +116,9 @@ async function consolidate() {
   await fs.promises.writeFile(OUTPUT_REGISTRY, JSON.stringify(registry));
 
   console.log(`✅ Consolidation complete!`);
-  console.log(`\n  - Tokens: ${Object.keys(tokensBlob).length}`);
+  console.log(`\n  - Tokens: ${Object.keys(tokensBlob).length} (${tokenFiles.length - Object.keys(tokensBlob).length} skipped)`);
   console.log(`  - Registry: ${registry.length}`);
-  console.log(`  - Metrics: ${Object.keys(metricsBlob).length}`);
+  console.log(`  - Metrics: ${Object.keys(metricsBlob).length} / ${Object.keys(tokensBlob).length} coverage`);
   console.log(`  - Prices: ${Object.keys(pricesBlob).length}\n`);
 
   // 5. Copy ONLY essential data files to public for Edge Runtime Fetching

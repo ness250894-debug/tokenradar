@@ -28,6 +28,7 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { CountUp } from "@/components/CountUp";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
+import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
@@ -269,8 +270,10 @@ export default async function TokenPage({ params }: PageProps) {
         )}
 
         {/* Hybrid Inline CTAs */}
-        <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="inline" />
-        <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="inline" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-md)", marginTop: "var(--space-2xl)", marginBottom: "var(--space-xl)" }}>
+          <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="inline" />
+          <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="inline" />
+        </div>
 
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -346,17 +349,15 @@ export default async function TokenPage({ params }: PageProps) {
               </div>
             </div>
             
-            <aside className="article-sidebar-col hidden lg-block">
+            <aside className="article-sidebar-col hidden lg:block">
               <div 
                 className="sidebar-sticky"
                 style={{ 
                   position: "sticky", 
                   top: "100px",
-                  maxHeight: "calc(100vh - 120px)",
-                  overflowY: "auto",
-                  paddingRight: "var(--space-xs)"
                 }}
               >
+                <UnifiedTOC selector=".article-content" />
                 <div style={{ marginTop: "var(--space-xl)" }}>
                   <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
                   <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
