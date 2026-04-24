@@ -8,6 +8,7 @@ interface AffiliateButtonProps {
 }
 
 import Link from "next/link";
+import { REFERRAL_URLS } from "@/lib/config";
 
 /**
  * Affiliate CTA button for "How to Buy" articles.
@@ -20,15 +21,10 @@ export function AffiliateButton({
   exchange = "Binance",
 }: AffiliateButtonProps) {
   // Referral links
-  const exchangeUrls: Record<string, string> = {
-    Binance: `https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default`,
-    OKX: `https://okx.com/join/66004268`,
-    Bybit: `https://www.bybit.com/invite?ref=QONQNG`,
-    KuCoin: `https://www.kucoin.com/r/rf/FQ67QZ7A`,
-  };
+  const exchangeUrl = REFERRAL_URLS[exchange.toLowerCase()];
 
   // Don't render a button for exchanges without a valid referral link
-  if (!exchangeUrls[exchange]) return null;
+  if (!exchangeUrl) return null;
 
   return (
     <div
@@ -65,7 +61,7 @@ export function AffiliateButton({
           </div>
         </div>
         <a
-          href={exchangeUrls[exchange] || "#"}
+          href={exchangeUrl}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="btn btn-primary"

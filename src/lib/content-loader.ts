@@ -225,6 +225,7 @@ let _registry: TokenSummary[] | null = null;
 let _tokensBlob: Record<string, unknown> | null = null;
 let _metricsBlob: Record<string, unknown> | null = null;
 let _pricesBlob: Record<string, unknown> | null = null;
+const shouldLogLoaderInfo = process.env.DEBUG_CONTENT_LOADER === "true";
 
 // ── Data Fetching ─────────────────────────────────────────────
 
@@ -267,7 +268,7 @@ async function fetchAsset(relativePath: string) {
       }
       
       const data = await resp.json();
-      if (path.includes('_blob') || path.includes('_registry')) {
+      if (shouldLogLoaderInfo && (path.includes('_blob') || path.includes('_registry'))) {
         console.info(`${logPrefix} Successfully fetched ${path} via ${fullUrl}`);
       }
       return data;
@@ -276,7 +277,7 @@ async function fetchAsset(relativePath: string) {
       if (path.includes('_blob') || path.includes('_registry')) {
         const msg = e instanceof Error ? e.message : String(e);
         if (e instanceof Error && e.name === 'AbortError') {
-          console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (3s limit)`);
+          console.error(`${logPrefix} TIMEOUT fetching ${fullUrl} (10s limit)`);
         } else {
           console.error(`${logPrefix} ERROR fetching ${fullUrl}: ${msg}`);
         }
@@ -312,7 +313,7 @@ async function loadBlob(filePath: string, relativePath: string) {
       try {
         if (fs.existsSync(/* turbopackIgnore: true */ candidate)) {
           const data = JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ candidate, "utf-8"));
-          if (isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
+          if (shouldLogLoaderInfo && isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
             console.info(`[LOADER] Found ${fileName} at ${candidate}`);
           }
           return data;
@@ -439,10 +440,9 @@ export async function getTokensByCategory(categoryId: string): Promise<TokenSumm
 /**
  * Get all token IDs that should have a page on the regular /[token] route.
  *
- * Excludes upcoming TGE tokens that lack real market data — those should
- * only appear under /upcoming/[token]. Tokens that have graduated
- * (status === "released") or that have real market data (e.g. hyperliquid)
- * are NOT excluded.
+ * Excludes non-released upcoming TGE tokens so they only appear under
+ * /upcoming/[token]. Tokens that have graduated to status === "released"
+ * are not excluded.
  */
 /**
  * Get all token IDs that should have a page on the regular /[token] route. (memoized)
@@ -477,13 +477,6 @@ export async function getTokenIds(): Promise<string[]> {
   const result: string[] = [];
   for (const id of Array.from(ids)) {
     if (!upcomingTgeIds.has(id)) {
-      result.push(id);
-      continue;
-    }
-
-    // Upcoming TGE — only include if it has real market data
-    const detail = await getTokenDetail(id);
-    if (detail && detail.market?.price > 0 && detail.market?.marketCap > 0) {
       result.push(id);
     }
   }

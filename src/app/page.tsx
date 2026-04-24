@@ -42,6 +42,7 @@ export default async function HomePage() {
   const nextSyncHours = 24 - now.getUTCHours();
   
   // 4. Market Mood: Proprietary Risk Avg + Real-time Sentiment
+  const marketMoodSampleSize = Math.min(50, allTokens.length);
   const riskScores = allTokens.map((t) => t.riskScore);
   const avgMarketRisk =
     riskScores.length > 0
@@ -49,8 +50,10 @@ export default async function HomePage() {
       : 5;
   
   // Factor in 24h Price Action to adjust Risk-based mood
-  const marketChange24h = allTokens.length > 0
-    ? allTokens.slice(0, 50).reduce((acc, t) => acc + (t.priceChange24h || 0), 0) / 50
+  const marketChange24h = marketMoodSampleSize > 0
+    ? allTokens
+        .slice(0, marketMoodSampleSize)
+        .reduce((acc, t) => acc + (t.priceChange24h || 0), 0) / marketMoodSampleSize
     : 0;
     
   let marketMood = "Macro Neutral";

@@ -5,7 +5,7 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 
 export const metadata: Metadata = {
-  title: "Crypto Learning Hub & Glossary | TokenRadar",
+  title: "Crypto Learning Hub & Glossary",
   description: "Master the fundamentals of blockchain, tokenomics, and security with TokenRadar's deep-dive glossary and educational resources.",
 };
 

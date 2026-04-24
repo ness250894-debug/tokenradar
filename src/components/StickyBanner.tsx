@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { REFERRAL_URLS } from "@/lib/config";
 
 /**
  * Sticky bottom banner for high-conversion affiliate links.
@@ -21,25 +22,25 @@ export function StickyBanner({ symbol }: { symbol: string }) {
   const exchangeLinks = [
     {
       name: "Binance",
-      url: `https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default`,
+      url: REFERRAL_URLS.binance,
       color: "#FCD535",
       text: "#000",
     },
     {
       name: "Bybit",
-      url: `https://www.bybit.com/invite?ref=QONQNG`,
+      url: REFERRAL_URLS.bybit,
       color: "#F7A600",
       text: "#fff",
     },
     {
       name: "OKX",
-      url: `https://okx.com/join/66004268`,
+      url: REFERRAL_URLS.okx,
       color: "#fff",
       text: "#000",
     },
     {
       name: "KuCoin",
-      url: `https://www.kucoin.com/r/rf/FQ67QZ7A`,
+      url: REFERRAL_URLS.kucoin,
       color: "#00A277",
       text: "#fff",
     },

@@ -1,5 +1,5 @@
 # Daily Data Refresh
-# Runs every day at 06:00 UTC to fetch fresh token data,
+# Runs every day at 18:00 UTC to fetch fresh token data,
 # recompute metrics, and redeploy the site.
 
 name: Daily Refresh

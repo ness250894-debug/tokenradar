@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
   const { token } = await params;
   const tge = tges.find((t) => t.id === token);
 
-  if (!tge) return { title: "Upcoming TGE | TokenRadar" };
+  if (!tge) return { title: "Upcoming TGE" };
 
   const isReleased = tge.status === "released";
   const title = isReleased
@@ -55,7 +55,7 @@ export default async function TgePage({ params }: TgePageProps) {
 
   const isReleased = tge.status === "released";
   const article = await getArticle(tge.id, "tge-preview");
-  const detail = await getTokenDetail(tge.id);
+  const detail = isReleased ? await getTokenDetail(tge.id) : null;
   const hasMainPage = isReleased ? !!detail : false;
 
   const tokenData = {

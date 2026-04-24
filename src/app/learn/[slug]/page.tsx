@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = await getGlossaryItem(slug);
   if (!item) return { title: "Term Not Found" };
   return {
-    title: `${item.title} | TokenRadar Learn`,
+    title: `${item.title} | Learn`,
     description: item.description,
   };
 }

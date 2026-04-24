@@ -1,0 +1,465 @@
+{
+  "checkedAt": "2026-04-24T19:10:21.820Z",
+  "artifactDir": "D:\\tokenradar\\audit-artifacts",
+  "results": [
+    {
+      "page": "/",
+      "slug": "home",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1540,
+        "doc": 1540,
+        "viewport": 1440,
+        "hasOverflow": true
+      },
+      "layout": {
+        "title": "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+        "h1": "Data-Driven Crypto Analysis You Can Trust",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/",
+      "slug": "home",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 934,
+        "doc": 934,
+        "viewport": 834,
+        "hasOverflow": true
+      },
+      "layout": {
+        "title": "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+        "h1": "Data-Driven Crypto Analysis You Can Trust",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/",
+      "slug": "home",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 596,
+        "doc": 596,
+        "viewport": 596,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+        "h1": "Data-Driven Crypto Analysis You Can Trust",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin",
+      "slug": "token",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1440,
+        "doc": 1440,
+        "viewport": 1440,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) — Price, Analysis & Risk Score | TokenRadar",
+        "h1": "Bitcoin (BTC) Analysis, Price & Risk Score",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin",
+      "slug": "token",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 834,
+        "doc": 834,
+        "viewport": 834,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) — Price, Analysis & Risk Score | TokenRadar",
+        "h1": "Bitcoin (BTC) Analysis, Price & Risk Score",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin",
+      "slug": "token",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 390,
+        "doc": 390,
+        "viewport": 390,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) — Price, Analysis & Risk Score | TokenRadar",
+        "h1": "Bitcoin (BTC) Analysis, Price & Risk Score",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/price-prediction",
+      "slug": "prediction",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1440,
+        "doc": 1440,
+        "viewport": 1440,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) Price Prediction 2026-2027 | TokenRadar",
+        "h1": "Bitcoin Price Prediction 2026–2027",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/price-prediction",
+      "slug": "prediction",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 834,
+        "doc": 834,
+        "viewport": 834,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) Price Prediction 2026-2027 | TokenRadar",
+        "h1": "Bitcoin Price Prediction 2026–2027",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/price-prediction",
+      "slug": "prediction",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 390,
+        "doc": 390,
+        "viewport": 390,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Bitcoin (BTC) Price Prediction 2026-2027 | TokenRadar",
+        "h1": "Bitcoin Price Prediction 2026–2027",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/how-to-buy",
+      "slug": "how-to-buy",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1440,
+        "doc": 1440,
+        "viewport": 1440,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "How to Buy Bitcoin (BTC) — Step-by-Step Guide | TokenRadar",
+        "h1": "How to Buy Bitcoin",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/how-to-buy",
+      "slug": "how-to-buy",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 834,
+        "doc": 834,
+        "viewport": 834,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "How to Buy Bitcoin (BTC) — Step-by-Step Guide | TokenRadar",
+        "h1": "How to Buy Bitcoin",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/bitcoin/how-to-buy",
+      "slug": "how-to-buy",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 390,
+        "doc": 390,
+        "viewport": 390,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "How to Buy Bitcoin (BTC) — Step-by-Step Guide | TokenRadar",
+        "h1": "How to Buy Bitcoin",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/upcoming",
+      "slug": "upcoming",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1540,
+        "doc": 1540,
+        "viewport": 1440,
+        "hasOverflow": true
+      },
+      "layout": {
+        "title": "Upcoming Token Launches & TGEs | TokenRadar",
+        "h1": "Pre-Launch Spotlight",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/upcoming",
+      "slug": "upcoming",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 934,
+        "doc": 934,
+        "viewport": 834,
+        "hasOverflow": true
+      },
+      "layout": {
+        "title": "Upcoming Token Launches & TGEs | TokenRadar",
+        "h1": "Pre-Launch Spotlight",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/upcoming",
+      "slug": "upcoming",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 596,
+        "doc": 596,
+        "viewport": 595,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "Upcoming Token Launches & TGEs | TokenRadar",
+        "h1": "Pre-Launch Spotlight",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/crypto-tax-guide",
+      "slug": "tax-guide",
+      "viewport": "desktop",
+      "status": 200,
+      "overflow": {
+        "body": 1440,
+        "doc": 1440,
+        "viewport": 1440,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "The Ultimate 2026 Crypto Tax Guide | TokenRadar",
+        "h1": "The Ultimate Guide to Crypto Taxes in 2026",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/crypto-tax-guide",
+      "slug": "tax-guide",
+      "viewport": "tablet",
+      "status": 200,
+      "overflow": {
+        "body": 834,
+        "doc": 834,
+        "viewport": 834,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "The Ultimate 2026 Crypto Tax Guide | TokenRadar",
+        "h1": "The Ultimate Guide to Crypto Taxes in 2026",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "loadError": null
+    },
+    {
+      "page": "/crypto-tax-guide",
+      "slug": "tax-guide",
+      "viewport": "mobile",
+      "status": 200,
+      "overflow": {
+        "body": 390,
+        "doc": 390,
+        "viewport": 390,
+        "hasOverflow": false
+      },
+      "layout": {
+        "title": "The Ultimate 2026 Crypto Tax Guide | TokenRadar",
+        "h1": "The Ultimate Guide to Crypto Taxes in 2026",
+        "navExists": true,
+        "footerExists": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "loadError": null
+    }
+  ]
+}

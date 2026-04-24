@@ -27,11 +27,17 @@ const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
  * Format currency values for display.
  */
 function formatCurrency(val: number): string {
+  if (!Number.isFinite(val)) return "TBA";
   if (val >= 1e12) return `$${(val / 1e12).toFixed(2)}T`;
   if (val >= 1e9) return `$${(val / 1e9).toFixed(2)}B`;
   if (val >= 1e6) return `$${(val / 1e6).toFixed(2)}M`;
   if (val >= 1) return `$${val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   return `$${val.toFixed(8)}`;
+}
+
+function formatChangePercent(val: number | null | undefined): string {
+  if (typeof val !== "number" || !Number.isFinite(val)) return "TBA";
+  return `${val >= 0 ? "+" : ""}${val.toFixed(2)}%`;
 }
 
 async function main() {
@@ -149,7 +155,7 @@ async function main() {
       "{{LIVE_MARKET_CAP}}": formatCurrency(liveData.marketCap),
       "{{LIVE_RANK}}": String(liveData.rank),
       "{{LIVE_DATE}}": today,
-      "{{LIVE_24H_CHANGE}}": `${liveData.change24h >= 0 ? "+" : ""}${liveData.change24h.toFixed(2)}%`,
+      "{{LIVE_24H_CHANGE}}": formatChangePercent(liveData.change24h),
       "{{GLOBAL_MCAP}}": globalStats.mcap,
       "{{BTC_DOM}}": globalStats.btcDom,
     };

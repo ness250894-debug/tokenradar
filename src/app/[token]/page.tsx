@@ -6,7 +6,7 @@ import {
   getTokenMetrics,
   getPriceHistory,
   getArticle,
-  getAllTokens,
+  getTokenIds,
   formatPrice,
   formatCompact,
   formatSupply,
@@ -53,8 +53,8 @@ export const dynamicParams = false;
 
 /** Generate static paths for all tokens to ensure 100% SEO availability and prevent production 404s. */
 export async function generateStaticParams() {
-  const tokens = await getAllTokens();
-  return tokens.map((t) => ({ token: t.id }));
+  const tokenIds = await getTokenIds();
+  return tokenIds.map((token) => ({ token }));
 }
 
 /** Dynamic metadata for SEO. */
@@ -124,7 +124,7 @@ export default async function TokenPage({ params }: PageProps) {
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
       riskScore: rMetrics?.riskScore || 5,
-      category: detail?.categories?.[0] || "Crypto",
+      category: token.categories?.[0] || "Crypto",
     };
   }));
 
@@ -503,6 +503,4 @@ export default async function TokenPage({ params }: PageProps) {
     </div>
   );
 }
-
-
 

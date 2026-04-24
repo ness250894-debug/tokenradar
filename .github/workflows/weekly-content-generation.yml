@@ -71,7 +71,7 @@ jobs:
             echo "No new templates to queue"
             exit 0
           fi
-          git commit -m "chore: nightly batch content generation [skip ci]"
+          git commit -m "chore: weekly batch content generation [skip ci]"
           for i in 1 2 3; do
             git pull origin main -X ours --no-edit && git push && break
             echo "Push attempt $i failed, retrying in 5s..."

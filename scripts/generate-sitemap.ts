@@ -5,7 +5,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getAllTokens } from "../src/lib/content-loader";
+import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -19,12 +19,6 @@ interface SitemapEntry {
   lastmod: string;
   changefreq: string;
   priority: string;
-}
-
-/** Load token IDs from the consolidated registry. */
-async function getTokenIds(): Promise<string[]> {
-  const tokens = await getAllTokens();
-  return tokens.map(t => t.id);
 }
 
 async function getTokenDate(tokenId: string): Promise<string | null> {

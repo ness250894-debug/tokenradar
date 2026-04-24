@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: `https://tokenradar.co/${tokenId}/transfer-to-ledger`,
     },
     openGraph: {
-      title: `Secure ${name} (${symbol}) on Ledger | TokenRadar`,
+      title: `Secure ${name} (${symbol}) on Ledger`,
       description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
       images: [
         {
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `Secure ${name} (${symbol}) on Ledger | TokenRadar`,
+      title: `Secure ${name} (${symbol}) on Ledger`,
       description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
       images: [ogImage],
     },

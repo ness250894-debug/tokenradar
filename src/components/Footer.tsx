@@ -1,17 +1,12 @@
 "use client";
 
-
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { HackerText } from "./HackerText";
-import { XIcon, TelegramIcon } from "./SocialIcons";
+import { TelegramIcon, XIcon } from "./SocialIcons";
 
-
-/**
- * Group definitions for footer columns
- */
 const PLATFORM_LINKS = [
-  { href: "/#trending", label: "Explore Market" },
+  { href: "/#tokens", label: "Explore Market" },
   { href: "/upcoming", label: "Upcoming Launches" },
   { href: "/about#methodology", label: "Methodology" },
 ] as const;
@@ -28,8 +23,6 @@ const LEGAL_LINKS = [
   { href: "/disclaimer", label: "Disclaimer" },
 ] as const;
 
-
-
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -37,10 +30,15 @@ export function Footer() {
     <footer className="footer" id="site-footer">
       <div className="container footer-inner">
         <div className="footer-grid">
-          {/* Brand Column */}
           <div className="footer-brand">
             <Link href="/" className="footer-brand-logo">
-              <Image src="/icon.png" alt="Logo" width={24} height={24} className="nav-logo-img" />
+              <Image
+                src="/icon.png"
+                alt="Logo"
+                width={24}
+                height={24}
+                className="nav-logo-img"
+              />
               <span>
                 <span style={{ color: "var(--accent-primary)" }}>[</span>
                 <HackerText text="TokenRadar" />
@@ -51,41 +49,56 @@ export function Footer() {
               The premier data-driven analysis hub for high-potential crypto narratives, risk vetting, and market insights.
             </p>
             <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-sm)" }}>
-              <a href="https://x.com/tokenradarco" target="_blank" rel="noopener noreferrer" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
+              <a
+                href="https://x.com/tokenradarco"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--text-secondary)" }}
+                aria-label="TokenRadar on X"
+              >
                 <XIcon size={20} />
               </a>
-              <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="footer-links a" style={{ color: "var(--text-secondary)" }}>
+              <a
+                href="https://t.me/TokenRadarCo"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--text-secondary)" }}
+                aria-label="TokenRadar on Telegram"
+              >
                 <TelegramIcon size={20} />
               </a>
             </div>
           </div>
 
-          {/* Platform Column */}
           <div>
             <h4 className="footer-col-title">Platform</h4>
             <ul className="footer-col-links">
               {PLATFORM_LINKS.map(({ href, label }) => (
-                <li key={href}><Link href={href}>{label}</Link></li>
+                <li key={href}>
+                  <Link href={href}>{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* Resources Column */}
           <div>
             <h4 className="footer-col-title">Resources</h4>
             <ul className="footer-col-links">
               {RESOURCE_LINKS.map(({ href, label }) => (
-                <li key={href}><Link href={href}>{label}</Link></li>
+                <li key={href}>
+                  <Link href={href}>{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* Legal Column */}
           <div>
             <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-col-links">
               {LEGAL_LINKS.map(({ href, label }) => (
-                <li key={href}><Link href={href}>{label}</Link></li>
+                <li key={href}>
+                  <Link href={href}>{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -96,7 +109,7 @@ export function Footer() {
         </p>
 
         <div className="footer-bottom">
-          <span>© {currentYear} TokenRadar. All rights reserved.</span>
+          <span>&copy; {currentYear} TokenRadar. All rights reserved.</span>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-xl)" }}>
             <div className="status-pill">
               <div className="status-dot"></div>

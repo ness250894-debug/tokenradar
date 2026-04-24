@@ -36,7 +36,7 @@ function getClient(): Coingecko {
   if (!_client) {
     const apiKey = process.env.COINGECKO_API_KEY;
     // Determine if it's a demo or pro key based on prefix (demo keys start with CG-)
-    const isDemo = apiKey?.startsWith("CG-");
+    const isDemo = !apiKey || apiKey.startsWith("CG-");
     
     _client = new Coingecko({
       demoAPIKey: isDemo ? apiKey : undefined,
@@ -172,7 +172,12 @@ export async function fetchCoinGecko<T>(
       url.searchParams.set(key, String(value));
     }
     const apiKey = process.env.COINGECKO_API_KEY;
-    if (apiKey) url.searchParams.set("x_cg_demo_api_key", apiKey);
+    if (apiKey) {
+      url.searchParams.set(
+        apiKey.startsWith("CG-") ? "x_cg_demo_api_key" : "x_cg_pro_api_key",
+        apiKey,
+      );
+    }
 
     console.info(`  [api/raw] GET ${url.pathname}${url.search}`);
     const response = await fetchWithRetry(url.toString(), {
@@ -509,11 +514,6 @@ export async function fetchTrendingCategories(limit: number = 5): Promise<Catego
 export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolData[]> {
   return withCache(`gt-search-${query}`, 60 * 60 * 1000, async () => {
     const url = `https://api.geckoterminal.com/api/v2/search/pools?query=${encodeURIComponent(query)}`;
-    
-    // We reuse enforceQuotas even for GT to keep overall velocity in check
-    // but GT doesn't count towards the official CoinGecko 10k monthly limit.
-    // However, GT has its own rate limits, so we respect our delay.
-    await enforceQuotas(); 
 
     console.info(`  [GT/api] GET ${url}`);
     const response = await fetchWithRetry(url, {

@@ -146,13 +146,16 @@ export async function loadCandidateTokens(
   allRegistry: { id: string; name: string; symbol: string }[];
   onWebsiteIds: Set<string>;
 }> {
-  // Only tokens with deep-dive articles are considered "on the website" for agents
-  const articlesDir = path.join(dataDir, "articles");
+  // Only tokens with an overview page should deep-link back into the site.
+  const contentDir = path.resolve(dataDir, "..", "content", "tokens");
   const onWebsiteIds = new Set<string>();
-  if (fs.existsSync(articlesDir)) {
-    const articles = fs.readdirSync(articlesDir).filter(f => f.endsWith(".md"));
-    articles.forEach(f => onWebsiteIds.add(f.replace(".md", "")));
-    console.log(` ✓ Verified ${onWebsiteIds.size} covered tokens with deep-dive articles.`);
+  if (fs.existsSync(contentDir)) {
+    const tokenDirs = fs.readdirSync(contentDir).filter((entry) => {
+      const tokenDir = path.join(contentDir, entry);
+      return fs.statSync(tokenDir).isDirectory() && fs.existsSync(path.join(tokenDir, "overview.json"));
+    });
+    tokenDirs.forEach((tokenId) => onWebsiteIds.add(tokenId));
+    console.log(` ✓ Verified ${onWebsiteIds.size} token overview pages on the website.`);
   }
 
   // Fetch fresh market data

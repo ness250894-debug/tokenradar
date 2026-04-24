@@ -8,12 +8,12 @@ export const metadata: Metadata = {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | TokenRadar",
+    title: "Privacy Policy",
     description:
       "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
   },
   twitter: {
-    title: "Privacy Policy | TokenRadar",
+    title: "Privacy Policy",
     description:
       "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
   },

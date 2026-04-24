@@ -201,6 +201,7 @@ async function main() {
 
   let poll: PollOptions;
   let selectedTokenId: string | undefined;
+  let selectedTokenSymbol: string | undefined;
 
   if (pollType === "narrative") {
     // Narrative polls don't need a specific token
@@ -220,6 +221,7 @@ async function main() {
     } else {
       const { token } = selection;
       selectedTokenId = token.id;
+      selectedTokenSymbol = token.symbol.toUpperCase();
       console.log(`  ✦ Selected: ${token.name} (${token.symbol.toUpperCase()})`);
       console.log(`  ✦ Reason: ${selection.reason}`);
 
@@ -258,7 +260,7 @@ async function main() {
     // ── Post Reply (External Link) ──
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-      const displaySym = selectedTokenId ? selectedTokenId.toUpperCase() : "";
+      const displaySym = selectedTokenSymbol || "";
       const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
       const replyText = isOnWebsite 
         ? `Vote above and check out the full data profile for $${displaySym} here:\n\n${siteUrl}/${selectedTokenId}`

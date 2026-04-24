@@ -281,7 +281,7 @@ async function main() {
     if (isOnWebsite) {
       xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
     } else {
-      xReplyMessage = `✨ Newly discovered alpha! Discover 500+ emerging narratives on our live dashboard here:\n\n${siteUrl}`;
+      xReplyMessage = `✨ Newly discovered alpha! Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
     }
   }
 
@@ -404,15 +404,27 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           tweetId = await postTweet(xMessage);
           console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
         }
-        const replyId = await postTweet(xReplyMessage, tweetId);
-        console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+        posted = true;
+
+        try {
+          const replyId = await postTweet(xReplyMessage, tweetId);
+          console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+        } catch (replyError) {
+          await logError("post-market-updates-x-reply", replyError, false);
+          console.warn("⚠ Main tweet succeeded, but the follow-up reply failed:", replyError);
+        }
 
         // ── Passive Engagement ──
         if (researchTweetIds.length > 0) {
-          console.log(`▶ Performing passive engagement (liking top research tweets)...`);
-          const toLike = researchTweetIds.slice(0, 2);
-          for (const id of toLike) {
-            await likeTweet(id);
+          try {
+            console.log(`▶ Performing passive engagement (liking top research tweets)...`);
+            const toLike = researchTweetIds.slice(0, 2);
+            for (const id of toLike) {
+              await likeTweet(id);
+            }
+          } catch (engagementError) {
+            await logError("post-market-updates-x-engagement", engagementError, false);
+            console.warn("⚠ X post succeeded, but passive engagement failed:", engagementError);
           }
         }
       } else {
@@ -423,7 +435,6 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           console.log(`DEBUG: Would have liked ${Math.min(2, researchTweetIds.length)} research tweets.`);
         }
       }
-      posted = true;
     } catch (error) {
       await logError("post-market-updates-x", error, false);
       console.error("❌ Failed to post to X:", error);
@@ -431,7 +442,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
   }
 
   // Only mark as posted if at least one platform succeeded
-  if (posted && !fs.existsSync(trackerFile)) {
+  if (!dryRun && posted && !fs.existsSync(trackerFile)) {
     fs.writeFileSync(trackerFile, JSON.stringify({ 
       postedAt: new Date().toISOString(), 
       platform: targetPlatform,

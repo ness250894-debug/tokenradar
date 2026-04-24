@@ -8,7 +8,7 @@ import { HackerText } from "./HackerText";
 import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Tokens", href: "/#trending", icon: Activity },
+  { name: "Tokens", href: "/#tokens", icon: Activity },
   { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "#10b981", icon: ShieldCheck },
   { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "#3b82f6", icon: Calculator },
   { name: "Upcoming", href: "/upcoming", icon: Clock },
@@ -25,6 +25,7 @@ const NAV_LINKS = [
 export function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
   // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
@@ -38,7 +39,7 @@ export function Navigation() {
   return (
     <nav className="nav" id="main-nav">
       <div className="container nav-inner">
-        <Link href="/" className="nav-logo" aria-label="TokenRadar Home" style={{ flexShrink: 0 }}>
+        <Link href="/" className="nav-logo" aria-label="TokenRadar Home" style={{ flexShrink: 0 }} onClick={() => setIsOpen(false)}>
           <Image src="/icon.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" />
           <span>
             <span style={{ color: "var(--accent-primary)" }}>[</span>
@@ -52,14 +53,16 @@ export function Navigation() {
           className="mobile-nav-toggle" 
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-controls="primary-nav-links"
+          aria-expanded={isOpen}
         >
           {isOpen ? <HackerText text="✕" /> : <HackerText text="☰" />}
         </button>
 
-        <ul className={`nav-links ${isOpen ? "open" : ""}`}>
+        <ul className={`nav-links ${isOpen ? "open" : ""}`} id="primary-nav-links">
           {NAV_LINKS.map((link) => {
             const Icon = link.icon;
-            const isActive = pathname === link.href;
+            const isActive = link.href.startsWith("/#") ? pathname === "/" : pathname === link.href;
             return (
               <li key={link.href} className="nav-link-item">
                 <Link

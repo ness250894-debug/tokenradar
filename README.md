@@ -10,7 +10,7 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 - **AI:** Gemini 3.1 Flash Lite (primary), Claude Haiku 4.5 (fallback)
 - **Data:** CoinGecko API (free tier)
 - **Hosting:** Cloudflare Pages
-- **CI/CD:** GitHub Actions (12 social + 7 content + 3 report runs/day)
+- **CI/CD:** GitHub Actions (daily refresh, daily content publication, weekly queue generation, and 12 social runs/day)
 - **Social:** X API v2 (pay-per-use), Telegram Bot API
 
 ## Project Structure
@@ -49,7 +49,7 @@ npm test
 | `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |
 | `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |
 | `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |
-| `npx tsx scripts/send-report.ts` | Send daily usage/cost reports |
+| `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |
 
 ## Environment Variables
 
@@ -68,6 +68,6 @@ Copy `.env.example` to `.env.local` and configure:
 
 ## Deployment
 
-Deployed automatically via GitHub Actions to Cloudflare Pages on every push to `main`.
+Deployed automatically from GitHub Actions to Cloudflare Pages via `wrangler pages deploy`.
 
 Manual deploy: `npm run build` → Cloudflare Pages.

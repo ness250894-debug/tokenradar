@@ -19,8 +19,35 @@ interface TransferGuideTemplateProps {
   technical: TokenTechnical;
 }
 
+function getExplorerUrl(technical: TokenTechnical): string | null {
+  if (!technical.contractAddress) {
+    return null;
+  }
+
+  const network = technical.network.toLowerCase();
+
+  if (network.includes("solana")) {
+    return `https://solscan.io/token/${technical.contractAddress}`;
+  }
+
+  if (network.includes("arbitrum")) {
+    return `https://arbiscan.io/token/${technical.contractAddress}`;
+  }
+
+  if (network.includes("optimism")) {
+    return `https://optimistic.etherscan.io/token/${technical.contractAddress}`;
+  }
+
+  if (network.includes("avalanche")) {
+    return `https://snowtrace.io/token/${technical.contractAddress}`;
+  }
+
+  return `https://etherscan.io/token/${technical.contractAddress}`;
+}
+
 export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: TransferGuideTemplateProps) {
   const symbolUpper = symbol.toUpperCase();
+  const explorerUrl = getExplorerUrl(technical);
   
   return (
     <div className="transfer-guide">
@@ -179,19 +206,17 @@ export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: Tr
                     <div style={{ fontWeight: 700 }}>{technical.gasToken}</div>
                   </div>
 
-                  {technical.contractAddress && (
+                  {technical.contractAddress && explorerUrl && (
                     <div className="tech-spec">
                       <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Verified Contract</div>
-                      <Link 
-                        href={technical.network.toLowerCase().includes('solana') 
-                          ? `https://solscan.io/token/${technical.contractAddress}` 
-                          : `https://etherscan.io/token/${technical.contractAddress}`
-                        } 
+                      <a
+                        href={explorerUrl}
                         target="_blank"
+                        rel="noopener noreferrer"
                         style={{ fontSize: "var(--text-xs)", wordBreak: "break-all", color: "var(--accent-secondary)", textDecoration: "underline" }}
                       >
                         {technical.contractAddress.substring(0, 10)}...{technical.contractAddress.substring(technical.contractAddress.length - 8)}
-                      </Link>
+                      </a>
                     </div>
                   )}
 
