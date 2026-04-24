@@ -56,24 +56,24 @@ export function StickyConversionHeader({
         boxShadow: "0 4px 24px rgba(0, 0, 0, 0.4)"
       }}
     >
-      <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-xs)" }}>
-            <span style={{ fontWeight: 800, fontSize: "var(--text-lg)" }}>{title}</span>
-            <span style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>{symbol}</span>
+      <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-md)", padding: "0 var(--space-md)", overflowX: "clip" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", minWidth: 0, overflow: "hidden" }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-xs)", minWidth: 0 }}>
+            <span style={{ fontWeight: 800, fontSize: "var(--text-base)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{title}</span>
+            <span style={{ color: "var(--text-secondary)", fontSize: "var(--text-xs)", flexShrink: 0 }}>{symbol}</span>
           </div>
           {price && (
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
               <div 
                 style={{ 
-                  width: "8px", 
-                  height: "8px", 
+                  width: "6px", 
+                  height: "6px", 
                   backgroundColor: "var(--green)", 
                   borderRadius: "50%",
                   animation: "pulse 2s infinite" 
                 }} 
               />
-              <span style={{ fontWeight: 700, color: "var(--green)", fontFamily: "monospace" }}>${price}</span>
+              <span style={{ fontWeight: 700, color: "var(--green)", fontFamily: "monospace", fontSize: "var(--text-sm)" }}>${price}</span>
             </div>
           )}
         </div>
@@ -84,7 +84,7 @@ export function StickyConversionHeader({
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
-            style={{ padding: "0.4rem 1rem", fontSize: "0.85rem" }}
+            style={{ padding: "0.4rem 1rem", fontSize: "0.85rem", whiteSpace: "nowrap" }}
           >
             <Bell size={14} style={{ marginRight: "0.4rem" }} />
             {actionText}

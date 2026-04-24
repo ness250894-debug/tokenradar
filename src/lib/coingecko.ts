@@ -14,7 +14,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { sleep } from "./shared-utils";
+import { sleep, Mutex } from "./shared-utils";
 
 import { Coingecko } from "@coingecko/coingecko-typescript";
 import { fetchWithRetry } from "./fetch-with-retry";
@@ -87,6 +87,7 @@ function incrementCounter(): number {
 }
 
 
+const cgMutex = new Mutex();
 let lastRequestTime = 0;
 
 /**
@@ -94,27 +95,29 @@ let lastRequestTime = 0;
  * Call this before any SDK request.
  */
 async function enforceQuotas(): Promise<number> {
-  ensureCacheDir();
+  return await cgMutex.runExclusive(async () => {
+    ensureCacheDir();
 
-  // Check monthly limit
-  const counter = readCounter();
-  if (counter.count >= MONTHLY_LIMIT) {
-    throw new Error(
-      `Monthly CoinGecko API limit reached (${counter.count}/${MONTHLY_LIMIT}). ` +
-        `Resets next month. Use cached data.`
-    );
-  }
+    // Check monthly limit
+    const counter = readCounter();
+    if (counter.count >= MONTHLY_LIMIT) {
+      throw new Error(
+        `Monthly CoinGecko API limit reached (${counter.count}/${MONTHLY_LIMIT}). ` +
+          `Resets next month. Use cached data.`
+      );
+    }
 
-  // Rate limiting — enforce 2.1s between requests
-  const elapsed = Date.now() - lastRequestTime;
-  if (elapsed < RATE_LIMIT_DELAY_MS) {
-    const waitTime = RATE_LIMIT_DELAY_MS - elapsed;
-    process.stdout.write(` [rate limit: wait ${waitTime}ms...] `);
-    await sleep(waitTime);
-  }
+    // Rate limiting — enforce 2.1s between requests
+    const elapsed = Date.now() - lastRequestTime;
+    if (elapsed < RATE_LIMIT_DELAY_MS) {
+      const waitTime = RATE_LIMIT_DELAY_MS - elapsed;
+      process.stdout.write(` [rate limit: wait ${waitTime}ms...] `);
+      await sleep(waitTime);
+    }
 
-  lastRequestTime = Date.now();
-  return incrementCounter();
+    lastRequestTime = Date.now();
+    return incrementCounter();
+  });
 }
 
 /**
@@ -404,9 +407,8 @@ export async function fetchTokensByRank(
   );
 
   return (tokens || []).filter(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (t: Record<string, any>) =>
-      t.market_cap_rank !== null &&
+    (t: CoinGeckoToken) =>
+      t.market_cap_rank != null &&
       t.market_cap_rank >= startRank &&
       t.market_cap_rank <= endRank
   );
@@ -421,7 +423,7 @@ export async function fetchTokensByRank(
  * This is a zero-cost endpoint based on user search volume.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function fetchTrendingCoins(): Promise<Record<string, any>[]> {
+export async function fetchTrendingCoins(): Promise<any[]> {
   const client = getClient();
   try {
     const raw = await withCache(
@@ -536,7 +538,6 @@ export async function searchGeckoTerminalPools(query: string): Promise<DEXPoolDa
       dexId: p.relationships?.dex?.data?.id || "unknown",
       poolCreatedAt: p.attributes.pool_created_at || null,
       priceChange24h: parseFloat(p.attributes.price_change_percentage?.h24 || "0"),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    })).sort((a: Record<string, any>, b: Record<string, any>) => b.reserveUsd - a.reserveUsd); // Sort by highest liquidity
+    })).sort((a: DEXPoolData, b: DEXPoolData) => b.reserveUsd - a.reserveUsd); // Sort by highest liquidity
   });
 }

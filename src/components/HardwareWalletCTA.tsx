@@ -30,28 +30,20 @@ export function HardwareWalletCTA({ symbol, name, variant = 'full' }: HardwareWa
 
   if (variant === 'inline') {
     return (
-      <div style={{ 
-        display: "flex", 
-        alignItems: "center", 
-        gap: "var(--space-md)", 
-        padding: "var(--space-md)", 
-        background: "rgba(16, 185, 129, 0.03)", 
-        border: "1px solid rgba(16, 185, 129, 0.15)", 
-        borderRadius: "var(--radius-md)",
-        marginTop: "var(--space-xl)",
-        marginBottom: "var(--space-xl)"
-      }}>
-        <div style={{ padding: "8px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "var(--radius-sm)", color: "#10b981" }}>
-          <Lock size={20} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)" }}>Security Alert: Self-Custody Recommended</div>
-          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)" }}>
-            Never keep large amounts of {name} on exchanges. Move to a hardware wallet.
+      <div className="card-premium h-full" style={{ padding: "var(--space-md)", background: "rgba(16, 185, 129, 0.03)", border: "1px solid rgba(16, 185, 129, 0.2)", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "var(--space-sm)" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--space-sm)" }}>
+          <div style={{ padding: "8px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "var(--radius-sm)", color: "#10b981", flexShrink: 0 }}>
+            <Lock size={20} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.2, marginBottom: "4px" }}>Security Alert</div>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+              Protect your {name} offline.
+            </div>
           </div>
         </div>
-        <Link href="/best-crypto-hardware-wallets" style={{ fontSize: "var(--text-xs)", color: "#10b981", fontWeight: 700, textDecoration: "none", padding: "6px 12px", border: "1px solid #10b981", borderRadius: "var(--radius-sm)" }}>
-          Secure Now
+        <Link href="/best-crypto-hardware-wallets" style={{ fontSize: "var(--text-xs)", color: "#10b981", fontWeight: 700, textDecoration: "none", padding: "8px 12px", border: "1px solid #10b981", borderRadius: "var(--radius-sm)", textAlign: "center", width: "100%", background: "rgba(16, 185, 129, 0.05)" }}>
+          Secure Assets
         </Link>
       </div>
     );

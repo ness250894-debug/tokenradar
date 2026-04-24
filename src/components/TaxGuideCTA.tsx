@@ -37,28 +37,20 @@ export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps
 
   if (variant === 'inline') {
     return (
-      <div style={{ 
-        display: "flex", 
-        alignItems: "center", 
-        gap: "var(--space-md)", 
-        padding: "var(--space-md)", 
-        background: "rgba(234, 179, 8, 0.03)", 
-        border: "1px solid rgba(234, 179, 8, 0.15)", 
-        borderRadius: "var(--radius-md)",
-        marginTop: "var(--space-xl)",
-        marginBottom: "var(--space-xl)"
-      }}>
-        <div style={{ padding: "8px", background: "rgba(234, 179, 8, 0.1)", borderRadius: "var(--radius-sm)", color: "#eab308" }}>
-          <Calculator size={20} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)" }}>Tax Season Alert: 2026 Updates</div>
-          <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)" }}>
-            Automatically calculate your {name} capital gains and report to the IRS.
+      <div className="card-premium h-full" style={{ padding: "var(--space-md)", background: "rgba(234, 179, 8, 0.03)", border: "1px solid rgba(234, 179, 8, 0.2)", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "var(--space-sm)" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--space-sm)" }}>
+          <div style={{ padding: "8px", background: "rgba(234, 179, 8, 0.1)", borderRadius: "var(--radius-sm)", color: "#eab308", flexShrink: 0 }}>
+            <Calculator size={20} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.2, marginBottom: "4px" }}>Tax Guide 2026</div>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+              Calculate {name} gains.
+            </div>
           </div>
         </div>
-        <Link href="/crypto-tax-guide" style={{ fontSize: "var(--text-xs)", color: "#eab308", fontWeight: 700, textDecoration: "none", padding: "6px 12px", border: "1px solid #eab308", borderRadius: "var(--radius-sm)" }}>
-          View Tax Guide
+        <Link href="/crypto-tax-guide" style={{ fontSize: "var(--text-xs)", color: "#eab308", fontWeight: 700, textDecoration: "none", padding: "8px 12px", border: "1px solid #eab308", borderRadius: "var(--radius-sm)", textAlign: "center", width: "100%", background: "rgba(234, 179, 8, 0.05)" }}>
+          View Tax Help
         </Link>
       </div>
     );

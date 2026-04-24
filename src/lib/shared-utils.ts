@@ -50,3 +50,32 @@ export function getRandomTone(): string {
   ];
   return tones[Math.floor(Math.random() * tones.length)];
 }
+
+/**
+ * Simple Mutex for protecting shared resources and ensuring sequential execution
+ * of rate-limited API calls across concurrent async workflows.
+ */
+export class Mutex {
+  private mutex = Promise.resolve();
+
+  async lock(): Promise<() => void> {
+    let begin: (unlock: () => void) => void = () => {};
+
+    this.mutex = this.mutex.then(() => {
+      return new Promise(begin);
+    });
+
+    return new Promise((res) => {
+      begin = res;
+    });
+  }
+
+  async runExclusive<T>(task: () => Promise<T>): Promise<T> {
+    const unlock = await this.lock();
+    try {
+      return await task();
+    } finally {
+      unlock();
+    }
+  }
+}
