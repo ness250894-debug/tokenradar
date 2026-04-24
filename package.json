@@ -15,9 +15,7 @@
     "studio": "remotion studio src/video/Root.tsx"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.18.0",
     "@coingecko/coingecko-typescript": "^3.1.5",
-    "@google/generative-ai": "^0.24.1",
     "@remotion/cli": "^4.0.446",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "^4.2.2",
@@ -31,7 +29,6 @@
     "isomorphic-dompurify": "^3.7.1",
     "lucide-react": "^1.8.0",
     "marked": "^17.0.4",
-    "mastra": "^1.6.0",
     "next": "^16.2.1",
     "next-nprogress-bar": "^2.4.7",
     "postcss": "^8.5.10",
@@ -53,7 +50,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "eslint-formatter-unix": "^9.0.1",
-    "shx": "^0.4.0",
     "tsx": "^4.21.0",
     "typescript": "^5",
     "vitest": "^4.1.0",
