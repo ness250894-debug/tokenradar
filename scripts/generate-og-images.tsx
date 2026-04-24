@@ -50,8 +50,16 @@ async function generateOGImages() {
   
   const tokenFiles = fs.readdirSync(TOKENS_DIR).filter(f => f.endsWith(".json"));
   
+  const force = process.argv.includes('--force');
+  
   for (const file of tokenFiles) {
     const tokenId = file.replace('.json', '');
+    const outputPath = path.join(OG_DIR, `${tokenId}.png`);
+    
+    if (!force && fs.existsSync(outputPath)) {
+      continue;
+    }
+
     const tokenData = safeReadJson<{ symbol: string; name?: string; id: string; categories?: string[] } | null>(path.join(TOKENS_DIR, file), null);
     const metricsData = safeReadJson<{ riskScore?: number } | null>(path.join(METRICS_DIR, file), null);
     
