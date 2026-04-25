@@ -33,6 +33,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 build.log
+.next-dev.log
+.next-dev.err.log
 
 # env files
 .env*
@@ -64,6 +66,7 @@ data/x-oauth-state.json
 # diagnostic logs and cache
 data/logs/
 data/cache/
+data/quarantine/
 *.mp4
 remotion-props.json
 

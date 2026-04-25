@@ -13,6 +13,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import Parser from "rss-parser";
+import { fetchCoinGecko } from "../src/lib/coingecko";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
@@ -175,17 +176,21 @@ async function analyzeNewsInBatches(
  */
 async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | null> {
   try {
-    const apiKey = process.env.COINGECKO_API_KEY;
-    const url = apiKey
-      ? `https://pro-api.coingecko.com/api/v3/coins/${tge.id}?x_cg_pro_api_key=${apiKey}`
-      : `https://api.coingecko.com/api/v3/coins/${tge.id}`;
-
-    const res = await fetch(url);
-    if (res.status === 200) {
-      const data = await res.json();
-      if (data.market_data?.current_price?.usd) {
-        return { rank: data.market_cap_rank || 0 };
-      }
+    const data = await fetchCoinGecko<any>(
+      `/coins/${tge.id}`,
+      {
+        localization: "false",
+        tickers: "false",
+        market_data: "true",
+        community_data: "false",
+        developer_data: "false",
+        sparkline: "false",
+      },
+      `tge-graduation-${tge.id}`,
+      6 * 60 * 60 * 1000
+    );
+    if (data?.market_data?.current_price?.usd) {
+      return { rank: data.market_cap_rank || 0 };
     }
   } catch (e) {
     console.warn(`  ⚠ Graduation check failed for ${tge.id} (keeping status): ${e instanceof Error ? e.message : String(e)}`);
@@ -298,7 +303,7 @@ async function main() {
     } else {
       tge.status = tge.status || "upcoming";
     }
-    await sleep(500);
+    await sleep(1000);
   }
 
   // 5. Save

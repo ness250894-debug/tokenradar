@@ -2,6 +2,7 @@ import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { formatPrice, formatCompact } from "./formatters";
 import { getAllTokens } from "./content-loader";
+import { normalizeArticleMarkdown } from "./article-formatting";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -25,7 +26,7 @@ export interface TokenMarketData {
  * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
  */
 export async function markdownToHtml(md: string, tokenData?: TokenMarketData): Promise<string> {
-  let processedMd = md;
+  let processedMd = normalizeArticleMarkdown(md);
 
   if (tokenData) {
     // 1. Placeholder Substitutions (used by AI templates)
@@ -34,14 +35,14 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     
     const replacements: Record<string, string> = {
       "{{LIVE_PRICE}}": formatPrice(tokenData.price),
-      "{{LIVE_MARKET_CAP}}": tokenData.marketCap ? formatPrice(tokenData.marketCap).replace('$', '$ ') : "N/A", // Basic format, improved below
-      "{{LIVE_RANK}}": tokenData.marketCapRank ? `#${tokenData.marketCapRank}` : "N/A",
+      "{{LIVE_MARKET_CAP}}": tokenData.marketCap != null ? formatPrice(tokenData.marketCap).replace('$', '$ ') : "N/A", // Basic format, improved below
+      "{{LIVE_RANK}}": tokenData.marketCapRank != null ? `#${tokenData.marketCapRank}` : "N/A",
       "{{LIVE_DATE}}": dateStr,
-      "{{LIVE_24H_CHANGE}}": tokenData.priceChange24h ? `${tokenData.priceChange24h > 0 ? '+' : ''}${tokenData.priceChange24h.toFixed(2)}%` : "N/A",
+      "{{LIVE_24H_CHANGE}}": tokenData.priceChange24h != null ? `${tokenData.priceChange24h > 0 ? '+' : ''}${tokenData.priceChange24h.toFixed(2)}%` : "N/A",
     };
 
     // Use specific compact formatter for Market Cap if available
-    if (tokenData.marketCap) {
+    if (tokenData.marketCap != null) {
       replacements["{{LIVE_MARKET_CAP}}"] = formatCompact(tokenData.marketCap);
     }
 

@@ -742,7 +742,7 @@ ${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.titl
           type: "object",
           properties: {
             title: { type: "string" },
-            content: { type: "string", description: `The markdown content for ${config.type}. Make sure it hits the target word count.` }
+            content: { type: "string", description: `The comprehensive markdown content for the ${config.type} article. MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end. TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words. DO NOT shorten or summarize.` }
           },
           required: ["title", "content"]
         };
@@ -756,7 +756,7 @@ ${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.titl
 
       let result: AIResult | null = null;
       let attempts = 0;
-      const maxAttempts = 2;
+      const maxAttempts = 3; // Increased to 3 for higher quality
       let parsedResponse: any = null;
 
       while (attempts < maxAttempts) {
@@ -779,9 +779,30 @@ ${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.titl
           if (allPresent) {
             const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
             const dataPoints = result.content.match(dataPointRegex) || [];
-            if (dataPoints.length >= 3 || isTge) {
+            
+            // Check word counts and FAQ for each section
+            let qualityCheckPassed = true;
+            for (const req of sectionsToGenerate) {
+              const text = parsedResponse[req].content;
+              const words = text.split(/\s+/).filter(Boolean).length;
+              const hasFaq = text.toLowerCase().includes("## faq") || text.toLowerCase().includes("frequently asked");
+              
+              const isShort = req === 'how-to-buy' || req === 'tge-preview';
+              const minWords = isShort ? 500 : 800;
+
+              if (words < minWords) {
+                console.log(`\n    ⚠ Attempt ${attempts}: ${req} too short (${words} words, min ${minWords}).`);
+                qualityCheckPassed = false;
+              }
+              if (!hasFaq) {
+                console.log(`\n    ⚠ Attempt ${attempts}: ${req} missing FAQ section.`);
+                qualityCheckPassed = false;
+              }
+            }
+
+            if (qualityCheckPassed && (dataPoints.length >= 3 || isTge)) {
                break; 
-            } else {
+            } else if (qualityCheckPassed) {
                console.log(`\n    ⚠ Attempt ${attempts} failed data points check.`);
             }
           } else {
@@ -792,7 +813,7 @@ ${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.titl
         }
         
         if (attempts < maxAttempts) {
-          process.stdout.write(`    🤖 Retrying...`);
+          process.stdout.write(`    🤖 Retrying with stricter quality focus...`);
         }
       }
 

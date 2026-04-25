@@ -1,12 +1,12 @@
 import { sleep, Mutex } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 
-export type AIResult = { 
-  content: string; 
-  promptTokens: number; 
-  completionTokens: number; 
-  provider: string; 
-  model: string; 
+export type AIResult = {
+  content: string;
+  promptTokens: number;
+  completionTokens: number;
+  provider: string;
+  model: string;
   cost: number;
 };
 
@@ -43,7 +43,7 @@ async function callGeminiAPI(
           process.stdout.write(` [4s pace limit...] `);
           await sleep(waitTime);
         }
-        
+
         lastGeminiRequestTime = Date.now();
         const response = await fetchWithRetry(url, {
           method: "POST",
@@ -51,7 +51,7 @@ async function callGeminiAPI(
           body: JSON.stringify({
             systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
             contents: [{ parts: [{ text: userPrompt }] }],
-            generationConfig: { 
+            generationConfig: {
               maxOutputTokens: maxTokens,
               ...(jsonSchema ? { responseMimeType: "application/json", responseSchema: jsonSchema } : {})
             }
@@ -62,14 +62,14 @@ async function callGeminiAPI(
           const errorText = await response.text();
           throw new Error(`Gemini HTTP ${response.status}: ${errorText}`);
         }
-        
+
         const data = await response.json();
         const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
         const promptTokens = data.usageMetadata?.promptTokenCount || 0;
         const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
-        
-        const cost = (promptTokens / 1_000_000) * 0.075 + (completionTokens / 1_000_000) * 0.30;
-        
+
+        const cost = (promptTokens / 1_000_000) * 0.10 + (completionTokens / 1_000_000) * 0.40;
+
         return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
       });
 
@@ -90,7 +90,7 @@ async function callClaudeAPI(
   jsonSchema?: object
 ): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Add it to .env.local");
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Claude fallback unavailable.");
   const model = FALLBACK_MODEL;
 
   let lastError: Error | null = null;
@@ -100,9 +100,9 @@ async function callClaudeAPI(
         console.info(`\n  [retry ${i}/${retries}] calling Claude...`);
         await sleep(2000);
       }
-      
+
       const messages = [{ role: "user", content: userPrompt }];
-      
+
       const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
@@ -130,7 +130,7 @@ async function callClaudeAPI(
         const errorText = await response.text();
         throw new Error(`Claude HTTP ${response.status}: ${errorText}`);
       }
-      
+
       interface ClaudeToolUse {
         type: 'tool_use';
         id: string;
@@ -150,9 +150,9 @@ async function callClaudeAPI(
         content: ClaudeContentBlock[];
         usage?: { input_tokens?: number; output_tokens?: number };
       }
-      
+
       const data = await response.json() as ClaudeResponse;
-      
+
       let text = "";
       if (jsonSchema && data.content) {
         const toolUse = data.content.find((c): c is ClaudeToolUse => c.type === "tool_use");
@@ -164,11 +164,11 @@ async function callClaudeAPI(
       } else {
         text = data.content[0]?.text || "";
       }
-      
+
       const promptTokens = data.usage?.input_tokens || 0;
       const completionTokens = data.usage?.output_tokens || 0;
-      
-      const cost = (promptTokens / 1_000_000) * 1.0 + (completionTokens / 1_000_000) * 5.0;
+
+      const cost = (promptTokens / 1_000_000) * 0.8 + (completionTokens / 1_000_000) * 4.0;
 
       return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost };
     } catch (e) {
@@ -193,7 +193,7 @@ function isTechnicalRefusal(text: string): boolean {
     "i'm sorry, i can't do that",
     "i don't have (the )?context",
   ];
-  
+
   return patterns.some(pattern => new RegExp(pattern, 'i').test(lower));
 }
 
@@ -211,6 +211,17 @@ export async function callAIWithFallback(
     }
     return result;
   } catch (_error) {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.warn("  fallback skipped: ANTHROPIC_API_KEY not configured");
+      return {
+        content: "",
+        promptTokens: 0,
+        completionTokens: 0,
+        provider: "none",
+        model: "none",
+        cost: 0
+      };
+    }
     console.info(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
     try {
       const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
@@ -221,13 +232,13 @@ export async function callAIWithFallback(
       return result;
     } catch (_e) {
       console.error(`  ❌ All AI models failed or refused to generate safe content.`);
-      return { 
-        content: "", 
-        promptTokens: 0, 
-        completionTokens: 0, 
-        provider: "none", 
-        model: "none", 
-        cost: 0 
+      return {
+        content: "",
+        promptTokens: 0,
+        completionTokens: 0,
+        provider: "none",
+        model: "none",
+        cost: 0
       };
     }
   }
@@ -274,7 +285,7 @@ export interface MarketContext {
 /**
  * Generate a detailed analysis for a token with multi-model fallback.
  * 
- * Strategy: Gemini 3.1 Flash Lite -> Claude Haiku
+ * Strategy: Gemini 3.1 Flash-Lite -> Claude Haiku 4.5
  */
 export async function generateTokenSummary(
   tokenName: string,
@@ -300,8 +311,8 @@ export async function generateTokenSummary(
 
   const timeContext = ""; // Omitted for TG posts as requested by the user
   const reasonContext = metrics.selectionReason ? `\n    SELECTION REASON: ${metrics.selectionReason}. Integrate this reason seamlessly into why you are covering the token right now.\n` : "";
-  const toneInstruction = metrics.tone 
-    ? `You represent the "${metrics.tone}" persona. Write in this exact natural tone, varying the style compared to a typical stale template.` 
+  const toneInstruction = metrics.tone
+    ? `You represent the "${metrics.tone}" persona. Write in this exact natural tone, varying the style compared to a typical stale template.`
     : `Ensure the tone is data-driven and matches a premium research platform.`;
 
   const riskGauge = getRiskGauge(metrics.riskScore);
@@ -350,7 +361,7 @@ export async function generateTokenSummary(
  * Generate a short, punchy Tweet tailored for X.
  * Employs time-of-day and persona variations, ensuring strict length limits to leave room for footers.
  * 
- * Strategy: Gemini 3.1 Flash Lite -> Claude Haiku
+ * Strategy: Gemini 3.1 Flash-Lite -> Claude Haiku 4.5
  */
 export async function generateTweet(
   tokenName: string,
@@ -383,7 +394,7 @@ export async function generateTweet(
     }
   }
 
-  const socialContextSection = metrics.socialContext 
+  const socialContextSection = metrics.socialContext
     ? `\n    REAL-TIME SOCIAL BUZZ:\n    ${metrics.socialContext.substring(0, 1000)}\n    Use these tweets to reference current community sentiment or specific narratives.\n`
     : "";
 
@@ -431,7 +442,7 @@ export async function generatePollHook(
   const tokenCtx = symbol ? `Target Token: ${tokenName} ($${symbol.toUpperCase()}). ` : "";
   const priceCtx = metrics?.price !== undefined ? `Current Price: $${metrics.price.toFixed(4)}. ` : "";
   const changeCtx = metrics?.priceChange24h !== undefined ? `24h Change: ${metrics.priceChange24h.toFixed(2)}%. ` : "";
-  
+
   const prompt = `
     Write a short hook (1 sentence) introducing a ${pollType} poll for TokenRadar's followers on X.
     Time of day: ${timeOfDay} (e.g. use GM if Morning).
@@ -474,7 +485,7 @@ export async function generateYoutubeMetadata(
     : "N/A";
 
   const reasonContext = metrics.selectionReason ? `REASON: ${metrics.selectionReason}.` : "";
-  
+
   const prompt = `
     You are an expert YouTube SEO manager. Write the Title and Description for a YouTube Shorts video about ${tokenName} ($${symbol.toUpperCase()}).
 
