@@ -52,4 +52,21 @@ describe("markdownToHtml", () => {
     const html = await markdownToHtml("Simple text.");
     expect(html).toContain("Simple text.");
   });
+
+  it("preserves zero-valued live placeholders instead of falling back to N/A", async () => {
+    const html = await markdownToHtml(
+      "| Metric | Value |\n| :--- | :--- |\n| Rank | {{LIVE_RANK}} |\n| 24h | {{LIVE_24H_CHANGE}} |",
+      {
+        name: "Zero",
+        symbol: "ZERO",
+        price: 0,
+        marketCap: 0,
+        marketCapRank: 0,
+        priceChange24h: 0,
+      },
+    );
+
+    expect(html).toContain("#0");
+    expect(html).toContain("0.00%");
+  });
 });

@@ -304,7 +304,7 @@ async function main() {
   console.log();
 
   if (autoFix && process.env.ANTHROPIC_API_KEY) {
-    console.log("  Mode: --fix with AI rewrite (Claude Haiku)");
+    console.log("  Mode: --fix with AI rewrite (Claude Haiku 4.5)");
   } else if (autoFix) {
     console.log("  Mode: --fix (disclaimer only, no ANTHROPIC_API_KEY for AI rewrite)");
   }

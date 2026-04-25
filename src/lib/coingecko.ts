@@ -1,12 +1,13 @@
 /**
  * CoinGecko API client with built-in rate limiting and caching.
  *
- * Free tier limits:
- * - 30 calls/minute
- * - 10,000 calls/month
+ * Free-tier-aware limits:
+ * - Public (no key): pace conservatively below the documented 5-15 calls/minute range
+ * - Demo key: 30 calls/minute
+ * - We also keep a local monthly budget for demo-tier-style usage
  *
  * This client enforces:
- * - 2-second delay between requests
+ * - Plan-aware delay between requests
  * - Local JSON file caching (configurable TTL)
  * - Monthly call counter with auto-pause at 9,000
  */
@@ -24,8 +25,21 @@ import { fetchWithRetry } from "./fetch-with-retry";
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
-const RATE_LIMIT_DELAY_MS = 2100; // 2.1s between requests
 const MONTHLY_LIMIT = 9000; // Strictly safe within user limit
+
+function getRateLimitDelayMs(): number {
+  const apiKey = process.env.COINGECKO_API_KEY;
+
+  if (!apiKey) {
+    return 5000; // ~12 req/min on public plan
+  }
+
+  if (apiKey.startsWith("CG-")) {
+    return 2100; // ~28.5 req/min on demo plan
+  }
+
+  return 2100; // Keep pro pacing conservative because caching already reduces pressure
+}
 
 // ── SDK Initialization ────────────────────────────────────────
 
@@ -108,9 +122,10 @@ async function enforceQuotas(): Promise<number> {
     }
 
     // Rate limiting — enforce 2.1s between requests
+    const rateLimitDelayMs = getRateLimitDelayMs();
     const elapsed = Date.now() - lastRequestTime;
-    if (elapsed < RATE_LIMIT_DELAY_MS) {
-      const waitTime = RATE_LIMIT_DELAY_MS - elapsed;
+    if (elapsed < rateLimitDelayMs) {
+      const waitTime = rateLimitDelayMs - elapsed;
       process.stdout.write(` [rate limit: wait ${waitTime}ms...] `);
       await sleep(waitTime);
     }

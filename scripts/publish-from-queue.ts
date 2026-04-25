@@ -14,6 +14,7 @@ import * as path from "path";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import { fetchFullTokenData, fetchGlobalMarketData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 import { logActivity, logError } from "../src/lib/reporter";
+import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
 
 // Load environment
 loadEnv();
@@ -146,8 +147,19 @@ async function main() {
     }
 
     if (!liveData) {
-      console.warn(`  ⚠ Skipping ${tokenId}: Could not fetch live market data.`);
-      continue;
+      const tgeEntry = upcomingTges.find(t => t.id === tokenId);
+      if (tgeEntry && tgeEntry.status !== "released") {
+        console.warn(`  ⚠ No live pool for ${tokenId}. Publishing pre-launch article with TBA market fields.`);
+        liveData = {
+          price: Number.NaN,
+          marketCap: Number.NaN,
+          rank: "TBA",
+          change24h: null
+        };
+      } else {
+        console.warn(`  ⚠ Skipping ${tokenId}: Could not fetch live market data.`);
+        continue;
+      }
     }
 
     const replacements: Record<string, string> = {
@@ -179,7 +191,7 @@ async function main() {
       }
 
       // Update generation timestamp to now
-      article.content = finalContent;
+      article.content = normalizeArticleMarkdown(finalContent);
       article.title = finalTitle;
       article.generatedAt = new Date().toISOString();
 

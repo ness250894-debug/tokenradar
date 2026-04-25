@@ -4,6 +4,7 @@
  */
 
 import { slugify } from "@/lib/shared-utils";
+import { normalizeArticleMarkdown } from "@/lib/article-formatting";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -698,7 +699,17 @@ function mapRawToPriceHistory(r: any, tokenId: string): PriceHistory {
 export async function getArticle(tokenId: string, slug: string): Promise<Article | null> {
   const file = `${getContentDir()}/${tokenId}/${slug}.json`;
   const relPath = `content/tokens/${tokenId}/${slug}.json`;
-  return await loadBlob(file, relPath);
+  const article = await loadBlob(file, relPath) as Article | null;
+  if (!article) return null;
+
+  const normalizedContent = normalizeArticleMarkdown(article.content || "");
+  const wordCount = normalizedContent.split(/\s+/).filter(Boolean).length;
+
+  return {
+    ...article,
+    content: normalizedContent,
+    wordCount,
+  };
 }
 
 /** Get all article slugs for a token. */
@@ -738,7 +749,8 @@ export async function getTotalArticleCount(): Promise<number> {
 /** Extract FAQs from article markdown content for structured data. */
 export function getArticleFaqs(content: string): FAQ[] {
   const faqs: FAQ[] = [];
-  const faqSectionMatch = content.match(/##\s*FAQ([\s\S]*?)(?:---|$)/i);
+  const normalized = normalizeArticleMarkdown(content);
+  const faqSectionMatch = normalized.match(/##\s*FAQ([\s\S]*?)(?:---|$)/i);
   if (!faqSectionMatch) return faqs;
 
   const faqText = faqSectionMatch[1].trim();
@@ -756,6 +768,26 @@ export function getArticleFaqs(content: string): FAQ[] {
   }
   
   if (qnaFound) return faqs;
+
+  const boldQuestionPattern = /\*\*(.+?)\*\*\s*\n+([\s\S]*?)(?=\n+\*\*.+?\*\*|$)/g;
+  while ((match = boldQuestionPattern.exec(faqText)) !== null) {
+    faqs.push({
+      question: match[1].trim().replace(/^Q:\s*/i, ""),
+      answer: match[2].trim().replace(/^A:\s*/i, ""),
+    });
+  }
+
+  if (faqs.length > 0) return faqs;
+
+  const numberedPattern = /(?:^|\n)(\d+\.\s+[^?\n]+?\?)\s*([\s\S]*?)(?=(?:\n\d+\.\s+[^?\n]+?\?)|$)/g;
+  while ((match = numberedPattern.exec(faqText)) !== null) {
+    faqs.push({
+      question: match[1].replace(/^\d+\.\s+/, "").trim(),
+      answer: match[2].trim(),
+    });
+  }
+
+  if (faqs.length > 0) return faqs;
   
   // Try pattern 2: ## or ### Question \n Answer
   const headerPattern = /#{2,3}\s*(.*?)\s*\n+([\s\S]*?)(?=\n+#{2,3}|$)/g;
