@@ -450,5 +450,27 @@
     "dataSource": "https://cointelegraph.com/news/pusd-stablecoin-deploys-on-adi-chain-targeting-3t-islamic-finance-market",
     "discoveredAt": "2026-04-23T19:25:18.690Z",
     "status": "upcoming"
+  },
+  {
+    "id": "ecash-sztorc",
+    "name": "eCash (Paul Sztorc)",
+    "symbol": "ECASH",
+    "category": "L1",
+    "expectedTge": "Upcoming Hard Fork / Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/bitcoin-dev-paul-sztorc-hard-fork-ecash",
+    "discoveredAt": "2026-04-25T19:05:59.614Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "aurelion-xaue",
+    "name": "Aurelion (XAUE Protocol)",
+    "symbol": "XAUE",
+    "category": "DeFi",
+    "expectedTge": "Mainnet / Yield Protocol Launch",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/aurelion-allocates-48m-in-tokenized-gold-to-newly-launched-xaue-yield-protocol",
+    "discoveredAt": "2026-04-25T19:05:59.615Z",
+    "status": "upcoming"
   }
 ]
