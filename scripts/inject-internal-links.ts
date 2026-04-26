@@ -119,6 +119,14 @@ async function main() {
     for (const file of articles) {
       if (!file.endsWith(".json")) continue;
       const filePath = path.join(tokenDir, file);
+
+      // Only process files modified in the last 24 hours to avoid
+      // rewriting anchors on unchanged articles every single day.
+      const stat = await fs.stat(filePath);
+      const ageMs = Date.now() - stat.mtimeMs;
+      const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+      if (ageMs > ONE_DAY_MS) continue;
+
       const raw = await fs.readFile(filePath, "utf-8");
       const data = JSON.parse(raw);
       

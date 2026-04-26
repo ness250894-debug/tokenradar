@@ -2,20 +2,51 @@
   "id": "block-street",
   "symbol": "bsb",
   "name": "Block Street",
+  "description": "A cryptocurrency token known as Block Street (BSB). It is tracked on CoinGecko with the ID \"block-street\".",
+  "categories": [
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://blockstreet.money/",
+    "github": "https://github.com/BlockStreet-finance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdb6ba5d510f114f9b2ea08bea7d30e32eee33411"
+  },
   "market": {
-    "price": 0.751865,
-    "marketCap": 161801395,
-    "marketCapRank": 208,
-    "volume24h": 38014031,
-    "priceChange24h": 80.20751,
-    "ath": 0.766951,
-    "athChangePercentage": -2.16554,
-    "athDate": "2026-04-25T16:50:02.266Z",
+    "price": 0.757703,
+    "marketCap": 162929285,
+    "marketCapRank": 205,
+    "volume24h": 63135219,
+    "high24h": 0.886915,
+    "low24h": 0.54292,
+    "priceChange24h": 11.78312,
+    "priceChange7d": 223.58953,
+    "priceChange30d": 291.22438,
+    "priceChange1y": 0,
+    "ath": 0.886915,
+    "athChangePercentage": -14.32062,
+    "athDate": "2026-04-26T07:15:20.993Z",
     "atl": 0.080443,
     "atlDate": "2026-03-22T23:10:36.973Z",
     "circulatingSupply": 215200000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 757106343
   },
-  "lastMarketUpdate": "2026-04-25T19:05:47.693Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-26T17:16:31.141Z"
 }

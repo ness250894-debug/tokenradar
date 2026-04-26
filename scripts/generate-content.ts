@@ -419,35 +419,103 @@ async function main() {
       if (graduatedToProcess.length >= maxRefresh) break;
     }
 
-    // 3. Drip Refreshes (Priority: Oldest existing articles across all ranks)
+    // ── Smart Drip: 3-Tier Priority Queue ──────────────────────────
+    // Priority 1: Volatile tokens (>15% 24h price change)
+    // Priority 2: Empty/incomplete tokens (missing overview, price-prediction, or how-to-buy)
+    // Priority 3: Oldest articles (stale refresh)
+
+    const volatileTokens: string[] = [];
+    const incompleteTokens: string[] = [];
     const refreshCandidates: { id: string; lastGen: number }[] = [];
-    const contentDirs = fs.readdirSync(CONTENT_DIR);
-    
-    for (const id of contentDirs) {
+
+    const allTrackedIds = tokenFiles.map(f => f.replace(".json", ""));
+
+    for (const id of allTrackedIds) {
       if (targetToken && id !== targetToken) continue;
-      if (upcomingTgeIdSet.has(id)) continue; // Skip unreleased TGEs
-      if (graduatedToProcess.includes(id)) continue; // Already in graduation queue
+      if (upcomingTgeIdSet.has(id)) continue;
+      if (graduatedToProcess.includes(id)) continue;
+
+      // Load token market data for volatility check
+      const tokenDataPath = path.join(TOKENS_DIR, `${id}.json`);
+      let tokenMarketData: any = null;
+      try {
+        if (fs.existsSync(tokenDataPath)) {
+          tokenMarketData = JSON.parse(await fs.promises.readFile(tokenDataPath, "utf-8"));
+        }
+      } catch (_e) {}
 
       const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
+      const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
+
+      // Priority 1: Volatile (>15% 24h move)
+      const change24h = tokenMarketData?.market?.priceChange24h ?? 0;
+      if (Math.abs(change24h) >= 15) {
+        volatileTokens.push(id);
+        console.log(`  ⚡ [VOLATILE] ${tokenMarketData?.name || id}: ${change24h >= 0 ? "+" : ""}${change24h.toFixed(1)}% 24h change`);
+        continue;
+      }
+
+      // Priority 2: Empty or incomplete content hub
+      const hasOverview = fs.existsSync(overviewPath);
+      const hasPrice = fs.existsSync(pricePath);
+      const hasHowToBuy = fs.existsSync(howToBuyPath);
+
+      if (!hasOverview || !hasPrice || !hasHowToBuy) {
+        const missing: string[] = [];
+        if (!hasOverview) missing.push("overview");
+        if (!hasPrice) missing.push("price-prediction");
+        if (!hasHowToBuy) missing.push("how-to-buy");
+        incompleteTokens.push(id);
+        console.log(`  📝 [INCOMPLETE] ${tokenMarketData?.name || id}: missing ${missing.join(", ")}`);
+        continue;
+      }
+
+      // Priority 3: Refresh candidate (sorted by age later)
       const data = safeReadJson<any>(overviewPath, null);
       if (data) {
         try {
           const lastGen = data.generatedAt ? new Date(data.generatedAt).getTime() : 0;
           refreshCandidates.push({ id, lastGen });
         } catch (_e) {
-          refreshCandidates.push({ id, lastGen: 0 }); 
+          refreshCandidates.push({ id, lastGen: 0 });
         }
       }
     }
 
-    // Sort by oldest first
+    // Sort refresh candidates by oldest first
     refreshCandidates.sort((a, b) => a.lastGen - b.lastGen);
-    
-    // Fill the remaining quota after graduation with stale refreshes
-    const remainingQuota = Math.max(0, maxRefresh - graduatedToProcess.length);
-    tokensToProcess = [...graduatedToProcess, ...refreshCandidates.slice(0, remainingQuota).map(c => c.id)];
 
-    console.log(`  ✦ Selected ${tgeTokensToProcess.length} TGEs and ${tokensToProcess.length} Refreshes (${graduatedToProcess.length} graduated) for today's drip.`);
+    // Fill the daily budget using the priority ladder
+    const budget = Math.max(0, maxRefresh - graduatedToProcess.length);
+    const smartQueue: string[] = [];
+
+    // P1: Volatile tokens (highest priority)
+    for (const id of volatileTokens) {
+      if (smartQueue.length >= budget) break;
+      smartQueue.push(id);
+    }
+    // P2: Incomplete tokens
+    for (const id of incompleteTokens) {
+      if (smartQueue.length >= budget) break;
+      if (smartQueue.includes(id)) continue;
+      smartQueue.push(id);
+    }
+    // P3: Stale refreshes (fill remaining slots)
+    for (const { id } of refreshCandidates) {
+      if (smartQueue.length >= budget) break;
+      if (smartQueue.includes(id)) continue;
+      smartQueue.push(id);
+    }
+
+    tokensToProcess = [...graduatedToProcess, ...smartQueue];
+
+    console.log(`  ✦ Smart Drip Selection:`);
+    console.log(`    ⚡ Volatile:   ${Math.min(volatileTokens.length, budget)} / ${volatileTokens.length} found`);
+    console.log(`    📝 Incomplete: ${incompleteTokens.filter(id => smartQueue.includes(id)).length} / ${incompleteTokens.length} found`);
+    console.log(`    🔄 Refreshes:  ${refreshCandidates.filter(c => smartQueue.includes(c.id)).length}`);
+    console.log(`    🎓 Graduated:  ${graduatedToProcess.length}`);
+    console.log(`    📊 Total:      ${tokensToProcess.length} tokens (budget: ${maxRefresh})`);
   } else {
     // Standard logic (Bulk or Single Token)
     for (const f of tokenFiles) {

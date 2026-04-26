@@ -1,7 +1,9 @@
-# Daily Lightweight Publication
-# Runs daily to pick templates from the queue, inject 
-# live market data, and publish them to the live site.
-# This workflow stays lightweight by publishing from the queue instead of regenerating the full site catalog.
+# Daily Content Generation & Publication (Smart Drip)
+# The sole content generation workflow. Runs daily to:
+# 1. Generate new/updated articles via Smart Drip priority queue
+#    (volatile tokens → incomplete hubs → oldest stale content)
+# 2. Publish from queue with live market data injection
+# Budget: ~10 tracked tokens + 5 TGEs = ~35 articles/day, ~25 min runtime.
 
 name: Daily Content Generation
 
@@ -46,8 +48,8 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Generate Drip Content (Safe SEO pace)
-        run: npx tsx scripts/generate-content.ts --drip --refresh-macro --queue
+      - name: Generate Drip Content (Smart Drip)
+        run: npx tsx scripts/generate-content.ts --drip --max-refresh 10 --max-tge 5 --refresh-macro --queue
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
