@@ -11,6 +11,7 @@ import * as crypto from "crypto";
 import * as fs from "fs";
 import * as path from "path";
 import { fetchWithRetry } from "./fetch-with-retry";
+import { formatErrorForLog, redactSensitiveText } from "./utils";
 
 export const MONTHLY_LIMIT = 9000;
 
@@ -57,6 +58,7 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
   }
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
+  const safeMessage = redactSensitiveText(message);
 
   try {
     const response = await fetchWithRetry(url, {
@@ -64,7 +66,7 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
-        text: message,
+        text: safeMessage,
         parse_mode: "Markdown",
       }),
     });
@@ -85,7 +87,7 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
  * Logs an error and sends an immediate alert to Telegram.
  */
 export async function logError(source: string, error: unknown, isFatal = true): Promise<void> {
-  const errorMsg = error instanceof Error ? error.stack || error.message : String(error);
+  const errorMsg = formatErrorForLog(error);
   const timestamp = new Date().toISOString();
   const id = crypto.randomUUID().substring(0, 8);
 

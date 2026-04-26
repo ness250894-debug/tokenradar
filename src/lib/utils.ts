@@ -11,6 +11,20 @@ import * as dotenv from "dotenv";
 
 import type { ZodType } from "zod";
 
+const SENSITIVE_ENV_KEYS = [
+  "ANTHROPIC_API_KEY",
+  "COINGECKO_API_KEY",
+  "CLOUDFLARE_API_TOKEN",
+  "GEMINI_API_KEY",
+  "TELEGRAM_BOT_TOKEN",
+  "TELEGRAM_REPORT_BOT_TOKEN",
+  "X_BEARER_TOKEN",
+  "X_OAUTH2_CLIENT_SECRET",
+  "X_OAUTH2_REFRESH_TOKEN",
+  "YOUTUBE_CLIENT_SECRET",
+  "YOUTUBE_REFRESH_TOKEN",
+] as const;
+
 /**
  * Read and parse a JSON file safely. Returns the fallback value
  * if the file is missing, empty, or contains invalid JSON.
@@ -77,4 +91,38 @@ export function ensureDirSync(dirPath: string): void {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
+}
+
+/**
+ * Redact obvious credentials from logs, alerts, and persisted error records.
+ */
+export function redactSensitiveText(text: string): string {
+  let redacted = text;
+
+  for (const key of SENSITIVE_ENV_KEYS) {
+    const value = process.env[key];
+    if (value && value.length >= 6) {
+      redacted = redacted.split(value).join(`[REDACTED:${key}]`);
+    }
+  }
+
+  redacted = redacted.replace(
+    /https:\/\/api\.telegram\.org\/bot[0-9A-Za-z:_-]+/gi,
+    "https://api.telegram.org/bot[REDACTED]",
+  );
+  redacted = redacted.replace(
+    /([?&](?:api[_-]?key|client_secret|key|refresh_token|token)=)([^&\s]+)/gi,
+    "$1[REDACTED]",
+  );
+  redacted = redacted.replace(/Bearer\s+[A-Za-z0-9._-]+/gi, "Bearer [REDACTED]");
+
+  return redacted;
+}
+
+/**
+ * Normalize an error for safe logging without leaking tokens or API keys.
+ */
+export function formatErrorForLog(error: unknown): string {
+  const raw = error instanceof Error ? error.stack || error.message : String(error);
+  return redactSensitiveText(raw);
 }

@@ -409,24 +409,31 @@ export async function fetchTokensByRank(
   startRank: number = 50,
   endRank: number = 200
 ): Promise<CoinGeckoToken[]> {
-  const perPage = 250; 
-  const page = Math.ceil(startRank / perPage);
+  const perPage = 250;
+  const startPage = Math.ceil(startRank / perPage);
+  const endPage = Math.ceil(endRank / perPage);
   const client = getClient();
 
-  const tokens = await withCache(
-    `tokens-page-${page}`,
-    2 * 60 * 60 * 1000, // 2 hours for fresh prices/movers
-    () => client.coins.markets.get({
-      vs_currency: "usd",
-      order: "market_cap_desc",
-      per_page: perPage,
-      page,
-      sparkline: false,
-      price_change_percentage: "24h,7d,30d,1y",
-    }) as unknown as Promise<MarketGetResponse>
-  );
+  const pages: CoinGeckoToken[] = [];
 
-  return (tokens || []).filter(
+  for (let page = startPage; page <= endPage; page++) {
+    const tokens = await withCache(
+      `tokens-page-${page}`,
+      2 * 60 * 60 * 1000, // 2 hours for fresh prices/movers
+      () => client.coins.markets.get({
+        vs_currency: "usd",
+        order: "market_cap_desc",
+        per_page: perPage,
+        page,
+        sparkline: false,
+        price_change_percentage: "24h,7d,30d,1y",
+      }) as unknown as Promise<MarketGetResponse>
+    );
+
+    pages.push(...(tokens || []));
+  }
+
+  return pages.filter(
     (t: CoinGeckoToken) =>
       t.market_cap_rank != null &&
       t.market_cap_rank >= startRank &&

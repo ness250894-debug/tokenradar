@@ -4,11 +4,13 @@
  * Usage:
  *   npx tsx scripts/post-video-daily.ts
  *   npx tsx scripts/post-video-daily.ts --platform x --dry-run
+ *   npx tsx scripts/post-video-daily.ts --force
  */
 
 import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
+
 import { logError } from "../src/lib/reporter";
 import {
   generateTweet,
@@ -19,10 +21,11 @@ import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
-import { safeReadJson, loadEnv } from "../src/lib/utils";
+import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
   type MetricData,
+  type TokenData,
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
@@ -34,10 +37,46 @@ loadEnv();
 const DATA_DIR = path.resolve(__dirname, "../data");
 const PHOTO_AI_SUMMARY_CHARS = 400;
 
+type PlatformName = "telegram" | "x" | "youtube";
+
+interface PlatformTracker {
+  postedAt: string;
+  messageId?: number;
+  tweetId?: string;
+  replyId?: string;
+  videoId?: string;
+}
+
+interface VideoTracker {
+  postedAt: string;
+  tokenId: string;
+  tokenName: string;
+  reason: string;
+  platform: string;
+  platforms: Partial<Record<PlatformName, PlatformTracker>>;
+}
+
 function cleanupFile(filePath: string): void {
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
   }
+}
+
+function getRequestedPlatforms(
+  runTelegram: boolean,
+  runX: boolean,
+  runYouTube: boolean,
+): PlatformName[] {
+  const requested: PlatformName[] = [];
+  if (runTelegram) requested.push("telegram");
+  if (runX) requested.push("x");
+  if (runYouTube) requested.push("youtube");
+  return requested;
+}
+
+function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: PlatformName[]): boolean {
+  if (!tracker) return false;
+  return requestedPlatforms.every((platform) => !!tracker.platforms?.[platform]);
 }
 
 async function main() {
@@ -60,11 +99,31 @@ async function main() {
 
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted_video", today);
+  const trackerFile = path.join(postedDir, "daily-video.json");
   if (!fs.existsSync(postedDir)) fs.mkdirSync(postedDir, { recursive: true });
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
   const runYouTube = targetPlatform === "all" || targetPlatform === "youtube";
+  const hasYouTubeCredentials = Boolean(
+    process.env.YOUTUBE_CLIENT_ID &&
+    process.env.YOUTUBE_CLIENT_SECRET &&
+    process.env.YOUTUBE_REFRESH_TOKEN,
+  );
+  const shouldRunYouTube = runYouTube && hasYouTubeCredentials;
+  const requestedPlatforms = getRequestedPlatforms(runTelegram, runX, shouldRunYouTube);
+
+  const existingTracker =
+    !force && fs.existsSync(trackerFile)
+      ? safeReadJson<VideoTracker | null>(trackerFile, null)
+      : null;
+
+  if (!dryRun && isTrackerComplete(existingTracker, requestedPlatforms)) {
+    console.log(
+      `  Daily video already published for requested platforms (${requestedPlatforms.join(", ")}) at ${existingTracker?.postedAt}. Exiting.`,
+    );
+    return;
+  }
 
   if (!dryRun) {
     if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
@@ -80,9 +139,10 @@ async function main() {
       console.error("  Missing X OAuth 2.0 credentials.");
       process.exit(1);
     }
-    if (runYouTube && (!process.env.YOUTUBE_CLIENT_ID || !process.env.YOUTUBE_REFRESH_TOKEN)) {
+    if (runYouTube && !hasYouTubeCredentials) {
       console.error("  Missing YouTube credentials.");
       if (targetPlatform === "youtube") process.exit(1);
+      console.warn("  Continuing without YouTube because the requested target includes other platforms.");
     }
   }
 
@@ -105,22 +165,44 @@ async function main() {
 
   console.log();
   console.log(`Step 2: Selecting top breakout token... (Force: ${force})`);
-  const selection = await selectToken(
-    candidateTokens,
-    todayPosted,
-    recentlyPosted,
-    metricsDir,
-    allTokensRegistry,
-    selectionPlatform,
-    force,
-  );
 
-  if (!selection) {
-    console.error("  Could not select a target token.");
+  let targetToken: TokenData | undefined;
+  let reason = existingTracker?.reason || "spotlight";
+  let trendingContext: string | undefined;
+
+  if (existingTracker?.tokenId) {
+    targetToken = candidateTokens.find((candidate) => candidate.id === existingTracker.tokenId);
+    if (!targetToken) {
+      console.error(`  Tracked video token ${existingTracker.tokenId} is no longer available in the candidate set.`);
+      process.exit(1);
+    }
+    console.log(`  Resuming prior daily video token: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
+  } else {
+    const selection = await selectToken(
+      candidateTokens,
+      todayPosted,
+      recentlyPosted,
+      metricsDir,
+      allTokensRegistry,
+      selectionPlatform,
+      force,
+    );
+
+    if (!selection) {
+      console.error("  Could not select a target token.");
+      process.exit(1);
+    }
+
+    targetToken = selection.token;
+    reason = selection.reason;
+    trendingContext = selection.trendingContext;
+  }
+
+  if (!targetToken) {
+    console.error("  Could not determine a target token.");
     process.exit(1);
   }
 
-  const { token: targetToken, reason, trendingContext } = selection;
   console.log(`  Selected: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
 
   let targetMetric: MetricData | undefined;
@@ -170,7 +252,7 @@ async function main() {
 
     console.log("  Video rendered successfully to out.mp4");
   } catch (error) {
-    console.error("  Video rendering failed:", error);
+    console.error(`  Video rendering failed: ${formatErrorForLog(error)}`);
     process.exit(1);
   }
 
@@ -196,11 +278,11 @@ async function main() {
       xMessage = await generateTweet(targetToken.name, targetToken.symbol, context);
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       xReplyMessage = isOnWebsite
-        ? `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
-        : `✨ Newly discovered alpha! Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
+        ? `Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
+        : `Newly discovered alpha. Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
     }
 
-    if (runYouTube) {
+    if (shouldRunYouTube) {
       ytMetadata = await generateYoutubeMetadata(targetToken.name, targetToken.symbol, context);
     }
 
@@ -217,7 +299,7 @@ async function main() {
         console.log("--- X MAIN TWEET (with out.mp4) ---");
         console.log(xMessage);
       }
-      if (runYouTube) {
+      if (shouldRunYouTube) {
         console.log();
         console.log("--- YOUTUBE SHORTS ---");
         console.log(`TITLE: ${ytMetadata.title}`);
@@ -226,87 +308,127 @@ async function main() {
       return;
     }
 
-    const trackerFile = path.join(postedDir, `${targetToken.id}.json`);
-    let posted = false;
+    const trackerState: VideoTracker = {
+      postedAt: existingTracker?.postedAt || new Date().toISOString(),
+      tokenId: targetToken.id,
+      tokenName: targetToken.name,
+      reason,
+      platform: targetPlatform,
+      platforms: { ...(existingTracker?.platforms || {}) },
+    };
 
-    if (runTelegram) {
-      try {
-        const tgFooter = `
-<b>🌐 The TokenRadar Ecosystem:</b>
+    const publishTasks: Array<Promise<{ platform: PlatformName; tracker: PlatformTracker | null }>> = [];
+
+    if (runTelegram && !trackerState.platforms.telegram) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const tgFooter = `
+<b>The TokenRadar Ecosystem:</b>
 📉 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
 #${targetToken.symbol.toUpperCase()} #Crypto
 `;
-        const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
-        const caption = photoSummary + "\n\n" + tgFooter.trim();
+            const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
+            const caption = photoSummary + "\n\n" + tgFooter.trim();
 
-        const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
-        console.log(`Posted video to Telegram (Message ID: ${msgId})`);
-        posted = true;
-      } catch (error) {
-        await logError("post-video-daily-telegram", error, false);
-        console.error("Failed to post Telegram video:", error);
-      }
-    }
-
-    if (runX) {
-      try {
-        const tweetId = await postTweetWithMedia(xMessage, videoBuffer, "video/mp4");
-        console.log(`Posted tweet with video to X (Tweet ID: ${tweetId})`);
-        posted = true;
-
-        try {
-          const replyId = await postTweet(xReplyMessage, tweetId);
-          console.log(`Posted reply to X (Reply ID: ${replyId})`);
-        } catch (replyError) {
-          await logError("post-video-daily-x-reply", replyError, false);
-          console.warn("Main video tweet succeeded, but the follow-up reply failed:", replyError);
-        }
-      } catch (error) {
-        await logError("post-video-daily-x", error, false);
-        console.error("Failed to post to X:", error);
-      }
-    }
-
-    if (runYouTube && process.env.YOUTUBE_CLIENT_ID && process.env.YOUTUBE_REFRESH_TOKEN) {
-      try {
-        console.log();
-        console.log("Starting YouTube upload...");
-        const videoId = await uploadToYouTubeShorts(
-          outPath,
-          ytMetadata.title,
-          ytMetadata.description,
-          "public",
-        );
-        console.log(`Posted video to YouTube Shorts (Video ID: ${videoId})`);
-        posted = true;
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : String(error);
-        console.error("Failed to post to YouTube:", errorMessage);
-        await logError("post-video-daily-youtube", error, false);
-      }
-    }
-
-    if (!posted) {
-      throw new Error("Failed to post on all selected platforms.");
-    }
-
-    if (!fs.existsSync(trackerFile)) {
-      fs.writeFileSync(
-        trackerFile,
-        JSON.stringify(
-          {
-            postedAt: new Date().toISOString(),
-            platform: targetPlatform,
-            reason,
-          },
-          null,
-          2,
-        ),
+            const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
+            console.log(`Posted video to Telegram (Message ID: ${msgId})`);
+            return {
+              platform: "telegram" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                messageId: msgId,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-telegram", error, false);
+            console.error(`Telegram video post failed: ${formatErrorForLog(error)}`);
+            return { platform: "telegram" as const, tracker: null };
+          }
+        })(),
       );
     }
+
+    if (runX && !trackerState.platforms.x) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const tweetId = await postTweetWithMedia(xMessage, videoBuffer, "video/mp4");
+            console.log(`Posted tweet with video to X (Tweet ID: ${tweetId})`);
+
+            let replyId: string | undefined;
+            try {
+              replyId = await postTweet(xReplyMessage, tweetId);
+              console.log(`Posted reply to X (Reply ID: ${replyId})`);
+            } catch (replyError) {
+              await logError("post-video-daily-x-reply", replyError, false);
+              console.warn(`Main video tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+            }
+
+            return {
+              platform: "x" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                tweetId,
+                replyId,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-x", error, false);
+            console.error(`X video post failed: ${formatErrorForLog(error)}`);
+            return { platform: "x" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    if (shouldRunYouTube && !trackerState.platforms.youtube) {
+      publishTasks.push(
+        (async () => {
+          try {
+            console.log("Starting YouTube upload...");
+            const videoId = await uploadToYouTubeShorts(
+              outPath,
+              ytMetadata.title,
+              ytMetadata.description,
+              "public",
+            );
+            console.log(`Posted video to YouTube Shorts (Video ID: ${videoId})`);
+            return {
+              platform: "youtube" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                videoId,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-youtube", error, false);
+            console.error(`YouTube video post failed: ${formatErrorForLog(error)}`);
+            return { platform: "youtube" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    const results = await Promise.all(publishTasks);
+    for (const result of results) {
+      if (result.tracker) {
+        trackerState.platforms[result.platform] = result.tracker;
+      }
+    }
+
+    const remainingPlatforms = requestedPlatforms.filter((platform) => !trackerState.platforms[platform]);
+    if (remainingPlatforms.length > 0) {
+      trackerState.postedAt = new Date().toISOString();
+      fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
+      throw new Error(`Failed to publish daily video to: ${remainingPlatforms.join(", ")}`);
+    }
+
+    trackerState.postedAt = new Date().toISOString();
+    fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
   } finally {
     cleanupFile(outPath);
   }

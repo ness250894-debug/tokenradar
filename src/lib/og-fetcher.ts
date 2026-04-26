@@ -1,28 +1,31 @@
 /**
- * TokenRadar — OG Image Fetcher
+ * TokenRadar - OG Image Fetcher
  *
- * Fetches the pre-rendered OG image for a given token from the live site.
- * Used by social posting scripts to attach branded images to posts.
+ * Renders a branded OG data card in-memory with live market data.
+ * No static files read, no files saved to disk.
  *
- * @module og-fetcher
+ * Strategy:
+ * 1. If live token data is provided, render in-memory via satori + resvg (preferred).
+ * 2. Fallback: read a pre-rendered static PNG from public/og/token/ (legacy).
  */
 
-import { SITE_URL } from "./config";
+import * as fs from "fs";
+import * as path from "path";
+
+import { renderOgImage } from "./og-renderer";
+
+const LOCAL_OG_DIR = path.resolve(process.cwd(), "public", "og", "token");
 
 /**
  * Fetch a branded data card image for a token.
- * 
- * Strategy:
- * 1. If market data is provided, use the dynamic /api/og/token endpoint (GUARANTEED success).
- * 2. If only tokenId is provided, fallback to the static /opengraph-image route (requires page to exist).
  *
- * @param tokenId - Token slug (e.g., "solana")
- * @param data - Optional market data for dynamic generation
- * @returns PNG image as a Buffer, or null if fetch fails
+ * @param tokenId - The token slug (e.g. "bitcoin")
+ * @param data - Live market data to render on the card
+ * @returns PNG Buffer ready for social posting, or null on failure
  */
 export async function fetchTokenImage(
   tokenId: string,
-  _data?: {
+  data?: {
     symbol: string;
     name: string;
     price: string;
@@ -31,23 +34,35 @@ export async function fetchTokenImage(
     icon?: string;
   }
 ): Promise<Buffer | null> {
-  const url = `${SITE_URL}/api/og/token/${tokenId}`;
-
-  try {
-    const response = await fetch(url, {
-      signal: AbortSignal.timeout(15_000), // 15s timeout
-    });
-
-    if (!response.ok) {
-      console.warn(`  ⚠ OG image fetch failed [HTTP ${response.status}]: ${url}`);
-      return null;
+  // Strategy 1: Render in-memory with live data (preferred)
+  if (data) {
+    try {
+      const priceNum = parseFloat(data.price.replace(/[$,]/g, "")) || 0;
+      const buf = await renderOgImage({
+        name: data.name,
+        symbol: data.symbol,
+        price: priceNum,
+        change: data.change,
+        risk: data.risk,
+      });
+      return buf;
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.warn(`  [warn] In-memory OG render failed for ${tokenId}: ${msg}`);
+      // Fall through to static fallback
     }
-
-    const arrayBuffer = await response.arrayBuffer();
-    return Buffer.from(arrayBuffer);
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    console.warn(`  ⚠ OG image fetch error for ${url}: ${msg}`);
-    return null;
   }
+
+  // Strategy 2: Fallback to pre-rendered static PNG
+  const localPath = path.join(LOCAL_OG_DIR, `${tokenId}.png`);
+  if (fs.existsSync(localPath)) {
+    try {
+      return fs.readFileSync(localPath);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.warn(`  [warn] Failed to read local OG image ${localPath}: ${msg}`);
+    }
+  }
+
+  return null;
 }

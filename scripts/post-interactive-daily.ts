@@ -1,7 +1,7 @@
 /**
  * TokenRadar — Interactive Daily Post for X
  *
- * Posts one interactive poll per day as the FIRST X post of the day.
+ * Posts one interactive poll per day to X on its scheduled slot.
  * Rotates through 4 poll types based on day-of-year:
  *   0 = Sentiment  ("What's your move on $TOKEN?")
  *   1 = Prediction  ("Where does $TOKEN close today?")
@@ -30,7 +30,7 @@ import {
   INTERACTIVE_POST_NARRATIVES,
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
-import { safeReadJson } from "../src/lib/utils";
+import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
 import {
@@ -269,7 +269,7 @@ async function main() {
       const replyId = await postTweet(replyText, result.tweetId);
       console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);
     } catch (err) {
-      console.warn(`  ⚠ Failed to post self-reply link:`, err);
+      console.warn(`  ⚠ Failed to post self-reply link: ${formatErrorForLog(err)}`);
     }
 
     // Save tracking
@@ -289,7 +289,7 @@ async function main() {
     );
   } catch (error) {
     await logError("post-interactive-daily", error, false);
-    console.error("❌ Failed to post interactive poll:", error);
+    console.error(`❌ Failed to post interactive poll: ${formatErrorForLog(error)}`);
     process.exit(1);
   }
 }

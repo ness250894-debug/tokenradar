@@ -41,6 +41,15 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
+      - name: Cache data/cache
+        uses: actions/cache@v4
+        with:
+          path: data/cache
+          key: ${{ runner.os }}-coingecko-data-refresh-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-coingecko-data-refresh-
+            ${{ runner.os }}-coingecko-data-
+
       - name: Install dependencies
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci

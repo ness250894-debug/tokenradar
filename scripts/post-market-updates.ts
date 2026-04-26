@@ -38,7 +38,7 @@ import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
-import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
+import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
   type MetricData,
@@ -247,9 +247,9 @@ async function main() {
     marketCap: targetToken.market.marketCap,
     marketCapRank: targetToken.market.marketCapRank,
     // Add Community & Developer Stats
-    twitterFollowers: (targetToken as any).community?.twitterFollowers || 0,
-    redditSubscribers: (targetToken as any).community?.redditSubscribers || 0,
-    githubCommits4Weeks: (targetToken as any).developer?.commits4Weeks || 0,
+    twitterFollowers: targetToken.community?.twitterFollowers || 0,
+    redditSubscribers: targetToken.community?.redditSubscribers || 0,
+    githubCommits4Weeks: targetToken.developer?.commits4Weeks || 0,
     socialContext,
     sentimentScore,
     trendingContext,
@@ -389,7 +389,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
       posted = true;
     } catch (error) {
       await logError("post-market-updates-telegram", error, false);
-      console.error("❌ Failed to post Telegram message:", error);
+      console.error(`❌ Failed to post Telegram message: ${formatErrorForLog(error)}`);
     }
   }
 
@@ -411,7 +411,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
         } catch (replyError) {
           await logError("post-market-updates-x-reply", replyError, false);
-          console.warn("⚠ Main tweet succeeded, but the follow-up reply failed:", replyError);
+          console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
         }
 
         // ── Passive Engagement ──
@@ -424,7 +424,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
             }
           } catch (engagementError) {
             await logError("post-market-updates-x-engagement", engagementError, false);
-            console.warn("⚠ X post succeeded, but passive engagement failed:", engagementError);
+            console.warn(`⚠ X post succeeded, but passive engagement failed: ${formatErrorForLog(engagementError)}`);
           }
         }
       } else {
@@ -437,7 +437,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
       }
     } catch (error) {
       await logError("post-market-updates-x", error, false);
-      console.error("❌ Failed to post to X:", error);
+      console.error(`❌ Failed to post to X: ${formatErrorForLog(error)}`);
     }
   }
 

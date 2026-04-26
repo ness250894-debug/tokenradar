@@ -1,8 +1,9 @@
 # Consolidated Social Automation Workflow
 # Unified heartbeat for all social interactions on TokenRadar
 #
-# Total: 12 runs/day across Telegram (12 posts) and X/Twitter (5 posts)
-# Exclusive slots: Poll (14:30), Video (18:15) and Movers (23:30) replace regular TG updates
+# Total: 12 runs/day with staggered Telegram and X slots
+# X and Telegram polls are intentionally scheduled at different times
+# Exclusive slots: TG Poll (14:30), Video (18:15), and Movers (23:30) replace regular TG updates
 
 name: Social Automations
 
@@ -61,7 +62,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data/cache
-          key: ${{ runner.os }}-coingecko-data-v1
+          key: ${{ runner.os }}-coingecko-data-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-coingecko-data-
 
