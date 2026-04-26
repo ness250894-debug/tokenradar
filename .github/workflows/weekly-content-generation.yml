@@ -1,6 +1,6 @@
-# Weekly Content Generation (Heavy)
-# Runs once a week to generate a massive batch of AI content templates in the queue.
-# This saves compute minutes by bundling heavy AI generation and setup overhead.
+# Weekly Content Generation (Lightweight)
+# Runs once a week to generate a small batch of AI content templates in the queue.
+# Kept intentionally small (~18 articles) to avoid 4+ hour runtimes.
 
 name: Weekly Content Generation
 
@@ -20,6 +20,7 @@ jobs:
   generate:
     name: Generate Batch Content
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
 
@@ -52,8 +53,8 @@ jobs:
         run: npx tsx scripts/compute-metrics.ts
 
       - name: Generate AI content into Queue
-        # Generates up to 150 tracked tokens + 50 TGE tokens
-        run: npx tsx scripts/generate-content.ts --max 150 --max-tge 50 --queue
+        # Generates up to 25 tracked tokens + 3 TGE tokens (~78 articles)
+        run: npx tsx scripts/generate-content.ts --max 25 --max-tge 3 --queue
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
