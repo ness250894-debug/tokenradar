@@ -26,6 +26,13 @@ export interface TokenData {
   name: string;
   rank: number;
   description?: string;
+  community?: {
+    twitterFollowers?: number | null;
+    redditSubscribers?: number | null;
+  };
+  developer?: {
+    commits4Weeks?: number | null;
+  };
   market: {
     price: number;
     priceChange24h: number;
@@ -187,6 +194,13 @@ export async function loadCandidateTokens(
       name: local.name,
       rank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
       description: local.description || "",
+      community: {
+        twitterFollowers: local.community?.twitterFollowers ?? null,
+        redditSubscribers: local.community?.redditSubscribers ?? null,
+      },
+      developer: {
+        commits4Weeks: local.developer?.commits4Weeks ?? null,
+      },
       market: {
         price: fresh?.current_price || local.market?.price || 0,
         // Only trust priceChange24h from live API — stale local values

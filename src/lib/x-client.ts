@@ -17,6 +17,7 @@ import {
   type OAuth2Token,
 } from "@xdevplatform/xdk";
 import { sleep } from "./shared-utils";
+import { formatErrorForLog, redactSensitiveText } from "./utils";
 
 // ── Cashtag Sanitization ──────────────────────────────────────
 
@@ -207,7 +208,7 @@ export async function getXClient(): Promise<Client> {
   try {
     tokens = await oauth2.refreshToken(activeRefreshToken);
   } catch (error) {
-    console.error("  ✗ Failed to refresh OAuth 2.0 token:", error);
+    console.error(`  ✗ Failed to refresh OAuth 2.0 token: ${formatErrorForLog(error)}`);
     throw new Error(
       "X OAuth 2.0 token refresh failed. Your refresh token may have expired. " +
       "Run 'npx tsx scripts/generate-x-token.ts' to re-authenticate."
@@ -363,7 +364,7 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
     return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
+    console.error(`  ✗ Tweet failure detail: ${redactSensitiveText(String(e?.data || e?.message || e))}`);
     throw e;
   }
 }
@@ -491,7 +492,7 @@ export async function postTweetWithMedia(
     }
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    console.warn("  ⚠ Media upload failed, falling back to text-only:", e?.data || e?.message || e);
+    console.warn(`  ⚠ Media upload failed, falling back to text-only: ${redactSensitiveText(String(e?.data || e?.message || e))}`);
     // Add unique timestamp footprint to bypass X's 403 Duplicate Content filter
     cleanText = truncateForX(cleanText, 250) + `\n\n[🔄 ${Date.now().toString().slice(-4)}]`;
   }
@@ -511,7 +512,7 @@ export async function postTweetWithMedia(
     return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    console.error("  ✗ Tweet failure detail:", e?.data || e?.message || e);
+    console.error(`  ✗ Tweet failure detail: ${redactSensitiveText(String(e?.data || e?.message || e))}`);
     throw e;
   }
 }
@@ -563,7 +564,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
     return { tweetId, native: true };
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    const errorMsg = String(e?.message || e?.data || e);
+    const errorMsg = redactSensitiveText(String(e?.message || e?.data || e));
     console.warn(`  ⚠ Native poll failed: ${errorMsg}`);
     console.info("  ↳ Falling back to text-based poll...");
   }
@@ -622,7 +623,7 @@ export async function searchTweets(query: string, maxResults: number = 10) {
 
     return response?.data || [];
   } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
+    const msg = formatErrorForLog(error);
     console.warn(`  ⚠ X Search failed for "${query}": ${msg}`);
     return [];
   }
@@ -647,7 +648,7 @@ export async function getUserByUsername(username: string) {
 
     return response?.data || null;
   } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
+    const msg = formatErrorForLog(error);
     console.error(`  ✗ Failed to fetch user @${username}: ${msg}`);
     return null;
   }
@@ -684,7 +685,7 @@ export async function likeTweet(tweetId: string): Promise<boolean> {
 
     return true;
   } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
+    const msg = formatErrorForLog(error);
     console.warn(`  ⚠ Failed to like tweet ${tweetId}: ${msg}`);
     return false;
   }
@@ -727,7 +728,7 @@ export async function fetchXTrends(): Promise<XTrendItem[]> {
 
     return [];
   } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
+    const msg = formatErrorForLog(error);
     // 403 = tier not supported, 429 = rate limited — both are non-fatal
     console.warn(`  ⚠ Failed to fetch X Trends: ${msg}`);
     return [];

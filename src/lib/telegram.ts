@@ -31,7 +31,7 @@ export function getApi(botToken?: string): Api<RawApi> {
 
 /**
  * Sanitize and truncate AI-generated HTML for Telegram.
- * Escapes raw &, <, > while preserving allowed TG tags (b, i, a, code, pre).
+ * Escapes raw &, <, > while preserving allowed TG tags (b, i, a, code, pre, tg-spoiler).
  */
 export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096): string {
   // 1. Truncate at sentence boundary if too long
@@ -47,9 +47,9 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
   // 2. Temporarily replace allowed tags with placeholders
   // We strictly whitelist tags and only allow 'href' for 'a'
   const placeholders: string[] = [];
-  let sanitized = text.replace(/<\/?([a-z0-9]+)(\s[^>]*)?\s*>/gi, (match, tagName, attrs) => {
+  let sanitized = text.replace(/<\/?([a-z0-9-]+)(\s[^>]*)?\s*>/gi, (match, tagName, attrs) => {
     const tag = tagName.toLowerCase();
-    const isAllowed = ['b', 'i', 'a', 'code', 'pre'].includes(tag);
+    const isAllowed = ["b", "i", "a", "code", "pre", "tg-spoiler"].includes(tag);
     
     if (isAllowed) {
       // For 'a' tags, we only keep 'href'
@@ -60,7 +60,7 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
           placeholders.push(replacement);
           return `\x00TAG${placeholders.length - 1}\x00`;
         }
-      } else if (tag !== 'a') {
+      } else if (tag !== "a") {
         placeholders.push(match);
         return `\x00TAG${placeholders.length - 1}\x00`;
       }
@@ -79,7 +79,7 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
 
   // 5. Ensure all allowed tags are closed to prevent "malformed" errors on TG
   const stack: string[] = [];
-  const finalTagRegex = /<\/?(b|i|a|code|pre)(\s[^>]*)?\s*>/gi;
+  const finalTagRegex = /<\/?(b|i|a|code|pre|tg-spoiler)(\s[^>]*)?\s*>/gi;
   let match;
   while ((match = finalTagRegex.exec(sanitized)) !== null) {
     const isClosing = match[0].startsWith('</');
