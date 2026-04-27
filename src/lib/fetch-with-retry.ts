@@ -5,8 +5,18 @@ export interface FetchWithRetryOptions extends RequestInit {
 }
 
 /**
+ * HTTP status codes that indicate a definitive client error.
+ * These will never succeed on retry — the request itself is wrong,
+ * not the server state.
+ */
+const NON_RETRYABLE_STATUSES = new Set([400, 401, 403, 404, 405, 422]);
+
+/**
  * A native fetch wrapper that implements exponential backoff.
  * Replaces standard fetch calls to eliminate connection drops and race conditions.
+ *
+ * Non-retryable status codes (400, 401, 403, 404, 405, 422) throw immediately
+ * without wasting retries. Transient errors (429, 5xx, network) are retried.
  */
 export async function fetchWithRetry(url: string | URL, options: FetchWithRetryOptions = {}): Promise<Response> {
   const { retries = 3, retryDelay = 1000, onRetry, signal, ...fetchOptions } = options;
@@ -27,7 +37,11 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        // Fail fast on definitive client errors — retrying won't help
+        if (NON_RETRYABLE_STATUSES.has(response.status)) {
+          throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+        throw new RetryableError(`HTTP Error: ${response.status} ${response.statusText}`);
       }
       return response;
     } catch (error) {
@@ -35,6 +49,14 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
 
       if (signal?.aborted) {
         throw error;
+      }
+
+      // Non-retryable errors propagate immediately
+      if (!(error instanceof RetryableError)) {
+        // Network errors (TypeError) and timeouts are retryable
+        if (!(error instanceof TypeError) && !(error instanceof DOMException)) {
+          throw error;
+        }
       }
 
       if (onRetry) onRetry(error, attempt + 1);
@@ -52,4 +74,12 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
   throw lastError instanceof Error 
     ? new Error(`Failed after ${retries} attempts. Last error: ${lastError.message}`)
     : new Error(`Failed after ${retries} attempts.`);
+}
+
+/** Marker class to distinguish retryable HTTP errors from non-retryable ones. */
+class RetryableError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "RetryableError";
+  }
 }

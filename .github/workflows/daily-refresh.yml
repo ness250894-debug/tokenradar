@@ -1,12 +1,12 @@
 # Daily Data Refresh
-# Runs every day at 18:00 UTC to fetch fresh token data,
+# Runs every day at 17:45 UTC to fetch fresh token data,
 # recompute metrics, and redeploy the site.
 
 name: Daily Refresh
 
 on:
   schedule:
-    - cron: "0 18 * * *" # 18:00 UTC daily
+    - cron: "45 17 * * *" # 17:45 UTC daily
   workflow_dispatch:
 
 concurrency:
