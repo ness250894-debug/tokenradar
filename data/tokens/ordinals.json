@@ -2,20 +2,50 @@
   "id": "ordinals",
   "symbol": "ordi",
   "name": "ORDI",
+  "description": "A cryptocurrency token known as ORDI (ORDI). It is tracked on CoinGecko with the ID \"ordinals\".",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "BRC-20",
+    "Bitcoin Ecosystem",
+    "Inscriptions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://ordiscan.com/inscription/348020"
+  },
   "market": {
-    "price": 7.5,
-    "marketCap": 157532187,
-    "marketCapRank": 206,
-    "volume24h": 1238642613,
-    "priceChange24h": 45.55942,
+    "price": 4.33,
+    "marketCap": 90979098,
+    "marketCapRank": 312,
+    "volume24h": 53685049,
+    "high24h": 4.83,
+    "low24h": 4.3,
+    "priceChange24h": -9.26794,
+    "priceChange7d": -4.215,
+    "priceChange30d": 96.865,
+    "priceChange1y": -48.25279,
     "ath": 95.52,
-    "athChangePercentage": -92.22636,
+    "athChangePercentage": -95.45621,
     "athDate": "2024-03-05T01:45:22.816Z",
     "atl": 2.12,
     "atlDate": "2026-03-29T22:55:07.807Z",
     "circulatingSupply": 21000000,
     "totalSupply": 21000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 90979098
   },
-  "lastMarketUpdate": "2026-04-17T08:05:46.511Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-27T09:28:36.034Z"
 }

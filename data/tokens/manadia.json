@@ -2,20 +2,46 @@
   "id": "manadia",
   "symbol": "umxm",
   "name": "Manadia",
+  "description": "manadia is a Web3 infrastructure centered on the integration of AI collaboration and privacy computing capabilities, focusing on the realization of verifiable data settlement, privacy-enhanced value transfer, and efficient cross-system coordination. Its core objective is to break the trust barriers between on-chain and off-chain systems through standardized technical protocols and toolsets, constructing a reliable collaborative environment that does not rely on any single trusted party in high-value scenarios such as finance and asset digitization.\n\nmanadia is not merely a collection of tools, but a unified trusted execution infrastructure for scenarios including financial derivatives, real-world asset tokenization (RWA), prediction markets, and digital assets—making data integrity, privacy protection, and automated settlement default capabilities without requiring additional adaptation or additional development.\n\nSpecifically, manadia integrates tamper-resistant real-world data injection, zero-knowledge-proof-driven settlement mechanisms, compliance-compatible value channels, and long-term collaboration–supporting state tracking capabilities, forming a scalable system architecture that seamlessly supports diverse application needs ranging from DeFi liquidation and cross-platform rights distribution to RWA asset verification.",
+  "categories": [
+    "BNB Chain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mana.app",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x44fc58faaaca03e5d52e493dae930ffa63e2a664"
+  },
   "market": {
-    "price": 1.58,
-    "marketCap": 332582073,
-    "marketCapRank": 132,
-    "volume24h": 8899817,
-    "priceChange24h": 23.78468,
-    "ath": 1.6,
-    "athChangePercentage": -0.85542,
-    "athDate": "2026-04-26T15:25:20.188Z",
+    "price": 1.95,
+    "marketCap": 409536372,
+    "marketCapRank": 115,
+    "volume24h": 13646022,
+    "high24h": 2.28,
+    "low24h": 1.41,
+    "priceChange24h": 30.87071,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 2.28,
+    "athChangePercentage": -15.42038,
+    "athDate": "2026-04-27T04:35:22.217Z",
     "atl": 1.11,
     "atlDate": "2026-04-25T01:44:58.225Z",
     "circulatingSupply": 210000000,
     "totalSupply": 300000000,
-    "maxSupply": 300000000
+    "maxSupply": 300000000,
+    "fdv": 585051960
   },
-  "lastMarketUpdate": "2026-04-26T19:07:09.002Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-27T08:59:50.269Z"
 }
