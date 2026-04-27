@@ -15,7 +15,8 @@ export async function uploadToYouTubeShorts(
   videoPath: string,
   title: string,
   description: string,
-  privacyStatus: 'public' | 'unlisted' | 'private' = 'public'
+  privacyStatus: 'public' | 'unlisted' | 'private' = 'public',
+  publishAt?: Date
 ): Promise<string> {
   const clientId = process.env.YOUTUBE_CLIENT_ID;
   const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
@@ -46,7 +47,8 @@ export async function uploadToYouTubeShorts(
           categoryId: '22', // People & Blogs
         },
         status: {
-          privacyStatus,
+          privacyStatus: publishAt ? 'private' : privacyStatus,
+          publishAt: publishAt ? publishAt.toISOString() : undefined,
           selfDeclaredMadeForKids: false,
         },
       },

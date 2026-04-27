@@ -389,12 +389,16 @@ ${REFERRAL_LINKS_HTML.join("\n")}
       publishTasks.push(
         (async () => {
           try {
-            console.log("Starting YouTube upload...");
+            const publishAt = new Date();
+            publishAt.setMinutes(publishAt.getMinutes() + 15);
+            
+            console.log(`Starting YouTube upload (scheduled for ${publishAt.toISOString()})...`);
             const videoId = await uploadToYouTubeShorts(
               outPath,
               ytMetadata.title,
               ytMetadata.description,
-              "public",
+              "private",
+              publishAt
             );
             console.log(`Posted video to YouTube Shorts (Video ID: ${videoId})`);
             return {
