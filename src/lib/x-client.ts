@@ -147,7 +147,7 @@ async function persistRefreshToken(newToken: string): Promise<void> {
       // Mask the new token so it doesn't appear in logs
       console.info(`::add-mask::${newToken}`);
       await fs.promises.appendFile(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
-      console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation");
+      console.info(`  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation (ends with ...${newToken.slice(-8)})`);
     } catch (err) {
       console.error("  ✗ Failed to export to GITHUB_ENV:", (err as Error).message);
     }
@@ -206,7 +206,8 @@ export async function getXClient(): Promise<Client> {
     console.error(`  ✗ Failed to refresh OAuth 2.0 token: ${formatErrorForLog(error)}`);
     throw new Error(
       "X OAuth 2.0 token refresh failed. Your refresh token may have expired. " +
-      "Run 'npx tsx scripts/generate-x-token.ts' to re-authenticate."
+      "Run 'npx tsx scripts/generate-x-token.ts' to re-authenticate. " +
+      "(Note: If this happens in CI, you must manually update the GitHub Secret after generating a new token.)"
     );
   }
 
