@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpen, Clock, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-import { readFileSync, existsSync } from "fs";
+import { promises as fs, existsSync } from "fs";
 import { join } from "path";
 
 interface GlossaryItem {
@@ -23,7 +23,7 @@ async function getGlossaryItem(slug: string): Promise<GlossaryItem | null> {
   if (!existsSync(filePath)) return null;
   
   try {
-    const raw = readFileSync(filePath, "utf-8");
+    const raw = await fs.readFile(filePath, "utf-8");
     const data: GlossaryItem[] = JSON.parse(raw);
     return data.find((item) => item.slug === slug) || null;
   } catch (error) {
@@ -38,7 +38,7 @@ export async function generateStaticParams() {
   if (!existsSync(filePath)) return [];
   
   try {
-    const raw = readFileSync(filePath, "utf-8");
+    const raw = await fs.readFile(filePath, "utf-8");
     const data: GlossaryItem[] = JSON.parse(raw);
     return data.map((item) => ({
       slug: item.slug,

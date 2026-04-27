@@ -55,13 +55,10 @@ export async function fetchTokenImage(
 
   // Strategy 2: Fallback to pre-rendered static PNG
   const localPath = path.join(LOCAL_OG_DIR, `${tokenId}.png`);
-  if (fs.existsSync(localPath)) {
-    try {
-      return fs.readFileSync(localPath);
-    } catch (error) {
-      const msg = error instanceof Error ? error.message : String(error);
-      console.warn(`  [warn] Failed to read local OG image ${localPath}: ${msg}`);
-    }
+  try {
+    return await fs.promises.readFile(localPath);
+  } catch (_error) {
+    // Expected on cache miss, ignore
   }
 
   return null;

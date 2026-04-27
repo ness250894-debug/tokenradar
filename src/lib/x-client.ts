@@ -119,15 +119,13 @@ let _tokenExpiresAt: number = 0;
  * Read the latest refresh token directly from .env.local
  * to prevent race conditions when multiple scripts run concurrently.
  */
-function getLatestRefreshToken(envToken: string): string {
+async function getLatestRefreshToken(envToken: string): Promise<string> {
   const envPath = path.resolve(__dirname, "../../.env.local");
   try {
-    if (fs.existsSync(envPath)) {
-      const content = fs.readFileSync(envPath, "utf-8");
-      const match = content.match(/^X_OAUTH2_REFRESH_TOKEN=(.+)$/m);
-      if (match && match[1]) {
-        return match[1].trim();
-      }
+    const content = await fs.promises.readFile(envPath, "utf-8");
+    const match = content.match(/^X_OAUTH2_REFRESH_TOKEN=(.+)$/m);
+    if (match && match[1]) {
+      return match[1].trim();
     }
   } catch {
     // fallback
@@ -139,7 +137,7 @@ function getLatestRefreshToken(envToken: string): string {
  * Persist the new refresh token to both .env.local (local dev)
  * and GITHUB_ENV (CI/CD) for secure rotation.
  */
-function persistRefreshToken(newToken: string): void {
+async function persistRefreshToken(newToken: string): Promise<void> {
   // Always update in-process env
   process.env.X_OAUTH2_REFRESH_TOKEN = newToken;
 
@@ -148,7 +146,7 @@ function persistRefreshToken(newToken: string): void {
     try {
       // Mask the new token so it doesn't appear in logs
       console.info(`::add-mask::${newToken}`);
-      fs.appendFileSync(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
+      await fs.promises.appendFile(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
       console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation");
     } catch (err) {
       console.error("  ✗ Failed to export to GITHUB_ENV:", (err as Error).message);
@@ -158,15 +156,13 @@ function persistRefreshToken(newToken: string): void {
   // 2. Also update .env.local if it exists (local dev convenience)
   const envPath = path.resolve(__dirname, "../../.env.local");
   try {
-    if (fs.existsSync(envPath)) {
-      let envContent = fs.readFileSync(envPath, "utf-8");
-      envContent = envContent.replace(
-        /^X_OAUTH2_REFRESH_TOKEN=.*/m,
-        `X_OAUTH2_REFRESH_TOKEN=${newToken}`
-      );
-      fs.writeFileSync(envPath, envContent, "utf-8");
-      console.info("  ✓ Refresh token also saved to .env.local");
-    }
+    let envContent = await fs.promises.readFile(envPath, "utf-8");
+    envContent = envContent.replace(
+      /^X_OAUTH2_REFRESH_TOKEN=.*/m,
+      `X_OAUTH2_REFRESH_TOKEN=${newToken}`
+    );
+    await fs.promises.writeFile(envPath, envContent, "utf-8");
+    console.info("  ✓ Refresh token also saved to .env.local");
   } catch {
     // Non-fatal — CI won't have .env.local
   }
@@ -191,7 +187,7 @@ export async function getXClient(): Promise<Client> {
   const creds = validateXCredentials();
 
   // Prefer the state file token over the (potentially stale) env var
-  const activeRefreshToken = getLatestRefreshToken(creds.refreshToken);
+  const activeRefreshToken = await getLatestRefreshToken(creds.refreshToken);
 
   const oauth2Config: OAuth2Config = {
     clientId: creds.clientId,
@@ -217,7 +213,7 @@ export async function getXClient(): Promise<Client> {
   // X OAuth 2.0 uses rotating refresh tokens — each is single-use.
   // We MUST persist the new one or the next run will fail.
   if (tokens.refresh_token && tokens.refresh_token !== activeRefreshToken) {
-    persistRefreshToken(tokens.refresh_token);
+    await persistRefreshToken(tokens.refresh_token);
   }
 
   const config: ClientConfig = {

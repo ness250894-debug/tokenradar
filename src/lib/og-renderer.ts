@@ -11,7 +11,7 @@
 
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import { formatPrice } from "./formatters";
+import { formatPrice, getRiskColor, getRiskTier } from "./formatters";
 
 export interface OgRenderData {
   name: string;
@@ -43,20 +43,6 @@ async function loadFont(): Promise<ArrayBuffer> {
   return _fontCache;
 }
 
-// ── Risk Score Helpers ────────────────────────────────────────
-
-function getRiskColor(score: number): string {
-  if (score <= 3) return "#00e676";
-  if (score <= 6) return "#ffd740";
-  return "#ff5252";
-}
-
-function getRiskLabel(score: number): string {
-  if (score <= 3) return "LOW";
-  if (score <= 6) return "MEDIUM";
-  return "HIGH";
-}
-
 // ── Name Font Scaling ─────────────────────────────────────────
 
 function getNameFontSize(tokenName: string): number {
@@ -78,7 +64,7 @@ function getNameFontSize(tokenName: string): number {
 export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
   const font = await loadFont();
   const riskColor = getRiskColor(data.risk);
-  const riskLabel = getRiskLabel(data.risk);
+  const riskLabel = getRiskTier(data.risk);
   const nameFontSize = getNameFontSize(data.name);
   const changeSign = data.change >= 0 ? "+" : "";
   const changeColor = data.change >= 0 ? "#00e676" : "#ff5252";

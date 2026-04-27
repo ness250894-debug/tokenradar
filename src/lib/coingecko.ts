@@ -62,10 +62,10 @@ function getClient(): Coingecko {
 }
 
 /** Ensure cache directory exists. */
-function ensureCacheDir(): void {
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR, { recursive: true });
-  }
+async function ensureCacheDir(): Promise<void> {
+  try {
+    await fs.promises.mkdir(CACHE_DIR, { recursive: true });
+  } catch {}
 }
 
 /** Get current month key (e.g., "2026-03"). */
@@ -80,23 +80,25 @@ interface ApiCounter {
 }
 
 /** Read monthly API call counter. */
-function readCounter(): ApiCounter {
-  ensureCacheDir();
-  if (!fs.existsSync(COUNTER_FILE)) {
+async function readCounter(): Promise<ApiCounter> {
+  await ensureCacheDir();
+  try {
+    const raw = await fs.promises.readFile(COUNTER_FILE, "utf-8");
+    const parsed = JSON.parse(raw) as ApiCounter;
+    if (parsed.month !== monthKey()) {
+      return { month: monthKey(), count: 0 };
+    }
+    return parsed;
+  } catch {
     return { month: monthKey(), count: 0 };
   }
-  const raw = JSON.parse(fs.readFileSync(COUNTER_FILE, "utf-8")) as ApiCounter;
-  if (raw.month !== monthKey()) {
-    return { month: monthKey(), count: 0 };
-  }
-  return raw;
 }
 
 /** Increment and persist the counter. */
-function incrementCounter(): number {
-  const counter = readCounter();
+async function incrementCounter(): Promise<number> {
+  const counter = await readCounter();
   counter.count += 1;
-  fs.writeFileSync(COUNTER_FILE, JSON.stringify(counter, null, 2));
+  await fs.promises.writeFile(COUNTER_FILE, JSON.stringify(counter, null, 2));
   return counter.count;
 }
 
@@ -110,10 +112,10 @@ let lastRequestTime = 0;
  */
 async function enforceQuotas(): Promise<number> {
   return await cgMutex.runExclusive(async () => {
-    ensureCacheDir();
+    await ensureCacheDir();
 
     // Check monthly limit
-    const counter = readCounter();
+    const counter = await readCounter();
     if (counter.count >= MONTHLY_LIMIT) {
       throw new Error(
         `Monthly CoinGecko API limit reached (${counter.count}/${MONTHLY_LIMIT}). ` +
@@ -131,7 +133,7 @@ async function enforceQuotas(): Promise<number> {
     }
 
     lastRequestTime = Date.now();
-    return incrementCounter();
+    return await incrementCounter();
   });
 }
 
@@ -146,13 +148,16 @@ async function withCache<T>(
   // Check cache first
   if (cacheKey) {
     const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
-    if (fs.existsSync(cacheFile)) {
-      const stat = fs.statSync(cacheFile);
+    try {
+      const stat = await fs.promises.stat(cacheFile);
       const age = Date.now() - stat.mtimeMs;
       if (age < cacheTtlMs) {
         console.info(`  [cache hit] ${cacheKey} (age: ${Math.round(age / 60000)}min)`);
-        return JSON.parse(fs.readFileSync(cacheFile, "utf-8")) as T;
+        const content = await fs.promises.readFile(cacheFile, "utf-8");
+        return JSON.parse(content) as T;
       }
+    } catch {
+      // cache miss or invalid file
     }
   }
 
@@ -163,7 +168,7 @@ async function withCache<T>(
   // Save to cache
   if (cacheKey) {
     const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
-    fs.writeFileSync(cacheFile, JSON.stringify(data, null, 2));
+    await fs.promises.writeFile(cacheFile, JSON.stringify(data, null, 2));
     console.info(`  [cached] ${cacheKey} (call ${currentCount}/${MONTHLY_LIMIT} this month)`);
   }
 

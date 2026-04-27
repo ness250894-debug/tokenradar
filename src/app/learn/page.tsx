@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpen, Shield, TrendingUp, Cpu } from "lucide-react";
-import { readFileSync, existsSync } from "fs";
+import { promises as fs, existsSync } from "fs";
 import { join } from "path";
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ async function getCategorizedLinks() {
   if (!existsSync(filePath)) return [];
   
   try {
-    const raw = readFileSync(filePath, "utf-8");
+    const raw = await fs.readFile(filePath, "utf-8");
     const data: GlossaryItem[] = JSON.parse(raw);
     
     // Group by category string

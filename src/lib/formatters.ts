@@ -77,3 +77,17 @@ export function getTokenIconUrl(symbol: string, id?: string): string {
   // 3. Robust fallback to ticker-based PNG repo
   return `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${s}.png`;
 }
+
+/** Get a standardized risk tier classification. */
+export function getRiskTier(score: number): "LOW" | "MEDIUM" | "HIGH" {
+  if (score < 4) return "LOW";
+  if (score < 7) return "MEDIUM";
+  return "HIGH";
+}
+
+/** Get a standardized hex color for a risk score (for OG / Canvas rendering). */
+export function getRiskColor(score: number): string {
+  if (score < 4) return "#10b981"; // green
+  if (score < 7) return "#f59e0b"; // yellow
+  return "#ef4444"; // red
+}
