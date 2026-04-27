@@ -39,12 +39,10 @@ const CLIENT_SECRET = process.env.X_OAUTH2_CLIENT_SECRET;
 const REDIRECT_URI = "http://127.0.0.1:3000";
 
 const SCOPES = [
-  "tweet.read",
+  "tweet.read",          // Required for reading trends
   "tweet.write",
-  "users.read",
   "offline.access",      // Required for refresh tokens
   "media.write",         // Required for media uploads
-  "like.write",          // Required for liking tweets
 ];
 
 // ── Validation ─────────────────────────────────────────────────

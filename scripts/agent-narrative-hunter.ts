@@ -20,7 +20,9 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { searchTweets } from "../src/lib/x-client";
+// X reading removed — stub searchTweets to return empty results.
+// To restore social listening, integrate an alternative data source here.
+const searchTweets = async (_query: string, _max?: number): Promise<{ text: string; id: string }[]> => [];
 import { execSync } from "child_process";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { searchTokenId } from "../src/lib/coingecko";
