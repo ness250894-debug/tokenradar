@@ -112,6 +112,7 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
 }
 
 let _cachedClient: Client | null = null;
+let xTrendsClient: Client | null = null;
 let _tokenExpiresAt: number = 0;
 
 /**
@@ -196,7 +197,7 @@ export async function getXClient(): Promise<Client> {
     clientId: creds.clientId,
     clientSecret: creds.clientSecret,
     redirectUri: "http://127.0.0.1:3000",
-    scope: ["tweet.read", "tweet.write", "offline.access", "media.write"],
+    scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write"],
   };
 
   const oauth2 = new OAuth2(oauth2Config);
@@ -581,11 +582,10 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
     return { tweetId, native: false };
   } catch (_e2: unknown) {
     const e2 = _e2 as Record<string, unknown>;
-    console.error("  ✗ Fallback tweet also failed:", e2?.data || e2?.message || e2);
+    console.error("  ✗ Fallback tweet also failed. Full error details:", JSON.stringify(e2, null, 2));
     throw e2;
   }
 }
-
 
 // ── X Trends Integration ──────────────────────────────────────
 
@@ -596,16 +596,29 @@ export interface XTrendItem {
 }
 
 /**
+ * Get a dedicated X Client for Trends using an App-Only Bearer Token.
+ * The /2/trends endpoint strictly requires BearerToken auth and rejects OAuth2 User Context.
+ */
+function getXTrendsClient(): Client {
+  if (xTrendsClient) return xTrendsClient;
+  
+  const bearer = process.env.X_BEARER_TOKEN;
+  if (!bearer) {
+    throw new Error("Missing X_BEARER_TOKEN in environment. Trends API requires a BearerToken (App-Only).");
+  }
+  
+  xTrendsClient = new Client({ bearerToken: bearer });
+  return xTrendsClient;
+}
+
+/**
  * Fetch worldwide trending topics from the X API.
- *
- * Uses the existing OAuth 2.0 client (no separate Bearer Token required).
+ * Uses the App-Only Bearer Token client.
  * Falls back gracefully to an empty array on failure.
- *
- * @returns Array of trend names, or empty array on failure
  */
 export async function fetchXTrends(): Promise<XTrendItem[]> {
   try {
-    const client = await getXClient();
+    const client = getXTrendsClient();
 
     const trends = await withRetry(
       () => client.trends.getByWoeid(1),
@@ -621,7 +634,6 @@ export async function fetchXTrends(): Promise<XTrendItem[]> {
     return [];
   } catch (error) {
     const msg = formatErrorForLog(error);
-    // 403 = tier not supported, 429 = rate limited — both are non-fatal
     console.warn(`  ⚠ Failed to fetch X Trends: ${msg}`);
     return [];
   }
@@ -630,10 +642,6 @@ export async function fetchXTrends(): Promise<XTrendItem[]> {
 /**
  * Match X trend names against a list of known token names/symbols.
  * Uses case-insensitive matching against hashtags and keyword patterns.
- *
- * @param trends - Raw X trend items
- * @param knownTokens - Array of { id, name, symbol } from local registry
- * @returns Array of matched token IDs, ordered by tweet volume (highest first)
  */
 export function matchTrendsToTokens(
   trends: XTrendItem[],
@@ -663,3 +671,4 @@ export function matchTrendsToTokens(
     .sort((a, b) => b[1] - a[1])
     .map(([id]) => id);
 }
+
