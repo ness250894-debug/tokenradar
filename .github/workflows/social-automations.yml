@@ -127,8 +127,8 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
       # ─── 5. Telegram Top Movers Image (Runs 1x Day @ 23:30) ────
-      # Note: Requires Next.js API build running locally or hits prod.
-      # We configured it to hit Next_PUBLIC_SITE_URL so it grabs the prod endpoint.
+      # Renders a Top 5 Gainers card in-memory using live CoinGecko data.
+      # Image is never saved to disk - created, posted, and discarded.
       - name: Telegram Top Movers Card
         if: github.event.schedule == '30 23 * * *' || github.event_name == 'workflow_dispatch'
         run: npx tsx scripts/post-daily-movers.ts
@@ -137,6 +137,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
       # ─── 6. Daily Video Breakout (Runs 1x Day @ 18:15) ─────────
@@ -150,7 +151,6 @@ jobs:
           X_OAUTH2_CLIENT_ID: ${{ secrets.X_OAUTH2_CLIENT_ID }}
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}

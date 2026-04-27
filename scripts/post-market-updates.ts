@@ -33,9 +33,9 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { logError, logActivity } from "../src/lib/reporter";
-import { generateTokenSummary, generateTweet, callAIWithFallback } from "../src/lib/gemini";
+import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
-import { postTweet, postTweetWithMedia, searchTweets, likeTweet } from "../src/lib/x-client";
+import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
@@ -57,46 +57,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 
 // ── Utilities — Moved to src/lib ───────────────────────────
 
-/**
- * Perform a 'Vibe Check' on X for a specific token symbol.
- * Fetches recent tweets and uses AI to determine community sentiment.
- * 
- * @returns { score: number, snippets: string, tweetIds: string[] }
- */
-async function getSocialVibe(symbol: string): Promise<{ score: number; snippets: string; tweetIds: string[] }> {
-  console.log(`▶ Vibe Checking $${symbol.toUpperCase()} on X...`);
-  const tweets = await searchTweets(`$${symbol.toUpperCase()}`, 15);
-  
-  if (tweets.length === 0) {
-    console.log(`  ⚠ No recent social activity found for $${symbol.toUpperCase()}.`);
-    return { score: 0.5, snippets: "", tweetIds: [] };
-  }
 
-  const snippets = tweets.map((t: any) => t.text).join("\n---\n");
-  const tweetIds = tweets.map((t: any) => t.id);
-
-  const prompt = `
-    Analyze the following recent tweets about $${symbol.toUpperCase()} and provide a sentiment score between 0 and 1.
-    0.0 = Extremely Bearish / Scam / Rug-pull warning
-    0.5 = Neutral / Static / Mixed
-    1.0 = Extremely Bullish / Strong Narrative / High Legitimacy
-
-    TWEETS:
-    ${snippets.substring(0, 2000)}
-
-    Respond with ONLY a decimal number.
-  `;
-
-  try {
-    const result = await callAIWithFallback("You are a sentiment analyst.", prompt, 64);
-    const score = parseFloat(result.content.trim()) || 0.5;
-    console.log(`  ✦ Social Sentiment Score: ${score.toFixed(2)}`);
-    return { score, snippets, tweetIds };
-  } catch (err) {
-    console.warn("  ⚠ Vibe Check AI failed, using neutral score.");
-    return { score: 0.5, snippets, tweetIds };
-  }
-}
 
 
 
@@ -228,17 +189,8 @@ async function main() {
   const timeOfDay = getTimeOfDay();
   const tone = getRandomTone();
 
-  // ── Step 2b: X Vibe Check (Agentic Integration) ──
-  let socialContext = "";
-  let sentimentScore = 0.5;
-  let researchTweetIds: string[] = [];
-
-  if (runX) {
-    const vibe = await getSocialVibe(targetToken.symbol);
-    socialContext = vibe.snippets;
-    sentimentScore = vibe.score;
-    researchTweetIds = vibe.tweetIds;
-  }
+  const socialContext = "";
+  const sentimentScore = 0.5;
 
   const context = {
     ...targetMetric,
@@ -414,26 +366,12 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
         }
 
-        // ── Passive Engagement ──
-        if (researchTweetIds.length > 0) {
-          try {
-            console.log(`▶ Performing passive engagement (liking top research tweets)...`);
-            const toLike = researchTweetIds.slice(0, 2);
-            for (const id of toLike) {
-              await likeTweet(id);
-            }
-          } catch (engagementError) {
-            await logError("post-market-updates-x-engagement", engagementError, false);
-            console.warn(`⚠ X post succeeded, but passive engagement failed: ${formatErrorForLog(engagementError)}`);
-          }
-        }
+
       } else {
         console.log(`✅ [DRY RUN] Would have posted to X:`);
         console.log(`DEBUG TWEET:\n${xMessage}`);
         console.log(`DEBUG REPLY:\n${xReplyMessage}`);
-        if (researchTweetIds.length > 0) {
-          console.log(`DEBUG: Would have liked ${Math.min(2, researchTweetIds.length)} research tweets.`);
-        }
+
       }
     } catch (error) {
       await logError("post-market-updates-x", error, false);

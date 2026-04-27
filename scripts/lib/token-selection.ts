@@ -298,7 +298,7 @@ async function tryXTrending(
       }
       console.log("    No eligible X trending tokens matched or all already posted.");
     } else {
-      console.log("    No X trends available (API may require Basic+ tier).");
+      console.log("    No X trends available.");
     }
   } catch (e) {
     console.warn(`    ⚠ X Trends failed: ${e instanceof Error ? e.message : String(e)}`);
@@ -334,8 +334,6 @@ export async function selectToken(
   // Trending cooldown: tokens posted within TRENDING_COOLDOWN_DAYS are skipped
   // This is a superset of todayPosted (includes today + previous N days)
   const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."))]);
-
-
 
   // ── Trending priorities (platform-dependent) ──
   const useXFirst = platform === "x";

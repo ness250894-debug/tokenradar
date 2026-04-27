@@ -48,7 +48,6 @@ interface OAuth2Credentials {
   clientId: string;
   clientSecret?: string;
   refreshToken: string;
-  bearerToken?: string;
 }
 
 /**
@@ -75,7 +74,6 @@ export function validateXCredentials(): OAuth2Credentials {
     clientId: clientId!,
     clientSecret,
     refreshToken: refreshToken!,
-    bearerToken: process.env.X_BEARER_TOKEN,
   };
 }
 
@@ -198,7 +196,7 @@ export async function getXClient(): Promise<Client> {
     clientId: creds.clientId,
     clientSecret: creds.clientSecret,
     redirectUri: "http://127.0.0.1:3000",
-    scope: ["tweet.read", "tweet.write", "users.read", "offline.access", "media.write", "like.write"],
+    scope: ["tweet.read", "tweet.write", "offline.access", "media.write"],
   };
 
   const oauth2 = new OAuth2(oauth2Config);
@@ -231,21 +229,7 @@ export async function getXClient(): Promise<Client> {
   return _cachedClient;
 }
 
-/**
- * Get an XDK Client authenticated via Bearer Token (App-Only).
- * Required for specific endpoints like Trends.
- */
-export async function getXTrendsClient(): Promise<Client> {
-  const bearerToken = process.env.X_BEARER_TOKEN;
-  if (!bearerToken) {
-    throw new Error(
-      "Missing X_BEARER_TOKEN in environment. Trends API requires a Bearer Token (App-Only). " +
-      "Check your .env.local file or the Developer Portal."
-    );
-  }
 
-  return new Client({ bearerToken: bearerToken });
-}
 
 
 
@@ -602,96 +586,6 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   }
 }
 
-/**
- * Search for recent tweets matching a specific query.
- * Useful for sentiment analysis and narrative hunting.
- *
- * @param query - X search query (e.g. "$SOL narrative")
- * @param maxResults - Maximum results to return (default 10)
- * @returns Array of tweet objects
- */
-export async function searchTweets(query: string, maxResults: number = 10) {
-  try {
-    const client = await getXClient();
-    const response = await withRetry(
-      () => client.posts.searchRecent(query, {
-        maxResults,
-        tweetFields: ["created_at", "public_metrics", "author_id", "text"],
-      }),
-      "searchTweets"
-    );
-
-    return response?.data || [];
-  } catch (error) {
-    const msg = formatErrorForLog(error);
-    console.warn(`  ⚠ X Search failed for "${query}": ${msg}`);
-    return [];
-  }
-}
-
-/**
- * Fetch a user's profile information by their username.
- * Useful for finding official project accounts.
- *
- * @param username - X handle without the @ (e.g. "solana")
- * @returns User object or null if not found
- */
-export async function getUserByUsername(username: string) {
-  try {
-    const client = await getXClient();
-    const response = await withRetry(
-      () => client.users.getByUsername(username, {
-        userFields: ["description", "public_metrics", "verified", "profile_image_url"],
-      }),
-      "getUserByUsername"
-    );
-
-    return response?.data || null;
-  } catch (error) {
-    const msg = formatErrorForLog(error);
-    console.error(`  ✗ Failed to fetch user @${username}: ${msg}`);
-    return null;
-  }
-}
-
-let _myUserId: string | null = null;
-
-/**
- * Like a tweet (passive engagement).
- * Automatically fetches and caches the authenticated user's ID if not available.
- * 
- * @param tweetId - ID of the tweet to like
- * @returns success boolean
- */
-export async function likeTweet(tweetId: string): Promise<boolean> {
-  try {
-    const client = await getXClient();
-
-    // 1. Ensure we have our own user ID
-    if (!_myUserId) {
-      const me = await withRetry(() => client.users.getMe(), "getMe");
-      _myUserId = me?.data?.id ?? null;
-    }
-
-    if (!_myUserId) throw new Error("Could not retrieve authenticated user ID");
-
-    // 2. Perform the like
-    await withRetry(
-      () => client.users.likePost(_myUserId!, {
-        body: { tweetId }
-      }),
-      "likeTweet"
-    );
-
-    return true;
-  } catch (error) {
-    const msg = formatErrorForLog(error);
-    console.warn(`  ⚠ Failed to like tweet ${tweetId}: ${msg}`);
-    return false;
-  }
-}
-
-
 
 // ── X Trends Integration ──────────────────────────────────────
 
@@ -704,17 +598,15 @@ export interface XTrendItem {
 /**
  * Fetch worldwide trending topics from the X API.
  *
- * Note: The Trends endpoint may require elevated access. Falls back
- * gracefully to an empty array on failure.
+ * Uses the existing OAuth 2.0 client (no separate Bearer Token required).
+ * Falls back gracefully to an empty array on failure.
  *
  * @returns Array of trend names, or empty array on failure
  */
 export async function fetchXTrends(): Promise<XTrendItem[]> {
   try {
-    // Trends endpoint requires App-Only (Bearer Token) authentication
-    const client = await getXTrendsClient();
+    const client = await getXClient();
 
-    // Use the XDK's TrendsClient.getByWoeid (WOEID 1 = Worldwide)
     const trends = await withRetry(
       () => client.trends.getByWoeid(1),
       "fetchTrends"
