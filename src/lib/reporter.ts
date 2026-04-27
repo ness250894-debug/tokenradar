@@ -93,7 +93,7 @@ export async function logError(source: string, error: unknown, isFatal = true): 
 
   const errorRecord = { timestamp, source, message: errorMsg, isFatal };
   const errorFile = path.join(ERRORS_DIR, `${timestamp.replace(/[:.]/g, "-")}-${id}.json`);
-  fs.writeFileSync(errorFile, JSON.stringify(errorRecord, null, 2));
+  await fs.promises.writeFile(errorFile, JSON.stringify(errorRecord, null, 2));
 
   console.error(`  [reporter] ERROR in ${source}: ${errorMsg}`);
 
@@ -118,7 +118,7 @@ export function logActivity(
   const activityRecord = { timestamp, type, ...details };
 
   const activityFile = path.join(ACTIVITIES_DIR, `${timestamp.replace(/[:.]/g, "-")}-${type}-${id}.json`);
-  fs.writeFileSync(activityFile, JSON.stringify(activityRecord, null, 2));
+  fs.promises.writeFile(activityFile, JSON.stringify(activityRecord, null, 2)).catch(() => {});
 
   console.info(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
 }

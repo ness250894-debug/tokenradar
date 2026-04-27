@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { getRiskTier } from "@/lib/formatters";
 
 interface RiskMeterGaugeProps {
   score: number; // 0-10
@@ -55,15 +56,9 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
   // -90 is pointing Left, 0 is pointing Up, +90 is pointing Right
   const angle = ((animatedScore - 1) / 9) * 180 - 90;
 
-  // Calculate tier: low (1-3), medium (4-6), high (7-10)
-  const getRiskTier = (val: number) => {
-    if (val <= 3) return "low";
-    if (val <= 6) return "medium";
-    return "high";
-  };
-
+  // Calculate tier: low (< 4), medium (< 7), high (7-10) using shared formatter
   const tier = getRiskTier(score); // Use target score for tier colors to be stable
-  const tierColor = tier === "low" ? "var(--green)" : tier === "medium" ? "var(--yellow)" : "var(--red)";
+  const tierColor = tier === "LOW" ? "var(--green)" : tier === "MEDIUM" ? "var(--yellow)" : "var(--red)";
 
   const displayScore = animatedScore.toFixed(1);
 

@@ -312,13 +312,12 @@ async function loadBlob(filePath: string, relativePath: string) {
 
     for (const candidate of candidates) {
       try {
-        if (fs.existsSync(/* turbopackIgnore: true */ candidate)) {
-          const data = JSON.parse(fs.readFileSync(/* turbopackIgnore: true */ candidate, "utf-8"));
-          if (shouldLogLoaderInfo && isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
-            console.info(`[LOADER] Found ${fileName} at ${candidate}`);
-          }
-          return data;
+        const raw = await fs.promises.readFile(/* turbopackIgnore: true */ candidate, "utf-8");
+        const data = JSON.parse(raw);
+        if (shouldLogLoaderInfo && isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
+          console.info(`[LOADER] Found ${fileName} at ${candidate}`);
         }
+        return data;
       } catch {
         // fs.existsSync or readFileSync might throw on Edge — continue trying
       }
@@ -357,15 +356,16 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
 
   // Fallback to legacy directory scanning (Dev mode safety)
   const tokensDir = `${getDataDir()}/tokens`;
-  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ tokensDir)) {
-    const files = fs.readdirSync(/* turbopackIgnore: true */ tokensDir).filter((f) => f.endsWith(".json"));
+  if (typeof window === "undefined") {
+    try {
+      const files = (await fs.promises.readdir(/* turbopackIgnore: true */ tokensDir)).filter((f) => f.endsWith(".json"));
     const summaries: TokenSummary[] = [];
 
     for (const file of files) {
       try {
         const tokenFilePath = `${tokensDir}/${file}`;
         const detail: TokenDetail = JSON.parse(
-          fs.readFileSync(/* turbopackIgnore: true */ tokenFilePath, "utf-8")
+          await fs.promises.readFile(/* turbopackIgnore: true */ tokenFilePath, "utf-8")
         );
       
       summaries.push({
@@ -391,8 +391,11 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
         console.warn(`⚠️ Failed to parse token file: ${file}`, _e);
       }
     }
-    _allTokensCache = summaries;
-    return summaries;
+      _allTokensCache = summaries;
+      return summaries;
+    } catch (_err) {
+      // fallback
+    }
   }
   
   return [];
@@ -457,15 +460,19 @@ export async function getTokenIds(): Promise<string[]> {
 
   // Also include tokens that have content but might missing from registry
   const contentDir = getContentDir();
-  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ contentDir)) {
-    fs.readdirSync(/* turbopackIgnore: true */ contentDir).forEach((dir) => {
-      try {
-        const dirPath = `${contentDir}/${dir}`;
-        if (fs.statSync(/* turbopackIgnore: true */ dirPath).isDirectory()) {
-          ids.add(dir);
-        }
-      } catch { /* Skip invalid/inaccessible dirs */ }
-    });
+  if (typeof window === "undefined") {
+    try {
+      const dirs = await fs.promises.readdir(/* turbopackIgnore: true */ contentDir);
+      for (const dir of dirs) {
+        try {
+          const dirPath = `${contentDir}/${dir}`;
+          const stat = await fs.promises.stat(/* turbopackIgnore: true */ dirPath);
+          if (stat.isDirectory()) {
+            ids.add(dir);
+          }
+        } catch { /* Skip invalid/inaccessible dirs */ }
+      }
+    } catch {}
   }
 
   // Load upcoming TGE IDs so we can exclude pre-launch tokens without data
@@ -715,11 +722,13 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
 /** Get all article slugs for a token. */
 export async function getArticleSlugs(tokenId: string): Promise<string[]> {
   const dir = `${getContentDir()}/${tokenId}`;
-  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ dir)) {
-    return fs
-      .readdirSync(/* turbopackIgnore: true */ dir)
-      .filter((f) => f.endsWith(".json") && !f.includes(".prompt"))
-      .map((f) => f.replace(".json", ""));
+  if (typeof window === "undefined") {
+    try {
+      const files = await fs.promises.readdir(/* turbopackIgnore: true */ dir);
+      return files
+        .filter((f) => f.endsWith(".json") && !f.includes(".prompt"))
+        .map((f) => f.replace(".json", ""));
+    } catch {}
   }
   
   // Minimal fallback — we usually only need "overview" for checks
@@ -729,16 +738,19 @@ export async function getArticleSlugs(tokenId: string): Promise<string[]> {
 /** Count all published articles across all tokens. */
 export async function getTotalArticleCount(): Promise<number> {
   const contentDir = getContentDir();
-  if (typeof window === "undefined" && fs.existsSync(/* turbopackIgnore: true */ contentDir)) {
-    let count = 0;
-    for (const tokenDir of fs.readdirSync(/* turbopackIgnore: true */ contentDir)) {
-      const dirPath = `${contentDir}/${tokenDir}`;
-      if (!fs.statSync(/* turbopackIgnore: true */ dirPath).isDirectory()) continue;
-      count += fs
-        .readdirSync(/* turbopackIgnore: true */ dirPath)
-        .filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
-    }
-    return count;
+  if (typeof window === "undefined") {
+    try {
+      let count = 0;
+      const tokenDirs = await fs.promises.readdir(/* turbopackIgnore: true */ contentDir);
+      for (const tokenDir of tokenDirs) {
+        const dirPath = `${contentDir}/${tokenDir}`;
+        const stat = await fs.promises.stat(/* turbopackIgnore: true */ dirPath);
+        if (!stat.isDirectory()) continue;
+        const files = await fs.promises.readdir(/* turbopackIgnore: true */ dirPath);
+        count += files.filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
+      }
+      return count;
+    } catch {}
   }
   
   // Fallback for SSR
