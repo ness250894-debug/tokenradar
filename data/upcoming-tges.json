@@ -292,7 +292,9 @@
     "narrativeStrength": 52,
     "dataSource": "https://cointelegraph.com/news/ex-fidelity-team-targets-retail-investors-onchain-gold",
     "discoveredAt": "2026-04-02T20:58:42.269Z",
-    "status": "upcoming"
+    "status": "released",
+    "graduatedAt": "2026-04-28T19:13:34.948Z",
+    "coingeckoRank": 1652
   },
   {
     "id": "lighter",
@@ -494,6 +496,28 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/western-union-usdpt-stablecoin-may-launch-dan-network?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-27T19:44:23.189Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "eat-coin",
+    "name": "EAT",
+    "symbol": "EAT",
+    "category": "Social/Cause",
+    "expectedTge": "May 2026",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/press-releases/bitmart-x-eat-trade-to-feed-competition-to-pay-out-44m-usdt-to-traders-in-may-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "discoveredAt": "2026-04-28T19:12:50.722Z",
+    "status": "upcoming"
+  },
+  {
+    "id": "paystand-usdb",
+    "name": "Paystand USDb",
+    "symbol": "USDb",
+    "category": "Stablecoin",
+    "expectedTge": "Launch phase",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/paystand-launches-bitcoin-based-stablecoin-usdb-for-enterprise-payments",
+    "discoveredAt": "2026-04-28T19:12:50.722Z",
     "status": "upcoming"
   }
 ]
