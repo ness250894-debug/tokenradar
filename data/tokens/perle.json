@@ -2,20 +2,49 @@
   "id": "perle",
   "symbol": "prl",
   "name": "Perle",
+  "description": "Perle Labs is a web3-powered AI platform on Solana that connects verified experts with enterprises and research teams to train and improve AI models. Professionals, researchers, and domain specialists earn rewards and build on-chain reputations by completing high-quality data annotation and validation tasks.  \n\nPain points the project addresses includes:  \n\nHuman Data Bottlenecks: Continuous need for high-volume, high-quality data annotation, evaluation, and RLHF, but existing pipelines lack scalability. \n\nLow-Quality Feedback: Reliance on generic labor pools without domain expertise, leading to noisy signals and degraded AI accuracy. \n\nLack of Verifiability: Opaque processes without audit trails for contributor performance and quality. ",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Solana Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.perle.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/PERLEQKUNUp1dgFZ8EvyXHdN9d6ZQqfGxALDvfs6pDs"
+  },
   "market": {
-    "price": 0.313375,
-    "marketCap": 54757156,
-    "marketCapRank": 458,
-    "volume24h": 203148730,
-    "priceChange24h": 41.76224,
+    "price": 0.397539,
+    "marketCap": 69161282,
+    "marketCapRank": 391,
+    "volume24h": 365127369,
+    "high24h": 0.393682,
+    "low24h": 0.231358,
+    "priceChange24h": 62.37023,
+    "priceChange7d": 72.95436,
+    "priceChange30d": 114.90499,
+    "priceChange1y": 0,
     "ath": 0.431223,
-    "athChangePercentage": -27.26358,
+    "athChangePercentage": -10.89402,
     "athDate": "2026-04-16T20:45:01.248Z",
     "atl": 0.113738,
     "atlDate": "2026-03-25T11:03:43.262Z",
     "circulatingSupply": 175000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 395207328
   },
-  "lastMarketUpdate": "2026-04-27T19:43:42.860Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-28T08:59:58.728Z"
 }
