@@ -306,6 +306,7 @@ async function main() {
   const targetType = typeIdx !== -1 ? args[typeIdx + 1] : null;
   const dryRun = args.includes("--dry-run");
   const useQueue = args.includes("--queue");
+  const CONTENT_BASE_DIR = useQueue ? path.join(DATA_DIR, "queue") : CONTENT_DIR;
 
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
   const maxTgeTokens = maxTgeIdx !== -1 ? parseInt(args[maxTgeIdx + 1], 10) : 5;
@@ -399,7 +400,7 @@ async function main() {
       if (targetToken && tge.id !== targetToken) continue;
       if (tge.status === "released") continue; // Released ones go to Phase 2 (Graduation)
       
-      const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
+      const tgePath = path.join(CONTENT_BASE_DIR, tge.id, "tge-preview.json");
       if (!fs.existsSync(tgePath) || (await isStale(tgePath, 7))) {
         tgeTokensToProcess.push(tge.id);
       }
@@ -410,7 +411,7 @@ async function main() {
     const graduatedToProcess: string[] = [];
     for (const tge of upcomingTges) {
       if (tge.status === "released") {
-        const overviewPath = path.join(CONTENT_DIR, tge.id, "overview.json");
+        const overviewPath = path.join(CONTENT_BASE_DIR, tge.id, "overview.json");
         if (!fs.existsSync(overviewPath)) {
           graduatedToProcess.push(tge.id);
           console.log(`  🎓 [GRADUATION] Found newly released token: ${tge.name} (${tge.id}). Adding to high-priority queue.`);
@@ -444,9 +445,9 @@ async function main() {
         }
       } catch (_e) {}
 
-      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
-      const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
-      const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
+      const overviewPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
+      const pricePath = path.join(CONTENT_BASE_DIR, id, "price-prediction.json");
+      const howToBuyPath = path.join(CONTENT_BASE_DIR, id, "how-to-buy.json");
 
       // Priority 1: Volatile (>15% 24h move)
       const change24h = tokenMarketData?.market?.priceChange24h ?? 0;
@@ -486,35 +487,47 @@ async function main() {
     // Sort refresh candidates by oldest first
     refreshCandidates.sort((a, b) => a.lastGen - b.lastGen);
 
-    // Fill the daily budget using the priority ladder
-    const budget = Math.max(0, maxRefresh - graduatedToProcess.length);
+    // Fill the daily budget using the priority ladder.
+    // ALL tokens (including graduated) share the strict `maxRefresh` budget.
+    const budget = maxRefresh;
     const smartQueue: string[] = [];
 
-    // P1: Volatile tokens (highest priority)
-    for (const id of volatileTokens) {
+    // P0: Graduated tokens (highest priority — new TGEs needing full coverage)
+    for (const id of graduatedToProcess) {
       if (smartQueue.length >= budget) break;
       smartQueue.push(id);
     }
-    // P2: Incomplete tokens
+    // P1: Volatile tokens (market-moving events)
+    for (const id of volatileTokens) {
+      if (smartQueue.length >= budget) break;
+      if (smartQueue.includes(id)) continue;
+      smartQueue.push(id);
+    }
+    // P2: Incomplete tokens (missing articles — SEO coverage gaps)
     for (const id of incompleteTokens) {
       if (smartQueue.length >= budget) break;
       if (smartQueue.includes(id)) continue;
       smartQueue.push(id);
     }
-    // P3: Stale refreshes (fill remaining slots)
+    // P3: Stale refreshes (fill remaining slots — freshness maintenance)
     for (const { id } of refreshCandidates) {
       if (smartQueue.length >= budget) break;
       if (smartQueue.includes(id)) continue;
       smartQueue.push(id);
     }
 
-    tokensToProcess = [...graduatedToProcess, ...smartQueue];
+    tokensToProcess = [...smartQueue];
+
+    const graduatedSelected = graduatedToProcess.filter(id => smartQueue.includes(id)).length;
+    const volatileSelected = volatileTokens.filter(id => smartQueue.includes(id)).length;
+    const incompleteSelected = incompleteTokens.filter(id => smartQueue.includes(id)).length;
+    const refreshSelected = refreshCandidates.filter(c => smartQueue.includes(c.id)).length;
 
     console.log(`  ✦ Smart Drip Selection:`);
-    console.log(`    ⚡ Volatile:   ${Math.min(volatileTokens.length, budget)} / ${volatileTokens.length} found`);
-    console.log(`    📝 Incomplete: ${incompleteTokens.filter(id => smartQueue.includes(id)).length} / ${incompleteTokens.length} found`);
-    console.log(`    🔄 Refreshes:  ${refreshCandidates.filter(c => smartQueue.includes(c.id)).length}`);
-    console.log(`    🎓 Graduated:  ${graduatedToProcess.length}`);
+    console.log(`    🎓 Graduated:  ${graduatedSelected} / ${graduatedToProcess.length} found`);
+    console.log(`    ⚡ Volatile:   ${volatileSelected} / ${volatileTokens.length} found`);
+    console.log(`    📝 Incomplete: ${incompleteSelected} / ${incompleteTokens.length} found`);
+    console.log(`    🔄 Refreshes:  ${refreshSelected}`);
     console.log(`    📊 Total:      ${tokensToProcess.length} tokens (budget: ${maxRefresh})`);
   } else {
     // Standard logic (Bulk or Single Token)
@@ -529,9 +542,9 @@ async function main() {
       }
 
       // Check if this token is missing any generated content
-      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
-      const pricePath = path.join(CONTENT_DIR, id, "price-prediction.json");
-      const howToBuyPath = path.join(CONTENT_DIR, id, "how-to-buy.json");
+      const overviewPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
+      const pricePath = path.join(CONTENT_BASE_DIR, id, "price-prediction.json");
+      const howToBuyPath = path.join(CONTENT_BASE_DIR, id, "how-to-buy.json");
 
       let needsGeneration = false;
       let tokenData = null;
@@ -540,13 +553,13 @@ async function main() {
       } catch (_e) {}
 
       if (targetType) {
-        needsGeneration = await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData);
+        needsGeneration = await isStale(path.join(CONTENT_BASE_DIR, id, `${targetType}.json`), 30, tokenData);
       } else {
         needsGeneration = ((await isStale(overviewPath, 30, tokenData))) || ((await isStale(pricePath, 30, tokenData))) || ((await isStale(howToBuyPath, 30, tokenData)));
       }
 
       if (refreshMacro && !needsGeneration) {
-        const metadataPath = path.join(CONTENT_DIR, id, "overview.json");
+        const metadataPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
         if (fs.existsSync(metadataPath)) {
           const stats = fs.statSync(metadataPath);
           const lastGen = new Date(stats.mtime);
@@ -570,7 +583,7 @@ async function main() {
       if (tokensToProcess.includes(tge.id)) continue;
       if (tgeTokensToProcess.includes(tge.id)) continue;
 
-      const tgePath = path.join(CONTENT_DIR, tge.id, "tge-preview.json");
+      const tgePath = path.join(CONTENT_BASE_DIR, tge.id, "tge-preview.json");
       if ((await isStale(tgePath, 7)) || args.includes("--force")) {
         tgeTokensToProcess.push(tge.id);
       }
@@ -579,7 +592,7 @@ async function main() {
   }
 
   // Also check content/tokens directory to catch tokens that have content but no detailed data yet
-  if (tokensToProcess.length < maxTokens && fs.existsSync(CONTENT_DIR)) {
+  if (!dripMode && tokensToProcess.length < maxTokens && fs.existsSync(CONTENT_DIR)) {
     const contentDirs = fs.readdirSync(CONTENT_DIR);
     for (const id of contentDirs) {
       if (targetToken && id !== targetToken) continue;
@@ -588,7 +601,7 @@ async function main() {
       // Skip upcoming TGEs — they belong in the TGE queue only
       if (upcomingTgeIdSet.has(id)) continue;
 
-      const overviewPath = path.join(CONTENT_DIR, id, "overview.json");
+      const overviewPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
       
       let tokenData = null;
       try {
@@ -597,7 +610,7 @@ async function main() {
       } catch (_e) {}
 
       const needsGeneration = targetType 
-        ? await isStale(path.join(CONTENT_DIR, id, `${targetType}.json`), 30, tokenData)
+        ? await isStale(path.join(CONTENT_BASE_DIR, id, `${targetType}.json`), 30, tokenData)
         : await isStale(overviewPath, 30, tokenData);
 
       if (needsGeneration || args.includes("--force")) {
@@ -810,11 +823,11 @@ ${config.prompt}
 `;
 
         const jsonSchema = {
-          type: "object",
+          type: "OBJECT",
           properties: {
-            title: { type: "string" },
+            title: { type: "STRING" },
             content: { 
-              type: "string", 
+              type: "STRING", 
               description: `The comprehensive markdown content for the ${config.type} article. MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end. TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words. DO NOT shorten or summarize.` 
             }
           },
@@ -833,7 +846,11 @@ ${config.prompt}
           currentCost += result.cost;
 
           try {
-            parsedSection = JSON.parse(result.content);
+            let cleanJson = result.content.trim();
+            if (cleanJson.startsWith('```')) {
+              cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+            }
+            parsedSection = JSON.parse(cleanJson);
             
             if (parsedSection && parsedSection.content && parsedSection.title) {
               const dataPointRegex = /\\$[\\d,.]+|\\d+(\\.\\d+)?%|\\d{1,3}(,\\d{3})+/g;
