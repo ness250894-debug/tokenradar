@@ -2,20 +2,56 @@
   "id": "0x",
   "symbol": "zrx",
   "name": "0x Protocol",
+  "description": "A cryptocurrency token known as 0x Protocol (ZRX). It is tracked on CoinGecko with the ID \"0x\".",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Coinbase Ventures Portfolio",
+    "Pantera Capital Portfolio",
+    "GMCI DeFi Index",
+    "Blockchain Capital Portfolio",
+    "GMCI Index",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": "2017-08-11",
+  "links": {
+    "website": "https://www.0xprotocol.org/",
+    "github": "https://github.com/0xProject/0x-monorepo",
+    "reddit": "https://www.reddit.com/r/0xProject/",
+    "explorer": "https://etherscan.io/token/0xe41d2489571d322189246dafa5ebde1f4699f498"
+  },
   "market": {
-    "price": 0.114932,
-    "marketCap": 97424600,
-    "marketCapRank": 300,
-    "volume24h": 7833270,
-    "priceChange24h": 2.55043,
+    "price": 0.110736,
+    "marketCap": 93944093,
+    "marketCapRank": 302,
+    "volume24h": 8215460,
+    "high24h": 0.115134,
+    "low24h": 0.11033,
+    "priceChange24h": -2.52543,
+    "priceChange7d": -2.24093,
+    "priceChange30d": 10.33299,
+    "priceChange1y": -60.04686,
     "ath": 2.5,
-    "athChangePercentage": -95.41486,
+    "athChangePercentage": -95.56513,
     "athDate": "2018-01-13T00:00:00.000Z",
     "atl": 0.089536,
     "atlDate": "2026-02-06T00:22:02.637Z",
     "circulatingSupply": 848396562.906836,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 110731346
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.944Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1410,
+    "githubForks": 507,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T17:20:32.739Z"
 }

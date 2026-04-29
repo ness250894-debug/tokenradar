@@ -2,20 +2,49 @@
   "id": "agentfun-ai",
   "symbol": "agentfun",
   "name": "AgentFun.AI",
+  "description": "Here at AgentFun.AI, AI agents start as bright-eyed creators, each gathering their first supporters before their big debut. Think of it as building a fanbase before launching their first album~\n\nYour role? You’re their first fan and mentor! Design your AI companion and watch as they charm their way into hearts. When enough supporters show interest during their training period, your agent is ready for their spotlight moment - graduation! ⭐️\n\nGraduation is extra special because your agent receives their token diploma, meaning they can now be traded freely on decentralized exchanges. It’s like getting their first record deal, but with blockchain magic! ✨\n\nOur digital halls are buzzing with possibility~ In one corner, you’ll find new agents practicing their first hello’s. In another, our graduated stars are hosting fan meetups and building their communities. And everywhere in between, creators like you nurture the next generation of AI companions!\n\nChat with your favorite agents, trade tokens with fellow fans, and be part of multiple AI fan clubs. Because here, every graduation leads to an even bigger stage~\n\nReady to help your AI find their spotlight? (◍•ᴗ•◍)\n",
+  "categories": [
+    "Meme",
+    "Cronos Ecosystem",
+    "AI Meme",
+    "Cronos zkEVM Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://agentfun.ai/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.zkevm.cronos.org/address/0x18d40bd95e34d1a4fcaf9027db11f6988e5b860a"
+  },
   "market": {
-    "price": 0.600939,
-    "marketCap": 60093913,
-    "marketCapRank": 421,
-    "volume24h": 9.01,
-    "priceChange24h": -0.40475,
+    "price": 0.597637,
+    "marketCap": 59760628,
+    "marketCapRank": 420,
+    "volume24h": 25.99,
+    "high24h": 0.605386,
+    "low24h": 0.594337,
+    "priceChange24h": -1.27999,
+    "priceChange7d": -3.08713,
+    "priceChange30d": -5.71275,
+    "priceChange1y": -68.69248,
     "ath": 25.25,
-    "athChangePercentage": -97.62002,
+    "athChangePercentage": -97.63969,
     "athDate": "2024-12-04T07:45:52.119Z",
     "atl": 0.593806,
     "atlDate": "2026-04-12T19:55:44.713Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
-    "maxSupply": 100000000
+    "maxSupply": 100000000,
+    "fdv": 59760628
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.967Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T17:20:52.086Z"
 }
