@@ -184,6 +184,7 @@ async function main() {
       recentlyPosted,
       metricsDir,
       allTokensRegistry,
+      onWebsiteIds,
       selectionPlatform,
       force,
     );

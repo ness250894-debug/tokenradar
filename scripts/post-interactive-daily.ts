@@ -213,7 +213,7 @@ async function main() {
     const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY);
     const recentlyPosted = getRecentlyPostedTokens(DATA_DIR);
 
-    const selection = await selectToken(candidates, todayPosted, recentlyPosted, metricsDir, allRegistry, "x");
+    const selection = await selectToken(candidates, todayPosted, recentlyPosted, metricsDir, allRegistry, onWebsiteIds, "x");
 
     if (!selection) {
       console.error("  ✗ Could not select a target token. Falling back to narrative poll.");
