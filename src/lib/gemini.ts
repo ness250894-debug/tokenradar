@@ -45,15 +45,19 @@ async function callGeminiAPI(
         }
 
         lastGeminiRequestTime = Date.now();
+        let finalPrompt = userPrompt;
+        if (jsonSchema) {
+          finalPrompt += `\n\nYOU MUST RETURN A VALID JSON OBJECT EXACTLY MATCHING THIS SCHEMA:\n${JSON.stringify(jsonSchema, null, 2)}`;
+        }
+
         const response = await fetchWithRetry(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
-            contents: [{ parts: [{ text: userPrompt }] }],
+            contents: [{ parts: [{ text: finalPrompt }] }],
             generationConfig: {
-              maxOutputTokens: maxTokens,
-              ...(jsonSchema ? { responseMimeType: "application/json", responseSchema: jsonSchema } : {})
+              maxOutputTokens: maxTokens
             }
           }),
         });

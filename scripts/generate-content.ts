@@ -820,19 +820,20 @@ Generate a comprehensive report for ${tokenData.name} (${tokenData.symbol?.toUpp
 TITLE TO USE: ${config.title}
 INSTRUCTIONS:
 ${config.prompt}
-`;
 
-        const jsonSchema = {
-          type: "OBJECT",
-          properties: {
-            title: { type: "STRING" },
-            content: { 
-              type: "STRING", 
-              description: `The comprehensive markdown content for the ${config.type} article. MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end. TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words. DO NOT shorten or summarize.` 
-            }
-          },
-          required: ["title", "content"]
-        };
+TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words.
+DO NOT shorten or summarize.
+MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end.
+
+=== OUTPUT FORMAT ===
+Output EXACTLY in this format (no JSON, no code blocks):
+
+---TITLE---
+<the article title>
+---CONTENT---
+<the full markdown article content>
+---END---
+`;
 
         let result: AIResult | null = null;
         let attempts = 0;
@@ -841,29 +842,44 @@ ${config.prompt}
 
         while (attempts < maxAttempts) {
           attempts++;
-          result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 4000, jsonSchema);
+          let qualityCheckPassed = true;
+          result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 8192);
           
           currentCost += result.cost;
 
           try {
-            let cleanJson = result.content.trim();
-            if (cleanJson.startsWith('```')) {
-              cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
-            }
-            parsedSection = JSON.parse(cleanJson);
+            const raw = result.content.trim();
+            const titleMatch = raw.match(/---TITLE---\s*([\s\S]*?)\s*---CONTENT---/);
+            const contentMatch = raw.match(/---CONTENT---\s*([\s\S]*?)\s*(?:---END---|$)/);
             
+            if (titleMatch && contentMatch) {
+              parsedSection = {
+                title: titleMatch[1].trim(),
+                content: contentMatch[1].trim()
+              };
+            } else {
+              // Fallback: try JSON parse (for Claude fallback which uses tool_use)
+              let cleanJson = raw;
+              const jsonMatch = cleanJson.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+              if (jsonMatch) {
+                cleanJson = jsonMatch[1].trim();
+              } else if (cleanJson.startsWith('```')) {
+                cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+              }
+              parsedSection = JSON.parse(cleanJson);
+            }
+
             if (parsedSection && parsedSection.content && parsedSection.title) {
-              const dataPointRegex = /\\$[\\d,.]+|\\d+(\\.\\d+)?%|\\d{1,3}(,\\d{3})+/g;
+              const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
               const dataPoints = parsedSection.content.match(dataPointRegex) || [];
               
               const text = parsedSection.content;
-              const words = text.split(/\\s+/).filter(Boolean).length;
+              const words = text.split(/\s+/).filter(Boolean).length;
               const hasFaq = text.toLowerCase().includes("## faq") || text.toLowerCase().includes("frequently asked");
               
               const isShort = config.type === 'how-to-buy' || config.type === 'tge-preview';
               const minWords = isShort ? 500 : 800;
 
-              let qualityCheckPassed = true;
               if (words < minWords) {
                 console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} too short (${words} words, min ${minWords}).`);
                 qualityCheckPassed = false;
@@ -879,12 +895,13 @@ ${config.prompt}
                  console.log(`\n      ⚠ Attempt ${attempts} failed data points check.`);
               }
             } else {
-              console.log(`\n      ⚠ Attempt ${attempts} missing required fields in JSON.`);
+               console.log(`      ⚠ Attempt ${attempts} missing title/content in output.`);
+               qualityCheckPassed = false;
             }
-          } catch (err) {
-            console.log(`\n      ⚠ Attempt ${attempts} failed to parse JSON.`);
+          } catch (e: any) {
+            console.log(`      ⚠ Attempt ${attempts} failed to parse output: ${e.message}`);
+            qualityCheckPassed = false;
           }
-          
           parsedSection = null; // Reset on failure
           if (attempts < maxAttempts) {
             process.stdout.write(`      🤖 Retrying ${config.type} with stricter quality focus...`);
@@ -900,7 +917,7 @@ ${config.prompt}
         // Save immediately
         const outputDir = ensureContentDir(tokenId, useQueue);
         const outputFile = path.join(outputDir, `${config.slug}.json`);
-        const wordCount = parsedSection.content.split(/\\s+/).length;
+        const wordCount = parsedSection.content.split(/\s+/).filter(Boolean).length;
         
         const article: GeneratedArticle = {
           tokenId,
