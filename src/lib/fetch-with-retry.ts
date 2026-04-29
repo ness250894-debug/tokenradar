@@ -25,7 +25,7 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
   
   for (let attempt = 0; attempt < retries; attempt++) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort("TIMEOUT"), 15000);
+    const timeoutId = setTimeout(() => controller.abort("TIMEOUT"), 90000);
     const combinedSignal = signal
       ? AbortSignal.any([signal, controller.signal])
       : controller.signal;
