@@ -840,9 +840,10 @@ Output EXACTLY in this format (no JSON, no code blocks):
         const maxAttempts = 3;
         let parsedSection: { title?: string, content?: string } | null = null;
 
+        let qualityCheckPassed = true;
         while (attempts < maxAttempts) {
           attempts++;
-          let qualityCheckPassed = true;
+          qualityCheckPassed = true;
           result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 8192);
           
           currentCost += result.cost;

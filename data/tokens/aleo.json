@@ -2,20 +2,54 @@
   "id": "aleo",
   "symbol": "aleo",
   "name": "ALEO",
+  "description": "Aleo was born from a desire to achieve the impossible - to build a user experience on the web that is both truly personal and truly private.\n\nAleo is the first platform to offer fully private applications.\n\nAleo achieves this by leveraging decentralized systems and zero-knowledge cryptography to protect user data on the web. At its core, Aleo offers users and application developers unbounded compute with absolute privacy.\n\nBy architecting Aleo as a blockchain that is private-by-default, open-source, and built for the web, we believe Aleo is uniquely positioned to address the shortcomings of blockchain adoption. With Aleo, users have access to a world of truly personalized web services without giving up control of their private data. \n\nAleo will reshape the role decentralized systems play in our society and introduce new experiences never before seen on the web.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Zero Knowledge (ZK)",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "Privacy Blockchain",
+    "Binance Alpha Spotlight",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.aleo.org/",
+    "github": "https://github.com/AleoHQ",
+    "reddit": null,
+    "explorer": "https://aleoscan.io/"
+  },
   "market": {
-    "price": 0.04600084,
-    "marketCap": 49247898,
-    "marketCapRank": 491,
-    "volume24h": 1283725,
-    "priceChange24h": 3.27828,
+    "price": 0.04466057,
+    "marketCap": 47922164,
+    "marketCapRank": 487,
+    "volume24h": 990987,
+    "high24h": 0.04654202,
+    "low24h": 0.04466065,
+    "priceChange24h": -2.94969,
+    "priceChange7d": -2.3819,
+    "priceChange30d": -4.39909,
+    "priceChange1y": -80.66574,
     "ath": 6.72,
-    "athChangePercentage": -99.31513,
+    "athChangePercentage": -99.33285,
     "athDate": "2024-09-28T01:55:41.449Z",
     "atl": 0.04065353,
     "atlDate": "2026-03-31T17:50:09.802Z",
-    "circulatingSupply": 1070486991.924997,
-    "totalSupply": 1978681247.938695,
-    "maxSupply": 5000000000
+    "circulatingSupply": 1073028816.75648,
+    "totalSupply": 1979384622.859219,
+    "maxSupply": 5000000000,
+    "fdv": 88400604
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.980Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T18:56:50.486Z"
 }
