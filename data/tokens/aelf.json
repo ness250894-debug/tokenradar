@@ -2,20 +2,53 @@
   "id": "aelf",
   "symbol": "elf",
   "name": "aelf",
+  "description": "aelf, an AI-enhanced Layer 1 blockchain network, leverages the robust C# programming language for efficiency and scalability across its sophisticated multi-layered architecture. Founded in 2017 with its global hub in Singapore, aelf is a pioneer in the industry, leading Asia in evolving blockchain with state-of-the-art AI integration and modular Layer 2 ZK Rollup technology, ensuring an efficient, low-cost, and highly secure platform that is both developer and end-user friendly. Aligned with its progressive vision, aelf is committed to fostering innovation within its ecosystem and advancing Web3 and AI technology adoption. \n\nThe story of aelf began on 10 December 2017, when aelf's vision and plans were introduced to global investors at a Coindesk conference. aelf successfully completed its fund-raising significantly ahead of schedule, having secured investments from notable institutions such as Arrington Capital, Draper Dragon, Galaxy Digital etc. aelf Testnet was successfully launched in 2018, followed by another successful launch of the Mainnet in 2020. aelf is currently operated and managed by a team of highly experienced Web3 veterans led by its founder and CEO, Auric, who bring a wealth of expertise, innovation and drive to the company. \n\nFor more information about aelf, please refer to https://www.aelf.com and our Whitepaper V2.0 (https://docs.aelf.com/resources/whitepaper-2/), or visit us on X (https://x.com/aelfblockchain) for the latest updates.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "GMCI Layer 1 Index",
+    "Aelf Ecosystem",
+    "GMCI Index"
+  ],
+  "genesisDate": "2017-09-13",
+  "links": {
+    "website": "https://aelf.com",
+    "github": "https://github.com/aelfProject/AElf",
+    "reddit": "https://www.reddit.com/r/aelfofficial",
+    "explorer": "https://aelfscan.io/"
+  },
   "market": {
-    "price": 0.078088,
-    "marketCap": 63985029,
-    "marketCapRank": 406,
-    "volume24h": 606880,
-    "priceChange24h": 0.14329,
+    "price": 0.077857,
+    "marketCap": 63805937,
+    "marketCapRank": 403,
+    "volume24h": 687632,
+    "high24h": 0.078186,
+    "low24h": 0.077795,
+    "priceChange24h": -0.15788,
+    "priceChange7d": -2.43289,
+    "priceChange30d": -0.35122,
+    "priceChange1y": -68.07932,
     "ath": 2.6,
-    "athChangePercentage": -97.00468,
+    "athChangePercentage": -97.01019,
     "athDate": "2018-01-09T00:00:00.000Z",
     "atl": 0.03545756,
     "atlDate": "2020-03-13T02:22:35.431Z",
-    "circulatingSupply": 819518114.8413745,
-    "totalSupply": 996445609.8071845,
-    "maxSupply": 1000000000
+    "circulatingSupply": 819518114.2181733,
+    "totalSupply": 996445609.1839832,
+    "maxSupply": 1000000000,
+    "fdv": 77581135
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.965Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 806,
+    "githubForks": 237,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T17:20:39.088Z"
 }

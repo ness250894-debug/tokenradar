@@ -785,132 +785,118 @@ async function main() {
     if (configsToGenerate.length === 0) continue;
 
     const sectionsToGenerate = configsToGenerate.map(c => c.type);
-    const contentPrompt = `
+    console.log(`  🤖 Generating [${sectionsToGenerate.join(", ")}] individually...`);
+
+    try {
+      if (dryRun) {
+        console.log(`  [DRY-RUN] Would generate sections: ${sectionsToGenerate.join(", ")}`);
+        continue;
+      }
+
+      let allSectionsSuccessful = true;
+      let currentCost = 0;
+
+      for (const config of configsToGenerate) {
+        process.stdout.write(`    ⏳ Generating ${config.type}...`);
+        
+        const contentPrompt = `
 You are an expert crypto analyst and technical writer. 
 Generate a comprehensive report for ${tokenData.name} (${tokenData.symbol?.toUpperCase()}).
 
-We require the following sections to be generated: ${sectionsToGenerate.join(", ")}.
-Please use the following prompts for each section:
-
-${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.title}\nINSTRUCTIONS:\n${c.prompt}`).join("\n\n")}
+=== SECTION: ${config.type} ===
+TITLE TO USE: ${config.title}
+INSTRUCTIONS:
+${config.prompt}
 `;
 
-    process.stdout.write(`  🤖 Generating [${sectionsToGenerate.join(", ")}]...`);
-
-    try {
-
-    if (dryRun) {
-      console.log(`  [DRY-RUN] Would generate sections: ${sectionsToGenerate.join(", ")}`);
-      continue;
-    }
-
-      const properties: Record<string, any> = {};
-      for (const config of configsToGenerate) {
-        properties[config.type] = {
+        const jsonSchema = {
           type: "object",
           properties: {
             title: { type: "string" },
-            content: { type: "string", description: `The comprehensive markdown content for the ${config.type} article. MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end. TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words. DO NOT shorten or summarize.` }
+            content: { 
+              type: "string", 
+              description: `The comprehensive markdown content for the ${config.type} article. MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end. TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words. DO NOT shorten or summarize.` 
+            }
           },
           required: ["title", "content"]
         };
-      }
 
-      const jsonSchema = {
-        type: "object",
-        properties,
-        required: sectionsToGenerate
-      };
+        let result: AIResult | null = null;
+        let attempts = 0;
+        const maxAttempts = 3;
+        let parsedSection: { title?: string, content?: string } | null = null;
 
-      let result: AIResult | null = null;
-      let attempts = 0;
-      const maxAttempts = 3; // Increased to 3 for higher quality
-      let parsedResponse: any = null;
-
-      while (attempts < maxAttempts) {
-        attempts++;
-        result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 8000, jsonSchema);
-        
-        totalCost += result.cost;
-
-        try {
-          parsedResponse = JSON.parse(result.content);
+        while (attempts < maxAttempts) {
+          attempts++;
+          result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 4000, jsonSchema);
           
-          let allPresent = true;
-          for (const req of sectionsToGenerate) {
-            if (!parsedResponse[req] || !parsedResponse[req].content || !parsedResponse[req].title) {
-              allPresent = false;
-              break;
-            }
-          }
+          currentCost += result.cost;
 
-          if (allPresent) {
-            const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
-            const dataPoints = result.content.match(dataPointRegex) || [];
+          try {
+            parsedSection = JSON.parse(result.content);
             
-            // Check word counts and FAQ for each section
-            let qualityCheckPassed = true;
-            for (const req of sectionsToGenerate) {
-              const text = parsedResponse[req].content;
-              const words = text.split(/\s+/).filter(Boolean).length;
+            if (parsedSection && parsedSection.content && parsedSection.title) {
+              const dataPointRegex = /\\$[\\d,.]+|\\d+(\\.\\d+)?%|\\d{1,3}(,\\d{3})+/g;
+              const dataPoints = parsedSection.content.match(dataPointRegex) || [];
+              
+              const text = parsedSection.content;
+              const words = text.split(/\\s+/).filter(Boolean).length;
               const hasFaq = text.toLowerCase().includes("## faq") || text.toLowerCase().includes("frequently asked");
               
-              const isShort = req === 'how-to-buy' || req === 'tge-preview';
+              const isShort = config.type === 'how-to-buy' || config.type === 'tge-preview';
               const minWords = isShort ? 500 : 800;
 
+              let qualityCheckPassed = true;
               if (words < minWords) {
-                console.log(`\n    ⚠ Attempt ${attempts}: ${req} too short (${words} words, min ${minWords}).`);
+                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} too short (${words} words, min ${minWords}).`);
                 qualityCheckPassed = false;
               }
               if (!hasFaq) {
-                console.log(`\n    ⚠ Attempt ${attempts}: ${req} missing FAQ section.`);
+                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} missing FAQ section.`);
                 qualityCheckPassed = false;
               }
-            }
 
-            if (qualityCheckPassed && (dataPoints.length >= 3 || isTge)) {
-               break; 
-            } else if (qualityCheckPassed) {
-               console.log(`\n    ⚠ Attempt ${attempts} failed data points check.`);
+              if (qualityCheckPassed && (dataPoints.length >= 3 || isTge)) {
+                 break; // Success
+              } else if (qualityCheckPassed) {
+                 console.log(`\n      ⚠ Attempt ${attempts} failed data points check.`);
+              }
+            } else {
+              console.log(`\n      ⚠ Attempt ${attempts} missing required fields in JSON.`);
             }
-          } else {
-            console.log(`\n    ⚠ Attempt ${attempts} missing required sections in JSON.`);
+          } catch (err) {
+            console.log(`\n      ⚠ Attempt ${attempts} failed to parse JSON.`);
           }
-        } catch (err) {
-          console.log(`\n    ⚠ Attempt ${attempts} failed to parse JSON.`);
+          
+          parsedSection = null; // Reset on failure
+          if (attempts < maxAttempts) {
+            process.stdout.write(`      🤖 Retrying ${config.type} with stricter quality focus...`);
+          }
         }
-        
-        if (attempts < maxAttempts) {
-          process.stdout.write(`    🤖 Retrying with stricter quality focus...`);
+
+        if (!result || !parsedSection || !parsedSection.content || !parsedSection.title) {
+           console.log(`\n    ✗ ${config.type} failed after ${maxAttempts} attempts`);
+           allSectionsSuccessful = false;
+           continue;
         }
-      }
 
-      if (!result || !parsedResponse) {
-         console.log(` ✗ Failed after ${maxAttempts} attempts`);
-         continue;
-      }
-
-      for (const config of configsToGenerate) {
+        // Save immediately
         const outputDir = ensureContentDir(tokenId, useQueue);
         const outputFile = path.join(outputDir, `${config.slug}.json`);
-        
-        const sectionData = parsedResponse[config.type];
-        if (!sectionData) continue;
-
-        const wordCount = sectionData.content.split(/\s+/).length;
+        const wordCount = parsedSection.content.split(/\\s+/).length;
         
         const article: GeneratedArticle = {
           tokenId,
           tokenName: tokenData.name,
           type: config.type,
-          title: sectionData.title || config.title,
+          title: parsedSection.title,
           slug: config.slug,
-          content: sectionData.content,
+          content: parsedSection.content,
           wordCount,
           generatedAt: new Date().toISOString(),
           model: result.model,
-          promptTokens: Math.floor(result.promptTokens / sectionsToGenerate.length),
-          completionTokens: Math.floor(result.completionTokens / sectionsToGenerate.length),
+          promptTokens: result.promptTokens,
+          completionTokens: result.completionTokens,
         };
 
         await fs.promises.writeFile(outputFile, JSON.stringify(article, null, 2));
@@ -921,17 +907,24 @@ ${configsToGenerate.map(c => `=== SECTION: ${c.type} ===\nTITLE TO USE: ${c.titl
           articleType: config.type,
           isTge,
           wordCount,
-          cost: result.cost / sectionsToGenerate.length
+          cost: result.cost
         });
-        totalArticles++;
+        
+        console.log(` ✓ (${wordCount} words)`);
       }
       
-      if (isTge) {
-        generatedTgeTokens.add(tokenId);
+      totalCost += currentCost;
+      if (allSectionsSuccessful) {
+        if (isTge) {
+          generatedTgeTokens.add(tokenId);
+        } else {
+          generatedRegularTokens.add(tokenId);
+        }
+        totalArticles += configsToGenerate.length;
+        console.log(` ✓ All sections generated successfully ($${currentCost.toFixed(4)})`);
       } else {
-        generatedRegularTokens.add(tokenId);
+        console.log(` ⚠ Completed with some failed sections ($${currentCost.toFixed(4)})`);
       }
-      console.log(` ✓ generated successfully ($${result.cost.toFixed(4)})`);
       
       await sleep(1000);
       
