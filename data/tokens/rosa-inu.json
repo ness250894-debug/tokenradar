@@ -2,20 +2,49 @@
   "id": "rosa-inu",
   "symbol": "rosa",
   "name": "Rosa Inu",
+  "description": "ROSA is a meme digital asset inspired by dog-themed digital assets and created on the Solana network. Its purpose is to provide a fun and interactive contribution to the crypto world and encourage the community to come together and grow stronger together. This makes ROSA an attractive option for those interested in community-driven projects.\n\nThe parties and events organized exclusively for ROSA holders are intended to provide fun and exclusive experiences. In addition, special products such as cups, mugs, t-shirts, etc. are planned so that ROSA investors can have unique and limited edition products. Events, promotions and special products organized exclusively for ROSA holders strengthen their loyalty to ROSA and encourage them to become more involved in the community. These privileges will give ROSA owners access to real-world experiences beyond their digital presence, making them feel closer to the community and encouraging their participation. These privileges offered by ROSA will increase users' loyalty to ROSA, further strengthening the community.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Meme",
+    "Arbitrum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://rosatoken.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/6FDJbSkiySbetXaELZYaL9im8mAyCkMfHB7rtDt9p3qp"
+  },
   "market": {
-    "price": 0.00069003,
-    "marketCap": 69003470,
-    "marketCapRank": 389,
-    "volume24h": 13006733,
-    "priceChange24h": -18.57007,
+    "price": 0.00062723,
+    "marketCap": 62611785,
+    "marketCapRank": 408,
+    "volume24h": 11061826,
+    "high24h": 0.00070405,
+    "low24h": 0.00062232,
+    "priceChange24h": -8.24864,
+    "priceChange7d": -20.10948,
+    "priceChange30d": 345.56669,
+    "priceChange1y": 36.82193,
     "ath": 0.02197204,
-    "athChangePercentage": -96.85132,
+    "athChangePercentage": -97.15883,
     "athDate": "2024-07-02T12:59:49.321Z",
     "atl": 0.00012343,
     "atlDate": "2025-02-15T12:54:28.852Z",
     "circulatingSupply": 100000000000,
     "totalSupply": 100000000000,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 62611785
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.961Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T17:18:37.972Z"
 }
