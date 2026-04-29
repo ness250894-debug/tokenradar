@@ -2,20 +2,50 @@
   "id": "bitway",
   "symbol": "btw",
   "name": "Bitway",
+  "description": "BTW is the native utility and governance token of the Bitway ecosystem. It powers network operations, enables staking and governance participation, and aligns incentives across Bitway’s yield, payment, and financing products. BTW serves as the core asset that unifies the Bitway network and supports its long-term growth.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://bitway.com/",
+    "github": "https://github.com/bitwaylabs",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA"
+  },
   "market": {
-    "price": 0.02172725,
-    "marketCap": 47689573,
+    "price": 0.02124951,
+    "marketCap": 46742811,
     "marketCapRank": 496,
-    "volume24h": 14587942,
-    "priceChange24h": 24.35073,
+    "volume24h": 10909296,
+    "high24h": 0.02337972,
+    "low24h": 0.02093174,
+    "priceChange24h": -4.15406,
+    "priceChange7d": 22.41811,
+    "priceChange30d": -13.20597,
+    "priceChange1y": 0,
     "ath": 0.03762691,
-    "athChangePercentage": -42.4581,
+    "athChangePercentage": -43.52584,
     "athDate": "2026-03-19T01:36:03.721Z",
     "atl": 0.00911805,
     "atlDate": "2026-03-03T14:55:24.257Z",
     "circulatingSupply": 2200000000,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 212467325
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.981Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T08:44:22.155Z"
 }
