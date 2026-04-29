@@ -2,20 +2,48 @@
   "id": "tagger",
   "symbol": "tag",
   "name": "TAGGER",
+  "description": "A Decentralized Full-Stack AI Data Solution powered by a Comprehensive Data Authentication and Authorization System\nTagger is a full-stack AI data solutions platform, establishing a cross-border data authentication protocol, creating a permissionless hub for data collection, labeling, management, and trading. The logic starts from utilizing Web 3's crowdsourcing advantages for data labeling and collection. Subsequently, we leverage the core essence of blockchain technology to form a permissionless data authentication and trading system, solving the prevalent problems of data silos, data authentication chaos, and lack of professional annotators in the current data landscape.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "AI Applications"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tagger.pro/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x208bF3E7dA9639f1Eaefa2DE78c23396B0682025"
+  },
   "market": {
-    "price": 0.00057455,
-    "marketCap": 62837999,
-    "marketCapRank": 411,
-    "volume24h": 5403788,
-    "priceChange24h": -21.98867,
+    "price": 0.00054591,
+    "marketCap": 59503855,
+    "marketCapRank": 420,
+    "volume24h": 5801277,
+    "high24h": 0.00060969,
+    "low24h": 0.0005365,
+    "priceChange24h": -6.42179,
+    "priceChange7d": -16.37852,
+    "priceChange30d": -6.75245,
+    "priceChange1y": 947.29506,
     "ath": 0.00126186,
-    "athChangePercentage": -53.78402,
+    "athChangePercentage": -56.88863,
     "athDate": "2025-08-12T16:08:36.717Z",
     "atl": 0.00001934,
     "atlDate": "2025-03-12T13:57:01.345Z",
     "circulatingSupply": 108864805114.17,
     "totalSupply": 405380800000,
-    "maxSupply": 405380800000
+    "maxSupply": 405380800000,
+    "fdv": 221575012
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.965Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T18:56:25.195Z"
 }

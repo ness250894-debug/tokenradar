@@ -2,20 +2,56 @@
   "id": "aioz-network",
   "symbol": "aioz",
   "name": "AIOZ Network",
+  "description": "AIOZ Network is a DePIN for Web3 AI, Storage and Streaming.\n\nAIOZ empowers a faster, secure and decentralized future. \n\nPowered by a global network of DePINs,  AIOZ rewards you for sharing your computational resources for storing, transcoding, and streaming digital media content and powering decentralized AI computation.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Storage",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "DWF Labs Portfolio",
+    "Osmosis Ecosystem",
+    "GMCI DePIN Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://aioz.network",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.aioz.network"
+  },
   "market": {
-    "price": 0.061101,
-    "marketCap": 75966606,
-    "marketCapRank": 353,
-    "volume24h": 5461296,
-    "priceChange24h": 1.22686,
+    "price": 0.059386,
+    "marketCap": 73886344,
+    "marketCapRank": 358,
+    "volume24h": 5394400,
+    "high24h": 0.061408,
+    "low24h": 0.059118,
+    "priceChange24h": -2.37285,
+    "priceChange7d": -10.09914,
+    "priceChange30d": 3.83965,
+    "priceChange1y": -85.73526,
     "ath": 2.65,
-    "athChangePercentage": -97.70535,
+    "athChangePercentage": -97.76876,
     "athDate": "2021-04-03T11:55:34.211Z",
     "atl": 0.01099588,
     "atlDate": "2023-09-13T19:20:42.446Z",
     "circulatingSupply": 1244656772.64892,
-    "totalSupply": 1250194237.840386,
-    "maxSupply": null
+    "totalSupply": 1250393053.969858,
+    "maxSupply": null,
+    "fdv": 74226866
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.955Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T18:56:37.849Z"
 }

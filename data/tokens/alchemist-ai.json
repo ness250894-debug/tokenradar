@@ -2,20 +2,50 @@
   "id": "alchemist-ai",
   "symbol": "alch",
   "name": "Alchemist AI",
+  "description": "Alchemist AI is a no-code development platform (NCDP) that enables users to create software applications with just a simple description. By eliminating the need for coding expertise, our AI enables anyone from beginners to professionals to generate bespoke applications on the fly - ranging from simple utilities to games.\n\nOur system involves Natural Language Processing (NLP), Code Generation, Web Framework Integration, and access to a Limited OS API. The Large Language Model (LLM) plays a pivotal role throughout the process, handling everything from parsing user input to generating executable code.\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Solana Ecosystem",
+    "Pump.fun Ecosystem",
+    "AI Applications",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.alchemistai.app/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/HNg5PYJmtqcmzXrv6S9zP1CDKk5BgDuyFBxbvNApump"
+  },
   "market": {
-    "price": 0.079466,
-    "marketCap": 67478886,
-    "marketCapRank": 394,
-    "volume24h": 7189001,
-    "priceChange24h": 3.48432,
+    "price": 0.077686,
+    "marketCap": 66121179,
+    "marketCapRank": 392,
+    "volume24h": 7117088,
+    "high24h": 0.080118,
+    "low24h": 0.07617,
+    "priceChange24h": -2.15591,
+    "priceChange7d": 2.07875,
+    "priceChange30d": 14.42234,
+    "priceChange1y": -55.68264,
     "ath": 0.243323,
-    "athChangePercentage": -67.36082,
+    "athChangePercentage": -68.27612,
     "athDate": "2025-12-18T04:32:38.896Z",
     "atl": 0.01435554,
     "atlDate": "2025-02-25T00:15:23.826Z",
     "circulatingSupply": 850000000,
-    "totalSupply": 999953818.644907,
-    "maxSupply": 1000000000
+    "totalSupply": 999953788.296801,
+    "maxSupply": 1000000000,
+    "fdv": 77786027
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.962Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T18:56:44.166Z"
 }

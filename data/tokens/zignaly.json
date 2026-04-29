@@ -2,20 +2,55 @@
   "id": "zignaly",
   "symbol": "zig",
   "name": "ZIGChain",
+  "description": "ZIGChain (ZIG) is a purpose-built Layer 1 blockchain for wealth generation. Powered by an innovative wealth management module, ZIGChain enables anyone to co-invest alongside professional fund managers in real-world assets (RWAs), while supporting institutional adoption and regulatory compliance. At the heart of this democratized investment ecosystem is the ZIG token, which powers governance, transaction validation, and incentivizes network growth.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Injective Ecosystem",
+    "OKX Ventures Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zigchain.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xb2617246d0c6c0087f18703d576831899ca94f01"
+  },
   "market": {
-    "price": 0.03509853,
-    "marketCap": 49449458,
-    "marketCapRank": 483,
-    "volume24h": 4411933,
-    "priceChange24h": 21.79926,
+    "price": 0.03119001,
+    "marketCap": 43942807,
+    "marketCapRank": 509,
+    "volume24h": 1584055,
+    "high24h": 0.03328621,
+    "low24h": 0.03070348,
+    "priceChange24h": -3.35989,
+    "priceChange7d": 8.06327,
+    "priceChange30d": 3.20148,
+    "priceChange1y": -64.69144,
     "ath": 0.224179,
-    "athChangePercentage": -84.31109,
+    "athChangePercentage": -86.07918,
     "athDate": "2021-04-15T15:39:42.111Z",
     "atl": 0.00428716,
     "atlDate": "2023-07-15T05:31:20.452Z",
     "circulatingSupply": 1408940795.2396517,
     "totalSupply": 1953940795.2396517,
-    "maxSupply": 2000000000
+    "maxSupply": 2000000000,
+    "fdv": 60940561
   },
-  "lastMarketUpdate": "2026-04-27T19:43:42.862Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-04-29T18:56:31.511Z"
 }

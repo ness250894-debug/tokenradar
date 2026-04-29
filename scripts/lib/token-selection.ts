@@ -45,6 +45,7 @@ export interface TokenData {
 export type SelectionReason =
   | "trending-coingecko"
   | "trending-x"
+  | "newly-published"
   | "top-gainer"
   | "safe-play"
   | "spotlight";
@@ -327,6 +328,7 @@ export async function selectToken(
   recentlyPosted: Set<string>,
   metricsDir: string,
   allTokens: { id: string; name: string; symbol: string }[],
+  onWebsiteIds: Set<string> = new Set(),
   platform: "x" | "telegram" | "all" = "telegram",
   force: boolean = false
 ): Promise<SelectionResult | null> {
@@ -350,8 +352,38 @@ export async function selectToken(
     : await tryXTrending(candidateTokens, trendingCooldown, allTokens, "Priority 2");
   if (second) return second;
 
-  // ── Priority 3: Top Gainer ──
-  console.log("  ▸ Priority 3: Checking top gainers...");
+  // ── Priority 3: Newly Published Articles ──
+  console.log("  ▸ Priority 3: Checking newly published articles...");
+  const contentDir = path.resolve(metricsDir, "..", "..", "content", "tokens");
+  const newlyPublished: TokenData[] = [];
+  const FORTY_EIGHT_HOURS_MS = 48 * 60 * 60 * 1000;
+
+  for (const tokenId of onWebsiteIds) {
+    if (todayPosted.has(tokenId) || recentlyPosted.has(tokenId)) continue;
+    
+    try {
+      const overviewPath = path.join(contentDir, tokenId, "overview.json");
+      if (fs.existsSync(overviewPath)) {
+        const stats = fs.statSync(overviewPath);
+        const age = Date.now() - stats.mtimeMs;
+        if (age < FORTY_EIGHT_HOURS_MS) {
+          const token = candidateTokens.find(t => t.id === tokenId);
+          if (token) newlyPublished.push(token);
+        }
+      }
+    } catch (_e) { /* ignore */ }
+  }
+
+  if (newlyPublished.length > 0) {
+    // Pick the most recent one
+    const target = newlyPublished[0]; 
+    console.log(`    ✓ Selected: ${target.name} (newly published article)`);
+    return { token: target, reason: "newly-published" };
+  }
+  console.log("    No eligible newly published articles found.");
+
+  // ── Priority 4: Top Gainer ──
+  console.log("  ▸ Priority 4: Checking top gainers...");
   const gainers = candidateTokens
     .filter((t) => !todayPosted.has(t.id) && !recentlyPosted.has(t.id) && t.market.priceChange24h > 2)
     .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
@@ -364,8 +396,8 @@ export async function selectToken(
   }
   console.log("    No eligible gainers found.");
 
-  // ── Priority 4: Safe Play ──
-  console.log("  ▸ Priority 4: Checking safe plays...");
+  // ── Priority 5: Safe Play ──
+  console.log("  ▸ Priority 5: Checking safe plays...");
   const metricsFiles = fs.existsSync(metricsDir) ? fs.readdirSync(metricsDir).filter((f) => f.endsWith(".json")) : [];
   const safePlays: TokenData[] = [];
   for (const mf of metricsFiles) {
@@ -384,8 +416,8 @@ export async function selectToken(
   }
   console.log("    No eligible safe plays found.");
 
-  // ── Priority 5: Spotlight (fallback) ──
-  console.log("  ▸ Priority 5: Fallback to random spotlight...");
+  // ── Priority 6: Spotlight (fallback) ──
+  console.log("  ▸ Priority 6: Fallback to random spotlight...");
   const available = candidateTokens.filter((t) => !todayPosted.has(t.id));
   if (available.length > 0) {
     const target = available[Math.floor(Math.random() * available.length)];
