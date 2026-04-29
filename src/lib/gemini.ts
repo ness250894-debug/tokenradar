@@ -13,7 +13,7 @@ export type AIResult = {
 const aiMutex = new Mutex();
 let lastGeminiRequestTime = 0;
 
-export const PRIMARY_MODEL = "gemini-3.1-flash-lite-preview";
+export const PRIMARY_MODEL = "gemini-2.5-flash";
 export const FALLBACK_MODEL = "claude-haiku-4-5-20251001";
 
 async function callGeminiAPI(
