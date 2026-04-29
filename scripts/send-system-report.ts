@@ -8,6 +8,8 @@ dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 const LOGS_DIR = path.resolve(__dirname, "../data/logs");
 const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
+const DATA_DIR = path.resolve(__dirname, "../data");
+const OUT_DIR = path.resolve(__dirname, "../out");
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 interface ActivityRecord {
@@ -35,6 +37,25 @@ function safeReadJson<T>(file: string): T | null {
     return null;
   }
 }
+
+function countFiles(dir: string): number {
+  if (!fs.existsSync(dir)) return 0;
+  let count = 0;
+  try {
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+    for (const item of items) {
+      if (item.isDirectory()) {
+        count += countFiles(path.join(dir, item.name));
+      } else {
+        count++;
+      }
+    }
+  } catch (e) {
+    // Ignore permissions or missing errors safely
+  }
+  return count;
+}
+
 
 async function main() {
   const activityFiles = fs.existsSync(ACTIVITIES_DIR)
@@ -117,7 +138,14 @@ async function main() {
     message += `\n`;
   }
 
+  const dataFileCount = countFiles(DATA_DIR);
+  const outDirFileCount = countFiles(OUT_DIR);
+  const cfLimit = 20000;
+  const outDirPercent = ((outDirFileCount / cfLimit) * 100).toFixed(1);
+
   message += `*Data Health*\n`;
+  message += `- Raw Data Files: \`${dataFileCount}\`\n`;
+  message += `- Build Output: \`${outDirFileCount}\` / ${cfLimit} (${outDirPercent}% CF limit)\n`;
   message += `- Refreshed: ${totalDataRefreshed} token updates\n`;
   message += `- Analyzed: ${metricsTokensCount} proprietary scores\n`;
   if (tgeCount > 0) {
