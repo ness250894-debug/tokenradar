@@ -369,8 +369,17 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
       } else {
         console.log(`✅ [DRY RUN] Would have posted to X:`);
-        console.log(`DEBUG TWEET:\n${xMessage}`);
-        console.log(`DEBUG REPLY:\n${xReplyMessage}`);
+        console.log("\n" + "=".repeat(50));
+        console.log("DEBUG TWEET:");
+        console.log("-".repeat(50));
+        console.log(xMessage);
+        console.log("-".repeat(50));
+        if (xReplyMessage) {
+          console.log("DEBUG REPLY:");
+          console.log(xReplyMessage);
+          console.log("-".repeat(50));
+        }
+        console.log("=".repeat(50) + "\n");
 
       }
     } catch (error) {

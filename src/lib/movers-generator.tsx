@@ -35,7 +35,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
         justifyContent: 'flex-start',
         fontFamily: '"Roboto"',
         position: 'relative',
-        padding: '30px 80px',
+        padding: '50px 60px',
       }}
     >
       {/* Background Gradient */}
@@ -51,17 +51,26 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
       />
 
       {/* Header */}
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ color: '#10b981', fontSize: 18, fontWeight: 'bold', letterSpacing: '0.1em', marginBottom: '4px' }}>DAILY MARKET REPORT</span>
-          <span style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>Top 5 Gainers (24h)</span>
+          <span style={{ color: '#10b981', fontSize: 24, fontWeight: 'bold', letterSpacing: '0.1em', marginBottom: '4px' }}>DAILY MARKET REPORT</span>
+          <span style={{ color: 'white', fontSize: 48, fontWeight: 'bold' }}>Top 5 Gainers (24h)</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: 28, height: 28, background: '#10b981', borderRadius: '6px' }} />
-          <span style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>
+          <div style={{ width: 36, height: 36, background: '#10b981', borderRadius: '8px' }} />
+          <span style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>
             TOKEN<span style={{ color: '#10b981' }}>RADAR</span>
           </span>
         </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '40px' }}>
+        <h1 style={{ color: 'white', fontSize: 56, margin: 0, fontWeight: 'bold', letterSpacing: '-0.02em' }}>
+          Top 5 <span style={{ color: '#10b981' }}>Gainers</span>
+        </h1>
+        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 28, margin: '8px 0 0 0' }}>
+          24h Market Performance
+        </p>
       </div>
 
       {/* List */}
@@ -80,33 +89,33 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 20, fontWeight: 'bold', width: '30px' }}>{index + 1}</span>
-              <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.1)', background: '#111', width: 44, height: 44, alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 28, fontWeight: 'bold', width: '40px' }}>{index + 1}</span>
+              <div style={{ display: 'flex', borderRadius: '10px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.1)', background: '#111', width: 56, height: 56, alignItems: 'center', justifyContent: 'center' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={getTokenIconUrl(token.symbol, token.id)}
                   alt={token.name}
-                  width={44}
-                  height={44}
+                  width={56}
+                  height={56}
                   style={{ objectFit: 'contain' }}
                 />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ color: 'white', fontSize: 22, fontWeight: 'bold' }}>{token.symbol.toUpperCase()}</span>
-                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{token.name}</span>
+                <span style={{ color: 'white', fontSize: 32, fontWeight: 'bold' }}>{token.symbol.toUpperCase()}</span>
+                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 18 }}>{token.name}</span>
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '50px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginBottom: '2px' }}>PRICE</span>
-                <span style={{ color: 'white', fontSize: 22, fontWeight: 'bold' }}>
+                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 16, marginBottom: '2px' }}>PRICE</span>
+                <span style={{ color: 'white', fontSize: 32, fontWeight: 'bold' }}>
                   {token.price ? (token.price >= 1 ? `$${token.price.toFixed(2)}` : `$${token.price.toFixed(6)}`) : '$0.00'}
                 </span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', minWidth: '100px' }}>
-                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginBottom: '2px' }}>24H CHANGE</span>
-                <span style={{ color: '#10b981', fontSize: 22, fontWeight: 'bold' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', minWidth: '120px' }}>
+                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 16, marginBottom: '2px' }}>24H CHANGE</span>
+                <span style={{ color: '#10b981', fontSize: 32, fontWeight: 'bold' }}>
                   {token.change24h ? `+${token.change24h.toFixed(2)}%` : '0.00%'}
                 </span>
               </div>
@@ -115,7 +124,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
         ))}
       </div>
 
-      <div style={{ position: 'absolute', bottom: 20, right: 80, display: 'flex', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}>
+      <div style={{ position: 'absolute', bottom: 40, right: 100, display: 'flex', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}>
         Real-time market intelligence by TokenRadar.co
       </div>
     </div>

@@ -15,10 +15,10 @@ import * as path from "path";
 
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sanitizeHtmlForTelegram, sendTelegramPhoto } from "../src/lib/telegram";
-import { formatErrorForLog, loadEnv } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
-import { safeReadJson } from "../src/lib/utils";
 import { loadCandidateTokens } from "./lib/token-selection";
+import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
 
 // Load environment
 loadEnv();
@@ -107,18 +107,19 @@ async function main() {
       .join("\n");
 
     const prompt = `
-      Write exactly 2 punchy, highly engaging sentences summarizing the market heat for today's Top 5 Gainers.
+      Write a professional, high-energy, and detailed market summary (3-5 sentences) analyzing today's Top 5 Gainers.
       Use the following REAL data for today:
       ${dataContext}
 
       Wrap the most impressive metric or insight (like the highest % gainer) in <tg-spoiler> tags.
-      Follow the 2 sentences with 3 trending hashtags.
+      Use <b> tags for bold/emphasis. DO NOT use markdown bold (**) or any other markdown symbols.
+      Follow the analysis with 3 trending hashtags.
 
       DO NOT refer to 'seeing' an image. Speak naturally as if you are looking at the live data shelf.
       DO NOT USE ANY LINKS, external URLs, third-party domains, or ads. The only permitted website is tokenradar.co.
     `;
 
-    const result = await callAIWithFallback(system, prompt, 300);
+    const result = await callAIWithFallback(system, prompt, 500);
 
     let caption = result.content;
     if (!caption || caption.length < 10) {
@@ -126,7 +127,17 @@ async function main() {
       caption = `TokenRadar Top 5 Movers leading the charge today! 🚀\n\n1. ${movers[0].symbol.toUpperCase()} +${movers[0].change24h.toFixed(2)}%\n2. ${movers[1]?.symbol.toUpperCase() || "—"} +${movers[1]?.change24h.toFixed(2) || "0"}%\n\n<tg-spoiler>Massive breakout volume detected across the board.</tg-spoiler>\n\n#Crypto #TokenRadar #MarketMovers`;
     }
 
-    const sanitizedCaption = sanitizeHtmlForTelegram(caption, 1024);
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+    const tgFooter = `
+<b>🌐 The TokenRadar Ecosystem:</b>
+📊 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+
+${REFERRAL_LINKS_HTML.join("\n")}
+
+#Crypto #TokenRadar #MarketMovers
+`;
+
+    const sanitizedCaption = sanitizeHtmlForTelegram(caption + "\n\n" + tgFooter.trim(), 1024);
 
     if (dryRun) {
       console.log(`\nDry run - movers card not sent. Caption length: ${sanitizedCaption.length}`);

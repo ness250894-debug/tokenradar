@@ -257,7 +257,9 @@ export function stripHtmlForX(html: string): string {
   });
 
   // Strip remaining HTML tags
-  text = text.replace(/<[^>]*>?/gm, "");
+  // Only strip actual known HTML tags that we use (b, i, a, br, strong, em)
+  // This prevents $BTC < 100k from being truncated
+  text = text.replace(/<\/?(b|i|a|br|strong|em|p|div|span)(\s[^>]*)?>/gi, "");
   
   // Clean up excessive newlines
   text = text.replace(/\n{3,}/g, "\n\n");
@@ -287,32 +289,16 @@ export function stripHtmlForX(html: string): string {
 export function truncateForX(text: string, maxLength: number = 280): string {
   if (text.length <= maxLength) return text;
 
-  const lines = text.split("\n");
-  const footerLines: string[] = [];
-
-  // Keep the last 5 lines (socials + hashtags)
-  for (let i = 0; i < 5 && lines.length > 0; i++) {
-    footerLines.unshift(lines.pop()!);
+  // Simple end truncation to avoid "middle-cropping" which users find confusing
+  let truncated = text.substring(0, maxLength - 3).trim();
+  
+  // Try to avoid cutting in the middle of a hashtag or word
+  const lastSpace = truncated.lastIndexOf(" ");
+  if (lastSpace > maxLength * 0.8) {
+    truncated = truncated.substring(0, lastSpace);
   }
 
-  const footerText = "\n...\n" + footerLines.join("\n").trim();
-
-  // If footer text alone is too large, we must truncate the whole string
-  if (footerText.length >= maxLength) {
-    return text.substring(0, Math.max(0, maxLength - 3)) + "...";
-  }
-
-  // Calculate remaining length for header
-  const allowedHeaderLength = maxLength - footerText.length;
-  let headerText = lines.join("\n").trim().substring(0, allowedHeaderLength);
-
-  // Avoid cutting in the middle of a word if possible
-  const lastSpace = headerText.lastIndexOf(" ");
-  if (lastSpace > allowedHeaderLength * 0.7) {
-    headerText = headerText.substring(0, lastSpace);
-  }
-
-  return headerText + footerText;
+  return truncated + "...";
 }
 
 

@@ -54,8 +54,11 @@ async function callGeminiAPI(
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
-            contents: [{ parts: [{ text: finalPrompt }] }],
+            contents: [{ 
+              parts: [{ 
+                text: systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${finalPrompt}` : finalPrompt 
+              }] 
+            }],
             generationConfig: {
               maxOutputTokens: maxTokens
             }
@@ -68,7 +71,7 @@ async function callGeminiAPI(
         }
 
         const data = await response.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        const text = data.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text || "").join("") || "";
         const promptTokens = data.usageMetadata?.promptTokenCount || 0;
         const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
 
@@ -208,43 +211,17 @@ export async function callAIWithFallback(
   jsonSchema?: object
 ): Promise<AIResult> {
   try {
-    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    // Try Claude first for reliability in long-form generation
+    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
     if (isTechnicalRefusal(result.content)) {
-      console.warn(`  ⚠ Gemini response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
-      throw new Error("AI Technical Refusal Detected");
+      console.warn(`  ⚠ Claude returned a technical refusal. Falling back to Gemini...`);
+      throw new Error("AI Technical Refusal");
     }
     return result;
-  } catch (_error) {
-    if (!process.env.ANTHROPIC_API_KEY) {
-      console.warn("  fallback skipped: ANTHROPIC_API_KEY not configured");
-      return {
-        content: "",
-        promptTokens: 0,
-        completionTokens: 0,
-        provider: "none",
-        model: "none",
-        cost: 0
-      };
-    }
-    console.info(`  ⚠ Gemini approach failed or refused. Falling back to Claude...`);
-    try {
-      const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
-      if (isTechnicalRefusal(result.content)) {
-        console.warn(`  ⚠ Claude response flagged as 'Technical Refusal'. Content: "${result.content.substring(0, 50)}..."`);
-        throw new Error("AI Technical Refusal Detected");
-      }
-      return result;
-    } catch (_e) {
-      console.error(`  ❌ All AI models failed or refused to generate safe content.`);
-      return {
-        content: "",
-        promptTokens: 0,
-        completionTokens: 0,
-        provider: "none",
-        model: "none",
-        cost: 0
-      };
-    }
+  } catch (error) {
+    console.warn(`  ⚠ Claude primary failed or refused. Falling back to Gemini... Error: ${error instanceof Error ? error.message : String(error)}`);
+    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    return result;
   }
 }
 
@@ -415,17 +392,18 @@ export async function generateTweet(
     ${reasonContext}
     
     STRICT X RULES:
-    1. LENGTH: Under 160 characters.
-    2. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
-    3. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
-    4. SPARK DEBATE: End with a strong, data-driven question to drive replies (e.g. "Is this local bottom confirmed or just a bull trap? 👇").
-    5. HASHTAGS: Exactly 1 or 2 niche tags at the end.
-    6. TONE: Punchy, analytical, slightly degen if the market is hot.
-    7. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
+    1. OUTPUT: Return ONLY the tweet text. Do NOT include any headers, labels, meta-commentary, checklists, or "Character count" info.
+    2. LENGTH: Between 200 and 250 characters. Aim for the 240-character "sweet spot". You MUST use at least 3 distinct sentences to provide narrative depth.
+    3. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
+    4. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
+    5. SPARK DEBATE: End with a strong, data-driven question to drive replies (e.g. "Is this local bottom confirmed or just a bull trap? 👇").
+    6. HASHTAGS: Exactly 1 or 2 niche tags at the end.
+    7. TONE: Punchy, analytical, slightly degen if the market is hot.
+    8. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
   `;
 
   try {
-    const result = await callAIWithFallback("", prompt, 256);
+    const result = await callAIWithFallback("", prompt, 512);
     return result.content || "";
   } catch (_error) {
     console.warn(`  ⚠ AI tweet generation failed for ${tokenName}.`);
