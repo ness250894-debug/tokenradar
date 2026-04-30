@@ -129,8 +129,8 @@ async function main() {
   }
 
   // 2. Load dedup state
-  const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY);
-  const recentlyPosted = getRecentlyPostedTokens(DATA_DIR);
+  const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY, targetPlatform as any);
+  const recentlyPosted = getRecentlyPostedTokens(DATA_DIR, targetPlatform as any);
   console.log(`  Already posted today: ${todayPosted.size} tokens`);
   console.log(`  Posted in last 30 days: ${recentlyPosted.size} tokens`);
 
@@ -243,7 +243,13 @@ async function main() {
   }
 
   // Save tracking info immediately (Decentralized)
-  const trackerFile = path.join(POSTED_DIR, `${targetToken.id}.json`);
+  const trackerFiles: string[] = [];
+  if (targetPlatform === "all") {
+    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-telegram.json`));
+    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-x.json`));
+  } else {
+    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-${targetPlatform}.json`));
+  }
 
   // ── Fetch OG image (shared between TG and X) ──
   let tokenImage: Buffer | null = null;
@@ -389,12 +395,16 @@ ${REFERRAL_LINKS_HTML.join("\n")}
   }
 
   // Only mark as posted if at least one platform succeeded
-  if (!dryRun && posted && !fs.existsSync(trackerFile)) {
-    fs.writeFileSync(trackerFile, JSON.stringify({ 
-      postedAt: new Date().toISOString(), 
-      platform: targetPlatform,
-      reason,
-    }, null, 2));
+  if (!dryRun && posted) {
+    for (const tf of trackerFiles) {
+      if (!fs.existsSync(tf)) {
+        fs.writeFileSync(tf, JSON.stringify({ 
+          postedAt: new Date().toISOString(), 
+          platform: targetPlatform,
+          reason,
+        }, null, 2));
+      }
+    }
 
     // Log success for the Daily Report
     logActivity("social-post", {
