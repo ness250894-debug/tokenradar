@@ -61,11 +61,15 @@ export interface SelectionResult {
 /**
  * Get all token IDs that have been posted today.
  * Checks both legacy tracker file and the daily folder structure.
+ * 
+ * @param platform - Optional platform to filter by (e.g., "telegram", "x"). 
+ *                   If provided, includes platform-specific AND global trackers.
+ *                   If omitted, includes ALL trackers (global cooldown).
  */
-export function getTodayPostedTokens(dataDir: string, today: string): Set<string> {
+export function getTodayPostedTokens(dataDir: string, today: string, platform?: string): Set<string> {
   const posted = new Set<string>();
 
-  // 1. Check legacy file
+  // 1. Check legacy file (always global)
   const legacyFile = path.join(dataDir, "posted-today.json");
   if (fs.existsSync(legacyFile)) {
     try {
@@ -80,9 +84,22 @@ export function getTodayPostedTokens(dataDir: string, today: string): Set<string
   const todayDir = path.join(dataDir, "posted", today);
   if (fs.existsSync(todayDir)) {
     fs.readdirSync(todayDir).forEach((f) => {
-      // Exclude social-specific logs which include platform prefix
-      if (!f.includes("-telegram-") && !f.includes("-x-")) {
-        posted.add(f.replace(".json", ""));
+      if (!f.endsWith(".json")) return;
+      const fileName = f.replace(".json", "");
+      
+      const isTG = fileName.endsWith("-telegram");
+      const isX = fileName.endsWith("-x");
+      const baseId = fileName.replace("-telegram", "").replace("-x", "");
+
+      if (!platform || platform === "all") {
+        // Global cooldown: any post blocks everything
+        posted.add(baseId);
+      } else if (platform === "telegram") {
+        // Telegram cooldown: blocked by global posts or TG-specific posts
+        if (!isX) posted.add(baseId);
+      } else if (platform === "x") {
+        // X cooldown: blocked by global posts or X-specific posts
+        if (!isTG) posted.add(baseId);
       }
     });
   }
@@ -92,9 +109,10 @@ export function getTodayPostedTokens(dataDir: string, today: string): Set<string
 
 /**
  * Get all token IDs posted within the last N days.
- * Used for both trending cooldown (short) and general cooldown (long).
+ * 
+ * @param platform - Optional platform to filter by.
  */
-export function getTokensPostedWithinDays(dataDir: string, days: number): Set<string> {
+export function getTokensPostedWithinDays(dataDir: string, days: number, platform?: string): Set<string> {
   const posted = new Set<string>();
   const parentDir = path.join(dataDir, "posted");
   if (!fs.existsSync(parentDir)) return posted;
@@ -103,14 +121,28 @@ export function getTokensPostedWithinDays(dataDir: string, days: number): Set<st
   cutoff.setDate(cutoff.getDate() - days);
 
   const dateDirs = fs.readdirSync(parentDir)
-    .filter((d) => fs.statSync(path.join(parentDir, d)).isDirectory());
+    .filter((d) => {
+      const fullPath = path.join(parentDir, d);
+      return fs.statSync(fullPath).isDirectory() && !isNaN(new Date(d).getTime());
+    });
 
   for (const dateDir of dateDirs) {
     if (new Date(dateDir) >= cutoff) {
       const dirPath = path.join(parentDir, dateDir);
       fs.readdirSync(dirPath).forEach((f) => {
-        if (!f.includes("-telegram-") && !f.includes("-x-")) {
-          posted.add(f.replace(".json", ""));
+        if (!f.endsWith(".json")) return;
+        const fileName = f.replace(".json", "");
+        
+        const isTG = fileName.endsWith("-telegram");
+        const isX = fileName.endsWith("-x");
+        const baseId = fileName.replace("-telegram", "").replace("-x", "");
+
+        if (!platform || platform === "all") {
+          posted.add(baseId);
+        } else if (platform === "telegram") {
+          if (!isX) posted.add(baseId);
+        } else if (platform === "x") {
+          if (!isTG) posted.add(baseId);
         }
       });
     }
@@ -121,18 +153,16 @@ export function getTokensPostedWithinDays(dataDir: string, days: number): Set<st
 
 /**
  * Get all token IDs posted in the last GENERAL_COOLDOWN_DAYS (default 30).
- * Used by lower-priority strategies to avoid repeating recent posts.
  */
-export function getRecentlyPostedTokens(dataDir: string): Set<string> {
-  return getTokensPostedWithinDays(dataDir, GENERAL_COOLDOWN_DAYS);
+export function getRecentlyPostedTokens(dataDir: string, platform?: string): Set<string> {
+  return getTokensPostedWithinDays(dataDir, GENERAL_COOLDOWN_DAYS, platform);
 }
 
 /**
  * Get all token IDs posted within the trending cooldown window.
- * Used by trending strategies (CoinGecko/X) to avoid daily repeats.
  */
-export function getTrendingCooldownTokens(dataDir: string): Set<string> {
-  return getTokensPostedWithinDays(dataDir, TRENDING_COOLDOWN_DAYS);
+export function getTrendingCooldownTokens(dataDir: string, platform?: string): Set<string> {
+  return getTokensPostedWithinDays(dataDir, TRENDING_COOLDOWN_DAYS, platform);
 }
 
 // ── Data Loading ───────────────────────────────────────────────
@@ -335,7 +365,7 @@ export async function selectToken(
 
   // Trending cooldown: tokens posted within TRENDING_COOLDOWN_DAYS are skipped
   // This is a superset of todayPosted (includes today + previous N days)
-  const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."))]);
+  const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."), platform)]);
 
   // ── Trending priorities (platform-dependent) ──
   const useXFirst = platform === "x";
@@ -426,7 +456,12 @@ export async function selectToken(
   }
 
   // Absolute fallback: any candidate (all have been posted today)
-  console.log("    ⚠ All candidates posted today. Selecting any candidate...");
-  const target = candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
-  return target ? { token: target, reason: "spotlight" } : null;
+  if (force) {
+    console.log("    ⚠ All candidates posted today. Selecting any candidate due to --force...");
+    const target = candidateTokens[Math.floor(Math.random() * candidateTokens.length)];
+    return target ? { token: target, reason: "spotlight" } : null;
+  }
+
+  console.log("    ✗ All eligible candidates are currently on cooldown. Stopping to avoid duplicate posts.");
+  return null;
 }
