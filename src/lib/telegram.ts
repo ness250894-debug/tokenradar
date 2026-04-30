@@ -52,15 +52,21 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
     const isAllowed = ["b", "i", "a", "code", "pre", "tg-spoiler"].includes(tag);
     
     if (isAllowed) {
-      // For 'a' tags, we only keep 'href'
-      if (tag === 'a' && attrs) {
-        const hrefMatch = attrs.match(/href="([^"]*)"/i);
-        if (hrefMatch) {
-          const replacement = match.startsWith('</') ? '</a>' : `<a href="${hrefMatch[1]}">`;
-          placeholders.push(replacement);
+      if (tag === 'a') {
+        const isClosing = match.startsWith('</');
+        if (isClosing) {
+          placeholders.push('</a>');
           return `\x00TAG${placeholders.length - 1}\x00`;
         }
-      } else if (tag !== "a") {
+        if (attrs) {
+          const hrefMatch = attrs.match(/href="([^"]*)"/i);
+          if (hrefMatch) {
+            placeholders.push(`<a href="${hrefMatch[1]}">`);
+            return `\x00TAG${placeholders.length - 1}\x00`;
+          }
+        }
+        return ""; // a tag without href is not allowed
+      } else {
         placeholders.push(match);
         return `\x00TAG${placeholders.length - 1}\x00`;
       }
