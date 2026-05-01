@@ -4,18 +4,18 @@
   "name": "Derive",
   "description": "Derive is a decentralized protocol that creates programmable onchain options, perpetuals, and structured products. \n\nDerive is deployed and operates on Derive Chain, an Ethereum rollup built using the OP stack and is the home of the Derive Protocol. It is a permission-less smart contract platform.\n\nThe Derive DAO earns trading fees from the Derive Protocol and gas fees from the Derive Chain, governed by DRV token holders. Trading fees accrue to an insurance fund to foster robustness of the protocol and rollup.\n\nDerive has built an AI-powered trading app built for pro traders. In collaboration with Messari, Derive Pro translates market views into trades. The agent then prepares transactions for users and leverages smart contract wallets to make trades one-click, gasless and chainless. The app will support spot, perps and options trading on Derive, and will also plug in to spot AMMs on L2s like Optimism, Arbitrum and Base.",
   "market": {
-    "price": 0.091066,
-    "marketCap": 91048822,
-    "marketCapRank": 312,
-    "volume24h": 104913,
+    "price": 0.088568,
+    "marketCap": 88564731,
+    "marketCapRank": 318,
+    "volume24h": 204972,
     "high24h": 0.090279,
     "low24h": 0.07614,
-    "priceChange24h": 2.10147,
+    "priceChange24h": -2.7193,
     "priceChange7d": -5.38755,
     "priceChange30d": -23.71752,
     "priceChange1y": 195.86145,
     "ath": 0.228265,
-    "athChangePercentage": -60.19817,
+    "athChangePercentage": -61.18524,
     "athDate": "2025-01-15T03:52:14.666Z",
     "atl": 0.01243699,
     "atlDate": "2025-04-07T13:31:06.926Z",
@@ -24,5 +24,5 @@
     "maxSupply": 1500000000,
     "fdv": 117467274
   },
-  "lastMarketUpdate": "2026-04-30T18:59:18.938Z"
+  "lastMarketUpdate": "2026-05-01T18:47:51.313Z"
 }
