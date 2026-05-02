@@ -2,20 +2,57 @@
   "id": "flow",
   "symbol": "flow",
   "name": "Flow",
+  "description": "Flow is a layer one blockchain designed from the ground up for consumer apps and the digital assets that power them. The network runs on a Proof of Stake consensus mechanism with a unique \"multi-role\" architecture that solves the blockchain trilemma, balancing scalability, efficiency, and cost. \n\nFlow tools include: \n* Cadence, a purpose-built smart contract programming language designed for consumer-grade applications \n* Full EVM equivalence, allowing anything from Ethereum to work on Flow \n* Protocol-level account abstraction and mobile support for onboarding new users \n* Cross-chain interoperability with the wider web3 ecosystem \n* Developer hub with comprehensive documentation and tools",
+  "categories": [
+    "Smart Contract Platform",
+    "Sports",
+    "NFT",
+    "Layer 1 (L1)",
+    "Animoca Brands Portfolio",
+    "Alleged SEC Securities",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Flow Ecosystem",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://flow.com",
+    "github": "https://github.com/onflow",
+    "reddit": null,
+    "explorer": null
+  },
   "market": {
-    "price": 0.04254024,
-    "marketCap": 70586883,
-    "marketCapRank": 380,
-    "volume24h": 13290633,
-    "priceChange24h": 11.7679,
+    "price": 0.04287177,
+    "marketCap": 71136191,
+    "marketCapRank": 383,
+    "volume24h": 11897190,
+    "high24h": 0.04620501,
+    "low24h": 0.04298745,
+    "priceChange24h": -6.03083,
+    "priceChange7d": 16.25538,
+    "priceChange30d": 47.08918,
+    "priceChange1y": -89.11523,
     "ath": 42.4,
-    "athChangePercentage": -99.89992,
+    "athChangePercentage": -99.89883,
     "athDate": "2021-04-05T13:49:10.098Z",
     "atl": 0.02821586,
     "atlDate": "2026-03-29T22:55:39.440Z",
-    "circulatingSupply": 1657277323.422009,
-    "totalSupply": 1657277323.422009,
-    "maxSupply": null
+    "circulatingSupply": 1658825264.428117,
+    "totalSupply": 1658825264.428117,
+    "maxSupply": null,
+    "fdv": 72438582
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.960Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-01T08:32:02.574Z",
+  "lastMarketUpdate": "2026-05-01T18:47:51.326Z"
 }

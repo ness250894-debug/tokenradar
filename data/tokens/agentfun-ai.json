@@ -17,21 +17,21 @@
     "explorer": "https://explorer.zkevm.cronos.org/address/0x18d40bd95e34d1a4fcaf9027db11f6988e5b860a"
   },
   "market": {
-    "price": 0.597637,
-    "marketCap": 59760628,
-    "marketCapRank": 420,
-    "volume24h": 25.99,
+    "price": 0.601984,
+    "marketCap": 60328105,
+    "marketCapRank": 425,
+    "volume24h": 534.66,
     "high24h": 0.605386,
     "low24h": 0.594337,
-    "priceChange24h": -1.27999,
+    "priceChange24h": 0.40678,
     "priceChange7d": -3.08713,
     "priceChange30d": -5.71275,
     "priceChange1y": -68.69248,
     "ath": 25.25,
-    "athChangePercentage": -97.63969,
+    "athChangePercentage": -97.61665,
     "athDate": "2024-12-04T07:45:52.119Z",
-    "atl": 0.593806,
-    "atlDate": "2026-04-12T19:55:44.713Z",
+    "atl": 0.588297,
+    "atlDate": "2026-04-30T05:20:26.253Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
@@ -46,5 +46,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T17:20:52.086Z"
+  "fetchedAt": "2026-04-29T17:20:52.086Z",
+  "lastMarketUpdate": "2026-05-01T18:47:51.334Z"
 }
