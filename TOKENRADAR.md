@@ -2,7 +2,7 @@
 
 > **Project:** Crypto Programmatic SEO Platform
 > **Domain:** tokenradar.co ($6.98/yr on Namecheap)
-> **AI Provider:** Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 (fallback)
+> **AI Provider:** Gemini 2.5 Flash (primary) + Claude Haiku 4.5 (fallback)
 > **Token Range:** #50-#250 by market cap, expanding to #500
 > **Total 6-Month Cost:** ~$30
 > **Status:** Live in production
@@ -93,8 +93,8 @@ CoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly
 | **CDN** | Cloudflare (built-in) | $0 |
 | **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |
 | **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |
-| **AI Content** | Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 fallback | ~$0.001 / article |
-| **AI Summaries** | Gemini 3.1 Flash Lite (primary) + Claude Haiku 4.5 fallback | $0 |
+| **AI Content** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | ~$0.001 / article |
+| **AI Summaries** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | $0 |
 | **Domain** | Namecheap (tokenradar.co) | $6.98/yr |
 | **Charts** | Recharts (lightweight) | $0 |
 | **Social APIs** | X API + Telegram Bot API (`grammy`) | $0–$5 |
@@ -134,12 +134,11 @@ tokenradar/
 │   │   ├── coingecko.ts              # CoinGecko API client with rate limiting
 │   │   ├── config.ts                 # Centralized config (URLs, handles, referrals)
 │   │   ├── content-loader.ts         # Load generated content from JSON
-│   │   ├── gemini.ts                 # Gemini 3.1 + Claude fallback for AI summaries
+│   │   ├── gemini.ts                 # Gemini + Claude fallback for AI summaries
 │   │   ├── markdown.ts               # Markdown rendering utilities
 │   │   ├── reporter.ts               # Error logging + API usage tracking
 │   │   ├── telegram.ts               # Telegram Bot API client
 │   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)
-│   │   ├── visitor-fetcher.ts         # Cloudflare analytics fetcher
 │   │   └── x-client.ts               # X (Twitter) API v2 client
 │   └── video/                        # Remotion video scenes and entrypoints
 ├── content/                          # Generated articles (JSON)
@@ -176,8 +175,7 @@ tokenradar/
 │   └── workflows/
 │       ├── daily-refresh.yml         # Daily data + price refresh + deploy
 │       ├── daily-content-generation.yml # Daily queue publish + deploy
-│       ├── social-automations.yml    # 12x/day: unified TG/X posting with exclusive slots
-│       └── weekly-content-generation.yml # Weekly queue generation
+│       └── social-automations.yml    # 8x/day: unified TG/X posting with exclusive slots
 ├── .env.example                      # Required environment variables
 ├── package.json
 ├── tsconfig.json
@@ -266,7 +264,7 @@ Templates:                              Tokens (#50-#200 by market cap):
 
 ## Phase 3 — AI Content Generation
 
-### Provider: Gemini 3.1 Flash Lite (Primary) + Claude Haiku 4.5 (Fallback)
+### Provider: Gemini 2.5 Flash (Primary) + Claude Haiku 4.5 (Fallback)
 
 | Metric | Value |
 |--------|-------|
@@ -384,32 +382,28 @@ All pages are **pre-rendered at build time** for:
 
 ### Unified Workflow: `.github/workflows/social-automations.yml`
 
-All social posting is consolidated into a single workflow with 12 scheduled runs/day.
+All social posting is consolidated into a single workflow with 8 scheduled runs/day.
 
 | Platform | Content | Frequency | Script |
 |----------|---------|-----------|--------|
-| **Telegram** | Market Updates | 10x/day | `post-market-updates.ts --platform telegram` |
-| **Telegram** | Daily Poll (AI, 7 rotating themes) | 1x/day @ 14:30 UTC | `post-daily-poll.ts` |
-| **Telegram** | Top 5 Movers Image | 1x/day @ 23:30 UTC | `post-daily-movers.ts` |
+| **Telegram** | Market Updates | 5x/day | `post-market-updates.ts --platform telegram` |
+| **Telegram** | Daily Poll (AI, 7 rotating themes) | 1x/day @ 15:00 UTC | `post-daily-poll.ts` |
+| **Telegram** | Top 5 Movers Image | 1x/day @ 21:00 UTC | `post-daily-movers.ts` |
 | **X (Twitter)** | Market Updates | 4x/day | `post-market-updates.ts --platform x` |
-| **X (Twitter)** | Interactive Poll | 1x/day @ 11:30 UTC | `post-interactive-daily.ts` |
+| **X (Twitter)** | Interactive Poll | 1x/day @ 12:00 UTC | `post-interactive-daily.ts` |
 
 ### Daily Posting Schedule
 
 | UTC | EDT | Telegram | X |
 |-----|-----|----------|---|
-| 02:30 | 22:30 | 📊 Market Update | 📊 Market Update |
-| 05:30 | 01:30 | 📊 Market Update | — |
-| 08:30 | 04:30 | 📊 Market Update | — |
-| 11:30 | 07:30 | 📊 Market Update | 🗳️ Interactive Poll |
-| 13:00 | 09:00 | 📊 Market Update | — |
-| **14:30** | **10:30** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |
-| 16:00 | 12:00 | 📊 Market Update | — |
-| 17:30 | 13:30 | 📊 Market Update | 📊 Market Update |
-| **18:15** | **14:15** | **🎬 Video Breakout** *(exclusive)* | **🎬 Video Breakout** *(exclusive)* |
-| 20:30 | 16:30 | 📊 Market Update | 📊 Market Update |
-| 22:00 | 18:00 | 📊 Market Update | — |
-| **23:30** | **19:30** | **🏆 Top 5 Movers** *(exclusive)* | — |
+| 00:00 | 20:00 | 📊 Market Update | — |
+| 03:00 | 23:00 | 📊 Market Update | 📊 Market Update |
+| 06:00 | 02:00 | 📊 Market Update | — |
+| 09:00 | 05:00 | 📊 Market Update | 📊 Market Update |
+| 12:00 | 08:00 | 📊 Market Update | 🗳️ Interactive Poll |
+| **15:00** | **11:00** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |
+| **18:00** | **14:00** | **🎬 Video Breakout** *(exclusive)* | **🎬 Video Breakout** *(exclusive)* |
+| **21:00** | **17:00** | **🏆 Top 5 Movers** *(exclusive)* | 📊 Market Update |
 
 > **Exclusive slots:** Regular market updates are skipped when polls or movers cards run, keeping the channel uncluttered.
 
@@ -527,9 +521,9 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 # 4. Deploys to Cloudflare Pages
 
 # .github/workflows/social-automations.yml
-# Runs 12x/day — unified social posting
+# Runs 8x/day — unified social posting
 # Routes content to TG and X based on time slot
-# Exclusive slots for polls (14:30) and movers (23:30)
+# Exclusive slots for poll (15:00), video (18:00), and movers (21:00)
 ```
 
 ---
@@ -660,7 +654,7 @@ Affiliate CTAs placed naturally in "How to Buy [Token]" articles with proper dis
 
 | Provider | Cost per Article | Quality | Speed | Verdict |
 |----------|-----------------|---------|-------|---------|
-| **Gemini 3.1 Flash Lite** | ~$0.001 | ⭐⭐⭐⭐ | Ultra Fast | ✅ **Selected (Primary)** |
+| **Gemini 2.5 Flash** | ~$0.001 | ⭐⭐⭐⭐ | Ultra Fast | ✅ **Selected (Primary)** |
 | Claude Haiku 4.5 | ~$0.015 | ⭐⭐⭐⭐⭐ | Fast | ✅ **Selected (Fallback)** |
 | GPT-4o Mini | ~$0.012 | ⭐⭐⭐⭐ | Fast | Good backup |
 | Llama 3.1 (self-hosted) | $0 (compute cost) | ⭐⭐⭐ | Depends | Not worth the infra overhead |

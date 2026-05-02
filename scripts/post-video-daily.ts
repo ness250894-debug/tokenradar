@@ -88,6 +88,10 @@ async function main() {
   const platformIdx = args.indexOf("--platform");
   const targetPlatform =
     platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
+  if (!["all", "telegram", "x", "youtube"].includes(targetPlatform)) {
+    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube.");
+    process.exit(1);
+  }
 
   console.log("==========================================");
   console.log("  TokenRadar Daily Video Breakout");

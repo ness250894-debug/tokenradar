@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "clean": "npx rimraf out .next",
-    "consolidate": "npx tsx scripts/consolidate-data.ts",
-    "prebuild": "npx tsx scripts/validate-env.ts && npm run consolidate && npx tsx scripts/validate-content.ts && npx tsx scripts/generate-og-images.tsx && npx tsx scripts/generate-sitemap.ts",
+    "clean": "node -e \"const fs=require('fs'); for (const p of ['out','.next']) fs.rmSync(p,{recursive:true,force:true});\"",
+    "consolidate": "tsx scripts/consolidate-data.ts",
+    "prebuild": "tsx scripts/validate-env.ts && npm run consolidate && tsx scripts/validate-content.ts && tsx scripts/generate-og-images.tsx && tsx scripts/generate-sitemap.ts",
     "build": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
     "start": "next start",
     "lint": "eslint",

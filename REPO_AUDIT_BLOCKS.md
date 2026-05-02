@@ -1,267 +1,266 @@
 # Full Repository Audit Blocks
 
-## Purpose
+## Current Iteration
 
-This file is the working contract for the full-repository verification and cleanup pass requested on 2026-04-24.
+This file is the working contract for the full-repository verification and cleanup pass requested on 2026-05-02.
 
-The goal is not to perform a shallow lint sweep. The goal is to walk the project in blocks, verify behavior and structure, fix issues that are clearly actionable from local context, and document follow-on risks or external dependencies when a fix cannot be fully validated from inside the repo.
+The request is intentionally broad: verify modularity, naming, lint, integrity, consistency, concurrency, security, race conditions, speed, Telegram notifications, error handling, external connections, documentation, internal linking, APIs, responsive UI, undefined references, UX, SEO, duplication, obsolete code, dead-end code, theme cohesion, logic, functionality, and current best practices.
 
-The review criteria for every block include:
+The repository has a large authored content and data surface, so this audit uses two complementary methods:
 
-- Modularity and separation of concerns
-- Naming clarity and consistency
-- Lint and TypeScript hygiene
-- Integrity between files, configs, scripts, data, and UI
-- Internal consistency and shared conventions
-- Concurrency, race conditions, and timing-sensitive behavior
-- Security and secret-handling risks
-- Error handling and fallback behavior
-- External connections and integration safety
-- Documentation accuracy and internal linking
-- API contracts and consumer compatibility
-- Responsive behavior across mobile, tablet, and desktop layouts
-- "`not defined`" and undefined-state risks
-- UI/UX quality and common-sense review
-- Duplications, obsolete code, and dead-end code paths
-- Theme cohesion and presentational consistency
-- Logic and functionality correctness
-- Best-practice alignment with the current stack where practical
-- Upgrade opportunities that can be safely recommended or applied
+- Manual code review for source, scripts, configs, workflows, documentation, and representative content/data patterns.
+- Automated validation across the full file set where manual inspection of every generated or content record would be less reliable than schema, link, build, lint, test, and runtime checks.
+
+If an issue found in one file leads to another file, that second file becomes part of the active fix chain and must be reviewed before the block is closed. Unused imports and exports must be checked before removal: remove them when they are truly dead, preserve them when they are public contracts or dynamic entry points, and wire them correctly when the surrounding code clearly intended to use them.
 
 ## Scope Rules
 
-### Files actively reviewed and eligible for cleanup
+### Authored files reviewed directly or through project validation
 
-- Root configs and docs
+- Root configs, package metadata, and environment examples
+- Root documentation and internal specifications, including ignored local `.md` files present in the workspace
+- `.github/workflows`
+- `.vscode` project settings
 - `src/app`
 - `src/components`
 - `src/lib`
 - `src/video`
 - `scripts`
 - `tests`
-- `.github/workflows`
 - `content`
 - `data`
 - `public`
 
-### Files treated as generated or dependency output
+### Files treated as generated, dependency, local secret, or runtime output
 
-The repo contains directories such as `node_modules`, `.next`, `out`, `dist-cloudflare`, and `.open-next`.
+These are not normal manual-edit targets:
 
-These are not appropriate targets for manual refactors because they are generated or vendor-managed. They will be checked indirectly for consistency with the authored source and configuration, but they should not be hand-edited unless a task specifically requires regenerating them from source.
+- `node_modules`
+- `.next`
+- `.open-next`
+- `.wrangler`
+- `out`
+- `dist-cloudflare`
+- `tsconfig.tsbuildinfo`
+- files ignored as local caches/logs/quarantine output
+- `.env.local`
+- plugin or skill cache folders that are not part of the application source
 
-### Validation philosophy
+Generated and runtime outputs can still be checked indirectly. For example, sitemap generation, public data mirrors, and build artifacts are validated from source commands rather than edited by hand. `.env.local` is checked only for variable names and presence when needed; secret values must not be copied into docs or final notes.
 
-If one fix reveals a second-order issue in another file, that second file becomes part of the active fix chain and must be handled before the block is considered complete.
+## Cross-Cutting Criteria Applied To Every Block
 
-Unused imports and exports are not removed blindly. Each one must be verified:
+Each block is reviewed against the following criteria:
 
-- Remove it when it is truly unused or misleading.
-- Keep it if it is part of a public contract, dynamic usage path, or near-term intended extension.
-- Wire it correctly if the code clearly intended to use it but currently does not.
+- Modularity: responsibilities should live in the right layer and not leak across UI, data loading, integrations, and automation.
+- Naming: files, functions, variables, and exported contracts should be understandable and consistent with neighboring code.
+- Lint and TypeScript: no unused imports, unused locals, `not defined` hazards, untyped escape hatches, or stale compiler assumptions unless deliberately scoped.
+- Integrity: configs, docs, scripts, content, data, route params, sitemap entries, public mirrors, tests, and runtime consumers should agree.
+- Consistency: repeated patterns should use common helpers and avoid one-off logic unless there is a clear reason.
+- Concurrency and race conditions: scheduled jobs and posting flows must not double-post, corrupt state, or silently lose partial failures.
+- Security: secret handling, user-controlled content rendering, external URLs, fetch behavior, and logs should avoid avoidable exposure or injection risk.
+- Performance: repeated data scans, client bundles, rendering paths, retry loops, and generated artifacts should avoid unnecessary work.
+- Integrations: Telegram, X, YouTube, CoinGecko, Gemini, IndexNow, GitHub Actions, Cloudflare, and any API wrapper should fail predictably.
+- Error handling: recoverable failures need useful messages and hard failures need non-zero exits or explicit reporting.
+- Documentation and links: docs should describe commands and workflows that still exist; internal app links should route somewhere real.
+- UI/UX and responsive behavior: desktop, tablet, and mobile layouts should avoid overlap, overflow, unreadable text, and broken navigation.
+- SEO: metadata, canonical URLs, robots, sitemap output, article semantics, and public content routes should stay coherent.
+- Duplication and obsolete code: dead-end code and stale helpers should be removed or documented as deliberate public surface.
+- Common sense and best practices: fixes should match the current Next.js, React, TypeScript, and repo patterns rather than introduce unrelated rewrites.
 
 ## Audit Blocks
 
-## Block 1: Project Foundation, Config, and Runtime Contracts
+## Block 1: Project Foundation, Config, Dependencies, And Runtime Contracts
 
 ### Scope
 
 - `package.json`
+- `package-lock.json`
 - `tsconfig.json`
 - `eslint.config.mjs`
 - `next.config.ts`
 - `postcss.config.mjs`
 - `vitest.config.ts`
 - `wrangler.jsonc`
-- environment validation and shared configuration files
+- `.gitignore`
+- `.env.example`
+- `.env.local` variable names only
+- `next-env.d.ts` as generated contract only
 
-### What this block verifies
+### Verification Details
 
-- Package script correctness and sequencing
-- Dependency relevance, upgrade pressure, and unused packages signals
-- Lint, TypeScript, build, and test configuration alignment
-- Environment variable contracts and runtime safety
-- Cross-file assumptions between local dev, build, and deployment
-- Whether the project’s tooling still matches the current Next.js and React conventions in use
+This block verifies script sequencing, toolchain compatibility, dependency hygiene, TypeScript and ESLint expectations, Cloudflare/Next build assumptions, local runtime safety, and environment variable contracts. It also checks whether ignored files line up with what the application actually generates, and whether any dependency upgrades are safe to recommend or apply.
 
-### Completion criteria
+### Completion Criteria
 
-- No obvious config drift
-- No conflicting script behavior
-- Config names and exports are consistent
-- Safety notes captured for any setting that depends on external platform configuration
+- Lint, TypeScript, and test commands are understood and run where feasible.
+- Config files do not contradict the current application structure.
+- Environment examples match the code's required configuration names.
+- Dependency upgrade recommendations are grounded in local evidence or package metadata checks.
 
 Status: `completed`
 
-## Block 2: App Router Pages, Layouts, Metadata, and Route Logic
+## Block 2: App Router Pages, Layouts, Metadata, SEO, And Route Logic
 
 ### Scope
 
 - `src/app`
+- route-level metadata
+- static params and dynamic route behavior
+- robots and sitemap route generation
 
-### What this block verifies
+### Verification Details
 
-- Route composition and layout boundaries
-- Metadata generation, SEO basics, and robots/sitemap consistency
-- Static and dynamic page logic
-- Parameter validation and undefined-state handling
-- Broken assumptions between route files and content/data loaders
-- Page-level UX, mobile stacking, and semantic structure
+This block verifies that pages render from valid content/data, route params are guarded, metadata is useful and not stale, SEO routes match public sitemap behavior, and error states are handled without undefined references. It includes user-facing route logic, mobile layout structure, and internal navigation paths that originate from app pages.
 
-### Completion criteria
+### Completion Criteria
 
-- No obvious route-level crashes or undefined references
-- Route-specific data access is guarded
-- Layout and metadata behavior remain coherent across pages
+- No route-level undefined references or obvious static generation crashes.
+- Metadata and canonical behavior are consistent with available content.
+- Internal links from page code point at valid routes or intentional external targets.
 
 Status: `completed`
 
-## Block 3: Shared Components, Design Consistency, and Responsive UI
+## Block 3: Shared Components, Theme, Interaction States, And Responsive UI
 
 ### Scope
 
 - `src/components`
-- shared styles in `src/app/globals.css`
+- `src/app/globals.css`
+- UI-affecting utility usage in page code
 
-### What this block verifies
+### Verification Details
 
-- Component modularity and prop design
-- Naming consistency and dead prop detection
-- Accessibility, interaction states, and defensive rendering
-- Duplicate UI logic that should be consolidated
-- Tablet/mobile behavior and overflow risks
-- Theme consistency and common-sense UX details
+This block verifies component boundaries, prop names, fallback rendering, client/server component placement, accessibility, stable dimensions, theme consistency, responsive behavior, touch ergonomics, and duplicate UI logic. It checks for mobile/tablet overflow and desktop density issues with browser verification when the app can run locally.
 
-### Completion criteria
+### Completion Criteria
 
-- No obvious duplicate or dead-end component paths
-- Components fail gracefully on missing data
-- Responsive issues are fixed or documented with exact blockers
+- Components either render safely with missing/empty data or document required props through types.
+- No obvious duplicated component logic remains without a reason.
+- Main UI paths are checked on desktop, tablet, and mobile viewports where feasible.
 
 Status: `completed`
 
-## Block 4: Libraries, Integrations, Notifications, and Data Plumbing
+## Block 4: Libraries, Integrations, Notifications, APIs, And Data Plumbing
 
 ### Scope
 
 - `src/lib`
+- Telegram notification code
+- X, YouTube, CoinGecko, Gemini, IndexNow, and reporting helpers
+- schema and formatting utilities
 
-### What this block verifies
+### Verification Details
 
-- API wrappers and retry behavior
-- Telegram/X/YouTube/reporting integrations
-- Notification integrity and failure modes
-- Connection handling, timeout behavior, and race-condition risk
-- Schema alignment, sanitization, and parsing safety
-- Shared utility correctness and naming
+This block verifies API wrappers, timeout/retry behavior, failure handling, secret usage, input validation, sanitization, logging, reporting, shared utility correctness, and race-condition risk around shared state. Telegram notification paths get explicit attention because a partial failure can look operationally successful while users receive nothing.
 
-### Completion criteria
+### Completion Criteria
 
-- Integration clients handle expected failure modes sensibly
-- Shared utilities do not hide unsafe assumptions
-- Notification paths are verified for obvious operational gaps
+- External API clients validate configuration before use and fail with actionable errors.
+- Notification/reporting paths distinguish full success, partial success, and failure.
+- Shared schemas and utility functions align with their consumers.
 
 Status: `completed`
 
-## Block 5: Automation Scripts, Content Pipeline, and Scheduled Workflows
+## Block 5: Automation Scripts, Pipelines, Scheduled Jobs, And Workflows
 
 ### Scope
 
 - `scripts`
 - `.github/workflows`
+- queue and posting state files that scripts read/write
 
-### What this block verifies
+### Verification Details
 
-- Script entrypoints and sequencing
-- Cron/workflow intent versus actual implementation
-- Concurrency hazards in posting, queue processing, and data refresh jobs
-- Error reporting and exit behavior
-- Whether automation can corrupt state, double-post, or silently fail
-- Operational compatibility with the documented environment
+This block verifies scheduled workflow intent, concurrency locking, posting idempotency, state writes, exit codes, operational logging, build/publish sequencing, and script-to-doc alignment. It checks whether scripts can double-post, skip required content, corrupt JSON, or leave stale state when interrupted.
 
-### Completion criteria
+### Completion Criteria
 
-- Script responsibilities are clear and non-duplicative
-- High-risk automation flows are guarded against obvious race conditions
-- Workflow-doc-script alignment is restored where needed
+- Script entry points are clear and non-duplicative.
+- Scheduled jobs have concurrency and idempotency safeguards where needed.
+- Docs and workflows describe the actual automation behavior.
 
 Status: `completed`
 
-## Block 6: Content, Data, Public Artifacts, and Internal Linking
+## Block 6: Content, Data, Public Artifacts, And Internal Linking
 
 ### Scope
 
 - `content`
 - `data`
-- relevant mirrored assets under `public`
+- `public`
+- generated sitemap/robots/public mirror expectations
 
-### What this block verifies
+### Verification Details
 
-- Schema integrity and content shape consistency
-- Broken internal links, missing slugs, or mismatched content/public mirrors
-- Duplicate, stale, or dead-end content
-- Publicly served data artifacts matching source expectations
-- Token/content relationships used by the app
+This block verifies JSON shape, slug consistency, content schema integrity, missing token relationships, duplicate content records, stale public mirrors, broken internal links, and sitemap coverage. Because this block contains thousands of files, full-file coverage is primarily through schema validators, targeted sampling, route/build checks, and integrity scripts.
 
-### Completion criteria
+### Completion Criteria
 
-- No obvious content/data integrity mismatches that break authored pages
-- Internal linking is consistent with current route structure
-- Public mirrors are not silently diverging from source truth where that matters
+- Content validation passes or each failure has a concrete fix.
+- Token/content/data relationships used by routes are coherent.
+- Public artifacts either match generated source expectations or are documented as generated outputs.
 
 Status: `completed`
 
-## Block 7: Tests, Documentation, and Project Communication Surfaces
+## Block 7: Tests, Documentation, Internal Specs, And Communication Surfaces
 
 ### Scope
 
 - `tests`
-- root markdown docs such as `README.md`, `DEPLOYMENT.md`, `TESTING.md`, `INTEGRATIONS.md`, and related guides
+- `README.md`
+- `TOKENRADAR.md`
+- `AUTOMATIONS.md`
+- `DATA_SCHEMA.md`
+- `DEPLOYMENT.md`
+- `DESIGN.md`
+- `EDITORIAL.md`
+- `INTEGRATIONS.md`
+- `PIPELINE.md`
+- `PROMPTS.md`
+- `SEO.md`
+- `TESTING.md`
 
-### What this block verifies
+### Verification Details
 
-- Test coverage relevance versus current code
-- Broken or stale test assumptions
-- Documentation truthfulness and internal references
-- Whether the docs still describe the actual scripts, workflows, and feature set
+This block verifies that tests still cover the code paths they claim to cover, fixtures match current schema, docs describe real commands, and internal specs do not contradict implementation. It also checks whether ignored local docs contain outdated guidance that could mislead future work.
 
-### Completion criteria
+### Completion Criteria
 
-- Tests align with the current implementation
-- Docs do not instruct broken commands or outdated flows
-- Important operational gaps are called out clearly
+- Test suite passes or failures are tied to concrete implementation gaps.
+- Documentation references existing scripts, environment variables, and routes.
+- Internal specs are either accurate or updated with current behavior.
 
 Status: `completed`
 
-## Block 8: Final Verification, Browser Checks, and Upgrade Recommendations
+## Block 8: Final Verification, Browser Checks, Cleanup, And Upgrade Notes
 
 ### Scope
 
-- Lint, tests, selected runtime checks, and browser-based verification
+- final lint/type/test/content/build checks
+- responsive browser verification
+- generated diff inspection
+- final recommendations
 
-### What this block verifies
+### Verification Details
 
-- That the fixes do not introduce new lint or test regressions
-- That important pages still render
-- That responsive layouts behave sensibly on desktop, tablet, and mobile
-- That upgrade recommendations are grounded in observed code rather than generic advice
+This block reruns affected checks after fixes, reviews git diff for accidental generated churn, verifies representative pages in the browser if a local server can run, and captures upgrade recommendations that should be applied now versus deferred. It also records external questions that cannot be answered from local files, such as deployment secrets or third-party account settings.
 
-### Completion criteria
+### Completion Criteria
 
-- Lint and tests run, or failures are documented with exact causes
-- Browser verification is completed for the main UI paths that can be exercised locally
-- Upgrade recommendations are specific and actionable
+- Relevant checks have been rerun and results are recorded.
+- Browser checks cover representative desktop, tablet, and mobile layouts where feasible.
+- The final diff contains only intentional changes.
+- Remaining risks or external questions are explicit.
 
 Status: `completed`
 
 ## Progress Log
 
-- 2026-04-24: Audit tracker created and block structure defined.
-- 2026-04-24: Block 1 completed. Verified config/runtime alignment, validated lint/typecheck/build/test flow, and removed stale workflow/docs assumptions around deploy timing and concurrency.
-- 2026-04-24: Block 2 completed. Fixed route metadata, static params, related-token mapping, and upcoming-token handling that produced noisy zero-market build warnings.
-- 2026-04-24: Block 3 completed. Fixed anchor mismatches, missing design tokens, responsive utility drift, TradingView re-init behavior, and several UI consistency issues. Browser screenshots were captured under `audit-artifacts/` for desktop/tablet/mobile sampling.
-- 2026-04-24: Block 4 completed. Hardened CoinGecko key handling, fetch timeout behavior, Telegram reporting integrity, and shared referral/config consistency.
-- 2026-04-24: Block 5 completed. Fixed social posting partial-success handling, dead agent code, queue publication edge cases, safer quality-check quarantine behavior, and workflow locking that could delay social slots.
-- 2026-04-24: Block 6 completed. Revalidated content/data integrity with `scripts/validate-content.ts`, corrected sitemap/content ID reuse, and treated `data/metrics/*.json` drift as generated artifacts rather than manual edit targets.
-- 2026-04-24: Block 7 completed. Updated markdown docs so workflow timing, deployment flow, route inventory, and active automation behavior match the current repo.
-- 2026-04-24: Block 8 completed. Re-ran lint, typecheck, tests, content validation, and multiple production builds. Browser smoke checks passed on the sampled pages with screenshots and a JSON report saved in `audit-artifacts/`; remaining console 404s came from the temporary local test server not reproducing Next's route-specific RSC prefetch filenames.
+- 2026-05-02: Refreshed this audit tracker for the current requested pass. Initial file inventory found thousands of authored content/data/public files plus generated/runtime folders that will be validated indirectly instead of hand-edited.
+- 2026-05-02: Hardened Markdown and Telegram HTML sanitization, added regression tests for unsafe links/attributes, and verified notification formatting keeps allowed Telegram tags while stripping unsafe markup.
+- 2026-05-02: Fixed social posting state handling so partial platform failures do not write false success markers, validated platform arguments for market and video posting scripts, and improved the GitHub workflow commit step to avoid no-op push failures and retry state pushes.
+- 2026-05-02: Removed test-time side effects from the metrics script, made data consolidation deterministic, regenerated consolidated data blobs and sitemaps, and ignored/cleaned generated token OG images that are recreated by the build.
+- 2026-05-02: Corrected documentation for the actual schedule, providers, workflow cadence, testing surface, and current Gemini model usage. Root ignored docs present in the workspace were reviewed and updated even where Git does not track them.
+- 2026-05-02: Fixed responsive overflow behavior around the alpha ticker and mobile navigation. Browser verification covered 27 route/viewport combinations: desktop 1440x900, tablet 768x1024, and mobile 390x844 across representative home, upcoming, token, learning, guide, methodology, and contact routes.
+- 2026-05-02: Final verification passed: `npm.cmd run lint`, `.\node_modules\.bin\tsc.cmd --noEmit --pretty false`, `.\node_modules\.bin\vitest.cmd run` (9 files, 88 tests), and `npm.cmd run build` (1845 static pages). `npm.cmd run build` still reports that CoinGecko live mover data lacks an authenticated client key for that generator and falls back to local data.

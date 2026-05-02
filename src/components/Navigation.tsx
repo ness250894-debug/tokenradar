@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HackerText } from "./HackerText";
-import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText } from "lucide-react";
+import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/#tokens", icon: Activity },
@@ -26,14 +26,14 @@ export function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  // Prevent scroll when mobile menu is open
+  // Prevent vertical scroll when the mobile menu is open.
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflowY = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflowY = "";
     }
-    return () => { document.body.style.overflow = "unset"; };
+    return () => { document.body.style.overflowY = ""; };
   }, [isOpen]);
 
   return (
@@ -47,16 +47,16 @@ export function Navigation() {
             <span style={{ color: "var(--accent-primary)" }}>]</span>
           </span>
         </Link>
-        
+
         {/* Hamburger Toggle */}
-        <button 
-          className="mobile-nav-toggle" 
+        <button
+          className="mobile-nav-toggle"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-controls="primary-nav-links"
           aria-expanded={isOpen}
         >
-          {isOpen ? <HackerText text="✕" /> : <HackerText text="☰" />}
+          {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
 
         <ul className={`nav-links ${isOpen ? "open" : ""}`} id="primary-nav-links">
@@ -70,19 +70,19 @@ export function Navigation() {
                   onClick={() => setIsOpen(false)}
                   className={isActive ? "active" : ""}
                 >
-                  <Icon 
-                    size={20} 
-                    className="nav-icon" 
-                    style={{ 
+                  <Icon
+                    size={20}
+                    className="nav-icon"
+                    style={{
                       color: "badge" in link ? link.badgeColor : "inherit"
-                    }} 
+                    }}
                   />
                   <span>{link.name}</span>
                   {"badge" in link && (
-                    <span 
+                    <span
                       className={`nav-badge ${link.badge === "SECURE" ? "badge-pulse" : "badge-shimmer"}`}
-                      style={{ 
-                        backgroundColor: link.badgeColor, 
+                      style={{
+                        backgroundColor: link.badgeColor,
                         color: "white",
                         border: `1px solid ${link.badgeColor}44`
                       }}

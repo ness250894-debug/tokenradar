@@ -20,6 +20,8 @@ export function AlphaTicker() {
         borderBottom: "1px solid var(--border-color)",
         background: "rgba(10, 10, 10, 0.3)",
         position: "relative",
+        contain: "strict",
+        isolation: "isolate",
       }}
     >
       <div

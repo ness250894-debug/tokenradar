@@ -242,7 +242,7 @@ export default async function HomePage() {
             </CardGlare>
 
             <CardGlare style={{ height: "100%" }}>
-              <Link href="https://t.me/TokenRadarCo" target="_blank" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
+              <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
                 <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
                   <div className="feature-icon-wrapper" style={{ background: "rgba(247, 147, 26, 0.1)" }}>
                     <Zap className="feature-icon" size={32} style={{ color: "#f7931a" }} />

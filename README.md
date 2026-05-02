@@ -7,10 +7,10 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 ## Tech Stack
 
 - **Frontend:** Next.js 16 (static export), TypeScript, Vanilla CSS
-- **AI:** Gemini 3.1 Flash Lite (primary), Claude Haiku 4.5 (fallback)
+- **AI:** Gemini 2.5 Flash (primary), Claude Haiku 4.5 (fallback)
 - **Data:** CoinGecko API (free tier)
 - **Hosting:** Cloudflare Pages
-- **CI/CD:** GitHub Actions (daily refresh, daily content publication, weekly queue generation, and 12 social runs/day)
+- **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and 8 social workflow runs/day)
 - **Social:** X API v2 (pay-per-use), Telegram Bot API
 
 ## Project Structure
@@ -70,4 +70,4 @@ Copy `.env.example` to `.env.local` and configure:
 
 Deployed automatically from GitHub Actions to Cloudflare Pages via `wrangler pages deploy`.
 
-Manual deploy: `npm run build` → Cloudflare Pages.
+Manual deploy: `npm run build` -> Cloudflare Pages.

@@ -19,6 +19,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { pathToFileURL } from "url";
 import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import type { TokenDetail } from "../src/lib/content-loader";
@@ -402,7 +403,14 @@ async function main() {
   });
 }
 
-main().catch(async (error) => {
-  await logError("compute-metrics", error);
-  process.exit(1);
-});
+function isDirectExecution(): boolean {
+  const entrypoint = process.argv[1];
+  return Boolean(entrypoint) && import.meta.url === pathToFileURL(path.resolve(entrypoint)).href;
+}
+
+if (isDirectExecution()) {
+  main().catch(async (error) => {
+    await logError("compute-metrics", error);
+    process.exit(1);
+  });
+}

@@ -36,6 +36,13 @@ describe("markdownToHtml", () => {
     expect(html).not.toContain("onerror");
   });
 
+  it("strips unsafe link protocols", async () => {
+    const malicious = "[bad](javascript:alert(1))";
+    const html = await markdownToHtml(malicious);
+    expect(html).not.toContain("javascript:");
+    expect(html).not.toContain("alert");
+  });
+
   it("injects token pill when tokenData is provided and Risk Score pattern exists", async () => {
     const md = "*   **Risk Score (7/10):** This token is risky.";
     const html = await markdownToHtml(md, {
