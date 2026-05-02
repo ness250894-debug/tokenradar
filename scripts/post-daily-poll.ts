@@ -62,6 +62,20 @@ const POLL_THEMES = [
   },
 ] as const;
 
+const POLL_SCHEMA = {
+  type: "object",
+  properties: {
+    question: { type: "string", description: "The poll question, 1-2 sentences, under 250 chars." },
+    options: { 
+      type: "array", 
+      items: { type: "string", description: "Answer option, under 80 chars." },
+      minItems: 4,
+      maxItems: 4
+    }
+  },
+  required: ["question", "options"]
+};
+
 /**
  * Build the AI prompt with today's theme for variety.
  */
@@ -85,13 +99,7 @@ RULES:
 - DO NOT repeat this example: "${theme.example}"
 - NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 
-Format your response as a SINGLE JSON object:
-{
-  "question": "Your engaging poll question here? 🔥",
-  "options": ["Option A 📈", "Option B 💎", "Option C 🎯", "Option D 🚀"]
-}
-
-Return ONLY the JSON, nothing else.`;
+Return ONLY the JSON.`;
 }
 
 async function main() {
@@ -122,11 +130,13 @@ async function main() {
     console.log("Generating poll via AI...");
 
     const prompt = buildPollPrompt();
-    const result = await callAIWithFallback("", prompt, 300);
+    const result = await callAIWithFallback("", prompt, 1000, POLL_SCHEMA);
 
     // Parse JSON from the AI response
-    const jsonMatch = result.content?.match(/\{[\s\S]*?\}/);
+    // Using a more robust extraction that finds the outermost { }
+    const jsonMatch = result.content?.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
+      console.error("Raw AI Content:", result.content);
       throw new Error("AI output was not parseable as JSON.");
     }
 

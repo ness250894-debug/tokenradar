@@ -32,18 +32,43 @@ export const REFERRAL_LINKS_HTML = [
   REFERRALS.map((r) => `<a href="${r.url}">${r.name}</a>`).join(" | "),
 ];
 
+/** Social footer icons (Technical Brutalist style). */
+export const ICONS = {
+  ECOSYSTEM: "🌐",
+  DASHBOARD: "📊",
+  X: "𝕏",
+  TELEGRAM: "✈️",
+  TRADE: "💳",
+} as const;
+
 /** Social footer lines used in posts. */
 export const SOCIAL_FOOTER = [
-  `🔗 tokenradar.co`,
-  `🐦 X: ${SOCIAL.xUrl}`,
-  `👥 TG: ${SOCIAL.telegramUrl}`,
+  `${ICONS.DASHBOARD} tokenradar.co`,
+  `${ICONS.X} X: ${SOCIAL.xUrl}`,
+  `${ICONS.TELEGRAM} TG: ${SOCIAL.telegramUrl}`,
 ];
+
+/**
+ * Generate the standard Telegram footer with ecosystem links and referral links.
+ */
+export function getTelegramFooter(symbol: string): string {
+  const siteUrl = SITE_URL;
+  // Note: Spacing matches the screenshot provided by user
+  return `
+${ICONS.ECOSYSTEM} <b>The TokenRadar Ecosystem:</b>
+${ICONS.DASHBOARD} <a href="${siteUrl}">TokenRadar Dashboard</a> | ${ICONS.X} <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ${ICONS.TELEGRAM} <a href="${SOCIAL.telegramUrl}">Telegram</a>
+
+${REFERRAL_LINKS_HTML.join("\n")}
+
+#${symbol.toUpperCase()} #Crypto
+`;
+}
 
 /** Social Platform Constraints. */
 export const SOCIAL_PLATFORM_LIMITS = {
   TELEGRAM: {
     TEXT_LIMIT: 4096,
-    CAPTION_LIMIT: 1024,
+    CAPTION_LIMIT: 950,
     AI_SUMMARY_CHARS: 1200,
     PHOTO_AI_SUMMARY_CHARS: 750,
   },
