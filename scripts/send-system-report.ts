@@ -10,6 +10,7 @@ const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 const DATA_DIR = path.resolve(__dirname, "../data");
 const OUT_DIR = path.resolve(__dirname, "../out");
+const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 interface ActivityRecord {
@@ -120,7 +121,21 @@ async function main() {
         ? "HIGH"
         : "HEALTHY";
 
-  let message = `*Daily System Pulse*\n_Status: ${quotaStatus}_\n\n`;
+  const hasFatalError = errorFiles.some(file => {
+    const data = safeReadJson<ErrorRecord>(path.join(ERRORS_DIR, file));
+    return data?.isFatal === true;
+  });
+
+  let systemStatus = "HEALTHY";
+  if (hasFatalError || quotaStatus === "CRITICAL") {
+    systemStatus = "🔴 CRITICAL";
+  } else if (Object.keys(errors).length > 0 || quotaStatus === "HIGH") {
+    systemStatus = "🟡 WARNING";
+  } else {
+    systemStatus = "🟢 HEALTHY";
+  }
+
+  let message = `*Daily System Pulse*\n_Status: ${systemStatus}_\n\n`;
 
   if (publishedContent.length > 0) {
     message += `*Recently Published*\n`;
@@ -140,11 +155,13 @@ async function main() {
 
   const dataFileCount = countFiles(DATA_DIR);
   const outDirFileCount = countFiles(OUT_DIR);
+  const contentFileCount = countFiles(CONTENT_DIR);
   const cfLimit = 20000;
   const outDirPercent = ((outDirFileCount / cfLimit) * 100).toFixed(1);
 
   message += `*Data Health*\n`;
   message += `- Raw Data Files: \`${dataFileCount}\`\n`;
+  message += `- Content Articles: \`${contentFileCount}\` (live)\n`;
   message += `- Build Output: \`${outDirFileCount}\` / ${cfLimit} (${outDirPercent}% CF limit)\n`;
   message += `- Refreshed: ${totalDataRefreshed} token updates\n`;
   message += `- Analyzed: ${metricsTokensCount} proprietary scores\n`;

@@ -67,7 +67,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
   const riskLabel = getRiskTier(data.risk);
   const nameFontSize = getNameFontSize(data.name);
   const changeSign = data.change >= 0 ? "+" : "";
-  const changeColor = data.change >= 0 ? "#00e676" : "#ff5252";
+  const changeColor = data.change >= 0 ? "#00FFA3" : "#FF3366";
 
   const svg = await satori(
     // Satori accepts React-element-like objects { type, props } at runtime,
@@ -82,8 +82,8 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "50px 60px",
-          backgroundColor: "#0a0b0f",
-          backgroundImage: "linear-gradient(135deg, #0a0b0f 0%, #181922 100%)",
+          backgroundColor: "#07080B",
+          backgroundImage: "linear-gradient(135deg, #07080B 0%, #141414 100%)",
           color: "#f0f0f5",
           fontFamily: "Inter",
         },
@@ -104,7 +104,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                 {
                   type: "span",
                   props: {
-                    style: { color: "#d97706" },
+                    style: { color: "#CCFF00" },
                     children: "Radar",
                   },
                 },
@@ -160,7 +160,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                               props: {
                                 style: {
                                   fontSize: 36,
-                                  color: "#d97706",
+                                  color: "#CCFF00",
                                   fontWeight: 700,
                                 },
                                 children: data.symbol.toUpperCase(),
@@ -216,7 +216,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                       flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
-                      background: "#12131a",
+                      background: "#141414",
                       padding: "30px 36px",
                       borderRadius: "24px",
                       border: `2px solid ${riskColor}40`,
@@ -231,7 +231,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                           style: {
                             display: "flex",
                             fontSize: 20,
-                            color: "#9395a5",
+                            color: "#4A4A4A",
                             textTransform: "uppercase",
                             letterSpacing: "0.1em",
                             fontWeight: 700,
@@ -258,7 +258,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                                 style: {
                                   display: "flex",
                                   fontSize: 40,
-                                  color: "#5d5f72",
+                                  color: "#4A4A4A",
                                   marginLeft: 6,
                                 },
                                 children: "/10",
@@ -297,9 +297,9 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                 alignItems: "center",
                 gap: 32,
                 fontSize: 22,
-                color: "#5d5f72",
+                color: "#4A4A4A",
                 fontWeight: 500,
-                borderTop: "1px solid #1e2030",
+                borderTop: "1px solid #141414",
                 paddingTop: 18,
               },
               children: [
