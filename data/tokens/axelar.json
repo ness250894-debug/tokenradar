@@ -2,20 +2,64 @@
   "id": "axelar",
   "symbol": "axl",
   "name": "Axelar",
+  "description": "Axelar delivers secure interchain communication. That means dApp users can interact with any asset, any application, on any chain, with one click. You can think of it as Stripe for Web3. Developers interact with a simple API atop a permissionless network that routes messages and ensures network security via proof-of-stake consensus.\n\nAxelar is a blockchain that connects blockchains. To do this securely, Axelar network uses proof-of-stake consensus. Network validators produce new blocks, participate in multiparty signing and vote on external chain states. Tokenholders stake the AXL token, delegating tokens to a validator’s staking pool and receiving rewards, minus the validator’s commission.\n\nThe AXL token is used for governance and to pay network transaction fees to validators and tokenholders. However, users of the Axelar network do not need to hold the token. Conversions into AXL tokens and destination-chain tokens are handled on the back end, so that users need only pay gas once, in the source-chain token.\n\nAxelar network rewards are “inflationary” — they increase the total supply of AXL — but there is potential for supply to become deflationary based on the transaction fee mechanic described above. ",
+  "categories": [
+    "Infrastructure",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Fantom Ecosystem",
+    "Arbitrum Ecosystem",
+    "Moonbeam Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Interoperability",
+    "Bridge Governance Tokens",
+    "Base Ecosystem",
+    "Osmosis Ecosystem",
+    "Cross-chain Communication",
+    "Secret Ecosystem",
+    "Galaxy Digital Portfolio",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://axelar.network/",
+    "github": "https://github.com/axelarnetwork",
+    "reddit": "https://www.reddit.com/r/axelar/",
+    "explorer": "https://axelarscan.io/"
+  },
   "market": {
-    "price": 0.069315,
-    "marketCap": 80507685,
-    "marketCapRank": 337,
-    "volume24h": 44019506,
-    "priceChange24h": 15.99431,
+    "price": 0.066814,
+    "marketCap": 77552945,
+    "marketCapRank": 351,
+    "volume24h": 43141973,
+    "high24h": 0.072033,
+    "low24h": 0.063032,
+    "priceChange24h": 5.43443,
+    "priceChange7d": 11.06883,
+    "priceChange30d": 47.78871,
+    "priceChange1y": -82.64257,
     "ath": 2.64,
-    "athChangePercentage": -97.37958,
+    "athChangePercentage": -97.49848,
     "athDate": "2024-03-01T09:20:05.541Z",
     "atl": 0.04272336,
     "atlDate": "2026-04-05T13:35:45.910Z",
-    "circulatingSupply": 1161847732.194043,
-    "totalSupply": 1239237455.961334,
-    "maxSupply": null
+    "circulatingSupply": 1162354656.579948,
+    "totalSupply": 1239294753.719738,
+    "maxSupply": null,
+    "fdv": 82686431
   },
-  "lastMarketUpdate": "2026-05-01T18:47:51.318Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-02T07:56:24.021Z"
 }

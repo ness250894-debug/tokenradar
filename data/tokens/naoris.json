@@ -2,20 +2,52 @@
   "id": "naoris",
   "symbol": "naoris",
   "name": "Naoris Protocol",
+  "description": "Naoris Protocol is a Post-Quantum powered, self-validating cybersecurity enforcement protocol that restores cyber-trust across digital systems. By delivering verified cyber-status beyond traditional perimeters, it enables enterprise &amp; governments to shift from a siloed &amp; centralized cybersecurity model to a decentralized community compute model.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 0 (L0)",
+    "Binance Alpha Spotlight",
+    "Quantum-Resistant"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.naorisprotocol.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x1b379a79c91a540b2bcd612b4d713f31de1b80cc"
+  },
   "market": {
-    "price": 0.08791,
-    "marketCap": 52962381,
-    "marketCapRank": 472,
-    "volume24h": 13910849,
-    "priceChange24h": -30.40549,
+    "price": 0.09772,
+    "marketCap": 57447827,
+    "marketCapRank": 443,
+    "volume24h": 14119684,
+    "high24h": 0.128634,
+    "low24h": 0.082614,
+    "priceChange24h": -23.13979,
+    "priceChange7d": 49.59039,
+    "priceChange30d": 41.20527,
+    "priceChange1y": 0,
     "ath": 0.152579,
-    "athChangePercentage": -41.95274,
+    "athChangePercentage": -36.15888,
     "athDate": "2025-09-12T23:05:33.717Z",
     "atl": 0.0143726,
     "atlDate": "2025-10-10T21:27:56.723Z",
     "circulatingSupply": 599260000,
     "totalSupply": 4000000000,
-    "maxSupply": 4000000000
+    "maxSupply": 4000000000,
+    "fdv": 383458443
   },
-  "lastMarketUpdate": "2026-05-01T18:47:51.343Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-02T08:01:31.302Z"
 }
