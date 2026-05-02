@@ -49,14 +49,19 @@ let _client: Coingecko | null = null;
 function getClient(): Coingecko {
   if (!_client) {
     const apiKey = process.env.COINGECKO_API_KEY;
-    // Determine if it's a demo or pro key based on prefix (demo keys start with CG-)
-    const isDemo = !apiKey || apiKey.startsWith("CG-");
     
-    _client = new Coingecko({
-      demoAPIKey: isDemo ? apiKey : undefined,
-      proAPIKey: !isDemo ? apiKey : undefined,
-      environment: isDemo ? "demo" : "pro",
-    });
+    if (!apiKey) {
+      // Public API access (no key)
+      _client = new Coingecko();
+    } else {
+      // Determine if it's a demo or pro key based on prefix (demo keys start with CG-)
+      const isDemo = apiKey.startsWith("CG-");
+      _client = new Coingecko({
+        demoAPIKey: isDemo ? apiKey : undefined,
+        proAPIKey: !isDemo ? apiKey : undefined,
+        environment: isDemo ? "demo" : "pro",
+      });
+    }
   }
   return _client;
 }

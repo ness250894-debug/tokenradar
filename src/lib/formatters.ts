@@ -86,7 +86,7 @@ export function getRiskTier(score: number): "LOW" | "MEDIUM" | "HIGH" {
 
 /** Get a standardized hex color for a risk score (for OG / Canvas rendering). */
 export function getRiskColor(score: number): string {
-  if (score < 4) return "#10b981"; // green
-  if (score < 7) return "#f59e0b"; // yellow
-  return "#ef4444"; // red
+  if (score < 4) return "#00FFA3"; // Emerald (Growth)
+  if (score < 7) return "#FFB800"; // Vibrant Yellow
+  return "#FF3366"; // Warning Red
 }

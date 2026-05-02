@@ -29,7 +29,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
 
   return (
     <AbsoluteFill style={{ 
-      backgroundColor: "#050505", 
+      backgroundColor: "#07080B", 
       color: "#ffffff",
       fontFamily: "sans-serif",
       display: "flex",
@@ -37,13 +37,13 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
       justifyContent: "center",
       alignItems: "center",
       padding: "80px",
-      backgroundImage: "radial-gradient(circle at center, #111 0%, #000 100%)"
+      backgroundImage: "radial-gradient(circle at center, #141414 0%, #07080B 100%)"
     }}>
       {/* Dynamic Grid Background (Subtle) */}
       <div style={{
         position: 'absolute',
         top: 0, left: 0, right: 0, bottom: 0,
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(rgba(204, 255, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 255, 0, 0.03) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
         opacity: 0.5,
         zIndex: 0
@@ -59,8 +59,8 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           <h2 style={{ color: "#888", fontSize: "40px", textTransform: "uppercase", letterSpacing: "8px", margin: 0 }}>
             Daily Breakout
           </h2>
-          <h1 style={{ fontSize: "140px", margin: "20px 0", fontWeight: 900, textShadow: "0 0 40px rgba(255,255,255,0.3)" }}>
-            {tokenName} <span style={{ color: "rgba(255,255,255,0.4)" }}>${symbol.toUpperCase()}</span>
+          <h1 style={{ fontSize: "140px", margin: "20px 0", fontWeight: 900, textShadow: "0 0 40px rgba(204, 255, 0, 0.2)" }}>
+            {tokenName} <span style={{ color: "rgba(204, 255, 0, 0.4)" }}>${symbol.toUpperCase()}</span>
           </h1>
         </div>
 
@@ -68,8 +68,8 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
         <div style={{
           opacity: priceOpacity,
           transform: `translateY(${priceY}px)`,
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(20, 20, 20, 0.6)",
+          border: "1px solid rgba(204, 255, 0, 0.15)",
           borderRadius: "40px",
           padding: "60px 80px",
           display: "flex",
@@ -77,7 +77,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           alignItems: "center",
           gap: "20px",
           marginBottom: 60,
-          boxShadow: isPositive ? "0 0 100px rgba(0, 255, 128, 0.1)" : "0 0 100px rgba(255, 0, 64, 0.1)"
+          boxShadow: isPositive ? "0 0 100px rgba(0, 255, 163, 0.1)" : "0 0 100px rgba(255, 51, 102, 0.1)"
         }}>
           <div style={{ fontSize: "120px", fontWeight: "bold" }}>
             ${formattedPrice}
@@ -85,7 +85,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           <div style={{ 
             fontSize: "80px", 
             fontWeight: "bold",
-            color: isPositive ? "#00FFAA" : "#FF3366",
+            color: isPositive ? "#00FFA3" : "#FF3366",
             display: 'flex',
             alignItems: 'center',
             gap: "10px"
@@ -112,7 +112,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
             <div style={{ 
               fontSize: "60px", 
               fontWeight: "bold",
-              color: riskScore <= 4 ? "#00FFAA" : riskScore <= 7 ? "#FFCC00" : "#FF3366"
+              color: riskScore <= 4 ? "#00FFA3" : riskScore <= 7 ? "#FFB800" : "#FF3366"
             }}>
               {riskScore.toFixed(1)} / 10
             </div>
@@ -128,7 +128,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           textAlign: "center",
           opacity: interpolate(frame, [90, 105], [0, 1], { extrapolateRight: "clamp" }),
         }}>
-          <div style={{ fontSize: "50px", color: "rgba(255,255,255,0.6)" }}>
+          <div style={{ fontSize: "50px", color: "#CCFF00", fontWeight: 700 }}>
             TokenRadar.co
           </div>
         </div>

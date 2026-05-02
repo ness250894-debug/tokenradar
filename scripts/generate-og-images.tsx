@@ -4,6 +4,9 @@ import * as path from 'path';
 import { generateMoversImage } from '../src/lib/movers-generator';
 import { renderOgImage } from '../src/lib/og-renderer';
 import { loadCandidateTokens } from './lib/token-selection';
+import { loadEnv } from '../src/lib/utils';
+
+loadEnv();
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");

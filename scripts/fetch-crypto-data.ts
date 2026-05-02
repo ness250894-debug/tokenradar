@@ -16,7 +16,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
-import { logError } from "../src/lib/reporter";
+import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 
 // Load environment
@@ -149,6 +149,9 @@ async function main() {
     .sort((a: any, b: any) => (a.market?.marketCapRank || 9999) - (b.market?.marketCapRank || 9999));
 
   fs.writeFileSync(path.join(DATA_DIR, "tokens.json"), JSON.stringify(tokensSummary, null, 2));
+  
+  // Log activity for system report
+  await logActivity("data-refresh", { tokenCount: tokensSummary.length });
 
   console.log();
   console.log(`╔══════════════════════════════════════════╗`);
