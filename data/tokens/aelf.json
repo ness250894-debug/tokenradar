@@ -21,23 +21,23 @@
     "explorer": "https://aelfscan.io/"
   },
   "market": {
-    "price": 0.077857,
-    "marketCap": 63805937,
-    "marketCapRank": 403,
-    "volume24h": 687632,
+    "price": 0.077868,
+    "marketCap": 63820113,
+    "marketCapRank": 412,
+    "volume24h": 848032,
     "high24h": 0.078186,
     "low24h": 0.077795,
-    "priceChange24h": -0.15788,
+    "priceChange24h": -0.6073,
     "priceChange7d": -2.43289,
     "priceChange30d": -0.35122,
     "priceChange1y": -68.07932,
     "ath": 2.6,
-    "athChangePercentage": -97.01019,
+    "athChangePercentage": -97.00996,
     "athDate": "2018-01-09T00:00:00.000Z",
     "atl": 0.03545756,
     "atlDate": "2020-03-13T02:22:35.431Z",
-    "circulatingSupply": 819518114.2181733,
-    "totalSupply": 996445609.1839832,
+    "circulatingSupply": 819593269.794407,
+    "totalSupply": 996445607.822717,
     "maxSupply": 1000000000,
     "fdv": 77581135
   },
@@ -50,5 +50,6 @@
     "githubForks": 237,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T17:20:39.088Z"
+  "fetchedAt": "2026-04-29T17:20:39.088Z",
+  "lastMarketUpdate": "2026-05-01T18:47:51.332Z"
 }
