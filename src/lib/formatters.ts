@@ -5,7 +5,7 @@
 
 /** Format price for display. */
 export function formatPrice(price: number | undefined | null): string {
-  if (price === undefined || price === null || price < 0) return "$0.00";
+  if (price === undefined || price === null || isNaN(price) || price < 0) return "$0.00";
   if (price >= 1000) return `$${price.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
   if (price >= 1) return `$${price.toFixed(2)}`;
   if (price >= 0.01) return `$${price.toFixed(4)}`;
@@ -39,7 +39,6 @@ export function formatSupply(value: number | undefined | null): string {
   return value.toFixed(0);
 }
 
-/** Get a reliable PNG CDN URL for a token icon (Satori/OG compatible). */
 /** Get a reliable PNG CDN URL for a token icon (Satori/OG compatible). */
 export function getTokenIconUrl(symbol: string, id?: string): string {
   if (!symbol) return "";

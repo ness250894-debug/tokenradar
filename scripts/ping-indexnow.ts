@@ -7,9 +7,15 @@ import * as path from "path";
 const PUBLIC_DIR = path.resolve(process.cwd(), "public");
 const SITEMAP_PATH = path.join(PUBLIC_DIR, "sitemap.xml");
 
-// Must match the filename in public/ directory
-const INDEXNOW_KEY = "c7a4b0d8e2f143a9b5c2d8f1e4a7b0d8";
+// Key from environment — must match the filename in public/ directory
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+
+if (!INDEXNOW_KEY) {
+  console.error("[IndexNow] Missing INDEXNOW_KEY environment variable.");
+  process.exit(1);
+}
+
 
 async function pingIndexNow() {
   if (!fs.existsSync(SITEMAP_PATH)) {
@@ -70,4 +76,7 @@ async function pingIndexNow() {
   }
 }
 
-pingIndexNow().catch(console.error);
+pingIndexNow().catch((err) => {
+  console.error("[IndexNow] Fatal error:", err);
+  process.exit(1);
+});

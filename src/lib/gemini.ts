@@ -211,16 +211,16 @@ export async function callAIWithFallback(
   jsonSchema?: object
 ): Promise<AIResult> {
   try {
-    // Try Claude first for reliability in long-form generation
-    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    // Try Gemini first (primary — lower cost)
+    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
     if (isTechnicalRefusal(result.content)) {
-      console.warn(`  ⚠ Claude returned a technical refusal. Falling back to Gemini...`);
+      console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
       throw new Error("AI Technical Refusal");
     }
     return result;
   } catch (error) {
-    console.warn(`  ⚠ Claude primary failed or refused. Falling back to Gemini... Error: ${error instanceof Error ? error.message : String(error)}`);
-    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    console.warn(`  ⚠ Gemini primary failed or refused. Falling back to Claude... Error: ${error instanceof Error ? error.message : String(error)}`);
+    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
     return result;
   }
 }
@@ -266,7 +266,7 @@ export interface MarketContext {
 /**
  * Generate a detailed analysis for a token with multi-model fallback.
  * 
- * Strategy: Gemini 3.1 Flash-Lite -> Claude Haiku 4.5
+ * Strategy: Gemini 2.5 Flash (primary) -> Claude Haiku 4.5 (fallback)
  */
 export async function generateTokenSummary(
   tokenName: string,
@@ -342,7 +342,7 @@ export async function generateTokenSummary(
  * Generate a short, punchy Tweet tailored for X.
  * Employs time-of-day and persona variations, ensuring strict length limits to leave room for footers.
  * 
- * Strategy: Gemini 3.1 Flash-Lite -> Claude Haiku 4.5
+ * Strategy: Gemini 2.5 Flash (primary) -> Claude Haiku 4.5 (fallback)
  */
 export async function generateTweet(
   tokenName: string,

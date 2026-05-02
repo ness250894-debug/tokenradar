@@ -62,6 +62,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
+      - name: Run Typecheck
+        run: npx tsc --noEmit
+
       - name: Run Linting
         run: npm run lint
 
@@ -102,6 +105,7 @@ jobs:
         run: npx tsx scripts/ping-indexnow.ts
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
 
       - name: Notify on Failure
         if: failure()

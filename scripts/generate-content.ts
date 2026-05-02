@@ -1,7 +1,7 @@
 /**
  * AI Content Generator — Phase 3
  *
- * Generates SEO-optimized articles using Gemini 3.1 Flash/Pro with Claude Haiku as fallback.
+ * Generates SEO-optimized articles using Gemini 2.5 Flash (primary) with Claude Haiku 4.5 as fallback.
  * Each article uses:
  * - Real CoinGecko data
  * - Computed proprietary metrics (Risk Score, Growth Index, etc.)
@@ -971,10 +971,7 @@ Output EXACTLY in this format (no JSON, no code blocks):
     console.log();
   }
 
-
   // Final report
-
-
   console.log("╔══════════════════════════════════════════╗");
   console.log("║       Content Generation Complete        ║");
   console.log("╠══════════════════════════════════════════╣");

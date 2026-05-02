@@ -55,13 +55,7 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
-// ── Utilities — Moved to src/lib ───────────────────────────
 
-
-
-
-
-// ── Deduplication & Token Selection: imported from ./lib/token-selection.ts ──
 
 // ── Main ───────────────────────────────────────────────────────
 

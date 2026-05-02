@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllTokens, } from "@/lib/content-loader";
+import { getAllTokens } from "@/lib/content-loader";
 import { TokenTickerPill } from "./TokenTickerPill";
 import { formatPercent } from "@/lib/formatters";
 

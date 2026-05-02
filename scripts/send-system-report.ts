@@ -1,9 +1,9 @@
-import * as dotenv from "dotenv";
 import * as fs from "fs";
 import * as path from "path";
 import { MONTHLY_LIMIT, getApiQuota, sendTelegramAlert } from "../src/lib/reporter";
+import { loadEnv } from "../src/lib/utils";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+loadEnv();
 
 const LOGS_DIR = path.resolve(__dirname, "../data/logs");
 const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
