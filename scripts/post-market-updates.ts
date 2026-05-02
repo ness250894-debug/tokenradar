@@ -66,6 +66,10 @@ async function main() {
   
   const platformIdx = args.indexOf("--platform");
   const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
+  if (!["all", "telegram", "x"].includes(targetPlatform)) {
+    console.error("  ✗ Invalid --platform value. Expected one of: all, telegram, x.");
+    process.exit(1);
+  }
 
   const startRank = args.includes("--start") ? parseInt(args[args.indexOf("--start") + 1], 10) : 1;
   const endRank = args.includes("--end") ? parseInt(args[args.indexOf("--end") + 1], 10) : 500;
@@ -236,15 +240,6 @@ async function main() {
     console.log(`Reason: ${selection.reason} | Time: ${timeOfDay} | Tone: ${tone}`);
   }
 
-  // Save tracking info immediately (Decentralized)
-  const trackerFiles: string[] = [];
-  if (targetPlatform === "all") {
-    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-telegram.json`));
-    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-x.json`));
-  } else {
-    trackerFiles.push(path.join(POSTED_DIR, `${targetToken.id}-${targetPlatform}.json`));
-  }
-
   // ── Fetch OG image (shared between TG and X) ──
   let tokenImage: Buffer | null = null;
   console.log(`▶ Fetching OG image for ${targetToken.id}...`);
@@ -261,7 +256,7 @@ async function main() {
     console.warn(`  ⚠ No OG image available, will post text-only.`);
   }
 
-  let posted = false;
+  const successfulPlatforms = new Set<"telegram" | "x">();
 
   if (runTelegram) {
     try {
@@ -305,6 +300,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
             reply_markup: keyboard,
           });
           console.log(`✅ Posted photo to Telegram (Message ID: ${msg.message_id})`);
+          successfulPlatforms.add("telegram");
         } else {
           console.log(`✅ [DRY RUN] Would have posted photo to Telegram with caption length: ${caption.length}`);
           console.log(`DEBUG CAPTION:\n${caption}`);
@@ -333,12 +329,12 @@ ${REFERRAL_LINKS_HTML.join("\n")}
             reply_markup: keyboard,
           });
           console.log(`✅ Posted text to Telegram (Message ID: ${msg.message_id})`);
+          successfulPlatforms.add("telegram");
         } else {
           console.log(`✅ [DRY RUN] Would have posted text to Telegram with length: ${finalTgMessage.length}`);
           console.log(`DEBUG MESSAGE:\n${finalTgMessage}`);
         }
       }
-      posted = true;
     } catch (error) {
       await logError("post-market-updates-telegram", error, false);
       console.error(`❌ Failed to post Telegram message: ${formatErrorForLog(error)}`);
@@ -356,7 +352,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           tweetId = await postTweet(xMessage);
           console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
         }
-        posted = true;
+        successfulPlatforms.add("x");
 
         try {
           const replyId = await postTweet(xReplyMessage, tweetId);
@@ -388,13 +384,15 @@ ${REFERRAL_LINKS_HTML.join("\n")}
     }
   }
 
-  // Only mark as posted if at least one platform succeeded
-  if (!dryRun && posted) {
-    for (const tf of trackerFiles) {
+  // Only mark platforms that actually posted successfully.
+  if (!dryRun && successfulPlatforms.size > 0) {
+    for (const platform of successfulPlatforms) {
+      const tf = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
       if (!fs.existsSync(tf)) {
         fs.writeFileSync(tf, JSON.stringify({ 
           postedAt: new Date().toISOString(), 
-          platform: targetPlatform,
+          platform,
+          requestedPlatform: targetPlatform,
           reason,
         }, null, 2));
       }
@@ -404,13 +402,19 @@ ${REFERRAL_LINKS_HTML.join("\n")}
     logActivity("social-post", {
       tokenId: targetToken.id,
       tokenName: targetToken.name,
-      platform: targetPlatform,
+      platform: Array.from(successfulPlatforms).join(","),
+      requestedPlatform: targetPlatform,
       reason,
       tone
     });
   }
 
-  if (!posted) {
+  if (dryRun) {
+    console.log("✅ Dry run completed without posting or writing tracker files.");
+    return;
+  }
+
+  if (successfulPlatforms.size === 0) {
     console.error("❌ Failed to post on all target platforms.");
     process.exit(1);
   }

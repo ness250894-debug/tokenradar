@@ -19,6 +19,17 @@ export interface TokenMarketData {
   imageUrl?: string;
 }
 
+function stripUnsafeHtml(html: string): string {
+  return html
+    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "")
+    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*\/?\s*>/gi, "")
+    .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s+style\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s+srcdoc\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/\s+(href|src|xlink:href|formaction)\s*=\s*(["'])\s*(?:javascript|vbscript|data):[\s\S]*?\2/gi, "")
+    .replace(/\s+(href|src|xlink:href|formaction)\s*=\s*(?:javascript|vbscript|data):[^\s>]*/gi, "");
+}
+
 /**
  * Robust markdown → HTML converter for article content.
  * Injects stylized token pills for Risk Score mentions.
@@ -118,12 +129,13 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
   });
 
   try {
-    return DOMPurify.sanitize(htmlWithIds, {
+    const sanitized = DOMPurify.sanitize(htmlWithIds, {
       ADD_TAGS: ["img", "table", "thead", "tbody", "tr", "th", "td"],
       ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
     });
+    return stripUnsafeHtml(String(sanitized));
   } catch (e) {
-    console.warn("DOMPurify sanitization failed, returning raw HTML:", e);
-    return htmlWithIds;
+    console.warn("DOMPurify sanitization failed, using fallback sanitizer:", e);
+    return stripUnsafeHtml(htmlWithIds);
   }
 }

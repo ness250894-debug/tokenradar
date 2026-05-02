@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /** Generate a fully static site — no server runtime needed. */
+  /** Generate a fully static site; no server runtime needed. */
   output: "export",
   /** Disable image optimization for static export (Cloudflare handles CDN). */
   images: {

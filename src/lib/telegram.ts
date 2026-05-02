@@ -7,6 +7,23 @@ import type { RawApi } from "grammy";
  */
 let sharedApi: Api<RawApi> | null = null;
 
+function isSafeTelegramHref(href: string): boolean {
+  try {
+    const url = new URL(href);
+    return url.protocol === "https:" || url.protocol === "http:" || url.protocol === "tg:";
+  } catch {
+    return false;
+  }
+}
+
+function escapeHtmlAttribute(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export function getApi(botToken?: string): Api<RawApi> {
   const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
   
@@ -59,15 +76,16 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
           return `\x00TAG${placeholders.length - 1}\x00`;
         }
         if (attrs) {
-          const hrefMatch = attrs.match(/href="([^"]*)"/i);
-          if (hrefMatch) {
-            placeholders.push(`<a href="${hrefMatch[1]}">`);
+          const hrefMatch = attrs.match(/\bhref\s*=\s*(["'])(.*?)\1/i);
+          if (hrefMatch && isSafeTelegramHref(hrefMatch[2])) {
+            placeholders.push(`<a href="${escapeHtmlAttribute(hrefMatch[2])}">`);
             return `\x00TAG${placeholders.length - 1}\x00`;
           }
         }
         return ""; // a tag without href is not allowed
       } else {
-        placeholders.push(match);
+        const isClosing = match.startsWith('</');
+        placeholders.push(isClosing ? `</${tag}>` : `<${tag}>`);
         return `\x00TAG${placeholders.length - 1}\x00`;
       }
     }

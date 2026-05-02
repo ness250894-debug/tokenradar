@@ -1,7 +1,7 @@
 # Consolidated Social Automation Workflow
 # Unified heartbeat for all social interactions on TokenRadar
 #
-# Total: 8 runs/day with staggered Telegram and X slots
+# Total: 8 workflow runs/day with staggered Telegram and X slots
 # X and Telegram polls are intentionally scheduled at different times
 # Exclusive slots: TG Poll (15:00), Video (18:00), and Movers (21:00) replace regular TG updates
 
@@ -66,7 +66,7 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      # ─── 1. Telegram Market Update (10x/day, skipped during Poll & Movers slots) ──
+      # ─── 1. Telegram Market Update (5x/day, skipped during exclusive slots) ──
       - name: Telegram Periodic Update
         if: env.IS_EXCLUSIVE_SLOT != 'true'
         run: npx tsx scripts/post-market-updates.ts --platform telegram
@@ -164,8 +164,24 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/posted
-          git commit -m "chore: update social tracking state [skip ci]" || echo "No changes to commit"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update social tracking state [skip ci]"
+          pushed=false
+          for i in 1 2 3; do
+            if git pull origin main -X ours --no-edit && git push; then
+              pushed=true
+              break
+            fi
+            echo "Push attempt $i failed, retrying in 5s..."
+            sleep 5
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "Failed to push social tracking state after 3 attempts"
+            exit 1
+          fi
 
       - name: Update X OAuth Secret
         if: env.NEW_X_REFRESH_TOKEN != ''
