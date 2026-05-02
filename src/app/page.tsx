@@ -7,6 +7,7 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
+import { HackerText } from "@/components/HackerText";
 import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap } from "lucide-react";
 
 export default async function HomePage() {
@@ -200,7 +201,7 @@ export default async function HomePage() {
         </div>
       </section>
       
-      <section className="section" id="toolkit" style={{ background: "rgba(16, 185, 129, 0.02)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)" }}>
+      <section className="section" id="toolkit" style={{ background: "rgba(204, 255, 0, 0.015)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)" }}>
         <div className="container">
           <div className="section-header">
             <h2>Essential <span className="gradient-text">Crypto Toolkit</span></h2>
@@ -210,14 +211,14 @@ export default async function HomePage() {
             <CardGlare style={{ height: "100%" }}>
               <Link href="/best-crypto-hardware-wallets" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
                 <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
-                  <div className="feature-icon-wrapper" style={{ background: "rgba(16, 185, 129, 0.1)" }}>
-                    <ShieldCheck className="feature-icon" size={32} style={{ color: "#10b981" }} />
+                  <div className="feature-icon-wrapper" style={{ background: "var(--green-bg)" }}>
+                    <ShieldCheck className="feature-icon" size={32} style={{ color: "var(--green)" }} />
                   </div>
                   <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Stop Storing on Exchanges</h3>
                   <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
                     Secure your first $10,000 in Cold Storage. Compare the industry&apos;s most trusted hardware wallets based on our 2026 security audits.
                   </p>
-                  <div style={{ color: "#10b981", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                  <div style={{ color: "var(--green)", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
                     Secure My Assets &rarr;
                   </div>
                 </div>
@@ -227,14 +228,14 @@ export default async function HomePage() {
             <CardGlare style={{ height: "100%" }}>
               <Link href="/crypto-tax-guide" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
                 <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
-                  <div className="feature-icon-wrapper" style={{ background: "rgba(59, 130, 246, 0.1)" }}>
-                    <Calculator className="feature-icon" size={32} style={{ color: "#3b82f6" }} />
+                  <div className="feature-icon-wrapper" style={{ background: "rgba(0, 229, 255, 0.1)" }}>
+                    <Calculator className="feature-icon" size={32} style={{ color: "var(--accent-secondary)" }} />
                   </div>
                   <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Automate Your 2026 Taxes</h3>
                   <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
                     Stop fearing the IRS. Our data-driven guide shows you how to automate your crypto tax reporting in under 10 minutes with 99.9% accuracy.
                   </p>
-                  <div style={{ color: "#3b82f6", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                  <div style={{ color: "var(--accent-secondary)", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
                     Get Tax Ready &rarr;
                   </div>
                 </div>
@@ -244,14 +245,14 @@ export default async function HomePage() {
             <CardGlare style={{ height: "100%" }}>
               <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
                 <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
-                  <div className="feature-icon-wrapper" style={{ background: "rgba(247, 147, 26, 0.1)" }}>
-                    <Zap className="feature-icon" size={32} style={{ color: "#f7931a" }} />
+                  <div className="feature-icon-wrapper" style={{ background: "rgba(204, 255, 0, 0.1)" }}>
+                    <Zap className="feature-icon" size={32} style={{ color: "var(--accent-primary)" }} />
                   </div>
-                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Access the Inner Circle</h3>
+                  <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Access the <span style={{ color: "var(--accent-primary)" }}>[</span><HackerText text="Inner Circle" /><span style={{ color: "var(--accent-primary)" }}>]</span></h3>
                   <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
                     Get real-time TGE alerts, narrative deep-dives, and community alpha before the general market even notices the trend.
                   </p>
-                  <div style={{ color: "#f7931a", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
+                  <div style={{ color: "var(--accent-primary)", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
                     Access Alpha &rarr;
                   </div>
                 </div>

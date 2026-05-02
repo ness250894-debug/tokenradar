@@ -2,32 +2,32 @@
 @plugin "@tailwindcss/typography";
 /* ---- Design Tokens ---- */
 :root {
-  /* Colors — Dark-first crypto aesthetic */
-  --bg-primary: #0a0b0f;
-  --bg-secondary: #12131a;
-  --bg-card: #181922;
-  --bg-card-hover: #1e1f2e;
-  --bg-elevated: #22233a;
-  --surface-color: rgba(18, 19, 26, 0.72);
+  /* Colors — NEURAL_CMD Technical Intelligence */
+  --bg-primary: #07080B;    /* Obsidian */
+  --bg-secondary: #0a0b0f;
+  --bg-card: #141414;       /* Coal */
+  --bg-card-hover: #1c1c1c;
+  --bg-elevated: #1c1c1c;
+  --surface-color: rgba(7, 8, 11, 0.72);
 
   --text-primary: #f0f0f5;
-  --text-secondary: #9395a5;
-  --text-muted: #5d5f72;
+  --text-secondary: #4A4A4A; /* Slate */
+  --text-muted: #333333;
 
-  --accent-primary: #f59e0b; /* Brighter for AAA contrast on #181922 */
-  --accent-primary-hover: #fbbf24;
-  --accent-secondary: #fcd34d;
-  --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --accent-primary: #CCFF00; /* Neon Chartreuse */
+  --accent-primary-hover: #d9ff33;
+  --accent-secondary: #00E5FF; /* Cyber Blue */
+  --accent-gradient: linear-gradient(135deg, #CCFF00 0%, #00E5FF 100%);
 
-  --green: #00e676;
-  --green-bg: rgba(0, 230, 118, 0.1);
-  --red: #ff5252;
-  --red-bg: rgba(255, 82, 82, 0.1);
-  --yellow: #ffd740;
-  --yellow-bg: rgba(255, 215, 64, 0.1);
+  --green: #00FFA3;          /* Emerald */
+  --green-bg: rgba(0, 255, 163, 0.08);
+  --red: #FF3366;            /* Warning Red */
+  --red-bg: rgba(255, 51, 102, 0.08);
+  --yellow: #FFB800;
+  --yellow-bg: rgba(255, 184, 0, 0.08);
 
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-color-hover: rgba(255, 255, 255, 0.12);
+  --border-color: rgba(204, 255, 0, 0.15);
+  --border-color-hover: rgba(204, 255, 0, 0.3);
 
   /* Spacing */
   --space-2xs: 2px;
@@ -65,8 +65,8 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 30px rgba(217, 119, 6, 0.15);
-  --shadow-glow-accent: 0 0 40px rgba(251, 191, 36, 0.1);
+  --shadow-glow: 0 0 30px rgba(204, 255, 0, 0.1);
+  --shadow-glow-accent: 0 0 40px rgba(204, 255, 0, 0.05);
 
   /* Transitions */
   --transition-fast: 150ms ease;
