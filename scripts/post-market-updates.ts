@@ -37,7 +37,7 @@ import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
-import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
+import { ICONS, REFERRAL_LINKS_HTML, SITE_URL, SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
@@ -218,15 +218,16 @@ async function main() {
 
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
-    const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context);
-    const sanitized = sanitizeHtmlForTelegram(aiSummary, SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS);
-    tgMessage = sanitized;
+    const tgMaxChars = 1024 - tgFooter.length - 20;
+    const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context, tgMaxChars);
+    tgMessage = aiSummary;
   }
 
   if (runX) {
     console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
-    xMessage = await generateTweet(targetToken.name, targetToken.symbol, context);
+    const xMaxChars = 260;
+    xMessage = await generateTweet(targetToken.name, targetToken.symbol, context, xMaxChars);
     
     if (isOnWebsite) {
       xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
@@ -274,8 +275,7 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
       if (tokenImage) {
         // ── Photo mode: short caption (1024 char limit) ──
-        const photoSummary = sanitizeHtmlForTelegram(tgMessage, SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS);
-        let caption = photoSummary + "\n\n" + tgFooter.trim();
+        let caption = tgMessage.trim() + "\n" + tgFooter.trim();
         
         // Use Inline Keyboard for the main CTA if available
         const keyboard = isOnWebsite 
@@ -284,12 +284,9 @@ ${REFERRAL_LINKS_HTML.join("\n")}
 
         if (caption.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT) {
           // Trim the summary further to fit
-          const footerWithPadding = "\n\n" + tgFooter.trim();
+          const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
-          let cutAt = photoSummary.lastIndexOf("\n", maxBody);
-          if (cutAt < maxBody * 0.5) cutAt = photoSummary.lastIndexOf(" ", maxBody);
-          if (cutAt < maxBody * 0.5) cutAt = maxBody;
-          caption = photoSummary.substring(0, cutAt) + "..." + footerWithPadding;
+          caption = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
         }
 
         if (!dryRun) {
@@ -307,19 +304,16 @@ ${REFERRAL_LINKS_HTML.join("\n")}
         }
       } else {
         // ── Text-only fallback ──
-        let finalTgMessage = tgMessage + "\n\n" + tgFooter.trim();
+        let finalTgMessage = tgMessage.trim() + "\n" + tgFooter.trim();
         const keyboard = isOnWebsite 
           ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
           : undefined;
 
         if (finalTgMessage.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT) {
           console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT}), trimming body...`);
-          const footerWithPadding = "\n\n" + tgFooter.trim();
+          const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT - footerWithPadding.length - 3;
-          let cutAt = tgMessage.lastIndexOf("\n", maxBody);
-          if (cutAt < maxBody * 0.5) cutAt = tgMessage.lastIndexOf(" ", maxBody);
-          if (cutAt < maxBody * 0.5) cutAt = maxBody;
-          finalTgMessage = tgMessage.substring(0, cutAt) + "..." + footerWithPadding;
+          finalTgMessage = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
         }
         
         if (!dryRun) {

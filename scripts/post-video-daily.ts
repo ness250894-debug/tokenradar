@@ -20,7 +20,7 @@ import {
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
-import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
+import { ICONS, REFERRAL_LINKS_HTML, SITE_URL, SOCIAL, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
@@ -270,17 +270,21 @@ async function main() {
     let ytMetadata = { title: "", description: "" };
 
     if (runTelegram) {
+      const footer = getTelegramFooter(targetToken.symbol);
+      const tgMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footer.length - 20;
       const aiSummary = await generateTokenSummary(
         targetToken.name,
         targetToken.symbol,
         targetToken.description || "",
         context,
+        tgMaxChars
       );
-      tgMessage = sanitizeHtmlForTelegram(aiSummary);
+      tgMessage = aiSummary; // No longer stripping since we rely on strict prompt length
     }
 
     if (runX) {
-      xMessage = await generateTweet(targetToken.name, targetToken.symbol, context);
+      const xMaxChars = 260;
+      xMessage = await generateTweet(targetToken.name, targetToken.symbol, context, xMaxChars);
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       xReplyMessage = isOnWebsite
         ? `Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
@@ -328,16 +332,13 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
-            const tgFooter = `
-<b>The TokenRadar Ecosystem:</b>
-📉 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
-
-${REFERRAL_LINKS_HTML.join("\n")}
-
-#${targetToken.symbol.toUpperCase()} #Crypto
-`;
-            const photoSummary = sanitizeHtmlForTelegram(tgMessage, PHOTO_AI_SUMMARY_CHARS);
-            const caption = photoSummary + "\n\n" + tgFooter.trim();
+            const tgFooter = getTelegramFooter(targetToken.symbol);
+            let caption = tgMessage.trim() + "\n" + tgFooter.trim();
+            if (caption.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT) {
+              const footerWithPadding = "\n" + tgFooter.trim();
+              const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
+              caption = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
+            }
 
             const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
             console.log(`Posted video to Telegram (Message ID: ${msgId})`);

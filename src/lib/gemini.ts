@@ -8,6 +8,7 @@ export type AIResult = {
   provider: string;
   model: string;
   cost: number;
+  finishReason?: string;
 };
 
 const aiMutex = new Mutex();
@@ -45,24 +46,25 @@ async function callGeminiAPI(
         }
 
         lastGeminiRequestTime = Date.now();
-        let finalPrompt = userPrompt;
-        if (jsonSchema) {
-          finalPrompt += `\n\nYOU MUST RETURN A VALID JSON OBJECT EXACTLY MATCHING THIS SCHEMA:\n${JSON.stringify(jsonSchema, null, 2)}`;
-        }
 
-        const response = await fetchWithRetry(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+        const body = JSON.stringify({
             contents: [{ 
               parts: [{ 
-                text: systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${finalPrompt}` : finalPrompt 
+                text: systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${userPrompt}` : userPrompt 
               }] 
             }],
             generationConfig: {
-              maxOutputTokens: maxTokens
+              maxOutputTokens: maxTokens,
+              ...(jsonSchema ? {
+                responseMimeType: "application/json",
+                responseSchema: jsonSchema
+              } : {})
             }
-          }),
+          });
+        const response = await fetchWithRetry(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
         });
 
         if (!response.ok) {
@@ -71,13 +73,21 @@ async function callGeminiAPI(
         }
 
         const data = await response.json();
-        const text = data.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text || "").join("") || "";
+        if (!data.candidates || data.candidates.length === 0) {
+          console.error("Gemini API returned no candidates. Raw response:", JSON.stringify(data));
+          throw new Error("Gemini API returned no candidates.");
+        }
+
+        const candidate = data.candidates[0];
+        const text = candidate.content?.parts?.map((p: { text?: string }) => p.text || "").join("") || "";
         const promptTokens = data.usageMetadata?.promptTokenCount || 0;
         const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
+        const finishReason = candidate.finishReason;
+
 
         const cost = (promptTokens / 1_000_000) * 0.10 + (completionTokens / 1_000_000) * 0.40;
 
-        return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost };
+        return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost, finishReason };
       });
 
       return result;
@@ -177,7 +187,7 @@ async function callClaudeAPI(
 
       const cost = (promptTokens / 1_000_000) * 0.8 + (completionTokens / 1_000_000) * 4.0;
 
-      return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost };
+      return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost, finishReason: "STOP" };
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (i < retries) console.info(`  ⚠ Claude failed (${lastError.message}), retrying...`);
@@ -216,6 +226,10 @@ export async function callAIWithFallback(
     if (isTechnicalRefusal(result.content)) {
       console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
       throw new Error("AI Technical Refusal");
+    }
+    if (result.finishReason && result.finishReason !== "STOP") {
+      console.warn(`  ⚠ Gemini finished with reason: ${result.finishReason}. Falling back to Claude...`);
+      throw new Error(`AI Truncated: ${result.finishReason}`);
     }
     return result;
   } catch (error) {
@@ -272,7 +286,8 @@ export async function generateTokenSummary(
   tokenName: string,
   symbol: string,
   description: string,
-  metrics: MarketContext = {}
+  metrics: MarketContext = {},
+  maxChars: number = 800
 ): Promise<string> {
   const priceStr = metrics.price !== undefined
     ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
@@ -317,16 +332,16 @@ export async function generateTokenSummary(
     ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
     
     STRICT ANALYSIS RULES:
-    1. MANDATORY: The very first sentence MUST begin exactly with: <b>$${symbol.toUpperCase()} (${tokenName})</b>.
-    2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis in CoinGecko's provided data.
-    3. INSIGHT: Explain the *implication* of the data. Use the SOCIAL (community) or DEVELOPER (commits) stats to add institutional depth—for example, spotting "Hype vs. Fundamentals".
-    4. ATtRIBUTION: At some point in the analysis, naturally mention that the data is powered by CoinGecko.
-    5. TARGET LENGTH: 700 - 1000 characters.
+    1. MANDATORY: The very first sentence MUST begin exactly with: $${symbol.toUpperCase()} (${tokenName}). (Do NOT bold the cashtag).
+    2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis. Use <b> tags for these numbers.
+    3. INSIGHT: Explain the *implication* of the data. 
+    4. ATTRIBUTION: Naturally mention that the data is powered by CoinGecko.
+    5. HARD LIMIT: Your total output MUST be under ${maxChars} characters. This is a hard technical limit. Priority is data over fluff.
     6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
-    7. SPICY ENGAGEMENT: Use 2-3 emojis. Match the market energy.
+    7. SPICY ENGAGEMENT: Use exactly 1 or 2 emojis.
     8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
     9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags.
-    10. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
+    10. EXTERNAL LINKS: NEVER include URLs, external links, or ads.
   `;
 
   try {
@@ -347,7 +362,8 @@ export async function generateTokenSummary(
 export async function generateTweet(
   tokenName: string,
   symbol: string,
-  metrics: MarketContext = {}
+  metrics: MarketContext = {},
+  maxChars: number = 250
 ): Promise<string> {
   const priceStr = metrics.price !== undefined
     ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
@@ -392,14 +408,14 @@ export async function generateTweet(
     ${reasonContext}
     
     STRICT X RULES:
-    1. OUTPUT: Return ONLY the tweet text. Do NOT include any headers, labels, meta-commentary, checklists, or "Character count" info.
-    2. LENGTH: Between 200 and 250 characters. Aim for the 240-character "sweet spot". You MUST use at least 3 distinct sentences to provide narrative depth.
+    1. OUTPUT: Return ONLY the tweet text.
+    2. HARD LIMIT: Your output MUST be under ${maxChars} characters. Aim for high density.
     3. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
     4. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
-    5. SPARK DEBATE: End with a strong, data-driven question to drive replies (e.g. "Is this local bottom confirmed or just a bull trap? 👇").
+    5. SPARK DEBATE: End with a strong, data-driven question to drive replies.
     6. HASHTAGS: Exactly 1 or 2 niche tags at the end.
-    7. TONE: Punchy, analytical, slightly degen if the market is hot.
-    8. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
+    7. TONE: Punchy, analytical.
+    8. EXTERNAL LINKS: NEVER include URLs.
   `;
 
   try {
@@ -486,10 +502,18 @@ export async function generateYoutubeMetadata(
     Format your exact output as valid JSON with exactly two keys: "title" and "description". Do not include markdown blocks.
   `;
 
+  const youtubeSchema = {
+    type: "object",
+    properties: {
+      title: { type: "string", description: "Video title under 60 chars." },
+      description: { type: "string", description: "Video description with hook, branding, and hashtags." }
+    },
+    required: ["title", "description"]
+  };
+
   try {
-    const result = await callAIWithFallback("", prompt, 500);
-    const content = result.content.replace(/\`\`\`json/gi, '').replace(/\`\`\`/gi, '').trim();
-    return JSON.parse(content);
+    const result = await callAIWithFallback("", prompt, 500, youtubeSchema);
+    return JSON.parse(result.content);
   } catch (_error) {
     console.warn(`  ⚠ AI YouTube metadata generation failed. Using fallbacks.`);
     return {
