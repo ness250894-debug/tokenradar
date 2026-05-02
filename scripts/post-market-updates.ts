@@ -37,7 +37,7 @@ import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
 import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
-import { ICONS, REFERRAL_LINKS_HTML, SITE_URL, SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
+import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
@@ -48,8 +48,6 @@ import {
   selectToken,
 } from "./lib/token-selection";
 import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coingecko";
-import { sanitizeHtmlForTelegram } from "../src/lib/telegram";
-
 // Load environment
 loadEnv();
 
@@ -216,9 +214,10 @@ async function main() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 
+  const tgFooter = getTelegramFooter(targetToken.symbol);
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
-    const tgMaxChars = 1024 - tgFooter.length - 20;
+    const tgMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - tgFooter.length - 20;
     const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context, tgMaxChars);
     tgMessage = aiSummary;
   }

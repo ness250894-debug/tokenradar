@@ -18,9 +18,9 @@ import {
   generateYoutubeMetadata,
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
-import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import { sendTelegramVideo } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
-import { ICONS, REFERRAL_LINKS_HTML, SITE_URL, SOCIAL, getTelegramFooter } from "../src/lib/config";
+import { SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
@@ -35,7 +35,6 @@ import {
 loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
-const PHOTO_AI_SUMMARY_CHARS = 400;
 
 type PlatformName = "telegram" | "x" | "youtube";
 
