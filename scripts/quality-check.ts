@@ -304,7 +304,7 @@ async function main() {
   console.log();
 
   if (autoFix && process.env.ANTHROPIC_API_KEY) {
-    console.log("  Mode: --fix with AI rewrite (Claude Haiku 4.5)");
+    console.log("  Mode: --fix with AI rewrite (Gemini 2.5 Flash → Claude Haiku 4.5 fallback)");
   } else if (autoFix) {
     console.log("  Mode: --fix (disclaimer only, no ANTHROPIC_API_KEY for AI rewrite)");
   }

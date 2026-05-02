@@ -230,6 +230,7 @@ export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: Tr
                       <Link 
                         href="https://affil.trezor.io/aff_c?offer_id=169&aff_id=135555" 
                         target="_blank"
+                        rel="sponsored noopener noreferrer"
                         className="btn btn-primary" 
                         style={{ width: "100%", padding: "10px", fontSize: "0.85rem", background: "#00854d" }}
                       >

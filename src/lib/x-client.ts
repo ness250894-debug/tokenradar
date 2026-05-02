@@ -227,10 +227,6 @@ export async function getXClient(): Promise<Client> {
   return _cachedClient;
 }
 
-
-
-
-
 // ── Text Utilities ────────────────────────────────────────────
 
 /**

@@ -15,6 +15,9 @@ let robotoFontBuffer: ArrayBuffer | null = null;
 async function getFont() {
   if (!robotoFontBuffer) {
     const res = await fetch('https://raw.githubusercontent.com/googlefonts/roboto/main/src/hinted/Roboto-Medium.ttf');
+    if (!res.ok) {
+      throw new Error(`Failed to fetch Roboto font: HTTP ${res.status}`);
+    }
     robotoFontBuffer = await res.arrayBuffer();
   }
   return robotoFontBuffer;
@@ -152,5 +155,5 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
   });
 
   const pngData = resvg.render();
-  return pngData.asPng();
+  return Buffer.from(pngData.asPng());
 }

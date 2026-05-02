@@ -19,13 +19,13 @@ import { sleep, Mutex } from "./shared-utils";
 
 import { Coingecko } from "@coingecko/coingecko-typescript";
 import { fetchWithRetry } from "./fetch-with-retry";
+import { MONTHLY_LIMIT } from "./reporter";
 
 // ── Constants & Configuration ───────────────────────────────
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const CACHE_DIR = path.join(DATA_DIR, "cache");
 const COUNTER_FILE = path.join(CACHE_DIR, "api-counter.json");
-const MONTHLY_LIMIT = 9000; // Strictly safe within user limit
 
 function getRateLimitDelayMs(): number {
   const apiKey = process.env.COINGECKO_API_KEY;
@@ -345,7 +345,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
     }) as unknown as Promise<MarketChartGetResponse>
   );
 
-  // 4. Transform into clean clean format
+  // 4. Transform into clean format
   return {
     id: detail.id || tokenId,
     symbol: detail.symbol || "",

@@ -442,14 +442,8 @@ export async function getTokensByCategory(categoryId: string): Promise<TokenSumm
 }
 
 /**
- * Get all token IDs that should have a page on the regular /[token] route.
- *
- * Excludes non-released upcoming TGE tokens so they only appear under
- * /upcoming/[token]. Tokens that have graduated to status === "released"
- * are not excluded.
- */
-/**
  * Get all token IDs that should have a page on the regular /[token] route. (memoized)
+ * Excludes non-released upcoming TGE tokens so they only appear under /upcoming/[token].
  */
 export async function getTokenIds(): Promise<string[]> {
   if (_tokenIdsCache) return _tokenIdsCache;

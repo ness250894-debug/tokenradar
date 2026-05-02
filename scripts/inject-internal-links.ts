@@ -144,4 +144,7 @@ async function main() {
   console.log(`  ✓ Successfully injected links in ${updatedFiles} articles.`);
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error("❌ Internal link injection failed:", err);
+  process.exit(1);
+});

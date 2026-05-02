@@ -144,6 +144,7 @@ export const TRENDING_COOLDOWN_DAYS = 3;
  * posted again. Applies to priorities 3-5.
  */
 export const GENERAL_COOLDOWN_DAYS = 30;
+
 // ── Interactive Poll Config ────────────────────────────────────
 
 /** Default poll duration in minutes (24 hours). */

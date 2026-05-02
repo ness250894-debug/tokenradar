@@ -69,8 +69,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = await getArticle(tokenId, "overview");
   const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
 
-
-
   const ogImage = `/og/token/${detail.id}.png`;
 
   return {
