@@ -8,14 +8,14 @@ import { HackerText } from "./HackerText";
 import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Tokens", href: "/#tokens", icon: Activity },
-  { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "#10b981", icon: ShieldCheck },
-  { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "#3b82f6", icon: Calculator },
-  { name: "Upcoming", href: "/upcoming", icon: Clock },
-  { name: "Learn", href: "/learn", icon: BookOpen },
-  { name: "Methodology", href: "/about", icon: FileText },
-  { name: "Contact", href: "/contact", icon: HelpCircle },
-  { name: "Disclaimer", href: "/disclaimer", icon: Info },
+  { name: "Tokens", href: "/#tokens", icon: Activity, color: "var(--accent-primary)" },
+  { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "var(--green)", icon: ShieldCheck, color: "var(--green)" },
+  { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "var(--accent-secondary)", icon: Calculator, color: "var(--accent-secondary)" },
+  { name: "Upcoming", href: "/upcoming", icon: Clock, color: "var(--accent-primary)" },
+  { name: "Learn", href: "/learn", icon: BookOpen, color: "var(--accent-secondary)" },
+  { name: "Methodology", href: "/about", icon: FileText, color: "var(--text-secondary)" },
+  { name: "Contact", href: "/contact", icon: HelpCircle, color: "var(--accent-secondary)" },
+  { name: "Disclaimer", href: "/disclaimer", icon: Info, color: "var(--red)" },
 ] as const;
 
 /**
@@ -74,7 +74,7 @@ export function Navigation() {
                     size={20}
                     className="nav-icon"
                     style={{
-                      color: "badge" in link ? link.badgeColor : "inherit"
+                      color: link.color || "inherit"
                     }}
                   />
                   <span>{link.name}</span>
@@ -83,7 +83,7 @@ export function Navigation() {
                       className={`nav-badge ${link.badge === "SECURE" ? "badge-pulse" : "badge-shimmer"}`}
                       style={{
                         backgroundColor: link.badgeColor,
-                        color: "white",
+                        color: "var(--bg-primary)",
                         border: `1px solid ${link.badgeColor}44`
                       }}
                     >
