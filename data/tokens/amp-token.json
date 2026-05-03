@@ -4,18 +4,18 @@
   "name": "Amp",
   "description": "What is Amp?\n\nAmp is described as the new digital collateral token offering instant, verifiable assurances for any kind of value transfer. Using Amp, networks like Flexa can quickly and irreversibly secure transactions for a wide variety of asset-related use cases.\n\nHow does Amp work?\n\nAmp claims to offer a straightforward but versatile interface for verifiable collateralization through a system of collateral partitions and collateral managers. Where collateral partitions can be designated to collateralize any account, application, or even transaction, and carry balances which are directly verifiable on the Ethereum blockchain, collateral managers are smart contracts that can lock, release, and redirect collateral in these partitions as needed in order to support value transfer activities. Amp supports a wide variety of use cases for collateralization, and also introduces the concept of predefined partition strategies, which can enable special capabilities such as collateral models through which tokens can be staked without ever leaving their original address.",
   "market": {
-    "price": 0.00087445,
-    "marketCap": 75853710,
-    "marketCapRank": 367,
-    "volume24h": 5376968,
+    "price": 0.00087851,
+    "marketCap": 76237880,
+    "marketCapRank": 370,
+    "volume24h": 3940884,
     "high24h": 0.00092021,
     "low24h": 0.00087268,
-    "priceChange24h": -0.55276,
+    "priceChange24h": 0.29098,
     "priceChange7d": -0.90288,
     "priceChange30d": -32.14028,
     "priceChange1y": -75.25988,
     "ath": 0.120813,
-    "athChangePercentage": -99.27682,
+    "athChangePercentage": -99.27195,
     "athDate": "2021-06-16T16:03:41.147Z",
     "atl": 0.00084186,
     "atlDate": "2026-04-14T23:25:23.544Z",
@@ -24,5 +24,5 @@
     "maxSupply": 100000000000,
     "fdv": 87327435
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.871Z"
+  "lastMarketUpdate": "2026-05-03T18:37:04.997Z"
 }
