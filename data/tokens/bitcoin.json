@@ -4,18 +4,18 @@
   "name": "Bitcoin",
   "description": "Bitcoin is the world's first decentralized cryptocurrency, created in 2009 by the pseudonymous Satoshi Nakamoto. It enables peer-to-peer electronic cash transactions without intermediaries like banks or governments, operating on a blockchain secured by Proof of Work mining and the SHA-256 cryptographic algorithm. \n\nWith a fixed supply cap of 21 million coins and programmatic halvings every four years that reduce miner rewards, Bitcoin is designed as a deflationary digital asset often called \"digital gold.\" Its value stems from solving the double-spending problem without trusted intermediaries, creating the first truly scarce digital asset with censorship resistance and permissionless access that no government, corporation, or individual can control.\n\nBitcoin operates as a decentralized peer-to-peer network where transactions are recorded on a public ledger called the blockchain, distributed across thousands of computers globally. Transactions are grouped into blocks added approximately every 10 minutes through mining, where specialized computers compete to solve complex mathematical puzzles. \n\nBitcoin has achieved mainstream adoption through multiple vectors. The January 2024 SEC approval of 11 spot Bitcoin ETFs opened Bitcoin investment to traditional finance participants, and corporations like Strategy (formerly MicroStrategy) are using Bitcoin as a treasury reserve asset to protect against currency debasement, offering MSTR holders amplified exposure to Bitcoin. \n\nThe Bitcoin ecosystem continues to evolve with innovations like Ordinals, which emerged in January 2023 to enable NFT-like functionality directly on Bitcoin, and BRC-20 tokens, an experimental standard for creating fungible tokens using Ordinal inscriptions. BTCFi (Bitcoin Finance) represents emerging financial applications extending beyond Bitcoin's traditional role, with protocols like Babylon allowing Bitcoin holders to stake BTC to secure Proof of Stake chains. ",
   "market": {
-    "price": 78426,
-    "marketCap": 1570111710258,
+    "price": 78682,
+    "marketCap": 1575519928342,
     "marketCapRank": 1,
-    "volume24h": 20830402680,
+    "volume24h": 18621787441,
     "high24h": 69719,
     "low24h": 67805,
-    "priceChange24h": -0.10359,
+    "priceChange24h": 0.32861,
     "priceChange7d": 1.81713,
     "priceChange30d": 3.15307,
     "priceChange1y": -11.98836,
     "ath": 126080,
-    "athChangePercentage": -37.79649,
+    "athChangePercentage": -37.5933,
     "athDate": "2025-10-06T18:57:42.558Z",
     "atl": 67.81,
     "atlDate": "2013-07-06T00:00:00.000Z",
@@ -24,5 +24,5 @@
     "maxSupply": 21000000,
     "fdv": 1388287727730
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.789Z"
+  "lastMarketUpdate": "2026-05-03T18:37:04.947Z"
 }
