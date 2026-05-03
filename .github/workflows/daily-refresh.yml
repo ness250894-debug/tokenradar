@@ -81,12 +81,6 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-      - name: Dispatch System Report & Cleanup
-        run: npx tsx scripts/send-system-report.ts
-        env:
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-
       # Note: [skip ci] prevents the `on: push` trigger in deploy.yml.
       # The explicit `deploy` job below is the ONLY deploy trigger for this workflow.
       - name: Commit updated data
@@ -107,6 +101,13 @@ jobs:
             echo "Push attempt $i failed, retrying in 5s..."
             sleep 5
           done
+
+      - name: Dispatch System Report & Cleanup
+        if: always()
+        run: npx tsx scripts/send-system-report.ts
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
       - name: Notify on Failure
         if: failure()
