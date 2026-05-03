@@ -19,6 +19,30 @@ export interface TokenMarketData {
   imageUrl?: string;
 }
 
+interface LinkableToken {
+  id: string;
+  name: string;
+  nameLower: string;
+}
+
+let linkableTokensPromise: Promise<LinkableToken[]> | null = null;
+
+async function getLinkableTokens(excludedName?: string): Promise<LinkableToken[]> {
+  if (!linkableTokensPromise) {
+    linkableTokensPromise = getAllTokens().then((tokens) =>
+      tokens
+        .filter((t) => t.name.length > 2)
+        .map((t) => ({ id: t.id, name: t.name, nameLower: t.name.toLowerCase() }))
+        .sort((a, b) => b.name.length - a.name.length),
+    );
+  }
+
+  const excludedNameLower = excludedName?.toLowerCase();
+  return (await linkableTokensPromise)
+    .filter((t) => t.nameLower !== excludedNameLower)
+    .slice(0, 250);
+}
+
 function stripUnsafeHtml(html: string): string {
   return html
     .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "")
@@ -90,23 +114,17 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
       return `__MASKED_LINK_${maskedLinks.length - 1}__`;
     });
 
-    const allTokens = await getAllTokens();
-    const linkableTokens = allTokens
-      .filter(t => t.name.toLowerCase() !== tokenData?.name?.toLowerCase() && t.name.length > 2)
-      .sort((a, b) => b.name.length - a.name.length)
-      .slice(0, 250); // Increased slice to ensure more tokens are covered
+    const linkableTokens = await getLinkableTokens(tokenData?.name);
 
     for (const t of linkableTokens) {
       const safeName = t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       // Added 'g' flag to replace all occurrences, not just the first one
       const regex = new RegExp(`\\b(${safeName})\\b`, 'ig');
-      if (regex.test(processedMd)) {
-         processedMd = processedMd.replace(regex, (match) => {
-           // Immediately mask the new link to prevent nested links matching later
-           maskedLinks.push(`[${match}](/${t.id})`);
-           return `__MASKED_LINK_${maskedLinks.length - 1}__`;
-         });
-      }
+      processedMd = processedMd.replace(regex, (match) => {
+        // Immediately mask the new link to prevent nested links matching later
+        maskedLinks.push(`[${match}](/${t.id})`);
+        return `__MASKED_LINK_${maskedLinks.length - 1}__`;
+      });
     }
 
     processedMd = processedMd.replace(/__MASKED_LINK_(\d+)__/g, (_, idx) => maskedLinks[parseInt(idx)]);
@@ -130,8 +148,8 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
 
   try {
     const sanitized = DOMPurify.sanitize(htmlWithIds, {
-      ADD_TAGS: ["img", "table", "thead", "tbody", "tr", "th", "td"],
-      ADD_ATTR: ["class", "width", "height", "alt", "src", "id"],
+      ADD_TAGS: ["a", "img", "table", "thead", "tbody", "tr", "th", "td"],
+      ADD_ATTR: ["class", "width", "height", "alt", "src", "id", "href", "target", "rel"],
     });
     return stripUnsafeHtml(String(sanitized));
   } catch (e) {

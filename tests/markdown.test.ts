@@ -76,4 +76,14 @@ describe("markdownToHtml", () => {
     expect(html).toContain("#0");
     expect(html).toContain("0.00%");
   });
+
+  it("auto-links repeated token mentions without missing the first occurrence", async () => {
+    const tokenName = "Apollo Diversified Credit Securitize Fund";
+    const html = await markdownToHtml(
+      `${tokenName} leads. ${tokenName} liquidity matters. [${tokenName}](/apollo-diversified-credit-securitize-fund) is prelinked.`,
+    );
+    const tokenLinks = html.match(/href="\/apollo-diversified-credit-securitize-fund"/g) || [];
+
+    expect(tokenLinks.length).toBeGreaterThanOrEqual(3);
+  });
 });

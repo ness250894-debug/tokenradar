@@ -19,4 +19,11 @@ describe("sanitizeHtmlForTelegram", () => {
     expect(result).toContain("bad");
     expect(result).toContain("<b>safe</b>");
   });
+
+  it("closes deeply nested malformed allowed tags", () => {
+    const html = "<b><i><tg-spoiler>Risk note";
+    const result = sanitizeHtmlForTelegram(html);
+
+    expect(result).toBe("<b><i><tg-spoiler>Risk note</tg-spoiler></i></b>");
+  });
 });

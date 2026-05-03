@@ -27,6 +27,7 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
+  # Keep this list synchronized with the X Periodic Update schedule entries above.
   IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 09 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
   IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '00 15 * * *' || github.event.schedule == '00 18 * * *' || github.event.schedule == '00 21 * * *' }}
   IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * *' || github.event_name == 'workflow_dispatch' }}
@@ -184,6 +185,7 @@ jobs:
           fi
 
       - name: Update X OAuth Secret
+        # Requires GH_PAT with repo scope so rotating X refresh tokens can update repository secrets.
         if: env.NEW_X_REFRESH_TOKEN != ''
         run: gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_X_REFRESH_TOKEN"
         env:

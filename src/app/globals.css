@@ -1373,6 +1373,15 @@ input[type=range]::-moz-range-thumb:hover {
   padding: var(--space-lg);
 }
 
+.sidebar-sticky::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-sticky::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
 .sidebar-title {
   font-size: var(--text-sm);
   font-weight: 700;

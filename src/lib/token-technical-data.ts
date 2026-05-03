@@ -152,7 +152,7 @@ export const TOKEN_TECHNICAL_MAP: Record<string, TokenTechnical> = {
     network: "Solana",
     standard: "SPL",
     gasToken: "SOL",
-    contractAddress: "rndrqv97mya05df2y6y92h3y7v3m4c7y9r6d0s9v",
+    contractAddress: "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
     ledgerAppName: "Solana",
     isSubtoken: true
   },

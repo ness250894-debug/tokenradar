@@ -32,7 +32,7 @@ export default async function HomePage() {
 
   // ── Dynamic Pulse Calculations ──────────────────────────────
   
-  // 1. Listings Velocity: Deterministic subset for "recent" activity
+  // 1. Listings Velocity: display-only approximation until first-seen dates are tracked.
   const tokensAddedThisMonth = Math.min(allTokens.length, Math.floor(allTokens.length * 0.08) + 5);
 
   // 2. Data Points Depth: Ingested metrics per article (50+ fields)

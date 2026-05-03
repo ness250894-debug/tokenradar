@@ -1,5 +1,6 @@
 import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
+import { formatErrorForLog } from "./utils";
 
 export type AIResult = {
   content: string;
@@ -16,12 +17,20 @@ let lastGeminiRequestTime = 0;
 
 export const PRIMARY_MODEL = "gemini-2.5-flash";
 export const FALLBACK_MODEL = "claude-haiku-4-5-20251001";
+const DEFAULT_MAX_OUTPUT_TOKENS = 4000;
+const DEFAULT_AI_RETRIES = 3;
+const AI_RETRY_DELAY_MS = 2000;
+const GEMINI_MIN_REQUEST_INTERVAL_MS = 4100;
+const GEMINI_INPUT_COST_PER_MILLION = 0.10;
+const GEMINI_OUTPUT_COST_PER_MILLION = 0.40;
+const CLAUDE_INPUT_COST_PER_MILLION = 0.80;
+const CLAUDE_OUTPUT_COST_PER_MILLION = 4.00;
 
 async function callGeminiAPI(
   systemPrompt: string,
   userPrompt: string,
-  maxTokens: number = 4000,
-  retries: number = 3,
+  maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
+  retries: number = DEFAULT_AI_RETRIES,
   jsonSchema?: object
 ): Promise<AIResult> {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -34,13 +43,13 @@ async function callGeminiAPI(
     try {
       if (i > 0) {
         console.info(`\n  [retry ${i}/${retries}] calling Gemini...`);
-        await sleep(2000);
+        await sleep(AI_RETRY_DELAY_MS);
       }
 
       const result = await aiMutex.runExclusive(async () => {
         const elapsed = Date.now() - lastGeminiRequestTime;
-        if (elapsed < 4100) {
-          const waitTime = 4100 - elapsed;
+        if (elapsed < GEMINI_MIN_REQUEST_INTERVAL_MS) {
+          const waitTime = GEMINI_MIN_REQUEST_INTERVAL_MS - elapsed;
           process.stdout.write(` [4s pace limit...] `);
           await sleep(waitTime);
         }
@@ -85,7 +94,9 @@ async function callGeminiAPI(
         const finishReason = candidate.finishReason;
 
 
-        const cost = (promptTokens / 1_000_000) * 0.10 + (completionTokens / 1_000_000) * 0.40;
+        const cost =
+          (promptTokens / 1_000_000) * GEMINI_INPUT_COST_PER_MILLION +
+          (completionTokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_MILLION;
 
         return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost, finishReason };
       });
@@ -102,8 +113,8 @@ async function callGeminiAPI(
 async function callClaudeAPI(
   systemPrompt: string,
   userPrompt: string,
-  maxTokens: number = 4000,
-  retries: number = 3,
+  maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
+  retries: number = DEFAULT_AI_RETRIES,
   jsonSchema?: object
 ): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -115,7 +126,7 @@ async function callClaudeAPI(
     try {
       if (i > 0) {
         console.info(`\n  [retry ${i}/${retries}] calling Claude...`);
-        await sleep(2000);
+        await sleep(AI_RETRY_DELAY_MS);
       }
 
       const messages = [{ role: "user", content: userPrompt }];
@@ -185,7 +196,9 @@ async function callClaudeAPI(
       const promptTokens = data.usage?.input_tokens || 0;
       const completionTokens = data.usage?.output_tokens || 0;
 
-      const cost = (promptTokens / 1_000_000) * 0.8 + (completionTokens / 1_000_000) * 4.0;
+      const cost =
+        (promptTokens / 1_000_000) * CLAUDE_INPUT_COST_PER_MILLION +
+        (completionTokens / 1_000_000) * CLAUDE_OUTPUT_COST_PER_MILLION;
 
       return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost, finishReason: "STOP" };
     } catch (e) {
@@ -217,12 +230,12 @@ function isTechnicalRefusal(text: string): boolean {
 export async function callAIWithFallback(
   systemPrompt: string,
   userPrompt: string,
-  maxTokens: number = 4000,
+  maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
   jsonSchema?: object
 ): Promise<AIResult> {
   try {
     // Try Gemini first (primary — lower cost)
-    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
     if (isTechnicalRefusal(result.content)) {
       console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
       throw new Error("AI Technical Refusal");
@@ -233,8 +246,8 @@ export async function callAIWithFallback(
     }
     return result;
   } catch (error) {
-    console.warn(`  ⚠ Gemini primary failed or refused. Falling back to Claude... Error: ${error instanceof Error ? error.message : String(error)}`);
-    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, 3, jsonSchema);
+    console.warn(`  ⚠ Gemini primary failed or refused. Falling back to Claude... Gemini error: ${formatErrorForLog(error)}`);
+    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
     return result;
   }
 }

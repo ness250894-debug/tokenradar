@@ -20,6 +20,7 @@ import { sleep, Mutex } from "./shared-utils";
 import { Coingecko } from "@coingecko/coingecko-typescript";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { MONTHLY_LIMIT } from "./reporter";
+import { formatErrorForLog } from "./utils";
 
 // ── Constants & Configuration ───────────────────────────────
 
@@ -70,7 +71,9 @@ function getClient(): Coingecko {
 async function ensureCacheDir(): Promise<void> {
   try {
     await fs.promises.mkdir(CACHE_DIR, { recursive: true });
-  } catch {}
+  } catch (error) {
+    console.warn(`  [warn] Failed to ensure CoinGecko cache directory: ${formatErrorForLog(error)}`);
+  }
 }
 
 /** Get current month key (e.g., "2026-03"). */
@@ -196,17 +199,19 @@ export async function fetchCoinGecko<T>(
     for (const [key, value] of Object.entries(params)) {
       url.searchParams.set(key, String(value));
     }
+    const headers: Record<string, string> = {
+      Accept: "application/json",
+      "User-Agent": "TokenRadar/1.0",
+    };
+
     const apiKey = process.env.COINGECKO_API_KEY;
     if (apiKey) {
-      url.searchParams.set(
-        apiKey.startsWith("CG-") ? "x_cg_demo_api_key" : "x_cg_pro_api_key",
-        apiKey,
-      );
+      headers[apiKey.startsWith("CG-") ? "x-cg-demo-api-key" : "x-cg-pro-api-key"] = apiKey;
     }
 
     console.info(`  [api/raw] GET ${url.pathname}${url.search}`);
     const response = await fetchWithRetry(url.toString(), {
-      headers: { Accept: "application/json", "User-Agent": "TokenRadar/1.0" },
+      headers,
     });
     if (!response.ok) throw new Error(`API error: ${response.status} ${response.statusText}`);
     return (await response.json()) as T;

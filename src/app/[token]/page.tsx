@@ -361,15 +361,6 @@ export default async function TokenPage({ params }: PageProps) {
                   <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
                 </div>
               </div>
-              <style dangerouslySetInnerHTML={{__html: `
-                .sidebar-sticky::-webkit-scrollbar {
-                  width: 4px;
-                }
-                .sidebar-sticky::-webkit-scrollbar-thumb {
-                  background-color: var(--border-color);
-                  border-radius: 4px;
-                }
-              `}} />
             </aside>
           </div>
         )}
