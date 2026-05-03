@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 interface CardGlareProps {
@@ -12,17 +12,30 @@ interface CardGlareProps {
 
 export function CardGlare({ children, className = "", style = {}, color }: CardGlareProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const latestPointerRef = useRef<{ clientX: number; clientY: number } | null>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
+
+  const updateGlare = () => {
+    frameRef.current = null;
     if (!cardRef.current) return;
+    const pointer = latestPointerRef.current;
+    if (!pointer) return;
 
     const rect = cardRef.current.getBoundingClientRect();
     
     // Calculate mouse position relative to the element (0 to 1)
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
+    const x = (pointer.clientX - rect.left) / rect.width;
+    const y = (pointer.clientY - rect.top) / rect.height;
 
     // Calculate rotation limits (-10 to 10 degrees)
     const rotateY = (x - 0.5) * 20; // rotation around Y axis driven by mouse X 
@@ -32,7 +45,18 @@ export function CardGlare({ children, className = "", style = {}, color }: CardG
     setGlare({ x: x * 100, y: y * 100, opacity: 1 });
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    latestPointerRef.current = { clientX: e.clientX, clientY: e.clientY };
+    if (frameRef.current !== null) return;
+    frameRef.current = window.requestAnimationFrame(updateGlare);
+  };
+
   const handleMouseLeave = () => {
+    latestPointerRef.current = null;
+    if (frameRef.current !== null) {
+      window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
     setRotate({ x: 0, y: 0 });
     setGlare({ opacity: 0, x: 50, y: 50 });
   };

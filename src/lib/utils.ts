@@ -26,6 +26,25 @@ const SENSITIVE_ENV_KEYS = [
   "YOUTUBE_REFRESH_TOKEN",
 ] as const;
 
+function shouldReportFileError(error: unknown): boolean {
+  return !(typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT");
+}
+
+function reportUtilityError(source: string, error: unknown): void {
+  void import("./reporter")
+    .then(({ logError }) => logError(source, error, false))
+    .catch(() => {});
+}
+
+function reportUtilityActivity(
+  type: string,
+  details: Record<string, string | number | boolean | null | undefined>,
+): void {
+  void import("./reporter")
+    .then(({ logActivity }) => logActivity(type, details))
+    .catch(() => {});
+}
+
 /**
  * Read and parse a JSON file safely. Returns the fallback value
  * if the file is missing, empty, or contains invalid JSON.
@@ -46,6 +65,10 @@ export function safeReadJson<T>(filePath: string, fallback: T, schema?: ZodType<
       const result = schema.safeParse(parsed);
       if (!result.success) {
         console.warn(`  [warn] Schema validation failed for ${filePath}:`, result.error.message);
+        reportUtilityError(
+          "safeReadJson.schema",
+          new Error(`Schema validation failed for ${filePath}: ${result.error.message}`),
+        );
         return fallback;
       }
       return result.data;
@@ -54,6 +77,9 @@ export function safeReadJson<T>(filePath: string, fallback: T, schema?: ZodType<
     return parsed;
   } catch (e) {
     console.warn(`  [warn] Failed to parse ${filePath}: ${e instanceof Error ? e.message : String(e)}`);
+    if (shouldReportFileError(e)) {
+      reportUtilityError("safeReadJson", e);
+    }
     return fallback;
   }
 }
@@ -62,27 +88,37 @@ export function safeReadJson<T>(filePath: string, fallback: T, schema?: ZodType<
  * Robustly load environment variables from .env.local by searching upward from the current directory.
  * Useful for scripts running from different subdirectories.
  */
-export function loadEnv(): void {
+export function loadEnv(): boolean {
   const envPaths = [
     path.resolve(process.cwd(), ".env.local"),
     path.resolve(process.cwd(), "..", ".env.local"),
     path.resolve(__dirname, "..", "..", ".env.local"), // Relative to src/lib
   ];
 
-  let loaded = false;
   for (const p of envPaths) {
     if (fs.existsSync(p)) {
-      dotenv.config({ path: p });
-      loaded = true;
-      break;
+      const result = dotenv.config({ path: p });
+      if (result.error) {
+        const message = `Failed to load environment file ${p}: ${formatErrorForLog(result.error)}`;
+        console.warn(`  [warn] ${message}`);
+        reportUtilityError("loadEnv", result.error);
+        return false;
+      }
+
+      console.info(`  [env] Loaded environment variables from ${p}`);
+      reportUtilityActivity("env-loaded", { path: p });
+      return true;
     }
   }
 
-  if (!loaded && process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== "production") {
     // In production (Cloudflare), env vars are provided by the platform.
     // In local dev, we expect a .env.local.
     console.warn("  [warn] No .env.local found. Using system environment variables.");
   }
+
+  reportUtilityActivity("env-missing", { cwd: process.cwd(), production: process.env.NODE_ENV === "production" });
+  return false;
 }
 
 /**

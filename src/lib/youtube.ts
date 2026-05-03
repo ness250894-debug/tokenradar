@@ -1,6 +1,22 @@
 import { google } from 'googleapis';
 import * as fs from 'fs';
 
+type GoogleApiError = Error & {
+  response?: {
+    status?: number;
+    data?: {
+      error?: {
+        message?: string;
+        details?: unknown;
+      };
+    };
+  };
+};
+
+function toGoogleApiError(error: unknown): GoogleApiError {
+  return error instanceof Error ? error as GoogleApiError : new Error(String(error)) as GoogleApiError;
+}
+
 /**
  * Uploads a local MP4 file to YouTube as a Short.
  * Requires YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN in .env
@@ -71,8 +87,7 @@ export async function uploadToYouTubeShorts(
     throw new Error('Upload succeeded but no video ID was returned.');
   } catch (_error: unknown) {
     console.info();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const error = _error as any;
+    const error = toGoogleApiError(_error);
     const errorMsg = error.response?.data?.error?.message || error.message || String(error);
     const errorCode = error.response?.status;
     console.error(`❌ YouTube API Error [${errorCode}]: ${errorMsg}`);

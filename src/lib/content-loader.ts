@@ -220,13 +220,26 @@ export interface UpcomingTge {
 let _allTokensCache: TokenSummary[] | null = null;
 let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
+const _relatedTokensCache = new Map<string, TokenSummary[]>();
 
 // Raw blobs (lazy loaded)
 let _registry: TokenSummary[] | null = null;
 let _tokensBlob: Record<string, unknown> | null = null;
 let _metricsBlob: Record<string, unknown> | null = null;
 let _pricesBlob: Record<string, unknown> | null = null;
+const _loadBlobCache = new Map<string, unknown>();
 const shouldLogLoaderInfo = process.env.DEBUG_CONTENT_LOADER === "true";
+
+function logLoaderDebug(message: string): void {
+  if (shouldLogLoaderInfo) {
+    console.info(`[LOADER] ${message}`);
+  }
+}
+
+function cacheLoadedBlob<T>(relativePath: string, data: T): T {
+  _loadBlobCache.set(relativePath, data);
+  return data;
+}
 
 // ── Data Fetching ─────────────────────────────────────────────
 
@@ -292,7 +305,12 @@ async function fetchAsset(relativePath: string) {
   return null;
 }
 
-async function loadBlob(filePath: string, relativePath: string) {
+async function loadBlob<T = unknown>(filePath: string, relativePath: string): Promise<T | null> {
+  if (_loadBlobCache.has(relativePath)) {
+    logLoaderDebug(`Cache hit for ${relativePath}`);
+    return _loadBlobCache.get(relativePath) as T | null;
+  }
+
   const isServer = typeof window === "undefined";
   // Detect build or script environment (Pure Node.js, no Edge runtime)
   const isNode = isServer && (!process.env.NEXT_RUNTIME || process.env.NEXT_RUNTIME === 'nodejs');
@@ -317,7 +335,7 @@ async function loadBlob(filePath: string, relativePath: string) {
         if (shouldLogLoaderInfo && isNode && (fileName.endsWith('_registry.json') || fileName.endsWith('_blob.json'))) {
           console.info(`[LOADER] Found ${fileName} at ${candidate}`);
         }
-        return data;
+        return cacheLoadedBlob(relativePath, data as T);
       } catch {
         // fs.existsSync or readFileSync might throw on Edge — continue trying
       }
@@ -336,18 +354,21 @@ async function loadBlob(filePath: string, relativePath: string) {
     throw new Error(`[LOADER] CRITICAL FAILURE: Failed to load ${relativePath} during build. Aborting to prevent production 404s.`);
   }
 
-  return data;
+  return cacheLoadedBlob(relativePath, data as T | null);
 }
 
 /** Get all token summaries from the master list (memoized). */
 export async function getAllTokens(): Promise<TokenSummary[]> {
-  if (_allTokensCache) return _allTokensCache;
+  if (_allTokensCache) {
+    logLoaderDebug("Cache hit for all token summaries");
+    return _allTokensCache;
+  }
 
   const relativePath = "data/_registry.json";
   const file = getFilePath("_registry.json");
   
   if (!_registry) {
-    _registry = await loadBlob(file, relativePath);
+    _registry = await loadBlob<TokenSummary[]>(file, relativePath);
   }
   if (_registry) {
     _allTokensCache = _registry;
@@ -495,7 +516,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   const relativePath = "data/_tokens_blob.json";
   const file = getFilePath("_tokens_blob.json");
   
-  if (!_tokensBlob) _tokensBlob = await loadBlob(file, relativePath);
+  if (!_tokensBlob) _tokensBlob = await loadBlob<Record<string, unknown>>(file, relativePath);
   const raw = _tokensBlob ? _tokensBlob[sanitized] : null;
 
   if (raw) {
@@ -506,7 +527,7 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   // Fallback to single file read (Development/Scripts)
   const fallbackFile = `${getDataDir()}/tokens/${sanitized}.json`;
   const relPath = `data/tokens/${sanitized}.json`;
-  const rawFile = await loadBlob(fallbackFile, relPath);
+  const rawFile = await loadBlob<Record<string, unknown>>(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToTokenDetail(rawFile as Record<string, any>);
@@ -583,7 +604,7 @@ export async function getUpcomingTGEs(): Promise<UpcomingTge[]> {
   try {
     const relativePath = "data/upcoming-tges.json";
     const file = getFilePath("upcoming-tges.json");
-    const tges: UpcomingTge[] = (await loadBlob(file, relativePath)) || [];
+    const tges: UpcomingTge[] = (await loadBlob<UpcomingTge[]>(file, relativePath)) || [];
     if (!tges.length) return [];
 
     // Sort: upcoming first, released last; then by narrative strength desc
@@ -618,7 +639,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   const relativePath = "data/_metrics_blob.json";
   const file = getFilePath("_metrics_blob.json");
   
-  if (!_metricsBlob) _metricsBlob = await loadBlob(file, relativePath);
+  if (!_metricsBlob) _metricsBlob = await loadBlob<Record<string, unknown>>(file, relativePath);
   const raw = _metricsBlob ? _metricsBlob[tokenId] : null;
 
   if (raw) {
@@ -629,7 +650,7 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
   // Fallback
   const fallbackFile = `${getDataDir()}/metrics/${tokenId}.json`;
   const relPath = `data/metrics/${tokenId}.json`;
-  const rawFile = await loadBlob(fallbackFile, relPath);
+  const rawFile = await loadBlob<Record<string, unknown>>(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToTokenMetrics(rawFile as any, tokenId);
@@ -666,7 +687,7 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   const relativePath = "data/_prices_blob.json";
   const file = getFilePath("_prices_blob.json");
   
-  if (!_pricesBlob) _pricesBlob = await loadBlob(file, relativePath);
+  if (!_pricesBlob) _pricesBlob = await loadBlob<Record<string, unknown>>(file, relativePath);
   const raw = _pricesBlob ? _pricesBlob[tokenId] : null;
 
   if (raw) {
@@ -677,7 +698,7 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   // Fallback
   const fallbackFile = `${getDataDir()}/prices/${tokenId}.json`;
   const relPath = `data/prices/${tokenId}.json`;
-  const rawFile = await loadBlob(fallbackFile, relPath);
+  const rawFile = await loadBlob<Record<string, unknown>>(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return mapRawToPriceHistory(rawFile as any, tokenId);
@@ -700,7 +721,7 @@ function mapRawToPriceHistory(r: any, tokenId: string): PriceHistory {
 export async function getArticle(tokenId: string, slug: string): Promise<Article | null> {
   const file = `${getContentDir()}/${tokenId}/${slug}.json`;
   const relPath = `content/tokens/${tokenId}/${slug}.json`;
-  const article = await loadBlob(file, relPath) as Article | null;
+  const article = await loadBlob<Article>(file, relPath);
   if (!article) return null;
 
   const normalizedContent = normalizeArticleMarkdown(article.content || "");
@@ -812,15 +833,28 @@ export function getArticleFaqs(content: string): FAQ[] {
 
 /** Get related tokens based on shared categories and semantic similarity. */
 export async function getRelatedTokens(tokenId: string, limit: number = 3): Promise<TokenSummary[]> {
+  const cacheKey = `${tokenId}:${limit}`;
+  const cached = _relatedTokensCache.get(cacheKey);
+  if (cached) {
+    logLoaderDebug(`Cache hit for related tokens ${cacheKey}`);
+    return cached;
+  }
+
   const allTokens = await getAllTokens();
   const targetToken = allTokens.find((t) => t.id === tokenId);
   
   // Basic fallback
   const index = allTokens.findIndex((t) => t.id === tokenId);
   if (!targetToken || !targetToken.categories || targetToken.categories.length === 0) {
-    if (index === -1) return allTokens.slice(0, limit);
+    if (index === -1) {
+      const result = allTokens.slice(0, limit);
+      _relatedTokensCache.set(cacheKey, result);
+      return result;
+    }
     const startIndex = Math.max(0, index - limit);
-    return allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId).slice(0, limit);
+    const result = allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId).slice(0, limit);
+    _relatedTokensCache.set(cacheKey, result);
+    return result;
   }
 
   // Semantic category matching
@@ -841,14 +875,18 @@ export async function getRelatedTokens(tokenId: string, limit: number = 3): Prom
     });
 
   if (candidates.length >= limit) {
-    return candidates.slice(0, limit).map(c => c.token);
+    const result = candidates.slice(0, limit).map(c => c.token);
+    _relatedTokensCache.set(cacheKey, result);
+    return result;
   }
 
   // Fill up with nearby ranked tokens if not enough semantic matches
   const startIndex = Math.max(0, index - limit);
   const fallback = allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId && !candidates.some(c => c.token.id === t.id));
   
-  return [...candidates.map(c => c.token), ...fallback].slice(0, limit);
+  const result = [...candidates.map(c => c.token), ...fallback].slice(0, limit);
+  _relatedTokensCache.set(cacheKey, result);
+  return result;
 }
 
 export { formatPrice, formatCompact, formatSupply, formatPercent } from "./formatters";

@@ -52,6 +52,7 @@ next-env.d.ts
 
 # dev scratch files
 test-*.ts
+scripts/test-*.ts
 !tests/**
 
 # AI content pipeline

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatPrice, formatCompact, formatSupply } from "../src/lib/content-loader";
+import { formatPrice, formatCompact, formatSupply, getArticleFaqs } from "../src/lib/content-loader";
 
 describe("formatPrice", () => {
   it("formats large prices (>= 1000) without decimals", () => {
@@ -76,5 +76,30 @@ describe("formatSupply", () => {
 
   it("handles null", () => {
     expect(formatSupply(null)).toBe("0");
+  });
+});
+
+describe("getArticleFaqs", () => {
+  it("parses inline FAQ headings and numbered question formats after normalization", () => {
+    const faqs = getArticleFaqs(
+      [
+        "## FAQ 1. Is Bitcoin risky?",
+        "Bitcoin risk depends on time horizon.",
+        "",
+        "2. Can Bitcoin go to zero?",
+        "It is possible, but liquidity and adoption reduce that probability.",
+      ].join("\n"),
+    );
+
+    expect(faqs).toEqual([
+      {
+        question: "Is Bitcoin risky?",
+        answer: "Bitcoin risk depends on time horizon.",
+      },
+      {
+        question: "Can Bitcoin go to zero?",
+        answer: "It is possible, but liquidity and adoption reduce that probability.",
+      },
+    ]);
   });
 });

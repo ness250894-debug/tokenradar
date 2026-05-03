@@ -11,6 +11,8 @@
 
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
+import * as fs from "fs";
+import * as path from "path";
 import { formatPrice, getRiskColor, getRiskTier } from "./formatters";
 
 export interface OgRenderData {
@@ -24,12 +26,25 @@ export interface OgRenderData {
 // ── Font Loading (cached) ────────────────────────────────────
 
 let _fontCache: ArrayBuffer | null = null;
+const FONT_CACHE_FILE = path.resolve(process.cwd(), "data", "cache", "og-inter.ttf");
+
+function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
+  return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+}
 
 /**
- * Load Inter font from Google Fonts CDN. Cached after first call.
+ * Load Inter font from disk cache or Google Fonts CDN. Cached after first call.
  */
 async function loadFont(): Promise<ArrayBuffer> {
   if (_fontCache) return _fontCache;
+
+  try {
+    const cachedFont = await fs.promises.readFile(FONT_CACHE_FILE);
+    _fontCache = bufferToArrayBuffer(cachedFont);
+    return _fontCache;
+  } catch {
+    // Cache miss: fetch and persist below.
+  }
 
   const url =
     "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf";
@@ -40,6 +55,13 @@ async function loadFont(): Promise<ArrayBuffer> {
   }
 
   _fontCache = await response.arrayBuffer();
+  try {
+    await fs.promises.mkdir(path.dirname(FONT_CACHE_FILE), { recursive: true });
+    await fs.promises.writeFile(FONT_CACHE_FILE, Buffer.from(_fontCache));
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn(`  [warn] Failed to cache OG font to disk: ${msg}`);
+  }
   return _fontCache;
 }
 

@@ -96,11 +96,19 @@ jobs:
           fi
           echo "has_changes=true" >> $GITHUB_OUTPUT
           git commit -m "chore: daily data refresh [skip ci]"
+          pushed=false
           for i in 1 2 3; do
-            git pull origin main -X ours --no-edit && git push && break
+            if git pull origin main -X ours --no-edit && git push; then
+              pushed=true
+              break
+            fi
             echo "Push attempt $i failed, retrying in 5s..."
             sleep 5
           done
+          if [ "$pushed" != "true" ]; then
+            echo "Failed to push daily refresh changes after 3 attempts"
+            exit 1
+          fi
 
       - name: Dispatch System Report & Cleanup
         if: always()

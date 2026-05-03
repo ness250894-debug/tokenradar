@@ -18,6 +18,7 @@ import {
 } from "@xdevplatform/xdk";
 import { sleep } from "./shared-utils";
 import { formatErrorForLog, redactSensitiveText } from "./utils";
+import { sendTelegramAlert } from "./reporter";
 
 // ── Cashtag Sanitization ──────────────────────────────────────
 
@@ -133,6 +134,37 @@ async function getLatestRefreshToken(envToken: string): Promise<string> {
   return envToken;
 }
 
+async function upsertEnvLocalRefreshToken(envPath: string, newToken: string): Promise<void> {
+  let envContent = "";
+
+  try {
+    envContent = await fs.promises.readFile(envPath, "utf-8");
+  } catch (error) {
+    const isMissing = typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT";
+    if (!isMissing) throw error;
+  }
+
+  if (/^X_OAUTH2_REFRESH_TOKEN=.*/m.test(envContent)) {
+    envContent = envContent.replace(
+      /^X_OAUTH2_REFRESH_TOKEN=.*/m,
+      `X_OAUTH2_REFRESH_TOKEN=${newToken}`
+    );
+  } else {
+    const separator = envContent.length > 0 && !envContent.endsWith("\n") ? "\n" : "";
+    envContent = `${envContent}${separator}X_OAUTH2_REFRESH_TOKEN=${newToken}\n`;
+  }
+
+  await fs.promises.writeFile(envPath, envContent, "utf-8");
+}
+
+async function reportRefreshTokenPersistenceFailure(target: string, error: unknown): Promise<void> {
+  const message = formatErrorForLog(error);
+  console.error(`  ✗ Failed to persist X refresh token to ${target}: ${message}`);
+  await sendTelegramAlert(
+    `X OAuth refresh token rotation persistence failed.\n\nTarget: ${target}\nError: ${message.substring(0, 500)}`
+  );
+}
+
 /**
  * Persist the new refresh token to both .env.local (local dev)
  * and GITHUB_ENV (CI/CD) for secure rotation.
@@ -140,6 +172,9 @@ async function getLatestRefreshToken(envToken: string): Promise<string> {
 async function persistRefreshToken(newToken: string): Promise<void> {
   // Always update in-process env
   process.env.X_OAUTH2_REFRESH_TOKEN = newToken;
+  const envPath = path.resolve(__dirname, "../../.env.local");
+  let githubEnvWritten = false;
+  let envLocalWritten = false;
 
   // 1. Export to GITHUB_ENV if running in GitHub Actions
   if (process.env.GITHUB_ENV) {
@@ -147,24 +182,29 @@ async function persistRefreshToken(newToken: string): Promise<void> {
       // Mask the new token so it doesn't appear in logs
       console.info(`::add-mask::${newToken}`);
       await fs.promises.appendFile(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
+      githubEnvWritten = true;
       console.info(`  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation (ends with ...${newToken.slice(-8)})`);
     } catch (err) {
-      console.error("  ✗ Failed to export to GITHUB_ENV:", (err as Error).message);
+      await reportRefreshTokenPersistenceFailure("GITHUB_ENV", err);
     }
   }
 
-  // 2. Also update .env.local if it exists (local dev convenience)
-  const envPath = path.resolve(__dirname, "../../.env.local");
+  // 2. Also update .env.local. In local dev this is the durable fallback;
+  // in CI it gives diagnostics if GITHUB_ENV export fails.
   try {
-    let envContent = await fs.promises.readFile(envPath, "utf-8");
-    envContent = envContent.replace(
-      /^X_OAUTH2_REFRESH_TOKEN=.*/m,
-      `X_OAUTH2_REFRESH_TOKEN=${newToken}`
-    );
-    await fs.promises.writeFile(envPath, envContent, "utf-8");
+    await upsertEnvLocalRefreshToken(envPath, newToken);
+    envLocalWritten = true;
     console.info("  ✓ Refresh token also saved to .env.local");
-  } catch {
-    // Non-fatal — CI won't have .env.local
+  } catch (err) {
+    await reportRefreshTokenPersistenceFailure(".env.local", err);
+  }
+
+  if (process.env.GITHUB_ENV && !githubEnvWritten) {
+    throw new Error("Failed to export rotated X refresh token to GITHUB_ENV.");
+  }
+
+  if (!process.env.GITHUB_ENV && !envLocalWritten) {
+    throw new Error("Failed to persist rotated X refresh token to .env.local.");
   }
 }
 

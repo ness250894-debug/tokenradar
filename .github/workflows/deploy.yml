@@ -102,6 +102,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Ping IndexNow
+        continue-on-error: true
         run: npx tsx scripts/ping-indexnow.ts
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}

@@ -58,20 +58,51 @@ export function getRandomTone(): string {
 export class Mutex {
   private mutex = Promise.resolve();
 
-  async lock(): Promise<() => void> {
-    let begin: (unlock: () => void) => void = () => {};
+  async lock(timeoutMs?: number): Promise<() => void> {
+    let releaseNext: () => void = () => {};
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let timedOut = false;
 
-    this.mutex = this.mutex.then(() => {
-      return new Promise(begin);
+    const previous = this.mutex;
+    const next = new Promise<void>((resolve) => {
+      releaseNext = resolve;
+    });
+    this.mutex = previous.then(() => next);
+
+    const acquire = previous.then(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+
+      let released = false;
+      const unlock = () => {
+        if (released) return;
+        released = true;
+        releaseNext();
+      };
+
+      if (timedOut) {
+        unlock();
+        throw new Error(`Mutex lock timed out after ${timeoutMs}ms`);
+      }
+
+      return unlock;
     });
 
-    return new Promise((res) => {
-      begin = res;
+    if (timeoutMs === undefined) {
+      return acquire;
+    }
+
+    return new Promise((resolve, reject) => {
+      timeoutId = setTimeout(() => {
+        timedOut = true;
+        reject(new Error(`Mutex lock timed out after ${timeoutMs}ms`));
+      }, timeoutMs);
+
+      acquire.then(resolve, reject);
     });
   }
 
-  async runExclusive<T>(task: () => Promise<T>): Promise<T> {
-    const unlock = await this.lock();
+  async runExclusive<T>(task: () => Promise<T>, timeoutMs?: number): Promise<T> {
+    const unlock = await this.lock(timeoutMs);
     try {
       return await task();
     } finally {

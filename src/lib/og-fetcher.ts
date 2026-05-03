@@ -57,7 +57,7 @@ export async function fetchTokenImage(
   const localPath = path.join(LOCAL_OG_DIR, `${tokenId}.png`);
   try {
     return await fs.promises.readFile(localPath);
-  } catch (_error) {
+  } catch {
     // Expected on cache miss, ignore
   }
 

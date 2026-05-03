@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
+import { JsonLd } from "@/components/JsonLd";
 import Script from "next/script";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
@@ -73,16 +74,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaMeasurementId = (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "").replace(/[^A-Z0-9-]/gi, "");
+
   return (
     <html lang="en">
       <head>
         {/* AdSense & CMP (Publisher: Place your ID below) */}
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> */}
 
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+        {gaMeasurementId && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
               strategy="afterInteractive"
             />
             <Script id="google-analytics" strategy="afterInteractive">
@@ -91,51 +94,45 @@ export default function RootLayout({
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
 
-                gtag('config', '${(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "").replace(/[^A-Z0-9-]/gi, "")}');
+                gtag('config', '${gaMeasurementId}');
               `}
             </Script>
           </>
         )}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "TokenRadar",
-              "url": siteUrl,
-              "description": "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
-            })
+        <JsonLd
+          id="website-jsonld"
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "TokenRadar",
+            "url": siteUrl,
+            "description": "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "TokenRadar",
-              "url": siteUrl,
-              "logo": `${siteUrl}/icon.png`,
-              "sameAs": [
-                "https://x.com/TokenRadarCo"
-              ]
-            })
+        <JsonLd
+          id="organization-jsonld"
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "TokenRadar",
+            "url": siteUrl,
+            "logo": `${siteUrl}/icon.png`,
+            "sameAs": [
+              "https://x.com/TokenRadarCo"
+            ]
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Pavlo Nakonechnyi",
-              "jobTitle": "Founder & Lead Researcher",
-              "url": siteUrl,
-              "sameAs": [
-                "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
-              ]
-            })
+        <JsonLd
+          id="person-jsonld"
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Pavlo Nakonechnyi",
+            "jobTitle": "Founder & Lead Researcher",
+            "url": siteUrl,
+            "sameAs": [
+              "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
+            ]
           }}
         />
       </head>
