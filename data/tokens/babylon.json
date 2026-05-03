@@ -2,20 +2,55 @@
   "id": "babylon",
   "symbol": "baby",
   "name": "Babylon",
+  "description": "A cryptocurrency token known as Babylon (BABY). It is tracked on CoinGecko with the ID \"babylon\".",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "LSDFi",
+    "Paradigm Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Galaxy Digital Portfolio",
+    "OKX Ventures Portfolio",
+    "Liquid Staking",
+    "Binance HODLer Airdrops",
+    "BTCfi Protocol",
+    "Polychain Capital Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://babylon.foundation/",
+    "github": "https://github.com/babylonlabs-io/",
+    "reddit": null,
+    "explorer": "https://www.mintscan.io/babylon"
+  },
   "market": {
-    "price": 0.0182694,
-    "marketCap": 70587396,
-    "marketCapRank": 390,
-    "volume24h": 38307570,
-    "priceChange24h": 17.11042,
+    "price": 0.03026574,
+    "marketCap": 118971033,
+    "marketCapRank": 260,
+    "volume24h": 161116115,
+    "high24h": 0.02999026,
+    "low24h": 0.01672512,
+    "priceChange24h": 80.34904,
+    "priceChange7d": 95.86191,
+    "priceChange30d": 107.32235,
+    "priceChange1y": -70.49917,
     "ath": 0.166134,
-    "athChangePercentage": -89.13141,
+    "athChangePercentage": -82.75484,
     "athDate": "2025-04-12T08:11:41.743Z",
     "atl": 0.0107208,
     "atlDate": "2026-03-07T07:11:21.907Z",
-    "circulatingSupply": 3865877935.98,
-    "totalSupply": 10760063850,
-    "maxSupply": null
+    "circulatingSupply": 3867495131.98,
+    "totalSupply": 10760978730,
+    "maxSupply": null,
+    "fdv": 331026857
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.875Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-03T08:15:16.139Z"
 }
