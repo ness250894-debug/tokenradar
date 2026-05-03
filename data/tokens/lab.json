@@ -2,20 +2,51 @@
   "id": "lab",
   "symbol": "lab",
   "name": "LAB",
+  "description": "LAB is the first all-in-one trading ecosystem, enabling faster execution, the lowest market fees, and a viral incentive layer powered by $LAB. Integrated with existing trading platforms it allows to tap into an established network while creating a unified environment for a new trading experience. LAB brings together trading, analytics, asset management, and community tools for the modern trader. It goes beyond traditional trading by forming a connected ecosystem – delivering a powerful, unified experience for both new and experienced traders.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Analytics",
+    "BNB Chain Ecosystem",
+    "Launchpad",
+    "Binance Alpha Spotlight",
+    "Echo Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://lab.pro/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x7ec43Cf65F1663F820427C62A5780b8f2E25593A"
+  },
   "market": {
-    "price": 1.83,
-    "marketCap": 139815642,
-    "marketCapRank": 225,
-    "volume24h": 281222284,
-    "priceChange24h": 158.93618,
-    "ath": 3.31,
-    "athChangePercentage": -35.48029,
-    "athDate": "2026-05-02T16:25:25.758Z",
+    "price": 1.12,
+    "marketCap": 87055893,
+    "marketCapRank": 329,
+    "volume24h": 534462974,
+    "high24h": 3.64,
+    "low24h": 0.728127,
+    "priceChange24h": -40.74677,
+    "priceChange7d": 22.74959,
+    "priceChange30d": 458.33358,
+    "priceChange1y": 0,
+    "ath": 3.64,
+    "athChangePercentage": -72.26487,
+    "athDate": "2026-05-02T21:35:27.951Z",
     "atl": 0.074235,
     "atlDate": "2025-12-02T03:30:39.644Z",
     "circulatingSupply": 76546099.142,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 1137300186
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.843Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-03T08:20:47.317Z"
 }
