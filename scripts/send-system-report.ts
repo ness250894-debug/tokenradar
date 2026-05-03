@@ -162,7 +162,9 @@ async function main() {
   message += `*Data Health*\n`;
   message += `- Raw Data Files: \`${dataFileCount}\`\n`;
   message += `- Content Articles: \`${contentFileCount}\` (live)\n`;
-  message += `- Build Output: \`${outDirFileCount}\` / ${cfLimit} (${outDirPercent}% CF limit)\n`;
+  if (outDirFileCount > 0) {
+    message += `- Build Output: \`${outDirFileCount}\` / ${cfLimit} (${outDirPercent}% CF limit)\n`;
+  }
   message += `- Refreshed: ${totalDataRefreshed} token updates\n`;
   message += `- Analyzed: ${metricsTokensCount} proprietary scores\n`;
   if (tgeCount > 0) {
