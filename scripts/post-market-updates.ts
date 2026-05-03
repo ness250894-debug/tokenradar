@@ -39,7 +39,8 @@ import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
-import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
+import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
+
 import {
   type MetricData,
   getTodayPostedTokens,
@@ -285,7 +286,11 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           // Trim the summary further to fit
           const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
-          caption = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
+          let body = tgMessage.substring(0, maxBody);
+          // Close any broken tags before adding the ellipsis
+          body = ensureHtmlTagsClosed(body, ["b", "tg-spoiler"]);
+          caption = body + "..." + footerWithPadding;
+
         }
 
         if (!dryRun) {
@@ -312,7 +317,11 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT}), trimming body...`);
           const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT - footerWithPadding.length - 3;
-          finalTgMessage = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
+          let body = tgMessage.substring(0, maxBody);
+          // Close any broken tags before adding the ellipsis
+          body = ensureHtmlTagsClosed(body, ["b", "tg-spoiler"]);
+          finalTgMessage = body + "..." + footerWithPadding;
+
         }
         
         if (!dryRun) {

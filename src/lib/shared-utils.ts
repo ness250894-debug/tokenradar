@@ -79,3 +79,29 @@ export class Mutex {
     }
   }
 }
+
+/**
+ * Ensures that all specified HTML tags in a string are properly closed.
+ * Useful for fixing truncated AI outputs or lazy formatting.
+ * 
+ * @param text - The text to check
+ * @param tags - Array of tag names to check (e.g., ['b', 'tg-spoiler'])
+ */
+export function ensureHtmlTagsClosed(text: string, tags: string[]): string {
+  let result = text;
+  for (const tag of tags) {
+    const startTag = `<${tag}>`;
+    const endTag = `</${tag}>`;
+    
+    // Count occurrences
+    const startCount = (result.match(new RegExp(startTag, 'gi')) || []).length;
+    const endCount = (result.match(new RegExp(endTag, 'gi')) || []).length;
+    
+    // If we have more start tags than end tags, append the missing ones
+    if (startCount > endCount) {
+      const diff = startCount - endCount;
+      result += endTag.repeat(diff);
+    }
+  }
+  return result;
+}

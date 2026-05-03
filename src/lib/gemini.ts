@@ -1,4 +1,4 @@
-import { sleep, Mutex } from "./shared-utils";
+import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 
 export type AIResult = {
@@ -340,13 +340,15 @@ export async function generateTokenSummary(
     6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
     7. SPICY ENGAGEMENT: Use exactly 1 or 2 emojis.
     8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
-    9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags.
+    9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags (e.g., <tg-spoiler>The verdict is bullish.</tg-spoiler>).
     10. EXTERNAL LINKS: NEVER include URLs, external links, or ads.
   `;
 
   try {
     const result = await callAIWithFallback("", prompt, 2048);
-    return result.content || "";
+    const content = result.content || "";
+    // Ensure critical HTML tags are closed to avoid Telegram parsing errors
+    return ensureHtmlTagsClosed(content, ["b", "tg-spoiler"]);
   } catch (_error) {
     console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty or errored.`);
     return "";
@@ -419,7 +421,7 @@ export async function generateTweet(
   `;
 
   try {
-    const result = await callAIWithFallback("", prompt, 512);
+    const result = await callAIWithFallback("", prompt, 1024);
     return result.content || "";
   } catch (_error) {
     console.warn(`  ⚠ AI tweet generation failed for ${tokenName}.`);
@@ -457,7 +459,7 @@ export async function generatePollHook(
   `;
 
   try {
-    const result = await callAIWithFallback("", prompt, 256);
+    const result = await callAIWithFallback("", prompt, 512);
     return result.content || "";
   } catch (_error) {
     console.warn(`  ⚠ AI poll hook generation failed.`);

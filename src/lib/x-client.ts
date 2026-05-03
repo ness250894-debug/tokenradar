@@ -255,7 +255,7 @@ export function stripHtmlForX(html: string): string {
   // Strip remaining HTML tags
   // Only strip actual known HTML tags that we use (b, i, a, br, strong, em)
   // This prevents $BTC < 100k from being truncated
-  text = text.replace(/<\/?(b|i|a|br|strong|em|p|div|span)(\s[^>]*)?>/gi, "");
+  text = text.replace(/<\/?(b|i|a|br|strong|em|tg-spoiler|p|div|span)(\s[^>]*)?>/gi, "");
   
   // Clean up excessive newlines
   text = text.replace(/\n{3,}/g, "\n\n");
