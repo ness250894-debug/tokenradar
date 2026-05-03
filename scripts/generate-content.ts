@@ -209,8 +209,8 @@ ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
   ];
 
   const overviewPrompts = [
-    `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nCover these exact sections:\n## What is ${tokenName}?\nExplain what it is and the core problem it solves.\n## Technical Architecture\nHow the technology works (simplified for investors).\n## Tokenomics and Utility\nSupply metrics, distribution, and real-world use cases.\n## Market Position\nCurrent price, market cap, and relative rank.\n## TokenRadar Metrics Analysis\nDeep dive into Risk Score, Growth Index, and Narrative Strength.\n## Risks and Challenges\nKey risks, vulnerabilities, and competitor analysis.\n## Recent Developments\nRoadmap, news, and ecosystem growth.\n\n${commonContext}`,
-    `Create a detailed guide covering ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,200 - 1,500 words.\n\nStructure the article with these headers:\n## The Core Problem\nWhy does ${tokenName} exist and what does it solve?\n## Technology and Operation\nHow it operates under the hood.\n## Token Economics\nUse cases and supply metrics.\n## Market Analysis\nPrice, market cap, and rank review.\n## TokenRadar Research\nDeep dive into Risk Score and Narrative Strength.\n## Potential Headwinds\nRisks and competitor analysis.\n\n${commonContext}`
+    `Write a comprehensive overview article about ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,000 - 1,200 words.\n\nCover these exact sections:\n## What is ${tokenName}?\nExplain what it is and the core problem it solves.\n## Technical Architecture\nHow the technology works (simplified for investors).\n## Tokenomics and Utility\nSupply metrics, distribution, and real-world use cases.\n## Market Position\nCurrent price, market cap, and relative rank.\n## TokenRadar Metrics Analysis\nDeep dive into Risk Score, Growth Index, and Narrative Strength.\n## Risks and Challenges\nKey risks, vulnerabilities, and competitor analysis.\n## Recent Developments\nRoadmap, news, and ecosystem growth.\n\n${commonContext}`,
+    `Create a detailed guide covering ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 1,000 - 1,200 words.\n\nStructure the article with these headers:\n## The Core Problem\nWhy does ${tokenName} exist and what does it solve?\n## Technology and Operation\nHow it operates under the hood.\n## Token Economics\nUse cases and supply metrics.\n## Market Analysis\nPrice, market cap, and rank review.\n## TokenRadar Research\nDeep dive into Risk Score and Narrative Strength.\n## Potential Headwinds\nRisks and competitor analysis.\n\n${commonContext}`
   ];
 
   const priceTitles = [
@@ -487,29 +487,47 @@ async function main() {
     // Sort refresh candidates by oldest first
     refreshCandidates.sort((a, b) => a.lastGen - b.lastGen);
 
-    // Fill the daily budget using the priority ladder.
-    // ALL tokens (including graduated) share the strict `maxRefresh` budget.
+    // ── Hybrid Smart Queue ──────────────────────────────────────
+    // Strategy: Time-sensitive items first, then balanced distribution.
+    //   P0: ALL graduated tokens (no cap — too valuable to delay)
+    //   P1/P2: Split remaining budget evenly between Volatile & Incomplete
+    //   P3: Fill any leftover slots with Stale Refreshes
     const budget = maxRefresh;
     const smartQueue: string[] = [];
 
-    // P0: Graduated tokens (highest priority — new TGEs needing full coverage)
+    // P0: Graduated tokens — take ALL (time-sensitive, launch-day SEO)
     for (const id of graduatedToProcess) {
       if (smartQueue.length >= budget) break;
       smartQueue.push(id);
     }
+
+    // Calculate remaining budget after graduations
+    const remainingAfterGrad = Math.max(0, budget - smartQueue.length);
+    // Split remaining evenly between Volatile (P1) and Incomplete (P2)
+    const perTierBudget = Math.floor(remainingAfterGrad / 2);
+    // If odd remainder, give the extra slot to Volatile (more time-sensitive)
+    const volatileBudget = perTierBudget + (remainingAfterGrad % 2);
+    const incompleteBudget = perTierBudget;
+
     // P1: Volatile tokens (market-moving events)
+    let volatileAdded = 0;
     for (const id of volatileTokens) {
-      if (smartQueue.length >= budget) break;
+      if (volatileAdded >= volatileBudget) break;
       if (smartQueue.includes(id)) continue;
       smartQueue.push(id);
+      volatileAdded++;
     }
+
     // P2: Incomplete tokens (missing articles — SEO coverage gaps)
+    let incompleteAdded = 0;
     for (const id of incompleteTokens) {
-      if (smartQueue.length >= budget) break;
+      if (incompleteAdded >= incompleteBudget) break;
       if (smartQueue.includes(id)) continue;
       smartQueue.push(id);
+      incompleteAdded++;
     }
-    // P3: Stale refreshes (fill remaining slots — freshness maintenance)
+
+    // P3: Stale refreshes (fill any remaining slots)
     for (const { id } of refreshCandidates) {
       if (smartQueue.length >= budget) break;
       if (smartQueue.includes(id)) continue;
@@ -519,16 +537,16 @@ async function main() {
     tokensToProcess = [...smartQueue];
 
     const graduatedSelected = graduatedToProcess.filter(id => smartQueue.includes(id)).length;
-    const volatileSelected = volatileTokens.filter(id => smartQueue.includes(id)).length;
+    const volatileSelected = volatileTokens.filter(id => smartQueue.includes(id) && !graduatedToProcess.includes(id)).length;
     const incompleteSelected = incompleteTokens.filter(id => smartQueue.includes(id)).length;
-    const refreshSelected = refreshCandidates.filter(c => smartQueue.includes(c.id)).length;
+    const refreshSelected = refreshCandidates.filter(c => smartQueue.includes(c.id) && !graduatedToProcess.includes(c.id) && !volatileTokens.includes(c.id) && !incompleteTokens.includes(c.id)).length;
 
-    console.log(`  ✦ Smart Drip Selection:`);
-    console.log(`    🎓 Graduated:  ${graduatedSelected} / ${graduatedToProcess.length} found`);
-    console.log(`    ⚡ Volatile:   ${volatileSelected} / ${volatileTokens.length} found`);
-    console.log(`    📝 Incomplete: ${incompleteSelected} / ${incompleteTokens.length} found`);
-    console.log(`    🔄 Refreshes:  ${refreshSelected}`);
-    console.log(`    📊 Total:      ${tokensToProcess.length} tokens (budget: ${maxRefresh})`);
+    console.log(`  ✦ Hybrid Smart Queue (budget: ${budget}):`);
+    console.log(`    🎓 Graduated:  ${graduatedSelected} / ${graduatedToProcess.length} found (uncapped)`);
+    console.log(`    ⚡ Volatile:   ${volatileSelected} / ${volatileTokens.length} found (cap: ${volatileBudget})`);
+    console.log(`    📝 Incomplete: ${incompleteSelected} / ${incompleteTokens.length} found (cap: ${incompleteBudget})`);
+    console.log(`    🔄 Refreshes:  ${refreshSelected} (leftover slots)`);
+    console.log(`    📊 Total:      ${tokensToProcess.length} tokens`);
   } else {
     // Standard logic (Bulk or Single Token)
     for (const f of tokenFiles) {
@@ -821,7 +839,7 @@ TITLE TO USE: ${config.title}
 INSTRUCTIONS:
 ${config.prompt}
 
-TARGET LENGTH: ${config.type === 'overview' ? '1200-1500' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words.
+TARGET LENGTH: ${config.type === 'overview' ? '1000-1200' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words.
 DO NOT shorten or summarize.
 MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end.
 
