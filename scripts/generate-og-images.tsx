@@ -51,7 +51,7 @@ async function generateOGImages() {
       continue;
     }
 
-    const tokenData = safeReadJson<{ symbol: string; name?: string; id: string; market?: { price?: number; priceChange24h?: number } } | null>(path.join(TOKENS_DIR, file), null);
+    const tokenData = safeReadJson<{ symbol: string; name?: string; id: string; market?: { marketCap?: number; volume24h?: number; marketCapRank?: number } } | null>(path.join(TOKENS_DIR, file), null);
     const metricsData = safeReadJson<{ riskScore?: number } | null>(path.join(METRICS_DIR, file), null);
     
     if (!tokenData) continue;
@@ -59,15 +59,17 @@ async function generateOGImages() {
     const symbol = (tokenData.symbol || tokenId.split('-')[0]).toUpperCase();
     const name = tokenData.name || tokenId;
     const riskScore = metricsData?.riskScore || 5;
-    const price = tokenData.market?.price || 0;
-    const change = tokenData.market?.priceChange24h || 0;
+    const marketCap = tokenData.market?.marketCap || 0;
+    const volume24h = tokenData.market?.volume24h || 0;
+    const rank = tokenData.market?.marketCapRank || 0;
 
     try {
       const pngBuffer = await renderOgImage({
         name,
         symbol,
-        price,
-        change,
+        marketCap,
+        volume24h,
+        rank,
         risk: riskScore
       });
       

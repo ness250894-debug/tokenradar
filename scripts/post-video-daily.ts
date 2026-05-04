@@ -61,6 +61,34 @@ function cleanupFile(filePath: string): void {
   }
 }
 
+function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
+  const posted = new Set<string>();
+  const parentDir = path.join(dataDir, "posted_video");
+  if (!fs.existsSync(parentDir)) return posted;
+
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - days);
+
+  const dateDirs = fs.readdirSync(parentDir).filter((d) => {
+    const fullPath = path.join(parentDir, d);
+    return fs.statSync(fullPath).isDirectory() && !isNaN(new Date(d).getTime());
+  });
+
+  for (const dateDir of dateDirs) {
+    if (new Date(dateDir) >= cutoff) {
+      const trackerFile = path.join(parentDir, dateDir, "daily-video.json");
+      if (fs.existsSync(trackerFile)) {
+        try {
+          const tracker = JSON.parse(fs.readFileSync(trackerFile, "utf-8"));
+          if (tracker.tokenId) posted.add(tracker.tokenId);
+        } catch (_e) { /* ignore */ }
+      }
+    }
+  }
+
+  return posted;
+}
+
 function getRequestedPlatforms(
   runTelegram: boolean,
   runX: boolean,
@@ -164,6 +192,14 @@ async function main() {
 
   const todayPosted = force ? new Set<string>() : getTodayPostedTokens(DATA_DIR, today);
   const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR);
+  
+  if (!force) {
+    const videoCooldown = getVideoCooldownTokens(DATA_DIR, 7);
+    for (const id of videoCooldown) {
+      todayPosted.add(id);
+    }
+  }
+
   const selectionPlatform = runX ? "x" : runTelegram ? "telegram" : "all";
 
   console.log();

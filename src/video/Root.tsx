@@ -28,7 +28,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="TopGainerUpdate"
         component={TopGainerUpdate}
-        durationInFrames={450} // 15 seconds at 30fps
+        durationInFrames={300} // 10 seconds at 30fps
         fps={30}
         width={1080}
         height={1920}

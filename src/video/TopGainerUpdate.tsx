@@ -56,11 +56,11 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           opacity: titleDrop,
           marginBottom: 60
         }}>
-          <h2 style={{ color: "#888", fontSize: "40px", textTransform: "uppercase", letterSpacing: "8px", margin: 0 }}>
+          <h2 style={{ color: "#4A4A4A", fontSize: "40px", textTransform: "uppercase", letterSpacing: "8px", margin: 0 }}>
             Daily Breakout
           </h2>
           <h1 style={{ fontSize: "140px", margin: "20px 0", fontWeight: 900, textShadow: "0 0 40px rgba(204, 255, 0, 0.2)" }}>
-            {tokenName} <span style={{ color: "rgba(204, 255, 0, 0.4)" }}>${symbol.toUpperCase()}</span>
+            {tokenName} <span style={{ color: "#CCFF00" }}>${symbol.toUpperCase()}</span>
           </h1>
         </div>
 
@@ -103,12 +103,12 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
           padding: "0 40px"
         }}>
           <div style={{ textAlign: "left" }}>
-            <div style={{ color: "#888", fontSize: "40px", marginBottom: "10px" }}>Market Cap</div>
+            <div style={{ color: "#4A4A4A", fontSize: "40px", marginBottom: "10px" }}>Market Cap</div>
             <div style={{ fontSize: "60px", fontWeight: "bold" }}>{formattedCap}</div>
           </div>
           
           <div style={{ textAlign: "right" }}>
-            <div style={{ color: "#888", fontSize: "40px", marginBottom: "10px" }}>Risk Score</div>
+            <div style={{ color: "#4A4A4A", fontSize: "40px", marginBottom: "10px" }}>Risk Score</div>
             <div style={{ 
               fontSize: "60px", 
               fontWeight: "bold",

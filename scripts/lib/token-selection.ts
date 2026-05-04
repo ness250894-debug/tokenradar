@@ -38,6 +38,7 @@ export interface TokenData {
     priceChange24h: number;
     marketCap: number;
     marketCapRank: number;
+    volume24h: number;
   };
 }
 
@@ -240,6 +241,7 @@ export async function loadCandidateTokens(
         priceChange24h: fresh?.price_change_percentage_24h ?? 0,
         marketCap: fresh?.market_cap || local.market?.marketCap || 0,
         marketCapRank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
+        volume24h: fresh?.total_volume || local.market?.volume24h || 0,
       },
     };
   }).filter(Boolean) as TokenData[];

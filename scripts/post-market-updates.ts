@@ -247,8 +247,9 @@ async function main() {
   tokenImage = await fetchTokenImage(targetToken.id, {
     symbol: targetToken.symbol.toUpperCase(),
     name: targetToken.name,
-    price: targetToken.market.price >= 1 ? `$${targetToken.market.price.toFixed(2)}` : `$${targetToken.market.price.toFixed(6)}`,
-    change: targetToken.market.priceChange24h,
+    marketCap: targetToken.market.marketCap || 0,
+    volume24h: targetToken.market.volume24h || 0,
+    rank: targetToken.market.marketCapRank || 0,
     risk: context.riskScore || 5,
   });
   if (tokenImage) {
