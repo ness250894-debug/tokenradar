@@ -349,7 +349,7 @@ export async function generateTokenSummary(
     2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis. Use <b> tags for these numbers.
     3. INSIGHT: Explain the *implication* of the data. 
     4. ATTRIBUTION: Naturally mention that the data is powered by CoinGecko.
-    5. HARD LIMIT: Your total output MUST be under ${maxChars} characters. This is a hard technical limit. Priority is data over fluff.
+    5. HARD LIMIT: Your total output MUST be under ${Math.floor(maxChars / 6)} words. This is a hard technical limit. Priority is data over fluff.
     6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
     7. SPICY ENGAGEMENT: Use exactly 1 or 2 emojis.
     8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.

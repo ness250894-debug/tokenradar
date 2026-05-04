@@ -220,7 +220,8 @@ async function main() {
   const tgFooter = getTelegramFooter(targetToken.symbol);
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
-    const tgMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - tgFooter.length - 20;
+    const maxAllowedSpace = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - tgFooter.length - 20;
+    const tgMaxChars = Math.min(SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS, maxAllowedSpace);
     const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context, tgMaxChars);
     tgMessage = aiSummary;
   }
