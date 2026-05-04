@@ -26,6 +26,7 @@ const mockToken = {
     priceChange24h: 3.47,
     marketCap: 70_000_000_000,
     marketCapRank: 5,
+    volume24h: 2_500_000_000,
   },
 };
 
@@ -39,6 +40,7 @@ const mockTokenCheap = {
     priceChange24h: -5.2,
     marketCap: 5_000_000_000,
     marketCapRank: 30,
+    volume24h: 800_000_000,
   },
 };
 
