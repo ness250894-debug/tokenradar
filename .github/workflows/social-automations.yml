@@ -187,7 +187,7 @@ jobs:
 
       - name: Update X OAuth Secret
         # Requires GH_PAT with repo scope so rotating X refresh tokens can update repository secrets.
-        if: env.NEW_X_REFRESH_TOKEN != ''
+        if: always() && env.NEW_X_REFRESH_TOKEN != ''
         run: gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_X_REFRESH_TOKEN"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
