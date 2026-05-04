@@ -43,6 +43,7 @@ import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/sh
 
 import {
   type MetricData,
+  cleanupExpiredCooldownFolders,
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
@@ -84,6 +85,7 @@ async function main() {
 
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
+  cleanupExpiredCooldownFolders(DATA_DIR);
   
   ensureDirSync(POSTED_DIR);
 

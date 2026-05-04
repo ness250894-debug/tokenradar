@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, CoinGeckoToken, fetchTrendingCoins } from "../../src/lib/coingecko";
 import { fetchXTrends, matchTrendsToTokens } from "../../src/lib/x-client";
-import { STABLECOIN_IDS, TRENDING_COOLDOWN_DAYS, GENERAL_COOLDOWN_DAYS } from "../../src/lib/config";
+import { STABLECOIN_IDS, TRENDING_COOLDOWN_DAYS, GENERAL_COOLDOWN_DAYS, VIDEO_COOLDOWN_DAYS } from "../../src/lib/config";
 import { safeReadJson } from "../../src/lib/utils";
 
 // ── Types ──────────────────────────────────────────────────────
@@ -57,6 +57,188 @@ export interface SelectionResult {
   trendingContext?: string;
 }
 
+type TrackerPlatform = "telegram" | "x";
+
+interface CleanupOptions {
+  now?: Date;
+  postedRetentionDays?: number;
+  videoRetentionDays?: number;
+}
+
+export interface CleanupResult {
+  posted: string[];
+  postedVideo: string[];
+}
+
+const DATE_DIR_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function dateKey(date: Date): string {
+  return date.toISOString().split("T")[0];
+}
+
+function dateKeyDaysAgo(days: number, now: Date): string {
+  const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  startOfToday.setUTCDate(startOfToday.getUTCDate() - days);
+  return dateKey(startOfToday);
+}
+
+function isDateDirName(value: string): boolean {
+  return DATE_DIR_RE.test(value);
+}
+
+function isKnownGenericTracker(fileName: string): boolean {
+  return fileName === "interactive-daily" ||
+    fileName === "daily-telegram-movers" ||
+    fileName === "daily-telegram-poll";
+}
+
+function getPayloadTokenIds(payload: Record<string, unknown> | null): string[] {
+  if (!payload) return [];
+
+  const ids: string[] = [];
+  const tokenId = payload.tokenId;
+  if (typeof tokenId === "string" && tokenId.trim().length > 0) {
+    ids.push(tokenId);
+  }
+
+  for (const key of ["movers", "tokenIds"]) {
+    const value = payload[key];
+    if (!Array.isArray(value)) continue;
+    for (const item of value) {
+      if (typeof item === "string" && item.trim().length > 0) {
+        ids.push(item);
+      }
+    }
+  }
+
+  return ids;
+}
+
+function getTrackerPlatform(fileName: string, payload: Record<string, unknown> | null): TrackerPlatform | undefined {
+  if (payload?.platform === "telegram" || payload?.platform === "x") {
+    return payload.platform;
+  }
+  if (fileName === "interactive-daily") return "x";
+  if (fileName === "daily-telegram-movers" || fileName === "daily-telegram-poll") return "telegram";
+
+  const legacyPlatform = fileName.match(/-(telegram|x)-[a-z0-9]+$/);
+  if (legacyPlatform?.[1] === "telegram" || legacyPlatform?.[1] === "x") {
+    return legacyPlatform[1];
+  }
+
+  return undefined;
+}
+
+function getFileTokenId(fileName: string, trackerPlatform: TrackerPlatform | undefined): string | null {
+  if (isKnownGenericTracker(fileName)) return null;
+
+  if (trackerPlatform) {
+    const randomSuffix = new RegExp(`^(.+)-${trackerPlatform}-[a-z0-9]+$`);
+    const randomMatch = fileName.match(randomSuffix);
+    if (randomMatch?.[1]) return randomMatch[1];
+
+    const platformSuffix = `-${trackerPlatform}`;
+    if (fileName.endsWith(platformSuffix)) {
+      return fileName.slice(0, -platformSuffix.length);
+    }
+  }
+
+  return fileName;
+}
+
+function addPostedToken(
+  posted: Set<string>,
+  tokenId: string,
+  trackerPlatform: TrackerPlatform | undefined,
+  requestedPlatform?: string,
+): void {
+  if (!tokenId) return;
+
+  if (!requestedPlatform || requestedPlatform === "all") {
+    posted.add(tokenId);
+    return;
+  }
+
+  if (requestedPlatform === "telegram") {
+    if (trackerPlatform !== "x") posted.add(tokenId);
+    return;
+  }
+
+  if (requestedPlatform === "x") {
+    if (trackerPlatform !== "telegram") posted.add(tokenId);
+  }
+}
+
+function addPostedTokensFromTrackerFile(
+  posted: Set<string>,
+  filePath: string,
+  requestedPlatform?: string,
+): void {
+  const fileName = path.basename(filePath, ".json");
+  const payload = safeReadJson<Record<string, unknown> | null>(filePath, null);
+  const trackerPlatform = getTrackerPlatform(fileName, payload);
+  const payloadTokenIds = getPayloadTokenIds(payload);
+
+  if (payloadTokenIds.length > 0) {
+    for (const tokenId of payloadTokenIds) {
+      addPostedToken(posted, tokenId, trackerPlatform, requestedPlatform);
+    }
+    return;
+  }
+
+  const fileTokenId = getFileTokenId(fileName, trackerPlatform);
+  if (fileTokenId) {
+    addPostedToken(posted, fileTokenId, trackerPlatform, requestedPlatform);
+  }
+}
+
+function addPostedTokensFromDateDir(
+  posted: Set<string>,
+  dirPath: string,
+  requestedPlatform?: string,
+): void {
+  if (!fs.existsSync(dirPath)) return;
+
+  for (const file of fs.readdirSync(dirPath)) {
+    if (!file.endsWith(".json")) continue;
+    addPostedTokensFromTrackerFile(posted, path.join(dirPath, file), requestedPlatform);
+  }
+}
+
+function pruneExpiredDateDirs(parentDir: string, cutoffKey: string): string[] {
+  const removed: string[] = [];
+  if (!fs.existsSync(parentDir)) return removed;
+
+  for (const entry of fs.readdirSync(parentDir)) {
+    if (!isDateDirName(entry) || entry >= cutoffKey) continue;
+
+    const fullPath = path.join(parentDir, entry);
+    if (!fs.statSync(fullPath).isDirectory()) continue;
+
+    fs.rmSync(fullPath, { recursive: true, force: true });
+    removed.push(entry);
+  }
+
+  return removed;
+}
+
+/**
+ * Remove expired cooldown date folders after their retention windows pass.
+ */
+export function cleanupExpiredCooldownFolders(dataDir: string, options: CleanupOptions = {}): CleanupResult {
+  const now = options.now ?? new Date();
+  const postedRetentionDays = options.postedRetentionDays ?? GENERAL_COOLDOWN_DAYS;
+  const videoRetentionDays = options.videoRetentionDays ?? VIDEO_COOLDOWN_DAYS;
+
+  const postedCutoff = dateKeyDaysAgo(postedRetentionDays, now);
+  const videoCutoff = dateKeyDaysAgo(videoRetentionDays, now);
+
+  return {
+    posted: pruneExpiredDateDirs(path.join(dataDir, "posted"), postedCutoff),
+    postedVideo: pruneExpiredDateDirs(path.join(dataDir, "posted_video"), videoCutoff),
+  };
+}
+
 // ── Deduplication ──────────────────────────────────────────────
 
 /**
@@ -82,28 +264,7 @@ export function getTodayPostedTokens(dataDir: string, today: string, platform?: 
   }
 
   // 2. Scan today's posted folder
-  const todayDir = path.join(dataDir, "posted", today);
-  if (fs.existsSync(todayDir)) {
-    fs.readdirSync(todayDir).forEach((f) => {
-      if (!f.endsWith(".json")) return;
-      const fileName = f.replace(".json", "");
-      
-      const isTG = fileName.endsWith("-telegram");
-      const isX = fileName.endsWith("-x");
-      const baseId = fileName.replace("-telegram", "").replace("-x", "");
-
-      if (!platform || platform === "all") {
-        // Global cooldown: any post blocks everything
-        posted.add(baseId);
-      } else if (platform === "telegram") {
-        // Telegram cooldown: blocked by global posts or TG-specific posts
-        if (!isX) posted.add(baseId);
-      } else if (platform === "x") {
-        // X cooldown: blocked by global posts or X-specific posts
-        if (!isTG) posted.add(baseId);
-      }
-    });
-  }
+  addPostedTokensFromDateDir(posted, path.join(dataDir, "posted", today), platform);
 
   return posted;
 }
@@ -113,39 +274,22 @@ export function getTodayPostedTokens(dataDir: string, today: string, platform?: 
  * 
  * @param platform - Optional platform to filter by.
  */
-export function getTokensPostedWithinDays(dataDir: string, days: number, platform?: string): Set<string> {
+export function getTokensPostedWithinDays(dataDir: string, days: number, platform?: string, now: Date = new Date()): Set<string> {
   const posted = new Set<string>();
   const parentDir = path.join(dataDir, "posted");
   if (!fs.existsSync(parentDir)) return posted;
 
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - days);
+  const cutoffKey = dateKeyDaysAgo(days, now);
 
   const dateDirs = fs.readdirSync(parentDir)
     .filter((d) => {
       const fullPath = path.join(parentDir, d);
-      return fs.statSync(fullPath).isDirectory() && !isNaN(new Date(d).getTime());
+      return fs.statSync(fullPath).isDirectory() && isDateDirName(d);
     });
 
   for (const dateDir of dateDirs) {
-    if (new Date(dateDir) >= cutoff) {
-      const dirPath = path.join(parentDir, dateDir);
-      fs.readdirSync(dirPath).forEach((f) => {
-        if (!f.endsWith(".json")) return;
-        const fileName = f.replace(".json", "");
-        
-        const isTG = fileName.endsWith("-telegram");
-        const isX = fileName.endsWith("-x");
-        const baseId = fileName.replace("-telegram", "").replace("-x", "");
-
-        if (!platform || platform === "all") {
-          posted.add(baseId);
-        } else if (platform === "telegram") {
-          if (!isX) posted.add(baseId);
-        } else if (platform === "x") {
-          if (!isTG) posted.add(baseId);
-        }
-      });
+    if (dateDir >= cutoffKey) {
+      addPostedTokensFromDateDir(posted, path.join(parentDir, dateDir), platform);
     }
   }
 

@@ -36,6 +36,7 @@ import { formatPrice } from "../src/lib/content-loader";
 import {
   type TokenData,
   type MetricData,
+  cleanupExpiredCooldownFolders,
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
@@ -160,6 +161,7 @@ async function main() {
   const TODAY = new Date().toISOString().split("T")[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
   const TRACKER_FILE = path.join(POSTED_DIR, "interactive-daily.json");
+  cleanupExpiredCooldownFolders(DATA_DIR);
 
   // ── Dedup check ──
   if (fs.existsSync(TRACKER_FILE) && !dryRun) {

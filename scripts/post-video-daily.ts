@@ -20,12 +20,13 @@ import {
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
-import { SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
+import { SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import {
   type MetricData,
   type TokenData,
+  cleanupExpiredCooldownFolders,
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
@@ -131,6 +132,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted_video", today);
   const trackerFile = path.join(postedDir, "daily-video.json");
+  cleanupExpiredCooldownFolders(DATA_DIR);
   if (!fs.existsSync(postedDir)) fs.mkdirSync(postedDir, { recursive: true });
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
@@ -194,7 +196,7 @@ async function main() {
   const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR);
   
   if (!force) {
-    const videoCooldown = getVideoCooldownTokens(DATA_DIR, 7);
+    const videoCooldown = getVideoCooldownTokens(DATA_DIR, VIDEO_COOLDOWN_DAYS);
     for (const id of videoCooldown) {
       todayPosted.add(id);
     }

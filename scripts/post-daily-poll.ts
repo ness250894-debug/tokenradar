@@ -17,6 +17,7 @@ import * as path from "path";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
 
 // Load environment
 loadEnv();
@@ -109,6 +110,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-poll.json");
+  cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
     console.error("Missing TELEGRAM_CHANNEL_ID in env.");
