@@ -57,7 +57,9 @@ function getFiles(dir: string): string[] {
     file = path.resolve(dir, file);
     const stat = fs.statSync(file);
     if (stat && stat.isDirectory()) {
-      results = results.concat(getFiles(file));
+      if (path.basename(file) !== "logs") {
+        results = results.concat(getFiles(file));
+      }
     } else if (file.endsWith(".json")) {
       results.push(file);
     }

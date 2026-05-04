@@ -28,21 +28,21 @@ export async function fetchTokenImage(
   data?: {
     symbol: string;
     name: string;
-    price: string;
-    change: number;
+    marketCap: number;
+    volume24h: number;
+    rank: number;
     risk: number;
-    icon?: string;
   }
 ): Promise<Buffer | null> {
   // Strategy 1: Render in-memory with live data (preferred)
   if (data) {
     try {
-      const priceNum = parseFloat(data.price.replace(/[$,]/g, "")) || 0;
       const buf = await renderOgImage({
         name: data.name,
         symbol: data.symbol,
-        price: priceNum,
-        change: data.change,
+        marketCap: data.marketCap,
+        volume24h: data.volume24h,
+        rank: data.rank,
         risk: data.risk,
       });
       return buf;

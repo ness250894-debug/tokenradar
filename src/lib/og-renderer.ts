@@ -5,7 +5,7 @@
  * No Next.js runtime required — works in plain Node.js (GHA scripts).
  *
  * Usage:
- *   const buf = await renderOgImage({ name: "Bitcoin", symbol: "BTC", price: 67000, change: 2.5, risk: 3 });
+ *   const buf = await renderOgImage({ name: "Bitcoin", symbol: "BTC", marketCap: 1.5e12, volume24h: 2e10, rank: 1, risk: 3 });
  *   // buf is a PNG Buffer, ready to attach to TG/X posts
  */
 
@@ -13,13 +13,14 @@ import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import * as fs from "fs";
 import * as path from "path";
-import { formatPrice, getRiskColor, getRiskTier } from "./formatters";
+import { formatCompact, getRiskColor, getRiskTier } from "./formatters";
 
 export interface OgRenderData {
   name: string;
   symbol: string;
-  price: number;
-  change: number;
+  marketCap: number;
+  volume24h: number;
+  rank: number;
   risk: number;
 }
 
@@ -80,7 +81,7 @@ function getNameFontSize(tokenName: string): number {
 /**
  * Render a branded OG data card as a PNG Buffer.
  *
- * @param data - Live token data to render
+ * @param data - Token data to render (market cap, volume, rank, risk)
  * @returns PNG Buffer (1200×630) ready for social posting
  */
 export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
@@ -88,8 +89,6 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
   const riskColor = getRiskColor(data.risk);
   const riskLabel = getRiskTier(data.risk);
   const nameFontSize = getNameFontSize(data.name);
-  const changeSign = data.change >= 0 ? "+" : "";
-  const changeColor = data.change >= 0 ? "#00FFA3" : "#FF3366";
 
   const svg = await satori(
     // Satori accepts React-element-like objects { type, props } at runtime,
@@ -191,36 +190,81 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                           ],
                         },
                       },
-                      // Price + Change
+                      // Market Stats: Market Cap | Volume | Rank
                       {
                         type: "div",
                         props: {
                           style: {
                             display: "flex",
-                            alignItems: "baseline",
-                            marginTop: 16,
-                            gap: 20,
+                            alignItems: "flex-end",
+                            marginTop: 24,
+                            gap: 32,
                           },
                           children: [
                             {
-                              type: "span",
+                              type: "div",
                               props: {
-                                style: {
-                                  fontSize: 52,
-                                  fontWeight: 800,
-                                },
-                                children: formatPrice(data.price),
+                                style: { display: "flex", flexDirection: "column" },
+                                children: [
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 18, color: "#666", fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.08em" },
+                                      children: "Market Cap",
+                                    },
+                                  },
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 38, fontWeight: 800, marginTop: 4 },
+                                      children: formatCompact(data.marketCap),
+                                    },
+                                  },
+                                ],
                               },
                             },
                             {
-                              type: "span",
+                              type: "div",
                               props: {
-                                style: {
-                                  fontSize: 32,
-                                  fontWeight: 700,
-                                  color: changeColor,
-                                },
-                                children: `${changeSign}${data.change.toFixed(1)}%`,
+                                style: { display: "flex", flexDirection: "column" },
+                                children: [
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 18, color: "#666", fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.08em" },
+                                      children: "24h Volume",
+                                    },
+                                  },
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 38, fontWeight: 800, marginTop: 4 },
+                                      children: formatCompact(data.volume24h),
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              type: "div",
+                              props: {
+                                style: { display: "flex", flexDirection: "column" },
+                                children: [
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 18, color: "#666", fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.08em" },
+                                      children: "Rank",
+                                    },
+                                  },
+                                  {
+                                    type: "span",
+                                    props: {
+                                      style: { fontSize: 38, fontWeight: 800, marginTop: 4 },
+                                      children: data.rank > 0 ? `#${data.rank}` : "N/A",
+                                    },
+                                  },
+                                ],
                               },
                             },
                           ],
