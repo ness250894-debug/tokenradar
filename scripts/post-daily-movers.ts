@@ -17,7 +17,7 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { sanitizeHtmlForTelegram, sendTelegramPhoto } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
-import { loadCandidateTokens } from "./lib/token-selection";
+import { cleanupExpiredCooldownFolders, loadCandidateTokens } from "./lib/token-selection";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
 
 // Load environment
@@ -39,6 +39,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-movers.json");
+  cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
     console.error("Missing TELEGRAM_CHANNEL_ID in env.");

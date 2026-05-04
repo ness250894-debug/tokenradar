@@ -170,6 +170,11 @@ export const TRENDING_COOLDOWN_DAYS = 3;
  */
 export const GENERAL_COOLDOWN_DAYS = 30;
 
+/**
+ * Minimum days before a daily video breakout token can be used again.
+ */
+export const VIDEO_COOLDOWN_DAYS = 7;
+
 // ── Interactive Poll Config ────────────────────────────────────
 
 /** Default poll duration in minutes (24 hours). */
