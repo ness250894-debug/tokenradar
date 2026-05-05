@@ -56,8 +56,6 @@ scripts/test-*.ts
 !tests/**
 
 # AI content pipeline
-
-# AI content pipeline
 *.prompt.txt
 data/latest-batch-alert.txt
 # X OAuth 2.0 Persistence (Required for rotating tokens in CI/CD)
@@ -71,8 +69,6 @@ data/x-oauth-state.json
 data/logs/
 data/cache/
 data/quarantine/
-data/posted/
-data/posted_video/
 *.mp4
 remotion-props.json
 

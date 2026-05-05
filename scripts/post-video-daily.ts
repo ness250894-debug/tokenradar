@@ -18,7 +18,7 @@ import {
   generateYoutubeMetadata,
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
-import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import { sendTelegramVideo } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
@@ -370,13 +370,12 @@ async function main() {
         (async () => {
           try {
             const tgFooter = getTelegramFooter(targetToken.symbol);
-            const footerWithPadding = "\n" + tgFooter.trim();
-            const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length;
-            
-            // Sanitize AI message to prevent Telegram parse errors (unclosed/unsupported tags),
-            // and securely truncate it to maxBody before appending the footer.
-            const sanitizedBody = sanitizeHtmlForTelegram(tgMessage.trim(), maxBody);
-            const caption = sanitizedBody + footerWithPadding;
+            let caption = tgMessage.trim() + "\n" + tgFooter.trim();
+            if (caption.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT) {
+              const footerWithPadding = "\n" + tgFooter.trim();
+              const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
+              caption = tgMessage.substring(0, maxBody) + "..." + footerWithPadding;
+            }
 
             const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
             console.log(`Posted video to Telegram (Message ID: ${msgId})`);
