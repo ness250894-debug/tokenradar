@@ -373,6 +373,31 @@ function fixMissingNewlineAfterHeader(content: string): { content: string; fixes
 }
 
 /**
+ * Fix tables that are injected inline into text paragraphs.
+ */
+function fixInlineTables(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  let fixed = content;
+  
+  // 1. Detect table start stuck to a paragraph: "text. | Metric |" -> "text.\n\n| Metric |"
+  const inlineTableStartPattern = /([a-z0-9\)])\.\s+(\|\s*Metric\s*\|)/gi;
+  if (inlineTableStartPattern.test(fixed)) {
+    fixed = fixed.replace(inlineTableStartPattern, "$1.\n\n$2");
+    fixes.push("Fixed inline table start (inserted newline)");
+  }
+  
+  // 2. Detect table rows stuck together on one line: "| row1 | | row2 |" -> "| row1 |\n| row2 |"
+  // We look for "| |" which often indicates a row break in these broken generations
+  const inlineTableRowPattern = /(\|)\s+(\|\s+)/g;
+  if (inlineTableRowPattern.test(fixed)) {
+    fixed = fixed.replace(inlineTableRowPattern, "$1\n$2");
+    fixes.push("Fixed inline table rows (inserted newlines)");
+  }
+
+  return { content: fixed, fixes };
+}
+
+/**
  * Robust Table Surgeon: Finds, validates, and repairs markdown tables.
  * Ensures:
  * 1. Table starts with a header (not a separator).
@@ -512,6 +537,51 @@ function moveMarketTable(content: string): { content: string; fixes: string[] } 
   return { content: lines.join("\n"), fixes };
 }
 
+/**
+ * Replace hardcoded values in the market table with placeholders and normalize labels.
+ */
+function fixTablePlaceholders(content: string): { content: string; fixes: string[] } {
+  const fixes: string[] = [];
+  const lines = content.split("\n");
+  const fixedLines: string[] = [];
+
+  const mappings = [
+    { pattern: /^(Price|Current Price|Live Price)$/i, placeholder: "{{LIVE_PRICE}}", label: "Price" },
+    { pattern: /^(Market Cap)$/i, placeholder: "{{LIVE_MARKET_CAP}}", label: "Market Cap" },
+    { pattern: /^(Market Rank|Rank)$/i, placeholder: "{{LIVE_RANK}}", label: "Market Rank" },
+    { pattern: /^(24h Change|Change)$/i, placeholder: "{{LIVE_24H_CHANGE}}", label: "24h Change" },
+  ];
+
+  for (const line of lines) {
+    let trimmed = line.trim();
+    // Only target rows that look like data rows (not headers or separators)
+    if (trimmed.startsWith("|") && !trimmed.includes(":---") && !trimmed.toLowerCase().includes("metric") && !trimmed.toLowerCase().includes("details")) {
+      const parts = trimmed.split("|").map(p => p.trim()).filter(p => p !== "");
+
+      if (parts.length >= 2) {
+        let matched = false;
+        for (const { pattern, placeholder, label } of mappings) {
+          if (pattern.test(parts[0])) {
+            if (parts[1] !== placeholder || parts[0] !== label) {
+              fixes.push(`Normalized table row: "${parts[0]} | ${parts[1]}" -> "${label} | ${placeholder}"`);
+              fixedLines.push(`| ${label} | ${placeholder} |`);
+              matched = true;
+              break;
+            }
+          }
+        }
+        if (!matched) fixedLines.push(line);
+      } else {
+        fixedLines.push(line);
+      }
+    } else {
+      fixedLines.push(line);
+    }
+  }
+
+  return { content: fixedLines.join("\n"), fixes };
+}
+
 // ── Article Processing ─────────────────────────────────────────
 
 /**
@@ -623,6 +693,8 @@ function fixArticle(content: string): { content: string; allFixes: string[] } {
     fixWrongHeadingLevels,
     fixBrokenHeaders,
     fixMissingNewlineAfterHeader,
+    fixInlineTables,
+    fixTablePlaceholders,
     fixTables,
     moveMarketTable,
     syncTableHeader,
@@ -662,7 +734,14 @@ function fixMissingNewlines(content: string): { content: string; fixes: string[]
     fixes.push("Restored missing newlines before headers");
   }
 
-  // 2. Fix list starts: "some text\n- item" -> "some text\n\n- item"
+  // 2. Fix headers followed immediately by text: "## Header\nText" -> "## Header\n\nText"
+  const headerEndPattern = /^(##\s+.*?)\n([A-Z])/gm;
+  if (headerEndPattern.test(fixed)) {
+    fixed = fixed.replace(headerEndPattern, "$1\n\n$2");
+    fixes.push("Restored missing newlines after headers");
+  }
+
+  // 3. Fix list starts: "some text\n- item" -> "some text\n\n- item"
   const listPattern = /([^\n])\s+(-\s+[A-Z])/g; 
   if (listPattern.test(fixed)) {
     fixed = fixed.replace(listPattern, "$1\n$2");
