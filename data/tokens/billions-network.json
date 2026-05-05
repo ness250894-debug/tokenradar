@@ -2,20 +2,51 @@
   "id": "billions-network",
   "symbol": "bill",
   "name": "Billions Network",
+  "description": "Billions is the global human and AI network, built on mobile-first verification to scale the internet of value. We uniquely verify the identity and uniqueness of humans and AI agents, empowering users with personalized experiences and rewards.\n\n‍Our network is designed to be accessible, scalable, and anonymous, making trust between humans and AI seamless and intuitive for everyone.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Decentralized Identifier (DID)",
+    "Coinbase Ventures Portfolio",
+    "Quest-to-Earn",
+    "Polychain Capital Portfolio",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://billions.network/",
+    "github": "https://github.com/0xPolygonID",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xdf24f8c21cb404b3031a450d8e049d6e39fc1fa5"
+  },
   "market": {
-    "price": 0.03924247,
-    "marketCap": 93893790,
-    "marketCapRank": 311,
-    "volume24h": 174434451,
-    "priceChange24h": 74.48148,
-    "ath": 0.04125673,
-    "athChangePercentage": -5.28253,
-    "athDate": "2026-05-04T14:54:47.616Z",
+    "price": 0.03645862,
+    "marketCap": 88628831,
+    "marketCapRank": 325,
+    "volume24h": 241380008,
+    "high24h": 0.04582874,
+    "low24h": 0.02983924,
+    "priceChange24h": 0.23687,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.04582874,
+    "athChangePercentage": -18.32858,
+    "athDate": "2026-05-04T23:40:36.020Z",
     "atl": 0.02249091,
     "atlDate": "2026-05-04T07:05:09.274Z",
     "circulatingSupply": 2400000000,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 369286794
   },
-  "lastMarketUpdate": "2026-05-04T19:07:30.484Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-05T09:15:33.065Z"
 }

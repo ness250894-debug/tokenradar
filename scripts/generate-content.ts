@@ -392,6 +392,21 @@ async function main() {
   let tokensToProcess: string[] = [];
   let tgeTokensToProcess: string[] = [];
 
+  // Helper: check if a file exists in EITHER the queue dir or the published content dir.
+  // This is critical because publish-from-queue.ts deletes queue folders after publishing,
+  // so existence/staleness checks must consult the persistent content/tokens/ dir as well.
+  const existsInEitherDir = (tokenId: string, slug: string): boolean =>
+    fs.existsSync(path.join(CONTENT_BASE_DIR, tokenId, `${slug}.json`)) ||
+    fs.existsSync(path.join(CONTENT_DIR, tokenId, `${slug}.json`));
+
+  const resolveContentFile = (tokenId: string, slug: string): string | null => {
+    const queuePath = path.join(CONTENT_BASE_DIR, tokenId, `${slug}.json`);
+    if (fs.existsSync(queuePath)) return queuePath;
+    const publishedPath = path.join(CONTENT_DIR, tokenId, `${slug}.json`);
+    if (fs.existsSync(publishedPath)) return publishedPath;
+    return null;
+  };
+
   if (dripMode) {
     console.log("▶ [DRIP MODE] Identifying candidates for safe daily update...");
     
@@ -400,8 +415,9 @@ async function main() {
       if (targetToken && tge.id !== targetToken) continue;
       if (tge.status === "released") continue; // Released ones go to Phase 2 (Graduation)
       
-      const tgePath = path.join(CONTENT_BASE_DIR, tge.id, "tge-preview.json");
-      if (!fs.existsSync(tgePath) || (await isStale(tgePath, 7))) {
+      // Check both queue and published dirs for existing TGE preview
+      const tgeFile = resolveContentFile(tge.id, "tge-preview");
+      if (!tgeFile || (await isStale(tgeFile, 7))) {
         tgeTokensToProcess.push(tge.id);
       }
       if (tgeTokensToProcess.length >= maxTgeTokens) break;
@@ -411,8 +427,10 @@ async function main() {
     const graduatedToProcess: string[] = [];
     for (const tge of upcomingTges) {
       if (tge.status === "released") {
-        const overviewPath = path.join(CONTENT_BASE_DIR, tge.id, "overview.json");
-        if (!fs.existsSync(overviewPath)) {
+        // Check BOTH queue and published content directories — once graduated
+        // content is published, the queue folder is deleted by publish-from-queue.ts
+        const hasOverview = existsInEitherDir(tge.id, "overview");
+        if (!hasOverview) {
           graduatedToProcess.push(tge.id);
           console.log(`  🎓 [GRADUATION] Found newly released token: ${tge.name} (${tge.id}). Adding to high-priority queue.`);
         }
@@ -445,22 +463,31 @@ async function main() {
         }
       } catch (_e) {}
 
-      const overviewPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
-      const pricePath = path.join(CONTENT_BASE_DIR, id, "price-prediction.json");
-      const howToBuyPath = path.join(CONTENT_BASE_DIR, id, "how-to-buy.json");
-
-      // Priority 1: Volatile (>15% 24h move)
+      // Priority 1: Volatile (>15% 24h move) with 24h cooldown
       const change24h = tokenMarketData?.market?.priceChange24h ?? 0;
       if (Math.abs(change24h) >= 15) {
+        // Cooldown: don't re-generate if content was already updated in last 24h
+        const recentFile = resolveContentFile(id, "overview");
+        if (recentFile) {
+          const recentData = safeReadJson<any>(recentFile, null);
+          if (recentData?.generatedAt) {
+            const hoursSince = (Date.now() - new Date(recentData.generatedAt).getTime()) / (1000 * 60 * 60);
+            if (hoursSince < 24) {
+              // Already regenerated recently for this volatile move — skip
+              continue;
+            }
+          }
+        }
         volatileTokens.push(id);
         console.log(`  ⚡ [VOLATILE] ${tokenMarketData?.name || id}: ${change24h >= 0 ? "+" : ""}${change24h.toFixed(1)}% 24h change`);
         continue;
       }
 
       // Priority 2: Empty or incomplete content hub
-      const hasOverview = fs.existsSync(overviewPath);
-      const hasPrice = fs.existsSync(pricePath);
-      const hasHowToBuy = fs.existsSync(howToBuyPath);
+      // Check BOTH queue and published dirs — queue is ephemeral (deleted after publish)
+      const hasOverview = existsInEitherDir(id, "overview");
+      const hasPrice = existsInEitherDir(id, "price-prediction");
+      const hasHowToBuy = existsInEitherDir(id, "how-to-buy");
 
       if (!hasOverview || !hasPrice || !hasHowToBuy) {
         const missing: string[] = [];
@@ -472,14 +499,22 @@ async function main() {
         continue;
       }
 
-      // Priority 3: Refresh candidate (sorted by age later)
-      const data = safeReadJson<any>(overviewPath, null);
-      if (data) {
-        try {
-          const lastGen = data.generatedAt ? new Date(data.generatedAt).getTime() : 0;
-          refreshCandidates.push({ id, lastGen });
-        } catch (_e) {
-          refreshCandidates.push({ id, lastGen: 0 });
+      // Priority 3: Refresh candidate — enforce 30-day minimum age from PUBLISHED content
+      // Read from published dir (not queue — queue is ephemeral)
+      const publishedOverviewPath = resolveContentFile(id, "overview");
+      if (publishedOverviewPath) {
+        const data = safeReadJson<any>(publishedOverviewPath, null);
+        if (data?.generatedAt) {
+          try {
+            const lastGen = new Date(data.generatedAt).getTime();
+            const ageDays = (Date.now() - lastGen) / (1000 * 60 * 60 * 24);
+            if (ageDays >= 30) {
+              refreshCandidates.push({ id, lastGen });
+            }
+          } catch (_e) {
+            // Corrupt date — treat as needing refresh
+            refreshCandidates.push({ id, lastGen: 0 });
+          }
         }
       }
     }
@@ -801,12 +836,15 @@ async function main() {
       }
     }
 
-    // Double check stale status (we already did it earlier, but to be safe and print logs)
+    // Double check stale status — check both queue dir AND published content dir,
+    // since queue is wiped after publish-from-queue.ts runs
     const configsToGenerate = [];
     for (const config of filteredConfigs) {
       const outputDir = ensureContentDir(tokenId, useQueue);
       const outputFile = path.join(outputDir, `${config.slug}.json`);
-      if (fs.existsSync(outputFile) && !(await isStale(outputFile, isTge ? 7 : 30)) && !args.includes("--force")) {
+      const publishedFile = path.join(CONTENT_DIR, tokenId, `${config.slug}.json`);
+      const fileToCheck = fs.existsSync(outputFile) ? outputFile : publishedFile;
+      if (fs.existsSync(fileToCheck) && !(await isStale(fileToCheck, isTge ? 7 : 30)) && !args.includes("--force")) {
         console.log(`  ⏭ ${config.type} — generated recently`);
       } else {
         configsToGenerate.push(config);
