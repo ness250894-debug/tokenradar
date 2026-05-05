@@ -63,6 +63,7 @@ async function callGeminiAPI(
               }] 
             }],
             generationConfig: {
+              temperature: 0.7,
               maxOutputTokens: maxTokens,
               ...(jsonSchema ? {
                 responseMimeType: "application/json",
@@ -241,7 +242,7 @@ export async function callAIWithFallback(
       throw new Error("AI Technical Refusal");
     }
     if (result.finishReason && result.finishReason !== "STOP") {
-      console.warn(`  ⚠ Gemini finished with reason: ${result.finishReason}. Falling back to Claude...`);
+      console.warn(`  ⚠ Gemini finished with reason: ${result.finishReason}. Output snippet: ${result.content.substring(0, 150)}...`);
       throw new Error(`AI Truncated: ${result.finishReason}`);
     }
     return result;
