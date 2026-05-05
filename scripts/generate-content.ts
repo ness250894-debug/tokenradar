@@ -132,8 +132,14 @@ STRICT RULES:
 
 FORMAT:
 - Start with a comprehensive intro paragraph of 3-4 sentences (no heading). This must be the very first content.
-- MANDATORY: Include the Markdown Summary Table ONLY AFTER the intro paragraph. You MUST include a header row (e.g., "| Metric | Details |") followed by the separator row for the table to render correctly. Use the placeholders defined above.
-- Use ## for all main sections. DO NOT split headers into multiple lines (e.g., "## The\n\nCore Problem" is forbidden; use "## The Core Problem").
+- MANDATORY: Include the Markdown Summary Table ONLY AFTER the intro paragraph. Ensure there is a blank line before and after the table.
+  Use exactly these labels for the summary table rows:
+  | Price | {{LIVE_PRICE}} |
+  | Market Cap | {{LIVE_MARKET_CAP}} |
+  | 24h Change | {{LIVE_24H_CHANGE}} |
+  | Market Rank | {{LIVE_RANK}} |
+- Use ## for all main sections. ENSURE there is a blank line before every header.
+- ENSURE every paragraph is followed by a blank line.
 - Include bullet points and bold text for key data.
 - Include a structured FAQ section at the end using ## FAQ format.
 - INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis. Mention the current total market cap or BTC dominance within the first two paragraphs. This is critical for authority.`;
