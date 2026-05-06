@@ -349,9 +349,9 @@ export async function generateTokenSummary(
     1. MANDATORY: The very first sentence MUST begin exactly with: $${symbol.toUpperCase()} (${tokenName}). (Do NOT bold the cashtag).
     2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis. Use <b> tags for these numbers.
     3. INSIGHT: Explain the *implication* of the data. 
-    4. ATTRIBUTION: Naturally mention that the data is powered by CoinGecko.
+    4. ATTRIBUTION: Naturally mention that the data is powered by CoinGecko. Never mention that you are an AI, an analyst, or a bot.
     5. HARD LIMIT: Your total output MUST be under ${Math.floor(maxChars / 6)} words. This is a hard technical limit. Priority is data over fluff.
-    6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers.
+    6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers. Never include headers like "# Tweet", or AI disclaimers like "Here is the tweet".
     7. SPICY ENGAGEMENT: Use exactly 1 or 2 emojis.
     8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
     9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags (e.g., <tg-spoiler>The verdict is bullish.</tg-spoiler>).
@@ -424,13 +424,13 @@ export async function generateTweet(
     ${reasonContext}
     
     STRICT X RULES:
-    1. OUTPUT: Return ONLY the tweet text.
+    1. OUTPUT: Return ONLY the tweet text. Never include headers like "# Tweet", or AI disclaimers like "Here is the tweet".
     2. HARD LIMIT: Your output MUST be under ${maxChars} characters. Aim for high density.
     3. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
     4. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
     5. SPARK DEBATE: End with a strong, data-driven question to drive replies.
     6. HASHTAGS: Exactly 1 or 2 niche tags at the end.
-    7. TONE: Punchy, analytical.
+    7. TONE: Punchy, analytical. Never mention that you are an AI, an analyst, or a bot.
     8. EXTERNAL LINKS: NEVER include URLs.
   `;
 
