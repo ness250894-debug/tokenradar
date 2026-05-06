@@ -2,20 +2,48 @@
   "id": "everything",
   "symbol": "ev",
   "name": "Everything",
+  "description": "Everything unifies multiple decentralized finance protocols into one cohesive, interoperable ecosystem. At its core, the $EV token functions as the primary mechanism for governance, utility, and value accrual, aligning incentives across all products while enabling users to participate in decision-making, access platform features, and benefit from the ecosystem’s overall growth and long-term sustainability.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://everything.inc/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7"
+  },
   "market": {
-    "price": 0.00096109,
-    "marketCap": 95869489,
-    "marketCapRank": 309,
-    "volume24h": 2746.68,
-    "priceChange24h": 39.62508,
+    "price": 0.00109008,
+    "marketCap": 108597937,
+    "marketCapRank": 280,
+    "volume24h": 1232.67,
+    "high24h": 0.00125164,
+    "low24h": 0.00066513,
+    "priceChange24h": -12.90778,
+    "priceChange7d": 31.24063,
+    "priceChange30d": 84.69345,
+    "priceChange1y": 0,
     "ath": 0.00175037,
-    "athChangePercentage": -45.14148,
+    "athChangePercentage": -37.79493,
     "athDate": "2026-05-05T05:45:27.330Z",
     "atl": 0.00031577,
     "atlDate": "2026-03-19T15:03:14.081Z",
     "circulatingSupply": 99704389369.50331,
     "totalSupply": 99704389369.50331,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 108597937
   },
-  "lastMarketUpdate": "2026-05-05T18:58:07.963Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-06T08:34:09.286Z"
 }
