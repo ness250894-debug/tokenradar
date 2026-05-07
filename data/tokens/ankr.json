@@ -2,20 +2,65 @@
   "id": "ankr",
   "symbol": "ankr",
   "name": "Ankr Network",
+  "description": "Ankr is a Web3 decentralized infrastructure provider that helps developers, dapps, and stakers easily interact with multiple blockchains. It allows you to create DApps using API and RPC, staking on Ankr Earn, and use customized blockchain solutions for businesses.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Fantom Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Liquid Staking Governance Tokens",
+    "Linea Ecosystem",
+    "DePIN",
+    "Scroll Ecosystem",
+    "Rollups-as-a-Service (RaaS)",
+    "Blast Ecosystem",
+    "Mode Ecosystem",
+    "Pantera Capital Portfolio",
+    "Polygon zkEVM Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Liquid Staking",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.ankr.com/",
+    "github": "https://github.com/Ankr-network",
+    "reddit": "https://www.reddit.com/r/Ankrofficial",
+    "explorer": "https://etherscan.io/token/0x8290333cef9e6d528dd5618fb97a76f268f3edd4"
+  },
   "market": {
-    "price": 0.00507813,
-    "marketCap": 50731587,
-    "marketCapRank": 496,
-    "volume24h": 37373374,
-    "priceChange24h": 3.01908,
+    "price": 0.00511883,
+    "marketCap": 51308201,
+    "marketCapRank": 493,
+    "volume24h": 17266422,
+    "high24h": 0.00524487,
+    "low24h": 0.00498957,
+    "priceChange24h": 0.70172,
+    "priceChange7d": 7.53192,
+    "priceChange30d": -1.88707,
+    "priceChange1y": -71.00052,
     "ath": 0.213513,
-    "athChangePercentage": -97.62354,
+    "athChangePercentage": -97.59695,
     "athDate": "2021-04-16T19:44:04.474Z",
     "atl": 0.00070728,
     "atlDate": "2020-03-13T02:24:03.563Z",
     "circulatingSupply": 10000000000,
     "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+    "maxSupply": 10000000000,
+    "fdv": 51308201
   },
-  "lastMarketUpdate": "2026-05-06T19:13:04.884Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-07T09:02:38.564Z"
 }
