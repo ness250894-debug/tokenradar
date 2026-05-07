@@ -7,7 +7,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
 import { JsonLd } from "@/components/JsonLd";
-import Script from "next/script";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
@@ -82,23 +82,7 @@ export default function RootLayout({
         {/* AdSense & CMP (Publisher: Place your ID below) */}
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> */}
 
-        {gaMeasurementId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${gaMeasurementId}');
-              `}
-            </Script>
-          </>
-        )}
+        {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
         <JsonLd
           id="website-jsonld"
           data={{
