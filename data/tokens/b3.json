@@ -2,20 +2,49 @@
   "id": "b3",
   "symbol": "b3",
   "name": "B3 (Base)",
+  "description": "B3 is a Layer 3 blockchain settlement layer built on Base, designed to revolutionize onchain gaming through its [Open Gaming](https://opengaming.b3.fun/) ecosystem. By addressing key pain points in blockchain-based gaming, B3 enhances accessibility for both developers and players. Its infrastructure minimizes transaction costs, simplifies onboarding, and fosters a collaborative ecosystem where games share liquidity, incentives, and audiences.\n\nThe $B3 token serves as the backbone of the ecosystem, ensuring seamless interaction across multiple games and chains, enabling \n* Governance\n* Staking\n* In-game transactions",
+  "categories": [
+    "Smart Contract Platform",
+    "Base Ecosystem",
+    "Gaming Blockchains",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://b3.fun/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xB3B32F9f8827D4634fE7d973Fa1034Ec9fdDB3B3"
+  },
   "market": {
-    "price": 0.00154563,
-    "marketCap": 71845326,
-    "marketCapRank": 394,
-    "volume24h": 297615992,
-    "priceChange24h": 99.74435,
+    "price": 0.00154494,
+    "marketCap": 70919825,
+    "marketCapRank": 396,
+    "volume24h": 172895060,
+    "high24h": 0.00172519,
+    "low24h": 0.00139493,
+    "priceChange24h": 10.75384,
+    "priceChange7d": 482.27106,
+    "priceChange30d": 382.53143,
+    "priceChange1y": -66.57658,
     "ath": 0.01828807,
-    "athChangePercentage": -91.63276,
+    "athChangePercentage": -91.65419,
     "athDate": "2025-02-12T00:45:46.101Z",
     "atl": 0.00025351,
     "atlDate": "2026-04-29T20:00:24.928Z",
     "circulatingSupply": 46431583333,
     "totalSupply": 100000000000,
-    "maxSupply": 100000000000
+    "maxSupply": 100000000000,
+    "fdv": 152740483
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.889Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:48:20.049Z"
 }

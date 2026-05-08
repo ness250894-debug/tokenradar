@@ -2,20 +2,47 @@
   "id": "apes-2-2",
   "symbol": "apes",
   "name": "APES",
+  "description": "Just a funny APES – In APES Gang, team plays an exciting game, has fun, and shills the coin. As Dominic Toretto said, the most important thing is family. APES is more than family; This is APES GANG! \nApes isn’t just a meme coin; it’s a unique utility token with its own farming game, staking pool, fan page where you can join the Gang as a knight, and much more in development. And, of course, an NFT collection with Utility!\n\nJoin the APES GANG – shill the coin, play the game, have fun, and stake your tokens!",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://apesgang.io",
+    "github": "https://github.com/ApesGangio",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xfBd09f771D1D76275B58ECA4016978a8A8dc46DE"
+  },
   "market": {
-    "price": 0.08004,
-    "marketCap": 72113849,
-    "marketCapRank": 392,
-    "volume24h": 5347.65,
-    "priceChange24h": -1.4469,
+    "price": 0.079607,
+    "marketCap": 71629776,
+    "marketCapRank": 394,
+    "volume24h": 2316.22,
+    "high24h": 0.081604,
+    "low24h": 0.079211,
+    "priceChange24h": -2.44724,
+    "priceChange7d": 2.8355,
+    "priceChange30d": 10.34373,
+    "priceChange1y": 0,
     "ath": 0.082832,
-    "athChangePercentage": -3.17399,
+    "athChangePercentage": -4.06626,
     "athDate": "2026-05-06T11:25:20.751Z",
     "atl": 0.065435,
     "atlDate": "2026-03-29T22:50:53.005Z",
     "circulatingSupply": 900000000,
     "totalSupply": 900000000,
-    "maxSupply": 900000000
+    "maxSupply": 900000000,
+    "fdv": 71629776
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.889Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:52:24.495Z"
 }
