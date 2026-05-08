@@ -105,7 +105,7 @@ export function Footer() {
         </div>
 
         <p className="footer-disclaimer">
-          TokenRadar provides data-driven analysis and research for informational purposes only. Nothing on this site constitutes financial advice, investment recommendations, or an endorsement of any cryptocurrency. Always do your own research (DYOR) and consult a qualified financial advisor before making investment decisions. Cryptocurrency investments are highly volatile and carry significant risk of loss.
+          TokenRadar provides automated data-driven analysis and market research for informational purposes only. Nothing on this site constitutes financial advice or investment recommendations. Always conduct independent research and consult a professional before making economic decisions. Market volatility reports are based on public data indices and carry inherent risks.
         </p>
 
         <div className="footer-bottom">
