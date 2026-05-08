@@ -2,20 +2,63 @@
   "id": "dydx-chain",
   "symbol": "dydx",
   "name": "dYdX",
+  "description": "dYdX is DeFi’s pro trading platform and a pioneer in decentralized finance, known for being the first to offer decentralized margin trading and derivatives, as well as inventing flash loans and DEX aggregators in 2018. Built on a custom Layer-1 blockchain using the Cosmos SDK, dYdX provides a professional-grade, decentralized trading experience with high leverage, deep liquidity, and low fees. Governed by the community through the DYDX token, dYdX is focused on delivering a transparent and user-driven financial system. This November, dYdX Unlimited launches, bringing instant market listings, the MegaVault liquidity engine, revamped trading rewards, and lifetime affiliate commissions, setting a new standard for decentralized trading\n\n",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Cosmos Ecosystem",
+    "Perpetuals",
+    "Layer 1 (L1)",
+    "Osmosis Ecosystem",
+    "Appchains",
+    "DragonFly Capital Portfolio",
+    "DeFiance Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "GMCI DeFi Index",
+    "Delphi Ventures Portfolio",
+    "GMCI Index",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://dydx.trade",
+    "github": "https://github.com/dydxprotocol",
+    "reddit": null,
+    "explorer": "https://www.mintscan.io/osmosis/assets/ibc/aWJjLzgzMUYwQjFCQkIxRDA4QTJCNzUzMTE4OTI4NzZENzE1NjU0NzhDNTMyOTY3NTQ1NDc2REY0QzJENzQ5MkU0OEM="
+  },
   "market": {
-    "price": 0.189264,
-    "marketCap": 158642404,
-    "marketCapRank": 219,
-    "volume24h": 36768807,
-    "priceChange24h": 23.88773,
+    "price": 0.168924,
+    "marketCap": 141888385,
+    "marketCapRank": 237,
+    "volume24h": 77448707,
+    "high24h": 0.206214,
+    "low24h": 0.151192,
+    "priceChange24h": 11.31231,
+    "priceChange7d": 10.88827,
+    "priceChange30d": 59.10789,
+    "priceChange1y": -71.18061,
     "ath": 4.52,
-    "athChangePercentage": -95.86651,
+    "athChangePercentage": -96.24977,
     "athDate": "2024-03-07T22:19:11.131Z",
     "atl": 0.078815,
     "atlDate": "2026-03-08T03:05:30.078Z",
-    "circulatingSupply": 839312234.8070294,
+    "circulatingSupply": 839645568.0770293,
     "totalSupply": 958342751,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 161946553
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.855Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:51:03.713Z"
 }

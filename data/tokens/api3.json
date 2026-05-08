@@ -2,20 +2,51 @@
   "id": "api3",
   "symbol": "api3",
   "name": "Api3",
+  "description": "Api3 delivers first-party oracles that pay you — connecting real-world data directly to smart contracts while reclaiming lost value through Oracle Extractable Value (OEV). Explore the Api3 Market and start earning.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Oracle",
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Pantera Capital Portfolio",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://api3.org/",
+    "github": "https://github.com/api3dao/airnode",
+    "reddit": "https://www.reddit.com/r/API3/",
+    "explorer": "https://etherscan.io/token/0x0b38210ea11411557c13457d4da7dc6ea731b88a"
+  },
   "market": {
-    "price": 0.367026,
-    "marketCap": 52564038,
+    "price": 0.365373,
+    "marketCap": 52311564,
     "marketCapRank": 484,
-    "volume24h": 8777213,
-    "priceChange24h": -2.2965,
+    "volume24h": 9095060,
+    "high24h": 0.372395,
+    "low24h": 0.355376,
+    "priceChange24h": -0.60351,
+    "priceChange7d": -2.21731,
+    "priceChange30d": 27.4857,
+    "priceChange1y": -52.63586,
     "ath": 10.3,
-    "athChangePercentage": -96.42835,
+    "athChangePercentage": -96.46006,
     "athDate": "2021-04-07T06:54:35.507Z",
     "atl": 0.257119,
     "atlDate": "2026-02-06T00:30:21.935Z",
     "circulatingSupply": 143154426.2782652,
     "totalSupply": 168166373.6779725,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 61451443
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.905Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 170,
+    "githubForks": 67,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:53:41.198Z"
 }

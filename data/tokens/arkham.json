@@ -2,20 +2,57 @@
   "id": "arkham",
   "symbol": "arkm",
   "name": "Arkham",
+  "description": "Arkham is a cryptocurrency exchange and blockchain analytics platform offering a single site with everything a trader needs, including spot &amp; derivatives trading, intelligence &amp; analytics, and news &amp; research, to millions of users around the world. \n\nArkham Intel provides traders with advanced analytics to inform their trading and risk management with over 2 billion blockchain addresses labeled, 92% of on-chain value attributed, and $830 trillion of labeled asset flow. Arkham takes data directly from the blockchain and makes it usable and actionable by anyone via a searchable database of individuals and institutions showing their on-chain holdings, transactions, counterparties, and net worth. On top of this data, Arkham Intel offers a suite of advanced tooling, including alerts, network maps, custom dashboards, AI-powered market analysis, and an API.\n\nArkham Exchange is a central limit order book (CLOB) spot and perpetuals exchange which integrates trading and intelligence for transparent and informed decision making. Select features include on-chain proof of funds verification, real-time analytics for deposits and withdrawals, REST and WebSocket APIs, and one-click analytics for any market. Arkham Exchange also offers a VIP affiliate program, points, referral commissions, trading competitions, and other incentives for rewarding users.\n\nArkham was founded by Miguel Morel who serves as CEO. Miguel is a veteran entrepreneur in cryptocurrency markets. Miguel’s experience navigating crypto markets makes him familiar with the intelligence needs of decision makers in government, venture capital, and trading. He is also an investor in a number of technology startups.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Exchange-based Tokens",
+    "Analytics",
+    "Derivatives",
+    "Perpetuals",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Binance Launchpad",
+    "Coinbase Ventures Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "http://arkm.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6e2a43be0b1d33b726f0ca3b8de60b3482b8b050"
+  },
   "market": {
-    "price": 0.131311,
-    "marketCap": 81766642,
-    "marketCapRank": 353,
-    "volume24h": 21330398,
-    "priceChange24h": -1.01567,
+    "price": 0.139761,
+    "marketCap": 87064374,
+    "marketCapRank": 329,
+    "volume24h": 22092076,
+    "high24h": 0.140642,
+    "low24h": 0.128903,
+    "priceChange24h": 5.17689,
+    "priceChange7d": 26.57112,
+    "priceChange30d": 37.66799,
+    "priceChange1y": -73.71225,
     "ath": 3.98,
-    "athChangePercentage": -96.69134,
+    "athChangePercentage": -96.50072,
     "athDate": "2024-03-10T00:04:54.733Z",
     "atl": 0.091695,
     "atlDate": "2026-04-05T17:12:39.193Z",
     "circulatingSupply": 622760291,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 139803991
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.882Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:56:13.700Z"
 }

@@ -2,20 +2,49 @@
   "id": "apyusd",
   "symbol": "apyusd",
   "name": "apyUSD",
+  "description": "apyUSD is a yield-bearing vault token issued by the Apyx protocol on Ethereum. It follows the ERC-4626 standard and wraps apxUSD, a USD-denominated stablecoin backed by preferred equity shares from Digital Asset Treasury companies and separately listed on CoinGecko. Users deposit apxUSD into the Apyx yield vault and receive apyUSD in return. The vault accumulates cash dividends paid by DAT preferred shares and distributes that income by increasing the apyUSD-to-apxUSD exchange rate over time. Holders earn yield passively without staking or manual claiming — the exchange rate appreciation mechanism works the same way as Maker's sDAI and Ethena's sUSDe. Both apxUSD and apyUSD are ERC-20 tokens on Ethereum. The protocol integrates with Pendle for yield tokenization and trading, and with Morpho for lending collateral. Custody for the underlying DAT preferred share collateral is provided by Anchorage Digital and BitGo.",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Yield-Bearing Stablecoin",
+    "Yield-Bearing Tokens"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://apyx.fi",
+    "github": "https://github.com/apyx-labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x38EEb52F0771140d10c4E9A9a72349A329Fe8a6A"
+  },
   "market": {
     "price": 1.36,
-    "marketCap": 105343625,
+    "marketCap": 105657940,
     "marketCapRank": 287,
-    "volume24h": 1527363,
-    "priceChange24h": -0.0696,
+    "volume24h": 978834,
+    "high24h": 1.36,
+    "low24h": 1.35,
+    "priceChange24h": 0.00041,
+    "priceChange7d": 0.48037,
+    "priceChange30d": 1.15778,
+    "priceChange1y": 0,
     "ath": 1.52,
-    "athChangePercentage": -10.16423,
+    "athChangePercentage": -10.10126,
     "athDate": "2026-03-23T18:09:48.035Z",
     "atl": 1.31,
     "atlDate": "2026-04-07T22:11:29.998Z",
-    "circulatingSupply": 77358519.01817314,
-    "totalSupply": 77358519.01817314,
-    "maxSupply": null
+    "circulatingSupply": 77563095.10120869,
+    "totalSupply": 77563095.10120869,
+    "maxSupply": null,
+    "fdv": 105657940
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.869Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:54:58.999Z"
 }

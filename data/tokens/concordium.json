@@ -2,20 +2,57 @@
   "id": "concordium",
   "symbol": "ccd",
   "name": "Concordium",
+  "description": "Founded in 2018, Concordium is the Layer-1 blockchain built for a new era of digital trust.\n\nOur name comes from the Latin concordia—meaning harmony and agreement—a reflection of\nour mission to build infrastructure that embeds trust, privacy, and compliance into every\ninteraction.\n\nAt the heart of Concordium is Smart Money: programmable digital assets with identity, policy\ncontrols, and compliance embedded at the protocol level. Smart Money enables frictionless\ndigital interactions with security, automation, and regulatory certainty by design.\n\nConcordium was established by Lars Seier Christensen, founder of Saxo Bank, inspired by the\nrecognition that blockchain’s full potential can only be realized if it works with regulation, not\nagainst it. That insight led to a new model of trust—one where decentralization and\naccountability can coexist.\n\nBacked by world-class cryptographic research and a global team with expertise across\n\nblockchain, finance, and compliance, Concordium delivers protocol-native features like zero-\nknowledge verification, programmable compliance, and privacy-preserving controls—\n\nempowering a smarter, more connected financial future.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Decentralized Identifier (DID)",
+    "Zero Knowledge (ZK)",
+    "Payment Solutions",
+    "AI Agents",
+    "AI Applications",
+    "Privacy Blockchain",
+    "x402 Ecosystem",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.concordium.com/",
+    "github": "https://github.com/Concordium",
+    "reddit": "https://www.reddit.com/r/Concordium_Official/",
+    "explorer": "https://ccdscan.io/"
+  },
   "market": {
-    "price": 0.00558394,
-    "marketCap": 69316635,
-    "marketCapRank": 402,
-    "volume24h": 492909,
-    "priceChange24h": 16.47945,
+    "price": 0.00535175,
+    "marketCap": 67243271,
+    "marketCapRank": 412,
+    "volume24h": 435888,
+    "high24h": 0.0060238,
+    "low24h": 0.00492189,
+    "priceChange24h": 8.71816,
+    "priceChange7d": 16.27978,
+    "priceChange30d": 17.88164,
+    "priceChange1y": 29.84579,
     "ath": 0.149407,
-    "athChangePercentage": -96.2535,
+    "athChangePercentage": -96.41446,
     "athDate": "2022-02-10T12:22:15.949Z",
     "atl": 0.00262306,
     "atlDate": "2024-07-16T01:52:20.318Z",
     "circulatingSupply": 12564720289.77886,
     "totalSupply": 14452743967.01394,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 77347506
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.891Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-08T07:49:42.807Z"
 }
