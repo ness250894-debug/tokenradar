@@ -2,20 +2,53 @@
   "id": "baby-doge-coin",
   "symbol": "babydoge",
   "name": "Baby Doge Coin",
+  "description": "Baby Doge Coin is a meme cryptocurrency designed to be deflationary and more scarce over time. All holders of Baby Doge will earn more baby doge that is automatically sent to your wallet by simply holding Baby Doge coins in your wallet. Watch the amount of baby doge grow in your wallet as baby doge coin holders automatically receive a 5% fee from every on chain transaction that happens on the Baby Doge ecosystem. The community receives more baby doge coins from the fees generated each transaction.",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Meme",
+    "Ethereum Ecosystem",
+    "Dog-Themed",
+    "Solana Meme",
+    "Gaming Utility Token"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://babydoge.com",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xc748673057861a797275cd8a068abb95a902e8de"
+  },
   "market": {
-    "price": 4.58318e-10,
-    "marketCap": 83653719,
-    "marketCapRank": 351,
-    "volume24h": 3833453,
-    "priceChange24h": 4.18489,
+    "price": 4.63213e-10,
+    "marketCap": 84404764,
+    "marketCapRank": 353,
+    "volume24h": 5375008,
+    "high24h": 4.85602e-10,
+    "low24h": 4.40217e-10,
+    "priceChange24h": 5.22384,
+    "priceChange7d": 12.42255,
+    "priceChange30d": 18.27306,
+    "priceChange1y": -70.03092,
     "ath": 6.498e-9,
-    "athChangePercentage": -92.95628,
+    "athChangePercentage": -92.89745,
     "athDate": "2024-12-10T07:26:04.687Z",
     "atl": 9.4771e-11,
     "atlDate": "2021-06-09T02:48:21.787Z",
     "circulatingSupply": 182238605646636450,
     "totalSupply": 420000000000000000,
-    "maxSupply": 420000000000000000
+    "maxSupply": 420000000000000000,
+    "fdv": 194525198
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.580Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-09T08:08:48.659Z"
 }

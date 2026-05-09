@@ -2,20 +2,51 @@
   "id": "audiera",
   "symbol": "beat",
   "name": "Audiera",
+  "description": "Audiera (BEAT) pioneers the agent-native participation economy, where humans and autonomous AI agents act as equal economic participants. For the first time, Audiera introduces structured agent roles and participation rules — enabling agents to perform tasks, interact with users, create music, compete in rhythm battles, and engage directly in on-chain economic activity. No more treating agents as tools: they hold wallets, earn, spend, and settle value natively. Powered by $BEAT on BNB Chain — fueling incentives, coordination, governance, and shared prosperity in the machine-native future.",
+  "categories": [
+    "Gaming (GameFi)",
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Telegram Apps",
+    "Binance Alpha Spotlight",
+    "Arcade Games"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://audiera.fi/",
+    "github": "https://github.com/Audition2049",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xcf3232B85b43BCa90E51D38cc06Cc8bB8C8A3E36"
+  },
   "market": {
-    "price": 0.508997,
-    "marketCap": 135753896,
-    "marketCapRank": 246,
-    "volume24h": 3515241,
-    "priceChange24h": -0.11727,
+    "price": 0.508712,
+    "marketCap": 135669158,
+    "marketCapRank": 247,
+    "volume24h": 3126075,
+    "high24h": 0.533774,
+    "low24h": 0.505335,
+    "priceChange24h": -0.57841,
+    "priceChange7d": -12.45746,
+    "priceChange30d": 70.70077,
+    "priceChange1y": 0,
     "ath": 4.91,
-    "athChangePercentage": -89.63521,
+    "athChangePercentage": -89.64498,
     "athDate": "2025-12-22T08:28:59.545Z",
     "atl": 0.067925,
     "atlDate": "2025-11-02T03:31:34.370Z",
     "circulatingSupply": 266766666,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 508568632
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.558Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-09T08:06:13.138Z"
 }

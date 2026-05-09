@@ -2,20 +2,53 @@
   "id": "avantis",
   "symbol": "avnt",
   "name": "Avantis",
+  "description": "Avantis is the largest RWA perps DEX in DeFi, built on and backed by Base. Avantis allows users to trade crypto and real-world assets (RWAs), including FX, commodities, indices, and equities. Backed by Pantera and Coinbase, Avantis is the largest DEX on Base by volumes, and brings institutional-grade products to DeFi, letting users trade with up to 500x leverage in a transparent, permissionless environment.\n\nAvantis is best known for launching zero-fee perpetuals (ZFP) — a first-of-its-kind primitive where traders only pay fees if they profit. They've also brought leveraged RWAs onchain. This has driven explosive growth: over $20B+ in cumulative volume and 15M+ run-rate revenues since Febrruary 2024.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Base Ecosystem",
+    "Binance HODLer Airdrops",
+    "Binance Alpha Spotlight",
+    "Made in USA",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.avantisfi.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x696F9436B67233384889472Cd7cD58A6fB5DF4f1"
+  },
   "market": {
-    "price": 0.159886,
-    "marketCap": 51181142,
-    "marketCapRank": 495,
-    "volume24h": 15779517,
-    "priceChange24h": 0.34192,
+    "price": 0.16653,
+    "marketCap": 53318972,
+    "marketCapRank": 490,
+    "volume24h": 16544470,
+    "high24h": 0.169246,
+    "low24h": 0.155894,
+    "priceChange24h": 6.01574,
+    "priceChange7d": 13.21433,
+    "priceChange30d": 21.73885,
+    "priceChange1y": 0,
     "ath": 2.64,
-    "athChangePercentage": -93.91652,
+    "athChangePercentage": -93.67647,
     "athDate": "2025-09-22T00:21:56.300Z",
     "atl": 0.121118,
     "atlDate": "2026-04-05T08:00:58.880Z",
-    "circulatingSupply": 320233583.0788203,
+    "circulatingSupply": 320252476.8356658,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 166490429
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.606Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-09T08:07:35.304Z"
 }
