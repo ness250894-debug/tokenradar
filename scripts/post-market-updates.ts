@@ -291,6 +291,14 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
           let body = tgMessage.substring(0, maxBody);
+          
+          // Remove incomplete tag at the end if any
+          const lastLt = body.lastIndexOf("<");
+          const lastGt = body.lastIndexOf(">");
+          if (lastLt > lastGt) {
+            body = body.substring(0, lastLt);
+          }
+          
           // Close any broken tags before adding the ellipsis
           body = ensureHtmlTagsClosed(body, ["b", "tg-spoiler"]);
           caption = body + "..." + footerWithPadding;
@@ -322,6 +330,14 @@ ${REFERRAL_LINKS_HTML.join("\n")}
           const footerWithPadding = "\n" + tgFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT - footerWithPadding.length - 3;
           let body = tgMessage.substring(0, maxBody);
+          
+          // Remove incomplete tag at the end if any
+          const lastLt = body.lastIndexOf("<");
+          const lastGt = body.lastIndexOf(">");
+          if (lastLt > lastGt) {
+            body = body.substring(0, lastLt);
+          }
+          
           // Close any broken tags before adding the ellipsis
           body = ensureHtmlTagsClosed(body, ["b", "tg-spoiler"]);
           finalTgMessage = body + "..." + footerWithPadding;
