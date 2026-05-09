@@ -2,20 +2,52 @@
   "id": "based-brett",
   "symbol": "brett",
   "name": "Brett",
+  "description": "BRETT the dancer, gamer, and cultural icon of BASE chain (some like to call me the PEPE of BASE).",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "Base Ecosystem",
+    "Frog-Themed",
+    "Base Meme",
+    "The Boy’s Club",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.basedbrett.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x532f27101965dd16442e59d40670faf5ebb142e4"
+  },
   "market": {
-    "price": 0.00895362,
-    "marketCap": 88839461,
-    "marketCapRank": 330,
-    "volume24h": 18994620,
-    "priceChange24h": 3.24844,
+    "price": 0.0094309,
+    "marketCap": 93288684,
+    "marketCapRank": 323,
+    "volume24h": 15210111,
+    "high24h": 0.00958211,
+    "low24h": 0.00858297,
+    "priceChange24h": 6.3506,
+    "priceChange7d": 24.59158,
+    "priceChange30d": 42.15911,
+    "priceChange1y": -88.37453,
     "ath": 0.234204,
-    "athChangePercentage": -96.18455,
+    "athChangePercentage": -95.99262,
     "athDate": "2024-12-01T16:31:18.357Z",
     "atl": 0.00084753,
     "atlDate": "2024-02-29T08:40:24.951Z",
     "circulatingSupply": 9909607140.51193,
     "totalSupply": 9909607140.51193,
-    "maxSupply": 9999998988
+    "maxSupply": 9999998988,
+    "fdv": 93288684
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.576Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-09T08:11:04.420Z"
 }
