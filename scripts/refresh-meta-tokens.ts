@@ -46,7 +46,7 @@ async function getTokenExpiryDays(
   platform: "instagram" | "threads",
 ): Promise<{ daysRemaining: number; isValid: boolean }> {
   const baseUrl = platform === "instagram"
-    ? "https://graph.facebook.com/v21.0"
+    ? "https://graph.facebook.com/v25.0"
     : "https://graph.threads.net";
 
   try {
@@ -89,7 +89,7 @@ async function refreshToken(
       throw new Error("META_APP_ID and META_APP_SECRET are required to refresh Instagram tokens.");
     }
     
-    url = `https://graph.facebook.com/v21.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${appId}&client_secret=${appSecret}&fb_exchange_token=${currentToken}`;
+    url = `https://graph.facebook.com/v25.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${appId}&client_secret=${appSecret}&fb_exchange_token=${currentToken}`;
   } else {
     // For Threads API long-lived tokens
     url = `https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token&access_token=${currentToken}`;
