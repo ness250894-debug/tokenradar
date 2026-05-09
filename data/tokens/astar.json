@@ -21,23 +21,23 @@
     "explorer": "https://astar.subscan.io"
   },
   "market": {
-    "price": 0.00951307,
-    "marketCap": 82481010,
-    "marketCapRank": 359,
-    "volume24h": 8060230,
+    "price": 0.00926977,
+    "marketCap": 80520967,
+    "marketCapRank": 365,
+    "volume24h": 4972031,
     "high24h": 0.00977976,
     "low24h": 0.00882282,
-    "priceChange24h": 7.78119,
+    "priceChange24h": -4.70586,
     "priceChange7d": 18.8539,
     "priceChange30d": 27.35946,
     "priceChange1y": -69.24254,
     "ath": 0.421574,
-    "athChangePercentage": -97.74603,
+    "athChangePercentage": -97.80601,
     "athDate": "2022-01-17T13:34:36.289Z",
     "atl": 0.00666508,
     "atlDate": "2026-02-06T00:25:14.488Z",
-    "circulatingSupply": 8687116771,
-    "totalSupply": 8687891559,
+    "circulatingSupply": 8687257955,
+    "totalSupply": 8688036468,
     "maxSupply": null,
     "fdv": 82488367
   },
@@ -50,5 +50,6 @@
     "githubForks": 520,
     "commits4Weeks": 13
   },
-  "fetchedAt": "2026-05-09T08:04:58.731Z"
+  "fetchedAt": "2026-05-09T08:04:58.731Z",
+  "lastMarketUpdate": "2026-05-09T18:38:34.144Z"
 }
