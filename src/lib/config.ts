@@ -12,6 +12,9 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.
 export const SOCIAL = {
   xUrl: "https://x.com/tokenradarco",
   telegramUrl: "https://t.me/TokenRadarCo",
+  threadsUrl: "https://www.threads.com/@tokenradarco",
+  instagramUrl: "https://www.instagram.com/tokenradarco/",
+  ecosystemUrl: "https://linktr.ee/tokenradarco",
 } as const;
 
 /** Exchange referral data. */
@@ -43,20 +46,17 @@ export const ICONS = {
 
 /** Social footer lines used in posts. */
 export const SOCIAL_FOOTER = [
-  `${ICONS.DASHBOARD} tokenradar.co`,
-  `${ICONS.X} X: ${SOCIAL.xUrl}`,
-  `${ICONS.TELEGRAM} TG: ${SOCIAL.telegramUrl}`,
+  `${ICONS.ECOSYSTEM} <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>`,
 ];
 
 /**
  * Generate the standard Telegram footer with ecosystem links and referral links.
  */
 export function getTelegramFooter(symbol: string): string {
-  const siteUrl = SITE_URL;
   // Note: Spacing matches the screenshot provided by user
   return `
 ${ICONS.ECOSYSTEM} <b>The TokenRadar Ecosystem:</b>
-${ICONS.DASHBOARD} <a href="${siteUrl}">TokenRadar Dashboard</a> | ${ICONS.X} <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ${ICONS.TELEGRAM} <a href="${SOCIAL.telegramUrl}">Telegram</a>
+${ICONS.DASHBOARD} <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 

@@ -2,7 +2,8 @@ import * as fs from "fs";
 import * as path from "path";
 import { describe, expect, it } from "vitest";
 
-import { getArticle, getTokenDetail, type Article, type TokenDetail } from "../src/lib/content-loader";
+import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
+import { type Article, type TokenDetail } from "../src/lib/content-loader";
 import { canonicalPath, canonicalUrl, isTokenOverviewIndexable } from "../src/lib/seo";
 
 function makeTokenDetail(volume24h: number): TokenDetail {
@@ -70,6 +71,26 @@ function extractLocs(xml: string): string[] {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 }
 
+function loadTokenDetails(): Record<string, TokenDetail> {
+  const filePath = path.join(process.cwd(), "data/_tokens_blob.json");
+  return JSON.parse(fs.readFileSync(filePath, "utf-8")) as Record<string, TokenDetail>;
+}
+
+function loadOverviewArticle(tokenId: string): Article | null {
+  const filePath = path.join(process.cwd(), "content/tokens", tokenId, "overview.json");
+  if (!fs.existsSync(filePath)) return null;
+
+  const article = JSON.parse(fs.readFileSync(filePath, "utf-8")) as Article;
+  const normalizedContent = normalizeArticleMarkdown(article.content || "");
+  const wordCount = normalizedContent.split(/\s+/).filter(Boolean).length;
+
+  return {
+    ...article,
+    content: normalizedContent,
+    wordCount,
+  };
+}
+
 describe("SEO helpers", () => {
   it("normalizes canonical paths and URLs", () => {
     expect(canonicalPath("bitcoin/")).toBe("/bitcoin");
@@ -91,19 +112,20 @@ describe("generated sitemaps", () => {
     expect(sitemap).not.toContain("<changefreq>");
   });
 
-  it("submits only indexable token overview URLs", async () => {
+  it("submits only indexable token overview URLs", () => {
     const sitemap = fs.readFileSync(path.join(process.cwd(), "public/sitemap-tokens.xml"), "utf-8");
     const tokenOverviewIds = extractLocs(sitemap)
       .map((url) => new URL(url).pathname.split("/").filter(Boolean))
       .filter((segments) => segments.length === 1)
       .map(([tokenId]) => tokenId);
+    const detailsById = loadTokenDetails();
 
     for (const tokenId of tokenOverviewIds) {
-      const detail = await getTokenDetail(tokenId);
-      expect(detail, `${tokenId} should resolve from token data`).not.toBeNull();
+      const detail = detailsById[tokenId];
+      expect(detail, `${tokenId} should resolve from token data`).toBeDefined();
       if (!detail) continue;
 
-      const overview = await getArticle(tokenId, "overview");
+      const overview = loadOverviewArticle(tokenId);
       expect(isTokenOverviewIndexable(detail, overview), `${tokenId} should be indexable if it is in sitemap-tokens.xml`).toBe(true);
     }
   });

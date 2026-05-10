@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { ClickAnalytics } from "@/components/ClickAnalytics";
 import { getSiteUrl } from "@/lib/seo";
+import { SOCIAL } from "@/lib/config";
 
 const siteUrl = getSiteUrl();
 
@@ -104,7 +105,10 @@ export default function RootLayout({
             "url": siteUrl,
             "logo": `${siteUrl}/icon.png`,
             "sameAs": [
-              "https://x.com/TokenRadarCo"
+              SOCIAL.xUrl,
+              SOCIAL.telegramUrl,
+              SOCIAL.threadsUrl,
+              SOCIAL.instagramUrl,
             ]
           }}
         />

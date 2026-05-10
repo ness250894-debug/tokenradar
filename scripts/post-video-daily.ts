@@ -21,7 +21,7 @@ import {
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
-import { SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
+import { SOCIAL, SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
@@ -351,8 +351,6 @@ async function main() {
     selectionReason: reason,
   };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
-
   console.log();
   console.log("Step 3: Rendering video with Remotion...");
   const outPath = path.join(process.cwd(), "out.mp4");
@@ -471,8 +469,8 @@ async function main() {
       captionPlatforms.push("x");
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       xReplyMessage = isOnWebsite
-        ? `Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
-        : `Newly discovered alpha. Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
+        ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
+        : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
     }
 
     if (shouldRunYouTube) {
