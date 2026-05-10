@@ -8,13 +8,19 @@ import { trackEvent } from "@/lib/analytics";
 
 interface TokenGridProps {
   tokens: TokenCardData[];
+  initialVisibleCount?: number;
+  searchPlaceholder?: string;
 }
 
-const TOKENS_PER_PAGE = 6;
+const DEFAULT_TOKENS_PER_PAGE = 6;
 
-export function TokenGrid({ tokens }: TokenGridProps) {
+export function TokenGrid({
+  tokens,
+  initialVisibleCount = DEFAULT_TOKENS_PER_PAGE,
+  searchPlaceholder = "Search tokens by name or symbol (e.g., BTC, Injective)...",
+}: TokenGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(TOKENS_PER_PAGE);
+  const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
 
   const filteredTokens = useMemo(() => {
     if (!searchQuery.trim()) return tokens;
@@ -43,10 +49,10 @@ export function TokenGrid({ tokens }: TokenGridProps) {
   }, [filteredTokens.length, searchQuery]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + TOKENS_PER_PAGE);
+    setVisibleCount((prev) => prev + initialVisibleCount);
     trackEvent("load_more", {
       list_name: "tokens",
-      visible_count: Math.min(visibleCount + TOKENS_PER_PAGE, filteredTokens.length),
+      visible_count: Math.min(visibleCount + initialVisibleCount, filteredTokens.length),
       total_count: filteredTokens.length,
       page_path: window.location.pathname,
     });
@@ -54,7 +60,7 @@ export function TokenGrid({ tokens }: TokenGridProps) {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setVisibleCount(TOKENS_PER_PAGE);
+    setVisibleCount(initialVisibleCount);
   };
 
   const visibleTokens = filteredTokens.slice(0, visibleCount);
@@ -69,7 +75,7 @@ export function TokenGrid({ tokens }: TokenGridProps) {
           <input
             type="search"
             className="search-input"
-            placeholder="Search tokens by name or symbol (e.g., BTC, Injective)..."
+            placeholder={searchPlaceholder}
             value={searchQuery}
             onChange={handleSearchChange}
           />

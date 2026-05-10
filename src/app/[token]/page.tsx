@@ -150,11 +150,8 @@ export default async function TokenPage({ params }: PageProps) {
         </nav>
 
         {/* Header */}
-        <h1 style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", borderWidth: 0 }}>
-          {detail.name} ({detail.symbol.toUpperCase()}) Analysis, Price & Risk Score
-        </h1>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "var(--space-lg)" }} id="market-stats">
-          <div>
+        <div className="token-hero-header" id="market-stats">
+          <div style={{ minWidth: 0 }}>
             <TokenTickerPill 
               name={detail.name} 
               symbol={detail.symbol} 
@@ -163,6 +160,12 @@ export default async function TokenPage({ params }: PageProps) {
               price={detail.market.price} 
               className="pill-lg"
             />
+            <h1 className="token-hero-title">
+              {detail.name} <span className="gradient-text">Analysis</span>
+            </h1>
+            <p className="token-hero-subtitle">
+              Live {detail.symbol.toUpperCase()} price, TokenRadar risk score, market metrics, and research guides in one place.
+            </p>
             {detail.categories.length > 0 && (
               <div style={{ display: "flex", gap: "var(--space-sm)", marginTop: "var(--space-sm)", flexWrap: "wrap" }}>
                 {detail.categories.slice(0, 3).map((cat) => (
@@ -177,14 +180,14 @@ export default async function TokenPage({ params }: PageProps) {
               </div>
             )}
           </div>
-          <div style={{ textAlign: "right" }}>
+          <div className="token-hero-price">
             <div style={{ fontSize: "var(--text-3xl)", fontWeight: 800 }}>
               {formatPrice(detail.market.price)}
             </div>
             <div className={isPositive ? "price-up" : "price-down"} style={{ fontSize: "var(--text-lg)", fontWeight: 600 }}>
               {formatPercent(detail.market.priceChange24h)} (24h)
             </div>
-            <div style={{ marginTop: "var(--space-md)", display: "flex", justifyContent: "flex-end" }}>
+            <div className="token-hero-actions">
               <MagneticEffect>
                  <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
                    <Bell size={16} /> Track Alerts
@@ -331,42 +334,45 @@ export default async function TokenPage({ params }: PageProps) {
 
         {/* Article Content & TOC */}
         {article && (
-          <div className="article-layout-row">
-            {/* Main Content */}
-            <div className="article-main-col">
-              <div className="article-content" dangerouslySetInnerHTML={{ 
-                __html: await markdownToHtml(article.content, {
-                  name: detail.name,
-                  symbol: detail.symbol,
-                  id: detail.id,
-                  price: detail.market.price,
-                  marketCap: detail.market.marketCap,
-                  marketCapRank: detail.market.marketCapRank,
-                  priceChange24h: detail.market.priceChange24h,
-                  imageUrl: detail.imageUrl
-                }) 
-              }} />
-              <div style={{ marginTop: "var(--space-lg)" }}>
-                <LastUpdated date={article.generatedAt} />
-              </div>
-            </div>
-            
-            <aside className="article-sidebar-col hidden lg:block">
-              <div 
-                className="sidebar-sticky"
-                style={{ 
-                  position: "sticky", 
-                  top: "100px",
-                }}
-              >
-                <UnifiedTOC selector=".article-content" />
-                <div style={{ marginTop: "var(--space-xl)" }}>
-                  <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
-                  <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
+          <>
+            <UnifiedTOC selector=".article-content" showDesktop={false} />
+            <div className="article-layout-row">
+              {/* Main Content */}
+              <div className="article-main-col">
+                <div className="article-content" dangerouslySetInnerHTML={{ 
+                  __html: await markdownToHtml(article.content, {
+                    name: detail.name,
+                    symbol: detail.symbol,
+                    id: detail.id,
+                    price: detail.market.price,
+                    marketCap: detail.market.marketCap,
+                    marketCapRank: detail.market.marketCapRank,
+                    priceChange24h: detail.market.priceChange24h,
+                    imageUrl: detail.imageUrl
+                  }) 
+                }} />
+                <div style={{ marginTop: "var(--space-lg)" }}>
+                  <LastUpdated date={article.generatedAt} />
                 </div>
               </div>
-            </aside>
-          </div>
+              
+              <aside className="article-sidebar-col hidden lg:block">
+                <div 
+                  className="sidebar-sticky"
+                  style={{ 
+                    position: "sticky", 
+                    top: "100px",
+                  }}
+                >
+                  <UnifiedTOC selector=".article-content" showMobile={false} />
+                  <div style={{ marginTop: "var(--space-xl)" }}>
+                    <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
+                    <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </>
         )}
 
         {/* Data Attribution */}

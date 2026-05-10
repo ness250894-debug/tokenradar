@@ -39,6 +39,8 @@ export function StickyConversionHeader({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [threshold]);
 
+  if (!isVisible) return null;
+
   return (
     <div
       style={{
@@ -49,7 +51,7 @@ export function StickyConversionHeader({
         backgroundColor: "rgba(10, 10, 10, 0.8)",
         backdropFilter: "blur(12px)",
         borderBottom: "1px solid var(--border-color)",
-        transform: isVisible ? "translateY(0)" : "translateY(-100%)",
+        transform: "translateY(0)",
         transition: "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
         zIndex: 99,
         padding: "var(--space-sm) 0",
