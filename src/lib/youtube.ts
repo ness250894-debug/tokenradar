@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import * as fs from 'fs';
+import { sanitizePostTextLinks } from './social-link-policy';
 
 type GoogleApiError = Error & {
   response?: {
@@ -53,13 +54,16 @@ export async function uploadToYouTubeShorts(
   const fileSize = fs.statSync(videoPath).size;
 
   try {
+    const safeTitle = sanitizePostTextLinks(title) || 'TokenRadar Market Update';
+    const safeDescription = sanitizePostTextLinks(description);
+
     console.info(`  ▸ Starting YouTube upload (${(fileSize / 1024 / 1024).toFixed(2)} MB)...`);
     const res = await youtube.videos.insert({
       part: ['snippet', 'status'],
       requestBody: {
         snippet: {
-          title,
-          description,
+          title: safeTitle,
+          description: safeDescription,
           categoryId: '22', // People & Blogs
         },
         status: {

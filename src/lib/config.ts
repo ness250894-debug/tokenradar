@@ -14,7 +14,7 @@ export const SOCIAL = {
   telegramUrl: "https://t.me/TokenRadarCo",
   threadsUrl: "https://www.threads.com/@tokenradarco",
   instagramUrl: "https://www.instagram.com/tokenradarco/",
-  ecosystemUrl: "https://linktr.ee/tokenradarco",
+  ecosystemUrl: SITE_URL,
 } as const;
 
 /** Exchange referral data. */
@@ -50,7 +50,7 @@ export const SOCIAL_FOOTER = [
 ];
 
 /**
- * Generate the standard Telegram footer with ecosystem links and referral links.
+ * Generate the standard Telegram footer with connected TokenRadar links.
  */
 export function getTelegramFooter(symbol: string): string {
   // Note: Spacing matches the screenshot provided by user

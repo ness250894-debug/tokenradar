@@ -34,7 +34,7 @@ import * as path from "path";
 
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini";
-import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
+import { createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
@@ -310,6 +310,8 @@ async function main() {
 
         }
 
+        caption = sanitizeHtmlForTelegram(caption, SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT);
+
         if (!dryRun) {
           const api = getApi();
           const msg = await api.sendPhoto(channelId as string, new InputFile(tokenImage), {
@@ -349,6 +351,8 @@ async function main() {
 
         }
         
+        finalTgMessage = sanitizeHtmlForTelegram(finalTgMessage, SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT);
+
         if (!dryRun) {
           const api = getApi();
           const msg = await api.sendMessage(channelId as string, finalTgMessage, {

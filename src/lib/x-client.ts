@@ -19,6 +19,7 @@ import {
 import { sleep } from "./shared-utils";
 import { formatErrorForLog, redactSensitiveText } from "./utils";
 import { sendTelegramAlert } from "./reporter";
+import { sanitizePostTextLinks } from "./social-link-policy";
 
 // ── Cashtag Sanitization ──────────────────────────────────────
 
@@ -352,6 +353,7 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
 
   // Clean, truncate, and sanitize for X
   let cleanText = stripHtmlForX(text);
+  cleanText = sanitizePostTextLinks(cleanText);
   cleanText = truncateForX(cleanText);
   cleanText = sanitizeCashtags(cleanText);
 
@@ -394,6 +396,7 @@ export async function postTweetWithMedia(
   const client = await getXClient();
 
   let cleanText = stripHtmlForX(text);
+  cleanText = sanitizePostTextLinks(cleanText);
   cleanText = truncateForX(cleanText);
   cleanText = sanitizeCashtags(cleanText);
 
@@ -548,7 +551,8 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   const duration = poll.durationMinutes ?? 1440;
 
   // Sanitize the question text
-  const cleanText = sanitizeCashtags(poll.text);
+  const cleanText = sanitizeCashtags(truncateForX(sanitizePostTextLinks(stripHtmlForX(poll.text))));
+  const cleanPollOptions = poll.options.map((option) => sanitizePostTextLinks(option));
 
   // ── Attempt 1: Native poll ──
   try {
@@ -556,7 +560,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
       () => client.posts.create({
         text: cleanText,
         poll: {
-          options: poll.options,
+          options: cleanPollOptions,
           duration_minutes: duration,
         },
       }),
@@ -575,7 +579,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
 
   // ── Attempt 2: Text-based fallback ──
   // Strip $ from options to avoid violating the one-cashtag rule
-  const cleanOptions = poll.options.map((opt) => opt.replace(/\$([A-Z]+)\b/g, "$1"));
+  const cleanOptions = cleanPollOptions.map((opt) => opt.replace(/\$([A-Z]+)\b/g, "$1"));
 
   const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣"];
   const fallbackLines = [
