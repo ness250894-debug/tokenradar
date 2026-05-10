@@ -695,7 +695,7 @@ async function main() {
         (async () => {
           try {
             const spoilerEntities: TextEntity[] = threadsContent.spoilerLength > 0
-              ? [{ type: "SPOILER", offset: threadsContent.spoilerOffset, length: threadsContent.spoilerLength }]
+              ? [{ entity_type: "SPOILER", offset: threadsContent.spoilerOffset, length: threadsContent.spoilerLength }]
               : [];
 
             const result = await publishMetaVideo("threads", threadsVideoUrl, threadsContent.caption, {

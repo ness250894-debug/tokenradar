@@ -12,12 +12,14 @@
  *   - Threads: graph.threads.net, threads_publish endpoint, supports spoiler + topic_tag
  */
 
+import { sanitizePostTextLinks } from "./social-link-policy";
+
 /** Supported Meta platforms. */
 export type MetaPlatform = "instagram" | "threads";
 
 /** Text entity for Threads spoiler tags. */
 export interface TextEntity {
-  type: "SPOILER";
+  entity_type: "SPOILER";
   offset: number;
   length: number;
 }
@@ -45,8 +47,38 @@ interface MetaApiError {
     type: string;
     code: number;
     error_subcode?: number;
-    fbtrace_id: string;
+    fbtrace_id?: string;
   };
+}
+
+class MetaApiRequestError extends Error {
+  readonly code: number;
+  readonly subcode?: number;
+  readonly type?: string;
+  readonly fbtraceId?: string;
+
+  constructor(
+    platformLabel: string,
+    code: number,
+    message: string,
+    description: string,
+    type?: string,
+    subcode?: number,
+    fbtraceId?: string,
+  ) {
+    const details = [
+      subcode !== undefined ? `subcode ${subcode}` : null,
+      fbtraceId ? `fbtrace ${fbtraceId}` : null,
+    ].filter(Boolean);
+    super(
+      `Meta API error [${platformLabel}] (code ${code}${details.length ? `, ${details.join(", ")}` : ""}): ${message}. ${description}`,
+    );
+    this.name = "MetaApiRequestError";
+    this.code = code;
+    this.subcode = subcode;
+    this.type = type;
+    this.fbtraceId = fbtraceId;
+  }
 }
 
 /** Container polling status. */
@@ -158,12 +190,22 @@ async function metaApiRequest<T>(
     const code = apiError.error?.code ?? response.status;
     const description = META_ERROR_DESCRIPTIONS[code] || "Unknown Meta API error.";
     const label = platformLabel || "meta";
-    throw new Error(
-      `Meta API error [${label}] (code ${code}): ${apiError.error?.message || response.statusText}. ${description}`,
+    throw new MetaApiRequestError(
+      label,
+      code,
+      apiError.error?.message || response.statusText,
+      description,
+      apiError.error?.type,
+      apiError.error?.error_subcode,
+      apiError.error?.fbtrace_id,
     );
   }
 
   return data as T;
+}
+
+function isInvalidParameterError(error: unknown): boolean {
+  return error instanceof MetaApiRequestError && error.code === 100;
 }
 
 /**
@@ -207,16 +249,38 @@ async function createContainer(
     }
   }
 
-  const result = await metaApiRequest<{ id: string }>(
-    config.baseUrl,
-    config.containerEndpoint(userId),
-    "POST",
-    params,
-    platform,
-  );
+  const submit = async (requestParams: Record<string, string>): Promise<string> => {
+    const result = await metaApiRequest<{ id: string }>(
+      config.baseUrl,
+      config.containerEndpoint(userId),
+      "POST",
+      requestParams,
+      platform,
+    );
 
-  console.info(`  [meta:${platform}] Container created: ${result.id}`);
-  return result.id;
+    console.info(`  [meta:${platform}] Container created: ${result.id}`);
+    return result.id;
+  };
+
+  try {
+    return await submit(params);
+  } catch (error) {
+    if (
+      platform === "threads" &&
+      isInvalidParameterError(error) &&
+      (params.topic_tag || params.text_entities)
+    ) {
+      const retryParams = { ...params };
+      delete retryParams.topic_tag;
+      delete retryParams.text_entities;
+      console.warn(
+        "  [meta:threads] Container create rejected optional topic/spoiler params; retrying without them.",
+      );
+      return submit(retryParams);
+    }
+
+    throw error;
+  }
 }
 
 /**
@@ -310,9 +374,11 @@ export async function publishVideo(
   caption: string,
   options?: PublishVideoOptions,
 ): Promise<PublishResult> {
+  const safeCaption = sanitizePostTextLinks(caption);
+
   console.info(`  [meta:${platform}] Starting publish pipeline...`);
   console.info(`  [meta:${platform}] Video URL: ${videoUrl}`);
-  console.info(`  [meta:${platform}] Caption length: ${caption.length} chars`);
+  console.info(`  [meta:${platform}] Caption length: ${safeCaption.length} chars`);
 
   if (platform === "threads" && options?.topicTag) {
     console.info(`  [meta:${platform}] Topic: ${options.topicTag}`);
@@ -322,7 +388,7 @@ export async function publishVideo(
   }
 
   // Step 1: Create container
-  const containerId = await createContainer(platform, videoUrl, caption, options);
+  const containerId = await createContainer(platform, videoUrl, safeCaption, options);
 
   // Step 2: Poll until ready
   await pollContainerStatus(platform, containerId);

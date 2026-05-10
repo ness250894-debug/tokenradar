@@ -1,5 +1,6 @@
 import { Api, InlineKeyboard, InputFile } from "grammy";
 import type { RawApi } from "grammy";
+import { isAllowedPostUrl, sanitizeTelegramPostLinks } from "./social-link-policy";
 
 
 /**
@@ -8,12 +9,7 @@ import type { RawApi } from "grammy";
 let sharedApi: Api<RawApi> | null = null;
 
 function isSafeTelegramHref(href: string): boolean {
-  try {
-    const url = new URL(href);
-    return url.protocol === "https:" || url.protocol === "http:" || url.protocol === "tg:";
-  } catch {
-    return false;
-  }
+  return isAllowedPostUrl(href);
 }
 
 function escapeHtmlAttribute(value: string): string {
@@ -52,7 +48,7 @@ export function getApi(botToken?: string): Api<RawApi> {
  */
 export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096): string {
   // 1. Truncate at sentence boundary if too long
-  let text = html;
+  let text = sanitizeTelegramPostLinks(html);
   if (text.length > maxLength) {
     text = text.substring(0, maxLength);
     const lastSentence = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"));
@@ -208,7 +204,9 @@ export async function sendTelegramVideo(
 export function createTelegramKeyboard(buttons: { text: string, url: string }[]): InlineKeyboard {
   const keyboard = new InlineKeyboard();
   buttons.forEach(btn => {
-    keyboard.url(btn.text, btn.url).row();
+    if (isAllowedPostUrl(btn.url)) {
+      keyboard.url(btn.text, btn.url).row();
+    }
   });
   return keyboard;
 }

@@ -2,6 +2,7 @@ import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
+import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
 
 export type AIResult = {
   content: string;
@@ -472,6 +473,9 @@ function enforceUnifiedCaptionLimits(
 ): UnifiedSocialCaptions {
   const next: UnifiedSocialCaptions = { ...captions };
 
+  if (next.telegramSummary) {
+    next.telegramSummary = sanitizeTelegramPostLinks(next.telegramSummary);
+  }
   if (next.telegramSummary && options.telegramMaxChars) {
     next.telegramSummary = ensureHtmlTagsClosed(
       truncateText(next.telegramSummary, options.telegramMaxChars),
@@ -479,18 +483,25 @@ function enforceUnifiedCaptionLimits(
     );
   }
   if (next.xTweet) {
+    next.xTweet = sanitizePostTextLinks(next.xTweet);
     next.xTweet = truncateText(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
   }
+  if (next.youtubeDescription) {
+    next.youtubeDescription = sanitizePostTextLinks(next.youtubeDescription);
+  }
   if (next.youtubeTitle) {
+    next.youtubeTitle = sanitizePostTextLinks(next.youtubeTitle);
     next.youtubeTitle = truncateText(next.youtubeTitle, options.youtubeTitleMaxChars ?? 60);
   }
   if (next.instagramCaption) {
+    next.instagramCaption = sanitizePostTextLinks(next.instagramCaption);
     next.instagramCaption = truncateText(
       next.instagramCaption,
       options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
     );
   }
   if (next.threadsCaption) {
+    next.threadsCaption = sanitizePostTextLinks(next.threadsCaption);
     next.threadsCaption = truncateText(
       next.threadsCaption,
       options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
@@ -587,7 +598,7 @@ YOUTUBE RULES:
 - Title must be under ${options.youtubeTitleMaxChars ?? 60} characters and front-load ${tokenName} or $${symbol.toUpperCase()}.
 - Description must open with a 1-2 sentence hook, then include this exact allowed site line: "Full data report & analytics: ${SOCIAL.ecosystemUrl}".
 - End the description with exactly 3 hashtags. The first must be #Shorts.
-- No external links except the TokenRadar Linktree URL.`,
+- No external links except the TokenRadar site URL.`,
     instagram: `
 INSTAGRAM RULES:
 - Return "instagramCaption" only for Instagram.
@@ -622,6 +633,7 @@ You are an expert crypto social media manager for TokenRadar.co.
 Generate tailored publish-time copy for the requested platforms in one pass.
 Return only a valid JSON object matching the requested schema.
 Do not include fields for platforms that were not requested.
+Never include external links. The only allowed post URL is ${SOCIAL.ecosystemUrl} or another tokenradar.co URL.
 
 REQUESTED PLATFORMS: ${uniquePlatforms.join(", ")}
 PERSONA/TONE: ${metrics.tone || "Data-driven research platform"}
