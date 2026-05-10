@@ -18,7 +18,7 @@
  *   npx tsx scripts/refresh-meta-tokens.ts --dry-run
  */
 
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { loadEnv, formatErrorForLog } from "../src/lib/utils";
 import { logError, sendTelegramAlert } from "../src/lib/reporter";
 
@@ -119,7 +119,7 @@ function persistToGitHubSecrets(secretName: string, secretValue: string): boolea
   }
 
   try {
-    execSync(`gh secret set ${secretName} --body "${secretValue}"`, {
+    execFileSync("gh", ["secret", "set", secretName, "--body", secretValue], {
       stdio: "pipe",
       env: { ...process.env, GH_TOKEN: ghToken },
     });
