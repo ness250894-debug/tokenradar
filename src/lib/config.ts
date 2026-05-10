@@ -75,6 +75,17 @@ export const SOCIAL_PLATFORM_LIMITS = {
   X: {
     CHAR_LIMIT: 280,
   },
+  INSTAGRAM: {
+    CAPTION_LIMIT: 2200,
+    HASHTAG_LIMIT: 30,
+    DAILY_POST_LIMIT: 100,
+  },
+  THREADS: {
+    TEXT_LIMIT: 500,
+    TOPIC_TAG_MAX_LENGTH: 50,
+    DAILY_POST_LIMIT: 250,
+    MAX_SPOILER_ENTITIES: 10,
+  },
 } as const;
 
 /** X API pay-per-use cost per post create (as of Feb 2026). */

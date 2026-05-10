@@ -1,6 +1,16 @@
-
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React, { useEffect, useState } from "react";
+import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
+import { loadFont } from "@remotion/google-fonts/Inter";
 import type { TopGainerProps } from "./Root";
+import { COLORS } from "./styles";
+import { HookScreen } from "./components/HookScreen";
+import { DataCard } from "./components/DataCard";
+import { MetricsView } from "./components/MetricsView";
+import { ContextView } from "./components/ContextView";
+import { VerdictBadge } from "./components/VerdictBadge";
+
+// Load Inter font
+loadFont();
 
 export const TopGainerUpdate: React.FC<TopGainerProps> = ({
   tokenName,
@@ -9,130 +19,81 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
   priceChange24h,
   riskScore,
   marketCap,
+  audioFile,
+  audioStartSeconds = 0,
+  hookText,
+  verdict,
+  contextText,
 }) => {
-  const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  // Animations
-  const titleDrop = spring({ frame, fps, config: { damping: 12 } });
-  
-  // Staggered appearances
-  const priceOpacity = interpolate(frame, [15, 30], [0, 1], { extrapolateRight: "clamp" });
-  const priceY = interpolate(frame, [15, 30], [50, 0], { extrapolateRight: "clamp" });
-  
-  const riskOpacity = interpolate(frame, [45, 60], [0, 1], { extrapolateRight: "clamp" });
-  
-  // Format numbers
-  const formattedPrice = price >= 1 ? price.toFixed(2) : price.toFixed(6);
-  const formattedCap = marketCap >= 1e9 ? `$${(marketCap / 1e9).toFixed(2)}B` : `$${(marketCap / 1e6).toFixed(0)}M`;
-  const isPositive = priceChange24h >= 0;
+  useEffect(() => {
+    // Wait for custom fonts to be ready before rendering
+    document.fonts.ready.then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) {
+    return null; // Don't render until fonts load to avoid FOUT
+  }
+
+  // Act durations (in frames)
+  const hookDuration = 8 * fps; // 240
+  const revealDuration = 12 * fps; // 360
+  const metricsDuration = 15 * fps; // 450
+  const contextDuration = 15 * fps; // 450
+  const verdictDuration = 10 * fps; // 300
+  // Total: 1800 frames = 60s
 
   return (
-    <AbsoluteFill style={{ 
-      backgroundColor: "#07080B", 
-      color: "#ffffff",
-      fontFamily: "sans-serif",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "80px",
-      backgroundImage: "radial-gradient(circle at center, #141414 0%, #07080B 100%)"
-    }}>
-      {/* Dynamic Grid Background (Subtle) */}
-      <div style={{
-        position: 'absolute',
-        top: 0, left: 0, right: 0, bottom: 0,
-        backgroundImage: 'linear-gradient(rgba(204, 255, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 255, 0, 0.03) 1px, transparent 1px)',
-        backgroundSize: '40px 40px',
-        opacity: 0.5,
-        zIndex: 0
-      }} />
+    <AbsoluteFill style={{ backgroundColor: COLORS.background }}>
+      <Sequence from={0} durationInFrames={hookDuration}>
+        <HookScreen text={hookText || "THIS TOKEN IS BREAKING OUT"} />
+      </Sequence>
 
-      <div style={{ zIndex: 1, textAlign: 'center', width: '100%' }}>
-        {/* Header */}
-        <div style={{
-          transform: `translateY(${interpolate(titleDrop, [0, 1], [-100, 0])}px)`,
-          opacity: titleDrop,
-          marginBottom: 60
-        }}>
-          <h2 style={{ color: "#4A4A4A", fontSize: "40px", textTransform: "uppercase", letterSpacing: "8px", margin: 0 }}>
-            Daily Breakout
-          </h2>
-          <h1 style={{ fontSize: "140px", margin: "20px 0", fontWeight: 900, textShadow: "0 0 40px rgba(204, 255, 0, 0.2)" }}>
-            {tokenName} <span style={{ color: "#CCFF00" }}>${symbol.toUpperCase()}</span>
-          </h1>
-        </div>
+      <Sequence from={hookDuration} durationInFrames={revealDuration} premountFor={30}>
+        <DataCard
+          tokenName={tokenName}
+          symbol={symbol}
+          price={price}
+          priceChange24h={priceChange24h}
+        />
+      </Sequence>
 
-        {/* Price & Change */}
-        <div style={{
-          opacity: priceOpacity,
-          transform: `translateY(${priceY}px)`,
-          background: "rgba(20, 20, 20, 0.6)",
-          border: "1px solid rgba(204, 255, 0, 0.15)",
-          borderRadius: "40px",
-          padding: "60px 80px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "20px",
-          marginBottom: 60,
-          boxShadow: isPositive ? "0 0 100px rgba(0, 255, 163, 0.1)" : "0 0 100px rgba(255, 51, 102, 0.1)"
-        }}>
-          <div style={{ fontSize: "120px", fontWeight: "bold" }}>
-            ${formattedPrice}
-          </div>
-          <div style={{ 
-            fontSize: "80px", 
-            fontWeight: "bold",
-            color: isPositive ? "#00FFA3" : "#FF3366",
-            display: 'flex',
-            alignItems: 'center',
-            gap: "10px"
-          }}>
-            {isPositive ? "▲" : "▼"} {Math.abs(priceChange24h).toFixed(2)}%
-          </div>
-        </div>
+      <Sequence from={hookDuration + revealDuration} durationInFrames={metricsDuration} premountFor={30}>
+        <MetricsView marketCap={marketCap} riskScore={riskScore} />
+      </Sequence>
 
-        {/* Footer Metrics (Risk Score) */}
-        <div style={{
-          opacity: riskOpacity,
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          padding: "0 40px"
-        }}>
-          <div style={{ textAlign: "left" }}>
-            <div style={{ color: "#4A4A4A", fontSize: "40px", marginBottom: "10px" }}>Market Cap</div>
-            <div style={{ fontSize: "60px", fontWeight: "bold" }}>{formattedCap}</div>
-          </div>
-          
-          <div style={{ textAlign: "right" }}>
-            <div style={{ color: "#4A4A4A", fontSize: "40px", marginBottom: "10px" }}>Risk Score</div>
-            <div style={{ 
-              fontSize: "60px", 
-              fontWeight: "bold",
-              color: riskScore <= 4 ? "#00FFA3" : riskScore <= 7 ? "#FFB800" : "#FF3366"
-            }}>
-              {riskScore.toFixed(1)} / 10
-            </div>
-          </div>
-        </div>
+      <Sequence
+        from={hookDuration + revealDuration + metricsDuration}
+        durationInFrames={contextDuration}
+        premountFor={30}
+      >
+        <ContextView contextText={contextText || "Strong social sentiment and increasing volume are driving this breakout."} />
+      </Sequence>
 
-        {/* Call to action */}
-        <div style={{
-          position: "absolute",
-          bottom: "100px",
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          opacity: interpolate(frame, [90, 105], [0, 1], { extrapolateRight: "clamp" }),
-        }}>
-          <div style={{ fontSize: "50px", color: "#CCFF00", fontWeight: 700 }}>
-            TokenRadar.co
-          </div>
-        </div>
-      </div>
+      <Sequence
+        from={hookDuration + revealDuration + metricsDuration + contextDuration}
+        durationInFrames={verdictDuration}
+        premountFor={30}
+      >
+        <VerdictBadge verdict={verdict || "BUY"} />
+      </Sequence>
+
+      {audioFile && (
+        <Audio
+          src={staticFile(`audio/${audioFile}`)}
+          startFrom={audioStartSeconds * fps}
+          loop
+          volume={(f) => {
+            // Fade in at the very beginning (0-30 frames)
+            if (f < 30) return f / 30;
+            // Fade out at the very end (1770-1800 frames)
+            if (f > 1770) return (1800 - f) / 30;
+            return 1;
+          }}
+        />
+      )}
     </AbsoluteFill>
   );
 };

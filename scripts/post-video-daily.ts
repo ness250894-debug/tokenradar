@@ -1,9 +1,11 @@
 /**
- * Telegram, X, and YouTube video auto-poster for the daily breakout token.
+ * Multi-platform video auto-poster for the daily breakout token.
+ * Supports: Telegram, X, YouTube, Instagram, and Threads.
  *
  * Usage:
  *   npx tsx scripts/post-video-daily.ts
  *   npx tsx scripts/post-video-daily.ts --platform x --dry-run
+ *   npx tsx scripts/post-video-daily.ts --platform instagram --dry-run
  *   npx tsx scripts/post-video-daily.ts --force
  */
 
@@ -23,6 +25,10 @@ import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
+import { generateInstagramCaption, generateThreadsCaption } from "../src/lib/social-content-generator";
+import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
+import { cleanBucket, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
+import { getRandomTrack } from "../src/lib/audio-config";
 import {
   type MetricData,
   type TokenData,
@@ -37,7 +43,7 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
-type PlatformName = "telegram" | "x" | "youtube";
+type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads";
 
 interface PlatformTracker {
   postedAt: string;
@@ -45,6 +51,7 @@ interface PlatformTracker {
   tweetId?: string;
   replyId?: string;
   videoId?: string;
+  postId?: string;
 }
 
 interface VideoTracker {
@@ -94,11 +101,15 @@ function getRequestedPlatforms(
   runTelegram: boolean,
   runX: boolean,
   runYouTube: boolean,
+  runInstagram: boolean,
+  runThreads: boolean,
 ): PlatformName[] {
   const requested: PlatformName[] = [];
   if (runTelegram) requested.push("telegram");
   if (runX) requested.push("x");
   if (runYouTube) requested.push("youtube");
+  if (runInstagram) requested.push("instagram");
+  if (runThreads) requested.push("threads");
   return requested;
 }
 
@@ -116,8 +127,8 @@ async function main() {
   const platformIdx = args.indexOf("--platform");
   const targetPlatform =
     platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
-  if (!["all", "telegram", "x", "youtube"].includes(targetPlatform)) {
-    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube.");
+  if (!["all", "telegram", "x", "youtube", "instagram", "threads"].includes(targetPlatform)) {
+    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube, instagram, threads.");
     process.exit(1);
   }
 
@@ -138,13 +149,17 @@ async function main() {
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
   const runYouTube = targetPlatform === "all" || targetPlatform === "youtube";
+  const runInstagram = targetPlatform === "all" || targetPlatform === "instagram";
+  const runThreads = targetPlatform === "all" || targetPlatform === "threads";
   const hasYouTubeCredentials = Boolean(
     process.env.YOUTUBE_CLIENT_ID &&
     process.env.YOUTUBE_CLIENT_SECRET &&
     process.env.YOUTUBE_REFRESH_TOKEN,
   );
   const shouldRunYouTube = runYouTube && hasYouTubeCredentials;
-  const requestedPlatforms = getRequestedPlatforms(runTelegram, runX, shouldRunYouTube);
+  const shouldRunInstagram = runInstagram && hasMetaCredentials("instagram") && hasR2Credentials();
+  const shouldRunThreads = runThreads && hasMetaCredentials("threads") && hasR2Credentials();
+  const requestedPlatforms = getRequestedPlatforms(runTelegram, runX, shouldRunYouTube, shouldRunInstagram, shouldRunThreads);
 
   const existingTracker =
     !force && fs.existsSync(trackerFile)
@@ -176,6 +191,14 @@ async function main() {
       console.error("  Missing YouTube credentials.");
       if (targetPlatform === "youtube") process.exit(1);
       console.warn("  Continuing without YouTube because the requested target includes other platforms.");
+    }
+    if (runInstagram && !shouldRunInstagram) {
+      console.warn("  Missing Instagram or R2 credentials. Skipping Instagram.");
+      if (targetPlatform === "instagram") process.exit(1);
+    }
+    if (runThreads && !shouldRunThreads) {
+      console.warn("  Missing Threads or R2 credentials. Skipping Threads.");
+      if (targetPlatform === "threads") process.exit(1);
     }
   }
 
@@ -269,6 +292,16 @@ async function main() {
   console.log();
   console.log("Step 3: Rendering video with Remotion...");
   const outPath = path.join(process.cwd(), "out.mp4");
+  const threadsOutPath = path.join(process.cwd(), "out-threads.mp4");
+
+  const audioTrack = getRandomTrack();
+  console.log(`  Audio: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
+
+  const { generateHookText } = await import("../src/lib/social-content-generator");
+  const hookText = await generateHookText(targetToken.name, targetToken.symbol, context);
+  
+  const { getVerdict } = await import("../src/video/styles");
+  const verdict = getVerdict(targetMetric?.riskScore || 5.0, targetToken.market.priceChange24h);
 
   const videoProps = {
     tokenName: targetToken.name,
@@ -277,6 +310,11 @@ async function main() {
     priceChange24h: targetToken.market.priceChange24h,
     riskScore: targetMetric?.riskScore || 5.0,
     marketCap: targetToken.market.marketCap,
+    audioFile: audioTrack.file,
+    audioStartSeconds: audioTrack.startSeconds,
+    hookText,
+    contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
+    verdict,
   };
 
   try {
@@ -293,6 +331,23 @@ async function main() {
     }
 
     console.log("  Video rendered successfully to out.mp4");
+
+    // Re-encode variant for Threads (binary-different via CRF 19, ~10 seconds)
+    if (shouldRunThreads) {
+      console.log("  Re-encoding variant for Threads (CRF 19)...");
+      try {
+        execSync(
+          `ffmpeg -y -i "${outPath}" -c:v libx264 -crf 19 -preset fast -c:a copy "${threadsOutPath}"`,
+          { stdio: "pipe" },
+        );
+        console.log("  Threads variant rendered to out-threads.mp4");
+      } catch (ffmpegError) {
+        console.warn(`  ffmpeg re-encode failed: ${formatErrorForLog(ffmpegError)}`);
+        console.warn("  Falling back to using the same video file for Threads.");
+        // Copy primary video as fallback
+        fs.copyFileSync(outPath, threadsOutPath);
+      }
+    }
   } catch (error) {
     console.error(`  Video rendering failed: ${formatErrorForLog(error)}`);
     process.exit(1);
@@ -300,11 +355,39 @@ async function main() {
 
   const videoBuffer = fs.readFileSync(outPath);
 
+  // ── R2 Upload for Meta platforms ──
+  let igVideoUrl = "";
+  let threadsVideoUrl = "";
+
+  if (shouldRunInstagram || shouldRunThreads) {
+    console.log();
+    console.log("Step 3b: Staging videos to R2 for Meta APIs...");
+    try {
+      await cleanBucket();
+      if (shouldRunInstagram) {
+        igVideoUrl = await uploadToR2(outPath, `ig-${today}.mp4`);
+      }
+      if (shouldRunThreads && fs.existsSync(threadsOutPath)) {
+        threadsVideoUrl = await uploadToR2(threadsOutPath, `threads-${today}.mp4`);
+      }
+    } catch (r2Error) {
+      console.error(`  R2 staging failed: ${formatErrorForLog(r2Error)}`);
+      console.warn("  Continuing without Meta platforms.");
+      igVideoUrl = "";
+      threadsVideoUrl = "";
+    }
+  }
+
   try {
     let tgMessage = "";
     let xMessage = "";
     let xReplyMessage = "";
     let ytMetadata = { title: "", description: "" };
+    let igContent = { caption: "", hashtags: [] as string[] };
+    let threadsContent = { caption: "", topicTag: "crypto", spoilerText: "", spoilerOffset: 0, spoilerLength: 0 };
+
+    console.log();
+    console.log("Step 4: Generating platform captions...");
 
     if (runTelegram) {
       const footer = getTelegramFooter(targetToken.symbol);
@@ -316,7 +399,7 @@ async function main() {
         context,
         tgMaxChars
       );
-      tgMessage = aiSummary; // No longer stripping since we rely on strict prompt length
+      tgMessage = aiSummary;
     }
 
     if (runX) {
@@ -330,6 +413,14 @@ async function main() {
 
     if (shouldRunYouTube) {
       ytMetadata = await generateYoutubeMetadata(targetToken.name, targetToken.symbol, context);
+    }
+
+    if (shouldRunInstagram && igVideoUrl) {
+      igContent = await generateInstagramCaption(targetToken.name, targetToken.symbol, context);
+    }
+
+    if (shouldRunThreads && threadsVideoUrl) {
+      threadsContent = await generateThreadsCaption(targetToken.name, targetToken.symbol, context);
     }
 
     if (dryRun) {
@@ -350,6 +441,23 @@ async function main() {
         console.log("--- YOUTUBE SHORTS ---");
         console.log(`TITLE: ${ytMetadata.title}`);
         console.log(`DESC:\n${ytMetadata.description}`);
+      }
+      if (shouldRunInstagram) {
+        console.log();
+        console.log("--- INSTAGRAM REEL ---");
+        console.log(`R2 URL: ${igVideoUrl}`);
+        console.log(`CAPTION (${igContent.caption.length} chars):`);
+        console.log(igContent.caption);
+        console.log(`HASHTAGS: ${igContent.hashtags.join(", ")}`);
+      }
+      if (shouldRunThreads) {
+        console.log();
+        console.log("--- THREADS POST ---");
+        console.log(`R2 URL: ${threadsVideoUrl}`);
+        console.log(`CAPTION (${threadsContent.caption.length} chars):`);
+        console.log(threadsContent.caption);
+        console.log(`TOPIC: ${threadsContent.topicTag}`);
+        console.log(`SPOILER: "${threadsContent.spoilerText}" (offset: ${threadsContent.spoilerOffset}, length: ${threadsContent.spoilerLength})`);
       }
       return;
     }
@@ -461,6 +569,61 @@ async function main() {
       );
     }
 
+    // ── Instagram Reel ──
+    if (shouldRunInstagram && igVideoUrl && !trackerState.platforms.instagram) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const result = await publishMetaVideo("instagram", igVideoUrl, igContent.caption, {
+              thumbOffset: 3000,
+            });
+            console.log(`Posted Reel to Instagram (Post ID: ${result.id})`);
+            return {
+              platform: "instagram" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                postId: result.id,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-instagram", error, false);
+            console.error(`Instagram Reel post failed: ${formatErrorForLog(error)}`);
+            return { platform: "instagram" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    // ── Threads Post ──
+    if (shouldRunThreads && threadsVideoUrl && !trackerState.platforms.threads) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const spoilerEntities: TextEntity[] = threadsContent.spoilerLength > 0
+              ? [{ type: "SPOILER", offset: threadsContent.spoilerOffset, length: threadsContent.spoilerLength }]
+              : [];
+
+            const result = await publishMetaVideo("threads", threadsVideoUrl, threadsContent.caption, {
+              topicTag: threadsContent.topicTag,
+              spoilerEntities,
+            });
+            console.log(`Posted video to Threads (Post ID: ${result.id})`);
+            return {
+              platform: "threads" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                postId: result.id,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-threads", error, false);
+            console.error(`Threads video post failed: ${formatErrorForLog(error)}`);
+            return { platform: "threads" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
     const results = await Promise.all(publishTasks);
     for (const result of results) {
       if (result.tracker) {
@@ -479,6 +642,7 @@ async function main() {
     fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
   } finally {
     cleanupFile(outPath);
+    cleanupFile(path.join(process.cwd(), "out-threads.mp4"));
   }
 }
 
