@@ -66,6 +66,7 @@ export default async function CategoryPage({ params }: PageProps) {
       id: t.id,
       name: t.name,
       symbol: t.symbol,
+      imageUrl: t.imageUrl || t.image,
       price: t.price,
       priceChange24h: t.priceChange24h,
       marketCap: t.marketCap,

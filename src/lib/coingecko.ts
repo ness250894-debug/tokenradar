@@ -269,6 +269,7 @@ export interface TokenDetailData {
   id: string;
   symbol: string;
   name: string;
+  imageUrl?: string;
   description: string;
   categories: string[];
   genesisDate: string | null;
@@ -360,6 +361,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
     id: detail.id || tokenId,
     symbol: detail.symbol || "",
     name: detail.name || "",
+    imageUrl: detail.image?.large || detail.image?.small || detail.image?.thumb || undefined,
     description: truncateDescription(detail.description?.en || ""),
     categories: detail.categories?.filter(Boolean) || [],
     genesisDate: detail.genesis_date || null,

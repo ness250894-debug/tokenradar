@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -101,9 +103,12 @@ jobs:
       # The explicit `deploy` job below is the ONLY deploy trigger for this workflow.
       - name: Commit updated data
         id: commit
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add \
             data/tokens \
             data/metrics \
@@ -128,7 +133,7 @@ jobs:
           git commit -m "chore: daily data refresh [skip ci]"
           pushed=false
           for i in 1 2 3; do
-            if git pull origin main -X ours --no-edit && git push; then
+            if git pull origin main -X ours --no-edit && git push origin HEAD:main; then
               pushed=true
               break
             fi

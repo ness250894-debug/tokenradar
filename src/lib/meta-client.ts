@@ -34,6 +34,11 @@ export interface PublishVideoOptions {
   thumbOffset?: number;
 }
 
+/** Image item for an Instagram carousel post. */
+export interface InstagramCarouselItem {
+  imageUrl: string;
+}
+
 /** Result of a successful publish. */
 export interface PublishResult {
   id: string;
@@ -284,6 +289,62 @@ async function createContainer(
 }
 
 /**
+ * Create a child image container for an Instagram carousel.
+ */
+async function createInstagramCarouselItem(imageUrl: string): Promise<string> {
+  const { accessToken, userId } = getCredentials("instagram");
+  const config = PLATFORM_CONFIG.instagram;
+
+  const result = await metaApiRequest<{ id: string }>(
+    config.baseUrl,
+    config.containerEndpoint(userId),
+    "POST",
+    {
+      access_token: accessToken,
+      image_url: imageUrl,
+      is_carousel_item: "true",
+    },
+    "instagram",
+  );
+
+  console.info(`  [meta:instagram] Carousel child container created: ${result.id}`);
+  return result.id;
+}
+
+/**
+ * Create the parent Instagram carousel container from child container IDs.
+ */
+async function createInstagramCarouselContainer(
+  childContainerIds: string[],
+  caption: string,
+): Promise<string> {
+  if (childContainerIds.length < 2 || childContainerIds.length > 10) {
+    throw new Error(
+      `Instagram carousels require 2-10 items. Received ${childContainerIds.length}.`,
+    );
+  }
+
+  const { accessToken, userId } = getCredentials("instagram");
+  const config = PLATFORM_CONFIG.instagram;
+
+  const result = await metaApiRequest<{ id: string }>(
+    config.baseUrl,
+    config.containerEndpoint(userId),
+    "POST",
+    {
+      access_token: accessToken,
+      media_type: "CAROUSEL",
+      children: childContainerIds.join(","),
+      caption,
+    },
+    "instagram",
+  );
+
+  console.info(`  [meta:instagram] Carousel parent container created: ${result.id}`);
+  return result.id;
+}
+
+/**
  * Poll container status until it's ready for publishing.
  * @throws if container enters ERROR/EXPIRED state or poll times out.
  */
@@ -397,6 +458,38 @@ export async function publishVideo(
   const postId = await publishContainer(platform, containerId);
 
   return { id: postId, platform };
+}
+
+/**
+ * Full Instagram carousel publishing pipeline:
+ * create child image containers -> create parent carousel -> poll -> publish.
+ */
+export async function publishInstagramCarousel(
+  items: InstagramCarouselItem[],
+  caption: string,
+): Promise<PublishResult> {
+  const safeCaption = sanitizePostTextLinks(caption);
+
+  console.info("  [meta:instagram] Starting carousel publish pipeline...");
+  console.info(`  [meta:instagram] Carousel items: ${items.length}`);
+  console.info(`  [meta:instagram] Caption length: ${safeCaption.length} chars`);
+
+  if (items.length < 2 || items.length > 10) {
+    throw new Error(`Instagram carousels require 2-10 items. Received ${items.length}.`);
+  }
+
+  const childContainerIds: string[] = [];
+  for (const item of items) {
+    const childId = await createInstagramCarouselItem(item.imageUrl);
+    await pollContainerStatus("instagram", childId);
+    childContainerIds.push(childId);
+  }
+
+  const carouselContainerId = await createInstagramCarouselContainer(childContainerIds, safeCaption);
+  await pollContainerStatus("instagram", carouselContainerId);
+
+  const postId = await publishContainer("instagram", carouselContainerId);
+  return { id: postId, platform: "instagram" };
 }
 
 /**

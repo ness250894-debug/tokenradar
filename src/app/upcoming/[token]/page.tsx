@@ -62,13 +62,14 @@ export default async function TgePage({ params }: TgePageProps) {
   const hasMainPage = isReleased ? !!detail : false;
 
   const tokenData = {
+    id: detail?.id ?? tge.id,
     name: tge.name,
     symbol: tge.symbol,
     price: detail?.market?.price ?? 0,
     marketCap: detail?.market?.marketCap,
     marketCapRank: detail?.market?.marketCapRank ?? tge.coingeckoRank,
     priceChange24h: detail?.market?.priceChange24h,
-    imageUrl: detail?.id ? `/token-icons/${detail.id}.png` : undefined
+    imageUrl: detail?.imageUrl
   };
 
   return (

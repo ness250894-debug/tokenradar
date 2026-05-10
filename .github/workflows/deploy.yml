@@ -33,10 +33,23 @@ jobs:
       deployments: write
 
     steps:
+      - name: Validate deploy ref
+        if: github.event_name != 'push'
+        run: |
+          case "${{ inputs.ref || 'main' }}" in
+            main|refs/heads/main)
+              ;;
+            *)
+              echo "::error::Manual and reusable deploys may only target the protected main branch."
+              exit 1
+              ;;
+          esac
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

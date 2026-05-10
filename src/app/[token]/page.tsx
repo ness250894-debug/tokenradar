@@ -119,6 +119,7 @@ export default async function TokenPage({ params }: PageProps) {
       id: token.id,
       name: token.name,
       symbol: token.symbol,
+      imageUrl: token.imageUrl || token.image,
       price: token.price,
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
@@ -158,6 +159,7 @@ export default async function TokenPage({ params }: PageProps) {
               name={detail.name} 
               symbol={detail.symbol} 
               id={detail.id}
+              imageUrl={detail.imageUrl}
               price={detail.market.price} 
               className="pill-lg"
             />
@@ -336,11 +338,12 @@ export default async function TokenPage({ params }: PageProps) {
                 __html: await markdownToHtml(article.content, {
                   name: detail.name,
                   symbol: detail.symbol,
+                  id: detail.id,
                   price: detail.market.price,
                   marketCap: detail.market.marketCap,
                   marketCapRank: detail.market.marketCapRank,
                   priceChange24h: detail.market.priceChange24h,
-                  imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined
+                  imageUrl: detail.imageUrl
                 }) 
               }} />
               <div style={{ marginTop: "var(--space-lg)" }}>

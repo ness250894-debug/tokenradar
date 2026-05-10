@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import { generateMoversImage } from '../src/lib/movers-generator';
 import { renderOgImage } from '../src/lib/og-renderer';
-import { loadCandidateTokens } from './lib/token-selection';
+import { hasSocialImageSafeText, loadCandidateTokens } from './lib/token-selection';
 import { loadEnv } from '../src/lib/utils';
 
 loadEnv();
@@ -88,13 +88,14 @@ async function generateOGImages() {
     const MAX_CHANGE_THRESHOLD = 500;
     
     const movers = candidates
-      .filter(t => t.market.priceChange24h > 0 && t.market.priceChange24h <= MAX_CHANGE_THRESHOLD && t.market.price > 0)
+      .filter(t => t.market.priceChange24h > 0 && t.market.priceChange24h <= MAX_CHANGE_THRESHOLD && t.market.price > 0 && hasSocialImageSafeText(t))
       .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h)
       .slice(0, 5)
       .map(t => ({
         id: t.id,
         symbol: t.symbol,
         name: t.name,
+        imageUrl: t.imageUrl,
         price: t.market.price,
         change24h: t.market.priceChange24h
       }));

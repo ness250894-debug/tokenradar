@@ -24,6 +24,7 @@ export interface TokenData {
   id: string;
   symbol: string;
   name: string;
+  imageUrl?: string;
   rank: number;
   description?: string;
   community?: {
@@ -71,6 +72,16 @@ export interface CleanupResult {
 }
 
 const DATE_DIR_RE = /^\d{4}-\d{2}-\d{2}$/;
+const SOCIAL_IMAGE_TEXT_RE = /^[\x20-\x7E]+$/;
+
+export function hasSocialImageSafeText(token: { symbol?: string; name?: string }): boolean {
+  return Boolean(
+    token.symbol &&
+    token.name &&
+    SOCIAL_IMAGE_TEXT_RE.test(token.symbol) &&
+    SOCIAL_IMAGE_TEXT_RE.test(token.name),
+  );
+}
 
 function dateKey(date: Date): string {
   return date.toISOString().split("T")[0];
@@ -368,6 +379,7 @@ export async function loadCandidateTokens(
       id: local.id,
       symbol: local.symbol,
       name: local.name,
+      imageUrl: fresh?.image || local.imageUrl || local.image?.large || local.image?.small || undefined,
       rank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
       description: local.description || "",
       community: {
