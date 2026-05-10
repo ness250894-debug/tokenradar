@@ -143,6 +143,7 @@ jobs:
       - name: Dispatch System Report & Cleanup
         if: always()
         continue-on-error: true
+        timeout-minutes: 3
         run: npx tsx scripts/send-system-report.ts
         env:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
