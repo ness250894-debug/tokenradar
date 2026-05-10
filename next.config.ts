@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       "@ast-grep/napi": "./src/lib/mocks/ast-grep-napi.js",
       jsdom: "./src/lib/mocks/ast-grep-napi.js",
-      "isomorphic-dompurify": "./src/lib/mocks/dompurify-mock.js",
     },
   },
 };

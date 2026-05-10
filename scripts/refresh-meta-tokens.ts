@@ -220,6 +220,7 @@ async function main(): Promise<void> {
       // Export to GITHUB_ENV for downstream workflow steps
       if (process.env.GITHUB_ENV) {
         const fs = await import("fs");
+        console.log(`::add-mask::${newToken.access_token}`);
         fs.appendFileSync(process.env.GITHUB_ENV, `NEW_${secretName}=${newToken.access_token}\n`);
       }
 

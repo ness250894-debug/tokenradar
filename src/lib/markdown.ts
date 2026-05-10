@@ -1,8 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
-import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
-import { formatPrice, formatCompact } from "./formatters";
+import { marked, Renderer, type Tokens } from "marked";
+import { formatPrice, formatCompact, getTokenIconCandidates } from "./formatters";
 import { getAllCategories, getAllTokens, getTokenIds } from "./content-loader";
 import { normalizeArticleMarkdown } from "./article-formatting";
 import { getPilotTokenIds } from "./token-technical-data";
@@ -10,9 +9,10 @@ import { getPilotTokenIds } from "./token-technical-data";
 /**
  * Robust markdown → HTML converter for article content.
  * Injects stylized token pills for Risk Score mentions.
- * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
+ * Drops raw HTML and validates rendered links/images to prevent XSS from malformed AI content.
  */
 export interface TokenMarketData {
+  id?: string;
   name: string;
   symbol: string;
   price: number;
@@ -60,8 +60,92 @@ const STATIC_INTERNAL_PATHS = [
   "/upcoming",
 ];
 
+const RISK_PILL_PLACEHOLDER = "TOKENRADAR_RISK_PILL_9B65D6E7";
+
 let linkableTokensPromise: Promise<LinkableToken[]> | null = null;
 let validInternalPathsPromise: Promise<Set<string>> | null = null;
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function escapeHtmlAttribute(value: string): string {
+  return escapeHtmlText(value)
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function stripDangerousHtmlBlocks(md: string): string {
+  return md
+    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "")
+    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*\/?\s*>/gi, "");
+}
+
+function isSafeFragment(value: string): boolean {
+  return /^#[A-Za-z0-9_-]+$/.test(value);
+}
+
+function sanitizeMarkdownHref(href: string): string | null {
+  const trimmed = href.trim();
+  if (!trimmed) return null;
+  if (isSafeFragment(trimmed)) return trimmed;
+  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return trimmed;
+
+  try {
+    const url = new URL(trimmed);
+    if (url.protocol === "http:" || url.protocol === "https:" || url.protocol === "mailto:") {
+      return url.toString();
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function sanitizeMarkdownImageSrc(src: string): string | null {
+  const safeSrc = sanitizeMarkdownHref(src);
+  if (!safeSrc || safeSrc.startsWith("mailto:") || safeSrc.startsWith("#")) return null;
+  return safeSrc;
+}
+
+function createSafeMarkdownRenderer(): Renderer {
+  const renderer = new Renderer();
+
+  renderer.html = () => "";
+
+  renderer.link = function ({ href, title, tokens }: Tokens.Link): string {
+    const label = String(renderer.parser.parseInline(tokens));
+    const safeHref = sanitizeMarkdownHref(href);
+    if (!safeHref) return label;
+
+    const attrs = [`href="${escapeHtmlAttribute(safeHref)}"`];
+    if (title) attrs.push(`title="${escapeHtmlAttribute(title)}"`);
+    if (/^https?:\/\//i.test(safeHref)) {
+      attrs.push('target="_blank"', 'rel="noopener noreferrer"');
+    }
+
+    return `<a ${attrs.join(" ")}>${label}</a>`;
+  };
+
+  renderer.image = function ({ href, title, text }: Tokens.Image): string {
+    const safeSrc = sanitizeMarkdownImageSrc(href);
+    if (!safeSrc) return "";
+
+    const attrs = [
+      `src="${escapeHtmlAttribute(safeSrc)}"`,
+      `alt="${escapeHtmlAttribute(text || "")}"`,
+    ];
+    if (title) attrs.push(`title="${escapeHtmlAttribute(title)}"`);
+
+    return `<img ${attrs.join(" ")}>`;
+  };
+
+  return renderer;
+}
 
 function isLinkableTokenName(name: string): boolean {
   const normalized = name.trim().toLowerCase();
@@ -177,25 +261,15 @@ async function getLinkableTokens(excludedName?: string): Promise<LinkableToken[]
     .slice(0, 250);
 }
 
-function stripUnsafeHtml(html: string): string {
-  return html
-    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "")
-    .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)[^>]*\/?\s*>/gi, "")
-    .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-    .replace(/\s+style\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-    .replace(/\s+srcdoc\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-    .replace(/\s+(href|src|xlink:href|formaction)\s*=\s*(["'])\s*(?:javascript|vbscript|data):[\s\S]*?\2/gi, "")
-    .replace(/\s+(href|src|xlink:href|formaction)\s*=\s*(?:javascript|vbscript|data):[^\s>]*/gi, "");
-}
-
 /**
  * Robust markdown → HTML converter for article content.
  * Injects stylized token pills for Risk Score mentions.
  * Replaces live data placeholders ({{LIVE_PRICE}}, etc.) with real-time values.
- * Sanitizes output via DOMPurify to prevent XSS from malformed AI content.
+ * Drops raw HTML and validates rendered links/images to prevent XSS from malformed AI content.
  */
 export async function markdownToHtml(md: string, tokenData?: TokenMarketData): Promise<string> {
   let processedMd = normalizeArticleMarkdown(md);
+  let riskPillHtml = "";
 
   if (tokenData) {
     // 1. Placeholder Substitutions (used by AI templates)
@@ -220,13 +294,20 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     });
 
     // 2. Risk Score Injection (Pill)
-    const pillHtml = `
+    const safeImageUrl = getTokenIconCandidates({
+      symbol: tokenData.symbol,
+      id: tokenData.id,
+      imageUrl: tokenData.imageUrl,
+    })
+      .map((src) => sanitizeMarkdownImageSrc(src))
+      .find((src): src is string => Boolean(src));
+    riskPillHtml = `
       <span class="token-ticker-pill pill-sm">
-        ${tokenData.imageUrl ? `<img src="${tokenData.imageUrl}" alt="${tokenData.name}" class="pill-icon" width="16" height="16" />` : ""}
+        ${safeImageUrl ? `<img src="${escapeHtmlAttribute(safeImageUrl)}" alt="${escapeHtmlAttribute(tokenData.name)}" class="pill-icon" width="16" height="16">` : ""}
         <span class="pill-text">
-          <span class="pill-name">${tokenData.name.toUpperCase()}</span>
+          <span class="pill-name">${escapeHtmlText(tokenData.name.toUpperCase())}</span>
           <span class="pill-divider">-</span>
-          <span class="pill-price">${formatPrice(tokenData.price)}</span>
+          <span class="pill-price">${escapeHtmlText(formatPrice(tokenData.price))}</span>
         </span>
       </span>
     `;
@@ -236,7 +317,7 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     processedMd = processedMd.replace(/\*?\s*\*\*Risk Score\s*\(\d+\/10\):\*\*/gi, (match) => {
       const scoreMatch = match.match(/\d+\/10/);
       const score = scoreMatch ? scoreMatch[0] : "N/A";
-      return `Our AI assigned a **Risk Score of ${score}** to ${pillHtml.trim()}`;
+      return `Our AI assigned a **Risk Score of ${score}** to ${RISK_PILL_PLACEHOLDER}`;
     });
   }
 
@@ -268,8 +349,9 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     console.warn("Auto-linking failed, falling back to raw md.", e);
   }
 
-  // Parse the markdown using the modern API with explicit options
-  const rawHtml = await marked.parse(processedMd, {
+  // Parse markdown with a renderer that drops raw HTML and validates URLs.
+  const rawHtml = await marked.parse(stripDangerousHtmlBlocks(processedMd), {
+    renderer: createSafeMarkdownRenderer(),
     gfm: true,
     breaks: true,
   });
@@ -282,14 +364,7 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
     return `<h${level} id="${id}">${innerHtml}</h${level}>`;
   });
 
-  try {
-    const sanitized = DOMPurify.sanitize(htmlWithIds, {
-      ADD_TAGS: ["a", "img", "table", "thead", "tbody", "tr", "th", "td"],
-      ADD_ATTR: ["class", "width", "height", "alt", "src", "id", "href", "target", "rel"],
-    });
-    return stripUnsafeHtml(String(sanitized));
-  } catch (e) {
-    console.warn("DOMPurify sanitization failed, using fallback sanitizer:", e);
-    return stripUnsafeHtml(htmlWithIds);
-  }
+  return riskPillHtml
+    ? htmlWithIds.replaceAll(RISK_PILL_PLACEHOLDER, riskPillHtml.trim())
+    : htmlWithIds;
 }

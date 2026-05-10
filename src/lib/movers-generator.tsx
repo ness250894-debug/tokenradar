@@ -1,6 +1,6 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import { getTokenIconUrl } from './formatters';
+import { fetchTokenIconDataUrl } from './token-icon-data';
 
 export interface MoverToken {
   id: string;
@@ -8,7 +8,12 @@ export interface MoverToken {
   name: string;
   price: number;
   change24h: number;
+  imageUrl?: string;
 }
+
+type RenderableMoverToken = MoverToken & {
+  iconDataUrl?: string;
+};
 
 let robotoFontBuffer: ArrayBuffer | null = null;
 
@@ -23,8 +28,57 @@ async function getFont() {
   return robotoFontBuffer;
 }
 
+async function prepareTokens(tokens: MoverToken[]): Promise<RenderableMoverToken[]> {
+  return Promise.all(tokens.map(async (token) => ({
+    ...token,
+    iconDataUrl: await fetchTokenIconDataUrl(token),
+  })));
+}
+
+function tokenBadge(symbol: string) {
+  const safeSymbol = symbol.toUpperCase().slice(0, 5);
+  const fontSize = safeSymbol.length > 4 ? 12 : safeSymbol.length > 3 ? 14 : 18;
+
+  return (
+    <div
+      style={{
+        width: 48,
+        height: 48,
+        borderRadius: 10,
+        background: 'linear-gradient(135deg, #CCFF00 0%, #00C2FF 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#07080B',
+        fontSize,
+        fontWeight: 'bold',
+        textAlign: 'center',
+      }}
+    >
+      {safeSymbol}
+    </div>
+  );
+}
+
+function tokenIcon(token: RenderableMoverToken) {
+  if (!token.iconDataUrl) return tokenBadge(token.symbol);
+
+  return (
+    <div style={{ display: 'flex', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: '#12131a', width: 48, height: 48, alignItems: 'center', justifyContent: 'center' }}>
+      <img
+        src={token.iconDataUrl}
+        alt={token.name}
+        width={40}
+        height={40}
+        style={{ objectFit: 'contain', borderRadius: 20 }}
+      />
+    </div>
+  );
+}
+
 export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer> {
   const fontData = await getFont();
+  const renderableTokens = await prepareTokens(tokens);
 
   const element = (
     <div
@@ -70,7 +124,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
 
       {/* List */}
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '8px' }}>
-        {tokens.map((token, index) => (
+        {renderableTokens.map((token, index) => (
           <div 
             key={token.id}
             style={{ 
@@ -85,16 +139,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
               <span style={{ color: '#4A4A4A', fontSize: 24, fontWeight: 'bold', width: '30px' }}>{index + 1}</span>
-              <div style={{ display: 'flex', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: '#12131a', width: 48, height: 48, alignItems: 'center', justifyContent: 'center' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={getTokenIconUrl(token.symbol, token.id)}
-                  alt={token.name}
-                  width={48}
-                  height={48}
-                  style={{ objectFit: 'contain' }}
-                />
-              </div>
+              {tokenIcon(token)}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ color: '#f0f0f5', fontSize: 28, fontWeight: 'bold' }}>{token.symbol.toUpperCase()}</span>
                 <span style={{ color: '#4A4A4A', fontSize: 16 }}>{token.name}</span>

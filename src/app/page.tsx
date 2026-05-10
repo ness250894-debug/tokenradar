@@ -26,6 +26,7 @@ export default async function HomePage() {
       id: token.id,
       name: token.name,
       symbol: token.symbol,
+      imageUrl: token.imageUrl || token.image,
       price: token.price,
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,

@@ -96,13 +96,14 @@ export interface TokenSummary {
   id: string;
   name: string;
   symbol: string;
+  image?: string;
+  imageUrl?: string;
   categories: string[];
   rank: number;
   price: number;
   marketCap: number;
   volume24h: number;
   priceChange24h: number;
-  image: string;
   ath: number;
   athDate: string;
   atl: number;
@@ -116,6 +117,7 @@ export interface TokenDetail {
   id: string;
   symbol: string;
   name: string;
+  imageUrl?: string;
   description: string;
   categories: string[];
   genesisDate: string | null;
@@ -156,6 +158,31 @@ export interface TokenDetail {
     commits4Weeks: number | null;
   };
   fetchedAt: string;
+}
+
+function getEmbeddedTokenImageUrl(token: unknown): string | undefined {
+  if (!token || typeof token !== "object") return undefined;
+  const source = token as {
+    imageUrl?: unknown;
+    image?: unknown;
+  };
+
+  if (typeof source.imageUrl === "string" && source.imageUrl.trim()) {
+    return source.imageUrl;
+  }
+
+  if (typeof source.image === "string" && source.image.trim()) {
+    return source.image;
+  }
+
+  if (source.image && typeof source.image === "object") {
+    const image = source.image as { large?: unknown; small?: unknown; thumb?: unknown };
+    for (const candidate of [image.large, image.small, image.thumb]) {
+      if (typeof candidate === "string" && candidate.trim()) return candidate;
+    }
+  }
+
+  return undefined;
 }
 
 export interface TokenMetrics {
@@ -393,13 +420,13 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
         id: detail.id,
         name: detail.name,
         symbol: detail.symbol,
+        image: getEmbeddedTokenImageUrl(detail),
         categories: detail.categories || [],
         rank: detail.market?.marketCapRank ?? 999,
         price: detail.market?.price ?? 0,
         marketCap: detail.market?.marketCap ?? 0,
         volume24h: detail.market?.volume24h ?? 0,
         priceChange24h: detail.market?.priceChange24h ?? 0,
-        image: "", 
         ath: detail.market?.ath ?? 0,
         athDate: detail.market?.athDate ?? "",
         atl: detail.market?.atl ?? 0,
@@ -554,6 +581,7 @@ function mapRawToTokenDetail(r: any): TokenDetail | null {
     id: r.id,
     symbol: r.symbol,
     name: r.name,
+    imageUrl: getEmbeddedTokenImageUrl(r),
     description: r.description || "",
     categories: r.categories || [],
     genesisDate: r.genesisDate || null,

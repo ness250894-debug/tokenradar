@@ -23,7 +23,7 @@ import * as path from "path";
 // X reading removed — stub searchTweets to return empty results.
 // To restore social listening, integrate an alternative data source here.
 const searchTweets = async (_query: string, _max?: number): Promise<{ text: string; id: string }[]> => [];
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { searchTokenId } from "../src/lib/coingecko";
 import { logError, logActivity } from "../src/lib/reporter";
@@ -35,6 +35,7 @@ loadEnv();
 const DATA_DIR = path.resolve(__dirname, "../data");
 const REGISTRY_FILE = path.join(DATA_DIR, "tokens.json");
 const NARRATIVE_FILE = path.join(DATA_DIR, "social/narratives.json");
+const NPX_BIN = process.platform === "win32" ? "npx.cmd" : "npx";
 
 // Define narrative-heavy search queries
 const QUERIES = [
@@ -44,6 +45,14 @@ const QUERIES = [
   "rotation into $ AI",
   "low cap gems $"
 ];
+
+function runTokenPipelineScript(scriptPath: string, tokenId: string): void {
+  if (!/^[a-z0-9-]{1,100}$/.test(tokenId)) {
+    throw new Error(`Unsafe token id from discovery pipeline: ${tokenId}`);
+  }
+
+  execFileSync(NPX_BIN, ["tsx", scriptPath, "--token", tokenId], { stdio: "ignore" });
+}
 
 async function main() {
   console.log(`╔══════════════════════════════════════════╗`);
@@ -118,10 +127,10 @@ async function main() {
 
       try {
         // B. Fetch data
-        execSync(`npx tsx scripts/fetch-crypto-data.ts --token ${tokenId}`, { stdio: "ignore" });
+        runTokenPipelineScript("scripts/fetch-crypto-data.ts", tokenId);
         
         // C. Compute metrics
-        execSync(`npx tsx scripts/compute-metrics.ts --token ${tokenId}`, { stdio: "ignore" });
+        runTokenPipelineScript("scripts/compute-metrics.ts", tokenId);
         
         // D. Generate Initial Article (Simulated trigger for generate-content)
         // Note: For now we just ensure data is ready. 

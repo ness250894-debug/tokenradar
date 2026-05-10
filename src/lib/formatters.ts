@@ -41,42 +41,71 @@ export function formatSupply(value: number | undefined | null): string {
   return value.toFixed(0);
 }
 
+export interface TokenIconCandidateInput {
+  symbol: string;
+  id?: string | null;
+  imageUrl?: string | null;
+}
+
+// Mapping for Top & Breakout Tokens (verified high-res PNGs).
+const TOKEN_ICON_MAPPING: Record<string, string> = {
+  btc: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png",
+  eth: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+  sol: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png",
+  usdt: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+  usdc: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+  bnb: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/info/logo.png",
+  xrp: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ripple/info/logo.png",
+  ada: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cardano/info/logo.png",
+  avax: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/avalanchex/info/logo.png",
+  dot: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polkadot/info/logo.png",
+  pepe: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6982508145454ce325ddBE47a25d4ec3d2311933/logo.png",
+  aero: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/assets/0x940181aA514413eD66E7F9De1cDAdE9E457C9571/logo.png",
+  ath: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xbe0Ed4138121EcFC5c0E56B40517da27E6c5226B/logo.png",
+  akt: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cosmos/assets/uakt/logo.png",
+  adi: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3E510363228Eb6F2D6d3B49E7f01267882269E5F/logo.png",
+};
+
+function getTickerTokenIconUrl(symbol: string): string {
+  return `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${symbol}.png`;
+}
+
+function getSlugTokenIconUrl(slug: string): string {
+  return `https://cdn.jsdelivr.net/gh/simplr-sh/coin-logos/images/${slug}/large.png`;
+}
+
 /** Get a reliable PNG CDN URL for a token icon (Satori/OG compatible). */
 export function getTokenIconUrl(symbol: string, id?: string): string {
   if (!symbol) return "";
   const s = symbol.toLowerCase();
   const slug = id?.toLowerCase();
-  
-  // 1. Mapping for Top & Breakout Tokens (Verified high-res PNGs)
-  const mapping: Record<string, string> = {
-    btc: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png",
-    eth: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-    sol: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png",
-    usdt: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-    usdc: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
-    bnb: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/info/logo.png",
-    xrp: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ripple/info/logo.png",
-    ada: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cardano/info/logo.png",
-    avax: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/avalanchex/info/logo.png",
-    dot: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polkadot/info/logo.png",
-    pepe: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6982508145454ce325ddBE47a25d4ec3d2311933/logo.png",
-    // Breakout/Modern mappings
-    aero: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/assets/0x940181aA514413eD66E7F9De1cDAdE9E457C9571/logo.png",
-    ath: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xbe0Ed4138121EcFC5c0E56B40517da27E6c5226B/logo.png",
-    akt: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cosmos/assets/uakt/logo.png",
-    adi: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3E510363228Eb6F2D6d3B49E7f01267882269E5F/logo.png",
-  };
-
-  if (mapping[s]) return mapping[s];
-  if (slug && mapping[slug]) return mapping[slug];
+  if (TOKEN_ICON_MAPPING[s]) return TOKEN_ICON_MAPPING[s];
+  if (slug && TOKEN_ICON_MAPPING[slug]) return TOKEN_ICON_MAPPING[slug];
 
   // 2. Slug-based lookup (Comprehensive modern repo - covers 5000+ modern tokens)
   if (slug) {
-    return `https://cdn.jsdelivr.net/gh/simplr-sh/coin-logos/images/${slug}/large.png`;
+    return getSlugTokenIconUrl(slug);
   }
 
   // 3. Robust fallback to ticker-based PNG repo
-  return `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${s}.png`;
+  return getTickerTokenIconUrl(s);
+}
+
+/** Ordered token icon candidates: source image first, then deterministic public fallbacks. */
+export function getTokenIconCandidates({ symbol, id, imageUrl }: TokenIconCandidateInput): string[] {
+  const normalizedSymbol = symbol.trim().toLowerCase();
+  const normalizedId = id?.trim().toLowerCase();
+  const candidates = [
+    imageUrl,
+    normalizedSymbol ? TOKEN_ICON_MAPPING[normalizedSymbol] : undefined,
+    normalizedId ? TOKEN_ICON_MAPPING[normalizedId] : undefined,
+    normalizedId ? getSlugTokenIconUrl(normalizedId) : undefined,
+    normalizedSymbol ? getTickerTokenIconUrl(normalizedSymbol) : undefined,
+  ]
+    .map((url) => url?.trim())
+    .filter((url): url is string => Boolean(url));
+
+  return Array.from(new Set(candidates));
 }
 
 /** Get a standardized risk tier classification. */

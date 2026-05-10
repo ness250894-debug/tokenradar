@@ -1,16 +1,16 @@
 # Consolidated Social Automation Workflow
 # Unified heartbeat for all social interactions on TokenRadar
 #
-# Total: 8 workflow runs/day with staggered Telegram and X slots
+# Total: 8 workflow runs/day with staggered Telegram, X, Instagram, and video slots
 # X and Telegram polls are intentionally scheduled at different times
-# Exclusive slots: TG Poll (15:00), Video (18:00), and Movers (21:00) replace regular TG updates
+# Exclusive slots: TG Poll (15:00), Video (18:00), and TG Movers (21:00) replace regular TG updates
 
 name: Social Automations
 
 on:
   schedule:
     # --- Unified Schedule (8x/day, Every 3 Hours) ---
-    - cron: "00 00 * * *" # TG Market (20:00 EDT)
+    - cron: "00 00 * * *" # TG Market + IG Daily Movers Carousel (20:00 EDT)
     - cron: "00 03 * * *" # X Market + TG Market (23:00 EDT)
     - cron: "00 06 * * *" # TG Market (02:00 EDT)
     - cron: "00 09 * * *" # X Market + TG Market (05:00 EDT)
@@ -31,6 +31,7 @@ env:
   IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 09 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
   IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '00 15 * * *' || github.event.schedule == '00 18 * * *' || github.event.schedule == '00 21 * * *' }}
   IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '00 00 * * *' || github.event_name == 'workflow_dispatch' }}
 
 jobs:
   post-social:
@@ -42,6 +43,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -85,6 +88,25 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
+      # ─── 1b. Instagram Daily Movers Carousel (Runs 1x Day @ 00:00) ──
+      - name: Instagram Daily Movers Carousel
+        if: env.IS_INSTAGRAM_CAROUSEL_RUN == 'true'
+        run: npx tsx scripts/post-instagram-daily-movers.ts
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          # Meta Instagram
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
+          # Cloudflare R2 (Media Staging)
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
       # ─── 2. X Interactive Poll (Runs 1x Day @ 12:00) ───────────
       - name: X Daily Interactive Poll

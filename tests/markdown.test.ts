@@ -21,7 +21,7 @@ describe("markdownToHtml", () => {
     expect(html).toContain("Item A");
   });
 
-  it("strips script tags via DOMPurify", async () => {
+  it("strips script tags from raw HTML", async () => {
     const malicious = "Hello <script>alert('xss')</script> World";
     const html = await markdownToHtml(malicious);
     expect(html).not.toContain("<script>");

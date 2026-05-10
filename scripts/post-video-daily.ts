@@ -27,7 +27,7 @@ import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
-import { cleanBucket, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
+import { cleanPrefix, deleteObjects, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
 import { hasTikTokManualReportCredentials, sendTikTokManualPostReport } from "../src/lib/tiktok-manual";
 import { getRandomTrack } from "../src/lib/audio-config";
 import {
@@ -440,23 +440,30 @@ async function main() {
   // ── R2 Upload for Meta platforms ──
   let igVideoUrl = "";
   let threadsVideoUrl = "";
+  let igVideoKey = "";
+  let threadsVideoKey = "";
 
   if (shouldRunInstagram || shouldRunThreads) {
     console.log();
     console.log("Step 3b: Staging videos to R2 for Meta APIs...");
     try {
-      await cleanBucket();
+      const videoPrefix = `video/${today}/`;
+      await cleanPrefix(videoPrefix);
       if (shouldRunInstagram) {
-        igVideoUrl = await uploadToR2(outPath, `ig-${today}.mp4`);
+        igVideoKey = `${videoPrefix}instagram.mp4`;
+        igVideoUrl = await uploadToR2(outPath, igVideoKey);
       }
       if (shouldRunThreads && fs.existsSync(threadsOutPath)) {
-        threadsVideoUrl = await uploadToR2(threadsOutPath, `threads-${today}.mp4`);
+        threadsVideoKey = `${videoPrefix}threads.mp4`;
+        threadsVideoUrl = await uploadToR2(threadsOutPath, threadsVideoKey);
       }
     } catch (r2Error) {
       console.error(`  R2 staging failed: ${formatErrorForLog(r2Error)}`);
       console.warn("  Continuing without Meta platforms.");
       igVideoUrl = "";
       threadsVideoUrl = "";
+      igVideoKey = "";
+      threadsVideoKey = "";
     }
   }
 
@@ -794,6 +801,19 @@ async function main() {
     for (const result of results) {
       if (result.tracker) {
         trackerState.platforms[result.platform] = result.tracker;
+      }
+    }
+
+    const stagedKeysToDelete = [
+      trackerState.platforms.instagram ? igVideoKey : "",
+      trackerState.platforms.threads ? threadsVideoKey : "",
+    ].filter(Boolean);
+
+    if (stagedKeysToDelete.length > 0) {
+      try {
+        await deleteObjects(stagedKeysToDelete);
+      } catch (cleanupError) {
+        console.warn(`  R2 staged video cleanup failed: ${formatErrorForLog(cleanupError)}`);
       }
     }
 

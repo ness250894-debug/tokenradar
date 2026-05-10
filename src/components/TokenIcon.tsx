@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { getTokenIconUrl } from "@/lib/formatters";
+import { getTokenIconCandidates } from "@/lib/formatters";
 
 interface TokenIconProps {
   symbol: string;
@@ -27,9 +27,17 @@ export function TokenIcon({
   className = "", 
   style = {} 
 }: TokenIconProps) {
-  const [error, setError] = useState(false);
-  const iconUrl = imageUrl || getTokenIconUrl(symbol, id);
+  const iconCandidates = useMemo(
+    () => getTokenIconCandidates({ symbol, id, imageUrl }),
+    [symbol, id, imageUrl],
+  );
+  const [candidateIndex, setCandidateIndex] = useState(0);
+  const iconUrl = iconCandidates[candidateIndex];
   const isAvatar = !iconUrl;
+
+  useEffect(() => {
+    setCandidateIndex(0);
+  }, [symbol, id, imageUrl]);
 
   const containerStyle: React.CSSProperties = {
     width: size,
@@ -39,8 +47,8 @@ export function TokenIcon({
     ...style
   };
 
-  // If we have an error or no URL, show the letter avatar
-  if (error || isAvatar || !iconUrl) {
+  // If all candidates fail, show the letter avatar.
+  if (isAvatar || !iconUrl) {
     return (
       <div 
         className={`token-icon-container ${className}`} 
@@ -62,7 +70,7 @@ export function TokenIcon({
         width={size}
         height={size}
         className="img-icon"
-        onError={() => setError(true)}
+        onError={() => setCandidateIndex((index) => index + 1)}
         unoptimized
       />
     </div>

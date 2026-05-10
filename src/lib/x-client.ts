@@ -184,7 +184,7 @@ async function persistRefreshToken(newToken: string): Promise<void> {
       console.info(`::add-mask::${newToken}`);
       await fs.promises.appendFile(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
       githubEnvWritten = true;
-      console.info(`  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation (ends with ...${newToken.slice(-8)})`);
+      console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation.");
     } catch (err) {
       await reportRefreshTokenPersistenceFailure("GITHUB_ENV", err);
     }

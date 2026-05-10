@@ -129,11 +129,12 @@ export default async function HowToBuyPage({ params }: PageProps) {
               __html: await markdownToHtml(article.content, {
                 name: detail.name,
                 symbol: detail.symbol,
+                id: detail.id,
                 price: detail.market.price,
                 marketCap: detail.market.marketCap,
                 marketCapRank: detail.market.marketCapRank,
                 priceChange24h: detail.market.priceChange24h,
-                imageUrl: detail.id ? `/token-icons/${detail.id}.png` : undefined
+                imageUrl: detail.imageUrl
               }) 
             }} />
             <div style={{ marginTop: "var(--space-lg)" }}>

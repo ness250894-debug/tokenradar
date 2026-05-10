@@ -56,6 +56,7 @@ npm test
 | `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |
 | `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |
 | `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |
+| `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |
 | `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |
 | `npx tsx scripts/post-video-daily.ts` | Generate and post 60s cinematic video (IG, Threads, YT, TikTok manual report) |
 | `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |

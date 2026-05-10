@@ -17,7 +17,7 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { sanitizeHtmlForTelegram, sendTelegramPhoto } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
-import { cleanupExpiredCooldownFolders, loadCandidateTokens } from "./lib/token-selection";
+import { cleanupExpiredCooldownFolders, hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
 import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
 
 // Load environment
@@ -71,7 +71,8 @@ async function main() {
         t.market.priceChange24h > 0 &&
         t.market.priceChange24h <= MAX_CHANGE_THRESHOLD &&
         t.market.price > 0 &&
-        t.market.marketCap > 0
+        t.market.marketCap > 0 &&
+        hasSocialImageSafeText(t)
       )
       .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h)
       .slice(0, 5)
@@ -79,6 +80,7 @@ async function main() {
         id: t.id,
         symbol: t.symbol,
         name: t.name,
+        imageUrl: t.imageUrl,
         price: t.market.price,
         change24h: t.market.priceChange24h,
       }));

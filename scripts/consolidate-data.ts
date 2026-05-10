@@ -21,6 +21,12 @@ type TokenContent = {
   id?: string;
   name?: string;
   symbol?: string;
+  imageUrl?: string;
+  image?: string | {
+    large?: string;
+    small?: string;
+    thumb?: string;
+  };
   categories?: string[];
   market?: {
     price?: number;
@@ -43,6 +49,7 @@ type RegistryEntry = {
   id: string;
   name: string;
   symbol: string;
+  image?: string;
   categories: string[];
   rank: number;
   price: number;
@@ -57,6 +64,22 @@ type RegistryEntry = {
   totalSupply: number | null;
   maxSupply: number | null;
 };
+
+function getTokenImageUrl(content: TokenContent): string | undefined {
+  if (typeof content.imageUrl === "string" && content.imageUrl.trim()) {
+    return content.imageUrl;
+  }
+
+  if (typeof content.image === "string" && content.image.trim()) {
+    return content.image;
+  }
+
+  if (content.image && typeof content.image === "object") {
+    return content.image.large || content.image.small || content.image.thumb || undefined;
+  }
+
+  return undefined;
+}
 
 async function consolidate() {
   console.log("Starting data consolidation...");
@@ -98,6 +121,7 @@ async function consolidate() {
         id: content.id ?? tokenId,
         name: content.name ?? tokenId,
         symbol: content.symbol ?? "",
+        image: getTokenImageUrl(content),
         categories: content.categories || [],
         rank: market.marketCapRank ?? 9999,
         price: market.price ?? 0,

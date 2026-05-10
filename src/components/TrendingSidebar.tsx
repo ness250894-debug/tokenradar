@@ -36,6 +36,8 @@ export async function TrendingSidebar({ currentTokenId }: { currentTokenId: stri
                 <TokenTickerPill 
                   name={token.name} 
                   symbol={token.symbol} 
+                  id={token.id}
+                  imageUrl={token.imageUrl || token.image}
                   price={token.price} 
                   className="pill-sm" 
                 />
@@ -58,6 +60,8 @@ export async function TrendingSidebar({ currentTokenId }: { currentTokenId: stri
                 <TokenTickerPill 
                   name={token.name} 
                   symbol={token.symbol} 
+                  id={token.id}
+                  imageUrl={token.imageUrl || token.image}
                   price={token.price} 
                   className="pill-sm" 
                 />
