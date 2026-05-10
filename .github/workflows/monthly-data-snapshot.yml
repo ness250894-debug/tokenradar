@@ -1,0 +1,48 @@
+name: Monthly Data Snapshot
+
+on:
+  schedule:
+    - cron: "30 23 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    name: Archive data and content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build snapshot archive
+        run: |
+          snapshot_month="$(date -u +%Y-%m)"
+          archive="tokenradar-data-${snapshot_month}.tar.gz"
+          mkdir -p snapshot
+          tar \
+            --exclude='data/cache' \
+            --exclude='data/logs' \
+            --exclude='data/quarantine' \
+            --exclude='data/posted' \
+            --exclude='data/posted_video' \
+            -czf "snapshot/${archive}" \
+            data content public/audio public/images public/og
+          sha256sum "snapshot/${archive}" > "snapshot/${archive}.sha256"
+          echo "SNAPSHOT_MONTH=${snapshot_month}" >> "$GITHUB_ENV"
+          echo "SNAPSHOT_TAG=data-snapshot-${snapshot_month}" >> "$GITHUB_ENV"
+
+      - name: Create monthly release
+        run: |
+          if gh release view "$SNAPSHOT_TAG" >/dev/null 2>&1; then
+            echo "Release $SNAPSHOT_TAG already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          gh release create "$SNAPSHOT_TAG" snapshot/* \
+            --title "TokenRadar data snapshot ${SNAPSHOT_MONTH}" \
+            --notes "Monthly archive of public TokenRadar data, content, and media assets. Runtime caches, logs, and social cooldown state are excluded."
+        env:
+          GH_TOKEN: ${{ github.token }}

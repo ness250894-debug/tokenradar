@@ -12,7 +12,7 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 - **Hosting:** Cloudflare Pages
 - **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and 8 social workflow runs/day)
 - **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API
-- **Storage:** Cloudflare R2 (media staging for Meta API)
+- **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots
 
 ## Project Structure
 
@@ -25,6 +25,13 @@ data/              # Token data, metrics, price histories
 tests/             # Vitest unit tests
 .github/workflows/ # CI/CD automation
 ```
+
+## GitHub Storage Strategy
+
+- Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.
+- Failure diagnostics are uploaded as short-retention Actions artifacts.
+- Monthly data/content/media snapshots are archived as GitHub Releases.
+- Social tracking state is no longer pushed to `main` after every social run.
 
 ## Getting Started
 

@@ -37,7 +37,7 @@ jobs:
     name: Execute Network Routing
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -47,13 +47,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Cache node_modules
-        id: cache-npm
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Cache data/cache
         uses: actions/cache@v4
@@ -63,8 +58,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-coingecko-data-
 
+      - name: Restore social tracking state
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/posted
+            data/posted_video
+          key: ${{ runner.os }}-social-state-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ${{ runner.os }}-social-state-
+
       - name: Install dependencies
-        if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
       # ─── 1. Telegram Market Update (5x/day, skipped during exclusive slots) ──
@@ -175,31 +179,18 @@ jobs:
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
       # ─── Data State Synchronization ────────────────────────────
-      - name: Commit Tracking State
+      - name: Prepare social tracking state
         if: always()
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -e data/posted ]; then git add data/posted; fi
-          if [ -e data/posted_video ]; then git add data/posted_video; fi
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          git commit -m "chore: update social tracking state [skip ci]"
-          pushed=false
-          for i in 1 2 3; do
-            if git pull origin main -X ours --no-edit && git push; then
-              pushed=true
-              break
-            fi
-            echo "Push attempt $i failed, retrying in 5s..."
-            sleep 5
-          done
-          if [ "$pushed" != "true" ]; then
-            echo "Failed to push social tracking state after 3 attempts"
-            exit 1
-          fi
+        run: mkdir -p data/posted data/posted_video
+
+      - name: Save social tracking state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/posted
+            data/posted_video
+          key: ${{ runner.os }}-social-state-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Update X OAuth Secret
         # Requires GH_PAT with repo scope so rotating X refresh tokens can update repository secrets.
@@ -219,6 +210,21 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Upload social diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: social-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/logs/
+            data/posted/
+            data/posted_video/
+            data/cache/api-counter.json
+            remotion-props.json
+            *.mp4
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Notify on Failure
         if: failure()
