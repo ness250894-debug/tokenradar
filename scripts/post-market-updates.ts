@@ -37,7 +37,7 @@ import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini"
 import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
-import { REFERRAL_LINKS_HTML, SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
+import { SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
 
@@ -232,12 +232,10 @@ async function main() {
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
     captionOptions.xMaxChars = 260;
     captionPlatforms.push("x");
-    
-    if (isOnWebsite) {
-      xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
-    } else {
-      xReplyMessage = `✨ Newly discovered alpha! Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
-    }
+
+    xReplyMessage = isOnWebsite
+      ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
+      : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
   }
 
   if (captionPlatforms.length > 0) {
@@ -283,15 +281,6 @@ async function main() {
     try {
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       const tokenLink = `${siteUrl}/${targetToken.id}`;
-
-      const tgFooter = `
-<b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
-
-${REFERRAL_LINKS_HTML.join("\n")}
-
-#${targetToken.symbol.toUpperCase()} #Crypto
-`;
 
       if (tokenImage) {
         // ── Photo mode: short caption (1024 char limit) ──

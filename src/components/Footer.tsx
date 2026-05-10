@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HackerText } from "./HackerText";
-import { TelegramIcon, XIcon } from "./SocialIcons";
+import { InstagramIcon, TelegramIcon, ThreadsIcon, XIcon } from "./SocialIcons";
+import { SOCIAL } from "../lib/config";
 
 const PLATFORM_LINKS = [
   { href: "/tokens", label: "Token Directory" },
@@ -21,6 +22,13 @@ const LEGAL_LINKS = [
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
   { href: "/disclaimer", label: "Disclaimer" },
+] as const;
+
+const SOCIAL_LINKS = [
+  { href: SOCIAL.xUrl, label: "TokenRadar on X", Icon: XIcon },
+  { href: SOCIAL.telegramUrl, label: "TokenRadar on Telegram", Icon: TelegramIcon },
+  { href: SOCIAL.threadsUrl, label: "TokenRadar on Threads", Icon: ThreadsIcon },
+  { href: SOCIAL.instagramUrl, label: "TokenRadar on Instagram", Icon: InstagramIcon },
 ] as const;
 
 export function Footer() {
@@ -49,24 +57,18 @@ export function Footer() {
               The premier data-driven analysis hub for high-potential crypto narratives, risk vetting, and market insights.
             </p>
             <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-sm)" }}>
-              <a
-                href="https://x.com/tokenradarco"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--text-secondary)" }}
-                aria-label="TokenRadar on X"
-              >
-                <XIcon size={20} />
-              </a>
-              <a
-                href="https://t.me/TokenRadarCo"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--text-secondary)" }}
-                aria-label="TokenRadar on Telegram"
-              >
-                <TelegramIcon size={20} />
-              </a>
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--text-secondary)" }}
+                  aria-label={label}
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
 

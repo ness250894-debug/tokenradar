@@ -15,6 +15,9 @@ describe("config exports", () => {
   it("exports social handles with correct domains", () => {
     expect(SOCIAL.xUrl).toContain("x.com");
     expect(SOCIAL.telegramUrl).toContain("t.me");
+    expect(SOCIAL.threadsUrl).toBe("https://www.threads.com/@tokenradarco");
+    expect(SOCIAL.instagramUrl).toBe("https://www.instagram.com/tokenradarco/");
+    expect(SOCIAL.ecosystemUrl).toBe("https://linktr.ee/tokenradarco");
   });
 
   it("exports referral links as non-empty array with HTML", () => {
@@ -24,6 +27,7 @@ describe("config exports", () => {
 
   it("exports social footer as non-empty array", () => {
     expect(SOCIAL_FOOTER.length).toBeGreaterThan(0);
+    expect(SOCIAL_FOOTER.join("")).toContain('<a href="https://linktr.ee/tokenradarco">TokenRadar Links</a>');
   });
 
   it("exports X_COST_PER_POST as $0.01", () => {

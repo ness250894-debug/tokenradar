@@ -28,6 +28,7 @@ import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
+  SOCIAL,
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
 import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
@@ -261,12 +262,11 @@ async function main() {
 
     // ── Post Reply (External Link) ──
     try {
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
       const displaySym = selectedTokenSymbol || "";
       const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
       const replyText = isOnWebsite 
-        ? `Vote above and check out the full data profile for $${displaySym} here:\n\n${siteUrl}/${selectedTokenId}`
-        : `Vote above and see what's driving the crypto markets right now on:\n\n${siteUrl}`;
+        ? `Vote above and find the $${displaySym} profile through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+        : `Vote above and follow what's driving crypto markets through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
         
       const replyId = await postTweet(replyText, result.tweetId);
       console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);

@@ -1,7 +1,7 @@
 import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
-import { SOCIAL_PLATFORM_LIMITS } from "./config";
+import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
 
 export type AIResult = {
   content: string;
@@ -462,7 +462,7 @@ function fallbackYoutubeMetadata(
   metrics: MarketContext,
 ): { title: string; description: string } {
   const title = truncateText(`${tokenName} ($${symbol.toUpperCase()}) 24h Market Update`, 60);
-  const description = `${tokenName} is moving ${formatSocialChange(metrics.priceChange24h)} over 24h, with price near ${formatSocialPrice(metrics.price)} and market cap around ${formatSocialMarketCap(metrics.marketCap)}.\nFull data report & analytics: https://tokenradar.co\n#Shorts #${symbol.toUpperCase()} #Crypto`;
+  const description = `${tokenName} is moving ${formatSocialChange(metrics.priceChange24h)} over 24h, with price near ${formatSocialPrice(metrics.price)} and market cap around ${formatSocialMarketCap(metrics.marketCap)}.\nFull data report & analytics: ${SOCIAL.ecosystemUrl}\n#Shorts #${symbol.toUpperCase()} #Crypto`;
   return { title, description };
 }
 
@@ -585,9 +585,9 @@ X RULES:
 YOUTUBE RULES:
 - Return "youtubeTitle" and "youtubeDescription".
 - Title must be under ${options.youtubeTitleMaxChars ?? 60} characters and front-load ${tokenName} or $${symbol.toUpperCase()}.
-- Description must open with a 1-2 sentence hook, then include this exact allowed site line: "Full data report & analytics: https://tokenradar.co".
+- Description must open with a 1-2 sentence hook, then include this exact allowed site line: "Full data report & analytics: ${SOCIAL.ecosystemUrl}".
 - End the description with exactly 3 hashtags. The first must be #Shorts.
-- No external links except tokenradar.co.`,
+- No external links except the TokenRadar Linktree URL.`,
     instagram: `
 INSTAGRAM RULES:
 - Return "instagramCaption" only for Instagram.

@@ -14,6 +14,7 @@ import { Resvg } from "@resvg/resvg-js";
 import * as fs from "fs";
 import * as path from "path";
 import { formatCompact, getRiskColor, getRiskTier } from "./formatters";
+import { SOCIAL_ICON_PATHS } from "./social-icons";
 
 export interface OgRenderData {
   name: string;
@@ -74,6 +75,47 @@ function getNameFontSize(tokenName: string): number {
   if (len <= 12) return 72;
   if (len <= 18) return 60;
   return 48;
+}
+
+type OgSocialPlatform = keyof typeof SOCIAL_ICON_PATHS;
+
+const OG_SOCIAL_ITEMS: Array<{ platform: OgSocialPlatform; label: string }> = [
+  { platform: "x", label: "@tokenradarco" },
+  { platform: "telegram", label: "TokenRadarCo" },
+  { platform: "threads", label: "@tokenradarco" },
+  { platform: "instagram", label: "@tokenradarco" },
+];
+
+function renderOgSocialItem({ platform, label }: { platform: OgSocialPlatform; label: string }) {
+  return {
+    type: "span",
+    props: {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+      },
+      children: [
+        {
+          type: "svg",
+          props: {
+            viewBox: "0 0 24 24",
+            width: 22,
+            height: 22,
+            fill: "currentColor",
+            style: { display: "flex" },
+            children: {
+              type: "path",
+              props: {
+                d: SOCIAL_ICON_PATHS[platform],
+              },
+            },
+          },
+        },
+        label,
+      ],
+    },
+  };
 }
 
 // ── Main Renderer ─────────────────────────────────────────────
@@ -361,36 +403,14 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 32,
-                fontSize: 22,
-                color: "#4A4A4A",
-                fontWeight: 500,
+                gap: 28,
+                fontSize: 20,
+                color: "#6F6F78",
+                fontWeight: 600,
                 borderTop: "1px solid #141414",
                 paddingTop: 18,
               },
-              children: [
-                {
-                  type: "span",
-                  props: {
-                    style: { display: "flex", alignItems: "center" },
-                    children: "tokenradar.co",
-                  },
-                },
-                {
-                  type: "span",
-                  props: {
-                    style: { display: "flex", alignItems: "center" },
-                    children: "@tokenradarco",
-                  },
-                },
-                {
-                  type: "span",
-                  props: {
-                    style: { display: "flex", alignItems: "center" },
-                    children: "t.me/TokenRadarCo",
-                  },
-                },
-              ],
+              children: OG_SOCIAL_ITEMS.map(renderOgSocialItem),
             },
           },
         ],

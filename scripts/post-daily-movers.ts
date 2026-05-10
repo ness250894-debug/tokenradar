@@ -128,10 +128,9 @@ async function main() {
       caption = `TokenRadar Top 5 Movers leading the charge today! 🚀\n\n1. ${movers[0].symbol.toUpperCase()} +${movers[0].change24h.toFixed(2)}%\n2. ${movers[1]?.symbol.toUpperCase() || "—"} +${movers[1]?.change24h.toFixed(2) || "0"}%\n\n<tg-spoiler>Massive breakout volume detected across the board.</tg-spoiler>\n\n#Crypto #TokenRadar #MarketMovers`;
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
     const tgFooter = `
 <b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${siteUrl}">TokenRadar Dashboard</a> | 𝕏 <a href="${SOCIAL.xUrl}">X (Twitter)</a> | ✈️ <a href="${SOCIAL.telegramUrl}">Telegram</a>
+📊 <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
