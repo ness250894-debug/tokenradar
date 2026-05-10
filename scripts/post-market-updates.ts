@@ -33,7 +33,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { logError, logActivity } from "../src/lib/reporter";
-import { generateTokenSummary, generateTweet } from "../src/lib/gemini";
+import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini";
 import { createTelegramKeyboard, getApi } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
@@ -218,25 +218,41 @@ async function main() {
 
 
   const tgFooter = getTelegramFooter(targetToken.symbol);
+  const captionPlatforms: PlatformTarget[] = [];
+  const captionOptions: { telegramMaxChars?: number; xMaxChars?: number } = {};
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
     const maxAllowedSpace = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - tgFooter.length - 20;
-    const tgMaxChars = Math.min(SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS, maxAllowedSpace);
-    const aiSummary = await generateTokenSummary(targetToken.name, targetToken.symbol, targetToken.description || "", context, tgMaxChars);
-    tgMessage = aiSummary;
+    captionOptions.telegramMaxChars = Math.min(SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS, maxAllowedSpace);
+    captionPlatforms.push("telegram");
   }
 
   if (runX) {
     console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
-    const xMaxChars = 260;
-    xMessage = await generateTweet(targetToken.name, targetToken.symbol, context, xMaxChars);
+    captionOptions.xMaxChars = 260;
+    captionPlatforms.push("x");
     
     if (isOnWebsite) {
       xReplyMessage = `📖 Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`;
     } else {
       xReplyMessage = `✨ Newly discovered alpha! Discover 300+ tracked and upcoming tokens on our live dashboard here:\n\n${siteUrl}`;
     }
+  }
+
+  if (captionPlatforms.length > 0) {
+    console.log(`Step 3: Generating unified captions for ${captionPlatforms.join(", ")}...`);
+    const captions = await generateUnifiedCaptions(
+      targetToken.name,
+      targetToken.symbol,
+      targetToken.description || "",
+      context,
+      captionPlatforms,
+      captionOptions,
+    );
+
+    if (runTelegram) tgMessage = captions.telegramSummary || "";
+    if (runX) xMessage = captions.xTweet || "";
   }
 
   if (dryRun) {
