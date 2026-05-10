@@ -182,8 +182,13 @@ async function createContainer(
     access_token: accessToken,
     media_type: platform === "instagram" ? "REELS" : "VIDEO",
     video_url: videoUrl,
-    ...((platform === "instagram" ? { caption } : { text: caption }) as any),
   };
+
+  if (platform === "instagram") {
+    params.caption = caption;
+  } else {
+    params.text = caption;
+  }
 
   // Instagram-specific options
   if (platform === "instagram") {
