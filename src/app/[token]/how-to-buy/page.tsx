@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import {
   getTokenDetail,
-  getTokenIds,
+  getTokenIdsWithArticle,
   getTokenMetrics,
   getArticle,
   formatPrice,
@@ -23,7 +23,7 @@ interface PageProps {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const tokenIds = await getTokenIds();
+  const tokenIds = await getTokenIdsWithArticle("how-to-buy");
   return tokenIds.map((token) => ({ token }));
 }
 

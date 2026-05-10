@@ -734,6 +734,29 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
   };
 }
 
+/** Get token IDs that have a published article for the given article slug. */
+export async function getTokenIdsWithArticle(slug: string): Promise<string[]> {
+  const sanitizedSlug = slug.replace(/[^a-z0-9-]/g, "");
+  if (!sanitizedSlug || typeof window !== "undefined") return [];
+
+  const tokenIds = await getTokenIds();
+  const contentDir = getContentDir();
+  const result: string[] = [];
+
+  for (const tokenId of tokenIds) {
+    const file = `${contentDir}/${tokenId}/${sanitizedSlug}.json`;
+    try {
+      if (!fs.existsSync(/* turbopackIgnore: true */ file)) continue;
+      const detail = await getTokenDetail(tokenId);
+      if (detail) result.push(tokenId);
+    } catch {
+      // Skip inaccessible or malformed content paths.
+    }
+  }
+
+  return result;
+}
+
 /** Get all article slugs for a token. */
 export async function getArticleSlugs(tokenId: string): Promise<string[]> {
   const dir = `${getContentDir()}/${tokenId}`;

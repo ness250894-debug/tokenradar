@@ -158,9 +158,10 @@ async function consolidate() {
   console.log(`  - Metrics: ${Object.keys(metricsBlob).length} / ${Object.keys(tokensBlob).length} coverage`);
   console.log(`  - Prices: ${Object.keys(pricesBlob).length}\n`);
 
-  // 5. Copy only essential data files to public for Edge Runtime fetching.
-  // Individual token/metric/price files are already consolidated into the blobs.
-  console.log("Copying essential data and content to public folder...");
+  // 5. Copy only essential data files to public for browser/runtime fallback fetches.
+  // Article content is consumed at build time from content/tokens and rendered into
+  // static pages, so copying it to public/content only bloats the deploy artifact.
+  console.log("Copying essential data files to public folder...");
   const publicDataDir = path.join(process.cwd(), "public", "data");
   const publicContentDir = path.join(process.cwd(), "public", "content");
 
@@ -190,25 +191,7 @@ async function consolidate() {
     }
   }
 
-  function copyRecursiveSync(src: string, dest: string) {
-    if (!fs.existsSync(src)) return;
-    const stats = fs.statSync(src);
-    if (stats.isDirectory()) {
-      fs.mkdirSync(dest, { recursive: true });
-      for (const child of fs.readdirSync(src).sort()) {
-        copyRecursiveSync(path.join(src, child), path.join(dest, child));
-      }
-      return;
-    }
-    fs.copyFileSync(src, dest);
-  }
-
-  const contentTokensDir = path.join(process.cwd(), "content", "tokens");
-  if (fs.existsSync(contentTokensDir)) {
-    copyRecursiveSync(contentTokensDir, path.join(publicContentDir, "tokens"));
-  }
-
-  console.log(`Copied ${essentialDataFiles.length} essential data files and content articles to public folder.`);
+  console.log(`Copied ${essentialDataFiles.length} essential data files to public/data.`);
 }
 
 consolidate().catch((error) => {
