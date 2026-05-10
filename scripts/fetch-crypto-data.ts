@@ -24,16 +24,64 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
+const PRICES_DIR = path.join(DATA_DIR, "prices");
+
+type LiteMarketToken = CoinGeckoToken & {
+  price_change_percentage_7d_in_currency?: number | null;
+  price_change_percentage_30d_in_currency?: number | null;
+  price_change_percentage_1y_in_currency?: number | null;
+  fully_diluted_valuation?: number | null;
+  high_24h?: number | null;
+  low_24h?: number | null;
+};
 
 // Ensure directories exist
 ensureDirSync(TOKENS_DIR);
 
+function getNumericArg(args: string[], name: string, fallback: number): number {
+  const index = args.indexOf(name);
+  if (index === -1) return fallback;
+  const parsed = parseInt(args[index + 1] || "", 10);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function priceHistoryAgeMs(tokenId: string): number {
+  const priceFile = path.join(PRICES_DIR, `${tokenId}.json`);
+  try {
+    return Date.now() - fs.statSync(priceFile).mtimeMs;
+  } catch {
+    return Number.POSITIVE_INFINITY;
+  }
+}
+
+async function writeFullTokenData(tokenId: string): Promise<void> {
+  const fullData = await fetchFullTokenData(tokenId);
+  const { chart30d, chart1y, ...detailOnly } = fullData;
+
+  ensureDirSync(PRICES_DIR);
+
+  fs.writeFileSync(
+    path.join(PRICES_DIR, `${tokenId}.json`),
+    JSON.stringify({
+      id: detailOnly.id,
+      name: detailOnly.name,
+      chart30d: chart30d?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+      chart1y: chart1y?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+      fetchedAt: new Date().toISOString()
+    }, null, 2)
+  );
+
+  fs.writeFileSync(path.join(TOKENS_DIR, `${tokenId}.json`), JSON.stringify(detailOnly, null, 2));
+}
+
 async function main() {
   const args = process.argv.slice(2);
-  const start = parseInt(args[args.indexOf("--start") + 1] || "1", 10);
-  const end = parseInt(args[args.indexOf("--end") + 1] || "100", 10);
+  const start = getNumericArg(args, "--start", 1);
+  const end = getNumericArg(args, "--end", 100);
   const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;
   const lite = args.includes("--lite");
+  const fullRefreshLimit = getNumericArg(args, "--full-refresh-limit", 0);
+  const fullRefreshMaxAgeDays = getNumericArg(args, "--full-refresh-max-age-days", 7);
 
   console.log(`╔══════════════════════════════════════════╗`);
   console.log(`║  TokenRadar — Detailed Data Fetcher      ║`);
@@ -70,6 +118,8 @@ async function main() {
       if (lite) {
         // LITE MODE: Update market data only
         const existing = safeReadJson<Record<string, any>>(tokenFile, {});
+        const marketToken = t as LiteMarketToken;
+        const existingMarket = existing.market || {};
 
         const liteData = {
           ...existing, // Keep everything else (description, charts, links if they exist)
@@ -78,20 +128,26 @@ async function main() {
           name: t.name,
           market: {
             // Priority: merge fresh lite data into existing structure
-            ...(existing.market || {}),
-            price: t.current_price,
-            marketCap: t.market_cap,
-            marketCapRank: t.market_cap_rank,
-            volume24h: t.total_volume,
-            priceChange24h: t.price_change_percentage_24h,
-            ath: t.ath,
-            athChangePercentage: t.ath_change_percentage,
-            athDate: t.ath_date,
-            atl: t.atl,
-            atlDate: t.atl_date,
-            circulatingSupply: t.circulating_supply,
-            totalSupply: t.total_supply,
-            maxSupply: t.max_supply,
+            ...existingMarket,
+            price: t.current_price ?? existingMarket.price ?? 0,
+            marketCap: t.market_cap ?? existingMarket.marketCap ?? 0,
+            marketCapRank: t.market_cap_rank ?? existingMarket.marketCapRank ?? 9999,
+            volume24h: t.total_volume ?? existingMarket.volume24h ?? 0,
+            high24h: marketToken.high_24h ?? existingMarket.high24h ?? 0,
+            low24h: marketToken.low_24h ?? existingMarket.low24h ?? 0,
+            priceChange24h: t.price_change_percentage_24h ?? existingMarket.priceChange24h ?? 0,
+            priceChange7d: marketToken.price_change_percentage_7d_in_currency ?? existingMarket.priceChange7d ?? 0,
+            priceChange30d: marketToken.price_change_percentage_30d_in_currency ?? existingMarket.priceChange30d ?? 0,
+            priceChange1y: marketToken.price_change_percentage_1y_in_currency ?? existingMarket.priceChange1y ?? 0,
+            ath: t.ath ?? existingMarket.ath ?? 0,
+            athChangePercentage: t.ath_change_percentage ?? existingMarket.athChangePercentage ?? 0,
+            athDate: t.ath_date ?? existingMarket.athDate ?? "",
+            atl: t.atl ?? existingMarket.atl ?? 0,
+            atlDate: t.atl_date ?? existingMarket.atlDate ?? "",
+            circulatingSupply: t.circulating_supply ?? existingMarket.circulatingSupply ?? 0,
+            totalSupply: t.total_supply ?? existingMarket.totalSupply ?? null,
+            maxSupply: t.max_supply ?? existingMarket.maxSupply ?? null,
+            fdv: marketToken.fully_diluted_valuation ?? existingMarket.fdv ?? null,
           },
           lastMarketUpdate: new Date().toISOString(),
         };
@@ -104,31 +160,38 @@ async function main() {
           console.log("✗ Skipped: Missing ID");
           continue;
         }
-        const fullData = await fetchFullTokenData(t.id);
-        
-        // Split charts into separate files for getPriceHistory logic
-        const { chart30d, chart1y, ...detailOnly } = fullData;
-        
-        const PRICES_DIR = path.join(DATA_DIR, "prices");
-        ensureDirSync(PRICES_DIR);
-
-        fs.writeFileSync(
-          path.join(PRICES_DIR, `${t.id}.json`),
-          JSON.stringify({
-            id: t.id,
-            name: t.name,
-            chart30d: chart30d?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
-            chart1y: chart1y?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
-            fetchedAt: new Date().toISOString()
-          }, null, 2)
-        );
-
-        fs.writeFileSync(tokenFile, JSON.stringify(detailOnly, null, 2));
+        await writeFullTokenData(t.id);
         console.log("✓ Saved (incl. prices)");
       }
     } catch (error) {
       console.log(`✗ Failed: ${error instanceof Error ? error.message : String(error)}`);
       await logError("fetch-crypto-data", error, false);
+    }
+  }
+
+  if (lite && fullRefreshLimit > 0) {
+    const maxAgeMs = fullRefreshMaxAgeDays * 24 * 60 * 60 * 1000;
+    const stalePriceTokens = liteTokens
+      .filter((token): token is CoinGeckoToken & { id: string } =>
+        typeof token.id === "string" &&
+        token.id.length > 0 &&
+        priceHistoryAgeMs(token.id) > maxAgeMs
+      )
+      .sort((a, b) => priceHistoryAgeMs(b.id) - priceHistoryAgeMs(a.id))
+      .slice(0, fullRefreshLimit);
+
+    console.log();
+    console.log(`  Rolling full refresh: ${stalePriceTokens.length}/${fullRefreshLimit} stale price histories`);
+
+    for (const token of stalePriceTokens) {
+      process.stdout.write(`  [FULL] #${token.market_cap_rank} ${token.name} (${token.id})... `);
+      try {
+        await writeFullTokenData(token.id);
+        console.log("Saved (incl. prices)");
+      } catch (error) {
+        console.log(`Failed: ${error instanceof Error ? error.message : String(error)}`);
+        await logError("fetch-crypto-data-full-refresh", error, false);
+      }
     }
   }
 
