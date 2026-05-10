@@ -3,19 +3,25 @@
   "symbol": "xusd",
   "name": "StraitsX XUSD",
   "market": {
-    "price": 1,
-    "marketCap": 63913309,
-    "marketCapRank": 430,
-    "volume24h": 7780129,
-    "priceChange24h": -0.05082,
+    "price": 0.999989,
+    "marketCap": 63911921,
+    "marketCapRank": 438,
+    "volume24h": 6997727,
+    "priceChange24h": 0.01594,
     "ath": 1.77,
-    "athChangePercentage": -43.54307,
+    "athChangePercentage": -43.53943,
     "athDate": "2025-03-17T07:07:33.401Z",
     "atl": 0.936389,
     "atlDate": "2025-03-04T02:16:12.068Z",
     "circulatingSupply": 63913176.001,
     "totalSupply": 63913176.001,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 1,
+    "low24h": 0.999743,
+    "priceChange7d": 0.005562618795935824,
+    "priceChange30d": 0.003943127924489053,
+    "priceChange1y": -0.0019483213210926883,
+    "fdv": 63911921
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.155Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.890Z"
 }

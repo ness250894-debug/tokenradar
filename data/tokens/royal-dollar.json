@@ -2,20 +2,51 @@
   "id": "royal-dollar",
   "symbol": "rusd",
   "name": "Royal Dollar",
+  "description": "RCOINS is the digital asset product family developed under the RIB Digital brand, designed to bring stable value, transparency, and efficiency to digital finance. \nIts flagship token, Royal Dollar (RUSD), is a USD-referenced stable-value digital asset issued by The RIB Digital Holdings Limited, Hong Kong. Designed for payments, treasury operations, OTC trading, exchange liquidity, and selected on-chain financial applications, RUSD aims to deliver a more practical and transparent digital dollar experience.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.rcoins.digital/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x44bB433d29fe966992A9C812da7f252C9c53F285"
+  },
   "market": {
-    "price": 0.999998,
-    "marketCap": 250017052,
-    "marketCapRank": 174,
-    "volume24h": 130415332,
-    "priceChange24h": -0.02311,
+    "price": 0.999745,
+    "marketCap": 249936365,
+    "marketCapRank": 175,
+    "volume24h": 132276865,
+    "high24h": 1,
+    "low24h": 0.999291,
+    "priceChange24h": -0.0311,
+    "priceChange7d": -0.01397,
+    "priceChange30d": -0.05217,
+    "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.22242,
+    "athChangePercentage": -0.24764,
     "athDate": "2026-03-20T15:02:26.638Z",
     "atl": 0.997861,
     "atlDate": "2026-04-24T10:55:21.492Z",
     "circulatingSupply": 250000000,
     "totalSupply": 5000000000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 4998727309
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.108Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:57:44.421Z"
 }

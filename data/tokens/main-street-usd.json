@@ -3,19 +3,25 @@
   "symbol": "msusd",
   "name": "Main Street USD",
   "market": {
-    "price": 0.999844,
-    "marketCap": 70451818,
-    "marketCapRank": 403,
-    "volume24h": 948207,
-    "priceChange24h": 0.76701,
+    "price": 1,
+    "marketCap": 71127062,
+    "marketCapRank": 406,
+    "volume24h": 2205509,
+    "priceChange24h": 0.02182,
     "ath": 2,
-    "athChangePercentage": -50.09845,
+    "athChangePercentage": -50.09114,
     "athDate": "2025-08-17T23:12:53.419Z",
     "atl": 0.972386,
     "atlDate": "2026-05-08T02:20:08.931Z",
-    "circulatingSupply": 70458212.02908248,
-    "totalSupply": 70458212.02908248,
-    "maxSupply": null
+    "circulatingSupply": 71126276.78255102,
+    "totalSupply": 71126276.78255102,
+    "maxSupply": null,
+    "high24h": 1,
+    "low24h": 0.999791,
+    "priceChange7d": 0.12245819108216485,
+    "priceChange30d": 0.010689981194752155,
+    "priceChange1y": 0,
+    "fdv": 71127062
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.150Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.884Z"
 }

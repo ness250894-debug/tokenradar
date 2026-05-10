@@ -3,19 +3,25 @@
   "symbol": "dai",
   "name": "DAI on PulseChain",
   "market": {
-    "price": 0.00151404,
-    "marketCap": 67161052,
-    "marketCapRank": 413,
-    "volume24h": 309368,
-    "priceChange24h": 1.69978,
+    "price": 0.00154302,
+    "marketCap": 68796281,
+    "marketCapRank": 417,
+    "volume24h": 200715,
+    "priceChange24h": 1.7053,
     "ath": 0.03373531,
-    "athChangePercentage": -95.47814,
+    "athChangePercentage": -95.43513,
     "athDate": "2024-11-29T07:29:41.111Z",
     "atl": 1.02312e-13,
     "atlDate": "2024-06-11T21:34:57.858Z",
     "circulatingSupply": 44358933298.16725,
     "totalSupply": 44358933298.16725,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 0.00159644,
+    "low24h": 0.00150017,
+    "priceChange7d": 6.140980575048973,
+    "priceChange30d": 36.96990708887434,
+    "priceChange1y": -7.454000214861195,
+    "fdv": 68796281
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.152Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.886Z"
 }

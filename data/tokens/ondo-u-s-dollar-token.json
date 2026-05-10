@@ -5,8 +5,8 @@
   "market": {
     "price": 1,
     "marketCap": 62868713,
-    "marketCapRank": 434,
-    "volume24h": 5958258,
+    "marketCapRank": 443,
+    "volume24h": 29.06,
     "priceChange24h": 0,
     "ath": 1,
     "athChangePercentage": 0,
@@ -15,7 +15,13 @@
     "atlDate": "2025-08-27T08:45:01.644Z",
     "circulatingSupply": 62868712.96772483,
     "totalSupply": 62868712.96772483,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 1,
+    "low24h": 1,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "fdv": 62868713
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.155Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.891Z"
 }

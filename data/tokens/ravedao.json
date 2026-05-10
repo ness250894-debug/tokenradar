@@ -2,20 +2,52 @@
   "id": "ravedao",
   "symbol": "rave",
   "name": "RaveDAO",
+  "description": "RaveDAO is a global community uniting music, technology, and purpose. Since their first sold-out event at Dubai 2024, they have expanded across Europe, the Middle East, North America, and Asia, hosting world-class experiences with over 100,000 total attendees and 3,000+ attendees for each event.\n\nRaveDAO has worked with top-tier artists like Vintage Culture, Don Diablo, Chris Avantgarde, Lilly Palmer, MORTEN, Bassjackers, and GENESI and has support from Binance, OKX, Bitget, and Polygon. RaveDAO is redefining live entertainment in Web3 and has active partnerships with 1001Tracklists, AMF, and Warner Music.\n\nBeyond the dance floor, RaveDAO channels energy and attention toward impact. In 2025 alone, proceeds from its events helped restore sight to 400+ cataract patients in Nepal and fund over 150 meditation programs across the U.S.",
+  "categories": [
+    "Entertainment",
+    "Music",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ravedao.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x17205fab260a7a6383a81452cE6315A39370Db97"
+  },
   "market": {
-    "price": 0.836584,
-    "marketCap": 207465010,
-    "marketCapRank": 189,
-    "volume24h": 33211722,
-    "priceChange24h": 18.92806,
+    "price": 0.745099,
+    "marketCap": 184612640,
+    "marketCapRank": 202,
+    "volume24h": 23712540,
+    "high24h": 0.847943,
+    "low24h": 0.737809,
+    "priceChange24h": -11.24883,
+    "priceChange7d": 19.66279,
+    "priceChange30d": -50.9946,
+    "priceChange1y": 0,
     "ath": 27.88,
-    "athChangePercentage": -97.03684,
+    "athChangePercentage": -97.31843,
     "athDate": "2026-04-18T01:40:10.517Z",
     "atl": 0.206266,
     "atlDate": "2026-03-12T02:10:18.440Z",
     "circulatingSupply": 248044444,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 744272425
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.111Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:57:57.032Z"
 }

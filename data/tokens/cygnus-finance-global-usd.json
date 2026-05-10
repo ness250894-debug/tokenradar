@@ -3,19 +3,25 @@
   "symbol": "cgusd",
   "name": "Cygnus Finance Global USD",
   "market": {
-    "price": 0.993662,
-    "marketCap": 75095515,
-    "marketCapRank": 382,
-    "volume24h": 12.84,
-    "priceChange24h": -0.00469,
+    "price": 0.993687,
+    "marketCap": 75121205,
+    "marketCapRank": 389,
+    "volume24h": 13.31,
+    "priceChange24h": 0.00485,
     "ath": 1.089,
-    "athChangePercentage": -8.72341,
+    "athChangePercentage": -8.72115,
     "athDate": "2025-06-06T16:02:30.110Z",
     "atl": 0.724325,
     "atlDate": "2025-09-29T16:58:56.283Z",
-    "circulatingSupply": 75574499.64641,
-    "totalSupply": 75574499.64641,
-    "maxSupply": null
+    "circulatingSupply": 75598456.018235,
+    "totalSupply": 75598456.018235,
+    "maxSupply": null,
+    "high24h": 0.993753,
+    "low24h": 0.993588,
+    "priceChange7d": -0.021400788723352847,
+    "priceChange30d": -0.15394307685836323,
+    "priceChange1y": -0.4470336123589991,
+    "fdv": 75121205
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.147Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.881Z"
 }

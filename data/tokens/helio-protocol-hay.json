@@ -3,19 +3,25 @@
   "symbol": "lisusd",
   "name": "Lista USD",
   "market": {
-    "price": 0.998786,
-    "marketCap": 76213537,
-    "marketCapRank": 378,
-    "volume24h": 90074,
-    "priceChange24h": -0.00078,
+    "price": 0.998643,
+    "marketCap": 76203583,
+    "marketCapRank": 382,
+    "volume24h": 170115,
+    "priceChange24h": -0.01453,
     "ath": 2,
-    "athChangePercentage": -50.09308,
+    "athChangePercentage": -50.10166,
     "athDate": "2022-08-25T12:10:21.873Z",
     "atl": 0.208609,
     "atlDate": "2022-12-02T02:43:06.227Z",
-    "circulatingSupply": 76304918.6723428,
-    "totalSupply": 76304918.6723428,
-    "maxSupply": null
+    "circulatingSupply": 76307568.41944356,
+    "totalSupply": 76307568.41944356,
+    "maxSupply": null,
+    "high24h": 0.99892,
+    "low24h": 0.998376,
+    "priceChange7d": 0.04321920705080709,
+    "priceChange30d": -0.05358574858302889,
+    "priceChange1y": -0.024542310909153396,
+    "fdv": 76203583
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.146Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.879Z"
 }

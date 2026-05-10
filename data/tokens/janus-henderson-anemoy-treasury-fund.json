@@ -24,9 +24,9 @@
     "volume24h": 0,
     "high24h": 1.097,
     "low24h": 1.097,
-    "priceChange24h": null,
-    "priceChange7d": 0.0622,
-    "priceChange30d": 0.26266,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0.11801641501045339,
     "priceChange1y": 0,
     "ath": 1.1,
     "athChangePercentage": 0,
@@ -36,7 +36,7 @@
     "circulatingSupply": 1029617831.950767,
     "totalSupply": 1029617831.950767,
     "maxSupply": null,
-    "fdv": 764222230
+    "fdv": 1133758528
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-03-15T10:33:50.053Z",
-  "lastMarketUpdate": "2026-05-09T18:38:34.087Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.814Z"
 }

@@ -2,7 +2,7 @@
   "id": "centrifuge-2",
   "symbol": "cfg",
   "name": "Centrifuge",
-  "description": "A cryptocurrency token known as Centrifuge (CFG). It is tracked on CoinGecko with the ID \"centrifuge-2\".",
+  "description": "",
   "categories": [
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
@@ -20,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0xcccccccccc33d538dbc2ee4feab0a7a1ff4e8a94"
   },
   "market": {
-    "price": 0.30819,
-    "marketCap": 177853815,
-    "marketCapRank": 203,
-    "volume24h": 73189445,
-    "high24h": 0.26019,
-    "low24h": 0.224172,
-    "priceChange24h": 8.54463,
-    "priceChange7d": 12.28133,
-    "priceChange30d": 42.19937,
+    "price": 0.311375,
+    "marketCap": 179683200,
+    "marketCapRank": 204,
+    "volume24h": 37932532,
+    "high24h": 0.329311,
+    "low24h": 0.289849,
+    "priceChange24h": 0.60996,
+    "priceChange7d": 48.72732,
+    "priceChange30d": 48.73283,
     "priceChange1y": 0,
     "ath": 0.400363,
-    "athChangePercentage": -22.68604,
+    "athChangePercentage": -22.36576,
     "athDate": "2025-08-24T23:01:33.559Z",
     "atl": 0.067185,
     "atlDate": "2026-02-06T08:57:13.670Z",
     "circulatingSupply": 577156141,
     "totalSupply": 680000000,
     "maxSupply": null,
-    "fdv": 159521476
+    "fdv": 211701076
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-06T08:34:02.997Z",
-  "lastMarketUpdate": "2026-05-09T18:38:34.114Z"
+  "fetchedAt": "2026-05-10T19:58:03.340Z"
 }
