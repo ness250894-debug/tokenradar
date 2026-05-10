@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { SOCIAL } from "@/lib/config";
+import { EmailIcon, InstagramIcon, TelegramIcon, ThreadsIcon, XIcon } from "@/components/SocialIcons";
 
 /**
  * Contact page — E-E-A-T signal with a functional contact form.
@@ -13,7 +15,13 @@ const FORM_ENDPOINT = "https://formspree.io/f/mnjgzrjr";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-import { XIcon, TelegramIcon, EmailIcon } from "@/components/SocialIcons";
+const CONTACT_LINKS = [
+  { label: "Email", href: "mailto:contact@tokenradar.co", text: "contact@tokenradar.co", Icon: EmailIcon },
+  { label: "X", href: SOCIAL.xUrl, text: "@TokenRadarCo", Icon: XIcon },
+  { label: "Telegram", href: SOCIAL.telegramUrl, text: "@TokenRadarCo", Icon: TelegramIcon },
+  { label: "Threads", href: SOCIAL.threadsUrl, text: "@tokenradarco", Icon: ThreadsIcon },
+  { label: "Instagram", href: SOCIAL.instagramUrl, text: "@tokenradarco", Icon: InstagramIcon },
+] as const;
 
 export default function ContactPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -71,46 +79,22 @@ export default function ContactPage() {
 
           {/* Contact Info Cards */}
           <div className="stats-grid" style={{ marginTop: "var(--space-xl)", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))" }}>
-            <div className="stat-card">
-              <div style={{ marginBottom: "var(--space-sm)", display: "flex", justifyContent: "center" }}>
-                <EmailIcon />
+            {CONTACT_LINKS.map(({ label, href, text, Icon }) => (
+              <div className="stat-card" key={href}>
+                <div style={{ marginBottom: "var(--space-sm)", display: "flex", justifyContent: "center" }}>
+                  <Icon />
+                </div>
+                <div className="stat-label">{label}</div>
+                <a
+                  href={href}
+                  target={href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
+                >
+                  {text}
+                </a>
               </div>
-              <div className="stat-label">Email</div>
-              <a
-                href="mailto:contact@tokenradar.co"
-                style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
-              >
-                contact@tokenradar.co
-              </a>
-            </div>
-            <div className="stat-card">
-              <div style={{ marginBottom: "var(--space-sm)", display: "flex", justifyContent: "center" }}>
-                <XIcon />
-              </div>
-              <div className="stat-label">X (Twitter)</div>
-              <a
-                href="https://x.com/tokenradarco"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
-              >
-                @TokenRadarCo
-              </a>
-            </div>
-            <div className="stat-card">
-              <div style={{ marginBottom: "var(--space-sm)", display: "flex", justifyContent: "center" }}>
-                <TelegramIcon />
-              </div>
-              <div className="stat-label">Telegram</div>
-              <a
-                href="https://t.me/TokenRadarCo"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--accent-secondary)", fontSize: "var(--text-sm)" }}
-              >
-                @TokenRadarCo
-              </a>
-            </div>
+            ))}
           </div>
 
           {/* Contact Form */}
