@@ -336,6 +336,7 @@ function tokenIcon(mover: RenderableDailyMover, size = 118) {
         overflow: "hidden",
       }}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders this static image before Next can optimize it. */}
       <img
         src={mover.iconDataUrl}
         alt={mover.name}
