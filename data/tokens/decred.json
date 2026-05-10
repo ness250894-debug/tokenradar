@@ -21,35 +21,34 @@
     "explorer": "https://dcrdata.decred.org/"
   },
   "market": {
-    "price": 19.56,
-    "marketCap": 340732276,
-    "marketCapRank": 146,
-    "volume24h": 1184916,
-    "high24h": 27.51,
-    "low24h": 26.3,
-    "priceChange24h": 1.56036,
-    "priceChange7d": -6.04274,
-    "priceChange30d": 7.77167,
-    "priceChange1y": 129.84602,
+    "price": 19.68,
+    "marketCap": 342585639,
+    "marketCapRank": 150,
+    "volume24h": 1082487,
+    "high24h": 19.84,
+    "low24h": 19.16,
+    "priceChange24h": 0.7471,
+    "priceChange7d": 3.90592,
+    "priceChange30d": -13.26689,
+    "priceChange1y": 28.65605,
     "ath": 247.35,
-    "athChangePercentage": -92.0805,
+    "athChangePercentage": -92.02278,
     "athDate": "2021-04-17T00:41:14.790Z",
     "atl": 0.43154,
     "atlDate": "2016-12-26T00:00:00.000Z",
     "circulatingSupply": 17410067.52070478,
-    "totalSupply": 17410072.98905157,
+    "totalSupply": 17411774.1917379,
     "maxSupply": 21000000,
-    "fdv": 461141928
+    "fdv": 342619222
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 768,
-    "githubForks": 315,
-    "commits4Weeks": 59
+    "githubStars": 773,
+    "githubForks": 317,
+    "commits4Weeks": 25
   },
-  "fetchedAt": "2026-03-15T10:40:33.465Z",
-  "lastMarketUpdate": "2026-05-09T18:38:34.103Z"
+  "fetchedAt": "2026-05-10T19:57:12.993Z"
 }

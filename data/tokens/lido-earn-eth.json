@@ -3,26 +3,47 @@
   "symbol": "earneth",
   "name": "Lido Earn ETH",
   "description": "EarnETH: Blue-chip DeFi rewards made simple.\nEarnETH deploys capital across established DeFi protocols including Aave, Morpho, Pendle, Gearbox, Maple and more.\n\nRather than relying on a single strategy provider, EarnETH aggregates multiple providers and dynamically allocates assets towards performing opportunities as conditions evolve. \n\nEarnETH accepts ETH, WETH, and (w)stETH. Deposit to receive earnETH, earning daily, auto-compounded DeFi rewards. Alternatively, you can deposit existing Lido Earn tokens - GG/DVstETH/strETH - into the vault. \n\nAccess blue-chip DeFi-based rewards with automatic compounding and optimal capital efficiency. Simple earning. \n\nGet started with EarnETH here: stake.lido.fi/earn/eth",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Yield-Bearing Tokens"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://stake.lido.fi/earn/eth/deposit",
+    "github": "https://github.com/lidofinance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xBBFC8683C8fE8cF73777feDE7ab9574935fea0A4"
+  },
   "market": {
-    "price": 2347.01,
-    "marketCap": 253751822,
-    "marketCapRank": 172,
-    "volume24h": 6818.25,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange24h": 0.75024,
-    "priceChange7d": -53.76007,
+    "price": 2377.38,
+    "marketCap": 257567416,
+    "marketCapRank": 171,
+    "volume24h": 2445.17,
+    "high24h": 2378.21,
+    "low24h": 2332.13,
+    "priceChange24h": 1.5439,
+    "priceChange7d": 1.4418,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 2430.25,
-    "athChangePercentage": -3.62382,
+    "athChangePercentage": -2.17554,
     "athDate": "2026-05-06T11:40:44.634Z",
     "atl": 1093.28,
     "atlDate": "2026-04-19T19:20:00.995Z",
-    "circulatingSupply": 108339.8725383066,
-    "totalSupply": 108339.8725383066,
+    "circulatingSupply": 108340.8712541798,
+    "totalSupply": 108340.8712541798,
     "maxSupply": null,
-    "fdv": 116811864
+    "fdv": 257567416
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.108Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:57:38.125Z"
 }

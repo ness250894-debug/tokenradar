@@ -3,19 +3,25 @@
   "symbol": "dusd",
   "name": "StandX DUSD",
   "market": {
-    "price": 0.999574,
-    "marketCap": 100504967,
-    "marketCapRank": 308,
-    "volume24h": 2546868,
-    "priceChange24h": 0.0376,
+    "price": 0.999112,
+    "marketCap": 100486060,
+    "marketCapRank": 313,
+    "volume24h": 461111,
+    "priceChange24h": -0.01863,
     "ath": 1.039,
-    "athChangePercentage": -3.85139,
+    "athChangePercentage": -3.87928,
     "athDate": "2025-11-21T07:46:31.680Z",
     "atl": 0.96504,
     "atlDate": "2025-11-21T07:36:33.698Z",
-    "circulatingSupply": 100537963.922659,
-    "totalSupply": 100543289.460456,
-    "maxSupply": null
+    "circulatingSupply": 100574735.901121,
+    "totalSupply": 100574735.901121,
+    "maxSupply": null,
+    "high24h": 1,
+    "low24h": 0.996727,
+    "priceChange7d": -0.007186603592121482,
+    "priceChange30d": -0.08796995907484347,
+    "priceChange1y": 0,
+    "fdv": 100486060
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.133Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.866Z"
 }

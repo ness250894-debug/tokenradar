@@ -3,19 +3,25 @@
   "symbol": "qfi",
   "name": "Quantix Finance",
   "market": {
-    "price": 61.34,
-    "marketCap": 61352574,
-    "marketCapRank": 447,
-    "volume24h": 2292165,
-    "priceChange24h": 0.18826,
+    "price": 61.21,
+    "marketCap": 61159608,
+    "marketCapRank": 456,
+    "volume24h": 1824027,
+    "priceChange24h": -0.03039,
     "ath": 109.6,
-    "athChangePercentage": -44.03732,
+    "athChangePercentage": -44.10606,
     "athDate": "2025-07-13T20:35:36.383Z",
     "atl": 0.228366,
     "atlDate": "2024-03-19T10:08:23.098Z",
     "circulatingSupply": 1000000,
     "totalSupply": 10000000,
-    "maxSupply": 10000000
+    "maxSupply": 10000000,
+    "high24h": 61.42,
+    "low24h": 60.64,
+    "priceChange7d": 8.82799294066221,
+    "priceChange30d": -2.9826113544562736,
+    "priceChange1y": -31.759507562764856,
+    "fdv": 611596078
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.158Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.893Z"
 }

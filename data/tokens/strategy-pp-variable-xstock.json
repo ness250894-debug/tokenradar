@@ -3,19 +3,25 @@
   "symbol": "strcx",
   "name": "Strategy PP Variable xStock",
   "market": {
-    "price": 103.6,
-    "marketCap": 85037953,
-    "marketCapRank": 345,
-    "volume24h": 42324,
-    "priceChange24h": 1.02178,
+    "price": 103.51,
+    "marketCap": 84795419,
+    "marketCapRank": 356,
+    "volume24h": 79099,
+    "priceChange24h": -0.08768,
     "ath": 110.13,
-    "athChangePercentage": -6.08472,
+    "athChangePercentage": -6.00504,
     "athDate": "2026-03-22T13:35:15.433Z",
     "atl": 94.51,
     "atlDate": "2026-02-05T22:57:20.964Z",
     "circulatingSupply": 820794.0293244356,
     "totalSupply": 1771592.035690892,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 103.68,
+    "low24h": 103.31,
+    "priceChange7d": -1.750591675340444,
+    "priceChange30d": 2.6071472423873323,
+    "priceChange1y": 0,
+    "fdv": 183021421
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.140Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.874Z"
 }

@@ -3,26 +3,49 @@
   "symbol": "genius",
   "name": "Genius",
   "description": "Genius Terminal is the first private and final onchain terminal.\n\nIt’s what comes after aggregators, intents bridges, and wallet extensions — a purpose-built trading OS for professional users who want DeFi without DeFi UX.",
+  "categories": [
+    "Analytics",
+    "BNB Chain Ecosystem",
+    "Perpetuals",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tradegenius.com/home",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x1F12B85aAC097E43Aa1555b2881E98a51090e9A6"
+  },
   "market": {
-    "price": 0.58202,
-    "marketCap": 195191195,
-    "marketCapRank": 197,
-    "volume24h": 10265471,
-    "high24h": 0.679133,
-    "low24h": 0.523502,
-    "priceChange24h": 5.28528,
-    "priceChange7d": 0,
+    "price": 0.571376,
+    "marketCap": 191527550,
+    "marketCapRank": 199,
+    "volume24h": 8300174,
+    "high24h": 0.60282,
+    "low24h": 0.560381,
+    "priceChange24h": -1.10641,
+    "priceChange7d": -6.13299,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.937796,
-    "athChangePercentage": -37.44233,
+    "athChangePercentage": -38.78922,
     "athDate": "2026-04-18T11:05:28.403Z",
     "atl": 0.194768,
     "atlDate": "2026-04-13T15:35:53.410Z",
     "circulatingSupply": 335377059,
     "totalSupply": 953973324.2985383,
     "maxSupply": 1000000000,
-    "fdv": 603655275
+    "fdv": 544796278
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.113Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:57:50.732Z"
 }

@@ -3,19 +3,25 @@
   "symbol": "xdai",
   "name": "XDAI",
   "market": {
-    "price": 0.999896,
-    "marketCap": 83640292,
-    "marketCapRank": 355,
-    "volume24h": 476474,
-    "priceChange24h": -0.0033,
+    "price": 0.999865,
+    "marketCap": 83367545,
+    "marketCapRank": 359,
+    "volume24h": 86948,
+    "priceChange24h": 0.00722,
     "ath": 9.92,
-    "athChangePercentage": -89.91797,
+    "athChangePercentage": -89.91773,
     "athDate": "2023-01-29T16:11:18.116Z",
     "atl": 0.17845,
     "atlDate": "2022-09-09T06:52:09.705Z",
-    "circulatingSupply": 83649029.4187481,
-    "totalSupply": 83649435.07853495,
-    "maxSupply": null
+    "circulatingSupply": 83372868.75543657,
+    "totalSupply": 83375412.60915524,
+    "maxSupply": null,
+    "high24h": 1,
+    "low24h": 0.999256,
+    "priceChange7d": -0.013689872691786472,
+    "priceChange30d": -0.023564056115288542,
+    "priceChange1y": -0.10711049322922946,
+    "fdv": 83370089
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.142Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.875Z"
 }

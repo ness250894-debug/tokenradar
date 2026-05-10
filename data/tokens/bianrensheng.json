@@ -3,26 +3,49 @@
   "symbol": "币安人生",
   "name": "币安人生 (BinanceLife)",
   "description": "",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "Binance Alpha Spotlight",
+    "Chinese Meme",
+    "Four.meme Ecosystem (BNB Memes)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x924fa68a0fc644485b8df8abfa0a41c2e7744444"
+  },
   "market": {
-    "price": 0.381018,
-    "marketCap": 380745525,
-    "marketCapRank": 130,
-    "volume24h": 18797028,
-    "high24h": 0.147383,
-    "low24h": 0.11195,
-    "priceChange24h": -1.19204,
-    "priceChange7d": 139.02863,
-    "priceChange30d": 116.0838,
+    "price": 0.448322,
+    "marketCap": 448322026,
+    "marketCapRank": 117,
+    "volume24h": 49947263,
+    "high24h": 0.471156,
+    "low24h": 0.377319,
+    "priceChange24h": 16.3143,
+    "priceChange7d": 14.11961,
+    "priceChange30d": 297.03296,
     "priceChange1y": 0,
     "ath": 0.555956,
-    "athChangePercentage": -31.68989,
+    "athChangePercentage": -19.71538,
     "athDate": "2026-04-18T07:30:47.095Z",
     "atl": 0.03843448,
     "atlDate": "2026-03-29T00:45:47.059Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 138239724
+    "fdv": 448322026
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.100Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:56:47.735Z"
 }

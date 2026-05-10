@@ -3,19 +3,25 @@
   "symbol": "feusd",
   "name": "Felix feUSD",
   "market": {
-    "price": 0.995573,
-    "marketCap": 74692317,
-    "marketCapRank": 384,
-    "volume24h": 199361,
-    "priceChange24h": 0.00583,
+    "price": 0.99532,
+    "marketCap": 74694014,
+    "marketCapRank": 393,
+    "volume24h": 163220,
+    "priceChange24h": -0.09473,
     "ath": 1.067,
-    "athChangePercentage": -6.74084,
+    "athChangePercentage": -6.52472,
     "athDate": "2025-04-02T15:35:18.907Z",
     "atl": 0.705908,
     "atlDate": "2025-10-10T21:28:16.651Z",
     "circulatingSupply": 75004069,
-    "totalSupply": 8902767654.565609,
-    "maxSupply": null
+    "totalSupply": 8902751684.436523,
+    "maxSupply": null,
+    "high24h": 0.999714,
+    "low24h": 0.991853,
+    "priceChange7d": 0.18761881349518617,
+    "priceChange30d": 0.06394180662471927,
+    "priceChange1y": 0.55006774595576,
+    "fdv": 8865949151
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.147Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.881Z"
 }

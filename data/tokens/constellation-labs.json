@@ -18,25 +18,25 @@
     "explorer": "https://basescan.org/token/0x74299a718b2c44483a27325d7725f0b2646de3b1"
   },
   "market": {
-    "price": 0.01708513,
-    "marketCap": 65856919,
-    "marketCapRank": 420,
-    "volume24h": 2251407,
-    "high24h": 0.02166024,
+    "price": 0.01838277,
+    "marketCap": 70822359,
+    "marketCapRank": 409,
+    "volume24h": 1337043,
+    "high24h": 0.01845975,
     "low24h": 0.01631878,
-    "priceChange24h": -15.07893,
-    "priceChange7d": 108.95193,
-    "priceChange30d": 94.10132,
-    "priceChange1y": -59.58914,
+    "priceChange24h": 0.14011,
+    "priceChange7d": 123.80701418731354,
+    "priceChange30d": 109.05489947546549,
+    "priceChange1y": -57.47346086224545,
     "ath": 0.451761,
-    "athChangePercentage": -96.24052,
+    "athChangePercentage": -95.98153,
     "athDate": "2021-08-25T23:30:00.311Z",
     "atl": 0.00110189,
     "atlDate": "2019-03-09T00:00:00.000Z",
-    "circulatingSupply": 3858139521.190636,
-    "totalSupply": 3858139521.190636,
+    "circulatingSupply": 3858327349.673627,
+    "totalSupply": 3858327349.673627,
     "maxSupply": null,
-    "fdv": 65856919
+    "fdv": 70822359
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 34,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T08:14:15.440Z"
+  "fetchedAt": "2026-05-10T08:14:15.440Z",
+  "lastMarketUpdate": "2026-05-10T19:56:28.884Z"
 }

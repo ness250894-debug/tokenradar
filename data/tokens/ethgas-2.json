@@ -3,26 +3,49 @@
   "symbol": "gwei",
   "name": "ETHGas",
   "description": "ETHGas is a Blockspace Infrastructure protocol that decomposes Ethereum blockspace into tradable, composable block units, enabling real‑time block production and laying the foundation for a crypto‑native commodities market for gas. By restructuring gas as a financial primitive, ETHGas unlocks:\n- Faster block times (sub‑second confirmations vs 12‑second Ethereum blocks) through real‑time sequencing.\n- A futures/forward market for gas, enabling the creation of a native Ethereum yield curve.\n- Gas abstraction for end users via the Open Gas Initiative, removing gas volatility and shifting costs to protocols.\n- Commoditization of blockspace, similar to energy or metals markets in traditional finance.",
+  "categories": [
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Derivatives",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.ethgas.com/",
+    "github": "https://github.com/ethgas-developer/ethgas-preconf-commit-boost-module",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x2798b1cC5A993085E8A9D46e80499F1B63f42204"
+  },
   "market": {
-    "price": 0.126525,
-    "marketCap": 265678357,
-    "marketCapRank": 167,
-    "volume24h": 5061152,
-    "high24h": 0.126852,
-    "low24h": 0.100585,
-    "priceChange24h": -2.97975,
-    "priceChange7d": 57.42235,
-    "priceChange30d": 127.74159,
+    "price": 0.124591,
+    "marketCap": 261826538,
+    "marketCapRank": 169,
+    "volume24h": 5951609,
+    "high24h": 0.129158,
+    "low24h": 0.120126,
+    "priceChange24h": -2.16725,
+    "priceChange7d": 14.16429,
+    "priceChange30d": 138.81233,
     "priceChange1y": 0,
     "ath": 0.143335,
-    "athChangePercentage": -11.34379,
+    "athChangePercentage": -13.0937,
     "athDate": "2026-05-06T07:55:29.570Z",
     "atl": 0.01667836,
     "atlDate": "2026-01-21T13:01:13.968Z",
     "circulatingSupply": 2100000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 1032851048
+    "fdv": 1246793039
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.107Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 9,
+    "githubForks": 9,
+    "commits4Weeks": 5
+  },
+  "fetchedAt": "2026-05-10T19:57:31.823Z"
 }

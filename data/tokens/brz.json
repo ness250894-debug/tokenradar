@@ -3,19 +3,25 @@
   "symbol": "brz",
   "name": "Brazilian Digital",
   "market": {
-    "price": 0.203344,
-    "marketCap": 54188644,
-    "marketCapRank": 477,
-    "volume24h": 100858,
-    "priceChange24h": 0.01119,
+    "price": 0.203123,
+    "marketCap": 54131542,
+    "marketCapRank": 487,
+    "volume24h": 38762,
+    "priceChange24h": -0.13322,
     "ath": 9.99,
-    "athChangePercentage": -97.96387,
+    "athChangePercentage": -97.96554,
     "athDate": "2023-10-29T23:35:00.443Z",
     "atl": 0.00196567,
     "atlDate": "2026-03-07T07:20:14.096Z",
     "circulatingSupply": 266491707.2545318,
     "totalSupply": 266491707.2545318,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 0.203417,
+    "low24h": 0.203063,
+    "priceChange7d": 1.0374609946529274,
+    "priceChange30d": 2.216954433043046,
+    "priceChange1y": 15.905896903901276,
+    "fdv": 54131542
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.163Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.899Z"
 }

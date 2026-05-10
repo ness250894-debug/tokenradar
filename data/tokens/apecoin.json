@@ -2,20 +2,64 @@
   "id": "apecoin",
   "symbol": "ape",
   "name": "ApeCoin",
+  "description": "APE fuels culture. Backed by the best club in the world and hundreds of thousands of holders worldwide, it’s the token for digital and IRL communities, builders, creators, collectors, gamers, and beyond.\n\nAPE is the native gas token of ApeChain and is available across multiple ecosystems including Ethereum, Arbitrum, Solana and HyperLiquid.z\n\nApeCoin's mission is is to supercharge its ecosystem by supporting high-quality builders &amp; reinforcing 3 core pillars: ApeChain, Bored Ape Yacht Club, and Otherside.",
+  "categories": [
+    "Gaming (GameFi)",
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Animoca Brands Portfolio",
+    "Gaming Blockchains",
+    "Gaming Governance Token",
+    "Gaming Utility Token",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "ApeChain Ecosystem",
+    "Airdropped Tokens by NFT Projects",
+    "HyperEVM Ecosystem",
+    "Coinbase 50 Index",
+    "Governance",
+    "IP Meme",
+    "Monad Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://apechain.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x4d224452801aced8b2f0aebe155379bb5d594381"
+  },
   "market": {
-    "price": 0.161345,
-    "marketCap": 161340844,
-    "marketCapRank": 216,
-    "volume24h": 28430429,
-    "priceChange24h": -2.86136,
+    "price": 0.159458,
+    "marketCap": 159535117,
+    "marketCapRank": 223,
+    "volume24h": 21015442,
+    "high24h": 0.162928,
+    "low24h": 0.156586,
+    "priceChange24h": -1.25263,
+    "priceChange7d": -5.44264,
+    "priceChange30d": 75.96123,
+    "priceChange1y": -75.53438,
     "ath": 26.7,
-    "athChangePercentage": -99.39715,
+    "athChangePercentage": -99.4006,
     "athDate": "2022-04-28T21:44:21.164Z",
     "atl": 0.08172,
     "atlDate": "2026-04-02T21:56:48.220Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 159535117
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.116Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:58:15.928Z"
 }

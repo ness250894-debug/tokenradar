@@ -2,20 +2,47 @@
   "id": "skyai",
   "symbol": "skyai",
   "name": "SkyAI",
+  "description": "SkyAI is an all-in-one AI ecosystem powered by MCP, designed to seamlessly integrate intelligent solutions across industries.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://skyai.pro/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x92aa03137385F18539301349dcfC9EbC923fFb10"
+  },
   "market": {
-    "price": 0.609485,
-    "marketCap": 610418100,
-    "marketCapRank": 96,
-    "volume24h": 74309780,
-    "priceChange24h": 2.12605,
+    "price": 0.536637,
+    "marketCap": 535678288,
+    "marketCapRank": 106,
+    "volume24h": 37253779,
+    "high24h": 0.630477,
+    "low24h": 0.529745,
+    "priceChange24h": -12.48373,
+    "priceChange7d": 19.63584,
+    "priceChange30d": 645.11751,
+    "priceChange1y": 1039.75023,
     "ath": 0.854253,
-    "athChangePercentage": -28.85166,
+    "athChangePercentage": -37.32907,
     "athDate": "2026-05-06T05:10:24.313Z",
     "atl": 0.01433298,
     "atlDate": "2025-10-11T01:55:44.099Z",
     "circulatingSupply": 998384107.7857016,
     "totalSupply": 998384107.7857016,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 535678288
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.094Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T19:56:41.438Z"
 }

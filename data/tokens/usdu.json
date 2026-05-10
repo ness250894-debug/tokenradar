@@ -3,19 +3,25 @@
   "symbol": "usdu",
   "name": "USDu",
   "market": {
-    "price": 0.999553,
-    "marketCap": 90684271,
-    "marketCapRank": 325,
-    "volume24h": 42548,
-    "priceChange24h": 0.01509,
+    "price": 0.998604,
+    "marketCap": 91253188,
+    "marketCapRank": 329,
+    "volume24h": 313841,
+    "priceChange24h": -0.15549,
     "ath": 1.018,
-    "athChangePercentage": -1.85639,
+    "athChangePercentage": -1.94913,
     "athDate": "2025-12-06T20:30:09.576Z",
     "atl": 0.957425,
     "atlDate": "2026-02-06T06:40:56.133Z",
-    "circulatingSupply": 90717869.51980726,
-    "totalSupply": 90717888.23651241,
-    "maxSupply": null
+    "circulatingSupply": 91380428.81859365,
+    "totalSupply": 91374579.90413737,
+    "maxSupply": null,
+    "high24h": 1.002,
+    "low24h": 0.998405,
+    "priceChange7d": -0.14070844162203291,
+    "priceChange30d": -0.14688921739520117,
+    "priceChange1y": 0,
+    "fdv": 91247348
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.136Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.869Z"
 }

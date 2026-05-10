@@ -3,19 +3,25 @@
   "symbol": "pusd",
   "name": "Palm USD",
   "market": {
-    "price": 0.999708,
-    "marketCap": 101256122,
-    "marketCapRank": 307,
-    "volume24h": 116101,
-    "priceChange24h": 0.0588,
+    "price": 0.99967,
+    "marketCap": 101252467,
+    "marketCapRank": 312,
+    "volume24h": 127157,
+    "priceChange24h": -0.00684,
     "ath": 1.001,
-    "athChangePercentage": -0.0898,
+    "athChangePercentage": -0.143,
     "athDate": "2026-04-14T14:55:03.176Z",
     "atl": 0.998331,
     "atlDate": "2026-03-31T21:27:27.168Z",
     "circulatingSupply": 101285937.115771,
     "totalSupply": 2826036007.115771,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 0.999744,
+    "low24h": 0.999075,
+    "priceChange7d": 0.030047966955740496,
+    "priceChange30d": -0.03925250562143977,
+    "priceChange1y": 0,
+    "fdv": 2825102128
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.133Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.865Z"
 }

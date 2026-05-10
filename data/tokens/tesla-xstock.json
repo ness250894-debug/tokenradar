@@ -3,19 +3,25 @@
   "symbol": "tslax",
   "name": "Tesla xStock",
   "market": {
-    "price": 428.13,
-    "marketCap": 60348066,
-    "marketCapRank": 452,
-    "volume24h": 4554681,
-    "priceChange24h": -0.1106,
+    "price": 429.04,
+    "marketCap": 60488298,
+    "marketCapRank": 461,
+    "volume24h": 4336271,
+    "priceChange24h": 0.23267,
     "ath": 496.55,
-    "athChangePercentage": -13.81639,
+    "athChangePercentage": -13.57057,
     "athDate": "2025-12-22T14:58:38.605Z",
     "atl": 292.26,
     "atlDate": "2025-07-07T14:00:30.602Z",
-    "circulatingSupply": 140953.5568342601,
-    "totalSupply": 426228.3517191,
-    "maxSupply": null
+    "circulatingSupply": 140953.5591585401,
+    "totalSupply": 426228.35170853,
+    "maxSupply": null,
+    "high24h": 429.77,
+    "low24h": 427.83,
+    "priceChange7d": 8.912358430887023,
+    "priceChange30d": 24.13563538359284,
+    "priceChange1y": 0,
+    "fdv": 182910085
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.158Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.894Z"
 }

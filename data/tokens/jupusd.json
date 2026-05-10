@@ -3,19 +3,25 @@
   "symbol": "jupusd",
   "name": "JupUSD",
   "market": {
-    "price": 0.99963,
-    "marketCap": 62499958,
-    "marketCapRank": 438,
-    "volume24h": 2685613,
-    "priceChange24h": -0.0094,
+    "price": 0.999747,
+    "marketCap": 62497163,
+    "marketCapRank": 446,
+    "volume24h": 3826374,
+    "priceChange24h": -0.03634,
     "ath": 1.021,
-    "athChangePercentage": -2.08381,
+    "athChangePercentage": -2.0313,
     "athDate": "2026-04-26T05:05:07.328Z",
     "atl": 0.885214,
     "atlDate": "2026-03-22T21:50:19.247Z",
-    "circulatingSupply": 62523114.606459,
-    "totalSupply": 62523114.606459,
-    "maxSupply": null
+    "circulatingSupply": 62523114.604397,
+    "totalSupply": 62523114.604397,
+    "maxSupply": null,
+    "high24h": 1.001,
+    "low24h": 0.998701,
+    "priceChange7d": -0.05909108047515488,
+    "priceChange30d": -0.08210089093518934,
+    "priceChange1y": 0,
+    "fdv": 62497163
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.156Z"
+  "lastMarketUpdate": "2026-05-10T19:56:28.891Z"
 }
