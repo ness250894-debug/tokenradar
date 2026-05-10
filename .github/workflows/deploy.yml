@@ -22,7 +22,7 @@ on:
         default: 'main'
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22"
 
 jobs:
   deploy:
@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         if: steps.cache-npm.outputs.cache-hit != 'true'
