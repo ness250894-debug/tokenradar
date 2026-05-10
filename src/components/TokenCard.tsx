@@ -6,6 +6,7 @@ import { TrendingUp, TrendingDown, DollarSign, ShieldAlert } from "lucide-react"
 import { TokenTickerPill } from "./TokenTickerPill";
 import { CardGlare } from "./CardGlare";
 import { slugify } from "@/lib/shared-utils";
+import { trackEvent } from "@/lib/analytics";
 
 export interface TokenCardData {
   id: string;
@@ -39,6 +40,11 @@ export function TokenCard({ token }: TokenCardProps) {
   const handleCategoryClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    trackEvent("category_click", {
+      category: token.category,
+      token_id: token.id,
+      page_path: window.location.pathname,
+    });
     router.push(`/category/${slugify(token.category)}`);
   };
 

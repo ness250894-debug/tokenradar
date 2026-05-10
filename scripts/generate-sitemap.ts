@@ -7,6 +7,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
+import { getSiteUrl, isTokenOverviewIndexable } from "../src/lib/seo";
 import { writeFileAtomicSync } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -14,13 +15,11 @@ const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const GLOSSARY_FILE = path.join(DATA_DIR, "glossary.json");
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+const SITE_URL = getSiteUrl();
 
 interface SitemapEntry {
   url: string;
   lastmod: string;
-  changefreq: string;
-  priority: string;
 }
 
 interface GlossaryItem {
@@ -32,6 +31,15 @@ function toDateOnly(value: string | undefined, fallback: string): string {
   if (!value) return fallback;
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? fallback : date.toISOString().split("T")[0];
+}
+
+function getSourceDate(relativePath: string, fallback: string): string {
+  const filePath = path.resolve(__dirname, "..", relativePath);
+  try {
+    return fs.statSync(filePath).mtime.toISOString().split("T")[0];
+  } catch {
+    return fallback;
+  }
 }
 
 async function getTokenDate(tokenId: string): Promise<string | null> {
@@ -66,8 +74,6 @@ function generateXml(entries: SitemapEntry[]): string {
     .map((e) => `  <url>
     <loc>${SITE_URL}${e.url}</loc>
     <lastmod>${e.lastmod}</lastmod>
-    <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>
   </url>`)
     .join("\n");
 
@@ -95,28 +101,29 @@ async function main() {
 
   // 1. Sitemap: Main (Static + Categories + TGEs)
   const mainEntries: SitemapEntry[] = [
-    { url: "/", lastmod: now, changefreq: "daily", priority: "1.0" },
-    { url: "/upcoming", lastmod: now, changefreq: "daily", priority: "0.9" },
-    { url: "/learn", lastmod: now, changefreq: "weekly", priority: "0.8" },
-    { url: "/best-crypto-hardware-wallets", lastmod: now, changefreq: "weekly", priority: "0.8" },
-    { url: "/crypto-tax-guide", lastmod: now, changefreq: "weekly", priority: "0.8" },
-    { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.5" },
-    { url: "/contact", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/privacy", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/terms", lastmod: now, changefreq: "yearly", priority: "0.3" },
-    { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/", lastmod: getSourceDate("src/app/page.tsx", now) },
+    { url: "/tokens", lastmod: getSourceDate("data/_registry.json", now) },
+    { url: "/upcoming", lastmod: getSourceDate("data/upcoming-tges.json", now) },
+    { url: "/learn", lastmod: getSourceDate("data/glossary.json", now) },
+    { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", now) },
+    { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx", now) },
+    { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx", now) },
+    { url: "/contact", lastmod: getSourceDate("src/app/contact/page.tsx", now) },
+    { url: "/privacy", lastmod: getSourceDate("src/app/privacy/page.tsx", now) },
+    { url: "/terms", lastmod: getSourceDate("src/app/terms/page.tsx", now) },
+    { url: "/disclaimer", lastmod: getSourceDate("src/app/disclaimer/page.tsx", now) },
   ];
 
   const categories = await getAllCategories();
   categories.forEach(cat => {
-    mainEntries.push({ url: `/category/${cat.id}`, lastmod: now, changefreq: "daily", priority: "0.8" });
+    mainEntries.push({ url: `/category/${cat.id}`, lastmod: now });
   });
 
   const tges = await getUpcomingTGEsLocal();
   tges.forEach(tge => {
     const date = toDateOnly(tge.discoveredAt, now);
     if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
-      mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date, changefreq: "weekly", priority: "0.8" });
+      mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date });
     }
   });
 
@@ -125,8 +132,6 @@ async function main() {
     mainEntries.push({
       url: `/learn/${item.slug}`,
       lastmod: toDateOnly(item.updatedAt, now),
-      changefreq: "monthly",
-      priority: "0.6",
     });
   });
 
@@ -142,8 +147,8 @@ async function main() {
 
     // Filter thin content (SEO safety)
     const overview = await getArticle(id, "overview");
-    if (detail.market.volume24h > 100000 || (overview && overview.wordCount > 500)) {
-      tokenEntries.push({ url: `/${id}`, lastmod: tokenDate, changefreq: "daily", priority: "0.9" });
+    if (isTokenOverviewIndexable(detail, overview)) {
+      tokenEntries.push({ url: `/${id}`, lastmod: tokenDate });
     }
 
     const types = ["price-prediction", "how-to-buy"];
@@ -151,13 +156,13 @@ async function main() {
       const art = await getArticle(id, type);
       if (art) {
         const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
-        tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate, changefreq: "weekly", priority: "0.7" });
+        tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate });
       }
     }
 
     // Static Technical Guides (no .json artifact needed)
     if (pilotIds.has(id)) {
-      tokenEntries.push({ url: `/${id}/transfer-to-ledger`, lastmod: tokenDate, changefreq: "monthly", priority: "0.8" });
+      tokenEntries.push({ url: `/${id}/transfer-to-ledger`, lastmod: tokenDate });
     }
   }
 

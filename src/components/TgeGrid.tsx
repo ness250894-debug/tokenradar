@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Flame, Calendar, Rocket, ExternalLink } from "lucide-react";
 import { type UpcomingTge } from "@/lib/content-loader";
 import { CardGlare } from "./CardGlare";
+import { trackEvent } from "@/lib/analytics";
 
 const TGES_PER_PAGE = 6;
 
@@ -24,7 +25,31 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
     );
   }, [tges, searchQuery]);
 
-  const handleLoadMore = () => setVisibleCount((prev) => prev + TGES_PER_PAGE);
+  useEffect(() => {
+    const term = searchQuery.trim();
+    if (term.length < 2) return;
+
+    const timer = window.setTimeout(() => {
+      trackEvent("site_search", {
+        search_area: "upcoming",
+        search_term: term,
+        results_count: filteredTges.length,
+        page_path: window.location.pathname,
+      });
+    }, 600);
+
+    return () => window.clearTimeout(timer);
+  }, [filteredTges.length, searchQuery]);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + TGES_PER_PAGE);
+    trackEvent("load_more", {
+      list_name: "upcoming",
+      visible_count: Math.min(visibleCount + TGES_PER_PAGE, filteredTges.length),
+      total_count: filteredTges.length,
+      page_path: window.location.pathname,
+    });
+  };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setVisibleCount(TGES_PER_PAGE);

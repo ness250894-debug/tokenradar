@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { type TokenCardData } from "@/components/TokenCard";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { getAllTokens, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
@@ -8,6 +9,12 @@ import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
 import { HackerText } from "@/components/HackerText";
 import { Activity, FileText, Clock, Database, ShieldCheck, Bot, Calculator, Zap } from "lucide-react";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default async function HomePage() {
   const allTokensList = await getAllTokens();

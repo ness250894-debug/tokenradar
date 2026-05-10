@@ -8,7 +8,7 @@ import { HackerText } from "./HackerText";
 import { Activity, Clock, BookOpen, ShieldCheck, Calculator, HelpCircle, Info, FileText, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Tokens", href: "/#tokens", icon: Activity, color: "var(--accent-primary)" },
+  { name: "Tokens", href: "/tokens", icon: Activity, color: "var(--accent-primary)" },
   { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "var(--green)", icon: ShieldCheck, color: "var(--green)" },
   { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "var(--accent-secondary)", icon: Calculator, color: "var(--accent-secondary)" },
   { name: "Upcoming", href: "/upcoming", icon: Clock, color: "var(--accent-primary)" },
@@ -62,7 +62,7 @@ export function Navigation() {
         <ul className={`nav-links ${isOpen ? "open" : ""}`} id="primary-nav-links">
           {NAV_LINKS.map((link) => {
             const Icon = link.icon;
-            const isActive = link.href.startsWith("/#") ? pathname === "/" : pathname === link.href;
+            const isActive = pathname === link.href;
             return (
               <li key={link.href} className="nav-link-item">
                 <Link

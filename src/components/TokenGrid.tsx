@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import { trackEvent } from "@/lib/analytics";
 
 interface TokenGridProps {
   tokens: TokenCardData[];
@@ -25,8 +26,30 @@ export function TokenGrid({ tokens }: TokenGridProps) {
     );
   }, [tokens, searchQuery]);
 
+  useEffect(() => {
+    const term = searchQuery.trim();
+    if (term.length < 2) return;
+
+    const timer = window.setTimeout(() => {
+      trackEvent("site_search", {
+        search_area: "tokens",
+        search_term: term,
+        results_count: filteredTokens.length,
+        page_path: window.location.pathname,
+      });
+    }, 600);
+
+    return () => window.clearTimeout(timer);
+  }, [filteredTokens.length, searchQuery]);
+
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + TOKENS_PER_PAGE);
+    trackEvent("load_more", {
+      list_name: "tokens",
+      visible_count: Math.min(visibleCount + TOKENS_PER_PAGE, filteredTokens.length),
+      total_count: filteredTokens.length,
+      page_path: window.location.pathname,
+    });
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

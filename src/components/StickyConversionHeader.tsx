@@ -84,6 +84,8 @@ export function StickyConversionHeader({
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
+            data-analytics-id="sticky-conversion-header"
+            data-analytics-label={`${symbol} ${actionText}`}
             style={{ padding: "0.4rem 1rem", fontSize: "0.85rem", whiteSpace: "nowrap" }}
           >
             <Bell size={14} style={{ marginRight: "0.4rem" }} />

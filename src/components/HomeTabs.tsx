@@ -5,6 +5,7 @@ import { TokenGrid } from "./TokenGrid";
 import { TgeGrid } from "./TgeGrid";
 import { type TokenCardData } from "./TokenCard";
 import { type UpcomingTge } from "@/lib/content-loader";
+import { trackEvent } from "@/lib/analytics";
 
 import { TrendingUp, Rocket } from "lucide-react";
 
@@ -15,6 +16,13 @@ interface HomeTabsProps {
 
 export function HomeTabs({ trackedTokens, upcomingTges }: HomeTabsProps) {
   const [activeTab, setActiveTab] = useState<"tracked" | "upcoming">("tracked");
+  const selectTab = (tab: "tracked" | "upcoming") => {
+    setActiveTab(tab);
+    trackEvent("tab_select", {
+      tab_name: tab,
+      page_path: window.location.pathname,
+    });
+  };
 
   return (
     <div className="container" style={{ marginTop: "var(--space-2xl)" }}>
@@ -26,14 +34,14 @@ export function HomeTabs({ trackedTokens, upcomingTges }: HomeTabsProps) {
             transform: activeTab === "tracked" ? "translateX(0)" : "translateX(100%)",
           }}
         />
-        <button className={`tab-btn ${activeTab === "tracked" ? "active" : ""}`} onClick={() => setActiveTab("tracked")}>
+        <button className={`tab-btn ${activeTab === "tracked" ? "active" : ""}`} onClick={() => selectTab("tracked")} data-analytics-id="home-tab-tracked">
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <TrendingUp size={18} style={{ color: activeTab === "tracked" ? "var(--accent-primary)" : "var(--text-muted)" }} />
             <span>Tracked Tokens</span>
           </div>
           <span className="badge badge-accent">{trackedTokens.length}</span>
         </button>
-        <button className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`} onClick={() => setActiveTab("upcoming")}>
+        <button className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`} onClick={() => selectTab("upcoming")} data-analytics-id="home-tab-upcoming">
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Rocket size={18} style={{ color: activeTab === "upcoming" ? "var(--accent-primary)" : "var(--text-muted)" }} />
             <span>Upcoming Launches</span>

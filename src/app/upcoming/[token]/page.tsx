@@ -7,6 +7,7 @@ import { LastUpdated } from "@/components/LastUpdated";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { CountUp } from "@/components/CountUp";
 import { ContentGate } from "@/components/ContentGate";
+import { canonicalPath } from "@/lib/seo";
 
 interface TgePageProps {
   params: Promise<{ token: string }>;
@@ -37,12 +38,14 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
 
   // If token has graduated and has a main tracked page, set canonical to it
   const tokenDetail = isReleased ? await getTokenDetail(tge.id) : null;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+  const canonical = tokenDetail ? canonicalPath(`/${tge.id}`) : canonicalPath(`/upcoming/${tge.id}`);
 
   return {
     title,
     description,
-    ...(tokenDetail ? { alternates: { canonical: `${siteUrl}/${tge.id}` } } : {}),
+    alternates: {
+      canonical,
+    },
   };
 }
 

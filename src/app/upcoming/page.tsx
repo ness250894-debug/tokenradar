@@ -12,6 +12,9 @@ import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 export const metadata = {
   title: "Upcoming Token Launches & TGEs",
   description: "Discover and track high-potential crypto projects planning imminent Token Generation Events (TGEs) and ICOs.",
+  alternates: {
+    canonical: "/upcoming",
+  },
 };
 
 export default async function UpcomingPage() {
@@ -58,7 +61,31 @@ export default async function UpcomingPage() {
             </div>
 
             {upcomingTges.length > 0 ? (
-              <TgeGrid tges={upcomingTges} />
+              <>
+                <TgeGrid tges={upcomingTges} />
+                <div style={{ marginTop: "var(--space-3xl)" }}>
+                  <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, marginBottom: "var(--space-md)" }}>
+                    All Launch Profiles
+                  </h3>
+                  <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "var(--space-sm)" }}>
+                    {upcomingTges.map((tge) => (
+                      <Link
+                        key={tge.id}
+                        href={`/upcoming/${tge.id}`}
+                        className="card"
+                        style={{ padding: "var(--space-sm) var(--space-md)", textDecoration: "none", color: "inherit" }}
+                      >
+                        <span style={{ display: "block", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {tge.name}
+                        </span>
+                        <span style={{ display: "block", marginTop: "2px", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+                          {tge.symbol.toUpperCase()} · {tge.status === "released" ? "Released" : "Upcoming"}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="card" style={{ textAlign: "center", padding: "var(--space-4xl) var(--space-xl)" }}>
                 <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>📡</div>

@@ -1,26 +1,25 @@
 import type { Metadata } from "next";
 
+const description = "TokenRadar privacy policy - how we collect, use, and protect your data.";
+
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description:
-    "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+  description,
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
     title: "Privacy Policy",
-    description:
-      "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+    description,
   },
   twitter: {
     title: "Privacy Policy",
-    description:
-      "TokenRadar privacy policy — how we collect, use, and protect your data. GDPR compliant.",
+    description,
   },
 };
 
 /**
- * GDPR-compliant privacy policy page.
+ * Privacy policy page.
  */
 export default function PrivacyPage() {
   return (
@@ -37,14 +36,15 @@ export default function PrivacyPage() {
           <h2>Data We Collect</h2>
           <p>
             TokenRadar is a static website. We do not require user registration
-            or collect personal data directly. However, the following third-party
-            services may collect anonymous data:
+            or collect account data directly. However, the following third-party
+            services may process usage data:
           </p>
           <ul>
             <li>
-              <strong>Analytics:</strong> We use privacy-focused analytics to
-              understand page views and traffic sources. No personally
-              identifiable information (PII) is collected.
+              <strong>Analytics:</strong> We use Google Analytics to understand
+              page views, traffic sources, and on-site interactions. Analytics
+              events are designed to avoid personally identifiable information
+              (PII).
             </li>
             <li>
               <strong>Google AdSense:</strong> If ads are displayed, Google may
@@ -64,9 +64,9 @@ export default function PrivacyPage() {
 
           <h2>Cookies</h2>
           <p>
-            We use essential cookies only for site functionality (e.g., cookie
-            consent preference). Third-party cookies from ad providers are
-            optional and require your consent via our cookie banner.
+            We do not require account cookies for site access. Google Analytics
+            and, if enabled, ad providers may use cookies or similar identifiers
+            according to their own policies.
           </p>
 
           <h2>Your Rights (GDPR)</h2>
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
           <ul>
             <li>Access any personal data we hold about you</li>
             <li>Request deletion of your data</li>
-            <li>Withdraw consent for non-essential cookies</li>
+            <li>Request information about analytics or advertising data handling</li>
             <li>Lodge a complaint with a supervisory authority</li>
           </ul>
 
