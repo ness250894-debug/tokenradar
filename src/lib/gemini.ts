@@ -1,6 +1,7 @@
 import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
+import { SOCIAL_PLATFORM_LIMITS } from "./config";
 
 export type AIResult = {
   content: string;
@@ -291,155 +292,403 @@ export interface MarketContext {
   sentimentScore?: number;
 }
 
-/**
- * Generate a detailed analysis for a token with multi-model fallback.
- * 
- * Strategy: Gemini 2.5 Flash (primary) -> Claude Haiku 4.5 (fallback)
- */
-export async function generateTokenSummary(
-  tokenName: string,
-  symbol: string,
-  description: string,
-  metrics: MarketContext = {},
-  maxChars: number = 800
-): Promise<string> {
-  const priceStr = metrics.price !== undefined
-    ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
-    : "N/A";
-  const changeStr = metrics.priceChange24h !== undefined
-    ? `${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`
-    : "N/A";
-  const mcapStr = metrics.marketCap
-    ? metrics.marketCap >= 1e9
-      ? `$${(metrics.marketCap / 1e9).toFixed(2)}B`
-      : `$${(metrics.marketCap / 1e6).toFixed(0)}M`
-    : "N/A";
-
-  const trendingSection = metrics.trendingContext
-    ? `\n    TRENDING CONTEXT:\n    ${metrics.trendingContext}\n    Use this context to make the analysis timely and relevant. Mention why this token is attracting attention right now.\n`
-    : "";
-
-  const timeContext = ""; // Omitted for TG posts as requested by the user
-  const reasonContext = metrics.selectionReason ? `\n    SELECTION REASON: ${metrics.selectionReason}. Integrate this reason seamlessly into why you are covering the token right now.\n` : "";
-  const toneInstruction = metrics.tone
-    ? `You represent the "${metrics.tone}" persona. Write in this exact natural tone, varying the style compared to a typical stale template.`
-    : `Ensure the tone is data-driven and matches a premium research platform.`;
-
-  const riskGauge = getRiskGauge(metrics.riskScore);
-
-  const prompt = `
-    You are an AI Analyst for TokenRadar.co, leveraging real-time market intelligence from the CoinGecko AI Agent Hub.
-    Provide a "Deep Insight & Analysis" for ${tokenName} (${symbol.toUpperCase()}).
-    ${toneInstruction}
-    
-    MARKET DATA (Source: CoinGecko):
-    Current Price: ${priceStr}
-    24h Change: ${changeStr}
-    Market Cap: ${mcapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
-    Risk Factor: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
-    Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
-    COMMUNITY: ${metrics.twitterFollowers ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers, ` : ""}${metrics.redditSubscribers ? `${metrics.redditSubscribers.toLocaleString()} Reddit subs` : ""}
-    DEVELOPER: ${metrics.githubCommits4Weeks ? `${metrics.githubCommits4Weeks} GitHub commits (4-weeks)` : "No recent activity"}
-    ${metrics.globalStats ? `GLOBAL MARKET: ${metrics.globalStats}\n    ` : ""}${metrics.sectorPerformance ? `SECTOR PERFORMANCE: ${metrics.sectorPerformance}\n    ` : ""}${trendingSection}${timeContext}${reasonContext}
-    
-    BACKGROUND CONTEXT:
-    ${description.substring(0, 1500) || `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`}
-    
-    STRICT ANALYSIS RULES:
-    1. MANDATORY: The very first sentence MUST begin exactly with: $${symbol.toUpperCase()} (${tokenName}). (Do NOT bold the cashtag).
-    2. DATA DENSITY: Avoid generic fluff. Reference specific numbers (Price, MCAP, Risk) to ground your analysis. Use <b> tags for these numbers.
-    3. INSIGHT: Explain the *implication* of the data. 
-    4. ATTRIBUTION: Naturally mention that the data is powered by CoinGecko. Never mention that you are an AI, an analyst, or a bot.
-    5. HARD LIMIT: Your total output MUST be under ${Math.floor(maxChars / 6)} words. This is a hard technical limit. Priority is data over fluff.
-    6. FORMATTING: Use <b> tags for emphasis. NO numbered lists. No HTML headers. Never include headers like "# Tweet", or AI disclaimers like "Here is the tweet".
-    7. SPICY ENGAGEMENT: Use exactly 1 or 2 emojis.
-    8. ACTIONABLE TAKEAWAY: End with a specific "Next Step" or tactical observation.
-    9. SPOILER CONCLUSION: Wrap your final "verdict" sentence in <tg-spoiler> tags (e.g., <tg-spoiler>The verdict is bullish.</tg-spoiler>).
-    10. EXTERNAL LINKS: NEVER include URLs, external links, or ads.
-  `;
-
-  try {
-    const result = await callAIWithFallback("", prompt, 2048);
-    const content = result.content || "";
-    // Ensure critical HTML tags are closed to avoid Telegram parsing errors
-    return ensureHtmlTagsClosed(content, ["b", "tg-spoiler"]);
-  } catch (_error) {
-    console.warn(`  ⚠ AI summary generation failed for ${tokenName} — both Gemini and Claude returned empty or errored.`);
-    return "";
-  }
+export interface UnifiedSocialCaptions {
+  telegramSummary?: string;
+  xTweet?: string;
+  youtubeTitle?: string;
+  youtubeDescription?: string;
+  instagramCaption?: string;
+  threadsCaption?: string;
+  threadsTopicTag?: string;
+  threadsSpoilerText?: string;
 }
 
-/**
- * Generate a short, punchy Tweet tailored for X.
- * Employs time-of-day and persona variations, ensuring strict length limits to leave room for footers.
- * 
- * Strategy: Gemini 2.5 Flash (primary) -> Claude Haiku 4.5 (fallback)
- */
-export async function generateTweet(
-  tokenName: string,
-  symbol: string,
-  metrics: MarketContext = {},
-  maxChars: number = 250
-): Promise<string> {
-  const priceStr = metrics.price !== undefined
-    ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
-    : "N/A";
-  const changeStr = metrics.priceChange24h !== undefined
-    ? `${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`
-    : "N/A";
-  const mcapStr = metrics.marketCap
-    ? metrics.marketCap >= 1e9
-      ? `$${(metrics.marketCap / 1e9).toFixed(2)}B`
-      : `$${(metrics.marketCap / 1e6).toFixed(0)}M`
-    : "N/A";
+export type PlatformTarget = "telegram" | "x" | "youtube" | "instagram" | "threads";
 
-  const timeContext = metrics.timeOfDay ? `TIME OF DAY: ${metrics.timeOfDay}. (e.g., GM for Morning).` : "";
-  const reasonContext = metrics.selectionReason ? `REASON: ${metrics.selectionReason}.` : "";
-  const riskGauge = getRiskGauge(metrics.riskScore);
+export interface UnifiedCaptionOptions {
+  telegramMaxChars?: number;
+  xMaxChars?: number;
+  instagramMaxChars?: number;
+  threadsMaxChars?: number;
+  youtubeTitleMaxChars?: number;
+}
 
-  // Vibe Check Logic: Adjust tone based on social sentiment
-  let vibeTone = metrics.tone || "Analytical Observer";
-  if (metrics.sentimentScore !== undefined) {
-    if (metrics.sentimentScore >= 0.7) {
-      vibeTone = "Aggressive Spotlight (Extremely Bullish)";
-    } else if (metrics.sentimentScore < 0.3) {
-      vibeTone = "Conservative Researcher (Cautionary/Neutral)";
+type UnifiedCaptionField = keyof UnifiedSocialCaptions;
+
+const PLATFORM_FIELDS: Record<PlatformTarget, UnifiedCaptionField[]> = {
+  telegram: ["telegramSummary"],
+  x: ["xTweet"],
+  youtube: ["youtubeTitle", "youtubeDescription"],
+  instagram: ["instagramCaption"],
+  threads: ["threadsCaption", "threadsTopicTag", "threadsSpoilerText"],
+};
+
+const UNIFIED_FIELD_DESCRIPTIONS: Record<UnifiedCaptionField, string> = {
+  telegramSummary: "Telegram HTML summary using only supported tags such as <b> and <tg-spoiler>.",
+  xTweet: "Short X post text.",
+  youtubeTitle: "YouTube Shorts title.",
+  youtubeDescription: "YouTube Shorts description.",
+  instagramCaption: "Instagram Reel caption with hashtags embedded at the end.",
+  threadsCaption: "Threads caption text. Must include the spoiler text exactly once.",
+  threadsTopicTag: "Single-word Threads topic tag without #, dots, ampersands, or spaces.",
+  threadsSpoilerText: "Exact substring in threadsCaption that should become a Threads spoiler entity.",
+};
+
+function formatSocialPrice(price: number | undefined): string {
+  if (price === undefined) return "N/A";
+  return price >= 1 ? `$${price.toFixed(2)}` : `$${price.toFixed(6)}`;
+}
+
+function formatSocialChange(change: number | undefined): string {
+  if (change === undefined) return "N/A";
+  return `${change >= 0 ? "+" : ""}${change.toFixed(2)}%`;
+}
+
+function formatSocialMarketCap(marketCap: number | undefined): string {
+  if (marketCap === undefined) return "N/A";
+  return marketCap >= 1e9
+    ? `$${(marketCap / 1e9).toFixed(2)}B`
+    : `$${(marketCap / 1e6).toFixed(0)}M`;
+}
+
+function buildUnifiedCaptionSchema(platforms: PlatformTarget[]): object {
+  const properties: Record<string, object> = {};
+  const required: string[] = [];
+
+  for (const platform of platforms) {
+    for (const field of PLATFORM_FIELDS[platform]) {
+      properties[field] = {
+        type: "string",
+        description: UNIFIED_FIELD_DESCRIPTIONS[field],
+      };
+      required.push(field);
     }
   }
 
-  const socialContextSection = metrics.socialContext
-    ? `\n    REAL-TIME SOCIAL BUZZ:\n    ${metrics.socialContext.substring(0, 1000)}\n    Use these tweets to reference current community sentiment or specific narratives.\n`
-    : "";
+  return {
+    type: "object",
+    properties,
+    required,
+  };
+}
 
-  // Provide exactly instructions to keep it short so footer links won't be truncated.
+function getUnifiedCaptionMaxTokens(platforms: PlatformTarget[]): number {
+  return platforms.length > 0 ? DEFAULT_MAX_OUTPUT_TOKENS : 0;
+}
+
+function stripJsonFence(content: string): string {
+  return content
+    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
+}
+
+function readStringField(payload: unknown, field: UnifiedCaptionField): string | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+  const value = (payload as Partial<Record<UnifiedCaptionField, unknown>>)[field];
+  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+}
+
+function sanitizeUnifiedTopicTag(topicTag: string | undefined): string {
+  let sanitized = (topicTag || "crypto")
+    .replace(/[#.&]/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+
+  if (!sanitized) sanitized = "crypto";
+  if (sanitized.length > SOCIAL_PLATFORM_LIMITS.THREADS.TOPIC_TAG_MAX_LENGTH) {
+    sanitized = sanitized.substring(0, SOCIAL_PLATFORM_LIMITS.THREADS.TOPIC_TAG_MAX_LENGTH);
+  }
+
+  return sanitized;
+}
+
+function fallbackInstagramCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
+  const change = formatSocialChange(metrics.priceChange24h);
+  const price = formatSocialPrice(metrics.price);
+  const marketCap = formatSocialMarketCap(metrics.marketCap);
+
+  return [
+    `Market spotlight: ${tokenName} is moving ${change}.`,
+    `Price: ${price}. Market cap: ${marketCap}.`,
+    "Follow @tokenradarco for daily crypto data.",
+    `#${symbol.toUpperCase()} #Crypto #Altcoins #TokenRadar #CryptoMarket`,
+  ].join("\n\n");
+}
+
+function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): string {
+  const change = formatSocialChange(metrics.priceChange24h);
+  return `This setup is moving ${change}. Watch the data behind ${tokenName}.`;
+}
+
+function truncateText(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  if (maxChars <= 3) return text.substring(0, maxChars);
+  return `${text.substring(0, maxChars - 3).trim()}...`;
+}
+
+function fallbackTelegramSummary(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+  maxChars: number,
+): string {
+  const summary = [
+    `$${symbol.toUpperCase()} (${tokenName}).`,
+    `Price: <b>${formatSocialPrice(metrics.price)}</b> | 24h: <b>${formatSocialChange(metrics.priceChange24h)}</b> | MCap: <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
+    `Risk score: <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
+    `<tg-spoiler>Fallback summary generated from available market data.</tg-spoiler>`,
+  ].join(" ");
+
+  return ensureHtmlTagsClosed(truncateText(summary, maxChars), ["b", "tg-spoiler"]);
+}
+
+function fallbackXTweet(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+  maxChars: number,
+): string {
+  const price = formatSocialPrice(metrics.price).replace(/^\$/, "");
+  const marketCap = formatSocialMarketCap(metrics.marketCap).replace(/^\$/, "");
+  const tweet = `$${symbol.toUpperCase()} ${tokenName}: ${formatSocialChange(metrics.priceChange24h)} over 24h, price ${price}, market cap ${marketCap}. Does the data support more upside from here? #Crypto`;
+  return truncateText(tweet, maxChars);
+}
+
+function fallbackYoutubeMetadata(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+): { title: string; description: string } {
+  const title = truncateText(`${tokenName} ($${symbol.toUpperCase()}) 24h Market Update`, 60);
+  const description = `${tokenName} is moving ${formatSocialChange(metrics.priceChange24h)} over 24h, with price near ${formatSocialPrice(metrics.price)} and market cap around ${formatSocialMarketCap(metrics.marketCap)}.\nFull data report & analytics: https://tokenradar.co\n#Shorts #${symbol.toUpperCase()} #Crypto`;
+  return { title, description };
+}
+
+function enforceUnifiedCaptionLimits(
+  captions: UnifiedSocialCaptions,
+  options: UnifiedCaptionOptions,
+): UnifiedSocialCaptions {
+  const next: UnifiedSocialCaptions = { ...captions };
+
+  if (next.telegramSummary && options.telegramMaxChars) {
+    next.telegramSummary = ensureHtmlTagsClosed(
+      truncateText(next.telegramSummary, options.telegramMaxChars),
+      ["b", "tg-spoiler"],
+    );
+  }
+  if (next.xTweet) {
+    next.xTweet = truncateText(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
+  }
+  if (next.youtubeTitle) {
+    next.youtubeTitle = truncateText(next.youtubeTitle, options.youtubeTitleMaxChars ?? 60);
+  }
+  if (next.instagramCaption) {
+    next.instagramCaption = truncateText(
+      next.instagramCaption,
+      options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
+    );
+  }
+  if (next.threadsCaption) {
+    next.threadsCaption = truncateText(
+      next.threadsCaption,
+      options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
+    );
+  }
+
+  return next;
+}
+
+async function fillMissingUnifiedCaptionFields(
+  captions: UnifiedSocialCaptions,
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+  platforms: PlatformTarget[],
+  options: UnifiedCaptionOptions
+): Promise<UnifiedSocialCaptions> {
+  const next: UnifiedSocialCaptions = { ...captions };
+
+  if (platforms.includes("telegram") && !next.telegramSummary) {
+    next.telegramSummary = fallbackTelegramSummary(
+      tokenName,
+      symbol,
+      metrics,
+      options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS,
+    );
+  }
+
+  if (platforms.includes("x") && !next.xTweet) {
+    next.xTweet = fallbackXTweet(
+      tokenName,
+      symbol,
+      metrics,
+      options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT,
+    );
+  }
+
+  if (platforms.includes("youtube") && (!next.youtubeTitle || !next.youtubeDescription)) {
+    const youtubeMetadata = fallbackYoutubeMetadata(tokenName, symbol, metrics);
+    next.youtubeTitle ||= youtubeMetadata.title;
+    next.youtubeDescription ||= youtubeMetadata.description;
+  }
+
+  if (platforms.includes("instagram") && !next.instagramCaption) {
+    next.instagramCaption = fallbackInstagramCaption(tokenName, symbol, metrics);
+  }
+
+  if (platforms.includes("threads")) {
+    next.threadsCaption ||= fallbackThreadsCaption(tokenName, metrics);
+    next.threadsTopicTag = sanitizeUnifiedTopicTag(next.threadsTopicTag);
+    next.threadsSpoilerText ||= tokenName;
+  }
+
+  return enforceUnifiedCaptionLimits(next, options);
+}
+
+/**
+ * Generate publish-time captions for the requested social platforms with one
+ * structured AI call. Video hook text intentionally stays separate because it
+ * is a render-time input and must be available before Remotion renders.
+ */
+export async function generateUnifiedCaptions(
+  tokenName: string,
+  symbol: string,
+  description: string,
+  metrics: MarketContext,
+  platforms: PlatformTarget[],
+  options: UnifiedCaptionOptions = {},
+): Promise<UnifiedSocialCaptions> {
+  const uniquePlatforms = Array.from(new Set(platforms));
+  if (uniquePlatforms.length === 0) return {};
+
+  const platformRuleBlocks: Partial<Record<PlatformTarget, string>> = {
+    telegram: `
+TELEGRAM RULES:
+- Return "telegramSummary" only for Telegram.
+- Maximum ${options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS} characters.
+- First sentence must begin exactly with: $${symbol.toUpperCase()} (${tokenName}).
+- Use <b> tags for specific numbers and key metrics.
+- Wrap the final verdict sentence in <tg-spoiler>...</tg-spoiler>.
+- No URLs, external links, markdown, numbered lists, or unsupported HTML tags.`,
+    x: `
+X RULES:
+- Return "xTweet" only for X.
+- Maximum ${options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT} characters.
+- Use exactly one cashtag: $${symbol.toUpperCase()}.
+- Write prices as plain numbers, not dollar-prefixed prices.
+- End with a strong, data-driven question.
+- Include exactly 1 or 2 niche hashtags.
+- No URLs, external links, HTML, markdown, or AI disclaimers.`,
+    youtube: `
+YOUTUBE RULES:
+- Return "youtubeTitle" and "youtubeDescription".
+- Title must be under ${options.youtubeTitleMaxChars ?? 60} characters and front-load ${tokenName} or $${symbol.toUpperCase()}.
+- Description must open with a 1-2 sentence hook, then include this exact allowed site line: "Full data report & analytics: https://tokenradar.co".
+- End the description with exactly 3 hashtags. The first must be #Shorts.
+- No external links except tokenradar.co.`,
+    instagram: `
+INSTAGRAM RULES:
+- Return "instagramCaption" only for Instagram.
+- Maximum ${options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT} characters.
+- Start with a curiosity hook, then include 2-3 market data points naturally.
+- Mention @tokenradarco once.
+- Include 8-12 relevant hashtags at the end.
+- Use emojis sparingly and do not use rocket emojis.`,
+    threads: `
+THREADS RULES:
+- Return "threadsCaption", "threadsTopicTag", and "threadsSpoilerText".
+- Maximum ${options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT} characters for threadsCaption.
+- threadsSpoilerText must be an exact substring of threadsCaption and should usually be "${tokenName}".
+- Build curiosity around the spoiler text without using marker syntax.
+- threadsTopicTag must be one single word, 1-50 characters, without #, dots, ampersands, or spaces.
+- Do not mention @tokenradarco.`,
+  };
+
+  const priceStr = formatSocialPrice(metrics.price);
+  const changeStr = formatSocialChange(metrics.priceChange24h);
+  const marketCapStr = formatSocialMarketCap(metrics.marketCap);
+  const riskGauge = getRiskGauge(metrics.riskScore);
+  const socialContextSection = metrics.socialContext
+    ? `\nREAL-TIME SOCIAL BUZZ:\n${metrics.socialContext.substring(0, 1000)}\n`
+    : "";
+  const descriptionSection = description
+    ? description.substring(0, 1500)
+    : `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`;
+
   const prompt = `
-    Write a short high-engagement tweet for TokenRadar about ${tokenName} using CoinGecko and X social intelligence.
-    PERSONA: Adopt the "${vibeTone}" persona. Write as a human navigating crypto.
-    ${socialContextSection}
-    
-    Data context (Source: CoinGecko):
-    Price: ${priceStr} | 24h: ${changeStr} | MCap: ${mcapStr}
-    Risk Profile: ${riskGauge}
-    ${metrics.globalStats ? `Global Market: ${metrics.globalStats}\n    ` : ""}${metrics.sectorPerformance ? `Sector: ${metrics.sectorPerformance}\n    ` : ""}${timeContext}
-    ${reasonContext}
-    
-    STRICT X RULES:
-    1. OUTPUT: Return ONLY the tweet text. Never include headers like "# Tweet", or AI disclaimers like "Here is the tweet".
-    2. HARD LIMIT: Your output MUST be under ${maxChars} characters. Aim for high density.
-    3. CASHTAG: Use EXACTLY ONE cashtag ($${symbol.toUpperCase()}). No other symbols.
-    4. PRICING: Write prices as plain numbers (e.g. '0.84', not '$0.84').
-    5. SPARK DEBATE: End with a strong, data-driven question to drive replies.
-    6. HASHTAGS: Exactly 1 or 2 niche tags at the end.
-    7. TONE: Punchy, analytical. Never mention that you are an AI, an analyst, or a bot.
-    8. EXTERNAL LINKS: NEVER include URLs.
-  `;
+You are an expert crypto social media manager for TokenRadar.co.
+Generate tailored publish-time copy for the requested platforms in one pass.
+Return only a valid JSON object matching the requested schema.
+Do not include fields for platforms that were not requested.
+
+REQUESTED PLATFORMS: ${uniquePlatforms.join(", ")}
+PERSONA/TONE: ${metrics.tone || "Data-driven research platform"}
+
+MARKET DATA:
+Token: ${tokenName} (${symbol.toUpperCase()})
+Price: ${priceStr}
+24h Change: ${changeStr}
+Market Cap: ${marketCapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
+Risk Profile: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
+Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
+Selection Reason: ${metrics.selectionReason || "market spotlight"}
+Trending Context: ${metrics.trendingContext || "N/A"}
+Global Market: ${metrics.globalStats || "N/A"}
+Sector Performance: ${metrics.sectorPerformance || "N/A"}
+Community: ${metrics.twitterFollowers ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers` : "N/A"}${metrics.redditSubscribers ? `, ${metrics.redditSubscribers.toLocaleString()} Reddit subscribers` : ""}
+Developer: ${metrics.githubCommits4Weeks ? `${metrics.githubCommits4Weeks} GitHub commits in 4 weeks` : "No recent activity"}
+${socialContextSection}
+BACKGROUND CONTEXT:
+${descriptionSection}
+
+STRICT PLATFORM RULES:
+${uniquePlatforms.map((platform) => platformRuleBlocks[platform]).join("\n")}
+`;
 
   try {
-    const result = await callAIWithFallback("", prompt, 1024);
-    return result.content || "";
-  } catch (_error) {
-    console.warn(`  ⚠ AI tweet generation failed for ${tokenName}.`);
-    return "";
+    const result = await callAIWithFallback(
+      "",
+      prompt,
+      getUnifiedCaptionMaxTokens(uniquePlatforms),
+      buildUnifiedCaptionSchema(uniquePlatforms),
+    );
+    const payload = JSON.parse(stripJsonFence(result.content));
+    const captions: UnifiedSocialCaptions = {};
+
+    for (const platform of uniquePlatforms) {
+      for (const field of PLATFORM_FIELDS[platform]) {
+        const value = readStringField(payload, field);
+        if (value) captions[field] = value;
+      }
+    }
+
+    if (captions.telegramSummary) {
+      captions.telegramSummary = ensureHtmlTagsClosed(captions.telegramSummary, ["b", "tg-spoiler"]);
+    }
+    if (captions.threadsTopicTag) {
+      captions.threadsTopicTag = sanitizeUnifiedTopicTag(captions.threadsTopicTag);
+    }
+
+    return fillMissingUnifiedCaptionFields(
+      captions,
+      tokenName,
+      symbol,
+      metrics,
+      uniquePlatforms,
+      options,
+    );
+  } catch (error) {
+    console.warn(`  Failed to generate unified captions for ${tokenName}. Falling back per platform: ${formatErrorForLog(error)}`);
+    return fillMissingUnifiedCaptionFields(
+      {},
+      tokenName,
+      symbol,
+      metrics,
+      uniquePlatforms,
+      options,
+    );
   }
 }
 
@@ -482,59 +731,3 @@ export async function generatePollHook(
   }
 }
 
-/**
- * Generate highly optimized YouTube Shorts metadata (Title and Description).
- * Output format is JSON containing { title, description }
- */
-export async function generateYoutubeMetadata(
-  tokenName: string,
-  symbol: string,
-  metrics: MarketContext = {}
-): Promise<{ title: string; description: string }> {
-  const priceStr = metrics.price !== undefined
-    ? (metrics.price >= 1 ? `$${metrics.price.toFixed(2)}` : `$${metrics.price.toFixed(6)}`)
-    : "N/A";
-  const changeStr = metrics.priceChange24h !== undefined
-    ? `${metrics.priceChange24h >= 0 ? "+" : ""}${metrics.priceChange24h.toFixed(2)}%`
-    : "N/A";
-
-  const reasonContext = metrics.selectionReason ? `REASON: ${metrics.selectionReason}.` : "";
-
-  const prompt = `
-    You are an expert YouTube SEO manager. Write the Title and Description for a YouTube Shorts video about ${tokenName} ($${symbol.toUpperCase()}).
-
-    Data context:
-    Price: ${priceStr}
-    24h Change: ${changeStr}
-    ${reasonContext}
-
-    STRICT SEO RULES:
-    1. TITLE: Front-load the keywords. Must be under 60 characters. Example format: "TokenName ($SYMBOL) Breakout! 🚀 Why It's Surging".
-    2. DESCRIPTION HOOK: Start the description with a powerful 1-2 sentence hook explaining why this token is moving today. Incorporate the price or 24h change naturally into the text.
-    3. BRANDING: Directly after the hook, add a single line: "🌐 Full data report & analytics: https://tokenradar.co"
-    4. HASHTAGS: At the very end of the description, include exactly 3 hashtags. The first MUST be #Shorts. The other two must be highly specific to the token or crypto trading. Do NOT use generic tags like #Viral.
-    5. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads in the title or description. The only permitted site is tokenradar.co.
-
-    Format your exact output as valid JSON with exactly two keys: "title" and "description". Do not include markdown blocks.
-  `;
-
-  const youtubeSchema = {
-    type: "object",
-    properties: {
-      title: { type: "string", description: "Video title under 60 chars." },
-      description: { type: "string", description: "Video description with hook, branding, and hashtags." }
-    },
-    required: ["title", "description"]
-  };
-
-  try {
-    const result = await callAIWithFallback("", prompt, 500, youtubeSchema);
-    return JSON.parse(result.content);
-  } catch (_error) {
-    console.warn(`  ⚠ AI YouTube metadata generation failed. Using fallbacks.`);
-    return {
-      title: `${tokenName} ($${symbol.toUpperCase()}) Breakout! 🚀 24h Update`,
-      description: `Watch why ${tokenName} is making moves in the market today! Current price sits around ${priceStr} with a ${changeStr} shift in the last 24h.\n\nSubscribe to TokenRadar for daily crypto intel.\n\n#Shorts #CryptoTrading #${symbol.toUpperCase()}`
-    };
-  }
-}

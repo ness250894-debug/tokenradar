@@ -15,9 +15,8 @@ import { execSync } from "child_process";
 
 import { logError } from "../src/lib/reporter";
 import {
-  generateTweet,
-  generateTokenSummary,
-  generateYoutubeMetadata,
+  generateUnifiedCaptions,
+  type PlatformTarget,
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { sendTelegramVideo, sanitizeHtmlForTelegram } from "../src/lib/telegram";
@@ -25,7 +24,7 @@ import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
-import { generateInstagramCaption, generateThreadsCaption } from "../src/lib/social-content-generator";
+import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import { cleanBucket, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
 import { getRandomTrack } from "../src/lib/audio-config";
@@ -116,6 +115,71 @@ function getRequestedPlatforms(
 function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: PlatformName[]): boolean {
   if (!tracker) return false;
   return requestedPlatforms.every((platform) => !!tracker.platforms?.[platform]);
+}
+
+function extractInstagramContent(caption: string | undefined): { caption: string; hashtags: string[] } {
+  const safeCaption = (caption || "").trim();
+  const hashtags = (safeCaption.match(/#[a-zA-Z0-9_]+/g) || []).map((tag) => tag.slice(1));
+  return { caption: safeCaption, hashtags };
+}
+
+function sanitizeThreadsTopicTag(topicTag: string | undefined): string {
+  let sanitized = (topicTag || "crypto")
+    .replace(/[#.&]/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+
+  if (!sanitized) sanitized = "crypto";
+  if (sanitized.length > SOCIAL_PLATFORM_LIMITS.THREADS.TOPIC_TAG_MAX_LENGTH) {
+    sanitized = sanitized.substring(0, SOCIAL_PLATFORM_LIMITS.THREADS.TOPIC_TAG_MAX_LENGTH);
+  }
+
+  return sanitized;
+}
+
+function buildThreadsContent(
+  caption: string | undefined,
+  topicTag: string | undefined,
+  spoilerText: string | undefined,
+  tokenName: string,
+): { caption: string; topicTag: string; spoilerText: string; spoilerOffset: number; spoilerLength: number } {
+  const maxChars = SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT;
+  let safeSpoilerText = (spoilerText || tokenName).trim();
+  if (!safeSpoilerText) safeSpoilerText = tokenName;
+
+  let safeCaption = (caption || `This setup is moving fast. Watch the data behind ${tokenName}.`).trim();
+  if (!safeCaption.includes(safeSpoilerText)) {
+    const suffix = ` ${safeSpoilerText}`;
+    const bodyBudget = maxChars - suffix.length;
+    safeCaption = bodyBudget > 0
+      ? `${safeCaption.substring(0, bodyBudget).trim()}${suffix}`.trim()
+      : safeSpoilerText.substring(0, maxChars);
+  }
+
+  if (safeCaption.length > maxChars) {
+    safeCaption = `${safeCaption.substring(0, maxChars - 3).trim()}...`;
+  }
+
+  if (!safeCaption.includes(safeSpoilerText)) {
+    safeCaption = safeSpoilerText.length <= maxChars
+      ? safeSpoilerText
+      : safeSpoilerText.substring(0, maxChars);
+  }
+
+  const spoilerIndex = safeCaption.indexOf(safeSpoilerText);
+  const textEncoder = new TextEncoder();
+  const spoilerOffset = spoilerIndex >= 0
+    ? textEncoder.encode(safeCaption.substring(0, spoilerIndex)).length
+    : 0;
+  const spoilerLength = spoilerIndex >= 0 ? textEncoder.encode(safeSpoilerText).length : 0;
+
+  return {
+    caption: safeCaption,
+    topicTag: sanitizeThreadsTopicTag(topicTag),
+    spoilerText: safeSpoilerText,
+    spoilerOffset,
+    spoilerLength,
+  };
 }
 
 async function main() {
@@ -297,7 +361,6 @@ async function main() {
   const audioTrack = getRandomTrack();
   console.log(`  Audio: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
 
-  const { generateHookText } = await import("../src/lib/social-content-generator");
   const hookText = await generateHookText(targetToken.name, targetToken.symbol, context);
   
   const { getVerdict } = await import("../src/video/styles");
@@ -389,22 +452,23 @@ async function main() {
     console.log();
     console.log("Step 4: Generating platform captions...");
 
+    const captionPlatforms: PlatformTarget[] = [];
+    const captionOptions: {
+      telegramMaxChars?: number;
+      xMaxChars?: number;
+      instagramMaxChars?: number;
+      threadsMaxChars?: number;
+    } = {};
+
     if (runTelegram) {
       const footer = getTelegramFooter(targetToken.symbol);
-      const tgMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footer.length - 20;
-      const aiSummary = await generateTokenSummary(
-        targetToken.name,
-        targetToken.symbol,
-        targetToken.description || "",
-        context,
-        tgMaxChars
-      );
-      tgMessage = aiSummary;
+      captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footer.length - 20;
+      captionPlatforms.push("telegram");
     }
 
     if (runX) {
-      const xMaxChars = 260;
-      xMessage = await generateTweet(targetToken.name, targetToken.symbol, context, xMaxChars);
+      captionOptions.xMaxChars = 260;
+      captionPlatforms.push("x");
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       xReplyMessage = isOnWebsite
         ? `Read our full deep-dive data report on $${targetToken.symbol.toUpperCase()} here:\n\n${siteUrl}/${targetToken.id}`
@@ -412,15 +476,48 @@ async function main() {
     }
 
     if (shouldRunYouTube) {
-      ytMetadata = await generateYoutubeMetadata(targetToken.name, targetToken.symbol, context);
+      captionPlatforms.push("youtube");
     }
 
     if (shouldRunInstagram && igVideoUrl) {
-      igContent = await generateInstagramCaption(targetToken.name, targetToken.symbol, context);
+      captionOptions.instagramMaxChars = SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT;
+      captionPlatforms.push("instagram");
     }
 
     if (shouldRunThreads && threadsVideoUrl) {
-      threadsContent = await generateThreadsCaption(targetToken.name, targetToken.symbol, context);
+      captionOptions.threadsMaxChars = SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT;
+      captionPlatforms.push("threads");
+    }
+
+    if (captionPlatforms.length > 0) {
+      const captions = await generateUnifiedCaptions(
+        targetToken.name,
+        targetToken.symbol,
+        targetToken.description || "",
+        context,
+        captionPlatforms,
+        captionOptions,
+      );
+
+      if (runTelegram) tgMessage = captions.telegramSummary || "";
+      if (runX) xMessage = captions.xTweet || "";
+      if (shouldRunYouTube) {
+        ytMetadata = {
+          title: captions.youtubeTitle || "",
+          description: captions.youtubeDescription || "",
+        };
+      }
+      if (shouldRunInstagram && igVideoUrl) {
+        igContent = extractInstagramContent(captions.instagramCaption);
+      }
+      if (shouldRunThreads && threadsVideoUrl) {
+        threadsContent = buildThreadsContent(
+          captions.threadsCaption,
+          captions.threadsTopicTag,
+          captions.threadsSpoilerText,
+          targetToken.name,
+        );
+      }
     }
 
     if (dryRun) {
