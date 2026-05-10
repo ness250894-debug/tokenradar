@@ -700,9 +700,19 @@ async function main() {
     // 1. Load data
     const tokenFilePath = path.join(TOKENS_DIR, `${tokenId}.json`);
     let tokenData: Partial<TokenDetail> & { id: string; symbol: string; name: string; category?: string } = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
+    const matchingTgeEntry = isTge ? upcomingTges.find((t: UpcomingTge) => t.id === tokenId) : null;
     
     if (fs.existsSync(tokenFilePath)) {
       tokenData = JSON.parse(await fs.promises.readFile(tokenFilePath, "utf-8"));
+    }
+
+    if (isTge && matchingTgeEntry) {
+      tokenData = {
+        ...tokenData,
+        name: matchingTgeEntry.name || tokenData.name,
+        symbol: matchingTgeEntry.symbol || tokenData.symbol,
+        category: matchingTgeEntry.category || tokenData.category,
+      };
     }
 
     // 2. Just-In-Time (JIT) Sync: If it's a "Lite" token (no description), fetch full data
@@ -768,9 +778,6 @@ async function main() {
     }
 
     // Build article configs
-    // For TGE tokens, look up the matching entry to enrich the prompt
-    const matchingTgeEntry = isTge ? upcomingTges.find((t: UpcomingTge) => t.id === tokenId) : null;
-    
     let relatedTokenNames: string[] = [];
     if (!isTge) {
       try {

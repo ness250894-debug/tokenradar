@@ -62,7 +62,10 @@ async function consolidate() {
   console.log("Starting data consolidation...");
 
   const tokenFiles = fs.readdirSync(TOKENS_DIR).filter((f) => f.endsWith(".json")).sort();
-  const metricFiles = fs.readdirSync(METRICS_DIR).filter((f) => f.endsWith(".json")).sort();
+  const metricFiles = fs
+    .readdirSync(METRICS_DIR)
+    .filter((f) => f.endsWith(".json") && !f.startsWith("_") && f !== "api-usage-history.json")
+    .sort();
   const priceFiles = fs.readdirSync(PRICES_DIR).filter((f) => f.endsWith(".json")).sort();
 
   const tokensBlob: Record<string, TokenContent> = {};
