@@ -10,6 +10,8 @@ export function ProfitCalculator({
   currentPrice: number;
   atl: number;
 }) {
+  const investmentId = "roi-investment-amount";
+  const entryPriceId = "roi-entry-price";
   const [investment, setInvestment] = useState<number>(1000);
   const [purchasePrice, setPurchasePrice] = useState<number>(atl > 0 ? atl : (currentPrice || 1));
 
@@ -37,15 +39,17 @@ export function ProfitCalculator({
         {/* Investment Input */}
         <div style={{ marginBottom: "var(--space-xl)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-xs)" }}>
-            <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Investment Amount</span>
+            <label htmlFor={investmentId} style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Investment Amount</label>
             <span style={{ fontWeight: 600, fontFamily: "var(--font-mono)" }}>${investment.toLocaleString()}</span>
           </div>
           <input 
+            id={investmentId}
             type="range"
             min="100"
             max="100000"
             step="100"
             value={investment}
+            aria-valuetext={`$${investment.toLocaleString()} investment`}
             onChange={(e) => setInvestment(Number(e.target.value))}
             style={{ 
               width: "100%", 
@@ -61,15 +65,17 @@ export function ProfitCalculator({
         {/* Entry Price Input */}
         <div style={{ marginBottom: "var(--space-xl)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-xs)" }}>
-            <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Entry Price</span>
+            <label htmlFor={entryPriceId} style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Entry Price</label>
             <span style={{ fontWeight: 600, fontFamily: "var(--font-mono)" }}>{formatPrice(purchasePrice)}</span>
           </div>
           <input 
+            id={entryPriceId}
             type="range"
             min={atl * 0.1 || 0.000001}
             max={currentPrice * 5}
             step={atl / 100 || 0.00001}
             value={purchasePrice}
+            aria-valuetext={`${formatPrice(purchasePrice)} entry price`}
             onChange={(e) => setPurchasePrice(Number(e.target.value))}
             style={{ 
               width: "100%", 

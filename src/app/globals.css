@@ -11,8 +11,8 @@
   --surface-color: rgba(7, 8, 11, 0.72);
 
   --text-primary: #f0f0f5;
-  --text-secondary: #4A4A4A; /* Slate */
-  --text-muted: #333333;
+  --text-secondary: #b8bcc8; /* Accessible slate */
+  --text-muted: #8a91a3;
 
   --accent-primary: #CCFF00; /* Neon Chartreuse */
   --accent-primary-hover: #d9ff33;
@@ -1426,9 +1426,62 @@ input[type=range]::-moz-range-thumb:hover {
   padding-bottom: 120px; /* Space for sticky banner */
 }
 
+.token-hero-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-2xl);
+}
+
+.token-hero-title {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+  margin-top: var(--space-lg);
+  max-width: 680px;
+}
+
+.token-hero-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  margin-top: var(--space-sm);
+  max-width: 640px;
+}
+
+.token-hero-price {
+  text-align: right;
+  justify-self: end;
+}
+
+.token-hero-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-md);
+}
+
 @media (max-width: 768px) {
   .token-main-content {
     padding-bottom: 80px;
+  }
+
+  .token-hero-header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .token-hero-title {
+    font-size: var(--text-3xl);
+  }
+
+  .token-hero-price {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .token-hero-actions {
+    justify-content: flex-start;
   }
 }
 

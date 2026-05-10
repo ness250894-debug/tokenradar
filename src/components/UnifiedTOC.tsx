@@ -17,13 +17,21 @@ interface UnifiedTOCProps {
   selector?: string;
   /** Title to display */
   title?: string;
+  showDesktop?: boolean;
+  showMobile?: boolean;
 }
 
 /**
  * Unified Table of Contents component.
  * Supports both manual section lists and automatic discovery of h2/h3 headers.
  */
-export function UnifiedTOC({ sections: manualSections, selector, title = "Table of Contents" }: UnifiedTOCProps) {
+export function UnifiedTOC({
+  sections: manualSections,
+  selector,
+  title = "Table of Contents",
+  showDesktop = true,
+  showMobile = true,
+}: UnifiedTOCProps) {
   const [discoveredSections, setDiscoveredSections] = useState<TOCSection[]>([]);
   const [activeId, setActiveId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +112,7 @@ export function UnifiedTOC({ sections: manualSections, selector, title = "Table 
   return (
     <>
       {/* Desktop Wrapper - Sticky Sidebar (visible on LG and up) */}
-      <div className="hidden lg:block w-full">
+      {showDesktop && <div className="hidden lg:block w-full">
         <div 
           className="card p-5 border-zinc-800/50"
           style={{ 
@@ -148,10 +156,10 @@ export function UnifiedTOC({ sections: manualSections, selector, title = "Table 
             })}
           </nav>
         </div>
-      </div>
+      </div>}
 
       {/* Mobile Floating Menu (visible below LG) */}
-      <div className="lg:hidden fixed bottom-40 right-8 z-[110]">
+      {showMobile && <div className="lg:hidden fixed bottom-40 right-4 z-[110]">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -190,11 +198,14 @@ export function UnifiedTOC({ sections: manualSections, selector, title = "Table 
         
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-accent-primary text-white flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all"
+          className="w-14 h-14 rounded-full bg-accent-primary flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all"
+          aria-label={isOpen ? "Close table of contents" : "Open table of contents"}
+          aria-expanded={isOpen}
+          style={{ color: "var(--bg-primary)" }}
         >
           {isOpen ? <ChevronRight size={24} className="rotate-90" /> : <List size={24} />}
         </button>
-      </div>
+      </div>}
     </>
   );
 }

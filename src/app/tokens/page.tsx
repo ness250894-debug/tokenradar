@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Activity, DollarSign, TrendingUp } from "lucide-react";
 
-import { formatCompact, getAllTokens } from "@/lib/content-loader";
+import { TokenGrid } from "@/components/TokenGrid";
+import { type TokenCardData } from "@/components/TokenCard";
+import { formatCompact, getAllTokens, getTokenMetrics } from "@/lib/content-loader";
 
 export const metadata: Metadata = {
   title: "Crypto Token Directory",
@@ -16,6 +17,20 @@ export default async function TokensPage() {
   const tokens = await getAllTokens();
   const totalMarketCap = tokens.reduce((sum, token) => sum + (token.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, token) => sum + (token.volume24h || 0), 0);
+  const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (token) => {
+    const metrics = await getTokenMetrics(token.id);
+    return {
+      id: token.id,
+      name: token.name,
+      symbol: token.symbol,
+      imageUrl: token.imageUrl || token.image,
+      price: token.price,
+      priceChange24h: token.priceChange24h,
+      marketCap: token.marketCap,
+      riskScore: metrics?.riskScore || 5,
+      category: token.categories?.[0] || "Crypto",
+    };
+  }));
 
   return (
     <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>
@@ -51,25 +66,11 @@ export default async function TokensPage() {
           </div>
         </div>
 
-        <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "var(--space-md)" }}>
-          {tokens.map((token) => (
-            <Link
-              key={token.id}
-              href={`/${token.id}`}
-              className="card"
-              style={{ display: "block", textDecoration: "none", color: "inherit", padding: "var(--space-md)" }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", gap: "var(--space-sm)", alignItems: "baseline" }}>
-                <strong style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{token.name}</strong>
-                <span className="token-symbol" style={{ flexShrink: 0 }}>{token.symbol.toUpperCase()}</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: "var(--space-md)", marginTop: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-                <span>Rank #{token.rank}</span>
-                <span>{formatCompact(token.marketCap)}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <TokenGrid
+          tokens={tokenCards}
+          initialVisibleCount={12}
+          searchPlaceholder="Search the token directory by name or symbol..."
+        />
       </section>
     </main>
   );
