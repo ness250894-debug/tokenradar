@@ -2,20 +2,57 @@
   "id": "beam-2",
   "symbol": "beam",
   "name": "Beam",
+  "description": "BEAM is the native cryptographic token that powers the Beam ecosystem. As an ERC-20 token, BEAM serves as the fundamental infrastructure layer that enables transactions on the Beam Network. The Beam ecosystem creates an environment where developers, creators, and users collaborate to build innovative digital experiences across multiple sectors such as gaming, artificial intelligence, NFTs, RWAs. \n\n\n\n\n\n\n\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Gaming (GameFi)",
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Binance Launchpool",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "DWF Labs Portfolio",
+    "Gaming Blockchains",
+    "Avalanche L1",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://onbeam.com",
+    "github": "https://github.com/Merit-Circle/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x62d0a8458ed7719fdaf978fe5929c6d342b0bfce"
+  },
   "market": {
-    "price": 0.00209498,
-    "marketCap": 107443008,
-    "marketCapRank": 292,
-    "volume24h": 7073229,
-    "priceChange24h": 1.09943,
+    "price": 0.00209259,
+    "marketCap": 107365546,
+    "marketCapRank": 293,
+    "volume24h": 5254465,
+    "high24h": 0.00212278,
+    "low24h": 0.00203979,
+    "priceChange24h": -1.422,
+    "priceChange7d": 8.98448,
+    "priceChange30d": 14.07869,
+    "priceChange1y": -76.58094,
     "ath": 0.04416304,
-    "athChangePercentage": -95.2667,
+    "athChangePercentage": -95.27906,
     "athDate": "2024-03-10T10:40:22.381Z",
     "atl": 0.00157473,
     "atlDate": "2026-03-29T22:55:17.804Z",
     "circulatingSupply": 51300184687,
     "totalSupply": 58470184687,
-    "maxSupply": 58470184687
+    "maxSupply": 58470184687,
+    "fdv": 122371554
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.130Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T08:16:58.774Z"
 }
