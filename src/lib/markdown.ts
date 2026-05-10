@@ -1,8 +1,11 @@
+import * as fs from "fs";
+import * as path from "path";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { formatPrice, formatCompact } from "./formatters";
-import { getAllTokens } from "./content-loader";
+import { getAllCategories, getAllTokens, getTokenIds } from "./content-loader";
 import { normalizeArticleMarkdown } from "./article-formatting";
+import { getPilotTokenIds } from "./token-technical-data";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -25,13 +28,144 @@ interface LinkableToken {
   nameLower: string;
 }
 
+interface GlossaryLinkSource {
+  slug?: unknown;
+}
+
+const BLOCKED_TOKEN_LINK_TERMS = new Set([
+  "cash",
+  "deep",
+  "everything",
+  "flow",
+  "four",
+  "gas",
+  "home",
+  "just",
+  "movement",
+  "safe",
+  "score",
+  "would",
+]);
+
+const STATIC_INTERNAL_PATHS = [
+  "/",
+  "/about",
+  "/best-crypto-hardware-wallets",
+  "/contact",
+  "/crypto-tax-guide",
+  "/disclaimer",
+  "/learn",
+  "/privacy",
+  "/terms",
+  "/upcoming",
+];
+
 let linkableTokensPromise: Promise<LinkableToken[]> | null = null;
+let validInternalPathsPromise: Promise<Set<string>> | null = null;
+
+function isLinkableTokenName(name: string): boolean {
+  const normalized = name.trim().toLowerCase();
+  if (normalized.length <= 2) return false;
+  if (/^\d+$/.test(normalized)) return false;
+  return !BLOCKED_TOKEN_LINK_TERMS.has(normalized);
+}
+
+function normalizeInternalHref(href: string): string | null {
+  const trimmed = href.trim();
+  if (!trimmed || trimmed.startsWith("#")) return null;
+
+  let pathname: string;
+  if (trimmed.startsWith("/")) {
+    pathname = trimmed;
+  } else {
+    try {
+      const url = new URL(trimmed);
+      if (url.hostname !== "tokenradar.co" && url.hostname !== "www.tokenradar.co") return null;
+      pathname = url.pathname;
+    } catch {
+      return null;
+    }
+  }
+
+  const pathOnly = pathname.split(/[?#]/)[0].replace(/\/+$/, "");
+  return pathOnly || "/";
+}
+
+function readGlossaryPaths(): string[] {
+  if (typeof window !== "undefined") return [];
+
+  try {
+    const filePath = path.resolve(process.cwd(), "data/glossary.json");
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((item): item is GlossaryLinkSource & { slug: string } => typeof item?.slug === "string")
+      .map((item) => `/learn/${item.slug}`);
+  } catch {
+    return [];
+  }
+}
+
+async function getValidInternalPaths(): Promise<Set<string>> {
+  if (!validInternalPathsPromise) {
+    validInternalPathsPromise = (async () => {
+      const paths = new Set(STATIC_INTERNAL_PATHS);
+
+      try {
+        const tokenIds = await getTokenIds();
+        const pilotIds = new Set(getPilotTokenIds());
+        for (const id of tokenIds) {
+          paths.add(`/${id}`);
+          paths.add(`/${id}/how-to-buy`);
+          paths.add(`/${id}/price-prediction`);
+          if (pilotIds.has(id)) paths.add(`/${id}/transfer-to-ledger`);
+        }
+      } catch (error) {
+        console.warn("Failed to load token routes for internal-link validation.", error);
+      }
+
+      try {
+        const categories = await getAllCategories();
+        for (const category of categories) {
+          paths.add(`/category/${category.id}`);
+        }
+      } catch (error) {
+        console.warn("Failed to load category routes for internal-link validation.", error);
+      }
+
+      for (const glossaryPath of readGlossaryPaths()) {
+        paths.add(glossaryPath);
+      }
+
+      return paths;
+    })();
+  }
+
+  return validInternalPathsPromise;
+}
+
+async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
+  const validInternalPaths = await getValidInternalPaths();
+
+  return md.replace(/(^|[^!])\[([^\]]+)\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g, (match, prefix, label, href) => {
+    const internalPath = normalizeInternalHref(href);
+    if (!internalPath) return match;
+
+    const firstSegment = internalPath.split("/")[1] || "";
+    if (BLOCKED_TOKEN_LINK_TERMS.has(firstSegment) || !validInternalPaths.has(internalPath)) {
+      return `${prefix}${label}`;
+    }
+
+    return match;
+  });
+}
+
 
 async function getLinkableTokens(excludedName?: string): Promise<LinkableToken[]> {
   if (!linkableTokensPromise) {
     linkableTokensPromise = getAllTokens().then((tokens) =>
       tokens
-        .filter((t) => t.name.length > 2)
+        .filter((t) => isLinkableTokenName(t.name))
         .map((t) => ({ id: t.id, name: t.name, nameLower: t.name.toLowerCase() }))
         .sort((a, b) => b.name.length - a.name.length),
     );
@@ -105,6 +239,8 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
       return `Our AI assigned a **Risk Score of ${score}** to ${pillHtml.trim()}`;
     });
   }
+
+  processedMd = await unwrapUnsafeInternalMarkdownLinks(processedMd);
 
   // Programmatic Internal Linking
   try {

@@ -13,6 +13,7 @@
  *   npx tsx scripts/quality-check.ts
  *   npx tsx scripts/quality-check.ts --token injective-protocol
  *   npx tsx scripts/quality-check.ts --fix  (auto-fix: append disclaimer, AI-rewrite prohibited phrases)
+ *   npx tsx scripts/quality-check.ts --quarantine  (move failed articles to data/quarantine)
  *
  * Cost: $0 without --fix, ~$0.001 per AI rewrite with --fix
  */
@@ -297,6 +298,7 @@ async function main() {
   const tokenIdx = args.indexOf("--token");
   const targetToken = tokenIdx !== -1 ? args[tokenIdx + 1] : null;
   const autoFix = args.includes("--fix");
+  const quarantineFailures = args.includes("--quarantine");
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Content Quality Checker    ║");
@@ -307,6 +309,11 @@ async function main() {
     console.log("  Mode: --fix with AI rewrite (Gemini 2.5 Flash → Claude Haiku 4.5 fallback)");
   } else if (autoFix) {
     console.log("  Mode: --fix (disclaimer only, no ANTHROPIC_API_KEY for AI rewrite)");
+  }
+  if (quarantineFailures) {
+    console.log("  Mode: --quarantine (failed articles will be moved to data/quarantine)");
+  } else {
+    console.log("  Mode: check-only (failed articles stay in place)");
   }
   console.log();
 
@@ -365,8 +372,12 @@ async function main() {
         }
       } else {
         totalFailed++;
-        const quarantinedPath = quarantineArticle(filePath);
-        console.log(`    🗑 Quarantining failed article: ${path.relative(process.cwd(), quarantinedPath)}`);
+        if (quarantineFailures) {
+          const quarantinedPath = quarantineArticle(filePath);
+          console.log(`    🗑 Quarantining failed article: ${path.relative(process.cwd(), quarantinedPath)}`);
+        } else {
+          console.log("    Not quarantined. Re-run with --quarantine to move failed articles.");
+        }
         logActivity("quality-check-failed", {
           tokenId: result.tokenId,
           articleType: result.articleType,
@@ -388,7 +399,7 @@ async function main() {
 
   if (totalFailed > 0) {
     console.log(`
-  ⚠ Built completed with ${totalFailed} quarantined articles. Job will continue.`);
+  Check completed with ${totalFailed} failed articles. Job will continue.`);
   }
 }
 

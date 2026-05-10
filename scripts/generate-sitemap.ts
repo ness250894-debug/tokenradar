@@ -7,11 +7,13 @@ import * as fs from "fs";
 import * as path from "path";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
+import { writeFileAtomicSync } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
+const GLOSSARY_FILE = path.join(DATA_DIR, "glossary.json");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 interface SitemapEntry {
@@ -19,6 +21,17 @@ interface SitemapEntry {
   lastmod: string;
   changefreq: string;
   priority: string;
+}
+
+interface GlossaryItem {
+  slug: string;
+  updatedAt?: string;
+}
+
+function toDateOnly(value: string | undefined, fallback: string): string {
+  if (!value) return fallback;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? fallback : date.toISOString().split("T")[0];
 }
 
 async function getTokenDate(tokenId: string): Promise<string | null> {
@@ -32,6 +45,17 @@ async function getUpcomingTGEsLocal(): Promise<UpcomingTge[]> {
   if (!fs.existsSync(TGE_FILE)) return [];
   try {
     return JSON.parse(fs.readFileSync(TGE_FILE, "utf-8"));
+  } catch {
+    return [];
+  }
+}
+
+async function getGlossaryItemsLocal(): Promise<GlossaryItem[]> {
+  if (!fs.existsSync(GLOSSARY_FILE)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(GLOSSARY_FILE, "utf-8"));
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item): item is GlossaryItem => typeof item?.slug === "string" && item.slug.length > 0);
   } catch {
     return [];
   }
@@ -55,7 +79,7 @@ ${urls}
 
 function writeSitemap(filename: string, entries: SitemapEntry[]) {
   const outPath = path.join(PUBLIC_DIR, filename);
-  fs.writeFileSync(outPath, generateXml(entries), "utf-8");
+  writeFileAtomicSync(outPath, generateXml(entries));
   console.log(`  ✓ Written ${filename} (${entries.length} URLs)`);
 }
 
@@ -73,9 +97,14 @@ async function main() {
   const mainEntries: SitemapEntry[] = [
     { url: "/", lastmod: now, changefreq: "daily", priority: "1.0" },
     { url: "/upcoming", lastmod: now, changefreq: "daily", priority: "0.9" },
+    { url: "/learn", lastmod: now, changefreq: "weekly", priority: "0.8" },
     { url: "/best-crypto-hardware-wallets", lastmod: now, changefreq: "weekly", priority: "0.8" },
     { url: "/crypto-tax-guide", lastmod: now, changefreq: "weekly", priority: "0.8" },
     { url: "/about", lastmod: now, changefreq: "monthly", priority: "0.5" },
+    { url: "/contact", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/privacy", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/terms", lastmod: now, changefreq: "yearly", priority: "0.3" },
+    { url: "/disclaimer", lastmod: now, changefreq: "yearly", priority: "0.3" },
   ];
 
   const categories = await getAllCategories();
@@ -85,10 +114,20 @@ async function main() {
 
   const tges = await getUpcomingTGEsLocal();
   tges.forEach(tge => {
-    const date = tge.discoveredAt ? new Date(tge.discoveredAt).toISOString().split("T")[0] : now;
+    const date = toDateOnly(tge.discoveredAt, now);
     if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
       mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date, changefreq: "weekly", priority: "0.8" });
     }
+  });
+
+  const glossaryItems = await getGlossaryItemsLocal();
+  glossaryItems.forEach(item => {
+    mainEntries.push({
+      url: `/learn/${item.slug}`,
+      lastmod: toDateOnly(item.updatedAt, now),
+      changefreq: "monthly",
+      priority: "0.6",
+    });
   });
 
   writeSitemap("sitemap-main.xml", mainEntries);
@@ -139,7 +178,7 @@ ${sitemaps.map(s => `  <sitemap>
     fs.mkdirSync(PUBLIC_DIR, { recursive: true });
   }
 
-  fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), indexXml, "utf-8");
+  writeFileAtomicSync(path.join(PUBLIC_DIR, "sitemap.xml"), indexXml);
   console.log(`\n🏁 Sitemap Index generated: sitemap.xml (points to ${sitemaps.length} chunks)`);
 }
 

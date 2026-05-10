@@ -77,6 +77,27 @@ describe("markdownToHtml", () => {
     expect(html).toContain("0.00%");
   });
 
+  it("unwraps unsafe internal links while preserving valid learn links", async () => {
+    const html = await markdownToHtml(
+      "[Risk Score](/score) and [legacy token](/polymarket) should be text, but [staking](/learn/what-is-staking) should stay linked.",
+    );
+
+    expect(html).toContain("Risk Score");
+    expect(html).toContain("legacy token");
+    expect(html).not.toContain('href="/score"');
+    expect(html).not.toContain('href="/polymarket"');
+    expect(html).toContain('href="/learn/what-is-staking"');
+  });
+
+  it("does not auto-link common English token names", async () => {
+    const html = await markdownToHtml("Gas would affect the Flow score, but this is plain explanatory copy.");
+
+    expect(html).not.toContain('href="/gas"');
+    expect(html).not.toContain('href="/would"');
+    expect(html).not.toContain('href="/flow"');
+    expect(html).not.toContain('href="/score"');
+  });
+
   it("auto-links repeated token mentions without missing the first occurrence", async () => {
     const tokenName = "Apollo Diversified Credit Securitize Fund";
     const html = await markdownToHtml(

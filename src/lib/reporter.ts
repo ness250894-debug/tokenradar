@@ -11,7 +11,7 @@ import * as crypto from "crypto";
 import * as fs from "fs";
 import * as path from "path";
 import { fetchWithRetry } from "./fetch-with-retry";
-import { formatErrorForLog, redactSensitiveText } from "./utils";
+import { formatErrorForLog, redactSensitiveText, writeFileAtomic } from "./utils";
 
 export const MONTHLY_LIMIT = 9000;
 
@@ -28,7 +28,13 @@ const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 5;
+const TELEGRAM_MESSAGE_LIMIT = 4096;
 const alertTimestamps: number[] = [];
+
+function truncateTelegramMessage(message: string): string {
+  if (message.length <= TELEGRAM_MESSAGE_LIMIT) return message;
+  return `${message.slice(0, TELEGRAM_MESSAGE_LIMIT - 20)}\n... [truncated]`;
+}
 
 /**
  * Sends a notification to Telegram.
@@ -58,7 +64,7 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
   }
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
-  const safeMessage = redactSensitiveText(message);
+  const safeMessage = truncateTelegramMessage(redactSensitiveText(message));
 
   try {
     const response = await fetchWithRetry(url, {
@@ -71,8 +77,23 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
       }),
     });
 
-    if (!response.ok) {
-      console.error(`  [reporter] Failed to send Telegram alert: ${response.statusText}`);
+    if (response.ok) {
+      return true;
+    }
+
+    console.error(`  [reporter] Failed to send Telegram alert with Markdown: ${response.statusText}`);
+    const fallbackResponse = await fetchWithRetry(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: safeMessage,
+        disable_web_page_preview: true,
+      }),
+    });
+
+    if (!fallbackResponse.ok) {
+      console.error(`  [reporter] Failed to send Telegram alert fallback: ${fallbackResponse.statusText}`);
       return false;
     }
 
@@ -93,7 +114,7 @@ export async function logError(source: string, error: unknown, isFatal = true): 
 
   const errorRecord = { timestamp, source, message: errorMsg, isFatal };
   const errorFile = path.join(ERRORS_DIR, `${timestamp.replace(/[:.]/g, "-")}-${id}.json`);
-  await fs.promises.writeFile(errorFile, JSON.stringify(errorRecord, null, 2));
+  await writeFileAtomic(errorFile, JSON.stringify(errorRecord, null, 2));
 
   console.error(`  [reporter] ERROR in ${source}: ${errorMsg}`);
 
@@ -118,7 +139,7 @@ export function logActivity(
   const activityRecord = { timestamp, type, ...details };
 
   const activityFile = path.join(ACTIVITIES_DIR, `${timestamp.replace(/[:.]/g, "-")}-${type}-${id}.json`);
-  fs.promises.writeFile(activityFile, JSON.stringify(activityRecord, null, 2)).catch(() => {});
+  writeFileAtomic(activityFile, JSON.stringify(activityRecord, null, 2)).catch(() => {});
 
   console.info(`  [reporter] Activity logged: ${type} - ${JSON.stringify(details).substring(0, 50)}...`);
 }

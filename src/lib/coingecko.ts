@@ -20,7 +20,7 @@ import { sleep, Mutex } from "./shared-utils";
 import { Coingecko } from "@coingecko/coingecko-typescript";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { MONTHLY_LIMIT } from "./reporter";
-import { formatErrorForLog } from "./utils";
+import { formatErrorForLog, writeFileAtomic } from "./utils";
 
 // ── Constants & Configuration ───────────────────────────────
 
@@ -106,7 +106,7 @@ async function readCounter(): Promise<ApiCounter> {
 async function incrementCounter(): Promise<number> {
   const counter = await readCounter();
   counter.count += 1;
-  await fs.promises.writeFile(COUNTER_FILE, JSON.stringify(counter, null, 2));
+  await writeFileAtomic(COUNTER_FILE, JSON.stringify(counter, null, 2));
   return counter.count;
 }
 
@@ -176,7 +176,7 @@ async function withCache<T>(
   // Save to cache
   if (cacheKey) {
     const cacheFile = path.join(CACHE_DIR, `${cacheKey}.json`);
-    await fs.promises.writeFile(cacheFile, JSON.stringify(data, null, 2));
+    await writeFileAtomic(cacheFile, JSON.stringify(data, null, 2));
     console.info(`  [cached] ${cacheKey} (call ${currentCount}/${MONTHLY_LIMIT} this month)`);
   }
 

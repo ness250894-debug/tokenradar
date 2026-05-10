@@ -806,16 +806,48 @@ input[type=range]::-moz-range-thumb:hover {
   }
 }
 
-.ticker-track {
-  animation: ticker-slide 30s linear infinite;
+.alpha-ticker {
+  position: relative;
 }
 
-@keyframes ticker-slide {
-  0% {
-    transform: translateX(0);
-  }
+.alpha-ticker-item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  opacity: 0;
+  animation-name: ticker-item-fade;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.alpha-ticker-text {
+  min-width: 0;
+  max-width: min(84vw, 44rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes ticker-item-fade {
+  0%,
   100% {
-    transform: translateX(-50%);
+    opacity: 0;
+  }
+  5%,
+  18% {
+    opacity: 1;
+  }
+  23% {
+    opacity: 0;
   }
 }
 
@@ -870,20 +902,24 @@ input[type=range]::-moz-range-thumb:hover {
 .hero h1 {
   font-size: var(--text-5xl);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   line-height: 1.1;
   max-width: 720px;
   margin: 0 auto;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .hero-subtitle {
   font-size: var(--text-lg);
   color: var(--text-secondary);
   margin-top: var(--space-lg);
-  max-width: 560px;
+  width: min(100%, 560px);
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.7;
+  overflow-wrap: break-word;
 }
 
 .hero-cta {
@@ -960,6 +996,36 @@ input[type=range]::-moz-range-thumb:hover {
   .token-table td,
   .token-table th {
     padding: var(--space-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 2rem;
+    max-width: 22rem;
+  }
+
+  .hero-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100vw - (2 * var(--space-md)));
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta .btn {
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .hero-subtitle {
+    width: calc(100vw - (2 * var(--space-md)));
+    max-width: 20rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }
 
