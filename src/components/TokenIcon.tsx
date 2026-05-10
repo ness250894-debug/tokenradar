@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { getTokenIconCandidates } from "@/lib/formatters";
 
@@ -31,13 +31,11 @@ export function TokenIcon({
     () => getTokenIconCandidates({ symbol, id, imageUrl }),
     [symbol, id, imageUrl],
   );
-  const [candidateIndex, setCandidateIndex] = useState(0);
+  const candidateKey = iconCandidates.join("\0");
+  const [failedCandidate, setFailedCandidate] = useState({ key: "", index: 0 });
+  const candidateIndex = failedCandidate.key === candidateKey ? failedCandidate.index : 0;
   const iconUrl = iconCandidates[candidateIndex];
   const isAvatar = !iconUrl;
-
-  useEffect(() => {
-    setCandidateIndex(0);
-  }, [symbol, id, imageUrl]);
 
   const containerStyle: React.CSSProperties = {
     width: size,
@@ -70,7 +68,7 @@ export function TokenIcon({
         width={size}
         height={size}
         className="img-icon"
-        onError={() => setCandidateIndex((index) => index + 1)}
+        onError={() => setFailedCandidate({ key: candidateKey, index: candidateIndex + 1 })}
         unoptimized
       />
     </div>

@@ -65,6 +65,7 @@ function tokenIcon(token: RenderableMoverToken) {
 
   return (
     <div style={{ display: 'flex', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: '#12131a', width: 48, height: 48, alignItems: 'center', justifyContent: 'center' }}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders this static image before Next can optimize it. */}
       <img
         src={token.iconDataUrl}
         alt={token.name}
