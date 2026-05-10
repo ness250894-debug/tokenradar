@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { describe, expect, it } from "vitest";
 
 import { getArticle, getTokenDetail, type Article, type TokenDetail } from "../src/lib/content-loader";
 import { canonicalPath, canonicalUrl, isTokenOverviewIndexable } from "../src/lib/seo";
