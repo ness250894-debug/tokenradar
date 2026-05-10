@@ -10,6 +10,12 @@ interface PageProps {
 
 export const dynamicParams = false;
 
+function formatCategorySeoTitle(categoryName: string): string {
+  const cleaned = categoryName.replace(/\s*\([^)]*\)/g, "").trim();
+  const title = `${cleaned} Crypto Tokens`;
+  return title.length <= 54 ? title : `${cleaned.slice(0, 44).trim()} Tokens`;
+}
+
 export async function generateStaticParams() {
   const categories = await getAllCategories();
   return categories.map((cat) => ({ category: cat.id }));
@@ -21,8 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cat = categories.find(c => c.id === category);
   if (!cat) return { title: "Category Not Found" };
 
-  const title = `Top ${cat.name} Crypto Tokens — Market Cap & Analytics`;
-  const description = `Discover the top ${cat.name} cryptocurrency tokens. Analyze price, risk score, market cap, and proprietary metrics for ${cat.name} projects on TokenRadar.`;
+  const title = formatCategorySeoTitle(cat.name);
+  const description = `Track ${cat.name} crypto tokens by price, market cap, volume, and TokenRadar risk metrics.`;
 
   return {
     title,

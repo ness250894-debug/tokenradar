@@ -17,6 +17,7 @@ import {
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
 import { slugify } from "@/lib/shared-utils";
+import { isTokenOverviewIndexable } from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
@@ -67,14 +68,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
 
   const article = await getArticle(tokenId, "overview");
-  const isLowQuality = (detail.market.volume24h < 10000) || (detail.market.marketCap < 100000 && (!article || article.wordCount < 300));
+  const isIndexable = isTokenOverviewIndexable(detail, article);
 
   const ogImage = `/og/token/${detail.id}.png`;
 
   return {
     title,
     description,
-    robots: isLowQuality ? { index: false, follow: true } : { index: true, follow: true },
+    robots: isIndexable ? { index: true, follow: true } : { index: false, follow: true },
     alternates: {
       canonical: `/${detail.id}`,
     },

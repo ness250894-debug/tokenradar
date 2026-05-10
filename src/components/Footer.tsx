@@ -6,7 +6,7 @@ import { HackerText } from "./HackerText";
 import { TelegramIcon, XIcon } from "./SocialIcons";
 
 const PLATFORM_LINKS = [
-  { href: "/#tokens", label: "Explore Market" },
+  { href: "/tokens", label: "Token Directory" },
   { href: "/upcoming", label: "Upcoming Launches" },
   { href: "/about#methodology", label: "Methodology" },
 ] as const;

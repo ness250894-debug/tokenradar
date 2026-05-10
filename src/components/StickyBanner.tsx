@@ -61,6 +61,8 @@ export function StickyBanner({ symbol }: { symbol: string }) {
               target="_blank"
               rel="noopener noreferrer sponsored"
               className="sticky-btn"
+              data-analytics-id={`sticky-affiliate-${ex.name.toLowerCase()}`}
+              data-analytics-label={`${ex.name} sticky affiliate`}
               style={{ backgroundColor: ex.color, color: ex.text }}
             >
               {ex.name}

@@ -8,8 +8,10 @@ import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
 import { JsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { ClickAnalytics } from "@/components/ClickAnalytics";
+import { getSiteUrl } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
+const siteUrl = getSiteUrl();
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -127,6 +129,7 @@ export default function RootLayout({
           <Footer />
           <ScrollToTop />
           <BackToOverviewToast />
+          <ClickAnalytics />
         </ProgressBarProvider>
       </body>
     </html>

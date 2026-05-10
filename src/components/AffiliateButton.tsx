@@ -66,6 +66,8 @@ export function AffiliateButton({
           rel="noopener noreferrer sponsored"
           className="btn btn-primary"
           id={`affiliate-btn-${exchange.toLowerCase()}-${symbol.toLowerCase()}`}
+          data-analytics-id={`affiliate-${exchange.toLowerCase()}`}
+          data-analytics-label={`${exchange} ${symbol.toUpperCase()} affiliate`}
         >
           Trade on {exchange} →
         </a>

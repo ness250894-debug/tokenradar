@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTokenDetail, getAllTokens } from '@/lib/content-loader';
 import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
+import { canonicalPath } from '@/lib/seo';
 
 export const dynamic = "force-static";
 
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: `Official technical guide for transferring ${name} (${symbol}) to your Ledger hardware wallet safely. Verified ${technical.network} instructions to prevent asset loss.`,
     keywords: [`transfer ${name} to ledger`, `store ${symbol} on ledger`, `${name} ledger wallet`, `secure ${symbol} offline`],
     alternates: {
-      canonical: `https://tokenradar.co/${tokenId}/transfer-to-ledger`,
+      canonical: canonicalPath(`/${tokenId}/transfer-to-ledger`),
     },
     openGraph: {
       title: `Secure ${name} (${symbol}) on Ledger`,

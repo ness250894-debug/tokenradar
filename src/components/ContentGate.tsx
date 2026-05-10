@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export function ContentGate({ children, htmlContent }: { children?: React.ReactNode, htmlContent?: string }) {
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -9,6 +10,9 @@ export function ContentGate({ children, htmlContent }: { children?: React.ReactN
     // Reveal the content when the user "converts". 
     // In a real app this might verify an auth token, but for CRO we reward the intent to join.
     setIsUnlocked(true);
+    trackEvent("content_gate_unlock", {
+      page_path: window.location.pathname,
+    });
   };
 
   return (
@@ -33,6 +37,7 @@ export function ContentGate({ children, htmlContent }: { children?: React.ReactN
             target="_blank" 
             rel="noopener noreferrer" 
             className="btn btn-primary" 
+            data-analytics-id="content-gate-telegram"
             style={{ boxShadow: "0 4px 32px rgba(0, 200, 83, 0.4)", fontWeight: 700 }}
             onClick={handleUnlock}
           >

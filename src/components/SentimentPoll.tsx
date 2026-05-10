@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown, Users } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export function SentimentPoll({ tokenId }: { tokenId: string }) {
   const [vote, setVote] = useState<'bullish' | 'bearish' | null>(null);
@@ -36,6 +37,11 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
     localStorage.setItem(`sentiment_${tokenId}`, choice);
     if (choice === 'bullish') setBullVotes(v => v + 1);
     if (choice === 'bearish') setBearVotes(v => v + 1);
+    trackEvent("sentiment_vote", {
+      token_id: tokenId,
+      vote_choice: choice,
+      page_path: window.location.pathname,
+    });
   };
 
   return (
