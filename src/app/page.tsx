@@ -3,7 +3,6 @@ import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { getAllTokens, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import Link from "next/link";
-import { MagneticEffect } from "@/components/MagneticEffect";
 import { CountUp } from "@/components/CountUp";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { CardGlare } from "@/components/CardGlare";
@@ -81,16 +80,12 @@ export default async function HomePage() {
             {allTokens.length > 0 ? ` ${allTokens.length}+ ` : " 250+ "} tokens — updated daily, always unbiased.
           </p>
           <div className="hero-cta animate-in animate-delay-2">
-            <MagneticEffect>
-              <a href="#tokens" className="btn btn-primary">
-                Explore Tokens
-              </a>
-            </MagneticEffect>
-            <MagneticEffect>
-              <Link href="/about" className="btn btn-secondary">
-                Our Methodology
-              </Link>
-            </MagneticEffect>
+            <a href="#tokens" className="btn btn-primary">
+              Explore Tokens
+            </a>
+            <Link href="/about" className="btn btn-secondary">
+              Our Methodology
+            </Link>
           </div>
         </div>
 

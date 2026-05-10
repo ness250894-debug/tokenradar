@@ -47,7 +47,7 @@ export default function HardwareWalletsPage() {
               </p>
               
               <p style={{ marginBottom: "var(--space-xl)", color: "var(--text-secondary)", fontSize: "var(--text-lg)", lineHeight: 1.6 }}>
-              In the high-stakes world of cryptocurrency, where transactions are irreversible, security isn&apos;t just a feature — it&apos;s the bedrock of trust. If you are keeping your assets on an exchange like Coinbase or Binance, you don&apos;t actually own your crypto. You own a IOUs on a database that can be frozen, hacked, or seized at any moment.
+              In the high-stakes world of cryptocurrency, where transactions are irreversible, security isn&apos;t just a feature — it&apos;s the bedrock of trust. If you are keeping your assets on an exchange like Coinbase or Binance, you don&apos;t actually own your crypto. You own an IOU on a database that can be frozen, hacked, or seized at any moment.
             </p>
 
             <div style={{ background: "rgba(220, 38, 38, 0.05)", border: "1px solid rgba(220, 38, 38, 0.2)", borderRadius: "var(--radius-lg)", padding: "var(--space-xl)", marginBottom: "var(--space-2xl)" }}>

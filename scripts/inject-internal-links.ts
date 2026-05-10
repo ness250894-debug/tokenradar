@@ -9,6 +9,7 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 
+import { getTokenIds } from "../src/lib/content-loader";
 import { safeReadJson } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -16,6 +17,20 @@ const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
 const MAX_TOKEN_LINKS = 3;
 const MAX_LEARN_LINKS = 2;
+const BLOCKED_TOKEN_LINK_TERMS = new Set([
+  "cash",
+  "deep",
+  "everything",
+  "flow",
+  "four",
+  "gas",
+  "home",
+  "just",
+  "movement",
+  "safe",
+  "score",
+  "would",
+]);
 
 interface LinkMapping {
   name: string;
@@ -23,17 +38,31 @@ interface LinkMapping {
   type: "token" | "learn";
 }
 
+interface TokenLinkSource {
+  name?: unknown;
+}
+
+function isLinkableTokenName(name: string): boolean {
+  const normalized = name.trim().toLowerCase();
+  if (normalized.length <= 2) return false;
+  if (/^\d+$/.test(normalized)) return false;
+  return !BLOCKED_TOKEN_LINK_TERMS.has(normalized);
+}
+
 async function buildAllMappings(): Promise<LinkMapping[]> {
   const mappings: LinkMapping[] = [];
 
   // 1. Build Token Mappings
   try {
+    const routeableTokenIds = new Set(await getTokenIds());
     const tokenFiles = await fs.readdir(path.join(DATA_DIR, "tokens"));
     for (const file of tokenFiles) {
       if (!file.endsWith(".json")) continue;
       const slug = file.replace(".json", "");
-      const data = safeReadJson<any>(path.join(DATA_DIR, "tokens", file), null);
-      if (data && data.name) mappings.push({ name: data.name, slug: slug, type: "token" });
+      const data = safeReadJson<TokenLinkSource | null>(path.join(DATA_DIR, "tokens", file), null);
+      if (typeof data?.name === "string" && routeableTokenIds.has(slug) && isLinkableTokenName(data.name)) {
+        mappings.push({ name: data.name, slug: slug, type: "token" });
+      }
     }
   } catch (_e) {
     console.warn("⚠️ Tokens data not found. Skipping token links.");
@@ -78,7 +107,7 @@ function injectLinks(content: string, mappings: LinkMapping[], currentSlug: stri
       if (mapping.type === "token" && tokenLinked >= MAX_TOKEN_LINKS) continue;
       if (mapping.type === "learn" && learnLinked >= MAX_LEARN_LINKS) continue;
 
-      if (mapping.slug.includes(currentSlug) || usedSlugs.has(mapping.slug)) continue;
+      if ((mapping.type === "token" && mapping.slug === currentSlug) || usedSlugs.has(mapping.slug)) continue;
 
       const escaped = mapping.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(`(^|\\s|\\(|\\b)(${escaped})($|\\s|\\)|\\b|\\.|,)`, 'i');

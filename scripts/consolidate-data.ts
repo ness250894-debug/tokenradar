@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { writeFileAtomic } from "../src/lib/utils";
 
 /**
  * Consolidate individual token/metric/price files into single optimized blobs.
@@ -146,10 +147,10 @@ async function consolidate() {
   }
 
   console.log("Writing blobs to disk...");
-  await fs.promises.writeFile(OUTPUT_TOKENS_BLOB, JSON.stringify(tokensBlob));
-  await fs.promises.writeFile(OUTPUT_METRICS_BLOB, JSON.stringify(metricsBlob));
-  await fs.promises.writeFile(OUTPUT_PRICES_BLOB, JSON.stringify(pricesBlob));
-  await fs.promises.writeFile(OUTPUT_REGISTRY, JSON.stringify(registry));
+  await writeFileAtomic(OUTPUT_TOKENS_BLOB, JSON.stringify(tokensBlob));
+  await writeFileAtomic(OUTPUT_METRICS_BLOB, JSON.stringify(metricsBlob));
+  await writeFileAtomic(OUTPUT_PRICES_BLOB, JSON.stringify(pricesBlob));
+  await writeFileAtomic(OUTPUT_REGISTRY, JSON.stringify(registry));
 
   console.log("Consolidation complete!");
   console.log(`\n  - Tokens: ${Object.keys(tokensBlob).length} (${tokenFiles.length - Object.keys(tokensBlob).length} skipped)`);

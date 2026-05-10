@@ -93,7 +93,7 @@ export default async function CategoryPage({ params }: PageProps) {
         {/* Aggregate Stats */}
         <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--space-md)" }}>
           <div className="card" style={{ padding: "var(--space-md)" }}>
-            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>Total Tokens Tracker</div>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>Total Tokens Tracked</div>
             <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{tokens.length}</div>
           </div>
           <div className="card" style={{ padding: "var(--space-md)" }}>
@@ -121,7 +121,7 @@ export default async function CategoryPage({ params }: PageProps) {
             The cryptocurrency landscape is vast, but paying attention to specific sectors like <strong>{cat.name}</strong> helps investors identify trends before they go mainstream. By tracking the collective market capitalization and daily trading volume of these projects, you can gauge overall sentiment and capital flow within the sector.
           </p>
           <p>
-            TokenRadar provides proprietary Risk Scores and Growth Potential tracking for all major {cat.name} tokens, separating fundamentally strong projects from market noise. Click into any token above to read our data-driven breakdown and review current price Action.
+            TokenRadar provides proprietary Risk Scores and Growth Potential tracking for all major {cat.name} tokens, separating fundamentally strong projects from market noise. Click into any token above to read our data-driven breakdown and review current price action.
           </p>
         </div>
       </section>

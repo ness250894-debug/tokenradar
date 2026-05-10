@@ -20,7 +20,7 @@
 
 import { execSync } from "child_process";
 import { loadEnv, formatErrorForLog } from "../src/lib/utils";
-import { logError } from "../src/lib/reporter";
+import { logError, sendTelegramAlert } from "../src/lib/reporter";
 
 loadEnv();
 
@@ -135,10 +135,6 @@ function persistToGitHubSecrets(secretName: string, secretValue: string): boolea
  * Report results to the Telegram ops channel.
  */
 async function reportToTelegram(results: TokenRefreshResult[]): Promise<void> {
-  const botToken = process.env.TELEGRAM_REPORT_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_REPORT_CHAT_ID;
-  if (!botToken || !chatId) return;
-
   const lines = ["🔑 *Meta Token Refresh Report*", ""];
 
   for (const result of results) {
@@ -154,18 +150,9 @@ async function reportToTelegram(results: TokenRefreshResult[]): Promise<void> {
     lines.push(line);
   }
 
-  try {
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: lines.join("\n"),
-        parse_mode: "Markdown",
-      }),
-    });
-  } catch {
-    // Non-critical: don't crash if Telegram reporting fails
+  const delivered = await sendTelegramAlert(lines.join("\n"));
+  if (!delivered) {
+    console.warn("  [meta-refresh] Telegram report was not delivered.");
   }
 }
 

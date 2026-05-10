@@ -134,6 +134,46 @@ export function ensureDirSync(dirPath: string): void {
   }
 }
 
+function getAtomicTempPath(filePath: string): string {
+  const dir = path.dirname(filePath);
+  const base = path.basename(filePath);
+  const suffix = `${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  return path.join(dir, `.${base}.${suffix}.tmp`);
+}
+
+/**
+ * Write a file through a same-directory temp file and rename it into place.
+ * This prevents readers from seeing partially written JSON or media artifacts.
+ */
+export async function writeFileAtomic(filePath: string, data: string | NodeJS.ArrayBufferView): Promise<void> {
+  const tempPath = getAtomicTempPath(filePath);
+  await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
+  try {
+    await fs.promises.writeFile(tempPath, data);
+    await fs.promises.rename(tempPath, filePath);
+  } catch (error) {
+    await fs.promises.rm(tempPath, { force: true }).catch(() => {});
+    throw error;
+  }
+}
+
+/**
+ * Sync variant for scripts that intentionally use synchronous filesystem flow.
+ */
+export function writeFileAtomicSync(filePath: string, data: string | NodeJS.ArrayBufferView): void {
+  const tempPath = getAtomicTempPath(filePath);
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  try {
+    fs.writeFileSync(tempPath, data);
+    fs.renameSync(tempPath, filePath);
+  } catch (error) {
+    try {
+      fs.rmSync(tempPath, { force: true });
+    } catch {}
+    throw error;
+  }
+}
+
 /**
  * Redact obvious credentials from logs, alerts, and persisted error records.
  */
