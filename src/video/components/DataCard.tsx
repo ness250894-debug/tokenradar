@@ -31,7 +31,7 @@ export const DataCard: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: COLORS.background,
+        backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "center",
       }}

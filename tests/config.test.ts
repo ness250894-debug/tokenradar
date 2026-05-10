@@ -17,6 +17,7 @@ describe("config exports", () => {
     expect(SOCIAL.telegramUrl).toContain("t.me");
     expect(SOCIAL.threadsUrl).toBe("https://www.threads.com/@tokenradarco");
     expect(SOCIAL.instagramUrl).toBe("https://www.instagram.com/tokenradarco/");
+    expect(SOCIAL.tiktokUrl).toBe("https://www.tiktok.com/@tokenradarco");
     expect(SOCIAL.ecosystemUrl).toBe(SITE_URL);
   });
 

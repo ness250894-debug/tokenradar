@@ -25,7 +25,7 @@ export const ContextView: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: COLORS.background,
+        backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "center",
         padding: `0 ${SAFE_ZONES.horizontal}px`,

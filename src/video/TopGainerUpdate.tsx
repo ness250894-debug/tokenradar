@@ -8,6 +8,7 @@ import { DataCard } from "./components/DataCard";
 import { MetricsView } from "./components/MetricsView";
 import { ContextView } from "./components/ContextView";
 import { VerdictBadge } from "./components/VerdictBadge";
+import { VideoBackground } from "./components/VideoBackground";
 
 // Load Inter font
 loadFont();
@@ -47,6 +48,8 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.background }}>
+      <VideoBackground priceChange24h={priceChange24h} riskScore={riskScore} verdict={verdict} />
+
       <Sequence from={0} durationInFrames={hookDuration}>
         <HookScreen text={hookText || "THIS TOKEN IS BREAKING OUT"} />
       </Sequence>

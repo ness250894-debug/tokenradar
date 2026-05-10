@@ -302,15 +302,17 @@ export interface UnifiedSocialCaptions {
   threadsCaption?: string;
   threadsTopicTag?: string;
   threadsSpoilerText?: string;
+  tiktokCaption?: string;
 }
 
-export type PlatformTarget = "telegram" | "x" | "youtube" | "instagram" | "threads";
+export type PlatformTarget = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 
 export interface UnifiedCaptionOptions {
   telegramMaxChars?: number;
   xMaxChars?: number;
   instagramMaxChars?: number;
   threadsMaxChars?: number;
+  tiktokMaxChars?: number;
   youtubeTitleMaxChars?: number;
 }
 
@@ -322,6 +324,7 @@ const PLATFORM_FIELDS: Record<PlatformTarget, UnifiedCaptionField[]> = {
   youtube: ["youtubeTitle", "youtubeDescription"],
   instagram: ["instagramCaption"],
   threads: ["threadsCaption", "threadsTopicTag", "threadsSpoilerText"],
+  tiktok: ["tiktokCaption"],
 };
 
 const UNIFIED_FIELD_DESCRIPTIONS: Record<UnifiedCaptionField, string> = {
@@ -333,6 +336,7 @@ const UNIFIED_FIELD_DESCRIPTIONS: Record<UnifiedCaptionField, string> = {
   threadsCaption: "Threads caption text. Must include the spoiler text exactly once.",
   threadsTopicTag: "Single-word Threads topic tag without #, dots, ampersands, or spaces.",
   threadsSpoilerText: "Exact substring in threadsCaption that should become a Threads spoiler entity.",
+  tiktokCaption: "TikTok video caption with hashtags and optional @tokenradarco mention.",
 };
 
 function formatSocialPrice(price: number | undefined): string {
@@ -423,6 +427,17 @@ function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): stri
   return `This setup is moving ${change}. Watch the data behind ${tokenName}.`;
 }
 
+function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
+  const change = formatSocialChange(metrics.priceChange24h);
+  const price = formatSocialPrice(metrics.price);
+
+  return [
+    `${tokenName} is moving ${change} in 24h.`,
+    `Price: ${price}. Watch the TokenRadar setup before the next market rotation.`,
+    `@tokenradarco #${symbol.toUpperCase()} #Crypto #Altcoins #TokenRadar`,
+  ].join("\n\n");
+}
+
 function truncateText(text: string, maxChars: number): string {
   if (text.length <= maxChars) return text;
   if (maxChars <= 3) return text.substring(0, maxChars);
@@ -507,6 +522,13 @@ function enforceUnifiedCaptionLimits(
       options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
     );
   }
+  if (next.tiktokCaption) {
+    next.tiktokCaption = sanitizePostTextLinks(next.tiktokCaption);
+    next.tiktokCaption = truncateText(
+      next.tiktokCaption,
+      options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
+    );
+  }
 
   return next;
 }
@@ -553,6 +575,10 @@ async function fillMissingUnifiedCaptionFields(
     next.threadsCaption ||= fallbackThreadsCaption(tokenName, metrics);
     next.threadsTopicTag = sanitizeUnifiedTopicTag(next.threadsTopicTag);
     next.threadsSpoilerText ||= tokenName;
+  }
+
+  if (platforms.includes("tiktok") && !next.tiktokCaption) {
+    next.tiktokCaption = fallbackTikTokCaption(tokenName, symbol, metrics);
   }
 
   return enforceUnifiedCaptionLimits(next, options);
@@ -615,6 +641,15 @@ THREADS RULES:
 - Build curiosity around the spoiler text without using marker syntax.
 - threadsTopicTag must be one single word, 1-50 characters, without #, dots, ampersands, or spaces.
 - Do not mention @tokenradarco.`,
+    tiktok: `
+TIKTOK RULES:
+- Return "tiktokCaption" only for TikTok.
+- Maximum ${options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} characters.
+- Start with a short curiosity hook that fits a vertical short-form video.
+- Include 2-3 concrete market data points naturally.
+- Mention @tokenradarco once.
+- Include 5-8 relevant hashtags at the end.
+- No URLs, markdown, HTML, unsupported symbols, AI disclaimers, or rocket emojis.`,
   };
 
   const priceStr = formatSocialPrice(metrics.price);

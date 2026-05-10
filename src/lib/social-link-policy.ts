@@ -8,6 +8,7 @@ const CONNECTED_PREFIX_URLS = [
   SOCIAL.telegramUrl,
   SOCIAL.threadsUrl,
   SOCIAL.instagramUrl,
+  SOCIAL.tiktokUrl,
 ];
 
 const CONNECTED_EXACT_URLS = [

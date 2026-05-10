@@ -28,7 +28,7 @@ export const VerdictBadge: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: COLORS.background,
+        backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "center",
         fontFamily: FONTS.primary,
