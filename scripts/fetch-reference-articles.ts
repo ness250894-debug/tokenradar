@@ -60,6 +60,16 @@ export interface TokenReferences {
   fetchedAt: string;
 }
 
+type ReferenceToken = {
+  id: string;
+  name: string;
+  symbol: string;
+  rank?: number;
+  market?: {
+    marketCapRank?: number | null;
+  };
+};
+
 // ── RSS Parsing ────────────────────────────────────────────────
 
 /**
@@ -260,15 +270,17 @@ async function main() {
     process.exit(1);
   }
 
-  const tokens = JSON.parse(fs.readFileSync(TOKENS_FILE, "utf-8")) as {
-    id: string;
-    name: string;
-    symbol: string;
-    rank: number;
-  }[];
-  const filteredTokens = tokens.filter(
-    (t) => t.rank >= startRank && t.rank <= endRank
-  );
+  const tokens = JSON.parse(fs.readFileSync(TOKENS_FILE, "utf-8")) as ReferenceToken[];
+  const filteredTokens = tokens
+    .filter((token) => {
+      const rank = token.market?.marketCapRank ?? token.rank;
+      return typeof rank === "number" && rank >= startRank && rank <= endRank;
+    })
+    .sort((a, b) => {
+      const rankA = a.market?.marketCapRank ?? a.rank ?? Number.MAX_SAFE_INTEGER;
+      const rankB = b.market?.marketCapRank ?? b.rank ?? Number.MAX_SAFE_INTEGER;
+      return rankA - rankB;
+    });
   console.log(`  Tokens: ${filteredTokens.length} (rank #${startRank}-#${endRank})`);
   console.log();
 
@@ -304,6 +316,19 @@ async function main() {
     }
     
     const finalArticles = [...redditPosts, ...tokenArticles].slice(0, 6); // Reddit prioritized at top
+    const referencePath = path.join(REFERENCES_DIR, `${token.id}.json`);
+
+    if (finalArticles.length === 0) {
+      if (fs.existsSync(referencePath)) {
+        try {
+          const existing = JSON.parse(fs.readFileSync(referencePath, "utf-8")) as TokenReferences;
+          if (!existing.articles?.length) fs.rmSync(referencePath);
+        } catch {
+          fs.rmSync(referencePath);
+        }
+      }
+      continue;
+    }
 
     const references: TokenReferences = {
       tokenId: token.id,
@@ -313,13 +338,13 @@ async function main() {
     };
 
     fs.writeFileSync(
-      path.join(REFERENCES_DIR, `${token.id}.json`),
+      referencePath,
       JSON.stringify(references, null, 2)
     );
 
-    if (tokenArticles.length > 0) {
+    if (finalArticles.length > 0) {
       matched++;
-      console.log(`  ✓ ${token.name}: ${tokenArticles.length} articles`);
+      console.log(`  ✓ ${token.name}: ${finalArticles.length} articles`);
     }
   }
 

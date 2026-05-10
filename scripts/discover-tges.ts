@@ -24,6 +24,7 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
+const TOKENS_DIR = path.join(DATA_DIR, "tokens");
 
 /** RSS feed timeout in milliseconds. */
 const RSS_TIMEOUT_MS = 15_000;
@@ -177,6 +178,17 @@ async function analyzeNewsInBatches(
  * Returns null if not graduated, or { rank } if graduated.
  */
 async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | null> {
+  const localToken = safeReadJson<any>(path.join(TOKENS_DIR, `${tge.id}.json`), null);
+  const localMarket = localToken?.market || {};
+  const hasLocalMarket =
+    (localMarket.price ?? 0) > 0 ||
+    (localMarket.marketCap ?? 0) > 0 ||
+    (localMarket.volume24h ?? 0) > 0;
+
+  if (hasLocalMarket) {
+    return { rank: localMarket.marketCapRank || 0 };
+  }
+
   try {
     const data = await fetchCoinGecko<any>(
       `/coins/${tge.id}`,

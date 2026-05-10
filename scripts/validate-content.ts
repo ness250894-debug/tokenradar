@@ -16,6 +16,10 @@ const SCAN_DIRS = [
   path.resolve(__dirname, "../content")
 ];
 
+const DATA_DIR = path.resolve(__dirname, "../data");
+const CONTENT_TOKENS_DIR = path.resolve(__dirname, "../content/tokens");
+const QUEUE_DIR = path.join(DATA_DIR, "queue");
+const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const CONFLICT_MARKERS = ["<<<<<<<", "=======", ">>>>>>>"];
 
 function validateFile(filePath: string): { success: boolean; error?: string } {
@@ -67,6 +71,33 @@ function getFiles(dir: string): string[] {
   return results;
 }
 
+function validateTgePreviews(): string[] {
+  const errors: string[] = [];
+  const tgeIds = new Set<string>();
+
+  if (fs.existsSync(TGE_FILE)) {
+    const tges = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) as { id?: string }[];
+    for (const tge of tges) {
+      if (tge.id) tgeIds.add(tge.id);
+    }
+  }
+
+  const checkDir = (baseDir: string) => {
+    if (!fs.existsSync(baseDir)) return;
+    for (const tokenId of fs.readdirSync(baseDir)) {
+      const previewPath = path.join(baseDir, tokenId, "tge-preview.json");
+      if (fs.existsSync(previewPath) && !tgeIds.has(tokenId)) {
+        errors.push(`${path.relative(process.cwd(), previewPath)} has no matching data/upcoming-tges.json entry`);
+      }
+    }
+  };
+
+  checkDir(CONTENT_TOKENS_DIR);
+  checkDir(QUEUE_DIR);
+
+  return errors;
+}
+
 function main() {
   console.log("Checking content integrity...");
   let failCount = 0;
@@ -83,6 +114,12 @@ function main() {
         console.error(`\u274C ${path.relative(process.cwd(), file)}: ${result.error}`);
       }
     }
+  }
+
+  const tgeErrors = validateTgePreviews();
+  for (const error of tgeErrors) {
+    failCount++;
+    console.error(`\u274C ${error}`);
   }
 
   if (failCount > 0) {

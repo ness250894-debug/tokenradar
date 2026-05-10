@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1045.0",
-    "@aws-sdk/lib-storage": "^3.1045.0",
     "@coingecko/coingecko-typescript": "^3.1.5",
     "@next/third-parties": "^16.2.6",
     "@remotion/cli": "^4.0.459",
@@ -24,7 +23,6 @@
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@xdevplatform/xdk": "^0.5.0",
-    "axios": "^1.16.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.4.2",
     "framer-motion": "^12.38.0",
@@ -53,7 +51,6 @@
     "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "^16.2.6",
-    "eslint-formatter-unix": "^9.0.1",
     "satori": "^0.26.0",
     "tsx": "^4.21.0",
     "typescript": "^5",

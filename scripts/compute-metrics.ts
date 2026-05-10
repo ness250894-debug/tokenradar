@@ -289,7 +289,7 @@ async function main() {
 
   // Compute metrics for each token
   console.log("▶ Computing metrics...");
-  const allMetrics: TokenMetrics[] = [];
+  let tokensProcessed = 0;
 
   for (const token of allTokenData) {
     // Load price history for volatility
@@ -362,7 +362,7 @@ async function main() {
       computedAt: new Date().toISOString(),
     };
 
-    allMetrics.push(metrics);
+    tokensProcessed++;
 
     // Save per-token metrics
     fs.writeFileSync(
@@ -375,31 +375,17 @@ async function main() {
     );
   }
 
-  // Save combined metrics file
-  fs.writeFileSync(
-    path.join(METRICS_DIR, "_all.json"),
-    JSON.stringify(
-      {
-        computedAt: new Date().toISOString(),
-        tokenCount: allMetrics.length,
-        metrics: allMetrics,
-      },
-      null,
-      2
-    )
-  );
-
   console.log();
   console.log("╔══════════════════════════════════════════╗");
   console.log("║        Metrics Computation Complete      ║");
   console.log("╠══════════════════════════════════════════╣");
-  console.log(`║  Tokens:    ${String(allMetrics.length).padStart(6)}                 ║`);
+  console.log(`║  Tokens:    ${String(tokensProcessed).padStart(6)}                 ║`);
   console.log(`║  Output:    data/metrics/                ║`);
   console.log("╚══════════════════════════════════════════╝");
 
   // Log success for Daily Report
   logActivity("metrics-calc", {
-    tokensProcessed: allMetrics.length
+    tokensProcessed
   });
 }
 

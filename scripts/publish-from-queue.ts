@@ -56,9 +56,18 @@ async function main() {
     return;
   }
 
-  const queueItems = fs.readdirSync(QUEUE_DIR).filter(d => 
-    fs.statSync(path.join(QUEUE_DIR, d)).isDirectory()
-  );
+  const upcomingTges = safeReadJson<any[]>(TGE_FILE, []);
+  const tgeById = new Map(upcomingTges.map((tge) => [tge.id, tge]));
+
+  const queueItems = fs.readdirSync(QUEUE_DIR)
+    .filter(d => fs.statSync(path.join(QUEUE_DIR, d)).isDirectory())
+    .sort((a, b) => {
+      const aTge = tgeById.get(a);
+      const bTge = tgeById.get(b);
+      const aPriority = aTge ? (aTge.status === "released" ? 1 : 0) : 2;
+      const bPriority = bTge ? (bTge.status === "released" ? 1 : 0) : 2;
+      return aPriority - bPriority || a.localeCompare(b);
+    });
 
   if (queueItems.length === 0) {
     console.log("  ∅ Queue is empty.");
@@ -91,7 +100,6 @@ async function main() {
     year: "numeric"
   });
 
-  const upcomingTges = safeReadJson<any[]>(TGE_FILE, []);
   let processedCount = 0;
 
   for (const tokenId of queueItems) {
