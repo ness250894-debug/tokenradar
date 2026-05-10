@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import {
   getTokenDetail,
-  getTokenIds,
+  getTokenIdsWithArticle,
   getTokenMetrics,
   getPriceHistory,
   getArticle,
@@ -25,7 +25,7 @@ interface PageProps {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const tokenIds = await getTokenIds();
+  const tokenIds = await getTokenIdsWithArticle("price-prediction");
   return tokenIds.map((token) => ({ token }));
 }
 
