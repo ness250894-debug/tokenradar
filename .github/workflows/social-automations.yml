@@ -142,7 +142,7 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 6. Daily Video Breakout (Runs 1x Day @ 18:00) ─────────
+      # ─── 6. Daily Video Breakout (Runs 1x Day @ 18:00; includes TikTok manual report) ─────────
       - name: Install FFmpeg
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg

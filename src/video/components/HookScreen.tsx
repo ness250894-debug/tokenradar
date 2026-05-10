@@ -24,7 +24,7 @@ export const HookScreen: React.FC<{ text: string }> = ({ text }) => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: COLORS.background,
+        backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "center",
         padding: `0 ${SAFE_ZONES.horizontal}px`,

@@ -11,7 +11,7 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 - **Data:** CoinGecko API (free tier)
 - **Hosting:** Cloudflare Pages
 - **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and 8 social workflow runs/day)
-- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API
+- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok manual reporting
 - **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots
 
 ## Project Structure
@@ -57,21 +57,22 @@ npm test
 | `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |
 | `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |
 | `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |
-| `npx tsx scripts/post-video-daily.ts` | Generate and post 60s cinematic video (IG, Threads, YT) |
+| `npx tsx scripts/post-video-daily.ts` | Generate and post 60s cinematic video (IG, Threads, YT, TikTok manual report) |
 | `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |
 | `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |
 
 ## Social Publishing
 
-Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, and Threads.
+Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
 
-Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is not wired yet.
+Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is wired as a manual reporting flow while API approvals are pending: `--platform tiktok` renders the video, generates a TikTok caption, and sends both to the Telegram reporting chat for manual posting.
 
 Safe dry-run checks:
 
 ```bash
 npx tsx scripts/post-market-updates.ts --dry-run --platform all
 npx tsx scripts/post-video-daily.ts --dry-run --platform x --force
+npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force
 ```
 
 ## Environment Variables
@@ -84,6 +85,8 @@ Copy `.env.example` to `.env.local` and configure:
 | `ANTHROPIC_API_KEY` | Yes | Claude fallback |
 | `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |
 | `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |
+| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual reporting |
+| `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |
 | `X_OAUTH2_CLIENT_ID` | For X | X posting |
 | `X_OAUTH2_CLIENT_SECRET` | For X | X posting |
 | `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |

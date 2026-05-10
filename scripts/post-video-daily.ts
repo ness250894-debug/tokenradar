@@ -1,11 +1,12 @@
 /**
  * Multi-platform video auto-poster for the daily breakout token.
- * Supports: Telegram, X, YouTube, Instagram, and Threads.
+ * Supports: Telegram, X, YouTube, Instagram, Threads, and TikTok manual reporting.
  *
  * Usage:
  *   npx tsx scripts/post-video-daily.ts
  *   npx tsx scripts/post-video-daily.ts --platform x --dry-run
  *   npx tsx scripts/post-video-daily.ts --platform instagram --dry-run
+ *   npx tsx scripts/post-video-daily.ts --platform tiktok --dry-run
  *   npx tsx scripts/post-video-daily.ts --force
  */
 
@@ -27,6 +28,7 @@ import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import { cleanBucket, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
+import { hasTikTokManualReportCredentials, sendTikTokManualPostReport } from "../src/lib/tiktok-manual";
 import { getRandomTrack } from "../src/lib/audio-config";
 import {
   type MetricData,
@@ -42,7 +44,7 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
-type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads";
+type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 
 interface PlatformTracker {
   postedAt: string;
@@ -51,6 +53,9 @@ interface PlatformTracker {
   replyId?: string;
   videoId?: string;
   postId?: string;
+  reportVideoMessageId?: number;
+  reportCaptionMessageIds?: number[];
+  deliveryMode?: "direct" | "telegram-report-manual";
 }
 
 interface VideoTracker {
@@ -102,6 +107,7 @@ function getRequestedPlatforms(
   runYouTube: boolean,
   runInstagram: boolean,
   runThreads: boolean,
+  runTikTok: boolean,
 ): PlatformName[] {
   const requested: PlatformName[] = [];
   if (runTelegram) requested.push("telegram");
@@ -109,6 +115,7 @@ function getRequestedPlatforms(
   if (runYouTube) requested.push("youtube");
   if (runInstagram) requested.push("instagram");
   if (runThreads) requested.push("threads");
+  if (runTikTok) requested.push("tiktok");
   return requested;
 }
 
@@ -191,8 +198,8 @@ async function main() {
   const platformIdx = args.indexOf("--platform");
   const targetPlatform =
     platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
-  if (!["all", "telegram", "x", "youtube", "instagram", "threads"].includes(targetPlatform)) {
-    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube, instagram, threads.");
+  if (!["all", "telegram", "x", "youtube", "instagram", "threads", "tiktok"].includes(targetPlatform)) {
+    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube, instagram, threads, tiktok.");
     process.exit(1);
   }
 
@@ -215,6 +222,7 @@ async function main() {
   const runYouTube = targetPlatform === "all" || targetPlatform === "youtube";
   const runInstagram = targetPlatform === "all" || targetPlatform === "instagram";
   const runThreads = targetPlatform === "all" || targetPlatform === "threads";
+  const runTikTok = targetPlatform === "all" || targetPlatform === "tiktok";
   const hasYouTubeCredentials = Boolean(
     process.env.YOUTUBE_CLIENT_ID &&
     process.env.YOUTUBE_CLIENT_SECRET &&
@@ -223,7 +231,16 @@ async function main() {
   const shouldRunYouTube = runYouTube && hasYouTubeCredentials;
   const shouldRunInstagram = runInstagram && hasMetaCredentials("instagram") && hasR2Credentials();
   const shouldRunThreads = runThreads && hasMetaCredentials("threads") && hasR2Credentials();
-  const requestedPlatforms = getRequestedPlatforms(runTelegram, runX, shouldRunYouTube, shouldRunInstagram, shouldRunThreads);
+  const hasTikTokReportCredentials = hasTikTokManualReportCredentials();
+  const shouldRunTikTok = runTikTok && (dryRun || hasTikTokReportCredentials);
+  const requestedPlatforms = getRequestedPlatforms(
+    runTelegram,
+    runX,
+    shouldRunYouTube,
+    shouldRunInstagram,
+    shouldRunThreads,
+    shouldRunTikTok,
+  );
 
   const existingTracker =
     !force && fs.existsSync(trackerFile)
@@ -263,6 +280,10 @@ async function main() {
     if (runThreads && !shouldRunThreads) {
       console.warn("  Missing Threads or R2 credentials. Skipping Threads.");
       if (targetPlatform === "threads") process.exit(1);
+    }
+    if (runTikTok && !hasTikTokReportCredentials) {
+      console.warn("  Missing Telegram reporting credentials. Skipping TikTok manual report.");
+      if (targetPlatform === "tiktok") process.exit(1);
     }
   }
 
@@ -446,6 +467,7 @@ async function main() {
     let ytMetadata = { title: "", description: "" };
     let igContent = { caption: "", hashtags: [] as string[] };
     let threadsContent = { caption: "", topicTag: "crypto", spoilerText: "", spoilerOffset: 0, spoilerLength: 0 };
+    let tiktokCaption = "";
 
     console.log();
     console.log("Step 4: Generating platform captions...");
@@ -456,6 +478,7 @@ async function main() {
       xMaxChars?: number;
       instagramMaxChars?: number;
       threadsMaxChars?: number;
+      tiktokMaxChars?: number;
     } = {};
 
     if (runTelegram) {
@@ -487,6 +510,11 @@ async function main() {
       captionPlatforms.push("threads");
     }
 
+    if (shouldRunTikTok) {
+      captionOptions.tiktokMaxChars = SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT;
+      captionPlatforms.push("tiktok");
+    }
+
     if (captionPlatforms.length > 0) {
       const captions = await generateUnifiedCaptions(
         targetToken.name,
@@ -515,6 +543,9 @@ async function main() {
           captions.threadsSpoilerText,
           targetToken.name,
         );
+      }
+      if (shouldRunTikTok) {
+        tiktokCaption = captions.tiktokCaption || "";
       }
     }
 
@@ -553,6 +584,13 @@ async function main() {
         console.log(threadsContent.caption);
         console.log(`TOPIC: ${threadsContent.topicTag}`);
         console.log(`SPOILER: "${threadsContent.spoilerText}" (offset: ${threadsContent.spoilerOffset}, length: ${threadsContent.spoilerLength})`);
+      }
+      if (shouldRunTikTok) {
+        console.log();
+        console.log("--- TIKTOK MANUAL REPORT ---");
+        console.log(`CAPTION (${tiktokCaption.length}/${SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} chars):`);
+        console.log(tiktokCaption);
+        console.log("DELIVERY: Telegram reporting dialog with video attachment and copy-ready caption.");
       }
       return;
     }
@@ -714,6 +752,39 @@ async function main() {
             await logError("post-video-daily-threads", error, false);
             console.error(`Threads video post failed: ${formatErrorForLog(error)}`);
             return { platform: "threads" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    if (shouldRunTikTok && !trackerState.platforms.tiktok) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const result = await sendTikTokManualPostReport({
+              videoBuffer,
+              caption: tiktokCaption,
+              tokenName: targetToken.name,
+              symbol: targetToken.symbol,
+              reason,
+              generatedAt: new Date().toISOString(),
+            });
+            console.log(
+              `Sent TikTok manual package to reporting dialog (Video Message ID: ${result.videoMessageId})`,
+            );
+            return {
+              platform: "tiktok" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                reportVideoMessageId: result.videoMessageId,
+                reportCaptionMessageIds: result.captionMessageIds,
+                deliveryMode: "telegram-report-manual" as const,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-tiktok-manual", error, false);
+            console.error(`TikTok manual report failed: ${formatErrorForLog(error)}`);
+            return { platform: "tiktok" as const, tracker: null };
           }
         })(),
       );

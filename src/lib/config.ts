@@ -14,6 +14,7 @@ export const SOCIAL = {
   telegramUrl: "https://t.me/TokenRadarCo",
   threadsUrl: "https://www.threads.com/@tokenradarco",
   instagramUrl: "https://www.instagram.com/tokenradarco/",
+  tiktokUrl: "https://www.tiktok.com/@tokenradarco",
   ecosystemUrl: SITE_URL,
 } as const;
 
@@ -85,6 +86,9 @@ export const SOCIAL_PLATFORM_LIMITS = {
     TOPIC_TAG_MAX_LENGTH: 50,
     DAILY_POST_LIMIT: 250,
     MAX_SPOILER_ENTITIES: 10,
+  },
+  TIKTOK: {
+    CAPTION_LIMIT: 2200,
   },
 } as const;
 
