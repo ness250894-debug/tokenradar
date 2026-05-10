@@ -2,20 +2,48 @@
   "id": "bitdca",
   "symbol": "bdca",
   "name": "BitDCA",
+  "description": "BitDCA with its mobile app Littblebit allows you to automatically save in Bitcoin by setting aside a small percentage from each payment made with your current card. Users can automatically set aside a percentage of their everyday purchases into bitcoin and allocate directly into bitcoin without opening new accounts and acquiring new credit and debit cards. BDCA token holders earn a share of revenue from every Littlebit transaction. The project emphasizes security and transparency, validated by a Certik audit, and targets Europe with plans for global expansion in 2026.",
+  "categories": [
+    "Infrastructure",
+    "BNB Chain Ecosystem",
+    "Payment Solutions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.bitdca.io/",
+    "github": "https://gitbook.bitdca.com/",
+    "reddit": null,
+    "explorer": "https://bscscan.com/address/0x0c8382719ef242cae2247e4decb2891fbf699818"
+  },
   "market": {
-    "price": 0.704245,
-    "marketCap": 57881961,
-    "marketCapRank": 461,
-    "volume24h": 121672,
-    "priceChange24h": -1.72561,
+    "price": 0.707026,
+    "marketCap": 58132768,
+    "marketCapRank": 464,
+    "volume24h": 103996,
+    "high24h": 0.709713,
+    "low24h": 0.700093,
+    "priceChange24h": -0.37289,
+    "priceChange7d": 3.57155,
+    "priceChange30d": 2.08741,
+    "priceChange1y": -15.0282,
     "ath": 1.18,
-    "athChangePercentage": -40.18578,
+    "athChangePercentage": -39.95658,
     "athDate": "2025-10-02T11:15:40.059Z",
     "atl": 0.364545,
     "atlDate": "2025-03-01T07:16:25.076Z",
     "circulatingSupply": 82235138.1201368,
     "totalSupply": 142665333,
-    "maxSupply": 150000000
+    "maxSupply": 150000000,
+    "fdv": 100851422
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.160Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-10T08:20:02.861Z"
 }
