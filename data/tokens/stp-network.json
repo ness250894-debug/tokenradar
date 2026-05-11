@@ -2,26 +2,56 @@
   "id": "stp-network",
   "symbol": "awe",
   "name": "AWE Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8713/large/awe-network.jpg?1747816016",
+  "description": "STP (Becoming AWE Network) is opening the portal to Autonomous Worlds where AI Agents collaborate, adapt and evolve. The Autonomous Worlds Engine (AWE) is a modular framework enabling the creation of self-sustaining worlds for scalable agent-agent and human-agent collaboration.\n\nAWE scales interactions between thousands of autonomous agents using parallel processing, dependency management and GPU-optimized workloads. World.Fun is an autonomous worlds launcher that supports 1,000 agent AI-driven Autonomous Worlds powered by AWE. Users can create and customize agents to be deployed into these autonomous worlds using STPT.\n\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Synthetic Issuer",
+    "Base Ecosystem",
+    "AI Agents",
+    "Synthetic",
+    "AI Agent Launchpad",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.awenetwork.ai/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x1B4617734C43F6159F3a70b7E06d883647512778"
+  },
   "market": {
-    "price": 0.056137,
-    "marketCap": 109062318,
-    "marketCapRank": 295,
-    "volume24h": 6632852,
-    "priceChange24h": 4.0049,
+    "price": 0.058022,
+    "marketCap": 112648313,
+    "marketCapRank": 284,
+    "volume24h": 8295768,
+    "high24h": 0.059031,
+    "low24h": 0.055827,
+    "priceChange24h": 3.24137,
+    "priceChange7d": 2.52697,
+    "priceChange30d": 12.14553,
+    "priceChange1y": -20.67365,
     "ath": 0.270085,
-    "athChangePercentage": -79.20007,
+    "athChangePercentage": -78.53002,
     "athDate": "2021-10-06T08:03:37.704Z",
     "atl": 0.00646736,
     "atlDate": "2019-10-01T00:00:00.000Z",
     "circulatingSupply": 1942420283.0270672,
     "totalSupply": 1942420283.0270672,
     "maxSupply": 2000000000,
-    "high24h": 0.056341,
-    "low24h": 0.053484,
-    "priceChange7d": -0.617818555358836,
-    "priceChange30d": 9.210442183297477,
-    "priceChange1y": -24.595652775031844,
-    "fdv": 109062318
+    "fdv": 112648313
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.861Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:22:07.527Z"
 }

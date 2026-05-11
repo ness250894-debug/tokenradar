@@ -2,26 +2,54 @@
   "id": "troll-2",
   "symbol": "troll",
   "name": "TROLL",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55282/large/Untitled_design.png?1777015928",
+  "description": "The TROLL token on the Solana network is a meme coin inspired by internet trolling culture, designed for entertainment and community engagement with no intrinsic value. Built on Solana’s blockchain, it leverages the network’s fast transactions and low fees to appeal to meme enthusiasts. Launched on decentralized exchanges, TROLL aims to foster a fun, community-driven ecosystem through social media, influencer partnerships, and viral marketing, embodying the playful spirit of online trolling.",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "Parody Meme",
+    "Pump.fun Ecosystem",
+    "Binance Alpha Spotlight",
+    "4chan-Themed",
+    "IP Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://trololol.io",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2"
+  },
   "market": {
-    "price": 0.120456,
-    "marketCap": 119392121,
-    "marketCapRank": 277,
-    "volume24h": 42088295,
-    "priceChange24h": 126.07417,
+    "price": 0.125963,
+    "marketCap": 124337027,
+    "marketCapRank": 261,
+    "volume24h": 40987893,
+    "high24h": 0.143173,
+    "low24h": 0.099452,
+    "priceChange24h": 12.24514,
+    "priceChange7d": 167.71016,
+    "priceChange30d": 600.09245,
+    "priceChange1y": 369.43142,
     "ath": 0.282604,
-    "athChangePercentage": -58.72487,
+    "athChangePercentage": -57.52199,
     "athDate": "2025-08-22T21:48:29.985Z",
     "atl": 0.00387003,
     "atlDate": "2025-04-22T03:50:51.686Z",
-    "circulatingSupply": 998881364.22857,
-    "totalSupply": 998881345.109345,
+    "circulatingSupply": 998881224.735437,
+    "totalSupply": 998881224.735437,
     "maxSupply": 1000000000,
-    "high24h": 0.120702,
-    "low24h": 0.053282,
-    "priceChange7d": 127.25809696532255,
-    "priceChange30d": 808.8467967892515,
-    "priceChange1y": 296.00265979190345,
-    "fdv": 119392118
+    "fdv": 124337027
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.857Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:21:17.117Z"
 }

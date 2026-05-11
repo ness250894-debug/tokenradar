@@ -25,25 +25,25 @@
     "explorer": "https://explorer.celo.org/tokens/0x471ece3750da237f93b8e339c536989b8978a438/token-transfers"
   },
   "market": {
-    "price": 0.100726,
-    "marketCap": 60488676,
-    "marketCapRank": 456,
-    "volume24h": 6918310,
+    "price": 0.099889,
+    "marketCap": 60002825,
+    "marketCapRank": 466,
+    "volume24h": 6237572,
     "high24h": 0.104224,
-    "low24h": 0.097837,
-    "priceChange24h": 2.86199,
-    "priceChange7d": 10.97448,
-    "priceChange30d": 23.26614,
-    "priceChange1y": -75.76133,
+    "low24h": 0.098656,
+    "priceChange24h": -3.18378,
+    "priceChange7d": 11.911385173375152,
+    "priceChange30d": 20.583067465873803,
+    "priceChange1y": -76.66906189515316,
     "ath": 9.82,
-    "athChangePercentage": -98.97569,
+    "athChangePercentage": -98.9802,
     "athDate": "2021-08-30T14:25:09.929Z",
     "atl": 0.071419,
     "atlDate": "2026-02-23T04:46:28.720Z",
     "circulatingSupply": 600658220,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 100703985
+    "fdv": 99895121
   },
   "community": {
     "twitterFollowers": null,
@@ -54,5 +54,6 @@
     "githubForks": 192,
     "commits4Weeks": 3
   },
-  "fetchedAt": "2026-05-11T10:33:26.013Z"
+  "fetchedAt": "2026-05-11T10:33:26.013Z",
+  "lastMarketUpdate": "2026-05-11T19:20:58.266Z"
 }

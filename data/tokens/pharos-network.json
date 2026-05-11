@@ -2,26 +2,49 @@
   "id": "pharos-network",
   "symbol": "pros",
   "name": "Pharos",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172947/large/pharos_400x400.jpg?1776780623",
+  "description": "",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Parallelized EVM"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.pharos.xyz/",
+    "github": "https://github.com/PharosNetwork",
+    "reddit": null,
+    "explorer": null
+  },
   "market": {
-    "price": 0.916196,
-    "marketCap": 123939678,
-    "marketCapRank": 264,
-    "volume24h": 12408246,
-    "priceChange24h": -9.88408,
+    "price": 0.792321,
+    "marketCap": 106570269,
+    "marketCapRank": 296,
+    "volume24h": 20852004,
+    "high24h": 0.921552,
+    "low24h": 0.787864,
+    "priceChange24h": -13.71705,
+    "priceChange7d": 25.20121,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 1.15,
-    "athChangePercentage": -20.32211,
+    "athChangePercentage": -31.12862,
     "athDate": "2026-04-28T15:00:43.373Z",
     "atl": 0.600387,
     "atlDate": "2026-05-02T18:10:25.729Z",
     "circulatingSupply": 134800000,
     "totalSupply": 1000000000,
     "maxSupply": null,
-    "high24h": 1.11,
-    "low24h": 0.894567,
-    "priceChange7d": 45.36644101524354,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
-    "fdv": 919433816
+    "fdv": 790580631
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.855Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:22:51.607Z"
 }

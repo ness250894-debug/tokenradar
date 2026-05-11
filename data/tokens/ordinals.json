@@ -2,7 +2,8 @@
   "id": "ordinals",
   "symbol": "ordi",
   "name": "ORDI",
-  "description": "A cryptocurrency token known as ORDI (ORDI). It is tracked on CoinGecko with the ID \"ordinals\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30162/large/ordi.png?1696529082",
+  "description": "",
   "categories": [
     "Solana Ecosystem",
     "Meme",
@@ -18,25 +19,25 @@
     "explorer": "https://ordiscan.com/inscription/348020"
   },
   "market": {
-    "price": 5.44,
-    "marketCap": 114276602,
-    "marketCapRank": 284,
-    "volume24h": 50216347,
-    "high24h": 5.72,
-    "low24h": 5.35,
-    "priceChange24h": -3.82013,
-    "priceChange7d": 1.6758014105275068,
-    "priceChange30d": 122.3339871972605,
-    "priceChange1y": -43.20162347313675,
+    "price": 5,
+    "marketCap": 105022176,
+    "marketCapRank": 302,
+    "volume24h": 47312041,
+    "high24h": 5.48,
+    "low24h": 4.99,
+    "priceChange24h": -8.72866,
+    "priceChange7d": -2.72836,
+    "priceChange30d": 104.70934,
+    "priceChange1y": -52.06718,
     "ath": 95.52,
-    "athChangePercentage": -94.28784,
+    "athChangePercentage": -94.7614,
     "athDate": "2024-03-05T01:45:22.816Z",
     "atl": 2.12,
     "atlDate": "2026-03-29T22:55:07.807Z",
     "circulatingSupply": 21000000,
     "totalSupply": 21000000,
     "maxSupply": null,
-    "fdv": 114276602
+    "fdv": 105022176
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-27T09:28:36.034Z",
-  "lastMarketUpdate": "2026-05-10T19:56:28.859Z"
+  "fetchedAt": "2026-05-11T19:23:16.815Z"
 }

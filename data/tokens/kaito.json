@@ -2,26 +2,54 @@
   "id": "kaito",
   "symbol": "kaito",
   "name": "KAITO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54411/large/Qm4DW488_400x400.jpg?1739552780",
+  "description": "$KAITO is the native token and the fundamental building block of the AI-powered InfoFi network.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Analytics",
+    "Launchpad",
+    "Base Ecosystem",
+    "Binance HODLer Airdrops",
+    "InfoFi",
+    "Governance",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://yaps.kaito.ai/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x98d0baa52b2D063E780DE12F615f963Fe8537553"
+  },
   "market": {
-    "price": 0.514861,
-    "marketCap": 124267593,
+    "price": 0.509404,
+    "marketCap": 123037207,
     "marketCapRank": 263,
-    "volume24h": 10458549,
-    "priceChange24h": -1.8645,
+    "volume24h": 14967071,
+    "high24h": 0.530693,
+    "low24h": 0.497988,
+    "priceChange24h": -1.28891,
+    "priceChange7d": 4.29715,
+    "priceChange30d": 27.49552,
+    "priceChange1y": -70.28805,
     "ath": 2.88,
-    "athChangePercentage": -82.14436,
+    "athChangePercentage": -82.30699,
     "athDate": "2025-02-27T08:58:05.008Z",
     "atl": 0.275928,
     "atlDate": "2026-02-06T00:30:16.827Z",
     "circulatingSupply": 241388889,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.534896,
-    "low24h": 0.509708,
-    "priceChange7d": 8.450080905777092,
-    "priceChange30d": 27.04057554896164,
-    "priceChange1y": -71.97856868617527,
-    "fdv": 514802455
+    "fdv": 509705343
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.855Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:21:23.406Z"
 }

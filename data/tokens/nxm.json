@@ -2,26 +2,49 @@
   "id": "nxm",
   "symbol": "nxm",
   "name": "Nexus Mutual",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11810/large/NXMmain.png?1696511684",
+  "description": "Nexus Mutual is a decentralized insurance protocol built on Ethereum that currently offers cover for smart contracts on the Ethereum blockchain, currently covering all the main defi protocols. Nexus Mutual offers coverage against smart contract failures, which protects against potential bugs in smart contract code.&nbsp;\n\nThe coverage intends to provide protection against financial losses that may be incurred due to hacks or exploits in the smart contract code. Note that smart contract cover only protects against “unintended uses” of smart contracts, so security events such as the loss of private keys or centralized exchange hacks are not covered. In December 2020, it released custody cover covering centralised custodians and lenders such as Celsius, Blockfi, and Nexo.&nbsp;",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Insurance",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://nexusmutual.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xd7c49cee7e9188cca6ad8ff264c1da2e69d4cf3b"
+  },
   "market": {
-    "price": 60.34,
-    "marketCap": 105997625,
-    "marketCapRank": 302,
+    "price": 60.05,
+    "marketCap": 105203337,
+    "marketCapRank": 301,
     "volume24h": 0,
-    "priceChange24h": 0.77759,
+    "high24h": 60.53,
+    "low24h": 59.35,
+    "priceChange24h": -0.71034,
+    "priceChange7d": 1.10394,
+    "priceChange30d": 3.47972,
+    "priceChange1y": 5.81506,
     "ath": 185.97,
-    "athChangePercentage": -67.48756,
+    "athChangePercentage": -67.71151,
     "athDate": "2021-11-10T15:14:14.418Z",
     "atl": 6.96,
     "atlDate": "2020-07-22T19:54:06.406Z",
-    "circulatingSupply": 1753054.541953023,
-    "totalSupply": 1753054.541953023,
+    "circulatingSupply": 1751808.95717565,
+    "totalSupply": 1751808.95717565,
     "maxSupply": null,
-    "high24h": 60.52,
-    "low24h": 59.57,
-    "priceChange7d": 3.1250375779989445,
-    "priceChange30d": 4.707876593117391,
-    "priceChange1y": 7.88884547835976,
-    "fdv": 105997625
+    "fdv": 105203337
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.863Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:23:10.518Z"
 }

@@ -31,25 +31,25 @@
     "explorer": "https://www.mintscan.io/osmosis/assets/ibc/aWJjLzgzMUYwQjFCQkIxRDA4QTJCNzUzMTE4OTI4NzZENzE1NjU0NzhDNTMyOTY3NTQ1NDc2REY0QzJENzQ5MkU0OEM="
   },
   "market": {
-    "price": 0.173849,
-    "marketCap": 146029587,
-    "marketCapRank": 241,
-    "volume24h": 4598583,
-    "high24h": 0.175748,
-    "low24h": 0.169369,
-    "priceChange24h": 0.45564,
-    "priceChange7d": 19.96581,
-    "priceChange30d": 78.50288,
-    "priceChange1y": -75.66835,
+    "price": 0.166121,
+    "marketCap": 139625546,
+    "marketCapRank": 244,
+    "volume24h": 6187441,
+    "high24h": 0.174123,
+    "low24h": 0.164279,
+    "priceChange24h": -4.0908,
+    "priceChange7d": 10.058152543937954,
+    "priceChange30d": 73.12765888876136,
+    "priceChange1y": -76.62399987904523,
     "ath": 4.52,
-    "athChangePercentage": -96.16156,
+    "athChangePercentage": -96.31104,
     "athDate": "2024-03-07T22:19:11.131Z",
     "atl": 0.078815,
     "atlDate": "2026-03-08T03:05:30.078Z",
-    "circulatingSupply": 839623345.8570293,
+    "circulatingSupply": 839623345.8570294,
     "totalSupply": 958342751,
     "maxSupply": 1000000000,
-    "fdv": 166677591
+    "fdv": 159368043
   },
   "community": {
     "twitterFollowers": null,
@@ -60,5 +60,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:58:47.417Z"
+  "fetchedAt": "2026-05-10T19:58:47.417Z",
+  "lastMarketUpdate": "2026-05-11T19:20:58.221Z"
 }

@@ -1119,5 +1119,85 @@
       }
     ],
     "lastVerifiedAt": "2026-05-06T19:13:46.907Z"
+  },
+  {
+    "id": "augustus-ai-stablecoin-bank",
+    "name": "Augustus",
+    "symbol": "TBD",
+    "category": "Infrastructure/Stablecoin/AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/augustus-wins-conditional-occ-approval-for-ai-powered-stablecoin-clearing-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Funding Round/Product Launch (Conditional OCC Approval)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/augustus-wins-conditional-occ-approval-for-ai-powered-stablecoin-clearing-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Augustus gets conditional OCC approval for AI and stablecoin bank",
+        "observedAt": "2024-07-30"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-11T19:24:17.534Z",
+    "discoveredAt": "2026-05-11T19:24:17.534Z"
+  },
+  {
+    "id": "canton-network",
+    "name": "Canton Network",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/company-canton-network-raises-300m-2-billion-valuation",
+    "confidence": 60,
+    "lifecycleStatus": "graduated",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/company-canton-network-raises-300m-2-billion-valuation",
+        "title": "Canton Network creator targets $300M in capital raise: Report",
+        "observedAt": "2024-05-20"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-05-11T19:25:42.655Z",
+    "discoveredAt": "2026-05-11T19:24:17.535Z",
+    "graduatedAt": "2026-05-11T19:25:42.655Z",
+    "coingeckoRank": 21,
+    "graduationEvidence": {
+      "coingeckoId": "canton-network",
+      "coingeckoRank": 21,
+      "rank": 21,
+      "priceUsd": 0.159096,
+      "volume24h": 9310483,
+      "matchedBy": "id",
+      "verifiedAt": "2026-05-11T19:25:42.655Z"
+    }
+  },
+  {
+    "id": "boundary-usbd",
+    "name": "Boundary",
+    "symbol": "USBD",
+    "category": "Stablecoin",
+    "expectedTge": "Early Summer 2026",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.theblock.co/post/400791/galaxy-backed-boundary-to-launch-verifiable-institutional-stablecoin-usbd?utm_source=rss&utm_medium=rss",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "ICO/IDO/IEO",
+        "sourceType": "news",
+        "url": "https://www.theblock.co/post/400791/galaxy-backed-boundary-to-launch-verifiable-institutional-stablecoin-usbd?utm_source=rss&utm_medium=rss",
+        "title": "Galaxy-backed Boundary to launch ‘verifiable’ institutional stablecoin USBD",
+        "observedAt": "2024-05-13"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-11T19:24:17.535Z",
+    "discoveredAt": "2026-05-11T19:24:17.535Z"
   }
 ]

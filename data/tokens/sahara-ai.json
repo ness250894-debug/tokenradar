@@ -2,26 +2,52 @@
   "id": "sahara-ai",
   "symbol": "sahara",
   "name": "Sahara AI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66681/large/Token_Logo_3x.png?1750362133",
+  "description": "Sahara AI is the first full-stack, AI-native blockchain platform where anyone can create, contribute to, and monetize AI development, making the future of AI more accessible, equitable, and open to all. \n\nBuilt on the Sahara blockchain, Sahara AI’s comprehensive platform consists of a Data Services Platform for data collection, labeling and refinement, an AI Developer Platform for model creation, deployment, and orchestration, and a decentralized AI Marketplace where you can buy and sell datasets, models, agents, and compute. \n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance HODLer Airdrops",
+    "Governance",
+    "Buidlpad Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://saharaai.com",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xFDFfB411C4A70AA7C95D5C981a6Fb4Da867e1111"
+  },
   "market": {
-    "price": 0.03701793,
-    "marketCap": 121274526,
-    "marketCapRank": 272,
-    "volume24h": 151523838,
-    "priceChange24h": -6.53411,
+    "price": 0.03618919,
+    "marketCap": 118498366,
+    "marketCapRank": 273,
+    "volume24h": 81888286,
+    "high24h": 0.04042313,
+    "low24h": 0.0361447,
+    "priceChange24h": -3.09394,
+    "priceChange7d": 44.94068,
+    "priceChange30d": 66.70903,
+    "priceChange1y": 0,
     "ath": 0.160529,
-    "athChangePercentage": -76.99313,
+    "athChangePercentage": -77.29923,
     "athDate": "2025-07-24T03:05:40.635Z",
     "atl": 0.01354919,
     "atlDate": "2026-02-06T00:25:56.057Z",
     "circulatingSupply": 3274375000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.03960582,
-    "low24h": 0.03444858,
-    "priceChange7d": 47.94404341363144,
-    "priceChange30d": 63.998109177052285,
-    "priceChange1y": 0,
-    "fdv": 370374580
+    "fdv": 361896135
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.857Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:21:36.010Z"
 }

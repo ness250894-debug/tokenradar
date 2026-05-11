@@ -2,26 +2,49 @@
   "id": "rollbit-coin",
   "symbol": "rlb",
   "name": "Rollbit Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/24552/large/unziL6wO_400x400.jpg?1696523729",
+  "description": "The Rollbit token (RLB) will be launched as an integral part of the upcoming Rollbit lottery. There will be no ICO for this token. Instead, Rollbit will airdrop RLB for free. Airdrops have been used throughout the history of cryptocurrencies to bootstrap growth, incentivise community development, and reward early adopters.\n",
+  "categories": [
+    "Gambling (GambleFi)",
+    "Gaming (GameFi)",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://rollbit.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x046eee2cc3188071c02bfc1745a6b17c656e3f3d"
+  },
   "market": {
-    "price": 0.066722,
-    "marketCap": 112338219,
-    "marketCapRank": 290,
-    "volume24h": 404096,
-    "priceChange24h": -4.28934,
+    "price": 0.067469,
+    "marketCap": 113560351,
+    "marketCapRank": 282,
+    "volume24h": 474897,
+    "high24h": 0.069432,
+    "low24h": 0.064697,
+    "priceChange24h": -2.56319,
+    "priceChange7d": 3.30468,
+    "priceChange30d": 2.66694,
+    "priceChange1y": -5.32739,
     "ath": 0.264358,
-    "athChangePercentage": -75.50879,
+    "athChangePercentage": -74.48332,
     "athDate": "2023-11-11T17:10:05.473Z",
     "atl": 0.00093506,
     "atlDate": "2022-07-02T02:46:34.730Z",
-    "circulatingSupply": 1683671895.367184,
-    "totalSupply": 1683671895.367184,
+    "circulatingSupply": 1682852509.224039,
+    "totalSupply": 1682852509.224039,
     "maxSupply": 5000000000,
-    "high24h": 0.070582,
-    "low24h": 0.064744,
-    "priceChange7d": 2.5394042771414727,
-    "priceChange30d": 3.210153538860896,
-    "priceChange1y": -7.375482372086522,
-    "fdv": 112338219
+    "fdv": 113560351
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.860Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:22:01.208Z"
 }
