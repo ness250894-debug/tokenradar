@@ -5,6 +5,7 @@
 
 import { slugify } from "@/lib/shared-utils";
 import { normalizeArticleMarkdown } from "@/lib/article-formatting";
+import type { ArticleQualitySnapshot } from "@/lib/content-quality";
 import { getTgeSortWeight, isGenericTgeSymbol, normalizeTge } from "@/lib/tge";
 import type { UpcomingTge } from "@/lib/tge";
 import * as fs from "fs";
@@ -235,6 +236,7 @@ export interface Article {
   content: string;
   wordCount: number;
   generatedAt: string;
+  quality?: ArticleQualitySnapshot;
 }
 
 export interface FAQ {

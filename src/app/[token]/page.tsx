@@ -10,10 +10,10 @@ import {
   formatPrice,
   formatCompact,
   formatSupply,
-  getArticleFaqs,
   getRelatedTokens,
   formatPercent,
 } from "@/lib/content-loader";
+import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
 import { slugify } from "@/lib/shared-utils";
@@ -110,7 +110,7 @@ export default async function TokenPage({ params }: PageProps) {
   const priceHistory = await getPriceHistory(tokenId);
   const technical = getTokenTechnical(tokenId);
   const article = await getArticle(tokenId, "overview");
-  const faqs = article ? getArticleFaqs(article.content) : [];
+  const articleQuality = article ? evaluateArticleQuality(article) : null;
   
   const relatedTokensList = await getRelatedTokens(tokenId, 3);
   const relatedTokens: TokenCardData[] = await Promise.all(relatedTokensList.map(async (token) => {
@@ -226,6 +226,44 @@ export default async function TokenPage({ params }: PageProps) {
             )}
           </div>
           {metrics && <RiskScoreCard score={metrics.riskScore} />}
+        </div>
+
+        <div
+          className="card"
+          style={{
+            marginTop: "var(--space-xl)",
+            padding: "var(--space-xl)",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+            gap: "var(--space-lg)",
+            alignItems: "start",
+          }}
+          id="data-methodology"
+        >
+          <div>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>
+              Data & Methodology
+            </h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, margin: 0 }}>
+              Market prices and supply data are provided by{" "}
+              <a href="https://www.coingecko.com/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-secondary)" }}>
+                CoinGecko
+              </a>
+              . TokenRadar metrics combine market volatility, market cap, volume ratio, ATH drawdown, and category context. They are research signals, not buy or sell recommendations.
+            </p>
+          </div>
+          <div style={{ display: "grid", gap: "var(--space-sm)" }}>
+            <div style={{ padding: "var(--space-md)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-sm)" }}>
+              <div className="stat-label">Market Data Updated</div>
+              <div style={{ fontWeight: 700 }}>{new Date(detail.fetchedAt).toLocaleDateString()}</div>
+            </div>
+            <div style={{ padding: "var(--space-md)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-sm)" }}>
+              <div className="stat-label">Article Quality Gate</div>
+              <div style={{ fontWeight: 700, color: articleQuality?.passed ? "var(--accent-primary)" : "#eab308" }}>
+                {articleQuality?.passed ? "Passed" : "Needs Review"}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Price Chart */}
@@ -375,20 +413,6 @@ export default async function TokenPage({ params }: PageProps) {
           </>
         )}
 
-        {/* Data Attribution */}
-        <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-xl)", background: "var(--bg-elevated)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-sm)", color: "var(--text-muted)", display: "flex", gap: "var(--space-lg)", alignItems: "center" }}>
-          <div style={{ fontSize: "2.5rem", flexShrink: 0, opacity: 0.8 }} className="animate-pulse">
-            🛡️
-          </div>
-          <div>
-            <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "var(--space-xs)" }}>Verified by TokenRadar Engine</strong>
-            <span style={{ display: "block", marginBottom: "var(--space-xs)" }}>Data Source: CoinGecko API. Last fetched: {new Date(detail.fetchedAt).toLocaleDateString()}.</span>
-            <span>All proprietary metrics (Risk Score, Growth Index) are computed dynamically by TokenRadar and should not be used as the sole basis for investment decisions.</span>
-          </div>
-        </div>
-
-
-        
         {/* Related Tokens */}
         {relatedTokens.length > 0 && (
           <div style={{ marginTop: "var(--space-4xl)" }} id="related-tokens">
@@ -419,12 +443,6 @@ export default async function TokenPage({ params }: PageProps) {
               name: "Pavlo Nakonechnyi", 
               url: "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/" 
             },
-            reviewedBy: {
-              "@type": "Person",
-              "name": "Pavlo Nakonechnyi",
-              "jobTitle": "Lead Researcher",
-              "url": "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
-            },
             publisher: { 
               "@type": "Organization", 
               name: "TokenRadar",
@@ -438,26 +456,6 @@ export default async function TokenPage({ params }: PageProps) {
           }),
         }}
       />
-
-      {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map(faq => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer
-                }
-              }))
-            }),
-          }}
-        />
-      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -478,24 +476,6 @@ export default async function TokenPage({ params }: PageProps) {
                 "item": `https://tokenradar.co/${detail.id}`
               }
             ]
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Dataset",
-            "name": `${detail.name} Market Data & Proprietary Metrics`,
-            "description": `Comprehensive market dataset for ${detail.name} including price history, market capitalization, volume, and TokenRadar Risk Score.`,
-            "license": "https://creativecommons.org/licenses/by-nc/4.0/",
-            "creator": {
-               "@type": "Organization",
-               "name": "TokenRadar",
-               "url": "https://tokenradar.co"
-            },
-            "variableMeasured": ["price", "marketCap", "riskScore", "growthPotential"]
           }),
         }}
       />

@@ -10,8 +10,8 @@ import {
   getArticle,
   formatPrice,
   formatPercent,
-  getArticleFaqs,
 } from "@/lib/content-loader";
+import { evaluateArticleQuality } from "@/lib/content-quality";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "price-prediction");
+  const articleQuality = article ? evaluateArticleQuality(article) : null;
   const year = new Date().getFullYear();
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
@@ -46,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: !!article,
+      index: !!articleQuality?.passed,
       follow: true,
     },
     alternates: {
@@ -82,7 +83,6 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const metrics = await getTokenMetrics(tokenId);
   const priceHistory = await getPriceHistory(tokenId);
   const article = await getArticle(tokenId, "price-prediction");
-  const faqs = article ? getArticleFaqs(article.content) : [];
   const tradingView = getPartner("tradingview");
 
   const isPositive = detail.market.priceChange30d >= 0;
@@ -237,27 +237,6 @@ export default async function PricePredictionPage({ params }: PageProps) {
           }),
         }}
       />
-
-
-      {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map(faq => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer
-                }
-              }))
-            }),
-          }}
-        />
-      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

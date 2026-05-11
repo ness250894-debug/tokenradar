@@ -89,6 +89,13 @@ describe("markdownToHtml", () => {
     expect(html).toContain('href="/learn/what-is-staking"');
   });
 
+  it("unwraps common-word token links even when the token slug has a suffix", async () => {
+    const html = await markdownToHtml("Bitcoin can work as peer-to-peer [cash](/cash-4).");
+
+    expect(html).toContain("cash");
+    expect(html).not.toContain('href="/cash-4"');
+  });
+
   it("does not auto-link common English token names", async () => {
     const html = await markdownToHtml("Gas would affect the Flow score, but this is plain explanatory copy.");
 

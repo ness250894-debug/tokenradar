@@ -15,6 +15,7 @@ import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import { fetchFullTokenData, fetchGlobalMarketData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 import { logActivity, logError } from "../src/lib/reporter";
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
+import { buildArticleQualitySnapshot } from "../src/lib/content-quality";
 import { getTgeContractQueries, normalizeTge } from "../src/lib/tge";
 
 // Load environment
@@ -219,6 +220,17 @@ async function main() {
       const unresolved = findUnresolvedPlaceholders(article);
       if (unresolved.length > 0) {
         console.warn(`  Warning: not publishing ${tokenId}/${file}; unresolved placeholders: ${unresolved.join(", ")}`);
+        continue;
+      }
+
+      article.quality = buildArticleQualitySnapshot(article);
+      if (!article.quality.passed) {
+        console.warn(`  Warning: not publishing ${tokenId}/${file}; quality gate failed: ${article.quality.issues.join("; ")}`);
+        logActivity("publish-quality-blocked", {
+          tokenId,
+          articleType: article.type || file.replace(/\.json$/, ""),
+          issues: article.quality.issues.join("; ")
+        });
         continue;
       }
 

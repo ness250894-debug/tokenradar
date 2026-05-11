@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
 import { type Article, type TokenDetail } from "../src/lib/content-loader";
-import { canonicalPath, canonicalUrl, isTokenOverviewIndexable } from "../src/lib/seo";
+import { canonicalPath, canonicalUrl, isArticleIndexable, isTokenOverviewIndexable } from "../src/lib/seo";
 
 function makeTokenDetail(volume24h: number): TokenDetail {
   return {
@@ -55,14 +55,27 @@ function makeTokenDetail(volume24h: number): TokenDetail {
 }
 
 function makeArticle(wordCount: number): Article {
+  const requiredText = [
+    "$1.00",
+    "2.00%",
+    "1,000",
+    "## FAQ",
+    "What is Test Token?",
+    "Test Token is a research fixture.",
+    "Disclaimer: This article is for informational purposes only and does not constitute financial advice.",
+  ].join(" ");
+  const requiredWordCount = requiredText.split(/\s+/).filter(Boolean).length;
+  const filler = Array(Math.max(0, wordCount - requiredWordCount)).fill("analysis").join(" ");
+  const content = `${filler}\n\n${requiredText}`.trim();
+
   return {
     tokenId: "test-token",
     tokenName: "Test Token",
     type: "overview",
     title: "Test Token Overview",
     slug: "overview",
-    content: "",
-    wordCount,
+    content,
+    wordCount: content.split(/\s+/).filter(Boolean).length,
     generatedAt: "2026-01-01T00:00:00.000Z",
   };
 }
@@ -98,10 +111,16 @@ describe("SEO helpers", () => {
     expect(canonicalUrl("/bitcoin")).toBe("https://tokenradar.co/bitcoin");
   });
 
-  it("uses one token overview indexability rule", () => {
-    expect(isTokenOverviewIndexable(makeTokenDetail(100_001), null)).toBe(true);
-    expect(isTokenOverviewIndexable(makeTokenDetail(5_000), makeArticle(501))).toBe(true);
-    expect(isTokenOverviewIndexable(makeTokenDetail(5_000), makeArticle(100))).toBe(false);
+  it("requires liquid market data and quality-passing overview content before indexing", () => {
+    expect(isTokenOverviewIndexable(makeTokenDetail(100_001), null)).toBe(false);
+    expect(isTokenOverviewIndexable(makeTokenDetail(5_000), makeArticle(900))).toBe(false);
+    expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(100))).toBe(false);
+    expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(900))).toBe(true);
+  });
+
+  it("uses the shared article quality rule for secondary article indexability", () => {
+    expect(isArticleIndexable(makeArticle(900))).toBe(true);
+    expect(isArticleIndexable(makeArticle(100))).toBe(false);
   });
 });
 

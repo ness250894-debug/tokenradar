@@ -236,7 +236,14 @@ async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
     if (!internalPath) return match;
 
     const firstSegment = internalPath.split("/")[1] || "";
-    if (BLOCKED_TOKEN_LINK_TERMS.has(firstSegment) || !validInternalPaths.has(internalPath)) {
+    const firstSegmentStem = firstSegment.split("-")[0] || firstSegment;
+    const labelTerm = String(label).trim().toLowerCase();
+    if (
+      BLOCKED_TOKEN_LINK_TERMS.has(firstSegment) ||
+      BLOCKED_TOKEN_LINK_TERMS.has(firstSegmentStem) ||
+      BLOCKED_TOKEN_LINK_TERMS.has(labelTerm) ||
+      !validInternalPaths.has(internalPath)
+    ) {
       return `${prefix}${label}`;
     }
 

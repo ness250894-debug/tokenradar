@@ -24,6 +24,7 @@ import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
 import { getTgeContractQueries, normalizeTge, shouldPublishTgePreview } from "../src/lib/tge";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
+import { buildArticleQualitySnapshot, type ArticleQualitySnapshot } from "../src/lib/content-quality";
 import type { DEXPoolData } from "../src/lib/coingecko";
 import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 
@@ -59,6 +60,7 @@ interface GeneratedArticle {
   model: string;
   promptTokens?: number;
   completionTokens?: number;
+  quality?: ArticleQualitySnapshot;
 }
 
 import { callAIWithFallback, AIResult } from "../src/lib/gemini";
@@ -1046,6 +1048,7 @@ Output EXACTLY in this format (no JSON, no code blocks):
           promptTokens: result.promptTokens,
           completionTokens: result.completionTokens,
         };
+        article.quality = buildArticleQualitySnapshot(article);
 
         await fs.promises.writeFile(outputFile, JSON.stringify(article, null, 2));
         

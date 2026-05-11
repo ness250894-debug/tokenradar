@@ -13,7 +13,7 @@ export function ProfitCalculator({
   const investmentId = "roi-investment-amount";
   const entryPriceId = "roi-entry-price";
   const [investment, setInvestment] = useState<number>(1000);
-  const [purchasePrice, setPurchasePrice] = useState<number>(atl > 0 ? atl : (currentPrice || 1));
+  const [purchasePrice, setPurchasePrice] = useState<number>(currentPrice > 0 ? currentPrice : (atl || 1));
 
   const tokensAcquired = investment / purchasePrice;
   const currentValue = tokensAcquired * currentPrice;
@@ -104,7 +104,7 @@ export function ProfitCalculator({
                 onMouseOver={(e) => { e.currentTarget.style.color = "var(--accent-primary)"; e.currentTarget.style.borderColor = "var(--accent-primary)"; e.currentTarget.style.background = "rgba(0, 200, 83, 0.1)"; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.borderColor = "var(--border-color)"; e.currentTarget.style.background = "transparent"; }}
               >
-                Snap to ATL
+                Set ATL
               </button>
             </div>
           )}
@@ -122,10 +122,13 @@ export function ProfitCalculator({
            </div>
            <div className="sm:text-right">
               <div className={`badge ${isPositive ? "badge-green" : "badge-red"}`} style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2xs)" }}>
-                {isPositive ? "▲" : "▼"} {roi.toFixed(2)}% ROI
+                {isPositive ? "+" : ""}{roi.toFixed(2)}% ROI
               </div>
            </div>
          </div>
+         <p style={{ marginTop: "var(--space-sm)", color: "var(--text-muted)", fontSize: "var(--text-xs)", lineHeight: 1.5 }}>
+           Hypothetical result only. The entry price starts at the current market price; adjust it to test your own scenario.
+         </p>
       </div>
     </div>
   );
