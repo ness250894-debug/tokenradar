@@ -79,7 +79,7 @@ export default function RootLayout({
   const gaMeasurementId = (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "").replace(/[^A-Z0-9-]/gi, "");
 
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
         {/* AdSense & CMP (Publisher: Place your ID below) */}
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossOrigin="anonymous"></script> */}
