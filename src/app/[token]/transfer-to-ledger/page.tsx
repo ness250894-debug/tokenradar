@@ -36,14 +36,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `How to Transfer ${name} (${symbol}) to Ledger: 2026 Security Guide`,
-    description: `Official technical guide for transferring ${name} (${symbol}) to your Ledger hardware wallet safely. Verified ${technical.network} instructions to prevent asset loss.`,
+    description: `TokenRadar checklist for transferring ${name} (${symbol}) to a Ledger hardware wallet. Review ${technical.network} network details before withdrawing.`,
     keywords: [`transfer ${name} to ledger`, `store ${symbol} on ledger`, `${name} ledger wallet`, `secure ${symbol} offline`],
     alternates: {
       canonical: canonicalPath(`/${tokenId}/transfer-to-ledger`),
     },
     openGraph: {
       title: `Secure ${name} (${symbol}) on Ledger`,
-      description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
+      description: `TokenRadar transfer checklist for moving ${name} via the ${technical.network} network.`,
       images: [
         {
           url: ogImage,
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: `Secure ${name} (${symbol}) on Ledger`,
-      description: `Official security documentation for transferring ${name} via the ${technical.network} network.`,
+      description: `TokenRadar transfer checklist for moving ${name} via the ${technical.network} network.`,
       images: [ogImage],
     },
   };
@@ -94,8 +94,8 @@ export default async function TransferGuidePage({ params }: PageProps) {
     "step": [
       {
         "@type": "HowToStep",
-        "name": "Initialize Ledger Live",
-        "text": "Open Ledger Live and navigate to 'My Ledger' to ensure firmware is up to date."
+        "name": "Prepare Ledger Live",
+        "text": "Open Ledger Live, unlock the device, and check for firmware or app updates."
       },
       {
         "@type": "HowToStep",
@@ -104,13 +104,13 @@ export default async function TransferGuidePage({ params }: PageProps) {
       },
       {
         "@type": "HowToStep",
-        "name": "Copy Receiving Address",
-        "text": `Navigate to 'Receive' in Ledger Live and select your ${token.name} account to generate a verified address.`
+        "name": "Generate and verify the receive address",
+        "text": `Navigate to 'Receive' in Ledger Live, select the ${token.name} or ${technical.ledgerAppName} account, and verify the address on the physical Ledger screen.`
       },
       {
         "@type": "HowToStep",
-        "name": "Execute Transfer",
-        "text": `Withdraw ${token.symbol.toUpperCase()} from your exchange using the ${technical.network} network only.`
+        "name": "Withdraw from the exchange",
+        "text": `Withdraw ${token.symbol.toUpperCase()} from your exchange using the ${technical.network} network only, starting with a small test transfer.`
       }
     ]
   };

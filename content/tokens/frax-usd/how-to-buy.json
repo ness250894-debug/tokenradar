@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "Where to Purchase Frax USD (FRXUSD): Full Guide",
   "slug": "how-to-buy",
-  "content": "Purchasing Frax USD (FRXUSD) is a straightforward process for those looking to engage with the Frax Finance ecosystem. Because the token functions as a stablecoin, it is primarily sought after for liquidity provision, yield farming, or simply maintaining a stable position during volatile market conditions.\n\n| Metric | Details |\n| :--- | :--- |\n| Token Symbol | FRXUSD |\n| Risk [Score](/score) | 4 |\n| Primary Use Case | DeFi Liquidity |\n\n## Why Buy Frax USD? Holding FRXUSD provides exposure to a fiat-redeemable asset that operates within a sophisticated, multi-chain protocol. It solves the issue of trust by maintaining clear, observable reserve backing while offering the speed and accessibility of decentralized finance.\n\n## Top Exchange Options To acquire FRXUSD, users typically utilize decentralized exchanges (DEXs) like\n\nFraxswap or major liquidity aggregators on networks like [Ethereum](/ethereum) and [Arbitrum](/arbitrum). Centralized exchanges may also list the token depending on regional availability. Always check the contract address to ensure you are interacting with the official token.\n\n## Purchase Tutorial 1. Prepare a non-custodial wallet (e.g., MetaMask or Rabby). 2.\n\nEnsure you have the native [gas](/gas) token of the network (e.g., ETH for [Ethereum](/ethereum), ARB for [Arbitrum](/arbitrum)). 3. Connect your wallet to a trusted DEX. 4. Select the trading pair, such as [USDC](/usd-coin)/FRXUSD, and confirm the transaction. 5. Confirm the transaction in your wallet and verify the receipt on the block explorer.\n\n## Securing Your Tokens For long-term storage, hardware wallets are the gold standard.\n\nThey keep your private keys offline, significantly reducing the risk of unauthorized access. While leaving funds on an exchange is convenient for frequent trading, a hardware wallet is recommended for the security of your principal assets.\n\n## Important Risks While FRXUSD carries a TokenRadar Risk Score of 4 (medium), stablecoins are not risk-free.\n\nUsers should be aware of potential de-pegging risks, smart contract vulnerabilities, and the regulatory environment that governs custodial reserve assets. Always perform your own research before committing funds to any protocol.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 349,
+  "content": "Purchasing Frax USD (FRXUSD) is a straightforward process for those looking to engage with the Frax Finance ecosystem. Because the token functions as a stablecoin, it is primarily sought after for liquidity provision, yield farming, or simply maintaining a stable position during volatile market conditions.\n\n| Metric | Details |\n| :--- | :--- |\n| Token Symbol | FRXUSD |\n| Risk Score | 4 |\n| Primary Use Case | DeFi Liquidity |\n\n## Why Buy Frax USD? Holding FRXUSD provides exposure to a fiat-redeemable asset that operates within a sophisticated, multi-chain protocol. It solves the issue of trust by maintaining clear, observable reserve backing while offering the speed and accessibility of decentralized finance.\n\n## Market Availability Checks for FRXUSD\n\nBefore depositing funds, verify current FRXUSD market availability directly in the exchange or DEX interface. Listings, liquidity, regional access, and withdrawal networks change over time, so treat venue availability as something to confirm at the point of purchase.\n\nUse this checklist before placing an order:\n- Search for the exact FRXUSD ticker and Frax USD name.\n- Confirm the trading pair, contract address, and network.\n- Compare spread, volume, withdrawal fees, and minimum order size.\n- Send a small test withdrawal before moving a larger balance.\n\n## Purchase Tutorial 1. Prepare a non-custodial wallet (e.g., MetaMask or Rabby). 2.\n\nEnsure you have the native gas token of the network (e.g., ETH for [Ethereum](/ethereum), ARB for [Arbitrum](/arbitrum)). 3. Connect your wallet to a trusted DEX. 4. Select the trading pair, such as [USDC](/usd-coin)/FRXUSD, and confirm the transaction. 5. Confirm the transaction in your wallet and verify the receipt on the block explorer.\n\n## Securing Your Tokens For long-term storage, hardware wallets are the gold standard.\n\nThey keep your private keys offline, significantly reducing the risk of unauthorized access. While leaving funds on an exchange is convenient for frequent trading, a hardware wallet is recommended for the security of your principal assets.\n\n## Important Risks While FRXUSD carries a TokenRadar Risk Score of 4 (medium), stablecoins are not risk-free.\n\nUsers should be aware of potential de-pegging risks, smart contract vulnerabilities, and the regulatory environment that governs custodial reserve assets. Always perform your own research before committing funds to any protocol.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 391,
   "generatedAt": "2026-04-29T17:57:22.278Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1739,
-  "completionTokens": 668
+  "completionTokens": 668,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 391 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 391,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 14
+    },
+    "checkedAt": "2026-05-11T13:39:49.269Z"
+  }
 }

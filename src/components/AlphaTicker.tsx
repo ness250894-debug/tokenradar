@@ -1,10 +1,10 @@
 const ALPHA_EVENTS = [
-  "AI node #4 aggregated 1.2M points for $BTC",
-  "Anomalous volume detected on $SUI across major DEXs",
-  "Risk score adjusted for $SOL after network update",
-  "Deep-dive analysis generated for $LINK",
-  "Sentiment shifted bearish for the mid-cap AI sector",
-  "Alpha engine identified divergence on $ETH structure",
+  "Market registry refreshed from CoinGecko-backed snapshots",
+  "Risk scores combine volatility, drawdown, liquidity, and trend signals",
+  "Launch records require evidence before graduating from the watchlist",
+  "Research drafts are checked against structured token data",
+  "TokenRadar research is informational and not financial advice",
+  "Full token search and filters live in the dedicated token directory",
 ];
 
 export function AlphaTicker() {

@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "How to Buy Fluid (FLUID) — Step-by-Step Guide",
   "slug": "how-to-buy",
-  "content": "For participants interested in the Fluid ecosystem, understanding the acquisition process is the first step toward engagement. Fluid provides advanced DeFi utility, making it a point of interest for those tracking developments in the [Solana](/solana), [Ethereum](/ethereum), and Base ecosystems.\n\n| Metric | Details |\n| :--- | :--- |\n| Price | {{LIVE_PRICE}} |\n| 24H High | $2.34 |\n| 24H Low | $1.91 |\n| Date | April 29, 2026 |\n\n## Why Buy Fluid? Fluid is a high-utility asset within the DeFi space, offering users a way to interact with advanced portfolio management tools. As an alternative to more established protocols like Chainlink or Morpho, it provides a specialized focus on cross-protocol liquidity.\n\n## Top Exchange Options FLUID is typically available on major centralized and decentralized exchanges that support the Ethereum and Base ecosystems.\n\nAlways verify the token contract address, 0x6f40d4a6237c257fff2db00fa0510deeecd303eb, to ensure you are purchasing the correct asset.\n\n## Purchase Tutorial 1. Register\n\nCreate an account on a supported cryptocurrency exchange. 2. Deposit: Fund your account using fiat currency or stablecoins. 3. Trade: Locate the FLUID/USDT or FLUID/ETH trading pair. 4. Execute: Submit a buy order at the desired price or market rate. 5. Withdraw: Transfer your tokens to a non-custodial wallet to maintain full control.\n\n## Securing Your Tokens For long-term security, avoid leaving assets on an exchange. Use a hardware wallet, which provides an extra layer of protection by keeping your private keys offline.\n\nHardware wallets are highly recommended for any user interacting with DeFi protocols regularly.\n\n## Important Risks\n\nInvestors must be aware of the TokenRadar Risk [Score](/score) of 6, which indicates a medium risk level. DeFi assets are subject to high volatility and potential smart contract failures. Never use money you cannot afford to lose, and perform your own research before committing capital.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 321,
+  "content": "For participants interested in the Fluid ecosystem, understanding the acquisition process is the first step toward engagement. Fluid provides advanced DeFi utility, making it a point of interest for those tracking developments in the [Solana](/solana), [Ethereum](/ethereum), and Base ecosystems.\n\n| Metric | Details |\n| :--- | :--- |\n| Price | {{LIVE_PRICE}} |\n| 24H High | $2.34 |\n| 24H Low | $1.91 |\n| Date | April 29, 2026 |\n\n## Why Buy Fluid? Fluid is a high-utility asset within the DeFi space, offering users a way to interact with advanced portfolio management tools. As an alternative to more established protocols like Chainlink or Morpho, it provides a specialized focus on cross-protocol liquidity.\n\n## Market Availability Checks for FLUID\n\nBefore depositing funds, verify current FLUID market availability directly in the exchange or DEX interface. Listings, liquidity, regional access, and withdrawal networks change over time, so treat venue availability as something to confirm at the point of purchase.\n\nUse this checklist before placing an order:\n- Search for the exact FLUID ticker and Fluid name.\n- Confirm the trading pair, contract address, and network.\n- Compare spread, volume, withdrawal fees, and minimum order size.\n- Send a small test withdrawal before moving a larger balance.\n\n## Purchase Tutorial 1. Register\n\nCreate an account on a supported cryptocurrency exchange. 2. Deposit: Fund your account using fiat currency or stablecoins. 3. Trade: Locate the FLUID/USDT or FLUID/ETH trading pair. 4. Execute: Submit a buy order at the desired price or market rate. 5. Withdraw: Transfer your tokens to a non-custodial wallet to maintain full control.\n\n## Securing Your Tokens For long-term security, avoid leaving assets on an exchange. Use a hardware wallet, which provides an extra layer of protection by keeping your private keys offline.\n\nHardware wallets are highly recommended for any user interacting with DeFi protocols regularly.\n\n## Important Risks\n\nInvestors must be aware of the TokenRadar Risk Score of 6, which indicates a medium risk level. DeFi assets are subject to high volatility and potential smart contract failures. Never use money you cannot afford to lose, and perform your own research before committing capital.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 377,
   "generatedAt": "2026-04-29T17:58:37.775Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1494,
-  "completionTokens": 623
+  "completionTokens": 623,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 377 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 2 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 377,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 2,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 14
+    },
+    "checkedAt": "2026-05-11T13:39:49.372Z"
+  }
 }

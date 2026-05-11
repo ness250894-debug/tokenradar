@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "Where to Purchase EigenCloud (prev. EigenLayer) (EIGEN): Full Guide",
   "slug": "how-to-buy",
-  "content": "EigenCloud (EIGEN) provides infrastructure for verifiable apps and AI, serving as a critical piece of the modern [Ethereum](/ethereum)-focused stack. As the network continues to build, market participants often look for ways to interact with the ecosystem. Before deciding on any action, note that our internal analysis assigns the token a Risk [Score](/score) of 6, indicating a medium-risk classification.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Buy EigenCloud?\n\nInvestors often consider EIGEN for its role as a utility token within the protocol, used for governance and securing network services. Its narrative strength of 95 makes it a topic of interest for those tracking infrastructure development, similar to [Chainlink](/chainlink) or [Internet Computer](/internet-computer).\n\n## Top Exchange Options\n\nFor those seeking exposure, EIGEN is typically available on major centralized exchanges that support ERC-20 tokens. Ensure that the exchange is reputable and supports the specific liquidity requirements for the asset.\n\n## Purchase Tutorial 1. Choose a regulated exchange\n\nVerify the platform supports EIGEN. 2. Deposit fiat or stablecoins: Use bank transfers or credit cards to fund your account. 3. Execute the trade: Navigate to the EIGEN/USD or EIGEN/USDT pair and enter your desired quantity. 4. Transfer to self-custody: Once purchased, move your tokens to a private wallet to retain control.\n\n## Securing Your Tokens For long-term holdings, hardware wallets are recommended.\n\nThese devices store your private keys offline, protecting your assets from the risks inherent in keeping funds on centralized exchanges. Always backup your recovery phrase in a secure, physical location.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 300,
+  "content": "EigenCloud (EIGEN) provides infrastructure for verifiable apps and AI, serving as a critical piece of the modern [Ethereum](/ethereum)-focused stack. As the network continues to build, market participants often look for ways to interact with the ecosystem. Before deciding on any action, note that our internal analysis assigns the token a Risk Score of 6, indicating a medium-risk classification.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Buy EigenCloud?\n\nInvestors often consider EIGEN for its role as a utility token within the protocol, used for governance and securing network services. Its narrative strength of 95 makes it a topic of interest for those tracking infrastructure development, similar to [Chainlink](/chainlink) or [Internet Computer](/internet-computer).\n\n## Market Availability Checks for EIGEN\n\nBefore depositing funds, verify current EIGEN market availability directly in the exchange or DEX interface. Listings, liquidity, regional access, and withdrawal networks change over time, so treat venue availability as something to confirm at the point of purchase.\n\nUse this checklist before placing an order:\n- Search for the exact EIGEN ticker and EigenCloud (prev. EigenLayer) name.\n- Confirm the trading pair, contract address, and network.\n- Compare spread, volume, withdrawal fees, and minimum order size.\n- Send a small test withdrawal before moving a larger balance.\n\n## Purchase Tutorial 1. Choose a regulated exchange\n\nVerify the platform supports EIGEN. 2. Deposit fiat or stablecoins: Use bank transfers or credit cards to fund your account. 3. Execute the trade: Navigate to the EIGEN/USD or EIGEN/USDT pair and enter your desired quantity. 4. Transfer to self-custody: Once purchased, move your tokens to a private wallet to retain control.\n\n## Securing Your Tokens For long-term holdings, hardware wallets are recommended.\n\nThese devices store your private keys offline, protecting your assets from the risks inherent in keeping funds on centralized exchanges. Always backup your recovery phrase in a secure, physical location.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 344,
   "generatedAt": "2026-04-28T09:14:48.617Z",
   "model": "none",
   "promptTokens": 0,
-  "completionTokens": 0
+  "completionTokens": 0,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 344 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 344,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 15
+    },
+    "checkedAt": "2026-05-11T13:39:49.165Z"
+  }
 }

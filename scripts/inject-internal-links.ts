@@ -10,6 +10,7 @@ import * as fs from "fs/promises";
 import * as path from "path";
 
 import { getTokenIds } from "../src/lib/content-loader";
+import { isLinkableTokenName } from "../src/lib/internal-link-policy";
 import { safeReadJson } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -17,21 +18,6 @@ const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
 const MAX_TOKEN_LINKS = 3;
 const MAX_LEARN_LINKS = 2;
-const BLOCKED_TOKEN_LINK_TERMS = new Set([
-  "cash",
-  "deep",
-  "everything",
-  "flow",
-  "four",
-  "gas",
-  "home",
-  "just",
-  "movement",
-  "safe",
-  "score",
-  "would",
-]);
-
 interface LinkMapping {
   name: string;
   slug: string;
@@ -40,13 +26,6 @@ interface LinkMapping {
 
 interface TokenLinkSource {
   name?: unknown;
-}
-
-function isLinkableTokenName(name: string): boolean {
-  const normalized = name.trim().toLowerCase();
-  if (normalized.length <= 2) return false;
-  if (/^\d+$/.test(normalized)) return false;
-  return !BLOCKED_TOKEN_LINK_TERMS.has(normalized);
 }
 
 async function buildAllMappings(): Promise<LinkMapping[]> {

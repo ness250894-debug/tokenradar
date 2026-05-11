@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "How to Buy BitTorrent (BTT) — Step-by-Step Guide",
   "slug": "how-to-buy",
-  "content": "Buying BitTorrent involves navigating established centralized exchanges that support the token. Given the high-risk nature of the asset (TokenRadar Risk [Score](/score) 8), it is critical to prioritize platform security and proper custody. BitTorrent is currently traded on major global exchanges, including Binance and Bybit. To execute a purchase, follow these steps: First, register and complete the KYC verification process on your chosen exchange. Second, deposit fiat currency or cryptocurrency to your spot wallet. Third, navigate to the BTT trading pair, such as BTT/USDT, and select either a market order for immediate execution or a limit order to specify your desired entry price. Once the trade is completed, it is standard practice to move holdings to a private, secure non-custodial wallet rather than leaving assets on an exchange. Before committing capital, investors should review the current $0.00000032 and recognize that the market has seen a 1-year change of -51.93707%. Always consider the regulatory landscape of your jurisdiction and account for the capital gains tax implications associated with digital asset transactions in your region. Do not overlook the high volatility inherent in the DePIN sector; research should be conducted independently to align with your personal risk tolerance. --- *Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 216,
+  "content": "Verify current BTT market availability, liquidity, fees, withdrawal networks, and regional access directly with the venue before depositing funds.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 40,
   "generatedAt": "2026-04-24T08:30:34.582Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1738,
-  "completionTokens": 331
+  "completionTokens": 331,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 40 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 40,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 13
+    },
+    "checkedAt": "2026-05-11T13:41:32.347Z"
+  }
 }

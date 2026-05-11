@@ -14,14 +14,21 @@ export function CardGlare({ children, className = "", style = {}, color }: CardG
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
   const latestPointerRef = useRef<{ clientX: number; clientY: number } | null>(null);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setReduceMotion(mediaQuery.matches);
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
     return () => {
       if (frameRef.current !== null) {
         window.cancelAnimationFrame(frameRef.current);
       }
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, []);
 
@@ -46,6 +53,7 @@ export function CardGlare({ children, className = "", style = {}, color }: CardG
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion) return;
     latestPointerRef.current = { clientX: e.clientX, clientY: e.clientY };
     if (frameRef.current !== null) return;
     frameRef.current = window.requestAnimationFrame(updateGlare);
@@ -60,6 +68,14 @@ export function CardGlare({ children, className = "", style = {}, color }: CardG
     setRotate({ x: 0, y: 0 });
     setGlare({ opacity: 0, x: 50, y: 50 });
   };
+
+  if (reduceMotion) {
+    return (
+      <div className={className} style={{ ...style, position: "relative" }}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div

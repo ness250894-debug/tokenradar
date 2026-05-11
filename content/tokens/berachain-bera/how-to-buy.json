@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "Buying Berachain (BERA): Safest Exchanges and Steps",
   "slug": "how-to-buy",
-  "content": "\n## Steps to\n\nAcquire BERA 1. **Select an Exchange:** Use reputable platforms that support the BERA/USD or BERA/USDT pairs. Ensure the platform complies with regional financial regulations. 2. **Account Creation:** Complete the KYC (Know Your Customer) process, which is standard for centralized exchanges to prevent fraud. 3. **Deposit Funds:** Transfer fiat (USD, EUR) or stablecoins (USDT, [USDC](/usd-coin)) via bank transfer or crypto deposit. 4. **Execute Trade:** Navigate to the trading dashboard, search for BERA, and choose between a 'Market' order for immediate execution or a 'Limit' order to set a target purchase price. 5. **Secure Your Assets:** Once purchased, consider withdrawing to a self-custody wallet rather than keeping large amounts on the exchange, as this mitigates centralized counterparty risk.\n\n| Metric | Details |\n| :--- | :--- |\n| Price | {{LIVE_PRICE}} |\n| Market Cap | {{LIVE_MARKET_CAP}} |\n| 24h Change | {{LIVE_24H_CHANGE}} |\n\n\nBerachain has gained attention for its unique Proof-of-Liquidity consensus. Before considering an entry, note that with a Risk [Score](/score) of 6 and a current 24h change of -3.34%, volatility is significant.\n\n| Metric | Value |\n| :--- | :--- |\n\n## Considerations\n\nAlways perform due diligence. Unlike projects like [Solana](/solana), Berachain is relatively new, which may impact liquidity on smaller exchanges. Consult with a tax professional regarding capital gains obligations in your jurisdiction, as crypto transactions are taxable events in many regions. --- *Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 241,
+  "content": "## Steps to\n\nAcquire BERA 1. **Select an Exchange:** Use reputable platforms that support the BERA/USD or BERA/USDT pairs. Ensure the platform complies with regional financial regulations. 2. **Account Creation:** Complete the KYC (Know Your Customer) process, which is standard for centralized exchanges to prevent fraud. 3. **Deposit Funds:** Transfer fiat (USD, EUR) or stablecoins (USDT, [USDC](/usd-coin)) via bank transfer or crypto deposit. 4. **Execute Trade:** Navigate to the trading dashboard, search for BERA, and choose between a 'Market' order for immediate execution or a 'Limit' order to set a target purchase price. 5. **Secure Your Assets:** Once purchased, consider withdrawing to a self-custody wallet rather than keeping large amounts on the exchange, as this mitigates centralized counterparty risk.\n\n| Metric | Details |\n| :--- | :--- |\n| Price | {{LIVE_PRICE}} |\n| Market Cap | {{LIVE_MARKET_CAP}} |\n| 24h Change | {{LIVE_24H_CHANGE}} |\n\n\nBerachain has gained attention for its unique Proof-of-Liquidity consensus. Before considering an entry, note that with a Risk Score of 6 and a current 24h change of -3.34%, volatility is significant.\n\n| Metric | Value |\n| :--- | :--- |\n\n## Considerations Always perform due diligence. Unlike projects like [Solana](/solana), Berachain is relatively new, which may impact liquidity on smaller exchanges. Consult with a tax professional regarding capital gains obligations in your jurisdiction, as crypto transactions are taxable events in many regions.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 250,
   "generatedAt": "2026-04-23T09:04:36.890Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1468,
-  "completionTokens": 420
+  "completionTokens": 420,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 250 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 1 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 250,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 1,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 16
+    },
+    "checkedAt": "2026-05-11T13:39:48.890Z"
+  }
 }

@@ -34,17 +34,18 @@ function fixBrokenHeaders(content: string): string {
   );
 }
 
+function fixSplitQuestionHeadings(content: string): string {
+  return content.replace(
+    /^(##\s+(?!FAQ\b)[^\n\r?]{3,80})\s*[\r\n]+\s*((?!\d+\.\s|\*\*|[-*]\s|\||---)[^#\n\r]{3,120}\?)$/gm,
+    "$1 $2",
+  );
+}
+
 function fixMissingNewlineAfterHeader(content: string): string {
   const lines = content.split("\n");
   const fixedLines: string[] = [];
 
   for (const line of lines) {
-    const match = line.match(/^(##\s+[A-Z][^#\n]+?)\s+([A-Z][A-Za-z]{2,}\s+[A-Za-z]{2,}\s+[A-Za-z]{2,}.*)$/);
-    if (match && !line.includes("|") && !line.includes("FAQ")) {
-      fixedLines.push(match[1], "", match[2]);
-      continue;
-    }
-
     const boldBlockMatch = line.match(/^(##\s+[A-Z][^#\n]+?)\s+(\*\*.+)$/);
     if (boldBlockMatch) {
       fixedLines.push(boldBlockMatch[1], "", boldBlockMatch[2]);
@@ -128,6 +129,7 @@ export function normalizeArticleMarkdown(content: string): string {
   normalized = repairNestedInternalLinks(normalized);
   normalized = fixHybridHeadings(normalized);
   normalized = fixBrokenHeaders(normalized);
+  normalized = fixSplitQuestionHeadings(normalized);
   normalized = fixMissingNewlineAfterHeader(normalized);
   normalized = fixInlineHeadingMarkers(normalized);
   normalized = fixMissingNewlines(normalized);

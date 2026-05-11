@@ -4,10 +4,28 @@
   "type": "overview",
   "title": "What is BitTorrent (BTT)? Complete Guide",
   "slug": "overview",
-  "content": "BitTorrent remains one of the most recognizable names in decentralized peer-to-peer file sharing, currently operating within a global market characterized by a $2.68T total capitalization and a BTC dominance of 58.1%. As of April 24, 2026, BitTorrent (BTT) maintains a position with a $0.00000032 valuation and a market cap of $319.49M, ranking at #137. The protocol aims to address the inherent inefficiencies of traditional, centralized content distribution networks by leveraging distributed computing power. While projects like [Filecoin](/filecoin) focus on decentralized storage solutions and [Axie Infinity](/axie-infinity) explores play-to-earn gaming economies, BitTorrent serves as a bridge between legacy internet infrastructure and decentralized tokenomics. The technical architecture relies on the [TRON](/tron) blockchain, enabling a high-throughput ecosystem for file transfer. Through BitTorrent Speed, users are incentivized to seed content, creating a functional market for bandwidth. However, investors should note the TokenRadar Risk [Score](/score) of 8, which classifies the asset as high-risk. Potential headwinds include intense competition in the DePIN sector and historical performance metrics, such as a 51.93707% decline over the past year. Understanding the interplay between BTT’s utility in incentivizing network participation and the broader shifts in blockchain storage demand is essential for objective analysis of its long-term viability.",
-  "wordCount": 194,
+  "content": "BitTorrent remains one of the most recognizable names in decentralized peer-to-peer file sharing, currently operating within a global market characterized by a $2.68T total capitalization and a BTC dominance of 58.1%. As of April 24, 2026, BitTorrent (BTT) maintains a position with a $0.00000032 valuation and a market cap of $319.49M, ranking at #137. The protocol aims to address the inherent inefficiencies of traditional, centralized content distribution networks by leveraging distributed computing power. While projects like [Filecoin](/filecoin) focus on decentralized storage solutions and [Axie Infinity](/axie-infinity) explores play-to-earn gaming economies, BitTorrent serves as a bridge between legacy internet infrastructure and decentralized tokenomics. The technical architecture relies on the [TRON](/tron) blockchain, enabling a high-throughput ecosystem for file transfer. Through BitTorrent Speed, users are incentivized to seed content, creating a functional market for bandwidth. However, investors should note the TokenRadar Risk Score of 8, which classifies the asset as high-risk. Potential headwinds include intense competition in the DePIN sector and historical performance metrics, such as a 51.93707% decline over the past year. Understanding the interplay between BTT’s utility in incentivizing network participation and the broader shifts in blockchain storage demand is essential for objective analysis of its long-term viability.",
+  "wordCount": 196,
   "generatedAt": "2026-04-24T08:30:34.582Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1738,
-  "completionTokens": 331
+  "completionTokens": 331,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 196 (min 800)",
+      "Missing FAQ section",
+      "Missing disclaimer"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 196,
+      "hasFaq": false,
+      "hasDisclaimer": false,
+      "dataPointCount": 5,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 15
+    },
+    "checkedAt": "2026-05-11T13:39:48.958Z"
+  }
 }

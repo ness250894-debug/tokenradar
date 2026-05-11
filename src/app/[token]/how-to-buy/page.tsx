@@ -10,7 +10,7 @@ import {
   formatPrice,
   formatCompact,
 } from "@/lib/content-loader";
-import { evaluateArticleQuality } from "@/lib/content-quality";
+import { isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "how-to-buy");
-  const articleQuality = article ? evaluateArticleQuality(article) : null;
   const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`;
   const description = `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`;
 
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: !!articleQuality?.passed,
+      index: isArticleIndexable(article),
       follow: true,
     },
     alternates: {
@@ -139,6 +138,33 @@ export default async function HowToBuyPage({ params }: PageProps) {
 
         <ExchangeReferralPanel symbol={detail.symbol} tokenName={detail.name} />
 
+        <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
+            Buying Checklist
+          </h2>
+          <ol style={{ display: "grid", gap: "var(--space-md)", margin: 0, paddingLeft: "1.25rem", color: "var(--text-secondary)" }}>
+            <li>
+              <strong style={{ color: "var(--text-primary)" }}>Choose a legally available venue.</strong>{" "}
+              Confirm the exchange serves your country or state and supports the exact {detail.symbol.toUpperCase()} market.
+            </li>
+            <li>
+              <strong style={{ color: "var(--text-primary)" }}>Review payment method and fees.</strong>{" "}
+              Compare card, bank, wire, spread, withdrawal fee, and minimum order rules before funding the account.
+            </li>
+            <li>
+              <strong style={{ color: "var(--text-primary)" }}>Verify the trading pair and network.</strong>{" "}
+              Check the ticker, contract, and withdrawal network before placing or moving an order.
+            </li>
+            <li>
+              <strong style={{ color: "var(--text-primary)" }}>Plan custody before buying.</strong>{" "}
+              Decide whether the position stays on an exchange temporarily or moves to a wallet after a small test transfer.
+            </li>
+          </ol>
+          <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginTop: "var(--space-md)", marginBottom: 0 }}>
+            Paid links are labeled near each button. TokenRadar may earn a commission, but listings, fees, and eligibility must be verified directly with the provider.
+          </p>
+        </div>
+
         {/* Article Content */}
         {article ? (
           <div style={{ marginTop: "var(--space-2xl)" }}>
@@ -187,12 +213,12 @@ export default async function HowToBuyPage({ params }: PageProps) {
             "@context": "https://schema.org",
             "@type": "HowTo",
             name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()})`,
-            description: `Step-by-step guide to purchasing ${detail.name}.`,
+            description: `Step-by-step guide to checking ${detail.name} markets, fees, eligibility, and custody before buying.`,
             step: [
-              { "@type": "HowToStep", name: "Create an Exchange Account", text: "Choose an exchange or broker that is legally available in your jurisdiction." },
-              { "@type": "HowToStep", name: "Deposit Funds", text: "Deposit fiat currency or crypto to your exchange account." },
-              { "@type": "HowToStep", name: `Check ${detail.symbol.toUpperCase()} Markets`, text: `Confirm that ${detail.symbol.toUpperCase()} is listed, verify the trading pair, and review fees before placing an order.` },
-              { "@type": "HowToStep", name: "Secure Your Investment", text: "Consider transferring to a hardware wallet for long-term storage." },
+              { "@type": "HowToStep", name: "Choose a legally available venue", text: `Confirm the exchange serves your jurisdiction and supports the exact ${detail.symbol.toUpperCase()} market.` },
+              { "@type": "HowToStep", name: "Review payment method and fees", text: "Compare card, bank, wire, spread, withdrawal fee, and minimum order rules before funding the account." },
+              { "@type": "HowToStep", name: "Verify the trading pair and network", text: `Check the ${detail.symbol.toUpperCase()} ticker, contract, and withdrawal network before placing or moving an order.` },
+              { "@type": "HowToStep", name: "Plan custody before buying", text: "Decide whether the position stays on an exchange temporarily or moves to a wallet after a small test transfer." },
             ],
           }),
         }}
