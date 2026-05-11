@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact TokenRadar — Support & feedback",
+  title: "Contact TokenRadar - Support, data corrections & partnerships",
   description:
-    "Have questions or feedback? Contact the TokenRadar team for support, partnership inquiries, or data corrections.",
+    "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact TokenRadar — Support & feedback",
+    title: "Contact TokenRadar - Support, data corrections & partnerships",
     description:
-      "Have questions or feedback? Contact the TokenRadar team for support, partnership inquiries, or data corrections.",
+      "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
   },
   twitter: {
-    title: "Contact TokenRadar — Support & feedback",
+    title: "Contact TokenRadar - Support, data corrections & partnerships",
     description:
-      "Have questions or feedback? Contact the TokenRadar team for support, partnership inquiries, or data corrections.",
+      "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
   },
 };
 

@@ -6,7 +6,7 @@ export function EssentialCryptoToolkit() {
   const tools = [
     {
       title: "Stop Storing on Exchanges",
-      description: "Secure your first $10,000 in Cold Storage. Compare the industry's most trusted hardware wallets based on our 2026 security audits.",
+      description: "Move long-term holdings into cold storage. Compare trusted hardware wallets by security model, signing clarity, asset support, and custody tradeoffs.",
       link: "/best-crypto-hardware-wallets",
       linkLabel: "Secure My Assets",
       icon: ShieldCheck,

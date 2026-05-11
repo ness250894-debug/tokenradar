@@ -10,6 +10,10 @@ import { getExchangeReferralRecords } from "./partners";
 /** Site URL, configurable via environment variable. */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
+/** Public contact details. */
+export const CONTACT_EMAIL = "contact@tokenradar.co";
+export const CONTACT_FORM_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT || "https://formspree.io/f/mnjgzrjr";
+
 /** Social media handles. */
 export const SOCIAL = {
   xUrl: "https://x.com/tokenradarco",

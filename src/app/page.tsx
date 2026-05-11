@@ -219,7 +219,7 @@ export default async function HomePage() {
                   </div>
                   <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Stop Storing on Exchanges</h3>
                   <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
-                    Secure your first $10,000 in Cold Storage. Compare the industry&apos;s most trusted hardware wallets based on our 2026 security audits.
+                    Move long-term holdings into cold storage. Compare trusted hardware wallets by security model, signing clarity, asset support, and custody tradeoffs.
                   </p>
                   <div style={{ color: "var(--green)", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
                     Secure My Assets &rarr;

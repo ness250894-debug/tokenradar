@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+const lastUpdated = "May 11, 2026";
+
 export const metadata: Metadata = {
   title: "Financial Disclaimer",
   description:
@@ -19,54 +21,68 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Financial disclaimer page — legally required for any crypto content site.
- * Includes affiliate disclosure for exchange, wallet, tax, and charting partner links.
- */
 export default function DisclaimerPage() {
   return (
     <div className="container">
       <section className="section">
         <div className="article-content">
-          <h1>Disclaimer</h1>
+          <h1>Financial Disclaimer</h1>
+          <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+            Last updated: {lastUpdated}
+          </p>
 
           <h2>Not Financial Advice</h2>
           <p>
             The information provided on TokenRadar (tokenradar.co) is for
             <strong> general informational and educational purposes only</strong>.
             Nothing on this website constitutes financial advice, investment
-            advice, trading advice, or any other sort of advice, and you should
-            not treat any of the website&apos;s content as such.
+            advice, trading advice, tax advice, legal advice, accounting advice,
+            or any other professional advice. You should not treat any content,
+            score, scenario, guide, post, link, or alert as advice tailored to
+            your financial situation.
           </p>
 
-          <h2>Do Your Own Research</h2>
+          <h2>No Professional or Fiduciary Relationship</h2>
           <p>
-            TokenRadar does not recommend that any cryptocurrency should be
-            bought, sold, or held by you. Always conduct your own due diligence
-            and consult a qualified financial advisor before making any
-            investment decisions.
+            TokenRadar is not a registered investment adviser, broker-dealer,
+            securities exchange, commodity trading adviser, futures commission
+            merchant, tax adviser, law firm, custodian, or financial
+            institution. Using the site does not create an adviser-client,
+            broker-client, fiduciary, attorney-client, tax-preparer, or similar
+            professional relationship.
           </p>
 
-          <h2>No Guarantees</h2>
+          <h2>No Offers or Recommendations</h2>
           <p>
-            The cryptocurrency market is highly volatile and unpredictable.
-            Past performance is not indicative of future results. TokenRadar
-            makes no representations or warranties about the accuracy,
-            completeness, or timeliness of the information provided.
+            TokenRadar does not recommend that any cryptocurrency, token,
+            security, commodity, product, exchange, wallet, software service, or
+            strategy should be bought, sold, held, staked, lent, borrowed,
+            shorted, or used by you. Nothing on TokenRadar is an offer,
+            solicitation, endorsement, underwriting, or invitation to enter into
+            any transaction.
           </p>
 
-          <h2>Risk Acknowledgment</h2>
+          <h2>Crypto Risk Acknowledgment</h2>
           <p>
-            Investing in cryptocurrencies involves substantial risk of loss and
-            is not suitable for every investor. The valuation of cryptocurrencies
-            can fluctuate significantly, and you may lose part or all of your
-            investment. You should only invest what you can afford to lose.
+            Crypto assets are speculative, volatile, and may lose all value.
+            Risks include market volatility, limited liquidity, exchange failure,
+            insolvency, hacks, phishing, smart-contract bugs, bridge failures,
+            oracle failures, custody mistakes, wallet compromise, stablecoin
+            depegging, governance attacks, regulatory changes, tax consequences,
+            forks, delistings, token unlocks, insider concentration, and market
+            manipulation. Past performance is not indicative of future results.
+          </p>
+          <p>
+            Leveraged products, derivatives, margin trading, perpetuals,
+            options, lending, borrowing, yield farming, staking, restaking, and
+            pre-launch allocations can amplify losses and may not be suitable
+            for most users. Only risk capital you can afford to lose.
           </p>
 
           <h2>Affiliate Disclosure</h2>
           <p>
-            Some pages on TokenRadar — particularly &quot;How to Buy&quot;
-            guides — contain <strong>affiliate links</strong> to cryptocurrency
+            Some pages on TokenRadar, particularly &quot;How to Buy&quot;
+            guides, contain <strong>paid links or affiliate links</strong> to cryptocurrency
             exchanges, including but not limited to Binance, Bybit, OKX, and
             KuCoin. If you sign up or make a purchase through these links,
             TokenRadar may receive a commission at no additional cost to you.
@@ -92,6 +108,14 @@ export default function DisclaimerPage() {
             funds, buying hardware, or subscribing.
           </p>
 
+          <h2>Sponsored and Paid Content</h2>
+          <p>
+            If TokenRadar publishes sponsored content, paid placements, or
+            advertiser-supported material, we aim to label it clearly. Paid
+            placement does not guarantee that a product is safe, suitable,
+            lawful, available, or profitable.
+          </p>
+
           <h2>Pre-Launch &amp; TGE Content</h2>
           <p>
             TokenRadar features analysis of upcoming Token Generation Events
@@ -100,6 +124,12 @@ export default function DisclaimerPage() {
             traded tokens, as pre-launch projects have no live market data,
             limited track record, and higher uncertainty. Pre-launch content
             should be treated with additional caution.
+          </p>
+          <p>
+            Token sale, airdrop, whitelist, points, allocation, and listing
+            information may change or be withdrawn without notice. You may never
+            receive tokens, tokens may have little or no utility, and secondary
+            markets may not develop.
           </p>
 
           <h2>Third-Party Data</h2>
@@ -110,20 +140,37 @@ export default function DisclaimerPage() {
             other aggregators. While we strive to ensure accuracy, we cannot
             guarantee that all data is error-free at all times.
           </p>
+          <p>
+            TokenRadar is not endorsed by CoinGecko or other data providers
+            unless explicitly stated. Third-party data providers, exchanges, and
+            project teams are not responsible for your use of TokenRadar.
+          </p>
 
           <h2>AI-Generated Content</h2>
           <p>
-            Content on this site — including articles, social media posts on
-            our X and Telegram channels, and market update summaries — is
-            generated with the assistance of artificial intelligence. While all
+            Content on this site, including articles, social media posts on our
+            X and Telegram channels, and market update summaries, is generated
+            with the assistance of artificial intelligence. While all
             AI-generated content undergoes automated quality checks and includes
             verified data points, it may contain errors or omissions.
-            AI-generated content should not be relied upon as the sole basis
-            for any financial decision.
+            AI-generated content should not be relied upon as the sole basis for
+            any financial decision.
           </p>
 
-          <p style={{ marginTop: "var(--space-xl)", color: "var(--text-muted)", fontStyle: "italic" }}>
-            Last updated: {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+          <h2>Tax and Legal Matters</h2>
+          <p>
+            Crypto tax rules and legal restrictions vary by jurisdiction and can
+            change. TokenRadar tax guides and regulatory comments are general
+            education only. Consult qualified professionals for advice about
+            your specific situation.
+          </p>
+
+          <h2>Your Responsibility</h2>
+          <p>
+            You are responsible for independently verifying information,
+            evaluating risk, checking jurisdictional eligibility, securing your
+            devices and wallets, understanding fees and taxes, and deciding
+            whether any action is appropriate for you.
           </p>
         </div>
       </section>
