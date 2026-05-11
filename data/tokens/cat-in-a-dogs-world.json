@@ -2,26 +2,53 @@
   "id": "cat-in-a-dogs-world",
   "symbol": "mew",
   "name": "cat in a dogs world",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36440/large/MEW.png?1711442286",
+  "description": "cat in a dogs world (MEW) on Solana",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Dog-Themed",
+    "Solana Meme",
+    "Cat-Themed",
+    "Binance Alpha Spotlight",
+    "IP Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mew.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5"
+  },
   "market": {
-    "price": 0.00071733,
-    "marketCap": 63941724,
-    "marketCapRank": 437,
-    "volume24h": 12322758,
-    "priceChange24h": 7.61899,
+    "price": 0.0006959,
+    "marketCap": 61846947,
+    "marketCapRank": 446,
+    "volume24h": 11075747,
+    "high24h": 0.00072604,
+    "low24h": 0.00067066,
+    "priceChange24h": 2.8029,
+    "priceChange7d": 14.96417,
+    "priceChange30d": 17.87739,
+    "priceChange1y": -79.7347,
     "ath": 0.01288153,
-    "athChangePercentage": -94.37851,
+    "athChangePercentage": -94.62994,
     "athDate": "2024-11-17T16:03:04.829Z",
     "atl": 0.00051113,
     "atlDate": "2026-02-06T00:26:02.251Z",
     "circulatingSupply": 88888888888.88,
     "totalSupply": 88888888888.88,
     "maxSupply": 88888888888.88,
-    "high24h": 0.00072604,
-    "low24h": 0.00066114,
-    "priceChange7d": 21.17146354418273,
-    "priceChange30d": 21.219238959614152,
-    "priceChange1y": -79.76876404861133,
-    "fdv": 63941724
+    "fdv": 61846947
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.890Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T10:29:11.474Z"
 }
