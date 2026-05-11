@@ -5,7 +5,8 @@
 # - Telegram: 3 posts/day max (market brief, poll, movers)
 # - X: 4 primary posts/day max, with a single daily link reply on the poll
 # - Instagram: max 1 post/day, alternating carousel and Reel days
-# - YouTube/Threads/TikTok: short-form video 3x/week
+# - Threads: text-native signal 2x/week plus short-form video 3x/week
+# - YouTube/TikTok: short-form video 3x/week
 
 name: Social Automations
 
@@ -17,6 +18,7 @@ on:
     - cron: "00 03 * * *" # X market update
     - cron: "00 12 * * *" # X interactive poll + daily link reply
     - cron: "00 15 * * *" # Telegram poll + X market update
+    - cron: "00 16 * * 2,4" # Threads text-native signal (Tue/Thu)
     - cron: "00 18 * * 1,3,5" # Short-form video (Mon/Wed/Fri)
     - cron: "00 21 * * *" # Telegram movers card + X market update
     
@@ -33,6 +35,7 @@ env:
   IS_X_POLL_RUN: ${{ github.event.schedule == '00 12 * * *' || github.event_name == 'workflow_dispatch' }}
   IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '00 15 * * *' || github.event_name == 'workflow_dispatch' }}
   IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '00 21 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '00 16 * * 2,4' || github.event_name == 'workflow_dispatch' }}
   IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * 1,3,5' || github.event_name == 'workflow_dispatch' }}
   IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '05 00 * * 0,2,4' || github.event_name == 'workflow_dispatch' }}
 
@@ -167,7 +170,21 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 6. Short-form Video Breakout (Mon/Wed/Fri; IG/Threads/YT/TikTok only) ─────────
+      # Threads Text Signal (Tue/Thu; text-native, no video recycle)
+      - name: Threads Text Signal
+        if: env.IS_THREADS_TEXT_RUN == 'true'
+        run: npx tsx scripts/post-threads-daily.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
+      # Short-form Video Breakout (Mon/Wed/Fri; IG/Threads/YT/TikTok only)
       - name: Install FFmpeg
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg

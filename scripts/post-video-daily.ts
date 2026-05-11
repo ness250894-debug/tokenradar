@@ -21,7 +21,7 @@ import {
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { buildTelegramMediaCaption, sendTelegramVideo } from "../src/lib/telegram";
-import { postTweetWithMedia, postTweet } from "../src/lib/x-client";
+import { diversifyXPostText, postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
@@ -39,6 +39,7 @@ import {
   loadCandidateTokens,
   selectToken,
 } from "./lib/token-selection";
+import { getRecentPlatformTexts } from "./lib/social-history";
 
 loadEnv();
 
@@ -52,10 +53,13 @@ interface PlatformTracker {
   messageId?: number;
   tweetId?: string;
   replyId?: string;
+  xText?: string;
   videoId?: string;
   postId?: string;
+  caption?: string;
   reportVideoMessageId?: number;
   reportCaptionMessageIds?: number[];
+  tiktokCaption?: string;
   deliveryMode?: "direct" | "telegram-report-manual";
 }
 
@@ -80,15 +84,17 @@ function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
   if (!fs.existsSync(parentDir)) return posted;
 
   const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - days);
+  cutoff.setUTCHours(0, 0, 0, 0);
+  cutoff.setUTCDate(cutoff.getUTCDate() - days);
+  const cutoffKey = cutoff.toISOString().split("T")[0];
 
   const dateDirs = fs.readdirSync(parentDir).filter((d) => {
     const fullPath = path.join(parentDir, d);
-    return fs.statSync(fullPath).isDirectory() && !isNaN(new Date(d).getTime());
+    return fs.statSync(fullPath).isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(d);
   });
 
   for (const dateDir of dateDirs) {
-    if (new Date(dateDir) >= cutoff) {
+    if (dateDir >= cutoffKey) {
       const trackerFile = path.join(parentDir, dateDir, "daily-video.json");
       if (fs.existsSync(trackerFile)) {
         try {
@@ -559,6 +565,20 @@ async function main() {
       }
     }
 
+    if (runX && xMessage) {
+      const recentXTexts = getRecentPlatformTexts(DATA_DIR, "x", 14);
+      const diversified = diversifyXPostText(
+        xMessage,
+        recentXTexts,
+        `${today}:${targetToken.id}:${reason}:video`,
+        captionOptions.xMaxChars ?? 260,
+      );
+      if (diversified !== xMessage) {
+        console.log("Adjusted X video copy to avoid repeating recent post structure.");
+        xMessage = diversified;
+      }
+    }
+
     if (dryRun) {
       console.log();
       console.log("=== DRY RUN MODE ===");
@@ -668,6 +688,7 @@ async function main() {
                 postedAt: new Date().toISOString(),
                 tweetId,
                 replyId,
+                xText: xMessage,
               },
             };
           } catch (error) {
@@ -725,6 +746,7 @@ async function main() {
               tracker: {
                 postedAt: new Date().toISOString(),
                 postId: result.id,
+                caption: igContent.caption,
               },
             };
           } catch (error) {
@@ -755,6 +777,7 @@ async function main() {
               tracker: {
                 postedAt: new Date().toISOString(),
                 postId: result.id,
+                caption: threadsContent.caption,
               },
             };
           } catch (error) {
@@ -787,6 +810,7 @@ async function main() {
                 postedAt: new Date().toISOString(),
                 reportVideoMessageId: result.videoMessageId,
                 reportCaptionMessageIds: result.captionMessageIds,
+                tiktokCaption,
                 deliveryMode: "telegram-report-manual" as const,
               },
             };

@@ -17,7 +17,12 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
-import { cleanupExpiredCooldownFolders, hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
+import {
+  cleanupExpiredCooldownFolders,
+  getRecentlyPostedTokens,
+  hasSocialImageSafeText,
+  loadCandidateTokens,
+} from "./lib/token-selection";
 import { SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
 
 // Load environment
@@ -66,7 +71,12 @@ async function main() {
     console.log(`  Loaded ${candidates.length} candidates with live prices.`);
 
     // ── Select top 5 gainers with quality filters ──
-    const movers: MoverToken[] = candidates
+    const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR, "telegram");
+    if (!force) {
+      console.log(`  Telegram movers cooldown pool: ${recentlyPosted.size} tokens from recent posts.`);
+    }
+
+    const eligibleMovers = candidates
       .filter((t) =>
         t.market.priceChange24h > 0 &&
         t.market.priceChange24h <= MAX_CHANGE_THRESHOLD &&
@@ -74,16 +84,26 @@ async function main() {
         t.market.marketCap > 0 &&
         hasSocialImageSafeText(t)
       )
-      .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h)
-      .slice(0, 5)
-      .map((t) => ({
-        id: t.id,
-        symbol: t.symbol,
-        name: t.name,
-        imageUrl: t.imageUrl,
-        price: t.market.price,
-        change24h: t.market.priceChange24h,
-      }));
+      .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+    const freshMovers = eligibleMovers.filter((token) => !recentlyPosted.has(token.id));
+    const cooldownFillers = eligibleMovers.filter((token) => recentlyPosted.has(token.id));
+    const selectedMoverTokens = [
+      ...freshMovers.slice(0, 5),
+      ...cooldownFillers.slice(0, Math.max(0, 5 - freshMovers.length)),
+    ].slice(0, 5);
+
+    if (!force && selectedMoverTokens.some((token) => recentlyPosted.has(token.id))) {
+      console.warn("  Not enough fresh movers after cooldown filtering; filled remaining slots with recent movers.");
+    }
+
+    const movers: MoverToken[] = selectedMoverTokens.map((t) => ({
+      id: t.id,
+      symbol: t.symbol,
+      name: t.name,
+      imageUrl: t.imageUrl,
+      price: t.market.price,
+      change24h: t.market.priceChange24h,
+    }));
 
     if (movers.length === 0) {
       throw new Error("No eligible gainers found after filtering. Market may be entirely red.");
