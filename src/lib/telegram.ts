@@ -20,6 +20,145 @@ function escapeHtmlAttribute(value: string): string {
     .replace(/>/g, "&gt;");
 }
 
+function decodeTelegramHtmlEntities(value: string): string {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_match, code: string) => {
+      const parsed = Number(code);
+      return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (_match, code: string) => {
+      const parsed = Number.parseInt(code, 16);
+      return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
+    });
+}
+
+function stripTelegramHtmlForLength(html: string): string {
+  return decodeTelegramHtmlEntities(
+    html
+      .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, "$1")
+      .replace(/<\/?(b|i|code|pre|tg-spoiler)(\s[^>]*)?\s*>/gi, "")
+      .replace(/<[^>]+>/g, ""),
+  );
+}
+
+export function getTelegramHtmlTextLength(html: string): number {
+  return stripTelegramHtmlForLength(html).length;
+}
+
+function removeDanglingTelegramTag(html: string): string {
+  const lastLt = html.lastIndexOf("<");
+  const lastGt = html.lastIndexOf(">");
+  return lastLt > lastGt ? html.substring(0, lastLt) : html;
+}
+
+function closeAllowedTelegramTags(sanitized: string): string {
+  const stack: string[] = [];
+  const finalTagRegex = /<\/?(b|i|a|code|pre|tg-spoiler)(\s[^>]*)?\s*>/gi;
+  let match;
+  while ((match = finalTagRegex.exec(sanitized)) !== null) {
+    const isClosing = match[0].startsWith("</");
+    const tagName = match[1].toLowerCase();
+    if (isClosing) {
+      const idx = stack.lastIndexOf(tagName);
+      if (idx !== -1) stack.splice(idx, 1);
+    } else {
+      stack.push(tagName);
+    }
+  }
+
+  let result = sanitized;
+  while (stack.length > 0) {
+    const tagName = stack.pop();
+    result += `</${tagName}>`;
+  }
+
+  return result;
+}
+
+function trimAtCleanBoundary(html: string): string {
+  const sentenceEndings = [". ", ".\n", "! ", "!\n", "? ", "?\n"];
+  const minBoundary = Math.floor(html.length * 0.55);
+  let boundary = -1;
+  let boundaryLength = 1;
+
+  for (const ending of sentenceEndings) {
+    const index = html.lastIndexOf(ending);
+    if (index > boundary && index >= minBoundary) {
+      boundary = index;
+      boundaryLength = ending.startsWith(".") || ending.startsWith("!") || ending.startsWith("?") ? 1 : ending.length;
+    }
+  }
+
+  if (boundary !== -1) {
+    return closeAllowedTelegramTags(removeDanglingTelegramTag(html.substring(0, boundary + boundaryLength)).trim());
+  }
+
+  const whitespaceBoundary = html.lastIndexOf(" ");
+  if (whitespaceBoundary > minBoundary) {
+    return closeAllowedTelegramTags(removeDanglingTelegramTag(html.substring(0, whitespaceBoundary)).trim());
+  }
+
+  return closeAllowedTelegramTags(removeDanglingTelegramTag(html).trim());
+}
+
+export function truncateTelegramHtmlToTextLength(html: string, maxTextLength: number): string {
+  if (maxTextLength <= 0) return "";
+
+  const source = html.trim();
+  let sanitized = sanitizeHtmlForTelegram(source, Number.MAX_SAFE_INTEGER).trim();
+  if (getTelegramHtmlTextLength(sanitized) <= maxTextLength) return sanitized;
+
+  let low = 0;
+  let high = source.length;
+  let best = "";
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const candidate = sanitizeHtmlForTelegram(
+      removeDanglingTelegramTag(source.substring(0, mid)),
+      Number.MAX_SAFE_INTEGER,
+    ).trim();
+
+    if (getTelegramHtmlTextLength(candidate) <= maxTextLength) {
+      best = candidate;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  sanitized = trimAtCleanBoundary(best);
+  return getTelegramHtmlTextLength(sanitized) <= maxTextLength ? sanitized : best.trim();
+}
+
+export function buildTelegramMediaCaption(
+  body: string,
+  footer: string,
+  options?: {
+    maxLength?: number;
+    bodyMaxLength?: number;
+    separator?: string;
+  },
+): string {
+  const maxLength = options?.maxLength ?? 1024;
+  const separator = options?.separator ?? "\n\n";
+  const sanitizedFooter = sanitizeHtmlForTelegram(footer.trim(), Number.MAX_SAFE_INTEGER).trim();
+  const footerTextLength = getTelegramHtmlTextLength(sanitizedFooter);
+  const separatorLength = sanitizedFooter ? separator.length : 0;
+  const maxBodyLength = Math.max(0, maxLength - footerTextLength - separatorLength);
+  const bodyLimit = Math.min(options?.bodyMaxLength ?? maxBodyLength, maxBodyLength);
+  const sanitizedBody = truncateTelegramHtmlToTextLength(body, bodyLimit);
+
+  if (!sanitizedFooter) return sanitizedBody;
+  if (!sanitizedBody) return sanitizedFooter;
+  return `${sanitizedBody}${separator}${sanitizedFooter}`;
+}
+
 export function getApi(botToken?: string): Api<RawApi> {
   const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
   
@@ -98,26 +237,7 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
   sanitized = sanitized.replace(/\x00TAG(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
 
   // 5. Ensure all allowed tags are closed to prevent "malformed" errors on TG
-  const stack: string[] = [];
-  const finalTagRegex = /<\/?(b|i|a|code|pre|tg-spoiler)(\s[^>]*)?\s*>/gi;
-  let match;
-  while ((match = finalTagRegex.exec(sanitized)) !== null) {
-    const isClosing = match[0].startsWith('</');
-    const tagName = match[1].toLowerCase();
-    if (isClosing) {
-      const idx = stack.lastIndexOf(tagName);
-      if (idx !== -1) stack.splice(idx, 1);
-    } else {
-      stack.push(tagName);
-    }
-  }
-
-  while (stack.length > 0) {
-    const tagName = stack.pop();
-    sanitized += `</${tagName}>`;
-  }
-
-  return sanitized;
+  return closeAllowedTelegramTags(sanitized);
 }
 
 /**

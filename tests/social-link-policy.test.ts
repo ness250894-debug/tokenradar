@@ -20,6 +20,7 @@ describe("social post link policy", () => {
     expect(isAllowedPostUrl(SOCIAL.xUrl)).toBe(true);
     expect(isAllowedPostUrl(`${SOCIAL.xUrl}/status/123`)).toBe(true);
     expect(isAllowedPostUrl(SOCIAL.tiktokUrl)).toBe(true);
+    expect(isAllowedPostUrl(SOCIAL.linkTreeUrl)).toBe(true);
     expect(isAllowedPostUrl(REFERRALS[0].url)).toBe(true);
     expect(isAllowedPostUrl("https://www.binance.com/markets")).toBe(false);
   });

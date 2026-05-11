@@ -34,7 +34,7 @@ import * as path from "path";
 
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini";
-import { createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
@@ -222,8 +222,7 @@ async function main() {
   const captionOptions: { telegramMaxChars?: number; xMaxChars?: number } = {};
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
-    const maxAllowedSpace = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - tgFooter.length - 20;
-    captionOptions.telegramMaxChars = Math.min(SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS, maxAllowedSpace);
+    captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
     captionPlatforms.push("telegram");
   }
 
@@ -284,33 +283,15 @@ async function main() {
 
       if (tokenImage) {
         // ── Photo mode: short caption (1024 char limit) ──
-        let caption = tgMessage.trim() + "\n" + tgFooter.trim();
+        const caption = buildTelegramMediaCaption(tgMessage, tgFooter, {
+          maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
+          bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS,
+        });
         
         // Use Inline Keyboard for the main CTA if available
         const keyboard = isOnWebsite 
           ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
           : undefined;
-
-        if (caption.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT) {
-          // Trim the summary further to fit
-          const footerWithPadding = "\n" + tgFooter.trim();
-          const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT - footerWithPadding.length - 3;
-          let body = tgMessage.substring(0, maxBody);
-          
-          // Remove incomplete tag at the end if any
-          const lastLt = body.lastIndexOf("<");
-          const lastGt = body.lastIndexOf(">");
-          if (lastLt > lastGt) {
-            body = body.substring(0, lastLt);
-          }
-          
-          // Close any broken tags before adding the ellipsis
-          body = ensureHtmlTagsClosed(body, ["b", "tg-spoiler"]);
-          caption = body + "..." + footerWithPadding;
-
-        }
-
-        caption = sanitizeHtmlForTelegram(caption, SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT);
 
         if (!dryRun) {
           const api = getApi();
