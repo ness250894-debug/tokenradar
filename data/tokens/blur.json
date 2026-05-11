@@ -2,26 +2,57 @@
   "id": "blur",
   "symbol": "blur",
   "name": "Blur",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/28453/large/blur.png?1696527448",
+  "description": "Blur is an NFT marketplace that  lets nft buyers and sellers to utilise a suite features to facilitate more open and liquid NFT marketplace.",
+  "categories": [
+    "NFT",
+    "Ethereum Ecosystem",
+    "NFT Marketplace",
+    "FTX Holdings",
+    "NFTFi",
+    "eGirl Capital Portfolio",
+    "Paradigm Portfolio",
+    "GMCI DeFi Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://blur.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x5283d291dbcf85356a21ba090e6db59121208b44"
+  },
   "market": {
-    "price": 0.02825342,
-    "marketCap": 79002082,
-    "marketCapRank": 374,
-    "volume24h": 17505467,
-    "priceChange24h": 8.05534,
+    "price": 0.02850998,
+    "marketCap": 79634378,
+    "marketCapRank": 368,
+    "volume24h": 16581979,
+    "high24h": 0.02847331,
+    "low24h": 0.02676743,
+    "priceChange24h": 4.47253,
+    "priceChange7d": 6.82407,
+    "priceChange30d": 28.18092,
+    "priceChange1y": -76.41156,
     "ath": 5.02,
-    "athChangePercentage": -99.43526,
+    "athChangePercentage": -99.43436,
     "athDate": "2023-02-14T17:33:55.928Z",
     "atl": 0.01672914,
     "atlDate": "2026-03-29T22:50:53.555Z",
-    "circulatingSupply": 2795642483.875571,
+    "circulatingSupply": 2796071909.246575,
     "totalSupply": 3000000000,
     "maxSupply": 3000000000,
-    "high24h": 0.02837169,
-    "low24h": 0.02606673,
-    "priceChange7d": 6.64012440877425,
-    "priceChange30d": 24.20228228638679,
-    "priceChange1y": -76.68410807007415,
-    "fdv": 84777022
+    "fdv": 85442415
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.878Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T10:25:42.723Z"
 }

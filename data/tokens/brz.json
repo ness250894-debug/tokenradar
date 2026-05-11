@@ -2,26 +2,57 @@
   "id": "brz",
   "symbol": "brz",
   "name": "Brazilian Digital",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8472/large/MicrosoftTeams-image_%286%29.png?1696508657",
+  "description": "BRZ is the first stable coin backed by Brazilian Reais (BRL). It'll allow Brazilian residents to directly ramp up in international exchanges and actively trade the Brazilian currency against pairs of different classes, including Bitcoin, other stable coins, utility and security tokens. It will be a powerful tool that will allow Brazilians to move and hedge Brazilians reais internationally. BRZ is always fully backed and holders can either purchase it for 1BRL or redeem it with a discount of 1% in Brazil.",
+  "categories": [
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Algorand Ecosystem",
+    "Stellar Ecosystem",
+    "Rootstock Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://transfero.com/stablecoins/brz/",
+    "github": "https://github.com/TransferoSwiss",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x01d33fd36ec67c6ada32cf36b31e88ee190b1839"
+  },
   "market": {
-    "price": 0.203123,
-    "marketCap": 54131542,
-    "marketCapRank": 487,
-    "volume24h": 38762,
-    "priceChange24h": -0.13322,
+    "price": 0.203337,
+    "marketCap": 54185639,
+    "marketCapRank": 485,
+    "volume24h": 42586,
+    "high24h": 0.203545,
+    "low24h": 0.203059,
+    "priceChange24h": -0.01981,
+    "priceChange7d": 1.14134,
+    "priceChange30d": 2.14828,
+    "priceChange1y": 16.06291,
     "ath": 9.99,
-    "athChangePercentage": -97.96554,
+    "athChangePercentage": -97.96342,
     "athDate": "2023-10-29T23:35:00.443Z",
     "atl": 0.00196567,
     "atlDate": "2026-03-07T07:20:14.096Z",
-    "circulatingSupply": 266491707.2545318,
-    "totalSupply": 266491707.2545318,
+    "circulatingSupply": 266498015.0068052,
+    "totalSupply": 266498015.0068052,
     "maxSupply": null,
-    "high24h": 0.203417,
-    "low24h": 0.203063,
-    "priceChange7d": 1.0374609946529274,
-    "priceChange30d": 2.216954433043046,
-    "priceChange1y": 15.905896903901276,
-    "fdv": 54131542
+    "fdv": 54185639
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.899Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T10:27:51.215Z"
 }
