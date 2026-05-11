@@ -7,10 +7,10 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
 import ProgressBarProvider from "@/components/ProgressBarProvider";
 import { JsonLd } from "@/components/JsonLd";
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { ClickAnalytics } from "@/components/ClickAnalytics";
+import { CookieConsent } from "@/components/CookieConsent";
 import { getSiteUrl } from "@/lib/seo";
-import { SOCIAL } from "@/lib/config";
+import { CONTACT_EMAIL, SOCIAL } from "@/lib/config";
 
 const siteUrl = getSiteUrl();
 
@@ -28,7 +28,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+    default: "TokenRadar - Data-Driven Crypto Analysis & Token Research",
     template: "%s | TokenRadar",
   },
   description:
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "TokenRadar",
-    title: "TokenRadar — Data-Driven Crypto Analysis",
+    title: "TokenRadar - Data-Driven Crypto Analysis",
     description:
       "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
     images: [
@@ -54,13 +54,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TokenRadar — Data-Driven Crypto Analysis & Token Research",
+        alt: "TokenRadar - Data-Driven Crypto Analysis & Token Research",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TokenRadar — Data-Driven Crypto Analysis",
+    title: "TokenRadar - Data-Driven Crypto Analysis",
     description:
       "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
     images: ["/og-image.png"],
@@ -70,7 +70,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
 
 export default function RootLayout({
   children,
@@ -83,17 +82,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* AdSense & CMP (Publisher: Place your ID below) */}
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> */}
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossOrigin="anonymous"></script> */}
 
-        {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
         <JsonLd
           id="website-jsonld"
           data={{
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "TokenRadar",
-            "url": siteUrl,
-            "description": "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
+            name: "TokenRadar",
+            url: siteUrl,
+            description: "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
           }}
         />
         <JsonLd
@@ -101,15 +99,38 @@ export default function RootLayout({
           data={{
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "TokenRadar",
-            "url": siteUrl,
-            "logo": `${siteUrl}/icon.png`,
-            "sameAs": [
+            name: "TokenRadar",
+            url: siteUrl,
+            logo: `${siteUrl}/icon.png`,
+            contactPoint: [
+              {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                email: CONTACT_EMAIL,
+                url: `${siteUrl}/contact`,
+                availableLanguage: "en",
+              },
+              {
+                "@type": "ContactPoint",
+                contactType: "data corrections",
+                email: CONTACT_EMAIL,
+                url: `${siteUrl}/contact`,
+                availableLanguage: "en",
+              },
+              {
+                "@type": "ContactPoint",
+                contactType: "partnerships",
+                email: CONTACT_EMAIL,
+                url: `${siteUrl}/contact`,
+                availableLanguage: "en",
+              },
+            ],
+            sameAs: [
               SOCIAL.xUrl,
               SOCIAL.telegramUrl,
               SOCIAL.threadsUrl,
               SOCIAL.instagramUrl,
-            ]
+            ],
           }}
         />
         <JsonLd
@@ -117,12 +138,12 @@ export default function RootLayout({
           data={{
             "@context": "https://schema.org",
             "@type": "Person",
-            "name": "Pavlo Nakonechnyi",
-            "jobTitle": "Founder & Lead Researcher",
-            "url": siteUrl,
-            "sameAs": [
-              "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/"
-            ]
+            name: "Pavlo Nakonechnyi",
+            jobTitle: "Founder & Lead Researcher",
+            url: siteUrl,
+            sameAs: [
+              "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/",
+            ],
           }}
         />
       </head>
@@ -134,6 +155,7 @@ export default function RootLayout({
           <ScrollToTop />
           <BackToOverviewToast />
           <ClickAnalytics />
+          <CookieConsent measurementId={gaMeasurementId} />
         </ProgressBarProvider>
       </body>
     </html>

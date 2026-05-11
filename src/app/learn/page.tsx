@@ -1,140 +1,236 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, Shield, TrendingUp, Cpu } from "lucide-react";
-import { promises as fs, existsSync } from "fs";
-import { join } from "path";
+import { ArrowRight, BookOpen, CheckCircle2, Compass, ShieldCheck } from "lucide-react";
+
+import { JsonLd } from "@/components/JsonLd";
+import { LearnExplorer } from "@/components/LearnExplorer";
+import { canonicalUrl } from "@/lib/seo";
+import { getLearnItems, type LearnItem } from "@/lib/learn";
+
+const PAGE_TITLE = "Crypto Learning Hub & Glossary";
+const PAGE_DESCRIPTION =
+  "Learn crypto valuation, DeFi, tokenomics, liquidity, staking, and scam detection with practical TokenRadar research guides.";
 
 export const metadata: Metadata = {
-  title: "Crypto Learning Hub & Glossary",
-  description: "Master the fundamentals of blockchain, tokenomics, and security with TokenRadar's deep-dive glossary and educational resources.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/learn",
   },
+  openGraph: {
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    url: "/learn",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "TokenRadar crypto learning hub",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: ["/og-image.png"],
+  },
 };
 
-interface GlossaryItem {
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  readTime: string;
-  updatedAt: string;
-}
-
-// Fixed metadata for our root categories
-const CATEGORY_META: Record<string, { title: string; icon: React.ReactNode; description: string }> = {
-  "Security": {
+const CATEGORY_META: Record<string, { title: string; description: string }> = {
+  Security: {
     title: "Security & Risk",
-    icon: <Shield size={32} style={{ color: "var(--accent-primary)" }} />,
-    description: "Learn how to detect rug pulls, evaluate smart contract audits, and secure your assets."
+    description: "Detect rug pulls, review smart contract safety, and understand trade execution risk.",
   },
-  "Tokenomics": {
+  Tokenomics: {
     title: "Tokenomics",
-    icon: <Cpu size={32} style={{ color: "var(--accent-primary)" }} />,
-    description: "Deep dives into supply mechanics, inflation, burn rates, and utility models."
+    description: "Understand supply mechanics, staking incentives, burns, unlocks, and dilution.",
   },
   "Market Metrics": {
     title: "Market Metrics",
-    icon: <TrendingUp size={32} style={{ color: "var(--accent-primary)" }} />,
-    description: "Master the data points we use for our Risk and Growth potential scores."
-  }
+    description: "Read market cap, FDV, liquidity depth, and valuation signals with more discipline.",
+  },
+  DeFi: {
+    title: "DeFi",
+    description: "Understand TVL, liquidity provision, yield, impermanent loss, and protocol-level risk.",
+  },
+  "Portfolio Risk": {
+    title: "Portfolio Risk",
+    description: "Evaluate stablecoins, concentration, runway, and defensive positioning during market stress.",
+  },
 };
 
-async function getCategorizedLinks() {
-  const filePath = join(process.cwd(), "data/glossary.json");
-  if (!existsSync(filePath)) return [];
-  
-  try {
-    const raw = await fs.readFile(filePath, "utf-8");
-    const data: GlossaryItem[] = JSON.parse(raw);
-    
-    // Group by category string
-    const map = new Map<string, { name: string; slug: string }[]>();
-    for (const item of data) {
-      if (!map.has(item.category)) map.set(item.category, []);
-      map.get(item.category)?.push({
-        name: item.title.split(":")[0], // Extract short name before colon if exists
-        slug: item.slug
-      });
-    }
+const START_HERE = [
+  {
+    label: "Step 1",
+    title: "Learn valuation basics",
+    description: "Start with market cap before comparing token prices or growth potential.",
+    href: "/learn/market-cap-explained",
+  },
+  {
+    label: "Step 2",
+    title: "Check future dilution",
+    description: "Use FDV and supply gaps to understand how future unlocks may affect holders.",
+    href: "/learn/fully-diluted-valuation-fdv",
+  },
+  {
+    label: "Step 3",
+    title: "Screen for avoidable risk",
+    description: "Review rug-pull, liquidity, slippage, and smart-contract warning signs before trading.",
+    href: "/learn/what-is-a-rug-pull",
+  },
+];
 
-    // Merge with meta
-    return Array.from(map.entries()).map(([catName, links]) => {
-      const meta = CATEGORY_META[catName] || {
-        title: catName,
-        icon: <BookOpen size={32} style={{ color: "var(--text-muted)" }} />,
-        description: `Explore all guides and articles related to ${catName}.`
-      };
-      return {
-        ...meta,
-        links
-      };
-    });
-  } catch (error) {
-    console.error("Failed to load glossary items", error);
-    return [];
-  }
+function getCategorySummaries(items: LearnItem[]) {
+  return Object.entries(CATEGORY_META).map(([name, meta]) => ({
+    name,
+    ...meta,
+    count: items.filter((item) => item.category === name).length,
+  }));
+}
+
+function getLatestUpdate(items: LearnItem[]): string {
+  return items
+    .map((item) => item.updatedAt)
+    .sort()
+    .at(-1) || "2026-05-11";
 }
 
 export default async function LearnPage() {
-  const categories = await getCategorizedLinks();
+  const items = await getLearnItems();
+  const categories = getCategorySummaries(items);
+  const latestUpdate = getLatestUpdate(items);
+  const totalWords = items.reduce((sum, item) => sum + item.wordCount, 0);
+  const explorerItems = items.map(
+    ({ slug, title, description, category, readTime, updatedAt, level, wordCount }) => ({
+      slug,
+      title,
+      description,
+      category,
+      readTime,
+      updatedAt,
+      level,
+      wordCount,
+    }),
+  );
 
   return (
     <div className="container">
-      <section className="section" style={{ paddingTop: "var(--space-4xl)" }}>
-        {/* Section Header — matches homepage pattern */}
-        <div className="section-header">
-          <h1>
-            <span className="gradient-text">Learning Hub</span>
+      <JsonLd
+        id="learn-collection-jsonld"
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: PAGE_TITLE,
+          description: PAGE_DESCRIPTION,
+          url: canonicalUrl("/learn"),
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: items.length,
+            itemListElement: items.map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: item.title,
+              url: canonicalUrl(`/learn/${item.slug}`),
+            })),
+          },
+        }}
+      />
+      <JsonLd
+        id="learn-breadcrumb-jsonld"
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: canonicalUrl("/"),
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Learn",
+              item: canonicalUrl("/learn"),
+            },
+          ],
+        }}
+      />
+
+      <section className="learn-hero section" aria-labelledby="learn-title">
+        <div className="learn-hero-copy">
+          <p className="eyebrow-text">Crypto education for risk-aware investors</p>
+          <h1 id="learn-title">
+            Learn the metrics behind <span className="gradient-text">better token research</span>
           </h1>
           <p>
-            Expert-led guides and deep-dive technical definitions to help you
-            navigate the complex crypto landscape with data and logic.
+            Practical guides for reading valuation, liquidity, tokenomics, staking yield, and scam risk
+            before you commit capital.
           </p>
+          <div className="learn-hero-actions">
+            <Link href="#learn-library-title" className="btn btn-primary">
+              Browse Guides
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link href="/about#methodology" className="btn btn-secondary">
+              Research Methodology
+            </Link>
+          </div>
         </div>
 
-        {/* Category Grid — uses .card pattern from homepage */}
-        <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-2xl)" }}>
-          {categories.map((category, idx) => (
-            <div key={idx} className="card" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-              <div className="feature-icon-wrapper">
-                {category.icon}
-              </div>
-              <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>
-                {category.title}
-              </h2>
-              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-lg)" }}>
-                {category.description}
-              </p>
-              
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)", width: "100%", marginTop: "auto" }}>
-                {category.links.map((link, lIdx) => (
-                  <Link 
-                    key={lIdx} 
-                    href={`/learn/${link.slug}`}
-                    className="learn-link"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
+        <div className="learn-hero-panel" aria-label="Learn hub summary">
+          <div>
+            <BookOpen size={22} aria-hidden="true" />
+            <span>{items.length}</span>
+            <p>Guides and glossary explainers</p>
+          </div>
+          <div>
+            <Compass size={22} aria-hidden="true" />
+            <span>{categories.length}</span>
+            <p>Core research categories</p>
+          </div>
+          <div>
+            <ShieldCheck size={22} aria-hidden="true" />
+            <span>{totalWords.toLocaleString()}</span>
+            <p>Words of reviewed education</p>
+          </div>
+          <div>
+            <CheckCircle2 size={22} aria-hidden="true" />
+            <span>{latestUpdate}</span>
+            <p>Latest editorial review</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="start-here-title">
+        <div className="section-header" style={{ textAlign: "left", alignItems: "flex-start" }}>
+          <p className="eyebrow-text">Start here</p>
+          <h2 id="start-here-title">A simple research path</h2>
+          <p>Follow these three guides first if you are new to TokenRadar's research framework.</p>
+        </div>
+        <div className="learn-path-grid">
+          {START_HERE.map((step) => (
+            <Link key={step.href} href={step.href} className="learn-path-card">
+              <span>{step.label}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Bottom CTA — matches homepage card style */}
+      <LearnExplorer items={explorerItems} categories={categories} />
+
       <section className="section" style={{ textAlign: "center" }}>
-        <div className="card" style={{ padding: "var(--space-3xl) var(--space-2xl)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div className="feature-icon-wrapper" style={{ marginBottom: "var(--space-lg)" }}>
-            <BookOpen size={32} />
-          </div>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>
-            Can&apos;t find a term?
-          </h2>
-          <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-base)", lineHeight: 1.7, maxWidth: "520px", marginBottom: "var(--space-xl)" }}>
-            Our AI analyst is constantly updating the glossary. If there&apos;s a
-            technical term or concept you want us to cover, let us know.
+        <div className="learn-suggestion-band">
+          <BookOpen size={28} aria-hidden="true" />
+          <h2>Need a concept covered?</h2>
+          <p>
+            Suggest a term, metric, or risk pattern and we will prioritize it for the Learn library.
           </p>
           <Link href="/contact" className="btn btn-primary">
             Suggest a Topic

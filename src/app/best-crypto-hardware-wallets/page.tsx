@@ -1,240 +1,520 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ShieldCheck, Key, ShieldAlert } from 'lucide-react';
-import { getPartner, getPartnerLinkAttributes } from '@/lib/partners';
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  CheckCircle2,
+  ExternalLink,
+  Key,
+  ListChecks,
+  ShieldAlert,
+  ShieldCheck,
+} from "lucide-react";
+import { JsonLd } from "@/components/JsonLd";
+import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
+import { getSiteUrl } from "@/lib/seo";
+
+const LAST_UPDATED = "2026-05-11T00:00:00.000Z";
+const PAGE_PATH = "/best-crypto-hardware-wallets";
+
+const sourceLinks = [
+  {
+    label: "Ledger: Secure Element model",
+    href: "https://www.ledger.com/academy/security/the-secure-element",
+  },
+  {
+    label: "Ledger: device comparison",
+    href: "https://www.ledger.com/academy/topics/ledgersolutions/ledger-devices-which-is-best-for-me",
+  },
+  {
+    label: "Trezor: Safe device secure elements",
+    href: "https://trezor.io/learn/security-privacy/how-trezor-keeps-you-safe/secure-elements-in-trezor-safe-devices",
+  },
+  {
+    label: "Trezor: Safe 7 specifications",
+    href: "https://trezor.io/trezor-safe-7",
+  },
+  {
+    label: "Chainalysis: 2026 Crypto Crime Report - scams",
+    href: "https://www.chainalysis.com/blog/crypto-scams-2026/",
+  },
+  {
+    label: "Google: high quality review guidance",
+    href: "https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews",
+  },
+];
+
+const walletRows = [
+  {
+    name: "Ledger Nano X",
+    bestFor: "Mobile users and broad asset support",
+    strengths: "Secure Element, Bluetooth, iOS/Android support, wide token coverage",
+    tradeoff: "Closed-source OS and smaller non-touch display",
+  },
+  {
+    name: "Ledger Flex / Stax / Nano Gen5",
+    bestFor: "Frequent signing and clearer transaction review",
+    strengths: "Larger secure E Ink screens, Clear Signing support, newer UX",
+    tradeoff: "Higher price and still within Ledger's closed OS model",
+  },
+  {
+    name: "Trezor Safe 3",
+    bestFor: "Open-source buyers on a midrange budget",
+    strengths: "Open-source design, EAL6+ Secure Element, PIN/passphrase support",
+    tradeoff: "No wireless convenience; smaller monochrome screen",
+  },
+  {
+    name: "Trezor Safe 5 / Safe 7",
+    bestFor: "Open-source users who want larger screens",
+    strengths: "Touchscreen models, open design, Safe 7 adds dual Secure Elements",
+    tradeoff: "Safe 7 is newer, so independent field history is shorter",
+  },
+  {
+    name: "Coldcard / Blockstream Jade",
+    bestFor: "Bitcoin-only storage",
+    strengths: "Focused attack surface, strong Bitcoin workflows, air-gapped options",
+    tradeoff: "Not appropriate for broad altcoin or DeFi portfolios",
+  },
+  {
+    name: "BitBox02 / Keystone",
+    bestFor: "Users who want alternatives to Ledger and Trezor",
+    strengths: "Different security models, backup workflows, and signing UX",
+    tradeoff: "Smaller ecosystems and fewer mainstream tutorials",
+  },
+];
+
+const checklist = [
+  "Buy from the manufacturer or a verified authorized reseller, then run the device authenticity check.",
+  "Generate the recovery phrase on the hardware wallet screen only. Never accept a pre-written seed card.",
+  "Store the seed phrase offline, ideally on paper or metal, and never photograph it.",
+  "Use a passphrase only if you understand the recovery risk; losing it can make funds unrecoverable.",
+  "Test recovery with a small balance before moving meaningful funds.",
+  "For large balances, consider multisig or splitting treasury controls across more than one device.",
+];
 
 export const metadata: Metadata = {
-  title: 'Ledger vs Trezor Review (2026): Best Cold Wallets to Secure Your Crypto',
-  description: 'A comprehensive review of the best cold hardware wallets in 2026. Protect your Bitcoin and altcoins from exchange hacks with Ledger Nano X and Trezor Safe 3.',
+  title: "Best Crypto Hardware Wallets 2026: Ledger, Trezor, Coldcard, Jade",
+  description:
+    "A source-backed 2026 hardware wallet guide comparing Ledger, Trezor, Bitcoin-only wallets, custody risks, setup steps, affiliate disclosures, and security tradeoffs.",
   alternates: {
-    canonical: '/best-crypto-hardware-wallets',
+    canonical: PAGE_PATH,
+  },
+  openGraph: {
+    title: "Best Crypto Hardware Wallets 2026",
+    description:
+      "Compare Ledger, Trezor, and Bitcoin-only hardware wallets with practical custody and setup guidance.",
+    url: PAGE_PATH,
+    type: "article",
+    images: [
+      {
+        url: "/images/hardware-wallet-guide.png",
+        width: 1200,
+        height: 630,
+        alt: "Hardware wallet transaction confirmation screen",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Crypto Hardware Wallets 2026",
+    description:
+      "Ledger vs Trezor plus Bitcoin-only hardware wallet alternatives and cold-storage setup guidance.",
+    images: ["/images/hardware-wallet-guide.png"],
   },
 };
 
+function SourceLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+      <ExternalLink size={12} style={{ display: "inline", marginLeft: "4px", verticalAlign: "-1px" }} />
+    </a>
+  );
+}
+
+function MetaPill({ children }: { children: ReactNode }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "6px",
+        padding: "6px 10px",
+        border: "1px solid var(--border-color)",
+        borderRadius: "var(--radius-full)",
+        color: "var(--text-secondary)",
+        fontSize: "var(--text-xs)",
+        fontWeight: 700,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
 export default function HardwareWalletsPage() {
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}${PAGE_PATH}`;
   const ledger = getPartner("ledger");
   const trezorSafe3 = getPartner("trezor-safe-3");
   const trezorBitcoinOnly = getPartner("trezor-bitcoin-only");
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Best Crypto Hardware Wallets 2026",
+    description: metadata.description,
+    image: `${siteUrl}/images/hardware-wallet-guide.png`,
+    datePublished: LAST_UPDATED,
+    dateModified: LAST_UPDATED,
+    author: {
+      "@type": "Person",
+      name: "Pavlo Nakonechnyi",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "TokenRadar",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/icon.png`,
+      },
+    },
+    mainEntityOfPage: pageUrl,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Best Crypto Hardware Wallets",
+        item: pageUrl,
+      },
+    ],
+  };
+
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Crypto hardware wallet comparison",
+    itemListElement: walletRows.map((wallet, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: wallet.name,
+      description: `${wallet.bestFor}. ${wallet.strengths}.`,
+    })),
+  };
+
   return (
-    <div className="container">
-      <section className="section" style={{ minHeight: "80vh", paddingTop: "var(--space-xl)" }}>
-        
-        <nav style={{ marginBottom: "var(--space-2xl)" }}>
-          <Link href="/" style={{ color: "var(--text-secondary)", display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", fontWeight: 600, fontSize: "var(--text-sm)" }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-            Back to Overview
-          </Link>
-        </nav>
-        
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "var(--space-4xl)", maxWidth: "800px", margin: "0 auto var(--space-4xl)" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-sm)", background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "8px 16px", borderRadius: "99px", fontSize: "var(--text-sm)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "var(--space-md)" }}>
-            <Key size={16} /> Asset Security Guide
-          </div>
-          <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, lineHeight: 1.1, marginBottom: "var(--space-md)" }}>
-            The Best Crypto <span className="gradient-text">Hardware Wallets</span> to Protect Your Wealth
-          </h1>
-          <p style={{ fontSize: "var(--text-xl)", color: "var(--text-secondary)" }}>
-            Over $2 Billion was stolen from centralized exchanges last year. Learn how cold storage works and secure your crypto offline.
-          </p>
-        </div>
+    <>
+      <JsonLd id="hardware-wallet-article-jsonld" data={articleJsonLd} />
+      <JsonLd id="hardware-wallet-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="hardware-wallet-itemlist-jsonld" data={itemListJsonLd} />
+      <div className="container">
+        <section className="section" style={{ paddingTop: "var(--space-xl)" }}>
+          <nav style={{ marginBottom: "var(--space-2xl)" }} aria-label="Breadcrumb">
+            <Link
+              href="/"
+              style={{
+                color: "var(--text-secondary)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                textDecoration: "none",
+                fontWeight: 600,
+                fontSize: "var(--text-sm)",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              Back to Overview
+            </Link>
+          </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Main Content Column */}
-          <div className="lg:col-span-2">
-            <div className="article-content" style={{ fontSize: "var(--text-lg)" }}>
-              <h2>1. The Danger of Centralized Exchanges</h2>
-              <p>
-                If your cryptocurrency is sitting on an exchange like Binance or Coinbase, <strong>you do not actually own it.</strong> You own an IOU from that exchange. If the exchange goes bankrupt (like FTX) or gets hacked, your funds can disappear forever with zero legal recourse.
-              </p>
-              
-              <p style={{ marginBottom: "var(--space-xl)", color: "var(--text-secondary)", fontSize: "var(--text-lg)", lineHeight: 1.6 }}>
-              In the high-stakes world of cryptocurrency, where transactions are irreversible, security isn&apos;t just a feature — it&apos;s the bedrock of trust. If you are keeping your assets on an exchange like Coinbase or Binance, you don&apos;t actually own your crypto. You own an IOU on a database that can be frozen, hacked, or seized at any moment.
+          <header style={{ textAlign: "center", marginBottom: "var(--space-3xl)", maxWidth: "880px", marginInline: "auto" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "var(--space-sm)",
+                background: "rgba(16, 185, 129, 0.1)",
+                color: "#10b981",
+                padding: "8px 16px",
+                borderRadius: "99px",
+                fontSize: "var(--text-sm)",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                marginBottom: "var(--space-md)",
+              }}
+            >
+              <Key size={16} /> Asset Security Guide
+            </div>
+            <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800, lineHeight: 1.1, marginBottom: "var(--space-md)" }}>
+              Best Crypto <span className="gradient-text">Hardware Wallets</span> for 2026
+            </h1>
+            <p style={{ fontSize: "var(--text-xl)", color: "var(--text-secondary)", marginBottom: "var(--space-md)" }}>
+              A practical cold-storage guide for choosing between Ledger, Trezor, Bitcoin-only wallets, and alternative signing devices without ignoring the tradeoffs.
             </p>
-
-            <div style={{ background: "rgba(220, 38, 38, 0.05)", border: "1px solid rgba(220, 38, 38, 0.2)", borderRadius: "var(--radius-lg)", padding: "var(--space-xl)", marginBottom: "var(--space-2xl)" }}>
-              <h3 style={{ color: "#ef4444", marginTop: 0, display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
-                <ShieldAlert size={24} />
-                The &quot;Not Your Keys, Not Your Coins&quot; Rule
-              </h3>
-              <p style={{ color: "var(--text-secondary)", margin: 0 }}>
-                When you use an exchange, <strong>they</strong> control the private keys. If the exchange goes bankrupt (like FTX or Celsius), your funds are gone. A hardware wallet (cold storage) moves your private keys offline, giving you 100% ownership. Even if the manufacturer disappears, your money remains safe on the blockchain, accessible only via your 24-word recovery phrase.
-              </p>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "var(--space-sm)" }}>
+              <MetaPill>Updated May 11, 2026</MetaPill>
+              <MetaPill>Paid links disclosed</MetaPill>
+              <MetaPill>Source-backed review</MetaPill>
             </div>
+          </header>
 
-              <h2>2. How a Hardware Wallet Works</h2>
-              <p>
-                A hardware wallet (or &quot;cold storage&quot;) is an encrypted USB-like device that generates and stores your private keys completely offline. When you want to send crypto, you plug the device into your computer or phone and physically press a button to sign the transaction. 
-              </p>
-
-              <figure style={{ margin: "var(--space-xl) 0", borderRadius: "var(--radius-lg)", overflow: "hidden", border: "1px solid var(--border-color)", background: "var(--surface-color)" }}>
-                <div style={{ position: "relative", width: "100%", height: "400px" }}>
-                  <Image 
-                    src="/images/hardware-wallet-guide.png" 
-                    alt="Premium 3D render of a hardware wallet security confirmation showing a Bitcoin transaction being physically approved" 
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 1024px) 100vw, 800px"
-                  />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <article className="lg:col-span-2">
+              <div className="article-content" style={{ fontSize: "var(--text-lg)" }}>
+                <div
+                  style={{
+                    padding: "var(--space-lg)",
+                    border: "1px solid var(--border-color)",
+                    borderRadius: "var(--radius-lg)",
+                    background: "rgba(16, 185, 129, 0.05)",
+                    marginBottom: "var(--space-2xl)",
+                  }}
+                >
+                  <strong style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "var(--space-sm)" }}>
+                    <ListChecks size={18} color="#10b981" /> Quick picks
+                  </strong>
+                  <ul style={{ marginBottom: 0 }}>
+                    <li><strong>Most people:</strong> Ledger Nano X or Ledger Flex if mobile support and broad asset coverage matter.</li>
+                    <li><strong>Open-source preference:</strong> Trezor Safe 3 for value, Safe 5 or Safe 7 for larger-screen workflows.</li>
+                    <li><strong>Bitcoin-only storage:</strong> Coldcard or Blockstream Jade if altcoin support is intentionally unnecessary.</li>
+                    <li><strong>Large balances:</strong> hardware wallet plus passphrase discipline or multisig, not a single device alone.</li>
+                  </ul>
                 </div>
-                <figcaption style={{ padding: "var(--space-sm)", textAlign: "center", fontSize: "var(--text-sm)", color: "var(--text-muted)", borderTop: "1px solid var(--border-color)" }}>
-                  The Trezor Safe 3 requires physical button presses to confirm transactions, preventing remote hardware attacks.
-                </figcaption>
-              </figure>
 
-              <p>
-                Because the private keys never touch your internet-connected computer, they are completely immune to malware, keyloggers, and remote hackers.
-              </p>
-
-              <hr />
-
-              <h2>3. The Danger of &quot;Blind Signing&quot;</h2>
-              <p>
-                Did you know that the screen on a cheap device or a standard cryptocurrency wallet app can be a gateway for hackers? When you interact with DeFi apps or NFTs, you are often asked to approve complex smart contracts. 
-              </p>
-              <p>
-                If your screen is not directly driven by a Secure Element chip, hackers can manipulate what is displayed. You might think you are approving a simple login, when you are actually signing a transaction that drains your entire wallet. This is called <strong>Blind Signing</strong>.
-              </p>
-              
-              <div style={{ padding: "var(--space-md)", background: "rgba(16, 185, 129, 0.1)", borderLeft: "4px solid #10b981", margin: "var(--space-lg) 0", borderRadius: "0 var(--radius-md) var(--radius-md) 0" }}>
-                <strong style={{ color: "#10b981", display: "block", marginBottom: "var(--space-xs)" }}>What You See Is What You Sign</strong>
-                <span style={{ color: "var(--text-secondary)", fontSize: "var(--text-md)" }}>
-                  Premium hardware wallets use secure screens and dedicated hardware chips to reduce the risk of malware altering transaction details before you approve them.
-                </span>
-              </div>
-
-              <hr />
-
-              <h2>4. Ledger vs Trezor: Which is best?</h2>
-              <p>
-                Ledger and Trezor are two of the best-known hardware wallet manufacturers. Both focus on offline key storage, but they take different architectural approaches:
-              </p>
-              
-              <div style={{ marginBottom: "var(--space-md)" }}>
-                <h4 style={{ color: "#10b981", marginBottom: "var(--space-xs)" }}>The Ledger Approach (Security-First)</h4>
-                <p style={{ margin: 0 }}>
-                  Ledger uses a proprietary <strong>Secure Element chip</strong> (the same technology in credit cards and passports). Furthermore, Ledger is the only manufacturer whose screen is driven <em>directly</em> by the Secure Element. This means malware cannot alter what is displayed on the device. Ledger also employs a world-class white-hat hacker team known as <strong>The Donjon</strong>, who actively audit and find vulnerabilities in competitors (including Trezor).
+                <h2>1. Why Cold Storage Still Matters</h2>
+                <p>
+                  A hardware wallet does not store coins. It stores the private keys that authorize blockchain transactions. That matters because exchange accounts, hot wallets, browser extensions, and DeFi approvals expose users to different failure modes: platform insolvency, phishing, compromised devices, and malicious contracts.
                 </p>
-              </div>
-
-              <div style={{ marginBottom: "var(--space-xl)" }}>
-                <h4 style={{ color: "var(--text-primary)", marginBottom: "var(--space-xs)" }}>The Trezor Approach (Open-Source First)</h4>
-                <p style={{ margin: 0, marginBottom: "var(--space-sm)" }}>
-                  Trezor operates on the cypherpunk ethos of <strong>&quot;Don&apos;t Trust, Verify.&quot;</strong> While older models were purely open-source without a secure element, the <strong>Trezor Safe 3</strong> added secure-element protection while preserving the transparency of open-source firmware.
+                <p>
+                  Chainalysis estimated that crypto scams and fraud stole about $17 billion in 2025, with impersonation and AI-enabled scams rising sharply. A hardware wallet will not stop every scam, but it can keep the signing key off your internet-connected phone or computer.
                 </p>
-                <div style={{ padding: "var(--space-sm)", background: "var(--bg-elevated)", borderLeft: "4px solid var(--text-primary)", borderRadius: "0 var(--radius-sm) var(--radius-sm) 0" }}>
-                  <strong style={{ display: "block", marginBottom: "4px", fontSize: "var(--text-sm)" }}>The Ledger Recover Controversy</strong>
-                  <span style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
-                    In 2023, Ledger launched an optional &quot;ledger recover&quot; feature that could back up seed phrases to the cloud. While optional, Trezor advocates pointed out this proved Ledger&apos;s firmware <em>was technically capable</em> of extracting private keys from the device. Trezor firmware is strictly hardcoded to never allow key extraction, making it the preferred choice for Bitcoin purists.
-                  </span>
+
+                <div
+                  style={{
+                    background: "rgba(220, 38, 38, 0.06)",
+                    border: "1px solid rgba(220, 38, 38, 0.25)",
+                    borderRadius: "var(--radius-lg)",
+                    padding: "var(--space-lg)",
+                    margin: "var(--space-xl) 0",
+                  }}
+                >
+                  <h3 style={{ color: "#ef4444", marginTop: 0, display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+                    <ShieldAlert size={22} />
+                    Hardware wallets reduce key-theft risk, not user-error risk
+                  </h3>
+                  <p style={{ margin: 0 }}>
+                    You can still lose funds by approving a malicious transaction, exposing the seed phrase, installing fake wallet software, using a tampered device, or sending funds to the wrong address. Treat the hardware wallet as one layer in a custody system.
+                  </p>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Sidebar / Affiliate Conversion Column */}
-          <div className="lg:col-span-1">
-            <div style={{ position: "sticky", top: "100px" }}>
-              <div className="card" style={{ border: "2px solid #10b981", padding: "var(--space-lg)", background: "var(--bg-elevated)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-sm)", color: "#10b981" }}>
-                  <ShieldCheck size={20} />
-                  <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 800, margin: 0 }}>Top Hardware Wallets</h3>
+                <h2>2. Hardware Wallet Comparison</h2>
+                <p>
+                  The right device depends on what you actually do on-chain. A long-term Bitcoin holder, a Solana/NFT user, and a multisig treasury operator should not all optimize for the same hardware.
+                </p>
+                <div style={{ overflowX: "auto" }}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Wallet</th>
+                        <th>Best for</th>
+                        <th>Strengths</th>
+                        <th>Tradeoff</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {walletRows.map((row) => (
+                        <tr key={row.name}>
+                          <td><strong>{row.name}</strong></td>
+                          <td>{row.bestFor}</td>
+                          <td>{row.strengths}</td>
+                          <td>{row.tradeoff}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-lg)", fontSize: "var(--text-sm)" }}>
-                  Never buy a hardware wallet from Amazon or eBay! Always buy directly from the manufacturer to avoid tampered devices.
+
+                <h2>3. Ledger vs Trezor in Plain English</h2>
+                <p>
+                  Ledger and Trezor are both credible choices, but their philosophies differ. Ledger emphasizes a Secure Element, Ledger OS, a secure screen model, broad asset support, and newer secure touchscreen devices. Ledger says the Nano X uses an EAL5+ Secure Element, while Nano S Plus, Stax, and other newer devices use EAL6+ class chips.
                 </p>
-                <p style={{ color: "var(--text-muted)", marginBottom: "var(--space-md)", fontSize: "var(--text-xs)", lineHeight: 1.5 }}>
-                  Paid links: TokenRadar may earn a commission if you buy through these manufacturer links. Verify current device, price, shipping, and promo terms before checkout.
+                <p>
+                  Trezor emphasizes open-source design and public review. Trezor Safe 3 and Safe 5 use an EAL6+ Secure Element for physical protection, while Trezor Safe 7 adds a second, open auditable Secure Element called TROPIC01. If you value transparency over closed secure hardware, this matters.
+                </p>
+                <p>
+                  A fair recommendation is not &quot;Ledger is safer&quot; or &quot;Trezor is safer.&quot; It is this: Ledger generally wins on mainstream asset coverage and mobile convenience; Trezor generally wins on open-source trust and privacy-oriented workflows. For Bitcoin-only custody, a dedicated Bitcoin wallet can beat both by reducing the asset and app surface.
                 </p>
 
-                {/* Affiliate Offer 1 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-sm)", border: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", position: "relative", height: "120px" }}>
-                    <Image 
-                      src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280" 
-                      alt="Ledger Nano X hardware wallet - official device for secure Bitcoin and cryptocurrency cold storage" 
+                <figure
+                  style={{
+                    margin: "var(--space-xl) 0",
+                    borderRadius: "var(--radius-lg)",
+                    overflow: "hidden",
+                    border: "1px solid var(--border-color)",
+                    background: "var(--surface-color)",
+                  }}
+                >
+                  <div style={{ position: "relative", width: "100%", height: "360px" }}>
+                    <Image
+                      src="/images/hardware-wallet-guide.png"
+                      alt="Hardware wallet transaction approval screen"
                       fill
-                      style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }}
-                      sizes="200px"
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 1024px) 100vw, 800px"
                     />
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>1. Ledger Nano X</span>
-                    <span className="badge badge-accent" style={{ background: "#10b981", color: "#111", fontSize: "9px", padding: "1px 5px" }}>Best Mobile</span>
-                  </div>
-                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
-                    <li>Secure Element Chip</li>
-                    <li>Bluetooth Connectivity</li>
-                  </ul>
+                  <figcaption style={{ padding: "var(--space-sm)", textAlign: "center", fontSize: "var(--text-sm)", color: "var(--text-muted)", borderTop: "1px solid var(--border-color)" }}>
+                    Always verify the address, amount, network, and contract action on the hardware wallet screen before approving.
+                  </figcaption>
+                </figure>
 
-                  {/* BTC Promo Badge */}
-                  <div style={{ background: "rgba(247, 147, 26, 0.1)", border: "1px dashed rgba(247, 147, 26, 0.4)", borderRadius: "var(--radius-sm)", padding: "8px", marginBottom: "var(--space-md)", textAlign: "center" }}>
-                    <span style={{ color: "#f7931a", fontWeight: 700, fontSize: "13px", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
-                      Check current Ledger bundle offers
-                    </span>
-                  </div>
+                <h2>4. What To Check Before Buying</h2>
+                <p>
+                  Google product review guidance asks reviewers to show decision factors, tradeoffs, and evidence rather than only ranking products. For hardware wallets, the most important factors are signing clarity, supply-chain controls, firmware model, supported assets, backup options, and recovery workflow.
+                </p>
+                <ul>
+                  <li><strong>Screen and signing clarity:</strong> larger secure screens reduce address and contract-review mistakes.</li>
+                  <li><strong>Firmware model:</strong> open-source firmware improves public review; closed systems can still be strong when audited and well isolated.</li>
+                  <li><strong>Secure Element:</strong> useful for physical theft resistance, PIN enforcement, randomness, and authenticity checks.</li>
+                  <li><strong>Asset support:</strong> check the exact chain and wallet app you plan to use before buying.</li>
+                  <li><strong>Backup standard:</strong> understand 12-, 20-, and 24-word seed options, Shamir/multishare backups, and passphrase behavior.</li>
+                  <li><strong>Reseller risk:</strong> manufacturer stores and authorized resellers are safer than anonymous marketplace listings.</li>
+                </ul>
 
-                  {ledger && (
-                    <a
-                      href={ledger.url}
-                      {...getPartnerLinkAttributes(ledger, "hardware-wallet-sidebar")}
-                      className="btn btn-primary"
-                      style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
-                    >
-                      {ledger.cta}
-                    </a>
-                  )}
-                </div>
+                <h2>5. Setup Checklist</h2>
+                <ol>
+                  {checklist.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ol>
 
-                {/* Affiliate Offer 2 */}
-                <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", background: "linear-gradient(to top, rgba(255,255,255,0.02), transparent)", position: "relative", height: "120px" }}>
-                    <Image 
-                      src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png" 
-                      alt="Trezor Safe 3 cold storage hardware wallet - open-source security element for crypto assets" 
-                      fill
-                      style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))", transform: "scale(1.1)" }}
-                      sizes="200px"
-                    />
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>2. Trezor Safe 3</span>
-                    <span className="badge badge-accent" style={{ background: "#4c1d95", color: "#fff", fontSize: "9px", padding: "1px 5px", border: "none" }}>Privacy Choice</span>
-                  </div>
-                  <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
-                    <li>EAL6+ Secure Element</li>
-                    <li>100% Open-Source</li>
-                  </ul>
+                <h2>6. When Not To Use a Hardware Wallet Alone</h2>
+                <p>
+                  A single hardware wallet is not enough for every situation. If you hold a business treasury, shared DAO funds, or a portfolio that would materially damage your finances if lost, use multisig or a documented recovery plan. If you trade daily, keep only a working balance in hot wallets and move reserves to cold storage.
+                </p>
+                <p>
+                  For DeFi users, revoke unused token approvals, separate minting/trading wallets from long-term vault wallets, and avoid signing transactions you cannot interpret. &quot;Blind signing&quot; is a workflow risk, not merely a device-brand problem.
+                </p>
 
-                  {/* Bitcoin-Only Callout */}
-                  <a 
-                    href={trezorBitcoinOnly?.url || "/disclaimer"}
-                    {...(trezorBitcoinOnly ? getPartnerLinkAttributes(trezorBitcoinOnly, "hardware-wallet-sidebar") : {})}
-                    style={{ textDecoration: "none", display: "block", background: "rgba(247, 147, 26, 0.08)", border: "1px dashed rgba(247, 147, 26, 0.4)", borderRadius: "var(--radius-sm)", padding: "8px", marginBottom: "var(--space-md)", textAlign: "center", transition: "all 0.2s" }}
-                  >
-                    <span style={{ color: "#f7931a", fontWeight: 700, fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
-                      {trezorBitcoinOnly?.cta || "View Bitcoin-Only Version"}
-                    </span>
-                  </a>
-                  <a 
-                    href={trezorSafe3?.url || "/disclaimer"}
-                    {...(trezorSafe3 ? getPartnerLinkAttributes(trezorSafe3, "hardware-wallet-sidebar") : {})}
-                    className="btn" 
-                    style={{ width: "100%", textAlign: "center", background: "#4c1d95", color: "#fff", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
-                  >
-                    {trezorSafe3?.cta || "View Trezor Safe 3"}
-                  </a>
-                </div>
-
+                <h2>Sources and Methodology</h2>
+                <p>
+                  This page was updated on May 11, 2026. Rankings are based on custody model, signing clarity, secure hardware claims, transparency, asset support, backup workflow, and practical user fit. TokenRadar may earn commissions from Ledger and Trezor links, but affiliate availability did not determine which alternatives were discussed.
+                </p>
+                <ul>
+                  {sourceLinks.map((source) => (
+                    <li key={source.href}>
+                      <SourceLink href={source.href}>{source.label}</SourceLink>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </div>
+            </article>
 
-        </div>
-      </section>
-    </div>
+            <aside className="lg:col-span-1">
+              <div style={{ position: "sticky", top: "100px" }}>
+                <div className="card" style={{ border: "2px solid #10b981", padding: "var(--space-lg)", background: "var(--bg-elevated)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-sm)", color: "#10b981" }}>
+                    <ShieldCheck size={20} />
+                    <h2 style={{ fontSize: "var(--text-lg)", fontWeight: 800, margin: 0 }}>Manufacturer Links</h2>
+                  </div>
+                  <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-md)", fontSize: "var(--text-sm)" }}>
+                    Paid links: TokenRadar may earn a commission if you buy through these links. Verify the exact model, price, reseller status, shipping, and promo terms before checkout.
+                  </p>
+
+                  <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", marginBottom: "var(--space-sm)", border: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}>
+                    <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", position: "relative", height: "112px" }}>
+                      <Image
+                        src="https://cdn.shopify.com/s/files/1/2974/4858/files/Nano_black.png?v=1717592280"
+                        alt="Ledger Nano X hardware wallet"
+                        fill
+                        style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }}
+                        sizes="200px"
+                      />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px", gap: "8px" }}>
+                      <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>Ledger</span>
+                      <span className="badge badge-accent" style={{ background: "#10b981", color: "#111", fontSize: "9px", padding: "1px 5px" }}>Paid link</span>
+                    </div>
+                    <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
+                      <li>Broad asset support</li>
+                      <li>Mobile and touchscreen options</li>
+                    </ul>
+                    {ledger && (
+                      <a
+                        href={ledger.url}
+                        {...getPartnerLinkAttributes(ledger, "hardware-wallet-sidebar")}
+                        className="btn btn-primary"
+                        style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
+                      >
+                        {ledger.cta}
+                      </a>
+                    )}
+                  </div>
+
+                  <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}>
+                    <div style={{ display: "flex", justifyContent: "center", padding: "var(--space-sm) 0", marginBottom: "var(--space-xs)", position: "relative", height: "112px" }}>
+                      <Image
+                        src="https://static.trezor.io/2/4/24/55/Trezor_Safe_3_186404fdbd.png"
+                        alt="Trezor Safe 3 hardware wallet"
+                        fill
+                        style={{ objectFit: "contain", filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }}
+                        sizes="200px"
+                      />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px", gap: "8px" }}>
+                      <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>Trezor</span>
+                      <span className="badge badge-accent" style={{ background: "#4c1d95", color: "#fff", fontSize: "9px", padding: "1px 5px", border: "none" }}>Paid link</span>
+                    </div>
+                    <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)", paddingLeft: "16px" }}>
+                      <li>Open-source design</li>
+                      <li>Bitcoin-only option available</li>
+                    </ul>
+                    <div style={{ display: "grid", gap: "var(--space-sm)" }}>
+                      <a
+                        href={trezorBitcoinOnly?.url || "/disclaimer"}
+                        {...(trezorBitcoinOnly ? getPartnerLinkAttributes(trezorBitcoinOnly, "hardware-wallet-sidebar") : {})}
+                        style={{ textDecoration: "none", display: "block", background: "rgba(247, 147, 26, 0.08)", border: "1px dashed rgba(247, 147, 26, 0.4)", borderRadius: "var(--radius-sm)", padding: "8px", textAlign: "center" }}
+                      >
+                        <span style={{ color: "#f7931a", fontWeight: 700, fontSize: "12px" }}>
+                          {trezorBitcoinOnly?.cta || "View Bitcoin-only Trezor"}
+                        </span>
+                      </a>
+                      <a
+                        href={trezorSafe3?.url || "/disclaimer"}
+                        {...(trezorSafe3 ? getPartnerLinkAttributes(trezorSafe3, "hardware-wallet-sidebar") : {})}
+                        className="btn"
+                        style={{ width: "100%", textAlign: "center", background: "#4c1d95", color: "#fff", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
+                      >
+                        {trezorSafe3?.cta || "View Trezor Safe 3"}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: "var(--space-md)", padding: "var(--space-sm)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "var(--radius-md)", fontSize: "var(--text-xs)", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                    <CheckCircle2 size={14} color="#10b981" style={{ display: "inline", marginRight: "6px", verticalAlign: "-2px" }} />
+                    Best practice: open the official app from the manufacturer website, run authenticity checks, and start with a small test transfer.
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

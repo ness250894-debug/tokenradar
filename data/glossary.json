@@ -5,7 +5,7 @@
     "description": "A comprehensive guide to understanding rug pulls in crypto, how they work, and the red flags you must watch for.",
     "category": "Security",
     "readTime": "6 min read",
-    "updatedAt": "2024-04-14",
+    "updatedAt": "2026-05-11",
     "content": "Rug pulls are a type of malicious maneuver in the cryptocurrency industry where crypto developers abandon a project and run away with investors' funds. Rug pulls usually happen in decentralized finance (DeFi) ecosystems, especially on decentralized exchanges (DEXs) like Uniswap or PancakeSwap.\n\n## How a Rug Pull Works\nTypically, malicious actors create a new token, list it on a DEX, and pair it with a leading cryptocurrency like Ethereum or BNB. They then use various marketing tactics to cultivate 'hype' and attract investors. Once a significant amount of liquidity has been deposited into the pool, the developers withdraw everything, leaving investors with a worthless token that cannot be swapped back.\n\n## Common Red Flags\n1. **Unlocked Liquidity:** If the liquidity pool isn't locked via a smart contract, the developers can withdraw it at any time.\n2. **Hidden Mint Functions:** Some contracts allow developers to mint infinite new tokens, diluting the value to zero.\n3. **High Concentration:** If a few wallets hold more than 20% of the total supply, the risk of a coordinated dump is high.\n4. **Lack of Audit:** Projects that haven't been audited by reputable firms (like CertiK or Hacken) should be treated with extreme caution.\n\n## How TokenRadar Helps\nOur **Risk Score** automatically checks for these red flags by analyzing contract ownership and liquidity patterns in real-time. Before you trade, always check the Risk Gauge on the token's detail page."
   },
   {
@@ -14,7 +14,7 @@
     "description": "Learn what slippage is, why it happens on decentralized exchanges, and how to set your slippage tolerance correctly.",
     "category": "Security",
     "readTime": "4 min read",
-    "updatedAt": "2024-04-14",
+    "updatedAt": "2026-05-11",
     "content": "Slippage occurs when a trader settles for a different price than expected between the time they submit a transaction and the time it is confirmed on the blockchain.\n\n## Why Slippage Happens\n1. **High Volatility:** Prices in crypto move fast. By the time your transaction hits a block, the price may have shifted.\n2. **Low Liquidity:** In pools with low liquidity, a large order can significantly move the price (Price Impact).\n\n## Setting Slippage Tolerance\nMost wallets (like MetaMask) or DEXs (like Uniswap) allow you to set a percentage. If the price moves more than your tolerance (e.g., 0.5%), the trade will fail to prevent you from getting a bad deal."
   },
   {
@@ -23,7 +23,7 @@
     "description": "Explaining the difference between current Market Cap and Fully Diluted Valuation (FDV) and why it's critical for long-term investors.",
     "category": "Market Metrics",
     "readTime": "5 min read",
-    "updatedAt": "2024-04-14",
+    "updatedAt": "2026-05-11",
     "content": "Fully Diluted Valuation (FDV) is the total value of a crypto project if all its tokens were in circulation.\n\n## The Formula\n**FDV = Current Price × Total Maximum Supply**\n\n## Why FDV is a Warning Signal\nIf a project has a $100M Market Cap but a $1B FDV, it means only 10% of tokens are currently circulating. The other 90% will eventually be 'unlocked' and sold, which can create massive sell pressure on the price. Always compare these two numbers on TokenRadar to understand the potential for future inflation."
   },
   {
@@ -32,7 +32,7 @@
     "description": "Understanding how token burns reduce supply and whether they actually increase a token's value over time.",
     "category": "Tokenomics",
     "readTime": "4 min read",
-    "updatedAt": "2024-04-14",
+    "updatedAt": "2026-05-11",
     "content": "Token burning is the process of permanently removing coins from the circulating supply. This is usually done by sending the tokens to a 'burn address' (a wallet that no one has the keys to).\n\n## Common Burn Strategies\n1. **Buy-back and Burn:** The project uses protocol revenue to buy tokens on the open market and burn them.\n2. **Transaction Fee Burns:** A small percentage of every trade is automatically burned (like Ethereum's EIP-1559).\n\n## The Deflationary Narrative\nIn theory, reducing supply while demand stays the same should increase price. However, burning tokens doesn't automatically create value if the project lacks utility."
   },
   {
@@ -41,7 +41,7 @@
     "description": "Why Liquidity Depth is more important than volume when assessing the safety of a new cryptocurrency project.",
     "category": "Market Metrics",
     "readTime": "6 min read",
-    "updatedAt": "2024-04-14",
+    "updatedAt": "2026-05-11",
     "content": "Liquidity Depth refers to the market's ability to absorb large buy or sell orders without significant price changes.\n\n## Volume vs. Depth\nA token can have $1M in daily volume but only $10k in liquidity. This is a massive red flag. This means even a small $5k sale would crash the price by 50%.\n\n## How to Check Depth\nLook for the **Liquidity Score** on TokenRadar. We measure the available funds in the top-tier pools on Uniswap, Raydium, and other DEXs to ensure you can exit your position when needed."
   },
   {
@@ -50,7 +50,7 @@
     "category": "Security",
     "description": "Understanding the basics of smart contract risks, audit reports, and common vulnerabilities in DeFi protocols.",
     "readTime": "5 min read",
-    "updatedAt": "2026-04-20",
+    "updatedAt": "2026-05-11",
     "content": "Smart contracts form the backbone of Decentralized Finance (DeFi), executing logic exactly as written. However, if they are written poorly, they can harbor catastrophic bugs.\n\n## Why Smart Contracts Fail\nBecause blockchain transactions are immutable, a bug cannot be simply 'reversed.' If a hacker finds a loophole, they can drain the entire protocol.\n\n## Common Vulnerabilities\n1. **Reentrancy Attacks:** A function makes an external call to an untrusted contract before it resolves its own state, allowing the attacker to recursively call the function and drain funds.\n2. **Front-Running (MEV):** Bots monitor pending transactions and pay higher gas fees to execute their own trades first, profiting at your expense.\n3. **Centralization Risks:** Some contracts have 'owner' backdoors, allowing developers to mint infinite tokens or freeze user funds.\n\n## How to Verify Safety\nAlways look for projects that have undergone rigorous security audits by top-tier firms like CertiK, Hacken, or Trail of Bits. On TokenRadar, our Security Score automatically deducts points from tokens lacking verifiable audits."
   },
   {
@@ -59,7 +59,7 @@
     "category": "Tokenomics",
     "description": "Learn the vital difference between tokens currently trading on the market and the maximum amount that will ever exist.",
     "readTime": "4 min read",
-    "updatedAt": "2026-04-20",
+    "updatedAt": "2026-05-11",
     "content": "When evaluating a cryptocurrency's price potential, looking only at its current token price is a beginner's mistake. Supply metrics tell the actual story.\n\n## Circulating Supply\nThe number of coins or tokens that are currently publicly available and circulating in the market. This is the metric used to calculate Market Capitalization.\n\n## Total Supply\nThe total amount of tokens that currently exist, including those locked in staking smart contracts, reserved for the team, or held in treasury wallets.\n\n## Maximum Supply\nThe absolute hard cap on the number of tokens that will *ever* exist (e.g., Bitcoin's 21 million). Not all cryptocurrencies have a max supply, meaning they can be infinitely inflationary.\n\n## Why the Gap Matters\nIf a token has a massive gap between Circulating and Total Supply, it means millions of tokens are waiting to be 'unlocked' and dumped onto the market. TokenRadar tracks 'Emission Schedules' to warn you before heavy supply shocks hit the exchanges."
   },
   {
@@ -68,7 +68,7 @@
     "category": "Tokenomics",
     "description": "A beginner-friendly breakdown of crypto staking, Proof of Stake networks, and the risks of chasing high APRs.",
     "readTime": "6 min read",
-    "updatedAt": "2026-04-20",
+    "updatedAt": "2026-05-11",
     "content": "Staking is the crypto equivalent of putting money in a high-yield savings account, but with significantly more variables and risks.\n\n## How Staking Works\nIn Proof of Stake (PoS) blockchains like Ethereum, Solana, or Cardano, 'validators' secure the network by locking up their native tokens. In exchange for providing this security and validating transactions, the network rewards them with newly minted tokens.\n\nAs an average user, you can 'delegate' your tokens to a validator and earn a percentage of that yield.\n\n## Staking in DeFi (Liquidity Mining)\nBeyond securing networks, DeFi protocols often offer 'staking' where you lock their governance token to earn protocol revenue. \n\n## The Risks of High APR\nIf a token offers 10,000% APR for staking, ask yourself: *Where is the yield coming from?* High yields are typically paid out by hyper-inflating the token supply. While your token balance goes up, the price of the token plummets exponentially. TokenRadar's Tokenomics gauge heavily penalizes unsustainable, hyper-inflationary reward structures."
   },
   {
@@ -77,7 +77,97 @@
     "category": "Market Metrics",
     "description": "Why a $0.0001 coin isn't cheap and a $1,000 coin isn't expensive. The fundamentals of Market Capitalization.",
     "readTime": "3 min read",
-    "updatedAt": "2026-04-20",
+    "updatedAt": "2026-05-11",
     "content": "The most common mistake new investors make is assuming a token priced at $0.01 is 'cheaper' or has more growth potential than a token priced at $100. \n\n## The Formula\n**Market Cap = Current Price × Circulating Supply**\n\n## The Reality Check\nIf Token A costs $0.01 but has a circulating supply of 100 Billion, its Market Cap is $1 Billion.\n\nIf Token B costs $100 but has a circulating supply of only 1 Million, its Market Cap is $100 Million.\n\nToken B is actually 10x smaller and theoretically requires much less capital influx to double in value compared to Token A, despite its higher individual coin price.\n\nAlways use Market Cap, not unit price, when comparing the size and growth ceiling of different projects on TokenRadar."
+  },
+  {
+    "slug": "token-unlocks-and-vesting",
+    "title": "Token Unlocks and Vesting: How Supply Enters the Market",
+    "category": "Tokenomics",
+    "description": "Learn how vesting schedules, cliffs, and token unlocks can create sell pressure or reduce uncertainty.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Token unlocks happen when locked allocations become transferable. They are common for teams, investors, ecosystem funds, advisors, and staking rewards.\n\n## Why Unlocks Matter\nAn unlock does not guarantee selling, but it changes who can sell. The market often reprices tokens before major unlock dates because traders try to anticipate new supply.\n\n## Key Terms\nA cliff is the first date locked tokens become available. Vesting is the gradual release schedule after that date. Linear vesting releases tokens steadily, while milestone vesting depends on project-specific conditions."
+  },
+  {
+    "slug": "governance-tokens-and-voting-power",
+    "title": "Governance Tokens: Voting Power, Utility, and Risk",
+    "category": "Tokenomics",
+    "description": "Understand what governance tokens actually control and when voting rights do or do not support token value.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Governance tokens give holders a way to influence protocol decisions, but the strength of that influence varies widely across projects.\n\n## What Governance Can Control\nGovernance may vote on fees, emissions, treasury spending, collateral parameters, product upgrades, or validator policies. Some tokens only provide signaling power, while others directly control contracts.\n\n## Why It Matters\nA governance token can be valuable when the protocol has real cash flows, meaningful decisions, and broad participation. It is weaker when votes are symbolic or controlled by a small insider group."
+  },
+  {
+    "slug": "total-value-locked-tvl",
+    "title": "Total Value Locked (TVL): What It Reveals and Hides",
+    "category": "DeFi",
+    "description": "A practical guide to reading TVL without mistaking deposits, incentives, or recursive leverage for durable adoption.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Total Value Locked, or TVL, measures the value of assets deposited into a protocol. It is commonly used to compare DeFi adoption.\n\n## Why TVL Is Useful\nTVL can show whether users trust a protocol enough to deposit capital. Lending markets, liquid staking protocols, bridges, and decentralized exchanges often use TVL as a headline metric.\n\n## Why TVL Can Mislead\nTVL can rise because of token incentives, leverage loops, or asset price appreciation. A high TVL number does not automatically mean the protocol has profitable users or durable demand."
+  },
+  {
+    "slug": "impermanent-loss-explained",
+    "title": "Impermanent Loss: The Hidden Cost of Providing Liquidity",
+    "category": "DeFi",
+    "description": "Learn why liquidity providers can lose value versus holding tokens, even when they earn trading fees.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Impermanent loss is the difference between holding two assets and depositing them into an automated market maker liquidity pool.\n\n## Why It Happens\nWhen token prices move, the pool automatically rebalances. Liquidity providers end up holding more of the weaker asset and less of the stronger asset.\n\n## Why Fees Matter\nTrading fees can offset impermanent loss, but only if volume is real and sustained. A high advertised APR can still lose money if token prices move sharply or rewards are paid in an inflating token."
+  },
+  {
+    "slug": "oracle-risk",
+    "title": "Oracle Risk: When Bad Data Breaks DeFi",
+    "category": "Security",
+    "description": "Understand how price feeds, stale data, and oracle manipulation can trigger liquidations or protocol losses.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Oracles bring external data, such as token prices, into smart contracts. DeFi protocols use them for collateral values, liquidations, swaps, and settlement.\n\n## Why Oracle Risk Matters\nIf the data is wrong, stale, or manipulated, a protocol can execute bad logic perfectly. Lending markets may liquidate healthy users, or attackers may borrow against inflated collateral.\n\n## Common Causes\nThin markets, single-source price feeds, low update frequency, and poor fallback logic can all turn oracle design into a security problem."
+  },
+  {
+    "slug": "bridge-risk",
+    "title": "Bridge Risk: Moving Assets Across Chains Safely",
+    "category": "Security",
+    "description": "Learn how cross-chain bridges work, why they are frequent attack targets, and what to check before bridging assets.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "A crypto bridge lets users move assets or messages between blockchains. Many bridges lock assets on one chain and mint a representation on another.\n\n## Why Bridges Are Risky\nBridges often hold large amounts of collateral and depend on validator sets, multisigs, relayers, or complex smart contracts. A failure can affect every wrapped asset using that bridge.\n\n## What To Check\nBefore bridging, review the bridge design, security history, supported chains, withdrawal delays, and whether the destination asset has enough liquidity."
+  },
+  {
+    "slug": "mev-and-front-running",
+    "title": "MEV and Front-Running: Why Transaction Order Matters",
+    "category": "Security",
+    "description": "A plain-English guide to miner or maximal extractable value, sandwich attacks, and transaction ordering risk.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "MEV stands for maximal extractable value. It refers to value that validators, block builders, or bots can capture by controlling or reacting to transaction order.\n\n## How Front-Running Happens\nPending transactions are often visible before confirmation. Bots can copy, reorder, or surround a trade to profit from expected price movement.\n\n## Why Users Notice It\nThe most common user-facing MEV issue is a sandwich attack, where a bot buys before your swap and sells after it, leaving you with a worse execution price."
+  },
+  {
+    "slug": "stablecoin-depeg-risk",
+    "title": "Stablecoin Depeg Risk: Reading the Warning Signs",
+    "category": "Portfolio Risk",
+    "description": "Understand why stablecoins lose their peg, how reserves matter, and what to monitor during market stress.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "A stablecoin depeg happens when a token designed to track a reference price, usually one US dollar, trades materially above or below that price.\n\n## Why Depegs Happen\nDepegs can come from reserve concerns, liquidity shortages, protocol design flaws, exchange freezes, banking stress, or panic redemptions.\n\n## Why It Matters\nStablecoins are often treated like cash in crypto portfolios. During stress, a weak peg can turn a defensive position into a concentrated risk."
+  },
+  {
+    "slug": "crypto-treasury-runway",
+    "title": "Crypto Treasury Runway: Can a Project Keep Building?",
+    "category": "Market Metrics",
+    "description": "Learn how to evaluate treasury size, burn rate, token-denominated reserves, and runway risk.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Treasury runway estimates how long a project can keep operating before it needs new funding, revenue, or token sales.\n\n## Why Runway Matters\nA project with weak runway may be forced to cut development, sell treasury tokens into the market, or raise capital on unfavorable terms.\n\n## What To Review\nLook at treasury size, asset quality, operating expenses, token concentration, vesting obligations, and whether the protocol has real revenue."
+  },
+  {
+    "slug": "airdrop-eligibility-and-token-distribution",
+    "title": "Airdrops: Eligibility, Distribution, and Hidden Risks",
+    "category": "Tokenomics",
+    "description": "Learn how airdrops shape token ownership, user incentives, and early sell pressure after launch.",
+    "readTime": "5 min read",
+    "updatedAt": "2026-05-11",
+    "content": "Airdrops distribute tokens to users, contributors, or ecosystem participants. They can reward real usage, bootstrap governance, or create launch-day attention.\n\n## Why Airdrops Matter\nAirdrops shape the first holder base. A broad, fair distribution can support decentralization, while a poorly designed airdrop can attract short-term farmers who sell immediately.\n\n## What To Check\nReview eligibility rules, claim deadlines, vesting, insider allocations, and whether the token has utility beyond the airdrop event."
   }
 ]

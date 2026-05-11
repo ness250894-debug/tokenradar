@@ -58,6 +58,19 @@ export const ThreadsIcon: React.FC<IconProps> = ({ size = 24, className, style }
   </svg>
 );
 
+export const TikTokIcon: React.FC<IconProps> = ({ size = 24, className, style }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="currentColor"
+    className={className}
+    style={style}
+  >
+    <path d={SOCIAL_ICON_PATHS.tiktok} />
+  </svg>
+);
+
 export const EmailIcon: React.FC<IconProps> = ({ size = 24, className, style }) => (
   <svg 
     viewBox="0 0 24 24" 

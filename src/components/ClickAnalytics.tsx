@@ -15,8 +15,16 @@ function getLinkDetails(element: HTMLElement): { href?: string; outbound?: boole
 
   try {
     const url = new URL(href, window.location.href);
+    if (url.protocol === "mailto:") {
+      return {
+        href: "mailto",
+        outbound: true,
+        linkDomain: "email",
+      };
+    }
+
     return {
-      href: url.href,
+      href: `${url.origin}${url.pathname}`,
       outbound: url.origin !== window.location.origin,
       linkDomain: url.hostname,
     };

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { CookiePreferencesButton } from "@/components/CookiePreferencesButton";
 
-const description = "TokenRadar privacy policy - how we collect, use, and protect your data.";
+const lastUpdated = "May 11, 2026";
+const description = "TokenRadar privacy policy - how we collect, use, share, and protect data.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -18,82 +20,194 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Privacy policy page.
- */
 export default function PrivacyPage() {
   return (
     <div className="container">
       <section className="section">
         <div className="article-content">
           <h1>Privacy Policy</h1>
-
-          <p>
-            Your privacy is important to us. This policy explains what data
-            TokenRadar (tokenradar.co) collects, how we use it, and your rights.
+          <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+            Last updated: {lastUpdated}
           </p>
 
-          <h2>Data We Collect</h2>
           <p>
-            TokenRadar is a static website. We do not require user registration
-            or collect account data directly. However, the following third-party
-            services may process usage data:
+            This Privacy Policy explains how TokenRadar (tokenradar.co)
+            collects, uses, shares, and protects information when you visit the
+            site, use our contact form, click partner links, or interact with
+            our content. TokenRadar is an informational crypto research site. We
+            do not require user accounts, collect wallet private keys, custody
+            assets, or process trades.
+          </p>
+
+          <h2>Information We Collect</h2>
+          <p>
+            We collect limited information needed to operate the site, measure
+            performance, respond to inquiries, and maintain affiliate and
+            advertising disclosures.
           </p>
           <ul>
             <li>
-              <strong>Analytics:</strong> We use Google Analytics to understand
-              page views, traffic sources, on-site interactions, and outbound
-              partner-link clicks. Partner click events may include page path,
-              link label, partner category, and placement metadata. Analytics
-              events are designed to avoid personally identifiable information
-              (PII).
+              <strong>Website and analytics data:</strong> With your consent
+              where required, we use Google Analytics to understand page views,
+              traffic sources, device/browser information, approximate location,
+              and on-site interactions. Click events may include element type,
+              normalized click text, sanitized link path or domain, partner ID,
+              partner category, placement metadata, outbound status, and page
+              path. We do not intentionally send names, email addresses, wallet
+              addresses, or other directly identifying data to Google Analytics.
             </li>
             <li>
-              <strong>Google AdSense:</strong> If ads are displayed, Google may
-              use cookies to serve personalized or non-personalized ads. See
-              Google&apos;s{" "}
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--accent-secondary)" }}
-              >
-                Privacy Policy
-              </a>
-              .
+              <strong>Contact-form data:</strong> If you submit the contact
+              form, we collect the name, email address, subject, and message you
+              provide. Form submissions are processed by Formspree so we can
+              receive and respond to your inquiry.
+            </li>
+            <li>
+              <strong>Affiliate-link data:</strong> If you click a paid or
+              partner link, the third-party destination may receive information
+              about your visit according to its own privacy policy. TokenRadar
+              may record limited click metadata to understand which partner
+              placements are used.
+            </li>
+            <li>
+              <strong>Hosting and security logs:</strong> Our hosting, CDN, and
+              infrastructure providers may process IP address, user-agent,
+              request path, timestamps, and diagnostic logs to deliver pages,
+              prevent abuse, and maintain security.
             </li>
           </ul>
 
-          <h2>Cookies</h2>
+          <h2>How We Use Information</h2>
+          <ul>
+            <li>Operate, maintain, secure, and debug the website.</li>
+            <li>Respond to messages, correction requests, and partnership inquiries.</li>
+            <li>Measure traffic, content performance, and partner-link usage.</li>
+            <li>Improve site navigation, research quality, and disclosure placement.</li>
+            <li>Comply with legal obligations and enforce our Terms of Service.</li>
+          </ul>
+
+          <h2>Legal Bases Where Applicable</h2>
           <p>
-            We do not require account cookies for site access. Google Analytics
-            and, if enabled, ad providers may use cookies or similar identifiers
-            according to their own policies.
+            Where GDPR, UK GDPR, or similar laws apply, our legal bases may
+            include consent for non-essential analytics or advertising cookies,
+            legitimate interests in operating and securing an informational
+            website, performance of a request when you contact us, and compliance
+            with legal obligations.
           </p>
 
-          <h2>Your Rights (GDPR)</h2>
-          <p>If you are in the EU/EEA, you have the right to:</p>
+          <h2>Cookies and Analytics Choices</h2>
+          <p>
+            TokenRadar does not require account cookies for site access.
+            Non-essential Google Analytics tags are loaded only after you accept
+            analytics cookies through our site banner. You may reject analytics
+            cookies and continue using the site.
+          </p>
+          <p>
+            If Google AdSense or other ads are enabled, Google and other ad
+            technology providers may use cookies or similar identifiers to serve,
+            measure, and personalize or limit ads according to applicable law and
+            user consent requirements. For more information, see Google&apos;s{" "}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+              Privacy Policy
+            </a>
+            .
+          </p>
+          <CookiePreferencesButton />
+
+          <h2>How We Share Information</h2>
+          <p>We may share limited information with these categories of recipients:</p>
           <ul>
-            <li>Access any personal data we hold about you</li>
-            <li>Request deletion of your data</li>
-            <li>Request information about analytics or advertising data handling</li>
-            <li>Lodge a complaint with a supervisory authority</li>
+            <li>
+              <strong>Analytics providers:</strong> Google Analytics, when
+              enabled with user consent.
+            </li>
+            <li>
+              <strong>Form processors:</strong> Formspree, for contact-form
+              submissions.
+            </li>
+            <li>
+              <strong>Hosting and security providers:</strong> infrastructure
+              vendors that deliver and protect the website.
+            </li>
+            <li>
+              <strong>Affiliate and advertising partners:</strong> when you
+              click outbound links or when advertising is enabled.
+            </li>
+            <li>
+              <strong>Legal and safety recipients:</strong> when required to
+              comply with law, enforce terms, respond to lawful requests, or
+              protect users and the site.
+            </li>
           </ul>
+          <p>
+            We do not sell mailing lists or user account profiles. If a privacy
+            law treats certain advertising or cross-context tracking as a
+            &quot;sale&quot; or &quot;sharing&quot; of personal information, we
+            will provide the opt-out mechanisms required by that law before using
+            those features.
+          </p>
+
+          <h2>International Transfers</h2>
+          <p>
+            TokenRadar is available globally. Our providers, including Google
+            and Formspree, may process information in the United States or other
+            countries where they operate. Those countries may have privacy laws
+            different from those in your location.
+          </p>
+
+          <h2>Retention</h2>
+          <p>
+            We keep contact-form messages only as long as reasonably necessary
+            to respond, maintain records of the request, resolve disputes, or
+            comply with legal obligations. Analytics and log retention are
+            controlled by our provider settings and operational needs. We aim to
+            minimize data retained by TokenRadar directly.
+          </p>
+
+          <h2>Your Rights</h2>
+          <p>
+            Depending on where you live and whether a specific privacy law
+            applies, you may have rights to:
+          </p>
+          <ul>
+            <li>Access or receive a copy of personal information we hold about you.</li>
+            <li>Request correction or deletion of your personal information.</li>
+            <li>Object to or restrict certain processing.</li>
+            <li>Withdraw consent for analytics or advertising cookies.</li>
+            <li>Opt out of sale, sharing, or targeted advertising where applicable.</li>
+            <li>Appeal or complain to a privacy regulator where applicable.</li>
+          </ul>
+          <p>
+            To exercise rights, email us at the contact address below. We may
+            need to verify your request before acting on it.
+          </p>
+
+          <h2>Children</h2>
+          <p>
+            TokenRadar is not directed to children under 13, and we do not
+            knowingly collect personal information from children. If you believe
+            a child has submitted information to us, contact us and we will take
+            appropriate steps.
+          </p>
+
+          <h2>Security</h2>
+          <p>
+            We use reasonable administrative and technical safeguards for the
+            limited information we process. No website, analytics system, or
+            form processor can guarantee perfect security.
+          </p>
+
+          <h2>Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy as the site, providers, legal
+            requirements, or data practices change. When we make material
+            changes, we will update the date shown at the top of this page.
+          </p>
 
           <h2>Contact</h2>
           <p>
             For privacy-related inquiries, email{" "}
-            <a
-              href="mailto:contact@tokenradar.co"
-              style={{ color: "var(--accent-secondary)" }}
-            >
-              contact@tokenradar.co
-            </a>
-            .
-          </p>
-
-          <p style={{ marginTop: "var(--space-xl)", color: "var(--text-muted)", fontStyle: "italic" }}>
-            Last updated: {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+            <a href="mailto:contact@tokenradar.co">contact@tokenradar.co</a>.
           </p>
         </div>
       </section>
