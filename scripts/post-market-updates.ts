@@ -62,6 +62,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
+  const includeLinkReply = args.includes("--link-reply");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
   
   const platformIdx = args.indexOf("--platform");
@@ -91,6 +92,7 @@ async function main() {
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
+  if (runX) console.log(`  X Link Reply: ${includeLinkReply ? "enabled" : "disabled"}`);
 
   if (!dryRun) {
     if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
@@ -232,9 +234,11 @@ async function main() {
     captionOptions.xMaxChars = 260;
     captionPlatforms.push("x");
 
-    xReplyMessage = isOnWebsite
-      ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
-      : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
+    xReplyMessage = includeLinkReply
+      ? isOnWebsite
+        ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
+        : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+      : "";
   }
 
   if (captionPlatforms.length > 0) {
@@ -366,14 +370,15 @@ async function main() {
         }
         successfulPlatforms.add("x");
 
-        try {
-          const replyId = await postTweet(xReplyMessage, tweetId);
-          console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
-        } catch (replyError) {
-          await logError("post-market-updates-x-reply", replyError, false);
-          console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+        if (xReplyMessage) {
+          try {
+            const replyId = await postTweet(xReplyMessage, tweetId);
+            console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+          } catch (replyError) {
+            await logError("post-market-updates-x-reply", replyError, false);
+            console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+          }
         }
-
 
       } else {
         console.log(`✅ [DRY RUN] Would have posted to X:`);
