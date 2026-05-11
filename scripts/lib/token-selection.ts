@@ -58,7 +58,7 @@ export interface SelectionResult {
   trendingContext?: string;
 }
 
-type TrackerPlatform = "telegram" | "x";
+type TrackerPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
 type TrendSource = "coingecko" | "x";
 
 interface CleanupOptions {
@@ -74,6 +74,14 @@ export interface CleanupResult {
 
 const DATE_DIR_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SOCIAL_IMAGE_TEXT_RE = /^[\x20-\x7E]+$/;
+const TRACKER_PLATFORMS = new Set<TrackerPlatform>([
+  "telegram",
+  "x",
+  "instagram",
+  "threads",
+  "youtube",
+  "tiktok",
+]);
 
 export function getAutomatedTrendSources(platform: "x" | "telegram" | "all" = "telegram"): TrendSource[] {
   // X's automation rules prohibit automatically posting about X trending topics.
@@ -107,7 +115,9 @@ function isDateDirName(value: string): boolean {
 function isKnownGenericTracker(fileName: string): boolean {
   return fileName === "interactive-daily" ||
     fileName === "daily-telegram-movers" ||
-    fileName === "daily-telegram-poll";
+    fileName === "daily-telegram-poll" ||
+    fileName === "daily-instagram-movers" ||
+    fileName === "daily-threads-text";
 }
 
 function getPayloadTokenIds(payload: Record<string, unknown> | null): string[] {
@@ -133,15 +143,17 @@ function getPayloadTokenIds(payload: Record<string, unknown> | null): string[] {
 }
 
 function getTrackerPlatform(fileName: string, payload: Record<string, unknown> | null): TrackerPlatform | undefined {
-  if (payload?.platform === "telegram" || payload?.platform === "x") {
-    return payload.platform;
+  if (typeof payload?.platform === "string" && TRACKER_PLATFORMS.has(payload.platform as TrackerPlatform)) {
+    return payload.platform as TrackerPlatform;
   }
   if (fileName === "interactive-daily") return "x";
   if (fileName === "daily-telegram-movers" || fileName === "daily-telegram-poll") return "telegram";
+  if (fileName === "daily-instagram-movers") return "instagram";
+  if (fileName === "daily-threads-text") return "threads";
 
-  const legacyPlatform = fileName.match(/-(telegram|x)-[a-z0-9]+$/);
-  if (legacyPlatform?.[1] === "telegram" || legacyPlatform?.[1] === "x") {
-    return legacyPlatform[1];
+  const legacyPlatform = fileName.match(/-(telegram|x|instagram|threads|youtube|tiktok)-[a-z0-9]+$/);
+  if (legacyPlatform?.[1] && TRACKER_PLATFORMS.has(legacyPlatform[1] as TrackerPlatform)) {
+    return legacyPlatform[1] as TrackerPlatform;
   }
 
   return undefined;
@@ -184,6 +196,11 @@ function addPostedToken(
 
   if (requestedPlatform === "x") {
     if (trackerPlatform !== "telegram") posted.add(tokenId);
+    return;
+  }
+
+  if (TRACKER_PLATFORMS.has(requestedPlatform as TrackerPlatform)) {
+    if (!trackerPlatform || trackerPlatform === requestedPlatform) posted.add(tokenId);
   }
 }
 
@@ -613,7 +630,7 @@ export async function selectToken(
 
   // ── Priority 6: Spotlight (fallback) ──
   console.log("  ▸ Priority 6: Fallback to random spotlight...");
-  const available = candidateTokens.filter((t) => !todayPosted.has(t.id));
+  const available = candidateTokens.filter((t) => !todayPosted.has(t.id) && !recentlyPosted.has(t.id));
   if (available.length > 0) {
     const target = available[Math.floor(Math.random() * available.length)];
     console.log(`    ✓ Selected: ${target.name} (spotlight)`);

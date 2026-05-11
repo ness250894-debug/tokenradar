@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { stripHtmlForX, truncateForX } from "../src/lib/x-client";
+import {
+  calculateXPostSimilarity,
+  diversifyXPostText,
+  isTooSimilarForXPost,
+  normalizeForXSimilarity,
+  stripHtmlForX,
+  truncateForX,
+} from "../src/lib/x-client";
 
 describe("stripHtmlForX", () => {
   it("converts <a> tags to text: url format", () => {
@@ -62,5 +69,31 @@ describe("truncateForX", () => {
     expect(result).toContain("HEADER LINE 1");
     // Should preserve footer lines
     expect(result).toContain("LAST FOOTER 5");
+  });
+});
+
+describe("X post similarity helpers", () => {
+  it("normalizes cashtags and hashtags before comparison", () => {
+    const normalized = normalizeForXSimilarity("$BTC breakout watch. #Crypto https://example.com");
+    expect(normalized).toBe("$token breakout watch #tag");
+  });
+
+  it("detects near-duplicate market posts even when the token changes", () => {
+    const first = "$BTC Bitcoin: +4.2% over 24h, price 64000, market cap 1.2T. Does the data support more upside from here? #Crypto";
+    const second = "$ETH Ethereum: +4.0% over 24h, price 3200, market cap 380B. Does the data support more upside from here? #Crypto";
+
+    expect(calculateXPostSimilarity(first, second)).toBeGreaterThan(0.68);
+    expect(isTooSimilarForXPost(second, [first])).toBe(true);
+  });
+
+  it("adds a short diversity line when recent structure is too similar", () => {
+    const recent = "$BTC Bitcoin: +4.2% over 24h, price 64000, market cap 1.2T. Does the data support more upside from here? #Crypto";
+    const candidate = "$ETH Ethereum: +4.0% over 24h, price 3200, market cap 380B. Does the data support more upside from here? #Crypto";
+
+    const diversified = diversifyXPostText(candidate, [recent], "2026-05-11:ethereum");
+
+    expect(diversified).not.toBe(candidate);
+    expect(diversified.length).toBeLessThanOrEqual(260);
+    expect((diversified.match(/\$[A-Z]+/g) || []).length).toBeLessThanOrEqual(1);
   });
 });

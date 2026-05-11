@@ -5,6 +5,7 @@ import * as path from "path";
 import { Fragment, isValidElement, type ReactElement, type ReactNode } from "react";
 import { formatCompact, formatPercent, formatPrice } from "./formatters";
 import { fetchTokenIconDataUrl } from "./token-icon-data";
+import type { SocialContentVariant } from "./social-variety";
 
 export interface DailyMoverCarouselToken {
   id: string;
@@ -20,6 +21,7 @@ export interface DailyMoverCarouselToken {
 
 export interface DailyMoversCarouselOptions {
   generatedAt?: Date;
+  variant?: SocialContentVariant;
 }
 
 const SLIDE_WIDTH = 1080;
@@ -265,6 +267,13 @@ function sectionLabel(text: string, color = "#CCFF00") {
   );
 }
 
+function splitTitleLines(title: string): string[] {
+  const words = title.split(/\s+/).filter(Boolean);
+  if (words.length <= 2) return [title];
+  const midpoint = Math.ceil(words.length / 2);
+  return [words.slice(0, midpoint).join(" "), words.slice(midpoint).join(" ")];
+}
+
 function metricBox(label: string, value: string, accent = "#F8FAFC") {
   return (
     <div
@@ -351,13 +360,15 @@ function tokenIcon(mover: RenderableDailyMover, size = 118) {
   );
 }
 
-function renderCover(movers: RenderableDailyMover[], generatedAt: Date) {
+function renderCover(movers: RenderableDailyMover[], generatedAt: Date, variant?: SocialContentVariant) {
   const leader = movers[0];
+  const titleLines = splitTitleLines(variant?.carouselTitle || "Top 5 Crypto Gainers");
+  const subtitle = variant?.carouselSubtitle || "Market snapshot";
 
   return slideShell(
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel("Daily Movers")}
+        {sectionLabel(variant?.captionIntro || "Daily Movers")}
         {brandMark()}
       </div>
 
@@ -372,11 +383,12 @@ function renderCover(movers: RenderableDailyMover[], generatedAt: Date) {
             fontWeight: 900,
           }}
         >
-          <div>Top 5 Crypto</div>
-          <div>Gainers</div>
+          {titleLines.map((line) => (
+            <div key={line}>{line}</div>
+          ))}
         </div>
         <div style={{ display: "flex", color: "#94A3B8", fontSize: 32, marginTop: 28 }}>
-          {`Market snapshot for ${formatDate(generatedAt)}`}
+          {`${subtitle} | ${formatDate(generatedAt)}`}
         </div>
       </div>
 
@@ -411,16 +423,16 @@ function renderCover(movers: RenderableDailyMover[], generatedAt: Date) {
   );
 }
 
-function renderBoard(movers: RenderableDailyMover[]) {
+function renderBoard(movers: RenderableDailyMover[], variant?: SocialContentVariant) {
   return slideShell(
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel("Leaderboard")}
+        {sectionLabel("Research Board")}
         {brandMark()}
       </div>
 
       <div style={{ display: "flex", color: "#F8FAFC", fontSize: 58, fontWeight: 900, marginTop: 52 }}>
-        Top gainers by 24h move
+        {variant?.carouselSubtitle || "Top gainers by 24h move"}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 46 }}>
@@ -524,27 +536,30 @@ function renderTokenSlide(mover: RenderableDailyMover, index: number) {
   );
 }
 
-function renderRiskSlide(movers: RenderableDailyMover[]) {
+function renderRiskSlide(movers: RenderableDailyMover[], variant?: SocialContentVariant) {
   const leader = movers[0];
+  const riskLines = [
+    `Fastest move today: ${leader.symbol.toUpperCase()} at ${formatPercent(leader.change24h)}.`,
+    ...(variant?.riskSlideLines || [
+      "High 24h gains can reverse quickly when liquidity is thin.",
+      "Compare volume, market cap, and the reason for the move.",
+      "Use the carousel as a watchlist, not as a buy signal.",
+    ]),
+  ];
 
   return slideShell(
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel("Risk Lens", "#FFB800")}
+        {sectionLabel(variant?.riskSlideTitle || "Risk Lens", "#FFB800")}
         {brandMark()}
       </div>
 
       <div style={{ display: "flex", color: "#F8FAFC", fontSize: 70, fontWeight: 900, marginTop: 72 }}>
-        Before chasing green
+        {variant?.riskSlideTitle || "Before chasing green"}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 24, marginTop: 70 }}>
-        {[
-          `Fastest move today: ${leader.symbol.toUpperCase()} at ${formatPercent(leader.change24h)}.`,
-          "High 24h gains can reverse quickly when liquidity is thin.",
-          "Compare volume, market cap, and the reason for the move.",
-          "Use the carousel as a watchlist, not as a buy signal.",
-        ].map((line) => (
+        {riskLines.map((line) => (
           <div
             key={line}
             style={{
@@ -609,11 +624,12 @@ export async function generateDailyMoversCarousel(
 
   const topFive = await prepareMovers(movers.slice(0, 5));
   const generatedAt = options.generatedAt ?? new Date();
+  const variant = options.variant;
   const slides = [
-    renderCover(topFive, generatedAt),
-    renderBoard(topFive),
+    renderCover(topFive, generatedAt, variant),
+    renderBoard(topFive, variant),
     ...topFive.map((mover, index) => renderTokenSlide(mover, index)),
-    renderRiskSlide(topFive),
+    renderRiskSlide(topFive, variant),
   ];
 
   return Promise.all(slides.map((slide) => renderPng(slide)));

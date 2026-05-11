@@ -338,6 +338,124 @@ export function truncateForX(text: string, maxLength: number = 280): string {
   return truncated + "...";
 }
 
+const X_SIMILARITY_STOPWORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "are",
+  "as",
+  "at",
+  "be",
+  "but",
+  "by",
+  "for",
+  "from",
+  "has",
+  "how",
+  "in",
+  "is",
+  "it",
+  "more",
+  "not",
+  "of",
+  "on",
+  "or",
+  "the",
+  "this",
+  "to",
+  "what",
+  "with",
+]);
+
+function tokenizeForXSimilarity(text: string): Set<string> {
+  const normalized = normalizeForXSimilarity(text);
+  const tokens = normalized
+    .split(" ")
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 3 && !X_SIMILARITY_STOPWORDS.has(token));
+  return new Set(tokens);
+}
+
+export function normalizeForXSimilarity(text: string): string {
+  return stripHtmlForX(text)
+    .toLowerCase()
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/\$[a-z0-9_]+/g, "$token")
+    .replace(/#[a-z0-9_]+/g, "#tag")
+    .replace(/[^a-z0-9$#\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function calculateXPostSimilarity(a: string, b: string): number {
+  const normalizedA = normalizeForXSimilarity(a);
+  const normalizedB = normalizeForXSimilarity(b);
+  if (!normalizedA || !normalizedB) return 0;
+  if (normalizedA === normalizedB) return 1;
+
+  const aTokens = tokenizeForXSimilarity(normalizedA);
+  const bTokens = tokenizeForXSimilarity(normalizedB);
+  if (aTokens.size === 0 || bTokens.size === 0) return 0;
+
+  let intersection = 0;
+  for (const token of aTokens) {
+    if (bTokens.has(token)) intersection++;
+  }
+
+  const union = new Set([...aTokens, ...bTokens]).size;
+  return union === 0 ? 0 : intersection / union;
+}
+
+export function isTooSimilarForXPost(
+  candidate: string,
+  recentPosts: string[],
+  threshold = 0.68,
+): boolean {
+  return recentPosts.some((recent) => calculateXPostSimilarity(candidate, recent) >= threshold);
+}
+
+export function diversifyXPostText(
+  candidate: string,
+  recentPosts: string[],
+  seed = "",
+  maxLength = 260,
+): string {
+  let cleanText = stripHtmlForX(candidate);
+  cleanText = sanitizePostTextLinks(cleanText);
+  cleanText = sanitizeCashtags(cleanText);
+  cleanText = truncateForX(cleanText, maxLength);
+
+  if (!isTooSimilarForXPost(cleanText, recentPosts)) {
+    return cleanText;
+  }
+
+  const diversityLines = [
+    "Watch confirmation, not the first candle.",
+    "The invalidation matters more than the headline move.",
+    "Liquidity and follow-through are the next filters.",
+    "A clean retest would matter more than another green candle.",
+    "Volume quality decides whether this signal survives.",
+  ];
+  const startIndex = seed
+    ? Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % diversityLines.length
+    : 0;
+
+  for (let offset = 0; offset < diversityLines.length; offset++) {
+    const line = diversityLines[(startIndex + offset) % diversityLines.length];
+    const suffix = `\n\n${line}`;
+    const bodyBudget = maxLength - suffix.length;
+    if (bodyBudget < 40) continue;
+
+    const body = truncateForX(cleanText, bodyBudget).replace(/\.\.\.$/, "").trim();
+    const diversified = sanitizeCashtags(`${body}${suffix}`);
+    if (!isTooSimilarForXPost(diversified, recentPosts)) {
+      return diversified;
+    }
+  }
+
+  return cleanText;
+}
+
 
 // ── Post Operations ───────────────────────────────────────────
 

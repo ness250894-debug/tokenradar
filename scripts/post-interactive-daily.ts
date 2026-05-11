@@ -287,6 +287,7 @@ async function main() {
           tweetId: result.tweetId,
           nativePoll: result.native,
           tokenId: selectedTokenId || null,
+          xText: poll.text,
         },
         null,
         2,

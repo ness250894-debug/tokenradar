@@ -34,6 +34,14 @@ export interface PublishVideoOptions {
   thumbOffset?: number;
 }
 
+/** Options for Threads text publishing. */
+export interface PublishThreadsTextOptions {
+  /** Topic tag for Threads (no #, no . or &, 1-50 chars). */
+  topicTag?: string;
+  /** Text spoiler entities for Threads. */
+  spoilerEntities?: TextEntity[];
+}
+
 /** Image item for an Instagram carousel post. */
 export interface InstagramCarouselItem {
   imageUrl: string;
@@ -289,6 +297,59 @@ async function createContainer(
 }
 
 /**
+ * Create a Threads text container for publishing.
+ */
+async function createThreadsTextContainer(
+  text: string,
+  options?: PublishThreadsTextOptions,
+): Promise<string> {
+  const { accessToken, userId } = getCredentials("threads");
+  const config = PLATFORM_CONFIG.threads;
+
+  const params: Record<string, string> = {
+    access_token: accessToken,
+    media_type: "TEXT",
+    text,
+  };
+
+  if (options?.topicTag) {
+    params.topic_tag = options.topicTag;
+  }
+  if (options?.spoilerEntities?.length) {
+    params.text_entities = JSON.stringify(options.spoilerEntities);
+  }
+
+  const submit = async (requestParams: Record<string, string>): Promise<string> => {
+    const result = await metaApiRequest<{ id: string }>(
+      config.baseUrl,
+      config.containerEndpoint(userId),
+      "POST",
+      requestParams,
+      "threads",
+    );
+
+    console.info(`  [meta:threads] Text container created: ${result.id}`);
+    return result.id;
+  };
+
+  try {
+    return await submit(params);
+  } catch (error) {
+    if (isInvalidParameterError(error) && (params.topic_tag || params.text_entities)) {
+      const retryParams = { ...params };
+      delete retryParams.topic_tag;
+      delete retryParams.text_entities;
+      console.warn(
+        "  [meta:threads] Text container create rejected optional topic/spoiler params; retrying without them.",
+      );
+      return submit(retryParams);
+    }
+
+    throw error;
+  }
+}
+
+/**
  * Create a child image container for an Instagram carousel.
  */
 async function createInstagramCarouselItem(imageUrl: string): Promise<string> {
@@ -458,6 +519,31 @@ export async function publishVideo(
   const postId = await publishContainer(platform, containerId);
 
   return { id: postId, platform };
+}
+
+/**
+ * Full Threads text publishing pipeline: create text container -> poll -> publish.
+ */
+export async function publishThreadsText(
+  text: string,
+  options?: PublishThreadsTextOptions,
+): Promise<PublishResult> {
+  const safeText = sanitizePostTextLinks(text);
+
+  console.info("  [meta:threads] Starting text publish pipeline...");
+  console.info(`  [meta:threads] Text length: ${safeText.length} chars`);
+  if (options?.topicTag) {
+    console.info(`  [meta:threads] Topic: ${options.topicTag}`);
+  }
+  if (options?.spoilerEntities?.length) {
+    console.info(`  [meta:threads] Spoiler entities: ${options.spoilerEntities.length}`);
+  }
+
+  const containerId = await createThreadsTextContainer(safeText, options);
+  await pollContainerStatus("threads", containerId);
+  const postId = await publishContainer("threads", containerId);
+
+  return { id: postId, platform: "threads" };
 }
 
 /**

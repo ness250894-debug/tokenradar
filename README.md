@@ -58,20 +58,22 @@ npm test
 | `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |
 | `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |
 | `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |
+| `npx tsx scripts/post-threads-daily.ts` | Post text-native signal prompt to Threads |
 | `npx tsx scripts/post-video-daily.ts` | Generate and post 60s cinematic video (all platforms or shorts-only route) |
 | `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |
 | `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |
 
 ## Social Publishing
 
-Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
+Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok. Platform copy now uses deterministic daily variants from `src/lib/social-variety.ts`, so repeated runs rotate between signal, risk, rotation, watchlist, and conversation-prompt formats.
 
-Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is wired as a manual reporting flow while API approvals are pending: `--platform tiktok` renders the video, generates a TikTok caption, and sends both to the Telegram reporting chat for manual posting. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts.
+Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is wired as a manual reporting flow while API approvals are pending: `--platform tiktok` renders the video, generates a TikTok caption, and sends both to the Telegram reporting chat for manual posting. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.
 
 Safe dry-run checks:
 
 ```bash
 npx tsx scripts/post-market-updates.ts --dry-run --platform all
+npx tsx scripts/post-threads-daily.ts --dry-run --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform x --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force

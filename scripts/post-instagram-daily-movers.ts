@@ -24,8 +24,14 @@ import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../s
 import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
+import { getSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
-import { cleanupExpiredCooldownFolders, hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
+import {
+  cleanupExpiredCooldownFolders,
+  getRecentlyPostedTokens,
+  hasSocialImageSafeText,
+  loadCandidateTokens,
+} from "./lib/token-selection";
 
 loadEnv();
 
@@ -38,10 +44,15 @@ interface InstagramMoversTracker {
   postId: string;
   movers: string[];
   slideCount: number;
+  variant: string;
+  caption?: string;
 }
 
-function selectMovers(candidates: Awaited<ReturnType<typeof loadCandidateTokens>>["candidates"]): DailyMoverCarouselToken[] {
-  return candidates
+function selectMovers(
+  candidates: Awaited<ReturnType<typeof loadCandidateTokens>>["candidates"],
+  recentlyPosted: Set<string> = new Set(),
+): DailyMoverCarouselToken[] {
+  const eligibleMovers = candidates
     .filter((token) =>
       token.market.priceChange24h > 0 &&
       token.market.priceChange24h <= MAX_CHANGE_THRESHOLD &&
@@ -50,7 +61,14 @@ function selectMovers(candidates: Awaited<ReturnType<typeof loadCandidateTokens>
       token.market.volume24h > 0 &&
       hasSocialImageSafeText(token)
     )
-    .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h)
+    .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
+  const freshMovers = eligibleMovers.filter((token) => !recentlyPosted.has(token.id));
+  const cooldownFillers = eligibleMovers.filter((token) => recentlyPosted.has(token.id));
+
+  return [
+    ...freshMovers.slice(0, 5),
+    ...cooldownFillers.slice(0, Math.max(0, 5 - freshMovers.length)),
+  ]
     .slice(0, 5)
     .map((token) => ({
       id: token.id,
@@ -65,8 +83,27 @@ function selectMovers(candidates: Awaited<ReturnType<typeof loadCandidateTokens>
     }));
 }
 
-function buildCaption(movers: DailyMoverCarouselToken[]): string {
+function buildCaption(movers: DailyMoverCarouselToken[], variant: SocialContentVariant): string {
   const leader = movers[0];
+  const variantNotes: Record<string, { opener: string; qualityLine: string }> = {
+    momentum_watchlist: {
+      opener: "Ranked by daily momentum, then filtered for basic market data quality.",
+      qualityLine: "Use this as a momentum scan, not a buy signal.",
+    },
+    volatility_filter: {
+      opener: "Big candles are only useful when confirmation and liquidity hold.",
+      qualityLine: "Treat every large 24h move as a volatility event until follow-through confirms it.",
+    },
+    rotation_radar: {
+      opener: "Use the list as a rotation map: where momentum is concentrating, not where certainty exists.",
+      qualityLine: "Compare the names against sector strength before trusting the rotation.",
+    },
+    quality_movers: {
+      opener: "Percent gain alone is not enough; market cap and volume give the move context.",
+      qualityLine: "Use the scan to separate cleaner momentum from noisy pumps.",
+    },
+  };
+  const variantNote = variantNotes[variant.key] || variantNotes.momentum_watchlist;
   const lines = movers.map((mover, index) =>
     `${index + 1}. ${mover.symbol.toUpperCase()} (${mover.name}): ${formatPercent(mover.change24h)} at ${formatPrice(mover.price)}`
   );
@@ -79,14 +116,16 @@ function buildCaption(movers: DailyMoverCarouselToken[]): string {
     "#TokenRadar",
     "#MarketMovers",
     "#Altcoins",
-    "#CryptoNews",
+    variant.key === "rotation_radar" ? "#CryptoNarratives" : "#CryptoResearch",
+    variant.key === "volatility_filter" ? "#RiskManagement" : "#MarketScan",
     ...symbolTags,
   ].slice(0, SOCIAL_PLATFORM_LIMITS.INSTAGRAM.HASHTAG_LIMIT);
 
   const caption = [
-    `Daily Movers: ${leader.symbol.toUpperCase()} leads today's TokenRadar watchlist with a ${formatPercent(leader.change24h)} 24h move.`,
+    `${variant.captionIntro || "Daily Movers"}: ${leader.symbol.toUpperCase()} leads today's TokenRadar scan with a ${formatPercent(leader.change24h)} 24h move.`,
+    variantNote.opener,
     lines.join("\n"),
-    `Highest market cap in this set: ${formatCompact(Math.max(...movers.map((mover) => mover.marketCap)))}. Use the carousel as a momentum scan, not a buy signal.`,
+    `Highest market cap in this set: ${formatCompact(Math.max(...movers.map((mover) => mover.marketCap)))}. ${variantNote.qualityLine}`,
     "Data snapshot only. Not financial advice. Always verify liquidity, volatility, and catalyst quality.",
     "TokenRadar.co",
     hashtags.join(" "),
@@ -104,6 +143,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
+  const variant = getSocialContentVariant("instagram-carousel", [today], new Date(`${today}T00:00:00.000Z`));
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -128,10 +168,17 @@ async function main() {
   try {
     console.log("Loading live token data from CoinGecko...");
     const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 500);
-    const movers = selectMovers(candidates);
+    const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR, "instagram");
+    if (!force) {
+      console.log(`  Instagram movers cooldown pool: ${recentlyPosted.size} tokens from recent Instagram movers.`);
+    }
+    const movers = selectMovers(candidates, recentlyPosted);
 
     if (movers.length < 5) {
       throw new Error(`Need 5 eligible movers for the Instagram carousel; found ${movers.length}.`);
+    }
+    if (!force && movers.some((mover) => recentlyPosted.has(mover.id))) {
+      console.warn("  Not enough fresh Instagram movers after cooldown filtering; filled remaining slots with recent movers.");
     }
 
     console.log("Top 5 Instagram Movers:");
@@ -141,9 +188,9 @@ async function main() {
       );
     });
 
-    console.log("Rendering Instagram carousel slides...");
-    const slides = await generateDailyMoversCarousel(movers);
-    const caption = buildCaption(movers);
+    console.log(`Rendering Instagram carousel slides (${variant.label})...`);
+    const slides = await generateDailyMoversCarousel(movers, { variant });
+    const caption = buildCaption(movers, variant);
     console.log(`  Rendered ${slides.length} PNG slides.`);
     console.log(`  Caption length: ${caption.length}/${SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT}`);
 
@@ -186,6 +233,8 @@ async function main() {
           postId: result.id,
           movers: movers.map((mover) => mover.id),
           slideCount: slides.length,
+          variant: variant.key,
+          caption,
         } satisfies InstagramMoversTracker,
         null,
         2,

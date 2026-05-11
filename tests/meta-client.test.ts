@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { publishInstagramCarousel, publishVideo } from "../src/lib/meta-client";
+import { publishInstagramCarousel, publishThreadsText, publishVideo } from "../src/lib/meta-client";
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -72,6 +72,47 @@ describe("publishVideo for Threads", () => {
     expect(firstCreateBody.get("text_entities")).toBeTruthy();
     expect(retryCreateBody.has("topic_tag")).toBe(false);
     expect(retryCreateBody.has("text_entities")).toBe(false);
+  });
+});
+
+describe("publishThreadsText", () => {
+  beforeEach(() => {
+    process.env.THREADS_ACCESS_TOKEN = "threads-token";
+    process.env.THREADS_ACCOUNT_ID = "me";
+    vi.spyOn(console, "info").mockImplementation(() => undefined);
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    delete process.env.THREADS_ACCESS_TOKEN;
+    delete process.env.THREADS_ACCOUNT_ID;
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
+  it("creates a text container, polls it, and publishes to Threads", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "text-container-1" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "text-container-1", status: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "threads-post-1" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await publishThreadsText("What invalidates Alpha first?", {
+      topicTag: "Crypto",
+      spoilerEntities: [{ entity_type: "SPOILER", offset: 17, length: 5 }],
+    });
+
+    const createBody = new URLSearchParams((fetchMock.mock.calls[0][1] as RequestInit).body as string);
+    const publishBody = new URLSearchParams((fetchMock.mock.calls[2][1] as RequestInit).body as string);
+
+    expect(result).toEqual({ id: "threads-post-1", platform: "threads" });
+    expect(createBody.get("media_type")).toBe("TEXT");
+    expect(createBody.get("text")).toBe("What invalidates Alpha first?");
+    expect(createBody.get("topic_tag")).toBe("Crypto");
+    expect(createBody.get("text_entities")).toBe(
+      JSON.stringify([{ entity_type: "SPOILER", offset: 17, length: 5 }]),
+    );
+    expect(publishBody.get("creation_id")).toBe("text-container-1");
   });
 });
 

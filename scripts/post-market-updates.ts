@@ -35,11 +35,12 @@ import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
-import { postTweet, postTweetWithMedia } from "../src/lib/x-client";
+import { diversifyXPostText, postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
+import { getRecentPlatformTexts } from "./lib/social-history";
 
 import {
   type MetricData,
@@ -256,6 +257,20 @@ async function main() {
     if (runX) xMessage = captions.xTweet || "";
   }
 
+  if (runX && xMessage) {
+    const recentXTexts = getRecentPlatformTexts(DATA_DIR, "x", 14);
+    const diversified = diversifyXPostText(
+      xMessage,
+      recentXTexts,
+      `${TODAY}:${targetToken.id}:${reason}`,
+      captionOptions.xMaxChars ?? 260,
+    );
+    if (diversified !== xMessage) {
+      console.log("  Adjusted X copy to avoid repeating recent post structure.");
+      xMessage = diversified;
+    }
+  }
+
   if (dryRun) {
     console.log("\n=== PRELIMINARY DRY RUN INFO ===");
     console.log(`Reason: ${selection.reason} | Time: ${timeOfDay} | Tone: ${tone}`);
@@ -411,6 +426,8 @@ async function main() {
           platform,
           requestedPlatform: targetPlatform,
           reason,
+          ...(platform === "x" ? { xText: xMessage } : {}),
+          ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
         }, null, 2));
       }
     }

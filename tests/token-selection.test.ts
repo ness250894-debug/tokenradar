@@ -65,15 +65,29 @@ describe("social posted token tracking", () => {
       postedAt: "2026-05-04T15:00:00.000Z",
       question: "Market mood?",
     });
+    writeJson(path.join(postedDir, "daily-instagram-movers.json"), {
+      postedAt: "2026-05-04T00:05:00.000Z",
+      movers: ["optimism", "arbitrum"],
+    });
+    writeJson(path.join(postedDir, "daily-threads-text.json"), {
+      postedAt: "2026-05-04T16:00:00.000Z",
+      tokenId: "aptos",
+    });
 
     expect(getTodayPostedTokens(dataDir, "2026-05-04")).toEqual(
-      new Set(["solana", "immutable-x", "pepe", "bonk", "jupiter-exchange-solana"]),
+      new Set(["solana", "immutable-x", "pepe", "bonk", "jupiter-exchange-solana", "optimism", "arbitrum", "aptos"]),
     );
     expect(getTodayPostedTokens(dataDir, "2026-05-04", "x")).toEqual(
-      new Set(["solana", "immutable-x", "pepe"]),
+      new Set(["solana", "immutable-x", "pepe", "optimism", "arbitrum", "aptos"]),
     );
     expect(getTodayPostedTokens(dataDir, "2026-05-04", "telegram")).toEqual(
-      new Set(["immutable-x", "bonk", "jupiter-exchange-solana"]),
+      new Set(["immutable-x", "bonk", "jupiter-exchange-solana", "optimism", "arbitrum", "aptos"]),
+    );
+    expect(getTodayPostedTokens(dataDir, "2026-05-04", "instagram")).toEqual(
+      new Set(["immutable-x", "optimism", "arbitrum"]),
+    );
+    expect(getTodayPostedTokens(dataDir, "2026-05-04", "threads")).toEqual(
+      new Set(["immutable-x", "aptos"]),
     );
   });
 

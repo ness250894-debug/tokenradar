@@ -3,6 +3,7 @@ import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
 import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
+import { formatVariantPromptLine, getSocialContentVariant, type SocialContentVariant } from "./social-variety";
 
 export type AIResult = {
   content: string;
@@ -626,12 +627,27 @@ export async function generateUnifiedCaptions(
   const uniquePlatforms = Array.from(new Set(platforms));
   if (uniquePlatforms.length === 0) return {};
 
+  const platformVariants = uniquePlatforms.reduce((acc, platform) => {
+    acc[platform] = getSocialContentVariant(platform, [
+      symbol,
+      tokenName,
+      metrics.selectionReason,
+      metrics.timeOfDay,
+    ]);
+    return acc;
+  }, {} as Partial<Record<PlatformTarget, SocialContentVariant>>);
+
+  const contentVariantBrief = uniquePlatforms
+    .map((platform) => formatVariantPromptLine(platform, platformVariants[platform]!))
+    .join("\n");
+
   const platformRuleBlocks: Partial<Record<PlatformTarget, string>> = {
     telegram: `
 TELEGRAM RULES:
 - Return "telegramSummary" only for Telegram.
 - Maximum ${options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS} characters.
 - Write like a premium crypto research desk signal, not a generic social update.
+- Today's Telegram angle: ${platformVariants.telegram?.label} - ${platformVariants.telegram?.angle}.
 - Use this exact compact structure:
   <b>Radar Signal: $${symbol.toUpperCase()} (${tokenName})</b>
   Setup: [one concise setup line using concrete market data]
@@ -645,6 +661,7 @@ TELEGRAM RULES:
 X RULES:
 - Return "xTweet" only for X.
 - Maximum ${options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT} characters.
+- Today's X angle: ${platformVariants.x?.label} - ${platformVariants.x?.angle}.
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
 - Write prices as plain numbers, not dollar-prefixed prices.
 - End with a strong, data-driven question.
@@ -654,6 +671,7 @@ X RULES:
 YOUTUBE RULES:
 - Return "youtubeTitle" and "youtubeDescription".
 - Title must be under ${options.youtubeTitleMaxChars ?? 60} characters and front-load ${tokenName} or $${symbol.toUpperCase()}.
+- Today's YouTube angle: ${platformVariants.youtube?.label} - ${platformVariants.youtube?.angle}.
 - Description must open with a 1-2 sentence hook, then include this exact allowed site line: "Full data report & analytics: ${SOCIAL.ecosystemUrl}".
 - End the description with exactly 3 hashtags. The first must be #Shorts.
 - No external links except the TokenRadar site URL.`,
@@ -661,7 +679,8 @@ YOUTUBE RULES:
 INSTAGRAM RULES:
 - Return "instagramCaption" only for Instagram.
 - Maximum ${options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT} characters.
-- Start with a curiosity hook, then include 2-3 market data points naturally.
+- Today's Instagram angle: ${platformVariants.instagram?.label} - ${platformVariants.instagram?.angle}.
+- Start with a platform-native hook that matches today's angle, then include 2-3 market data points naturally.
 - Mention @tokenradarco once.
 - Include 8-12 relevant hashtags at the end.
 - Use emojis sparingly and do not use rocket emojis.`,
@@ -669,6 +688,7 @@ INSTAGRAM RULES:
 THREADS RULES:
 - Return "threadsCaption", "threadsTopicTag", and "threadsSpoilerText".
 - Maximum ${options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT} characters for threadsCaption.
+- Today's Threads angle: ${platformVariants.threads?.label} - ${platformVariants.threads?.angle}.
 - threadsSpoilerText must be an exact substring of threadsCaption and should usually be "${tokenName}".
 - Build curiosity around the spoiler text without using marker syntax.
 - threadsTopicTag must be one single word, 1-50 characters, without #, dots, ampersands, or spaces.
@@ -677,7 +697,8 @@ THREADS RULES:
 TIKTOK RULES:
 - Return "tiktokCaption" only for TikTok.
 - Maximum ${options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} characters.
-- Start with a short curiosity hook that fits a vertical short-form video.
+- Today's TikTok angle: ${platformVariants.tiktok?.label} - ${platformVariants.tiktok?.angle}.
+- Start with a short hook that fits today's angle and a vertical short-form video.
 - Include 2-3 concrete market data points naturally.
 - Mention @tokenradarco once.
 - Include 5-8 relevant hashtags at the end.
@@ -704,6 +725,9 @@ Never include external links. The only allowed post URL is ${SOCIAL.ecosystemUrl
 
 REQUESTED PLATFORMS: ${uniquePlatforms.join(", ")}
 PERSONA/TONE: ${metrics.tone || "Data-driven research platform"}
+
+CONTENT VARIETY BRIEF:
+${contentVariantBrief}
 
 MARKET DATA:
 Token: ${tokenName} (${symbol.toUpperCase()})
