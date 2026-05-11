@@ -2,11 +2,35 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const SCROLL_THRESHOLD = 640;
+
+function subscribeToScroll(callback: () => void) {
+  window.addEventListener("scroll", callback, { passive: true });
+  window.addEventListener("resize", callback, { passive: true });
+
+  return () => {
+    window.removeEventListener("scroll", callback);
+    window.removeEventListener("resize", callback);
+  };
+}
+
+function getScrollSnapshot() {
+  return window.scrollY > SCROLL_THRESHOLD;
+}
+
+function getServerScrollSnapshot() {
+  return false;
+}
 
 export function BackToOverviewToast() {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(false);
+  const hasScrolledPastThreshold = useSyncExternalStore(
+    subscribeToScroll,
+    getScrollSnapshot,
+    getServerScrollSnapshot
+  );
 
   // Check if we are on a subpage (e.g. /[token]/price-prediction or /[token]/how-to-buy)
   // And NOT on the root /compare or /contact pages
@@ -16,22 +40,7 @@ export function BackToOverviewToast() {
     !pathname.startsWith("/upcoming")
   );
 
-  useEffect(() => {
-    if (!isSubpage) {
-      setIsVisible(false);
-      return;
-    }
-
-    const updateVisibility = () => {
-      setIsVisible(window.scrollY > 640);
-    };
-
-    updateVisibility();
-    window.addEventListener("scroll", updateVisibility, { passive: true });
-    return () => window.removeEventListener("scroll", updateVisibility);
-  }, [isSubpage]);
-
-  if (!isVisible) return null;
+  if (!isSubpage || !hasScrolledPastThreshold) return null;
 
   // Extract the token slug from the URL (e.g. /bitcoin/price-prediction -> bitcoin)
   const segments = pathname.split("/").filter(Boolean);
