@@ -136,7 +136,7 @@ export default function ContactPage() {
                 id="contact-subject"
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                style={inputStyle}
+                style={selectStyle}
               >
                 <option value="general">General Inquiry</option>
                 <option value="feedback">Feedback</option>
@@ -212,4 +212,21 @@ const inputStyle: React.CSSProperties = {
   fontSize: "var(--text-base)",
   fontFamily: "inherit",
   outline: "none",
+};
+
+const themedSelectArrow = [
+  "linear-gradient(45deg, transparent 50%, var(--accent-primary) 50%)",
+  "linear-gradient(135deg, var(--accent-primary) 50%, transparent 50%)",
+].join(", ");
+
+const selectStyle: React.CSSProperties = {
+  ...inputStyle,
+  appearance: "none",
+  backgroundColor: "var(--bg-card)",
+  backgroundImage: themedSelectArrow,
+  backgroundPosition: "calc(100% - 21px) calc(50% + 1px), calc(100% - 15px) calc(50% + 1px)",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "6px 6px, 6px 6px",
+  cursor: "pointer",
+  paddingRight: "48px",
 };
