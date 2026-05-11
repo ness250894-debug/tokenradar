@@ -315,27 +315,75 @@ export function stripHtmlForX(html: string): string {
   return text.trim();
 }
 
+const X_DEFAULT_MAX_LENGTH = 280;
+const X_ELLIPSIS = "...";
+const X_TRAILING_HASHTAG_BLOCK = /(?:\s+#[A-Za-z][A-Za-z0-9_]{0,139}){1,3}\s*$/;
+
+function removeDanglingHighSurrogate(text: string): string {
+  if (!text) return text;
+  const lastCharCode = text.charCodeAt(text.length - 1);
+  return lastCharCode >= 0xd800 && lastCharCode <= 0xdbff
+    ? text.slice(0, -1)
+    : text;
+}
+
+function trimToXBoundary(text: string, maxLength: number, minBoundaryRatio = 0.65): string {
+  let candidate = removeDanglingHighSurrogate(text.slice(0, maxLength)).trimEnd();
+  if (!candidate) return "";
+
+  const minBoundary = Math.floor(maxLength * minBoundaryRatio);
+  const partialSpecialToken = candidate.match(/(?:^|\s)(?:https?:\/\/\S*|[#@$][A-Za-z0-9_]*)$/i);
+  if (partialSpecialToken?.index !== undefined && partialSpecialToken.index >= minBoundary) {
+    candidate = candidate.slice(0, partialSpecialToken.index).trimEnd();
+  }
+
+  const wordBoundary = Math.max(candidate.lastIndexOf(" "), candidate.lastIndexOf("\n"));
+  if (wordBoundary >= minBoundary) {
+    return candidate.slice(0, wordBoundary).trimEnd();
+  }
+
+  return candidate;
+}
+
+function splitTrailingXHashtags(text: string): { body: string; hashtags: string } {
+  const match = text.match(X_TRAILING_HASHTAG_BLOCK);
+  if (!match || match.index === undefined) return { body: text, hashtags: "" };
+  return {
+    body: text.slice(0, match.index).trimEnd(),
+    hashtags: match[0].trim(),
+  };
+}
+
 /**
- * Truncate text to fit X's 280 character limit.
- * Keeps the first 4 lines (header) and last 5 lines (footer/links/hashtags).
+ * Truncate text to fit X's character limit without cutting hashtags, cashtags,
+ * URLs, words, or surrogate pairs. Trailing hashtags are preserved as complete
+ * tokens when possible, because a partial tag is worse than a shorter body.
  *
  * @param text - Plain text to truncate
  * @param maxLength - Maximum character count (default: 280)
  * @returns Truncated text
  */
-export function truncateForX(text: string, maxLength: number = 280): string {
+export function truncateForX(text: string, maxLength: number = X_DEFAULT_MAX_LENGTH): string {
+  if (maxLength <= 0) return "";
   if (text.length <= maxLength) return text;
-
-  // Simple end truncation to avoid "middle-cropping" which users find confusing
-  let truncated = text.substring(0, maxLength - 3).trim();
-  
-  // Try to avoid cutting in the middle of a hashtag or word
-  const lastSpace = truncated.lastIndexOf(" ");
-  if (lastSpace > maxLength * 0.8) {
-    truncated = truncated.substring(0, lastSpace);
+  if (maxLength <= X_ELLIPSIS.length) {
+    return removeDanglingHighSurrogate(text.slice(0, maxLength));
   }
 
-  return truncated + "...";
+  const source = text.trim();
+  const { body, hashtags } = splitTrailingXHashtags(source);
+
+  if (hashtags && hashtags.length + X_ELLIPSIS.length + 1 < maxLength) {
+    const bodyBudget = maxLength - hashtags.length - X_ELLIPSIS.length - 1;
+    const truncatedBody = trimToXBoundary(body, bodyBudget, 0.45);
+    if (truncatedBody.length > 0) {
+      const withHashtags = `${truncatedBody}${X_ELLIPSIS} ${hashtags}`;
+      if (withHashtags.length <= maxLength) return withHashtags;
+    }
+  }
+
+  const truncated = trimToXBoundary(source, maxLength - X_ELLIPSIS.length);
+  return `${truncated}${X_ELLIPSIS}`;
 }
 
 const X_SIMILARITY_STOPWORDS = new Set([
@@ -472,8 +520,8 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
   // Clean, truncate, and sanitize for X
   let cleanText = stripHtmlForX(text);
   cleanText = sanitizePostTextLinks(cleanText);
-  cleanText = truncateForX(cleanText);
   cleanText = sanitizeCashtags(cleanText);
+  cleanText = truncateForX(cleanText);
 
   try {
     const response = await withRetry(
@@ -515,8 +563,8 @@ export async function postTweetWithMedia(
 
   let cleanText = stripHtmlForX(text);
   cleanText = sanitizePostTextLinks(cleanText);
-  cleanText = truncateForX(cleanText);
   cleanText = sanitizeCashtags(cleanText);
+  cleanText = truncateForX(cleanText);
 
   // Upload media via the XDK media endpoint
   let mediaId: string | undefined;
@@ -669,7 +717,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   const duration = poll.durationMinutes ?? 1440;
 
   // Sanitize the question text
-  const cleanText = sanitizeCashtags(truncateForX(sanitizePostTextLinks(stripHtmlForX(poll.text))));
+  const cleanText = truncateForX(sanitizeCashtags(sanitizePostTextLinks(stripHtmlForX(poll.text))));
   const cleanPollOptions = poll.options.map((option) => sanitizePostTextLinks(option));
 
   // ── Attempt 1: Native poll ──

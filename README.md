@@ -86,6 +86,7 @@ Copy `.env.example` to `.env.local` and configure:
 | Variable | Required | Purpose |
 |---|---|---|
 | `GEMINI_API_KEY` | Yes | AI content generation |
+| `GEMINI_THINKING_BUDGET` | Optional | Gemini 2.5 thinking budget; defaults to `0` to avoid short social copy hitting `MAX_TOKENS` |
 | `ANTHROPIC_API_KEY` | Yes | Claude fallback |
 | `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |
 | `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |
