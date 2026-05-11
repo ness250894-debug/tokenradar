@@ -2,26 +2,49 @@
   "id": "celium",
   "symbol": "sn51",
   "name": "lium",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66328/large/lium_Icon_FullColor_500x500.png?1766792920",
+  "description": "A cryptocurrency token known as lium (SN51). It is tracked on CoinGecko with the ID \"celium\".",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Bittensor Ecosystem",
+    "Bittensor Subnets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://lium.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://taostats.io/subnets/51/chart"
+  },
   "market": {
-    "price": 19.1,
-    "marketCap": 74807902,
+    "price": 18.89,
+    "marketCap": 73624093,
     "marketCapRank": 392,
-    "volume24h": 1484725,
-    "priceChange24h": 2.81699,
+    "volume24h": 1164856,
+    "high24h": 19.31,
+    "low24h": 16.94,
+    "priceChange24h": 1.33719,
+    "priceChange7d": 4.25849,
+    "priceChange30d": 50.59091,
+    "priceChange1y": 0,
     "ath": 37.11,
-    "athChangePercentage": -48.00277,
+    "athChangePercentage": -49.18186,
     "athDate": "2025-07-18T06:21:06.434Z",
     "atl": 6.04,
     "atlDate": "2026-02-11T23:40:44.476Z",
-    "circulatingSupply": 3892858.589623183,
-    "totalSupply": 3892858.589623183,
+    "circulatingSupply": 3898099.850522281,
+    "totalSupply": 3898099.850522281,
     "maxSupply": 21000000,
-    "high24h": 19.31,
-    "low24h": 16.94,
-    "priceChange7d": 3.2440427257084505,
-    "priceChange30d": 49.37940722790151,
-    "priceChange1y": 0,
-    "fdv": 74807902
+    "fdv": 73624093
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.881Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T10:30:35.653Z"
 }

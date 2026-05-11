@@ -2,26 +2,57 @@
   "id": "celo",
   "symbol": "celo",
   "name": "Celo",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11090/large/InjXBNx9_400x400.jpg?1696511031",
+  "description": "Celo is an emerging Ethereum Layer-2 designed to make blockchain technology accessible to all. With its focus on scalability, low fees, and ease of use, Celo is ideal for building blockchain products that reach millions of users around the globe.",
+  "categories": [
+    "Smart Contract Platform",
+    "Celo Ecosystem",
+    "Layer 2 (L2)",
+    "DWF Labs Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Proof of Stake (PoS)",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "Optimism Superchain Ecosystem",
+    "Outlier Ventures Portfolio",
+    "Made in USA",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://celo.org/",
+    "github": "https://github.com/celo-org/celo-blockchain",
+    "reddit": null,
+    "explorer": "https://explorer.celo.org/tokens/0x471ece3750da237f93b8e339c536989b8978a438/token-transfers"
+  },
   "market": {
-    "price": 0.102485,
-    "marketCap": 61673897,
-    "marketCapRank": 451,
-    "volume24h": 4598442,
-    "priceChange24h": 5.25837,
+    "price": 0.100726,
+    "marketCap": 60488676,
+    "marketCapRank": 456,
+    "volume24h": 6918310,
+    "high24h": 0.104224,
+    "low24h": 0.097837,
+    "priceChange24h": 2.86199,
+    "priceChange7d": 10.97448,
+    "priceChange30d": 23.26614,
+    "priceChange1y": -75.76133,
     "ath": 9.82,
-    "athChangePercentage": -98.94859,
+    "athChangePercentage": -98.97569,
     "athDate": "2021-08-30T14:25:09.929Z",
     "atl": 0.071419,
     "atlDate": "2026-02-23T04:46:28.720Z",
     "circulatingSupply": 600658220,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.103319,
-    "low24h": 0.094835,
-    "priceChange7d": 13.691351436216895,
-    "priceChange30d": 24.54225799347591,
-    "priceChange1y": -75.43341746686042,
-    "fdv": 102677188
+    "fdv": 100703985
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.892Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 506,
+    "githubForks": 192,
+    "commits4Weeks": 3
+  },
+  "fetchedAt": "2026-05-11T10:33:26.013Z"
 }
