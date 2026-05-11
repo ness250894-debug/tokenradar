@@ -161,7 +161,7 @@ export default async function TokenPage({ params }: PageProps) {
               className="pill-lg"
             />
             <h1 className="token-hero-title">
-              {detail.name} <span className="gradient-text">Analysis</span>
+              {detail.name} ({detail.symbol.toUpperCase()}) <span className="gradient-text">Price & Risk Analysis</span>
             </h1>
             <p className="token-hero-subtitle">
               Live {detail.symbol.toUpperCase()} price, TokenRadar risk score, market metrics, and research guides in one place.
@@ -195,6 +195,18 @@ export default async function TokenPage({ params }: PageProps) {
               </MagneticEffect>
             </div>
           </div>
+        </div>
+
+        <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>
+            {detail.symbol.toUpperCase()} Market Snapshot
+          </h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, margin: 0 }}>
+            {detail.name} trades at {formatPrice(detail.market.price)} with a 24h move of {formatPercent(detail.market.priceChange24h)}.
+            Market cap is {formatCompact(detail.market.marketCap)}
+            {detail.market.marketCapRank ? ` with rank #${detail.market.marketCapRank}` : ""}, and 24h volume is {formatCompact(detail.market.volume24h)}.
+            Use the risk score, ATH drawdown, and liquidity context below before treating the article as actionable research.
+          </p>
         </div>
 
         {/* Stats Grid */}
@@ -437,7 +449,7 @@ export default async function TokenPage({ params }: PageProps) {
             "@type": "Article",
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
-            image: "https://tokenradar.co/og-image.png",
+            image: `https://tokenradar.co/og/token/${detail.id}.png`,
             author: { 
               "@type": "Person", 
               name: "Pavlo Nakonechnyi", 

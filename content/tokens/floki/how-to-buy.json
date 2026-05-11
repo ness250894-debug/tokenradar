@@ -4,10 +4,27 @@
   "type": "how-to-buy",
   "title": "How to Buy FLOKI (FLOKI) — Step-by-Step Guide",
   "slug": "how-to-buy",
-  "content": "FLOKI offers utility through its metaverse and DeFi platforms, setting it apart from traditional speculative assets. This guide outlines how to acquire the token while highlighting the importance of security.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Consider FLOKI? FLOKI provides access to a range of ecosystem products including the\n\nValhalla game and NFT marketplace. Unlike simple meme coins, it attempts to bridge the gap between community-driven hype and functional utility.\n\n## Top Exchange Options\n\nMajor centralized exchanges provide liquidity for FLOKI. Ensure you verify the official contract address on Etherscan before completing transactions to avoid malicious look-alikes.\n\n## Step-by-Step Purchasing Process 1.\n\nCreate an account on a reputable exchange that lists FLOKI. 2. Complete identity verification (KYC) requirements. 3. Deposit fiat currency or transfer stablecoins to your exchange wallet. 4. Navigate to the trading pair for FLOKI/USDT or your preferred quote currency. 5. Place a market or limit order to initiate the purchase.\n\n## Securing Your Tokens For long-term holdings, moving tokens from an exchange to a hardware wallet is a best practice to mitigate custody risks.\n\nExchange wallets remain vulnerable to platform-specific outages or security breaches.\n\n## Risk Awareness Note the TokenRadar Risk Score of 6, indicating a medium risk level.\n\nNever commit capital you cannot afford to lose, as the crypto market is highly volatile.\n\n## FAQ * Where can I find the official contract address? Check the link on the official website or Etherscan to ensure authenticity. * Is it safe to store FLOKI on an exchange? It is generally safer to use a personal hardware wallet for long-term storage. * How do I know if I'm using a legit exchange? Always check for reputable, well-known platforms. * What is the risk score? The token has a Risk Score of 6, meaning medium risk.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 354,
+  "content": "FLOKI offers utility through its metaverse and DeFi platforms, setting it apart from traditional speculative assets. This guide outlines how to acquire the token while highlighting the importance of security.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Consider FLOKI? FLOKI provides access to a range of ecosystem products including the\n\nValhalla game and NFT marketplace. Unlike simple meme coins, it attempts to bridge the gap between community-driven hype and functional utility.\n\n## Market Availability Checks for FLOKI\n\nBefore depositing funds, verify current FLOKI market availability directly in the exchange or DEX interface. Listings, liquidity, regional access, and withdrawal networks change over time, so treat venue availability as something to confirm at the point of purchase.\n\nUse this checklist before placing an order:\n- Search for the exact FLOKI ticker and FLOKI name.\n- Confirm the trading pair, contract address, and network.\n- Compare spread, volume, withdrawal fees, and minimum order size.\n- Send a small test withdrawal before moving a larger balance.\n\n## Step-by-Step Purchasing Process 1.\n\nCreate an account on a reputable exchange that lists FLOKI. 2. Complete identity verification (KYC) requirements. 3. Deposit fiat currency or transfer stablecoins to your exchange wallet. 4. Navigate to the trading pair for FLOKI/USDT or your preferred quote currency. 5. Place a market or limit order to initiate the purchase.\n\n## Securing Your Tokens For long-term holdings, moving tokens from an exchange to a hardware wallet is a best practice to mitigate custody risks.\n\nExchange wallets remain vulnerable to platform-specific outages or security breaches.\n\n## Risk Awareness Note the TokenRadar Risk Score of 6, indicating a medium risk level.\n\nNever commit capital you cannot afford to lose, as the crypto market is highly volatile.\n\n## FAQ * Where can I find the official contract address? Check the link on the official website or Etherscan to ensure authenticity. * Is it safe to store FLOKI on an exchange? It is generally safer to use a personal hardware wallet for long-term storage. * How do I know if I'm using a legit exchange? Always check for reputable, well-known platforms. * What is the risk score? The token has a Risk Score of 6, meaning medium risk.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 402,
   "generatedAt": "2026-04-29T09:09:32.579Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1632,
-  "completionTokens": 681
+  "completionTokens": 681,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 402 (min 700)",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 402,
+      "hasFaq": true,
+      "hasDisclaimer": true,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 13
+    },
+    "checkedAt": "2026-05-11T13:39:49.254Z"
+  }
 }

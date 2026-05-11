@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "Buying Stacks (STX): Safest Exchanges and Steps",
   "slug": "how-to-buy",
-  "content": "Stacks (STX) offers investors exposure to the [Bitcoin](/bitcoin) Layer 2 narrative. Given its current market rank of #112, STX is accessible on major global exchanges including Binance, Coinbase, and Bybit.\n\n| Metric | Value |\n| :--- | :--- |\n| --- | --- |\n| Price | {{LIVE_PRICE}} |\n| Risk Level | High (8/10) |\n| 24H Volume | $425.09M |\n\n## Step-by-Step Buying Process 1. Account Creation\n\nSign up on a reputable exchange and complete mandatory KYC verification. 2. Fund Deposit: Transfer fiat currency or stablecoins (like USDT) into your exchange wallet. 3. Locate Trading Pair: Search for STX/USDT or STX/BTC. 4. Execute Order: Use a 'Market Order' for instant purchase or a 'Limit Order' to set a specific target price.\n\n## Security and Storage\n\nAlways move your assets to a non-custodial hardware wallet for long-term storage to mitigate exchange risk. Do not keep significant holdings on centralized platforms.\n\n## Risk Considerations Before purchasing, review the TokenRadar Risk Score of 8 and the Volatility Index of 17. Like [Filecoin](/filecoin) or [XRP](/ripple), STX is subject to sudden market shifts. Be aware of the tax implications in your jurisdiction, as crypto gains are generally subject to capital gains reporting. *Disclaimer\n\nThis article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 216,
+  "content": "Verify current STX market availability, liquidity, fees, withdrawal networks, and regional access directly with the venue before depositing funds.\n\n| Metric | Value |\n| :--- | :--- |\n|\n\n---\n\n|\n\n---\n\n|\n| Price | {{LIVE_PRICE}} |\n| Risk Level | High (8/10) |\n| 24H Volume | $425.09M |\n\n## Step-by-Step Buying Process 1. Account Creation\n\nSign up on a reputable exchange and complete mandatory KYC verification. 2. Fund Deposit: Transfer fiat currency or stablecoins (like USDT) into your exchange wallet. 3. Locate Trading Pair: Search for STX/USDT or STX/BTC. 4. Execute Order: Use a 'Market Order' for instant purchase or a 'Limit Order' to set a specific target price.\n\n## Security and Storage\n\nAlways move your assets to a non-custodial hardware wallet for long-term storage to mitigate exchange risk. Do not keep significant holdings on centralized platforms.\n\n## Risk Considerations Before purchasing, review the TokenRadar Risk Score of 8 and the Volatility Index of 17. Like [Filecoin](/filecoin) or [XRP](/ripple), STX is subject to sudden market shifts. Be aware of the tax implications in your jurisdiction, as crypto gains are generally subject to capital gains reporting. *Disclaimer\n\nThis article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 209,
   "generatedAt": "2026-04-25T07:57:41.169Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1645,
-  "completionTokens": 485
+  "completionTokens": 485,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 209 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 1 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 209,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 1,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 15
+    },
+    "checkedAt": "2026-05-11T13:41:32.354Z"
+  }
 }

@@ -5,6 +5,7 @@ import { formatPrice, formatCompact, getTokenIconCandidates } from "./formatters
 import { getAllCategories, getAllTokens, getTokenIds } from "./content-loader";
 import { normalizeArticleMarkdown } from "./article-formatting";
 import { getPilotTokenIds } from "./token-technical-data";
+import { isLinkableTokenName, shouldUnwrapAmbiguousTokenLink } from "./internal-link-policy";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -31,21 +32,6 @@ interface LinkableToken {
 interface GlossaryLinkSource {
   slug?: unknown;
 }
-
-const BLOCKED_TOKEN_LINK_TERMS = new Set([
-  "cash",
-  "deep",
-  "everything",
-  "flow",
-  "four",
-  "gas",
-  "home",
-  "just",
-  "movement",
-  "safe",
-  "score",
-  "would",
-]);
 
 const STATIC_INTERNAL_PATHS = [
   "/",
@@ -147,13 +133,6 @@ function createSafeMarkdownRenderer(): Renderer {
   return renderer;
 }
 
-function isLinkableTokenName(name: string): boolean {
-  const normalized = name.trim().toLowerCase();
-  if (normalized.length <= 2) return false;
-  if (/^\d+$/.test(normalized)) return false;
-  return !BLOCKED_TOKEN_LINK_TERMS.has(normalized);
-}
-
 function normalizeInternalHref(href: string): string | null {
   const trimmed = href.trim();
   if (!trimmed || trimmed.startsWith("#")) return null;
@@ -235,13 +214,8 @@ async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
     const internalPath = normalizeInternalHref(href);
     if (!internalPath) return match;
 
-    const firstSegment = internalPath.split("/")[1] || "";
-    const firstSegmentStem = firstSegment.split("-")[0] || firstSegment;
-    const labelTerm = String(label).trim().toLowerCase();
     if (
-      BLOCKED_TOKEN_LINK_TERMS.has(firstSegment) ||
-      BLOCKED_TOKEN_LINK_TERMS.has(firstSegmentStem) ||
-      BLOCKED_TOKEN_LINK_TERMS.has(labelTerm) ||
+      shouldUnwrapAmbiguousTokenLink(label, internalPath) ||
       !validInternalPaths.has(internalPath)
     ) {
       return `${prefix}${label}`;

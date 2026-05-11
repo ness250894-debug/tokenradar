@@ -17,11 +17,18 @@ export function BackToOverviewToast() {
   );
 
   useEffect(() => {
-    // Only animate in after mount to prevent hydration mismatch
-    const timeout = setTimeout(() => {
-      setIsVisible(isSubpage);
-    }, 50);
-    return () => clearTimeout(timeout);
+    if (!isSubpage) {
+      setIsVisible(false);
+      return;
+    }
+
+    const updateVisibility = () => {
+      setIsVisible(window.scrollY > 640);
+    };
+
+    updateVisibility();
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", updateVisibility);
   }, [isSubpage]);
 
   if (!isVisible) return null;

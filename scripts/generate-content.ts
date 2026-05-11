@@ -24,7 +24,7 @@ import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
 import { getTgeContractQueries, normalizeTge, shouldPublishTgePreview } from "../src/lib/tge";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
-import { buildArticleQualitySnapshot, type ArticleQualitySnapshot } from "../src/lib/content-quality";
+import { buildArticleQualitySnapshot, evaluateArticleQuality, type ArticleQualitySnapshot } from "../src/lib/content-quality";
 import type { DEXPoolData } from "../src/lib/coingecko";
 import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 
@@ -132,6 +132,7 @@ STRICT RULES:
 13. MANDATORY: Include a Markdown table detailing specific token statistics or market comparisons early in the article. Use the placeholders defined above in this table. This is critical for Google Featured Snippets.
 14. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 15. NO MASSIVE BOLD: Do not bold entire paragraphs. Only bold short phrases (max 5-7 words) for emphasis.
+16. MARKDOWN LINKS: Do not create Markdown links. TokenRadar injects internal links after generation.
 
 FORMAT:
 - Start with a comprehensive intro paragraph of 3-4 sentences (no heading). This must be the very first content.
@@ -161,7 +162,21 @@ STRICT RULES:
 9. Include a compact evidence table early in the article with status, confidence, source count, expected launch window, category, and last checked.
 10. Use only ## headings. Include a ## FAQ section with 3-5 questions and answers.
 11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
-12. EXTERNAL LINKS: NEVER include raw URLs, third-party domains, or ads. The only permitted site is tokenradar.co.`;
+12. EXTERNAL LINKS: NEVER include raw URLs, third-party domains, or ads. The only permitted site is tokenradar.co.
+13. MARKDOWN LINKS: Do not create Markdown links. TokenRadar injects internal links after generation.`;
+
+function getTargetLengthLabel(articleType: string): string {
+  switch (articleType) {
+    case "overview":
+    case "price-prediction":
+      return "1000-1200";
+    case "how-to-buy":
+    case "tge-preview":
+      return "800-1000";
+    default:
+      return "800-1000";
+  }
+}
 
 /**
  * Build article-specific prompts.
@@ -265,12 +280,12 @@ ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
   const buyTitles = [
     `How to Buy ${tokenName} (${symbol.toUpperCase()}) — Step-by-Step Guide`,
     `Where to Purchase ${tokenName} (${symbol.toUpperCase()}): Full Guide`,
-    `Buying ${tokenName} (${symbol.toUpperCase()}): Safest Exchanges and Steps`
+    `Buying ${tokenName} (${symbol.toUpperCase()}): Verification, Fees, and Storage`
   ];
 
   const buyPrompts = [
-    `Write a practical step-by-step guide for buying ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 600 - 800 words. Be highly concise, actionable, and skip unnecessary filler.\n\nCover:\n1. Quick overview of ${tokenName} and why people are interested\n2. Which major exchanges list ${symbol.toUpperCase()} (Binance, Coinbase, Bybit, etc.)\n3. Step-by-step process:\n   - Create/verify exchange account\n   - Deposit funds (fiat or crypto)\n   - Find the ${symbol.toUpperCase()} trading pair\n   - Place your order (market vs limit)\n4. How to store ${symbol.toUpperCase()} safely (exchanges vs wallets)\n5. Key considerations before buying (Risk Score, volatility data)\n6. Tax implications overview (general, not specific advice)\n\nNote: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.\n\n${commonContext}`,
-    `Write an actionable purchasing guide for ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 600 - 800 words.\n\nStructure:\n- Why buy ${tokenName}? Brief summary\n- Top Exchange Options for ${symbol.toUpperCase()}\n- Purchase Tutorial: From fiat deposit to holding the token\n- Securing your tokens: Hardware wallets vs Exchange storage\n- Important Risks: Mention the TokenRadar Risk Score\n\nKeep it direct and easy to follow for beginners.\n\n${commonContext}`
+    `Write a practical step-by-step guide for buying ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 800 - 1,000 words. Be actionable and specific without inventing unsupported listings.\n\nCover:\n1. Quick overview of ${tokenName} and why people are interested\n2. How to verify live exchange or DEX availability before buying\n3. Step-by-step process:\n   - Choose a regulated exchange or DEX only after confirming the ${symbol.toUpperCase()} market exists\n   - Create/verify the account or connect a self-custody wallet\n   - Deposit funds (fiat, stablecoin, or the correct network asset)\n   - Confirm the exact ${symbol.toUpperCase()} trading pair, contract, and network\n   - Place your order (market vs limit) and review fees/slippage\n4. How to store ${symbol.toUpperCase()} safely (exchange custody vs self-custody)\n5. Key considerations before buying (Risk Score, volatility data, liquidity, network fees)\n6. Tax implications overview (general, not specific advice)\n\nDo NOT claim Binance, Coinbase, Bybit, Kraken, OKX, Gate.io, KuCoin, MEXC, Bitget, or any other venue lists ${symbol.toUpperCase()} unless that listing is explicitly present in TOKEN DATA. If the data does not provide verified markets, tell readers to check current pair availability before depositing funds.\n\nNote: Include TokenRadar's Risk Score and relevant market data to help readers make informed decisions.\n\n${commonContext}`,
+    `Write an actionable purchasing guide for ${tokenName} (${symbol.toUpperCase()}).\n\nTARGET LENGTH: 800 - 1,000 words.\n\nStructure:\n- Why consider ${tokenName}? Brief, neutral summary\n- Market Availability Checks for ${symbol.toUpperCase()}\n- Purchase Tutorial: From funding to holding the token\n- Pair, Network, and Contract Verification\n- Securing your tokens: Hardware wallets vs exchange storage\n- Important Risks: Mention the TokenRadar Risk Score, liquidity, volatility, and regional availability\n\nDo not name specific exchanges as listing venues unless TOKEN DATA explicitly verifies them. Use generic wording such as "check a reputable exchange or DEX for current ${symbol.toUpperCase()} pairs" when venue data is unavailable.\n\nKeep it direct and easy to follow for beginners.\n\n${commonContext}`
   ];
 
   const pick = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -931,7 +946,7 @@ TITLE TO USE: ${config.title}
 INSTRUCTIONS:
 ${config.prompt}
 
-TARGET LENGTH: ${config.type === 'overview' ? '1000-1200' : config.type === 'price-prediction' ? '1000-1200' : config.type === 'tge-preview' ? '800-1000' : '600-800'} words.
+TARGET LENGTH: ${getTargetLengthLabel(config.type)} words.
 DO NOT shorten or summarize.
 MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end.
 
@@ -981,22 +996,15 @@ Output EXACTLY in this format (no JSON, no code blocks):
             }
 
             if (parsedSection && parsedSection.content && parsedSection.title) {
-              const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
-              const dataPoints = parsedSection.content.match(dataPointRegex) || [];
-              
-              const text = parsedSection.content;
-              const words = text.split(/\s+/).filter(Boolean).length;
-              const hasFaq = text.toLowerCase().includes("## faq") || text.toLowerCase().includes("frequently asked");
-              
-              const isShort = config.type === 'how-to-buy' || config.type === 'tge-preview';
-              const minWords = isShort ? 500 : 800;
+              const quality = evaluateArticleQuality({
+                type: config.type,
+                slug: config.slug,
+                title: parsedSection.title,
+                content: parsedSection.content,
+              });
 
-              if (words < minWords) {
-                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} too short (${words} words, min ${minWords}).`);
-                qualityCheckPassed = false;
-              }
-              if (!hasFaq) {
-                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} missing FAQ section.`);
+              if (!quality.passed) {
+                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} quality failed: ${quality.issues.join("; ")}`);
                 qualityCheckPassed = false;
               }
 
@@ -1005,10 +1013,8 @@ Output EXACTLY in this format (no JSON, no code blocks):
                 qualityCheckPassed = false;
               }
 
-              if (qualityCheckPassed && (dataPoints.length >= 3 || isTge)) {
+              if (qualityCheckPassed) {
                  break; // Success
-              } else if (qualityCheckPassed) {
-                 console.log(`\n      ⚠ Attempt ${attempts} failed data points check.`);
               }
             } else {
                console.log(`      ⚠ Attempt ${attempts} missing title/content in output.`);

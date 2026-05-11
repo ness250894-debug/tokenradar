@@ -8,7 +8,7 @@ interface RiskMeterGaugeProps {
   size?: number;
 }
 
-export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
+export function RiskMeterGauge({ score, size = 136 }: RiskMeterGaugeProps) {
   // Initialize to target score to match SSR output and prevent displaying "0.0" on hydration
   const [animatedScore, setAnimatedScore] = useState(score);
   const meterRef = useRef<HTMLDivElement>(null);
@@ -66,7 +66,8 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
     <div 
       ref={meterRef} 
       style={{ 
-        width: size, 
+        width: size,
+        minWidth: size,
         height: size / 2 + 45, 
         position: "relative", 
         display: "flex", 
@@ -77,9 +78,9 @@ export function RiskMeterGauge({ score, size = 120 }: RiskMeterGaugeProps) {
     >
       <div style={{ position: "relative", width: size, height: size / 2, overflow: "visible" }}>
         {/* Sector Labels */}
-        <div style={{ position: "absolute", bottom: "10%", left: "5%", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>Low</div>
+        <div style={{ position: "absolute", bottom: "10%", left: 0, fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>Low</div>
         <div style={{ position: "absolute", top: "-10%", left: "50%", transform: "translateX(-50%)", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>Mid</div>
-        <div style={{ position: "absolute", bottom: "10%", right: "5%", fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>High</div>
+        <div style={{ position: "absolute", bottom: "10%", right: 0, fontSize: "9px", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>High</div>
 
         {/* Background track (Arc) - Full width */}
         <div style={{

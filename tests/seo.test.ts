@@ -121,6 +121,7 @@ describe("SEO helpers", () => {
   it("uses the shared article quality rule for secondary article indexability", () => {
     expect(isArticleIndexable(makeArticle(900))).toBe(true);
     expect(isArticleIndexable(makeArticle(100))).toBe(false);
+    expect(isArticleIndexable({ ...makeArticle(900), content: "analysis ".repeat(900) })).toBe(false);
   });
 });
 

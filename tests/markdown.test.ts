@@ -105,6 +105,29 @@ describe("markdownToHtml", () => {
     expect(html).not.toContain('href="/score"');
   });
 
+  it("unwraps ambiguous exchange, wallet, and risk links to token pages", async () => {
+    const html = await markdownToHtml(
+      "Use [Gate](/gatechain-token).io, verify [Trust Wallet](/trust-wallet-token), and read the [Risk Score](/score). [Bitcoin](/bitcoin) should stay linked.",
+    );
+
+    expect(html).toContain("Gate");
+    expect(html).toContain("Trust Wallet");
+    expect(html).toContain("Risk Score");
+    expect(html).not.toContain('href="/gatechain-token"');
+    expect(html).not.toContain('href="/trust-wallet-token"');
+    expect(html).not.toContain('href="/score"');
+    expect(html).toContain('href="/bitcoin"');
+  });
+
+  it("does not auto-link ambiguous single-word token names", async () => {
+    const html = await markdownToHtml("Gate.io may render a request, but that story should stay as text.");
+
+    expect(html).not.toContain('href="/gatechain-token"');
+    expect(html).not.toContain('href="/render-token"');
+    expect(html).not.toContain('href="/request-network"');
+    expect(html).not.toContain('href="/story-2"');
+  });
+
   it("auto-links repeated token mentions without missing the first occurrence", async () => {
     const tokenName = "Apollo Diversified Credit Securitize Fund";
     const html = await markdownToHtml(

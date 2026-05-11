@@ -54,11 +54,25 @@ export const PROHIBITED_FINANCIAL_PHRASES = [
 
 export function getArticleQualityThresholds(articleType?: string): ArticleQualityThresholds {
   const normalizedType = articleType || "";
-  const isShortForm = normalizedType === "how-to-buy" || normalizedType === "tge-preview";
+  if (normalizedType === "how-to-buy") {
+    return {
+      minFailWords: 700,
+      minWarnWords: 850,
+      minDataPoints: 3,
+    };
+  }
+
+  if (normalizedType === "tge-preview") {
+    return {
+      minFailWords: 500,
+      minWarnWords: 700,
+      minDataPoints: 3,
+    };
+  }
 
   return {
-    minFailWords: isShortForm ? 500 : 800,
-    minWarnWords: isShortForm ? 600 : 1000,
+    minFailWords: 800,
+    minWarnWords: 1000,
     minDataPoints: 3,
   };
 }

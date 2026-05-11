@@ -4,10 +4,29 @@
   "type": "how-to-buy",
   "title": "Where to Purchase Official FO (FO): Full Guide",
   "slug": "how-to-buy",
-  "content": "Purchasing Official FO (FO) requires navigating the decentralized finance infrastructure prevalent within the [Solana](/solana) blockchain, where many meme-centric assets are primarily traded. Given the project's high-risk profile, highlighted by a TokenRadar Risk [Score](/score) of 7, potential participants should prioritize security and due diligence before interacting with any decentralized exchange (DEX). This guide outlines the standard procedures for acquiring FO as of May 7, 2026.",
-  "wordCount": 62,
+  "content": "Purchasing Official FO (FO) requires navigating the decentralized finance infrastructure prevalent within the [Solana](/solana) blockchain, where many meme-centric assets are primarily traded. Given the project's high-risk profile, highlighted by a TokenRadar Risk Score of 7, potential participants should prioritize security and due diligence before interacting with any decentralized exchange (DEX). This guide outlines the standard procedures for acquiring FO as of May 7, 2026.",
+  "wordCount": 64,
   "generatedAt": "2026-05-07T09:11:23.866Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 1426,
-  "completionTokens": 116
+  "completionTokens": 116,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 64 (min 700)",
+      "Missing FAQ section",
+      "Missing disclaimer",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 64,
+      "hasFaq": false,
+      "hasDisclaimer": false,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 21
+    },
+    "checkedAt": "2026-05-11T13:39:49.584Z"
+  }
 }

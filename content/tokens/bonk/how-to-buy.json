@@ -4,10 +4,28 @@
   "type": "how-to-buy",
   "title": "Where to Purchase Bonk (BONK): Full Guide",
   "slug": "how-to-buy",
-  "content": "Bonk (BONK) has transitioned from a community experiment to a widely traded asset on top-tier exchanges. Before purchasing, it is critical to note that BONK holds a TokenRadar Risk [Score](/score) of 7, indicating a high-risk profile common among speculative memecoins.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Consider Bonk?\n\nBonk is the primary community token of the [Solana](/solana) ecosystem, distinguishing itself from utility-first tokens like [Uniswap](/uniswap) through viral growth and ecosystem integration. It serves as both a cultural asset and a component of various [Solana](/solana)-native DeFi tools.\n\n## Top Exchange Options\n\nMajor global exchanges currently support BONK, including Binance, Coinbase, Kraken, and Robinhood. These platforms offer high liquidity and user-friendly interfaces suitable for both beginners and experienced traders. For those preferring self-custody, decentralized exchanges built on [Solana](/solana) offer direct access to the token.\n\n## Purchase Tutorial 1. Choose a Reputable Exchange\n\nSign up and complete the KYC process on a platform like Coinbase or Binance. 2. Deposit Funds: Use fiat currency or stablecoins to fund your exchange wallet. 3. Locate the Trading Pair: Navigate to the market section and search for the BONK trading pair (e.g., BONK/USDT or BONK/USD). 4. Execute the Trade: Select a limit or market order to purchase the desired amount. 5. Secure Your Holdings: For long-term storage, transfer your tokens to a hardware wallet that supports [Solana](/solana)-based tokens.\n\n## Securing Your Tokens\n\nHardware wallets offer the highest level of security by keeping private keys offline. While holding tokens on a major exchange is convenient for active trading, it exposes the investor to platform-specific risks. Regularly monitor the security of your self-custody solutions to ensure your tokens remain under your control.\n\n## Key Risks and Disclaimers Because BONK is a memecoin, its value can fluctuate significantly within short timeframes. It does not carry the same stability as blue-chip assets like Chainlink.\n\nNever allocate more than you are prepared to lose, and prioritize security when engaging with decentralized platforms or bot-based trading systems.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
-  "wordCount": 374,
+  "content": "Bonk (BONK) has transitioned from a community experiment to a widely traded asset on top-tier exchanges. Before purchasing, it is critical to note that BONK holds a TokenRadar Risk Score of 7, indicating a high-risk profile common among speculative memecoins.\n\n| Metric | Details |\n| :--- | :--- |\n|\n|\n\n---\n\n---\n\n| Price | {{LIVE_PRICE}} |\n| :--- | :--- |\n\n## Why Consider Bonk?\n\nBonk is the primary community token of the [Solana](/solana) ecosystem, distinguishing itself from utility-first tokens like [Uniswap](/uniswap) through viral growth and ecosystem integration. It serves as both a cultural asset and a component of various [Solana](/solana)-native DeFi tools.\n\n## Market Availability Checks for BONK\n\nBefore depositing funds, verify current BONK market availability directly in the exchange or DEX interface. Listings, liquidity, regional access, and withdrawal networks change over time, so treat venue availability as something to confirm at the point of purchase.\n\nUse this checklist before placing an order:\n- Search for the exact BONK ticker and Bonk name.\n- Confirm the trading pair, contract address, and network.\n- Compare spread, volume, withdrawal fees, and minimum order size.\n- Send a small test withdrawal before moving a larger balance.\n\n## Purchase Tutorial 1. Choose a Reputable Exchange\n\nVerify current BONK market availability, liquidity, fees, withdrawal networks, and regional access directly with the venue before depositing funds.\n\n## Securing Your Tokens\n\nHardware wallets offer the highest level of security by keeping private keys offline. While holding tokens on a major exchange is convenient for active trading, it exposes the investor to platform-specific risks. Regularly monitor the security of your self-custody solutions to ensure your tokens remain under your control.\n\n## Key Risks and Disclaimers Because BONK is a memecoin, its value can fluctuate significantly within short timeframes. It does not carry the same stability as blue-chip assets like Chainlink.\n\nNever allocate more than you are prepared to lose, and prioritize security when engaging with decentralized platforms or bot-based trading systems.\n\n---\n\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  "wordCount": 348,
   "generatedAt": "2026-04-26T07:47:49.049Z",
   "model": "gemini-2.5-flash",
   "promptTokens": 2102,
-  "completionTokens": 691
+  "completionTokens": 691,
+  "quality": {
+    "passed": false,
+    "issues": [
+      "Word count too low: 348 (min 700)",
+      "Missing FAQ section",
+      "Too few data points: 0 (min 3)"
+    ],
+    "warnings": [],
+    "stats": {
+      "wordCount": 348,
+      "hasFaq": false,
+      "hasDisclaimer": true,
+      "dataPointCount": 0,
+      "prohibitedPhrases": [],
+      "avgSentenceLength": 17
+    },
+    "checkedAt": "2026-05-11T13:41:32.356Z"
+  }
 }

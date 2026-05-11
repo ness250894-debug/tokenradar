@@ -20,6 +20,24 @@ describe("normalizeArticleMarkdown", () => {
     expect(normalized).toContain("[Ethena USDe](/ethena)");
   });
 
+  it("does not split valid title-case H2 headings", () => {
+    const normalized = normalizeArticleMarkdown(
+      "## Top Exchange Options for BTC\n\nCompare venue availability before depositing funds.",
+    );
+
+    expect(normalized).toContain("## Top Exchange Options for BTC");
+    expect(normalized).not.toContain("## Top\n\nExchange Options for BTC");
+  });
+
+  it("joins split FAQ question headings", () => {
+    const normalized = normalizeArticleMarkdown(
+      "## FAQ\n\n## What is 0x\n\nProtocol primarily used for?\n0x Protocol provides swap infrastructure.",
+    );
+
+    expect(normalized).toContain("## What is 0x Protocol primarily used for?");
+    expect(normalized).not.toContain("## What is 0x\n\nProtocol");
+  });
+
   it("keeps numbered FAQ items split from the FAQ heading and disclaimer", () => {
     const normalized = normalizeArticleMarkdown(
       "## FAQ 1. Why does it matter? It matters.\n\n2. What next? Monitor it. --- *Disclaimer.*",

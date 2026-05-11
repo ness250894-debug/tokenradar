@@ -11,7 +11,7 @@ import {
   formatPrice,
   formatPercent,
 } from "@/lib/content-loader";
-import { evaluateArticleQuality } from "@/lib/content-quality";
+import { isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
@@ -36,7 +36,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "price-prediction");
-  const articleQuality = article ? evaluateArticleQuality(article) : null;
   const year = new Date().getFullYear();
   const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
   const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
@@ -47,7 +46,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: !!articleQuality?.passed,
+      index: isArticleIndexable(article),
       follow: true,
     },
     alternates: {
@@ -86,6 +85,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const tradingView = getPartner("tradingview");
 
   const isPositive = detail.market.priceChange30d >= 0;
+  const athGap = detail.market.athChangePercentage;
+  const riskScore = metrics?.riskScore;
 
   return (
     <div className="container">
@@ -129,6 +130,35 @@ export default async function PricePredictionPage({ params }: PageProps) {
             </div>
           </div>
           {metrics && <RiskScoreCard score={metrics.riskScore} />}
+        </div>
+
+        <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
+            Forecast Framework
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "var(--space-md)" }}>
+            <div>
+              <div style={{ fontWeight: 800, marginBottom: "var(--space-xs)", color: "var(--green)" }}>Upside case</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Strong liquidity, improving 30-day trend, and lower risk readings would support a constructive setup.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, marginBottom: "var(--space-xs)", color: "var(--yellow)" }}>Base case</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Use current price, ATH distance ({formatPercent(athGap, 1)}), and market rank to size expectations conservatively.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, marginBottom: "var(--space-xs)", color: "var(--red)" }}>Downside case</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Rising volatility, weak volume, or {riskScore ? `risk score moving materially above ${riskScore.toFixed(1)}` : "elevated risk readings"} should invalidate aggressive forecasts.
+              </p>
+            </div>
+          </div>
+          <p style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)", marginTop: "var(--space-md)", marginBottom: 0 }}>
+            TokenRadar treats predictions as scenarios, not guarantees. Recheck liquidity, trend, and network-specific risks before acting.
+          </p>
         </div>
 
         {/* 1-Year Historical Chart (Native Fallback) */}

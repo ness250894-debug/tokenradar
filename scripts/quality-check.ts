@@ -23,7 +23,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
-import { PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
+import { getArticleQualityThresholds, PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
 
 // Load environment
 loadEnv();
@@ -166,9 +166,9 @@ async function checkArticle(
   const words = content.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
   const articleType = raw.type || raw.slug || "";
-  const isShortForm = articleType === "how-to-buy" || articleType === "tge-preview";
-  const minFail = isShortForm ? 500 : 800;
-  const minWarn = isShortForm ? 600 : 1000;
+  const thresholds = getArticleQualityThresholds(articleType);
+  const minFail = thresholds.minFailWords;
+  const minWarn = thresholds.minWarnWords;
   if (wordCount < minFail) issues.push(`Word count too low: ${wordCount} (min ${minFail})`);
   else if (wordCount < minWarn) warnings.push(`Word count borderline: ${wordCount} (target ${minWarn}+)`);
   if (wordCount > 2500) warnings.push(`Word count high: ${wordCount} (target max 2,000)`);
@@ -205,7 +205,9 @@ async function checkArticle(
   const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
   const dataPoints = content.match(dataPointRegex) || [];
   const dataPointCount = dataPoints.length;
-  if (dataPointCount < 3) issues.push(`Too few data points: ${dataPointCount} (min 3)`);
+  if (dataPointCount < thresholds.minDataPoints) {
+    issues.push(`Too few data points: ${dataPointCount} (min ${thresholds.minDataPoints})`);
+  }
 
   // Prohibited phrases
   const foundProhibited: string[] = [];
