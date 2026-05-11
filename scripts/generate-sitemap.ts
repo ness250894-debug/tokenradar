@@ -7,7 +7,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
-import { getSiteUrl, isTokenOverviewIndexable } from "../src/lib/seo";
+import { getSiteUrl, isArticleIndexable, isTokenOverviewIndexable } from "../src/lib/seo";
 import { writeFileAtomicSync } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
@@ -154,7 +154,7 @@ async function main() {
     const types = ["price-prediction", "how-to-buy"];
     for (const type of types) {
       const art = await getArticle(id, type);
-      if (art) {
+      if (isArticleIndexable(art)) {
         const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
         tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate });
       }

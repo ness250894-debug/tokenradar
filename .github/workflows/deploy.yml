@@ -20,6 +20,17 @@ on:
         required: false
         type: string
         default: 'main'
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+      INDEXNOW_KEY:
+        required: false
+      TELEGRAM_REPORT_BOT_TOKEN:
+        required: false
+      TELEGRAM_REPORT_CHAT_ID:
+        required: false
 
 env:
   NODE_VERSION: "22"

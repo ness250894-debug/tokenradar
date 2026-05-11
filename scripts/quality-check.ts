@@ -12,6 +12,7 @@
  * Usage:
  *   npx tsx scripts/quality-check.ts
  *   npx tsx scripts/quality-check.ts --token injective-protocol
+ *   npx tsx scripts/quality-check.ts --dir data/queue --fail-on-error
  *   npx tsx scripts/quality-check.ts --fix  (auto-fix: append disclaimer, AI-rewrite prohibited phrases)
  *   npx tsx scripts/quality-check.ts --quarantine  (move failed articles to data/quarantine)
  *
@@ -22,6 +23,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
+import { PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
 
 // Load environment
 loadEnv();
@@ -35,28 +37,7 @@ const QUARANTINE_RUN_DIR = path.join(
 
 // ── Prohibited Phrases ─────────────────────────────────────────
 
-const PROHIBITED_PHRASES = [
-  "you should buy",
-  "you should invest",
-  "guaranteed returns",
-  "guaranteed gains",
-  "guaranteed profit",
-  "moonshot",
-  "to the moon",
-  "100x",
-  "1000x",
-  "will definitely",
-  "sure thing",
-  "can't lose",
-  "risk-free investment",
-  "act now before",
-  "buy now before",
-  "don't miss out",
-  "once in a lifetime",
-  "i recommend buying",
-  "we recommend buying",
-  "this is financial advice",
-];
+const PROHIBITED_PHRASES = PROHIBITED_FINANCIAL_PHRASES;
 
 // ── AI Paragraph Rewriter ──────────────────────────────────────
 
@@ -283,8 +264,8 @@ async function checkArticle(
   };
 }
 
-function quarantineArticle(filePath: string): string {
-  const relativePath = path.relative(CONTENT_DIR, filePath);
+function quarantineArticle(filePath: string, rootDir: string): string {
+  const relativePath = path.relative(rootDir, filePath);
   const targetPath = path.join(QUARANTINE_RUN_DIR, relativePath);
   ensureDirSync(path.dirname(targetPath));
   fs.renameSync(filePath, targetPath);
@@ -297,8 +278,14 @@ async function main() {
   const args = process.argv.slice(2);
   const tokenIdx = args.indexOf("--token");
   const targetToken = tokenIdx !== -1 ? args[tokenIdx + 1] : null;
+  const dirIdx = args.indexOf("--dir");
+  const targetRoot =
+    dirIdx !== -1 && args[dirIdx + 1]
+      ? path.resolve(process.cwd(), args[dirIdx + 1])
+      : CONTENT_DIR;
   const autoFix = args.includes("--fix");
   const quarantineFailures = args.includes("--quarantine");
+  const failOnError = args.includes("--fail-on-error") || args.includes("--strict");
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Content Quality Checker    ║");
@@ -315,17 +302,21 @@ async function main() {
   } else {
     console.log("  Mode: check-only (failed articles stay in place)");
   }
+  if (failOnError) {
+    console.log("  Mode: --fail-on-error (non-zero exit on failed articles)");
+  }
+  console.log(`  Root: ${path.relative(process.cwd(), targetRoot) || "."}`);
   console.log();
 
-  if (!fs.existsSync(CONTENT_DIR)) {
+  if (!fs.existsSync(targetRoot)) {
     console.log("  No content found. Run generate-content first.");
     return;
   }
 
   const tokenDirs = fs
-    .readdirSync(CONTENT_DIR)
+    .readdirSync(targetRoot)
     .filter((d) => {
-      const p = path.join(CONTENT_DIR, d);
+      const p = path.join(targetRoot, d);
       return fs.statSync(p).isDirectory();
     })
     .filter((d) => !targetToken || d === targetToken);
@@ -340,7 +331,7 @@ async function main() {
   let totalWarnings = 0;
 
   for (const tokenDir of tokenDirs) {
-    const dirPath = path.join(CONTENT_DIR, tokenDir);
+    const dirPath = path.join(targetRoot, tokenDir);
     const articleFiles = fs
       .readdirSync(dirPath)
       .filter((f) => f.endsWith(".json") && !f.includes(".prompt"));
@@ -373,7 +364,7 @@ async function main() {
       } else {
         totalFailed++;
         if (quarantineFailures) {
-          const quarantinedPath = quarantineArticle(filePath);
+          const quarantinedPath = quarantineArticle(filePath, targetRoot);
           console.log(`    🗑 Quarantining failed article: ${path.relative(process.cwd(), quarantinedPath)}`);
         } else {
           console.log("    Not quarantined. Re-run with --quarantine to move failed articles.");
@@ -400,6 +391,9 @@ async function main() {
   if (totalFailed > 0) {
     console.log(`
   Check completed with ${totalFailed} failed articles. Job will continue.`);
+    if (failOnError) {
+      process.exit(1);
+    }
   }
 }
 

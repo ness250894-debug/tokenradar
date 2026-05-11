@@ -9,8 +9,8 @@ import {
   getArticle,
   formatPrice,
   formatCompact,
-  getArticleFaqs,
 } from "@/lib/content-loader";
+import { evaluateArticleQuality } from "@/lib/content-quality";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "how-to-buy");
+  const articleQuality = article ? evaluateArticleQuality(article) : null;
   const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`;
   const description = `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`;
 
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: !!article,
+      index: !!articleQuality?.passed,
       follow: true,
     },
     alternates: {
@@ -77,7 +78,6 @@ export default async function HowToBuyPage({ params }: PageProps) {
 
   const metrics = await getTokenMetrics(tokenId);
   const article = await getArticle(tokenId, "how-to-buy");
-  const faqs = article ? getArticleFaqs(article.content) : [];
 
   return (
     <div className="container">
@@ -109,6 +109,32 @@ export default async function HowToBuyPage({ params }: PageProps) {
             <div className="stat-value">{formatCompact(detail.market.marketCap)}</div>
           </div>
           {metrics && <RiskScoreCard score={metrics.riskScore} />}
+        </div>
+
+        <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
+          <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>
+            Check Before You Buy
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "var(--space-md)" }}>
+            <div>
+              <div style={{ fontWeight: 700, marginBottom: "var(--space-xs)" }}>Verify the listing</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Confirm the exact {detail.symbol.toUpperCase()} market, contract, and trading pair before sending funds.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, marginBottom: "var(--space-xs)" }}>Check local eligibility</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Exchange access, KYC rules, and product availability vary by jurisdiction.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, marginBottom: "var(--space-xs)" }}>Plan custody and taxes</div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.6, margin: 0 }}>
+                Decide whether to self-custody and keep records before placing your first order.
+              </p>
+            </div>
+          </div>
         </div>
 
         <ExchangeReferralPanel symbol={detail.symbol} tokenName={detail.name} />
@@ -215,25 +241,6 @@ export default async function HowToBuyPage({ params }: PageProps) {
           }),
         }}
       />
-      {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map(faq => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer
-                }
-              }))
-            }),
-          }}
-        />
-      )}
     </div>
   );
 }
