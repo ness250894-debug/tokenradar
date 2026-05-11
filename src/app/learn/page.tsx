@@ -209,7 +209,7 @@ export default async function LearnPage() {
         <div className="section-header" style={{ textAlign: "left", alignItems: "flex-start" }}>
           <p className="eyebrow-text">Start here</p>
           <h2 id="start-here-title">A simple research path</h2>
-          <p>Follow these three guides first if you are new to TokenRadar's research framework.</p>
+          <p>Follow these three guides first if you are new to TokenRadar&apos;s research framework.</p>
         </div>
         <div className="learn-path-grid">
           {START_HERE.map((step) => (
