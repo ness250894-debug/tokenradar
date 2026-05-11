@@ -294,7 +294,7 @@ async function main() {
         
         // Use Inline Keyboard for the main CTA if available
         const keyboard = isOnWebsite 
-          ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
+          ? createTelegramKeyboard([{ text: "Open TokenRadar Analytics", url: tokenLink }])
           : undefined;
 
         if (!dryRun) {
@@ -314,7 +314,7 @@ async function main() {
         // ── Text-only fallback ──
         let finalTgMessage = tgMessage.trim() + "\n" + tgFooter.trim();
         const keyboard = isOnWebsite 
-          ? createTelegramKeyboard([{ text: "📈 View Full Analytics", url: tokenLink }])
+          ? createTelegramKeyboard([{ text: "Open TokenRadar Analytics", url: tokenLink }])
           : undefined;
 
         if (finalTgMessage.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT) {

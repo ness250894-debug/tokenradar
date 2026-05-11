@@ -27,39 +27,39 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 /** Poll theme categories that rotate based on the day of the week. */
 const POLL_THEMES = [
   {
-    theme: "Market Sentiment",
-    directive: "Ask about overall crypto market mood, fear/greed, or whether the market is bullish or bearish this week.",
-    example: "How are you feeling about the crypto market this week?",
+    theme: "Market Regime",
+    directive: "Ask subscribers to classify the current market regime using risk-aware language.",
+    example: "Which market regime are we in right now?",
   },
   {
-    theme: "Token Category Battle",
-    directive: "Pit different crypto narratives or categories against each other (e.g., AI tokens vs L2s vs memecoins vs DeFi vs RWA).",
-    example: "Which crypto narrative will outperform in the coming months?",
+    theme: "Narrative Rotation",
+    directive: "Ask which crypto narrative deserves the next research focus based on momentum, liquidity, and catalyst quality.",
+    example: "Which narrative deserves the next TokenRadar scan?",
   },
   {
-    theme: "Trading Strategy",
-    directive: "Ask about trading habits, portfolio allocation, DCA strategies, or risk management preferences.",
-    example: "What's your go-to strategy when the market dips?",
+    theme: "Risk Discipline",
+    directive: "Ask about invalidation, position sizing, cash levels, or confirmation rules without giving financial advice.",
+    example: "What invalidates a setup fastest for you?",
   },
   {
-    theme: "Hot Take / Prediction",
-    directive: "Ask for a bold prediction about a trending topic - Bitcoin price targets, ETF impact, regulation, halving effects, etc.",
-    example: "Where will Bitcoin be by end of year?",
+    theme: "Signal Follow-up",
+    directive: "Ask how subscribers want prior watchlist signals reviewed: continuation, failed setup, or neutral follow-up.",
+    example: "Which prior signal should we review next?",
   },
   {
-    theme: "Community Lifestyle",
-    directive: "Ask fun, relatable crypto community questions - diamond hands vs paper hands, favorite exchange, how they got into crypto, etc.",
-    example: "How long have you been in crypto?",
+    theme: "Watchlist Criteria",
+    directive: "Ask which data point should carry the most weight in the next Radar Signal.",
+    example: "What matters most before a token enters the watchlist?",
   },
   {
-    theme: "DeFi & Yield",
-    directive: "Ask about DeFi strategies, staking preferences, yield farming, or which protocols they trust most.",
-    example: "Where do you park your stablecoins for yield?",
+    theme: "Liquidity Quality",
+    directive: "Ask subscribers to rank liquidity, volume expansion, market depth, or volatility as a signal filter.",
+    example: "Which liquidity signal do you trust most?",
   },
   {
-    theme: "Technology & Innovation",
-    directive: "Ask about blockchain tech preferences - L1 vs L2, ZK rollups, interoperability, account abstraction, AI integration, etc.",
-    example: "Which blockchain innovation excites you most?",
+    theme: "Catalyst Quality",
+    directive: "Ask which catalyst type deserves the highest confidence: product, listing, sector flow, developer activity, or on-chain adoption.",
+    example: "Which catalyst type should get the highest score?",
   },
 ] as const;
 
@@ -84,19 +84,19 @@ function buildPollPrompt(): string {
   const dayIndex = new Date().getDay(); // 0=Sun, 6=Sat
   const theme = POLL_THEMES[dayIndex % POLL_THEMES.length];
 
-  return `You are running the TokenRadar.co Telegram channel (a crypto analytics community).
+  return `You are running the TokenRadar.co Telegram channel as a premium crypto signal desk.
 Today's poll theme: "${theme.theme}"
 Directive: ${theme.directive}
 
-Write ONE highly engaging Telegram poll for our audience.
+Write ONE Telegram "Community Pulse" poll that helps guide future market intelligence.
 
 RULES:
-- The question must be punchy, 1-2 sentences max (under 250 chars).
-- Use 1-2 relevant emojis in the question to make it pop.
+- The question must be sharp, professional, and 1-2 sentences max (under 250 chars).
+- Start the question with "Community Pulse:".
 - Provide exactly 4 distinct answer options (each under 80 chars).
-- Each option should include one emoji.
-- Options should be meaningfully different (not overlapping).
-- Make it feel fresh and topical - reference current market conditions if possible.
+- Options should be meaningfully different, specific, and useful for a research audience.
+- Make it feel timely, but avoid hype, meme language, and entertainment-first wording.
+- Do not ask users to buy, sell, long, short, or chase a token.
 - DO NOT repeat this example: "${theme.example}"
 - NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 

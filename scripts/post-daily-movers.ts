@@ -18,7 +18,7 @@ import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegra
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import { cleanupExpiredCooldownFolders, hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
-import { REFERRAL_LINKS_HTML, SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML } from "../src/lib/config";
+import { SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
 
 // Load environment
 loadEnv();
@@ -110,15 +110,21 @@ async function main() {
       .join("\n");
 
     const prompt = `
-      Write a professional, high-energy market summary in exactly 2 short sentences, maximum ${SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS} characters.
+      Write a premium Telegram market-desk brief, maximum ${SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS} characters.
       Use the following REAL data for today:
       ${dataContext}
 
-      Wrap the most impressive metric or insight (like the highest % gainer) in <tg-spoiler> tags.
+      Required structure:
+      <b>Radar Movers Brief</b>
+      Signal: one line summarizing the lead mover and breadth.
+      Risk read: one line about volatility, liquidity, or confirmation quality.
+      <tg-spoiler>TokenRadar read: one balanced watchlist verdict.</tg-spoiler>
+
       Use <b> tags for bold/emphasis. DO NOT use markdown bold (**) or any other markdown symbols.
       DO NOT include hashtags. The footer already includes them.
 
       DO NOT refer to 'seeing' an image. Speak naturally as if you are looking at the live data shelf.
+      DO NOT use rocket emojis, moon language, guaranteed-return language, or direct buy/sell instructions.
       DO NOT USE ANY LINKS, external URLs, third-party domains, or ads. The only permitted website is tokenradar.co.
     `;
 
@@ -127,14 +133,18 @@ async function main() {
     let caption = result.content;
     if (!caption || caption.length < 10) {
       console.warn("Using static fallback caption due to AI refusal or empty output.");
-      caption = `TokenRadar Top 5 Movers leading the charge today! 🚀\n\n1. ${movers[0].symbol.toUpperCase()} +${movers[0].change24h.toFixed(2)}%\n2. ${movers[1]?.symbol.toUpperCase() || "—"} +${movers[1]?.change24h.toFixed(2) || "0"}%\n\n<tg-spoiler>Massive breakout volume detected across the board.</tg-spoiler>\n\n#Crypto #TokenRadar #MarketMovers`;
+      caption = [
+        "<b>Radar Movers Brief</b>",
+        `Signal: ${movers[0].symbol.toUpperCase()} leads today's watchlist at +${movers[0].change24h.toFixed(2)}%, with ${movers.length} eligible gainers in focus.`,
+        "Risk read: treat sharp 24h moves as volatility signals until liquidity and continuation confirm.",
+        "<tg-spoiler>TokenRadar read: useful momentum shelf, not a blind trade command.</tg-spoiler>",
+      ].join("\n");
     }
 
     const tgFooter = `
 ${TELEGRAM_ECOSYSTEM_LINK_HTML}
 
-${REFERRAL_LINKS_HTML.join("\n")}
-
+${TELEGRAM_SIGNAL_NOTE}
 #Crypto #TokenRadar #MarketMovers
 `;
 
