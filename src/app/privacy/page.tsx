@@ -42,7 +42,9 @@ export default function PrivacyPage() {
           <ul>
             <li>
               <strong>Analytics:</strong> We use Google Analytics to understand
-              page views, traffic sources, and on-site interactions. Analytics
+              page views, traffic sources, on-site interactions, and outbound
+              partner-link clicks. Partner click events may include page path,
+              link label, partner category, and placement metadata. Analytics
               events are designed to avoid personally identifiable information
               (PII).
             </li>

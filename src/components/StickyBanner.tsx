@@ -1,16 +1,23 @@
 "use client";
 
+import Link from "next/link";
+import { Calculator, ShieldCheck, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { REFERRAL_URLS } from "@/lib/config";
 
 /**
- * Sticky bottom banner for high-conversion affiliate links.
- * Remains visible on screen while the user reads long-form content.
+ * Sticky bottom navigation for token research routes.
+ * Keeps high-intent internal guides visible without showing paid exchange links
+ * on every token page.
  */
-export function StickyBanner({ symbol }: { symbol: string }) {
+export function StickyBanner({
+  symbol,
+  tokenId,
+}: {
+  symbol: string;
+  tokenId: string;
+}) {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Delay visibility slightly so it slides in after page load
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 1500);
     return () => clearTimeout(timer);
@@ -18,31 +25,24 @@ export function StickyBanner({ symbol }: { symbol: string }) {
 
   if (!isVisible) return null;
 
-  // Referral links map
-  const exchangeLinks = [
+  const links = [
     {
-      name: "Binance",
-      url: REFERRAL_URLS.binance,
-      color: "#FCD535",
-      text: "#000",
+      href: `/${tokenId}/how-to-buy`,
+      label: "Buy Guide",
+      icon: ShoppingCart,
+      analyticsId: "sticky-internal-how-to-buy",
     },
     {
-      name: "Bybit",
-      url: REFERRAL_URLS.bybit,
-      color: "#F7A600",
-      text: "#fff",
+      href: "/best-crypto-hardware-wallets",
+      label: "Wallets",
+      icon: ShieldCheck,
+      analyticsId: "sticky-internal-wallets",
     },
     {
-      name: "OKX",
-      url: REFERRAL_URLS.okx,
-      color: "#fff",
-      text: "#000",
-    },
-    {
-      name: "KuCoin",
-      url: REFERRAL_URLS.kucoin,
-      color: "#00A277",
-      text: "#fff",
+      href: "/crypto-tax-guide",
+      label: "Taxes",
+      icon: Calculator,
+      analyticsId: "sticky-internal-tax",
     },
   ];
 
@@ -50,24 +50,26 @@ export function StickyBanner({ symbol }: { symbol: string }) {
     <div className="sticky-banner animate-in">
       <div className="container sticky-banner-inner">
         <div className="sticky-banner-text">
-          <span className="sticky-banner-title">Trade <strong>{symbol.toUpperCase()}</strong> Now</span>
-          <span className="sticky-banner-sub">Secure the best rates on top exchanges</span>
+          <span className="sticky-banner-title">Research <strong>{symbol.toUpperCase()}</strong></span>
+          <span className="sticky-banner-sub">Compare markets, custody, and tax workflows</span>
         </div>
         <div className="sticky-banner-links">
-          {exchangeLinks.map((ex) => (
-            <a
-              key={ex.name}
-              href={ex.url}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="sticky-btn"
-              data-analytics-id={`sticky-affiliate-${ex.name.toLowerCase()}`}
-              data-analytics-label={`${ex.name} sticky affiliate`}
-              style={{ backgroundColor: ex.color, color: ex.text }}
-            >
-              {ex.name}
-            </a>
-          ))}
+          {links.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="sticky-btn"
+                data-analytics-id={item.analyticsId}
+                data-analytics-label={`${symbol.toUpperCase()} ${item.label}`}
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+              >
+                <Icon size={14} />
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

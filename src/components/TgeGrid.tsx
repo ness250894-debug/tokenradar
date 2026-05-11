@@ -1,29 +1,67 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Flame, Calendar, Rocket, ExternalLink } from "lucide-react";
-import { type UpcomingTge } from "@/lib/content-loader";
-import { CardGlare } from "./CardGlare";
+import { AnimatePresence, motion } from "framer-motion";
+import { Calendar, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import {
+  getTgeEvidenceCount,
+  getTgeSourceHost,
+  getTgeStatusLabel,
+  type TgeLifecycleStatus,
+  type UpcomingTge,
+} from "@/lib/tge";
 
-const TGES_PER_PAGE = 6;
+const TGES_PER_PAGE = 9;
+
+const STATUS_FILTERS: Array<{ value: "all" | TgeLifecycleStatus; label: string }> = [
+  { value: "all", label: "All Statuses" },
+  { value: "confirmed_tge", label: "Confirmed" },
+  { value: "watchlist", label: "Watchlist" },
+  { value: "candidate", label: "Candidates" },
+  { value: "stale", label: "Needs Recheck" },
+  { value: "graduated", label: "Graduated" },
+];
+
+function confidenceTone(confidence: number): "green" | "yellow" | "red" {
+  if (confidence >= 70) return "green";
+  if (confidence >= 45) return "yellow";
+  return "red";
+}
+
+function formatDate(value: string | undefined): string {
+  if (!value) return "Not checked";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Not checked";
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
 
 export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | TgeLifecycleStatus>("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const [visibleCount, setVisibleCount] = useState(TGES_PER_PAGE);
 
+  const categories = useMemo(() => {
+    return Array.from(new Set(tges.map((tge) => tge.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+  }, [tges]);
+
   const filteredTges = useMemo(() => {
-    if (!searchQuery.trim()) return tges;
-    const query = searchQuery.toLowerCase();
-    return tges.filter(
-      (tge) =>
+    const query = searchQuery.trim().toLowerCase();
+    return tges.filter((tge) => {
+      const matchesQuery =
+        !query ||
         tge.name.toLowerCase().includes(query) ||
         tge.symbol.toLowerCase().includes(query) ||
-        tge.category.toLowerCase().includes(query)
-    );
-  }, [tges, searchQuery]);
+        tge.category.toLowerCase().includes(query) ||
+        getTgeStatusLabel(tge).toLowerCase().includes(query);
+
+      const matchesStatus = statusFilter === "all" || tge.lifecycleStatus === statusFilter;
+      const matchesCategory = categoryFilter === "all" || tge.category === categoryFilter;
+      return matchesQuery && matchesStatus && matchesCategory;
+    });
+  }, [categoryFilter, searchQuery, statusFilter, tges]);
 
   useEffect(() => {
     const term = searchQuery.trim();
@@ -41,6 +79,13 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
     return () => window.clearTimeout(timer);
   }, [filteredTges.length, searchQuery]);
 
+  useEffect(() => {
+    setVisibleCount(TGES_PER_PAGE);
+  }, [categoryFilter, searchQuery, statusFilter]);
+
+  const visibleTges = filteredTges.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredTges.length;
+
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + TGES_PER_PAGE);
     trackEvent("load_more", {
@@ -50,121 +95,118 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
       page_path: window.location.pathname,
     });
   };
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setVisibleCount(TGES_PER_PAGE);
-  };
-
-  const visibleTges = filteredTges.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredTges.length;
-
-  const upcomingCount = tges.filter(t => t.status !== "released").length;
-  const releasedCount = tges.filter(t => t.status === "released").length;
 
   if (!tges || tges.length === 0) return null;
 
   return (
     <div className="token-grid-container">
-      <div className="search-container animate-in">
+      <div className="card" style={{ padding: "var(--space-lg)", marginBottom: "var(--space-xl)" }}>
         <div className="search-input-wrapper">
           <Search className="search-icon" size={20} />
           <input
             type="search"
             className="search-input"
-            placeholder="Search upcoming launches (e.g., Berachain, L1)..."
+            placeholder="Search by project, symbol, category, or status"
             value={searchQuery}
-            onChange={handleSearchChange}
+            onChange={(event) => setSearchQuery(event.target.value)}
           />
         </div>
-        {(upcomingCount > 0 || releasedCount > 0) && (
-          <div style={{ marginTop: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)", textAlign: "center" }}>
-            {upcomingCount > 0 && <span>{upcomingCount} upcoming</span>}
-            {upcomingCount > 0 && releasedCount > 0 && <span> · </span>}
-            {releasedCount > 0 && <span>{releasedCount} released</span>}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3" style={{ marginTop: "var(--space-md)" }}>
+          <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+            <span className="flex items-center gap-1"><Filter size={13} /> Status</span>
+            <select className="search-input" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as "all" | TgeLifecycleStatus)}>
+              {STATUS_FILTERS.map((filter) => (
+                <option key={filter.value} value={filter.value}>{filter.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+            <span>Category</span>
+            <select className="search-input" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
+              <option value="all">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
+          </label>
+
+          <div className="stat-card" style={{ padding: "var(--space-md)" }}>
+            <div className="stat-label">Filtered Results</div>
+            <div className="stat-value">{filteredTges.length}</div>
           </div>
-        )}
+        </div>
       </div>
 
       <AnimatePresence mode="popLayout">
         {visibleTges.length > 0 ? (
-          <motion.div 
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-12" 
-          >
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {visibleTges.map((tge) => {
-              const isReleased = tge.status === "released";
-              const strengthColor = tge.narrativeStrength >= 80 ? "green" : tge.narrativeStrength >= 60 ? "yellow" : "red";
-              const sourceHostname = (() => { try { return new URL(tge.dataSource).hostname.replace('www.', ''); } catch { return tge.dataSource; } })();
-              
+              const confidence = tge.confidence ?? 0;
+              const tone = confidenceTone(confidence);
+              const statusLabel = getTgeStatusLabel(tge);
+              const evidenceCount = getTgeEvidenceCount(tge);
+              const isGraduated = tge.lifecycleStatus === "graduated";
+              const sourceHost = getTgeSourceHost(tge.dataSource);
+
               return (
-                <CardGlare key={tge.id} style={{ height: "100%" }}>
-                  <Link href={`/upcoming/${tge.id}`} className="block h-full no-underline">
-                    <motion.div 
-                      className="card h-full flex flex-col"
-                      whileHover={{ y: -5 }}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      style={{ opacity: isReleased ? 0.75 : 1 }}
-                    >
-                      <div className="grid grid-cols-[1fr_auto] items-center gap-2">
-                        <div className="min-w-0" style={{ overflow: "hidden" }}>
-                          <span className="text-truncate" style={{ display: "block" }}>
-                            {tge.name} <span className="token-symbol" style={{ flexShrink: 0 }}>{tge.symbol.toUpperCase()}</span>
-                          </span>
+                <motion.article
+                  key={tge.id}
+                  className="card h-full flex flex-col"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -4 }}
+                  style={{ minHeight: 280, opacity: isGraduated ? 0.82 : 1 }}
+                >
+                  <Link href={`/upcoming/${tge.id}`} className="block h-full no-underline" style={{ color: "inherit" }}>
+                    <div className="flex flex-col h-full">
+                      <div className="flex justify-between gap-md items-start">
+                        <div className="min-w-0">
+                          <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 800, lineHeight: 1.2 }}>{tge.name}</h3>
+                          <div style={{ marginTop: 4, color: "var(--text-muted)", fontSize: "var(--text-xs)" }}>
+                            {tge.symbol.toUpperCase()} / {tge.category}
+                          </div>
                         </div>
-                        <span className={`badge badge-${strengthColor} flex-shrink-0 flex items-center gap-1`} style={{ fontSize: "0.7rem" }}>
-                          <Flame size={12} />
-                          {tge.narrativeStrength}/100 Hype
+                        <span className={`badge badge-${tone} flex-shrink-0`} style={{ fontSize: "0.7rem" }}>
+                          {confidence}/100
                         </span>
                       </div>
-                      
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-6 gap-4 sm:gap-2">
-                        <div className="flex-1">
-                          <div className="stat-label flex items-center gap-1">
-                            <Calendar size={12} />
-                            {isReleased ? "Launched" : "Expected Launch"}
-                          </div>
-                          <div className="stat-value text-lg" style={{ marginTop: "4px" }}>
-                            {isReleased && tge.graduatedAt 
-                              ? new Date(tge.graduatedAt).toLocaleDateString() 
-                              : tge.expectedTge}
-                          </div>
+
+                      <div style={{ marginTop: "var(--space-lg)", display: "grid", gap: "var(--space-sm)" }}>
+                        <div className="flex justify-between gap-md">
+                          <span className="stat-label flex items-center gap-1"><CheckCircle2 size={13} /> Status</span>
+                          <strong style={{ fontSize: "var(--text-sm)", textAlign: "right" }}>{statusLabel}</strong>
                         </div>
-                        <div className="sm:text-right">
-                          <div className="stat-label flex items-center sm:justify-end gap-1">
-                            <Rocket size={12} />
-                            Category
-                          </div>
-                          <div className="stat-value text-base" style={{ marginTop: "4px" }}>{tge.category}</div>
+                        <div className="flex justify-between gap-md">
+                          <span className="stat-label flex items-center gap-1"><Calendar size={13} /> Window</span>
+                          <strong style={{ fontSize: "var(--text-sm)", textAlign: "right" }}>{isGraduated && tge.graduatedAt ? formatDate(tge.graduatedAt) : tge.expectedTge}</strong>
+                        </div>
+                        <div className="flex justify-between gap-md">
+                          <span className="stat-label flex items-center gap-1"><ShieldCheck size={13} /> Evidence</span>
+                          <strong style={{ fontSize: "var(--text-sm)" }}>{evidenceCount} signal{evidenceCount === 1 ? "" : "s"}</strong>
                         </div>
                       </div>
 
-                      <div className="mt-auto pt-4 flex justify-between items-center gap-2">
-                        <span className={`badge ${isReleased ? "badge-green" : "badge-accent"} flex items-center gap-1`} style={{ fontSize: "0.7rem" }}>
-                          {isReleased ? <Rocket size={12} /> : null}
-                          {isReleased ? (tge.coingeckoRank ? `✓ Released #${tge.coingeckoRank}` : "✓ Released") : "Pre-Launch"}
+                      <div className="mt-auto pt-md border-t border-color" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+                        <span style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)" }}>
+                          Checked {formatDate(tge.lastVerifiedAt || tge.discoveredAt)}
                         </span>
-                        <span className="flex items-center gap-1" style={{ fontSize: "0.65rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "120px" }}>
-                          <ExternalLink size={10} />
-                          {sourceHostname}
+                        <span className="flex items-center gap-1" style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)", maxWidth: 130, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          <ExternalLink size={12} />
+                          {sourceHost}
                         </span>
                       </div>
-                    </motion.div>
+                    </div>
                   </Link>
-                </CardGlare>
+                </motion.article>
               );
             })}
           </motion.div>
         ) : (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="no-results" 
-            style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}
-          >
-            <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
-            <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No project found</h3>
-            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>We couldn&apos;t find any matching launches.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card" style={{ textAlign: "center", padding: "var(--space-2xl)" }}>
+            <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 700 }}>No launches match these filters</h3>
+            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>Try another status, category, or search term.</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -172,9 +214,9 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
       {filteredTges.length > 0 && (
         <div style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
           <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-md)", fontSize: "var(--text-sm)" }}>
-            Showing {visibleTges.length} of {filteredTges.length} curated launches
+            Showing {visibleTges.length} of {filteredTges.length} launch records
           </p>
-          {hasMore && <button onClick={handleLoadMore} className="btn btn-secondary">Load More Launches</button>}
+          {hasMore && <button onClick={handleLoadMore} className="btn btn-secondary">Load More</button>}
         </div>
       )}
     </div>

@@ -10,7 +10,18 @@
     "discoveredAt": "2026-03-23T18:15:08.969Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:07:20.653Z",
-    "coingeckoRank": 13
+    "coingeckoRank": 13,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "airdrop",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/hyperliquid-season-3-farming-strategy-guide/",
+        "observedAt": "2026-03-23T18:15:08.969Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-23T18:15:08.969Z"
   },
   {
     "id": "sky-protocol",
@@ -21,7 +32,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/eyecare-biotech-jumps-19-after-stablecoin-focused-rebrand",
     "discoveredAt": "2026-03-24T06:17:39.680Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "migration",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/eyecare-biotech-jumps-19-after-stablecoin-focused-rebrand",
+        "observedAt": "2026-03-24T06:17:39.680Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T06:17:39.680Z"
   },
   {
     "id": "stripe-mpp",
@@ -32,7 +54,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/stripe-mpp-ai-agents-micropayments-forrester",
     "discoveredAt": "2026-03-24T06:17:39.680Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 8,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/stripe-mpp-ai-agents-micropayments-forrester",
+        "observedAt": "2026-03-24T06:17:39.680Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T06:17:39.680Z"
   },
   {
     "id": "aave-v4",
@@ -43,7 +76,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/aave-dao-backs-v4-deployment-near-unanimous-snapshot-vote?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-24T10:18:54.493Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/aave-dao-backs-v4-deployment-near-unanimous-snapshot-vote?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-24T10:18:54.493Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T10:18:54.493Z"
   },
   {
     "id": "tron-ai-ecosystem",
@@ -54,7 +98,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/tron-dao-expands-ai-fund-1b-agentic-economy-race-heats-up?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-24T10:18:54.493Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 31,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/tron-dao-expands-ai-fund-1b-agentic-economy-race-heats-up?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-24T10:18:54.493Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T10:18:54.493Z"
   },
   {
     "id": "lombard",
@@ -65,7 +120,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/lombard-taps-bitwise-to-bring-bitcoin-yield-and-lending-to-institutional-custody-embargo-tuesday-2-30-et",
     "discoveredAt": "2026-03-24T21:00:49.349Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 25,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/lombard-taps-bitwise-to-bring-bitcoin-yield-and-lending-to-institutional-custody-embargo-tuesday-2-30-et",
+        "observedAt": "2026-03-24T21:00:49.349Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T21:00:49.349Z"
   },
   {
     "id": "omnes-bitcoin-mining-note",
@@ -76,7 +142,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/omnes-apex-tokenized-bitcoin-mining-note-base?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-24T21:56:18.828Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 38,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/omnes-apex-tokenized-bitcoin-mining-note-base?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-24T21:56:18.828Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T21:56:18.828Z"
   },
   {
     "id": "zama",
@@ -89,7 +166,18 @@
     "discoveredAt": "2026-03-24T23:50:58.594Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:07:47.585Z",
-    "coingeckoRank": 428
+    "coingeckoRank": 428,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/cryptography-firm-zama-taps-t-rex-to-bring-bank-grade-privacy-to-public-blockchains",
+        "observedAt": "2026-03-24T23:50:58.594Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-24T23:50:58.594Z"
   },
   {
     "id": "rain-prediction-market",
@@ -101,7 +189,18 @@
     "dataSource": "https://cointelegraph.com/news/enlivex-health-firm-raise-debt-buy-tokens-rain-predictions-market?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "reasoning": "Pharma firm Enlivex raising $21M specifically to acquire Rain tokens at discount with extended purchasing options signals imminent tokenomics finalization and likely TGE. Prediction markets category is trending with institutional interest (see BitGo/Susquehanna news). However, limited public VC backing details and community visibility moderates score.",
     "discoveredAt": "2026-03-25T06:18:48.848Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "stale",
+    "confidence": 24,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/enlivex-health-firm-raise-debt-buy-tokens-rain-predictions-market?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-25T06:18:48.848Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T06:18:48.848Z"
   },
   {
     "id": "fira-lending",
@@ -112,7 +211,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/fira-fixed-rate-defi-lending-450m-deposits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-25T07:30:44.586Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/fira-fixed-rate-defi-lending-450m-deposits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-25T07:30:44.586Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T07:30:44.586Z"
   },
   {
     "id": "securitize-nyse",
@@ -123,7 +233,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/nyse-securitize-24-7-tokenized-securities-platform?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-25T07:30:44.587Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 8,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/nyse-securitize-24-7-tokenized-securities-platform?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-25T07:30:44.587Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T07:30:44.587Z"
   },
   {
     "id": "ripple-rlusd",
@@ -134,7 +255,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/ripple-singapore-sandbox-rlusd-trade-finance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-25T11:11:16.823Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 31,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/ripple-singapore-sandbox-rlusd-trade-finance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-25T11:11:16.823Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T11:11:16.823Z"
   },
   {
     "id": "bitpanda-vision-chain",
@@ -145,7 +277,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/bitpanda-announces-vision-chain-europe-tokenization-race?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-25T15:41:44.518Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 8,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bitpanda-announces-vision-chain-europe-tokenization-race?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-25T15:41:44.518Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T15:41:44.518Z"
   },
   {
     "id": "startale-labs",
@@ -156,7 +299,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/startale-sbi-50m-series-a-close-japan-onchain-infrastructure",
     "discoveredAt": "2026-03-25T19:14:59.195Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/startale-sbi-50m-series-a-close-japan-onchain-infrastructure",
+        "observedAt": "2026-03-25T19:14:59.195Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-25T19:14:59.195Z"
   },
   {
     "id": "ondo-finance",
@@ -169,7 +323,18 @@
     "discoveredAt": "2026-03-26T05:54:30.428Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:08:14.529Z",
-    "coingeckoRank": 62
+    "coingeckoRank": 62,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/franklin-templeton-ondo-to-launch-tokenized-etfs-with-24-7-trading-via-crypto-wallets",
+        "observedAt": "2026-03-26T05:54:30.428Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-26T05:54:30.428Z"
   },
   {
     "id": "tazapay",
@@ -180,7 +345,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/cross-border-payment-provider-tazapay-raises-36m-from-circle-coinbase",
     "discoveredAt": "2026-03-26T17:34:19.379Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/cross-border-payment-provider-tazapay-raises-36m-from-circle-coinbase",
+        "observedAt": "2026-03-26T17:34:19.379Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-26T17:34:19.379Z"
   },
   {
     "id": "mezo",
@@ -193,7 +369,18 @@
     "discoveredAt": "2026-03-26T19:35:19.968Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:08:20.772Z",
-    "coingeckoRank": 795
+    "coingeckoRank": 795,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "airdrop",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/mezo-aerodrome-base-token-trading-bitcoin-defi",
+        "observedAt": "2026-03-26T19:35:19.968Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-26T19:35:19.968Z"
   },
   {
     "id": "polymarket",
@@ -204,7 +391,18 @@
     "narrativeStrength": 95,
     "dataSource": "https://cointelegraph.com/news/ice-600m-polymarket-investment-prediction-markets-scrutiny",
     "discoveredAt": "2026-03-27T19:16:42.218Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 31,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/ice-600m-polymarket-investment-prediction-markets-scrutiny",
+        "observedAt": "2026-03-27T19:16:42.218Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-27T19:16:42.218Z"
   },
   {
     "id": "midas",
@@ -215,7 +413,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/midas-raises-50-million-instant-liquidity-layer",
     "discoveredAt": "2026-03-30T17:27:59.998Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 20,
+    "signals": [
+      {
+        "type": "dex_pool",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/midas-raises-50-million-instant-liquidity-layer",
+        "observedAt": "2026-03-30T17:27:59.998Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-30T17:27:59.998Z"
   },
   {
     "id": "openfx",
@@ -226,7 +435,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/openfx-raises-94m-stablecoin-fx-cross-border-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-31T14:08:01.902Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/openfx-raises-94m-stablecoin-fx-cross-border-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-31T14:08:01.902Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-31T14:08:01.902Z"
   },
   {
     "id": "keyrock",
@@ -237,7 +457,18 @@
     "narrativeStrength": 70,
     "dataSource": "https://cointelegraph.com/news/crypto-market-maker-keyrock-1-1b-valuation-sc-ventures-funding?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-03-31T14:08:01.902Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/crypto-market-maker-keyrock-1-1b-valuation-sc-ventures-funding?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-03-31T14:08:01.902Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-03-31T14:08:01.902Z"
   },
   {
     "id": "naoris-protocol",
@@ -248,7 +479,18 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/news/naoris-post-quantum-blockchain-quantum-security-risks-gain-attention",
     "discoveredAt": "2026-04-01T21:04:53.042Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/naoris-post-quantum-blockchain-quantum-security-risks-gain-attention",
+        "observedAt": "2026-04-01T21:04:53.042Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-01T21:04:53.042Z"
   },
   {
     "id": "paradigm-prediction-terminal",
@@ -259,7 +501,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/crypto-vc-paradigm-building-prediction-market-terminal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-02T05:54:13.913Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 8,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/crypto-vc-paradigm-building-prediction-market-terminal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-02T05:54:13.913Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-02T05:54:13.913Z"
   },
   {
     "id": "edx-markets",
@@ -270,7 +523,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/citadel-backed-edx-national-trust-bank-charter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-02T05:54:13.913Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/citadel-backed-edx-national-trust-bank-charter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-02T05:54:13.913Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-02T05:54:13.913Z"
   },
   {
     "id": "lise-exchange",
@@ -281,7 +545,18 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/news/lise-host-tokenized-ipo-french-defense-supplier-st-group",
     "discoveredAt": "2026-04-02T20:58:42.269Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/lise-host-tokenized-ipo-french-defense-supplier-st-group",
+        "observedAt": "2026-04-02T20:58:42.269Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-02T20:58:42.269Z"
   },
   {
     "id": "altura",
@@ -294,7 +569,18 @@
     "discoveredAt": "2026-04-02T20:58:42.269Z",
     "status": "released",
     "graduatedAt": "2026-04-28T19:13:34.948Z",
-    "coingeckoRank": 1652
+    "coingeckoRank": 1652,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/ex-fidelity-team-targets-retail-investors-onchain-gold",
+        "observedAt": "2026-04-02T20:58:42.269Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-02T20:58:42.269Z"
   },
   {
     "id": "lighter",
@@ -307,7 +593,18 @@
     "discoveredAt": "2026-04-02T20:58:42.269Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:09:00.938Z",
-    "coingeckoRank": 167
+    "coingeckoRank": 167,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "dex_pool",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/wallet-in-telegram-perpetual-future-lighter-dex",
+        "observedAt": "2026-04-02T20:58:42.269Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-02T20:58:42.269Z"
   },
   {
     "id": "x402-protocol",
@@ -318,18 +615,40 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/big-tech-companies-join-x402-protocol-agentic-ai?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-03T03:31:04.393Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/big-tech-companies-join-x402-protocol-agentic-ai?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-03T03:31:04.393Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-03T03:31:04.393Z"
   },
   {
     "id": "circle-cirbtc",
     "name": "Circle cirBTC",
-    "symbol": "cirBTC",
+    "symbol": "CIRBTC",
     "category": "Infrastructure",
     "expectedTge": "Product Launch Phase",
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/circle-launch-cirbtc-wrapped-bitcoin-token-targeting-institutional-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-03T05:54:11.043Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 31,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/circle-launch-cirbtc-wrapped-bitcoin-token-targeting-institutional-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-03T05:54:11.043Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-03T05:54:11.043Z"
   },
   {
     "id": "circle-arc",
@@ -340,7 +659,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/circle-quantum-proof-roadmap-layer-1-arc?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-06T08:04:10.219Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/circle-quantum-proof-roadmap-layer-1-arc?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-06T08:04:10.219Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-06T08:04:10.219Z"
   },
   {
     "id": "kalshi",
@@ -351,7 +681,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/appellate-court-new-jersey-enforcement-kalshi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-06T20:59:44.100Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 38,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/appellate-court-new-jersey-enforcement-kalshi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-06T20:59:44.100Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-06T20:59:44.100Z"
   },
   {
     "id": "figure-technology",
@@ -362,7 +703,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/figure-stock-bernstein-loan-growth-tokenization-outlook?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-06T20:59:44.100Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/figure-stock-bernstein-loan-growth-tokenization-outlook?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-06T20:59:44.100Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-06T20:59:44.100Z"
   },
   {
     "id": "plasma-stablecoin",
@@ -373,7 +725,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/split-capital-wind-down-founder-plasma-stablecoin-startup",
     "discoveredAt": "2026-04-08T07:54:39.893Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 8,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/split-capital-wind-down-founder-plasma-stablecoin-startup",
+        "observedAt": "2026-04-08T07:54:39.893Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-08T07:54:39.893Z"
   },
   {
     "id": "caex",
@@ -384,7 +747,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/okx-and-hashkey-back-vpbank-linked-bid-for-vietnam-s-tight-crypto-pilot",
     "discoveredAt": "2026-04-10T08:02:42.842Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/okx-and-hashkey-back-vpbank-linked-bid-for-vietnam-s-tight-crypto-pilot",
+        "observedAt": "2026-04-10T08:02:42.842Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-10T08:02:42.842Z"
   },
   {
     "id": "world-liberty-financial",
@@ -397,18 +771,40 @@
     "discoveredAt": "2026-04-11T07:19:44.332Z",
     "status": "released",
     "graduatedAt": "2026-04-26T19:09:31.124Z",
-    "coingeckoRank": 39
+    "coingeckoRank": 39,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/world-liberty-wlfi-unlock-vote-early-holder-backlash",
+        "observedAt": "2026-04-11T07:19:44.332Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-11T07:19:44.332Z"
   },
   {
     "id": "pre-spax",
     "name": "preSPAX (Republic/Bitget)",
-    "symbol": "preSPAX",
+    "symbol": "PRESPAX",
     "category": "Infrastructure",
     "expectedTge": "Upcoming IEO (IPO Prime)",
     "narrativeStrength": 60,
     "dataSource": "https://cointelegraph.com/news/bitget-spacex-pre-ipo-proxy-republic",
     "discoveredAt": "2026-04-11T07:19:44.332Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 68,
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bitget-spacex-pre-ipo-proxy-republic",
+        "observedAt": "2026-04-11T07:19:44.332Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-11T07:19:44.332Z"
   },
   {
     "id": "qivalis",
@@ -419,7 +815,18 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/news/french-finance-minister-euro-pegged-stablecoins",
     "discoveredAt": "2026-04-19T07:50:53.844Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "watchlist",
+    "confidence": 49,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/french-finance-minister-euro-pegged-stablecoins",
+        "observedAt": "2026-04-19T07:50:53.844Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-19T07:50:53.844Z"
   },
   {
     "id": "robinhood-openai-token",
@@ -430,7 +837,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/news/robinhood-venture-fund-invests-75m-in-openai",
     "discoveredAt": "2026-04-22T19:25:43.597Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/robinhood-venture-fund-invests-75m-in-openai",
+        "observedAt": "2026-04-22T19:25:43.597Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-22T19:25:43.597Z"
   },
   {
     "id": "doge-strategy",
@@ -443,7 +861,18 @@
     "discoveredAt": "2026-04-23T12:30:00.000Z",
     "status": "released",
     "graduatedAt": "2026-05-10T20:00:46.817Z",
-    "coingeckoRank": 171
+    "coingeckoRank": 171,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "official",
+        "url": "https://tokenradar.co/doge-strategy",
+        "observedAt": "2026-04-23T12:30:00.000Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-23T12:30:00.000Z"
   },
   {
     "id": "little-pepe-5",
@@ -456,7 +885,18 @@
     "discoveredAt": "2026-04-23T12:30:00.000Z",
     "status": "released",
     "graduatedAt": "2026-05-10T20:00:47.817Z",
-    "coingeckoRank": 11
+    "coingeckoRank": 11,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "official",
+        "url": "https://littlepepe.best",
+        "observedAt": "2026-04-23T12:30:00.000Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-23T12:30:00.000Z"
   },
   {
     "id": "pusd-stablecoin",
@@ -467,7 +907,18 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/news/pusd-stablecoin-deploys-on-adi-chain-targeting-3t-islamic-finance-market",
     "discoveredAt": "2026-04-23T19:25:18.690Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/pusd-stablecoin-deploys-on-adi-chain-targeting-3t-islamic-finance-market",
+        "observedAt": "2026-04-23T19:25:18.690Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-23T19:25:18.690Z"
   },
   {
     "id": "ecash-sztorc",
@@ -478,7 +929,18 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/bitcoin-dev-paul-sztorc-hard-fork-ecash",
     "discoveredAt": "2026-04-25T19:05:59.614Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bitcoin-dev-paul-sztorc-hard-fork-ecash",
+        "observedAt": "2026-04-25T19:05:59.614Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-25T19:05:59.614Z"
   },
   {
     "id": "aurelion-xaue",
@@ -489,7 +951,18 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/news/aurelion-allocates-48m-in-tokenized-gold-to-newly-launched-xaue-yield-protocol",
     "discoveredAt": "2026-04-25T19:05:59.615Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/aurelion-allocates-48m-in-tokenized-gold-to-newly-launched-xaue-yield-protocol",
+        "observedAt": "2026-04-25T19:05:59.615Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-25T19:05:59.615Z"
   },
   {
     "id": "western-union-usdpt",
@@ -500,7 +973,18 @@
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/news/western-union-usdpt-stablecoin-may-launch-dan-network?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-27T19:44:23.189Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 37,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/western-union-usdpt-stablecoin-may-launch-dan-network?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-27T19:44:23.189Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-27T19:44:23.189Z"
   },
   {
     "id": "eat-coin",
@@ -511,18 +995,40 @@
     "narrativeStrength": 55,
     "dataSource": "https://cointelegraph.com/press-releases/bitmart-x-eat-trade-to-feed-competition-to-pay-out-44m-usdt-to-traders-in-may-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-04-28T19:12:50.722Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "watchlist",
+    "confidence": 49,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/press-releases/bitmart-x-eat-trade-to-feed-competition-to-pay-out-44m-usdt-to-traders-in-may-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-04-28T19:12:50.722Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-28T19:12:50.722Z"
   },
   {
     "id": "paystand-usdb",
     "name": "Paystand USDb",
-    "symbol": "USDb",
+    "symbol": "USDB",
     "category": "Stablecoin",
     "expectedTge": "Launch phase",
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/paystand-launches-bitcoin-based-stablecoin-usdb-for-enterprise-payments",
     "discoveredAt": "2026-04-28T19:12:50.722Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 43,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/paystand-launches-bitcoin-based-stablecoin-usdb-for-enterprise-payments",
+        "observedAt": "2026-04-28T19:12:50.722Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-28T19:12:50.722Z"
   },
   {
     "id": "megaeth",
@@ -535,7 +1041,18 @@
     "discoveredAt": "2026-04-30T18:59:25.633Z",
     "status": "released",
     "graduatedAt": "2026-04-30T19:00:47.674Z",
-    "coingeckoRank": 196
+    "coingeckoRank": 196,
+    "lifecycleStatus": "graduated",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/megaeth-tge-goes-live-airdrop-updates-wlfi-chaos-powell-speaks-and-wasabi-explodes/",
+        "observedAt": "2026-04-30T18:59:25.633Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-04-30T18:59:25.633Z"
   },
   {
     "id": "gency-ai",
@@ -546,7 +1063,18 @@
     "narrativeStrength": 75,
     "dataSource": "https://cointelegraph.com/press-releases/gency-ai-raises-20-million-to-build-a-sovereign-advertising-network-powered-by-ai-and-blockchain-consensus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
     "discoveredAt": "2026-05-02T13:54:25.182Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 26,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/press-releases/gency-ai-raises-20-million-to-build-a-sovereign-advertising-network-powered-by-ai-and-blockchain-consensus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "observedAt": "2026-05-02T13:54:25.182Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-05-02T13:54:25.182Z"
   },
   {
     "id": "opentrade",
@@ -557,7 +1085,18 @@
     "narrativeStrength": 62,
     "dataSource": "https://cointelegraph.com/news/opentrade-17-million-raise-stablecoin-yield-ceo-regulation",
     "discoveredAt": "2026-05-06T19:13:46.907Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "watchlist",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/opentrade-17-million-raise-stablecoin-yield-ceo-regulation",
+        "observedAt": "2026-05-06T19:13:46.907Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-05-06T19:13:46.907Z"
   },
   {
     "id": "onre-solana-reinsurance",
@@ -568,6 +1107,17 @@
     "narrativeStrength": 65,
     "dataSource": "https://cointelegraph.com/news/forward-industries-rockawayx-onre-solana-reinsurance",
     "discoveredAt": "2026-05-06T19:13:46.907Z",
-    "status": "upcoming"
+    "status": "upcoming",
+    "lifecycleStatus": "stale",
+    "confidence": 19,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/forward-industries-rockawayx-onre-solana-reinsurance",
+        "observedAt": "2026-05-06T19:13:46.907Z"
+      }
+    ],
+    "lastVerifiedAt": "2026-05-06T19:13:46.907Z"
   }
 ]

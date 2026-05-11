@@ -1,3 +1,5 @@
+import { getExchangeReferralRecords } from "./partners";
+
 /**
  * TokenRadar — Centralized Configuration
  *
@@ -20,12 +22,7 @@ export const SOCIAL = {
 } as const;
 
 /** Exchange referral data. */
-export const REFERRALS = [
-  { name: "Binance", url: "https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_65AUB&utm_source=default" },
-  { name: "ByBit", url: "https://www.bybit.com/invite?ref=QONQNG" },
-  { name: "OKX", url: "https://okx.com/join/66004268" },
-  { name: "KuCoin", url: "https://www.kucoin.com/r/rf/FQ67QZ7A" },
-] as const;
+export const REFERRALS = getExchangeReferralRecords();
 
 export const REFERRAL_URLS = Object.fromEntries(
   REFERRALS.map((referral) => [referral.name.toLowerCase(), referral.url]),
@@ -33,7 +30,7 @@ export const REFERRAL_URLS = Object.fromEntries(
 
 /** Exchange referral links (HTML-formatted for Telegram). */
 export const REFERRAL_LINKS_HTML = [
-  "💳 <b>Trade on top exchanges:</b>",
+  "💳 <b>Paid exchange links:</b>",
   REFERRALS.map((r) => `<a href="${r.url}">${r.name}</a>`).join(" | "),
 ];
 

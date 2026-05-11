@@ -65,7 +65,10 @@ export default function TermsPage() {
             Our website may contain affiliate links to cryptocurrency exchanges
             and other services. These are clearly disclosed. We may earn a
             commission from qualifying interactions, at no extra cost to you.
-            We only partner with reputable, regulated exchanges.
+            Third-party availability, regulatory status, fees, promotions, and
+            eligibility vary by jurisdiction and may change without notice.
+            Links are provided for user research and do not constitute an
+            endorsement or recommendation to use any specific service.
           </p>
 
           <h2>Modifications</h2>

@@ -282,6 +282,10 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
       "{{LIVE_RANK}}": tokenData.marketCapRank != null ? `#${tokenData.marketCapRank}` : "N/A",
       "{{LIVE_DATE}}": dateStr,
       "{{LIVE_24H_CHANGE}}": tokenData.priceChange24h != null ? `${tokenData.priceChange24h > 0 ? '+' : ''}${tokenData.priceChange24h.toFixed(2)}%` : "N/A",
+      "{{GLOBAL_MCAP}}": "latest available market data",
+      "{{GLOBAL_TOTAL_MARKET_CAP}}": "latest available market data",
+      "{{BTC_DOM}}": "latest available BTC dominance data",
+      "{{GLOBAL_BTC_DOMINANCE}}": "latest available BTC dominance data",
     };
 
     // Use specific compact formatter for Market Cap if available

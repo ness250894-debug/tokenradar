@@ -5,8 +5,22 @@
 
 import { slugify } from "@/lib/shared-utils";
 import { normalizeArticleMarkdown } from "@/lib/article-formatting";
+import { getTgeSortWeight, isGenericTgeSymbol, normalizeTge } from "@/lib/tge";
+import type { UpcomingTge } from "@/lib/tge";
 import * as fs from "fs";
 import * as path from "path";
+
+export type {
+  TgeContract,
+  TgeLifecycleStatus,
+  TgeMarketEvidence,
+  TgeOfficialLinks,
+  TgeSignal,
+  TgeSignalType,
+  TgeSourceType,
+  TgeTokenomics,
+  UpcomingTge,
+} from "@/lib/tge";
 
 /**
  * Resolve the data directory path.
@@ -226,20 +240,6 @@ export interface Article {
 export interface FAQ {
   question: string;
   answer: string;
-}
-
-export interface UpcomingTge {
-  id: string;
-  name: string;
-  symbol: string;
-  category: string;
-  expectedTge: string;
-  narrativeStrength: number;
-  dataSource: string;
-  discoveredAt: string;
-  status?: "upcoming" | "released";
-  graduatedAt?: string;
-  coingeckoRank?: number;
 }
 
 // ── Cache ──────────────────────────────────────────────────────
@@ -632,26 +632,28 @@ export async function getUpcomingTGEs(): Promise<UpcomingTge[]> {
   try {
     const relativePath = "data/upcoming-tges.json";
     const file = getFilePath("upcoming-tges.json");
-    const tges: UpcomingTge[] = (await loadBlob<UpcomingTge[]>(file, relativePath)) || [];
+    const tges: UpcomingTge[] = ((await loadBlob<UpcomingTge[]>(file, relativePath)) || [])
+      .map(normalizeTge)
+      .filter((tge) => tge.lifecycleStatus !== "rejected");
     if (!tges.length) return [];
 
     // Sort: upcoming first, released last; then by narrative strength desc
     tges.sort((a, b) => {
-      const aReleased = a.status === "released" ? 1 : 0;
-      const bReleased = b.status === "released" ? 1 : 0;
-      if (aReleased !== bReleased) return aReleased - bReleased;
+      const statusWeight = getTgeSortWeight(a) - getTgeSortWeight(b);
+      if (statusWeight !== 0) return statusWeight;
+      const confidenceWeight = (b.confidence || 0) - (a.confidence || 0);
+      if (confidenceWeight !== 0) return confidenceWeight;
       return (b.narrativeStrength || 0) - (a.narrativeStrength || 0);
     });
 
     // Deduplicate by symbol — generic symbols (TBD/N/A/TBA) are exempt
-    const GENERIC_SYMBOLS = new Set(["TBD", "N/A", "TBA", ""]);
     const seenSymbols = new Set<string>();
     const deduped: UpcomingTge[] = [];
 
     for (const tge of tges) {
       const sym = (tge.symbol || "").toUpperCase();
-      if (!GENERIC_SYMBOLS.has(sym) && seenSymbols.has(sym)) continue;
-      if (!GENERIC_SYMBOLS.has(sym)) seenSymbols.add(sym);
+      if (!isGenericTgeSymbol(sym) && seenSymbols.has(sym)) continue;
+      if (!isGenericTgeSymbol(sym)) seenSymbols.add(sym);
       deduped.push(tge);
     }
 

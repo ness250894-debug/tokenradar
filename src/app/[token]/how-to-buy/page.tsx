@@ -13,7 +13,7 @@ import {
 } from "@/lib/content-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
-import { AffiliateButton } from "@/components/AffiliateButton";
+import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
 import { LastUpdated } from "@/components/LastUpdated";
 
 interface PageProps {
@@ -95,7 +95,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
           How to Buy <span className="gradient-text">{detail.name}</span>
         </h1>
         <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-md)", fontSize: "var(--text-lg)", maxWidth: 680 }}>
-          Step-by-step guide to purchasing {detail.symbol.toUpperCase()} safely on major exchanges.
+          Step-by-step guide to checking {detail.symbol.toUpperCase()} markets, regional eligibility, custody, and key risks before buying.
         </p>
 
         {/* Quick Stats */}
@@ -111,16 +111,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
           {metrics && <RiskScoreCard score={metrics.riskScore} />}
         </div>
 
-        {/* Affiliate Buttons */}
-        <div style={{ marginTop: "var(--space-xl)" }}>
-          <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-sm)" }}>
-            Where to Buy {detail.symbol.toUpperCase()}
-          </h2>
-          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="Binance" />
-          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="OKX" />
-          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="Bybit" />
-          <AffiliateButton symbol={detail.symbol} tokenName={detail.name} exchange="KuCoin" />
-        </div>
+        <ExchangeReferralPanel symbol={detail.symbol} tokenName={detail.name} />
 
         {/* Article Content */}
         {article ? (
@@ -149,7 +140,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
             </h2>
             <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
               Our detailed buying guide for {detail.name} is being prepared.
-              In the meantime, you can purchase {detail.symbol.toUpperCase()} on the exchanges listed above.
+              In the meantime, use the market links above to verify listings and local eligibility.
             </p>
           </div>
         )}
@@ -158,7 +149,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
         <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
           <strong>Disclaimer:</strong> This guide is for informational purposes only. Cryptocurrency investments
           carry significant risk. Always do your own research before purchasing any cryptocurrency.
-          Exchange links on this page may be affiliate links — see our{" "}
+          Some exchange links on this page are paid links. TokenRadar may earn a commission at no extra cost to you. See our{" "}
           <Link href="/disclaimer" style={{ color: "var(--accent-secondary)" }}>disclaimer</Link> for details.
         </div>
       </section>
@@ -172,9 +163,9 @@ export default async function HowToBuyPage({ params }: PageProps) {
             name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()})`,
             description: `Step-by-step guide to purchasing ${detail.name}.`,
             step: [
-              { "@type": "HowToStep", name: "Create an Exchange Account", text: "Sign up on a major exchange like Binance, Coinbase, or Bybit." },
+              { "@type": "HowToStep", name: "Create an Exchange Account", text: "Choose an exchange or broker that is legally available in your jurisdiction." },
               { "@type": "HowToStep", name: "Deposit Funds", text: "Deposit fiat currency or crypto to your exchange account." },
-              { "@type": "HowToStep", name: `Buy ${detail.symbol.toUpperCase()}`, text: `Find the ${detail.symbol.toUpperCase()}/USDT trading pair and place your order.` },
+              { "@type": "HowToStep", name: `Check ${detail.symbol.toUpperCase()} Markets`, text: `Confirm that ${detail.symbol.toUpperCase()} is listed, verify the trading pair, and review fees before placing an order.` },
               { "@type": "HowToStep", name: "Secure Your Investment", text: "Consider transferring to a hardware wallet for long-term storage." },
             ],
           }),

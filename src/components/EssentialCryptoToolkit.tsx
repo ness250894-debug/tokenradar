@@ -15,7 +15,7 @@ export function EssentialCryptoToolkit() {
     },
     {
       title: "Automate Your 2026 Taxes",
-      description: "Stop fearing the IRS. Our data-driven guide shows you how to automate your crypto tax reporting in under 10 minutes with 99.9% accuracy.",
+      description: "Organize exchange, wallet, DeFi, and airdrop activity before filing with crypto tax software workflows.",
       link: "/crypto-tax-guide",
       linkLabel: "Get Tax Ready",
       icon: Calculator,
