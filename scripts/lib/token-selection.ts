@@ -59,6 +59,7 @@ export interface SelectionResult {
 }
 
 type TrackerPlatform = "telegram" | "x";
+type TrendSource = "coingecko" | "x";
 
 interface CleanupOptions {
   now?: Date;
@@ -73,6 +74,12 @@ export interface CleanupResult {
 
 const DATE_DIR_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SOCIAL_IMAGE_TEXT_RE = /^[\x20-\x7E]+$/;
+
+export function getAutomatedTrendSources(platform: "x" | "telegram" | "all" = "telegram"): TrendSource[] {
+  // X's automation rules prohibit automatically posting about X trending topics.
+  // Treat "all" as X-capable and keep X trends out of any multi-platform selection.
+  return platform === "telegram" ? ["coingecko", "x"] : ["coingecko"];
+}
 
 export function hasSocialImageSafeText(token: { symbol?: string; name?: string }): boolean {
   return Boolean(
@@ -501,7 +508,7 @@ async function tryXTrending(
  * Select the best token to post about using a priority-based strategy.
  *
  * Trending priority varies by platform:
- *   - X:        X trending → CoinGecko → Gainer → Safe → Spotlight
+ *   - X/all:    CoinGecko only, then Gainer → Safe → Spotlight
  *   - Telegram: CoinGecko → X trending → Gainer → Safe → Spotlight
  *
  * Cooldowns (configurable in config.ts):
@@ -526,19 +533,19 @@ export async function selectToken(
   const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."), platform)]);
 
   // ── Trending priorities (platform-dependent) ──
-  const useXFirst = platform === "x";
+  const trendSources = getAutomatedTrendSources(platform);
 
-  // First trending check
-  const first = useXFirst
-    ? await tryXTrending(candidateTokens, trendingCooldown, allTokens, "Priority 1")
-    : await tryCoinGeckoTrending(candidateTokens, trendingCooldown, "Priority 1");
-  if (first) return first;
+  for (const [index, source] of trendSources.entries()) {
+    const priorityLabel = `Priority ${index + 1}`;
+    const selection = source === "coingecko"
+      ? await tryCoinGeckoTrending(candidateTokens, trendingCooldown, priorityLabel)
+      : await tryXTrending(candidateTokens, trendingCooldown, allTokens, priorityLabel);
+    if (selection) return selection;
+  }
 
-  // Second trending check
-  const second = useXFirst
-    ? await tryCoinGeckoTrending(candidateTokens, trendingCooldown, "Priority 2")
-    : await tryXTrending(candidateTokens, trendingCooldown, allTokens, "Priority 2");
-  if (second) return second;
+  if (!trendSources.includes("x")) {
+    console.log("  ▸ Skipping X Trends for this route to avoid automated X trend-chasing.");
+  }
 
   // ── Priority 3: Newly Published Articles ──
   console.log("  ▸ Priority 3: Checking newly published articles...");

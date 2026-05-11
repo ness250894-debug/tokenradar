@@ -1,23 +1,24 @@
 # Consolidated Social Automation Workflow
 # Unified heartbeat for all social interactions on TokenRadar
 #
-# Total: 8 workflow runs/day with staggered Telegram, X, Instagram, and video slots
-# X and Telegram polls are intentionally scheduled at different times
-# Exclusive slots: TG Poll (15:00), Video (18:00), and TG Movers (21:00) replace regular TG updates
+# Platform cadence:
+# - Telegram: 3 posts/day max (market brief, poll, movers)
+# - X: 4 primary posts/day max, with a single daily link reply on the poll
+# - Instagram: max 1 post/day, alternating carousel and Reel days
+# - YouTube/Threads/TikTok: short-form video 3x/week
 
 name: Social Automations
 
 on:
   schedule:
-    # --- Unified Schedule (8x/day, Every 3 Hours) ---
-    - cron: "00 00 * * *" # TG Market + IG Daily Movers Carousel (20:00 EDT)
-    - cron: "00 03 * * *" # X Market + TG Market (23:00 EDT)
-    - cron: "00 06 * * *" # TG Market (02:00 EDT)
-    - cron: "00 09 * * *" # X Market + TG Market (05:00 EDT)
-    - cron: "00 12 * * *" # X Poll + TG Market (08:00 EDT)
-    - cron: "00 15 * * *" # [EXCLUSIVE] TG Poll + X Market (11:00 EDT)
-    - cron: "00 18 * * *" # [EXCLUSIVE] Daily Video Breakout (14:00 EDT)
-    - cron: "00 21 * * *" # [EXCLUSIVE] TG Top 5 Movers Card + X Market (17:00 EDT)
+    # --- Platform-aware cadence ---
+    - cron: "00 00 * * *" # Telegram market brief
+    - cron: "05 00 * * 0,2,4" # Instagram movers carousel (Sun/Tue/Thu)
+    - cron: "00 03 * * *" # X market update
+    - cron: "00 12 * * *" # X interactive poll + daily link reply
+    - cron: "00 15 * * *" # Telegram poll + X market update
+    - cron: "00 18 * * 1,3,5" # Short-form video (Mon/Wed/Fri)
+    - cron: "00 21 * * *" # Telegram movers card + X market update
     
   workflow_dispatch:
 
@@ -27,11 +28,13 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
-  # Keep this list synchronized with the X Periodic Update schedule entries above.
-  IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 09 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
-  IS_EXCLUSIVE_SLOT: ${{ github.event.schedule == '00 15 * * *' || github.event.schedule == '00 18 * * *' || github.event.schedule == '00 21 * * *' }}
-  IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * *' || github.event_name == 'workflow_dispatch' }}
-  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '00 00 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '00 00 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
+  IS_X_POLL_RUN: ${{ github.event.schedule == '00 12 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '00 15 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '00 21 * * *' || github.event_name == 'workflow_dispatch' }}
+  IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * 1,3,5' || github.event_name == 'workflow_dispatch' }}
+  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '05 00 * * 0,2,4' || github.event_name == 'workflow_dispatch' }}
 
 jobs:
   post-social:
@@ -74,9 +77,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # ─── 1. Telegram Market Update (5x/day, skipped during exclusive slots) ──
+      # ─── 1. Telegram Market Update (1x/day) ──
       - name: Telegram Periodic Update
-        if: env.IS_EXCLUSIVE_SLOT != 'true'
+        if: env.IS_TELEGRAM_MARKET_RUN == 'true'
         run: npx tsx scripts/post-market-updates.ts --platform telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -89,7 +92,7 @@ jobs:
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 1b. Instagram Daily Movers Carousel (Runs 1x Day @ 00:00) ──
+      # ─── 1b. Instagram Movers Carousel (Sun/Tue/Thu) ──
       - name: Instagram Daily Movers Carousel
         if: env.IS_INSTAGRAM_CAROUSEL_RUN == 'true'
         run: npx tsx scripts/post-instagram-daily-movers.ts
@@ -108,10 +111,10 @@ jobs:
           R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
-      # ─── 2. X Interactive Poll (Runs 1x Day @ 12:00) ───────────
+      # ─── 2. X Interactive Poll (daily link reply lives here) ───────────
       - name: X Daily Interactive Poll
-        if: github.event.schedule == '00 12 * * *' || github.event_name == 'workflow_dispatch'
-        run: npx tsx scripts/post-interactive-daily.ts
+        if: env.IS_X_POLL_RUN == 'true'
+        run: npx tsx scripts/post-interactive-daily.ts --link-reply
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -124,9 +127,9 @@ jobs:
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 3. Telegram Interactive Poll (Runs 1x Day @ 15:00) ────
+      # ─── 3. Telegram Interactive Poll (1x/day) ────
       - name: Telegram Daily Interactive Poll
-        if: github.event.schedule == '00 15 * * *' || github.event_name == 'workflow_dispatch'
+        if: env.IS_TELEGRAM_POLL_RUN == 'true'
         run: npx tsx scripts/post-daily-poll.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -134,7 +137,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
 
-      # ─── 4. X Market Update (4x/day @ 03:00, 09:00, 15:00, 21:00) ──────
+      # ─── 4. X Market Update (3x/day, no repeated link replies) ──────
       - name: X Periodic Update
         if: env.IS_X_MARKET_RUN == 'true'
         run: npx tsx scripts/post-market-updates.ts --platform x
@@ -150,11 +153,11 @@ jobs:
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 5. Telegram Top Movers Image (Runs 1x Day @ 21:00) ────
+      # ─── 5. Telegram Top Movers Image (1x/day @ 21:00 UTC) ────
       # Renders a Top 5 Gainers card in-memory using live CoinGecko data.
       # Image is never saved to disk - created, posted, and discarded.
       - name: Telegram Top Movers Card
-        if: github.event.schedule == '00 21 * * *' || github.event_name == 'workflow_dispatch'
+        if: env.IS_TELEGRAM_MOVERS_RUN == 'true'
         run: npx tsx scripts/post-daily-movers.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -164,14 +167,14 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # ─── 6. Daily Video Breakout (Runs 1x Day @ 18:00; includes TikTok manual report) ─────────
+      # ─── 6. Short-form Video Breakout (Mon/Wed/Fri; IG/Threads/YT/TikTok only) ─────────
       - name: Install FFmpeg
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
-      - name: Daily Video Breakout
+      - name: Short-form Video Breakout
         if: env.IS_VIDEO_RUN == 'true'
-        run: npx tsx scripts/post-video-daily.ts --platform all
+        run: npx tsx scripts/post-video-daily.ts --platform shorts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}

@@ -45,6 +45,7 @@ loadEnv();
 const DATA_DIR = path.resolve(__dirname, "../data");
 
 type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
+type PlatformRoute = PlatformName | "all" | "shorts";
 
 interface PlatformTracker {
   postedAt: string;
@@ -193,13 +194,14 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
   const force = args.includes("--force");
+  const includeLinkReply = args.includes("--link-reply");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
 
   const platformIdx = args.indexOf("--platform");
   const targetPlatform =
-    platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
-  if (!["all", "telegram", "x", "youtube", "instagram", "threads", "tiktok"].includes(targetPlatform)) {
-    console.error("  Invalid --platform value. Expected one of: all, telegram, x, youtube, instagram, threads, tiktok.");
+    (platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all") as PlatformRoute;
+  if (!["all", "shorts", "telegram", "x", "youtube", "instagram", "threads", "tiktok"].includes(targetPlatform)) {
+    console.error("  Invalid --platform value. Expected one of: all, shorts, telegram, x, youtube, instagram, threads, tiktok.");
     process.exit(1);
   }
 
@@ -219,10 +221,10 @@ async function main() {
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
-  const runYouTube = targetPlatform === "all" || targetPlatform === "youtube";
-  const runInstagram = targetPlatform === "all" || targetPlatform === "instagram";
-  const runThreads = targetPlatform === "all" || targetPlatform === "threads";
-  const runTikTok = targetPlatform === "all" || targetPlatform === "tiktok";
+  const runYouTube = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "youtube";
+  const runInstagram = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "instagram";
+  const runThreads = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "threads";
+  const runTikTok = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "tiktok";
   const hasYouTubeCredentials = Boolean(
     process.env.YOUTUBE_CLIENT_ID &&
     process.env.YOUTUBE_CLIENT_SECRET &&
@@ -497,9 +499,11 @@ async function main() {
       captionOptions.xMaxChars = 260;
       captionPlatforms.push("x");
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
-      xReplyMessage = isOnWebsite
-        ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
-        : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
+      xReplyMessage = includeLinkReply
+        ? isOnWebsite
+          ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
+          : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+        : "";
     }
 
     if (shouldRunYouTube) {
@@ -648,12 +652,14 @@ async function main() {
             console.log(`Posted tweet with video to X (Tweet ID: ${tweetId})`);
 
             let replyId: string | undefined;
-            try {
-              replyId = await postTweet(xReplyMessage, tweetId);
-              console.log(`Posted reply to X (Reply ID: ${replyId})`);
-            } catch (replyError) {
-              await logError("post-video-daily-x-reply", replyError, false);
-              console.warn(`Main video tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+            if (xReplyMessage) {
+              try {
+                replyId = await postTweet(xReplyMessage, tweetId);
+                console.log(`Posted reply to X (Reply ID: ${replyId})`);
+              } catch (replyError) {
+                await logError("post-video-daily-x-reply", replyError, false);
+                console.warn(`Main video tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+              }
             }
 
             return {

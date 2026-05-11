@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import {
   cleanupExpiredCooldownFolders,
+  getAutomatedTrendSources,
   getTodayPostedTokens,
   getTokensPostedWithinDays,
   hasSocialImageSafeText,
@@ -33,6 +34,12 @@ describe("social posted token tracking", () => {
   it("keeps social image text within the bundled font coverage", () => {
     expect(hasSocialImageSafeText({ symbol: "SUI", name: "Sui" })).toBe(true);
     expect(hasSocialImageSafeText({ symbol: "币安人生", name: "币安人生 (BinanceLife)" })).toBe(false);
+  });
+
+  it("keeps automated X trend-chasing out of X-capable routes", () => {
+    expect(getAutomatedTrendSources("x")).toEqual(["coingecko"]);
+    expect(getAutomatedTrendSources("all")).toEqual(["coingecko"]);
+    expect(getAutomatedTrendSources("telegram")).toEqual(["coingecko", "x"]);
   });
 
   it("reads token ids from platform and generic tracker payloads", () => {

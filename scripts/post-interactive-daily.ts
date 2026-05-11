@@ -150,6 +150,7 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
+  const includeLinkReply = args.includes("--link-reply");
 
   const typeIdx = args.indexOf("--type");
   const forcedType = typeIdx !== -1 ? (args[typeIdx + 1] as PollType) : undefined;
@@ -261,17 +262,19 @@ async function main() {
     console.log(`✅ Posted successfully (Tweet ID: ${result.tweetId}, Native poll: ${result.native})`);
 
     // ── Post Reply (External Link) ──
-    try {
-      const displaySym = selectedTokenSymbol || "";
-      const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
-      const replyText = isOnWebsite 
-        ? `Vote above and find the $${displaySym} profile through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
-        : `Vote above and follow what's driving crypto markets through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
+    if (includeLinkReply) {
+      try {
+        const displaySym = selectedTokenSymbol || "";
+        const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
+        const replyText = isOnWebsite 
+          ? `Vote above and find the $${displaySym} profile through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+          : `Vote above and follow what's driving crypto markets through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
         
-      const replyId = await postTweet(replyText, result.tweetId);
-      console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);
-    } catch (err) {
-      console.warn(`  ⚠ Failed to post self-reply link: ${formatErrorForLog(err)}`);
+        const replyId = await postTweet(replyText, result.tweetId);
+        console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);
+      } catch (err) {
+        console.warn(`  ⚠ Failed to post self-reply link: ${formatErrorForLog(err)}`);
+      }
     }
 
     // Save tracking
