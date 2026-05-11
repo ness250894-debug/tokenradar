@@ -10,6 +10,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { normalizeTge, type UpcomingTge } from "../src/lib/tge";
 
 const SCAN_DIRS = [
   path.resolve(__dirname, "../data"),
@@ -21,6 +22,7 @@ const CONTENT_TOKENS_DIR = path.resolve(__dirname, "../content/tokens");
 const QUEUE_DIR = path.join(DATA_DIR, "queue");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const CONFLICT_MARKERS = ["<<<<<<<", "=======", ">>>>>>>"];
+const PLACEHOLDER_PATTERN = /\{\{[A-Z0-9_]+\}\}/g;
 
 function validateFile(filePath: string): { success: boolean; error?: string } {
   try {
@@ -88,12 +90,77 @@ function validateTgePreviews(): string[] {
       const previewPath = path.join(baseDir, tokenId, "tge-preview.json");
       if (fs.existsSync(previewPath) && !tgeIds.has(tokenId)) {
         errors.push(`${path.relative(process.cwd(), previewPath)} has no matching data/upcoming-tges.json entry`);
+        continue;
+      }
+
+      if (fs.existsSync(previewPath)) {
+        const raw = fs.readFileSync(previewPath, "utf-8");
+        const placeholders = Array.from(new Set(raw.match(PLACEHOLDER_PATTERN) || []));
+        if (placeholders.length > 0) {
+          errors.push(`${path.relative(process.cwd(), previewPath)} contains unresolved TGE placeholders: ${placeholders.join(", ")}`);
+        }
       }
     }
   };
 
   checkDir(CONTENT_TOKENS_DIR);
   checkDir(QUEUE_DIR);
+
+  return errors;
+}
+
+function validateTgeDataset(): string[] {
+  const errors: string[] = [];
+  if (!fs.existsSync(TGE_FILE)) return errors;
+
+  let tges: UpcomingTge[] = [];
+  try {
+    tges = JSON.parse(fs.readFileSync(TGE_FILE, "utf-8")) as UpcomingTge[];
+  } catch (e) {
+    return [`data/upcoming-tges.json is invalid JSON: ${e instanceof Error ? e.message : String(e)}`];
+  }
+
+  const seenIds = new Set<string>();
+  const seenNonGenericSymbols = new Map<string, string>();
+
+  for (const rawTge of tges) {
+    const tge = normalizeTge(rawTge);
+    const label = rawTge.id || rawTge.name || "unknown TGE";
+
+    if (!rawTge.id || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(rawTge.id)) {
+      errors.push(`data/upcoming-tges.json has invalid id for ${label}`);
+    }
+
+    if (seenIds.has(rawTge.id)) {
+      errors.push(`data/upcoming-tges.json has duplicate TGE id: ${rawTge.id}`);
+    }
+    seenIds.add(rawTge.id);
+
+    if (!rawTge.name || !rawTge.category || !rawTge.expectedTge || !rawTge.dataSource) {
+      errors.push(`data/upcoming-tges.json missing required fields for ${label}`);
+    }
+
+    if ((rawTge.narrativeStrength ?? -1) < 0 || (rawTge.narrativeStrength ?? 101) > 100) {
+      errors.push(`data/upcoming-tges.json has invalid narrativeStrength for ${label}`);
+    }
+
+    if ((tge.confidence ?? -1) < 0 || (tge.confidence ?? 101) > 100) {
+      errors.push(`data/upcoming-tges.json has invalid confidence for ${label}`);
+    }
+
+    if (!tge.signals || tge.signals.length === 0) {
+      errors.push(`data/upcoming-tges.json has no evidence signals for ${label}`);
+    }
+
+    const symbol = (tge.symbol || "").toUpperCase();
+    if (symbol && !["TBD", "TBA", "N/A", "NA", "UNKNOWN"].includes(symbol)) {
+      const existing = seenNonGenericSymbols.get(symbol);
+      if (existing && existing !== tge.id) {
+        errors.push(`data/upcoming-tges.json reuses symbol ${symbol} for ${existing} and ${tge.id}`);
+      }
+      seenNonGenericSymbols.set(symbol, tge.id);
+    }
+  }
 
   return errors;
 }
@@ -118,6 +185,12 @@ function main() {
 
   const tgeErrors = validateTgePreviews();
   for (const error of tgeErrors) {
+    failCount++;
+    console.error(`\u274C ${error}`);
+  }
+
+  const tgeDatasetErrors = validateTgeDataset();
+  for (const error of tgeDatasetErrors) {
     failCount++;
     console.error(`\u274C ${error}`);
   }

@@ -17,6 +17,15 @@ import { fetchCoinGecko } from "../src/lib/coingecko";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
+import {
+  hasVerifiedMarketEvidence,
+  inferTgeSignalType,
+  inferTgeSourceType,
+  isGenericTgeSymbol,
+  normalizeTge,
+  type TgeMarketEvidence,
+  type UpcomingTge,
+} from "../src/lib/tge";
 import { loadEnv, safeReadJson } from "../src/lib/utils";
 
 // Load environment
@@ -39,21 +48,9 @@ const RSS_FEEDS = [
   { url: "https://airdropalert.com/feed/", name: "Airdrop Alert" },
   { url: "https://icowatchlist.com/blog/feed", name: "ICO Watch List" },
   { url: "https://cointelegraph.com/rss", name: "CoinTelegraph" },
+  { url: "https://decrypt.co/feed", name: "Decrypt" },
+  { url: "https://www.theblock.co/rss.xml", name: "The Block" },
 ];
-
-interface UpcomingTge {
-  id: string;
-  name: string;
-  symbol: string;
-  category: string;
-  expectedTge: string;
-  narrativeStrength: number;
-  dataSource: string;
-  discoveredAt: string;
-  status?: "upcoming" | "released";
-  graduatedAt?: string;
-  coingeckoRank?: number;
-}
 
 const parser = new Parser({
   timeout: RSS_TIMEOUT_MS,
@@ -102,6 +99,16 @@ Return a JSON array of objects with:
 If no high-quality projects found, return [].
 `;
 
+const AI_PROMPT_QUALITY_OVERRIDE = `
+
+STRICT CURRENT POLICY OVERRIDE:
+- Do not include funding rounds, product launches, stablecoin integrations, chain upgrades, or enterprise partnerships unless the article explicitly ties them to a token launch, public sale, airdrop, token migration, or first listing.
+- Use "candidate" for one weak signal, "watchlist" for one credible non-official signal, and "confirmed_tge" only for official, exchange, airdrop, sale, or migration evidence.
+- Return "confidence" as a separate 0-100 evidence-quality score. Narrative strength is market attention, not proof.
+- Add a "signals" array. Each signal needs type, sourceType, url, title, and observedAt.
+- Valid lifecycleStatus values for new discoveries are: candidate, watchlist, confirmed_tge.
+`;
+
 /**
  * Build the full AI prompt, injecting existing project context so the model
  * can avoid creating duplicate entries with different IDs.
@@ -113,6 +120,7 @@ function buildAIPrompt(existingTges: UpcomingTge[]): string {
 
   return (
     AI_PROMPT_BASE +
+    AI_PROMPT_QUALITY_OVERRIDE +
     (existingContext
       ? `\nEXISTING TRACKED PROJECTS (do NOT duplicate):\n${existingContext}\n\n`
       : "") +
@@ -153,7 +161,31 @@ async function analyzeNewsInBatches(
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
         if (Array.isArray(parsed)) {
-          allResults.push(...parsed.filter((t: UpcomingTge) => t.id && t.name));
+          allResults.push(
+            ...parsed
+              .filter((t: UpcomingTge) => t.id && t.name)
+              .map((t: UpcomingTge) => {
+                const primaryUrl = t.dataSource || t.signals?.[0]?.url || "";
+                return normalizeTge({
+                  ...t,
+                  dataSource: primaryUrl,
+                  signals: t.signals?.length
+                    ? t.signals
+                    : primaryUrl
+                      ? [{
+                          type: inferTgeSignalType({
+                            expectedTge: t.expectedTge,
+                            category: t.category,
+                            url: primaryUrl,
+                          }),
+                          sourceType: inferTgeSourceType(primaryUrl),
+                          url: primaryUrl,
+                          observedAt: new Date().toISOString(),
+                        }]
+                      : [],
+                });
+              })
+          );
         }
       }
     } catch (e) {
@@ -174,19 +206,31 @@ async function analyzeNewsInBatches(
 // ── Graduation Check ───────────────────────────────────────
 
 /**
- * Check if a TGE has "graduated" (is now trading on CoinGecko).
- * Returns null if not graduated, or { rank } if graduated.
+ * Check if a TGE has graduated into a publicly traded asset.
+ * Requires an exact local id or CoinGecko id match plus usable market data.
  */
-async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | null> {
+async function checkGraduation(tge: UpcomingTge): Promise<TgeMarketEvidence | null> {
   const localToken = safeReadJson<any>(path.join(TOKENS_DIR, `${tge.id}.json`), null);
   const localMarket = localToken?.market || {};
+  const localSymbolMatches =
+    isGenericTgeSymbol(tge.symbol) ||
+    !localToken?.symbol ||
+    String(localToken.symbol).toUpperCase() === String(tge.symbol).toUpperCase();
   const hasLocalMarket =
-    (localMarket.price ?? 0) > 0 ||
-    (localMarket.marketCap ?? 0) > 0 ||
-    (localMarket.volume24h ?? 0) > 0;
+    localSymbolMatches &&
+    (localMarket.price ?? 0) > 0 &&
+    ((localMarket.marketCap ?? 0) >= 100_000 || (localMarket.volume24h ?? 0) >= 10_000);
 
   if (hasLocalMarket) {
-    return { rank: localMarket.marketCapRank || 0 };
+    return {
+      coingeckoId: localToken?.id || tge.id,
+      coingeckoRank: localMarket.marketCapRank || 0,
+      rank: localMarket.marketCapRank || 0,
+      priceUsd: localMarket.price,
+      volume24h: localMarket.volume24h,
+      matchedBy: "id",
+      verifiedAt: new Date().toISOString(),
+    };
   }
 
   try {
@@ -203,8 +247,21 @@ async function checkGraduation(tge: UpcomingTge): Promise<{ rank: number } | nul
       `tge-graduation-${tge.id}`,
       6 * 60 * 60 * 1000
     );
-    if (data?.market_data?.current_price?.usd) {
-      return { rank: data.market_cap_rank || 0 };
+    const symbolMatches =
+      isGenericTgeSymbol(tge.symbol) ||
+      String(data?.symbol || "").toUpperCase() === String(tge.symbol || "").toUpperCase();
+    const evidence: TgeMarketEvidence = {
+      coingeckoId: data?.id,
+      coingeckoRank: data?.market_cap_rank || 0,
+      rank: data?.market_cap_rank || 0,
+      priceUsd: data?.market_data?.current_price?.usd,
+      volume24h: data?.market_data?.total_volume?.usd,
+      matchedBy: "id",
+      verifiedAt: new Date().toISOString(),
+    };
+
+    if (data?.id === tge.id && symbolMatches && hasVerifiedMarketEvidence(evidence)) {
+      return evidence;
     }
   } catch (e) {
     const is404 = e instanceof Error && e.message.includes("404");
@@ -228,7 +285,7 @@ async function main() {
   console.log();
 
   // 1. Load existing data FIRST (failsafe: never lose data)
-  const existing = safeReadJson<UpcomingTge[]>(TGE_FILE, []);
+  const existing = safeReadJson<UpcomingTge[]>(TGE_FILE, []).map(normalizeTge);
   console.log(`  📂 Loaded ${existing.length} existing TGEs.`);
 
   // 2. Scan RSS sources
@@ -249,11 +306,10 @@ async function main() {
         !existing.find(e => e.id === d.id) && !discovered.find(e => e.id === d.id)
       );
 
-      discovered.push(...aiResults);
+      discovered.push(...newFromFeed);
 
       if (newFromFeed.length > 0) {
-        console.log(`  ✨ ${newFromFeed.length} NEW projects from ${feed.name}. Stopping scan.`);
-        break; // Short-circuit: stop checking other feeds
+        console.log(`  * ${newFromFeed.length} NEW projects from ${feed.name}. Continuing scan.`);
       } else {
         console.log(`  → No new projects from ${feed.name}. Trying next source...`);
       }
@@ -278,9 +334,6 @@ async function main() {
     }
   };
 
-  /** Symbols that are too generic to use for dedup. */
-  const GENERIC_SYMBOLS = new Set(["TBD", "N/A", "TBA"]);
-
   for (const item of discovered) {
     if (!item.id || !item.name) continue;
 
@@ -289,7 +342,7 @@ async function main() {
 
     // Check by symbol (skip generic placeholders)
     const sym = (item.symbol || "").toUpperCase();
-    if (sym && !GENERIC_SYMBOLS.has(sym) && combined.find((e) => (e.symbol || "").toUpperCase() === sym)) {
+    if (sym && !isGenericTgeSymbol(sym) && combined.find((e) => (e.symbol || "").toUpperCase() === sym)) {
       console.log(`  ⏭ Skipping ${item.name} (${item.symbol}) — symbol already tracked.`);
       continue;
     }
@@ -301,7 +354,7 @@ async function main() {
       continue;
     }
 
-    combined.push({ ...item, discoveredAt: new Date().toISOString() });
+    combined.push(normalizeTge({ ...item, discoveredAt: new Date().toISOString(), lastVerifiedAt: new Date().toISOString() }));
     console.log(`  ➕ New: ${item.name} (${item.symbol})`);
     newCount++;
   }
@@ -316,8 +369,11 @@ async function main() {
     const graduation = await checkGraduation(tge);
     if (graduation) {
       tge.status = "released";
+      tge.lifecycleStatus = "graduated";
       tge.graduatedAt = new Date().toISOString();
-      tge.coingeckoRank = graduation.rank;
+      tge.coingeckoRank = graduation.coingeckoRank || 0;
+      tge.graduationEvidence = graduation;
+      tge.lastVerifiedAt = graduation.verifiedAt;
       graduatedCount++;
       console.log(`  🎓 ${tge.name} graduated (Rank #${graduation.rank}). Marked as released.`);
     } else {

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Key, ShieldAlert } from 'lucide-react';
+import { getPartner, getPartnerLinkAttributes } from '@/lib/partners';
 
 export const metadata: Metadata = {
   title: 'Ledger vs Trezor Review (2026): Best Cold Wallets to Secure Your Crypto',
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function HardwareWalletsPage() {
+  const ledger = getPartner("ledger");
+  const trezorSafe3 = getPartner("trezor-safe-3");
+  const trezorBitcoinOnly = getPartner("trezor-bitcoin-only");
+
   return (
     <div className="container">
       <section className="section" style={{ minHeight: "80vh", paddingTop: "var(--space-xl)" }}>
@@ -97,7 +102,7 @@ export default function HardwareWalletsPage() {
               <div style={{ padding: "var(--space-md)", background: "rgba(16, 185, 129, 0.1)", borderLeft: "4px solid #10b981", margin: "var(--space-lg) 0", borderRadius: "0 var(--radius-md) var(--radius-md) 0" }}>
                 <strong style={{ color: "#10b981", display: "block", marginBottom: "var(--space-xs)" }}>What You See Is What You Sign</strong>
                 <span style={{ color: "var(--text-secondary)", fontSize: "var(--text-md)" }}>
-                  Premium hardware wallets use Secure Screens wired directly to military-grade Secure Element chips (EAL6+). This guarantees that the transaction details displayed on the physical screen cannot be tampered with by malware.
+                  Premium hardware wallets use secure screens and dedicated hardware chips to reduce the risk of malware altering transaction details before you approve them.
                 </span>
               </div>
 
@@ -105,7 +110,7 @@ export default function HardwareWalletsPage() {
 
               <h2>4. Ledger vs Trezor: Which is best?</h2>
               <p>
-                Ledger and Trezor are the two undisputed titans of the hardware wallet industry. Both provide military-grade security, but they take two fundamentally different architectural approaches:
+                Ledger and Trezor are two of the best-known hardware wallet manufacturers. Both focus on offline key storage, but they take different architectural approaches:
               </p>
               
               <div style={{ marginBottom: "var(--space-md)" }}>
@@ -118,7 +123,7 @@ export default function HardwareWalletsPage() {
               <div style={{ marginBottom: "var(--space-xl)" }}>
                 <h4 style={{ color: "var(--text-primary)", marginBottom: "var(--space-xs)" }}>The Trezor Approach (Open-Source First)</h4>
                 <p style={{ margin: 0, marginBottom: "var(--space-sm)" }}>
-                  Trezor operates on the cypherpunk ethos of <strong>&quot;Don&apos;t Trust, Verify.&quot;</strong> While older models were purely open-source without a secure element, the <strong>Trezor Safe 3</strong> has changed the game. It features an <strong>EAL6+ certified Secure Element</strong> (the Optiga Trust M), proving that you can have military-grade hardware security without sacrificing the transparency of open-source firmware.
+                  Trezor operates on the cypherpunk ethos of <strong>&quot;Don&apos;t Trust, Verify.&quot;</strong> While older models were purely open-source without a secure element, the <strong>Trezor Safe 3</strong> added secure-element protection while preserving the transparency of open-source firmware.
                 </p>
                 <div style={{ padding: "var(--space-sm)", background: "var(--bg-elevated)", borderLeft: "4px solid var(--text-primary)", borderRadius: "0 var(--radius-sm) var(--radius-sm) 0" }}>
                   <strong style={{ display: "block", marginBottom: "4px", fontSize: "var(--text-sm)" }}>The Ledger Recover Controversy</strong>
@@ -140,6 +145,9 @@ export default function HardwareWalletsPage() {
                 </div>
                 <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-lg)", fontSize: "var(--text-sm)" }}>
                   Never buy a hardware wallet from Amazon or eBay! Always buy directly from the manufacturer to avoid tampered devices.
+                </p>
+                <p style={{ color: "var(--text-muted)", marginBottom: "var(--space-md)", fontSize: "var(--text-xs)", lineHeight: 1.5 }}>
+                  Paid links: TokenRadar may earn a commission if you buy through these manufacturer links. Verify current device, price, shipping, and promo terms before checkout.
                 </p>
 
                 {/* Affiliate Offer 1 */}
@@ -165,19 +173,20 @@ export default function HardwareWalletsPage() {
                   {/* BTC Promo Badge */}
                   <div style={{ background: "rgba(247, 147, 26, 0.1)", border: "1px dashed rgba(247, 147, 26, 0.4)", borderRadius: "var(--radius-sm)", padding: "8px", marginBottom: "var(--space-md)", textAlign: "center" }}>
                     <span style={{ color: "#f7931a", fontWeight: 700, fontSize: "13px", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
-                      🎁 Limited Time: Get up to $100 in BTC
+                      Check current Ledger bundle offers
                     </span>
                   </div>
 
-                  <a 
-                    href="https://shop.ledger.com/?r=dc06a3bcc173" 
-                    target="_blank" 
-                    rel="noopener noreferrer sponsored" 
-                    className="btn btn-primary" 
-                    style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
-                  >
-                    Buy Ledger Official
-                  </a>
+                  {ledger && (
+                    <a
+                      href={ledger.url}
+                      {...getPartnerLinkAttributes(ledger, "hardware-wallet-sidebar")}
+                      className="btn btn-primary"
+                      style={{ width: "100%", textAlign: "center", background: "#10b981", color: "#111", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
+                    >
+                      {ledger.cta}
+                    </a>
+                  )}
                 </div>
 
                 {/* Affiliate Offer 2 */}
@@ -202,23 +211,21 @@ export default function HardwareWalletsPage() {
 
                   {/* Bitcoin-Only Callout */}
                   <a 
-                    href="https://affil.trezor.io/aff_c?offer_id=239&aff_id=135555"
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
+                    href={trezorBitcoinOnly?.url || "/disclaimer"}
+                    {...(trezorBitcoinOnly ? getPartnerLinkAttributes(trezorBitcoinOnly, "hardware-wallet-sidebar") : {})}
                     style={{ textDecoration: "none", display: "block", background: "rgba(247, 147, 26, 0.08)", border: "1px dashed rgba(247, 147, 26, 0.4)", borderRadius: "var(--radius-sm)", padding: "8px", marginBottom: "var(--space-md)", textAlign: "center", transition: "all 0.2s" }}
                   >
                     <span style={{ color: "#f7931a", fontWeight: 700, fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
-                      ⚡ Get Bitcoin-Only Version
+                      {trezorBitcoinOnly?.cta || "View Bitcoin-Only Version"}
                     </span>
                   </a>
                   <a 
-                    href="https://affil.trezor.io/aff_c?offer_id=169&aff_id=135555" 
-                    target="_blank" 
-                    rel="noopener noreferrer sponsored" 
+                    href={trezorSafe3?.url || "/disclaimer"}
+                    {...(trezorSafe3 ? getPartnerLinkAttributes(trezorSafe3, "hardware-wallet-sidebar") : {})}
                     className="btn" 
                     style={{ width: "100%", textAlign: "center", background: "#4c1d95", color: "#fff", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
                   >
-                    Get Trezor Safe 3
+                    {trezorSafe3?.cta || "View Trezor Safe 3"}
                   </a>
                 </div>
 

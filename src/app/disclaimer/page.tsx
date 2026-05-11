@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 /**
  * Financial disclaimer page — legally required for any crypto content site.
- * Includes affiliate disclosure for exchange referral links.
+ * Includes affiliate disclosure for exchange, wallet, tax, and charting partner links.
  */
 export default function DisclaimerPage() {
   return (
@@ -72,10 +72,24 @@ export default function DisclaimerPage() {
             TokenRadar may receive a commission at no additional cost to you.
           </p>
           <p>
+            Other pages may contain paid links to hardware wallet manufacturers,
+            crypto tax software, charting tools, and similar third-party
+            services. If you sign up, subscribe, or buy through those links,
+            TokenRadar may receive compensation at no additional cost to you.
+          </p>
+          <p>
             These affiliate relationships do not influence our analysis,
             metrics, or editorial content. Our proprietary metrics (Risk Score,
             Growth Potential Index, etc.) are computed algorithmically from
             market data and are never altered based on affiliate partnerships.
+          </p>
+          <p>
+            Availability, eligibility, fees, promotions, and regulatory access
+            vary by country and can change without notice. Exchange links are
+            not recommendations to trade, and some partners may restrict users
+            in the United States or other jurisdictions. Always verify that a
+            service is available and lawful in your location before depositing
+            funds, buying hardware, or subscribing.
           </p>
 
           <h2>Pre-Launch &amp; TGE Content</h2>

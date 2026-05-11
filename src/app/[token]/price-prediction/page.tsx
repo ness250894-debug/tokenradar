@@ -17,6 +17,7 @@ import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { LastUpdated } from "@/components/LastUpdated";
+import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -82,6 +83,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const priceHistory = await getPriceHistory(tokenId);
   const article = await getArticle(tokenId, "price-prediction");
   const faqs = article ? getArticleFaqs(article.content) : [];
+  const tradingView = getPartner("tradingview");
 
   const isPositive = detail.market.priceChange30d >= 0;
 
@@ -155,14 +157,20 @@ export default async function PricePredictionPage({ params }: PageProps) {
           <div style={{ marginTop: "var(--space-md)", background: "var(--surface-color)", padding: "var(--space-lg)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border-color)" }}>
             <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginBottom: "var(--space-sm)" }}>Chart data provided by TradingView</p>
             <p style={{ fontWeight: 600, marginBottom: "var(--space-md)" }}>Want these advanced MACD and RSI indicators for your own trades?</p>
-            <a 
-              href="https://www.tradingview.com/?aff_id=165531" 
-              target="_blank" 
-              rel="noopener noreferrer sponsored"
-              className="btn btn-primary"
-            >
-              Try TradingView Pro for 30 Days Free &rarr;
-            </a>
+            {tradingView && (
+              <>
+                <a 
+                  href={tradingView.url} 
+                  {...getPartnerLinkAttributes(tradingView, "price-prediction-chart")}
+                  className="btn btn-primary"
+                >
+                  {tradingView.cta} &rarr;
+                </a>
+                <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginTop: "var(--space-sm)", marginBottom: 0 }}>
+                  Paid link: TokenRadar may earn a commission. Check current TradingView plan terms before subscribing.
+                </p>
+              </>
+            )}
           </div>
         </div>
 

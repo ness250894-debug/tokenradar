@@ -15,6 +15,7 @@ import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import { fetchFullTokenData, fetchGlobalMarketData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 import { logActivity, logError } from "../src/lib/reporter";
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
+import { getTgeContractQueries, normalizeTge } from "../src/lib/tge";
 
 // Load environment
 loadEnv();
@@ -41,6 +42,11 @@ function formatChangePercent(val: number | null | undefined): string {
   return `${val >= 0 ? "+" : ""}${val.toFixed(2)}%`;
 }
 
+function findUnresolvedPlaceholders(article: { title?: string; content?: string }): string[] {
+  const text = `${article.title || ""}\n${article.content || ""}`;
+  return Array.from(new Set(text.match(/\{\{[A-Z0-9_]+\}\}/g) || []));
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const maxIdx = args.indexOf("--max");
@@ -56,7 +62,7 @@ async function main() {
     return;
   }
 
-  const upcomingTges = safeReadJson<any[]>(TGE_FILE, []);
+  const upcomingTges = safeReadJson<any[]>(TGE_FILE, []).map(normalizeTge);
   const tgeById = new Map(upcomingTges.map((tge) => [tge.id, tge]));
 
   const queueItems = fs.readdirSync(QUEUE_DIR)
@@ -124,8 +130,12 @@ async function main() {
       const isUnreleased = tgeEntry && tgeEntry.status !== "released";
 
       if (isUnreleased) {
+        const contractQueries = getTgeContractQueries(tgeEntry);
+        if (contractQueries.length === 0) {
+          console.log("  [DEX SYNC] Skipped: no verified contract address for this TGE.");
+        } else {
         process.stdout.write(`  [DEX SYNC] Fetching GeckoTerminal data... `);
-        const pools = await searchGeckoTerminalPools(tgeEntry.symbol || tokenId);
+        const pools = await searchGeckoTerminalPools(contractQueries[0]);
         if (pools.length > 0) {
           const p = pools[0];
           liveData = {
@@ -137,6 +147,7 @@ async function main() {
           console.log("✓ Done");
         } else {
           console.log("✗ No pools found");
+        }
         }
       } else {
         process.stdout.write(`  [CG SYNC] Fetching CoinGecko data... `);
@@ -177,7 +188,9 @@ async function main() {
       "{{LIVE_DATE}}": today,
       "{{LIVE_24H_CHANGE}}": formatChangePercent(liveData.change24h),
       "{{GLOBAL_MCAP}}": globalStats.mcap,
+      "{{GLOBAL_TOTAL_MARKET_CAP}}": globalStats.mcap,
       "{{BTC_DOM}}": globalStats.btcDom,
+      "{{GLOBAL_BTC_DOMINANCE}}": globalStats.btcDom,
     };
 
     const targetDir = path.join(CONTENT_DIR, tokenId);
@@ -203,6 +216,12 @@ async function main() {
       article.title = finalTitle;
       article.generatedAt = new Date().toISOString();
 
+      const unresolved = findUnresolvedPlaceholders(article);
+      if (unresolved.length > 0) {
+        console.warn(`  Warning: not publishing ${tokenId}/${file}; unresolved placeholders: ${unresolved.join(", ")}`);
+        continue;
+      }
+
       const targetPath = path.join(targetDir, file);
       fs.writeFileSync(targetPath, JSON.stringify(article, null, 2));
       tokenArticleCount++;
@@ -210,8 +229,12 @@ async function main() {
 
     console.log(`  ✓ Published ${tokenArticleCount} articles to ${targetDir}`);
     
-    // Cleanup queue
-    fs.rmSync(tokenQueueDir, { recursive: true, force: true });
+    // Cleanup queue only when every article published cleanly.
+    if (tokenArticleCount === tokenFiles.length) {
+      fs.rmSync(tokenQueueDir, { recursive: true, force: true });
+    } else {
+      console.warn(`  Warning: ${tokenFiles.length - tokenArticleCount} queued article(s) left for remediation.`);
+    }
     
     logActivity("publish-from-queue", {
       tokenId,

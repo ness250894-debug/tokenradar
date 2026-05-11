@@ -8,23 +8,28 @@ interface AffiliateButtonProps {
 }
 
 import Link from "next/link";
-import { REFERRAL_URLS } from "@/lib/config";
+import {
+  getExchangePartners,
+  getPartnerLinkAttributes,
+  isRestrictedForUsAudience,
+} from "@/lib/partners";
 
 /**
  * Affiliate CTA button for "How to Buy" articles.
- * Links to major exchanges with proper disclosure.
- * Affiliate links will be added when partnerships are established.
+ * Links to configured exchange partners with disclosure and jurisdiction context.
  */
 export function AffiliateButton({
   symbol,
   tokenName,
   exchange = "Binance",
 }: AffiliateButtonProps) {
-  // Referral links
-  const exchangeUrl = REFERRAL_URLS[exchange.toLowerCase()];
+  const partner = getExchangePartners({ includeUsRestricted: true })
+    .find((candidate) => candidate.name.toLowerCase() === exchange.toLowerCase());
 
   // Don't render a button for exchanges without a valid referral link
-  if (!exchangeUrl) return null;
+  if (!partner) return null;
+
+  const restrictedForUs = isRestrictedForUsAudience(partner);
 
   return (
     <div
@@ -48,7 +53,7 @@ export function AffiliateButton({
       >
         <div>
           <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>
-            Buy {symbol.toUpperCase()} on {exchange}
+            Check {symbol.toUpperCase()} availability on {partner.name}
           </div>
           <div
             style={{
@@ -57,19 +62,16 @@ export function AffiliateButton({
               marginTop: "var(--space-xs)",
             }}
           >
-            Trade {tokenName} on a trusted exchange
+            Verify {tokenName} listings and regional eligibility before depositing
           </div>
         </div>
         <a
-          href={exchangeUrl}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={partner.url}
+          {...getPartnerLinkAttributes(partner, "affiliate-button")}
           className="btn btn-primary"
-          id={`affiliate-btn-${exchange.toLowerCase()}-${symbol.toLowerCase()}`}
-          data-analytics-id={`affiliate-${exchange.toLowerCase()}`}
-          data-analytics-label={`${exchange} ${symbol.toUpperCase()} affiliate`}
+          id={`affiliate-btn-${partner.id}-${symbol.toLowerCase()}`}
         >
-          Trade on {exchange} →
+          {restrictedForUs ? `${partner.shortCta} (non-US) ->` : `${partner.cta} ->`}
         </a>
       </div>
       <div
@@ -80,7 +82,7 @@ export function AffiliateButton({
           fontStyle: "italic",
         }}
       >
-        This link may be an affiliate link. See our{" "}
+        Paid link: TokenRadar may earn a commission. {partner.availability.note} See our{" "}
           <Link href="/disclaimer" className="affiliate-disclaimer-link">
             Affiliate Disclaimer
           </Link>{" "}

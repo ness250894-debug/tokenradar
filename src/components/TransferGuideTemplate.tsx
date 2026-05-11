@@ -11,6 +11,7 @@ import {
 import { CardGlare } from './CardGlare';
 import { MagneticEffect } from './MagneticEffect';
 import type { TokenTechnical } from '@/lib/token-technical-data';
+import { getPartner, getPartnerLinkAttributes } from '@/lib/partners';
 
 interface TransferGuideTemplateProps {
   tokenName: string;
@@ -48,6 +49,7 @@ function getExplorerUrl(technical: TokenTechnical): string | null {
 export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: TransferGuideTemplateProps) {
   const symbolUpper = symbol.toUpperCase();
   const explorerUrl = getExplorerUrl(technical);
+  const trezorSafe3 = getPartner("trezor-safe-3");
   
   return (
     <div className="transfer-guide">
@@ -224,17 +226,16 @@ export function TransferGuideTemplate({ tokenName, symbol, slug, technical }: Tr
                   
                   <div style={{ textAlign: "center" }}>
                     <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-md)" }}>
-                      Need a device?
+                      Need a device? TokenRadar may earn a commission through this paid link.
                     </p>
                     <MagneticEffect>
                       <Link 
-                        href="https://affil.trezor.io/aff_c?offer_id=169&aff_id=135555" 
-                        target="_blank"
-                        rel="sponsored noopener noreferrer"
+                        href={trezorSafe3?.url || "/best-crypto-hardware-wallets"} 
+                        {...(trezorSafe3 ? getPartnerLinkAttributes(trezorSafe3, "transfer-guide-sidebar") : {})}
                         className="btn btn-primary" 
                         style={{ width: "100%", padding: "10px", fontSize: "0.85rem", background: "#00854d" }}
                       >
-                        Buy Trezor Safe 3 &rarr;
+                        {trezorSafe3?.cta || "Compare Hardware Wallets"} &rarr;
                       </Link>
                     </MagneticEffect>
                   </div>

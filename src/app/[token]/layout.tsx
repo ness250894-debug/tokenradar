@@ -28,7 +28,7 @@ export default async function TokenLayout({ children, params }: LayoutProps) {
       </div>
       
       {/* Global Ad Banner Fixed to Bottom */}
-      <StickyBanner symbol={detail.symbol} />
+      <StickyBanner symbol={detail.symbol} tokenId={detail.id} />
     </>
   );
 }

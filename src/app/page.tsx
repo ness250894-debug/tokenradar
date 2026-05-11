@@ -146,7 +146,7 @@ export default async function HomePage() {
                 <Clock className="stat-watermark" />
                 <div className="stat-label">Data Freshness</div>
                 <div className="stat-value gradient-text" style={{ fontSize: "var(--text-xl)" }}>24h</div>
-                <div className="stat-change" style={{ color: "var(--green)", fontSize: "11px" }}>Reliability: 99.9%</div>
+                <div className="stat-change" style={{ color: "var(--green)", fontSize: "11px" }}>Automated daily refresh</div>
                 <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "4px" }}>Next Global Sync: ~{nextSyncHours}h</div>
               </div>
             </CardGlare>
@@ -236,7 +236,7 @@ export default async function HomePage() {
                   </div>
                   <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>Automate Your 2026 Taxes</h3>
                   <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", lineHeight: 1.7, marginBottom: "var(--space-md)" }}>
-                    Stop fearing the IRS. Our data-driven guide shows you how to automate your crypto tax reporting in under 10 minutes with 99.9% accuracy.
+                    Organize exchange, wallet, DeFi, and airdrop activity before filing with crypto tax software workflows.
                   </p>
                   <div style={{ color: "var(--accent-secondary)", fontWeight: 700, fontSize: "var(--text-sm)", display: "flex", alignItems: "center", gap: "5px" }}>
                     Get Tax Ready &rarr;

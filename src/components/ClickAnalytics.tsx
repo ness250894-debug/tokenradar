@@ -46,6 +46,9 @@ export function ClickAnalytics() {
         click_text: normalizeAnalyticsText(clickText, 100),
         link_url: normalizeAnalyticsText(href, 160),
         link_domain: normalizeAnalyticsText(linkDomain, 80),
+        partner_id: normalizeAnalyticsText(element.dataset.partnerId, 80),
+        partner_category: normalizeAnalyticsText(element.dataset.partnerCategory, 80),
+        partner_placement: normalizeAnalyticsText(element.dataset.partnerPlacement, 80),
         outbound,
         page_path: window.location.pathname,
       });

@@ -22,6 +22,7 @@ import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
 import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib/content-loader";
+import { getTgeContractQueries, normalizeTge, shouldPublishTgePreview } from "../src/lib/tge";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import type { DEXPoolData } from "../src/lib/coingecko";
 import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
@@ -144,6 +145,22 @@ FORMAT:
 - Include a structured FAQ section at the end using ## FAQ format.
 - INTEGRATE STRATEGIC CONTEXT: Naturally weave the provided GLOBAL MARKET STATS and SECTOR PERFORMANCE into your analysis. Mention the current total market cap or BTC dominance within the first two paragraphs. This is critical for authority.`;
 
+const TGE_SYSTEM_PROMPT = `You are an expert crypto launch analyst writing for TokenRadar.co.
+
+STRICT RULES:
+1. Write in a professional, evidence-first tone. No hype, no FOMO.
+2. NEVER recommend buying or selling any token.
+3. NEVER guarantee returns or profits.
+4. Do not use live market placeholders such as {{LIVE_PRICE}}, {{LIVE_MARKET_CAP}}, {{LIVE_RANK}}, {{LIVE_DATE}}, or {{LIVE_24H_CHANGE}}.
+5. If a token is not actively trading, say market data is not available yet instead of inventing prices, market caps, exchange listings, or liquidity.
+6. Separate market narrative from verification confidence.
+7. Only call a launch confirmed when the provided TGE entry says lifecycleStatus is confirmed_tge, trading_on_dex, listed_on_aggregator, or graduated.
+8. Use source evidence from the provided signals. Do not invent investors, tokenomics, chains, contracts, unlocks, or official links.
+9. Include a compact evidence table early in the article with status, confidence, source count, expected launch window, category, and last checked.
+10. Use only ## headings. Include a ## FAQ section with 3-5 questions and answers.
+11. End every article with: "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+12. EXTERNAL LINKS: NEVER include raw URLs, third-party domains, or ads. The only permitted site is tokenradar.co.`;
+
 /**
  * Build article-specific prompts.
  */
@@ -187,14 +204,27 @@ GLOBAL MARKET CONTEXT (Strategic Grounding):
 `;
 
   // TGE-specific context: include source, narrative, description from TGE entry
+  const tgeSignals = tgeEntry?.signals
+    ?.map((signal) => `- ${signal.type} via ${signal.sourceType}: ${signal.title || signal.url}`)
+    .join("\n");
+
   const tgeContext = tgeEntry ? `
 TGE ENTRY DATA (from TokenRadar discovery pipeline):
 - Source Article: ${tgeEntry.dataSource || "Unknown"}
+- Lifecycle Status: ${tgeEntry.lifecycleStatus || "candidate"}
+- Confidence: ${tgeEntry.confidence ?? "N/A"}/100
 - Narrative Strength: ${tgeEntry.narrativeStrength ?? "N/A"}/100
 - Category: ${tgeEntry.category || "General"}
 - Status: ${tgeEntry.status || "upcoming"}
 - Expected TGE: ${tgeEntry.expectedTge || "TBD"}
 - Discovered At: ${tgeEntry.discoveredAt || "Unknown"}
+- Last Verified At: ${tgeEntry.lastVerifiedAt || tgeEntry.discoveredAt || "Unknown"}
+- Evidence Count: ${(tgeEntry.signals?.length || 0) + (tgeEntry.contracts?.length || 0)}
+- Chains: ${tgeEntry.chains?.join(", ") || "Unknown"}
+- Contracts: ${tgeEntry.contracts?.map((contract) => `${contract.chain}:${contract.address}`).join(", ") || "Not verified yet"}
+- Tokenomics: ${tgeEntry.tokenomics ? JSON.stringify(tgeEntry.tokenomics) : "Not verified yet"}
+- Signals:
+${tgeSignals || "- No structured signals yet. Use the source article only."}
 
 ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
 - Current Price: $${dexData.priceUsd.toFixed(8)}
@@ -264,9 +294,9 @@ ${dexData ? `DEX LIVE MARKET DATA (from GeckoTerminal):
     },
     {
       type: "tge-preview",
-      title: `${tokenName} (${symbol.toUpperCase()}) Pre-Launch Spotlight — Upcoming TGE Analysis`,
+      title: `${tokenName} (${symbol.toUpperCase()}) TGE Watchlist and Launch Evidence`,
       slug: "tge-preview",
-      prompt: `Write a pre-launch spotlight article for ${tokenName} (${symbol.toUpperCase()}).\n      \nTARGET LENGTH: 800 - 1,000 words.\n\nAs the token is not yet trading on major exchanges, focus on:\n1. Project Vision and Ecosystem impact\n2. Narrative Strength (why is it hyped? — use the Narrative Strength score provided)\n3. Investors and Backing (if known from the source article or description)\n4. Expected TGE/Launch Window\n5. Category Analysis (${tgeCategory || "General"})\n6. Comparison to successful projects in the same sector\n\nIMPORTANT: Use the TGE ENTRY DATA below for factual context about this project. Reference the source article topic, the narrative strength score, and the project description to write a well-informed analysis.\n\n${tgeContext}\n${commonContext}`,
+      prompt: `Write a pre-launch watchlist article for ${tokenName} (${symbol.toUpperCase()}).\n      \nTARGET LENGTH: 800 - 1,000 words.\n\nAs the token may not be actively trading yet, focus on:\n1. Launch status and verification confidence\n2. Evidence timeline based only on the provided signals\n3. Project category and ecosystem impact\n4. Narrative strength as attention, not proof\n5. Expected TGE or launch window\n6. Tokenomics, contracts, chains, and official links only if provided\n7. What evidence would move this project toward graduation\n\nIMPORTANT: Use the TGE ENTRY DATA below for factual context. Do not invent price, market cap, tokenomics, investors, exchange listings, contracts, or launch dates.\n\n${tgeContext}\n${commonContext}`,
     },
   ];
 }
@@ -383,7 +413,7 @@ async function main() {
   }
 
   // Load upcoming TGE data early — needed for both queue filtering and TGE processing
-  const upcomingTges = safeReadJson<UpcomingTge[]>(TGE_FILE, []);
+  const upcomingTges = safeReadJson<UpcomingTge[]>(TGE_FILE, []).map(normalizeTge);
 
   // Build a set of upcoming TGE IDs (status !== "released") so we can
   // exclude them from the regular token queue. Tokens that have already
@@ -420,6 +450,7 @@ async function main() {
     for (const tge of upcomingTges) {
       if (targetToken && tge.id !== targetToken) continue;
       if (tge.status === "released") continue; // Released ones go to Phase 2 (Graduation)
+      if (!shouldPublishTgePreview(tge)) continue;
       
       // Check both queue and published dirs for existing TGE preview
       const tgeFile = resolveContentFile(tge.id, "tge-preview");
@@ -641,6 +672,8 @@ async function main() {
       if (targetToken && tge.id !== targetToken) continue;
       if (tokensToProcess.includes(tge.id)) continue;
       if (tgeTokensToProcess.includes(tge.id)) continue;
+      if (tge.status === "released") continue;
+      if (!shouldPublishTgePreview(tge)) continue;
 
       const tgePath = path.join(CONTENT_BASE_DIR, tge.id, "tge-preview.json");
       if ((await isStale(tgePath, 7)) || args.includes("--force")) {
@@ -791,9 +824,13 @@ async function main() {
     // 3. For TGE tokens, attempt GeckoTerminal enrichment if they aren't on CG yet
     let dexData: DEXPoolData | null = null;
     if (isTge && (!tokenData.market?.price || tokenData.market.price === 0)) {
+      const contractQueries = matchingTgeEntry ? getTgeContractQueries(matchingTgeEntry) : [];
+      if (contractQueries.length === 0) {
+        console.log("  [DEX SYNC] Skipped: no verified contract address for this TGE.");
+      } else {
       process.stdout.write(`  [DEX SYNC] Searching GeckoTerminal for ${tokenData.symbol}... `);
       try {
-        const pools = await searchGeckoTerminalPools(tokenData.symbol);
+        const pools = await searchGeckoTerminalPools(contractQueries[0]);
         if (pools.length > 0) {
           dexData = pools[0]; // Highest liquidity per our strategy
           console.log(`✓ Found pool on ${dexData.dexId} ($${dexData.reserveUsd.toLocaleString()} liq)`);
@@ -803,6 +840,8 @@ async function main() {
       } catch (e) {
         console.log(`✗ GT Error: ${e instanceof Error ? e.message : String(e)}`);
       }
+    }
+
     }
 
     const configs = await buildArticleConfigs(
@@ -890,7 +929,7 @@ TITLE TO USE: ${config.title}
 INSTRUCTIONS:
 ${config.prompt}
 
-TARGET LENGTH: ${config.type === 'overview' ? '1000-1200' : config.type === 'price-prediction' ? '1000-1200' : '600-800'} words.
+TARGET LENGTH: ${config.type === 'overview' ? '1000-1200' : config.type === 'price-prediction' ? '1000-1200' : config.type === 'tge-preview' ? '800-1000' : '600-800'} words.
 DO NOT shorten or summarize.
 MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end.
 
@@ -913,7 +952,7 @@ Output EXACTLY in this format (no JSON, no code blocks):
         while (attempts < maxAttempts) {
           attempts++;
           qualityCheckPassed = true;
-          result = await callAIWithFallback(SYSTEM_PROMPT, contentPrompt, 8192);
+          result = await callAIWithFallback(config.type === "tge-preview" ? TGE_SYSTEM_PROMPT : SYSTEM_PROMPT, contentPrompt, 8192);
           
           currentCost += result.cost;
 
@@ -956,6 +995,11 @@ Output EXACTLY in this format (no JSON, no code blocks):
               }
               if (!hasFaq) {
                 console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} missing FAQ section.`);
+                qualityCheckPassed = false;
+              }
+
+              if (config.type === "tge-preview" && /\{\{[A-Z0-9_]+\}\}/.test(`${parsedSection.title}\n${parsedSection.content}`)) {
+                console.log(`\n      Warning: ${config.type} contains unresolved template placeholders.`);
                 qualityCheckPassed = false;
               }
 

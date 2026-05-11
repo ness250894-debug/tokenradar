@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Calculator } from 'lucide-react';
+import { getPartner, getPartnerLinkAttributes } from '@/lib/partners';
 
 interface TaxGuideCTAProps {
   symbol: string;
@@ -8,6 +9,9 @@ interface TaxGuideCTAProps {
 }
 
 export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps) {
+  const koinly = getPartner("koinly");
+  const coinledger = getPartner("coinledger");
+
   if (variant === 'sidebar') {
     return (
       <div className="card" style={{ padding: "var(--space-md)", background: "rgba(234, 179, 8, 0.05)", border: "1px solid rgba(234, 179, 8, 0.2)", marginBottom: "var(--space-md)" }}>
@@ -16,14 +20,21 @@ export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps
           <h4 style={{ fontSize: "var(--text-xs)", fontWeight: 700, textTransform: "uppercase", margin: 0 }}>Tax Compliance</h4>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>1. Koinly</span>
-            <a href="https://koinly.io/?via=TOKENRADAR" target="_blank" rel="sponsored noopener noreferrer" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Try Free &rarr;</a>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>2. CoinLedger</span>
-            <a href="https://coinledger.io/?utm_source=tokenradar" target="_blank" rel="sponsored noopener noreferrer" style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>10% OFF &rarr;</a>
-          </div>
+          {koinly && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+              <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>1. {koinly.name}</span>
+              <a href={koinly.url} {...getPartnerLinkAttributes(koinly, "tax-sidebar")} style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Paid link</a>
+            </div>
+          )}
+          {coinledger && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--space-sm)" }}>
+              <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>2. {coinledger.name}</span>
+              <a href={coinledger.url} {...getPartnerLinkAttributes(coinledger, "tax-sidebar")} style={{ fontSize: "var(--text-xs)", color: "#eab308", textDecoration: "none" }}>Paid link</a>
+            </div>
+          )}
+        </div>
+        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "var(--space-xs)", lineHeight: 1.4 }}>
+          TokenRadar may earn a commission.
         </div>
         <Link 
           href="/crypto-tax-guide" 
@@ -82,7 +93,7 @@ export function TaxGuideCTA({ symbol, name, variant = 'full' }: TaxGuideCTAProps
           Made profit trading {name} ({symbol.toUpperCase()}) this year?
         </h3>
         <p style={{ color: "var(--text-secondary)", maxWidth: "600px", marginBottom: "var(--space-lg)" }}>
-          The IRS and global tax agencies have drastically increased crypto audits. Don&apos;t risk massive fines. Learn how to legally calculate and automatically report your {symbol.toUpperCase()} taxes before the deadline.
+          Tax agencies increasingly expect accurate crypto records. Learn how to organize {symbol.toUpperCase()} trades, transfers, and taxable events before filing.
         </p>
         
         <Link 
