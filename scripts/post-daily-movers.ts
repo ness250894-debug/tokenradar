@@ -14,11 +14,11 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { callAIWithFallback } from "../src/lib/gemini";
-import { sanitizeHtmlForTelegram, sendTelegramPhoto } from "../src/lib/telegram";
+import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import { cleanupExpiredCooldownFolders, hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
-import { REFERRAL_LINKS_HTML, SOCIAL } from "../src/lib/config";
+import { REFERRAL_LINKS_HTML, SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML } from "../src/lib/config";
 
 // Load environment
 loadEnv();
@@ -110,19 +110,19 @@ async function main() {
       .join("\n");
 
     const prompt = `
-      Write a professional, high-energy, and detailed market summary (3-5 sentences) analyzing today's Top 5 Gainers.
+      Write a professional, high-energy market summary in exactly 2 short sentences, maximum ${SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS} characters.
       Use the following REAL data for today:
       ${dataContext}
 
       Wrap the most impressive metric or insight (like the highest % gainer) in <tg-spoiler> tags.
       Use <b> tags for bold/emphasis. DO NOT use markdown bold (**) or any other markdown symbols.
-      Follow the analysis with 3 trending hashtags.
+      DO NOT include hashtags. The footer already includes them.
 
       DO NOT refer to 'seeing' an image. Speak naturally as if you are looking at the live data shelf.
       DO NOT USE ANY LINKS, external URLs, third-party domains, or ads. The only permitted website is tokenradar.co.
     `;
 
-    const result = await callAIWithFallback(system, prompt, 500);
+    const result = await callAIWithFallback(system, prompt, 220);
 
     let caption = result.content;
     if (!caption || caption.length < 10) {
@@ -131,15 +131,17 @@ async function main() {
     }
 
     const tgFooter = `
-<b>🌐 The TokenRadar Ecosystem:</b>
-📊 <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>
+${TELEGRAM_ECOSYSTEM_LINK_HTML}
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
 #Crypto #TokenRadar #MarketMovers
 `;
 
-    const sanitizedCaption = sanitizeHtmlForTelegram(caption + "\n\n" + tgFooter.trim(), 1024);
+    const sanitizedCaption = buildTelegramMediaCaption(caption, tgFooter, {
+      maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
+      bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS,
+    });
 
     if (dryRun) {
       console.log(`\nDry run - movers card not sent. Caption length: ${sanitizedCaption.length}`);

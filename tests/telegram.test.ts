@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import {
+  buildTelegramMediaCaption,
+  getTelegramHtmlTextLength,
+  sanitizeHtmlForTelegram,
+} from "../src/lib/telegram";
+import { getTelegramFooter, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
 
 describe("sanitizeHtmlForTelegram", () => {
   it("preserves safe Telegram HTML tags", () => {
@@ -25,5 +30,31 @@ describe("sanitizeHtmlForTelegram", () => {
     const result = sanitizeHtmlForTelegram(html);
 
     expect(result).toBe("<b><i><tg-spoiler>Risk note</tg-spoiler></i></b>");
+  });
+
+  it("preserves the Linktree ecosystem footer link", () => {
+    const footer = getTelegramFooter("river");
+    const result = sanitizeHtmlForTelegram(footer);
+
+    expect(result).toContain('<a href="https://linktr.ee/tokenradarco">');
+    expect(result).toContain("🌐 The TokenRadar Ecosystem</a>");
+    expect(result).not.toContain("TokenRadar Links");
+  });
+
+  it("keeps media captions within Telegram's parsed text limit with the footer intact", () => {
+    const longBody = [
+      "$RIVER is building a chain-abstraction stablecoin system for cross-chain collateral and yield without bridging.",
+      "This sentence is intentionally long enough to force a clean trim before the footer is appended.",
+      "The old path added an ellipsis here and could hide the footer.",
+    ].join(" ");
+    const caption = buildTelegramMediaCaption(longBody, getTelegramFooter("river"), {
+      maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
+      bodyMaxLength: 120,
+    });
+
+    expect(getTelegramHtmlTextLength(caption)).toBeLessThanOrEqual(SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT);
+    expect(caption).toContain("🌐 The TokenRadar Ecosystem");
+    expect(caption).toContain("#RIVER #Crypto");
+    expect(caption).not.toContain("...");
   });
 });

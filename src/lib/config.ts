@@ -15,6 +15,7 @@ export const SOCIAL = {
   threadsUrl: "https://www.threads.com/@tokenradarco",
   instagramUrl: "https://www.instagram.com/tokenradarco/",
   tiktokUrl: "https://www.tiktok.com/@tokenradarco",
+  linkTreeUrl: "https://linktr.ee/tokenradarco",
   ecosystemUrl: SITE_URL,
 } as const;
 
@@ -46,18 +47,19 @@ export const ICONS = {
 } as const;
 
 /** Social footer lines used in posts. */
+export const TELEGRAM_ECOSYSTEM_LINK_HTML =
+  `<a href="${SOCIAL.linkTreeUrl}">${ICONS.ECOSYSTEM} The TokenRadar Ecosystem</a>`;
+
 export const SOCIAL_FOOTER = [
-  `${ICONS.ECOSYSTEM} <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>`,
+  TELEGRAM_ECOSYSTEM_LINK_HTML,
 ];
 
 /**
  * Generate the standard Telegram footer with connected TokenRadar links.
  */
 export function getTelegramFooter(symbol: string): string {
-  // Note: Spacing matches the screenshot provided by user
   return `
-${ICONS.ECOSYSTEM} <b>The TokenRadar Ecosystem:</b>
-${ICONS.DASHBOARD} <a href="${SOCIAL.ecosystemUrl}">TokenRadar Links</a>
+${TELEGRAM_ECOSYSTEM_LINK_HTML}
 
 ${REFERRAL_LINKS_HTML.join("\n")}
 
@@ -70,8 +72,10 @@ export const SOCIAL_PLATFORM_LIMITS = {
   TELEGRAM: {
     TEXT_LIMIT: 4096,
     CAPTION_LIMIT: 1024,
-    AI_SUMMARY_CHARS: 300,
-    PHOTO_AI_SUMMARY_CHARS: 300,
+    AI_SUMMARY_CHARS: 280,
+    PHOTO_AI_SUMMARY_CHARS: 280,
+    VIDEO_AI_SUMMARY_CHARS: 320,
+    MOVERS_AI_SUMMARY_CHARS: 280,
   },
   X: {
     CHAR_LIMIT: 280,

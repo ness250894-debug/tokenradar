@@ -13,6 +13,7 @@ const CONNECTED_PREFIX_URLS = [
 
 const CONNECTED_EXACT_URLS = [
   SOCIAL.ecosystemUrl,
+  SOCIAL.linkTreeUrl,
   ...REFERRALS.map((referral) => referral.url),
 ];
 

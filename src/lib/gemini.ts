@@ -444,6 +444,31 @@ function truncateText(text: string, maxChars: number): string {
   return `${text.substring(0, maxChars - 3).trim()}...`;
 }
 
+function truncateTextAtBoundary(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+
+  let candidate = text.substring(0, maxChars).trim();
+  const lastLt = candidate.lastIndexOf("<");
+  const lastGt = candidate.lastIndexOf(">");
+  if (lastLt > lastGt) {
+    candidate = candidate.substring(0, lastLt).trim();
+  }
+
+  const minBoundary = Math.floor(maxChars * 0.55);
+  const sentenceBoundaries = [". ", ".\n", "! ", "!\n", "? ", "?\n"];
+  let boundary = -1;
+
+  for (const ending of sentenceBoundaries) {
+    const index = candidate.lastIndexOf(ending);
+    if (index > boundary && index >= minBoundary) boundary = index;
+  }
+
+  if (boundary !== -1) return candidate.substring(0, boundary + 1).trim();
+
+  const wordBoundary = candidate.lastIndexOf(" ");
+  return wordBoundary >= minBoundary ? candidate.substring(0, wordBoundary).trim() : candidate;
+}
+
 function fallbackTelegramSummary(
   tokenName: string,
   symbol: string,
@@ -457,7 +482,7 @@ function fallbackTelegramSummary(
     `<tg-spoiler>Fallback summary generated from available market data.</tg-spoiler>`,
   ].join(" ");
 
-  return ensureHtmlTagsClosed(truncateText(summary, maxChars), ["b", "tg-spoiler"]);
+  return ensureHtmlTagsClosed(truncateTextAtBoundary(summary, maxChars), ["b", "tg-spoiler"]);
 }
 
 function fallbackXTweet(
@@ -493,7 +518,7 @@ function enforceUnifiedCaptionLimits(
   }
   if (next.telegramSummary && options.telegramMaxChars) {
     next.telegramSummary = ensureHtmlTagsClosed(
-      truncateText(next.telegramSummary, options.telegramMaxChars),
+      truncateTextAtBoundary(next.telegramSummary, options.telegramMaxChars),
       ["b", "tg-spoiler"],
     );
   }

@@ -18,6 +18,7 @@ describe("config exports", () => {
     expect(SOCIAL.threadsUrl).toBe("https://www.threads.com/@tokenradarco");
     expect(SOCIAL.instagramUrl).toBe("https://www.instagram.com/tokenradarco/");
     expect(SOCIAL.tiktokUrl).toBe("https://www.tiktok.com/@tokenradarco");
+    expect(SOCIAL.linkTreeUrl).toBe("https://linktr.ee/tokenradarco");
     expect(SOCIAL.ecosystemUrl).toBe(SITE_URL);
   });
 
@@ -28,7 +29,8 @@ describe("config exports", () => {
 
   it("exports social footer as non-empty array", () => {
     expect(SOCIAL_FOOTER.length).toBeGreaterThan(0);
-    expect(SOCIAL_FOOTER.join("")).toContain(`<a href="${SITE_URL}">TokenRadar Links</a>`);
+    expect(SOCIAL_FOOTER.join("")).toContain(`<a href="${SOCIAL.linkTreeUrl}">`);
+    expect(SOCIAL_FOOTER.join("")).toContain("The TokenRadar Ecosystem");
   });
 
   it("exports X_COST_PER_POST as $0.01", () => {
