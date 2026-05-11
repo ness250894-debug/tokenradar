@@ -4,11 +4,13 @@ import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
 import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
 import { formatVariantPromptLine, getSocialContentVariant, type SocialContentVariant } from "./social-variety";
+import { sanitizeCashtags, truncateForX } from "./x-client";
 
 export type AIResult = {
   content: string;
   promptTokens: number;
   completionTokens: number;
+  thoughtsTokens?: number;
   provider: string;
   model: string;
   cost: number;
@@ -28,6 +30,45 @@ const GEMINI_INPUT_COST_PER_MILLION = 0.10;
 const GEMINI_OUTPUT_COST_PER_MILLION = 0.40;
 const CLAUDE_INPUT_COST_PER_MILLION = 0.80;
 const CLAUDE_OUTPUT_COST_PER_MILLION = 4.00;
+const DEFAULT_GEMINI_THINKING_BUDGET = 0;
+const GEMINI_MAX_TOKEN_RETRY_CAP = 8192;
+
+function getGeminiThinkingBudget(): number {
+  const rawBudget = process.env.GEMINI_THINKING_BUDGET?.trim();
+  if (!rawBudget) return DEFAULT_GEMINI_THINKING_BUDGET;
+
+  const budget = Number(rawBudget);
+  if (Number.isInteger(budget) && (budget === -1 || (budget >= 0 && budget <= 24576))) {
+    return budget;
+  }
+
+  console.warn(
+    `  ⚠ Invalid GEMINI_THINKING_BUDGET="${rawBudget}". Using ${DEFAULT_GEMINI_THINKING_BUDGET}.`,
+  );
+  return DEFAULT_GEMINI_THINKING_BUDGET;
+}
+
+function getGeminiThinkingConfig(model: string): { thinkingBudget: number } | undefined {
+  return model.includes("2.5") ? { thinkingBudget: getGeminiThinkingBudget() } : undefined;
+}
+
+function buildGeminiGenerationConfig(
+  model: string,
+  maxTokens: number,
+  jsonSchema?: object,
+): Record<string, unknown> {
+  const thinkingConfig = getGeminiThinkingConfig(model);
+
+  return {
+    temperature: 0.7,
+    maxOutputTokens: maxTokens,
+    ...(thinkingConfig ? { thinkingConfig } : {}),
+    ...(jsonSchema ? {
+      responseMimeType: "application/json",
+      responseSchema: jsonSchema,
+    } : {}),
+  };
+}
 
 async function callGeminiAPI(
   systemPrompt: string,
@@ -65,14 +106,7 @@ async function callGeminiAPI(
                 text: systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${userPrompt}` : userPrompt 
               }] 
             }],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: maxTokens,
-              ...(jsonSchema ? {
-                responseMimeType: "application/json",
-                responseSchema: jsonSchema
-              } : {})
-            }
+            generationConfig: buildGeminiGenerationConfig(model, maxTokens, jsonSchema),
           });
         const response = await fetchWithRetry(url, {
           method: "POST",
@@ -95,14 +129,15 @@ async function callGeminiAPI(
         const text = candidate.content?.parts?.map((p: { text?: string }) => p.text || "").join("") || "";
         const promptTokens = data.usageMetadata?.promptTokenCount || 0;
         const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
+        const thoughtsTokens = data.usageMetadata?.thoughtsTokenCount || 0;
         const finishReason = candidate.finishReason;
 
 
         const cost =
           (promptTokens / 1_000_000) * GEMINI_INPUT_COST_PER_MILLION +
-          (completionTokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_MILLION;
+          ((completionTokens + thoughtsTokens) / 1_000_000) * GEMINI_OUTPUT_COST_PER_MILLION;
 
-        return { content: text.trim(), promptTokens, completionTokens, provider: "gemini", model, cost, finishReason };
+        return { content: text.trim(), promptTokens, completionTokens, thoughtsTokens, provider: "gemini", model, cost, finishReason };
       });
 
       return result;
@@ -231,6 +266,18 @@ function isTechnicalRefusal(text: string): boolean {
   return patterns.some(pattern => new RegExp(pattern, 'i').test(lower));
 }
 
+function formatGeminiFinishReason(result: AIResult): string {
+  const tokenInfo = result.thoughtsTokens
+    ? `, thoughts tokens: ${result.thoughtsTokens}, visible output tokens: ${result.completionTokens}`
+    : `, visible output tokens: ${result.completionTokens}`;
+  return `${result.finishReason}${tokenInfo}`;
+}
+
+function nextGeminiMaxTokens(maxTokens: number): number | null {
+  if (maxTokens >= GEMINI_MAX_TOKEN_RETRY_CAP) return null;
+  return Math.min(GEMINI_MAX_TOKEN_RETRY_CAP, Math.max(maxTokens * 2, maxTokens + 512));
+}
+
 export async function callAIWithFallback(
   systemPrompt: string,
   userPrompt: string,
@@ -239,13 +286,29 @@ export async function callAIWithFallback(
 ): Promise<AIResult> {
   try {
     // Try Gemini first (primary — lower cost)
-    const result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
+    let result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
     if (isTechnicalRefusal(result.content)) {
       console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
       throw new Error("AI Technical Refusal");
     }
     if (result.finishReason && result.finishReason !== "STOP") {
-      console.warn(`  ⚠ Gemini finished with reason: ${result.finishReason}. Output snippet: ${result.content.substring(0, 150)}...`);
+      const retryMaxTokens = result.finishReason === "MAX_TOKENS" ? nextGeminiMaxTokens(maxTokens) : null;
+      if (retryMaxTokens) {
+        console.warn(
+          `  ⚠ Gemini finished with reason: ${formatGeminiFinishReason(result)}. Retrying with ${retryMaxTokens} max output tokens...`,
+        );
+        result = await callGeminiAPI(systemPrompt, userPrompt, retryMaxTokens, 1, jsonSchema);
+        if (!isTechnicalRefusal(result.content) && (!result.finishReason || result.finishReason === "STOP")) {
+          return result;
+        }
+      }
+    }
+    if (isTechnicalRefusal(result.content)) {
+      console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
+      throw new Error("AI Technical Refusal");
+    }
+    if (result.finishReason && result.finishReason !== "STOP") {
+      console.warn(`  ⚠ Gemini finished with reason: ${formatGeminiFinishReason(result)}. Output snippet: ${result.content.substring(0, 150)}...`);
       throw new Error(`AI Truncated: ${result.finishReason}`);
     }
     return result;
@@ -496,7 +559,7 @@ function fallbackXTweet(
   const price = formatSocialPrice(metrics.price).replace(/^\$/, "");
   const marketCap = formatSocialMarketCap(metrics.marketCap).replace(/^\$/, "");
   const tweet = `$${symbol.toUpperCase()} ${tokenName}: ${formatSocialChange(metrics.priceChange24h)} over 24h, price ${price}, market cap ${marketCap}. Does the data support more upside from here? #Crypto`;
-  return truncateText(tweet, maxChars);
+  return truncateForX(tweet, maxChars);
 }
 
 function fallbackYoutubeMetadata(
@@ -526,7 +589,8 @@ function enforceUnifiedCaptionLimits(
   }
   if (next.xTweet) {
     next.xTweet = sanitizePostTextLinks(next.xTweet);
-    next.xTweet = truncateText(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
+    next.xTweet = sanitizeCashtags(next.xTweet);
+    next.xTweet = truncateForX(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
   }
   if (next.youtubeDescription) {
     next.youtubeDescription = sanitizePostTextLinks(next.youtubeDescription);

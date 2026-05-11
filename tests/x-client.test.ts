@@ -47,6 +47,31 @@ describe("truncateForX", () => {
     expect(result).toMatch(/\.\.\.$/);
   });
 
+  it("preserves complete trailing hashtags when shortening X copy", () => {
+    const text = [
+      "Watchlist: Aztec ($AZTEC - 0.02).",
+      "At 0.023629 (-7.24%), this 70M MC token is a newly-published privacy pioneer.",
+      "Its team invented PLONK and Noir, building foundational tech.",
+      "Given its 5/10 risk and institutional backing, can Aztec define the future of Web3 privacy?",
+      "#Privacy #Web3",
+    ].join(" ");
+
+    const result = truncateForX(text, 260);
+
+    expect(result.length).toBeLessThanOrEqual(260);
+    expect(result).toMatch(/\.\.\. #Privacy #Web3$/);
+    expect(result).not.toContain("#P...");
+  });
+
+  it("does not emit partial hashtag fragments", () => {
+    const text = `${"market structure ".repeat(18)}#PricePrediction`;
+    const result = truncateForX(text, 180);
+
+    expect(result.length).toBeLessThanOrEqual(180);
+    expect(result).toContain("#PricePrediction");
+    expect(result).not.toMatch(/#[A-Za-z0-9_]*\.\.\./);
+  });
+
   it("preserves header and footer lines", () => {
     const lines = [
       "🚀 HEADER LINE 1",
