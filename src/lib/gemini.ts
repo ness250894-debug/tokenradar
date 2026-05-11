@@ -476,11 +476,12 @@ function fallbackTelegramSummary(
   maxChars: number,
 ): string {
   const summary = [
-    `$${symbol.toUpperCase()} (${tokenName}).`,
-    `Price: <b>${formatSocialPrice(metrics.price)}</b> | 24h: <b>${formatSocialChange(metrics.priceChange24h)}</b> | MCap: <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
-    `Risk score: <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
-    `<tg-spoiler>Fallback summary generated from available market data.</tg-spoiler>`,
-  ].join(" ");
+    `<b>Radar Signal: $${symbol.toUpperCase()} (${tokenName})</b>`,
+    `Setup: ${formatSocialChange(metrics.priceChange24h)} over 24h, price <b>${formatSocialPrice(metrics.price)}</b>, market cap <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
+    `Why it matters: selection reason is ${metrics.selectionReason || "market spotlight"} with risk score <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
+    `Risk / invalidation: skip blind entries; wait for liquidity and trend confirmation.`,
+    `<tg-spoiler>TokenRadar read: data is interesting, but this is a watchlist signal, not a trade command.</tg-spoiler>`,
+  ].join("\n");
 
   return ensureHtmlTagsClosed(truncateTextAtBoundary(summary, maxChars), ["b", "tg-spoiler"]);
 }
@@ -630,9 +631,15 @@ export async function generateUnifiedCaptions(
 TELEGRAM RULES:
 - Return "telegramSummary" only for Telegram.
 - Maximum ${options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS} characters.
-- First sentence must begin exactly with: $${symbol.toUpperCase()} (${tokenName}).
-- Use <b> tags for specific numbers and key metrics.
-- Wrap the final verdict sentence in <tg-spoiler>...</tg-spoiler>.
+- Write like a premium crypto research desk signal, not a generic social update.
+- Use this exact compact structure:
+  <b>Radar Signal: $${symbol.toUpperCase()} (${tokenName})</b>
+  Setup: [one concise setup line using concrete market data]
+  Why it matters: [one concise catalyst/context line]
+  Risk / invalidation: [one concise condition that would weaken the setup]
+  <tg-spoiler>TokenRadar read: [one balanced verdict]</tg-spoiler>
+- Use <b> tags only for specific numbers and key metrics.
+- Do not say buy, sell, long, short, entry, take-profit, guaranteed, or financial advice.
 - No URLs, external links, markdown, numbered lists, or unsupported HTML tags.`,
     x: `
 X RULES:

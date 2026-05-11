@@ -46,12 +46,16 @@ export const ICONS = {
   TRADE: "💳",
 } as const;
 
-/** Social footer lines used in posts. */
+/** Social footer lines used in Telegram posts. */
 export const TELEGRAM_ECOSYSTEM_LINK_HTML =
-  `<a href="${SOCIAL.linkTreeUrl}">${ICONS.ECOSYSTEM} The TokenRadar Ecosystem</a>`;
+  `<a href="${SOCIAL.linkTreeUrl}">TokenRadar Signal Desk</a>`;
+
+export const TELEGRAM_SIGNAL_NOTE =
+  "Research signal, not financial advice. Confirm liquidity, risk, and invalidation.";
 
 export const SOCIAL_FOOTER = [
   TELEGRAM_ECOSYSTEM_LINK_HTML,
+  TELEGRAM_SIGNAL_NOTE,
 ];
 
 /**
@@ -61,8 +65,7 @@ export function getTelegramFooter(symbol: string): string {
   return `
 ${TELEGRAM_ECOSYSTEM_LINK_HTML}
 
-${REFERRAL_LINKS_HTML.join("\n")}
-
+${TELEGRAM_SIGNAL_NOTE}
 #${symbol.toUpperCase()} #Crypto
 `;
 }
@@ -72,10 +75,10 @@ export const SOCIAL_PLATFORM_LIMITS = {
   TELEGRAM: {
     TEXT_LIMIT: 4096,
     CAPTION_LIMIT: 1024,
-    AI_SUMMARY_CHARS: 280,
-    PHOTO_AI_SUMMARY_CHARS: 280,
-    VIDEO_AI_SUMMARY_CHARS: 320,
-    MOVERS_AI_SUMMARY_CHARS: 280,
+    AI_SUMMARY_CHARS: 620,
+    PHOTO_AI_SUMMARY_CHARS: 620,
+    VIDEO_AI_SUMMARY_CHARS: 560,
+    MOVERS_AI_SUMMARY_CHARS: 520,
   },
   X: {
     CHAR_LIMIT: 280,

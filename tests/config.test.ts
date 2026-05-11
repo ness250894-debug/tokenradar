@@ -30,7 +30,8 @@ describe("config exports", () => {
   it("exports social footer as non-empty array", () => {
     expect(SOCIAL_FOOTER.length).toBeGreaterThan(0);
     expect(SOCIAL_FOOTER.join("")).toContain(`<a href="${SOCIAL.linkTreeUrl}">`);
-    expect(SOCIAL_FOOTER.join("")).toContain("The TokenRadar Ecosystem");
+    expect(SOCIAL_FOOTER.join("")).toContain("TokenRadar Signal Desk");
+    expect(SOCIAL_FOOTER.join("")).toContain("Research signal, not financial advice.");
   });
 
   it("exports X_COST_PER_POST as $0.01", () => {
