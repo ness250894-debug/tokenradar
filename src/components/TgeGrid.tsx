@@ -41,7 +41,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | TgeLifecycleStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const [visibleCount, setVisibleCount] = useState(TGES_PER_PAGE);
+  const [pagination, setPagination] = useState({ filterKey: "", visibleCount: TGES_PER_PAGE });
 
   const categories = useMemo(() => {
     return Array.from(new Set(tges.map((tge) => tge.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
@@ -63,6 +63,8 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
     });
   }, [categoryFilter, searchQuery, statusFilter, tges]);
 
+  const filterKey = `${searchQuery.trim().toLowerCase()}|${statusFilter}|${categoryFilter}`;
+
   useEffect(() => {
     const term = searchQuery.trim();
     if (term.length < 2) return;
@@ -79,18 +81,16 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
     return () => window.clearTimeout(timer);
   }, [filteredTges.length, searchQuery]);
 
-  useEffect(() => {
-    setVisibleCount(TGES_PER_PAGE);
-  }, [categoryFilter, searchQuery, statusFilter]);
-
+  const visibleCount = pagination.filterKey === filterKey ? pagination.visibleCount : TGES_PER_PAGE;
   const visibleTges = filteredTges.slice(0, visibleCount);
   const hasMore = visibleCount < filteredTges.length;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + TGES_PER_PAGE);
+    const nextVisibleCount = Math.min(visibleCount + TGES_PER_PAGE, filteredTges.length);
+    setPagination({ filterKey, visibleCount: nextVisibleCount });
     trackEvent("load_more", {
       list_name: "upcoming",
-      visible_count: Math.min(visibleCount + TGES_PER_PAGE, filteredTges.length),
+      visible_count: nextVisibleCount,
       total_count: filteredTges.length,
       page_path: window.location.pathname,
     });
@@ -115,7 +115,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3" style={{ marginTop: "var(--space-md)" }}>
           <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
             <span className="flex items-center gap-1"><Filter size={13} /> Status</span>
-            <select className="search-input" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as "all" | TgeLifecycleStatus)}>
+            <select className="search-input themed-select" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as "all" | TgeLifecycleStatus)}>
               {STATUS_FILTERS.map((filter) => (
                 <option key={filter.value} value={filter.value}>{filter.label}</option>
               ))}
@@ -124,7 +124,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
 
           <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
             <span>Category</span>
-            <select className="search-input" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
+            <select className="search-input themed-select" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
               <option value="all">All Categories</option>
               {categories.map((category) => (
                 <option key={category} value={category}>{category}</option>

@@ -92,7 +92,7 @@ jobs:
           git commit -m "chore: publish articles from queue [skip ci]"
           pushed=false
           for i in 1 2 3; do
-            if git pull origin main -X ours --no-edit && git push origin HEAD:main; then
+            if git pull --no-rebase --no-edit -X ours origin main && git push origin HEAD:main; then
               pushed=true
               break
             fi

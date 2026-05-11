@@ -1419,6 +1419,34 @@ input[type=range]::-moz-range-thumb:hover {
   color: var(--text-muted);
 }
 
+.themed-select,
+select.search-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--bg-card);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--accent-primary) 50%),
+    linear-gradient(135deg, var(--accent-primary) 50%, transparent 50%);
+  background-position:
+    calc(100% - 21px) calc(50% + 1px),
+    calc(100% - 15px) calc(50% + 1px);
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding-right: 48px;
+}
+
+select.search-input {
+  padding-left: var(--space-md);
+}
+
+.themed-select option,
+select.search-input option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
 /* ---- Token Page Layout ---- */
 .token-main-content {
   max-width: 800px;
