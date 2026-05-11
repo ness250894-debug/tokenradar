@@ -2,6 +2,7 @@
   "id": "bio-protocol",
   "symbol": "bio",
   "name": "Bio Protocol",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53022/large/bio.jpg?1735011002",
   "description": "BIO is a curation and liquidity protocol for Decentralized Science (DeSci). Our mission is to accelerate biotechnology by giving global communities of patients, scientists and biotech professionals the ability to collectively fund, build and own tokenized biotech projects and intellectual property (IP). \n\nThe team behind BIO helped create Molecule, a tokenization platform for early-stage biomedicine, and VitaDAO, the largest decentralized community for longevity science. Building on these successes, BIO is designed to catalyze an onchain scientific economy through decentralized funding, incentives and liquidity.\n\nThe BIO token gives holders access to BIO's network of scientific communities and IP, enabling broad exposure to the DeSci economy.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0xcb1592591996765Ec0eFc1f92599A19767ee5ffA"
   },
   "market": {
-    "price": 0.052984,
-    "marketCap": 113638405,
-    "marketCapRank": 286,
-    "volume24h": 149973365,
-    "high24h": 0.061063,
-    "low24h": 0.052988,
-    "priceChange24h": -6.13876,
-    "priceChange7d": -15.432501313806629,
-    "priceChange30d": 189.50193082219295,
-    "priceChange1y": -38.537590089826644,
+    "price": 0.04823442,
+    "marketCap": 103589691,
+    "marketCapRank": 304,
+    "volume24h": 53331475,
+    "high24h": 0.053457,
+    "low24h": 0.04829291,
+    "priceChange24h": -9.43669,
+    "priceChange7d": -16.92385,
+    "priceChange30d": 169.89507,
+    "priceChange1y": -44.25796,
     "ath": 0.888995,
-    "athChangePercentage": -94.00303,
+    "athChangePercentage": -94.569,
     "athDate": "2025-01-03T13:16:10.915Z",
     "atl": 0.01589991,
     "atlDate": "2026-03-29T22:55:40.552Z",
     "circulatingSupply": 2145029070.25,
     "totalSupply": 3320000000,
     "maxSupply": 3320000000,
-    "fdv": 175885497
+    "fdv": 160332454
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T08:38:33.118Z",
-  "lastMarketUpdate": "2026-05-10T19:56:28.859Z"
+  "fetchedAt": "2026-05-11T19:23:23.123Z"
 }

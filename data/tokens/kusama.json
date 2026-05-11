@@ -2,26 +2,53 @@
   "id": "kusama",
   "symbol": "ksm",
   "name": "Kusama",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9568/large/m4zRhP5e_400x400.jpg?1696509648",
+  "description": "Kusama is a public blockchain network that is running the exact same codebase as Polkadot. It is aimed to be a canary build for the Polkadot network which is an experimental and development environment for new features that will eventually be deployed to Polkadot. Because of the experimental nature of Kusama, the developmental speed is much faster and it has seen significant traction since launched in 2019.\n\nKusama is an early, highly experimental version of Polkadot presenting real economic conditions. The community will own the network – there will be no central kill switch. Kusama will exist as long as its community maintains it and we envision it will cater to new, early functionality and projects preparing to develop and deploy on Polkadot.",
+  "categories": [
+    "Smart Contract Platform",
+    "Polkadot Ecosystem",
+    "Proof of Stake (PoS)",
+    "Pantera Capital Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "Hydration Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://kusama.network/",
+    "github": "https://github.com/paritytech/polkadot-sdk",
+    "reddit": null,
+    "explorer": "https://assethub-kusama.subscan.io/"
+  },
   "market": {
-    "price": 5.94,
-    "marketCap": 108137200,
-    "marketCapRank": 298,
-    "volume24h": 6177548,
-    "priceChange24h": -0.06792,
+    "price": 5.86,
+    "marketCap": 106610194,
+    "marketCapRank": 295,
+    "volume24h": 9213610,
+    "high24h": 5.98,
+    "low24h": 5.75,
+    "priceChange24h": -1.83919,
+    "priceChange7d": 20.28402,
+    "priceChange30d": 35.60415,
+    "priceChange1y": -68.69726,
     "ath": 621.71,
-    "athChangePercentage": -99.04103,
+    "athChangePercentage": -99.05737,
     "athDate": "2021-05-18T05:04:41.858Z",
     "atl": 0.876572,
     "atlDate": "2020-01-14T19:20:20.768Z",
-    "circulatingSupply": 18187538.21653906,
-    "totalSupply": 18187538.21653906,
+    "circulatingSupply": 18191484.92100506,
+    "totalSupply": 18191484.92100506,
     "maxSupply": null,
-    "high24h": 5.98,
-    "low24h": 5.79,
-    "priceChange7d": 24.379048749836944,
-    "priceChange30d": 38.15660795423963,
-    "priceChange1y": -68.18617245768357,
-    "fdv": 108137200
+    "fdv": 106610194
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.862Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 31,
+    "githubForks": 23,
+    "commits4Weeks": 8
+  },
+  "fetchedAt": "2026-05-11T19:22:45.326Z"
 }

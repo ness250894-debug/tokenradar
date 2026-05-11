@@ -2,26 +2,49 @@
   "id": "four",
   "symbol": "form",
   "name": "Four",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54912/large/four.jpg?1742461445",
+  "description": "",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://linktr.ee/Four_FORM_",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x5b73A93b4E5e4f1FD27D8b3F8C97D69908b5E284"
+  },
   "market": {
-    "price": 0.301671,
-    "marketCap": 115277389,
-    "marketCapRank": 282,
-    "volume24h": 5622565,
-    "priceChange24h": 2.83578,
+    "price": 0.291375,
+    "marketCap": 111419567,
+    "marketCapRank": 286,
+    "volume24h": 4913547,
+    "high24h": 0.30404,
+    "low24h": 0.289306,
+    "priceChange24h": -3.34454,
+    "priceChange7d": -7.12734,
+    "priceChange30d": 26.77189,
+    "priceChange1y": -87.78952,
     "ath": 4.19,
-    "athChangePercentage": -92.78107,
+    "athChangePercentage": -93.04273,
     "athDate": "2025-09-08T12:17:03.109Z",
     "atl": 0.180888,
     "atlDate": "2026-02-28T12:55:21.513Z",
     "circulatingSupply": 381867255.14,
     "totalSupply": 572301922.1,
     "maxSupply": 580000000,
-    "high24h": 0.306998,
-    "low24h": 0.280958,
-    "priceChange7d": 4.002163288269793,
-    "priceChange30d": 41.96471086465795,
-    "priceChange1y": -87.38961477781085,
-    "fdv": 172765458
+    "fdv": 166983766
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.859Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:22:13.811Z"
 }

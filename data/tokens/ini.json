@@ -2,26 +2,47 @@
   "id": "ini",
   "symbol": "ini",
   "name": "INI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67080/large/logo_200.png?1751699181",
+  "description": "InitVerse is dedicated to building the next-generation Web3 business infrastructure, led by InitVerse Labs, with core products including: INIChain, a base-layer public blockchain featuring the world’s first TfhEVM, a privacy network combining fully homomorphic encryption with EVM. INISaaS, a development platform integrating AI tools to significantly lower the barrier for DApp creation; INICloud, a decentralized cloud service using $INI for settlement to provide vast computing resources for SaaS; and INI Cloud Mining, a cloud mining platform covering all PoW coin types. Leveraging INIChain’s robust privacy, security, and efficiency, InitVerse empowers the developer community, driving a new era of Web3 business powered by SaaS.",
+  "categories": [
+    "Layer 1 (L1)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.initverse.org/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://iniscan.com/"
+  },
   "market": {
-    "price": 0.126653,
-    "marketCap": 109193990,
-    "marketCapRank": 294,
-    "volume24h": 813894,
-    "priceChange24h": 0.0151,
+    "price": 0.127321,
+    "marketCap": 109944221,
+    "marketCapRank": 290,
+    "volume24h": 820525,
+    "high24h": 0.127794,
+    "low24h": 0.125908,
+    "priceChange24h": 0.64902,
+    "priceChange7d": 1.58606,
+    "priceChange30d": 23.62462,
+    "priceChange1y": 0,
     "ath": 0.138116,
-    "athChangePercentage": -8.18248,
+    "athChangePercentage": -7.99617,
     "athDate": "2025-12-03T00:40:26.928Z",
     "atl": 0.02191215,
     "atlDate": "2025-09-11T16:45:10.351Z",
-    "circulatingSupply": 863558314.2956318,
+    "circulatingSupply": 865210976.8462039,
     "totalSupply": 6000000000,
     "maxSupply": 6000000000,
-    "high24h": 0.128109,
-    "low24h": 0.126301,
-    "priceChange7d": 1.4915178905844677,
-    "priceChange30d": 22.956746779597264,
-    "priceChange1y": 0,
-    "fdv": 758679445
+    "fdv": 762432912
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.861Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:22:26.415Z"
 }

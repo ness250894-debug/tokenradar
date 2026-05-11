@@ -2,26 +2,49 @@
   "id": "securitize-tokenized-aaa-clo-fund",
   "symbol": "stac",
   "name": "Securitize Tokenized AAA CLO Fund",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71167/large/stac_logo.png?1766163743",
+  "description": "This Fund provides digital, tokenized exposure to a diversified portfolio of U.S. dollar-denominated Collateralized Loan Obligations (CLOs), with a focus on tranches rated AAA. The Fund seeks to deliver attractive, risk-adjusted returns through institutional-grade credit strategies.\nCollateralized Loan Obligations (CLOs) are securitized pools of senior secured loans. AAA-rated CLO tranches historically have:\nVery low default rates,\nAttractive yields compared to similarly rated corporate bonds,\nDiversification across industries and borrowers,\n\nThis fund provides simplified access to this asset class via tokenized shares, all with institutional-grade servicing and custody by BNY.\n\n",
+  "categories": [
+    "Tokenized Assets",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.bny.com/corporate/global/en/about-us/newsroom/company-news/securitize-launches-tokenized-aaa-clo-fund-with-services-provided-by-bny-bringing-institutional-structured-credit-on-chain.html",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x51c2d74017390cbbd30550179a16a1c28f7210fc"
+  },
   "market": {
-    "price": 1017,
-    "marketCap": 101801568,
-    "marketCapRank": 310,
+    "price": 1016.98,
+    "marketCap": 101799823,
+    "marketCapRank": 306,
     "volume24h": 0,
-    "priceChange24h": -0.00485,
+    "high24h": 1021.05,
+    "low24h": 1016.52,
+    "priceChange24h": -0.02856,
+    "priceChange7d": 0.14303,
+    "priceChange30d": 0.55894,
+    "priceChange1y": 0,
     "ath": 1021.61,
-    "athChangePercentage": -0.46019,
+    "athChangePercentage": -0.45257,
     "athDate": "2026-05-10T06:40:05.343Z",
     "atl": 997.66,
     "atlDate": "2026-02-06T00:15:06.823Z",
     "circulatingSupply": 100099.694673,
     "totalSupply": 100099.694673,
     "maxSupply": null,
-    "high24h": 1021.61,
-    "low24h": 1016.72,
-    "priceChange7d": 0.13435258802332112,
-    "priceChange30d": 0.5952890712548004,
-    "priceChange1y": 0,
-    "fdv": 101801568
+    "fdv": 101799823
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.865Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:23:35.754Z"
 }

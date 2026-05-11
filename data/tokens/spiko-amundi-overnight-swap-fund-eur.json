@@ -1,0 +1,56 @@
+{
+  "id": "spiko-amundi-overnight-swap-fund-eur",
+  "symbol": "eursafo",
+  "name": "Spiko Amundi Overnight Swap Fund (EUR)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172591/large/Fund_eurSAF0.png?1774104814",
+  "description": "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The EUR share class (eurSAFO) allows investors to subscribe from as little as 1 EUR. SAFO generates stable yields above the €STR benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tokenized Assets",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Starknet Ecosystem",
+    "Etherlink Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.spiko.io/spiko-euro",
+    "github": "https://github.com/spiko-tech",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x1412632f2b89e87bfa20c1318a43ced25f1d7b76"
+  },
+  "market": {
+    "price": 1.18,
+    "marketCap": 408155007,
+    "marketCapRank": 129,
+    "volume24h": 0,
+    "high24h": 1.18,
+    "low24h": 1.18,
+    "priceChange24h": -0.0922,
+    "priceChange7d": 0.35578,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.19,
+    "athChangePercentage": -0.48749,
+    "athDate": "2026-04-17T13:15:05.698Z",
+    "atl": 1.18,
+    "atlDate": "2026-04-21T17:25:07.010Z",
+    "circulatingSupply": 345216127.99054,
+    "totalSupply": 345216127.99054,
+    "maxSupply": null,
+    "fdv": 408155007
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-11T19:21:04.517Z"
+}

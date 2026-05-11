@@ -16,25 +16,25 @@
     "explorer": "https://megaeth.blockscout.com/token/0xFAfDdbb3FC7688494971a79cc65DCa3EF82079E7"
   },
   "market": {
-    "price": 0.999891,
-    "marketCap": 342448912,
-    "marketCapRank": 149,
-    "volume24h": 9139074,
-    "high24h": 1.005,
-    "low24h": 0.99644,
-    "priceChange24h": 0.02316,
-    "priceChange7d": 0.27236,
-    "priceChange30d": -0.03104,
+    "price": 0.998399,
+    "marketCap": 341941829,
+    "marketCapRank": 148,
+    "volume24h": 6491661,
+    "high24h": 1.002,
+    "low24h": 0.997402,
+    "priceChange24h": -0.10924,
+    "priceChange7d": -0.04543490382776017,
+    "priceChange30d": -0.19356150847673328,
     "priceChange1y": 0,
     "ath": 1.017,
-    "athChangePercentage": -1.69626,
+    "athChangePercentage": -1.66256,
     "athDate": "2026-02-09T12:00:25.580Z",
     "atl": 0.977115,
     "atlDate": "2026-02-05T06:19:31.196Z",
-    "circulatingSupply": 342508964.8107536,
-    "totalSupply": 342508964.8107536,
+    "circulatingSupply": 342008965.8107536,
+    "totalSupply": 342008965.8107536,
     "maxSupply": null,
-    "fdv": 342448912
+    "fdv": 341941829
   },
   "community": {
     "twitterFollowers": null,
@@ -45,5 +45,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:19.224Z"
+  "fetchedAt": "2026-05-10T19:57:19.224Z",
+  "lastMarketUpdate": "2026-05-11T19:20:58.202Z"
 }
