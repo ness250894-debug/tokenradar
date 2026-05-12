@@ -21,25 +21,25 @@
     "explorer": "https://www.creditcoinexplorer.com/"
   },
   "market": {
-    "price": 0.164037,
-    "marketCap": 88763421,
-    "marketCapRank": 335,
-    "volume24h": 7437594,
+    "price": 0.159139,
+    "marketCap": 86028800,
+    "marketCapRank": 340,
+    "volume24h": 4388333,
     "high24h": 0.173647,
-    "low24h": 0.163263,
-    "priceChange24h": -1.69544,
-    "priceChange7d": 10.42497,
-    "priceChange30d": 13.48747,
-    "priceChange1y": -78.05149,
+    "low24h": 0.156867,
+    "priceChange24h": -5.81591,
+    "priceChange7d": 7.703323774233286,
+    "priceChange30d": 10.84362695583322,
+    "priceChange1y": -77.97751027299621,
     "ath": 8.67,
-    "athChangePercentage": -98.1078,
+    "athChangePercentage": -98.16345,
     "athDate": "2021-03-14T03:54:22.148Z",
     "atl": 0.128298,
     "atlDate": "2023-10-19T04:10:52.176Z",
     "circulatingSupply": 540658812,
     "totalSupply": 599999997,
     "maxSupply": null,
-    "fdv": 98505844
+    "fdv": 95471079
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-12T09:39:08.720Z"
+  "fetchedAt": "2026-05-12T09:39:08.720Z",
+  "lastMarketUpdate": "2026-05-12T19:23:26.965Z"
 }

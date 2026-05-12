@@ -2,26 +2,56 @@
   "id": "wormhole",
   "symbol": "w",
   "name": "Wormhole",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/35087/large/W_Token_%283%29.png?1758122686",
+  "description": "Wormhole is a cross-chain messaging protocol that enables secure transfers of data or tokens across different blockchain networks. It supports a variety of applications, including DeFi, NFTs, and governance, by allowing data to be moved between blockchains efficiently and securely. Wormhole employs multiple verification methods to ensure the integrity and validity of the data transmitted through its network. ",
+  "categories": [
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Interoperability",
+    "Base Ecosystem",
+    "Multicoin Capital Portfolio",
+    "Cross-chain Communication",
+    "Made in USA",
+    "Governance",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://wormhole.com/",
+    "github": "https://github.com/wormhole-foundation/wormhole",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/85VBFQZC9TZkfaptBWjvUw7YbZjy52A6mjtPGjstQAmQ"
+  },
   "market": {
-    "price": 0.01561823,
-    "marketCap": 90983566,
-    "marketCapRank": 331,
-    "volume24h": 26475795,
-    "priceChange24h": -2.15421,
+    "price": 0.01564898,
+    "marketCap": 91114727,
+    "marketCapRank": 327,
+    "volume24h": 31720542,
+    "high24h": 0.01653483,
+    "low24h": 0.01502558,
+    "priceChange24h": 0.1404,
+    "priceChange7d": 16.27084,
+    "priceChange30d": 26.87524,
+    "priceChange1y": -85.10247,
     "ath": 1.66,
-    "athChangePercentage": -99.05811,
+    "athChangePercentage": -99.05553,
     "athDate": "2024-04-03T11:46:35.308Z",
     "atl": 0.01174426,
     "atlDate": "2026-04-15T06:15:44.396Z",
-    "circulatingSupply": 5821392546,
+    "circulatingSupply": 5822849293,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.0159733,
-    "low24h": 0.01513351,
-    "priceChange7d": 14.22292320981769,
-    "priceChange30d": 19.17402117078294,
-    "priceChange1y": -84.83284915072359,
-    "fdv": 156291755
+    "fdv": 156477907
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.240Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1886,
+    "githubForks": 841,
+    "commits4Weeks": 52
+  },
+  "fetchedAt": "2026-05-12T19:25:20.223Z"
 }

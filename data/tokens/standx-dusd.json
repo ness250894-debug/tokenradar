@@ -2,26 +2,50 @@
   "id": "standx-dusd",
   "symbol": "dusd",
   "name": "StandX DUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55984/large/output-onlinepngtools.png?1747932126",
+  "description": "StandX is a Perps DEX that enables users to trade with yield-earning margins. DUSD is StandX’s first product - a yield-bearing stablecoin. Through DUSD, StandX allows users to generate returns on their margin balances. \n\nDUSD is a yield-bearing stablecoin designed to deliver competitive returns. It is a fully collateralized, yield-bearing stablecoin that auto-distributes real yield to holders—no staking needed—offering secure, effortless returns with seamless DeFi integration.\n",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://standx.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xaf44a1e76f56ee12adbb7ba8acd3cbd474888122"
+  },
   "market": {
-    "price": 0.997612,
-    "marketCap": 100361160,
-    "marketCapRank": 308,
-    "volume24h": 242520,
-    "priceChange24h": -0.16046,
+    "price": 0.999071,
+    "marketCap": 100562001,
+    "marketCapRank": 305,
+    "volume24h": 203244,
+    "high24h": 1,
+    "low24h": 0.997729,
+    "priceChange24h": 0.13452,
+    "priceChange7d": -0.02871,
+    "priceChange30d": -0.07434,
+    "priceChange1y": 0,
     "ath": 1.039,
-    "athChangePercentage": -3.89913,
+    "athChangePercentage": -3.9211,
     "athDate": "2025-11-21T07:46:31.680Z",
     "atl": 0.96504,
     "atlDate": "2025-11-21T07:36:33.698Z",
-    "circulatingSupply": 100607032.657992,
-    "totalSupply": 100607032.657992,
+    "circulatingSupply": 100656232.07849,
+    "totalSupply": 100656232.07849,
     "maxSupply": null,
-    "high24h": 1.004,
-    "low24h": 0.995706,
-    "priceChange7d": -0.1313299096002595,
-    "priceChange30d": -0.2059994149783567,
-    "priceChange1y": 0,
-    "fdv": 100361160
+    "fdv": 100562001
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.235Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:23:45.735Z"
 }

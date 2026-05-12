@@ -2,26 +2,49 @@
   "id": "usdu",
   "symbol": "usdu",
   "name": "USDu",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67726/large/USDu_Icon_512x512.png?1770780851",
+  "description": "USDu is a yield bearing stablecoin that tracks the value of one U.S. dollar. Issued by Unitas Labs under the SPL standard, each token is fully backed by cash and short-duration U.S. Treasury instruments custodied with regulated institutions. On-chain proof-of-reserves data allows anyone to verify collateral levels in real time. The project enables compliant minting and redemption for KYC-verified counterparties, while circulating USDu can move freely across wallets, exchanges, and DeFi applications on Solana as a dollar-denominated settlement asset.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Yield-Bearing Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://unitas.so",
+    "github": "https://github.com/UnipayFi",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/9ckR7pPPvyPadACDTzLwK2ZAEeUJ3qGSnzPs8bVaHrSy"
+  },
   "market": {
-    "price": 0.999044,
-    "marketCap": 91419405,
-    "marketCapRank": 329,
-    "volume24h": 95872,
-    "priceChange24h": 0.04375,
+    "price": 0.99895,
+    "marketCap": 91787583,
+    "marketCapRank": 325,
+    "volume24h": 111612,
+    "high24h": 0.999336,
+    "low24h": 0.998414,
+    "priceChange24h": -0.00936,
+    "priceChange7d": -0.0737,
+    "priceChange30d": -0.12809,
+    "priceChange1y": 0,
     "ath": 1.018,
-    "athChangePercentage": -1.90099,
+    "athChangePercentage": -1.91982,
     "athDate": "2025-12-06T20:30:09.576Z",
     "atl": 0.957425,
     "atlDate": "2026-02-06T06:40:56.133Z",
-    "circulatingSupply": 91507802.17827594,
-    "totalSupply": 91507802.17827594,
+    "circulatingSupply": 91884048.53547889,
+    "totalSupply": 91884048.53547889,
     "maxSupply": null,
-    "high24h": 0.999812,
-    "low24h": 0.998431,
-    "priceChange7d": -0.09316243870549774,
-    "priceChange30d": -0.11851338108496909,
-    "priceChange1y": 0,
-    "fdv": 91419405
+    "fdv": 91787583
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.240Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:07.618Z"
 }

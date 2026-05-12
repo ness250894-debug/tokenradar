@@ -2,26 +2,52 @@
   "id": "tria",
   "symbol": "tria",
   "name": "TRIA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171854/large/Tria_-_Black_symbol_%281%29.png?1770111654",
+  "description": "Tria is a self-custodial neobank and cross-chain payments infrastructure designed to make onchain money usable in everyday life. It combines card spending, trading, and earning in a single account experience, so users can move value across chains without manually bridging assets, switching networks, or managing chain-specific steps. Under the hood, Tria routes every action through BestPath, an ultra-fast routing and execution layer that takes an intent like “spend,” “swap,” “send,” or “earn” and completes it end-to-end on the optimal path. Tria operates in two modes: a consumer app that includes a Visa-powered card, spot swaps, perpetual futures, and Earn vaults, and a developer and institutional layer that integrates with protocols and ecosystems to embed Tria’s execution rails wherever value already moves. The end goal is simple: one continuous flow for money across chains, with self-custody by default and a product experience that feels effortless for normal users worldwide.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Wallets",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Neobank"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tria.so/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x228bEC415adE4b61D7CaF0adf8C91EAc587BA369"
+  },
   "market": {
-    "price": 0.03920488,
-    "marketCap": 84969689,
-    "marketCapRank": 347,
-    "volume24h": 6493854,
-    "priceChange24h": 2.59748,
+    "price": 0.04186703,
+    "marketCap": 90335226,
+    "marketCapRank": 329,
+    "volume24h": 4986760,
+    "high24h": 0.04226879,
+    "low24h": 0.03877287,
+    "priceChange24h": 6.64551,
+    "priceChange7d": -5.29999,
+    "priceChange30d": 61.30795,
+    "priceChange1y": 0,
     "ath": 0.04979036,
-    "athChangePercentage": -19.82208,
+    "athChangePercentage": -15.9761,
     "athDate": "2026-03-23T03:35:27.784Z",
     "atl": 0.01329543,
     "atlDate": "2026-02-03T11:40:22.348Z",
     "circulatingSupply": 2157670000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.04012115,
-    "low24h": 0.03503535,
-    "priceChange7d": -10.442233448100227,
-    "priceChange30d": 64.61989350877866,
-    "priceChange1y": 0,
-    "fdv": 393802988
+    "fdv": 418670260
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.244Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:32.815Z"
 }

@@ -2,26 +2,53 @@
   "id": "pleasing-gold",
   "symbol": "pgold",
   "name": "Pleasing Gold",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70395/large/%E9%BB%84%E9%87%91.png?1761795141",
+  "description": "Pleasing Golden is an RWA platform that transforms precious metals into liquid, yield-generating tokens accessible to anyone, anywhere. Pleasing Golden’s vision is to make gold ownership open, liquid, and collaborative. Through tokenization and a suite of&nbsp;liquidity-sharing programs—including&nbsp;DeFi liquidity leasing&nbsp;and&nbsp;Tokenization-as-a-Service—the brand transforms slow, closed markets into dynamic, programmable assets that can circulate instantly among builders, traders, and holders.\n\nPleasing Gold (PGOLD) is the tokenized gold of Pleasing Golden, each representing&nbsp;one troy ounce of LBMA-certified physical gold. It has a few features:\n\n- Unlimited physical redemption: holders can redeem PGOLD for allocated bars of nearly any size in Hong Kong, with expansion planned across greater APAC and Dubai.\n- Fractional access and 24/7 liquidity:&nbsp;trade gold globally from as little as 0.01 oz, powered by Chainlink data and infrastructure.\n- Instant settlement:&nbsp;PGOLD can be converted into stablecoins in real time, providing seamless transitions between gold and stable exposure.",
+  "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Arbitrum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Commodities",
+    "ApeChain Ecosystem",
+    "Pleasing Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.pleasingmarket.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x3e76BB02286BFeAA89DD35f11253f2CbCE634F91"
+  },
   "market": {
-    "price": 4702.89,
-    "marketCap": 91730176,
-    "marketCapRank": 328,
-    "volume24h": 12.47,
-    "priceChange24h": -0.66469,
+    "price": 4698.71,
+    "marketCap": 91648595,
+    "marketCapRank": 326,
+    "volume24h": 7.86,
+    "high24h": 4722.83,
+    "low24h": 4690.8,
+    "priceChange24h": -0.11946,
+    "priceChange7d": 2.72259,
+    "priceChange30d": 0.06947,
+    "priceChange1y": 0,
     "ath": 5507.64,
-    "athChangePercentage": -14.61138,
+    "athChangePercentage": -14.68733,
     "athDate": "2026-01-29T08:57:20.722Z",
     "atl": 511.44,
     "atlDate": "2026-04-23T18:10:49.517Z",
     "circulatingSupply": 19505.05044,
     "totalSupply": 19505.05044,
     "maxSupply": null,
-    "high24h": 4744.02,
-    "low24h": 4692.97,
-    "priceChange7d": 2.8011430205258714,
-    "priceChange30d": -0.8020608259534342,
-    "priceChange1y": 0,
-    "fdv": 91730176
+    "fdv": 91648595
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.239Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:13.923Z"
 }

@@ -2,26 +2,50 @@
   "id": "unity-usd",
   "symbol": "uusd",
   "name": "Unity USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172413/large/UUSD.png?1773390929",
+  "description": "UUSD is a USD-pegged stablecoin designed to power the financial infrastructure of the AI agent economy. Built by Anything Labs. Rooted in the principle of Unity, uUSD serves as a universal medium of value in a decentralized, programmable, and trustless economy.UUSD is committed to achieving a more universal AI agent currency through technology and has hired a professional AI team to achieve this goal.",
+  "categories": [
+    "Stablecoins",
+    "Synthetic Asset",
+    "BNB Chain Ecosystem",
+    "Synthetic Dollar"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://uusd.ai/",
+    "github": "https://github.com/uusdai/uusd",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x61a10e8556bed032ea176330e7f17d6a12a10000"
+  },
   "market": {
-    "price": 0.999276,
-    "marketCap": 99952006,
-    "marketCapRank": 311,
-    "volume24h": 1199349,
-    "priceChange24h": -0.04012,
+    "price": 0.999158,
+    "marketCap": 99954133,
+    "marketCapRank": 309,
+    "volume24h": 1235315,
+    "high24h": 1.002,
+    "low24h": 0.995905,
+    "priceChange24h": -0.2391,
+    "priceChange7d": -0.05845,
+    "priceChange30d": -0.11948,
+    "priceChange1y": 0,
     "ath": 1.023,
-    "athChangePercentage": -2.2625,
+    "athChangePercentage": -2.27538,
     "athDate": "2026-03-23T11:10:02.298Z",
     "atl": 0.989845,
     "atlDate": "2026-04-12T01:45:42.437Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "high24h": 1.005,
-    "low24h": 0.996982,
-    "priceChange7d": -0.04445854681971946,
-    "priceChange30d": -0.02808380413385373,
-    "priceChange1y": 0,
-    "fdv": 99952006
+    "fdv": 99954133
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.236Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:24:04.612Z"
 }

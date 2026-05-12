@@ -2,26 +2,50 @@
   "id": "turbo",
   "symbol": "turbo",
   "name": "Turbo",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30117/large/TurboMark-QL_200.png?1708079597",
+  "description": "This first memecoin ever created completely by AI.",
+  "categories": [
+    "Meme",
+    "Ethereum Ecosystem",
+    "Frog-Themed",
+    "AI Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://turbotoken.io",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xa35923162c49cf95e6bf26623385eb431ad920d3"
+  },
   "market": {
-    "price": 0.00133344,
-    "marketCap": 92006195,
-    "marketCapRank": 325,
-    "volume24h": 16257926,
-    "priceChange24h": -4.99353,
+    "price": 0.00128105,
+    "marketCap": 88416083,
+    "marketCapRank": 334,
+    "volume24h": 11291301,
+    "high24h": 0.00135174,
+    "low24h": 0.00125345,
+    "priceChange24h": -4.01423,
+    "priceChange7d": -0.3994,
+    "priceChange30d": 27.29432,
+    "priceChange1y": -77.55444,
     "ath": 0.01431669,
-    "athChangePercentage": -90.67298,
+    "athChangePercentage": -91.03315,
     "athDate": "2024-12-11T21:52:05.500Z",
     "atl": 0.00006518,
     "atlDate": "2023-09-26T21:46:54.834Z",
     "circulatingSupply": 69000000000,
     "totalSupply": 69000000000,
     "maxSupply": 69000000000,
-    "high24h": 0.00140534,
-    "low24h": 0.00129791,
-    "priceChange7d": 9.813626181949154,
-    "priceChange30d": 26.778614907002325,
-    "priceChange1y": -77.37579867793858,
-    "fdv": 92006195
+    "fdv": 88416083
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.239Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:51.716Z"
 }

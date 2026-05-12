@@ -2,26 +2,50 @@
   "id": "yooldo-games",
   "symbol": "esports",
   "name": "Yooldo Games",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67430/large/symbol-esports.png?1770141653",
+  "description": "",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Play To Earn",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.yooldo.gg/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xf39e4b21c84e737df08e2c3b32541d856f508e48"
+  },
   "market": {
-    "price": 0.454123,
-    "marketCap": 69042437,
-    "marketCapRank": 410,
-    "volume24h": 4005155,
-    "priceChange24h": 23.45487,
-    "ath": 0.554574,
-    "athChangePercentage": -18.13266,
-    "athDate": "2026-01-04T14:13:14.907Z",
+    "price": 0.577994,
+    "marketCap": 88645843,
+    "marketCapRank": 332,
+    "volume24h": 29555999,
+    "high24h": 0.613415,
+    "low24h": 0.446975,
+    "priceChange24h": 27.40815,
+    "priceChange7d": 48.47435,
+    "priceChange30d": 24.85484,
+    "priceChange1y": 0,
+    "ath": 0.613415,
+    "athChangePercentage": -4.30774,
+    "athDate": "2026-05-12T17:40:26.585Z",
     "atl": 0.052256,
     "atlDate": "2025-07-23T07:27:29.184Z",
     "circulatingSupply": 151800000,
     "totalSupply": 900000000,
     "maxSupply": 900000000,
-    "high24h": 0.454855,
-    "low24h": 0.360704,
-    "priceChange7d": 17.875040755265445,
-    "priceChange30d": 2.9947349072862486,
-    "priceChange1y": 0,
-    "fdv": 409342510
+    "fdv": 525568241
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.256Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:39.116Z"
 }

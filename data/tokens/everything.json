@@ -2,6 +2,7 @@
   "id": "everything",
   "symbol": "ev",
   "name": "Everything",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71690/large/EV_token_v2_White.png?1773933783",
   "description": "Everything unifies multiple decentralized finance protocols into one cohesive, interoperable ecosystem. At its core, the $EV token functions as the primary mechanism for governance, utility, and value accrual, aligning incentives across all products while enabling users to participate in decision-making, access platform features, and benefit from the ecosystem’s overall growth and long-term sustainability.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7"
   },
   "market": {
-    "price": 0.00084544,
-    "marketCap": 84326425,
-    "marketCapRank": 355,
-    "volume24h": 12115.84,
-    "high24h": 0.0009968,
-    "low24h": 0.00083376,
-    "priceChange24h": -7.50523,
-    "priceChange7d": 21.959056139889775,
-    "priceChange30d": 3.0944451163741644,
+    "price": 0.00092162,
+    "marketCap": 91946120,
+    "marketCapRank": 322,
+    "volume24h": 25001,
+    "high24h": 0.00097059,
+    "low24h": 0.00083291,
+    "priceChange24h": 9.00445,
+    "priceChange7d": -3.06628,
+    "priceChange30d": 18.14434,
     "priceChange1y": 0,
     "ath": 0.00175037,
-    "athChangePercentage": -51.78435,
+    "athChangePercentage": -47.33933,
     "athDate": "2026-05-05T05:45:27.330Z",
     "atl": 0.00031577,
     "atlDate": "2026-03-19T15:03:14.081Z",
-    "circulatingSupply": 99704435377.01918,
-    "totalSupply": 99704435377.01918,
+    "circulatingSupply": 99704315076.19983,
+    "totalSupply": 99704315076.19983,
     "maxSupply": 100000000000,
-    "fdv": 84326425
+    "fdv": 91946120
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-06T08:34:09.286Z",
-  "lastMarketUpdate": "2026-05-11T19:20:58.245Z"
+  "fetchedAt": "2026-05-12T19:24:55.008Z"
 }

@@ -2,26 +2,51 @@
   "id": "theta-fuel",
   "symbol": "tfuel",
   "name": "Theta Fuel",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1696508251",
+  "description": "The operational token of the Theta protocol. TFUEL powers on-chain operations like payments to relayers for sharing a video stream, or for deploying or interacting with smart contracts. Relayers earn TFUEL for every video stream they relay to other users on the network. You can think of Theta Fuel as the \"gas\" of the protocol. At Mainnet launch on March 15th, TFUEL will be created as a native token on the Theta blockchain.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "DePIN",
+    "Proof of Stake (PoS)",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.thetatoken.org/",
+    "github": "https://github.com/thetatoken/theta-protocol-ledger",
+    "reddit": "https://www.reddit.com/r/theta_network/",
+    "explorer": "https://explorer.thetatoken.org/"
+  },
   "market": {
-    "price": 0.01233922,
-    "marketCap": 90403281,
-    "marketCapRank": 332,
-    "volume24h": 2216376,
-    "priceChange24h": 0.39788,
+    "price": 0.01209635,
+    "marketCap": 88609500,
+    "marketCapRank": 333,
+    "volume24h": 2006964,
+    "high24h": 0.0124371,
+    "low24h": 0.01187505,
+    "priceChange24h": -2.16797,
+    "priceChange7d": 5.91623,
+    "priceChange30d": 8.91319,
+    "priceChange1y": -69.95361,
     "ath": 0.68159,
-    "athChangePercentage": -98.19558,
+    "athChangePercentage": -98.22431,
     "athDate": "2021-06-09T06:50:55.818Z",
     "atl": 0.00090804,
     "atlDate": "2020-03-13T02:30:37.972Z",
-    "circulatingSupply": 7326689834,
-    "totalSupply": 7326861549,
+    "circulatingSupply": 7326956058,
+    "totalSupply": 7327995484,
     "maxSupply": null,
-    "high24h": 0.01237242,
-    "low24h": 0.01200463,
-    "priceChange7d": 8.882062506692716,
-    "priceChange30d": 7.217548735282503,
-    "priceChange1y": -69.5999051274088,
-    "fdv": 90405400
+    "fdv": 88622071
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.240Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:58.033Z"
 }

@@ -15,25 +15,25 @@
     "explorer": "https://iniscan.com/"
   },
   "market": {
-    "price": 0.127321,
-    "marketCap": 109944221,
-    "marketCapRank": 290,
-    "volume24h": 820525,
-    "high24h": 0.127794,
-    "low24h": 0.125908,
-    "priceChange24h": 0.64902,
-    "priceChange7d": 1.58606,
-    "priceChange30d": 23.62462,
+    "price": 0.126727,
+    "marketCap": 109861839,
+    "marketCapRank": 285,
+    "volume24h": 809748,
+    "high24h": 0.127394,
+    "low24h": 0.126341,
+    "priceChange24h": -0.46655,
+    "priceChange7d": -0.993585151749615,
+    "priceChange30d": 23.00176782928451,
     "priceChange1y": 0,
     "ath": 0.138116,
-    "athChangePercentage": -7.99617,
+    "athChangePercentage": -8.24641,
     "athDate": "2025-12-03T00:40:26.928Z",
     "atl": 0.02191215,
     "atlDate": "2025-09-11T16:45:10.351Z",
-    "circulatingSupply": 865210976.8462039,
+    "circulatingSupply": 866920613.4203506,
     "totalSupply": 6000000000,
     "maxSupply": 6000000000,
-    "fdv": 762432912
+    "fdv": 760359168
   },
   "community": {
     "twitterFollowers": null,
@@ -44,5 +44,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-11T19:22:26.415Z"
+  "fetchedAt": "2026-05-11T19:22:26.415Z",
+  "lastMarketUpdate": "2026-05-12T19:23:26.952Z"
 }

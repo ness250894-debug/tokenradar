@@ -1199,5 +1199,51 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-11T19:24:17.535Z",
     "discoveredAt": "2026-05-11T19:24:17.535Z"
+  },
+  {
+    "id": "osero",
+    "name": "Osero",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.theblock.co/post/400948/sky-ecosystem-stablewatch-stablecoin-yield-startup-osero-funding",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.theblock.co/post/400948/sky-ecosystem-stablewatch-stablecoin-yield-startup-osero-funding",
+        "title": "Sky Ecosystem leads $13.5 million round for Stablewatch-incubated stablecoin yield startup Osero",
+        "observedAt": "2024-05-15T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-12T19:26:47.118Z",
+    "discoveredAt": "2026-05-12T19:26:47.118Z"
+  },
+  {
+    "id": "keel-infrastructure",
+    "name": "Keel Infrastructure",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Rebranding/Transition Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://www.theblock.co/post/400900/former-bitcoin-miner-bitfarms-reports-145-million-q1-net-loss-amid-keel-rebrand-ai-transition",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Token migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://www.theblock.co/post/400900/former-bitcoin-miner-bitfarms-reports-145-million-q1-net-loss-amid-keel-rebrand-ai-transition",
+        "title": "Former bitcoin miner Bitfarms reports $145 million Q1 net loss amid Keel rebrand, AI transition",
+        "observedAt": "2024-05-15T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-12T19:26:47.119Z",
+    "discoveredAt": "2026-05-12T19:26:47.119Z"
   }
 ]
