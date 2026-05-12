@@ -2,26 +2,51 @@
   "id": "coinex-token",
   "symbol": "cet",
   "name": "CoinEx",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4817/large/coinex-token.png?1696505367",
+  "description": "Issued in January 2018，CoinEx Token（CET）is the native token of CoinEx Chain. CoinEx Chain presents a public chain dedicated for the decentralized exchange (DEX) with the mainnet launched in November 2019 officially.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.coinex.org/",
+    "github": "https://github.com/coinexchain/dex-manual",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x081f67afa0ccf8c7b17540767bbe95df2ba8d97f"
+  },
   "market": {
-    "price": 0.02726032,
-    "marketCap": 68556952,
-    "marketCapRank": 415,
-    "volume24h": 56260,
-    "priceChange24h": 0.1164,
+    "price": 0.02686513,
+    "marketCap": 67560288,
+    "marketCapRank": 419,
+    "volume24h": 60629,
+    "high24h": 0.02739253,
+    "low24h": 0.02676715,
+    "priceChange24h": -1.67421,
+    "priceChange7d": -4.46195,
+    "priceChange30d": -9.26411,
+    "priceChange1y": -57.7749,
     "ath": 0.150293,
-    "athChangePercentage": -81.7859,
+    "athChangePercentage": -82.12792,
     "athDate": "2018-07-03T22:04:23.838Z",
     "atl": 0.00410696,
     "atlDate": "2018-12-15T00:00:00.000Z",
-    "circulatingSupply": 2514778311.94,
-    "totalSupply": 2514778311.94,
+    "circulatingSupply": 2514795111.94,
+    "totalSupply": 2514795111.94,
     "maxSupply": 10000000000,
-    "high24h": 0.02740908,
-    "low24h": 0.02721496,
-    "priceChange7d": -2.6552027438941197,
-    "priceChange30d": -8.855418140696845,
-    "priceChange1y": -56.891756992191056,
-    "fdv": 68556952
+    "fdv": 67560288
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.256Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T09:38:22.632Z"
 }
