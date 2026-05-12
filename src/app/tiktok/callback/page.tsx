@@ -1,19 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function TikTokCallbackPage() {
-  const [code, setCode] = useState("");
-  const [state, setState] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setCode(params.get("code") || "");
-    setState(params.get("state") || "");
-    setError(params.get("error") || params.get("error_description") || "");
-  }, []);
+  const params = typeof window === "undefined"
+    ? new URLSearchParams()
+    : new URLSearchParams(window.location.search);
+  const code = params.get("code") || "";
+  const state = params.get("state") || "";
+  const error = params.get("error") || params.get("error_description") || "";
 
   return (
     <main className="container">
@@ -44,4 +39,3 @@ export default function TikTokCallbackPage() {
     </main>
   );
 }
-
