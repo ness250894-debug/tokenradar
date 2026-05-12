@@ -2,26 +2,53 @@
   "id": "creditcoin-2",
   "symbol": "ctc",
   "name": "Creditcoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/10569/large/Creditcoin_Symbol_dark56.png?1737796066",
+  "description": "CTC (G-CRE) is the Ethereum-bridged version of Creditcoin's native token. CTC (G-CRE) is designed as a vesting token and is the token listed on centralized exchanges. This bridged version allows Ethereum users to participate in the native Creditcoin ecosystem, a layer 1 EVM blockchain that enables developers to build multi-chain applications for real use cases, such as decentralized lending, real-world assets (RWAs), and decentralized physical infrastructure networks (DePIN). ",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "DWF Labs Portfolio",
+    "Proof of Stake (PoS)",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://creditcoin.org/",
+    "github": "https://github.com/gluwa/Creditcoin",
+    "reddit": null,
+    "explorer": "https://www.creditcoinexplorer.com/"
+  },
   "market": {
-    "price": 0.169144,
-    "marketCap": 91463022,
-    "marketCapRank": 326,
-    "volume24h": 12653434,
-    "priceChange24h": 4.1132,
+    "price": 0.164037,
+    "marketCap": 88763421,
+    "marketCapRank": 335,
+    "volume24h": 7437594,
+    "high24h": 0.173647,
+    "low24h": 0.163263,
+    "priceChange24h": -1.69544,
+    "priceChange7d": 10.42497,
+    "priceChange30d": 13.48747,
+    "priceChange1y": -78.05149,
     "ath": 8.67,
-    "athChangePercentage": -98.03466,
+    "athChangePercentage": -98.1078,
     "athDate": "2021-03-14T03:54:22.148Z",
     "atl": 0.128298,
     "atlDate": "2023-10-19T04:10:52.176Z",
     "circulatingSupply": 540658812,
     "totalSupply": 599999997,
     "maxSupply": null,
-    "high24h": 0.173648,
-    "low24h": 0.16008,
-    "priceChange7d": 14.871117562730158,
-    "priceChange30d": 13.887290144478111,
-    "priceChange1y": -77.06265022286829,
-    "fdv": 101501745
+    "fdv": 98505844
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.239Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T09:39:08.720Z"
 }
