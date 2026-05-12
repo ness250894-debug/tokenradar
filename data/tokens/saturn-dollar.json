@@ -2,26 +2,49 @@
   "id": "saturn-dollar",
   "symbol": "usdat",
   "name": "Saturn Dollar",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172645/large/usdat.png?1774503009",
+  "description": "Saturn is building the digital monetary layer for a financial system backed by Bitcoin. The protocol operates through a dual-token system. USDat is a stablecoin fully backed by tokenized U.S. Treasuries, designed for payments, settlements, and DeFi liquidity. sUSDat is a yield-bearing token received when staking USDat, offering exposure to institutional digital credit instruments backed by Bitcoin.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://saturn.credit/",
+    "github": "https://github.com/saturn-organization",
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x23238f20b894f29041f48D88eE91131C395Aaa71"
+  },
   "market": {
-    "price": 0.999936,
-    "marketCap": 86983371,
-    "marketCapRank": 339,
-    "volume24h": 4908402,
-    "priceChange24h": 0.02309,
+    "price": 0.999637,
+    "marketCap": 91066408,
+    "marketCapRank": 328,
+    "volume24h": 17109561,
+    "high24h": 1.001,
+    "low24h": 0.999441,
+    "priceChange24h": -0.02984,
+    "priceChange7d": -0.02826,
+    "priceChange30d": -0.00094,
+    "priceChange1y": 0,
     "ath": 1.043,
-    "athChangePercentage": -4.08696,
+    "athChangePercentage": -4.09398,
     "athDate": "2026-04-08T13:49:46.200Z",
     "atl": 0.994073,
     "atlDate": "2026-04-08T14:34:49.510Z",
-    "circulatingSupply": 86990489.857319,
-    "totalSupply": 86990489.857319,
+    "circulatingSupply": 91082358.57585,
+    "totalSupply": 91082358.57585,
     "maxSupply": null,
-    "high24h": 1.024,
-    "low24h": 0.999469,
-    "priceChange7d": 0.0013004934229447881,
-    "priceChange30d": -0.006847136813093259,
-    "priceChange1y": 0,
-    "fdv": 86983371
+    "fdv": 91066408
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.242Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:25:26.503Z"
 }

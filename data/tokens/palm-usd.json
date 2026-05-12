@@ -2,26 +2,49 @@
   "id": "palm-usd",
   "symbol": "pusd",
   "name": "Palm USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172705/large/Pusd.png?1774981810",
+  "description": "PUSD is an institutional-grade stablecoin project providing a digital dollar infrastructure. It is fully backed by reserves in Saudi Riyal (SAR) and UAE Dirham (AED), currencies pegged to the USD. The project targets enterprises, financial institutions, and sovereign entities, offering a Shariah-compliant digital asset for global commerce, cross-border settlement, and treasury management with high security and compliance standards.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.palmusd.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xfaf0cee6b20e2aaa4b80748a6af4cd89609a3d78"
+  },
   "market": {
-    "price": 0.998921,
-    "marketCap": 101176644,
-    "marketCapRank": 307,
-    "volume24h": 122592,
-    "priceChange24h": -0.06552,
+    "price": 0.999454,
+    "marketCap": 101230670,
+    "marketCapRank": 303,
+    "volume24h": 121489,
+    "high24h": 0.999628,
+    "low24h": 0.998931,
+    "priceChange24h": 0.03231,
+    "priceChange7d": -0.02425,
+    "priceChange30d": -0.05216,
+    "priceChange1y": 0,
     "ath": 1.001,
-    "athChangePercentage": -0.10767,
+    "athChangePercentage": -0.10512,
     "athDate": "2026-04-14T14:55:03.176Z",
     "atl": 0.998331,
     "atlDate": "2026-03-31T21:27:27.168Z",
     "circulatingSupply": 101285937.115771,
     "totalSupply": 2826036007.115771,
     "maxSupply": null,
-    "high24h": 0.999746,
-    "low24h": 0.998919,
-    "priceChange7d": -0.07621223209424445,
-    "priceChange30d": -0.10109304514680498,
-    "priceChange1y": 0,
-    "fdv": 2822986547
+    "fdv": 2824493955
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.235Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:23:39.414Z"
 }

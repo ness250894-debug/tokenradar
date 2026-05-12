@@ -2,26 +2,48 @@
   "id": "mnee-usd-stablecoin",
   "symbol": "mnee",
   "name": "MNEE USD Stablecoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39459/large/MNEE_logo_no_BG.png?1725666891",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.mnee.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x8ccedbae4916b79da7f3f612efb2eb93a2bfd6cf"
+  },
   "market": {
     "price": 1,
     "marketCap": 100229634,
-    "marketCapRank": 310,
-    "volume24h": 143540,
-    "priceChange24h": -0.05001,
+    "marketCapRank": 307,
+    "volume24h": 141572,
+    "high24h": 1.001,
+    "low24h": 0.9987,
+    "priceChange24h": 0.04001,
+    "priceChange7d": 0.05001,
+    "priceChange30d": -0.04996,
+    "priceChange1y": 0.04818,
     "ath": 1.045,
-    "athChangePercentage": -4.37581,
+    "athChangePercentage": -4.40454,
     "athDate": "2024-08-08T23:11:28.286Z",
     "atl": 0.584655,
     "atlDate": "2024-08-08T06:50:34.888Z",
     "circulatingSupply": 100189555.1523,
     "totalSupply": 100189555.1523,
     "maxSupply": null,
-    "high24h": 1.001,
-    "low24h": 0.9987,
-    "priceChange7d": 0.02997599519904119,
-    "priceChange30d": -0.059970031772352154,
-    "priceChange1y": 0.1117130319132021,
     "fdv": 100229634
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.236Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:23:52.025Z"
 }

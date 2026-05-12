@@ -2,26 +2,55 @@
   "id": "orca",
   "symbol": "orca",
   "name": "Orca",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/17547/large/Orca_Logo.png?1696517083",
+  "description": "Orca is the most user-friendly DEX on Solana.\n\nOrca is one of the first general-purpose AMMs launched on Solana. Users can swap assets, provide liquidity, and earn yield through an easy-to-use interface. Projects can use Orca as a money-lego to easily integrate swapping, farming, or on-chain data into their dApp.\n\nOrca strives to provide easy and effective financial tools for everyone, bringing DeFi to the masses.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Automated Market Maker (AMM)",
+    "Solana Ecosystem",
+    "Coinbase Ventures Portfolio",
+    "DeFiance Capital Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.orca.so/",
+    "github": "https://github.com/orca-so",
+    "reddit": "https://www.reddit.com/r/orca_so/",
+    "explorer": "https://solscan.io/token/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE"
+  },
   "market": {
-    "price": 1.63,
-    "marketCap": 99060334,
-    "marketCapRank": 315,
-    "volume24h": 40532936,
-    "priceChange24h": -3.30109,
+    "price": 1.57,
+    "marketCap": 95400783,
+    "marketCapRank": 316,
+    "volume24h": 21837210,
+    "high24h": 1.67,
+    "low24h": 1.54,
+    "priceChange24h": -3.76068,
+    "priceChange7d": -6.36268,
+    "priceChange30d": 78.90945,
+    "priceChange1y": -46.05951,
     "ath": 20.33,
-    "athChangePercentage": -91.95038,
+    "athChangePercentage": -92.28001,
     "athDate": "2021-10-02T20:14:11.766Z",
     "atl": 0.351125,
     "atlDate": "2022-06-19T19:34:08.830Z",
-    "circulatingSupply": 60798789.493909,
-    "totalSupply": 74999557.831048,
+    "circulatingSupply": 60798789.128984,
+    "totalSupply": 74999557.466123,
     "maxSupply": 100000000,
-    "high24h": 1.72,
-    "low24h": 1.62,
-    "priceChange7d": -14.71637479298537,
-    "priceChange30d": 79.53228252593377,
-    "priceChange1y": -44.424775758771496,
-    "fdv": 122197848
+    "fdv": 117683536
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.237Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T19:24:23.523Z"
 }

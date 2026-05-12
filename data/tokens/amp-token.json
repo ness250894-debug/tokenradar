@@ -4,25 +4,25 @@
   "name": "Amp",
   "description": "What is Amp?\n\nAmp is described as the new digital collateral token offering instant, verifiable assurances for any kind of value transfer. Using Amp, networks like Flexa can quickly and irreversibly secure transactions for a wide variety of asset-related use cases.\n\nHow does Amp work?\n\nAmp claims to offer a straightforward but versatile interface for verifiable collateralization through a system of collateral partitions and collateral managers. Where collateral partitions can be designated to collateralize any account, application, or even transaction, and carry balances which are directly verifiable on the Ethereum blockchain, collateral managers are smart contracts that can lock, release, and redirect collateral in these partitions as needed in order to support value transfer activities. Amp supports a wide variety of use cases for collateralization, and also introduces the concept of predefined partition strategies, which can enable special capabilities such as collateral models through which tokens can be staked without ever leaving their original address.",
   "market": {
-    "price": 0.00096321,
-    "marketCap": 83589784,
-    "marketCapRank": 362,
-    "volume24h": 12110383,
-    "high24h": 0.00096608,
-    "low24h": 0.00090745,
-    "priceChange24h": 4.63871,
-    "priceChange7d": 9.308004373018342,
-    "priceChange30d": 7.648140308888321,
-    "priceChange1y": -78.58345888188676,
+    "price": 0.00092088,
+    "marketCap": 79881805,
+    "marketCapRank": 363,
+    "volume24h": 9175481,
+    "high24h": 0.00095026,
+    "low24h": 0.0009103,
+    "priceChange24h": -3.09218,
+    "priceChange7d": 4.5744846724364425,
+    "priceChange30d": 4.731142938685276,
+    "priceChange1y": -79.32449158220464,
     "ath": 0.120813,
-    "athChangePercentage": -99.22174,
+    "athChangePercentage": -99.23778,
     "athDate": "2021-06-16T16:03:41.147Z",
     "atl": 0.00084186,
     "atlDate": "2026-04-14T23:25:23.544Z",
     "circulatingSupply": 86781022996.56946,
     "totalSupply": 99720178909.70996,
     "maxSupply": 100000000000,
-    "fdv": 96053123
+    "fdv": 91792279
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.245Z"
+  "lastMarketUpdate": "2026-05-12T19:23:26.969Z"
 }
