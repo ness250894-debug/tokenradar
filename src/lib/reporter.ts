@@ -36,6 +36,34 @@ function truncateTelegramMessage(message: string): string {
   return `${message.slice(0, TELEGRAM_MESSAGE_LIMIT - 20)}\n... [truncated]`;
 }
 
+async function describeTelegramFailure(response: Response): Promise<string> {
+  const status = `${response.status} ${response.statusText}`.trim();
+  try {
+    const payload = (await response.clone().json()) as { description?: unknown };
+    if (typeof payload.description === "string" && payload.description.trim()) {
+      return `${status}: ${payload.description}`;
+    }
+  } catch {
+    try {
+      const text = await response.clone().text();
+      if (text.trim()) return `${status}: ${text.trim().slice(0, 300)}`;
+    } catch {
+      // Fall through to the HTTP status.
+    }
+  }
+
+  return status;
+}
+
+function postTelegramMessage(url: string, body: Record<string, unknown>): Promise<Response> {
+  return fetchWithRetry(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    throwOnHttpError: false,
+  });
+}
+
 /**
  * Sends a notification to Telegram.
  * Returns true only when delivery succeeded.
@@ -67,33 +95,25 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
   const safeMessage = truncateTelegramMessage(redactSensitiveText(message));
 
   try {
-    const response = await fetchWithRetry(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: safeMessage,
-        parse_mode: "Markdown",
-      }),
+    const response = await postTelegramMessage(url, {
+      chat_id: chatId,
+      text: safeMessage,
+      parse_mode: "Markdown",
     });
 
     if (response.ok) {
       return true;
     }
 
-    console.error(`  [reporter] Failed to send Telegram alert with Markdown: ${response.statusText}`);
-    const fallbackResponse = await fetchWithRetry(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: safeMessage,
-        disable_web_page_preview: true,
-      }),
+    console.error(`  [reporter] Failed to send Telegram alert with Markdown: ${await describeTelegramFailure(response)}`);
+    const fallbackResponse = await postTelegramMessage(url, {
+      chat_id: chatId,
+      text: safeMessage,
+      link_preview_options: { is_disabled: true },
     });
 
     if (!fallbackResponse.ok) {
-      console.error(`  [reporter] Failed to send Telegram alert fallback: ${fallbackResponse.statusText}`);
+      console.error(`  [reporter] Failed to send Telegram alert fallback: ${await describeTelegramFailure(fallbackResponse)}`);
       return false;
     }
 

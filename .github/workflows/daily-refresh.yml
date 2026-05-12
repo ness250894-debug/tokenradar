@@ -130,10 +130,20 @@ jobs:
             exit 0
           fi
           echo "has_changes=true" >> $GITHUB_OUTPUT
+          base_sha="$(git rev-parse HEAD)"
           git commit -m "chore: daily data refresh [skip ci]"
           pushed=false
           for i in 1 2 3; do
-            if git pull --no-rebase --no-edit -X ours origin main && git push origin HEAD:main; then
+            remote_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
+            if [ -z "$remote_sha" ]; then
+              echo "Unable to resolve remote main SHA"
+              exit 1
+            fi
+            if [ "$remote_sha" != "$base_sha" ]; then
+              echo "::error::Remote main changed from $base_sha to $remote_sha while daily refresh was running. Aborting instead of auto-merging generated data."
+              exit 1
+            fi
+            if git push origin HEAD:main; then
               pushed=true
               break
             fi

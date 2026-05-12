@@ -23,6 +23,22 @@ on:
     - cron: "00 21 * * *" # Telegram movers card + X market update
     
   workflow_dispatch:
+    inputs:
+      run:
+        description: "Which social automation to run"
+        required: true
+        default: "telegram-market"
+        type: choice
+        options:
+          - telegram-market
+          - telegram-poll
+          - telegram-movers
+          - x-market
+          - x-poll
+          - instagram-carousel
+          - threads-text
+          - video
+          - all
 
 concurrency:
   group: social-automations
@@ -30,14 +46,14 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
-  IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '00 00 * * *' || github.event_name == 'workflow_dispatch' }}
-  IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch' }}
-  IS_X_POLL_RUN: ${{ github.event.schedule == '00 12 * * *' || github.event_name == 'workflow_dispatch' }}
-  IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '00 15 * * *' || github.event_name == 'workflow_dispatch' }}
-  IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '00 21 * * *' || github.event_name == 'workflow_dispatch' }}
-  IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '00 16 * * 2,4' || github.event_name == 'workflow_dispatch' }}
-  IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * 1,3,5' || github.event_name == 'workflow_dispatch' }}
-  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '05 00 * * 0,2,4' || github.event_name == 'workflow_dispatch' }}
+  IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '00 00 * * *' || github.event.inputs.run == 'telegram-market' || github.event.inputs.run == 'all' }}
+  IS_X_MARKET_RUN: ${{ contains(fromJson('["00 03 * * *", "00 15 * * *", "00 21 * * *"]'), github.event.schedule) || github.event.inputs.run == 'x-market' || github.event.inputs.run == 'all' }}
+  IS_X_POLL_RUN: ${{ github.event.schedule == '00 12 * * *' || github.event.inputs.run == 'x-poll' || github.event.inputs.run == 'all' }}
+  IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '00 15 * * *' || github.event.inputs.run == 'telegram-poll' || github.event.inputs.run == 'all' }}
+  IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '00 21 * * *' || github.event.inputs.run == 'telegram-movers' || github.event.inputs.run == 'all' }}
+  IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '00 16 * * 2,4' || github.event.inputs.run == 'threads-text' || github.event.inputs.run == 'all' }}
+  IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * 1,3,5' || github.event.inputs.run == 'video' || github.event.inputs.run == 'all' }}
+  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '05 00 * * 0,2,4' || github.event.inputs.run == 'instagram-carousel' || github.event.inputs.run == 'all' }}
 
 jobs:
   post-social:

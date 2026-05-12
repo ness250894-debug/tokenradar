@@ -38,4 +38,21 @@ describe("fetchWithRetry", () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
+
+  it("can return definitive client error responses for callers with fallback handling", async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(new Response("bad request", { status: 400, statusText: "Bad Request" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await fetchWithRetry("https://example.com/bad-request", {
+      retries: 3,
+      retryDelay: 0,
+      throwOnHttpError: false,
+    });
+
+    expect(response.status).toBe(400);
+    expect(await response.text()).toBe("bad request");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
 });

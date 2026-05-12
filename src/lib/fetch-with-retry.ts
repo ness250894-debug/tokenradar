@@ -2,6 +2,7 @@ export interface FetchWithRetryOptions extends RequestInit {
   retries?: number;
   retryDelay?: number;
   onRetry?: (error: unknown, attempt: number) => void;
+  throwOnHttpError?: boolean;
 }
 
 /**
@@ -19,9 +20,10 @@ const NON_RETRYABLE_STATUSES = new Set([400, 401, 403, 404, 405, 422]);
  * without wasting retries. Transient errors (429, 5xx, network) are retried.
  */
 export async function fetchWithRetry(url: string | URL, options: FetchWithRetryOptions = {}): Promise<Response> {
-  const { retries = 3, retryDelay = 1000, onRetry, signal, ...fetchOptions } = options;
+  const { retries = 3, retryDelay = 1000, onRetry, signal, throwOnHttpError = true, ...fetchOptions } = options;
   
   let lastError: unknown;
+  let lastResponse: Response | null = null;
   
   for (let attempt = 0; attempt < retries; attempt++) {
     const controller = new AbortController();
@@ -37,8 +39,11 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
       });
 
       if (!response.ok) {
+        lastResponse = response.clone();
+
         // Fail fast on definitive client errors — retrying won't help
         if (NON_RETRYABLE_STATUSES.has(response.status)) {
+          if (!throwOnHttpError) return response;
           throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
         }
         throw new RetryableError(`HTTP Error: ${response.status} ${response.statusText}`);
@@ -70,7 +75,10 @@ export async function fetchWithRetry(url: string | URL, options: FetchWithRetryO
       clearTimeout(timeoutId);
     }
   }
-  
+  if (!throwOnHttpError && lastResponse) {
+    return lastResponse;
+  }
+
   throw lastError instanceof Error 
     ? new Error(`Failed after ${retries} attempts. Last error: ${lastError.message}`)
     : new Error(`Failed after ${retries} attempts.`);
