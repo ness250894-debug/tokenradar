@@ -23,9 +23,10 @@ jobs:
   publish:
     name: Inject Data & Publish
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 135
     outputs:
       has_changes: ${{ steps.commit.outputs.has_changes }}
+      commit_sha: ${{ steps.commit.outputs.commit_sha }}
     permissions:
       contents: write
 
@@ -92,6 +93,15 @@ jobs:
         timeout-minutes: 10
         run: npx tsx scripts/validate-content.ts
 
+      - name: Build Gate Before Publish
+        timeout-minutes: 25
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          NEXT_PUBLIC_SITE_NAME: ${{ vars.SITE_NAME || 'TokenRadar' }}
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+
       - name: Commit published articles
         id: commit
         timeout-minutes: 5
@@ -101,7 +111,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          for dir in content/tokens data/queue data/tokens; do
+          for dir in content/tokens data/queue data/tokens data/prices; do
             if [ -d "$dir" ]; then
               git add "$dir"
             fi
@@ -109,10 +119,13 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new articles published from queue"
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "commit_sha=" >> $GITHUB_OUTPUT
             exit 0
           fi
           echo "has_changes=true" >> $GITHUB_OUTPUT
           git commit -m "chore: publish articles from queue [skip ci]"
+          commit_sha="$(git rev-parse HEAD)"
+          echo "commit_sha=$commit_sha" >> $GITHUB_OUTPUT
           base_sha="$(git rev-parse HEAD^1)"
           pushed=false
           for i in 1 2 3; do
@@ -147,6 +160,7 @@ jobs:
             data/logs/
             data/quarantine/
             data/queue/
+            data/prices/
             data/cache/api-counter.json
           if-no-files-found: ignore
           retention-days: 14
@@ -181,7 +195,8 @@ jobs:
       deployments: write
     uses: ./.github/workflows/deploy.yml
     with:
-      ref: main
+      ref: ${{ needs.publish.outputs.commit_sha }}
+      allow_sha_ref: true
     secrets:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

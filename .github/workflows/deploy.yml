@@ -20,6 +20,11 @@ on:
         required: false
         type: string
         default: 'main'
+      allow_sha_ref:
+        description: 'Allow a reusable caller to deploy a full commit SHA'
+        required: false
+        type: boolean
+        default: false
     secrets:
       CLOUDFLARE_API_TOKEN:
         required: true
@@ -47,11 +52,18 @@ jobs:
       - name: Validate deploy ref
         if: github.event_name != 'push'
         run: |
-          case "${{ inputs.ref || 'main' }}" in
+          ref="${{ inputs.ref || 'main' }}"
+          case "$ref" in
             main|refs/heads/main)
               ;;
+            [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f])
+              if [ "${{ inputs.allow_sha_ref || false }}" != "true" ]; then
+                echo "::error::Manual deploys may only target the protected main branch."
+                exit 1
+              fi
+              ;;
             *)
-              echo "::error::Manual and reusable deploys may only target the protected main branch."
+              echo "::error::Manual deploys may only target main. Reusable deploys may target main or a full commit SHA."
               exit 1
               ;;
           esac

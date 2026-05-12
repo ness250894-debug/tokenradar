@@ -107,12 +107,15 @@ async function main() {
     year: "numeric"
   });
 
-  let processedCount = 0;
+  let attemptedCount = 0;
+  let publishedTokenCount = 0;
+  let skippedTokenCount = 0;
 
   for (const tokenId of queueItems) {
-    if (processedCount >= maxToProcess) break;
+    if (attemptedCount >= maxToProcess) break;
+    attemptedCount++;
 
-    console.log(`▶ [${processedCount + 1}/${maxToProcess}] Publishing: ${tokenId}...`);
+    console.log(`▶ [${attemptedCount}/${maxToProcess}] Publishing: ${tokenId}...`);
 
     const tokenQueueDir = path.join(QUEUE_DIR, tokenId);
     const tokenFiles = fs.readdirSync(tokenQueueDir).filter(f => f.endsWith(".json"));
@@ -120,6 +123,7 @@ async function main() {
     if (tokenFiles.length === 0) {
       console.warn(`  ⚠ Empty folder for ${tokenId}. Cleaning up.`);
       fs.rmSync(tokenQueueDir, { recursive: true, force: true });
+      skippedTokenCount++;
       continue;
     }
 
@@ -178,6 +182,7 @@ async function main() {
         };
       } else {
         console.warn(`  ⚠ Skipping ${tokenId}: Could not fetch live market data.`);
+        skippedTokenCount++;
         continue;
       }
     }
@@ -250,6 +255,11 @@ async function main() {
     }
 
     console.log(`  ✓ Published ${tokenArticleCount} articles to ${targetDir}`);
+    if (tokenArticleCount > 0) {
+      publishedTokenCount++;
+    } else {
+      skippedTokenCount++;
+    }
     
     // Cleanup queue when every article was either published or explicitly dropped.
     if (tokenArticleCount + tokenDroppedCount === tokenFiles.length) {
@@ -265,11 +275,12 @@ async function main() {
       price: liveData.price
     });
 
-    processedCount++;
   }
 
   console.log();
-  console.log(`✅ Success! Published ${processedCount} tokens from queue.`);
+  console.log(
+    `✅ Success! Attempted ${attemptedCount} queue tokens; published articles for ${publishedTokenCount}; skipped or fully dropped ${skippedTokenCount}.`
+  );
 }
 
 main().catch(async (err) => {
