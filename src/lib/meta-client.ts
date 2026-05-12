@@ -12,6 +12,7 @@
  *   - Threads: graph.threads.net, threads_publish endpoint, supports spoiler + topic_tag
  */
 
+import { sleep } from "./shared-utils";
 import { sanitizePostTextLinks } from "./social-link-policy";
 
 /** Supported Meta platforms. */
@@ -126,13 +127,20 @@ const PLATFORM_CONFIG = {
 /** Polling configuration. */
 const POLL_INTERVAL_MS = 5_000;
 const POLL_TIMEOUT_MS = 120_000;
+const META_API_MAX_ATTEMPTS = 3;
+const META_API_RETRY_BASE_DELAY_MS = 10_000;
+const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 2207026]);
+const RETRYABLE_HTTP_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
 
 /**
  * Human-readable descriptions of common Meta API error codes.
  * Used for structured error reporting.
  */
 export const META_ERROR_DESCRIPTIONS: Record<number, string> = {
+  1: "Temporary Meta service error. Wait and retry.",
+  2: "Meta service temporarily unavailable. Wait and retry.",
   4: "Application-level rate limit reached. Wait and retry.",
+  17: "User-level rate limit reached. Wait and retry.",
   10: "Permission denied. Check Meta App Review status.",
   32: "Page-level rate limit reached. Retry in 1 hour.",
   190: "Access token expired or invalid. Run refresh-meta-tokens.ts.",
@@ -179,6 +187,39 @@ async function metaApiRequest<T>(
   params: Record<string, string>,
   platformLabel?: string,
 ): Promise<T> {
+  for (let attempt = 1; attempt <= META_API_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      return await metaApiRequestOnce<T>(baseUrl, endpoint, method, params, platformLabel);
+    } catch (error) {
+      if (!isRetryableMetaApiRequestError(error) || attempt >= META_API_MAX_ATTEMPTS) {
+        throw error;
+      }
+
+      const delay = META_API_RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
+      const label = platformLabel || "meta";
+      const reason = error instanceof MetaApiRequestError
+        ? `code ${error.code}`
+        : error instanceof Error
+          ? error.message
+          : "network error";
+
+      console.warn(
+        `  [meta:${label}] API request failed with retryable error (${reason}); retrying in ${delay / 1000}s... (Attempt ${attempt}/${META_API_MAX_ATTEMPTS})`,
+      );
+      await sleep(delay);
+    }
+  }
+
+  throw new Error("Meta API request retry loop exhausted unexpectedly.");
+}
+
+async function metaApiRequestOnce<T>(
+  baseUrl: string,
+  endpoint: string,
+  method: "GET" | "POST",
+  params: Record<string, string>,
+  platformLabel?: string,
+): Promise<T> {
   const url = new URL(`${baseUrl}${endpoint}`);
 
   let response: Response;
@@ -196,13 +237,26 @@ async function metaApiRequest<T>(
     });
   }
 
-  const data = await response.json();
+  const label = platformLabel || "meta";
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch (error) {
+    if (!response.ok) {
+      throw new MetaApiRequestError(
+        label,
+        response.status,
+        response.statusText || "Invalid Meta API response",
+        "Meta API returned a non-JSON error response.",
+      );
+    }
+    throw error;
+  }
 
   if (!response.ok || (data as MetaApiError).error) {
     const apiError = data as MetaApiError;
     const code = apiError.error?.code ?? response.status;
     const description = META_ERROR_DESCRIPTIONS[code] || "Unknown Meta API error.";
-    const label = platformLabel || "meta";
     throw new MetaApiRequestError(
       label,
       code,
@@ -215,6 +269,17 @@ async function metaApiRequest<T>(
   }
 
   return data as T;
+}
+
+function isRetryableMetaApiRequestError(error: unknown): boolean {
+  if (error instanceof MetaApiRequestError) {
+    return (
+      RETRYABLE_META_ERROR_CODES.has(error.code) ||
+      RETRYABLE_HTTP_STATUS_CODES.has(error.code)
+    );
+  }
+
+  return error instanceof TypeError || error instanceof DOMException;
 }
 
 function isInvalidParameterError(error: unknown): boolean {

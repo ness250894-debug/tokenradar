@@ -17,6 +17,7 @@ describe("publishVideo for Threads", () => {
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     delete process.env.THREADS_ACCESS_TOKEN;
     delete process.env.THREADS_ACCOUNT_ID;
     vi.unstubAllGlobals();
@@ -73,6 +74,31 @@ describe("publishVideo for Threads", () => {
     expect(retryCreateBody.has("topic_tag")).toBe(false);
     expect(retryCreateBody.has("text_entities")).toBe(false);
   });
+
+  it("retries transient Threads publish errors before returning success", async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "container-3" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-3", status: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "An unexpected error has occurred. Please retry your request later.",
+          type: "OAuthException",
+          code: 2,
+          fbtrace_id: "trace-2",
+        },
+      }, 500))
+      .mockResolvedValueOnce(jsonResponse({ id: "post-3" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const resultPromise = publishVideo("threads", "https://cdn.example/video.mp4", "Alpha is moving");
+
+    await vi.runAllTimersAsync();
+
+    await expect(resultPromise).resolves.toEqual({ id: "post-3", platform: "threads" });
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("code 2"));
+  });
 });
 
 describe("publishThreadsText", () => {
@@ -84,6 +110,7 @@ describe("publishThreadsText", () => {
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     delete process.env.THREADS_ACCESS_TOKEN;
     delete process.env.THREADS_ACCOUNT_ID;
     vi.unstubAllGlobals();
