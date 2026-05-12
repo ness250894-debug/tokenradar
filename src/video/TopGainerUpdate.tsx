@@ -10,8 +10,11 @@ import { ContextView } from "./components/ContextView";
 import { VerdictBadge } from "./components/VerdictBadge";
 import { VideoBackground } from "./components/VideoBackground";
 
-// Load Inter font
-loadFont();
+// Keep Remotion render startup fast by loading only the weights used by the video.
+loadFont("normal", {
+  weights: ["500", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
 export const TopGainerUpdate: React.FC<TopGainerProps> = ({
   tokenName,

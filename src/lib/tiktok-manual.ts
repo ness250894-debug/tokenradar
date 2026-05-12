@@ -19,6 +19,22 @@ export interface TikTokManualReportResult {
   captionMessageIds: number[];
 }
 
+export interface TikTokInboxUploadReportPackage {
+  caption: string;
+  tokenName: string;
+  symbol: string;
+  publishId: string;
+  status?: string;
+  failReason?: string;
+  reason?: string;
+  generatedAt?: string;
+}
+
+export interface TikTokInboxUploadReportResult {
+  summaryMessageId: number;
+  captionMessageIds: number[];
+}
+
 export function hasTikTokManualReportCredentials(): boolean {
   return Boolean(process.env.TELEGRAM_REPORT_BOT_TOKEN && process.env.TELEGRAM_REPORT_CHAT_ID);
 }
@@ -66,6 +82,49 @@ export function chunkTikTokManualCaption(caption: string): string[] {
     chunks.push(cleanCaption.slice(index, index + TELEGRAM_MESSAGE_LIMIT));
   }
   return chunks;
+}
+
+export function buildTikTokInboxUploadSummary(pkg: TikTokInboxUploadReportPackage): string {
+  const generatedAt = pkg.generatedAt || new Date().toISOString();
+  const captionLength = pkg.caption.length;
+  const maxCaptionLength = SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT;
+
+  return truncatePlainText(
+    [
+      `TikTok inbox upload ready: ${pkg.tokenName} ($${pkg.symbol.toUpperCase()})`,
+      `Publish ID: ${pkg.publishId}`,
+      pkg.status ? `Status: ${pkg.status}` : "",
+      pkg.failReason ? `Failure reason: ${pkg.failReason}` : "",
+      `Caption: ${captionLength}/${maxCaptionLength} chars`,
+      `Generated: ${generatedAt}`,
+      pkg.reason ? `Reason: ${pkg.reason}` : "",
+      "Open TikTok, continue from the inbox notification, then paste the caption from the next message.",
+    ].filter(Boolean).join("\n"),
+    TELEGRAM_VIDEO_CAPTION_LIMIT,
+  );
+}
+
+export async function sendTikTokInboxUploadReport(
+  pkg: TikTokInboxUploadReportPackage,
+): Promise<TikTokInboxUploadReportResult> {
+  const { api, chatId } = getReportingTelegramApi();
+
+  const summaryMessage = await api.sendMessage(chatId, buildTikTokInboxUploadSummary(pkg), {
+    link_preview_options: { is_disabled: true },
+  });
+
+  const captionMessageIds: number[] = [];
+  for (const chunk of chunkTikTokManualCaption(pkg.caption)) {
+    const message = await api.sendMessage(chatId, chunk, {
+      link_preview_options: { is_disabled: true },
+    });
+    captionMessageIds.push(message.message_id);
+  }
+
+  return {
+    summaryMessageId: summaryMessage.message_id,
+    captionMessageIds,
+  };
 }
 
 export async function sendTikTokManualPostReport(pkg: TikTokManualPostPackage): Promise<TikTokManualReportResult> {

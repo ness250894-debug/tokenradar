@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  buildTikTokInboxUploadSummary,
   buildTikTokManualVideoCaption,
   chunkTikTokManualCaption,
 } from "../src/lib/tiktok-manual";
@@ -26,6 +27,24 @@ describe("TikTok manual reporting helpers", () => {
     const caption = "First line\n\n#SOL #Crypto";
 
     expect(chunkTikTokManualCaption(caption)).toEqual([caption]);
+  });
+
+  it("builds an inbox upload summary with publish id and next-step instructions", () => {
+    const summary = buildTikTokInboxUploadSummary({
+      caption: "Copy-ready TikTok caption #Crypto",
+      tokenName: "Solana",
+      symbol: "sol",
+      publishId: "publish-123",
+      status: "PROCESSING_UPLOAD",
+      reason: "spotlight",
+      generatedAt: "2026-05-10T12:00:00.000Z",
+    });
+
+    expect(summary).toContain("TikTok inbox upload ready: Solana ($SOL)");
+    expect(summary).toContain("Publish ID: publish-123");
+    expect(summary).toContain("Status: PROCESSING_UPLOAD");
+    expect(summary).toContain("paste the caption from the next message");
+    expect(summary.length).toBeLessThanOrEqual(1024);
   });
 
   it("falls back when the generated caption is blank", () => {
