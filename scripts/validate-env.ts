@@ -69,6 +69,36 @@ const FORMAT_RULES: Record<string, { test: (value: string) => boolean; message: 
     test: (value) => value.length >= 20,
     message: "looks too short for an X OAuth refresh token",
   },
+  TIKTOK_REDIRECT_URI: {
+    test: (value) => {
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" || url.hostname === "127.0.0.1" || url.hostname === "localhost";
+      } catch {
+        return false;
+      }
+    },
+    message: "must be a valid HTTPS URL, or localhost for supported desktop testing",
+  },
+  TIKTOK_REFRESH_TOKEN: {
+    test: (value) => value.length >= 20,
+    message: "looks too short for a TikTok refresh token",
+  },
+  TIKTOK_ENV: {
+    test: (value) => ["sandbox", "sand", "inbox", "upload", "production", "prod", "direct"].includes(
+      value.trim().toLowerCase(),
+    ),
+    message: "must be sandbox/inbox/upload or production/prod/direct",
+  },
+  TIKTOK_PRIVACY_LEVEL: {
+    test: (value) => [
+      "PUBLIC_TO_EVERYONE",
+      "MUTUAL_FOLLOW_FRIENDS",
+      "FOLLOWER_OF_CREATOR",
+      "SELF_ONLY",
+    ].includes(value.trim()),
+    message: "must be one of TikTok's supported privacy levels",
+  },
 };
 
 const missingBuild = BUILD_REQUIRED.filter(v => !process.env[v]);

@@ -1,6 +1,6 @@
 /**
  * Multi-platform video auto-poster for the daily breakout token.
- * Supports: Telegram, X, YouTube, Instagram, Threads, and TikTok manual reporting.
+ * Supports: Telegram, X, YouTube, Instagram, Threads, and TikTok API upload/manual reporting.
  *
  * Usage:
  *   npx tsx scripts/post-video-daily.ts
@@ -28,7 +28,18 @@ import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import { cleanPrefix, deleteObjects, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
-import { hasTikTokManualReportCredentials, sendTikTokManualPostReport } from "../src/lib/tiktok-manual";
+import {
+  hasTikTokManualReportCredentials,
+  sendTikTokInboxUploadReport,
+  sendTikTokManualPostReport,
+} from "../src/lib/tiktok-manual";
+import {
+  getTikTokCredentialMode,
+  hasTikTokApiCredentials,
+  normalizeTikTokCaption,
+  publishVideoDirectlyToTikTok,
+  uploadVideoToTikTokInbox,
+} from "../src/lib/tiktok-client";
 import { getRandomTrack } from "../src/lib/audio-config";
 import {
   type MetricData,
@@ -58,9 +69,15 @@ interface PlatformTracker {
   postId?: string;
   caption?: string;
   reportVideoMessageId?: number;
+  reportSummaryMessageId?: number;
   reportCaptionMessageIds?: number[];
+  publishId?: string;
+  tiktokStatus?: string;
+  tiktokFailReason?: string;
   tiktokCaption?: string;
-  deliveryMode?: "direct" | "telegram-report-manual";
+  tiktokPrivacyLevel?: string;
+  tiktokCreatorUsername?: string;
+  deliveryMode?: "content-posting-api-direct" | "content-posting-api-inbox" | "direct" | "telegram-report-manual";
 }
 
 interface VideoTracker {
@@ -239,8 +256,13 @@ async function main() {
   const shouldRunYouTube = runYouTube && hasYouTubeCredentials;
   const shouldRunInstagram = runInstagram && hasMetaCredentials("instagram") && hasR2Credentials();
   const shouldRunThreads = runThreads && hasMetaCredentials("threads") && hasR2Credentials();
+  const hasTikTokApiCredentialsConfigured = hasTikTokApiCredentials();
+  const tiktokCredentialMode = runTikTok && hasTikTokApiCredentialsConfigured ? getTikTokCredentialMode() : "sandbox";
   const hasTikTokReportCredentials = hasTikTokManualReportCredentials();
-  const shouldRunTikTok = runTikTok && (dryRun || hasTikTokReportCredentials);
+  const shouldRunTikTokDirect = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "production";
+  const shouldRunTikTokInbox = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "sandbox";
+  const shouldRunTikTokManual = runTikTok && !hasTikTokApiCredentialsConfigured && (dryRun || hasTikTokReportCredentials);
+  const shouldRunTikTok = shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual;
   const requestedPlatforms = getRequestedPlatforms(
     runTelegram,
     runX,
@@ -289,8 +311,8 @@ async function main() {
       console.warn("  Missing Threads or R2 credentials. Skipping Threads.");
       if (targetPlatform === "threads") process.exit(1);
     }
-    if (runTikTok && !hasTikTokReportCredentials) {
-      console.warn("  Missing Telegram reporting credentials. Skipping TikTok manual report.");
+    if (runTikTok && !hasTikTokApiCredentialsConfigured && !hasTikTokReportCredentials) {
+      console.warn("  Missing TikTok API credentials and Telegram reporting credentials. Skipping TikTok.");
       if (targetPlatform === "tiktok") process.exit(1);
     }
   }
@@ -617,10 +639,28 @@ async function main() {
       }
       if (shouldRunTikTok) {
         console.log();
-        console.log("--- TIKTOK MANUAL REPORT ---");
+        console.log(
+          shouldRunTikTokDirect
+            ? "--- TIKTOK DIRECT POST ---"
+            : shouldRunTikTokInbox
+              ? "--- TIKTOK API UPLOAD ---"
+              : "--- TIKTOK MANUAL REPORT ---",
+        );
         console.log(`CAPTION (${tiktokCaption.length}/${SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} chars):`);
         console.log(tiktokCaption);
-        console.log("DELIVERY: Telegram reporting dialog with video attachment and copy-ready caption.");
+        if (shouldRunTikTokDirect) {
+          console.log("DELIVERY: TikTok Content Posting API direct post with video.publish scope.");
+          console.log("NOTE: The caption is sent to TikTok as post_info.title.");
+        } else if (shouldRunTikTokInbox) {
+          console.log("DELIVERY: TikTok Content Posting API inbox upload with video.upload scope.");
+          console.log(
+            hasTikTokReportCredentials
+              ? "NOTE: TikTok upload-to-inbox receives the MP4; the copy-ready caption is sent to the Telegram reporting chat."
+              : "NOTE: TikTok upload-to-inbox receives the MP4; missing Telegram reporting credentials, so the caption is stored in the tracker only.",
+          );
+        } else {
+          console.log("DELIVERY: Telegram reporting dialog with video attachment and copy-ready caption.");
+        }
       }
       return;
     }
@@ -789,7 +829,98 @@ async function main() {
       );
     }
 
-    if (shouldRunTikTok && !trackerState.platforms.tiktok) {
+    if (shouldRunTikTokDirect && !trackerState.platforms.tiktok) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
+            const result = await publishVideoDirectlyToTikTok({
+              videoPath: outPath,
+              caption: safeTikTokCaption,
+            });
+            console.log(`Posted video directly to TikTok (Publish ID: ${result.publishId})`);
+            return {
+              platform: "tiktok" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                publishId: result.publishId,
+                tiktokStatus: result.status?.status,
+                tiktokFailReason: result.status?.fail_reason,
+                tiktokCaption: safeTikTokCaption,
+                tiktokPrivacyLevel: result.privacyLevel,
+                tiktokCreatorUsername: result.creatorInfo?.creator_username,
+                deliveryMode: "content-posting-api-direct" as const,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-tiktok-direct", error, false);
+            console.error(`TikTok direct post failed: ${formatErrorForLog(error)}`);
+            return { platform: "tiktok" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    if (shouldRunTikTokInbox && !trackerState.platforms.tiktok) {
+      publishTasks.push(
+        (async () => {
+          try {
+            const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
+            const result = await uploadVideoToTikTokInbox({
+              videoPath: outPath,
+            });
+            console.log(`Uploaded video to TikTok inbox (Publish ID: ${result.publishId})`);
+
+            let reportSummaryMessageId: number | undefined;
+            let reportCaptionMessageIds: number[] | undefined;
+            if (hasTikTokReportCredentials) {
+              try {
+                const report = await sendTikTokInboxUploadReport({
+                  caption: safeTikTokCaption,
+                  tokenName: targetToken.name,
+                  symbol: targetToken.symbol,
+                  publishId: result.publishId,
+                  status: result.status?.status,
+                  failReason: result.status?.fail_reason,
+                  reason,
+                  generatedAt: new Date().toISOString(),
+                });
+                reportSummaryMessageId = report.summaryMessageId;
+                reportCaptionMessageIds = report.captionMessageIds;
+                console.log(
+                  `Sent TikTok inbox caption to reporting dialog (Summary Message ID: ${report.summaryMessageId})`,
+                );
+              } catch (reportError) {
+                await logError("post-video-daily-tiktok-api-report", reportError, false);
+                console.error(`TikTok inbox Telegram report failed: ${formatErrorForLog(reportError)}`);
+              }
+            } else {
+              console.warn("  Missing Telegram reporting credentials. TikTok caption stored in tracker only.");
+            }
+
+            return {
+              platform: "tiktok" as const,
+              tracker: {
+                postedAt: new Date().toISOString(),
+                publishId: result.publishId,
+                tiktokStatus: result.status?.status,
+                tiktokFailReason: result.status?.fail_reason,
+                tiktokCaption: safeTikTokCaption,
+                reportSummaryMessageId,
+                reportCaptionMessageIds,
+                deliveryMode: "content-posting-api-inbox" as const,
+              },
+            };
+          } catch (error) {
+            await logError("post-video-daily-tiktok-api", error, false);
+            console.error(`TikTok API upload failed: ${formatErrorForLog(error)}`);
+            return { platform: "tiktok" as const, tracker: null };
+          }
+        })(),
+      );
+    }
+
+    if (shouldRunTikTokManual && !trackerState.platforms.tiktok) {
       publishTasks.push(
         (async () => {
           try {

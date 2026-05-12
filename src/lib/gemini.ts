@@ -494,11 +494,13 @@ function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): stri
 function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
   const change = formatSocialChange(metrics.priceChange24h);
   const price = formatSocialPrice(metrics.price);
+  const marketCap = formatSocialMarketCap(metrics.marketCap);
 
   return [
-    `${tokenName} is moving ${change} in 24h.`,
-    `Price: ${price}. Watch the TokenRadar setup before the next market rotation.`,
-    `@tokenradarco #${symbol.toUpperCase()} #Crypto #Altcoins #TokenRadar`,
+    `${tokenName} crypto market update`,
+    `${change} in 24h | Price: ${price} | Market cap: ${marketCap}`,
+    "Watch liquidity and follow-through before treating this as a real signal.",
+    `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar #Altcoins`,
   ].join("\n\n");
 }
 
@@ -506,6 +508,69 @@ function truncateText(text: string, maxChars: number): string {
   if (text.length <= maxChars) return text;
   if (maxChars <= 3) return text.substring(0, maxChars);
   return `${text.substring(0, maxChars - 3).trim()}...`;
+}
+
+const TIKTOK_GENERIC_HASHTAGS = new Set([
+  "#fyp",
+  "#foryou",
+  "#foryoupage",
+  "#viral",
+  "#trending",
+  "#explore",
+  "#xyzbca",
+]);
+
+function normalizeHashtag(tag: string): string {
+  return tag.replace(/[^#a-zA-Z0-9_]/g, "").trim();
+}
+
+function symbolToHashtag(symbol: string): string | undefined {
+  const cleaned = symbol.replace(/[^a-zA-Z0-9_]/g, "").toUpperCase();
+  return cleaned ? `#${cleaned}` : undefined;
+}
+
+function compactTikTokBody(text: string): string {
+  return text
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+export function prepareTikTokCaptionForPublishing(
+  caption: string,
+  symbol: string,
+  maxChars: number = SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
+): string {
+  const cleaned = compactTikTokBody(sanitizePostTextLinks(caption));
+  const rawTags = cleaned.match(/#[a-zA-Z0-9_]+/g) || [];
+  const body = compactTikTokBody(cleaned.replace(/#[a-zA-Z0-9_]+/g, ""));
+
+  const requiredTags = [
+    symbolToHashtag(symbol),
+    "#Crypto",
+    "#TokenRadar",
+  ].filter((tag): tag is string => Boolean(tag));
+
+  const candidateTags = [...requiredTags, ...rawTags]
+    .map(normalizeHashtag)
+    .filter(Boolean)
+    .filter((tag) => !TIKTOK_GENERIC_HASHTAGS.has(tag.toLowerCase()));
+
+  const seen = new Set<string>();
+  const tags = candidateTags.filter((tag) => {
+    const key = tag.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 5);
+
+  const hashtagLine = tags.join(" ");
+  const bodyBudget = maxChars - (hashtagLine ? hashtagLine.length + 2 : 0);
+  const safeBody = bodyBudget > 0 ? truncateText(body || "TokenRadar market update.", bodyBudget) : "";
+
+  return compactTikTokBody([safeBody, hashtagLine].filter(Boolean).join("\n\n"));
 }
 
 function truncateTextAtBoundary(text: string, maxChars: number): string {
@@ -575,6 +640,7 @@ function fallbackYoutubeMetadata(
 function enforceUnifiedCaptionLimits(
   captions: UnifiedSocialCaptions,
   options: UnifiedCaptionOptions,
+  symbol: string,
 ): UnifiedSocialCaptions {
   const next: UnifiedSocialCaptions = { ...captions };
 
@@ -614,9 +680,9 @@ function enforceUnifiedCaptionLimits(
     );
   }
   if (next.tiktokCaption) {
-    next.tiktokCaption = sanitizePostTextLinks(next.tiktokCaption);
-    next.tiktokCaption = truncateText(
+    next.tiktokCaption = prepareTikTokCaptionForPublishing(
       next.tiktokCaption,
+      symbol,
       options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
     );
   }
@@ -672,7 +738,7 @@ async function fillMissingUnifiedCaptionFields(
     next.tiktokCaption = fallbackTikTokCaption(tokenName, symbol, metrics);
   }
 
-  return enforceUnifiedCaptionLimits(next, options);
+  return enforceUnifiedCaptionLimits(next, options, symbol);
 }
 
 /**
@@ -762,10 +828,17 @@ TIKTOK RULES:
 - Return "tiktokCaption" only for TikTok.
 - Maximum ${options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} characters.
 - Today's TikTok angle: ${platformVariants.tiktok?.label} - ${platformVariants.tiktok?.angle}.
-- Start with a short hook that fits today's angle and a vertical short-form video.
-- Include 2-3 concrete market data points naturally.
+- Treat tiktokCaption as the TikTok video description/caption.
+- Aim for 140-300 characters even though the hard platform cap is higher.
+- Use this search-first structure:
+  Line 1: a short hook under 80 characters that includes ${tokenName} or $${symbol.toUpperCase()} plus a searchable phrase like "crypto market update", "altcoin watchlist", or the token's narrative.
+  Line 2: 2-3 concrete market data points, written naturally.
+  Line 3: one risk or confirmation filter. Do not give trading advice.
+  Final line: @tokenradarco plus hashtags.
 - Mention @tokenradarco once.
-- Include 5-8 relevant hashtags at the end.
+- End with exactly 3-5 relevant hashtags. Use a focused mix of token, narrative/category, crypto, and TokenRadar tags.
+- Do not use generic reach tags such as #FYP, #ForYou, #ForYouPage, #viral, or #trending.
+- Do not say buy, sell, long, short, entry, take-profit, guaranteed, financial advice, or price prediction.
 - No URLs, markdown, HTML, unsupported symbols, AI disclaimers, or rocket emojis.`,
   };
 

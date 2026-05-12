@@ -11,7 +11,7 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 - **Data:** CoinGecko API (free tier)
 - **Hosting:** Cloudflare Pages
 - **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and platform-aware social automation)
-- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok manual reporting
+- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API with manual fallback
 - **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots
 
 ## Project Structure
@@ -67,7 +67,7 @@ npm test
 
 Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok. Platform copy now uses deterministic daily variants from `src/lib/social-variety.ts`, so repeated runs rotate between signal, risk, rotation, watchlist, and conversation-prompt formats.
 
-Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is wired as a manual reporting flow while API approvals are pending: `--platform tiktok` renders the video, generates a TikTok caption, and sends both to the Telegram reporting chat for manual posting. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.
+Video hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. TikTok is wired as one script with two API flows selected by `TIKTOK_ENV`: `sandbox` uses `video.upload` to upload the MP4 to the authorized creator inbox, stores the returned `publish_id`, and sends the publish id plus copy-ready caption to the Telegram reporting chat for manual release in the TikTok app; `production` uses `video.publish` to send the MP4 and caption directly to TikTok as a full auto-post. If TikTok API credentials are missing, the script falls back to sending the video and copy-ready caption to the Telegram reporting chat. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.
 
 Safe dry-run checks:
 
@@ -77,6 +77,9 @@ npx tsx scripts/post-threads-daily.ts --dry-run --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform x --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force
+npx tsx scripts/generate-tiktok-token.ts --env sandbox
+npx tsx scripts/generate-tiktok-token.ts --env production
+npx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>
 ```
 
 ## Environment Variables
@@ -90,7 +93,7 @@ Copy `.env.example` to `.env.local` and configure:
 | `ANTHROPIC_API_KEY` | Yes | Claude fallback |
 | `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |
 | `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |
-| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual reporting |
+| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual/inbox reporting |
 | `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |
 | `X_OAUTH2_CLIENT_ID` | For X | X posting |
 | `X_OAUTH2_CLIENT_SECRET` | For X | X posting |
@@ -104,6 +107,13 @@ Copy `.env.example` to `.env.local` and configure:
 | `YOUTUBE_CLIENT_ID` | For YT | YouTube Shorts |
 | `YOUTUBE_CLIENT_SECRET` | For YT | YouTube Shorts |
 | `YOUTUBE_REFRESH_TOKEN` | For YT | YouTube Shorts |
+| `TIKTOK_ENV` | For TikTok | `sandbox` for inbox + TG caption, `production` for direct post |
+| `TIKTOK_CLIENT_KEY` | For TikTok | TikTok Content Posting API |
+| `TIKTOK_CLIENT_SECRET` | For TikTok | TikTok OAuth token exchange |
+| `TIKTOK_REDIRECT_URI` | For TikTok | TikTok OAuth redirect URI, usually `https://tokenradar.co/tiktok/callback` |
+| `TIKTOK_REFRESH_TOKEN` | For TikTok | TikTok sandbox/creator refresh token |
+| `TIKTOK_ACCESS_TOKEN` | For TikTok | Optional short-lived fallback access token |
+| `TIKTOK_PRIVACY_LEVEL` | For TikTok production | Direct post privacy, default `PUBLIC_TO_EVERYONE` |
 | `R2_ACCOUNT_ID` | For R2 | Cloudflare R2 Media Staging |
 | `R2_ACCESS_KEY_ID` | For R2 | Cloudflare R2 Media Staging |
 | `R2_SECRET_ACCESS_KEY` | For R2 | Cloudflare R2 Media Staging |
