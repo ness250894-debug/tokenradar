@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HackerText } from "./HackerText";
-import { InstagramIcon, TelegramIcon, ThreadsIcon, XIcon } from "./SocialIcons";
+import { InstagramIcon, TelegramIcon, ThreadsIcon, TikTokIcon, XIcon } from "./SocialIcons";
 import { SOCIAL } from "../lib/config";
 
 const PLATFORM_LINKS = [
@@ -29,6 +29,7 @@ const SOCIAL_LINKS = [
   { href: SOCIAL.telegramUrl, label: "TokenRadar on Telegram", Icon: TelegramIcon },
   { href: SOCIAL.threadsUrl, label: "TokenRadar on Threads", Icon: ThreadsIcon },
   { href: SOCIAL.instagramUrl, label: "TokenRadar on Instagram", Icon: InstagramIcon },
+  { href: SOCIAL.tiktokUrl, label: "TokenRadar on TikTok", Icon: TikTokIcon },
 ] as const;
 
 export function Footer() {
