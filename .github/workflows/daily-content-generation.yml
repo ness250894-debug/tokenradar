@@ -71,7 +71,10 @@ jobs:
 
       - name: Quality Gate Queued Content
         timeout-minutes: 10
-        run: npx tsx scripts/quality-check.ts --dir data/queue --fail-on-error
+        run: npx tsx scripts/quality-check.ts --dir data/queue --fix --delete-failures
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Publish from Queue (Incorporate live data)
         timeout-minutes: 15
