@@ -15,6 +15,7 @@
  *   npx tsx scripts/quality-check.ts --dir data/queue --fail-on-error
  *   npx tsx scripts/quality-check.ts --fix  (auto-fix: append disclaimer, AI-rewrite prohibited phrases)
  *   npx tsx scripts/quality-check.ts --quarantine  (move failed articles to data/quarantine)
+ *   npx tsx scripts/quality-check.ts --delete-failures  (delete failed generated articles)
  *
  * Cost: $0 without --fix, ~$0.001 per AI rewrite with --fix
  */
@@ -218,7 +219,7 @@ async function checkArticle(
   }
 
   if (foundProhibited.length > 0) {
-    if (autoFix && process.env.ANTHROPIC_API_KEY) {
+    if (autoFix && (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY)) {
       // Targeted AI fix: rewrite only the offending paragraphs
       const result = await fixProhibitedPhrases(content, foundProhibited);
       if (result.fixed.length > 0) {
@@ -274,6 +275,10 @@ function quarantineArticle(filePath: string, rootDir: string): string {
   return targetPath;
 }
 
+function deleteFailedArticle(filePath: string): void {
+  fs.unlinkSync(filePath);
+}
+
 // ── Main ───────────────────────────────────────────────────────
 
 async function main() {
@@ -287,19 +292,32 @@ async function main() {
       : CONTENT_DIR;
   const autoFix = args.includes("--fix");
   const quarantineFailures = args.includes("--quarantine");
+  const deleteFailures = args.includes("--delete-failures") || args.includes("--drop-failures");
   const failOnError = args.includes("--fail-on-error") || args.includes("--strict");
+
+  if (quarantineFailures && deleteFailures) {
+    console.error("  Use either --quarantine or --delete-failures, not both.");
+    process.exit(1);
+  }
+
+  if (deleteFailures && path.basename(targetRoot) !== "queue") {
+    console.error("  --delete-failures only supports queue directories. Pass --dir data/queue.");
+    process.exit(1);
+  }
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Content Quality Checker    ║");
   console.log("╚══════════════════════════════════════════╝");
   console.log();
 
-  if (autoFix && process.env.ANTHROPIC_API_KEY) {
+  if (autoFix && (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY)) {
     console.log("  Mode: --fix with AI rewrite (Gemini 2.5 Flash → Claude Haiku 4.5 fallback)");
   } else if (autoFix) {
-    console.log("  Mode: --fix (disclaimer only, no ANTHROPIC_API_KEY for AI rewrite)");
+    console.log("  Mode: --fix (disclaimer only, no AI API key for rewrite)");
   }
-  if (quarantineFailures) {
+  if (deleteFailures) {
+    console.log("  Mode: --delete-failures (failed articles will be removed from the queue)");
+  } else if (quarantineFailures) {
     console.log("  Mode: --quarantine (failed articles will be moved to data/quarantine)");
   } else {
     console.log("  Mode: check-only (failed articles stay in place)");
@@ -365,11 +383,14 @@ async function main() {
         }
       } else {
         totalFailed++;
-        if (quarantineFailures) {
+        if (deleteFailures) {
+          deleteFailedArticle(filePath);
+          console.log(`    Deleted failed article: ${result.file}`);
+        } else if (quarantineFailures) {
           const quarantinedPath = quarantineArticle(filePath, targetRoot);
           console.log(`    🗑 Quarantining failed article: ${path.relative(process.cwd(), quarantinedPath)}`);
         } else {
-          console.log("    Not quarantined. Re-run with --quarantine to move failed articles.");
+          console.log("    Not deleted or quarantined. Re-run with --delete-failures or --quarantine to remove failed articles.");
         }
         logActivity("quality-check-failed", {
           tokenId: result.tokenId,

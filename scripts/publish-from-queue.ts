@@ -198,10 +198,16 @@ async function main() {
     ensureDirSync(targetDir);
 
     let tokenArticleCount = 0;
+    let tokenDroppedCount = 0;
     for (const file of tokenFiles) {
       const filePath = path.join(tokenQueueDir, file);
       const article = safeReadJson<any>(filePath, null);
-      if (!article) continue;
+      if (!article) {
+        console.warn(`  Warning: deleting ${tokenId}/${file}; article JSON could not be read.`);
+        fs.rmSync(filePath, { force: true });
+        tokenDroppedCount++;
+        continue;
+      }
 
       // Replace placeholders in title and content
       let finalContent = article.content || "";
@@ -219,18 +225,22 @@ async function main() {
 
       const unresolved = findUnresolvedPlaceholders(article);
       if (unresolved.length > 0) {
-        console.warn(`  Warning: not publishing ${tokenId}/${file}; unresolved placeholders: ${unresolved.join(", ")}`);
+        console.warn(`  Warning: deleting ${tokenId}/${file}; unresolved placeholders: ${unresolved.join(", ")}`);
+        fs.rmSync(filePath, { force: true });
+        tokenDroppedCount++;
         continue;
       }
 
       article.quality = buildArticleQualitySnapshot(article);
       if (!article.quality.passed) {
-        console.warn(`  Warning: not publishing ${tokenId}/${file}; quality gate failed: ${article.quality.issues.join("; ")}`);
+        console.warn(`  Warning: deleting ${tokenId}/${file}; quality gate failed: ${article.quality.issues.join("; ")}`);
         logActivity("publish-quality-blocked", {
           tokenId,
           articleType: article.type || file.replace(/\.json$/, ""),
           issues: article.quality.issues.join("; ")
         });
+        fs.rmSync(filePath, { force: true });
+        tokenDroppedCount++;
         continue;
       }
 
@@ -241,11 +251,11 @@ async function main() {
 
     console.log(`  ✓ Published ${tokenArticleCount} articles to ${targetDir}`);
     
-    // Cleanup queue only when every article published cleanly.
-    if (tokenArticleCount === tokenFiles.length) {
+    // Cleanup queue when every article was either published or explicitly dropped.
+    if (tokenArticleCount + tokenDroppedCount === tokenFiles.length) {
       fs.rmSync(tokenQueueDir, { recursive: true, force: true });
     } else {
-      console.warn(`  Warning: ${tokenFiles.length - tokenArticleCount} queued article(s) left for remediation.`);
+      console.warn(`  Warning: ${tokenFiles.length - tokenArticleCount - tokenDroppedCount} queued article(s) left for remediation.`);
     }
     
     logActivity("publish-from-queue", {
