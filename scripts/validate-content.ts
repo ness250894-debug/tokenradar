@@ -10,6 +10,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { fileURLToPath } from "url";
 import { normalizeTge, type UpcomingTge } from "../src/lib/tge";
 
 const SCAN_DIRS = [
@@ -23,6 +24,118 @@ const QUEUE_DIR = path.join(DATA_DIR, "queue");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const CONFLICT_MARKERS = ["<<<<<<<", "=======", ">>>>>>>"];
 const PLACEHOLDER_PATTERN = /\{\{[A-Z0-9_]+\}\}/g;
+const OUTBOUND_URL_PATTERN = /https?:\/\/[^\s)\]>"']+/g;
+const BASE_ALLOWED_EXTERNAL_HOSTS = new Set([
+  "github.com",
+  "etherscan.io",
+  "basescan.org",
+  "bscscan.com",
+  "polygonscan.com",
+  "arbiscan.io",
+  "optimistic.etherscan.io",
+  "solscan.io",
+  "runescan.io",
+  "taostats.io",
+]);
+
+function normalizeHost(hostname: string): string {
+  return hostname.toLowerCase().replace(/^www\./, "");
+}
+
+function trimUrlToken(value: string): string {
+  return value.replace(/[.,;:!?]+$/g, "");
+}
+
+function collectUrlHosts(value: unknown, hosts: Set<string>): void {
+  if (typeof value === "string") {
+    try {
+      const url = new URL(value);
+      if (url.protocol === "http:" || url.protocol === "https:") {
+        hosts.add(normalizeHost(url.hostname));
+      }
+    } catch {
+      // Ignore non-URL strings.
+    }
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectUrlHosts(item, hosts));
+    return;
+  }
+
+  if (value && typeof value === "object") {
+    Object.values(value).forEach((item) => collectUrlHosts(item, hosts));
+  }
+}
+
+function getConfiguredAllowedHosts(): Set<string> {
+  const configured = process.env.TOKENRADAR_ALLOWED_OUTBOUND_HOSTS || "";
+  return new Set(
+    configured
+      .split(",")
+      .map((host) => normalizeHost(host.trim()))
+      .filter(Boolean),
+  );
+}
+
+function getTokenIdForArticlePath(filePath: string): string | null {
+  const normalized = path.resolve(filePath);
+  for (const root of [CONTENT_TOKENS_DIR, QUEUE_DIR]) {
+    const relative = path.relative(root, normalized);
+    if (!relative.startsWith("..") && !path.isAbsolute(relative)) {
+      const [tokenId] = relative.split(path.sep);
+      return tokenId || null;
+    }
+  }
+  return null;
+}
+
+function getAllowedHostsForToken(tokenId: string | null): Set<string> {
+  const hosts = new Set<string>([...BASE_ALLOWED_EXTERNAL_HOSTS, ...getConfiguredAllowedHosts()]);
+  if (!tokenId) return hosts;
+
+  const tokenPath = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
+  if (!fs.existsSync(tokenPath)) return hosts;
+
+  try {
+    const token = JSON.parse(fs.readFileSync(tokenPath, "utf-8"));
+    collectUrlHosts(token?.links, hosts);
+  } catch {
+    // JSON validity is checked separately; keep link validation focused on policy.
+  }
+
+  return hosts;
+}
+
+function isAllowedExternalUrl(value: string, allowedHosts: Set<string>): boolean {
+  try {
+    const url = new URL(trimUrlToken(value));
+    const host = normalizeHost(url.hostname);
+    if (host === "tokenradar.co") return true;
+    if (url.protocol !== "https:") return false;
+    return allowedHosts.has(host);
+  } catch {
+    return false;
+  }
+}
+
+export function findUnapprovedOutboundUrls(content: string, allowedHosts: Set<string>): string[] {
+  const matches = Array.from(content.matchAll(OUTBOUND_URL_PATTERN), (match) => trimUrlToken(match[0]));
+  const uniqueUrls = Array.from(new Set(matches));
+  return uniqueUrls.filter((url) => !isAllowedExternalUrl(url, allowedHosts));
+}
+
+function validateArticleOutboundUrls(filePath: string, parsed: unknown): string[] {
+  if (!parsed || typeof parsed !== "object" || typeof (parsed as { content?: unknown }).content !== "string") {
+    return [];
+  }
+
+  const tokenId = getTokenIdForArticlePath(filePath);
+  const allowedHosts = getAllowedHostsForToken(tokenId);
+  return findUnapprovedOutboundUrls((parsed as { content: string }).content, allowedHosts)
+    .map((url) => `Unapproved outbound URL: ${url}`);
+}
 
 function validateFile(filePath: string): { success: boolean; error?: string } {
   try {
@@ -44,7 +157,14 @@ function validateFile(filePath: string): { success: boolean; error?: string } {
 
     // 2. Check for valid JSON
     if (filePath.endsWith(".json")) {
-      JSON.parse(content);
+      const parsed = JSON.parse(content);
+      const outboundErrors = validateArticleOutboundUrls(filePath, parsed);
+      if (outboundErrors.length > 0) {
+        return {
+          success: false,
+          error: outboundErrors.join("; ")
+        };
+      }
     }
 
     return { success: true };
@@ -203,4 +323,6 @@ function main() {
   }
 }
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main();
+}

@@ -148,6 +148,10 @@ async function consolidate() {
   console.log(`Processing ${metricFiles.length} metric files...`);
   for (const file of metricFiles) {
     const tokenId = file.replace(".json", "");
+    if (!tokensBlob[tokenId]) {
+      continue;
+    }
+
     try {
       const raw = await fs.promises.readFile(path.join(METRICS_DIR, file), "utf-8");
       metricsBlob[tokenId] = JSON.parse(raw);
@@ -160,6 +164,10 @@ async function consolidate() {
   console.log(`Processing ${priceFiles.length} price files...`);
   for (const file of priceFiles) {
     const tokenId = file.replace(".json", "");
+    if (!tokensBlob[tokenId]) {
+      continue;
+    }
+
     try {
       const raw = await fs.promises.readFile(path.join(PRICES_DIR, file), "utf-8");
       pricesBlob[tokenId] = JSON.parse(raw);

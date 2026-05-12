@@ -81,6 +81,13 @@ async function generateOGImages() {
   }
 
   // --- Daily Movers Section ---
+  const moversPath = path.join(PUBLIC_DIR, "og", "movers.png");
+  if (!force && fs.existsSync(moversPath)) {
+    console.info("Daily Movers static image exists; use --force to refresh it from live data.");
+    console.info("Done.");
+    return;
+  }
+
   console.info("Generating Daily Movers static image using live API data...");
   try {
     // Re-use exactly the same logic as the Telegram bot to ensure perfect sync
@@ -102,7 +109,6 @@ async function generateOGImages() {
 
     if (movers.length > 0) {
       const moversBuffer = await generateMoversImage(movers);
-      const moversPath = path.join(PUBLIC_DIR, "og", "movers.png");
       fs.writeFileSync(moversPath, moversBuffer);
       console.info("✅ Generated static movers image at public/og/movers.png perfectly synced with live data");
     }
