@@ -2,26 +2,50 @@
   "id": "diem",
   "symbol": "diem",
   "name": "Diem",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68436/large/DIEM_SeaMid_-_200px.png?1755734213",
+  "description": "DIEM transforms AI compute from a service you rent into an onchain asset you own: tokenized intelligence. Each Diem token represents $1 per day of Venice API capacity that never expires and never changes value. \nDIEM are ERC20 tokens on Base and can be transferred, traded, and staked. DIEM can only be minted by locking staked VVV (sVVV), making DIEM and VVV a foundational assets for onchain AI.\nTokenizing intelligence with DIEM creates new possibilities:\n\nDevelopers/agents: 1 DIEM = $1/day Venice API access, forever\nVVV holders: Monetize unused compute as DIEM → earn yield → buy back later to unlock VVV\nApps: Fixed AI costs, guaranteed capacity, no variable API bills\nOnchain economy: Agents own their intelligence, DeFi collateralizes compute\n\nMinting DIEM with VVV creates a brand-new onchain building block for AI – programmable, composable compute\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Base Ecosystem",
+    "Base Native",
+    "Venice Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://venice.ai",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/address/0xf4d97f2da56e8c3098f3a8d538db630a2606a024"
+  },
   "market": {
-    "price": 1595.24,
-    "marketCap": 61252524,
-    "marketCapRank": 459,
-    "volume24h": 1207744,
-    "priceChange24h": 16.28827,
+    "price": 1462.69,
+    "marketCap": 56189307,
+    "marketCapRank": 478,
+    "volume24h": 1702127,
+    "high24h": 1625.84,
+    "low24h": 1433.64,
+    "priceChange24h": -7.08057,
+    "priceChange7d": 22.36707,
+    "priceChange30d": 38.92152,
+    "priceChange1y": 0,
     "ath": 1656.97,
-    "athChangePercentage": -3.59618,
+    "athChangePercentage": -11.89598,
     "athDate": "2026-05-09T22:30:06.450Z",
     "atl": 80.54,
     "atlDate": "2025-11-21T17:22:57.135Z",
-    "circulatingSupply": 38494.64329449584,
-    "totalSupply": 38494.64329449584,
+    "circulatingSupply": 38449.53515246019,
+    "totalSupply": 38447.12501281246,
     "maxSupply": null,
-    "high24h": 1644.58,
-    "low24h": 1363.94,
-    "priceChange7d": 34.09213114095047,
-    "priceChange30d": 45.59521081951846,
-    "priceChange1y": 0,
-    "fdv": 61252524
+    "fdv": 56189307
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.265Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-12T09:35:11.972Z"
 }
