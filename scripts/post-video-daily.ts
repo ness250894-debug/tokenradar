@@ -12,7 +12,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 
 import { logError } from "../src/lib/reporter";
 import {
@@ -93,6 +93,16 @@ function cleanupFile(filePath: string): void {
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
   }
+}
+
+function getRemotionCliPath(): string {
+  return path.join(
+    process.cwd(),
+    "node_modules",
+    "@remotion",
+    "cli",
+    "remotion-cli.js",
+  );
 }
 
 function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
@@ -421,7 +431,11 @@ async function main() {
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     riskScore: targetMetric?.riskScore || 5.0,
+    riskLevel: targetMetric?.riskLevel,
     marketCap: targetToken.market.marketCap,
+    marketCapRank: targetToken.market.marketCapRank,
+    volume24h: targetToken.market.volume24h,
+    growthPotentialIndex: targetMetric?.growthPotentialIndex,
     audioFile: audioTrack.file,
     audioStartSeconds: audioTrack.startSeconds,
     hookText,
@@ -434,8 +448,16 @@ async function main() {
     fs.writeFileSync(propsFile, JSON.stringify(videoProps));
 
     try {
-      execSync(
-        "npx remotion render src/video/index.tsx TopGainerUpdate out.mp4 --props=remotion-props.json",
+      execFileSync(
+        process.execPath,
+        [
+          getRemotionCliPath(),
+          "render",
+          "src/video/index.tsx",
+          "TopGainerUpdate",
+          outPath,
+          "--props=remotion-props.json",
+        ],
         { stdio: "inherit" },
       );
     } finally {
@@ -448,8 +470,22 @@ async function main() {
     if (shouldRunThreads) {
       console.log("  Re-encoding variant for Threads (CRF 19)...");
       try {
-        execSync(
-          `ffmpeg -y -i "${outPath}" -c:v libx264 -crf 19 -preset fast -c:a copy "${threadsOutPath}"`,
+        execFileSync(
+          "ffmpeg",
+          [
+            "-y",
+            "-i",
+            outPath,
+            "-c:v",
+            "libx264",
+            "-crf",
+            "19",
+            "-preset",
+            "veryfast",
+            "-c:a",
+            "copy",
+            threadsOutPath,
+          ],
           { stdio: "pipe" },
         );
         console.log("  Threads variant rendered to out-threads.mp4");
