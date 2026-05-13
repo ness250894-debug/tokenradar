@@ -10,8 +10,12 @@ export type TopGainerProps = {
   price: number;
   priceChange24h: number;
   riskScore: number;
+  riskLevel?: string;
   marketCap: number;
-  /** Audio filename from public/audio/ (e.g., "Midnight_Pursuit.mp3"). */
+  marketCapRank?: number;
+  volume24h?: number;
+  growthPotentialIndex?: number;
+  /** Audio filename from public/video-assets/audio/ (e.g., "Midnight_Pursuit.mp3"). */
   audioFile?: string;
   /** Seconds into the audio track to start playback (beat-drop offset). */
   audioStartSeconds?: number;
@@ -30,7 +34,11 @@ const defaultProps: TopGainerProps = {
   price: 3500.5,
   priceChange24h: 5.2,
   riskScore: 2.1,
+  riskLevel: "low",
   marketCap: 420000000000,
+  marketCapRank: 2,
+  volume24h: 18000000000,
+  growthPotentialIndex: 72,
   audioFile: "Midnight_Pursuit.mp3",
   audioStartSeconds: 0,
   hookText: "IS ETHEREUM ABOUT TO SHOCK THE MARKET?",
@@ -44,7 +52,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="TopGainerUpdate"
         component={TopGainerUpdate}
-        durationInFrames={1800} // 60 seconds at 30fps
+        durationInFrames={900} // 30 seconds at 30fps
         fps={30}
         width={1080}
         height={1920}

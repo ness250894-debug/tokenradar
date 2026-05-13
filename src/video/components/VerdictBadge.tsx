@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { COLORS, FONTS, getVerdictColor } from "../styles";
 import type { Verdict } from "../styles";
+import { RevealText, useRevealMotion } from "./MotionPrimitives";
 
 export const VerdictBadge: React.FC<{
   verdict: Verdict;
@@ -15,15 +16,24 @@ export const VerdictBadge: React.FC<{
     config: { damping: 200 },
   });
 
-  const scale = spring({
-    frame,
-    fps,
-    from: 0.5,
-    to: 1,
-    config: { mass: 0.5, damping: 10, stiffness: 100 },
+  const motion = useRevealMotion(undefined, 0);
+  const sweepX = interpolate(frame, [10, 34], [-110, 125], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const sweepOpacity = interpolate(frame, [9, 15, 30, 40], [0, 0.48, 0.2, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
   });
 
   const color = getVerdictColor(verdict);
+  const signalLabel: Record<Verdict, string> = {
+    "STRONG BUY": "LOW-RISK MOMENTUM",
+    BUY: "POSITIVE SETUP",
+    HOLD: "NEUTRAL SETUP",
+    CAUTION: "RISK ELEVATED",
+  };
+  const label = signalLabel[verdict] || verdict;
 
   return (
     <AbsoluteFill
@@ -35,13 +45,21 @@ export const VerdictBadge: React.FC<{
         opacity,
       }}
     >
-      <div style={{ textAlign: "center", transform: `scale(${scale})` }}>
-        <div style={{ fontSize: 40, color: COLORS.textMuted, fontWeight: 700, marginBottom: 20, letterSpacing: 4 }}>
-          TOKENRADAR VERDICT
-        </div>
+      <div
+        style={{
+          textAlign: "center",
+          transform: `translateY(${motion.translateY}px) scale(${motion.scale})`,
+          filter: `blur(${motion.blur}px)`,
+        }}
+      >
+        <RevealText delay={4} style={{ fontSize: 40, color: COLORS.textMuted, fontWeight: 700, marginBottom: 20, letterSpacing: 4 }}>
+          TOKENRADAR SIGNAL
+        </RevealText>
         <div
           style={{
-            fontSize: 120,
+            position: "relative",
+            overflow: "hidden",
+            fontSize: label.length > 14 ? 78 : 112,
             color: COLORS.background,
             backgroundColor: color,
             fontWeight: 900,
@@ -51,8 +69,23 @@ export const VerdictBadge: React.FC<{
             boxShadow: `0 20px 60px ${color}66`,
           }}
         >
-          {verdict}
+          <div
+            style={{
+              position: "absolute",
+              top: -80,
+              bottom: -80,
+              left: `${sweepX}%`,
+              width: "34%",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent)",
+              opacity: sweepOpacity,
+              transform: "skewX(-16deg)",
+            }}
+          />
+          <span style={{ position: "relative", zIndex: 1 }}>{label}</span>
         </div>
+        <RevealText delay={12} style={{ fontSize: 28, color: COLORS.textMuted, fontWeight: 700, marginTop: 26, letterSpacing: 1 }}>
+          EDUCATIONAL DATA ONLY
+        </RevealText>
       </div>
 
       {/* Watermark CTA */}

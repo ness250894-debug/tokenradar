@@ -1,7 +1,7 @@
 /**
  * Audio Configuration — Track Library
  *
- * Maps local audio files in public/audio/ to their beat-drop sync points.
+ * Maps local audio files in public/video-assets/audio/ to their beat-drop sync points.
  * Used by Remotion to overlay music starting at the right moment.
  *
  * Note: startSeconds values are initial estimates. Tune them by listening
@@ -10,7 +10,7 @@
 
 /** Audio track metadata for Remotion rendering. */
 export interface AudioTrack {
-  /** Filename in public/audio/ (without path prefix). */
+  /** Filename in public/video-assets/audio/ (without path prefix). */
   file: string;
   /** Beat-drop offset in seconds — Remotion <Audio startFrom /> value. */
   startSeconds: number;
@@ -62,8 +62,8 @@ export function getTrackForDate(dateStr: string): AudioTrack {
 
 /**
  * Get the full relative path to an audio file from the project root.
- * Remotion reads these through staticFile(`audio/${track.file}`).
+ * Remotion reads these through staticFile(`audio/${track.file}`) with public/video-assets as its public dir.
  */
 export function getAudioPath(track: AudioTrack): string {
-  return `public/audio/${track.file}`;
+  return `public/video-assets/audio/${track.file}`;
 }
