@@ -2,26 +2,51 @@
   "id": "debridge",
   "symbol": "dbr",
   "name": "deBridge",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38019/large/DBR_icon_Color.png?1724708885",
+  "description": "deBridge is the bridge that moves at lightspeed. With zero locked liquidity or liquidity pools, deBridge enables value and information to flow anywhere virtually instantly with deep liquidity and guaranteed rates.",
+  "categories": [
+    "Solana Ecosystem",
+    "Bridge Governance Tokens",
+    "Cross-chain Communication",
+    "Intent",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://debridge.com",
+    "github": "https://github.com/debridge-finance",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/DBRiDgJAMsM95moTzJs7M9LnkGErpbv9v6CUR1DXnUu5"
+  },
   "market": {
-    "price": 0.01408182,
-    "marketCap": 75019392,
-    "marketCapRank": 386,
-    "volume24h": 4710888,
-    "priceChange24h": 1.66537,
+    "price": 0.01440675,
+    "marketCap": 76678128,
+    "marketCapRank": 381,
+    "volume24h": 4969718,
+    "high24h": 0.01461988,
+    "low24h": 0.01402786,
+    "priceChange24h": 1.06457,
+    "priceChange7d": 4.27585,
+    "priceChange30d": -1.07996,
+    "priceChange1y": -17.61246,
     "ath": 0.05521,
-    "athChangePercentage": -74.48375,
+    "athChangePercentage": -73.91711,
     "athDate": "2024-12-22T00:26:03.744Z",
     "atl": 0.01238776,
     "atlDate": "2026-04-19T22:30:04.483Z",
     "circulatingSupply": 5325146909,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.01445749,
-    "low24h": 0.01383056,
-    "priceChange7d": -1.905433106260796,
-    "priceChange30d": -4.404578067940798,
-    "priceChange1y": -21.865637318670913,
-    "fdv": 140877600
+    "fdv": 143992512
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.987Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T08:55:22.575Z"
 }

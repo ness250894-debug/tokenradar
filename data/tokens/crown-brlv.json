@@ -2,26 +2,50 @@
   "id": "crown-brlv",
   "symbol": "brlv",
   "name": "Crown BRLV",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172108/large/BRLV.png?1775604601",
+  "description": "BRLV is a non-rebasing Brazilian Real stablecoin backed 1:1 by Brazilian government bonds, deployed on Base. It is designed for payments, DeFi integration, and institutional treasury management. Unlike rebasing stablecoins, BRLV maintains a fixed token supply relative to deposits, making it natively compatible with AMMs, lending protocols, and standard ERC-20 integrations. The underlying yield from government bond reserves accrues separately at the collateral layer (BRLY), and this surplus is redeemable in BRLV via the \"Rewards Claiming\" mechanic. The rewards amounts are computed off-chain, and for now only primary holders are allowed to claim rewards. This is necessary because in BraAll reserves are held in a bankruptcy-remote structure under Brazilian fiduciary assignment law, legally protecting token holders' claims.",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://crown-brlv.com",
+    "github": "https://github.com/crown-xyz",
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xd2047ebdb205Ee6862b69ae9fB3501652cC97d36"
+  },
   "market": {
-    "price": 0.203976,
-    "marketCap": 54692667,
-    "marketCapRank": 482,
-    "volume24h": 1013.17,
-    "priceChange24h": 0.02862,
+    "price": 0.204201,
+    "marketCap": 58842608,
+    "marketCapRank": 462,
+    "volume24h": 951.54,
+    "high24h": 0.204618,
+    "low24h": 0.20313,
+    "priceChange24h": -0.20346,
+    "priceChange7d": 0.30627,
+    "priceChange30d": 2.20114,
+    "priceChange1y": 0,
     "ath": 0.204849,
-    "athChangePercentage": -0.42629,
+    "athChangePercentage": -0.30695,
     "athDate": "2026-05-09T05:05:23.987Z",
     "atl": 0.186777,
     "atlDate": "2026-03-16T11:00:44.052Z",
-    "circulatingSupply": 268132734.8428298,
-    "totalSupply": 268132734.8428298,
+    "circulatingSupply": 288132634.9828299,
+    "totalSupply": 288132634.9828299,
     "maxSupply": null,
-    "high24h": 0.204618,
-    "low24h": 0.20313,
-    "priceChange7d": 0.4812987496933459,
-    "priceChange30d": 2.08853284859992,
-    "priceChange1y": 0,
-    "fdv": 54692667
+    "fdv": 58842608
   },
-  "lastMarketUpdate": "2026-05-12T19:23:27.049Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T08:53:03.947Z"
 }
