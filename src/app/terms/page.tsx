@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 
-const lastUpdated = "May 11, 2026";
+const lastUpdated = "May 13, 2026";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "TokenRadar terms of service - usage rules, limitations, and legal information.",
+    "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
     title: "Terms of Service",
     description:
-      "TokenRadar terms of service - usage rules, limitations, and legal information.",
+      "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
   },
   twitter: {
     title: "Terms of Service",
     description:
-      "TokenRadar terms of service - usage rules, limitations, and legal information.",
+      "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
   },
 };
 
@@ -32,19 +32,20 @@ export default function TermsPage() {
           </p>
 
           <p>
-            By accessing and using TokenRadar (tokenradar.co), you agree to the
-            following Terms of Service. If you do not agree, do not use the
-            website.
+            By accessing and using Token Radar, also branded as TokenRadar, the
+            public website at tokenradar.co, you agree to the following Terms of
+            Service. If you do not agree, do not use the website.
           </p>
 
           <h2>Informational Service Only</h2>
           <p>
-            TokenRadar provides educational crypto research, market data
-            summaries, automated analysis, affiliate disclosures, and related
-            tools. TokenRadar is not a broker, exchange, investment adviser,
-            commodity trading adviser, tax adviser, law firm, custodian, wallet
-            provider, or financial institution. Nothing on the site creates a
-            professional, fiduciary, advisory, or client relationship.
+            Token Radar provides public educational market research, data
+            summaries, automated analysis, affiliate disclosures, social
+            publishing workflows, and related tools. Token Radar is not a
+            broker, exchange, investment adviser, commodity trading adviser, tax
+            adviser, law firm, custodian, wallet provider, or financial
+            institution. Nothing on the site creates a professional, fiduciary,
+            advisory, or client relationship.
           </p>
 
           <h2>Eligibility</h2>
@@ -64,6 +65,18 @@ export default function TermsPage() {
             links to public pages for personal, non-commercial use. You may not
             scrape, reproduce, redistribute, republish, resell, frame, or create
             a competing database from our content without written permission.
+          </p>
+
+          <h2>Public Publishing Features</h2>
+          <p>
+            Token Radar may use creator-authorized social publishing
+            integrations, including the TikTok Content Posting API, to
+            distribute public educational update videos to the Token Radar
+            audience. These integrations are not personal or company-internal
+            tools; they support public-facing content published through
+            authorized creator accounts. A creator remains responsible for
+            reviewing content and complying with each platform&apos;s rules
+            before publishing.
           </p>
 
           <h2>Prohibited Conduct</h2>
@@ -125,9 +138,9 @@ export default function TermsPage() {
 
           <h2>Privacy</h2>
           <p>
-            Our Privacy Policy explains how we collect, use, and share
-            information. By using TokenRadar, you acknowledge the data practices
-            described there.
+            Our Privacy Policy for Token Radar explains how we collect, use,
+            and share information. By using TokenRadar, you acknowledge the data
+            practices described there.
           </p>
 
           <h2>Availability and Changes</h2>

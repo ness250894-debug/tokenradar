@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { CookiePreferencesButton } from "@/components/CookiePreferencesButton";
 
-const lastUpdated = "May 11, 2026";
-const description = "TokenRadar privacy policy - how we collect, use, share, and protect data.";
+const lastUpdated = "May 13, 2026";
+const description =
+  "Token Radar privacy policy - how the public TokenRadar website collects, uses, shares, and protects data.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -31,12 +32,14 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            This Privacy Policy explains how TokenRadar (tokenradar.co)
-            collects, uses, shares, and protects information when you visit the
-            site, use our contact form, click partner links, or interact with
-            our content. TokenRadar is an informational crypto research site. We
-            do not require user accounts, collect wallet private keys, custody
-            assets, or process trades.
+            This Privacy Policy applies to Token Radar, also branded as
+            TokenRadar, the public website at tokenradar.co. It explains how
+            Token Radar collects, uses, shares, and protects information when
+            you visit the site, use our contact form, click partner links,
+            authorize a supported publishing integration, or interact with our
+            content. Token Radar is a public educational market research site.
+            We do not require visitor accounts, collect wallet private keys,
+            custody assets, or process trades.
           </p>
 
           <h2>Information We Collect</h2>
@@ -70,6 +73,17 @@ export default function PrivacyPage() {
               placements are used.
             </li>
             <li>
+              <strong>TikTok publishing authorization data:</strong> If an
+              authorized creator connects TikTok for the Token Radar publishing
+              workflow, we process TikTok OAuth tokens and operational
+              publishing metadata such as publish ID, upload status, generated
+              caption, topic, and timestamp. We use this only to upload public
+              educational videos to the authorized creator&apos;s TikTok inbox
+              or profile and to troubleshoot the publishing flow. We do not
+              collect TikTok profile statistics, follower lists, comments, or
+              video lists.
+            </li>
+            <li>
               <strong>Hosting and security logs:</strong> Our hosting, CDN, and
               infrastructure providers may process IP address, user-agent,
               request path, timestamps, and diagnostic logs to deliver pages,
@@ -81,6 +95,7 @@ export default function PrivacyPage() {
           <ul>
             <li>Operate, maintain, secure, and debug the website.</li>
             <li>Respond to messages, correction requests, and partnership inquiries.</li>
+            <li>Operate public content distribution and creator-authorized publishing workflows.</li>
             <li>Measure traffic, content performance, and partner-link usage.</li>
             <li>Improve site navigation, research quality, and disclosure placement.</li>
             <li>Comply with legal obligations and enforce our Terms of Service.</li>
@@ -134,6 +149,11 @@ export default function PrivacyPage() {
               click outbound links or when advertising is enabled.
             </li>
             <li>
+              <strong>Social publishing providers:</strong> TikTok and other
+              social platforms when an authorized creator uses a publishing
+              integration to distribute public Token Radar content.
+            </li>
+            <li>
               <strong>Legal and safety recipients:</strong> when required to
               comply with law, enforce terms, respond to lawful requests, or
               protect users and the site.
@@ -160,8 +180,11 @@ export default function PrivacyPage() {
             We keep contact-form messages only as long as reasonably necessary
             to respond, maintain records of the request, resolve disputes, or
             comply with legal obligations. Analytics and log retention are
-            controlled by our provider settings and operational needs. We aim to
-            minimize data retained by TokenRadar directly.
+            controlled by our provider settings and operational needs. TikTok
+            OAuth tokens are retained only while the creator-authorized
+            publishing workflow remains connected, and publishing metadata may
+            be retained for diagnostics and duplicate prevention. We aim to
+            minimize data retained by Token Radar directly.
           </p>
 
           <h2>Your Rights</h2>
