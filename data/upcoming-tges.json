@@ -1245,5 +1245,131 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-12T19:26:47.119Z",
     "discoveredAt": "2026-05-12T19:26:47.119Z"
+  },
+  {
+    "id": "tea-protocol",
+    "name": "Tea Protocol",
+    "symbol": "TEA",
+    "category": "Infrastructure",
+    "expectedTge": "June 4, 2024",
+    "narrativeStrength": 85,
+    "dataSource": "https://cointelegraph.com/press-releases/tea-protocol-announces-june-4-mainnet-launch-and-tge-on-aerodrome-to-secure-open-source-development-in-the-ai-era",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "Upcoming TGE",
+        "sourceType": "press_release",
+        "url": "https://cointelegraph.com/press-releases/tea-protocol-announces-june-4-mainnet-launch-and-tge-on-aerodrome-to-secure-open-source-development-in-the-ai-era",
+        "title": "Tea Protocol announces June 4 mainnet launch and TGE on Aerodrome to secure open-source development in the AI era",
+        "observedAt": "2024-05-13"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-13T19:29:35.681Z",
+    "discoveredAt": "2026-05-13T19:29:35.681Z"
+  },
+  {
+    "id": "jpmorgan-tokenized-mm-fund",
+    "name": "JPMorgan Tokenized Money Market Fund",
+    "symbol": "TBD",
+    "category": "DeFi/TradFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/jpmorgan-files-second-tokenized-money-market-fund-ethereum",
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/jpmorgan-files-second-tokenized-money-market-fund-ethereum",
+        "title": "JPMorgan to launch tokenized money market fund for stablecoin issuers",
+        "observedAt": "2024-05-16"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-13T19:29:35.681Z",
+    "discoveredAt": "2026-05-13T19:29:35.681Z"
+  },
+  {
+    "id": "football-fun",
+    "name": "Football.Fun",
+    "symbol": "TBD",
+    "category": "Gaming",
+    "expectedTge": "Confirmed TGE",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/videos/interviews/9g4stfJX/massive-coinbase-news-bitcoin-rips-to-96-750-footballfun-tge-interview-with-founder",
+    "lifecycleStatus": "graduated",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "interview",
+        "url": "https://decrypt.co/videos/interviews/9g4stfJX/massive-coinbase-news-bitcoin-rips-to-96-750-footballfun-tge-interview-with-founder",
+        "title": "Massive Coinbase News! Bitcoin Rips to $96,750! Football.Fun TGE Interview with Founder!",
+        "observedAt": "2024-07-30"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-05-13T19:31:12.444Z",
+    "discoveredAt": "2026-05-13T19:29:35.681Z",
+    "graduatedAt": "2026-05-13T19:31:12.444Z",
+    "coingeckoRank": 1230,
+    "graduationEvidence": {
+      "coingeckoId": "football-fun",
+      "coingeckoRank": 1230,
+      "rank": 1230,
+      "priceUsd": 0.059306,
+      "volume24h": 3014904,
+      "matchedBy": "id",
+      "verifiedAt": "2026-05-13T19:31:12.444Z"
+    }
+  },
+  {
+    "id": "sharplink",
+    "name": "Sharplink",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Pre-launch / Funding Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://decrypt.co/videos/interviews/mefbKZgQ/psyopanime-meme-up-30x-are-memes-back-monero-ath-interview-w-joseph-chalom-ceo-of-sharplink",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "CEO Interview",
+        "sourceType": "news_article",
+        "url": "https://decrypt.co/videos/interviews/mefbKZgQ/psyopanime-meme-up-30x-are-memes-back-monero-ath-interview-w-joseph-chalom-ceo-of-sharplink",
+        "title": "PsyopAnime Meme up 30X! Are Memes back? Monero ATH! Interview W/ Joseph Chalom, CEO of Sharplink",
+        "observedAt": "2024-07-30"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-13T19:29:35.682Z",
+    "discoveredAt": "2026-05-13T19:29:35.682Z"
+  },
+  {
+    "id": "japan-yen-stablecoin-ejpy",
+    "name": "Japan Yen Stablecoin (eJPY)",
+    "symbol": "EJPY",
+    "category": "DeFi/Stablecoin",
+    "expectedTge": "Upcoming",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.theblock.co/post/401075/japan-yen-stablecoin-ejpy?utm_source=rss&utm_medium=rss",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Token Launch Announcement",
+        "sourceType": "news",
+        "url": "https://www.theblock.co/post/401075/japan-yen-stablecoin-ejpy?utm_source=rss&utm_medium=rss",
+        "title": "Japan’s enterprise-led blockchain to issue yen stablecoin for B2B settlements",
+        "observedAt": "2024-05-02"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-13T19:29:35.682Z",
+    "discoveredAt": "2026-05-13T19:29:35.682Z"
   }
 ]

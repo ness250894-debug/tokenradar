@@ -2,26 +2,61 @@
   "id": "mina-protocol",
   "symbol": "mina",
   "name": "Mina Protocol",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/15628/large/JM4_vQ34_400x400.png?1696515261",
+  "description": "The world's lightest blockchain, powered by participants. Mina is building a privacy-preserving gateway between the real world and crypto — and the infrastructure for the secure, democratic future we all deserve.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Zero Knowledge (ZK)",
+    "FTX Holdings",
+    "Paradigm Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "Pantera Capital Portfolio",
+    "Circle Ventures Portfolio",
+    "Privacy Blockchain",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://minaprotocol.com/",
+    "github": "https://github.com/MinaProtocol/mina",
+    "reddit": "https://www.reddit.com/r/MinaProtocol/",
+    "explorer": "https://minaexplorer.com/"
+  },
   "market": {
-    "price": 0.066123,
-    "marketCap": 84966202,
-    "marketCapRank": 345,
-    "volume24h": 4540497,
-    "priceChange24h": -2.64913,
+    "price": 0.064305,
+    "marketCap": 82794784,
+    "marketCapRank": 348,
+    "volume24h": 5554996,
+    "high24h": 0.069502,
+    "low24h": 0.063851,
+    "priceChange24h": -2.80951,
+    "priceChange7d": -0.41316,
+    "priceChange30d": 14.16951,
+    "priceChange1y": -77.99823,
     "ath": 9.09,
-    "athChangePercentage": -99.27307,
+    "athChangePercentage": -99.2921,
     "athDate": "2021-06-01T01:42:37.064Z",
     "atl": 0.052408,
     "atlDate": "2026-03-31T10:30:54.688Z",
-    "circulatingSupply": 1285975374.840039,
-    "totalSupply": 1285975374.840039,
+    "circulatingSupply": 1286068191.840039,
+    "totalSupply": 1286068191.840039,
     "maxSupply": null,
-    "high24h": 0.068371,
-    "low24h": 0.06476,
-    "priceChange7d": 5.04067117591648,
-    "priceChange30d": 16.112465467466375,
-    "priceChange1y": -76.838184996233,
-    "fdv": 84966202
+    "fdv": 82794784
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.965Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1883,
+    "githubForks": 525,
+    "commits4Weeks": 92
+  },
+  "fetchedAt": "2026-05-13T19:27:25.867Z"
 }

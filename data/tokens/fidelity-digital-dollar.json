@@ -3,19 +3,25 @@
   "symbol": "fidd",
   "name": "Fidelity Digital Dollar",
   "market": {
-    "price": 0.999688,
-    "marketCap": 51528132,
-    "marketCapRank": 500,
-    "volume24h": 1371665,
-    "priceChange24h": -0.04016,
+    "price": 0.999413,
+    "marketCap": 51531388,
+    "marketCapRank": 498,
+    "volume24h": 2206355,
+    "priceChange24h": -0.04799,
     "ath": 1.011,
-    "athChangePercentage": -1.13259,
+    "athChangePercentage": -1.11537,
     "athDate": "2026-02-04T15:14:08.580Z",
     "atl": 0.994161,
     "atlDate": "2026-02-04T15:05:21.411Z",
     "circulatingSupply": 51551102.59,
     "totalSupply": 51551102.59,
-    "maxSupply": null
+    "maxSupply": null,
+    "high24h": 1.001,
+    "low24h": 0.999003,
+    "priceChange7d": -0.002620513721380683,
+    "priceChange30d": -0.015894370021488156,
+    "priceChange1y": 0,
+    "fdv": 51531388
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.167Z"
+  "lastMarketUpdate": "2026-05-13T19:26:10.698Z"
 }

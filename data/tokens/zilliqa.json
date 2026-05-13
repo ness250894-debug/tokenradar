@@ -2,26 +2,51 @@
   "id": "zilliqa",
   "symbol": "zil",
   "name": "Zilliqa",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/2687/large/Zilliqa-logo.png?1696503475",
+  "description": "Zilliqa (ZIL) is a token developed in the year 2017. Zilliqa is mainly based on the concept of Sharding and primarily aims at improving the scalability of the cryptocurrency networks as in case of Bitcoin or Ethereum. The white paper mentions that the transactions speed would be approximately a thousand times more than that of Ethereum network. Ziliqa is fast, secured and decentralized. Zilliqa’s high throughput means that you can focus on developing your ideas without worrying about network congestion, high transaction fees or security which are the key issues with legacy blockchain platforms. Zilliqa network uses a concept called Sharding where the transactions are grouped into smaller groups and divided among the miners for the parallel transactional verification. Developing smaller groups for transactional verification means the Consensus can be reached faster and hence a higher number of transactions can be processed in a given time frame. The capacity of the network linearly increases in other cryptocurrencies as the number of people joins the network, but in this case, the capacity is increased at a higher variable rate than the number of members joining the network. By incorporating the Sharding Technology, it can completely revolutionize the smart contract functionality too. Ziliqa has few pros as it has a great new technology. Zilliqa is the first platform to use sharding technology. This puts it ahead of the rest of the market. It’s a completely new kind of blockchain designed to solve the problem of scalability. Third-generation platforms like Zilliqa could be the big winners in the future of cryptocurrency. Ziliqa has a strong community. The platform has a lot of fans. The Zilliqa ICO only happened because there was so much demand for it. The Zilliqa ICO also shows that the crypto community is ready to see blockchain technology move to the next phase of its development.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Made in China"
+  ],
+  "genesisDate": "2019-01-31",
+  "links": {
+    "website": "https://www.zilliqa.com/",
+    "github": "https://github.com/Zilliqa/Zilliqa",
+    "reddit": "https://www.reddit.com/r/zilliqa/",
+    "explorer": "https://viewblock.io/zilliqa"
+  },
   "market": {
-    "price": 0.00431357,
-    "marketCap": 84231049,
-    "marketCapRank": 349,
-    "volume24h": 10978198,
-    "priceChange24h": -1.79488,
+    "price": 0.00416929,
+    "marketCap": 81501076,
+    "marketCapRank": 351,
+    "volume24h": 8236114,
+    "high24h": 0.00436955,
+    "low24h": 0.00413761,
+    "priceChange24h": -3.2614,
+    "priceChange7d": -5.46987,
+    "priceChange30d": 7.97837,
+    "priceChange1y": -71.68049,
     "ath": 0.255376,
-    "athChangePercentage": -98.31058,
+    "athChangePercentage": -98.36673,
     "athDate": "2021-05-06T17:33:45.940Z",
     "atl": 0.00239616,
     "atlDate": "2020-03-13T02:22:55.161Z",
     "circulatingSupply": 19513551525,
-    "totalSupply": 20448711863.2843,
+    "totalSupply": 20449799755.15352,
     "maxSupply": 21000000000,
-    "high24h": 0.00444489,
-    "low24h": 0.00424418,
-    "priceChange7d": 2.5863829837706978,
-    "priceChange30d": 12.113328107370137,
-    "priceChange1y": -70.11916732289232,
-    "fdv": 88267707
+    "fdv": 85411448
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.966Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1129,
+    "githubForks": 287,
+    "commits4Weeks": 12
+  },
+  "fetchedAt": "2026-05-13T19:27:38.463Z"
 }

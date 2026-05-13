@@ -2,26 +2,52 @@
   "id": "quack-ai",
   "symbol": "q",
   "name": "Quack AI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68793/large/quack_ai.png?1756615808",
+  "description": "Quack AI is the governance layer for the Agent Economy, where AI agents, users, and applications interact under verifiable rules. Its x402 standard enables sign-to-pay, gasless transactions across blockchains, supported by a facilitator relay system, policy engine, and governance intelligence modules. Quack AI aims to make automated on-chain actions secure, compliant, and transparent for all participants.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "AI Applications",
+    "Binance Alpha Spotlight",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://quackai.ai/",
+    "github": "https://github.com/quackai-labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xc07e1300dc138601fa6b0b59f8d0fa477e690589"
+  },
   "market": {
-    "price": 0.01528492,
-    "marketCap": 59833245,
-    "marketCapRank": 459,
-    "volume24h": 6638803,
-    "priceChange24h": -0.26287,
+    "price": 0.02145919,
+    "marketCap": 84285680,
+    "marketCapRank": 349,
+    "volume24h": 18580544,
+    "high24h": 0.02300281,
+    "low24h": 0.01521023,
+    "priceChange24h": 40.17102,
+    "priceChange7d": 106.2394,
+    "priceChange30d": 136.59099,
+    "priceChange1y": 0,
     "ath": 0.052458,
-    "athChangePercentage": -70.86474,
+    "athChangePercentage": -59.89261,
     "athDate": "2025-10-07T14:02:00.971Z",
     "atl": 0.00552713,
     "atlDate": "2026-03-28T01:25:30.527Z",
     "circulatingSupply": 3928555643,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.01544439,
-    "low24h": 0.01411076,
-    "priceChange7d": 51.30935265347143,
-    "priceChange30d": 62.60731498324854,
-    "priceChange1y": 0,
-    "fdv": 152303417
+    "fdv": 214546228
   },
-  "lastMarketUpdate": "2026-05-12T19:23:27.004Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:27:32.155Z"
 }

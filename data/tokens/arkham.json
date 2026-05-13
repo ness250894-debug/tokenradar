@@ -2,6 +2,7 @@
   "id": "arkham",
   "symbol": "arkm",
   "name": "Arkham",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30929/large/Arkham_Logo_CG.png?1696529771",
   "description": "Arkham is a cryptocurrency exchange and blockchain analytics platform offering a single site with everything a trader needs, including spot &amp; derivatives trading, intelligence &amp; analytics, and news &amp; research, to millions of users around the world. \n\nArkham Intel provides traders with advanced analytics to inform their trading and risk management with over 2 billion blockchain addresses labeled, 92% of on-chain value attributed, and $830 trillion of labeled asset flow. Arkham takes data directly from the blockchain and makes it usable and actionable by anyone via a searchable database of individuals and institutions showing their on-chain holdings, transactions, counterparties, and net worth. On top of this data, Arkham Intel offers a suite of advanced tooling, including alerts, network maps, custom dashboards, AI-powered market analysis, and an API.\n\nArkham Exchange is a central limit order book (CLOB) spot and perpetuals exchange which integrates trading and intelligence for transparent and informed decision making. Select features include on-chain proof of funds verification, real-time analytics for deposits and withdrawals, REST and WebSocket APIs, and one-click analytics for any market. Arkham Exchange also offers a VIP affiliate program, points, referral commissions, trading competitions, and other incentives for rewarding users.\n\nArkham was founded by Miguel Morel who serves as CEO. Miguel is a veteran entrepreneur in cryptocurrency markets. Miguel’s experience navigating crypto markets makes him familiar with the intelligence needs of decision makers in government, venture capital, and trading. He is also an investor in a number of technology startups.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -25,25 +26,25 @@
     "explorer": "https://etherscan.io/token/0x6e2a43be0b1d33b726f0ca3b8de60b3482b8b050"
   },
   "market": {
-    "price": 0.13547,
-    "marketCap": 84374793,
-    "marketCapRank": 348,
-    "volume24h": 12472830,
-    "high24h": 0.143845,
-    "low24h": 0.131565,
-    "priceChange24h": -4.62525,
-    "priceChange7d": 10.886697465139498,
-    "priceChange30d": 37.46060151438319,
-    "priceChange1y": -80.89686751202237,
+    "price": 0.133309,
+    "marketCap": 83180424,
+    "marketCapRank": 346,
+    "volume24h": 23162322,
+    "high24h": 0.149473,
+    "low24h": 0.133469,
+    "priceChange24h": -1.51227,
+    "priceChange7d": 1.17447,
+    "priceChange30d": 36.46782,
+    "priceChange1y": -81.92367,
     "ath": 3.98,
-    "athChangePercentage": -96.59093,
+    "athChangePercentage": -96.63965,
     "athDate": "2024-03-10T00:04:54.733Z",
     "atl": 0.091695,
     "atlDate": "2026-04-05T17:12:39.193Z",
     "circulatingSupply": 622760291,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 135485184
+    "fdv": 133567321
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-08T07:56:13.700Z",
-  "lastMarketUpdate": "2026-05-12T19:23:26.966Z"
+  "fetchedAt": "2026-05-13T19:27:13.284Z"
 }

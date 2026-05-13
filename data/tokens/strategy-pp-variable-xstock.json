@@ -2,26 +2,52 @@
   "id": "strategy-pp-variable-xstock",
   "symbol": "strcx",
   "name": "Strategy PP Variable xStock",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71033/large/Ticker_STRCx__Company_Name_Strategy_PP_Variable__size_200x200.png?1765380234",
+  "description": "For too long, investing has come with barriers. Borders. Brokers. Limitations. It’s been complicated, costly, and — for millions — out of reach. xStocks were created to change that.\n\nxStocks are tokenized stocks. They’re backed 1:1 by the underlying assets, composable with DeFi protocols, compliant with EU regulations, accessible to non-US users, and provide a legal claim to the value of the stock.\n\nxStocks enable easy access to 120+ US Stocks and ETFs to regular users through top centralized and decentralized exchanges, and can be integrated with other DeFi protocols like any other token.",
+  "categories": [
+    "Tokenized Assets",
+    "Solana Ecosystem",
+    "Tokenized Stock",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "BackedFi xStocks Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://xstocks.fi/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x1aad217b8f78dba5e6693460e8470f8b1a3977f3"
+  },
   "market": {
-    "price": 102.95,
-    "marketCap": 84716409,
-    "marketCapRank": 347,
-    "volume24h": 69040,
-    "priceChange24h": 1.36212,
+    "price": 102.81,
+    "marketCap": 84752728,
+    "marketCapRank": 341,
+    "volume24h": 67149,
+    "high24h": 103.34,
+    "low24h": 102.07,
+    "priceChange24h": -0.29412,
+    "priceChange7d": -0.4047,
+    "priceChange30d": 0.34462,
+    "priceChange1y": 0,
     "ath": 110.13,
-    "athChangePercentage": -6.51694,
+    "athChangePercentage": -6.64262,
     "athDate": "2026-03-22T13:35:15.433Z",
     "atl": 94.51,
     "atlDate": "2026-02-05T22:57:20.964Z",
-    "circulatingSupply": 822896.9359402205,
+    "circulatingSupply": 824357.9825971895,
     "totalSupply": 1771592.035690872,
     "maxSupply": null,
-    "high24h": 103.15,
-    "low24h": 100.98,
-    "priceChange7d": 0.17902773107242453,
-    "priceChange30d": -0.8353199851934348,
-    "priceChange1y": 0,
-    "fdv": 182383612
+    "fdv": 182138418
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.966Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:26:48.063Z"
 }

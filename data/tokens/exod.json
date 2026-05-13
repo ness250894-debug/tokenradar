@@ -2,12 +2,33 @@
   "id": "exod",
   "symbol": "exod",
   "name": "EXOD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171773/large/exodus.png?1769612116",
+  "description": "Exodus (NYSE American: EXOD) is a financial technology leader empowering individuals and businesses with secure, user-friendly crypto software solutions. Since 2015, Exodus has made digital assets accessible to everyone through its multi-asset crypto wallets prioritizing design and ease of use. With self-custodial wallets, Exodus puts customers in full control of their funds, enabling them to swap, buy, and sell crypto. Its business solutions include Passkeys Wallet and XO Swap, industry-leading tools for embedded crypto wallets and swap aggregation. Exodus is committed to driving the future of accessible and secure finance.",
+  "categories": [
+    "Infrastructure",
+    "Software as a service",
+    "Wallets",
+    "Arbitrum Ecosystem",
+    "Algorand Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.exodus.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://allo.info/asset/213345970/token"
+  },
   "market": {
     "price": 8.18,
     "marketCap": 85448280,
-    "marketCapRank": 341,
+    "marketCapRank": 338,
     "volume24h": 0,
+    "high24h": 8.18,
+    "low24h": 8.18,
     "priceChange24h": 0,
+    "priceChange7d": -3.76471,
+    "priceChange30d": 31.30016,
+    "priceChange1y": 0,
     "ath": 13.09,
     "athChangePercentage": -37.50955,
     "athDate": "2026-02-03T09:55:04.971Z",
@@ -16,12 +37,16 @@
     "circulatingSupply": 10446000,
     "totalSupply": 10446000,
     "maxSupply": 10446000,
-    "high24h": 8.18,
-    "low24h": 8.18,
-    "priceChange7d": 3.28282828282828,
-    "priceChange30d": 31.30016051364365,
-    "priceChange1y": 0,
     "fdv": 85448280
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.965Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:26:41.755Z"
 }

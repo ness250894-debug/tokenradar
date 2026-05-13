@@ -2,26 +2,57 @@
   "id": "ronin",
   "symbol": "ron",
   "name": "Ronin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/20009/large/photo_2024-04-06_22-52-24.jpg?1712415367",
+  "description": "RON is the ecosystem token for the Ronin chain. It will eventually be used to pay gas fees and secure the network for both Axie Infinity and future games/products hosted on the chain.",
+  "categories": [
+    "Smart Contract Platform",
+    "Gaming (GameFi)",
+    "NFT",
+    "Layer 1 (L1)",
+    "Play To Earn",
+    "Zero Knowledge (ZK)",
+    "FTX Holdings",
+    "Gaming Blockchains",
+    "SideChain",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://roninchain.com",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.roninchain.com/"
+  },
   "market": {
-    "price": 0.108517,
-    "marketCap": 83811848,
-    "marketCapRank": 351,
-    "volume24h": 4383680,
-    "priceChange24h": -5.44366,
+    "price": 0.105248,
+    "marketCap": 81341824,
+    "marketCapRank": 353,
+    "volume24h": 4811848,
+    "high24h": 0.114651,
+    "low24h": 0.103708,
+    "priceChange24h": -2.95167,
+    "priceChange7d": 4.73031,
+    "priceChange30d": 23.25418,
+    "priceChange1y": -85.72813,
     "ath": 4.45,
-    "athChangePercentage": -97.56196,
+    "athChangePercentage": -97.6336,
     "athDate": "2024-03-26T05:12:38.487Z",
     "atl": 0.080897,
     "atlDate": "2026-02-06T00:22:10.894Z",
     "circulatingSupply": 772401679.4337813,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.114926,
-    "low24h": 0.106152,
-    "priceChange7d": 9.208924690101007,
-    "priceChange30d": 25.435164118461252,
-    "priceChange1y": -84.54334762392935,
-    "fdv": 108508112
+    "fdv": 105310263
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.966Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:27:51.063Z"
 }

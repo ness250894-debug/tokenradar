@@ -2,26 +2,52 @@
   "id": "nexpace",
   "symbol": "nxpc",
   "name": "Nexpace",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55703/large/wk63iOZz_400x400.png?1747126039",
+  "description": "",
+  "categories": [
+    "Smart Contract Platform",
+    "Gaming (GameFi)",
+    "NFT",
+    "Layer 1 (L1)",
+    "Avalanche L1",
+    "Binance HODLer Airdrops"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://msu.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://msu-explorer.xangle.io/"
+  },
   "market": {
-    "price": 0.323812,
-    "marketCap": 87786278,
-    "marketCapRank": 337,
-    "volume24h": 6152699,
-    "priceChange24h": -5.67071,
+    "price": 0.331982,
+    "marketCap": 89949005,
+    "marketCapRank": 327,
+    "volume24h": 11803913,
+    "high24h": 0.341482,
+    "low24h": 0.321442,
+    "priceChange24h": 2.56753,
+    "priceChange7d": 8.37918,
+    "priceChange30d": 19.14781,
+    "priceChange1y": 0,
     "ath": 3.77,
-    "athChangePercentage": -91.4188,
+    "athChangePercentage": -91.20409,
     "athDate": "2025-05-15T09:15:14.343Z",
     "atl": 0.246863,
     "atlDate": "2026-02-11T15:15:14.676Z",
     "circulatingSupply": 270981977.1697733,
     "totalSupply": 994552574.1697733,
     "maxSupply": 1000000000,
-    "high24h": 0.344422,
-    "low24h": 0.319196,
-    "priceChange7d": 9.100880177701958,
-    "priceChange30d": 15.440654140262797,
-    "priceChange1y": 0,
-    "fdv": 322191424
+    "fdv": 330129020
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.964Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:26:16.563Z"
 }

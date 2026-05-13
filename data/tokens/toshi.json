@@ -2,26 +2,53 @@
   "id": "toshi",
   "symbol": "toshi",
   "name": "Toshi",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31126/large/Toshi_Logo_-_Circular.png?1721677476",
+  "description": "",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Launchpad",
+    "Meme",
+    "Base Ecosystem",
+    "Cat-Themed",
+    "Base Meme",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.toshithecat.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4"
+  },
   "market": {
-    "price": 0.00019149,
-    "marketCap": 80573498,
-    "marketCapRank": 362,
-    "volume24h": 8418995,
-    "priceChange24h": -4.83958,
+    "price": 0.00018609,
+    "marketCap": 78291251,
+    "marketCapRank": 364,
+    "volume24h": 8298535,
+    "high24h": 0.00019883,
+    "low24h": 0.00018381,
+    "priceChange24h": -2.73481,
+    "priceChange7d": -0.65877,
+    "priceChange30d": 6.68279,
+    "priceChange1y": -77.84518,
     "ath": 0.00226012,
-    "athChangePercentage": -91.52732,
+    "athChangePercentage": -91.75708,
     "athDate": "2025-01-26T15:05:39.402Z",
     "atl": 1.8963e-8,
     "atlDate": "2023-10-09T16:05:26.462Z",
     "circulatingSupply": 420690000000,
     "totalSupply": 420690000000,
     "maxSupply": 420690000000,
-    "high24h": 0.00020163,
-    "low24h": 0.00018859,
-    "priceChange7d": 5.138476137189977,
-    "priceChange30d": 10.700998972575306,
-    "priceChange1y": -77.88429250805625,
-    "fdv": 80573498
+    "fdv": 78291251
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.968Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:28:41.454Z"
 }
