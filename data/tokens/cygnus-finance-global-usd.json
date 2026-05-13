@@ -2,26 +2,50 @@
   "id": "cygnus-finance-global-usd",
   "symbol": "cgusd",
   "name": "Cygnus Finance Global USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/35628/large/cgUSD.png?1709291316",
+  "description": "Cygnus Finance is a RWA stablecoin protocol built on pure, short-term U.S. debt assets. It is also the first native interest-bearing stablecoin protocol and the first native RWA protocol on Base. ",
+  "categories": [
+    "Stablecoins",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.cygnus.finance/",
+    "github": "https://github.com/arks-labs",
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0xca72827a3d211cfd8f6b00ac98824872b72cab49"
+  },
   "market": {
-    "price": 0.99339,
-    "marketCap": 75098745,
-    "marketCapRank": 384,
-    "volume24h": 21.98,
-    "priceChange24h": -0.01822,
+    "price": 0.993384,
+    "marketCap": 75099062,
+    "marketCapRank": 386,
+    "volume24h": 9.74,
+    "high24h": 0.995452,
+    "low24h": 0.992559,
+    "priceChange24h": -0.01342,
+    "priceChange7d": -0.03672,
+    "priceChange30d": -0.19228,
+    "priceChange1y": -0.95976,
     "ath": 1.089,
-    "athChangePercentage": -8.74841,
+    "athChangePercentage": -8.73932,
     "athDate": "2025-06-06T16:02:30.110Z",
     "atl": 0.724325,
     "atlDate": "2025-09-29T16:58:56.283Z",
-    "circulatingSupply": 75598457.239891,
-    "totalSupply": 75598457.239891,
+    "circulatingSupply": 75598457.242291,
+    "totalSupply": 75598457.242291,
     "maxSupply": null,
-    "high24h": 0.995452,
-    "low24h": 0.992559,
-    "priceChange7d": -0.04656049505719491,
-    "priceChange30d": -0.18035018327145516,
-    "priceChange1y": 0.3582355011219411,
-    "fdv": 75098745
+    "fdv": 75099062
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.987Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T08:53:58.895Z"
 }

@@ -2,26 +2,49 @@
   "id": "dai-on-pulsechain",
   "symbol": "dai",
   "name": "DAI on PulseChain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36735/large/pDAI_200x200.png?1712451453",
+  "description": "$pDAI is the only stablecoin with a legal precedent placing its domiciliary status outside the United States, beyond SEC jurisdiction. Like all tokens on PulseChain, $pDAI is unconfiscatable, ensuring user sovereignty. The network’s global validator set, nearing 50,000, fosters true decentralization, granting users allodial ownership, censorship resistance, and absolute control over their digital holdings.",
+  "categories": [
+    "Stablecoins",
+    "PulseChain Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://scan.pulsechain.com/token/0x6b175474e89094c44da98b954eedeac495271d0f"
+  },
   "market": {
-    "price": 0.001501,
-    "marketCap": 66657413,
-    "marketCapRank": 422,
-    "volume24h": 316635,
-    "priceChange24h": 5.23576,
+    "price": 0.00151857,
+    "marketCap": 67386325,
+    "marketCapRank": 419,
+    "volume24h": 319606,
+    "high24h": 0.00156497,
+    "low24h": 0.0014174,
+    "priceChange24h": -0.22909,
+    "priceChange7d": -2.77864,
+    "priceChange30d": 11.41829,
+    "priceChange1y": -2.26709,
     "ath": 0.03373531,
-    "athChangePercentage": -95.55103,
+    "athChangePercentage": -95.48973,
     "athDate": "2024-11-29T07:29:41.111Z",
     "atl": 1.02312e-13,
     "atlDate": "2024-06-11T21:34:57.858Z",
-    "circulatingSupply": 44358904630.16725,
-    "totalSupply": 44358904630.16725,
+    "circulatingSupply": 44358960669.06537,
+    "totalSupply": 44358960669.06537,
     "maxSupply": null,
-    "high24h": 0.00156497,
-    "low24h": 0.00140238,
-    "priceChange7d": 4.3562218977592,
-    "priceChange30d": 14.324059183146234,
-    "priceChange1y": 0.7606626591143392,
-    "fdv": 66657413
+    "fdv": 67386325
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.996Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T08:54:40.251Z"
 }
