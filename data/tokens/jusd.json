@@ -2,26 +2,51 @@
   "id": "jusd",
   "symbol": "jusd",
   "name": "JUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/32302/large/200x200.png?1697186770",
+  "description": "With our innovative technology and commitment to transparency, we're changing the way you transact in the digital world.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Polygon Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://jusd.app",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xbf3950db0522a7f5caa107d4cbbbd84de9e047e2"
+  },
   "market": {
-    "price": 0.999649,
-    "marketCap": 86196068,
-    "marketCapRank": 339,
-    "volume24h": 137809,
-    "priceChange24h": 0.00166,
+    "price": 0.999581,
+    "marketCap": 86189355,
+    "marketCapRank": 336,
+    "volume24h": 140817,
+    "high24h": 0.999766,
+    "low24h": 0.999433,
+    "priceChange24h": -0.0078,
+    "priceChange7d": -0.0247,
+    "priceChange30d": -0.07062,
+    "priceChange1y": 0.62666,
     "ath": 1.034,
-    "athChangePercentage": -3.31662,
+    "athChangePercentage": -3.32319,
     "athDate": "2025-03-02T16:52:34.191Z",
     "atl": 0.925702,
     "atlDate": "2025-11-18T13:42:31.854Z",
     "circulatingSupply": 86225788.06154336,
     "totalSupply": 50099699625.30018,
     "maxSupply": null,
-    "high24h": 0.999729,
-    "low24h": 0.999456,
-    "priceChange7d": -0.024232709866434474,
-    "priceChange30d": -0.06269753324150745,
-    "priceChange1y": 0.02422959818134217,
-    "fdv": 50082431536
+    "fdv": 50078531223
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.964Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:26:35.467Z"
 }

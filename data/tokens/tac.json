@@ -2,26 +2,51 @@
   "id": "tac",
   "symbol": "tac",
   "name": "TAC",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67357/large/tac.jpg?1752491437",
+  "description": "",
+  "categories": [
+    "Infrastructure",
+    "BNB Chain Ecosystem",
+    "TON Ecosystem",
+    "Binance Alpha Spotlight",
+    "TAC Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tac.build/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.tac.build/"
+  },
   "market": {
-    "price": 0.01799335,
-    "marketCap": 82439409,
-    "marketCapRank": 355,
-    "volume24h": 4688649,
-    "priceChange24h": -10.15221,
+    "price": 0.01819867,
+    "marketCap": 83423428,
+    "marketCapRank": 345,
+    "volume24h": 2244468,
+    "high24h": 0.01850801,
+    "low24h": 0.01747225,
+    "priceChange24h": 1.42187,
+    "priceChange7d": -17.33018,
+    "priceChange30d": 193.94101,
+    "priceChange1y": 0,
     "ath": 0.0280942,
-    "athChangePercentage": -35.94171,
+    "athChangePercentage": -35.15393,
     "athDate": "2026-05-03T15:00:53.725Z",
     "atl": 0.00134381,
     "atlDate": "2025-10-10T21:27:14.352Z",
-    "circulatingSupply": 4582431745,
+    "circulatingSupply": 4584040186,
     "totalSupply": 10030078763,
     "maxSupply": null,
-    "high24h": 0.02005421,
-    "low24h": 0.01705043,
-    "priceChange7d": -21.067416547627506,
-    "priceChange30d": 215.33406973399343,
-    "priceChange1y": 0,
-    "fdv": 180444317
+    "fdv": 182534080
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.967Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:27:06.968Z"
 }

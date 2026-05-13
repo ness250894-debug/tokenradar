@@ -2,26 +2,48 @@
   "id": "mbg-by-multibank-group",
   "symbol": "mbg",
   "name": "MBG By Multibank Group",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67462/large/mbio_avatar_512_1.png?1769670696",
+  "description": "$MBG is the first-ever token backed by MultiBank Group — a global financial giant.\n \nWith MultiBank Group’s assets valued at $29 billion and an average daily trading volume exceeding $35 billion (as of April 2025), the $MBG token is backed by real strength — and built for real-world utility and serious growth potential.\n \nOur financial ecosystem is built on four powerful self-sustaining pillars, which together will generate real utility with real assets valued at $29 billion and a projected $75 billion in trading volume per day across the ecosystem by 2025 to 2026, reaching an average trading volume of over 540 billion dollars in the next 5 years.\n\nThis is where established finance meets the future of Web3.",
+  "categories": [
+    "Exchange-based Tokens",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://multibank.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x45e02bc2875A2914C4f585bBF92a6F28bc07CB70"
+  },
   "market": {
-    "price": 0.35583,
-    "marketCap": 88021634,
-    "marketCapRank": 336,
-    "volume24h": 3521771,
-    "priceChange24h": 2.7556,
+    "price": 0.32829,
+    "marketCap": 79982434,
+    "marketCapRank": 362,
+    "volume24h": 5281743,
+    "high24h": 0.380163,
+    "low24h": 0.305022,
+    "priceChange24h": -7.78718,
+    "priceChange7d": 9.58267,
+    "priceChange30d": -8.69681,
+    "priceChange1y": 0,
     "ath": 2.56,
-    "athChangePercentage": -86.1045,
+    "athChangePercentage": -87.48286,
     "athDate": "2025-07-24T00:36:31.821Z",
     "atl": 0.282385,
     "atlDate": "2026-04-22T20:40:28.579Z",
-    "circulatingSupply": 247689553.11508062,
+    "circulatingSupply": 247670842.98508063,
     "totalSupply": 977514798.0000001,
     "maxSupply": 1000000000,
-    "high24h": 0.37844,
-    "low24h": 0.339643,
-    "priceChange7d": 18.594014295376663,
-    "priceChange30d": 0.579562572429825,
-    "priceChange1y": 0,
-    "fdv": 347380211
+    "fdv": 315677096
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.964Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:28:28.860Z"
 }

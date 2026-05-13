@@ -2,26 +2,49 @@
   "id": "usda-3",
   "symbol": "usda",
   "name": "USDA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68094/large/IMG_0632.jpeg?1754724345",
+  "description": "## USDA: The Compliant, Secure, and Cross-Chain Stablecoin Powering Global Payments\n\nUSDA, issued by the AP Web3 ecosystem, is a fully compliant stablecoin meticulously designed to provide a secure, trusted, and usable digital payment and asset settlement infrastructure for global users. Anchored at a 1:1 ratio with the US Dollar (USD), USDA combines the stability of fiat currency with the efficiency and transparency of blockchain technology, while also incorporating crucial protections and innovative features not typically found in other stablecoins.\n\n**Contract Address: 0x17EAfd08994305D8AcE37EfB82F1523177eC70EE**\n\nUSDA addresses the growing need for a reliable and regulated stablecoin solution in the rapidly evolving digital asset landscape. By adhering to the highest standards of regulatory compliance, USDA aims to foster trust and confidence among users, paving the way for wider adoption of blockchain-based payments and financial services.\n\n**Key Features of USDA:**\n\n•   **1:1 USD Anchoring:** USDA is meticulously pegged to the US Dollar at a 1:1 ratio, ensuring price stability and minimizing volatility. This anchoring mechanism is rigorously maintained and regularly audited to provide users with assurance that each USDA token is fully backed by an equivalent amount of USD held in secure reserves.\n•   **FDIC Protection:** A cornerstone of USDA's commitment to security and trust is its integration with FDIC protection. This vital feature provides users with peace of mind, knowing that their USDA holdings are insured up to the applicable limits, similar to traditional bank deposits. This protection sets USDA apart from many other stablecoins and significantly reduces risk for users.\n•   **Regulatory Compliance:** USDA is issued by a regulated entity within the AP Web3 ecosystem and is designed to comply with all applicable laws and regulations. This commitment to regulatory compliance ensures that USDA operates within a legal framework, providing users with greater transparency and accountability.\n•   **Native Cross-Chain Interoperability:** USDA is built to be natively cross-chain compatible, enabling seamless transfers and transactions across various blockchain networks. This interoperability enhances liquidity, expands the potential user base, and facilitates the integration of USDA into a wider range of DeFi applications and ecosystems.\n•   **On-Chain Auditing Capabilities:** USDA leverages the inherent transparency of blockchain technology to provide on-chain auditing capabilities. This allows users to independently verify the reserves backing USDA, ensuring accountability and building trust in the stablecoin's stability.\n•   **Secure and Scalable Infrastructure:** USDA is built on a secure and scalable blockchain infrastructure, ensuring the efficient and reliable processing of transactions. This infrastructure is designed to handle high transaction volumes and maintain security even under periods of peak demand.\n\n**USDA's Vision for the... [truncated]",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://alphapartner.vip/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x17EAfd08994305D8AcE37EfB82F1523177eC70EE"
+  },
   "market": {
-    "price": 0.991718,
-    "marketCap": 86620364,
-    "marketCapRank": 342,
-    "volume24h": 1126970,
-    "priceChange24h": -0.47499,
+    "price": 0.995769,
+    "marketCap": 86612630,
+    "marketCapRank": 335,
+    "volume24h": 1026327,
+    "high24h": 0.997998,
+    "low24h": 0.964205,
+    "priceChange24h": -0.0615,
+    "priceChange7d": 0.35092,
+    "priceChange30d": -0.53111,
+    "priceChange1y": 0,
     "ath": 1.19,
-    "athChangePercentage": -16.85487,
+    "athChangePercentage": -16.50239,
     "athDate": "2025-12-21T01:11:39.740Z",
     "atl": 0.590562,
     "atlDate": "2025-10-09T15:07:59.514Z",
-    "circulatingSupply": 86967259.38104062,
-    "totalSupply": 86967259.38104062,
+    "circulatingSupply": 86967249.38104063,
+    "totalSupply": 86967249.38104063,
     "maxSupply": 111000000,
-    "high24h": 0.998128,
-    "low24h": 0.976502,
-    "priceChange7d": -0.6439807082923201,
-    "priceChange30d": -0.5644443916095455,
-    "priceChange1y": 0,
-    "fdv": 86620364
+    "fdv": 86612630
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.964Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:26:29.161Z"
 }

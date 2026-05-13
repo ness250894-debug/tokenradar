@@ -2,26 +2,48 @@
   "id": "stau",
   "symbol": "stau",
   "name": "STAU",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/52341/large/STAU.png?1742637079",
+  "description": "The STAU project is a project that allows you to actually purchase gold products that are recognized as the best safe asset through a reliable blockchain ecosystem.\nSTAU has Starry Japan Inc., global distribution company FedEx as its partner companies.  \nStarry Japan Co., Ltd. is a gold product manufacturer. \nFedEx actually ships gold products to the address that customers want. \nSTAU will expand the gold product distribution market to the blockchain ecosystem.\n",
+  "categories": [
+    "Polygon Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://stauweb.com/whitepaper/STAU_whitepaper_en.pdf",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://polygonscan.com/token/0x37C5eBfaE4E4dA225e9D8042B05063c4A2C94bb6"
+  },
   "market": {
-    "price": 0.00814794,
-    "marketCap": 81479405,
-    "marketCapRank": 360,
-    "volume24h": 737982,
-    "priceChange24h": -1.42295,
+    "price": 0.00799847,
+    "marketCap": 80075719,
+    "marketCapRank": 359,
+    "volume24h": 779762,
+    "high24h": 0.00822179,
+    "low24h": 0.00797731,
+    "priceChange24h": -1.83409,
+    "priceChange7d": 0.12659,
+    "priceChange30d": 15.03058,
+    "priceChange1y": -86.86464,
     "ath": 0.279,
-    "athChangePercentage": -97.07959,
+    "athChangePercentage": -97.1298,
     "athDate": "2024-12-20T12:40:23.808Z",
     "atl": 0.00448904,
     "atlDate": "2026-02-02T03:41:04.003Z",
     "circulatingSupply": 10000000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.00828408,
-    "low24h": 0.00806891,
-    "priceChange7d": 2.037989073632953,
-    "priceChange30d": 19.46425691210273,
-    "priceChange1y": -86.88177398994517,
-    "fdv": 81479405
+    "fdv": 80075719
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.968Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:28:16.259Z"
 }

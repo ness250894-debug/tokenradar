@@ -2,26 +2,57 @@
   "id": "superfarm",
   "symbol": "super",
   "name": "SuperVerse",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14040/large/SV-Logo-200x200.png?1706880312",
+  "description": "SuperVerse is a unified Web3 ecosystem connecting gaming, DeFi, and AI under a single interoperable protocol. Its native token, $SUPER, powers transactions, governance, and access to immersive games, AI-powered tools, and liquidity infrastructure such as Blackhole DEX. Designed for real utility across multiple chains, $SUPER enables staking, protocol buybacks, and sustainable yield while supporting a growing suite of decentralized applications.",
+  "categories": [
+    "Gaming (GameFi)",
+    "NFT",
+    "Avalanche Ecosystem",
+    "Collectibles",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Animoca Brands Portfolio",
+    "Base Ecosystem",
+    "Gaming Blockchains",
+    "Soneium Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://superverse.co/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55"
+  },
   "market": {
-    "price": 0.129536,
-    "marketCap": 82972531,
-    "marketCapRank": 354,
-    "volume24h": 7835012,
-    "priceChange24h": -4.07355,
+    "price": 0.125495,
+    "marketCap": 80331553,
+    "marketCapRank": 358,
+    "volume24h": 10516232,
+    "high24h": 0.134817,
+    "low24h": 0.123971,
+    "priceChange24h": -3.04214,
+    "priceChange7d": -1.61229,
+    "priceChange30d": 13.68865,
+    "priceChange1y": -85.42304,
     "ath": 4.74,
-    "athChangePercentage": -97.26655,
+    "athChangePercentage": -97.35407,
     "athDate": "2021-03-31T07:38:55.006Z",
     "atl": 0.070397,
     "atlDate": "2023-10-19T02:20:23.295Z",
     "circulatingSupply": 640164549,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.135999,
-    "low24h": 0.127985,
-    "priceChange7d": 4.244647962525553,
-    "priceChange30d": 16.322857644637352,
-    "priceChange1y": -84.22276384567257,
-    "fdv": 129611255
+    "fdv": 125485788
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.967Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:28:09.979Z"
 }

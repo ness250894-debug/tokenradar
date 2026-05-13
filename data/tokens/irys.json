@@ -18,25 +18,25 @@
     "explorer": "https://explorer.irys.xyz/"
   },
   "market": {
-    "price": 0.05284,
-    "marketCap": 105469604,
-    "marketCapRank": 288,
-    "volume24h": 23679385,
-    "high24h": 0.05611,
-    "low24h": 0.04364284,
-    "priceChange24h": 19.35302,
-    "priceChange7d": 52.67828,
-    "priceChange30d": 114.98906,
+    "price": 0.052172,
+    "marketCap": 104238345,
+    "marketCapRank": 290,
+    "volume24h": 31604413,
+    "high24h": 0.070421,
+    "low24h": 0.04767786,
+    "priceChange24h": -0.98315,
+    "priceChange7d": 48.26512722560063,
+    "priceChange30d": 62.04033659954051,
     "priceChange1y": 0,
-    "ath": 0.068025,
-    "athChangePercentage": -22.38072,
-    "athDate": "2026-01-24T03:10:46.660Z",
+    "ath": 0.070421,
+    "athChangePercentage": -26.00302,
+    "athDate": "2026-05-13T06:50:45.367Z",
     "atl": 0.01652714,
     "atlDate": "2026-03-08T15:11:02.598Z",
     "circulatingSupply": 2000000000,
     "totalSupply": 10000000000,
     "maxSupply": null,
-    "fdv": 527348018
+    "fdv": 521191727
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-12T19:23:33.082Z"
+  "fetchedAt": "2026-05-12T19:23:33.082Z",
+  "lastMarketUpdate": "2026-05-13T19:26:10.580Z"
 }

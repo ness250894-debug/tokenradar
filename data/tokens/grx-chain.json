@@ -15,25 +15,25 @@
     "explorer": "https://grxscan.io/"
   },
   "market": {
-    "price": 9.31,
-    "marketCap": 88602618,
-    "marketCapRank": 331,
-    "volume24h": 21881574,
-    "high24h": 9.69,
-    "low24h": 9.26,
-    "priceChange24h": -3.83407,
-    "priceChange7d": -5.38618,
-    "priceChange30d": -9.26623,
+    "price": 9.6,
+    "marketCap": 91349297,
+    "marketCapRank": 322,
+    "volume24h": 19529490,
+    "high24h": 9.74,
+    "low24h": 9.15,
+    "priceChange24h": 3.72135,
+    "priceChange7d": 3.323125946479256,
+    "priceChange30d": -11.96912606956975,
     "priceChange1y": 0,
     "ath": 13.26,
-    "athChangePercentage": -29.67865,
+    "athChangePercentage": -27.57875,
     "athDate": "2026-02-26T22:25:48.793Z",
     "atl": 0.868057,
     "atlDate": "2026-02-14T17:00:45.524Z",
     "circulatingSupply": 9512395,
     "totalSupply": 9998039,
     "maxSupply": 10000000,
-    "fdv": 93126119
+    "fdv": 96013027
   },
   "community": {
     "twitterFollowers": null,
@@ -44,5 +44,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-12T19:25:45.410Z"
+  "fetchedAt": "2026-05-12T19:25:45.410Z",
+  "lastMarketUpdate": "2026-05-13T19:26:10.615Z"
 }

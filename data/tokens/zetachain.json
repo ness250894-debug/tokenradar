@@ -2,26 +2,55 @@
   "id": "zetachain",
   "symbol": "zeta",
   "name": "ZetaChain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26718/large/Twitter_icon.png?1696525788",
+  "description": "What Is ZetaChain (ZETA)?\nZetaChain is a universal Layer 1 blockchain designed to help developers build applications that operate across both blockchains and AI models. Originally created to solve fragmentation in Web3 through universal apps, ZetaChain now extends that same interoperability thesis to AI with an AI interoperability stack that enables cross-model experiences with private, user-controlled context. ZetaChain provides native connectivity across major blockchain ecosystems and supports global execution, permissions, and settlement for applications and agents.\n\nWhat Makes ZetaChain Unique?\nZetaChain combines universal blockchain interoperability with an AI interoperability layer, allowing developers to build once and reach users across chains and models. ZetaChain introduces an AI Portal for routing and execution across multiple AI model providers without lock-in, and a Private Memory Layer designed to keep user context encrypted and permissioned while remaining portable across models and applications. Together, these components let developers ship privacy-first apps and agents with persistent memory, cross-chain execution, and global monetization without assembling complex backend infrastructure.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "ZetaChain Ecosystem",
+    "Cross-chain Communication",
+    "Binance Alpha Spotlight",
+    "Made in USA",
+    "Chain Abstraction"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.zetachain.com/",
+    "github": "https://github.com/zeta-chain",
+    "reddit": null,
+    "explorer": "https://explorer.zetachain.com/"
+  },
   "market": {
-    "price": 0.060007,
-    "marketCap": 84766639,
-    "marketCapRank": 346,
-    "volume24h": 4255995,
-    "priceChange24h": -2.07846,
+    "price": 0.057635,
+    "marketCap": 81412942,
+    "marketCapRank": 352,
+    "volume24h": 5500154,
+    "high24h": 0.062964,
+    "low24h": 0.056865,
+    "priceChange24h": -3.9179,
+    "priceChange7d": -5.6208,
+    "priceChange30d": 14.77954,
+    "priceChange1y": -80.72308,
     "ath": 2.85,
-    "athChangePercentage": -97.8968,
+    "athChangePercentage": -97.98062,
     "athDate": "2024-02-15T20:45:12.099Z",
     "atl": 0.04581773,
     "atlDate": "2026-04-02T13:45:40.290Z",
     "circulatingSupply": 1412541667,
     "totalSupply": 2100000000,
     "maxSupply": 2100000000,
-    "high24h": 0.06193,
-    "low24h": 0.058704,
-    "priceChange7d": 1.1667594619034027,
-    "priceChange30d": 19.626596574953865,
-    "priceChange1y": -79.83416300924384,
-    "fdv": 126021020
+    "fdv": 121035140
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.965Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:27:44.778Z"
 }

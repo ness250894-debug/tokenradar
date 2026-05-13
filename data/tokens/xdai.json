@@ -2,26 +2,53 @@
   "id": "xdai",
   "symbol": "xdai",
   "name": "XDAI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11062/large/Identity-Primary-DarkBG.png?1696511004",
+  "description": "xDai is the ideal cryptocurrency for everyday payments and transactions. Fees are extremely low, payments are instantaneous, and the value remains stable at ~ $1 US Dollar per xDai. User-friendly tools make xDai easily adoptable for a broad audience (crypto and non-crypto users alike!)",
+  "categories": [
+    "Smart Contract Platform",
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "USD Stablecoin",
+    "Gnosis Chain Ecosystem",
+    "Layer 2 (L2)",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.gnosischain.com",
+    "github": "https://github.com/xdaichain",
+    "reddit": null,
+    "explorer": "https://gnosisscan.io"
+  },
   "market": {
-    "price": 0.999746,
-    "marketCap": 81625563,
-    "marketCapRank": 359,
-    "volume24h": 680966,
-    "priceChange24h": -0.02336,
+    "price": 0.999795,
+    "marketCap": 80684541,
+    "marketCapRank": 356,
+    "volume24h": 569945,
+    "high24h": 1,
+    "low24h": 0.998966,
+    "priceChange24h": 0.001,
+    "priceChange7d": -0.00352,
+    "priceChange30d": -0.00593,
+    "priceChange1y": 0.14329,
     "ath": 9.92,
-    "athChangePercentage": -89.91839,
+    "athChangePercentage": -89.91846,
     "athDate": "2023-01-29T16:11:18.116Z",
     "atl": 0.17845,
     "atlDate": "2022-09-09T06:52:09.705Z",
-    "circulatingSupply": 81635444.76134273,
-    "totalSupply": 81635444.76134273,
+    "circulatingSupply": 80694829.83600031,
+    "totalSupply": 80694829.83600031,
     "maxSupply": null,
-    "high24h": 1,
-    "low24h": 0.999384,
-    "priceChange7d": 0.0012293279216324664,
-    "priceChange30d": -0.02362675431955391,
-    "priceChange1y": 0.05291442669087251,
-    "fdv": 81625563
+    "fdv": 80684541
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.968Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 17,
+    "githubForks": 13,
+    "commits4Weeks": 70
+  },
+  "fetchedAt": "2026-05-13T19:27:57.364Z"
 }

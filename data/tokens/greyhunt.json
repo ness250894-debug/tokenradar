@@ -2,26 +2,49 @@
   "id": "greyhunt",
   "symbol": "hunt",
   "name": "Greyhunt",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171882/large/type_04.png?1770218339",
+  "description": "Crypto investors spend countless hours navigating fragmented intel: scattered token allocations, unfinished vesting trails, obscure backers, shallow liquidity pools, unnamed whales, unaudited contracts, endless X threads, and sentiment that flips faster than it forms. The noise compounds—but clarity never arrives fast enough.\n\nGreyhunt resolves this with a single AI-assisted terminal—where raw fundamentals, on-chain anomalies, and social narratives converge into one coherent surface. What once took 10 dashboards, now distills into one signal. What used to be hidden in noise, now rises on cue.",
+  "categories": [
+    "Meme",
+    "Base Ecosystem",
+    "AI Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://greyhunt.ai",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x0981209bd6a8b2439271156f73c1a7722f1c1347"
+  },
   "market": {
     "price": 3.47,
-    "marketCap": 78101316,
-    "marketCapRank": 373,
-    "volume24h": 6138.74,
-    "priceChange24h": 0.00245,
+    "marketCap": 79242299,
+    "marketCapRank": 363,
+    "volume24h": 6281.2,
+    "high24h": 3.47,
+    "low24h": 3.47,
+    "priceChange24h": 0.01733,
+    "priceChange7d": 8.39954,
+    "priceChange30d": 19.40156,
+    "priceChange1y": 0,
     "ath": 8.28,
-    "athChangePercentage": -58.10601,
+    "athChangePercentage": -58.09832,
     "athDate": "2026-02-23T01:50:07.766Z",
     "atl": 0.633867,
     "atlDate": "2026-02-05T12:28:18.018Z",
-    "circulatingSupply": 22521209.278285135,
+    "circulatingSupply": 22845990.645611364,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "high24h": 3.47,
-    "low24h": 3.47,
-    "priceChange7d": 15.617087496013395,
-    "priceChange30d": 19.38921489567429,
-    "priceChange1y": 0,
-    "fdv": 346790063
+    "fdv": 346854292
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.985Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:28:35.154Z"
 }

@@ -2,26 +2,55 @@
   "id": "vicicoin",
   "symbol": "vcnt",
   "name": "ViciCoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31305/large/ViciCoin_-_small.png?1696530124",
+  "description": "ViciCoin (VCNT) is a utility token designed to power products and tools that make blockchain technology easier and safer to use. VCNT powers a suite of user-friendly products including ViciWallet, a Multi-Party Computation (MPC) wallet with enhanced security features and recovery options, and ViciSwap.io, which allows users to browse, swap, and share bundles of cryptocurrencies with a single authorization. As an authentication solution, VCNT functions as a verifiable credential system. Token-based authorization grants access to services and digital content, while integration with NFTs enables granular access control across a wide range of intermediary services.\n\nVCNT operates on Vici Network's Modular On-Chain Security &amp; Compliance Framework, which implements security at the consensus layer with bypass-proof validation mechanisms. Its plug-in architecture enables the rapid deployment of system-wide controls and security features. This comprehensive infrastructure allows the VCNT community safe access to a growing ecosystem of blockchain products and services, without the need for technical expertis",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Wallets",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://vicicoin.io/",
+    "github": "https://github.com/ViciNFT/ViciNFT-Token",
+    "reddit": null,
+    "explorer": "https://polygonscan.com/token/0x8a16d4bf8a0a716017e8d2262c4ac32927797a2f"
+  },
   "market": {
-    "price": 17.22,
-    "marketCap": 83486175,
-    "marketCapRank": 350,
-    "volume24h": 793211,
-    "priceChange24h": 0.72701,
+    "price": 17.11,
+    "marketCap": 83783435,
+    "marketCapRank": 344,
+    "volume24h": 814671,
+    "high24h": 17.23,
+    "low24h": 17.08,
+    "priceChange24h": -0.07179,
+    "priceChange7d": -0.54223,
+    "priceChange30d": -3.83791,
+    "priceChange1y": -9.323,
     "ath": 25.01,
-    "athChangePercentage": -31.48136,
+    "athChangePercentage": -31.28873,
     "athDate": "2025-02-10T08:16:29.948Z",
     "atl": 4.15,
     "atlDate": "2023-08-25T08:04:36.334Z",
     "circulatingSupply": 4871125.954080936,
     "totalSupply": 10000000,
     "maxSupply": 10000000,
-    "high24h": 17.24,
-    "low24h": 17.03,
-    "priceChange7d": 0.15287164373666917,
-    "priceChange30d": -3.049858889262016,
-    "priceChange1y": -8.73035978737879,
-    "fdv": 171389891
+    "fdv": 172000141
   },
-  "lastMarketUpdate": "2026-05-12T19:23:26.967Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 10,
+    "githubForks": 1,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T19:27:00.662Z"
 }
