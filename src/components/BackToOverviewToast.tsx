@@ -32,8 +32,7 @@ export function BackToOverviewToast() {
     getServerScrollSnapshot
   );
 
-  // Check if we are on a subpage (e.g. /[token]/price-prediction or /[token]/how-to-buy)
-  // And NOT on the root /compare or /contact pages
+  // Check if we are on a token subpage (e.g. /[token]/price-prediction or /[token]/how-to-buy).
   const isSubpage = Boolean(
     pathname &&
     pathname.split("/").length > 2 &&
