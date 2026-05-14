@@ -2524,7 +2524,7 @@ select.search-input option {
 .footer-col-links { display: flex; flex-direction: column; gap: var(--space-sm); list-style: none; }
 .footer-col-links a { font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none; transition: all var(--transition-fast); }
 .footer-col-links a:hover { color: var(--accent-primary); transform: translateX(4px); }
-.footer-disclaimer { max-width: 100%; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 10px; padding: var(--space-md) 0; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-disclaimer { max-width: 100%; line-height: 1.6; color: var(--text-muted); font-size: 10px; padding: var(--space-md) 0; border-top: 1px solid rgba(255,255,255,0.05); }
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-lg); font-size: var(--text-xs); color: var(--text-muted); }
 .status-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 4px 10px; border-radius: var(--radius-full); color: var(--green); font-weight: 600; }
 .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse-dot 2s infinite; }
