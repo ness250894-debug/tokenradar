@@ -81,6 +81,7 @@ export interface RangeSummary {
   topDevices: EngagementGroupSummary[];
   topPages: EngagementGroupSummary[];
   weakLandingPages: EngagementGroupSummary[];
+  weakMobileSocialLandingPages: EngagementGroupSummary[];
   searchOpportunities: SearchGroupSummary[];
   trackedEvents: EventSummary[];
   missingEngagementEvents: string[];
@@ -240,6 +241,14 @@ export function summarizeBaselineExport(baseline: BaselineExport): EngagementBas
       const pageGroups = groupEngagementRows(range.ga4.landingPages, (row) =>
         normalizePagePath(row.dimensions.landingPagePlusQueryString || "(not set)"),
       );
+      const mobileSocialPageGroups = groupEngagementRows(
+        range.ga4.landingPages.filter(
+          (row) =>
+            row.dimensions.deviceCategory === "mobile" &&
+            row.dimensions.sessionDefaultChannelGroup === "Organic Social",
+        ),
+        (row) => normalizePagePath(row.dimensions.landingPagePlusQueryString || "(not set)"),
+      );
       const searchPageGroups = groupSearchRows(range.gsc.pagesQueriesDevices, (row) =>
         normalizePagePath(row.dimensions.page || "(not set)"),
       );
@@ -260,6 +269,7 @@ export function summarizeBaselineExport(baseline: BaselineExport): EngagementBas
         ).slice(0, 4),
         topPages: pageGroups.slice(0, 10),
         weakLandingPages: getWeakLandingPages(pageGroups),
+        weakMobileSocialLandingPages: getWeakLandingPages(mobileSocialPageGroups),
         searchOpportunities: getSearchOpportunities(searchPageGroups),
         trackedEvents: trackedEvents.slice(0, 10),
         missingEngagementEvents: EXPECTED_ENGAGEMENT_EVENTS.filter((eventName) => !eventNames.has(eventName)),
@@ -331,6 +341,11 @@ export function renderSummaryMarkdown(summary: EngagementBaselineSummary, source
         ? range.weakLandingPages.map((page) => `- ${formatEngagement(page)}`)
         : ["- None above the minimum volume threshold"]),
       "",
+      "Weak mobile/social landing pages:",
+      ...(range.weakMobileSocialLandingPages.length
+        ? range.weakMobileSocialLandingPages.map((page) => `- ${formatEngagement(page)}`)
+        : ["- None above the minimum volume threshold"]),
+      "",
       "Search opportunities:",
       ...(range.searchOpportunities.length
         ? range.searchOpportunities.map((page) => `- ${formatSearch(page)}`)
@@ -351,7 +366,7 @@ export function renderSummaryMarkdown(summary: EngagementBaselineSummary, source
   return `${lines.join("\n")}\n`;
 }
 
-function readBaselineExport(filePath: string): BaselineExport {
+export function readBaselineExport(filePath: string): BaselineExport {
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as BaselineExport;
 }
 

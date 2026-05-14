@@ -1,5 +1,12 @@
 import * as fs from "fs";
 import * as path from "path";
+import {
+  findLatestBaselineExport,
+  readBaselineExport,
+  summarizeBaselineExport,
+  type EngagementGroupSummary,
+  type SearchGroupSummary,
+} from "./summarize-engagement-baseline";
 import { MONTHLY_LIMIT, getApiQuota, sendTelegramAlert } from "../src/lib/reporter";
 import { loadEnv } from "../src/lib/utils";
 
@@ -9,6 +16,7 @@ const LOGS_DIR = path.resolve(__dirname, "../data/logs");
 const ACTIVITIES_DIR = path.join(LOGS_DIR, "activities");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
 const DATA_DIR = path.resolve(__dirname, "../data");
+const ANALYTICS_DIR = path.join(DATA_DIR, "analytics");
 const OUT_DIR = path.resolve(__dirname, "../out");
 const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -131,6 +139,22 @@ function escapeMarkdown(value: string): string {
   return value.replace(/([_*[\]()`])/g, "\\$1");
 }
 
+function formatRate(value: number): string {
+  return `${(value * 100).toFixed(1)}%`;
+}
+
+function formatSeconds(value: number): string {
+  return `${value.toFixed(1)}s`;
+}
+
+function formatEngagementSnippet(page: EngagementGroupSummary): string {
+  return `${escapeMarkdown(page.key)} (${page.sessions} sessions, ${formatRate(page.engagementRate)}, ${page.viewsPerSession} views/session)`;
+}
+
+function formatSearchSnippet(page: SearchGroupSummary): string {
+  return `${escapeMarkdown(page.key)} (${page.impressions} impressions, ${page.clicks} clicks, avg pos ${page.averagePosition})`;
+}
+
 function getRunUrl(): string | null {
   const serverUrl = process.env.GITHUB_SERVER_URL;
   const repository = process.env.GITHUB_REPOSITORY;
@@ -188,6 +212,47 @@ function summarizeDataHealth() {
     metricsCoverage: formatPercent(metricsCount, tokenCount),
     priceCoverage: formatPercent(priceCount, tokenCount),
   };
+}
+
+function summarizeEngagementAnalytics(): string {
+  try {
+    const baselinePath = findLatestBaselineExport(ANALYTICS_DIR);
+    if (!baselinePath) {
+      return "*Engagement Analytics*\n- No baseline export found for this run.\n\n";
+    }
+
+    const summary = summarizeBaselineExport(readBaselineExport(baselinePath));
+    const range28 = summary.ranges.find((range) => range.days === 28) || summary.ranges[0];
+    const range90 = summary.ranges.find((range) => range.days === 90) || summary.ranges[summary.ranges.length - 1];
+    const sourceName = path.basename(baselinePath);
+    let section = "*Engagement Analytics*\n";
+    section += `- Source: \`${sourceName}\`\n`;
+
+    if (range28) {
+      section += `- 28d: \`${range28.ga4.sessions}\` sessions, \`${formatRate(range28.ga4.engagementRate)}\` engagement, \`${range28.ga4.viewsPerSession}\` views/session, \`${formatSeconds(range28.ga4.averageEngagementSecondsPerSession)}\` avg engagement\n`;
+      const weakMobileSocial = range28.weakMobileSocialLandingPages.slice(0, 4);
+      if (weakMobileSocial.length > 0) {
+        section += `- Weak mobile/social: ${weakMobileSocial.map(formatEngagementSnippet).join("; ")}\n`;
+      }
+      const missingEvents = range28.missingEngagementEvents.slice(0, 5);
+      if (missingEvents.length > 0) {
+        section += `- Missing tracked events: ${missingEvents.map((eventName) => `\`${eventName}\``).join(", ")}\n`;
+      }
+    }
+
+    if (range90) {
+      section += `- 90d search: \`${range90.gsc.clicks}\`/\`${range90.gsc.impressions}\` clicks/impressions, avg position \`${range90.gsc.averagePosition}\`\n`;
+      const searchOpportunities = range90.searchOpportunities.slice(0, 4);
+      if (searchOpportunities.length > 0) {
+        section += `- Search opportunities: ${searchOpportunities.map(formatSearchSnippet).join("; ")}\n`;
+      }
+    }
+
+    return `${section}\n`;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return `*Engagement Analytics*\n- Analytics summary unavailable: ${escapeMarkdown(truncate(firstLine(message), 120))}\n\n`;
+  }
 }
 
 function getQuotaSummary() {
@@ -378,6 +443,8 @@ async function main() {
     message += `- TGE discovery activity: \`${logSummary.tgeCount}\`\n`;
   }
   message += "\n";
+
+  message += summarizeEngagementAnalytics();
 
   message += "*API Quota Tracking*\n";
   message += `- Used: \`${quota.count}\` / ${MONTHLY_LIMIT} requests\n`;

@@ -123,6 +123,7 @@ describe("engagement baseline summary", () => {
       viewsPerSession: 1,
     });
     expect(range.weakLandingPages[0]?.key).toBe("/bar");
+    expect(range.weakMobileSocialLandingPages[0]?.key).toBe("/bar");
     expect(range.searchOpportunities[0]).toMatchObject({
       key: "/foo",
       impressions: 5,
@@ -131,5 +132,6 @@ describe("engagement baseline summary", () => {
     });
     expect(range.missingEngagementEvents).toContain("next_action_click");
     expect(renderSummaryMarkdown(summarizeBaselineExport(baseline))).toContain("Weak landing pages:");
+    expect(renderSummaryMarkdown(summarizeBaselineExport(baseline))).toContain("Weak mobile/social landing pages:");
   });
 });
