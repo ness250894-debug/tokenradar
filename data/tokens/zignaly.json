@@ -2,6 +2,7 @@
   "id": "zignaly",
   "symbol": "zig",
   "name": "ZIGChain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14796/large/zig.jpg?1731990265",
   "description": "ZIGChain (ZIG) is a purpose-built Layer 1 blockchain for wealth generation. Powered by an innovative wealth management module, ZIGChain enables anyone to co-invest alongside professional fund managers in real-world assets (RWAs), while supporting institutional adoption and regulatory compliance. At the heart of this democratized investment ecosystem is the ZIG token, which powers governance, transaction validation, and incentivizes network growth.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -23,25 +24,25 @@
     "explorer": "https://etherscan.io/token/0xb2617246d0c6c0087f18703d576831899ca94f01"
   },
   "market": {
-    "price": 0.0367417,
-    "marketCap": 51775749,
-    "marketCapRank": 497,
-    "volume24h": 1749138,
+    "price": 0.03755903,
+    "marketCap": 52938647,
+    "marketCapRank": 490,
+    "volume24h": 1352767,
     "high24h": 0.03859537,
-    "low24h": 0.03539542,
-    "priceChange24h": 0.33065,
-    "priceChange7d": 30.228451813172814,
-    "priceChange30d": 25.72727519314819,
-    "priceChange1y": -66.77461177121845,
+    "low24h": 0.03611925,
+    "priceChange24h": 3.14356,
+    "priceChange7d": 33.57923,
+    "priceChange30d": 27.64488,
+    "priceChange1y": -65.09953,
     "ath": 0.224179,
-    "athChangePercentage": -83.62568,
+    "athChangePercentage": -83.23396,
     "athDate": "2021-04-15T15:39:42.111Z",
     "atl": 0.00428716,
     "atlDate": "2023-07-15T05:31:20.452Z",
     "circulatingSupply": 1408940795.2396517,
     "totalSupply": 1953940795.2396517,
     "maxSupply": 2000000000,
-    "fdv": 71803406
+    "fdv": 73416130
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T18:56:31.511Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.697Z"
+  "fetchedAt": "2026-05-14T07:47:44.156Z"
 }

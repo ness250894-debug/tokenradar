@@ -2,13 +2,17 @@
   "id": "superstate-short-duration-us-government-securities-fund-ustb",
   "symbol": "ustb",
   "name": "Superstate Short Duration U.S. Government Securities Fund (USTB)",
-  "description": "USTB’s innovative structure and partnership with established service providers breaks new ground in the private funds space. The fund invests in short duration U.S. Treasury and U.S. Agency securities, targeting the federal funds rate, with a 0.15% management fee.1 Accepted U.S. Qualified Purchasers are able to subscribe to and redeem from the Fund using USDC2 at a daily NAV which is calculated by NAV Consulting. USTB’s Ethereum-based Allowlist enables on-chain ownership, transfer, and...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/35012/large/ustb.jpeg?1707102680",
+  "description": "USTB’s innovative structure and partnership with established service providers breaks new ground in the private funds space.\n\nThe fund invests in short duration U.S. Treasury and U.S. Agency securities, targeting the federal funds rate, with a 0.15% management fee.1\n\nAccepted U.S. Qualified Purchasers are able to subscribe to and redeem from the Fund using USDC2 at a daily NAV which is calculated by NAV Consulting. USTB’s Ethereum-based Allowlist enables on-chain ownership, transfer, and compliance. Additionally in the future, it is likely that peer-to-peer transactions will be possible, subject to applicable restrictions.\n\nThe Fund’s flexibility carries through to custody; investors can self-custody USTB in the on-chain addresses of their choice, such as an EOA, multi-sig, or MPC wallet. Additionally, investors can choose to utilize Anchorage Digital Bank National Association, a custodian and federally chartered bank, or BitGo, a qualified custodian and New York state chartered trust.\n\nSuperstate, an Exempt Reporting Adviser, serves as the Fund’s investment manager, with Federated Hermes serving as the Fund’s sub-advisor. USTB is a series of a Delaware Trust, which is legally separate from Superstate. For more Fund details, please consult the USTB information page.\n\nUSTB marks the start of our mission to tokenize the world’s assets. We’re committed to developing regulated, modern investing products that enhance investment opportunities for institutions, and, ultimately, all investors.",
   "categories": [
     "Tokenized Assets",
+    "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
     "Tokenized Treasury Bills (T-Bills)",
-    "Plume Network Ecosystem"
+    "Plume Network Ecosystem",
+    "Superstate Ecosystem",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -19,24 +23,24 @@
   },
   "market": {
     "price": 11.08,
-    "marketCap": 1017068909,
-    "marketCapRank": 72,
+    "marketCap": 1016644652,
+    "marketCapRank": 70,
     "volume24h": 0,
     "high24h": 11.08,
     "low24h": 11.08,
     "priceChange24h": 0.0095,
-    "priceChange7d": 0.06496005854985536,
-    "priceChange30d": 0.28927812707077155,
-    "priceChange1y": 3.8073059110896907,
+    "priceChange7d": 0.06496,
+    "priceChange30d": 0.28928,
+    "priceChange1y": 3.80731,
     "ath": 11.08,
     "athChangePercentage": 0,
     "athDate": "2026-05-13T13:20:01.429Z",
     "atl": 10.29,
     "atlDate": "2025-02-26T09:55:09.261Z",
-    "circulatingSupply": 91791971.881807,
-    "totalSupply": 91791971.881807,
+    "circulatingSupply": 91753682.045979,
+    "totalSupply": 91753682.045979,
     "maxSupply": null,
-    "fdv": 1017068909
+    "fdv": 1016644652
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:20:08.360Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.502Z"
+  "fetchedAt": "2026-05-14T07:35:37.045Z"
 }

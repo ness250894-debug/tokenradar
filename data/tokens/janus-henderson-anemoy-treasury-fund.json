@@ -2,13 +2,17 @@
   "id": "janus-henderson-anemoy-treasury-fund",
   "symbol": "jtrsy",
   "name": "Janus Henderson Anemoy Treasury Fund",
-  "description": "Anemoy is a Web3 native asset manager powered by Centrifuge, offering investors seamless access to a diverse range of real world asset investment opportunities. Through its suite of tokenized funds, Anemoy bridges traditional finance and decentralized markets, enabling transparent, efficient, and secure exposure to institutional-grade assets. 1. Janus Henderson Anemoy Treasury Fund 2. Janus Henderson Anemoy AAA CLO Fund 3. Anemoy Tokenized Apollo Diversified Credit Fund 4. Janus Henderson...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70445/large/JTRSY.png?1762078582",
+  "description": "Anemoy is a Web3 native asset manager powered by Centrifuge, offering investors seamless access to a diverse range of real world asset investment opportunities. Through its suite of tokenized funds, Anemoy bridges traditional finance and decentralized markets, enabling transparent, efficient, and secure exposure to institutional-grade assets.\n\t1.\tJanus Henderson Anemoy Treasury Fund\n\t2.\tJanus Henderson Anemoy AAA CLO Fund\n\t3.\tAnemoy Tokenized Apollo Diversified Credit Fund\n\t4.\tJanus Henderson Anemoy S&amp;P500® Fund",
   "categories": [
+    "Tokenized Assets",
     "Avalanche Ecosystem",
-    "Ethereum Ecosystem",
     "Real World Assets (RWA)",
     "Base Ecosystem",
-    "Plume Network Ecosystem"
+    "Tokenized Treasury Bills (T-Bills)",
+    "Plume Network Ecosystem",
+    "Monad Ecosystem",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -25,8 +29,8 @@
     "high24h": 1.1,
     "low24h": 1.1,
     "priceChange24h": 0.00879,
-    "priceChange7d": 0.18435355924968794,
-    "priceChange30d": 0.276512021728281,
+    "priceChange7d": 0.18435,
+    "priceChange30d": 0.27651,
     "priceChange1y": 0,
     "ath": 1.1,
     "athChangePercentage": 0,
@@ -47,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:33:50.053Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.499Z"
+  "fetchedAt": "2026-05-14T07:12:57.823Z"
 }

@@ -2,6 +2,7 @@
   "id": "neo",
   "symbol": "neo",
   "name": "NEO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/480/large/NEO_512_512.png?1696501735",
   "description": "NEO is a next generation smart economy platform (formerly Antshares) and China's first open source blockchain that was founded in 2014, is often known as the “Ethereum of China”. \n\nWhat is NEO?\nNEO uses a smart economy approach to implement its distributed network concept. Its main objective is to digitize assets using the decentralized network of blockchain technology and digital identity.\n\nNeo’s main aim is to be the distributed network for “smart economy”.  As their website states: \"Digital Assets + Digital Identity + Smart Contract = Smart Economy.\" Neo was developed by Shanghai-based blockchain R&amp;D company “OnChain” and funded by two crowdsales: first crowdsale on October 2015 sold 17.5 million NEO tokens for $550,000 and the second crowdsale sold the remaining 22.5 million NEO tokens for $4.5 million.\n\nSo why NEO?\nAsset digitization and identity on the NEO platform essentially creates a novel way for asset registration, issuance, and circulation. This means that tangible assets like real estate, company shares or even fiat money can be digitized and traded on the NEO network, thus giving rise to a whole new economy.\n\nIts digital identity system allows for integration between the platform and the real world economy. It has custom digital identity standards that enable the creation of electronic identity data for individuals, organizations and even entities. These electronic systems use multi-layered authentication models that include facial and voice recognition as well as fingerprints.\n\nAll digital assets on the platform enjoy legal protection thanks to the use of digital certificates on its public blockchain. This, in turn, guarantees trust as the system offers an indelible and unalterable record of all entities’ holdings.",
   "categories": [
     "Smart Contract Platform",
@@ -16,35 +17,34 @@
     "explorer": "https://neo.tokenview.io"
   },
   "market": {
-    "price": 3.17,
-    "marketCap": 223480671,
-    "marketCapRank": 179,
-    "volume24h": 12717171,
+    "price": 3.11,
+    "marketCap": 219419726,
+    "marketCapRank": 180,
+    "volume24h": 9083174,
     "high24h": 3.4,
-    "low24h": 3.12,
-    "priceChange24h": -2.06319,
-    "priceChange7d": 8.282141615617508,
-    "priceChange30d": 14.535295039678523,
-    "priceChange1y": -56.78576690133873,
+    "low24h": 3.09,
+    "priceChange24h": -6.22499,
+    "priceChange7d": 4.34721,
+    "priceChange30d": 10.92618,
+    "priceChange1y": -57.57369,
     "ath": 198.38,
-    "athChangePercentage": -98.40285,
+    "athChangePercentage": -98.43242,
     "athDate": "2018-01-15T00:00:00.000Z",
     "atl": 0.078349,
     "atlDate": "2016-10-21T00:00:00.000Z",
     "circulatingSupply": 70530000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 316859026
+    "fdv": 311101270
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 3537,
-    "githubForks": 1043,
-    "commits4Weeks": 9
+    "githubStars": 3533,
+    "githubForks": 1045,
+    "commits4Weeks": 5
   },
-  "fetchedAt": "2026-03-23T06:42:47.770Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.549Z"
+  "fetchedAt": "2026-05-14T07:21:19.232Z"
 }

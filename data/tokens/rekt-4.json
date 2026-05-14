@@ -2,26 +2,55 @@
   "id": "rekt-4",
   "symbol": "rekt",
   "name": "Rekt",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51727/large/rektcion_trans_200px.png?1731910587",
+  "description": "Rekt Brands Inc. encompasses several different verticals spanning art, culture, media, NFTs, and physical goods:\n\n\nRekt Drinks - Rekt Drinks is considered the official drink of web3.  It boasts one of the largest web2 product launches from a web3 brand with 222,456 drinks (flavoured sparkling water) sold out at public launch across 32 different countries in under 48 hours. \n\n\nRektguy NFT collection - a FREE mint launched in 2022 with over $120M of trading volume and a cult-like community, including holders such as Snoop Dogg, Steve Aoki, Bassjackers and Gary Vaynerchuk.\n\n\nRekt Art - OSF is a former trader turned artist who has collaborated with Red Bull, Bybit, Ledger, Sotheby’s, Saatchi Gallery, House of Fine Art &amp; more.\nRekt Events - events held throughout the year including NYC, London, Paris, Miami, Lisbon, Dubai, Singapore, Las Vegas, Marfa &amp; Taipei.\nRekt Radio - a top crypto podcast produced by Rekt and Rug Radio, hosted by OSF, Mando and Keyboard Monkey. It features the biggest names in crypto including Raoul Pal, Beeple, Bitboy, Su Zhu, Ansem, RookieXBT, TraderMayne, Alex Wice, DCInvestor and more.\n\n$REKT will be the token that underpins this entire ecosystem, staying true to the project’s memetic routes, while allowing for holders to gain exclusive access to parts of the ecosystem as well as significantly expanding its membership.\n",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Meme",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Abstract Ecosystem",
+    "HyperEVM Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://rektcoin.com",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdd3b11ef34cd511a2da159034a05fcb94d806686"
+  },
   "market": {
-    "price": 1.48561e-7,
-    "marketCap": 62503150,
-    "marketCapRank": 434,
-    "volume24h": 562882,
-    "priceChange24h": 0.34005,
+    "price": 1.47912e-7,
+    "marketCap": 62307361,
+    "marketCapRank": 436,
+    "volume24h": 555384,
+    "high24h": 1.52131e-7,
+    "low24h": 1.46367e-7,
+    "priceChange24h": -2.13225,
+    "priceChange7d": -0.85624,
+    "priceChange30d": 14.54394,
+    "priceChange1y": -24.32872,
     "ath": 0.00000141,
-    "athChangePercentage": -89.4934,
+    "athChangePercentage": -89.51422,
     "athDate": "2025-08-08T18:38:01.345Z",
     "atl": 3.1106e-8,
     "atlDate": "2025-03-13T18:02:06.181Z",
     "circulatingSupply": 420690000000000,
     "totalSupply": 420690000000000,
     "maxSupply": 420690000000000,
-    "high24h": 1.52131e-7,
-    "low24h": 1.47283e-7,
-    "priceChange7d": 0.0032208077876372918,
-    "priceChange30d": 14.292913471534488,
-    "priceChange1y": -25.339032846060146,
-    "fdv": 62503150
+    "fdv": 62307361
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.684Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:29:17.601Z"
 }

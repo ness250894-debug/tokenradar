@@ -2,20 +2,48 @@
   "id": "riv-coin",
   "symbol": "riv",
   "name": "RIV Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172629/large/2c4dh65jq5s4kascsjba3smvc3a5.?1774406074",
+  "description": "",
+  "categories": [
+    "Solana Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.riv-coin.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/2bpT3ksMdwdZ6DuHyq3FDUr7HDwvZ5DRZoT1fUPALJaH"
+  },
   "market": {
-    "price": 0.04254645,
-    "marketCap": 58222827,
-    "marketCapRank": 454,
-    "volume24h": 1412503,
-    "priceChange24h": 13.09101,
-    "ath": 0.04357888,
-    "athChangePercentage": -2.71363,
-    "athDate": "2026-05-07T15:30:26.375Z",
+    "price": 0.00844898,
+    "marketCap": 11580873,
+    "marketCapRank": 1172,
+    "volume24h": 1620883,
+    "high24h": 0.0100573,
+    "low24h": 0.0081506,
+    "priceChange24h": -8.90677,
+    "priceChange7d": -77.81829,
+    "priceChange30d": 575.29871,
+    "priceChange1y": 0,
+    "ath": 0.04712271,
+    "athChangePercentage": -82.02546,
+    "athDate": "2026-05-08T09:35:43.711Z",
     "atl": 0.00017337,
     "atlDate": "2026-03-25T02:48:59.503Z",
-    "circulatingSupply": 1368508549.613386,
-    "totalSupply": 8999998497.768751,
-    "maxSupply": null
+    "circulatingSupply": 1370976554.902025,
+    "totalSupply": 8999998495.744772,
+    "maxSupply": null,
+    "fdv": 76024521
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.899Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:30:20.774Z"
 }

@@ -2,26 +2,49 @@
   "id": "jelly-my-jelly",
   "symbol": "jellyjelly",
   "name": "Jelly-My-Jelly",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54087/large/jellyjelly-logo.webp?1738218050",
+  "description": "",
+  "categories": [
+    "Solana Ecosystem",
+    "Pump.fun Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.jellyjelly.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump"
+  },
   "market": {
-    "price": 0.060579,
-    "marketCap": 60578727,
-    "marketCapRank": 449,
-    "volume24h": 7016090,
-    "priceChange24h": -14.11888,
+    "price": 0.059219,
+    "marketCap": 59279499,
+    "marketCapRank": 455,
+    "volume24h": 7602910,
+    "high24h": 0.06412,
+    "low24h": 0.058267,
+    "priceChange24h": -4.37903,
+    "priceChange7d": 11.94337,
+    "priceChange30d": 34.93552,
+    "priceChange1y": -11.61879,
     "ath": 0.473157,
-    "athChangePercentage": -87.21492,
+    "athChangePercentage": -87.48719,
     "athDate": "2025-11-04T21:30:40.636Z",
     "atl": 0.00372817,
     "atlDate": "2025-03-10T22:26:21.387Z",
     "circulatingSupply": 999999099.34,
     "totalSupply": 999999099.34,
     "maxSupply": 999999099.34,
-    "high24h": 0.071648,
-    "low24h": 0.058405,
-    "priceChange7d": 12.298248205162714,
-    "priceChange30d": 44.07418419601189,
-    "priceChange1y": 16.394412263444615,
-    "fdv": 60578727
+    "fdv": 59279499
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.688Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:13:10.456Z"
 }

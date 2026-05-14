@@ -2,26 +2,49 @@
   "id": "targon",
   "symbol": "sn4",
   "name": "Targon",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66342/large/sn4.png?1749239249",
+  "description": "Targon is a decentalized, frontier AI lab",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Bittensor Ecosystem",
+    "Bittensor Subnets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://targon.com/",
+    "github": "https://github.com/manifold-inc/targon",
+    "reddit": null,
+    "explorer": "https://taostats.io/subnets/4/chart"
+  },
   "market": {
-    "price": 15.99,
-    "marketCap": 74989609,
-    "marketCapRank": 386,
-    "volume24h": 551622,
-    "priceChange24h": -5.36291,
+    "price": 16.11,
+    "marketCap": 75539116,
+    "marketCapRank": 379,
+    "volume24h": 6547807,
+    "high24h": 16.78,
+    "low24h": 15.8,
+    "priceChange24h": -3.38196,
+    "priceChange7d": -10.78872,
+    "priceChange30d": 20.07542,
+    "priceChange1y": 0,
     "ath": 39.23,
-    "athChangePercentage": -59.24754,
+    "athChangePercentage": -59.07268,
     "athDate": "2025-06-10T12:01:00.695Z",
     "atl": 5.99,
     "atlDate": "2026-02-11T15:15:28.485Z",
-    "circulatingSupply": 4690035.689035505,
-    "totalSupply": 4690035.689035505,
+    "circulatingSupply": 4695538.588497656,
+    "totalSupply": 4695538.588497656,
     "maxSupply": 21000000,
-    "high24h": 17.2,
-    "low24h": 15.8,
-    "priceChange7d": -11.110563680830003,
-    "priceChange30d": 17.581641455704204,
-    "priceChange1y": 0,
-    "fdv": 74989609
+    "fdv": 75539116
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.632Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:36:27.551Z"
 }

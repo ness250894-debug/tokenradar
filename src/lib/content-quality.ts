@@ -52,6 +52,11 @@ export const PROHIBITED_FINANCIAL_PHRASES = [
   "this is financial advice",
 ];
 
+const LIVE_MARKET_PLACEHOLDER_PATTERN = /\{\{LIVE_[A-Z0-9_]+\}\}/;
+const HARD_CODED_AS_OF_DATE_PATTERN =
+  /\bAs of\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2}/i;
+const UNSUPPORTED_HEADING_PATTERN = /^#{3,}\s+/m;
+
 export function getArticleQualityThresholds(articleType?: string): ArticleQualityThresholds {
   const normalizedType = articleType || "";
   if (normalizedType === "how-to-buy") {
@@ -133,6 +138,22 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
 
   if (avgSentenceLength > 35) {
     warnings.push(`Average sentence length high: ${avgSentenceLength} words (target <30)`);
+  }
+
+  if (UNSUPPORTED_HEADING_PATTERN.test(content)) {
+    warnings.push("Unsupported heading depth found: use ## section headings only");
+  }
+
+  if (LIVE_MARKET_PLACEHOLDER_PATTERN.test(content)) {
+    warnings.push("Live market placeholders remain in article content");
+  }
+
+  if (articleType !== "tge-preview" && HARD_CODED_AS_OF_DATE_PATTERN.test(content)) {
+    warnings.push("Hardcoded live-date phrasing found; use live market date placeholders instead");
+  }
+
+  if (hasDisclaimer && !contentLower.includes("always do your own research")) {
+    warnings.push("Disclaimer is present but does not include the standard research reminder");
   }
 
   return {

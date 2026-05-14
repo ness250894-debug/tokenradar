@@ -2,26 +2,48 @@
   "id": "kaio",
   "symbol": "kaio",
   "name": "KAIO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172908/large/mzBp0v3p_400x400.png?1778125287",
+  "description": "KAIO provides institutional-grade real-world asset (RWA) tokenization infrastructure that seamlessly connects traditional investment funds with digital capital markets. Through its purpose-built protocol, KAIO enables leading global asset managers to issue and distribute regulated tokenized funds across multiple high-performance blockchain networks — including Ethereum, Sei, Hedera, Solana, Aptos, and others — significantly expanding global access to institutional-quality real-world asset strategies for qualified investors. \n\nBy tokenizing feeder structures and shares in flagship funds, KAIO brings onchain access to proven strategies such as the BlackRock ICS US Dollar Liquidity Fund (one of the world’s largest institutional money market funds), the Brevan Howard Master Fund, Hamilton Lane’s Senior Credit Opportunities Fund (SCOPE) via the HL SCOPE Access Fund, and Laser Digital’s Laser Carry Fund (LCF), among others. These tokenized vehicles deliver secure, compliant exposure to money market, macro, private credit, and alternative strategies while unlocking new levels of programmability, composability, and 24/7 liquidity in DeFi environments. ",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.kaio.xyz/",
+    "github": "https://github.com/librecapital",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x00bac91fd8f5b4a0dc03c8021139b76f6549ee7e"
+  },
   "market": {
-    "price": 0.084822,
-    "marketCap": 57884601,
-    "marketCapRank": 460,
-    "volume24h": 11919980,
-    "priceChange24h": -15.91795,
+    "price": 0.077361,
+    "marketCap": 52550270,
+    "marketCapRank": 494,
+    "volume24h": 7762586,
+    "high24h": 0.102786,
+    "low24h": 0.075522,
+    "priceChange24h": -13.43051,
+    "priceChange7d": -60.58596,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 0.246415,
-    "athChangePercentage": -65.53758,
+    "athChangePercentage": -68.68184,
     "athDate": "2026-05-06T16:10:43.021Z",
     "atl": 0.075522,
     "atlDate": "2026-05-13T07:50:43.082Z",
     "circulatingSupply": 681250000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.103687,
-    "low24h": 0.075522,
-    "priceChange7d": -47.83043487869864,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
-    "fdv": 849682211
+    "fdv": 771380117
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.690Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:13:54.730Z"
 }

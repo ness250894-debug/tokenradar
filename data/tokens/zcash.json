@@ -2,9 +2,9 @@
   "id": "zcash",
   "symbol": "zec",
   "name": "Zcash",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/486/large/circle-zcash-color.png?1696501740",
   "description": "Zcash is a privacy-focused cryptocurrency that uses trustless zero-knowledge proofs to enable fully encrypted transactions while maintaining blockchain transparency and security. It was the first cryptocurrency to implement zero-knowledge encryption for private peer-to-peer payments, addressing the fundamental privacy gap in traditional cryptocurrencies that expose transaction details publicly. \n\nWith a fixed supply of 21 million ZEC and a halving schedule similar to Bitcoin, Zcash allows users to prove transactions are valid without revealing sensitive information like wallet balances, transaction amounts, or participant identities, making it suitable for everyday payments, long-term savings, and cross-border money transfers where financial confidentiality matters.\n\nThe protocol operates on its own blockchain currently using Proof-of-Work consensus, though it's evolving toward Proof-of-Stake through the planned \"Crosslink\" upgrade to enhance security, scalability, and energy efficiency. Zcash employs trustless zero-knowledge proofs (Halo) within its Orchard shielded pool to verify transactions without revealing sender, receiver, or amount information. \n\nUsers can choose between transparent public transactions and shielded private transactions through Unified Addresses, which work with both types. The network is faster and cheaper than Bitcoin, with new blocks mined every 75 seconds and transaction fees typically just a fraction of a cent. Privacy adoption has surged in 2025, with over 30% of total ZEC supply now held in fully shielded pools.\n\nZcash was created by a group of scientists in 2013 who initially proposed Zerocoin as a privacy extension to Bitcoin before building a standalone protocol. The ecosystem operates with a self-funded development model where block rewards support independent teams through the Zcash Community Grants Committee and a new Coinholder-Controlled Fund.",
   "categories": [
-    "Smart Contract Platform",
     "Privacy Coins",
     "Layer 1 (L1)",
     "Near Protocol Ecosystem",
@@ -21,28 +21,28 @@
     "website": "https://z.cash/",
     "github": "https://github.com/zcash/zcash",
     "reddit": "https://www.reddit.com/r/zec",
-    "explorer": "https://zcash.tokenview.io/"
+    "explorer": "https://zecblockexplorer.com/"
   },
   "market": {
-    "price": 539.61,
-    "marketCap": 9005687054,
+    "price": 526.46,
+    "marketCap": 8793341357,
     "marketCapRank": 16,
-    "volume24h": 715895336,
-    "high24h": 588.43,
-    "low24h": 530.17,
-    "priceChange24h": -2.04325,
-    "priceChange7d": -4.857087862375642,
-    "priceChange30d": 51.181281331070416,
-    "priceChange1y": 1146.2870259557221,
+    "volume24h": 844732781,
+    "high24h": 557.49,
+    "low24h": 516.23,
+    "priceChange24h": -4.31918,
+    "priceChange7d": -6.45344,
+    "priceChange30d": 44.47646,
+    "priceChange1y": 1109.42274,
     "ath": 3191.93,
-    "athChangePercentage": -83.09445,
+    "athChangePercentage": -83.50668,
     "athDate": "2016-10-29T00:00:00.000Z",
     "atl": 16.08,
     "atlDate": "2024-07-05T04:22:29.321Z",
     "circulatingSupply": 16688225.1655448,
     "totalSupply": 16688225.1655448,
     "maxSupply": 21000000,
-    "fdv": 9005687054
+    "fdv": 8793341357
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +53,5 @@
     "githubForks": 2073,
     "commits4Weeks": 34
   },
-  "fetchedAt": "2026-03-23T18:46:23.821Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.485Z"
+  "fetchedAt": "2026-05-14T07:47:06.221Z"
 }

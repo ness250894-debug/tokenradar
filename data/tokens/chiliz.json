@@ -2,13 +2,16 @@
   "id": "chiliz",
   "symbol": "chz",
   "name": "Chiliz",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8834/large/CHZ_Token_updated.png?1696508986",
   "description": "Chiliz is a fintech platform for the sports industry to allow global fans to get closer to their favorite sports teams and clubs.",
   "categories": [
     "Smart Contract Platform",
     "Sports",
     "NFT",
+    "Solana Ecosystem",
     "Layer 1 (L1)",
     "Ethereum Ecosystem",
+    "Base Ecosystem",
     "Alleged SEC Securities",
     "Chiliz Ecosystem",
     "YZi Labs (Prev. Binance Labs) Portfolio",
@@ -22,25 +25,25 @@
     "explorer": "https://etherscan.io/token/0x3506424f91fd33084466f402d5d97f05f8e3b4af"
   },
   "market": {
-    "price": 0.04301905,
-    "marketCap": 445694541,
-    "marketCapRank": 122,
-    "volume24h": 71489889,
+    "price": 0.04313874,
+    "marketCap": 446458044,
+    "marketCapRank": 121,
+    "volume24h": 71332170,
     "high24h": 0.04564506,
     "low24h": 0.04214755,
-    "priceChange24h": 1.02138,
-    "priceChange7d": 2.2221166053876877,
-    "priceChange30d": 16.773136363299297,
-    "priceChange1y": -12.511636687803025,
+    "priceChange24h": 1.35595,
+    "priceChange7d": 2.50653,
+    "priceChange30d": 17.09803,
+    "priceChange1y": -11.9193,
     "ath": 0.878633,
-    "athChangePercentage": -95.10692,
+    "athChangePercentage": -95.10562,
     "athDate": "2021-03-13T08:04:21.200Z",
     "atl": 0.00410887,
     "atlDate": "2019-09-28T00:00:00.000Z",
-    "circulatingSupply": 10357702880,
-    "totalSupply": 10357702880,
+    "circulatingSupply": 10357623569,
+    "totalSupply": 10357623569,
     "maxSupply": null,
-    "fdv": 445694541
+    "fdv": 446458044
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:57:00.844Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.525Z"
+  "fetchedAt": "2026-05-13T18:28:04.057Z"
 }

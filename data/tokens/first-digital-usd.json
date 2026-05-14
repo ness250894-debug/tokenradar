@@ -2,6 +2,7 @@
   "id": "first-digital-usd",
   "symbol": "fdusd",
   "name": "First Digital USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31079/large/FDUSD_icon_black.png?1731097953",
   "description": "What is the project about? \nFirst Digital USD (FDUSD) aim to revolutionize the digital asset landscape. Our mission is to empower users with a transformative financial instrument that combines the stability of cash reserves with the seamless efficiency of advanced blockchain technology. By offering a fully collateralized digital asset, our stablecoin ensures the utmost security, transparency, and transaction reliability. This strategic fusion of traditional stability and cutting-edge innovation allows users to confidently navigate the digital economy, unlocking a world of possibilities while maintaining the utmost trust in their financial interactions.\n\nWhat makes your project unique?\nTransferable: FDUSD enables frictionless and streamlined transactions, rendering it a convenient choice for a wide range of applications and scenarios.\n\nRedeemable: FDUSD is backed by high-quality reserves- cash and cash equivalents, which enable holders the ability to redeem their FDUSD tokens for their equivalent value in US dollars. Users can trust that FDUSD is always 1:1 backed. \n\nLow Fees: One notable benefit of FDUSD is its ability to offer cost-effective transactions with minimal fees. Unlike traditional financial transactions, this cost-efficiency makes FDUSD an attractive and economical choice for users.\n\nOperates on Decentralized Networks. \nFDUSD operates on decentralized networks that are distributed across multiple nodes. In so doing, it enhances transparency, security, and resilience. \n\nBankruptcy Remote \nFDUSD is designed to be bankruptcy remote, with the reserves held in segregated accounts on a registered trust company, separated from the issuer’s operational accounts. It ensures the stablecoin remains stable and secure.\n\nHistory of your project.\nEstablished in 2019, First Digital is Asia’s leading multi-faceted trust partner bridging the gap between the traditional and digital financial worlds.\n\n",
   "categories": [
     "Stablecoins",
@@ -21,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0xc5f0f7b66764f6ec8c8dff7ba683102295e16409"
   },
   "market": {
-    "price": 0.997837,
-    "marketCap": 408718494,
-    "marketCapRank": 130,
-    "volume24h": 351632162,
-    "high24h": 0.999752,
+    "price": 0.997605,
+    "marketCap": 405695651,
+    "marketCapRank": 131,
+    "volume24h": 53216399,
+    "high24h": 0.999319,
     "low24h": 0.994609,
-    "priceChange24h": -0.0641,
-    "priceChange7d": -0.08346846953053393,
-    "priceChange30d": -0.1979235863879351,
-    "priceChange1y": -0.37326759322778513,
+    "priceChange24h": -0.05733,
+    "priceChange7d": -0.07016,
+    "priceChange30d": -0.26602,
+    "priceChange1y": -0.0242,
     "ath": 1.15,
-    "athChangePercentage": -13.36133,
+    "athChangePercentage": -13.34412,
     "athDate": "2025-02-03T02:30:49.959Z",
     "atl": 0.940377,
     "atlDate": "2024-12-05T22:30:51.394Z",
-    "circulatingSupply": 409673717.932143,
-    "totalSupply": 409673717.932143,
+    "circulatingSupply": 406669653.0721429,
+    "totalSupply": 406669653.0721429,
     "maxSupply": null,
-    "fdv": 408718494
+    "fdv": 405695651
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T20:51:44.850Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.529Z"
+  "fetchedAt": "2026-05-14T07:06:57.040Z"
 }

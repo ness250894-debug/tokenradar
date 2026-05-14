@@ -2,12 +2,31 @@
   "id": "main-street-yield",
   "symbol": "msy",
   "name": "Main Street Yield",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71150/large/msY_200x200.png?1766047721",
+  "description": "Main Street Finance is excited to launch a new strategy for the msY Vault that leverages box spreads on the Chicago Mercantile Exchange (CME). This strategy aims to provide investors with attractive, stable yields in a tokenized format, making sophisticated TradFi opportunities accessible to a broader audience. Much like Ethena, which has gained popularity by funding futures speculators through its basis trade, the msY Vault funds options demand from retail and institutional players. However, we’re tapping into the much larger TradFi options market, which offers greater scale and depth, while offering leveraged returns on short-term rates.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Yield Tokenization Product"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mainstreet.finance/",
+    "github": "https://github.com/Mainstreet-Labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x890a5122aa1da30fec4286de7904ff808f0bd74a"
+  },
   "market": {
     "price": 1.034,
     "marketCap": 57375688,
     "marketCapRank": 463,
     "volume24h": 25.83,
+    "high24h": 0,
+    "low24h": 0,
     "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": -0.58014,
+    "priceChange1y": 0,
     "ath": 1.045,
     "athChangePercentage": -1.05883,
     "athDate": "2026-04-23T10:30:48.400Z",
@@ -16,12 +35,16 @@
     "circulatingSupply": 68102964.0545045,
     "totalSupply": 68102964.0545045,
     "maxSupply": null,
-    "high24h": 0,
-    "low24h": 0,
-    "priceChange7d": 0,
-    "priceChange30d": -0.5549637173634301,
-    "priceChange1y": 0,
     "fdv": 70415706
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.691Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:17:00.066Z"
 }

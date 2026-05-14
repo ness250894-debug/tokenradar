@@ -2,26 +2,58 @@
   "id": "zora",
   "symbol": "zora",
   "name": "Zora",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54693/large/zora.jpg?1741094751",
+  "description": "",
+  "categories": [
+    "Infrastructure",
+    "Media",
+    "Smart Contract Platform",
+    "SocialFi",
+    "NFT",
+    "Launchpad",
+    "Layer 2 (L2)",
+    "Base Ecosystem",
+    "Coinbase Ventures Portfolio",
+    "Zora Ecosystem",
+    "Binance Alpha Spotlight",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zora.co/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x1111111111166b7fe7bd91427724b487980afc69"
+  },
   "market": {
-    "price": 0.01251755,
-    "marketCap": 55968062,
-    "marketCapRank": 468,
-    "volume24h": 8752174,
-    "priceChange24h": -3.02125,
+    "price": 0.01243255,
+    "marketCap": 55596041,
+    "marketCapRank": 476,
+    "volume24h": 8661847,
+    "high24h": 0.01321357,
+    "low24h": 0.0122591,
+    "priceChange24h": -4.91045,
+    "priceChange7d": -4.62065,
+    "priceChange30d": -10.77781,
+    "priceChange1y": -0.83384,
     "ath": 0.145579,
-    "athChangePercentage": -91.39941,
+    "athChangePercentage": -91.44833,
     "athDate": "2025-08-11T16:12:14.531Z",
     "atl": 0.00778286,
     "atlDate": "2025-06-18T20:12:21.649Z",
     "circulatingSupply": 4469999998,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.01325173,
-    "low24h": 0.01249963,
-    "priceChange7d": -4.770783310757538,
-    "priceChange30d": -9.048840364722944,
-    "priceChange1y": 2.9486204936143814,
-    "fdv": 125208191
+    "fdv": 124375930
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.692Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:48:03.140Z"
 }

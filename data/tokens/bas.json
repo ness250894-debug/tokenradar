@@ -3,7 +3,7 @@
   "symbol": "bas",
   "name": "BNB Attestation Service",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/67419/large/bas.jpg?1752736026",
-  "description": "A cryptocurrency token known as BNB Attestation Service (BAS). It is tracked on CoinGecko with the ID \"bas\".",
+  "description": "",
   "categories": [
     "Analytics",
     "BNB Chain Ecosystem",
@@ -18,25 +18,25 @@
     "explorer": "https://bscscan.com/token/0x0f0df6cb17ee5e883eddfef9153fc6036bdb4e37"
   },
   "market": {
-    "price": 0.02473706,
-    "marketCap": 61938304,
-    "marketCapRank": 441,
-    "volume24h": 6154881,
-    "high24h": 0.02475766,
+    "price": 0.02433665,
+    "marketCap": 60804966,
+    "marketCapRank": 448,
+    "volume24h": 6077414,
+    "high24h": 0.02433504,
     "low24h": 0.0213688,
-    "priceChange24h": 9.671,
-    "priceChange7d": 40.22125082139654,
-    "priceChange30d": 248.22823365109824,
+    "priceChange24h": 7.35555,
+    "priceChange7d": 37.50816,
+    "priceChange30d": 248.62313,
     "priceChange1y": 0,
     "ath": 0.166539,
-    "athChangePercentage": -85.1234,
+    "athChangePercentage": -85.39561,
     "athDate": "2025-10-17T10:05:13.937Z",
     "atl": 0.00259671,
     "atlDate": "2026-02-06T00:35:42.240Z",
     "circulatingSupply": 2500000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 247753217
+    "fdv": 243219864
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-11T10:21:04.169Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.685Z"
+  "fetchedAt": "2026-05-13T18:22:54.361Z"
 }

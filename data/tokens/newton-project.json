@@ -2,6 +2,7 @@
   "id": "newton-project",
   "symbol": "ab",
   "name": "AB",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4376/large/400%E6%96%B9.png?1740377493",
   "description": "AB (prev. Newton) is an advanced blockchain ecosystem evolving from the Newton Project, designed for decentralization, interoperability, and real-world asset (RWA) integration. It features a high-performance mainnet, industry-specific sidechains, and cross-chain compatibility with Ethereum, Solana, and other networks.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -15,25 +16,25 @@
     "explorer": "https://explorer.newtonproject.org/"
   },
   "market": {
-    "price": 0.00144619,
-    "marketCap": 142967526,
-    "marketCapRank": 237,
-    "volume24h": 2691996,
-    "high24h": 0.00147831,
+    "price": 0.00144722,
+    "marketCap": 143117749,
+    "marketCapRank": 236,
+    "volume24h": 2991096,
+    "high24h": 0.00147345,
     "low24h": 0.00144465,
-    "priceChange24h": -1.82,
-    "priceChange7d": -6.621656720726371,
-    "priceChange30d": -5.817803174817251,
-    "priceChange1y": -80.38503231285632,
+    "priceChange24h": -1.42438,
+    "priceChange7d": -6.66229,
+    "priceChange30d": -5.95977,
+    "priceChange1y": -80.47507,
     "ath": 0.01727373,
-    "athChangePercentage": -91.61265,
+    "athChangePercentage": -91.61804,
     "athDate": "2025-03-22T08:04:44.760Z",
     "atl": 0.0000038,
     "atlDate": "2022-10-11T02:32:18.937Z",
     "circulatingSupply": 98823661261.46,
     "totalSupply": 98823661261.46,
     "maxSupply": 100000000000,
-    "fdv": 142967526
+    "fdv": 143117749
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T06:44:13.794Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.567Z"
+  "fetchedAt": "2026-05-14T07:21:33.963Z"
 }

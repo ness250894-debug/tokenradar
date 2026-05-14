@@ -2,6 +2,7 @@
   "id": "basedhype",
   "symbol": "basedhype",
   "name": "BasedHype",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68733/large/BasedHype_Logo.png?1756408633",
   "description": "BasedHype is a community-driven meme token on the Base chain, launched in July 2025 as a symbolic protest against unsustainable tokenomics in the cryptocurrency space. The token features a fixed supply of 10 billion units with built-in deflationary mechanisms, including monthly burns of 200 million tokens starting August 1, 2025, from a vesting pool of 6 billion tokens. This burn schedule, verifiable on Basescan, is designed to reduce circulating supply over time, with the potential to increase to 4% monthly in 2026 based on community consensus. Liquidity, representing 20% of supply (2 billion tokens), is locked until June 30, 2028, via Bitbond, ensuring trading depth without risk of withdrawal. The contract is renounced, standard ERC-20 compliant, with no taxes, minting permissions, or upgrade capabilities post-renounce, as confirmed by DEXTools score of 99/99. Additional allocations include a founder vault (4.5%, locked until January 2028 for ceremonial burn), media/listing reserve (4.5%, unlocking at $500 million market cap), and community vault (1.5% for incentives). BasedHype operates without a formal team or roadmap, guided by a decentralized collective known as the Signal Tribe, focusing on meme virality and on-chain transparency. The Transparency Hub on the project website provides real-time tracking of burns, locks, and vaults, emphasizing verifiable scarcity. Trading occurs on Uniswap V2, with fees (0.3%) distributed to liquidity providers, generating yield without emissions. The project disclaims any investment value, positioning itself as a memetic expression rather than a financial product.",
   "categories": [
     "Meme",
@@ -16,25 +17,25 @@
     "explorer": "https://basescan.org/token/0x84a9183c9d11146d8e6a820dfc675a61b11eadeb"
   },
   "market": {
-    "price": 0.00710169,
-    "marketCap": 71081529,
-    "marketCapRank": 402,
-    "volume24h": 305.21,
+    "price": 0.00714282,
+    "marketCap": 71284298,
+    "marketCapRank": 401,
+    "volume24h": 306.97,
     "high24h": 0.00773005,
     "low24h": 0.00704345,
-    "priceChange24h": -7.78919,
-    "priceChange7d": -14.021933851965029,
-    "priceChange30d": 1.2005698215781224,
+    "priceChange24h": -7.02626,
+    "priceChange7d": -13.52395,
+    "priceChange30d": 2.02361,
     "priceChange1y": 0,
     "ath": 0.01997093,
-    "athChangePercentage": -64.4075,
+    "athChangePercentage": -64.28013,
     "athDate": "2025-10-07T09:44:35.454Z",
     "atl": 0.00403031,
     "atlDate": "2025-11-22T14:00:21.582Z",
     "circulatingSupply": 10000000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 71081529
+    "fdv": 71284298
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T08:15:47.548Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.676Z"
+  "fetchedAt": "2026-05-13T18:23:07.026Z"
 }

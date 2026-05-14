@@ -11,7 +11,7 @@ import {
   formatPrice,
   formatPercent,
 } from "@/lib/content-loader";
-import { isArticleIndexable } from "@/lib/seo";
+import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
@@ -27,7 +27,10 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tokenIds = await getTokenIdsWithArticle("price-prediction");
-  return tokenIds.map((token) => ({ token }));
+  const indexableTokenIds = await filterIndexableArticleTokenIds(tokenIds, (tokenId) =>
+    getArticle(tokenId, "price-prediction"),
+  );
+  return indexableTokenIds.map((token) => ({ token }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -82,6 +85,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const metrics = await getTokenMetrics(tokenId);
   const priceHistory = await getPriceHistory(tokenId);
   const article = await getArticle(tokenId, "price-prediction");
+  if (!isArticleIndexable(article)) notFound();
+
   const tradingView = getPartner("tradingview");
 
   const isPositive = detail.market.priceChange30d >= 0;

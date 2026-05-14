@@ -2,20 +2,50 @@
   "id": "utya",
   "symbol": "utya",
   "name": "Utya",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37227/large/photo_2024-04-15_18.03.55.jpeg?1713776606",
+  "description": "UTYA Token$UTYA is more than just a memecoin – it’s a community-driven movement dedicated to spreading joy and positivity through the iconic Telegram Duck Emoji. $UTYA is seen by millions of people every year on Telegram, and so we thought it deserved a community to call its own on TON.",
+  "categories": [
+    "Meme",
+    "TON Ecosystem",
+    "TON Meme",
+    "Sticker-Themed Coins"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tonutya.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tonviewer.com/EQBaCgUwOoc6gHCNln_oJzb0mVs79YG7wYoavh-o1ItaneLA"
+  },
   "market": {
-    "price": 0.054581,
-    "marketCap": 54268058,
-    "marketCapRank": 453,
-    "volume24h": 4340387,
-    "priceChange24h": 22.43033,
+    "price": 0.0356378,
+    "marketCap": 35636384,
+    "marketCapRank": 639,
+    "volume24h": 673315,
+    "high24h": 0.03806601,
+    "low24h": 0.02942554,
+    "priceChange24h": 14.85437,
+    "priceChange7d": -37.93972,
+    "priceChange30d": 333.78973,
+    "priceChange1y": 3705.37043,
     "ath": 0.059842,
-    "athChangePercentage": -2.94832,
+    "athChangePercentage": -40.45282,
     "athDate": "2026-05-07T18:35:04.605Z",
     "atl": 0.0002191,
     "atlDate": "2024-09-05T13:38:52.517Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 35636384
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.903Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:43:37.636Z"
 }

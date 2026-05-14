@@ -2,26 +2,52 @@
   "id": "f-x-protocol-fxusd",
   "symbol": "fxusd",
   "name": "f(x) Protocol fxUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36202/large/fxUSD.jpg?1710833113",
+  "description": "On V1, fxUSD is unlike anything else in DeFi. It is the first truly decentralized stablecoin with the scalability to compete toe-to-toe with centralized offerings. Its combination of strong peg, built in yield and zero slippage swapping makes it extremely user friendly, while the ingenious economic design grows the available liquidity automatically as a byproduct of providing serious value to constituent LSDs.\nFor the f(x) V2, f(x) Protocol is a decentralized on-chain trading platform that enables stress-free leverage on ETH and WBTC while delivering the highest organic &amp; sustainable yield on stablecoins. By utilizing an innovative mechanism, we offer up to 7X long or short exposure with minimum liquidation risk &amp; funding costs. To fuel the leverage positions, the protocol mints fxUSD, a scalable &amp; decentralized stablecoin with a strong peg to the dollar and backed by wstETH and WBTC.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://fx.aladdin.club",
+    "github": "https://github.com/AladdinDAO/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x085780639cc2cacd35e474e71f4d000e2405d8f6"
+  },
   "market": {
-    "price": 0.995378,
-    "marketCap": 53890897,
-    "marketCapRank": 484,
-    "volume24h": 645051,
+    "price": 0.999137,
+    "marketCap": 54135926,
+    "marketCapRank": 483,
+    "volume24h": 317757,
     "high24h": 1.006,
     "low24h": 0.989284,
-    "priceChange24h": -0.06932,
-    "priceChange7d": 0.23829404934866133,
-    "priceChange30d": -0.48984687974932595,
-    "priceChange1y": -0.430023877998998,
+    "priceChange24h": 0.2239,
+    "priceChange7d": -0.36364,
+    "priceChange30d": 0.15666,
+    "priceChange1y": -0.01815,
     "ath": 1.071,
-    "athChangePercentage": -7.07986,
+    "athChangePercentage": -6.6706,
     "athDate": "2026-04-28T00:15:06.461Z",
     "atl": 0.953062,
     "atlDate": "2024-12-05T15:45:54.718Z",
-    "circulatingSupply": 54160489.06344421,
-    "totalSupply": 54160489.06344421,
+    "circulatingSupply": 54153910.92465339,
+    "totalSupply": 54153910.92465339,
     "maxSupply": null,
-    "fdv": 53890897
+    "fdv": 54135926
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.695Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:05:51.692Z"
 }

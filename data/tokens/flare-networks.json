@@ -2,7 +2,8 @@
   "id": "flare-networks",
   "symbol": "flr",
   "name": "Flare",
-  "description": "Flare is a blockchain for building applications that are interoperable with other blockchains and the internet. ## What is Flare (FLR)? Flare is an EVM-based Layer 1 blockchain designed to allow developers to build applications that are interoperable with blockchains and the internet. By providing decentralized access to high-integrity data, Flare enables new use cases and monetisation models. ## What makes Flare unique? Flare's native interoperability protocols, the State Connector and the...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/28624/large/FLR-icon200x200.png?1696527609",
+  "description": "Flare is a blockchain for building applications that are interoperable with other blockchains and the internet.\n\n## What is Flare (FLR)?\n\nFlare is an EVM-based Layer 1 blockchain designed to allow developers to build applications that are interoperable with blockchains and the internet. By providing decentralized access to high-integrity data, Flare enables new use cases and monetisation models.\n\n\n## What makes Flare unique?\n\nFlare's native interoperability protocols, the State Connector and the FTSO are secured by the network itself, allowing it to reliably deliver data from a wide variety of off-chain sources in a decentralized way. \n\nThe Flare Time Series Oracle delivers highly-decentralized price and data feeds to dapps on Flare, without relying on centralized providers. \n\nThe State Connector protocols enable information, both from other blockchains and the internet to be used securely, scalably and trustlessly with smart contracts on Flare.\n\nRisk is minimized by building this decentralized data infrastructure natively into the blockchain, powered by a large number of independent data providers.\n\nBy incentivizing sets of independent providers to query, acquire, and process data without relying on single, centralized sources, Flare’s core protocols can facilitate the development of interoperable dapps with a broad range of potential innovative use cases.\n\n\n## What is the Flare (FLR) token used for?\n\nFLR is the native token used for payments, transaction fees to prevent spam attacks and staking in validator nodes. FLR can also be wrapped into an ERC-20 variant, WFLR. WFLR tokens serve various functions; they can be delegated to FTSO data providers, for example, or staked to participate in governance. These two uses are not mutually exclusive and do not prevent the tokens from being used in other EVM-compatible dapps and smart contracts on Flare.\n\nWrapped FLR (WFLR) can be minted by depositing native FLR tokens into a smart contract and withdrawing the newly minted",
   "categories": [
     "Smart Contract Platform",
     "Layer 1 (L1)",
@@ -16,25 +17,25 @@
     "explorer": "https://flarescan.com/"
   },
   "market": {
-    "price": 0.00862201,
-    "marketCap": 742890940,
-    "marketCapRank": 86,
-    "volume24h": 3013068,
+    "price": 0.00865298,
+    "marketCap": 745600440,
+    "marketCapRank": 85,
+    "volume24h": 2671234,
     "high24h": 0.00884596,
-    "low24h": 0.00859803,
-    "priceChange24h": -0.81872,
-    "priceChange7d": 11.562646157844151,
-    "priceChange30d": 9.684724631849864,
-    "priceChange1y": -56.81839350487703,
+    "low24h": 0.00857485,
+    "priceChange24h": -1.46576,
+    "priceChange7d": 10.75345,
+    "priceChange30d": 7.26391,
+    "priceChange1y": -57.41108,
     "ath": 0.150073,
-    "athChangePercentage": -94.25196,
+    "athChangePercentage": -94.22815,
     "athDate": "2023-01-10T03:14:05.921Z",
     "atl": 0.00726058,
     "atlDate": "2026-04-07T18:55:08.564Z",
-    "circulatingSupply": 86122566420.39664,
-    "totalSupply": 105814498252.8296,
+    "circulatingSupply": 86129974972.98285,
+    "totalSupply": 105825343558.2163,
     "maxSupply": null,
-    "fdv": 912753014
+    "fdv": 916097128
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:35:02.836Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-14T07:07:03.440Z"
 }

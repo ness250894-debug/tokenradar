@@ -2,26 +2,55 @@
   "id": "world-mobile-token",
   "symbol": "wmtx",
   "name": "World Mobile Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/17333/large/Token_icon_round_1024.png?1741247846",
+  "description": "World Mobile Token (WMTX) is the utility token that powers the World Mobile network, a decentralized mobile network at the forefront of the DePIN space. World Mobile aims to connect the world by leveraging blockchain technology and a sharing economy. By becoming an AirNode operator or a token staker, anyone can earn rewards for providing telco services to customers or securing the network. The World Mobile network is disrupting the trillion-dollar telco industry and creating a more inclusive, sustainable, and privacy-respecting wireless service for everyone.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Cardano Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Base Ecosystem",
+    "DWF Labs Portfolio",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://worldmobile.io",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/WorldMobileToken/",
+    "explorer": "https://bscscan.com/token/0xdbb5cf12408a3ac17d668037ce289f9ea75439d7"
+  },
   "market": {
-    "price": 0.064621,
-    "marketCap": 55048923,
-    "marketCapRank": 476,
-    "volume24h": 11974652,
-    "priceChange24h": 2.56682,
+    "price": 0.063342,
+    "marketCap": 53961008,
+    "marketCapRank": 483,
+    "volume24h": 4942797,
+    "high24h": 0.065354,
+    "low24h": 0.06334,
+    "priceChange24h": -0.56475,
+    "priceChange7d": -3.54824,
+    "priceChange30d": -15.56872,
+    "priceChange1y": -68.30148,
     "ath": 0.979732,
-    "athChangePercentage": -93.40241,
+    "athChangePercentage": -93.53501,
     "athDate": "2022-02-17T07:00:01.257Z",
     "atl": 0.04603633,
     "atlDate": "2025-12-27T11:51:54.929Z",
     "circulatingSupply": 851874782.302587,
     "totalSupply": 2000000000,
     "maxSupply": 2000000000,
-    "high24h": 0.065354,
-    "low24h": 0.062858,
-    "priceChange7d": -3.2148735076257315,
-    "priceChange30d": -13.190989785644373,
-    "priceChange1y": -66.2609863771581,
-    "fdv": 129241818
+    "fdv": 126687652
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.693Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:45:43.991Z"
 }

@@ -2,27 +2,66 @@
   "id": "1inch",
   "symbol": "1inch",
   "name": "1INCH",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13469/large/1inch-logo.jpeg?1759404663",
   "description": "1inch is the DeFi ecosystem building financial freedom for everyone.\n\nWe research and develop cutting edge technology that allows our users and partners to realise the potential of decentralized finance, without workarounds or security risks.\n\nAnd we bring the sector together to advocate for compliant DeFi as the future of global finance.\n\nOur products:\n\nWe serve users and builders with products built on open-source, on-chain protocols.  \n\nAccess efficient, secure trading at the best rates through the 1inch dApp and self-custodial 1inch Wallet app, track your crypto with 1inch Portfolio, or spend and borrow against your digital assets with 1inch Card (powered by CryptoLife).\n\nBuilders and enterprise partners can access the core technologies powering 1inch to connect with an ecosystem that offers millions of tokens and tokenized RWAs, integrates 13+ networks and includes the first native swaps between Solana and the EVM",
+  "categories": [
+    "Automated Market Maker (AMM)",
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Pantera Capital Portfolio",
+    "Base Native",
+    "Alameda Research Portfolio",
+    "FTX Holdings",
+    "Galaxy Digital Portfolio",
+    "Dex Aggregator",
+    "Decentralized Exchange (DEX)",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "DragonFly Capital Portfolio",
+    "Blockchain Capital Portfolio",
+    "Coinbase 50 Index",
+    "GMCI Index",
+    "Base Ecosystem",
+    "GMCI DeFi Index",
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://1inch.com/",
+    "github": "https://github.com/1inch",
+    "reddit": "https://www.reddit.com/r/1inch/",
+    "explorer": "https://etherscan.io/token/0x111111111117dc0aa78b770fa6a738034120c302"
+  },
   "market": {
-    "price": 0.097153,
-    "marketCap": 136548321,
-    "marketCapRank": 243,
-    "volume24h": 10885771,
+    "price": 0.097511,
+    "marketCap": 137090847,
+    "marketCapRank": 242,
+    "volume24h": 10584375,
     "high24h": 0.102232,
     "low24h": 0.096766,
-    "priceChange24h": -2.98469,
-    "priceChange7d": -0.579325379629552,
-    "priceChange30d": 5.719977408983103,
-    "priceChange1y": -59.7763279956942,
+    "priceChange24h": -2.29674,
+    "priceChange7d": -0.64563,
+    "priceChange30d": 5.91932,
+    "priceChange1y": -59.46882,
     "ath": 8.65,
-    "athChangePercentage": -98.87692,
+    "athChangePercentage": -98.8749,
     "athDate": "2021-10-27T08:24:54.808Z",
     "atl": 0.083617,
     "atlDate": "2026-02-06T00:25:45.794Z",
     "circulatingSupply": 1405573965.7275033,
     "totalSupply": 1499999999.997,
     "maxSupply": 1500000000,
-    "fdv": 145721595
+    "fdv": 146300569
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.568Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 67,
+    "githubForks": 43,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:17:44.631Z"
 }

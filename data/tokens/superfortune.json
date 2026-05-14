@@ -2,26 +2,50 @@
   "id": "superfortune",
   "symbol": "gua",
   "name": "Superfortune",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70828/large/superfortune.png?1764058443",
+  "description": "",
+  "categories": [
+    "Analytics",
+    "BNB Chain Ecosystem",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.superfortune.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xA5C8e1513B6A08334b479fe4D71F1253259469BE"
+  },
   "market": {
-    "price": 1.34,
-    "marketCap": 60148957,
-    "marketCapRank": 451,
-    "volume24h": 6993610,
-    "high24h": 1.55,
+    "price": 1.25,
+    "marketCap": 56077887,
+    "marketCapRank": 470,
+    "volume24h": 5076464,
+    "high24h": 1.46,
     "low24h": 1.14,
-    "priceChange24h": 3.79375,
-    "priceChange7d": 43.29480464304642,
-    "priceChange30d": 146.89630624723725,
+    "priceChange24h": -14.56277,
+    "priceChange7d": 35.32939,
+    "priceChange30d": 106.3783,
     "priceChange1y": 0,
     "ath": 1.55,
-    "athChangePercentage": -13.95152,
+    "athChangePercentage": -20.12123,
     "athDate": "2026-05-13T06:15:29.890Z",
     "atl": 0.07378,
     "atlDate": "2025-11-27T08:06:44.771Z",
     "circulatingSupply": 45000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 1336643493
+    "fdv": 1246175274
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.688Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:35:30.711Z"
 }

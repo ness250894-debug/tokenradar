@@ -2,26 +2,51 @@
   "id": "useless-3",
   "symbol": "useless",
   "name": "Useless Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55684/large/coingeckoupdate.png?1755203747",
+  "description": "",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "BONK.fun Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://letsbonk.fun/token/Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk"
+  },
   "market": {
-    "price": 0.062074,
-    "marketCap": 62124403,
-    "marketCapRank": 437,
-    "volume24h": 29145250,
-    "priceChange24h": -19.45876,
+    "price": 0.066322,
+    "marketCap": 66271413,
+    "marketCapRank": 420,
+    "volume24h": 21894723,
+    "high24h": 0.071022,
+    "low24h": 0.061231,
+    "priceChange24h": -3.40008,
+    "priceChange7d": 35.56843,
+    "priceChange30d": 41.62494,
+    "priceChange1y": 319.35063,
     "ath": 0.434591,
-    "athChangePercentage": -85.70962,
+    "athChangePercentage": -84.75315,
     "athDate": "2025-10-14T14:50:41.608Z",
     "atl": 0.00519952,
     "atlDate": "2025-06-05T11:05:59.234Z",
     "circulatingSupply": 999940362.02,
     "totalSupply": 999940362.02,
     "maxSupply": 1000000000,
-    "high24h": 0.081418,
-    "low24h": 0.061231,
-    "priceChange7d": 36.40955219810837,
-    "priceChange30d": 53.457747894746554,
-    "priceChange1y": 258.6802094942226,
-    "fdv": 62124403
+    "fdv": 66271413
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.684Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:43:18.585Z"
 }

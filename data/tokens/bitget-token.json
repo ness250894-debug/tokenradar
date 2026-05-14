@@ -2,27 +2,52 @@
   "id": "bitget-token",
   "symbol": "bgb",
   "name": "Bitget Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11610/large/Bitget_logo.png?1736925727",
   "description": "What is BGB token?\nBGB is a decentralised token that is the primary token of Morph's blockchain, serving as the gas, governance, and payment token across the layer. \n\nWho Are the Founders of Bitget Token?\nLaunched in 2021, Bitget Token (BGB) was initially positioned as the platform token for the Bitget exchange and Bitget Wallet. \nBehind Bitget is a team of visionary early adopters dedicated to a blockchain-powered future. The leadership team is comprised of seasoned professionals with experience at global giants like Goldman Sachs, Facebook, and Binance, including CEO Gracy Chen, COO Vugar Usi Zade, and CLO Hon Ng.\nIn September 2025, Bitget agreed to a strategic partnership with the Morph chain. The Morph Foundation, a non-profit decentralized organization, is now solely responsible for the future development of BGB.\n\nWhat Makes Bitget Token (BGB) Unique?\nBGB is the gas and governance token of the Morph chain. At the same time, BGB will also get support from its partners, such as exchanges and wallets, serving as a key medium for Launchpool's new token mining, fee discounts, and more.\n\nHow Many Bitget Token (BGB) Coins Are There in Circulation?\nThe initial supply of Bitget Token (BGB) is fixed at 2 billion tokens. As of September 2025, the circulating supply of BGB is 699,992,035. The Morph Foundation will update the BGB burn mechanism, linking it to Morph network activity, until the total BGB supply is reduced to 100 million.\n\nHow Is the Bitget Token Network Secured?\nBitget Token (BGB) initially operates on Ethereum's blockchain using the ERC-20 standard and Proof-of-Stake (PoS) consensus, making it compatible with any Ethereum wallet. \nFollowing the strategic partnership between Bitget and Morph, a growing number of BGB will be migrated to the Morph chain, as the gas and governance token. \n\nWhere Can You Buy Bitget Token (BGB)?\nBitget Token (BGB) can be purchased directly on the Bitget exchange. BGB is also available for trading on MECX, Bitfinex, Uniswap, and BulbaSwap.",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "DragonFly Capital Portfolio",
+    "Morph L2 Ecosystem",
+    "Made in China"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://partner.bitget.com/bg/2LAE9K",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/BitgetReddit",
+    "explorer": "https://etherscan.io/token/0x54d2252757e1672eead234d27b1270728ff90581"
+  },
   "market": {
-    "price": 2.06,
-    "marketCap": 1442057452,
+    "price": 2.05,
+    "marketCap": 1436094584,
     "marketCapRank": 60,
-    "volume24h": 18645455,
+    "volume24h": 18301897,
     "high24h": 2.1,
     "low24h": 2.04,
-    "priceChange24h": -1.65053,
-    "priceChange7d": -4.463755258062259,
-    "priceChange30d": 8.308781063456818,
-    "priceChange1y": -57.03026732558961,
+    "priceChange24h": -2.01821,
+    "priceChange7d": -4.84445,
+    "priceChange30d": 7.88318,
+    "priceChange1y": -57.16416,
     "ath": 8.45,
-    "athChangePercentage": -75.61828,
+    "athChangePercentage": -75.72181,
     "athDate": "2024-12-27T11:41:24.992Z",
     "atl": 0.0142795,
     "atlDate": "2020-06-25T04:17:05.895Z",
     "circulatingSupply": 699992035.9787906,
     "totalSupply": 913931280.9787906,
     "maxSupply": 2000000000,
-    "fdv": 1882794870
+    "fdv": 1875009565
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.498Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:24:54.481Z"
 }

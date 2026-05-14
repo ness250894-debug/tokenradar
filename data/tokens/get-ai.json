@@ -2,20 +2,49 @@
   "id": "get-ai",
   "symbol": "get",
   "name": "Get AI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54197/large/Get_AI.png?1738748494",
+  "description": "Explore our cutting-edge financial solutions and revolutionize your digital strategy today.\nInnovation and intelligence for a Safer and more profitable crypto market.\n\nGet AI is an algorithm created to profit from the volatility of its own asset. The mission is to explore, implement, and guide the creation of a secure, efficient, and decentralized digital ecosystem. Get AI also offers various utilities that enhance the functionality and usability of web3, such as GetBot. Get AI is designed to be compatible and interoperable with existing systems, providing a seamless and user-friendly experience for users.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "AI Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.getcommunity.ai/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x6eB6e8974264BeE01c160F1770a38f8e6dE1a3B1"
+  },
   "market": {
-    "price": 0.156031,
-    "marketCap": 85213892,
-    "marketCapRank": 323,
-    "volume24h": 22511,
-    "priceChange24h": -1.86568,
+    "price": 0.209111,
+    "marketCap": 929361,
+    "marketCapRank": 3114,
+    "volume24h": 30271,
+    "high24h": 0.225926,
+    "low24h": 0.172181,
+    "priceChange24h": -3.99601,
+    "priceChange7d": 10.87184,
+    "priceChange30d": 121.93588,
+    "priceChange1y": -95.79045,
     "ath": 7.99,
-    "athChangePercentage": -98.04998,
+    "athChangePercentage": -97.38265,
     "athDate": "2025-02-14T03:54:46.256Z",
     "atl": 0.03340714,
     "atlDate": "2026-03-21T03:52:11.195Z",
-    "circulatingSupply": 547000000,
+    "circulatingSupply": 4442119.08321,
     "totalSupply": 547000000,
-    "maxSupply": 547000000
+    "maxSupply": 547000000,
+    "fdv": 114440937
   },
-  "lastMarketUpdate": "2026-04-27T19:43:42.850Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:08:57.982Z"
 }

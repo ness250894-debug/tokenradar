@@ -2,6 +2,7 @@
   "id": "mantra-dao",
   "symbol": "om",
   "name": "MANTRA [Old]",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12151/large/OM_Token.png?1696511991",
   "description": "MANTRA Chain is The World's First RWA Layer 1 Blockchain with MultiVM support, fully compatible with the Ethereum Virtual Machine (EVM). By enabling developers and institutions to embed compliance at either the chain level or the smart contract level, MANTRA offers a Permissionless Blockchain for Permissioned Applications.\n\nMANTRA Chain is the home of MANTRA Finance, the only onchain portal with a DeFi license from Dubai's Virutal Assets Regulatory Authority (VARA). MANTRA Finance will operate as a regulated VA Exchange under VARA. It also provides regulatory pathways through Broker-Dealer and VA Management and Investment Services licenses, making it the ideal platform for developing regulated Real World Assets (RWA) onchain including real estate, commodities, private credit and tokenized funds.\n\nMANTRA Chain is also the home of a rapidly developing permissionless ecosystem designed to provide education and opportunities in RWA DeFi including NFTs, vaults, dexes and other onchain protocols.",
   "categories": [
     "Infrastructure",
@@ -22,25 +23,25 @@
     "explorer": "https://mantrascan.io/mainnet"
   },
   "market": {
-    "price": 0.01190458,
-    "marketCap": 60010652,
-    "marketCapRank": 467,
-    "volume24h": 1376.04,
-    "high24h": 0.01302961,
-    "low24h": 0.01156189,
-    "priceChange24h": -7.4229,
-    "priceChange7d": 52.68939675831085,
-    "priceChange30d": -31.877078281310713,
-    "priceChange1y": -97.28326421860967,
+    "price": 0.00996776,
+    "marketCap": 0,
+    "marketCapRank": 999,
+    "volume24h": 1110.02,
+    "high24h": 0.066878,
+    "low24h": 0.00997026,
+    "priceChange24h": -85.09572,
+    "priceChange7d": 39.69506,
+    "priceChange30d": -21.89918,
+    "priceChange1y": -97.80616,
     "ath": 8.99,
-    "athChangePercentage": -99.86749,
+    "athChangePercentage": -99.88885,
     "athDate": "2025-02-23T01:52:21.073Z",
     "atl": 0.00543981,
     "atlDate": "2026-05-05T09:30:20.692Z",
-    "circulatingSupply": 5040969957.933576,
-    "totalSupply": 7169228089.13033,
+    "circulatingSupply": 0,
+    "totalSupply": 7173471385.711197,
     "maxSupply": null,
-    "fdv": 85346681
+    "fdv": 71505850
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-07T14:06:19.477Z",
-  "lastMarketUpdate": "2026-05-11T19:20:58.266Z"
+  "fetchedAt": "2026-05-14T07:17:25.352Z"
 }

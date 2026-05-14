@@ -2,20 +2,55 @@
   "id": "playsout",
   "symbol": "play",
   "name": "PlaysOut",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67765/large/plays.jpg?1753786347",
+  "description": "PlaysOut is the high-performance publishing infrastructure powering the future of embedded gaming. Built for the superapp era, it enables developers to launch and scale thousands of mini-games globally through a single, seamless integration.\n\nBy turning high-traffic apps into interactive gaming environments, PlaysOut boosts engagement, retention and monetization. Its open, interoperable architecture bridges Web2 and Web3, supporting ecosystem collaboration and delivering next-gen digital experiences without friction or fragmented systems.\n\nPlaysOut is a growth engine for interactive entertainment, where every tap unlocks value and every game pushes the on-chain economy forward.",
+  "categories": [
+    "Infrastructure",
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Base Ecosystem",
+    "On-chain Gaming",
+    "OKX Ventures Portfolio",
+    "Binance Alpha Spotlight",
+    "Game Studio",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://playsout.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x853a7c99227499dba9db8c3a02aa691afdebf841"
+  },
   "market": {
-    "price": 0.149696,
-    "marketCap": 56638507,
-    "marketCapRank": 459,
-    "volume24h": 10135053,
-    "priceChange24h": 44.55035,
+    "price": 0.089178,
+    "marketCap": 33278252,
+    "marketCapRank": 672,
+    "volume24h": 6469291,
+    "high24h": 0.099073,
+    "low24h": 0.078411,
+    "priceChange24h": -6.8512,
+    "priceChange7d": -2.25203,
+    "priceChange30d": -1.05443,
+    "priceChange1y": 0,
     "ath": 0.227911,
-    "athChangePercentage": -34.0256,
+    "athChangePercentage": -60.90642,
     "athDate": "2026-04-15T20:05:04.802Z",
     "atl": 0.01630447,
     "atlDate": "2026-02-26T08:37:05.227Z",
     "circulatingSupply": 373500000,
     "totalSupply": 5000000000,
-    "maxSupply": 5000000000
+    "maxSupply": 5000000000,
+    "fdv": 445491997
   },
-  "lastMarketUpdate": "2026-05-06T19:13:04.877Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:26:07.904Z"
 }

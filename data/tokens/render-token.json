@@ -2,21 +2,22 @@
   "id": "render-token",
   "symbol": "render",
   "name": "Render",
-  "description": "The Render Network is a leading decentralized GPU compute platform for applications ranging from 3D rendering to machine learning and generative AI. The network connects node operators looking to monetize their idle GPU compute power with artists and developers looking to scale intensive 3D rendering work and machine learning applications in the cloud. Through a decentralized peer-to-peer network, the Render Network achieves unprecedented levels of scale, speed, and economic efficiency....",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529",
+  "description": "The Render Network is a leading decentralized GPU compute platform for applications ranging from 3D rendering to machine learning and generative AI.  The network connects node operators looking to monetize their idle GPU compute power with artists and developers looking to scale intensive 3D rendering work and machine learning applications in the cloud. Through a decentralized peer-to-peer network, the Render Network achieves unprecedented levels of scale, speed, and economic efficiency. Facilitated by the Render Network Foundation, the ecosystem empowers artists and developers to build services and applications for the emerging digital economy.",
   "categories": [
-    "Artificial Intelligence (AI)",
+    "GMCI 30 Index",
+    "GMCI DePIN Index",
+    "Solana Ecosystem",
+    "Alameda Research Portfolio",
     "NFT",
     "Metaverse",
-    "Solana Ecosystem",
-    "Ethereum Ecosystem",
     "DePIN",
-    "Multicoin Capital Portfolio",
-    "Alameda Research Portfolio",
-    "GMCI DePIN Index",
-    "GMCI 30 Index",
-    "GMCI Index",
     "Made in USA",
-    "Coinbase 50 Index"
+    "Coinbase 50 Index",
+    "GMCI Index",
+    "Multicoin Capital Portfolio",
+    "Artificial Intelligence (AI)",
+    "Ethereum Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -26,25 +27,25 @@
     "explorer": "https://solscan.io/token/rndrizkt3mk1iimdxrdwabcf7zg7ar5t4nud4ekhbof"
   },
   "market": {
-    "price": 1.85,
-    "marketCap": 960412211,
-    "marketCapRank": 75,
-    "volume24h": 86173452,
+    "price": 1.86,
+    "marketCap": 967636887,
+    "marketCapRank": 74,
+    "volume24h": 83800329,
     "high24h": 1.95,
     "low24h": 1.83,
-    "priceChange24h": -2.49236,
-    "priceChange7d": -5.045530100341372,
-    "priceChange30d": -1.4063840819673115,
-    "priceChange1y": -64.83381753877717,
+    "priceChange24h": -3.26258,
+    "priceChange7d": -5.3923,
+    "priceChange30d": -1.80748,
+    "priceChange1y": -65.17376,
     "ath": 13.53,
-    "athChangePercentage": -86.33138,
+    "athChangePercentage": -86.2238,
     "athDate": "2024-03-17T16:30:24.636Z",
     "atl": 0.03665669,
     "atlDate": "2020-06-16T13:22:25.900Z",
     "circulatingSupply": 518743261.0140742,
     "totalSupply": 533503434.2940742,
     "maxSupply": 644245094,
-    "fdv": 987739507
+    "fdv": 995169752
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +56,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:26:52.936Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.513Z"
+  "fetchedAt": "2026-05-14T07:29:23.935Z"
 }

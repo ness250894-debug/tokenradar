@@ -2,26 +2,51 @@
   "id": "gmx",
   "symbol": "gmx",
   "name": "GMX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/18323/large/arbit.png?1696517814",
+  "description": "GMX is a leading permissionless onchain exchange, enabling you to trade 70+ assets with up to 100x leverage from your self-custody wallet. The DEX is live on Arbitrum, Avalanche, and Solana, and in the process of enabling multichain access from all popular EVM blockchains. Trading on GMX is facilitated by isolated GM pools and capital-efficient GLV vaults, enabling anyone to provide liquidity and earn fees. ",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Avalanche Ecosystem",
+    "Arbitrum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gmx.io/",
+    "github": "https://github.com/xvi10/gambit-contracts",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a"
+  },
   "market": {
-    "price": 7.14,
-    "marketCap": 74279968,
-    "marketCapRank": 389,
-    "volume24h": 5034878,
-    "priceChange24h": -3.07471,
+    "price": 6.97,
+    "marketCap": 72625099,
+    "marketCapRank": 391,
+    "volume24h": 5198981,
+    "high24h": 7.37,
+    "low24h": 6.92,
+    "priceChange24h": -4.55534,
+    "priceChange7d": -4.48767,
+    "priceChange30d": 14.57467,
+    "priceChange1y": -58.91253,
     "ath": 91.07,
-    "athChangePercentage": -92.15904,
+    "athChangePercentage": -92.32343,
     "athDate": "2023-04-18T10:00:25.680Z",
     "atl": 5.41,
     "atlDate": "2026-02-06T00:25:29.173Z",
-    "circulatingSupply": 10398560.27179684,
-    "totalSupply": 10398560.27179684,
+    "circulatingSupply": 10398607.47380158,
+    "totalSupply": 10398607.47380158,
     "maxSupply": 13250000,
-    "high24h": 7.37,
-    "low24h": 7.08,
-    "priceChange7d": -1.9357919672232815,
-    "priceChange30d": 21.082392551699304,
-    "priceChange1y": -56.22619057619996,
-    "fdv": 74279968
+    "fdv": 72625099
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.671Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:09:29.235Z"
 }

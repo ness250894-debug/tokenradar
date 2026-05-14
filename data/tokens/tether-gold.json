@@ -2,13 +2,15 @@
   "id": "tether-gold",
   "symbol": "xaut",
   "name": "Tether Gold",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/10481/large/logo.png?1774627372",
   "description": "Each XAU₮ token represents ownership of one troy fine ounce of physical gold on a specific gold bar. XAU₮, which is available as an ERC-20 token on the Ethereum blockchain and as a TRC20 token on the TRON blockchain, can be transferred to any on-chain address from the purchasers’ Tether wallet. Furthermore, Tether Gold (XAU₮) is the only product among the competition that offers zero custody fees and has direct control over the physical gold storage, safely held in a Switzerland vault, adopting best in class security and anti-threat measures. Today, Tether Gold (XAU₮) is the best way to hold Gold. ",
   "categories": [
     "Tokenized Assets",
     "Tokenized Gold",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Commodities"
+    "Tokenized Commodities",
+    "Tether Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -18,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38"
   },
   "market": {
-    "price": 4681.81,
-    "marketCap": 2773246535,
+    "price": 4699.01,
+    "marketCap": 2780235574,
     "marketCapRank": 38,
-    "volume24h": 136481352,
-    "high24h": 4716.59,
-    "low24h": 4669.36,
-    "priceChange24h": -0.32603,
-    "priceChange7d": 0.28467990713146923,
-    "priceChange30d": -0.5201704704890271,
-    "priceChange1y": 44.20335570015912,
+    "volume24h": 151292709,
+    "high24h": 4698.63,
+    "low24h": 4665.03,
+    "priceChange24h": 0.04142,
+    "priceChange7d": -0.4949,
+    "priceChange30d": -0.8068,
+    "priceChange1y": 45.33332,
     "ath": 5504.62,
-    "athChangePercentage": -14.96189,
+    "athChangePercentage": -14.84624,
     "athDate": "2026-01-29T00:00:00.000Z",
     "atl": 1447.84,
     "atlDate": "2020-03-19T13:45:41.821Z",
     "circulatingSupply": 592398.736688,
     "totalSupply": 707747.089,
     "maxSupply": null,
-    "fdv": 3313236577
+    "fdv": 3321586479
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T14:10:22.458Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.491Z"
+  "fetchedAt": "2026-05-14T07:37:30.782Z"
 }

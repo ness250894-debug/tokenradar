@@ -2,7 +2,8 @@
   "id": "comedian",
   "symbol": "ban",
   "name": "Comedian",
-  "description": "A cryptocurrency token known as Comedian (BAN). It is tracked on CoinGecko with the ID \"comedian\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51100/large/ban.jpg?1730085215",
+  "description": "",
   "categories": [
     "Solana Ecosystem",
     "Meme",
@@ -17,25 +18,25 @@
     "explorer": "https://solscan.io/token/9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump"
   },
   "market": {
-    "price": 0.076123,
-    "marketCap": 76163755,
-    "marketCapRank": 378,
-    "volume24h": 9048916,
+    "price": 0.077861,
+    "marketCap": 77977493,
+    "marketCapRank": 368,
+    "volume24h": 9103274,
     "high24h": 0.083312,
     "low24h": 0.072977,
-    "priceChange24h": 2.366,
-    "priceChange7d": 6.23439151355055,
-    "priceChange30d": -11.75932281880205,
-    "priceChange1y": 11.677330241506581,
+    "priceChange24h": 4.44484,
+    "priceChange7d": 8.65965,
+    "priceChange30d": -9.15878,
+    "priceChange1y": 15.28432,
     "ath": 0.37799,
-    "athChangePercentage": -79.83125,
+    "athChangePercentage": -79.39278,
     "athDate": "2024-11-18T09:35:57.385Z",
     "atl": 0.00929085,
     "atlDate": "2024-10-29T04:34:36.529Z",
     "circulatingSupply": 999961859.27,
     "totalSupply": 999961859.27,
     "maxSupply": 1000000000,
-    "fdv": 76163755
+    "fdv": 77977493
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:59:53.844Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.630Z"
+  "fetchedAt": "2026-05-13T18:28:42.005Z"
 }

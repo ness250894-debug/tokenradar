@@ -2,20 +2,50 @@
   "id": "law-blocks",
   "symbol": "lbt",
   "name": "Law Blocks AI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26266/large/photo_6264996132874731595_y.jpg?1717679177",
+  "description": "Law Blocks AI (LBT) is a blockchain-based Legal Tech platform that combines AI-generated legal documents, Web3 digital signatures, and secure document storage on blockchain.\n\nSimilar to DocuSign but enhanced with blockchain verification, Law Blocks AI allows users to create legal instruments, upload company letterheads, digitally sign documents, and permanently store them on-chain for immutable proof and timestamp validation.\n\nThe platform leverages blockchain networks like XDC to provide tamper-proof document hashing, decentralized storage, and verifiable authentication. LBT powers AI-driven legal automation, blockchain-backed document management, and next-generation digital signature solutions for businesses and individuals globally.\n\nLaw Blocks AI brings together AI, blockchain, and legal infrastructure to redefine trust, transparency, and compliance in the digital economy.\n\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Legal",
+    "XDC Ecosystem",
+    "AI Applications"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://lawblocks.io/",
+    "github": "https://github.com/LawBlocks",
+    "reddit": null,
+    "explorer": "https://explorer.network/token/xdc05940b2df33d6371201e7ae099ced4c363855dfe"
+  },
   "market": {
-    "price": 0.20221,
-    "marketCap": 49555821,
-    "marketCapRank": 500,
-    "volume24h": 503448,
-    "priceChange24h": 0.17496,
+    "price": 0.203179,
+    "marketCap": 49750029,
+    "marketCapRank": 512,
+    "volume24h": 501841,
+    "high24h": 0.203481,
+    "low24h": 0.202829,
+    "priceChange24h": 0.03956,
+    "priceChange7d": 0.42252,
+    "priceChange30d": 0.62023,
+    "priceChange1y": 57.40601,
     "ath": 0.291525,
-    "athChangePercentage": -30.61627,
+    "athChangePercentage": -30.36353,
     "athDate": "2022-07-09T00:05:15.285Z",
     "atl": 0.01953918,
     "atlDate": "2023-03-26T05:10:33.274Z",
     "circulatingSupply": 244997999,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 203063002
   },
-  "lastMarketUpdate": "2026-05-06T19:13:04.885Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:15:16.873Z"
 }

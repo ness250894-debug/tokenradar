@@ -2,26 +2,54 @@
   "id": "dusk-network",
   "symbol": "dusk",
   "name": "DUSK",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5217/large/image_widget_biddfvxd454b1.png?1696505726",
+  "description": "Dusk is a public, permissionless Layer 1 blockchain purpose-built for regulated financial markets. It enables the native issuance, trading, and settlement of real-world assets (RWAs) in full compliance with EU regulations such as MiFID II, MiCA, and the DLT Pilot Regime. Through strategic partnerships - including with NPEX, a Dutch MTF-regulated exchange, and Quantoz, a MiCA-compliant EMI issuing EURQ—Dusk facilitates the creation of secondary markets for digital securities. With privacy-preserving smart contracts, zero-knowledge compliance infrastructure, and institutional custody solutions like Dusk Vault, Dusk provides the complete stack for compliant on-chain finance in Europe.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Real World Assets (RWA)",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Privacy Blockchain"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://dusk.network/",
+    "github": "https://github.com/dusk-network/dusk-blockchain",
+    "reddit": "https://www.reddit.com/r/DuskNetwork/",
+    "explorer": "https://apps.dusk.network/explorer/"
+  },
   "market": {
-    "price": 0.130031,
-    "marketCap": 76244356,
-    "marketCapRank": 377,
-    "volume24h": 11395193,
-    "priceChange24h": 4.73629,
+    "price": 0.131909,
+    "marketCap": 76952597,
+    "marketCapRank": 372,
+    "volume24h": 11401737,
+    "high24h": 0.13377,
+    "low24h": 0.123246,
+    "priceChange24h": 5.78017,
+    "priceChange7d": -9.68126,
+    "priceChange30d": -14.21341,
+    "priceChange1y": 26.15138,
     "ath": 1.09,
-    "athChangePercentage": -87.99709,
+    "athChangePercentage": -87.94111,
     "athDate": "2021-12-29T21:34:22.823Z",
     "atl": 0.01113274,
     "atlDate": "2020-03-13T02:24:16.885Z",
-    "circulatingSupply": 583534218.2204465,
+    "circulatingSupply": 583527208.8153222,
     "totalSupply": 583534218.2204465,
     "maxSupply": 1000000000,
-    "high24h": 0.13377,
-    "low24h": 0.123246,
-    "priceChange7d": -11.535588566972697,
-    "priceChange30d": -15.13956698179934,
-    "priceChange1y": 24.420576302109044,
-    "fdv": 76244356
+    "fdv": 76952597
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.630Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 101,
+    "githubForks": 48,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:32:25.487Z"
 }

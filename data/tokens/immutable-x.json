@@ -2,6 +2,7 @@
   "id": "immutable-x",
   "symbol": "imx",
   "name": "Immutable",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
   "description": "IMX is the native token for the Immutable X network, the first zk-rollup for NFT on Ethereum.",
   "categories": [
     "Smart Contract Platform",
@@ -30,25 +31,25 @@
     "explorer": "https://etherscan.io/token/0xf57e7e7c23978c3caec3c3548e3d615c346e79ff"
   },
   "market": {
-    "price": 0.184935,
-    "marketCap": 155852243,
-    "marketCapRank": 223,
-    "volume24h": 18123259,
+    "price": 0.193225,
+    "marketCap": 163179251,
+    "marketCapRank": 213,
+    "volume24h": 21825010,
     "high24h": 0.197087,
-    "low24h": 0.184283,
-    "priceChange24h": 0.20176,
-    "priceChange7d": 6.29843108173446,
-    "priceChange30d": 28.152728680244067,
-    "priceChange1y": -74.76629404787906,
+    "low24h": 0.183335,
+    "priceChange24h": 1.00516,
+    "priceChange7d": 10.5089,
+    "priceChange30d": 30.36246,
+    "priceChange1y": -74.37092,
     "ath": 9.52,
-    "athChangePercentage": -98.05555,
+    "athChangePercentage": -97.95667,
     "athDate": "2021-11-26T01:03:01.536Z",
     "atl": 0.13053,
     "atlDate": "2026-04-05T21:40:26.388Z",
     "circulatingSupply": 842444578.3296283,
     "totalSupply": 2000000000,
     "maxSupply": 2000000000,
-    "fdv": 369999991
+    "fdv": 387394626
   },
   "community": {
     "twitterFollowers": null,
@@ -59,6 +60,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T22:56:29.904Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.564Z"
+  "fetchedAt": "2026-05-14T07:11:42.025Z"
 }

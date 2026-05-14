@@ -2,7 +2,8 @@
   "id": "chutes",
   "symbol": "sn64",
   "name": "Chutes",
-  "description": "A cryptocurrency token known as Chutes (SN64). It is tracked on CoinGecko with the ID \"chutes\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66308/large/chutes.jpg?1749181700",
+  "description": "",
   "categories": [
     "Artificial Intelligence (AI)",
     "Bittensor Ecosystem",
@@ -16,25 +17,25 @@
     "explorer": "https://taostats.io/subnets/64/chart"
   },
   "market": {
-    "price": 21.02,
-    "marketCap": 105044708,
-    "marketCapRank": 289,
-    "volume24h": 471702,
+    "price": 21.13,
+    "marketCap": 105491471,
+    "marketCapRank": 288,
+    "volume24h": 519055,
     "high24h": 22.61,
     "low24h": 20.23,
-    "priceChange24h": -5.56567,
-    "priceChange7d": -11.759000225220904,
-    "priceChange30d": -8.475939069794618,
+    "priceChange24h": -5.9759,
+    "priceChange7d": -12.73629,
+    "priceChange30d": -8.32188,
     "priceChange1y": 0,
     "ath": 104.42,
-    "athChangePercentage": -79.85335,
+    "athChangePercentage": -79.79615,
     "athDate": "2025-06-10T11:46:43.336Z",
     "atl": 13.04,
     "atlDate": "2026-02-06T00:25:26.113Z",
     "circulatingSupply": 4993193.871389447,
     "totalSupply": 4993193.871389447,
     "maxSupply": 21000000,
-    "fdv": 105044708
+    "fdv": 105491471
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:58:22.149Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.578Z"
+  "fetchedAt": "2026-05-13T18:28:16.721Z"
 }

@@ -2,27 +2,61 @@
   "id": "arbitrum",
   "symbol": "arb",
   "name": "Arbitrum",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/16547/large/arb.jpg?1721358242",
   "description": "Arbitrum is one of the leading Ethereum scaling solutions bringing cheap transactions to tens of thousands of users in an environment that feels very similar to Ethereum. It is an optimistic rollup and the leading L2 in terms of TVL. Some of the largest dApps live on Arbitrum include GMX, Radiant, Uniswap V3, and Gains Network.",
+  "categories": [
+    "Smart Contract Platform",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Arbitrum Nova Ecosystem",
+    "Layer 2 (L2)",
+    "eGirl Capital Portfolio",
+    "Rollup",
+    "Alameda Research Portfolio",
+    "Pantera Capital Portfolio",
+    "GMCI Layer 2 Index",
+    "GMCI 30 Index",
+    "GMCI Index",
+    "Polychain Capital Portfolio",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://arbitrum.io/",
+    "github": "https://github.com/ArbitrumFoundation/docs",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x912ce59144191c1204e64559fe8253a0e49e6548"
+  },
   "market": {
-    "price": 0.13242,
-    "marketCap": 814782038,
+    "price": 0.133494,
+    "marketCap": 820022046,
     "marketCapRank": 82,
-    "volume24h": 75235234,
+    "volume24h": 75084584,
     "high24h": 0.143041,
     "low24h": 0.131315,
-    "priceChange24h": -3.54957,
-    "priceChange7d": 7.288986036740415,
-    "priceChange30d": 19.417816151869445,
-    "priceChange1y": -70.24150014010945,
+    "priceChange24h": -2.16444,
+    "priceChange7d": 6.90627,
+    "priceChange30d": 19.7456,
+    "priceChange1y": -69.71908,
     "ath": 2.39,
-    "athChangePercentage": -94.45471,
+    "athChangePercentage": -94.44755,
     "athDate": "2024-01-12T12:29:59.231Z",
     "atl": 0.087087,
     "atlDate": "2026-03-29T22:50:51.753Z",
     "circulatingSupply": 6150718438,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 1324694093
+    "fdv": 1333213436
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.514Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 98,
+    "githubForks": 124,
+    "commits4Weeks": 1
+  },
+  "fetchedAt": "2026-05-13T18:20:54.258Z"
 }

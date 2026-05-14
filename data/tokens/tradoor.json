@@ -2,20 +2,54 @@
   "id": "tradoor",
   "symbol": "tradoor",
   "name": "Tradoor",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68862/large/tradoor.png?1756809006",
+  "description": "Tradoor is the industry’s first NDMM exchange - using smart math and safety measures to allow people to trade with confidence - protecting traders, LPs, and the protocol from unexpected market changes.\n\nTradoor offers up to 100x leverage on its Bitcoin and Ethereum Perpetuals, designed with advanced mathematics to ensure scientific pricing, thus protecting traders, liquidity providers (LPs), and the protocol itself.\n\nRisk control of liquidation for both traders and LPs, alongside a battle-tested Auto Deleveraging (ADL) system, acting as a fail-safe for extreme market conditions. This ensures the protocol remains free from counterparty risk and maintains insolvency resistance.\n\nTradoor is available on multiple platforms, providing complete trading functionality on any device. Telegram's Wallet is pre-integrated for easy on-boarding for over 700 million users.\n\nTradoor is a safe, efficient, and cost-effective decentralized finance app, utilizing The Open Network (TON) blockchain's capabilities for mass adoption via fast finality, sub-cent gas fees, and massive scalability.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Derivatives",
+    "Perpetuals",
+    "Telegram Apps",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO",
+    "Trading Bots"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tradoor.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x9123400446a56176eb1b6be9ee5cf703e409f492"
+  },
   "market": {
-    "price": 8.52,
-    "marketCap": 122209129,
-    "marketCapRank": 244,
-    "volume24h": 11767022,
-    "priceChange24h": 8.13556,
-    "ath": 8.52,
-    "athChangePercentage": 0.04134,
-    "athDate": "2026-04-21T16:20:45.575Z",
+    "price": 0.680923,
+    "marketCap": 9765644,
+    "marketCapRank": 1271,
+    "volume24h": 3284634,
+    "high24h": 0.726316,
+    "low24h": 0.676773,
+    "priceChange24h": -6.19052,
+    "priceChange7d": -4.81857,
+    "priceChange30d": -87.95167,
+    "priceChange1y": 0,
+    "ath": 9.98,
+    "athChangePercentage": -93.21785,
+    "athDate": "2026-04-22T11:30:48.297Z",
     "atl": 0.480172,
     "atlDate": "2025-09-04T12:06:33.370Z",
     "circulatingSupply": 14349000,
     "totalSupply": 60000000,
-    "maxSupply": 8000000000
+    "maxSupply": 8000000000,
+    "fdv": 40834806
   },
-  "lastMarketUpdate": "2026-04-21T19:23:25.593Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:40:08.865Z"
 }

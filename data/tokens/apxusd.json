@@ -2,6 +2,7 @@
   "id": "apxusd",
   "symbol": "apxusd",
   "name": "apxUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172243/large/apxUSD.png?1772448502",
   "description": "Apyx is the first Dividend-Backed Stablecoin protocol. It acquires preferred equity issued by Digital Asset Treasuries (DATs), which are publicly-listed companies that hold digital assets on their balance sheets and issue preferred shares paying monthly cash dividends. Apyx holds these preferred shares as collateral and converts the offchain dividend cash flows into onchain yield.\n\nThe protocol has two tokens. apxUSD is a synthetic dollar backed by over 100% collateral in DAT preferred shares. It does not pay yield directly and is designed to provide liquidity across DeFi and CeFi. apyUSD is an ERC-4626 vault where users lock apxUSD to receive enhanced yield from the underlying dividend streams. As dividends are distributed, apyUSD increases in value relative to apxUSD over time.\n\nThe protocol manages risk through daily NAV reporting, auto-rebalancing based on issuer concentration and liquidity thresholds, stress testing across drawdown and rate shock scenarios, and a protocol-owned liquidity buffer that acts as additional overcollateralization. DeFi Development Corp. (Nasdaq: DFDV), the first SOL Digital Asset Treasury, is a core strategic partner.",
   "categories": [
     "Stablecoins",
@@ -17,25 +18,25 @@
     "explorer": "https://etherscan.io/token/0x98A878b1Cd98131B271883B390f68D2c90674665"
   },
   "market": {
-    "price": 0.999896,
-    "marketCap": 411771142,
+    "price": 0.999875,
+    "marketCap": 411754786,
     "marketCapRank": 129,
-    "volume24h": 34704175,
+    "volume24h": 37637935,
     "high24h": 0.999983,
     "low24h": 0.999606,
-    "priceChange24h": 0.00544,
-    "priceChange7d": -0.0029757074032163806,
-    "priceChange30d": -0.00251157182459137,
+    "priceChange24h": 0.0035,
+    "priceChange7d": -0.00509,
+    "priceChange30d": -0.00462,
     "priceChange1y": 0,
     "ath": 1.11,
-    "athChangePercentage": -10.19213,
+    "athChangePercentage": -10.19954,
     "athDate": "2026-03-23T17:34:21.546Z",
     "atl": 0.871771,
     "atlDate": "2026-04-19T05:35:48.839Z",
     "circulatingSupply": 411819249.7284816,
     "totalSupply": 411819249.7284816,
     "maxSupply": null,
-    "fdv": 411771142
+    "fdv": 411754786
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:00.331Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.529Z"
+  "fetchedAt": "2026-05-13T18:20:41.596Z"
 }

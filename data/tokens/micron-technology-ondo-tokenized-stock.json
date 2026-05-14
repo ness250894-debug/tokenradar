@@ -2,26 +2,54 @@
   "id": "micron-technology-ondo-tokenized-stock",
   "symbol": "muon",
   "name": "Micron Technology (Ondo Tokenized Stock)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68574/large/muon_160x160.png?1756106401",
+  "description": "MUon is the Ondo Tokenized version of Micron Technology, giving tokenholders economic exposure similar to holding MU and reinvesting any dividends. Ondo tokenized stocks enable non-US retail and institutional users around the world to instantly mint and redeem tokenized U.S. stocks and ETFs, 24 hours a day, five days a week with full access to traditional exchange liquidity. Additional restrictions apply. Learn more at ondo.finance/global-markets.",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Tokenized Stock",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "HyperEVM Ecosystem",
+    "Ondo Tokenized Assets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.ondo.finance/assets/muon",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x050362Ab1072Cb2Ce74d74770E22A3203Ad04ee5"
+  },
   "market": {
-    "price": 808.24,
-    "marketCap": 71343790,
-    "marketCapRank": 398,
-    "volume24h": 14711989,
-    "priceChange24h": 7.41014,
+    "price": 794.92,
+    "marketCap": 70474481,
+    "marketCapRank": 402,
+    "volume24h": 13039065,
+    "high24h": 817.96,
+    "low24h": 784.34,
+    "priceChange24h": -0.14016,
+    "priceChange7d": 18.96404,
+    "priceChange30d": 82.8535,
+    "priceChange1y": 0,
     "ath": 817.96,
-    "athChangePercentage": -1.04356,
+    "athChangePercentage": -2.53138,
     "athDate": "2026-05-13T09:55:46.127Z",
     "atl": 115.92,
     "atlDate": "2025-09-02T16:28:07.595Z",
-    "circulatingSupply": 88141.24774347652,
-    "totalSupply": 88141.24774347652,
+    "circulatingSupply": 88430.25571935871,
+    "totalSupply": 88430.25571935871,
     "maxSupply": null,
-    "high24h": 817.96,
-    "low24h": 747.67,
-    "priceChange7d": 22.940197542159527,
-    "priceChange30d": 93.5907792850975,
-    "priceChange1y": 0,
-    "fdv": 71343790
+    "fdv": 70474481
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.675Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:18:53.817Z"
 }

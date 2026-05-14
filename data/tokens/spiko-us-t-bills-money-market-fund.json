@@ -2,6 +2,7 @@
   "id": "spiko-us-t-bills-money-market-fund",
   "symbol": "ustbl",
   "name": "Spiko US T-Bills Money Market Fund",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39666/large/USTB.png?1723541269",
   "description": "The Spiko US T-Bills Money Market Fund is a fully licensed USD money market fund operating under the EU regulatory framework. The fund exclusively invests in United States Treasury Bills with maturities of less than six months, maintaining an average portfolio maturity of no more than two months. Approved by the French Financial Markets Authority, the Spiko US T-Bills Money Market Fund is accessible to all types of investors, both professional and non-professional.",
   "categories": [
     "Tokenized Assets",
@@ -12,7 +13,8 @@
     "Base Ecosystem",
     "Starknet Ecosystem",
     "Tokenized Treasury Bills (T-Bills)",
-    "Etherlink Ecosystem"
+    "Etherlink Ecosystem",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -24,14 +26,14 @@
   "market": {
     "price": 1.083,
     "marketCap": 171680741,
-    "marketCapRank": 211,
+    "marketCapRank": 209,
     "volume24h": 49.95,
     "high24h": 1.083,
     "low24h": 1.083,
     "priceChange24h": 0.00942,
-    "priceChange7d": 0.06308973429338012,
-    "priceChange30d": 0.279194113965992,
-    "priceChange1y": 3.7882438832302254,
+    "priceChange7d": 0.06309,
+    "priceChange30d": 0.27919,
+    "priceChange1y": 3.78824,
     "ath": 1.083,
     "athChangePercentage": 0,
     "athDate": "2026-05-13T15:15:06.961Z",
@@ -49,8 +51,7 @@
   "developer": {
     "githubStars": 13,
     "githubForks": 2,
-    "commits4Weeks": 5
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:28:57.459Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.556Z"
+  "fetchedAt": "2026-05-14T07:33:36.789Z"
 }

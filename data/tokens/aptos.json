@@ -2,27 +2,61 @@
   "id": "aptos",
   "symbol": "apt",
   "name": "Aptos",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26455/large/Aptos-Network-Symbol-Black-RGB-1x.png?1761789140",
   "description": "Aptos is a new, independent high-performance PoS Layer 1 project focused on delivering the safest and most scalable Layer 1 blockchain in the world. The Aptos blockchain leverages the Move programming language and the Move VM for application development, which are created and optimized for blockchain use cases.The team is comprised of the original creators, researchers, designers, and builders of Diem, the blockchain that was first built to serve this purpose. Aptos raised $200m from a16z, Multicoin, Binance and others. Aptos launched Devnet in mid March, incentivized testnet in late May and targets Q3 for mainnet launch. ",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Aptos Ecosystem",
+    "FTX Holdings",
+    "Coinbase Ventures Portfolio",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "DragonFly Capital Portfolio",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "GMCI Layer 1 Index",
+    "GMCI 30 Index",
+    "Circle Ventures Portfolio",
+    "GMCI Index",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://aptosfoundation.org",
+    "github": "https://github.com/aptos-labs",
+    "reddit": null,
+    "explorer": "https://aptscan.ai/"
+  },
   "market": {
-    "price": 1.044,
-    "marketCap": 856030560,
+    "price": 1.051,
+    "marketCap": 860629740,
     "marketCapRank": 80,
-    "volume24h": 72353373,
+    "volume24h": 72735101,
     "high24h": 1.13,
     "low24h": 1.037,
-    "priceChange24h": -3.34157,
-    "priceChange7d": 3.1440396948576375,
-    "priceChange30d": 21.933929186533835,
-    "priceChange1y": -82.84019348094495,
+    "priceChange24h": -2.36282,
+    "priceChange7d": 3.80728,
+    "priceChange30d": 22.19631,
+    "priceChange1y": -82.72374,
     "ath": 19.92,
-    "athChangePercentage": -94.75267,
+    "athChangePercentage": -94.75659,
     "athDate": "2023-01-26T14:25:17.390Z",
     "atl": 0.795451,
     "atlDate": "2026-02-23T01:30:53.133Z",
-    "circulatingSupply": 818944667.4295592,
-    "totalSupply": 1202624111.796056,
+    "circulatingSupply": 818944921.8710382,
+    "totalSupply": 1202624372.227077,
     "maxSupply": 2100000000,
-    "fdv": 1257084920
+    "fdv": 1263838719
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.514Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:20:35.271Z"
 }

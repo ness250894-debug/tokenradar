@@ -2,6 +2,7 @@
   "id": "cardano",
   "symbol": "ada",
   "name": "Cardano",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090",
   "description": "Cardano is a blockchain platform built on academic research that enables smart contracts and decentralized applications while using significantly less energy than traditional cryptocurrencies like Bitcoin. \n\nWhat sets Cardano apart is its methodical, research-driven approach — every major feature is peer-reviewed by scientists and cryptographers before being added to the network. This careful process aims to create a more secure and stable foundation compared to platforms that prioritize speed over thorough testing. The platform's native cryptocurrency, ADA, is used to send money, pay transaction fees, and participate in network governance.\n\nCardano uses a proof-of-stake system to process transactions, which works differently from Bitcoin's mining approach. Instead of competing to solve complex puzzles, users can \"stake\" their ADA — essentially locking it up temporarily — to become validators who verify transactions. The system selects validators based on how much ADA they've staked and for how long, then rewards them with additional ADA for their participation. This approach uses far less energy than traditional mining while keeping the network secure. The platform also features a two-layer design that separates basic payment transactions from smart contract operations, allowing each function to be optimized independently for better performance. \n\nADA holders can earn staking rewards by locking up their tokens to help secure the network, vote on proposed changes to the platform, and use ADA for international money transfers with lower fees than traditional services.\n\nCardano was founded in 2017 by Charles Hoskinson, who previously helped create Ethereum. Hoskinson leads Input Output Global (IOG), the technology company that builds and maintains Cardano's core software. The ecosystem operates through three organizations: IOG handles technical development, the Cardano Foundation promotes adoption and standardization, and Emurgo helps businesses integrate blockchain technology into their operations. This structure distributes responsibilities across multiple groups rather than concentrating control in a single entity. \n\nIn February 2025, major asset manager Grayscale Investments filed to create an exchange-traded fund (ETF) for Cardano with the U.S. Securities and Exchange Commission, which would allow traditional investors to buy ADA through their regular brokerage accounts without needing to set up cryptocurrency wallets.Retry",
   "categories": [
     "Smart Contract Platform",
@@ -22,25 +23,25 @@
     "explorer": "https://cardanoscan.io/"
   },
   "market": {
-    "price": 0.263534,
-    "marketCap": 9755203056,
+    "price": 0.265538,
+    "marketCap": 9820152292,
     "marketCapRank": 13,
-    "volume24h": 428404002,
+    "volume24h": 431003085,
     "high24h": 0.277203,
     "low24h": 0.262339,
-    "priceChange24h": -3.01598,
-    "priceChange7d": -1.0198115906598597,
-    "priceChange30d": 10.651229605549153,
-    "priceChange1y": -67.83643640842448,
+    "priceChange24h": -1.8745,
+    "priceChange7d": -0.16527,
+    "priceChange30d": 10.76778,
+    "priceChange1y": -67.48415,
     "ath": 3.09,
-    "athChangePercentage": -91.46287,
+    "athChangePercentage": -91.39795,
     "athDate": "2021-09-02T06:00:10.474Z",
     "atl": 0.01925275,
     "atlDate": "2020-03-13T02:22:55.044Z",
     "circulatingSupply": 36988001172.35215,
     "totalSupply": 45000000000,
     "maxSupply": 45000000000,
-    "fdv": 11868284947
+    "fdv": 11947302886
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 643,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:58:24.576Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.485Z"
+  "fetchedAt": "2026-05-13T18:26:48.227Z"
 }

@@ -32,3 +32,19 @@ export function isArticleIndexable(article?: Article | null): article is Article
   const quality = evaluateArticleQuality(article);
   return quality.passed;
 }
+
+export async function filterIndexableArticleTokenIds(
+  tokenIds: string[],
+  loadArticle: (tokenId: string) => Promise<Article | null>,
+): Promise<string[]> {
+  const result: string[] = [];
+
+  for (const tokenId of tokenIds) {
+    const article = await loadArticle(tokenId);
+    if (isArticleIndexable(article)) {
+      result.push(tokenId);
+    }
+  }
+
+  return result;
+}

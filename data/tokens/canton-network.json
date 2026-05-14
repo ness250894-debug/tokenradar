@@ -2,6 +2,7 @@
   "id": "canton-network",
   "symbol": "cc",
   "name": "Canton",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70468/large/Canton-Ticker_%281%29.png?1762826299",
   "description": "Canton Coin (CC), the network’s native utility token, was designed to reward real network usage over speculation. It aligns the success of the network with the participants who make it work, fairly rewarding app builders and app users, as well as those operating decentralized infrastructure. The result is a fundamentally different model where rewards flow to those creating value through real activity, not only miners or early investors.\n",
   "categories": [
     "Smart Contract Platform",
@@ -16,25 +17,25 @@
     "explorer": null
   },
   "market": {
-    "price": 0.154002,
-    "marketCap": 5931346129,
+    "price": 0.153077,
+    "marketCap": 5897345361,
     "marketCapRank": 20,
-    "volume24h": 7833004,
+    "volume24h": 7247901,
     "high24h": 0.154953,
     "low24h": 0.152109,
-    "priceChange24h": 0.54063,
-    "priceChange7d": 4.548383097593582,
-    "priceChange30d": 2.237898383951824,
+    "priceChange24h": 0.1786,
+    "priceChange7d": 3.92062,
+    "priceChange30d": 1.09235,
     "priceChange1y": 0,
     "ath": 0.194152,
-    "athChangePercentage": -20.70137,
+    "athChangePercentage": -21.17773,
     "athDate": "2026-02-03T08:02:08.411Z",
     "atl": 0.059024,
     "atlDate": "2025-12-06T10:32:09.784Z",
     "circulatingSupply": 38525346157.29312,
     "totalSupply": 38525346157.29312,
     "maxSupply": null,
-    "fdv": 5931346129
+    "fdv": 5897345361
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:55:25.619Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.486Z"
+  "fetchedAt": "2026-05-13T18:26:35.621Z"
 }

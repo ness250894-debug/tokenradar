@@ -2,26 +2,50 @@
   "id": "nano",
   "symbol": "xno",
   "name": "Nano",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/756/large/nano.png?1696501910",
+  "description": "Nano, a low-latency cryptocurrency built on an innovative block-lattice data structure offering unlimited scalability and no transaction fees. Nano by design is a simple protocol with the sole purpose of being a high-performance cryptocurrency. The Nano protocol can run on low-power hardware, allowing it to be a practical, decentralized cryptocurrency for everyday use. It uses an ORV (Open Representative Voting) consensus algorithm, which is similar to PoS (Proof of Stake) but without inflationary rewards not locking of the native coin XNO.\n\nThe original Nano (RailBlocks) paper and first beta implementation were published in December, 2014, making it one of the first Directed Acyclic Graph (DAG) based cryptocurrencies [6]. Soon after, other DAG cryptocurrencies began to develop, most notably DagCoin/Byteball and IOTA. These DAG-based cryptocurrencies broke the blockchain mold, improving system performance and security. Byteball achieves consensus by relying on a “main-chain” comprised of honest, reputable and user-trusted “witnesses”, while IOTA achieves consensus via the cumulative PoW of stacked transactions. Nano achieves consensus via a balance-weighted vote on conflicting transactions. This consensus system provides quicker, more deterministic transactions while still maintaining a strong, decentralized system. Nano continues this development and has positioned itself as one of the highest performing cryptocurrencies.\n\nNano is a trustless, feeless, low-latency cryptocurrency that utilizes a novel blocklattice structure and delegated Proof of Stake voting. The network requires minimal resources, no high-power mining hardware, and can process high transaction throughput. All of this is achieved by having individual blockchains for each account, eliminating access issues and inefficiencies of a global data-structure. We identified possible attack vectors on the system and presented arguments on how Nano is resistant to these forms of attacks.\n\nCheck out CoinBureau for the complete review of Nano.",
+  "categories": [
+    "Layer 1 (L1)",
+    "Payment Solutions",
+    "Made in USA",
+    "Directed Acyclic Graph (DAG)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://nano.org",
+    "github": "https://github.com/nanocurrency/raiblocks",
+    "reddit": "https://www.reddit.com/r/nanocurrency",
+    "explorer": "https://blocklattice.io/"
+  },
   "market": {
-    "price": 0.447391,
-    "marketCap": 59597598,
-    "marketCapRank": 455,
-    "volume24h": 656638,
-    "priceChange24h": -2.10538,
+    "price": 0.43445,
+    "marketCap": 57889672,
+    "marketCapRank": 457,
+    "volume24h": 220889,
+    "high24h": 0.468302,
+    "low24h": 0.431982,
+    "priceChange24h": -5.65371,
+    "priceChange7d": -7.8389,
+    "priceChange30d": -5.58233,
+    "priceChange1y": -58.19262,
     "ath": 33.69,
-    "athChangePercentage": -98.67305,
+    "athChangePercentage": -98.71059,
     "athDate": "2018-01-02T00:00:00.000Z",
     "atl": 0.026179,
     "atlDate": "2017-07-16T00:00:00.000Z",
     "circulatingSupply": 133248297,
     "totalSupply": 133248297,
     "maxSupply": 133248297,
-    "high24h": 0.468302,
-    "low24h": 0.442518,
-    "priceChange7d": -3.9780719600893235,
-    "priceChange30d": 2.2958373959439418,
-    "priceChange1y": -56.94366459325283,
-    "fdv": 59597598
+    "fdv": 57889672
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.689Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 3525,
+    "githubForks": 803,
+    "commits4Weeks": 11
+  },
+  "fetchedAt": "2026-05-14T07:21:00.292Z"
 }

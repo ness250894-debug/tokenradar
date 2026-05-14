@@ -2,6 +2,7 @@
   "id": "bitmart-token",
   "symbol": "bmx",
   "name": "BitMart",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5236/large/bitmart-token.png?1696505741",
   "description": "BMX is an ERC20 based token issued by BitMart Exchange with total volume of 1,000,000,000. First issued as BMC in December 2017, BitMart changed the name of the token in January 2018 as BMX. You may find that the symbol name displayed in the smart contract and block explorer as BMC, but the actual symbol name we use is BMX. The reason is: our toke was named BMC, but then we find that  \"BMC\" has been used by another project, so we have to change the symbol name of our token to \"BMX\". ",
   "categories": [
     "Exchange-based Tokens",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0x986ee2b944c42d017f52af21c4c69b84dbea35d8"
   },
   "market": {
-    "price": 0.331121,
-    "marketCap": 112389853,
-    "marketCapRank": 278,
-    "volume24h": 9267646,
-    "high24h": 0.370462,
+    "price": 0.331077,
+    "marketCap": 112424280,
+    "marketCapRank": 277,
+    "volume24h": 9240428,
+    "high24h": 0.397826,
     "low24h": 0.330602,
-    "priceChange24h": -10.61937,
-    "priceChange7d": 2.798509268149362,
-    "priceChange30d": 3.0733518229230707,
-    "priceChange1y": 13.95985818692959,
+    "priceChange24h": -16.77833,
+    "priceChange7d": 2.78499,
+    "priceChange30d": 3.06905,
+    "priceChange1y": 12.4942,
     "ath": 0.619048,
-    "athChangePercentage": -46.5179,
+    "athChangePercentage": -46.51325,
     "athDate": "2024-06-05T03:41:49.599Z",
     "atl": 0.00672692,
     "atlDate": "2020-03-13T02:12:53.990Z",
     "circulatingSupply": 339412030,
     "totalSupply": 639412030,
     "maxSupply": 881679315,
-    "fdv": 211729161
+    "fdv": 211794017
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-28T03:20:37.595Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.576Z"
+  "fetchedAt": "2026-05-13T18:25:07.112Z"
 }

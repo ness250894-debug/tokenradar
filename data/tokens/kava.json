@@ -2,26 +2,54 @@
   "id": "kava",
   "symbol": "kava",
   "name": "Kava",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9761/large/kava.png?1696509822",
+  "description": "Kava is a cross-chain DeFi Hub for decentralized financial services and applications. The Kava DeFi Hub operates like a decentralized bank for digital assets connecting users with products like stablecoins, loans, and interest-bearing accounts so that they can do more and earn more with their digital assets.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Binance Launchpad",
+    "DWF Labs Portfolio",
+    "Osmosis Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.kava.io/",
+    "github": "https://github.com/Kava-Labs/kava",
+    "reddit": "https://www.reddit.com/r/kava_platform/",
+    "explorer": "https://www.mintscan.io/kava"
+  },
   "market": {
-    "price": 0.062752,
-    "marketCap": 67996390,
-    "marketCapRank": 409,
-    "volume24h": 3647064,
-    "priceChange24h": -4.21157,
+    "price": 0.06203,
+    "marketCap": 67271113,
+    "marketCapRank": 412,
+    "volume24h": 3584410,
+    "high24h": 0.066028,
+    "low24h": 0.061378,
+    "priceChange24h": -5.31873,
+    "priceChange7d": 0.00344,
+    "priceChange30d": 17.34687,
+    "priceChange1y": -86.7483,
     "ath": 9.12,
-    "athChangePercentage": -99.31181,
+    "athChangePercentage": -99.31802,
     "athDate": "2021-08-30T11:10:02.948Z",
     "atl": 0.04569939,
     "atlDate": "2026-02-24T14:25:15.219Z",
     "circulatingSupply": 1082847035,
     "totalSupply": 1082847035,
     "maxSupply": null,
-    "high24h": 0.066028,
-    "low24h": 0.061968,
-    "priceChange7d": 0.023748954612494936,
-    "priceChange30d": 19.439242211128565,
-    "priceChange1y": -86.59342419538362,
-    "fdv": 67996390
+    "fdv": 67271113
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.678Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 462,
+    "githubForks": 347,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:14:20.001Z"
 }

@@ -2,26 +2,52 @@
   "id": "peanut-the-squirrel",
   "symbol": "pnut",
   "name": "Peanut the Squirrel",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51301/large/Peanut_the_Squirrel.png?1734941241",
+  "description": "",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "Pump.fun Ecosystem",
+    "Zoo-Themed",
+    "Memorial Themed"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/2qEHjDLDLbuBgRYvsxhc5D6uDWAivNFZGan56P1tpump"
+  },
   "market": {
-    "price": 0.058561,
-    "marketCap": 58608650,
+    "price": 0.058036,
+    "marketCap": 58026904,
     "marketCapRank": 458,
-    "volume24h": 22231372,
-    "priceChange24h": -0.77614,
+    "volume24h": 21770865,
+    "high24h": 0.061847,
+    "low24h": 0.056928,
+    "priceChange24h": -3.87443,
+    "priceChange7d": -5.25189,
+    "priceChange30d": 33.3573,
+    "priceChange1y": -86.55405,
     "ath": 2.44,
-    "athChangePercentage": -97.59213,
+    "athChangePercentage": -97.61893,
     "athDate": "2024-11-14T01:20:47.489Z",
     "atl": 0.03187374,
     "atlDate": "2024-11-04T21:41:11.808Z",
-    "circulatingSupply": 999842192.058689,
-    "totalSupply": 999842192.058689,
+    "circulatingSupply": 999842190.710722,
+    "totalSupply": 999842190.710722,
     "maxSupply": 1000000000,
-    "high24h": 0.061847,
-    "low24h": 0.058025,
-    "priceChange7d": -5.621233256554758,
-    "priceChange30d": 41.965751963444376,
-    "priceChange1y": -86.68197539496909,
-    "fdv": 58608650
+    "fdv": 58026904
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.689Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:25:11.356Z"
 }

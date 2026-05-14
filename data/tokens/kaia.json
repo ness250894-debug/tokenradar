@@ -2,6 +2,7 @@
   "id": "kaia",
   "symbol": "kaia",
   "name": "Kaia",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39901/large/KAIA.png?1724734368",
   "description": "Kaia is an Ethereum-equivalent Layer 1 public blockchain that brings Web3 to the fingertips of hundreds of millions across Asia via their preferred messenger superapps. Kaia utilizes Practical Byzantine Fault Tolerance (pBFT), a highly-optimized version of BFT to achieve 4,000 real-world TPS while delivering 1-second block time with immediate absolute finality, which allows for near-instant transactions.",
   "categories": [
     "Smart Contract Platform",
@@ -15,25 +16,25 @@
     "explorer": "https://kaiascan.io/"
   },
   "market": {
-    "price": 0.04648025,
-    "marketCap": 272271584,
-    "marketCapRank": 163,
-    "volume24h": 8162719,
+    "price": 0.04719906,
+    "marketCap": 276503478,
+    "marketCapRank": 161,
+    "volume24h": 9597256,
     "high24h": 0.0491846,
     "low24h": 0.04637024,
-    "priceChange24h": -1.68099,
-    "priceChange7d": -1.3738844748746217,
-    "priceChange30d": 0.09204758818316551,
-    "priceChange1y": -63.818261189727146,
+    "priceChange24h": -0.71577,
+    "priceChange7d": 0.52431,
+    "priceChange30d": 0.55901,
+    "priceChange1y": -63.05375,
     "ath": 0.406698,
-    "athChangePercentage": -88.56715,
+    "athChangePercentage": -88.39114,
     "athDate": "2024-12-03T00:11:32.242Z",
     "atl": 0.04460749,
     "atlDate": "2026-03-29T22:55:37.663Z",
     "circulatingSupply": 5856641747.106198,
     "totalSupply": 5856641936.044253,
     "maxSupply": null,
-    "fdv": 272271592
+    "fdv": 276503487
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:58:38.012Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.546Z"
+  "fetchedAt": "2026-05-14T07:13:48.413Z"
 }

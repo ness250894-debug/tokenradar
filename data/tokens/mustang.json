@@ -2,26 +2,49 @@
   "id": "mustang",
   "symbol": "must",
   "name": "Mustang",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70999/large/mustang-icon.png?1765092466",
+  "description": "Mustang Finance is a decentralized borrowing protocol that lets users deposit WETH, tBTC, SAGA, stATOM, KING, yETH, and yUSD as collateral, and mint the stablecoin MUST at an interest rate depositors choose. Mustang Finance is a Liquity V2 fork built specifically for the Saga EVM.\n\nThe main use-cases for Mustang Finance are:\n- Borrow MUST\n- 1-click multiply exposure to collateral assets\n- Earn yield by depositing MUST in the stability pool or farming elsewhere\n\nWhat is MUST?\nMUST is the USD-pegged stablecoin issued by the Mustang Finance protocol. It's decentralized, overcollateralized, and backed only by a basket of crypto native assets.\n\nMUST is a resilient stablecoin by design:\n- Only backed by crypto assets (\"no real world assets\" like US Treasuries)\n- Directly redeemable for the underlying assets at any time by any one permissionlessly (always convertible in a fast and liquid way)\n- Can only be created by users depositing more collateral.\n- What are MUST's main benefits compared to other stablecoins?\n- MUST is backed by a variety of LSTs, LRTs, plus ETH, ARB, and COMP.\n- It is always redeemable for the underlying assets, meaning you can always swap it as if worth $1, for the collateral backing it\n- MUST has native incentives via Protocol Incentivized Liquidity (PIL) directed by governance, ensuring that there will always be sufficient liquidity to handle transactions\n- MUST is Saga EVM native, and is built specifically for the fast and free-to use Saga EVM network.\nWhat is MUST's peg mechanism?\n- Mustang Finance uses Liquity V2's market-driven monetary policy through user-set interest rates to maintain - MUST's peg and to dynamically respond to situations where the token is above or below $1.00.\n\nWhen MUST trades above $1, borrowers tend to reduce their rates due to lower redemption risk, making borrowing more and holding MUST less attractive. This helps correct the price downwards.\n\nIn contrast, when MUST trades below $1, arbitrageurs will initiate redemptions to restore the peg. Borrowers' exposure to redemption risk prompts them to increase interest rates, boosting demand for MUST (and Earn deposits) and pushing its price upward.",
+  "categories": [
+    "Stablecoins",
+    "Lending/Borrowing Protocols",
+    "Saga Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.must.finance/",
+    "github": "https://github.com/orgs/MustangProtocol",
+    "reddit": null,
+    "explorer": "https://sagaevm.sagaexplorer.io/token/0xA8b56ce258a7f55327BdE886B0e947EE059ca434"
+  },
   "market": {
-    "price": 0.503016,
-    "marketCap": 77647538,
-    "marketCapRank": 370,
-    "volume24h": 18.51,
-    "priceChange24h": 0.70261,
+    "price": 0.503017,
+    "marketCap": 77647907,
+    "marketCapRank": 366,
+    "volume24h": 5.62,
+    "high24h": 0.507971,
+    "low24h": 0.502966,
+    "priceChange24h": -0.97539,
+    "priceChange7d": -33.57381,
+    "priceChange30d": -33.57381,
+    "priceChange1y": 0,
     "ath": 0.998253,
-    "athChangePercentage": -49.61035,
+    "athChangePercentage": -49.61333,
     "athDate": "2025-12-14T02:54:27.090Z",
     "atl": 0.499504,
     "atlDate": "2026-05-07T23:47:44.045Z",
-    "circulatingSupply": 154363941.5385161,
-    "totalSupply": 154363941.5385161,
+    "circulatingSupply": 154364346.5544402,
+    "totalSupply": 154364346.5544402,
     "maxSupply": null,
-    "high24h": 0.507971,
-    "low24h": 0.499506,
-    "priceChange7d": -33.573879875862744,
-    "priceChange30d": -33.573879875862744,
-    "priceChange1y": 0,
-    "fdv": 77647538
+    "fdv": 77647907
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.628Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:20:34.983Z"
 }

@@ -2,9 +2,12 @@
   "id": "usdai",
   "symbol": "usdai",
   "name": "USDai",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55857/large/USDai_Token_Full_Glyph.png?1755229050",
   "description": "USD.AI is a yield-bearing synthetic dollar backed by loans against AI hardware, compute, and DePIN assets. Targeting 15–25% APR, it functions like a high-yield bond index tied to income-generating infrastructure equipment, paired with additional mechanisms that allow arbitrageurs to bring back USDai back to a peg.  USD.AI bridges the gap between amortizing AI hard assets and the financing needed to scale such productive infrastructure. Meanwhile, DePIN projects can achieve &gt;300% growth using debt, driving reinvestment and scalability in their network.",
   "categories": [
     "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
     "Yield-Bearing Stablecoin",
     "Synthetic Dollar",
     "Plasma Ecosystem"
@@ -17,25 +20,25 @@
     "explorer": "https://arbiscan.io/token/0x0A1a1A107E45b7Ced86833863f482BC5f4ed82EF"
   },
   "market": {
-    "price": 0.999919,
-    "marketCap": 265822271,
-    "marketCapRank": 167,
-    "volume24h": 99606,
+    "price": 0.999831,
+    "marketCap": 266592739,
+    "marketCapRank": 168,
+    "volume24h": 153628,
     "high24h": 1,
-    "low24h": 0.999664,
-    "priceChange24h": 0.00505,
-    "priceChange7d": 0.03351971581513616,
-    "priceChange30d": 0.062391987709386004,
+    "low24h": 0.999571,
+    "priceChange24h": -0.00809,
+    "priceChange7d": 0.00417,
+    "priceChange30d": 0.01972,
     "priceChange1y": 0,
     "ath": 1.19,
-    "athChangePercentage": -15.82445,
+    "athChangePercentage": -15.83186,
     "athDate": "2025-09-04T16:12:39.608Z",
     "atl": 0.769779,
     "atlDate": "2025-09-26T20:45:27.490Z",
-    "circulatingSupply": 265843881.5369081,
-    "totalSupply": 265843881.5369081,
+    "circulatingSupply": 266637888.407127,
+    "totalSupply": 266637888.407127,
     "maxSupply": null,
-    "fdv": 265822271
+    "fdv": 266592739
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T17:48:58.835Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.547Z"
+  "fetchedAt": "2026-05-14T07:42:27.960Z"
 }

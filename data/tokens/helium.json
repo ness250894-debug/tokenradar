@@ -2,6 +2,7 @@
   "id": "helium",
   "symbol": "hnt",
   "name": "Helium",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4284/large/helium_logo_use.png?1748092589",
   "description": "Helium is a decentralized machine network powered by a physical blockchain. The network is created by gateways who also double as miners on our network. These gateway operators can earn tokens based on coverage they provide as well as transaction fees gained from machines connecting to their gateway\n\nHelium is a new cryptocurrency. Hotspots earn for providing and validating wireless coverage and when devices on the network connect to the internet through Hospots\n\nHelium is mined and distributed to Hotspot Owners, Helium Inc, and investors.\nThere is no pre-mine of Helium, and every month approximately 5,000,000 new Helium are minted.\n\nAt the end of each mining period, roughly every 30 to 60 mins, Helium is distributed according to the allocation shown:",
   "categories": [
     "Communication",
@@ -25,25 +26,25 @@
     "explorer": "https://solscan.io/token/hntyvp6yfm1hg25tn9wglqm12b8tqmcknkrdu1oxwux"
   },
   "market": {
-    "price": 0.89667,
-    "marketCap": 164515779,
-    "marketCapRank": 213,
-    "volume24h": 2878223,
+    "price": 0.889044,
+    "marketCap": 163140654,
+    "marketCapRank": 214,
+    "volume24h": 2968501,
     "high24h": 0.930396,
-    "low24h": 0.884873,
-    "priceChange24h": -1.80946,
-    "priceChange7d": -5.963879738753172,
-    "priceChange30d": -12.95875585106694,
-    "priceChange1y": -77.27119101501506,
+    "low24h": 0.880548,
+    "priceChange24h": -3.17391,
+    "priceChange7d": -6.19954,
+    "priceChange30d": -12.35693,
+    "priceChange1y": -77.19721,
     "ath": 54.88,
-    "athChangePercentage": -98.36548,
+    "athChangePercentage": -98.38022,
     "athDate": "2021-11-12T23:08:25.301Z",
     "atl": 0.113248,
     "atlDate": "2020-04-18T00:19:10.902Z",
-    "circulatingSupply": 183420894.0493991,
-    "totalSupply": 183420894.0493991,
+    "circulatingSupply": 183442831.4448296,
+    "totalSupply": 183442831.4448296,
     "maxSupply": 223000000,
-    "fdv": 164515779
+    "fdv": 163140654
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T22:52:08.777Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.560Z"
+  "fetchedAt": "2026-05-14T07:10:57.734Z"
 }

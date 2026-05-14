@@ -2,6 +2,7 @@
   "id": "usda-2",
   "symbol": "usda",
   "name": "USDa",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51599/large/SUSDA.png?1731604761",
   "description": "Avalon Labs is creating an on-chain financial center for Bitcoin, offering BTC-backed\nlending, a Bitcoin-backed stablecoin, yield accounts, and a credit card. The goal is to\nmake Bitcoin an active economic asset in global markets through a scalable and\naccessible network.\nUSDa is the flagship CDP (Collateralized Debt Position) product based on Avalon's CeDeFi\nlending platform. The goal of USDa is to provide the best stablecoin solution for DeFi\ncommunity with extremely high capital efficiency, stability and deep liquidity from BTC\ncommunity.",
   "categories": [
     "Stablecoins",
@@ -17,14 +18,14 @@
   "market": {
     "price": 0.983506,
     "marketCap": 217048021,
-    "marketCapRank": 184,
+    "marketCapRank": 183,
     "volume24h": 49.52,
     "high24h": 0.983725,
     "low24h": 0.983475,
     "priceChange24h": -0.01325,
-    "priceChange7d": -0.5902901553111517,
-    "priceChange30d": -0.08679384254246017,
-    "priceChange1y": -1.5093684342509013,
+    "priceChange7d": -0.59029,
+    "priceChange30d": -0.08679,
+    "priceChange1y": -1.48216,
     "ath": 1.021,
     "athChangePercentage": -3.71704,
     "athDate": "2025-01-13T15:25:59.380Z",
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T17:48:52.511Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.550Z"
+  "fetchedAt": "2026-05-14T07:42:15.321Z"
 }

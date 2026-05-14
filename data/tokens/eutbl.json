@@ -2,6 +2,7 @@
   "id": "eutbl",
   "symbol": "eutbl",
   "name": "Spiko EU T-Bills Money Market Fund",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39657/large/EUTBL.png?1723517425",
   "description": "Spiko EU T-Bills Money Market Fund is a fully-licensed EUR money market fund operating under the EU regulatory framework. It only invests in Treasury Bills issued by the strongest Eurozone Member States with less than 6 months maturity and keeps its maximum average portfolio maturity under 2 months.",
   "categories": [
     "Tokenized Assets",
@@ -13,7 +14,8 @@
     "Starknet Ecosystem",
     "Tokenized Treasury Bills (T-Bills)",
     "Stellar Ecosystem",
-    "Etherlink Ecosystem"
+    "Etherlink Ecosystem",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -24,34 +26,33 @@
   },
   "market": {
     "price": 1.23,
-    "marketCap": 990979615,
+    "marketCap": 991984364,
     "marketCapRank": 73,
     "volume24h": 0,
-    "high24h": 1.24,
+    "high24h": 1.23,
     "low24h": 1.23,
-    "priceChange24h": -0.26929,
-    "priceChange7d": -0.2813286095376432,
-    "priceChange30d": -0.04786807109764515,
-    "priceChange1y": 6.637678345744257,
+    "priceChange24h": 0.02185,
+    "priceChange7d": -0.22525,
+    "priceChange30d": -0.19098,
+    "priceChange1y": 6.67766,
     "ath": 1.26,
-    "athChangePercentage": -2.35399,
+    "athChangePercentage": -2.25499,
     "athDate": "2026-01-27T21:00:08.465Z",
     "atl": 1.011,
     "atlDate": "2024-08-15T09:45:23.684Z",
     "circulatingSupply": 804802231.62016,
     "totalSupply": 804802231.62016,
     "maxSupply": null,
-    "fdv": 990979615
+    "fdv": 991984364
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 12,
+    "githubStars": 13,
     "githubForks": 2,
-    "commits4Weeks": 7
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:24:40.128Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.512Z"
+  "fetchedAt": "2026-05-14T07:05:32.725Z"
 }

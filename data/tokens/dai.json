@@ -2,6 +2,7 @@
   "id": "dai",
   "symbol": "dai",
   "name": "Dai",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9956/large/Badge_Dai.png?1696509996",
   "description": "MakerDAO has launched Multi-collateral DAI (MCD). This token refers to the new DAI that is collaterized by multiple assets.\n",
   "categories": [
     "Stablecoins",
@@ -19,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f"
   },
   "market": {
-    "price": 0.999654,
-    "marketCap": 4376160904,
+    "price": 0.999703,
+    "marketCap": 4374633137,
     "marketCapRank": 26,
-    "volume24h": 209402752,
+    "volume24h": 204348823,
     "high24h": 0.99985,
-    "low24h": 0.999366,
-    "priceChange24h": 0.01021,
-    "priceChange7d": 0.013630138173936084,
-    "priceChange30d": 0.03208541218323437,
-    "priceChange1y": -0.05821598384339458,
+    "low24h": 0.999339,
+    "priceChange24h": 0.01317,
+    "priceChange7d": 0.03463,
+    "priceChange30d": -0.00159,
+    "priceChange1y": -0.05648,
     "ath": 1.22,
-    "athChangePercentage": -17.98211,
+    "athChangePercentage": -17.98251,
     "athDate": "2020-03-13T03:02:50.373Z",
     "atl": 0.88196,
     "atlDate": "2023-03-11T07:50:50.514Z",
-    "circulatingSupply": 4377250287.81164,
-    "totalSupply": 4377250287.81164,
+    "circulatingSupply": 4375947605.047046,
+    "totalSupply": 4375947605.047046,
     "maxSupply": null,
-    "fdv": 4376160904
+    "fdv": 4374633137
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T17:54:10.230Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.488Z"
+  "fetchedAt": "2026-05-13T18:30:23.196Z"
 }

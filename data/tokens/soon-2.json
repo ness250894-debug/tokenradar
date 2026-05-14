@@ -2,26 +2,54 @@
   "id": "soon-2",
   "symbol": "soon",
   "name": "SOON",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55124/large/red_2.PNG?1743843131",
+  "description": "SOON stack is the most efficient rollup stack delivering high performance to every L1, powered by SVM. SOON team pioneered Decoupled SVM, which allows SVM rollups to be spun up across different L1s with native fraud proofs, reduced DA cost and horizontal scaling capacity. \n\nSOON's SAS (Super Adoption Stack) creates a native interop among all SOON chains as well as with SOL &amp; TON. We launched the first SOL x TON bridge with native TG mini app. Devs can access users without leaving the SOON ecosystem, making it a more effective user acquisition tool at a fraction of the cost of TVL game.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 2 (L2)",
+    "Base Ecosystem",
+    "Cross-chain Communication",
+    "Binance Alpha Spotlight",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://soo.network/",
+    "github": "https://github.com/soonlabs/",
+    "reddit": null,
+    "explorer": "https://explorer.soo.network/"
+  },
   "market": {
-    "price": 0.16858,
-    "marketCap": 57282154,
-    "marketCapRank": 464,
-    "volume24h": 8688285,
-    "priceChange24h": -8.92924,
+    "price": 0.177073,
+    "marketCap": 60173662,
+    "marketCapRank": 449,
+    "volume24h": 8154263,
+    "high24h": 0.182736,
+    "low24h": 0.166281,
+    "priceChange24h": -1.7355,
+    "priceChange7d": -0.54015,
+    "priceChange30d": 43.29044,
+    "priceChange1y": 0,
     "ath": 4.3,
-    "athChangePercentage": -96.08041,
+    "athChangePercentage": -95.89044,
     "athDate": "2025-11-14T20:10:58.428Z",
     "atl": 0.101005,
     "atlDate": "2026-04-10T01:10:10.157Z",
     "circulatingSupply": 339791742.36,
-    "totalSupply": 998548422.0828133,
+    "totalSupply": 998630613.8636352,
     "maxSupply": null,
-    "high24h": 0.186914,
-    "low24h": 0.16662,
-    "priceChange7d": -3.261196710838095,
-    "priceChange30d": 40.77759786272827,
-    "priceChange1y": 0,
-    "fdv": 168335476
+    "fdv": 176847326
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.691Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:33:11.505Z"
 }

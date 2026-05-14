@@ -2,6 +2,7 @@
   "id": "nusd-2",
   "symbol": "nusd",
   "name": "Neutrl USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70027/large/NUSD-200x200.png?1760452629",
   "description": "Neutrl is a market-neutral synthetic dollar designed to unlock untapped yield opportunities across OTC and altcoin markets. By combining OTC arbitrage, funding rate capture, and other market-neutral DeFi strategies, Neutrl provides a transparent, fully collateralized access point for generating sustainable onchain yield without directional market risk, accessible to both institutions and individual users.",
   "categories": [
     "Stablecoins",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/address/0xe556aba6fe6036275ec1f87eda296be72c811bce"
   },
   "market": {
-    "price": 0.99983,
-    "marketCap": 150036639,
-    "marketCapRank": 231,
-    "volume24h": 1715569,
-    "high24h": 0.999861,
+    "price": 0.998654,
+    "marketCap": 149034256,
+    "marketCapRank": 234,
+    "volume24h": 949091,
+    "high24h": 0.99983,
     "low24h": 0.998543,
-    "priceChange24h": 0.07937,
-    "priceChange7d": 0.020336570492279393,
-    "priceChange30d": 0.028428867287397002,
+    "priceChange24h": -0.07832,
+    "priceChange7d": -0.03079,
+    "priceChange30d": -0.0786,
     "priceChange1y": 0,
     "ath": 1.031,
-    "athChangePercentage": -3.0918,
+    "athChangePercentage": -3.13897,
     "athDate": "2026-01-31T18:47:49.113Z",
     "atl": 0.975411,
     "atlDate": "2025-11-20T16:41:47.097Z",
-    "circulatingSupply": 150062146.8386531,
-    "totalSupply": 150062146.8386531,
+    "circulatingSupply": 149234707.8004537,
+    "totalSupply": 149234707.8004537,
     "maxSupply": null,
-    "fdv": 150036639
+    "fdv": 149034256
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T06:46:54.433Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.566Z"
+  "fetchedAt": "2026-05-14T07:22:20.304Z"
 }

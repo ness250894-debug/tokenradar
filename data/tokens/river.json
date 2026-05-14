@@ -2,6 +2,7 @@
   "id": "river",
   "symbol": "river",
   "name": "River",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69318/large/river-token.png?1758523089",
   "description": "River is building a chain-abstraction stablecoin system that enables cross-chain collateral, yield, and liquidity—all without bridging. \n\nPowered by the omni-CDP stablecoin satUSD, users can earn, leverage, and scale across different ecosystems natively. \n\nRiver features the first omni-CDP module that allows users to collateralize assets on Chain A and mint stablecoin satUSD on Chain B—without bridging the assets.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0xdA7AD9dea9397cffdDAE2F8a052B82f1484252B3"
   },
   "market": {
-    "price": 6.75,
-    "marketCap": 132062804,
-    "marketCapRank": 249,
-    "volume24h": 14170991,
-    "high24h": 6.81,
-    "low24h": 6.19,
-    "priceChange24h": 8.28471,
-    "priceChange7d": 13.70761825667976,
-    "priceChange30d": -7.378503579797853,
+    "price": 7.24,
+    "marketCap": 141943861,
+    "marketCapRank": 237,
+    "volume24h": 19377250,
+    "high24h": 7.41,
+    "low24h": 6.53,
+    "priceChange24h": 9.65546,
+    "priceChange7d": 20.67599,
+    "priceChange30d": -15.35663,
     "priceChange1y": 0,
     "ath": 87.73,
-    "athChangePercentage": -92.3205,
+    "athChangePercentage": -91.79594,
     "athDate": "2026-01-26T12:05:27.820Z",
     "atl": 1.58,
     "atlDate": "2025-09-23T10:10:45.893Z",
     "circulatingSupply": 19600000,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "fdv": 673789815
+    "fdv": 724203372
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T11:59:43.961Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.570Z"
+  "fetchedAt": "2026-05-14T07:30:27.122Z"
 }

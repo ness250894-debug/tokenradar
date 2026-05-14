@@ -2,26 +2,52 @@
   "id": "proton",
   "symbol": "xpr",
   "name": "XPR Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/10941/large/XPR.jpg?1696510891",
+  "description": "Launched in San Francisco, Proton (XPR) is a new public blockchain and smart contract platform designed for both consumer applications and peer-peer payments. It is built around a secure identity and financial settlements layer that allows users to directly link real identity and fiat accounts, pull funds and buy crypto, and use that crypto seamlessly in apps.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Made in USA",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://xprnetwork.org",
+    "github": "https://github.com/XPRNetwork",
+    "reddit": "https://www.reddit.com/r/ProtonChain/",
+    "explorer": "https://etherscan.io/token/0xd7efb00d12c2c13131fd319336fdf952525da2af"
+  },
   "market": {
-    "price": 0.00273057,
-    "marketCap": 78288903,
-    "marketCapRank": 366,
-    "volume24h": 733671,
-    "priceChange24h": -1.78809,
+    "price": 0.00274496,
+    "marketCap": 78467904,
+    "marketCapRank": 364,
+    "volume24h": 1395427,
+    "high24h": 0.0028142,
+    "low24h": 0.00268184,
+    "priceChange24h": -1.98532,
+    "priceChange7d": -3.51222,
+    "priceChange30d": 23.46864,
+    "priceChange1y": -26.50136,
     "ath": 0.100088,
-    "athChangePercentage": -97.26519,
+    "athChangePercentage": -97.26482,
     "athDate": "2020-04-27T08:45:16.468Z",
     "atl": 0.00054716,
     "atlDate": "2023-10-19T10:05:22.190Z",
     "circulatingSupply": 28652669445.0618,
-    "totalSupply": 32030853090.88829,
+    "totalSupply": 32031479560.98909,
     "maxSupply": null,
-    "high24h": 0.0028142,
-    "low24h": 0.00268184,
-    "priceChange7d": -5.6766892913425995,
-    "priceChange30d": 23.746635504749214,
-    "priceChange1y": -27.925280168639006,
-    "fdv": 87519258
+    "fdv": 87721079
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.627Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:27:11.151Z"
 }

@@ -2,6 +2,7 @@
   "id": "stasis-eurs",
   "symbol": "eurs",
   "name": "STASIS EURO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5164/large/EURS_300x300.png?1696505680",
   "description": "EURS token is a virtual financial asset that is designed to digitally mirror the EURO on the condition that its value is tied to the value of its collateral.\n\nDownload STASIS Stablecoin wallet: Android: https://play.google.com/store/apps/details?id=com.stasis.stasiswallet iOS: https://itunes.apple.com/app/stasis-wallet/id1371949230",
   "categories": [
     "Stablecoins",
@@ -20,24 +21,24 @@
   },
   "market": {
     "price": 1.2,
-    "marketCap": 148959471,
-    "marketCapRank": 234,
-    "volume24h": 16976.84,
-    "high24h": 1.23,
-    "low24h": 1.18,
-    "priceChange24h": -2.05788,
-    "priceChange7d": -1.61218890040092,
-    "priceChange30d": -1.904514145996873,
-    "priceChange1y": 7.361371603773337,
+    "marketCap": 149315654,
+    "marketCapRank": 233,
+    "volume24h": 3144.08,
+    "high24h": 1.21,
+    "low24h": 1.2,
+    "priceChange24h": -0.37409,
+    "priceChange7d": -1.15271,
+    "priceChange30d": -1.19723,
+    "priceChange1y": 7.46014,
     "ath": 1.79,
-    "athChangePercentage": -33.07866,
+    "athChangePercentage": -32.92232,
     "athDate": "2023-03-14T12:00:06.279Z",
     "atl": 0.632498,
     "atlDate": "2026-02-13T22:12:11.988Z",
     "circulatingSupply": 124125940,
     "totalSupply": 124125940,
     "maxSupply": null,
-    "fdv": 148959471
+    "fdv": 149315654
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 9,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:36:30.517Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.567Z"
+  "fetchedAt": "2026-05-14T07:34:14.748Z"
 }

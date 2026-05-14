@@ -2,7 +2,8 @@
   "id": "world-liberty-financial",
   "symbol": "wlfi",
   "name": "World Liberty Financial",
-  "description": "A cryptocurrency token known as World Liberty Financial (WLFI). It is tracked on CoinGecko with the ID \"world-liberty-financial\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/50767/large/wlfi.png?1756438915",
+  "description": "",
   "categories": [
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
@@ -19,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0xdA5e1988097297dCdc1f90D4dFE7909e847CBeF6"
   },
   "market": {
-    "price": 0.067097,
-    "marketCap": 2131826955,
+    "price": 0.068195,
+    "marketCap": 2168870170,
     "marketCapRank": 44,
-    "volume24h": 57206559,
-    "high24h": 0.069459,
+    "volume24h": 60596563,
+    "high24h": 0.069368,
     "low24h": 0.0661,
-    "priceChange24h": 0.06065,
-    "priceChange7d": -0.0034523578446819356,
-    "priceChange30d": -15.373362275837529,
+    "priceChange24h": 0.34927,
+    "priceChange7d": 0.14549,
+    "priceChange30d": -14.99937,
     "priceChange1y": 0,
     "ath": 0.331336,
-    "athChangePercentage": -79.74949,
+    "athChangePercentage": -79.41831,
     "athDate": "2025-09-01T12:20:09.597Z",
     "atl": 0.051632,
     "atlDate": "2026-05-02T06:24:04.639Z",
-    "circulatingSupply": 31772306867,
+    "circulatingSupply": 31772367533,
     "totalSupply": 100000000000,
     "maxSupply": 100000000000,
-    "fdv": 6709701515
+    "fdv": 6826278110
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:18:13.117Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.493Z"
+  "fetchedAt": "2026-05-14T07:45:37.673Z"
 }

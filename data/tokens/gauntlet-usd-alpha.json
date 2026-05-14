@@ -2,20 +2,52 @@
   "id": "gauntlet-usd-alpha",
   "symbol": "gtusda",
   "name": "Gauntlet USD Alpha",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171863/large/gtUSDa.png?1770138785",
+  "description": "Gauntlet USD Alpha is yield aggregation strategy built in Aera and curated by Gauntlet. Aera is a non-custodial vault infrastructure layer that enables external Guardians to submit rebalancing instructions to the vault in a trustless manner. Gauntlet is one of the largest and longest tenured curators and risk managers in the DeFi space. Leveraging our nearly 10 years of experience managing risk in DeFi, gtUSDa allocates across multiple DeFi protocols to seek smart-beta yields in DeFi verticals while tightly managing risk. gtUSDa is a multi-chain product, accepting deposits on Base, Optimism, Arbitrum, and Ethereum Mainnet.",
+  "categories": [
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Morpho Ecosystem",
+    "Yield-Bearing Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.gauntlet.xyz/vaults/gtusda",
+    "github": "https://github.com/aera-finance/aera-contracts-public",
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x000000000001CdB57E58Fa75Fe420a0f4D6640D5"
+  },
   "market": {
-    "price": 1.065,
-    "marketCap": 77652783,
-    "marketCapRank": 368,
+    "price": 1.066,
+    "marketCap": 1583084,
+    "marketCapRank": 2623,
     "volume24h": 4.12,
-    "priceChange24h": 0.00883,
-    "ath": 1.065,
+    "high24h": 1.066,
+    "low24h": 1.066,
+    "priceChange24h": 0.01117,
+    "priceChange7d": 0.07925,
+    "priceChange30d": 0.36726,
+    "priceChange1y": 0,
+    "ath": 1.066,
     "athChangePercentage": 0,
-    "athDate": "2026-05-07T17:20:03.602Z",
+    "athDate": "2026-05-14T06:00:07.429Z",
     "atl": 1.053,
     "atlDate": "2026-02-10T06:35:02.553Z",
-    "circulatingSupply": 73240414.01,
+    "circulatingSupply": 1485319.244183337,
     "totalSupply": 1485319.244183337,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 1583084
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.884Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 21,
+    "githubForks": 14,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:08:26.024Z"
 }

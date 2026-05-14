@@ -2,6 +2,7 @@
   "id": "tagger",
   "symbol": "tag",
   "name": "TAGGER",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53206/large/IMG_3196.png?1735664645",
   "description": "A Decentralized Full-Stack AI Data Solution powered by a Comprehensive Data Authentication and Authorization System\nTagger is a full-stack AI data solutions platform, establishing a cross-border data authentication protocol, creating a permissionless hub for data collection, labeling, management, and trading. The logic starts from utilizing Web 3's crowdsourcing advantages for data labeling and collection. Subsequently, we leverage the core essence of blockchain technology to form a permissionless data authentication and trading system, solving the prevalent problems of data silos, data authentication chaos, and lack of professional annotators in the current data landscape.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -16,25 +17,25 @@
     "explorer": "https://bscscan.com/token/0x208bF3E7dA9639f1Eaefa2DE78c23396B0682025"
   },
   "market": {
-    "price": 0.00134955,
-    "marketCap": 147004149,
-    "marketCapRank": 236,
-    "volume24h": 6109494,
-    "high24h": 0.00145864,
-    "low24h": 0.00131848,
-    "priceChange24h": -1.21165,
-    "priceChange7d": -5.654623879621605,
-    "priceChange30d": 68.92874634989184,
-    "priceChange1y": 2417.989130189941,
+    "price": 0.0012829,
+    "marketCap": 139704327,
+    "marketCapRank": 239,
+    "volume24h": 6199221,
+    "high24h": 0.00142728,
+    "low24h": 0.00123052,
+    "priceChange24h": -7.62078,
+    "priceChange7d": -8.8127,
+    "priceChange30d": 52.54086,
+    "priceChange1y": 2227.36154,
     "ath": 0.00217793,
-    "athChangePercentage": -37.96813,
+    "athChangePercentage": -41.36756,
     "athDate": "2026-05-04T06:42:06.525Z",
     "atl": 0.00001934,
     "atlDate": "2025-03-12T13:57:01.345Z",
     "circulatingSupply": 108864805114.17,
     "totalSupply": 405380800000,
     "maxSupply": 405380800000,
-    "fdv": 547400598
+    "fdv": 520218190
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T18:56:25.195Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.567Z"
+  "fetchedAt": "2026-05-14T07:36:21.267Z"
 }

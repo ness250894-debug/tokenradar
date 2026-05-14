@@ -2,7 +2,8 @@
   "id": "stellar",
   "symbol": "xlm",
   "name": "Stellar",
-  "description": "The Stellar network is an open source, distributed, and community owned network used to facilitate cross-asset transfers of value. Stellar aims to help facilitate cross-asset transfer of value at a fraction of a penny while aiming to be an open financial system that gives people of all income levels access to low-cost financial services. Stellar can handle exchanges between fiat-based currencies and between cryptocurrencies. Stellar.org, the organization that supports Stellar, is centralized like XRP and meant to handle cross platform transactions and micro transactions like XRP. However, unlike Ripple, Stellar.org is non-profit and their platform itself is open source and decentralized. \n\nStellar was founded by Jed McCaleb in 2014. Jed McCaleb is also the founder of Mt. Gox and co-founder of Ripple, launched the network system Stellar with former lawyer Joyce Kim. Stellar is also a payment technology that aims to connect financial institutions and drastically reduce the cost and time required for cross-border transfers. In fact, both payment networks used the same protocol initially.\n\nDistributed Exchange\nThrough the use of its intermediary currency Lumens (XLM), a user can send any currency that they own to anyone else in a different currency.\n\nFor instance, if Joe wanted to send USD to Mary using her EUR, an offer is submitted to the distributed exchange selling USD for EUR. This submitted offer forms is known as an order book. The network will use the order book to find the best exchange rate for the transaction in-order to minimize the fee paid by a user.\n\nThis multi-currency transaction is possible because of \"Anchors\". Anchors are trusted entities that hold people’s deposits and can issue credit. In essence, Anchors serves as the bridge between different currencies and the Stellar network.\n\nLumens (XLM)\nLumens are the native asset (digital currency) that exist on the Stellar network that helps to facilitate multi-currency transactions and prevent spams. For multi-currency transactions, XLM is the digital intermediary that allows for such a transaction to occur at a low cost.\n\nIn-order to prevent DoS attacks (aka spams) that would inevitably occur on the Stellar network, a small fee of 0.00001 XLM is associated with every transaction that occurs on the network. This fee is small enough so it does not significantly affect the cost of transaction, but large enough so it dissuades bad actors from spamming the network. \n\nPrior to Protocol 12, Stellar had a built-in inflation mechanism conceived to allow account holders to collectively direct inflation-generated lumens toward projects built on Stellar.\n\nAs the network evolved and grew, it became increasingly clear that inflation wasn’t working as intended — account holders either didn’t set their inflation destination or joined inflation pools to claim the inflation themselves, and the operational costs associated with inflation payments continued to rise — and so a protocol change to disable in... [truncated]",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/100/large/fmpFRHHQ_400x400.jpg?1735231350",
+  "description": "Stellar is an open-source, decentralized network co-founded in 2014 by Jed McCaleb and Joyce Kim to facilitate the fast and low-cost transfer of value across different currencies and assets globally. Managed by the non-profit Stellar Development Foundation, the project serves as a global infrastructure that connects banks, payment systems, and individuals to expand financial access to underserved populations. Its main value proposition lies in providing a bridge between traditional money and digital networks through the use of Anchors, which are trusted entities that hold deposits and issue credits on the ledger.\n\nThe network operates using the Stellar Consensus Protocol and a Federated Byzantine Agreement, where nodes choose trusted sets of other nodes to agree on the state of the ledger. This system ensures high throughput and fast finality, where transactions are considered permanent and irreversible within seconds. Key features include a built-in distributed exchange for trading assets without intermediaries and the Soroban platform for developing smart contracts. Users can also utilize the network for tokenizing real-world assets or accessing decentralized finance services like peer-to-peer lending.\n\nStellar's native token, XLM, is essential for maintaining network integrity by acting as an intermediary to find efficient exchange paths and preventing spam through small transaction fees and minimum account balance requirements. Unlike many other digital assets, the network has no inflation because the community voted to disable the automatic creation of new tokens. While the project received early funding from the payments company Stripe, it is now sustained by a global community of validators and developers rather than traditional venture capital.",
   "categories": [
     "Smart Contract Platform",
     "Real World Assets (RWA)",
@@ -20,25 +21,25 @@
     "explorer": "https://dashboard.stellar.org/"
   },
   "market": {
-    "price": 0.158957,
-    "marketCap": 5323285941,
+    "price": 0.158928,
+    "marketCap": 5320122220,
     "marketCapRank": 22,
-    "volume24h": 115660520,
+    "volume24h": 112263642,
     "high24h": 0.165616,
     "low24h": 0.158084,
-    "priceChange24h": -2.40266,
-    "priceChange7d": -1.1980316393573267,
-    "priceChange30d": 4.433537884911843,
-    "priceChange1y": -49.06534191502285,
+    "priceChange24h": -3.13502,
+    "priceChange7d": -1.75132,
+    "priceChange30d": 2.67137,
+    "priceChange1y": -49.17176,
     "ath": 0.875563,
-    "athChangePercentage": -81.84296,
+    "athChangePercentage": -81.86891,
     "athDate": "2018-01-03T00:00:00.000Z",
     "atl": 0.00047612,
     "atlDate": "2015-03-05T00:00:00.000Z",
-    "circulatingSupply": 33486771150.2823,
+    "circulatingSupply": 33486767764.8833,
     "totalSupply": 50001786863.25703,
     "maxSupply": null,
-    "fdv": 7948625677
+    "fdv": 7943902475
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 969,
     "commits4Weeks": 86
   },
-  "fetchedAt": "2026-03-23T13:38:30.159Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.487Z"
+  "fetchedAt": "2026-05-14T07:34:27.401Z"
 }

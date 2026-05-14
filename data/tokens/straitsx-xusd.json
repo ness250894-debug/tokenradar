@@ -2,26 +2,49 @@
   "id": "straitsx-xusd",
   "symbol": "xusd",
   "name": "StraitsX XUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39180/large/XUSD_Logo_Full_Colour_1.png?1772634139",
+  "description": "The smart contract for XUSD on Ethereum was first deployed in February 2024 by StraitsX. Designed to facilitate swift, global, and 24/7 payments, XUSD serves to bridge ASEAN’s financial ecosystem with the stability of the world’s primary reserve currency. Each XUSD is pegged to one United States Dollar, and has been acknowledged by the Monetary Authority of Singapore (MAS) to be compliant with Singapore's upcoming stablecoin regulatory framework.\n\n\n\n\n",
+  "categories": [
+    "Stablecoins",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.straitsx.com/xusd",
+    "github": "https://github.com/Xfers/StraitsX-tokens/tree/master/Ethereum",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xc08e7e23c235073c6807c2efe7021304cb7c2815"
+  },
   "market": {
-    "price": 0.99988,
-    "marketCap": 53906258,
-    "marketCapRank": 483,
-    "volume24h": 11733707,
-    "priceChange24h": 0.00303,
+    "price": 0.999588,
+    "marketCap": 53897432,
+    "marketCapRank": 484,
+    "volume24h": 10545903,
+    "high24h": 1,
+    "low24h": 0.999505,
+    "priceChange24h": -0.01531,
+    "priceChange7d": -0.04321,
+    "priceChange30d": -0.01879,
+    "priceChange1y": -0.04313,
     "ath": 1.77,
-    "athChangePercentage": -43.54424,
+    "athChangePercentage": -43.55091,
     "athDate": "2025-03-17T07:07:33.401Z",
     "atl": 0.936389,
     "atlDate": "2025-03-04T02:16:12.068Z",
     "circulatingSupply": 53913176.001,
     "totalSupply": 53913176.001,
     "maxSupply": null,
-    "high24h": 1,
-    "low24h": 0.999505,
-    "priceChange7d": -0.015756553633115577,
-    "priceChange30d": -0.023206325392948736,
-    "priceChange1y": -0.03317195578560663,
-    "fdv": 53906258
+    "fdv": 53897432
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.695Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 31,
+    "githubForks": 12,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:34:46.368Z"
 }

@@ -2,6 +2,7 @@
   "id": "precious-metals-usd",
   "symbol": "pmusd",
   "name": "Precious Metals USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71149/large/pmUSD.png?1766015276",
   "description": "Real Asset Acquisition Corp (RAAC) is a decentralized finance (DeFi) protocol powered by real-world assets (RWAs). \n\nThe ecosystem empowers token holders through a set of custom-built products to tokenize real-world assets; deploying traditional finance assets into DeFi, with a goal to unlock liquidity and on-chain yield opportunities. This model allows RAAC to expand DeFi liquidity collateralized by RWAs.",
   "categories": [
     "Stablecoins",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0xc0c17dd08263c16f6b64e772fb9b723bf1344ddf"
   },
   "market": {
-    "price": 0.881365,
-    "marketCap": 88313861,
-    "marketCapRank": 331,
-    "volume24h": 87472,
-    "high24h": 0.892822,
-    "low24h": 0.880639,
-    "priceChange24h": -1.22924,
-    "priceChange7d": -0.737535743891981,
-    "priceChange30d": -11.17264925620829,
+    "price": 0.842334,
+    "marketCap": 84402885,
+    "marketCapRank": 340,
+    "volume24h": 189661,
+    "high24h": 0.88205,
+    "low24h": 0.84005,
+    "priceChange24h": -4.36335,
+    "priceChange7d": -5.88885,
+    "priceChange30d": -15.0862,
     "priceChange1y": 0,
     "ath": 1.037,
-    "athChangePercentage": -14.99439,
+    "athChangePercentage": -18.75943,
     "athDate": "2026-03-04T19:10:23.689Z",
     "atl": 0.116217,
     "atlDate": "2026-05-04T16:40:48.731Z",
     "circulatingSupply": 100201203.6222222,
     "totalSupply": 100201203.6222222,
     "maxSupply": null,
-    "fdv": 88313861
+    "fdv": 84402885
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:25:18.897Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.619Z"
+  "fetchedAt": "2026-05-14T07:27:04.821Z"
 }

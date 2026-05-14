@@ -2,7 +2,8 @@
   "id": "tron",
   "symbol": "trx",
   "name": "TRON",
-  "description": "What is Tron?\nTron's mission is to build a truly decentralized internet and aims to be the largest blockchain-based operating system in the world, known as the TRON protocol. The TRON protocol will offer high scalability, high availability, and high throughput computing to serve decentralized applications via smart contracts. Ethereum EVM-based smart contracts will be compatible and deployable on the TRON network as such Solidity developers do not have to rewrite their applications.\n\nWhy Tron?\nSince TRON protocol does not rely on proof of work or mining, instead governed by nodes located around the world, it is decentralized while providing high throughput for transactions on the blockchain. This is suitable for dapps that require high speed transactions especially games. There are a number of tokens already issued on the TRON network and the decentralized exchanges TRX.market has launched.\n\nOn July 24th 2018, TRON acquired BitTorrent, one of the largest P2P file sharing protocol. As a result of the acquisition, BitTorrent Token (BTT) was launched as the cryptocurrency to power the economics on the BitTorrent network. The Token will be used to inceltivize file sharing and storage within the network.\n",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/1094/large/photo_2026-04-13_09-59-16.png?1776048311",
+  "description": "TRON is a decentralized blockchain-based operating system designed to accelerate the decentralization of the internet and its underlying infrastructure. It serves as a global settlement layer for stablecoins and everyday digital purchases, providing a high-throughput environment to support large-scale decentralized applications. The network is governed by a decentralized autonomous organization (DAO), which allows the community to manage the protocol without a central authority. Its primary value proposition includes a unique resource model that utilizes bandwidth and energy to allow for high transaction volumes without traditional fee spikes.\n\nThe platform functions as a smart contract platform that enables the creation of decentralized applications and is compatible with the Ethereum Virtual Machine, allowing developers to easily migrate applications. TRON operates using a Delegated Proof of Stake consensus mechanism where token holders vote for 27 Super Representatives to verify transactions and maintain the ledger. This structure is built for scalability and fast finality, aiming to handle more transactions per second than many established legacy blockchains. Users can interact with the ecosystem for various purposes, including decentralized finance (DeFi) through platforms like JustLend DAO and decentralized storage via the BitTorrent File System.\n\nValue moves through the system via its native utility token, TRX, which facilitates transactions and grants users access to network resources. Holders can lock their TRX in a staking mechanism to gain TRON Power, which is used to vote on network rules and elect Super Representatives, earning rewards for securing the network. Established by the TRON Foundation and led by founder Justin Sun, the project has transitioned into a community-led DAO. The ecosystem is supported by strategic partnerships with major global entities, including Samsung, which integrated TRON into its blockchain keystore, as well as BitTorrent, Opera, and Swisscom Blockchain.",
   "categories": [
     "Smart Contract Platform",
     "Layer 1 (L1)",
@@ -22,28 +23,28 @@
     "website": "https://tron.network",
     "github": "https://github.com/tronprotocol/java-tron",
     "reddit": "https://www.reddit.com/r/Tronix",
-    "explorer": "https://tronscan.org/"
+    "explorer": "https://tronscan.org/#/token/0/transfers"
   },
   "market": {
-    "price": 0.350095,
-    "marketCap": 33185107237,
+    "price": 0.350907,
+    "marketCap": 33265291370,
     "marketCapRank": 8,
-    "volume24h": 460163856,
+    "volume24h": 456713536,
     "high24h": 0.351443,
-    "low24h": 0.348557,
-    "priceChange24h": 0.24479,
-    "priceChange7d": 0.9384314333373605,
-    "priceChange30d": 9.575637134312624,
-    "priceChange1y": 29.520408228528733,
+    "low24h": 0.34918,
+    "priceChange24h": 0.36553,
+    "priceChange7d": 1.64386,
+    "priceChange30d": 9.13142,
+    "priceChange1y": 27.87138,
     "ath": 0.431288,
-    "athChangePercentage": -18.82569,
+    "athChangePercentage": -18.63758,
     "athDate": "2024-12-04T00:10:40.323Z",
     "atl": 0.00180434,
     "atlDate": "2017-11-12T00:00:00.000Z",
     "circulatingSupply": 94798300654.1525,
-    "totalSupply": 94798310800.30629,
+    "totalSupply": 94799278948.3133,
     "maxSupply": null,
-    "fdv": 33185110788
+    "fdv": 33265627371
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 1438,
     "commits4Weeks": 19
   },
-  "fetchedAt": "2026-03-23T15:43:57.429Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.483Z"
+  "fetchedAt": "2026-05-14T07:40:27.814Z"
 }

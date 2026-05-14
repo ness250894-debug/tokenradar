@@ -2,6 +2,7 @@
   "id": "gensyn",
   "symbol": "ai",
   "name": "Gensyn",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71027/large/gensyn.png?1765331043",
   "description": "Gensyn, the Network for Machine Intelligence, is an open infrastructure layer for AI. It provides the foundational infrastructure AI needs to operate at scale, including compute, data, and information exchange, by enabling both humans and machines to participate in open digital markets. Built with native support for AI communication, identification, and verification, Gensyn serves as the economic backbone for continual learning over new decentralised AI models and applications, without centralised control.\n\nGensyn is backed by a16z crypto, CoinFund, Galaxy Digital, Eden Block, Maven 11, and more. For more information, visit http://gensyn.ai",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -17,25 +18,25 @@
     "explorer": "https://gensyn-mainnet.explorer.alchemy.com/"
   },
   "market": {
-    "price": 0.03229141,
-    "marketCap": 42029715,
-    "marketCapRank": 557,
-    "volume24h": 14291208,
-    "high24h": 0.03575887,
-    "low24h": 0.03153013,
-    "priceChange24h": -9.3528,
-    "priceChange7d": 0,
+    "price": 0.03191837,
+    "marketCap": 41648988,
+    "marketCapRank": 569,
+    "volume24h": 8337238,
+    "high24h": 0.03229198,
+    "low24h": 0.02757151,
+    "priceChange24h": -0.87877,
+    "priceChange7d": 2.04403,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.103372,
-    "athChangePercentage": -69.14374,
+    "athChangePercentage": -69.39211,
     "athDate": "2026-04-29T09:05:27.502Z",
-    "atl": 0.02914745,
-    "atlDate": "2026-05-02T13:30:13.592Z",
+    "atl": 0.02757151,
+    "atlDate": "2026-05-13T16:35:26.924Z",
     "circulatingSupply": 1304675313,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 322146932
+    "fdv": 319228757
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-06T08:38:07.920Z"
+  "fetchedAt": "2026-05-14T07:08:44.967Z"
 }

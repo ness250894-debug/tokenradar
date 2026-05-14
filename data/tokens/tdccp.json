@@ -2,26 +2,49 @@
   "id": "tdccp",
   "symbol": "tdccp",
   "name": "TDCCP",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55581/large/tdccp-logo.jpg?1746787823",
+  "description": "",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tdccpmeme.pw/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/Hg8bKz4mvs8KNj9zew1cEF9tDw1x2GViB4RFZjVEmfrD"
+  },
   "market": {
-    "price": 0.083755,
-    "marketCap": 53649259,
-    "marketCapRank": 492,
-    "volume24h": 74237,
-    "priceChange24h": 3.2653,
+    "price": 0.067441,
+    "marketCap": 43070263,
+    "marketCapRank": 554,
+    "volume24h": 392343,
+    "high24h": 0.07304,
+    "low24h": 0.063296,
+    "priceChange24h": -4.83408,
+    "priceChange7d": -16.53234,
+    "priceChange30d": -24.64072,
+    "priceChange1y": -82.96808,
     "ath": 0.441232,
-    "athChangePercentage": -80.97053,
+    "athChangePercentage": -84.82806,
     "athDate": "2025-09-08T12:37:29.380Z",
-    "atl": 0.064382,
-    "atlDate": "2025-08-23T01:57:50.091Z",
+    "atl": 0.063296,
+    "atlDate": "2026-05-13T19:41:05.217Z",
     "circulatingSupply": 639999980.9,
     "totalSupply": 639999980.9,
     "maxSupply": 639999980.9,
-    "high24h": 0.084119,
-    "low24h": 0.08018,
-    "priceChange7d": -0.7407735893696541,
-    "priceChange30d": -15.794041183862012,
-    "priceChange1y": -69.83408659573001,
-    "fdv": 53649259
+    "fdv": 43070263
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.899Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:36:33.893Z"
 }

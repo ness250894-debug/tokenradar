@@ -2,24 +2,26 @@
   "id": "tether",
   "symbol": "usdt",
   "name": "Tether",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
   "description": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve). The primary use of Tether is that it offers some stability to the otherwise volatile crypto space and offers liquidity to exchanges who can’t deal in dollars and with banks (for example to the sometimes controversial but leading exchange Bitfinex)\n\nThe digital coins are issued by a company called Tether Limited that is governed by the laws of the British Virgin Islands, according to the legal part of its website. It is incorporated in Hong Kong. It has emerged that Jan Ludovicus van der Velde is the CEO of cryptocurrency exchange Bitfinex, which has been accused of being involved in the price manipulation of bitcoin, as well as tether. Many people trading on exchanges, including Bitfinex, will use tether to buy other cryptocurrencies like bitcoin. Tether Limited argues that using this method to buy virtual currencies allows users to move fiat in and out of an exchange more quickly and cheaply. Also, exchanges typically have rocky relationships with banks, and using Tether is a way to circumvent that.\n\nUSDT is fairly simple to use. Once on exchanges like Poloniex or Bittrex, it can be used to purchase Bitcoin and other cryptocurrencies. It can be easily transferred from an exchange to any Omni Layer enabled wallet. Tether has no transaction fees, although external wallets and exchanges may charge one. In order to convert USDT to USD and vise versa through the Tether.to Platform, users must pay a small fee. Buying and selling Tether for Bitcoin can be done through a variety of exchanges like the ones mentioned previously or through the Tether.to platform, which also allows the conversion between USD to and from your bank account.\n\n",
   "categories": [
-    "Stablecoins",
-    "USD Stablecoin",
-    "Solana Ecosystem",
-    "Avalanche Ecosystem",
-    "Near Protocol Ecosystem",
-    "Celo Ecosystem",
-    "Ethereum Ecosystem",
-    "Tezos Ecosystem",
-    "Kaia Ecosystem",
     "Aptos Ecosystem",
+    "Tether Ecosystem",
+    "Tezos Ecosystem",
+    "Avalanche Ecosystem",
+    "Solana Ecosystem",
+    "Stablecoins",
+    "Kava Ecosystem",
+    "USD Stablecoin",
     "FTX Holdings",
     "TON Ecosystem",
+    "Kaia Ecosystem",
     "Tron Ecosystem",
-    "Kava Ecosystem",
+    "Near Protocol Ecosystem",
+    "World Liberty Financial Portfolio",
     "Fiat-backed Stablecoin",
-    "World Liberty Financial Portfolio"
+    "Celo Ecosystem",
+    "Ethereum Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -29,25 +31,25 @@
     "explorer": "https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7"
   },
   "market": {
-    "price": 0.999595,
-    "marketCap": 189739820872,
+    "price": 0.999475,
+    "marketCap": 189756982546,
     "marketCapRank": 3,
-    "volume24h": 71143112543,
-    "high24h": 0.999786,
+    "volume24h": 73812153297,
+    "high24h": 0.999679,
     "low24h": 0.999368,
-    "priceChange24h": -0.00602,
-    "priceChange7d": -0.028369070660409806,
-    "priceChange30d": -0.07115509711350776,
-    "priceChange1y": -0.06140530391052604,
+    "priceChange24h": -0.01461,
+    "priceChange7d": -0.03772,
+    "priceChange30d": -0.08233,
+    "priceChange1y": -0.04741,
     "ath": 1.32,
-    "athChangePercentage": -24.45034,
+    "athChangePercentage": -24.46019,
     "athDate": "2018-07-24T00:00:00.000Z",
     "atl": 0.572521,
     "atlDate": "2015-03-02T00:00:00.000Z",
-    "circulatingSupply": 189816609410.1058,
-    "totalSupply": 195283549714.5762,
+    "circulatingSupply": 189857486520.226,
+    "totalSupply": 195324426827.8562,
     "maxSupply": null,
-    "fdv": 195204549577
+    "fdv": 195221028845
   },
   "community": {
     "twitterFollowers": null,
@@ -58,6 +60,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T15:04:53.642Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.480Z"
+  "fetchedAt": "2026-05-14T07:37:24.454Z"
 }

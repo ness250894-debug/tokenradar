@@ -2,6 +2,7 @@
   "id": "megaeth",
   "symbol": "mega",
   "name": "MegaETH",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69995/large/9fcb2fa4-b240-46e2-9016-c4f6101a139d.jpeg?1778485816",
   "description": "MegaETH is the first real-time blockchain, where crypto applications leverage extreme performance to reach their full potential. MegaETH is secured by Ethereum and powered by a hyper-optimized execution environment with a heterogeneous architecture. It delivers streaming throughput with 10 millisecond latency and up to 100,000 TPS. Developers scale apps with real-time state streaming, and users get instant transactions all while preserving full Ethereum composability.",
   "categories": [
     "Smart Contract Platform",
@@ -16,25 +17,25 @@
     "explorer": "https://mega.etherscan.io/token/0x28b7e77f82b25b95953825f1e3ea0e36c1c29861"
   },
   "market": {
-    "price": 0.106112,
-    "marketCap": 119884071,
-    "marketCapRank": 260,
-    "volume24h": 35086615,
-    "high24h": 0.112562,
-    "low24h": 0.105068,
-    "priceChange24h": -4.02523,
-    "priceChange7d": -15.860258761352133,
+    "price": 0.102924,
+    "marketCap": 116188540,
+    "marketCapRank": 267,
+    "volume24h": 27769444,
+    "high24h": 0.111148,
+    "low24h": 0.100954,
+    "priceChange24h": -7.39956,
+    "priceChange7d": -16.53392,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.2249,
-    "athChangePercentage": -52.73313,
+    "athChangePercentage": -54.14819,
     "athDate": "2026-04-30T10:06:31.058Z",
-    "atl": 0.105068,
-    "atlDate": "2026-05-13T14:05:32.003Z",
+    "atl": 0.100954,
+    "atlDate": "2026-05-14T04:05:39.974Z",
     "circulatingSupply": 1129792788,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 1061115563
+    "fdv": 1028405751
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:58:53.709Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.573Z"
+  "fetchedAt": "2026-05-14T07:17:50.612Z"
 }

@@ -2,7 +2,8 @@
   "id": "doublezero",
   "symbol": "2z",
   "name": "DoubleZero",
-  "description": "DoubleZero is a high-performance global network of independently contributed links, purpose-built for\nblockchain and other distributed systems. It provides direct, low-latency routing that strengthens validator\nperformance and supports faster, fairer participation worldwide.\n\n2Z Tokens are used to access the network’s connectivity service, and, on the other side, reward network contributors and resource providers based on performance and reliability. 2Z Tokens can also be staked to enhance the security of the network.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68339/large/Coingecko_-_PFP.png?1755694420",
+  "description": "DoubleZero is a high-performance global network of independently contributed links, purpose-built for blockchain and other distributed systems. It provides direct, low-latency routing that strengthens validator\nperformance and supports faster, fairer participation worldwide.\n\n2Z Tokens are used to access the network’s connectivity service, and, on the other side, reward network contributors and resource providers based on performance and reliability. Staking mechanisms are planned for future phases of the protocol to further enhance network security.",
   "categories": [
     "Infrastructure",
     "Solana Ecosystem",
@@ -17,25 +18,25 @@
     "explorer": "https://solscan.io/token/J6pQQ3FAcJQeWPPGppWRb4nM8jU3wLyYbRrLh7feMfvd"
   },
   "market": {
-    "price": 0.102083,
-    "marketCap": 354359953,
+    "price": 0.102489,
+    "marketCap": 355949728,
     "marketCapRank": 141,
-    "volume24h": 9281974,
-    "high24h": 0.107448,
+    "volume24h": 9722438,
+    "high24h": 0.107804,
     "low24h": 0.100361,
-    "priceChange24h": -4.06289,
-    "priceChange7d": 6.389732712123861,
-    "priceChange30d": 31.40418167512266,
+    "priceChange24h": -4.88401,
+    "priceChange7d": 9.06553,
+    "priceChange30d": 31.266,
     "priceChange1y": 0,
     "ath": 0.893679,
-    "athChangePercentage": -88.57248,
+    "athChangePercentage": -88.55295,
     "athDate": "2025-10-02T13:11:45.813Z",
     "atl": 0.065927,
     "atlDate": "2026-02-24T13:26:12.060Z",
-    "circulatingSupply": 3469852725.2,
-    "totalSupply": 9998435225.2,
+    "circulatingSupply": 3469852725.3,
+    "totalSupply": 9998435225.3,
     "maxSupply": 10000000000,
-    "fdv": 1021093781
+    "fdv": 1025674742
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T19:02:21.281Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.534Z"
+  "fetchedAt": "2026-05-13T18:32:12.767Z"
 }

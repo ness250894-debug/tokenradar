@@ -2,26 +2,50 @@
   "id": "unit-pump",
   "symbol": "upump",
   "name": "Unit Pump",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67362/large/pump.jpg?1752548000",
+  "description": "",
+  "categories": [
+    "Hyperliquid Ecosystem",
+    "Bridged-Tokens",
+    "HyperEVM Ecosystem",
+    "Hyperunit Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://hyperevmscan.io/token/0x27eC642013bcB3D80CA3706599D3cdA04F6f4452"
+  },
   "market": {
-    "price": 0.00186795,
-    "marketCap": 59636382,
-    "marketCapRank": 453,
-    "volume24h": 1105755,
-    "priceChange24h": -4.99015,
+    "price": 0.00184982,
+    "marketCap": 59003610,
+    "marketCapRank": 456,
+    "volume24h": 813955,
+    "high24h": 0.00201989,
+    "low24h": 0.00182736,
+    "priceChange24h": -7.85996,
+    "priceChange7d": -8.70893,
+    "priceChange30d": -1.23537,
+    "priceChange1y": 0,
     "ath": 0.00878431,
-    "athChangePercentage": -78.7192,
+    "athChangePercentage": -79.02128,
     "athDate": "2025-09-14T16:50:34.793Z",
     "atl": 0.00157343,
     "atlDate": "2026-04-02T13:45:52.579Z",
     "circulatingSupply": 31901834623.08,
     "totalSupply": 1000000000000,
     "maxSupply": 1000000000000,
-    "high24h": 0.00202408,
-    "low24h": 0.00186347,
-    "priceChange7d": -5.490066883279007,
-    "priceChange30d": 3.193414019663214,
-    "priceChange1y": 0,
-    "fdv": 1869371549
+    "fdv": 1849536565
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.688Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:41:31.055Z"
 }

@@ -4,7 +4,13 @@ import { describe, expect, it } from "vitest";
 
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
 import { type Article, type TokenDetail } from "../src/lib/content-loader";
-import { canonicalPath, canonicalUrl, isArticleIndexable, isTokenOverviewIndexable } from "../src/lib/seo";
+import {
+  canonicalPath,
+  canonicalUrl,
+  filterIndexableArticleTokenIds,
+  isArticleIndexable,
+  isTokenOverviewIndexable,
+} from "../src/lib/seo";
 
 function makeTokenDetail(volume24h: number): TokenDetail {
   return {
@@ -122,6 +128,19 @@ describe("SEO helpers", () => {
     expect(isArticleIndexable(makeArticle(900))).toBe(true);
     expect(isArticleIndexable(makeArticle(100))).toBe(false);
     expect(isArticleIndexable({ ...makeArticle(900), content: "analysis ".repeat(900) })).toBe(false);
+  });
+
+  it("filters static article routes to quality-passing articles", async () => {
+    const tokenIds = ["good", "thin", "missing"];
+    const articles: Record<string, Article | null> = {
+      good: makeArticle(900),
+      thin: makeArticle(100),
+      missing: null,
+    };
+
+    await expect(filterIndexableArticleTokenIds(tokenIds, async (tokenId) => articles[tokenId])).resolves.toEqual([
+      "good",
+    ]);
   });
 });
 

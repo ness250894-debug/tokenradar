@@ -2,6 +2,7 @@
   "id": "kite-2",
   "symbol": "kite",
   "name": "Kite",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70426/large/KITE-ICON.png?1762328605",
   "description": "Kite enables AI agents to autonomously transact at scale with cryptographic safety and native x402 compatibility—solving the infrastructure crisis imprisoning the agent economy today.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x904567252D8F48555b7447c67dCA23F0372E16be"
   },
   "market": {
-    "price": 0.206618,
-    "marketCap": 472455909,
-    "marketCapRank": 116,
-    "volume24h": 125819237,
-    "high24h": 0.217999,
-    "low24h": 0.189321,
-    "priceChange24h": 4.89223,
-    "priceChange7d": 33.36769438041498,
-    "priceChange30d": 51.302396238864965,
+    "price": 0.22051,
+    "marketCap": 497837105,
+    "marketCapRank": 107,
+    "volume24h": 119813775,
+    "high24h": 0.226723,
+    "low24h": 0.195408,
+    "priceChange24h": 11.74867,
+    "priceChange7d": 42.56106,
+    "priceChange30d": 59.73346,
     "priceChange1y": 0,
     "ath": 0.319747,
-    "athChangePercentage": -35.00106,
+    "athChangePercentage": -31.56595,
     "athDate": "2026-03-06T10:30:09.941Z",
     "atl": 0.061819,
     "atlDate": "2025-11-04T08:21:02.065Z",
     "circulatingSupply": 2273255814,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 2078322669
+    "fdv": 2189973967
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T03:28:10.874Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.523Z"
+  "fetchedAt": "2026-05-14T07:14:51.587Z"
 }

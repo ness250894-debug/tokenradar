@@ -2,6 +2,7 @@
   "id": "sosovalue",
   "symbol": "soso",
   "name": "SoSoValue",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53919/large/soso.jpg?1737717378",
   "description": "SoSoValue is an AI-powered investment and research platform that combines the efficiency of CeFi with the transparency of DeFi, addressing challenges like information overload and cross-chain asset management in the cryptocurrency market.\nThe platform consists of two key components:\nAI Crypto Market Research Tool: Aggregates and analyzes vast amounts of data to deliver clear, actionable market insights.\nDecentralized SSI Protocol: Built on the EVM, it offers a low-barrier, high-efficiency portfolio management solution, overcoming traditional obstacles like high fees, slow settlements, and restricted market access.\nBy integrating the strengths of CeFi and DeFi, SoSoValue enhances investment decision-making, streamlines wealth management, and helps investors capitalize on market growth opportunities.",
   "categories": [
     "Index",
@@ -19,35 +20,34 @@
     "explorer": "https://main-scan.valuechain.xyz/"
   },
   "market": {
-    "price": 0.367969,
-    "marketCap": 114806883,
-    "marketCapRank": 270,
-    "volume24h": 3972349,
-    "high24h": 0.382412,
-    "low24h": 0.367969,
-    "priceChange24h": -3.61725,
-    "priceChange7d": -7.216734539879963,
-    "priceChange30d": -9.736733227577028,
-    "priceChange1y": -36.72279365915101,
+    "price": 0.36261,
+    "marketCap": 113194707,
+    "marketCapRank": 275,
+    "volume24h": 3682124,
+    "high24h": 0.381371,
+    "low24h": 0.361171,
+    "priceChange24h": -2.74597,
+    "priceChange7d": -7.70844,
+    "priceChange30d": -10.52674,
+    "priceChange1y": -38.45724,
     "ath": 1.42,
-    "athChangePercentage": -74.08182,
+    "athChangePercentage": -74.47475,
     "athDate": "2025-01-25T12:11:14.152Z",
     "atl": 0.299484,
     "atlDate": "2026-02-24T22:40:38.827Z",
     "circulatingSupply": 312001548,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 367968953
+    "fdv": 362801749
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 9,
+    "githubStars": 12,
     "githubForks": 8,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:27:05.776Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.575Z"
+  "fetchedAt": "2026-05-14T07:33:17.835Z"
 }

@@ -2,6 +2,7 @@
   "id": "lido-earn-eth",
   "symbol": "earneth",
   "name": "Lido Earn ETH",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172835/large/earnETH.png?1776152041",
   "description": "EarnETH: Blue-chip DeFi rewards made simple.\nEarnETH deploys capital across established DeFi protocols including Aave, Morpho, Pendle, Gearbox, Maple and more.\n\nRather than relying on a single strategy provider, EarnETH aggregates multiple providers and dynamically allocates assets towards performing opportunities as conditions evolve. \n\nEarnETH accepts ETH, WETH, and (w)stETH. Deposit to receive earnETH, earning daily, auto-compounded DeFi rewards. Alternatively, you can deposit existing Lido Earn tokens - GG/DVstETH/strETH - into the vault. \n\nAccess blue-chip DeFi-based rewards with automatic compounding and optimal capital efficiency. Simple earning. \n\nGet started with EarnETH here: stake.lido.fi/earn/eth",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0xBBFC8683C8fE8cF73777feDE7ab9574935fea0A4"
   },
   "market": {
-    "price": 2264.04,
-    "marketCap": 245490246,
+    "price": 2276.1,
+    "marketCap": 246825557,
     "marketCapRank": 172,
     "volume24h": 9671.5,
     "high24h": 2333.48,
     "low24h": 2250.37,
-    "priceChange24h": -1.46219,
-    "priceChange7d": -4.161797157500498,
+    "priceChange24h": -1.60179,
+    "priceChange7d": -2.83371,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 2430.25,
-    "athChangePercentage": -6.76335,
+    "athChangePercentage": -6.19067,
     "athDate": "2026-05-06T11:40:44.634Z",
     "atl": 1093.28,
     "atlDate": "2026-04-19T19:20:00.995Z",
     "circulatingSupply": 108341.8987882967,
     "totalSupply": 108341.8987882967,
     "maxSupply": null,
-    "fdv": 245490246
+    "fdv": 246825557
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:38.125Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.548Z"
+  "fetchedAt": "2026-05-14T07:15:42.172Z"
 }

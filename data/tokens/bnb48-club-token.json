@@ -2,7 +2,8 @@
   "id": "bnb48-club-token",
   "symbol": "koge",
   "name": "KOGE",
-  "description": "A cryptocurrency token known as KOGE (KOGE). It is tracked on CoinGecko with the ID \"bnb48-club-token\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13827/large/bnb48.png?1696513570",
+  "description": "",
   "categories": [
     "BNB Chain Ecosystem",
     "Binance Alpha Spotlight"
@@ -15,25 +16,25 @@
     "explorer": "https://bscscan.com/token/0xe6df05ce8c8301223373cf5b969afcb1498c5528"
   },
   "market": {
-    "price": 31.17,
-    "marketCap": 105434016,
-    "marketCapRank": 288,
-    "volume24h": 33528,
+    "price": 31.15,
+    "marketCap": 105294846,
+    "marketCapRank": 289,
+    "volume24h": 35919,
     "high24h": 31.5,
     "low24h": 30.89,
-    "priceChange24h": 0.05052,
-    "priceChange7d": -2.94958046998721,
-    "priceChange30d": -35.06335901771997,
-    "priceChange1y": -35.20311001483618,
+    "priceChange24h": 0.38092,
+    "priceChange7d": -4.10049,
+    "priceChange30d": -35.1287,
+    "priceChange1y": -34.92062,
     "ath": 76.94,
-    "athChangePercentage": -59.32403,
+    "athChangePercentage": -59.39942,
     "athDate": "2022-03-25T18:07:48.462Z",
     "atl": 1.19,
     "atlDate": "2021-02-01T15:55:03.335Z",
     "circulatingSupply": 3379998.08,
     "totalSupply": 3379998.08,
     "maxSupply": 3441121.42456221,
-    "fdv": 105434016
+    "fdv": 105294846
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:49:33.177Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.578Z"
+  "fetchedAt": "2026-05-13T18:26:04.012Z"
 }

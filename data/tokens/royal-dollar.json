@@ -2,6 +2,7 @@
   "id": "royal-dollar",
   "symbol": "rusd",
   "name": "Royal Dollar",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172367/large/RUSD_logo_200x200_px.png?1773310830",
   "description": "RCOINS is the digital asset product family developed under the RIB Digital brand, designed to bring stable value, transparency, and efficiency to digital finance. \nIts flagship token, Royal Dollar (RUSD), is a USD-referenced stable-value digital asset issued by The RIB Digital Holdings Limited, Hong Kong. Designed for payments, treasury operations, OTC trading, exchange liquidity, and selected on-chain financial applications, RUSD aims to deliver a more practical and transparent digital dollar experience.",
   "categories": [
     "Stablecoins",
@@ -20,24 +21,24 @@
   },
   "market": {
     "price": 1,
-    "marketCap": 250073143,
-    "marketCapRank": 170,
-    "volume24h": 133890304,
+    "marketCap": 249996465,
+    "marketCapRank": 171,
+    "volume24h": 130414706,
     "high24h": 1,
-    "low24h": 0.999304,
-    "priceChange24h": 0.01593,
-    "priceChange7d": 0.053714828520253846,
-    "priceChange30d": 0.062286639849401526,
+    "low24h": 0.999283,
+    "priceChange24h": 0.04234,
+    "priceChange7d": 0.02645,
+    "priceChange30d": 0.05106,
     "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.2086,
+    "athChangePercentage": -0.24396,
     "athDate": "2026-03-20T15:02:26.638Z",
     "atl": 0.997861,
     "atlDate": "2026-04-24T10:55:21.492Z",
     "circulatingSupply": 250000000,
     "totalSupply": 5000000000,
     "maxSupply": null,
-    "fdv": 5001462858
+    "fdv": 4999929295
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:44.421Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.547Z"
+  "fetchedAt": "2026-05-14T07:30:52.374Z"
 }

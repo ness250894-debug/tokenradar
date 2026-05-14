@@ -2,6 +2,7 @@
   "id": "dogecoin",
   "symbol": "doge",
   "name": "Dogecoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409",
   "description": "Dogecoin is an open-source digital currency based on the \"Doge\" meme that functions as a peer-to-peer medium for fast payments and digital tipping. Unlike projects backed by corporate entities, its value is driven by a global community, and the project is managed by a decentralized group of volunteers and the non-profit Dogecoin Foundation rather than a formal company.\n\nOriginally created in 2013 by software engineers Billy Markus and Jackson Palmer as a market parody, the project held no public sale or venture capital rounds. The network operates as a fork of LuckyCoin, which itself was a fork of Litecoin, using a proof of work consensus mechanism. It employs the Scrypt algorithm to ensure the mining process remains fast and efficient, with new blocks processed every 60 seconds. A unique technical feature is its use of merged mining, allowing miners to secure Dogecoin simultaneously with other Scrypt-based networks like Litecoin.\n\nTo keep transaction fees low and the network running indefinitely, Dogecoin features an uncapped supply where new coins are added forever. In a major regulatory milestone in March 2026, a joint SEC and CFTC framework officially classified Dogecoin as a digital commodity, placing it in the same asset category as gold or oil.",
   "categories": [
     "Smart Contract Platform",
@@ -23,25 +24,25 @@
     "explorer": "https://doge.tokenview.io/"
   },
   "market": {
-    "price": 0.112496,
-    "marketCap": 17381219420,
+    "price": 0.114174,
+    "marketCap": 17604668785,
     "marketCapRank": 10,
-    "volume24h": 1818271853,
+    "volume24h": 1733682574,
     "high24h": 0.114223,
-    "low24h": 0.109686,
-    "priceChange24h": 2.56176,
-    "priceChange7d": -0.27147898685458527,
-    "priceChange30d": 22.647872059552487,
-    "priceChange1y": -52.707743380979046,
+    "low24h": 0.109045,
+    "priceChange24h": 4.66846,
+    "priceChange7d": 0.76294,
+    "priceChange30d": 24.14288,
+    "priceChange1y": -51.78966,
     "ath": 0.731578,
-    "athChangePercentage": -84.62279,
+    "athChangePercentage": -84.39345,
     "athDate": "2021-05-08T05:08:23.458Z",
     "atl": 0.0000869,
     "atlDate": "2015-05-06T00:00:00.000Z",
     "circulatingSupply": 154222866383.7052,
-    "totalSupply": 154224456383.7052,
+    "totalSupply": 154223846383.7052,
     "maxSupply": null,
-    "fdv": 17381398616
+    "fdv": 17604780653
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,5 @@
     "githubForks": 2844,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T18:59:34.039Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.484Z"
+  "fetchedAt": "2026-05-13T18:31:53.804Z"
 }

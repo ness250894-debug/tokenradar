@@ -2,26 +2,53 @@
   "id": "holoworld",
   "symbol": "holo",
   "name": "Holoworld",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68845/large/holo.png?1756787241",
+  "description": "Holoworld lets anyone create intelligent virtual beings, or \"AI agents,\" that can talk, act, and engage across different platforms—no coding required.\n\nThese aren't just simple reply bots. Our agents are IPs that can autonomously interact through text, voice, and avatars. They can access live data and handle complex tasks through a rich plugin ecosystem. Each agent is verifiable on the Solana blockchain, unlocking true ownership, composability, and a permissionless economy around agentic IPs.\n\nFrom creators and brands to gaming communities, thousands have already launched their AI agents on Holoworld. Join us in building a world where AI agents can tell stories, connect with fans, and create new kinds of experiences.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Solana Ecosystem",
+    "AI Agents",
+    "Binance HODLer Airdrops",
+    "AI Agent Launchpad",
+    "AI Framework"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.holoworld.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x1a5d7e4c3a7f940b240b7357a4bfed30d17f9497"
+  },
   "market": {
-    "price": 0.085366,
-    "marketCap": 54713866,
-    "marketCapRank": 479,
-    "volume24h": 17894235,
+    "price": 0.076061,
+    "marketCap": 48774836,
+    "marketCapRank": 517,
+    "volume24h": 15633557,
     "high24h": 0.088081,
-    "low24h": 0.084129,
-    "priceChange24h": -1.55068,
-    "priceChange7d": 21.292270503485277,
-    "priceChange30d": 32.566007949227675,
+    "low24h": 0.072973,
+    "priceChange24h": -11.72023,
+    "priceChange7d": 6.24119,
+    "priceChange30d": 25.747,
     "priceChange1y": 0,
     "ath": 0.775714,
-    "athChangePercentage": -88.99112,
+    "athChangePercentage": -90.20798,
     "athDate": "2025-09-11T12:11:26.420Z",
     "atl": 0.050023,
     "atlDate": "2026-02-06T00:25:39.125Z",
     "circulatingSupply": 640697508.3643444,
     "totalSupply": 2048000000,
     "maxSupply": 2048000000,
-    "fdv": 174893762
+    "fdv": 155909557
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.694Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:11:10.379Z"
 }

@@ -2,6 +2,7 @@
   "id": "venice-token",
   "symbol": "vvv",
   "name": "Venice Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54023/large/VVV_Token_Transparent.png?1741856877",
   "description": "Venice boasts an innovative approach to generative AI with its unique privacy architecture, access to competitive features including multiple leading open-source LLM models such as DeepSeek R1, PDFs analysis, and image and code generation. An unrestricted AI Characters feature is available with its Pro version, Venice Pro. \n\nVVV is designed to minimize friction and reduce costs for AI agents and developers to access private, reliable, on-demand and perpetual AI inference via Venice.ai's API.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -10,7 +11,8 @@
     "AI Applications",
     "Binance Alpha Spotlight",
     "Made in USA",
-    "Base Native"
+    "Base Native",
+    "Venice Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -20,25 +22,25 @@
     "explorer": "https://basescan.org/token/0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf"
   },
   "market": {
-    "price": 15.08,
-    "marketCap": 693396222,
-    "marketCapRank": 87,
-    "volume24h": 80030130,
-    "high24h": 16.44,
-    "low24h": 13.9,
-    "priceChange24h": -7.51148,
-    "priceChange7d": 24.8635154806241,
-    "priceChange30d": 70.83837599684146,
-    "priceChange1y": 265.33848242291367,
+    "price": 13.92,
+    "marketCap": 644374303,
+    "marketCapRank": 88,
+    "volume24h": 115016668,
+    "high24h": 15.48,
+    "low24h": 13.14,
+    "priceChange24h": -6.37828,
+    "priceChange7d": 9.95121,
+    "priceChange30d": 53.76158,
+    "priceChange1y": 232.39732,
     "ath": 22.58,
-    "athChangePercentage": -33.41633,
+    "athChangePercentage": -38.25487,
     "athDate": "2025-01-28T00:06:36.780Z",
     "atl": 0.91975,
     "atlDate": "2025-12-01T18:55:48.565Z",
-    "circulatingSupply": 46033264.13923941,
-    "totalSupply": 79929666.86810602,
+    "circulatingSupply": 46049090.49916153,
+    "totalSupply": 79937119.43375733,
     "maxSupply": null,
-    "fdv": 1203975648
+    "fdv": 1118576394
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:11:50.240Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-14T07:44:15.452Z"
 }

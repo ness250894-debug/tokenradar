@@ -2,6 +2,7 @@
   "id": "sonic-3",
   "symbol": "s",
   "name": "Sonic",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38108/large/200x200_Sonic_Logo.png?1734679256",
   "description": "Sonic is the highest-performing EVM L1, combining speed, incentives, and world-class infrastructure, powering the next generation of DeFi applications. The chain provides 400,000 TPS and sub-second finality.\n\nSonic's Fee Monetization (FeeM) program rewards developers with up to 90% of the fees their apps generate, adapting the Web2 ad-revenue model to a decentralized framework. Developers now directly profit from their app's traffic and user engagement.\n\nFurthermore, the Sonic Gateway provides developers and users with seamless access to vast liquidity through a native, secure bridge connected to Ethereum. With a unique fail-safe mechanism, it ensures your assets are protected in all circumstances.",
   "categories": [
     "Smart Contract Platform",
@@ -17,25 +18,25 @@
     "explorer": "https://sonicscan.org/"
   },
   "market": {
-    "price": 0.04872947,
-    "marketCap": 184509144,
-    "marketCapRank": 201,
-    "volume24h": 18956362,
+    "price": 0.04851347,
+    "marketCap": 183614978,
+    "marketCapRank": 199,
+    "volume24h": 17617720,
     "high24h": 0.05203,
-    "low24h": 0.04826774,
-    "priceChange24h": -3.52213,
-    "priceChange7d": 0.6384596574024691,
-    "priceChange30d": 19.380745947679227,
-    "priceChange1y": -91.76934991094267,
+    "low24h": 0.04780965,
+    "priceChange24h": -5.63566,
+    "priceChange7d": -3.41582,
+    "priceChange30d": 16.32599,
+    "priceChange1y": -91.93106,
     "ath": 1.029,
-    "athChangePercentage": -95.26194,
+    "athChangePercentage": -95.28214,
     "athDate": "2025-01-04T21:35:44.705Z",
     "atl": 0.03683683,
     "atlDate": "2026-02-28T10:16:30.456Z",
     "circulatingSupply": 3784775845,
     "totalSupply": 3885497663,
     "maxSupply": null,
-    "fdv": 189419368
+    "fdv": 188501406
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:25:22.082Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.554Z"
+  "fetchedAt": "2026-05-14T07:33:05.142Z"
 }

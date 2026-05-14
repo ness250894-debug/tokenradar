@@ -2,6 +2,7 @@
   "id": "zama",
   "symbol": "zama",
   "name": "Zama",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70921/large/zama.png?1764591992",
   "description": "Zama is an open source cryptography company that builds state-of-the-art Fully Homomorphic Encryption (FHE) solutions for blockchain.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -22,25 +23,25 @@
     "explorer": "https://etherscan.io/token/0xa12cc123ba206d4031d1c7f6223d1c2ec249f4f3"
   },
   "market": {
-    "price": 0.02613344,
-    "marketCap": 57526847,
+    "price": 0.02626075,
+    "marketCap": 57772761,
     "marketCapRank": 461,
-    "volume24h": 5842059,
+    "volume24h": 6974001,
     "high24h": 0.02882215,
-    "low24h": 0.02614857,
-    "priceChange24h": -8.36781,
-    "priceChange7d": -11.221547550806434,
-    "priceChange30d": 4.396781838105543,
+    "low24h": 0.02568611,
+    "priceChange24h": -7.79767,
+    "priceChange7d": -6.73008,
+    "priceChange30d": -13.4819,
     "priceChange1y": 0,
     "ath": 0.04103617,
-    "athChangePercentage": -36.08018,
+    "athChangePercentage": -35.98789,
     "athDate": "2026-04-14T10:40:27.861Z",
     "atl": 0.01673142,
     "atlDate": "2026-02-12T17:20:22.605Z",
     "circulatingSupply": 2200000000,
     "totalSupply": 11000000000,
     "maxSupply": null,
-    "fdv": 287634236
+    "fdv": 288863807
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-24T23:51:54.472Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.690Z"
+  "fetchedAt": "2026-05-14T07:46:53.581Z"
 }

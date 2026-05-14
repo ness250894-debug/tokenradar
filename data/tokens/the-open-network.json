@@ -2,6 +2,7 @@
   "id": "the-open-network",
   "symbol": "ton",
   "name": "Toncoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/17980/large/photo_2024-09-10_17.09.00.jpeg?1725963446",
   "description": "TON (The Open Network) is a general-purpose&nbsp;blockchain that allows developers to build decentralized apps and tokens.",
   "categories": [
     "Smart Contract Platform",
@@ -26,35 +27,34 @@
     "explorer": "https://tonviewer.com/EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   },
   "market": {
-    "price": 2.13,
-    "marketCap": 5713268101,
+    "price": 2.1,
+    "marketCap": 5640971613,
     "marketCapRank": 21,
-    "volume24h": 397815741,
-    "high24h": 2.34,
-    "low24h": 2.1,
-    "priceChange24h": -8.77264,
-    "priceChange7d": -11.779908355126214,
-    "priceChange30d": 49.01605322055664,
-    "priceChange1y": -36.97587287428736,
+    "volume24h": 423985189,
+    "high24h": 2.28,
+    "low24h": 2.05,
+    "priceChange24h": -7.51166,
+    "priceChange7d": -27.01424,
+    "priceChange30d": 46.10076,
+    "priceChange1y": -38.45634,
     "ath": 8.25,
-    "athChangePercentage": -74.30811,
+    "athChangePercentage": -74.4697,
     "athDate": "2024-06-15T00:36:51.509Z",
     "atl": 0.519364,
     "atlDate": "2021-09-21T00:33:11.092Z",
-    "circulatingSupply": 2687041760.801804,
-    "totalSupply": 5179085084.456864,
+    "circulatingSupply": 2687336817.778208,
+    "totalSupply": 5179368541.162493,
     "maxSupply": null,
-    "fdv": 11011924725
+    "fdv": 10871979545
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 3916,
-    "githubForks": 1484,
-    "commits4Weeks": 48
+    "githubStars": 3998,
+    "githubForks": 1531,
+    "commits4Weeks": 44
   },
-  "fetchedAt": "2026-03-23T15:07:50.280Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.486Z"
+  "fetchedAt": "2026-05-14T07:37:49.733Z"
 }

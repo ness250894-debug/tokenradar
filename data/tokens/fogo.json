@@ -2,26 +2,50 @@
   "id": "fogo",
   "symbol": "fogo",
   "name": "Fogo",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68100/large/fogo_AppIcon.png?1767721208",
+  "description": "Fogo is a next-generation Layer 1 blockchain designed to deliver the best on-chain trading experience ever. With its unique architecture and Firedancer implementation, the chain offers low latency, near-instant finality, and unparalleled scalability. As a purpose-built blockchain, Fogo will incorporate a carefully constructed, vertically integrated tech stack. This includes a curated validator set, native price feeds, an enshrined DEX, and colocated liquidity providers to create a truly differentiated trading environment. Backed by a team of trading and engineering experts and driven by a vision to redefine what’s possible, Fogo is setting the standard for high-performance blockchain infrastructure.",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "Layer 1 (L1)",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.fogo.io/",
+    "github": "https://github.com/fogo-foundation",
+    "reddit": null,
+    "explorer": "https://explorer.fogo.io/"
+  },
   "market": {
-    "price": 0.02009879,
-    "marketCap": 76783024,
-    "marketCapRank": 373,
-    "volume24h": 4179736,
-    "priceChange24h": -2.86544,
+    "price": 0.01987238,
+    "marketCap": 75957931,
+    "marketCapRank": 375,
+    "volume24h": 3896352,
+    "high24h": 0.02118107,
+    "low24h": 0.01957698,
+    "priceChange24h": -5.33456,
+    "priceChange7d": 4.03703,
+    "priceChange30d": 12.28737,
+    "priceChange1y": 0,
     "ath": 0.062549,
-    "athChangePercentage": -67.87967,
+    "athChangePercentage": -68.23546,
     "athDate": "2026-01-15T14:30:10.812Z",
     "atl": 0.01581099,
     "atlDate": "2026-04-01T14:10:27.118Z",
-    "circulatingSupply": 3821792809.221519,
-    "totalSupply": 9995770005.865318,
+    "circulatingSupply": 3822066414.458749,
+    "totalSupply": 9996066416.434004,
     "maxSupply": null,
-    "high24h": 0.02118107,
-    "low24h": 0.0200876,
-    "priceChange7d": -2.038055851149771,
-    "priceChange30d": 13.733490447562563,
-    "priceChange1y": 0,
-    "fdv": 200823405
+    "fdv": 198657073
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.629Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:07:28.724Z"
 }

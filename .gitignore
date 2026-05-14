@@ -59,6 +59,8 @@ scripts/test-*.ts
 *.prompt.txt
 data/latest-batch-alert.txt
 data/metrics/usage/
+data/queue/
+scripts/generate-local-articles.ts
 audit-artifacts/
 # X OAuth 2.0 Persistence (Required for rotating tokens in CI/CD)
 # CAUTION: This file contains rotating secrets. Ensure repo stays PRIVATE.

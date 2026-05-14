@@ -2,26 +2,53 @@
   "id": "renzo",
   "symbol": "rez",
   "name": "Renzo",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37327/large/renzo_200x200.png?1714025012",
+  "description": "Renzo is an institutional-grade onchain platform for staking, restaking, and capital deployment across leading crypto ecosystems. By abstracting protocol-level complexity, Renzo enables both individuals and institutions to access advanced yield strategies with transparency, security, and precise control.\n\nThe protocol is built as a modular system composed of three core product suites: Reserve Vaults, Staking Suite, and Enterprise Suite - each designed to maximize capital efficiency while preserving onchain verifiability.\n\nRenzo is built to promote permissionless innovation, programmatic trust, and transparent capital markets. By removing operational friction while keeping execution fully verifiable on-chain, Renzo accelerates the adoption of staking, restaking, and sophisticated yield strategies across the broader crypto ecosystem.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Binance Launchpool",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Restaking",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "OKX Ventures Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.renzoprotocol.com/",
+    "github": "https://github.com/Renzo-Protocol",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x3b50805453023a91a8bf641e279401a0b23fa6f9"
+  },
   "market": {
-    "price": 0.00635994,
-    "marketCap": 54427522,
-    "marketCapRank": 481,
-    "volume24h": 13849831,
-    "priceChange24h": -5.57294,
+    "price": 0.00583307,
+    "marketCap": 49937361,
+    "marketCapRank": 511,
+    "volume24h": 13817146,
+    "high24h": 0.00689089,
+    "low24h": 0.00583159,
+    "priceChange24h": -12.56145,
+    "priceChange7d": 7.09366,
+    "priceChange30d": 57.00824,
+    "priceChange1y": -66.9071,
     "ath": 0.278213,
-    "athChangePercentage": -97.71064,
+    "athChangePercentage": -97.8981,
     "athDate": "2024-04-30T11:50:54.665Z",
     "atl": 0.00265163,
     "atlDate": "2026-02-28T10:11:14.983Z",
-    "circulatingSupply": 8554399224.019403,
+    "circulatingSupply": 8555857557.352736,
     "totalSupply": 9814629224.12962,
     "maxSupply": 10000000000,
-    "high24h": 0.00689089,
-    "low24h": 0.0063607,
-    "priceChange7d": 18.404270232026658,
-    "priceChange30d": 76.80415498828972,
-    "priceChange1y": -62.72685986182749,
-    "fdv": 62445758
+    "fdv": 57284343
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.694Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:29:30.271Z"
 }

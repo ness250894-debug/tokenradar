@@ -2,6 +2,7 @@
   "id": "quantum-resistant-ledger",
   "symbol": "qrl",
   "name": "Quantum Resistant Ledger",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/700/large/qrl-logo.png?1763796842",
   "description": "Quantum Resistant Ledger is a cryptocurrency based on the Python programming language, aimed at combating future attacks by quantum computers. This cryptocurrency is the brainchild of Peter Waterland who realised that Bitcoin, Ethereum, and other such cryptocurrencies have no protection against future technology. It claims to be a “future-proof” cryptocurrency which enables transactions and decentralized communication while providing protection against classical as well as quantum computer attacks.\n\nThe Quantum Resistant Ledger company was founded by Peter Waterland, who found that Bitcoin, as well as Ethereum signatures are susceptible to attacks by powerful quantum computers. His research on quantum computers and signature programs let to the development of this new cryptocurrency, designed to be resistant to the present classical attacks as well as any future quantum computer attacks. Their team is made up of a diverse range of members spread out across the world, including developers (core, blockchain, mobile developers, etc.), analysts, advisors, marketing managers, designers and more.\n\nQuantum Resistant Ledger is the first ever cryptocurrency and the only one in existence as of August 2018, to consider the threat that the future technology of quantum computing poses to cryptocurrencies and their working. It uses a technology specifically designed for post-quantum security, called XMSS, which makes it secure against powerful quantum computers even while using a Proof-of-Stake consensus mechanism. Security against cyber-attacks is a very serious concern in this digital age, especially when you have digital assets whose loss is likely to lead you to bankruptcy.\n\nQRL is the first blockchain technology that provides durability and stability through resistance to quantum computer attacks. The encryption methods used by modern blockchains can become vulnerable to quantum computers over the next ten years. QRL tries to create a blockchain with long-term stability. By using blockchain technology, the QRL platform creates a “ledger” that generates hashes in such a way that it is virtually impenetrable to any type of computer attack.",
   "categories": [
     "Smart Contract Platform",
@@ -16,35 +17,34 @@
     "explorer": "https://explorer.theqrl.org/"
   },
   "market": {
-    "price": 0.988051,
-    "marketCap": 77498708,
-    "marketCapRank": 372,
-    "volume24h": 42774,
+    "price": 0.984331,
+    "marketCap": 77187750,
+    "marketCapRank": 370,
+    "volume24h": 49824,
     "high24h": 1.03,
     "low24h": 0.953992,
-    "priceChange24h": -1.46627,
-    "priceChange7d": -15.730265933236765,
-    "priceChange30d": -31.83257336083748,
-    "priceChange1y": 120.61138472299304,
+    "priceChange24h": -1.63126,
+    "priceChange7d": -15.41418,
+    "priceChange30d": -30.71117,
+    "priceChange1y": 120.79156,
     "ath": 3.87,
-    "athChangePercentage": -74.42908,
+    "athChangePercentage": -74.45432,
     "athDate": "2018-01-09T00:00:00.000Z",
     "atl": 0.04116971,
     "atlDate": "2023-12-01T12:26:13.533Z",
     "circulatingSupply": 78392960,
     "totalSupply": 78392960,
     "maxSupply": 105000000,
-    "fdv": 77498708
+    "fdv": 77187750
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 461,
-    "githubForks": 116,
-    "commits4Weeks": 11
+    "githubStars": 462,
+    "githubForks": 117,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T10:32:28.205Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.628Z"
+  "fetchedAt": "2026-05-14T07:28:14.386Z"
 }

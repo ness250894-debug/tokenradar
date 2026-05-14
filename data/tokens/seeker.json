@@ -2,6 +2,7 @@
   "id": "seeker",
   "symbol": "skr",
   "name": "Seeker",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70974/large/seeker-logo.jpg?1764922774",
   "description": "Seeker is building a decentralized mobile ecosystem designed to challenge entrenched mobile incumbents through its TEEPin network architecture and community governance. It aims to solve the pain points of centralized app store gatekeeping, lack of developer freedom, and restricted user access to crypto applications. The vision is to create a community-owned platform with decentralized governance, no gatekeepers, direct developer-user access, and TEEPin security architecture.",
   "categories": [
     "Infrastructure",
@@ -15,25 +16,25 @@
     "explorer": "https://solscan.io/token/SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3"
   },
   "market": {
-    "price": 0.01608097,
-    "marketCap": 101248171,
-    "marketCapRank": 295,
-    "volume24h": 5888759,
-    "high24h": 0.01723827,
-    "low24h": 0.01583053,
-    "priceChange24h": -0.61589,
-    "priceChange7d": -1.3346084148987156,
-    "priceChange30d": -2.012812413756349,
+    "price": 0.01606194,
+    "marketCap": 101094775,
+    "marketCapRank": 294,
+    "volume24h": 3281263,
+    "high24h": 0.01696318,
+    "low24h": 0.01560239,
+    "priceChange24h": -4.33162,
+    "priceChange7d": -1.51649,
+    "priceChange30d": -3.38878,
     "priceChange1y": 0,
     "ath": 0.055818,
-    "athChangePercentage": -71.20767,
+    "athChangePercentage": -71.18582,
     "athDate": "2026-01-22T03:32:20.056Z",
     "atl": 0.00542271,
     "atlDate": "2026-01-21T02:11:35.450Z",
-    "circulatingSupply": 6294078522.953769,
-    "totalSupply": 10294078522.95376,
+    "circulatingSupply": 6294076997.376604,
+    "totalSupply": 10294077057.3766,
     "maxSupply": null,
-    "fdv": 165593202
+    "fdv": 165342338
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T12:04:08.564Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.608Z"
+  "fetchedAt": "2026-05-14T07:31:50.444Z"
 }

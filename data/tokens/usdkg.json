@@ -2,20 +2,50 @@
   "id": "usdkg",
   "symbol": "usdkg",
   "name": "USDKG",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71116/large/USDKG_400x400.jpg?1765871330",
+  "description": "USDKG is a 1:1 USD-pegged, gold-backed stablecoin. Transact 24/7 and settle cross-border payments instantly.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.usdkg.com/",
+    "github": "https://github.com/USDkg/USDkg",
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TXZo12qvnEVKvU2zbfuQeMXKusWyxonwEG"
+  },
   "market": {
-    "price": 0.999854,
-    "marketCap": 49993519,
-    "marketCapRank": 500,
-    "volume24h": 281999,
-    "priceChange24h": -0.0034,
+    "price": 0.999912,
+    "marketCap": 49995584,
+    "marketCapRank": 510,
+    "volume24h": 367715,
+    "high24h": 1,
+    "low24h": 0.999651,
+    "priceChange24h": -0.00686,
+    "priceChange7d": 0.00598,
+    "priceChange30d": 0.01047,
+    "priceChange1y": 0,
     "ath": 1.021,
-    "athChangePercentage": -2.06001,
+    "athChangePercentage": -2.0734,
     "athDate": "2026-01-23T09:26:20.044Z",
     "atl": 0.989786,
     "atlDate": "2026-03-27T09:25:55.737Z",
     "circulatingSupply": 50000000,
     "totalSupply": 50000000,
-    "maxSupply": 50000000
+    "maxSupply": 50000000,
+    "fdv": 49995584
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.907Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:42:46.930Z"
 }

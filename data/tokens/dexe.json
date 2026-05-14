@@ -2,6 +2,7 @@
   "id": "dexe",
   "symbol": "dexe",
   "name": "DeXe",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12713/large/DEXE_token_logo.png?1696512514",
   "description": "1. Using the DeXe Utility token in the ecosystem:\n1.1 Programmed redemption and burning of tokens for a certain % of the traders’ compensation.\n1.2 Control over DeXe treasury better. One of the DeXe functionality includes farming rewards with DeXe.network from social trading activity.\n1.3 Use of the token by the holders for casting a ballot and settling on choices regarding:\na. The timespan and adjustment of the percentage of tokens burned.\nb. Effect on the number of remunerations got for farming (increase or decline the percent of accrual)\nc. Voting for the date of burning tokens and ascertaining the reward for farming (details below).\n1.4 Work of the system for insuring users’ deposits by staking tokens on DEX.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0xde4ee8057785a7e8e800db58f9784845a5c2cbd6"
   },
   "market": {
-    "price": 12.11,
-    "marketCap": 566157109,
+    "price": 12,
+    "marketCap": 561452691,
     "marketCapRank": 98,
-    "volume24h": 21369274,
+    "volume24h": 20560012,
     "high24h": 13.21,
-    "low24h": 11.97,
-    "priceChange24h": -7.56614,
-    "priceChange7d": 2.3410399091391616,
-    "priceChange30d": 20.24052528724908,
-    "priceChange1y": -3.162910007664224,
+    "low24h": 12.16,
+    "priceChange24h": -8.49749,
+    "priceChange7d": 1.6942,
+    "priceChange30d": 19.9302,
+    "priceChange1y": -2.5126,
     "ath": 32.38,
-    "athChangePercentage": -62.61621,
+    "athChangePercentage": -61.65373,
     "athDate": "2021-03-08T13:29:57.935Z",
     "atl": 0.671563,
     "atlDate": "2020-11-06T19:31:40.144Z",
     "circulatingSupply": 46750552.58384035,
     "totalSupply": 96504599.33609451,
     "maxSupply": null,
-    "fdv": 1168687040
+    "fdv": 1158975968
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T18:58:16.888Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.519Z"
+  "fetchedAt": "2026-05-13T18:31:20.115Z"
 }

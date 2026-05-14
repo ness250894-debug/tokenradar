@@ -2,7 +2,8 @@
   "id": "monero",
   "symbol": "xmr",
   "name": "Monero",
-  "description": "A cryptocurrency token known as Monero (XMR). It is tracked on CoinGecko with the ID \"monero\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png?1696501460",
+  "description": "",
   "categories": [
     "Smart Contract Platform",
     "Privacy Coins",
@@ -19,25 +20,25 @@
     "explorer": "https://monero.com/explorer"
   },
   "market": {
-    "price": 402.54,
-    "marketCap": 7422155649,
-    "marketCapRank": 18,
-    "volume24h": 127077980,
+    "price": 394.76,
+    "marketCap": 7278987607,
+    "marketCapRank": 19,
+    "volume24h": 142872343,
     "high24h": 415.44,
-    "low24h": 401.64,
-    "priceChange24h": -1.83848,
-    "priceChange7d": -1.9256140346433415,
-    "priceChange30d": 16.195391691586416,
-    "priceChange1y": 18.54229320347972,
+    "low24h": 390.12,
+    "priceChange24h": -4.89155,
+    "priceChange7d": -5.16217,
+    "priceChange30d": 14.15534,
+    "priceChange1y": 13.14206,
     "ath": 797.73,
-    "athChangePercentage": -49.53946,
+    "athChangePercentage": -50.51519,
     "athDate": "2026-01-14T19:34:07.049Z",
     "atl": 0.216177,
     "atlDate": "2015-01-14T00:00:00.000Z",
     "circulatingSupply": 18446744.07370955,
     "totalSupply": 18446744.07370955,
     "maxSupply": null,
-    "fdv": 7422155649
+    "fdv": 7278987607
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 3594,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T05:27:36.519Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.486Z"
+  "fetchedAt": "2026-05-14T07:20:09.696Z"
 }

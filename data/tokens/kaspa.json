@@ -2,7 +2,8 @@
   "id": "kaspa",
   "symbol": "kas",
   "name": "Kaspa",
-  "description": "Kaspa was fair-launched in November 2021 with no pre-mine, zero pre-sale, and no coin allocations, and is 100 percent community-managed. Kaspa aims to be the world's global sequencer for traditional finance and decentralized crypto markets by utilizing proof-of-work and its BlockDAG consensus protocol, GHOSTDAG. Being the world's fastest proof-of-work network, Kaspa combines five properties: (1) hard money principles, (2) Bitcoin's ethos of security-first fundamentals (boasting a security...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/25751/large/kaspa-icon-exchanges.png?1696524837",
+  "description": "Kaspa was fair-launched in November 2021 with no pre-mine, zero pre-sale, and no coin allocations, and is 100 percent community-managed. Kaspa aims to be the world's global sequencer for traditional finance and decentralized crypto markets by utilizing proof-of-work and its BlockDAG consensus protocol, GHOSTDAG.\nBeing the world's fastest proof-of-work network, Kaspa combines five properties: (1) hard money principles, (2) Bitcoin's ethos of security-first fundamentals (boasting a security threshold of fifty percent with significant market hashrate), (3) decentralization from rapid block rate mining, (4) block speeds faster than any PoW or PoS network, and (5) smart contract development through based-rollups without fragmented liquidity. Ushering in all five properties, Kaspa is on track to fulfill Satoshi Nakamoto's vision of a digital medium of exchange while also advancing global layer-one sequencing and minuscule confirmation times dominated by internet latency (cf. chapter 6 of the the paper for some initial benchmarks). The Kaspa implementation includes a lot of cool features and subprotocols including Reachability to query the DAG's topology, Block data pruning (with near-future plans for block header pruning), SPV proofs, and later subnetwork support which will make future implementation of layer 2 solutions much easier.",
   "categories": [
     "Smart Contract Platform",
     "Layer 1 (L1)",
@@ -20,25 +21,25 @@
     "explorer": "https://kaspa.stream/"
   },
   "market": {
-    "price": 0.03728816,
-    "marketCap": 1022929516,
+    "price": 0.03698337,
+    "marketCap": 1014448956,
     "marketCapRank": 71,
-    "volume24h": 23470193,
-    "high24h": 0.03880259,
-    "low24h": 0.03708835,
-    "priceChange24h": -3.02041,
-    "priceChange7d": 2.8898860176548222,
-    "priceChange30d": 16.978826947642446,
-    "priceChange1y": -70.01625003388156,
+    "volume24h": 22331611,
+    "high24h": 0.03864703,
+    "low24h": 0.03661167,
+    "priceChange24h": -2.97299,
+    "priceChange7d": 0.58775,
+    "priceChange30d": 12.19601,
+    "priceChange1y": -69.91058,
     "ath": 0.207411,
-    "athChangePercentage": -82.01122,
+    "athChangePercentage": -82.14743,
     "athDate": "2024-08-01T00:40:47.164Z",
     "atl": 0.00017105,
     "atlDate": "2022-05-26T14:42:59.316Z",
     "circulatingSupply": 27416658504.52483,
-    "totalSupply": 27434110642.52658,
+    "totalSupply": 27435287386.77709,
     "maxSupply": 28704026601,
-    "fdv": 1023580664
+    "fdv": 1015138247
   },
   "community": {
     "twitterFollowers": null,
@@ -46,9 +47,8 @@
   },
   "developer": {
     "githubStars": 526,
-    "githubForks": 242,
+    "githubForks": 241,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:32:37.494Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.501Z"
+  "fetchedAt": "2026-05-14T07:14:13.720Z"
 }

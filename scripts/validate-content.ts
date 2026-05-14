@@ -25,6 +25,7 @@ const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const CONFLICT_MARKERS = ["<<<<<<<", "=======", ">>>>>>>"];
 const PLACEHOLDER_PATTERN = /\{\{[A-Z0-9_]+\}\}/g;
 const OUTBOUND_URL_PATTERN = /https?:\/\/[^\s)\]>"']+/g;
+const GENERATED_ARTICLE_SLUGS = new Set(["overview", "price-prediction", "how-to-buy", "tge-preview"]);
 const BASE_ALLOWED_EXTERNAL_HOSTS = new Set([
   "github.com",
   "etherscan.io",
@@ -126,6 +127,65 @@ export function findUnapprovedOutboundUrls(content: string, allowedHosts: Set<st
   return uniqueUrls.filter((url) => !isAllowedExternalUrl(url, allowedHosts));
 }
 
+export function validateGeneratedArticleIntegrity(filePath: string, parsed: unknown): string[] {
+  const slug = path.basename(filePath, ".json");
+  if (!GENERATED_ARTICLE_SLUGS.has(slug)) return [];
+
+  const tokenId = getTokenIdForArticlePath(filePath);
+  if (!tokenId) return [];
+
+  if (!parsed || typeof parsed !== "object") {
+    return ["Generated article must be a JSON object"];
+  }
+
+  const article = parsed as {
+    tokenId?: unknown;
+    type?: unknown;
+    slug?: unknown;
+    title?: unknown;
+    content?: unknown;
+    wordCount?: unknown;
+    generatedAt?: unknown;
+  };
+  const errors: string[] = [];
+
+  if (typeof article.tokenId === "string" && article.tokenId !== tokenId) {
+    errors.push(`Article tokenId "${article.tokenId}" does not match path token "${tokenId}"`);
+  }
+
+  if (typeof article.type === "string" && article.type !== slug) {
+    errors.push(`Article type "${article.type}" does not match filename "${slug}.json"`);
+  }
+
+  if (typeof article.slug === "string" && article.slug !== slug) {
+    errors.push(`Article slug "${article.slug}" does not match filename "${slug}.json"`);
+  }
+
+  if (typeof article.title !== "string" || article.title.trim().length === 0) {
+    errors.push("Generated article title is empty");
+  }
+
+  if (typeof article.content !== "string" || article.content.trim().length === 0) {
+    errors.push("Generated article content is empty");
+  }
+
+  if (
+    article.wordCount !== undefined &&
+    (typeof article.wordCount !== "number" || !Number.isFinite(article.wordCount) || article.wordCount < 1)
+  ) {
+    errors.push("Generated article wordCount must be a positive number when present");
+  }
+
+  if (
+    article.generatedAt !== undefined &&
+    (typeof article.generatedAt !== "string" || Number.isNaN(Date.parse(article.generatedAt)))
+  ) {
+    errors.push("Generated article generatedAt must be a valid ISO date when present");
+  }
+
+  return errors;
+}
+
 function validateArticleOutboundUrls(filePath: string, parsed: unknown): string[] {
   if (!parsed || typeof parsed !== "object" || typeof (parsed as { content?: unknown }).content !== "string") {
     return [];
@@ -158,11 +218,13 @@ function validateFile(filePath: string): { success: boolean; error?: string } {
     // 2. Check for valid JSON
     if (filePath.endsWith(".json")) {
       const parsed = JSON.parse(content);
+      const articleErrors = validateGeneratedArticleIntegrity(filePath, parsed);
       const outboundErrors = validateArticleOutboundUrls(filePath, parsed);
-      if (outboundErrors.length > 0) {
+      const errors = [...articleErrors, ...outboundErrors];
+      if (errors.length > 0) {
         return {
           success: false,
-          error: outboundErrors.join("; ")
+          error: errors.join("; ")
         };
       }
     }

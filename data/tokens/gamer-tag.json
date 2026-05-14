@@ -2,20 +2,50 @@
   "id": "gamer-tag",
   "symbol": "gmrt",
   "name": "The Game Company",
-  "market": {
-    "price": 0.412908,
-    "marketCap": 150700211,
-    "marketCapRank": 229,
-    "volume24h": 344.27,
-    "priceChange24h": -0.27832,
-    "ath": 0.41406,
-    "athChangePercentage": -0.27832,
-    "athDate": "2026-04-25T12:21:06.334Z",
-    "atl": 0.00031261,
-    "atlDate": "2026-02-05T21:00:53.675Z",
-    "circulatingSupply": 366734452.8391044,
-    "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54343/large/Token-transparent.png?1739354572",
+  "description": "The Game Company (TGC) is an AI-powered cloud gaming ecosystem that enables users to play high-quality, low-latency games on any device without the need for expensive hardware. By leveraging blockchain technology, TGC integrates a Web3 economy, allowing players to earn, trade, and utilize digital assets seamlessly. The platform supports over 1,300 AAA games from major publishers and operates on a decentralized cloud infrastructure optimized for low-latency gaming experiences.\n\n$GMRT is the native utility token of The Game Company ecosystem. It serves as the primary medium for transactions within the platform, facilitating tournament entry fees, in-game purchases, rewards, and staking opportunities. The token also underpins fantasy leagues, esports competitions, and the broader gaming marketplace within the TGC ecosystem. By integrating AI-driven matchmaking, predictive rendering, and real-time analytics, TGC enhances gameplay performance and user engagement while offering a sustainable gaming economy powered by $GMRT.",
+  "categories": [
+    "Infrastructure",
+    "Gaming (GameFi)",
+    "Ethereum Ecosystem",
+    "Base Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.gmrtag.io",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x6967f0974d76d34e140cae27efea32cdf546b58e"
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.858Z"
+  "market": {
+    "price": 0.00030382,
+    "marketCap": 66656,
+    "marketCapRank": 6692,
+    "volume24h": 1961.13,
+    "high24h": 0.00032089,
+    "low24h": 0.00030158,
+    "priceChange24h": -3.65698,
+    "priceChange7d": -99.92642,
+    "priceChange30d": -99.84891,
+    "priceChange1y": -97.57255,
+    "ath": 0.41406,
+    "athChangePercentage": -99.92661,
+    "athDate": "2026-04-25T12:21:06.334Z",
+    "atl": 0.00026766,
+    "atlDate": "2026-05-09T05:55:40.530Z",
+    "circulatingSupply": 219347817.57167256,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 303884
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:08:07.242Z"
 }

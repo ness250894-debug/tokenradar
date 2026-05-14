@@ -2,6 +2,7 @@
   "id": "api3",
   "symbol": "api3",
   "name": "Api3",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13256/large/Api3-Token.png?1742439807",
   "description": "Api3 delivers first-party oracles that pay you — connecting real-world data directly to smart contracts while reclaiming lost value through Oracle Extractable Value (OEV). Explore the Api3 Market and start earning.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -19,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0x0b38210ea11411557c13457d4da7dc6ea731b88a"
   },
   "market": {
-    "price": 0.37297,
-    "marketCap": 53012693,
+    "price": 0.374747,
+    "marketCap": 53207172,
     "marketCapRank": 492,
-    "volume24h": 13035767,
+    "volume24h": 13217380,
     "high24h": 0.395288,
     "low24h": 0.370455,
-    "priceChange24h": -2.13361,
-    "priceChange7d": -0.73102543874561,
-    "priceChange30d": 33.836102277261986,
-    "priceChange1y": -59.80777850509858,
+    "priceChange24h": -1.51074,
+    "priceChange7d": -0.21393,
+    "priceChange30d": 34.30147,
+    "priceChange1y": -59.29414,
     "ath": 10.3,
-    "athChangePercentage": -96.379,
+    "athChangePercentage": -96.37934,
     "athDate": "2021-04-07T06:54:35.507Z",
     "atl": 0.257119,
     "atlDate": "2026-02-06T00:30:21.935Z",
     "circulatingSupply": 142154426.2782652,
     "totalSupply": 168166373.6779725,
     "maxSupply": null,
-    "fdv": 62713154
+    "fdv": 62943218
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 67,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-08T07:53:41.198Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.697Z"
+  "fetchedAt": "2026-05-13T18:20:22.650Z"
 }

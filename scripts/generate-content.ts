@@ -12,6 +12,7 @@
  *   npx tsx scripts/generate-content.ts
  *   npx tsx scripts/generate-content.ts --token injective-protocol
  *   npx tsx scripts/generate-content.ts --type price-prediction
+ *   npx tsx scripts/generate-content.ts --refresh-failed --queue --max 600
  *   npx tsx scripts/generate-content.ts --dry-run  (preview prompts without calling AI)
  *
  * Cost: ~$0.015 per article depending on primary AI provider
@@ -349,6 +350,22 @@ async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial
 
 // ── Main ───────────────────────────────────────────────────────
 
+async function needsArticleGeneration(
+  filePath: string,
+  maxAgeDays: number,
+  tokenData: Partial<TokenDetail> & { market?: { priceChange24h?: number } } | null | undefined,
+  refreshFailed: boolean,
+): Promise<boolean> {
+  if (await isStale(filePath, maxAgeDays, tokenData || undefined)) return true;
+  if (!refreshFailed) return false;
+
+  const article = safeReadJson<GeneratedArticle>(filePath, null as unknown as GeneratedArticle);
+  if (!article) return true;
+
+  const quality = evaluateArticleQuality(article);
+  return !quality.passed;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const tokenIdx = args.indexOf("--token");
@@ -359,6 +376,7 @@ async function main() {
   const targetType = typeIdx !== -1 ? args[typeIdx + 1] : null;
   const dryRun = args.includes("--dry-run");
   const useQueue = args.includes("--queue");
+  const refreshFailed = args.includes("--refresh-failed");
   const CONTENT_BASE_DIR = useQueue ? path.join(DATA_DIR, "queue") : CONTENT_DIR;
 
   const maxTokens = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 5;
@@ -409,6 +427,9 @@ async function main() {
   console.log(`  Max TGE tokens:     ${maxTgeTokens}`);
   if (dripMode) {
     console.log(`  Drip Mode Enabled:  Limit ${maxRefresh} refreshes + ${maxTgeTokens} TGEs`);
+  }
+  if (refreshFailed) {
+    console.log("  Refresh failed articles: enabled");
   }
   console.log();
 
@@ -465,6 +486,7 @@ async function main() {
     
     // 1. Drip TGEs (Priority: New projects awaiting spotlight)
     for (const tge of upcomingTges) {
+      if (tgeTokensToProcess.length >= maxTgeTokens) break;
       if (targetToken && tge.id !== targetToken) continue;
       if (tge.status === "released") continue; // Released ones go to Phase 2 (Graduation)
       if (!shouldPublishTgePreview(tge)) continue;
@@ -660,9 +682,24 @@ async function main() {
       } catch (_e) {}
 
       if (targetType) {
-        needsGeneration = await isStale(path.join(CONTENT_BASE_DIR, id, `${targetType}.json`), 30, tokenData);
+        const queuePath = path.join(CONTENT_BASE_DIR, id, `${targetType}.json`);
+        const publishedPath = path.join(CONTENT_DIR, id, `${targetType}.json`);
+        const fileToCheck = fs.existsSync(queuePath) ? queuePath : publishedPath;
+        needsGeneration = await needsArticleGeneration(fileToCheck, 30, tokenData, refreshFailed);
       } else {
-        needsGeneration = ((await isStale(overviewPath, 30, tokenData))) || ((await isStale(pricePath, 30, tokenData))) || ((await isStale(howToBuyPath, 30, tokenData)));
+        const articlePaths = [
+          { queuePath: overviewPath, publishedPath: path.join(CONTENT_DIR, id, "overview.json") },
+          { queuePath: pricePath, publishedPath: path.join(CONTENT_DIR, id, "price-prediction.json") },
+          { queuePath: howToBuyPath, publishedPath: path.join(CONTENT_DIR, id, "how-to-buy.json") },
+        ];
+        needsGeneration = false;
+        for (const { queuePath, publishedPath } of articlePaths) {
+          const fileToCheck = fs.existsSync(queuePath) ? queuePath : publishedPath;
+          if (await needsArticleGeneration(fileToCheck, 30, tokenData, refreshFailed)) {
+            needsGeneration = true;
+            break;
+          }
+        }
       }
 
       if (refreshMacro && !needsGeneration) {
@@ -686,6 +723,7 @@ async function main() {
 
     // Standard TGE selection
     for (const tge of upcomingTges) {
+      if (tgeTokensToProcess.length >= maxTgeTokens) break;
       if (targetToken && tge.id !== targetToken) continue;
       if (tokensToProcess.includes(tge.id)) continue;
       if (tgeTokensToProcess.includes(tge.id)) continue;
@@ -696,7 +734,6 @@ async function main() {
       if ((await isStale(tgePath, 7)) || args.includes("--force")) {
         tgeTokensToProcess.push(tge.id);
       }
-      if (tgeTokensToProcess.length >= maxTgeTokens) break;
     }
   }
 
@@ -718,9 +755,21 @@ async function main() {
         if(fs.existsSync(p)) tokenData = JSON.parse(await fs.promises.readFile(p, "utf-8"));
       } catch (_e) {}
 
-      const needsGeneration = targetType 
-        ? await isStale(path.join(CONTENT_BASE_DIR, id, `${targetType}.json`), 30, tokenData)
-        : await isStale(overviewPath, 30, tokenData);
+      const needsGeneration = targetType
+        ? await needsArticleGeneration(
+            fs.existsSync(path.join(CONTENT_BASE_DIR, id, `${targetType}.json`))
+              ? path.join(CONTENT_BASE_DIR, id, `${targetType}.json`)
+              : path.join(CONTENT_DIR, id, `${targetType}.json`),
+            30,
+            tokenData,
+            refreshFailed,
+          )
+        : await needsArticleGeneration(
+            fs.existsSync(overviewPath) ? overviewPath : path.join(CONTENT_DIR, id, "overview.json"),
+            30,
+            tokenData,
+            refreshFailed,
+          );
 
       if (needsGeneration || args.includes("--force")) {
         tokensToProcess.push(id);
@@ -913,7 +962,13 @@ async function main() {
       const outputFile = path.join(outputDir, `${config.slug}.json`);
       const publishedFile = path.join(CONTENT_DIR, tokenId, `${config.slug}.json`);
       const fileToCheck = fs.existsSync(outputFile) ? outputFile : publishedFile;
-      if (fs.existsSync(fileToCheck) && !(await isStale(fileToCheck, isTge ? 7 : 30)) && !args.includes("--force")) {
+      const needsGeneration = await needsArticleGeneration(
+        fileToCheck,
+        isTge ? 7 : 30,
+        tokenData,
+        refreshFailed,
+      );
+      if (fs.existsSync(fileToCheck) && !needsGeneration && !args.includes("--force")) {
         console.log(`  ⏭ ${config.type} — generated recently`);
       } else {
         configsToGenerate.push(config);

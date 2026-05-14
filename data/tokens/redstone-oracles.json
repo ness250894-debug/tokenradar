@@ -2,26 +2,53 @@
   "id": "redstone-oracles",
   "symbol": "red",
   "name": "RedStone",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53640/large/RedStone_Logo_New_White.png?1740640919",
+  "description": "RedStone Is The Fastest Growing oracle, specialising in yield-bearing collateral for lending markets and securing $10bn+ . Blue chip DeFi protocols are our clients including Spark, Morpho, Compound, Pendle, Venus, Lido, EtherFi, Ethena, Puffer, Balancer, Lombard, Enzyme, Frax, Agora, M^0 and 80+ other Clients. RedStone provides a wide variety of in-demand assets such as LSTs, LRTs, Bitcoin LSTs and many others.",
+  "categories": [
+    "Infrastructure",
+    "Oracle",
+    "Binance Launchpool",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.redstone.finance/",
+    "github": "https://github.com/redstone-finance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xc43C6bfeDA065fE2c4c11765Bf838789bd0BB5dE"
+  },
   "market": {
-    "price": 0.139072,
-    "marketCap": 53343854,
-    "marketCapRank": 490,
-    "volume24h": 5205539,
-    "priceChange24h": -4.6649,
+    "price": 0.136144,
+    "marketCap": 52350378,
+    "marketCapRank": 494,
+    "volume24h": 5007037,
+    "high24h": 0.147016,
+    "low24h": 0.134752,
+    "priceChange24h": -6.42655,
+    "priceChange7d": -7.08017,
+    "priceChange30d": -2.92623,
+    "priceChange1y": -73.37658,
     "ath": 0.932461,
-    "athChangePercentage": -85.082,
+    "athChangePercentage": -85.39928,
     "athDate": "2025-03-06T12:36:56.662Z",
     "atl": 0.099727,
     "atlDate": "2026-03-31T04:01:17.432Z",
-    "circulatingSupply": 383558945,
+    "circulatingSupply": 384596772,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.147016,
-    "low24h": 0.138998,
-    "priceChange7d": -3.5332076463723947,
-    "priceChange30d": -1.7586198128729462,
-    "priceChange1y": -70.98172066605183,
-    "fdv": 139076026
+    "fdv": 136117569
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.696Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:29:11.262Z"
 }

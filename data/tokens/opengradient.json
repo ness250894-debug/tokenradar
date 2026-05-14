@@ -2,26 +2,53 @@
   "id": "opengradient",
   "symbol": "opg",
   "name": "OpenGradient",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172863/large/coingecko_logo.png?1776349115",
+  "description": "OpenGradient is the Network for Open Intelligence — a decentralized infrastructure network designed to host, inference, and verify AI models at scale. Rather than functioning as a standalone blockchain, OpenGradient operates as a specialized AI coprocessor: it enables applications, blockchains, and autonomous agents to outsource computationally-heavy AI tasks to a dedicated network of GPU and Trusted Execution Environment (TEE) nodes. The validator set verifies every computational proof (TEE attestation or zkML proof) at the consensus level before it is committed on-chain, enabling trustless usage of AI from any network or application.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "BNB Chain Ecosystem",
+    "Mantle Ecosystem",
+    "Base Ecosystem",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.opengradient.ai/",
+    "github": "https://github.com/OpenGradient",
+    "reddit": null,
+    "explorer": "https://basescan.org/address/0xFbC2051AE2265686a469421b2C5A2D5462FbF5eB"
+  },
   "market": {
-    "price": 0.315169,
-    "marketCap": 60016959,
-    "marketCapRank": 457,
-    "volume24h": 42577090,
-    "priceChange24h": -3.22866,
+    "price": 0.257046,
+    "marketCap": 48809837,
+    "marketCapRank": 517,
+    "volume24h": 69505776,
+    "high24h": 0.293205,
+    "low24h": 0.249619,
+    "priceChange24h": -10.13708,
+    "priceChange7d": 0.14065,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 0.475875,
-    "athChangePercentage": -33.77049,
+    "athChangePercentage": -45.98265,
     "athDate": "2026-04-22T16:11:00.948Z",
     "atl": 0.180773,
     "atlDate": "2026-04-21T12:20:41.942Z",
     "circulatingSupply": 190000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.341789,
-    "low24h": 0.308842,
-    "priceChange7d": 17.865025146561553,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
-    "fdv": 315878731
+    "fdv": 256893879
   },
-  "lastMarketUpdate": "2026-05-12T19:23:27.004Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:23:36.146Z"
 }

@@ -2,26 +2,50 @@
   "id": "hashkey-ecopoints",
   "symbol": "hsk",
   "name": "HashKey Platform Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/29779/large/HSKlogo.jpg?1719445510",
+  "description": "HSK is the HashKey platform token based on the ERC-20 standard. HSK encourages all contributors within the HashKey ecosystem, supporting and driving the development of the external ecosystem as well, to achieve seamless collaboration between internal and external entities.",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://hsk.xyz/",
+    "github": "https://github.com/orgs/HashkeyHSK/repositories",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe7c6bf469e97eeb0bfb74c8dbff5bd47d4c1c98a"
+  },
   "market": {
-    "price": 0.161471,
-    "marketCap": 55707776,
-    "marketCapRank": 472,
-    "volume24h": 848622,
-    "priceChange24h": -0.81268,
+    "price": 0.161372,
+    "marketCap": 55662539,
+    "marketCapRank": 475,
+    "volume24h": 380957,
+    "high24h": 0.163405,
+    "low24h": 0.161049,
+    "priceChange24h": -1.12155,
+    "priceChange7d": -0.51925,
+    "priceChange30d": 15.14025,
+    "priceChange1y": -58.6349,
     "ath": 2.56,
-    "athChangePercentage": -93.68964,
+    "athChangePercentage": -93.69301,
     "athDate": "2024-12-20T01:52:30.716Z",
     "atl": 0.137712,
     "atlDate": "2026-04-13T17:11:04.564Z",
     "circulatingSupply": 344960009,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.166258,
-    "low24h": 0.161257,
-    "priceChange7d": -0.7185947764595647,
-    "priceChange30d": 17.09712329889848,
-    "priceChange1y": -56.31582856948854,
-    "fdv": 161490535
+    "fdv": 161359398
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.692Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:10:19.794Z"
 }

@@ -2,7 +2,8 @@
   "id": "pi-network",
   "symbol": "pi",
   "name": "Pi Network",
-  "description": "What Is Pi Network?\nPi Network is a social cryptocurrency, developer platform, and ecosystem designed for widespread accessibility and real-world utility. It enables users to mine and transact Pi using a mobile-friendly interface while supporting applications built within its blockchain ecosystem.\n\nSupply Model and Mining Mechanism\nThe Maximum Supply of Pi is 100 billion tokens. The Maximum Supply is comprised of the following: 65 Billion tokens (or 65%) are allocated for all community mining rewards; 10 billion (10%) are allocated for foundation reserves; 5 billion (5%) are allocated for liquidity purposes; and 20 billion (20%) are allocated for the Core Team. Each allocation mentioned above tracks the community Migrated Mining Rewards issuance pace, so the proportions of each allocation in the total supply remains the same at any given time.&nbsp;\n\nThe Effective Total Supply of Pi—the total Pi supply at the current time—allocates Pi proportionally the same as the Maximum Supply. Since every allocation tracks the Migrated Mining Rewards of the community, the Effective Total Supply can be calculated by dividing the current Migrated Mining Rewards of Pi on the Mainnet blockchain by 65%. The other allocations within the Effective Total Supply can then be calculated based on the same proportions as the Maximum Supply, e.g. at most 10% of the Effective Total Supply is available in the foundation reserve, 5% of the Effective Total Supply is available for liquidity purposes, and 20% of the Effective Total Supply is available for the Core Team. This remains true despite the fact that all tokens were minted at the genesis as technically required by the blockchain protocol.\n\nCirculating Supply includes all Migrated Mining Rewards and all tokens that entered circulation from other buckets of the allocations, which at its maximum could be summed up to equal the Effective Total Supply.&nbsp;\n\nPi’s mining rewards are distributed based on an issuance formula that follows a declining exponential model defined in the Pi whitepaper. Users can increase the amount of mining rewards they receive based on their individual contributions to the network, like Security Circles, using utility-based Pi apps, running Nodes, etc. For each month, the amount of Pi to be distributed as mobile balance is capped and determined by the model, regardless of how many people or how many types of mining rewards there are during the month. The capping is achieved by the design of a system-wide base mining rate, and each type of mining rewards to each individual are just a multiplier of this base mining rate. As the monthly supplies always diminish, the base mining rate generally decreases over time.&nbsp;\n\nFewer Pi may also be issued because the real Pi issuance on the blockchain depends on Pioneers passing KYC and completing all steps required for migration to the Mainnet. Despite all efforts to facilitate and remind Pioneers to complete those required steps, there are always dropoffs ... [truncated]",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576",
+  "description": "Pi Network is a social cryptocurrency and developer platform designed to make digital currency mining accessible to everyday people through mobile devices. The project aims to build a widely distributed currency that facilitates transactions for real-world goods and services rather than purely speculative trading. Its main value proposition is a mobile-first mining system that allows users to earn rewards on their phones without requiring specialized hardware, draining battery life, or using excessive data.\n\nThe network operates on the Stellar Consensus Protocol and a Federated Byzantine Agreement, which allows computers to reach agreement by trusting specific groups of other peers. Security is maintained through a global trust graph built from individual user groups called security circles where members vouch for each other. Users participate in four primary roles as pioneers, contributors, ambassadors, or nodes to ensure the network remains decentralized. This meritocratic distribution model rewards consistent engagement and network growth rather than financial wealth or technical power.\n\nFounded by Dr. Nicolas Kokkalis and Dr. Chengdiao Fan, both of whom hold doctoral degrees from Stanford University, the project is managed by Social Chain Inc. The ecosystem includes a native wallet, a dedicated browser, and a platform for decentralized applications where the PI token is used for peer-to-peer exchange and transaction fees. Additionally, tokens can be used for purchasing goods in an internal marketplace, staking in a launchpad, or voluntary lockups that support market stability while boosting personal mining rates. The project has focused on organic community growth and does not list any external institutional investors in its documentation.",
   "categories": [
     "Layer 1 (L1)",
     "Made in USA",
@@ -16,35 +17,34 @@
     "explorer": "https://blockexplorer.minepi.com/mainnet/"
   },
   "market": {
-    "price": 0.170133,
-    "marketCap": 1780418236,
-    "marketCapRank": 49,
-    "volume24h": 14275730,
-    "high24h": 0.174425,
+    "price": 0.170301,
+    "marketCap": 1783957681,
+    "marketCapRank": 48,
+    "volume24h": 13318656,
+    "high24h": 0.172687,
     "low24h": 0.169776,
-    "priceChange24h": -0.95189,
-    "priceChange7d": -6.441394478182248,
-    "priceChange30d": 3.1394659198002404,
-    "priceChange1y": -85.63769715654725,
+    "priceChange24h": -0.91337,
+    "priceChange7d": -5.10487,
+    "priceChange30d": 3.45792,
+    "priceChange1y": -86.67704,
     "ath": 2.99,
-    "athChangePercentage": -94.30475,
+    "athChangePercentage": -94.30735,
     "athDate": "2025-02-26T16:41:03.732Z",
     "atl": 0.131244,
     "atlDate": "2026-02-11T17:06:46.605Z",
-    "circulatingSupply": 10465035322.47897,
-    "totalSupply": 16100054342.27533,
+    "circulatingSupply": 10478952125.13246,
+    "totalSupply": 16121464807.89609,
     "maxSupply": 100000000000,
-    "fdv": 2739104979
+    "fdv": 2744550278
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 2012,
-    "githubForks": 540,
+    "githubStars": 2022,
+    "githubForks": 542,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T08:24:01.958Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.495Z"
+  "fetchedAt": "2026-05-14T07:25:42.684Z"
 }

@@ -2,6 +2,7 @@
   "id": "hedera-hashgraph",
   "symbol": "hbar",
   "name": "Hedera",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/3688/large/hbar.png?1696504364",
   "description": "Hedera is a decentralized public network where developers can build secure, fair applications with near real-time consensus. The platform is owned and governed by a council of global innovators including Avery Dennison, Boeing, Deutsche Telekom, DLA Piper, FIS (WorldPay), Google, IBM, LG Electronics, Magalu, Nomura, Swirlds, Tata Communications, University College London (UCL), Wipro, and Zain Group. \n\nThe Hedera Consensus Service (HCS) acts as a trust layer for any application or permissioned network and allows for the creation of an immutable and verifiable log of messages. Application messages are submitted to the Hedera network for consensus, given a trusted timestamp, and fairly ordered. Use HCS to track assets across a supply chain, create auditable logs of events in an advertising platform, or even use it as a decentralized ordering service.\n\n",
   "categories": [
     "Smart Contract Platform",
@@ -22,25 +23,25 @@
     "explorer": "https://hashscan.io/"
   },
   "market": {
-    "price": 0.092581,
-    "marketCap": 4015538747,
-    "marketCapRank": 29,
-    "volume24h": 71987357,
+    "price": 0.092825,
+    "marketCap": 4028093036,
+    "marketCapRank": 30,
+    "volume24h": 74341515,
     "high24h": 0.095458,
     "low24h": 0.091684,
-    "priceChange24h": -1.33913,
-    "priceChange7d": 1.297105179360136,
-    "priceChange30d": 8.814213323939077,
-    "priceChange1y": -56.639112054399774,
+    "priceChange24h": -1.67574,
+    "priceChange7d": 2.15769,
+    "priceChange30d": 7.62001,
+    "priceChange1y": -56.71624,
     "ath": 0.569229,
-    "athChangePercentage": -83.7397,
+    "athChangePercentage": -83.66623,
     "athDate": "2021-09-15T10:40:28.318Z",
     "atl": 0.00986111,
     "atlDate": "2020-01-02T17:30:24.852Z",
-    "circulatingSupply": 43373141657.50796,
+    "circulatingSupply": 43373141657.53735,
     "totalSupply": 50000000000,
     "maxSupply": 50000000000,
-    "fdv": 4629061435
+    "fdv": 4643533858
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T22:50:45.052Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.488Z"
+  "fetchedAt": "2026-05-14T07:10:45.107Z"
 }

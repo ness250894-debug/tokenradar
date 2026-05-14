@@ -2,26 +2,48 @@
   "id": "dmt-nat",
   "symbol": "nat",
   "name": "DMT-NAT",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69881/large/NAT.png?1759931358",
+  "description": "$NAT is a Bitcoin-native token derived directly from Bitcoin’s block data, making it inseparable from the network itself. Launched through a fair mint with no pre-mines or insider allocations, it aligns with Bitcoin’s ethos of openness and decentralization. Today, $NAT is earned by Bitcoin miners as a second subsidy alongside block rewards, creating an additional incentive layer designed to strengthen Bitcoin’s long-term sustainability and security budget. By embedding value creation into the chain, $NAT reframes the question: how much is Bitcoin’s security worth?",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Inscriptions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://natgmi.com/",
+    "github": "https://github.com/Trac-Systems/ord-tap/",
+    "reddit": null,
+    "explorer": "https://www.tapalytics.xyz/token/dmt-nat"
+  },
   "market": {
-    "price": 1.37057e-7,
-    "marketCap": 53196725,
-    "marketCapRank": 498,
-    "volume24h": 1561931,
-    "priceChange24h": 3.08593,
+    "price": 1.23479e-7,
+    "marketCap": 47882850,
+    "marketCapRank": 523,
+    "volume24h": 1411954,
+    "high24h": 1.26599e-7,
+    "low24h": 1.16903e-7,
+    "priceChange24h": 1.61838,
+    "priceChange7d": -5.85617,
+    "priceChange30d": 88.879,
+    "priceChange1y": 0,
     "ath": 3.86688e-7,
-    "athChangePercentage": -64.78504,
+    "athChangePercentage": -68.50033,
     "athDate": "2026-04-21T05:35:05.856Z",
     "atl": 2.672e-8,
     "atlDate": "2026-01-31T18:50:47.409Z",
     "circulatingSupply": 388133597130973,
     "totalSupply": 388133597130973,
     "maxSupply": null,
-    "high24h": 1.37859e-7,
-    "low24h": 1.30277e-7,
-    "priceChange7d": -11.77961816451323,
-    "priceChange30d": 97.62706368762274,
-    "priceChange1y": 0,
-    "fdv": 53196725
+    "fdv": 47882850
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.273Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 11,
+    "githubForks": 7,
+    "commits4Weeks": 11
+  },
+  "fetchedAt": "2026-05-13T18:31:39.047Z"
 }

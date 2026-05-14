@@ -2,7 +2,8 @@
   "id": "alloy-tether",
   "symbol": "ausdt",
   "name": "Alloy Tether",
-  "description": "A cryptocurrency token known as Alloy Tether (AUSDT). It is tracked on CoinGecko with the ID \"alloy-tether\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38747/large/ausdt.png?1718681185",
+  "description": "",
   "categories": [
     "Stablecoins",
     "Ethereum Ecosystem",
@@ -16,25 +17,25 @@
     "explorer": "https://etherscan.io/token/0x9eead9ce15383caeed975427340b3a369410cfbf"
   },
   "market": {
-    "price": 0.998468,
-    "marketCap": 49923383,
-    "marketCapRank": 499,
-    "volume24h": 184.61,
-    "high24h": 0.999006,
-    "low24h": 0.998768,
-    "priceChange24h": -0.13222,
-    "priceChange7d": -0.07474,
-    "priceChange30d": -0.01548,
-    "priceChange1y": -0.14403,
+    "price": 0.998879,
+    "marketCap": 49943948,
+    "marketCapRank": 508,
+    "volume24h": 0.717974,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 0.04111,
+    "priceChange30d": -0.00471,
+    "priceChange1y": -0.14089,
     "ath": 1.072,
-    "athChangePercentage": -6.81585,
+    "athChangePercentage": -6.77752,
     "athDate": "2025-07-31T13:06:18.594Z",
     "atl": 0.969947,
     "atlDate": "2025-09-09T23:00:55.712Z",
     "circulatingSupply": 50000005,
     "totalSupply": 50000005,
     "maxSupply": null,
-    "fdv": 49938899
+    "fdv": 49943948
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T18:56:56.818Z",
-  "lastMarketUpdate": "2026-05-06T19:13:04.885Z"
+  "fetchedAt": "2026-05-13T18:19:19.402Z"
 }

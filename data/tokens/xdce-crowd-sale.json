@@ -2,6 +2,7 @@
   "id": "xdce-crowd-sale",
   "symbol": "xdc",
   "name": "XDC Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/2912/large/xdc-icon.png?1696503661",
   "description": "XDC Network is an enterprise-ready hybrid Blockchain technology company optimized for international trade and finance. The XDC Network is powered by the native coin called XDC. The XDC protocol is architected to support smart contracts, 2000TPS, 2seconds transaction time, KYC to Masternodes (Validator Nodes). The XDC Chain (XinFin Digital Contract) uses XinFin Delegated Proof of Stake (XDPoS), with the intending to create a ‘highly-scalable, secure, permission, and commercial grade’ blockchain network. XinFin mainnet token XDC and also creates an opportunity to utilize the XinFin’s real-world use-cases such as TradeFinex.org, helps small and medium businesses or institutions originate their own financial requirements in a digital, fully structured manner so that they can distribute it to the bank or non-bank funders themselves using a common distribution standard. ",
   "categories": [
     "Smart Contract Platform",
@@ -16,25 +17,25 @@
     "explorer": "https://explorer.xinfin.network"
   },
   "market": {
-    "price": 0.03141678,
-    "marketCap": 626999429,
-    "marketCapRank": 91,
-    "volume24h": 22574349,
-    "high24h": 0.03290651,
-    "low24h": 0.03115384,
-    "priceChange24h": -0.21883,
-    "priceChange7d": 6.110514673478469,
-    "priceChange30d": 2.8687941128409333,
-    "priceChange1y": -58.12996248748148,
+    "price": 0.03229093,
+    "marketCap": 643979156,
+    "marketCapRank": 89,
+    "volume24h": 25928964,
+    "high24h": 0.0328654,
+    "low24h": 0.03052061,
+    "priceChange24h": -0.51911,
+    "priceChange7d": 9.10586,
+    "priceChange30d": 4.09594,
+    "priceChange1y": -57.06703,
     "ath": 0.192754,
-    "athChangePercentage": -83.68404,
+    "athChangePercentage": -83.47226,
     "athDate": "2021-08-21T04:39:48.324Z",
     "atl": 0.00039532,
     "atlDate": "2019-07-22T00:00:00.000Z",
     "circulatingSupply": 19946688440,
     "totalSupply": 38065686425.1,
     "maxSupply": null,
-    "fdv": 1196547675
+    "fdv": 1228951297
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 1,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:46:04.851Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.517Z"
+  "fetchedAt": "2026-05-14T07:46:15.648Z"
 }

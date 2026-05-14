@@ -2,6 +2,7 @@
   "id": "midnight-3",
   "symbol": "night",
   "name": "Midnight",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080",
   "description": "Midnight is a privacy-first blockchain that blends public verifiability with confidential data handling. You can use Midnight's selective disclosure and ZK proofs to build apps.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -10,7 +11,8 @@
     "Zero Knowledge (ZK)",
     "Privacy Blockchain",
     "Binance Alpha Spotlight",
-    "Binance Wallet IDO"
+    "Binance Wallet IDO",
+    "Privacy"
   ],
   "genesisDate": null,
   "links": {
@@ -20,25 +22,25 @@
     "explorer": "https://cardanoscan.io/token/0691b2fecca1ac4f53cb6dfb00b7013e561d1f34403b957cbb5af1fa4e49474854"
   },
   "market": {
-    "price": 0.03222782,
-    "marketCap": 535220272,
-    "marketCapRank": 103,
-    "volume24h": 49556573,
+    "price": 0.03208234,
+    "marketCap": 532649523,
+    "marketCapRank": 101,
+    "volume24h": 96780042,
     "high24h": 0.03435016,
-    "low24h": 0.03208306,
-    "priceChange24h": -5.49408,
-    "priceChange7d": 1.7680079344743103,
-    "priceChange30d": -17.033669250483825,
+    "low24h": 0.0320726,
+    "priceChange24h": -5.79629,
+    "priceChange7d": -0.65295,
+    "priceChange30d": -10.3155,
     "priceChange1y": 0,
     "ath": 0.118529,
-    "athChangePercentage": -72.77446,
+    "athChangePercentage": -72.92504,
     "athDate": "2025-12-09T09:29:38.386Z",
     "atl": 0.02378032,
     "atlDate": "2025-12-09T09:48:36.670Z",
     "circulatingSupply": 16607399400.63495,
     "totalSupply": 24000000000,
     "maxSupply": 24000000000,
-    "fdv": 773467671
+    "fdv": 769752580
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:30:24.693Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.520Z"
+  "fetchedAt": "2026-05-14T07:19:12.786Z"
 }

@@ -2,6 +2,7 @@
   "id": "lombard-protocol",
   "symbol": "bard",
   "name": "Lombard",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68404/large/bard.png?1755657543",
   "description": "Lombard is building onchain Bitcoin capital markets to unlock the full potential of the defining asset of this generation. Founded in 2024, the company pioneered Bitcoin’s integration into DeFi with LBTC — the leading yield-bearing Bitcoin, secured by a decentralized consortium of 14 digital asset institutions — which today stands as the largest Bitcoin LST. Lombard is developing full-stack infrastructure to accelerate onchain BTC adoption for holders, protocols, and platforms, spanning BTC assets, a Staking SDK, and supporting services. The company is built and backed by digital asset leaders, including top DeFi protocols, institutions, and exchanges.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0xf0db65d17e30a966c2ae6a21f6bba71cea6e9754"
   },
   "market": {
-    "price": 0.268369,
-    "marketCap": 83815871,
-    "marketCapRank": 343,
-    "volume24h": 8339156,
+    "price": 0.271196,
+    "marketCap": 84539863,
+    "marketCapRank": 338,
+    "volume24h": 9845617,
     "high24h": 0.281737,
     "low24h": 0.265786,
-    "priceChange24h": -3.01406,
-    "priceChange7d": -2.315591264337573,
-    "priceChange30d": -18.12664766120154,
+    "priceChange24h": -2.86984,
+    "priceChange7d": 0.0609,
+    "priceChange30d": -18.41581,
     "priceChange1y": 0,
     "ath": 1.7,
-    "athChangePercentage": -84.21295,
+    "athChangePercentage": -84.05266,
     "athDate": "2026-03-05T20:26:18.448Z",
     "atl": 0.265786,
     "atlDate": "2026-05-13T16:00:52.492Z",
     "circulatingSupply": 312187500,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 268479266
+    "fdv": 270798358
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T03:39:31.054Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.622Z"
+  "fetchedAt": "2026-05-14T07:16:22.188Z"
 }

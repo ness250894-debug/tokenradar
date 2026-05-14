@@ -2,6 +2,7 @@
   "id": "the-graph",
   "symbol": "grt",
   "name": "The Graph",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13397/large/Graph_Token.png?1696513159",
   "description": "The Graph is an indexing protocol and global API for organizing blockchain data and making it easily accessible with GraphQL. Developers can use Graph Explorer to search, find, and publish all the public data they need to build decentralized applications. The Graph Network makes it possible to build serverless dApps that run entirely on public infrastructure.\n\nGRT is the native token of the network that’s used to coordinate work. GRT is an ERC20 token. Node operators, called Indexers, stake and earn GRT for processing queries. Anyone can delegate GRT to Indexers to secure the network and earn rewards. Curators organize data on The Graph by signaling GRT on useful APIs, called subgraphs. Indexers, Delegators, and Curators work together to organize the data for the crypto economy and maintain a useful global API for DeFi and Web3.\n",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -30,35 +31,34 @@
     "explorer": "https://etherscan.io/token/0xc944e90c64b2c07662a292be6244bdf05cda44a7"
   },
   "market": {
-    "price": 0.02770662,
-    "marketCap": 299267623,
-    "marketCapRank": 157,
-    "volume24h": 25778965,
-    "high24h": 0.02974903,
-    "low24h": 0.02734802,
-    "priceChange24h": -3.96129,
-    "priceChange7d": 5.3894448591065744,
-    "priceChange30d": 16.360928692588697,
-    "priceChange1y": -77.48200514128227,
+    "price": 0.02751074,
+    "marketCap": 296872230,
+    "marketCapRank": 156,
+    "volume24h": 21542339,
+    "high24h": 0.02938318,
+    "low24h": 0.02689874,
+    "priceChange24h": -4.15217,
+    "priceChange7d": 3.91311,
+    "priceChange30d": 14.01073,
+    "priceChange1y": -78.54444,
     "ath": 2.84,
-    "athChangePercentage": -99.0249,
+    "athChangePercentage": -99.03526,
     "athDate": "2021-02-12T07:28:45.775Z",
     "atl": 0.02316875,
     "atlDate": "2026-03-29T22:55:37.812Z",
     "circulatingSupply": 10799867657.47347,
     "totalSupply": 10800262816.04821,
     "maxSupply": 10800262823.318213,
-    "fdv": 299278573
+    "fdv": 296883093
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 3120,
-    "githubForks": 1061,
-    "commits4Weeks": 91
+    "githubStars": 3127,
+    "githubForks": 1066,
+    "commits4Weeks": 65
   },
-  "fetchedAt": "2026-03-23T15:06:13.370Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.541Z"
+  "fetchedAt": "2026-05-14T07:37:43.437Z"
 }

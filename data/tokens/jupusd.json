@@ -2,26 +2,49 @@
   "id": "jupusd",
   "symbol": "jupusd",
   "name": "JupUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70636/large/icon.png?1767003505",
+  "description": "JupUSD is a Solana-native stablecoin launched by Jupiter in partnership with Ethena Labs. It is issued using Ethena Labs’ Stablecoin-as-a-Service infrastructure and is backed by reserve assets held in institutional custody. At launch, reserves consist of USDC and Ethena’s USDtb. USDtb is a tokenized dollar backed by tokenized U.S. Treasury exposure and issued under a licensed, GENIUS-compliant framework.\n\nJupUSD is minted and redeemed against these reserves through controlled mint-and-redeem mechanisms. JupUSD does not accrue yield to holders. Any changes to reserve composition, custody arrangements, or issuance mechanics are disclosed through official Jupiter communication channels.\n\nJupUSD is not a yield-bearing stablecoin.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://jup.ag/",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/jupiterexchange/",
+    "explorer": "https://solscan.io/token/JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD"
+  },
   "market": {
-    "price": 0.99969,
-    "marketCap": 61519129,
-    "marketCapRank": 444,
-    "volume24h": 6500147,
-    "priceChange24h": 0.06462,
+    "price": 0.999185,
+    "marketCap": 59650527,
+    "marketCapRank": 452,
+    "volume24h": 8762379,
+    "high24h": 1.001,
+    "low24h": 0.998244,
+    "priceChange24h": -0.02195,
+    "priceChange7d": -0.05815,
+    "priceChange30d": -0.0313,
+    "priceChange1y": 0,
     "ath": 1.021,
-    "athChangePercentage": -2.0694,
+    "athChangePercentage": -2.08804,
     "athDate": "2026-04-26T05:05:07.328Z",
     "atl": 0.885214,
     "atlDate": "2026-03-22T21:50:19.247Z",
-    "circulatingSupply": 61535188.676851,
-    "totalSupply": 61535188.676851,
+    "circulatingSupply": 59672912.951783,
+    "totalSupply": 59672912.951783,
     "maxSupply": null,
-    "high24h": 1.001,
-    "low24h": 0.997242,
-    "priceChange7d": 0.04256349559592273,
-    "priceChange30d": 0.020771870168476796,
-    "priceChange1y": 0,
-    "fdv": 61519129
+    "fdv": 59650527
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.686Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:13:29.433Z"
 }

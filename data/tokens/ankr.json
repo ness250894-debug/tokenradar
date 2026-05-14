@@ -2,6 +2,7 @@
   "id": "ankr",
   "symbol": "ankr",
   "name": "Ankr Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4324/large/Ankr_Blue_Symbol.png?1754623142",
   "description": "Ankr is a Web3 decentralized infrastructure provider that helps developers, dapps, and stakers easily interact with multiple blockchains. It allows you to create DApps using API and RPC, staking on Ankr Earn, and use customized blockchain solutions for businesses.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -33,25 +34,25 @@
     "explorer": "https://etherscan.io/token/0x8290333cef9e6d528dd5618fb97a76f268f3edd4"
   },
   "market": {
-    "price": 0.00534032,
-    "marketCap": 53405958,
-    "marketCapRank": 494,
-    "volume24h": 13143420,
-    "high24h": 0.00539444,
-    "low24h": 0.00515099,
-    "priceChange24h": 1.76151,
-    "priceChange7d": 9.824027588330864,
-    "priceChange30d": 3.9267487695582095,
-    "priceChange1y": -75.10460270884829,
+    "price": 0.00509721,
+    "marketCap": 51000520,
+    "marketCapRank": 502,
+    "volume24h": 11003004,
+    "high24h": 0.00536966,
+    "low24h": 0.0050361,
+    "priceChange24h": -1.38722,
+    "priceChange7d": 0.06628,
+    "priceChange30d": -0.22429,
+    "priceChange1y": -76.32979,
     "ath": 0.213513,
-    "athChangePercentage": -97.50201,
+    "athChangePercentage": -97.62344,
     "athDate": "2021-04-16T19:44:04.474Z",
     "atl": 0.00070728,
     "atlDate": "2020-03-13T02:24:03.563Z",
     "circulatingSupply": 10000000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 53405958
+    "fdv": 51000520
   },
   "community": {
     "twitterFollowers": null,
@@ -62,6 +63,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-07T09:02:38.564Z",
-  "lastMarketUpdate": "2026-05-11T19:20:58.272Z"
+  "fetchedAt": "2026-05-13T18:19:44.705Z"
 }

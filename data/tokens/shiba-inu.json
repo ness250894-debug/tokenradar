@@ -2,6 +2,7 @@
   "id": "shiba-inu",
   "symbol": "shib",
   "name": "Shiba Inu",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
   "description": "Shiba Inu (SHIB) is a decentralized, community-led cryptocurrency ecosystem built on the Ethereum blockchain. Originally launched as a meme-based project, it has evolved into a comprehensive financial ecosystem designed to offer a decentralized alternative to traditional banking. Its main value proposition lies in its transition from a social phenomenon into a functional utility network, supported by a vast global community known as the ShibArmy and a commitment to 100% community ownership with no central leadership.\n\nThe ecosystem features its own decentralized exchange, ShibaSwap, where users can trade, provide liquidity, and earn rewards. To address Ethereum’s high costs and slow speeds, the project utilizes Shibarium, a Layer 2 scaling solution that processes transactions faster and more affordably.\n\nThe project employs a unique three-token model to manage its economy and governance. SHIB serves as the primary currency for trading and payments, while LEASH offers scarcity-based incentives for dedicated supporters. BONE acts as the governance token, allowing holders to vote on proposals through the Doggy DAO and serving as the native gas token for the Shibarium network.",
   "categories": [
     "Meme",
@@ -21,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
   },
   "market": {
-    "price": 0.00000628,
-    "marketCap": 3703204639,
+    "price": 0.0000063,
+    "marketCap": 3708650539,
     "marketCapRank": 31,
-    "volume24h": 128630933,
+    "volume24h": 143004932,
     "high24h": 0.00000654,
-    "low24h": 0.00000623,
-    "priceChange24h": -2.19958,
-    "priceChange7d": -1.5870381972684044,
-    "priceChange30d": 8.828597046462566,
-    "priceChange1y": -60.9501925007841,
+    "low24h": 0.00000622,
+    "priceChange24h": -2.90075,
+    "priceChange7d": -0.46297,
+    "priceChange30d": 7.25971,
+    "priceChange1y": -61.92404,
     "ath": 0.00008616,
-    "athChangePercentage": -92.70644,
+    "athChangePercentage": -92.69323,
     "athDate": "2021-10-28T03:54:55.568Z",
     "atl": 5.6366e-11,
     "atlDate": "2020-11-28T11:26:25.838Z",
     "circulatingSupply": 589243332678061.6,
     "totalSupply": 589499925587135.5,
     "maxSupply": null,
-    "fdv": 3704817243
+    "fdv": 3710265514
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T12:08:23.743Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.489Z"
+  "fetchedAt": "2026-05-14T07:32:08.266Z"
 }

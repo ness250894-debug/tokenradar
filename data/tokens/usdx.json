@@ -2,12 +2,32 @@
   "id": "usdx",
   "symbol": "usdx",
   "name": "USDX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13056/large/USDX_coin.png?1696512841",
+  "description": "USDX is the crypto-backed native stablecoin of the Kava DeFi hub.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Osmosis Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.kava.io/overview",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://www.mintscan.io/kava"
+  },
   "market": {
     "price": 0.549975,
     "marketCap": 61359614,
-    "marketCapRank": 445,
-    "volume24h": 4404.4,
-    "priceChange24h": 0.61058,
+    "marketCapRank": 443,
+    "volume24h": 4411.07,
+    "high24h": 0.56255,
+    "low24h": 0.545435,
+    "priceChange24h": 0.56742,
+    "priceChange7d": 3.58314,
+    "priceChange30d": 0.90029,
+    "priceChange1y": -24.03229,
     "ath": 3.89,
     "athChangePercentage": -85.84744,
     "athDate": "2020-11-21T11:14:14.148Z",
@@ -16,12 +36,16 @@
     "circulatingSupply": 111568045,
     "totalSupply": 111568045,
     "maxSupply": null,
-    "high24h": 0.56255,
-    "low24h": 0.545435,
-    "priceChange7d": 2.580554857863846,
-    "priceChange30d": 1.2267457877996706,
-    "priceChange1y": -23.294310586777662,
     "fdv": 61359614
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.686Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:43:12.235Z"
 }

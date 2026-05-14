@@ -10,7 +10,7 @@ import {
   formatPrice,
   formatCompact,
 } from "@/lib/content-loader";
-import { isArticleIndexable } from "@/lib/seo";
+import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
@@ -24,7 +24,10 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tokenIds = await getTokenIdsWithArticle("how-to-buy");
-  return tokenIds.map((token) => ({ token }));
+  const indexableTokenIds = await filterIndexableArticleTokenIds(tokenIds, (tokenId) =>
+    getArticle(tokenId, "how-to-buy"),
+  );
+  return indexableTokenIds.map((token) => ({ token }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -77,6 +80,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
 
   const metrics = await getTokenMetrics(tokenId);
   const article = await getArticle(tokenId, "how-to-buy");
+  if (!isArticleIndexable(article)) notFound();
 
   return (
     <div className="container">

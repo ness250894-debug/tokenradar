@@ -2,6 +2,7 @@
   "id": "jupiter-exchange-solana",
   "symbol": "jup",
   "name": "Jupiter",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/34188/large/jup.png?1704266489",
   "description": "\nJupiter is a cryptocurrency exchange platform on the Solana blockchain, offering features such as token swapping, limit orders, dollar-cost averaging, and a bridge for asset transfers to Solana. It provides users with tools to find the best trading prices and includes a beta version for perpetual futures trading. Jupiter finds the best price route for your swap by aggregating all the major liquidity sources on Solana.",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -24,25 +25,25 @@
     "explorer": "https://solscan.io/token/JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"
   },
   "market": {
-    "price": 0.22372,
-    "marketCap": 743030918,
-    "marketCapRank": 85,
-    "volume24h": 44774572,
-    "high24h": 0.24365,
-    "low24h": 0.220189,
-    "priceChange24h": -4.12896,
-    "priceChange7d": 13.924037823797283,
-    "priceChange30d": 36.636073699645635,
-    "priceChange1y": -60.65990296457496,
+    "price": 0.221144,
+    "marketCap": 734748439,
+    "marketCapRank": 86,
+    "volume24h": 33116957,
+    "high24h": 0.241104,
+    "low24h": 0.21861,
+    "priceChange24h": -8.17736,
+    "priceChange7d": 10.55589,
+    "priceChange30d": 31.30604,
+    "priceChange1y": -61.32877,
     "ath": 2,
-    "athChangePercentage": -88.80976,
+    "athChangePercentage": -88.90951,
     "athDate": "2024-01-31T15:02:47.304Z",
     "atl": 0.135801,
     "atlDate": "2026-02-12T18:35:44.925Z",
     "circulatingSupply": 3320312968.08,
-    "totalSupply": 6862435280.594715,
+    "totalSupply": 6862435280.554473,
     "maxSupply": 10000000000,
-    "fdv": 1535699085
+    "fdv": 1518580826
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:55:51.942Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-14T07:13:23.114Z"
 }

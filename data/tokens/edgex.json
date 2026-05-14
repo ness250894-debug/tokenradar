@@ -2,6 +2,7 @@
   "id": "edgex",
   "symbol": "edge",
   "name": "edgeX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172616/large/edgex.png?1774332310",
   "description": "edgeX is a 24/7 decentralized trading layer for global assets, offering perpetuals across commodities, equities, and crypto, alongside spot markets. Powered by its own EDGE Chain, edgeX is designed to deliver capital-efficient, self-custodied and 24/7 trading for users globally. Backed by Circle and integrated with native USDC, edgeX is building next-generation trading infrastructure that connects global liquidity with onchain settlement across multiple asset classes.",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -18,24 +19,24 @@
   },
   "market": {
     "price": 1.35,
-    "marketCap": 472510478,
-    "marketCapRank": 115,
-    "volume24h": 80746928,
+    "marketCap": 471443800,
+    "marketCapRank": 117,
+    "volume24h": 91259070,
     "high24h": 1.35,
     "low24h": 1.26,
-    "priceChange24h": 5.31823,
-    "priceChange7d": 1.42051185427556,
-    "priceChange30d": 62.41701759014996,
+    "priceChange24h": 5.64732,
+    "priceChange7d": 1.20076,
+    "priceChange30d": 62.18049,
     "priceChange1y": 0,
     "ath": 1.5,
-    "athChangePercentage": -9.74519,
+    "athChangePercentage": -9.96458,
     "athDate": "2026-04-22T14:45:21.919Z",
     "atl": 0.493807,
     "atlDate": "2026-03-31T11:19:17.616Z",
     "circulatingSupply": 350000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 1350029937
+    "fdv": 1346982284
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-31T14:08:18.453Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.523Z"
+  "fetchedAt": "2026-05-14T07:04:04.159Z"
 }

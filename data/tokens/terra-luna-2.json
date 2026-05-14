@@ -2,20 +2,55 @@
   "id": "terra-luna-2",
   "symbol": "luna",
   "name": "Terra",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/25767/large/01_Luna_color.png?1696524851",
+  "description": "LUNA is the native token of the Terra blockchain, a decentralized platform designed to host applications and provide financial tools. Following a transition from Terra Classic, the new Terra chain was established through a community-led governance proposal to focus on a decentralized economy without a stablecoin. As the foundational asset of the protocol, LUNA functions as the engine for the network where value moves as users pay gas fees to interact with decentralized applications. Its primary value proposition lies in its ability to scale rewards for stakers as developer activity and transaction volumes grow within the ecosystem.\n\nThe network maintains security through a Proof of Stake system using the Tendermint consensus mechanism, where 130 independent validators compare transactions to ensure the integrity of the blockchain. Users who do not want to run their own node can delegate their tokens to these validators to help record and verify data. To ensure accountability, the protocol employs slashing, a penalty that removes a small portion of staked tokens if a validator misbehaves or goes offline.\n\nOriginally created by Terraform Labs, the project has evolved into a community-governed model where independent developer groups and users maintain the protocol. Terraform Labs currently manages a claims portal for users impacted by previous network events as part of ongoing legal and bankruptcy proceedings. The token serves multiple roles, including paying for gas fees to interact with dApps , providing voting power for governance proposals , and earning rewards through a fixed 7% annual inflation rate.",
+  "categories": [
+    "Terra Ecosystem",
+    "Alleged SEC Securities",
+    "Osmosis Ecosystem",
+    "DeFiance Capital Portfolio",
+    "Pantera Capital Portfolio",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Delphi Ventures Portfolio",
+    "Galaxy Digital Portfolio",
+    "OKX Ventures Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.phoenix.money/",
+    "github": "https://github.com/phoenix-directive",
+    "reddit": null,
+    "explorer": "https://finder.terra.money/"
+  },
   "market": {
-    "price": 0.071481,
-    "marketCap": 50765140,
-    "marketCapRank": 499,
-    "volume24h": 11104146,
-    "priceChange24h": 3.96396,
+    "price": 0.067018,
+    "marketCap": 47563001,
+    "marketCapRank": 522,
+    "volume24h": 7426464,
+    "high24h": 0.070849,
+    "low24h": 0.066192,
+    "priceChange24h": -4.69217,
+    "priceChange7d": -3.29178,
+    "priceChange30d": 20.58948,
+    "priceChange1y": -70.16305,
     "ath": 18.87,
-    "athChangePercentage": -99.61903,
+    "athChangePercentage": -99.64496,
     "athDate": "2022-05-28T09:18:14.847Z",
     "atl": 0.04580672,
     "atlDate": "2025-10-10T21:26:52.228Z",
     "circulatingSupply": 709984438.91686,
     "totalSupply": 1186707049,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 79499417
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.606Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 390,
+    "githubForks": 97,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:37:11.807Z"
 }

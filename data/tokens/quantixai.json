@@ -2,26 +2,50 @@
   "id": "quantixai",
   "symbol": "qfi",
   "name": "Quantix Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36166/large/QFI_Logo.jpg?1775009797",
+  "description": "Quantix Finance is an on-chain credit protocol that provides both permissioned infrastructure for institutions and open access frameworks within decentralized finance. It enables structured capital allocation across digital credit markets through a combination of identity based participation and blockchain native financial primitives.\n\nThe platform supports multiple participant roles, including lenders, borrowers, and pool managers, operating across curated credit pools with transparent underwriting, risk segmentation, and performance tracking. Institutional participants engage through permissioned environments with compliance aligned access, while DeFi users can access structured yield opportunities within open market configurations.\n\nBuilt to improve capital efficiency in digital asset markets, Quantix Finance integrates real time monitoring, standardized reporting, and modular capital deployment systems. By combining institutional grade infrastructure with accessible on-chain credit markets, Quantix delivers a unified framework for scalable, transparent, and risk aware lending across the QFI ecosystem.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Lending/Borrowing Protocols",
+    "Tron Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.quantixfinance.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TMVnKncD9NhAYEPoR6EutBrAKi8x6oZdR6"
+  },
   "market": {
-    "price": 61.18,
-    "marketCap": 61201050,
-    "marketCapRank": 447,
-    "volume24h": 1821821,
-    "priceChange24h": -0.24585,
+    "price": 61.06,
+    "marketCap": 61043742,
+    "marketCapRank": 445,
+    "volume24h": 2101204,
+    "high24h": 61.37,
+    "low24h": 60.5,
+    "priceChange24h": 0.74125,
+    "priceChange7d": 0.84826,
+    "priceChange30d": -1.52981,
+    "priceChange1y": -32.37708,
     "ath": 109.6,
-    "athChangePercentage": -44.16472,
+    "athChangePercentage": -44.33533,
     "athDate": "2025-07-13T20:35:36.383Z",
     "atl": 0.228366,
     "atlDate": "2024-03-19T10:08:23.098Z",
     "circulatingSupply": 1000000,
     "totalSupply": 10000000,
     "maxSupply": 10000000,
-    "high24h": 61.35,
-    "low24h": 60.5,
-    "priceChange7d": 0.8004156477087779,
-    "priceChange30d": -0.7533477518673491,
-    "priceChange1y": -32.34912592621524,
-    "fdv": 612010500
+    "fdv": 610437422
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.687Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:28:08.051Z"
 }

@@ -2,17 +2,14 @@
   "id": "usdd",
   "symbol": "usdd",
   "name": "USDD",
-  "description": "Decentralized StableCoin USDD on TRON The TRON DAO Reserve manages USDD and guarantees its price stability",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/25380/large/UUSD.jpg?1696524513",
+  "description": "Decentralized StableCoin USDD on TRON\nThe TRON DAO Reserve manages USDD and guarantees its price stability",
   "categories": [
     "Stablecoins",
     "USD Stablecoin",
     "BNB Chain Ecosystem",
-    "Avalanche Ecosystem",
-    "Near Protocol Ecosystem",
-    "Arbitrum Ecosystem",
     "Ethereum Ecosystem",
     "Tron Ecosystem",
-    "BitTorrent Ecosystem",
     "Algorithmic Stablecoin",
     "Fiat-backed Stablecoin",
     "Made in China"
@@ -25,25 +22,25 @@
     "explorer": "https://tronscan.org/#/token20/TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz"
   },
   "market": {
-    "price": 0.999659,
-    "marketCap": 1470654837,
+    "price": 0.999563,
+    "marketCap": 1469545800,
     "marketCapRank": 57,
-    "volume24h": 4901184,
+    "volume24h": 16228765,
     "high24h": 1,
     "low24h": 0.999112,
-    "priceChange24h": -0.0029,
-    "priceChange7d": -0.014571112800563682,
-    "priceChange30d": -0.06306443856107447,
-    "priceChange1y": -0.07967594069654874,
+    "priceChange24h": -0.00837,
+    "priceChange7d": -0.02436,
+    "priceChange30d": -0.15917,
+    "priceChange1y": -0.06203,
     "ath": 1.052,
-    "athChangePercentage": -4.97077,
+    "athChangePercentage": -4.96917,
     "athDate": "2023-10-23T22:45:25.398Z",
     "atl": 0.928067,
     "atlDate": "2022-06-19T16:15:11.558Z",
-    "circulatingSupply": 1471316106,
-    "totalSupply": 1471316106,
+    "circulatingSupply": 1470186830,
+    "totalSupply": 1470097606,
     "maxSupply": null,
-    "fdv": 1470654837
+    "fdv": 1469456615
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:34:56.589Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.497Z"
+  "fetchedAt": "2026-05-14T07:42:34.347Z"
 }

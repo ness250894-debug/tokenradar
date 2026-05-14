@@ -2,20 +2,48 @@
   "id": "dual",
   "symbol": "dual",
   "name": "Dual",
-  "market": {
-    "price": 0.00735865,
-    "marketCap": 54803826,
-    "marketCapRank": 471,
-    "volume24h": 416689,
-    "priceChange24h": 0.33112,
-    "ath": 0.00992344,
-    "athChangePercentage": -25.76368,
-    "athDate": "2026-04-21T09:35:41.865Z",
-    "atl": 0.00548112,
-    "atlDate": "2026-04-07T18:40:10.719Z",
-    "circulatingSupply": 7444343186.049127,
-    "totalSupply": 10000000000,
-    "maxSupply": 10000000000
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172467/large/dual.png?1773499983",
+  "description": "Dual is the tokenization engine for real world assets.\n\nBuild programmable tokens for anything, from currencies and loyalty points to real estate, treasuries, and physical products. Production-ready enterprise-grade infrastructure that scales from simple assets to complex use cases.\n\nDUAL is the utility token that powers the ecosystem. Businesses, creatives, and developers fund their projects by depositing $DUAL or using USD, which is converted into $DUAL via the open market.",
+  "categories": [
+    "Infrastructure",
+    "Base Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.dual.org/",
+    "github": "https://github.com/dualorg",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6aF487BEb661CCeCD1D045E9561A0dAC9AA5c7db"
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.902Z"
+  "market": {
+    "price": 0.0061614,
+    "marketCap": 46084750,
+    "marketCapRank": 533,
+    "volume24h": 149729,
+    "high24h": 0.0063222,
+    "low24h": 0.0060406,
+    "priceChange24h": -0.02956,
+    "priceChange7d": -20.36784,
+    "priceChange30d": -10.29944,
+    "priceChange1y": 0,
+    "ath": 0.00992344,
+    "athChangePercentage": -38.08495,
+    "athDate": "2026-04-21T09:35:41.865Z",
+    "atl": 0.00382546,
+    "atlDate": "2026-05-07T22:40:42.175Z",
+    "circulatingSupply": 7480968300.204377,
+    "totalSupply": 10000000000,
+    "maxSupply": 10000000000,
+    "fdv": 61602654
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:32:19.072Z"
 }

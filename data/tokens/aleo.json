@@ -2,6 +2,7 @@
   "id": "aleo",
   "symbol": "aleo",
   "name": "ALEO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/27916/large/secondary-icon-dark.png?1726770428",
   "description": "Aleo was born from a desire to achieve the impossible - to build a user experience on the web that is both truly personal and truly private.\n\nAleo is the first platform to offer fully private applications.\n\nAleo achieves this by leveraging decentralized systems and zero-knowledge cryptography to protect user data on the web. At its core, Aleo offers users and application developers unbounded compute with absolute privacy.\n\nBy architecting Aleo as a blockchain that is private-by-default, open-source, and built for the web, we believe Aleo is uniquely positioned to address the shortcomings of blockchain adoption. With Aleo, users have access to a world of truly personalized web services without giving up control of their private data. \n\nAleo will reshape the role decentralized systems play in our society and introduce new experiences never before seen on the web.",
   "categories": [
     "Infrastructure",
@@ -22,25 +23,25 @@
     "explorer": "https://aleoscan.io/"
   },
   "market": {
-    "price": 0.0477492,
-    "marketCap": 52811622,
-    "marketCapRank": 498,
-    "volume24h": 967350,
-    "high24h": 0.051842,
-    "low24h": 0.04768496,
-    "priceChange24h": -5.70068,
-    "priceChange7d": 10.691248265782976,
-    "priceChange30d": 3.974724208862875,
-    "priceChange1y": -81.95169877748226,
+    "price": 0.04580195,
+    "marketCap": 50780077,
+    "marketCapRank": 504,
+    "volume24h": 1140099,
+    "high24h": 0.04775706,
+    "low24h": 0.04346803,
+    "priceChange24h": -3.96119,
+    "priceChange7d": 4.00863,
+    "priceChange30d": -0.68519,
+    "priceChange1y": -81.74627,
     "ath": 6.72,
-    "athChangePercentage": -99.28928,
+    "athChangePercentage": -99.31829,
     "athDate": "2024-09-28T01:55:41.449Z",
     "atl": 0.04065353,
     "atlDate": "2026-03-31T17:50:09.802Z",
-    "circulatingSupply": 1106101883.20019,
-    "totalSupply": 1988557840.460464,
+    "circulatingSupply": 1108614532.220734,
+    "totalSupply": 1989232039.570049,
     "maxSupply": 5000000000,
-    "fdv": 94945110
+    "fdv": 91116753
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T18:56:50.486Z",
-  "lastMarketUpdate": "2026-05-12T19:23:27.053Z"
+  "fetchedAt": "2026-05-13T18:19:06.766Z"
 }

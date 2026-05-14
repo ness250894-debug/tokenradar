@@ -2,6 +2,7 @@
   "id": "convex-finance",
   "symbol": "cvx",
   "name": "Convex Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/15585/large/convex.png?1696515221",
   "description": "Convex is a protocol that simplifies Curve boosting experience in order to maximize yields. Convex allows Curve liquidity providers to earn trading fees and claim boosted CRV without locking CRV themselves. Liquidity providers can receive boosted CRV and liquidity mining rewards with minimal effort.\nIf you would like to stake CRV, Convex lets users receive trading fees as well as a share of boosted CRV received by liquidity providers. This allows for a better balance between liquidity providers and CRV stakers as well as better capital efficiency.\n\nCurve liquidity providers can deposit their LP tokens into Convex to maximize their CRV earnings with a more efficient boost.\n\nCurve DAO token stakers will be able to earn additional boosted CRV and CVX tokens through the protocol.\n\n",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -21,35 +22,34 @@
     "explorer": "https://etherscan.io/token/0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b"
   },
   "market": {
-    "price": 1.87,
-    "marketCap": 168768325,
+    "price": 1.89,
+    "marketCap": 170817477,
     "marketCapRank": 212,
-    "volume24h": 10165021,
+    "volume24h": 10432516,
     "high24h": 2.03,
     "low24h": 1.86,
-    "priceChange24h": -4.30922,
-    "priceChange7d": 3.3972782817505287,
-    "priceChange30d": 7.713075229430774,
-    "priceChange1y": -44.34434587214388,
+    "priceChange24h": -2.56629,
+    "priceChange7d": 4.32798,
+    "priceChange30d": 8.81324,
+    "priceChange1y": -42.99999,
     "ath": 60.09,
-    "athChangePercentage": -96.89123,
+    "athChangePercentage": -96.85851,
     "athDate": "2022-01-01T18:04:03.030Z",
     "atl": 1.36,
     "atlDate": "2025-10-10T21:32:11.855Z",
     "circulatingSupply": 90360893.86537892,
-    "totalSupply": 99967701.13812529,
+    "totalSupply": 99967595.52697998,
     "maxSupply": 100000000,
-    "fdv": 186711095
+    "fdv": 188977905
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 182,
-    "githubForks": 96,
+    "githubStars": 183,
+    "githubForks": 97,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T17:04:09.027Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.556Z"
+  "fetchedAt": "2026-05-13T18:29:19.973Z"
 }

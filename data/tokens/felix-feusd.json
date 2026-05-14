@@ -2,26 +2,51 @@
   "id": "felix-feusd",
   "symbol": "feusd",
   "name": "Felix feUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55068/large/feusd.jpg?1743581333",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "Synthetic Asset",
+    "Hyperliquid Ecosystem",
+    "Crypto-backed Stablecoin",
+    "HyperEVM Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://usefelix.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://hyperevmscan.io/token/0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70"
+  },
   "market": {
-    "price": 0.995034,
-    "marketCap": 74631616,
-    "marketCapRank": 388,
-    "volume24h": 263065,
-    "priceChange24h": -0.02873,
+    "price": 0.995081,
+    "marketCap": 74635156,
+    "marketCapRank": 387,
+    "volume24h": 241448,
+    "high24h": 0.998486,
+    "low24h": 0.991647,
+    "priceChange24h": -0.28679,
+    "priceChange7d": -0.14009,
+    "priceChange30d": 0.0259,
+    "priceChange1y": 0.2586,
     "ath": 1.067,
-    "athChangePercentage": -6.73645,
+    "athChangePercentage": -6.72822,
     "athDate": "2025-04-02T15:35:18.907Z",
     "atl": 0.705908,
     "atlDate": "2025-10-10T21:28:16.651Z",
     "circulatingSupply": 75004069,
-    "totalSupply": 8902560105.701405,
+    "totalSupply": 8902532138.232334,
     "maxSupply": null,
-    "high24h": 0.998162,
-    "low24h": 0.992355,
-    "priceChange7d": -0.09931572239221945,
-    "priceChange30d": 0.04198768803336758,
-    "priceChange1y": 0.5073775703231216,
-    "fdv": 8858352069
+    "fdv": 8858744402
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.671Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:06:19.064Z"
 }

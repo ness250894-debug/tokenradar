@@ -2,6 +2,7 @@
   "id": "chain-2",
   "symbol": "xcn",
   "name": "Onyxcoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/24210/large/onyxlogo.jpg?1696523397",
   "description": "Onyx is an infrastructure for a multi-asset, scalable, and cryptographically secure ledger. Onyx functions as a blockchain-based technology that enhances financial ecosystems by enabling a more efficient and interconnected economy, with a mission to develop cryptographic ledgers that optimize security, scalability, and usability. XCN is native to the Onyx XCN Ledger Blockchain as well as the Onyx Goliath Blockchain. XCN is also used as an ERC-20 token for Staking and Governance.",
   "categories": [
     "Smart Contract Platform",
@@ -22,25 +23,25 @@
     "explorer": "https://explorer.onyx.org/"
   },
   "market": {
-    "price": 0.00502001,
-    "marketCap": 191748221,
-    "marketCapRank": 197,
-    "volume24h": 7446547,
+    "price": 0.00503737,
+    "marketCap": 191955026,
+    "marketCapRank": 196,
+    "volume24h": 7497677,
     "high24h": 0.00517514,
     "low24h": 0.00498711,
-    "priceChange24h": -2.5491,
-    "priceChange7d": -3.0402986144383375,
-    "priceChange30d": 7.231267958774367,
-    "priceChange1y": -71.65029175423713,
+    "priceChange24h": -1.58727,
+    "priceChange7d": -2.81631,
+    "priceChange30d": 7.60209,
+    "priceChange1y": -71.6536,
     "ath": 0.184139,
-    "athChangePercentage": -97.27478,
+    "athChangePercentage": -97.27476,
     "athDate": "2022-05-27T11:45:24.820Z",
     "atl": 0.0007055,
     "atlDate": "2023-10-11T20:12:02.910Z",
     "circulatingSupply": 38196742868.99653,
     "totalSupply": 53402432357.48609,
     "maxSupply": 68892071756.9,
-    "fdv": 268081010
+    "fdv": 268370141
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:54:05.053Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.553Z"
+  "fetchedAt": "2026-05-13T18:27:32.465Z"
 }

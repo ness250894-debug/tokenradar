@@ -2,6 +2,7 @@
   "id": "wemix-token",
   "symbol": "wemix",
   "name": "WEMIX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12998/large/wemixcoin_color_200.png?1696512788",
   "description": "Global gaming platform with popular game titles",
   "categories": [
     "Smart Contract Platform",
@@ -17,28 +18,28 @@
     "website": "https://www.wemix.com/en",
     "github": "https://github.com/wemixarchive",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://scan.wemix.com"
   },
   "market": {
-    "price": 0.291297,
-    "marketCap": 134637583,
-    "marketCapRank": 245,
-    "volume24h": 1898336,
-    "high24h": 0.299531,
-    "low24h": 0.282393,
-    "priceChange24h": 3.04196,
-    "priceChange7d": 19.407918444562718,
-    "priceChange30d": 16.896363410206337,
-    "priceChange1y": -19.54557001915734,
+    "price": 0.292818,
+    "marketCap": 135290928,
+    "marketCapRank": 244,
+    "volume24h": 1433540,
+    "high24h": 0.293968,
+    "low24h": 0.284618,
+    "priceChange24h": 0.64752,
+    "priceChange7d": 19.52139,
+    "priceChange30d": 16.82667,
+    "priceChange1y": -18.45537,
     "ath": 24.71,
-    "athChangePercentage": -98.82072,
+    "athChangePercentage": -98.81498,
     "athDate": "2021-11-21T17:33:44.178Z",
     "atl": 0.128398,
     "atlDate": "2021-06-22T12:52:49.089Z",
     "circulatingSupply": 462277841.3255647,
     "totalSupply": 552473209.5478008,
     "maxSupply": 590000000,
-    "fdv": 160906820
+    "fdv": 161687640
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:16:04.671Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.569Z"
+  "fetchedAt": "2026-05-14T07:45:18.692Z"
 }

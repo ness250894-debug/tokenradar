@@ -2,7 +2,8 @@
   "id": "internet-computer",
   "symbol": "icp",
   "name": "Internet Computer",
-  "description": "The Internet Computer is a decentralized cloud blockchain designed to run applications, websites, and backend systems fully on-chain. Its architecture provides robust security, resilience, and built-in multi-chain support. A key focus of the network is enabling a “self-writing cloud,” where AI tools allow users generate applications through natural-language instructions. Developers and users can experiment with the platform using AI app-generation tools like caffeine.ai or by writing serverless...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180",
+  "description": "The Internet Computer is a decentralized cloud blockchain designed to run applications, websites, and backend systems fully on-chain. Its architecture provides robust security, resilience, and built-in multi-chain support.\n\nA key focus of the network is enabling a “self-writing cloud,” where AI tools allow users generate applications through natural-language instructions.\n\nDevelopers and users can experiment with the platform using AI app-generation tools like caffeine.ai or by writing serverless code directly through online IDEs such as icp.ninja.\n\nThe ICP token is used to pay for computation (through a burn-based model) and to participate in network governance through staking.\n",
   "categories": [
     "Artificial Intelligence (AI)",
     "Infrastructure",
@@ -32,25 +33,25 @@
     "explorer": "https://dashboard.internetcomputer.org/canister/ryjl3-tyaaa-aaaaa-aaaba-cai"
   },
   "market": {
-    "price": 3.08,
-    "marketCap": 1700696057,
+    "price": 2.97,
+    "marketCap": 1642469951,
     "marketCapRank": 55,
-    "volume24h": 73636634,
+    "volume24h": 75910009,
     "high24h": 3.31,
-    "low24h": 3.05,
-    "priceChange24h": -3.5439,
-    "priceChange7d": 6.666204607982292,
-    "priceChange30d": 25.99573150898749,
-    "priceChange1y": -47.31462211203708,
+    "low24h": 2.95,
+    "priceChange24h": -7.94226,
+    "priceChange7d": 0.22032,
+    "priceChange30d": 19.95668,
+    "priceChange1y": -50.09861,
     "ath": 700.65,
-    "athChangePercentage": -99.56045,
+    "athChangePercentage": -99.57514,
     "athDate": "2021-05-10T16:05:53.653Z",
     "atl": 2.02,
     "atlDate": "2026-02-24T05:35:51.591Z",
-    "circulatingSupply": 552095902.9160364,
-    "totalSupply": 552095902.9160364,
+    "circulatingSupply": 552137343.7241199,
+    "totalSupply": 552137343.7241199,
     "maxSupply": null,
-    "fdv": 1700696057
+    "fdv": 1642469951
   },
   "community": {
     "twitterFollowers": null,
@@ -61,6 +62,5 @@
     "githubForks": 280,
     "commits4Weeks": 567
   },
-  "fetchedAt": "2026-03-15T10:14:21.690Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.497Z"
+  "fetchedAt": "2026-05-14T07:12:19.917Z"
 }

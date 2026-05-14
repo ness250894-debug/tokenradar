@@ -2,26 +2,55 @@
   "id": "plume",
   "symbol": "plume",
   "name": "Plume",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53623/large/plume-token.png?1736896935",
+  "description": "Plume is the first RWAfi L1 network focused on crypto natives. We build infrastructure to make it easy to connect the real world and the crypto markets. We go against the traditional view of RWAs by changing its definition – it’s not just TradFi onchain but instead building net new crypto-first RWA use cases to the market including things like RWA derivatives/speculation, borrow/lend, yield farming, and more.\n\nWe are a permissionless EVM chain and ecosystem that is redefining and driving the RWA market forward. We do this through novel technologies that vertically integrate all the elements of RWAs into a single stack and ecosystem. Our tokenization engine, an EVM chain, compliance &amp; regulatory tooling, RWA data normalization, etc are all first class objects so that they work seamlessly together to make it easy to bring anything in the real world (assets, data, etc.) onchain.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "RWA Protocol",
+    "Binance HODLer Airdrops",
+    "Made in USA",
+    "Plume Network Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://plume.org/",
+    "github": "https://github.com/plumenetwork",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x4C1746A800D224393fE2470C70A35717eD4eA5F1"
+  },
   "market": {
-    "price": 0.01300421,
-    "marketCap": 72163670,
-    "marketCapRank": 396,
-    "volume24h": 10728959,
-    "priceChange24h": -7.08316,
+    "price": 0.01294426,
+    "marketCap": 71820733,
+    "marketCapRank": 394,
+    "volume24h": 9352862,
+    "high24h": 0.01432574,
+    "low24h": 0.012595,
+    "priceChange24h": -9.4971,
+    "priceChange7d": 2.7958,
+    "priceChange30d": -1.47368,
+    "priceChange1y": -93.53545,
     "ath": 0.247537,
-    "athChangePercentage": -94.74105,
+    "athChangePercentage": -94.76805,
     "athDate": "2025-03-19T22:25:55.148Z",
     "atl": 0.00854877,
     "atlDate": "2026-02-28T10:16:31.882Z",
     "circulatingSupply": 5545561594,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.01436971,
-    "low24h": 0.01300566,
-    "priceChange7d": 4.161541739260119,
-    "priceChange30d": 22.267263616035848,
-    "priceChange1y": -93.23775565859226,
-    "fdv": 130128697
+    "fdv": 129510297
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.672Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:26:26.895Z"
 }

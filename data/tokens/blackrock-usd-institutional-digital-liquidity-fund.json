@@ -2,8 +2,10 @@
   "id": "blackrock-usd-institutional-digital-liquidity-fund",
   "symbol": "buidl",
   "name": "BlackRock USD Institutional Digital Liquidity Fund",
-  "description": "A cryptocurrency token known as BlackRock USD Institutional Digital Liquidity Fund (BUIDL). It is tracked on CoinGecko with the ID \"blackrock-usd-institutional-digital-liquidity-fund\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36291/large/blackrock.png?1711013223",
+  "description": "",
   "categories": [
+    "Tokenized Assets",
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
     "Avalanche Ecosystem",
@@ -12,7 +14,9 @@
     "Ethereum Ecosystem",
     "Optimism Ecosystem",
     "Aptos Ecosystem",
-    "Real World Assets (RWA)"
+    "Real World Assets (RWA)",
+    "Tokenized Treasury Bills (T-Bills)",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -51,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:45:16.464Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.491Z"
+  "fetchedAt": "2026-05-13T18:25:32.383Z"
 }

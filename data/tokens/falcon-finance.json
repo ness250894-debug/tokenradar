@@ -2,27 +2,52 @@
   "id": "falcon-finance",
   "symbol": "usdf",
   "name": "Falcon USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54558/large/ff_200_X_200.png?1740741076",
   "description": " Falcon, the next-generation platform transforming synthetic dollars into sustainable yield opportunities. Our mission is clear: Your Crypto, Your Yields. Falcon aims to empower users and institutions to unlock the true yield potential of their digital assets.  \n\nFalcon is built on the foundation of trust, transparency, and robust technology. Our team of experienced professionals brings expertise from blockchain, financial engineering, and quantitative analysis to ensure we deliver a protocol that balances reliability with performance. We are committed to enable users to make the most of their assets while adhering to the highest standards of accountability.\n\nOur mission extends beyond creating a protocol—it’s about fostering a system that prioritizes user returns and sustainable growth. ",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "XDC Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Synthetic Dollar"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://falcon.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
+  },
   "market": {
-    "price": 0.998663,
-    "marketCap": 1781761493,
-    "marketCapRank": 48,
-    "volume24h": 302212,
+    "price": 0.998012,
+    "marketCap": 1780573037,
+    "marketCapRank": 49,
+    "volume24h": 423878,
     "high24h": 1.001,
-    "low24h": 0.997592,
-    "priceChange24h": -0.04972,
-    "priceChange7d": 0.013996372196015119,
-    "priceChange30d": 0.015817267193352864,
-    "priceChange1y": -2.4733267226275517,
+    "low24h": 0.997121,
+    "priceChange24h": -0.14,
+    "priceChange7d": -0.02867,
+    "priceChange30d": -0.06936,
+    "priceChange1y": -0.69735,
     "ath": 1.075,
-    "athChangePercentage": -7.04471,
+    "athChangePercentage": -7.10971,
     "athDate": "2025-05-08T21:25:42.071Z",
     "atl": 0.943422,
     "atlDate": "2025-07-08T10:16:34.749Z",
-    "circulatingSupply": 1783807738.21108,
-    "totalSupply": 1783807738.21108,
+    "circulatingSupply": 1783824428.038432,
+    "totalSupply": 1783824428.038432,
     "maxSupply": null,
-    "fdv": 1781761493
+    "fdv": 1780573037
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.495Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:05:57.980Z"
 }

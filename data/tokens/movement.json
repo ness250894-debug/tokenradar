@@ -2,26 +2,62 @@
   "id": "movement",
   "symbol": "move",
   "name": "Movement",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39345/large/movement-testnet-token.png?1721878759",
+  "description": "Movement Network is a secure and scalable blockchain designed to make Move programming accessible to developers everywhere. With high-performance execution and security, Movement delivers the infrastructure for the next generation of decentralized applications and unleashes opportunity and financial empowerment for anyone, anywhere.\n\n$MOVE is the native token of Movement Network, for transaction fees and staking to secure the network. The Movement M1 (Layer 1) Network is powered by the Move programming language, unleashing opportunity, accessibility, and financial empowerment for anyone, anywhere.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Base Ecosystem",
+    "Modular Blockchain",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Hyperliquid Ecosystem",
+    "OKX Ventures Portfolio",
+    "Binance HODLer Airdrops",
+    "World Liberty Financial Portfolio",
+    "Made in USA",
+    "HyperEVM Ecosystem",
+    "Movement Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.movementnetwork.xyz/",
+    "github": "https://github.com/movementlabsxyz/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x3073f7aAA4DB83f95e9FFf17424F71D4751a3073"
+  },
   "market": {
-    "price": 0.01855438,
-    "marketCap": 71204361,
-    "marketCapRank": 399,
-    "volume24h": 24271240,
-    "priceChange24h": -5.18658,
+    "price": 0.01824789,
+    "marketCap": 70020693,
+    "marketCapRank": 405,
+    "volume24h": 22671432,
+    "high24h": 0.02043096,
+    "low24h": 0.01809149,
+    "priceChange24h": -10.20308,
+    "priceChange7d": 0.54828,
+    "priceChange30d": 5.81279,
+    "priceChange1y": -91.99104,
     "ath": 1.45,
-    "athChangePercentage": -98.72011,
+    "athChangePercentage": -98.73811,
     "athDate": "2024-12-10T04:05:51.093Z",
     "atl": 0.01675458,
     "atlDate": "2026-04-13T05:20:25.350Z",
     "circulatingSupply": 3837500000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.02043096,
-    "low24h": 0.01855439,
-    "priceChange7d": 1.6732084764110577,
-    "priceChange30d": 9.829065241261645,
-    "priceChange1y": -91.8329247580877,
-    "fdv": 185548823
+    "fdv": 182464347
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.676Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:20:28.675Z"
 }

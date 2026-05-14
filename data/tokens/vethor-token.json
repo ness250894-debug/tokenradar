@@ -2,26 +2,48 @@
   "id": "vethor-token",
   "symbol": "vtho",
   "name": "VeThor",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5230/large/VTHO_Circle_Crop__Reference_.png?1751980206",
+  "description": "VeChain is also a dual token system consisting of VeChain Token (VET) and VeThor Token (THOR). Network users are rewarded with the latter when they hold the former, which is also the case with NEO &amp; GAS. The VeChain Token can be used to deploy applications on the platform where as VeThor can be used to pay for applications and other transactions over the network. VeChain claims that this economic model is better suited for enterprises than the one in other blockchains, such as Ethereum and Bitcoin, where higher usage drives the cost of the utility token and subsequently the cost of deploying and operations in the protocol.\n\nIn an official blog post earlier this year, the foundation announced it’s “grand aspirations to make financial services sector one of the main focuses on our development plan”. They also announced their partnership with a property mortgage loan provider Fanghuwang.com, a subsidiary of Beijing Baisheng Technology Co., Ltd. They also reported partnerships with BMW, Groupe Renault, and DNV GL.\nUntil now, VeChain has existed in the form of an ERC-20 token on the Ethereum blockchain. In an announcement detailing the roadmap moving forward, the foundation stated that they would engage in negotiations with exchanges to perform the token swap to become an independent network. The roadmap also detailed plans to launch a mobile wallet and ledger integration.",
+  "categories": [
+    "Layer 1 (L1)",
+    "VeChain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.vechain.org/",
+    "github": "https://github.com/vechain/thor",
+    "reddit": "https://www.reddit.com/r/Vechain/",
+    "explorer": "https://vechainstats.com/token/vtho/"
+  },
   "market": {
-    "price": 0.00058265,
-    "marketCap": 58203388,
-    "marketCapRank": 459,
-    "volume24h": 1626275,
-    "priceChange24h": -3.25829,
+    "price": 0.00057385,
+    "marketCap": 57346293,
+    "marketCapRank": 463,
+    "volume24h": 17121228,
+    "high24h": 0.00064235,
+    "low24h": 0.00057139,
+    "priceChange24h": -5.23275,
+    "priceChange7d": -4.60442,
+    "priceChange30d": 1.82228,
+    "priceChange1y": -80.04982,
     "ath": 0.04671227,
-    "athChangePercentage": -98.7533,
+    "athChangePercentage": -98.773,
     "athDate": "2018-08-29T02:40:46.956Z",
     "atl": 0.00015238,
     "atlDate": "2020-03-16T10:14:24.544Z",
-    "circulatingSupply": 99926225719,
-    "totalSupply": 99990939661,
+    "circulatingSupply": 99998692118,
+    "totalSupply": 100003628210,
     "maxSupply": null,
-    "high24h": 0.00061113,
-    "low24h": 0.00058028,
-    "priceChange7d": -3.112706411970568,
-    "priceChange30d": 5.3300482964249944,
-    "priceChange1y": -79.51624212546666,
-    "fdv": 58241082
+    "fdv": 57349123
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.689Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 812,
+    "githubForks": 270,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:44:34.432Z"
 }

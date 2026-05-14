@@ -2,6 +2,7 @@
   "id": "ylds",
   "symbol": "ylds",
   "name": "YLDS",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66486/large/YLDS.png?1772560579",
   "description": "YLDS is a new USD-pegged stablecoin launched by Figure Markets Holdings, Inc. through its subsidiary Figure Certificate Corp (“FCC”). YLDS originated from the need Figure Markets saw in the financial services space for a USD pegged digital asset that inherently accrues interest, is fully transferrable, and has the regulatory clarity of a registered security.  Each YLDS is a transferable digital certificate backed by investments similar to those of a prime money market fund.  ",
   "categories": [
     "Stablecoins",
@@ -17,25 +18,25 @@
     "explorer": "https://explorer.provenance.io/asset/uylds.fcc"
   },
   "market": {
-    "price": 0.999808,
-    "marketCap": 529920197,
-    "marketCapRank": 104,
-    "volume24h": 12771931,
-    "high24h": 0.999825,
-    "low24h": 0.999625,
-    "priceChange24h": -0.00171,
-    "priceChange7d": -0.012011376107899135,
-    "priceChange30d": 0.00625242534038542,
+    "price": 0.999809,
+    "marketCap": 529871315,
+    "marketCapRank": 102,
+    "volume24h": 12160802,
+    "high24h": 0.999817,
+    "low24h": 0.999629,
+    "priceChange24h": -0.00021,
+    "priceChange7d": -0.00992,
+    "priceChange30d": 0.00627,
     "priceChange1y": 0,
     "ath": 1.001,
-    "athChangePercentage": -0.1276,
+    "athChangePercentage": -0.13681,
     "athDate": "2026-02-13T15:00:58.249Z",
     "atl": 0.999202,
     "atlDate": "2025-11-16T12:26:29.488Z",
     "circulatingSupply": 530022133.22,
     "totalSupply": 530022133.22,
     "maxSupply": null,
-    "fdv": 529920197
+    "fdv": 529871315
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:46:11.171Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.520Z"
+  "fetchedAt": "2026-05-14T07:46:40.922Z"
 }

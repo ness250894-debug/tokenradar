@@ -2,6 +2,7 @@
   "id": "decred",
   "symbol": "dcr",
   "name": "Decred",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/329/large/dcr.png?1762890696",
   "description": "Decred aims to build a community-directed digital currency whose security, adaptability, and sustainability make it a superior long-term store of value. It is achieving this aim by building the world's first truly decentralized autonomous organization.",
   "categories": [
     "Smart Contract Platform",
@@ -21,25 +22,25 @@
     "explorer": "https://dcrdata.decred.org/"
   },
   "market": {
-    "price": 18.79,
-    "marketCap": 327234272,
+    "price": 18.84,
+    "marketCap": 327681799,
     "marketCapRank": 150,
-    "volume24h": 868301,
+    "volume24h": 889270,
     "high24h": 19.13,
     "low24h": 18.59,
-    "priceChange24h": 0.2874,
-    "priceChange7d": -9.01048602623651,
-    "priceChange30d": -13.499091697552206,
-    "priceChange1y": 23.44056876237251,
+    "priceChange24h": 0.2271,
+    "priceChange7d": -8.7707,
+    "priceChange30d": -13.48958,
+    "priceChange1y": 24.55597,
     "ath": 247.35,
-    "athChangePercentage": -92.4089,
+    "athChangePercentage": -92.38824,
     "athDate": "2021-04-17T00:41:14.790Z",
     "atl": 0.43154,
     "atlDate": "2016-12-26T00:00:00.000Z",
     "circulatingSupply": 17416351.30736798,
-    "totalSupply": 17416579.99363073,
+    "totalSupply": 17416531.76281205,
     "maxSupply": 21000000,
-    "fdv": 327238569
+    "fdv": 327685195
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 317,
     "commits4Weeks": 25
   },
-  "fetchedAt": "2026-05-10T19:57:12.993Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.535Z"
+  "fetchedAt": "2026-05-13T18:30:54.845Z"
 }

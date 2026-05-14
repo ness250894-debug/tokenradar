@@ -2,26 +2,50 @@
   "id": "metal-blockchain",
   "symbol": "metal",
   "name": "Metal Blockchain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/27222/large/MB-Logo.png?1710514210",
+  "description": "Metal blockchain ($METAL) is a layer zero blockchain that allows any chain to deploy and find consensus through the Snow protocols (introduced by Avalanche) allowing it to run on a highly efficient model of Proof-of-Stake (PoS), eliminating the need for Proof-of-Work (PoW). Metal Blockchain improves upon the initial work of Avalanche by adding a fourth subchain (A Chain) to offer a more resource efficient layer for payments and decentralized finance: Proton (based on EOSIO protocol, adding WASM).",
+  "categories": [
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Layer 0 (L0)",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://metalblockchain.org/",
+    "github": "https://github.com/metalblockchain",
+    "reddit": null,
+    "explorer": "https://explorer.metalblockchain.org"
+  },
   "market": {
-    "price": 0.15288,
-    "marketCap": 77607866,
-    "marketCapRank": 371,
-    "volume24h": 705049,
-    "priceChange24h": 1.17321,
+    "price": 0.152871,
+    "marketCap": 78529472,
+    "marketCapRank": 363,
+    "volume24h": 650948,
+    "high24h": 0.156561,
+    "low24h": 0.145867,
+    "priceChange24h": 1.28692,
+    "priceChange7d": -1.68746,
+    "priceChange30d": 22.22504,
+    "priceChange1y": 56.61497,
     "ath": 1.65,
-    "athChangePercentage": -90.72978,
+    "athChangePercentage": -90.66949,
     "athDate": "2022-09-12T13:18:04.897Z",
     "atl": 0.03510303,
     "atlDate": "2024-08-05T06:56:59.845Z",
     "circulatingSupply": 507639839.0528355,
     "totalSupply": 666666666,
     "maxSupply": 666666666,
-    "high24h": 0.154253,
-    "low24h": 0.145867,
-    "priceChange7d": -0.9548691806660308,
-    "priceChange30d": 18.110960924712334,
-    "priceChange1y": 54.26289683359218,
-    "fdv": 101919852
+    "fdv": 103130167
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.628Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:18:34.849Z"
 }

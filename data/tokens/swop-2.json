@@ -2,12 +2,32 @@
   "id": "swop-2",
   "symbol": "swop",
   "name": "Swop",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66773/large/Group_1000007182_copy.png?1750487480",
+  "description": "The $SWOP token is the native utility and incentive layer of the Swop ecosystem.\n\nIt powers and rewards the protocol through:\n\n-Staking for Discoverability: Stake $SWOP to boost visibility of posts, products, or profiles\n\n-Fee Discounts: Reduced fees on mints, redemptions, and swaps\n\n-Access Control: Gate premium templates, analytics, or advanced SmartSite tools\n\n-Governance (future): Vote on protocol upgrades, partner templates, and funding rounds\n\n$SWOP aligns creators, users, and developers through shared ownership of the interaction layer itself.\n\n",
+  "categories": [
+    "SocialFi",
+    "Solana Ecosystem",
+    "Decentralized Identifier (DID)",
+    "Payment Solutions"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://swopme.co",
+    "github": "https://github.com/Travisswop",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/GAehkgN1ZDNvavX81FmzCcwRnzekKMkSyUNq8WkMsjX1"
+  },
   "market": {
     "price": 0.00607912,
     "marketCap": 60791160,
-    "marketCapRank": 448,
+    "marketCapRank": 446,
     "volume24h": 6.72,
+    "high24h": 0,
+    "low24h": 0,
     "priceChange24h": 0,
+    "priceChange7d": -1.8467,
+    "priceChange30d": 0.34072,
+    "priceChange1y": 0,
     "ath": 0.01391529,
     "athChangePercentage": -56.31341,
     "athDate": "2025-08-30T20:02:22.361Z",
@@ -16,12 +36,16 @@
     "circulatingSupply": 9999998190.509241,
     "totalSupply": 9999998190.509241,
     "maxSupply": 10000000000,
-    "high24h": 0.00607912,
-    "low24h": 0.00607912,
-    "priceChange7d": 0.142097462408329,
-    "priceChange30d": 0.33053371618079874,
-    "priceChange1y": 0,
     "fdv": 60791160
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.687Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:35:55.962Z"
 }

@@ -2,27 +2,48 @@
   "id": "avant-usd",
   "symbol": "avusd",
   "name": "Avant USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53527/large/token-avusd.png?1736579003",
   "description": "Avant is a DeFi platform established in June 2024 with the mission to create a more inclusive financial system through a DeFi-powered stable-value token. The platform introduces avUSD, a stable-value token, and savUSD, its staked, yield-bearing counterpart. \n\nMission and Vision\nAvant's mission is to provide a DeFi-backed stable-value token that aligns with the core principles of decentralization: being accessible 24/7, open to everyone, and offering equal financial opportunities regardless of investment size. Avant seeks to bridge the gap between DeFi and traditional finance (TradFi), becoming a global financial powerhouse that innovates how yield is generated and value is stored across financial markets.",
+  "categories": [
+    "Stablecoins",
+    "Avalanche Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.avantprotocol.com/",
+    "github": "https://github.com/Avant-Protocol",
+    "reddit": null,
+    "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
+  },
   "market": {
-    "price": 0.997319,
-    "marketCap": 98232195,
+    "price": 0.998796,
+    "marketCap": 98377648,
     "marketCapRank": 305,
-    "volume24h": 8044.99,
+    "volume24h": 8182.14,
     "high24h": 1.001,
-    "low24h": 0.996962,
-    "priceChange24h": -0.20702,
-    "priceChange7d": -0.21314041020326252,
-    "priceChange30d": -0.24578364328491567,
-    "priceChange1y": -0.25552915041676544,
+    "low24h": 0.997308,
+    "priceChange24h": -0.12569,
+    "priceChange7d": -0.12048,
+    "priceChange30d": 0.00084,
+    "priceChange1y": -0.11519,
     "ath": 1.059,
-    "athChangePercentage": -5.85998,
+    "athChangePercentage": -5.54761,
     "athDate": "2025-10-10T21:48:29.498Z",
     "atl": 0.951733,
     "atlDate": "2026-04-20T11:30:11.090Z",
     "circulatingSupply": 98496267.80824414,
     "totalSupply": 98496267.80824414,
     "maxSupply": null,
-    "fdv": 98232195
+    "fdv": 98377648
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.610Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:21:57.458Z"
 }

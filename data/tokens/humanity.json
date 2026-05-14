@@ -2,27 +2,54 @@
   "id": "humanity",
   "symbol": "h",
   "name": "Humanity",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66811/large/H_tokenLogo_original.png?1750581252",
   "description": "Humanity Protocol is a blockchain featuring a native Proof of Humanity (PoH) consensus mechanism that verifies users' uniqueness as humans through decentralized identifiers (DID) and verifiable credentials (VC), combining privacy-preserving human recognition, decentralized storage, and zero-knowledge proofs to enable sybil resistance, self-sovereign identity, and user-owned data for innovative and inclusive applications.\n",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Privacy Blockchain",
+    "Binance Alpha Spotlight",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.humanity.org/",
+    "github": "https://github.com/humanity-org/hp-basic-token/tree/master",
+    "reddit": null,
+    "explorer": "https://humanity-mainnet.explorer.alchemy.com/"
+  },
   "market": {
-    "price": 0.253036,
-    "marketCap": 460907532,
-    "marketCapRank": 118,
-    "volume24h": 51405705,
-    "high24h": 0.253303,
+    "price": 0.250971,
+    "marketCap": 458051633,
+    "marketCapRank": 115,
+    "volume24h": 45392770,
+    "high24h": 0.259164,
     "low24h": 0.22719,
-    "priceChange24h": -0.1046,
-    "priceChange7d": 26.85406169435889,
-    "priceChange30d": 164.26348796068316,
+    "priceChange24h": 5.32704,
+    "priceChange7d": 23.10468,
+    "priceChange30d": 148.02011,
     "priceChange1y": 0,
     "ath": 0.388387,
-    "athChangePercentage": -35.01936,
+    "athChangePercentage": -35.3406,
     "athDate": "2025-10-25T09:06:05.244Z",
     "atl": 0.01810273,
     "atlDate": "2025-06-27T01:20:39.339Z",
     "circulatingSupply": 1825000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 2525520725
+    "fdv": 2509871959
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.524Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 7,
+    "githubForks": 1,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:11:29.424Z"
 }
