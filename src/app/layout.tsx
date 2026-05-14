@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
@@ -9,6 +9,8 @@ import ProgressBarProvider from "@/components/ProgressBarProvider";
 import { JsonLd } from "@/components/JsonLd";
 import { ClickAnalytics } from "@/components/ClickAnalytics";
 import { CookieConsent } from "@/components/CookieConsent";
+import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
+import { PwaServiceWorker } from "@/components/PwaServiceWorker";
 import { getSiteUrl } from "@/lib/seo";
 import { CONTACT_EMAIL, SOCIAL } from "@/lib/config";
 
@@ -27,6 +29,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  applicationName: "TokenRadar",
   title: {
     default: "TokenRadar - Data-Driven Crypto Analysis & Token Research",
     template: "%s | TokenRadar",
@@ -42,6 +45,25 @@ export const metadata: Metadata = {
     "crypto risk score",
   ],
   metadataBase: new URL(siteUrl),
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icon.png", sizes: "128x128", type: "image/png" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "TokenRadar",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -69,6 +91,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#07080B",
 };
 
 export default function RootLayout({
@@ -156,6 +185,8 @@ export default function RootLayout({
           <BackToOverviewToast />
           <ClickAnalytics />
           <CookieConsent measurementId={gaMeasurementId} />
+          <PwaInstallPrompt />
+          <PwaServiceWorker />
         </ProgressBarProvider>
       </body>
     </html>

@@ -64,6 +64,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="footer-social-link"
                   style={{ color: "var(--text-secondary)" }}
                   aria-label={label}
                 >
