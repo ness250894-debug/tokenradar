@@ -2093,6 +2093,12 @@ select.search-input option {
   padding: var(--space-md);
 }
 
+.research-recirculation-strip {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+}
+
 .research-recirculation-header {
   display: flex;
   justify-content: space-between;
@@ -2181,6 +2187,36 @@ select.search-input option {
   min-height: 0;
 }
 
+.research-recirculation-strip .research-recirculation-header {
+  margin-bottom: var(--space-sm);
+}
+
+.research-recirculation-strip .research-recirculation-header h2 {
+  font-size: var(--text-base);
+}
+
+.research-recirculation-strip .research-recirculation-header p:last-child,
+.research-recirculation-strip .research-recirculation-card span:not(.research-recirculation-icon),
+.research-recirculation-strip .research-recirculation-card small {
+  display: none;
+}
+
+.research-recirculation-strip .research-recirculation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.research-recirculation-strip .research-recirculation-card {
+  grid-template-rows: auto auto;
+  min-height: 0;
+  padding: var(--space-sm);
+}
+
+.research-recirculation-strip .research-recirculation-icon {
+  width: 30px;
+  height: 30px;
+}
+
 /* ---- Sticky Exchange Banner ---- */
 .sticky-banner {
   position: fixed;
@@ -2263,6 +2299,20 @@ select.search-input option {
 
   .research-recirculation-card {
     min-height: 0;
+  }
+
+  .research-recirculation-strip {
+    margin-top: var(--space-sm);
+  }
+
+  .research-recirculation-strip .research-recirculation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .research-recirculation-strip .research-recirculation-card {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+    align-items: center;
   }
 
   .sticky-banner-title {

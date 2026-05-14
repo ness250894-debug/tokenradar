@@ -226,6 +226,19 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         </div>
 
+        <ResearchRecirculation
+          title={`Choose the next ${detail.symbol.toUpperCase()} research step`}
+          description="Jump to the path that matches your intent instead of scrolling through unrelated sections."
+          items={researchActions}
+          pageType="token_overview"
+          tokenId={detail.id}
+          articleType="overview"
+          moduleId="token-overview-next-action"
+          modulePosition="after_hero"
+          sourceSection="hero"
+          variant="strip"
+        />
+
         <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
           <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 800, marginBottom: "var(--space-sm)" }}>
             {detail.symbol.toUpperCase()} Market Snapshot
@@ -237,17 +250,6 @@ export default async function TokenPage({ params }: PageProps) {
             Use the risk score, ATH drawdown, and liquidity context below before treating the article as actionable research.
           </p>
         </div>
-
-        <ResearchRecirculation
-          title={`Choose the next ${detail.symbol.toUpperCase()} research step`}
-          description="Jump to the path that matches your intent instead of scrolling through unrelated sections."
-          items={researchActions}
-          pageType="token_overview"
-          tokenId={detail.id}
-          articleType="overview"
-          moduleId="token-overview-next-action"
-          modulePosition="after_market_snapshot"
-        />
 
         {/* Stats Grid */}
         <div className="stats-grid" style={{ marginTop: "var(--space-xl)" }}>

@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "analytics:auth": "tsx scripts/export-engagement-baseline.ts --auth",
     "analytics:baseline": "tsx scripts/export-engagement-baseline.ts",
+    "analytics:summary": "tsx scripts/summarize-engagement-baseline.ts",
     "studio": "remotion studio src/video/Root.tsx"
   },
   "dependencies": {
