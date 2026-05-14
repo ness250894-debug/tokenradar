@@ -20,7 +20,7 @@ export default function OfflinePage() {
             TokenRadar is offline
           </h1>
           <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-lg)" }}>
-            Cached token research and launch watchlist pages remain available after they have been opened once.
+            Cached token research, your local watchlist shell, and opened launch pages remain available after they have been saved or opened once.
           </p>
           <Link href="/" className="btn btn-primary">
             Back to overview

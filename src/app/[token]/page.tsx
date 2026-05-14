@@ -23,6 +23,7 @@ import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
 import { TokenTickerPill } from "@/components/TokenTickerPill";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import { WatchlistButton } from "@/components/WatchlistButton";
 import { ProfitCalculator } from "@/components/ProfitCalculator";
 import { SentimentPoll } from "@/components/SentimentPoll";
 import { ReadingProgress } from "@/components/ReadingProgress";
@@ -217,6 +218,7 @@ export default async function TokenPage({ params }: PageProps) {
               {formatPercent(detail.market.priceChange24h)} (24h)
             </div>
             <div className="token-hero-actions">
+              <WatchlistButton tokenId={detail.id} tokenName={detail.name} variant="button" />
               <MagneticEffect>
                  <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
                    <Bell size={16} /> Track Alerts

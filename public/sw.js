@@ -1,4 +1,4 @@
-const VERSION = "tokenradar-pwa-v1";
+const VERSION = "tokenradar-pwa-v2";
 const STATIC_CACHE = `${VERSION}-static`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 const DATA_CACHE = `${VERSION}-data`;
@@ -7,6 +7,8 @@ const APP_SHELL_URLS = [
   "/",
   "/tokens",
   "/tokens.html",
+  "/watchlist",
+  "/watchlist.html",
   "/upcoming",
   "/upcoming.html",
   "/learn",
@@ -61,20 +63,14 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(networkFirst(request, RUNTIME_CACHE));
 });
 
+self.addEventListener("message", (event) => {
+  if (event.data?.type !== "TOKENRADAR_CACHE_WATCHLIST") return;
+  event.waitUntil(cacheSavedTokenResearch(event.data.tokenIds));
+});
+
 async function cacheAppShell() {
   const cache = await caches.open(STATIC_CACHE);
-  await Promise.all(
-    APP_SHELL_URLS.map(async (url) => {
-      try {
-        const response = await fetch(new Request(url, { cache: "reload" }));
-        if (response.ok) {
-          await cache.put(url, response);
-        }
-      } catch {
-        // A single optional shell URL should not prevent the service worker from installing.
-      }
-    })
-  );
+  await cacheUrls(cache, APP_SHELL_URLS);
 }
 
 async function removeOldCaches() {
@@ -135,6 +131,44 @@ async function cacheFirst(request, cacheName) {
     await cache.put(request, response.clone());
   }
   return response;
+}
+
+async function cacheSavedTokenResearch(tokenIds) {
+  const savedIds = Array.isArray(tokenIds)
+    ? tokenIds
+        .map((id) => (typeof id === "string" ? id.trim().toLowerCase() : ""))
+        .filter((id) => /^[a-z0-9-]{1,96}$/.test(id))
+    : [];
+
+  const runtimeCache = await caches.open(RUNTIME_CACHE);
+  const dataCache = await caches.open(DATA_CACHE);
+
+  const tokenUrls = savedIds.flatMap((id) => [`/${id}`, `/${id}.html`]);
+  await Promise.all([
+    cacheUrls(runtimeCache, ["/watchlist", "/watchlist.html", "/tokens", "/tokens.html", ...tokenUrls]),
+    cacheUrls(dataCache, [
+      "/data/_registry.json",
+      "/data/_tokens_blob.json",
+      "/data/_metrics_blob.json",
+      "/data/_prices_blob.json",
+      "/data/tokens.json"
+    ])
+  ]);
+}
+
+async function cacheUrls(cache, urls) {
+  await Promise.all(
+    urls.map(async (url) => {
+      try {
+        const response = await fetch(new Request(url, { cache: "reload" }));
+        if (response.ok) {
+          await cache.put(url, response);
+        }
+      } catch {
+        // Optional cache targets should not block install or watchlist updates.
+      }
+    })
+  );
 }
 
 function isStaticAsset(url) {

@@ -8,6 +8,7 @@ import { SOCIAL } from "../lib/config";
 
 const PLATFORM_LINKS = [
   { href: "/tokens", label: "Token Directory" },
+  { href: "/watchlist", label: "Local Watchlist" },
   { href: "/upcoming", label: "Upcoming Launches" },
   { href: "/about#methodology", label: "Methodology" },
 ] as const;

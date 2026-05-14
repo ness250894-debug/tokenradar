@@ -42,6 +42,13 @@
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     },
     {
+      "name": "Local Watchlist",
+      "short_name": "Saved",
+      "description": "Open saved tokens on this device.",
+      "url": "/watchlist",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
       "name": "Launch Watchlist",
       "short_name": "Upcoming",
       "description": "Open the TokenRadar launch watchlist.",

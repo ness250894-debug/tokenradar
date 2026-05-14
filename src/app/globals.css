@@ -440,6 +440,75 @@ input[type=range]::-moz-range-thumb:hover {
   transform: translateY(-2px);
 }
 
+.token-card {
+  gap: var(--space-md);
+}
+
+.token-card-link,
+.token-card-stats-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.token-card-link {
+  display: block;
+  min-width: 0;
+}
+
+.token-card-stats-link {
+  color: inherit;
+}
+
+.token-card-actions {
+  align-items: flex-start;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-xs);
+}
+
+.watchlist-toggle {
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-weight: 750;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.watchlist-toggle:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.watchlist-toggle:not(:disabled):hover,
+.watchlist-toggle.active {
+  background: rgba(204, 255, 0, 0.12);
+  border-color: rgba(204, 255, 0, 0.5);
+  color: var(--accent-primary);
+}
+
+.watchlist-toggle:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+.watchlist-toggle-icon {
+  background: rgba(255, 255, 255, 0.035);
+  height: 36px;
+  width: 36px;
+}
+
+.watchlist-toggle-button {
+  background: var(--bg-elevated);
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: 0 var(--space-md);
+}
+
 /* ---- Home Toggle Tabs (Segmented Control) ---- */
 .tabs-container {
   display: flex;
@@ -2014,6 +2083,102 @@ select.search-input option {
   color: var(--text-primary);
 }
 
+/* ---- Local Watchlist ---- */
+.watchlist-shell {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.watchlist-toolbar {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: var(--space-xl);
+}
+
+.watchlist-toolbar h2 {
+  font-size: var(--text-2xl);
+  font-weight: 850;
+  letter-spacing: 0;
+  margin-top: var(--space-xs);
+}
+
+.watchlist-toolbar p {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin-top: var(--space-xs);
+  max-width: 660px;
+}
+
+.watchlist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+.watchlist-danger:not(:disabled):hover {
+  border-color: rgba(255, 51, 102, 0.55);
+  color: var(--red);
+}
+
+.watchlist-status {
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.watchlist-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: 0 auto;
+  max-width: 560px;
+  padding: var(--space-2xl);
+  text-align: center;
+}
+
+.watchlist-empty svg {
+  color: var(--accent-primary);
+}
+
+.watchlist-empty h2 {
+  font-size: var(--text-2xl);
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.watchlist-empty p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .watchlist-toolbar {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+  }
+
+  .watchlist-actions {
+    justify-content: stretch;
+  }
+
+  .watchlist-actions .btn {
+    flex: 1 1 140px;
+  }
+}
+
 /* ---- Token Page Layout ---- */
 .token-main-content {
   max-width: 800px;
@@ -2052,6 +2217,7 @@ select.search-input option {
 
 .token-hero-actions {
   display: flex;
+  gap: var(--space-sm);
   justify-content: flex-end;
   margin-top: var(--space-md);
 }
