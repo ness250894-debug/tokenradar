@@ -48,4 +48,28 @@ describe("content quality thresholds", () => {
     expect(result.warnings).toContain("Live market placeholders remain in article content");
     expect(result.warnings).toContain("Hardcoded live-date phrasing found; use live market date placeholders instead");
   });
+
+  it("fails repeated filler paragraphs", () => {
+    const paragraph =
+      "This repeated local template paragraph explains liquidity, market cap, custody, tax records, and volume context without adding token-specific evidence.";
+    const result = evaluateArticleQuality({
+      ...makeQualityArticle("overview", 900),
+      content: `${makeQualityArticle("overview", 900).content}\n\n${paragraph}\n\n${paragraph}`,
+    });
+
+    expect(result.passed).toBe(false);
+    expect(result.issues).toContain("Repeated filler paragraphs found: 1");
+    expect(result.stats.repeatedParagraphCount).toBe(1);
+  });
+
+  it("fails malformed Markdown table blocks", () => {
+    const result = evaluateArticleQuality({
+      ...makeQualityArticle("overview", 900),
+      content: `${makeQualityArticle("overview", 900).content}\n\n| Metric | Value |\n|\n---\n| Price | $1.00 |`,
+    });
+
+    expect(result.passed).toBe(false);
+    expect(result.issues).toContain("Malformed Markdown table block found");
+    expect(result.stats.hasMalformedTable).toBe(true);
+  });
 });

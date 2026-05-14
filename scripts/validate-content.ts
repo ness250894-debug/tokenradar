@@ -11,6 +11,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { evaluateArticleQuality } from "../src/lib/content-quality";
 import { normalizeTge, type UpcomingTge } from "../src/lib/tge";
 
 const SCAN_DIRS = [
@@ -167,6 +168,17 @@ export function validateGeneratedArticleIntegrity(filePath: string, parsed: unkn
 
   if (typeof article.content !== "string" || article.content.trim().length === 0) {
     errors.push("Generated article content is empty");
+  } else {
+    const quality = evaluateArticleQuality({
+      type: typeof article.type === "string" ? article.type : undefined,
+      slug: typeof article.slug === "string" ? article.slug : slug,
+      title: typeof article.title === "string" ? article.title : undefined,
+      content: article.content,
+    });
+    const blockingQualityIssues = quality.issues.filter((issue) =>
+      issue.startsWith("Repeated filler paragraphs") || issue.startsWith("Malformed Markdown table"),
+    );
+    errors.push(...blockingQualityIssues);
   }
 
   if (

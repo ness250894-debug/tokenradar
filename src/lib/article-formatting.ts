@@ -34,6 +34,71 @@ function fixBrokenHeaders(content: string): string {
   );
 }
 
+function isMarkdownTableRow(line: string): boolean {
+  const trimmed = line.trim();
+  return trimmed.startsWith("|") && trimmed.endsWith("|") && trimmed.length > 2;
+}
+
+function isMarkdownSeparatorRow(line: string): boolean {
+  return /^\|\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$/.test(line.trim());
+}
+
+function isBrokenTableNoise(line: string): boolean {
+  const trimmed = line.trim();
+  return trimmed === "" || trimmed === "|" || /^-+$/.test(trimmed);
+}
+
+function buildSeparatorForTableHeader(header: string): string {
+  const columnCount = Math.max(2, header.split("|").filter((part) => part.trim()).length);
+  return `| ${Array(columnCount).fill(":---").join(" | ")} |`;
+}
+
+function repairBrokenSummaryTables(content: string): string {
+  const lines = content.split("\n");
+  const fixedLines: string[] = [];
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
+    const nextLine = lines[index + 1] || "";
+    const lookahead = lines.slice(index + 1, index + 40);
+
+    if (
+      isMarkdownTableRow(line) &&
+      !isMarkdownSeparatorRow(nextLine) &&
+      lookahead.some((candidate) => candidate.trim() === "|") &&
+      lookahead.some((candidate) => isMarkdownTableRow(candidate) && !isBrokenTableNoise(candidate))
+    ) {
+      fixedLines.push(line, buildSeparatorForTableHeader(line));
+
+      while (index + 1 < lines.length && isBrokenTableNoise(lines[index + 1])) {
+        index++;
+      }
+
+      continue;
+    }
+
+    fixedLines.push(line);
+  }
+
+  return fixedLines.join("\n");
+}
+
+function dedupeRepeatedParagraphs(content: string): string {
+  const paragraphs = content.split(/\n{2,}/);
+  const seen = new Set<string>();
+
+  return paragraphs
+    .filter((paragraph) => {
+      const normalized = paragraph.replace(/\s+/g, " ").trim().toLowerCase();
+      const wordCount = normalized.split(/\s+/).filter(Boolean).length;
+      if (wordCount < 14 || normalized.startsWith("|")) return true;
+      if (seen.has(normalized)) return false;
+      seen.add(normalized);
+      return true;
+    })
+    .join("\n\n");
+}
+
 function fixSplitQuestionHeadings(content: string): string {
   return content.replace(
     /^(##\s+(?!FAQ\b)[^\n\r?]{3,80})\s*[\r\n]+\s*((?!\d+\.\s|\*\*|[-*]\s|\||---)[^#\n\r]{3,120}\?)$/gm,
@@ -127,6 +192,8 @@ export function normalizeArticleMarkdown(content: string): string {
   normalized = dedupeFaqHeadings(normalized);
   normalized = joinSplitDates(normalized);
   normalized = repairNestedInternalLinks(normalized);
+  normalized = repairBrokenSummaryTables(normalized);
+  normalized = dedupeRepeatedParagraphs(normalized);
   normalized = fixHybridHeadings(normalized);
   normalized = fixBrokenHeaders(normalized);
   normalized = fixSplitQuestionHeadings(normalized);

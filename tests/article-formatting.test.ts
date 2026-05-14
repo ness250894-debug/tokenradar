@@ -56,6 +56,24 @@ describe("normalizeArticleMarkdown", () => {
       "The project carries a medium risk assessment score of 4. By fostering deep integrations, it keeps building.",
     );
   });
+
+  it("repairs malformed escaped table blocks", () => {
+    const normalized = normalizeArticleMarkdown(
+      "| Metric | Value |\n|\n---\n| Price | $1.00 |\n| Volume | $1,000 |",
+    );
+
+    expect(normalized).toContain("| Metric | Value |\n| :--- | :--- |\n| Price | $1.00 |");
+    expect(normalized).not.toContain("\n|\n---");
+  });
+
+  it("removes exact repeated local-template paragraphs", () => {
+    const paragraph =
+      "This repeated local template paragraph explains liquidity, market cap, custody, tax records, and volume context without adding token-specific evidence.";
+    const normalized = normalizeArticleMarkdown(`${paragraph}\n\n${paragraph}\n\nA final unique paragraph stays in place.`);
+
+    expect(normalized.match(/repeated local template paragraph/g)?.length).toBe(1);
+    expect(normalized).toContain("A final unique paragraph stays in place.");
+  });
 });
 
 describe("getArticleFaqs", () => {

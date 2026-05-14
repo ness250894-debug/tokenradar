@@ -71,6 +71,7 @@ data/x-oauth-state.json
 
 # diagnostic logs and cache
 data/logs/
+data/analytics/
 data/cache/
 data/quarantine/
 *.mp4

@@ -60,6 +60,7 @@ function main() {
 
   const files = getArticleFiles(targetToken, targetType);
   let changed = 0;
+  let qualityUpdates = 0;
   let linkRepairs = 0;
   let venueRepairs = 0;
 
@@ -75,29 +76,53 @@ function main() {
     );
     const before = article.content;
     const repaired = repairArticleMarkdown(before, articleType, {
+      tokenId,
       tokenName: tokenData?.name || article.tokenName || tokenId || "this token",
       symbol: tokenData?.symbol || String(tokenId || "TOKEN").split("-")[0],
     });
 
-    if (repaired === before) continue;
+    const quality = buildArticleQualitySnapshot({
+      type: article.type,
+      slug: article.slug,
+      title: article.title,
+      content: repaired,
+    });
+    const existingQuality = article.quality as
+      | {
+          passed?: unknown;
+          issues?: unknown;
+          warnings?: unknown;
+          stats?: unknown;
+        }
+      | undefined;
+    const qualityChanged =
+      !existingQuality ||
+      existingQuality.passed !== quality.passed ||
+      JSON.stringify(existingQuality.issues) !== JSON.stringify(quality.issues) ||
+      JSON.stringify(existingQuality.warnings) !== JSON.stringify(quality.warnings) ||
+      JSON.stringify(existingQuality.stats) !== JSON.stringify(quality.stats);
+    const contentChanged = repaired !== before;
 
-    if (before.includes("](/score)") || before.includes("](/would)") || before.includes("](/movement)")) {
+    if (!contentChanged && !qualityChanged) continue;
+
+    if (contentChanged && (before.includes("](/score)") || before.includes("](/would)") || before.includes("](/movement)"))) {
       linkRepairs++;
     }
-    if (articleType === "how-to-buy" && repaired.includes("## Market Availability Checks")) {
+    if (
+      contentChanged &&
+      articleType === "how-to-buy" &&
+      !before.includes("## Market Availability Checks") &&
+      repaired.includes("## Market Availability Checks")
+    ) {
       venueRepairs++;
     }
 
-    changed++;
+    if (contentChanged) changed++;
+    if (qualityChanged && !contentChanged) qualityUpdates++;
     if (!dryRun) {
       article.content = repaired;
       article.wordCount = repaired.split(/\s+/).filter(Boolean).length;
-      article.quality = buildArticleQualitySnapshot({
-        type: article.type,
-        slug: article.slug,
-        title: article.title,
-        content: repaired,
-      });
+      article.quality = quality;
       fs.writeFileSync(filePath, JSON.stringify(article, null, 2));
     }
   }
@@ -106,6 +131,7 @@ function main() {
     dryRun,
     scanned: files.length,
     changed,
+    qualityUpdates,
     linkRepairs,
     venueRepairs,
   }, null, 2));
