@@ -2,7 +2,8 @@
   "id": "gho",
   "symbol": "gho",
   "name": "GHO",
-  "description": "A cryptocurrency token known as GHO (GHO). It is tracked on CoinGecko with the ID \"gho\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30663/large/gho-token-logo.png?1720517092",
+  "description": "",
   "categories": [
     "Stablecoins",
     "USD Stablecoin",
@@ -25,25 +26,25 @@
     "explorer": "https://etherscan.io/token/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f"
   },
   "market": {
-    "price": 0.99947,
-    "marketCap": 583686970,
-    "marketCapRank": 96,
-    "volume24h": 10552367,
+    "price": 0.999396,
+    "marketCap": 583639983,
+    "marketCapRank": 95,
+    "volume24h": 7866037,
     "high24h": 0.999687,
-    "low24h": 0.999274,
-    "priceChange24h": 0.00843,
-    "priceChange7d": -0.01663590208220932,
-    "priceChange30d": -0.02598996284290479,
-    "priceChange1y": 0.06003816539458423,
+    "low24h": 0.999335,
+    "priceChange24h": -0.01618,
+    "priceChange7d": -0.01479,
+    "priceChange30d": -0.03365,
+    "priceChange1y": 0.09223,
     "ath": 1.03,
-    "athChangePercentage": -2.94886,
+    "athChangePercentage": -2.95582,
     "athDate": "2024-02-28T17:15:58.387Z",
     "atl": 0.917065,
     "atlDate": "2023-10-24T04:41:04.568Z",
     "circulatingSupply": 584000000,
     "totalSupply": 584000000,
     "maxSupply": null,
-    "fdv": 583686970
+    "fdv": 583639983
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 119,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:48:29.759Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.519Z"
+  "fetchedAt": "2026-05-14T07:09:03.952Z"
 }

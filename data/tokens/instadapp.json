@@ -2,6 +2,7 @@
   "id": "instadapp",
   "symbol": "fluid",
   "name": "Fluid",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14688/large/Logo_1_%28brighter%29.png?1734430693",
   "description": "On Instadapp, users and developers manage and build their DeFi portfolio - the world's most advanced platform to start leveraging the full potential of Decentralized Finance.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -24,25 +25,25 @@
     "explorer": "https://etherscan.io/token/0x6f40d4a6237c257fff2db00fa0510deeecd303eb"
   },
   "market": {
-    "price": 1.66,
-    "marketCap": 129042359,
-    "marketCapRank": 250,
-    "volume24h": 2469961,
+    "price": 1.69,
+    "marketCap": 132049073,
+    "marketCapRank": 247,
+    "volume24h": 3608950,
     "high24h": 1.78,
     "low24h": 1.64,
-    "priceChange24h": -3.69951,
-    "priceChange7d": -3.3870615677504685,
-    "priceChange30d": 3.5067517015441014,
-    "priceChange1y": -67.13975139683657,
+    "priceChange24h": -3.67737,
+    "priceChange7d": -1.9705,
+    "priceChange30d": 2.60998,
+    "priceChange1y": -67.07326,
     "ath": 24.4,
-    "athChangePercentage": -93.21921,
+    "athChangePercentage": -93.06974,
     "athDate": "2021-06-16T20:02:32.097Z",
     "atl": 0.366538,
     "atlDate": "2022-12-28T16:20:48.360Z",
     "circulatingSupply": 77946996.82034639,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "fdv": 165551419
+    "fdv": 169408801
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:00:30.239Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.571Z"
+  "fetchedAt": "2026-05-14T07:12:13.609Z"
 }

@@ -2,7 +2,8 @@
   "id": "official-trump",
   "symbol": "trump",
   "name": "Official Trump",
-  "description": "A cryptocurrency token known as Official Trump (TRUMP). It is tracked on CoinGecko with the ID \"official-trump\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53746/large/trump.png?1737171561",
+  "description": "TRUMP is a politics-themed digital coin built on the Solana blockchain that uses the brand of Donald Trump to foster a community-driven ecosystem. As a community-focused asset, it is designed to bridge political support with web ownership, operating within the PolitiFi sector to blend political movements with decentralized finance tools. The project's main value proposition lies in its official ties to Donald Trump’s media and business brands, which allows it to provide unique physical utility such as invitations to gala dinners and meetings at Mar-a-Lago.\n\nThe token serves as the primary currency for the officially licensed Trump Billionaires Club mobile and web game, where it is used for in-game purchases and unlocking features. By leveraging the Solana blockchain, the project ensures that these in-game actions and token transfers remain fast and cost-effective. The ecosystem remains stable through a programmatic release schedule that introduces new tokens slowly to prevent supply shocks, alongside the use of specialized market makers to maintain consistent liquidity for traders.\n\nHolders can also participate in liquidity sharing by providing their tokens to automated systems to facilitate trading for others, often earning rewards or prizes in return. Beyond digital utility, holding a specific amount of the token is a requirement for attending exclusive real-world events, including VIP parties at Mar-a-Lago. The project is managed by the Trump Meme Team and is linked with Trump Media, with an investor base that includes a wide range of retail buyers and large holders who utilize secure custody services for their assets.",
   "categories": [
     "Solana Ecosystem",
     "Meme",
@@ -20,24 +21,24 @@
   },
   "market": {
     "price": 2.35,
-    "marketCap": 557800255,
-    "marketCapRank": 100,
-    "volume24h": 417255245,
-    "high24h": 2.57,
+    "marketCap": 557214139,
+    "marketCapRank": 98,
+    "volume24h": 209153874,
+    "high24h": 2.49,
     "low24h": 2.33,
-    "priceChange24h": 0.60809,
-    "priceChange7d": 0.001951866493943028,
-    "priceChange30d": -16.547778438175666,
-    "priceChange1y": -82.43623004907225,
+    "priceChange24h": -4.55113,
+    "priceChange7d": -0.30217,
+    "priceChange30d": -17.13936,
+    "priceChange1y": -82.82283,
     "ath": 73.43,
-    "athChangePercentage": -96.80027,
+    "athChangePercentage": -96.80399,
     "athDate": "2025-01-19T11:50:34.806Z",
     "atl": 2.25,
     "atlDate": "2026-05-02T06:30:09.614Z",
     "circulatingSupply": 237414040.342428,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 2349483015
+    "fdv": 2347014262
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T06:49:47.031Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.520Z"
+  "fetchedAt": "2026-05-14T07:22:45.576Z"
 }

@@ -2,6 +2,7 @@
   "id": "cash-4",
   "symbol": "cash",
   "name": "CASH",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69679/large/cash.jpg?1759283906",
   "description": "A stablecoin built for real-world utility.\n\nDesigned by Phantom using Open Issuance by Bridge and Stripe, and launching first on Solana.",
   "categories": [
     "Stablecoins",
@@ -16,25 +17,25 @@
     "explorer": "https://solscan.io/token/CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH"
   },
   "market": {
-    "price": 0.999971,
-    "marketCap": 117708840,
-    "marketCapRank": 266,
-    "volume24h": 29366229,
+    "price": 0.999339,
+    "marketCap": 117635470,
+    "marketCapRank": 267,
+    "volume24h": 28079466,
     "high24h": 1,
     "low24h": 0.998541,
-    "priceChange24h": 0.07357,
-    "priceChange7d": 0.012987466330834354,
-    "priceChange30d": 0.003695256330500285,
+    "priceChange24h": -0.01313,
+    "priceChange7d": -0.16163,
+    "priceChange30d": 0.09801,
     "priceChange1y": 0,
     "ath": 1.058,
-    "athChangePercentage": -5.5266,
+    "athChangePercentage": -5.56699,
     "athDate": "2025-11-15T20:50:58.067Z",
     "atl": 0.721504,
     "atlDate": "2026-03-22T21:50:54.571Z",
     "circulatingSupply": 117712260.281417,
     "totalSupply": 117712260.281417,
     "maxSupply": null,
-    "fdv": 117708840
+    "fdv": 117635470
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T16:51:12.178Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.574Z"
+  "fetchedAt": "2026-05-13T18:26:54.541Z"
 }

@@ -2,6 +2,7 @@
   "id": "monad",
   "symbol": "mon",
   "name": "Monad",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38927/large/mon.png?1766029057",
   "description": "Monad is a high-performance Layer 1 blockchain that processes 10,000 transactions per second with near-zero fees. The platform delivers high performance without compromising on security or decentralization, creating the infrastructure needed for complex applications that require high-frequency activity.\n\nOne of Monad’s key innovations lies in how it handles transaction processing. Instead of processing transactions one at a time like traditional blockchains, Monad processes multiple transactions simultaneously through parallel execution. \n\nThe system separates the agreement process from the execution process, allowing validators to first agree on which transactions to include and in what order, then having more time to execute those transactions without slowing down consensus. This approach, combined with a custom-built database called MonadDB, dramatically increases throughput while maintaining accuracy.\n\nMonad also offers complete EVM compatibility, where applications built for Ethereum work on Monad without any code modifications, and users can connect with familiar wallets like MetaMask just as they would on Ethereum. Developers can immediately tap into Ethereum's established ecosystem of tools, libraries, and applications while benefitting from Monad’s performance improvements. The platform also runs on consumer-grade hardware rather than expensive specialized equipment, making it accessible for more people to participate in securing the network.\n\nMonad has raised approximately 244 million dollars in total funding across multiple rounds. The company secured 19 million dollars in a seed round in February 2023 led by Dragonfly Capital, followed by a 225 million dollar Series A round in April 2024 led by Paradigm at a 3 billion dollar valuation. Other notable investors include Electric Capital, Greenoaks, Coinbase Ventures, and prominent angel investors such as Naval Ravikant.",
   "categories": [
     "Smart Contract Platform",
@@ -22,25 +23,25 @@
     "explorer": "https://monadvision.com/"
   },
   "market": {
-    "price": 0.02942177,
-    "marketCap": 347965413,
+    "price": 0.02973441,
+    "marketCap": 351573010,
     "marketCapRank": 142,
-    "volume24h": 184616499,
-    "high24h": 0.03156636,
+    "volume24h": 127961464,
+    "high24h": 0.03109689,
     "low24h": 0.02886376,
-    "priceChange24h": -4.4947,
-    "priceChange7d": -8.671551551132133,
-    "priceChange30d": -13.445473851872794,
+    "priceChange24h": -3.17524,
+    "priceChange7d": -9.02699,
+    "priceChange30d": -18.71529,
     "priceChange1y": 0,
     "ath": 0.04882901,
-    "athChangePercentage": -39.66547,
+    "athChangePercentage": -38.80839,
     "athDate": "2025-11-26T12:21:37.075Z",
     "atl": 0.01636691,
     "atlDate": "2026-02-06T00:35:18.919Z",
     "circulatingSupply": 11825165000,
     "totalSupply": 100682925000,
     "maxSupply": null,
-    "fdv": 2962679638
+    "fdv": 2993395776
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T05:26:07.759Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.534Z"
+  "fetchedAt": "2026-05-14T07:20:03.373Z"
 }

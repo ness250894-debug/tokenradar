@@ -2,6 +2,7 @@
   "id": "plasma",
   "symbol": "xpl",
   "name": "Plasma",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66489/large/Plasma-symbol-green-1.png?1755142558",
   "description": "Plasma is the layer 1 blockchain building the stablecoin infrastructure for a new global financial system. \n\nIt is purpose-built for global stablecoin payments, offering zero-fee USD₮ transfers and custom gas tokens to help realise the stablecoin promise of permissionless access to financial services for everyone, everywhere. \n\nPlasma’s global payments coverage and inbound suite of products position it as the native chain for stablecoin payments.",
   "categories": [
     "Smart Contract Platform",
@@ -19,25 +20,25 @@
     "explorer": "https://plasmascan.to/"
   },
   "market": {
-    "price": 0.094109,
-    "marketCap": 235777691,
-    "marketCapRank": 175,
-    "volume24h": 54385116,
-    "high24h": 0.100649,
-    "low24h": 0.093303,
-    "priceChange24h": -2.38947,
-    "priceChange7d": -3.6653820921512663,
-    "priceChange30d": -26.617733312311103,
+    "price": 0.093602,
+    "marketCap": 234517196,
+    "marketCapRank": 177,
+    "volume24h": 52153226,
+    "high24h": 0.100415,
+    "low24h": 0.092108,
+    "priceChange24h": -5.94031,
+    "priceChange7d": -6.99094,
+    "priceChange30d": -33.94368,
     "priceChange1y": 0,
     "ath": 1.68,
-    "athChangePercentage": -94.4078,
+    "athChangePercentage": -94.44111,
     "athDate": "2025-09-28T01:31:40.327Z",
     "atl": 0.073026,
     "atlDate": "2026-02-06T00:25:15.134Z",
     "circulatingSupply": 2505729166.6667,
     "totalSupply": 10083506944.4444,
     "maxSupply": null,
-    "fdv": 948812032
+    "fdv": 943739572
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:19:30.727Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.548Z"
+  "fetchedAt": "2026-05-14T07:26:01.581Z"
 }

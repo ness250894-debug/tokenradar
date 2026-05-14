@@ -2,26 +2,57 @@
   "id": "midas-mtbill",
   "symbol": "mtbill",
   "name": "Midas mTBILL",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37839/large/mTBILL_token.png?1728417279",
+  "description": "Midas US Treasury Bills Token (mTBILL) is a permissionless yield-bearing token tracking short-dated US Treasury Bills. ",
+  "categories": [
+    "Tokenized Assets",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Treasury Bills (T-Bills)",
+    "Rootstock Ecosystem",
+    "Etherlink Ecosystem",
+    "Yield-Bearing Stablecoin",
+    "Plume Network Ecosystem",
+    "Midas Liquid Yield Tokens",
+    "Base Native",
+    "Tokenized Treasury"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.midas.app",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xdd629e5241cbc5919847783e6c96b2de4754e438"
+  },
   "market": {
     "price": 1.06,
-    "marketCap": 53837733,
+    "marketCap": 53837734,
     "marketCapRank": 485,
     "volume24h": 1058.72,
+    "high24h": 1.06,
+    "low24h": 1.06,
     "priceChange24h": 0,
+    "priceChange7d": 0.03797,
+    "priceChange30d": 0.24443,
+    "priceChange1y": 3.46329,
     "ath": 1.06,
     "athChangePercentage": 0,
     "athDate": "2026-05-12T13:40:07.010Z",
     "atl": 0.937036,
     "atlDate": "2025-08-10T23:29:15.199Z",
-    "circulatingSupply": 50788897.86069789,
-    "totalSupply": 50788897.86069789,
+    "circulatingSupply": 50788898.47327516,
+    "totalSupply": 50788898.47327516,
     "maxSupply": null,
-    "high24h": 1.06,
-    "low24h": 1.06,
-    "priceChange7d": 0.03796712476015768,
-    "priceChange30d": 0.2444326125688606,
-    "priceChange1y": 3.4632891985239804,
-    "fdv": 53837733
+    "fdv": 53837734
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.695Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:06.495Z"
 }

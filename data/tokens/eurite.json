@@ -2,26 +2,51 @@
   "id": "eurite",
   "symbol": "euri",
   "name": "Eurite",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39952/large/EURI.jpg?1724902829",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "EUR Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "MiCA-Compliant Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.eurite.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x9d1a7a3191102e9f900faa10540837ba84dcbae7"
+  },
   "market": {
     "price": 1.17,
-    "marketCap": 59684947,
-    "marketCapRank": 452,
-    "volume24h": 5827551,
-    "priceChange24h": -0.268,
+    "marketCap": 59710632,
+    "marketCapRank": 451,
+    "volume24h": 5931743,
+    "high24h": 1.17,
+    "low24h": 1.17,
+    "priceChange24h": -0.06017,
+    "priceChange7d": -0.25007,
+    "priceChange30d": -0.39936,
+    "priceChange1y": 4.74315,
     "ath": 1.21,
-    "athChangePercentage": -2.95901,
+    "athChangePercentage": -2.91695,
     "athDate": "2026-01-27T20:51:03.671Z",
     "atl": 1.008,
     "atlDate": "2025-01-13T14:36:52.913Z",
     "circulatingSupply": 50968733.99990108,
     "totalSupply": 50968733.99990108,
     "maxSupply": null,
-    "high24h": 1.17,
-    "low24h": 1.17,
-    "priceChange7d": -0.3431301321976381,
-    "priceChange30d": -0.35906140398587494,
-    "priceChange1y": 4.787935251488635,
-    "fdv": 59684947
+    "fdv": 59710632
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.688Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:05:20.079Z"
 }

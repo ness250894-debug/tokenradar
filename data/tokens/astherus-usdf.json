@@ -2,27 +2,48 @@
   "id": "astherus-usdf",
   "symbol": "usdf",
   "name": "Aster USDF",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54133/large/USDF_LOGO.png?1738393978",
   "description": "Aster is a decentralized perpetual exchange built for everyone. It offers MEV-free, one-click trading with up to 1001x leverage in Simple Mode, and full-featured, pro-grade tools in Pro Mode. Backed by YZi Labs, Aster is building the future of DeFi: fast, flexible, and community-first.\n\nUSDF is a yield-bearing stablecoin issued by Aster, convertible with USDT at a 1:1 ratio. Underlying USDT funds are used to create and maintain delta neutral positions that back USDF and generate asUSDF yields.",
+  "categories": [
+    "Stablecoins",
+    "BNB Chain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.asterdex.com/en/usdf",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x5a110fc00474038f6c02e89c707d638602ea44b5"
+  },
   "market": {
-    "price": 0.998143,
-    "marketCap": 116224517,
+    "price": 0.998094,
+    "marketCap": 116217778,
     "marketCapRank": 269,
-    "volume24h": 60254,
+    "volume24h": 60732,
     "high24h": 0.998483,
     "low24h": 0.997895,
-    "priceChange24h": -0.00648,
-    "priceChange7d": -0.0620071935960469,
-    "priceChange30d": -0.1665481847022544,
-    "priceChange1y": -0.053207809641536645,
+    "priceChange24h": -0.0128,
+    "priceChange7d": -0.06693,
+    "priceChange30d": -0.20125,
+    "priceChange1y": -0.06364,
     "ath": 1.046,
-    "athChangePercentage": -4.60052,
+    "athChangePercentage": -4.59371,
     "athDate": "2025-10-10T22:42:58.541Z",
     "atl": 0.798494,
     "atlDate": "2025-10-10T21:23:15.100Z",
-    "circulatingSupply": 116440709.7491615,
-    "totalSupply": 116440709.7491615,
+    "circulatingSupply": 116440610.4591615,
+    "totalSupply": 116440610.4591615,
     "maxSupply": null,
-    "fdv": 116224517
+    "fdv": 116217778
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.574Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:21:38.505Z"
 }

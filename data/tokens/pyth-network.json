@@ -2,6 +2,7 @@
   "id": "pyth-network",
   "symbol": "pyth",
   "name": "Pyth Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31924/large/pyth.png?1701245725",
   "description": "Pyth Network is a decentralised oracle network designed to provide real-time financial market data to decentralised applications (dApps) across multiple blockchains.\nIt allows developer to secure smart contracts with reliable, low-latency market data from institutional sources, and build apps with high-fidelity oracle feeds designed for mission-critical systems.",
   "categories": [
     "Infrastructure",
@@ -24,25 +25,25 @@
     "explorer": "https://explorer.solana.com/address/hz1jovnivvgrgniiyveozevgz58xau3rkwx8eacqbct3"
   },
   "market": {
-    "price": 0.051316,
-    "marketCap": 295047223,
+    "price": 0.050369,
+    "marketCap": 289588168,
     "marketCapRank": 158,
-    "volume24h": 14012212,
-    "high24h": 0.056481,
-    "low24h": 0.050988,
-    "priceChange24h": -5.71702,
-    "priceChange7d": -0.6121912561326881,
-    "priceChange30d": 21.157708236874136,
-    "priceChange1y": -72.29383916423943,
+    "volume24h": 17421815,
+    "high24h": 0.056319,
+    "low24h": 0.049877,
+    "priceChange24h": -9.2707,
+    "priceChange7d": -2.12786,
+    "priceChange30d": 16.39007,
+    "priceChange1y": -74.62257,
     "ath": 1.2,
-    "athChangePercentage": -95.71214,
+    "athChangePercentage": -95.79339,
     "athDate": "2024-03-16T07:01:15.357Z",
     "atl": 0.03679605,
     "atlDate": "2026-03-28T01:50:47.249Z",
-    "circulatingSupply": 5749982069.586189,
+    "circulatingSupply": 5749982050.057531,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 513127206
+    "fdv": 503633169
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:29:34.385Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.541Z"
+  "fetchedAt": "2026-05-14T07:27:36.443Z"
 }

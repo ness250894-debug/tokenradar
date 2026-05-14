@@ -2,7 +2,8 @@
   "id": "pieverse",
   "symbol": "pieverse",
   "name": "Pieverse",
-  "description": "A cryptocurrency token known as Pieverse (PIEVERSE). It is tracked on CoinGecko with the ID \"pieverse\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68773/large/pieverse.png?1756546685",
+  "description": "",
   "categories": [
     "Artificial Intelligence (AI)",
     "BNB Chain Ecosystem",
@@ -19,25 +20,25 @@
     "explorer": "https://bscscan.com/token/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
   },
   "market": {
-    "price": 0.911874,
-    "marketCap": 210158422,
-    "marketCapRank": 187,
-    "volume24h": 26526847,
-    "high24h": 0.94302,
+    "price": 0.96724,
+    "marketCap": 260731699,
+    "marketCapRank": 170,
+    "volume24h": 47196419,
+    "high24h": 1.051,
     "low24h": 0.853454,
-    "priceChange24h": -0.16949,
-    "priceChange7d": 19.67310583630211,
-    "priceChange30d": 113.26731976616414,
+    "priceChange24h": 12.50079,
+    "priceChange7d": 30.83088,
+    "priceChange30d": 123.66143,
     "priceChange1y": 0,
     "ath": 1.65,
-    "athChangePercentage": -44.73583,
+    "athChangePercentage": -41.66394,
     "athDate": "2026-04-20T05:40:15.602Z",
     "atl": 0.119363,
     "atlDate": "2025-11-14T21:01:21.250Z",
-    "circulatingSupply": 230000000,
+    "circulatingSupply": 269750000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 913732269
+    "fdv": 966567928
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:16:32.329Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.551Z"
+  "fetchedAt": "2026-05-14T07:25:48.959Z"
 }

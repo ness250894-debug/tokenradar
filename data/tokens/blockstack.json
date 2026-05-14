@@ -2,6 +2,7 @@
   "id": "blockstack",
   "symbol": "stx",
   "name": "Stacks",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332",
   "description": "Stacks brings Apps and Smart Contracts to Bitcoin. Apps built on Stacks inherit all of Bitcoin’s powers. They run their logic on the blockchain with smart contracts, are controlled by code instead of companies, and are accessible to anyone. This enables decentralized apps to do things that regular apps can’t.",
   "categories": [
     "Infrastructure",
@@ -26,25 +27,25 @@
     "explorer": "https://explorer.stacks.co/"
   },
   "market": {
-    "price": 0.273816,
-    "marketCap": 505629804,
+    "price": 0.276296,
+    "marketCap": 509702069,
     "marketCapRank": 109,
-    "volume24h": 52209291,
+    "volume24h": 54069626,
     "high24h": 0.297006,
-    "low24h": 0.263391,
-    "priceChange24h": 3.93771,
-    "priceChange7d": 11.097059709318293,
-    "priceChange30d": 27.08305156215775,
-    "priceChange1y": -72.41193710741928,
+    "low24h": 0.262654,
+    "priceChange24h": 5.19402,
+    "priceChange7d": 12.10337,
+    "priceChange30d": 28.13416,
+    "priceChange1y": -71.96022,
     "ath": 3.86,
-    "athChangePercentage": -92.91256,
+    "athChangePercentage": -92.84907,
     "athDate": "2024-04-01T12:34:58.342Z",
     "atl": 0.04559639,
     "atlDate": "2020-03-13T02:29:26.415Z",
     "circulatingSupply": 1844765744.66064,
     "totalSupply": 1844765744.66064,
     "maxSupply": null,
-    "fdv": 505629804
+    "fdv": 509702069
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +56,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:48:08.700Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.522Z"
+  "fetchedAt": "2026-05-13T18:25:51.355Z"
 }

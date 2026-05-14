@@ -2,20 +2,47 @@
   "id": "palladium-network",
   "symbol": "plld",
   "name": "Palladium Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67028/large/IMG_2187.jpeg?1751521194",
+  "description": "Palladium Network (PLLD) – Bridging Real-World Assets with Blockchain Utility\n\nPalladium Network (ticker: PLLD) is a pioneering project that merges the transparency and efficiency of blockchain technology with the tangible value of real-world assets. Operating as an ERC-20 token on the Ethereum blockchain, PLLD is designed to empower users through real asset backing, decentralized finance (DeFi) integrations, and tokenized ownership models.\n\nAt its core, PLLD aims to create a robust digital ecosystem where token holders are not just passive investors but active participants in a growing asset-based economy. The project’s roadmap includes real estate acquisitions, tokenized property NFTs, and community-governed treasury strategies. Its approach emphasizes long-term sustainability, real-world utility, and trustless transparency.\n\nOne of the core features of the Palladium Network is its use of acquired physical assets—such as real estate—to back and support the value of its token. The project has already secured its first property: a scenic mountain cottage near a ski resort, which is in the process of being tokenized and offered to the community in fractional NFT format. This real-world linkage provides a degree of intrinsic value to PLLD, setting it apart from purely speculative crypto assets.\n\nPLLD also incentivizes its community through loyalty rewards, staking systems, and regular airdrops for long-term holders. These mechanics are designed to reward true believers in the ecosystem, discourage short-term speculation, and build a resilient token economy. As the treasury grows and more assets are added to the portfolio, the value proposition of holding PLLD becomes increasingly attractive.\n\nThe team behind Palladium Network brings a combination of experience in crypto markets, real estate, and technology, working with transparency and dedication to sustainable growth. The project's presence on platforms like TradeOgre and CoinPaprika, along with its ongoing efforts to expand listings and ecosystem partnerships, reflect its commitment to wider adoption.\n\nWith a clear vision, a focus on real-world utility, and a commitment to long-term value, Palladium Network offers an innovative and grounded approach to blockchain finance. Whether you're an investor seeking asset-backed exposure, a community member interested in tokenized ownership, or a DeFi enthusiast looking for real utility—PLLD provides a compelling and future-forward opportunity in the crypto space.",
+  "categories": [
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://plld.net/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xfc8dcfca8a37a855e352098af205b3a537b6b026"
+  },
   "market": {
-    "price": 0.927185,
-    "marketCap": 48077158,
-    "marketCapRank": 497,
-    "volume24h": 173965,
-    "priceChange24h": -0.22475,
+    "price": 0.798726,
+    "marketCap": 41416200,
+    "marketCapRank": 571,
+    "volume24h": 243612,
+    "high24h": 0.804809,
+    "low24h": 0.78383,
+    "priceChange24h": -0.02043,
+    "priceChange7d": -8.08258,
+    "priceChange30d": -10.02957,
+    "priceChange1y": 0,
     "ath": 5.83,
-    "athChangePercentage": -84.11586,
+    "athChangePercentage": -86.30776,
     "athDate": "2026-01-15T20:50:36.211Z",
     "atl": 0.221161,
     "atlDate": "2025-12-31T07:57:14.681Z",
     "circulatingSupply": 51852795.20435881,
     "totalSupply": 52643000,
-    "maxSupply": 52643000
+    "maxSupply": 52643000,
+    "fdv": 42047358
   },
-  "lastMarketUpdate": "2026-05-03T18:37:05.013Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:24:33.069Z"
 }

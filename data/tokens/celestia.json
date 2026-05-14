@@ -2,6 +2,7 @@
   "id": "celestia",
   "symbol": "tia",
   "name": "Celestia",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31967/large/tia.jpg?1696530772",
   "description": "Celestia is a data availability network that allows developers to easily create a new blockchain.",
   "categories": [
     "Smart Contract Platform",
@@ -29,35 +30,34 @@
     "explorer": "https://celenium.io/"
   },
   "market": {
-    "price": 0.468392,
-    "marketCap": 429535020,
+    "price": 0.48072,
+    "marketCap": 440401991,
     "marketCapRank": 124,
-    "volume24h": 166612028,
+    "volume24h": 168196436,
     "high24h": 0.51852,
-    "low24h": 0.456507,
-    "priceChange24h": 2.60342,
-    "priceChange7d": 24.65281435804625,
-    "priceChange30d": 57.79685825746262,
-    "priceChange1y": -85.6538610643041,
+    "low24h": 0.44722,
+    "priceChange24h": 7.28666,
+    "priceChange7d": 27.93358,
+    "priceChange30d": 61.94995,
+    "priceChange1y": -85.2539,
     "ath": 20.85,
-    "athChangePercentage": -97.75175,
+    "athChangePercentage": -97.69997,
     "athDate": "2024-02-10T14:30:02.495Z",
     "atl": 0.279665,
     "atlDate": "2026-04-05T21:45:10.441Z",
     "circulatingSupply": 916586509.813314,
     "totalSupply": 1168095382.679975,
     "maxSupply": null,
-    "fdv": 547398274
+    "fdv": 561247112
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 996,
-    "githubForks": 1066,
-    "commits4Weeks": 45
+    "githubStars": 994,
+    "githubForks": 1065,
+    "commits4Weeks": 34
   },
-  "fetchedAt": "2026-03-22T16:52:41.690Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.525Z"
+  "fetchedAt": "2026-05-13T18:27:07.140Z"
 }

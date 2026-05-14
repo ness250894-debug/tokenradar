@@ -2,26 +2,53 @@
   "id": "geodnet",
   "symbol": "geod",
   "name": "Geodnet",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31608/large/Circular_White.png?1696530424",
+  "description": "The Global Earth Observation Decentralized Network (GEODNET) is a decentralized network of Space Weather mining stations that report the real-time influence of the Sun’s solar winds on the Global Navigation Satellite System (GNSS) signals.  This data is commonly used to accurately correct GNSS (GPS and other navigation satellite) signals to provide centimeter level positioning accuracy and improve absolute time accuracy to nano-second level. ",
+  "categories": [
+    "Gaming (GameFi)",
+    "Solana Ecosystem",
+    "Polygon Ecosystem",
+    "Play To Earn",
+    "DePIN",
+    "Pantera Capital Portfolio",
+    "Robotics"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://geodnet.com/",
+    "github": "https://github.com/geodnet",
+    "reddit": null,
+    "explorer": "https://polygonscan.com/token/0xac0f66379a6d7801d7726d5a943356a172549adb"
+  },
   "market": {
-    "price": 0.129154,
-    "marketCap": 55938119,
-    "marketCapRank": 469,
-    "volume24h": 165339,
-    "priceChange24h": -2.95807,
+    "price": 0.129262,
+    "marketCap": 55994816,
+    "marketCapRank": 470,
+    "volume24h": 154312,
+    "high24h": 0.132234,
+    "low24h": 0.128944,
+    "priceChange24h": -2.17655,
+    "priceChange7d": -1.35541,
+    "priceChange30d": -5.84921,
+    "priceChange1y": -42.74102,
     "ath": 0.374342,
-    "athChangePercentage": -65.50594,
+    "athChangePercentage": -65.46181,
     "athDate": "2025-01-25T20:51:06.864Z",
     "atl": 0.03417228,
     "atlDate": "2023-09-13T08:00:24.362Z",
     "circulatingSupply": 433098902.618101,
     "totalSupply": 966111567.618101,
     "maxSupply": 1000000000,
-    "high24h": 0.133175,
-    "low24h": 0.12895,
-    "priceChange7d": -0.7964496887680105,
-    "priceChange30d": -2.3542271615444204,
-    "priceChange1y": -43.27479886212044,
-    "fdv": 124780883
+    "fdv": 124907357
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.692Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:08:51.299Z"
 }

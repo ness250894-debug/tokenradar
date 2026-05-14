@@ -2,21 +2,22 @@
   "id": "olympus",
   "symbol": "ohm",
   "name": "Olympus",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14483/large/token_OHM_%281%29.png?1696514169",
   "description": "Olympus is a decentralized financial (DeFi) protocol building programmable monetary infrastructure. At its core is OHM, a treasury-backed token held and managed on-chain.\n\nThe protocol is built for solvency, self-sustaining liquidity, and policy-driven equilibrium. This guides how value, liquidity, and credit are managed, through on-chain mechanisms including Protocol Owned Liquidity (POL), Cooler Loans, Convertible Deposits (CDs), the Yield Repurchase Facility (YRF), and Range Bound Stability (RBS).\n\nTogether, these components form a programmable central bank, without human bias.",
   "categories": [
-    "Crypto-Backed Tokens",
-    "Decentralized Finance (DeFi)",
-    "Yield Farming",
-    "Rebase Tokens",
-    "Lending/Borrowing Protocols",
-    "Solana Ecosystem",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Optimism Ecosystem",
-    "Berachain Ecosystem",
     "Cross-chain Communication",
-    "Governance",
-    "Base Native"
+    "Solana Ecosystem",
+    "Base Native",
+    "Crypto-Backed Tokens",
+    "Rebase Tokens",
+    "Yield Farming",
+    "Optimism Ecosystem",
+    "Decentralized Finance (DeFi)",
+    "Berachain Ecosystem",
+    "Ethereum Ecosystem",
+    "Arbitrum Ecosystem",
+    "Lending/Borrowing Protocols",
+    "Governance"
   ],
   "genesisDate": null,
   "links": {
@@ -26,25 +27,25 @@
     "explorer": "https://etherscan.io/token/0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5"
   },
   "market": {
-    "price": 19.05,
-    "marketCap": 285664541,
-    "marketCapRank": 159,
-    "volume24h": 139047,
-    "high24h": 19.13,
+    "price": 19.48,
+    "marketCap": 292009347,
+    "marketCapRank": 157,
+    "volume24h": 283652,
+    "high24h": 19.53,
     "low24h": 18.81,
-    "priceChange24h": 0.29656,
-    "priceChange7d": -1.7842138336642444,
-    "priceChange30d": 18.58432367717574,
-    "priceChange1y": -10.545565069530587,
+    "priceChange24h": 2.56306,
+    "priceChange7d": 0.66601,
+    "priceChange30d": 21.31795,
+    "priceChange1y": -8.02416,
     "ath": 1415.26,
-    "athChangePercentage": -98.65362,
+    "athChangePercentage": -98.62238,
     "athDate": "2021-04-25T00:00:00.000Z",
     "atl": 7.54,
     "atlDate": "2022-11-26T16:36:26.296Z",
-    "circulatingSupply": 14995449.68140781,
-    "totalSupply": 19860013.10491966,
+    "circulatingSupply": 14988744.20867817,
+    "totalSupply": 19859927.36827776,
     "maxSupply": null,
-    "fdv": 378334872
+    "fdv": 386909293
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +56,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T06:52:49.509Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.541Z"
+  "fetchedAt": "2026-05-14T07:22:58.229Z"
 }

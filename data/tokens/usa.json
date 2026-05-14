@@ -2,6 +2,7 @@
   "id": "usa",
   "symbol": "usat",
   "name": "USAT",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71792/large/usat_logo_200x200.png?1769440161",
   "description": "USA₮ is Tether's U.S.-regulated, dollar-backed stablecoin developed specifically to operate within the United States’ new federal stablecoin framework established under the GENIUS Act. The issuer of USA₮ is Anchorage Digital Bank, N.A., America’s first federally regulated stablecoin issuer.",
   "categories": [
     "Stablecoins",
@@ -19,25 +20,25 @@
     "explorer": "https://etherscan.io/address/0x07041776f5007ACa2A54844F50503a18A72A8b68"
   },
   "market": {
-    "price": 0.999164,
-    "marketCap": 152612373,
-    "marketCapRank": 227,
-    "volume24h": 2621202,
-    "high24h": 0.999753,
-    "low24h": 0.998716,
-    "priceChange24h": -0.02146,
-    "priceChange7d": -0.014180368053148961,
-    "priceChange30d": -0.12734212648911916,
+    "price": 0.998757,
+    "marketCap": 152561487,
+    "marketCapRank": 226,
+    "volume24h": 2986035,
+    "high24h": 0.99967,
+    "low24h": 0.998598,
+    "priceChange24h": -0.07751,
+    "priceChange7d": -0.07427,
+    "priceChange30d": -0.10943,
     "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.32352,
+    "athChangePercentage": -0.3552,
     "athDate": "2026-02-02T06:21:46.119Z",
     "atl": 0.99608,
     "atlDate": "2026-03-08T13:50:20.745Z",
     "circulatingSupply": 152750888.5,
     "totalSupply": 152750888.5,
     "maxSupply": null,
-    "fdv": 152612373
+    "fdv": 152561487
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:58:28.517Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.564Z"
+  "fetchedAt": "2026-05-14T07:41:56.343Z"
 }

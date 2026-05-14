@@ -2,6 +2,7 @@
   "id": "figure-heloc",
   "symbol": "figr_heloc",
   "name": "Figure Heloc",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68480/large/figure.png?1755863954",
   "description": "This project is building the foundational protocol layer for institutional debt markets on blockchain. Powered by Provenance Blockchain, Figure Connect and Figure Markets are transforming the way loan assets are originated, traded, and settled. Figure Connect functions as a primary market for credit—standardizing and tokenizing debt assets such as HELOCs and private credit into composable on-chain formats. Figure Markets acts as a secondary trading venue, enabling 24/7 settlement of these digital loan assets through decentralized custody, with support for both crypto and fiat on/off ramps. Together, they offer an integrated protocol for real-world asset finance, with deep roots in the lending ecosystem.",
   "categories": [
     "Real World Assets (RWA)",
@@ -17,25 +18,25 @@
     "explorer": "https://explorer.provenance.io/nft/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x"
   },
   "market": {
-    "price": 1.043,
-    "marketCap": 18459599392,
+    "price": 1.034,
+    "marketCap": 18300558754,
     "marketCapRank": 9,
-    "volume24h": 104566165,
-    "high24h": 1.043,
-    "low24h": 1.032,
-    "priceChange24h": 0.98487,
-    "priceChange7d": 2.037148461921216,
-    "priceChange30d": 1.5705594388562862,
+    "volume24h": 25009665,
+    "high24h": 1.044,
+    "low24h": 1.034,
+    "priceChange24h": -0.35018,
+    "priceChange7d": 1.3631,
+    "priceChange30d": 0.65639,
     "priceChange1y": 0,
     "ath": 1.049,
-    "athChangePercentage": -0.62168,
+    "athChangePercentage": -1.47789,
     "athDate": "2026-03-09T17:00:25.937Z",
     "atl": 0.155357,
     "atlDate": "2025-10-31T14:27:24.456Z",
     "circulatingSupply": 17705412557.017,
     "totalSupply": 17705412557.017,
     "maxSupply": null,
-    "fdv": 18459599392
+    "fdv": 18300558754
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T20:49:04.390Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.483Z"
+  "fetchedAt": "2026-05-14T07:06:44.365Z"
 }

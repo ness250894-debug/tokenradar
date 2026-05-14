@@ -2,26 +2,47 @@
   "id": "pay-coin",
   "symbol": "pci",
   "name": "Paycoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9330/large/new_logo_square.png?1696509434",
+  "description": "We are a project that focuses on implementing blockchain into payment. We now have more than 10,000 merchants in Korea that accepts Paycoin, including 7-eleven, Domino's Pizza, KFC, and more. We aim to bring real use cases that can drive user adoption. ",
+  "categories": [
+    "E-commerce"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://payprotocol.io/",
+    "github": "https://github.com/payprotocol",
+    "reddit": "https://www.reddit.com/r/payprotocol/",
+    "explorer": "https://scan.payprotocol.io/"
+  },
   "market": {
-    "price": 0.050931,
-    "marketCap": 52085940,
+    "price": 0.050688,
+    "marketCap": 51841728,
     "marketCapRank": 496,
-    "volume24h": 494715,
-    "priceChange24h": -0.07688,
+    "volume24h": 518222,
+    "high24h": 0.051163,
+    "low24h": 0.050456,
+    "priceChange24h": -0.74601,
+    "priceChange7d": -2.20831,
+    "priceChange30d": -7.18928,
+    "priceChange1y": -30.77798,
     "ath": 4.22,
-    "athChangePercentage": -98.79239,
+    "athChangePercentage": -98.79693,
     "athDate": "2021-02-17T23:41:56.087Z",
     "atl": 0.01816581,
     "atlDate": "2023-09-23T23:29:26.819Z",
     "circulatingSupply": 1022576439,
     "totalSupply": 1900000000,
     "maxSupply": 1900000000,
-    "high24h": 0.051192,
-    "low24h": 0.05083,
-    "priceChange7d": -4.127431635378934,
-    "priceChange30d": -6.659261480300955,
-    "priceChange1y": -30.609542603255523,
-    "fdv": 96778375
+    "fdv": 96324617
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.697Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:24:58.345Z"
 }

@@ -17,7 +17,7 @@ import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
 import { slugify } from "@/lib/shared-utils";
-import { isTokenOverviewIndexable } from "@/lib/seo";
+import { isArticleIndexable, isTokenOverviewIndexable } from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
@@ -111,6 +111,7 @@ export default async function TokenPage({ params }: PageProps) {
   const technical = getTokenTechnical(tokenId);
   const article = await getArticle(tokenId, "overview");
   const articleQuality = article ? evaluateArticleQuality(article) : null;
+  const shouldRenderArticle = Boolean(article && articleQuality?.passed);
   
   const relatedTokensList = await getRelatedTokens(tokenId, 3);
   const relatedTokens: TokenCardData[] = await Promise.all(relatedTokensList.map(async (token) => {
@@ -129,8 +130,10 @@ export default async function TokenPage({ params }: PageProps) {
   }));
 
   const isPositive = detail.market.priceChange24h >= 0;
-  const hasPricePrediction = !!(await getArticle(tokenId, "price-prediction"));
-  const hasHowToBuy = !!(await getArticle(tokenId, "how-to-buy"));
+  const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
+  const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
+  const hasPricePrediction = isArticleIndexable(pricePredictionArticle);
+  const hasHowToBuy = isArticleIndexable(howToBuyArticle);
 
   return (
     <div className="container">
@@ -363,7 +366,7 @@ export default async function TokenPage({ params }: PageProps) {
                   <ShoppingCart size={32} className="gradient-text" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-primary)" }} />
                   <div style={{ fontWeight: 700, fontSize: "var(--text-lg)" }}>How to Buy {detail.name}</div>
                   <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-xs)" }}>
-                    Step-by-step guide with exchange recommendations
+                    Step-by-step guide with venue verification checks
                   </div>
                 </Link>
               </CardGlare>
@@ -383,7 +386,7 @@ export default async function TokenPage({ params }: PageProps) {
         </div>
 
         {/* Article Content & TOC */}
-        {article && (
+        {shouldRenderArticle && article && (
           <>
             <UnifiedTOC selector=".article-content" showDesktop={false} />
             <div className="article-layout-row">
@@ -441,6 +444,7 @@ export default async function TokenPage({ params }: PageProps) {
       </section>
 
       {/* JSON-LD Structured Data */}
+      {shouldRenderArticle && article && (
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -468,6 +472,7 @@ export default async function TokenPage({ params }: PageProps) {
           }),
         }}
       />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

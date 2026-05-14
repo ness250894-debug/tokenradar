@@ -2,6 +2,7 @@
   "id": "constellation-labs",
   "symbol": "dag",
   "name": "Constellation",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4645/large/Constellation_Network_Logo.png?1696505213",
   "description": "What is DAG?\nIn more traditional blockchains, the host provides the food/drinks (i.e resources) for this party. And when the guests arrive, the amount of resources can only accommodate so many people, the portions are small and then everything eventually runs out and the party ends. Think Constellation DAG like a potluck (a party where everyone brings food/drinks). With every added guest (node to the network), the more resources the party has to keep going. This is the nature of Constellation, a distributed system that scales horizontally.\n\nIs Constellation a Blockchain?\nNot exactly. Although inspired by the principles of decentralization, many standard blockchains such as Bitcoin and Ethereum face scalability issues. This is why the next, generation of decentralized networks such as Hashgraph, IOTA, and Constellation have turned to DAG.\n\nWhat is a Microservice?\n“Microservices” is an approach to application development in which a large application is built as a suite of modular services. Each module supports a specific business goal and uses a simple, well-defined interface to communicate with other sets of services. Uber, for example, is not a singular app purse. It is a unified app which means it is a single interface that brings together their driver app, their rider app, and their corporate team app.",
   "categories": [
     "Smart Contract Platform",
@@ -18,25 +19,25 @@
     "explorer": "https://basescan.org/token/0x74299a718b2c44483a27325d7725f0b2646de3b1"
   },
   "market": {
-    "price": 0.01985053,
-    "marketCap": 76643174,
-    "marketCapRank": 375,
-    "volume24h": 918326,
+    "price": 0.01983794,
+    "marketCap": 76548199,
+    "marketCapRank": 378,
+    "volume24h": 1018975,
     "high24h": 0.02164944,
-    "low24h": 0.01921572,
-    "priceChange24h": 3.30357,
-    "priceChange7d": 130.59345045801481,
-    "priceChange30d": 125.99689468971825,
-    "priceChange1y": -57.3563066035194,
+    "low24h": 0.01913401,
+    "priceChange24h": 3.67897,
+    "priceChange7d": 130.65778,
+    "priceChange30d": 125.85366,
+    "priceChange1y": -56.89638,
     "ath": 0.451761,
-    "athChangePercentage": -95.60256,
+    "athChangePercentage": -95.61116,
     "athDate": "2021-08-25T23:30:00.311Z",
     "atl": 0.00110189,
     "atlDate": "2019-03-09T00:00:00.000Z",
-    "circulatingSupply": 3859134594.779677,
-    "totalSupply": 3859134594.779677,
+    "circulatingSupply": 3859116003.325118,
+    "totalSupply": 3859116003.325118,
     "maxSupply": null,
-    "fdv": 76643174
+    "fdv": 76548199
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 34,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T08:14:15.440Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.629Z"
+  "fetchedAt": "2026-05-13T18:29:13.643Z"
 }

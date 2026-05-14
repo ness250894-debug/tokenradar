@@ -2,26 +2,59 @@
   "id": "osmosis",
   "symbol": "osmo",
   "name": "Osmosis",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/16724/large/osmo.png?1696516298",
+  "description": "Osmosis (OSMO) is the premier DEX and cross-chain DeFi hub within the Cosmos ecosystem, a network of over 50 sovereign, interoperable blockchains seamlessly connected through the Inter-Blockchain Communication Protocol (IBC). Pioneering in its approach, Osmosis offers a dynamic trading and liquidity provision experience, integrating non-IBC assets from other ecosystems, including Ethereum, Solana, Avalanche, and Polkadot. Initially adopting Balancer-style pools, Osmosis now also features a concentrated liquidity model that is orders of magnitude more capital efficient, meaning that significantly less liquidity is required to handle the same amount of trading volume with minimal slippage.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Automated Market Maker (AMM)",
+    "Cosmos Ecosystem",
+    "Osmosis Ecosystem",
+    "Paradigm Portfolio",
+    "Proof of Stake (PoS)",
+    "Evmos Ecosystem",
+    "Secret Ecosystem",
+    "GMCI DeFi Index",
+    "GMCI Index",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://osmosis.zone/",
+    "github": "https://github.com/osmosis-labs/osmosis",
+    "reddit": null,
+    "explorer": "https://www.mintscan.io/osmosis"
+  },
   "market": {
-    "price": 0.081031,
-    "marketCap": 62559794,
-    "marketCapRank": 433,
-    "volume24h": 74909820,
+    "price": 0.073461,
+    "marketCap": 56777494,
+    "marketCapRank": 469,
+    "volume24h": 106497515,
     "high24h": 0.089931,
-    "low24h": 0.059129,
-    "priceChange24h": 32.92831,
-    "priceChange7d": 150.82109300368685,
-    "priceChange30d": 167.67890354974153,
-    "priceChange1y": -69.43511933200148,
+    "low24h": 0.059678,
+    "priceChange24h": 22.26037,
+    "priceChange7d": 125.08663,
+    "priceChange30d": 138.50062,
+    "priceChange1y": -72.53809,
     "ath": 11.25,
-    "athChangePercentage": -99.28861,
+    "athChangePercentage": -99.34866,
     "athDate": "2022-03-04T05:12:18.707Z",
     "atl": 0.02916342,
     "atlDate": "2026-03-29T22:55:20.160Z",
-    "circulatingSupply": 773354110.360395,
-    "totalSupply": 979767638.911365,
+    "circulatingSupply": 773475875.961612,
+    "totalSupply": 979611785.659117,
     "maxSupply": 1000000000,
-    "fdv": 79257433
+    "fdv": 71909033
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.683Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 962,
+    "githubForks": 692,
+    "commits4Weeks": 2
+  },
+  "fetchedAt": "2026-05-14T07:24:14.108Z"
 }

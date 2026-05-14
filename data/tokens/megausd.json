@@ -2,6 +2,7 @@
   "id": "megausd",
   "symbol": "usdm",
   "name": "MegaUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69955/large/USDm.png?1760170136",
   "description": "USDm is a native stablecoin purpose-built to power real-time applications on MegaETH. USDm is issued through Ethena's stablecoin stack and designed to be deeply integrated across wallets, apps, and onchain services on MegaETH.\n\nMegaETH is the first real-time blockchain, secured by Ethereum and powered by a hyper-optimized execution environment with a heterogeneous architecture. It delivers streaming throughput with 10 millisecond latency and up to 100,000 TPS. Developers scale apps with real-time state streaming, and users get instant transactions all while preserving full Ethereum composability.\n\nEthena is the protocol behind USDe, the third-largest and fastest-growing USD-denominated crypto asset in history. Ethena has over $13 billion in TVL today across one of the largest sets of users from a DeFi protocol, alongside integrations with some of the largest centralized exchanges and major DeFi applications.",
   "categories": [
     "Stablecoins",
@@ -16,25 +17,25 @@
     "explorer": "https://megaeth.blockscout.com/token/0xFAfDdbb3FC7688494971a79cc65DCa3EF82079E7"
   },
   "market": {
-    "price": 0.99837,
-    "marketCap": 305476816,
-    "marketCapRank": 155,
-    "volume24h": 5328425,
-    "high24h": 1.003,
-    "low24h": 0.997992,
-    "priceChange24h": -0.06355,
-    "priceChange7d": 0.04545731076689824,
-    "priceChange30d": 0.09449127261056325,
+    "price": 0.998975,
+    "marketCap": 280915018,
+    "marketCapRank": 159,
+    "volume24h": 5893042,
+    "high24h": 1.001,
+    "low24h": 0.99757,
+    "priceChange24h": -0.06918,
+    "priceChange7d": -0.01029,
+    "priceChange30d": -0.09916,
     "priceChange1y": 0,
     "ath": 1.017,
-    "athChangePercentage": -1.83472,
+    "athChangePercentage": -1.50578,
     "athDate": "2026-02-09T12:00:25.580Z",
     "atl": 0.977115,
     "atlDate": "2026-02-05T06:19:31.196Z",
-    "circulatingSupply": 305975463.9057236,
-    "totalSupply": 305975463.9057236,
+    "circulatingSupply": 281154613.9057236,
+    "totalSupply": 281154613.9057236,
     "maxSupply": null,
-    "fdv": 305476816
+    "fdv": 280915018
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:19.224Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.540Z"
+  "fetchedAt": "2026-05-14T07:17:56.914Z"
 }

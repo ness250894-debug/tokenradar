@@ -2,20 +2,51 @@
   "id": "fractal-bitcoin",
   "symbol": "fb",
   "name": "Fractal Bitcoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/40049/large/Fractal_LogoMark_Round.png?1725445811",
+  "description": "Fractal Bitcoin is the only Bitcoin scaling solution that uses the Bitcoin Core code itself to recursively scale unlimited layers on top of the world’s most-secure and -held blockchain. Fractal is the first instance of a virtualization methodology applied to Bitcoin in the world. Fractal gradually extends the Bitcoin blockchain into a scalable computing system without breaking consistency with the Bitcoin main chain.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Proof of Work (PoW)",
+    "Bitcoin Sidechains",
+    "SideChain"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://fractalbitcoin.io",
+    "github": "https://github.com/fractal-bitcoin",
+    "reddit": null,
+    "explorer": "https://explorer.fractalbitcoin.io/"
+  },
   "market": {
-    "price": 0.482031,
-    "marketCap": 48523489,
-    "marketCapRank": 490,
-    "volume24h": 5363553,
-    "priceChange24h": -2.9005,
+    "price": 0.453956,
+    "marketCap": 46248858,
+    "marketCapRank": 532,
+    "volume24h": 3148935,
+    "high24h": 0.460071,
+    "low24h": 0.440585,
+    "priceChange24h": -1.32918,
+    "priceChange7d": 0.73147,
+    "priceChange30d": 3.87872,
+    "priceChange1y": -23.42081,
     "ath": 38.8,
-    "athChangePercentage": -98.75765,
+    "athChangePercentage": -98.83379,
     "athDate": "2024-09-15T12:50:56.102Z",
     "atl": 0.334207,
     "atlDate": "2025-11-22T18:10:57.527Z",
-    "circulatingSupply": 100664674.9459796,
-    "totalSupply": 147914925,
-    "maxSupply": 210000000
+    "circulatingSupply": 101852274.9459796,
+    "totalSupply": 149101150,
+    "maxSupply": 210000000,
+    "fdv": 67703524
   },
-  "lastMarketUpdate": "2026-04-27T19:43:42.862Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:07:41.366Z"
 }

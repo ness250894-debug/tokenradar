@@ -2,6 +2,7 @@
   "id": "genius-3",
   "symbol": "genius",
   "name": "Genius",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71660/large/genius.png?1768804210",
   "description": "Genius Terminal is the first private and final onchain terminal.\n\nIt’s what comes after aggregators, intents bridges, and wallet extensions — a purpose-built trading OS for professional users who want DeFi without DeFi UX.",
   "categories": [
     "Analytics",
@@ -18,25 +19,25 @@
     "explorer": "https://bscscan.com/token/0x1F12B85aAC097E43Aa1555b2881E98a51090e9A6"
   },
   "market": {
-    "price": 0.525589,
-    "marketCap": 176250907,
-    "marketCapRank": 204,
-    "volume24h": 9066679,
-    "high24h": 0.571825,
-    "low24h": 0.522779,
-    "priceChange24h": -3.36084,
-    "priceChange7d": -9.90251429157907,
-    "priceChange30d": 12.235126046553896,
+    "price": 0.476991,
+    "marketCap": 159975460,
+    "marketCapRank": 218,
+    "volume24h": 10005662,
+    "high24h": 0.55348,
+    "low24h": 0.476411,
+    "priceChange24h": -10.59006,
+    "priceChange7d": -20.34874,
+    "priceChange30d": -0.03961,
     "priceChange1y": 0,
     "ath": 0.937796,
-    "athChangePercentage": -43.96691,
+    "athChangePercentage": -49.00818,
     "athDate": "2026-04-18T11:05:28.403Z",
     "atl": 0.194768,
     "atlDate": "2026-04-13T15:35:53.410Z",
     "circulatingSupply": 335377059,
     "totalSupply": 953973324.2985383,
     "maxSupply": 1000000000,
-    "fdv": 501342175
+    "fdv": 455046991
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:50.732Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.554Z"
+  "fetchedAt": "2026-05-14T07:08:38.678Z"
 }

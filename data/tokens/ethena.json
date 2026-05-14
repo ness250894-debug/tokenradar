@@ -2,7 +2,8 @@
   "id": "ethena",
   "symbol": "ena",
   "name": "Ethena",
-  "description": "A cryptocurrency token known as Ethena (ENA). It is tracked on CoinGecko with the ID \"ethena\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/36530/large/ethena.png?1711701436",
+  "description": "",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Binance Launchpool",
@@ -40,25 +41,25 @@
     "explorer": "https://etherscan.io/token/0x57e114b691db790c35207b2e685d4a43181e6061"
   },
   "market": {
-    "price": 0.117259,
-    "marketCap": 1059133528,
+    "price": 0.117241,
+    "marketCap": 1058720007,
     "marketCapRank": 66,
-    "volume24h": 108377443,
+    "volume24h": 102121734,
     "high24h": 0.125408,
     "low24h": 0.115106,
-    "priceChange24h": -3.69915,
-    "priceChange7d": 0.010747705824716413,
-    "priceChange30d": 22.117336457785477,
-    "priceChange1y": -73.42704057744992,
+    "priceChange24h": -4.97128,
+    "priceChange7d": -3.15985,
+    "priceChange30d": 21.07224,
+    "priceChange1y": -73.19147,
     "ath": 1.52,
-    "athChangePercentage": -92.26534,
+    "athChangePercentage": -92.27205,
     "athDate": "2024-04-11T13:15:15.057Z",
     "atl": 0.076868,
     "atlDate": "2026-04-05T12:50:40.489Z",
     "circulatingSupply": 9026562500,
     "totalSupply": 15000000000,
     "maxSupply": 15000000000,
-    "fdv": 1760028020
+    "fdv": 1759340846
   },
   "community": {
     "twitterFollowers": null,
@@ -69,6 +70,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T19:09:20.865Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.499Z"
+  "fetchedAt": "2026-05-14T07:04:35.806Z"
 }

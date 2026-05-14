@@ -2,26 +2,27 @@
   "id": "beldex",
   "symbol": "bdx",
   "name": "Beldex",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5111/large/Beldex.png?1696505631",
   "description": "Beldex building a decentralized confidential ecosystem in Web3 for secure digital interactions.. The concept of the project was developed in 2018, and launched in the same year. The Beldex project is committed to enhancing user data protection and their confidentiality online. BDX is an ecosystem coin that facilitates confidential transactions. \nBeldex's mission is to provide a confidential environment where data can be exchanged securely. The project is focused on individual safety and true data confidentiality with systematic research to ensure the confidentiality of individual transactions, and thus the safety of users and the security of their funds. \nBDX operates on the Beldex decentralized blockchain for performing secure transactions, while the ecosystem supports secure and confidential dApps, among them: BChat, BelNet, Beldex Browser, the Beldex protocol, and the Beldex bridge. Initially, Beldex was developed on a PoW architecture followed by a transition to the PoS consensus model in order to increase the scalability of the BDX token, lower fees and reduce transaction times.",
   "categories": [
-    "Infrastructure",
+    "DePIN",
+    "Wallets",
     "Smart Contract Platform",
-    "Masternodes",
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
-    "Layer 1 (L1)",
-    "Wallets",
-    "Ethereum Ecosystem",
-    "DePIN",
-    "Base Ecosystem",
-    "DWF Labs Portfolio",
-    "Proof of Stake (PoS)",
     "Proof of Work (PoW)",
     "VPN",
+    "DWF Labs Portfolio",
+    "Masternodes",
     "Name Service",
+    "Layer 1 (L1)",
+    "Privacy",
+    "Proof of Stake (PoS)",
     "Privacy Blockchain",
+    "Base Ecosystem",
+    "Infrastructure",
     "Privacy Infrastructure",
-    "Privacy"
+    "Ethereum Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -31,25 +32,25 @@
     "explorer": "https://explorer.beldex.io/"
   },
   "market": {
-    "price": 0.07993,
-    "marketCap": 618476687,
+    "price": 0.079974,
+    "marketCap": 618381457,
     "marketCapRank": 93,
-    "volume24h": 10593164,
-    "high24h": 0.080011,
+    "volume24h": 10539335,
+    "high24h": 0.079993,
     "low24h": 0.079578,
-    "priceChange24h": 0.34987,
-    "priceChange7d": 0.15818938810289737,
-    "priceChange30d": -0.4977210641020791,
-    "priceChange1y": 18.5910191015945,
+    "priceChange24h": 0.36257,
+    "priceChange7d": 0.2139,
+    "priceChange30d": -0.58491,
+    "priceChange1y": 18.59437,
     "ath": 0.450785,
-    "athChangePercentage": -82.27024,
+    "athChangePercentage": -82.26966,
     "athDate": "2018-12-17T00:00:00.000Z",
     "atl": 0.00027519,
     "atlDate": "2019-11-01T11:05:12.090Z",
-    "circulatingSupply": 7738109647.694744,
-    "totalSupply": 9937729304.140633,
+    "circulatingSupply": 7738108898.000542,
+    "totalSupply": 9937728548.535555,
     "maxSupply": null,
-    "fdv": 794283640
+    "fdv": 794161356
   },
   "community": {
     "twitterFollowers": null,
@@ -57,9 +58,8 @@
   },
   "developer": {
     "githubStars": 38,
-    "githubForks": 26,
-    "commits4Weeks": 0
+    "githubForks": 25,
+    "commits4Weeks": 5
   },
-  "fetchedAt": "2026-03-22T15:20:56.139Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.518Z"
+  "fetchedAt": "2026-05-13T18:23:38.625Z"
 }

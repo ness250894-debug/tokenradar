@@ -2,26 +2,53 @@
   "id": "notcoin",
   "symbol": "not",
   "name": "Notcoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/33453/large/rFmThDiD_400x400.jpg?1701876350",
+  "description": "Notcoin ($NOT) is as a community-driven token aimed at onboarding users into the Web3 ecosystem through a tap-to-earn game.",
+  "categories": [
+    "Gaming (GameFi)",
+    "Binance Launchpool",
+    "Meme",
+    "Play To Earn",
+    "TON Ecosystem",
+    "TON Meme",
+    "Tap to Earn"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://t.me/notcoin_bot",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tonscan.org/address/EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT"
+  },
   "market": {
-    "price": 0.00053965,
-    "marketCap": 53646699,
-    "marketCapRank": 486,
-    "volume24h": 21784770,
-    "priceChange24h": -3.46273,
+    "price": 0.00053079,
+    "marketCap": 52735336,
+    "marketCapRank": 491,
+    "volume24h": 27722745,
+    "high24h": 0.0005645,
+    "low24h": 0.00052683,
+    "priceChange24h": -4.11209,
+    "priceChange7d": -21.21811,
+    "priceChange30d": 43.62019,
+    "priceChange1y": -84.83106,
     "ath": 0.02836145,
-    "athChangePercentage": -98.09885,
+    "athChangePercentage": -98.1281,
     "athDate": "2024-06-02T18:00:38.587Z",
     "atl": 0.00032676,
     "atlDate": "2026-02-28T13:45:06.069Z",
     "circulatingSupply": 99429447866.9074,
     "totalSupply": 102452755868.5205,
     "maxSupply": 102456956842.91,
-    "high24h": 0.00057188,
-    "low24h": 0.00052683,
-    "priceChange7d": -2.029873296387908,
-    "priceChange30d": 51.08690284940168,
-    "priceChange1y": -83.91128023159933,
-    "fdv": 55277910
+    "fdv": 54338837
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.696Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:22:07.684Z"
 }

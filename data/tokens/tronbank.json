@@ -2,26 +2,48 @@
   "id": "tronbank",
   "symbol": "tbk",
   "name": "TronBank",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71261/large/TronBank.png?1766773989",
+  "description": "TronBank (TBK) is a next-generation decentralized finance (DeFi) protocol within the TRON ecosystem, integrating proprietary AI algorithms to optimize energy leasing and TRX staking. By leveraging predictive analytics, the platform dynamically matches energy supply with demand, allowing users to reduce on-chain transaction costs by up to 70%. TronBank’s mission is to resolve the liquidity and cost inefficiencies inherent in high-frequency blockchain interactions. As a core infrastructure provider, TBK serves as the ecosystem's value carrier, featuring a robust deflationary mechanism powered by 100% revenue buybacks. Through strategic AI-driven yield management, TronBank is bridging the gap between passive staking and active resource optimization for global institutional and retail participants.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tron Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tronbank.pro",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TR84L8oj3zt6NEZknUPerxZJyAALE8XNSH"
+  },
   "market": {
-    "price": 0.621408,
-    "marketCap": 62090108,
-    "marketCapRank": 438,
-    "volume24h": 123891,
-    "priceChange24h": -1.69833,
+    "price": 0.614805,
+    "marketCap": 61480506,
+    "marketCapRank": 439,
+    "volume24h": 149272,
+    "high24h": 0.623116,
+    "low24h": 0.618094,
+    "priceChange24h": -0.80647,
+    "priceChange7d": -3.70181,
+    "priceChange30d": 2.72836,
+    "priceChange1y": 0,
     "ath": 2.98,
-    "athChangePercentage": -79.16924,
+    "athChangePercentage": -79.1827,
     "athDate": "2026-01-04T05:44:47.226Z",
     "atl": 0.319163,
     "atlDate": "2026-01-25T18:56:33.335Z",
     "circulatingSupply": 100000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.634172,
-    "low24h": 0.619804,
-    "priceChange7d": -2.7237616040399195,
-    "priceChange30d": 2.768553966614011,
-    "priceChange1y": 0,
-    "fdv": 620901083
+    "fdv": 614805058
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.685Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:40:34.128Z"
 }

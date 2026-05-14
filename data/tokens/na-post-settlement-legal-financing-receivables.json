@@ -2,12 +2,32 @@
   "id": "na-post-settlement-legal-financing-receivables",
   "symbol": "pc0000101",
   "name": "Tradable NA Post-Settlement Legal Financing Receivables",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66791/large/tradable.jpg?1750576168",
+  "description": "This project, facilitated by Tradable.xyz on ZKsync Era, tokenizes post settlement term loan facility for us based law firm. The notes are issued by Victory Park Capital Advisors under the \"North America Post-Settlement Legal Financing Receivables\" deal, giving on-chain exposure to the underlying cash flows. Tradable integrates traditional and decentralized finance, employing smart contracts for AML/KYC compliance to ensure regulatory standards. The platform enhances liquidity and investor access to the multi‑trillion‑dollar private credit market, streamlining asset management and due diligence via a user‑friendly interface. By leveraging ZKsync Era's scalable and secure infrastructure, the project connects existing financial systems to blockchain rails while preserving data privacy and reducing settlement costs.",
+  "categories": [
+    "Tokenized Assets",
+    "ZkSync Ecosystem",
+    "Real World Assets (RWA)",
+    "Tradable Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tradable.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://era.zksync.network/address/0x3d19625bb8e4b52ac4ca28ecec2b5e243ae2ee81"
+  },
   "market": {
     "price": 1,
     "marketCap": 76722081,
-    "marketCapRank": 374,
+    "marketCapRank": 373,
     "volume24h": 0,
+    "high24h": 1,
+    "low24h": 1,
     "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 1,
     "athChangePercentage": 0,
     "athDate": "2025-07-03T10:05:03.743Z",
@@ -16,12 +36,16 @@
     "circulatingSupply": 76722080.574195,
     "totalSupply": 76722080.574195,
     "maxSupply": 100000000,
-    "high24h": 1,
-    "low24h": 1,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
     "fdv": 76722081
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.629Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:20:53.947Z"
 }

@@ -2,27 +2,54 @@
   "id": "amp-token",
   "symbol": "amp",
   "name": "Amp",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12409/large/amp-200x200.png?1696512231",
   "description": "What is Amp?\n\nAmp is described as the new digital collateral token offering instant, verifiable assurances for any kind of value transfer. Using Amp, networks like Flexa can quickly and irreversibly secure transactions for a wide variety of asset-related use cases.\n\nHow does Amp work?\n\nAmp claims to offer a straightforward but versatile interface for verifiable collateralization through a system of collateral partitions and collateral managers. Where collateral partitions can be designated to collateralize any account, application, or even transaction, and carry balances which are directly verifiable on the Ethereum blockchain, collateral managers are smart contracts that can lock, release, and redirect collateral in these partitions as needed in order to support value transfer activities. Amp supports a wide variety of use cases for collateralization, and also introduces the concept of predefined partition strategies, which can enable special capabilities such as collateral models through which tokens can be staked without ever leaving their original address.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Near Protocol Ecosystem",
+    "Ethereum Ecosystem",
+    "Payment Solutions",
+    "Alleged SEC Securities",
+    "Pantera Capital Portfolio",
+    "Energi Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.amp.xyz",
+    "github": "https://github.com/amptoken",
+    "reddit": "https://www.reddit.com/r/amptoken/",
+    "explorer": "https://etherscan.io/token/0xff20817765cb7f73d4bde2e66e067e58d11095c2"
+  },
   "market": {
-    "price": 0.00087204,
-    "marketCap": 75670357,
-    "marketCapRank": 381,
-    "volume24h": 9426073,
+    "price": 0.0008752,
+    "marketCap": 76086869,
+    "marketCapRank": 379,
+    "volume24h": 9816880,
     "high24h": 0.0009209,
-    "low24h": 0.00087202,
-    "priceChange24h": -5.30559,
-    "priceChange7d": -1.801452656848368,
-    "priceChange30d": -0.5992523426297507,
-    "priceChange1y": -80.5691615904736,
+    "low24h": 0.000876,
+    "priceChange24h": -4.0235,
+    "priceChange7d": -1.54492,
+    "priceChange30d": -0.43702,
+    "priceChange1y": -80.15364,
     "ath": 0.120813,
-    "athChangePercentage": -99.27811,
+    "athChangePercentage": -99.27361,
     "athDate": "2021-06-16T16:03:41.147Z",
     "atl": 0.00084186,
     "atlDate": "2026-04-14T23:25:23.544Z",
     "circulatingSupply": 86781022996.56946,
     "totalSupply": 99720178909.70996,
     "maxSupply": 100000000000,
-    "fdv": 86952899
+    "fdv": 87431513
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.630Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:19:38.379Z"
 }

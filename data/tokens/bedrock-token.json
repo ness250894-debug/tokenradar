@@ -2,6 +2,7 @@
   "id": "bedrock-token",
   "symbol": "br",
   "name": "Bedrock",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54908/large/BR_200px.png?1742453499",
   "description": "Bedrock DAO is a governance framework for managing decisions within the Bedrock ecosystem. It enables BR token holders to participate in governance by converting BR into veBR, a voting escrow token. Governance decisions include protocol parameters, incentive structures, and liquidity allocation.\nThe governance system is based on veBR, which is obtained by locking BR tokens at a 1:1 ratio. The longer the lock duration, the greater the voting power. veBR holders vote on governance proposals, including gauge allocations that determine incentive distribution across liquidity pools.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -21,25 +22,25 @@
     "explorer": "https://bscscan.com/token/0xff7d6a96ae471bbcd7713af9cb1feeb16cf56b41"
   },
   "market": {
-    "price": 0.207931,
-    "marketCap": 52239156,
-    "marketCapRank": 481,
-    "volume24h": 5463204,
-    "high24h": 0.209017,
-    "low24h": 0.181857,
-    "priceChange24h": 8.63447,
-    "priceChange7d": 73.89809,
-    "priceChange30d": 19.08232,
-    "priceChange1y": 183.32205,
+    "price": 0.140035,
+    "marketCap": 35016436,
+    "marketCapRank": 643,
+    "volume24h": 1961126,
+    "high24h": 0.160545,
+    "low24h": 0.133084,
+    "priceChange24h": 0.08064,
+    "priceChange7d": -14.16173,
+    "priceChange30d": 12.3675,
+    "priceChange1y": 101.7378,
     "ath": 0.257114,
-    "athChangePercentage": -19.40871,
+    "athChangePercentage": -45.65536,
     "athDate": "2026-04-15T22:05:04.221Z",
     "atl": 0.03920767,
     "atlDate": "2025-04-18T20:21:08.576Z",
     "circulatingSupply": 251250000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 202927907
+    "fdv": 139368900
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-04T08:45:00.237Z",
-  "lastMarketUpdate": "2026-05-04T19:07:30.516Z"
+  "fetchedAt": "2026-05-13T18:23:32.282Z"
 }

@@ -2,20 +2,49 @@
   "id": "sygnum-fiusd-liquidity-fund",
   "symbol": "fiusd",
   "name": "Sygnum FIUSD Liquidity Fund",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/50749/large/FIUDS_200x200px_%281%29.png?1728956878",
+  "description": "This project focuses on the tokenization of Fidelity International's Money Market Fund by Sygnum Bank, specifically the Fidelity Institutional Liquidity Fund (ILF) USD Fund Class G Acc. Sygnum Bank is the token issuer of the above mentioned.",
+  "categories": [
+    "Arbitrum Ecosystem",
+    "ZkSync Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.sygnum.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://era.zksync.network/address/0x2ab105a3ead22731082b790ca9a00d9a3a7627f9"
+  },
   "market": {
-    "price": 11864.63,
-    "marketCap": 47430757,
-    "marketCapRank": 499,
+    "price": 11875.27,
+    "marketCap": 47473292,
+    "marketCapRank": 524,
     "volume24h": 0,
-    "priceChange24h": 0,
-    "ath": 11864.63,
+    "high24h": 11875.27,
+    "low24h": 11874.08,
+    "priceChange24h": 0.01002,
+    "priceChange7d": 0.06977,
+    "priceChange30d": 0.2995,
+    "priceChange1y": 4.0543,
+    "ath": 11875.27,
     "athChangePercentage": 0,
-    "athDate": "2026-05-01T21:40:10.565Z",
+    "athDate": "2026-05-13T21:20:11.936Z",
     "atl": 11251.76,
     "atlDate": "2025-01-21T08:25:04.328Z",
     "circulatingSupply": 3997.66,
     "totalSupply": 3997.66,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 47473292
   },
-  "lastMarketUpdate": "2026-05-04T19:07:30.519Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:36:02.292Z"
 }

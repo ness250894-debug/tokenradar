@@ -2,6 +2,7 @@
   "id": "re-protocol-reusd",
   "symbol": "reusd",
   "name": "Re Protocol reUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66291/large/Points_Program_Group_91.png?1749676055",
   "description": "Re Protocol (RE) is a blockchain-based platform that democratizes access to reinsurance risk by tokenizing exposure to insurance contracts. The protocol’s two deposit tokens—reUSD and reUSDe—let users choose between a principal-protected, fixed-yield product (reUSD, RF + 250 bps) or a risk-bearing, variable-yield option (reUSDe, up to ~23 % APR). Built on Ethereum, Avalanch, Arbitrum and Base, Re Protocol leverages decentralized underwriting pools to generate transparent, market-driven insurance returns. Governance and treasury functions are overseen by the Cayman-based Re Foundation to ensure regulatory compliance and capital efficiency. With integrations into DeFi ecosystems like Curve, Pendle, and Ethena, Re Protocol bridges traditional reinsurance markets and DeFi—opening institutional-grade risk diversification to crypto investors.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -22,24 +23,24 @@
   },
   "market": {
     "price": 1.077,
-    "marketCap": 171807941,
-    "marketCapRank": 210,
-    "volume24h": 1026193,
+    "marketCap": 171707637,
+    "marketCapRank": 207,
+    "volume24h": 1538767,
     "high24h": 1.077,
     "low24h": 1.076,
-    "priceChange24h": 0.02671,
-    "priceChange7d": 0.061154933861018,
-    "priceChange30d": 0.42595692965516196,
+    "priceChange24h": 0.01086,
+    "priceChange7d": 0.03757,
+    "priceChange30d": 0.4642,
     "priceChange1y": 0,
     "ath": 1.078,
-    "athChangePercentage": -0.12684,
+    "athChangePercentage": -0.1207,
     "athDate": "2025-10-10T21:39:52.994Z",
     "atl": 0.873393,
     "atlDate": "2025-07-17T08:04:08.632Z",
-    "circulatingSupply": 159581913.6040822,
-    "totalSupply": 159581913.6040822,
+    "circulatingSupply": 159477344.3374224,
+    "totalSupply": 159477344.3374224,
     "maxSupply": null,
-    "fdv": 171807941
+    "fdv": 171707637
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T10:38:07.910Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.556Z"
+  "fetchedAt": "2026-05-14T07:28:58.646Z"
 }

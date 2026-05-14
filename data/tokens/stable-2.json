@@ -2,6 +2,7 @@
   "id": "stable-2",
   "symbol": "stable",
   "name": "​​Stable",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69242/large/stable-logotype-framed-square-light.png?1762753913",
   "description": "Stable is the first Layer 1 blockchain purpose-built for the USDT ecosystem, leveraging USDT as the native gas token to remove friction from volatile gas fees. Optimized for speed, scalability, and compliance, Stable enables seamless integration for payment processors, DeFi, RWA, fintechs, and enterprises. With instant settlement, low-cost cross-border transfers, and enterprise-ready infrastructure, it delivers a user-friendly environment that enhances capital efficiency and drives global adoption.",
   "categories": [
     "Infrastructure",
@@ -19,25 +20,25 @@
     "explorer": "https://bscscan.com/token/0x011EBe7d75E2C9D1E0bD0be0bEf5C36f0A90075F"
   },
   "market": {
-    "price": 0.03945659,
-    "marketCap": 893219247,
-    "marketCapRank": 78,
-    "volume24h": 27506092,
-    "high24h": 0.04083385,
-    "low24h": 0.03710102,
-    "priceChange24h": 1.78614,
-    "priceChange7d": 17.0678779607603,
-    "priceChange30d": 44.93907791943364,
+    "price": 0.0389874,
+    "marketCap": 883847729,
+    "marketCapRank": 77,
+    "volume24h": 22490229,
+    "high24h": 0.04119124,
+    "low24h": 0.03736442,
+    "priceChange24h": 1.74665,
+    "priceChange7d": 16.73113,
+    "priceChange30d": 48.43021,
     "priceChange1y": 0,
     "ath": 0.04197213,
-    "athChangePercentage": -6.02558,
+    "athChangePercentage": -7.05956,
     "athDate": "2026-04-24T01:55:26.227Z",
     "atl": 0.0092214,
     "atlDate": "2025-12-24T05:49:32.232Z",
-    "circulatingSupply": 22645786351,
+    "circulatingSupply": 22661133058,
     "totalSupply": 100000000000,
     "maxSupply": 100000000000,
-    "fdv": 3944306606
+    "fdv": 3900280390
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:32:44.115Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.514Z"
+  "fetchedAt": "2026-05-14T07:33:49.435Z"
 }

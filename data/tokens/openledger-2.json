@@ -2,20 +2,54 @@
   "id": "openledger-2",
   "symbol": "open",
   "name": "OpenLedger",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67482/large/open.png?1756547643",
+  "description": "OpenLedger is the AI blockchain, unlocking liquidity to monetize data, models, apps and agents. It enables the training, deployment and on-chain tracking of specialized AI models and data, solving critical challenges around transparency, attribution and verifiability in AI.\n\nAt the core, we’re addressing the $500B data problem, where high-value datasets remain siloed and uncompensated. OpenLedger changes this by embedding native attribution, verifiable provenance, and programmable incentives directly. Built on this foundation, we provide the infrastructure to scale intelligent systems with traceable data influence and provable outcomes and advancing AI from opaque and centralized to open, auditable and decentralized.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Rollup",
+    "Binance HODLer Airdrops",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.openledger.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xa227cc36938f0c9e09ce0e64dfab226cad739447"
+  },
   "market": {
-    "price": 0.253767,
-    "marketCap": 54704720,
-    "marketCapRank": 459,
-    "volume24h": 18686545,
-    "priceChange24h": 8.04693,
+    "price": 0.183019,
+    "marketCap": 39425138,
+    "marketCapRank": 597,
+    "volume24h": 12544708,
+    "high24h": 0.19696,
+    "low24h": 0.176164,
+    "priceChange24h": -6.48211,
+    "priceChange7d": -14.36533,
+    "priceChange30d": -10.69548,
+    "priceChange1y": 0,
     "ath": 1.82,
-    "athChangePercentage": -85.96704,
+    "athChangePercentage": -89.93987,
     "athDate": "2025-09-08T19:47:44.150Z",
     "atl": 0.139449,
     "atlDate": "2026-03-07T07:10:46.166Z",
     "circulatingSupply": 215500000,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 182947277
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.888Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:23:42.492Z"
 }

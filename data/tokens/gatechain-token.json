@@ -2,7 +2,8 @@
   "id": "gatechain-token",
   "symbol": "gt",
   "name": "Gate",
-  "description": "A cryptocurrency token known as Gate (GT). It is tracked on CoinGecko with the ID \"gatechain-token\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8183/large/200X200.png?1735246724",
+  "description": "",
   "categories": [
     "Smart Contract Platform",
     "Exchange-based Tokens",
@@ -20,25 +21,25 @@
     "explorer": "https://www.gatescan.org/gatelayer"
   },
   "market": {
-    "price": 7.25,
-    "marketCap": 772418832,
-    "marketCapRank": 84,
-    "volume24h": 2520668,
-    "high24h": 7.41,
+    "price": 7.29,
+    "marketCap": 776035201,
+    "marketCapRank": 83,
+    "volume24h": 2365651,
+    "high24h": 7.37,
     "low24h": 7.2,
-    "priceChange24h": -1.22695,
-    "priceChange7d": -2.514012778207221,
-    "priceChange30d": 8.013631652516526,
-    "priceChange1y": -66.82413328180026,
+    "priceChange24h": -0.44604,
+    "priceChange7d": -1.11936,
+    "priceChange30d": 7.8793,
+    "priceChange1y": -67.15609,
     "ath": 25.38,
-    "athChangePercentage": -71.4295,
+    "athChangePercentage": -71.26538,
     "athDate": "2025-01-26T00:00:00.000Z",
     "atl": 0.25754,
     "atlDate": "2020-03-13T02:18:02.481Z",
     "circulatingSupply": 106483509.17747103,
     "totalSupply": 121304804.66747102,
     "maxSupply": 121304804.66747102,
-    "fdv": 879930763
+    "fdv": 884050490
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:45:47.622Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-14T07:08:19.735Z"
 }

@@ -2,6 +2,7 @@
   "id": "hash-2",
   "symbol": "hash",
   "name": "Provenance Blockchain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66154/large/Hastra_Icon.png?1748497203",
   "description": "HASH is the native token of Provenance Blockchain, a sovereign L1 public, proof-of-stake blockchain built using the Cosmos SDK. Launched in 2018, Provenance Blockchain modernizes and democratizes financial markets by bringing clarity, access, and equity to participants across the global financial ecosystem. Our platform addresses the challenges of legacy financial infrastructure by providing a transparent, efficient, and accessible alternative for financial institutions and users alike.",
   "categories": [
     "Smart Contract Platform",
@@ -18,25 +19,25 @@
     "explorer": "https://explorer.provenance.io/asset/nhash"
   },
   "market": {
-    "price": 0.01050246,
-    "marketCap": 556155383,
-    "marketCapRank": 102,
-    "volume24h": 18596.98,
+    "price": 0.01049443,
+    "marketCap": 555851472,
+    "marketCapRank": 100,
+    "volume24h": 30489,
     "high24h": 0.01120744,
-    "low24h": 0.01030287,
-    "priceChange24h": 1.93725,
-    "priceChange7d": -6.142105094770816,
-    "priceChange30d": -11.217274019134809,
+    "low24h": 0.01039576,
+    "priceChange24h": 0.34285,
+    "priceChange7d": -7.87429,
+    "priceChange30d": -14.56337,
     "priceChange1y": 0,
     "ath": 0.060147,
-    "athChangePercentage": -82.53867,
+    "athChangePercentage": -82.54421,
     "athDate": "2025-09-14T16:52:41.627Z",
     "atl": 0.00908303,
     "atlDate": "2026-04-17T13:35:51.984Z",
-    "circulatingSupply": 52954777301,
+    "circulatingSupply": 52973531123,
     "totalSupply": 94978475357.64638,
     "maxSupply": 100000000000,
-    "fdv": 997507554
+    "fdv": 996609518
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:38:21.942Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.520Z"
+  "fetchedAt": "2026-05-14T07:10:13.484Z"
 }

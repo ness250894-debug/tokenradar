@@ -2,6 +2,7 @@
   "id": "usx",
   "symbol": "usx",
   "name": "USX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68429/large/Solstice_Icons_for_DEX_512x512_USX.png?1755718377",
   "description": "USX is a Solana-based stablecoin designed to provide a secure, efficient, and transparent digital dollar for both institutional and retail users. It is created through over-collateralization with leading stablecoins, ensuring that every USX in circulation is backed 1:1 with assets like USDT or USDC. Unlike legacy stablecoins that simply hold reserves, USX is built to integrate directly into the broader DeFi ecosystem, where it acts as a core liquidity layer for trading, lending, and payments. Its purpose is to offer a dollar-pegged asset that can move at the speed and scale of Solana while maintaining reliability for settlements and financial transactions. By combining stability with seamless composability, USX serves as a foundational building block for protocols, payment processors, and institutions seeking trusted dollar liquidity in the crypto economy.",
   "categories": [
     "Stablecoins",
@@ -16,25 +17,25 @@
     "explorer": "https://solscan.io/token/6FrrzDk5mQARGc1TDYoyVnSyRdds1t4PbtohCD6p3tgG"
   },
   "market": {
-    "price": 0.99999,
-    "marketCap": 378301378,
+    "price": 0.999882,
+    "marketCap": 378262037,
     "marketCapRank": 136,
-    "volume24h": 3020801,
+    "volume24h": 3165263,
     "high24h": 0.999998,
     "low24h": 0.999363,
-    "priceChange24h": 0.01005,
-    "priceChange7d": 0.0565663363031805,
-    "priceChange30d": 0.05170780441613339,
+    "priceChange24h": 0.02554,
+    "priceChange7d": 0.01151,
+    "priceChange30d": 0.04665,
     "priceChange1y": 0,
     "ath": 1.038,
-    "athChangePercentage": -3.68139,
+    "athChangePercentage": -3.6914,
     "athDate": "2026-01-28T23:06:53.718Z",
     "atl": 0.828472,
     "atlDate": "2025-12-26T04:30:55.143Z",
     "circulatingSupply": 378306762.314247,
     "totalSupply": 378306762.314247,
     "maxSupply": null,
-    "fdv": 378301378
+    "fdv": 378262037
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:04:55.711Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.533Z"
+  "fetchedAt": "2026-05-14T07:43:31.204Z"
 }

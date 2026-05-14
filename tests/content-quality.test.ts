@@ -36,4 +36,16 @@ describe("content quality thresholds", () => {
     expect(acceptable.passed).toBe(true);
     expect(acceptable.warnings.some((warning) => warning.includes("Word count borderline"))).toBe(true);
   });
+
+  it("warns on format and freshness drift without blocking otherwise valid content", () => {
+    const result = evaluateArticleQuality({
+      ...makeQualityArticle("overview", 900),
+      content: `${makeQualityArticle("overview", 900).content}\n\n### Unsupported\n\nAs of May 13, 2026, the live price is {{LIVE_PRICE}}.`,
+    });
+
+    expect(result.passed).toBe(true);
+    expect(result.warnings).toContain("Unsupported heading depth found: use ## section headings only");
+    expect(result.warnings).toContain("Live market placeholders remain in article content");
+    expect(result.warnings).toContain("Hardcoded live-date phrasing found; use live market date placeholders instead");
+  });
 });

@@ -2,26 +2,47 @@
   "id": "mindwavedao",
   "symbol": "nila",
   "name": "MindWaveDAO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55467/large/NILA.png?1746206480",
+  "description": "MindWaveDAO is a pioneering initiative designed to harness decentralized\ntechnology, economic resilience, and cognitive empowerment within the Web3 landscape.\nStructured on a Bitcoin-based yield infrastructure and fortified by a reinsured Layer 2\nblockchain architecture, MindWaveDAO strategically integrates four critical verticals:\nAdTech, InsurTech, AI Governance, and ClimateTech. Each vertical functions not as isolated\ncomponents but as interoperable modules contributing collectively toward scalable value\nexchange, decentralized innovation, and enhanced strategic clarity.",
+  "categories": [
+    "BNB Chain Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.mindwavedao.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x00f8Da33734FeB9b946fEC2228C25072D2e2E41f"
+  },
   "market": {
-    "price": 0.078517,
-    "marketCap": 66171365,
-    "marketCapRank": 419,
-    "volume24h": 109573,
-    "priceChange24h": -0.60176,
+    "price": 0.078809,
+    "marketCap": 66428181,
+    "marketCapRank": 416,
+    "volume24h": 98624,
+    "high24h": 0.079185,
+    "low24h": 0.078232,
+    "priceChange24h": 0.13335,
+    "priceChange7d": 0.01616,
+    "priceChange30d": 0.06593,
+    "priceChange1y": -4.13356,
     "ath": 0.39007,
-    "athChangePercentage": -79.87106,
+    "athChangePercentage": -79.69975,
     "athDate": "2025-09-07T01:25:22.097Z",
     "atl": 0.0014606,
     "atlDate": "2025-09-27T02:45:46.543Z",
     "circulatingSupply": 842766176.55,
     "totalSupply": 1057021569,
     "maxSupply": 1057021569,
-    "high24h": 0.07915,
-    "low24h": 0.078271,
-    "priceChange7d": -0.21396858966724971,
-    "priceChange30d": 0.7506514552489238,
-    "priceChange1y": -2.3374510287723522,
-    "fdv": 82994028
+    "fdv": 83316135
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.680Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:38.095Z"
 }

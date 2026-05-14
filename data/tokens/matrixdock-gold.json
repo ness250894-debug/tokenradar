@@ -2,26 +2,58 @@
   "id": "matrixdock-gold",
   "symbol": "xaum",
   "name": "Matrixdock Gold",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51962/large/xaum_200px_logo_1x.png?1733560735",
+  "description": "Matrixdock Gold token XAUm is an ERC-20 and BEP-20 token backed 1:1 by 1 troy ounce of fine weight, high-grade gold certified by the LBMA (London Bullion Market Association). Each token represents physical gold securely stored in reputable, high-security vaults. The total supply of XAUm will always match the underlying gold holdings, ensuring transparency and trustworthiness for investors and users.",
+  "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Solana Ecosystem",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Sui Ecosystem",
+    "Real World Assets (RWA)",
+    "Tron Ecosystem",
+    "Tokenized Commodities",
+    "Plume Network Ecosystem",
+    "HashKey Chain Ecosystem",
+    "Matrixdock Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.matrixdock.com/xaum",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x2103E845C5E135493Bb6c2A4f0B8651956eA8682"
+  },
   "market": {
-    "price": 4677.72,
-    "marketCap": 73365150,
-    "marketCapRank": 392,
-    "volume24h": 1468823,
-    "priceChange24h": 0.57752,
+    "price": 4669.75,
+    "marketCap": 73259501,
+    "marketCapRank": 389,
+    "volume24h": 1311332,
+    "high24h": 4696.44,
+    "low24h": 4645.76,
+    "priceChange24h": 0.49289,
+    "priceChange7d": 0.1948,
+    "priceChange30d": -2.14186,
+    "priceChange1y": 43.56862,
     "ath": 5574.96,
-    "athChangePercentage": -16.1336,
+    "athChangePercentage": -16.2215,
     "athDate": "2026-01-29T13:21:03.007Z",
     "atl": 2563.55,
     "atlDate": "2024-12-19T22:00:45.549Z",
     "circulatingSupply": 15688.221233327,
     "totalSupply": 15688.221233327,
     "maxSupply": null,
-    "high24h": 4688.45,
-    "low24h": 4645.76,
-    "priceChange7d": 0.4532751795641195,
-    "priceChange30d": -1.5444355194794783,
-    "priceChange1y": 44.40624905966634,
-    "fdv": 73365150
+    "fdv": 73259501
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.672Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:17:38.042Z"
 }

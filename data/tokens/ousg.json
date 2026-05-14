@@ -2,14 +2,16 @@
   "id": "ousg",
   "symbol": "ousg",
   "name": "OUSG",
-  "description": "OUSG is a tokenized short-term US Treasury bills ETF, overseen and managed by Ondo Capital Management, a subsidiary of Ondo Finance. The significant majority of this portfolio is held in the iShares Short Treasury Bond ETF (NASDAQ: SHV). There is also a small portion of USDC and USD for liquidity purposes. OUSG brings exposure to the ‘risk-free’ US Treasury rate on-chain for the first time. OUSG is an investment option that delivers a stable and predictable return while offering deep liquidity....",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/29023/large/OUSG.png?1696527993",
+  "description": "OUSG is a tokenized short-term US Treasury bills ETF, overseen and managed by Ondo Capital Management, a subsidiary of Ondo Finance. The significant majority of this portfolio is held in the iShares Short Treasury Bond ETF (NASDAQ: SHV). There is also a small portion of USDC and USD for liquidity purposes.\nOUSG brings exposure to the ‘risk-free’ US Treasury rate on-chain for the first time. OUSG is an investment option that delivers a stable and predictable return while offering deep liquidity. Ondo funds such as OUSG only ever invest into ETFs backed by secure, stable, and liquid securities; these are the same assets in which trillions of dollars are invested every day by the world's largest institutions.\nOUSG was developed alongside two other fund tokens, OSTB and OHYG, by Ondo Finance, a software development firm in DeFi. Ondo launched in August 2021. Its first product was Ondo Vaults, a structured finance protocol on Ethereum. Later that year, Ondo launched Liquidity-as-a-Service (LaaS), facilitating over $210M in total liquidity provided.\n\nAs DeFi yields compressed in 2022, the Ondo team decided to sunset Vaults and LaaS (together, \"Ondo V1\") to focus on next-generation protocols. Ondo V2, including Ondo’s tokenized funds, were announced by Nathan Allman in January 2023. Ondo funds subsequently opened to subscriptions soon after. \n\nWhat can OUSG be Used For?\nFor investors who pass KYC and AML screening and sign subscription documents, OUSG tokens represent ownership in the fund. Investors can transfer these tokens between each other to effect changes in fund ownership. Investors can also use smart contracts to facilitate their financial arrangements such as by engaging in lending and trading activities with each other. \n\nThe tokens themselves have transfer restrictions that will ensure they do not end up in the hands of anyone not appropriately qualified as an investor in the fund.",
   "categories": [
     "Tokenized Assets",
     "Solana Ecosystem",
     "Polygon Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bonds (T-Bonds)"
+    "Tokenized Treasury Bills (T-Bills)",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -19,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x1b19c19393e2d034d8ff31ff34c81252fcbbee92"
   },
   "market": {
-    "price": 115.22,
-    "marketCap": 594635214,
-    "marketCapRank": 95,
+    "price": 115.23,
+    "marketCap": 596689615,
+    "marketCapRank": 93,
     "volume24h": 0,
-    "high24h": 115.22,
-    "low24h": 115.21,
-    "priceChange24h": 0.00914,
-    "priceChange7d": 0.06400640362790928,
-    "priceChange30d": 0.29919548275930935,
-    "priceChange1y": 3.7757075013431245,
-    "ath": 115.22,
+    "high24h": 115.23,
+    "low24h": 115.22,
+    "priceChange24h": 0.00915,
+    "priceChange7d": 0.06396,
+    "priceChange30d": 0.27709,
+    "priceChange1y": 3.77372,
+    "ath": 115.23,
     "athChangePercentage": 0,
-    "athDate": "2026-05-12T20:35:09.670Z",
+    "athDate": "2026-05-13T20:40:08.895Z",
     "atl": 95.09,
     "atlDate": "2023-03-22T20:00:17.106Z",
-    "circulatingSupply": 5160938.39236719,
-    "totalSupply": 5160938.39236719,
+    "circulatingSupply": 5178295.138679337,
+    "totalSupply": 5178295.138679337,
     "maxSupply": null,
-    "fdv": 594635214
+    "fdv": 596689615
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:37:15.497Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.519Z"
+  "fetchedAt": "2026-05-14T07:24:20.443Z"
 }

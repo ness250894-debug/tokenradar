@@ -2,26 +2,52 @@
   "id": "vvs-finance",
   "symbol": "vvs",
   "name": "VVS Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/20210/large/8glAYOTM_400x400.jpg?1696519620",
+  "description": "VVS Finance is a decentralized finance and automated market making platform on the Cronos network by Crypto.com",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Automated Market Maker (AMM)",
+    "Ethereum Ecosystem",
+    "Cronos Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://vvs.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://explorer.cronos.org/address/0x4dda1bb6e378dcef97bff1057b6452615e86373c"
+  },
   "market": {
-    "price": 0.00000136,
-    "marketCap": 59164549,
-    "marketCapRank": 456,
-    "volume24h": 82778,
-    "priceChange24h": -2.58302,
+    "price": 0.00000133,
+    "marketCap": 57915878,
+    "marketCapRank": 458,
+    "volume24h": 193478,
+    "high24h": 0.00000144,
+    "low24h": 0.00000131,
+    "priceChange24h": -6.42423,
+    "priceChange7d": 4.41479,
+    "priceChange30d": 1.67672,
+    "priceChange1y": -47.15764,
     "ath": 0.00033093,
-    "athChangePercentage": -99.58966,
+    "athChangePercentage": -99.59637,
     "athDate": "2021-11-15T10:53:45.925Z",
     "atl": 0.00000124,
     "atlDate": "2026-05-04T00:50:43.944Z",
     "circulatingSupply": 43550331272463.74,
     "totalSupply": 95109375659623.39,
     "maxSupply": 100000000000000,
-    "high24h": 0.00000144,
-    "low24h": 0.00000135,
-    "priceChange7d": 5.522661430983271,
-    "priceChange30d": 6.864310252710687,
-    "priceChange1y": -45.00531930747441,
-    "fdv": 129209197
+    "fdv": 126482230
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.689Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:44:59.731Z"
 }

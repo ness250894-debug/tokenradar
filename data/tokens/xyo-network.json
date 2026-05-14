@@ -2,26 +2,54 @@
   "id": "xyo-network",
   "symbol": "xyo",
   "name": "XYO Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4519/large/XYO_Network-logo.png?1696505103",
+  "description": "XYO is the original and one of the largest Decentralized Physical Infrastructure Networks (DePIN), boasting over 10 million nodes and consistently leading DePIN in both scale and revenue generation. Launching its Mainnet ahead of any other DePIN, XYO specializes in collecting and validating real-world data, bridging it seamlessly to Web3 and Web2 companies across AI, geolocation, and other critical data sectors.\nAt the core of XYO are Proof of Location and Proof of Origin technologies, enabling accurate validation of real-world data for innovative use cases such as Real-World Asset (RWA) tracking, DePIN applications, real-world gaming, and treasure hunts. Recently, XYO expanded its ecosystem by launching the XYO Layer One blockchain, purpose-built to support the intensive data demands of DePIN, RWA, AI, and similar data-driven industries.\nXYO employs a unique dual-token model:\nXYO Token: An externally traded token supporting the DePIN ecosystem, rewards, staking, and governance, enhancing overall ecosystem value and scarcity.\n\n\nXL1 Token: Internal to the XYO Layer One blockchain, facilitating transactions, gas fees, and other blockchain-specific use cases.\nThe dual-token economics are strategically designed to increase scarcity and promote sustainable growth. The XYO token is available on major exchanges, including Coinbase. The XL1 token will launch publicly later in 2025.\nTo accelerate network adoption and growth, XYO created the popular COIN app. Beyond the XYO Foundation, the team founded the U.S.-based, for-profit entity XY Labs Inc., notable as the first U.S. crypto company qualified by the SEC for a Regulation A offering, permitting share sales to both accredited and non-accredited investors. XY Labs further stands out as one of the pioneering U.S. companies to tokenize and publicly list its shares. These tokenized shares trade as $XYLB on the tZERO ATS, positioning XY Labs prominently in the growing wave of Real-World Asset (RWA) tokenization.\n",
+  "categories": [
+    "Internet of Things (IOT)",
+    "Oracle",
+    "NFT",
+    "Metaverse",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Alleged SEC Securities",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://xyo.network/",
+    "github": "https://github.com/XYOracleNetwork/api-archivist-nodejs",
+    "reddit": "https://www.reddit.com/r/XYONetwork/",
+    "explorer": "https://etherscan.io/token/0x55296f69f40ea6d20e478533c15a6b08b654e758"
+  },
   "market": {
-    "price": 0.00392941,
-    "marketCap": 54728512,
-    "marketCapRank": 478,
-    "volume24h": 5871121,
-    "priceChange24h": 1.0732,
+    "price": 0.00478098,
+    "marketCap": 66606250,
+    "marketCapRank": 415,
+    "volume24h": 20537628,
+    "high24h": 0.00572654,
+    "low24h": 0.00387722,
+    "priceChange24h": 23.04437,
+    "priceChange7d": 30.70472,
+    "priceChange30d": 33.19714,
+    "priceChange1y": -64.94853,
     "ath": 0.081391,
-    "athChangePercentage": -95.17297,
+    "athChangePercentage": -94.11083,
     "athDate": "2021-11-06T04:44:55.346Z",
     "atl": 0.00009672,
     "atlDate": "2020-03-13T02:24:24.303Z",
     "circulatingSupply": 13931216938.01129,
     "totalSupply": 13931216938.01129,
     "maxSupply": null,
-    "high24h": 0.00397731,
-    "low24h": 0.00387722,
-    "priceChange7d": 8.097191050931348,
-    "priceChange30d": 10.381094925589556,
-    "priceChange1y": -71.16988389673263,
-    "fdv": 54728512
+    "fdv": 66606250
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.694Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:46:28.295Z"
 }

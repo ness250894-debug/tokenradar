@@ -2,26 +2,56 @@
   "id": "dola-usd",
   "symbol": "dola",
   "name": "DOLA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14287/large/dola.png?1696513984",
+  "description": "DOLA is the asset and debt backed decentralized stablecoin of Inverse Finance",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Fantom Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.inverse.finance/",
+    "github": "https://github.com/InverseFinance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x865377367054516e17014ccded1e7d814edc9ce4"
+  },
   "market": {
-    "price": 0.993552,
-    "marketCap": 64956747,
-    "marketCapRank": 423,
-    "volume24h": 125266,
-    "priceChange24h": -0.03263,
+    "price": 0.993624,
+    "marketCap": 64961835,
+    "marketCapRank": 422,
+    "volume24h": 125739,
+    "high24h": 0.994054,
+    "low24h": 0.993031,
+    "priceChange24h": 0.03995,
+    "priceChange7d": 0.35997,
+    "priceChange30d": 0.11839,
+    "priceChange1y": -0.62986,
     "ath": 1.87,
-    "athChangePercentage": -46.92816,
+    "athChangePercentage": -46.92874,
     "athDate": "2021-11-13T13:09:22.404Z",
     "atl": 0.088407,
     "atlDate": "2024-02-10T23:55:20.725Z",
     "circulatingSupply": 65378231.06862893,
     "totalSupply": 81008118.24093905,
     "maxSupply": null,
-    "high24h": 0.994054,
-    "low24h": 0.993031,
-    "priceChange7d": 0.3526586107769633,
-    "priceChange30d": 0.10885726409394837,
-    "priceChange1y": -0.7019895999265359,
-    "fdv": 80485870
+    "fdv": 80492175
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.681Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:32:06.452Z"
 }

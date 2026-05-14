@@ -2,7 +2,8 @@
   "id": "binancecoin",
   "symbol": "bnb",
   "name": "BNB",
-  "description": "Binance Coin is the cryptocurrency of the Binance platform. It is a trading platform exclusively for cryptocurrencies. The name \"Binance\" is a combination of binary and finance.\n\nThus, the startup name shows that only cryptocurrencies can be traded against each other. It is not possible to trade crypto currencies against Fiat. The platform achieved an enormous success within a very short time and is focused on worldwide market with Malta headquarters. The cryptocurrency currently has a daily trading volume of 1.5 billion - 2 billion US dollars and is still increasing.\n\nIn total, there will only be 200 million BNBs. Binance uses the ERC20 token standard from Ethereum and has distributed it as follow: 50% sold on ICO, 40% to the team and 10% to Angel investors. The coin can be used to pay fees on Binance. These include trading fees, transaction fees, listing fees and others. Binance gives you a huge discount when fees are paid in BNB. \n\nThe schedule of BNB fees discount is as follow: In the first year, 50% discount on all fees, second year 25% discount, third year 12.5% discount, fourth year 6.75 % discount, and from the fifth year onwards there is no discount. This structure is used to incentivize users to buy BNB and do trades within Binance.\n\nBinance announced in a buyback plan that it would buy back up to 100 million BNB in Q1 2018. The coins are then burned. This means that they are devaluated to increase the value of the remaining coins. This benefits investors. In the future, the cryptocurrency will remain an asset on the trading platform and will be used as gas.\n\nOther tokens that are issued by exchanges include Bibox Token, OKB, Huobi Token, and more.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970",
+  "description": "BNB is the native utility token of the BNB Chain ecosystem, acting as a multi-chain asset that powers decentralized applications and facilitates value exchange across its network. It serves as the primary asset for paying transaction gas and smart contract deployment fees while providing users with tiered fee discounts on the Binance exchange. The project’s main value proposition lies in its unified multi-chain architecture, which integrates a smart contract platform, a Layer 2 scaling solution, and a decentralized data storage network into a cohesive settlement and data availability layer.\n\nThe network operates on a Proof of Staked Authority consensus mechanism, utilizing a group of 21 active validators known as the Cabinet to verify transactions and produce blocks every 3 seconds. Validators are elected daily based on the amount of BNB staked or delegated to them, and the system employs fast finality and slashing penalties to maintain security and integrity. To manage its long-term economy, the project uses a programmatic dual-burn strategy that permanently removes tokens through real-time fee destruction and quarterly buybacks.\n\nLaunched in 2017 by the Binance platform, the project initially distributed 50% of its 200 million token supply to the public, while the founding team received 40% and angel investors were allocated 10%. Though it began as a token on the Ethereum network, it eventually migrated to its own autonomous architecture that remains fully compatible with the Ethereum Virtual Machine. Today, the token's utility includes paying for network gas, participating in staking rewards, and enabling decentralized governance through which holders can vote on technical upgrades and economic changes.",
   "categories": [
     "Smart Contract Platform",
     "Exchange-based Tokens",
@@ -26,35 +27,34 @@
     "explorer": "https://bscscan.com"
   },
   "market": {
-    "price": 669.22,
-    "marketCap": 90248323092,
+    "price": 673.89,
+    "marketCap": 90702049899,
     "marketCapRank": 4,
-    "volume24h": 1406732968,
+    "volume24h": 1411353628,
     "high24h": 684.84,
-    "low24h": 661.64,
-    "priceChange24h": 1.14507,
-    "priceChange7d": 2.970693466808478,
-    "priceChange30d": 10.603691216156461,
-    "priceChange1y": 1.045019645803435,
+    "low24h": 658.02,
+    "priceChange24h": 2.4123,
+    "priceChange7d": 3.89802,
+    "priceChange30d": 11.37591,
+    "priceChange1y": 1.98913,
     "ath": 1369.99,
-    "athChangePercentage": -51.1518,
+    "athChangePercentage": -50.81075,
     "athDate": "2025-10-13T08:41:24.131Z",
     "atl": 0.0398177,
     "atlDate": "2017-10-19T00:00:00.000Z",
-    "circulatingSupply": 134785520.35,
-    "totalSupply": 134785520.35,
+    "circulatingSupply": 134785523.8,
+    "totalSupply": 134785523.8,
     "maxSupply": 200000000,
-    "fdv": 90248323092
+    "fdv": 90702049899
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 4243,
-    "githubForks": 2048,
+    "githubStars": 4241,
+    "githubForks": 2041,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:25:06.650Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.480Z"
+  "fetchedAt": "2026-05-13T18:24:10.195Z"
 }

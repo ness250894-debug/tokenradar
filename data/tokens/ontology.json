@@ -2,6 +2,7 @@
   "id": "ontology",
   "symbol": "ont",
   "name": "Ontology",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/3447/large/ONT.png?1696504138",
   "description": "Ontology is a new high-performance public blockchain project &amp; a distributed trust collaboration platform.It provides new high-performance public blockchains that include a series of complete distributed ledgers and smart contract systems. Ontology is a blockchain framework supports public blockchain systems and is able to customize different public blockchains for different applications. It also supports collaboration amongst chain networks with its various protocol groups.They will constantly provide common modules on the underlying infrastructure for different kinds of distributed scenarios, such as those for the distributed digital identity framework, distributed data exchange protocol, and so on. \n\nOntology was created in 2017 by a Chinese company called OnChain, which is led by founders Erik Zhang and Da HongFei. OnChain has had huge success in the cryptocurrency industry, as they were also the founders behind the NEO blockchain, which is now a multi-billion dollar project. Essentially, Ontology was created as a way for businesses of all sizes to install blockchain technology within their company, without having to completely change all of their current systems.\n\nThe purpose of the Ontology framework is that it is not intended to operate as a single blockchain. Instead, the technology will allow businesses to make full use of both a private and public blockchain. Each and every data transaction is confirmed in a decentralized environment, meaning that no single person or authority can take control of the network.",
   "categories": [
     "Smart Contract Platform",
@@ -17,35 +18,34 @@
     "explorer": "https://explorer.ont.io/"
   },
   "market": {
-    "price": 0.061565,
-    "marketCap": 61549315,
-    "marketCapRank": 443,
-    "volume24h": 12005212,
-    "high24h": 0.065113,
+    "price": 0.062233,
+    "marketCap": 62238903,
+    "marketCapRank": 436,
+    "volume24h": 10629513,
+    "high24h": 0.064881,
     "low24h": 0.060911,
-    "priceChange24h": -1.94614,
-    "priceChange7d": -2.4269381707733064,
-    "priceChange30d": -24.41560048527192,
-    "priceChange1y": -63.88063591715856,
+    "priceChange24h": -3.26766,
+    "priceChange7d": -0.96046,
+    "priceChange30d": -21.95746,
+    "priceChange1y": -63.56262,
     "ath": 10.92,
-    "athChangePercentage": -99.43644,
+    "athChangePercentage": -99.43036,
     "athDate": "2018-05-03T01:43:05.844Z",
     "atl": 0.0390593,
     "atlDate": "2026-03-08T22:25:15.766Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": null,
-    "fdv": 61549315
+    "fdv": 62238903
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 855,
-    "githubForks": 296,
+    "githubStars": 857,
+    "githubForks": 297,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-01T17:15:55.689Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.685Z"
+  "fetchedAt": "2026-05-14T07:23:23.519Z"
 }

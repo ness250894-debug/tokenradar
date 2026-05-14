@@ -2,26 +2,57 @@
   "id": "holotoken",
   "symbol": "hot",
   "name": "Holo",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/3348/large/hot-mark-med.png?1747766692",
+  "description": "Holochain enables a distributed web with user autonomy built directly into its architecture and protocols. Data is about remembering our lived and shared experiences. Distributing the storage and processing of that data can change how we coordinate and interact. With digital integration under user control, Holochain liberates our online lives from corporate control over our choices and information.\n\nHolochain is an energy efficient post-blockchain ledger system and decentralized application platform that uses peer-to-peer networking for processing agent centric agreement and consensus systems between users.\n\nHolochain enables any device to have its own chain based ledger system. By using a holographic model for data storage and transfer developers can now create decentralized applications that can scale in multiple dimensions across a network ensuring they are truly distributed. This enables every device on a network to function independently, and only requires the synchronization of data when necessary, or agreed upon by users. This means every user is in control of their own data, and never has to risk their data being sold or exposed to 3rd parties like what just happened with Facebook and Cambridge Analytica.\n\nHolochain provides a framework for developers to build decentralized applications and aims to change the paradigm of data-centric blockchains to an agent-centric system. In Holochain’s fledgling system, no true global consensus is maintained. Instead, each agent in the public blockchain maintains a private fork, essentially, that is managed and stored in a limited way on the public blockchain with a distributed hash table. This means there are no scalability limits and dapps hosted on Holochain can do much more with less of nearly everything than traditional blockchains.\n\nThis system however has some inherent weaknesses. Because the entire blockchain must be verified by each member of the network, scalability problems quickly develop. The larger the amount of data being handled, the more restrictive the limit of transactions per second that can occur on the blockchain at any one time.Holochain itself is open source and written in Go. Go was selected for its ease of use and similarity to C. Dapps written specifically for Holochain can be developed with JavaScript or Lisp, with support for front-end systems using CSS, HTML, and JavaScript.\n\nThe developers added that Holochain is relatively flexible when it comes to handling new languages, so there is potential for growth on that front. Holochain bills itself as an environmentally friendly alternative to traditional blockchains. Because there is no need for each individual agent to store and validate the global blockchain, Holochain only consumes a fraction of the bandwidth of traditional chains. Holochain also does not have a mining component, so there’s no electricity or processing power spent on proof-of-work calculations.\n\nArthur Brock and Eric Harris-Braun are the co-founders of Holoc... [truncated]",
+  "categories": [
+    "Smart Contract Platform",
+    "Storage",
+    "Harmony Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN",
+    "Base Ecosystem",
+    "Energi Ecosystem",
+    "Sora Ecosystem",
+    "GMCI DePIN Index",
+    "GMCI Index"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://holo.host/",
+    "github": "https://github.com/holochain/holochain-rust",
+    "reddit": "https://www.reddit.com/r/holochain",
+    "explorer": "https://etherscan.io/token/0x6c6ee5e31d828de241282b9606c8e98ea48526e2"
+  },
   "market": {
-    "price": 0.00042875,
-    "marketCap": 76134870,
-    "marketCapRank": 379,
-    "volume24h": 4777331,
-    "priceChange24h": -3.1822,
+    "price": 0.00042419,
+    "marketCap": 75558138,
+    "marketCapRank": 380,
+    "volume24h": 4779204,
+    "high24h": 0.00045544,
+    "low24h": 0.00042192,
+    "priceChange24h": -4.23918,
+    "priceChange7d": -3.33241,
+    "priceChange30d": 5.97846,
+    "priceChange1y": -67.9833,
     "ath": 0.03126682,
-    "athChangePercentage": -98.62761,
+    "athChangePercentage": -98.63601,
     "athDate": "2021-04-05T16:04:52.608Z",
     "atl": 0.0002202,
     "atlDate": "2020-03-13T02:23:01.612Z",
     "circulatingSupply": 177619433541.1413,
     "totalSupply": 177619433541.1413,
     "maxSupply": null,
-    "high24h": 0.00045544,
-    "low24h": 0.00042323,
-    "priceChange7d": -0.9950571273352382,
-    "priceChange30d": 9.17633715579727,
-    "priceChange1y": -67.54075670313699,
-    "fdv": 76134870
+    "fdv": 75558138
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.630Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1033,
+    "githubForks": 282,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:11:04.074Z"
 }

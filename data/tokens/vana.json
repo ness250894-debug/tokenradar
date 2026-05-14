@@ -2,26 +2,60 @@
   "id": "vana",
   "symbol": "vana",
   "name": "Vana",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51404/large/logo.png?1731086679",
+  "description": "Vana is an EVM-compatible Layer 1 blockchain network that enables users to transform personal data into financial assets by aggregating private datasets for AI model training. This approach allows individuals to tokenize and monetize their data through Data Decentralized Autonomous Organizations (Data DAOs), granting them ownership and control over their digital footprints. \nVANA DOCS\n\nKey Features of Vana:\n\nData Liquidity Pools (DLPs): Vana introduces Data Liquidity Pools, where users can contribute data, which is then validated and tokenized. These pools facilitate the creation of data tokens, representing ownership and value of the contributed data. \nVANA DOCS\n\nProof of Contribution: To ensure data quality and integrity, Vana employs a Proof-of-Contribution system. This mechanism validates data submissions, ensuring they meet the standards required by the network. \nVANA DOCS\n\nIncentive Structures: Participants in the Vana ecosystem, including data contributors, validators, and DLP creators, are rewarded with $VANA tokens. This incentivizes active participation and the provision of high-quality data. \nVANA DOCS",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Paradigm Portfolio",
+    "Coinbase Ventures Portfolio",
+    "DeFiance Capital Portfolio",
+    "Polychain Capital Portfolio",
+    "Vana Ecosystem",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.vana.org/",
+    "github": "https://github.com/vana-com",
+    "reddit": null,
+    "explorer": "https://vanascan.io/"
+  },
   "market": {
-    "price": 1.73,
-    "marketCap": 53226913,
-    "marketCapRank": 496,
-    "volume24h": 14409037,
-    "priceChange24h": -0.20015,
+    "price": 1.54,
+    "marketCap": 47552216,
+    "marketCapRank": 524,
+    "volume24h": 3744709,
+    "high24h": 1.69,
+    "low24h": 1.53,
+    "priceChange24h": -7.58552,
+    "priceChange7d": -3.88003,
+    "priceChange30d": 19.46446,
+    "priceChange1y": -78.40595,
     "ath": 35.23,
-    "athChangePercentage": -95.08763,
+    "athChangePercentage": -95.61823,
     "athDate": "2024-12-17T00:40:30.667Z",
     "atl": 1.19,
     "atlDate": "2026-03-28T23:15:12.171Z",
     "circulatingSupply": 30800000,
     "totalSupply": 120000000,
     "maxSupply": 120000000,
-    "high24h": 1.81,
-    "low24h": 1.69,
-    "priceChange7d": 14.961874577615383,
-    "priceChange30d": 32.649754058663184,
-    "priceChange1y": -73.65070253926844,
-    "fdv": 207377584
+    "fdv": 185268374
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.273Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:43:43.865Z"
 }

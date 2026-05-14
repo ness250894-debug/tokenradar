@@ -2,7 +2,8 @@
   "id": "ondo-finance",
   "symbol": "ondo",
   "name": "Ondo",
-  "description": "The Ondo Foundation was founded in 2022 as an independently governed and nonprofit Cayman Islands Foundation Company with no beneficial owners. The Ondo Foundation assisted in the launch of the Ondo DAO, which deployed and currently governs Flux Finance, the first lending protocol supporting tokenized securities as collateral. ONDO token holders are entrusted with shaping the future of the Ondo DAO so that it continues to pursue its mission to democratize access to institutional-grade finance....",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26580/large/ONDO.png?1696525656",
+  "description": "The Ondo Foundation was founded in 2022 as an independently governed and nonprofit Cayman Islands Foundation Company with no beneficial owners. The Ondo Foundation assisted in the launch of the Ondo DAO, which deployed and currently governs Flux Finance, the first lending protocol supporting tokenized securities as collateral.\n\nONDO token holders are entrusted with shaping the future of the Ondo DAO so that it continues to pursue its mission to democratize access to institutional-grade finance. The Ondo DAO gives ONDO holders specific rights pertaining to Flux Finance, which is currently governed by the Ondo DAO.",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Ethereum Ecosystem",
@@ -25,35 +26,34 @@
     "explorer": "https://etherscan.io/address/0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3"
   },
   "market": {
-    "price": 0.380942,
-    "marketCap": 1855729386,
+    "price": 0.383102,
+    "marketCap": 1865449352,
     "marketCapRank": 47,
-    "volume24h": 181168783,
-    "high24h": 0.408592,
-    "low24h": 0.379379,
-    "priceChange24h": -4.18689,
-    "priceChange7d": 17.01011112508634,
-    "priceChange30d": 53.04172195680744,
-    "priceChange1y": -63.092256051239424,
+    "volume24h": 154028680,
+    "high24h": 0.407273,
+    "low24h": 0.373685,
+    "priceChange24h": -3.65929,
+    "priceChange7d": 14.08794,
+    "priceChange30d": 51.26122,
+    "priceChange1y": -63.15093,
     "ath": 2.14,
-    "athChangePercentage": -82.20027,
+    "athChangePercentage": -82.09935,
     "athDate": "2024-12-16T00:36:00.777Z",
     "atl": 0.082171,
     "atlDate": "2024-01-18T12:14:30.524Z",
     "circulatingSupply": 4869330647,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 3811056427
+    "fdv": 3831018033
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 28,
-    "githubForks": 26,
+    "githubStars": 31,
+    "githubForks": 29,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:18:49.394Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.495Z"
+  "fetchedAt": "2026-05-14T07:23:04.541Z"
 }

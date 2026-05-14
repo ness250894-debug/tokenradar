@@ -2,6 +2,7 @@
   "id": "frax",
   "symbol": "frax",
   "name": "Legacy Frax Dollar",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13422/large/LFRAX.png?1751911193",
   "description": "The first fractional-algorithmic stablecoin",
   "categories": [
     "Stablecoins",
@@ -32,25 +33,25 @@
     "explorer": "https://etherscan.io/token/0x853d955acef822db058eb8505911ed77f175b99e"
   },
   "market": {
-    "price": 0.993693,
-    "marketCap": 274112401,
+    "price": 0.993318,
+    "marketCap": 274013419,
     "marketCapRank": 162,
-    "volume24h": 398448,
-    "high24h": 0.994064,
+    "volume24h": 537507,
+    "high24h": 0.995335,
     "low24h": 0.992017,
-    "priceChange24h": 0.02053,
-    "priceChange7d": 0.07422364616154765,
-    "priceChange30d": -0.07291844952330061,
-    "priceChange1y": -0.6878065612459608,
+    "priceChange24h": -0.0096,
+    "priceChange7d": 0.43824,
+    "priceChange30d": -0.07066,
+    "priceChange1y": -0.66326,
     "ath": 1.14,
-    "athChangePercentage": -12.86621,
+    "athChangePercentage": -12.8637,
     "athDate": "2021-02-07T12:55:35.766Z",
     "atl": 0.874536,
     "atlDate": "2023-03-11T07:50:39.316Z",
     "circulatingSupply": 275847684.0102677,
     "totalSupply": 275847684.0102677,
     "maxSupply": null,
-    "fdv": 274112401
+    "fdv": 274013419
   },
   "community": {
     "twitterFollowers": null,
@@ -61,6 +62,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T20:58:33.102Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.546Z"
+  "fetchedAt": "2026-05-14T07:07:47.815Z"
 }

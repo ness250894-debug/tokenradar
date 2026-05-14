@@ -2,27 +2,55 @@
   "id": "basic-attention-token",
   "symbol": "bat",
   "name": "Basic Attention",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/677/large/basic-attention-token.png?1696501867",
   "description": "Basic Attention Token (BAT) is an open-source, decentralized ad exchange platform built on Ethereum platform. Basic Attention Token held an initial coin offering on May 31, 2017 for its eponymous ERC-20 utility token, raising approximately $35M USD at the time in less than 30 seconds. The Basic Attention Token aims to fix digital advertising, which is broken, fraudulent and opaque. \n\nBasic Attention Token work by having advertisers pay BAT to website publishers for the attention of users. The BAT token is designed to correctly value and price user attention within the platform. The Basic Attention Token comprises various components, including attention measurement systems, analytics dashboards and machine learning algorithms. Integration of BAT into a given host application involves implementing BAT Ads, a system that matches and displays ads to users based on locally stored data. Ad targeting is performed wholly on-device, removing the need for third-party tracking. BAT is focused on the Brave browser. Brave is an open-source, privacy-centered browser designed to block trackers and malware. It utilizes blockchain technology to anonymously and securely track user attention, which translates into rewards for publishers.\n\nA user's attention, meaning his or her focused mental engagement on digital content like advertisements, is logged through Brave. The makers of BAT indicate that the user's private data and tracking information is stored only on the user's device, ensuring that it is anonymous and private.\n\nCreated back in 2016, the Basic Attention Token has one of the biggest names behind it, that of Brendan Eich, the creator of JavaScript and the legendary co-founder of Mozilla. Other noteworthy team members include Brian Bondy, lead developer and co-founder of Brave and Scott Locklin, senior engineer, and co-founder of Kerf Software.\"\n\nBasic Attention Token is created by the team that built the Brave browser, an open-source, privacy-focused browser that blocks ads and trackers. The browser measures user attention and rewards publishers for users attention. \n\nUse the Brave browser to protect your privacy and support CoinGecko at the same time: https://brave.com/coi600",
+  "categories": [
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Near Protocol Ecosystem",
+    "Harmony Ecosystem",
+    "Ethereum Ecosystem",
+    "Pantera Capital Portfolio",
+    "Energi Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": "2017-05-29",
+  "links": {
+    "website": "https://basicattentiontoken.org/",
+    "github": "https://github.com/brave-intl/publishers",
+    "reddit": "https://www.reddit.com/r/BATProject",
+    "explorer": "https://etherscan.io/token/0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+  },
   "market": {
-    "price": 0.104792,
-    "marketCap": 156738249,
-    "marketCapRank": 221,
-    "volume24h": 12553221,
+    "price": 0.105347,
+    "marketCap": 157519980,
+    "marketCapRank": 223,
+    "volume24h": 12496103,
     "high24h": 0.110302,
     "low24h": 0.104029,
-    "priceChange24h": -3.52325,
-    "priceChange7d": -3.3469808475013645,
-    "priceChange30d": 10.674774053941913,
-    "priceChange1y": -37.09233346432086,
+    "priceChange24h": -2.38601,
+    "priceChange7d": -2.83514,
+    "priceChange30d": 11.01995,
+    "priceChange1y": -36.38198,
     "ath": 1.9,
-    "athChangePercentage": -94.48561,
+    "athChangePercentage": -94.46347,
     "athDate": "2021-11-28T00:23:51.354Z",
     "atl": 0.072394,
     "atlDate": "2017-07-16T00:00:00.000Z",
     "circulatingSupply": 1495724656.9526057,
     "totalSupply": 1500000000,
     "maxSupply": 1500000000,
-    "fdv": 157186266
+    "fdv": 157970231
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.563Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 65,
+    "githubForks": 39,
+    "commits4Weeks": 190
+  },
+  "fetchedAt": "2026-05-13T18:23:13.354Z"
 }

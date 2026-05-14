@@ -2,6 +2,7 @@
   "id": "vaulta",
   "symbol": "a",
   "name": "Vaulta",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55616/large/Vaulta_CEX_Icon_Circle_-_cmc.png?1746859132",
   "description": "Vaulta is a Web3 banking network designed to power the next generation of decentralized financial services. Built on one of the most reliable Layer 1 infrastructures in the industry, Vaulta combines real-time performance with institutional-grade features to deliver secure, scalable, and composable applications—from consumer payments to Bitcoin-native yield and tokenized assets.\nWith one-second finality, advanced on-chain memory via RAM, and integrated Bitcoin infrastructure through exSat, Vaulta serves as a financial operating system for users, developers, and institutions looking to bridge traditional finance and Web3.\n",
   "categories": [
     "Layer 1 (L1)",
@@ -15,25 +16,25 @@
     "explorer": "https://www.unicove.com"
   },
   "market": {
-    "price": 0.091105,
-    "marketCap": 149466226,
-    "marketCapRank": 233,
-    "volume24h": 14507529,
+    "price": 0.090742,
+    "marketCap": 148912510,
+    "marketCapRank": 235,
+    "volume24h": 15137610,
     "high24h": 0.097001,
-    "low24h": 0.090174,
-    "priceChange24h": -3.42742,
-    "priceChange7d": 1.258155217204074,
-    "priceChange30d": 17.81854777421478,
+    "low24h": 0.089103,
+    "priceChange24h": -4.12977,
+    "priceChange7d": -0.102,
+    "priceChange30d": 14.53534,
     "priceChange1y": 0,
     "ath": 0.778734,
-    "athChangePercentage": -88.30457,
+    "athChangePercentage": -88.35029,
     "athDate": "2025-05-28T08:22:53.913Z",
     "atl": 0.07098,
     "atlDate": "2026-02-06T00:26:29.688Z",
-    "circulatingSupply": 1641100022.1246,
+    "circulatingSupply": 1641214924.7108,
     "totalSupply": 2100000000,
     "maxSupply": 2100000000,
-    "fdv": 191261392
+    "fdv": 190539500
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:10:14.266Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.566Z"
+  "fetchedAt": "2026-05-14T07:43:56.504Z"
 }

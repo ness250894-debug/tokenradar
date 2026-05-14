@@ -2,6 +2,7 @@
   "id": "aztec",
   "symbol": "aztec",
   "name": "Aztec",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70681/large/aztec.png?1763091883",
   "description": "Aztec is the leading privacy-first Layer 2 on Ethereum, empowering developers to build applications that protect user privacy. Backed by a $100M Series B led by a16z, Aztec is led by a team of world-class cryptographers who invented the standard for trustless client-side proving—making privacy-preserving apps possible.\n\nIn a landscape where speed and novelty rarely translate into durable moats, Aztec’s sustained traction, deep institutional adoption, and growing ecosystem around privacy-preserving cryptography validate that its work has broken through the “flock,” proving privacy isn’t a feature race but a foundational technology trusted to underpin real, long-term financial infrastructure. \n\n1. Pioneers of Privacy in Web3\nAztec's team developed PLONK in 2019, a SNARK-based proving system that is computationally inexpensive and only requires one universal trusted setup. PLONK was a big breakthrough, not just for Aztec, but for the wider blockchain community. Today, PLONK has been implemented and extended by teams like zkSync, Polygon, Mina, and more. There is even an entire category of proving systems called PLONKish that all derive from the original 2019 paper. The foundational cryptography behind modern privacy infrastructure was built by the Aztec team.\n\n2. Noir: The Universal ZK Programming Language\nThe Aztec Labs team developed Noir, a Rust-like programming language for writing zero-knowledge circuits that make privacy technology accessible to mainstream developers. With 500+ GitHub projects and recognition as Electric Capital’s top 5 fastest-growing developer ecosystems, Noir is becoming the standard for zk development and is used today by projects across Solana, Stellar, Starkware, and World.\n \n3. Drawing Institutional Attention Across Tradfi, Stablecoins, and Real-World Assets \nJP Morgan was an early institutional tester of Aztec’s technology, with its Quorum blockchain team actively evaluating and experimenting with Aztec as part of its effort to industrialize privacy-preserving cryptography for regulated financial use cases back in 2019.\n\nThe Taurus confidential token standard was built on Aztec’s technology and adopted by a leading institutional infrastructure provider. This proves that Aztec is not just a research project, but a credible, production-ready platform and a foundational player in the privacy-preserving financial infrastructure stack.\n",
   "categories": [
     "Smart Contract Platform",
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0xA27EC0006e59f245217Ff08CD52A7E8b169E62D2"
   },
   "market": {
-    "price": 0.02312283,
-    "marketCap": 68821711,
-    "marketCapRank": 406,
-    "volume24h": 46779451,
+    "price": 0.02361124,
+    "marketCap": 70197186,
+    "marketCapRank": 407,
+    "volume24h": 42250850,
     "high24h": 0.02633603,
-    "low24h": 0.02281303,
-    "priceChange24h": 1.16856,
-    "priceChange7d": 9.766139283732953,
-    "priceChange30d": 9.991422914990334,
+    "low24h": 0.02250523,
+    "priceChange24h": 4.82731,
+    "priceChange7d": 12.02327,
+    "priceChange30d": 12.81018,
     "priceChange1y": 0,
     "ath": 0.03989623,
-    "athChangePercentage": -41.92184,
+    "athChangePercentage": -40.9856,
     "athDate": "2026-02-21T05:05:24.756Z",
     "atl": 0.01756324,
     "atlDate": "2026-04-05T21:30:08.520Z",
-    "circulatingSupply": 2970166090,
+    "circulatingSupply": 2970141090,
     "totalSupply": 10350000000,
     "maxSupply": 10350000000,
-    "fdv": 239819824
+    "fdv": 244614938
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-09T08:02:35.198Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.677Z"
+  "fetchedAt": "2026-05-13T18:22:22.730Z"
 }

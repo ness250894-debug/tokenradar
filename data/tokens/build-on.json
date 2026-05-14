@@ -2,7 +2,8 @@
   "id": "build-on",
   "symbol": "b",
   "name": "BUILDon",
-  "description": "A cryptocurrency token known as BUILDon (B). It is tracked on CoinGecko with the ID \"build-on\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55974/large/T7asvmCb_400x400.jpg?1747902862",
+  "description": "",
   "categories": [
     "BNB Chain Ecosystem",
     "Meme",
@@ -17,25 +18,25 @@
     "explorer": "https://bscscan.com/token/0x6bdcCe4A559076e37755a78Ce0c06214E59e4444"
   },
   "market": {
-    "price": 0.669176,
-    "marketCap": 669239003,
+    "price": 0.674428,
+    "marketCap": 676821419,
     "marketCapRank": 88,
-    "volume24h": 54783487,
+    "volume24h": 55705644,
     "high24h": 0.736039,
     "low24h": 0.591027,
-    "priceChange24h": 3.69865,
-    "priceChange7d": 112.67429725854035,
-    "priceChange30d": 266.0517804659504,
+    "priceChange24h": 4.08486,
+    "priceChange7d": 114.3435,
+    "priceChange30d": 263.24712,
     "priceChange1y": 0,
     "ath": 0.736039,
-    "athChangePercentage": -9.07557,
+    "athChangePercentage": -8.18369,
     "athDate": "2026-05-13T12:11:11.296Z",
     "atl": 0.082973,
     "atlDate": "2025-10-10T21:31:21.514Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 669239003
+    "fdv": 676821419
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:53:54.998Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-13T18:26:29.300Z"
 }

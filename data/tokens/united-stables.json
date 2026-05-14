@@ -2,6 +2,7 @@
   "id": "united-stables",
   "symbol": "u",
   "name": "United Stables",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71157/large/united-stables-logo.jpg?1766061640",
   "description": "",
   "categories": [
     "Stablecoins",
@@ -18,25 +19,25 @@
     "explorer": "https://bscscan.com/token/0xce24439f2d9c6a2289f741120fe202248b666666"
   },
   "market": {
-    "price": 0.999541,
-    "marketCap": 1027386876,
-    "marketCapRank": 70,
-    "volume24h": 6289309,
+    "price": 0.999723,
+    "marketCap": 1027266431,
+    "marketCapRank": 68,
+    "volume24h": 117623255,
     "high24h": 1.001,
     "low24h": 0.998179,
-    "priceChange24h": -0.12069,
-    "priceChange7d": -0.017974906198945956,
-    "priceChange30d": -0.028010737816593616,
+    "priceChange24h": -0.00253,
+    "priceChange7d": -0.02394,
+    "priceChange30d": -0.04843,
     "priceChange1y": 0,
     "ath": 1.008,
-    "athChangePercentage": -0.83128,
+    "athChangePercentage": -0.8151,
     "athDate": "2026-02-05T21:06:07.908Z",
     "atl": 0.968158,
     "atlDate": "2025-12-21T00:47:20.303Z",
     "circulatingSupply": 1027858682.01,
     "totalSupply": 1027858682.01,
     "maxSupply": null,
-    "fdv": 1027386876
+    "fdv": 1027266431
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:56:35.131Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.500Z"
+  "fetchedAt": "2026-05-14T07:41:37.381Z"
 }

@@ -2,26 +2,55 @@
   "id": "nockchain",
   "symbol": "nock",
   "name": "Nockchain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68474/large/GrCcG9N9_400x400.jpg?1755845184",
+  "description": "Nockchain is the first L1 blockchain powered by Zero-Knowledge Proof of Work (ZKPoW). Nodes secure the chain and produce blocks by mining zero-knowledge proofs in a PoW competition. Transactions scale as the network difficulty grows to maintain a high velocity of money without bottlenecking.\n\n$NOCK is the digital asset for the Nock ecosystem. It's scarce hard money secured by zero-knowledge proofs on Nockchain. $NOCK was fair-launched with no pre-mine in May 2025.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Privacy Coins",
+    "Zero Knowledge (ZK)",
+    "Base Ecosystem",
+    "Proof of Work (PoW)",
+    "Made in USA",
+    "Base Native",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.nockchain.org/",
+    "github": "https://github.com/zorp-corp/nockchain",
+    "reddit": null,
+    "explorer": "https://nockblocks.com/"
+  },
   "market": {
-    "price": 0.02821979,
-    "marketCap": 55331356,
-    "marketCapRank": 483,
-    "volume24h": 2800064,
-    "priceChange24h": -25.24341,
+    "price": 0.01905431,
+    "marketCap": 37232865,
+    "marketCapRank": 616,
+    "volume24h": 2030822,
+    "high24h": 0.02360194,
+    "low24h": 0.01663589,
+    "priceChange24h": -15.37331,
+    "priceChange7d": -27.12501,
+    "priceChange30d": 269.0725,
+    "priceChange1y": 0,
     "ath": 0.21022,
-    "athChangePercentage": -86.63125,
+    "athChangePercentage": -90.90315,
     "athDate": "2025-10-17T15:40:33.597Z",
     "atl": 0.00460075,
     "atlDate": "2026-04-15T02:35:50.910Z",
     "circulatingSupply": 1952169984,
     "totalSupply": 4294967296,
     "maxSupply": 4294967296,
-    "high24h": 0.03782827,
-    "low24h": 0.02712671,
-    "priceChange7d": 60.83203778466467,
-    "priceChange30d": 370.89229450487704,
-    "priceChange1y": 0,
-    "fdv": 121734462
+    "fdv": 81915990
   },
-  "lastMarketUpdate": "2026-05-11T19:20:58.270Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 460,
+    "githubForks": 199,
+    "commits4Weeks": 3
+  },
+  "fetchedAt": "2026-05-14T07:21:53.173Z"
 }

@@ -2,6 +2,7 @@
   "id": "hashnote-usyc",
   "symbol": "usyc",
   "name": "Circle USYC",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51054/large/Hashnote_SDYC_200x200.png?1730370965",
   "description": "USYC: Tokenized Money Market Fund\n\nHashnote International Short Duration Yield Fund Ltd. invests in short-term U.S. Treasury Bills and performs repo/reverse repo activities as the underlying asset of the USYC token.\n\nUSYC earns short-term Fed rate returns. Tokenization enables the fund to deliver rapid transactions, onchain transparency, and seamless composability—while maintaining strong controls across regulatory and credit dimensions.\n",
   "categories": [
     "Tokenized Assets",
@@ -9,7 +10,8 @@
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bills (T-Bills)"
+    "Tokenized Treasury Bills (T-Bills)",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -27,8 +29,8 @@
     "low24h": 0,
     "priceChange24h": 0,
     "priceChange7d": 0,
-    "priceChange30d": 0.15001620773005767,
-    "priceChange1y": 3.3025932853358606,
+    "priceChange30d": 0.15002,
+    "priceChange1y": 3.29132,
     "ath": 1.12,
     "athChangePercentage": -0.06254,
     "athDate": "2026-04-23T14:15:44.909Z",
@@ -48,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:58:47.892Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.490Z"
+  "fetchedAt": "2026-05-14T07:10:26.139Z"
 }

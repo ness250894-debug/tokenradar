@@ -2,6 +2,7 @@
   "id": "frax-usd",
   "symbol": "frxusd",
   "name": "Frax USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53963/large/frxUSD.png?1737792154",
   "description": "Frax USD (frxUSD) is a fiat-redeemable, fully-collateralized stablecoin issued by the Frax Finance Protocol. It operates using a hybrid model where governance-approved enshrined custodians mint and redeem frxUSD backed by cash-equivalent reserves, while advanced onchain mechanisms developed by the Frax Finance Protocol ensure stability, security, and seamless usability across DeFi and traditional financial systems.",
   "categories": [
     "Stablecoins",
@@ -43,25 +44,25 @@
     "explorer": "https://etherscan.io/token/0xcacd6fd266af91b8aed52accc382b4e165586e29"
   },
   "market": {
-    "price": 0.999848,
-    "marketCap": 138643126,
-    "marketCapRank": 242,
-    "volume24h": 2456731,
+    "price": 0.999717,
+    "marketCap": 138678039,
+    "marketCapRank": 241,
+    "volume24h": 3209957,
     "high24h": 0.999964,
     "low24h": 0.999163,
-    "priceChange24h": 0.01164,
-    "priceChange7d": -0.012547279740454408,
-    "priceChange30d": -0.00031510825877530493,
-    "priceChange1y": -0.07346061163318428,
+    "priceChange24h": -0.00103,
+    "priceChange7d": 0.01636,
+    "priceChange30d": -0.00451,
+    "priceChange1y": -0.043,
     "ath": 1.007,
-    "athChangePercentage": -0.69093,
+    "athChangePercentage": -0.68737,
     "athDate": "2025-05-30T08:10:31.092Z",
     "atl": 0.97622,
     "atlDate": "2025-02-17T17:32:23.025Z",
-    "circulatingSupply": 138694092.6062242,
-    "totalSupply": 138726633.6750063,
+    "circulatingSupply": 138717369.7357048,
+    "totalSupply": 138737224.4309051,
     "maxSupply": null,
-    "fdv": 138675655
+    "fdv": 138697888
   },
   "community": {
     "twitterFollowers": null,
@@ -72,6 +73,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T20:57:05.030Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.568Z"
+  "fetchedAt": "2026-05-14T07:07:54.297Z"
 }

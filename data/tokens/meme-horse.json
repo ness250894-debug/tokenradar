@@ -2,26 +2,49 @@
   "id": "meme-horse",
   "symbol": "mhorse",
   "name": "MEME HORSE",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171984/large/1000322552.png?1770837497",
+  "description": "$MHORSE is a community-driven meme token on the BNB Chain (BEP-20) that captures the wild, independent spirit of the Year of the Fire Horse — a once-in-60-years zodiac event symbolizing power, energy, and degen culture. Fair launched with no presale, no insiders, and LP burned, $MHORSE brings pure memetic fun to crypto, celebrating horse-themed hype and BNB ecosystem engagement. Trade responsibly and ride the fire horse’s stampede to the moon!",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "Chinese Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://memehorse.top",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x9daf1a070f882d870a8d58d7a27041c752f3b88d"
+  },
   "market": {
-    "price": 0.072361,
-    "marketCap": 72375209,
-    "marketCapRank": 394,
-    "volume24h": 601810,
-    "high24h": 0.072384,
+    "price": 0.072354,
+    "marketCap": 72354235,
+    "marketCapRank": 392,
+    "volume24h": 1119328,
+    "high24h": 0.072383,
     "low24h": 0.07235,
-    "priceChange24h": -0.02761,
-    "priceChange7d": 98.00220548853379,
-    "priceChange30d": 160.0094714794865,
+    "priceChange24h": -0.02019,
+    "priceChange7d": 97.98069,
+    "priceChange30d": 159.96945,
     "priceChange1y": 0,
     "ath": 0.072395,
-    "athChangePercentage": -0.02645,
+    "athChangePercentage": -0.03178,
     "athDate": "2026-05-11T00:51:22.447Z",
     "atl": 0.01028842,
     "atlDate": "2026-02-12T04:39:52.512Z",
     "circulatingSupply": 999999999,
     "totalSupply": 999999999,
     "maxSupply": null,
-    "fdv": 72375209
+    "fdv": 72354235
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.672Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:18:09.555Z"
 }

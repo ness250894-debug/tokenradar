@@ -2,27 +2,51 @@
   "id": "apenft",
   "symbol": "nft",
   "name": "AINFT",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/15687/large/AINFT.png?1761099340",
   "description": "AINFT exclusively uses NFTs as its official governance token within the ecosystem. Holders of the token can participate in AINFT governance.",
+  "categories": [
+    "NFT",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ainft.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq"
+  },
   "market": {
-    "price": 3.02475e-7,
-    "marketCap": 299816012,
+    "price": 3.03168e-7,
+    "marketCap": 300113268,
     "marketCapRank": 156,
-    "volume24h": 6721725,
+    "volume24h": 6759949,
     "high24h": 3.14838e-7,
     "low24h": 3.03024e-7,
-    "priceChange24h": -3.78146,
-    "priceChange7d": -5.958612124405001,
-    "priceChange30d": -9.658328956960426,
-    "priceChange1y": -31.417643890953133,
+    "priceChange24h": -3.56705,
+    "priceChange7d": -5.97463,
+    "priceChange30d": -9.49514,
+    "priceChange1y": -31.18181,
     "ath": 0.00000753,
-    "athChangePercentage": -95.97465,
+    "athChangePercentage": -95.97447,
     "athDate": "2021-09-05T00:10:47.823Z",
     "atl": 2.98737e-7,
     "atlDate": "2023-06-10T04:30:05.717Z",
     "circulatingSupply": 990105592982874.8,
     "totalSupply": 990105592982874.8,
     "maxSupply": 999990000000000,
-    "fdv": 299816012
+    "fdv": 300113268
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.541Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:20:09.981Z"
 }

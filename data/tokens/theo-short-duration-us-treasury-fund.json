@@ -2,6 +2,7 @@
   "id": "theo-short-duration-us-treasury-fund",
   "symbol": "thbill",
   "name": "Theo Short Duration US Treasury Fund",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67650/large/thBILL.png?1753401034",
   "description": "Theo is an institutional-grade tokenization platform that connects onchain capital to global financial markets. The platform enables access to traditional financial products like Treasury bills through tokenized infrastructure that includes deep liquidity, cross-chain functionality, and full DeFi composability from launch. Theo's first product, thBILL, demonstrates this \"beyond issuance\" approach by launching with complete ecosystem support across multiple chains rather than hoping for adoption over time.",
   "categories": [
     "Tokenized Assets",
@@ -10,7 +11,8 @@
     "Real World Assets (RWA)",
     "Base Ecosystem",
     "Tokenized Treasury Bills (T-Bills)",
-    "HyperEVM Ecosystem"
+    "HyperEVM Ecosystem",
+    "Tokenized Treasury"
   ],
   "genesisDate": null,
   "links": {
@@ -20,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0x5FA487BCa6158c64046B2813623e20755091DA0b"
   },
   "market": {
-    "price": 1.019,
-    "marketCap": 134852220,
-    "marketCapRank": 244,
-    "volume24h": 197949,
-    "high24h": 1.028,
-    "low24h": 1.018,
-    "priceChange24h": -0.42018,
-    "priceChange7d": 0.7049120396151842,
-    "priceChange30d": -0.13031886004677853,
+    "price": 1.02,
+    "marketCap": 132115827,
+    "marketCapRank": 248,
+    "volume24h": 247180,
+    "high24h": 1.025,
+    "low24h": 1.017,
+    "priceChange24h": -0.37266,
+    "priceChange7d": 0.24998,
+    "priceChange30d": 0.04158,
     "priceChange1y": 0,
     "ath": 1.11,
-    "athChangePercentage": -8.28706,
+    "athChangePercentage": -8.45124,
     "athDate": "2025-10-10T22:40:31.158Z",
     "atl": 0.906552,
     "atlDate": "2025-10-10T21:35:37.536Z",
-    "circulatingSupply": 132281839.315925,
-    "totalSupply": 132281839.315925,
+    "circulatingSupply": 129581839.315925,
+    "totalSupply": 129581839.315925,
     "maxSupply": null,
-    "fdv": 134852220
+    "fdv": 132115827
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T15:10:12.663Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.569Z"
+  "fetchedAt": "2026-05-14T07:38:08.717Z"
 }

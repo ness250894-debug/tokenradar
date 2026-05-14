@@ -2,18 +2,19 @@
   "id": "0x",
   "symbol": "zrx",
   "name": "0x Protocol",
-  "description": "A cryptocurrency token known as 0x Protocol (ZRX). It is tracked on CoinGecko with the ID \"0x\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/863/large/0x.png?1696501996",
+  "description": "",
   "categories": [
-    "Decentralized Exchange (DEX)",
     "Exchange-based Tokens",
-    "Decentralized Finance (DeFi)",
-    "Ethereum Ecosystem",
     "Coinbase Ventures Portfolio",
     "Pantera Capital Portfolio",
-    "GMCI DeFi Index",
+    "Decentralized Exchange (DEX)",
     "Blockchain Capital Portfolio",
     "GMCI Index",
+    "GMCI DeFi Index",
+    "Decentralized Finance (DeFi)",
     "Made in USA",
+    "Ethereum Ecosystem",
     "Governance"
   ],
   "genesisDate": "2017-08-11",
@@ -24,25 +25,25 @@
     "explorer": "https://etherscan.io/token/0xe41d2489571d322189246dafa5ebde1f4699f498"
   },
   "market": {
-    "price": 0.117737,
-    "marketCap": 99906649,
-    "marketCapRank": 303,
-    "volume24h": 12610142,
+    "price": 0.118165,
+    "marketCap": 100199175,
+    "marketCapRank": 300,
+    "volume24h": 12707696,
     "high24h": 0.12863,
     "low24h": 0.11641,
-    "priceChange24h": -3.96811,
-    "priceChange7d": 2.1482685786088553,
-    "priceChange30d": 13.55337142760046,
-    "priceChange1y": -61.440460823314666,
+    "priceChange24h": -3.11658,
+    "priceChange7d": 2.51951,
+    "priceChange30d": 13.6486,
+    "priceChange1y": -61.1954,
     "ath": 2.5,
-    "athChangePercentage": -95.28748,
+    "athChangePercentage": -95.27931,
     "athDate": "2018-01-13T00:00:00.000Z",
     "atl": 0.089536,
     "atlDate": "2026-02-06T00:22:02.637Z",
     "circulatingSupply": 848396562.906836,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 117759375
+    "fdv": 118104174
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 507,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T17:20:32.739Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.610Z"
+  "fetchedAt": "2026-05-13T18:17:38.304Z"
 }

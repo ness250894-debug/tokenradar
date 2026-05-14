@@ -2,26 +2,49 @@
   "id": "fidelity-digital-dollar",
   "symbol": "fidd",
   "name": "Fidelity Digital Dollar",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171776/large/FIDD-Green_%28792px%29.png?1769612802",
+  "description": "FIDD is a stablecoin pegged 1:1 to the U.S. dollar and is issued by Fidelity Digital Assets, National Association, a subsidiary of Fidelity Investments®. FIDD is backed by the stringent operational standards of Fidelity Digital Assets® and draws on the history, principles, and expertise of the traditional Fidelity Investments® business.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.fidelitydigitalassets.com/stablecoin",
+    "github": "https://github.com/fidelity/mintable-token-ethereum-contract",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x7c135549504245b5eae64fc0e99fa5ebabb8e35d"
+  },
   "market": {
-    "price": 0.999413,
-    "marketCap": 51531388,
-    "marketCapRank": 498,
-    "volume24h": 2206355,
-    "priceChange24h": -0.04799,
+    "price": 0.999765,
+    "marketCap": 51569259,
+    "marketCapRank": 497,
+    "volume24h": 2666587,
+    "high24h": 1.001,
+    "low24h": 0.99683,
+    "priceChange24h": 0.00565,
+    "priceChange7d": 0.02336,
+    "priceChange30d": 0.0083,
+    "priceChange1y": 0,
     "ath": 1.011,
-    "athChangePercentage": -1.11537,
+    "athChangePercentage": -1.05369,
     "athDate": "2026-02-04T15:14:08.580Z",
     "atl": 0.994161,
     "atlDate": "2026-02-04T15:05:21.411Z",
     "circulatingSupply": 51551102.59,
     "totalSupply": 51551102.59,
     "maxSupply": null,
-    "high24h": 1.001,
-    "low24h": 0.999003,
-    "priceChange7d": -0.002620513721380683,
-    "priceChange30d": -0.015894370021488156,
-    "priceChange1y": 0,
-    "fdv": 51531388
+    "fdv": 51569259
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.698Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:06:31.700Z"
 }

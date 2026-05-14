@@ -2,6 +2,7 @@
   "id": "ripple",
   "symbol": "xrp",
   "name": "XRP",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442",
   "description": "XRP is a decentralized digital asset and the native token of the XRP Ledger, a Layer 1 blockchain designed for high-performance global payments. Its primary value proposition is offering a fast, cost-effective alternative to traditional banking systems by enabling near-instant cross-border settlements that finalize in three to five seconds. By serving as a neutral bridge asset between different fiat currencies, it helps financial institutions lower liquidity costs and eliminates the need for pre-funded accounts.\n\nThe network is unique because it utilizes a federated consensus protocol instead of energy-intensive mining or staking. This system achieves deterministic finality through a Unique Node List of trusted validators who must reach an eighty percent agreement threshold to permanently record transactions. This infrastructure supports a sustained throughput of 1,500 transactions per second and includes a built-in decentralized exchange that allows for the automated trading of any tokenized asset without intermediaries.\n\nThe project traces its origins back to 2004 with Ryan Fugger before being co-founded in its modern form by Jed McCaleb and Chris Larsen. The company, now known as Ripple, works with major financial institutions as partners and investors to build global payment solutions. To protect the network from spam, a small amount of XRP is burned during every transaction, and the token is further utilized by institutions as collateral to access traditional markets and manage digital asset infrastructure.\n\nInstitutional adoption of the asset reached a major milestone in November 2025 when the SEC approved the first wave of spot XRP ETFs. These products, offered by major issuers including Bitwise, Grayscale, 21Shares, Canary Capital, and Franklin Templeton, are now listed on prominent exchanges like the NYSE Arca, Nasdaq, and Cboe BZX. While Ripple remains a key contributor to the ecosystem, the underlying XRP Ledger continues to operate as an open-source and decentralized network.",
   "categories": [
     "Smart Contract Platform",
@@ -24,25 +25,25 @@
     "explorer": "https://xrpscan.com/"
   },
   "market": {
-    "price": 1.42,
-    "marketCap": 87781187452,
+    "price": 1.43,
+    "marketCap": 88568294645,
     "marketCapRank": 5,
-    "volume24h": 2310991846,
+    "volume24h": 2211324876,
     "high24h": 1.47,
     "low24h": 1.41,
-    "priceChange24h": -1.35684,
-    "priceChange7d": -0.31952060448575936,
-    "priceChange30d": 5.981191050254891,
-    "priceChange1y": -44.369301819416215,
+    "priceChange24h": -1.78917,
+    "priceChange7d": 1.64007,
+    "priceChange30d": 4.50494,
+    "priceChange1y": -44.3918,
     "ath": 3.65,
-    "athChangePercentage": -61.08244,
+    "athChangePercentage": -60.68304,
     "athDate": "2025-07-18T03:40:53.808Z",
     "atl": 0.00268621,
     "atlDate": "2014-05-22T00:00:00.000Z",
     "circulatingSupply": 61796225236,
     "totalSupply": 99985670046,
     "maxSupply": 100000000000,
-    "fdv": 142029077201
+    "fdv": 143302608713
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 1525,
     "commits4Weeks": 4
   },
-  "fetchedAt": "2026-03-23T11:58:13.989Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.480Z"
+  "fetchedAt": "2026-05-14T07:30:08.183Z"
 }

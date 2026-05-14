@@ -2,26 +2,50 @@
   "id": "main-street-usd",
   "symbol": "msusd",
   "name": "Main Street USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66996/large/msUSD.png?1751389184",
+  "description": "Main St delivers institutional-grade delta-neutral yield strategies through a dual-token system — msUSD (the yield-generating token) and smsUSD (the staking token) — with high-yield options trading strategies on Sonic.\n\nMain St builds upon this foundation with a different strategy focus. While Ethena specializes in the basis trade (cash and carry), Main St pioneers options arbitrage as our primary yield engine. This approach captures inefficiencies between implied and realized volatility in options markets, providing a complementary alternative in the delta-neutral ecosystem.\n\n",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Sonic Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mainstreet.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://sonicscan.org/token/0xe5fb2ed6832def99dde57c0b9d9a56537c89121d"
+  },
   "market": {
-    "price": 0.99648,
-    "marketCap": 75032552,
-    "marketCapRank": 384,
-    "volume24h": 3096313,
-    "priceChange24h": -0.84719,
+    "price": 0.987095,
+    "marketCap": 74390573,
+    "marketCapRank": 388,
+    "volume24h": 2967935,
+    "high24h": 1.004,
+    "low24h": 0.979633,
+    "priceChange24h": -1.45155,
+    "priceChange7d": 0.02882,
+    "priceChange30d": -1.25522,
+    "priceChange1y": 0,
     "ath": 2,
-    "athChangePercentage": -50.2559,
+    "athChangePercentage": -50.67688,
     "athDate": "2025-08-17T23:12:53.419Z",
     "atl": 0.972386,
     "atlDate": "2026-05-08T02:20:08.931Z",
-    "circulatingSupply": 75297598.93303786,
-    "totalSupply": 75297598.93303786,
+    "circulatingSupply": 75327121.93303786,
+    "totalSupply": 75327121.93303786,
     "maxSupply": null,
-    "high24h": 1.007,
-    "low24h": 0.992388,
-    "priceChange7d": -0.47685375295967,
-    "priceChange30d": -0.2952571642747346,
-    "priceChange1y": 0,
-    "fdv": 75032552
+    "fdv": 74390573
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.631Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:16:53.752Z"
 }

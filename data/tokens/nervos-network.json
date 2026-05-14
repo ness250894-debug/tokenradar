@@ -2,26 +2,58 @@
   "id": "nervos-network",
   "symbol": "ckb",
   "name": "Nervos Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9566/large/Nervos_White.png?1696509646",
+  "description": "Nervos is a layered crypto-economy network. Nervos separates the infrastructure of a crypto-economy into two layers: a verification layer (layer 1) that serves as a trust root and smart custodian, and a generation layer (layer 2) for high-performance transactions and privacy protection.\n\nThis document provides an overview of the Nervos Common Knowledge Base (CKB), a public permissionless blockchain and layer 1 of Nervos. CKB generates trust and extends this trust to upper layers, making Nervos a trust network. It's also the value store of the Nervos network, providing public, secure and censorship-resistant custody services for assets, identities and other common knowledge created in the network.\n\nThe Nervos Common Knowledge Base (Nervos CKB for short) is a preservation focused, \"Store of Assets\" blockchain. Architecturally, it's designed to best support on-chain state and off-chain computation; economically, it's designed to provide sustainable security and decentralization. Nervos CKB is the base layer of the overall Nervos Network.",
+  "categories": [
+    "Smart Contract Platform",
+    "Interoperability",
+    "Layer 2 (L2)",
+    "Rollup",
+    "Multicoin Capital Portfolio",
+    "Proof of Work (PoW)",
+    "DragonFly Capital Portfolio",
+    "Sequoia Capital Portfolio",
+    "Blockchain Capital Portfolio",
+    "Polychain Capital Portfolio",
+    "Made in China",
+    "Quantum-Resistant"
+  ],
+  "genesisDate": "2019-11-15",
+  "links": {
+    "website": "http://nervos.org",
+    "github": "https://github.com/nervosnetwork/ckb",
+    "reddit": "https://www.reddit.com/r/NervosNetwork/",
+    "explorer": "https://ckb.tokenview.io/"
+  },
   "market": {
-    "price": 0.00160079,
-    "marketCap": 78099941,
-    "marketCapRank": 367,
-    "volume24h": 4911585,
-    "priceChange24h": -4.58409,
+    "price": 0.00157762,
+    "marketCap": 76942802,
+    "marketCapRank": 371,
+    "volume24h": 4115325,
+    "high24h": 0.00168919,
+    "low24h": 0.00156011,
+    "priceChange24h": -5.15093,
+    "priceChange7d": 0.71189,
+    "priceChange30d": 5.9526,
+    "priceChange1y": -74.30587,
     "ath": 0.04370633,
-    "athChangePercentage": -96.33259,
+    "athChangePercentage": -96.38931,
     "athDate": "2021-03-31T17:08:59.155Z",
     "atl": 0.00132283,
     "atlDate": "2026-03-29T22:55:07.809Z",
-    "circulatingSupply": 48758233825.59412,
-    "totalSupply": 49558064392.73475,
+    "circulatingSupply": 48761247216.74898,
+    "totalSupply": 49561383464.06335,
     "maxSupply": null,
-    "high24h": 0.00170111,
-    "low24h": 0.00158784,
-    "priceChange7d": 2.4567782625624437,
-    "priceChange30d": 8.893240395485961,
-    "priceChange1y": -73.16783783418224,
-    "fdv": 79381093
+    "fdv": 78205377
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.627Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1140,
+    "githubForks": 226,
+    "commits4Weeks": 100
+  },
+  "fetchedAt": "2026-05-14T07:21:25.559Z"
 }

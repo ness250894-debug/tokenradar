@@ -2,6 +2,7 @@
   "id": "thorchain",
   "symbol": "rune",
   "name": "THORChain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_Circle_Gradient__with_Lightning_Bolt_-_Square_Transparent_Background_200px.png?1768635632",
   "description": "THORChain is the first decentralized exchange (DEX) to swap Bitcoin, and other UTXO chains, with Ethereum, and other EVM chains.  All without using wrapped tokens.\n\nTHORChain currently supports swapping between 10 different blockchains.  Assets available to swap on THORChain include the following:\n\nBitcoin (BTC)\nEthereum (ETH)\nTether (USDT)\nBNB (BNB)\nXRPL (XRP)\nUSDC (USDC)\nTron (TRX)\nDogecoin (DOGE)\nBitcoin Cash (BCH)\nWrapped Bitcoin (WBTC)\nChainlink (LINK)\nLitecoin (LTC)\nDai (DAI)\nAvalanche (AVAX)\nAave (AAVE)\nCosmos (ATOM)",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -23,25 +24,25 @@
     "explorer": "https://runescan.io/"
   },
   "market": {
-    "price": 0.578838,
-    "marketCap": 203224032,
-    "marketCapRank": 191,
-    "volume24h": 28776454,
-    "high24h": 0.617835,
-    "low24h": 0.57878,
-    "priceChange24h": -3.82061,
-    "priceChange7d": 3.9280536414379665,
-    "priceChange30d": 46.59103538648938,
-    "priceChange1y": -71.89602155415584,
+    "price": 0.58252,
+    "marketCap": 204296188,
+    "marketCapRank": 190,
+    "volume24h": 29762652,
+    "high24h": 0.611778,
+    "low24h": 0.575677,
+    "priceChange24h": -4.1375,
+    "priceChange7d": 5.54911,
+    "priceChange30d": 44.18016,
+    "priceChange1y": -70.89672,
     "ath": 20.87,
-    "athChangePercentage": -97.22641,
+    "athChangePercentage": -97.2173,
     "athDate": "2021-05-19T00:30:09.436Z",
     "atl": 0.00851264,
     "atlDate": "2019-09-28T00:00:00.000Z",
-    "circulatingSupply": 350774536,
-    "totalSupply": 360102135,
-    "maxSupply": 360102135,
-    "fdv": 208628051
+    "circulatingSupply": 350772835,
+    "totalSupply": 360101170,
+    "maxSupply": 360101175,
+    "fdv": 209729173
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T15:13:26.063Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.552Z"
+  "fetchedAt": "2026-05-14T07:38:33.968Z"
 }

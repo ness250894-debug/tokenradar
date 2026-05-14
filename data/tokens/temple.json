@@ -2,12 +2,30 @@
   "id": "temple",
   "symbol": "temple",
   "name": "TempleDAO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/20040/large/LPK15ZOW_400x400.jpg?1696519459",
+  "description": "TempleDAO is designed on strong principles: building the Temple for the long-term, community first and fairly in all aspects, and prioritising stable wealth creation. Our innovative mechanics including safe minting, intrinsic value backed rewards, safe harvest, price defence incentives, and exit queue.",
+  "categories": [
+    "Crypto-Backed Tokens",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.templedao.link/rituals",
+    "github": "https://github.com/TempleDAO/TempleDAO",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x470ebf5f030ed85fc1ed4c2d36b9dd02e77cf1b7"
+  },
   "market": {
     "price": 3,
     "marketCap": 71093306,
-    "marketCapRank": 400,
+    "marketCapRank": 399,
     "volume24h": 366.43,
-    "priceChange24h": -0.017,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 0.88853,
+    "priceChange30d": -1.72678,
+    "priceChange1y": -15.08642,
     "ath": 4.11,
     "athChangePercentage": -27.1336,
     "athDate": "2025-11-21T04:47:53.691Z",
@@ -16,12 +34,16 @@
     "circulatingSupply": 23722422.590706147,
     "totalSupply": 23769704.54225455,
     "maxSupply": null,
-    "high24h": 3,
-    "low24h": 3,
-    "priceChange7d": 0.8885315812772021,
-    "priceChange30d": -2.587282798633175,
-    "priceChange1y": -15.38927465948061,
     "fdv": 71235004
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.676Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:36:59.164Z"
 }

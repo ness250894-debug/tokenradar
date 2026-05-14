@@ -2,27 +2,50 @@
   "id": "aria-ai",
   "symbol": "aria",
   "name": "Aria.AI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68392/large/aria.png?1755601564",
   "description": "AriaAI is a next-generation game development and publishing experiment inspired by Disney-style immersive worlds and AI technology, designed with its own IP related gameplay at its core. It represents a major leap forward in bringing Web2-quality game design and publishing standards into the Web3 era.\n\n With the integration of AI, ARIA is evolving into a living, adaptive game world — featuring intelligent NPCs, personalized storytelling, AI-generated content, and dynamic gameplay that grows with its players.",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Adventure Games",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://playariagame.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x5d3A12c42E5372B2CC3264AB3cdcF660a1555238"
+  },
   "market": {
-    "price": 0.89708,
-    "marketCap": 161959138,
-    "marketCapRank": 197,
-    "volume24h": 43989309,
-    "high24h": 0.916506,
-    "low24h": 0.489755,
-    "priceChange24h": -6.13936,
-    "priceChange7d": 43.85956,
-    "priceChange30d": 518.52499,
+    "price": 0.056701,
+    "marketCap": 10358528,
+    "marketCapRank": 1251,
+    "volume24h": 3392235,
+    "high24h": 0.060976,
+    "low24h": 0.054024,
+    "priceChange24h": -4.24544,
+    "priceChange7d": -3.49541,
+    "priceChange30d": -92.54001,
     "priceChange1y": 0,
     "ath": 1.18,
-    "athChangePercentage": -24.86382,
+    "athChangePercentage": -95.15227,
     "athDate": "2026-04-13T06:50:47.750Z",
     "atl": 0.03289452,
     "atlDate": "2025-08-25T07:17:07.527Z",
     "circulatingSupply": 183000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 826337592
+    "fdv": 56603978
   },
-  "lastMarketUpdate": "2026-04-14T08:05:54.638Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:21:00.556Z"
 }

@@ -2,6 +2,7 @@
   "id": "crypto-com-chain",
   "symbol": "cro",
   "name": "Cronos",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/7310/large/cro_token_logo.png?1696507599",
   "description": "Cronos is an institutional-grade, high-performance, EVM-compatible Layer-1 blockchain built on the Cosmos SDK and integrated with the Inter-Blockchain Communication (IBC) protocol, designed as the backbone for open, compliant, and AI-accessible tokenized markets. It supports up to 60,000 transactions per second (TPS), 500ms block times, instant finality, and sub-$0.01 fees via Proof of Authority consensus. ",
   "categories": [
     "Smart Contract Platform",
@@ -22,35 +23,34 @@
     "explorer": "https://etherscan.io/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
   },
   "market": {
-    "price": 0.075296,
-    "marketCap": 3284385388,
+    "price": 0.075952,
+    "marketCap": 3311101647,
     "marketCapRank": 35,
-    "volume24h": 20973647,
+    "volume24h": 21189010,
     "high24h": 0.080398,
     "low24h": 0.074821,
-    "priceChange24h": -2.88937,
-    "priceChange7d": 6.11062951964861,
-    "priceChange30d": 10.237707725974767,
-    "priceChange1y": -25.67876982466472,
+    "priceChange24h": -2.05277,
+    "priceChange7d": 7.03038,
+    "priceChange30d": 11.01272,
+    "priceChange1y": -25.37605,
     "ath": 0.891544,
-    "athChangePercentage": -91.54503,
+    "athChangePercentage": -91.48553,
     "athDate": "2021-11-24T00:00:00.000Z",
     "atl": 0.0121196,
     "atlDate": "2019-02-08T00:00:00.000Z",
-    "circulatingSupply": 43595968237.72488,
-    "totalSupply": 98629246560.00862,
+    "circulatingSupply": 43595903073.6988,
+    "totalSupply": 98629155299.18192,
     "maxSupply": 100000000000,
-    "fdv": 7430422339
+    "fdv": 7490868076
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 518,
-    "githubForks": 381,
-    "commits4Weeks": 2
+    "githubStars": 516,
+    "githubForks": 384,
+    "commits4Weeks": 33
   },
-  "fetchedAt": "2026-03-22T17:51:08.279Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.490Z"
+  "fetchedAt": "2026-05-13T18:29:57.885Z"
 }

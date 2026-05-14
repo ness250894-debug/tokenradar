@@ -2,26 +2,52 @@
   "id": "numeraire",
   "symbol": "nmr",
   "name": "Numeraire",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/752/large/numeraire.png?1696501906",
+  "description": "",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Analytics",
+    "Ethereum Ecosystem",
+    "Paradigm Portfolio",
+    "DragonFly Capital Portfolio",
+    "Energi Ecosystem"
+  ],
+  "genesisDate": "2017-06-20",
+  "links": {
+    "website": "https://numer.ai/",
+    "github": "https://github.com/erasureprotocol/erasure-protocol",
+    "reddit": "https://www.reddit.com/r/numerai",
+    "explorer": "https://etherscan.io/token/0x1776e1f26f98b1a5df9cd347953a26dd3cb46671"
+  },
   "market": {
     "price": 8.96,
-    "marketCap": 63064468,
-    "marketCapRank": 430,
-    "volume24h": 5527490,
-    "priceChange24h": -3.45927,
+    "marketCap": 63056415,
+    "marketCapRank": 428,
+    "volume24h": 5646509,
+    "high24h": 9.37,
+    "low24h": 8.85,
+    "priceChange24h": -3.86431,
+    "priceChange7d": -0.04493,
+    "priceChange30d": 3.69199,
+    "priceChange1y": -10.87823,
     "ath": 93.15,
-    "athChangePercentage": -90.38648,
+    "athChangePercentage": -90.38327,
     "athDate": "2021-05-16T10:29:06.362Z",
     "atl": 2.06,
     "atlDate": "2018-11-27T00:00:00.000Z",
     "circulatingSupply": 7038919.043701038,
     "totalSupply": 10635469.63517254,
     "maxSupply": 11000000,
-    "high24h": 9.37,
-    "low24h": 8.95,
-    "priceChange7d": 0.49605313346766317,
-    "priceChange30d": 5.110427701816708,
-    "priceChange1y": -9.031365307019048,
-    "fdv": 95287391
+    "fdv": 95275223
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.682Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 167,
+    "githubForks": 33,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:22:13.991Z"
 }

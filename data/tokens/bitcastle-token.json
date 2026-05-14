@@ -2,6 +2,7 @@
   "id": "bitcastle-token",
   "symbol": "bce",
   "name": "bitcastle Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70260/large/bitcastle_Logo_RGB_Blue_03.png?1761300014",
   "description": "bitcastle Token (BCE) is the native utility token of bitcastle.io, a centralized exchange offering spot and futures trading, forex via MT4/MT5, High&amp;Low binary trading, and crypto financial products. BCE is used to reduce fees, earn staking rewards, join launchpad events, and access platform promotions. bitcastle stands out for its fast, user-friendly High&amp;Low trading mode with 5-second outcomes, and its integration of both crypto and forex markets in one platform. The exchange is operated by Bitcastle LLC, with a global team experienced in fintech, trading, and blockchain.",
   "categories": [
     "Centralized Exchange (CEX) Token",
@@ -15,25 +16,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x34d12f761847a05dfa33a1692440588f4b5f7f24be619334e29d74e083f5e64e::bce::BCE/"
   },
   "market": {
-    "price": 0.194557,
-    "marketCap": 77822646,
-    "marketCapRank": 369,
-    "volume24h": 85940,
+    "price": 0.189108,
+    "marketCap": 75643209,
+    "marketCapRank": 368,
+    "volume24h": 87532,
     "high24h": 0.199045,
-    "low24h": 0.189051,
-    "priceChange24h": -1.77739,
-    "priceChange7d": -2.59626812920339,
-    "priceChange30d": 0.8973984282981571,
+    "low24h": 0.189108,
+    "priceChange24h": -4.43493,
+    "priceChange7d": -5.47853,
+    "priceChange30d": -1.64958,
     "priceChange1y": 0,
     "ath": 0.208795,
-    "athChangePercentage": -6.81924,
+    "athChangePercentage": -9.42878,
     "athDate": "2026-04-17T16:05:06.373Z",
     "atl": 0.051889,
     "atlDate": "2025-11-03T15:42:08.390Z",
     "circulatingSupply": 400000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 194556615
+    "fdv": 189108023
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T08:18:55.333Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.627Z"
+  "fetchedAt": "2026-05-13T18:24:22.885Z"
 }

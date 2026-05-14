@@ -2,6 +2,7 @@
   "id": "tezos",
   "symbol": "xtz",
   "name": "Tezos",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/976/large/Tezos-logo.png?1696502091",
   "description": "What Is Tezos (XTZ)?\n\n\nTezos is a high-performing blockchain and open-source platform for assets and applications, with a strong focus on code security, on-chain governance, and decentralization. Tezos 2.0, the upcoming step in the evolution of Tezos, aims to improve scalability (via layer 2s), composability, and to implement support to mainstream programming languages (like Javascript, Typescript, Python, and many others).\n\n\nInitially built with formal verification in mind, the Tezos protocol enables builders to avoid bugs when developing smart contracts, making it particularly suited to applications that require a high degree of security and certainty.\n\n\nTezos’ LPoS (Liquid Proof-of-Stake) consensus mechanism enables any stakeholder to take part, directly or by delegation, in the consensus process, and to be rewarded for securing the network. Rather uniquely, Tezos’ on-chain governance system also enables stakeholders to create and vote on protocol upgrade proposals. This pioneering system allows the protocol to self-amend and upgrade itself without leading to a split (or fork) in the blockchain, empowering the community without slowing down innovation.\n\n\nFirst proposed in 2014 and launched in 2018, the Tezos Mainnet has a proven track record of running uninterrupted ever since, having earned a strong reputation for technical excellence and a supportive community. \n\n\nWho Are the Founders of Tezos?\nTezos was conceived by Arthur and Kathleen Breitman in a 2014 white paper under the pseudonym L.M. Goodman in a nod to Satoshi Nakamoto, referencing a journalist who had misidentified the creator of Bitcoin.\n\n\nIn a previous paper, the Breitmans had argued that Bitcoin's biggest shortcomings were the lack of a governance process that invited contributions from its community of users, cost and centralization issues raised by its proof-of-work system, the limited expressiveness of its programming language which didn’t allow for smart contracts, and security ",
   "categories": [
     "Smart Contract Platform",
@@ -24,25 +25,25 @@
     "explorer": "https://tzstats.com/"
   },
   "market": {
-    "price": 0.37512,
-    "marketCap": 406944861,
-    "marketCapRank": 132,
-    "volume24h": 12884178,
+    "price": 0.375069,
+    "marketCap": 406750441,
+    "marketCapRank": 128,
+    "volume24h": 12698084,
     "high24h": 0.392194,
     "low24h": 0.370719,
-    "priceChange24h": -2.57892,
-    "priceChange7d": -0.7526298167674268,
-    "priceChange30d": 9.210761223512687,
-    "priceChange1y": -45.44094490686223,
+    "priceChange24h": -3.01985,
+    "priceChange7d": -1.14028,
+    "priceChange30d": 7.64494,
+    "priceChange1y": -46.08819,
     "ath": 9.12,
-    "athChangePercentage": -95.88416,
+    "athChangePercentage": -95.89103,
     "athDate": "2021-10-04T00:41:18.025Z",
     "atl": 0.336606,
     "atlDate": "2026-03-29T22:55:06.515Z",
-    "circulatingSupply": 1084662537.977048,
-    "totalSupply": 1104647127.661934,
+    "circulatingSupply": 1084693400.529969,
+    "totalSupply": 1104679075.914584,
     "maxSupply": null,
-    "fdv": 414442701
+    "fdv": 414244893
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T15:05:34.219Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.532Z"
+  "fetchedAt": "2026-05-14T07:37:37.121Z"
 }

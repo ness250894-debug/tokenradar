@@ -2,7 +2,8 @@
   "id": "flying-tulip",
   "symbol": "ft",
   "name": "Flying Tulip",
-  "description": "A cryptocurrency token known as Flying Tulip (FT). It is tracked on CoinGecko with the ID \"flying-tulip\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68285/large/FlyingTulip_FT_200px.png?1759802398",
+  "description": "",
   "categories": [
     "Decentralized Finance (DeFi)",
     "BNB Chain Ecosystem",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x5DD1A7A369e8273371d2DBf9d83356057088082c"
   },
   "market": {
-    "price": 0.09371,
-    "marketCap": 121198452,
+    "price": 0.093447,
+    "marketCap": 120838833,
     "marketCapRank": 257,
-    "volume24h": 121495,
-    "high24h": 0.096573,
-    "low24h": 0.092642,
-    "priceChange24h": -1.03543,
-    "priceChange7d": 0.5012472303247459,
-    "priceChange30d": 16.983345870762623,
+    "volume24h": 126184,
+    "high24h": 0.095753,
+    "low24h": 0.092585,
+    "priceChange24h": -1.48136,
+    "priceChange7d": 0.03309,
+    "priceChange30d": 15.59878,
     "priceChange1y": 0,
     "ath": 0.299855,
-    "athChangePercentage": -68.74304,
+    "athChangePercentage": -68.83781,
     "athDate": "2026-02-23T13:55:11.412Z",
     "atl": 0.0679,
     "atlDate": "2026-04-22T09:40:26.694Z",
     "circulatingSupply": 1293123163.4537783,
-    "totalSupply": 9986697974.322422,
+    "totalSupply": 9986672005.45116,
     "maxSupply": 10000000000,
-    "fdv": 936007005
+    "fdv": 933227264
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T20:55:46.246Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.572Z"
+  "fetchedAt": "2026-05-14T07:07:22.468Z"
 }

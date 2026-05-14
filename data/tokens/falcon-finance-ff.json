@@ -2,6 +2,7 @@
   "id": "falcon-finance-ff",
   "symbol": "ff",
   "name": "Falcon Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69121/large/ff.png?1757573403",
   "description": "Falcon Finance is pioneering the first universal collateralization infrastructure, designed to transform how liquidity and yield are created onchain. The protocol accepts liquid assets, including digital tokens and tokenized real world assets, to be deposited as collateral for issuing USDf, an overcollateralized synthetic dollar. USDf provides users with stable and accessible onchain liquidity without requiring the liquidation of their holdings.\n\nTo complement this, users can stake USDf to mint sUSDf, a yield-bearing token that is powered by diversified institutional-grade trading strategies. These strategies extend beyond traditional basis spread arbitrage and are designed to deliver performance across all market conditions.\n\nBy bridging the gap between traditional finance and decentralized finance, Falcon Finance offers institutions, protocols, and individuals a transparent and secure way to unlock the full potential of their assets. The platform combines innovation, yield generation, and robust risk management into a scalable infrastructure that redefines how collateral, liquidity, and asset ownership interact across financial domains.\n\n$FF is the native token that captures the growth of Falcon Finance. As more assets are deposited and USDf adoption expands, $FF becomes the core asset tied to the protocol’s scale and success.\n\nFalcon is building infrastructure designed for trillions in assets. $FF is the way to get exposure to that future.",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -21,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0xFA1C09fC8B491B6A4d3Ff53A10CAd29381b3F949"
   },
   "market": {
-    "price": 0.087471,
-    "marketCap": 204424231,
-    "marketCapRank": 190,
-    "volume24h": 90690930,
-    "high24h": 0.088732,
-    "low24h": 0.075606,
-    "priceChange24h": 11.94799,
-    "priceChange7d": 36.56026325008775,
-    "priceChange30d": 4.8400956960134796,
+    "price": 0.083789,
+    "marketCap": 195767044,
+    "marketCapRank": 192,
+    "volume24h": 80119345,
+    "high24h": 0.089177,
+    "low24h": 0.078525,
+    "priceChange24h": 5.8636,
+    "priceChange7d": 30.24346,
+    "priceChange30d": 8.43569,
     "priceChange1y": 0,
     "ath": 0.770814,
-    "athChangePercentage": -88.66643,
+    "athChangePercentage": -89.16651,
     "athDate": "2025-09-29T13:02:33.857Z",
     "atl": 0.061338,
     "atlDate": "2026-05-04T11:55:28.097Z",
     "circulatingSupply": 2340000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 873607826
+    "fdv": 836611300
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T19:50:18.219Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.552Z"
+  "fetchedAt": "2026-05-14T07:06:04.321Z"
 }

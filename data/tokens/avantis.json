@@ -2,6 +2,7 @@
   "id": "avantis",
   "symbol": "avnt",
   "name": "Avantis",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68972/large/avnt-token.png?1757134448",
   "description": "Avantis is the largest RWA perps DEX in DeFi, built on and backed by Base. Avantis allows users to trade crypto and real-world assets (RWAs), including FX, commodities, indices, and equities. Backed by Pantera and Coinbase, Avantis is the largest DEX on Base by volumes, and brings institutional-grade products to DeFi, letting users trade with up to 500x leverage in a transparent, permissionless environment.\n\nAvantis is best known for launching zero-fee perpetuals (ZFP) — a first-of-its-kind primitive where traders only pay fees if they profit. They've also brought leveraged RWAs onchain. This has driven explosive growth: over $20B+ in cumulative volume and 15M+ run-rate revenues since Febrruary 2024.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -21,25 +22,25 @@
     "explorer": "https://basescan.org/token/0x696F9436B67233384889472Cd7cD58A6fB5DF4f1"
   },
   "market": {
-    "price": 0.16578,
-    "marketCap": 53098070,
-    "marketCapRank": 497,
-    "volume24h": 16279223,
-    "high24h": 0.16761,
-    "low24h": 0.157495,
-    "priceChange24h": 3.28508,
-    "priceChange7d": 14.897797292340117,
-    "priceChange30d": 21.158259272595615,
+    "price": 0.151057,
+    "marketCap": 48372046,
+    "marketCapRank": 519,
+    "volume24h": 11699679,
+    "high24h": 0.160351,
+    "low24h": 0.148151,
+    "priceChange24h": -2.79351,
+    "priceChange7d": 1.223,
+    "priceChange30d": 13.87943,
     "priceChange1y": 0,
     "ath": 2.64,
-    "athChangePercentage": -93.68583,
+    "athChangePercentage": -94.30262,
     "athDate": "2025-09-22T00:21:56.300Z",
     "atl": 0.121118,
     "atlDate": "2026-04-05T08:00:58.880Z",
-    "circulatingSupply": 320273013.5278893,
+    "circulatingSupply": 320334511.5585574,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 165790021
+    "fdv": 151004792
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-09T08:07:35.304Z",
-  "lastMarketUpdate": "2026-05-10T19:56:28.901Z"
+  "fetchedAt": "2026-05-13T18:22:03.805Z"
 }

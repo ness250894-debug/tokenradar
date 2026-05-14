@@ -2,26 +2,53 @@
   "id": "home",
   "symbol": "home",
   "name": "HOME",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54873/large/defi-app.png?1742235743",
+  "description": "Crypto's \"Everything App\" that makes DeFi as easy as using an iPhone, combining instant cross-chain swaps, yield farming, and perps trading with zero gas fees, zero bridging and full self-custody.\n\nDecentralized finance has massive potential, but several challenges have consistently held it back from broader adoption:\n-Complex User Experience: The steep learning curve, confusing interfaces, and technical barriers make DeFi intimidating for newcomers.\n-Fragmented Ecosystem: Managing assets across multiple blockchains can feel disjointed and labor-intensive, with users needing to navigate different platforms and tools.\n-Risk of User Errors: DeFi can be unforgiving—losing a seed phrase or making a small mistake can lead to significant financial losses.\n-Issues with Centralized Exchanges: Centralized exchanges compromise control and security by holding custody of users' assets, which goes against the core principles of decentralization.\n\nDefi App directly addresses these issues to make DeFi simple, safe, and accessible:\n-Unified Platform: Defi App provides native account abstraction, allowing you to connect your wallets and manage all your assets without dealing with technical intricacies. There’s no need to navigate multiple tools or migrate assets across chains—everything you need is in one place.\n-Cross-Chain Capabilities: Our platform supports seamless engagement across different blockchain networks. Swap tokens, leverage assets, or yield farm—Defi App breaks down chain boundaries, so you can take advantage of opportunities anywhere in DeFi.\n-Gasless Transactions: Defi App sponsors gas fees, meaning you don’t need to hold specific gas tokens for every chain. This makes transactions easy and eliminates a common barrier that frustrates both new and experienced users.\n-Intuitive Design: Defi App’s user-friendly interface ensures that anyone, from beginners to experts, can navigate DeFi confidently.\n",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Base Ecosystem",
+    "Account Abstraction",
+    "Dex Aggregator",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://defi.app",
+    "github": "https://github.com/defi-app",
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x4bfaa776991e85e5f8b1255461cbbd216cfc714f"
+  },
   "market": {
-    "price": 0.01755557,
-    "marketCap": 65799246,
-    "marketCapRank": 420,
-    "volume24h": 8643928,
-    "priceChange24h": 2.8064,
+    "price": 0.01638752,
+    "marketCap": 61496284,
+    "marketCapRank": 442,
+    "volume24h": 5332801,
+    "high24h": 0.01803149,
+    "low24h": 0.01638756,
+    "priceChange24h": -8.40309,
+    "priceChange7d": 23.42745,
+    "priceChange30d": -15.21783,
+    "priceChange1y": 0,
     "ath": 0.04886411,
-    "athChangePercentage": -64.08156,
+    "athChangePercentage": -66.35164,
     "athDate": "2025-08-17T15:56:00.970Z",
     "atl": 0.01312764,
     "atlDate": "2026-05-07T04:10:28.689Z",
     "circulatingSupply": 3748055333.57,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "high24h": 0.01803149,
-    "low24h": 0.0166218,
-    "priceChange7d": 27.6795595581871,
-    "priceChange30d": -7.462716318561704,
-    "priceChange1y": 0,
-    "fdv": 175555696
+    "fdv": 164075178
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.680Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:11:16.717Z"
 }

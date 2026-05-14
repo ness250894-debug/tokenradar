@@ -2,6 +2,7 @@
   "id": "perle",
   "symbol": "prl",
   "name": "Perle",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172470/large/Symbol_-_Mango_%281%29.png?1773500485",
   "description": "Perle Labs is a web3-powered AI platform on Solana that connects verified experts with enterprises and research teams to train and improve AI models. Professionals, researchers, and domain specialists earn rewards and build on-chain reputations by completing high-quality data annotation and validation tasks.  \n\nPain points the project addresses includes:  \n\nHuman Data Bottlenecks: Continuous need for high-volume, high-quality data annotation, evaluation, and RLHF, but existing pipelines lack scalability. \n\nLow-Quality Feedback: Reliance on generic labor pools without domain expertise, leading to noisy signals and degraded AI accuracy. \n\nLack of Verifiability: Opaque processes without audit trails for contributor performance and quality. ",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -17,25 +18,25 @@
     "explorer": "https://solscan.io/token/PERLEQKUNUp1dgFZ8EvyXHdN9d6ZQqfGxALDvfs6pDs"
   },
   "market": {
-    "price": 0.294386,
-    "marketCap": 51443261,
-    "marketCapRank": 482,
-    "volume24h": 34244228,
-    "high24h": 0.393682,
-    "low24h": 0.231358,
-    "priceChange24h": 10.31885,
-    "priceChange7d": 72.95436,
-    "priceChange30d": 114.90499,
+    "price": 0.24988,
+    "marketCap": 43737009,
+    "marketCapRank": 550,
+    "volume24h": 5827069,
+    "high24h": 0.25645,
+    "low24h": 0.243934,
+    "priceChange24h": -1.45287,
+    "priceChange7d": -7.42683,
+    "priceChange30d": 42.65165,
     "priceChange1y": 0,
     "ath": 0.431223,
-    "athChangePercentage": -32.16185,
+    "athChangePercentage": -42.04524,
     "athDate": "2026-04-16T20:45:01.248Z",
     "atl": 0.113738,
     "atlDate": "2026-03-25T11:03:43.262Z",
     "circulatingSupply": 175000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 395207328
+    "fdv": 249925766
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-28T08:59:58.728Z",
-  "lastMarketUpdate": "2026-05-05T18:58:08.223Z"
+  "fetchedAt": "2026-05-14T07:25:29.986Z"
 }

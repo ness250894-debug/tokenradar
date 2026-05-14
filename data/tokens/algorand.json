@@ -2,27 +2,59 @@
   "id": "algorand",
   "symbol": "algo",
   "name": "Algorand",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978",
   "description": "Algorand is a scalable, secure, and decentralized digital currency and smart contract platform. Its protocol uses a variation of Proof-of-Stake (PoS) called Pure PoS (PPoS) to secure the network and reach consensus on block production. Developers can build decentralized applications (dApps) using familiar programming languages, including Python, which Algorand supports natively. Its infrastructure enables various use cases, including payment systems, digital identity solutions, supply-chain tracking, and financial services. The protocol's architecture allows for tokenization of assets and the development of smart contracts, while its technical specifications support both retail users seeking basic transaction capabilities and enterprises requiring more, complex, blockchain solutions.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Algorand Ecosystem",
+    "Real World Assets (RWA)",
+    "DWF Labs Portfolio",
+    "Multicoin Capital Portfolio",
+    "Proof of Stake (PoS)",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Made in USA",
+    "Coinbase 50 Index",
+    "Quantum-Resistant",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://algorand.foundation/",
+    "github": "https://github.com/algorand/go-algorand",
+    "reddit": "https://www.reddit.com/r/AlgorandOfficial/",
+    "explorer": "https://allo.info/"
+  },
   "market": {
-    "price": 0.117535,
-    "marketCap": 1048080132,
+    "price": 0.118137,
+    "marketCap": 1049816761,
     "marketCapRank": 67,
-    "volume24h": 32217282,
+    "volume24h": 32468479,
     "high24h": 0.12472,
     "low24h": 0.116556,
-    "priceChange24h": -3.6863,
-    "priceChange7d": -2.250064501130022,
-    "priceChange30d": 14.122715145902138,
-    "priceChange1y": -52.06137053544397,
+    "priceChange24h": -2.61792,
+    "priceChange7d": -1.9469,
+    "priceChange30d": 14.58465,
+    "priceChange1y": -51.44388,
     "ath": 3.56,
-    "athChangePercentage": -96.6975,
+    "athChangePercentage": -96.70529,
     "athDate": "2019-06-20T14:51:19.480Z",
     "atl": 0.080092,
     "atlDate": "2026-03-29T22:50:15.756Z",
     "circulatingSupply": 8909824765.659273,
-    "totalSupply": 8909838162.9356,
+    "totalSupply": 8909829095.899443,
     "maxSupply": 10000000000,
-    "fdv": 1048081708
+    "fdv": 1049817271
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.499Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 1427,
+    "githubForks": 527,
+    "commits4Weeks": 18
+  },
+  "fetchedAt": "2026-05-13T18:19:13.098Z"
 }

@@ -2,27 +2,48 @@
   "id": "adi-token",
   "symbol": "adi",
   "name": "ADI",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68846/large/ADI_Token-min.png?1765296433",
   "description": "ADI Chain is an Ethereum Layer 2 developed by the ADI Foundation to support government, enterprise, and institutional digital infrastructure. It is built on zkSync’s zkStack and powered by the Airbender prover, which delivers GPU accelerated zero knowledge proofs for fast, low cost, and secure transactions. The chain includes modular Layer 3 capabilities that let nations and enterprises deploy compliant, region specific systems for payments, e invoicing, land registries, and stablecoins. ADI Chain aims to bridge traditional systems with modern blockchain architecture and onboard one billion people by 2030.",
+  "categories": [
+    "Infrastructure",
+    "Layer 2 (L2)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://token.adi.foundation/",
+    "github": "https://github.com/ADI-Foundation-Labs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x8b1484d57abbe239bb280661377363b03c89caea"
+  },
   "market": {
-    "price": 4.02,
-    "marketCap": 419054771,
+    "price": 4.03,
+    "marketCap": 419593241,
     "marketCapRank": 125,
-    "volume24h": 648788,
+    "volume24h": 654651,
     "high24h": 4.04,
     "low24h": 4.01,
-    "priceChange24h": -0.06015,
-    "priceChange7d": 2.162318099727646,
-    "priceChange30d": -6.767943204506606,
+    "priceChange24h": -0.18925,
+    "priceChange7d": 2.357,
+    "priceChange30d": -6.34153,
     "priceChange1y": 0,
     "ath": 4.55,
-    "athChangePercentage": -11.41009,
+    "athChangePercentage": -11.38954,
     "athDate": "2026-04-03T21:30:15.912Z",
     "atl": 0.975425,
     "atlDate": "2025-12-10T09:46:25.812Z",
     "circulatingSupply": 104035514.216296,
     "totalSupply": 999999999,
     "maxSupply": 999999999,
-    "fdv": 4027997305
+    "fdv": 4033173134
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.525Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:17:57.268Z"
 }

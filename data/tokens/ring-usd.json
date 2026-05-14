@@ -2,20 +2,49 @@
   "id": "ring-usd",
   "symbol": "usdr",
   "name": "Ring USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69350/large/logo_USDR_color_512x512.png?1758260860",
+  "description": "USDR is a decentralized USD-pegged stablecoin built on the DEX Ring Protocol, designed to push the boundaries of capital and liquidity efficiency in DeFi. It maintains its 1:1 USD peg through an innovative circular liquidity mechanism: smart contracts automatically rebalance collateral and liquidity across DEX pools, ensuring deep, balanced markets on multiple exchanges. \n\nUnlike static stablecoins, USDR is dynamically allocated across integrated liquidity pools on platforms like Uniswap, Ring, and other major DEXes — earning modest trading fees while preserving price stability. A built-in rebalancing mechanism ensures sufficient reserves for instant redemptions at all times, aligning efficiency with user confidence. \n\nBy minimizing idle collateral and maximizing on-chain liquidity productivity, USDR represents the next evolution of decentralized, capital-efficient stablecoins.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ring.exchange/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x4EA40dcee961675683e0a2e1721Bd49CB9bca913"
+  },
   "market": {
-    "price": 0.99914,
-    "marketCap": 100310127,
-    "marketCapRank": 301,
-    "volume24h": 3377.47,
-    "priceChange24h": 0.02037,
+    "price": 1,
+    "marketCap": 400962,
+    "marketCapRank": 4044,
+    "volume24h": 5225.54,
+    "high24h": 1,
+    "low24h": 0.998783,
+    "priceChange24h": -0.02503,
+    "priceChange7d": -0.00408,
+    "priceChange30d": -0.00505,
+    "priceChange1y": 0,
     "ath": 1.08,
-    "athChangePercentage": -7.52232,
+    "athChangePercentage": -7.44449,
     "athDate": "2025-12-09T17:11:49.830Z",
     "atl": 0.941515,
     "atlDate": "2026-02-01T23:12:26.620Z",
-    "circulatingSupply": 100400000,
+    "circulatingSupply": 400954.8219141576,
     "totalSupply": 100400000,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 100401840
   },
-  "lastMarketUpdate": "2026-05-07T19:19:25.872Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:30:01.835Z"
 }

@@ -2,26 +2,48 @@
   "id": "xphere",
   "symbol": "xp",
   "name": "Xphere",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54874/large/oAapmKlz_400x400.png?1742236858",
+  "description": "Xphere revolutionizes blockchain technology by addressing the trilemma of scalability, security, and decentralization through an innovative dual-chain architecture. By combining a PBFT-based Main Chain for efficient and rapid transaction processing with a PoW-based Proof Chain for secure validator selection, Xphere achieves an optimized balance of trust, performance, and decentralization. This ecosystem fosters innovation, accessibility, and sustainability for individuals, developers, and enterprises worldwide.",
+  "categories": [
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.x-phere.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://xp.tamsa.io/"
+  },
   "market": {
-    "price": 0.02004938,
-    "marketCap": 54433050,
-    "marketCapRank": 480,
-    "volume24h": 630593,
-    "priceChange24h": -1.22732,
+    "price": 0.02059466,
+    "marketCap": 55921663,
+    "marketCapRank": 473,
+    "volume24h": 587459,
+    "high24h": 0.02063746,
+    "low24h": 0.01994801,
+    "priceChange24h": 3.2095,
+    "priceChange7d": 17.01335,
+    "priceChange30d": 77.66825,
+    "priceChange1y": -2.83779,
     "ath": 0.069028,
-    "athChangePercentage": -70.96046,
+    "athChangePercentage": -70.17207,
     "athDate": "2025-03-18T19:30:28.918Z",
     "atl": 0.00298093,
     "atlDate": "2025-12-26T01:53:50.914Z",
-    "circulatingSupply": 2714949880.585295,
-    "totalSupply": 2714949880.585295,
+    "circulatingSupply": 2716015751.163053,
+    "totalSupply": 2716099782.774673,
     "maxSupply": 5500000000,
-    "high24h": 0.02108301,
-    "low24h": 0.01991253,
-    "priceChange7d": 32.44936960944195,
-    "priceChange30d": 70.52261195913474,
-    "priceChange1y": -5.096223432418623,
-    "fdv": 54433050
+    "fdv": 55923393
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.694Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:46:21.986Z"
 }

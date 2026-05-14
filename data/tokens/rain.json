@@ -2,6 +2,7 @@
   "id": "rain",
   "symbol": "rain",
   "name": "Rain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69134/large/Rain_logo_1_.png?1762952191",
   "description": "Rain is a decentralized options protocol built on Arbitrum. It enables anyone to create and trade custom markets without restrictions, offering a permissionless framework for prediction and options trading. Public markets are resolved using Olympus AI’s oracle agent, while private markets allow creators to act as resolvers. The protocol supports secondary trading, account abstraction for smoother user experience, and a deflationary token model where 2.5% of trading volume is allocated to buy and burn the $RAIN token. Governance of the protocol is carried out by token holders through a DAO.",
   "categories": [
     "Gambling (GambleFi)",
@@ -18,25 +19,25 @@
     "explorer": "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d"
   },
   "market": {
-    "price": 0.00750989,
-    "marketCap": 3593608414,
+    "price": 0.00751668,
+    "marketCap": 3596242477,
     "marketCapRank": 32,
-    "volume24h": 28360208,
-    "high24h": 0.00758945,
-    "low24h": 0.00749692,
-    "priceChange24h": -0.16232,
-    "priceChange7d": 2.6174905041652576,
-    "priceChange30d": -4.183496555675345,
+    "volume24h": 35014127,
+    "high24h": 0.00757691,
+    "low24h": 0.00746174,
+    "priceChange24h": -0.74757,
+    "priceChange7d": 5.18616,
+    "priceChange30d": -6.78987,
     "priceChange1y": 0,
     "ath": 0.01090099,
-    "athChangePercentage": -31.09382,
+    "athChangePercentage": -31.18259,
     "athDate": "2026-02-09T16:50:09.904Z",
     "atl": 0.00222126,
     "atlDate": "2025-09-14T08:56:57.416Z",
-    "circulatingSupply": 478417189319.1622,
+    "circulatingSupply": 478417328746.76294,
     "totalSupply": 1149896794915.693,
     "maxSupply": 1150000000000,
-    "fdv": 8637396168
+    "fdv": 8643724736
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T10:35:14.856Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.489Z"
+  "fetchedAt": "2026-05-14T07:28:33.342Z"
 }

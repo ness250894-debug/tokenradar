@@ -2,6 +2,7 @@
   "id": "injective-protocol",
   "symbol": "inj",
   "name": "Injective",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12882/large/Other_200x200.png?1738782212",
   "description": "Injective is an interoperable Layer 1 blockchain designed for DeFi applications. It provides developers with on-chain financial infrastructure modules to build dApps such as decentralized exchanges, prediction markets, and lending protocols. Its decentralized cross-chain bridging infrastructure offers compatibility with most blockchains, including EVM chains like Ethereum and non-EVM chains like Solana.",
   "categories": [
     "Smart Contract Platform",
@@ -31,25 +32,25 @@
     "explorer": "https://explorer.injective.network/"
   },
   "market": {
-    "price": 5.21,
-    "marketCap": 522820850,
-    "marketCapRank": 105,
-    "volume24h": 463803590,
+    "price": 5.08,
+    "marketCap": 509196725,
+    "marketCapRank": 104,
+    "volume24h": 452154006,
     "high24h": 6.05,
-    "low24h": 4.71,
-    "priceChange24h": 9.28848,
-    "priceChange7d": 35.56685017084131,
-    "priceChange30d": 77.37602856910037,
-    "priceChange1y": -61.55812178539005,
+    "low24h": 4.93,
+    "priceChange24h": -4.90928,
+    "priceChange7d": 30.9891,
+    "priceChange30d": 68.38857,
+    "priceChange1y": -63.47114,
     "ath": 52.62,
-    "athChangePercentage": -90.05698,
+    "athChangePercentage": -90.3241,
     "athDate": "2024-03-14T15:06:22.124Z",
     "atl": 0.657401,
     "atlDate": "2020-11-03T16:19:30.576Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 522820850
+    "fdv": 509196725
   },
   "community": {
     "twitterFollowers": null,
@@ -57,9 +58,8 @@
   },
   "developer": {
     "githubStars": 117,
-    "githubForks": 79,
-    "commits4Weeks": 0
+    "githubForks": 80,
+    "commits4Weeks": 1
   },
-  "fetchedAt": "2026-03-22T22:59:13.631Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.521Z"
+  "fetchedAt": "2026-05-14T07:12:07.272Z"
 }

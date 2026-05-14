@@ -2,20 +2,55 @@
   "id": "merlin-chain",
   "symbol": "merl",
   "name": "Merlin Chain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37118/large/merlin.jpeg?1713352230",
+  "description": "Merlin Chain serves as a Layer 2 solution for Bitcoin, incorporating essential components like ZK-Rollup networks, decentralized oracle networks, and fraud proofs within the Bitcoin chain. Its primary objective is to empower the native assets, protocols, and application ecosystem of Bitcoin Layer 1, facilitating ongoing innovation and maximizing asset potential on Layer 2 networks.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Merlin Chain Ecosystem",
+    "Bitcoin Sidechains",
+    "SideChain",
+    "OKX Ventures Portfolio",
+    "Made in China"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://merlinchain.io/",
+    "github": "https://github.com/MerlinLayer2",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x0f3a12b78fee11ee088e454a0547bdbc5a253a6d"
+  },
   "market": {
-    "price": 0.04126994,
-    "marketCap": 51045873,
-    "marketCapRank": 484,
-    "volume24h": 11262251,
-    "priceChange24h": 2.63371,
+    "price": 0.03399241,
+    "marketCap": 42036422,
+    "marketCapRank": 559,
+    "volume24h": 5045442,
+    "high24h": 0.03748462,
+    "low24h": 0.03376526,
+    "priceChange24h": -7.39073,
+    "priceChange7d": -8.17537,
+    "priceChange30d": 31.60831,
+    "priceChange1y": -71.37698,
     "ath": 1.45,
-    "athChangePercentage": -97.13945,
+    "athChangePercentage": -97.65837,
     "athDate": "2024-04-19T11:41:13.943Z",
     "atl": 0.02130297,
     "atlDate": "2026-04-03T19:50:42.218Z",
     "circulatingSupply": 1236647716,
     "totalSupply": 2100000000,
-    "maxSupply": 2100000000
+    "maxSupply": 2100000000,
+    "fdv": 71383697
   },
-  "lastMarketUpdate": "2026-05-05T18:58:08.223Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:18:22.207Z"
 }

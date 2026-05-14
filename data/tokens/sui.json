@@ -2,7 +2,8 @@
   "id": "sui",
   "symbol": "sui",
   "name": "Sui",
-  "description": "Sui is an innovative layer-1 blockchain platform crafted to meet the demands of global adoption, providing a secure, robust, and scalable development environment. Rooted in a unique object-centric data model and fortified by the trusted Move programming language, Sui is engineered to tackle the inefficiencies found in current blockchain frameworks.\n\nIn addition to its solid technical underpinnings, Sui places a strong emphasis on user experience, aiming to remove common barriers encountered in blockchain interactions. Through groundbreaking features such as zkLogin, sponsored transactions, and programmable transaction blocks, Sui sets a new standard for user accessibility and friendliness within Web3 applications.\n\nUnique elements of Sui\nSui’s innovative architecture ensures swift transactions with stable fees and high throughput through horizontal scaling. Its object-oriented design offers deep composability for developers, enabling tailored object types with network-wide compatibility. This revolutionizes asset and protocol collaboration, fostering product innovation.\n\nThe platform's object-oriented approach dramatically improves transaction processing, enabling parallel execution and faster completion times. Additionally, unique consensus requirements expedite transaction finalization while maintaining stability. Sui prioritizes overcoming Web3 adoption barriers, offering native tools like zkLogin and sponsored transactions for wallet onboarding and fee management.\n\nMove integration into Sui's data model combines innovation with security, mitigating common exploits found in smart contract languages. This empowers developers and users with a secure and intuitive platform, accelerating the evolution of Web3 applications.\n\nAbout the Sui token\nThe SUI token serves four primary functions within the Sui ecosystem:\nProof-of-stake participation - Sui implements a delegated proof-of-stake mechanism, rewarding honest behavior by validators and SUI token holders who stake with them.\nGas fee payments - SUI tokens cover gas fees for executing transactions and storing data onchain.\nApplication utility - SUI is a versatile asset, integral to various applications within Sui’s ecosystem, including decentralized exchanges, lending platforms, gaming, and more.\nGovernance - The SUI token empowers holders to participate in on-chain voting on significant matters like protocol upgrades and platform changes, shaping the future of Sui.\n\nAdditionally, the Sui storage fund ensures fair compensation for validators by distributing stake rewards over time and covering storage costs for previously stored on-chain data. This tokenomic strategy promotes indefinite data storage while maintaining fair compensation for validators, fostering long-term sustainability.\n",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290",
+  "description": "Sui s a Layer 1 blockchain developed by Mysten Labs, a team founded by former lead engineers from Meta’s blockchain research division. It is designed for global adoption by providing a secure, high-speed environment for digital asset ownership and removing technical barriers for Web3 applications. The platform utilizes the Move programming language to create a safe framework and supports horizontal scaling to keep fees stable and speeds high as the network grows. Significant institutional support comes from major venture capital firms including Andreessen Horowitz, Coinbase Ventures, Circle Ventures, and YZi Labs.\n\nThe system functions by organizing data into independent objects rather than a single ledger of accounts. This object-centric data model enables parallel execution, allowing the network to process many transactions simultaneously instead of waiting for one to finish before starting the next. This architecture is built for rapid transaction finalization to ensure near-instant results. To maintain long-term stability, the network collects fees into a storage fund that rewards validators for keeping data on the network indefinitely.\n\nSui offers several advanced tools including zkLogin for easier account access and sponsored transactions that allow users to interact with apps without managing complex wallets or immediate fees. Developers can also create tailored object types that work across the entire network, which encourages innovation and deep composability. These features are designed to create a more user-friendly experience for interacting with decentralized applications and digital games.\n\nThe SUI token is central to the ecosystem, serving as the primary asset for transaction fees and on-chain utility within decentralized exchanges and lending platforms. Users participate in a proof-of-stake mechanism by locking their tokens to support validators and secure the blockchain in exchange for rewards. Additionally, token holders have a role in governance, allowing them to participate in voting on network rules and future protocol upgrades. Value moves through the system through these staking rewards and transaction fees to ensure the platform scales sustainably",
   "categories": [
     "Smart Contract Platform",
     "Binance Launchpool",
@@ -25,25 +26,25 @@
     "explorer": "https://suiscan.xyz/mainnet/home"
   },
   "market": {
-    "price": 1.21,
-    "marketCap": 4831339226,
+    "price": 1.19,
+    "marketCap": 4774015656,
     "marketCapRank": 23,
-    "volume24h": 729046919,
-    "high24h": 1.27,
+    "volume24h": 305914773,
+    "high24h": 1.26,
     "low24h": 1.18,
-    "priceChange24h": -4.34384,
-    "priceChange7d": 21.984614704491893,
-    "priceChange30d": 31.33614487202705,
-    "priceChange1y": -69.94049472838735,
+    "priceChange24h": -5.03275,
+    "priceChange7d": 19.47232,
+    "priceChange30d": 26.34573,
+    "priceChange1y": -70.32963,
     "ath": 5.35,
-    "athChangePercentage": -77.42134,
+    "athChangePercentage": -77.70259,
     "athDate": "2025-01-04T22:56:18.063Z",
     "atl": 0.364846,
     "atlDate": "2023-10-19T10:40:30.078Z",
     "circulatingSupply": 4005418369.566699,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 12062008960
+    "fdv": 11918893896
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 12286,
     "commits4Weeks": 219
   },
-  "fetchedAt": "2026-03-23T13:56:56.281Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.487Z"
+  "fetchedAt": "2026-05-14T07:35:11.644Z"
 }

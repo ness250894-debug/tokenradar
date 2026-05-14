@@ -2,26 +2,52 @@
   "id": "rif-token",
   "symbol": "rif",
   "name": "Rootstock Infrastructure Framework",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/7460/large/8befc44a46c247e8a3f7fc8abba586b1_%283%29.png?1705501867",
+  "description": "Built to compliment Bitcoin, not compete with it. RIF is designed to accelerate the adoption of Rootstock, Bitcoin’s DeFi Layer by powering incentives, infrastructure and interoperability. RIF is the easiest way for anyone to shape and share in the success of  Bitcoin DeFi.\n\nRIF powers community rewards, governance and grants, on RootstockCollective, the home of the community on Rootstock. RIF underpins key infrastructure powering Bitcoin DeFi on Rootstock including USDRIF, a censorship resistant stablecoin and RNS for simplifying wallet addresses.\n\nRIF gives the wider world of Web3 exposure to the success of Bitcoin DeFi on Rootstock through availability on the top exchanges, leading chains and largest dApps.",
+  "categories": [
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Rootstock Ecosystem",
+    "Outlier Ventures Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://rif.technology/",
+    "github": "https://github.com/riflabs",
+    "reddit": "https://www.reddit.com/r/rootstock/",
+    "explorer": "https://explorer.rsk.co/address/0x2acc95758f8b5f583470ba265eb685a8f45fc9d5"
+  },
   "market": {
-    "price": 0.077838,
-    "marketCap": 77926391,
-    "marketCapRank": 368,
-    "volume24h": 4147261,
-    "priceChange24h": -1.32853,
+    "price": 0.079186,
+    "marketCap": 79181405,
+    "marketCapRank": 360,
+    "volume24h": 3401932,
+    "high24h": 0.081061,
+    "low24h": 0.072431,
+    "priceChange24h": 7.67558,
+    "priceChange7d": 46.79626,
+    "priceChange30d": 99.77888,
+    "priceChange1y": 25.63263,
     "ath": 0.455938,
-    "athChangePercentage": -82.91392,
+    "athChangePercentage": -82.59183,
     "athDate": "2021-04-12T21:44:18.713Z",
     "atl": 0.0091475,
     "atlDate": "2019-06-12T00:00:00.000Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": null,
-    "high24h": 0.083124,
-    "low24h": 0.072431,
-    "priceChange7d": 36.992938123252,
-    "priceChange30d": 117.69188664737196,
-    "priceChange1y": 25.05669525838654,
-    "fdv": 77926391
+    "fdv": 79181405
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.627Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 9,
+    "githubForks": 5,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:29:55.527Z"
 }

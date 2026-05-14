@@ -2,6 +2,7 @@
   "id": "concordium",
   "symbol": "ccd",
   "name": "Concordium",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/23547/large/Concordium_Symbol_Black.png?1762090006",
   "description": "Founded in 2018, Concordium is the Layer-1 blockchain built for a new era of digital trust.\n\nOur name comes from the Latin concordia—meaning harmony and agreement—a reflection of\nour mission to build infrastructure that embeds trust, privacy, and compliance into every\ninteraction.\n\nAt the heart of Concordium is Smart Money: programmable digital assets with identity, policy\ncontrols, and compliance embedded at the protocol level. Smart Money enables frictionless\ndigital interactions with security, automation, and regulatory certainty by design.\n\nConcordium was established by Lars Seier Christensen, founder of Saxo Bank, inspired by the\nrecognition that blockchain’s full potential can only be realized if it works with regulation, not\nagainst it. That insight led to a new model of trust—one where decentralization and\naccountability can coexist.\n\nBacked by world-class cryptographic research and a global team with expertise across\n\nblockchain, finance, and compliance, Concordium delivers protocol-native features like zero-\nknowledge verification, programmable compliance, and privacy-preserving controls—\n\nempowering a smarter, more connected financial future.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -25,25 +26,25 @@
     "explorer": "https://ccdscan.io/"
   },
   "market": {
-    "price": 0.00557547,
-    "marketCap": 70092682,
-    "marketCapRank": 405,
-    "volume24h": 151904,
+    "price": 0.00557842,
+    "marketCap": 70129787,
+    "marketCapRank": 407,
+    "volume24h": 160743,
     "high24h": 0.00562219,
     "low24h": 0.00547653,
-    "priceChange24h": -0.24478,
-    "priceChange7d": 16.271282759706015,
-    "priceChange30d": 23.58282645445779,
-    "priceChange1y": 35.23849759564443,
+    "priceChange24h": 1.26859,
+    "priceChange7d": 13.47069,
+    "priceChange30d": 22.31718,
+    "priceChange1y": 35.38053,
     "ath": 0.149407,
-    "athChangePercentage": -96.27034,
+    "athChangePercentage": -96.2654,
     "athDate": "2022-02-10T12:22:15.949Z",
     "atl": 0.00262306,
     "atlDate": "2024-07-16T01:52:20.318Z",
     "circulatingSupply": 12571619392.30472,
     "totalSupply": 14462065003.08726,
     "maxSupply": null,
-    "fdv": 80632804
+    "fdv": 80675489
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-08T07:49:42.807Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.677Z"
+  "fetchedAt": "2026-05-13T18:29:01.000Z"
 }

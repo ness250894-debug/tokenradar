@@ -2,26 +2,50 @@
   "id": "polymesh",
   "symbol": "polyx",
   "name": "Polymesh",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/23496/large/Polymesh-symbol.png?1696522706",
+  "description": "Polymesh is an institutional-grade permissioned blockchain built specifically for regulated assets. It streamlines antiquated processes and opens the door to new financial instruments by solving the challenges around governance, identity, compliance, confidentiality, and settlement. Polymesh is built on the Substrate framework and uses a Nominated Proof of Stake Consensus algorithm.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)",
+    "RWA Protocol"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://polymesh.network/",
+    "github": "https://github.com/PolymathNetwork/Polymesh",
+    "reddit": "https://www.reddit.com/r/PolymathNetwork/",
+    "explorer": "https://polymesh.subscan.io/"
+  },
   "market": {
-    "price": 0.052,
-    "marketCap": 66342955,
-    "marketCapRank": 416,
-    "volume24h": 4017729,
-    "priceChange24h": -3.27696,
+    "price": 0.05318,
+    "marketCap": 67919401,
+    "marketCapRank": 410,
+    "volume24h": 3976079,
+    "high24h": 0.055503,
+    "low24h": 0.050899,
+    "priceChange24h": -1.48177,
+    "priceChange7d": 4.32436,
+    "priceChange30d": 4.05956,
+    "priceChange1y": -70.76042,
     "ath": 0.748771,
-    "athChangePercentage": -93.05629,
+    "athChangePercentage": -92.87869,
     "athDate": "2024-03-31T21:30:42.403Z",
     "atl": 0.03831383,
     "atlDate": "2026-02-06T00:30:25.837Z",
     "circulatingSupply": 1275731923.977812,
     "totalSupply": 1275731923.977812,
     "maxSupply": null,
-    "high24h": 0.055503,
-    "low24h": 0.051472,
-    "priceChange7d": 2.833431617257257,
-    "priceChange30d": 6.6242387238096265,
-    "priceChange1y": -72.11549698740849,
-    "fdv": 66342955
+    "fdv": 67919401
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.679Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 169,
+    "githubForks": 52,
+    "commits4Weeks": 17
+  },
+  "fetchedAt": "2026-05-14T07:26:52.200Z"
 }

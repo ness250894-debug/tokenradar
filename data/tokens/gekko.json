@@ -2,6 +2,7 @@
   "id": "gekko",
   "symbol": "gekko",
   "name": "GEKKO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/32439/large/gekko_%281%29.png?1698228341",
   "description": "GekkoHQ - Memes, for the lack of a better word, are good.",
   "categories": [
     "Meme",
@@ -15,25 +16,25 @@
     "explorer": "https://etherscan.io/token/0xf017d3690346eb8234b85f74cee5e15821fee1f4"
   },
   "market": {
-    "price": 6.91751e-7,
-    "marketCap": 138179258,
-    "marketCapRank": 223,
-    "volume24h": 85291,
-    "high24h": 6.68655e-7,
-    "low24h": 5.91812e-7,
-    "priceChange24h": 4.27793,
-    "priceChange7d": -6.21485,
-    "priceChange30d": -9.15054,
-    "priceChange1y": -36.81573,
+    "price": 6.29611e-7,
+    "marketCap": 37770759,
+    "marketCapRank": 611,
+    "volume24h": 19275.6,
+    "high24h": 6.33715e-7,
+    "low24h": 6.03391e-7,
+    "priceChange24h": 1.69732,
+    "priceChange7d": 0.21795,
+    "priceChange30d": -4.85244,
+    "priceChange1y": -49.84298,
     "ath": 0.0000137,
-    "athChangePercentage": -94.9578,
+    "athChangePercentage": -95.40431,
     "athDate": "2024-03-06T21:14:42.768Z",
-    "atl": 5.8429e-7,
-    "atlDate": "2026-03-07T07:10:53.832Z",
-    "circulatingSupply": 200000000000000,
+    "atl": 5.82518e-7,
+    "atlDate": "2026-04-27T02:50:14.931Z",
+    "circulatingSupply": 60000000000000,
     "totalSupply": 200000000000000,
     "maxSupply": 200000000000000,
-    "fdv": 122885237
+    "fdv": 125902530
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:47:09.212Z",
-  "lastMarketUpdate": "2026-04-21T19:23:25.589Z"
+  "fetchedAt": "2026-05-14T07:08:32.313Z"
 }

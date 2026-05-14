@@ -2,6 +2,7 @@
   "id": "lab",
   "symbol": "lab",
   "name": "LAB",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70014/large/lab.png?1760352822",
   "description": "LAB is the first all-in-one trading ecosystem, enabling faster execution, the lowest market fees, and a viral incentive layer powered by $LAB. Integrated with existing trading platforms it allows to tap into an established network while creating a unified environment for a new trading experience. LAB brings together trading, analytics, asset management, and community tools for the modern trader. It goes beyond traditional trading by forming a connected ecosystem – delivering a powerful, unified experience for both new and experienced traders.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -19,25 +20,25 @@
     "explorer": "https://bscscan.com/token/0x7ec43Cf65F1663F820427C62A5780b8f2E25593A"
   },
   "market": {
-    "price": 6.26,
-    "marketCap": 479308450,
-    "marketCapRank": 113,
-    "volume24h": 73075236,
+    "price": 5.37,
+    "marketCap": 413765081,
+    "marketCapRank": 122,
+    "volume24h": 72755879,
     "high24h": 6.47,
-    "low24h": 4.77,
-    "priceChange24h": 29.3517,
-    "priceChange7d": 51.8908248286856,
-    "priceChange30d": 985.9919655469387,
+    "low24h": 5.21,
+    "priceChange24h": 2.06217,
+    "priceChange7d": 25.21119,
+    "priceChange30d": 722.96435,
     "priceChange1y": 0,
     "ath": 6.7,
-    "athChangePercentage": -7.13854,
+    "athChangePercentage": -18.30521,
     "athDate": "2026-05-11T19:00:49.207Z",
     "atl": 0.074235,
     "atlDate": "2025-12-02T03:30:39.644Z",
     "circulatingSupply": 76546099.142,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 6261696619
+    "fdv": 5405436541
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:06.636Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.523Z"
+  "fetchedAt": "2026-05-14T07:15:10.549Z"
 }

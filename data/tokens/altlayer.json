@@ -2,6 +2,7 @@
   "id": "altlayer",
   "symbol": "alt",
   "name": "AltLayer",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/34608/large/Logomark_200x200.png?1715107868",
   "description": "AltLayer is a decentralized protocol that facilitates the launch of native and restaked rollups with both optimistic and zk rollup stacks.",
   "categories": [
     "Smart Contract Platform",
@@ -23,25 +24,25 @@
     "explorer": "https://etherscan.io/token/0x8457ca5040ad67fdebbcc8edce889a335bc0fbfb"
   },
   "market": {
-    "price": 0.00804472,
-    "marketCap": 49593514,
-    "marketCapRank": 505,
-    "volume24h": 5351640,
-    "high24h": 0.00817839,
-    "low24h": 0.00786494,
-    "priceChange24h": -0.78405,
-    "priceChange7d": 5.82784,
-    "priceChange30d": 29.74954,
-    "priceChange1y": -69.80589,
+    "price": 0.00757889,
+    "marketCap": 46688313,
+    "marketCapRank": 528,
+    "volume24h": 5673918,
+    "high24h": 0.00815153,
+    "low24h": 0.00749351,
+    "priceChange24h": -4.79636,
+    "priceChange7d": -5.89939,
+    "priceChange30d": 11.91584,
+    "priceChange1y": -81.51497,
     "ath": 0.676743,
-    "athChangePercentage": -98.81092,
+    "athChangePercentage": -98.88562,
     "athDate": "2024-03-28T23:20:10.066Z",
     "atl": 0.00600213,
     "atlDate": "2026-03-29T22:55:39.974Z",
     "circulatingSupply": 6163194441,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 80467223
+    "fdv": 75753431
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +53,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-07T08:59:53.036Z"
+  "fetchedAt": "2026-05-13T18:19:25.724Z"
 }

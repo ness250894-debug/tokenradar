@@ -2,6 +2,7 @@
   "id": "optimism",
   "symbol": "op",
   "name": "Optimism",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/25244/large/Token.png?1774456081",
   "description": "Optimism is more than just a single blockchain – it's a growing network of chains called the Superchain, all built on the open-source OP Stack. While OP Mainnet was the first, many prominent chains now run on the Optimism’s OP Stack, including Base (by Coinbase), Unichain (by Uniswap), Ink (by Kraken), and World Chain (by Worldcoin). The OP Stack has become the leading framework for Ethereum Layer 2 chains, powering the majority of L2 activity today.\nEvery OP Chain in the Superchain contributes back to the Optimism Collectiv and all chains follow a standardized revenue-sharing model: the greater of 2.5% of total chain revenue or 15% of onchain profit (defined as fees minus L1 gas costs) is paid back to the Optimism.\nBy aligning economic incentives across many chains, Optimism transforms Ethereum scaling into a sustainable flywheel by delivering fast, low-cost transactions while reinvesting in the future of the ecosystem. OP holders participate in governance to shape protocol upgrades, funding decisions, and more.",
   "categories": [
     "Smart Contract Platform",
@@ -24,25 +25,25 @@
     "explorer": "https://optimistic.etherscan.io/token/0x4200000000000000000000000000000000000042"
   },
   "market": {
-    "price": 0.146623,
-    "marketCap": 315458279,
-    "marketCapRank": 154,
-    "volume24h": 67620794,
+    "price": 0.145985,
+    "marketCap": 313999943,
+    "marketCapRank": 153,
+    "volume24h": 66997154,
     "high24h": 0.157604,
-    "low24h": 0.144779,
-    "priceChange24h": -3.8087,
-    "priceChange7d": 7.698726408352406,
-    "priceChange30d": 34.888601486239764,
-    "priceChange1y": -82.85490907065358,
+    "low24h": 0.143923,
+    "priceChange24h": -5.5579,
+    "priceChange7d": -2.50149,
+    "priceChange30d": 28.58156,
+    "priceChange1y": -83.42937,
     "ath": 4.84,
-    "athChangePercentage": -96.97172,
+    "athChangePercentage": -96.98582,
     "athDate": "2024-03-06T08:35:50.817Z",
     "atl": 0.100074,
     "atlDate": "2026-03-29T22:51:14.616Z",
     "circulatingSupply": 2150875957,
     "totalSupply": 4294967296,
     "maxSupply": 4294967296,
-    "fdv": 629921493
+    "fdv": 627009421
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T08:12:11.498Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.536Z"
+  "fetchedAt": "2026-05-14T07:23:48.821Z"
 }

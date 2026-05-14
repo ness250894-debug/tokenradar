@@ -2,20 +2,49 @@
   "id": "wiki-cat",
   "symbol": "wkc",
   "name": "Wiki Cat",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26037/large/Wiki-Logo.png?1696525114",
+  "description": "Wiki Cat is a token for teaching people about cryptocurrencies on the Binance Smart Chain created by Sir Mapy for SMC DAO.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme",
+    "Cat-Themed"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://wikicatcoin.com/",
+    "github": "https://github.com/Sir-Mapy-Community/wikicat",
+    "reddit": "https://www.reddit.com/r/Wikicatcoin",
+    "explorer": "https://bscscan.com/token/0x6ec90334d89dbdc89e08a133271be3d104128edb"
+  },
   "market": {
-    "price": 8.7674e-8,
-    "marketCap": 47210123,
-    "marketCapRank": 500,
-    "volume24h": 242430,
-    "priceChange24h": -4.3611,
+    "price": 8.4157e-8,
+    "marketCap": 45285098,
+    "marketCapRank": 539,
+    "volume24h": 273295,
+    "high24h": 8.9464e-8,
+    "low24h": 8.1705e-8,
+    "priceChange24h": 2.14277,
+    "priceChange7d": -0.96232,
+    "priceChange30d": -17.91566,
+    "priceChange1y": 357.30162,
     "ath": 4.64579e-7,
-    "athChangePercentage": -81.20684,
+    "athChangePercentage": -81.88407,
     "athDate": "2025-08-20T00:36:26.283Z",
     "atl": 5.6845e-11,
     "atlDate": "2022-12-17T02:31:47.142Z",
-    "circulatingSupply": 538456614992647.94,
-    "totalSupply": 538456614992647.94,
-    "maxSupply": 853003865345185
+    "circulatingSupply": 538070535958753.44,
+    "totalSupply": 538070218926115.94,
+    "maxSupply": 853003865345185,
+    "fdv": 45285071
   },
-  "lastMarketUpdate": "2026-05-02T18:36:13.895Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 2,
+    "githubForks": 1,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:45:31.349Z"
 }

@@ -2,6 +2,7 @@
   "id": "crvusd",
   "symbol": "crvusd",
   "name": "crvUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30118/large/crvusd.jpg?1746670973",
   "description": "crvUSD is a collateralized-debt-position (CDP) stablecoin pegged to the US Dollar",
   "categories": [
     "Stablecoins",
@@ -27,35 +28,34 @@
     "explorer": "https://etherscan.io/token/0xf939e0a03fb07f59a73314e73794be0e57ac1b4e"
   },
   "market": {
-    "price": 0.999775,
-    "marketCap": 243323344,
-    "marketCapRank": 174,
-    "volume24h": 21621585,
+    "price": 0.999391,
+    "marketCap": 237336688,
+    "marketCapRank": 175,
+    "volume24h": 23490040,
     "high24h": 1,
-    "low24h": 0.998925,
-    "priceChange24h": 0.00739,
-    "priceChange7d": -0.017161122977704096,
-    "priceChange30d": -0.030822974891687078,
-    "priceChange1y": -0.02678415078435123,
+    "low24h": 0.999087,
+    "priceChange24h": -0.04147,
+    "priceChange7d": -0.03181,
+    "priceChange30d": -0.03725,
+    "priceChange1y": -0.06682,
     "ath": 1.11,
-    "athChangePercentage": -9.62371,
+    "athChangePercentage": -9.6502,
     "athDate": "2024-06-13T03:27:06.616Z",
     "atl": 0.949016,
     "atlDate": "2023-08-08T06:24:06.210Z",
-    "circulatingSupply": 243394788.6791048,
-    "totalSupply": 243394788.6791048,
+    "circulatingSupply": 237481406.9933651,
+    "totalSupply": 237481406.9933651,
     "maxSupply": null,
-    "fdv": 243323344
+    "fdv": 237336688
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 1101,
-    "githubForks": 413,
+    "githubStars": 1103,
+    "githubForks": 415,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T17:49:40.142Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.548Z"
+  "fetchedAt": "2026-05-13T18:29:51.566Z"
 }

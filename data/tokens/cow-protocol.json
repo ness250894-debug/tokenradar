@@ -2,6 +2,7 @@
   "id": "cow-protocol",
   "symbol": "cow",
   "name": "CoW Protocol",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/24384/large/CoW-token_logo.png?1719524382",
   "description": "COW token allows its holders the right to govern and curate the infrastructure of the CoW Protocol ecosystem through the CowDAO. Additionally, COW token holders receive fee discounts when trading on CowSwap &amp; some other perks.",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -26,25 +27,25 @@
     "explorer": "https://etherscan.io/token/0xdef1ca1fb7fbcdc777520aa7f396b4e015f497ab"
   },
   "market": {
-    "price": 0.18588,
-    "marketCap": 103279700,
-    "marketCapRank": 292,
-    "volume24h": 5627938,
+    "price": 0.187165,
+    "marketCap": 104004297,
+    "marketCapRank": 291,
+    "volume24h": 5171212,
     "high24h": 0.195225,
     "low24h": 0.183744,
-    "priceChange24h": -1.35134,
-    "priceChange7d": 3.3362994880601167,
-    "priceChange30d": -13.019519142977416,
-    "priceChange1y": -54.16730804879069,
+    "priceChange24h": -0.10886,
+    "priceChange7d": 4.70299,
+    "priceChange30d": -12.60072,
+    "priceChange1y": -53.41986,
     "ath": 2.22,
-    "athChangePercentage": -91.61011,
+    "athChangePercentage": -91.57719,
     "athDate": "2022-03-28T16:24:17.921Z",
     "atl": 0.03987045,
     "atlDate": "2022-11-09T18:32:42.225Z",
     "circulatingSupply": 555609817.0201406,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 185885304
+    "fdv": 187189452
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +56,5 @@
     "githubForks": 4,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T17:48:20.827Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.580Z"
+  "fetchedAt": "2026-05-13T18:29:32.618Z"
 }

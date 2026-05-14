@@ -2,7 +2,8 @@
   "id": "societe-generale-forge-eurcv",
   "symbol": "eurcv",
   "name": "EUR CoinVertible",
-  "description": "A cryptocurrency token known as EUR CoinVertible (EURCV). It is tracked on CoinGecko with the ID \"societe-generale-forge-eurcv\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/33415/large/eurcv_%281%29.png?1701752017",
+  "description": "",
   "categories": [
     "Stablecoins",
     "EUR Stablecoin",
@@ -22,24 +23,24 @@
   },
   "market": {
     "price": 1.17,
-    "marketCap": 122462658,
-    "marketCapRank": 256,
-    "volume24h": 60683326,
+    "marketCap": 122521572,
+    "marketCapRank": 255,
+    "volume24h": 53562379,
     "high24h": 1.17,
     "low24h": 1.17,
-    "priceChange24h": -0.28951,
-    "priceChange7d": -0.37487139576014333,
-    "priceChange30d": -0.24405119135554565,
-    "priceChange1y": 3.4017125795079086,
+    "priceChange24h": -0.04219,
+    "priceChange7d": -0.31866,
+    "priceChange30d": -0.48587,
+    "priceChange1y": 4.60166,
     "ath": 1.22,
-    "athChangePercentage": -3.98563,
+    "athChangePercentage": -3.9059,
     "athDate": "2026-01-27T05:25:46.416Z",
     "atl": 0.988513,
     "atlDate": "2025-02-04T22:15:33.361Z",
     "circulatingSupply": 104697317.26,
     "totalSupply": 104697317.26,
     "maxSupply": null,
-    "fdv": 122462658
+    "fdv": 122521572
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:21:42.194Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.572Z"
+  "fetchedAt": "2026-05-14T07:32:52.511Z"
 }

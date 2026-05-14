@@ -2,27 +2,64 @@
   "id": "agora-dollar",
   "symbol": "ausd",
   "name": "AUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39284/large/AUSD_1024px.png?1764684132",
   "description": "AUSD, a digital dollar minted 1:1 with USD fiat. AUSD is designed to be a secure digital currency, utilizing one of the world’s largest custodian banks to safeguard assets, a big 4 auditor and a top tier fund manager. AUSD enables users to participate in trading, lending and payments. It is the most cost-efficient stablecoin to transact with due to its gas-optimized smart contract, making it ideal for traders and payments.",
+  "categories": [
+    "Injective Ecosystem",
+    "Immutable zkEVM Ecosystem",
+    "Avalanche Ecosystem",
+    "Sui Ecosystem",
+    "Monad Ecosystem",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Stablecoins",
+    "USD Stablecoin",
+    "Katana Ecosystem",
+    "Plume Network Ecosystem",
+    "Polygon Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Fraxtal Ecosystem",
+    "Core Ecosystem",
+    "Ethereum Ecosystem",
+    "Arbitrum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://agora.finance/",
+    "github": "https://github.com/agora-finance/agora-dollar-evm",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x00000000efe302beaa2b3e6e1b18d08d69a9012a"
+  },
   "market": {
-    "price": 0.999752,
-    "marketCap": 138757221,
-    "marketCapRank": 241,
-    "volume24h": 42999188,
+    "price": 0.999801,
+    "marketCap": 136754890,
+    "marketCapRank": 243,
+    "volume24h": 42850982,
     "high24h": 0.999969,
     "low24h": 0.999585,
-    "priceChange24h": 0.00045,
-    "priceChange7d": 0.011163390860592124,
-    "priceChange30d": -0.006163460342954166,
-    "priceChange1y": 0.004503022781982357,
+    "priceChange24h": -0.00187,
+    "priceChange7d": -0.00778,
+    "priceChange30d": -0.00755,
+    "priceChange1y": -0.038,
     "ath": 1.022,
-    "athChangePercentage": -2.143,
+    "athChangePercentage": -2.13476,
     "athDate": "2024-10-05T21:15:26.099Z",
     "atl": 0.950515,
     "atlDate": "2024-12-05T22:30:43.844Z",
-    "circulatingSupply": 138787749.686673,
-    "totalSupply": 138787749.686673,
+    "circulatingSupply": 136788749.686673,
+    "totalSupply": 136788749.686673,
     "maxSupply": null,
-    "fdv": 138757221
+    "fdv": 136754890
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.568Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 13,
+    "githubForks": 2,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-13T18:18:35.175Z"
 }

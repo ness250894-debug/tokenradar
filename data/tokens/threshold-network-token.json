@@ -2,26 +2,53 @@
   "id": "threshold-network-token",
   "symbol": "t",
   "name": "Threshold Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/22228/large/nFPNiSbL_400x400.jpg?1696521570",
+  "description": "Threshold is a project merged from the NuCypher and Keep networks, which strives to provide different threshold cryptography solutions in a fully decentralized manner to the web3 community. Threshold cryptography is a technology that uses cryptography to unlock greater utility and usability for digital assets without needing to trust a centralized party. Threshold cryptography distributes sensitive operations across multiple independent entities – like nodes in a network – and requires a threshold, or minimum number of those entities to cooperate for the operation to be successful.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Cross-chain Communication",
+    "BTCfi Protocol"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://threshold.network/",
+    "github": "https://github.com/threshold-network",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xcdf7028ceab81fa0c6971208e83fa7872994bee5"
+  },
   "market": {
-    "price": 0.00601209,
-    "marketCap": 67067317,
+    "price": 0.0060048,
+    "marketCap": 66932426,
     "marketCapRank": 413,
-    "volume24h": 4995229,
-    "priceChange24h": -3.29165,
+    "volume24h": 5210148,
+    "high24h": 0.00633588,
+    "low24h": 0.00593944,
+    "priceChange24h": -4.03179,
+    "priceChange7d": -1.59744,
+    "priceChange30d": -2.57939,
+    "priceChange1y": -68.49079,
     "ath": 0.226934,
-    "athChangePercentage": -97.35049,
+    "athChangePercentage": -97.35925,
     "athDate": "2022-03-02T08:36:02.983Z",
     "atl": 0.00578719,
     "atlDate": "2026-04-30T05:00:28.291Z",
     "circulatingSupply": 11155000000,
     "totalSupply": 11155000000,
     "maxSupply": null,
-    "high24h": 0.00633588,
-    "low24h": 0.00599382,
-    "priceChange7d": -2.1353023958130857,
-    "priceChange30d": -1.0760796429650439,
-    "priceChange1y": -67.9950678857004,
-    "fdv": 67067317
+    "fdv": 66932426
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.679Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:38:40.329Z"
 }

@@ -2,26 +2,55 @@
   "id": "mog-coin",
   "symbol": "mog",
   "name": "Mog Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31059/large/MOG_LOGO_200x200.png?1696529893",
+  "description": "What makes MOG an absolute game-changer is our relentless dedication to memes and viral brilliance! We don't settle for mediocrity; we plunge into the realm of sheer awesomeness! Our community is a powerhouse of meme warriors, unleashing an unstoppable onslaught of viral memes that'll leave you in awe and stitches!\n\nWe're not here to play games; we're here to dominate! MOG is all about pushing the boundaries, smashing through barriers, and leaving our competitors eating our dust! Our passion for humor burns like an inferno, and we won't rest until the entire internet bows down to our meme supremacy!\n\nAnd our community? It's a brotherhood, an unyielding powerhouse of support and camaraderie! When you're part of MOG, you're part of an unstoppable force, a family forged by the fire of meme revolution!\n\nSo, if you're ready to be part of the most intense, mind-bending memecoin movement ever conceived, then buckle up, strap in, and brace yourself! MOG is here to claim the throne, and we're taking no prisoners! Get ready to witness meme history in the making!\n",
+  "categories": [
+    "Avalanche Ecosystem",
+    "Meme",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Cat-Themed",
+    "Murad Picks",
+    "Binance Alpha Spotlight",
+    "4chan-Themed",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.mogcoin.xyz",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
+  },
   "market": {
-    "price": 1.6553e-7,
-    "marketCap": 64677709,
-    "marketCapRank": 424,
-    "volume24h": 11026452,
-    "priceChange24h": -0.02557,
+    "price": 1.58926e-7,
+    "marketCap": 62112811,
+    "marketCapRank": 438,
+    "volume24h": 11413480,
+    "high24h": 1.73982e-7,
+    "low24h": 1.55966e-7,
+    "priceChange24h": -5.48918,
+    "priceChange7d": 4.88977,
+    "priceChange30d": 15.96461,
+    "priceChange1y": -85.63926,
     "ath": 0.00000402,
-    "athChangePercentage": -95.87802,
+    "athChangePercentage": -96.0359,
     "athDate": "2024-12-07T03:55:46.658Z",
     "atl": 4.526e-9,
     "atlDate": "2023-07-24T17:10:57.805Z",
     "circulatingSupply": 390561997990655.06,
     "totalSupply": 390561997990655.06,
     "maxSupply": 420690000000000,
-    "high24h": 1.73982e-7,
-    "low24h": 1.64393e-7,
-    "priceChange7d": 7.378552460265386,
-    "priceChange30d": 26.316037785963182,
-    "priceChange1y": -85.69054823245355,
-    "fdv": 64677709
+    "fdv": 62112811
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.681Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:57.050Z"
 }

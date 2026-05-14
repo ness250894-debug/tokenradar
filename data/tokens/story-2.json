@@ -2,6 +2,7 @@
   "id": "story-2",
   "symbol": "ip",
   "name": "Story",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54035/large/Transparent_bg.png?1738075331",
   "description": "Story is a purpose-built layer 1 blockchain designed specifically to onramp intellectual property (IP) to the blockchain and make it programmable.\n\nStory tokenizes any type of IP; whether that’s an idea, an image, a real world asset, a song, an AI model, an NFT or anything in-between. By embedding usage terms, attribution, and royalty agreements directly into the blockchain, Story provides a transparent, decentralized solution for IP management. This enables IP holders to protect their work, collaborate on IP seamlessly, and unlock revenue opportunities in an AI-powered economy.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -20,25 +21,25 @@
     "explorer": "https://www.storyscan.xyz/"
   },
   "market": {
-    "price": 0.542569,
-    "marketCap": 192313635,
-    "marketCapRank": 194,
-    "volume24h": 39620608,
-    "high24h": 0.565825,
-    "low24h": 0.533616,
-    "priceChange24h": -2.69839,
-    "priceChange7d": 2.5064608246174176,
-    "priceChange30d": 13.84922047524105,
-    "priceChange1y": -88.57182409849588,
+    "price": 0.531546,
+    "marketCap": 187990645,
+    "marketCapRank": 197,
+    "volume24h": 37397928,
+    "high24h": 0.564114,
+    "low24h": 0.526703,
+    "priceChange24h": -5.77336,
+    "priceChange7d": -1.18251,
+    "priceChange30d": 6.03838,
+    "priceChange1y": -89.23331,
     "ath": 14.78,
-    "athChangePercentage": -96.32787,
+    "athChangePercentage": -96.41401,
     "athDate": "2025-09-21T21:07:34.521Z",
     "atl": 0.472421,
     "atlDate": "2026-04-13T13:45:05.238Z",
-    "circulatingSupply": 354247365.75,
-    "totalSupply": 1027773661.23,
+    "circulatingSupply": 354269787.11,
+    "totalSupply": 1027796874.11,
     "maxSupply": null,
-    "fdv": 557957258
+    "fdv": 545392818
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T13:53:19.868Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.552Z"
+  "fetchedAt": "2026-05-14T07:34:33.722Z"
 }

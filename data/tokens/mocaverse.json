@@ -2,26 +2,55 @@
   "id": "mocaverse",
   "symbol": "moca",
   "name": "Moca Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37812/large/moca.jpg?1720693068",
+  "description": "Moca Network is building the chain-agnostic digital identity infrastructure for the open internet - one universal account for your assets, identity, and reputation across multiple ecosystems. Moca Network has direct (Animoca Brands) access to a portfolio of 540+ companies to tap into 700M+ addressable users.\n\nAIR Kit, as the key product built by Moca Network, enables Web2 and Web3 projects to create a universal embedded account for users to own and use assets, identity, and reputation data, while getting access to a suite of DeFi and consumer services. AIR Kit empowers all large user base apps to create a Telegram mini-app like ecosystem within their own apps with embedded blockchain features, while ensuring these users can use the same account, identity, reputation across all consumer apps on any chains adopting the AIR Kit.\n\nMocaverse, one of the key consumer platforms adopting the AIR Kit, alongside SK Planet, One Football, and more partners, provides curated experiences and rewards to users based on their identity and reputation through Moca ID and products like Mocana, MocaDrop and MocaList.\n\n$MOCA is the utility token that powers the Moca Network - used as fees for transactions, data generation, storage, verification for users and AI agents, and for DAO governance. It is issued by the Moca Foundation.\n\nLearn more about Moca Network at https://moca.network/",
+  "categories": [
+    "Gaming (GameFi)",
+    "Ethereum Ecosystem",
+    "Decentralized Identifier (DID)",
+    "Animoca Brands Portfolio",
+    "Base Ecosystem",
+    "OKX Ventures Portfolio",
+    "Outlier Ventures Portfolio",
+    "CoinList Launchpad",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.moca.network/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xf944e35f95e819e752f3ccb5faf40957d311e8c5"
+  },
   "market": {
-    "price": 0.01446183,
-    "marketCap": 61223736,
-    "marketCapRank": 446,
-    "volume24h": 5786477,
-    "priceChange24h": -6.17933,
+    "price": 0.01477077,
+    "marketCap": 62520799,
+    "marketCapRank": 432,
+    "volume24h": 6184910,
+    "high24h": 0.01570446,
+    "low24h": 0.01421712,
+    "priceChange24h": -5.33217,
+    "priceChange7d": 6.79967,
+    "priceChange30d": 13.36219,
+    "priceChange1y": -86.54935,
     "ath": 0.477373,
-    "athChangePercentage": -96.96792,
+    "athChangePercentage": -96.89574,
     "athDate": "2024-12-25T03:17:29.272Z",
     "atl": 0.01211243,
     "atlDate": "2026-04-05T08:40:37.125Z",
     "circulatingSupply": 4233186230.3425,
     "totalSupply": 8888888888,
     "maxSupply": 8888888888,
-    "high24h": 0.0159126,
-    "low24h": 0.0143712,
-    "priceChange7d": 4.625283419489422,
-    "priceChange30d": 13.05484440038342,
-    "priceChange1y": -86.19128282086517,
-    "fdv": 128558244
+    "fdv": 131281831
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.687Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:50.731Z"
 }

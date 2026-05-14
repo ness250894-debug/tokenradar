@@ -2,6 +2,7 @@
   "id": "pippin",
   "symbol": "pippin",
   "name": "pippin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51589/large/pippin_logo.png?1731570163",
   "description": "Pippin is an SVG unicorn drawn using the latest LLM benchmarks on ChatGPT 4o. It is an autonomous AI agent on X. Pippin was created by Yohei Nakajima, a recognised innovator and thought leader in the Al VC space (followed by Jeff Bezos and Marc Andreessen). He is known for his build-in-public approach and has been at the forefront of the ‘AI for VC’ movement, launching over 100+ AI-driven prototypes, automation agents &amp; open-source projects.\n\nHis most notable build is BabyAGI (March 2023), the first popular open-source autonomous agent with task-planning capability. The project went viral on Twitter amassing millions of impressions and resulting in tens of thousands of GitHub stars, dozens of Arxiv citations, coverage across major online media publications globally, and many speaker engagements including the inaugural TED AI in San Francisco.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -23,34 +24,34 @@
     "explorer": "https://solscan.io/token/Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump"
   },
   "market": {
-    "price": 0.085187,
-    "marketCap": 87078211,
-    "marketCapRank": 292,
-    "volume24h": 26415605,
-    "high24h": 0.104454,
-    "low24h": 0.085509,
-    "priceChange24h": -8.23465,
-    "priceChange7d": -76.77919,
-    "priceChange30d": -82.78253,
-    "priceChange1y": 399.32533,
+    "price": 0.02412616,
+    "marketCap": 24124601,
+    "marketCapRank": 827,
+    "volume24h": 6186824,
+    "high24h": 0.02614658,
+    "low24h": 0.02365184,
+    "priceChange24h": -7.68372,
+    "priceChange7d": -1.42888,
+    "priceChange30d": -8.87318,
+    "priceChange1y": -34.92073,
     "ath": 0.897199,
-    "athChangePercentage": -90.24433,
+    "athChangePercentage": -97.3124,
     "athDate": "2026-02-26T15:35:05.499Z",
     "atl": 0.0055459,
     "atlDate": "2024-12-30T00:02:49.802Z",
-    "circulatingSupply": 999937013.862395,
-    "totalSupply": 999937013.862395,
+    "circulatingSupply": 999935440.050577,
+    "totalSupply": 999935440.050577,
     "maxSupply": 1000000000,
-    "fdv": 87078211
+    "fdv": 24124601
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 15,
-    "githubForks": 3,
+    "githubStars": 16,
+    "githubForks": 4,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:17:56.201Z"
+  "fetchedAt": "2026-05-14T07:25:55.277Z"
 }

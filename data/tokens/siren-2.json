@@ -2,7 +2,8 @@
   "id": "siren-2",
   "symbol": "siren",
   "name": "Siren",
-  "description": "A cryptocurrency token known as Siren (SIREN). It is tracked on CoinGecko with the ID \"siren-2\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54479/large/siren.png?1739960056",
+  "description": "",
   "categories": [
     "BNB Chain Ecosystem",
     "Meme",
@@ -17,25 +18,25 @@
     "explorer": "https://bscscan.com/token/0x997a58129890bbda032231a52ed1ddc845fc18e1"
   },
   "market": {
-    "price": 1.24,
-    "marketCap": 906358683,
-    "marketCapRank": 76,
-    "volume24h": 18865016,
+    "price": 0.640777,
+    "marketCap": 465708979,
+    "marketCapRank": 114,
+    "volume24h": 69500836,
     "high24h": 1.25,
-    "low24h": 1.15,
-    "priceChange24h": 6.37782,
-    "priceChange7d": 55.52430652508069,
-    "priceChange30d": 63.169725755963356,
-    "priceChange1y": 578.5065472948764,
+    "low24h": 0.616134,
+    "priceChange24h": -46.82747,
+    "priceChange7d": -20.33964,
+    "priceChange30d": -15.75456,
+    "priceChange1y": 278.35328,
     "ath": 3.61,
-    "athChangePercentage": -65.42662,
+    "athChangePercentage": -82.88782,
     "athDate": "2026-03-22T17:26:33.134Z",
     "atl": 0.02634736,
     "atlDate": "2025-03-11T06:21:52.561Z",
     "circulatingSupply": 726788283.0477468,
     "totalSupply": 726788283.0477468,
     "maxSupply": 1000000000,
-    "fdv": 906358683
+    "fdv": 465708979
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T12:09:47.314Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.513Z"
+  "fetchedAt": "2026-05-14T07:32:33.537Z"
 }

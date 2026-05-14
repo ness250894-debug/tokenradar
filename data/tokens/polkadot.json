@@ -2,6 +2,7 @@
   "id": "polkadot",
   "symbol": "dot",
   "name": "Polkadot",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12171/large/polkadot.jpg?1766533446",
   "description": "Polkadot is a platform that allows diverse blockchains to transfer messages, including value, in a trust-free fashion; sharing their unique features while pooling their security. In brief, Polkadot is a scalable heterogeneous multi-chain technology.\n\nPolkadot is heterogeneous because it is entirely flexible and makes no assumption about the nature or structure of the chains in the network. Even non-blockchain systems or data structures can become parachains if they fulfill a set of criteria.\n\nPolkadot may be considered equivalent to a set of independent chains (e.g. a set containing Ethereum, Ethereum Classic, Namecoin and Bitcoin) except with important additions: pooled security and trust-free interchain transactability.\n\nMany of the native parachains of Polkadot will be written using a Polkadot Runtime Environment SDK (e.g. Parity Technologies' Substrate).",
   "categories": [
     "Smart Contract Platform",
@@ -29,25 +30,25 @@
     "explorer": "https://polkadot.subscan.io/"
   },
   "market": {
-    "price": 1.32,
-    "marketCap": 2224320313,
+    "price": 1.33,
+    "marketCap": 2232607803,
     "marketCapRank": 41,
-    "volume24h": 203670563,
+    "volume24h": 196259674,
     "high24h": 1.43,
-    "low24h": 1.32,
-    "priceChange24h": -0.92286,
-    "priceChange7d": 1.1720191598965564,
-    "priceChange30d": 11.94088572256776,
-    "priceChange1y": -74.26944295925333,
+    "low24h": 1.31,
+    "priceChange24h": -4.2103,
+    "priceChange7d": -0.20524,
+    "priceChange30d": 11.10931,
+    "priceChange1y": -74.64939,
     "ath": 54.98,
-    "athChangePercentage": -97.59648,
+    "athChangePercentage": -97.58735,
     "athDate": "2021-11-04T14:10:09.301Z",
     "atl": 1.15,
     "atlDate": "2026-04-15T08:00:42.788Z",
-    "circulatingSupply": 1683650245.967042,
-    "totalSupply": 1683650245.967042,
+    "circulatingSupply": 1683756892.9565,
+    "totalSupply": 1683756892.9565,
     "maxSupply": 2100000000,
-    "fdv": 2224320313
+    "fdv": 2232607803
   },
   "community": {
     "twitterFollowers": null,
@@ -58,6 +59,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T09:22:28.817Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.492Z"
+  "fetchedAt": "2026-05-14T07:26:33.231Z"
 }

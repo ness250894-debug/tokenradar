@@ -2,6 +2,7 @@
   "id": "pancakeswap-token",
   "symbol": "cake",
   "name": "PancakeSwap",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440",
   "description": "PancakeSwap is an automated market maker (“AMM”) that allows two tokens to be exchanged on the Binance Smart Chain. It is fast, cheap, and allows anyone to participate.",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -36,24 +37,24 @@
   },
   "market": {
     "price": 1.52,
-    "marketCap": 496355032,
-    "marketCapRank": 110,
-    "volume24h": 29741604,
+    "marketCap": 495799433,
+    "marketCapRank": 108,
+    "volume24h": 25521650,
     "high24h": 1.58,
     "low24h": 1.51,
-    "priceChange24h": -0.70803,
-    "priceChange7d": -2.72273199584851,
-    "priceChange30d": -2.3448390607768164,
-    "priceChange1y": -37.64450302826291,
+    "priceChange24h": -2.04568,
+    "priceChange7d": -3.05236,
+    "priceChange30d": -3.24627,
+    "priceChange1y": -38.53226,
     "ath": 43.96,
-    "athChangePercentage": -96.53809,
+    "athChangePercentage": -96.54289,
     "athDate": "2021-04-30T10:08:22.934Z",
     "atl": 0.194441,
     "atlDate": "2020-11-03T14:29:34.165Z",
     "circulatingSupply": 326190141.0762442,
     "totalSupply": 338639141.4500047,
     "maxSupply": 400000000,
-    "fdv": 515298351
+    "fdv": 514721547
   },
   "community": {
     "twitterFollowers": null,
@@ -64,6 +65,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T08:17:59.674Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.522Z"
+  "fetchedAt": "2026-05-14T07:24:45.703Z"
 }

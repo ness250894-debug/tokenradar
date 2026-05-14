@@ -2,6 +2,7 @@
   "id": "bitdca",
   "symbol": "bdca",
   "name": "BitDCA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54590/large/bdca_logo_transparent200x200.png?1740562139",
   "description": "BitDCA with its mobile app Littblebit allows you to automatically save in Bitcoin by setting aside a small percentage from each payment made with your current card. Users can automatically set aside a percentage of their everyday purchases into bitcoin and allocate directly into bitcoin without opening new accounts and acquiring new credit and debit cards. BDCA token holders earn a share of revenue from every Littlebit transaction. The project emphasizes security and transparency, validated by a Certik audit, and targets Europe with plans for global expansion in 2026.",
   "categories": [
     "Infrastructure",
@@ -16,25 +17,25 @@
     "explorer": "https://bscscan.com/address/0x0c8382719ef242cae2247e4decb2891fbf699818"
   },
   "market": {
-    "price": 0.691449,
-    "marketCap": 56881365,
+    "price": 0.692098,
+    "marketCap": 56913101,
     "marketCapRank": 467,
-    "volume24h": 151265,
+    "volume24h": 161418,
     "high24h": 0.713078,
     "low24h": 0.690723,
-    "priceChange24h": -0.81503,
-    "priceChange7d": -1.7019169268694883,
-    "priceChange30d": 4.195896690701329,
-    "priceChange1y": -18.67186536365899,
+    "priceChange24h": -0.64194,
+    "priceChange7d": -1.60971,
+    "priceChange30d": 4.30722,
+    "priceChange1y": -18.61926,
     "ath": 1.18,
-    "athChangePercentage": -41.21057,
+    "athChangePercentage": -41.18373,
     "athDate": "2025-10-02T11:15:40.059Z",
     "atl": 0.364545,
     "atlDate": "2025-03-01T07:16:25.076Z",
     "circulatingSupply": 82263984.27398296,
     "totalSupply": 142665333,
     "maxSupply": 150000000,
-    "fdv": 98645829
+    "fdv": 98700866
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T08:20:02.861Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.691Z"
+  "fetchedAt": "2026-05-13T18:24:48.148Z"
 }

@@ -2,20 +2,53 @@
   "id": "siacoin",
   "symbol": "sc",
   "name": "Siacoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/289/large/shard_transparent_200.png?1752867579",
+  "description": "Sia is a decentralized cloud storage platform similar in concept to Dropbox and other centralized storage provider where instead of renting storage space from a centralized entity, clients rent storage space from other peers. The only difference is Sia uses blockchain to facilitate transactions Nodes provide storage to clients using the Sia blockchain as contracts. Before storing the data, the data is encrypted into many pieces and uploaded to different hosts. \n\nSiacoin is created by David Vorick and Luke Champine of Nebulous Inc. As the traditional storage platforms are higher in cost, more expensive and data is not well protected. Siacoin promises to offer secured storage transactions with smart contracts which is more affordable and reliable. Moreover, it is completely open source which means many individuals have contributed to Siacoin’s software hence there will be an active community building innovative applications on top if the Sia API. \n\nIn 2018, Siacoin aims to introduce file sharing and be the go-to cloud storage platform for companies. Their goal is divided into 3 time frames which are short-term, medium-term and long-term development. Short-term development focuses on file sharing between Sia users. This allows Sia users to share files in the platform without having to take it off the cloud while increasing network utilization. Medium-term development’s goal is to enhance partnerships. This means reaching out to large companies like Netflix and Dropbox to hopefully be able to be their storage and distribution framework. Lastly, long-term development aims to expand its horizon to share files with non-Sia users and support mobile wallets. ",
+  "categories": [
+    "Smart Contract Platform",
+    "Storage",
+    "DePIN",
+    "Paradigm Portfolio",
+    "Proof of Work (PoW)",
+    "DragonFly Capital Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": "2015-06-06",
+  "links": {
+    "website": "https://sia.tech/",
+    "github": "https://github.com/SiaFoundation",
+    "reddit": "https://www.reddit.com/r/siacoin",
+    "explorer": "https://siascan.com/"
+  },
   "market": {
-    "price": 0.0009445,
-    "marketCap": 47009814,
-    "marketCapRank": 499,
-    "volume24h": 3252294,
-    "priceChange24h": 0.04404,
+    "price": 0.00096408,
+    "marketCap": 47955060,
+    "marketCapRank": 521,
+    "volume24h": 3943583,
+    "high24h": 0.00100584,
+    "low24h": 0.00095595,
+    "priceChange24h": -4.13268,
+    "priceChange7d": 0.05326,
+    "priceChange30d": 0.27119,
+    "priceChange1y": -74.17494,
     "ath": 0.092868,
-    "athChangePercentage": -98.9861,
+    "athChangePercentage": -98.96117,
     "athDate": "2018-01-06T00:00:00.000Z",
     "atl": 0.00001262,
     "atlDate": "2015-12-28T00:00:00.000Z",
     "circulatingSupply": 49751295000.0225,
     "totalSupply": 49751295000.0225,
-    "maxSupply": null
+    "maxSupply": null,
+    "fdv": 47955060
   },
-  "lastMarketUpdate": "2026-04-28T19:12:13.981Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:32:20.927Z"
 }

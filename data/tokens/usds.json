@@ -2,6 +2,7 @@
   "id": "usds",
   "symbol": "usds",
   "name": "USDS",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683",
   "description": "USDS is the stablecoin of the decentralized Sky ecosystem, designed to maintain a soft peg (a value intended to stay close) to the U.S. dollar. It functions as a versatile tool for&nbsp;decentralized finance (DeFi), allowing value to move through the system via peer-to-peer lending and saving without a middleman. The token is 'put to work' by being supplied to various protocol modules; for example, users can convert USDS into sUSDS to earn interest from protocol revenue or lock it to receive&nbsp;SKY governance tokens. As the ecosystem grows, this scales through \"Sky Stars,\" which are semi-autonomous projects that expand the stablecoin’s utility into specialized areas like institutional credit and advanced lending.",
   "categories": [
     "Stablecoins",
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0xdc035d45d973e3ec169d2276ddab16f1e407384f"
   },
   "market": {
-    "price": 0.999794,
-    "marketCap": 11004541854,
+    "price": 0.999658,
+    "marketCap": 10984239795,
     "marketCapRank": 12,
-    "volume24h": 126058570,
-    "high24h": 0.999867,
-    "low24h": 0.999517,
-    "priceChange24h": 0.00457,
-    "priceChange7d": -0.0047364334319447005,
-    "priceChange30d": 0.00220486915576861,
-    "priceChange1y": -0.016521422237349717,
+    "volume24h": 7059275,
+    "high24h": 0.999878,
+    "low24h": 0.999422,
+    "priceChange24h": -0.00205,
+    "priceChange7d": -0.01492,
+    "priceChange30d": -0.01006,
+    "priceChange1y": -0.0399,
     "ath": 1.15,
-    "athChangePercentage": -13.21839,
+    "athChangePercentage": -13.23106,
     "athDate": "2026-04-02T07:21:14.655Z",
     "atl": 0.948265,
     "atlDate": "2024-10-03T13:19:28.826Z",
-    "circulatingSupply": 11006807878.93127,
-    "totalSupply": 11006807878.93127,
+    "circulatingSupply": 10988065919.84559,
+    "totalSupply": 10988701410.91834,
     "maxSupply": null,
-    "fdv": 11004541854
+    "fdv": 10984875065
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:00:25.002Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.484Z"
+  "fetchedAt": "2026-05-14T07:42:53.259Z"
 }

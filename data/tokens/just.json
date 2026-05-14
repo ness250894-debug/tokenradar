@@ -2,7 +2,8 @@
   "id": "just",
   "symbol": "jst",
   "name": "JUST",
-  "description": "A cryptocurrency token known as JUST (JST). It is tracked on CoinGecko with the ID \"just\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/11095/large/JUST.jpg?1696511035",
+  "description": "",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Tron Ecosystem"
@@ -12,28 +13,28 @@
     "website": "https://www.just.network/",
     "github": null,
     "reddit": null,
-    "explorer": "https://tronscan.org/#/token20/tcfll5dx5zjdknwuesxxi1vpwjlvmwzzy9"
+    "explorer": "https://tronscan.org/#/token20/TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9"
   },
   "market": {
-    "price": 0.091519,
-    "marketCap": 781754640,
-    "marketCapRank": 83,
-    "volume24h": 25120510,
-    "high24h": 0.0915,
-    "low24h": 0.089885,
-    "priceChange24h": 1.42901,
-    "priceChange7d": 12.688102386606095,
-    "priceChange30d": 19.110004205215418,
-    "priceChange1y": 142.01265360322788,
+    "price": 0.090408,
+    "marketCap": 773477828,
+    "marketCapRank": 84,
+    "volume24h": 23017513,
+    "high24h": 0.091537,
+    "low24h": 0.090278,
+    "priceChange24h": -0.04865,
+    "priceChange7d": 5.2935,
+    "priceChange30d": 13.95923,
+    "priceChange1y": 135.94401,
     "ath": 0.193254,
-    "athChangePercentage": -52.65323,
+    "athChangePercentage": -53.13968,
     "athDate": "2021-04-05T04:34:23.454Z",
     "atl": 0.00476275,
     "atlDate": "2020-05-09T06:08:54.872Z",
     "circulatingSupply": 8543764567.312736,
     "totalSupply": 8543764567.312736,
     "maxSupply": 9900000000,
-    "fdv": 781754640
+    "fdv": 773477828
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:57:16.336Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.515Z"
+  "fetchedAt": "2026-05-14T07:13:42.092Z"
 }

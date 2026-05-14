@@ -2,20 +2,48 @@
   "id": "lovebit",
   "symbol": "lb",
   "name": "LoveBit",
-  "market": {
-    "price": 2.13974e-7,
-    "marketCap": 89869106,
-    "marketCapRank": 327,
-    "volume24h": 26712,
-    "priceChange24h": 11.14934,
-    "ath": 0.00009989,
-    "athChangePercentage": -99.78579,
-    "athDate": "2024-07-12T01:14:46.861Z",
-    "atl": 1.24968e-7,
-    "atlDate": "2026-04-01T21:36:30.163Z",
-    "circulatingSupply": 420000000000000,
-    "totalSupply": 420000000000000,
-    "maxSupply": 420000000000000
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38481/large/lovebit_coingecko.png?1717656947",
+  "description": "A memecoin designed to activate the Blockchain Ecosystem and ESG (Environment, Sustainability and Governance).\nAs a memecoin, LoveBit intends to pay homage to Satoshi Nakamoto, the anonymous founder of Bitcoin.\nOriginally, Bitcoin was created for decentralization after the financial crisis. However, it has now become too expensive and sluggish for most individuals to acquire, making it challenging to use at any time.\nWhile Bitcoin aimed for decentralization, a crucial question arises: are people gaining and, is it being used widely?\nLoveBit is designed to be readily available and accessible as a memecoin. ",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.lovebit.org",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x8613d52d74a48883a51badf8b25ab066714087da"
   },
-  "lastMarketUpdate": "2026-05-08T18:58:06.574Z"
+  "market": {
+    "price": 1.29941e-7,
+    "marketCap": 27287594,
+    "marketCapRank": 767,
+    "volume24h": 5851.61,
+    "high24h": 2.09933e-7,
+    "low24h": 6.9967e-8,
+    "priceChange24h": -35.45936,
+    "priceChange7d": -32.208,
+    "priceChange30d": -37.36152,
+    "priceChange1y": -81.79202,
+    "ath": 0.00009989,
+    "athChangePercentage": -99.86991,
+    "athDate": "2024-07-12T01:14:46.861Z",
+    "atl": 6.9967e-8,
+    "atlDate": "2026-05-13T15:56:08.573Z",
+    "circulatingSupply": 210000000000000,
+    "totalSupply": 210000000000000,
+    "maxSupply": 210000000000000,
+    "fdv": 27287594
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:16:28.827Z"
 }

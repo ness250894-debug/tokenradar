@@ -2,6 +2,7 @@
   "id": "virtual-protocol",
   "symbol": "virtual",
   "name": "Virtuals Protocol",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/34057/large/LOGOMARK.png?1708356054",
   "description": "Virtuals Protocol is a launchpad platform launched in 2024 that enables users to create, tokenize, and monetize AI agents for gaming, entertainment, and virtual environments without requiring technical expertise. Initially built on Ethereum's Base Layer 2 network, the protocol has expanded to Ethereum mainnet, Solana, and Ronin as of 2025. VIRTUAL serves as the base liquidity pair and transactional currency for all AI agent interactions across the ecosystem.\n\nThe protocol operates through a bonding curve system where new AI agents are created with a 100 VIRTUAL fee. Users can buy and sell agent tokens until the agent reaches 42,000 VIRTUAL, at which point it graduates to a permanent liquidity pool paired with VIRTUAL. AI agents are multimodal, capable of text, speech, and 3D animation, and can manage on-chain wallets autonomously. Notable examples include Luna, an AI girl band vocalist with over 500,000 TikTok followers. The GAME framework powers agent functionality, enabling them to process inputs, generate responses, and remember past interactions.\n\nVirtuals Protocol was founded by Jansen Teng and Weekee Tiew, evolving from PathDAO, a gaming guild established in 2021 that pivoted to AI agents in January 2024. The team raised $16 million in seed funding led by DeFiance Capital and Beam. In 2025, major partnerships were announced with Animoca Brands and a collaboration with Zyfai and BasisOS to launch an Agentic Fund of Funds.\n\nUsers can stake VIRTUAL tokens for veVIRTUAL to participate in DAO governance and may receive airdrops of agent tokens. When users interact with agents, they pay fees in VIRTUAL that generate protocol revenue. This revenue funds periodic buybacks and burns of the VIRTUAL token, reducing its total supply as a value-accrual mechanism for holders.",
   "categories": [
     "Artificial Intelligence (AI)",
@@ -25,25 +26,25 @@
     "explorer": "https://etherscan.io/address/0x44ff8620b8ca30902395a7bd3f2407e1a091bf73"
   },
   "market": {
-    "price": 0.776951,
-    "marketCap": 510883162,
-    "marketCapRank": 107,
-    "volume24h": 81064273,
-    "high24h": 0.833966,
-    "low24h": 0.766975,
-    "priceChange24h": -4.39242,
-    "priceChange7d": -10.352187891239476,
-    "priceChange30d": 17.092270750706355,
-    "priceChange1y": -62.37340257606054,
+    "price": 0.768279,
+    "marketCap": 505058943,
+    "marketCapRank": 106,
+    "volume24h": 72108683,
+    "high24h": 0.832914,
+    "low24h": 0.762121,
+    "priceChange24h": -6.36226,
+    "priceChange7d": -18.20306,
+    "priceChange30d": 13.00494,
+    "priceChange1y": -62.31865,
     "ath": 5.07,
-    "athChangePercentage": -84.64626,
+    "athChangePercentage": -84.82076,
     "athDate": "2025-01-02T06:15:38.599Z",
     "atl": 0.00748604,
     "atlDate": "2024-01-23T20:55:21.653Z",
     "circulatingSupply": 656986027.2170838,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 777616480
+    "fdv": 768751422
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:12:38.093Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.521Z"
+  "fetchedAt": "2026-05-14T07:44:47.071Z"
 }

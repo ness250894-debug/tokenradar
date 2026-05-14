@@ -2,6 +2,7 @@
   "id": "flow",
   "symbol": "flow",
   "name": "Flow",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13446/large/5f6294c0c7a8cda55cb1c936_Flow_Wordmark.png?1696513210",
   "description": "Flow is a layer one blockchain designed from the ground up for consumer apps and the digital assets that power them. The network runs on a Proof of Stake consensus mechanism with a unique \"multi-role\" architecture that solves the blockchain trilemma, balancing scalability, efficiency, and cost. \n\nFlow tools include: \n* Cadence, a purpose-built smart contract programming language designed for consumer-grade applications \n* Full EVM equivalence, allowing anything from Ethereum to work on Flow \n* Protocol-level account abstraction and mobile support for onboarding new users \n* Cross-chain interoperability with the wider web3 ecosystem \n* Developer hub with comprehensive documentation and tools",
   "categories": [
     "Smart Contract Platform",
@@ -24,25 +25,25 @@
     "explorer": null
   },
   "market": {
-    "price": 0.03808347,
-    "marketCap": 63231689,
-    "marketCapRank": 428,
-    "volume24h": 7817999,
+    "price": 0.03774346,
+    "marketCap": 62746445,
+    "marketCapRank": 431,
+    "volume24h": 7967639,
     "high24h": 0.04123925,
-    "low24h": 0.03788165,
-    "priceChange24h": -5.08296,
-    "priceChange7d": -5.514463693352407,
-    "priceChange30d": 13.976954357774737,
-    "priceChange1y": -91.73809552840163,
+    "low24h": 0.03724149,
+    "priceChange24h": -7.72131,
+    "priceChange7d": -5.38924,
+    "priceChange30d": 10.18112,
+    "priceChange1y": -91.95666,
     "ath": 42.4,
-    "athChangePercentage": -99.91017,
+    "athChangePercentage": -99.91097,
     "athDate": "2021-04-05T13:49:10.098Z",
     "atl": 0.02821586,
     "atlDate": "2026-03-29T22:55:39.440Z",
-    "circulatingSupply": 1660378057.954041,
-    "totalSupply": 1660378057.954041,
+    "circulatingSupply": 1661932437.677632,
+    "totalSupply": 1661932437.677632,
     "maxSupply": null,
-    "fdv": 63231689
+    "fdv": 62746445
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-01T08:32:02.574Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.682Z"
+  "fetchedAt": "2026-05-14T07:07:16.228Z"
 }

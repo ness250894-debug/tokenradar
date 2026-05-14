@@ -2,6 +2,7 @@
   "id": "memecore",
   "symbol": "m",
   "name": "MemeCore",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53247/large/square-bg-transparent.png?1752637478",
   "description": "MemeCore is the first Layer 1 blockchain, built for Meme 2.0 — a new paradigm where meme coins transcend speculation to become engines of culture, value, and community coordination. In this new era, memes are not just content — they are currency, governance, and creative expression.\n\nMission\nTo structure and sustain the meme viral economy, empowering anyone to launch tokens, earn from cultural contributions, and build openly in a decentralized, meme-native environment.\n\nVision\nMemeCore envisions a world where meme coins are vehicles of shared ownership and viral innovation. Every social post, meme remix, and on-chain action becomes a part of an economic feedback loop — fueling a participatory ecosystem where culture is capital.",
   "categories": [
     "Smart Contract Platform",
@@ -19,25 +20,25 @@
     "explorer": "https://memecorescan.io/"
   },
   "market": {
-    "price": 3.27,
-    "marketCap": 4257337084,
+    "price": 3.34,
+    "marketCap": 4346088695,
     "marketCapRank": 27,
-    "volume24h": 11847899,
-    "high24h": 3.42,
+    "volume24h": 12232363,
+    "high24h": 3.34,
     "low24h": 3.18,
-    "priceChange24h": -2.2222,
-    "priceChange7d": -8.625429635253168,
-    "priceChange30d": 18.84513581021958,
+    "priceChange24h": 1.8166,
+    "priceChange7d": -13.66557,
+    "priceChange30d": 20.2652,
     "priceChange1y": 0,
     "ath": 4.82,
-    "athChangePercentage": -32.06759,
+    "athChangePercentage": -30.71394,
     "athDate": "2026-04-24T01:10:07.284Z",
     "atl": 0.04746135,
     "atlDate": "2025-07-04T03:56:17.448Z",
-    "circulatingSupply": 1300942985.957735,
-    "totalSupply": 5368259758.558371,
+    "circulatingSupply": 1301128112.864074,
+    "totalSupply": 5368429465.572326,
     "maxSupply": 10000000000,
-    "fdv": 17567634858
+    "fdv": 17931878020
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +49,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T05:21:49.751Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.488Z"
+  "fetchedAt": "2026-05-14T07:18:15.899Z"
 }

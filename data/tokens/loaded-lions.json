@@ -2,26 +2,52 @@
   "id": "loaded-lions",
   "symbol": "lion",
   "name": "Loaded Lions",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54686/large/_LION_Token_Artwork.png?1741015702",
+  "description": "Loaded Lions, the flagship NFT collection of Crypto.com has launched their native token, $LION. $LION serves as the financial backbone of the project and the core utility token within the ecosystem. $LION will be available on the Cronos EVM chain at launch, with plans to expand LION to Ethereum, Solana and other ecosystems!\n\nToken holders will be able to stake LION in on-chain vaults and other programmes in the Crypto.com App to receive generous token rewards, special App perks and Loaded Lions: Mane City benefits. In the long run, the token will grant holders governance rights and the ability to participate in decision-making to shape the Loaded Lions ecosystem. \n",
+  "categories": [
+    "Gaming (GameFi)",
+    "Solana Ecosystem",
+    "Meme",
+    "Arbitrum Ecosystem",
+    "Cronos Ecosystem",
+    "Airdropped Tokens by NFT Projects"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://loadedlions.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://cronoscan.com/address/0x9d8c68f185a04314ddc8b8216732455e8dbb7e45"
+  },
   "market": {
-    "price": 0.00202123,
-    "marketCap": 61935906,
-    "marketCapRank": 439,
-    "volume24h": 2976312,
-    "priceChange24h": -1.8951,
+    "price": 0.00200332,
+    "marketCap": 61486731,
+    "marketCapRank": 443,
+    "volume24h": 2845298,
+    "high24h": 0.00211102,
+    "low24h": 0.00198319,
+    "priceChange24h": -4.47605,
+    "priceChange7d": 10.25587,
+    "priceChange30d": -15.17698,
+    "priceChange1y": -92.36733,
     "ath": 0.03159196,
-    "athChangePercentage": -93.59298,
+    "athChangePercentage": -93.67325,
     "athDate": "2025-08-28T02:22:49.420Z",
     "atl": 0.00164253,
     "atlDate": "2026-04-30T04:10:27.098Z",
     "circulatingSupply": 30642643274,
     "totalSupply": 100000000000,
     "maxSupply": 100000000000,
-    "high24h": 0.00212323,
-    "low24h": 0.00201176,
-    "priceChange7d": 12.227695118493077,
-    "priceChange30d": -13.196081459835133,
-    "priceChange1y": -91.98594021141997,
-    "fdv": 202123247
+    "fdv": 200657397
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.685Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:16:15.874Z"
 }

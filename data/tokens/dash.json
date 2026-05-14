@@ -2,6 +2,7 @@
   "id": "dash",
   "symbol": "dash",
   "name": "Dash",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/19/large/dash-logo.png?1696501423",
   "description": "Dash (DASH) is digital cash designed to offer financial freedom to everyone. Payments are instant, easy and secure, with near-zero fees.\nBuilt to support real life use cases, Dash is the leading decentralized payment solution. Users can purchase goods at thousands of merchants and trade it at major exchanges and brokers around the globe.\nSince its creation in 2014, Dash has demonstrated leadership in innovation and pioneered groundbreaking features such as:\n-Two-tier network with incentivized nodes and decentralized project governance (Masternodes)\n-Instantly settled payments (InstantSend)\n-Instantly immutable blockchain (ChainLocks)\n-Optional privacy (PrivateSend)",
   "categories": [
     "Masternodes",
@@ -10,7 +11,6 @@
     "Proof of Stake (PoS)",
     "Proof of Work (PoW)",
     "Made in USA",
-    "Privacy Infrastructure",
     "Privacy"
   ],
   "genesisDate": "2014-01-19",
@@ -21,35 +21,34 @@
     "explorer": "https://chainz.cryptoid.info/dash/"
   },
   "market": {
-    "price": 44.05,
-    "marketCap": 560125094,
+    "price": 44.24,
+    "marketCap": 561718865,
     "marketCapRank": 99,
-    "volume24h": 106509718,
+    "volume24h": 107962576,
     "high24h": 47.32,
     "low24h": 43.57,
-    "priceChange24h": -4.53868,
-    "priceChange7d": -19.59205669039336,
-    "priceChange30d": 8.193416910483595,
-    "priceChange1y": 74.60145065168821,
+    "priceChange24h": -4.02497,
+    "priceChange7d": -18.7923,
+    "priceChange30d": 7.7261,
+    "priceChange1y": 75.93946,
     "ath": 1493.59,
-    "athChangePercentage": -97.04392,
+    "athChangePercentage": -97.044,
     "athDate": "2017-12-20T00:00:00.000Z",
     "atl": 0.213899,
     "atlDate": "2014-02-14T00:00:00.000Z",
     "circulatingSupply": 12695954.01440432,
     "totalSupply": 12696026.8106614,
     "maxSupply": 18920000,
-    "fdv": 560128306
+    "fdv": 561722086
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 89,
-    "githubForks": 49,
-    "commits4Weeks": 204
+    "githubStars": 92,
+    "githubForks": 53,
+    "commits4Weeks": 270
   },
-  "fetchedAt": "2026-03-22T17:55:46.529Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.519Z"
+  "fetchedAt": "2026-05-13T18:30:35.855Z"
 }

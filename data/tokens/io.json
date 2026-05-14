@@ -2,26 +2,56 @@
   "id": "io",
   "symbol": "io",
   "name": "io.net",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37754/large/io_blackbg.png?1715446363",
+  "description": "io.net the world’s largest decentralized computing network that allows machine learning engineers to access scalable distributed clusters at a small fraction of the cost of comparable centralized services.\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Internet of Things (IOT)",
+    "Binance Launchpool",
+    "Solana Ecosystem",
+    "DePIN",
+    "Animoca Brands Portfolio",
+    "Multicoin Capital Portfolio",
+    "Delphi Ventures Portfolio",
+    "OKX Ventures Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://io.net",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/BZLbGTNCSFfoth2GYDtwr7e4imWzpR5jqcUuGEwr646K"
+  },
   "market": {
-    "price": 0.160251,
-    "marketCap": 52933289,
-    "marketCapRank": 500,
-    "volume24h": 12720578,
-    "priceChange24h": 0.2985,
+    "price": 0.139951,
+    "marketCap": 46674230,
+    "marketCapRank": 525,
+    "volume24h": 9027235,
+    "high24h": 0.151328,
+    "low24h": 0.137082,
+    "priceChange24h": -7.15159,
+    "priceChange7d": -14.16066,
+    "priceChange30d": 34.83499,
+    "priceChange1y": -87.81092,
     "ath": 6.43,
-    "athChangePercentage": -97.50341,
+    "athChangePercentage": -97.82008,
     "athDate": "2024-06-12T21:14:55.143Z",
     "atl": 0.092979,
     "atlDate": "2026-02-06T00:30:32.728Z",
-    "circulatingSupply": 330452296.5273317,
-    "totalSupply": 799996882.7798138,
+    "circulatingSupply": 333523714.3514058,
+    "totalSupply": 799996881.3083792,
     "maxSupply": 800000000,
-    "high24h": 0.161042,
-    "low24h": 0.15262,
-    "priceChange7d": 34.89498872874987,
-    "priceChange30d": 55.748089248891695,
-    "priceChange1y": -84.22569377011348,
-    "fdv": 128146986
+    "fdv": 111953774
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.901Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:12:26.238Z"
 }

@@ -2,6 +2,7 @@
   "id": "mantle",
   "symbol": "mnt",
   "name": "Mantle",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/30980/large/MNT_Token_Logo.png?1765516974",
   "description": "Mantle is a pioneering on-chain ecosystem dedicated to revolutionizing the future of finance and blockchain scalability, seamlessly bridging traditional finance (TradFi) and decentralized finance (DeFi). Through innovative products like Mantle Network, mETH Protocol, Function (FBTC), and Mantle Index Four (MI4), Mantle empowers users and institutions with a unified financial services platform, redefining how the world spends, saves, and invests in the Web 3.0 era.\n\nWhat is MNT?\n$MNT powers Mantle’s ecosystem, serving as the cornerstone for governance, staking, and driving innovation across the decentralized economy.",
   "categories": [
     "Smart Contract Platform",
@@ -25,25 +26,25 @@
     "explorer": "https://etherscan.io/token/0x3c3a81e81dc49a522a592e7622a7e711c06bf354"
   },
   "market": {
-    "price": 0.651661,
-    "marketCap": 2152134993,
-    "marketCapRank": 43,
-    "volume24h": 41953238,
-    "high24h": 0.67805,
+    "price": 0.67288,
+    "marketCap": 2222185707,
+    "marketCapRank": 42,
+    "volume24h": 48452505,
+    "high24h": 0.679179,
     "low24h": 0.64829,
-    "priceChange24h": -2.77605,
-    "priceChange7d": -1.9633511678622075,
-    "priceChange30d": -2.6830671425787567,
-    "priceChange1y": -19.95412048289895,
+    "priceChange24h": 0.27805,
+    "priceChange7d": 1.83614,
+    "priceChange30d": -1.566,
+    "priceChange1y": -16.60098,
     "ath": 2.86,
-    "athChangePercentage": -77.17329,
+    "athChangePercentage": -76.38447,
     "athDate": "2025-10-09T01:04:46.659Z",
     "atl": 0.307978,
     "atlDate": "2023-10-18T02:50:46.942Z",
     "circulatingSupply": 3302294382.53684,
     "totalSupply": 6219316794.889999,
     "maxSupply": 6219316794.89,
-    "fdv": 4053184773
+    "fdv": 4185113526
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T05:18:57.441Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.492Z"
+  "fetchedAt": "2026-05-14T07:17:12.713Z"
 }

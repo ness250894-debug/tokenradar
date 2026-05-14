@@ -2,7 +2,8 @@
   "id": "layerzero",
   "symbol": "zro",
   "name": "LayerZero",
-  "description": "A cryptocurrency token known as LayerZero (ZRO). It is tracked on CoinGecko with the ID \"layerzero\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208",
+  "description": "",
   "categories": [
     "Smart Contract Platform",
     "BNB Chain Ecosystem",
@@ -28,25 +29,25 @@
     "explorer": "https://etherscan.io/token/0x6985884c4392d348587b19cb9eaaf157f13271cd"
   },
   "market": {
-    "price": 1.42,
-    "marketCap": 358568418,
-    "marketCapRank": 140,
-    "volume24h": 28429107,
+    "price": 1.4,
+    "marketCap": 354701974,
+    "marketCapRank": 141,
+    "volume24h": 28684438,
     "high24h": 1.52,
-    "low24h": 1.42,
-    "priceChange24h": -5.90433,
-    "priceChange7d": -2.9557997058334555,
-    "priceChange30d": -27.12546200191292,
-    "priceChange1y": -54.0352324451857,
+    "low24h": 1.38,
+    "priceChange24h": -6.09939,
+    "priceChange7d": -5.76887,
+    "priceChange30d": -29.26616,
+    "priceChange1y": -56.62349,
     "ath": 7.47,
-    "athChangePercentage": -80.99086,
+    "athChangePercentage": -81.1783,
     "athDate": "2024-12-06T14:15:52.674Z",
     "atl": 1.12,
     "atlDate": "2025-10-10T21:27:10.208Z",
     "circulatingSupply": 252331652.6536562,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 1421020370
+    "fdv": 1405697504
   },
   "community": {
     "twitterFollowers": null,
@@ -57,6 +58,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T03:30:51.344Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.534Z"
+  "fetchedAt": "2026-05-14T07:15:23.194Z"
 }

@@ -2,6 +2,7 @@
   "id": "solana",
   "symbol": "sol",
   "name": "Solana",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756",
   "description": "Solana is a high-performance Layer 1 blockchain designed for mass adoption by providing a fast, secure, and low-cost environment for decentralized applications. It distinguishes itself by scaling globally without the use of complex sharding or multiple layers, instead maintaining a single, unified ledger to avoid liquidity fragmentation. This architecture allows it to process thousands of transactions per second with sub-second finality, often at a cost of less than a penny per transaction.\n\nThe network operates on a unique hybrid model that combines Proof of Stake with an innovation called Proof of History, which functions as a decentralized clock to timestamp transactions. This system reduces the need for constant node communication, allowing the Sealevel engine to run non-conflicting smart contracts in parallel across multiple CPU cores. Further efficiency is gained through the Gulf Stream protocol, which reduces confirmation times by forwarding transactions to validators before the current block is finished.\n\nFounded in 2017 by Anatoly Yakovenko, Solana is now supported by the Switzerland-based Solana Foundation and significant institutional investors like Andreessen Horowitz and Polychain Capital. The platform’s native token, SOL, serves as the primary currency for paying transaction fees, participating in network governance, and securing the system through staking. \n\nSolana has also seen significant institutional adoption ranging from spot Solana ETFs to major partnerships including Visa's 2025 launch of USDC settlement on the network and the tokenization of public equity by firms like Galaxy Digital.",
   "categories": [
     "Smart Contract Platform",
@@ -29,25 +30,25 @@
     "explorer": "https://solscan.io/"
   },
   "market": {
-    "price": 90.53,
-    "marketCap": 52352790836,
+    "price": 90.8,
+    "marketCap": 52504823569,
     "marketCapRank": 7,
-    "volume24h": 3573254016,
+    "volume24h": 3850514838,
     "high24h": 95.76,
-    "low24h": 90.47,
-    "priceChange24h": -4.46217,
-    "priceChange7d": 1.720551709796034,
-    "priceChange30d": 8.959631052745785,
-    "priceChange1y": -49.22424760946703,
+    "low24h": 89.87,
+    "priceChange24h": -4.41683,
+    "priceChange7d": 1.87457,
+    "priceChange30d": 5.70125,
+    "priceChange1y": -50.20721,
     "ath": 293.31,
-    "athChangePercentage": -69.13391,
+    "athChangePercentage": -69.04404,
     "athDate": "2025-01-19T11:15:27.957Z",
     "atl": 0.500801,
     "atlDate": "2020-05-11T19:35:23.449Z",
-    "circulatingSupply": 578001665.9566935,
-    "totalSupply": 626356220.2304088,
+    "circulatingSupply": 578001276.9909325,
+    "totalSupply": 626355877.8003877,
     "maxSupply": null,
-    "fdv": 56732528845
+    "fdv": 56897287540
   },
   "community": {
     "twitterFollowers": null,
@@ -58,6 +59,5 @@
     "githubForks": 3516,
     "commits4Weeks": 171
   },
-  "fetchedAt": "2026-03-23T13:23:42.862Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.482Z"
+  "fetchedAt": "2026-05-14T07:32:58.802Z"
 }

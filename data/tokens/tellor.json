@@ -2,26 +2,57 @@
   "id": "tellor",
   "symbol": "trb",
   "name": "Tellor Tributes",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9644/large/TRB-New_Logo.png?1737722143",
+  "description": "Smart contracts on Ethereum are fully self contained and any information or access to off-chain data is restricted.  Tellor solves this problem by creating a system where parties can request the value of an off-chain data point (e.g. ETH/USD) and miners compete to add this value to an on-chain data bank, accessible by all Ethereum smart contracts.  Inputs to a data series are secured by a network of staked miners. The main Tellor smart contract creates a time series of each requested data series and aims to become the standard source of high value data for decentralized applications. This oracle, “Tellor”,  utilizes similar incentive mechanisms to other cryptocurrency systems through the issuance of Tellor’s token, Tributes, that are used to request a particular data series from miners.  ",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Oracle",
+    "Polygon Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Manta Network Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Lisk Ecosystem",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "http://www.tellor.io/",
+    "github": "https://github.com/tellor-io",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x88df592f8eb5d7bd38bfef7deb0fbc02cf3778a0"
+  },
   "market": {
-    "price": 19.1,
-    "marketCap": 53313689,
-    "marketCapRank": 491,
-    "volume24h": 11230761,
-    "priceChange24h": -2.23133,
+    "price": 18.85,
+    "marketCap": 52487319,
+    "marketCapRank": 493,
+    "volume24h": 12327776,
+    "high24h": 20.32,
+    "low24h": 18.69,
+    "priceChange24h": -5.81242,
+    "priceChange7d": -5.84012,
+    "priceChange30d": 20.97706,
+    "priceChange1y": -49.8658,
     "ath": 593.09,
-    "athChangePercentage": -96.77562,
+    "athChangePercentage": -96.82485,
     "athDate": "2023-12-31T22:15:07.200Z",
     "atl": 0.01001379,
     "atlDate": "2019-11-01T10:00:10.047Z",
-    "circulatingSupply": 2787662.6314217034,
-    "totalSupply": 2857341.125375184,
+    "circulatingSupply": 2787765.9792217044,
+    "totalSupply": 2857444.473175185,
     "maxSupply": null,
-    "high24h": 20.32,
-    "low24h": 18.98,
-    "priceChange7d": -4.681634268946085,
-    "priceChange30d": 25.032972335323677,
-    "priceChange1y": -49.49435225187223,
-    "fdv": 54646281
+    "fdv": 53799207
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.696Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:36:46.516Z"
 }

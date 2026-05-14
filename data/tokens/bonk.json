@@ -2,6 +2,7 @@
   "id": "bonk",
   "symbol": "bonk",
   "name": "Bonk",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/28600/large/bonk.jpg?1696527587",
   "description": "Bonk is a dog-themed memecoin on the Solana blockchain, launched on Christmas Day 2022 to revitalize the Solana community following the FTX collapse. Created by an anonymous team of 22 Solana developers and builders, Bonk distributed 50% of its total 100 trillion token supply via airdrop to community members including NFT collectors, developers, and artists. \n\nThe project positions itself as \"the first Solana dog coin for the people, by the people,\" explicitly rejecting venture capital backing in favor of grassroots community ownership. What sets Bonk apart from other memecoins is its combination of fair launch mechanics, extensive ecosystem integration, and active deflationary strategy. \n\nBuilt on Solana, BONK benefits from fast transaction speeds and low fees that make it practical for everyday use. Native products include LetsBonk.fun (a memecoin launchpad that briefly became Solana's market leader in 2025, surpassing Pump.fun with over 78% market share), BonkSwap (a decentralized exchange) and BonkBot (a Telegram trading bot with built-in burn mechanics). \n\nBONK is available across 10 blockchain networks and listed on major exchanges including Binance, Coinbase, Kraken, and Robinhood. Governance is handled by BonkDAO, which holds 15% of the token supply and makes decisions through on-chain voting. \n\nThe community has organized several major burn events, most notably the December 2024 BURNmas campaign that destroyed 1.69 trillion tokens worth over $50 million. In September 2025, Nasdaq-listed Safety Shot, Inc. formed BONK Holdings LLC and acquired over 2.5% of the circulating supply (valued at $55-63 million), making BONK one of the first memecoins to attract formal corporate treasury adoption. Core contributor Nom was appointed to Safety Shot's board, and the company holds a 10% revenue share in LetsBonk.fun.\n\nAs with all memecoins, BONK is a highly speculative asset with substantial volatility. Its value is primarily driven by community sentiment, social media momentum, and meme culture rather than traditional utility. \n\nThe anonymous team, while common in the memecoin space, means investors should exercise appropriate caution. Despite these risks, Bonk has established itself as one of the most successful community-driven tokens in the Solana ecosystem, approaching 1 million unique holders and expanding from a simple memecoin into meaningful DeFi infrastructure.\n",
   "categories": [
     "BNB Chain Ecosystem",
@@ -29,25 +30,25 @@
     "explorer": "https://solscan.io/token/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
   },
   "market": {
-    "price": 0.00000682,
-    "marketCap": 600618352,
+    "price": 0.00000688,
+    "marketCap": 605247632,
     "marketCapRank": 94,
-    "volume24h": 53140329,
+    "volume24h": 52703388,
     "high24h": 0.00000728,
     "low24h": 0.00000673,
-    "priceChange24h": -4.25043,
-    "priceChange7d": 1.1904836956257316,
-    "priceChange30d": 20.005080031565267,
-    "priceChange1y": -70.6524759521591,
+    "priceChange24h": -2.85288,
+    "priceChange7d": 1.89422,
+    "priceChange30d": 20.83022,
+    "priceChange1y": -70.40974,
     "ath": 0.00005825,
-    "athChangePercentage": -88.2828,
+    "athChangePercentage": -88.20402,
     "athDate": "2024-11-20T04:01:06.465Z",
     "atl": 8.6142e-8,
     "atlDate": "2022-12-29T22:48:46.755Z",
-    "circulatingSupply": 87994734956098.88,
-    "totalSupply": 87994734957424.9,
+    "circulatingSupply": 87994734957424.9,
+    "totalSupply": 87994734957426.25,
     "maxSupply": 87995282867000.55,
-    "fdv": 600618352
+    "fdv": 605247632
   },
   "community": {
     "twitterFollowers": null,
@@ -58,6 +59,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:50:50.483Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.518Z"
+  "fetchedAt": "2026-05-13T18:26:10.334Z"
 }

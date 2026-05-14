@@ -2,6 +2,7 @@
   "id": "iota",
   "symbol": "iota",
   "name": "IOTA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/692/large/IOTA_Thumbnail_%281%29.png?1743772896",
   "description": "IOTA is a distributed ledger for the Internet of Things. The first ledger with microtransactions without fees as well as secure data transfer. Quantum proof. IOTA is a ground breaking new open-source distributed ledger that does not use a blockchain. Its innovative new quantum-proof protocol, known as the Tangle, gives rise to unique new features like zero fees, infinite scalability, fast transactions, secure data transfer and many others. IOTA is initially focused on serving as the backbone of the Internet-of-Things (IoT).\n\nIOTA is a cryptocurrency that has no transaction fees and requires no miners in order to process transactions. It does, however, require some computational power to submit a transaction, making it perfect for machines to use as a currency and distributed communication protocol for the Internet of Things “IoT”. The main purpose of IOTA is to solve some of the major problems with Blockchain technology, the main one being that the bigger the Blockchain (such as Bitcoin), the slower, more expensive, and also more restricting it is to actually transfer funds. Another issue with the Blockchain is size, as more and more Blocks are added, the longer the Blockchain gets, and therefore the less amount of computers are able to mine it. Right now BTC is over 150GB long, and so is ETH. If this size increased tenfold, very few computers would be able to mine it at all. Making them relatively centralized (the top 2 Bitcoin mining pools own about 56% of hashing power).\n",
   "categories": [
     "Infrastructure",
@@ -24,25 +25,25 @@
     "explorer": "https://explorer.iota.org/"
   },
   "market": {
-    "price": 0.061063,
-    "marketCap": 271255739,
-    "marketCapRank": 165,
-    "volume24h": 10386155,
+    "price": 0.059883,
+    "marketCap": 266196711,
+    "marketCapRank": 168,
+    "volume24h": 11517498,
     "high24h": 0.065458,
-    "low24h": 0.06097,
-    "priceChange24h": -2.40358,
-    "priceChange7d": 4.032464288412259,
-    "priceChange30d": 13.360404166856696,
-    "priceChange1y": -75.40979510716525,
+    "low24h": 0.05922,
+    "priceChange24h": -6.88117,
+    "priceChange7d": 2.21683,
+    "priceChange30d": 7.8314,
+    "priceChange1y": -76.27093,
     "ath": 5.25,
-    "athChangePercentage": -98.83651,
+    "athChangePercentage": -98.85793,
     "athDate": "2017-12-19T00:00:00.000Z",
     "atl": 0.05222,
     "atlDate": "2026-03-29T22:50:40.814Z",
     "circulatingSupply": 4440676646,
     "totalSupply": 4886011442,
     "maxSupply": null,
-    "fdv": 298458714
+    "fdv": 292892341
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +54,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:48:36.531Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.546Z"
+  "fetchedAt": "2026-05-14T07:12:32.549Z"
 }

@@ -2,27 +2,49 @@
   "id": "luxxcoin",
   "symbol": "lux",
   "name": "Luxxcoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70524/large/200X200_RED.png?1762411816",
   "description": "Luxxcoin is a Solana-based “MemeFi” project that blends meme culture with game-style, on-chain participation. The protocol runs public 60-day seasons scored by a transparent formula that emphasizes time-weighted holdings, holding streaks, efficient entries, and low churn. Each season ends with a snapshot at 12:00 UTC and distribution at 18:00 UTC on the same day. The LUX token (total supply 100B) underpins the ecosystem, with 45B LUX allocated across 45 seasons (~7.5 years). There is no presale or transfer tax. Governance and treasury operations are managed by multi-sig, and official links are published through one verified handle and the project website to reduce impersonation risk.",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.luxxcoin.io/",
+    "github": "https://github.com/Luxxcoin-team",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/3bSGpKYPut6RXDxp41nvb2GM7eR4kEmJExFFHoYkW3w2"
+  },
   "market": {
-    "price": 0.00126189,
-    "marketCap": 126276701,
-    "marketCapRank": 258,
-    "volume24h": 2023004,
-    "high24h": 0.00126823,
-    "low24h": 0.00121628,
-    "priceChange24h": 3.32053,
-    "priceChange7d": 7.2699982796260585,
-    "priceChange30d": -15.967611940401632,
+    "price": 0.00119166,
+    "marketCap": 6188478,
+    "marketCapRank": 1562,
+    "volume24h": 1863069,
+    "high24h": 0.00125213,
+    "low24h": 0.00117775,
+    "priceChange24h": -4.34278,
+    "priceChange7d": 3.28124,
+    "priceChange30d": -8.71641,
     "priceChange1y": 0,
     "ath": 0.00156066,
-    "athChangePercentage": -18.93876,
+    "athChangePercentage": -23.23779,
     "athDate": "2026-04-10T17:15:55.040Z",
     "atl": 0.00015328,
     "atlDate": "2025-12-15T11:27:51.987Z",
-    "circulatingSupply": 100000000000,
-    "totalSupply": 100000000000,
-    "maxSupply": null,
-    "fdv": 126276701
+    "circulatingSupply": 5193151057.711903,
+    "totalSupply": 99999885922.27103,
+    "maxSupply": 100000000000,
+    "fdv": 119166018
   },
-  "lastMarketUpdate": "2026-05-10T19:56:28.854Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:16:34.796Z"
 }

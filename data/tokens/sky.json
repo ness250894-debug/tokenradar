@@ -2,7 +2,8 @@
   "id": "sky",
   "symbol": "sky",
   "name": "Sky",
-  "description": "SKY is a governance token, which is like a digital voting share, for Sky Protocol. This system launched in 2024 as a rebrand and upgrade of the older Maker Protocol. Sky Protocol’s main value lies in giving users a simple, secure way to trade, save, and earn rewards without ever giving up control of their funds. It is built around a stablecoin called USDS, which is always worth one US dollar, but it is completely decentralized. The protocol is run by automated agreements called smart contracts,...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39925/large/sky.jpg?1724827980",
+  "description": "SKY is a governance token, which is like a digital voting share, for Sky Protocol. This system launched in 2024 as a rebrand and upgrade of the older Maker Protocol. Sky Protocol’s main value lies in giving users a simple, secure way to trade, save, and earn rewards without ever giving up control of their funds. It is built around a stablecoin called USDS, which is always worth one US dollar, but it is completely decentralized.\n\nThe protocol is run by automated agreements called smart contracts, so there’s no middleman controlling users' money. The system uses two main tokens: USDS for stable savings, and SKY for community governance. users can help secure the network and earn rewards by staking their SKY tokens in the Staking Engine, which is like locking them in an interest-bearing account to help the system run. The protocol also uses SkyLink to seamlessly connect users' funds across different blockchains for faster and cheaper transactions.\n\nThe Sky Protocol is unique because it has no single CEO or traditional core team of investors; instead, it is managed entirely by its global community of SKY token holders. This decentralized setup means that SKY is primarily used for two core utilities: it grants essential voting power to decide on all major system changes, and it can be staked in the Staking Engine to help secure the network and earn rewards. Staking also provides holders with the ability to borrow the USDS stablecoin, making SKY the essential key for both governance and income generation within the ecosystem.",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Ethereum Ecosystem",
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0x56072c95faa701256059aa122697b133aded9279"
   },
   "market": {
-    "price": 0.074498,
-    "marketCap": 1730293891,
-    "marketCapRank": 53,
-    "volume24h": 8678149,
+    "price": 0.072531,
+    "marketCap": 1683774325,
+    "marketCapRank": 54,
+    "volume24h": 11988094,
     "high24h": 0.077064,
-    "low24h": 0.074525,
-    "priceChange24h": -0.65969,
-    "priceChange7d": -7.192458717891458,
-    "priceChange30d": 0.630055149006916,
-    "priceChange1y": -1.926750638692052,
+    "low24h": 0.071629,
+    "priceChange24h": -5.23701,
+    "priceChange7d": -9.18347,
+    "priceChange30d": -1.81086,
+    "priceChange1y": -10.71114,
     "ath": 0.100535,
-    "athChangePercentage": -25.73329,
+    "athChangePercentage": -27.84094,
     "athDate": "2024-12-04T10:13:57.264Z",
     "atl": 0.03582727,
     "atlDate": "2025-02-03T05:01:48.626Z",
-    "circulatingSupply": 23214554879.48464,
+    "circulatingSupply": 23213992730.68993,
     "totalSupply": 23462665147.36596,
     "maxSupply": 23462665147.3,
-    "fdv": 1748786758
+    "fdv": 1701811214
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:13:09.082Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.497Z"
+  "fetchedAt": "2026-05-14T07:32:39.852Z"
 }

@@ -2,7 +2,8 @@
   "id": "affine",
   "symbol": "sn120",
   "name": "affine",
-  "description": "A cryptocurrency token known as affine (SN120). It is tracked on CoinGecko with the ID \"affine\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69755/large/affine-logo.jpeg?1759487699",
+  "description": "",
   "categories": [
     "Artificial Intelligence (AI)",
     "Bittensor Ecosystem",
@@ -16,25 +17,25 @@
     "explorer": "https://taostats.io/subnets/120/chart"
   },
   "market": {
-    "price": 19.33,
-    "marketCap": 60153699,
-    "marketCapRank": 450,
-    "volume24h": 1422359,
+    "price": 19.47,
+    "marketCap": 60550636,
+    "marketCapRank": 449,
+    "volume24h": 1456517,
     "high24h": 21.34,
     "low24h": 19.28,
-    "priceChange24h": -6.15168,
-    "priceChange7d": -8.221527313185344,
-    "priceChange30d": -4.1444531036548735,
+    "priceChange24h": -5.24313,
+    "priceChange7d": -8.97328,
+    "priceChange30d": -3.45241,
     "priceChange1y": 0,
     "ath": 31.56,
-    "athChangePercentage": -38.61874,
+    "athChangePercentage": -38.39304,
     "athDate": "2026-03-25T17:40:46.696Z",
     "atl": 9.88,
     "atlDate": "2026-02-06T00:21:27.674Z",
     "circulatingSupply": 3111996.696222657,
     "totalSupply": 3111996.696222657,
     "maxSupply": 21000000,
-    "fdv": 60153699
+    "fdv": 60550636
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-04-29T17:20:45.562Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.688Z"
+  "fetchedAt": "2026-05-13T18:18:22.561Z"
 }

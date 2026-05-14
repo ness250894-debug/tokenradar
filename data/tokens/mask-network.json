@@ -2,26 +2,54 @@
   "id": "mask-network",
   "symbol": "mask",
   "name": "Mask Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14051/large/Mask_Network.jpg?1696513776",
+  "description": "Mask Network is the core product of Dimension, which is positioned to become the bridge that connects internet users from Web 2.0 to Web 3.0. The foundational technology of Mask Network is a peer-to-peer encrypted messaging application, with new functions continuously being created around this foundation. We at Mask Network are strong believers in the ownership economy. People should own what they produce, people should own their data, their attention and the virtual space they choose to contribute to.\n\nMask Network integrates decentralized social messaging, borderless payment network, and decentralized file storage and sharing to provide a safe and convenient portal for users to jump right into the continent of decentralized finance and then the new world of Web 3.0.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Animoca Brands Portfolio",
+    "DWF Labs Portfolio",
+    "Alameda Research Portfolio",
+    "Energi Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mask.io/",
+    "github": "https://github.com/DimensionDev",
+    "reddit": "https://www.reddit.com/r/MaskNetwork/",
+    "explorer": "https://etherscan.io/token/0x69af81e73a73b40adf4f3d4223cd9b1ece623074"
+  },
   "market": {
-    "price": 0.512486,
-    "marketCap": 51237585,
-    "marketCapRank": 500,
-    "volume24h": 8939126,
-    "priceChange24h": -2.4172,
+    "price": 0.502169,
+    "marketCap": 50286427,
+    "marketCapRank": 506,
+    "volume24h": 9826015,
+    "high24h": 0.544038,
+    "low24h": 0.497968,
+    "priceChange24h": -6.0671,
+    "priceChange7d": -1.00266,
+    "priceChange30d": 15.24566,
+    "priceChange1y": -65.267,
     "ath": 41.45,
-    "athChangePercentage": -98.76355,
+    "athChangePercentage": -98.78344,
     "athDate": "2021-02-24T17:42:44.637Z",
     "atl": 0.391486,
     "atlDate": "2026-03-29T22:55:08.154Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "high24h": 0.544038,
-    "low24h": 0.50692,
-    "priceChange7d": 1.3956966180833215,
-    "priceChange30d": 20.628199790576666,
-    "priceChange1y": -63.08230208706435,
-    "fdv": 51237585
+    "fdv": 50286427
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.698Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:17:31.671Z"
 }

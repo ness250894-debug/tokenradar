@@ -2,6 +2,7 @@
   "id": "hastra-prime",
   "symbol": "prime",
   "name": "PRIME",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71002/large/Frame_427319702.png?1765093510",
   "description": "\nHastra is a decentralized protocol on Solana that bridges institutional-grade real-world assets (RWAs) with DeFi. The protocol tokenizes access to Figure's loan portfolio—a publicly-traded, SEC-regulated financial services company with over $17 billion in loan originations—enabling users to earn sustainable yields backed by real consumer lending operations.\nThe Hastra ecosystem features two primary yield-bearing tokens: wYLDS, a wrapped version of Figure's SEC-registered stablecoin backed by treasury securities, and PRIME, a liquid staking token that earns yield from Figure's Democratized Prime HELOC lending pools. Both tokens are fully composable across Solana DeFi protocols like Kamino, Raydium, and Jupiter. Unlike traditional DeFi yield that relies on token emissions or speculative trading, Hastra delivers real yields from audited, real-world lending operations with transparent underlying collateral and regulatory compliance.",
   "categories": [
     "Solana Ecosystem",
@@ -16,24 +17,24 @@
   },
   "market": {
     "price": 1.037,
-    "marketCap": 316044589,
-    "marketCapRank": 153,
-    "volume24h": 9397963,
+    "marketCap": 313846808,
+    "marketCapRank": 154,
+    "volume24h": 16177792,
     "high24h": 1.037,
     "low24h": 1.034,
-    "priceChange24h": 0.07984,
-    "priceChange7d": 0.18687168720363734,
-    "priceChange30d": 0.6241499201318346,
+    "priceChange24h": 0.0553,
+    "priceChange7d": 0.15829,
+    "priceChange30d": 0.61047,
     "priceChange1y": 0,
     "ath": 1.5,
-    "athChangePercentage": -30.88958,
+    "athChangePercentage": -30.86961,
     "athDate": "2026-03-11T15:16:40.298Z",
     "atl": 0.956408,
     "atlDate": "2026-03-17T16:35:52.023Z",
-    "circulatingSupply": 304821573.31318,
-    "totalSupply": 304821573.31318,
+    "circulatingSupply": 302634836.562777,
+    "totalSupply": 302634836.562777,
     "maxSupply": null,
-    "fdv": 316044589
+    "fdv": 313846808
   },
   "community": {
     "twitterFollowers": null,
@@ -44,6 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T22:47:50.003Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.536Z"
+  "fetchedAt": "2026-05-14T07:10:32.439Z"
 }

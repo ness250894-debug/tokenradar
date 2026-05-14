@@ -2,26 +2,56 @@
   "id": "non-playable-coin",
   "symbol": "npc",
   "name": "Non-Playable Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31193/large/NPC_200x200.png?1696530021",
+  "description": "What is the project about?\nNon-Playable Coin (NPC) is a meme coin and NFT-hybrid for all 8+ billion humans on Earth. \"I support the current coin\" is the motto, a homage to the meme that first gained in popularity in 2018.\n\nWhat makes your project unique?\nInspired by the non-playable character meme, NPC leans into the joke by creating an ERC20 token whose supply is the total human population as recorded on July 26, 2023. Each token is also convertible into an NFT at a rate of 1:1. Hence, it is a token with JPEG metadata that is designed to be traded both on decentralized exchanges like Uniswap (as an ERC20) and on NFT marketplaces (as an ERC1155). \n\nThis unique design—an NFT that can also be traded as an ERC20—is called a meme fungible token (MFT). An MFT like Non-Playable Coin (NPC) links two often-separated liquidity markets, while also allowing more people than ever to own a \"part of the culture\" as NFTs. \n\nOn the home page, users can switch between the two formats using the dApp. Users can \"respawn\" as an NFT or \"transform\" into a meme coin. The most liquid form for trading, however, is as an ERC20.\n\nHistory of your project.\nThe project started by playing with NFT AMMs like Sudoswap and realizing that ERC1155s were not being used to explore new avenues. We also felt that the 10k+ pfp NFT collection has hit a wall because it is limited both by exclusivity and gas cost. This project seeks to demonstrate that it is possible to scale communities to millions using the ERC1155 standard, and that it is possible to unlock liquidity for such tokens by making them fungible as an ERC20. \n\nWhat’s next for your project?\nUsers will soon be able to accessorize their NPCs using a built-in customization tool and export their creations to be used as profile photos. Additionally, we are constructing new supporting infrastructure to better link the liquidity of ERC20 tokens with ERC1155 tokens, with NPC as the main showcase.\n\nWhat can your token be used for?\nAt its core, it is purely a meme coin with no utility and is for entertainment purposes only. ",
+  "categories": [
+    "Hybrid Token Standards",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Base Native",
+    "Wojak-Themed",
+    "NFT",
+    "Base Ecosystem",
+    "4chan-Themed",
+    "Meme",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.npc.com/",
+    "github": "https://github.com/non-playablecoin",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x8ed97a637a790be1feff5e888d43629dc05408f6"
+  },
   "market": {
-    "price": 0.00795404,
-    "marketCap": 64010686,
-    "marketCapRank": 425,
-    "volume24h": 4027411,
-    "priceChange24h": -0.80844,
+    "price": 0.00790512,
+    "marketCap": 63625202,
+    "marketCapRank": 426,
+    "volume24h": 4228409,
+    "high24h": 0.00816122,
+    "low24h": 0.00782685,
+    "priceChange24h": -3.09254,
+    "priceChange7d": 1.50128,
+    "priceChange30d": 0.45613,
+    "priceChange1y": -56.94986,
     "ath": 0.066169,
-    "athChangePercentage": -87.98267,
+    "athChangePercentage": -88.05682,
     "athDate": "2024-11-18T08:46:10.128Z",
     "atl": 0.00004561,
     "atlDate": "2023-08-13T12:00:49.550Z",
     "circulatingSupply": 8050126520,
     "totalSupply": 8050126520,
     "maxSupply": 8050126520,
-    "high24h": 0.00823464,
-    "low24h": 0.00787113,
-    "priceChange7d": -3.369589304698521,
-    "priceChange30d": 5.60557126010681,
-    "priceChange1y": -56.28348120736394,
-    "fdv": 64010686
+    "fdv": 63625202
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.681Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:21:59.260Z"
 }

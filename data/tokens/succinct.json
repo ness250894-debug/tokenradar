@@ -2,26 +2,51 @@
   "id": "succinct",
   "symbol": "prove",
   "name": "Succinct",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67905/large/succinct-logo.png?1754228574",
+  "description": "",
+  "categories": [
+    "Infrastructure",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.succinct.xyz/",
+    "github": "https://github.com/succinctlabs",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6BEF15D938d4E72056AC92Ea4bDD0D76B1C4ad29"
+  },
   "market": {
-    "price": 0.272652,
-    "marketCap": 53172337,
-    "marketCapRank": 494,
-    "volume24h": 7297883,
-    "priceChange24h": -1.88029,
+    "price": 0.258936,
+    "marketCap": 50468561,
+    "marketCapRank": 504,
+    "volume24h": 6488791,
+    "high24h": 0.272052,
+    "low24h": 0.25591,
+    "priceChange24h": -3.97446,
+    "priceChange7d": -0.21937,
+    "priceChange30d": 14.25463,
+    "priceChange1y": 0,
     "ath": 1.71,
-    "athChangePercentage": -84.06144,
+    "athChangePercentage": -84.86989,
     "athDate": "2025-08-11T19:31:46.714Z",
     "atl": 0.209719,
     "atlDate": "2026-04-05T15:11:19.148Z",
     "circulatingSupply": 195000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "high24h": 0.279346,
-    "low24h": 0.268194,
-    "priceChange7d": 9.221750663630557,
-    "priceChange30d": 24.0451835402294,
-    "priceChange1y": 0,
-    "fdv": 272678654
+    "fdv": 258813131
   },
-  "lastMarketUpdate": "2026-05-12T19:23:27.052Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:35:05.315Z"
 }

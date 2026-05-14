@@ -2,6 +2,7 @@
   "id": "havven",
   "symbol": "snx",
   "name": "Synthetix",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/3406/large/SNX.png?1696504103",
   "description": "Synthetix is a decentralized perpetual futures protocol built on Ethereum Mainnet. Synthetix uses a hybrid design — off-chain order matching on a high-performance CLOB with on-chain settlement — to deliver low latency, deep liquidity, and MEV-resistant execution while keeping custody and finality on Ethereum. Traders get CEX-like performance with on-chain security and composability. The protocol’s liquidity is provided by the Synthetix Liquidity Provider (SLP) vault and backstopped by staked SNX collateral, which underwrites the issuance of the sUSD stablecoin and the solvency of the SLP vault.\n",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -39,35 +40,34 @@
     "explorer": "https://etherscan.io/token/0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f"
   },
   "market": {
-    "price": 0.329548,
-    "marketCap": 113528073,
-    "marketCapRank": 275,
-    "volume24h": 11656839,
+    "price": 0.326221,
+    "marketCap": 112384546,
+    "marketCapRank": 278,
+    "volume24h": 10796466,
     "high24h": 0.356542,
-    "low24h": 0.326099,
-    "priceChange24h": -5.45134,
-    "priceChange7d": -0.1948681597201897,
-    "priceChange30d": 15.80711140914501,
-    "priceChange1y": -63.79232790055782,
+    "low24h": 0.322886,
+    "priceChange24h": -7.2291,
+    "priceChange7d": -2.52718,
+    "priceChange30d": 11.82403,
+    "priceChange1y": -65.74607,
     "ath": 28.53,
-    "athChangePercentage": -98.84518,
+    "athChangePercentage": -98.85668,
     "athDate": "2021-02-14T01:12:38.505Z",
     "atl": 0.0347864,
     "atlDate": "2019-01-06T00:00:00.000Z",
     "circulatingSupply": 344516234.4572882,
     "totalSupply": 344939867.5556631,
     "maxSupply": 344939867,
-    "fdv": 113667672
+    "fdv": 112522740
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 1291,
-    "githubForks": 609,
+    "githubStars": 0,
+    "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T22:49:15.072Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.576Z"
+  "fetchedAt": "2026-05-14T07:10:38.772Z"
 }

@@ -2,6 +2,7 @@
   "id": "vechain",
   "symbol": "vet",
   "name": "VeChain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/1167/large/VET.png?1742383283",
   "description": "VeChain, founded in 2015, is a sustainability-focused blockchain driving mass adoption of Web3. Its energy-efficient VeChainThor chain delivers fast, low-cost transactions, making blockchain accessible to millions worldwide. With partnerships including UFC, BCG, and Walmart, and over 2 million active users on VeBetter-powered apps, VeChain is proving real-world impact at scale.\n\nIn 2024, the VeChain Renaissance upgrade was launched, introducing Ethereum compatibility, dPoS consensus, and dynamic gas fees. It cut VTHO inflation and introduced StarGate NFT staking, where users lock VET to mint transferable NFTs that earn VTHO, can be delegated to validators, and serve as governance instruments. The upgrade also added new eco node tiers, lowering entry barriers while keeping rewards across higher staking levels.\n\nBy combining adoption, upgraded tokenomics, and inclusive staking, VeChain is positioning itself as a leading blockchain where usage, growth, and rewards fuel long-term value creation.",
   "categories": [
     "Internet of Things (IOT)",
@@ -18,35 +19,34 @@
     "explorer": "https://vechainstats.com/"
   },
   "market": {
-    "price": 0.00729662,
-    "marketCap": 627534596,
+    "price": 0.00724253,
+    "marketCap": 622913015,
     "marketCapRank": 90,
-    "volume24h": 15703285,
+    "volume24h": 17865441,
     "high24h": 0.00772584,
-    "low24h": 0.00725096,
-    "priceChange24h": -2.51024,
-    "priceChange7d": -4.640001342205109,
-    "priceChange30d": 6.982595242416808,
-    "priceChange1y": -76.71813858000716,
+    "low24h": 0.00719604,
+    "priceChange24h": -4.92141,
+    "priceChange7d": -6.20536,
+    "priceChange30d": 4.44942,
+    "priceChange1y": -77.34804,
     "ath": 0.280991,
-    "athChangePercentage": -97.40299,
+    "athChangePercentage": -97.42351,
     "athDate": "2021-04-19T01:08:21.675Z",
     "atl": 0.00191713,
     "atlDate": "2020-03-13T02:29:59.652Z",
     "circulatingSupply": 85985041177,
     "totalSupply": 85985041177,
     "maxSupply": 86712634466,
-    "fdv": 627534596
+    "fdv": 622913015
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 813,
-    "githubForks": 272,
-    "commits4Weeks": 4
+    "githubStars": 812,
+    "githubForks": 270,
+    "commits4Weeks": 1
   },
-  "fetchedAt": "2026-03-23T18:11:02.873Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.516Z"
+  "fetchedAt": "2026-05-14T07:44:02.839Z"
 }

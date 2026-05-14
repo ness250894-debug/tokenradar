@@ -2,6 +2,7 @@
   "id": "jasmycoin",
   "symbol": "jasmy",
   "name": "JasmyCoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13876/large/JASMY200x200.jpg?1696513620",
   "description": "JasmyCoin is based on the ERC 20 standard. The token can also be used by an unspecified number of individuals and businesses to transfer tokens using digital devices as proof of value exchange or payment for services. By not limiting its usability, the token can have a wide range of purposes.",
   "categories": [
     "Internet of Things (IOT)",
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0x7420b4b9a0110cdc71fb720908340c03f9bc03ec"
   },
   "market": {
-    "price": 0.00652148,
-    "marketCap": 322453592,
+    "price": 0.0064663,
+    "marketCap": 320065777,
     "marketCapRank": 152,
-    "volume24h": 19510685,
-    "high24h": 0.00710352,
-    "low24h": 0.00650288,
-    "priceChange24h": -3.97368,
-    "priceChange7d": 11.99859735317964,
-    "priceChange30d": 23.11433795460135,
-    "priceChange1y": -67.78267938299243,
+    "volume24h": 15574278,
+    "high24h": 0.00698003,
+    "low24h": 0.00643953,
+    "priceChange24h": -6.72844,
+    "priceChange7d": 10.57496,
+    "priceChange30d": 20.16201,
+    "priceChange1y": -69.56956,
     "ath": 4.79,
-    "athChangePercentage": -99.86383,
+    "athChangePercentage": -99.86455,
     "athDate": "2021-02-16T03:53:32.207Z",
     "atl": 0.00275026,
     "atlDate": "2022-12-29T20:41:09.113Z",
     "circulatingSupply": 49444999677.59027,
     "totalSupply": 50000000000,
     "maxSupply": 50000000000,
-    "fdv": 326073005
+    "fdv": 323658387
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T23:52:58.402Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.536Z"
+  "fetchedAt": "2026-05-14T07:13:04.145Z"
 }

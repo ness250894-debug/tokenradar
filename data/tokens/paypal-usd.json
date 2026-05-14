@@ -2,6 +2,7 @@
   "id": "paypal-usd",
   "symbol": "pyusd",
   "name": "PayPal USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31212/large/PYUSD_Token_Logo_2x.png?1765987788",
   "description": "PayPal USD is designed to contribute to the opportunity stablecoins offer for payments and is 100% backed by U.S. dollar deposits, short-term U.S Treasuries and similar cash equivalents. PayPal USD is redeemable 1:1 for U.S. dollars and is issued by Paxos Trust Company.",
   "categories": [
     "Stablecoins",
@@ -12,7 +13,8 @@
     "Starknet Ecosystem",
     "Stellar Ecosystem",
     "Fiat-backed Stablecoin",
-    "Made in USA"
+    "Made in USA",
+    "Paxos Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -22,25 +24,25 @@
     "explorer": "https://etherscan.io/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8"
   },
   "market": {
-    "price": 1,
-    "marketCap": 3446755598,
+    "price": 0.999745,
+    "marketCap": 3476946154,
     "marketCapRank": 33,
-    "volume24h": 193145567,
-    "high24h": 0.999986,
+    "volume24h": 63923714,
+    "high24h": 1,
     "low24h": 0.99943,
-    "priceChange24h": 0.01574,
-    "priceChange7d": 0.01714155100147576,
-    "priceChange30d": 0.0244894221621609,
-    "priceChange1y": -0.005144354879920041,
+    "priceChange24h": -0.01451,
+    "priceChange7d": -0.0139,
+    "priceChange30d": -0.01211,
+    "priceChange1y": 0.0079,
     "ath": 1.081,
-    "athChangePercentage": -7.49699,
+    "athChangePercentage": -7.51944,
     "athDate": "2026-04-02T07:35:31.426Z",
     "atl": 0.959426,
     "atlDate": "2024-12-05T22:31:13.430Z",
-    "circulatingSupply": 3447329974.673475,
-    "totalSupply": 3447329974.673475,
+    "circulatingSupply": 3478798191.953473,
+    "totalSupply": 3478798191.953475,
     "maxSupply": null,
-    "fdv": 3446755598
+    "fdv": 3476946154
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +53,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T08:20:58.240Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.489Z"
+  "fetchedAt": "2026-05-14T07:25:04.667Z"
 }

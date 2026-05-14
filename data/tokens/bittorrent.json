@@ -2,6 +2,7 @@
   "id": "bittorrent",
   "symbol": "btt",
   "name": "BitTorrent",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/22457/large/btt_logo.png?1696521780",
   "description": "BitTorrent was initially conceived by Bram Cohen, a peer-to-peer protocol for users to transfer files around the world. The BitTorrent Token (BTT), a TRC-10 token is created on top of the TRON blockchain platform as a way to extend the capability of BitTorrent. The token is added to introduce some economics feature on BitTorrent for networking, bandwidth, and storage resources to be shared and tradeed.\n\nSome of the other feature that BitTorrent Token (BTT) offers would be BitTorrent Speed. This is whereby BTT tokens can be big in exchange for faster download speed.\n\nList of exchanges trading BTT token can be found at https://www.coingecko.com/en/coins/bittorrent/trading_exchanges",
   "categories": [
     "Storage",
@@ -19,41 +20,40 @@
   ],
   "genesisDate": null,
   "links": {
-    "website": "https://www.bittorrent.com/btt/",
+    "website": "https://bt.io/",
     "github": "https://github.com/bittorrent/bittorrent.org",
     "reddit": "https://www.reddit.com/r/Bittorrent/",
-    "explorer": "https://tronscan.org/#/token20/tafjulxivgt4qwk6uzwjqwzxtsagaqnvp4"
+    "explorer": "https://tronscan.org/#/token20/TAFjULxiVgT4qWk6UZwjqwZXTSaGaqnVp4"
   },
   "market": {
-    "price": 3.28057e-7,
-    "marketCap": 323770410,
-    "marketCapRank": 151,
-    "volume24h": 7376980,
+    "price": 3.28019e-7,
+    "marketCap": 323756246,
+    "marketCapRank": 152,
+    "volume24h": 7309028,
     "high24h": 3.31755e-7,
     "low24h": 3.25455e-7,
-    "priceChange24h": 0.35959,
-    "priceChange7d": 0.19439386458568914,
-    "priceChange30d": 1.426238782363458,
-    "priceChange1y": -59.61369963271963,
+    "priceChange24h": 0.58752,
+    "priceChange7d": 0.11713,
+    "priceChange30d": 1.48866,
+    "priceChange1y": -59.43721,
     "ath": 0.00000343,
-    "athChangePercentage": -90.43839,
+    "athChangePercentage": -90.44403,
     "athDate": "2022-01-21T04:00:31.909Z",
     "atl": 3.04531e-7,
     "atlDate": "2026-02-06T04:10:19.280Z",
     "circulatingSupply": 987037885840674.8,
     "totalSupply": 990000000000000,
     "maxSupply": 990000000000000,
-    "fdv": 324742049
+    "fdv": 324727843
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 427,
+    "githubStars": 431,
     "githubForks": 110,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T15:32:30.869Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.535Z"
+  "fetchedAt": "2026-05-13T18:25:19.757Z"
 }

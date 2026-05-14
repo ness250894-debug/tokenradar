@@ -2,6 +2,7 @@
   "id": "mx-token",
   "symbol": "mx",
   "name": "MX",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8545/large/mexc.jpg?1747142259",
   "description": "MX is the proof of rights and interests of MXC trading platform itself. Its total circulation is 3 billion constantly and never be added. MX holders can enjoy a series of rights and interests including asset appreciation, rebates on platform revenue, supervision, voting, etc. MX can be obtained in two ways: mining and buying.",
   "categories": [
     "Exchange-based Tokens",
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0x11eef04c884e24d9b7b4760e7476d06ddf797f36"
   },
   "market": {
-    "price": 1.75,
-    "marketCap": 160330218,
-    "marketCapRank": 217,
-    "volume24h": 7123538,
-    "high24h": 1.75,
+    "price": 1.76,
+    "marketCap": 161828202,
+    "marketCapRank": 216,
+    "volume24h": 7013824,
+    "high24h": 1.76,
     "low24h": 1.74,
-    "priceChange24h": -0.18692,
-    "priceChange7d": -0.7042499065324862,
-    "priceChange30d": -1.3945300491002135,
-    "priceChange1y": -35.47310184646266,
+    "priceChange24h": 0.67058,
+    "priceChange7d": 0.34397,
+    "priceChange30d": -0.69326,
+    "priceChange1y": -35.85675,
     "ath": 5.85,
-    "athChangePercentage": -70.14166,
+    "athChangePercentage": -69.90385,
     "athDate": "2024-04-09T22:10:39.934Z",
     "atl": 0.04218457,
     "atlDate": "2019-11-25T05:59:45.392Z",
     "circulatingSupply": 91837334,
     "totalSupply": 409024834,
     "maxSupply": null,
-    "fdv": 714078228
+    "fdv": 720749947
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T05:30:11.671Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.562Z"
+  "fetchedAt": "2026-05-14T07:20:41.321Z"
 }

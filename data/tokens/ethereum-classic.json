@@ -2,7 +2,8 @@
   "id": "ethereum-classic",
   "symbol": "etc",
   "name": "Ethereum Classic",
-  "description": "A cryptocurrency token known as Ethereum Classic (ETC). It is tracked on CoinGecko with the ID \"ethereum-classic\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717",
+  "description": "",
   "categories": [
     "Smart Contract Platform",
     "Layer 1 (L1)",
@@ -17,35 +18,34 @@
     "explorer": "https://etc.tokenview.io/"
   },
   "market": {
-    "price": 9.23,
-    "marketCap": 1445104560,
+    "price": 9.27,
+    "marketCap": 1451513036,
     "marketCapRank": 59,
-    "volume24h": 46039799,
+    "volume24h": 44428756,
     "high24h": 9.58,
-    "low24h": 9.17,
-    "priceChange24h": -1.58267,
-    "priceChange7d": -0.3445998693885193,
-    "priceChange30d": 12.526721893130322,
-    "priceChange1y": -54.682531841393825,
+    "low24h": 9.14,
+    "priceChange24h": -1.85582,
+    "priceChange7d": -0.56737,
+    "priceChange30d": 9.68258,
+    "priceChange1y": -55.10357,
     "ath": 167.09,
-    "athChangePercentage": -94.47627,
+    "athChangePercentage": -94.45071,
     "athDate": "2021-05-06T18:34:22.133Z",
     "atl": 0.615038,
     "atlDate": "2016-07-25T00:00:00.000Z",
     "circulatingSupply": 156559601.6228963,
     "totalSupply": 156559601.6228963,
     "maxSupply": 210700000,
-    "fdv": 1445104560
+    "fdv": 1451513036
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 193,
-    "githubForks": 245,
-    "commits4Weeks": 11
+    "githubStars": 194,
+    "githubForks": 242,
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T19:43:16.633Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.498Z"
+  "fetchedAt": "2026-05-14T07:05:01.056Z"
 }

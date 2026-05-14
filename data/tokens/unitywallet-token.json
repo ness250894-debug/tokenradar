@@ -2,26 +2,48 @@
   "id": "unitywallet-token",
   "symbol": "unt",
   "name": "UnityWallet Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71637/large/unity_wallet_logo.png?1768642266",
+  "description": "UnityWallet is a self-custodial, multi-chain digital wallet designed to allow users to manage cryptocurrency and interact with decentralized services in a single mobile interface. The platform supports multi-chain asset management, token swaps, decentralized application access, and reward mechanics tied to user engagement. The UnityWallet Token (UNT) is the native utility token within the ecosystem. UNT is intended as a utility-oriented token that powers rewards, cashback, loyalty tiers, and related incentive mechanics.",
+  "categories": [
+    "Solana Ecosystem",
+    "Wallets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://unitywallet.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/UNTyTuyNPhLufn4K4SMsW6BxbvfYEMgQ4qUT9orPapp"
+  },
   "market": {
-    "price": 0.080799,
-    "marketCap": 53111951,
-    "marketCapRank": 496,
-    "volume24h": 41066,
-    "high24h": 0.082917,
-    "low24h": 0.079365,
-    "priceChange24h": 0.4933,
-    "priceChange7d": 23.087740102873887,
-    "priceChange30d": 38.62288174792,
+    "price": 0.075428,
+    "marketCap": 49569833,
+    "marketCapRank": 513,
+    "volume24h": 16844.2,
+    "high24h": 0.079446,
+    "low24h": 0.073806,
+    "priceChange24h": -3.87549,
+    "priceChange7d": 8.59035,
+    "priceChange30d": 19.34844,
     "priceChange1y": 0,
     "ath": 0.112474,
-    "athChangePercentage": -28.16198,
+    "athChangePercentage": -32.96288,
     "athDate": "2026-01-17T10:20:10.891Z",
     "atl": 0.04934818,
     "atlDate": "2026-02-06T00:30:17.628Z",
     "circulatingSupply": 657214285,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 80813749
+    "fdv": 75424157
   },
-  "lastMarketUpdate": "2026-05-12T19:23:27.052Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:41:50.023Z"
 }

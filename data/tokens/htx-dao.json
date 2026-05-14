@@ -2,27 +2,51 @@
   "id": "htx-dao",
   "symbol": "htx",
   "name": "HTX DAO",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/35491/large/Frame_1321318576.png?1708908626",
   "description": "HTX is the governance token of HTX DAO, a decentralized autonomous organization relying on the collective autonomy of HTX token holders. HTX holders possess the right to vote on proposals and can freely delegate and exercise their voting rights in the decision-making process.",
+  "categories": [
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "http://www.htxdao.com/en-us/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://tronscan.org/#/token20/TUPM7K8REVzD2UdV4R5fe5M8XbnR2DdoJ6"
+  },
   "market": {
     "price": 0.00000196,
-    "marketCap": 1775467720,
+    "marketCap": 1773351939,
     "marketCapRank": 51,
-    "volume24h": 65279126,
+    "volume24h": 95314271,
     "high24h": 0.00000197,
-    "low24h": 0.00000196,
-    "priceChange24h": -0.53944,
-    "priceChange7d": 0.18170853751404228,
-    "priceChange30d": 10.625728529827807,
-    "priceChange1y": -0.31096971176031046,
+    "low24h": 0.00000195,
+    "priceChange24h": -0.36994,
+    "priceChange7d": -0.24042,
+    "priceChange30d": 10.19084,
+    "priceChange1y": -1.73105,
     "ath": 0.00000375,
-    "athChangePercentage": -47.77353,
+    "athChangePercentage": -47.83132,
     "athDate": "2024-12-04T00:16:20.770Z",
     "atl": 8.00816e-7,
     "atlDate": "2024-08-05T13:31:33.427Z",
     "circulatingSupply": 905707664073577.8,
     "totalSupply": 905707664073577.8,
     "maxSupply": 999990000000000,
-    "fdv": 1775467720
+    "fdv": 1773351939
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.496Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:11:23.083Z"
 }

@@ -2,20 +2,52 @@
   "id": "mimbogamegroup",
   "symbol": "mgg",
   "name": "MimboGameGroup",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66393/large/MGG_logo1.png?1765607889",
+  "description": "MGG(MimboGameGroup) Token Launched in 2025 by a team based in South Korea and the United States, MGG is the native token of the MimboNode Web3 gaming ecosystem. The project aims to build a reward-based gaming platform that integrates blockchain infrastructure with real-time gameplay experiences.\nIn the MGG ecosystem, all tokens are created solely through node operation rewards. There is no team allocation or external reserve supply, and the distribution mechanism is designed to ensure fair and transparent reward issuance based on smart contract logic.\nThe platform supports various game developers and publishers who can integrate blockchain functionality into their games using the MimboNode API and SDK. This enables in-game assets and rewards to be securely issued, stored, and traded via blockchain.\nMGG’s tokenomics promote sustainability and community participation through utility in staking, governance, and access to exclusive game content. The team is preparing for listings on decentralized exchanges (DEX), and a smart contract audit is underway to ensure platform security.\nAs part of its roadmap, MGG plans to expand into global markets and form strategic partnerships with GameFi platforms, enhancing user engagement and token utility within the gaming space.",
+  "categories": [
+    "Gaming (GameFi)",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Meme",
+    "Play To Earn",
+    "Gaming Platform"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mimbonode.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x8db780F5e1238Bf3fc0e14C099b98Bb63362d16E"
+  },
   "market": {
-    "price": 0.00300343,
-    "marketCap": 53312198,
-    "marketCapRank": 467,
-    "volume24h": 507964,
-    "priceChange24h": -0.22527,
+    "price": 0.00100103,
+    "marketCap": 6005308,
+    "marketCapRank": 1587,
+    "volume24h": 112708,
+    "high24h": 0.00100192,
+    "low24h": 0.00079963,
+    "priceChange24h": 0.10317,
+    "priceChange7d": -8.99851,
+    "priceChange30d": -66.79121,
+    "priceChange1y": 0,
     "ath": 0.00324066,
-    "athChangePercentage": -7.31699,
+    "athChangePercentage": -69.10947,
     "athDate": "2026-02-11T12:26:05.274Z",
     "atl": 0.00028,
     "atlDate": "2025-12-08T17:05:42.247Z",
-    "circulatingSupply": 17749787558.90125,
-    "totalSupply": 110059787559,
-    "maxSupply": 114600000000
+    "circulatingSupply": 5999101761.90125,
+    "totalSupply": 96309101762,
+    "maxSupply": 114600000000,
+    "fdv": 96408737
   },
-  "lastMarketUpdate": "2026-05-01T18:47:51.342Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:25.805Z"
 }

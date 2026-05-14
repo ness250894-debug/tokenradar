@@ -2,26 +2,49 @@
   "id": "mantra",
   "symbol": "mantra",
   "name": "MANTRA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172151/large/OM_Token_Primary-1K.png?1771922964",
+  "description": "MANTRA Chain is The World's First RWA Layer 1 Blockchain with MultiVM support, fully compatible with the Ethereum Virtual Machine (EVM). By enabling developers and institutions to embed compliance at either the chain level or the smart contract level, MANTRA offers a Permissionless Blockchain for Permissioned Applications. By securing the world's first DeFi exchange license from Dubai's Virtual Assets Regulatory Authority (VARA) for retail market participants, MANTRA is positioned to be a cornerstone to the evolution of onchain asset management in the Middle East for years to come.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mantrachain.io/",
+    "github": "https://github.com/mantra-chain",
+    "reddit": null,
+    "explorer": "https://mantrascan.io/"
+  },
   "market": {
-    "price": 0.01070027,
-    "marketCap": 53990190,
+    "price": 0.01071863,
+    "marketCap": 54279334,
     "marketCapRank": 482,
-    "volume24h": 9918651,
-    "priceChange24h": -7.91302,
+    "volume24h": 6801378,
+    "high24h": 0.01129831,
+    "low24h": 0.01054719,
+    "priceChange24h": -4.82188,
+    "priceChange7d": 5.4127,
+    "priceChange30d": 0.46272,
+    "priceChange1y": 0,
     "ath": 0.0262739,
-    "athChangePercentage": -59.26472,
+    "athChangePercentage": -59.01463,
     "athDate": "2026-03-04T14:10:54.284Z",
     "atl": 0.00965489,
     "atlDate": "2026-05-01T10:35:22.789Z",
-    "circulatingSupply": 5044973369.24244,
-    "totalSupply": 7172631917.753831,
+    "circulatingSupply": 5045505298.931793,
+    "totalSupply": 7173471385.711197,
     "maxSupply": 10000000000,
-    "high24h": 0.0117562,
-    "low24h": 0.01054719,
-    "priceChange7d": 4.202560515722049,
-    "priceChange30d": 1.1670444279666752,
-    "priceChange1y": 0,
-    "fdv": 76759921
+    "fdv": 77171904
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.694Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:17:19.014Z"
 }

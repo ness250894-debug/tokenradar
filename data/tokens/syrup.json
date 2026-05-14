@@ -2,6 +2,7 @@
   "id": "syrup",
   "symbol": "syrup",
   "name": "Maple Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51232/large/_syrup_token_logo.png?1747292046",
   "description": "- Maple is 'DeFi's Institutional Lender'. Maple Finance lending engine powers institutional yield for both Maple and Syrup; providing lenders with institutional quality yield overcollateralized by digital assets. The protocol combines the best of institutional lending and DeFi. Syrup is the team's newest product, offering permissionless access to Maple's lending engine whilst also integrated with the broader DeFi ecosystem including Balancer and Pendle Finance.",
   "categories": [
     "Decentralized Finance (DeFi)",
@@ -10,6 +11,7 @@
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
     "Base Ecosystem",
+    "RWA Protocol",
     "Binance Alpha Spotlight",
     "Base Native"
   ],
@@ -21,25 +23,25 @@
     "explorer": "https://etherscan.io/token/0x643C4E15d7d62Ad0aBeC4a9BD4b001aA3Ef52d66"
   },
   "market": {
-    "price": 0.234738,
-    "marketCap": 272174022,
-    "marketCapRank": 164,
-    "volume24h": 6677185,
+    "price": 0.232008,
+    "marketCap": 268882779,
+    "marketCapRank": 166,
+    "volume24h": 7209432,
     "high24h": 0.248891,
-    "low24h": 0.230262,
-    "priceChange24h": -3.66085,
-    "priceChange7d": -5.935520667084974,
-    "priceChange30d": 3.083180136942098,
-    "priceChange1y": -10.503537425295338,
+    "low24h": 0.228807,
+    "priceChange24h": -5.24593,
+    "priceChange7d": -5.91265,
+    "priceChange30d": 2.42771,
+    "priceChange1y": -14.29513,
     "ath": 0.653229,
-    "athChangePercentage": -64.07089,
+    "athChangePercentage": -64.55293,
     "athDate": "2025-06-25T14:15:45.145Z",
     "atl": 0.085229,
     "atlDate": "2025-04-07T07:46:35.793Z",
     "circulatingSupply": 1159459590.7885313,
     "totalSupply": 1244677492.511099,
     "maxSupply": null,
-    "fdv": 292178254
+    "fdv": 288645112
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +52,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T14:04:45.056Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.546Z"
+  "fetchedAt": "2026-05-14T07:36:08.615Z"
 }

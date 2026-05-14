@@ -2,7 +2,8 @@
   "id": "worldcoin-wld",
   "symbol": "wld",
   "name": "Worldcoin",
-  "description": "The mission of the Worldcoin project is to build the world’s largest identity and financial network as a public utility, giving ownership to everyone. A key component of the Worldcoin project is the development of the foundational infrastructure that will be important for a world where AI plays an increasingly large role. The Worldcoin system revolves around World ID, a privacy-preserving global identity network. World ID enables users to verify their humanness online while maintaining their...",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/31069/large/worldcoin.jpeg?1696529903",
+  "description": "The mission of the Worldcoin project is to build the world’s largest identity and financial network as a public utility, giving ownership to everyone. A key component of the Worldcoin project is the development of the foundational infrastructure that will be important for a world where AI plays an increasingly large role.\n\nThe Worldcoin system revolves around World ID, a privacy-preserving global identity network. World ID enables users to verify their humanness online while maintaining their privacy through zero-knowledge proofs.\n\nUsing World ID, individuals will be able to prove that they are a real, unique human to any platform that integrates with the protocol, including to web3 systems, social networking sites, and governmental programs. This will enable fair airdrops or token/NFT sales, provide protection against bots/sybil attacks on social media, and enable the fairer distribution of limited governmental resources. Furthermore, World ID can also enable global democratic processes and novel forms of governance (e.g., via quadratic voting), and it may eventually show a path to AI-funded UBI. The Worldcoin token (WLD), alongside World ID, will let users participate in governing the Worldcoin protocol. \n\nTo engage with the Worldcoin protocol, individuals must first download a first wallet app that supports the creation of a World ID. Users visit a physical imaging device called the Orb to get their World ID Orb-verified. Orbs are operated by a network of independent local businesses called Orb Operators. The Orb uses multispectral sensors to verify humanness and uniqueness to issue an Orb-verified World ID, with all images being promptly deleted on-device per default (absent explicit consent to Data Custody). All Orb-verified World IDs holders are entitled to claim recurring grants of free WLD tokens, subject to certain availability restrictions. The WLD token is designed as a utility token with governance properties.\n",
   "categories": [
     "Smart Contract Platform",
     "Ethereum Ecosystem",
@@ -25,25 +26,25 @@
     "explorer": "https://etherscan.io/token/0x163f8c2467924be0ae7b5347228cabf260318753"
   },
   "market": {
-    "price": 0.258047,
-    "marketCap": 873958399,
-    "marketCapRank": 79,
-    "volume24h": 120146643,
+    "price": 0.257262,
+    "marketCap": 869871530,
+    "marketCapRank": 78,
+    "volume24h": 123969964,
     "high24h": 0.286138,
-    "low24h": 0.256405,
-    "priceChange24h": -3.41453,
-    "priceChange7d": 0.9718669931466025,
-    "priceChange30d": -12.742156457867102,
-    "priceChange1y": -80.15024178965255,
+    "low24h": 0.254353,
+    "priceChange24h": -7.09444,
+    "priceChange7d": 1.32665,
+    "priceChange30d": -18.37921,
+    "priceChange1y": -80.38078,
     "ath": 11.74,
-    "athChangePercentage": -97.79824,
+    "athChangePercentage": -97.80735,
     "athDate": "2024-03-10T00:10:42.330Z",
     "atl": 0.232206,
     "atlDate": "2026-05-02T05:30:44.240Z",
     "circulatingSupply": 3380704993.69755,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 2585136535
+    "fdv": 2573047727
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +55,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-15T10:22:21.076Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.514Z"
+  "fetchedAt": "2026-05-14T07:45:50.334Z"
 }

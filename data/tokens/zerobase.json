@@ -2,20 +2,59 @@
   "id": "zerobase",
   "symbol": "zbt",
   "name": "ZEROBASE",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69446/large/zbt.png?1758621515",
+  "description": "ZEROBASE is a decentralized cryptographic infrastructure network that enables verifiable off-chain computation using zero-knowledge proofs (ZKPs) and trusted execution environments (TEEs). \n\nIt powers products like zkStaking, zkLogin, and ProofYield—bridging institutional DeFi, user privacy, and real-world asset strategies. \n\nZEROBASE delivers programmable, compliance-aligned staking and transparent cryptographic assurance without exposing sensitive data.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Base Ecosystem",
+    "Proof of Stake (PoS)",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Binance HODLer Airdrops",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://zerobase.pro/",
+    "github": "https://github.com/ZeroBase-Pro",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xfab99fcf605fd8f4593edb70a43ba56542777777"
+  },
   "market": {
-    "price": 0.209554,
-    "marketCap": 51574166,
-    "marketCapRank": 484,
-    "volume24h": 76540137,
-    "priceChange24h": 6.55503,
+    "price": 0.139872,
+    "marketCap": 34337524,
+    "marketCapRank": 659,
+    "volume24h": 49118487,
+    "high24h": 0.175009,
+    "low24h": 0.13831,
+    "priceChange24h": -12.45921,
+    "priceChange7d": -20.80116,
+    "priceChange30d": 25.85188,
+    "priceChange1y": 0,
     "ath": 1.025,
-    "athChangePercentage": -79.46875,
+    "athChangePercentage": -86.32282,
     "athDate": "2025-10-17T11:14:48.917Z",
     "atl": 0.058269,
     "atlDate": "2026-02-06T00:22:07.135Z",
     "circulatingSupply": 244992188.30119348,
     "totalSupply": 1000000000,
-    "maxSupply": 1000000000
+    "maxSupply": 1000000000,
+    "fdv": 140157628
   },
-  "lastMarketUpdate": "2026-05-04T19:07:30.516Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:47:31.511Z"
 }

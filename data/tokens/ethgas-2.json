@@ -2,6 +2,7 @@
   "id": "ethgas-2",
   "symbol": "gwei",
   "name": "ETHGas",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71375/large/ethgas_token_200.png?1769055039",
   "description": "ETHGas is a Blockspace Infrastructure protocol that decomposes Ethereum blockspace into tradable, composable block units, enabling real‑time block production and laying the foundation for a crypto‑native commodities market for gas. By restructuring gas as a financial primitive, ETHGas unlocks:\n- Faster block times (sub‑second confirmations vs 12‑second Ethereum blocks) through real‑time sequencing.\n- A futures/forward market for gas, enabling the creation of a native Ethereum yield curve.\n- Gas abstraction for end users via the Open Gas Initiative, removing gas volatility and shifting costs to protocols.\n- Commoditization of blockspace, similar to energy or metals markets in traditional finance.",
   "categories": [
     "Infrastructure",
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0x2798b1cC5A993085E8A9D46e80499F1B63f42204"
   },
   "market": {
-    "price": 0.126174,
-    "marketCap": 264974578,
-    "marketCapRank": 168,
-    "volume24h": 4304117,
-    "high24h": 0.127886,
-    "low24h": 0.121232,
-    "priceChange24h": 1.57725,
-    "priceChange7d": -1.555152306533116,
-    "priceChange30d": 90.43186437336537,
+    "price": 0.129744,
+    "marketCap": 272464573,
+    "marketCapRank": 164,
+    "volume24h": 3552784,
+    "high24h": 0.1332,
+    "low24h": 0.122437,
+    "priceChange24h": 5.61723,
+    "priceChange7d": -2.26456,
+    "priceChange30d": 98.33455,
     "priceChange1y": 0,
     "ath": 0.143335,
-    "athChangePercentage": -11.95421,
+    "athChangePercentage": -9.49786,
     "athDate": "2026-05-06T07:55:29.570Z",
     "atl": 0.01667836,
     "atlDate": "2026-01-21T13:01:13.968Z",
     "circulatingSupply": 2100000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 1261783704
+    "fdv": 1297450347
   },
   "community": {
     "twitterFollowers": null,
@@ -45,8 +46,7 @@
   "developer": {
     "githubStars": 9,
     "githubForks": 9,
-    "commits4Weeks": 5
+    "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-10T19:57:31.823Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.547Z"
+  "fetchedAt": "2026-05-14T07:05:13.726Z"
 }

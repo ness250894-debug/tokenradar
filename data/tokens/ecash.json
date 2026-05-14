@@ -2,6 +2,7 @@
   "id": "ecash",
   "symbol": "xec",
   "name": "eCash",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/16646/large/Logo_final-22.png?1696516207",
   "description": "eCash (XEC) is a Layer-1 digital cash network, developed by Bitcoin ABC. It was created on Nov 15th, 2020, and has since distinguished itself from its predecessors and other Bitcoin clients by integrating the breakthrough Avalanche consensus with its core proof-of-work (PoW) layer, extending its security and fundamental capabilities.\n\nThis Nakamoto/Avalanche hybrid consensus integration gives it unique properties for a Bitcoin-like chain, such as instant transaction finality, staking rewards, extensibility through subnets, and flexible protocol governance.\n\nThe development roadmap is set with three main goals:\nScaling transaction throughput from ~100 tps to more than 5.000.000 tps\nImproving the payment experience with a less than 3 second transaction finality time\nExtending the protocol and establishing fork-free upgrades, allowing for more rapid, iterative development",
   "categories": [
     "Smart Contract Platform",
@@ -17,25 +18,25 @@
     "explorer": "https://ecash.coin.dance/"
   },
   "market": {
-    "price": 0.00000792,
-    "marketCap": 158739275,
+    "price": 0.00000793,
+    "marketCap": 159027805,
     "marketCapRank": 220,
-    "volume24h": 9431184,
+    "volume24h": 7583874,
     "high24h": 0.00000852,
     "low24h": 0.00000777,
-    "priceChange24h": -3.59456,
-    "priceChange7d": 6.739445585044517,
-    "priceChange30d": 16.25123939505125,
-    "priceChange1y": -68.53918369267579,
+    "priceChange24h": -3.69117,
+    "priceChange7d": 6.48539,
+    "priceChange30d": 15.94775,
+    "priceChange1y": -68.24485,
     "ath": 0.00038001,
-    "athChangePercentage": -97.9148,
+    "athChangePercentage": -97.91271,
     "athDate": "2021-09-04T17:09:31.137Z",
     "atl": 0.00000652,
     "atlDate": "2026-03-29T22:55:17.291Z",
     "circulatingSupply": 20027779672580,
-    "totalSupply": 20027810922580,
+    "totalSupply": 20027789047580,
     "maxSupply": 21000000000000,
-    "fdv": 158739523
+    "fdv": 159027879
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T19:03:43.026Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.563Z"
+  "fetchedAt": "2026-05-13T18:32:38.041Z"
 }

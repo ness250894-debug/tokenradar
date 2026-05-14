@@ -2,6 +2,7 @@
   "id": "walrus-2",
   "symbol": "wal",
   "name": "Walrus",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54914/large/Walrus_Token_Full_Color_200x200.png?1772722407",
   "description": "Walrus is a developer platform enabling data markets for the AI era, making data across all industries trustworthy, provable, monetizable, and secure. From AI agents to data markets and decentralized finance, Walrus empowers builders, users, and intelligent systems to control, verify, and create value from the world’s data.\n\nMost of today’s data sits unused or untrusted, limiting the full potential of AI and digital economies. On Walrus, data isn’t just stored — it’s activated, powering new markets across every industry.\n\nDevelopers can build efficient and resilient data markets where trust and value-creation are the norm. It provides developers with the essential tools needed to power a more trustworthy data economy, giving users and organizations the peace of mind to trust the accuracy of AI outputs and giving builders the power to create apps where sensitive data is safe.\n\nAs a result, data becomes more than just information, but the basis of new markets powered by Walrus. Users, as well as publishers and content creators, can monetize any kind of data. Researchers gain access to quality datasets to power discoveries. Companies can turn their data into new revenue streams, offset operational costs, and purchase new data to train the next generation of AI models",
   "categories": [
     "Infrastructure",
@@ -17,25 +18,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL"
   },
   "market": {
-    "price": 0.083526,
-    "marketCap": 196154419,
+    "price": 0.082293,
+    "marketCap": 193355121,
     "marketCapRank": 193,
-    "volume24h": 10559335,
+    "volume24h": 10143265,
     "high24h": 0.087301,
-    "low24h": 0.081308,
-    "priceChange24h": -2.19022,
-    "priceChange7d": 8.760147890493126,
-    "priceChange30d": 21.078484482983637,
-    "priceChange1y": -87.2985250102367,
+    "low24h": 0.081253,
+    "priceChange24h": -5.50366,
+    "priceChange7d": 8.41573,
+    "priceChange30d": 18.04957,
+    "priceChange1y": -88.68366,
     "ath": 0.759179,
-    "athChangePercentage": -89.00282,
+    "athChangePercentage": -89.15874,
     "athDate": "2025-05-14T08:10:39.605Z",
     "atl": 0.065359,
     "atlDate": "2026-03-29T13:15:13.887Z",
     "circulatingSupply": 2349583333,
     "totalSupply": 5000000000,
     "maxSupply": 5000000000,
-    "fdv": 417423838
+    "fdv": 411466829
   },
   "community": {
     "twitterFollowers": null,
@@ -43,9 +44,8 @@
   },
   "developer": {
     "githubStars": 656,
-    "githubForks": 168,
+    "githubForks": 167,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:14:15.875Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.552Z"
+  "fetchedAt": "2026-05-14T07:45:06.048Z"
 }

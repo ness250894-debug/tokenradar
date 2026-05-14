@@ -2,6 +2,7 @@
   "id": "zano",
   "symbol": "zano",
   "name": "Zano",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8370/large/Icon-App-512x512.png?1761825305",
   "description": "What is Zano?\nZano is an open-source cryptocurrency (layer-1) and ecosystem with enterprise-grade\nprivacy, security, and scalability that operates as a robust platform for confidential\nassets and decentralized applications (dApps). \n\nConfidential Assets\nAnyone can easily issue user-creatable privacy tokens on the Zano chain; assets\nsecured by the same mechanisms that make Zano so much more secure than\nfirst-generation cryptocurrencies, namely because of hidden addresses and hidden\namounts. This unique technology can be used to create private stablecoins, shielded\nversions of existing assets, and much more, without the overhead of having to create,\nmanage, and secure your own blockchain. \n\nUntraceable Transactions with hidden amounts\nThe transactions between Zano network members are made untraceable with the help of several technologies, most importantly d/v-CLSAG Ring Signatures and Stealth Addresses. Also, the way transaction data is stored on the blockchain allows access by parties who authorized the transactions only, and none of the private data is ever publicly published. A secure scheme with a set of proofs allows for the concealment of the amount of coins\ntransferred. The Bulletproofs+ technology is used for these proofs, enabling the\ncreation of both performance-eective and size-eective proofs. \n\nBurning of all fees\nOn Zano, all network fees are being burned. With enough network usage, the daily fee\nburning could surpass the emission from block rewards, resulting in supply becoming\ndeflationary over time. This combination of small, minimalistic daily emissions, together with daily burns, results in little to no sell pressure on the exchanges.\n",
   "categories": [
     "Smart Contract Platform",
@@ -21,25 +22,25 @@
     "explorer": "https://explorer.zano.org/"
   },
   "market": {
-    "price": 11.32,
-    "marketCap": 172983748,
-    "marketCapRank": 208,
-    "volume24h": 1191910,
-    "high24h": 11.8,
-    "low24h": 11.27,
-    "priceChange24h": -3.14116,
-    "priceChange7d": 14.997600058555818,
-    "priceChange30d": 22.968182316603983,
-    "priceChange1y": 19.84581963967739,
+    "price": 11.28,
+    "marketCap": 172472018,
+    "marketCapRank": 206,
+    "volume24h": 1619121,
+    "high24h": 11.52,
+    "low24h": 11.25,
+    "priceChange24h": -1.92593,
+    "priceChange7d": 13.25407,
+    "priceChange30d": 21.75129,
+    "priceChange1y": 13.13188,
     "ath": 17.81,
-    "athChangePercentage": -36.45581,
+    "athChangePercentage": -36.61866,
     "athDate": "2025-01-07T14:41:15.393Z",
     "atl": 0.146452,
     "atlDate": "2019-12-16T19:21:13.626Z",
     "circulatingSupply": 15282698.21,
-    "totalSupply": 15282698.21,
+    "totalSupply": 15283441.39,
     "maxSupply": null,
-    "fdv": 172983748
+    "fdv": 172480406
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T18:46:17.527Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.555Z"
+  "fetchedAt": "2026-05-14T07:46:59.911Z"
 }

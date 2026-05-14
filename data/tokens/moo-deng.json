@@ -2,26 +2,53 @@
   "id": "moo-deng",
   "symbol": "moodeng",
   "name": "Moo Deng",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/50264/large/MOODENG.jpg?1726726975",
+  "description": "",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "Pump.fun Ecosystem",
+    "Zoo-Themed",
+    "Binance Alpha Spotlight",
+    "TikTok Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY"
+  },
   "market": {
-    "price": 0.057681,
-    "marketCap": 57144731,
-    "marketCapRank": 465,
-    "volume24h": 15253569,
-    "priceChange24h": -2.97821,
+    "price": 0.057025,
+    "marketCap": 56458734,
+    "marketCapRank": 467,
+    "volume24h": 13949646,
+    "high24h": 0.062667,
+    "low24h": 0.056365,
+    "priceChange24h": -6.38121,
+    "priceChange7d": -11.89998,
+    "priceChange30d": 12.43487,
+    "priceChange1y": -81.99954,
     "ath": 0.680378,
-    "athChangePercentage": -91.51265,
+    "athChangePercentage": -91.57981,
     "athDate": "2024-11-15T14:06:28.269Z",
     "atl": 0.01544782,
     "atlDate": "2024-09-20T13:55:20.098Z",
-    "circulatingSupply": 989938190.994745,
-    "totalSupply": 989938190.994745,
+    "circulatingSupply": 989938190.994735,
+    "totalSupply": 989938190.994735,
     "maxSupply": 1000000000,
-    "high24h": 0.062667,
-    "low24h": 0.057174,
-    "priceChange7d": -9.302896331311702,
-    "priceChange30d": 18.40391607658932,
-    "priceChange1y": -81.75653047161681,
-    "fdv": 57144731
+    "fdv": 56458734
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.691Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:20:16.014Z"
 }

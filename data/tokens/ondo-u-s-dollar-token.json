@@ -2,26 +2,51 @@
   "id": "ondo-u-s-dollar-token",
   "symbol": "usdon",
   "name": "Ondo U.S. Dollar Token",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68688/large/usdon_160x160.png?1756268513",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.ondo.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xAcE8E719899F6E91831B18AE746C9A965c2119F1"
+  },
   "market": {
     "price": 1,
-    "marketCap": 67820638,
-    "marketCapRank": 410,
-    "volume24h": 83807043,
+    "marketCap": 69864029,
+    "marketCapRank": 406,
+    "volume24h": 81021630,
+    "high24h": 1,
+    "low24h": 1,
     "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
     "ath": 1,
     "athChangePercentage": 0,
     "athDate": "2025-08-27T08:45:01.644Z",
     "atl": 1,
     "atlDate": "2025-08-27T08:45:01.644Z",
-    "circulatingSupply": 67820637.66573034,
-    "totalSupply": 67820637.66573034,
+    "circulatingSupply": 69864029.03263408,
+    "totalSupply": 69864029.03263408,
     "maxSupply": null,
-    "high24h": 1,
-    "low24h": 1,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
-    "fdv": 67820638
+    "fdv": 69864029
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.678Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:23:10.846Z"
 }

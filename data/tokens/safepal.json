@@ -2,6 +2,7 @@
   "id": "safepal",
   "symbol": "sfp",
   "name": "SafePal",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/13905/large/sfp.png?1696513647",
   "description": "SafePal is a cryptocurrency wallet that aims to provide a secure and user-friendly crypto management platform for the masses. SafePal provides hardware wallet and software wallet product lines, all paired and managed through the SafePal App, where users can easily store, manage, swap, trade, and grow their crypto wealth.",
   "categories": [
     "BNB Chain Ecosystem",
@@ -20,25 +21,25 @@
     "explorer": "https://bscscan.com/token/0xd41fdb03ba84762dd66a0af1a6c8540ff1ba5dfb"
   },
   "market": {
-    "price": 0.309129,
-    "marketCap": 154762493,
-    "marketCapRank": 224,
-    "volume24h": 2161892,
-    "high24h": 0.328051,
-    "low24h": 0.309599,
-    "priceChange24h": -5.40114,
-    "priceChange7d": -5.259476064175897,
-    "priceChange30d": 7.222716735817493,
-    "priceChange1y": -48.74600525656632,
+    "price": 0.30473,
+    "marketCap": 152365171,
+    "marketCapRank": 228,
+    "volume24h": 2297778,
+    "high24h": 0.328044,
+    "low24h": 0.30437,
+    "priceChange24h": -6.4469,
+    "priceChange7d": -4.51675,
+    "priceChange30d": 4.58913,
+    "priceChange1y": -49.98949,
     "ath": 4.19,
-    "athChangePercentage": -92.60658,
+    "athChangePercentage": -92.72495,
     "athDate": "2021-02-09T18:30:34.250Z",
     "atl": 0.232742,
     "atlDate": "2026-02-06T00:26:27.638Z",
     "circulatingSupply": 500000000,
     "totalSupply": 500000000,
     "maxSupply": 500000000,
-    "fdv": 154762493
+    "fdv": 152365171
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-23T12:01:15.805Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.564Z"
+  "fetchedAt": "2026-05-14T07:31:05.041Z"
 }

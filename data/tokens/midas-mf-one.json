@@ -2,26 +2,49 @@
   "id": "midas-mf-one",
   "symbol": "mf-one",
   "name": "Midas mF-ONE",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66975/large/mfone-logo.png?1751307469",
+  "description": "mF-ONE is a tokenized certificate issued by Midas that provides on-chain exposure to Fasanara Capital’s F-ONE strategy, a diversified private credit and digital asset fund. The token enables qualified investors to access real-world credit returns via a blockchain-native instrument that can be used in DeFi lending markets such as Morpho. mF-ONE tracks a strategy comprising fintech-originated receivables, SME lending, real estate-backed credit, and delta-neutral crypto strategies. With built-in on-chain liquidity mechanics and institutional-grade compliance, it combines TradFi risk frameworks with DeFi composability.",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Yield-Bearing Tokens",
+    "Midas Liquid Yield Tokens"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://midas.app/mfone",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x238a700eD6165261Cf8b2e544ba797BC11e466Ba"
+  },
   "market": {
     "price": 1.085,
-    "marketCap": 70289183,
+    "marketCap": 70279333,
     "marketCapRank": 404,
     "volume24h": 0,
-    "priceChange24h": 0.01091,
+    "high24h": 1.087,
+    "low24h": 1.083,
+    "priceChange24h": 0.16326,
+    "priceChange7d": 0.17712,
+    "priceChange30d": 0.86949,
+    "priceChange1y": 0,
     "ath": 1.089,
-    "athChangePercentage": -0.32162,
+    "athChangePercentage": -0.31374,
     "athDate": "2026-05-10T06:40:07.437Z",
     "atl": 1.008,
     "atlDate": "2025-07-21T11:10:08.621Z",
     "circulatingSupply": 64763496.91457701,
     "totalSupply": 64763496.91457701,
     "maxSupply": null,
-    "high24h": 1.087,
-    "low24h": 1.083,
-    "priceChange7d": 0.22092969159868814,
-    "priceChange30d": 0.9887946544067204,
-    "priceChange1y": 0,
-    "fdv": 70289183
+    "fdv": 70279333
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.677Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:19:00.133Z"
 }

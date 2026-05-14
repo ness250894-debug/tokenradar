@@ -2,26 +2,51 @@
   "id": "digibyte",
   "symbol": "dgb",
   "name": "DigiByte",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/63/large/digibyte.png?1696501454",
+  "description": "What is DigiByte?\nDigiByte is more than a faster digital currency. It is an innovative blockchain that can be used for digital assets, smart contracts, decentralized applications and secure authentication.\n\n\nWhat makes DigiByte stronger than others?\nDigiByte is a rapidly growing open-source blockchain created in late 2013 and released in early 2014. After 6 years of forward thinking development, DigiByte has become one of the safest, fastest, longest and most decentralized UTXO blockchain in existence.\n\n\nTruly Decentralized.\nDigiByte has never been funded through an ICO or significant amount of premined coins. There is no CEO or a company controlling the DigiByte blockchain. It is a volunteer based and global community driven project.\n\n\nMore secure.\nDigiByte uses 5 cryptographic algorithms and real time difficulty adjustment to prevent malicious mining centralization and hash power fluctuation. One of which is Odocrypt that changes itself every 10 days for ASIC resistance.\n\n\nMuch faster.\nDigiByte blocks occur every 15 seconds which is 40x faster than Bitcoin and 10x faster than Litecoin. Early SegWit implementation and blockchain rigidity enable up to 1066 on-chain transactions per second with negligible fees.\n\n\nForward thinking.\nOver the past 6 years, DigiByte has repeatedly set itself apart with multiple blockchain firsts, such asDigiShield guard, MultiAlgo mining, SegWit implementation, Odocrypt algorithm, Dandelion++ privacy protocol, DigiAssets and Digi-ID.\n\n \n \n\nThis is how the DigiByte blockchain works.\nThe three layers are the most innovative parts of the DigiByte blockchain providing the network infrastructure, security and communications to function with cutting edge speed.\n \n\nApplications / DigiAssets.\nThe top layer is like an app store with clear real-world uses. All types of digital assets can be created with the DigiAssets protocol on top of the DigiByte blockchain. Decentralized applications (dApps) can be built on top of the DigiByte blockchain. Also smart contracts that leverage the rigidity and security of the DigiByte blockchain can be encoded easily.\n\n\nDigital asset / Public ledger.\nThe middle layer provides security and administration. A Digital Byte of data, a representation of larger data or a unit that holds value, and cannot be counterfeited, duplicated or hacked. An immutable public ledger where all transactions of DigiBytes are recorded. DigiByte uses five proof of work algorithms for security. New DigiBytes come from mining only.\n\n\nCore protocol / Global network.\nThe bottom layer provides communication and operating procedures. A very low-level way nodes on the DigiByte global network communicate. Thousands of people are running DigiByte software all across the planet. Any server, computer, tablet or mobile phone connected to the DigiByte network becomes a node that helps relay transactions.\n\n \nOpen source / Permissionless.\nJust like the DigiByte.io website, the DigiByte blockchain is completely open source and free to... [truncated]",
+  "categories": [
+    "Internet of Things (IOT)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "Made in USA"
+  ],
+  "genesisDate": "2014-01-10",
+  "links": {
+    "website": "https://DigiByte.org",
+    "github": "https://github.com/DigiByte-Core/DGBio",
+    "reddit": "https://www.reddit.com/r/Digibyte",
+    "explorer": "https://digiexplorer.info/"
+  },
   "market": {
-    "price": 0.00375841,
-    "marketCap": 68714903,
+    "price": 0.00379481,
+    "marketCap": 69357493,
     "marketCapRank": 407,
-    "volume24h": 2263553,
-    "priceChange24h": -4.19563,
+    "volume24h": 2269949,
+    "high24h": 0.00399722,
+    "low24h": 0.003748,
+    "priceChange24h": -2.56908,
+    "priceChange7d": -1.78048,
+    "priceChange30d": -18.72967,
+    "priceChange1y": -67.68458,
     "ath": 0.178084,
-    "athChangePercentage": -97.8875,
+    "athChangePercentage": -97.87339,
     "athDate": "2021-05-01T00:19:01.967Z",
     "atl": 0.00003099,
     "atlDate": "2015-01-14T00:00:00.000Z",
     "circulatingSupply": 18278711227.86734,
     "totalSupply": 18285007339.18359,
     "maxSupply": 21000000000,
-    "high24h": 0.00399722,
-    "low24h": 0.003748,
-    "priceChange7d": -2.9220475099022556,
-    "priceChange30d": -19.42255988579932,
-    "priceChange1y": -67.94049797744832,
-    "fdv": 68738572
+    "fdv": 69381188
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.677Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 81,
+    "githubForks": 58,
+    "commits4Weeks": 19
+  },
+  "fetchedAt": "2026-05-13T18:31:32.744Z"
 }

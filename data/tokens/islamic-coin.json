@@ -2,20 +2,50 @@
   "id": "islamic-coin",
   "symbol": "islm",
   "name": "Islamic Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/32284/large/66eade0c3f9fa1dbb50d7a37_Logomark__2.png?1728441108",
+  "description": "We are on a mission to onboard over 1.8+ billion Muslims into digital finance without compromising the values and faith. Islamic coin is the native currency of HAQQ, an ethics first, scalable and interoperable blockchain built on Proof-of-Stake with fast finality.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "Wallets",
+    "Layer 2 (L2)",
+    "Osmosis Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://islamiccoin.net/",
+    "github": "https://github.com/haqq-network",
+    "reddit": null,
+    "explorer": "https://explorer.haqq.network/"
+  },
   "market": {
-    "price": 0.01458439,
-    "marketCap": 51934986,
-    "marketCapRank": 497,
-    "volume24h": 104675,
-    "priceChange24h": 0.15813,
+    "price": 0.01177932,
+    "marketCap": 41858378,
+    "marketCapRank": 560,
+    "volume24h": 78545,
+    "high24h": 0.01214868,
+    "low24h": 0.01153434,
+    "priceChange24h": -2.71693,
+    "priceChange7d": 4.17648,
+    "priceChange30d": -1.38357,
+    "priceChange1y": -56.78309,
     "ath": 0.303274,
-    "athChangePercentage": -95.19121,
+    "athChangePercentage": -96.13575,
     "athDate": "2023-10-15T00:00:00.000Z",
     "atl": 0.0059478,
     "atlDate": "2025-12-23T14:44:17.935Z",
-    "circulatingSupply": 3556290148.137796,
-    "totalSupply": 18192919118.36949,
-    "maxSupply": 100000000000
+    "circulatingSupply": 3571770987.640123,
+    "totalSupply": 18164212061.33696,
+    "maxSupply": 100000000000,
+    "fdv": 212870439
   },
-  "lastMarketUpdate": "2026-05-09T18:38:34.166Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T07:12:45.184Z"
 }

@@ -2,7 +2,8 @@
   "id": "grass",
   "symbol": "grass",
   "name": "Grass",
-  "description": "A cryptocurrency token known as Grass (GRASS). It is tracked on CoinGecko with the ID \"grass\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/40094/large/Grass.jpg?1725697048",
+  "description": "",
   "categories": [
     "Artificial Intelligence (AI)",
     "Solana Ecosystem",
@@ -18,25 +19,25 @@
     "explorer": "https://solscan.io/token/Grass7B4RdKfBCjTKgSqnXkqjwiGvQyFbuSCUJr3XXjs"
   },
   "market": {
-    "price": 0.327315,
-    "marketCap": 192190722,
-    "marketCapRank": 195,
-    "volume24h": 12177128,
-    "high24h": 0.352434,
-    "low24h": 0.32602,
-    "priceChange24h": -4.42348,
-    "priceChange7d": -11.344395285661218,
-    "priceChange30d": -2.0930474404028265,
-    "priceChange1y": -80.62223161034218,
+    "price": 0.327895,
+    "marketCap": 192653447,
+    "marketCapRank": 194,
+    "volume24h": 12252812,
+    "high24h": 0.352047,
+    "low24h": 0.32033,
+    "priceChange24h": -5.48089,
+    "priceChange7d": -9.67564,
+    "priceChange30d": -3.56937,
+    "priceChange1y": -83.37112,
     "ath": 3.89,
-    "athChangePercentage": -91.59085,
+    "athChangePercentage": -91.57527,
     "athDate": "2024-11-08T12:26:05.892Z",
     "atl": 0.166785,
     "atlDate": "2026-02-06T00:21:51.978Z",
     "circulatingSupply": 587143499,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 327331772
+    "fdv": 328119868
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-03-22T21:54:31.061Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.553Z"
+  "fetchedAt": "2026-05-14T07:09:48.245Z"
 }

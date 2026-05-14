@@ -2,7 +2,8 @@
   "id": "decentraland",
   "symbol": "mana",
   "name": "Decentraland",
-  "description": "A cryptocurrency token known as Decentraland (MANA). It is tracked on CoinGecko with the ID \"decentraland\".",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/878/large/decentraland-mana.png?1696502010",
+  "description": "",
   "categories": [
     "Entertainment",
     "Gaming (GameFi)",
@@ -24,35 +25,34 @@
     "explorer": "https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942"
   },
   "market": {
-    "price": 0.095794,
-    "marketCap": 185305393,
+    "price": 0.096517,
+    "marketCap": 186765886,
     "marketCapRank": 199,
-    "volume24h": 16497406,
+    "volume24h": 16593109,
     "high24h": 0.100818,
     "low24h": 0.094962,
-    "priceChange24h": -2.59687,
-    "priceChange7d": 4.113809744553761,
-    "priceChange30d": 10.597558781715277,
-    "priceChange1y": -74.2449550243731,
+    "priceChange24h": -1.10318,
+    "priceChange7d": 4.77108,
+    "priceChange30d": 11.43257,
+    "priceChange1y": -74.01072,
     "ath": 5.85,
-    "athChangePercentage": -98.36327,
+    "athChangePercentage": -98.35325,
     "athDate": "2021-11-25T10:04:18.534Z",
     "atl": 0.00923681,
     "atlDate": "2017-10-31T00:00:00.000Z",
     "circulatingSupply": 1935141737.5807714,
     "totalSupply": 2193179327.320146,
     "maxSupply": null,
-    "fdv": 210014569
+    "fdv": 211669808
   },
   "community": {
     "twitterFollowers": null,
     "redditSubscribers": 0
   },
   "developer": {
-    "githubStars": 1197,
-    "githubForks": 694,
-    "commits4Weeks": 7
+    "githubStars": 1196,
+    "githubForks": 691,
+    "commits4Weeks": 3
   },
-  "fetchedAt": "2026-03-22T17:57:09.272Z",
-  "lastMarketUpdate": "2026-05-13T19:26:10.553Z"
+  "fetchedAt": "2026-05-13T18:30:48.493Z"
 }
