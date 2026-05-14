@@ -82,6 +82,10 @@ function getConfiguredAllowedHosts(): Set<string> {
 }
 
 function getTokenIdForArticlePath(filePath: string): string | null {
+  const portablePath = filePath.replace(/\\/g, "/");
+  const portableMatch = portablePath.match(/(?:^|\/)(?:content\/tokens|data\/queue)\/([^/]+)\//);
+  if (portableMatch?.[1]) return portableMatch[1];
+
   const normalized = path.resolve(filePath);
   for (const root of [CONTENT_TOKENS_DIR, QUEUE_DIR]) {
     const relative = path.relative(root, normalized);
