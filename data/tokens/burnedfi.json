@@ -2,26 +2,48 @@
   "id": "burnedfi",
   "symbol": "burn",
   "name": "BurnedFi",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/33995/large/IMG_9641.jpeg?1709180084",
+  "description": "The token symbols $burnedFi (shortened as $burn) and $burnBuild (shortened as $build) are used in the following references.\nConvert your $burn tokens into an equivalent amount of $BNB and mint $build tokens as proof.\nAssumption:\nBurning 1000 $burn tokens worth 1 $BNB will mint 1 $build token as your proof.\nSimultaneously, an additional 1 $build token will be minted and distributed to all $build holders [based on $build holdings].\nIf you are the first to burn $burn tokens worth 1 $BNB, you will receive 1 $build and 1 $build reflection, totaling 2 tokens.\nWhen the second burn, with tokens worth 2 $BNB, occurs, the participant will receive 2 $build proofs and 1 $build reflection. You will also receive 1 $build (as you occupy 50% of the share).\nAnd so on!\n-\nClaim Rewards:\nReward calculation: Your holdings of $build - Your proof (build) = BNB reward you can claim.\nAssuming your initial burn value was 1 $build (proof), when you accumulate 10 $build, you can claim a reward of 9 $BNB!\nRegardless of the quantity of your $build proofs, they will be reset to zero when you claim the reward.\nDon't claim rewards too easily; leave them for community development.\n-\nInvite Rewards:\nWhen a burner uses your link to burn $burn tokens, you can receive a 10% reward in $burn tokens.\nIf you were also invited, the person who invited you can also receive a 5% reward in $burn tokens.\nThe remaining $burn tokens will be transferred to the black hole (0xdead) address, at least 85%.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://burnedfi.app/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x19c018e13cff682e729cc7b5fb68c8a641bf98a4"
+  },
   "market": {
-    "price": 4.14,
-    "marketCap": 51393194,
-    "marketCapRank": 499,
-    "volume24h": 89053,
-    "high24h": 4.19,
+    "price": 4.16,
+    "marketCap": 51301692,
+    "marketCapRank": 501,
+    "volume24h": 63430,
+    "high24h": 4.2,
     "low24h": 4.08,
-    "priceChange24h": 0.40543,
-    "priceChange7d": 39.016518944278246,
-    "priceChange30d": -3.318236829992912,
-    "priceChange1y": 105.71138290919113,
+    "priceChange24h": 0.97981,
+    "priceChange7d": 29.63549,
+    "priceChange30d": 1.40921,
+    "priceChange1y": 105.33235,
     "ath": 10.25,
-    "athChangePercentage": -59.37065,
+    "athChangePercentage": -59.42588,
     "athDate": "2024-03-23T02:44:29.337Z",
     "atl": 0.542183,
     "atlDate": "2024-11-15T12:35:33.565Z",
-    "circulatingSupply": 12339247.300139917,
-    "totalSupply": 12339247.300139917,
+    "circulatingSupply": 12338954.135139918,
+    "totalSupply": 12338954.135139918,
     "maxSupply": 21000000,
-    "fdv": 51393194
+    "fdv": 51301692
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.698Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T09:03:49.849Z"
 }

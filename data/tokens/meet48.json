@@ -2,26 +2,51 @@
   "id": "meet48",
   "symbol": "idol",
   "name": "MEET48",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66490/large/meet48.jpg?1749563372",
+  "description": "A cryptocurrency token known as MEET48 (IDOL). It is tracked on CoinGecko with the ID \"meet48\".",
+  "categories": [
+    "Entertainment",
+    "BNB Chain Ecosystem",
+    "AI Applications",
+    "Binance Wallet IDO",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.meet48.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x3B4de3c7855C03bB9F50ea252cD2c9FA1125Ab07"
+  },
   "market": {
-    "price": 0.02913576,
-    "marketCap": 52705468,
-    "marketCapRank": 493,
-    "volume24h": 4006092,
-    "high24h": 0.02945008,
-    "low24h": 0.02725591,
-    "priceChange24h": 2.3588,
-    "priceChange7d": 12.823822488310476,
-    "priceChange30d": 23.92725891259403,
+    "price": 0.03100896,
+    "marketCap": 56271065,
+    "marketCapRank": 470,
+    "volume24h": 5718611,
+    "high24h": 0.03195226,
+    "low24h": 0.02768619,
+    "priceChange24h": 9.96436,
+    "priceChange7d": 16.39659,
+    "priceChange30d": 29.56219,
     "priceChange1y": 0,
     "ath": 0.04177777,
-    "athChangePercentage": -30.20103,
+    "athChangePercentage": -25.49739,
     "athDate": "2025-09-04T16:32:55.332Z",
     "atl": 0.01034196,
     "atlDate": "2025-08-01T01:56:18.076Z",
     "circulatingSupply": 1807429434.502125,
     "totalSupply": 4767829434.502125,
     "maxSupply": 4800000000,
-    "fdv": 139032084
+    "fdv": 148437795
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.697Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T09:04:35.344Z"
 }
