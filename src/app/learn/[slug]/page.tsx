@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen, Clock, ShieldCheck, Tag, UserRound } from "lucide-react";
 
 import { JsonLd } from "@/components/JsonLd";
+import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { UnifiedTOC } from "@/components/UnifiedTOC";
 import {
   LEARN_AUTHOR,
@@ -142,6 +143,11 @@ export default async function GlossaryDetailPage({ params }: PageProps) {
       />
 
       <section className="section learn-article-shell">
+        <ArticleEngagementTracker
+          selector=".learn-article-main .article-content"
+          pageType="learn_article"
+          articleType={item.slug}
+        />
         <div className="learn-breadcrumb" aria-label="Breadcrumb">
           <Link href="/">Home</Link>
           <span>/</span>
@@ -243,11 +249,21 @@ export default async function GlossaryDetailPage({ params }: PageProps) {
                 </div>
               </dl>
             </div>
-            <UnifiedTOC selector=".learn-article-main .article-content" showMobile={false} />
+            <UnifiedTOC
+              selector=".learn-article-main .article-content"
+              showMobile={false}
+              pageType="learn_article"
+              articleType={item.slug}
+            />
           </aside>
         </div>
 
-        <UnifiedTOC selector=".learn-article-main .article-content" showDesktop={false} />
+        <UnifiedTOC
+          selector=".learn-article-main .article-content"
+          showDesktop={false}
+          pageType="learn_article"
+          articleType={item.slug}
+        />
       </section>
     </div>
   );

@@ -19,8 +19,24 @@ export function StickyBanner({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 1500);
-    return () => clearTimeout(timer);
+    let ready = false;
+
+    const revealAfterReadingStarts = () => {
+      if (!ready) return;
+      setIsVisible(window.scrollY > 360);
+    };
+
+    const timer = window.setTimeout(() => {
+      ready = true;
+      revealAfterReadingStarts();
+    }, 1500);
+
+    window.addEventListener("scroll", revealAfterReadingStarts, { passive: true });
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("scroll", revealAfterReadingStarts);
+    };
   }, []);
 
   if (!isVisible) return null;

@@ -8,6 +8,7 @@ import {
   getTokenMetrics,
   getPriceHistory,
   getArticle,
+  getRelatedTokens,
   formatPrice,
   formatPercent,
 } from "@/lib/content-loader";
@@ -17,7 +18,13 @@ import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { LastUpdated } from "@/components/LastUpdated";
+import { ReadingProgress } from "@/components/ReadingProgress";
+import { UnifiedTOC } from "@/components/UnifiedTOC";
+import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
+import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
+import { getTokenTechnical } from "@/lib/token-technical-data";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -88,13 +95,40 @@ export default async function PricePredictionPage({ params }: PageProps) {
   if (!isArticleIndexable(article)) notFound();
 
   const tradingView = getPartner("tradingview");
+  const technical = getTokenTechnical(tokenId);
+  const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
+  const relatedTokens = await getRelatedTokens(tokenId, 1);
 
   const isPositive = detail.market.priceChange30d >= 0;
   const athGap = detail.market.athChangePercentage;
   const riskScore = metrics?.riskScore;
+  const primaryCategory = detail.categories[0];
+  const researchActions = buildTokenResearchActions({
+    tokenId,
+    name: detail.name,
+    symbol: detail.symbol,
+    category: primaryCategory,
+    hasPricePrediction: true,
+    hasHowToBuy: isArticleIndexable(howToBuyArticle),
+    hasLedgerGuide: Boolean(technical),
+  });
+  const completionActions = buildArticleCompletionActions(
+    {
+      tokenId,
+      name: detail.name,
+      symbol: detail.symbol,
+      category: primaryCategory,
+      hasPricePrediction: true,
+      hasHowToBuy: isArticleIndexable(howToBuyArticle),
+      hasLedgerGuide: Boolean(technical),
+      relatedToken: relatedTokens[0],
+    },
+    "price-prediction",
+  );
 
   return (
     <div className="container">
+      <ReadingProgress />
       <section className="section">
         {/* Breadcrumbs */}
         <nav style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
@@ -166,6 +200,17 @@ export default async function PricePredictionPage({ params }: PageProps) {
           </p>
         </div>
 
+        <ResearchRecirculation
+          title={`Validate the ${detail.symbol.toUpperCase()} forecast`}
+          description="Pair the scenario view with execution, custody, and peer-comparison pages."
+          items={researchActions.filter((item) => item.type !== "prediction")}
+          pageType="token_article"
+          tokenId={detail.id}
+          articleType="price-prediction"
+          moduleId="price-prediction-next-action"
+          modulePosition="after_forecast_framework"
+        />
+
         {/* 1-Year Historical Chart (Native Fallback) */}
         {priceHistory && priceHistory.chart1y.length > 0 && (
           <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
@@ -212,20 +257,69 @@ export default async function PricePredictionPage({ params }: PageProps) {
         {/* Article Content */}
         {article ? (
           <div style={{ marginTop: "var(--space-2xl)" }}>
-            <div className="article-content" dangerouslySetInnerHTML={{ 
-              __html: await markdownToHtml(article.content, {
-                name: detail.name,
-                symbol: detail.symbol,
-                id: detail.id,
-                price: detail.market.price,
-                marketCap: detail.market.marketCap,
-                marketCapRank: detail.market.marketCapRank,
-                priceChange24h: detail.market.priceChange24h,
-                imageUrl: detail.imageUrl
-              }) 
-            }} />
-            <div style={{ marginTop: "var(--space-lg)" }}>
-              <LastUpdated date={article.generatedAt} />
+            <ArticleEngagementTracker
+              selector=".article-content"
+              pageType="token_article"
+              tokenId={detail.id}
+              articleType="price-prediction"
+            />
+            <UnifiedTOC
+              selector=".article-content"
+              showDesktop={false}
+              pageType="token_article"
+              tokenId={detail.id}
+              articleType="price-prediction"
+            />
+            <div className="article-layout-row">
+              <div className="article-main-col">
+                <div className="article-content" dangerouslySetInnerHTML={{
+                  __html: await markdownToHtml(article.content, {
+                    name: detail.name,
+                    symbol: detail.symbol,
+                    id: detail.id,
+                    price: detail.market.price,
+                    marketCap: detail.market.marketCap,
+                    marketCapRank: detail.market.marketCapRank,
+                    priceChange24h: detail.market.priceChange24h,
+                    imageUrl: detail.imageUrl
+                  })
+                }} />
+                <div style={{ marginTop: "var(--space-lg)" }}>
+                  <LastUpdated date={article.generatedAt} />
+                </div>
+                <ResearchRecirculation
+                  title={`Next step after the ${detail.symbol.toUpperCase()} forecast`}
+                  description="Continue into one focused follow-up instead of ending the session here."
+                  items={completionActions}
+                  pageType="token_article"
+                  tokenId={detail.id}
+                  articleType="price-prediction"
+                  moduleId="price-prediction-article-end"
+                  modulePosition="article_end"
+                  variant="compact"
+                />
+              </div>
+              <aside className="article-sidebar-col hidden lg:block">
+                <div className="sidebar-sticky">
+                  <UnifiedTOC
+                    selector=".article-content"
+                    showMobile={false}
+                    pageType="token_article"
+                    tokenId={detail.id}
+                    articleType="price-prediction"
+                  />
+                  <ResearchRecirculation
+                    title="Continue"
+                    items={completionActions}
+                    pageType="token_article"
+                    tokenId={detail.id}
+                    articleType="price-prediction"
+                    moduleId="price-prediction-sidebar"
+                    modulePosition="sidebar"
+                    variant="compact"
+                  />
+                </div>
+              </aside>
             </div>
           </div>
         ) : (

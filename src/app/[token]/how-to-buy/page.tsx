@@ -7,6 +7,7 @@ import {
   getTokenIdsWithArticle,
   getTokenMetrics,
   getArticle,
+  getRelatedTokens,
   formatPrice,
   formatCompact,
 } from "@/lib/content-loader";
@@ -15,6 +16,12 @@ import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
 import { LastUpdated } from "@/components/LastUpdated";
+import { ReadingProgress } from "@/components/ReadingProgress";
+import { UnifiedTOC } from "@/components/UnifiedTOC";
+import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
+import { getTokenTechnical } from "@/lib/token-technical-data";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -81,9 +88,36 @@ export default async function HowToBuyPage({ params }: PageProps) {
   const metrics = await getTokenMetrics(tokenId);
   const article = await getArticle(tokenId, "how-to-buy");
   if (!isArticleIndexable(article)) notFound();
+  const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
+  const relatedTokens = await getRelatedTokens(tokenId, 1);
+  const technical = getTokenTechnical(tokenId);
+  const primaryCategory = detail.categories[0];
+  const researchActions = buildTokenResearchActions({
+    tokenId,
+    name: detail.name,
+    symbol: detail.symbol,
+    category: primaryCategory,
+    hasPricePrediction: isArticleIndexable(pricePredictionArticle),
+    hasHowToBuy: true,
+    hasLedgerGuide: Boolean(technical),
+  });
+  const completionActions = buildArticleCompletionActions(
+    {
+      tokenId,
+      name: detail.name,
+      symbol: detail.symbol,
+      category: primaryCategory,
+      hasPricePrediction: isArticleIndexable(pricePredictionArticle),
+      hasHowToBuy: true,
+      hasLedgerGuide: Boolean(technical),
+      relatedToken: relatedTokens[0],
+    },
+    "how-to-buy",
+  );
 
   return (
     <div className="container">
+      <ReadingProgress />
       <section className="section">
         {/* Breadcrumbs */}
         <nav style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
@@ -140,6 +174,17 @@ export default async function HowToBuyPage({ params }: PageProps) {
           </div>
         </div>
 
+        <ResearchRecirculation
+          title={`Complete the ${detail.symbol.toUpperCase()} buying research`}
+          description="Use the checklist with risk, custody, tax, and scenario pages before treating venue access as enough context."
+          items={researchActions.filter((item) => item.type !== "buy")}
+          pageType="token_article"
+          tokenId={detail.id}
+          articleType="how-to-buy"
+          moduleId="how-to-buy-next-action"
+          modulePosition="after_buy_checks"
+        />
+
         <ExchangeReferralPanel symbol={detail.symbol} tokenName={detail.name} />
 
         <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }}>
@@ -172,20 +217,69 @@ export default async function HowToBuyPage({ params }: PageProps) {
         {/* Article Content */}
         {article ? (
           <div style={{ marginTop: "var(--space-2xl)" }}>
-            <div className="article-content" dangerouslySetInnerHTML={{ 
-              __html: await markdownToHtml(article.content, {
-                name: detail.name,
-                symbol: detail.symbol,
-                id: detail.id,
-                price: detail.market.price,
-                marketCap: detail.market.marketCap,
-                marketCapRank: detail.market.marketCapRank,
-                priceChange24h: detail.market.priceChange24h,
-                imageUrl: detail.imageUrl
-              }) 
-            }} />
-            <div style={{ marginTop: "var(--space-lg)" }}>
-              <LastUpdated date={article.generatedAt} />
+            <ArticleEngagementTracker
+              selector=".article-content"
+              pageType="token_article"
+              tokenId={detail.id}
+              articleType="how-to-buy"
+            />
+            <UnifiedTOC
+              selector=".article-content"
+              showDesktop={false}
+              pageType="token_article"
+              tokenId={detail.id}
+              articleType="how-to-buy"
+            />
+            <div className="article-layout-row">
+              <div className="article-main-col">
+                <div className="article-content" dangerouslySetInnerHTML={{
+                  __html: await markdownToHtml(article.content, {
+                    name: detail.name,
+                    symbol: detail.symbol,
+                    id: detail.id,
+                    price: detail.market.price,
+                    marketCap: detail.market.marketCap,
+                    marketCapRank: detail.market.marketCapRank,
+                    priceChange24h: detail.market.priceChange24h,
+                    imageUrl: detail.imageUrl
+                  })
+                }} />
+                <div style={{ marginTop: "var(--space-lg)" }}>
+                  <LastUpdated date={article.generatedAt} />
+                </div>
+                <ResearchRecirculation
+                  title={`Keep researching ${detail.symbol.toUpperCase()}`}
+                  description="Move from execution checks into custody, risk, and peer comparison."
+                  items={completionActions}
+                  pageType="token_article"
+                  tokenId={detail.id}
+                  articleType="how-to-buy"
+                  moduleId="how-to-buy-article-end"
+                  modulePosition="article_end"
+                  variant="compact"
+                />
+              </div>
+              <aside className="article-sidebar-col hidden lg:block">
+                <div className="sidebar-sticky">
+                  <UnifiedTOC
+                    selector=".article-content"
+                    showMobile={false}
+                    pageType="token_article"
+                    tokenId={detail.id}
+                    articleType="how-to-buy"
+                  />
+                  <ResearchRecirculation
+                    title="Continue"
+                    items={completionActions}
+                    pageType="token_article"
+                    tokenId={detail.id}
+                    articleType="how-to-buy"
+                    moduleId="how-to-buy-sidebar"
+                    modulePosition="sidebar"
+                    variant="compact"
+                  />
+                </div>
+              </aside>
             </div>
           </div>
         ) : (

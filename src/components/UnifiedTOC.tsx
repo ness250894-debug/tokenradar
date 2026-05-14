@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, ChevronRight, Hash } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
+import { buildEngagementParams } from "@/lib/engagement-analytics";
 
 interface TOCSection {
   id: string;
@@ -19,6 +21,9 @@ interface UnifiedTOCProps {
   title?: string;
   showDesktop?: boolean;
   showMobile?: boolean;
+  pageType?: string;
+  tokenId?: string;
+  articleType?: string;
 }
 
 /**
@@ -31,6 +36,9 @@ export function UnifiedTOC({
   title = "Table of Contents",
   showDesktop = true,
   showMobile = true,
+  pageType,
+  tokenId,
+  articleType,
 }: UnifiedTOCProps) {
   const [discoveredSections, setDiscoveredSections] = useState<TOCSection[]>([]);
   const [activeId, setActiveId] = useState("");
@@ -95,6 +103,13 @@ export function UnifiedTOC({
   const scrollToSection = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
+      trackEvent("toc_interaction", buildEngagementParams({
+        pageType: pageType || "unknown",
+        tokenId,
+        articleType,
+        sourceSection: id,
+      }, { page_path: window.location.pathname }));
+
       const offset = 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
@@ -105,7 +120,7 @@ export function UnifiedTOC({
       });
     }
     setIsOpen(false);
-  }, []);
+  }, [articleType, pageType, tokenId]);
 
   if (sections.length === 0) return null;
 

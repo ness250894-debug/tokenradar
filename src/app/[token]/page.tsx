@@ -33,6 +33,9 @@ import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
+import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { 
   Globe, 
   BarChart2, 
@@ -134,6 +137,29 @@ export default async function TokenPage({ params }: PageProps) {
   const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
   const hasPricePrediction = isArticleIndexable(pricePredictionArticle);
   const hasHowToBuy = isArticleIndexable(howToBuyArticle);
+  const primaryCategory = detail.categories[0];
+  const researchActions = buildTokenResearchActions({
+    tokenId,
+    name: detail.name,
+    symbol: detail.symbol,
+    category: primaryCategory,
+    hasPricePrediction,
+    hasHowToBuy,
+    hasLedgerGuide: Boolean(technical),
+  });
+  const articleCompletionActions = buildArticleCompletionActions(
+    {
+      tokenId,
+      name: detail.name,
+      symbol: detail.symbol,
+      category: primaryCategory,
+      hasPricePrediction,
+      hasHowToBuy,
+      hasLedgerGuide: Boolean(technical),
+      relatedToken: relatedTokens[0],
+    },
+    "overview",
+  );
 
   return (
     <div className="container">
@@ -211,6 +237,17 @@ export default async function TokenPage({ params }: PageProps) {
             Use the risk score, ATH drawdown, and liquidity context below before treating the article as actionable research.
           </p>
         </div>
+
+        <ResearchRecirculation
+          title={`Choose the next ${detail.symbol.toUpperCase()} research step`}
+          description="Jump to the path that matches your intent instead of scrolling through unrelated sections."
+          items={researchActions}
+          pageType="token_overview"
+          tokenId={detail.id}
+          articleType="overview"
+          moduleId="token-overview-next-action"
+          modulePosition="after_market_snapshot"
+        />
 
         {/* Stats Grid */}
         <div className="stats-grid" style={{ marginTop: "var(--space-xl)" }}>
@@ -335,7 +372,7 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Interactive Engagement */}
         <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
            <div style={{ height: "100%" }}>
-             <ProfitCalculator currentPrice={detail.market.price} atl={detail.market.atl} />
+             <ProfitCalculator currentPrice={detail.market.price} atl={detail.market.atl} tokenId={detail.id} />
            </div>
            <CardGlare style={{ height: "100%" }}>
              <SentimentPoll tokenId={detail.id} />
@@ -344,6 +381,18 @@ export default async function TokenPage({ params }: PageProps) {
 
 
         {/* Article Links */}
+        <ResearchRecirculation
+          title="Build a complete research loop"
+          description="Use the tools, scenarios, and education pages together before treating any single metric as decisive."
+          items={articleCompletionActions}
+          pageType="token_overview"
+          tokenId={detail.id}
+          articleType="overview"
+          moduleId="token-overview-mid-article"
+          modulePosition="before_research_guides"
+          variant="compact"
+        />
+
         <div style={{ marginTop: "var(--space-2xl)" }} id="research-guides">
           <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, marginBottom: "var(--space-lg)" }}>
             Research & <span className="gradient-text">Analysis</span>
@@ -388,7 +437,19 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Article Content & TOC */}
         {shouldRenderArticle && article && (
           <>
-            <UnifiedTOC selector=".article-content" showDesktop={false} />
+            <ArticleEngagementTracker
+              selector=".article-content"
+              pageType="token_overview"
+              tokenId={detail.id}
+              articleType="overview"
+            />
+            <UnifiedTOC
+              selector=".article-content"
+              showDesktop={false}
+              pageType="token_overview"
+              tokenId={detail.id}
+              articleType="overview"
+            />
             <div className="article-layout-row">
               {/* Main Content */}
               <div className="article-main-col">
@@ -407,6 +468,17 @@ export default async function TokenPage({ params }: PageProps) {
                 <div style={{ marginTop: "var(--space-lg)" }}>
                   <LastUpdated date={article.generatedAt} />
                 </div>
+                <ResearchRecirculation
+                  title={`Keep researching ${detail.symbol.toUpperCase()}`}
+                  description="Open one more focused page while the market context is still fresh."
+                  items={articleCompletionActions}
+                  pageType="token_overview"
+                  tokenId={detail.id}
+                  articleType="overview"
+                  moduleId="token-overview-article-end"
+                  modulePosition="article_end"
+                  variant="compact"
+                />
               </div>
               
               <aside className="article-sidebar-col hidden lg:block">
@@ -417,7 +489,13 @@ export default async function TokenPage({ params }: PageProps) {
                     top: "100px",
                   }}
                 >
-                  <UnifiedTOC selector=".article-content" showMobile={false} />
+                  <UnifiedTOC
+                    selector=".article-content"
+                    showMobile={false}
+                    pageType="token_overview"
+                    tokenId={detail.id}
+                    articleType="overview"
+                  />
                   <div style={{ marginTop: "var(--space-xl)" }}>
                     <HardwareWalletCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />
                     <TaxGuideCTA symbol={detail.symbol} name={detail.name} variant="sidebar" />

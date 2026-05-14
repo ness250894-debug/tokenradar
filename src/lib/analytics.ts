@@ -12,6 +12,12 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}): voi
   window.gtag("event", eventName, params);
 }
 
+export function cleanAnalyticsParams(params: AnalyticsParams): AnalyticsParams {
+  return Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined && value !== ""),
+  ) as AnalyticsParams;
+}
+
 export function normalizeAnalyticsText(value: string | null | undefined, maxLength = 100): string | undefined {
   const normalized = value?.replace(/\s+/g, " ").trim();
   if (!normalized) return undefined;

@@ -1,19 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Calculator } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
+import { buildEngagementParams } from "@/lib/engagement-analytics";
 
 export function ProfitCalculator({
   currentPrice,
-  atl
+  atl,
+  tokenId,
+  pageType = "token_overview",
 }: {
   currentPrice: number;
   atl: number;
+  tokenId?: string;
+  pageType?: string;
 }) {
   const investmentId = "roi-investment-amount";
   const entryPriceId = "roi-entry-price";
   const [investment, setInvestment] = useState<number>(1000);
   const [purchasePrice, setPurchasePrice] = useState<number>(currentPrice > 0 ? currentPrice : (atl || 1));
+  const interactionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const trackCalculatorInteraction = (fieldName: string, value: number) => {
+    if (interactionTimer.current) clearTimeout(interactionTimer.current);
+    interactionTimer.current = setTimeout(() => {
+      trackEvent("calculator_interaction", buildEngagementParams({
+        pageType,
+        tokenId,
+        sourceSection: fieldName,
+      }, {
+        field_name: fieldName,
+        field_value: Number(value.toFixed(6)),
+        page_path: window.location.pathname,
+      }));
+    }, 500);
+  };
 
   const tokensAcquired = investment / purchasePrice;
   const currentValue = tokensAcquired * currentPrice;
@@ -50,8 +72,12 @@ export function ProfitCalculator({
             step="100"
             value={investment}
             aria-valuetext={`$${investment.toLocaleString()} investment`}
-            onChange={(e) => setInvestment(Number(e.target.value))}
-            style={{ 
+            onChange={(e) => {
+              const nextValue = Number(e.target.value);
+              setInvestment(nextValue);
+              trackCalculatorInteraction("investment_amount", nextValue);
+            }}
+            style={{
               width: "100%", 
               accentColor: "var(--accent-primary)", 
               cursor: "pointer",
@@ -76,7 +102,11 @@ export function ProfitCalculator({
             step={atl / 100 || 0.00001}
             value={purchasePrice}
             aria-valuetext={`${formatPrice(purchasePrice)} entry price`}
-            onChange={(e) => setPurchasePrice(Number(e.target.value))}
+            onChange={(e) => {
+              const nextValue = Number(e.target.value);
+              setPurchasePrice(nextValue);
+              trackCalculatorInteraction("entry_price", nextValue);
+            }}
             style={{ 
               width: "100%", 
               accentColor: "var(--accent-primary)", 
@@ -89,13 +119,16 @@ export function ProfitCalculator({
           {atl > 0 && (
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "var(--space-sm)" }}>
               <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>All-Time Low: ${atl.toFixed(6)}</span>
-              <button 
-                onClick={() => setPurchasePrice(atl)} 
-                style={{ 
-                  background: "transparent", 
-                  border: "1px solid var(--border-color)", 
-                  borderRadius: "var(--radius-sm)", 
-                  padding: "4px 8px", 
+              <button
+                onClick={() => {
+                  setPurchasePrice(atl);
+                  trackCalculatorInteraction("entry_price_atl", atl);
+                }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid var(--border-color)",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "4px 8px",
                   fontSize: "var(--text-xs)", 
                   color: "var(--text-secondary)", 
                   cursor: "pointer",

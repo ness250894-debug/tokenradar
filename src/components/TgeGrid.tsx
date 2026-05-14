@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from "lucide-react";
+import { ArrowUpDown, Calendar, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { trackDirectoryFilter } from "@/lib/engagement-analytics";
 import {
   getTgeEvidenceCount,
   getTgeSourceHost,
@@ -41,6 +42,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | TgeLifecycleStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("confidence-desc");
   const [pagination, setPagination] = useState({ filterKey: "", visibleCount: TGES_PER_PAGE });
 
   const categories = useMemo(() => {
@@ -49,7 +51,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
 
   const filteredTges = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    return tges.filter((tge) => {
+    const filtered = tges.filter((tge) => {
       const matchesQuery =
         !query ||
         tge.name.toLowerCase().includes(query) ||
@@ -61,9 +63,17 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
       const matchesCategory = categoryFilter === "all" || tge.category === categoryFilter;
       return matchesQuery && matchesStatus && matchesCategory;
     });
-  }, [categoryFilter, searchQuery, statusFilter, tges]);
+    return [...filtered].sort((a, b) => {
+      if (sortBy === "name-asc") return a.name.localeCompare(b.name);
+      if (sortBy === "verified-desc") {
+        return new Date(b.lastVerifiedAt || b.discoveredAt).getTime() - new Date(a.lastVerifiedAt || a.discoveredAt).getTime();
+      }
+      if (sortBy === "evidence-desc") return getTgeEvidenceCount(b) - getTgeEvidenceCount(a);
+      return (b.confidence ?? 0) - (a.confidence ?? 0);
+    });
+  }, [categoryFilter, searchQuery, sortBy, statusFilter, tges]);
 
-  const filterKey = `${searchQuery.trim().toLowerCase()}|${statusFilter}|${categoryFilter}`;
+  const filterKey = `${searchQuery.trim().toLowerCase()}|${statusFilter}|${categoryFilter}|${sortBy}`;
 
   useEffect(() => {
     const term = searchQuery.trim();
@@ -80,6 +90,15 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
 
     return () => window.clearTimeout(timer);
   }, [filteredTges.length, searchQuery]);
+
+  useEffect(() => {
+    trackDirectoryFilter(
+      "upcoming",
+      "combined",
+      `status:${statusFilter}|category:${categoryFilter}|sort:${sortBy}`,
+      filteredTges.length,
+    );
+  }, [categoryFilter, filteredTges.length, sortBy, statusFilter]);
 
   const visibleCount = pagination.filterKey === filterKey ? pagination.visibleCount : TGES_PER_PAGE;
   const visibleTges = filteredTges.slice(0, visibleCount);
@@ -112,10 +131,13 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3" style={{ marginTop: "var(--space-md)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 directory-filter-grid" style={{ marginTop: "var(--space-md)" }}>
           <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
             <span className="flex items-center gap-1"><Filter size={13} /> Status</span>
-            <select className="search-input themed-select" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as "all" | TgeLifecycleStatus)}>
+            <select className="search-input themed-select" value={statusFilter} onChange={(event) => {
+              setStatusFilter(event.target.value as "all" | TgeLifecycleStatus);
+              setPagination({ filterKey: "", visibleCount: TGES_PER_PAGE });
+            }}>
               {STATUS_FILTERS.map((filter) => (
                 <option key={filter.value} value={filter.value}>{filter.label}</option>
               ))}
@@ -124,11 +146,27 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
 
           <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
             <span>Category</span>
-            <select className="search-input themed-select" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
+            <select className="search-input themed-select" value={categoryFilter} onChange={(event) => {
+              setCategoryFilter(event.target.value);
+              setPagination({ filterKey: "", visibleCount: TGES_PER_PAGE });
+            }}>
               <option value="all">All Categories</option>
               {categories.map((category) => (
                 <option key={category} value={category}>{category}</option>
               ))}
+            </select>
+          </label>
+
+          <label style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+            <span className="flex items-center gap-1"><ArrowUpDown size={13} /> Sort</span>
+            <select className="search-input themed-select" value={sortBy} onChange={(event) => {
+              setSortBy(event.target.value);
+              setPagination({ filterKey: "", visibleCount: TGES_PER_PAGE });
+            }}>
+              <option value="confidence-desc">Highest Confidence</option>
+              <option value="verified-desc">Recently Checked</option>
+              <option value="evidence-desc">Most Evidence</option>
+              <option value="name-asc">Name A-Z</option>
             </select>
           </label>
 

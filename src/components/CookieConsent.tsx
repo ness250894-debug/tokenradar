@@ -53,7 +53,7 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
     }
 
     if (savedConsent !== REJECTED) {
-      const timer = window.setTimeout(() => setVisible(true), 0);
+      const timer = window.setTimeout(() => setVisible(true), 1200);
       return () => window.clearTimeout(timer);
     }
   }, [measurementId]);
@@ -76,8 +76,8 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
       <div>
         <strong>Analytics cookies</strong>
         <p>
-          TokenRadar uses optional analytics to understand traffic and improve
-          disclosures. Rejecting analytics does not limit site access.
+          Optional analytics help improve research paths. Rejecting analytics
+          does not limit site access.
         </p>
         <Link href="/privacy">Privacy Policy</Link>
       </div>
