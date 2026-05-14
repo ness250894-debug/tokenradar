@@ -2,26 +2,55 @@
   "id": "nvidia-ondo-tokenized-stock",
   "symbol": "nvdaon",
   "name": "NVIDIA (Ondo Tokenized Stock)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/68623/large/nvdaon_160x160.png?1756130268",
+  "description": "NVDAon is the Ondo Tokenized version of NVIDIA, giving tokenholders economic exposure similar to holding NVDA and reinvesting any dividends. Ondo tokenized stocks enable non-US retail and institutional users around the world to instantly mint and redeem tokenized U.S. stocks and ETFs, 24 hours a day, five days a week with full access to traditional exchange liquidity. Additional restrictions apply. Learn more at ondo.finance/global-markets.",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Tokenized Stock",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Binance Alpha Spotlight",
+    "HyperEVM Ecosystem",
+    "Ondo Tokenized Assets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.ondo.finance/assets/nvdaon",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x2D1F7226Bd1F780AF6B9A49DCC0aE00E8Df4bDEE"
+  },
   "market": {
-    "price": 226.99,
-    "marketCap": 55868480,
-    "marketCapRank": 471,
-    "volume24h": 8750357,
-    "high24h": 227.4,
-    "low24h": 219.38,
-    "priceChange24h": 2.81926,
-    "priceChange7d": 10.454619566980606,
-    "priceChange30d": 20.599871793251694,
+    "price": 231.06,
+    "marketCap": 57148183,
+    "marketCapRank": 465,
+    "volume24h": 10810483,
+    "high24h": 232.71,
+    "low24h": 223.16,
+    "priceChange24h": 2.39983,
+    "priceChange7d": 10.38409,
+    "priceChange30d": 21.6164,
     "priceChange1y": 0,
-    "ath": 227.4,
-    "athChangePercentage": -0.18048,
-    "athDate": "2026-05-13T16:30:28.270Z",
+    "ath": 232.71,
+    "athChangePercentage": -0.82993,
+    "athDate": "2026-05-14T07:00:28.526Z",
     "atl": 163.07,
     "atlDate": "2026-03-31T00:26:12.441Z",
-    "circulatingSupply": 246123.4801753923,
-    "totalSupply": 246123.4801753923,
+    "circulatingSupply": 247328.2266550357,
+    "totalSupply": 247328.2266550357,
     "maxSupply": null,
-    "fdv": 55868480
+    "fdv": 57148183
   },
-  "lastMarketUpdate": "2026-05-13T19:26:10.692Z"
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-14T09:05:21.138Z"
 }
