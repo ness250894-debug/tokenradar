@@ -11,6 +11,7 @@ import { ClickAnalytics } from "@/components/ClickAnalytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 import { PwaServiceWorker } from "@/components/PwaServiceWorker";
+import { WatchlistOfflineSync } from "@/components/WatchlistOfflineSync";
 import { getSiteUrl } from "@/lib/seo";
 import { CONTACT_EMAIL, SOCIAL } from "@/lib/config";
 
@@ -187,6 +188,7 @@ export default function RootLayout({
           <CookieConsent measurementId={gaMeasurementId} />
           <PwaInstallPrompt />
           <PwaServiceWorker />
+          <WatchlistOfflineSync />
         </ProgressBarProvider>
       </body>
     </html>

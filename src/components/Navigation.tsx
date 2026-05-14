@@ -5,10 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HackerText } from "./HackerText";
-import { Activity, Clock, BookOpen, ShieldCheck, Calculator, FileText, Mail, Menu, X } from "lucide-react";
+import { Activity, Clock, BookOpen, ShieldCheck, Calculator, FileText, Mail, Menu, Star, X } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/tokens", icon: Activity, color: "var(--accent-primary)" },
+  { name: "Watchlist", href: "/watchlist", icon: Star, color: "var(--accent-primary)" },
   { name: "Upcoming", href: "/upcoming", icon: Clock, color: "var(--accent-primary)" },
   { name: "Learn", href: "/learn", icon: BookOpen, color: "var(--accent-secondary)" },
   { name: "Methodology", href: "/about", icon: FileText, color: "var(--text-secondary)" },
