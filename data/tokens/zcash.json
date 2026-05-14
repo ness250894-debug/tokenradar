@@ -24,25 +24,25 @@
     "explorer": "https://zecblockexplorer.com/"
   },
   "market": {
-    "price": 526.46,
-    "marketCap": 8793341357,
+    "price": 534.2,
+    "marketCap": 8914980960,
     "marketCapRank": 16,
-    "volume24h": 844732781,
-    "high24h": 557.49,
+    "volume24h": 843682121,
+    "high24h": 554.24,
     "low24h": 516.23,
-    "priceChange24h": -4.31918,
-    "priceChange7d": -6.45344,
-    "priceChange30d": 44.47646,
-    "priceChange1y": 1109.42274,
+    "priceChange24h": -1.00263,
+    "priceChange7d": -5.65434656677882,
+    "priceChange30d": 51.362756619245516,
+    "priceChange1y": 1193.8141926590279,
     "ath": 3191.93,
-    "athChangePercentage": -83.50668,
+    "athChangePercentage": -83.26395,
     "athDate": "2016-10-29T00:00:00.000Z",
     "atl": 16.08,
     "atlDate": "2024-07-05T04:22:29.321Z",
     "circulatingSupply": 16688225.1655448,
     "totalSupply": 16688225.1655448,
     "maxSupply": 21000000,
-    "fdv": 8793341357
+    "fdv": 8914980960
   },
   "community": {
     "twitterFollowers": null,
@@ -53,5 +53,6 @@
     "githubForks": 2073,
     "commits4Weeks": 34
   },
-  "fetchedAt": "2026-05-14T07:47:06.221Z"
+  "fetchedAt": "2026-05-14T07:47:06.221Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.179Z"
 }

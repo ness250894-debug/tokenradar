@@ -17,25 +17,25 @@
     "explorer": "https://qtum.info/"
   },
   "market": {
-    "price": 0.977716,
-    "marketCap": 103665364,
-    "marketCapRank": 290,
-    "volume24h": 7735215,
-    "high24h": 1.052,
+    "price": 0.999385,
+    "marketCap": 105958270,
+    "marketCapRank": 291,
+    "volume24h": 5598140,
+    "high24h": 1.006,
     "low24h": 0.969166,
-    "priceChange24h": -5.43359,
-    "priceChange7d": 6.36092,
-    "priceChange30d": 8.26221,
-    "priceChange1y": -62.17913,
+    "priceChange24h": 1.78105,
+    "priceChange7d": 7.824418285005021,
+    "priceChange30d": 11.736832982623243,
+    "priceChange1y": -60.04110576182023,
     "ath": 100.22,
-    "athChangePercentage": -99.02432,
+    "athChangePercentage": -99.00251,
     "athDate": "2018-01-06T00:00:00.000Z",
     "atl": 0.783142,
     "atlDate": "2020-03-13T02:22:57.149Z",
-    "circulatingSupply": 106024006.75,
+    "circulatingSupply": 106024343,
     "totalSupply": 107822406,
     "maxSupply": null,
-    "fdv": 105423755
+    "fdv": 107755212
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 407,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:27:49.091Z"
+  "fetchedAt": "2026-05-14T07:27:49.091Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.785Z"
 }

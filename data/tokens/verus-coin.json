@@ -20,25 +20,25 @@
     "explorer": "https://explorer.verus.io"
   },
   "market": {
-    "price": 0.755667,
-    "marketCap": 60686049,
-    "marketCapRank": 447,
-    "volume24h": 792.59,
-    "high24h": 0.774893,
+    "price": 0.777366,
+    "marketCap": 62429819,
+    "marketCapRank": 439,
+    "volume24h": 1005.81,
+    "high24h": 0.782523,
     "low24h": 0.751552,
-    "priceChange24h": -2.02843,
-    "priceChange7d": -2.29432,
-    "priceChange30d": -1.7424,
-    "priceChange1y": -73.35232,
+    "priceChange24h": 0.74246,
+    "priceChange7d": 1.9772764691129385,
+    "priceChange30d": 2.053907825838561,
+    "priceChange1y": -71.29943078514664,
     "ath": 6.74,
-    "athChangePercentage": -88.78787,
+    "athChangePercentage": -88.466,
     "athDate": "2024-12-05T09:36:59.103Z",
     "atl": 0.00177843,
     "atlDate": "2020-11-29T04:57:39.065Z",
-    "circulatingSupply": 80307370.32691477,
-    "totalSupply": 80307624.94701587,
+    "circulatingSupply": 80309464.54141113,
+    "totalSupply": 80309464.54141113,
     "maxSupply": 83540184,
-    "fdv": 60686242
+    "fdv": 62429819
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 70,
     "commits4Weeks": 12
   },
-  "fetchedAt": "2026-05-14T07:44:28.117Z"
+  "fetchedAt": "2026-05-14T07:44:28.117Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.966Z"
 }

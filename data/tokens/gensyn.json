@@ -18,25 +18,25 @@
     "explorer": "https://gensyn-mainnet.explorer.alchemy.com/"
   },
   "market": {
-    "price": 0.03191837,
-    "marketCap": 41648988,
-    "marketCapRank": 569,
-    "volume24h": 8337238,
-    "high24h": 0.03229198,
-    "low24h": 0.02757151,
-    "priceChange24h": -0.87877,
-    "priceChange7d": 2.04403,
+    "price": 0.04293222,
+    "marketCap": 55732161,
+    "marketCapRank": 478,
+    "volume24h": 39448831,
+    "high24h": 0.051145,
+    "low24h": 0.02839002,
+    "priceChange24h": 49.85373,
+    "priceChange7d": 31.034529827084917,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.103372,
-    "athChangePercentage": -69.39211,
+    "athChangePercentage": -58.87103,
     "athDate": "2026-04-29T09:05:27.502Z",
     "atl": 0.02757151,
     "atlDate": "2026-05-13T16:35:26.924Z",
     "circulatingSupply": 1304675313,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 319228757
+    "fdv": 427172650
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:08:44.967Z"
+  "fetchedAt": "2026-05-14T07:08:44.967Z",
+  "lastMarketUpdate": "2026-05-14T19:23:40.015Z"
 }

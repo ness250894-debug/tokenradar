@@ -20,25 +20,25 @@
     "explorer": "https://explorer.kinesis.money/"
   },
   "market": {
-    "price": 87.09,
-    "marketCap": 329257843,
-    "marketCapRank": 148,
-    "volume24h": 693144,
-    "high24h": 89.22,
-    "low24h": 86.25,
-    "priceChange24h": 0.6933,
-    "priceChange7d": 10.42025,
-    "priceChange30d": 13.65061,
-    "priceChange1y": 164.9188,
+    "price": 84.95,
+    "marketCap": 321106791,
+    "marketCapRank": 152,
+    "volume24h": 1049773,
+    "high24h": 88.21,
+    "low24h": 84.3,
+    "priceChange24h": -3.69024,
+    "priceChange7d": 7.293805098112081,
+    "priceChange30d": 7.074431596276747,
+    "priceChange1y": 160.63077928474624,
     "ath": 130,
-    "athChangePercentage": -33.04017,
+    "athChangePercentage": -34.60633,
     "athDate": "2026-02-02T07:20:32.878Z",
     "atl": 4.36,
     "atlDate": "2024-02-11T14:01:27.124Z",
     "circulatingSupply": 3777096.9336,
     "totalSupply": 3777096.9336,
     "maxSupply": null,
-    "fdv": 329257843
+    "fdv": 321106791
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 1,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:14:45.268Z"
+  "fetchedAt": "2026-05-14T07:14:45.268Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.349Z"
 }

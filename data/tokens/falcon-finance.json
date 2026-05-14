@@ -20,25 +20,25 @@
     "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
   },
   "market": {
-    "price": 0.998012,
-    "marketCap": 1780573037,
-    "marketCapRank": 49,
-    "volume24h": 423878,
-    "high24h": 1.001,
-    "low24h": 0.997121,
-    "priceChange24h": -0.14,
-    "priceChange7d": -0.02867,
-    "priceChange30d": -0.06936,
-    "priceChange1y": -0.69735,
+    "price": 0.998047,
+    "marketCap": 1780284525,
+    "marketCapRank": 50,
+    "volume24h": 459746,
+    "high24h": 0.999461,
+    "low24h": 0.99673,
+    "priceChange24h": -0.0691,
+    "priceChange7d": -0.042242654003330916,
+    "priceChange30d": -0.066939674881656,
+    "priceChange1y": 0.773023715569451,
     "ath": 1.075,
-    "athChangePercentage": -7.10971,
+    "athChangePercentage": -7.12196,
     "athDate": "2025-05-08T21:25:42.071Z",
     "atl": 0.943422,
     "atlDate": "2025-07-08T10:16:34.749Z",
     "circulatingSupply": 1783824428.038432,
     "totalSupply": 1783824428.038432,
     "maxSupply": null,
-    "fdv": 1780573037
+    "fdv": 1780284525
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:05:57.980Z"
+  "fetchedAt": "2026-05-14T07:05:57.980Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.230Z"
 }

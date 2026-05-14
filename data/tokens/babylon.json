@@ -24,25 +24,25 @@
     "explorer": "https://www.mintscan.io/babylon"
   },
   "market": {
-    "price": 0.01715643,
-    "marketCap": 66625866,
-    "marketCapRank": 416,
-    "volume24h": 8171654,
-    "high24h": 0.01786369,
-    "low24h": 0.01673588,
-    "priceChange24h": 0.59957,
-    "priceChange7d": -1.3066,
-    "priceChange30d": 21.65828,
-    "priceChange1y": -83.39003,
+    "price": 0.01815456,
+    "marketCap": 70575763,
+    "marketCapRank": 404,
+    "volume24h": 18133112,
+    "high24h": 0.0186844,
+    "low24h": 0.01713126,
+    "priceChange24h": 4.16626,
+    "priceChange7d": 3.134621199762458,
+    "priceChange30d": 25.39155043240807,
+    "priceChange1y": -81.48458587572937,
     "ath": 0.166134,
-    "athChangePercentage": -89.67549,
+    "athChangePercentage": -89.0661,
     "athDate": "2025-04-12T08:11:41.743Z",
     "atl": 0.0107208,
     "atlDate": "2026-03-07T07:11:21.907Z",
-    "circulatingSupply": 3883667094.98,
-    "totalSupply": 10777411837,
+    "circulatingSupply": 3885284290.98,
+    "totalSupply": 10779055386,
     "maxSupply": null,
-    "fdv": 184890821
+    "fdv": 195800359
   },
   "community": {
     "twitterFollowers": null,
@@ -53,5 +53,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:22:41.704Z"
+  "fetchedAt": "2026-05-13T18:22:41.704Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.936Z"
 }

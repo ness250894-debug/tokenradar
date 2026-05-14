@@ -30,25 +30,25 @@
     "explorer": "https://polkadot.subscan.io/"
   },
   "market": {
-    "price": 1.33,
-    "marketCap": 2232607803,
-    "marketCapRank": 41,
-    "volume24h": 196259674,
-    "high24h": 1.43,
+    "price": 1.42,
+    "marketCap": 2386043306,
+    "marketCapRank": 40,
+    "volume24h": 172886841,
+    "high24h": 1.42,
     "low24h": 1.31,
-    "priceChange24h": -4.2103,
-    "priceChange7d": -0.20524,
-    "priceChange30d": 11.10931,
-    "priceChange1y": -74.64939,
+    "priceChange24h": 7.33944,
+    "priceChange7d": 8.49101537023236,
+    "priceChange30d": 21.877837863650164,
+    "priceChange1y": -71.65646355853022,
     "ath": 54.98,
-    "athChangePercentage": -97.58735,
+    "athChangePercentage": -97.42272,
     "athDate": "2021-11-04T14:10:09.301Z",
     "atl": 1.15,
     "atlDate": "2026-04-15T08:00:42.788Z",
-    "circulatingSupply": 1683756892.9565,
-    "totalSupply": 1683756892.9565,
+    "circulatingSupply": 1683784795.780714,
+    "totalSupply": 1683784795.780714,
     "maxSupply": 2100000000,
-    "fdv": 2232607803
+    "fdv": 2386043306
   },
   "community": {
     "twitterFollowers": null,
@@ -59,5 +59,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:26:33.231Z"
+  "fetchedAt": "2026-05-14T07:26:33.231Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.228Z"
 }

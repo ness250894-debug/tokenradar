@@ -19,25 +19,25 @@
     "explorer": "https://explorer.provenance.io/asset/nhash"
   },
   "market": {
-    "price": 0.01049443,
-    "marketCap": 555851472,
-    "marketCapRank": 100,
-    "volume24h": 30489,
-    "high24h": 0.01120744,
-    "low24h": 0.01039576,
-    "priceChange24h": 0.34285,
-    "priceChange7d": -7.87429,
-    "priceChange30d": -14.56337,
+    "price": 0.01043037,
+    "marketCap": 552957278,
+    "marketCapRank": 101,
+    "volume24h": 31753,
+    "high24h": 0.0114089,
+    "low24h": 0.01043913,
+    "priceChange24h": -0.68625,
+    "priceChange7d": -0.4470583274065078,
+    "priceChange30d": -15.022950740494426,
     "priceChange1y": 0,
     "ath": 0.060147,
-    "athChangePercentage": -82.54421,
+    "athChangePercentage": -82.65082,
     "athDate": "2025-09-14T16:52:41.627Z",
     "atl": 0.00908303,
     "atlDate": "2026-04-17T13:35:51.984Z",
-    "circulatingSupply": 52973531123,
+    "circulatingSupply": 52992502378,
     "totalSupply": 94978475357.64638,
     "maxSupply": 100000000000,
-    "fdv": 996609518
+    "fdv": 991065469
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:10:13.484Z"
+  "fetchedAt": "2026-05-14T07:10:13.484Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.297Z"
 }

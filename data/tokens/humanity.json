@@ -22,25 +22,25 @@
     "explorer": "https://humanity-mainnet.explorer.alchemy.com/"
   },
   "market": {
-    "price": 0.250971,
-    "marketCap": 458051633,
+    "price": 0.25213,
+    "marketCap": 460164876,
     "marketCapRank": 115,
-    "volume24h": 45392770,
-    "high24h": 0.259164,
-    "low24h": 0.22719,
-    "priceChange24h": 5.32704,
-    "priceChange7d": 23.10468,
-    "priceChange30d": 148.02011,
+    "volume24h": 34635485,
+    "high24h": 0.264039,
+    "low24h": 0.242805,
+    "priceChange24h": -0.02339,
+    "priceChange7d": 23.453836928310025,
+    "priceChange30d": 159.23841986705645,
     "priceChange1y": 0,
     "ath": 0.388387,
-    "athChangePercentage": -35.3406,
+    "athChangePercentage": -35.0928,
     "athDate": "2025-10-25T09:06:05.244Z",
     "atl": 0.01810273,
     "atlDate": "2025-06-27T01:20:39.339Z",
     "circulatingSupply": 1825000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 2509871959
+    "fdv": 2521451376
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 1,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:11:29.424Z"
+  "fetchedAt": "2026-05-14T07:11:29.424Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.308Z"
 }

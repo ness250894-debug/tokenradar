@@ -1371,5 +1371,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-13T19:29:35.682Z",
     "discoveredAt": "2026-05-13T19:29:35.682Z"
+  },
+  {
+    "id": "myriad",
+    "name": "Myriad",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Testnet / Product Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/367581/myriad-adopts-chainlink-as-official-oracle-platform-to-power-new-crypto-prediction-markets",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/367581/myriad-adopts-chainlink-as-official-oracle-platform-to-power-new-crypto-prediction-markets",
+        "title": "Myriad Adopts Chainlink as Official Oracle Platform to Power New Crypto Prediction Markets",
+        "observedAt": "2024-07-25"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-14T19:24:29.592Z",
+    "discoveredAt": "2026-05-14T19:24:29.592Z"
   }
 ]

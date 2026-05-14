@@ -18,25 +18,25 @@
     "explorer": "https://scan.kcc.io"
   },
   "market": {
-    "price": 8.34,
-    "marketCap": 1122858750,
-    "marketCapRank": 63,
-    "volume24h": 2223982,
-    "high24h": 8.51,
-    "low24h": 8.22,
-    "priceChange24h": -1.52106,
-    "priceChange7d": -0.73586,
-    "priceChange30d": -3.34605,
-    "priceChange1y": -26.94375,
+    "price": 8.43,
+    "marketCap": 1134853476,
+    "marketCapRank": 64,
+    "volume24h": 1659931,
+    "high24h": 8.48,
+    "low24h": 8.26,
+    "priceChange24h": 1.60508,
+    "priceChange7d": 2.020162832374875,
+    "priceChange30d": 0.9186436960762305,
+    "priceChange1y": -25.988541389754456,
     "ath": 28.83,
-    "athChangePercentage": -71.06995,
+    "athChangePercentage": -70.76569,
     "athDate": "2021-12-01T15:09:35.541Z",
     "atl": 0.342863,
     "atlDate": "2019-02-07T00:00:00.000Z",
     "circulatingSupply": 134655021.7355671,
     "totalSupply": 142155021.7355671,
     "maxSupply": null,
-    "fdv": 1185399608
+    "fdv": 1198062415
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:14:57.920Z"
+  "fetchedAt": "2026-05-14T07:14:57.920Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.239Z"
 }

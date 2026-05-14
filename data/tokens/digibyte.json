@@ -19,25 +19,25 @@
     "explorer": "https://digiexplorer.info/"
   },
   "market": {
-    "price": 0.00379481,
-    "marketCap": 69357493,
-    "marketCapRank": 407,
-    "volume24h": 2269949,
-    "high24h": 0.00399722,
-    "low24h": 0.003748,
-    "priceChange24h": -2.56908,
-    "priceChange7d": -1.78048,
-    "priceChange30d": -18.72967,
-    "priceChange1y": -67.68458,
+    "price": 0.00379275,
+    "marketCap": 69341563,
+    "marketCapRank": 411,
+    "volume24h": 2175767,
+    "high24h": 0.00385336,
+    "low24h": 0.00372199,
+    "priceChange24h": 0.90715,
+    "priceChange7d": 0.20222855252805522,
+    "priceChange30d": -18.795350264764078,
+    "priceChange1y": -67.21003292096957,
     "ath": 0.178084,
-    "athChangePercentage": -97.87339,
+    "athChangePercentage": -97.87088,
     "athDate": "2021-05-01T00:19:01.967Z",
     "atl": 0.00003099,
     "atlDate": "2015-01-14T00:00:00.000Z",
     "circulatingSupply": 18278711227.86734,
-    "totalSupply": 18285007339.18359,
+    "totalSupply": 18286538338.32553,
     "maxSupply": 21000000000,
-    "fdv": 69381188
+    "fdv": 69371256
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 58,
     "commits4Weeks": 19
   },
-  "fetchedAt": "2026-05-13T18:31:32.744Z"
+  "fetchedAt": "2026-05-13T18:31:32.744Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.937Z"
 }

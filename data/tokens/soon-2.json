@@ -22,25 +22,25 @@
     "explorer": "https://explorer.soo.network/"
   },
   "market": {
-    "price": 0.177073,
-    "marketCap": 60173662,
-    "marketCapRank": 449,
-    "volume24h": 8154263,
-    "high24h": 0.182736,
+    "price": 0.175071,
+    "marketCap": 59493206,
+    "marketCapRank": 459,
+    "volume24h": 4718427,
+    "high24h": 0.179718,
     "low24h": 0.166281,
-    "priceChange24h": -1.7355,
-    "priceChange7d": -0.54015,
-    "priceChange30d": 43.29044,
+    "priceChange24h": 3.87868,
+    "priceChange7d": -3.2335952156709804,
+    "priceChange30d": 38.55201750145945,
     "priceChange1y": 0,
     "ath": 4.3,
-    "athChangePercentage": -95.89044,
+    "athChangePercentage": -95.92888,
     "athDate": "2025-11-14T20:10:58.428Z",
     "atl": 0.101005,
     "atlDate": "2026-04-10T01:10:10.157Z",
     "circulatingSupply": 339791742.36,
     "totalSupply": 998630613.8636352,
     "maxSupply": null,
-    "fdv": 176847326
+    "fdv": 174847500
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:33:11.505Z"
+  "fetchedAt": "2026-05-14T07:33:11.505Z",
+  "lastMarketUpdate": "2026-05-14T19:23:40.005Z"
 }

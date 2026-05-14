@@ -29,25 +29,25 @@
     "explorer": "https://minaexplorer.com/"
   },
   "market": {
-    "price": 0.064132,
-    "marketCap": 82520322,
-    "marketCapRank": 347,
-    "volume24h": 5461032,
-    "high24h": 0.069502,
+    "price": 0.06649,
+    "marketCap": 85578471,
+    "marketCapRank": 337,
+    "volume24h": 3220141,
+    "high24h": 0.067245,
     "low24h": 0.063318,
-    "priceChange24h": -4.67866,
-    "priceChange7d": -2.02181,
-    "priceChange30d": 11.93031,
-    "priceChange1y": -78.40586,
+    "priceChange24h": 3.29937,
+    "priceChange7d": 2.712008463403177,
+    "priceChange30d": 16.518789499197574,
+    "priceChange1y": -76.40038389278678,
     "ath": 9.09,
-    "athChangePercentage": -99.29254,
+    "athChangePercentage": -99.26805,
     "athDate": "2021-06-01T01:42:37.064Z",
     "atl": 0.052408,
     "atlDate": "2026-03-31T10:30:54.688Z",
-    "circulatingSupply": 1286104903.840039,
-    "totalSupply": 1286104903.840039,
+    "circulatingSupply": 1286160329.840039,
+    "totalSupply": 1286160329.840039,
     "maxSupply": null,
-    "fdv": 82520322
+    "fdv": 85578471
   },
   "community": {
     "twitterFollowers": null,
@@ -58,5 +58,6 @@
     "githubForks": 525,
     "commits4Weeks": 92
   },
-  "fetchedAt": "2026-05-14T07:19:31.780Z"
+  "fetchedAt": "2026-05-14T07:19:31.780Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.825Z"
 }

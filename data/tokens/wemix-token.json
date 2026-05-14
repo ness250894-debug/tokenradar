@@ -21,25 +21,25 @@
     "explorer": "https://scan.wemix.com"
   },
   "market": {
-    "price": 0.292818,
-    "marketCap": 135290928,
-    "marketCapRank": 244,
-    "volume24h": 1433540,
+    "price": 0.291169,
+    "marketCap": 134555847,
+    "marketCapRank": 246,
+    "volume24h": 1434931,
     "high24h": 0.293968,
-    "low24h": 0.284618,
-    "priceChange24h": 0.64752,
-    "priceChange7d": 19.52139,
-    "priceChange30d": 16.82667,
-    "priceChange1y": -18.45537,
+    "low24h": 0.284831,
+    "priceChange24h": -0.08691,
+    "priceChange7d": 18.130717042690367,
+    "priceChange30d": 20.00910358839333,
+    "priceChange1y": -18.92159529522044,
     "ath": 24.71,
-    "athChangePercentage": -98.81498,
+    "athChangePercentage": -98.82273,
     "athDate": "2021-11-21T17:33:44.178Z",
     "atl": 0.128398,
     "atlDate": "2021-06-22T12:52:49.089Z",
     "circulatingSupply": 462277841.3255647,
     "totalSupply": 552473209.5478008,
     "maxSupply": 590000000,
-    "fdv": 161687640
+    "fdv": 160809137
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:45:18.692Z"
+  "fetchedAt": "2026-05-14T07:45:18.692Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.479Z"
 }

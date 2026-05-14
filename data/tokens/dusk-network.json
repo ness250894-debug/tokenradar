@@ -22,25 +22,25 @@
     "explorer": "https://apps.dusk.network/explorer/"
   },
   "market": {
-    "price": 0.131909,
-    "marketCap": 76952597,
-    "marketCapRank": 372,
-    "volume24h": 11401737,
-    "high24h": 0.13377,
-    "low24h": 0.123246,
-    "priceChange24h": 5.78017,
-    "priceChange7d": -9.68126,
-    "priceChange30d": -14.21341,
-    "priceChange1y": 26.15138,
+    "price": 0.145368,
+    "marketCap": 84920242,
+    "marketCapRank": 344,
+    "volume24h": 14962831,
+    "high24h": 0.14937,
+    "low24h": 0.126025,
+    "priceChange24h": 11.75684,
+    "priceChange7d": 3.2378771357091676,
+    "priceChange30d": 1.425802852252083,
+    "priceChange1y": 42.307638886568036,
     "ath": 1.09,
-    "athChangePercentage": -87.94111,
+    "athChangePercentage": -86.65349,
     "athDate": "2021-12-29T21:34:22.823Z",
     "atl": 0.01113274,
     "atlDate": "2020-03-13T02:24:16.885Z",
-    "circulatingSupply": 583527208.8153222,
-    "totalSupply": 583534218.2204465,
+    "circulatingSupply": 583705998.2876712,
+    "totalSupply": 583705998.2876712,
     "maxSupply": 1000000000,
-    "fdv": 76952597
+    "fdv": 84920242
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 48,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:32:25.487Z"
+  "fetchedAt": "2026-05-13T18:32:25.487Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.826Z"
 }

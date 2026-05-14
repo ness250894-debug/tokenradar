@@ -18,25 +18,25 @@
     "explorer": "https://explorer.metalblockchain.org"
   },
   "market": {
-    "price": 0.152871,
-    "marketCap": 78529472,
-    "marketCapRank": 363,
-    "volume24h": 650948,
-    "high24h": 0.156561,
-    "low24h": 0.145867,
-    "priceChange24h": 1.28692,
-    "priceChange7d": -1.68746,
-    "priceChange30d": 22.22504,
-    "priceChange1y": 56.61497,
+    "price": 0.157411,
+    "marketCap": 80539442,
+    "marketCapRank": 359,
+    "volume24h": 678179,
+    "high24h": 0.160112,
+    "low24h": 0.149356,
+    "priceChange24h": 2.96418,
+    "priceChange7d": 6.049888755547342,
+    "priceChange30d": 25.54732236563919,
+    "priceChange1y": 59.693813019494726,
     "ath": 1.65,
-    "athChangePercentage": -90.66949,
+    "athChangePercentage": -90.37959,
     "athDate": "2022-09-12T13:18:04.897Z",
     "atl": 0.03510303,
     "atlDate": "2024-08-05T06:56:59.845Z",
     "circulatingSupply": 507639839.0528355,
     "totalSupply": 666666666,
     "maxSupply": 666666666,
-    "fdv": 103130167
+    "fdv": 105769794
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:18:34.849Z"
+  "fetchedAt": "2026-05-14T07:18:34.849Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.875Z"
 }

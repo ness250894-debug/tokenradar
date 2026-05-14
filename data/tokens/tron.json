@@ -26,25 +26,25 @@
     "explorer": "https://tronscan.org/#/token/0/transfers"
   },
   "market": {
-    "price": 0.350907,
-    "marketCap": 33265291370,
+    "price": 0.354561,
+    "marketCap": 33610564823,
     "marketCapRank": 8,
-    "volume24h": 456713536,
-    "high24h": 0.351443,
+    "volume24h": 495154788,
+    "high24h": 0.355228,
     "low24h": 0.34918,
-    "priceChange24h": 0.36553,
-    "priceChange7d": 1.64386,
-    "priceChange30d": 9.13142,
-    "priceChange1y": 27.87138,
+    "priceChange24h": 1.27546,
+    "priceChange7d": 1.455877433739102,
+    "priceChange30d": 9.640067680892809,
+    "priceChange1y": 28.51007664193976,
     "ath": 0.431288,
-    "athChangePercentage": -18.63758,
+    "athChangePercentage": -17.79035,
     "athDate": "2024-12-04T00:10:40.323Z",
     "atl": 0.00180434,
     "atlDate": "2017-11-12T00:00:00.000Z",
-    "circulatingSupply": 94798300654.1525,
-    "totalSupply": 94799278948.3133,
+    "circulatingSupply": 94798917761.65149,
+    "totalSupply": 94798923912.8273,
     "maxSupply": null,
-    "fdv": 33265627371
+    "fdv": 33610567004
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,6 @@
     "githubForks": 1438,
     "commits4Weeks": 19
   },
-  "fetchedAt": "2026-05-14T07:40:27.814Z"
+  "fetchedAt": "2026-05-14T07:40:27.814Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.178Z"
 }

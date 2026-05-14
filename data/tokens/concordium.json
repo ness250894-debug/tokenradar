@@ -26,25 +26,25 @@
     "explorer": "https://ccdscan.io/"
   },
   "market": {
-    "price": 0.00557842,
-    "marketCap": 70129787,
-    "marketCapRank": 407,
-    "volume24h": 160743,
-    "high24h": 0.00562219,
-    "low24h": 0.00547653,
-    "priceChange24h": 1.26859,
-    "priceChange7d": 13.47069,
-    "priceChange30d": 22.31718,
-    "priceChange1y": 35.38053,
+    "price": 0.00559272,
+    "marketCap": 70314281,
+    "marketCapRank": 406,
+    "volume24h": 206744,
+    "high24h": 0.0056614,
+    "low24h": 0.00548471,
+    "priceChange24h": 0.36494,
+    "priceChange7d": -0.08626160588896793,
+    "priceChange30d": 20.930013746598824,
+    "priceChange1y": 39.993948528340596,
     "ath": 0.149407,
-    "athChangePercentage": -96.2654,
+    "athChangePercentage": -96.25709,
     "athDate": "2022-02-10T12:22:15.949Z",
     "atl": 0.00262306,
     "atlDate": "2024-07-16T01:52:20.318Z",
-    "circulatingSupply": 12571619392.30472,
-    "totalSupply": 14462065003.08726,
+    "circulatingSupply": 12572776316.55962,
+    "totalSupply": 14463619093.43977,
     "maxSupply": null,
-    "fdv": 80675489
+    "fdv": 80888974
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:29:01.000Z"
+  "fetchedAt": "2026-05-13T18:29:01.000Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.936Z"
 }

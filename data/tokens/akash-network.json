@@ -21,25 +21,25 @@
     "explorer": "https://www.mintscan.io/akash"
   },
   "market": {
-    "price": 0.838291,
-    "marketCap": 245620180,
-    "marketCapRank": 173,
-    "volume24h": 24949604,
-    "high24h": 0.931774,
-    "low24h": 0.810343,
-    "priceChange24h": -0.73414,
-    "priceChange7d": 33.63907,
-    "priceChange30d": 83.02468,
-    "priceChange1y": -52.77902,
+    "price": 0.813622,
+    "marketCap": 237661980,
+    "marketCapRank": 177,
+    "volume24h": 19737298,
+    "high24h": 0.886669,
+    "low24h": 0.767563,
+    "priceChange24h": -3.63733,
+    "priceChange7d": 29.381189476489627,
+    "priceChange30d": 78.99080126173624,
+    "priceChange1y": -52.671339830929085,
     "ath": 8.07,
-    "athChangePercentage": -89.63895,
+    "athChangePercentage": -89.92324,
     "athDate": "2021-04-06T18:59:48.484Z",
     "atl": 0.164994,
     "atlDate": "2022-11-21T20:30:53.727Z",
     "circulatingSupply": 292078878.414427,
-    "totalSupply": 293660417.332843,
+    "totalSupply": 293728552.023803,
     "maxSupply": 388539008,
-    "fdv": 246950156
+    "fdv": 239004305
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:18:54.139Z"
+  "fetchedAt": "2026-05-13T18:18:54.139Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.409Z"
 }

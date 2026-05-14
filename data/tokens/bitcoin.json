@@ -22,25 +22,25 @@
     "explorer": "https://mempool.space/"
   },
   "market": {
-    "price": 79731,
-    "marketCap": 1594885251088,
+    "price": 81589,
+    "marketCap": 1634147761010,
     "marketCapRank": 1,
-    "volume24h": 33360421308,
-    "high24h": 81263,
-    "low24h": 78795,
-    "priceChange24h": -0.99405,
-    "priceChange7d": -2.33092,
-    "priceChange30d": 10.44803,
-    "priceChange1y": -23.23287,
+    "volume24h": 38865156341,
+    "high24h": 81958,
+    "low24h": 78973,
+    "priceChange24h": 2.70731,
+    "priceChange7d": 1.883772499906565,
+    "priceChange30d": 9.114556609425383,
+    "priceChange1y": -20.96901494149544,
     "ath": 126080,
-    "athChangePercentage": -36.76151,
+    "athChangePercentage": -35.28804,
     "athDate": "2025-10-06T18:57:42.558Z",
     "atl": 67.81,
     "atlDate": "2013-07-06T00:00:00.000Z",
-    "circulatingSupply": 20028850,
-    "totalSupply": 20028850,
+    "circulatingSupply": 20029356,
+    "totalSupply": 20029356,
     "maxSupply": 21000000,
-    "fdv": 1594885251088
+    "fdv": 1634147761010
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 36426,
     "commits4Weeks": 108
   },
-  "fetchedAt": "2026-05-13T18:24:29.399Z"
+  "fetchedAt": "2026-05-13T18:24:29.399Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.159Z"
 }

@@ -21,25 +21,25 @@
     "explorer": "https://assethub-kusama.subscan.io/"
   },
   "market": {
-    "price": 5.39,
-    "marketCap": 98203378,
+    "price": 5.51,
+    "marketCap": 100426838,
     "marketCapRank": 304,
-    "volume24h": 6688163,
-    "high24h": 5.8,
-    "low24h": 5.36,
-    "priceChange24h": -5.24776,
-    "priceChange7d": -3.277,
-    "priceChange30d": 28.94645,
-    "priceChange1y": -75.69941,
+    "volume24h": 5334801,
+    "high24h": 5.53,
+    "low24h": 5.35,
+    "priceChange24h": 1.565,
+    "priceChange7d": -1.9377499138927199,
+    "priceChange30d": 31.72912593348124,
+    "priceChange1y": -73.96792003057581,
     "ath": 621.71,
-    "athChangePercentage": -99.13131,
+    "athChangePercentage": -99.11269,
     "athDate": "2021-05-18T05:04:41.858Z",
     "atl": 0.876572,
     "atlDate": "2020-01-14T19:20:20.768Z",
-    "circulatingSupply": 18204921.46871219,
-    "totalSupply": 18204921.46871219,
+    "circulatingSupply": 18207063.50021041,
+    "totalSupply": 18207063.50021041,
     "maxSupply": null,
-    "fdv": 98203378
+    "fdv": 100426838
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,6 @@
     "githubForks": 23,
     "commits4Weeks": 8
   },
-  "fetchedAt": "2026-05-14T07:15:04.244Z"
+  "fetchedAt": "2026-05-14T07:15:04.244Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.787Z"
 }
