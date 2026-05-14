@@ -111,7 +111,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          for dir in content/tokens data/queue data/tokens data/prices; do
+          for dir in content/tokens data/tokens data/prices; do
             if [ -d "$dir" ]; then
               git add "$dir"
             fi
