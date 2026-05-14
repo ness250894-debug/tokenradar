@@ -19,25 +19,25 @@
     "explorer": "https://verge-blockchain.info/"
   },
   "market": {
-    "price": 0.00343222,
-    "marketCap": 56728938,
-    "marketCapRank": 466,
-    "volume24h": 3332674,
-    "high24h": 0.00362068,
+    "price": 0.00368244,
+    "marketCap": 60849236,
+    "marketCapRank": 452,
+    "volume24h": 4792909,
+    "high24h": 0.00371021,
     "low24h": 0.00337359,
-    "priceChange24h": -4.24622,
-    "priceChange7d": -7.63492,
-    "priceChange30d": -30.07005,
-    "priceChange1y": -57.52744,
+    "priceChange24h": 6.59569,
+    "priceChange7d": 1.4676924274262397,
+    "priceChange30d": -20.849054307880067,
+    "priceChange1y": -49.38009377956614,
     "ath": 0.261874,
-    "athChangePercentage": -98.69205,
+    "athChangePercentage": -98.59064,
     "athDate": "2017-12-24T00:00:00.000Z",
     "atl": 0.00000223,
     "atlDate": "2015-02-06T00:00:00.000Z",
     "circulatingSupply": 16521951235.74134,
     "totalSupply": 16555000000,
     "maxSupply": null,
-    "fdv": 56842413
+    "fdv": 60970952
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 386,
     "commits4Weeks": 4
   },
-  "fetchedAt": "2026-05-14T07:44:21.780Z"
+  "fetchedAt": "2026-05-14T07:44:21.780Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.986Z"
 }

@@ -23,25 +23,25 @@
     "explorer": "https://viewblock.io/arweave"
   },
   "market": {
-    "price": 2.32,
-    "marketCap": 152386824,
-    "marketCapRank": 228,
-    "volume24h": 22213885,
+    "price": 2.39,
+    "marketCap": 157299081,
+    "marketCapRank": 225,
+    "volume24h": 15827477,
     "high24h": 2.42,
     "low24h": 2.27,
-    "priceChange24h": -0.14963,
-    "priceChange7d": -8.8114,
-    "priceChange30d": 36.76782,
-    "priceChange1y": -71.96877,
+    "priceChange24h": 4.27289,
+    "priceChange7d": -1.8736480023103568,
+    "priceChange30d": 35.52937853133808,
+    "priceChange1y": -71.1813861600287,
     "ath": 89.24,
-    "athChangePercentage": -97.40516,
+    "athChangePercentage": -97.31171,
     "athDate": "2021-11-05T04:14:42.689Z",
     "atl": 0.298788,
     "atlDate": "2020-01-31T06:47:36.543Z",
     "circulatingSupply": 65652466,
     "totalSupply": 65652466,
     "maxSupply": 66000000,
-    "fdv": 152386824
+    "fdv": 157299081
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +52,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:21:13.210Z"
+  "fetchedAt": "2026-05-13T18:21:13.210Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.467Z"
 }

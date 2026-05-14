@@ -18,25 +18,25 @@
     "explorer": "https://explorer.fogo.io/"
   },
   "market": {
-    "price": 0.01987238,
-    "marketCap": 75957931,
-    "marketCapRank": 375,
-    "volume24h": 3896352,
-    "high24h": 0.02118107,
+    "price": 0.0199583,
+    "marketCap": 76287461,
+    "marketCapRank": 380,
+    "volume24h": 3368395,
+    "high24h": 0.02015702,
     "low24h": 0.01957698,
-    "priceChange24h": -5.33456,
-    "priceChange7d": 4.03703,
-    "priceChange30d": 12.28737,
+    "priceChange24h": -0.64364,
+    "priceChange7d": 0.9353313637525772,
+    "priceChange30d": 9.41323119150104,
     "priceChange1y": 0,
     "ath": 0.062549,
-    "athChangePercentage": -68.23546,
+    "athChangePercentage": -68.05562,
     "athDate": "2026-01-15T14:30:10.812Z",
     "atl": 0.01581099,
     "atlDate": "2026-04-01T14:10:27.118Z",
-    "circulatingSupply": 3822066414.458749,
-    "totalSupply": 9996066416.434004,
+    "circulatingSupply": 3822340031.233784,
+    "totalSupply": 9996317226.781584,
     "maxSupply": null,
-    "fdv": 198657073
+    "fdv": 199509635
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:07:28.724Z"
+  "fetchedAt": "2026-05-14T07:07:28.724Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.896Z"
 }

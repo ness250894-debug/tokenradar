@@ -21,25 +21,25 @@
     "explorer": "https://www.storyscan.xyz/"
   },
   "market": {
-    "price": 0.531546,
-    "marketCap": 187990645,
-    "marketCapRank": 197,
-    "volume24h": 37397928,
-    "high24h": 0.564114,
+    "price": 0.543526,
+    "marketCap": 192584320,
+    "marketCapRank": 195,
+    "volume24h": 33218882,
+    "high24h": 0.546584,
     "low24h": 0.526703,
-    "priceChange24h": -5.77336,
-    "priceChange7d": -1.18251,
-    "priceChange30d": 6.03838,
-    "priceChange1y": -89.23331,
+    "priceChange24h": 0.16909,
+    "priceChange7d": 0.6574513089884942,
+    "priceChange30d": 10.36616325892,
+    "priceChange1y": -88.45513622665823,
     "ath": 14.78,
-    "athChangePercentage": -96.41401,
+    "athChangePercentage": -96.32283,
     "athDate": "2025-09-21T21:07:34.521Z",
     "atl": 0.472421,
     "atlDate": "2026-04-13T13:45:05.238Z",
-    "circulatingSupply": 354269787.11,
-    "totalSupply": 1027796874.11,
+    "circulatingSupply": 354290752.8,
+    "totalSupply": 1027816803.84,
     "maxSupply": null,
-    "fdv": 545392818
+    "fdv": 558697619
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:34:33.722Z"
+  "fetchedAt": "2026-05-14T07:34:33.722Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.429Z"
 }

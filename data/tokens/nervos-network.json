@@ -26,25 +26,25 @@
     "explorer": "https://ckb.tokenview.io/"
   },
   "market": {
-    "price": 0.00157762,
-    "marketCap": 76942802,
-    "marketCapRank": 371,
-    "volume24h": 4115325,
-    "high24h": 0.00168919,
+    "price": 0.0016356,
+    "marketCap": 79772432,
+    "marketCapRank": 365,
+    "volume24h": 3109436,
+    "high24h": 0.00165036,
     "low24h": 0.00156011,
-    "priceChange24h": -5.15093,
-    "priceChange7d": 0.71189,
-    "priceChange30d": 5.9526,
-    "priceChange1y": -74.30587,
+    "priceChange24h": 2.04064,
+    "priceChange7d": 4.241029156637445,
+    "priceChange30d": 11.312945074428796,
+    "priceChange1y": -71.86208292711227,
     "ath": 0.04370633,
-    "athChangePercentage": -96.38931,
+    "athChangePercentage": -96.25542,
     "athDate": "2021-03-31T17:08:59.155Z",
     "atl": 0.00132283,
     "atlDate": "2026-03-29T22:55:07.809Z",
-    "circulatingSupply": 48761247216.74898,
-    "totalSupply": 49561383464.06335,
+    "circulatingSupply": 48764228312.79086,
+    "totalSupply": 49564736027.05405,
     "maxSupply": null,
-    "fdv": 78205377
+    "fdv": 81081967
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,6 @@
     "githubForks": 226,
     "commits4Weeks": 100
   },
-  "fetchedAt": "2026-05-14T07:21:25.559Z"
+  "fetchedAt": "2026-05-14T07:21:25.559Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.875Z"
 }

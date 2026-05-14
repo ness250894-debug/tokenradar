@@ -22,25 +22,25 @@
     "explorer": "https://explorer.zano.org/"
   },
   "market": {
-    "price": 11.28,
-    "marketCap": 172472018,
-    "marketCapRank": 206,
-    "volume24h": 1619121,
-    "high24h": 11.52,
+    "price": 11.58,
+    "marketCap": 177022278,
+    "marketCapRank": 205,
+    "volume24h": 2035656,
+    "high24h": 11.66,
     "low24h": 11.25,
-    "priceChange24h": -1.92593,
-    "priceChange7d": 13.25407,
-    "priceChange30d": 21.75129,
-    "priceChange1y": 13.13188,
+    "priceChange24h": 2.30867,
+    "priceChange7d": 16.02298297007905,
+    "priceChange30d": 16.535911380100842,
+    "priceChange1y": 17.024310227345023,
     "ath": 17.81,
-    "athChangePercentage": -36.61866,
+    "athChangePercentage": -34.94824,
     "athDate": "2025-01-07T14:41:15.393Z",
     "atl": 0.146452,
     "atlDate": "2019-12-16T19:21:13.626Z",
-    "circulatingSupply": 15282698.21,
-    "totalSupply": 15283441.39,
+    "circulatingSupply": 15283808.56,
+    "totalSupply": 15284048.46,
     "maxSupply": null,
-    "fdv": 172480406
+    "fdv": 177025057
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:46:59.911Z"
+  "fetchedAt": "2026-05-14T07:46:59.911Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.438Z"
 }

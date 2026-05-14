@@ -33,25 +33,25 @@
     "explorer": "https://dashboard.internetcomputer.org/canister/ryjl3-tyaaa-aaaaa-aaaba-cai"
   },
   "market": {
-    "price": 2.97,
-    "marketCap": 1642469951,
+    "price": 2.87,
+    "marketCap": 1587174339,
     "marketCapRank": 55,
-    "volume24h": 75910009,
-    "high24h": 3.31,
-    "low24h": 2.95,
-    "priceChange24h": -7.94226,
-    "priceChange7d": 0.22032,
-    "priceChange30d": 19.95668,
-    "priceChange1y": -50.09861,
+    "volume24h": 104445011,
+    "high24h": 3.08,
+    "low24h": 2.87,
+    "priceChange24h": -6.90077,
+    "priceChange7d": -2.752413713622961,
+    "priceChange30d": 18.215164125785957,
+    "priceChange1y": -49.35248777250298,
     "ath": 700.65,
-    "athChangePercentage": -99.57514,
+    "athChangePercentage": -99.58991,
     "athDate": "2021-05-10T16:05:53.653Z",
     "atl": 2.02,
     "atlDate": "2026-02-24T05:35:51.591Z",
-    "circulatingSupply": 552137343.7241199,
-    "totalSupply": 552137343.7241199,
+    "circulatingSupply": 552146000.1126661,
+    "totalSupply": 552146151.1340115,
     "maxSupply": null,
-    "fdv": 1642469951
+    "fdv": 1587174773
   },
   "community": {
     "twitterFollowers": null,
@@ -62,5 +62,6 @@
     "githubForks": 280,
     "commits4Weeks": 567
   },
-  "fetchedAt": "2026-05-14T07:12:19.917Z"
+  "fetchedAt": "2026-05-14T07:12:19.917Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.230Z"
 }

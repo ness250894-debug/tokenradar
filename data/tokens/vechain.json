@@ -19,25 +19,25 @@
     "explorer": "https://vechainstats.com/"
   },
   "market": {
-    "price": 0.00724253,
-    "marketCap": 622913015,
+    "price": 0.00748497,
+    "marketCap": 643602821,
     "marketCapRank": 90,
-    "volume24h": 17865441,
-    "high24h": 0.00772584,
+    "volume24h": 17484384,
+    "high24h": 0.00751367,
     "low24h": 0.00719604,
-    "priceChange24h": -4.92141,
-    "priceChange7d": -6.20536,
-    "priceChange30d": 4.44942,
-    "priceChange1y": -77.34804,
+    "priceChange24h": 2.54301,
+    "priceChange7d": -1.8973447182721395,
+    "priceChange30d": 7.692676718948715,
+    "priceChange1y": -75.40442861678058,
     "ath": 0.280991,
-    "athChangePercentage": -97.42351,
+    "athChangePercentage": -97.33515,
     "athDate": "2021-04-19T01:08:21.675Z",
     "atl": 0.00191713,
     "atlDate": "2020-03-13T02:29:59.652Z",
     "circulatingSupply": 85985041177,
     "totalSupply": 85985041177,
     "maxSupply": 86712634466,
-    "fdv": 622913015
+    "fdv": 643602821
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 270,
     "commits4Weeks": 1
   },
-  "fetchedAt": "2026-05-14T07:44:02.839Z"
+  "fetchedAt": "2026-05-14T07:44:02.839Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.278Z"
 }

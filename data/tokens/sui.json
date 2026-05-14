@@ -26,25 +26,25 @@
     "explorer": "https://suiscan.xyz/mainnet/home"
   },
   "market": {
-    "price": 1.19,
-    "marketCap": 4774015656,
+    "price": 1.21,
+    "marketCap": 4862582176,
     "marketCapRank": 23,
-    "volume24h": 305914773,
-    "high24h": 1.26,
-    "low24h": 1.18,
-    "priceChange24h": -5.03275,
-    "priceChange7d": 19.47232,
-    "priceChange30d": 26.34573,
-    "priceChange1y": -70.32963,
+    "volume24h": 532999650,
+    "high24h": 1.22,
+    "low24h": 1.19,
+    "priceChange24h": 0.55067,
+    "priceChange7d": 24.92944356963926,
+    "priceChange30d": 29.069908322106773,
+    "priceChange1y": -69.04509679691088,
     "ath": 5.35,
-    "athChangePercentage": -77.70259,
+    "athChangePercentage": -77.295,
     "athDate": "2025-01-04T22:56:18.063Z",
     "atl": 0.364846,
     "atlDate": "2023-10-19T10:40:30.078Z",
     "circulatingSupply": 4005418369.566699,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 11918893896
+    "fdv": 12140010673
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,6 @@
     "githubForks": 12286,
     "commits4Weeks": 219
   },
-  "fetchedAt": "2026-05-14T07:35:11.644Z"
+  "fetchedAt": "2026-05-14T07:35:11.644Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.188Z"
 }

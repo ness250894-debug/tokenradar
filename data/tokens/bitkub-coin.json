@@ -15,25 +15,25 @@
     "explorer": "https://bkcscan.com/"
   },
   "market": {
-    "price": 0.861727,
-    "marketCap": 59436353,
-    "marketCapRank": 455,
-    "volume24h": 283969,
-    "high24h": 0.883643,
-    "low24h": 0.859107,
-    "priceChange24h": -1.48798,
-    "priceChange7d": -2.45957,
-    "priceChange30d": 2.5402,
-    "priceChange1y": -49.77,
+    "price": 0.859883,
+    "marketCap": 59062841,
+    "marketCapRank": 466,
+    "volume24h": 250703,
+    "high24h": 0.867502,
+    "low24h": 0.849685,
+    "priceChange24h": 0.00002,
+    "priceChange7d": -2.687961848554584,
+    "priceChange30d": 0.9332242437147518,
+    "priceChange1y": -49.56117552461665,
     "ath": 17.24,
-    "athChangePercentage": -95.00152,
+    "athChangePercentage": -95.03298,
     "athDate": "2021-12-28T01:16:46.693Z",
     "atl": 0.381968,
     "atlDate": "2021-07-20T14:22:47.966Z",
     "circulatingSupply": 68974776,
     "totalSupply": 110000000,
     "maxSupply": 110000000,
-    "fdv": 94788257
+    "fdv": 94192586
   },
   "community": {
     "twitterFollowers": null,
@@ -44,5 +44,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:25:00.796Z"
+  "fetchedAt": "2026-05-13T18:25:00.796Z",
+  "lastMarketUpdate": "2026-05-14T19:23:40.006Z"
 }

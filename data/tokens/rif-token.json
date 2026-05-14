@@ -20,25 +20,25 @@
     "explorer": "https://explorer.rsk.co/address/0x2acc95758f8b5f583470ba265eb685a8f45fc9d5"
   },
   "market": {
-    "price": 0.079186,
-    "marketCap": 79181405,
-    "marketCapRank": 360,
-    "volume24h": 3401932,
+    "price": 0.076804,
+    "marketCap": 76804687,
+    "marketCapRank": 379,
+    "volume24h": 3057485,
     "high24h": 0.081061,
-    "low24h": 0.072431,
-    "priceChange24h": 7.67558,
-    "priceChange7d": 46.79626,
-    "priceChange30d": 99.77888,
-    "priceChange1y": 25.63263,
+    "low24h": 0.073883,
+    "priceChange24h": -1.33602,
+    "priceChange7d": 31.580180664825434,
+    "priceChange30d": 81.45419121000305,
+    "priceChange1y": 18.046908128879043,
     "ath": 0.455938,
-    "athChangePercentage": -82.59183,
+    "athChangePercentage": -83.1703,
     "athDate": "2021-04-12T21:44:18.713Z",
     "atl": 0.0091475,
     "atlDate": "2019-06-12T00:00:00.000Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": null,
-    "fdv": 79181405
+    "fdv": 76804687
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 5,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:29:55.527Z"
+  "fetchedAt": "2026-05-14T07:29:55.527Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.896Z"
 }

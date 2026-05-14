@@ -38,25 +38,25 @@
     "explorer": "https://nearblocks.io"
   },
   "market": {
-    "price": 1.57,
-    "marketCap": 2031529833,
+    "price": 1.59,
+    "marketCap": 2061049783,
     "marketCapRank": 45,
-    "volume24h": 319757608,
+    "volume24h": 236215236,
     "high24h": 1.63,
     "low24h": 1.55,
-    "priceChange24h": -4.03478,
-    "priceChange7d": 2.72817,
-    "priceChange30d": 10.09823,
-    "priceChange1y": -51.76357,
+    "priceChange24h": 0.03188,
+    "priceChange7d": 8.630362848831075,
+    "priceChange30d": 16.24628617191322,
+    "priceChange1y": -48.03903210560942,
     "ath": 20.44,
-    "athChangePercentage": -92.32576,
+    "athChangePercentage": -92.21035,
     "athDate": "2022-01-16T22:09:45.873Z",
     "atl": 0.526762,
     "atlDate": "2020-11-04T16:09:15.137Z",
-    "circulatingSupply": 1295442886,
-    "totalSupply": 1295442897,
+    "circulatingSupply": 1295495660,
+    "totalSupply": 1295495676,
     "maxSupply": null,
-    "fdv": 2031529850
+    "fdv": 2061049808
   },
   "community": {
     "twitterFollowers": null,
@@ -67,5 +67,6 @@
     "githubForks": 775,
     "commits4Weeks": 105
   },
-  "fetchedAt": "2026-05-14T07:21:12.906Z"
+  "fetchedAt": "2026-05-14T07:21:12.906Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.229Z"
 }

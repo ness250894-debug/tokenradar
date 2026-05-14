@@ -29,25 +29,25 @@
     "explorer": "https://snowtrace.io/"
   },
   "market": {
-    "price": 9.79,
-    "marketCap": 4224744410,
-    "marketCapRank": 28,
-    "volume24h": 232613320,
-    "high24h": 10.13,
-    "low24h": 9.65,
-    "priceChange24h": -0.21485,
-    "priceChange7d": 1.46237,
-    "priceChange30d": 5.40819,
-    "priceChange1y": -61.22813,
+    "price": 10.11,
+    "marketCap": 4364207380,
+    "marketCapRank": 27,
+    "volume24h": 230032744,
+    "high24h": 10.11,
+    "low24h": 9.64,
+    "priceChange24h": 3.90346,
+    "priceChange7d": 6.411669234362318,
+    "priceChange30d": 9.320471526072494,
+    "priceChange1y": -59.92299793456053,
     "ath": 144.96,
-    "athChangePercentage": -93.24821,
+    "athChangePercentage": -93.02614,
     "athDate": "2021-11-21T14:18:56.538Z",
     "atl": 2.8,
     "atlDate": "2020-12-31T13:15:21.540Z",
     "circulatingSupply": 431771961.1772119,
     "totalSupply": 463441061.1772119,
     "maxSupply": 720000000,
-    "fdv": 4534615975
+    "fdv": 4684308110
   },
   "community": {
     "twitterFollowers": null,
@@ -58,5 +58,6 @@
     "githubForks": 655,
     "commits4Weeks": 50
   },
-  "fetchedAt": "2026-05-13T18:21:51.142Z"
+  "fetchedAt": "2026-05-13T18:21:51.142Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.189Z"
 }

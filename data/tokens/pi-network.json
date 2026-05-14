@@ -17,25 +17,25 @@
     "explorer": "https://blockexplorer.minepi.com/mainnet/"
   },
   "market": {
-    "price": 0.170301,
-    "marketCap": 1783957681,
-    "marketCapRank": 48,
-    "volume24h": 13318656,
-    "high24h": 0.172687,
-    "low24h": 0.169776,
-    "priceChange24h": -0.91337,
-    "priceChange7d": -5.10487,
-    "priceChange30d": 3.45792,
-    "priceChange1y": -86.67704,
+    "price": 0.171153,
+    "marketCap": 1795207377,
+    "marketCapRank": 49,
+    "volume24h": 12448767,
+    "high24h": 0.171839,
+    "low24h": 0.169233,
+    "priceChange24h": 0.59887,
+    "priceChange7d": -2.3146043214457657,
+    "priceChange30d": 2.354295056109846,
+    "priceChange1y": -82.0849343673209,
     "ath": 2.99,
-    "athChangePercentage": -94.30735,
+    "athChangePercentage": -94.27317,
     "athDate": "2025-02-26T16:41:03.732Z",
     "atl": 0.131244,
     "atlDate": "2026-02-11T17:06:46.605Z",
-    "circulatingSupply": 10478952125.13246,
-    "totalSupply": 16121464807.89609,
+    "circulatingSupply": 10492084870.33428,
+    "totalSupply": 16141669031.2835,
     "maxSupply": 100000000000,
-    "fdv": 2744550278
+    "fdv": 2761857503
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 542,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:25:42.684Z"
+  "fetchedAt": "2026-05-14T07:25:42.684Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.229Z"
 }

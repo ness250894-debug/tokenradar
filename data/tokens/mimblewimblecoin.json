@@ -18,25 +18,25 @@
     "explorer": "https://explorer.mwc.mw/"
   },
   "market": {
-    "price": 6.79,
-    "marketCap": 74918852,
+    "price": 6.93,
+    "marketCap": 75828420,
     "marketCapRank": 385,
-    "volume24h": 146186,
-    "high24h": 7.08,
-    "low24h": 6.68,
-    "priceChange24h": -0.31309,
-    "priceChange7d": 2.37571,
-    "priceChange30d": -4.71986,
-    "priceChange1y": -79.93668,
+    "volume24h": 149762,
+    "high24h": 6.93,
+    "low24h": 6.67,
+    "priceChange24h": 2.69944,
+    "priceChange7d": 0.8759582944654433,
+    "priceChange30d": -2.3032213638990005,
+    "priceChange1y": -79.39688340736959,
     "ath": 38.81,
-    "athChangePercentage": -82.38425,
+    "athChangePercentage": -82.24967,
     "athDate": "2025-01-31T13:06:55.142Z",
     "atl": 0.298733,
     "atlDate": "2019-12-05T00:00:00.000Z",
     "circulatingSupply": 11006950.56778802,
-    "totalSupply": 11007134.11778801,
+    "totalSupply": 11007168.81778802,
     "maxSupply": 20000000,
-    "fdv": 74920102
+    "fdv": 75829924
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:19:19.129Z"
+  "fetchedAt": "2026-05-14T07:19:19.129Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.914Z"
 }

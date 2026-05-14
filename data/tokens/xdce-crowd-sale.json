@@ -17,25 +17,25 @@
     "explorer": "https://explorer.xinfin.network"
   },
   "market": {
-    "price": 0.03229093,
-    "marketCap": 643979156,
-    "marketCapRank": 89,
-    "volume24h": 25928964,
-    "high24h": 0.0328654,
+    "price": 0.03433571,
+    "marketCap": 685258032,
+    "marketCapRank": 88,
+    "volume24h": 32166734,
+    "high24h": 0.03471118,
     "low24h": 0.03052061,
-    "priceChange24h": -0.51911,
-    "priceChange7d": 9.10586,
-    "priceChange30d": 4.09594,
-    "priceChange1y": -57.06703,
+    "priceChange24h": 9.29101,
+    "priceChange7d": 17.101187206563985,
+    "priceChange30d": 11.2568985897046,
+    "priceChange1y": -54.04604676938898,
     "ath": 0.192754,
-    "athChangePercentage": -83.47226,
+    "athChangePercentage": -82.17705,
     "athDate": "2021-08-21T04:39:48.324Z",
     "atl": 0.00039532,
     "atlDate": "2019-07-22T00:00:00.000Z",
     "circulatingSupply": 19946688440,
     "totalSupply": 38065686425.1,
     "maxSupply": null,
-    "fdv": 1228951297
+    "fdv": 1307726716
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 1,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:46:15.648Z"
+  "fetchedAt": "2026-05-14T07:46:15.648Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.278Z"
 }

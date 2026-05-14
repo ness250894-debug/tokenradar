@@ -16,25 +16,25 @@
     "explorer": "https://explorer.newtonproject.org/"
   },
   "market": {
-    "price": 0.00144722,
-    "marketCap": 143117749,
-    "marketCapRank": 236,
-    "volume24h": 2991096,
-    "high24h": 0.00147345,
-    "low24h": 0.00144465,
-    "priceChange24h": -1.42438,
-    "priceChange7d": -6.66229,
-    "priceChange30d": -5.95977,
-    "priceChange1y": -80.47507,
+    "price": 0.00144645,
+    "marketCap": 142944079,
+    "marketCapRank": 238,
+    "volume24h": 3287621,
+    "high24h": 0.00145219,
+    "low24h": 0.00143898,
+    "priceChange24h": -0.15054,
+    "priceChange7d": -6.777857637719093,
+    "priceChange30d": -6.30717283066501,
+    "priceChange1y": -80.35094368311385,
     "ath": 0.01727373,
-    "athChangePercentage": -91.61804,
+    "athChangePercentage": -91.6247,
     "athDate": "2025-03-22T08:04:44.760Z",
     "atl": 0.0000038,
     "atlDate": "2022-10-11T02:32:18.937Z",
     "circulatingSupply": 98823661261.46,
     "totalSupply": 98823661261.46,
     "maxSupply": 100000000000,
-    "fdv": 143117749
+    "fdv": 142944079
   },
   "community": {
     "twitterFollowers": null,
@@ -45,5 +45,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:21:33.963Z"
+  "fetchedAt": "2026-05-14T07:21:33.963Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.478Z"
 }

@@ -20,25 +20,25 @@
     "explorer": "https://plasmascan.to/"
   },
   "market": {
-    "price": 0.093602,
-    "marketCap": 234517196,
-    "marketCapRank": 177,
-    "volume24h": 52153226,
-    "high24h": 0.100415,
+    "price": 0.099283,
+    "marketCap": 248691402,
+    "marketCapRank": 175,
+    "volume24h": 50508852,
+    "high24h": 0.099864,
     "low24h": 0.092108,
-    "priceChange24h": -5.94031,
-    "priceChange7d": -6.99094,
-    "priceChange30d": -33.94368,
+    "priceChange24h": 5.5128,
+    "priceChange7d": -2.257696803246344,
+    "priceChange30d": -25.33496423861506,
     "priceChange1y": 0,
     "ath": 1.68,
-    "athChangePercentage": -94.44111,
+    "athChangePercentage": -94.10066,
     "athDate": "2025-09-28T01:31:40.327Z",
     "atl": 0.073026,
     "atlDate": "2026-02-06T00:25:15.134Z",
     "circulatingSupply": 2505729166.6667,
     "totalSupply": 10083506944.4444,
     "maxSupply": null,
-    "fdv": 943739572
+    "fdv": 1000779140
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:26:01.581Z"
+  "fetchedAt": "2026-05-14T07:26:01.581Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.408Z"
 }

@@ -17,25 +17,25 @@
     "explorer": "https://blockstream.info/liquid/asset/b00b0ff0b11ebd47f7c6f57614c046dbbd204e84bf01178baf2be3713a206eb7"
   },
   "market": {
-    "price": 1.1,
-    "marketCap": 178347413,
-    "marketCapRank": 202,
-    "volume24h": 1996057,
-    "high24h": 1.1,
-    "low24h": 1.016,
-    "priceChange24h": 7.66656,
-    "priceChange7d": 11.38133,
-    "priceChange30d": -3.00437,
-    "priceChange1y": -29.52114,
+    "price": 1.087,
+    "marketCap": 176155670,
+    "marketCapRank": 206,
+    "volume24h": 2595719,
+    "high24h": 1.11,
+    "low24h": 1.074,
+    "priceChange24h": -1.91635,
+    "priceChange7d": 10.682082886271365,
+    "priceChange30d": -3.463230100715816,
+    "priceChange1y": -31.348555192567023,
     "ath": 9.21,
-    "athChangePercentage": -88.05714,
+    "athChangePercentage": -88.20385,
     "athDate": "2022-03-23T09:11:07.549Z",
     "atl": 0.06191,
     "atlDate": "2025-10-10T22:48:11.249Z",
     "circulatingSupply": 162061501,
     "totalSupply": 200000000,
     "maxSupply": 200000000,
-    "fdv": 220098434
+    "fdv": 217393605
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:26:22.971Z"
+  "fetchedAt": "2026-05-13T18:26:22.971Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.438Z"
 }

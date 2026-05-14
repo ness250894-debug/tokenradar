@@ -20,25 +20,25 @@
     "explorer": "https://main-scan.valuechain.xyz/"
   },
   "market": {
-    "price": 0.36261,
-    "marketCap": 113194707,
+    "price": 0.365673,
+    "marketCap": 114178951,
     "marketCapRank": 275,
-    "volume24h": 3682124,
-    "high24h": 0.381371,
+    "volume24h": 3255353,
+    "high24h": 0.372737,
     "low24h": 0.361171,
-    "priceChange24h": -2.74597,
-    "priceChange7d": -7.70844,
-    "priceChange30d": -10.52674,
-    "priceChange1y": -38.45724,
+    "priceChange24h": -0.6296,
+    "priceChange7d": -7.517718388100389,
+    "priceChange30d": -9.174017204168383,
+    "priceChange1y": -36.29692002978428,
     "ath": 1.42,
-    "athChangePercentage": -74.47475,
+    "athChangePercentage": -74.23918,
     "athDate": "2025-01-25T12:11:14.152Z",
     "atl": 0.299484,
     "atlDate": "2026-02-24T22:40:38.827Z",
     "circulatingSupply": 312001548,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 362801749
+    "fdv": 365956361
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 8,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:33:17.835Z"
+  "fetchedAt": "2026-05-14T07:33:17.835Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.765Z"
 }

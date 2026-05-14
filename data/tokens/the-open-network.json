@@ -27,25 +27,25 @@
     "explorer": "https://tonviewer.com/EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   },
   "market": {
-    "price": 2.1,
-    "marketCap": 5640971613,
+    "price": 2.15,
+    "marketCap": 5771142708,
     "marketCapRank": 21,
-    "volume24h": 423985189,
-    "high24h": 2.28,
+    "volume24h": 306404637,
+    "high24h": 2.17,
     "low24h": 2.05,
-    "priceChange24h": -7.51166,
-    "priceChange7d": -27.01424,
-    "priceChange30d": 46.10076,
-    "priceChange1y": -38.45634,
+    "priceChange24h": 1.055,
+    "priceChange7d": -16.9082168367681,
+    "priceChange30d": 55.60235649319915,
+    "priceChange1y": -34.08314478255276,
     "ath": 8.25,
-    "athChangePercentage": -74.4697,
+    "athChangePercentage": -73.99182,
     "athDate": "2024-06-15T00:36:51.509Z",
     "atl": 0.519364,
     "atlDate": "2021-09-21T00:33:11.092Z",
-    "circulatingSupply": 2687336817.778208,
-    "totalSupply": 5179368541.162493,
+    "circulatingSupply": 2688483907.842439,
+    "totalSupply": 5179653648.601879,
     "maxSupply": null,
-    "fdv": 10871979545
+    "fdv": 11118727658
   },
   "community": {
     "twitterFollowers": null,
@@ -56,5 +56,6 @@
     "githubForks": 1531,
     "commits4Weeks": 44
   },
-  "fetchedAt": "2026-05-14T07:37:49.733Z"
+  "fetchedAt": "2026-05-14T07:37:49.733Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.180Z"
 }

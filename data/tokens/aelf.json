@@ -22,25 +22,25 @@
     "explorer": "https://aelfscan.io/"
   },
   "market": {
-    "price": 0.081034,
-    "marketCap": 66423885,
-    "marketCapRank": 418,
-    "volume24h": 555478,
-    "high24h": 0.081994,
-    "low24h": 0.080185,
-    "priceChange24h": -0.26088,
-    "priceChange7d": 0.70526,
-    "priceChange30d": 3.93395,
-    "priceChange1y": -67.64278,
+    "price": 0.080537,
+    "marketCap": 66016787,
+    "marketCapRank": 421,
+    "volume24h": 863099,
+    "high24h": 0.081011,
+    "low24h": 0.079883,
+    "priceChange24h": -0.44739,
+    "priceChange7d": 1.4489547545755022,
+    "priceChange30d": 1.2431339144055835,
+    "priceChange1y": -68.13404463442536,
     "ath": 2.6,
-    "athChangePercentage": -96.88862,
+    "athChangePercentage": -96.90745,
     "athDate": "2018-01-09T00:00:00.000Z",
     "atl": 0.03545756,
     "atlDate": "2020-03-13T02:22:35.431Z",
-    "circulatingSupply": 819668405.925287,
-    "totalSupply": 996445595.578597,
+    "circulatingSupply": 819743478.0848707,
+    "totalSupply": 996445594.9256808,
     "maxSupply": 1000000000,
-    "fdv": 80749468
+    "fdv": 80247222
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 237,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:18:03.603Z"
+  "fetchedAt": "2026-05-13T18:18:03.603Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.945Z"
 }

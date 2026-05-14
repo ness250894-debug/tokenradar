@@ -17,25 +17,25 @@
     "explorer": "https://sagaevm.sagaexplorer.io/token/0xA8b56ce258a7f55327BdE886B0e947EE059ca434"
   },
   "market": {
-    "price": 0.503017,
-    "marketCap": 77647907,
-    "marketCapRank": 366,
+    "price": 0.503016,
+    "marketCap": 77647912,
+    "marketCapRank": 374,
     "volume24h": 5.62,
-    "high24h": 0.507971,
+    "high24h": 0.503018,
     "low24h": 0.502966,
-    "priceChange24h": -0.97539,
-    "priceChange7d": -33.57381,
-    "priceChange30d": -33.57381,
+    "priceChange24h": 0.00011,
+    "priceChange7d": -14.175711398939903,
+    "priceChange30d": -33.57382082167637,
     "priceChange1y": 0,
     "ath": 0.998253,
-    "athChangePercentage": -49.61333,
+    "athChangePercentage": -49.6103,
     "athDate": "2025-12-14T02:54:27.090Z",
     "atl": 0.499504,
     "atlDate": "2026-05-07T23:47:44.045Z",
-    "circulatingSupply": 154364346.5544402,
-    "totalSupply": 154364346.5544402,
+    "circulatingSupply": 154364548.09495,
+    "totalSupply": 154364548.09495,
     "maxSupply": null,
-    "fdv": 77647907
+    "fdv": 77647912
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:20:34.983Z"
+  "fetchedAt": "2026-05-14T07:20:34.983Z",
+  "lastMarketUpdate": "2026-05-14T19:23:39.895Z"
 }
