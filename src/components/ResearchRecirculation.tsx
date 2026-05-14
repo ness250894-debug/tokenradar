@@ -44,7 +44,7 @@ interface ResearchRecirculationProps extends EngagementContext {
   title: string;
   description?: string;
   items: RecirculationItem[];
-  variant?: "default" | "compact";
+  variant?: "default" | "compact" | "strip";
 }
 
 function ItemIcon({ type }: { type: RecirculationItemType }) {
@@ -98,7 +98,7 @@ export function ResearchRecirculation({
 
   if (items.length === 0) return null;
 
-  const visibleItems = variant === "compact" ? items.slice(0, 3) : items.slice(0, 4);
+  const visibleItems = variant === "compact" || variant === "strip" ? items.slice(0, 3) : items.slice(0, 4);
 
   return (
     <section

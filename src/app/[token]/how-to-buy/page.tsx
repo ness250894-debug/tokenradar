@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "how-to-buy");
-  const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) — Step-by-Step Guide`;
-  const description = `Complete guide to buying ${detail.name} (${detail.symbol.toUpperCase()}). Compare exchanges, learn about wallets, and understand the risks before investing.`;
+  const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) - Where to Buy, Fees & Wallets`;
+  const description = `Learn where and how to buy ${detail.name} (${detail.symbol.toUpperCase()}), compare venue checks, fees, payment methods, custody, and key risks before investing.`;
 
   const ogImage = `/og/token/${detail.id}.png`;
 
@@ -310,8 +310,8 @@ export default async function HowToBuyPage({ params }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HowTo",
-            name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()})`,
-            description: `Step-by-step guide to checking ${detail.name} markets, fees, eligibility, and custody before buying.`,
+            name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) - Where to Buy Guide`,
+            description: `Where and how to buy ${detail.name}: check markets, fees, eligibility, payment methods, and custody before buying.`,
             step: [
               { "@type": "HowToStep", name: "Choose a legally available venue", text: `Confirm the exchange serves your jurisdiction and supports the exact ${detail.symbol.toUpperCase()} market.` },
               { "@type": "HowToStep", name: "Review payment method and fees", text: "Compare card, bank, wire, spread, withdrawal fee, and minimum order rules before funding the account." },
