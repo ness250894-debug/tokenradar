@@ -157,10 +157,21 @@ jobs:
 
       - name: Notify on Failure
         if: failure()
+        continue-on-error: true
+        timeout-minutes: 3
         run: |
-          curl -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
-          -H "Content-Type: application/json" \
-          -d "{\"chat_id\": \"$TELEGRAM_REPORT_CHAT_ID\", \"text\": \"❌ *Deploy Failed*\\nWorkflow: ${{ github.workflow }}\\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"parse_mode\": \"Markdown\"}"
+          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
+            echo "Telegram report secrets are not configured; skipping failure notification."
+            exit 0
+          fi
+          payload="$(jq -n \
+            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
+            --arg text "Deploy Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
+          curl --fail --show-error --silent --max-time 10 \
+            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
+            -H "Content-Type: application/json" \
+            --data "$payload"
         env:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}

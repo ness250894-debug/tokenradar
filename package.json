@@ -21,8 +21,8 @@
     "@aws-sdk/client-s3": "^3.1045.0",
     "@coingecko/coingecko-typescript": "^3.1.5",
     "@next/third-parties": "^16.2.6",
-    "@remotion/cli": "^4.0.459",
-    "@remotion/google-fonts": "^4.0.459",
+    "@remotion/cli": "^4.0.462",
+    "@remotion/google-fonts": "^4.0.462",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@xdevplatform/xdk": "^0.5.0",
@@ -40,10 +40,10 @@
     "react-dom": "^19.2.6",
     "react-markdown": "^10.1.0",
     "recharts": "^3.8.1",
-    "remotion": "^4.0.459",
+    "remotion": "^4.0.462",
     "rss-parser": "^3.13.0",
     "tailwindcss": "^4.3.0",
-    "zod": "4.3.6"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
