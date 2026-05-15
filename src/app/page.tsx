@@ -3,6 +3,8 @@ import Link from "next/link";
 import { type TokenCardData } from "@/components/TokenCard";
 import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
+import { HomeRadarBrief } from "@/components/HomeRadarBrief";
+import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
 
@@ -27,6 +29,49 @@ export const metadata: Metadata = {
 
 function formatInteger(value: number): string {
   return value.toLocaleString("en-US");
+}
+
+function buildNarrativeInsights(tokens: TokenCardData[]): NarrativeInsight[] {
+  const groups = new Map<string, {
+    category: string;
+    href?: string;
+    tokenCount: number;
+    changeSum: number;
+    riskSum: number;
+    marketCap: number;
+  }>();
+
+  for (const token of tokens) {
+    if (!token.category) continue;
+    const current = groups.get(token.category) || {
+      category: token.category,
+      href: token.categoryHref,
+      tokenCount: 0,
+      changeSum: 0,
+      riskSum: 0,
+      marketCap: 0,
+    };
+
+    current.tokenCount += 1;
+    current.changeSum += token.priceChange24h || 0;
+    current.riskSum += token.riskScore;
+    current.marketCap += token.marketCap || 0;
+    if (!current.href && token.categoryHref) current.href = token.categoryHref;
+    groups.set(token.category, current);
+  }
+
+  return Array.from(groups.values())
+    .filter((group) => group.tokenCount >= 2)
+    .map((group) => ({
+      category: group.category,
+      href: group.href,
+      tokenCount: group.tokenCount,
+      avgRisk: Number((group.riskSum / group.tokenCount).toFixed(1)),
+      avgChange24h: Number((group.changeSum / group.tokenCount).toFixed(2)),
+      marketCap: group.marketCap,
+    }))
+    .sort((a, b) => Math.abs(b.avgChange24h) - Math.abs(a.avgChange24h) || b.marketCap - a.marketCap)
+    .slice(0, 7);
 }
 
 export default async function HomePage() {
@@ -60,6 +105,10 @@ export default async function HomePage() {
   const totalArticles = await getTotalArticleCount();
   const featuredTokens = allTokens.slice(0, 12);
   const featuredTges = upcomingTges.slice(0, 9);
+  const narrativeInsights = buildNarrativeInsights(allTokens);
+  const scoredTokens = tokenRows
+    .filter((row) => row.hasMetrics)
+    .map((row) => row.token);
   const scoredRiskScores = tokenRows
     .filter((row) => row.hasMetrics)
     .map((row) => row.token.riskScore);
@@ -165,6 +214,20 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <HomeRadarBrief
+        tokens={allTokens}
+        scoredTokens={scoredTokens}
+        upcomingTges={upcomingTges}
+        marketMood={marketMood}
+        marketChange24h={marketChange24h}
+      />
+
+      <HomeMarketLab
+        tokens={allTokens}
+        narratives={narrativeInsights}
+        launchTimeline={upcomingTges.slice(0, 5)}
+      />
 
       <section className="section" id="tokens">
         <HomeTabs

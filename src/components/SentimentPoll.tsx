@@ -4,7 +4,28 @@ import { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown, Users } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
-export function SentimentPoll({ tokenId }: { tokenId: string }) {
+interface SentimentPollProps {
+  tokenId: string;
+  title?: string;
+  prompt?: string;
+  positiveLabel?: string;
+  negativeLabel?: string;
+  recordedLabel?: string;
+  variant?: "default" | "compact";
+  className?: string;
+}
+
+export function SentimentPoll({
+  tokenId,
+  title = "Sentiment Poll",
+  prompt = "How do you feel about this token today?",
+  positiveLabel = "Bullish Sentiment",
+  negativeLabel = "Bearish Sentiment",
+  recordedLabel = "Thanks for voting! Market sentiment recorded.",
+  variant = "default",
+  className = "",
+}: SentimentPollProps) {
+  const isCompact = variant === "compact";
   const [vote, setVote] = useState<'bullish' | 'bearish' | null>(null);
   const [bullVotes, setBullVotes] = useState<number>(76); // mock baseline
   const [bearVotes, setBearVotes] = useState<number>(24); // mock baseline
@@ -45,35 +66,35 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
   };
 
   return (
-    <div className="card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-lg)" }}>
+    <div className={`card sentiment-poll sentiment-poll-${variant} ${className}`} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: isCompact ? "var(--space-md)" : "var(--space-lg)" }}>
          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
            <Users size={18} style={{ color: "var(--accent-secondary)" }} />
-           <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, margin: 0 }}>Sentiment Poll</h3>
+           <h3 style={{ fontSize: "var(--text-lg)", fontWeight: 700, margin: 0 }}>{title}</h3>
          </div>
       </div>
        
-       <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
-         How do you feel about this token today?
+       <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: isCompact ? "var(--space-md)" : "var(--space-xl)" }}>
+         {prompt}
        </p>
        
        {!vote ? (
-         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)", marginTop: "auto" }}>
+         <div style={{ display: "grid", gridTemplateColumns: isCompact ? "repeat(2, minmax(0, 1fr))" : "1fr", gap: "var(--space-sm)", marginTop: "auto" }}>
             <button 
               onClick={() => handleVote('bullish')} 
               className="btn btn-secondary" 
-              style={{ padding: "var(--space-sm)", border: "1px solid var(--green)", borderRadius: "var(--radius-lg)", color: "var(--green)" }}
+              style={{ padding: "var(--space-sm)", border: "1px solid var(--green)", borderRadius: "var(--radius-lg)", color: "var(--green)", minWidth: 0 }}
             >
-              <TrendingUp size={20} />
-              <span>Bullish Sentiment</span>
+              <TrendingUp size={isCompact ? 16 : 20} />
+              <span>{positiveLabel}</span>
             </button>
             <button 
               onClick={() => handleVote('bearish')}
               className="btn btn-secondary"
-              style={{ padding: "var(--space-sm)", border: "1px solid var(--red)", borderRadius: "var(--radius-lg)", color: "var(--red)" }}
+              style={{ padding: "var(--space-sm)", border: "1px solid var(--red)", borderRadius: "var(--radius-lg)", color: "var(--red)", minWidth: 0 }}
             >
-              <TrendingDown size={20} />
-              <span>Bearish Sentiment</span>
+              <TrendingDown size={isCompact ? 16 : 20} />
+              <span>{negativeLabel}</span>
             </button>
          </div>
        ) : (
@@ -103,7 +124,7 @@ export function SentimentPoll({ tokenId }: { tokenId: string }) {
             </div>
             
             <p style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginTop: "var(--space-lg)", textAlign: "center", fontStyle: "italic" }}>
-              Thanks for voting! Market sentiment recorded.
+              {recordedLabel}
             </p>
          </div>
        )}
