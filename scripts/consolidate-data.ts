@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { getMarketDataQualityIssues } from "../src/lib/market-data-quality";
 import { writeFileAtomic } from "../src/lib/utils";
 
 /**
@@ -42,6 +43,8 @@ type TokenContent = {
     totalSupply?: number | null;
     maxSupply?: number | null;
   };
+  fetchedAt?: string;
+  lastMarketUpdate?: string;
   [key: string]: unknown;
 };
 
@@ -104,17 +107,14 @@ async function consolidate() {
       const raw = await fs.promises.readFile(path.join(TOKENS_DIR, file), "utf-8");
       const content = JSON.parse(raw) as TokenContent;
 
-      // Skip tokens with zero market data (price, market cap, and volume are 0).
-      const market = content.market || {};
-      const hasMarket =
-        (market.price ?? 0) > 0 || (market.marketCap ?? 0) > 0 || (market.volume24h ?? 0) > 0;
-
-      if (!hasMarket) {
-        console.warn(`Skipping ${tokenId} during consolidation: No market data.`);
+      const marketIssues = getMarketDataQualityIssues(content);
+      if (marketIssues.length > 0) {
+        console.warn(`Skipping ${tokenId} during consolidation: Untrusted market data (${marketIssues.join(", ")}).`);
         continue;
       }
 
       tokensBlob[tokenId] = content;
+      const market = content.market || {};
 
       // Extract registry data (minimal set for list pages).
       registry.push({

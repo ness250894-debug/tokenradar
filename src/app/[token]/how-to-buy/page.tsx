@@ -10,6 +10,8 @@ import {
   getRelatedTokens,
   formatPrice,
   formatCompact,
+  getCategoryIds,
+  getPrimaryTokenCategory,
 } from "@/lib/content-loader";
 import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
@@ -91,12 +93,14 @@ export default async function HowToBuyPage({ params }: PageProps) {
   const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
   const relatedTokens = await getRelatedTokens(tokenId, 1);
   const technical = getTokenTechnical(tokenId);
-  const primaryCategory = detail.categories[0];
+  const categoryIds = await getCategoryIds();
+  const primaryCategory = getPrimaryTokenCategory(detail.categories, categoryIds, "");
   const researchActions = buildTokenResearchActions({
     tokenId,
     name: detail.name,
     symbol: detail.symbol,
-    category: primaryCategory,
+    category: primaryCategory.name,
+    categoryHref: primaryCategory.href,
     hasPricePrediction: isArticleIndexable(pricePredictionArticle),
     hasHowToBuy: true,
     hasLedgerGuide: Boolean(technical),
@@ -106,7 +110,8 @@ export default async function HowToBuyPage({ params }: PageProps) {
       tokenId,
       name: detail.name,
       symbol: detail.symbol,
-      category: primaryCategory,
+      category: primaryCategory.name,
+      categoryHref: primaryCategory.href,
       hasPricePrediction: isArticleIndexable(pricePredictionArticle),
       hasHowToBuy: true,
       hasLedgerGuide: Boolean(technical),

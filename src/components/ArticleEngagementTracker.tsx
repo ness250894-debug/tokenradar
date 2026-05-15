@@ -20,12 +20,25 @@ function clamp(value: number, min: number, max: number): number {
 
 export function ArticleEngagementTracker({
   selector,
-  ...context
+  pageType,
+  tokenId,
+  articleType,
+  moduleId,
+  modulePosition,
+  sourceSection,
 }: ArticleEngagementTrackerProps) {
   useEffect(() => {
     const target = document.querySelector<HTMLElement>(selector);
     if (!target) return;
 
+    const context: EngagementContext = {
+      pageType,
+      tokenId,
+      articleType,
+      moduleId,
+      modulePosition,
+      sourceSection,
+    };
     const firedDepths = new Set<number>();
     let completeFired = false;
     let rafId = 0;
@@ -69,7 +82,7 @@ export function ArticleEngagementTracker({
       window.removeEventListener("scroll", scheduleCheck);
       window.removeEventListener("resize", scheduleCheck);
     };
-  }, [context.articleType, context.moduleId, context.modulePosition, context.pageType, context.sourceSection, context.tokenId, selector]);
+  }, [articleType, moduleId, modulePosition, pageType, selector, sourceSection, tokenId]);
 
   return null;
 }

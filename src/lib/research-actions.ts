@@ -1,11 +1,11 @@
 import type { RecirculationItem } from "@/components/ResearchRecirculation";
-import { slugify } from "@/lib/shared-utils";
 
 interface BuildTokenResearchActionsOptions {
   tokenId: string;
   name: string;
   symbol: string;
   category?: string;
+  categoryHref?: string;
   hasPricePrediction?: boolean;
   hasHowToBuy?: boolean;
   hasLedgerGuide?: boolean;
@@ -21,6 +21,7 @@ export function buildTokenResearchActions({
   name,
   symbol,
   category,
+  categoryHref,
   hasPricePrediction,
   hasHowToBuy,
   hasLedgerGuide,
@@ -69,9 +70,9 @@ export function buildTokenResearchActions({
     type: "tax",
   });
 
-  if (category) {
+  if (category && categoryHref) {
     items.push({
-      href: `/category/${slugify(category)}`,
+      href: categoryHref,
       label: `Compare ${category}`,
       description: `See how ${name} sits beside other assets in the same research category.`,
       type: "category",

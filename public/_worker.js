@@ -1,4 +1,4 @@
-export default {
+const worker = {
   fetch(request, env) {
     const url = new URL(request.url);
 
@@ -22,3 +22,5 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+export default worker;

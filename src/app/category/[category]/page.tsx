@@ -72,6 +72,7 @@ export default async function CategoryPage({ params }: PageProps) {
       marketCap: t.marketCap,
       riskScore: metrics?.riskScore || 5,
       category: cat.name,
+      categoryHref: `/category/${cat.id}`,
     };
   }));
 

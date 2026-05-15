@@ -8,7 +8,6 @@ import { TokenIcon } from "./TokenIcon";
 import { type UpcomingTge } from "@/lib/content-loader";
 import { formatCompact, formatPercent, formatPrice } from "@/lib/formatters";
 import { getTgeEvidenceCount, getTgeSourceHost, getTgeStatusLabel } from "@/lib/tge";
-import { slugify } from "@/lib/shared-utils";
 import { trackEvent } from "@/lib/analytics";
 
 interface HomeTabsProps {
@@ -93,9 +92,13 @@ function MarketPreviewTable({ tokens, totalCount }: { tokens: TokenCardData[]; t
                   </td>
                   <td className="home-market-mono">{formatCompact(token.marketCap)}</td>
                   <td>
-                    <Link href={`/category/${slugify(token.category)}`} className="home-category-link">
-                      {token.category}
-                    </Link>
+                    {token.categoryHref ? (
+                      <Link href={token.categoryHref} className="home-category-link">
+                        {token.category}
+                      </Link>
+                    ) : (
+                      <span className="home-category-link">{token.category}</span>
+                    )}
                   </td>
                 </tr>
               );

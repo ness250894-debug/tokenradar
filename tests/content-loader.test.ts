@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { formatPrice, formatCompact, formatSupply, getArticleFaqs } from "../src/lib/content-loader";
+import {
+  formatPrice,
+  formatCompact,
+  formatSupply,
+  getArticleFaqs,
+  getCategoryHref,
+  getPrimaryTokenCategory,
+} from "../src/lib/content-loader";
 
 describe("formatPrice", () => {
   it("formats large prices (>= 1000) without decimals", () => {
@@ -101,5 +108,25 @@ describe("getArticleFaqs", () => {
         answer: "It is possible, but liquidity and adoption reduce that probability.",
       },
     ]);
+  });
+});
+
+describe("category link helpers", () => {
+  const generatedCategoryIds = new Set(["ai-big-data", "layer-1"]);
+
+  it("returns hrefs only for generated category routes", () => {
+    expect(getCategoryHref("AI & Big Data", generatedCategoryIds)).toBe("/category/ai-big-data");
+    expect(getCategoryHref("Tiny Niche Category", generatedCategoryIds)).toBeUndefined();
+  });
+
+  it("prefers the first generated category while preserving unroutable labels", () => {
+    expect(getPrimaryTokenCategory(["Tiny Niche Category", "Layer 1"], generatedCategoryIds)).toEqual({
+      name: "Layer 1",
+      href: "/category/layer-1",
+    });
+    expect(getPrimaryTokenCategory(["Tiny Niche Category"], generatedCategoryIds)).toEqual({
+      name: "Tiny Niche Category",
+    });
+    expect(getPrimaryTokenCategory([], generatedCategoryIds)).toEqual({ name: "Crypto" });
   });
 });

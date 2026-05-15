@@ -11,6 +11,8 @@ import {
   getRelatedTokens,
   formatPrice,
   formatPercent,
+  getCategoryIds,
+  getPrimaryTokenCategory,
 } from "@/lib/content-loader";
 import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
@@ -102,12 +104,14 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const isPositive = detail.market.priceChange30d >= 0;
   const athGap = detail.market.athChangePercentage;
   const riskScore = metrics?.riskScore;
-  const primaryCategory = detail.categories[0];
+  const categoryIds = await getCategoryIds();
+  const primaryCategory = getPrimaryTokenCategory(detail.categories, categoryIds, "");
   const researchActions = buildTokenResearchActions({
     tokenId,
     name: detail.name,
     symbol: detail.symbol,
-    category: primaryCategory,
+    category: primaryCategory.name,
+    categoryHref: primaryCategory.href,
     hasPricePrediction: true,
     hasHowToBuy: isArticleIndexable(howToBuyArticle),
     hasLedgerGuide: Boolean(technical),
@@ -117,7 +121,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
       tokenId,
       name: detail.name,
       symbol: detail.symbol,
-      category: primaryCategory,
+      category: primaryCategory.name,
+      categoryHref: primaryCategory.href,
       hasPricePrediction: true,
       hasHowToBuy: isArticleIndexable(howToBuyArticle),
       hasLedgerGuide: Boolean(technical),

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type TokenCardData } from "@/components/TokenCard";
-import { getAllTokens, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
+import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
@@ -31,11 +31,13 @@ function formatInteger(value: number): string {
 
 export default async function HomePage() {
   const allTokensList = await getAllTokens();
+  const categoryIds = await getCategoryIds();
   const upcomingTges = await getUpcomingTGEs();
 
   const tokenRows = await Promise.all(
     allTokensList.map(async (token) => {
       const metrics = await getTokenMetrics(token.id);
+      const category = getPrimaryTokenCategory(token.categories, categoryIds);
       return {
         hasMetrics: Boolean(metrics),
         token: {
@@ -47,7 +49,8 @@ export default async function HomePage() {
           priceChange24h: token.priceChange24h,
           marketCap: token.marketCap,
           riskScore: metrics?.riskScore ?? 5,
-          category: token.categories?.[0] || "Crypto",
+          category: category.name,
+          categoryHref: category.href,
         },
       };
     }),
