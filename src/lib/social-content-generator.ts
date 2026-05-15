@@ -6,6 +6,12 @@
 
 import { callAIWithFallback, type MarketContext } from "./gemini";
 
+export interface VideoHookFormatContext {
+  label: string;
+  angle: string;
+  hookInstruction: string;
+}
+
 /**
  * Generate a short, punchy hook text for the video's first act.
  *
@@ -18,25 +24,35 @@ export async function generateHookText(
   tokenName: string,
   symbol: string,
   context: MarketContext = {},
+  format?: VideoHookFormatContext,
 ): Promise<string> {
   const maxChars = 40;
+  const formatBrief = format
+    ? `
+    VIDEO FORMAT:
+    ${format.label}: ${format.angle}
+    Hook direction: ${format.hookInstruction}
+    `
+    : "";
   const prompt = `
     Write a 3-second scroll-stopping text hook for a crypto video about ${tokenName} ($${symbol.toUpperCase()}).
     The token price changed ${formatChange(context.priceChange24h)} in 24h.
     Reason selected: ${context.selectionReason || "It's moving fast."}
+    ${formatBrief}
 
     RULES:
     1. Maximum ${maxChars} characters total.
     2. Write in ALL CAPS.
-    3. Make it punchy, mysterious, or urgent.
+    3. Make it punchy, mysterious, or urgent while staying data-led.
     4. Do NOT use the token name or symbol. We want them to wait for the reveal.
     5. No emojis.
+    6. Do NOT say buy, sell, long, short, moon, 100x, guaranteed, rich, or price prediction.
 
     Examples:
-    "IS THIS THE NEXT 100X?"
-    "WHALES ARE QUIETLY BUYING"
-    "DON'T IGNORE THIS BREAKOUT"
-    "THE MARKET IS WRONG ABOUT THIS"
+    "THIS MOVE NEEDS PROOF"
+    "THE DATA JUST SHIFTED"
+    "RISK IS THE REAL STORY"
+    "VOLUME TELLS THE TRUTH"
 
     Respond with ONLY the text hook.
   `;

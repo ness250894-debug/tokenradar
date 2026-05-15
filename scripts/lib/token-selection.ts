@@ -9,7 +9,13 @@ import * as fs from "fs";
 import * as path from "path";
 import { fetchTokensByRank, CoinGeckoToken, fetchTrendingCoins } from "../../src/lib/coingecko";
 import { fetchXTrends, matchTrendsToTokens } from "../../src/lib/x-client";
-import { STABLECOIN_IDS, TRENDING_COOLDOWN_DAYS, GENERAL_COOLDOWN_DAYS, VIDEO_COOLDOWN_DAYS } from "../../src/lib/config";
+import {
+  STABLECOIN_IDS,
+  TRENDING_COOLDOWN_DAYS,
+  GENERAL_COOLDOWN_DAYS,
+  VIDEO_COOLDOWN_DAYS,
+  VIDEO_FORMAT_COOLDOWN_DAYS,
+} from "../../src/lib/config";
 import { safeReadJson } from "../../src/lib/utils";
 
 // ── Types ──────────────────────────────────────────────────────
@@ -263,7 +269,7 @@ function pruneExpiredDateDirs(parentDir: string, cutoffKey: string): string[] {
 export function cleanupExpiredCooldownFolders(dataDir: string, options: CleanupOptions = {}): CleanupResult {
   const now = options.now ?? new Date();
   const postedRetentionDays = options.postedRetentionDays ?? GENERAL_COOLDOWN_DAYS;
-  const videoRetentionDays = options.videoRetentionDays ?? VIDEO_COOLDOWN_DAYS;
+  const videoRetentionDays = options.videoRetentionDays ?? Math.max(VIDEO_COOLDOWN_DAYS, VIDEO_FORMAT_COOLDOWN_DAYS);
 
   const postedCutoff = dateKeyDaysAgo(postedRetentionDays, now);
   const videoCutoff = dateKeyDaysAgo(videoRetentionDays, now);

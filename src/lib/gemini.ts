@@ -378,6 +378,12 @@ export interface UnifiedCaptionOptions {
   threadsMaxChars?: number;
   tiktokMaxChars?: number;
   youtubeTitleMaxChars?: number;
+  editorialFormat?: {
+    label: string;
+    angle: string;
+    promptInstruction: string;
+    captionInstruction?: string;
+  };
 }
 
 type UnifiedCaptionField = keyof UnifiedSocialCaptions;
@@ -770,6 +776,16 @@ export async function generateUnifiedCaptions(
   const contentVariantBrief = uniquePlatforms
     .map((platform) => formatVariantPromptLine(platform, platformVariants[platform]!))
     .join("\n");
+  const editorialFormatBrief = options.editorialFormat
+    ? [
+        `Format: ${options.editorialFormat.label}`,
+        `Angle: ${options.editorialFormat.angle}`,
+        `Format instruction: ${options.editorialFormat.promptInstruction}`,
+        options.editorialFormat.captionInstruction
+          ? `Caption instruction: ${options.editorialFormat.captionInstruction}`
+          : "",
+      ].filter(Boolean).join("\n")
+    : "No extra editorial format.";
 
   const platformRuleBlocks: Partial<Record<PlatformTarget, string>> = {
     telegram: `
@@ -865,6 +881,9 @@ PERSONA/TONE: ${metrics.tone || "Data-driven research platform"}
 
 CONTENT VARIETY BRIEF:
 ${contentVariantBrief}
+
+EDITORIAL FORMAT BRIEF:
+${editorialFormatBrief}
 
 MARKET DATA:
 Token: ${tokenName} (${symbol.toUpperCase()})

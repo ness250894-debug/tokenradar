@@ -36,14 +36,6 @@ export const AUDIO_TRACKS: AudioTrack[] = [
 ];
 
 /**
- * Get a random audio track from the library.
- */
-export function getRandomTrack(): AudioTrack {
-  const index = Math.floor(Math.random() * AUDIO_TRACKS.length);
-  return AUDIO_TRACKS[index];
-}
-
-/**
  * Get a deterministic audio track for a given date string.
  * Ensures the same day always picks the same track, providing
  * consistency across retries and multi-platform posts.

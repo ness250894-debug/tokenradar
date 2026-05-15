@@ -2,26 +2,37 @@ import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { COLORS, FONTS, SAFE_ZONES } from "../styles";
 import { ProfessionalCard, RevealText } from "./MotionPrimitives";
+import { getVideoTheme, resolveVideoVisualRecipe, type VideoVisualRecipe } from "../../lib/video-recipes";
 
 export const ContextView: React.FC<{
   contextText: string;
+  title?: string;
+  formatLead?: string;
   priceChange24h: number;
   marketCapRank?: number;
   volume24h?: number;
   riskScore: number;
   riskLevel?: string;
   growthPotentialIndex?: number;
+  visualRecipe?: VideoVisualRecipe;
 }> = ({
   contextText,
+  title = "Market Context",
+  formatLead,
   priceChange24h,
   marketCapRank,
   volume24h,
   riskScore,
   riskLevel,
   growthPotentialIndex,
+  visualRecipe,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const recipe = resolveVideoVisualRecipe(visualRecipe);
+  const theme = getVideoTheme(recipe);
+  const isTerminal = recipe.layoutPack === "terminal_feed";
+  const isSplit = recipe.layoutPack === "split_report" || recipe.layoutPack === "ticker_stack";
 
   const beats = contextText
     .split(/(?<=[.!?])\s+|;\s+|\s+while\s+/i)
@@ -40,7 +51,7 @@ export const ContextView: React.FC<{
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const changeColor = priceChange24h >= 0 ? COLORS.positive : COLORS.negative;
+  const changeColor = priceChange24h >= 0 ? theme.positive : theme.negative;
 
   const formatCompact = (value: number | undefined) => {
     if (!value) return "N/A";
@@ -71,15 +82,20 @@ export const ContextView: React.FC<{
       }}
     >
       <ProfessionalCard
-        accentColor={COLORS.accent}
-        width={860}
-        minHeight={560}
-        padding={54}
-        borderRadius={40}
+        accentColor={theme.accent}
+        width={isSplit ? 940 : 860}
+        minHeight={isTerminal ? 600 : 560}
+        padding={isTerminal ? "48px 44px" : 54}
+        borderRadius={isTerminal ? 6 : isSplit ? 18 : 40}
         style={{ fontFamily: FONTS.primary }}
       >
-        <RevealText delay={5} style={{ fontSize: 34, color: COLORS.accent, fontWeight: 900, marginBottom: 18, textTransform: "uppercase" }}>
-          Market Context
+        {isTerminal && (
+          <RevealText delay={2} style={{ fontSize: 24, color: theme.muted, fontWeight: 900, marginBottom: 18 }}>
+            {'>'} context.resolve(signal)
+          </RevealText>
+        )}
+        <RevealText delay={5} style={{ fontSize: 34, color: theme.accent, fontWeight: 900, marginBottom: 18, textTransform: "uppercase" }}>
+          {title}
         </RevealText>
         <RevealText
           localFrame={beatFrame}
@@ -87,17 +103,19 @@ export const ContextView: React.FC<{
           style={{
             opacity: textOpacity,
             transform: `translateY(${textY}px)`,
-            fontSize: 37,
+            fontSize: isSplit ? 34 : 37,
             color: COLORS.text,
             fontWeight: 700,
             lineHeight: 1.34,
             minHeight: 390,
             display: "flex",
             alignItems: "center",
+            borderLeft: isTerminal ? `4px solid ${theme.accent}` : undefined,
+            paddingLeft: isTerminal ? 28 : undefined,
           }}
         >
           <span>
-            {contextBeats[activeIndex]}{" "}
+            {formatLead ? `${formatLead} ` : ""}{contextBeats[activeIndex]}{" "}
             <span style={{ color: changeColor }}>The 24h move is {moveLabel}</span>{volumeText}, so this reads as real market activity, not just a thin spike. {stabilityText}, while {growthText}.
           </span>
         </RevealText>
