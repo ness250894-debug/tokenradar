@@ -19,7 +19,7 @@ export interface SocialContentVariant {
   riskSlideLines?: string[];
 }
 
-const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVariant[]> = {
+export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVariant[]> = {
   telegram: [
     {
       key: "setup_invalidation",
@@ -279,11 +279,78 @@ export function getSocialContentVariant(
   seedParts: Array<string | number | undefined | null> = [],
   date: Date = new Date(),
 ): SocialContentVariant {
+  return selectSocialContentVariant({ platform, seedParts, date });
+}
+
+export function getSocialContentVariantByKey(
+  platform: SocialVariantPlatform,
+  key: string | undefined | null,
+): SocialContentVariant | undefined {
+  if (!key) return undefined;
+  return PLATFORM_VARIANTS[platform].find((variant) => variant.key === key);
+}
+
+export function resolveSocialContentVariant(
+  platform: SocialVariantPlatform,
+  variant: SocialContentVariant | string | undefined | null,
+): SocialContentVariant {
+  if (typeof variant === "string") {
+    return getSocialContentVariantByKey(platform, variant) || PLATFORM_VARIANTS[platform][0];
+  }
+
+  if (variant?.key) {
+    return getSocialContentVariantByKey(platform, variant.key) || variant;
+  }
+
+  return PLATFORM_VARIANTS[platform][0];
+}
+
+export function selectSocialContentVariant(options: {
+  platform: SocialVariantPlatform;
+  seedParts?: Array<string | number | undefined | null>;
+  date?: Date;
+  usedVariantKeys?: Iterable<string>;
+}): SocialContentVariant {
+  const { platform, date = new Date() } = options;
   const variants = PLATFORM_VARIANTS[platform];
-  const seed = [platform, utcDateKey(date), ...seedParts.filter((part) => part !== undefined && part !== null)]
+  const used = new Set(options.usedVariantKeys || []);
+  const candidates = variants.filter((variant) => !used.has(variant.key));
+  const eligible = candidates.length > 0 ? candidates : variants;
+  const seed = [
+    platform,
+    utcDateKey(date),
+    ...(options.seedParts || []).filter((part) => part !== undefined && part !== null),
+  ]
     .join(":")
     .toLowerCase();
-  return variants[stableHash(seed) % variants.length];
+
+  return eligible[stableHash(seed) % eligible.length];
+}
+
+export function selectSocialContentVariantsForSlots<TSlot extends string>(
+  slots: readonly TSlot[],
+  options: {
+    getPlatform: (slot: TSlot) => SocialVariantPlatform;
+    getUsedVariantKeys?: (slot: TSlot) => Iterable<string>;
+    getSeedParts?: (slot: TSlot) => Array<string | number | undefined | null>;
+    date?: Date;
+  },
+): Map<TSlot, SocialContentVariant> {
+  const selected = new Map<TSlot, SocialContentVariant>();
+
+  for (const slot of slots) {
+    selected.set(
+      slot,
+      selectSocialContentVariant({
+        platform: options.getPlatform(slot),
+        usedVariantKeys: options.getUsedVariantKeys?.(slot),
+        seedParts: options.getSeedParts?.(slot) || [slot],
+        date: options.date,
+      }),
+    );
+  }
+
+  return selected;
 }
 
 export function formatVariantPromptLine(platform: SocialVariantPlatform, variant: SocialContentVariant): string {

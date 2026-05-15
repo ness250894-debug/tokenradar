@@ -33,14 +33,20 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { logError, logActivity } from "../src/lib/reporter";
-import { generateUnifiedCaptions, type PlatformTarget } from "../src/lib/gemini";
+import { generateUnifiedCaptions, type PlatformTarget, type UnifiedCaptionOptions } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
 import { diversifyXPostText, postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
-import { SOCIAL, SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
+import {
+  MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
+  SOCIAL,
+  SOCIAL_PLATFORM_LIMITS,
+  getTelegramFooter,
+} from "../src/lib/config";
+import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
-import { getRecentPlatformTexts } from "./lib/social-history";
+import { getRecentPlatformTexts, getRecentSocialVariantKeys } from "./lib/social-history";
 
 import {
   type MetricData,
@@ -222,11 +228,24 @@ async function main() {
 
   const tgFooter = getTelegramFooter(targetToken.symbol);
   const captionPlatforms: PlatformTarget[] = [];
-  const captionOptions: { telegramMaxChars?: number; xMaxChars?: number } = {};
+  const captionOptions: UnifiedCaptionOptions = {};
+  const contentVariants: Partial<Record<PlatformTarget, SocialContentVariant>> = {};
   if (runTelegram) {
     console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
     captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
     captionPlatforms.push("telegram");
+    contentVariants.telegram = selectSocialContentVariant({
+      platform: "telegram",
+      usedVariantKeys: getRecentSocialVariantKeys(
+        DATA_DIR,
+        "telegram",
+        MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
+        new Date(),
+        "market-update",
+      ),
+      seedParts: [TODAY, "telegram", targetToken.id, reason, "market-update"],
+    });
+    console.log(`  Telegram variant: ${contentVariants.telegram.label} (${contentVariants.telegram.key})`);
   }
 
   if (runX) {
@@ -234,6 +253,18 @@ async function main() {
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
     captionOptions.xMaxChars = 260;
     captionPlatforms.push("x");
+    contentVariants.x = selectSocialContentVariant({
+      platform: "x",
+      usedVariantKeys: getRecentSocialVariantKeys(
+        DATA_DIR,
+        "x",
+        MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
+        new Date(),
+        "market-update",
+      ),
+      seedParts: [TODAY, "x", targetToken.id, reason, "market-update"],
+    });
+    console.log(`  X variant: ${contentVariants.x.label} (${contentVariants.x.key})`);
 
     xReplyMessage = includeLinkReply
       ? isOnWebsite
@@ -244,6 +275,7 @@ async function main() {
 
   if (captionPlatforms.length > 0) {
     console.log(`Step 3: Generating unified captions for ${captionPlatforms.join(", ")}...`);
+    captionOptions.contentVariants = contentVariants;
     const captions = await generateUnifiedCaptions(
       targetToken.name,
       targetToken.symbol,
@@ -426,6 +458,10 @@ async function main() {
           platform,
           requestedPlatform: targetPlatform,
           reason,
+          variantKey: contentVariants[platform]?.key,
+          variantLabel: contentVariants[platform]?.label,
+          variantPlatform: platform,
+          variantSurface: "market-update",
           ...(platform === "x" ? { xText: xMessage } : {}),
           ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
         }, null, 2));

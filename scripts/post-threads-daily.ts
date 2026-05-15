@@ -14,11 +14,13 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { generateUnifiedCaptions } from "../src/lib/gemini";
-import { SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
+import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
+import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
 import { logError } from "../src/lib/reporter";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
+import { getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   type MetricData,
   cleanupExpiredCooldownFolders,
@@ -41,6 +43,9 @@ interface ThreadsTextTracker {
   reason: string;
   threadsText: string;
   topicTag: string;
+  variantKey?: string;
+  variantLabel?: string;
+  variantSurface?: string;
 }
 
 function sanitizeThreadsTopicTag(topicTag: string | undefined): string {
@@ -158,6 +163,22 @@ async function main() {
       metric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
     }
 
+    const contentVariant = selectSocialContentVariant({
+      platform: "threads",
+      usedVariantKeys: force
+        ? []
+        : getRecentSocialVariantKeys(
+            DATA_DIR,
+            "threads",
+            SOCIAL_VARIANT_COOLDOWN_DAYS,
+            new Date(`${today}T00:00:00.000Z`),
+            "threads-text",
+          ),
+      seedParts: [today, "threads", token.id, reason, "threads-text"],
+      date: new Date(`${today}T00:00:00.000Z`),
+    });
+    console.log(`Threads variant: ${contentVariant.label} (${contentVariant.key})`);
+
     const captions = await generateUnifiedCaptions(
       token.name,
       token.symbol,
@@ -177,7 +198,10 @@ async function main() {
         selectionReason: reason,
       },
       ["threads"],
-      { threadsMaxChars: SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT },
+      {
+        threadsMaxChars: SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
+        contentVariants: { threads: contentVariant },
+      },
     );
 
     const threadsContent = buildThreadsContent(
@@ -214,6 +238,9 @@ async function main() {
           reason,
           threadsText: threadsContent.caption,
           topicTag: threadsContent.topicTag,
+          variantKey: contentVariant.key,
+          variantLabel: contentVariant.label,
+          variantSurface: "threads-text",
         } satisfies ThreadsTextTracker,
         null,
         2,
