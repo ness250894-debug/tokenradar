@@ -89,6 +89,10 @@ jobs:
         timeout-minutes: 5
         run: npx tsx scripts/inject-internal-links.ts
 
+      - name: Repair Published Article Formatting
+        timeout-minutes: 10
+        run: npx tsx scripts/repair-article-content.ts
+
       - name: Validate Published Content
         timeout-minutes: 10
         run: npx tsx scripts/validate-content.ts
