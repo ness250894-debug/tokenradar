@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type TokenCardData } from "@/components/TokenCard";
-import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount } from "@/lib/content-loader";
+import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount, getTopSearchIntentTokens, getSearchIntentDataset, getSearchIntentTrendMap } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import { HomeRadarBrief } from "@/components/HomeRadarBrief";
+import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
 import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
+import { buildSearchIntentCardFields } from "@/lib/search-intent";
 
 export const metadata: Metadata = {
   title: "Crypto Token Risk Scores, Launch Signals & Research",
@@ -78,11 +80,15 @@ export default async function HomePage() {
   const allTokensList = await getAllTokens();
   const categoryIds = await getCategoryIds();
   const upcomingTges = await getUpcomingTGEs();
+  const searchIntentDataset = await getSearchIntentDataset();
+  const searchIntentTrendMap = await getSearchIntentTrendMap();
 
   const tokenRows = await Promise.all(
     allTokensList.map(async (token) => {
       const metrics = await getTokenMetrics(token.id);
       const category = getPrimaryTokenCategory(token.categories, categoryIds);
+      const searchIntent = searchIntentDataset?.tokens[token.id];
+      const searchIntentTrend = searchIntentTrendMap[token.id];
       return {
         hasMetrics: Boolean(metrics),
         token: {
@@ -96,6 +102,7 @@ export default async function HomePage() {
           riskScore: metrics?.riskScore ?? 5,
           category: category.name,
           categoryHref: category.href,
+          ...buildSearchIntentCardFields(searchIntent, searchIntentTrend),
         },
       };
     }),
@@ -103,6 +110,7 @@ export default async function HomePage() {
 
   const allTokens: TokenCardData[] = tokenRows.map((row) => row.token);
   const totalArticles = await getTotalArticleCount();
+  const searchIntentHighlights = await getTopSearchIntentTokens(6);
   const featuredTokens = allTokens.slice(0, 12);
   const featuredTges = upcomingTges.slice(0, 9);
   const narrativeInsights = buildNarrativeInsights(allTokens);
@@ -222,6 +230,8 @@ export default async function HomePage() {
         marketMood={marketMood}
         marketChange24h={marketChange24h}
       />
+
+      <HomeSearchIntentRadar intents={searchIntentHighlights} tokens={allTokens} trends={searchIntentTrendMap} />
 
       <HomeMarketLab
         tokens={allTokens}

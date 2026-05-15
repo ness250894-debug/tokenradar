@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { trackEvent } from "@/lib/analytics";
 import { trackDirectoryFilter } from "@/lib/engagement-analytics";
+import { SEARCH_INTENT_LABELS, type SearchIntentType } from "@/lib/search-intent";
 
 interface TokenGridProps {
   tokens: TokenCardData[];
@@ -23,6 +24,8 @@ export function TokenGrid({
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [riskFilter, setRiskFilter] = useState("all");
+  const [intentFilter, setIntentFilter] = useState("all");
+  const [attentionFilter, setAttentionFilter] = useState("all");
   const [sortBy, setSortBy] = useState("market-cap-desc");
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
 
@@ -30,6 +33,14 @@ export function TokenGrid({
     return Array.from(new Set(tokens.map((token) => token.category).filter(Boolean))).sort((a, b) =>
       a.localeCompare(b),
     );
+  }, [tokens]);
+
+  const searchIntentOptions = useMemo(() => {
+    const intents = new Set<SearchIntentType>();
+    tokens.forEach((token) => {
+      if (token.searchIntentPrimaryIntent) intents.add(token.searchIntentPrimaryIntent);
+    });
+    return Array.from(intents).sort((a, b) => SEARCH_INTENT_LABELS[a].localeCompare(SEARCH_INTENT_LABELS[b]));
   }, [tokens]);
 
   const filteredTokens = useMemo(() => {
@@ -47,8 +58,18 @@ export function TokenGrid({
         (riskFilter === "low" && token.riskScore <= 3) ||
         (riskFilter === "medium" && token.riskScore > 3 && token.riskScore <= 6) ||
         (riskFilter === "high" && token.riskScore > 6);
+      const matchesIntent = intentFilter === "all" || token.searchIntentPrimaryIntent === intentFilter;
+      const attentionScore = token.searchIntentAttentionScore || 0;
+      const hypeScore = token.searchIntentHypeScore || 0;
+      const supplyRiskScore = token.searchIntentSupplyRiskScore || 0;
+      const matchesAttention =
+        attentionFilter === "all" ||
+        (attentionFilter === "hot" && attentionScore >= 75) ||
+        (attentionFilter === "rising" && attentionScore >= 55) ||
+        (attentionFilter === "hype" && hypeScore >= 65) ||
+        (attentionFilter === "supply-risk" && supplyRiskScore >= 60);
 
-      return matchesQuery && matchesCategory && matchesRisk;
+      return matchesQuery && matchesCategory && matchesRisk && matchesIntent && matchesAttention;
     });
 
     return [...filtered].sort((a, b) => {
@@ -57,9 +78,12 @@ export function TokenGrid({
       if (sortBy === "change-asc") return (a.priceChange24h || 0) - (b.priceChange24h || 0);
       if (sortBy === "risk-asc") return a.riskScore - b.riskScore;
       if (sortBy === "risk-desc") return b.riskScore - a.riskScore;
+      if (sortBy === "attention-desc") return (b.searchIntentAttentionScore || 0) - (a.searchIntentAttentionScore || 0);
+      if (sortBy === "hype-desc") return (b.searchIntentHypeScore || 0) - (a.searchIntentHypeScore || 0);
+      if (sortBy === "supply-risk-desc") return (b.searchIntentSupplyRiskScore || 0) - (a.searchIntentSupplyRiskScore || 0);
       return (b.marketCap || 0) - (a.marketCap || 0);
     });
-  }, [categoryFilter, riskFilter, sortBy, tokens, searchQuery]);
+  }, [attentionFilter, categoryFilter, intentFilter, riskFilter, sortBy, tokens, searchQuery]);
 
   useEffect(() => {
     const term = searchQuery.trim();
@@ -81,10 +105,10 @@ export function TokenGrid({
     trackDirectoryFilter(
       "tokens",
       "combined",
-      `category:${categoryFilter}|risk:${riskFilter}|sort:${sortBy}`,
+      `category:${categoryFilter}|risk:${riskFilter}|intent:${intentFilter}|attention:${attentionFilter}|sort:${sortBy}`,
       filteredTokens.length,
     );
-  }, [categoryFilter, filteredTokens.length, riskFilter, sortBy]);
+  }, [attentionFilter, categoryFilter, filteredTokens.length, intentFilter, riskFilter, sortBy]);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + initialVisibleCount);
@@ -143,9 +167,31 @@ export function TokenGrid({
             </select>
           </label>
           <label>
+            <span><Filter size={13} /> Intent</span>
+            <select className="search-input themed-select" value={intentFilter} onChange={handleFilterChange(setIntentFilter)}>
+              <option value="all">All Search Intents</option>
+              {searchIntentOptions.map((intent) => (
+                <option key={intent} value={intent}>{SEARCH_INTENT_LABELS[intent]}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span><Filter size={13} /> Signal</span>
+            <select className="search-input themed-select" value={attentionFilter} onChange={handleFilterChange(setAttentionFilter)}>
+              <option value="all">All Signals</option>
+              <option value="hot">Hot Attention</option>
+              <option value="rising">Rising Attention</option>
+              <option value="hype">High Hype Pressure</option>
+              <option value="supply-risk">Supply-Risk Spike</option>
+            </select>
+          </label>
+          <label>
             <span><ArrowUpDown size={13} /> Sort</span>
             <select className="search-input themed-select" value={sortBy} onChange={handleFilterChange(setSortBy)}>
               <option value="market-cap-desc">Market Cap</option>
+              <option value="attention-desc">Search Attention</option>
+              <option value="hype-desc">Hype Pressure</option>
+              <option value="supply-risk-desc">Supply Risk</option>
               <option value="change-desc">Top 24h Gainers</option>
               <option value="change-asc">Worst 24h Moves</option>
               <option value="risk-asc">Lowest Risk</option>

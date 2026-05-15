@@ -217,6 +217,8 @@ async function consolidate() {
     "upcoming-tges.json",
     "glossary.json",
     "keywords.json",
+    "search-intent.json",
+    "search-intent-history.json",
     "tokens.json",
   ];
   for (const file of essentialDataFiles) {

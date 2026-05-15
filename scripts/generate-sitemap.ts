@@ -7,6 +7,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { execFileSync } from "child_process";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
+import { SEARCH_INTENT_LABELS, type SearchIntentType } from "../src/lib/search-intent";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
 import { getSiteUrl, isArticleIndexable, isTokenOverviewIndexable } from "../src/lib/seo";
 import { writeFileAtomicSync } from "../src/lib/utils";
@@ -144,6 +145,7 @@ async function main() {
   const mainEntries: SitemapEntry[] = [
     { url: "/", lastmod: getSourceDate("src/app/page.tsx", fallbackDate) },
     { url: "/tokens", lastmod: registryDate },
+    { url: "/search-intent", lastmod: getSourceDate("data/search-intent.json", registryDate) },
     { url: "/upcoming", lastmod: upcomingDate },
     { url: "/learn", lastmod: glossaryDate },
     { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", fallbackDate) },
@@ -158,6 +160,10 @@ async function main() {
   const categories = await getAllCategories();
   categories.forEach(cat => {
     mainEntries.push({ url: `/category/${cat.id}`, lastmod: registryDate });
+  });
+
+  (Object.keys(SEARCH_INTENT_LABELS) as SearchIntentType[]).forEach(intent => {
+    mainEntries.push({ url: `/search-intent/${intent}`, lastmod: getSourceDate("data/search-intent.json", registryDate) });
   });
 
   const tges = await getUpcomingTGEsLocal();

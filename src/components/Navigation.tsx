@@ -5,16 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HackerText } from "./HackerText";
-import { Activity, Clock, BookOpen, ShieldCheck, Calculator, FileText, Mail, Menu, Star, X } from "lucide-react";
+import { Activity, Clock, BookOpen, ShieldCheck, Calculator, FileText, Mail, Menu, Radar, Star, X } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Tokens", href: "/tokens", icon: Activity, color: "var(--accent-primary)" },
+  { name: "Intent", href: "/search-intent", icon: Radar, color: "var(--accent-secondary)" },
   { name: "Watchlist", href: "/watchlist", icon: Star, color: "var(--accent-primary)" },
   { name: "Upcoming", href: "/upcoming", icon: Clock, color: "var(--accent-primary)" },
   { name: "Learn", href: "/learn", icon: BookOpen, color: "var(--accent-secondary)" },
-  { name: "Methodology", href: "/about", icon: FileText, color: "var(--text-secondary)" },
-  { name: "Hardware", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "var(--green)", icon: ShieldCheck, color: "var(--green)" },
-  { name: "Tax Guide", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "var(--accent-secondary)", icon: Calculator, color: "var(--accent-secondary)" },
+  { name: "About", href: "/about", icon: FileText, color: "var(--text-secondary)" },
+  { name: "Wallets", href: "/best-crypto-hardware-wallets", badge: "SECURE", badgeColor: "var(--green)", icon: ShieldCheck, color: "var(--green)" },
+  { name: "Taxes", href: "/crypto-tax-guide", badge: "NEW", badgeColor: "var(--accent-secondary)", icon: Calculator, color: "var(--accent-secondary)" },
   { name: "Contact", href: "/contact", icon: Mail, color: "var(--accent-secondary)" },
 ] as const;
 
@@ -62,13 +63,14 @@ export function Navigation() {
         <ul className={`nav-links ${isOpen ? "open" : ""}`} id="primary-nav-links">
           {NAV_LINKS.map((link) => {
             const Icon = link.icon;
-            const isActive = pathname === link.href;
+            const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <li key={link.href} className="nav-link-item">
                 <Link
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={isActive ? "active" : ""}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   <Icon
                     size={20}
