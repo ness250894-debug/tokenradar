@@ -3,12 +3,21 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { COLORS, FONTS, getVerdictColor } from "../styles";
 import type { Verdict } from "../styles";
 import { RevealText, useRevealMotion } from "./MotionPrimitives";
+import { getVideoTheme, resolveVideoVisualRecipe, type VideoVisualRecipe } from "../../lib/video-recipes";
 
 export const VerdictBadge: React.FC<{
   verdict: Verdict;
-}> = ({ verdict }) => {
+  kicker?: string;
+  labelOverride?: string;
+  subLabel?: string;
+  visualRecipe?: VideoVisualRecipe;
+}> = ({ verdict, kicker = "TOKENRADAR SIGNAL", labelOverride, subLabel = "EDUCATIONAL DATA ONLY", visualRecipe }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const recipe = resolveVideoVisualRecipe(visualRecipe);
+  const theme = getVideoTheme(recipe);
+  const isTerminal = recipe.layoutPack === "terminal_feed";
+  const isScoreboard = recipe.layoutPack === "scoreboard";
 
   const opacity = spring({
     frame,
@@ -26,14 +35,14 @@ export const VerdictBadge: React.FC<{
     extrapolateRight: "clamp",
   });
 
-  const color = getVerdictColor(verdict);
+  const color = recipe.colorTheme === "electric_indigo" ? getVerdictColor(verdict) : theme.accent;
   const signalLabel: Record<Verdict, string> = {
     "STRONG BUY": "LOW-RISK MOMENTUM",
     BUY: "POSITIVE SETUP",
     HOLD: "NEUTRAL SETUP",
     CAUTION: "RISK ELEVATED",
   };
-  const label = signalLabel[verdict] || verdict;
+  const label = labelOverride || signalLabel[verdict] || verdict;
 
   return (
     <AbsoluteFill
@@ -47,24 +56,25 @@ export const VerdictBadge: React.FC<{
     >
       <div
         style={{
-          textAlign: "center",
+          textAlign: isTerminal ? "left" : "center",
           transform: `translateY(${motion.translateY}px) scale(${motion.scale})`,
           filter: `blur(${motion.blur}px)`,
+          width: isTerminal || isScoreboard ? 860 : "auto",
         }}
       >
         <RevealText delay={4} style={{ fontSize: 40, color: COLORS.textMuted, fontWeight: 700, marginBottom: 20, letterSpacing: 4 }}>
-          TOKENRADAR SIGNAL
+          {kicker}
         </RevealText>
         <div
           style={{
             position: "relative",
             overflow: "hidden",
-            fontSize: label.length > 14 ? 78 : 112,
+            fontSize: label.length > 14 ? (isScoreboard ? 86 : 78) : isScoreboard ? 126 : 112,
             color: COLORS.background,
             backgroundColor: color,
             fontWeight: 900,
             padding: "40px 80px",
-            borderRadius: 20,
+            borderRadius: isTerminal ? 4 : isScoreboard ? 12 : 20,
             textTransform: "uppercase",
             boxShadow: `0 20px 60px ${color}66`,
           }}
@@ -84,7 +94,7 @@ export const VerdictBadge: React.FC<{
           <span style={{ position: "relative", zIndex: 1 }}>{label}</span>
         </div>
         <RevealText delay={12} style={{ fontSize: 28, color: COLORS.textMuted, fontWeight: 700, marginTop: 26, letterSpacing: 1 }}>
-          EDUCATIONAL DATA ONLY
+          {subLabel}
         </RevealText>
       </div>
 
@@ -94,7 +104,6 @@ export const VerdictBadge: React.FC<{
           position: "absolute",
           bottom: 250,
           fontSize: 30,
-          color: COLORS.textMuted,
           fontWeight: 700,
           letterSpacing: 2,
           opacity: spring({
@@ -102,6 +111,7 @@ export const VerdictBadge: React.FC<{
             fps,
             config: { damping: 200 },
           }),
+          color: recipe.layoutPack === "ticker_stack" ? theme.accent : COLORS.textMuted,
         }}
       >
         TOKENRADAR.CO

@@ -198,6 +198,13 @@ export const GENERAL_COOLDOWN_DAYS = 30;
  */
 export const VIDEO_COOLDOWN_DAYS = 7;
 
+/**
+ * Minimum days before the same short-form video editorial format can repeat.
+ * This is intentionally longer than token cooldown because YouTube reviews
+ * format repetition at the channel level, not only token repetition.
+ */
+export const VIDEO_FORMAT_COOLDOWN_DAYS = 14;
+
 // ── Interactive Poll Config ────────────────────────────────────
 
 /** Default poll duration in minutes (24 hours). */

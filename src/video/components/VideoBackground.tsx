@@ -8,6 +8,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { COLORS, getVerdictColor, type Verdict } from "../styles";
+import { getVideoTheme, resolveVideoVisualRecipe, type VideoVisualRecipe } from "../../lib/video-recipes";
 
 const AVATAR_LAYERS = [
   { x: -110, y: 210, size: 360, opacity: 0.16, delay: 0, speed: 1.0, rotate: -10 },
@@ -36,10 +37,14 @@ export const VideoBackground: React.FC<{
   priceChange24h: number;
   riskScore: number;
   verdict?: Verdict;
-}> = ({ priceChange24h, riskScore, verdict }) => {
+  visualRecipe?: VideoVisualRecipe;
+}> = ({ priceChange24h, riskScore, verdict, visualRecipe }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
-  const accentColor = resolveAccentColor(verdict, priceChange24h, riskScore);
+  const recipe = resolveVideoVisualRecipe(visualRecipe);
+  const theme = getVideoTheme(recipe);
+  const signalColor = resolveAccentColor(verdict, priceChange24h, riskScore);
+  const accentColor = recipe.colorTheme === "electric_indigo" ? signalColor : theme.accent;
   const pulse = Math.sin(frame / 22) * 0.5 + 0.5;
   const slowProgress = frame / Math.max(durationInFrames, 1);
   const brandScale = interpolate(
@@ -48,6 +53,8 @@ export const VideoBackground: React.FC<{
     [1.04, 1.12],
   );
   const scanY = interpolate(frame % 180, [0, 180], [-180, 2100]);
+  const tickerX = interpolate(frame % 150, [0, 150], [-740, 0]);
+  const gridSize = recipe.backgroundSystem === "terminal_scan" ? "72px 72px" : "96px 96px";
 
   return (
     <AbsoluteFill
@@ -59,9 +66,9 @@ export const VideoBackground: React.FC<{
       <AbsoluteFill
         style={{
           backgroundImage: backgroundGrid(accentColor),
-          backgroundSize: "96px 96px",
+          backgroundSize: gridSize,
           transform: `translateY(${-(frame % 96)}px)`,
-          opacity: 0.28,
+          opacity: recipe.backgroundSystem === "heatmap_field" ? 0.16 : 0.28,
         }}
       />
 
@@ -86,12 +93,99 @@ export const VideoBackground: React.FC<{
           inset: -160,
           background: [
             `linear-gradient(118deg, transparent 0%, ${accentColor}1f 32%, transparent 58%)`,
-            "linear-gradient(22deg, rgba(34,211,238,0.08) 0%, transparent 44%)",
-            "linear-gradient(292deg, rgba(124,58,237,0.10) 0%, transparent 48%)",
+            `linear-gradient(22deg, ${theme.secondary}18 0%, transparent 44%)`,
+            `linear-gradient(292deg, ${theme.negative}14 0%, transparent 48%)`,
           ].join(", "),
           opacity: 0.95,
         }}
       />
+
+      {recipe.backgroundSystem === "ticker_tape" && (
+        <div
+          style={{
+            position: "absolute",
+            left: tickerX,
+            right: -740,
+            top: 280,
+            height: 1180,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            opacity: 0.22,
+            color: theme.muted,
+            fontSize: 32,
+            fontWeight: 900,
+            letterSpacing: 3,
+            transform: "rotate(-8deg)",
+          }}
+        >
+          {Array.from({ length: 9 }).map((_, index) => (
+            <div key={index} style={{ whiteSpace: "nowrap" }}>
+              TOKENRADAR DATA SIGNAL / RISK CHECK / LIQUIDITY / MOMENTUM / TOKENRADAR DATA SIGNAL
+            </div>
+          ))}
+        </div>
+      )}
+
+      {recipe.backgroundSystem === "heatmap_field" && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 90,
+            display: "grid",
+            gridTemplateColumns: "repeat(5, 1fr)",
+            gap: 18,
+            opacity: 0.18,
+            transform: `translateY(${Math.sin(frame / 34) * 18}px)`,
+          }}
+        >
+          {Array.from({ length: 30 }).map((_, index) => {
+            const intensity = 0.16 + ((index * 17 + frame) % 80) / 220;
+            return (
+              <div
+                key={index}
+                style={{
+                  height: 112,
+                  borderRadius: 8,
+                  background: index % 4 === 0 ? theme.negative : index % 3 === 0 ? theme.warning : accentColor,
+                  opacity: intensity,
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {recipe.backgroundSystem === "liquidity_depth" && (
+        <div
+          style={{
+            position: "absolute",
+            left: 90,
+            right: 90,
+            bottom: 250,
+            height: 520,
+            opacity: 0.2,
+            display: "flex",
+            alignItems: "flex-end",
+            gap: 14,
+          }}
+        >
+          {Array.from({ length: 26 }).map((_, index) => {
+            const height = 60 + ((index * 37 + frame) % 260);
+            return (
+              <div
+                key={index}
+                style={{
+                  flex: 1,
+                  height,
+                  background: `linear-gradient(180deg, ${accentColor}, transparent)`,
+                  borderRadius: 6,
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
 
       {AVATAR_LAYERS.map((layer, index) => {
         const bob = Math.sin((frame + layer.delay) / (36 / layer.speed)) * 26;
@@ -136,6 +230,17 @@ export const VideoBackground: React.FC<{
         }}
       />
 
+      {recipe.backgroundSystem === "terminal_scan" && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `repeating-linear-gradient(180deg, transparent 0, transparent 18px, ${accentColor}0f 19px, transparent 21px)`,
+            opacity: 0.5,
+          }}
+        />
+      )}
+
       <div
         style={{
           position: "absolute",
@@ -158,8 +263,8 @@ export const VideoBackground: React.FC<{
           top: scanY,
           height: 160,
           background: `linear-gradient(180deg, transparent, ${accentColor}28, transparent)`,
-          opacity: 0.42,
-          transform: "skewY(-8deg)",
+          opacity: recipe.backgroundSystem === "radar_grid" ? 0.42 : 0.3,
+          transform: recipe.backgroundSystem === "orbital_map" ? "skewY(8deg)" : "skewY(-8deg)",
         }}
       />
 

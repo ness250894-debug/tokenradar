@@ -18,11 +18,18 @@ import { logError } from "../src/lib/reporter";
 import {
   generateUnifiedCaptions,
   type PlatformTarget,
+  type UnifiedCaptionOptions,
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { buildTelegramMediaCaption, sendTelegramVideo } from "../src/lib/telegram";
 import { diversifyXPostText, postTweetWithMedia, postTweet } from "../src/lib/x-client";
-import { SOCIAL, SOCIAL_PLATFORM_LIMITS, VIDEO_COOLDOWN_DAYS, getTelegramFooter } from "../src/lib/config";
+import {
+  SOCIAL,
+  SOCIAL_PLATFORM_LIMITS,
+  VIDEO_COOLDOWN_DAYS,
+  VIDEO_FORMAT_COOLDOWN_DAYS,
+  getTelegramFooter,
+} from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
@@ -40,7 +47,19 @@ import {
   publishVideoDirectlyToTikTok,
   uploadVideoToTikTokInbox,
 } from "../src/lib/tiktok-client";
-import { getRandomTrack } from "../src/lib/audio-config";
+import { getTrackForDate } from "../src/lib/audio-config";
+import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
+import {
+  formatVideoFormatPromptLine,
+  getVideoFormat,
+  selectVideoFormatsForSlots,
+  type VideoFormat,
+  type VideoFormatKey,
+} from "../src/lib/video-formats";
+import {
+  selectVideoVisualRecipe,
+  type VideoVisualRecipe,
+} from "../src/lib/video-recipes";
 import {
   type MetricData,
   type TokenData,
@@ -68,6 +87,17 @@ interface PlatformTracker {
   videoId?: string;
   postId?: string;
   caption?: string;
+  youtubeTitle?: string;
+  youtubeDescription?: string;
+  formatKey?: VideoFormatKey;
+  formatLabel?: string;
+  formatFamily?: string;
+  videoThesis?: string;
+  hookText?: string;
+  audioTrack?: string;
+  audioStartSeconds?: number;
+  visualRecipeKey?: string;
+  visualRecipe?: VideoVisualRecipe;
   reportVideoMessageId?: number;
   reportSummaryMessageId?: number;
   reportCaptionMessageIds?: number[];
@@ -86,13 +116,44 @@ interface VideoTracker {
   tokenName: string;
   reason: string;
   platform: string;
+  // Legacy single-render fields kept so old tracker files can still seed cooldown reads.
+  formatKey?: VideoFormatKey;
+  formatLabel?: string;
+  formatFamily?: string;
+  videoThesis?: string;
+  hookText?: string;
+  audioTrack?: string;
+  audioStartSeconds?: number;
+  visualRecipeKey?: string;
+  visualRecipe?: VideoVisualRecipe;
   platforms: Partial<Record<PlatformName, PlatformTracker>>;
+}
+
+interface AudioTrackSelection {
+  file: string;
+  startSeconds: number;
+}
+
+interface PlatformVideoAsset {
+  platform: PlatformName;
+  outputPath: string;
+  buffer: Buffer;
+  format: VideoFormat;
+  videoThesis: string;
+  hookText: string;
+  audioTrack: AudioTrackSelection;
+  visualRecipe: VideoVisualRecipe;
 }
 
 function cleanupFile(filePath: string): void {
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
   }
+}
+
+function getArgValue(args: string[], name: string): string | undefined {
+  const index = args.indexOf(name);
+  return index !== -1 && index + 1 < args.length ? args[index + 1] : undefined;
 }
 
 function getRemotionCliPath(): string {
@@ -133,6 +194,188 @@ function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
   }
 
   return posted;
+}
+
+function getRecentVideoFormatKeys(
+  dataDir: string,
+  days: number,
+  now: Date = new Date(),
+  excludeDateKey?: string,
+  platform?: PlatformName,
+): Set<string> {
+  const used = new Set<string>();
+  const parentDir = path.join(dataDir, "posted_video");
+  if (!fs.existsSync(parentDir)) return used;
+
+  const cutoff = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  cutoff.setUTCDate(cutoff.getUTCDate() - days);
+  const cutoffKey = cutoff.toISOString().split("T")[0];
+
+  const dateDirs = fs.readdirSync(parentDir).filter((dateDir) => {
+    const fullPath = path.join(parentDir, dateDir);
+    return fs.statSync(fullPath).isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(dateDir);
+  });
+
+  for (const dateDir of dateDirs) {
+    if (dateDir < cutoffKey || dateDir === excludeDateKey) continue;
+    const trackerFile = path.join(parentDir, dateDir, "daily-video.json");
+    const tracker = safeReadJson<VideoTracker | null>(trackerFile, null);
+    if (!tracker) continue;
+
+    if (platform) {
+      const platformTracker = tracker.platforms?.[platform];
+      if (platformTracker?.formatKey) {
+        used.add(platformTracker.formatKey);
+      } else if (tracker.formatKey) {
+        // Legacy tracker support from the single-video format rotation.
+        used.add(tracker.formatKey);
+      }
+      continue;
+    }
+
+    if (tracker.formatKey) used.add(tracker.formatKey);
+    for (const platformTracker of Object.values(tracker.platforms || {})) {
+      if (platformTracker?.formatKey) used.add(platformTracker.formatKey);
+    }
+  }
+
+  return used;
+}
+
+function getRecentVideoRecipeKeys(
+  dataDir: string,
+  days: number,
+  now: Date = new Date(),
+  excludeDateKey?: string,
+  platform?: PlatformName,
+): Set<string> {
+  const used = new Set<string>();
+  const parentDir = path.join(dataDir, "posted_video");
+  if (!fs.existsSync(parentDir)) return used;
+
+  const cutoff = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  cutoff.setUTCDate(cutoff.getUTCDate() - days);
+  const cutoffKey = cutoff.toISOString().split("T")[0];
+
+  const dateDirs = fs.readdirSync(parentDir).filter((dateDir) => {
+    const fullPath = path.join(parentDir, dateDir);
+    return fs.statSync(fullPath).isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(dateDir);
+  });
+
+  for (const dateDir of dateDirs) {
+    if (dateDir < cutoffKey || dateDir === excludeDateKey) continue;
+    const trackerFile = path.join(parentDir, dateDir, "daily-video.json");
+    const tracker = safeReadJson<VideoTracker | null>(trackerFile, null);
+    if (!tracker) continue;
+
+    if (platform) {
+      const platformTracker = tracker.platforms?.[platform];
+      const recipeKey = platformTracker?.visualRecipeKey || platformTracker?.visualRecipe?.key || tracker.visualRecipeKey;
+      if (recipeKey) used.add(recipeKey);
+      continue;
+    }
+
+    if (tracker.visualRecipeKey) used.add(tracker.visualRecipeKey);
+    if (tracker.visualRecipe?.key) used.add(tracker.visualRecipe.key);
+    for (const platformTracker of Object.values(tracker.platforms || {})) {
+      if (platformTracker?.visualRecipeKey) used.add(platformTracker.visualRecipeKey);
+      if (platformTracker?.visualRecipe?.key) used.add(platformTracker.visualRecipe.key);
+    }
+  }
+
+  return used;
+}
+
+function buildVideoThesis(
+  format: VideoFormat,
+  token: TokenData,
+  metric: MetricData | undefined,
+  contextText: string | undefined,
+): string {
+  const change = formatPercent(token.market.priceChange24h);
+  const price = formatPrice(token.market.price);
+  const marketCap = formatCompact(token.market.marketCap);
+  const volume = formatCompact(token.market.volume24h);
+  const risk = metric?.riskScore !== undefined
+    ? `${metric.riskScore.toFixed(1)}/10 ${metric.riskLevel || "risk"}`
+    : "risk data pending";
+  const growth = metric?.growthPotentialIndex !== undefined
+    ? `${Math.round(metric.growthPotentialIndex)}/100 growth index`
+    : "growth index pending";
+  const context = contextText?.trim();
+
+  const thesisByFormat: Partial<Record<VideoFormatKey, string>> = {
+    breakout_watch: `${token.name} is being checked as a breakout candidate after a ${change} 24h move; the test is whether ${volume} volume can support follow-through.`,
+    risk_alert: `${token.name} needs a risk-first read: price is at ${price}, but ${risk} keeps confirmation more important than the headline move.`,
+    volume_spike_check: `${token.name} is on volume watch because ${volume} traded in 24h against a ${marketCap} market cap.`,
+    sector_rotation: `${token.name} is being read as a possible rotation signal; the question is whether the move fits the broader market setup.`,
+    token_vs_sector: `${token.name} is being compared against the broader tape: ${change} in 24h, ${marketCap} market cap, and ${volume} volume.`,
+    momentum_cooling: `${token.name} is being checked for fade risk after a ${change} 24h move; momentum needs confirmation to stay useful.`,
+    catalyst_explainer: `${token.name} is the focus because the selection reason needs a why-now explanation, not just a price snapshot.`,
+    liquidity_stress_test: `${token.name} is going through a liquidity stress test using ${volume} volume, ${marketCap} market cap, and ${risk}.`,
+    data_vs_hype: `${token.name} gets a data-versus-hype read: ${change} price action is measured against volume, risk, and market-cap context.`,
+    risk_score_breakdown: `${token.name} is being judged through TokenRadar's risk lens first, with ${risk} and ${growth}.`,
+    watchlist_battle: `${token.name} has to earn a watchlist slot with ${change} performance, ${volume} volume, and ${risk}.`,
+    weekly_recap: `${token.name} is the standout name in this scan, with ${change} over 24h and ${marketCap} market cap.`,
+    new_listing_radar: `${token.name} is treated as a fresh radar candidate; the first filters are ${risk}, ${volume} volume, and ${marketCap} market cap.`,
+    narrative_heatmap: `${token.name} is being checked for narrative heat, with ${change} price action and ${growth}.`,
+    contrarian_signal: `${token.name} has a tension setup: ${change} price movement versus ${risk} and ${volume} volume quality.`,
+  };
+
+  return [thesisByFormat[format.key as VideoFormatKey] || `${format.label}: ${token.name} is being analyzed through market data quality filters.`, context]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function getPlatformVideoAsset(
+  platformVideos: Map<PlatformName, PlatformVideoAsset>,
+  platform: PlatformName,
+): PlatformVideoAsset {
+  const asset = platformVideos.get(platform);
+  if (!asset) {
+    throw new Error(`Missing rendered video asset for ${platform}.`);
+  }
+  return asset;
+}
+
+function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
+  PlatformTracker,
+  | "formatKey"
+  | "formatLabel"
+  | "formatFamily"
+  | "videoThesis"
+  | "hookText"
+  | "audioTrack"
+  | "audioStartSeconds"
+  | "visualRecipeKey"
+  | "visualRecipe"
+> {
+  return {
+    formatKey: asset.format.key as VideoFormatKey,
+    formatLabel: asset.format.label,
+    formatFamily: asset.format.family,
+    videoThesis: asset.videoThesis,
+    hookText: asset.hookText,
+    audioTrack: asset.audioTrack.file,
+    audioStartSeconds: asset.audioTrack.startSeconds,
+    visualRecipeKey: asset.visualRecipe.key,
+    visualRecipe: asset.visualRecipe,
+  };
+}
+
+function buildPlatformFormatPrompt(
+  platformVideos: Map<PlatformName, PlatformVideoAsset>,
+  platforms: PlatformTarget[],
+): string {
+  return platforms
+    .map((platform) => {
+      const asset = platformVideos.get(platform as PlatformName);
+      return asset
+        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}.`
+        : "";
+    })
+    .filter(Boolean)
+    .join("\n");
 }
 
 function getRequestedPlatforms(
@@ -229,6 +472,8 @@ async function main() {
   const force = args.includes("--force");
   const includeLinkReply = args.includes("--link-reply");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
+  const outputDirArg = getArgValue(args, "--output-dir");
+  const keepOutput = args.includes("--keep-output") || Boolean(outputDirArg);
 
   const platformIdx = args.indexOf("--platform");
   const targetPlatform =
@@ -246,10 +491,17 @@ async function main() {
   console.log(`  Platform: ${targetPlatform}`);
   console.log();
 
+  const outputDir = outputDirArg ? path.resolve(process.cwd(), outputDirArg) : process.cwd();
+  if (keepOutput || outputDirArg) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted_video", today);
   const trackerFile = path.join(postedDir, "daily-video.json");
-  cleanupExpiredCooldownFolders(DATA_DIR);
+  cleanupExpiredCooldownFolders(DATA_DIR, {
+    videoRetentionDays: Math.max(VIDEO_COOLDOWN_DAYS, VIDEO_FORMAT_COOLDOWN_DAYS),
+  });
   if (!fs.existsSync(postedDir)) fs.mkdirSync(postedDir, { recursive: true });
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
@@ -263,16 +515,16 @@ async function main() {
     process.env.YOUTUBE_CLIENT_SECRET &&
     process.env.YOUTUBE_REFRESH_TOKEN,
   );
-  const shouldRunYouTube = runYouTube && hasYouTubeCredentials;
-  const shouldRunInstagram = runInstagram && hasMetaCredentials("instagram") && hasR2Credentials();
-  const shouldRunThreads = runThreads && hasMetaCredentials("threads") && hasR2Credentials();
+  const shouldRunYouTube = runYouTube && (dryRun || hasYouTubeCredentials);
+  const shouldRunInstagram = runInstagram && (dryRun || (hasMetaCredentials("instagram") && hasR2Credentials()));
+  const shouldRunThreads = runThreads && (dryRun || (hasMetaCredentials("threads") && hasR2Credentials()));
   const hasTikTokApiCredentialsConfigured = hasTikTokApiCredentials();
   const tiktokCredentialMode = runTikTok && hasTikTokApiCredentialsConfigured ? getTikTokCredentialMode() : "sandbox";
   const hasTikTokReportCredentials = hasTikTokManualReportCredentials();
   const shouldRunTikTokDirect = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "production";
   const shouldRunTikTokInbox = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "sandbox";
   const shouldRunTikTokManual = runTikTok && !hasTikTokApiCredentialsConfigured && (dryRun || hasTikTokReportCredentials);
-  const shouldRunTikTok = shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual;
+  const shouldRunTikTok = runTikTok && (dryRun || shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual);
   const requestedPlatforms = getRequestedPlatforms(
     runTelegram,
     runX,
@@ -406,6 +658,8 @@ async function main() {
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
+    marketCapRank: targetToken.market.marketCapRank,
+    volume24h: targetToken.market.volume24h,
     trendingContext,
     timeOfDay: getTimeOfDay(),
     tone: getRandomTone(),
@@ -414,94 +668,133 @@ async function main() {
 
   console.log();
   console.log("Step 3: Rendering video with Remotion...");
-  const outPath = path.join(process.cwd(), "out.mp4");
-  const threadsOutPath = path.join(process.cwd(), "out-threads.mp4");
-
-  const audioTrack = getRandomTrack();
-  console.log(`  Audio: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
-
-  const hookText = await generateHookText(targetToken.name, targetToken.symbol, context);
-  
+  const platformVideos = new Map<PlatformName, PlatformVideoAsset>();
   const { getVerdict } = await import("../src/video/styles");
   const verdict = getVerdict(targetMetric?.riskScore || 5.0, targetToken.market.priceChange24h);
-
-  const videoProps = {
-    tokenName: targetToken.name,
-    symbol: targetToken.symbol.toUpperCase(),
-    price: targetToken.market.price,
-    priceChange24h: targetToken.market.priceChange24h,
-    riskScore: targetMetric?.riskScore || 5.0,
-    riskLevel: targetMetric?.riskLevel,
-    marketCap: targetToken.market.marketCap,
-    marketCapRank: targetToken.market.marketCapRank,
-    volume24h: targetToken.market.volume24h,
-    growthPotentialIndex: targetMetric?.growthPotentialIndex,
-    audioFile: audioTrack.file,
-    audioStartSeconds: audioTrack.startSeconds,
-    hookText,
-    contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
-    verdict,
+  const fixedFormatKeys = new Set(
+    requestedPlatforms
+      .map((platform) => existingTracker?.platforms?.[platform]?.formatKey)
+      .filter((key): key is VideoFormatKey => Boolean(key)),
+  );
+  const platformsNeedingFormats = requestedPlatforms.filter(
+    (platform) => !existingTracker?.platforms?.[platform]?.formatKey,
+  );
+  const getUsedFormatKeysForPlatform = (platform: PlatformName): Set<string> => {
+    const used = force
+      ? new Set<string>()
+      : getRecentVideoFormatKeys(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today, platform);
+    for (const key of fixedFormatKeys) used.add(key);
+    return used;
   };
+  const generatedFormats = selectVideoFormatsForSlots(platformsNeedingFormats, {
+    getUsedFormatKeys: getUsedFormatKeysForPlatform,
+    getSeedParts: (platform) => [today, platform, targetToken.id, reason],
+  });
+  const fixedRecipeKeys = new Set(
+    requestedPlatforms
+      .map((platform) =>
+        existingTracker?.platforms?.[platform]?.visualRecipeKey ||
+        existingTracker?.platforms?.[platform]?.visualRecipe?.key,
+      )
+      .filter((key): key is string => Boolean(key)),
+  );
+  const selectedRecipeKeys = new Set<string>();
 
   try {
-    const propsFile = path.join(process.cwd(), "remotion-props.json");
-    fs.writeFileSync(propsFile, JSON.stringify(videoProps));
+    for (const platform of requestedPlatforms) {
+      const existingPlatformTracker = existingTracker?.platforms?.[platform];
+      const usedVideoFormatKeys = getUsedFormatKeysForPlatform(platform);
 
-    try {
-      execFileSync(
-        process.execPath,
-        [
-          getRemotionCliPath(),
-          "render",
-          "src/video/index.tsx",
-          "TopGainerUpdate",
-          outPath,
-          "--props=remotion-props.json",
-        ],
-        { stdio: "inherit" },
-      );
-    } finally {
-      cleanupFile(propsFile);
-    }
+      const videoFormat = existingPlatformTracker?.formatKey
+        ? getVideoFormat(existingPlatformTracker.formatKey)
+        : generatedFormats.get(platform) || getVideoFormat(undefined);
 
-    console.log("  Video rendered successfully to out.mp4");
+      const videoThesis = existingPlatformTracker?.videoThesis ||
+        buildVideoThesis(videoFormat, targetToken, targetMetric, context.trendingContext);
+      const audioTrack: AudioTrackSelection = existingPlatformTracker?.audioTrack
+        ? { file: existingPlatformTracker.audioTrack, startSeconds: existingPlatformTracker.audioStartSeconds || 0 }
+        : getTrackForDate(`${today}:${platform}:${videoFormat.key}:${targetToken.id}`);
+      const hookText = existingPlatformTracker?.hookText ||
+        await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
+      const usedVideoRecipeKeys = force
+        ? new Set<string>()
+        : getRecentVideoRecipeKeys(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today, platform);
+      for (const key of fixedRecipeKeys) usedVideoRecipeKeys.add(key);
+      for (const key of selectedRecipeKeys) usedVideoRecipeKeys.add(key);
+      const visualRecipe = existingPlatformTracker?.visualRecipe ||
+        selectVideoVisualRecipe({
+          usedRecipeKeys: usedVideoRecipeKeys,
+          seedParts: [today, platform, targetToken.id, videoFormat.key, reason],
+        });
+      selectedRecipeKeys.add(visualRecipe.key);
+      const outputPath = path.join(outputDir, `tokenradar-${today}-${platform}.mp4`);
+      const propsFile = path.join(outputDir, `remotion-props-${platform}.json`);
 
-    // Re-encode variant for Threads (binary-different via CRF 19, ~10 seconds)
-    if (shouldRunThreads) {
-      console.log("  Re-encoding variant for Threads (CRF 19)...");
+      console.log(`  ${platform}: ${videoFormat.label} (${videoFormat.key})`);
+      if (!force && usedVideoFormatKeys.has(videoFormat.key) && !existingPlatformTracker?.formatKey) {
+        console.warn(`  ${platform}: format cooldown pool was exhausted; selected from the full format library.`);
+      }
+      if (!force && usedVideoRecipeKeys.has(visualRecipe.key) && !existingPlatformTracker?.visualRecipe) {
+        console.warn(`  ${platform}: visual recipe cooldown pool was exhausted; selected from the full recipe library.`);
+      }
+      console.log(`  ${platform}: recipe ${visualRecipe.key}`);
+      console.log(`  ${platform}: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
+
+      const videoProps = {
+        tokenName: targetToken.name,
+        symbol: targetToken.symbol.toUpperCase(),
+        price: targetToken.market.price,
+        priceChange24h: targetToken.market.priceChange24h,
+        riskScore: targetMetric?.riskScore || 5.0,
+        riskLevel: targetMetric?.riskLevel,
+        marketCap: targetToken.market.marketCap,
+        marketCapRank: targetToken.market.marketCapRank,
+        volume24h: targetToken.market.volume24h,
+        growthPotentialIndex: targetMetric?.growthPotentialIndex,
+        audioFile: audioTrack.file,
+        audioStartSeconds: audioTrack.startSeconds,
+        hookText,
+        contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
+        videoFormatKey: videoFormat.key,
+        videoThesis,
+        visualRecipe,
+        verdict,
+      };
+
+      fs.writeFileSync(propsFile, JSON.stringify(videoProps));
       try {
         execFileSync(
-          "ffmpeg",
+          process.execPath,
           [
-            "-y",
-            "-i",
-            outPath,
-            "-c:v",
-            "libx264",
-            "-crf",
-            "19",
-            "-preset",
-            "veryfast",
-            "-c:a",
-            "copy",
-            threadsOutPath,
+            getRemotionCliPath(),
+            "render",
+            "src/video/index.tsx",
+            "TopGainerUpdate",
+            outputPath,
+            `--props=${propsFile}`,
           ],
-          { stdio: "pipe" },
+          { stdio: "inherit" },
         );
-        console.log("  Threads variant rendered to out-threads.mp4");
-      } catch (ffmpegError) {
-        console.warn(`  ffmpeg re-encode failed: ${formatErrorForLog(ffmpegError)}`);
-        console.warn("  Falling back to using the same video file for Threads.");
-        // Copy primary video as fallback
-        fs.copyFileSync(outPath, threadsOutPath);
+      } finally {
+        cleanupFile(propsFile);
       }
+
+      platformVideos.set(platform, {
+        platform,
+        outputPath,
+        buffer: fs.readFileSync(outputPath),
+        format: videoFormat,
+        videoThesis,
+        hookText,
+        audioTrack,
+        visualRecipe,
+      });
+      console.log(`  ${platform}: rendered ${outputPath}`);
     }
   } catch (error) {
     console.error(`  Video rendering failed: ${formatErrorForLog(error)}`);
     process.exit(1);
   }
-
-  const videoBuffer = fs.readFileSync(outPath);
 
   // ── R2 Upload for Meta platforms ──
   let igVideoUrl = "";
@@ -509,7 +802,10 @@ async function main() {
   let igVideoKey = "";
   let threadsVideoKey = "";
 
-  if (shouldRunInstagram || shouldRunThreads) {
+  if (dryRun) {
+    igVideoUrl = platformVideos.get("instagram")?.outputPath || "";
+    threadsVideoUrl = platformVideos.get("threads")?.outputPath || "";
+  } else if (shouldRunInstagram || shouldRunThreads) {
     console.log();
     console.log("Step 3b: Staging videos to R2 for Meta APIs...");
     try {
@@ -517,11 +813,11 @@ async function main() {
       await cleanPrefix(videoPrefix);
       if (shouldRunInstagram) {
         igVideoKey = `${videoPrefix}instagram.mp4`;
-        igVideoUrl = await uploadToR2(outPath, igVideoKey);
+        igVideoUrl = await uploadToR2(getPlatformVideoAsset(platformVideos, "instagram").outputPath, igVideoKey);
       }
-      if (shouldRunThreads && fs.existsSync(threadsOutPath)) {
+      if (shouldRunThreads) {
         threadsVideoKey = `${videoPrefix}threads.mp4`;
-        threadsVideoUrl = await uploadToR2(threadsOutPath, threadsVideoKey);
+        threadsVideoUrl = await uploadToR2(getPlatformVideoAsset(platformVideos, "threads").outputPath, threadsVideoKey);
       }
     } catch (r2Error) {
       console.error(`  R2 staging failed: ${formatErrorForLog(r2Error)}`);
@@ -546,13 +842,15 @@ async function main() {
     console.log("Step 4: Generating platform captions...");
 
     const captionPlatforms: PlatformTarget[] = [];
-    const captionOptions: {
-      telegramMaxChars?: number;
-      xMaxChars?: number;
-      instagramMaxChars?: number;
-      threadsMaxChars?: number;
-      tiktokMaxChars?: number;
-    } = {};
+    const captionOptions: UnifiedCaptionOptions = {
+      editorialFormat: {
+        label: "Platform-specific video formats",
+        angle: "each platform receives its own visual format while keeping the same fast TokenRadar tone",
+        promptInstruction: "Match each platform caption to its rendered video format:\n" +
+          buildPlatformFormatPrompt(platformVideos, requestedPlatforms),
+        captionInstruction: "Do not write one generic caption for every platform; mirror the named format for that platform.",
+      },
+    };
 
     if (runTelegram) {
       captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.VIDEO_AI_SUMMARY_CHARS;
@@ -640,6 +938,14 @@ async function main() {
     if (dryRun) {
       console.log();
       console.log("=== DRY RUN MODE ===");
+      console.log();
+      console.log("--- LOCAL VIDEO OUTPUTS ---");
+      for (const platform of requestedPlatforms) {
+        const asset = getPlatformVideoAsset(platformVideos, platform);
+        console.log(`${platform}: ${asset.outputPath}`);
+        console.log(`  format: ${asset.format.label} (${asset.format.key})`);
+        console.log(`  recipe: ${asset.visualRecipe.key}`);
+      }
       if (runTelegram) {
         console.log();
         console.log("--- TELEGRAM CAPTION ---");
@@ -647,7 +953,7 @@ async function main() {
       }
       if (runX) {
         console.log();
-        console.log("--- X MAIN TWEET (with out.mp4) ---");
+        console.log("--- X MAIN TWEET (with platform video) ---");
         console.log(xMessage);
       }
       if (shouldRunYouTube) {
@@ -701,6 +1007,10 @@ async function main() {
       return;
     }
 
+    if (platformVideos.size === 0) {
+      throw new Error("No rendered video assets were available for publishing.");
+    }
+
     const trackerState: VideoTracker = {
       postedAt: existingTracker?.postedAt || new Date().toISOString(),
       tokenId: targetToken.id,
@@ -716,19 +1026,22 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const telegramAsset = getPlatformVideoAsset(platformVideos, "telegram");
             const tgFooter = getTelegramFooter(targetToken.symbol);
             const caption = buildTelegramMediaCaption(tgMessage, tgFooter, {
               maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
               bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.VIDEO_AI_SUMMARY_CHARS,
             });
 
-            const msgId = await sendTelegramVideo(videoBuffer, caption, channelId as string);
+            const msgId = await sendTelegramVideo(telegramAsset.buffer, caption, channelId as string);
             console.log(`Posted video to Telegram (Message ID: ${msgId})`);
             return {
               platform: "telegram" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
                 messageId: msgId,
+                caption,
+                ...getPlatformTrackerFields(telegramAsset),
               },
             };
           } catch (error) {
@@ -744,7 +1057,8 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
-            const tweetId = await postTweetWithMedia(xMessage, videoBuffer, "video/mp4");
+            const xAsset = getPlatformVideoAsset(platformVideos, "x");
+            const tweetId = await postTweetWithMedia(xMessage, xAsset.buffer, "video/mp4");
             console.log(`Posted tweet with video to X (Tweet ID: ${tweetId})`);
 
             let replyId: string | undefined;
@@ -765,6 +1079,7 @@ async function main() {
                 tweetId,
                 replyId,
                 xText: xMessage,
+                ...getPlatformTrackerFields(xAsset),
               },
             };
           } catch (error) {
@@ -780,12 +1095,13 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const youtubeAsset = getPlatformVideoAsset(platformVideos, "youtube");
             const publishAt = new Date();
             publishAt.setMinutes(publishAt.getMinutes() + 15);
             
             console.log(`Starting YouTube upload (scheduled for ${publishAt.toISOString()})...`);
             const videoId = await uploadToYouTubeShorts(
-              outPath,
+              youtubeAsset.outputPath,
               ytMetadata.title,
               ytMetadata.description,
               "private",
@@ -797,6 +1113,9 @@ async function main() {
               tracker: {
                 postedAt: new Date().toISOString(),
                 videoId,
+                youtubeTitle: ytMetadata.title,
+                youtubeDescription: ytMetadata.description,
+                ...getPlatformTrackerFields(youtubeAsset),
               },
             };
           } catch (error) {
@@ -813,6 +1132,7 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const instagramAsset = getPlatformVideoAsset(platformVideos, "instagram");
             const result = await publishMetaVideo("instagram", igVideoUrl, igContent.caption, {
               thumbOffset: 3000,
             });
@@ -823,6 +1143,7 @@ async function main() {
                 postedAt: new Date().toISOString(),
                 postId: result.id,
                 caption: igContent.caption,
+                ...getPlatformTrackerFields(instagramAsset),
               },
             };
           } catch (error) {
@@ -839,6 +1160,7 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const threadsAsset = getPlatformVideoAsset(platformVideos, "threads");
             const spoilerEntities: TextEntity[] = threadsContent.spoilerLength > 0
               ? [{ entity_type: "SPOILER", offset: threadsContent.spoilerOffset, length: threadsContent.spoilerLength }]
               : [];
@@ -854,6 +1176,7 @@ async function main() {
                 postedAt: new Date().toISOString(),
                 postId: result.id,
                 caption: threadsContent.caption,
+                ...getPlatformTrackerFields(threadsAsset),
               },
             };
           } catch (error) {
@@ -869,9 +1192,10 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
             const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
             const result = await publishVideoDirectlyToTikTok({
-              videoPath: outPath,
+              videoPath: tiktokAsset.outputPath,
               caption: safeTikTokCaption,
             });
             console.log(`Posted video directly to TikTok (Publish ID: ${result.publishId})`);
@@ -886,6 +1210,7 @@ async function main() {
                 tiktokPrivacyLevel: result.privacyLevel,
                 tiktokCreatorUsername: result.creatorInfo?.creator_username,
                 deliveryMode: "content-posting-api-direct" as const,
+                ...getPlatformTrackerFields(tiktokAsset),
               },
             };
           } catch (error) {
@@ -901,9 +1226,10 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
             const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
             const result = await uploadVideoToTikTokInbox({
-              videoPath: outPath,
+              videoPath: tiktokAsset.outputPath,
             });
             console.log(`Uploaded video to TikTok inbox (Publish ID: ${result.publishId})`);
 
@@ -945,6 +1271,7 @@ async function main() {
                 reportSummaryMessageId,
                 reportCaptionMessageIds,
                 deliveryMode: "content-posting-api-inbox" as const,
+                ...getPlatformTrackerFields(tiktokAsset),
               },
             };
           } catch (error) {
@@ -960,8 +1287,9 @@ async function main() {
       publishTasks.push(
         (async () => {
           try {
+            const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
             const result = await sendTikTokManualPostReport({
-              videoBuffer,
+              videoBuffer: tiktokAsset.buffer,
               caption: tiktokCaption,
               tokenName: targetToken.name,
               symbol: targetToken.symbol,
@@ -979,6 +1307,7 @@ async function main() {
                 reportCaptionMessageIds: result.captionMessageIds,
                 tiktokCaption,
                 deliveryMode: "telegram-report-manual" as const,
+                ...getPlatformTrackerFields(tiktokAsset),
               },
             };
           } catch (error) {
@@ -1020,8 +1349,11 @@ async function main() {
     trackerState.postedAt = new Date().toISOString();
     fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
   } finally {
-    cleanupFile(outPath);
-    cleanupFile(path.join(process.cwd(), "out-threads.mp4"));
+    if (!keepOutput) {
+      for (const asset of platformVideos.values()) {
+        cleanupFile(asset.outputPath);
+      }
+    }
   }
 }
 
