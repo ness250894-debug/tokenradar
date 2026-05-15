@@ -137,4 +137,18 @@ describe("markdownToHtml", () => {
 
     expect(tokenLinks.length).toBeGreaterThanOrEqual(3);
   });
+
+  it("does not turn user-authored masked-link sentinels into undefined text", async () => {
+    const html = await markdownToHtml("This literal __MASKED_LINK_999__ marker should stay readable.");
+
+    expect(html).toContain("MASKED_LINK_999");
+    expect(html).not.toContain("undefined");
+  });
+
+  it("unwraps token article links when that article route is not exported", async () => {
+    const html = await markdownToHtml("[BTY price scenarios](/bityuan/price-prediction) should not point to a 404.");
+
+    expect(html).toContain("BTY price scenarios");
+    expect(html).not.toContain('href="/bityuan/price-prediction"');
+  });
 });

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTokenDetail, getAllTokens } from '@/lib/content-loader';
 import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
+import { JsonLd } from '@/components/JsonLd';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
 import { canonicalPath } from '@/lib/seo';
 
@@ -117,10 +118,7 @@ export default async function TransferGuidePage({ params }: PageProps) {
 
   return (
     <main className="container-narrow" style={{ paddingTop: "var(--space-2xl)", paddingBottom: "var(--space-4xl)" }}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd id={`${tokenId}-transfer-to-ledger-jsonld`} data={jsonLd} />
       <TransferGuideTemplate 
         tokenName={token.name} 
         symbol={token.symbol} 

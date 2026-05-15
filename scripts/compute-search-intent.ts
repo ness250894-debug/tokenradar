@@ -558,32 +558,61 @@ function buildHistoryEntry(output: SearchIntentDataset, capturedAt: string): Sea
   };
 }
 
-async function updateHistory(output: SearchIntentDataset, capturedAt = new Date().toISOString()): Promise<SearchIntentHistoryDataset> {
+function historyEntryFingerprint(entry: SearchIntentHistoryEntry): string {
+  const { generatedAt: _generatedAt, ...stableFields } = entry;
+  return JSON.stringify(stableFields);
+}
+
+function sameHistoryDataset(a: SearchIntentHistoryDataset, b: SearchIntentHistoryDataset): boolean {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+export function mergeSearchIntentHistory(
+  output: SearchIntentDataset,
+  existing: SearchIntentHistoryDataset,
+  capturedAt = new Date().toISOString(),
+): SearchIntentHistoryDataset {
   const currentEntry = buildHistoryEntry(output, capturedAt);
-  const existing = readJson<SearchIntentHistoryDataset>(HISTORY_OUTPUT_FILE, {
-    version: 1,
-    generatedAt: capturedAt,
-    entries: [],
-  });
+  const existingSameDayEntry = existing.entries.find((entry) => entry.date === currentEntry.date);
+  const entryToStore =
+    existingSameDayEntry && historyEntryFingerprint(existingSameDayEntry) === historyEntryFingerprint(currentEntry)
+      ? existingSameDayEntry
+      : currentEntry;
 
   const legacySourceDate = output.generatedAt.slice(0, 10);
   const entries = [
-    currentEntry,
+    entryToStore,
     ...existing.entries.filter((entry) => (
-      entry.date !== currentEntry.date &&
+      entry.date !== entryToStore.date &&
       !(entry.date === legacySourceDate && entry.generatedAt === output.generatedAt)
     )),
   ]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, MAX_HISTORY_DAYS);
 
-  const history: SearchIntentHistoryDataset = {
+  const nextHistory: SearchIntentHistoryDataset = {
     version: 1,
     generatedAt: capturedAt,
     entries,
   };
 
-  await writeFileAtomic(HISTORY_OUTPUT_FILE, JSON.stringify(history, null, 2));
+  return sameHistoryDataset(existing, { ...nextHistory, generatedAt: existing.generatedAt })
+    ? { ...nextHistory, generatedAt: existing.generatedAt }
+    : nextHistory;
+}
+
+async function updateHistory(output: SearchIntentDataset, capturedAt = new Date().toISOString()): Promise<SearchIntentHistoryDataset> {
+  const existing = readJson<SearchIntentHistoryDataset>(HISTORY_OUTPUT_FILE, {
+    version: 1,
+    generatedAt: capturedAt,
+    entries: [],
+  });
+
+  const history = mergeSearchIntentHistory(output, existing, capturedAt);
+  if (!sameHistoryDataset(existing, history)) {
+    await writeFileAtomic(HISTORY_OUTPUT_FILE, JSON.stringify(history, null, 2));
+  }
+
   return history;
 }
 

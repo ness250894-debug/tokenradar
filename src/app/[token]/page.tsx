@@ -39,6 +39,7 @@ import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
@@ -578,57 +579,52 @@ export default async function TokenPage({ params }: PageProps) {
         )}
       </section>
 
-      {/* JSON-LD Structured Data */}
       {shouldRenderArticle && article && (
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+        <JsonLd
+          id={`${detail.id}-overview-article-jsonld`}
+          data={{
             "@context": "https://schema.org",
             "@type": "Article",
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
             image: `https://tokenradar.co/og/token/${detail.id}.png`,
-            author: { 
-              "@type": "Person", 
-              name: "Pavlo Nakonechnyi", 
-              url: "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/" 
+            author: {
+              "@type": "Person",
+              name: "Pavlo Nakonechnyi",
+              url: "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/",
             },
-            publisher: { 
-              "@type": "Organization", 
+            publisher: {
+              "@type": "Organization",
               name: "TokenRadar",
               logo: {
                 "@type": "ImageObject",
-                url: "https://tokenradar.co/icon.png"
-              }
+                url: "https://tokenradar.co/icon.png",
+              },
             },
             datePublished: article?.generatedAt || detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
-          }),
-        }}
-      />
+          }}
+        />
       )}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://tokenradar.co/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": detail.name,
-                "item": `https://tokenradar.co/${detail.id}`
-              }
-            ]
-          }),
+      <JsonLd
+        id={`${detail.id}-overview-breadcrumb-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://tokenradar.co/",
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": detail.name,
+              "item": `https://tokenradar.co/${detail.id}`,
+            },
+          ],
         }}
       />
     </div>

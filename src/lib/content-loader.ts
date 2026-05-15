@@ -965,14 +965,22 @@ export async function getTotalArticleCount(): Promise<number> {
   const contentDir = getContentDir();
   if (typeof window === "undefined") {
     try {
+      const routableTokenIds = new Set(await getTokenIds());
+      const routableTgeIds = new Set((await getUpcomingTGEs()).map((tge) => tge.id));
       let count = 0;
       const tokenDirs = await fs.promises.readdir(/* turbopackIgnore: true */ contentDir);
       for (const tokenDir of tokenDirs) {
+        if (!routableTokenIds.has(tokenDir) && !routableTgeIds.has(tokenDir)) continue;
+
         const dirPath = `${contentDir}/${tokenDir}`;
         const stat = await fs.promises.stat(/* turbopackIgnore: true */ dirPath);
         if (!stat.isDirectory()) continue;
         const files = await fs.promises.readdir(/* turbopackIgnore: true */ dirPath);
-        count += files.filter((f) => f.endsWith(".json") && !f.includes(".prompt")).length;
+        count += files.filter((file) => {
+          if (!file.endsWith(".json") || file.includes(".prompt")) return false;
+          if (routableTokenIds.has(tokenDir)) return true;
+          return file === "tge-preview.json";
+        }).length;
       }
       return count;
     } catch {}
