@@ -202,7 +202,7 @@ export function validateGeneratedArticleIntegrity(filePath: string, parsed: unkn
   return errors;
 }
 
-function validateArticleOutboundUrls(filePath: string, parsed: unknown): string[] {
+export function validateArticleOutboundUrls(filePath: string, parsed: unknown): string[] {
   if (!parsed || typeof parsed !== "object" || typeof (parsed as { content?: unknown }).content !== "string") {
     return [];
   }
