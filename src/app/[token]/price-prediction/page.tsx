@@ -13,6 +13,8 @@ import {
   formatPercent,
   getCategoryIds,
   getPrimaryTokenCategory,
+  getTokenSearchIntent,
+  getTokenSearchIntentTrend,
 } from "@/lib/content-loader";
 import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
@@ -24,6 +26,7 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
@@ -92,6 +95,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
   if (!detail) notFound();
 
   const metrics = await getTokenMetrics(tokenId);
+  const searchIntent = await getTokenSearchIntent(tokenId);
+  const searchIntentTrend = await getTokenSearchIntentTrend(tokenId);
   const priceHistory = await getPriceHistory(tokenId);
   const article = await getArticle(tokenId, "price-prediction");
   if (!isArticleIndexable(article)) notFound();
@@ -204,6 +209,19 @@ export default async function PricePredictionPage({ params }: PageProps) {
             TokenRadar treats predictions as scenarios, not guarantees. Recheck liquidity, trend, and network-specific risks before acting.
           </p>
         </div>
+
+        <SearchIntentRadar
+          intent={searchIntent}
+          variant="compact"
+          trend={searchIntentTrend}
+          links={{
+            hasPricePrediction: true,
+            hasHowToBuy: isArticleIndexable(howToBuyArticle),
+            hasLedgerGuide: Boolean(technical),
+            categoryHref: primaryCategory.href,
+            categoryName: primaryCategory.name,
+          }}
+        />
 
         <ResearchRecirculation
           title={`Validate the ${detail.symbol.toUpperCase()} forecast`}

@@ -9,6 +9,13 @@ import type { ArticleQualitySnapshot } from "@/lib/content-quality";
 import { getMarketDataQualityIssues } from "@/lib/market-data-quality";
 import { getTgeSortWeight, isGenericTgeSymbol, normalizeTge } from "@/lib/tge";
 import type { UpcomingTge } from "@/lib/tge";
+import type {
+  SearchIntentDataset,
+  SearchIntentHistoryDataset,
+  SearchIntentType,
+  TokenSearchIntentTrend,
+  TokenSearchIntentSnapshot,
+} from "@/lib/search-intent";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -258,6 +265,9 @@ let _registry: TokenSummary[] | null = null;
 let _tokensBlob: Record<string, unknown> | null = null;
 let _metricsBlob: Record<string, unknown> | null = null;
 let _pricesBlob: Record<string, unknown> | null = null;
+let _searchIntentDataset: SearchIntentDataset | null = null;
+let _searchIntentHistoryDataset: SearchIntentHistoryDataset | null = null;
+let _searchIntentTrendMap: Record<string, TokenSearchIntentTrend> | null = null;
 const _loadBlobCache = new Map<string, unknown>();
 const _untrustedTokenWarningCache = new Set<string>();
 const shouldLogLoaderInfo = process.env.DEBUG_CONTENT_LOADER === "true";
@@ -735,6 +745,104 @@ export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | n
     return mapRawToTokenMetrics(rawFile as any, tokenId);
   }
   return null;
+}
+
+/** Load the generated free-data search intent dataset. */
+export async function getSearchIntentDataset(): Promise<SearchIntentDataset | null> {
+  if (_searchIntentDataset) return _searchIntentDataset;
+
+  const relativePath = "data/search-intent.json";
+  const file = getFilePath("search-intent.json");
+  _searchIntentDataset = await loadBlob<SearchIntentDataset>(file, relativePath);
+  return _searchIntentDataset;
+}
+
+/** Load generated daily search-intent snapshot history. */
+export async function getSearchIntentHistoryDataset(): Promise<SearchIntentHistoryDataset | null> {
+  if (_searchIntentHistoryDataset) return _searchIntentHistoryDataset;
+
+  const relativePath = "data/search-intent-history.json";
+  const file = getFilePath("search-intent-history.json");
+  _searchIntentHistoryDataset = await loadBlob<SearchIntentHistoryDataset>(file, relativePath);
+  return _searchIntentHistoryDataset;
+}
+
+/** Return per-token deltas between the two most recent daily search-intent snapshots. */
+export async function getSearchIntentTrendMap(): Promise<Record<string, TokenSearchIntentTrend>> {
+  if (_searchIntentTrendMap) return _searchIntentTrendMap;
+
+  const history = await getSearchIntentHistoryDataset();
+  const entries = [...(history?.entries || [])].sort((a, b) => b.date.localeCompare(a.date));
+
+  if (entries.length < 2) {
+    _searchIntentTrendMap = {};
+    return _searchIntentTrendMap;
+  }
+
+  const [current, previous] = entries;
+  const trends: Record<string, TokenSearchIntentTrend> = {};
+
+  for (const [tokenId, currentPoint] of Object.entries(current.tokens)) {
+    const previousPoint = previous.tokens[tokenId];
+    if (!previousPoint) continue;
+
+    trends[tokenId] = {
+      tokenId,
+      currentDate: current.date,
+      previousDate: previous.date,
+      attentionDelta: currentPoint.attentionScore - previousPoint.attentionScore,
+      hypeDelta: currentPoint.hypeScore - previousPoint.hypeScore,
+      supplyRiskDelta: currentPoint.supplyRiskScore - previousPoint.supplyRiskScore,
+      previousClassification: previousPoint.classification,
+      previousPrimaryIntent: previousPoint.primaryIntent,
+      classificationChanged: currentPoint.classification !== previousPoint.classification,
+      primaryIntentChanged: currentPoint.primaryIntent !== previousPoint.primaryIntent,
+    };
+  }
+
+  _searchIntentTrendMap = trends;
+  return _searchIntentTrendMap;
+}
+
+/** Load one token's generated search intent snapshot. */
+export async function getTokenSearchIntent(tokenId: string): Promise<TokenSearchIntentSnapshot | null> {
+  const dataset = await getSearchIntentDataset();
+  return dataset?.tokens?.[tokenId] || null;
+}
+
+/** Return one token's search-intent trend, when at least two daily snapshots exist. */
+export async function getTokenSearchIntentTrend(tokenId: string): Promise<TokenSearchIntentTrend | null> {
+  const trendMap = await getSearchIntentTrendMap();
+  return trendMap[tokenId] || null;
+}
+
+/** Return the highest-attention generated search intent snapshots. */
+export async function getTopSearchIntentTokens(limit: number = 6): Promise<TokenSearchIntentSnapshot[]> {
+  const dataset = await getSearchIntentDataset();
+  if (!dataset?.tokens) return [];
+
+  return Object.values(dataset.tokens)
+    .sort((a, b) => b.attentionScore - a.attentionScore || b.hypeScore - a.hypeScore || a.tokenName.localeCompare(b.tokenName))
+    .slice(0, limit);
+}
+
+/** Return tokens where a given search intent appears in the generated intent mix. */
+export async function getSearchIntentTokensByIntent(
+  intent: SearchIntentType,
+  limit?: number,
+): Promise<TokenSearchIntentSnapshot[]> {
+  const dataset = await getSearchIntentDataset();
+  if (!dataset?.tokens) return [];
+
+  const matching = Object.values(dataset.tokens)
+    .filter((token) => token.intentMix.some((item) => item.intent === intent))
+    .sort((a, b) => {
+      const aIntentScore = a.intentMix.find((item) => item.intent === intent)?.score || 0;
+      const bIntentScore = b.intentMix.find((item) => item.intent === intent)?.score || 0;
+      return bIntentScore - aIntentScore || b.attentionScore - a.attentionScore || a.tokenName.localeCompare(b.tokenName);
+    });
+
+  return typeof limit === "number" ? matching.slice(0, limit) : matching;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

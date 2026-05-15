@@ -52,6 +52,7 @@ npm test
 |---|---|
 | `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |
 | `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |
+| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |
 | `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |
 | `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |
 | `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |

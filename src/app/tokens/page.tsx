@@ -3,7 +3,8 @@ import { Activity, DollarSign, TrendingUp } from "lucide-react";
 
 import { TokenGrid } from "@/components/TokenGrid";
 import { type TokenCardData } from "@/components/TokenCard";
-import { formatCompact, getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics } from "@/lib/content-loader";
+import { formatCompact, getAllTokens, getCategoryIds, getPrimaryTokenCategory, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
+import { buildSearchIntentCardFields } from "@/lib/search-intent";
 
 export const metadata: Metadata = {
   title: "Crypto Token Directory",
@@ -16,11 +17,15 @@ export const metadata: Metadata = {
 export default async function TokensPage() {
   const tokens = await getAllTokens();
   const categoryIds = await getCategoryIds();
+  const searchIntentDataset = await getSearchIntentDataset();
+  const searchIntentTrendMap = await getSearchIntentTrendMap();
   const totalMarketCap = tokens.reduce((sum, token) => sum + (token.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, token) => sum + (token.volume24h || 0), 0);
   const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (token) => {
     const metrics = await getTokenMetrics(token.id);
     const category = getPrimaryTokenCategory(token.categories, categoryIds);
+    const searchIntent = searchIntentDataset?.tokens[token.id];
+    const searchIntentTrend = searchIntentTrendMap[token.id];
     return {
       id: token.id,
       name: token.name,
@@ -32,6 +37,7 @@ export default async function TokensPage() {
       riskScore: metrics?.riskScore || 5,
       category: category.name,
       categoryHref: category.href,
+      ...buildSearchIntentCardFields(searchIntent, searchIntentTrend),
     };
   }));
 

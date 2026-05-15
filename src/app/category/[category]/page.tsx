@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getAllCategories, getTokensByCategory, formatCompact, getTokenMetrics } from "@/lib/content-loader";
+import { getAllCategories, getTokensByCategory, formatCompact, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import { buildSearchIntentCardFields } from "@/lib/search-intent";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -56,12 +57,16 @@ export default async function CategoryPage({ params }: PageProps) {
   if (!cat) notFound();
 
   const tokens = await getTokensByCategory(cat.id);
+  const searchIntentDataset = await getSearchIntentDataset();
+  const searchIntentTrendMap = await getSearchIntentTrendMap();
   const totalMarketCap = tokens.reduce((sum, t) => sum + (t.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, t) => sum + (t.volume24h || 0), 0);
   
   // Format tokens for the TokenCard component
   const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (t) => {
     const metrics = await getTokenMetrics(t.id);
+    const searchIntent = searchIntentDataset?.tokens[t.id];
+    const searchIntentTrend = searchIntentTrendMap[t.id];
     return {
       id: t.id,
       name: t.name,
@@ -73,6 +78,7 @@ export default async function CategoryPage({ params }: PageProps) {
       riskScore: metrics?.riskScore || 5,
       category: cat.name,
       categoryHref: `/category/${cat.id}`,
+      ...buildSearchIntentCardFields(searchIntent, searchIntentTrend),
     };
   }));
 

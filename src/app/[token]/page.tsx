@@ -15,6 +15,8 @@ import {
   getCategoryHref,
   getCategoryIds,
   getPrimaryTokenCategory,
+  getTokenSearchIntent,
+  getTokenSearchIntentTrend,
 } from "@/lib/content-loader";
 import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
@@ -38,7 +40,9 @@ import { TaxGuideCTA } from "@/components/TaxGuideCTA";
 import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
+import { buildSearchIntentCardFields } from "@/lib/search-intent";
 import {
   Globe, 
   BarChart2, 
@@ -46,7 +50,8 @@ import {
   TrendingUp, 
   ShoppingCart,
   Bell,
-  Lock
+  Lock,
+  Radar
 } from "lucide-react";
 
 interface PageProps {
@@ -107,12 +112,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+function formatSearchIntentDelta(value: number | undefined): string | null {
+  if (typeof value !== "number") return null;
+  if (value === 0) return "0 vs prev";
+  return `${value > 0 ? "+" : ""}${value} vs prev`;
+}
+
 export default async function TokenPage({ params }: PageProps) {
   const { token: tokenId } = await params;
   const detail = await getTokenDetail(tokenId);
   if (!detail) notFound();
 
   const metrics = await getTokenMetrics(tokenId);
+  const searchIntent = await getTokenSearchIntent(tokenId);
+  const searchIntentTrend = await getTokenSearchIntentTrend(tokenId);
   const priceHistory = await getPriceHistory(tokenId);
   const technical = getTokenTechnical(tokenId);
   const article = await getArticle(tokenId, "overview");
@@ -123,6 +136,8 @@ export default async function TokenPage({ params }: PageProps) {
   const relatedTokensList = await getRelatedTokens(tokenId, 3);
   const relatedTokens: TokenCardData[] = await Promise.all(relatedTokensList.map(async (token) => {
     const rMetrics = await getTokenMetrics(token.id);
+    const rSearchIntent = await getTokenSearchIntent(token.id);
+    const rSearchIntentTrend = await getTokenSearchIntentTrend(token.id);
     const category = getPrimaryTokenCategory(token.categories, categoryIds);
     return {
       id: token.id,
@@ -135,6 +150,7 @@ export default async function TokenPage({ params }: PageProps) {
       riskScore: rMetrics?.riskScore || 5,
       category: category.name,
       categoryHref: category.href,
+      ...buildSearchIntentCardFields(rSearchIntent, rSearchIntentTrend),
     };
   }));
 
@@ -148,6 +164,7 @@ export default async function TokenPage({ params }: PageProps) {
     name: category,
     href: getCategoryHref(category, categoryIds),
   }));
+  const heroSearchIntentDelta = formatSearchIntentDelta(searchIntentTrend?.attentionDelta);
   const researchActions = buildTokenResearchActions({
     tokenId,
     name: detail.name,
@@ -226,6 +243,13 @@ export default async function TokenPage({ params }: PageProps) {
                 ))}
               </div>
             )}
+            {searchIntent && (
+              <Link href="#search-intent-radar" className="token-hero-intent-shortcut">
+                <Radar size={14} />
+                <span>Search Intent {searchIntent.attentionScore}/100</span>
+                {heroSearchIntentDelta && <em>{heroSearchIntentDelta}</em>}
+              </Link>
+            )}
           </div>
           <div className="token-hero-price">
             <div style={{ fontSize: "var(--text-3xl)", fontWeight: 800 }}>
@@ -269,6 +293,18 @@ export default async function TokenPage({ params }: PageProps) {
             Use the risk score, ATH drawdown, and liquidity context below before treating the article as actionable research.
           </p>
         </div>
+
+        <SearchIntentRadar
+          intent={searchIntent}
+          trend={searchIntentTrend}
+          links={{
+            hasPricePrediction,
+            hasHowToBuy,
+            hasLedgerGuide: Boolean(technical),
+            categoryHref: primaryCategory.href,
+            categoryName: primaryCategory.name,
+          }}
+        />
 
         {/* Stats Grid */}
         <div className="stats-grid" style={{ marginTop: "var(--space-xl)" }}>
