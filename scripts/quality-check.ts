@@ -25,6 +25,7 @@ import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
 import { getArticleQualityThresholds, PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
+import { validateArticleOutboundUrls, validateGeneratedArticleIntegrity } from "./validate-content";
 
 // Load environment
 loadEnv();
@@ -142,6 +143,12 @@ interface QualityResult {
   };
 }
 
+function addUniqueIssues(issues: string[], newIssues: string[]): void {
+  for (const issue of newIssues) {
+    if (!issues.includes(issue)) issues.push(issue);
+  }
+}
+
 async function checkArticle(
   filePath: string,
   autoFix: boolean = false
@@ -224,6 +231,8 @@ async function checkArticle(
       const result = await fixProhibitedPhrases(content, foundProhibited);
       if (result.fixed.length > 0) {
         raw.content = result.content;
+        content = result.content;
+        contentLower = content.toLowerCase();
         fs.writeFileSync(filePath, JSON.stringify(raw, null, 2));
         warnings.push(`AI-fixed prohibited phrases: "${result.fixed.join('", "')}"`);
       }
@@ -248,6 +257,11 @@ async function checkArticle(
   if (avgSentenceLength > 35) {
     warnings.push(`Average sentence length high: ${avgSentenceLength} words (target <30)`);
   }
+
+  addUniqueIssues(issues, [
+    ...validateGeneratedArticleIntegrity(filePath, raw),
+    ...validateArticleOutboundUrls(filePath, raw),
+  ]);
 
   return {
     file: path.relative(process.cwd(), filePath),
