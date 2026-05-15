@@ -3,19 +3,40 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Kraken to replace LayerZero with Chainlink to bridge assets across blockchains",
-      "link": "https://www.coindesk.com/business/2026/05/14/kraken-to-replace-layerzero-with-chainlink-to-bridge-assets-across-blockchains",
-      "pubDate": "Thu, 14 May 2026 15:17:00 +0000",
+      "title": "Lombard joins LayerZero exodus as $4 billion in assets switch to Chainlink's bridge",
+      "link": "https://www.coindesk.com/business/2026/05/15/lombard-joins-layerzero-exodus-as-usd4-billion-in-assets-switch-to-chainlink-s-bridge",
+      "pubDate": "Fri, 15 May 2026 16:00:00 +0000",
       "source": "CoinDesk",
-      "snippet": "The decision sees a total of over $3 billion in total value locked migrating after a $292 million LayerZero-powered bridge exploit involving Kelp."
+      "snippet": "The shift comes after the Kelp DAO exploit drained $292 million from its LayerZero-powered bridge, increasing concerns over the security of cross-chain infrastructure."
     },
     {
-      "title": "Kraken to Migrate Wrapped Bitcoin Tech to Chainlink as LayerZero Exodus Expands",
-      "link": "https://decrypt.co/367880/kraken-migrate-wrapped-bitcoin-chainlink-layerzero-exodus",
-      "pubDate": "Thu, 14 May 2026 18:09:49 +0000",
+      "title": "Thorchain halts trading after $10 million cross-chain exploit, RUNE token drops 12%",
+      "link": "https://www.coindesk.com/tech/2026/05/15/thorchain-halts-trading-after-usd10-million-cross-chain-exploit-rune-token-drops-12",
+      "pubDate": "Fri, 15 May 2026 10:21:12 +0000",
+      "source": "CoinDesk",
+      "snippet": "The cross-chain liquidity protocol paused all trading and signing on Friday after an attacker drained roughly $10.8 million across Bitcoin, Ethereum, BSC, and Base."
+    },
+    {
+      "title": "THORChain pauses trading after suspected $10M exploit",
+      "link": "https://cointelegraph.com/news/thorchain-halts-trading-zachxbt-flags-10m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Fri, 15 May 2026 11:36:40 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "THORChain paused trading after ZachXBT flagged a suspected $10 million exploit spanning Bitcoin, Ethereum, BNB Chain and Base."
+    },
+    {
+      "title": "Kraken joins LayerZero exodus as it switches to Chainlink CCIP",
+      "link": "https://cointelegraph.com/news/kraken-joins-layerzero-exodus-switching-chainlink-ccip?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Fri, 15 May 2026 07:10:56 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "LayerZero has come under scrutiny since it was exploited in April, as crypto protocols reevaluate their cross-chain providers and seek safer alternatives."
+    },
+    {
+      "title": "THORChain’s RUNE Token Plunges Double Digits After $10M Exploit, Trading Halt",
+      "link": "https://decrypt.co/367943/thorchains-rune-token-plunges-double-digits-after-10m-exploit-trading-halt",
+      "pubDate": "Fri, 15 May 2026 10:58:24 +0000",
       "source": "Decrypt",
-      "snippet": "Crypto exchange Kraken is the latest firm to shift away from LayerZero tech following last month&#39;s $292 million Kelp DAO exploit."
+      "snippet": "The liquidity protocol halted operations after blockchain researchers identified a suspected $10 million breach across multiple networks."
     }
   ],
-  "fetchedAt": "2026-05-14T19:26:13.758Z"
+  "fetchedAt": "2026-05-15T19:11:46.760Z"
 }

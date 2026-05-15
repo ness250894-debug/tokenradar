@@ -17,25 +17,25 @@
     "explorer": "https://mainnet.bityuan.com/index"
   },
   "market": {
-    "price": 0.090849,
-    "marketCap": 68921321,
-    "marketCapRank": 410,
-    "volume24h": 620559,
+    "price": 0.090103,
+    "marketCap": 65585150,
+    "marketCapRank": 416,
+    "volume24h": 704457,
     "high24h": 0.098972,
     "low24h": 0.074143,
-    "priceChange24h": 19.68922,
-    "priceChange7d": 133.8294,
-    "priceChange30d": 186.29732,
-    "priceChange1y": 246.71768,
+    "priceChange24h": 20.48097,
+    "priceChange7d": 132.73242384821086,
+    "priceChange30d": 187.43334846791228,
+    "priceChange1y": 245.91314633784367,
     "ath": 0.765083,
-    "athChangePercentage": -87.62245,
+    "athChangePercentage": -88.2203,
     "athDate": "2019-06-26T05:31:16.042Z",
     "atl": 0.01348346,
     "atlDate": "2020-06-21T17:06:02.375Z",
-    "circulatingSupply": 727797659.386237,
-    "totalSupply": 727797659.386237,
+    "circulatingSupply": 727839033.967104,
+    "totalSupply": 727839033.967104,
     "maxSupply": null,
-    "fdv": 68921321
+    "fdv": 65585150
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-15T12:27:31.143Z"
+  "fetchedAt": "2026-05-15T12:27:31.143Z",
+  "lastMarketUpdate": "2026-05-15T19:09:00.583Z"
 }
