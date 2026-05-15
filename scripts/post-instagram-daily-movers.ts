@@ -22,10 +22,11 @@ import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters
 import { publishInstagramCarousel } from "../src/lib/meta-client";
 import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
 import { logError } from "../src/lib/reporter";
-import { SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
+import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
-import { getSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
+import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
@@ -45,6 +46,9 @@ interface InstagramMoversTracker {
   movers: string[];
   slideCount: number;
   variant: string;
+  variantKey?: string;
+  variantLabel?: string;
+  variantSurface?: string;
   caption?: string;
 }
 
@@ -143,7 +147,20 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
-  const variant = getSocialContentVariant("instagram-carousel", [today], new Date(`${today}T00:00:00.000Z`));
+  const variant = selectSocialContentVariant({
+    platform: "instagram-carousel",
+    usedVariantKeys: force
+      ? []
+      : getRecentSocialVariantKeys(
+          DATA_DIR,
+          "instagram-carousel",
+          SOCIAL_VARIANT_COOLDOWN_DAYS,
+          new Date(`${today}T00:00:00.000Z`),
+          "instagram-carousel",
+        ),
+    seedParts: [today, "instagram-carousel"],
+    date: new Date(`${today}T00:00:00.000Z`),
+  });
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -234,6 +251,9 @@ async function main() {
           movers: movers.map((mover) => mover.id),
           slideCount: slides.length,
           variant: variant.key,
+          variantKey: variant.key,
+          variantLabel: variant.label,
+          variantSurface: "instagram-carousel",
           caption,
         } satisfies InstagramMoversTracker,
         null,

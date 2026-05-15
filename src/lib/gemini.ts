@@ -3,7 +3,12 @@ import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
 import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
-import { formatVariantPromptLine, getSocialContentVariant, type SocialContentVariant } from "./social-variety";
+import {
+  formatVariantPromptLine,
+  getSocialContentVariant,
+  resolveSocialContentVariant,
+  type SocialContentVariant,
+} from "./social-variety";
 import { sanitizeCashtags, truncateForX } from "./x-client";
 
 export type AIResult = {
@@ -384,6 +389,7 @@ export interface UnifiedCaptionOptions {
     promptInstruction: string;
     captionInstruction?: string;
   };
+  contentVariants?: Partial<Record<PlatformTarget, SocialContentVariant | string>>;
 }
 
 type UnifiedCaptionField = keyof UnifiedSocialCaptions;
@@ -764,12 +770,15 @@ export async function generateUnifiedCaptions(
   if (uniquePlatforms.length === 0) return {};
 
   const platformVariants = uniquePlatforms.reduce((acc, platform) => {
-    acc[platform] = getSocialContentVariant(platform, [
-      symbol,
-      tokenName,
-      metrics.selectionReason,
-      metrics.timeOfDay,
-    ]);
+    const configuredVariant = options.contentVariants?.[platform];
+    acc[platform] = configuredVariant
+      ? resolveSocialContentVariant(platform, configuredVariant)
+      : getSocialContentVariant(platform, [
+          symbol,
+          tokenName,
+          metrics.selectionReason,
+          metrics.timeOfDay,
+        ]);
     return acc;
   }, {} as Partial<Record<PlatformTarget, SocialContentVariant>>);
 

@@ -1,9 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
 
+import type { SocialVariantPlatform } from "../../src/lib/social-variety";
 import { safeReadJson } from "../../src/lib/utils";
 
 export type SocialHistoryPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
+export type SocialVariantHistoryPlatform = SocialHistoryPlatform | SocialVariantPlatform;
 
 const PLATFORM_TEXT_FIELDS: Record<SocialHistoryPlatform, string[]> = {
   telegram: ["telegramText", "caption", "text"],
@@ -48,6 +50,58 @@ function collectTextFields(payload: unknown, platform: SocialHistoryPlatform): s
   return texts;
 }
 
+function dateKeyDaysAgo(days: number, now: Date): string {
+  const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  startOfToday.setUTCDate(startOfToday.getUTCDate() - days);
+  return startOfToday.toISOString().split("T")[0];
+}
+
+function inferVariantPlatform(
+  fileName: string,
+  payload: Record<string, unknown> | null,
+): SocialVariantHistoryPlatform | undefined {
+  if (typeof payload?.variantPlatform === "string") {
+    return payload.variantPlatform as SocialVariantHistoryPlatform;
+  }
+
+  if (fileName === "daily-instagram-movers") return "instagram-carousel";
+  if (fileName === "daily-threads-text") return "threads";
+  if (fileName === "daily-telegram-movers" || fileName === "daily-telegram-poll") return "telegram";
+  if (fileName === "interactive-daily") return "x";
+
+  if (typeof payload?.platform === "string") {
+    return payload.platform as SocialVariantHistoryPlatform;
+  }
+
+  const platformSuffix = fileName.match(/-(telegram|x|instagram|threads|youtube|tiktok)$/);
+  return platformSuffix?.[1] as SocialVariantHistoryPlatform | undefined;
+}
+
+function inferVariantSurface(fileName: string, payload: Record<string, unknown> | null): string | undefined {
+  if (typeof payload?.variantSurface === "string") return payload.variantSurface;
+  if (typeof payload?.surface === "string") return payload.surface;
+
+  if (fileName === "daily-instagram-movers") return "instagram-carousel";
+  if (fileName === "daily-threads-text") return "threads-text";
+  if (fileName === "daily-telegram-movers") return "telegram-movers";
+  if (fileName === "daily-telegram-poll") return "telegram-poll";
+  if (fileName === "interactive-daily") return "interactive-poll";
+
+  return undefined;
+}
+
+function collectVariantKeys(payload: Record<string, unknown> | null): string[] {
+  if (!payload) return [];
+
+  const keys: string[] = [];
+  for (const field of ["variantKey", "contentVariantKey", "socialVariantKey", "variant", "themeKey", "pollType"]) {
+    const value = payload[field];
+    if (typeof value === "string" && value.trim()) keys.push(value.trim());
+  }
+
+  return keys;
+}
+
 export function getRecentPlatformTexts(
   dataDir: string,
   platform: SocialHistoryPlatform,
@@ -79,4 +133,44 @@ export function getRecentPlatformTexts(
   }
 
   return Array.from(new Set(texts));
+}
+
+export function getRecentSocialVariantKeys(
+  dataDir: string,
+  platform: SocialVariantHistoryPlatform,
+  days: number,
+  now: Date = new Date(),
+  surface?: string,
+): Set<string> {
+  const keys = new Set<string>();
+  const rootDir = path.join(dataDir, "posted");
+  if (!fs.existsSync(rootDir)) return keys;
+
+  const cutoffKey = dateKeyDaysAgo(days, now);
+
+  for (const dateDir of fs.readdirSync(rootDir).filter(isDateDir)) {
+    if (dateDir < cutoffKey) continue;
+
+    const fullDateDir = path.join(rootDir, dateDir);
+    if (!fs.statSync(fullDateDir).isDirectory()) continue;
+
+    for (const fileNameWithExt of fs.readdirSync(fullDateDir).filter((file) => file.endsWith(".json"))) {
+      const fileName = path.basename(fileNameWithExt, ".json");
+      const payload = safeReadJson<Record<string, unknown> | null>(
+        path.join(fullDateDir, fileNameWithExt),
+        null,
+      );
+      const trackerPlatform = inferVariantPlatform(fileName, payload);
+      if (trackerPlatform !== platform) continue;
+
+      const trackerSurface = inferVariantSurface(fileName, payload);
+      if (surface && trackerSurface !== surface) continue;
+
+      for (const key of collectVariantKeys(payload)) {
+        keys.add(key);
+      }
+    }
+  }
+
+  return keys;
 }

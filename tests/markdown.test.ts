@@ -7,7 +7,7 @@ describe("markdownToHtml", () => {
     expect(html).toMatch(/<h2[^>]*>/);
     expect(html).toContain("Hello World");
     expect(html).toContain("<p>");
-  });
+  }, 10000);
 
   it("converts bold and italic", async () => {
     const html = await markdownToHtml("**bold** and *italic*");

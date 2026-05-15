@@ -16,7 +16,9 @@ import * as path from "path";
 
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
+import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { getRecentSocialVariantKeys } from "./lib/social-history";
 import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
 
 // Load environment
@@ -24,39 +26,46 @@ loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
-/** Poll theme categories that rotate based on the day of the week. */
+/** Poll theme categories selected with deterministic controlled variety. */
 const POLL_THEMES = [
   {
+    key: "market_regime",
     theme: "Market Regime",
     directive: "Ask subscribers to classify the current market regime using risk-aware language.",
     example: "Which market regime are we in right now?",
   },
   {
+    key: "narrative_rotation",
     theme: "Narrative Rotation",
     directive: "Ask which crypto narrative deserves the next research focus based on momentum, liquidity, and catalyst quality.",
     example: "Which narrative deserves the next TokenRadar scan?",
   },
   {
+    key: "risk_discipline",
     theme: "Risk Discipline",
     directive: "Ask about invalidation, position sizing, cash levels, or confirmation rules without giving financial advice.",
     example: "What invalidates a setup fastest for you?",
   },
   {
+    key: "signal_follow_up",
     theme: "Signal Follow-up",
     directive: "Ask how subscribers want prior watchlist signals reviewed: continuation, failed setup, or neutral follow-up.",
     example: "Which prior signal should we review next?",
   },
   {
+    key: "watchlist_criteria",
     theme: "Watchlist Criteria",
     directive: "Ask which data point should carry the most weight in the next Radar Signal.",
     example: "What matters most before a token enters the watchlist?",
   },
   {
+    key: "liquidity_quality",
     theme: "Liquidity Quality",
     directive: "Ask subscribers to rank liquidity, volume expansion, market depth, or volatility as a signal filter.",
     example: "Which liquidity signal do you trust most?",
   },
   {
+    key: "catalyst_quality",
     theme: "Catalyst Quality",
     directive: "Ask which catalyst type deserves the highest confidence: product, listing, sector flow, developer activity, or on-chain adoption.",
     example: "Which catalyst type should get the highest score?",
@@ -77,13 +86,33 @@ const POLL_SCHEMA = {
   required: ["question", "options"]
 };
 
-/**
- * Build the AI prompt with today's theme for variety.
- */
-function buildPollPrompt(): string {
-  const dayIndex = new Date().getDay(); // 0=Sun, 6=Sat
-  const theme = POLL_THEMES[dayIndex % POLL_THEMES.length];
+type PollTheme = typeof POLL_THEMES[number];
 
+function utcDateKey(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function stableHash(input: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < input.length; i++) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function selectPollTheme(usedThemeKeys: Iterable<string> = [], date: Date = new Date()): PollTheme {
+  const used = new Set(usedThemeKeys);
+  const eligible = POLL_THEMES.filter((theme) => !used.has(theme.key));
+  const candidates = eligible.length > 0 ? eligible : POLL_THEMES;
+  const seed = `telegram-poll:${utcDateKey(date)}`;
+  return candidates[stableHash(seed) % candidates.length];
+}
+
+/**
+ * Build the AI prompt with today's controlled-variety theme.
+ */
+function buildPollPrompt(theme: PollTheme): string {
   return `You are running the TokenRadar.co Telegram channel as a premium crypto signal desk.
 Today's poll theme: "${theme.theme}"
 Directive: ${theme.directive}
@@ -126,12 +155,21 @@ async function main() {
   fs.mkdirSync(postedDir, { recursive: true });
 
   try {
-    const dayIndex = new Date().getDay();
-    const theme = POLL_THEMES[dayIndex % POLL_THEMES.length];
-    console.log(`Today's poll theme: "${theme.theme}" (day ${dayIndex})`);
+    const runDate = new Date(`${today}T00:00:00.000Z`);
+    const usedThemeKeys = force
+      ? []
+      : getRecentSocialVariantKeys(
+          DATA_DIR,
+          "telegram",
+          SOCIAL_VARIANT_COOLDOWN_DAYS,
+          runDate,
+          "telegram-poll",
+        );
+    const theme = selectPollTheme(usedThemeKeys, runDate);
+    console.log(`Today's poll theme: "${theme.theme}" (${theme.key})`);
     console.log("Generating poll via AI...");
 
-    const prompt = buildPollPrompt();
+    const prompt = buildPollPrompt(theme);
     const result = await callAIWithFallback("", prompt, 1000, POLL_SCHEMA);
 
     // Parse JSON from the AI response
@@ -172,6 +210,10 @@ async function main() {
           options,
           messageId: msgId,
           theme: theme.theme,
+          themeKey: theme.key,
+          variantKey: theme.key,
+          variantLabel: theme.theme,
+          variantSurface: "telegram-poll",
         },
         null,
         2,

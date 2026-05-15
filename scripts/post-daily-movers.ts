@@ -23,7 +23,14 @@ import {
   hasSocialImageSafeText,
   loadCandidateTokens,
 } from "./lib/token-selection";
-import { SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
+import {
+  SOCIAL_PLATFORM_LIMITS,
+  SOCIAL_VARIANT_COOLDOWN_DAYS,
+  TELEGRAM_ECOSYSTEM_LINK_HTML,
+  TELEGRAM_SIGNAL_NOTE,
+} from "../src/lib/config";
+import { selectSocialContentVariant } from "../src/lib/social-variety";
+import { getRecentSocialVariantKeys } from "./lib/social-history";
 
 // Load environment
 loadEnv();
@@ -115,6 +122,22 @@ async function main() {
     );
 
     // ── Render image in-memory (no file saved) ──
+    const variant = selectSocialContentVariant({
+      platform: "telegram",
+      usedVariantKeys: force
+        ? []
+        : getRecentSocialVariantKeys(
+            DATA_DIR,
+            "telegram",
+            SOCIAL_VARIANT_COOLDOWN_DAYS,
+            new Date(`${today}T00:00:00.000Z`),
+            "telegram-movers",
+          ),
+      seedParts: [today, "telegram", "movers"],
+      date: new Date(`${today}T00:00:00.000Z`),
+    });
+    console.log(`Telegram movers variant: ${variant.label} (${variant.key})`);
+
     console.log("Rendering movers card in-memory...");
     const photoBuffer = await generateMoversImage(movers);
     console.log(`  ✓ Rendered ${(photoBuffer.length / 1024).toFixed(1)} KB PNG`);
@@ -131,6 +154,9 @@ async function main() {
 
     const prompt = `
       Write a premium Telegram market-desk brief, maximum ${SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS} characters.
+      Today's editorial angle: ${variant.label} - ${variant.angle}.
+      Variant instruction: ${variant.promptInstruction}
+
       Use the following REAL data for today:
       ${dataContext}
 
@@ -188,6 +214,9 @@ ${TELEGRAM_SIGNAL_NOTE}
           postedAt: new Date().toISOString(),
           messageId: msgId,
           movers: movers.map((mover) => mover.id),
+          variantKey: variant.key,
+          variantLabel: variant.label,
+          variantSurface: "telegram-movers",
         },
         null,
         2,

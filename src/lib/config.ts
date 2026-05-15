@@ -205,6 +205,19 @@ export const VIDEO_COOLDOWN_DAYS = 7;
  */
 export const VIDEO_FORMAT_COOLDOWN_DAYS = 14;
 
+/**
+ * Minimum days before daily non-video social variants should repeat.
+ * The regular post libraries are smaller than the video format library, so
+ * this intentionally covers recent daily posts without exhausting quickly.
+ */
+export const SOCIAL_VARIANT_COOLDOWN_DAYS = 3;
+
+/**
+ * High-frequency market updates can run multiple times per day, so they only
+ * avoid repeating an editorial variant within the same UTC date.
+ */
+export const MARKET_UPDATE_VARIANT_COOLDOWN_DAYS = 0;
+
 // ── Interactive Poll Config ────────────────────────────────────
 
 /** Default poll duration in minutes (24 hours). */

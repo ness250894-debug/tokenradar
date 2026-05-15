@@ -2,7 +2,7 @@
  * TokenRadar — Interactive Daily Post for X
  *
  * Posts one interactive poll per day to X on its scheduled slot.
- * Rotates through 4 poll types based on day-of-year:
+ * Selects from 4 poll types with deterministic controlled variety:
  *   0 = Sentiment  ("What's your move on $TOKEN?")
  *   1 = Prediction  ("Where does $TOKEN close today?")
  *   2 = Narrative   ("Which narrative dominates this week?")
@@ -28,12 +28,14 @@ import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
+  SOCIAL_VARIANT_COOLDOWN_DAYS,
   SOCIAL,
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
 import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
+import { getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   type TokenData,
   type MetricData,
@@ -51,18 +53,37 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 // ── Poll Types ─────────────────────────────────────────────────
 
 export type PollType = "sentiment" | "prediction" | "narrative" | "community";
+const POLL_TYPES: PollType[] = ["sentiment", "prediction", "narrative", "community"];
+
+function utcDateKey(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function stableHash(input: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < input.length; i++) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function selectPollTypeForToday(options: {
+  usedPollTypes?: Iterable<string>;
+  date?: Date;
+} = {}): PollType {
+  const used = new Set(options.usedPollTypes || []);
+  const eligible = POLL_TYPES.filter((type) => !used.has(type));
+  const candidates = eligible.length > 0 ? eligible : POLL_TYPES;
+  const date = options.date || new Date();
+  return candidates[stableHash(`interactive-poll:${utcDateKey(date)}`) % candidates.length];
+}
 
 /**
- * Determine the poll type for today using day-of-year rotation.
- * Cycles through: sentiment → prediction → narrative → community
+ * Determine the poll type for today using deterministic controlled variety.
  */
 export function getPollTypeForToday(): PollType {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now.getTime() - start.getTime();
-  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const types: PollType[] = ["sentiment", "prediction", "narrative", "community"];
-  return types[dayOfYear % types.length];
+  return selectPollTypeForToday();
 }
 
 // ── Poll Generators ────────────────────────────────────────────
@@ -183,8 +204,16 @@ async function main() {
   }
 
   // ── Determine poll type ──
-  const pollType = forcedType || getPollTypeForToday();
-  console.log(`  Poll Type: ${pollType}${forcedType ? " (forced)" : " (auto-rotation)"}`);
+  const runDate = new Date(`${TODAY}T00:00:00.000Z`);
+  const usedPollTypes = getRecentSocialVariantKeys(
+    DATA_DIR,
+    "x",
+    SOCIAL_VARIANT_COOLDOWN_DAYS,
+    runDate,
+    "interactive-poll",
+  );
+  const pollType = forcedType || selectPollTypeForToday({ usedPollTypes, date: runDate });
+  console.log(`  Poll Type: ${pollType}${forcedType ? " (forced)" : " (controlled variety)"}`);
   console.log(`  Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log();
 
@@ -288,6 +317,9 @@ async function main() {
           nativePoll: result.native,
           tokenId: selectedTokenId || null,
           xText: poll.text,
+          variantKey: pollType,
+          variantLabel: pollType,
+          variantSurface: "interactive-poll",
         },
         null,
         2,
