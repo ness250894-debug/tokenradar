@@ -554,7 +554,11 @@ export async function getTokenIds(): Promise<string[]> {
           const dirPath = `${contentDir}/${dir}`;
           const stat = await fs.promises.stat(/* turbopackIgnore: true */ dirPath);
           if (stat.isDirectory()) {
-            ids.add(dir);
+            const tokenFile = `${getDataDir()}/tokens/${dir}.json`;
+            const raw = JSON.parse(await fs.promises.readFile(/* turbopackIgnore: true */ tokenFile, "utf-8"));
+            if (getMarketDataQualityIssues(raw).length === 0) {
+              ids.add(dir);
+            }
           }
         } catch { /* Skip invalid/inaccessible dirs */ }
       }
