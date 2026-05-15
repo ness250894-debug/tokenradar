@@ -6,6 +6,7 @@
 import { slugify } from "@/lib/shared-utils";
 import { normalizeArticleMarkdown } from "@/lib/article-formatting";
 import type { ArticleQualitySnapshot } from "@/lib/content-quality";
+import { getMarketDataQualityIssues } from "@/lib/market-data-quality";
 import { getTgeSortWeight, isGenericTgeSymbol, normalizeTge } from "@/lib/tge";
 import type { UpcomingTge } from "@/lib/tge";
 import * as fs from "fs";
@@ -249,6 +250,7 @@ export interface FAQ {
 let _allTokensCache: TokenSummary[] | null = null;
 let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
+let _categoryIdsCache: Set<string> | null = null;
 const _relatedTokensCache = new Map<string, TokenSummary[]>();
 
 // Raw blobs (lazy loaded)
@@ -257,6 +259,7 @@ let _tokensBlob: Record<string, unknown> | null = null;
 let _metricsBlob: Record<string, unknown> | null = null;
 let _pricesBlob: Record<string, unknown> | null = null;
 const _loadBlobCache = new Map<string, unknown>();
+const _untrustedTokenWarningCache = new Set<string>();
 const shouldLogLoaderInfo = process.env.DEBUG_CONTENT_LOADER === "true";
 
 function logLoaderDebug(message: string): void {
@@ -457,6 +460,11 @@ export interface CategorySummary {
   count: number;
 }
 
+export interface LinkableCategory {
+  name: string;
+  href?: string;
+}
+
 /** Get all discrete categories with at least 3 tokens (memoized) */
 export async function getAllCategories(): Promise<CategorySummary[]> {
   if (_categoriesCache) return _categoriesCache;
@@ -481,6 +489,40 @@ export async function getAllCategories(): Promise<CategorySummary[]> {
 
   _categoriesCache = result;
   return result;
+}
+
+/** Get the generated category route IDs. */
+export async function getCategoryIds(): Promise<Set<string>> {
+  if (_categoryIdsCache) return _categoryIdsCache;
+
+  const categories = await getAllCategories();
+  _categoryIdsCache = new Set(categories.map((category) => category.id));
+  return _categoryIdsCache;
+}
+
+export function getCategoryHref(category: string | undefined, categoryIds: ReadonlySet<string>): string | undefined {
+  if (!category) return undefined;
+
+  const categoryId = slugify(category);
+  return categoryIds.has(categoryId) ? `/category/${categoryId}` : undefined;
+}
+
+export function getPrimaryTokenCategory(
+  categories: readonly string[] | undefined,
+  categoryIds: ReadonlySet<string>,
+  fallback = "Crypto",
+): LinkableCategory {
+  const validCategories = (categories || []).filter(Boolean);
+  const linkableCategory = validCategories.find((category) => getCategoryHref(category, categoryIds));
+
+  if (linkableCategory) {
+    return {
+      name: linkableCategory,
+      href: getCategoryHref(linkableCategory, categoryIds),
+    };
+  }
+
+  return { name: validCategories[0] || fallback };
 }
 
 /** Get all tokens belonging to a specific category slug */
@@ -570,12 +612,13 @@ function mapRawToTokenDetail(r: any): TokenDetail | null {
     return null;
   }
 
-  // Ensure we don't return an object with zero market data if it looks corrupted
-  const market = r.market || {};
-  const hasMarket = (market.price || 0) > 0 || (market.marketCap || 0) > 0 || (market.volume24h || 0) > 0;
-  
-  if (!hasMarket) {
-    console.warn(`⚠️ Token ${r.id} has invalid/zero market data. Skipping mapping.`);
+  const marketIssues = getMarketDataQualityIssues(r);
+
+  if (marketIssues.length > 0) {
+    if (!_untrustedTokenWarningCache.has(r.id)) {
+      _untrustedTokenWarningCache.add(r.id);
+      console.warn(`[LOADER] Token ${r.id} has untrusted market data (${marketIssues.join(", ")}). Skipping mapping.`);
+    }
     return null;
   }
   

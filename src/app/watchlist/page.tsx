@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { WatchlistPageClient } from "@/components/WatchlistPageClient";
 import type { TokenCardData } from "@/components/TokenCard";
-import { getAllTokens, getTokenMetrics } from "@/lib/content-loader";
+import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics } from "@/lib/content-loader";
 
 export const metadata: Metadata = {
   title: "Local Watchlist",
@@ -18,8 +18,10 @@ export const metadata: Metadata = {
 
 export default async function WatchlistPage() {
   const tokens = await getAllTokens();
+  const categoryIds = await getCategoryIds();
   const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (token) => {
     const metrics = await getTokenMetrics(token.id);
+    const category = getPrimaryTokenCategory(token.categories, categoryIds);
     return {
       id: token.id,
       name: token.name,
@@ -29,7 +31,8 @@ export default async function WatchlistPage() {
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
       riskScore: metrics?.riskScore || 5,
-      category: token.categories?.[0] || "Crypto",
+      category: category.name,
+      categoryHref: category.href,
     };
   }));
 

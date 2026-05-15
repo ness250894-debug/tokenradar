@@ -12,11 +12,13 @@ import {
   formatSupply,
   getRelatedTokens,
   formatPercent,
+  getCategoryHref,
+  getCategoryIds,
+  getPrimaryTokenCategory,
 } from "@/lib/content-loader";
 import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
-import { slugify } from "@/lib/shared-utils";
 import { isArticleIndexable, isTokenOverviewIndexable } from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
@@ -37,7 +39,7 @@ import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
-import { 
+import {
   Globe, 
   BarChart2, 
   PieChart, 
@@ -116,10 +118,12 @@ export default async function TokenPage({ params }: PageProps) {
   const article = await getArticle(tokenId, "overview");
   const articleQuality = article ? evaluateArticleQuality(article) : null;
   const shouldRenderArticle = Boolean(article && articleQuality?.passed);
-  
+
+  const categoryIds = await getCategoryIds();
   const relatedTokensList = await getRelatedTokens(tokenId, 3);
   const relatedTokens: TokenCardData[] = await Promise.all(relatedTokensList.map(async (token) => {
     const rMetrics = await getTokenMetrics(token.id);
+    const category = getPrimaryTokenCategory(token.categories, categoryIds);
     return {
       id: token.id,
       name: token.name,
@@ -129,7 +133,8 @@ export default async function TokenPage({ params }: PageProps) {
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
       riskScore: rMetrics?.riskScore || 5,
-      category: token.categories?.[0] || "Crypto",
+      category: category.name,
+      categoryHref: category.href,
     };
   }));
 
@@ -138,12 +143,17 @@ export default async function TokenPage({ params }: PageProps) {
   const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
   const hasPricePrediction = isArticleIndexable(pricePredictionArticle);
   const hasHowToBuy = isArticleIndexable(howToBuyArticle);
-  const primaryCategory = detail.categories[0];
+  const primaryCategory = getPrimaryTokenCategory(detail.categories, categoryIds, "");
+  const visibleCategories = detail.categories.slice(0, 3).map((category) => ({
+    name: category,
+    href: getCategoryHref(category, categoryIds),
+  }));
   const researchActions = buildTokenResearchActions({
     tokenId,
     name: detail.name,
     symbol: detail.symbol,
-    category: primaryCategory,
+    category: primaryCategory.name,
+    categoryHref: primaryCategory.href,
     hasPricePrediction,
     hasHowToBuy,
     hasLedgerGuide: Boolean(technical),
@@ -153,7 +163,8 @@ export default async function TokenPage({ params }: PageProps) {
       tokenId,
       name: detail.name,
       symbol: detail.symbol,
-      category: primaryCategory,
+      category: primaryCategory.name,
+      categoryHref: primaryCategory.href,
       hasPricePrediction,
       hasHowToBuy,
       hasLedgerGuide: Boolean(technical),
@@ -196,16 +207,22 @@ export default async function TokenPage({ params }: PageProps) {
             <p className="token-hero-subtitle">
               Live {detail.symbol.toUpperCase()} price, TokenRadar risk score, market metrics, and research guides in one place.
             </p>
-            {detail.categories.length > 0 && (
+            {visibleCategories.length > 0 && (
               <div style={{ display: "flex", gap: "var(--space-sm)", marginTop: "var(--space-sm)", flexWrap: "wrap" }}>
-                {detail.categories.slice(0, 3).map((cat) => (
-                  <Link 
-                    key={cat} 
-                    href={`/category/${slugify(cat)}`} 
-                    className="badge badge-accent hover-scale"
-                  >
-                    {cat}
-                  </Link>
+                {visibleCategories.map((category) => (
+                  category.href ? (
+                    <Link
+                      key={category.name}
+                      href={category.href}
+                      className="badge badge-accent hover-scale"
+                    >
+                      {category.name}
+                    </Link>
+                  ) : (
+                    <span key={category.name} className="badge badge-accent">
+                      {category.name}
+                    </span>
+                  )
                 ))}
               </div>
             )}

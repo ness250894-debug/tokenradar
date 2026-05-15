@@ -73,20 +73,41 @@ export function ResearchRecirculation({
   description,
   items,
   variant = "default",
-  ...context
+  pageType,
+  tokenId,
+  articleType,
+  moduleId,
+  modulePosition,
+  sourceSection,
 }: ResearchRecirculationProps) {
   const ref = useRef<HTMLElement | null>(null);
   const hasTrackedImpression = useRef(false);
+  const context: EngagementContext = {
+    pageType,
+    tokenId,
+    articleType,
+    moduleId,
+    modulePosition,
+    sourceSection,
+  };
 
   useEffect(() => {
     const element = ref.current;
     if (!element || hasTrackedImpression.current || items.length === 0) return;
+    const engagementContext: EngagementContext = {
+      pageType,
+      tokenId,
+      articleType,
+      moduleId,
+      modulePosition,
+      sourceSection,
+    };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting || hasTrackedImpression.current) return;
         hasTrackedImpression.current = true;
-        trackRecirculationImpression(context, items.length);
+        trackRecirculationImpression(engagementContext, items.length);
         observer.disconnect();
       },
       { threshold: 0.35 },
@@ -94,7 +115,7 @@ export function ResearchRecirculation({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [context.articleType, context.moduleId, context.modulePosition, context.pageType, context.sourceSection, context.tokenId, items.length]);
+  }, [articleType, items.length, moduleId, modulePosition, pageType, sourceSection, tokenId]);
 
   if (items.length === 0) return null;
 

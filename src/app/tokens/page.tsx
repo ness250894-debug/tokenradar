@@ -3,7 +3,7 @@ import { Activity, DollarSign, TrendingUp } from "lucide-react";
 
 import { TokenGrid } from "@/components/TokenGrid";
 import { type TokenCardData } from "@/components/TokenCard";
-import { formatCompact, getAllTokens, getTokenMetrics } from "@/lib/content-loader";
+import { formatCompact, getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics } from "@/lib/content-loader";
 
 export const metadata: Metadata = {
   title: "Crypto Token Directory",
@@ -15,10 +15,12 @@ export const metadata: Metadata = {
 
 export default async function TokensPage() {
   const tokens = await getAllTokens();
+  const categoryIds = await getCategoryIds();
   const totalMarketCap = tokens.reduce((sum, token) => sum + (token.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, token) => sum + (token.volume24h || 0), 0);
   const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (token) => {
     const metrics = await getTokenMetrics(token.id);
+    const category = getPrimaryTokenCategory(token.categories, categoryIds);
     return {
       id: token.id,
       name: token.name,
@@ -28,7 +30,8 @@ export default async function TokensPage() {
       priceChange24h: token.priceChange24h,
       marketCap: token.marketCap,
       riskScore: metrics?.riskScore || 5,
-      category: token.categories?.[0] || "Crypto",
+      category: category.name,
+      categoryHref: category.href,
     };
   }));
 

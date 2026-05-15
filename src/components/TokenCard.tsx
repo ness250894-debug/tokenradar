@@ -5,7 +5,6 @@ import { TrendingUp, TrendingDown, DollarSign, ShieldAlert } from "lucide-react"
 import { TokenTickerPill } from "./TokenTickerPill";
 import { CardGlare } from "./CardGlare";
 import { WatchlistButton } from "./WatchlistButton";
-import { slugify } from "@/lib/shared-utils";
 import { trackEvent } from "@/lib/analytics";
 
 export interface TokenCardData {
@@ -17,6 +16,7 @@ export interface TokenCardData {
   marketCap: number;
   riskScore: number;
   category: string;
+  categoryHref?: string;
   imageUrl?: string;
 }
 
@@ -78,14 +78,23 @@ export function TokenCard({ token }: TokenCardProps) {
             </div>
           </div>
           <div className="min-w-0">
-            <Link
-              href={`/category/${slugify(token.category)}`}
-              onClick={handleCategoryClick}
-              className="badge badge-accent hover-scale inline-block relative z-30 cursor-pointer"
-              style={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
-            >
-              {token.category}
-            </Link>
+            {token.categoryHref ? (
+              <Link
+                href={token.categoryHref}
+                onClick={handleCategoryClick}
+                className="badge badge-accent hover-scale inline-block relative z-30 cursor-pointer"
+                style={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+              >
+                {token.category}
+              </Link>
+            ) : (
+              <span
+                className="badge badge-accent inline-block relative z-30"
+                style={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+              >
+                {token.category}
+              </span>
+            )}
           </div>
         </div>
 
