@@ -17,7 +17,7 @@ import {
   type OAuth2Token,
 } from "@xdevplatform/xdk";
 import { sleep } from "./shared-utils";
-import { formatErrorForLog, redactSensitiveText } from "./utils";
+import { formatErrorForLog, redactSensitiveText, writeFileAtomic } from "./utils";
 import { sendTelegramAlert } from "./reporter";
 import { sanitizePostTextLinks } from "./social-link-policy";
 
@@ -155,7 +155,7 @@ async function upsertEnvLocalRefreshToken(envPath: string, newToken: string): Pr
     envContent = `${envContent}${separator}X_OAUTH2_REFRESH_TOKEN=${newToken}\n`;
   }
 
-  await fs.promises.writeFile(envPath, envContent, "utf-8");
+  await writeFileAtomic(envPath, envContent);
 }
 
 async function reportRefreshTokenPersistenceFailure(target: string, error: unknown): Promise<void> {

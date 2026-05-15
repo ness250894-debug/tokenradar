@@ -21,6 +21,7 @@ import { LastUpdated } from "@/components/LastUpdated";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
@@ -309,65 +310,59 @@ export default async function HowToBuyPage({ params }: PageProps) {
         </div>
       </section>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) - Where to Buy Guide`,
-            description: `Where and how to buy ${detail.name}: check markets, fees, eligibility, payment methods, and custody before buying.`,
-            step: [
-              { "@type": "HowToStep", name: "Choose a legally available venue", text: `Confirm the exchange serves your jurisdiction and supports the exact ${detail.symbol.toUpperCase()} market.` },
-              { "@type": "HowToStep", name: "Review payment method and fees", text: "Compare card, bank, wire, spread, withdrawal fee, and minimum order rules before funding the account." },
-              { "@type": "HowToStep", name: "Verify the trading pair and network", text: `Check the ${detail.symbol.toUpperCase()} ticker, contract, and withdrawal network before placing or moving an order.` },
-              { "@type": "HowToStep", name: "Plan custody before buying", text: "Decide whether the position stays on an exchange temporarily or moves to a wallet after a small test transfer." },
-            ],
-          }),
+      <JsonLd
+        id={`${detail.id}-how-to-buy-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) - Where to Buy Guide`,
+          description: `Where and how to buy ${detail.name}: check markets, fees, eligibility, payment methods, and custody before buying.`,
+          step: [
+            { "@type": "HowToStep", name: "Choose a legally available venue", text: `Confirm the exchange serves your jurisdiction and supports the exact ${detail.symbol.toUpperCase()} market.` },
+            { "@type": "HowToStep", name: "Review payment method and fees", text: "Compare card, bank, wire, spread, withdrawal fee, and minimum order rules before funding the account." },
+            { "@type": "HowToStep", name: "Verify the trading pair and network", text: `Check the ${detail.symbol.toUpperCase()} ticker, contract, and withdrawal network before placing or moving an order.` },
+            { "@type": "HowToStep", name: "Plan custody before buying", text: "Decide whether the position stays on an exchange temporarily or moves to a wallet after a small test transfer." },
+          ],
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://tokenradar.co/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": detail.name,
-                "item": `https://tokenradar.co/${detail.id}`
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "How to Buy",
-                "item": `https://tokenradar.co/${detail.id}/how-to-buy`
-              }
-            ]
-          }),
+      <JsonLd
+        id={`${detail.id}-how-to-buy-breadcrumb-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://tokenradar.co/",
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": detail.name,
+              "item": `https://tokenradar.co/${detail.id}`,
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "How to Buy",
+              "item": `https://tokenradar.co/${detail.id}/how-to-buy`,
+            },
+          ],
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ExchangeRateSpecification",
-            currency: "USD",
-            currentExchangeRate: {
-              "@type": "UnitPriceSpecification",
-              price: detail.market.price,
-              priceCurrency: "USD"
-            }
-          }),
+      <JsonLd
+        id={`${detail.id}-how-to-buy-rate-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ExchangeRateSpecification",
+          currency: "USD",
+          currentExchangeRate: {
+            "@type": "UnitPriceSpecification",
+            price: detail.market.price,
+            priceCurrency: "USD",
+          },
         }}
       />
     </div>

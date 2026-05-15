@@ -2,10 +2,11 @@ import * as fs from "fs";
 import * as path from "path";
 import { marked, Renderer, type Tokens } from "marked";
 import { formatPrice, formatCompact, getTokenIconCandidates } from "./formatters";
-import { getAllCategories, getAllTokens, getTokenIds } from "./content-loader";
+import { getAllCategories, getAllTokens, getArticle, getTokenIds, getTokenIdsWithArticle } from "./content-loader";
 import { normalizeArticleMarkdown } from "./article-formatting";
 import { getPilotTokenIds } from "./token-technical-data";
 import { isLinkableTokenName, shouldUnwrapAmbiguousTokenLink } from "./internal-link-policy";
+import { filterIndexableArticleTokenIds } from "./seo";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -175,12 +176,22 @@ async function getValidInternalPaths(): Promise<Set<string>> {
       const paths = new Set(STATIC_INTERNAL_PATHS);
 
       try {
-        const tokenIds = await getTokenIds();
+        const [tokenIds, howToBuyTokenIds, pricePredictionTokenIds] = await Promise.all([
+          getTokenIds(),
+          getTokenIdsWithArticle("how-to-buy").then((tokenIdsWithArticle) =>
+            filterIndexableArticleTokenIds(tokenIdsWithArticle, (tokenId) => getArticle(tokenId, "how-to-buy")),
+          ),
+          getTokenIdsWithArticle("price-prediction").then((tokenIdsWithArticle) =>
+            filterIndexableArticleTokenIds(tokenIdsWithArticle, (tokenId) => getArticle(tokenId, "price-prediction")),
+          ),
+        ]);
+        const howToBuyRoutes = new Set(howToBuyTokenIds);
+        const pricePredictionRoutes = new Set(pricePredictionTokenIds);
         const pilotIds = new Set(getPilotTokenIds());
         for (const id of tokenIds) {
           paths.add(`/${id}`);
-          paths.add(`/${id}/how-to-buy`);
-          paths.add(`/${id}/price-prediction`);
+          if (howToBuyRoutes.has(id)) paths.add(`/${id}/how-to-buy`);
+          if (pricePredictionRoutes.has(id)) paths.add(`/${id}/price-prediction`);
           if (pilotIds.has(id)) paths.add(`/${id}/transfer-to-ledger`);
         }
       } catch (error) {
@@ -329,7 +340,10 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
       });
     }
 
-    processedMd = processedMd.replace(/__MASKED_LINK_(\d+)__/g, (_, idx) => maskedLinks[parseInt(idx)]);
+    processedMd = processedMd.replace(/__MASKED_LINK_(\d+)__/g, (match, idx) => {
+      const restored = maskedLinks[Number(idx)];
+      return restored ?? match;
+    });
   } catch (e) {
     console.warn("Auto-linking failed, falling back to raw md.", e);
   }

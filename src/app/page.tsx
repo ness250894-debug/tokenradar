@@ -7,6 +7,7 @@ import { HomeRadarBrief } from "@/components/HomeRadarBrief";
 import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
 import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
 import { AlphaTicker } from "@/components/AlphaTicker";
+import { JsonLd } from "@/components/JsonLd";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
 
@@ -341,20 +342,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ItemList JSON-LD - unique to home page (WebSite & Organization schemas are in layout.tsx) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "itemListElement": allTokens.slice(0, 50).map((token, idx) => ({
-              "@type": "ListItem",
-              "position": idx + 1,
-              "url": `https://tokenradar.co/${token.id}`,
-              "name": `${token.name} (${token.symbol})`,
-            })),
-          }),
+      <JsonLd
+        id="home-token-itemlist-jsonld"
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": allTokens.slice(0, 50).map((token, idx) => ({
+            "@type": "ListItem",
+            "position": idx + 1,
+            "url": `https://tokenradar.co/${token.id}`,
+            "name": `${token.name} (${token.symbol})`,
+          })),
         }}
       />
     </>

@@ -5,7 +5,9 @@ import {
   computeAttentionScore,
   computeFundamentalsScore,
   computeSupplyRiskScore,
+  mergeSearchIntentHistory,
 } from "../scripts/compute-search-intent";
+import { SEARCH_INTENT_LABELS, type SearchIntentDataset } from "../src/lib/search-intent";
 
 const baseToken = {
   id: "test-token",
@@ -95,5 +97,41 @@ describe("search intent scoring", () => {
     expect(intent.classification).toBe("Stablecoin Safety Check");
     expect(intent.primaryIntent).toBe("stablecoin");
     expect(intent.queryExamples.some((query) => query.includes("reserves"))).toBe(true);
+  });
+
+  it("keeps unchanged same-day history snapshots stable across repeated runs", () => {
+    const generatedAt = "2026-05-15T00:00:00.000Z";
+    const tokenIntent = buildTokenSearchIntent(baseToken, {}, [], undefined, generatedAt);
+    const output: SearchIntentDataset = {
+      generatedAt,
+      version: 1,
+      summary: {
+        generatedAt,
+        tokenCount: 1,
+        topIntents: [
+          {
+            intent: tokenIntent.primaryIntent,
+            label: SEARCH_INTENT_LABELS[tokenIntent.primaryIntent],
+            tokenCount: 1,
+            avgScore: tokenIntent.intentMix[0]?.score || 0,
+          },
+        ],
+        hotTokens: [],
+        watchTokens: [tokenIntent.tokenId],
+        methodology: ["test"],
+      },
+      tokens: {
+        [tokenIntent.tokenId]: tokenIntent,
+      },
+    };
+
+    const firstHistory = mergeSearchIntentHistory(
+      output,
+      { version: 1, generatedAt: "2026-05-15T09:00:00.000Z", entries: [] },
+      "2026-05-15T09:00:00.000Z",
+    );
+    const secondHistory = mergeSearchIntentHistory(output, firstHistory, "2026-05-15T12:00:00.000Z");
+
+    expect(secondHistory).toEqual(firstHistory);
   });
 });

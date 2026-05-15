@@ -25,6 +25,7 @@ import { LastUpdated } from "@/components/LastUpdated";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
+import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
@@ -366,56 +367,52 @@ export default async function PricePredictionPage({ params }: PageProps) {
         </div>
       </section>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: `${detail.name} Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
-            description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
-            image: "https://tokenradar.co/og-image.png",
-            author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
-            publisher: { 
-              "@type": "Organization", 
-              name: "TokenRadar",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://tokenradar.co/icon.png"
-              }
+      <JsonLd
+        id={`${detail.id}-price-prediction-article-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: `${detail.name} Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
+          description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
+          image: "https://tokenradar.co/og-image.png",
+          author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
+          publisher: {
+            "@type": "Organization",
+            name: "TokenRadar",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://tokenradar.co/icon.png",
             },
-            datePublished: article?.generatedAt || detail.fetchedAt,
-            dateModified: article?.generatedAt || detail.fetchedAt,
-          }),
+          },
+          datePublished: article?.generatedAt || detail.fetchedAt,
+          dateModified: article?.generatedAt || detail.fetchedAt,
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://tokenradar.co/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": detail.name,
-                "item": `https://tokenradar.co/${detail.id}`
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Price Prediction",
-                "item": `https://tokenradar.co/${detail.id}/price-prediction`
-              }
-            ]
-          }),
+      <JsonLd
+        id={`${detail.id}-price-prediction-breadcrumb-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://tokenradar.co/",
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": detail.name,
+              "item": `https://tokenradar.co/${detail.id}`,
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Price Prediction",
+              "item": `https://tokenradar.co/${detail.id}/price-prediction`,
+            },
+          ],
         }}
       />
     </div>
