@@ -17,7 +17,7 @@ export function canonicalUrl(pathname: string): string {
   return `${getSiteUrl()}${canonicalPath(pathname) === "/" ? "" : canonicalPath(pathname)}`;
 }
 
-export function isTokenOverviewIndexable(detail: TokenDetail, overview?: Article | null): boolean {
+export function isTokenOverviewIndexable(detail: TokenDetail, overview?: Article | null): overview is Article {
   const volume24h = detail.market?.volume24h ?? 0;
   if (volume24h <= TOKEN_OVERVIEW_MIN_VOLUME_USD || !overview) return false;
 
