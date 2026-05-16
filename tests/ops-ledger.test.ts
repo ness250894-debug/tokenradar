@@ -10,6 +10,8 @@ vi.mock("../src/lib/d1-client", () => d1Mocks);
 import {
   hasSocialPost,
   listSocialPostContentKeys,
+  recordAutomationRun,
+  recordQuotaSnapshot,
   recordSocialPost,
 } from "../src/lib/ops-ledger";
 
@@ -86,5 +88,55 @@ describe("ops-ledger social posts", () => {
     await recordSocialPost({ platform: "x", contentKey: "missing" });
 
     expect(d1Mocks.executeD1Query).not.toHaveBeenCalled();
+  });
+
+  it("records automation run status with an upsert", async () => {
+    d1Mocks.executeD1Query.mockResolvedValueOnce([{ success: true }]);
+
+    await recordAutomationRun({
+      id: "123-1",
+      workflow: "Social Automations",
+      slot: "d1-smoke",
+      status: "success",
+      startedAt: "2026-05-16T12:00:00.000Z",
+      finishedAt: "2026-05-16T12:01:00.000Z",
+      details: { sha: "abc" },
+    });
+
+    expect(d1Mocks.executeD1Query).toHaveBeenCalledWith(
+      expect.stringContaining("INSERT INTO automation_runs"),
+      [
+        "123-1",
+        "Social Automations",
+        "d1-smoke",
+        "success",
+        "2026-05-16T12:00:00.000Z",
+        "2026-05-16T12:01:00.000Z",
+        JSON.stringify({ sha: "abc" }),
+      ],
+    );
+  });
+
+  it("records quota snapshots with integer counts", async () => {
+    d1Mocks.executeD1Query.mockResolvedValueOnce([{ success: true }]);
+
+    await recordQuotaSnapshot({
+      source: "d1_storage_bytes",
+      period: "2026-05-16",
+      count: 86016.9,
+      recordedAt: "2026-05-16T12:00:00.000Z",
+      details: { databaseName: "tokenradar-d1" },
+    });
+
+    expect(d1Mocks.executeD1Query).toHaveBeenCalledWith(
+      expect.stringContaining("INSERT INTO quota_snapshots"),
+      [
+        "d1_storage_bytes",
+        "2026-05-16",
+        86016,
+        "2026-05-16T12:00:00.000Z",
+        JSON.stringify({ databaseName: "tokenradar-d1" }),
+      ],
+    );
   });
 });
