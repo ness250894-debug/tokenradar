@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       jsdom: "./src/lib/mocks/ast-grep-napi.js",
     },
   },
+  experimental: {
+    prefetchInlining: true,
+  },
 };
 
 export default nextConfig;
