@@ -17,6 +17,7 @@ import { generateUnifiedCaptions } from "../src/lib/gemini";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
@@ -114,6 +115,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
+  const socialPostKey = `${today}:threads-text`;
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -122,9 +124,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (fs.existsSync(trackerFile) && !dryRun && !force) {
+  if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("threads", socialPostKey))) {
     const existing = safeReadJson<ThreadsTextTracker | null>(trackerFile, null);
-    console.log(`Threads text signal already posted today (${existing?.postedAt || "unknown time"}). Exiting.`);
+    console.log(`Threads text signal already posted today (${existing?.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
@@ -226,12 +228,13 @@ async function main() {
       topicTag: threadsContent.topicTag,
       spoilerEntities: threadsContent.spoilerEntities,
     });
+    const postedAt = new Date().toISOString();
 
     fs.writeFileSync(
       trackerFile,
       JSON.stringify(
         {
-          postedAt: new Date().toISOString(),
+          postedAt,
           postId: result.id,
           tokenId: token.id,
           tokenName: token.name,
@@ -246,6 +249,21 @@ async function main() {
         2,
       ),
     );
+    await recordSocialPost({
+      platform: "threads",
+      contentKey: socialPostKey,
+      externalId: result.id,
+      postedAt,
+      details: {
+        tokenId: token.id,
+        tokenName: token.name,
+        reason,
+        topicTag: threadsContent.topicTag,
+        variantKey: contentVariant.key,
+        variantLabel: contentVariant.label,
+        variantSurface: "threads-text",
+      },
+    });
 
     console.log(`Threads text signal posted successfully (Post ID: ${result.id})`);
   } catch (error) {

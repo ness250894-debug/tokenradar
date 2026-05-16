@@ -35,6 +35,7 @@ import { generatePollHook } from "../src/lib/gemini";
 import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   type TokenData,
@@ -184,12 +185,13 @@ async function main() {
   const TODAY = new Date().toISOString().split("T")[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
   const TRACKER_FILE = path.join(POSTED_DIR, "interactive-daily.json");
+  const socialPostKey = `${TODAY}:interactive-poll`;
   cleanupExpiredCooldownFolders(DATA_DIR);
 
   // ── Dedup check ──
-  if (fs.existsSync(TRACKER_FILE) && !dryRun) {
+  if (!dryRun && (fs.existsSync(TRACKER_FILE) || await hasSocialPost("x", socialPostKey))) {
     const existing = safeReadJson<{ postedAt?: string }>(TRACKER_FILE, {});
-    console.log(`  ⚠ Interactive post already sent today (${existing.postedAt}). Exiting.`);
+    console.log(`  ⚠ Interactive post already sent today (${existing.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
@@ -325,6 +327,17 @@ async function main() {
         2,
       ),
     );
+    await recordSocialPost({
+      platform: "x",
+      contentKey: socialPostKey,
+      externalId: result.tweetId,
+      details: {
+        pollType,
+        nativePoll: result.native,
+        tokenId: selectedTokenId || null,
+        variantSurface: "interactive-poll",
+      },
+    });
   } catch (error) {
     await logError("post-interactive-daily", error, false);
     console.error(`❌ Failed to post interactive poll: ${formatErrorForLog(error)}`);

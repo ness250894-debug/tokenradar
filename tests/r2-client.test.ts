@@ -4,6 +4,11 @@ const awsMocks = vi.hoisted(() => ({
   send: vi.fn(),
 }));
 
+const ledgerMocks = vi.hoisted(() => ({
+  markMediaStagingDeleted: vi.fn(),
+  recordMediaStagingUpload: vi.fn(),
+}));
+
 vi.mock("@aws-sdk/client-s3", () => {
   class MockS3Client {
     send = awsMocks.send;
@@ -25,6 +30,8 @@ vi.mock("@aws-sdk/client-s3", () => {
   };
 });
 
+vi.mock("../src/lib/ops-ledger", () => ledgerMocks);
+
 import { cleanPrefix, deleteObjects, uploadBuffer } from "../src/lib/r2-client";
 
 function commandInput(callIndex: number): Record<string, unknown> {
@@ -39,6 +46,8 @@ describe("r2-client prefix staging", () => {
     process.env.R2_BUCKET_NAME = "tokenradar-media-staging";
     process.env.R2_PUBLIC_URL = "https://media.tokenradar.co";
     awsMocks.send.mockReset();
+    ledgerMocks.markMediaStagingDeleted.mockReset();
+    ledgerMocks.recordMediaStagingUpload.mockReset();
     vi.spyOn(console, "info").mockImplementation(() => undefined);
   });
 
@@ -66,6 +75,17 @@ describe("r2-client prefix staging", () => {
       ContentType: "image/png",
     });
     expect(url).toBe("https://media.tokenradar.co/ig-carousel/2026-05-11/slide%2001.png");
+    expect(ledgerMocks.recordMediaStagingUpload).toHaveBeenCalledWith(
+      expect.objectContaining({
+        objectKey: "ig-carousel/2026-05-11/slide 01.png",
+        bucket: "tokenradar-media-staging",
+        platform: "instagram",
+        kind: "carousel-image",
+        bytes: Buffer.from("png-data").length,
+        contentType: "image/png",
+        publicUrl: "https://media.tokenradar.co/ig-carousel/2026-05-11/slide%2001.png",
+      }),
+    );
   });
 
   it("cleans only objects returned under the requested prefix", async () => {
@@ -95,6 +115,8 @@ describe("r2-client prefix staging", () => {
       Bucket: "tokenradar-media-staging",
       Key: "video/2026-05-11/threads.mp4",
     });
+    expect(ledgerMocks.markMediaStagingDeleted).toHaveBeenCalledWith("video/2026-05-11/instagram.mp4");
+    expect(ledgerMocks.markMediaStagingDeleted).toHaveBeenCalledWith("video/2026-05-11/threads.mp4");
   });
 
   it("deduplicates explicit object deletes", async () => {
@@ -108,5 +130,6 @@ describe("r2-client prefix staging", () => {
 
     expect(deleted).toBe(2);
     expect(awsMocks.send).toHaveBeenCalledTimes(2);
+    expect(ledgerMocks.markMediaStagingDeleted).toHaveBeenCalledTimes(2);
   });
 });

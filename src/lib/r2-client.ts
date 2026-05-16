@@ -18,6 +18,7 @@ import {
   ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 import * as fs from "fs";
+import { markMediaStagingDeleted, recordMediaStagingUpload } from "./ops-ledger";
 
 /** Required environment variables for R2 access. */
 interface R2Config {
@@ -76,6 +77,33 @@ function buildPublicUrl(baseUrl: string, key: string): string {
   return `${baseUrl.replace(/\/$/, "")}/${safeKey}`;
 }
 
+function inferStagingMetadata(key: string, contentType: string): { platform: string; kind: string } {
+  const parts = key.split("/").filter(Boolean);
+  const fileName = parts[parts.length - 1] || key;
+  const baseName = fileName.replace(/\.[^.]+$/, "");
+
+  if (parts[0] === "ig-carousel") {
+    return { platform: "instagram", kind: "carousel-image" };
+  }
+
+  if (parts[0] === "video") {
+    return {
+      platform: baseName || "unknown",
+      kind: contentType.startsWith("video/") ? "video" : "media",
+    };
+  }
+
+  if (baseName.includes("threads")) {
+    return { platform: "threads", kind: contentType.startsWith("video/") ? "video" : "media" };
+  }
+
+  if (baseName.includes("instagram")) {
+    return { platform: "instagram", kind: contentType.startsWith("video/") ? "video" : "media" };
+  }
+
+  return { platform: "unknown", kind: contentType.startsWith("video/") ? "video" : "media" };
+}
+
 async function uploadObject(
   body: Buffer | Uint8Array,
   key: string,
@@ -93,6 +121,17 @@ async function uploadObject(
   );
 
   const publicUrl = buildPublicUrl(config.publicUrl, key);
+  const staging = inferStagingMetadata(key, contentType);
+  await recordMediaStagingUpload({
+    objectKey: key,
+    bucket: config.bucketName,
+    platform: staging.platform,
+    kind: staging.kind,
+    bytes: body.length,
+    contentType,
+    publicUrl,
+  });
+
   console.info(`  [r2] Uploaded ${key} (${(body.length / 1024 / 1024).toFixed(2)} MB) -> ${publicUrl}`);
   return publicUrl;
 }
@@ -182,6 +221,7 @@ export async function deleteObject(key: string): Promise<void> {
   );
 
   console.info(`  [r2] Deleted ${key}`);
+  await markMediaStagingDeleted(key);
 }
 
 /**
