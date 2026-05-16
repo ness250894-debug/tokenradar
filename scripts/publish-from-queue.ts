@@ -6,7 +6,7 @@
  * the production content/tokens directory.
  * 
  * Usage:
- *   npx tsx scripts/publish-from-queue.ts --max 15
+ *   npx tsx scripts/publish-from-queue.ts --max 25
  */
 
 import * as fs from "fs";
@@ -25,6 +25,7 @@ const DATA_DIR = path.resolve(process.cwd(), "data");
 const QUEUE_DIR = path.join(DATA_DIR, "queue");
 const CONTENT_DIR = path.resolve(process.cwd(), "content/tokens");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
+const DEFAULT_MAX_TO_PROCESS = 25;
 
 /**
  * Format currency values for display.
@@ -51,7 +52,7 @@ function findUnresolvedPlaceholders(article: { title?: string; content?: string 
 async function main() {
   const args = process.argv.slice(2);
   const maxIdx = args.indexOf("--max");
-  const maxToProcess = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : 15;
+  const maxToProcess = maxIdx !== -1 ? parseInt(args[maxIdx + 1], 10) : DEFAULT_MAX_TO_PROCESS;
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Queue Publisher            ║");

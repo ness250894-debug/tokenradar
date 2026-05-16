@@ -194,7 +194,8 @@ async function main() {
     // Filter thin content (SEO safety)
     const overview = await getArticle(id, "overview");
     if (isTokenOverviewIndexable(detail, overview)) {
-      tokenEntries.push({ url: `/${id}`, lastmod: tokenDate });
+      const overviewDate = toDateOnly(overview.generatedAt, tokenDate);
+      tokenEntries.push({ url: `/${id}`, lastmod: overviewDate });
     }
 
     const types = ["price-prediction", "how-to-buy"];
