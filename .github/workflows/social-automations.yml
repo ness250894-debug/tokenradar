@@ -366,7 +366,7 @@ jobs:
 
       - name: Upload social diagnostics
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: social-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
