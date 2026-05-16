@@ -259,6 +259,7 @@ let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
 let _categoryIdsCache: Set<string> | null = null;
 const _relatedTokensCache = new Map<string, TokenSummary[]>();
+const DEFAULT_STATIC_CATEGORY_MIN_TOKENS = 10;
 
 // Raw blobs (lazy loaded)
 let _registry: TokenSummary[] | null = null;
@@ -475,7 +476,12 @@ export interface LinkableCategory {
   href?: string;
 }
 
-/** Get all discrete categories with at least 3 tokens (memoized) */
+function getStaticCategoryMinTokens(): number {
+  const raw = Number(process.env.STATIC_CATEGORY_MIN_TOKENS || DEFAULT_STATIC_CATEGORY_MIN_TOKENS);
+  return Number.isFinite(raw) && raw >= 1 ? Math.floor(raw) : DEFAULT_STATIC_CATEGORY_MIN_TOKENS;
+}
+
+/** Get all discrete categories with enough tokens to justify static generation (memoized) */
 export async function getAllCategories(): Promise<CategorySummary[]> {
   if (_categoriesCache) return _categoriesCache;
 
@@ -492,8 +498,9 @@ export async function getAllCategories(): Promise<CategorySummary[]> {
     }
   }
   
+  const minTokens = getStaticCategoryMinTokens();
   const result = Object.entries(counts)
-    .filter(([_, count]) => count >= 3)
+    .filter(([_, count]) => count >= minTokens)
     .map(([id, count]) => ({ id, name: nameMap[id], count }))
     .sort((a, b) => b.count - a.count);
 

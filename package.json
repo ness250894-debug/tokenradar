@@ -19,6 +19,7 @@
     "d1:migrate": "tsx scripts/d1-migrate.ts",
     "d1:report": "tsx scripts/report-ops-ledger.ts",
     "d1:smoke": "tsx scripts/d1-smoke.ts",
+    "deploy:check-files": "tsx scripts/check-pages-file-budget.ts out",
     "cf:usage-snapshot": "tsx scripts/snapshot-cloudflare-usage.ts",
     "r2:cleanup-ledger": "tsx scripts/cleanup-r2-staging.ts",
     "studio": "remotion studio src/video/Root.tsx"
