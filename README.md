@@ -13,6 +13,7 @@ Data-driven crypto analysis platform with AI-powered content generation, proprie
 - **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and platform-aware social automation)
 - **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API with manual fallback
 - **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots
+- **Quality:** Lighthouse CI static export audits, PageSpeed Insights live snapshots, Dependabot, and production npm audit gates
 
 ## Project Structure
 
@@ -32,6 +33,14 @@ tests/             # Vitest unit tests
 - Failure diagnostics are uploaded as short-retention Actions artifacts.
 - Monthly data/content/media snapshots are archived as GitHub Releases.
 - Social tracking state is no longer pushed to `main` after every social run.
+
+## Quality Gates
+
+- `.github/workflows/performance.yml` runs Lighthouse CI against the static export on pull requests and weekly on `main`, then uploads the `.lighthouseci/` reports as short-retention artifacts.
+- The same workflow runs a weekly/manual PageSpeed Insights snapshot against the live site when the free `PAGESPEED_API_KEY` GitHub Actions secret is configured. The key avoids anonymous API quota failures.
+- `.github/workflows/dependency-security.yml` runs `npm audit --omit=dev --audit-level=high` for production dependencies. Moderate advisories are monitored by Dependabot without blocking deploys when no fix is available.
+- `.github/dependabot.yml` keeps npm packages and GitHub Actions updated weekly in small grouped PRs.
+- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP.
 
 ## Getting Started
 
@@ -121,6 +130,7 @@ Copy `.env.example` to `.env.local` and configure:
 | `R2_BUCKET_NAME` | For R2 | Cloudflare R2 Media Staging |
 | `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |
 | `COINGECKO_API_KEY` | No | Optional Pro tier |
+| `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |
 
 ## Deployment
 
