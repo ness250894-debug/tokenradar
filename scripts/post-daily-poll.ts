@@ -17,6 +17,7 @@ import * as path from "path";
 import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
 import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
@@ -139,6 +140,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-poll.json");
+  const socialPostKey = `${today}:telegram-poll`;
   cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
@@ -146,9 +148,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (fs.existsSync(trackerFile) && !dryRun && !force) {
+  if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("telegram", socialPostKey))) {
     const existing = safeReadJson<{ postedAt?: string }>(trackerFile, {});
-    console.log(`Telegram daily poll already sent today (${existing.postedAt || "unknown time"}). Exiting.`);
+    console.log(`Telegram daily poll already sent today (${existing.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
@@ -201,11 +203,12 @@ async function main() {
     }
 
     const msgId = await sendTelegramPoll(question, options, channelId!);
+    const postedAt = new Date().toISOString();
     fs.writeFileSync(
       trackerFile,
       JSON.stringify(
         {
-          postedAt: new Date().toISOString(),
+          postedAt,
           question,
           options,
           messageId: msgId,
@@ -219,6 +222,17 @@ async function main() {
         2,
       ),
     );
+    await recordSocialPost({
+      platform: "telegram",
+      contentKey: socialPostKey,
+      externalId: msgId,
+      postedAt,
+      details: {
+        themeKey: theme.key,
+        theme: theme.theme,
+        variantSurface: "telegram-poll",
+      },
+    });
 
     console.log(`Telegram poll sent successfully (msg_id: ${msgId})`);
   } catch (err) {

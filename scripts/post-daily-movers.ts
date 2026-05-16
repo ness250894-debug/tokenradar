@@ -17,6 +17,7 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
@@ -51,6 +52,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-movers.json");
+  const socialPostKey = `${today}:telegram-movers`;
   cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
@@ -58,9 +60,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (fs.existsSync(trackerFile) && !dryRun && !force) {
+  if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("telegram", socialPostKey))) {
     const existing = safeReadJson<{ postedAt?: string }>(trackerFile, {});
-    console.log(`Telegram movers card already sent today (${existing.postedAt || "unknown time"}). Exiting.`);
+    console.log(`Telegram movers card already sent today (${existing.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
@@ -207,11 +209,12 @@ ${TELEGRAM_SIGNAL_NOTE}
 
     // ── Post to Telegram (buffer goes directly, never saved) ──
     const msgId = await sendTelegramPhoto(photoBuffer, sanitizedCaption, channelId!);
+    const postedAt = new Date().toISOString();
     fs.writeFileSync(
       trackerFile,
       JSON.stringify(
         {
-          postedAt: new Date().toISOString(),
+          postedAt,
           messageId: msgId,
           movers: movers.map((mover) => mover.id),
           variantKey: variant.key,
@@ -222,6 +225,18 @@ ${TELEGRAM_SIGNAL_NOTE}
         2,
       ),
     );
+    await recordSocialPost({
+      platform: "telegram",
+      contentKey: socialPostKey,
+      externalId: msgId,
+      postedAt,
+      details: {
+        movers: movers.map((mover) => mover.id),
+        variantKey: variant.key,
+        variantLabel: variant.label,
+        variantSurface: "telegram-movers",
+      },
+    });
     console.log(`✅ Telegram movers card sent successfully (msg_id: ${msgId})`);
   } catch (err) {
     console.error(`Telegram movers card failed: ${formatErrorForLog(err)}`);

@@ -44,6 +44,7 @@ import {
   getTelegramFooter,
 } from "../src/lib/config";
 import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
+import { listSocialPostContentKeys, recordSocialPost } from "../src/lib/ops-ledger";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
 import { getRecentPlatformTexts, getRecentSocialVariantKeys } from "./lib/social-history";
@@ -61,6 +62,28 @@ import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coing
 loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
+
+type MarketPostPlatform = "telegram" | "x";
+
+function parseMarketUpdateTokenId(contentKey: string): string | null {
+  const parts = contentKey.split(":");
+  return parts.length >= 3 && parts[1] === "market-update" ? parts[2] || null : null;
+}
+
+async function getD1PostedMarketUpdateTokens(
+  today: string,
+  platforms: MarketPostPlatform[],
+): Promise<Set<string>> {
+  const posted = new Set<string>();
+  for (const platform of platforms) {
+    const keys = await listSocialPostContentKeys(platform, `${today}:market-update:`);
+    for (const key of keys) {
+      const tokenId = parseMarketUpdateTokenId(key);
+      if (tokenId) posted.add(tokenId);
+    }
+  }
+  return posted;
+}
 
 
 
@@ -139,6 +162,16 @@ async function main() {
   // 2. Load dedup state
   const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY, targetPlatform as any);
   const recentlyPosted = getRecentlyPostedTokens(DATA_DIR, targetPlatform as any);
+  if (!dryRun) {
+    const d1TodayPosted = await getD1PostedMarketUpdateTokens(
+      TODAY,
+      [
+        ...(runTelegram ? ["telegram" as const] : []),
+        ...(runX ? ["x" as const] : []),
+      ],
+    );
+    for (const tokenId of d1TodayPosted) todayPosted.add(tokenId);
+  }
   console.log(`  Already posted today: ${todayPosted.size} tokens`);
   console.log(`  Posted in last 30 days: ${recentlyPosted.size} tokens`);
 
@@ -326,6 +359,7 @@ async function main() {
   }
 
   const successfulPlatforms = new Set<"telegram" | "x">();
+  const successfulExternalIds = new Map<"telegram" | "x", string | number>();
 
   if (runTelegram) {
     try {
@@ -353,6 +387,7 @@ async function main() {
           });
           console.log(`✅ Posted photo to Telegram (Message ID: ${msg.message_id})`);
           successfulPlatforms.add("telegram");
+          successfulExternalIds.set("telegram", msg.message_id);
         } else {
           console.log(`✅ [DRY RUN] Would have posted photo to Telegram with caption length: ${caption.length}`);
           console.log(`DEBUG CAPTION:\n${caption}`);
@@ -393,6 +428,7 @@ async function main() {
           });
           console.log(`✅ Posted text to Telegram (Message ID: ${msg.message_id})`);
           successfulPlatforms.add("telegram");
+          successfulExternalIds.set("telegram", msg.message_id);
         } else {
           console.log(`✅ [DRY RUN] Would have posted text to Telegram with length: ${finalTgMessage.length}`);
           console.log(`DEBUG MESSAGE:\n${finalTgMessage}`);
@@ -416,6 +452,7 @@ async function main() {
           console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
         }
         successfulPlatforms.add("x");
+        successfulExternalIds.set("x", tweetId);
 
         if (xReplyMessage) {
           try {
@@ -466,6 +503,23 @@ async function main() {
           ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
         }, null, 2));
       }
+      await recordSocialPost({
+        platform,
+        contentKey: `${TODAY}:market-update:${targetToken.id}`,
+        externalId: successfulExternalIds.get(platform),
+        details: {
+          tokenId: targetToken.id,
+          tokenName: targetToken.name,
+          requestedPlatform: targetPlatform,
+          reason,
+          tone,
+          variantKey: contentVariants[platform]?.key,
+          variantLabel: contentVariants[platform]?.label,
+          variantSurface: "market-update",
+          ...(platform === "x" ? { xText: xMessage } : {}),
+          ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
+        },
+      });
     }
 
     // Log success for the Daily Report

@@ -21,6 +21,7 @@ import {
 import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
 import { publishInstagramCarousel } from "../src/lib/meta-client";
 import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
@@ -147,6 +148,7 @@ async function main() {
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
+  const socialPostKey = `${today}:instagram-carousel`;
   const variant = selectSocialContentVariant({
     platform: "instagram-carousel",
     usedVariantKeys: force
@@ -174,9 +176,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (fs.existsSync(trackerFile) && !dryRun && !force) {
+  if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("instagram", socialPostKey))) {
     const existing = safeReadJson<InstagramMoversTracker | null>(trackerFile, null);
-    console.log(`Instagram movers carousel already posted today (${existing?.postedAt || "unknown time"}). Exiting.`);
+    console.log(`Instagram movers carousel already posted today (${existing?.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
@@ -241,12 +243,13 @@ async function main() {
       imageUrls.map((imageUrl) => ({ imageUrl })),
       caption,
     );
+    const postedAt = new Date().toISOString();
 
     fs.writeFileSync(
       trackerFile,
       JSON.stringify(
         {
-          postedAt: new Date().toISOString(),
+          postedAt,
           postId: result.id,
           movers: movers.map((mover) => mover.id),
           slideCount: slides.length,
@@ -260,6 +263,19 @@ async function main() {
         2,
       ),
     );
+    await recordSocialPost({
+      platform: "instagram",
+      contentKey: socialPostKey,
+      externalId: result.id,
+      postedAt,
+      details: {
+        movers: movers.map((mover) => mover.id),
+        slideCount: slides.length,
+        variantKey: variant.key,
+        variantLabel: variant.label,
+        variantSurface: "instagram-carousel",
+      },
+    });
 
     try {
       await deleteObjects(uploadedKeys);

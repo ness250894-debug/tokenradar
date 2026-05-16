@@ -35,6 +35,7 @@ import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import { cleanPrefix, deleteObjects, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
+import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import {
   hasTikTokManualReportCredentials,
   sendTikTokInboxUploadReport,
@@ -143,6 +144,20 @@ interface PlatformVideoAsset {
   hookText: string;
   audioTrack: AudioTrackSelection;
   visualRecipe: VideoVisualRecipe;
+}
+
+function getVideoSocialPostKey(today: string, tokenId: string, platform: PlatformName): string {
+  return `${today}:video:${tokenId}:${platform}`;
+}
+
+function getPlatformTrackerExternalId(tracker: PlatformTracker): string | number | undefined {
+  return tracker.messageId ??
+    tracker.tweetId ??
+    tracker.videoId ??
+    tracker.postId ??
+    tracker.publishId ??
+    tracker.reportVideoMessageId ??
+    tracker.reportSummaryMessageId;
 }
 
 function cleanupFile(filePath: string): void {
@@ -646,6 +661,21 @@ async function main() {
   }
 
   console.log(`  Selected: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
+  const d1AlreadyPublished = new Set<PlatformName>();
+  if (!dryRun && !force) {
+    for (const platform of requestedPlatforms) {
+      if (await hasSocialPost(platform, getVideoSocialPostKey(today, targetToken.id, platform))) {
+        d1AlreadyPublished.add(platform);
+      }
+    }
+
+    if (d1AlreadyPublished.size === requestedPlatforms.length) {
+      console.log(
+        `  Daily video already published for requested platforms (${requestedPlatforms.join(", ")}) according to D1. Exiting.`,
+      );
+      return;
+    }
+  }
 
   let targetMetric: MetricData | undefined;
   const metricsFile = path.join(metricsDir, `${targetToken.id}.json`);
@@ -1019,6 +1049,13 @@ async function main() {
       platform: targetPlatform,
       platforms: { ...(existingTracker?.platforms || {}) },
     };
+    for (const platform of d1AlreadyPublished) {
+      if (!trackerState.platforms[platform]) {
+        trackerState.platforms[platform] = {
+          postedAt: existingTracker?.postedAt || new Date().toISOString(),
+        };
+      }
+    }
 
     const publishTasks: Array<Promise<{ platform: PlatformName; tracker: PlatformTracker | null }>> = [];
 
@@ -1323,6 +1360,23 @@ async function main() {
     for (const result of results) {
       if (result.tracker) {
         trackerState.platforms[result.platform] = result.tracker;
+        await recordSocialPost({
+          platform: result.platform,
+          contentKey: getVideoSocialPostKey(today, targetToken.id, result.platform),
+          externalId: getPlatformTrackerExternalId(result.tracker),
+          postedAt: result.tracker.postedAt,
+          details: {
+            tokenId: targetToken.id,
+            tokenName: targetToken.name,
+            reason,
+            requestedPlatform: targetPlatform,
+            formatKey: result.tracker.formatKey,
+            formatLabel: result.tracker.formatLabel,
+            visualRecipeKey: result.tracker.visualRecipeKey,
+            deliveryMode: result.tracker.deliveryMode,
+            variantSurface: "video",
+          },
+        });
       }
     }
 
