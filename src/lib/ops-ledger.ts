@@ -35,6 +35,24 @@ export interface SocialPostRecord {
   details?: JsonRecord;
 }
 
+export interface AutomationRunRecord {
+  id: string;
+  workflow: string;
+  status: string;
+  slot?: string;
+  startedAt?: string;
+  finishedAt?: string;
+  details?: JsonRecord;
+}
+
+export interface QuotaSnapshotRecord {
+  source: string;
+  period: string;
+  count: number;
+  recordedAt?: string;
+  details?: JsonRecord;
+}
+
 interface SocialPostKeyRow {
   content_key: string;
 }
@@ -221,4 +239,62 @@ export async function listSocialPostContentKeys(platform: string, prefix: string
     },
     [],
   );
+}
+
+export async function recordAutomationRun(record: AutomationRunRecord): Promise<void> {
+  const now = toIsoDate(new Date());
+  const startedAt = record.startedAt || now;
+  const finishedAt = record.finishedAt || null;
+
+  await writeLedger(`record automation run ${record.id}`, async () => {
+    await executeD1Query(
+      `
+      INSERT INTO automation_runs (id, workflow, slot, status, started_at, finished_at, details_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id) DO UPDATE SET
+        workflow = excluded.workflow,
+        slot = excluded.slot,
+        status = excluded.status,
+        started_at = CASE
+          WHEN excluded.status = 'started' THEN excluded.started_at
+          ELSE automation_runs.started_at
+        END,
+        finished_at = excluded.finished_at,
+        details_json = excluded.details_json
+      `,
+      [
+        record.id,
+        record.workflow,
+        record.slot || null,
+        record.status,
+        startedAt,
+        finishedAt,
+        stringifyDetails(record.details),
+      ],
+    );
+  });
+}
+
+export async function recordQuotaSnapshot(record: QuotaSnapshotRecord): Promise<void> {
+  const safeCount = Number.isFinite(record.count) ? Math.trunc(record.count) : 0;
+
+  await writeLedger(`record quota snapshot ${record.source}/${record.period}`, async () => {
+    await executeD1Query(
+      `
+      INSERT INTO quota_snapshots (source, period, count, recorded_at, details_json)
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(source, period) DO UPDATE SET
+        count = excluded.count,
+        recorded_at = excluded.recorded_at,
+        details_json = excluded.details_json
+      `,
+      [
+        record.source,
+        record.period,
+        safeCount,
+        record.recordedAt || toIsoDate(new Date()),
+        stringifyDetails(record.details),
+      ],
+    );
+  });
 }
