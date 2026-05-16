@@ -1,0 +1,103 @@
+name: Performance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "content/**"
+      - "data/**"
+      - "public/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "lighthouserc.cjs"
+      - ".github/workflows/performance.yml"
+  schedule:
+    - cron: "40 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: performance-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  NEXT_PUBLIC_SITE_URL: "https://tokenradar.co"
+  NEXT_PUBLIC_SITE_NAME: "TokenRadar"
+
+jobs:
+  lighthouse-static-export:
+    name: Lighthouse CI static export
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Run Lighthouse CI
+        run: npm run lighthouse:ci
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-static-export-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .lighthouseci/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  pagespeed-live:
+    name: PageSpeed Insights live snapshot
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run PageSpeed Insights
+        run: |
+          if [ -z "$PAGESPEED_API_KEY" ]; then
+            echo "Skipping PageSpeed Insights because PAGESPEED_API_KEY is not configured."
+            exit 0
+          fi
+          npm run pagespeed:snapshot
+        env:
+          PAGESPEED_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}

@@ -20,7 +20,7 @@ function parseCsp(csp: string): Map<string, string[]> {
 }
 
 describe("security headers", () => {
-  it("allows the embedded TradingView chart without opening broad script or frame sources", () => {
+  it("allows trusted analytics and embedded TradingView sources without opening broad script or frame sources", () => {
     const directives = parseCsp(loadCsp());
 
     expect(directives.get("script-src")).toEqual([
@@ -28,10 +28,16 @@ describe("security headers", () => {
       "'unsafe-inline'",
       "https://www.googletagmanager.com",
       "https://s3.tradingview.com",
+      "https://static.cloudflareinsights.com",
     ]);
     expect(directives.get("frame-src")).toEqual(["'self'", "https://www.tradingview.com"]);
     expect(directives.get("connect-src")).toEqual(
-      expect.arrayContaining(["'self'", "https://www.tradingview.com", "https://s.tradingview.com"]),
+      expect.arrayContaining([
+        "'self'",
+        "https://www.tradingview.com",
+        "https://s.tradingview.com",
+        "https://cloudflareinsights.com",
+      ]),
     );
     expect(directives.get("script-src")).not.toContain("*");
     expect(directives.get("frame-src")).not.toContain("*");
