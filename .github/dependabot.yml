@@ -26,6 +26,10 @@ updates:
           - "tsx"
           - "typescript"
           - "vitest"
+    ignore:
+      - dependency-name: "eslint"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
