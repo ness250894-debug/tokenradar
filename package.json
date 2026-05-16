@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^20",
+    "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
@@ -65,7 +65,7 @@
     "eslint-config-next": "^16.2.6",
     "satori": "^0.26.0",
     "tsx": "^4.21.0",
-    "typescript": "^5",
+    "typescript": "^6",
     "vitest": "^4.1.5",
     "wrangler": "^4.90.0"
   }
