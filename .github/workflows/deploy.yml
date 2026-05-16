@@ -117,6 +117,7 @@ jobs:
           fi
           
           FILE_COUNT=$(find out -type f | wc -l)
+          npm run deploy:check-files
           echo "📊 Total files in out/: $FILE_COUNT"
           echo "✅ Static export verified ($FILE_COUNT files)."
 
