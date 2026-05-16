@@ -28,7 +28,7 @@
     "studio": "remotion studio src/video/Root.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1045.0",
+    "@aws-sdk/client-s3": "^3.1048.0",
     "@coingecko/coingecko-typescript": "^3.1.5",
     "@next/third-parties": "^16.2.6",
     "@remotion/cli": "^4.0.462",
