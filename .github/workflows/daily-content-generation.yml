@@ -3,7 +3,8 @@
 # 1. Generate new/updated articles via Smart Drip priority queue
 #    (volatile tokens → incomplete hubs → oldest stale content)
 # 2. Publish from queue with live market data injection
-# Budget: ~10 tracked tokens + 5 TGEs = ~35 articles/day, ~25 min runtime.
+# Budget: ~20 tracked token folders + 5 TGEs = up to ~65 articles/day.
+# Market-data refreshes stay separate in daily-refresh; this cap is only for AI/editorial generation.
 
 name: Daily Content Generation
 
@@ -18,12 +19,15 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
+  CONTENT_MAX_REFRESH: "20"
+  CONTENT_MAX_TGE: "5"
+  CONTENT_PUBLISH_MAX: "25"
 
 jobs:
   publish:
     name: Inject Data & Publish
     runs-on: ubuntu-latest
-    timeout-minutes: 135
+    timeout-minutes: 180
     outputs:
       has_changes: ${{ steps.commit.outputs.has_changes }}
       commit_sha: ${{ steps.commit.outputs.commit_sha }}
@@ -63,8 +67,8 @@ jobs:
         run: npm ci
 
       - name: Generate Drip Content (Smart Drip)
-        timeout-minutes: 45
-        run: npx tsx scripts/generate-content.ts --drip --max-refresh 10 --max-tge 5 --refresh-macro --queue
+        timeout-minutes: 90
+        run: npx tsx scripts/generate-content.ts --drip --max-refresh "$CONTENT_MAX_REFRESH" --max-tge "$CONTENT_MAX_TGE" --refresh-macro --queue
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -78,8 +82,8 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Publish from Queue (Incorporate live data)
-        timeout-minutes: 15
-        run: npx tsx scripts/publish-from-queue.ts --max 15
+        timeout-minutes: 25
+        run: npx tsx scripts/publish-from-queue.ts --max "$CONTENT_PUBLISH_MAX"
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}

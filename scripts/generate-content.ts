@@ -423,7 +423,7 @@ async function main() {
   console.log(`  Mode: ${dryRun ? "DRY RUN (no API calls)" : "LIVE"}`);
   console.log(`  Target token: ${targetToken || "all"}`);
   console.log(`  Target type: ${targetType || "all"}`);
-  console.log(`  Max tracked tokens: ${maxTokens}`);
+  console.log(`  Max tracked tokens: ${dripMode ? `${maxRefresh} (drip refresh budget)` : maxTokens}`);
   console.log(`  Max TGE tokens:     ${maxTgeTokens}`);
   if (dripMode) {
     console.log(`  Drip Mode Enabled:  Limit ${maxRefresh} refreshes + ${maxTgeTokens} TGEs`);
