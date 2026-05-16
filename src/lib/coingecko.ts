@@ -229,6 +229,19 @@ import type { TrendingGetResponse } from "@coingecko/coingecko-typescript/resour
 
 export type { CoinGetIDResponse as CoinDetail, MarketChartGetResponse as MarketChartData, GlobalGetResponse, CategoryGetResponse, TrendingGetResponse };
 export type CoinGeckoToken = MarketGetResponse[number];
+
+export interface CoinCategoryMarketData {
+  id?: string;
+  content?: string;
+  market_cap?: number;
+  market_cap_change_24h?: number;
+  name?: string;
+  top_3_coins?: string[];
+  top_3_coins_id?: string[];
+  updated_at?: string;
+  volume_24h?: number;
+}
+
 // The SDK's GlobalMarketData is missing many currency fields in total_market_cap and total_volume
 // We override it here to ensure 'usd' and other common fields are accessible
 export interface GlobalMarketStats {
@@ -534,12 +547,12 @@ export async function fetchGlobalMarketData(): Promise<GlobalMarketStats | undef
 /**
  * Fetch the top performing coin categories (sectors).
  */
-export async function fetchTrendingCategories(limit: number = 5): Promise<CategoryGetResponse[]> {
+export async function fetchTrendingCategories(limit: number = 5): Promise<CoinCategoryMarketData[]> {
   const client = getClient();
   const categories = await withCache(
     "trending-categories",
     2 * 60 * 60 * 1000, // 2 hour cache
-    () => client.coins.categories.get({ order: "market_cap_change_24h_desc" }) as unknown as Promise<CategoryGetResponse[]>
+    () => client.coins.categories.get({ order: "market_cap_change_24h_desc" }) as unknown as Promise<CoinCategoryMarketData[]>
   );
   return (categories || []).slice(0, limit);
 }
