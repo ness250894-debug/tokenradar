@@ -26,7 +26,7 @@ import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib
 import { getTgeContractQueries, normalizeTge, shouldPublishTgePreview } from "../src/lib/tge";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import { buildArticleQualitySnapshot, evaluateArticleQuality, type ArticleQualitySnapshot } from "../src/lib/content-quality";
-import type { DEXPoolData } from "../src/lib/coingecko";
+import type { CoinCategoryMarketData, DEXPoolData } from "../src/lib/coingecko";
 import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 
 // Load environment
@@ -71,6 +71,18 @@ import { callAIWithFallback, AIResult } from "../src/lib/gemini";
 interface PricePoint {
   date: string;
   price: number;
+}
+
+function formatSectorPerformance(sectors: CoinCategoryMarketData[]): string {
+  return sectors
+    .map((sector) => {
+      const name = sector.name?.trim();
+      const change = sector.market_cap_change_24h;
+      if (!name || typeof change !== "number" || !Number.isFinite(change)) return null;
+      return `${name} (${change >= 0 ? "+" : ""}${change.toFixed(1)}%)`;
+    })
+    .filter((value): value is string => Boolean(value))
+    .join(", ");
 }
 
 /**
@@ -405,9 +417,7 @@ async function main() {
 
     const sectors = await fetchTrendingCategories(3);
     if (sectors.length > 0) {
-      sectorPerformanceStr = sectors
-        .map(s => `${s.name} (${s.market_cap_change_24h && s.market_cap_change_24h >= 0 ? "+" : ""}${s.market_cap_change_24h?.toFixed(1)}%)`)
-        .join(", ");
+      sectorPerformanceStr = formatSectorPerformance(sectors);
     }
     
     if (globalStatsStr) console.log(`  ✦ Global: ${globalStatsStr}`);
