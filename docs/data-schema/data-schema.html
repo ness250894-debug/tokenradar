@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenRadar Data Schema &amp; Flow Coverage - TokenRadar Docs</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0d10;
+        --panel: #151922;
+        --panel-2: #10141b;
+        --line: #2c3443;
+        --text: #f5f7fb;
+        --muted: #aeb8c8;
+        --soft: #768297;
+        --cyan: #31c7d7;
+        --green: #35d18a;
+        --amber: #f2b84b;
+        --red: #f06d73;
+        --blue: #7aa2ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1180px, calc(100vw - 40px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      header {
+        margin-bottom: 28px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 980px;
+        margin-bottom: 12px;
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin: 28px 0 14px;
+        font-size: 26px;
+      }
+
+      h3 {
+        margin: 24px 0 10px;
+        color: var(--text);
+        font-size: 19px;
+      }
+
+      p,
+      li,
+      td {
+        color: var(--muted);
+      }
+
+      code {
+        color: #dce6f7;
+        font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 14px 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #070a0f;
+      }
+
+      pre code {
+        color: #dce6f7;
+        white-space: pre;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .section {
+        margin-top: 22px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .box {
+        min-height: 116px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .box p {
+        margin-bottom: 0;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .tag.green {
+        color: var(--green);
+      }
+
+      .tag.amber {
+        color: var(--amber);
+      }
+
+      .tag.blue {
+        color: var(--blue);
+      }
+
+      .tag.red {
+        color: var(--red);
+      }
+
+      table {
+        width: 100%;
+        margin: 16px 0;
+        border-collapse: collapse;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--text);
+        background: #151922;
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      ul,
+      ol {
+        margin: 10px 0 16px;
+        padding-left: 22px;
+      }
+
+      li + li {
+        margin-top: 6px;
+      }
+
+      @media (max-width: 920px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        td {
+          border-bottom: 0;
+          padding: 10px 14px;
+        }
+
+        tr {
+          border-bottom: 1px solid var(--line);
+          padding: 8px 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100vw - 28px, 1180px);
+          padding-top: 30px;
+        }
+
+        .section {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TokenRadar Data Schema &amp; Flow Coverage</h1>
+        <p class="lead">
+          Self-contained reference for the JSON contracts and data movement used by the TokenRadar pipeline.
+          This replaces the stale root <code>DATA_SCHEMA.md</code> source and aligns the docs with the current code paths.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>Document Contract</h2>
+        <div class="grid">
+          <div class="box">
+            <span class="tag green">Source of Record</span>
+            <h3><code>docs/data-schema/</code></h3>
+            <p>The Markdown source was removed; this HTML and its JSON pair now carry the maintained reference.</p>
+          </div>
+          <div class="box">
+            <span class="tag blue">Scope</span>
+            <h3>Flow + Schemas</h3>
+            <p>Covers fetch, metrics, search intent, generated content, queue publishing, validation, blobs, and runtime consumption.</p>
+          </div>
+          <div class="box">
+            <span class="tag amber">Pair</span>
+            <h3><a href="data-schema.json">data-schema.json</a></h3>
+            <p>Machine-readable schema and flow reference for this same coverage.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Coverage Updates</h2>
+        <ul>
+          <li><code>TokenMetrics</code> now matches the implementation: identity fields, <code>riskLevel</code>, <code>summary</code>, <code>computedAt</code>, and optional holder concentration are included.</li>
+          <li><code>valueVsAth</code> is documented as the current 0-100 score used by code, not a negative drawdown percentage.</li>
+          <li><code>volatilityIndex</code> is documented as a 0-100 derived score, not a raw coefficient such as <code>0.15</code>.</li>
+          <li>The flow now includes token details, price history, TGE records, search-intent datasets, queue/quarantine paths, consolidated runtime blobs, and validation limits.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>End-to-End Flow</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Producer</th>
+              <th>Persistent Outputs</th>
+              <th>Consumers and Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Discovery</td>
+              <td><code>scripts/discover-tges.ts</code>, <code>scripts/agent-narrative-hunter.ts</code></td>
+              <td><code>data/upcoming-tges.json</code></td>
+              <td>TGE pages, TGE preview generation, search intent, queue publishing, and TGE validation.</td>
+            </tr>
+            <tr>
+              <td>Market Harvesting</td>
+              <td><code>scripts/fetch-crypto-data.ts</code></td>
+              <td><code>data/tokens/{tokenId}.json</code>, <code>data/prices/{tokenId}.json</code>, <code>data/tokens.json</code></td>
+              <td>Metrics, content generation, search intent, consolidation, pages, and social scripts.</td>
+            </tr>
+            <tr>
+              <td>Derived Metrics</td>
+              <td><code>scripts/compute-metrics.ts</code></td>
+              <td><code>data/metrics/{tokenId}.json</code></td>
+              <td>Frontend metric cards, article prompts, OG images, search intent, and social/video scripts.</td>
+            </tr>
+            <tr>
+              <td>Search Intent</td>
+              <td><code>scripts/compute-search-intent.ts</code></td>
+              <td><code>data/search-intent.json</code>, <code>data/search-intent-history.json</code></td>
+              <td>Static search-intent UI, trend deltas, and runtime card fields.</td>
+            </tr>
+            <tr>
+              <td>Article Generation</td>
+              <td><code>scripts/generate-content.ts</code></td>
+              <td><code>data/queue/{tokenId}/{slug}.json</code> or <code>content/tokens/{tokenId}/{slug}.json</code></td>
+              <td>Generated article objects can include a computed <code>quality</code> snapshot.</td>
+            </tr>
+            <tr>
+              <td>Quality and Publishing</td>
+              <td><code>scripts/quality-check.ts</code>, <code>scripts/publish-from-queue.ts</code>, article repair/link scripts</td>
+              <td><code>content/tokens/{tokenId}/{slug}.json</code>, <code>data/quarantine/{run}/{tokenId}/{slug}.json</code></td>
+              <td>Queue publisher injects live placeholders, drops unresolved placeholders, and blocks failed quality snapshots.</td>
+            </tr>
+            <tr>
+              <td>Consolidation and Delivery</td>
+              <td><code>scripts/consolidate-data.ts</code>, <code>scripts/generate-og-images.tsx</code>, <code>scripts/generate-sitemap.ts</code></td>
+              <td><code>data/_tokens_blob.json</code>, <code>data/_metrics_blob.json</code>, <code>data/_prices_blob.json</code>, <code>data/_registry.json</code>, <code>public/data/*</code>, <code>public/og/*</code>, <code>public/sitemap*.xml</code></td>
+              <td>Build-time and static runtime surfaces. Article content is rendered from <code>content/tokens</code>, not copied into <code>public/content</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Proprietary Metrics</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Unit and Range</th>
+              <th>Current Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>riskScore</code></td>
+              <td><code>1</code> to <code>10</code>, currently rounded to an integer by <code>computeRiskScore</code>.</td>
+              <td>Higher means higher risk. Inputs include volatility, market cap, volume-to-market-cap ratio, and ATH drawdown.</td>
+            </tr>
+            <tr>
+              <td><code>riskLevel</code></td>
+              <td><code>low</code>, <code>medium</code>, or <code>high</code>.</td>
+              <td>Derived from <code>riskScore</code>: low <= 3, medium <= 6, high > 6.</td>
+            </tr>
+            <tr>
+              <td><code>growthPotentialIndex</code></td>
+              <td><code>0</code> to <code>100</code>.</td>
+              <td>Composite score from distance from ATH, category-relative market cap, and recent 30-day momentum.</td>
+            </tr>
+            <tr>
+              <td><code>narrativeStrength</code></td>
+              <td><code>0</code> to <code>100</code>.</td>
+              <td>Category mapping score, defaulting to <code>30</code> when no mapped category is found.</td>
+            </tr>
+            <tr>
+              <td><code>valueVsAth</code></td>
+              <td><code>0</code> to <code>100</code> score.</td>
+              <td><code>100</code> means at ATH, <code>0</code> means nearly worthless versus ATH. This is not the raw negative ATH drawdown.</td>
+            </tr>
+            <tr>
+              <td><code>volatilityIndex</code></td>
+              <td><code>0</code> to <code>100</code> score.</td>
+              <td>Computed from 30-day coefficient of variation and scaled with <code>Math.min(100, volatility * 5)</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Core JSON Contracts</h2>
+
+        <h3><code>TokenDetailData</code></h3>
+        <p>Used in <code>data/tokens/{tokenId}.json</code> and consolidated into <code>data/_tokens_blob.json</code>.</p>
+        <pre><code class="language-typescript">interface TokenDetailData {
+  id: string;
+  symbol: string;
+  name: string;
+  description: string;
+  categories: string[];
+  genesisDate: string | null;
+  links: {
+    website: string | null;
+    github: string | null;
+    reddit: string | null;
+    explorer: string | null;
+  };
+  market: {
+    price: number;
+    marketCap: number;
+    marketCapRank: number;
+    volume24h: number;
+    high24h: number;
+    low24h: number;
+    priceChange24h: number;
+    priceChange7d: number;
+    priceChange30d: number;
+    priceChange1y: number;
+    ath: number;
+    athChangePercentage: number;
+    athDate: string;
+    atl: number;
+    atlDate: string;
+    circulatingSupply: number;
+    totalSupply: number | null;
+    maxSupply: number | null;
+    fdv: number | null;
+  };
+  community: {
+    twitterFollowers: number | null;
+    redditSubscribers: number | null;
+  };
+  developer: {
+    githubStars: number | null;
+    githubForks: number | null;
+    commits4Weeks: number | null;
+  };
+  chart30d?: unknown;
+  chart1y?: unknown;
+  fetchedAt: string;
+  lastMarketUpdate?: string;
+}</code></pre>
+
+        <h3><code>PriceHistory</code></h3>
+        <p>Used in <code>data/prices/{tokenId}.json</code> and consolidated into <code>data/_prices_blob.json</code>.</p>
+        <pre><code class="language-typescript">interface PriceHistory {
+  id: string;
+  name: string;
+  chart30d: Array&lt;{ date: string; price: number }&gt;;
+  chart1y: Array&lt;{ date: string; price: number }&gt;;
+  fetchedAt: string;
+}</code></pre>
+
+        <h3><code>TokenMetrics</code></h3>
+        <p>Used in <code>data/metrics/{tokenId}.json</code> and consolidated into <code>data/_metrics_blob.json</code>.</p>
+        <pre><code class="language-typescript">interface TokenMetrics {
+  tokenId: string;
+  tokenName: string;
+  symbol: string;
+  riskScore: number; // 1-10
+  riskLevel: "low" | "medium" | "high";
+  growthPotentialIndex: number; // 0-100
+  narrativeStrength: number; // 0-100
+  valueVsAth: number; // 0-100 score
+  volatilityIndex: number; // 0-100 score
+  holderConcentrationEstimate?: "low" | "medium" | "high" | "unknown";
+  summary: string;
+  computedAt: string;
+}</code></pre>
+
+        <h3><code>GeneratedArticle</code></h3>
+        <p>Used in <code>content/tokens/{tokenId}/{slug}.json</code> and optionally in <code>data/queue/{tokenId}/{slug}.json</code>.</p>
+        <pre><code class="language-typescript">interface GeneratedArticle {
+  tokenId: string;
+  tokenName: string;
+  type: "overview" | "price-prediction" | "how-to-buy" | "tge-preview" | string;
+  title: string;
+  slug: string;
+  content: string;
+  wordCount: number;
+  generatedAt: string;
+  model: string;
+  promptTokens?: number;
+  completionTokens?: number;
+  quality?: ArticleQualitySnapshot;
+}</code></pre>
+
+        <h3><code>ArticleQualitySnapshot</code></h3>
+        <p>Stored on generated articles when quality evaluation runs during generation or queue publication.</p>
+        <pre><code class="language-typescript">interface ArticleQualitySnapshot {
+  passed: boolean;
+  issues: string[];
+  warnings: string[];
+  stats: {
+    wordCount: number;
+    hasFaq: boolean;
+    hasDisclaimer: boolean;
+    dataPointCount: number;
+    prohibitedPhrases: string[];
+    avgSentenceLength: number;
+    repeatedParagraphCount: number;
+    hasMalformedTable: boolean;
+    hasContinuationLink: boolean;
+  };
+  checkedAt: string;
+}</code></pre>
+
+        <h3><code>UpcomingTge</code></h3>
+        <p>Used in <code>data/upcoming-tges.json</code>.</p>
+        <pre><code class="language-typescript">interface UpcomingTge {
+  id: string;
+  name: string;
+  symbol: string;
+  category: string;
+  expectedTge: string;
+  narrativeStrength: number;
+  dataSource: string;
+  discoveredAt: string;
+  status?: "upcoming" | "released";
+  lifecycleStatus?: "candidate" | "watchlist" | "confirmed_tge" | "trading_on_dex" | "listed_on_aggregator" | "graduated" | "rejected" | "stale";
+  confidence?: number;
+  signals?: Array&lt;{ type: string; sourceType: string; url: string; title?: string; observedAt: string; confidence?: number }&gt;;
+  officialLinks?: Record&lt;string, string | undefined&gt;;
+  chains?: string[];
+  contracts?: Array&lt;{ chain: string; address: string }&gt;;
+  tokenomics?: Record&lt;string, string | undefined&gt;;
+  lastVerifiedAt?: string;
+  rejectedReason?: string;
+  graduatedAt?: string;
+  coingeckoRank?: number;
+  graduationEvidence?: Record&lt;string, unknown&gt;;
+}</code></pre>
+
+        <h3><code>SearchIntentDataset</code></h3>
+        <p>Used in <code>data/search-intent.json</code>; trend history is stored in <code>data/search-intent-history.json</code>.</p>
+        <pre><code class="language-typescript">interface SearchIntentDataset {
+  generatedAt: string;
+  version: 1;
+  summary: {
+    generatedAt: string;
+    tokenCount: number;
+    topIntents: Array&lt;{ intent: string; label: string; tokenCount: number; avgScore: number }&gt;;
+    hotTokens: string[];
+    watchTokens: string[];
+    methodology: string[];
+  };
+  tokens: Record&lt;string, {
+    tokenId: string;
+    tokenName: string;
+    symbol: string;
+    attentionScore: number;
+    attentionLabel: "Quiet" | "Watch" | "Rising" | "Hot";
+    hypeScore: number;
+    fundamentalsScore: number;
+    supplyRiskScore: number;
+    classification: string;
+    primaryIntent: string;
+    intentMix: Array&lt;{ intent: string; label: string; score: number; queries: string[] }&gt;;
+    drivers: string[];
+    cautions: string[];
+    queryExamples: string[];
+    sourceSignals: string[];
+    computedAt: string;
+  }&gt;;
+}</code></pre>
+      </section>
+
+      <section class="section">
+        <h2>Validation Implementation</h2>
+        <ul>
+          <li><code>src/lib/schemas.ts</code> defines Zod schemas for token metrics, generated articles, article quality snapshots, token detail data, price histories, TGE records, search-intent datasets, and search-intent history.</li>
+          <li><code>scripts/validate-content.ts</code> validates JSON syntax, persisted data-schema contracts, generated article path/type/slug integrity, outbound URLs, TGE preview references, and TGE dataset invariants.</li>
+          <li><code>scripts/quality-check.ts</code> enforces article quality gates such as word count, FAQ, disclaimer, data density, prohibited phrases, and readability.</li>
+          <li><code>src/lib/content-loader.ts</code> validates metrics, price histories, and search-intent datasets before returning them. Invalid payloads return <code>null</code> instead of silently defaulting fields.</li>
+          <li><code>scripts/consolidate-data.ts</code> and <code>scripts/compute-search-intent.ts</code> skip tokens with untrusted market data using the market-data quality checks.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Implemented Contract Decisions</h2>
+        <ul>
+          <li>Invalid metric, price-history, and search-intent runtime payloads are treated as unavailable data and return <code>null</code> from loader APIs.</li>
+          <li>Build-time content validation fails on schema violations for the documented persisted data files.</li>
+          <li><code>valueVsAth</code> is clamped to <code>0</code>-<code>100</code>, and metric summaries interpret high scores as near ATH and low scores as deeply discounted versus ATH.</li>
+          <li>Sitemap and OG files remain build products, not data contracts, so they are intentionally excluded from this schema surface.</li>
+          <li><code>docs/data-schema/data-schema.json</code> remains the machine-readable contract because the root Markdown source has been removed.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

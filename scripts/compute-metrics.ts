@@ -200,7 +200,28 @@ export function computeNarrativeStrength(categories: string[]): number {
  */
 export function computeValueVsAth(athChangePercentage: number): number {
   // athChangePercentage is negative (e.g., -80 = 80% below ATH)
-  return Math.max(0, Math.round(100 + athChangePercentage));
+  return Math.max(0, Math.min(100, Math.round(100 + athChangePercentage)));
+}
+
+export function buildMetricSummary(
+  tokenName: string,
+  riskLevel: "low" | "medium" | "high",
+  growthPotential: number,
+  narrativeStrength: number,
+  valueVsAth: number
+): string {
+  const summaryParts: string[] = [];
+  if (riskLevel === "high") summaryParts.push("high-risk");
+  else if (riskLevel === "low") summaryParts.push("lower-risk");
+  if (growthPotential >= 70) summaryParts.push("high growth potential");
+  else if (growthPotential <= 30) summaryParts.push("limited upside");
+  if (narrativeStrength >= 75) summaryParts.push("strong narrative");
+  if (valueVsAth >= 80) summaryParts.push("near ATH");
+  else if (valueVsAth <= 20) summaryParts.push("deeply discounted vs ATH");
+
+  return summaryParts.length > 0
+    ? `${tokenName} is a ${summaryParts.join(", ")} token.`
+    : `${tokenName} has moderate metrics across the board.`;
 }
 
 // ── Main ───────────────────────────────────────────────────────
@@ -332,20 +353,13 @@ async function main() {
     const riskLevel: "low" | "medium" | "high" =
       riskScore <= 3 ? "low" : riskScore <= 6 ? "medium" : "high";
 
-    // Generate one-line summary
-    const summaryParts: string[] = [];
-    if (riskLevel === "high") summaryParts.push("high-risk");
-    else if (riskLevel === "low") summaryParts.push("lower-risk");
-    if (growthPotential >= 70) summaryParts.push("high growth potential");
-    else if (growthPotential <= 30) summaryParts.push("limited upside");
-    if (narrativeStrength >= 75) summaryParts.push("strong narrative");
-    if (valueVsAth <= 20) summaryParts.push("near ATH");
-    else if (valueVsAth >= 80) summaryParts.push("deeply discounted vs ATH");
-
-    const summary =
-      summaryParts.length > 0
-        ? `${token.name} is a ${summaryParts.join(", ")} token.`
-        : `${token.name} has moderate metrics across the board.`;
+    const summary = buildMetricSummary(
+      token.name,
+      riskLevel,
+      growthPotential,
+      narrativeStrength,
+      valueVsAth
+    );
 
     const metrics: TokenMetrics = {
       tokenId: token.id,

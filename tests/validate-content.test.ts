@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { findUnapprovedOutboundUrls, validateGeneratedArticleIntegrity } from "../scripts/validate-content";
+import {
+  findUnapprovedOutboundUrls,
+  validateDataSchemaIntegrity,
+  validateGeneratedArticleIntegrity,
+} from "../scripts/validate-content";
 
 describe("content outbound URL validation", () => {
   it("allows approved HTTPS hosts", () => {
@@ -55,5 +59,24 @@ describe("content outbound URL validation", () => {
       'Article slug "overview" does not match filename "how-to-buy.json"',
       "Generated article generatedAt must be a valid ISO date when present",
     ]);
+  });
+
+  it("rejects invalid metric score payloads", () => {
+    const errors = validateDataSchemaIntegrity("data/metrics/test-token.json", {
+      tokenId: "test-token",
+      tokenName: "Test Token",
+      symbol: "test",
+      riskScore: 5,
+      riskLevel: "medium",
+      growthPotentialIndex: 50,
+      narrativeStrength: 50,
+      valueVsAth: 120,
+      volatilityIndex: 10,
+      summary: "Test Token has moderate metrics.",
+      computedAt: "2026-05-17T00:00:00.000Z",
+    });
+
+    expect(errors.join("; ")).toContain("data/metrics schema validation failed");
+    expect(errors.join("; ")).toContain("valueVsAth");
   });
 });

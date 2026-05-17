@@ -1,4 +1,6 @@
-import { describe, it, expect } from "vitest";
+import * as fs from "fs";
+import * as path from "path";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   formatPrice,
   formatCompact,
@@ -7,6 +9,14 @@ import {
   getCategoryHref,
   getPrimaryTokenCategory,
 } from "../src/lib/content-loader";
+
+const tmpLoaderRoot = path.join(process.cwd(), "tmp", "content-loader-schema-test");
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.resetModules();
+  fs.rmSync(tmpLoaderRoot, { recursive: true, force: true });
+});
 
 describe("formatPrice", () => {
   it("formats large prices (>= 1000) without decimals", () => {
@@ -128,5 +138,47 @@ describe("category link helpers", () => {
       name: "Tiny Niche Category",
     });
     expect(getPrimaryTokenCategory([], generatedCategoryIds)).toEqual({ name: "Crypto" });
+  });
+});
+
+describe("runtime data schema loading", () => {
+  it("returns null for invalid metric and price payloads instead of defaulting fields", async () => {
+    fs.mkdirSync(path.join(tmpLoaderRoot, "data"), { recursive: true });
+    fs.writeFileSync(
+      path.join(tmpLoaderRoot, "data", "_metrics_blob.json"),
+      JSON.stringify({
+        bad: {
+          tokenId: "bad",
+          tokenName: "Bad Token",
+          symbol: "bad",
+          riskScore: 0,
+          riskLevel: "medium",
+          growthPotentialIndex: 50,
+          narrativeStrength: 50,
+          valueVsAth: 50,
+          volatilityIndex: 50,
+          summary: "Bad metric payload.",
+          computedAt: "2026-05-17T00:00:00.000Z",
+        },
+      }),
+    );
+    fs.writeFileSync(
+      path.join(tmpLoaderRoot, "data", "_prices_blob.json"),
+      JSON.stringify({
+        bad: {
+          id: "bad",
+          name: "Bad Token",
+          chart30d: [{ date: "not-a-date", price: 1 }],
+          chart1y: [],
+          fetchedAt: "2026-05-17T00:00:00.000Z",
+        },
+      }),
+    );
+
+    vi.spyOn(process, "cwd").mockReturnValue(tmpLoaderRoot);
+    const { getPriceHistory, getTokenMetrics } = await import("../src/lib/content-loader");
+
+    await expect(getTokenMetrics("bad")).resolves.toBeNull();
+    await expect(getPriceHistory("bad")).resolves.toBeNull();
   });
 });
