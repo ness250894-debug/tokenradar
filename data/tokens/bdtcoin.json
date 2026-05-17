@@ -1,0 +1,49 @@
+{
+  "id": "bdtcoin",
+  "symbol": "bdtc",
+  "name": "BDTCOIN",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55565/large/bdtc-logo.jpg?1746689719",
+  "description": "",
+  "categories": [
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.bdtcoin.co/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bdtcoin.info/"
+  },
+  "market": {
+    "price": 17.58,
+    "marketCap": 50023658,
+    "marketCapRank": 497,
+    "volume24h": 2841095,
+    "high24h": 17.78,
+    "low24h": 17.48,
+    "priceChange24h": -0.62167,
+    "priceChange7d": -15.96271,
+    "priceChange30d": -33.27375,
+    "priceChange1y": -87.28343,
+    "ath": 141.53,
+    "athChangePercentage": -87.57001,
+    "athDate": "2025-05-24T05:27:22.386Z",
+    "atl": 2.83,
+    "atlDate": "2025-08-13T15:00:26.412Z",
+    "circulatingSupply": 2575991.756826378,
+    "totalSupply": 41780901.69734562,
+    "maxSupply": 71000000,
+    "fdv": 809333846
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-17T18:45:42.387Z"
+}
