@@ -20,7 +20,7 @@ import {
   TIKTOK_PUBLISH_SCOPE,
   TIKTOK_UPLOAD_SCOPE,
 } from "../src/lib/tiktok-client";
-import { formatErrorForLog, loadEnv } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, writeFileAtomicSync } from "../src/lib/utils";
 
 loadEnv();
 
@@ -37,7 +37,7 @@ function upsertEnvValue(envPath: string, key: string, value: string): void {
   } else {
     content = `${content.trimEnd()}\n${line}\n`;
   }
-  fs.writeFileSync(envPath, content, "utf-8");
+  writeFileAtomicSync(envPath, content);
 }
 
 async function main(): Promise<void> {

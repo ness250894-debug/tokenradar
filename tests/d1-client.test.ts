@@ -70,6 +70,29 @@ describe("d1-client", () => {
     expect(result[0].results).toEqual([{ id: "row-1" }]);
   });
 
+  it("retries transient Cloudflare D1 failures before returning results", async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response("temporary failure", { status: 500, statusText: "Server Error" }))
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            success: true,
+            errors: [],
+            messages: [],
+            result: [{ success: true, results: [{ ok: true }] }],
+          }),
+          { status: 200 },
+        ),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await executeD1Query<{ ok: boolean }>("SELECT 1");
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(result[0].results).toEqual([{ ok: true }]);
+  });
+
   it("throws on Cloudflare API errors", async () => {
     vi.stubGlobal(
       "fetch",

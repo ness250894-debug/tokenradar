@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 /* ---- Design Tokens ---- */
 :root {
-  /* Colors — NEURAL_CMD Technical Intelligence */
+  /* Colors - NEURAL_CMD Technical Intelligence */
   --bg-primary: #07080B;    /* Obsidian */
   --bg-secondary: #0a0b0f;
   --bg-card: #141414;       /* Coal */
@@ -680,7 +680,7 @@ input[type=range]::-moz-range-thumb:hover {
   min-height: 44px;
   font-size: var(--text-xl);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
@@ -846,7 +846,7 @@ input[type=range]::-moz-range-thumb:hover {
 .section-header h2 {
   font-size: var(--text-3xl);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: 1.15;
   overflow-wrap: anywhere;
   white-space: normal;
@@ -2520,7 +2520,7 @@ input[type=range]::-moz-range-thumb:hover {
   font-size: var(--text-2xl);
   font-weight: 800;
   margin-top: var(--space-xs);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .stat-change {
@@ -2696,6 +2696,10 @@ input[type=range]::-moz-range-thumb:hover {
   margin-top: var(--space-xl);
 }
 
+.hero-alpha-ticker {
+  margin-top: var(--space-2xl);
+}
+
 .hero-proof-strip {
   display: flex;
   flex-wrap: wrap;
@@ -2863,7 +2867,7 @@ input[type=range]::-moz-range-thumb:hover {
   }
 
   .hero {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-2xl) 0 var(--space-xl);
   }
 
   .mobile-nav-toggle {
@@ -2940,8 +2944,8 @@ input[type=range]::-moz-range-thumb:hover {
   }
 
   .hero h1 {
-    font-size: 2rem;
-    max-width: 22rem;
+    font-size: 1.85rem;
+    max-width: 21rem;
   }
 
   .hero-cta {
@@ -2949,6 +2953,8 @@ input[type=range]::-moz-range-thumb:hover {
     grid-template-columns: minmax(0, 1fr);
     width: calc(100vw - (2 * var(--space-md)));
     max-width: 20rem;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
     margin-left: auto;
     margin-right: auto;
   }
@@ -2961,17 +2967,44 @@ input[type=range]::-moz-range-thumb:hover {
   .hero-subtitle {
     width: calc(100vw - (2 * var(--space-md)));
     max-width: 20rem;
+    margin-top: var(--space-md);
+    font-size: var(--text-base);
+    line-height: 1.55;
   }
 
   .hero-proof-strip {
+    display: flex;
     align-items: stretch;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: var(--space-xs);
+    width: calc(100vw - (2 * var(--space-md)));
     max-width: 20rem;
+    margin-top: var(--space-md);
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: var(--space-xs);
+    scrollbar-width: none;
+  }
+
+  .hero-proof-strip::-webkit-scrollbar {
+    display: none;
   }
 
   .hero-proof-item {
+    flex: 0 0 auto;
     justify-content: center;
+    min-height: 32px;
+    padding: 0 var(--space-sm);
     text-align: center;
+    white-space: nowrap;
+  }
+
+  .hero-alpha-ticker {
+    margin-top: var(--space-sm);
   }
 
   .stats-grid {
@@ -3239,7 +3272,7 @@ input[type=range]::-moz-range-thumb:hover {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .article-content h2::before {
@@ -4239,7 +4272,7 @@ select.search-input option {
 
 .sticky-banner-title {
   font-size: var(--text-lg);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .sticky-banner-sub {
