@@ -26,6 +26,7 @@ import {
   generateCodeChallenge,
   type OAuth2Config,
 } from "@xdevplatform/xdk";
+import { writeFileAtomicSync } from "../src/lib/utils";
 
 // ── Env Setup ──────────────────────────────────────────────────
 
@@ -45,6 +46,15 @@ const SCOPES = [
   "offline.access",      // Required for refresh tokens
   "media.write",         // Required for media uploads
 ];
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 // ── Validation ─────────────────────────────────────────────────
 
@@ -95,6 +105,9 @@ async function main(): Promise<void> {
   // Step 3: Exchange code for tokens
   try {
     const tokens = await oauth2.exchangeCode(authCode, codeVerifier);
+    if (!tokens.refresh_token) {
+      throw new Error("X OAuth did not return a refresh token. Confirm offline.access scope and app settings.");
+    }
 
     // Auto-save the refresh token to .env.local
     const envPath = path.resolve(__dirname, "../.env.local");
@@ -107,13 +120,12 @@ async function main(): Promise<void> {
     } else {
       envContent += `\nX_OAUTH2_REFRESH_TOKEN=${tokens.refresh_token}\n`;
     }
-    fs.writeFileSync(envPath, envContent, "utf-8");
+    writeFileAtomicSync(envPath, envContent);
 
     console.log("═══════════════════════════════════════════════");
     console.log("  ✓ SUCCESS! Tokens obtained.\n");
     console.log("  ✓ Refresh token auto-saved to .env.local\n");
-    console.log(`  Access Token (expires in ${tokens.expires_in}s):`);
-    console.log(`  ${tokens.access_token?.substring(0, 40)}...`);
+    console.log(`  Access token received and kept out of terminal output (expires in ${tokens.expires_in}s).`);
     console.log(`\n  Scopes: ${tokens.scope}`);
     console.log("\n═══════════════════════════════════════════════");
     console.log("  You're all set! No manual steps needed.");
@@ -136,7 +148,7 @@ function waitForCallback(expectedState: string): Promise<string> {
 
       if (error) {
         res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(`<h1>Authorization Error</h1><p>${error}</p>`);
+        res.end(`<h1>Authorization Error</h1><p>${escapeHtml(error)}</p>`);
         server.close();
         reject(new Error(`OAuth error: ${error}`));
         return;

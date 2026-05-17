@@ -179,7 +179,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div style={{ marginTop: "var(--space-2xl)" }} className="animate-in animate-delay-3">
+        <div className="hero-alpha-ticker animate-in animate-delay-3">
           <AlphaTicker />
         </div>
       </section>

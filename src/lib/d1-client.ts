@@ -1,4 +1,5 @@
 import { formatErrorForLog } from "./utils";
+import { fetchWithRetry } from "./fetch-with-retry";
 
 export type D1Param = string | number | boolean | null;
 
@@ -99,13 +100,14 @@ export async function executeD1Query<T = Record<string, unknown>>(
   if (!config) return [];
 
   const url = `${config.apiBaseUrl.replace(/\/$/, "")}/accounts/${config.accountId}/d1/database/${config.databaseId}/query`;
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${config.apiToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ sql, params }),
+    throwOnHttpError: false,
   });
 
   let payload: D1ApiResponse<T> | null = null;

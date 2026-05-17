@@ -19,6 +19,7 @@ import * as dotenv from "dotenv";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { URL, fileURLToPath } from "node:url";
 import { google } from "googleapis";
+import { writeFileAtomicSync } from "../src/lib/utils";
 
 // ── Env Setup ──────────────────────────────────────────────────
 
@@ -34,6 +35,15 @@ const REDIRECT_URI = "http://localhost:3000";
 const SCOPES = [
   "https://www.googleapis.com/auth/youtube.upload",
 ];
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 // ── Validation ─────────────────────────────────────────────────
 
@@ -93,7 +103,7 @@ async function main(): Promise<void> {
       } else {
         envContent += `\nYOUTUBE_REFRESH_TOKEN=${tokens.refresh_token}\n`;
       }
-      fs.writeFileSync(envPath, envContent, "utf-8");
+      writeFileAtomicSync(envPath, envContent);
     }
 
     console.log("═══════════════════════════════════════════════");
@@ -101,8 +111,7 @@ async function main(): Promise<void> {
     if (tokens.refresh_token) {
       console.log("  ✓ Refresh token auto-saved to .env.local\n");
     }
-    console.log(`  Access Token (expires in ${tokens.expiry_date ? Math.round((tokens.expiry_date - Date.now()) / 1000) : 'unknown'}s):`);
-    console.log(`  ${tokens.access_token?.substring(0, 40)}...`);
+    console.log(`  Access token received and kept out of terminal output (expires in ${tokens.expiry_date ? Math.round((tokens.expiry_date - Date.now()) / 1000) : "unknown"}s).`);
     console.log("\n═══════════════════════════════════════════════");
     console.log("  Check your .env.local and verify YOUTUBE_REFRESH_TOKEN is set.");
     console.log("═══════════════════════════════════════════════");
@@ -123,7 +132,7 @@ function waitForCallback(): Promise<string> {
 
       if (error) {
         res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(`<h1>Authorization Error</h1><p>${error}</p>`);
+        res.end(`<h1>Authorization Error</h1><p>${escapeHtml(error)}</p>`);
         server.close();
         reject(new Error(`OAuth error: ${error}`));
         return;

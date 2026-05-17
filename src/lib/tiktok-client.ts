@@ -1,12 +1,15 @@
 import * as fs from "fs";
 
 import { SOCIAL_PLATFORM_LIMITS } from "./config";
+import { fetchWithRetry } from "./fetch-with-retry";
 
 const TIKTOK_AUTH_BASE_URL = "https://www.tiktok.com";
 const DEFAULT_TIKTOK_API_BASE_URL = "https://open.tiktokapis.com";
 const DEFAULT_VIDEO_CHUNK_SIZE = 10 * 1024 * 1024;
 const MIN_VIDEO_CHUNK_SIZE = 5 * 1024 * 1024;
 const MAX_VIDEO_CHUNK_SIZE = 64 * 1024 * 1024;
+const TIKTOK_FETCH_RETRIES = 3;
+const TIKTOK_FETCH_RETRY_DELAY_MS = 1_000;
 
 export const TIKTOK_UPLOAD_SCOPE = "video.upload";
 export const TIKTOK_PUBLISH_SCOPE = "video.publish";
@@ -231,8 +234,17 @@ async function parseTikTokResponse<T>(response: Response, operation: string): Pr
   return payload;
 }
 
+function fetchTikTok(url: string, options: RequestInit): Promise<Response> {
+  return fetchWithRetry(url, {
+    ...options,
+    retries: TIKTOK_FETCH_RETRIES,
+    retryDelay: TIKTOK_FETCH_RETRY_DELAY_MS,
+    throwOnHttpError: false,
+  });
+}
+
 async function requestTikTokToken(body: URLSearchParams, operation: string): Promise<TikTokTokenResponse> {
-  const response = await fetch(`${getTikTokApiBaseUrl()}/v2/oauth/token/`, {
+  const response = await fetchTikTok(`${getTikTokApiBaseUrl()}/v2/oauth/token/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -330,7 +342,7 @@ export function buildTikTokChunkPlan(videoSize: number): TikTokChunkPlan {
 }
 
 async function initializeInboxUpload(accessToken: string, plan: TikTokChunkPlan): Promise<{ publishId: string; uploadUrl: string }> {
-  const response = await fetch(`${getTikTokApiBaseUrl()}/v2/post/publish/inbox/video/init/`, {
+  const response = await fetchTikTok(`${getTikTokApiBaseUrl()}/v2/post/publish/inbox/video/init/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -357,7 +369,7 @@ async function initializeInboxUpload(accessToken: string, plan: TikTokChunkPlan)
 
 export async function getTikTokCreatorInfo(accessToken?: string): Promise<TikTokCreatorInfo> {
   const token = accessToken || await getTikTokAccessToken();
-  const response = await fetch(`${getTikTokApiBaseUrl()}/v2/post/publish/creator_info/query/`, {
+  const response = await fetchTikTok(`${getTikTokApiBaseUrl()}/v2/post/publish/creator_info/query/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -397,7 +409,7 @@ async function initializeDirectPost(
   caption: string,
   privacyLevel: TikTokPrivacyLevel,
 ): Promise<{ publishId: string; uploadUrl: string }> {
-  const response = await fetch(`${getTikTokApiBaseUrl()}/v2/post/publish/video/init/`, {
+  const response = await fetchTikTok(`${getTikTokApiBaseUrl()}/v2/post/publish/video/init/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -443,7 +455,7 @@ async function uploadChunks(uploadUrl: string, videoPath: string, plan: TikTokCh
       const buffer = Buffer.alloc(chunkLength);
       await handle.read(buffer, 0, chunkLength, start);
 
-      const response = await fetch(uploadUrl, {
+      const response = await fetchTikTok(uploadUrl, {
         method: "PUT",
         headers: {
           "Content-Type": "video/mp4",
@@ -468,7 +480,7 @@ async function uploadChunks(uploadUrl: string, videoPath: string, plan: TikTokCh
 
 export async function getTikTokPostStatus(publishId: string, accessToken?: string): Promise<TikTokPostStatus> {
   const token = accessToken || await getTikTokAccessToken();
-  const response = await fetch(`${getTikTokApiBaseUrl()}/v2/post/publish/status/fetch/`, {
+  const response = await fetchTikTok(`${getTikTokApiBaseUrl()}/v2/post/publish/status/fetch/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
