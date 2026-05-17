@@ -1,0 +1,66 @@
+{
+  "updatedAt": "2026-05-17T12:58:53.885Z",
+  "assets": [
+    {
+      "id": "blender-radar-grid",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/blender-radar-grid.mp4",
+      "provider": "generated",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.24,
+      "blur": 0,
+      "saturation": 1.12,
+      "playbackRate": 1,
+      "tags": [
+        "blender",
+        "generated",
+        "market",
+        "signal",
+        "radar_grid"
+      ],
+      "attribution": "Blender generated radar grid loop",
+      "license": "project-generated",
+      "downloadedAt": "2026-05-17T12:58:53.885Z",
+      "durationSeconds": 4,
+      "width": 1080,
+      "height": 1920,
+      "fileSizeBytes": 391622,
+      "sha256": "bd07e4f07a3ddd54c96e7779571d4ed52f4030783131debe101edb32e0653b00",
+      "safeStartOffsets": [0],
+      "startOffsetSeconds": 0
+    },
+    {
+      "id": "pexels-34453413",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/pexels-34453413.mp4",
+      "provider": "pexels",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "blur": 0,
+      "saturation": 1.08,
+      "tags": [
+        "market",
+        "stock",
+        "broll"
+      ],
+      "attribution": "Video by Jakub Zerdzicki on Pexels",
+      "sourcePageUrl": "https://www.pexels.com/video/34453413/",
+      "license": "Pexels License",
+      "downloadedAt": "2026-05-17T12:58:53.885Z",
+      "durationSeconds": 10,
+      "width": 1080,
+      "height": 1920,
+      "fileSizeBytes": 3264630,
+      "sha256": "4079dd3ee64f2e844cc032f4d13adae3ab72da0bdb30a08e546a270ff87da49a",
+      "safeStartOffsets": [0, 1, 2],
+      "playbackRate": 1,
+      "startOffsetSeconds": 0
+    }
+  ]
+}

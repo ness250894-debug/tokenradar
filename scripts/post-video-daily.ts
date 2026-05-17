@@ -12,6 +12,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 import { execFileSync } from "child_process";
 
 import { logError } from "../src/lib/reporter";
@@ -34,7 +35,14 @@ import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText } from "../src/lib/social-content-generator";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
-import { cleanPrefix, deleteObjects, uploadVideo as uploadToR2, hasR2Credentials } from "../src/lib/r2-client";
+import {
+  cleanPrefix,
+  deleteObjects,
+  downloadObject,
+  uploadVideo as uploadToR2,
+  hasR2Credentials,
+} from "../src/lib/r2-client";
+import { buildR2VideoAssetKey } from "../src/lib/video-asset-r2";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import {
   hasTikTokManualReportCredentials,
@@ -48,8 +56,18 @@ import {
   publishVideoDirectlyToTikTok,
   uploadVideoToTikTokInbox,
 } from "../src/lib/tiktok-client";
-import { getTrackForDate } from "../src/lib/audio-config";
+import { AUDIO_TRACKS, getAudioPath, selectAvailableAudioTrack } from "../src/lib/audio-config";
 import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
+import {
+  normalizeVideoAssetManifest,
+  selectVideoAssetShotList,
+  type VideoAssetLayer,
+  type VideoAssetStageSegment,
+  type VideoAssetUsageRecord,
+  type VideoAssetManifest,
+  type VideoMediaStage,
+} from "../src/lib/video-assets";
+import { resolveFfprobePath } from "../src/lib/video-asset-metadata";
 import {
   formatVideoFormatPromptLine,
   getVideoFormat,
@@ -75,6 +93,7 @@ import { getRecentPlatformTexts } from "./lib/social-history";
 loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
+const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
 
 type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 type PlatformRoute = PlatformName | "all" | "shorts";
@@ -99,6 +118,12 @@ interface PlatformTracker {
   audioStartSeconds?: number;
   visualRecipeKey?: string;
   visualRecipe?: VideoVisualRecipe;
+  mediaAssetIds?: string[];
+  mediaAssets?: VideoAssetLayer[];
+  mediaSegments?: VideoAssetStageSegment[];
+  mediaFallbackLevel?: string;
+  mediaFallbackWarnings?: string[];
+  mediaStage?: VideoMediaStage;
   reportVideoMessageId?: number;
   reportSummaryMessageId?: number;
   reportCaptionMessageIds?: number[];
@@ -127,6 +152,12 @@ interface VideoTracker {
   audioStartSeconds?: number;
   visualRecipeKey?: string;
   visualRecipe?: VideoVisualRecipe;
+  mediaAssetIds?: string[];
+  mediaAssets?: VideoAssetLayer[];
+  mediaSegments?: VideoAssetStageSegment[];
+  mediaFallbackLevel?: string;
+  mediaFallbackWarnings?: string[];
+  mediaStage?: VideoMediaStage;
   platforms: Partial<Record<PlatformName, PlatformTracker>>;
 }
 
@@ -144,6 +175,23 @@ interface PlatformVideoAsset {
   hookText: string;
   audioTrack: AudioTrackSelection;
   visualRecipe: VideoVisualRecipe;
+  mediaAssets: VideoAssetLayer[];
+  mediaSegments: VideoAssetStageSegment[];
+  mediaFallbackLevel: string;
+  mediaFallbackWarnings: string[];
+  mediaStage: VideoMediaStage;
+}
+
+interface RenderProbe {
+  streams?: Array<{
+    codec_type?: string;
+    width?: number;
+    height?: number;
+  }>;
+  format?: {
+    duration?: string;
+    size?: string;
+  };
 }
 
 function getVideoSocialPostKey(today: string, tokenId: string, platform: PlatformName): string {
@@ -166,6 +214,21 @@ function cleanupFile(filePath: string): void {
   }
 }
 
+function getLocalVideoAssetPath(asset: VideoAssetLayer): string {
+  return path.join(VIDEO_ASSET_ROOT, asset.src.replace(/\//g, path.sep));
+}
+
+function sha256File(filePath: string): string {
+  return crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+}
+
+function isLocalVideoAssetAvailable(asset: VideoAssetLayer): boolean {
+  if (asset.source !== "local") return true;
+  const localPath = getLocalVideoAssetPath(asset);
+  if (!fs.existsSync(localPath)) return false;
+  return !asset.sha256 || sha256File(localPath) === asset.sha256;
+}
+
 function getArgValue(args: string[], name: string): string | undefined {
   const index = args.indexOf(name);
   return index !== -1 && index + 1 < args.length ? args[index + 1] : undefined;
@@ -179,6 +242,39 @@ function getRemotionCliPath(): string {
     "cli",
     "remotion-cli.js",
   );
+}
+
+function validateRenderedVideoOutput(filePath: string, platform: PlatformName): void {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`${platform}: rendered video file does not exist: ${filePath}`);
+  }
+
+  const stats = fs.statSync(filePath);
+  if (stats.size <= 0) {
+    throw new Error(`${platform}: rendered video file is empty`);
+  }
+  if (stats.size > 500 * 1024 * 1024) {
+    throw new Error(`${platform}: rendered video file is too large (${(stats.size / 1024 / 1024).toFixed(1)} MB)`);
+  }
+
+  const output = execFileSync(
+    resolveFfprobePath(),
+    ["-v", "error", "-show_entries", "stream=codec_type,width,height:format=duration,size", "-of", "json", filePath],
+    { encoding: "utf-8" },
+  );
+  const probe = JSON.parse(output) as RenderProbe;
+  const videoStream = probe.streams?.find((stream) => stream.codec_type === "video");
+  const audioStream = probe.streams?.find((stream) => stream.codec_type === "audio");
+  const duration = Number(probe.format?.duration);
+
+  if (!videoStream) throw new Error(`${platform}: rendered video is missing a video stream`);
+  if (!audioStream) throw new Error(`${platform}: rendered video is missing an audio stream`);
+  if (videoStream.width !== 1080 || videoStream.height !== 1920) {
+    throw new Error(`${platform}: rendered video has wrong dimensions ${videoStream.width}x${videoStream.height}`);
+  }
+  if (!Number.isFinite(duration) || duration < 29 || duration > 31) {
+    throw new Error(`${platform}: rendered video duration is outside tolerance (${duration}s)`);
+  }
 }
 
 function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
@@ -301,6 +397,145 @@ function getRecentVideoRecipeKeys(
   return used;
 }
 
+function getRecentVideoAssetUsageRecords(
+  dataDir: string,
+  days: number,
+  now: Date = new Date(),
+  excludeDateKey?: string,
+): VideoAssetUsageRecord[] {
+  const records: VideoAssetUsageRecord[] = [];
+  const parentDir = path.join(dataDir, "posted_video");
+  if (!fs.existsSync(parentDir)) return records;
+
+  const cutoff = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  cutoff.setUTCDate(cutoff.getUTCDate() - days);
+  const cutoffKey = cutoff.toISOString().split("T")[0];
+
+  const dateDirs = fs.readdirSync(parentDir).filter((dateDir) => {
+    const fullPath = path.join(parentDir, dateDir);
+    return fs.statSync(fullPath).isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(dateDir);
+  });
+
+  for (const dateDir of dateDirs) {
+    if (dateDir < cutoffKey || dateDir === excludeDateKey) continue;
+    const trackerFile = path.join(parentDir, dateDir, "daily-video.json");
+    const tracker = safeReadJson<VideoTracker | null>(trackerFile, null);
+    if (!tracker) continue;
+
+    for (const [platform, platformTracker] of Object.entries(tracker.platforms || {}) as Array<[PlatformName, PlatformTracker]>) {
+      const usedAt = platformTracker.postedAt || tracker.postedAt || `${dateDir}T00:00:00.000Z`;
+      if (platformTracker.mediaSegments?.length) {
+        for (const segment of platformTracker.mediaSegments) {
+          records.push({
+            assetId: segment.asset.id,
+            platform,
+            usedAt,
+            segmentId: segment.segmentId,
+          });
+        }
+        continue;
+      }
+
+      for (const assetId of platformTracker.mediaAssetIds || []) {
+        records.push({ assetId, platform, usedAt });
+      }
+    }
+  }
+
+  return records;
+}
+
+function normalizePersistedMediaSegments(
+  segments: VideoAssetStageSegment[] | undefined,
+): VideoAssetStageSegment[] {
+  if (!Array.isArray(segments)) return [];
+
+  return segments
+    .map((segment) => {
+      const asset = normalizeVideoAssetManifest({ assets: [segment.asset] }).assets[0];
+      if (!asset) return undefined;
+      return {
+        ...segment,
+        asset,
+        startOffsetSeconds: typeof segment.startOffsetSeconds === "number" && segment.startOffsetSeconds >= 0
+          ? segment.startOffsetSeconds
+          : asset.startOffsetSeconds || 0,
+      };
+    })
+    .filter((segment): segment is VideoAssetStageSegment => Boolean(segment));
+}
+
+function selectAudioTrackForRender(
+  seed: string,
+  existingPlatformTracker: PlatformTracker | undefined,
+): AudioTrackSelection {
+  const existingTrack = existingPlatformTracker?.audioTrack
+    ? { file: existingPlatformTracker.audioTrack, startSeconds: existingPlatformTracker.audioStartSeconds || 0 }
+    : undefined;
+  const tracks = existingTrack
+    ? [existingTrack, ...AUDIO_TRACKS.filter((track) => track.file !== existingTrack.file)]
+    : AUDIO_TRACKS;
+  const selection = selectAvailableAudioTrack(seed, {
+    tracks,
+    fileExists: (track) => fs.existsSync(path.resolve(process.cwd(), getAudioPath(track))),
+  });
+
+  for (const warning of selection.warnings) {
+    console.warn(`  Audio fallback: ${warning}`);
+  }
+  if (selection.fallbackLevel !== "seeded-track") {
+    console.warn(`  Audio fallback selected ${selection.track.file}.`);
+  }
+
+  return selection.track;
+}
+
+async function hydrateMediaSegmentsForRender(
+  platform: PlatformName,
+  segments: VideoAssetStageSegment[],
+): Promise<{
+  segments: VideoAssetStageSegment[];
+  warnings: string[];
+}> {
+  const warnings: string[] = [];
+  const hydrated: VideoAssetStageSegment[] = [];
+  const canUseR2 = hasR2Credentials();
+
+  for (const segment of segments) {
+    const asset = segment.asset;
+    if (asset.source !== "local" || isLocalVideoAssetAvailable(asset)) {
+      hydrated.push(segment);
+      continue;
+    }
+
+    if (!canUseR2) {
+      warnings.push(`asset-missing-local:${asset.id}`);
+      continue;
+    }
+
+    try {
+      const localPath = getLocalVideoAssetPath(asset);
+      const body = await downloadObject(buildR2VideoAssetKey(asset.src));
+      if (asset.sha256) {
+        const actualHash = crypto.createHash("sha256").update(body).digest("hex");
+        if (actualHash !== asset.sha256) {
+          warnings.push(`asset-checksum-mismatch:${asset.id}`);
+          continue;
+        }
+      }
+      fs.mkdirSync(path.dirname(localPath), { recursive: true });
+      fs.writeFileSync(localPath, body);
+      hydrated.push(segment);
+      console.log(`  ${platform}: hydrated media asset ${asset.id} from R2`);
+    } catch (error) {
+      warnings.push(`asset-r2-hydration-failed:${asset.id}`);
+      console.warn(`  ${platform}: media hydration failed for ${asset.id}: ${formatErrorForLog(error)}`);
+    }
+  }
+
+  return { segments: hydrated, warnings };
+}
+
 function buildVideoThesis(
   format: VideoFormat,
   token: TokenData,
@@ -364,6 +599,12 @@ function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
   | "audioStartSeconds"
   | "visualRecipeKey"
   | "visualRecipe"
+  | "mediaAssetIds"
+  | "mediaAssets"
+  | "mediaSegments"
+  | "mediaFallbackLevel"
+  | "mediaFallbackWarnings"
+  | "mediaStage"
 > {
   return {
     formatKey: asset.format.key as VideoFormatKey,
@@ -375,6 +616,12 @@ function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
     audioStartSeconds: asset.audioTrack.startSeconds,
     visualRecipeKey: asset.visualRecipe.key,
     visualRecipe: asset.visualRecipe,
+    mediaAssetIds: asset.mediaAssets.map((mediaAsset) => mediaAsset.id),
+    mediaAssets: asset.mediaAssets,
+    mediaSegments: asset.mediaSegments,
+    mediaFallbackLevel: asset.mediaFallbackLevel,
+    mediaFallbackWarnings: asset.mediaFallbackWarnings,
+    mediaStage: asset.mediaStage,
   };
 }
 
@@ -385,8 +632,13 @@ function buildPlatformFormatPrompt(
   return platforms
     .map((platform) => {
       const asset = platformVideos.get(platform as PlatformName);
+      const mediaSummary = asset?.mediaSegments.length
+        ? asset.mediaSegments
+          .map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`)
+          .join(", ")
+        : asset?.mediaAssets.map((mediaAsset) => mediaAsset.id).join(", ");
       return asset
-        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}.`
+        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}. Media stage: ${asset.mediaStage}. Media: ${mediaSummary || "generated motion graphics only"}.`
         : "";
     })
     .filter(Boolean)
@@ -696,6 +948,18 @@ async function main() {
     selectionReason: reason,
   };
 
+  const brollManifestFile = path.join(process.cwd(), "public", "video-assets", "broll", "manifest.json");
+  const mediaManifest = normalizeVideoAssetManifest(
+    fs.existsSync(brollManifestFile)
+      ? safeReadJson<VideoAssetManifest | null>(brollManifestFile, null)
+      : null,
+  );
+  if (mediaManifest.assets.length > 0) {
+    console.log(`Loaded ${mediaManifest.assets.length} video media asset(s) from ${brollManifestFile}`);
+  } else {
+    console.log("No local video b-roll manifest found; using generated motion backgrounds only.");
+  }
+
   console.log();
   console.log("Step 3: Rendering video with Remotion...");
   const platformVideos = new Map<PlatformName, PlatformVideoAsset>();
@@ -729,6 +993,9 @@ async function main() {
       .filter((key): key is string => Boolean(key)),
   );
   const selectedRecipeKeys = new Set<string>();
+  const mediaUsageRecords = force
+    ? []
+    : getRecentVideoAssetUsageRecords(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today);
 
   try {
     for (const platform of requestedPlatforms) {
@@ -741,9 +1008,10 @@ async function main() {
 
       const videoThesis = existingPlatformTracker?.videoThesis ||
         buildVideoThesis(videoFormat, targetToken, targetMetric, context.trendingContext);
-      const audioTrack: AudioTrackSelection = existingPlatformTracker?.audioTrack
-        ? { file: existingPlatformTracker.audioTrack, startSeconds: existingPlatformTracker.audioStartSeconds || 0 }
-        : getTrackForDate(`${today}:${platform}:${videoFormat.key}:${targetToken.id}`);
+      const audioTrack = selectAudioTrackForRender(
+        `${today}:${platform}:${videoFormat.key}:${targetToken.id}`,
+        existingPlatformTracker,
+      );
       const hookText = existingPlatformTracker?.hookText ||
         await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
       const usedVideoRecipeKeys = force
@@ -757,6 +1025,46 @@ async function main() {
           seedParts: [today, platform, targetToken.id, videoFormat.key, reason],
         });
       selectedRecipeKeys.add(visualRecipe.key);
+      const persistedMediaSegments = normalizePersistedMediaSegments(existingPlatformTracker?.mediaSegments);
+      const shotList = persistedMediaSegments.length > 0
+        ? {
+          segments: persistedMediaSegments,
+          fallbackLevel: existingPlatformTracker?.mediaFallbackLevel || "fresh",
+          warnings: existingPlatformTracker?.mediaFallbackWarnings || [],
+        }
+        : selectVideoAssetShotList({
+          manifest: mediaManifest,
+          platform,
+          seedParts: [today, platform, targetToken.id, videoFormat.key, visualRecipe.key],
+          usageRecords: mediaUsageRecords,
+          now: new Date(),
+          cooldownDays: VIDEO_FORMAT_COOLDOWN_DAYS,
+          durationSeconds: 30,
+        });
+      let mediaSegments = shotList.segments;
+      let mediaFallbackLevel = shotList.fallbackLevel;
+      const mediaFallbackWarnings = [...shotList.warnings];
+      const hydration = await hydrateMediaSegmentsForRender(platform, mediaSegments);
+      mediaSegments = hydration.segments;
+      mediaFallbackWarnings.push(...hydration.warnings);
+      if (shotList.segments.length > 0 && mediaSegments.length === 0) {
+        mediaFallbackWarnings.push("fallback-reached-generated-only-stage");
+        mediaFallbackLevel = "generated-only";
+      }
+      const mediaAssets = mediaSegments.length > 0
+        ? mediaSegments.map((segment) => segment.asset)
+        : normalizeVideoAssetManifest({ assets: existingPlatformTracker?.mediaAssets || [] }).assets
+          .filter(isLocalVideoAssetAvailable);
+      const mediaSelectedAt = new Date().toISOString();
+      for (const segment of mediaSegments) {
+        mediaUsageRecords.push({
+          assetId: segment.asset.id,
+          platform,
+          usedAt: mediaSelectedAt,
+          segmentId: segment.segmentId,
+        });
+      }
+      const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "primary";
       const outputPath = path.join(outputDir, `tokenradar-${today}-${platform}.mp4`);
       const propsFile = path.join(outputDir, `remotion-props-${platform}.json`);
 
@@ -769,6 +1077,16 @@ async function main() {
       }
       console.log(`  ${platform}: recipe ${visualRecipe.key}`);
       console.log(`  ${platform}: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
+      if (mediaSegments.length > 0) {
+        console.log(
+          `  ${platform}: media ${mediaSegments.map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`).join(", ")}`,
+        );
+      } else if (mediaAssets.length > 0) {
+        console.log(`  ${platform}: media ${mediaAssets.map((asset) => asset.id).join(", ")}`);
+      }
+      for (const warning of mediaFallbackWarnings) {
+        console.warn(`  ${platform}: media fallback ${warning}`);
+      }
 
       const videoProps = {
         tokenName: targetToken.name,
@@ -788,6 +1106,9 @@ async function main() {
         videoFormatKey: videoFormat.key,
         videoThesis,
         visualRecipe,
+        mediaAssets,
+        mediaSegments,
+        mediaStage,
         verdict,
       };
 
@@ -808,6 +1129,7 @@ async function main() {
       } finally {
         cleanupFile(propsFile);
       }
+      validateRenderedVideoOutput(outputPath, platform);
 
       platformVideos.set(platform, {
         platform,
@@ -818,6 +1140,11 @@ async function main() {
         hookText,
         audioTrack,
         visualRecipe,
+        mediaAssets,
+        mediaSegments,
+        mediaFallbackLevel,
+        mediaFallbackWarnings,
+        mediaStage,
       });
       console.log(`  ${platform}: rendered ${outputPath}`);
     }
@@ -975,6 +1302,14 @@ async function main() {
         console.log(`${platform}: ${asset.outputPath}`);
         console.log(`  format: ${asset.format.label} (${asset.format.key})`);
         console.log(`  recipe: ${asset.visualRecipe.key}`);
+        console.log(
+          `  media: ${
+            asset.mediaSegments.length > 0
+              ? asset.mediaSegments.map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`).join(", ")
+              : asset.mediaAssets.map((mediaAsset) => mediaAsset.id).join(", ") || "generated motion graphics only"
+          }`,
+        );
+        console.log(`  media fallback: ${asset.mediaFallbackLevel}`);
       }
       if (runTelegram) {
         console.log();
@@ -1373,6 +1708,7 @@ async function main() {
             formatKey: result.tracker.formatKey,
             formatLabel: result.tracker.formatLabel,
             visualRecipeKey: result.tracker.visualRecipeKey,
+            mediaAssetIds: result.tracker.mediaAssetIds,
             deliveryMode: result.tracker.deliveryMode,
             variantSurface: "video",
           },

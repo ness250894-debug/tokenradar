@@ -288,6 +288,16 @@ jobs:
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
+      - name: Hydrate Video B-roll Manifest
+        if: env.IS_VIDEO_RUN == 'true'
+        run: npx tsx scripts/sync-video-assets-from-r2.ts --manifest-only
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+
       - name: Short-form Video Breakout
         if: env.IS_VIDEO_RUN == 'true'
         run: npx tsx scripts/post-video-daily.ts --platform shorts

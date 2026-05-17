@@ -14,6 +14,7 @@ import { MetricsView } from "./components/MetricsView";
 import { ContextView } from "./components/ContextView";
 import { VerdictBadge } from "./components/VerdictBadge";
 import { VideoBackground } from "./components/VideoBackground";
+import { BrollStoryOverlay } from "./components/BrollStoryOverlay";
 import { getVideoFormat } from "../lib/video-formats";
 import {
   getVideoSceneDurations,
@@ -36,26 +37,30 @@ if (typeof document !== "undefined" && !document.getElementById("tokenradar-vide
   document.head.appendChild(style);
 }
 
-export const TopGainerUpdate: React.FC<TopGainerProps> = ({
-  tokenName,
-  symbol,
-  price,
-  priceChange24h,
-  riskScore,
-  riskLevel,
-  marketCap,
-  marketCapRank,
-  volume24h,
-  growthPotentialIndex,
-  audioFile,
-  audioStartSeconds = 0,
-  hookText,
-  verdict,
-  contextText,
-  videoFormatKey,
-  videoThesis,
-  visualRecipe: inputVisualRecipe,
-}) => {
+export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
+  const {
+    tokenName,
+    symbol,
+    price,
+    priceChange24h,
+    riskScore,
+    riskLevel,
+    marketCap,
+    marketCapRank,
+    volume24h,
+    growthPotentialIndex,
+    audioFile,
+    audioStartSeconds = 0,
+    hookText,
+    verdict,
+    contextText,
+    videoFormatKey,
+    videoThesis,
+    visualRecipe: inputVisualRecipe,
+    mediaAssets,
+    mediaSegments,
+    mediaStage = "ambient",
+  } = props;
   const { durationInFrames, fps } = useVideoConfig();
   const videoFormat = getVideoFormat(videoFormatKey);
   const visualRecipe = resolveVideoVisualRecipe(inputVisualRecipe);
@@ -63,6 +68,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
   const premountFrames = 15;
   const fadeFrames = 30;
   const fadeOutStart = durationInFrames - fadeFrames;
+  const isPrimaryMediaStory = mediaStage === "primary";
 
   const scenes: Record<VideoSceneId, React.ReactNode> = {
     hook: (
@@ -138,8 +144,16 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = ({
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.background }}>
-      <VideoBackground priceChange24h={priceChange24h} riskScore={riskScore} verdict={verdict} visualRecipe={visualRecipe} />
-      {orderedSequences}
+      <VideoBackground
+        priceChange24h={priceChange24h}
+        riskScore={riskScore}
+        verdict={verdict}
+        visualRecipe={visualRecipe}
+        mediaAssets={mediaAssets}
+        mediaSegments={mediaSegments}
+        mediaStage={mediaStage}
+      />
+      {isPrimaryMediaStory ? <BrollStoryOverlay {...props} mediaStage={mediaStage} /> : orderedSequences}
 
       {audioFile && (
         <Audio

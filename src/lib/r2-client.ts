@@ -14,10 +14,12 @@
 import {
   S3Client,
   PutObjectCommand,
+  GetObjectCommand,
   DeleteObjectCommand,
   ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 import * as fs from "fs";
+import { Readable } from "stream";
 import { markMediaStagingDeleted, recordMediaStagingUpload } from "./ops-ledger";
 
 /** Required environment variables for R2 access. */
@@ -205,6 +207,35 @@ export async function uploadBuffer(
   contentType: string = "application/octet-stream",
 ): Promise<string> {
   return uploadObject(body, key, contentType);
+}
+
+/**
+ * Download an object from R2.
+ */
+export async function downloadObject(key: string): Promise<Buffer> {
+  const { client, config } = getClient();
+  const response = await client.send(
+    new GetObjectCommand({
+      Bucket: config.bucketName,
+      Key: key,
+    }),
+  );
+
+  const body = response.Body;
+  if (!body) return Buffer.alloc(0);
+  if (typeof (body as { transformToByteArray?: () => Promise<Uint8Array> }).transformToByteArray === "function") {
+    const bytes = await (body as { transformToByteArray: () => Promise<Uint8Array> }).transformToByteArray();
+    return Buffer.from(bytes);
+  }
+  if (body instanceof Readable) {
+    const chunks: Buffer[] = [];
+    for await (const chunk of body) {
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    }
+    return Buffer.concat(chunks);
+  }
+
+  throw new Error(`Unsupported R2 response body for ${key}`);
 }
 
 /**
