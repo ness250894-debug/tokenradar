@@ -40,7 +40,7 @@ tests/             # Vitest unit tests
 - The same workflow runs a weekly/manual PageSpeed Insights snapshot against the live site when the free `PAGESPEED_API_KEY` GitHub Actions secret is configured. The key avoids anonymous API quota failures.
 - `.github/workflows/dependency-security.yml` runs `npm audit --omit=dev --audit-level=high` for production dependencies. Moderate advisories are monitored by Dependabot without blocking deploys when no fix is available.
 - `.github/dependabot.yml` keeps npm packages and GitHub Actions updated weekly in small grouped PRs.
-- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP.
+- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP. If dashboard injection is unavailable, set `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to inject the beacon at build time instead.
 
 ## Getting Started
 
@@ -131,6 +131,7 @@ Copy `.env.example` to `.env.local` and configure:
 | `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |
 | `COINGECKO_API_KEY` | No | Optional Pro tier |
 | `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |
+| `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | No | Optional manual Cloudflare Web Analytics beacon token; leave blank when dashboard injection is enabled |
 
 ## Deployment
 
