@@ -8,7 +8,9 @@ import {
   useVideoConfig,
 } from "remotion";
 import { COLORS, getVerdictColor, type Verdict } from "../styles";
+import type { VideoAssetLayer, VideoAssetStageSegment, VideoMediaStage } from "../../lib/video-assets";
 import { getVideoTheme, resolveVideoVisualRecipe, type VideoVisualRecipe } from "../../lib/video-recipes";
+import { MediaAssetLayer } from "./MediaAssetLayer";
 
 const AVATAR_LAYERS = [
   { x: -110, y: 210, size: 360, opacity: 0.16, delay: 0, speed: 1.0, rotate: -10 },
@@ -38,7 +40,10 @@ export const VideoBackground: React.FC<{
   riskScore: number;
   verdict?: Verdict;
   visualRecipe?: VideoVisualRecipe;
-}> = ({ priceChange24h, riskScore, verdict, visualRecipe }) => {
+  mediaAssets?: VideoAssetLayer[];
+  mediaSegments?: VideoAssetStageSegment[];
+  mediaStage?: VideoMediaStage;
+}> = ({ priceChange24h, riskScore, verdict, visualRecipe, mediaAssets, mediaSegments, mediaStage = "ambient" }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const recipe = resolveVideoVisualRecipe(visualRecipe);
@@ -55,6 +60,33 @@ export const VideoBackground: React.FC<{
   const scanY = interpolate(frame % 180, [0, 180], [-180, 2100]);
   const tickerX = interpolate(frame % 150, [0, 150], [-740, 0]);
   const gridSize = recipe.backgroundSystem === "terminal_scan" ? "72px 72px" : "96px 96px";
+  const isPrimaryMediaStage = mediaStage === "primary" && (Boolean(mediaAssets?.length) || Boolean(mediaSegments?.length));
+
+  if (isPrimaryMediaStage) {
+    return (
+      <AbsoluteFill
+        style={{
+          backgroundColor: COLORS.background,
+          overflow: "hidden",
+        }}
+      >
+        <MediaAssetLayer
+          assets={mediaAssets}
+          segments={mediaSegments}
+          visualRecipe={recipe}
+          mediaStage={mediaStage}
+        />
+        <AbsoluteFill
+          style={{
+            background: [
+              "linear-gradient(180deg, rgba(0,0,0,0.56) 0%, rgba(0,0,0,0.22) 30%, rgba(0,0,0,0.24) 60%, rgba(0,0,0,0.68) 100%)",
+              "linear-gradient(90deg, rgba(0,0,0,0.54) 0%, rgba(0,0,0,0.12) 44%, rgba(0,0,0,0.32) 100%)",
+            ].join(", "),
+          }}
+        />
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill
@@ -63,29 +95,38 @@ export const VideoBackground: React.FC<{
         overflow: "hidden",
       }}
     >
+      <MediaAssetLayer
+        assets={mediaAssets}
+        segments={mediaSegments}
+        visualRecipe={recipe}
+        mediaStage={mediaStage}
+      />
+
       <AbsoluteFill
         style={{
           backgroundImage: backgroundGrid(accentColor),
           backgroundSize: gridSize,
           transform: `translateY(${-(frame % 96)}px)`,
-          opacity: recipe.backgroundSystem === "heatmap_field" ? 0.16 : 0.28,
+          opacity: isPrimaryMediaStage ? 0.1 : recipe.backgroundSystem === "heatmap_field" ? 0.16 : 0.28,
         }}
       />
 
-      <Img
-        src={staticFile("og-image.png")}
-        style={{
-          position: "absolute",
-          left: -260,
-          top: -60,
-          width: 1600,
-          height: 1600,
-          objectFit: "cover",
-          opacity: 0.18,
-          filter: "blur(18px) saturate(1.2)",
-          transform: `scale(${brandScale}) rotate(${slowProgress * 3}deg)`,
-        }}
-      />
+      {!isPrimaryMediaStage && (
+        <Img
+          src={staticFile("og-image.png")}
+          style={{
+            position: "absolute",
+            left: -260,
+            top: -60,
+            width: 1600,
+            height: 1600,
+            objectFit: "cover",
+            opacity: 0.18,
+            filter: "blur(18px) saturate(1.2)",
+            transform: `scale(${brandScale}) rotate(${slowProgress * 3}deg)`,
+          }}
+        />
+      )}
 
       <div
         style={{
@@ -96,7 +137,7 @@ export const VideoBackground: React.FC<{
             `linear-gradient(22deg, ${theme.secondary}18 0%, transparent 44%)`,
             `linear-gradient(292deg, ${theme.negative}14 0%, transparent 48%)`,
           ].join(", "),
-          opacity: 0.95,
+          opacity: isPrimaryMediaStage ? 0.42 : 0.95,
         }}
       />
 
@@ -187,7 +228,7 @@ export const VideoBackground: React.FC<{
         </div>
       )}
 
-      {AVATAR_LAYERS.map((layer, index) => {
+      {!isPrimaryMediaStage && AVATAR_LAYERS.map((layer, index) => {
         const bob = Math.sin((frame + layer.delay) / (36 / layer.speed)) * 26;
         const drift = Math.cos((frame + layer.delay) / (58 / layer.speed)) * 22;
         const rotate = layer.rotate + Math.sin((frame + layer.delay) / 80) * 5;
@@ -224,7 +265,7 @@ export const VideoBackground: React.FC<{
           height: 860,
           borderRadius: "50%",
           border: `2px solid ${accentColor}${Math.round(42 + pulse * 36).toString(16).padStart(2, "0")}`,
-          opacity: 0.4,
+          opacity: isPrimaryMediaStage ? 0.12 : 0.4,
           transform: `scale(${1 + pulse * 0.08})`,
           boxShadow: `0 0 90px ${accentColor}24 inset, 0 0 80px ${accentColor}16`,
         }}
@@ -235,8 +276,8 @@ export const VideoBackground: React.FC<{
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `repeating-linear-gradient(180deg, transparent 0, transparent 18px, ${accentColor}0f 19px, transparent 21px)`,
-            opacity: 0.5,
+          backgroundImage: `repeating-linear-gradient(180deg, transparent 0, transparent 18px, ${accentColor}0f 19px, transparent 21px)`,
+            opacity: isPrimaryMediaStage ? 0.18 : 0.5,
           }}
         />
       )}
@@ -250,7 +291,7 @@ export const VideoBackground: React.FC<{
           height: 660,
           borderRadius: "50%",
           border: `1px solid ${accentColor}44`,
-          opacity: 0.32,
+          opacity: isPrimaryMediaStage ? 0.1 : 0.32,
           transform: `scale(${1.06 - pulse * 0.05})`,
         }}
       />
@@ -263,7 +304,7 @@ export const VideoBackground: React.FC<{
           top: scanY,
           height: 160,
           background: `linear-gradient(180deg, transparent, ${accentColor}28, transparent)`,
-          opacity: recipe.backgroundSystem === "radar_grid" ? 0.42 : 0.3,
+          opacity: isPrimaryMediaStage ? 0.16 : recipe.backgroundSystem === "radar_grid" ? 0.42 : 0.3,
           transform: recipe.backgroundSystem === "orbital_map" ? "skewY(8deg)" : "skewY(-8deg)",
         }}
       />
@@ -271,7 +312,9 @@ export const VideoBackground: React.FC<{
       <AbsoluteFill
         style={{
           background: [
-            "linear-gradient(180deg, rgba(10,10,11,0.84) 0%, rgba(10,10,11,0.56) 42%, rgba(10,10,11,0.9) 100%)",
+            isPrimaryMediaStage
+              ? "linear-gradient(180deg, rgba(10,10,11,0.54) 0%, rgba(10,10,11,0.24) 42%, rgba(10,10,11,0.72) 100%)"
+              : "linear-gradient(180deg, rgba(10,10,11,0.84) 0%, rgba(10,10,11,0.56) 42%, rgba(10,10,11,0.9) 100%)",
             "linear-gradient(90deg, rgba(10,10,11,0.34) 0%, transparent 18%, transparent 82%, rgba(10,10,11,0.34) 100%)",
           ].join(", "),
         }}

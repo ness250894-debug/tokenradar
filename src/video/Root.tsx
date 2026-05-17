@@ -2,6 +2,7 @@
 import { Composition } from "remotion";
 import { TopGainerUpdate } from "./TopGainerUpdate";
 import type { Verdict } from "./styles";
+import type { VideoAssetLayer, VideoAssetStageSegment, VideoMediaStage } from "../lib/video-assets";
 import type { VideoFormatKey } from "../lib/video-formats";
 import type { VideoVisualRecipe } from "../lib/video-recipes";
 
@@ -33,6 +34,12 @@ export type TopGainerProps = {
   videoThesis?: string;
   /** Seeded visual recipe used to vary layout, chart, scene order, and motion. */
   visualRecipe?: VideoVisualRecipe;
+  /** Optional background/overlay media selected from the local b-roll library. */
+  mediaAssets?: VideoAssetLayer[];
+  /** Timed full-screen b-roll segments for the primary stage. */
+  mediaSegments?: VideoAssetStageSegment[];
+  /** How aggressively selected media should drive the visual stage. */
+  mediaStage?: VideoMediaStage;
 };
 
 // Default props for the Studio preview
@@ -54,6 +61,9 @@ const defaultProps: TopGainerProps = {
   verdict: "STRONG BUY",
   videoFormatKey: "breakout_watch",
   videoThesis: "Ethereum is being checked as a breakout candidate because momentum needs volume confirmation.",
+  mediaAssets: [],
+  mediaSegments: [],
+  mediaStage: "ambient",
   visualRecipe: {
     key: "preview:split_report:signal_radar:terminal_scan:cyan_depth:slide_cut:fast_reveal",
     sceneOrder: ["hook", "reveal", "context", "metrics", "verdict"],

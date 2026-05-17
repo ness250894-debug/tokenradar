@@ -1,0 +1,33 @@
+{
+  "updatedAt": "2026-05-17T00:00:00.000Z",
+  "assets": [
+    {
+      "id": "manual-vertical-chart",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/manual-vertical-chart.mp4",
+      "provider": "manual",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "saturation": 1.08,
+      "tags": ["market", "chart", "broll"],
+      "attribution": "Internal or licensed asset"
+    },
+    {
+      "id": "blender-radar-grid",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/blender-radar-grid.mp4",
+      "provider": "generated",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.24,
+      "saturation": 1.12,
+      "tags": ["blender", "generated", "market", "signal", "radar_grid"],
+      "attribution": "Blender generated radar grid loop"
+    }
+  ]
+}

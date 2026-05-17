@@ -43,6 +43,7 @@ const eslintConfig = defineConfig([
     "build/**",
     "dist-cloudflare/**",
     "tmp/**",
+    "tools/**",
     "audit-artifacts/**",
     "next-env.d.ts",
     "skills/**",

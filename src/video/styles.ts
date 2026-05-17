@@ -11,8 +11,8 @@ export const COLORS = {
 };
 
 export const SAFE_ZONES = {
-  top: 150, // Leave room for TikTok/Reels UI at the top
-  bottom: 350, // Leave room for captions and engagement buttons
+  top: 260, // Keep critical text below top platform chrome.
+  bottom: 620, // Keep critical text above captions, CTAs, and action buttons.
   horizontal: 80, // Prevent text from hitting the very edges
 };
 
