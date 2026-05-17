@@ -146,9 +146,11 @@ describe("markdownToHtml", () => {
   });
 
   it("unwraps token article links when that article route is not exported", async () => {
-    const html = await markdownToHtml("[BTY price scenarios](/bityuan/price-prediction) should not point to a 404.");
+    const html = await markdownToHtml(
+      "[BTY price scenarios](/definitely-missing-tokenradar-token/price-prediction) should not point to a 404.",
+    );
 
     expect(html).toContain("BTY price scenarios");
-    expect(html).not.toContain('href="/bityuan/price-prediction"');
+    expect(html).not.toContain('href="/definitely-missing-tokenradar-token/price-prediction"');
   });
 });
