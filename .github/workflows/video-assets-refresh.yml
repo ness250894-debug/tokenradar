@@ -66,3 +66,24 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+
+      - name: Notify on Failure
+        if: failure()
+        continue-on-error: true
+        timeout-minutes: 3
+        run: |
+          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
+            echo "Telegram report secrets are not configured; skipping failure notification."
+            exit 0
+          fi
+          payload="$(jq -n \
+            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
+            --arg text "Video Asset Refresh Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
+          curl --fail --show-error --silent --max-time 10 \
+            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
+            -H "Content-Type: application/json" \
+            --data "$payload"
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
