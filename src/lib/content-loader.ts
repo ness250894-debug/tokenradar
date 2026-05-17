@@ -7,6 +7,12 @@ import { slugify } from "@/lib/shared-utils";
 import { normalizeArticleMarkdown } from "@/lib/article-formatting";
 import type { ArticleQualitySnapshot } from "@/lib/content-quality";
 import { getMarketDataQualityIssues } from "@/lib/market-data-quality";
+import {
+  PriceHistorySchema,
+  SearchIntentDatasetSchema,
+  SearchIntentHistoryDatasetSchema,
+  TokenMetricsSchema,
+} from "@/lib/schemas";
 import { getTgeSortWeight, isGenericTgeSymbol, normalizeTge } from "@/lib/tge";
 import type { UpcomingTge } from "@/lib/tge";
 import type {
@@ -218,6 +224,7 @@ export interface TokenMetrics {
   narrativeStrength: number;
   valueVsAth: number;
   volatilityIndex: number;
+  holderConcentrationEstimate?: "low" | "medium" | "high" | "unknown";
   summary: string;
   computedAt: string;
 }
@@ -479,6 +486,13 @@ export interface LinkableCategory {
 function getStaticCategoryMinTokens(): number {
   const raw = Number(process.env.STATIC_CATEGORY_MIN_TOKENS || DEFAULT_STATIC_CATEGORY_MIN_TOKENS);
   return Number.isFinite(raw) && raw >= 1 ? Math.floor(raw) : DEFAULT_STATIC_CATEGORY_MIN_TOKENS;
+}
+
+function logSchemaWarning(label: string, tokenId: string, message: string): void {
+  const key = `${label}:${tokenId}`;
+  if (_untrustedTokenWarningCache.has(key)) return;
+  _untrustedTokenWarningCache.add(key);
+  console.warn(`[LOADER] ${label} schema validation failed for ${tokenId}: ${message}`);
 }
 
 /** Get all discrete categories with enough tokens to justify static generation (memoized) */
@@ -760,7 +774,14 @@ export async function getSearchIntentDataset(): Promise<SearchIntentDataset | nu
 
   const relativePath = "data/search-intent.json";
   const file = getFilePath("search-intent.json");
-  _searchIntentDataset = await loadBlob<SearchIntentDataset>(file, relativePath);
+  const raw = await loadBlob<unknown>(file, relativePath);
+  if (!raw) return null;
+  const result = SearchIntentDatasetSchema.safeParse(raw);
+  if (!result.success) {
+    console.warn(`[LOADER] search-intent schema validation failed: ${result.error.message}`);
+    return null;
+  }
+  _searchIntentDataset = result.data as SearchIntentDataset;
   return _searchIntentDataset;
 }
 
@@ -770,7 +791,14 @@ export async function getSearchIntentHistoryDataset(): Promise<SearchIntentHisto
 
   const relativePath = "data/search-intent-history.json";
   const file = getFilePath("search-intent-history.json");
-  _searchIntentHistoryDataset = await loadBlob<SearchIntentHistoryDataset>(file, relativePath);
+  const raw = await loadBlob<unknown>(file, relativePath);
+  if (!raw) return null;
+  const result = SearchIntentHistoryDatasetSchema.safeParse(raw);
+  if (!result.success) {
+    console.warn(`[LOADER] search-intent-history schema validation failed: ${result.error.message}`);
+    return null;
+  }
+  _searchIntentHistoryDataset = result.data as SearchIntentHistoryDataset;
   return _searchIntentHistoryDataset;
 }
 
@@ -852,26 +880,26 @@ export async function getSearchIntentTokensByIntent(
   return typeof limit === "number" ? matching.slice(0, limit) : matching;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mapRawToTokenMetrics(r: any, tokenId: string): TokenMetrics {
-  const riskScore = r.riskScore ?? 5; // Default to 5 instead of 0 if missing
-  
-  if (riskScore === 0 && r.tokenId) {
-    console.warn(`[LOADER] riskScore is 0 for ${tokenId}. Check source data.`);
+function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null {
+  const result = TokenMetricsSchema.safeParse(r);
+  if (!result.success) {
+    logSchemaWarning("metrics", tokenId, result.error.message);
+    return null;
   }
-
+  const metric = result.data;
   return {
-    tokenId: r.tokenId || tokenId,
-    tokenName: r.tokenName || "",
-    symbol: r.symbol || "",
-    riskScore: riskScore,
-    riskLevel: r.riskLevel || "medium",
-    growthPotentialIndex: r.growthPotentialIndex ?? 0,
-    narrativeStrength: r.narrativeStrength ?? 0,
-    valueVsAth: r.valueVsAth ?? 0,
-    volatilityIndex: r.volatilityIndex ?? 0,
-    summary: r.summary || "",
-    computedAt: (r.computedAt as string) || new Date().toISOString(),
+    tokenId: metric.tokenId || tokenId,
+    tokenName: metric.tokenName,
+    symbol: metric.symbol,
+    riskScore: metric.riskScore,
+    riskLevel: metric.riskLevel,
+    growthPotentialIndex: metric.growthPotentialIndex,
+    narrativeStrength: metric.narrativeStrength,
+    valueVsAth: metric.valueVsAth,
+    volatilityIndex: metric.volatilityIndex,
+    holderConcentrationEstimate: metric.holderConcentrationEstimate,
+    summary: metric.summary,
+    computedAt: metric.computedAt,
   };
 }
 
@@ -900,15 +928,13 @@ export async function getPriceHistory(tokenId: string): Promise<PriceHistory | n
   return null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mapRawToPriceHistory(r: any, tokenId: string): PriceHistory {
-  return {
-    id: r.id || tokenId,
-    name: r.name || "",
-    chart30d: r.chart30d || [],
-    chart1y: r.chart1y || [],
-    fetchedAt: (r.fetchedAt as string) || new Date().toISOString(),
-  };
+function mapRawToPriceHistory(r: unknown, tokenId: string): PriceHistory | null {
+  const result = PriceHistorySchema.safeParse(r);
+  if (!result.success) {
+    logSchemaWarning("price history", tokenId, result.error.message);
+    return null;
+  }
+  return result.data;
 }
 
 /** Load a generated article for a token. */

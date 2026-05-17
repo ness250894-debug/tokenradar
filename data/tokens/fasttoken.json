@@ -3,6 +3,17 @@
   "symbol": "ftn",
   "name": "Fasttoken",
   "description": "What is Fasttoken (FTN)?\nFTN is the native coin of Bahamut - public, layer 1 EVM-based blockchain solution with a novelty consensus - PoSA. PoSA stands for Proof of Stake and Activity, where Activity is represented by the amount of gas spent by users when interacting with a validator-deployed smart contract. The more gas usage the given smart contract has, the more chances for the validator-deployer to become a block producer in future epochs.\n\nWhat makes Bahamut unique?\nThe main unique aspect of Bahamut is the PoSA consensus, which introduces new ways for businesses to monetize their user base, while preserving the integrity and transparency of the web3 space. \n\nHistory of Fasttoken (FTN):\nFTN was originally an ERC20 token of SoftConstruct and Fastex ecosystems. After Bahamut mainnet launched on May 3, 2023 with FTN as its native coin, the migration process started from Ethereum to Bahamut and is still an ongoing process. \n\nWhat’s next for Bahamut?\nThe infrastructure of Bahamut is constantly growing - users can expect decentralized exchanges, various apps, bridge services, and other essential aspects to be available on Bahamut before the end of the year. Also, Bahamut grant program is under way and will open the doors to everyone who wants to build a better decentralized future together.\n\nWhat can Fasttoken (FTN) be used for?\nFTN is used in a variety of providers as a gaming token, and also the native coin for Bahamut network.\n",
+  "categories": [
+    "Layer 1 (L1)",
+    "Gaming"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": null
+  },
   "market": {
     "price": 0.159833,
     "marketCap": 69345834,
@@ -10,7 +21,7 @@
     "volume24h": 64819,
     "high24h": 0,
     "low24h": 0,
-    "priceChange24h": null,
+    "priceChange24h": 0,
     "priceChange7d": 0,
     "priceChange30d": -85.32507,
     "priceChange1y": -96.13602,
@@ -24,5 +35,15 @@
     "maxSupply": 1000000000,
     "fdv": 139173021
   },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-05-01T18:47:51.328Z",
   "lastMarketUpdate": "2026-05-01T18:47:51.328Z"
 }

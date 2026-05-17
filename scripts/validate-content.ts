@@ -11,7 +11,17 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import type { ZodType } from "zod";
 import { evaluateArticleQuality } from "../src/lib/content-quality";
+import {
+  GeneratedArticleSchema,
+  PriceHistorySchema,
+  SearchIntentDatasetSchema,
+  SearchIntentHistoryDatasetSchema,
+  TokenDetailDataSchema,
+  TokenMetricsSchema,
+  UpcomingTgesSchema,
+} from "../src/lib/schemas";
 import { normalizeTge, type UpcomingTge } from "../src/lib/tge";
 
 const SCAN_DIRS = [
@@ -213,6 +223,57 @@ export function validateArticleOutboundUrls(filePath: string, parsed: unknown): 
     .map((url) => `Unapproved outbound URL: ${url}`);
 }
 
+function formatSchemaIssues(schemaName: string, issues: Array<{ path: PropertyKey[]; message: string }>): string {
+  return issues
+    .map((issue) => {
+      const pathLabel = issue.path.length > 0 ? issue.path.join(".") : "(root)";
+      return `${pathLabel}: ${issue.message}`;
+    })
+    .map((issue) => `${schemaName} ${issue}`)
+    .join("; ");
+}
+
+function validateWithSchema(schemaName: string, schema: ZodType, parsed: unknown): string[] {
+  const result = schema.safeParse(parsed);
+  if (result.success) return [];
+  return [`${schemaName} schema validation failed: ${formatSchemaIssues(schemaName, result.error.issues)}`];
+}
+
+export function validateDataSchemaIntegrity(filePath: string, parsed: unknown): string[] {
+  const portablePath = filePath.replace(/\\/g, "/");
+  const basename = path.basename(portablePath);
+
+  if (/(^|\/)data\/metrics\/[^/]+\.json$/.test(portablePath) && !basename.startsWith("_")) {
+    return validateWithSchema("data/metrics", TokenMetricsSchema, parsed);
+  }
+
+  if (/(^|\/)data\/prices\/[^/]+\.json$/.test(portablePath)) {
+    return validateWithSchema("data/prices", PriceHistorySchema, parsed);
+  }
+
+  if (/(^|\/)data\/tokens\/[^/]+\.json$/.test(portablePath)) {
+    return validateWithSchema("data/tokens", TokenDetailDataSchema, parsed);
+  }
+
+  if (/(^|\/)data\/upcoming-tges\.json$/.test(portablePath)) {
+    return validateWithSchema("data/upcoming-tges", UpcomingTgesSchema, parsed);
+  }
+
+  if (/(^|\/)data\/search-intent\.json$/.test(portablePath)) {
+    return validateWithSchema("data/search-intent", SearchIntentDatasetSchema, parsed);
+  }
+
+  if (/(^|\/)data\/search-intent-history\.json$/.test(portablePath)) {
+    return validateWithSchema("data/search-intent-history", SearchIntentHistoryDatasetSchema, parsed);
+  }
+
+  if (/(^|\/)(content\/tokens|data\/queue)\/[^/]+\/(?:overview|price-prediction|how-to-buy|tge-preview)\.json$/.test(portablePath)) {
+    return validateWithSchema("generated article", GeneratedArticleSchema, parsed);
+  }
+
+  return [];
+}
+
 function validateFile(filePath: string): { success: boolean; error?: string } {
   try {
     const content = fs.readFileSync(filePath, "utf-8");
@@ -234,9 +295,10 @@ function validateFile(filePath: string): { success: boolean; error?: string } {
     // 2. Check for valid JSON
     if (filePath.endsWith(".json")) {
       const parsed = JSON.parse(content);
+      const schemaErrors = validateDataSchemaIntegrity(filePath, parsed);
       const articleErrors = validateGeneratedArticleIntegrity(filePath, parsed);
       const outboundErrors = validateArticleOutboundUrls(filePath, parsed);
-      const errors = [...articleErrors, ...outboundErrors];
+      const errors = [...schemaErrors, ...articleErrors, ...outboundErrors];
       if (errors.length > 0) {
         return {
           success: false,

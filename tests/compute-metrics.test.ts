@@ -5,6 +5,7 @@ import {
   computeGrowthPotential,
   computeNarrativeStrength,
   computeValueVsAth,
+  buildMetricSummary,
 } from "../scripts/compute-metrics";
 
 // ── computeVolatility ─────────────────────────────────────────
@@ -134,5 +135,16 @@ describe("computeValueVsAth", () => {
 
   it("handles small drawdowns", () => {
     expect(computeValueVsAth(-5)).toBe(95);
+  });
+
+  it("caps scores at 100 when price is above the previous ATH", () => {
+    expect(computeValueVsAth(7)).toBe(100);
+  });
+});
+
+describe("buildMetricSummary", () => {
+  it("labels high valueVsAth as near ATH and low valueVsAth as deeply discounted", () => {
+    expect(buildMetricSummary("Near Token", "medium", 40, 30, 92)).toBe("Near Token is a near ATH token.");
+    expect(buildMetricSummary("Discount Token", "medium", 40, 30, 8)).toBe("Discount Token is a deeply discounted vs ATH token.");
   });
 });
