@@ -49,6 +49,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Upload snapshot diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: monthly-snapshot-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            snapshot/
+            npm-debug.log*
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Notify on Failure
         if: failure()
         continue-on-error: true

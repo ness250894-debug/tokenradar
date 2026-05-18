@@ -124,7 +124,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          # Pure static file upload — no worker, no KV, no D1.
+          # Static asset upload with the scoped /compare Pages Function from public/_worker.js.
           npx wrangler pages deploy out/ \
             --project-name=tokenradar \
             --branch=main \

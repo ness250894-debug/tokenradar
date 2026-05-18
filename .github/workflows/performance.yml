@@ -118,10 +118,21 @@ jobs:
             echo "Skipping PageSpeed Insights because PAGESPEED_API_KEY is not configured."
             exit 0
           fi
-          npm run pagespeed:snapshot
+          mkdir -p pagespeed
+          set -o pipefail
+          npm run pagespeed:snapshot 2>&1 | tee "pagespeed/pagespeed-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.log"
         env:
           PAGESPEED_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+
+      - name: Upload PageSpeed diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pagespeed-live-${{ github.run_id }}-${{ github.run_attempt }}
+          path: pagespeed/
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Notify on Failure
         if: failure()
