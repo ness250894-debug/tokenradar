@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenRadar AI Prompting Strategy - TokenRadar Docs</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0d10;
+        --panel: #151922;
+        --panel-2: #10141b;
+        --line: #2c3443;
+        --text: #f5f7fb;
+        --muted: #aeb8c8;
+        --soft: #768297;
+        --cyan: #31c7d7;
+        --green: #35d18a;
+        --amber: #f2b84b;
+        --blue: #7aa2ff;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+      main {
+        width: min(1180px, calc(100vw - 40px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+      header { margin-bottom: 28px; }
+      h1, h2, h3, h4, h5, h6, p { margin-top: 0; }
+      h1 {
+        max-width: 980px;
+        margin-bottom: 12px;
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+      h2 { margin: 28px 0 14px; font-size: 26px; }
+      h3 { margin: 24px 0 10px; color: var(--text); font-size: 19px; }
+      h4, h5, h6 { margin: 20px 0 8px; color: var(--text); }
+      p { color: var(--muted); }
+      a { color: var(--cyan); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code {
+        color: #dce6f7;
+        font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+      pre {
+        overflow-x: auto;
+        margin: 14px 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #070a0f;
+      }
+      pre code { color: #dce6f7; white-space: pre; }
+      .lead { max-width: 900px; margin-bottom: 0; color: var(--muted); font-size: 18px; }
+      .section {
+        margin-top: 22px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+      }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .box {
+        min-height: 116px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+      .box p { margin-bottom: 0; }
+      .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+      .tag.green { color: var(--green); }
+      .tag.amber { color: var(--amber); }
+      .tag.blue { color: var(--blue); }
+      .content { color: var(--muted); }
+      .content h1 { margin-top: 0; font-size: 36px; }
+      .content ul, .content ol { margin: 10px 0 16px; padding-left: 22px; color: var(--muted); }
+      .content li + li { margin-top: 6px; }
+      blockquote {
+        margin: 16px 0;
+        padding: 14px 18px;
+        border-left: 3px solid var(--cyan);
+        background: var(--panel);
+      }
+      blockquote p { margin-bottom: 0; }
+      table {
+        width: 100%;
+        margin: 16px 0;
+        border-collapse: collapse;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      th, td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        color: var(--text);
+        background: #151922;
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+      tr:last-child td { border-bottom: 0; }
+      .outline ol { margin: 0; padding-left: 22px; color: var(--muted); }
+      .outline li + li { margin-top: 5px; }
+      .outline .level-3 { margin-left: 16px; }
+      .outline .level-4, .outline .level-5, .outline .level-6 { margin-left: 32px; }
+      .outline span { color: var(--soft); font-size: 12px; }
+      details summary { cursor: pointer; color: var(--text); font-weight: 800; }
+      hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
+
+      @media (max-width: 920px) {
+        .grid { grid-template-columns: 1fr; }
+        table, thead, tbody, th, td, tr { display: block; }
+        thead { display: none; }
+        td { border-bottom: 0; padding: 10px 14px; }
+        tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+        tr:last-child { border-bottom: 0; }
+      }
+      @media (max-width: 640px) {
+        main { width: min(100vw - 28px, 1180px); padding-top: 30px; }
+        .section { padding: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TokenRadar AI Prompting Strategy</h1>
+        <p class="lead">
+          Standalone HTML representation of <code>docs/prompts/prompts.json#rawMarkdown</code>.
+          The paired JSON file preserves the raw Markdown, extracted headings, code blocks,
+          links, tables, sections, and document statistics.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>Document Contract</h2>
+        <div class="grid">
+          <div class="box">
+            <span class="tag green">Source</span>
+            <h3><code>prompts.json#rawMarkdown</code></h3>
+            <p>140 lines and 1326 words.</p>
+          </div>
+          <div class="box">
+            <span class="tag blue">Structure</span>
+            <h3>11 headings</h3>
+            <p>1 code blocks, 2 tables, 0 Markdown links.</p>
+          </div>
+          <div class="box">
+            <span class="tag amber">Pair</span>
+            <h3><a href="prompts.json">prompts.json</a></h3>
+            <p>Machine-readable representation of this same Markdown document.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section outline">
+        <h2>Outline</h2>
+        <ol><li class="level-1"><a href="#tokenradar-ai-prompting-strategy">TokenRadar AI Prompting Strategy</a> <span>line 1</span></li><li class="level-2"><a href="#1-prompt-flow-boundaries">1. Prompt Flow Boundaries</a> <span>line 7</span></li><li class="level-2"><a href="#2-shared-editorial-rules">2. Shared Editorial Rules</a> <span>line 16</span></li><li class="level-2"><a href="#3-standard-article-placeholders">3. Standard Article Placeholders</a> <span>line 40</span></li><li class="level-2"><a href="#4-tge-prompt-exception">4. TGE Prompt Exception</a> <span>line 58</span></li><li class="level-2"><a href="#5-injected-context-blocks">5. Injected Context Blocks</a> <span>line 72</span></li><li class="level-2"><a href="#6-article-archetypes">6. Article Archetypes</a> <span>line 87</span></li><li class="level-2"><a href="#7-quality-gates-and-retry-loop">7. Quality Gates and Retry Loop</a> <span>line 98</span></li><li class="level-2"><a href="#8-publication-and-post-generation-mutation">8. Publication and Post-Generation Mutation</a> <span>line 115</span></li><li class="level-2"><a href="#9-social-prompt-boundary">9. Social Prompt Boundary</a> <span>line 127</span></li><li class="level-2"><a href="#10-documentation-maintenance">10. Documentation Maintenance</a> <span>line 133</span></li></ol>
+      </section>
+
+      <section class="section content">
+        <h1 id="tokenradar-ai-prompting-strategy">TokenRadar AI Prompting Strategy</h1>
+<p>This generated artifact pair is the source of record for TokenRadar&#39;s article-generation prompt contract. The retired root <code>PROMPTS.md</code> source has been removed; keep <code>docs/prompts/prompts.json</code> and <code>docs/prompts/prompts.html</code> updated together.</p>
+<p>This document covers the website article prompt flow. The broader queue, publishing, editorial, schema, and integration flows are documented in <code>docs/pipeline/</code>, <code>docs/editorial/</code>, <code>docs/data-schema/</code>, and <code>docs/integrations/</code>.</p>
+<h2 id="1-prompt-flow-boundaries">1. Prompt Flow Boundaries</h2>
+<ul>
+<li><code>scripts/generate-content.ts --drip --queue</code> builds article prompts and writes generated drafts into <code>data/queue/</code>.</li>
+<li>Gemini 2.5 Flash is the primary article generation model through <code>callAIWithFallback()</code>; Claude Haiku 4.5 is the fallback when Gemini cannot complete the request.</li>
+<li>Standard token articles use <code>SYSTEM_PROMPT</code>; launch articles use the separate <code>TGE_SYSTEM_PROMPT</code>.</li>
+<li>Each generated article is parsed from the explicit <code>---TITLE---</code>, <code>---CONTENT---</code>, and <code>---END---</code> output envelope.</li>
+<li>Generation retries up to 3 times when parsing or blocking quality checks fail.</li>
+<li>The prompt flow does not publish directly. Publication, placeholder hydration, link injection, repair, validation, build, and deploy happen downstream.</li>
+</ul>
+<h2 id="2-shared-editorial-rules">2. Shared Editorial Rules</h2>
+<p>These rules apply to all generated website articles unless a TGE-specific rule is stricter:</p>
+<ol>
+<li>Tone must be professional, analytical, data-driven, and free of hype or FOMO.</li>
+<li>Never recommend buying or selling a token.</li>
+<li>Never guarantee returns, profits, safety, or exact future prices.</li>
+<li>Use objective scenario language such as &quot;historical patterns suggest&quot;, &quot;based on current data&quot;, or &quot;in a bullish scenario&quot;.</li>
+<li>Include at least 3 specific numerical data points from provided context, excluding unresolved live placeholders.</li>
+<li>Reference real source context when available, but do not copy source snippets.</li>
+<li>Use only <code>##</code> Markdown headings in generated article content.</li>
+<li>Include a useful introductory paragraph before the first heading.</li>
+<li>Include a Markdown summary table early in the article.</li>
+<li>Include a final <code>## FAQ</code> section with 3 to 5 questions.</li>
+<li>End with the exact standard disclaimer:</li>
+</ol>
+<pre><code class="language-markdown">---
+*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*
+</code></pre>
+<ol start="12">
+<li>Do not include external URLs, ads, or third-party domains in generated copy. Internal links are injected after generation.</li>
+<li>Do not bold full paragraphs. Bold only short phrases when emphasis is useful.</li>
+</ol>
+<h2 id="3-standard-article-placeholders">3. Standard Article Placeholders</h2>
+<p>Standard token articles must use exact placeholders for volatile live market fields during generation. <code>scripts/publish-from-queue.ts</code> hydrates these immediately before writing approved content to <code>content/tokens/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Placeholder</th>
+<th>Publish-time value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>{{LIVE_PRICE}}</code></td>
+<td>Current price with a dollar prefix</td>
+</tr>
+<tr>
+<td><code>{{LIVE_MARKET_CAP}}</code></td>
+<td>Current market cap with a dollar prefix</td>
+</tr>
+<tr>
+<td><code>{{LIVE_RANK}}</code></td>
+<td>Current market cap rank</td>
+</tr>
+<tr>
+<td><code>{{LIVE_DATE}}</code></td>
+<td>Current date formatted as Month Day, Year</td>
+</tr>
+<tr>
+<td><code>{{LIVE_24H_CHANGE}}</code></td>
+<td>24-hour percentage change</td>
+</tr>
+<tr>
+<td><code>{{GLOBAL_MCAP}}</code></td>
+<td>Global crypto market cap</td>
+</tr>
+<tr>
+<td><code>{{GLOBAL_TOTAL_MARKET_CAP}}</code></td>
+<td>Global crypto market cap alias</td>
+</tr>
+<tr>
+<td><code>{{BTC_DOM}}</code></td>
+<td>BTC dominance</td>
+</tr>
+<tr>
+<td><code>{{GLOBAL_BTC_DOMINANCE}}</code></td>
+<td>BTC dominance alias</td>
+</tr>
+</tbody></table>
+<p>The quality layer warns if live placeholders remain in generated article content. The publisher blocks and deletes queued files that still contain unresolved placeholders after hydration.</p>
+<h2 id="4-tge-prompt-exception">4. TGE Prompt Exception</h2>
+<p>TGE preview articles use <code>TGE_SYSTEM_PROMPT</code>, not the standard market-data prompt.</p>
+<ul>
+<li>Do not use <code>{{LIVE_PRICE}}</code>, <code>{{LIVE_MARKET_CAP}}</code>, <code>{{LIVE_RANK}}</code>, <code>{{LIVE_DATE}}</code>, or <code>{{LIVE_24H_CHANGE}}</code>.</li>
+<li>If the token is not actively trading, say market data is not available yet instead of inventing price, market cap, exchange listings, or liquidity.</li>
+<li>Treat narrative strength as attention, not proof.</li>
+<li>Only call a launch confirmed when the TGE lifecycle status supports that claim.</li>
+<li>Use TGE signals, confidence, source count, contracts, chains, tokenomics, and GeckoTerminal data only when provided.</li>
+<li>Do not invent investors, tokenomics, contracts, chains, exchange listings, official links, or launch dates.</li>
+<li>Include a compact evidence table early in the article.</li>
+</ul>
+<p>Pre-launch TGE publication may use explicit <code>TBA</code> market fields when no live pool exists. Normal token publication is blocked when live market data cannot be fetched.</p>
+<h2 id="5-injected-context-blocks">5. Injected Context Blocks</h2>
+<p>Article prompts can receive the following context blocks:</p>
+<ul>
+<li><code>TOKEN DATA</code>: CoinGecko token detail data such as market cap, supply, rank, categories, descriptions, and market fields.</li>
+<li><code>PROPRIETARY METRICS</code>: TokenRadar metrics such as risk score, growth potential, narrative strength, volatility, and related computed fields.</li>
+<li><code>PRICE HISTORY SUMMARY</code>: 30-day and 1-year high, low, average, and percentage-change data.</li>
+<li><code>REFERENCE ARTICLES</code>: Stored source snippets for factual grounding and style reference only.</li>
+<li><code>SEMANTIC CLUSTERING RULE</code>: Related token names that must be compared against the target token when available.</li>
+<li><code>GLOBAL MARKET CONTEXT</code>: Total market cap, BTC dominance, and sector performance used for strategic grounding.</li>
+<li><code>TGE ENTRY DATA</code>: Discovery-pipeline fields for pre-launch or launch-transition projects.</li>
+<li><code>DEX LIVE MARKET DATA</code>: GeckoTerminal price, volume, liquidity, FDV, DEX, pool age, and 24-hour change when a TGE pool is found.</li>
+</ul>
+<p>If reference articles are missing, the prompt explicitly says no recent articles were found. If related-token lookup fails, generation continues without the semantic comparison rule.</p>
+<h2 id="6-article-archetypes">6. Article Archetypes</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th align="right">Prompt target</th>
+<th>Prompt focus</th>
+<th>Special constraints</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>overview</code></td>
+<td align="right">1,000-1,200 words</td>
+<td>Fundamentals, architecture, tokenomics, TokenRadar metrics, risks, recent developments</td>
+<td>Must explain the token without turning source descriptions into marketing copy.</td>
+</tr>
+<tr>
+<td><code>price-prediction</code></td>
+<td align="right">1,000-1,200 words</td>
+<td>Historical price movement, ATH/ATL context, support and resistance, bear/base/bull scenarios</td>
+<td>Must not make exact price predictions or single-target forecasts.</td>
+</tr>
+<tr>
+<td><code>how-to-buy</code></td>
+<td align="right">800-1,000 words</td>
+<td>Market availability checks, pair/network/contract verification, fees, slippage, custody, taxes</td>
+<td>Must not claim Binance, Coinbase, Bybit, Kraken, OKX, Gate.io, KuCoin, MEXC, Bitget, or any other venue lists the asset unless token data verifies it.</td>
+</tr>
+<tr>
+<td><code>tge-preview</code></td>
+<td align="right">800-1,000 words</td>
+<td>Launch status, confidence, evidence timeline, category, narrative strength, expected launch window</td>
+<td>Must use the TGE evidence contract and must not use standard live market placeholders.</td>
+</tr>
+</tbody></table>
+<p>The quality gate uses lower fail thresholds than the prompt targets: overview and price-analysis articles fail below 800 words, how-to-buy guides fail below 700 words, and TGE previews fail below 500 words.</p>
+<h2 id="7-quality-gates-and-retry-loop">7. Quality Gates and Retry Loop</h2>
+<p>During generation, each parsed draft is evaluated by <code>evaluateArticleQuality()</code>. Blocking issues include:</p>
+<ul>
+<li>Word count below the article-type minimum.</li>
+<li>Missing early summary table.</li>
+<li>Missing <code>## FAQ</code> section or an FAQ outside the 3 to 5 question range.</li>
+<li>Missing disclaimer.</li>
+<li>Fewer than 3 numerical data points.</li>
+<li>Prohibited financial advice, certainty, hype, or promotional phrases.</li>
+<li>Repeated filler paragraphs.</li>
+<li>Malformed Markdown table blocks.</li>
+</ul>
+<p>If a draft fails parsing or blocking quality checks, generation retries with the same article type. Successful articles store a fresh <code>quality</code> snapshot in the generated article JSON.</p>
+<p>Warnings include borderline word count, long average sentence length, unsupported heading depth, weak opening summaries, missing internal continuation links, hardcoded live-date phrasing, exact-disclaimer drift, unresolved live placeholders, and excessive generic filler. Warnings are not automatic generation blockers.</p>
+<h2 id="8-publication-and-post-generation-mutation">8. Publication and Post-Generation Mutation</h2>
+<p>Prompt output is only the first draft. The downstream flow can still modify or drop content:</p>
+<ol>
+<li><code>scripts/quality-check.ts --dir data/queue --fix --delete-failures</code> applies queue gates and limited fixes.</li>
+<li><code>scripts/publish-from-queue.ts --max</code> hydrates placeholders, blocks unresolved placeholders, rebuilds quality snapshots, and writes approved articles to <code>content/tokens/</code>.</li>
+<li><code>scripts/inject-internal-links.ts</code> adds approved internal links after generation.</li>
+<li><code>scripts/repair-article-content.ts</code> normalizes Markdown, neutralizes unsupported how-to-buy venue claims, unwraps ambiguous internal links, moves or adds the disclaimer, inserts continuation sections, deepens thin articles, and refreshes quality metadata.</li>
+<li><code>scripts/validate-content.ts</code> validates JSON syntax, article path/type/slug integrity, quality gates, outbound URL policy, TGE references, and schema contracts before build and deploy.</li>
+</ol>
+<p>Because post-generation repair can change content, the prompt contract should be read together with <code>docs/editorial/</code> and <code>docs/pipeline/</code>.</p>
+<h2 id="9-social-prompt-boundary">9. Social Prompt Boundary</h2>
+<p>Social posts, polls, captions, video scripts, and platform variants are not governed by this website article prompt contract. They use social-specific instructions in <code>src/lib/gemini.ts</code>, <code>src/lib/social-variety.ts</code>, <code>src/lib/social-content-generator.ts</code>, and the <code>scripts/post-*.ts</code> automation files.</p>
+<p>The social layer still inherits the same no-advice, no-hype, no-unsupported-venue-claim editorial boundary.</p>
+<h2 id="10-documentation-maintenance">10. Documentation Maintenance</h2>
+<ul>
+<li>Keep this prompt contract synchronized with <code>scripts/generate-content.ts</code>, <code>scripts/publish-from-queue.ts</code>, <code>src/lib/content-quality.ts</code>, and <code>src/lib/article-repair.ts</code>.</li>
+<li>Keep flow order and operational failure handling in <code>docs/pipeline/</code>.</li>
+<li>Keep editorial escalation, manual review, and post-publish QA rules in <code>docs/editorial/</code>.</li>
+<li>Keep schema and stored artifact contracts in <code>docs/data-schema/</code>.</li>
+<li>Keep provider, secret, and integration recovery notes in <code>docs/integrations/</code>.</li>
+</ul>
+
+      </section>
+
+      <section class="section">
+        <details>
+          <summary>Raw Markdown</summary>
+          <pre><code># TokenRadar AI Prompting Strategy
+
+This generated artifact pair is the source of record for TokenRadar's article-generation prompt contract. The retired root `PROMPTS.md` source has been removed; keep `docs/prompts/prompts.json` and `docs/prompts/prompts.html` updated together.
+
+This document covers the website article prompt flow. The broader queue, publishing, editorial, schema, and integration flows are documented in `docs/pipeline/`, `docs/editorial/`, `docs/data-schema/`, and `docs/integrations/`.
+
+## 1. Prompt Flow Boundaries
+
+- `scripts/generate-content.ts --drip --queue` builds article prompts and writes generated drafts into `data/queue/`.
+- Gemini 2.5 Flash is the primary article generation model through `callAIWithFallback()`; Claude Haiku 4.5 is the fallback when Gemini cannot complete the request.
+- Standard token articles use `SYSTEM_PROMPT`; launch articles use the separate `TGE_SYSTEM_PROMPT`.
+- Each generated article is parsed from the explicit `---TITLE---`, `---CONTENT---`, and `---END---` output envelope.
+- Generation retries up to 3 times when parsing or blocking quality checks fail.
+- The prompt flow does not publish directly. Publication, placeholder hydration, link injection, repair, validation, build, and deploy happen downstream.
+
+## 2. Shared Editorial Rules
+
+These rules apply to all generated website articles unless a TGE-specific rule is stricter:
+
+1. Tone must be professional, analytical, data-driven, and free of hype or FOMO.
+2. Never recommend buying or selling a token.
+3. Never guarantee returns, profits, safety, or exact future prices.
+4. Use objective scenario language such as &quot;historical patterns suggest&quot;, &quot;based on current data&quot;, or &quot;in a bullish scenario&quot;.
+5. Include at least 3 specific numerical data points from provided context, excluding unresolved live placeholders.
+6. Reference real source context when available, but do not copy source snippets.
+7. Use only `##` Markdown headings in generated article content.
+8. Include a useful introductory paragraph before the first heading.
+9. Include a Markdown summary table early in the article.
+10. Include a final `## FAQ` section with 3 to 5 questions.
+11. End with the exact standard disclaimer:
+
+```markdown
+---
+*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*
+```
+
+12. Do not include external URLs, ads, or third-party domains in generated copy. Internal links are injected after generation.
+13. Do not bold full paragraphs. Bold only short phrases when emphasis is useful.
+
+## 3. Standard Article Placeholders
+
+Standard token articles must use exact placeholders for volatile live market fields during generation. `scripts/publish-from-queue.ts` hydrates these immediately before writing approved content to `content/tokens/`.
+
+| Placeholder | Publish-time value |
+|---|---|
+| `{{LIVE_PRICE}}` | Current price with a dollar prefix |
+| `{{LIVE_MARKET_CAP}}` | Current market cap with a dollar prefix |
+| `{{LIVE_RANK}}` | Current market cap rank |
+| `{{LIVE_DATE}}` | Current date formatted as Month Day, Year |
+| `{{LIVE_24H_CHANGE}}` | 24-hour percentage change |
+| `{{GLOBAL_MCAP}}` | Global crypto market cap |
+| `{{GLOBAL_TOTAL_MARKET_CAP}}` | Global crypto market cap alias |
+| `{{BTC_DOM}}` | BTC dominance |
+| `{{GLOBAL_BTC_DOMINANCE}}` | BTC dominance alias |
+
+The quality layer warns if live placeholders remain in generated article content. The publisher blocks and deletes queued files that still contain unresolved placeholders after hydration.
+
+## 4. TGE Prompt Exception
+
+TGE preview articles use `TGE_SYSTEM_PROMPT`, not the standard market-data prompt.
+
+- Do not use `{{LIVE_PRICE}}`, `{{LIVE_MARKET_CAP}}`, `{{LIVE_RANK}}`, `{{LIVE_DATE}}`, or `{{LIVE_24H_CHANGE}}`.
+- If the token is not actively trading, say market data is not available yet instead of inventing price, market cap, exchange listings, or liquidity.
+- Treat narrative strength as attention, not proof.
+- Only call a launch confirmed when the TGE lifecycle status supports that claim.
+- Use TGE signals, confidence, source count, contracts, chains, tokenomics, and GeckoTerminal data only when provided.
+- Do not invent investors, tokenomics, contracts, chains, exchange listings, official links, or launch dates.
+- Include a compact evidence table early in the article.
+
+Pre-launch TGE publication may use explicit `TBA` market fields when no live pool exists. Normal token publication is blocked when live market data cannot be fetched.
+
+## 5. Injected Context Blocks
+
+Article prompts can receive the following context blocks:
+
+- `TOKEN DATA`: CoinGecko token detail data such as market cap, supply, rank, categories, descriptions, and market fields.
+- `PROPRIETARY METRICS`: TokenRadar metrics such as risk score, growth potential, narrative strength, volatility, and related computed fields.
+- `PRICE HISTORY SUMMARY`: 30-day and 1-year high, low, average, and percentage-change data.
+- `REFERENCE ARTICLES`: Stored source snippets for factual grounding and style reference only.
+- `SEMANTIC CLUSTERING RULE`: Related token names that must be compared against the target token when available.
+- `GLOBAL MARKET CONTEXT`: Total market cap, BTC dominance, and sector performance used for strategic grounding.
+- `TGE ENTRY DATA`: Discovery-pipeline fields for pre-launch or launch-transition projects.
+- `DEX LIVE MARKET DATA`: GeckoTerminal price, volume, liquidity, FDV, DEX, pool age, and 24-hour change when a TGE pool is found.
+
+If reference articles are missing, the prompt explicitly says no recent articles were found. If related-token lookup fails, generation continues without the semantic comparison rule.
+
+## 6. Article Archetypes
+
+| Type | Prompt target | Prompt focus | Special constraints |
+|---|---:|---|---|
+| `overview` | 1,000-1,200 words | Fundamentals, architecture, tokenomics, TokenRadar metrics, risks, recent developments | Must explain the token without turning source descriptions into marketing copy. |
+| `price-prediction` | 1,000-1,200 words | Historical price movement, ATH/ATL context, support and resistance, bear/base/bull scenarios | Must not make exact price predictions or single-target forecasts. |
+| `how-to-buy` | 800-1,000 words | Market availability checks, pair/network/contract verification, fees, slippage, custody, taxes | Must not claim Binance, Coinbase, Bybit, Kraken, OKX, Gate.io, KuCoin, MEXC, Bitget, or any other venue lists the asset unless token data verifies it. |
+| `tge-preview` | 800-1,000 words | Launch status, confidence, evidence timeline, category, narrative strength, expected launch window | Must use the TGE evidence contract and must not use standard live market placeholders. |
+
+The quality gate uses lower fail thresholds than the prompt targets: overview and price-analysis articles fail below 800 words, how-to-buy guides fail below 700 words, and TGE previews fail below 500 words.
+
+## 7. Quality Gates and Retry Loop
+
+During generation, each parsed draft is evaluated by `evaluateArticleQuality()`. Blocking issues include:
+
+- Word count below the article-type minimum.
+- Missing early summary table.
+- Missing `## FAQ` section or an FAQ outside the 3 to 5 question range.
+- Missing disclaimer.
+- Fewer than 3 numerical data points.
+- Prohibited financial advice, certainty, hype, or promotional phrases.
+- Repeated filler paragraphs.
+- Malformed Markdown table blocks.
+
+If a draft fails parsing or blocking quality checks, generation retries with the same article type. Successful articles store a fresh `quality` snapshot in the generated article JSON.
+
+Warnings include borderline word count, long average sentence length, unsupported heading depth, weak opening summaries, missing internal continuation links, hardcoded live-date phrasing, exact-disclaimer drift, unresolved live placeholders, and excessive generic filler. Warnings are not automatic generation blockers.
+
+## 8. Publication and Post-Generation Mutation
+
+Prompt output is only the first draft. The downstream flow can still modify or drop content:
+
+1. `scripts/quality-check.ts --dir data/queue --fix --delete-failures` applies queue gates and limited fixes.
+2. `scripts/publish-from-queue.ts --max` hydrates placeholders, blocks unresolved placeholders, rebuilds quality snapshots, and writes approved articles to `content/tokens/`.
+3. `scripts/inject-internal-links.ts` adds approved internal links after generation.
+4. `scripts/repair-article-content.ts` normalizes Markdown, neutralizes unsupported how-to-buy venue claims, unwraps ambiguous internal links, moves or adds the disclaimer, inserts continuation sections, deepens thin articles, and refreshes quality metadata.
+5. `scripts/validate-content.ts` validates JSON syntax, article path/type/slug integrity, quality gates, outbound URL policy, TGE references, and schema contracts before build and deploy.
+
+Because post-generation repair can change content, the prompt contract should be read together with `docs/editorial/` and `docs/pipeline/`.
+
+## 9. Social Prompt Boundary
+
+Social posts, polls, captions, video scripts, and platform variants are not governed by this website article prompt contract. They use social-specific instructions in `src/lib/gemini.ts`, `src/lib/social-variety.ts`, `src/lib/social-content-generator.ts`, and the `scripts/post-*.ts` automation files.
+
+The social layer still inherits the same no-advice, no-hype, no-unsupported-venue-claim editorial boundary.
+
+## 10. Documentation Maintenance
+
+- Keep this prompt contract synchronized with `scripts/generate-content.ts`, `scripts/publish-from-queue.ts`, `src/lib/content-quality.ts`, and `src/lib/article-repair.ts`.
+- Keep flow order and operational failure handling in `docs/pipeline/`.
+- Keep editorial escalation, manual review, and post-publish QA rules in `docs/editorial/`.
+- Keep schema and stored artifact contracts in `docs/data-schema/`.
+- Keep provider, secret, and integration recovery notes in `docs/integrations/`.
+</code></pre>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>
