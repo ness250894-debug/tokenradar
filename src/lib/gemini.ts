@@ -988,15 +988,18 @@ export async function generatePollHook(
     4. Do NOT use cashtags (e.g. $BTC, $ETH). The cashtag will be added separately by the system.
     5. Do NOT use dollar signs for prices — write prices as plain numbers (e.g. '21.64' not '$21.64').
     6. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
+    7. Avoid buy/sell advice, hype, moon language, guaranteed outcomes, and urgency.
   `;
 
   try {
     const result = await callAIWithFallback("", prompt, 512);
-    return result.content || "";
+    return sanitizeSocialEditorialText(sanitizePostTextLinks(result.content || ""));
   } catch (_error) {
     console.warn(`  ⚠ AI poll hook generation failed.`);
     // Fallback template
-    return symbol ? `What's your move on $${symbol.toUpperCase()} today?` : `Which crypto narrative dominates this week?`;
+    return symbol
+      ? `How are you reading ${symbol.toUpperCase()} today?`
+      : `Which crypto narrative deserves more research this week?`;
   }
 }
 

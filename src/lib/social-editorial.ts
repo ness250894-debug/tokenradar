@@ -3,6 +3,7 @@ const SOCIAL_EDITORIAL_REPLACEMENTS: Array<[RegExp, string]> = [
   [/\binvest\s+now\b/gi, "Review the data"],
   [/\byou\s+should\s+(?:buy|invest)\b/gi, "review the data"],
   [/\b(?:moonshot|to the moon)\b/gi, "high-volatility move"],
+  [/\bmoon\s+bound\b/gi, "Needs confirmation"],
   [/\b(?:1000x|100x|10x)\b/gi, "large upside claim"],
   [/\bguaranteed\s+(?:returns|gains|profit)\b/gi, "unverified return claim"],
   [/\b(?:sure thing|cannot lose|can't lose|risk-free investment)\b/gi, "risk claim"],
