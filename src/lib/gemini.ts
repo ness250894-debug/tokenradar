@@ -2,6 +2,7 @@ import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
+import { sanitizeSocialEditorialText } from "./social-editorial";
 import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
 import {
   formatVariantPromptLine,
@@ -555,7 +556,7 @@ export function prepareTikTokCaptionForPublishing(
   symbol: string,
   maxChars: number = SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
 ): string {
-  const cleaned = compactTikTokBody(sanitizePostTextLinks(caption));
+  const cleaned = compactTikTokBody(sanitizeSocialEditorialText(sanitizePostTextLinks(caption)));
   const rawTags = cleaned.match(/#[a-zA-Z0-9_]+/g) || [];
   const body = compactTikTokBody(cleaned.replace(/#[a-zA-Z0-9_]+/g, ""));
 
@@ -657,7 +658,7 @@ function enforceUnifiedCaptionLimits(
   const next: UnifiedSocialCaptions = { ...captions };
 
   if (next.telegramSummary) {
-    next.telegramSummary = sanitizeTelegramPostLinks(next.telegramSummary);
+    next.telegramSummary = sanitizeSocialEditorialText(sanitizeTelegramPostLinks(next.telegramSummary));
   }
   if (next.telegramSummary && options.telegramMaxChars) {
     next.telegramSummary = ensureHtmlTagsClosed(
@@ -666,26 +667,26 @@ function enforceUnifiedCaptionLimits(
     );
   }
   if (next.xTweet) {
-    next.xTweet = sanitizePostTextLinks(next.xTweet);
+    next.xTweet = sanitizeSocialEditorialText(sanitizePostTextLinks(next.xTweet));
     next.xTweet = sanitizeCashtags(next.xTweet);
     next.xTweet = truncateForX(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
   }
   if (next.youtubeDescription) {
-    next.youtubeDescription = sanitizePostTextLinks(next.youtubeDescription);
+    next.youtubeDescription = sanitizeSocialEditorialText(sanitizePostTextLinks(next.youtubeDescription));
   }
   if (next.youtubeTitle) {
-    next.youtubeTitle = sanitizePostTextLinks(next.youtubeTitle);
+    next.youtubeTitle = sanitizeSocialEditorialText(sanitizePostTextLinks(next.youtubeTitle));
     next.youtubeTitle = truncateText(next.youtubeTitle, options.youtubeTitleMaxChars ?? 60);
   }
   if (next.instagramCaption) {
-    next.instagramCaption = sanitizePostTextLinks(next.instagramCaption);
+    next.instagramCaption = sanitizeSocialEditorialText(sanitizePostTextLinks(next.instagramCaption));
     next.instagramCaption = truncateText(
       next.instagramCaption,
       options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
     );
   }
   if (next.threadsCaption) {
-    next.threadsCaption = sanitizePostTextLinks(next.threadsCaption);
+    next.threadsCaption = sanitizeSocialEditorialText(sanitizePostTextLinks(next.threadsCaption));
     next.threadsCaption = truncateText(
       next.threadsCaption,
       options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,

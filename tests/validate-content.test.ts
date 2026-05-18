@@ -61,6 +61,34 @@ describe("content outbound URL validation", () => {
     ]);
   });
 
+  it("rejects generated articles that violate blocking editorial quality gates", () => {
+    const filler = Array(850).fill("analysis").join(" ");
+    const content = [
+      `This generated article has $1.00 price context, 2.00% volatility, and 1,000 supply units. ${filler}`,
+      "## FAQ",
+      "**What is this asset?**",
+      "It is a validation fixture.",
+      "**What data matters most?**",
+      "Price, volume, and supply data matter.",
+      "**Does this recommend buying?**",
+      "No. It is research-only context.",
+      "---",
+      "*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+    ].join("\n\n");
+
+    const errors = validateGeneratedArticleIntegrity("content/tokens/test-token/overview.json", {
+      tokenId: "test-token",
+      type: "overview",
+      slug: "overview",
+      title: "Test Token Overview",
+      content,
+      wordCount: content.split(/\s+/).length,
+      generatedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    expect(errors).toContain("Missing early summary table");
+  });
+
   it("rejects invalid metric score payloads", () => {
     const errors = validateDataSchemaIntegrity("data/metrics/test-token.json", {
       tokenId: "test-token",

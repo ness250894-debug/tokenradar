@@ -12,10 +12,18 @@ const tsxCli = require.resolve("tsx/cli");
 const qualityCheckScript = path.join(repoRoot, "scripts", "quality-check.ts");
 
 function articleContent(extra = ""): string {
+  const intro = [
+    extra,
+    "This research fixture opens with neutral market context, risk framing, supply evidence, and liquidity checks before any section heading.",
+    "| Metric | Value |",
+    "| :--- | :--- |",
+    "| Price | $1.00 |",
+    "| Change | 2.00% |",
+    "| Supply | 1,000 |",
+  ].filter(Boolean).join("\n");
   const paragraphs = Array.from({ length: 38 }, (_, index) => {
     const paragraphNumber = index + 1;
     return [
-      index === 0 ? extra : "",
       `This research fixture paragraph ${paragraphNumber} reviews token market structure with $${paragraphNumber}.23 price context, ${paragraphNumber + 10}% volatility, and ${24_000 + paragraphNumber} tracked references.`,
       "The language stays analytical, neutral, and focused on observable data rather than recommendations or hype.",
     ]
@@ -24,12 +32,17 @@ function articleContent(extra = ""): string {
   });
 
   return [
+    intro,
     paragraphs.join("\n\n"),
     "## FAQ",
     "**Q: What does this fixture test?**",
     "A: It tests article quality behavior with enough factual data points for validation.",
-    "**Q: Is this financial advice?**",
+    "**Q: What data does it include?**",
+    "A: It includes price, volatility, and supply evidence.",
+    "**Q: Does it recommend buying?**",
     "A: No. It is only a research fixture.",
+    "**Q: What should readers verify?**",
+    "A: Readers should verify liquidity, risk, fees, and current market conditions.",
     "---",
     "*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
   ].join("\n\n");
@@ -134,6 +147,49 @@ describe("quality-check CLI", () => {
       expect(result.stdout).toContain("Unapproved outbound URL: https://unapproved.example/path");
       expect(fs.existsSync(repeatedArticle)).toBe(false);
       expect(fs.existsSync(outboundArticle)).toBe(false);
+    } finally {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("deletes queued articles that miss the editorial flow contract", () => {
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-quality-"));
+    const queueDir = path.join(tmpRoot, "data", "queue");
+
+    try {
+      const missingTableArticle = writeQueuedArticle(
+        queueDir,
+        "missing-table-token",
+        "overview",
+        articleContent().replace(/\n\| Metric \| Value \|[\s\S]*?\| Supply \| 1,000 \|\n/, "\n"),
+      );
+      const promotionalArticle = writeQueuedArticle(
+        queueDir,
+        "promo-token",
+        "overview",
+        articleContent("Forget What You Know. This copy imports an issuer slogan."),
+      );
+
+      const result = spawnSync(
+        process.execPath,
+        [tsxCli, qualityCheckScript, "--dir", queueDir, "--delete-failures"],
+        {
+          cwd: tmpRoot,
+          encoding: "utf8",
+          env: {
+            ...process.env,
+            NODE_ENV: "test",
+            TELEGRAM_REPORT_BOT_TOKEN: "",
+            TELEGRAM_REPORT_CHAT_ID: "",
+          },
+        },
+      );
+
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain("Missing early summary table");
+      expect(result.stdout).toContain('Prohibited phrases found: "forget what you know"');
+      expect(fs.existsSync(missingTableArticle)).toBe(false);
+      expect(fs.existsSync(promotionalArticle)).toBe(false);
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
     }

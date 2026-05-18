@@ -124,6 +124,67 @@ function countWords(content: string): number {
   return content.split(/\s+/).filter(Boolean).length;
 }
 
+function hasMarkdownTable(lines: string[]): boolean {
+  return lines.some((line, index) => {
+    const current = line.trim();
+    const next = lines[index + 1]?.trim() || "";
+    return (
+      current.startsWith("|") &&
+      current.endsWith("|") &&
+      next.startsWith("|") &&
+      /^\|\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$/.test(next)
+    );
+  });
+}
+
+function hasEarlySummaryTable(content: string): boolean {
+  const beforeFirstHeading = content.split(/\n##\s+/)[0] || "";
+  if (hasMarkdownTable(beforeFirstHeading.split(/\n/))) return true;
+  return hasMarkdownTable(content.split(/\n/).slice(0, 18));
+}
+
+function buildEditorialSummaryTable(articleType: string, context?: TokenArticleContext): string {
+  const label = articleType === "tge-preview" ? "launch preview" : `${articleType || "article"} page`;
+  const symbol = context?.symbol ? context.symbol.toUpperCase() : "the asset";
+  return [
+    "| Editorial Check | How to Use It |",
+    "| :--- | :--- |",
+    `| Market snapshot | Confirm price, market cap, volume, rank, and supply before using this ${label}. |`,
+    `| Risk context | Read the ${symbol} risk score together with liquidity, volatility, and source quality. |`,
+    "| Reader action | Treat the page as research context, not a recommendation or execution instruction. |",
+  ].join("\n");
+}
+
+function ensureEarlySummaryTable(content: string, articleType: string, context?: TokenArticleContext): string {
+  if (hasEarlySummaryTable(content)) return content;
+
+  const table = buildEditorialSummaryTable(articleType, context);
+  const firstHeadingIndex = content.startsWith("## ") ? 0 : content.search(/\n##\s+/);
+  const intro = firstHeadingIndex === -1 ? content.trim() : content.slice(0, firstHeadingIndex).trim();
+  const rest = firstHeadingIndex === -1 ? "" : content.slice(firstHeadingIndex).trimStart();
+
+  if (!intro) return normalizeArticleMarkdown(`${table}\n\n${rest}`);
+
+  const introParts = intro.split(/\n{2,}/);
+  const opening = introParts.shift() || "";
+  const rebuiltIntro = [opening, table, ...introParts].filter(Boolean).join("\n\n");
+  return normalizeArticleMarkdown([rebuiltIntro, rest].filter(Boolean).join("\n\n"));
+}
+
+function neutralizePromotionalSlogans(content: string, context?: TokenArticleContext): string {
+  const subject = context?.tokenName || "This asset";
+  const neutralSentence = `${subject} is reviewed through market data, liquidity, and risk context.`;
+
+  return content
+    .replace(/\bwe['’]?re here to make you take the red pill\.?/gi, neutralSentence)
+    .replace(/\bforget what you know\.?\s*this is [^.]+\.?/gi, neutralSentence)
+    .replace(/\bfinancial freedom for everyone\b/gi, "broader DeFi access")
+    .replace(
+      /\bunmatched scalable tech meets artificial general intelligence\s*\(AGI\),?\s*purpose built from the ground up to transcend the traditional limitations of blockchain\b/gi,
+      "infrastructure that combines blockchain architecture with artificial intelligence features",
+    );
+}
+
 function buildMinimumDepthSection(articleType: string, context: TokenArticleContext): string | null {
   const symbol = context.symbol.toUpperCase();
 
@@ -277,7 +338,9 @@ export function repairArticleMarkdown(
     articleType === "how-to-buy" && context
       ? neutralizeHowToBuyVenueClaims(content, context)
       : normalizeArticleMarkdown(content);
-  const continued = insertContinueResearch(base, articleType, context);
+  const neutral = normalizeArticleMarkdown(neutralizePromotionalSlogans(base, context));
+  const summarized = ensureEarlySummaryTable(neutral, articleType, context);
+  const continued = insertContinueResearch(summarized, articleType, context);
   const linked = normalizeArticleMarkdown(moveDisclaimerToEnd(unwrapAmbiguousInternalArticleLinks(continued)));
   const deepened = ensureMinimumDepth(linked, articleType, context);
   return normalizeArticleMarkdown(moveDisclaimerToEnd(ensureStandardDisclaimer(deepened)));

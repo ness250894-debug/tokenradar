@@ -79,4 +79,79 @@ describe("article repair helpers", () => {
     expect(repaired).toContain("Verify current EXM market availability");
     expect(repaired).toContain("**How should I verify EXM market availability?**");
   });
+
+  it("inserts an early editorial summary table when legacy content is missing one", () => {
+    const repaired = repairArticleMarkdown(
+      [
+        "Example Token trades with $1.00 price context, 2.00% volatility, and 1,000 units of supply.",
+        "",
+        "## Market Position",
+        "",
+        "The article already has market details, but no table before the first section.",
+        "",
+        "## FAQ",
+        "",
+        "**What is Example Token?**",
+        "",
+        "It is a research fixture.",
+        "",
+        "**What data matters most?**",
+        "",
+        "Price, volume, and risk matter.",
+        "",
+        "**Does this recommend buying?**",
+        "",
+        "No. It is research only.",
+        "",
+        "---",
+        "",
+        "*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+      ].join("\n"),
+      "overview",
+      { tokenId: "example-token", tokenName: "Example Token", symbol: "EXM" },
+    );
+
+    expect(repaired).toContain("| Editorial Check | How to Use It |");
+    expect(repaired.indexOf("| Editorial Check | How to Use It |")).toBeLessThan(repaired.indexOf("## Market Position"));
+  });
+
+  it("neutralizes upstream promotional slogans before rebuilding quality metadata", () => {
+    const repaired = repairArticleMarkdown(
+      [
+        "Example Token is the DeFi ecosystem building financial freedom for everyone. Forget What You Know. This is Example Token.",
+        "",
+        "| Metric | Value |",
+        "| :--- | :--- |",
+        "| Price | $1.00 |",
+        "",
+        "## Market Position",
+        "",
+        "Market context stays neutral.",
+        "",
+        "## FAQ",
+        "",
+        "**What is Example Token?**",
+        "",
+        "Forget What You Know. This is Example Token.",
+        "",
+        "**What data matters most?**",
+        "",
+        "Price and liquidity.",
+        "",
+        "**Does this recommend buying?**",
+        "",
+        "No. It is research only.",
+        "",
+        "---",
+        "",
+        "*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+      ].join("\n"),
+      "overview",
+      { tokenId: "example-token", tokenName: "Example Token", symbol: "EXM" },
+    );
+
+    expect(repaired).not.toContain("financial freedom for everyone");
+    expect(repaired).not.toContain("Forget What You Know");
+    expect(repaired).toContain("reviewed through market data, liquidity, and risk context");
+  });
 });

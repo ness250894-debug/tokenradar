@@ -25,6 +25,9 @@ export interface ArticleQualityResult {
     repeatedParagraphCount: number;
     hasMalformedTable: boolean;
     hasContinuationLink: boolean;
+    hasEarlySummaryTable: boolean;
+    faqQuestionCount: number;
+    hasStandardDisclaimer: boolean;
   };
 }
 
@@ -41,13 +44,17 @@ export const PROHIBITED_FINANCIAL_PHRASES = [
   "moonshot",
   "to the moon",
   "100x",
+  "10x",
   "1000x",
   "will definitely",
   "sure thing",
+  "cannot lose",
   "can't lose",
   "risk-free investment",
   "act now before",
+  "buy now",
   "buy now before",
+  "invest now",
   "don't miss out",
   "once in a lifetime",
   "i recommend buying",
@@ -55,6 +62,18 @@ export const PROHIBITED_FINANCIAL_PHRASES = [
   "this is financial advice",
 ];
 
+const STANDARD_DISCLAIMER =
+  "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*";
+const STANDARD_DISCLAIMER_PATTERN =
+  /---\s*\n\s*\*Disclaimer: This article is for informational purposes only and does not constitute financial advice\. Always do your own research \(DYOR\)\.\*/g;
+const PROHIBITED_PROMOTIONAL_PHRASES = [
+  "take the red pill",
+  "we're here to make you",
+  "forget what you know",
+  "unmatched scalable tech",
+  "transcend the traditional limitations",
+  "financial freedom for everyone",
+];
 const LIVE_MARKET_PLACEHOLDER_PATTERN = /\{\{LIVE_[A-Z0-9_]+\}\}/;
 const HARD_CODED_AS_OF_DATE_PATTERN =
   /\bAs of\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2}/i;
@@ -90,6 +109,26 @@ function hasMalformedMarkdownTable(content: string): boolean {
   });
 }
 
+function hasMarkdownTable(lines: string[]): boolean {
+  return lines.some((line, index) => {
+    const current = line.trim();
+    const next = lines[index + 1]?.trim() || "";
+    return (
+      current.startsWith("|") &&
+      current.endsWith("|") &&
+      next.startsWith("|") &&
+      /^\|\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$/.test(next)
+    );
+  });
+}
+
+function hasEarlySummaryTable(content: string): boolean {
+  const beforeFirstHeading = content.split(/\n##\s+/)[0] || "";
+  if (hasMarkdownTable(beforeFirstHeading.split(/\n/))) return true;
+
+  return hasMarkdownTable(content.split(/\n/).slice(0, 18));
+}
+
 function hasWeakOpeningSummary(content: string): boolean {
   const firstParagraph = content
     .split(/\n{2,}/)
@@ -110,6 +149,21 @@ function hasExcessiveGenericFiller(words: string[]): boolean {
   }
 
   return Array.from(counts.entries()).some(([, count]) => count / words.length > 0.18);
+}
+
+function getFaqQuestionCount(content: string): number {
+  const faqMatch = content.match(/(?:^|\n)##\s+FAQ\b([\s\S]*?)(?=\n---\s*\n\s*\*Disclaimer:|$)/i);
+  if (!faqMatch) return 0;
+
+  const faqBody = faqMatch[1];
+  const questionMatches = faqBody.match(/\*\*[^*\n?]+\?\*\*|^#{2,6}\s+.+\?|^\s*(?:Q\d*[:.)]|Question\s+\d+[:.)]).+\?/gim);
+  if (questionMatches?.length) return questionMatches.length;
+
+  return (faqBody.match(/\?/g) || []).length;
+}
+
+function removeStandardDisclaimer(content: string): string {
+  return content.replace(STANDARD_DISCLAIMER_PATTERN, "");
 }
 
 export function getArticleQualityThresholds(articleType?: string): ArticleQualityThresholds {
@@ -147,6 +201,9 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
   const repeatedParagraphs = findRepeatedParagraphs(content);
   const malformedTable = hasMalformedMarkdownTable(content);
   const hasContinuationLink = INTERNAL_CONTINUATION_LINK_PATTERN.test(content);
+  const earlySummaryTable = hasEarlySummaryTable(content);
+  const faqQuestionCount = getFaqQuestionCount(content);
+  const hasStandardDisclaimer = content.trim().endsWith(STANDARD_DISCLAIMER);
 
   const words = content.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
@@ -167,11 +224,17 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
     issues.push("Malformed Markdown table block found");
   }
 
+  if (!earlySummaryTable) {
+    issues.push("Missing early summary table");
+  }
+
   const hasFaq =
     contentLower.includes("## faq") ||
     contentLower.includes("### faq") ||
     contentLower.includes("frequently asked");
   if (!hasFaq) issues.push("Missing FAQ section");
+  else if (faqQuestionCount < 3) issues.push(`FAQ section has too few questions: ${faqQuestionCount} (min 3)`);
+  else if (faqQuestionCount > 5) issues.push(`FAQ section has too many questions: ${faqQuestionCount} (max 5)`);
 
   const hasDisclaimer =
     contentLower.includes("not constitute financial advice") ||
@@ -188,11 +251,19 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
     issues.push(`Too few data points: ${dataPointCount} (min ${thresholds.minDataPoints})`);
   }
 
-  const prohibitedPhrases = PROHIBITED_FINANCIAL_PHRASES.filter((phrase) =>
-    contentLower.includes(phrase),
-  );
-  if (prohibitedPhrases.length > 0) {
-    issues.push(`Prohibited phrases found: "${prohibitedPhrases.join('", "')}"`);
+  const contentWithoutStandardDisclaimer = removeStandardDisclaimer(content).toLowerCase();
+  const prohibitedPhrases = [
+    ...PROHIBITED_FINANCIAL_PHRASES.filter((phrase) =>
+      contentLower.includes(phrase),
+    ),
+    ...PROHIBITED_PROMOTIONAL_PHRASES.filter((phrase) => contentLower.includes(phrase)),
+  ];
+  if (contentWithoutStandardDisclaimer.includes("financial advice")) {
+    prohibitedPhrases.push("financial advice outside disclaimer");
+  }
+  const uniqueProhibitedPhrases = Array.from(new Set(prohibitedPhrases));
+  if (uniqueProhibitedPhrases.length > 0) {
+    issues.push(`Prohibited phrases found: "${uniqueProhibitedPhrases.join('", "')}"`);
   }
 
   const sentences = content.split(/[.!?]+/).filter((sentence) => sentence.trim().length > 10);
@@ -236,6 +307,10 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
     warnings.push("Disclaimer is present but does not include the standard research reminder");
   }
 
+  if (hasDisclaimer && !hasStandardDisclaimer) {
+    warnings.push("Disclaimer does not match the exact standard wording");
+  }
+
   return {
     passed: issues.length === 0,
     issues,
@@ -245,11 +320,14 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
       hasFaq,
       hasDisclaimer,
       dataPointCount,
-      prohibitedPhrases,
+      prohibitedPhrases: uniqueProhibitedPhrases,
       avgSentenceLength,
       repeatedParagraphCount: repeatedParagraphs.length,
       hasMalformedTable: malformedTable,
       hasContinuationLink,
+      hasEarlySummaryTable: earlySummaryTable,
+      faqQuestionCount,
+      hasStandardDisclaimer,
     },
   };
 }
