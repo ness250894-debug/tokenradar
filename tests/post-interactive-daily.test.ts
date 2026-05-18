@@ -5,6 +5,7 @@ vi.mock("../src/lib/gemini", () => ({
   generatePollHook: vi.fn().mockResolvedValue("What's your move today?"),
 }));
 
+import { generatePollHook } from "../src/lib/gemini";
 import {
   getPollTypeForToday,
   buildSentimentPoll,
@@ -100,7 +101,7 @@ describe("buildPredictionPoll", () => {
     const poll = await buildPredictionPoll(mockToken);
     // Should have options containing formatted price values
     expect(poll.options).toHaveLength(4);
-    expect(poll.options[3]).toContain("Moon");
+    expect(poll.options[3]).toContain("Needs confirmation");
   });
 
   it("handles very small prices correctly", async () => {
@@ -110,10 +111,11 @@ describe("buildPredictionPoll", () => {
     expect(poll.text).toContain("$PEPE");
   });
 
-  it("has 4 options including moon bound", async () => {
+  it("does not use hype language in deterministic options", async () => {
     const poll = await buildPredictionPoll(mockToken);
     expect(poll.options).toHaveLength(4);
-    expect(poll.options[3]).toContain("Moon");
+    expect(poll.options.join(" ").toLowerCase()).not.toContain("moon");
+    expect(poll.options.join(" ").toLowerCase()).not.toContain("pump");
   });
 });
 
@@ -132,6 +134,20 @@ describe("buildNarrativePoll", () => {
   it("includes the hashtag", async () => {
     const poll = await buildNarrativePoll();
     expect(poll.text).toContain("#TokenRadarCo");
+  });
+
+  it("sanitizes generated hook copy before composing the post", async () => {
+    vi.mocked(generatePollHook).mockResolvedValueOnce(
+      "Buy now before this moonshot goes 100x. Guaranteed returns.",
+    );
+
+    const poll = await buildNarrativePoll();
+    const lowerText = poll.text.toLowerCase();
+
+    expect(lowerText).not.toContain("buy now");
+    expect(lowerText).not.toContain("moonshot");
+    expect(lowerText).not.toContain("100x");
+    expect(lowerText).not.toContain("guaranteed returns");
   });
 });
 

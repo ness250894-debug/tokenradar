@@ -32,6 +32,7 @@ import {
   SOCIAL,
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
+import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
@@ -87,6 +88,10 @@ export function getPollTypeForToday(): PollType {
   return selectPollTypeForToday();
 }
 
+function cleanPollHook(hook: string, fallback: string): string {
+  return sanitizeSocialEditorialText(hook || fallback) || fallback;
+}
+
 // ── Poll Generators ────────────────────────────────────────────
 
 /**
@@ -94,15 +99,15 @@ export function getPollTypeForToday(): PollType {
  */
 export async function buildSentimentPoll(token: TokenData, metric?: MetricData): Promise<PollOptions> {
   const sym = token.symbol.toUpperCase();
-  const hook = await generatePollHook("sentiment", getTimeOfDay(), token.name, token.symbol, {
+  const hook = cleanPollHook(await generatePollHook("sentiment", getTimeOfDay(), token.name, token.symbol, {
     price: token.market.price,
     priceChange24h: token.market.priceChange24h,
     ...metric
-  });
+  }), `How are you reading ${sym} today?`);
 
   return {
     text: `${hook}\n\n$${sym} #TokenRadarCo`,
-    options: ["Bullish 🚀", "Bearish 📉", "HODL 💎", "Just Watching 👀"],
+    options: ["Strengthening", "Weakening", "Range-bound", "Just watching"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
 }
@@ -116,10 +121,10 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
   const low = price * 0.95;
   const high = price * 1.05;
 
-  const hook = await generatePollHook("prediction", getTimeOfDay(), token.name, token.symbol, {
+  const hook = cleanPollHook(await generatePollHook("prediction", getTimeOfDay(), token.name, token.symbol, {
     price: token.market.price,
     priceChange24h: token.market.priceChange24h
-  });
+  }), `Which ${sym} range looks most realistic today?`);
 
   return {
     text: `${hook}\n\n$${sym} #PricePrediction #TokenRadarCo`,
@@ -127,7 +132,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
       `Below ${formatPrice(low)}`,
       `${formatPrice(low)}-${formatPrice(high)}`,
       `Above ${formatPrice(high)}`,
-      `Moon bound 🚀`,
+      "Needs confirmation",
     ],
     durationMinutes: POLL_DURATION_MINUTES,
   };
@@ -137,7 +142,10 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
  * Generate a Narrative Poll.
  */
 export async function buildNarrativePoll(): Promise<PollOptions> {
-  const hook = await generatePollHook("narrative", getTimeOfDay());
+  const hook = cleanPollHook(
+    await generatePollHook("narrative", getTimeOfDay()),
+    "Which crypto narrative deserves more research this week?",
+  );
   return {
     text: `${hook}\n\n#TokenRadarCo`,
     options: [...INTERACTIVE_POST_NARRATIVES],
@@ -158,7 +166,10 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
   if (sorted.length < 2) return buildNarrativePoll();
 
   const options = sorted.map((t) => `$${t.symbol.toUpperCase()}`);
-  const hook = await generatePollHook("community vote", getTimeOfDay());
+  const hook = cleanPollHook(
+    await generatePollHook("community vote", getTimeOfDay()),
+    "Which token should get a deeper data review?",
+  );
 
   return {
     text: `${hook}\n\n#TokenRadarCo`,

@@ -27,4 +27,11 @@ describe("social editorial policy", () => {
 
     expect(sanitizeSocialEditorialText(text)).toBe(text);
   });
+
+  it("rewrites moon-bound wording used by short social surfaces", () => {
+    const sanitized = sanitizeSocialEditorialText("Moon bound if volume keeps building.");
+
+    expect(sanitized.toLowerCase()).not.toContain("moon bound");
+    expect(sanitized).toContain("Needs confirmation");
+  });
 });
