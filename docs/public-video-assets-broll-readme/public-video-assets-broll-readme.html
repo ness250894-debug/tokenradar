@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenRadar Video B-roll - TokenRadar Docs</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0d10;
+        --panel: #151922;
+        --panel-2: #10141b;
+        --line: #2c3443;
+        --text: #f5f7fb;
+        --muted: #aeb8c8;
+        --soft: #768297;
+        --cyan: #31c7d7;
+        --green: #35d18a;
+        --amber: #f2b84b;
+        --red: #f06d73;
+        --blue: #7aa2ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1180px, calc(100vw - 40px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      header {
+        margin-bottom: 28px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 980px;
+        margin-bottom: 12px;
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin: 28px 0 14px;
+        font-size: 26px;
+      }
+
+      h3 {
+        margin: 24px 0 10px;
+        color: var(--text);
+        font-size: 19px;
+      }
+
+      h4,
+      h5,
+      h6 {
+        margin: 20px 0 8px;
+        color: var(--text);
+      }
+
+      p {
+        color: var(--muted);
+      }
+
+      a {
+        color: var(--cyan);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      code {
+        color: #dce6f7;
+        font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 14px 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #070a0f;
+      }
+
+      pre code {
+        color: #dce6f7;
+        white-space: pre;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .section {
+        margin-top: 22px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .box {
+        min-height: 116px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .box p {
+        margin-bottom: 0;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .tag.green {
+        color: var(--green);
+      }
+
+      .tag.amber {
+        color: var(--amber);
+      }
+
+      .tag.blue {
+        color: var(--blue);
+      }
+
+      .content {
+        color: var(--muted);
+      }
+
+      .content h1 {
+        margin-top: 0;
+        font-size: 36px;
+      }
+
+      .content ul,
+      .content ol {
+        margin: 10px 0 16px;
+        padding-left: 22px;
+        color: var(--muted);
+      }
+
+      .content li + li {
+        margin-top: 6px;
+      }
+
+      blockquote {
+        margin: 16px 0;
+        padding: 14px 18px;
+        border-left: 3px solid var(--cyan);
+        background: var(--panel);
+      }
+
+      blockquote p {
+        margin-bottom: 0;
+      }
+
+      table {
+        width: 100%;
+        margin: 16px 0;
+        border-collapse: collapse;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--text);
+        background: #151922;
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .outline ol {
+        margin: 0;
+        padding-left: 22px;
+        color: var(--muted);
+      }
+
+      .outline li + li {
+        margin-top: 5px;
+      }
+
+      .outline .level-3 {
+        margin-left: 16px;
+      }
+
+      .outline .level-4,
+      .outline .level-5,
+      .outline .level-6 {
+        margin-left: 32px;
+      }
+
+      .outline span {
+        color: var(--soft);
+        font-size: 12px;
+      }
+
+      details summary {
+        cursor: pointer;
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 24px 0;
+      }
+
+      @media (max-width: 920px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        td {
+          border-bottom: 0;
+          padding: 10px 14px;
+        }
+
+        tr {
+          border-bottom: 1px solid var(--line);
+          padding: 8px 0;
+        }
+
+        tr:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100vw - 28px, 1180px);
+          padding-top: 30px;
+        }
+
+        .section {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TokenRadar Video B-roll</h1>
+        <p class="lead">
+          Operational HTML reference for <code>public/video-assets/broll/README.md</code>
+          and the related persistent b-roll flow.
+          The paired JSON file preserves the raw Markdown, extracted headings, code blocks,
+          links, tables, sections, and document statistics.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>Document Contract</h2>
+        <div class="grid">
+          <div class="box">
+            <span class="tag green">Source</span>
+            <h3><code>docs/public-video-assets-broll-readme/public-video-assets-broll-readme.json#rawMarkdown</code></h3>
+            <p>60 lines and 447 words.</p>
+          </div>
+          <div class="box">
+            <span class="tag blue">Structure</span>
+            <h3>6 headings</h3>
+            <p>3 code blocks, 0 tables, 0 Markdown links.</p>
+          </div>
+          <div class="box">
+            <span class="tag amber">Pair</span>
+            <h3><a href="public-video-assets-broll-readme.json">public-video-assets-broll-readme.json</a></h3>
+            <p>Machine-readable representation of this same Markdown file.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section outline">
+        <h2>Outline</h2>
+        <ol><li class="level-1"><a href="#tokenradar-video-b-roll">TokenRadar Video B-roll</a> <span>line 1</span></li><li class="level-2"><a href="#local-asset-generation">Local asset generation</a> <span>line 5</span></li><li class="level-2"><a href="#blender-loops">Blender loops</a> <span>line 17</span></li><li class="level-2"><a href="#r2-sync-and-ci-flow">R2 sync and CI flow</a> <span>line 34</span></li><li class="level-2"><a href="#manifest-contract">Manifest contract</a> <span>line 48</span></li><li class="level-2"><a href="#budget-pruning">Budget pruning</a> <span>line 56</span></li></ol>
+      </section>
+
+      <section class="section content">
+        <h1 id="tokenradar-video-b-roll">TokenRadar Video B-roll</h1>
+<p>This folder holds optional local media layers for Remotion videos and the local mirror of the persistent R2 b-roll library.</p>
+<h2 id="local-asset-generation">Local asset generation</h2>
+<p>Generate or extend the local manifest from provider clips:</p>
+<pre><code class="language-bash">npm run video:assets -- --max 6</code></pre>
+<p>Provider keys are optional per provider. Configure <code>PEXELS_API_KEY</code> and/or <code>PIXABAY_API_KEY</code>; use <code>VIDEO_ASSET_PROVIDERS</code> or <code>--provider pexels,pixabay</code> to choose sources. Useful fetch options include <code>--query</code>, <code>--max</code>, and <code>--dry-run</code>.</p>
+<p>FFmpeg/ffprobe must be available for downloaded clips because metadata, size, and SHA-256 are probed before publish. Set <code>FFPROBE_BIN</code> if <code>ffprobe</code> is not on PATH.</p>
+<h2 id="blender-loops">Blender loops</h2>
+<p>Generate local Blender motion loops with:</p>
+<pre><code class="language-bash">npm run video:blender -- --preset all</code></pre>
+<p>Blender generation is local and optional. It requires Blender on PATH, <code>BLENDER_BIN</code>, or <code>--blender &lt;path&gt;</code>. Useful options include <code>--optional</code>, <code>--force</code>, <code>--seconds</code>, <code>--fps</code>, <code>--width</code>, and <code>--height</code>.</p>
+<p>Useful presets:</p>
+<ul>
+<li><code>radar_grid</code></li>
+<li><code>terminal_scan</code></li>
+<li><code>liquidity_depth</code></li>
+<li><code>orbital_map</code></li>
+</ul>
+<h2 id="r2-sync-and-ci-flow">R2 sync and CI flow</h2>
+<p>The persistent library lives in Cloudflare R2 under <code>video-assets/broll/</code>. Use these commands around local generation:</p>
+<pre><code class="language-bash">npm run video:assets:pull -- --manifest-only
+npm run video:assets:pull
+npm run video:assets:push</code></pre>
+<p>R2 sync requires <code>R2_ACCOUNT_ID</code>, <code>R2_ACCESS_KEY_ID</code>, <code>R2_SECRET_ACCESS_KEY</code>, <code>R2_BUCKET_NAME</code>, and <code>R2_PUBLIC_URL</code>. Upload publishes MP4 assets first, then a versioned manifest, then <code>video-assets/broll/manifest.json</code>.</p>
+<p><code>.github/workflows/video-assets-refresh.yml</code> runs the scheduled refresh: hydrate the current R2 manifest, fetch provider clips, generate optional Blender loops, and publish back to R2. <code>.github/workflows/social-automations.yml</code> hydrates the manifest before <code>scripts/post-video-daily.ts</code> renders short-form video.</p>
+<h2 id="manifest-contract">Manifest contract</h2>
+<p>The local manifest is <code>public/video-assets/broll/manifest.json</code>; local asset sources should be safe relative paths such as <code>broll/example.mp4</code>. <code>public/video-assets/broll/manifest.example.json</code> shows the minimum shape for manual or generated entries.</p>
+<p>Publishable R2 assets need <code>source: "local"</code>, duration, width, height, file size, and <code>sha256</code>. Stock-provider assets also need <code>sourcePageUrl</code> and <code>attribution</code> so license audits and future pruning can trace the source.</p>
+<p><code>scripts/post-video-daily.ts</code> reads the manifest, selects a shot list per platform, and hydrates missing selected local files from R2 when credentials are available. If the manifest is missing, empty, invalid, or selected files cannot be hydrated, the renderer falls back to generated motion backgrounds.</p>
+<h2 id="budget-pruning">Budget pruning</h2>
+<p>Use <code>npm run video:assets:prune -- --delete-local</code> after fetch/Blender generation to remove missing, checksum-mismatched, or over-budget local assets from the manifest. After publishing the retained manifest, use <code>npm run video:assets:prune -- --r2-only --delete-r2-unreferenced</code> to delete R2 b-roll media objects no longer referenced by the current manifest.</p>
+<p>The weekly <code>video-assets-refresh.yml</code> job hydrates the full R2 library, fetches provider clips, refreshes Blender loops, prunes the budget, publishes retained assets and manifest, then deletes unreferenced R2 media. Failed refresh runs upload diagnostics from <code>public/video-assets/broll/</code> and send Telegram alerts when report secrets are configured. Keep API keys and R2 credentials in GitHub Actions secrets or local environment variables; never commit them in manifests or docs.</p>
+      </section>
+
+      <section class="section">
+        <details>
+          <summary>Raw Markdown</summary>
+          <pre><code># TokenRadar Video B-roll
+
+This folder holds optional local media layers for Remotion videos and the local mirror of the persistent R2 b-roll library.
+
+## Local asset generation
+
+Generate or extend the local manifest from provider clips:
+
+```bash
+npm run video:assets -- --max 6
+```
+
+Provider keys are optional per provider. Configure `PEXELS_API_KEY` and/or `PIXABAY_API_KEY`; use `VIDEO_ASSET_PROVIDERS` or `--provider pexels,pixabay` to choose sources. Useful fetch options include `--query`, `--max`, and `--dry-run`.
+
+FFmpeg/ffprobe must be available for downloaded clips because metadata, size, and SHA-256 are probed before publish. Set `FFPROBE_BIN` if `ffprobe` is not on PATH.
+
+## Blender loops
+
+Generate local Blender motion loops with:
+
+```bash
+npm run video:blender -- --preset all
+```
+
+Blender generation is local and optional. It requires Blender on PATH, `BLENDER_BIN`, or `--blender &lt;path&gt;`. Useful options include `--optional`, `--force`, `--seconds`, `--fps`, `--width`, and `--height`.
+
+Useful presets:
+
+- `radar_grid`
+- `terminal_scan`
+- `liquidity_depth`
+- `orbital_map`
+
+## R2 sync and CI flow
+
+The persistent library lives in Cloudflare R2 under `video-assets/broll/`. Use these commands around local generation:
+
+```bash
+npm run video:assets:pull -- --manifest-only
+npm run video:assets:pull
+npm run video:assets:push
+```
+
+R2 sync requires `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, and `R2_PUBLIC_URL`. Upload publishes MP4 assets first, then a versioned manifest, then `video-assets/broll/manifest.json`.
+
+`.github/workflows/video-assets-refresh.yml` runs the scheduled refresh: hydrate the current R2 manifest, fetch provider clips, generate optional Blender loops, and publish back to R2. `.github/workflows/social-automations.yml` hydrates the manifest before `scripts/post-video-daily.ts` renders short-form video.
+
+## Manifest contract
+
+The local manifest is `public/video-assets/broll/manifest.json`; local asset sources should be safe relative paths such as `broll/example.mp4`. `public/video-assets/broll/manifest.example.json` shows the minimum shape for manual or generated entries.
+
+Publishable R2 assets need `source: "local"`, duration, width, height, file size, and `sha256`. Stock-provider assets also need `sourcePageUrl` and `attribution` so license audits and future pruning can trace the source.
+
+`scripts/post-video-daily.ts` reads the manifest, selects a shot list per platform, and hydrates missing selected local files from R2 when credentials are available. If the manifest is missing, empty, invalid, or selected files cannot be hydrated, the renderer falls back to generated motion backgrounds.
+
+## Budget pruning
+
+Use `npm run video:assets:prune -- --delete-local` after fetch/Blender generation to remove missing, checksum-mismatched, or over-budget local assets from the manifest. After publishing the retained manifest, use `npm run video:assets:prune -- --r2-only --delete-r2-unreferenced` to delete R2 b-roll media objects no longer referenced by the current manifest.
+
+The weekly `video-assets-refresh.yml` job hydrates the full R2 library, fetches provider clips, refreshes Blender loops, prunes the budget, publishes retained assets and manifest, then deletes unreferenced R2 media. Failed refresh runs upload diagnostics from `public/video-assets/broll/` and send Telegram alerts when report secrets are configured. Keep API keys and R2 credentials in GitHub Actions secrets or local environment variables; never commit them in manifests or docs.
+</code></pre>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>
