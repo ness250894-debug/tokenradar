@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenRadar Deployment Architecture - TokenRadar Docs</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0d10;
+        --panel: #151922;
+        --panel-2: #10141b;
+        --line: #2c3443;
+        --text: #f5f7fb;
+        --muted: #aeb8c8;
+        --soft: #768297;
+        --cyan: #31c7d7;
+        --green: #35d18a;
+        --amber: #f2b84b;
+        --red: #f06d73;
+        --blue: #7aa2ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1180px, calc(100vw - 40px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      header {
+        margin-bottom: 28px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 980px;
+        margin-bottom: 12px;
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin: 28px 0 14px;
+        font-size: 26px;
+      }
+
+      h3 {
+        margin: 24px 0 10px;
+        color: var(--text);
+        font-size: 19px;
+      }
+
+      h4,
+      h5,
+      h6 {
+        margin: 20px 0 8px;
+        color: var(--text);
+      }
+
+      p {
+        color: var(--muted);
+      }
+
+      a {
+        color: var(--cyan);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      code {
+        color: #dce6f7;
+        font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 14px 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #070a0f;
+      }
+
+      pre code {
+        color: #dce6f7;
+        white-space: pre;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .section {
+        margin-top: 22px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .box {
+        min-height: 116px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .box p {
+        margin-bottom: 0;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .tag.green {
+        color: var(--green);
+      }
+
+      .tag.amber {
+        color: var(--amber);
+      }
+
+      .tag.blue {
+        color: var(--blue);
+      }
+
+      .content {
+        color: var(--muted);
+      }
+
+      .content h1 {
+        margin-top: 0;
+        font-size: 36px;
+      }
+
+      .content ul,
+      .content ol {
+        margin: 10px 0 16px;
+        padding-left: 22px;
+        color: var(--muted);
+      }
+
+      .content li + li {
+        margin-top: 6px;
+      }
+
+      blockquote {
+        margin: 16px 0;
+        padding: 14px 18px;
+        border-left: 3px solid var(--cyan);
+        background: var(--panel);
+      }
+
+      blockquote p {
+        margin-bottom: 0;
+      }
+
+      table {
+        width: 100%;
+        margin: 16px 0;
+        border-collapse: collapse;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--text);
+        background: #151922;
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .outline ol {
+        margin: 0;
+        padding-left: 22px;
+        color: var(--muted);
+      }
+
+      .outline li + li {
+        margin-top: 5px;
+      }
+
+      .outline .level-3 {
+        margin-left: 16px;
+      }
+
+      .outline .level-4,
+      .outline .level-5,
+      .outline .level-6 {
+        margin-left: 32px;
+      }
+
+      .outline span {
+        color: var(--soft);
+        font-size: 12px;
+      }
+
+      details summary {
+        cursor: pointer;
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 24px 0;
+      }
+
+      @media (max-width: 920px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        td {
+          border-bottom: 0;
+          padding: 10px 14px;
+        }
+
+        tr {
+          border-bottom: 1px solid var(--line);
+          padding: 8px 0;
+        }
+
+        tr:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100vw - 28px, 1180px);
+          padding-top: 30px;
+        }
+
+        .section {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TokenRadar Deployment Architecture</h1>
+        <p class="lead">
+          Standalone HTML representation of the canonical <code>rawMarkdown</code> stored in
+          <code>docs/deployment/deployment.json</code>. The paired JSON file preserves the raw Markdown,
+          extracted headings, code blocks, links, tables, sections, and document statistics.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>Document Contract</h2>
+        <div class="grid">
+          <div class="box">
+            <span class="tag green">Source</span>
+            <h3><code>docs/deployment/deployment.json#rawMarkdown</code></h3>
+            <p>157 lines and 1058 words.</p>
+          </div>
+          <div class="box">
+            <span class="tag blue">Structure</span>
+            <h3>10 headings</h3>
+            <p>0 code blocks, 0 tables, 0 Markdown links.</p>
+          </div>
+          <div class="box">
+            <span class="tag amber">Pair</span>
+            <h3><a href="deployment.json">deployment.json</a></h3>
+            <p>Machine-readable representation of this deployment document.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section outline">
+        <h2>Outline</h2>
+        <ol><li class="level-1"><a href="#tokenradar-deployment-architecture">TokenRadar Deployment Architecture</a> <span>line 1</span></li><li class="level-2"><a href="#deployment-overview">Deployment Overview</a> <span>line 7</span></li><li class="level-2"><a href="#data-and-content-pipelines">Data and Content Pipelines</a> <span>line 19</span></li><li class="level-2"><a href="#build-and-deploy-workflow">Build and Deploy Workflow</a> <span>line 55</span></li><li class="level-2"><a href="#prebuild-chain">Prebuild Chain</a> <span>line 80</span></li><li class="level-2"><a href="#cloudflare-pages-runtime-shape">Cloudflare Pages Runtime Shape</a> <span>line 95</span></li><li class="level-2"><a href="#static-export-constraints">Static Export Constraints</a> <span>line 110</span></li><li class="level-2"><a href="#environment-and-secrets-checklist">Environment and Secrets Checklist</a> <span>line 120</span></li><li class="level-2"><a href="#free-tier-guardrails">Free-Tier Guardrails</a> <span>line 142</span></li><li class="level-2"><a href="#operational-notes">Operational Notes</a> <span>line 150</span></li></ol>
+      </section>
+
+      <section class="section content">
+        <h1 id="tokenradar-deployment-architecture">TokenRadar Deployment Architecture</h1>
+<p>This repo deploys through GitHub Actions and publishes a Next.js static export to Cloudflare Pages. The site does not use a Next.js server runtime in production.</p>
+<p>There is one scoped Cloudflare Pages Function in advanced mode: <code>public/_worker.js</code> returns <code>410 Gone</code> for retired <code>/compare</code> URLs, and <code>public/_routes.json</code> limits that function to <code>/compare</code> and <code>/compare/*</code>. Normal page and asset traffic remains static Pages traffic.</p>
+<h2 id="deployment-overview">Deployment Overview</h2>
+<p>The deployment path is GitHub-driven:</p>
+<ol>
+<li>GitHub Actions builds the site artifact.</li>
+<li><code>npm run build</code> creates the static <code>out/</code> directory.</li>
+<li>The deploy workflow verifies <code>out/</code> and the Pages file budget.</li>
+<li>Wrangler uploads <code>out/</code> to the Cloudflare Pages project.</li>
+<li>Cloudflare Pages serves the uploaded artifact.</li>
+</ol>
+<p>Cloudflare Pages dashboard build settings are informational for this repo. The source build does not run inside Cloudflare Pages.</p>
+<h2 id="data-and-content-pipelines">Data and Content Pipelines</h2>
+<p>Authored data generation happens in GitHub Actions and local scripts, not at request time.</p>
+<p>The daily refresh workflow refreshes market and support data before redeploying when committed artifacts change. Its main responsibilities include:</p>
+<ul>
+<li><code>scripts/fetch-crypto-data.ts</code>: refresh token market data</li>
+<li><code>scripts/discover-tges.ts</code>: refresh upcoming TGE candidates in <code>data/upcoming-tges.json</code></li>
+<li><code>scripts/fetch-reference-articles.ts</code>: refresh supporting references</li>
+<li><code>scripts/compute-metrics.ts</code>: compute derived TokenRadar metrics</li>
+<li><code>scripts/refresh-meta-tokens.ts</code>: rotate Meta access tokens used by social workflows</li>
+<li><code>scripts/generate-og-images.tsx --force</code>: regenerate static OG images</li>
+<li><code>scripts/consolidate-data.ts</code>, <code>scripts/validate-content.ts</code>, and <code>scripts/generate-sitemap.ts</code>: validate and prepare runtime artifacts</li>
+</ul>
+<p>The daily content workflow generates and publishes queued article payloads. Its main responsibilities include:</p>
+<ul>
+<li><code>scripts/generate-content.ts --queue</code>: generate queued article JSON</li>
+<li><code>scripts/quality-check.ts --dir data/queue --fix --delete-failures</code>: gate queued content quality</li>
+<li><code>scripts/publish-from-queue.ts</code>: inject live placeholders and move finished content into <code>content/tokens/</code></li>
+<li><code>scripts/inject-internal-links.ts</code>: add semantic internal links</li>
+<li><code>scripts/repair-article-content.ts</code>: normalize published article formatting</li>
+<li><code>scripts/validate-content.ts</code>: validate published content before commit</li>
+<li><code>npm run build</code>: run a build gate before publishing generated content to <code>main</code></li>
+</ul>
+<p>Generated artifacts are committed back into repository paths such as:</p>
+<ul>
+<li><code>data/tokens/</code></li>
+<li><code>data/prices/</code></li>
+<li><code>data/metrics/</code></li>
+<li><code>data/references/</code></li>
+<li><code>data/upcoming-tges.json</code></li>
+<li><code>data/_tokens_blob.json</code>, <code>data/_metrics_blob.json</code>, <code>data/_prices_blob.json</code>, and <code>data/_registry.json</code></li>
+<li><code>content/tokens/</code></li>
+<li><code>public/og/movers.png</code></li>
+<li><code>public/sitemap.xml</code>, <code>public/sitemap-main.xml</code>, and <code>public/sitemap-tokens.xml</code></li>
+</ul>
+<h2 id="build-and-deploy-workflow">Build and Deploy Workflow</h2>
+<p>Deployment is handled by <code>.github/workflows/deploy.yml</code>.</p>
+<p>That workflow can run from a push to <code>main</code>, a manual dispatch, or a reusable workflow call from another workflow.</p>
+<p>The deploy job:</p>
+<ol>
+<li>Validates the requested deploy ref for non-push events.</li>
+<li>Checks out the requested ref.</li>
+<li>Installs dependencies with <code>npm ci</code>.</li>
+<li>Restores the Next.js build cache.</li>
+<li>Runs <code>npx tsc --noEmit</code>.</li>
+<li>Runs <code>npm run lint</code>.</li>
+<li>Runs <code>npm run test</code>.</li>
+<li>Runs <code>npm run build</code> with production public site variables.</li>
+<li>Verifies <code>out/</code> exists.</li>
+<li>Runs <code>npm run deploy:check-files</code>.</li>
+<li>Uploads <code>out/</code> to Cloudflare Pages with <code>wrangler pages deploy</code>.</li>
+<li>Pings IndexNow when <code>INDEXNOW_KEY</code> is configured.</li>
+<li>Uploads deploy diagnostics on failure.</li>
+<li>Sends a Telegram failure notification when reporting secrets are configured.</li>
+</ol>
+<p>Manual deploys are restricted to <code>main</code>. Reusable workflow calls may deploy a full commit SHA only when <code>allow_sha_ref</code> is true. The daily content workflow uses this SHA path to deploy the exact generated-content commit.</p>
+<h2 id="prebuild-chain">Prebuild Chain</h2>
+<p><code>npm run build</code> triggers <code>npm run prebuild</code> first.</p>
+<p>The current prebuild sequence is:</p>
+<ol>
+<li><code>scripts/validate-env.ts</code></li>
+<li><code>scripts/compute-search-intent.ts</code></li>
+<li><code>scripts/consolidate-data.ts</code></li>
+<li><code>scripts/validate-content.ts</code></li>
+<li><code>scripts/generate-og-images.tsx</code></li>
+<li><code>scripts/generate-sitemap.ts</code></li>
+</ol>
+<p>This keeps the exported site consistent with authored content and consolidated data blobs before Next.js renders pages.</p>
+<h2 id="cloudflare-pages-runtime-shape">Cloudflare Pages Runtime Shape</h2>
+<p><code>next.config.ts</code> uses <code>output: &quot;export&quot;</code> and disables Next image optimization with <code>images.unoptimized</code>.</p>
+<p>Most requests are served as static Cloudflare Pages assets. Security headers, cache rules, and CSP are defined in <code>public/_headers</code> and become part of the uploaded Pages artifact.</p>
+<p>The exception is the retired <code>/compare</code> route family:</p>
+<ul>
+<li><code>public/_worker.js</code> is a Pages Function in advanced mode.</li>
+<li><code>public/_routes.json</code> includes only <code>/compare</code> and <code>/compare/*</code>.</li>
+<li>Requests to those paths return <code>410 Gone</code> with security headers.</li>
+<li>All other requests should bypass the function and remain static asset requests.</li>
+</ul>
+<p>Because Pages Functions count against the Workers Free plan quota, keep <code>_routes.json</code> narrow. Do not change it to <code>/*</code> unless the site is intentionally moving from static Pages serving to Worker-invoked serving. As of this review on 2026-05-18, Cloudflare documents a Workers Free quota of 100,000 requests per day for Worker and Pages Function invocations.</p>
+<h2 id="static-export-constraints">Static Export Constraints</h2>
+<p>Static export means:</p>
+<ul>
+<li>no Next.js runtime server is required</li>
+<li>pages must be build-time compatible</li>
+<li>image optimization is disabled in Next and handled as plain static assets</li>
+<li>authored routes must avoid runtime-only APIs</li>
+<li>dynamic edge behavior should stay explicitly scoped through Pages Functions routing</li>
+</ul>
+<h2 id="environment-and-secrets-checklist">Environment and Secrets Checklist</h2>
+<p>The deploy workflow requires:</p>
+<ul>
+<li><code>CLOUDFLARE_API_TOKEN</code></li>
+<li><code>CLOUDFLARE_ACCOUNT_ID</code></li>
+</ul>
+<p>The production build reads public GitHub Actions variables such as:</p>
+<ul>
+<li><code>SITE_URL</code> or the default <code>https://tokenradar.co</code></li>
+<li><code>SITE_NAME</code> or the default <code>TokenRadar</code></li>
+<li><code>NEXT_PUBLIC_GA_MEASUREMENT_ID</code></li>
+<li><code>NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN</code></li>
+</ul>
+<p>Optional deploy follow-up and alerting use:</p>
+<ul>
+<li><code>INDEXNOW_KEY</code></li>
+<li><code>TELEGRAM_REPORT_BOT_TOKEN</code></li>
+<li><code>TELEGRAM_REPORT_CHAT_ID</code></li>
+</ul>
+<p>Data and content workflows also depend on provider credentials such as <code>COINGECKO_API_KEY</code>, <code>GEMINI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, Meta tokens, and GA4/GSC credentials. Keep <code>.env.example</code> and GitHub Actions secrets aligned when adding or removing workflow steps.</p>
+<h2 id="free-tier-guardrails">Free-Tier Guardrails</h2>
+<ul>
+<li><code>npm run deploy:check-files</code> fails before Cloudflare Pages reaches the configured static file budget.</li>
+<li>Keep the Pages Function route list limited to retired <code>/compare</code> URLs so normal static traffic does not consume Workers Free quota.</li>
+<li>Cloudflare Web Analytics should use either dashboard injection or <code>NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN</code>, not both.</li>
+<li>R2 staging objects should stay short-lived: successful social publishes delete exact keys, <code>npm run r2:cleanup-ledger</code> removes expired tracked failures, and bucket lifecycle rules should expire <code>video/</code> and <code>ig-carousel/</code> after 1-2 days.</li>
+<li>Deploy, data refresh, content generation, social automation, performance, dependency-security, video-asset refresh, and monthly snapshot workflows all upload short-retention diagnostics instead of committing transient logs.</li>
+</ul>
+<h2 id="operational-notes">Operational Notes</h2>
+<ul>
+<li>The deploy workflow currently uses Node 22.</li>
+<li>Daily refresh and daily content generation currently use Node 20.</li>
+<li>The <code>git-push-main</code> concurrency group serializes workflows that commit generated artifacts to <code>main</code>.</li>
+<li>If a generated-data workflow aborts because <code>origin/main</code> changed during the run, rerun the workflow on the latest <code>main</code> rather than auto-merging generated output.</li>
+<li>Rollbacks should be handled by reverting or fixing <code>main</code> and redeploying through the workflow, unless a trusted reusable workflow caller intentionally deploys a specific full commit SHA.</li>
+</ul>
+      </section>
+
+      <section class="section">
+        <details>
+          <summary>Raw Markdown</summary>
+          <pre><code># TokenRadar Deployment Architecture
+
+This repo deploys through GitHub Actions and publishes a Next.js static export to Cloudflare Pages. The site does not use a Next.js server runtime in production.
+
+There is one scoped Cloudflare Pages Function in advanced mode: `public/_worker.js` returns `410 Gone` for retired `/compare` URLs, and `public/_routes.json` limits that function to `/compare` and `/compare/*`. Normal page and asset traffic remains static Pages traffic.
+
+## Deployment Overview
+
+The deployment path is GitHub-driven:
+
+1. GitHub Actions builds the site artifact.
+2. `npm run build` creates the static `out/` directory.
+3. The deploy workflow verifies `out/` and the Pages file budget.
+4. Wrangler uploads `out/` to the Cloudflare Pages project.
+5. Cloudflare Pages serves the uploaded artifact.
+
+Cloudflare Pages dashboard build settings are informational for this repo. The source build does not run inside Cloudflare Pages.
+
+## Data and Content Pipelines
+
+Authored data generation happens in GitHub Actions and local scripts, not at request time.
+
+The daily refresh workflow refreshes market and support data before redeploying when committed artifacts change. Its main responsibilities include:
+
+- `scripts/fetch-crypto-data.ts`: refresh token market data
+- `scripts/discover-tges.ts`: refresh upcoming TGE candidates in `data/upcoming-tges.json`
+- `scripts/fetch-reference-articles.ts`: refresh supporting references
+- `scripts/compute-metrics.ts`: compute derived TokenRadar metrics
+- `scripts/refresh-meta-tokens.ts`: rotate Meta access tokens used by social workflows
+- `scripts/generate-og-images.tsx --force`: regenerate static OG images
+- `scripts/consolidate-data.ts`, `scripts/validate-content.ts`, and `scripts/generate-sitemap.ts`: validate and prepare runtime artifacts
+
+The daily content workflow generates and publishes queued article payloads. Its main responsibilities include:
+
+- `scripts/generate-content.ts --queue`: generate queued article JSON
+- `scripts/quality-check.ts --dir data/queue --fix --delete-failures`: gate queued content quality
+- `scripts/publish-from-queue.ts`: inject live placeholders and move finished content into `content/tokens/`
+- `scripts/inject-internal-links.ts`: add semantic internal links
+- `scripts/repair-article-content.ts`: normalize published article formatting
+- `scripts/validate-content.ts`: validate published content before commit
+- `npm run build`: run a build gate before publishing generated content to `main`
+
+Generated artifacts are committed back into repository paths such as:
+
+- `data/tokens/`
+- `data/prices/`
+- `data/metrics/`
+- `data/references/`
+- `data/upcoming-tges.json`
+- `data/_tokens_blob.json`, `data/_metrics_blob.json`, `data/_prices_blob.json`, and `data/_registry.json`
+- `content/tokens/`
+- `public/og/movers.png`
+- `public/sitemap.xml`, `public/sitemap-main.xml`, and `public/sitemap-tokens.xml`
+
+## Build and Deploy Workflow
+
+Deployment is handled by `.github/workflows/deploy.yml`.
+
+That workflow can run from a push to `main`, a manual dispatch, or a reusable workflow call from another workflow.
+
+The deploy job:
+
+1. Validates the requested deploy ref for non-push events.
+2. Checks out the requested ref.
+3. Installs dependencies with `npm ci`.
+4. Restores the Next.js build cache.
+5. Runs `npx tsc --noEmit`.
+6. Runs `npm run lint`.
+7. Runs `npm run test`.
+8. Runs `npm run build` with production public site variables.
+9. Verifies `out/` exists.
+10. Runs `npm run deploy:check-files`.
+11. Uploads `out/` to Cloudflare Pages with `wrangler pages deploy`.
+12. Pings IndexNow when `INDEXNOW_KEY` is configured.
+13. Uploads deploy diagnostics on failure.
+14. Sends a Telegram failure notification when reporting secrets are configured.
+
+Manual deploys are restricted to `main`. Reusable workflow calls may deploy a full commit SHA only when `allow_sha_ref` is true. The daily content workflow uses this SHA path to deploy the exact generated-content commit.
+
+## Prebuild Chain
+
+`npm run build` triggers `npm run prebuild` first.
+
+The current prebuild sequence is:
+
+1. `scripts/validate-env.ts`
+2. `scripts/compute-search-intent.ts`
+3. `scripts/consolidate-data.ts`
+4. `scripts/validate-content.ts`
+5. `scripts/generate-og-images.tsx`
+6. `scripts/generate-sitemap.ts`
+
+This keeps the exported site consistent with authored content and consolidated data blobs before Next.js renders pages.
+
+## Cloudflare Pages Runtime Shape
+
+`next.config.ts` uses `output: &quot;export&quot;` and disables Next image optimization with `images.unoptimized`.
+
+Most requests are served as static Cloudflare Pages assets. Security headers, cache rules, and CSP are defined in `public/_headers` and become part of the uploaded Pages artifact.
+
+The exception is the retired `/compare` route family:
+
+- `public/_worker.js` is a Pages Function in advanced mode.
+- `public/_routes.json` includes only `/compare` and `/compare/*`.
+- Requests to those paths return `410 Gone` with security headers.
+- All other requests should bypass the function and remain static asset requests.
+
+Because Pages Functions count against the Workers Free plan quota, keep `_routes.json` narrow. Do not change it to `/*` unless the site is intentionally moving from static Pages serving to Worker-invoked serving. As of this review on 2026-05-18, Cloudflare documents a Workers Free quota of 100,000 requests per day for Worker and Pages Function invocations.
+
+## Static Export Constraints
+
+Static export means:
+
+- no Next.js runtime server is required
+- pages must be build-time compatible
+- image optimization is disabled in Next and handled as plain static assets
+- authored routes must avoid runtime-only APIs
+- dynamic edge behavior should stay explicitly scoped through Pages Functions routing
+
+## Environment and Secrets Checklist
+
+The deploy workflow requires:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+The production build reads public GitHub Actions variables such as:
+
+- `SITE_URL` or the default `https://tokenradar.co`
+- `SITE_NAME` or the default `TokenRadar`
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+
+Optional deploy follow-up and alerting use:
+
+- `INDEXNOW_KEY`
+- `TELEGRAM_REPORT_BOT_TOKEN`
+- `TELEGRAM_REPORT_CHAT_ID`
+
+Data and content workflows also depend on provider credentials such as `COINGECKO_API_KEY`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, Meta tokens, and GA4/GSC credentials. Keep `.env.example` and GitHub Actions secrets aligned when adding or removing workflow steps.
+
+## Free-Tier Guardrails
+
+- `npm run deploy:check-files` fails before Cloudflare Pages reaches the configured static file budget.
+- Keep the Pages Function route list limited to retired `/compare` URLs so normal static traffic does not consume Workers Free quota.
+- Cloudflare Web Analytics should use either dashboard injection or `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`, not both.
+- R2 staging objects should stay short-lived: successful social publishes delete exact keys, `npm run r2:cleanup-ledger` removes expired tracked failures, and bucket lifecycle rules should expire `video/` and `ig-carousel/` after 1-2 days.
+- Deploy, data refresh, content generation, social automation, performance, dependency-security, video-asset refresh, and monthly snapshot workflows all upload short-retention diagnostics instead of committing transient logs.
+
+## Operational Notes
+
+- The deploy workflow currently uses Node 22.
+- Daily refresh and daily content generation currently use Node 20.
+- The `git-push-main` concurrency group serializes workflows that commit generated artifacts to `main`.
+- If a generated-data workflow aborts because `origin/main` changed during the run, rerun the workflow on the latest `main` rather than auto-merging generated output.
+- Rollbacks should be handled by reverting or fixing `main` and redeploying through the workflow, unless a trusted reusable workflow caller intentionally deploys a specific full commit SHA.
+
+</code></pre>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>

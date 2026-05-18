@@ -1,0 +1,177 @@
+{
+  "name": "TokenRadar Editorial Flow Contract Markdown representation",
+  "documentType": "markdown_document_representation",
+  "version": 2,
+  "updatedAt": "2026-05-18",
+  "sourcePath": null,
+  "sourceStatus": "retired: EDITORIAL.md deleted after artifact update",
+  "htmlArtifact": "docs/editorial/editorial.html",
+  "jsonArtifact": "docs/editorial/editorial.json",
+  "title": "TokenRadar Editorial Flow Contract",
+  "stats": {
+    "lineCount": 100,
+    "wordCount": 1090,
+    "headingCount": 11,
+    "codeBlockCount": 1,
+    "tableCount": 0,
+    "linkCount": 0
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "TokenRadar Editorial Flow Contract",
+      "slug": "tokenradar-editorial-flow-contract",
+      "line": 1
+    },
+    {
+      "level": 2,
+      "text": "1. Core Philosophy",
+      "slug": "1-core-philosophy",
+      "line": 5
+    },
+    {
+      "level": 2,
+      "text": "2. Canonical Publishing Flow",
+      "slug": "2-canonical-publishing-flow",
+      "line": 11
+    },
+    {
+      "level": 2,
+      "text": "3. Source and Data Grounding",
+      "slug": "3-source-and-data-grounding",
+      "line": 21
+    },
+    {
+      "level": 2,
+      "text": "4. Automated Quality Gates",
+      "slug": "4-automated-quality-gates",
+      "line": 30
+    },
+    {
+      "level": 2,
+      "text": "5. Required Structure and Disclosure",
+      "slug": "5-required-structure-and-disclosure",
+      "line": 44
+    },
+    {
+      "level": 2,
+      "text": "6. Prohibited and Tone-Review Language",
+      "slug": "6-prohibited-and-tone-review-language",
+      "line": 58
+    },
+    {
+      "level": 2,
+      "text": "7. Manual Review and Escalation",
+      "slug": "7-manual-review-and-escalation",
+      "line": 71
+    },
+    {
+      "level": 2,
+      "text": "8. Failure and Remediation",
+      "slug": "8-failure-and-remediation",
+      "line": 82
+    },
+    {
+      "level": 2,
+      "text": "9. Post-Publish QA",
+      "slug": "9-post-publish-qa",
+      "line": 89
+    },
+    {
+      "level": 2,
+      "text": "10. Social Distribution Boundary",
+      "slug": "10-social-distribution-boundary",
+      "line": 98
+    }
+  ],
+  "links": [],
+  "tables": [],
+  "codeBlocks": [
+    {
+      "language": "markdown",
+      "lineStart": 51,
+      "lineEnd": 54,
+      "content": "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "TokenRadar Editorial Flow Contract",
+      "level": 1,
+      "lineStart": 1,
+      "lineEnd": 100,
+      "content": "# TokenRadar Editorial Flow Contract\n\nThis document defines the editorial standards and operating gates for TokenRadar content. The maintained source of record is now the generated artifact pair in `docs/editorial/`; the legacy `EDITORIAL.md` source file has been retired.\n\n## 1. Core Philosophy\n- **Analysts, not advisors.** TokenRadar provides data, historical context, scenarios, and risk framing. It never tells users what to do with their money.\n- **Objective data over hype.** Avoid promotional claims, urgency, certainty, FOMO, and price-target theater.\n- **Transparency.** Preserve generation metadata, quality snapshots, data dates, and visible risk context wherever the content surface supports them.\n- **YMYL discipline.** Crypto content is financial-adjacent. Treat accuracy, caution, and source provenance as publishing requirements, not polish.\n\n## 2. Canonical Publishing Flow\n1. **Discovery:** `scripts/discover-tges.ts` and narrative research identify candidates.\n2. **Data harvest:** `scripts/fetch-crypto-data.ts`, `scripts/fetch-reference-articles.ts`, and `scripts/compute-metrics.ts` refresh market data, source snippets, and TokenRadar metrics.\n3. **Generation:** `scripts/generate-content.ts --queue` writes draft article JSON into `data/queue/`.\n4. **Queue quality gate:** `scripts/quality-check.ts --dir data/queue --fix --delete-failures` applies blocking checks and limited auto-fixes in the daily workflow.\n5. **Publication:** `scripts/publish-from-queue.ts` injects live placeholders, rejects unresolved placeholders, builds a fresh quality snapshot, and writes approved files into `content/tokens/`.\n6. **Post-processing:** `scripts/inject-internal-links.ts` and `scripts/repair-article-content.ts` normalize links and formatting after publication.\n7. **Validation and build:** `scripts/validate-content.ts` and `npm run build` must pass before deploy.\n8. **Delivery:** committed content triggers the deploy workflow, sitemap generation, OG assets, and IndexNow where configured.\n\n## 3. Source and Data Grounding\n- CoinGecko market data, TokenRadar metrics, and stored reference snippets are the primary generation context.\n- Reference snippets may guide factual grounding and style, but generated copy must not copy external article language.\n- Each article needs at least 3 specific numerical data points, excluding unresolved live placeholders.\n- Volatile market fields should use exact live placeholders during generation and be hydrated immediately before publication.\n- Missing or stale live market data blocks normal token publication. Pre-launch TGE articles may publish only with clearly marked TBA market fields.\n- TGE content must not invent tokenomics, investors, contracts, chains, exchange listings, launch dates, or official links.\n- Project descriptions from upstream feeds are source material, not approved copy. Marketing slogans, first-person claims, or promotional project language require rewrite or removal.\n\n## 4. Automated Quality Gates\nBlocking failures include:\n- Word count below the article-type minimum.\n- Missing `## FAQ` section.\n- Missing disclaimer.\n- Fewer than 3 numeric data points.\n- Prohibited financial or promotional phrases.\n- Repeated filler paragraphs.\n- Malformed Markdown tables.\n- Unapproved outbound URLs.\n- Unresolved `{{LIVE_*}}` placeholders at publish time.\n\nWarnings include borderline length, high average sentence length, unsupported heading depth, thin opening summaries, missing internal continuation links, hardcoded live-date phrasing, and disclaimer variants that do not include the standard research reminder. Warnings are not automatic blockers, but they require review for high-risk topics and important pages.\n\n## 5. Required Structure and Disclosure\n- Overview and price-analysis articles fail below 800 words and target at least 1,000 words.\n- How-to-buy guides fail below 700 words and target at least 850 words.\n- TGE previews fail below 500 words and target at least 700 words.\n- All generated articles must include a useful introductory paragraph, an early summary table, `##` section headings, and a `## FAQ` section with 3 to 5 questions.\n- Every article should end with the exact standard disclaimer:\n\n```markdown\n---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*\n```\n\nThe checker may accept looser disclaimer text for backward compatibility, but the editorial standard is the exact string above.\n\n## 6. Prohibited and Tone-Review Language\nThe automated banned phrase list must cover direct advice, certainty, hype, and urgency, including:\n- \"you should buy\" / \"you should invest\"\n- \"guaranteed profit\" / \"guaranteed returns\" / \"guaranteed gains\"\n- \"moonshot\" / \"to the moon\"\n- \"100x\" / \"10x\" / \"1000x\" unless explicitly framed as a historical quote or claim being debunked\n- \"buy now\" / \"invest now\" / \"act now before\"\n- \"sure thing\" / \"cannot lose\" / \"can't lose\" / \"risk-free investment\"\n- \"financial advice\" outside the exact required disclaimer context\n- first-person recommendation language such as \"I recommend buying\" or \"we recommend buying\"\n\nTone review must also catch language that is not in the literal banned list: project slogans, meme copy, political framing, insider-sounding certainty, exchange availability claims without evidence, and any sentence that sounds like an issuer marketing page rather than independent analysis.\n\n## 7. Manual Review and Escalation\nManual review is required when any of these are true:\n- Auto-fix rewrote prohibited language.\n- A high-risk or high-traffic article has quality warnings.\n- The article concerns an unreleased TGE, very low-liquidity token, stablecoin, tokenized security, RWA, lending/credit product, privacy asset, or how-to-buy flow.\n- Source snippets conflict, are missing, or look promotional.\n- Upstream token descriptions contain first-person, slogans, unsupported claims, or legal/regulatory assertions.\n- Publication deletes or drops queued content unexpectedly.\n\nThe reviewer checks factual claims, source provenance, tone, risk framing, legal/financial advice boundaries, rendered page structure, internal links, schema output, and the final disclaimer.\n\n## 8. Failure and Remediation\n- Failed queue items should be quarantined during local/manual review and may be deleted only in the automated daily drip workflow when diagnostics are uploaded.\n- A blocked article is not silently published. Fix the root cause, regenerate or repair the article, then re-run the quality gate.\n- Unresolved placeholders, failed live data hydration, invalid JSON, malformed tables, and unapproved outbound URLs are publication blockers.\n- If a published article later fails validation or rendered QA, fix forward when narrow and revert or remove the page when the risk is broader.\n- Failure notifications should include enough context to identify token, article type, blocking issue, workflow run, and remediation path.\n\n## 9. Post-Publish QA\nAfter content reaches `content/tokens/`, verify:\n- `scripts/validate-content.ts` passes.\n- `npm run build` passes.\n- Rendered token pages show the intended title, FAQ, disclaimer, risk context, summary table, and internal continuation links.\n- JSON-LD, canonical URLs, sitemap entries, OG images, and IndexNow submission are consistent with the published page.\n- Telegram or workflow diagnostics are reviewed on failures.\n- Social posts that reuse the same content follow the same no-advice and no-hype rules.\n\n## 10. Social Distribution Boundary\nThe social layer is separate from website publication, but it inherits the same editorial constraints. Hooks, captions, poll copy, video scripts, and platform-specific variants must avoid buy/sell advice, hype, unsupported venue claims, and repeated stale structures. TikTok manual fallback and Telegram reporting are operational fallbacks, not editorial approval steps.\n\n"
+    },
+    {
+      "heading": "1. Core Philosophy",
+      "level": 2,
+      "lineStart": 5,
+      "lineEnd": 10,
+      "content": "## 1. Core Philosophy\n- **Analysts, not advisors.** TokenRadar provides data, historical context, scenarios, and risk framing. It never tells users what to do with their money.\n- **Objective data over hype.** Avoid promotional claims, urgency, certainty, FOMO, and price-target theater.\n- **Transparency.** Preserve generation metadata, quality snapshots, data dates, and visible risk context wherever the content surface supports them.\n- **YMYL discipline.** Crypto content is financial-adjacent. Treat accuracy, caution, and source provenance as publishing requirements, not polish.\n\n"
+    },
+    {
+      "heading": "2. Canonical Publishing Flow",
+      "level": 2,
+      "lineStart": 11,
+      "lineEnd": 20,
+      "content": "## 2. Canonical Publishing Flow\n1. **Discovery:** `scripts/discover-tges.ts` and narrative research identify candidates.\n2. **Data harvest:** `scripts/fetch-crypto-data.ts`, `scripts/fetch-reference-articles.ts`, and `scripts/compute-metrics.ts` refresh market data, source snippets, and TokenRadar metrics.\n3. **Generation:** `scripts/generate-content.ts --queue` writes draft article JSON into `data/queue/`.\n4. **Queue quality gate:** `scripts/quality-check.ts --dir data/queue --fix --delete-failures` applies blocking checks and limited auto-fixes in the daily workflow.\n5. **Publication:** `scripts/publish-from-queue.ts` injects live placeholders, rejects unresolved placeholders, builds a fresh quality snapshot, and writes approved files into `content/tokens/`.\n6. **Post-processing:** `scripts/inject-internal-links.ts` and `scripts/repair-article-content.ts` normalize links and formatting after publication.\n7. **Validation and build:** `scripts/validate-content.ts` and `npm run build` must pass before deploy.\n8. **Delivery:** committed content triggers the deploy workflow, sitemap generation, OG assets, and IndexNow where configured.\n\n"
+    },
+    {
+      "heading": "3. Source and Data Grounding",
+      "level": 2,
+      "lineStart": 21,
+      "lineEnd": 29,
+      "content": "## 3. Source and Data Grounding\n- CoinGecko market data, TokenRadar metrics, and stored reference snippets are the primary generation context.\n- Reference snippets may guide factual grounding and style, but generated copy must not copy external article language.\n- Each article needs at least 3 specific numerical data points, excluding unresolved live placeholders.\n- Volatile market fields should use exact live placeholders during generation and be hydrated immediately before publication.\n- Missing or stale live market data blocks normal token publication. Pre-launch TGE articles may publish only with clearly marked TBA market fields.\n- TGE content must not invent tokenomics, investors, contracts, chains, exchange listings, launch dates, or official links.\n- Project descriptions from upstream feeds are source material, not approved copy. Marketing slogans, first-person claims, or promotional project language require rewrite or removal.\n\n"
+    },
+    {
+      "heading": "4. Automated Quality Gates",
+      "level": 2,
+      "lineStart": 30,
+      "lineEnd": 43,
+      "content": "## 4. Automated Quality Gates\nBlocking failures include:\n- Word count below the article-type minimum.\n- Missing `## FAQ` section.\n- Missing disclaimer.\n- Fewer than 3 numeric data points.\n- Prohibited financial or promotional phrases.\n- Repeated filler paragraphs.\n- Malformed Markdown tables.\n- Unapproved outbound URLs.\n- Unresolved `{{LIVE_*}}` placeholders at publish time.\n\nWarnings include borderline length, high average sentence length, unsupported heading depth, thin opening summaries, missing internal continuation links, hardcoded live-date phrasing, and disclaimer variants that do not include the standard research reminder. Warnings are not automatic blockers, but they require review for high-risk topics and important pages.\n\n"
+    },
+    {
+      "heading": "5. Required Structure and Disclosure",
+      "level": 2,
+      "lineStart": 44,
+      "lineEnd": 57,
+      "content": "## 5. Required Structure and Disclosure\n- Overview and price-analysis articles fail below 800 words and target at least 1,000 words.\n- How-to-buy guides fail below 700 words and target at least 850 words.\n- TGE previews fail below 500 words and target at least 700 words.\n- All generated articles must include a useful introductory paragraph, an early summary table, `##` section headings, and a `## FAQ` section with 3 to 5 questions.\n- Every article should end with the exact standard disclaimer:\n\n```markdown\n---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*\n```\n\nThe checker may accept looser disclaimer text for backward compatibility, but the editorial standard is the exact string above.\n\n"
+    },
+    {
+      "heading": "6. Prohibited and Tone-Review Language",
+      "level": 2,
+      "lineStart": 58,
+      "lineEnd": 70,
+      "content": "## 6. Prohibited and Tone-Review Language\nThe automated banned phrase list must cover direct advice, certainty, hype, and urgency, including:\n- \"you should buy\" / \"you should invest\"\n- \"guaranteed profit\" / \"guaranteed returns\" / \"guaranteed gains\"\n- \"moonshot\" / \"to the moon\"\n- \"100x\" / \"10x\" / \"1000x\" unless explicitly framed as a historical quote or claim being debunked\n- \"buy now\" / \"invest now\" / \"act now before\"\n- \"sure thing\" / \"cannot lose\" / \"can't lose\" / \"risk-free investment\"\n- \"financial advice\" outside the exact required disclaimer context\n- first-person recommendation language such as \"I recommend buying\" or \"we recommend buying\"\n\nTone review must also catch language that is not in the literal banned list: project slogans, meme copy, political framing, insider-sounding certainty, exchange availability claims without evidence, and any sentence that sounds like an issuer marketing page rather than independent analysis.\n\n"
+    },
+    {
+      "heading": "7. Manual Review and Escalation",
+      "level": 2,
+      "lineStart": 71,
+      "lineEnd": 81,
+      "content": "## 7. Manual Review and Escalation\nManual review is required when any of these are true:\n- Auto-fix rewrote prohibited language.\n- A high-risk or high-traffic article has quality warnings.\n- The article concerns an unreleased TGE, very low-liquidity token, stablecoin, tokenized security, RWA, lending/credit product, privacy asset, or how-to-buy flow.\n- Source snippets conflict, are missing, or look promotional.\n- Upstream token descriptions contain first-person, slogans, unsupported claims, or legal/regulatory assertions.\n- Publication deletes or drops queued content unexpectedly.\n\nThe reviewer checks factual claims, source provenance, tone, risk framing, legal/financial advice boundaries, rendered page structure, internal links, schema output, and the final disclaimer.\n\n"
+    },
+    {
+      "heading": "8. Failure and Remediation",
+      "level": 2,
+      "lineStart": 82,
+      "lineEnd": 88,
+      "content": "## 8. Failure and Remediation\n- Failed queue items should be quarantined during local/manual review and may be deleted only in the automated daily drip workflow when diagnostics are uploaded.\n- A blocked article is not silently published. Fix the root cause, regenerate or repair the article, then re-run the quality gate.\n- Unresolved placeholders, failed live data hydration, invalid JSON, malformed tables, and unapproved outbound URLs are publication blockers.\n- If a published article later fails validation or rendered QA, fix forward when narrow and revert or remove the page when the risk is broader.\n- Failure notifications should include enough context to identify token, article type, blocking issue, workflow run, and remediation path.\n\n"
+    },
+    {
+      "heading": "9. Post-Publish QA",
+      "level": 2,
+      "lineStart": 89,
+      "lineEnd": 97,
+      "content": "## 9. Post-Publish QA\nAfter content reaches `content/tokens/`, verify:\n- `scripts/validate-content.ts` passes.\n- `npm run build` passes.\n- Rendered token pages show the intended title, FAQ, disclaimer, risk context, summary table, and internal continuation links.\n- JSON-LD, canonical URLs, sitemap entries, OG images, and IndexNow submission are consistent with the published page.\n- Telegram or workflow diagnostics are reviewed on failures.\n- Social posts that reuse the same content follow the same no-advice and no-hype rules.\n\n"
+    },
+    {
+      "heading": "10. Social Distribution Boundary",
+      "level": 2,
+      "lineStart": 98,
+      "lineEnd": 100,
+      "content": "## 10. Social Distribution Boundary\nThe social layer is separate from website publication, but it inherits the same editorial constraints. Hooks, captions, poll copy, video scripts, and platform-specific variants must avoid buy/sell advice, hype, unsupported venue claims, and repeated stale structures. TikTok manual fallback and Telegram reporting are operational fallbacks, not editorial approval steps.\n\n"
+    }
+  ],
+  "rawMarkdown": "# TokenRadar Editorial Flow Contract\n\nThis document defines the editorial standards and operating gates for TokenRadar content. The maintained source of record is now the generated artifact pair in `docs/editorial/`; the legacy `EDITORIAL.md` source file has been retired.\n\n## 1. Core Philosophy\n- **Analysts, not advisors.** TokenRadar provides data, historical context, scenarios, and risk framing. It never tells users what to do with their money.\n- **Objective data over hype.** Avoid promotional claims, urgency, certainty, FOMO, and price-target theater.\n- **Transparency.** Preserve generation metadata, quality snapshots, data dates, and visible risk context wherever the content surface supports them.\n- **YMYL discipline.** Crypto content is financial-adjacent. Treat accuracy, caution, and source provenance as publishing requirements, not polish.\n\n## 2. Canonical Publishing Flow\n1. **Discovery:** `scripts/discover-tges.ts` and narrative research identify candidates.\n2. **Data harvest:** `scripts/fetch-crypto-data.ts`, `scripts/fetch-reference-articles.ts`, and `scripts/compute-metrics.ts` refresh market data, source snippets, and TokenRadar metrics.\n3. **Generation:** `scripts/generate-content.ts --queue` writes draft article JSON into `data/queue/`.\n4. **Queue quality gate:** `scripts/quality-check.ts --dir data/queue --fix --delete-failures` applies blocking checks and limited auto-fixes in the daily workflow.\n5. **Publication:** `scripts/publish-from-queue.ts` injects live placeholders, rejects unresolved placeholders, builds a fresh quality snapshot, and writes approved files into `content/tokens/`.\n6. **Post-processing:** `scripts/inject-internal-links.ts` and `scripts/repair-article-content.ts` normalize links and formatting after publication.\n7. **Validation and build:** `scripts/validate-content.ts` and `npm run build` must pass before deploy.\n8. **Delivery:** committed content triggers the deploy workflow, sitemap generation, OG assets, and IndexNow where configured.\n\n## 3. Source and Data Grounding\n- CoinGecko market data, TokenRadar metrics, and stored reference snippets are the primary generation context.\n- Reference snippets may guide factual grounding and style, but generated copy must not copy external article language.\n- Each article needs at least 3 specific numerical data points, excluding unresolved live placeholders.\n- Volatile market fields should use exact live placeholders during generation and be hydrated immediately before publication.\n- Missing or stale live market data blocks normal token publication. Pre-launch TGE articles may publish only with clearly marked TBA market fields.\n- TGE content must not invent tokenomics, investors, contracts, chains, exchange listings, launch dates, or official links.\n- Project descriptions from upstream feeds are source material, not approved copy. Marketing slogans, first-person claims, or promotional project language require rewrite or removal.\n\n## 4. Automated Quality Gates\nBlocking failures include:\n- Word count below the article-type minimum.\n- Missing `## FAQ` section.\n- Missing disclaimer.\n- Fewer than 3 numeric data points.\n- Prohibited financial or promotional phrases.\n- Repeated filler paragraphs.\n- Malformed Markdown tables.\n- Unapproved outbound URLs.\n- Unresolved `{{LIVE_*}}` placeholders at publish time.\n\nWarnings include borderline length, high average sentence length, unsupported heading depth, thin opening summaries, missing internal continuation links, hardcoded live-date phrasing, and disclaimer variants that do not include the standard research reminder. Warnings are not automatic blockers, but they require review for high-risk topics and important pages.\n\n## 5. Required Structure and Disclosure\n- Overview and price-analysis articles fail below 800 words and target at least 1,000 words.\n- How-to-buy guides fail below 700 words and target at least 850 words.\n- TGE previews fail below 500 words and target at least 700 words.\n- All generated articles must include a useful introductory paragraph, an early summary table, `##` section headings, and a `## FAQ` section with 3 to 5 questions.\n- Every article should end with the exact standard disclaimer:\n\n```markdown\n---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*\n```\n\nThe checker may accept looser disclaimer text for backward compatibility, but the editorial standard is the exact string above.\n\n## 6. Prohibited and Tone-Review Language\nThe automated banned phrase list must cover direct advice, certainty, hype, and urgency, including:\n- \"you should buy\" / \"you should invest\"\n- \"guaranteed profit\" / \"guaranteed returns\" / \"guaranteed gains\"\n- \"moonshot\" / \"to the moon\"\n- \"100x\" / \"10x\" / \"1000x\" unless explicitly framed as a historical quote or claim being debunked\n- \"buy now\" / \"invest now\" / \"act now before\"\n- \"sure thing\" / \"cannot lose\" / \"can't lose\" / \"risk-free investment\"\n- \"financial advice\" outside the exact required disclaimer context\n- first-person recommendation language such as \"I recommend buying\" or \"we recommend buying\"\n\nTone review must also catch language that is not in the literal banned list: project slogans, meme copy, political framing, insider-sounding certainty, exchange availability claims without evidence, and any sentence that sounds like an issuer marketing page rather than independent analysis.\n\n## 7. Manual Review and Escalation\nManual review is required when any of these are true:\n- Auto-fix rewrote prohibited language.\n- A high-risk or high-traffic article has quality warnings.\n- The article concerns an unreleased TGE, very low-liquidity token, stablecoin, tokenized security, RWA, lending/credit product, privacy asset, or how-to-buy flow.\n- Source snippets conflict, are missing, or look promotional.\n- Upstream token descriptions contain first-person, slogans, unsupported claims, or legal/regulatory assertions.\n- Publication deletes or drops queued content unexpectedly.\n\nThe reviewer checks factual claims, source provenance, tone, risk framing, legal/financial advice boundaries, rendered page structure, internal links, schema output, and the final disclaimer.\n\n## 8. Failure and Remediation\n- Failed queue items should be quarantined during local/manual review and may be deleted only in the automated daily drip workflow when diagnostics are uploaded.\n- A blocked article is not silently published. Fix the root cause, regenerate or repair the article, then re-run the quality gate.\n- Unresolved placeholders, failed live data hydration, invalid JSON, malformed tables, and unapproved outbound URLs are publication blockers.\n- If a published article later fails validation or rendered QA, fix forward when narrow and revert or remove the page when the risk is broader.\n- Failure notifications should include enough context to identify token, article type, blocking issue, workflow run, and remediation path.\n\n## 9. Post-Publish QA\nAfter content reaches `content/tokens/`, verify:\n- `scripts/validate-content.ts` passes.\n- `npm run build` passes.\n- Rendered token pages show the intended title, FAQ, disclaimer, risk context, summary table, and internal continuation links.\n- JSON-LD, canonical URLs, sitemap entries, OG images, and IndexNow submission are consistent with the published page.\n- Telegram or workflow diagnostics are reviewed on failures.\n- Social posts that reuse the same content follow the same no-advice and no-hype rules.\n\n## 10. Social Distribution Boundary\nThe social layer is separate from website publication, but it inherits the same editorial constraints. Hooks, captions, poll copy, video scripts, and platform-specific variants must avoid buy/sell advice, hype, unsupported venue claims, and repeated stale structures. TikTok manual fallback and Telegram reporting are operational fallbacks, not editorial approval steps.\n"
+}

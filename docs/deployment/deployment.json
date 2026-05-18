@@ -1,0 +1,156 @@
+{
+  "name": "TokenRadar Deployment Architecture Markdown representation",
+  "documentType": "markdown_document_representation",
+  "version": 2,
+  "updatedAt": "2026-05-18",
+  "sourcePath": "docs/deployment/deployment.json#rawMarkdown",
+  "htmlArtifact": "docs/deployment/deployment.html",
+  "jsonArtifact": "docs/deployment/deployment.json",
+  "title": "TokenRadar Deployment Architecture",
+  "stats": {
+    "lineCount": 157,
+    "wordCount": 1058,
+    "headingCount": 10,
+    "codeBlockCount": 0,
+    "tableCount": 0,
+    "linkCount": 0
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "TokenRadar Deployment Architecture",
+      "slug": "tokenradar-deployment-architecture",
+      "line": 1
+    },
+    {
+      "level": 2,
+      "text": "Deployment Overview",
+      "slug": "deployment-overview",
+      "line": 7
+    },
+    {
+      "level": 2,
+      "text": "Data and Content Pipelines",
+      "slug": "data-and-content-pipelines",
+      "line": 19
+    },
+    {
+      "level": 2,
+      "text": "Build and Deploy Workflow",
+      "slug": "build-and-deploy-workflow",
+      "line": 55
+    },
+    {
+      "level": 2,
+      "text": "Prebuild Chain",
+      "slug": "prebuild-chain",
+      "line": 80
+    },
+    {
+      "level": 2,
+      "text": "Cloudflare Pages Runtime Shape",
+      "slug": "cloudflare-pages-runtime-shape",
+      "line": 95
+    },
+    {
+      "level": 2,
+      "text": "Static Export Constraints",
+      "slug": "static-export-constraints",
+      "line": 110
+    },
+    {
+      "level": 2,
+      "text": "Environment and Secrets Checklist",
+      "slug": "environment-and-secrets-checklist",
+      "line": 120
+    },
+    {
+      "level": 2,
+      "text": "Free-Tier Guardrails",
+      "slug": "free-tier-guardrails",
+      "line": 142
+    },
+    {
+      "level": 2,
+      "text": "Operational Notes",
+      "slug": "operational-notes",
+      "line": 150
+    }
+  ],
+  "links": [],
+  "tables": [],
+  "codeBlocks": [],
+  "sections": [
+    {
+      "heading": "TokenRadar Deployment Architecture",
+      "level": 1,
+      "lineStart": 1,
+      "lineEnd": 6,
+      "content": "# TokenRadar Deployment Architecture\n\nThis repo deploys through GitHub Actions and publishes a Next.js static export to Cloudflare Pages. The site does not use a Next.js server runtime in production.\n\nThere is one scoped Cloudflare Pages Function in advanced mode: `public/_worker.js` returns `410 Gone` for retired `/compare` URLs, and `public/_routes.json` limits that function to `/compare` and `/compare/*`. Normal page and asset traffic remains static Pages traffic.\n"
+    },
+    {
+      "heading": "Deployment Overview",
+      "level": 2,
+      "lineStart": 7,
+      "lineEnd": 18,
+      "content": "## Deployment Overview\n\nThe deployment path is GitHub-driven:\n\n1. GitHub Actions builds the site artifact.\n2. `npm run build` creates the static `out/` directory.\n3. The deploy workflow verifies `out/` and the Pages file budget.\n4. Wrangler uploads `out/` to the Cloudflare Pages project.\n5. Cloudflare Pages serves the uploaded artifact.\n\nCloudflare Pages dashboard build settings are informational for this repo. The source build does not run inside Cloudflare Pages.\n"
+    },
+    {
+      "heading": "Data and Content Pipelines",
+      "level": 2,
+      "lineStart": 19,
+      "lineEnd": 54,
+      "content": "## Data and Content Pipelines\n\nAuthored data generation happens in GitHub Actions and local scripts, not at request time.\n\nThe daily refresh workflow refreshes market and support data before redeploying when committed artifacts change. Its main responsibilities include:\n\n- `scripts/fetch-crypto-data.ts`: refresh token market data\n- `scripts/discover-tges.ts`: refresh upcoming TGE candidates in `data/upcoming-tges.json`\n- `scripts/fetch-reference-articles.ts`: refresh supporting references\n- `scripts/compute-metrics.ts`: compute derived TokenRadar metrics\n- `scripts/refresh-meta-tokens.ts`: rotate Meta access tokens used by social workflows\n- `scripts/generate-og-images.tsx --force`: regenerate static OG images\n- `scripts/consolidate-data.ts`, `scripts/validate-content.ts`, and `scripts/generate-sitemap.ts`: validate and prepare runtime artifacts\n\nThe daily content workflow generates and publishes queued article payloads. Its main responsibilities include:\n\n- `scripts/generate-content.ts --queue`: generate queued article JSON\n- `scripts/quality-check.ts --dir data/queue --fix --delete-failures`: gate queued content quality\n- `scripts/publish-from-queue.ts`: inject live placeholders and move finished content into `content/tokens/`\n- `scripts/inject-internal-links.ts`: add semantic internal links\n- `scripts/repair-article-content.ts`: normalize published article formatting\n- `scripts/validate-content.ts`: validate published content before commit\n- `npm run build`: run a build gate before publishing generated content to `main`\n\nGenerated artifacts are committed back into repository paths such as:\n\n- `data/tokens/`\n- `data/prices/`\n- `data/metrics/`\n- `data/references/`\n- `data/upcoming-tges.json`\n- `data/_tokens_blob.json`, `data/_metrics_blob.json`, `data/_prices_blob.json`, and `data/_registry.json`\n- `content/tokens/`\n- `public/og/movers.png`\n- `public/sitemap.xml`, `public/sitemap-main.xml`, and `public/sitemap-tokens.xml`\n"
+    },
+    {
+      "heading": "Build and Deploy Workflow",
+      "level": 2,
+      "lineStart": 55,
+      "lineEnd": 79,
+      "content": "## Build and Deploy Workflow\n\nDeployment is handled by `.github/workflows/deploy.yml`.\n\nThat workflow can run from a push to `main`, a manual dispatch, or a reusable workflow call from another workflow.\n\nThe deploy job:\n\n1. Validates the requested deploy ref for non-push events.\n2. Checks out the requested ref.\n3. Installs dependencies with `npm ci`.\n4. Restores the Next.js build cache.\n5. Runs `npx tsc --noEmit`.\n6. Runs `npm run lint`.\n7. Runs `npm run test`.\n8. Runs `npm run build` with production public site variables.\n9. Verifies `out/` exists.\n10. Runs `npm run deploy:check-files`.\n11. Uploads `out/` to Cloudflare Pages with `wrangler pages deploy`.\n12. Pings IndexNow when `INDEXNOW_KEY` is configured.\n13. Uploads deploy diagnostics on failure.\n14. Sends a Telegram failure notification when reporting secrets are configured.\n\nManual deploys are restricted to `main`. Reusable workflow calls may deploy a full commit SHA only when `allow_sha_ref` is true. The daily content workflow uses this SHA path to deploy the exact generated-content commit.\n"
+    },
+    {
+      "heading": "Prebuild Chain",
+      "level": 2,
+      "lineStart": 80,
+      "lineEnd": 94,
+      "content": "## Prebuild Chain\n\n`npm run build` triggers `npm run prebuild` first.\n\nThe current prebuild sequence is:\n\n1. `scripts/validate-env.ts`\n2. `scripts/compute-search-intent.ts`\n3. `scripts/consolidate-data.ts`\n4. `scripts/validate-content.ts`\n5. `scripts/generate-og-images.tsx`\n6. `scripts/generate-sitemap.ts`\n\nThis keeps the exported site consistent with authored content and consolidated data blobs before Next.js renders pages.\n"
+    },
+    {
+      "heading": "Cloudflare Pages Runtime Shape",
+      "level": 2,
+      "lineStart": 95,
+      "lineEnd": 109,
+      "content": "## Cloudflare Pages Runtime Shape\n\n`next.config.ts` uses `output: \"export\"` and disables Next image optimization with `images.unoptimized`.\n\nMost requests are served as static Cloudflare Pages assets. Security headers, cache rules, and CSP are defined in `public/_headers` and become part of the uploaded Pages artifact.\n\nThe exception is the retired `/compare` route family:\n\n- `public/_worker.js` is a Pages Function in advanced mode.\n- `public/_routes.json` includes only `/compare` and `/compare/*`.\n- Requests to those paths return `410 Gone` with security headers.\n- All other requests should bypass the function and remain static asset requests.\n\nBecause Pages Functions count against the Workers Free plan quota, keep `_routes.json` narrow. Do not change it to `/*` unless the site is intentionally moving from static Pages serving to Worker-invoked serving. As of this review on 2026-05-18, Cloudflare documents a Workers Free quota of 100,000 requests per day for Worker and Pages Function invocations.\n"
+    },
+    {
+      "heading": "Static Export Constraints",
+      "level": 2,
+      "lineStart": 110,
+      "lineEnd": 119,
+      "content": "## Static Export Constraints\n\nStatic export means:\n\n- no Next.js runtime server is required\n- pages must be build-time compatible\n- image optimization is disabled in Next and handled as plain static assets\n- authored routes must avoid runtime-only APIs\n- dynamic edge behavior should stay explicitly scoped through Pages Functions routing\n"
+    },
+    {
+      "heading": "Environment and Secrets Checklist",
+      "level": 2,
+      "lineStart": 120,
+      "lineEnd": 141,
+      "content": "## Environment and Secrets Checklist\n\nThe deploy workflow requires:\n\n- `CLOUDFLARE_API_TOKEN`\n- `CLOUDFLARE_ACCOUNT_ID`\n\nThe production build reads public GitHub Actions variables such as:\n\n- `SITE_URL` or the default `https://tokenradar.co`\n- `SITE_NAME` or the default `TokenRadar`\n- `NEXT_PUBLIC_GA_MEASUREMENT_ID`\n- `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`\n\nOptional deploy follow-up and alerting use:\n\n- `INDEXNOW_KEY`\n- `TELEGRAM_REPORT_BOT_TOKEN`\n- `TELEGRAM_REPORT_CHAT_ID`\n\nData and content workflows also depend on provider credentials such as `COINGECKO_API_KEY`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, Meta tokens, and GA4/GSC credentials. Keep `.env.example` and GitHub Actions secrets aligned when adding or removing workflow steps.\n"
+    },
+    {
+      "heading": "Free-Tier Guardrails",
+      "level": 2,
+      "lineStart": 142,
+      "lineEnd": 149,
+      "content": "## Free-Tier Guardrails\n\n- `npm run deploy:check-files` fails before Cloudflare Pages reaches the configured static file budget.\n- Keep the Pages Function route list limited to retired `/compare` URLs so normal static traffic does not consume Workers Free quota.\n- Cloudflare Web Analytics should use either dashboard injection or `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`, not both.\n- R2 staging objects should stay short-lived: successful social publishes delete exact keys, `npm run r2:cleanup-ledger` removes expired tracked failures, and bucket lifecycle rules should expire `video/` and `ig-carousel/` after 1-2 days.\n- Deploy, data refresh, content generation, social automation, performance, dependency-security, video-asset refresh, and monthly snapshot workflows all upload short-retention diagnostics instead of committing transient logs.\n"
+    },
+    {
+      "heading": "Operational Notes",
+      "level": 2,
+      "lineStart": 150,
+      "lineEnd": 157,
+      "content": "## Operational Notes\n\n- The deploy workflow currently uses Node 22.\n- Daily refresh and daily content generation currently use Node 20.\n- The `git-push-main` concurrency group serializes workflows that commit generated artifacts to `main`.\n- If a generated-data workflow aborts because `origin/main` changed during the run, rerun the workflow on the latest `main` rather than auto-merging generated output.\n- Rollbacks should be handled by reverting or fixing `main` and redeploying through the workflow, unless a trusted reusable workflow caller intentionally deploys a specific full commit SHA.\n"
+    }
+  ],
+  "rawMarkdown": "# TokenRadar Deployment Architecture\n\nThis repo deploys through GitHub Actions and publishes a Next.js static export to Cloudflare Pages. The site does not use a Next.js server runtime in production.\n\nThere is one scoped Cloudflare Pages Function in advanced mode: `public/_worker.js` returns `410 Gone` for retired `/compare` URLs, and `public/_routes.json` limits that function to `/compare` and `/compare/*`. Normal page and asset traffic remains static Pages traffic.\n\n## Deployment Overview\n\nThe deployment path is GitHub-driven:\n\n1. GitHub Actions builds the site artifact.\n2. `npm run build` creates the static `out/` directory.\n3. The deploy workflow verifies `out/` and the Pages file budget.\n4. Wrangler uploads `out/` to the Cloudflare Pages project.\n5. Cloudflare Pages serves the uploaded artifact.\n\nCloudflare Pages dashboard build settings are informational for this repo. The source build does not run inside Cloudflare Pages.\n\n## Data and Content Pipelines\n\nAuthored data generation happens in GitHub Actions and local scripts, not at request time.\n\nThe daily refresh workflow refreshes market and support data before redeploying when committed artifacts change. Its main responsibilities include:\n\n- `scripts/fetch-crypto-data.ts`: refresh token market data\n- `scripts/discover-tges.ts`: refresh upcoming TGE candidates in `data/upcoming-tges.json`\n- `scripts/fetch-reference-articles.ts`: refresh supporting references\n- `scripts/compute-metrics.ts`: compute derived TokenRadar metrics\n- `scripts/refresh-meta-tokens.ts`: rotate Meta access tokens used by social workflows\n- `scripts/generate-og-images.tsx --force`: regenerate static OG images\n- `scripts/consolidate-data.ts`, `scripts/validate-content.ts`, and `scripts/generate-sitemap.ts`: validate and prepare runtime artifacts\n\nThe daily content workflow generates and publishes queued article payloads. Its main responsibilities include:\n\n- `scripts/generate-content.ts --queue`: generate queued article JSON\n- `scripts/quality-check.ts --dir data/queue --fix --delete-failures`: gate queued content quality\n- `scripts/publish-from-queue.ts`: inject live placeholders and move finished content into `content/tokens/`\n- `scripts/inject-internal-links.ts`: add semantic internal links\n- `scripts/repair-article-content.ts`: normalize published article formatting\n- `scripts/validate-content.ts`: validate published content before commit\n- `npm run build`: run a build gate before publishing generated content to `main`\n\nGenerated artifacts are committed back into repository paths such as:\n\n- `data/tokens/`\n- `data/prices/`\n- `data/metrics/`\n- `data/references/`\n- `data/upcoming-tges.json`\n- `data/_tokens_blob.json`, `data/_metrics_blob.json`, `data/_prices_blob.json`, and `data/_registry.json`\n- `content/tokens/`\n- `public/og/movers.png`\n- `public/sitemap.xml`, `public/sitemap-main.xml`, and `public/sitemap-tokens.xml`\n\n## Build and Deploy Workflow\n\nDeployment is handled by `.github/workflows/deploy.yml`.\n\nThat workflow can run from a push to `main`, a manual dispatch, or a reusable workflow call from another workflow.\n\nThe deploy job:\n\n1. Validates the requested deploy ref for non-push events.\n2. Checks out the requested ref.\n3. Installs dependencies with `npm ci`.\n4. Restores the Next.js build cache.\n5. Runs `npx tsc --noEmit`.\n6. Runs `npm run lint`.\n7. Runs `npm run test`.\n8. Runs `npm run build` with production public site variables.\n9. Verifies `out/` exists.\n10. Runs `npm run deploy:check-files`.\n11. Uploads `out/` to Cloudflare Pages with `wrangler pages deploy`.\n12. Pings IndexNow when `INDEXNOW_KEY` is configured.\n13. Uploads deploy diagnostics on failure.\n14. Sends a Telegram failure notification when reporting secrets are configured.\n\nManual deploys are restricted to `main`. Reusable workflow calls may deploy a full commit SHA only when `allow_sha_ref` is true. The daily content workflow uses this SHA path to deploy the exact generated-content commit.\n\n## Prebuild Chain\n\n`npm run build` triggers `npm run prebuild` first.\n\nThe current prebuild sequence is:\n\n1. `scripts/validate-env.ts`\n2. `scripts/compute-search-intent.ts`\n3. `scripts/consolidate-data.ts`\n4. `scripts/validate-content.ts`\n5. `scripts/generate-og-images.tsx`\n6. `scripts/generate-sitemap.ts`\n\nThis keeps the exported site consistent with authored content and consolidated data blobs before Next.js renders pages.\n\n## Cloudflare Pages Runtime Shape\n\n`next.config.ts` uses `output: \"export\"` and disables Next image optimization with `images.unoptimized`.\n\nMost requests are served as static Cloudflare Pages assets. Security headers, cache rules, and CSP are defined in `public/_headers` and become part of the uploaded Pages artifact.\n\nThe exception is the retired `/compare` route family:\n\n- `public/_worker.js` is a Pages Function in advanced mode.\n- `public/_routes.json` includes only `/compare` and `/compare/*`.\n- Requests to those paths return `410 Gone` with security headers.\n- All other requests should bypass the function and remain static asset requests.\n\nBecause Pages Functions count against the Workers Free plan quota, keep `_routes.json` narrow. Do not change it to `/*` unless the site is intentionally moving from static Pages serving to Worker-invoked serving. As of this review on 2026-05-18, Cloudflare documents a Workers Free quota of 100,000 requests per day for Worker and Pages Function invocations.\n\n## Static Export Constraints\n\nStatic export means:\n\n- no Next.js runtime server is required\n- pages must be build-time compatible\n- image optimization is disabled in Next and handled as plain static assets\n- authored routes must avoid runtime-only APIs\n- dynamic edge behavior should stay explicitly scoped through Pages Functions routing\n\n## Environment and Secrets Checklist\n\nThe deploy workflow requires:\n\n- `CLOUDFLARE_API_TOKEN`\n- `CLOUDFLARE_ACCOUNT_ID`\n\nThe production build reads public GitHub Actions variables such as:\n\n- `SITE_URL` or the default `https://tokenradar.co`\n- `SITE_NAME` or the default `TokenRadar`\n- `NEXT_PUBLIC_GA_MEASUREMENT_ID`\n- `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`\n\nOptional deploy follow-up and alerting use:\n\n- `INDEXNOW_KEY`\n- `TELEGRAM_REPORT_BOT_TOKEN`\n- `TELEGRAM_REPORT_CHAT_ID`\n\nData and content workflows also depend on provider credentials such as `COINGECKO_API_KEY`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, Meta tokens, and GA4/GSC credentials. Keep `.env.example` and GitHub Actions secrets aligned when adding or removing workflow steps.\n\n## Free-Tier Guardrails\n\n- `npm run deploy:check-files` fails before Cloudflare Pages reaches the configured static file budget.\n- Keep the Pages Function route list limited to retired `/compare` URLs so normal static traffic does not consume Workers Free quota.\n- Cloudflare Web Analytics should use either dashboard injection or `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`, not both.\n- R2 staging objects should stay short-lived: successful social publishes delete exact keys, `npm run r2:cleanup-ledger` removes expired tracked failures, and bucket lifecycle rules should expire `video/` and `ig-carousel/` after 1-2 days.\n- Deploy, data refresh, content generation, social automation, performance, dependency-security, video-asset refresh, and monthly snapshot workflows all upload short-retention diagnostics instead of committing transient logs.\n\n## Operational Notes\n\n- The deploy workflow currently uses Node 22.\n- Daily refresh and daily content generation currently use Node 20.\n- The `git-push-main` concurrency group serializes workflows that commit generated artifacts to `main`.\n- If a generated-data workflow aborts because `origin/main` changed during the run, rerun the workflow on the latest `main` rather than auto-merging generated output.\n- Rollbacks should be handled by reverting or fixing `main` and redeploying through the workflow, unless a trusted reusable workflow caller intentionally deploys a specific full commit SHA.\n"
+}

@@ -70,10 +70,10 @@ data/x-oauth-state.json
 # temp
 /tmp/
 /docs/*
-!/docs/seo/
-!/docs/seo/**
-!/docs/testing/
-!/docs/testing/**
+!/docs/**/
+!/docs/**/*.html
+!/docs/**/*.json
+/docs/video-production-flow/
 
 # diagnostic logs and cache
 data/logs/
