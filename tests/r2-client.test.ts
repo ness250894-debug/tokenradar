@@ -25,6 +25,7 @@ vi.mock("@aws-sdk/client-s3", () => {
   return {
     S3Client: MockS3Client,
     PutObjectCommand: MockCommand,
+    GetObjectCommand: MockCommand,
     DeleteObjectCommand: MockCommand,
     ListObjectsV2Command: MockCommand,
   };
@@ -32,7 +33,7 @@ vi.mock("@aws-sdk/client-s3", () => {
 
 vi.mock("../src/lib/ops-ledger", () => ledgerMocks);
 
-import { cleanPrefix, deleteObjects, uploadBuffer } from "../src/lib/r2-client";
+import { cleanPrefix, deleteObjects, listObjectKeys, uploadBuffer } from "../src/lib/r2-client";
 
 function commandInput(callIndex: number): Record<string, unknown> {
   return (awsMocks.send.mock.calls[callIndex][0] as { input: Record<string, unknown> }).input;
@@ -131,5 +132,31 @@ describe("r2-client prefix staging", () => {
     expect(deleted).toBe(2);
     expect(awsMocks.send).toHaveBeenCalledTimes(2);
     expect(ledgerMocks.markMediaStagingDeleted).toHaveBeenCalledTimes(2);
+  });
+
+  it("lists object keys under a prefix across pages", async () => {
+    awsMocks.send
+      .mockResolvedValueOnce({
+        Contents: [{ Key: "video-assets/broll/a.mp4" }],
+        IsTruncated: true,
+        NextContinuationToken: "next-page",
+      })
+      .mockResolvedValueOnce({
+        Contents: [{ Key: "video-assets/broll/b.mp4" }, {}],
+        IsTruncated: false,
+      });
+
+    const keys = await listObjectKeys("video-assets/broll/");
+
+    expect(keys).toEqual(["video-assets/broll/a.mp4", "video-assets/broll/b.mp4"]);
+    expect(commandInput(0)).toMatchObject({
+      Bucket: "tokenradar-media-staging",
+      Prefix: "video-assets/broll/",
+    });
+    expect(commandInput(1)).toMatchObject({
+      Bucket: "tokenradar-media-staging",
+      Prefix: "video-assets/broll/",
+      ContinuationToken: "next-page",
+    });
   });
 });

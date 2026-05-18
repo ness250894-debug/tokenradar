@@ -17,6 +17,7 @@
     "analytics:summary": "tsx scripts/summarize-engagement-baseline.ts",
     "video:assets": "tsx scripts/fetch-video-assets.ts",
     "video:blender": "tsx scripts/generate-blender-assets.ts",
+    "video:assets:prune": "tsx scripts/prune-video-assets.ts",
     "video:assets:push": "tsx scripts/sync-video-assets-to-r2.ts",
     "video:assets:pull": "tsx scripts/sync-video-assets-from-r2.ts",
     "d1:backfill-social": "tsx scripts/backfill-social-ledger.ts",

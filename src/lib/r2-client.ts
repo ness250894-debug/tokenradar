@@ -153,9 +153,26 @@ export async function cleanBucket(): Promise<number> {
  * @returns Number of deleted objects.
  */
 export async function cleanPrefix(prefix: string): Promise<number> {
+  const keys = await listObjectKeys(prefix);
+  const deleted = await deleteObjects(keys);
+
+  const label = prefix ? `prefix "${prefix}"` : "bucket";
+  if (deleted === 0) {
+    console.info(`  [r2] ${label} is clean - no stale files to remove.`);
+    return 0;
+  }
+
+  console.info(`  [r2] Cleaned ${deleted} stale file(s) from ${label}.`);
+  return deleted;
+}
+
+/**
+ * List object keys under a specific prefix.
+ */
+export async function listObjectKeys(prefix: string): Promise<string[]> {
   const { client, config } = getClient();
   let continuationToken: string | undefined;
-  let deleted = 0;
+  const keys: string[] = [];
 
   do {
     const listResult = await client.send(
@@ -166,22 +183,15 @@ export async function cleanPrefix(prefix: string): Promise<number> {
       }),
     );
 
-    const keys = (listResult.Contents || [])
+    const pageKeys = (listResult.Contents || [])
       .map((obj) => obj.Key)
       .filter((key): key is string => Boolean(key));
 
-    deleted += await deleteObjects(keys);
+    keys.push(...pageKeys);
     continuationToken = listResult.IsTruncated ? listResult.NextContinuationToken : undefined;
   } while (continuationToken);
 
-  const label = prefix ? `prefix "${prefix}"` : "bucket";
-  if (deleted === 0) {
-    console.info(`  [r2] ${label} is clean - no stale files to remove.`);
-    return 0;
-  }
-
-  console.info(`  [r2] Cleaned ${deleted} stale file(s) from ${label}.`);
-  return deleted;
+  return keys;
 }
 
 /**
