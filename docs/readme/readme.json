@@ -8,11 +8,11 @@
   "jsonArtifact": "docs/readme/readme.json",
   "title": "TokenRadar",
   "stats": {
-    "lineCount": 141,
-    "wordCount": 1251,
-    "headingCount": 13,
-    "codeBlockCount": 3,
-    "tableCount": 2,
+    "lineCount": 216,
+    "wordCount": 1658,
+    "headingCount": 15,
+    "codeBlockCount": 7,
+    "tableCount": 4,
     "linkCount": 1
   },
   "headings": [
@@ -24,208 +24,208 @@
     },
     {
       "level": 2,
+      "text": "Source Of Truth",
+      "slug": "source-of-truth",
+      "line": 7
+    },
+    {
+      "level": 2,
+      "text": "Current Capabilities",
+      "slug": "current-capabilities",
+      "line": 14
+    },
+    {
+      "level": 2,
       "text": "Tech Stack",
       "slug": "tech-stack",
-      "line": 7
+      "line": 25
+    },
+    {
+      "level": 2,
+      "text": "Production Flow",
+      "slug": "production-flow",
+      "line": 39
+    },
+    {
+      "level": 2,
+      "text": "Maintained Docs",
+      "slug": "maintained-docs",
+      "line": 48
     },
     {
       "level": 2,
       "text": "Project Structure",
       "slug": "project-structure",
-      "line": 18
-    },
-    {
-      "level": 2,
-      "text": "GitHub Storage Strategy",
-      "slug": "github-storage-strategy",
-      "line": 30
-    },
-    {
-      "level": 2,
-      "text": "Quality Gates",
-      "slug": "quality-gates",
-      "line": 37
+      "line": 70
     },
     {
       "level": 2,
       "text": "Getting Started",
       "slug": "getting-started",
-      "line": 45
-    },
-    {
-      "level": 1,
-      "text": "Install dependencies",
-      "slug": "install-dependencies",
-      "line": 48
-    },
-    {
-      "level": 1,
-      "text": "Run development server",
-      "slug": "run-development-server",
-      "line": 51
-    },
-    {
-      "level": 1,
-      "text": "Run tests",
-      "slug": "run-tests",
-      "line": 54
+      "line": 86
     },
     {
       "level": 2,
       "text": "Key Scripts",
       "slug": "key-scripts",
-      "line": 58
+      "line": 103
     },
     {
       "level": 2,
-      "text": "Social Publishing",
-      "slug": "social-publishing",
-      "line": 76
+      "text": "Social And Video Publishing",
+      "slug": "social-and-video-publishing",
+      "line": 130
     },
     {
       "level": 2,
-      "text": "Environment Variables",
-      "slug": "environment-variables",
-      "line": 95
+      "text": "Environment",
+      "slug": "environment",
+      "line": 151
+    },
+    {
+      "level": 2,
+      "text": "GitHub Storage Strategy",
+      "slug": "github-storage-strategy",
+      "line": 171
+    },
+    {
+      "level": 2,
+      "text": "Quality Gates",
+      "slug": "quality-gates",
+      "line": 181
+    },
+    {
+      "level": 2,
+      "text": "Docs Maintenance",
+      "slug": "docs-maintenance",
+      "line": 190
     },
     {
       "level": 2,
       "text": "Deployment",
       "slug": "deployment",
-      "line": 136
+      "line": 208
     }
   ],
   "links": [
-    {
-      "text": "tokenradar.co",
-      "url": "https://tokenradar.co",
-      "line": 5
-    }
+    "[tokenradar.co](https://tokenradar.co)"
   ],
-  "tables": [
-    {
-      "lineStart": 60,
-      "lineEnd": 74,
-      "rawMarkdown": "| Script | Purpose |\n|---|---|\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |\n| `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |\n| `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |\n| `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |\n| `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native signal prompt to Threads |\n| `npx tsx scripts/post-video-daily.ts` | Generate and post short-form Remotion video (all platforms or shorts-only route) |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |\n| `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |"
-    },
-    {
-      "lineStart": 99,
-      "lineEnd": 134,
-      "rawMarkdown": "| Variable | Required | Purpose |\n|---|---|---|\n| `GEMINI_API_KEY` | Yes | AI content generation |\n| `GEMINI_THINKING_BUDGET` | Optional | Gemini 2.5 thinking budget; defaults to `0` to avoid short social copy hitting `MAX_TOKENS` |\n| `ANTHROPIC_API_KEY` | Yes | Claude fallback |\n| `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |\n| `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |\n| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual/inbox reporting |\n| `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |\n| `X_OAUTH2_CLIENT_ID` | For X | X posting |\n| `X_OAUTH2_CLIENT_SECRET` | For X | X posting |\n| `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |\n| `IG_ACCESS_TOKEN` | For IG | Instagram posting |\n| `IG_ACCOUNT_ID` | For IG | Instagram posting |\n| `THREADS_ACCESS_TOKEN` | For Threads | Threads posting |\n| `THREADS_ACCOUNT_ID` | For Threads | Threads posting |\n| `META_APP_ID` | For Meta | Auto-refreshing Meta tokens |\n| `META_APP_SECRET` | For Meta | Auto-refreshing Meta tokens |\n| `YOUTUBE_CLIENT_ID` | For YT | YouTube Shorts |\n| `YOUTUBE_CLIENT_SECRET` | For YT | YouTube Shorts |\n| `YOUTUBE_REFRESH_TOKEN` | For YT | YouTube Shorts |\n| `TIKTOK_ENV` | For TikTok | `sandbox` for inbox + TG caption, `production` for direct post |\n| `TIKTOK_CLIENT_KEY` | For TikTok | TikTok Content Posting API |\n| `TIKTOK_CLIENT_SECRET` | For TikTok | TikTok OAuth token exchange |\n| `TIKTOK_REDIRECT_URI` | For TikTok | TikTok OAuth redirect URI, usually `https://tokenradar.co/tiktok/callback` |\n| `TIKTOK_REFRESH_TOKEN` | For TikTok | TikTok sandbox/creator refresh token |\n| `TIKTOK_ACCESS_TOKEN` | For TikTok | Optional short-lived fallback access token |\n| `TIKTOK_PRIVACY_LEVEL` | For TikTok production | Direct post privacy, default `PUBLIC_TO_EVERYONE` |\n| `R2_ACCOUNT_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_ACCESS_KEY_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_SECRET_ACCESS_KEY` | For R2 | Cloudflare R2 Media Staging |\n| `R2_BUCKET_NAME` | For R2 | Cloudflare R2 Media Staging |\n| `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |\n| `COINGECKO_API_KEY` | No | Optional Pro tier |\n| `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |\n| `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | No | Optional manual Cloudflare Web Analytics beacon token; leave blank when dashboard injection is enabled |"
-    }
-  ],
+  "tables": [],
   "codeBlocks": [
-    {
-      "language": "",
-      "lineStart": 20,
-      "lineEnd": 28,
-      "content": "scripts/           # Automation scripts (data fetching, content gen, social posting)\nsrc/lib/           # Shared libraries (API clients, config, utilities)\nsrc/app/           # Next.js app router pages\ncontent/tokens/    # Generated article JSON files\ndata/              # Token data, metrics, price histories\ntests/             # Vitest unit tests\n.github/workflows/ # CI/CD automation"
-    },
-    {
-      "language": "bash",
-      "lineStart": 47,
-      "lineEnd": 56,
-      "content": "# Install dependencies\nnpm install\n\n# Run development server\nnpm run dev\n\n# Run tests\nnpm test"
-    },
-    {
-      "language": "bash",
-      "lineStart": 84,
-      "lineEnd": 93,
-      "content": "npx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>"
-    }
+    "```text\nsrc/app/           Next.js routes and static pages\nsrc/components/    Shared UI components\nsrc/lib/           Data, AI, social, storage, SEO, and utility clients\nsrc/video/         Remotion scenes, formats, recipes, and render entrypoints\nscripts/           Data, content, docs, deploy, social, video, and reporting automation\ncontent/tokens/    Generated article JSON by token and article type\ndata/              Token data, metrics, prices, references, queues, logs, and ledgers\npublic/            Static runtime assets, admin page, routes file, OG images, video assets\ndocs/              Tracked project documentation artifacts\ntests/             Vitest unit and contract tests\n.github/workflows/ CI, deploy, refresh, social, video asset, snapshot, and quality workflows\n```",
+    "```bash\nnpm install\nnpm run dev\nnpm test\nnpm run build\n```",
+    "```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\nnpx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts tests/seo-contract-implementation.test.ts\n```",
+    "```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```",
+    "```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\n```",
+    "```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\n```",
+    "```bash\nnpm run build\nnpm run deploy:check-files\n```"
   ],
   "sections": [
     {
       "heading": "TokenRadar",
       "level": 1,
       "lineStart": 1,
-      "lineEnd": 47,
-      "content": "# TokenRadar\n\nData-driven crypto analysis platform with AI-powered content generation, proprietary risk metrics, and automated social publishing.\n\n**Live:** [tokenradar.co](https://tokenradar.co)\n\n## Tech Stack\n\n- **Frontend:** Next.js 16 (static export), TypeScript, Vanilla CSS\n- **AI:** Gemini 2.5 Flash (primary), Claude Haiku 4.5 (fallback)\n- **Data:** CoinGecko API (free tier)\n- **Hosting:** Cloudflare Pages\n- **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and platform-aware social automation)\n- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API with manual fallback\n- **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots\n- **Quality:** Lighthouse CI static export audits, PageSpeed Insights live snapshots, Dependabot, and production npm audit gates\n\n## Project Structure\n\n```\nscripts/           # Automation scripts (data fetching, content gen, social posting)\nsrc/lib/           # Shared libraries (API clients, config, utilities)\nsrc/app/           # Next.js app router pages\ncontent/tokens/    # Generated article JSON files\ndata/              # Token data, metrics, price histories\ntests/             # Vitest unit tests\n.github/workflows/ # CI/CD automation\n```\n\n## GitHub Storage Strategy\n\n- Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.\n- Failure diagnostics are uploaded as short-retention Actions artifacts.\n- Monthly data/content/media snapshots are archived as GitHub Releases.\n- Social tracking state is no longer pushed to `main` after every social run.\n\n## Quality Gates\n\n- `.github/workflows/performance.yml` runs Lighthouse CI against the static export on pull requests and weekly on `main`, then uploads the `.lighthouseci/` reports as short-retention artifacts.\n- The same workflow runs a weekly/manual PageSpeed Insights snapshot against the live site when the free `PAGESPEED_API_KEY` GitHub Actions secret is configured. The key avoids anonymous API quota failures.\n- `.github/workflows/dependency-security.yml` runs `npm audit --omit=dev --audit-level=high` for production dependencies. Moderate advisories are monitored by Dependabot without blocking deploys when no fix is available.\n- `.github/dependabot.yml` keeps npm packages and GitHub Actions updated weekly in small grouped PRs.\n- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP. If dashboard injection is unavailable, set `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to inject the beacon at build time instead.\n\n## Getting Started\n\n```bash"
+      "lineEnd": 6,
+      "content": "# TokenRadar\n\nTokenRadar is a live crypto programmatic SEO and social publishing platform. It builds static token analysis pages from market data, proprietary metrics, AI-generated editorial content, and automated distribution workflows.\n\n**Live:** [tokenradar.co](https://tokenradar.co)\n"
+    },
+    {
+      "heading": "Source Of Truth",
+      "level": 2,
+      "lineStart": 7,
+      "lineEnd": 13,
+      "content": "## Source Of Truth\n\n- `README.md` is the GitHub landing page and should stay tracked on `main`.\n- `docs/tokenradar/tokenradar.html` and `docs/tokenradar/tokenradar.json` are the comprehensive project reference.\n- `docs/readme/readme.html` and `docs/readme/readme.json` are generated from this README for the docs artifact set.\n- `TOKENRADAR.md` is retired. Do not recreate it or use it as a source file.\n"
+    },
+    {
+      "heading": "Current Capabilities",
+      "level": 2,
+      "lineStart": 14,
+      "lineEnd": 24,
+      "content": "## Current Capabilities\n\n- Generates long-tail token pages for mid-cap and upcoming crypto assets.\n- Uses CoinGecko, reference snippets, and local JSON data to ground content.\n- Computes proprietary signals such as risk score, growth potential, ATH gap, category strength, and search-intent indicators.\n- Produces article JSON under `content/tokens/` and static pages with Next.js export.\n- Runs quality gates for content validation, SEO metadata, sitemap coverage, security headers, and static export size.\n- Publishes social output to Telegram, X, Instagram, Threads, YouTube Shorts, and TikTok.\n- Renders platform-specific Remotion videos with rotating formats, hooks, music, b-roll, and visual recipes.\n- Uses Cloudflare Pages for hosting, Cloudflare D1 for the ops ledger, and Cloudflare R2 for media staging.\n"
     },
     {
       "heading": "Tech Stack",
       "level": 2,
-      "lineStart": 7,
-      "lineEnd": 17,
-      "content": "## Tech Stack\n\n- **Frontend:** Next.js 16 (static export), TypeScript, Vanilla CSS\n- **AI:** Gemini 2.5 Flash (primary), Claude Haiku 4.5 (fallback)\n- **Data:** CoinGecko API (free tier)\n- **Hosting:** Cloudflare Pages\n- **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and platform-aware social automation)\n- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API with manual fallback\n- **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots\n- **Quality:** Lighthouse CI static export audits, PageSpeed Insights live snapshots, Dependabot, and production npm audit gates\n"
+      "lineStart": 25,
+      "lineEnd": 38,
+      "content": "## Tech Stack\n\n| Layer | Implementation |\n|---|---|\n| App | Next.js 16 App Router, React 19, TypeScript, static export |\n| Styling | Vanilla CSS plus project components |\n| Data | CoinGecko API, local JSON stores, generated metrics, reference snippets |\n| AI | Gemini 2.5 Flash primary, Claude Haiku 4.5 fallback |\n| Video | Remotion, generated b-roll manifests, optional Blender loops |\n| Social | X API v2, Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API |\n| Storage | Git-tracked content/data, GitHub Actions cache/artifacts, monthly GitHub Release snapshots, Cloudflare D1, Cloudflare R2 |\n| Hosting | Cloudflare Pages via GitHub Actions |\n| Quality | Vitest, ESLint, TypeScript, content validation, Lighthouse CI, PageSpeed Insights, production npm audit |\n"
+    },
+    {
+      "heading": "Production Flow",
+      "level": 2,
+      "lineStart": 39,
+      "lineEnd": 47,
+      "content": "## Production Flow\n\n1. `daily-refresh.yml` refreshes market data, TGE inputs, reference snippets, metrics, token metadata, OG images, and sitemaps.\n2. `daily-content-generation.yml` generates queued articles, runs quality checks, publishes approved content, repairs formatting, validates content, builds, and dispatches deploy.\n3. `deploy.yml` validates env, builds the static export, checks output size, deploys to Cloudflare Pages, and reports deployment status.\n4. `social-automations.yml` runs market updates, Telegram polls, daily movers, X polls, Threads text prompts, short-form video publishing, D1 maintenance, R2 cleanup, and ops reporting.\n5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.\n6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.\n"
+    },
+    {
+      "heading": "Maintained Docs",
+      "level": 2,
+      "lineStart": 48,
+      "lineEnd": 69,
+      "content": "## Maintained Docs\n\nTracked docs live under `docs/` as paired HTML and JSON artifacts. The top-level registry in `docs/tokenradar` should mention every maintained pair and the public runtime HTML/JSON artifacts.\n\n| Docs | Covers |\n|---|---|\n| `docs/tokenradar/` | Whole-project product, architecture, workflows, integrations, and operating model |\n| `docs/automations/` | Schedules, social routes, diagnostics, credentials, and recurring operations |\n| `docs/data-schema/` | JSON contracts, producers, consumers, and validation rules |\n| `docs/deployment/` | Static export, Cloudflare Pages deployment, build gates, and diagnostics |\n| `docs/design/` | Visual system, layout rules, interaction states, accessibility, and brand constraints |\n| `docs/editorial/` | Article standards, factual grounding, quality gates, and review triggers |\n| `docs/integrations/` | Provider APIs, credentials, analytics, social publishing, and storage integrations |\n| `docs/pipeline/` | Discovery, data harvest, metrics, queue publication, validation, build, and delivery |\n| `docs/prompts/` | Prompt inputs, generation constraints, fallback behavior, and output validation |\n| `docs/public-video-assets-broll-readme/` | B-roll generation, Blender loops, R2 sync, manifest contract, and pruning |\n| `docs/readme/` | Generated representation of this README |\n| `docs/seo/` | Static export SEO, metadata, sitemap coverage, structured data, and search QA |\n| `docs/testing/` | Vitest inventory, local validation, CI gates, mocking policy, and browser QA |\n\nPublic runtime artifacts represented in the docs include `public/admin.html`, `public/_routes.json`, `public/video-assets/broll/manifest.json`, and `public/video-assets/broll/manifest.example.json`.\n"
     },
     {
       "heading": "Project Structure",
       "level": 2,
-      "lineStart": 18,
-      "lineEnd": 29,
-      "content": "## Project Structure\n\n```\nscripts/           # Automation scripts (data fetching, content gen, social posting)\nsrc/lib/           # Shared libraries (API clients, config, utilities)\nsrc/app/           # Next.js app router pages\ncontent/tokens/    # Generated article JSON files\ndata/              # Token data, metrics, price histories\ntests/             # Vitest unit tests\n.github/workflows/ # CI/CD automation\n```\n"
-    },
-    {
-      "heading": "GitHub Storage Strategy",
-      "level": 2,
-      "lineStart": 30,
-      "lineEnd": 36,
-      "content": "## GitHub Storage Strategy\n\n- Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.\n- Failure diagnostics are uploaded as short-retention Actions artifacts.\n- Monthly data/content/media snapshots are archived as GitHub Releases.\n- Social tracking state is no longer pushed to `main` after every social run.\n"
-    },
-    {
-      "heading": "Quality Gates",
-      "level": 2,
-      "lineStart": 37,
-      "lineEnd": 44,
-      "content": "## Quality Gates\n\n- `.github/workflows/performance.yml` runs Lighthouse CI against the static export on pull requests and weekly on `main`, then uploads the `.lighthouseci/` reports as short-retention artifacts.\n- The same workflow runs a weekly/manual PageSpeed Insights snapshot against the live site when the free `PAGESPEED_API_KEY` GitHub Actions secret is configured. The key avoids anonymous API quota failures.\n- `.github/workflows/dependency-security.yml` runs `npm audit --omit=dev --audit-level=high` for production dependencies. Moderate advisories are monitored by Dependabot without blocking deploys when no fix is available.\n- `.github/dependabot.yml` keeps npm packages and GitHub Actions updated weekly in small grouped PRs.\n- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP. If dashboard injection is unavailable, set `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to inject the beacon at build time instead.\n"
+      "lineStart": 70,
+      "lineEnd": 85,
+      "content": "## Project Structure\n\n```text\nsrc/app/           Next.js routes and static pages\nsrc/components/    Shared UI components\nsrc/lib/           Data, AI, social, storage, SEO, and utility clients\nsrc/video/         Remotion scenes, formats, recipes, and render entrypoints\nscripts/           Data, content, docs, deploy, social, video, and reporting automation\ncontent/tokens/    Generated article JSON by token and article type\ndata/              Token data, metrics, prices, references, queues, logs, and ledgers\npublic/            Static runtime assets, admin page, routes file, OG images, video assets\ndocs/              Tracked project documentation artifacts\ntests/             Vitest unit and contract tests\n.github/workflows/ CI, deploy, refresh, social, video asset, snapshot, and quality workflows\n```\n"
     },
     {
       "heading": "Getting Started",
       "level": 2,
-      "lineStart": 45,
-      "lineEnd": 47,
-      "content": "## Getting Started\n\n```bash"
-    },
-    {
-      "heading": "Install dependencies",
-      "level": 1,
-      "lineStart": 48,
-      "lineEnd": 50,
-      "content": "# Install dependencies\nnpm install\n"
-    },
-    {
-      "heading": "Run development server",
-      "level": 1,
-      "lineStart": 51,
-      "lineEnd": 53,
-      "content": "# Run development server\nnpm run dev\n"
-    },
-    {
-      "heading": "Run tests",
-      "level": 1,
-      "lineStart": 54,
-      "lineEnd": 141,
-      "content": "# Run tests\nnpm test\n```\n\n## Key Scripts\n\n| Script | Purpose |\n|---|---|\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |\n| `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |\n| `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |\n| `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |\n| `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native signal prompt to Threads |\n| `npx tsx scripts/post-video-daily.ts` | Generate and post short-form Remotion video (all platforms or shorts-only route) |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |\n| `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |\n\n## Social Publishing\n\nMarket and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok. Platform copy now uses deterministic daily variants from `src/lib/social-variety.ts`, so repeated runs rotate between signal, risk, rotation, watchlist, and conversation-prompt formats.\n\nVideo hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. Short-form video uses `src/lib/video-formats.ts` for a 15-format editorial rotation with a 14-day format cooldown per platform, then `src/lib/video-recipes.ts` adds a seeded visual recipe for scene order, layout pack, chart pack, background system, motion pack, color theme, and pacing. Each requested platform gets its own rendered MP4, format, thesis, hook, music track, and visual recipe so YouTube, Instagram, Threads, and TikTok do not receive identical videos in the same run. TikTok is wired as one script with two API flows selected by `TIKTOK_ENV`: `sandbox` uses `video.upload` to upload the MP4 to the authorized creator inbox, stores the returned `publish_id`, and sends the publish id plus copy-ready caption to the Telegram reporting chat for manual release in the TikTok app; `production` uses `video.publish` to send the MP4 and caption directly to TikTok as a full auto-post. If TikTok API credentials are missing, the script falls back to sending the video and copy-ready caption to the Telegram reporting chat. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.\n\nSafe dry-run checks:\n\n```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```\n\n## Environment Variables\n\nCopy `.env.example` to `.env.local` and configure:\n\n| Variable | Required | Purpose |\n|---|---|---|\n| `GEMINI_API_KEY` | Yes | AI content generation |\n| `GEMINI_THINKING_BUDGET` | Optional | Gemini 2.5 thinking budget; defaults to `0` to avoid short social copy hitting `MAX_TOKENS` |\n| `ANTHROPIC_API_KEY` | Yes | Claude fallback |\n| `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |\n| `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |\n| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual/inbox reporting |\n| `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |\n| `X_OAUTH2_CLIENT_ID` | For X | X posting |\n| `X_OAUTH2_CLIENT_SECRET` | For X | X posting |\n| `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |\n| `IG_ACCESS_TOKEN` | For IG | Instagram posting |\n| `IG_ACCOUNT_ID` | For IG | Instagram posting |\n| `THREADS_ACCESS_TOKEN` | For Threads | Threads posting |\n| `THREADS_ACCOUNT_ID` | For Threads | Threads posting |\n| `META_APP_ID` | For Meta | Auto-refreshing Meta tokens |\n| `META_APP_SECRET` | For Meta | Auto-refreshing Meta tokens |\n| `YOUTUBE_CLIENT_ID` | For YT | YouTube Shorts |\n| `YOUTUBE_CLIENT_SECRET` | For YT | YouTube Shorts |\n| `YOUTUBE_REFRESH_TOKEN` | For YT | YouTube Shorts |\n| `TIKTOK_ENV` | For TikTok | `sandbox` for inbox + TG caption, `production` for direct post |\n| `TIKTOK_CLIENT_KEY` | For TikTok | TikTok Content Posting API |\n| `TIKTOK_CLIENT_SECRET` | For TikTok | TikTok OAuth token exchange |\n| `TIKTOK_REDIRECT_URI` | For TikTok | TikTok OAuth redirect URI, usually `https://tokenradar.co/tiktok/callback` |\n| `TIKTOK_REFRESH_TOKEN` | For TikTok | TikTok sandbox/creator refresh token |\n| `TIKTOK_ACCESS_TOKEN` | For TikTok | Optional short-lived fallback access token |\n| `TIKTOK_PRIVACY_LEVEL` | For TikTok production | Direct post privacy, default `PUBLIC_TO_EVERYONE` |\n| `R2_ACCOUNT_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_ACCESS_KEY_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_SECRET_ACCESS_KEY` | For R2 | Cloudflare R2 Media Staging |\n| `R2_BUCKET_NAME` | For R2 | Cloudflare R2 Media Staging |\n| `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |\n| `COINGECKO_API_KEY` | No | Optional Pro tier |\n| `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |\n| `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | No | Optional manual Cloudflare Web Analytics beacon token; leave blank when dashboard injection is enabled |\n\n## Deployment\n\nDeployed automatically from GitHub Actions to Cloudflare Pages via `wrangler pages deploy`.\n\nManual deploy: `npm run build` -> Cloudflare Pages.\n"
+      "lineStart": 86,
+      "lineEnd": 102,
+      "content": "## Getting Started\n\n```bash\nnpm install\nnpm run dev\nnpm test\nnpm run build\n```\n\nFor docs-only work, run the focused checks instead of a full production build when the change does not affect runtime behavior:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\nnpx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts tests/seo-contract-implementation.test.ts\n```\n"
     },
     {
       "heading": "Key Scripts",
       "level": 2,
-      "lineStart": 58,
-      "lineEnd": 75,
-      "content": "## Key Scripts\n\n| Script | Purpose |\n|---|---|\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |\n| `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |\n| `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |\n| `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |\n| `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native signal prompt to Threads |\n| `npx tsx scripts/post-video-daily.ts` | Generate and post short-form Remotion video (all platforms or shorts-only route) |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |\n| `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |\n"
+      "lineStart": 103,
+      "lineEnd": 129,
+      "content": "## Key Scripts\n\n| Script | Purpose |\n|---|---|\n| `npm run dev` | Start the local Next.js dev server |\n| `npm run build` | Run prebuild validation and static export build |\n| `npm test` | Run the Vitest suite |\n| `npm run lint` | Run ESLint |\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk, growth, ATH, and category metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate token articles |\n| `npx tsx scripts/quality-check.ts --dir data/queue --fix --delete-failures` | Validate and repair queued content |\n| `npx tsx scripts/validate-content.ts` | Validate content JSON and generated article integrity |\n| `npx tsx scripts/generate-sitemap.ts` | Generate sitemap files |\n| `npx tsx scripts/generate-og-images.tsx` | Generate OG images |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to Telegram and X |\n| `npx tsx scripts/post-daily-poll.ts` | Post the rotating Telegram poll |\n| `npx tsx scripts/post-daily-movers.ts` | Post the Telegram movers image |\n| `npx tsx scripts/post-interactive-daily.ts` | Post the X interactive poll |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native Threads prompts |\n| `npx tsx scripts/post-video-daily.ts` | Render and publish platform-specific short-form video |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta access tokens |\n| `npx tsx scripts/generate-doc-artifacts.ts --doc readme` | Regenerate the README HTML/JSON docs pair |\n| `npx tsx scripts/generate-doc-artifacts.ts --doc tokenradar` | Regenerate the top-level project docs pair |\n| `npx tsx scripts/send-system-report.ts` | Send operational usage and cost reports |\n"
     },
     {
-      "heading": "Social Publishing",
+      "heading": "Social And Video Publishing",
       "level": 2,
-      "lineStart": 76,
-      "lineEnd": 94,
-      "content": "## Social Publishing\n\nMarket and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok. Platform copy now uses deterministic daily variants from `src/lib/social-variety.ts`, so repeated runs rotate between signal, risk, rotation, watchlist, and conversation-prompt formats.\n\nVideo hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. Short-form video uses `src/lib/video-formats.ts` for a 15-format editorial rotation with a 14-day format cooldown per platform, then `src/lib/video-recipes.ts` adds a seeded visual recipe for scene order, layout pack, chart pack, background system, motion pack, color theme, and pacing. Each requested platform gets its own rendered MP4, format, thesis, hook, music track, and visual recipe so YouTube, Instagram, Threads, and TikTok do not receive identical videos in the same run. TikTok is wired as one script with two API flows selected by `TIKTOK_ENV`: `sandbox` uses `video.upload` to upload the MP4 to the authorized creator inbox, stores the returned `publish_id`, and sends the publish id plus copy-ready caption to the Telegram reporting chat for manual release in the TikTok app; `production` uses `video.publish` to send the MP4 and caption directly to TikTok as a full auto-post. If TikTok API credentials are missing, the script falls back to sending the video and copy-ready caption to the Telegram reporting chat. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.\n\nSafe dry-run checks:\n\n```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```\n"
+      "lineStart": 130,
+      "lineEnd": 150,
+      "content": "## Social And Video Publishing\n\nMarket and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.\n\nShort-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.\n\nTikTok supports two modes through `TIKTOK_ENV`: `sandbox` uploads to the authorized creator inbox and sends a copy-ready caption to Telegram reporting; `production` uses direct `video.publish`. Missing TikTok credentials fall back to Telegram reporting with the generated video and caption.\n\nSafe dry-run commands:\n\n```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```\n"
     },
     {
-      "heading": "Environment Variables",
+      "heading": "Environment",
       "level": 2,
-      "lineStart": 95,
-      "lineEnd": 135,
-      "content": "## Environment Variables\n\nCopy `.env.example` to `.env.local` and configure:\n\n| Variable | Required | Purpose |\n|---|---|---|\n| `GEMINI_API_KEY` | Yes | AI content generation |\n| `GEMINI_THINKING_BUDGET` | Optional | Gemini 2.5 thinking budget; defaults to `0` to avoid short social copy hitting `MAX_TOKENS` |\n| `ANTHROPIC_API_KEY` | Yes | Claude fallback |\n| `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |\n| `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |\n| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual/inbox reporting |\n| `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |\n| `X_OAUTH2_CLIENT_ID` | For X | X posting |\n| `X_OAUTH2_CLIENT_SECRET` | For X | X posting |\n| `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |\n| `IG_ACCESS_TOKEN` | For IG | Instagram posting |\n| `IG_ACCOUNT_ID` | For IG | Instagram posting |\n| `THREADS_ACCESS_TOKEN` | For Threads | Threads posting |\n| `THREADS_ACCOUNT_ID` | For Threads | Threads posting |\n| `META_APP_ID` | For Meta | Auto-refreshing Meta tokens |\n| `META_APP_SECRET` | For Meta | Auto-refreshing Meta tokens |\n| `YOUTUBE_CLIENT_ID` | For YT | YouTube Shorts |\n| `YOUTUBE_CLIENT_SECRET` | For YT | YouTube Shorts |\n| `YOUTUBE_REFRESH_TOKEN` | For YT | YouTube Shorts |\n| `TIKTOK_ENV` | For TikTok | `sandbox` for inbox + TG caption, `production` for direct post |\n| `TIKTOK_CLIENT_KEY` | For TikTok | TikTok Content Posting API |\n| `TIKTOK_CLIENT_SECRET` | For TikTok | TikTok OAuth token exchange |\n| `TIKTOK_REDIRECT_URI` | For TikTok | TikTok OAuth redirect URI, usually `https://tokenradar.co/tiktok/callback` |\n| `TIKTOK_REFRESH_TOKEN` | For TikTok | TikTok sandbox/creator refresh token |\n| `TIKTOK_ACCESS_TOKEN` | For TikTok | Optional short-lived fallback access token |\n| `TIKTOK_PRIVACY_LEVEL` | For TikTok production | Direct post privacy, default `PUBLIC_TO_EVERYONE` |\n| `R2_ACCOUNT_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_ACCESS_KEY_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_SECRET_ACCESS_KEY` | For R2 | Cloudflare R2 Media Staging |\n| `R2_BUCKET_NAME` | For R2 | Cloudflare R2 Media Staging |\n| `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |\n| `COINGECKO_API_KEY` | No | Optional Pro tier |\n| `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |\n| `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | No | Optional manual Cloudflare Web Analytics beacon token; leave blank when dashboard injection is enabled |\n"
+      "lineStart": 151,
+      "lineEnd": 170,
+      "content": "## Environment\n\nCopy `.env.example` to `.env.local` for local work. The full list is documented in `.env.example`; the main groups are:\n\n| Group | Variables |\n|---|---|\n| Site | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_NAME`, `NEXT_PUBLIC_CONTACT_FORM_ENDPOINT` |\n| AI | `GEMINI_API_KEY`, `GEMINI_THINKING_BUDGET`, `ANTHROPIC_API_KEY` |\n| Market data | `COINGECKO_API_KEY` |\n| Deploy | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID` |\n| D1 ops ledger | `D1_DATABASE_ID`, `D1_OPS_LEDGER_DISABLED`, `D1_MEDIA_STAGING_TTL_HOURS` |\n| R2 media staging | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL` |\n| Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `TELEGRAM_REPORT_BOT_TOKEN`, `TELEGRAM_REPORT_CHAT_ID` |\n| X | `X_OAUTH2_CLIENT_ID`, `X_OAUTH2_CLIENT_SECRET`, `X_OAUTH2_REFRESH_TOKEN`, `X_BEARER_TOKEN` |\n| Meta | `META_APP_ID`, `META_APP_SECRET`, `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID` |\n| YouTube | `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` |\n| TikTok | `TIKTOK_ENV`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, `TIKTOK_REDIRECT_URI`, `TIKTOK_REFRESH_TOKEN`, `TIKTOK_ACCESS_TOKEN` |\n| Analytics | `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `GA4_PROPERTY_ID`, `GSC_SITE_URL`, `PAGESPEED_API_KEY`, `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` |\n| Video assets | `VIDEO_ASSET_PROVIDERS`, `PEXELS_API_KEY`, `PIXABAY_API_KEY`, `BLENDER_BIN`, `REMOTION_CONCURRENCY` |\n"
+    },
+    {
+      "heading": "GitHub Storage Strategy",
+      "level": 2,
+      "lineStart": 171,
+      "lineEnd": 180,
+      "content": "## GitHub Storage Strategy\n\n- Source code, docs artifacts, curated content, and selected JSON contracts are tracked in Git.\n- High-volume generated families are documented by pattern in `docs/tokenradar` instead of listing every token-level file.\n- GitHub Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.\n- Failure diagnostics are uploaded as short-retention Actions artifacts.\n- Monthly data/content/media snapshots are archived as GitHub Releases.\n- Cloudflare D1 stores best-effort ops ledger state for automation and R2 media staging.\n- Social tracking state is not pushed to `main` after every social run.\n"
+    },
+    {
+      "heading": "Quality Gates",
+      "level": 2,
+      "lineStart": 181,
+      "lineEnd": 189,
+      "content": "## Quality Gates\n\n- `prebuild` validates env, computes search intent, consolidates data, validates content, generates OG images, and regenerates sitemaps.\n- `deploy.yml` runs typecheck, lint, tests, build, static output verification, Cloudflare Pages deploy, and deployment reporting.\n- `performance.yml` runs Lighthouse CI against static export and PageSpeed Insights against production when `PAGESPEED_API_KEY` is configured.\n- `dependency-security.yml` runs production dependency audit gates.\n- `tests/setup/no-network.ts` blocks accidental live network calls in Vitest.\n- `tests/tokenradar-docs.test.ts` keeps the docs registry, README docs pair, public artifacts, and retired `TOKENRADAR.md` behavior under contract.\n"
+    },
+    {
+      "heading": "Docs Maintenance",
+      "level": 2,
+      "lineStart": 190,
+      "lineEnd": 207,
+      "content": "## Docs Maintenance\n\nWhen `README.md` changes, regenerate the generated README docs pair:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\n```\n\nWhen the whole-project reference changes, regenerate and check `docs/tokenradar`:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\n```\n\nKeep `docs/tokenradar` synchronized when adding tracked HTML/JSON docs, public HTML/JSON runtime artifacts, major workflows, integrations, or generated data families.\n"
     },
     {
       "heading": "Deployment",
       "level": 2,
-      "lineStart": 136,
-      "lineEnd": 141,
-      "content": "## Deployment\n\nDeployed automatically from GitHub Actions to Cloudflare Pages via `wrangler pages deploy`.\n\nManual deploy: `npm run build` -> Cloudflare Pages.\n"
+      "lineStart": 208,
+      "lineEnd": 216,
+      "content": "## Deployment\n\nProduction deploys from GitHub Actions to Cloudflare Pages. Pushes to `main` run the project gates and deploy the static export. Manual local validation is:\n\n```bash\nnpm run build\nnpm run deploy:check-files\n```\n"
     }
   ],
-  "rawMarkdown": "# TokenRadar\n\nData-driven crypto analysis platform with AI-powered content generation, proprietary risk metrics, and automated social publishing.\n\n**Live:** [tokenradar.co](https://tokenradar.co)\n\n## Tech Stack\n\n- **Frontend:** Next.js 16 (static export), TypeScript, Vanilla CSS\n- **AI:** Gemini 2.5 Flash (primary), Claude Haiku 4.5 (fallback)\n- **Data:** CoinGecko API (free tier)\n- **Hosting:** Cloudflare Pages\n- **CI/CD:** GitHub Actions (daily refresh, daily content publication, deploy, and platform-aware social automation)\n- **Social:** X API v2 (pay-per-use), Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API with manual fallback\n- **Storage:** Cloudflare R2 (media staging for Meta API), GitHub Actions cache/artifacts, monthly GitHub Release snapshots\n- **Quality:** Lighthouse CI static export audits, PageSpeed Insights live snapshots, Dependabot, and production npm audit gates\n\n## Project Structure\n\n```\nscripts/           # Automation scripts (data fetching, content gen, social posting)\nsrc/lib/           # Shared libraries (API clients, config, utilities)\nsrc/app/           # Next.js app router pages\ncontent/tokens/    # Generated article JSON files\ndata/              # Token data, metrics, price histories\ntests/             # Vitest unit tests\n.github/workflows/ # CI/CD automation\n```\n\n## GitHub Storage Strategy\n\n- Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.\n- Failure diagnostics are uploaded as short-retention Actions artifacts.\n- Monthly data/content/media snapshots are archived as GitHub Releases.\n- Social tracking state is no longer pushed to `main` after every social run.\n\n## Quality Gates\n\n- `.github/workflows/performance.yml` runs Lighthouse CI against the static export on pull requests and weekly on `main`, then uploads the `.lighthouseci/` reports as short-retention artifacts.\n- The same workflow runs a weekly/manual PageSpeed Insights snapshot against the live site when the free `PAGESPEED_API_KEY` GitHub Actions secret is configured. The key avoids anonymous API quota failures.\n- `.github/workflows/dependency-security.yml` runs `npm audit --omit=dev --audit-level=high` for production dependencies. Moderate advisories are monitored by Dependabot without blocking deploys when no fix is available.\n- `.github/dependabot.yml` keeps npm packages and GitHub Actions updated weekly in small grouped PRs.\n- Cloudflare Web Analytics can be enabled from the Cloudflare Pages project metrics page; `public/_headers` already allows the required Cloudflare Insights beacon under the site CSP. If dashboard injection is unavailable, set `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to inject the beacon at build time instead.\n\n## Getting Started\n\n```bash\n# Install dependencies\nnpm install\n\n# Run development server\nnpm run dev\n\n# Run tests\nnpm test\n```\n\n## Key Scripts\n\n| Script | Purpose |\n|---|---|\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk scores & growth metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate AI articles for tokens |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to X/Telegram |\n| `npx tsx scripts/post-daily-poll.ts` | Post AI-generated TG poll (7 rotating themes) |\n| `npx tsx scripts/post-daily-movers.ts` | Post Top 5 Movers image to TG |\n| `npx tsx scripts/post-instagram-daily-movers.ts` | Post Daily Movers carousel to IG |\n| `npx tsx scripts/post-interactive-daily.ts` | Post interactive poll to X |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native signal prompt to Threads |\n| `npx tsx scripts/post-video-daily.ts` | Generate and post short-form Remotion video (all platforms or shorts-only route) |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta (IG/Threads) access tokens |\n| `npx tsx scripts/send-system-report.ts` | Send daily usage/cost reports |\n\n## Social Publishing\n\nMarket and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request all publish-time captions in one structured AI call. The function dynamically limits the JSON schema to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok. Platform copy now uses deterministic daily variants from `src/lib/social-variety.ts`, so repeated runs rotate between signal, risk, rotation, watchlist, and conversation-prompt formats.\n\nVideo hook text is intentionally separate in `src/lib/social-content-generator.ts` because it is needed before the Remotion render. Short-form video uses `src/lib/video-formats.ts` for a 15-format editorial rotation with a 14-day format cooldown per platform, then `src/lib/video-recipes.ts` adds a seeded visual recipe for scene order, layout pack, chart pack, background system, motion pack, color theme, and pacing. Each requested platform gets its own rendered MP4, format, thesis, hook, music track, and visual recipe so YouTube, Instagram, Threads, and TikTok do not receive identical videos in the same run. TikTok is wired as one script with two API flows selected by `TIKTOK_ENV`: `sandbox` uses `video.upload` to upload the MP4 to the authorized creator inbox, stores the returned `publish_id`, and sends the publish id plus copy-ready caption to the Telegram reporting chat for manual release in the TikTok app; `production` uses `video.publish` to send the MP4 and caption directly to TikTok as a full auto-post. If TikTok API credentials are missing, the script falls back to sending the video and copy-ready caption to the Telegram reporting chat. The scheduled video route uses `--platform shorts` so short-form platforms receive the video without adding extra Telegram or X posts. Threads also has a text-native route (`post-threads-daily.ts`) for non-video days, and X posts compare against recent tracker text before publishing to reduce stale repeated structure.\n\nSafe dry-run checks:\n\n```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```\n\n## Environment Variables\n\nCopy `.env.example` to `.env.local` and configure:\n\n| Variable | Required | Purpose |\n|---|---|---|\n| `GEMINI_API_KEY` | Yes | AI content generation |\n| `GEMINI_THINKING_BUDGET` | Optional | Gemini 2.5 thinking budget; defaults to `0` to avoid short social copy hitting `MAX_TOKENS` |\n| `ANTHROPIC_API_KEY` | Yes | Claude fallback |\n| `TELEGRAM_BOT_TOKEN` | Yes | Telegram posting |\n| `TELEGRAM_CHANNEL_ID` | Yes | Telegram channel target |\n| `TELEGRAM_REPORT_BOT_TOKEN` | Yes | Ops alerts and TikTok manual/inbox reporting |\n| `TELEGRAM_REPORT_CHAT_ID` | Yes | Reporting chat target |\n| `X_OAUTH2_CLIENT_ID` | For X | X posting |\n| `X_OAUTH2_CLIENT_SECRET` | For X | X posting |\n| `X_OAUTH2_REFRESH_TOKEN` | For X | X posting |\n| `IG_ACCESS_TOKEN` | For IG | Instagram posting |\n| `IG_ACCOUNT_ID` | For IG | Instagram posting |\n| `THREADS_ACCESS_TOKEN` | For Threads | Threads posting |\n| `THREADS_ACCOUNT_ID` | For Threads | Threads posting |\n| `META_APP_ID` | For Meta | Auto-refreshing Meta tokens |\n| `META_APP_SECRET` | For Meta | Auto-refreshing Meta tokens |\n| `YOUTUBE_CLIENT_ID` | For YT | YouTube Shorts |\n| `YOUTUBE_CLIENT_SECRET` | For YT | YouTube Shorts |\n| `YOUTUBE_REFRESH_TOKEN` | For YT | YouTube Shorts |\n| `TIKTOK_ENV` | For TikTok | `sandbox` for inbox + TG caption, `production` for direct post |\n| `TIKTOK_CLIENT_KEY` | For TikTok | TikTok Content Posting API |\n| `TIKTOK_CLIENT_SECRET` | For TikTok | TikTok OAuth token exchange |\n| `TIKTOK_REDIRECT_URI` | For TikTok | TikTok OAuth redirect URI, usually `https://tokenradar.co/tiktok/callback` |\n| `TIKTOK_REFRESH_TOKEN` | For TikTok | TikTok sandbox/creator refresh token |\n| `TIKTOK_ACCESS_TOKEN` | For TikTok | Optional short-lived fallback access token |\n| `TIKTOK_PRIVACY_LEVEL` | For TikTok production | Direct post privacy, default `PUBLIC_TO_EVERYONE` |\n| `R2_ACCOUNT_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_ACCESS_KEY_ID` | For R2 | Cloudflare R2 Media Staging |\n| `R2_SECRET_ACCESS_KEY` | For R2 | Cloudflare R2 Media Staging |\n| `R2_BUCKET_NAME` | For R2 | Cloudflare R2 Media Staging |\n| `R2_PUBLIC_URL` | For R2 | Cloudflare R2 Media Staging |\n| `COINGECKO_API_KEY` | No | Optional Pro tier |\n| `PAGESPEED_API_KEY` | No | Optional PageSpeed Insights API key for live quality snapshots |\n| `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | No | Optional manual Cloudflare Web Analytics beacon token; leave blank when dashboard injection is enabled |\n\n## Deployment\n\nDeployed automatically from GitHub Actions to Cloudflare Pages via `wrangler pages deploy`.\n\nManual deploy: `npm run build` -> Cloudflare Pages.\n"
+  "rawMarkdown": "# TokenRadar\n\nTokenRadar is a live crypto programmatic SEO and social publishing platform. It builds static token analysis pages from market data, proprietary metrics, AI-generated editorial content, and automated distribution workflows.\n\n**Live:** [tokenradar.co](https://tokenradar.co)\n\n## Source Of Truth\n\n- `README.md` is the GitHub landing page and should stay tracked on `main`.\n- `docs/tokenradar/tokenradar.html` and `docs/tokenradar/tokenradar.json` are the comprehensive project reference.\n- `docs/readme/readme.html` and `docs/readme/readme.json` are generated from this README for the docs artifact set.\n- `TOKENRADAR.md` is retired. Do not recreate it or use it as a source file.\n\n## Current Capabilities\n\n- Generates long-tail token pages for mid-cap and upcoming crypto assets.\n- Uses CoinGecko, reference snippets, and local JSON data to ground content.\n- Computes proprietary signals such as risk score, growth potential, ATH gap, category strength, and search-intent indicators.\n- Produces article JSON under `content/tokens/` and static pages with Next.js export.\n- Runs quality gates for content validation, SEO metadata, sitemap coverage, security headers, and static export size.\n- Publishes social output to Telegram, X, Instagram, Threads, YouTube Shorts, and TikTok.\n- Renders platform-specific Remotion videos with rotating formats, hooks, music, b-roll, and visual recipes.\n- Uses Cloudflare Pages for hosting, Cloudflare D1 for the ops ledger, and Cloudflare R2 for media staging.\n\n## Tech Stack\n\n| Layer | Implementation |\n|---|---|\n| App | Next.js 16 App Router, React 19, TypeScript, static export |\n| Styling | Vanilla CSS plus project components |\n| Data | CoinGecko API, local JSON stores, generated metrics, reference snippets |\n| AI | Gemini 2.5 Flash primary, Claude Haiku 4.5 fallback |\n| Video | Remotion, generated b-roll manifests, optional Blender loops |\n| Social | X API v2, Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API |\n| Storage | Git-tracked content/data, GitHub Actions cache/artifacts, monthly GitHub Release snapshots, Cloudflare D1, Cloudflare R2 |\n| Hosting | Cloudflare Pages via GitHub Actions |\n| Quality | Vitest, ESLint, TypeScript, content validation, Lighthouse CI, PageSpeed Insights, production npm audit |\n\n## Production Flow\n\n1. `daily-refresh.yml` refreshes market data, TGE inputs, reference snippets, metrics, token metadata, OG images, and sitemaps.\n2. `daily-content-generation.yml` generates queued articles, runs quality checks, publishes approved content, repairs formatting, validates content, builds, and dispatches deploy.\n3. `deploy.yml` validates env, builds the static export, checks output size, deploys to Cloudflare Pages, and reports deployment status.\n4. `social-automations.yml` runs market updates, Telegram polls, daily movers, X polls, Threads text prompts, short-form video publishing, D1 maintenance, R2 cleanup, and ops reporting.\n5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.\n6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.\n\n## Maintained Docs\n\nTracked docs live under `docs/` as paired HTML and JSON artifacts. The top-level registry in `docs/tokenradar` should mention every maintained pair and the public runtime HTML/JSON artifacts.\n\n| Docs | Covers |\n|---|---|\n| `docs/tokenradar/` | Whole-project product, architecture, workflows, integrations, and operating model |\n| `docs/automations/` | Schedules, social routes, diagnostics, credentials, and recurring operations |\n| `docs/data-schema/` | JSON contracts, producers, consumers, and validation rules |\n| `docs/deployment/` | Static export, Cloudflare Pages deployment, build gates, and diagnostics |\n| `docs/design/` | Visual system, layout rules, interaction states, accessibility, and brand constraints |\n| `docs/editorial/` | Article standards, factual grounding, quality gates, and review triggers |\n| `docs/integrations/` | Provider APIs, credentials, analytics, social publishing, and storage integrations |\n| `docs/pipeline/` | Discovery, data harvest, metrics, queue publication, validation, build, and delivery |\n| `docs/prompts/` | Prompt inputs, generation constraints, fallback behavior, and output validation |\n| `docs/public-video-assets-broll-readme/` | B-roll generation, Blender loops, R2 sync, manifest contract, and pruning |\n| `docs/readme/` | Generated representation of this README |\n| `docs/seo/` | Static export SEO, metadata, sitemap coverage, structured data, and search QA |\n| `docs/testing/` | Vitest inventory, local validation, CI gates, mocking policy, and browser QA |\n\nPublic runtime artifacts represented in the docs include `public/admin.html`, `public/_routes.json`, `public/video-assets/broll/manifest.json`, and `public/video-assets/broll/manifest.example.json`.\n\n## Project Structure\n\n```text\nsrc/app/           Next.js routes and static pages\nsrc/components/    Shared UI components\nsrc/lib/           Data, AI, social, storage, SEO, and utility clients\nsrc/video/         Remotion scenes, formats, recipes, and render entrypoints\nscripts/           Data, content, docs, deploy, social, video, and reporting automation\ncontent/tokens/    Generated article JSON by token and article type\ndata/              Token data, metrics, prices, references, queues, logs, and ledgers\npublic/            Static runtime assets, admin page, routes file, OG images, video assets\ndocs/              Tracked project documentation artifacts\ntests/             Vitest unit and contract tests\n.github/workflows/ CI, deploy, refresh, social, video asset, snapshot, and quality workflows\n```\n\n## Getting Started\n\n```bash\nnpm install\nnpm run dev\nnpm test\nnpm run build\n```\n\nFor docs-only work, run the focused checks instead of a full production build when the change does not affect runtime behavior:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\nnpx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts tests/seo-contract-implementation.test.ts\n```\n\n## Key Scripts\n\n| Script | Purpose |\n|---|---|\n| `npm run dev` | Start the local Next.js dev server |\n| `npm run build` | Run prebuild validation and static export build |\n| `npm test` | Run the Vitest suite |\n| `npm run lint` | Run ESLint |\n| `npx tsx scripts/fetch-crypto-data.ts` | Fetch token data from CoinGecko |\n| `npx tsx scripts/compute-metrics.ts` | Calculate risk, growth, ATH, and category metrics |\n| `npx tsx scripts/compute-search-intent.ts` | Generate free-data search intent and hype/fundamentals signals |\n| `npx tsx scripts/generate-content.ts` | Generate token articles |\n| `npx tsx scripts/quality-check.ts --dir data/queue --fix --delete-failures` | Validate and repair queued content |\n| `npx tsx scripts/validate-content.ts` | Validate content JSON and generated article integrity |\n| `npx tsx scripts/generate-sitemap.ts` | Generate sitemap files |\n| `npx tsx scripts/generate-og-images.tsx` | Generate OG images |\n| `npx tsx scripts/post-market-updates.ts` | Post market alerts to Telegram and X |\n| `npx tsx scripts/post-daily-poll.ts` | Post the rotating Telegram poll |\n| `npx tsx scripts/post-daily-movers.ts` | Post the Telegram movers image |\n| `npx tsx scripts/post-interactive-daily.ts` | Post the X interactive poll |\n| `npx tsx scripts/post-threads-daily.ts` | Post text-native Threads prompts |\n| `npx tsx scripts/post-video-daily.ts` | Render and publish platform-specific short-form video |\n| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta access tokens |\n| `npx tsx scripts/generate-doc-artifacts.ts --doc readme` | Regenerate the README HTML/JSON docs pair |\n| `npx tsx scripts/generate-doc-artifacts.ts --doc tokenradar` | Regenerate the top-level project docs pair |\n| `npx tsx scripts/send-system-report.ts` | Send operational usage and cost reports |\n\n## Social And Video Publishing\n\nMarket and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.\n\nShort-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.\n\nTikTok supports two modes through `TIKTOK_ENV`: `sandbox` uploads to the authorized creator inbox and sends a copy-ready caption to Telegram reporting; `production` uses direct `video.publish`. Missing TikTok credentials fall back to Telegram reporting with the generated video and caption.\n\nSafe dry-run commands:\n\n```bash\nnpx tsx scripts/post-market-updates.ts --dry-run --platform all\nnpx tsx scripts/post-threads-daily.ts --dry-run --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform x --force\nnpx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews\nnpx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force\nnpx tsx scripts/generate-tiktok-token.ts --env sandbox\nnpx tsx scripts/generate-tiktok-token.ts --env production\nnpx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>\n```\n\n## Environment\n\nCopy `.env.example` to `.env.local` for local work. The full list is documented in `.env.example`; the main groups are:\n\n| Group | Variables |\n|---|---|\n| Site | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_NAME`, `NEXT_PUBLIC_CONTACT_FORM_ENDPOINT` |\n| AI | `GEMINI_API_KEY`, `GEMINI_THINKING_BUDGET`, `ANTHROPIC_API_KEY` |\n| Market data | `COINGECKO_API_KEY` |\n| Deploy | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID` |\n| D1 ops ledger | `D1_DATABASE_ID`, `D1_OPS_LEDGER_DISABLED`, `D1_MEDIA_STAGING_TTL_HOURS` |\n| R2 media staging | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL` |\n| Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `TELEGRAM_REPORT_BOT_TOKEN`, `TELEGRAM_REPORT_CHAT_ID` |\n| X | `X_OAUTH2_CLIENT_ID`, `X_OAUTH2_CLIENT_SECRET`, `X_OAUTH2_REFRESH_TOKEN`, `X_BEARER_TOKEN` |\n| Meta | `META_APP_ID`, `META_APP_SECRET`, `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID` |\n| YouTube | `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` |\n| TikTok | `TIKTOK_ENV`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, `TIKTOK_REDIRECT_URI`, `TIKTOK_REFRESH_TOKEN`, `TIKTOK_ACCESS_TOKEN` |\n| Analytics | `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `GA4_PROPERTY_ID`, `GSC_SITE_URL`, `PAGESPEED_API_KEY`, `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` |\n| Video assets | `VIDEO_ASSET_PROVIDERS`, `PEXELS_API_KEY`, `PIXABAY_API_KEY`, `BLENDER_BIN`, `REMOTION_CONCURRENCY` |\n\n## GitHub Storage Strategy\n\n- Source code, docs artifacts, curated content, and selected JSON contracts are tracked in Git.\n- High-volume generated families are documented by pattern in `docs/tokenradar` instead of listing every token-level file.\n- GitHub Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.\n- Failure diagnostics are uploaded as short-retention Actions artifacts.\n- Monthly data/content/media snapshots are archived as GitHub Releases.\n- Cloudflare D1 stores best-effort ops ledger state for automation and R2 media staging.\n- Social tracking state is not pushed to `main` after every social run.\n\n## Quality Gates\n\n- `prebuild` validates env, computes search intent, consolidates data, validates content, generates OG images, and regenerates sitemaps.\n- `deploy.yml` runs typecheck, lint, tests, build, static output verification, Cloudflare Pages deploy, and deployment reporting.\n- `performance.yml` runs Lighthouse CI against static export and PageSpeed Insights against production when `PAGESPEED_API_KEY` is configured.\n- `dependency-security.yml` runs production dependency audit gates.\n- `tests/setup/no-network.ts` blocks accidental live network calls in Vitest.\n- `tests/tokenradar-docs.test.ts` keeps the docs registry, README docs pair, public artifacts, and retired `TOKENRADAR.md` behavior under contract.\n\n## Docs Maintenance\n\nWhen `README.md` changes, regenerate the generated README docs pair:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme\nnpx tsx scripts/generate-doc-artifacts.ts --doc readme --check\n```\n\nWhen the whole-project reference changes, regenerate and check `docs/tokenradar`:\n\n```bash\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar\nnpx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check\n```\n\nKeep `docs/tokenradar` synchronized when adding tracked HTML/JSON docs, public HTML/JSON runtime artifacts, major workflows, integrations, or generated data families.\n\n## Deployment\n\nProduction deploys from GitHub Actions to Cloudflare Pages. Pushes to `main` run the project gates and deploy the static export. Manual local validation is:\n\n```bash\nnpm run build\nnpm run deploy:check-files\n```\n"
 }

@@ -42,6 +42,13 @@ function stableJson(value: MarkdownDocumentArtifact): string {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
+function resolveRawMarkdown(existing: MarkdownDocumentArtifact): string {
+  const sourcePath = existing.sourcePath?.trim();
+  if (!sourcePath || sourcePath.endsWith("#rawMarkdown")) return existing.rawMarkdown;
+
+  return fs.readFileSync(path.resolve(process.cwd(), sourcePath), "utf-8").replace(/^\uFEFF/, "");
+}
+
 export function generateDocArtifacts(doc: string): { jsonPath: string; htmlPath: string; json: string; html: string } {
   const existing = readExistingArtifact(doc);
   const docDir = path.resolve(process.cwd(), "docs", doc);
@@ -50,7 +57,7 @@ export function generateDocArtifacts(doc: string): { jsonPath: string; htmlPath:
   const artifact = buildMarkdownDocumentArtifact({
     name: existing.name,
     title: existing.title,
-    rawMarkdown: existing.rawMarkdown,
+    rawMarkdown: resolveRawMarkdown(existing),
     sourcePath: existing.sourcePath,
     sourceStatus: existing.sourceStatus,
     htmlArtifact: existing.htmlArtifact,
