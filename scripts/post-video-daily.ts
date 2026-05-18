@@ -14,6 +14,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
 import { execFileSync } from "child_process";
+import { fileURLToPath } from "url";
 
 import { logError } from "../src/lib/reporter";
 import {
@@ -103,13 +104,62 @@ import {
 } from "./lib/token-selection";
 import { getRecentPlatformTexts } from "./lib/social-history";
 
-loadEnv();
-
 const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
 
-type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
-type PlatformRoute = PlatformName | "all" | "shorts";
+export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
+export type PlatformRoute = PlatformName | "all" | "shorts";
+
+const PLATFORM_ROUTES: readonly PlatformRoute[] = [
+  "all",
+  "shorts",
+  "telegram",
+  "x",
+  "youtube",
+  "instagram",
+  "threads",
+  "tiktok",
+];
+
+export interface VideoDailyCliOptions {
+  dryRun: boolean;
+  force: boolean;
+  includeLinkReply: boolean;
+  outputDirArg: string | undefined;
+  keepOutput: boolean;
+  targetPlatform: PlatformRoute;
+}
+
+export interface VideoDailyPlatformFlags {
+  runTelegram: boolean;
+  runX: boolean;
+  runYouTube: boolean;
+  runInstagram: boolean;
+  runThreads: boolean;
+  runTikTok: boolean;
+}
+
+export interface VideoDailyCredentialState {
+  hasYouTubeCredentials: boolean;
+  hasInstagramCredentials: boolean;
+  hasThreadsCredentials: boolean;
+  hasTikTokApiCredentialsConfigured: boolean;
+  tiktokCredentialMode: "production" | "sandbox";
+  hasTikTokReportCredentials: boolean;
+}
+
+export interface VideoDailyPlatformPlan extends VideoDailyPlatformFlags {
+  shouldRunYouTube: boolean;
+  shouldRunInstagram: boolean;
+  shouldRunThreads: boolean;
+  shouldRunTikTokDirect: boolean;
+  shouldRunTikTokInbox: boolean;
+  shouldRunTikTokManual: boolean;
+  shouldRunTikTok: boolean;
+  intendedPlatforms: PlatformName[];
+  requestedPlatforms: PlatformName[];
+  skippedByMissingCredentials: PlatformName[];
+}
 
 interface PlatformTracker {
   postedAt: string;
@@ -296,6 +346,35 @@ function isLocalVideoAssetAvailable(asset: VideoAssetLayer): boolean {
 function getArgValue(args: string[], name: string): string | undefined {
   const index = args.indexOf(name);
   return index !== -1 && index + 1 < args.length ? args[index + 1] : undefined;
+}
+
+function isPlatformRoute(value: string): value is PlatformRoute {
+  return PLATFORM_ROUTES.includes(value as PlatformRoute);
+}
+
+export function parseVideoDailyCliOptions(args: string[]): VideoDailyCliOptions {
+  const dryRun = args.includes("--dry-run");
+  const force = args.includes("--force");
+  const includeLinkReply = args.includes("--link-reply");
+  const outputDirArg = getArgValue(args, "--output-dir");
+  const keepOutput = args.includes("--keep-output") || Boolean(outputDirArg);
+  const platformIdx = args.indexOf("--platform");
+  const targetPlatform = platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
+
+  if (!isPlatformRoute(targetPlatform)) {
+    throw new Error(
+      "Invalid --platform value. Expected one of: all, shorts, telegram, x, youtube, instagram, threads, tiktok.",
+    );
+  }
+
+  return {
+    dryRun,
+    force,
+    includeLinkReply,
+    outputDirArg,
+    keepOutput,
+    targetPlatform,
+  };
 }
 
 function getRemotionCliPath(): string {
@@ -752,6 +831,73 @@ function getRequestedPlatforms(
   return requested;
 }
 
+export function resolveVideoDailyPlatformFlags(targetPlatform: PlatformRoute): VideoDailyPlatformFlags {
+  return {
+    runTelegram: targetPlatform === "all" || targetPlatform === "telegram",
+    runX: targetPlatform === "all" || targetPlatform === "x",
+    runYouTube: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "youtube",
+    runInstagram: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "instagram",
+    runThreads: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "threads",
+    runTikTok: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "tiktok",
+  };
+}
+
+export function resolveVideoDailyPlatformPlan(
+  targetPlatform: PlatformRoute,
+  dryRun: boolean,
+  credentials: VideoDailyCredentialState,
+): VideoDailyPlatformPlan {
+  const flags = resolveVideoDailyPlatformFlags(targetPlatform);
+  const shouldRunYouTube = flags.runYouTube && (dryRun || credentials.hasYouTubeCredentials);
+  const shouldRunInstagram = flags.runInstagram && (dryRun || credentials.hasInstagramCredentials);
+  const shouldRunThreads = flags.runThreads && (dryRun || credentials.hasThreadsCredentials);
+  const shouldRunTikTokDirect =
+    flags.runTikTok &&
+    credentials.hasTikTokApiCredentialsConfigured &&
+    credentials.tiktokCredentialMode === "production";
+  const shouldRunTikTokInbox =
+    flags.runTikTok &&
+    credentials.hasTikTokApiCredentialsConfigured &&
+    credentials.tiktokCredentialMode === "sandbox" &&
+    (dryRun || credentials.hasTikTokReportCredentials);
+  const shouldRunTikTokManual =
+    flags.runTikTok &&
+    !credentials.hasTikTokApiCredentialsConfigured &&
+    (dryRun || credentials.hasTikTokReportCredentials);
+  const shouldRunTikTok =
+    flags.runTikTok && (dryRun || shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual);
+  const intendedPlatforms = getRequestedPlatforms(
+    flags.runTelegram,
+    flags.runX,
+    flags.runYouTube,
+    flags.runInstagram,
+    flags.runThreads,
+    flags.runTikTok,
+  );
+  const requestedPlatforms = getRequestedPlatforms(
+    flags.runTelegram,
+    flags.runX,
+    shouldRunYouTube,
+    shouldRunInstagram,
+    shouldRunThreads,
+    shouldRunTikTok,
+  );
+
+  return {
+    ...flags,
+    shouldRunYouTube,
+    shouldRunInstagram,
+    shouldRunThreads,
+    shouldRunTikTokDirect,
+    shouldRunTikTokInbox,
+    shouldRunTikTokManual,
+    shouldRunTikTok,
+    intendedPlatforms,
+    requestedPlatforms,
+    skippedByMissingCredentials: intendedPlatforms.filter((platform) => !requestedPlatforms.includes(platform)),
+  };
+}
+
 function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: PlatformName[]): boolean {
   if (!tracker) return false;
   return requestedPlatforms.every((platform) => isPlatformCompleteForRun(tracker.platforms?.[platform]));
@@ -822,22 +968,18 @@ function buildThreadsContent(
   };
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  const dryRun = args.includes("--dry-run");
-  const force = args.includes("--force");
-  const includeLinkReply = args.includes("--link-reply");
-  const channelId = process.env.TELEGRAM_CHANNEL_ID;
-  const outputDirArg = getArgValue(args, "--output-dir");
-  const keepOutput = args.includes("--keep-output") || Boolean(outputDirArg);
+export async function main(args = process.argv.slice(2)) {
+  const {
+    dryRun,
+    force,
+    includeLinkReply,
+    outputDirArg,
+    keepOutput,
+    targetPlatform,
+  } = parseVideoDailyCliOptions(args);
+  loadEnv();
 
-  const platformIdx = args.indexOf("--platform");
-  const targetPlatform =
-    (platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all") as PlatformRoute;
-  if (!["all", "shorts", "telegram", "x", "youtube", "instagram", "threads", "tiktok"].includes(targetPlatform)) {
-    console.error("  Invalid --platform value. Expected one of: all, shorts, telegram, x, youtube, instagram, threads, tiktok.");
-    process.exit(1);
-  }
+  const channelId = process.env.TELEGRAM_CHANNEL_ID;
 
   console.log("==========================================");
   console.log("  TokenRadar Daily Video Breakout");
@@ -860,46 +1002,44 @@ async function main() {
   });
   if (!fs.existsSync(postedDir)) fs.mkdirSync(postedDir, { recursive: true });
 
-  const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
-  const runX = targetPlatform === "all" || targetPlatform === "x";
-  const runYouTube = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "youtube";
-  const runInstagram = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "instagram";
-  const runThreads = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "threads";
-  const runTikTok = targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "tiktok";
+  const platformFlags = resolveVideoDailyPlatformFlags(targetPlatform);
   const hasYouTubeCredentials = Boolean(
     process.env.YOUTUBE_CLIENT_ID &&
     process.env.YOUTUBE_CLIENT_SECRET &&
     process.env.YOUTUBE_REFRESH_TOKEN,
   );
-  const shouldRunYouTube = runYouTube && (dryRun || hasYouTubeCredentials);
-  const shouldRunInstagram = runInstagram && (dryRun || (hasMetaCredentials("instagram") && hasR2Credentials()));
-  const shouldRunThreads = runThreads && (dryRun || (hasMetaCredentials("threads") && hasR2Credentials()));
+  const hasInstagramCredentials = hasMetaCredentials("instagram") && hasR2Credentials();
+  const hasThreadsCredentials = hasMetaCredentials("threads") && hasR2Credentials();
   const hasTikTokApiCredentialsConfigured = hasTikTokApiCredentials();
-  const tiktokCredentialMode = runTikTok && hasTikTokApiCredentialsConfigured ? getTikTokCredentialMode() : "sandbox";
+  const tiktokCredentialMode =
+    platformFlags.runTikTok && hasTikTokApiCredentialsConfigured ? getTikTokCredentialMode() : "sandbox";
   const hasTikTokReportCredentials = hasTikTokManualReportCredentials();
-  const shouldRunTikTokDirect = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "production";
-  const shouldRunTikTokInbox = runTikTok &&
-    hasTikTokApiCredentialsConfigured &&
-    tiktokCredentialMode === "sandbox" &&
-    (dryRun || hasTikTokReportCredentials);
-  const shouldRunTikTokManual = runTikTok && !hasTikTokApiCredentialsConfigured && (dryRun || hasTikTokReportCredentials);
-  const shouldRunTikTok = runTikTok && (dryRun || shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual);
-  const intendedPlatforms = getRequestedPlatforms(
-    runTelegram,
-    runX,
-    runYouTube,
-    runInstagram,
-    runThreads,
-    runTikTok,
-  );
-  const requestedPlatforms = getRequestedPlatforms(
+  const {
     runTelegram,
     runX,
     shouldRunYouTube,
     shouldRunInstagram,
     shouldRunThreads,
+    shouldRunTikTokDirect,
+    shouldRunTikTokInbox,
+    shouldRunTikTokManual,
     shouldRunTikTok,
-  );
+    requestedPlatforms,
+    skippedByMissingCredentials,
+  } = resolveVideoDailyPlatformPlan(targetPlatform, dryRun, {
+    hasYouTubeCredentials,
+    hasInstagramCredentials,
+    hasThreadsCredentials,
+    hasTikTokApiCredentialsConfigured,
+    tiktokCredentialMode,
+    hasTikTokReportCredentials,
+  });
+  const {
+    runYouTube,
+    runInstagram,
+    runThreads,
+    runTikTok,
+  } = platformFlags;
 
   const existingTracker =
     !force && fs.existsSync(trackerFile)
@@ -950,8 +1090,6 @@ async function main() {
       );
     }
   }
-  const skippedByMissingCredentials = intendedPlatforms.filter((platform) => !requestedPlatforms.includes(platform));
-
   console.log("Step 1: Loading candidate tokens...");
   const metricsDir = path.join(DATA_DIR, "metrics");
   const loadedCandidates = await loadCandidateTokens(DATA_DIR, 1, 50);
@@ -2059,7 +2197,13 @@ async function main() {
   }
 }
 
-main().catch(async (error) => {
-  await logError("post-video-daily", error);
-  process.exit(1);
-});
+function isDirectExecution(): boolean {
+  return Boolean(process.argv[1]) && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+}
+
+if (isDirectExecution()) {
+  main().catch(async (error) => {
+    await logError("post-video-daily", error);
+    process.exit(1);
+  });
+}

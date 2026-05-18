@@ -1,8 +1,13 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { getTokenIconCandidates } from "../src/lib/formatters";
+import { fetchTokenIconDataUrl } from "../src/lib/token-icon-data";
 
 describe("token icon candidates", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it("prefers a supplied source image before deterministic fallbacks", () => {
     expect(getTokenIconCandidates({
       symbol: "sui",
@@ -21,5 +26,36 @@ describe("token icon candidates", () => {
       "https://cdn.jsdelivr.net/gh/simplr-sh/coin-logos/images/bitcoin/large.png",
       "https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png",
     ]);
+  });
+
+  it("does not fetch token icons from untrusted source image hosts", async () => {
+    const fetchMock = vi.fn<typeof fetch>();
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(fetchTokenIconDataUrl({
+      symbol: "",
+      imageUrl: "https://127.0.0.1/internal.png",
+    })).resolves.toBeUndefined();
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects token icon responses that declare an oversized content length", async () => {
+    const arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(1));
+    vi.stubGlobal("fetch", vi.fn<typeof fetch>().mockResolvedValue({
+      ok: true,
+      headers: new Headers({
+        "content-type": "image/png",
+        "content-length": String(2_000_000),
+      }),
+      arrayBuffer,
+    } as Response));
+
+    await expect(fetchTokenIconDataUrl({
+      symbol: "",
+      imageUrl: "https://coin-images.coingecko.com/coins/images/1/large/icon.png",
+    })).resolves.toBeUndefined();
+
+    expect(arrayBuffer).not.toHaveBeenCalled();
   });
 });

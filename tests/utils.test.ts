@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { safeReadJson } from "../src/lib/utils";
+import { afterEach, describe, it, expect, vi } from "vitest";
+import { redactSensitiveText, safeReadJson } from "../src/lib/utils";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
@@ -55,5 +55,40 @@ describe("safeReadJson", () => {
     } finally {
       fs.unlinkSync(tmpFile);
     }
+  });
+});
+
+describe("redactSensitiveText", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("redacts documented secret env values beyond the hand-maintained core list", () => {
+    vi.stubEnv("GOOGLE_OAUTH_CLIENT_SECRET", "google-oauth-secret-value");
+    vi.stubEnv("GOOGLE_OAUTH_REFRESH_TOKEN", "google-oauth-refresh-value");
+    vi.stubEnv("PAGESPEED_API_KEY", "pagespeed-secret-value");
+    vi.stubEnv("PEXELS_API_KEY", "pexels-secret-value");
+    vi.stubEnv("INDEXNOW_KEY", "indexnow-secret-value");
+
+    const redacted = redactSensitiveText(
+      [
+        "google-oauth-secret-value",
+        "google-oauth-refresh-value",
+        "pagespeed-secret-value",
+        "pexels-secret-value",
+        "indexnow-secret-value",
+      ].join(" "),
+    );
+
+    expect(redacted).not.toContain("google-oauth-secret-value");
+    expect(redacted).not.toContain("google-oauth-refresh-value");
+    expect(redacted).not.toContain("pagespeed-secret-value");
+    expect(redacted).not.toContain("pexels-secret-value");
+    expect(redacted).not.toContain("indexnow-secret-value");
+    expect(redacted).toContain("[REDACTED:GOOGLE_OAUTH_CLIENT_SECRET]");
+    expect(redacted).toContain("[REDACTED:GOOGLE_OAUTH_REFRESH_TOKEN]");
+    expect(redacted).toContain("[REDACTED:PAGESPEED_API_KEY]");
+    expect(redacted).toContain("[REDACTED:PEXELS_API_KEY]");
+    expect(redacted).toContain("[REDACTED:INDEXNOW_KEY]");
   });
 });

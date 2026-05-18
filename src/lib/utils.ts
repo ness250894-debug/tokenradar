@@ -36,6 +36,28 @@ const SENSITIVE_ENV_KEYS = [
   "YOUTUBE_REFRESH_TOKEN",
 ] as const;
 
+const SENSITIVE_ENV_KEY_SUFFIXES = [
+  "_ACCESS_TOKEN",
+  "_CLIENT_SECRET",
+  "_KEY",
+  "_OAUTH_CLIENT_JSON",
+  "_PASSWORD",
+  "_PRIVATE_KEY",
+  "_REFRESH_TOKEN",
+  "_SECRET",
+  "_SERVICE_ACCOUNT_JSON",
+  "_TOKEN",
+] as const;
+
+function isSensitiveEnvKey(key: string): boolean {
+  const normalized = key.toUpperCase();
+  if ((SENSITIVE_ENV_KEYS as readonly string[]).includes(normalized)) {
+    return true;
+  }
+
+  return SENSITIVE_ENV_KEY_SUFFIXES.some((suffix) => normalized.endsWith(suffix));
+}
+
 function shouldReportFileError(error: unknown): boolean {
   return !(typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT");
 }
@@ -186,13 +208,16 @@ export function writeFileAtomicSync(filePath: string, data: string | NodeJS.Arra
 export function redactSensitiveText(text: string): string {
   let redacted = text;
 
-  for (const key of SENSITIVE_ENV_KEYS) {
-    const value = process.env[key];
-    if (value && value.length >= 6) {
+  for (const [key, value] of Object.entries(process.env)) {
+    if (value && value.length >= 6 && isSensitiveEnvKey(key)) {
       redacted = redacted.split(value).join(`[REDACTED:${key}]`);
     }
   }
 
+  redacted = redacted.replace(
+    /-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g,
+    "[REDACTED:PRIVATE_KEY]",
+  );
   redacted = redacted.replace(
     /https:\/\/api\.telegram\.org\/bot[0-9A-Za-z:_-]+/gi,
     "https://api.telegram.org/bot[REDACTED]",
