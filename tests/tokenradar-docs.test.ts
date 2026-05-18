@@ -37,7 +37,6 @@ const DOC_ARTIFACT_PATHS = [
 ] as const;
 
 const PUBLIC_HTML_JSON_ARTIFACTS = [
-  "public/admin.html",
   "public/_routes.json",
   "public/video-assets/broll/manifest.json",
   "public/video-assets/broll/manifest.example.json",
