@@ -31,4 +31,13 @@ describe("automation runbook contract", () => {
       expect(workflow, `${workflowName} should call Telegram Bot API`).toContain("https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage");
     }
   });
+
+  it("keeps short-retention diagnostics artifacts wired for every workflow", () => {
+    for (const workflowName of AUTOMATION_WORKFLOWS) {
+      const workflow = readWorkflow(workflowName);
+
+      expect(workflow, `${workflowName} should upload diagnostic artifacts`).toContain("actions/upload-artifact");
+      expect(workflow, `${workflowName} diagnostic artifacts should be short-retention`).toContain("retention-days:");
+    }
+  });
 });
