@@ -1,0 +1,52 @@
+{
+  "id": "chia",
+  "symbol": "xch",
+  "name": "Chia",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/15174/large/zV5K5y9f_400x400.png?1696514829",
+  "description": "Founded by Bram Cohen, the inventor of the BitTorrent network, Chia Network is building a better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure.\n\nChialisp is Chia’s new smart transaction programming language that is powerful, easy to audit, and secure. The blockchain is powered by the first new Nakamoto style consensus algorithm since Bitcoin launched in 2008. Proofs of Space and Time replace energy intensive “proofs of work” by utilizing unused disk space.\n\nChia Network supports the development and deployment of the Chia blockchain globally. Chia Network supports chia developers and supports the enterprise use of chia with software support and chia lending.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "DePIN",
+    "Andreessen Horowitz (a16z) Portfolio",
+    "Made in USA"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.chia.net/",
+    "github": "https://github.com/Chia-Network",
+    "reddit": "https://www.reddit.com/r/chia/",
+    "explorer": "https://www.spacescan.io/"
+  },
+  "market": {
+    "price": 2.7,
+    "marketCap": 49927895,
+    "marketCapRank": 490,
+    "volume24h": 5367576,
+    "high24h": 2.97,
+    "low24h": 2.48,
+    "priceChange24h": 2.03404,
+    "priceChange7d": 14.00611,
+    "priceChange30d": 11.55431,
+    "priceChange1y": -78.43271,
+    "ath": 1645.12,
+    "athChangePercentage": -99.8342,
+    "athDate": "2021-05-15T14:24:45.107Z",
+    "atl": 2,
+    "atlDate": "2026-05-03T16:15:57.810Z",
+    "circulatingSupply": 18414958,
+    "totalSupply": 34789920,
+    "maxSupply": null,
+    "fdv": 94324814
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-18T19:17:08.718Z"
+}

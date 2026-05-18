@@ -3,12 +3,19 @@
   "tokenName": "Aave",
   "articles": [
     {
-      "title": "NY judge pushes back hearing for Aave’s bid to unfreeze $71M in ETH",
-      "link": "https://cointelegraph.com/news/judge-delays-aaves-emergency-bid-to-unfreeze-71m-hacked-crypto?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Thu, 14 May 2026 07:16:05 +0000",
+      "title": "Aave restores ether borrowing limits after $230 million exploit",
+      "link": "https://www.coindesk.com/markets/2026/05/18/aave-restores-weth-collateral-limits-as-rseth-crisis-enters-recovery-phase",
+      "pubDate": "Mon, 18 May 2026 07:05:20 +0000",
+      "source": "CoinDesk",
+      "snippet": "The DeFi lending protocol reversed restrictions imposed after April’s $292 million exploit, restoring borrowing capacity across six networks as contagion fears ease."
+    },
+    {
+      "title": "WETH markets return to normal operations on Aave amid rsETH recovery progress",
+      "link": "https://cointelegraph.com/news/aave-restores-weth-borrowing-after-kelp-dao-rseth-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 18 May 2026 05:02:08 +0000",
       "source": "CoinTelegraph",
-      "snippet": "A New York judge has ordered supplemental briefings because Aave did not adequately outline how compounding losses could occur if the restraining notice remains in place."
+      "snippet": "Aave applied a temporary freeze to WETH as a precautionary safety measure in response to the Kelp DAO exploit, alongside freezes on the rsETH and wrsETH reserves."
     }
   ],
-  "fetchedAt": "2026-05-14T19:26:13.742Z"
+  "fetchedAt": "2026-05-18T19:19:44.013Z"
 }
