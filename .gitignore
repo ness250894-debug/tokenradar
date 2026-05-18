@@ -72,6 +72,8 @@ data/x-oauth-state.json
 /docs/*
 !/docs/seo/
 !/docs/seo/**
+!/docs/testing/
+!/docs/testing/**
 
 # diagnostic logs and cache
 data/logs/
