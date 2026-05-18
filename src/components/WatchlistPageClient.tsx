@@ -110,8 +110,12 @@ export function WatchlistPageClient({ tokens }: WatchlistPageClientProps) {
         </div>
       </div>
 
-      {status && <p className="watchlist-status">{status}</p>}
-      {missingCount > 0 && <p className="watchlist-status">{missingCount} saved IDs no longer match tracked tokens.</p>}
+      {status && <p className="watchlist-status" role="status" aria-live="polite">{status}</p>}
+      {missingCount > 0 && (
+        <p className="watchlist-status" role="status" aria-live="polite">
+          {missingCount} saved IDs no longer match tracked tokens.
+        </p>
+      )}
 
       {savedTokens.length > 0 ? (
         <TokenGrid

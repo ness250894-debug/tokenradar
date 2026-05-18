@@ -623,6 +623,18 @@ input[type=range]::-moz-range-thumb:hover {
   white-space: nowrap;
 }
 
+.btn-sm {
+  min-height: 36px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-xs);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.14), var(--shadow-glow);
+}
+
 .btn-primary {
   background: var(--accent-gradient);
   color: #0a0b0f;
@@ -3630,6 +3642,20 @@ input[type=range]::-moz-range-thumb:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+.directory-filter-meta {
+  align-items: center;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--text-sm);
+  gap: var(--space-sm);
+  justify-content: space-between;
+}
+
+.directory-filter-meta span {
+  min-width: 0;
 }
 
 .search-input-wrapper {
