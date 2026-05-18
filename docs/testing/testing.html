@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenRadar Testing Flow Contract - TokenRadar Docs</title>
+    <style>
+      :root { color-scheme: dark; --bg: #0b0d10; --panel: #151922; --panel-2: #10141b; --line: #2c3443; --text: #f5f7fb; --muted: #aeb8c8; --soft: #768297; --cyan: #31c7d7; --green: #35d18a; --amber: #f2b84b; --blue: #7aa2ff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; }
+      main { width: min(1180px, calc(100vw - 40px)); margin: 0 auto; padding: 44px 0 64px; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { max-width: 980px; margin-bottom: 12px; font-size: clamp(34px, 5vw, 62px); line-height: 1.02; letter-spacing: 0; }
+      h2 { margin: 28px 0 14px; font-size: 26px; }
+      h3 { margin: 24px 0 10px; color: var(--text); font-size: 19px; }
+      p, .content, .content ul, .content ol, .outline ol { color: var(--muted); }
+      a { color: var(--cyan); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code { color: #dce6f7; font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 0.92em; }
+      pre { overflow-x: auto; margin: 14px 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #070a0f; }
+      pre code { color: #dce6f7; white-space: pre; }
+      .lead { max-width: 900px; margin-bottom: 0; color: var(--muted); font-size: 18px; }
+      .section { margin-top: 22px; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .box { min-height: 116px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+      .box p { margin-bottom: 0; }
+      .tag { display: inline-block; margin-bottom: 10px; color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: 0; text-transform: uppercase; }
+      .tag.green { color: var(--green); }
+      .tag.amber { color: var(--amber); }
+      .tag.blue { color: var(--blue); }
+      .content h1 { margin-top: 0; font-size: 36px; }
+      .content ul, .content ol { margin: 10px 0 16px; padding-left: 22px; }
+      .content li + li, .outline li + li { margin-top: 6px; }
+      .outline ol { margin: 0; padding-left: 22px; }
+      .outline .level-2 { margin-left: 16px; }
+      .outline span { color: var(--soft); font-size: 12px; }
+      @media (max-width: 920px) { .grid { grid-template-columns: 1fr; } }
+      @media (max-width: 640px) { main { width: min(100vw - 28px, 1180px); padding-top: 30px; } .section { padding: 18px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TokenRadar Testing Flow Contract</h1>
+        <p class="lead">Standalone HTML representation of the TokenRadar document. The paired JSON file preserves the raw Markdown, extracted headings, sections, and document statistics.</p>
+      </header>
+
+      <section class="section">
+        <h2>Document Contract</h2>
+        <div class="grid">
+          <div class="box"><span class="tag green">Source</span><h3><code>docs/testing</code></h3><p>Artifact-maintained source of record; legacy <code>TESTING.md</code> retired.</p></div>
+          <div class="box"><span class="tag blue">Structure</span><h3>10 headings</h3><p>0 code blocks, 0 tables, 0 Markdown links.</p></div>
+          <div class="box"><span class="tag amber">Pair</span><h3><a href="testing.json">testing.json</a></h3><p>Machine-readable representation of this same document.</p></div>
+        </div>
+      </section>
+
+      <section class="section outline">
+        <h2>Outline</h2>
+        <ol><li class="level-1"><a href="#tokenradar-testing-flow-contract">TokenRadar Testing Flow Contract</a> <span>line 1</span></li><li class="level-2"><a href="#1-test-framework">1. Test Framework</a> <span>line 5</span></li><li class="level-2"><a href="#2-current-test-inventory">2. Current Test Inventory</a> <span>line 13</span></li><li class="level-2"><a href="#3-required-local-validation">3. Required Local Validation</a> <span>line 22</span></li><li class="level-2"><a href="#4-ci-and-release-gates">4. CI and Release Gates</a> <span>line 32</span></li><li class="level-2"><a href="#5-content-and-data-pipeline-gates">5. Content and Data Pipeline Gates</a> <span>line 41</span></li><li class="level-2"><a href="#6-social-storage-and-smoke-flows">6. Social, Storage, and Smoke Flows</a> <span>line 53</span></li><li class="level-2"><a href="#7-mocking-and-network-policy">7. Mocking and Network Policy</a> <span>line 59</span></li><li class="level-2"><a href="#8-browser-and-static-export-qa">8. Browser and Static Export QA</a> <span>line 64</span></li><li class="level-2"><a href="#9-maintenance-controls">9. Maintenance Controls</a> <span>line 70</span></li></ol>
+      </section>
+
+      <section class="section content">
+<h1 id="tokenradar-testing-flow-contract">TokenRadar Testing Flow Contract</h1>
+<p>This document defines the testing and validation flow for TokenRadar. The maintained source of record is the artifact pair in <code>docs/testing/</code>; the legacy root <code>TESTING.md</code> source file is retired.</p>
+<h2 id="1-test-framework">1. Test Framework</h2>
+<ul>
+<li>Unit and integration-style tests run on Vitest.</li>
+<li>Configuration lives in <code>vitest.config.ts</code> with Node environment, globals enabled, and <code>tests/**/*.test.ts</code> included.</li>
+<li>Local commands:</li>
+</ul>
+<p>- <code>npm run test</code> runs the suite once. - <code>npm run test:watch</code> runs Vitest in watch mode.</p>
+<ul>
+<li>Vitest coverage is configured with the V8 provider and text/lcov reporters, but there is no package-level coverage script or threshold gate yet.</li>
+</ul>
+<h2 id="2-current-test-inventory">2. Current Test Inventory</h2>
+<p>The repository currently has 55 Vitest files under <code>tests/</code>. Coverage is broader than the original testing note and includes:</p>
+<ul>
+<li>Core scoring and data logic: metrics, config, formatters, schemas, market data quality, fetch retry behavior, token selection, token icons, directory filters, and watchlist storage.</li>
+<li>Content and SEO quality: article formatting and repair, content loading, content quality, markdown rendering, validation scripts, SEO helpers, SEO contract implementation, search intent, prompt contract, security headers, and quality-check CLI behavior.</li>
+<li>Social and publishing systems: X, Telegram, Meta, TikTok, social editorial policy, link policy, history, variety, social ledger backfill, post routing, reporters, partners, and ops ledger behavior.</li>
+<li>Cloudflare and storage clients: D1 client behavior, D1 ops ledger helpers, R2 client behavior, video asset R2 keys, and asset pruning.</li>
+<li>Video and media generation: audio config, b-roll overlay logic, Blender asset planning, video assets, video formats, and video recipes.</li>
+<li>Automation docs and observability: workflow notification/diagnostic contracts and engagement baseline summaries.</li>
+</ul>
+<h2 id="3-required-local-validation">3. Required Local Validation</h2>
+<p>For code or flow changes that can affect production, the local validation baseline should mirror deploy CI:</p>
+<ol>
+<li><code>npx tsc --noEmit</code> for type checking.</li>
+<li><code>npm run lint</code> for ESLint.</li>
+<li><code>npm run test</code> for the Vitest suite.</li>
+<li><code>npm run build</code> for the full static export pipeline.</li>
+<li><code>npm run deploy:check-files</code> after a build when static output size or Cloudflare Pages budget may be affected.</li>
+</ol>
+<p>Small documentation-only edits may use a narrower check, but artifact edits should at least regenerate/check the relevant artifact pair.</p>
+<h2 id="4-ci-and-release-gates">4. CI and Release Gates</h2>
+<p>The deploy workflow runs typecheck, lint, tests, static export build, output verification, Cloudflare Pages deploy, and IndexNow ping when configured.</p>
+<p>The production build starts with <code>prebuild</code>, which runs environment validation, search-intent computation, data consolidation, content validation, OG image generation, and sitemap generation before <code>next build</code>.</p>
+<p>Performance and security are separate scheduled gates:</p>
+<ul>
+<li><code>performance.yml</code> runs Lighthouse CI against the static export and PageSpeed Insights against production when the API key is present.</li>
+<li><code>dependency-security.yml</code> runs <code>npm run audit:prod</code> for high-severity production dependency issues.</li>
+</ul>
+<h2 id="5-content-and-data-pipeline-gates">5. Content and Data Pipeline Gates</h2>
+<p>Daily content generation is part of the testing flow because it can publish user-facing pages without a developer manually running deploy checks. Its gates are:</p>
+<ol>
+<li>Generate queued drip content.</li>
+<li>Run <code>scripts/quality-check.ts --dir data/queue --fix --delete-failures</code>.</li>
+<li>Publish approved queue entries with live data hydration.</li>
+<li>Inject internal links.</li>
+<li>Repair article formatting.</li>
+<li>Run <code>scripts/validate-content.ts</code>.</li>
+<li>Run <code>npm run build</code> before committing and dispatching deploy.</li>
+</ol>
+<p>Daily refresh validates refreshed artifacts by consolidating data, validating content, and regenerating sitemaps after CoinGecko, TGE, reference article, metrics, Meta token, and OG image updates.</p>
+<h2 id="6-social-storage-and-smoke-flows">6. Social, Storage, and Smoke Flows</h2>
+<p>Social automation tests rely mostly on mocked clients in Vitest, but the scheduled workflow also includes operational checks:</p>
+<ul>
+<li>D1 migrations, run recording, R2 cleanup, social ledger backfill, and usage snapshots are best-effort preflight steps.</li>
+<li><code>scripts/d1-smoke.ts</code> is the explicit live D1 insert/select/delete smoke test and should be treated as an integration smoke, not a unit test.</li>
+<li>Platform posting scripts for Telegram, X, Instagram, Threads, TikTok, and short-form video require mocked unit coverage plus careful manual or workflow-dispatch validation before changing payloads, secrets, media upload behavior, or rate-limit handling.</li>
+</ul>
+<h2 id="7-mocking-and-network-policy">7. Mocking and Network Policy</h2>
+<p>Vitest tests should not make live network calls by default. External APIs such as CoinGecko, X, Telegram, Meta, TikTok, Gemini, Cloudflare D1, and R2 should be mocked with <code>vi.mock()</code>, <code>vi.spyOn(globalThis, &quot;fetch&quot;)</code>, SDK mocks, or fixture files.</p>
+<p>Live checks are allowed only when they are explicit smoke or workflow-dispatch operations with required secrets, clear blast radius, and no dependency on the normal <code>npm run test</code> path. <code>vitest.config.ts</code> installs <code>tests/setup/no-network.ts</code>, so unmocked <code>fetch</code> calls fail fast and new tests must explicitly stub or spy on network clients.</p>
+<h2 id="8-browser-and-static-export-qa">8. Browser and Static Export QA</h2>
+<p>There is no dedicated Playwright or browser E2E suite. UI or route changes should be validated through the static export when relevant:</p>
+<ul>
+<li>Run <code>npm run build</code> and inspect representative pages in <code>out/</code>.</li>
+<li>Run <code>npm run seo:qa</code> for representative SEO metadata, canonical, sitemap, robots, OG image, Twitter card, JSON-LD, and internal-link checks.</li>
+<li>Use Lighthouse/PageSpeed workflows for performance regressions on scheduled or manual runs.</li>
+</ul>
+<h2 id="9-maintenance-controls">9. Maintenance Controls</h2>
+<ul>
+<li><code>docs/testing/testing.json</code> and <code>docs/testing/testing.html</code> are the maintained testing documentation artifacts.</li>
+<li><code>npm run docs:testing</code> regenerates the JSON and HTML artifact pair from the <code>rawMarkdown</code> stored in <code>docs/testing/testing.json</code>.</li>
+<li>Check drift with <code>npx tsx scripts/generate-doc-artifacts.ts --doc testing --check</code>.</li>
+<li>Keep the test inventory, CI gates, smoke-test exceptions, and artifact maintenance instructions synchronized when workflows, scripts, or test files change.</li>
+</ul>
+      </section>
+
+      <section class="section">
+        <h2>Raw Markdown</h2>
+        <pre><code># TokenRadar Testing Flow Contract
+
+This document defines the testing and validation flow for TokenRadar. The maintained source of record is the artifact pair in `docs/testing/`; the legacy root `TESTING.md` source file is retired.
+
+## 1. Test Framework
+- Unit and integration-style tests run on Vitest.
+- Configuration lives in `vitest.config.ts` with Node environment, globals enabled, and `tests/**/*.test.ts` included.
+- Local commands:
+  - `npm run test` runs the suite once.
+  - `npm run test:watch` runs Vitest in watch mode.
+- Vitest coverage is configured with the V8 provider and text/lcov reporters, but there is no package-level coverage script or threshold gate yet.
+
+## 2. Current Test Inventory
+The repository currently has 55 Vitest files under `tests/`. Coverage is broader than the original testing note and includes:
+- Core scoring and data logic: metrics, config, formatters, schemas, market data quality, fetch retry behavior, token selection, token icons, directory filters, and watchlist storage.
+- Content and SEO quality: article formatting and repair, content loading, content quality, markdown rendering, validation scripts, SEO helpers, SEO contract implementation, search intent, prompt contract, security headers, and quality-check CLI behavior.
+- Social and publishing systems: X, Telegram, Meta, TikTok, social editorial policy, link policy, history, variety, social ledger backfill, post routing, reporters, partners, and ops ledger behavior.
+- Cloudflare and storage clients: D1 client behavior, D1 ops ledger helpers, R2 client behavior, video asset R2 keys, and asset pruning.
+- Video and media generation: audio config, b-roll overlay logic, Blender asset planning, video assets, video formats, and video recipes.
+- Automation docs and observability: workflow notification/diagnostic contracts and engagement baseline summaries.
+
+## 3. Required Local Validation
+For code or flow changes that can affect production, the local validation baseline should mirror deploy CI:
+1. `npx tsc --noEmit` for type checking.
+2. `npm run lint` for ESLint.
+3. `npm run test` for the Vitest suite.
+4. `npm run build` for the full static export pipeline.
+5. `npm run deploy:check-files` after a build when static output size or Cloudflare Pages budget may be affected.
+
+Small documentation-only edits may use a narrower check, but artifact edits should at least regenerate/check the relevant artifact pair.
+
+## 4. CI and Release Gates
+The deploy workflow runs typecheck, lint, tests, static export build, output verification, Cloudflare Pages deploy, and IndexNow ping when configured.
+
+The production build starts with `prebuild`, which runs environment validation, search-intent computation, data consolidation, content validation, OG image generation, and sitemap generation before `next build`.
+
+Performance and security are separate scheduled gates:
+- `performance.yml` runs Lighthouse CI against the static export and PageSpeed Insights against production when the API key is present.
+- `dependency-security.yml` runs `npm run audit:prod` for high-severity production dependency issues.
+
+## 5. Content and Data Pipeline Gates
+Daily content generation is part of the testing flow because it can publish user-facing pages without a developer manually running deploy checks. Its gates are:
+1. Generate queued drip content.
+2. Run `scripts/quality-check.ts --dir data/queue --fix --delete-failures`.
+3. Publish approved queue entries with live data hydration.
+4. Inject internal links.
+5. Repair article formatting.
+6. Run `scripts/validate-content.ts`.
+7. Run `npm run build` before committing and dispatching deploy.
+
+Daily refresh validates refreshed artifacts by consolidating data, validating content, and regenerating sitemaps after CoinGecko, TGE, reference article, metrics, Meta token, and OG image updates.
+
+## 6. Social, Storage, and Smoke Flows
+Social automation tests rely mostly on mocked clients in Vitest, but the scheduled workflow also includes operational checks:
+- D1 migrations, run recording, R2 cleanup, social ledger backfill, and usage snapshots are best-effort preflight steps.
+- `scripts/d1-smoke.ts` is the explicit live D1 insert/select/delete smoke test and should be treated as an integration smoke, not a unit test.
+- Platform posting scripts for Telegram, X, Instagram, Threads, TikTok, and short-form video require mocked unit coverage plus careful manual or workflow-dispatch validation before changing payloads, secrets, media upload behavior, or rate-limit handling.
+
+## 7. Mocking and Network Policy
+Vitest tests should not make live network calls by default. External APIs such as CoinGecko, X, Telegram, Meta, TikTok, Gemini, Cloudflare D1, and R2 should be mocked with `vi.mock()`, `vi.spyOn(globalThis, &quot;fetch&quot;)`, SDK mocks, or fixture files.
+
+Live checks are allowed only when they are explicit smoke or workflow-dispatch operations with required secrets, clear blast radius, and no dependency on the normal `npm run test` path. `vitest.config.ts` installs `tests/setup/no-network.ts`, so unmocked `fetch` calls fail fast and new tests must explicitly stub or spy on network clients.
+
+## 8. Browser and Static Export QA
+There is no dedicated Playwright or browser E2E suite. UI or route changes should be validated through the static export when relevant:
+- Run `npm run build` and inspect representative pages in `out/`.
+- Run `npm run seo:qa` for representative SEO metadata, canonical, sitemap, robots, OG image, Twitter card, JSON-LD, and internal-link checks.
+- Use Lighthouse/PageSpeed workflows for performance regressions on scheduled or manual runs.
+
+## 9. Maintenance Controls
+- `docs/testing/testing.json` and `docs/testing/testing.html` are the maintained testing documentation artifacts.
+- `npm run docs:testing` regenerates the JSON and HTML artifact pair from the `rawMarkdown` stored in `docs/testing/testing.json`.
+- Check drift with `npx tsx scripts/generate-doc-artifacts.ts --doc testing --check`.
+- Keep the test inventory, CI gates, smoke-test exceptions, and artifact maintenance instructions synchronized when workflows, scripts, or test files change.</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
