@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 const lastUpdated = "May 11, 2026";
+const PAGE_DESCRIPTION =
+  "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.";
 
 export const metadata: Metadata = {
   title: "Financial Disclaimer",
-  description:
-    "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/disclaimer",
   },
-  openGraph: {
-    title: "Financial Disclaimer",
-    description:
-      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
-  },
-  twitter: {
-    title: "Financial Disclaimer",
-    description:
-      "TokenRadar disclaimer: All content is for informational purposes only and does not constitute financial advice. Includes affiliate disclosure.",
-  },
+  openGraph: buildOpenGraphMetadata({ title: "Financial Disclaimer", description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: "Financial Disclaimer", description: PAGE_DESCRIPTION }),
 };
 
 export default function DisclaimerPage() {

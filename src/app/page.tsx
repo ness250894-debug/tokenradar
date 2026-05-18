@@ -10,21 +10,24 @@ import { AlphaTicker } from "@/components/AlphaTicker";
 import { JsonLd } from "@/components/JsonLd";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+
+const HOME_SHARE_TITLE = "TokenRadar - Crypto Token Risk Scores & Launch Research";
+const HOME_SHARE_DESCRIPTION =
+  "A daily crypto research dashboard for token risk scores, launch evidence, and market intelligence.";
 
 export const metadata: Metadata = {
   title: "Crypto Token Risk Scores, Launch Signals & Research",
   description:
     "Track crypto token risk scores, market data, launch watchlists, and AI-assisted research across hundreds of assets. Informational research, not financial advice.",
-  openGraph: {
-    title: "TokenRadar - Crypto Token Risk Scores & Launch Research",
-    description:
-      "A daily crypto research dashboard for token risk scores, launch evidence, and market intelligence.",
-  },
-  twitter: {
-    title: "TokenRadar - Crypto Token Risk Scores & Launch Research",
-    description:
-      "A daily crypto research dashboard for token risk scores, launch evidence, and market intelligence.",
-  },
+  openGraph: buildOpenGraphMetadata({
+    title: HOME_SHARE_TITLE,
+    description: HOME_SHARE_DESCRIPTION,
+  }),
+  twitter: buildTwitterMetadata({
+    title: HOME_SHARE_TITLE,
+    description: HOME_SHARE_DESCRIPTION,
+  }),
   alternates: {
     canonical: "/",
   },

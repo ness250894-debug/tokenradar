@@ -4,27 +4,22 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { getAllTokens, getUpcomingTGEs } from "@/lib/content-loader";
 import { getSiteUrl } from "@/lib/seo";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 const METHODOLOGY_VERSION = "v1.3";
 const METHODOLOGY_LAST_REVIEWED = "2026-05-11";
+const PAGE_TITLE = "TokenRadar Methodology & Data Sources";
+const PAGE_DESCRIPTION =
+  "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, TGE source evidence, AI-assisted research, and affiliate disclosures.";
 
 export const metadata: Metadata = {
-  title: "TokenRadar Methodology & Data Sources",
-  description:
-    "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, TGE source evidence, AI-assisted research, and affiliate disclosures.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/about",
   },
-  openGraph: {
-    title: "TokenRadar Methodology & Data Sources",
-    description:
-      "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, TGE source evidence, AI-assisted research, and affiliate disclosures.",
-  },
-  twitter: {
-    title: "TokenRadar Methodology & Data Sources",
-    description:
-      "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, TGE source evidence, AI-assisted research, and affiliate disclosures.",
-  },
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 function formatInteger(value: number): string {

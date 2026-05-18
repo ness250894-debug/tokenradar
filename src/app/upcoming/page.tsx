@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Bell, FileCheck2, Radar, ShieldCheck, SlidersHorizontal } from "lucide-react";
 import { AlphaTicker } from "@/components/AlphaTicker";
@@ -5,14 +6,21 @@ import { MagneticEffect } from "@/components/MagneticEffect";
 import { TelegramIcon, XIcon } from "@/components/SocialIcons";
 import { TgeGrid } from "@/components/TgeGrid";
 import { getUpcomingTGEs } from "@/lib/content-loader";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { getTgeEvidenceCount, type TgeLifecycleStatus, type UpcomingTge } from "@/lib/tge";
 
-export const metadata = {
-  title: "Upcoming Crypto Launches & TGE Tracker",
-  description: "Track upcoming crypto launches with source evidence, confidence scoring, status filters, and post-launch graduation signals.",
+const PAGE_TITLE = "Upcoming Crypto Launches & TGE Tracker";
+const PAGE_DESCRIPTION =
+  "Track upcoming crypto launches with source evidence, confidence scoring, status filters, and post-launch graduation signals.";
+
+export const metadata: Metadata = {
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/upcoming",
   },
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 function countByStatus(tges: UpcomingTge[], status: TgeLifecycleStatus): number {

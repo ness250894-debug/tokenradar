@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-18T08:40:54.323Z",
+  "generatedAt": "2026-05-18T12:00:51.812Z",
   "entries": [
     {
       "date": "2026-05-18",
-      "generatedAt": "2026-05-18T08:40:54.323Z",
+      "generatedAt": "2026-05-18T12:00:51.812Z",
       "tokenCount": 573,
       "topIntents": [
         {
@@ -1615,6 +1615,14 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
+        "bdtcoin": {
+          "tokenId": "bdtcoin",
+          "attentionScore": 68,
+          "hypeScore": 59,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
         "elrond-erd-2": {
           "tokenId": "elrond-erd-2",
           "attentionScore": 68,
@@ -1854,14 +1862,6 @@
           "supplyRiskScore": 6,
           "classification": "Narrative Rotation",
           "primaryIntent": "meme"
-        },
-        "bdtcoin": {
-          "tokenId": "bdtcoin",
-          "attentionScore": 65,
-          "hypeScore": 57,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
         },
         "kamino": {
           "tokenId": "kamino",

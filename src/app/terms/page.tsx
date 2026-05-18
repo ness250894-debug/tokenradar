@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 const lastUpdated = "May 13, 2026";
+const PAGE_DESCRIPTION =
+  "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description:
-    "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/terms",
   },
-  openGraph: {
-    title: "Terms of Service",
-    description:
-      "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
-  },
-  twitter: {
-    title: "Terms of Service",
-    description:
-      "Token Radar terms of service - usage rules, limitations, and legal information for the public TokenRadar website.",
-  },
+  openGraph: buildOpenGraphMetadata({ title: "Terms of Service", description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: "Terms of Service", description: PAGE_DESCRIPTION }),
 };
 
 export default function TermsPage() {

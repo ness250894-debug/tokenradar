@@ -3,7 +3,7 @@ import * as path from "path";
 import { describe, expect, it } from "vitest";
 
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
-import { type Article, type TokenDetail } from "../src/lib/content-loader";
+import { type Article, type TokenDetail, type UpcomingTge } from "../src/lib/content-loader";
 import {
   canonicalPath,
   canonicalUrl,
@@ -120,6 +120,11 @@ function loadTokenDetails(): Record<string, TokenDetail> {
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as Record<string, TokenDetail>;
 }
 
+function loadUpcomingTges(): UpcomingTge[] {
+  const filePath = path.join(process.cwd(), "data/upcoming-tges.json");
+  return JSON.parse(fs.readFileSync(filePath, "utf-8")) as UpcomingTge[];
+}
+
 function loadOverviewArticle(tokenId: string): Article | null {
   const filePath = path.join(process.cwd(), "content/tokens", tokenId, "overview.json");
   if (!fs.existsSync(filePath)) return null;
@@ -191,6 +196,19 @@ describe("generated sitemaps", () => {
 
       const overview = loadOverviewArticle(tokenId);
       expect(isTokenOverviewIndexable(detail, overview), `${tokenId} should be indexable if it is in sitemap-tokens.xml`).toBe(true);
+    }
+  });
+
+  it("does not list graduated upcoming pages that canonicalize to live token profiles", () => {
+    const sitemap = fs.readFileSync(path.join(process.cwd(), "public/sitemap-main.xml"), "utf-8");
+    const locs = new Set(extractLocs(sitemap));
+    const detailsById = loadTokenDetails();
+    const graduatedWithLiveProfiles = loadUpcomingTges()
+      .filter((tge) => tge.status === "released" && detailsById[tge.id])
+      .map((tge) => tge.id);
+
+    for (const tokenId of graduatedWithLiveProfiles) {
+      expect(locs.has(`https://tokenradar.co/upcoming/${tokenId}`), `${tokenId} should not be duplicated in sitemap-main.xml`).toBe(false);
     }
   });
 });
