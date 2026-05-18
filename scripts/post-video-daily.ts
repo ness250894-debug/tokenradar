@@ -30,6 +30,7 @@ import {
   VIDEO_COOLDOWN_DAYS,
   VIDEO_FORMAT_COOLDOWN_DAYS,
   getTelegramFooter,
+  TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
@@ -43,7 +44,7 @@ import {
   hasR2Credentials,
 } from "../src/lib/r2-client";
 import { buildR2VideoAssetKey } from "../src/lib/video-asset-r2";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import { hasSocialPost, recordAutomationRun, recordSocialPost } from "../src/lib/ops-ledger";
 import {
   hasTikTokManualReportCredentials,
   sendTikTokInboxUploadReport,
@@ -80,6 +81,18 @@ import {
   type VideoVisualRecipe,
 } from "../src/lib/video-recipes";
 import {
+  buildGeneratedFallbackAssetId,
+  buildVideoIdempotencyKey,
+  buildVideoProductionAlert,
+  classifyVideoPublishError,
+  filterVideoCandidatesByFreshness,
+  isTerminalVideoPublishStatus,
+  reconcilePlatformPublishState,
+  validatePlatformCopyPackage,
+  validateVideoMarketDataFreshness,
+  type VideoPublishStatus,
+} from "../src/lib/video-production-controls";
+import {
   type MetricData,
   type TokenData,
   cleanupExpiredCooldownFolders,
@@ -100,6 +113,7 @@ type PlatformRoute = PlatformName | "all" | "shorts";
 
 interface PlatformTracker {
   postedAt: string;
+  status?: VideoPublishStatus;
   messageId?: number;
   tweetId?: string;
   replyId?: string;
@@ -134,6 +148,13 @@ interface PlatformTracker {
   tiktokPrivacyLevel?: string;
   tiktokCreatorUsername?: string;
   deliveryMode?: "content-posting-api-direct" | "content-posting-api-inbox" | "direct" | "telegram-report-manual";
+  publishError?: string;
+  publishFailureClass?: string;
+  publishRetryable?: boolean;
+  idempotencyKey?: string;
+  manualPublishedAt?: string;
+  tiktokUrl?: string;
+  humanOperator?: string;
 }
 
 interface VideoTracker {
@@ -206,6 +227,49 @@ function getPlatformTrackerExternalId(tracker: PlatformTracker): string | number
     tracker.publishId ??
     tracker.reportVideoMessageId ??
     tracker.reportSummaryMessageId;
+}
+
+function shouldRecordPublishedSocialPost(tracker: PlatformTracker): boolean {
+  return tracker.status === "published" ||
+    tracker.status === "manual_handoff_sent" ||
+    tracker.status === "manual_published";
+}
+
+function isPlatformCompleteForRun(tracker: PlatformTracker | undefined): boolean {
+  if (!tracker) return false;
+  return tracker.status ? isTerminalVideoPublishStatus(tracker.status) : Boolean(getPlatformTrackerExternalId(tracker));
+}
+
+function ensureRiskDisclaimer(text: string): string {
+  const normalized = text.toLowerCase();
+  if (
+    normalized.includes("not financial advice") ||
+    normalized.includes("research signal") ||
+    normalized.includes("confirm liquidity")
+  ) {
+    return text;
+  }
+
+  return [text.trim(), TELEGRAM_SIGNAL_NOTE].filter(Boolean).join("\n\n");
+}
+
+function failWithVideoAlert(
+  failureClass: Parameters<typeof buildVideoProductionAlert>[0]["failureClass"],
+  videoDate: string,
+  format: string,
+  message: string,
+  platform?: PlatformName,
+): never {
+  const alert = buildVideoProductionAlert({
+    failureClass,
+    workflowRunId: process.env.GITHUB_RUN_ID || process.env.TOKENRADAR_RUN_ID,
+    videoDate,
+    format,
+    platform,
+  });
+  console.error(`  ${alert.message}`);
+  console.error(`  Runbook: ${alert.nextRunbookAction}`);
+  throw new Error(message);
 }
 
 function cleanupFile(filePath: string): void {
@@ -588,8 +652,12 @@ function getPlatformVideoAsset(
   return asset;
 }
 
-function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
+function getPlatformTrackerFields(
+  asset: PlatformVideoAsset,
+  context: { date: string; tokenId: string; forceId?: string },
+): Pick<
   PlatformTracker,
+  | "idempotencyKey"
   | "formatKey"
   | "formatLabel"
   | "formatFamily"
@@ -606,7 +674,28 @@ function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
   | "mediaFallbackWarnings"
   | "mediaStage"
 > {
+  const mediaAssetIds = asset.mediaAssets.length > 0
+    ? asset.mediaAssets.map((mediaAsset) => mediaAsset.id)
+    : asset.mediaFallbackLevel === "generated-only"
+      ? [
+        buildGeneratedFallbackAssetId({
+          date: context.date,
+          platform: asset.platform,
+          tokenId: context.tokenId,
+          formatKey: asset.format.key as string,
+          recipeKey: asset.visualRecipe.key,
+        }),
+      ]
+      : [];
+
   return {
+    idempotencyKey: buildVideoIdempotencyKey({
+      date: context.date,
+      format: asset.format.key as string,
+      tokenId: context.tokenId,
+      platform: asset.platform,
+      forceId: context.forceId,
+    }),
     formatKey: asset.format.key as VideoFormatKey,
     formatLabel: asset.format.label,
     formatFamily: asset.format.family,
@@ -616,7 +705,7 @@ function getPlatformTrackerFields(asset: PlatformVideoAsset): Pick<
     audioStartSeconds: asset.audioTrack.startSeconds,
     visualRecipeKey: asset.visualRecipe.key,
     visualRecipe: asset.visualRecipe,
-    mediaAssetIds: asset.mediaAssets.map((mediaAsset) => mediaAsset.id),
+    mediaAssetIds,
     mediaAssets: asset.mediaAssets,
     mediaSegments: asset.mediaSegments,
     mediaFallbackLevel: asset.mediaFallbackLevel,
@@ -665,7 +754,7 @@ function getRequestedPlatforms(
 
 function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: PlatformName[]): boolean {
   if (!tracker) return false;
-  return requestedPlatforms.every((platform) => !!tracker.platforms?.[platform]);
+  return requestedPlatforms.every((platform) => isPlatformCompleteForRun(tracker.platforms?.[platform]));
 }
 
 function extractInstagramContent(caption: string | undefined): { caption: string; hashtags: string[] } {
@@ -789,9 +878,20 @@ async function main() {
   const tiktokCredentialMode = runTikTok && hasTikTokApiCredentialsConfigured ? getTikTokCredentialMode() : "sandbox";
   const hasTikTokReportCredentials = hasTikTokManualReportCredentials();
   const shouldRunTikTokDirect = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "production";
-  const shouldRunTikTokInbox = runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "sandbox";
+  const shouldRunTikTokInbox = runTikTok &&
+    hasTikTokApiCredentialsConfigured &&
+    tiktokCredentialMode === "sandbox" &&
+    (dryRun || hasTikTokReportCredentials);
   const shouldRunTikTokManual = runTikTok && !hasTikTokApiCredentialsConfigured && (dryRun || hasTikTokReportCredentials);
   const shouldRunTikTok = runTikTok && (dryRun || shouldRunTikTokDirect || shouldRunTikTokInbox || shouldRunTikTokManual);
+  const intendedPlatforms = getRequestedPlatforms(
+    runTelegram,
+    runX,
+    runYouTube,
+    runInstagram,
+    runThreads,
+    runTikTok,
+  );
   const requestedPlatforms = getRequestedPlatforms(
     runTelegram,
     runX,
@@ -805,13 +905,6 @@ async function main() {
     !force && fs.existsSync(trackerFile)
       ? safeReadJson<VideoTracker | null>(trackerFile, null)
       : null;
-
-  if (!dryRun && isTrackerComplete(existingTracker, requestedPlatforms)) {
-    console.log(
-      `  Daily video already published for requested platforms (${requestedPlatforms.join(", ")}) at ${existingTracker?.postedAt}. Exiting.`,
-    );
-    return;
-  }
 
   if (!dryRun) {
     if (runTelegram && (!process.env.TELEGRAM_BOT_TOKEN || !channelId)) {
@@ -844,19 +937,56 @@ async function main() {
       console.warn("  Missing TikTok API credentials and Telegram reporting credentials. Skipping TikTok.");
       if (targetPlatform === "tiktok") process.exit(1);
     }
+    if (runTikTok && hasTikTokApiCredentialsConfigured && tiktokCredentialMode === "sandbox" && !hasTikTokReportCredentials) {
+      console.warn("  Missing Telegram reporting credentials for TikTok sandbox handoff. Skipping TikTok.");
+      if (targetPlatform === "tiktok") process.exit(1);
+    }
+    if (requestedPlatforms.length === 0) {
+      failWithVideoAlert(
+        "allPlatformsBlocked",
+        today,
+        targetPlatform,
+        "No requested video platforms are publishable with the current credentials.",
+      );
+    }
   }
+  const skippedByMissingCredentials = intendedPlatforms.filter((platform) => !requestedPlatforms.includes(platform));
 
   console.log("Step 1: Loading candidate tokens...");
   const metricsDir = path.join(DATA_DIR, "metrics");
-  const {
-    candidates: candidateTokens,
-    allRegistry: allTokensRegistry,
-    onWebsiteIds,
-  } = await loadCandidateTokens(DATA_DIR, 1, 50);
+  const loadedCandidates = await loadCandidateTokens(DATA_DIR, 1, 50);
+  const allTokensRegistry = loadedCandidates.allRegistry;
+  const onWebsiteIds = loadedCandidates.onWebsiteIds;
+  const metricCache = new Map<string, MetricData | undefined>();
+  const readMetric = (tokenId: string): MetricData | undefined => {
+    if (metricCache.has(tokenId)) return metricCache.get(tokenId);
+    const metricFile = path.join(metricsDir, `${tokenId}.json`);
+    const metric = fs.existsSync(metricFile)
+      ? safeReadJson<MetricData>(metricFile, undefined as unknown as MetricData) || undefined
+      : undefined;
+    metricCache.set(tokenId, metric);
+    return metric;
+  };
+  const freshnessNow = new Date();
+  const candidateTokens = filterVideoCandidatesByFreshness(loadedCandidates.candidates, {
+    now: freshnessNow,
+    metric: undefined,
+  }).filter((token) => {
+    const metric = readMetric(token.id);
+    return validateVideoMarketDataFreshness({ token, metric, now: freshnessNow }).ok;
+  });
+  const rejectedForFreshness = loadedCandidates.candidates.length - candidateTokens.length;
+  if (rejectedForFreshness > 0) {
+    console.warn(`  Skipped ${rejectedForFreshness} token(s) with stale or invalid video market data.`);
+  }
 
   if (candidateTokens.length === 0) {
-    console.error("  No tokens found.");
-    process.exit(1);
+    failWithVideoAlert(
+      "marketDataStale",
+      today,
+      targetPlatform,
+      "No tokens passed video market-data freshness checks.",
+    );
   }
 
   const todayPosted = force ? new Set<string>() : getTodayPostedTokens(DATA_DIR, today);
@@ -921,22 +1051,90 @@ async function main() {
       }
     }
 
+    for (const platform of requestedPlatforms) {
+      const platformTracker = existingTracker?.platforms?.[platform];
+      const reconciliation = reconcilePlatformPublishState({
+        platform,
+        d1HasPublishedState: d1AlreadyPublished.has(platform),
+        tracker: platformTracker || null,
+      });
+      if (reconciliation.shouldBackfillD1 && platformTracker) {
+        await recordSocialPost({
+          platform,
+          contentKey: getVideoSocialPostKey(today, targetToken.id, platform),
+          externalId: getPlatformTrackerExternalId(platformTracker),
+          postedAt: platformTracker.postedAt || existingTracker?.postedAt || new Date().toISOString(),
+          details: {
+            tokenId: targetToken.id,
+            tokenName: targetToken.name,
+            reason,
+            requestedPlatform: targetPlatform,
+            status: platformTracker.status || "published",
+            reconciledFromTracker: true,
+            variantSurface: "video",
+          },
+        });
+        d1AlreadyPublished.add(platform);
+      }
+    }
+
     if (d1AlreadyPublished.size === requestedPlatforms.length) {
       console.log(
         `  Daily video already published for requested platforms (${requestedPlatforms.join(", ")}) according to D1. Exiting.`,
       );
       return;
     }
+
+    if (isTrackerComplete(existingTracker, requestedPlatforms)) {
+      console.log(
+        `  Daily video already published for requested platforms (${requestedPlatforms.join(", ")}) at ${existingTracker?.postedAt}. Exiting.`,
+      );
+      return;
+    }
   }
 
-  let targetMetric: MetricData | undefined;
-  const metricsFile = path.join(metricsDir, `${targetToken.id}.json`);
-  if (fs.existsSync(metricsFile)) {
-    targetMetric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
+  const targetMetric = readMetric(targetToken.id);
+  const targetFreshness = validateVideoMarketDataFreshness({
+    token: targetToken,
+    metric: targetMetric,
+    now: new Date(),
+  });
+  if (!targetFreshness.ok) {
+    failWithVideoAlert(
+      "marketDataStale",
+      today,
+      targetPlatform,
+      `Selected token ${targetToken.id} failed video market-data freshness checks: ${targetFreshness.issues.join(", ")}`,
+    );
+  }
+  console.log(`  Market data as of: ${targetFreshness.asOf || "unknown"}`);
+  const videoAutomationRunId = [
+    "post-video-daily",
+    today,
+    targetPlatform,
+    targetToken.id,
+    process.env.GITHUB_RUN_ID || process.env.TOKENRADAR_RUN_ID || process.pid,
+  ].join(":");
+  if (!dryRun) {
+    await recordAutomationRun({
+      id: videoAutomationRunId,
+      workflow: "post-video-daily",
+      slot: targetPlatform,
+      status: "started",
+      details: {
+        tokenId: targetToken.id,
+        tokenName: targetToken.name,
+        requestedPlatforms,
+        marketDataAsOf: targetFreshness.asOf,
+        metricsAsOf: targetFreshness.metricAsOf,
+      },
+    });
   }
 
   const context = {
     ...targetMetric,
+    marketDataAsOf: targetFreshness.asOf,
+    metricsAsOf: targetFreshness.metricAsOf,
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
@@ -1292,6 +1490,55 @@ async function main() {
       }
     }
 
+    if (shouldRunYouTube && ytMetadata.description) {
+      ytMetadata = {
+        ...ytMetadata,
+        description: ensureRiskDisclaimer(ytMetadata.description),
+      };
+    }
+    if (shouldRunTikTok && tiktokCaption) {
+      tiktokCaption = normalizeTikTokCaption(ensureRiskDisclaimer(tiktokCaption));
+    }
+
+    const copyValidation = [
+      runTelegram
+        ? { platform: "telegram" as const, caption: buildTelegramMediaCaption(tgMessage, getTelegramFooter(targetToken.symbol), {
+          maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
+          bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.VIDEO_AI_SUMMARY_CHARS,
+        }) }
+        : null,
+      runX ? { platform: "x" as const, caption: xMessage } : null,
+      shouldRunYouTube
+        ? { platform: "youtube" as const, title: ytMetadata.title, description: ytMetadata.description }
+        : null,
+      shouldRunInstagram && igVideoUrl
+        ? { platform: "instagram" as const, caption: igContent.caption }
+        : null,
+      shouldRunThreads && threadsVideoUrl
+        ? { platform: "threads" as const, caption: threadsContent.caption, topicTag: threadsContent.topicTag }
+        : null,
+      shouldRunTikTok
+        ? {
+          platform: "tiktok" as const,
+          caption: tiktokCaption,
+          privacyLevel: shouldRunTikTokDirect ? process.env.TIKTOK_PRIVACY_LEVEL || "PUBLIC_TO_EVERYONE" : undefined,
+        }
+        : null,
+    ].filter((item): item is NonNullable<typeof item> => Boolean(item));
+
+    for (const copyPackage of copyValidation) {
+      const result = validatePlatformCopyPackage(copyPackage);
+      if (!result.ok) {
+        failWithVideoAlert(
+          "platformPublishFailed",
+          today,
+          targetPlatform,
+          `${copyPackage.platform} copy validation failed: ${result.issues.join(", ")}`,
+          copyPackage.platform,
+        );
+      }
+    }
+
     if (dryRun) {
       console.log();
       console.log("=== DRY RUN MODE ===");
@@ -1384,10 +1631,38 @@ async function main() {
       platform: targetPlatform,
       platforms: { ...(existingTracker?.platforms || {}) },
     };
+    const trackerContext = {
+      date: today,
+      tokenId: targetToken.id,
+      forceId: force ? process.env.GITHUB_RUN_ATTEMPT || process.env.GITHUB_RUN_ID || String(Date.now()) : undefined,
+    };
+    const trackerFields = (asset: PlatformVideoAsset) => getPlatformTrackerFields(asset, trackerContext);
+    const failedTracker = (error: unknown, asset?: PlatformVideoAsset): PlatformTracker => {
+      const classification = classifyVideoPublishError(error);
+      return {
+        postedAt: new Date().toISOString(),
+        status: classification.status,
+        publishError: classification.diagnostic,
+        publishFailureClass: classification.failureClass,
+        publishRetryable: classification.retryable,
+        ...(asset ? trackerFields(asset) : {}),
+      };
+    };
+
     for (const platform of d1AlreadyPublished) {
       if (!trackerState.platforms[platform]) {
         trackerState.platforms[platform] = {
           postedAt: existingTracker?.postedAt || new Date().toISOString(),
+          status: "published",
+        };
+      }
+    }
+    for (const platform of skippedByMissingCredentials) {
+      if (!trackerState.platforms[platform]) {
+        trackerState.platforms[platform] = {
+          postedAt: new Date().toISOString(),
+          status: "skipped_by_missing_credentials",
+          publishError: "Platform credentials or required staging/reporting credentials were not configured.",
         };
       }
     }
@@ -1411,15 +1686,16 @@ async function main() {
               platform: "telegram" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 messageId: msgId,
                 caption,
-                ...getPlatformTrackerFields(telegramAsset),
+                ...trackerFields(telegramAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-telegram", error, false);
             console.error(`Telegram video post failed: ${formatErrorForLog(error)}`);
-            return { platform: "telegram" as const, tracker: null };
+            return { platform: "telegram" as const, tracker: failedTracker(error, platformVideos.get("telegram")) };
           }
         })(),
       );
@@ -1448,16 +1724,17 @@ async function main() {
               platform: "x" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 tweetId,
                 replyId,
                 xText: xMessage,
-                ...getPlatformTrackerFields(xAsset),
+                ...trackerFields(xAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-x", error, false);
             console.error(`X video post failed: ${formatErrorForLog(error)}`);
-            return { platform: "x" as const, tracker: null };
+            return { platform: "x" as const, tracker: failedTracker(error, platformVideos.get("x")) };
           }
         })(),
       );
@@ -1484,16 +1761,17 @@ async function main() {
               platform: "youtube" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 videoId,
                 youtubeTitle: ytMetadata.title,
                 youtubeDescription: ytMetadata.description,
-                ...getPlatformTrackerFields(youtubeAsset),
+                ...trackerFields(youtubeAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-youtube", error, false);
             console.error(`YouTube video post failed: ${formatErrorForLog(error)}`);
-            return { platform: "youtube" as const, tracker: null };
+            return { platform: "youtube" as const, tracker: failedTracker(error, platformVideos.get("youtube")) };
           }
         })(),
       );
@@ -1513,15 +1791,16 @@ async function main() {
               platform: "instagram" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 postId: result.id,
                 caption: igContent.caption,
-                ...getPlatformTrackerFields(instagramAsset),
+                ...trackerFields(instagramAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-instagram", error, false);
             console.error(`Instagram Reel post failed: ${formatErrorForLog(error)}`);
-            return { platform: "instagram" as const, tracker: null };
+            return { platform: "instagram" as const, tracker: failedTracker(error, platformVideos.get("instagram")) };
           }
         })(),
       );
@@ -1546,15 +1825,16 @@ async function main() {
               platform: "threads" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 postId: result.id,
                 caption: threadsContent.caption,
-                ...getPlatformTrackerFields(threadsAsset),
+                ...trackerFields(threadsAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-threads", error, false);
             console.error(`Threads video post failed: ${formatErrorForLog(error)}`);
-            return { platform: "threads" as const, tracker: null };
+            return { platform: "threads" as const, tracker: failedTracker(error, platformVideos.get("threads")) };
           }
         })(),
       );
@@ -1575,6 +1855,7 @@ async function main() {
               platform: "tiktok" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "published",
                 publishId: result.publishId,
                 tiktokStatus: result.status?.status,
                 tiktokFailReason: result.status?.fail_reason,
@@ -1582,13 +1863,13 @@ async function main() {
                 tiktokPrivacyLevel: result.privacyLevel,
                 tiktokCreatorUsername: result.creatorInfo?.creator_username,
                 deliveryMode: "content-posting-api-direct" as const,
-                ...getPlatformTrackerFields(tiktokAsset),
+                ...trackerFields(tiktokAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-tiktok-direct", error, false);
             console.error(`TikTok direct post failed: ${formatErrorForLog(error)}`);
-            return { platform: "tiktok" as const, tracker: null };
+            return { platform: "tiktok" as const, tracker: failedTracker(error, platformVideos.get("tiktok")) };
           }
         })(),
       );
@@ -1636,6 +1917,7 @@ async function main() {
               platform: "tiktok" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: reportSummaryMessageId ? "manual_handoff_sent" : "uploaded",
                 publishId: result.publishId,
                 tiktokStatus: result.status?.status,
                 tiktokFailReason: result.status?.fail_reason,
@@ -1643,13 +1925,13 @@ async function main() {
                 reportSummaryMessageId,
                 reportCaptionMessageIds,
                 deliveryMode: "content-posting-api-inbox" as const,
-                ...getPlatformTrackerFields(tiktokAsset),
+                ...trackerFields(tiktokAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-tiktok-api", error, false);
             console.error(`TikTok API upload failed: ${formatErrorForLog(error)}`);
-            return { platform: "tiktok" as const, tracker: null };
+            return { platform: "tiktok" as const, tracker: failedTracker(error, platformVideos.get("tiktok")) };
           }
         })(),
       );
@@ -1675,17 +1957,18 @@ async function main() {
               platform: "tiktok" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
+                status: "manual_handoff_sent",
                 reportVideoMessageId: result.videoMessageId,
                 reportCaptionMessageIds: result.captionMessageIds,
                 tiktokCaption,
                 deliveryMode: "telegram-report-manual" as const,
-                ...getPlatformTrackerFields(tiktokAsset),
+                ...trackerFields(tiktokAsset),
               },
             };
           } catch (error) {
             await logError("post-video-daily-tiktok-manual", error, false);
             console.error(`TikTok manual report failed: ${formatErrorForLog(error)}`);
-            return { platform: "tiktok" as const, tracker: null };
+            return { platform: "tiktok" as const, tracker: failedTracker(error, platformVideos.get("tiktok")) };
           }
         })(),
       );
@@ -1695,24 +1978,27 @@ async function main() {
     for (const result of results) {
       if (result.tracker) {
         trackerState.platforms[result.platform] = result.tracker;
-        await recordSocialPost({
-          platform: result.platform,
-          contentKey: getVideoSocialPostKey(today, targetToken.id, result.platform),
-          externalId: getPlatformTrackerExternalId(result.tracker),
-          postedAt: result.tracker.postedAt,
-          details: {
-            tokenId: targetToken.id,
-            tokenName: targetToken.name,
-            reason,
-            requestedPlatform: targetPlatform,
-            formatKey: result.tracker.formatKey,
-            formatLabel: result.tracker.formatLabel,
-            visualRecipeKey: result.tracker.visualRecipeKey,
-            mediaAssetIds: result.tracker.mediaAssetIds,
-            deliveryMode: result.tracker.deliveryMode,
-            variantSurface: "video",
-          },
-        });
+        if (shouldRecordPublishedSocialPost(result.tracker)) {
+          await recordSocialPost({
+            platform: result.platform,
+            contentKey: getVideoSocialPostKey(today, targetToken.id, result.platform),
+            externalId: getPlatformTrackerExternalId(result.tracker),
+            postedAt: result.tracker.postedAt,
+            details: {
+              tokenId: targetToken.id,
+              tokenName: targetToken.name,
+              reason,
+              requestedPlatform: targetPlatform,
+              status: result.tracker.status,
+              formatKey: result.tracker.formatKey,
+              formatLabel: result.tracker.formatLabel,
+              visualRecipeKey: result.tracker.visualRecipeKey,
+              mediaAssetIds: result.tracker.mediaAssetIds,
+              deliveryMode: result.tracker.deliveryMode,
+              variantSurface: "video",
+            },
+          });
+        }
       }
     }
 
@@ -1729,15 +2015,41 @@ async function main() {
       }
     }
 
-    const remainingPlatforms = requestedPlatforms.filter((platform) => !trackerState.platforms[platform]);
+    const remainingPlatforms = requestedPlatforms.filter((platform) => !isPlatformCompleteForRun(trackerState.platforms[platform]));
     if (remainingPlatforms.length > 0) {
       trackerState.postedAt = new Date().toISOString();
       fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
+      await recordAutomationRun({
+        id: videoAutomationRunId,
+        workflow: "post-video-daily",
+        slot: targetPlatform,
+        status: "failed",
+        finishedAt: new Date().toISOString(),
+        details: {
+          tokenId: targetToken.id,
+          tokenName: targetToken.name,
+          remainingPlatforms,
+          requestedPlatforms,
+        },
+      });
       throw new Error(`Failed to publish daily video to: ${remainingPlatforms.join(", ")}`);
     }
 
     trackerState.postedAt = new Date().toISOString();
     fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
+    await recordAutomationRun({
+      id: videoAutomationRunId,
+      workflow: "post-video-daily",
+      slot: targetPlatform,
+      status: "success",
+      finishedAt: trackerState.postedAt,
+      details: {
+        tokenId: targetToken.id,
+        tokenName: targetToken.name,
+        requestedPlatforms,
+        skippedByMissingCredentials,
+      },
+    });
   } finally {
     if (!keepOutput) {
       for (const asset of platformVideos.values()) {
