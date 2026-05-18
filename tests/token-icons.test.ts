@@ -41,15 +41,14 @@ describe("token icon candidates", () => {
   });
 
   it("rejects token icon responses that declare an oversized content length", async () => {
-    const arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(1));
-    vi.stubGlobal("fetch", vi.fn<typeof fetch>().mockResolvedValue({
-      ok: true,
-      headers: new Headers({
+    const response = new Response(new ArrayBuffer(1), {
+      headers: {
         "content-type": "image/png",
         "content-length": String(2_000_000),
-      }),
-      arrayBuffer,
-    } as Response));
+      },
+    });
+    const arrayBuffer = vi.spyOn(response, "arrayBuffer");
+    vi.stubGlobal("fetch", vi.fn<typeof fetch>().mockResolvedValue(response));
 
     await expect(fetchTokenIconDataUrl({
       symbol: "",
