@@ -24,7 +24,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
-import { getArticleQualityThresholds, PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
+import { evaluateArticleQuality, getArticleQualityThresholds, PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
 import { validateArticleOutboundUrls, validateGeneratedArticleIntegrity } from "./validate-content";
 
 // Load environment
@@ -258,6 +258,17 @@ async function checkArticle(
     warnings.push(`Average sentence length high: ${avgSentenceLength} words (target <30)`);
   }
 
+  const finalQuality = evaluateArticleQuality({
+    type: raw.type,
+    slug: raw.slug,
+    title: raw.title,
+    content,
+  });
+  addUniqueIssues(issues, finalQuality.issues);
+  for (const warning of finalQuality.warnings) {
+    if (!warnings.includes(warning)) warnings.push(warning);
+  }
+
   addUniqueIssues(issues, [
     ...validateGeneratedArticleIntegrity(filePath, raw),
     ...validateArticleOutboundUrls(filePath, raw),
@@ -271,12 +282,12 @@ async function checkArticle(
     issues,
     warnings,
     stats: {
-      wordCount,
-      hasFaq,
-      hasDisclaimer: hasDisclaimer || autoFix,
-      dataPointCount,
-      prohibitedPhrases: foundProhibited,
-      avgSentenceLength,
+      wordCount: finalQuality.stats.wordCount,
+      hasFaq: finalQuality.stats.hasFaq,
+      hasDisclaimer: finalQuality.stats.hasDisclaimer,
+      dataPointCount: finalQuality.stats.dataPointCount,
+      prohibitedPhrases: finalQuality.stats.prohibitedPhrases,
+      avgSentenceLength: finalQuality.stats.avgSentenceLength,
     },
   };
 }

@@ -62,17 +62,42 @@ function makeTokenDetail(volume24h: number): TokenDetail {
 
 function makeArticle(wordCount: number): Article {
   const requiredText = [
-    "$1.00",
-    "2.00%",
-    "1,000",
+    "Test Token overview uses market data, liquidity, and historical context to frame the asset as a research fixture.",
+    "| Editorial Check | How to Use It |\n| :--- | :--- |\n| Price | Compare the $1.00 fixture price with volatility and volume. |\n| Change | Treat the 2.00% move as context, not a signal. |\n| Supply | Review the 1,000 unit supply figure with market depth. |",
+    "## Market Context",
+    "The fixture article stays neutral, cites numeric context, and avoids recommendation language.",
     "## FAQ",
-    "What is Test Token?",
-    "Test Token is a research fixture.",
-    "Disclaimer: This article is for informational purposes only and does not constitute financial advice.",
-  ].join(" ");
+    "**What is Test Token?**\n\nTest Token is a research fixture for SEO quality tests.\n\n**How should readers use this page?**\n\nReaders should compare the data points with liquidity, volatility, and source quality.\n\n**What risks matter for Test Token?**\n\nLiquidity, stale market data, and unsupported claims are the main test risks.",
+    "---\n*Disclaimer: This article is for informational purposes only and does not constitute financial advice. Always do your own research (DYOR).*",
+  ].join("\n\n");
   const requiredWordCount = requiredText.split(/\s+/).filter(Boolean).length;
-  const filler = Array(Math.max(0, wordCount - requiredWordCount)).fill("analysis").join(" ");
-  const content = `${filler}\n\n${requiredText}`.trim();
+  const fillerWords = [
+    "market",
+    "liquidity",
+    "volatility",
+    "context",
+    "history",
+    "supply",
+    "ranking",
+    "volume",
+    "sector",
+    "activity",
+    "research",
+    "comparison",
+    "metric",
+    "trend",
+    "scenario",
+    "drawdown",
+    "cycle",
+    "participation",
+    "depth",
+    "signal",
+  ];
+  const filler = Array.from({ length: Math.max(0, wordCount - requiredWordCount) }, (_, index) => fillerWords[index % fillerWords.length]).join(" ");
+  const content = requiredText.replace(
+    "The fixture article stays neutral, cites numeric context, and avoids recommendation language.",
+    `The fixture article stays neutral, cites numeric context, and avoids recommendation language. ${filler}`.trim(),
+  );
 
   return {
     tokenId: "test-token",

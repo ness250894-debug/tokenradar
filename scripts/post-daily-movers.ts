@@ -18,6 +18,7 @@ import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegra
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
@@ -196,7 +197,7 @@ ${TELEGRAM_SIGNAL_NOTE}
 #Crypto #TokenRadar #MarketMovers
 `;
 
-    const sanitizedCaption = buildTelegramMediaCaption(caption, tgFooter, {
+    const sanitizedCaption = buildTelegramMediaCaption(sanitizeSocialEditorialText(caption), tgFooter, {
       maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
       bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS,
     });

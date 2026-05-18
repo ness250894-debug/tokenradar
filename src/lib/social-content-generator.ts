@@ -5,6 +5,7 @@
  */
 
 import { callAIWithFallback, type MarketContext } from "./gemini";
+import { sanitizeSocialEditorialText } from "./social-editorial";
 
 export interface VideoHookFormatContext {
   label: string;
@@ -63,7 +64,7 @@ export async function generateHookText(
     1024,
   );
 
-  const hook = result.content.trim().replace(/^["']|["']$/g, "").toUpperCase();
+  const hook = sanitizeSocialEditorialText(result.content).trim().replace(/^["']|["']$/g, "").toUpperCase();
   return hook.length > maxChars ? hook.substring(0, maxChars).trim() : hook;
 }
 

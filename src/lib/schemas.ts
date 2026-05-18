@@ -20,6 +20,9 @@ export const ArticleQualitySnapshotSchema = z.object({
     repeatedParagraphCount: z.number().min(0),
     hasMalformedTable: z.boolean(),
     hasContinuationLink: z.boolean(),
+    hasEarlySummaryTable: z.boolean().optional(),
+    faqQuestionCount: z.number().min(0).optional(),
+    hasStandardDisclaimer: z.boolean().optional(),
   }),
   checkedAt: IsoDateStringSchema,
 });

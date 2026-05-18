@@ -182,17 +182,14 @@ export function validateGeneratedArticleIntegrity(filePath: string, parsed: unkn
 
   if (typeof article.content !== "string" || article.content.trim().length === 0) {
     errors.push("Generated article content is empty");
-  } else {
+  } else if (errors.length === 0) {
     const quality = evaluateArticleQuality({
       type: typeof article.type === "string" ? article.type : undefined,
       slug: typeof article.slug === "string" ? article.slug : slug,
       title: typeof article.title === "string" ? article.title : undefined,
       content: article.content,
     });
-    const blockingQualityIssues = quality.issues.filter((issue) =>
-      issue.startsWith("Repeated filler paragraphs") || issue.startsWith("Malformed Markdown table"),
-    );
-    errors.push(...blockingQualityIssues);
+    errors.push(...quality.issues);
   }
 
   if (

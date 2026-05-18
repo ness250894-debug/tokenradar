@@ -27,4 +27,17 @@ describe("TikTok caption preparation", () => {
     expect(prepared).toContain("#BTC #Crypto #TokenRadar");
     expect(prepared).not.toMatch(/#[A-Za-z0-9_]*\.\.\./);
   });
+
+  it("sanitizes advice and hype language before publishing", () => {
+    const prepared = prepareTikTokCaptionForPublishing(
+      "Buy now before this moonshot goes 100x. Guaranteed returns. #Crypto",
+      "sol",
+    );
+
+    expect(prepared.toLowerCase()).not.toContain("buy now");
+    expect(prepared.toLowerCase()).not.toContain("moonshot");
+    expect(prepared.toLowerCase()).not.toContain("100x");
+    expect(prepared.toLowerCase()).not.toContain("guaranteed returns");
+    expect(prepared).toContain("Review the data");
+  });
 });

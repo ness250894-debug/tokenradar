@@ -14,7 +14,8 @@
     "passed": true,
     "issues": [],
     "warnings": [
-      "Word count borderline: 808 (target 1000+)"
+      "Word count borderline: 808 (target 1000+)",
+      "Disclaimer does not match the exact standard wording"
     ],
     "stats": {
       "wordCount": 808,
@@ -25,8 +26,11 @@
       "avgSentenceLength": 13,
       "repeatedParagraphCount": 0,
       "hasMalformedTable": false,
-      "hasContinuationLink": true
+      "hasContinuationLink": true,
+      "hasEarlySummaryTable": true,
+      "faqQuestionCount": 4,
+      "hasStandardDisclaimer": false
     },
-    "checkedAt": "2026-05-14T12:15:44.523Z"
+    "checkedAt": "2026-05-18T08:32:10.418Z"
   }
 }
