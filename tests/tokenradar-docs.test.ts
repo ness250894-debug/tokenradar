@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 const TOKENRADAR_DOC_JSON = path.join(process.cwd(), "docs", "tokenradar", "tokenradar.json");
 const TOKENRADAR_DOC_HTML = path.join(process.cwd(), "docs", "tokenradar", "tokenradar.html");
+const README_DOC_JSON = path.join(process.cwd(), "docs", "readme", "readme.json");
 
 const DOC_ARTIFACT_PATHS = [
   "docs/automations/automations.html",
@@ -71,6 +72,17 @@ describe("tokenradar project docs", () => {
       expect(artifact.rawMarkdown).toContain(artifactPath);
       expect(html).toContain(artifactPath);
     }
+  });
+
+  it("keeps docs/readme generated from the root README", () => {
+    const rootReadme = fs.readFileSync(path.join(process.cwd(), "README.md"), "utf-8");
+    const artifact = JSON.parse(fs.readFileSync(README_DOC_JSON, "utf-8")) as {
+      rawMarkdown?: string;
+      sourcePath?: string | null;
+    };
+
+    expect(artifact.sourcePath).toBe("README.md");
+    expect(artifact.rawMarkdown).toBe(rootReadme);
   });
 
   it("does not depend on the retired root TOKENRADAR.md source file", () => {
