@@ -3,7 +3,7 @@
   "symbol": "bdtc",
   "name": "BDTCOIN",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/55565/large/bdtc-logo.jpg?1746689719",
-  "description": "",
+  "description": "A cryptocurrency token known as BDTCOIN (BDTC). It is tracked on CoinGecko with the ID \"bdtcoin\".",
   "categories": [
     "Layer 1 (L1)",
     "Proof of Work (PoW)"
@@ -13,26 +13,26 @@
     "website": "https://www.bdtcoin.co/",
     "github": null,
     "reddit": null,
-    "explorer": "https://bdtcoin.info/"
+    "explorer": null
   },
   "market": {
-    "price": 17.58,
+    "price": 17.18,
     "marketCap": 50023658,
-    "marketCapRank": 497,
-    "volume24h": 2841095,
-    "high24h": 17.78,
-    "low24h": 17.48,
-    "priceChange24h": -0.62167,
-    "priceChange7d": -15.96271,
-    "priceChange30d": -33.27375,
-    "priceChange1y": -87.28343,
+    "marketCapRank": 491,
+    "volume24h": 2917594,
+    "high24h": 17.75,
+    "low24h": 17.18,
+    "priceChange24h": -3.21712,
+    "priceChange7d": -11.26588,
+    "priceChange30d": -32.61734,
+    "priceChange1y": -87.63331,
     "ath": 141.53,
-    "athChangePercentage": -87.57001,
+    "athChangePercentage": -87.85373,
     "athDate": "2025-05-24T05:27:22.386Z",
     "atl": 2.83,
     "atlDate": "2025-08-13T15:00:26.412Z",
     "circulatingSupply": 2575991.756826378,
-    "totalSupply": 41780901.69734562,
+    "totalSupply": 41783926.69734562,
     "maxSupply": 71000000,
     "fdv": 809333846
   },
@@ -45,5 +45,5 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-17T18:45:42.387Z"
+  "fetchedAt": "2026-05-18T10:39:10.592Z"
 }
