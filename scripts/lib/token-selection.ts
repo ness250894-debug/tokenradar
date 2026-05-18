@@ -24,6 +24,7 @@ export interface MetricData {
   riskScore: number;
   riskLevel: string;
   growthPotentialIndex: number;
+  computedAt?: string;
 }
 
 export interface TokenData {
@@ -31,6 +32,9 @@ export interface TokenData {
   symbol: string;
   name: string;
   imageUrl?: string;
+  fetchedAt?: string;
+  lastMarketUpdate?: string;
+  marketDataSource?: "coingecko-live" | "local-cache";
   rank: number;
   description?: string;
   community?: {
@@ -404,12 +408,23 @@ export async function loadCandidateTokens(
     const local: any = safeReadJson(path.join(tokensDir, f), null);
     if (!local || !local.id) return null;
     const fresh = freshMarkets.find((t) => t.id === local.id);
+    const freshRecord = fresh as Record<string, unknown> | undefined;
+    const freshMarketTimestamp = fresh
+      ? typeof freshRecord?.last_updated === "string" && freshRecord.last_updated
+        ? freshRecord.last_updated
+        : new Date().toISOString()
+      : undefined;
+    const localFetchedAt = typeof local.fetchedAt === "string" ? local.fetchedAt : undefined;
+    const localLastMarketUpdate = typeof local.lastMarketUpdate === "string" ? local.lastMarketUpdate : localFetchedAt;
 
     return {
       id: local.id,
       symbol: local.symbol,
       name: local.name,
       imageUrl: fresh?.image || local.imageUrl || local.image?.large || local.image?.small || undefined,
+      fetchedAt: freshMarketTimestamp || localFetchedAt,
+      lastMarketUpdate: freshMarketTimestamp || localLastMarketUpdate,
+      marketDataSource: fresh ? "coingecko-live" : "local-cache",
       rank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
       description: local.description || "",
       community: {

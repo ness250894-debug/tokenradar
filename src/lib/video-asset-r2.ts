@@ -37,6 +37,14 @@ function isStockProvider(asset: VideoAssetLayer): boolean {
   return asset.provider === "pexels" || asset.provider === "pixabay";
 }
 
+function hasTag(asset: VideoAssetLayer, tag: string): boolean {
+  return new Set(asset.tags || []).has(tag);
+}
+
+function hasCropSafeMetadata(asset: VideoAssetLayer): boolean {
+  return hasTag(asset, "crop-safe") || hasTag(asset, "crop_safe");
+}
+
 function validateAssetMetadata(asset: VideoAssetLayer, errors: string[]): void {
   if (!asset.id.trim()) errors.push("asset missing id");
   if (asset.source !== "local") errors.push(`${asset.id}: source must be local for R2 b-roll publish`);
@@ -50,6 +58,24 @@ function validateAssetMetadata(asset: VideoAssetLayer, errors: string[]): void {
   if (isStockProvider(asset)) {
     if (!asset.sourcePageUrl) errors.push(`${asset.id}: missing sourcePageUrl`);
     if (!asset.attribution) errors.push(`${asset.id}: missing attribution`);
+    if (!asset.license) errors.push(`${asset.id}: missing license`);
+    if (!asset.safeStartOffsets?.length) errors.push(`${asset.id}: missing safeStartOffsets`);
+    if (asset.durationSeconds && asset.durationSeconds < 8) errors.push(`${asset.id}: duration below 8 seconds`);
+    if (asset.width && asset.height && (asset.width < 720 || asset.height < 1280)) {
+      errors.push(`${asset.id}: vertical stock clips must be at least 720x1280`);
+    }
+    if (asset.orientation === "horizontal" && !hasCropSafeMetadata(asset)) {
+      errors.push(`${asset.id}: horizontal stock clips require crop-safe metadata`);
+    }
+    if (asset.orientation === "square" && !hasCropSafeMetadata(asset)) {
+      errors.push(`${asset.id}: square stock clips require crop-safe metadata`);
+    }
+    if (hasTag(asset, "watermark") || hasTag(asset, "watermarked")) {
+      errors.push(`${asset.id}: watermarked assets are not allowed`);
+    }
+    if (hasTag(asset, "blocked") || hasTag(asset, "takedown")) {
+      errors.push(`${asset.id}: blocked by provider governance`);
+    }
   }
 }
 
