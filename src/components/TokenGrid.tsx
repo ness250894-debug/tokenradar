@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { ArrowUpDown, Filter, Search } from "lucide-react";
+import { ArrowUpDown, Filter, RotateCcw, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { trackEvent } from "@/lib/analytics";
 import { trackDirectoryFilter } from "@/lib/engagement-analytics";
 import { SEARCH_INTENT_LABELS, type SearchIntentType } from "@/lib/search-intent";
+import {
+  DEFAULT_TOKEN_DIRECTORY_STATE,
+  describeTokenFilters,
+  filterAndSortTokens,
+  hasActiveTokenFilters,
+  type TokenDirectoryState,
+} from "@/lib/directory-filters";
 
 interface TokenGridProps {
   tokens: TokenCardData[];
@@ -21,13 +28,22 @@ export function TokenGrid({
   initialVisibleCount = DEFAULT_TOKENS_PER_PAGE,
   searchPlaceholder = "Search tokens by name or symbol (e.g., BTC, Injective)...",
 }: TokenGridProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [riskFilter, setRiskFilter] = useState("all");
-  const [intentFilter, setIntentFilter] = useState("all");
-  const [attentionFilter, setAttentionFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("market-cap-desc");
+  const [searchQuery, setSearchQuery] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.searchQuery);
+  const [categoryFilter, setCategoryFilter] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.categoryFilter);
+  const [riskFilter, setRiskFilter] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.riskFilter);
+  const [intentFilter, setIntentFilter] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.intentFilter);
+  const [attentionFilter, setAttentionFilter] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.attentionFilter);
+  const [sortBy, setSortBy] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.sortBy);
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+
+  const directoryState: TokenDirectoryState = useMemo(() => ({
+    searchQuery,
+    categoryFilter,
+    riskFilter,
+    intentFilter,
+    attentionFilter,
+    sortBy,
+  }), [attentionFilter, categoryFilter, intentFilter, riskFilter, searchQuery, sortBy]);
 
   const categories = useMemo(() => {
     return Array.from(new Set(tokens.map((token) => token.category).filter(Boolean))).sort((a, b) =>
@@ -43,47 +59,7 @@ export function TokenGrid({
     return Array.from(intents).sort((a, b) => SEARCH_INTENT_LABELS[a].localeCompare(SEARCH_INTENT_LABELS[b]));
   }, [tokens]);
 
-  const filteredTokens = useMemo(() => {
-    const query = searchQuery.toLowerCase();
-    const filtered = tokens.filter((token) => {
-      const matchesQuery =
-        !query.trim() ||
-        token.name.toLowerCase().includes(query) ||
-        token.symbol.toLowerCase().includes(query) ||
-        token.category.toLowerCase().includes(query);
-
-      const matchesCategory = categoryFilter === "all" || token.category === categoryFilter;
-      const matchesRisk =
-        riskFilter === "all" ||
-        (riskFilter === "low" && token.riskScore <= 3) ||
-        (riskFilter === "medium" && token.riskScore > 3 && token.riskScore <= 6) ||
-        (riskFilter === "high" && token.riskScore > 6);
-      const matchesIntent = intentFilter === "all" || token.searchIntentPrimaryIntent === intentFilter;
-      const attentionScore = token.searchIntentAttentionScore || 0;
-      const hypeScore = token.searchIntentHypeScore || 0;
-      const supplyRiskScore = token.searchIntentSupplyRiskScore || 0;
-      const matchesAttention =
-        attentionFilter === "all" ||
-        (attentionFilter === "hot" && attentionScore >= 75) ||
-        (attentionFilter === "rising" && attentionScore >= 55) ||
-        (attentionFilter === "hype" && hypeScore >= 65) ||
-        (attentionFilter === "supply-risk" && supplyRiskScore >= 60);
-
-      return matchesQuery && matchesCategory && matchesRisk && matchesIntent && matchesAttention;
-    });
-
-    return [...filtered].sort((a, b) => {
-      if (sortBy === "name-asc") return a.name.localeCompare(b.name);
-      if (sortBy === "change-desc") return (b.priceChange24h || 0) - (a.priceChange24h || 0);
-      if (sortBy === "change-asc") return (a.priceChange24h || 0) - (b.priceChange24h || 0);
-      if (sortBy === "risk-asc") return a.riskScore - b.riskScore;
-      if (sortBy === "risk-desc") return b.riskScore - a.riskScore;
-      if (sortBy === "attention-desc") return (b.searchIntentAttentionScore || 0) - (a.searchIntentAttentionScore || 0);
-      if (sortBy === "hype-desc") return (b.searchIntentHypeScore || 0) - (a.searchIntentHypeScore || 0);
-      if (sortBy === "supply-risk-desc") return (b.searchIntentSupplyRiskScore || 0) - (a.searchIntentSupplyRiskScore || 0);
-      return (b.marketCap || 0) - (a.marketCap || 0);
-    });
-  }, [attentionFilter, categoryFilter, intentFilter, riskFilter, sortBy, tokens, searchQuery]);
+  const filteredTokens = useMemo(() => filterAndSortTokens(tokens, directoryState), [directoryState, tokens]);
 
   useEffect(() => {
     const term = searchQuery.trim();
@@ -130,8 +106,25 @@ export function TokenGrid({
     setVisibleCount(initialVisibleCount);
   };
 
+  const handleResetFilters = () => {
+    setSearchQuery(DEFAULT_TOKEN_DIRECTORY_STATE.searchQuery);
+    setCategoryFilter(DEFAULT_TOKEN_DIRECTORY_STATE.categoryFilter);
+    setRiskFilter(DEFAULT_TOKEN_DIRECTORY_STATE.riskFilter);
+    setIntentFilter(DEFAULT_TOKEN_DIRECTORY_STATE.intentFilter);
+    setAttentionFilter(DEFAULT_TOKEN_DIRECTORY_STATE.attentionFilter);
+    setSortBy(DEFAULT_TOKEN_DIRECTORY_STATE.sortBy);
+    setVisibleCount(initialVisibleCount);
+    trackEvent("directory_filters_reset", {
+      list_name: "tokens",
+      result_count: filteredTokens.length,
+      page_path: window.location.pathname,
+    });
+  };
+
   const visibleTokens = filteredTokens.slice(0, visibleCount);
   const hasMore = visibleCount < filteredTokens.length;
+  const hasActiveFilters = hasActiveTokenFilters(directoryState);
+  const emptyStateMessage = describeTokenFilters(directoryState);
 
   return (
     <div className="token-grid-container">
@@ -200,6 +193,16 @@ export function TokenGrid({
             </select>
           </label>
         </div>
+        <div className="directory-filter-meta" role="status" aria-live="polite">
+          <span>
+            {filteredTokens.length} result{filteredTokens.length === 1 ? "" : "s"} match the current directory view.
+          </span>
+          {hasActiveFilters && (
+            <button type="button" className="btn btn-secondary btn-sm" onClick={handleResetFilters}>
+              <RotateCcw size={14} aria-hidden="true" /> Reset
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Grid */}
@@ -224,8 +227,13 @@ export function TokenGrid({
             <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
             <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No tokens found</h3>
             <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
-              We couldn&apos;t find any tokens matching &quot;{searchQuery}&quot;.
+              {emptyStateMessage}
             </p>
+            {hasActiveFilters && (
+              <button type="button" className="btn btn-secondary" onClick={handleResetFilters} style={{ marginTop: "var(--space-md)" }}>
+                <RotateCcw size={16} aria-hidden="true" /> Reset filters
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -16,20 +16,20 @@ export default function TikTokCallbackPage() {
         <div className="article-content">
           <h1>TikTok Authorization</h1>
           {error ? (
-            <>
+            <div role="alert">
               <p>TikTok returned an authorization error.</p>
               <pre>{error}</pre>
-            </>
+            </div>
           ) : code ? (
-            <>
+            <div role="status" aria-live="polite">
               <p>Authorization completed. Use this code in the local token helper:</p>
               <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
                 {`npx tsx scripts/generate-tiktok-token.ts --code ${code}`}
               </pre>
               {state ? <p style={{ color: "var(--text-muted)" }}>State: {state}</p> : null}
-            </>
+            </div>
           ) : (
-            <p>No TikTok authorization code was found in this URL.</p>
+            <p role="status">No TikTok authorization code was found in this URL.</p>
           )}
           <p>
             <Link href="/">Return to TokenRadar</Link>

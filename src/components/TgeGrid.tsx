@@ -3,9 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpDown, Calendar, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from "lucide-react";
+import { ArrowUpDown, Calendar, CheckCircle2, ExternalLink, Filter, RotateCcw, Search, ShieldCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { trackDirectoryFilter } from "@/lib/engagement-analytics";
+import {
+  DEFAULT_TGE_DIRECTORY_STATE,
+  describeTgeFilters,
+  filterAndSortTges,
+  hasActiveTgeFilters,
+  type TgeDirectoryState,
+} from "@/lib/directory-filters";
 import {
   getTgeEvidenceCount,
   getTgeSourceHost,
@@ -39,39 +46,26 @@ function formatDate(value: string | undefined): string {
 }
 
 export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"all" | TgeLifecycleStatus>("all");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("confidence-desc");
+  const [searchQuery, setSearchQuery] = useState(DEFAULT_TGE_DIRECTORY_STATE.searchQuery);
+  const [statusFilter, setStatusFilter] = useState<"all" | TgeLifecycleStatus>(
+    DEFAULT_TGE_DIRECTORY_STATE.statusFilter as "all" | TgeLifecycleStatus,
+  );
+  const [categoryFilter, setCategoryFilter] = useState(DEFAULT_TGE_DIRECTORY_STATE.categoryFilter);
+  const [sortBy, setSortBy] = useState(DEFAULT_TGE_DIRECTORY_STATE.sortBy);
   const [pagination, setPagination] = useState({ filterKey: "", visibleCount: TGES_PER_PAGE });
+
+  const directoryState: TgeDirectoryState = useMemo(() => ({
+    searchQuery,
+    statusFilter,
+    categoryFilter,
+    sortBy,
+  }), [categoryFilter, searchQuery, sortBy, statusFilter]);
 
   const categories = useMemo(() => {
     return Array.from(new Set(tges.map((tge) => tge.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
   }, [tges]);
 
-  const filteredTges = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    const filtered = tges.filter((tge) => {
-      const matchesQuery =
-        !query ||
-        tge.name.toLowerCase().includes(query) ||
-        tge.symbol.toLowerCase().includes(query) ||
-        tge.category.toLowerCase().includes(query) ||
-        getTgeStatusLabel(tge).toLowerCase().includes(query);
-
-      const matchesStatus = statusFilter === "all" || tge.lifecycleStatus === statusFilter;
-      const matchesCategory = categoryFilter === "all" || tge.category === categoryFilter;
-      return matchesQuery && matchesStatus && matchesCategory;
-    });
-    return [...filtered].sort((a, b) => {
-      if (sortBy === "name-asc") return a.name.localeCompare(b.name);
-      if (sortBy === "verified-desc") {
-        return new Date(b.lastVerifiedAt || b.discoveredAt).getTime() - new Date(a.lastVerifiedAt || a.discoveredAt).getTime();
-      }
-      if (sortBy === "evidence-desc") return getTgeEvidenceCount(b) - getTgeEvidenceCount(a);
-      return (b.confidence ?? 0) - (a.confidence ?? 0);
-    });
-  }, [categoryFilter, searchQuery, sortBy, statusFilter, tges]);
+  const filteredTges = useMemo(() => filterAndSortTges(tges, directoryState), [directoryState, tges]);
 
   const filterKey = `${searchQuery.trim().toLowerCase()}|${statusFilter}|${categoryFilter}|${sortBy}`;
 
@@ -114,6 +108,22 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
       page_path: window.location.pathname,
     });
   };
+
+  const handleResetFilters = () => {
+    setSearchQuery(DEFAULT_TGE_DIRECTORY_STATE.searchQuery);
+    setStatusFilter(DEFAULT_TGE_DIRECTORY_STATE.statusFilter as "all" | TgeLifecycleStatus);
+    setCategoryFilter(DEFAULT_TGE_DIRECTORY_STATE.categoryFilter);
+    setSortBy(DEFAULT_TGE_DIRECTORY_STATE.sortBy);
+    setPagination({ filterKey: "", visibleCount: TGES_PER_PAGE });
+    trackEvent("directory_filters_reset", {
+      list_name: "upcoming",
+      result_count: filteredTges.length,
+      page_path: window.location.pathname,
+    });
+  };
+
+  const hasActiveFilters = hasActiveTgeFilters(directoryState);
+  const emptyStateMessage = describeTgeFilters(directoryState);
 
   if (!tges || tges.length === 0) return null;
 
@@ -174,6 +184,16 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
             <div className="stat-label">Filtered Results</div>
             <div className="stat-value">{filteredTges.length}</div>
           </div>
+        </div>
+        <div className="directory-filter-meta" role="status" aria-live="polite">
+          <span>
+            {filteredTges.length} launch record{filteredTges.length === 1 ? "" : "s"} match the current tracker view.
+          </span>
+          {hasActiveFilters && (
+            <button type="button" className="btn btn-secondary btn-sm" onClick={handleResetFilters}>
+              <RotateCcw size={14} aria-hidden="true" /> Reset
+            </button>
+          )}
         </div>
       </div>
 
@@ -244,7 +264,12 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card" style={{ textAlign: "center", padding: "var(--space-2xl)" }}>
             <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 700 }}>No launches match these filters</h3>
-            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>Try another status, category, or search term.</p>
+            <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>{emptyStateMessage}</p>
+            {hasActiveFilters && (
+              <button type="button" className="btn btn-secondary" onClick={handleResetFilters} style={{ marginTop: "var(--space-md)" }}>
+                <RotateCcw size={16} aria-hidden="true" /> Reset filters
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
