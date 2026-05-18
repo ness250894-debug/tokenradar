@@ -1,0 +1,1415 @@
+{
+  "name": "TokenRadar.co — Comprehensive Project Reference Markdown representation",
+  "documentType": "markdown_document_representation",
+  "version": 2,
+  "updatedAt": "2026-05-18",
+  "sourcePath": "docs/tokenradar/tokenradar.json#rawMarkdown",
+  "htmlArtifact": "docs/tokenradar/tokenradar.html",
+  "jsonArtifact": "docs/tokenradar/tokenradar.json",
+  "title": "TokenRadar.co — Comprehensive Project Reference",
+  "stats": {
+    "lineCount": 847,
+    "wordCount": 4807,
+    "headingCount": 104,
+    "codeBlockCount": 7,
+    "tableCount": 23,
+    "linkCount": 28
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "TokenRadar.co — Comprehensive Project Reference",
+      "slug": "tokenradar-co-comprehensive-project-reference",
+      "line": 1
+    },
+    {
+      "level": 2,
+      "text": "Table of Contents",
+      "slug": "table-of-contents",
+      "line": 12
+    },
+    {
+      "level": 2,
+      "text": "Project Overview",
+      "slug": "project-overview",
+      "line": 41
+    },
+    {
+      "level": 3,
+      "text": "Core Value Proposition",
+      "slug": "core-value-proposition",
+      "line": 45
+    },
+    {
+      "level": 3,
+      "text": "Why This Works",
+      "slug": "why-this-works",
+      "line": 52
+    },
+    {
+      "level": 2,
+      "text": "System Architecture",
+      "slug": "system-architecture",
+      "line": 61
+    },
+    {
+      "level": 3,
+      "text": "Data Flow",
+      "slug": "data-flow",
+      "line": 77
+    },
+    {
+      "level": 2,
+      "text": "Tech Stack",
+      "slug": "tech-stack",
+      "line": 87
+    },
+    {
+      "level": 2,
+      "text": "Project Structure",
+      "slug": "project-structure",
+      "line": 106
+    },
+    {
+      "level": 2,
+      "text": "Project Documentation Artifacts",
+      "slug": "project-documentation-artifacts",
+      "line": 193
+    },
+    {
+      "level": 2,
+      "text": "Phase 1 — Keyword Research Engine",
+      "slug": "phase-1-keyword-research-engine",
+      "line": 229
+    },
+    {
+      "level": 3,
+      "text": "Long-Tail Targeting Strategy",
+      "slug": "long-tail-targeting-strategy",
+      "line": 233
+    },
+    {
+      "level": 3,
+      "text": "Script: `scripts/keyword-generator.ts`",
+      "slug": "script-scripts-keyword-generator-ts",
+      "line": 249
+    },
+    {
+      "level": 2,
+      "text": "Phase 2 — Data Collection",
+      "slug": "phase-2-data-collection",
+      "line": 268
+    },
+    {
+      "level": 3,
+      "text": "Script: `scripts/fetch-crypto-data.ts`",
+      "slug": "script-scripts-fetch-crypto-data-ts",
+      "line": 270
+    },
+    {
+      "level": 3,
+      "text": "Script: `scripts/fetch-reference-articles.ts`",
+      "slug": "script-scripts-fetch-reference-articles-ts",
+      "line": 290
+    },
+    {
+      "level": 2,
+      "text": "Phase 3 — AI Content Generation",
+      "slug": "phase-3-ai-content-generation",
+      "line": 305
+    },
+    {
+      "level": 3,
+      "text": "Provider: Gemini 2.5 Flash (Primary) + Claude Haiku 4.5 (Fallback)",
+      "slug": "provider-gemini-2-5-flash-primary-claude-haiku-4-5-fallback",
+      "line": 307
+    },
+    {
+      "level": 3,
+      "text": "Script: `scripts/generate-content.ts`",
+      "slug": "script-scripts-generate-content-ts",
+      "line": 316
+    },
+    {
+      "level": 3,
+      "text": "Proprietary Metrics (`scripts/compute-metrics.ts`)",
+      "slug": "proprietary-metrics-scripts-compute-metrics-ts",
+      "line": 323
+    },
+    {
+      "level": 3,
+      "text": "Content Rules",
+      "slug": "content-rules",
+      "line": 333
+    },
+    {
+      "level": 2,
+      "text": "Phase 4 — E-E-A-T & Quality Layer",
+      "slug": "phase-4-e-e-a-t-quality-layer",
+      "line": 347
+    },
+    {
+      "level": 3,
+      "text": "Quality Check Script: `scripts/quality-check.ts`",
+      "slug": "quality-check-script-scripts-quality-check-ts",
+      "line": 364
+    },
+    {
+      "level": 2,
+      "text": "Phase 5 — Website Build",
+      "slug": "phase-5-website-build",
+      "line": 376
+    },
+    {
+      "level": 3,
+      "text": "Next.js + Static Site Generation (SSG)",
+      "slug": "next-js-static-site-generation-ssg",
+      "line": 378
+    },
+    {
+      "level": 3,
+      "text": "Key Pages",
+      "slug": "key-pages",
+      "line": 385
+    },
+    {
+      "level": 3,
+      "text": "SEO Optimizations",
+      "slug": "seo-optimizations",
+      "line": 400
+    },
+    {
+      "level": 3,
+      "text": "Drip Publishing Schedule",
+      "slug": "drip-publishing-schedule",
+      "line": 409
+    },
+    {
+      "level": 3,
+      "text": "Hybrid Smart Queue (Token Selection)",
+      "slug": "hybrid-smart-queue-token-selection",
+      "line": 419
+    },
+    {
+      "level": 2,
+      "text": "Phase 6 — Automated Social Promotion",
+      "slug": "phase-6-automated-social-promotion",
+      "line": 437
+    },
+    {
+      "level": 3,
+      "text": "Unified Workflow: `.github/workflows/social-automations.yml`",
+      "slug": "unified-workflow-github-workflows-social-automations-yml",
+      "line": 439
+    },
+    {
+      "level": 3,
+      "text": "Daily Posting Schedule",
+      "slug": "daily-posting-schedule",
+      "line": 454
+    },
+    {
+      "level": 3,
+      "text": "TG Poll Themes (Rotate by Day of Week)",
+      "slug": "tg-poll-themes-rotate-by-day-of-week",
+      "line": 469
+    },
+    {
+      "level": 3,
+      "text": "Post Format",
+      "slug": "post-format",
+      "line": 481
+    },
+    {
+      "level": 3,
+      "text": "Additional Free Traffic Sources",
+      "slug": "additional-free-traffic-sources",
+      "line": 489
+    },
+    {
+      "level": 3,
+      "text": "X (Twitter) Setup",
+      "slug": "x-twitter-setup",
+      "line": 491
+    },
+    {
+      "level": 3,
+      "text": "Telegram Setup",
+      "slug": "telegram-setup",
+      "line": 498
+    },
+    {
+      "level": 3,
+      "text": "Meta (Instagram & Threads) Setup",
+      "slug": "meta-instagram-threads-setup",
+      "line": 505
+    },
+    {
+      "level": 3,
+      "text": "YouTube Shorts Setup",
+      "slug": "youtube-shorts-setup",
+      "line": 514
+    },
+    {
+      "level": 3,
+      "text": "Troubleshooting: invalid_grant",
+      "slug": "troubleshooting-invalid-grant",
+      "line": 526
+    },
+    {
+      "level": 2,
+      "text": "Phase 7 — Monetization",
+      "slug": "phase-7-monetization",
+      "line": 540
+    },
+    {
+      "level": 3,
+      "text": "Revenue Streams",
+      "slug": "revenue-streams",
+      "line": 544
+    },
+    {
+      "level": 3,
+      "text": "Affiliate Programs",
+      "slug": "affiliate-programs",
+      "line": 552
+    },
+    {
+      "level": 2,
+      "text": "Phase 8 — Automated Content Refresh",
+      "slug": "phase-8-automated-content-refresh",
+      "line": 564
+    },
+    {
+      "level": 3,
+      "text": "GitHub Actions Workflows",
+      "slug": "github-actions-workflows",
+      "line": 574
+    },
+    {
+      "level": 1,
+      "text": ".github/workflows/daily-refresh.yml",
+      "slug": "github-workflows-daily-refresh-yml",
+      "line": 577
+    },
+    {
+      "level": 1,
+      "text": "Runs daily at 18:00 UTC",
+      "slug": "runs-daily-at-18-00-utc",
+      "line": 578
+    },
+    {
+      "level": 1,
+      "text": "1. Fetches latest CoinGecko data (lite mode)",
+      "slug": "1-fetches-latest-coingecko-data-lite-mode",
+      "line": 579
+    },
+    {
+      "level": 1,
+      "text": "2. Fetches reference articles from RSS feeds",
+      "slug": "2-fetches-reference-articles-from-rss-feeds",
+      "line": 580
+    },
+    {
+      "level": 1,
+      "text": "3. Recomputes proprietary metrics",
+      "slug": "3-recomputes-proprietary-metrics",
+      "line": 581
+    },
+    {
+      "level": 1,
+      "text": "4. Commits [skip ci] and triggers explicit deploy",
+      "slug": "4-commits-skip-ci-and-triggers-explicit-deploy",
+      "line": 582
+    },
+    {
+      "level": 1,
+      "text": ".github/workflows/daily-content-generation.yml",
+      "slug": "github-workflows-daily-content-generation-yml",
+      "line": 584
+    },
+    {
+      "level": 1,
+      "text": "Runs daily",
+      "slug": "runs-daily",
+      "line": 585
+    },
+    {
+      "level": 1,
+      "text": "1. Generates queue content using Hybrid Smart Queue (P0→P3 priority)",
+      "slug": "1-generates-queue-content-using-hybrid-smart-queue-p0-p3-priority",
+      "line": 586
+    },
+    {
+      "level": 1,
+      "text": "2. Publishes a bounded batch from the queue",
+      "slug": "2-publishes-a-bounded-batch-from-the-queue",
+      "line": 587
+    },
+    {
+      "level": 1,
+      "text": "3. Injects internal links",
+      "slug": "3-injects-internal-links",
+      "line": 588
+    },
+    {
+      "level": 1,
+      "text": "4. Deploys to Cloudflare Pages",
+      "slug": "4-deploys-to-cloudflare-pages",
+      "line": 589
+    },
+    {
+      "level": 1,
+      "text": ".github/workflows/social-automations.yml",
+      "slug": "github-workflows-social-automations-yml",
+      "line": 591
+    },
+    {
+      "level": 1,
+      "text": "Runs 8x/day — unified social posting",
+      "slug": "runs-8x-day-unified-social-posting",
+      "line": 592
+    },
+    {
+      "level": 1,
+      "text": "Routes content to TG and X based on time slot",
+      "slug": "routes-content-to-tg-and-x-based-on-time-slot",
+      "line": 593
+    },
+    {
+      "level": 1,
+      "text": "Exclusive slots for poll (15:00), video (18:00), and movers (21:00)",
+      "slug": "exclusive-slots-for-poll-15-00-video-18-00-and-movers-21-00",
+      "line": 594
+    },
+    {
+      "level": 2,
+      "text": "Content & Cost Schedule",
+      "slug": "content-cost-schedule",
+      "line": 599
+    },
+    {
+      "level": 3,
+      "text": "6-Month Production Plan",
+      "slug": "6-month-production-plan",
+      "line": 601
+    },
+    {
+      "level": 3,
+      "text": "Total 6-Month Budget",
+      "slug": "total-6-month-budget",
+      "line": 613
+    },
+    {
+      "level": 2,
+      "text": "Build Timeline",
+      "slug": "build-timeline",
+      "line": 627
+    },
+    {
+      "level": 2,
+      "text": "Risk Mitigation",
+      "slug": "risk-mitigation",
+      "line": 641
+    },
+    {
+      "level": 3,
+      "text": "Google Penalty Prevention",
+      "slug": "google-penalty-prevention",
+      "line": 643
+    },
+    {
+      "level": 3,
+      "text": "API & Rate Limit Safeguards",
+      "slug": "api-rate-limit-safeguards",
+      "line": 653
+    },
+    {
+      "level": 3,
+      "text": "Content Quality",
+      "slug": "content-quality",
+      "line": 662
+    },
+    {
+      "level": 2,
+      "text": "Legal & Compliance",
+      "slug": "legal-compliance",
+      "line": 672
+    },
+    {
+      "level": 3,
+      "text": "Required Pages",
+      "slug": "required-pages",
+      "line": 674
+    },
+    {
+      "level": 3,
+      "text": "Content Guidelines",
+      "slug": "content-guidelines",
+      "line": 681
+    },
+    {
+      "level": 3,
+      "text": "FOP Registration (Ukraine)",
+      "slug": "fop-registration-ukraine",
+      "line": 690
+    },
+    {
+      "level": 2,
+      "text": "Domain & Branding Research",
+      "slug": "domain-branding-research",
+      "line": 699
+    },
+    {
+      "level": 3,
+      "text": "Domain Choice: `tokenradar.co`",
+      "slug": "domain-choice-tokenradar-co",
+      "line": 701
+    },
+    {
+      "level": 3,
+      "text": "Alternative Domains Considered",
+      "slug": "alternative-domains-considered",
+      "line": 712
+    },
+    {
+      "level": 2,
+      "text": "AI Provider Comparison",
+      "slug": "ai-provider-comparison",
+      "line": 721
+    },
+    {
+      "level": 2,
+      "text": "Token Strategy",
+      "slug": "token-strategy",
+      "line": 735
+    },
+    {
+      "level": 3,
+      "text": "Why #50–#200 by Market Cap?",
+      "slug": "why-50-200-by-market-cap",
+      "line": 737
+    },
+    {
+      "level": 3,
+      "text": "Token Selection Criteria",
+      "slug": "token-selection-criteria",
+      "line": 747
+    },
+    {
+      "level": 2,
+      "text": "Environment Variables",
+      "slug": "environment-variables",
+      "line": 757
+    },
+    {
+      "level": 1,
+      "text": ".env.example",
+      "slug": "env-example",
+      "line": 760
+    },
+    {
+      "level": 1,
+      "text": "CoinGecko",
+      "slug": "coingecko",
+      "line": 762
+    },
+    {
+      "level": 1,
+      "text": "Claude AI",
+      "slug": "claude-ai",
+      "line": 765
+    },
+    {
+      "level": 1,
+      "text": "Gemini AI",
+      "slug": "gemini-ai",
+      "line": 768
+    },
+    {
+      "level": 1,
+      "text": "Social Media — X (Twitter) OAuth 2.0",
+      "slug": "social-media-x-twitter-oauth-2-0",
+      "line": 771
+    },
+    {
+      "level": 1,
+      "text": "Social Media — Telegram",
+      "slug": "social-media-telegram",
+      "line": 776
+    },
+    {
+      "level": 1,
+      "text": "Social Media — Meta (Instagram / Threads)",
+      "slug": "social-media-meta-instagram-threads",
+      "line": 780
+    },
+    {
+      "level": 1,
+      "text": "Social Media — YouTube",
+      "slug": "social-media-youtube",
+      "line": 788
+    },
+    {
+      "level": 1,
+      "text": "Error Reporting",
+      "slug": "error-reporting",
+      "line": 793
+    },
+    {
+      "level": 1,
+      "text": "Storage (Cloudflare R2 Media Staging)",
+      "slug": "storage-cloudflare-r2-media-staging",
+      "line": 797
+    },
+    {
+      "level": 1,
+      "text": "Analytics",
+      "slug": "analytics",
+      "line": 804
+    },
+    {
+      "level": 1,
+      "text": "Deployment",
+      "slug": "deployment",
+      "line": 807
+    },
+    {
+      "level": 2,
+      "text": "Quick Start (Future Reference)",
+      "slug": "quick-start-future-reference",
+      "line": 815
+    },
+    {
+      "level": 1,
+      "text": "1. Install dependencies",
+      "slug": "1-install-dependencies",
+      "line": 818
+    },
+    {
+      "level": 1,
+      "text": "2. Set up environment",
+      "slug": "2-set-up-environment",
+      "line": 821
+    },
+    {
+      "level": 1,
+      "text": "Fill in API keys",
+      "slug": "fill-in-api-keys",
+      "line": 823
+    },
+    {
+      "level": 1,
+      "text": "3. Generate keywords",
+      "slug": "3-generate-keywords",
+      "line": 825
+    },
+    {
+      "level": 1,
+      "text": "4. Fetch crypto data",
+      "slug": "4-fetch-crypto-data",
+      "line": 828
+    },
+    {
+      "level": 1,
+      "text": "5. Generate content",
+      "slug": "5-generate-content",
+      "line": 831
+    },
+    {
+      "level": 1,
+      "text": "6. Run locally",
+      "slug": "6-run-locally",
+      "line": 834
+    },
+    {
+      "level": 1,
+      "text": "7. Build for production",
+      "slug": "7-build-for-production",
+      "line": 837
+    },
+    {
+      "level": 1,
+      "text": "8. Deploy",
+      "slug": "8-deploy",
+      "line": 840
+    },
+    {
+      "level": 1,
+      "text": "Automatic via GitHub Actions on push to main",
+      "slug": "automatic-via-github-actions-on-push-to-main",
+      "line": 841
+    }
+  ],
+  "links": [
+    "[Project Overview](#project-overview)",
+    "[System Architecture](#system-architecture)",
+    "[Tech Stack](#tech-stack)",
+    "[Project Structure](#project-structure)",
+    "[Project Documentation Artifacts](#project-documentation-artifacts)",
+    "[Phase 1 — Keyword Research Engine](#phase-1--keyword-research-engine)",
+    "[Phase 2 — Data Collection](#phase-2--data-collection)",
+    "[Phase 3 — AI Content Generation](#phase-3--ai-content-generation)",
+    "[Phase 4 — E-E-A-T & Quality Layer](#phase-4--e-e-a-t--quality-layer)",
+    "[Phase 5 — Website Build](#phase-5--website-build)",
+    "[Phase 6 — Automated Social Promotion](#phase-6--automated-social-promotion)",
+    "[X (Twitter) Setup](#x-twitter-setup)",
+    "[Telegram Setup](#telegram-setup)",
+    "[YouTube Shorts Setup](#youtube-shorts-setup)",
+    "[Troubleshooting: invalid_grant](#troubleshooting-invalid_grant)",
+    "[Phase 7 — Monetization](#phase-7--monetization)",
+    "[Phase 8 — Automated Content Refresh](#phase-8--automated-content-refresh)",
+    "[Content & Cost Schedule](#content--cost-schedule)",
+    "[Build Timeline](#build-timeline)",
+    "[Risk Mitigation](#risk-mitigation)",
+    "[Legal & Compliance](#legal--compliance)",
+    "[Domain & Branding Research](#domain--branding-research)",
+    "[AI Provider Comparison](#ai-provider-comparison)",
+    "[Token Strategy](#token-strategy)",
+    "[X Developer Portal](https://developer.twitter.com/en/portal/dashboard)",
+    "[@BotFather](https://t.me/botfather)",
+    "[Meta App Dashboard](https://developers.facebook.com/)",
+    "[Google Cloud Console](https://console.cloud.google.com/)"
+  ],
+  "tables": [],
+  "codeBlocks": [
+    "```mermaid\nflowchart TD\n    A[1. Keyword Engine] -->|long-tail crypto keywords| B[2. Data Collector]\n    B -->|CoinGecko data + reference articles| C[3. AI Content Generator]\n    C -->|human-style articles| D[4. Quality & E-E-A-T Layer]\n    D -->|reviewed content + unique metrics| E[5. Static Site Builder]\n    E -->|HTML pages| F[6. Cloudflare Pages]\n    F -->|drip-published| G[7. Google indexes]\n    G -->|organic traffic| H[8. Ads + Affiliates]\n\n    I[Auto-Poster] -->|summaries| J[X / Reddit / Telegram]\n    J -->|backlinks| G\n```",
+    "```\nCoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly\n→ Claude Haiku → Raw Article → Quality Check → Markdown/JSON\n→ Next.js SSG → HTML → Cloudflare Pages → Google Index\n```",
+    "```\ntokenradar/\n├── src/\n│   ├── app/\n│   │   ├── layout.tsx                # Global nav, footer, AdSense, cookie banner\n│   │   ├── page.tsx                  # Homepage: top tokens, trending, latest\n│   │   ├── about/page.tsx            # E-E-A-T: About + methodology\n│   │   ├── privacy/page.tsx          # Privacy policy (GDPR)\n│   │   ├── terms/page.tsx            # Terms of service\n│   │   ├── disclaimer/page.tsx       # Financial disclaimer\n│   │   ├── contact/page.tsx          # Contact form/email\n│   │   ├── [token]/\n│   │   │   ├── page.tsx              # Token overview page\n│   │   │   ├── price-prediction/page.tsx\n│   │   │   ├── how-to-buy/page.tsx\n│   │   │   └── transfer-to-ledger/page.tsx\n│   │   ├── upcoming/page.tsx         # Upcoming TGE landing page\n│   │   ├── upcoming/[token]/page.tsx # Upcoming token detail pages\n│   │   ├── learn/page.tsx            # Glossary / learning hub\n│   │   ├── learn/[slug]/page.tsx     # Individual learn pages\n│   │   └── robots.ts                 # Robots metadata route\n│   ├── components/\n│   │   ├── PriceChart.tsx            # Lightweight chart (recharts)\n│   │   ├── RiskScoreCard.tsx         # Proprietary metrics display\n│   │   ├── AffiliateButton.tsx       # Exchange referral CTA\n│   │   ├── LastUpdated.tsx           # Timestamp component\n│   │   └── TokenCard.tsx             # Token summary card for listings\n│   ├── lib/\n│   │   ├── coingecko.ts              # CoinGecko API client with rate limiting\n│   │   ├── config.ts                 # Centralized config (URLs, handles, referrals)\n│   │   ├── content-loader.ts         # Load generated content from JSON\n│   │   ├── gemini.ts                 # Gemini + Claude fallback for AI summaries\n│   │   ├── markdown.ts               # Markdown rendering utilities\n│   │   ├── reporter.ts               # Error logging + API usage tracking\n│   │   ├── telegram.ts               # Telegram Bot API client\n│   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)\n│   │   └── x-client.ts               # X (Twitter) API v2 client\n│   └── video/                        # Remotion video scenes and entrypoints\n├── content/                          # Generated articles (JSON)\n│   └── tokens/                       # Per-token articles\n├── data/\n│   ├── tokens.json                   # Token metadata summary\n│   ├── tokens/                       # Per-token detail JSON files\n│   ├── metrics/                      # Computed proprietary metrics\n│   ├── prices/                       # Historical price data cache\n│   ├── references/                   # Reference article snippets\n│   ├── keywords.json                 # Generated keyword list\n│   ├── logs/                         # Error logs (decentralized)\n│   └── posted/                       # Social post tracking (daily folders)\n├── scripts/\n│   ├── keyword-generator.ts          # Phase 1: Keyword research\n│   ├── fetch-crypto-data.ts          # Phase 2: CoinGecko data fetcher (--lite / full)\n│   ├── fetch-reference-articles.ts   # Phase 2: Reference article scraper\n│   ├── generate-content.ts           # Phase 3: AI content generator (Claude)\n│   ├── compute-metrics.ts            # Phase 3: Unique metric computation\n│   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)\n│   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)\n│   ├── post-daily-poll.ts            # Phase 6: AI-generated TG polls (7 rotating themes)\n│   ├── post-daily-movers.ts          # Phase 6: Top 5 Movers image card (TG)\n│   ├── post-interactive-daily.ts     # Phase 6: Interactive X polls\n│   ├── post-video-daily.ts           # Phase 6: Render and publish 60s video to IG/Threads/YT\n│   ├── refresh-meta-tokens.ts        # Phase 6: Rotate Long-Lived Meta access tokens\n│   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers\n│   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation\n│   └── send-system-report.ts        # Reporting: Daily/weekly/monthly summaries\n├── tests/\n│   ├── config.test.ts\n│   ├── content-loader.test.ts\n│   ├── utils.test.ts\n│   └── x-client.test.ts\n├── .github/\n│   └── workflows/\n│       ├── daily-refresh.yml         # Daily data + price refresh + deploy\n│       ├── daily-content-generation.yml # Daily queue publish + deploy\n│       └── social-automations.yml    # 8x/day: unified TG/X posting with exclusive slots\n├── .env.example                      # Required environment variables\n├── package.json\n├── tsconfig.json\n├── vitest.config.ts\n├── next.config.ts\n└── docs/tokenradar/tokenradar.json  # Artifact-maintained source\n```",
+    "```\nTemplates:                              Tokens (#50-#200 by market cap):\n├── \"[token] price prediction 2026\"     ├── Mid-cap tokens (lower competition)\n├── \"is [token] a good investment\"      ├── New trending tokens (< 6 months old)\n├── \"[token] vs [token]\"                ├── DeFi / Layer 2 / AI narrative tokens\n├── \"how to buy [token]\"               └── Expand to #200-#500 in month 3+\n├── \"[token] staking rewards APY\"\n├── \"[token] tokenomics explained\"\n├── \"what is [token] used for\"\n└── \"[token] risks and concerns\"\n```",
+    "```yaml\n# .github/workflows/daily-refresh.yml\n# Runs daily at 18:00 UTC\n# 1. Fetches latest CoinGecko data (lite mode)\n# 2. Fetches reference articles from RSS feeds\n# 3. Recomputes proprietary metrics\n# 4. Commits [skip ci] and triggers explicit deploy\n\n# .github/workflows/daily-content-generation.yml\n# Runs daily\n# 1. Generates queue content using Hybrid Smart Queue (P0→P3 priority)\n# 2. Publishes a bounded batch from the queue\n# 3. Injects internal links\n# 4. Deploys to Cloudflare Pages\n\n# .github/workflows/social-automations.yml\n# Runs 8x/day — unified social posting\n# Routes content to TG and X based on time slot\n# Exclusive slots for poll (15:00), video (18:00), and movers (21:00)\n```",
+    "```env\n# .env.example\n\n# CoinGecko\nCOINGECKO_API_KEY=           # Optional, for higher rate limits\n\n# Claude AI\nANTHROPIC_API_KEY=           # Required for content generation\n\n# Gemini AI\nGEMINI_API_KEY=              # Primary AI for social summaries & polls\n\n# Social Media — X (Twitter) OAuth 2.0\nX_OAUTH2_CLIENT_ID=\nX_OAUTH2_CLIENT_SECRET=\nX_OAUTH2_REFRESH_TOKEN=\n\n# Social Media — Telegram\nTELEGRAM_BOT_TOKEN=          # Telegram Bot API\nTELEGRAM_CHANNEL_ID=         # Target channel\n\n# Social Media — Meta (Instagram / Threads)\nIG_ACCESS_TOKEN=\nIG_ACCOUNT_ID=\nTHREADS_ACCESS_TOKEN=\nTHREADS_ACCOUNT_ID=\nMETA_APP_ID=\nMETA_APP_SECRET=\n\n# Social Media — YouTube\nYOUTUBE_CLIENT_ID=\nYOUTUBE_CLIENT_SECRET=\nYOUTUBE_REFRESH_TOKEN=\n\n# Error Reporting\nTELEGRAM_REPORT_BOT_TOKEN=   # Separate bot for ops alerts\nTELEGRAM_REPORT_CHAT_ID=\n\n# Storage (Cloudflare R2 Media Staging)\nR2_ACCOUNT_ID=\nR2_ACCESS_KEY_ID=\nR2_SECRET_ACCESS_KEY=\nR2_BUCKET_NAME=\nR2_PUBLIC_URL=\n\n# Analytics\nNEXT_PUBLIC_GA_MEASUREMENT_ID= # Google Analytics 4\n\n# Deployment\nCLOUDFLARE_API_TOKEN=        # Cloudflare Pages deployment\nCLOUDFLARE_ACCOUNT_ID=\nCLOUDFLARE_ZONE_ID=\n```",
+    "```bash\n# 1. Install dependencies\nnpm install\n\n# 2. Set up environment\ncp .env.example .env\n# Fill in API keys\n\n# 3. Generate keywords\nnpx tsx scripts/keyword-generator.ts\n\n# 4. Fetch crypto data\nnpx tsx scripts/fetch-crypto-data.ts\n\n# 5. Generate content\nnpx tsx scripts/generate-content.ts\n\n# 6. Run locally\nnpm run dev\n\n# 7. Build for production\nnpm run build\n\n# 8. Deploy\n# Automatic via GitHub Actions on push to main\n```"
+  ],
+  "sections": [
+    {
+      "heading": "TokenRadar.co — Comprehensive Project Reference",
+      "level": 1,
+      "lineStart": 1,
+      "lineEnd": 11,
+      "content": "# TokenRadar.co — Comprehensive Project Reference\n\n> **Project:** Crypto Programmatic SEO Platform\n> **Domain:** tokenradar.co ($6.98/yr on Namecheap)\n> **AI Provider:** Gemini 2.5 Flash (primary) + Claude Haiku 4.5 (fallback)\n> **Token Range:** #50-#250 by market cap, expanding to #500\n> **Total 6-Month Cost:** ~$30\n> **Status:** Live in production\n\n---\n"
+    },
+    {
+      "heading": "Table of Contents",
+      "level": 2,
+      "lineStart": 12,
+      "lineEnd": 40,
+      "content": "## Table of Contents\n\n1. [Project Overview](#project-overview)\n2. [System Architecture](#system-architecture)\n3. [Tech Stack](#tech-stack)\n4. [Project Structure](#project-structure)\n5. [Project Documentation Artifacts](#project-documentation-artifacts)\n6. [Phase 1 — Keyword Research Engine](#phase-1--keyword-research-engine)\n7. [Phase 2 — Data Collection](#phase-2--data-collection)\n8. [Phase 3 — AI Content Generation](#phase-3--ai-content-generation)\n9. [Phase 4 — E-E-A-T & Quality Layer](#phase-4--e-e-a-t--quality-layer)\n10. [Phase 5 — Website Build](#phase-5--website-build)\n11. [Phase 6 — Automated Social Promotion](#phase-6--automated-social-promotion)\n    - [X (Twitter) Setup](#x-twitter-setup)\n    - [Telegram Setup](#telegram-setup)\n    - [YouTube Shorts Setup](#youtube-shorts-setup)\n    - [Troubleshooting: invalid_grant](#troubleshooting-invalid_grant)\n12. [Phase 7 — Monetization](#phase-7--monetization)\n13. [Phase 8 — Automated Content Refresh](#phase-8--automated-content-refresh)\n14. [Content & Cost Schedule](#content--cost-schedule)\n15. [Build Timeline](#build-timeline)\n16. [Risk Mitigation](#risk-mitigation)\n17. [Legal & Compliance](#legal--compliance)\n18. [Domain & Branding Research](#domain--branding-research)\n19. [AI Provider Comparison](#ai-provider-comparison)\n20. [Token Strategy](#token-strategy)\n\n---\n"
+    },
+    {
+      "heading": "Project Overview",
+      "level": 2,
+      "lineStart": 41,
+      "lineEnd": 44,
+      "content": "## Project Overview\n\nTokenRadar.co is a **programmatic SEO platform** that auto-generates thousands of high-quality, data-driven articles about cryptocurrency tokens. The platform targets **long-tail keywords** with low competition to capture organic search traffic, then monetizes via Google AdSense and crypto affiliate programs.\n"
+    },
+    {
+      "heading": "Core Value Proposition",
+      "level": 3,
+      "lineStart": 45,
+      "lineEnd": 51,
+      "content": "### Core Value Proposition\n\n- **Unique proprietary metrics** (Risk Score, Growth Potential Index) — not just regurgitated CoinGecko data\n- **AI-generated content** that reads like human-written analysis\n- **Massive scale** — 1,500+ articles in 6 months at near-zero cost\n- **Auto-updating data** — prices and metrics refresh daily via GitHub Actions\n"
+    },
+    {
+      "heading": "Why This Works",
+      "level": 3,
+      "lineStart": 52,
+      "lineEnd": 60,
+      "content": "### Why This Works\n\n1. **Long-tail keywords** have low competition — major sites focus on BTC/ETH\n2. **Mid-cap tokens (#50-#200)** are searched but under-served by quality content\n3. **Static site generation** means near-zero hosting costs and blazing-fast pages\n4. **Programmatic content** scales linearly while cost stays flat\n\n---\n"
+    },
+    {
+      "heading": "System Architecture",
+      "level": 2,
+      "lineStart": 61,
+      "lineEnd": 76,
+      "content": "## System Architecture\n\n```mermaid\nflowchart TD\n    A[1. Keyword Engine] -->|long-tail crypto keywords| B[2. Data Collector]\n    B -->|CoinGecko data + reference articles| C[3. AI Content Generator]\n    C -->|human-style articles| D[4. Quality & E-E-A-T Layer]\n    D -->|reviewed content + unique metrics| E[5. Static Site Builder]\n    E -->|HTML pages| F[6. Cloudflare Pages]\n    F -->|drip-published| G[7. Google indexes]\n    G -->|organic traffic| H[8. Ads + Affiliates]\n\n    I[Auto-Poster] -->|summaries| J[X / Reddit / Telegram]\n    J -->|backlinks| G\n```\n"
+    },
+    {
+      "heading": "Data Flow",
+      "level": 3,
+      "lineStart": 77,
+      "lineEnd": 86,
+      "content": "### Data Flow\n\n```\nCoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly\n→ Claude Haiku → Raw Article → Quality Check → Markdown/JSON\n→ Next.js SSG → HTML → Cloudflare Pages → Google Index\n```\n\n---\n"
+    },
+    {
+      "heading": "Tech Stack",
+      "level": 2,
+      "lineStart": 87,
+      "lineEnd": 105,
+      "content": "## Tech Stack\n\n| Layer | Technology | Cost |\n|-------|-----------|------|\n| **Framework** | Next.js (App Router, SSG) | $0 |\n| **Language** | TypeScript (strict mode) | $0 |\n| **Hosting** | Cloudflare Pages | $0 |\n| **CDN** | Cloudflare (built-in) | $0 |\n| **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |\n| **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |\n| **AI Content** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | ~$0.001 / article |\n| **AI Summaries** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | $0 |\n| **Domain** | Namecheap (tokenradar.co) | $6.98/yr |\n| **Charts** | Recharts (lightweight) | $0 |\n| **Social APIs** | X API, Telegram Bot API, Meta Graph API (IG/Threads), YouTube API | $0–$5 |\n| **Storage** | Cloudflare R2 (Media Staging) | $0 |\n\n---\n"
+    },
+    {
+      "heading": "Project Structure",
+      "level": 2,
+      "lineStart": 106,
+      "lineEnd": 192,
+      "content": "## Project Structure\n\n```\ntokenradar/\n├── src/\n│   ├── app/\n│   │   ├── layout.tsx                # Global nav, footer, AdSense, cookie banner\n│   │   ├── page.tsx                  # Homepage: top tokens, trending, latest\n│   │   ├── about/page.tsx            # E-E-A-T: About + methodology\n│   │   ├── privacy/page.tsx          # Privacy policy (GDPR)\n│   │   ├── terms/page.tsx            # Terms of service\n│   │   ├── disclaimer/page.tsx       # Financial disclaimer\n│   │   ├── contact/page.tsx          # Contact form/email\n│   │   ├── [token]/\n│   │   │   ├── page.tsx              # Token overview page\n│   │   │   ├── price-prediction/page.tsx\n│   │   │   ├── how-to-buy/page.tsx\n│   │   │   └── transfer-to-ledger/page.tsx\n│   │   ├── upcoming/page.tsx         # Upcoming TGE landing page\n│   │   ├── upcoming/[token]/page.tsx # Upcoming token detail pages\n│   │   ├── learn/page.tsx            # Glossary / learning hub\n│   │   ├── learn/[slug]/page.tsx     # Individual learn pages\n│   │   └── robots.ts                 # Robots metadata route\n│   ├── components/\n│   │   ├── PriceChart.tsx            # Lightweight chart (recharts)\n│   │   ├── RiskScoreCard.tsx         # Proprietary metrics display\n│   │   ├── AffiliateButton.tsx       # Exchange referral CTA\n│   │   ├── LastUpdated.tsx           # Timestamp component\n│   │   └── TokenCard.tsx             # Token summary card for listings\n│   ├── lib/\n│   │   ├── coingecko.ts              # CoinGecko API client with rate limiting\n│   │   ├── config.ts                 # Centralized config (URLs, handles, referrals)\n│   │   ├── content-loader.ts         # Load generated content from JSON\n│   │   ├── gemini.ts                 # Gemini + Claude fallback for AI summaries\n│   │   ├── markdown.ts               # Markdown rendering utilities\n│   │   ├── reporter.ts               # Error logging + API usage tracking\n│   │   ├── telegram.ts               # Telegram Bot API client\n│   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)\n│   │   └── x-client.ts               # X (Twitter) API v2 client\n│   └── video/                        # Remotion video scenes and entrypoints\n├── content/                          # Generated articles (JSON)\n│   └── tokens/                       # Per-token articles\n├── data/\n│   ├── tokens.json                   # Token metadata summary\n│   ├── tokens/                       # Per-token detail JSON files\n│   ├── metrics/                      # Computed proprietary metrics\n│   ├── prices/                       # Historical price data cache\n│   ├── references/                   # Reference article snippets\n│   ├── keywords.json                 # Generated keyword list\n│   ├── logs/                         # Error logs (decentralized)\n│   └── posted/                       # Social post tracking (daily folders)\n├── scripts/\n│   ├── keyword-generator.ts          # Phase 1: Keyword research\n│   ├── fetch-crypto-data.ts          # Phase 2: CoinGecko data fetcher (--lite / full)\n│   ├── fetch-reference-articles.ts   # Phase 2: Reference article scraper\n│   ├── generate-content.ts           # Phase 3: AI content generator (Claude)\n│   ├── compute-metrics.ts            # Phase 3: Unique metric computation\n│   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)\n│   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)\n│   ├── post-daily-poll.ts            # Phase 6: AI-generated TG polls (7 rotating themes)\n│   ├── post-daily-movers.ts          # Phase 6: Top 5 Movers image card (TG)\n│   ├── post-interactive-daily.ts     # Phase 6: Interactive X polls\n│   ├── post-video-daily.ts           # Phase 6: Render and publish 60s video to IG/Threads/YT\n│   ├── refresh-meta-tokens.ts        # Phase 6: Rotate Long-Lived Meta access tokens\n│   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers\n│   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation\n│   └── send-system-report.ts        # Reporting: Daily/weekly/monthly summaries\n├── tests/\n│   ├── config.test.ts\n│   ├── content-loader.test.ts\n│   ├── utils.test.ts\n│   └── x-client.test.ts\n├── .github/\n│   └── workflows/\n│       ├── daily-refresh.yml         # Daily data + price refresh + deploy\n│       ├── daily-content-generation.yml # Daily queue publish + deploy\n│       └── social-automations.yml    # 8x/day: unified TG/X posting with exclusive slots\n├── .env.example                      # Required environment variables\n├── package.json\n├── tsconfig.json\n├── vitest.config.ts\n├── next.config.ts\n└── docs/tokenradar/tokenradar.json  # Artifact-maintained source\n```\n\n---\n"
+    },
+    {
+      "heading": "Project Documentation Artifacts",
+      "level": 2,
+      "lineStart": 193,
+      "lineEnd": 228,
+      "content": "## Project Documentation Artifacts\n\nThe maintained project documentation lives under `docs/` as paired HTML and JSON artifacts. `docs/tokenradar/tokenradar.html` and `docs/tokenradar/tokenradar.json` are the top-level project reference and should mention every maintained documentation pair plus the public HTML/JSON runtime artifacts.\n\n- `docs/automations/automations.html` + `docs/automations/automations.json` - automation schedules, social routes, diagnostics, credentials, and recurring operations.\n- `docs/data-schema/data-schema.html` + `docs/data-schema/data-schema.json` - JSON contracts, producers, consumers, validation rules, and consolidated runtime blobs.\n- `docs/deployment/deployment.html` + `docs/deployment/deployment.json` - static export, Cloudflare Pages deployment, build gates, and deploy diagnostics.\n- `docs/design/design.html` + `docs/design/design.json` - visual system, page composition, interactive states, accessibility, and brand constraints.\n- `docs/editorial/editorial.html` + `docs/editorial/editorial.json` - article standards, factual grounding, quality gates, and review triggers.\n- `docs/integrations/integrations.html` + `docs/integrations/integrations.json` - provider APIs, platform credentials, analytics, social publishing integrations, and storage services.\n- `docs/pipeline/pipeline.html` + `docs/pipeline/pipeline.json` - discovery, data harvest, metric generation, queue publication, validation, build, and delivery.\n- `docs/prompts/prompts.html` + `docs/prompts/prompts.json` - prompt inputs, generation constraints, fallback behavior, and output validation for AI-authored content.\n- `docs/public-video-assets-broll-readme/public-video-assets-broll-readme.html` + `docs/public-video-assets-broll-readme/public-video-assets-broll-readme.json` - local b-roll generation, Blender loops, R2 sync, manifest contract, and pruning commands.\n- `docs/readme/readme.html` + `docs/readme/readme.json` - README reference, stack summary, storage strategy, quality gates, and contributor commands.\n- `docs/seo/seo.html` + `docs/seo/seo.json` - static export SEO, URL inventory, metadata, sitemap coverage, structured data, and search QA.\n- `docs/testing/testing.html` + `docs/testing/testing.json` - Vitest inventory, local validation, CI gates, mocking policy, browser QA, and drift checks.\n- `docs/tokenradar/tokenradar.html` + `docs/tokenradar/tokenradar.json` - whole-project reference covering product strategy, architecture, stack, workflows, and operating model.\n\nPublic runtime HTML/JSON artifacts that should stay represented here:\n\n- `public/admin.html`\n- `public/_routes.json`\n- `public/video-assets/broll/manifest.json`\n- `public/video-assets/broll/manifest.example.json`\n\nHigh-volume generated JSON families are documented by pattern instead of listing every token-level file individually:\n\n- `content/tokens/{tokenId}/{overview,price-prediction,how-to-buy,tge-preview}.json`\n- `data/tokens/{tokenId}.json`\n- `data/prices/{tokenId}.json`\n- `data/metrics/{tokenId}.json`\n- `data/references/{tokenId}.json`\n- `data/posted_video/YYYY-MM-DD/daily-video.json`\n\n---\n"
+    },
+    {
+      "heading": "Phase 1 — Keyword Research Engine",
+      "level": 2,
+      "lineStart": 229,
+      "lineEnd": 232,
+      "content": "## Phase 1 — Keyword Research Engine\n\n**Goal:** Generate 5,000–10,000 long-tail keywords with low competition.\n"
+    },
+    {
+      "heading": "Long-Tail Targeting Strategy",
+      "level": 3,
+      "lineStart": 233,
+      "lineEnd": 248,
+      "content": "### Long-Tail Targeting Strategy\n\nAvoid head keywords (BTC, ETH) where CoinGecko/Forbes dominate. Target the **long tail** via a **Template × Token Matrix**:\n\n```\nTemplates:                              Tokens (#50-#200 by market cap):\n├── \"[token] price prediction 2026\"     ├── Mid-cap tokens (lower competition)\n├── \"is [token] a good investment\"      ├── New trending tokens (< 6 months old)\n├── \"[token] vs [token]\"                ├── DeFi / Layer 2 / AI narrative tokens\n├── \"how to buy [token]\"               └── Expand to #200-#500 in month 3+\n├── \"[token] staking rewards APY\"\n├── \"[token] tokenomics explained\"\n├── \"what is [token] used for\"\n└── \"[token] risks and concerns\"\n```\n"
+    },
+    {
+      "heading": "Script: `scripts/keyword-generator.ts`",
+      "level": 3,
+      "lineStart": 249,
+      "lineEnd": 267,
+      "content": "### Script: `scripts/keyword-generator.ts`\n\n**Inputs:**\n- CoinGecko: tokens #50-#200 (names, symbols, categories)\n- Google Autocomplete API: real user search queries\n\n**Process:**\n1. Fetch token list from CoinGecko\n2. Generate all template × token combinations\n3. Query Google Autocomplete with each token + alphabet modifiers (a-z)\n4. Deduplicate and filter out keywords dominated by high-authority sites\n5. Output sorted by estimated search volume\n\n**Output:** `data/keywords.json` — array of keyword objects with token, template, estimated volume\n\n**Cost:** $0\n\n---\n"
+    },
+    {
+      "heading": "Phase 2 — Data Collection",
+      "level": 2,
+      "lineStart": 268,
+      "lineEnd": 269,
+      "content": "## Phase 2 — Data Collection\n"
+    },
+    {
+      "heading": "Script: `scripts/fetch-crypto-data.ts`",
+      "level": 3,
+      "lineStart": 270,
+      "lineEnd": 289,
+      "content": "### Script: `scripts/fetch-crypto-data.ts`\n\n**Data Source: CoinGecko API (Free Tier)**\n\n| Data Point | Endpoint |\n|------------|----------|\n| Price, market cap, volume | `/coins/{id}` |\n| Circulating / total supply | `/coins/{id}` |\n| ATH / ATL with dates | `/coins/{id}` |\n| 30-day + 1-year price history | `/coins/{id}/market_chart` |\n| Categories and tags | `/coins/{id}` |\n\n**Rate Limit Safeguards:**\n- Shared client with caching and a monthly quota counter\n- Local JSON cache — re-fetch only if data is **>24h old**\n- Monthly call counter — **auto-pause at 9,000 calls** (limit: 10,000)\n- Cache-first behavior to reduce unnecessary repeat calls\n\n**Output:** `data/tokens.json` + `data/prices/[token-id].json`\n"
+    },
+    {
+      "heading": "Script: `scripts/fetch-reference-articles.ts`",
+      "level": 3,
+      "lineStart": 290,
+      "lineEnd": 304,
+      "content": "### Script: `scripts/fetch-reference-articles.ts`\n\n**Sources:** CoinDesk, The Block, Decrypt (via RSS feeds)\n\n**Process:**\n1. Fetch RSS feeds for each token name\n2. Extract **key facts and analysis angles only** (not full text — avoids copyright)\n3. Store as summarized reference points\n\n**Purpose:** AI uses these as **style and fact reference**, never copies content directly.\n\n**Output:** `data/references/[token-id].json`\n\n---\n"
+    },
+    {
+      "heading": "Phase 3 — AI Content Generation",
+      "level": 2,
+      "lineStart": 305,
+      "lineEnd": 306,
+      "content": "## Phase 3 — AI Content Generation\n"
+    },
+    {
+      "heading": "Provider: Gemini 2.5 Flash (Primary) + Claude Haiku 4.5 (Fallback)",
+      "level": 3,
+      "lineStart": 307,
+      "lineEnd": 315,
+      "content": "### Provider: Gemini 2.5 Flash (Primary) + Claude Haiku 4.5 (Fallback)\n\n| Metric | Value |\n|--------|-------|\n| Cost per article | ~$0.001 (0.1 cents) |\n| Input token price | $0.075 / 1M tokens |\n| Output token price | $0.30 / 1M tokens |\n| Reliability | Dual-model fallback system |\n"
+    },
+    {
+      "heading": "Script: `scripts/generate-content.ts`",
+      "level": 3,
+      "lineStart": 316,
+      "lineEnd": 322,
+      "content": "### Script: `scripts/generate-content.ts`\n\nEach article prompt includes:\n1. **Real CoinGecko data** — prices, market cap, supply, history\n2. **Reference article summaries** — writing style + analyst perspectives\n3. **Calculated unique metrics** — computed by our scripts, not the AI\n"
+    },
+    {
+      "heading": "Proprietary Metrics (`scripts/compute-metrics.ts`)",
+      "level": 3,
+      "lineStart": 323,
+      "lineEnd": 332,
+      "content": "### Proprietary Metrics (`scripts/compute-metrics.ts`)\n\n| Metric | Description | Inputs |\n|--------|-------------|--------|\n| **Risk Score** (1-10) | Overall investment risk | Volatility, market cap, age, liquidity |\n| **Growth Potential Index** | Room to grow vs category peers | Market cap vs avg in same category |\n| **Holder Concentration** | Whale risk indicator | Top wallet % (on-chain if available) |\n| **Narrative Strength** | Category trend momentum | Search trends for AI, DeFi, L2, etc. |\n| **Value vs ATH** | Discount from peak | Current price ÷ all-time high |\n"
+    },
+    {
+      "heading": "Content Rules",
+      "level": 3,
+      "lineStart": 333,
+      "lineEnd": 346,
+      "content": "### Content Rules\n\n- **1,000–2,000 words** per article\n- Minimum **3 real data points** from CoinGecko per article\n- Minimum **1 real-world event/development** reference\n- **FAQ section** (3–5 questions) for Google FAQ rich snippets\n- **\"Last Updated: [date]\"** timestamp on every page\n- **No buy/sell recommendations** — data and analysis only\n- **Disclaimer footer** on every article\n\n**Output:** `content/tokens/[token-id]/[article-type].json`\n\n---\n"
+    },
+    {
+      "heading": "Phase 4 — E-E-A-T & Quality Layer",
+      "level": 2,
+      "lineStart": 347,
+      "lineEnd": 363,
+      "content": "## Phase 4 — E-E-A-T & Quality Layer\n\nGoogle's E-E-A-T (Experience, Expertise, Authority, Trust) signals are critical for ranking.\n\n| Signal | Implementation |\n|--------|---------------|\n| **About page** | Site methodology, data sources, algorithms explained |\n| **Author profile** | Named author with bio, photo, social media links |\n| **Methodology page** | Detailed explanation of Risk Score, Growth Index formulas |\n| **Data citations** | \"Data: CoinGecko, as of [date]\" on every article |\n| **Disclaimer** | \"Not financial advice\" footer on every page |\n| **Privacy Policy** | GDPR-compliant privacy policy |\n| **Terms of Service** | Standard terms of service |\n| **Cookie consent** | GDPR cookie consent banner |\n| **Last Updated** | Visible timestamp on every article |\n| **Contact page** | Email address or contact form |\n"
+    },
+    {
+      "heading": "Quality Check Script: `scripts/quality-check.ts`",
+      "level": 3,
+      "lineStart": 364,
+      "lineEnd": 375,
+      "content": "### Quality Check Script: `scripts/quality-check.ts`\n\nAutomated validation before publishing:\n- Word count within 1,000–2,000 range\n- At least 3 CoinGecko data citations\n- FAQ section present with 3+ questions\n- Disclaimer present\n- No prohibited financial advice phrases (\"you should buy\", \"guaranteed returns\", etc.)\n- Readability score check\n\n---\n"
+    },
+    {
+      "heading": "Phase 5 — Website Build",
+      "level": 2,
+      "lineStart": 376,
+      "lineEnd": 377,
+      "content": "## Phase 5 — Website Build\n"
+    },
+    {
+      "heading": "Next.js + Static Site Generation (SSG)",
+      "level": 3,
+      "lineStart": 378,
+      "lineEnd": 384,
+      "content": "### Next.js + Static Site Generation (SSG)\n\nAll pages are **pre-rendered at build time** for:\n- ⚡ Instant page loads (no server-side rendering costs)\n- 🔍 Perfect SEO (full HTML for Google crawlers)\n- 💰 Free hosting on Cloudflare Pages\n"
+    },
+    {
+      "heading": "Key Pages",
+      "level": 3,
+      "lineStart": 385,
+      "lineEnd": 399,
+      "content": "### Key Pages\n\n| Route | Purpose |\n|-------|---------|\n| `/` | Homepage — top tokens, trending, latest articles |\n| `/about` | E-E-A-T: methodology, team, data sources |\n| `/privacy`, `/terms`, `/disclaimer` | Legal pages |\n| `/contact` | Contact form |\n| `/[token]` | Token overview (price, metrics, summary) |\n| `/[token]/price-prediction` | Price prediction article |\n| `/[token]/how-to-buy` | Step-by-step buying guide |\n| `/[token]/transfer-to-ledger` | Token transfer and wallet guidance |\n| `/upcoming/[token]` | Upcoming TGE detail page |\n| `/sitemap.xml` | Auto-generated sitemap |\n"
+    },
+    {
+      "heading": "SEO Optimizations",
+      "level": 3,
+      "lineStart": 400,
+      "lineEnd": 408,
+      "content": "### SEO Optimizations\n\n- **Structured data** (JSON-LD) for FAQ, Article, BreadcrumbList schemas\n- **Auto-generated sitemap.xml** submitted to Google Search Console\n- **IndexNow API** pings on every new page deployment\n- **Canonical URLs** on all pages\n- **Open Graph + Twitter Card** meta tags\n- **Internal linking** between related token pages\n"
+    },
+    {
+      "heading": "Drip Publishing Schedule",
+      "level": 3,
+      "lineStart": 409,
+      "lineEnd": 418,
+      "content": "### Drip Publishing Schedule\n\n| Period | Pages/Day | Strategy |\n|--------|-----------|----------|\n| Week 1 | 30 total (seed) | Homepage + top tokens + legal pages |\n| Week 2–4 | 10–15/day | Gradually ramp up via GitHub Actions |\n| Month 2+ | 20–30/day | Full speed as Google gains trust |\n\n> **Why drip publish?** Publishing 1,000+ pages overnight triggers Google's spam detection. Gradual rollout mimics natural content growth.\n"
+    },
+    {
+      "heading": "Hybrid Smart Queue (Token Selection)",
+      "level": 3,
+      "lineStart": 419,
+      "lineEnd": 436,
+      "content": "### Hybrid Smart Queue (Token Selection)\n\nThe daily content generation uses a **Hybrid Smart Queue** to decide which tokens get articles each day. Instead of a simple first-come-first-served waterfall, the budget is distributed across priority tiers:\n\n| Priority | Tier | Cap | Rationale |\n|----------|------|-----|----------|\n| P0 | 🎓 Graduated (newly launched TGEs) | **Uncapped** — takes all | Launch-day SEO is irreplaceable; delays lose 80%+ of initial search traffic |\n| P1 | ⚡ Volatile (>15% 24h move) | Even split of remaining budget | Trending tokens = high search demand right now |\n| P2 | 📝 Incomplete (missing articles) | Even split of remaining budget | Fills SEO coverage gaps across the token database |\n| P3 | 🔄 Stale Refresh (>30 days old) | Leftover slots only | Keeps existing content fresh for Google |\n\n**Example (budget of 15):**\n- Quiet day: 2 Graduated + 7 Volatile + 6 Incomplete + 0 Refreshes = 15\n- Launch day: 8 Graduated + 4 Volatile + 3 Incomplete + 0 Refreshes = 15\n- No launches: 0 Graduated + 8 Volatile + 7 Incomplete + 0 Refreshes = 15\n\n---\n"
+    },
+    {
+      "heading": "Phase 6 — Automated Social Promotion",
+      "level": 2,
+      "lineStart": 437,
+      "lineEnd": 438,
+      "content": "## Phase 6 — Automated Social Promotion\n"
+    },
+    {
+      "heading": "Unified Workflow: `.github/workflows/social-automations.yml`",
+      "level": 3,
+      "lineStart": 439,
+      "lineEnd": 453,
+      "content": "### Unified Workflow: `.github/workflows/social-automations.yml`\n\nAll social posting is consolidated into a single workflow with 8 scheduled runs/day.\n\n| Platform | Content | Frequency | Script |\n|----------|---------|-----------|--------|\n| **Telegram** | Market Updates | 5x/day | `post-market-updates.ts --platform telegram` |\n| **Telegram** | Daily Poll (AI, 7 rotating themes) | 1x/day @ 15:00 UTC | `post-daily-poll.ts` |\n| **Telegram** | Top 5 Movers Image | 1x/day @ 21:00 UTC | `post-daily-movers.ts` |\n| **X (Twitter)** | Market Updates | 4x/day | `post-market-updates.ts --platform x` |\n| **X (Twitter)** | Interactive Poll | 1x/day @ 12:00 UTC | `post-interactive-daily.ts` |\n| **Instagram** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n| **Threads** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n| **YouTube** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n"
+    },
+    {
+      "heading": "Daily Posting Schedule",
+      "level": 3,
+      "lineStart": 454,
+      "lineEnd": 468,
+      "content": "### Daily Posting Schedule\n\n| UTC | EDT | Telegram | X |\n|-----|-----|----------|---|\n| 00:00 | 20:00 | 📊 Market Update | — |\n| 03:00 | 23:00 | 📊 Market Update | 📊 Market Update |\n| 06:00 | 02:00 | 📊 Market Update | — |\n| 09:00 | 05:00 | 📊 Market Update | 📊 Market Update |\n| 12:00 | 08:00 | 📊 Market Update | 🗳️ Interactive Poll |\n| **15:00** | **11:00** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |\n| **18:00** | **14:00** | **🎬 Video Breakout** *(exclusive)* | **🎬 Video Breakout** *(exclusive)* |\n| **21:00** | **17:00** | **🏆 Top 5 Movers** *(exclusive)* | 📊 Market Update |\n\n> **Exclusive slots:** Regular market updates are skipped when polls or movers cards run, keeping the channel uncluttered.\n"
+    },
+    {
+      "heading": "TG Poll Themes (Rotate by Day of Week)",
+      "level": 3,
+      "lineStart": 469,
+      "lineEnd": 480,
+      "content": "### TG Poll Themes (Rotate by Day of Week)\n\n| Day | Theme |\n|-----|-------|\n| Sun | Market Sentiment |\n| Mon | Token Category Battle |\n| Tue | Trading Strategy |\n| Wed | Hot Take / Prediction |\n| Thu | Community Lifestyle |\n| Fri | DeFi & Yield |\n| Sat | Technology & Innovation |\n"
+    },
+    {
+      "heading": "Post Format",
+      "level": 3,
+      "lineStart": 481,
+      "lineEnd": 488,
+      "content": "### Post Format\n\nEach market update includes:\n- Token name and current price\n- Risk Score and ATH gap percentage\n- AI-generated summary (Gemini primary, Claude fallback)\n- Link to full article on tokenradar.co\n"
+    },
+    {
+      "heading": "Additional Free Traffic Sources",
+      "level": 3,
+      "lineStart": 489,
+      "lineEnd": 490,
+      "content": "### Additional Free Traffic Sources\n"
+    },
+    {
+      "heading": "X (Twitter) Setup",
+      "level": 3,
+      "lineStart": 491,
+      "lineEnd": 497,
+      "content": "### X (Twitter) Setup\n\n1. Create an app in the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard).\n2. Enable OAuth 2.0 and set the Redirect URI to `http://127.0.0.1:3000`.\n3. Fill in `X_OAUTH2_CLIENT_ID` and `X_OAUTH2_CLIENT_SECRET` in `.env.local`.\n4. Run `npx tsx scripts/generate-x-token.ts` to obtain the refresh token.\n"
+    },
+    {
+      "heading": "Telegram Setup",
+      "level": 3,
+      "lineStart": 498,
+      "lineEnd": 504,
+      "content": "### Telegram Setup\n\n1. Create a bot via [@BotFather](https://t.me/botfather).\n2. Add the bot to your channel as an administrator.\n3. Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID` in `.env.local`.\n4. Scheduled scripts use the shared `grammy` client for consistent formatting, keyboard support, and media uploads.\n"
+    },
+    {
+      "heading": "Meta (Instagram & Threads) Setup",
+      "level": 3,
+      "lineStart": 505,
+      "lineEnd": 513,
+      "content": "### Meta (Instagram & Threads) Setup\n\n1. Create an app in the [Meta App Dashboard](https://developers.facebook.com/).\n2. Add the **Instagram Graph API** and **Threads API** products.\n3. Authenticate to obtain Long-Lived Access Tokens.\n4. Fill in `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID`.\n5. For automated rotation, fill in `META_APP_ID` and `META_APP_SECRET`.\n6. Use `scripts/refresh-meta-tokens.ts` (via Actions) to rotate these tokens every 60 days.\n"
+    },
+    {
+      "heading": "YouTube Shorts Setup",
+      "level": 3,
+      "lineStart": 514,
+      "lineEnd": 525,
+      "content": "### YouTube Shorts Setup\n\n1. Create a project in the [Google Cloud Console](https://console.cloud.google.com/).\n2. Enable the **YouTube Data API v3**.\n3. Configure the **OAuth Consent Screen**:\n    - User Type: External.\n    - Add the `https://www.googleapis.com/auth/youtube.upload` scope.\n4. Create **OAuth 2.0 Client IDs** (Web application):\n    - Authorized redirect URIs: `http://localhost:3000`.\n5. Fill in `YOUTUBE_CLIENT_ID` and `YOUTUBE_CLIENT_SECRET` in `.env.local`.\n6. Run `npx tsx scripts/generate-youtube-token.ts` to obtain the refresh token.\n"
+    },
+    {
+      "heading": "Troubleshooting: invalid_grant",
+      "level": 3,
+      "lineStart": 526,
+      "lineEnd": 539,
+      "content": "### Troubleshooting: invalid_grant\n\nIf you see `YouTube Upload Error: invalid_grant`, it means your refresh token is no longer valid.\n\n**Common fixes:**\n1. **Testing Mode Expiration**: If your Google Cloud project publishing status is set to \"Testing\", tokens expire after 7 days.\n    - **Fix**: Go to OAuth Consent Screen and set **Publishing status** to **Production**. You don't need to submit for verification if it's for personal use.\n2. **Revoked Access**: If you changed your password or manually revoked access.\n    - **Fix**: Run the generation script again.\n3. **Scope Change**: If the requested scopes in the code don't match the token.\n    - **Fix**: Run the generation script again.\n\n---\n"
+    },
+    {
+      "heading": "Phase 7 — Monetization",
+      "level": 2,
+      "lineStart": 540,
+      "lineEnd": 543,
+      "content": "## Phase 7 — Monetization\n\nAdded **after** the site has content and organic traffic.\n"
+    },
+    {
+      "heading": "Revenue Streams",
+      "level": 3,
+      "lineStart": 544,
+      "lineEnd": 551,
+      "content": "### Revenue Streams\n\n| Stream | When to Apply | Requirements |\n|--------|--------------|--------------|\n| **Google AdSense** | Month 1–2 | 20+ quality pages, some organic traffic |\n| **Crypto affiliate programs** | Month 2–3 | Content in \"How to Buy\" articles |\n| **Sponsored content** | Month 6+ | Established traffic and authority |\n"
+    },
+    {
+      "heading": "Affiliate Programs",
+      "level": 3,
+      "lineStart": 552,
+      "lineEnd": 563,
+      "content": "### Affiliate Programs\n\n| Exchange | Commission | Cookie Duration |\n|----------|------------|-----------------|\n| Binance | Up to 50% trading fees | 90 days |\n| Bybit | Up to 30% | 30 days |\n| Coinbase | $10 per sign-up | 30 days |\n\nAffiliate CTAs placed naturally in \"How to Buy [Token]\" articles with proper disclosure.\n\n---\n"
+    },
+    {
+      "heading": "Phase 8 — Automated Content Refresh",
+      "level": 2,
+      "lineStart": 564,
+      "lineEnd": 573,
+      "content": "## Phase 8 — Automated Content Refresh\n\n| What | Frequency | How |\n|------|-----------|-----|\n| CoinGecko data refresh | Daily | GitHub Actions cron job |\n| Price-sensitive content | Weekly | Script regenerates prediction pages |\n| Sitemap | On every deploy | Next.js auto-generates |\n| \"Last Updated\" timestamps | On data refresh | Automatic |\n| Year-based URLs | Annually | New `/price-prediction-2027/` pages |\n"
+    },
+    {
+      "heading": "GitHub Actions Workflows",
+      "level": 3,
+      "lineStart": 574,
+      "lineEnd": 576,
+      "content": "### GitHub Actions Workflows\n\n```yaml"
+    },
+    {
+      "heading": ".github/workflows/daily-refresh.yml",
+      "level": 1,
+      "lineStart": 577,
+      "lineEnd": 577,
+      "content": "# .github/workflows/daily-refresh.yml"
+    },
+    {
+      "heading": "Runs daily at 18:00 UTC",
+      "level": 1,
+      "lineStart": 578,
+      "lineEnd": 578,
+      "content": "# Runs daily at 18:00 UTC"
+    },
+    {
+      "heading": "1. Fetches latest CoinGecko data (lite mode)",
+      "level": 1,
+      "lineStart": 579,
+      "lineEnd": 579,
+      "content": "# 1. Fetches latest CoinGecko data (lite mode)"
+    },
+    {
+      "heading": "2. Fetches reference articles from RSS feeds",
+      "level": 1,
+      "lineStart": 580,
+      "lineEnd": 580,
+      "content": "# 2. Fetches reference articles from RSS feeds"
+    },
+    {
+      "heading": "3. Recomputes proprietary metrics",
+      "level": 1,
+      "lineStart": 581,
+      "lineEnd": 581,
+      "content": "# 3. Recomputes proprietary metrics"
+    },
+    {
+      "heading": "4. Commits [skip ci] and triggers explicit deploy",
+      "level": 1,
+      "lineStart": 582,
+      "lineEnd": 583,
+      "content": "# 4. Commits [skip ci] and triggers explicit deploy\n"
+    },
+    {
+      "heading": ".github/workflows/daily-content-generation.yml",
+      "level": 1,
+      "lineStart": 584,
+      "lineEnd": 584,
+      "content": "# .github/workflows/daily-content-generation.yml"
+    },
+    {
+      "heading": "Runs daily",
+      "level": 1,
+      "lineStart": 585,
+      "lineEnd": 585,
+      "content": "# Runs daily"
+    },
+    {
+      "heading": "1. Generates queue content using Hybrid Smart Queue (P0→P3 priority)",
+      "level": 1,
+      "lineStart": 586,
+      "lineEnd": 586,
+      "content": "# 1. Generates queue content using Hybrid Smart Queue (P0→P3 priority)"
+    },
+    {
+      "heading": "2. Publishes a bounded batch from the queue",
+      "level": 1,
+      "lineStart": 587,
+      "lineEnd": 587,
+      "content": "# 2. Publishes a bounded batch from the queue"
+    },
+    {
+      "heading": "3. Injects internal links",
+      "level": 1,
+      "lineStart": 588,
+      "lineEnd": 588,
+      "content": "# 3. Injects internal links"
+    },
+    {
+      "heading": "4. Deploys to Cloudflare Pages",
+      "level": 1,
+      "lineStart": 589,
+      "lineEnd": 590,
+      "content": "# 4. Deploys to Cloudflare Pages\n"
+    },
+    {
+      "heading": ".github/workflows/social-automations.yml",
+      "level": 1,
+      "lineStart": 591,
+      "lineEnd": 591,
+      "content": "# .github/workflows/social-automations.yml"
+    },
+    {
+      "heading": "Runs 8x/day — unified social posting",
+      "level": 1,
+      "lineStart": 592,
+      "lineEnd": 592,
+      "content": "# Runs 8x/day — unified social posting"
+    },
+    {
+      "heading": "Routes content to TG and X based on time slot",
+      "level": 1,
+      "lineStart": 593,
+      "lineEnd": 593,
+      "content": "# Routes content to TG and X based on time slot"
+    },
+    {
+      "heading": "Exclusive slots for poll (15:00), video (18:00), and movers (21:00)",
+      "level": 1,
+      "lineStart": 594,
+      "lineEnd": 598,
+      "content": "# Exclusive slots for poll (15:00), video (18:00), and movers (21:00)\n```\n\n---\n"
+    },
+    {
+      "heading": "Content & Cost Schedule",
+      "level": 2,
+      "lineStart": 599,
+      "lineEnd": 600,
+      "content": "## Content & Cost Schedule\n"
+    },
+    {
+      "heading": "6-Month Production Plan",
+      "level": 3,
+      "lineStart": 601,
+      "lineEnd": 612,
+      "content": "### 6-Month Production Plan\n\n| Month | New Articles | Focus Area | AI Cost | Running Total |\n|-------|-------------|------------|-------------|---------------|\n| 1 | 50 | Seed pages, legal, top tokens | $0.05 | $0.05 |\n| 2 | 150 | Expand tokens + comparisons | $0.15 | $0.20 |\n| 3 | 300 | Price predictions + how-to-buy | $0.30 | $0.50 |\n| 4 | 500 | Full #50-#200 coverage | $0.50 | $1.00 |\n| 5 | 300 | Content refresh + new tokens | $0.30 | $1.30 |\n| 6 | 200 | Expand to #200-#300 + refresh | $0.20 | $1.50 |\n| **Total** | **1,500** | | | **~$1.50** |\n"
+    },
+    {
+      "heading": "Total 6-Month Budget",
+      "level": 3,
+      "lineStart": 613,
+      "lineEnd": 626,
+      "content": "### Total 6-Month Budget\n\n| Item | Cost |\n|------|------|\n| Domain (tokenradar.co) | $6.98 |\n| Claude / Gemini API | ~$1.50 |\n| Hosting (Cloudflare Pages) | $0 |\n| CoinGecko API | $0 |\n| GitHub Actions CI/CD | $0 |\n| Social posting | $0 |\n| **Grand Total** | **~$30** |\n\n---\n"
+    },
+    {
+      "heading": "Build Timeline",
+      "level": 2,
+      "lineStart": 627,
+      "lineEnd": 640,
+      "content": "## Build Timeline\n\n| Day | Deliverable |\n|-----|-------------|\n| 1 | Keyword engine + CoinGecko data fetcher |\n| 1–2 | Reference article scraper |\n| 2–4 | AI content generator with unique metrics |\n| 3–5 | Next.js site + E-E-A-T + legal pages |\n| 5–6 | Deploy to Cloudflare Pages |\n| 6–7 | Social auto-poster (X + Telegram) |\n| Week 2+ | Drip-publish 10–15 pages/day |\n\n---\n"
+    },
+    {
+      "heading": "Risk Mitigation",
+      "level": 2,
+      "lineStart": 641,
+      "lineEnd": 642,
+      "content": "## Risk Mitigation\n"
+    },
+    {
+      "heading": "Google Penalty Prevention",
+      "level": 3,
+      "lineStart": 643,
+      "lineEnd": 652,
+      "content": "### Google Penalty Prevention\n\n| Risk | Mitigation |\n|------|------------|\n| **Thin content penalty** | Min 1,000 words + unique metrics per page |\n| **Duplicate content** | Each article uses unique data + computed metrics |\n| **Spam detection** | Drip publishing (10–15 pages/day, not 1,000 at once) |\n| **Low E-E-A-T** | About page, methodology, author profiles, data citations |\n| **Over-optimization** | Natural keyword density, varied sentence structures |\n"
+    },
+    {
+      "heading": "API & Rate Limit Safeguards",
+      "level": 3,
+      "lineStart": 653,
+      "lineEnd": 661,
+      "content": "### API & Rate Limit Safeguards\n\n| Risk | Mitigation |\n|------|------------|\n| **CoinGecko rate limit** | 2s delays, local cache, monthly counter (pause at 9K) |\n| **CoinGecko downtime** | Cache-first reads and graceful degradation when live data is unavailable |\n| **Claude API costs spike** | Per-article cost cap, monthly budget alerts |\n| **X API rate limit** | Queue posts, max 15–20/day |\n"
+    },
+    {
+      "heading": "Content Quality",
+      "level": 3,
+      "lineStart": 662,
+      "lineEnd": 671,
+      "content": "### Content Quality\n\n| Risk | Mitigation |\n|------|------------|\n| **AI hallucinations** | All data points verified against CoinGecko source |\n| **Outdated information** | Daily data refresh + \"Last Updated\" timestamps |\n| **Legal issues** | \"Not financial advice\" disclaimer, no buy/sell recommendations |\n\n---\n"
+    },
+    {
+      "heading": "Legal & Compliance",
+      "level": 2,
+      "lineStart": 672,
+      "lineEnd": 673,
+      "content": "## Legal & Compliance\n"
+    },
+    {
+      "heading": "Required Pages",
+      "level": 3,
+      "lineStart": 674,
+      "lineEnd": 680,
+      "content": "### Required Pages\n\n- **Privacy Policy** — GDPR-compliant, covers analytics and cookies\n- **Terms of Service** — Standard usage terms\n- **Financial Disclaimer** — \"Not financial advice\", no guarantees\n- **Cookie Consent Banner** — GDPR opt-in for non-essential cookies\n"
+    },
+    {
+      "heading": "Content Guidelines",
+      "level": 3,
+      "lineStart": 681,
+      "lineEnd": 689,
+      "content": "### Content Guidelines\n\n- ❌ Never recommend buying or selling any token\n- ❌ Never guarantee returns or profits\n- ❌ Never use phrases like \"you should invest\" or \"guaranteed gains\"\n- ✅ Present data, metrics, and analysis objectively\n- ✅ Include disclaimer on every article\n- ✅ Cite all data sources with dates\n"
+    },
+    {
+      "heading": "FOP Registration (Ukraine)",
+      "level": 3,
+      "lineStart": 690,
+      "lineEnd": 698,
+      "content": "### FOP Registration (Ukraine)\n\n**Not required to launch.** Register when earning $200+/month:\n- Online via **Diia** (~15 minutes)\n- Group 3: **5% tax** on income\n- USC: ~₴1,760/month (mandatory since 2025)\n\n---\n"
+    },
+    {
+      "heading": "Domain & Branding Research",
+      "level": 2,
+      "lineStart": 699,
+      "lineEnd": 700,
+      "content": "## Domain & Branding Research\n"
+    },
+    {
+      "heading": "Domain Choice: `tokenradar.co`",
+      "level": 3,
+      "lineStart": 701,
+      "lineEnd": 711,
+      "content": "### Domain Choice: `tokenradar.co`\n\n| Criteria | Score |\n|----------|-------|\n| Brandable | ✅ Strong — \"TokenRadar\" is memorable |\n| Keyword relevance | ✅ Contains \"token\" |\n| Length | ✅ Short (14 chars) |\n| Availability | ✅ Available on Namecheap |\n| Price | ✅ $6.98/year |\n| TLD | ⚠️ `.co` is solid but `.com` would be better (taken/expensive) |\n"
+    },
+    {
+      "heading": "Alternative Domains Considered",
+      "level": 3,
+      "lineStart": 712,
+      "lineEnd": 720,
+      "content": "### Alternative Domains Considered\n\n- `tokenradar.io` — more expensive, crypto-native TLD\n- `tokenradar.xyz` — cheap but less trusted\n- `tokenscout.co` — good alternative\n- `cryptoradar.co` — may have trademark issues\n\n---\n"
+    },
+    {
+      "heading": "AI Provider Comparison",
+      "level": 2,
+      "lineStart": 721,
+      "lineEnd": 734,
+      "content": "## AI Provider Comparison\n\n| Provider | Cost per Article | Quality | Speed | Verdict |\n|----------|-----------------|---------|-------|---------|\n| **Gemini 2.5 Flash** | ~$0.001 | ⭐⭐⭐⭐ | Ultra Fast | ✅ **Selected (Primary)** |\n| Claude Haiku 4.5 | ~$0.015 | ⭐⭐⭐⭐⭐ | Fast | ✅ **Selected (Fallback)** |\n| GPT-4o Mini | ~$0.012 | ⭐⭐⭐⭐ | Fast | Good backup |\n| Llama 3.1 (self-hosted) | $0 (compute cost) | ⭐⭐⭐ | Depends | Not worth the infra overhead |\n| Claude Sonnet 4 | ~$0.10 | ⭐⭐⭐⭐⭐ | Medium | Overkill for this use case |\n\n**Decision:** Claude Haiku 4.5 — best quality-to-cost ratio for structured SEO content.\n\n---\n"
+    },
+    {
+      "heading": "Token Strategy",
+      "level": 2,
+      "lineStart": 735,
+      "lineEnd": 736,
+      "content": "## Token Strategy\n"
+    },
+    {
+      "heading": "Why #50–#200 by Market Cap?",
+      "level": 3,
+      "lineStart": 737,
+      "lineEnd": 746,
+      "content": "### Why #50–#200 by Market Cap?\n\n| Range | Competition | Search Volume | Our Strategy |\n|-------|-------------|---------------|-------------|\n| #1–#10 (BTC, ETH) | 🔴 Extreme | Very high | ❌ Skip — CoinGecko/Forbes dominate |\n| #10–#50 | 🟠 High | High | ❌ Skip initially |\n| **#50–#200** | 🟢 **Low-Medium** | **Medium** | ✅ **Primary target** |\n| #200–#500 | 🟢 Low | Low-Medium | ✅ Expansion in month 3+ |\n| #500+ | 🟢 Very Low | Low | ⚠️ Risky — tokens may die |\n"
+    },
+    {
+      "heading": "Token Selection Criteria",
+      "level": 3,
+      "lineStart": 747,
+      "lineEnd": 756,
+      "content": "### Token Selection Criteria\n\n1. **Market cap rank** #50–#200 on CoinGecko\n2. **Active trading volume** (>$1M daily)\n3. **Has a narrative** (AI, DeFi, L2, Gaming, RWA)\n4. **Not a stablecoin** or wrapped token\n5. **Listed on major exchanges** (for affiliate potential)\n\n---\n"
+    },
+    {
+      "heading": "Environment Variables",
+      "level": 2,
+      "lineStart": 757,
+      "lineEnd": 759,
+      "content": "## Environment Variables\n\n```env"
+    },
+    {
+      "heading": ".env.example",
+      "level": 1,
+      "lineStart": 760,
+      "lineEnd": 761,
+      "content": "# .env.example\n"
+    },
+    {
+      "heading": "CoinGecko",
+      "level": 1,
+      "lineStart": 762,
+      "lineEnd": 764,
+      "content": "# CoinGecko\nCOINGECKO_API_KEY=           # Optional, for higher rate limits\n"
+    },
+    {
+      "heading": "Claude AI",
+      "level": 1,
+      "lineStart": 765,
+      "lineEnd": 767,
+      "content": "# Claude AI\nANTHROPIC_API_KEY=           # Required for content generation\n"
+    },
+    {
+      "heading": "Gemini AI",
+      "level": 1,
+      "lineStart": 768,
+      "lineEnd": 770,
+      "content": "# Gemini AI\nGEMINI_API_KEY=              # Primary AI for social summaries & polls\n"
+    },
+    {
+      "heading": "Social Media — X (Twitter) OAuth 2.0",
+      "level": 1,
+      "lineStart": 771,
+      "lineEnd": 775,
+      "content": "# Social Media — X (Twitter) OAuth 2.0\nX_OAUTH2_CLIENT_ID=\nX_OAUTH2_CLIENT_SECRET=\nX_OAUTH2_REFRESH_TOKEN=\n"
+    },
+    {
+      "heading": "Social Media — Telegram",
+      "level": 1,
+      "lineStart": 776,
+      "lineEnd": 779,
+      "content": "# Social Media — Telegram\nTELEGRAM_BOT_TOKEN=          # Telegram Bot API\nTELEGRAM_CHANNEL_ID=         # Target channel\n"
+    },
+    {
+      "heading": "Social Media — Meta (Instagram / Threads)",
+      "level": 1,
+      "lineStart": 780,
+      "lineEnd": 787,
+      "content": "# Social Media — Meta (Instagram / Threads)\nIG_ACCESS_TOKEN=\nIG_ACCOUNT_ID=\nTHREADS_ACCESS_TOKEN=\nTHREADS_ACCOUNT_ID=\nMETA_APP_ID=\nMETA_APP_SECRET=\n"
+    },
+    {
+      "heading": "Social Media — YouTube",
+      "level": 1,
+      "lineStart": 788,
+      "lineEnd": 792,
+      "content": "# Social Media — YouTube\nYOUTUBE_CLIENT_ID=\nYOUTUBE_CLIENT_SECRET=\nYOUTUBE_REFRESH_TOKEN=\n"
+    },
+    {
+      "heading": "Error Reporting",
+      "level": 1,
+      "lineStart": 793,
+      "lineEnd": 796,
+      "content": "# Error Reporting\nTELEGRAM_REPORT_BOT_TOKEN=   # Separate bot for ops alerts\nTELEGRAM_REPORT_CHAT_ID=\n"
+    },
+    {
+      "heading": "Storage (Cloudflare R2 Media Staging)",
+      "level": 1,
+      "lineStart": 797,
+      "lineEnd": 803,
+      "content": "# Storage (Cloudflare R2 Media Staging)\nR2_ACCOUNT_ID=\nR2_ACCESS_KEY_ID=\nR2_SECRET_ACCESS_KEY=\nR2_BUCKET_NAME=\nR2_PUBLIC_URL=\n"
+    },
+    {
+      "heading": "Analytics",
+      "level": 1,
+      "lineStart": 804,
+      "lineEnd": 806,
+      "content": "# Analytics\nNEXT_PUBLIC_GA_MEASUREMENT_ID= # Google Analytics 4\n"
+    },
+    {
+      "heading": "Deployment",
+      "level": 1,
+      "lineStart": 807,
+      "lineEnd": 814,
+      "content": "# Deployment\nCLOUDFLARE_API_TOKEN=        # Cloudflare Pages deployment\nCLOUDFLARE_ACCOUNT_ID=\nCLOUDFLARE_ZONE_ID=\n```\n\n---\n"
+    },
+    {
+      "heading": "Quick Start (Future Reference)",
+      "level": 2,
+      "lineStart": 815,
+      "lineEnd": 817,
+      "content": "## Quick Start (Future Reference)\n\n```bash"
+    },
+    {
+      "heading": "1. Install dependencies",
+      "level": 1,
+      "lineStart": 818,
+      "lineEnd": 820,
+      "content": "# 1. Install dependencies\nnpm install\n"
+    },
+    {
+      "heading": "2. Set up environment",
+      "level": 1,
+      "lineStart": 821,
+      "lineEnd": 822,
+      "content": "# 2. Set up environment\ncp .env.example .env"
+    },
+    {
+      "heading": "Fill in API keys",
+      "level": 1,
+      "lineStart": 823,
+      "lineEnd": 824,
+      "content": "# Fill in API keys\n"
+    },
+    {
+      "heading": "3. Generate keywords",
+      "level": 1,
+      "lineStart": 825,
+      "lineEnd": 827,
+      "content": "# 3. Generate keywords\nnpx tsx scripts/keyword-generator.ts\n"
+    },
+    {
+      "heading": "4. Fetch crypto data",
+      "level": 1,
+      "lineStart": 828,
+      "lineEnd": 830,
+      "content": "# 4. Fetch crypto data\nnpx tsx scripts/fetch-crypto-data.ts\n"
+    },
+    {
+      "heading": "5. Generate content",
+      "level": 1,
+      "lineStart": 831,
+      "lineEnd": 833,
+      "content": "# 5. Generate content\nnpx tsx scripts/generate-content.ts\n"
+    },
+    {
+      "heading": "6. Run locally",
+      "level": 1,
+      "lineStart": 834,
+      "lineEnd": 836,
+      "content": "# 6. Run locally\nnpm run dev\n"
+    },
+    {
+      "heading": "7. Build for production",
+      "level": 1,
+      "lineStart": 837,
+      "lineEnd": 839,
+      "content": "# 7. Build for production\nnpm run build\n"
+    },
+    {
+      "heading": "8. Deploy",
+      "level": 1,
+      "lineStart": 840,
+      "lineEnd": 840,
+      "content": "# 8. Deploy"
+    },
+    {
+      "heading": "Automatic via GitHub Actions on push to main",
+      "level": 1,
+      "lineStart": 841,
+      "lineEnd": 847,
+      "content": "# Automatic via GitHub Actions on push to main\n```\n\n---\n\n*Last updated: April 2026*\n"
+    }
+  ],
+  "rawMarkdown": "# TokenRadar.co — Comprehensive Project Reference\n\n> **Project:** Crypto Programmatic SEO Platform\n> **Domain:** tokenradar.co ($6.98/yr on Namecheap)\n> **AI Provider:** Gemini 2.5 Flash (primary) + Claude Haiku 4.5 (fallback)\n> **Token Range:** #50-#250 by market cap, expanding to #500\n> **Total 6-Month Cost:** ~$30\n> **Status:** Live in production\n\n---\n\n## Table of Contents\n\n1. [Project Overview](#project-overview)\n2. [System Architecture](#system-architecture)\n3. [Tech Stack](#tech-stack)\n4. [Project Structure](#project-structure)\n5. [Project Documentation Artifacts](#project-documentation-artifacts)\n6. [Phase 1 — Keyword Research Engine](#phase-1--keyword-research-engine)\n7. [Phase 2 — Data Collection](#phase-2--data-collection)\n8. [Phase 3 — AI Content Generation](#phase-3--ai-content-generation)\n9. [Phase 4 — E-E-A-T & Quality Layer](#phase-4--e-e-a-t--quality-layer)\n10. [Phase 5 — Website Build](#phase-5--website-build)\n11. [Phase 6 — Automated Social Promotion](#phase-6--automated-social-promotion)\n    - [X (Twitter) Setup](#x-twitter-setup)\n    - [Telegram Setup](#telegram-setup)\n    - [YouTube Shorts Setup](#youtube-shorts-setup)\n    - [Troubleshooting: invalid_grant](#troubleshooting-invalid_grant)\n12. [Phase 7 — Monetization](#phase-7--monetization)\n13. [Phase 8 — Automated Content Refresh](#phase-8--automated-content-refresh)\n14. [Content & Cost Schedule](#content--cost-schedule)\n15. [Build Timeline](#build-timeline)\n16. [Risk Mitigation](#risk-mitigation)\n17. [Legal & Compliance](#legal--compliance)\n18. [Domain & Branding Research](#domain--branding-research)\n19. [AI Provider Comparison](#ai-provider-comparison)\n20. [Token Strategy](#token-strategy)\n\n---\n\n## Project Overview\n\nTokenRadar.co is a **programmatic SEO platform** that auto-generates thousands of high-quality, data-driven articles about cryptocurrency tokens. The platform targets **long-tail keywords** with low competition to capture organic search traffic, then monetizes via Google AdSense and crypto affiliate programs.\n\n### Core Value Proposition\n\n- **Unique proprietary metrics** (Risk Score, Growth Potential Index) — not just regurgitated CoinGecko data\n- **AI-generated content** that reads like human-written analysis\n- **Massive scale** — 1,500+ articles in 6 months at near-zero cost\n- **Auto-updating data** — prices and metrics refresh daily via GitHub Actions\n\n### Why This Works\n\n1. **Long-tail keywords** have low competition — major sites focus on BTC/ETH\n2. **Mid-cap tokens (#50-#200)** are searched but under-served by quality content\n3. **Static site generation** means near-zero hosting costs and blazing-fast pages\n4. **Programmatic content** scales linearly while cost stays flat\n\n---\n\n## System Architecture\n\n```mermaid\nflowchart TD\n    A[1. Keyword Engine] -->|long-tail crypto keywords| B[2. Data Collector]\n    B -->|CoinGecko data + reference articles| C[3. AI Content Generator]\n    C -->|human-style articles| D[4. Quality & E-E-A-T Layer]\n    D -->|reviewed content + unique metrics| E[5. Static Site Builder]\n    E -->|HTML pages| F[6. Cloudflare Pages]\n    F -->|drip-published| G[7. Google indexes]\n    G -->|organic traffic| H[8. Ads + Affiliates]\n\n    I[Auto-Poster] -->|summaries| J[X / Reddit / Telegram]\n    J -->|backlinks| G\n```\n\n### Data Flow\n\n```\nCoinGecko API → Raw Data (JSON) → Metric Computation → AI Prompt Assembly\n→ Claude Haiku → Raw Article → Quality Check → Markdown/JSON\n→ Next.js SSG → HTML → Cloudflare Pages → Google Index\n```\n\n---\n\n## Tech Stack\n\n| Layer | Technology | Cost |\n|-------|-----------|------|\n| **Framework** | Next.js (App Router, SSG) | $0 |\n| **Language** | TypeScript (strict mode) | $0 |\n| **Hosting** | Cloudflare Pages | $0 |\n| **CDN** | Cloudflare (built-in) | $0 |\n| **CI/CD** | GitHub Actions | $0 (2,000 min/month free) |\n| **Data API** | CoinGecko Free Tier | $0 (10K calls/month) |\n| **AI Content** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | ~$0.001 / article |\n| **AI Summaries** | Gemini 2.5 Flash (primary) + Claude Haiku 4.5 fallback | $0 |\n| **Domain** | Namecheap (tokenradar.co) | $6.98/yr |\n| **Charts** | Recharts (lightweight) | $0 |\n| **Social APIs** | X API, Telegram Bot API, Meta Graph API (IG/Threads), YouTube API | $0–$5 |\n| **Storage** | Cloudflare R2 (Media Staging) | $0 |\n\n---\n\n## Project Structure\n\n```\ntokenradar/\n├── src/\n│   ├── app/\n│   │   ├── layout.tsx                # Global nav, footer, AdSense, cookie banner\n│   │   ├── page.tsx                  # Homepage: top tokens, trending, latest\n│   │   ├── about/page.tsx            # E-E-A-T: About + methodology\n│   │   ├── privacy/page.tsx          # Privacy policy (GDPR)\n│   │   ├── terms/page.tsx            # Terms of service\n│   │   ├── disclaimer/page.tsx       # Financial disclaimer\n│   │   ├── contact/page.tsx          # Contact form/email\n│   │   ├── [token]/\n│   │   │   ├── page.tsx              # Token overview page\n│   │   │   ├── price-prediction/page.tsx\n│   │   │   ├── how-to-buy/page.tsx\n│   │   │   └── transfer-to-ledger/page.tsx\n│   │   ├── upcoming/page.tsx         # Upcoming TGE landing page\n│   │   ├── upcoming/[token]/page.tsx # Upcoming token detail pages\n│   │   ├── learn/page.tsx            # Glossary / learning hub\n│   │   ├── learn/[slug]/page.tsx     # Individual learn pages\n│   │   └── robots.ts                 # Robots metadata route\n│   ├── components/\n│   │   ├── PriceChart.tsx            # Lightweight chart (recharts)\n│   │   ├── RiskScoreCard.tsx         # Proprietary metrics display\n│   │   ├── AffiliateButton.tsx       # Exchange referral CTA\n│   │   ├── LastUpdated.tsx           # Timestamp component\n│   │   └── TokenCard.tsx             # Token summary card for listings\n│   ├── lib/\n│   │   ├── coingecko.ts              # CoinGecko API client with rate limiting\n│   │   ├── config.ts                 # Centralized config (URLs, handles, referrals)\n│   │   ├── content-loader.ts         # Load generated content from JSON\n│   │   ├── gemini.ts                 # Gemini + Claude fallback for AI summaries\n│   │   ├── markdown.ts               # Markdown rendering utilities\n│   │   ├── reporter.ts               # Error logging + API usage tracking\n│   │   ├── telegram.ts               # Telegram Bot API client\n│   │   ├── utils.ts                  # Shared utilities (safeReadJson, sleep)\n│   │   └── x-client.ts               # X (Twitter) API v2 client\n│   └── video/                        # Remotion video scenes and entrypoints\n├── content/                          # Generated articles (JSON)\n│   └── tokens/                       # Per-token articles\n├── data/\n│   ├── tokens.json                   # Token metadata summary\n│   ├── tokens/                       # Per-token detail JSON files\n│   ├── metrics/                      # Computed proprietary metrics\n│   ├── prices/                       # Historical price data cache\n│   ├── references/                   # Reference article snippets\n│   ├── keywords.json                 # Generated keyword list\n│   ├── logs/                         # Error logs (decentralized)\n│   └── posted/                       # Social post tracking (daily folders)\n├── scripts/\n│   ├── keyword-generator.ts          # Phase 1: Keyword research\n│   ├── fetch-crypto-data.ts          # Phase 2: CoinGecko data fetcher (--lite / full)\n│   ├── fetch-reference-articles.ts   # Phase 2: Reference article scraper\n│   ├── generate-content.ts           # Phase 3: AI content generator (Claude)\n│   ├── compute-metrics.ts            # Phase 3: Unique metric computation\n│   ├── quality-check.ts              # Phase 4: Content quality validation (--fix)\n│   ├── post-market-updates.ts        # Phase 6: Market alerts (TG + X)\n│   ├── post-daily-poll.ts            # Phase 6: AI-generated TG polls (7 rotating themes)\n│   ├── post-daily-movers.ts          # Phase 6: Top 5 Movers image card (TG)\n│   ├── post-interactive-daily.ts     # Phase 6: Interactive X polls\n│   ├── post-video-daily.ts           # Phase 6: Render and publish 60s video to IG/Threads/YT\n│   ├── refresh-meta-tokens.ts        # Phase 6: Rotate Long-Lived Meta access tokens\n│   ├── validate-content.ts           # Prebuild: JSON integrity + conflict markers\n│   ├── generate-sitemap.ts           # Prebuild: XML sitemap generation\n│   └── send-system-report.ts        # Reporting: Daily/weekly/monthly summaries\n├── tests/\n│   ├── config.test.ts\n│   ├── content-loader.test.ts\n│   ├── utils.test.ts\n│   └── x-client.test.ts\n├── .github/\n│   └── workflows/\n│       ├── daily-refresh.yml         # Daily data + price refresh + deploy\n│       ├── daily-content-generation.yml # Daily queue publish + deploy\n│       └── social-automations.yml    # 8x/day: unified TG/X posting with exclusive slots\n├── .env.example                      # Required environment variables\n├── package.json\n├── tsconfig.json\n├── vitest.config.ts\n├── next.config.ts\n└── docs/tokenradar/tokenradar.json  # Artifact-maintained source\n```\n\n---\n\n## Project Documentation Artifacts\n\nThe maintained project documentation lives under `docs/` as paired HTML and JSON artifacts. `docs/tokenradar/tokenradar.html` and `docs/tokenradar/tokenradar.json` are the top-level project reference and should mention every maintained documentation pair plus the public HTML/JSON runtime artifacts.\n\n- `docs/automations/automations.html` + `docs/automations/automations.json` - automation schedules, social routes, diagnostics, credentials, and recurring operations.\n- `docs/data-schema/data-schema.html` + `docs/data-schema/data-schema.json` - JSON contracts, producers, consumers, validation rules, and consolidated runtime blobs.\n- `docs/deployment/deployment.html` + `docs/deployment/deployment.json` - static export, Cloudflare Pages deployment, build gates, and deploy diagnostics.\n- `docs/design/design.html` + `docs/design/design.json` - visual system, page composition, interactive states, accessibility, and brand constraints.\n- `docs/editorial/editorial.html` + `docs/editorial/editorial.json` - article standards, factual grounding, quality gates, and review triggers.\n- `docs/integrations/integrations.html` + `docs/integrations/integrations.json` - provider APIs, platform credentials, analytics, social publishing integrations, and storage services.\n- `docs/pipeline/pipeline.html` + `docs/pipeline/pipeline.json` - discovery, data harvest, metric generation, queue publication, validation, build, and delivery.\n- `docs/prompts/prompts.html` + `docs/prompts/prompts.json` - prompt inputs, generation constraints, fallback behavior, and output validation for AI-authored content.\n- `docs/public-video-assets-broll-readme/public-video-assets-broll-readme.html` + `docs/public-video-assets-broll-readme/public-video-assets-broll-readme.json` - local b-roll generation, Blender loops, R2 sync, manifest contract, and pruning commands.\n- `docs/readme/readme.html` + `docs/readme/readme.json` - README reference, stack summary, storage strategy, quality gates, and contributor commands.\n- `docs/seo/seo.html` + `docs/seo/seo.json` - static export SEO, URL inventory, metadata, sitemap coverage, structured data, and search QA.\n- `docs/testing/testing.html` + `docs/testing/testing.json` - Vitest inventory, local validation, CI gates, mocking policy, browser QA, and drift checks.\n- `docs/tokenradar/tokenradar.html` + `docs/tokenradar/tokenradar.json` - whole-project reference covering product strategy, architecture, stack, workflows, and operating model.\n\nPublic runtime HTML/JSON artifacts that should stay represented here:\n\n- `public/admin.html`\n- `public/_routes.json`\n- `public/video-assets/broll/manifest.json`\n- `public/video-assets/broll/manifest.example.json`\n\nHigh-volume generated JSON families are documented by pattern instead of listing every token-level file individually:\n\n- `content/tokens/{tokenId}/{overview,price-prediction,how-to-buy,tge-preview}.json`\n- `data/tokens/{tokenId}.json`\n- `data/prices/{tokenId}.json`\n- `data/metrics/{tokenId}.json`\n- `data/references/{tokenId}.json`\n- `data/posted_video/YYYY-MM-DD/daily-video.json`\n\n---\n\n## Phase 1 — Keyword Research Engine\n\n**Goal:** Generate 5,000–10,000 long-tail keywords with low competition.\n\n### Long-Tail Targeting Strategy\n\nAvoid head keywords (BTC, ETH) where CoinGecko/Forbes dominate. Target the **long tail** via a **Template × Token Matrix**:\n\n```\nTemplates:                              Tokens (#50-#200 by market cap):\n├── \"[token] price prediction 2026\"     ├── Mid-cap tokens (lower competition)\n├── \"is [token] a good investment\"      ├── New trending tokens (< 6 months old)\n├── \"[token] vs [token]\"                ├── DeFi / Layer 2 / AI narrative tokens\n├── \"how to buy [token]\"               └── Expand to #200-#500 in month 3+\n├── \"[token] staking rewards APY\"\n├── \"[token] tokenomics explained\"\n├── \"what is [token] used for\"\n└── \"[token] risks and concerns\"\n```\n\n### Script: `scripts/keyword-generator.ts`\n\n**Inputs:**\n- CoinGecko: tokens #50-#200 (names, symbols, categories)\n- Google Autocomplete API: real user search queries\n\n**Process:**\n1. Fetch token list from CoinGecko\n2. Generate all template × token combinations\n3. Query Google Autocomplete with each token + alphabet modifiers (a-z)\n4. Deduplicate and filter out keywords dominated by high-authority sites\n5. Output sorted by estimated search volume\n\n**Output:** `data/keywords.json` — array of keyword objects with token, template, estimated volume\n\n**Cost:** $0\n\n---\n\n## Phase 2 — Data Collection\n\n### Script: `scripts/fetch-crypto-data.ts`\n\n**Data Source: CoinGecko API (Free Tier)**\n\n| Data Point | Endpoint |\n|------------|----------|\n| Price, market cap, volume | `/coins/{id}` |\n| Circulating / total supply | `/coins/{id}` |\n| ATH / ATL with dates | `/coins/{id}` |\n| 30-day + 1-year price history | `/coins/{id}/market_chart` |\n| Categories and tags | `/coins/{id}` |\n\n**Rate Limit Safeguards:**\n- Shared client with caching and a monthly quota counter\n- Local JSON cache — re-fetch only if data is **>24h old**\n- Monthly call counter — **auto-pause at 9,000 calls** (limit: 10,000)\n- Cache-first behavior to reduce unnecessary repeat calls\n\n**Output:** `data/tokens.json` + `data/prices/[token-id].json`\n\n### Script: `scripts/fetch-reference-articles.ts`\n\n**Sources:** CoinDesk, The Block, Decrypt (via RSS feeds)\n\n**Process:**\n1. Fetch RSS feeds for each token name\n2. Extract **key facts and analysis angles only** (not full text — avoids copyright)\n3. Store as summarized reference points\n\n**Purpose:** AI uses these as **style and fact reference**, never copies content directly.\n\n**Output:** `data/references/[token-id].json`\n\n---\n\n## Phase 3 — AI Content Generation\n\n### Provider: Gemini 2.5 Flash (Primary) + Claude Haiku 4.5 (Fallback)\n\n| Metric | Value |\n|--------|-------|\n| Cost per article | ~$0.001 (0.1 cents) |\n| Input token price | $0.075 / 1M tokens |\n| Output token price | $0.30 / 1M tokens |\n| Reliability | Dual-model fallback system |\n\n### Script: `scripts/generate-content.ts`\n\nEach article prompt includes:\n1. **Real CoinGecko data** — prices, market cap, supply, history\n2. **Reference article summaries** — writing style + analyst perspectives\n3. **Calculated unique metrics** — computed by our scripts, not the AI\n\n### Proprietary Metrics (`scripts/compute-metrics.ts`)\n\n| Metric | Description | Inputs |\n|--------|-------------|--------|\n| **Risk Score** (1-10) | Overall investment risk | Volatility, market cap, age, liquidity |\n| **Growth Potential Index** | Room to grow vs category peers | Market cap vs avg in same category |\n| **Holder Concentration** | Whale risk indicator | Top wallet % (on-chain if available) |\n| **Narrative Strength** | Category trend momentum | Search trends for AI, DeFi, L2, etc. |\n| **Value vs ATH** | Discount from peak | Current price ÷ all-time high |\n\n### Content Rules\n\n- **1,000–2,000 words** per article\n- Minimum **3 real data points** from CoinGecko per article\n- Minimum **1 real-world event/development** reference\n- **FAQ section** (3–5 questions) for Google FAQ rich snippets\n- **\"Last Updated: [date]\"** timestamp on every page\n- **No buy/sell recommendations** — data and analysis only\n- **Disclaimer footer** on every article\n\n**Output:** `content/tokens/[token-id]/[article-type].json`\n\n---\n\n## Phase 4 — E-E-A-T & Quality Layer\n\nGoogle's E-E-A-T (Experience, Expertise, Authority, Trust) signals are critical for ranking.\n\n| Signal | Implementation |\n|--------|---------------|\n| **About page** | Site methodology, data sources, algorithms explained |\n| **Author profile** | Named author with bio, photo, social media links |\n| **Methodology page** | Detailed explanation of Risk Score, Growth Index formulas |\n| **Data citations** | \"Data: CoinGecko, as of [date]\" on every article |\n| **Disclaimer** | \"Not financial advice\" footer on every page |\n| **Privacy Policy** | GDPR-compliant privacy policy |\n| **Terms of Service** | Standard terms of service |\n| **Cookie consent** | GDPR cookie consent banner |\n| **Last Updated** | Visible timestamp on every article |\n| **Contact page** | Email address or contact form |\n\n### Quality Check Script: `scripts/quality-check.ts`\n\nAutomated validation before publishing:\n- Word count within 1,000–2,000 range\n- At least 3 CoinGecko data citations\n- FAQ section present with 3+ questions\n- Disclaimer present\n- No prohibited financial advice phrases (\"you should buy\", \"guaranteed returns\", etc.)\n- Readability score check\n\n---\n\n## Phase 5 — Website Build\n\n### Next.js + Static Site Generation (SSG)\n\nAll pages are **pre-rendered at build time** for:\n- ⚡ Instant page loads (no server-side rendering costs)\n- 🔍 Perfect SEO (full HTML for Google crawlers)\n- 💰 Free hosting on Cloudflare Pages\n\n### Key Pages\n\n| Route | Purpose |\n|-------|---------|\n| `/` | Homepage — top tokens, trending, latest articles |\n| `/about` | E-E-A-T: methodology, team, data sources |\n| `/privacy`, `/terms`, `/disclaimer` | Legal pages |\n| `/contact` | Contact form |\n| `/[token]` | Token overview (price, metrics, summary) |\n| `/[token]/price-prediction` | Price prediction article |\n| `/[token]/how-to-buy` | Step-by-step buying guide |\n| `/[token]/transfer-to-ledger` | Token transfer and wallet guidance |\n| `/upcoming/[token]` | Upcoming TGE detail page |\n| `/sitemap.xml` | Auto-generated sitemap |\n\n### SEO Optimizations\n\n- **Structured data** (JSON-LD) for FAQ, Article, BreadcrumbList schemas\n- **Auto-generated sitemap.xml** submitted to Google Search Console\n- **IndexNow API** pings on every new page deployment\n- **Canonical URLs** on all pages\n- **Open Graph + Twitter Card** meta tags\n- **Internal linking** between related token pages\n\n### Drip Publishing Schedule\n\n| Period | Pages/Day | Strategy |\n|--------|-----------|----------|\n| Week 1 | 30 total (seed) | Homepage + top tokens + legal pages |\n| Week 2–4 | 10–15/day | Gradually ramp up via GitHub Actions |\n| Month 2+ | 20–30/day | Full speed as Google gains trust |\n\n> **Why drip publish?** Publishing 1,000+ pages overnight triggers Google's spam detection. Gradual rollout mimics natural content growth.\n\n### Hybrid Smart Queue (Token Selection)\n\nThe daily content generation uses a **Hybrid Smart Queue** to decide which tokens get articles each day. Instead of a simple first-come-first-served waterfall, the budget is distributed across priority tiers:\n\n| Priority | Tier | Cap | Rationale |\n|----------|------|-----|----------|\n| P0 | 🎓 Graduated (newly launched TGEs) | **Uncapped** — takes all | Launch-day SEO is irreplaceable; delays lose 80%+ of initial search traffic |\n| P1 | ⚡ Volatile (>15% 24h move) | Even split of remaining budget | Trending tokens = high search demand right now |\n| P2 | 📝 Incomplete (missing articles) | Even split of remaining budget | Fills SEO coverage gaps across the token database |\n| P3 | 🔄 Stale Refresh (>30 days old) | Leftover slots only | Keeps existing content fresh for Google |\n\n**Example (budget of 15):**\n- Quiet day: 2 Graduated + 7 Volatile + 6 Incomplete + 0 Refreshes = 15\n- Launch day: 8 Graduated + 4 Volatile + 3 Incomplete + 0 Refreshes = 15\n- No launches: 0 Graduated + 8 Volatile + 7 Incomplete + 0 Refreshes = 15\n\n---\n\n## Phase 6 — Automated Social Promotion\n\n### Unified Workflow: `.github/workflows/social-automations.yml`\n\nAll social posting is consolidated into a single workflow with 8 scheduled runs/day.\n\n| Platform | Content | Frequency | Script |\n|----------|---------|-----------|--------|\n| **Telegram** | Market Updates | 5x/day | `post-market-updates.ts --platform telegram` |\n| **Telegram** | Daily Poll (AI, 7 rotating themes) | 1x/day @ 15:00 UTC | `post-daily-poll.ts` |\n| **Telegram** | Top 5 Movers Image | 1x/day @ 21:00 UTC | `post-daily-movers.ts` |\n| **X (Twitter)** | Market Updates | 4x/day | `post-market-updates.ts --platform x` |\n| **X (Twitter)** | Interactive Poll | 1x/day @ 12:00 UTC | `post-interactive-daily.ts` |\n| **Instagram** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n| **Threads** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n| **YouTube** | 60s Video Breakout | 1x/day @ 18:00 UTC | `post-video-daily.ts` |\n\n### Daily Posting Schedule\n\n| UTC | EDT | Telegram | X |\n|-----|-----|----------|---|\n| 00:00 | 20:00 | 📊 Market Update | — |\n| 03:00 | 23:00 | 📊 Market Update | 📊 Market Update |\n| 06:00 | 02:00 | 📊 Market Update | — |\n| 09:00 | 05:00 | 📊 Market Update | 📊 Market Update |\n| 12:00 | 08:00 | 📊 Market Update | 🗳️ Interactive Poll |\n| **15:00** | **11:00** | **🗳️ AI Poll** *(exclusive)* | 📊 Market Update |\n| **18:00** | **14:00** | **🎬 Video Breakout** *(exclusive)* | **🎬 Video Breakout** *(exclusive)* |\n| **21:00** | **17:00** | **🏆 Top 5 Movers** *(exclusive)* | 📊 Market Update |\n\n> **Exclusive slots:** Regular market updates are skipped when polls or movers cards run, keeping the channel uncluttered.\n\n### TG Poll Themes (Rotate by Day of Week)\n\n| Day | Theme |\n|-----|-------|\n| Sun | Market Sentiment |\n| Mon | Token Category Battle |\n| Tue | Trading Strategy |\n| Wed | Hot Take / Prediction |\n| Thu | Community Lifestyle |\n| Fri | DeFi & Yield |\n| Sat | Technology & Innovation |\n\n### Post Format\n\nEach market update includes:\n- Token name and current price\n- Risk Score and ATH gap percentage\n- AI-generated summary (Gemini primary, Claude fallback)\n- Link to full article on tokenradar.co\n\n### Additional Free Traffic Sources\n\n### X (Twitter) Setup\n\n1. Create an app in the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard).\n2. Enable OAuth 2.0 and set the Redirect URI to `http://127.0.0.1:3000`.\n3. Fill in `X_OAUTH2_CLIENT_ID` and `X_OAUTH2_CLIENT_SECRET` in `.env.local`.\n4. Run `npx tsx scripts/generate-x-token.ts` to obtain the refresh token.\n\n### Telegram Setup\n\n1. Create a bot via [@BotFather](https://t.me/botfather).\n2. Add the bot to your channel as an administrator.\n3. Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID` in `.env.local`.\n4. Scheduled scripts use the shared `grammy` client for consistent formatting, keyboard support, and media uploads.\n\n### Meta (Instagram & Threads) Setup\n\n1. Create an app in the [Meta App Dashboard](https://developers.facebook.com/).\n2. Add the **Instagram Graph API** and **Threads API** products.\n3. Authenticate to obtain Long-Lived Access Tokens.\n4. Fill in `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID`.\n5. For automated rotation, fill in `META_APP_ID` and `META_APP_SECRET`.\n6. Use `scripts/refresh-meta-tokens.ts` (via Actions) to rotate these tokens every 60 days.\n\n### YouTube Shorts Setup\n\n1. Create a project in the [Google Cloud Console](https://console.cloud.google.com/).\n2. Enable the **YouTube Data API v3**.\n3. Configure the **OAuth Consent Screen**:\n    - User Type: External.\n    - Add the `https://www.googleapis.com/auth/youtube.upload` scope.\n4. Create **OAuth 2.0 Client IDs** (Web application):\n    - Authorized redirect URIs: `http://localhost:3000`.\n5. Fill in `YOUTUBE_CLIENT_ID` and `YOUTUBE_CLIENT_SECRET` in `.env.local`.\n6. Run `npx tsx scripts/generate-youtube-token.ts` to obtain the refresh token.\n\n### Troubleshooting: invalid_grant\n\nIf you see `YouTube Upload Error: invalid_grant`, it means your refresh token is no longer valid.\n\n**Common fixes:**\n1. **Testing Mode Expiration**: If your Google Cloud project publishing status is set to \"Testing\", tokens expire after 7 days.\n    - **Fix**: Go to OAuth Consent Screen and set **Publishing status** to **Production**. You don't need to submit for verification if it's for personal use.\n2. **Revoked Access**: If you changed your password or manually revoked access.\n    - **Fix**: Run the generation script again.\n3. **Scope Change**: If the requested scopes in the code don't match the token.\n    - **Fix**: Run the generation script again.\n\n---\n\n## Phase 7 — Monetization\n\nAdded **after** the site has content and organic traffic.\n\n### Revenue Streams\n\n| Stream | When to Apply | Requirements |\n|--------|--------------|--------------|\n| **Google AdSense** | Month 1–2 | 20+ quality pages, some organic traffic |\n| **Crypto affiliate programs** | Month 2–3 | Content in \"How to Buy\" articles |\n| **Sponsored content** | Month 6+ | Established traffic and authority |\n\n### Affiliate Programs\n\n| Exchange | Commission | Cookie Duration |\n|----------|------------|-----------------|\n| Binance | Up to 50% trading fees | 90 days |\n| Bybit | Up to 30% | 30 days |\n| Coinbase | $10 per sign-up | 30 days |\n\nAffiliate CTAs placed naturally in \"How to Buy [Token]\" articles with proper disclosure.\n\n---\n\n## Phase 8 — Automated Content Refresh\n\n| What | Frequency | How |\n|------|-----------|-----|\n| CoinGecko data refresh | Daily | GitHub Actions cron job |\n| Price-sensitive content | Weekly | Script regenerates prediction pages |\n| Sitemap | On every deploy | Next.js auto-generates |\n| \"Last Updated\" timestamps | On data refresh | Automatic |\n| Year-based URLs | Annually | New `/price-prediction-2027/` pages |\n\n### GitHub Actions Workflows\n\n```yaml\n# .github/workflows/daily-refresh.yml\n# Runs daily at 18:00 UTC\n# 1. Fetches latest CoinGecko data (lite mode)\n# 2. Fetches reference articles from RSS feeds\n# 3. Recomputes proprietary metrics\n# 4. Commits [skip ci] and triggers explicit deploy\n\n# .github/workflows/daily-content-generation.yml\n# Runs daily\n# 1. Generates queue content using Hybrid Smart Queue (P0→P3 priority)\n# 2. Publishes a bounded batch from the queue\n# 3. Injects internal links\n# 4. Deploys to Cloudflare Pages\n\n# .github/workflows/social-automations.yml\n# Runs 8x/day — unified social posting\n# Routes content to TG and X based on time slot\n# Exclusive slots for poll (15:00), video (18:00), and movers (21:00)\n```\n\n---\n\n## Content & Cost Schedule\n\n### 6-Month Production Plan\n\n| Month | New Articles | Focus Area | AI Cost | Running Total |\n|-------|-------------|------------|-------------|---------------|\n| 1 | 50 | Seed pages, legal, top tokens | $0.05 | $0.05 |\n| 2 | 150 | Expand tokens + comparisons | $0.15 | $0.20 |\n| 3 | 300 | Price predictions + how-to-buy | $0.30 | $0.50 |\n| 4 | 500 | Full #50-#200 coverage | $0.50 | $1.00 |\n| 5 | 300 | Content refresh + new tokens | $0.30 | $1.30 |\n| 6 | 200 | Expand to #200-#300 + refresh | $0.20 | $1.50 |\n| **Total** | **1,500** | | | **~$1.50** |\n\n### Total 6-Month Budget\n\n| Item | Cost |\n|------|------|\n| Domain (tokenradar.co) | $6.98 |\n| Claude / Gemini API | ~$1.50 |\n| Hosting (Cloudflare Pages) | $0 |\n| CoinGecko API | $0 |\n| GitHub Actions CI/CD | $0 |\n| Social posting | $0 |\n| **Grand Total** | **~$30** |\n\n---\n\n## Build Timeline\n\n| Day | Deliverable |\n|-----|-------------|\n| 1 | Keyword engine + CoinGecko data fetcher |\n| 1–2 | Reference article scraper |\n| 2–4 | AI content generator with unique metrics |\n| 3–5 | Next.js site + E-E-A-T + legal pages |\n| 5–6 | Deploy to Cloudflare Pages |\n| 6–7 | Social auto-poster (X + Telegram) |\n| Week 2+ | Drip-publish 10–15 pages/day |\n\n---\n\n## Risk Mitigation\n\n### Google Penalty Prevention\n\n| Risk | Mitigation |\n|------|------------|\n| **Thin content penalty** | Min 1,000 words + unique metrics per page |\n| **Duplicate content** | Each article uses unique data + computed metrics |\n| **Spam detection** | Drip publishing (10–15 pages/day, not 1,000 at once) |\n| **Low E-E-A-T** | About page, methodology, author profiles, data citations |\n| **Over-optimization** | Natural keyword density, varied sentence structures |\n\n### API & Rate Limit Safeguards\n\n| Risk | Mitigation |\n|------|------------|\n| **CoinGecko rate limit** | 2s delays, local cache, monthly counter (pause at 9K) |\n| **CoinGecko downtime** | Cache-first reads and graceful degradation when live data is unavailable |\n| **Claude API costs spike** | Per-article cost cap, monthly budget alerts |\n| **X API rate limit** | Queue posts, max 15–20/day |\n\n### Content Quality\n\n| Risk | Mitigation |\n|------|------------|\n| **AI hallucinations** | All data points verified against CoinGecko source |\n| **Outdated information** | Daily data refresh + \"Last Updated\" timestamps |\n| **Legal issues** | \"Not financial advice\" disclaimer, no buy/sell recommendations |\n\n---\n\n## Legal & Compliance\n\n### Required Pages\n\n- **Privacy Policy** — GDPR-compliant, covers analytics and cookies\n- **Terms of Service** — Standard usage terms\n- **Financial Disclaimer** — \"Not financial advice\", no guarantees\n- **Cookie Consent Banner** — GDPR opt-in for non-essential cookies\n\n### Content Guidelines\n\n- ❌ Never recommend buying or selling any token\n- ❌ Never guarantee returns or profits\n- ❌ Never use phrases like \"you should invest\" or \"guaranteed gains\"\n- ✅ Present data, metrics, and analysis objectively\n- ✅ Include disclaimer on every article\n- ✅ Cite all data sources with dates\n\n### FOP Registration (Ukraine)\n\n**Not required to launch.** Register when earning $200+/month:\n- Online via **Diia** (~15 minutes)\n- Group 3: **5% tax** on income\n- USC: ~₴1,760/month (mandatory since 2025)\n\n---\n\n## Domain & Branding Research\n\n### Domain Choice: `tokenradar.co`\n\n| Criteria | Score |\n|----------|-------|\n| Brandable | ✅ Strong — \"TokenRadar\" is memorable |\n| Keyword relevance | ✅ Contains \"token\" |\n| Length | ✅ Short (14 chars) |\n| Availability | ✅ Available on Namecheap |\n| Price | ✅ $6.98/year |\n| TLD | ⚠️ `.co` is solid but `.com` would be better (taken/expensive) |\n\n### Alternative Domains Considered\n\n- `tokenradar.io` — more expensive, crypto-native TLD\n- `tokenradar.xyz` — cheap but less trusted\n- `tokenscout.co` — good alternative\n- `cryptoradar.co` — may have trademark issues\n\n---\n\n## AI Provider Comparison\n\n| Provider | Cost per Article | Quality | Speed | Verdict |\n|----------|-----------------|---------|-------|---------|\n| **Gemini 2.5 Flash** | ~$0.001 | ⭐⭐⭐⭐ | Ultra Fast | ✅ **Selected (Primary)** |\n| Claude Haiku 4.5 | ~$0.015 | ⭐⭐⭐⭐⭐ | Fast | ✅ **Selected (Fallback)** |\n| GPT-4o Mini | ~$0.012 | ⭐⭐⭐⭐ | Fast | Good backup |\n| Llama 3.1 (self-hosted) | $0 (compute cost) | ⭐⭐⭐ | Depends | Not worth the infra overhead |\n| Claude Sonnet 4 | ~$0.10 | ⭐⭐⭐⭐⭐ | Medium | Overkill for this use case |\n\n**Decision:** Claude Haiku 4.5 — best quality-to-cost ratio for structured SEO content.\n\n---\n\n## Token Strategy\n\n### Why #50–#200 by Market Cap?\n\n| Range | Competition | Search Volume | Our Strategy |\n|-------|-------------|---------------|-------------|\n| #1–#10 (BTC, ETH) | 🔴 Extreme | Very high | ❌ Skip — CoinGecko/Forbes dominate |\n| #10–#50 | 🟠 High | High | ❌ Skip initially |\n| **#50–#200** | 🟢 **Low-Medium** | **Medium** | ✅ **Primary target** |\n| #200–#500 | 🟢 Low | Low-Medium | ✅ Expansion in month 3+ |\n| #500+ | 🟢 Very Low | Low | ⚠️ Risky — tokens may die |\n\n### Token Selection Criteria\n\n1. **Market cap rank** #50–#200 on CoinGecko\n2. **Active trading volume** (>$1M daily)\n3. **Has a narrative** (AI, DeFi, L2, Gaming, RWA)\n4. **Not a stablecoin** or wrapped token\n5. **Listed on major exchanges** (for affiliate potential)\n\n---\n\n## Environment Variables\n\n```env\n# .env.example\n\n# CoinGecko\nCOINGECKO_API_KEY=           # Optional, for higher rate limits\n\n# Claude AI\nANTHROPIC_API_KEY=           # Required for content generation\n\n# Gemini AI\nGEMINI_API_KEY=              # Primary AI for social summaries & polls\n\n# Social Media — X (Twitter) OAuth 2.0\nX_OAUTH2_CLIENT_ID=\nX_OAUTH2_CLIENT_SECRET=\nX_OAUTH2_REFRESH_TOKEN=\n\n# Social Media — Telegram\nTELEGRAM_BOT_TOKEN=          # Telegram Bot API\nTELEGRAM_CHANNEL_ID=         # Target channel\n\n# Social Media — Meta (Instagram / Threads)\nIG_ACCESS_TOKEN=\nIG_ACCOUNT_ID=\nTHREADS_ACCESS_TOKEN=\nTHREADS_ACCOUNT_ID=\nMETA_APP_ID=\nMETA_APP_SECRET=\n\n# Social Media — YouTube\nYOUTUBE_CLIENT_ID=\nYOUTUBE_CLIENT_SECRET=\nYOUTUBE_REFRESH_TOKEN=\n\n# Error Reporting\nTELEGRAM_REPORT_BOT_TOKEN=   # Separate bot for ops alerts\nTELEGRAM_REPORT_CHAT_ID=\n\n# Storage (Cloudflare R2 Media Staging)\nR2_ACCOUNT_ID=\nR2_ACCESS_KEY_ID=\nR2_SECRET_ACCESS_KEY=\nR2_BUCKET_NAME=\nR2_PUBLIC_URL=\n\n# Analytics\nNEXT_PUBLIC_GA_MEASUREMENT_ID= # Google Analytics 4\n\n# Deployment\nCLOUDFLARE_API_TOKEN=        # Cloudflare Pages deployment\nCLOUDFLARE_ACCOUNT_ID=\nCLOUDFLARE_ZONE_ID=\n```\n\n---\n\n## Quick Start (Future Reference)\n\n```bash\n# 1. Install dependencies\nnpm install\n\n# 2. Set up environment\ncp .env.example .env\n# Fill in API keys\n\n# 3. Generate keywords\nnpx tsx scripts/keyword-generator.ts\n\n# 4. Fetch crypto data\nnpx tsx scripts/fetch-crypto-data.ts\n\n# 5. Generate content\nnpx tsx scripts/generate-content.ts\n\n# 6. Run locally\nnpm run dev\n\n# 7. Build for production\nnpm run build\n\n# 8. Deploy\n# Automatic via GitHub Actions on push to main\n```\n\n---\n\n*Last updated: April 2026*\n"
+}
