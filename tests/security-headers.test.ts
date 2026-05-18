@@ -9,6 +9,10 @@ function loadCsp(): string {
   return match[1];
 }
 
+function loadHeaders(): string {
+  return fs.readFileSync(path.join(process.cwd(), "public/_headers"), "utf-8");
+}
+
 function parseCsp(csp: string): Map<string, string[]> {
   return new Map(
     csp
@@ -41,5 +45,12 @@ describe("security headers", () => {
     );
     expect(directives.get("script-src")).not.toContain("*");
     expect(directives.get("frame-src")).not.toContain("*");
+  });
+
+  it("does not cache mutable OG images as immutable assets", () => {
+    const headers = loadHeaders();
+    const ogBlock = headers.match(/^\/og\/\*\r?\n\s+Cache-Control:\s*(.+)$/m);
+
+    expect(ogBlock?.[1]).toBe("public, max-age=300, stale-while-revalidate=86400");
   });
 });

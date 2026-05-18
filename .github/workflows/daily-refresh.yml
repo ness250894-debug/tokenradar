@@ -95,6 +95,7 @@ jobs:
 
       - name: Validate refreshed artifacts
         run: |
+          npx tsx scripts/compute-search-intent.ts
           npx tsx scripts/consolidate-data.ts
           npx tsx scripts/validate-content.ts
           npx tsx scripts/generate-sitemap.ts
@@ -116,6 +117,8 @@ jobs:
             data/references \
             data/tokens.json \
             data/upcoming-tges.json \
+            data/search-intent.json \
+            data/search-intent-history.json \
             data/_tokens_blob.json \
             data/_metrics_blob.json \
             data/_prices_blob.json \

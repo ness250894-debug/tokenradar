@@ -124,6 +124,17 @@ jobs:
               git add "$dir"
             fi
           done
+          git add \
+            data/search-intent.json \
+            data/search-intent-history.json \
+            data/_tokens_blob.json \
+            data/_metrics_blob.json \
+            data/_prices_blob.json \
+            data/_registry.json \
+            public/og/movers.png \
+            public/sitemap.xml \
+            public/sitemap-main.xml \
+            public/sitemap-tokens.xml
           if git diff --staged --quiet; then
             echo "No new articles published from queue"
             echo "has_changes=false" >> $GITHUB_OUTPUT
