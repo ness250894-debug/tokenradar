@@ -69,7 +69,9 @@ data/x-oauth-state.json
 
 # temp
 /tmp/
-/docs/
+/docs/*
+!/docs/seo/
+!/docs/seo/**
 
 # diagnostic logs and cache
 data/logs/

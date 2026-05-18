@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getAllCategories, getTokensByCategory, formatCompact, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -38,14 +39,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: `/category/${cat.id}`,
     },
     openGraph: {
-      title,
-      description,
-      type: "website",
+      ...buildOpenGraphMetadata({ title, description }),
     },
-    twitter: {
-      title,
-      description,
-    },
+    twitter: buildTwitterMetadata({ title, description }),
   };
 }
 

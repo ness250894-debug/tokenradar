@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CookiePreferencesButton } from "@/components/CookiePreferencesButton";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 const lastUpdated = "May 13, 2026";
 const description =
@@ -11,14 +12,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy",
   },
-  openGraph: {
-    title: "Privacy Policy",
-    description,
-  },
-  twitter: {
-    title: "Privacy Policy",
-    description,
-  },
+  openGraph: buildOpenGraphMetadata({ title: "Privacy Policy", description }),
+  twitter: buildTwitterMetadata({ title: "Privacy Policy", description }),
 };
 
 export default function PrivacyPage() {

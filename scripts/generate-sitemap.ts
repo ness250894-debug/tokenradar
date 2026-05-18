@@ -167,12 +167,15 @@ async function main() {
   });
 
   const tges = await getUpcomingTGEsLocal();
-  tges.forEach(tge => {
+  for (const tge of tges) {
     const date = toDateOnly(tge.discoveredAt, upcomingDate);
-    if (fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) {
-      mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date });
-    }
-  });
+    if (!fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) continue;
+
+    const liveDetail = tge.status === "released" ? await getTokenDetail(tge.id) : null;
+    if (liveDetail) continue;
+
+    mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date });
+  }
 
   const glossaryItems = await getGlossaryItemsLocal();
   glossaryItems.forEach(item => {

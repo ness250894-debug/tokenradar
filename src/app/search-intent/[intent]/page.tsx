@@ -20,6 +20,7 @@ import {
   type SearchIntentType,
   type TokenSearchIntentSnapshot,
 } from "@/lib/search-intent";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
 interface PageProps {
   params: Promise<{ intent: string }>;
@@ -127,15 +128,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `/search-intent/${intent}`,
     },
-    openGraph: {
-      title: copy.title,
-      description: copy.description,
-      type: "website",
-    },
-    twitter: {
-      title: copy.title,
-      description: copy.description,
-    },
+    openGraph: buildOpenGraphMetadata({ title: copy.title, description: copy.description }),
+    twitter: buildTwitterMetadata({ title: copy.title, description: copy.description }),
   };
 }
 

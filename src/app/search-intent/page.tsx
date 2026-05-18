@@ -19,13 +19,20 @@ import {
   SEARCH_INTENT_DESCRIPTIONS,
   type TokenSearchIntentSnapshot,
 } from "@/lib/search-intent";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+
+const PAGE_TITLE = "Crypto Search Intent Radar";
+const PAGE_DESCRIPTION =
+  "Browse free-data crypto search intent signals by attention, hype pressure, supply risk, and user research intent.";
 
 export const metadata: Metadata = {
-  title: "Crypto Search Intent Radar",
-  description: "Browse free-data crypto search intent signals by attention, hype pressure, supply risk, and user research intent.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/search-intent",
   },
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 function formatInteger(value: number): string {

@@ -7,6 +7,7 @@ import { LastUpdated } from "@/components/LastUpdated";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { CountUp } from "@/components/CountUp";
 import { canonicalPath } from "@/lib/seo";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { getTgeEvidenceCount, getTgeSourceHost, getTgeStatusLabel } from "@/lib/tge";
 
 interface TgePageProps {
@@ -53,6 +54,8 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
     alternates: {
       canonical,
     },
+    openGraph: buildOpenGraphMetadata({ title, description, type: "article" }),
+    twitter: buildTwitterMetadata({ title, description }),
   };
 }
 

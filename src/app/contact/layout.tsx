@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+
+const PAGE_TITLE = "Contact TokenRadar - Support, data corrections & partnerships";
+const PAGE_DESCRIPTION =
+  "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.";
 
 export const metadata: Metadata = {
-  title: "Contact TokenRadar - Support, data corrections & partnerships",
-  description:
-    "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/contact",
   },
-  openGraph: {
-    title: "Contact TokenRadar - Support, data corrections & partnerships",
-    description:
-      "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
-  },
-  twitter: {
-    title: "Contact TokenRadar - Support, data corrections & partnerships",
-    description:
-      "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.",
-  },
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 export default function ContactLayout({

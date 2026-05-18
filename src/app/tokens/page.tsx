@@ -5,13 +5,20 @@ import { TokenGrid } from "@/components/TokenGrid";
 import { type TokenCardData } from "@/components/TokenCard";
 import { formatCompact, getAllTokens, getCategoryIds, getPrimaryTokenCategory, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
+import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+
+const PAGE_TITLE = "Crypto Token Directory";
+const PAGE_DESCRIPTION =
+  "Browse every cryptocurrency token tracked by TokenRadar with direct links to market data, analysis, risk scores, and research guides.";
 
 export const metadata: Metadata = {
-  title: "Crypto Token Directory",
-  description: "Browse every cryptocurrency token tracked by TokenRadar with direct links to market data, analysis, risk scores, and research guides.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: "/tokens",
   },
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 export default async function TokensPage() {
