@@ -1394,5 +1394,74 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-14T19:24:29.592Z",
     "discoveredAt": "2026-05-14T19:24:29.592Z"
+  },
+  {
+    "id": "deploi",
+    "name": "Deploi",
+    "symbol": "TBD",
+    "category": "DeFi/Infrastructure",
+    "expectedTge": "Q3 2026",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/press-releases/deploi-launches-direct-issuance-infrastructure-for-private-credit-on-polygon-secures-isin-allocations-from-nasdaq-csd",
+    "lifecycleStatus": "watchlist",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "ICO/IDO/IEO",
+        "sourceType": "press_release",
+        "url": "https://cointelegraph.com/press-releases/deploi-launches-direct-issuance-infrastructure-for-private-credit-on-polygon-secures-isin-allocations-from-nasdaq-csd",
+        "title": "Deploi Launches Direct Issuance Infrastructure for Private Credit on Polygon, Secures ISIN Allocations from Nasdaq CSD",
+        "observedAt": "2024-05-18T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-18T19:17:53.393Z",
+    "discoveredAt": "2026-05-18T19:17:53.393Z"
+  },
+  {
+    "id": "afx",
+    "name": "AFX",
+    "symbol": "TBD",
+    "category": "L1",
+    "expectedTge": "Mainnet Launched (Token TBD)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/press-releases/afx-launches-sovereign-layer-1-providing-an-optimized-execution-environment-for-on-chain-perp-dexes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "watchlist",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Mainnet Launch",
+        "sourceType": "press_release",
+        "url": "https://cointelegraph.com/press-releases/afx-launches-sovereign-layer-1-providing-an-optimized-execution-environment-for-on-chain-perp-dexes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "AFX launches sovereign Layer 1, providing an optimized execution environment for on-chain perp DEXes",
+        "observedAt": "2024-05-20"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-18T19:17:53.393Z",
+    "discoveredAt": "2026-05-18T19:17:53.393Z"
+  },
+  {
+    "id": "aeon",
+    "name": "AEON",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.theblock.co/post/401601/aeon-raises-8-million-yzi-labs",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.theblock.co/post/401601/aeon-raises-8-million-yzi-labs",
+        "title": "AEON raises $8 million led by YZi Labs to build settlement layer for AI agents",
+        "observedAt": "2024-07-29T12:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-18T19:17:53.394Z",
+    "discoveredAt": "2026-05-18T19:17:53.394Z"
   }
 ]

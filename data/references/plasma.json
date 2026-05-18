@@ -3,18 +3,32 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Lombard joins LayerZero exodus as $4 billion in assets switch to Chainlink's bridge",
-      "link": "https://www.coindesk.com/business/2026/05/15/lombard-joins-layerzero-exodus-as-usd4-billion-in-assets-switch-to-chainlink-s-bridge",
-      "pubDate": "Fri, 15 May 2026 16:00:00 +0000",
+      "title": "Aave restores ether borrowing limits after $230 million exploit",
+      "link": "https://www.coindesk.com/markets/2026/05/18/aave-restores-weth-collateral-limits-as-rseth-crisis-enters-recovery-phase",
+      "pubDate": "Mon, 18 May 2026 07:05:20 +0000",
       "source": "CoinDesk",
-      "snippet": "The shift comes after the Kelp DAO exploit drained $292 million from its LayerZero-powered bridge, increasing concerns over the security of cross-chain infrastructure."
+      "snippet": "The DeFi lending protocol reversed restrictions imposed after April’s $292 million exploit, restoring borrowing capacity across six networks as contagion fears ease."
     },
     {
-      "title": "THORChain confirms $10M exploit, rolls out recovery portal for affected users",
-      "link": "https://cointelegraph.com/news/thorchain-confirms-10m-exploit-rolls-out-recovery-portal-for-affected-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Sat, 16 May 2026 09:47:44 +0000",
+      "title": "XRP price may explode to $15 amid 'quiet accumulation,' analyst claims",
+      "link": "https://cointelegraph.com/markets/xrp-price-may-explode-15-dollars-quiet-accumulation-analyst-claims?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 18 May 2026 11:19:08 +0000",
       "source": "CoinTelegraph",
-      "snippet": "THORChain has launched a recovery portal following a $10 million exploit, allowing affected users across four chains to revoke malicious approvals and claim refunds."
+      "snippet": "XRP still faces short-term downside risk, with a symmetrical triangle breakdown pointing to a possible drop toward $1.00–$1.10."
+    },
+    {
+      "title": "Verus Ethereum bridge reportedly exploited for $11.6M in latest DeFi attack",
+      "link": "https://cointelegraph.com/news/verus-ethereum-bridge-reportedly-exploited-for-millions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 18 May 2026 07:11:30 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Two security companies have flagged the address where the stolen funds are allegedly being held, showing the cryptocurrencies have been converted into 5,402 Ether."
+    },
+    {
+      "title": "WETH markets return to normal operations on Aave amid rsETH recovery progress",
+      "link": "https://cointelegraph.com/news/aave-restores-weth-borrowing-after-kelp-dao-rseth-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 18 May 2026 05:02:08 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Aave applied a temporary freeze to WETH as a precautionary safety measure in response to the Kelp DAO exploit, alongside freezes on the rsETH and wrsETH reserves."
     },
     {
       "title": "Lombard Finance Dumps LayerZero, Will Use Chainlink to Power $1 Billion in Bitcoin Assets",
@@ -22,21 +36,7 @@
       "pubDate": "Fri, 15 May 2026 20:54:03 +0000",
       "source": "Decrypt",
       "snippet": "The Bitcoin DeFi protocol is moving its assets away from LayerZero following the Kelp DAO exploit that led to the loss of $292 million."
-    },
-    {
-      "title": "THORChain’s RUNE Token Plunges Double Digits After $10M Exploit, Trading Halt",
-      "link": "https://decrypt.co/367943/thorchains-rune-token-plunges-double-digits-after-10m-exploit-trading-halt",
-      "pubDate": "Fri, 15 May 2026 10:58:24 +0000",
-      "source": "Decrypt",
-      "snippet": "The liquidity protocol halted operations after blockchain researchers identified a suspected $10 million breach across multiple networks."
-    },
-    {
-      "title": "Apple Mac M5 System Exploited With Anthropic&#39;s Claude Mythos AI, Researchers Claim",
-      "link": "https://decrypt.co/367925/apple-mac-m5-system-exploited-anthropic-claude-mythos-ai",
-      "pubDate": "Thu, 14 May 2026 21:16:53 +0000",
-      "source": "Decrypt",
-      "snippet": "Security startup Calif says researchers used a preview version of Anthropic&#39;s Claude Mythos AI to help build an Apple macOS kernel exploit."
     }
   ],
-  "fetchedAt": "2026-05-17T18:48:02.827Z"
+  "fetchedAt": "2026-05-18T19:19:44.036Z"
 }
