@@ -7,6 +7,7 @@ import { HomeRadarBrief } from "@/components/HomeRadarBrief";
 import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
 import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
 import { AlphaTicker } from "@/components/AlphaTicker";
+import { BinanceLiveMovers } from "@/components/BinanceLiveMovers";
 import { JsonLd } from "@/components/JsonLd";
 import { Activity, FileText, Database, ShieldCheck, Bot, Calculator, Zap, Rocket, SearchCheck } from "lucide-react";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
@@ -149,6 +150,7 @@ export default async function HomePage() {
     <>
       <section className="hero" id="hero">
         <div className="radar-sweep" />
+        <BinanceLiveMovers tokens={allTokensList} />
         <div className="container">
           <h1 className="animate-in">
             Crypto Token <span className="gradient-text animated">Risk Scores</span>, Launch Signals, and Market Research

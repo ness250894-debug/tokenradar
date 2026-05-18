@@ -41,6 +41,8 @@ describe("security headers", () => {
         "https://www.tradingview.com",
         "https://s.tradingview.com",
         "https://cloudflareinsights.com",
+        "wss://data-stream.binance.vision",
+        "wss://stream.binance.com:9443",
       ]),
     );
     expect(directives.get("script-src")).not.toContain("*");
