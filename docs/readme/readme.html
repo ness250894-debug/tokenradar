@@ -49,14 +49,14 @@
         <h2>Document Contract</h2>
         <div class="grid">
           <div class="box"><span class="tag green">Source</span><h3><code>docs/readme</code></h3><p>Artifact-maintained source of record.</p></div>
-          <div class="box"><span class="tag blue">Structure</span><h3>15 headings</h3><p>7 code blocks, 4 tables, 1 Markdown links.</p></div>
+          <div class="box"><span class="tag blue">Structure</span><h3>16 headings</h3><p>7 code blocks, 4 tables, 1 Markdown links.</p></div>
           <div class="box"><span class="tag amber">Pair</span><h3><a href="readme.json">readme.json</a></h3><p>Machine-readable representation of this same document.</p></div>
         </div>
       </section>
 
       <section class="section outline">
         <h2>Outline</h2>
-        <ol><li class="level-1"><a href="#tokenradar">TokenRadar</a> <span>line 1</span></li><li class="level-2"><a href="#source-of-truth">Source Of Truth</a> <span>line 7</span></li><li class="level-2"><a href="#current-capabilities">Current Capabilities</a> <span>line 14</span></li><li class="level-2"><a href="#tech-stack">Tech Stack</a> <span>line 25</span></li><li class="level-2"><a href="#production-flow">Production Flow</a> <span>line 39</span></li><li class="level-2"><a href="#maintained-docs">Maintained Docs</a> <span>line 48</span></li><li class="level-2"><a href="#project-structure">Project Structure</a> <span>line 70</span></li><li class="level-2"><a href="#getting-started">Getting Started</a> <span>line 86</span></li><li class="level-2"><a href="#key-scripts">Key Scripts</a> <span>line 103</span></li><li class="level-2"><a href="#social-and-video-publishing">Social And Video Publishing</a> <span>line 130</span></li><li class="level-2"><a href="#environment">Environment</a> <span>line 151</span></li><li class="level-2"><a href="#github-storage-strategy">GitHub Storage Strategy</a> <span>line 171</span></li><li class="level-2"><a href="#quality-gates">Quality Gates</a> <span>line 181</span></li><li class="level-2"><a href="#docs-maintenance">Docs Maintenance</a> <span>line 190</span></li><li class="level-2"><a href="#deployment">Deployment</a> <span>line 208</span></li></ol>
+        <ol><li class="level-1"><a href="#tokenradar">TokenRadar</a> <span>line 1</span></li><li class="level-2"><a href="#source-of-truth">Source Of Truth</a> <span>line 7</span></li><li class="level-2"><a href="#current-capabilities">Current Capabilities</a> <span>line 14</span></li><li class="level-2"><a href="#tech-stack">Tech Stack</a> <span>line 25</span></li><li class="level-2"><a href="#production-flow">Production Flow</a> <span>line 39</span></li><li class="level-2"><a href="#homepage-data-surfaces">Homepage Data Surfaces</a> <span>line 48</span></li><li class="level-2"><a href="#maintained-docs">Maintained Docs</a> <span>line 52</span></li><li class="level-2"><a href="#project-structure">Project Structure</a> <span>line 74</span></li><li class="level-2"><a href="#getting-started">Getting Started</a> <span>line 90</span></li><li class="level-2"><a href="#key-scripts">Key Scripts</a> <span>line 107</span></li><li class="level-2"><a href="#social-and-video-publishing">Social And Video Publishing</a> <span>line 134</span></li><li class="level-2"><a href="#environment">Environment</a> <span>line 155</span></li><li class="level-2"><a href="#github-storage-strategy">GitHub Storage Strategy</a> <span>line 175</span></li><li class="level-2"><a href="#quality-gates">Quality Gates</a> <span>line 185</span></li><li class="level-2"><a href="#docs-maintenance">Docs Maintenance</a> <span>line 194</span></li><li class="level-2"><a href="#deployment">Deployment</a> <span>line 212</span></li></ol>
       </section>
 
       <section class="section content">
@@ -92,6 +92,8 @@
 <li><code>video-assets-refresh.yml</code> maintains the b-roll manifest and Cloudflare R2 media assets.</li>
 <li><code>performance.yml</code>, <code>dependency-security.yml</code>, and Dependabot provide scheduled quality and dependency gates.</li>
 </ol>
+<h2 id="homepage-data-surfaces">Homepage Data Surfaces</h2>
+<p>The homepage market panels render generated snapshot data from the latest refresh/build cycle, with interactive browser controls layered on top for watchlists, polls, tabs, and comparisons. Copy on these preview surfaces should stay data-led and avoid visible freshness claims such as <code>today</code>, <code>now</code>, or <code>Last updated</code>; the data itself carries the signal without implying a live tick feed.</p>
 <h2 id="maintained-docs">Maintained Docs</h2>
 <p>Tracked docs live under <code>docs/</code> as paired HTML and JSON artifacts. The top-level registry in <code>docs/tokenradar</code> should mention every maintained pair and the public runtime HTML/JSON artifacts.</p>
 <p>| Docs | Covers | |---|---| | <code>docs/tokenradar/</code> | Whole-project product, architecture, workflows, integrations, and operating model | | <code>docs/automations/</code> | Schedules, social routes, diagnostics, credentials, and recurring operations | | <code>docs/data-schema/</code> | JSON contracts, producers, consumers, and validation rules | | <code>docs/deployment/</code> | Static export, Cloudflare Pages deployment, build gates, and diagnostics | | <code>docs/design/</code> | Visual system, layout rules, interaction states, accessibility, and brand constraints | | <code>docs/editorial/</code> | Article standards, factual grounding, quality gates, and review triggers | | <code>docs/integrations/</code> | Provider APIs, credentials, analytics, social publishing, and storage integrations | | <code>docs/pipeline/</code> | Discovery, data harvest, metrics, queue publication, validation, build, and delivery | | <code>docs/prompts/</code> | Prompt inputs, generation constraints, fallback behavior, and output validation | | <code>docs/public-video-assets-broll-readme/</code> | B-roll generation, Blender loops, R2 sync, manifest contract, and pruning | | <code>docs/readme/</code> | Generated representation of this README | | <code>docs/seo/</code> | Static export SEO, metadata, sitemap coverage, structured data, and search QA | | <code>docs/testing/</code> | Vitest inventory, local validation, CI gates, mocking policy, and browser QA |</p>
@@ -191,6 +193,10 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 4. `social-automations.yml` runs market updates, Telegram polls, daily movers, X polls, Threads text prompts, short-form video publishing, D1 maintenance, R2 cleanup, and ops reporting.
 5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.
 6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.
+
+## Homepage Data Surfaces
+
+The homepage market panels render generated snapshot data from the latest refresh/build cycle, with interactive browser controls layered on top for watchlists, polls, tabs, and comparisons. Copy on these preview surfaces should stay data-led and avoid visible freshness claims such as `today`, `now`, or `Last updated`; the data itself carries the signal without implying a live tick feed.
 
 ## Maintained Docs
 

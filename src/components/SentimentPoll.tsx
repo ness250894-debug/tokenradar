@@ -18,7 +18,7 @@ interface SentimentPollProps {
 export function SentimentPoll({
   tokenId,
   title = "Sentiment Poll",
-  prompt = "How do you feel about this token today?",
+  prompt = "How do you read this token setup?",
   positiveLabel = "Bullish Sentiment",
   negativeLabel = "Bearish Sentiment",
   recordedLabel = "Thanks for voting! Market sentiment recorded.",
