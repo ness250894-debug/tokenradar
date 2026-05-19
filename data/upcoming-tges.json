@@ -1463,5 +1463,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-18T19:17:53.394Z",
     "discoveredAt": "2026-05-18T19:17:53.394Z"
+  },
+  {
+    "id": "nuva",
+    "name": "NUVA",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Launch Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/news-analysis/2026/05/19/former-bny-exec-launches-nuva-bets-tokenization-will-remake-wall-street",
+    "confidence": 70,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/news-analysis/2026/05/19/former-bny-exec-launches-nuva-bets-tokenization-will-remake-wall-street",
+        "title": "Former BNY exec launches NUVA, bets tokenization will remake Wall Street",
+        "observedAt": "2026-05-19"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-19T19:30:21.427Z",
+    "discoveredAt": "2026-05-19T19:30:21.427Z"
   }
 ]

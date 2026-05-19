@@ -3,32 +3,25 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Aave restores ether borrowing limits after $230 million exploit",
-      "link": "https://www.coindesk.com/markets/2026/05/18/aave-restores-weth-collateral-limits-as-rseth-crisis-enters-recovery-phase",
-      "pubDate": "Mon, 18 May 2026 07:05:20 +0000",
+      "title": "Echo Protocol suffers $76 million exploit in eBTC minting attack on Monad",
+      "link": "https://www.coindesk.com/business/2026/05/19/echo-protocol-suffers-usd76-million-exploit-in-ebtc-minting-attack-on-monad",
+      "pubDate": "Tue, 19 May 2026 08:42:15 +0000",
       "source": "CoinDesk",
-      "snippet": "The DeFi lending protocol reversed restrictions imposed after April’s $292 million exploit, restoring borrowing capacity across six networks as contagion fears ease."
+      "snippet": "The Bitcoin-focused DeFi protocol suffered an attack whereby about 1,000 unauthorized eBTC $77 million were minted on the Monad blockchain"
     },
     {
-      "title": "XRP price may explode to $15 amid 'quiet accumulation,' analyst claims",
-      "link": "https://cointelegraph.com/markets/xrp-price-may-explode-15-dollars-quiet-accumulation-analyst-claims?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 18 May 2026 11:19:08 +0000",
+      "title": "Echo Protocol's eBTC exploited for $77M in admin key compromise",
+      "link": "https://cointelegraph.com/news/echo-protocols-ebtc-exploited-for-76m-in-admin-key-compromise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 19 May 2026 04:52:25 +0000",
       "source": "CoinTelegraph",
-      "snippet": "XRP still faces short-term downside risk, with a symmetrical triangle breakdown pointing to a possible drop toward $1.00–$1.10."
+      "snippet": "The hacker has already laundered nearly 5% of the loot through Tornado Cash and is still holding the remaining 955 eBTC."
     },
     {
-      "title": "Verus Ethereum bridge reportedly exploited for $11.6M in latest DeFi attack",
-      "link": "https://cointelegraph.com/news/verus-ethereum-bridge-reportedly-exploited-for-millions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 18 May 2026 07:11:30 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Two security companies have flagged the address where the stolen funds are allegedly being held, showing the cryptocurrencies have been converted into 5,402 Ether."
-    },
-    {
-      "title": "WETH markets return to normal operations on Aave amid rsETH recovery progress",
-      "link": "https://cointelegraph.com/news/aave-restores-weth-borrowing-after-kelp-dao-rseth-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 18 May 2026 05:02:08 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Aave applied a temporary freeze to WETH as a precautionary safety measure in response to the Kelp DAO exploit, alongside freezes on the rsETH and wrsETH reserves."
+      "title": "Bitcoin DeFi Platform Echo Protocol Hit By $76M Monad Exploit",
+      "link": "https://decrypt.co/368315/bitcoin-defi-platform-echo-protocol-hit-by-76m-monad-exploit",
+      "pubDate": "Tue, 19 May 2026 11:13:11 +0000",
+      "source": "Decrypt",
+      "snippet": "Echo Protocol said that a compromised admin key had enabled unauthorized eBTC minting on its Monad deployment."
     },
     {
       "title": "Lombard Finance Dumps LayerZero, Will Use Chainlink to Power $1 Billion in Bitcoin Assets",
@@ -38,5 +31,5 @@
       "snippet": "The Bitcoin DeFi protocol is moving its assets away from LayerZero following the Kelp DAO exploit that led to the loss of $292 million."
     }
   ],
-  "fetchedAt": "2026-05-18T19:19:44.036Z"
+  "fetchedAt": "2026-05-19T19:32:14.242Z"
 }
