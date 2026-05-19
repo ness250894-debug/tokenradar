@@ -56,7 +56,7 @@
 
       <section class="section outline">
         <h2>Outline</h2>
-        <ol><li class="level-1"><a href="#tokenradar">TokenRadar</a> <span>line 1</span></li><li class="level-2"><a href="#source-of-truth">Source Of Truth</a> <span>line 7</span></li><li class="level-2"><a href="#current-capabilities">Current Capabilities</a> <span>line 14</span></li><li class="level-2"><a href="#tech-stack">Tech Stack</a> <span>line 25</span></li><li class="level-2"><a href="#production-flow">Production Flow</a> <span>line 39</span></li><li class="level-2"><a href="#homepage-data-surfaces">Homepage Data Surfaces</a> <span>line 48</span></li><li class="level-2"><a href="#maintained-docs">Maintained Docs</a> <span>line 52</span></li><li class="level-2"><a href="#project-structure">Project Structure</a> <span>line 74</span></li><li class="level-2"><a href="#getting-started">Getting Started</a> <span>line 90</span></li><li class="level-2"><a href="#key-scripts">Key Scripts</a> <span>line 107</span></li><li class="level-2"><a href="#social-and-video-publishing">Social And Video Publishing</a> <span>line 134</span></li><li class="level-2"><a href="#environment">Environment</a> <span>line 155</span></li><li class="level-2"><a href="#github-storage-strategy">GitHub Storage Strategy</a> <span>line 175</span></li><li class="level-2"><a href="#quality-gates">Quality Gates</a> <span>line 185</span></li><li class="level-2"><a href="#docs-maintenance">Docs Maintenance</a> <span>line 194</span></li><li class="level-2"><a href="#deployment">Deployment</a> <span>line 212</span></li></ol>
+        <ol><li class="level-1"><a href="#tokenradar">TokenRadar</a> <span>line 1</span></li><li class="level-2"><a href="#source-of-truth">Source Of Truth</a> <span>line 7</span></li><li class="level-2"><a href="#current-capabilities">Current Capabilities</a> <span>line 14</span></li><li class="level-2"><a href="#tech-stack">Tech Stack</a> <span>line 25</span></li><li class="level-2"><a href="#production-flow">Production Flow</a> <span>line 39</span></li><li class="level-2"><a href="#homepage-data-surfaces">Homepage Data Surfaces</a> <span>line 50</span></li><li class="level-2"><a href="#maintained-docs">Maintained Docs</a> <span>line 54</span></li><li class="level-2"><a href="#project-structure">Project Structure</a> <span>line 76</span></li><li class="level-2"><a href="#getting-started">Getting Started</a> <span>line 92</span></li><li class="level-2"><a href="#key-scripts">Key Scripts</a> <span>line 109</span></li><li class="level-2"><a href="#social-and-video-publishing">Social And Video Publishing</a> <span>line 136</span></li><li class="level-2"><a href="#environment">Environment</a> <span>line 157</span></li><li class="level-2"><a href="#github-storage-strategy">GitHub Storage Strategy</a> <span>line 177</span></li><li class="level-2"><a href="#quality-gates">Quality Gates</a> <span>line 187</span></li><li class="level-2"><a href="#docs-maintenance">Docs Maintenance</a> <span>line 196</span></li><li class="level-2"><a href="#deployment">Deployment</a> <span>line 214</span></li></ol>
       </section>
 
       <section class="section content">
@@ -92,6 +92,7 @@
 <li><code>video-assets-refresh.yml</code> maintains the b-roll manifest and Cloudflare R2 media assets.</li>
 <li><code>performance.yml</code>, <code>dependency-security.yml</code>, and Dependabot provide scheduled quality and dependency gates.</li>
 </ol>
+<p>TGE discovery uses free RSS sources that are reachable by the project runner: Airdrop Alert, ICO Watch List, CoinTelegraph, Decrypt, and CoinDesk.</p>
 <h2 id="homepage-data-surfaces">Homepage Data Surfaces</h2>
 <p>The homepage market panels render generated snapshot data from the latest refresh/build cycle, with interactive browser controls layered on top for watchlists, polls, tabs, and comparisons. Copy on these preview surfaces should stay data-led and avoid visible freshness claims such as <code>today</code>, <code>now</code>, or <code>Last updated</code>; the data itself carries the signal without implying a live tick feed.</p>
 <h2 id="maintained-docs">Maintained Docs</h2>
@@ -193,6 +194,8 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 4. `social-automations.yml` runs market updates, Telegram polls, daily movers, X polls, Threads text prompts, short-form video publishing, D1 maintenance, R2 cleanup, and ops reporting.
 5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.
 6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.
+
+TGE discovery uses free RSS sources that are reachable by the project runner: Airdrop Alert, ICO Watch List, CoinTelegraph, Decrypt, and CoinDesk.
 
 ## Homepage Data Surfaces
 

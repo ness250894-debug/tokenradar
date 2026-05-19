@@ -26,6 +26,7 @@ import {
   type TgeMarketEvidence,
   type UpcomingTge,
 } from "../src/lib/tge";
+import { TGE_RSS_FEEDS } from "../src/lib/tge-rss-feeds";
 import { loadEnv, safeReadJson } from "../src/lib/utils";
 
 // Load environment
@@ -43,14 +44,6 @@ const AI_BATCH_SIZE = 15;
 
 /** Pause between AI batches in milliseconds. */
 const AI_BATCH_PAUSE_MS = 5_000;
-
-const RSS_FEEDS = [
-  { url: "https://airdropalert.com/feed/", name: "Airdrop Alert" },
-  { url: "https://icowatchlist.com/blog/feed", name: "ICO Watch List" },
-  { url: "https://cointelegraph.com/rss", name: "CoinTelegraph" },
-  { url: "https://decrypt.co/feed", name: "Decrypt" },
-  { url: "https://www.theblock.co/rss.xml", name: "The Block" },
-];
 
 const parser = new Parser({
   timeout: RSS_TIMEOUT_MS,
@@ -291,7 +284,7 @@ async function main() {
   // 2. Scan RSS sources
   const discovered: UpcomingTge[] = [];
 
-  for (const feed of RSS_FEEDS) {
+  for (const feed of TGE_RSS_FEEDS) {
     console.log(`\\n▶ Source: ${feed.name}`);
     
     try {
