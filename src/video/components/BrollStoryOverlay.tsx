@@ -19,14 +19,6 @@ interface StoryBeat {
   compact?: boolean;
 }
 
-function formatCompact(value: number | undefined): string {
-  if (!value) return "N/A";
-  if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
-  if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
-  if (value >= 1e6) return `$${(value / 1e6).toFixed(1)}M`;
-  return `$${value.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
-}
-
 function cleanText(value: string | undefined): string {
   return (value || "")
     .replace(/\s+/g, " ")
@@ -37,7 +29,11 @@ function cleanText(value: string | undefined): string {
 function firstSentence(value: string | undefined): string {
   const text = cleanText(value);
   if (!text) return "";
-  const sentence = text.split(/(?<=[.!?])\s+/)[0] || text;
+  const sentence = text
+    .split(/(?<=[.!?])\s+/)[0]
+    .replace(/\$\d[\d,.]*(?:[KMBT])?/gi, "market activity")
+    .replace(/\b\d+(?:\.\d+)?\/10\b/g, "the risk read")
+    .replace(/\b\d+(?:\.\d+)?\/100\b/g, "the growth read") || text;
   return sentence.length > 118 ? `${sentence.slice(0, 112).trim()}...` : sentence;
 }
 
@@ -47,6 +43,121 @@ function getWatchLabel(verdict: Verdict | undefined, fallback: string): string {
   if (verdict === "NEUTRAL") return "NEUTRAL WATCH";
   if (verdict === "POSITIVE DATA" || verdict === "CONSTRUCTIVE") return "POSITIVE DATA SETUP";
   return "DATA WATCH";
+}
+
+function getStoryReveal(symbol: string, tokenName: string, formatKey: string): {
+  headline: React.ReactNode;
+  supporting: string;
+} {
+  if (formatKey === "new_listing_radar") {
+    return {
+      headline: (
+        <>
+          {symbol} is <Highlight color="#10B981">new on radar</Highlight>
+        </>
+      ),
+      supporting: `${tokenName} needs context before conviction.`,
+    };
+  }
+
+  if (formatKey === "catalyst_explainer") {
+    return {
+      headline: (
+        <>
+          {symbol} has a <Highlight color="#10B981">why-now story</Highlight>
+        </>
+      ),
+      supporting: "Catalyst first. Metrics stay backstage.",
+    };
+  }
+
+  if (formatKey === "risk_alert" || formatKey === "risk_score_breakdown") {
+    return {
+      headline: (
+        <>
+          {symbol} needs a <Highlight color="#F59E0B">risk check</Highlight>
+        </>
+      ),
+      supporting: "Attention is useful only after confirmation.",
+    };
+  }
+
+  return {
+    headline: (
+      <>
+        {symbol} is <Highlight color="#10B981">back on radar</Highlight>
+      </>
+    ),
+    supporting: `${tokenName} is the story. The dashboard stays backstage.`,
+  };
+}
+
+function getStoryFilter(formatKey: string): {
+  headline: React.ReactNode;
+  supporting: string;
+} {
+  if (formatKey === "volume_spike_check" || formatKey === "liquidity_stress_test") {
+    return {
+      headline: (
+        <>
+          Attention needs <Highlight color="#10B981">proof</Highlight>
+        </>
+      ),
+      supporting: "Fast activity matters only if it survives the first wave.",
+    };
+  }
+
+  if (formatKey === "narrative_heatmap" || formatKey === "sector_rotation") {
+    return {
+      headline: (
+        <>
+          Narrative heat <Highlight color="#10B981">is loud</Highlight>
+        </>
+      ),
+      supporting: "The question is whether the story spreads beyond one token.",
+    };
+  }
+
+  if (formatKey === "momentum_cooling" || formatKey === "contrarian_signal") {
+    return {
+      headline: (
+        <>
+          The move still <Highlight color="#F59E0B">needs follow-through</Highlight>
+        </>
+      ),
+      supporting: "A green candle can fade when attention cools.",
+    };
+  }
+
+  if (formatKey === "risk_alert" || formatKey === "risk_score_breakdown") {
+    return {
+      headline: (
+        <>
+          The catch is <Highlight color="#F59E0B">risk</Highlight>
+        </>
+      ),
+      supporting: "Good stories still need liquidity and confirmation.",
+    };
+  }
+
+  return {
+    headline: (
+      <>
+        The story needs <Highlight color="#10B981">confirmation</Highlight>
+      </>
+    ),
+    supporting: "Attention is not the same thing as proof.",
+  };
+}
+
+function getStoryVerdictLabel(verdict: Verdict | undefined, fallback: string): string {
+  const label = getWatchLabel(verdict, fallback);
+  if (label.includes("CONFIRMATION")) return "CONFIRMATION WATCH";
+  if (label.includes("RISK")) return "RISK CHECK";
+  if (label.includes("ROTATION")) return "ROTATION WATCH";
+  if (label.includes("NARRATIVE")) return "NARRATIVE WATCH";
+  if (label.includes("WATCHLIST")) return "WATCHLIST FILTER";
+  return "MARKET CONTEXT";
 }
 
 function formatMoveLabel(priceChange24h: number): string | null {
@@ -220,14 +331,7 @@ const StoryBeatText: React.FC<{
 export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
   tokenName,
   symbol,
-  price,
   priceChange24h,
-  riskScore,
-  riskLevel,
-  marketCap,
-  marketCapRank,
-  volume24h,
-  growthPotentialIndex,
   hookText,
   verdict,
   contextText,
@@ -240,15 +344,13 @@ export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
   const visualRecipe = resolveVideoVisualRecipe(inputVisualRecipe);
   const sceneDurations = getVideoSceneDurations(visualRecipe);
   const theme = getVideoTheme(visualRecipe);
-  const moveColor = priceChange24h >= 0 ? theme.positive : theme.negative;
   const moveLabel = formatMoveLabel(priceChange24h);
   const nearFlatRevealCopy = moveLabel ? null : getNearFlatRevealCopy(videoFormat.key, symbol);
   const context = firstSentence(videoThesis || contextText) ||
-    "The setup needs price, volume, and risk confirmation before it deserves attention.";
-  const rankLabel = marketCapRank ? `Rank #${marketCapRank}` : "Rank N/A";
-  const riskLabel = riskLevel ? `${riskLevel.toUpperCase()} risk ${riskScore.toFixed(1)}/10` : `Risk ${riskScore.toFixed(1)}/10`;
-  const growthLabel = growthPotentialIndex === undefined ? "Growth N/A" : `Growth ${Math.round(growthPotentialIndex)}/100`;
-  const researchLabel = getWatchLabel(verdict, videoFormat.signalLabel);
+    "The setup needs context and confirmation before it deserves attention.";
+  const revealCopy = nearFlatRevealCopy || getStoryReveal(symbol, tokenName, videoFormat.key);
+  const filterCopy = getStoryFilter(videoFormat.key);
+  const researchLabel = getStoryVerdictLabel(verdict, videoFormat.signalLabel);
 
   const beatsByScene: Record<VideoSceneId, StoryBeat> = {
     hook: {
@@ -260,39 +362,27 @@ export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
     reveal: {
       sceneId: "reveal",
       eyebrow: videoFormat.revealLabel,
-      headline: nearFlatRevealCopy?.headline || (
-        <>
-          {symbol} is <Highlight color={moveColor}>{moveLabel}</Highlight> today
-        </>
-      ),
-      supporting: nearFlatRevealCopy?.supporting || (
-        <>
-          {tokenName} at ${price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 6 })}
-        </>
-      ),
+      headline: revealCopy.headline,
+      supporting: revealCopy.supporting,
     },
     metrics: {
       sceneId: "metrics",
       eyebrow: videoFormat.metricsTitle,
-      headline: (
-        <>
-          Volume: <Highlight color={theme.accent}>{formatCompact(volume24h)}</Highlight>
-        </>
-      ),
-      supporting: `${rankLabel} | ${riskLabel} | ${growthLabel}`,
+      headline: filterCopy.headline,
+      supporting: filterCopy.supporting,
     },
     context: {
       sceneId: "context",
       eyebrow: videoFormat.contextTitle,
       headline: context,
-      supporting: `Market cap ${formatCompact(marketCap)}. Watch whether the move keeps follow-through.`,
+      supporting: "Watch whether attention turns into confirmation.",
       compact: true,
     },
     verdict: {
       sceneId: "verdict",
       eyebrow: videoFormat.verdictKicker,
       headline: <Highlight color={theme.accent}>{researchLabel}</Highlight>,
-      supporting: "Not financial advice. Use this as a watchlist filter.",
+      supporting: "Educational market context. Comment the next ticker to risk-check.",
       align: "center",
     },
   };

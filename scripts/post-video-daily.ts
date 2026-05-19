@@ -35,7 +35,8 @@ import {
 } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
-import { generateHookText } from "../src/lib/social-content-generator";
+import { generateHookText, generateVideoVoiceoverScript } from "../src/lib/social-content-generator";
+import { generateKokoroVoiceover } from "../src/lib/kokoro-voiceover";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import {
   cleanPrefix,
@@ -59,7 +60,6 @@ import {
   uploadVideoToTikTokInbox,
 } from "../src/lib/tiktok-client";
 import { AUDIO_TRACKS, getAudioPath, selectAvailableAudioTrack } from "../src/lib/audio-config";
-import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
 import {
   normalizeVideoAssetManifest,
   selectVideoAssetShotList,
@@ -178,6 +178,10 @@ interface PlatformTracker {
   formatFamily?: string;
   videoThesis?: string;
   hookText?: string;
+  voiceoverScript?: string;
+  voiceoverProvider?: "kokoro";
+  voiceoverStatus?: "generated" | "skipped" | "failed";
+  voiceoverError?: string;
   audioTrack?: string;
   audioStartSeconds?: number;
   visualRecipeKey?: string;
@@ -219,6 +223,10 @@ interface VideoTracker {
   formatFamily?: string;
   videoThesis?: string;
   hookText?: string;
+  voiceoverScript?: string;
+  voiceoverProvider?: "kokoro";
+  voiceoverStatus?: "generated" | "skipped" | "failed";
+  voiceoverError?: string;
   audioTrack?: string;
   audioStartSeconds?: number;
   visualRecipeKey?: string;
@@ -245,6 +253,12 @@ interface PlatformVideoAsset {
   videoThesis: string;
   hookText: string;
   audioTrack: AudioTrackSelection;
+  voiceoverScript: string;
+  voiceoverFile?: string;
+  voiceoverOutputPath?: string;
+  voiceoverProvider?: "kokoro";
+  voiceoverStatus?: "generated" | "skipped" | "failed";
+  voiceoverError?: string;
   visualRecipe: VideoVisualRecipe;
   mediaAssets: VideoAssetLayer[];
   mediaSegments: VideoAssetStageSegment[];
@@ -301,6 +315,21 @@ function ensureRiskDisclaimer(text: string): string {
   }
 
   return [text.trim(), TELEGRAM_SIGNAL_NOTE].filter(Boolean).join("\n\n");
+}
+
+const TIKTOK_RESEARCH_CONTEXT_NOTE = "Educational market context. Confirm liquidity, risk, and invalidation.";
+
+export function ensureTikTokResearchContextNote(text: string): string {
+  const trimmed = text.trim();
+  const normalized = trimmed.toLowerCase();
+  if (
+    normalized.includes("educational market context") ||
+    normalized.includes("confirm liquidity")
+  ) {
+    return trimmed;
+  }
+
+  return [trimmed, TIKTOK_RESEARCH_CONTEXT_NOTE].filter(Boolean).join("\n\n");
 }
 
 function failWithVideoAlert(
@@ -685,34 +714,27 @@ function buildVideoThesis(
   metric: MetricData | undefined,
   contextText: string | undefined,
 ): string {
-  const change = formatPercent(token.market.priceChange24h);
-  const price = formatPrice(token.market.price);
-  const marketCap = formatCompact(token.market.marketCap);
-  const volume = formatCompact(token.market.volume24h);
-  const risk = metric?.riskScore !== undefined
-    ? `${metric.riskScore.toFixed(1)}/10 ${metric.riskLevel || "risk"}`
-    : "risk data pending";
-  const growth = metric?.growthPotentialIndex !== undefined
-    ? `${Math.round(metric.growthPotentialIndex)}/100 growth index`
-    : "growth index pending";
   const context = contextText?.trim();
+  const riskTone = metric?.riskScore !== undefined && metric.riskScore >= 7
+    ? "elevated risk keeps confirmation more important than attention"
+    : "risk and liquidity still need confirmation";
 
   const thesisByFormat: Partial<Record<VideoFormatKey, string>> = {
-    breakout_watch: `${token.name} is being checked as a breakout candidate after a ${change} 24h move; the test is whether ${volume} volume can support follow-through.`,
-    risk_alert: `${token.name} needs a risk-first read: price is at ${price}, but ${risk} keeps confirmation more important than the headline move.`,
-    volume_spike_check: `${token.name} is on volume watch because ${volume} traded in 24h against a ${marketCap} market cap.`,
-    sector_rotation: `${token.name} is being read as a possible rotation signal; the question is whether the move fits the broader market setup.`,
-    token_vs_sector: `${token.name} is being compared against the broader tape: ${change} in 24h, ${marketCap} market cap, and ${volume} volume.`,
-    momentum_cooling: `${token.name} is being checked for fade risk after a ${change} 24h move; momentum needs confirmation to stay useful.`,
+    breakout_watch: `${token.name} is being checked as a breakout story; the test is whether attention turns into follow-through.`,
+    risk_alert: `${token.name} needs a risk-first read because ${riskTone}.`,
+    volume_spike_check: `${token.name} is on move-quality watch because fast activity can be useful or noisy.`,
+    sector_rotation: `${token.name} is being read as a possible rotation story; the question is whether the move fits the broader market setup.`,
+    token_vs_sector: `${token.name} is being compared against the broader tape so the setup is not judged in isolation.`,
+    momentum_cooling: `${token.name} is being checked for fade risk because strong attention can still cool fast.`,
     catalyst_explainer: `${token.name} is the focus because the selection reason needs a why-now explanation, not just a price snapshot.`,
-    liquidity_stress_test: `${token.name} is going through a liquidity stress test using ${volume} volume, ${marketCap} market cap, and ${risk}.`,
-    data_vs_hype: `${token.name} gets a data-versus-hype read: ${change} price action is measured against volume, risk, and market-cap context.`,
-    risk_score_breakdown: `${token.name} is being judged through TokenRadar's risk lens first, with ${risk} and ${growth}.`,
-    watchlist_battle: `${token.name} has to earn a watchlist slot with ${change} performance, ${volume} volume, and ${risk}.`,
-    weekly_recap: `${token.name} is the standout name in this scan, with ${change} over 24h and ${marketCap} market cap.`,
-    new_listing_radar: `${token.name} is treated as a fresh radar candidate; the first filters are ${risk}, ${volume} volume, and ${marketCap} market cap.`,
-    narrative_heatmap: `${token.name} is being checked for narrative heat, with ${change} price action and ${growth}.`,
-    contrarian_signal: `${token.name} has a tension setup: ${change} price movement versus ${risk} and ${volume} volume quality.`,
+    liquidity_stress_test: `${token.name} is going through a liquidity stress test where activity, depth, and risk have to agree.`,
+    data_vs_hype: `${token.name} gets a data-versus-hype read because attention is only useful when the evidence holds up.`,
+    risk_score_breakdown: `${token.name} is being judged through TokenRadar's risk lens first, with confirmation doing the heavy lifting.`,
+    watchlist_battle: `${token.name} has to earn a watchlist slot with a cleaner story than simple attention.`,
+    weekly_recap: `${token.name} is the standout name in this scan, but the market read still needs context.`,
+    new_listing_radar: `${token.name} is treated as a fresh radar candidate; the first filters are risk, liquidity, and proof.`,
+    narrative_heatmap: `${token.name} is being checked for narrative heat and whether the story is bigger than one fast move.`,
+    contrarian_signal: `${token.name} has a tension setup: attention is visible, but confirmation still has to arrive.`,
   };
 
   return [thesisByFormat[format.key as VideoFormatKey] || `${format.label}: ${token.name} is being analyzed through market data quality filters.`, context]
@@ -742,6 +764,10 @@ function getPlatformTrackerFields(
   | "formatFamily"
   | "videoThesis"
   | "hookText"
+  | "voiceoverScript"
+  | "voiceoverProvider"
+  | "voiceoverStatus"
+  | "voiceoverError"
   | "audioTrack"
   | "audioStartSeconds"
   | "visualRecipeKey"
@@ -780,6 +806,10 @@ function getPlatformTrackerFields(
     formatFamily: asset.format.family,
     videoThesis: asset.videoThesis,
     hookText: asset.hookText,
+    voiceoverScript: asset.voiceoverScript,
+    voiceoverProvider: asset.voiceoverProvider,
+    voiceoverStatus: asset.voiceoverStatus,
+    voiceoverError: asset.voiceoverError,
     audioTrack: asset.audioTrack.file,
     audioStartSeconds: asset.audioTrack.startSeconds,
     visualRecipeKey: asset.visualRecipe.key,
@@ -1350,6 +1380,19 @@ export async function main(args = process.argv.slice(2)) {
       );
       const hookText = existingPlatformTracker?.hookText ||
         await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
+      const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
+        await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat);
+      const voiceoverHash = crypto
+        .createHash("sha1")
+        .update(`${today}:${platform}:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
+        .digest("hex")
+        .slice(0, 10);
+      const voiceoverResult = await generateKokoroVoiceover({
+        script: voiceoverScript,
+        outputDir: path.join(VIDEO_ASSET_ROOT, "voiceover"),
+        fileName: `${today}-${platform}-${targetToken.id}-${voiceoverHash}.wav`,
+        dateSeed: today,
+      });
       const usedVideoRecipeKeys = force
         ? new Set<string>()
         : getRecentVideoRecipeKeys(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today, platform);
@@ -1413,6 +1456,13 @@ export async function main(args = process.argv.slice(2)) {
       }
       console.log(`  ${platform}: recipe ${visualRecipe.key}`);
       console.log(`  ${platform}: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
+      if (voiceoverResult.status === "generated") {
+        console.log(`  ${platform}: Kokoro voiceover ${voiceoverResult.fileName}`);
+      } else if (voiceoverResult.status === "failed") {
+        console.warn(`  ${platform}: Kokoro voiceover skipped after failure: ${voiceoverResult.error}`);
+      } else {
+        console.warn(`  ${platform}: Kokoro voiceover disabled or empty.`);
+      }
       if (mediaSegments.length > 0) {
         console.log(
           `  ${platform}: media ${mediaSegments.map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`).join(", ")}`,
@@ -1437,6 +1487,8 @@ export async function main(args = process.argv.slice(2)) {
         growthPotentialIndex: targetMetric?.growthPotentialIndex,
         audioFile: audioTrack.file,
         audioStartSeconds: audioTrack.startSeconds,
+        voiceoverFile: voiceoverResult.fileName,
+        voiceoverScript,
         hookText,
         contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
         videoFormatKey: videoFormat.key,
@@ -1475,6 +1527,12 @@ export async function main(args = process.argv.slice(2)) {
         videoThesis,
         hookText,
         audioTrack,
+        voiceoverScript,
+        voiceoverFile: voiceoverResult.fileName,
+        voiceoverOutputPath: voiceoverResult.outputPath,
+        voiceoverProvider: voiceoverResult.provider,
+        voiceoverStatus: voiceoverResult.status,
+        voiceoverError: voiceoverResult.error,
         visualRecipe,
         mediaAssets,
         mediaSegments,
@@ -1635,7 +1693,7 @@ export async function main(args = process.argv.slice(2)) {
       };
     }
     if (shouldRunTikTok && tiktokCaption) {
-      tiktokCaption = normalizeTikTokCaption(ensureRiskDisclaimer(tiktokCaption));
+      tiktokCaption = normalizeTikTokCaption(ensureTikTokResearchContextNote(tiktokCaption));
     }
 
     const copyValidation = [
@@ -2192,6 +2250,7 @@ export async function main(args = process.argv.slice(2)) {
     if (!keepOutput) {
       for (const asset of platformVideos.values()) {
         cleanupFile(asset.outputPath);
+        if (asset.voiceoverOutputPath) cleanupFile(asset.voiceoverOutputPath);
       }
     }
   }

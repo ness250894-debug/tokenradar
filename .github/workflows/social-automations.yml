@@ -300,7 +300,7 @@ jobs:
 
       - name: Short-form Video Breakout
         if: env.IS_VIDEO_RUN == 'true'
-        run: npx tsx scripts/post-video-daily.ts --platform shorts
+        run: npx tsx scripts/post-video-daily.ts --platform all
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}

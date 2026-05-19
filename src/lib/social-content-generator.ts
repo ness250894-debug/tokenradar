@@ -11,6 +11,147 @@ export interface VideoHookFormatContext {
   label: string;
   angle: string;
   hookInstruction: string;
+  key?: string;
+  family?: string;
+}
+
+const UNSAFE_VIDEO_WORD_RE = /\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/gi;
+
+function normalizeNarrationText(value: string): string {
+  return value
+    .replace(UNSAFE_VIDEO_WORD_RE, "watch")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,.!?])/g, "$1")
+    .trim();
+}
+
+function getVoiceoverOpening(tokenName: string, context: MarketContext): string {
+  switch ((context.selectionReason || "").toLowerCase()) {
+    case "trending-coingecko":
+      return `Look... ${tokenName} is showing up because search attention picked up... which makes the story worth checking!`;
+    case "trending-x":
+      return `Wait... ${tokenName} is getting major social attention right now... but social attention can move fast... or fade fast!`;
+    case "newly-published":
+      return `So... ${tokenName} is a fresh research read... where our first job is context... not conviction.`;
+    case "top-gainer":
+      return `Right... ${tokenName} is back on the radar because attention picked up... not because the chart solved the story!`;
+    case "safe-play":
+      return `${tokenName} is a calmer market read... but even the cleanest setups still need confirmation!`;
+    default:
+      return `${tokenName} is today's market read... useful as a token research exercise, instead of a dashboard headline.`;
+  }
+}
+
+function getVoiceoverLens(format: VideoHookFormatContext | undefined): string {
+  switch (format?.key) {
+    case "risk_alert":
+    case "risk_score_breakdown":
+      return "But here is the catch... it's all about risk... attention only matters if the setup survives basic confirmation.";
+    case "volume_spike_check":
+    case "liquidity_stress_test":
+      return "Let's do a move-quality check... market activity has to prove the move is more than just a fast spike.";
+    case "sector_rotation":
+    case "narrative_heatmap":
+      return "So the real question is... is this part of a bigger narrative... or just a one-off burst of noise?";
+    case "catalyst_explainer":
+    case "new_listing_radar":
+      return "The question we should ask... is why did this attention arrive now... and what still needs to be verified?";
+    case "momentum_cooling":
+    case "contrarian_signal":
+      return "The tension here is simple... attention is loud, but follow-through still has to show up.";
+    case "watchlist_battle":
+    case "token_vs_sector":
+      return "Let's make a comparison... this name has to earn watchlist space against stronger alternatives.";
+    default:
+      return "The useful question is... does this attention turn into confirmation... or disappear after the first wave?";
+  }
+}
+
+/**
+ * Build the narration Kokoro reads over the video.
+ *
+ * Keep this separate from publish captions and on-screen metrics: the voiceover
+ * should sound like creator commentary, not a dashboard export.
+ */
+export function buildVideoVoiceoverScript(
+  tokenName: string,
+  symbol: string,
+  context: MarketContext = {},
+  format?: VideoHookFormatContext,
+): string {
+  const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
+  const opening = getVoiceoverOpening(cleanTokenName, context);
+  const lens = getVoiceoverLens(format);
+  const riskCue = (context.riskScore ?? 5) >= 7
+    ? "That is why... the safer read is a risk check... not a victory lap."
+    : "That is why... the safer read is context first... reaction second.";
+  const close = `Comment your next ticker below... and let's check the risk.`;
+  const script = normalizeNarrationText([opening, lens, riskCue, close].join(" ... "));
+  const words = script.split(/\s+/).filter(Boolean);
+
+  return words.length > 72 ? `${words.slice(0, 71).join(" ")}.` : script;
+}
+
+// Add support for fully dynamic AI-generated scripts using Gemini
+export async function generateDynamicVoiceoverScript(
+  tokenName: string,
+  symbol: string,
+  context: MarketContext = {},
+  format?: VideoHookFormatContext,
+): Promise<string> {
+  const formatBrief = format
+    ? `
+    VIDEO FORMAT:
+    ${format.label}: ${format.angle}
+    `
+    : "";
+  const prompt = `
+    Write a highly human-like, conversational 25-second narration voiceover script for a short-form video about ${tokenName} ($${symbol.toUpperCase()}).
+    Selection reason: ${context.selectionReason || "significant market movement"}
+    Risk Score: ${context.riskScore ?? "N/A"}/10
+    Price Change (24h): ${formatChange(context.priceChange24h)}
+    ${formatBrief}
+
+    RULES for Conversational Pacing & Engagement:
+    1. Write exactly like a natural, casual human speaker.
+    2. Incorporate natural hesitation pauses using ellipses (...) and commas (e.g. "Wait...", "Look...", "But here is the catch...").
+    3. Use exclamation marks and question marks to guide pitch and dynamic intonation.
+    4. Keep it strictly under 72 words total so it comfortably fits a 30-second video at natural reading speed.
+    5. Do NOT mention specific dry metrics like "Growth Potential Index is 67" or raw JSON numbers unless highly relevant. Focus on the core narrative.
+    6. Strict safety: Do NOT use the words: buy, sell, hold, long, short, moon, 100x, entry, target, guaranteed, rich, or price prediction. Substitute with "context", "research", "watchlist", or "risk check".
+    7. End with a call to action asking viewers to comment their next ticker for a risk check.
+
+    Respond with ONLY the narration script. No introductory text. No quotes.
+  `;
+
+  const result = await callAIWithFallback(
+    "You write highly engaging, natural short-form video narration scripts.",
+    prompt,
+    1024,
+  );
+  return normalizeNarrationText(result.content.trim().replace(/^["']|["']$/g, ""));
+}
+
+// Unified async voiceover script generator
+export async function generateVideoVoiceoverScript(
+  tokenName: string,
+  symbol: string,
+  context: MarketContext = {},
+  format?: VideoHookFormatContext,
+): Promise<string> {
+  const useDynamic = process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "1" || 
+                     process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "true";
+  
+  if (useDynamic) {
+    try {
+      console.log(`Generating fully dynamic AI voiceover script for ${tokenName}...`);
+      return await generateDynamicVoiceoverScript(tokenName, symbol, context, format);
+    } catch (e) {
+      console.warn("Failed to generate dynamic AI voiceover script, falling back to template:", e);
+    }
+  }
+  
+  return buildVideoVoiceoverScript(tokenName, symbol, context, format);
 }
 
 /**

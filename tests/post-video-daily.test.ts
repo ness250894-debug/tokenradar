@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  ensureTikTokResearchContextNote,
   parseVideoDailyCliOptions,
   resolveVideoDailyPlatformFlags,
   resolveVideoDailyPlatformPlan,
@@ -70,5 +71,13 @@ describe("post-video-daily CLI planning", () => {
     expect(plan.shouldRunTikTokDirect).toBe(true);
     expect(plan.shouldRunTikTokInbox).toBe(false);
     expect(plan.shouldRunTikTokManual).toBe(false);
+  });
+
+  it("adds TikTok context copy without reintroducing trade-signal wording", () => {
+    const caption = ensureTikTokResearchContextNote("Avalanche is back on radar.\n\n#AVAX #Crypto #TokenRadar");
+
+    expect(caption).toContain("Educational market context.");
+    expect(caption).toContain("Confirm liquidity, risk, and invalidation.");
+    expect(caption).not.toMatch(/\b(?:signal|strong buy|entry|target|price prediction)\b/i);
   });
 });

@@ -22,6 +22,10 @@ export type TopGainerProps = {
   audioFile?: string;
   /** Seconds into the audio track to start playback (beat-drop offset). */
   audioStartSeconds?: number;
+  /** Voiceover filename from public/video-assets/voiceover/. */
+  voiceoverFile?: string;
+  /** Narration text used to generate the voiceover. */
+  voiceoverScript?: string;
   /** Generated hook text for Act 1 */
   hookText?: string;
   /** Why it's moving / Context for Act 4 */
@@ -56,6 +60,8 @@ const defaultProps: TopGainerProps = {
   growthPotentialIndex: 72,
   audioFile: "Midnight_Pursuit.mp3",
   audioStartSeconds: 0,
+  voiceoverFile: undefined,
+  voiceoverScript: "Ethereum is back in the conversation, but the useful question is whether attention turns into confirmation. Treat this as market context, not a dashboard headline.",
   hookText: "WHY ETHEREUM NEEDS A DATA CHECK",
   contextText: "Ethereum is moving through a market read where volume, liquidity, and risk confirmation matter most.",
   verdict: "CONSTRUCTIVE",
