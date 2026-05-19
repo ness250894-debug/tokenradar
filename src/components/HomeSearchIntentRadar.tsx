@@ -39,7 +39,7 @@ export function HomeSearchIntentRadar({ intents, tokens, trends = {} }: HomeSear
           <div>
             <p className="eyebrow-text">Search Intent Radar</p>
             <h2>
-              What crypto users are <span className="gradient-text">looking for now</span>
+              Search intent <span className="gradient-text">mapped to market data</span>
             </h2>
             <p>Free-data attention signals mapped to price movement, risk, supply pressure, and narratives.</p>
           </div>

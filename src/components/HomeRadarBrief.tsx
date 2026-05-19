@@ -136,9 +136,9 @@ export function HomeRadarBrief({
       <div className="container">
         <div className="home-radar-heading">
           <div>
-            <p className="eyebrow-text">Daily Radar</p>
+            <p className="eyebrow-text">Market Radar</p>
             <h2>
-              Today&apos;s <span className="gradient-text">Market Brief</span>
+              <span className="gradient-text">Market Brief</span>
             </h2>
             <p>
               {marketMood} with a {formatPercent(marketChange24h)} average 24h move across the front-page sample.
@@ -191,7 +191,7 @@ export function HomeRadarBrief({
             <SentimentPoll
               tokenId="home-market-pulse"
               title="Market Pulse"
-              prompt="Is today's setup risk-on or risk-off?"
+              prompt="Is this setup risk-on or risk-off?"
               positiveLabel="Risk-on"
               negativeLabel="Risk-off"
               recordedLabel="Vote recorded."
@@ -242,7 +242,7 @@ export function HomeRadarBrief({
               {lowestRiskToken && (
                 <RadarCallout
                   label="Lowest Screened Risk"
-                  note={`Lower relative risk profile among scored assets in today's registry.`}
+                  note="Lower relative risk profile among scored assets in the active registry."
                   token={lowestRiskToken}
                   icon={ShieldCheck}
                   tone="blue"
