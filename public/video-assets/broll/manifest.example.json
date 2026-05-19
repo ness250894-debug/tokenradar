@@ -16,6 +16,20 @@
       "attribution": "Internal or licensed asset"
     },
     {
+      "id": "manual-human-phone",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/manual-human-phone.mp4",
+      "provider": "manual",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "saturation": 1.08,
+      "tags": ["human", "person", "phone", "hands", "market", "broll"],
+      "attribution": "Internal or licensed asset"
+    },
+    {
       "id": "blender-radar-grid",
       "kind": "video",
       "source": "local",
@@ -26,7 +40,7 @@
       "fit": "cover",
       "opacity": 0.24,
       "saturation": 1.12,
-      "tags": ["blender", "generated", "market", "signal", "radar_grid"],
+      "tags": ["blender", "generated", "market", "data_read", "radar_grid"],
       "attribution": "Blender generated radar grid loop"
     }
   ]

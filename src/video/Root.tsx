@@ -26,7 +26,7 @@ export type TopGainerProps = {
   hookText?: string;
   /** Why it's moving / Context for Act 4 */
   contextText?: string;
-  /** Final calculated verdict for Act 5 */
+  /** Final calculated research read for Act 5 */
   verdict?: Verdict;
   /** Editorial format used to vary short-form video structure. */
   videoFormatKey?: VideoFormatKey;
@@ -56,9 +56,9 @@ const defaultProps: TopGainerProps = {
   growthPotentialIndex: 72,
   audioFile: "Midnight_Pursuit.mp3",
   audioStartSeconds: 0,
-  hookText: "IS ETHEREUM ABOUT TO SHOCK THE MARKET?",
-  contextText: "Major institutions are quietly accumulating ETH while retail focuses on meme coins.",
-  verdict: "STRONG BUY",
+  hookText: "WHY ETHEREUM NEEDS A DATA CHECK",
+  contextText: "Ethereum is moving through a market read where volume, liquidity, and risk confirmation matter most.",
+  verdict: "CONSTRUCTIVE",
   videoFormatKey: "breakout_watch",
   videoThesis: "Ethereum is being checked as a breakout candidate because momentum needs volume confirmation.",
   mediaAssets: [],

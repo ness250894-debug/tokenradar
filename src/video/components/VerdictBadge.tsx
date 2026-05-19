@@ -11,7 +11,7 @@ export const VerdictBadge: React.FC<{
   labelOverride?: string;
   subLabel?: string;
   visualRecipe?: VideoVisualRecipe;
-}> = ({ verdict, kicker = "TOKENRADAR SIGNAL", labelOverride, subLabel = "EDUCATIONAL DATA ONLY", visualRecipe }) => {
+}> = ({ verdict, kicker = "TOKENRADAR RESEARCH", labelOverride, subLabel = "EDUCATIONAL DATA ONLY", visualRecipe }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const recipe = resolveVideoVisualRecipe(visualRecipe);
@@ -36,13 +36,13 @@ export const VerdictBadge: React.FC<{
   });
 
   const color = recipe.colorTheme === "electric_indigo" ? getVerdictColor(verdict) : theme.accent;
-  const signalLabel: Record<Verdict, string> = {
-    "STRONG BUY": "LOW-RISK MOMENTUM",
-    BUY: "POSITIVE SETUP",
-    HOLD: "NEUTRAL SETUP",
-    CAUTION: "RISK ELEVATED",
+  const researchLabel: Record<Verdict, string> = {
+    CONSTRUCTIVE: "LOW-RISK MOMENTUM",
+    "POSITIVE DATA": "POSITIVE DATA SETUP",
+    NEUTRAL: "NEUTRAL WATCH",
+    "RISK ELEVATED": "RISK ELEVATED",
   };
-  const label = labelOverride || signalLabel[verdict] || verdict;
+  const label = labelOverride || researchLabel[verdict] || verdict;
 
   return (
     <AbsoluteFill

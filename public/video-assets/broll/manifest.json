@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-17T12:58:53.885Z",
+  "updatedAt": "2026-05-19T16:24:48.294Z",
   "assets": [
     {
       "id": "blender-radar-grid",
@@ -18,7 +18,7 @@
         "blender",
         "generated",
         "market",
-        "signal",
+        "data_read",
         "radar_grid"
       ],
       "attribution": "Blender generated radar grid loop",
@@ -29,7 +29,9 @@
       "height": 1920,
       "fileSizeBytes": 391622,
       "sha256": "bd07e4f07a3ddd54c96e7779571d4ed52f4030783131debe101edb32e0653b00",
-      "safeStartOffsets": [0],
+      "safeStartOffsets": [
+        0
+      ],
       "startOffsetSeconds": 0
     },
     {
@@ -58,7 +60,130 @@
       "height": 1920,
       "fileSizeBytes": 3264630,
       "sha256": "4079dd3ee64f2e844cc032f4d13adae3ab72da0bdb30a08e546a270ff87da49a",
-      "safeStartOffsets": [0, 1, 2],
+      "safeStartOffsets": [
+        0,
+        1,
+        2
+      ],
+      "playbackRate": 1,
+      "startOffsetSeconds": 0
+    },
+    {
+      "id": "pexels-7947488",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/pexels-7947488.mp4",
+      "provider": "pexels",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "blur": 0,
+      "saturation": 1.08,
+      "tags": [
+        "market",
+        "stock",
+        "broll",
+        "human",
+        "phone",
+        "data",
+        "person"
+      ],
+      "attribution": "Video by RDNE Stock project on Pexels",
+      "sourcePageUrl": "https://www.pexels.com/video/monitoring-the-stock-market-7947488/",
+      "license": "Pexels License",
+      "downloadedAt": "2026-05-19T16:24:46.927Z",
+      "durationSeconds": 7,
+      "width": 1080,
+      "height": 1920,
+      "fileSizeBytes": 4364703,
+      "sha256": "bd15af17a2ec6d058f9f53de24c55d0b1ebc42ad2da2ffa74c69891f41f6291a",
+      "safeStartOffsets": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "playbackRate": 1,
+      "startOffsetSeconds": 0
+    },
+    {
+      "id": "pexels-7247863",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/pexels-7247863.mp4",
+      "provider": "pexels",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "blur": 0,
+      "saturation": 1.08,
+      "tags": [
+        "market",
+        "stock",
+        "broll",
+        "human",
+        "phone",
+        "data",
+        "person"
+      ],
+      "attribution": "Video by Leeloo The First on Pexels",
+      "sourcePageUrl": "https://www.pexels.com/video/a-woman-using-her-mobile-phone-7247863/",
+      "license": "Pexels License",
+      "downloadedAt": "2026-05-19T16:24:47.888Z",
+      "durationSeconds": 9,
+      "width": 1080,
+      "height": 1920,
+      "fileSizeBytes": 5570834,
+      "sha256": "d1f8c9185cb78fe63609dd1d6df3e60cca12103135d83a7a7e53e58006631003",
+      "safeStartOffsets": [
+        0,
+        1,
+        2,
+        4,
+        6
+      ],
+      "playbackRate": 1,
+      "startOffsetSeconds": 0
+    },
+    {
+      "id": "pexels-7567650",
+      "kind": "video",
+      "source": "local",
+      "src": "broll/pexels-7567650.mp4",
+      "provider": "pexels",
+      "orientation": "vertical",
+      "role": "background",
+      "fit": "cover",
+      "opacity": 0.22,
+      "blur": 0,
+      "saturation": 1.08,
+      "tags": [
+        "market",
+        "stock",
+        "broll",
+        "human",
+        "phone",
+        "data",
+        "person"
+      ],
+      "attribution": "Video by Ivan S on Pexels",
+      "sourcePageUrl": "https://www.pexels.com/video/man-using-his-phone-while-holding-his-card-7567650/",
+      "license": "Pexels License",
+      "downloadedAt": "2026-05-19T16:24:48.294Z",
+      "durationSeconds": 10,
+      "width": 1080,
+      "height": 1920,
+      "fileSizeBytes": 5835158,
+      "sha256": "4b4fbcc3979c2e2bfebd4ddeca94449438a8f5eddc2d29eb0e46c0cb7c9d0498",
+      "safeStartOffsets": [
+        0,
+        1,
+        2,
+        4,
+        6
+      ],
       "playbackRate": 1,
       "startOffsetSeconds": 0
     }

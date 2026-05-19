@@ -91,7 +91,7 @@ export const ContextView: React.FC<{
       >
         {isTerminal && (
           <RevealText delay={2} style={{ fontSize: 24, color: theme.muted, fontWeight: 900, marginBottom: 18 }}>
-            {'>'} context.resolve(signal)
+            {'>'} context.resolve(data_read)
           </RevealText>
         )}
         <RevealText delay={5} style={{ fontSize: 34, color: theme.accent, fontWeight: 900, marginBottom: 18, textTransform: "uppercase" }}>

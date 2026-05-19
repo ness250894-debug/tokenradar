@@ -32,10 +32,28 @@ describe("video asset pipeline", () => {
       visualRecipe: recipe,
     });
 
-    expect(queries[0]).toBe("vertical crypto trading chart");
+    expect(queries[0]).toBe("person checking phone finance");
+    expect(queries).toContain("vertical crypto trading chart");
     expect(queries).toContain("financial market data dashboard");
     expect(queries.join(" ").toLowerCase()).not.toContain("mimbogamegroup");
     expect(queries.join(" ").toLowerCase()).not.toContain("mgg");
+  });
+
+  it("prioritizes human phone, laptop, and desk footage in stock search queries", () => {
+    const queries = buildStockAssetQueries({
+      tokenName: "Solana",
+      symbol: "SOL",
+      selectionReason: "daily video market data risk check",
+      videoFormatKey: "risk_alert",
+      visualRecipe: recipe,
+    });
+
+    expect(queries.slice(0, 5)).toEqual(expect.arrayContaining([
+      "person checking phone finance",
+      "trader looking at laptop charts",
+      "person desk financial charts",
+    ]));
+    expect(queries.join(" ")).toMatch(/\b(?:human|person|phone|laptop|desk|hands|trader)\b/);
   });
 
   it("normalizes a mixed manifest and drops unsafe or unsupported asset entries", () => {
@@ -180,17 +198,26 @@ describe("video asset pipeline", () => {
     expect(["pexels", "generated"]).toContain(firstSeed[0].provider);
   });
 
-  it("uses both stock and generated assets as possible primary stages across seeds", () => {
+  it("prefers human stock clips over generated loops for the primary media stage", () => {
     const manifest = normalizeVideoAssetManifest({
       assets: [
         {
-          id: "pexels-a",
+          id: "human-phone",
           kind: "video",
           source: "local",
-          src: "broll/pexels-a.mp4",
+          src: "broll/human-phone.mp4",
           provider: "pexels",
           orientation: "vertical",
-          tags: ["market", "stock"],
+          tags: ["human", "person", "phone", "market", "stock"],
+        },
+        {
+          id: "abstract-chart",
+          kind: "video",
+          source: "local",
+          src: "broll/abstract-chart.mp4",
+          provider: "pixabay",
+          orientation: "vertical",
+          tags: ["market", "chart", "stock"],
         },
         {
           id: "blender-radar",
@@ -203,21 +230,19 @@ describe("video asset pipeline", () => {
         },
       ],
     });
-    const providers = new Set(
-      ["ada", "xrp", "sol", "eth", "btc", "doge", "link", "avax", "arb", "op", "near", "sui"].map((seed) =>
-        selectVideoAssetLayers({
-          manifest,
-          platform: "youtube",
-          visualRecipe: recipe,
-          videoFormatKey: "breakout_watch",
-          seedParts: [seed],
-          stageMode: "primary",
-        })[0]?.provider,
-      ),
+
+    const selectedIds = ["ada", "xrp", "sol", "eth", "btc", "doge"].map((seed) =>
+      selectVideoAssetLayers({
+        manifest,
+        platform: "tiktok",
+        visualRecipe: recipe,
+        videoFormatKey: "breakout_watch",
+        seedParts: [seed],
+        stageMode: "primary",
+      })[0]?.id,
     );
 
-    expect(providers).toContain("pexels");
-    expect(providers).toContain("generated");
+    expect(new Set(selectedIds)).toEqual(new Set(["human-phone"]));
   });
 
   it("falls back to a generated loop as primary media when no stock clip exists", () => {
@@ -351,6 +376,58 @@ describe("video asset pipeline", () => {
     ]);
     expect(shotList.segments.map((segment) => segment.asset.id)).not.toContain("recent-phone");
     expect(new Set(shotList.segments.map((segment) => segment.asset.id)).size).toBe(3);
+  });
+
+  it("uses human phone footage for the hook segment when available", () => {
+    const manifest = normalizeVideoAssetManifest({
+      assets: [
+        {
+          id: "abstract-chart",
+          kind: "video",
+          source: "local",
+          src: "broll/abstract-chart.mp4",
+          provider: "pixabay",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["chart", "market", "stock"],
+        },
+        {
+          id: "human-phone",
+          kind: "video",
+          source: "local",
+          src: "broll/human-phone.mp4",
+          provider: "pexels",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["human", "person", "phone", "hands", "market", "stock"],
+        },
+        {
+          id: "desk-laptop",
+          kind: "video",
+          source: "local",
+          src: "broll/desk-laptop.mp4",
+          provider: "pexels",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["human", "desk", "laptop", "chart", "market", "stock"],
+        },
+      ],
+    });
+
+    const shotList = selectVideoAssetShotList({
+      manifest,
+      platform: "tiktok",
+      seedParts: ["2026-05-19", "tiktok", "sol"],
+      now: new Date("2026-05-19T12:00:00.000Z"),
+    });
+
+    expect(shotList.segments[0]).toMatchObject({
+      segmentId: "hook",
+      asset: { id: "human-phone" },
+    });
   });
 
   it("relaxes cooldown instead of returning an empty shot list when every asset was used recently", () => {

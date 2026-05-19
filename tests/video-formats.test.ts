@@ -57,4 +57,29 @@ describe("video formats", () => {
     expect(line).toContain("Risk Alert");
     expect(line.length).toBeGreaterThan(80);
   });
+
+  it("keeps video-facing format copy away from trade-signal language", () => {
+    const riskyPattern = /\b(?:buy|strong buy|sell|hold|signal|entry|take-profit|target|moon|100x|price prediction)\b/i;
+
+    for (const format of VIDEO_FORMATS) {
+      const videoFacingCopy = [
+        format.label,
+        format.angle,
+        format.hookInstruction,
+        format.captionInstruction,
+        format.openingEyebrow,
+        format.hookSubline,
+        format.revealLabel,
+        format.metricsTitle,
+        format.contextTitle,
+        format.contextLead,
+        format.summaryTitle,
+        format.summaryLead,
+        format.verdictKicker,
+        format.signalLabel,
+      ].join(" ");
+
+      expect(videoFacingCopy, format.key).not.toMatch(riskyPattern);
+    }
+  });
 });

@@ -48,8 +48,8 @@ export const VideoBackground: React.FC<{
   const { durationInFrames } = useVideoConfig();
   const recipe = resolveVideoVisualRecipe(visualRecipe);
   const theme = getVideoTheme(recipe);
-  const signalColor = resolveAccentColor(verdict, priceChange24h, riskScore);
-  const accentColor = recipe.colorTheme === "electric_indigo" ? signalColor : theme.accent;
+  const readColor = resolveAccentColor(verdict, priceChange24h, riskScore);
+  const accentColor = recipe.colorTheme === "electric_indigo" ? readColor : theme.accent;
   const pulse = Math.sin(frame / 22) * 0.5 + 0.5;
   const slowProgress = frame / Math.max(durationInFrames, 1);
   const brandScale = interpolate(
@@ -162,7 +162,7 @@ export const VideoBackground: React.FC<{
         >
           {Array.from({ length: 9 }).map((_, index) => (
             <div key={index} style={{ whiteSpace: "nowrap" }}>
-              TOKENRADAR DATA SIGNAL / RISK CHECK / LIQUIDITY / MOMENTUM / TOKENRADAR DATA SIGNAL
+              TOKENRADAR DATA READ / RISK CHECK / LIQUIDITY / MOMENTUM / TOKENRADAR DATA READ
             </div>
           ))}
         </div>

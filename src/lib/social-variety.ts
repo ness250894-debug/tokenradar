@@ -26,14 +26,14 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
       label: "Setup + Invalidation",
       angle: "lead with the market setup, then make the invalidation condition concrete",
       promptInstruction:
-        "Make the Setup line the strongest part of the post. The Risk / invalidation line must name a concrete condition that would weaken the signal.",
+        "Make the Setup line the strongest part of the post. The Risk / invalidation line must name a concrete condition that would weaken the read.",
     },
     {
       key: "risk_filter",
       label: "Risk Filter",
       angle: "treat the token as a candidate that must pass liquidity and confirmation filters",
       promptInstruction:
-        "Frame the post around what would make the signal higher quality. Mention volatility, liquidity, or follow-through as the filter.",
+        "Frame the post around what would make the read higher quality. Mention volatility, liquidity, or follow-through as the filter.",
     },
     {
       key: "narrative_check",
@@ -47,7 +47,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
       label: "Follow-through Watch",
       angle: "focus on whether the move has durable follow-through",
       promptInstruction:
-        "Make the verdict about follow-through quality. Avoid hype; say what needs to hold for the signal to stay relevant.",
+        "Make the read about follow-through quality. Avoid hype; say what must stay valid for the read to remain relevant.",
     },
   ],
   x: [
@@ -74,7 +74,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
     },
     {
       key: "watchlist_signal",
-      label: "Watchlist Signal",
+      label: "Watchlist Read",
       angle: "frame the post as a watchlist note, not a call",
       promptInstruction:
         "Write like a concise watchlist note. Make it clear the token is being monitored, not recommended.",
@@ -107,7 +107,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
       label: "Data vs Hype",
       angle: "contrast market data with social attention",
       promptInstruction:
-        "Position TokenRadar as separating data from hype. Avoid promotional claims and focus on measurable signals.",
+        "Position TokenRadar as separating data from hype. Avoid promotional claims and focus on measurable evidence.",
     },
   ],
   instagram: [
@@ -158,7 +158,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
     {
       key: "contrarian_prompt",
       label: "Contrarian Prompt",
-      angle: "surface the tension in the signal",
+      angle: "surface the tension in the data",
       promptInstruction:
         "Lead with the strongest tension in the data, then invite replies about what matters most.",
     },
@@ -187,10 +187,10 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
     },
     {
       key: "watchlist_verdict",
-      label: "Watchlist Verdict",
-      angle: "caption gives a quick verdict without giving trade advice",
+      label: "Watchlist Read",
+      angle: "caption gives a quick research read without giving trade advice",
       promptInstruction:
-        "Make the caption feel like a watchlist verdict. Avoid buy/sell language and keep it specific.",
+        "Make the caption feel like a watchlist research read. Avoid buy/sell language and keep it specific.",
     },
   ],
   "instagram-carousel": [
@@ -207,7 +207,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
       riskSlideLines: [
         "Confirm liquidity and spread quality.",
         "Check whether volume supports the move.",
-        "Treat the scan as research, not a trade signal.",
+        "Treat the scan as research, not a trade command.",
       ],
     },
     {
@@ -222,7 +222,7 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
       riskSlideTitle: "Risk Filter",
       riskSlideLines: [
         "Large 24h candles can fade quickly.",
-        "Watch liquidity before trusting the signal.",
+        "Watch liquidity before trusting the read.",
         "Use invalidation rules before sizing any idea.",
       ],
     },

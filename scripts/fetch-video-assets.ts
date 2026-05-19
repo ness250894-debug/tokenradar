@@ -96,6 +96,49 @@ function getProviders(args: string[]): ProviderName[] {
   return providers.filter((provider): provider is ProviderName => provider === "pexels" || provider === "pixabay");
 }
 
+function buildQueryTags(query: string): string[] {
+  const normalized = query.toLowerCase();
+  const tags = new Set(["market", "stock", "broll"]);
+  const tagHints: Array<[RegExp, string]> = [
+    [/\b(person|people|woman|man|trader|worker|human)\b/, "human"],
+    [/\b(phone|app)\b/, "phone"],
+    [/\bhands?\b/, "hands"],
+    [/\blaptop\b/, "laptop"],
+    [/\bdesk\b/, "desk"],
+    [/\bmonitor|screen\b/, "monitor"],
+    [/\bchart|candlestick|analytics|dashboard|heatmap\b/, "chart"],
+    [/\bdata|financial|finance|market\b/, "data"],
+    [/\bliquidity|order book\b/, "liquidity"],
+  ];
+
+  for (const [pattern, tag] of tagHints) {
+    if (pattern.test(normalized)) tags.add(tag);
+  }
+
+  if (tags.has("human") && !tags.has("person")) tags.add("person");
+  return Array.from(tags);
+}
+
+function scoreCandidate(candidate: ProviderCandidate): number {
+  const tags = new Set(candidate.tags || []);
+  let score = 0;
+
+  if (tags.has("human") || tags.has("person")) score += 48;
+  if (tags.has("phone") || tags.has("hands")) score += 32;
+  if (tags.has("laptop") || tags.has("desk") || tags.has("monitor")) score += 24;
+  if (tags.has("chart") || tags.has("data")) score += 12;
+  if (candidate.height && candidate.width && candidate.height > candidate.width) score += 24;
+  if ((candidate.width || 0) > 1080 || (candidate.height || 0) > 1920) score -= 18;
+
+  const duration = candidate.durationSeconds;
+  if (duration !== undefined) {
+    if (duration >= 5 && duration <= 24) score += 24;
+    else if (duration > 30) score -= Math.min(36, Math.round(duration - 30));
+  }
+
+  return score;
+}
+
 function pickPexelsVideoFile(video: PexelsVideoItem): { link: string; width?: number; height?: number } | null {
   const files = Array.isArray(video.video_files) ? video.video_files : [];
   const mp4Files = files
@@ -139,7 +182,7 @@ async function searchPexels(query: string, perPage: number): Promise<ProviderCan
         width: file.width,
         height: file.height,
         durationSeconds: video.duration,
-        tags: ["market", "stock", "broll"],
+        tags: buildQueryTags(query),
       };
     })
     .filter((candidate): candidate is ProviderCandidate => Boolean(candidate));
@@ -183,7 +226,7 @@ async function searchPixabay(query: string, perPage: number): Promise<ProviderCa
         width: file.width,
         height: file.height,
         durationSeconds: hit.duration,
-        tags: ["market", "stock", "broll"],
+        tags: buildQueryTags(query),
       };
     })
     .filter((candidate): candidate is ProviderCandidate => Boolean(candidate));
@@ -210,7 +253,7 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
   const max = Number(getArgValue(args, "--max") || "6");
-  const perQuery = Math.max(1, Math.min(max, 10));
+  const perQuery = Math.max(1, Math.min(max * 2, 10));
   const explicitQuery = getArgValue(args, "--query");
   const queries = explicitQuery ? [explicitQuery] : getDefaultQueries();
   const providers = getProviders(args);
@@ -226,7 +269,9 @@ async function main() {
     if (candidates.length >= max) break;
   }
 
-  const selected = candidates.slice(0, max);
+  const selected = candidates
+    .sort((left, right) => scoreCandidate(right) - scoreCandidate(left) || left.provider.localeCompare(right.provider))
+    .slice(0, max);
   if (dryRun) {
     console.log(JSON.stringify(selected, null, 2));
     return;

@@ -40,4 +40,15 @@ describe("TikTok caption preparation", () => {
     expect(prepared.toLowerCase()).not.toContain("guaranteed returns");
     expect(prepared).toContain("Review the data");
   });
+
+  it("rewrites trade-signal wording in TikTok captions", () => {
+    const prepared = prepareTikTokCaptionForPublishing(
+      "TokenRadar signal: STRONG BUY setup with an entry price and price prediction. #Crypto",
+      "eth",
+    );
+
+    expect(prepared).not.toMatch(/\b(?:signal|strong buy|entry price|price prediction)\b/i);
+    expect(prepared).toContain("TokenRadar research read");
+    expect(prepared).toContain("#ETH #Crypto #TokenRadar");
+  });
 });
