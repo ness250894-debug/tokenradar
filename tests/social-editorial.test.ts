@@ -34,4 +34,14 @@ describe("social editorial policy", () => {
     expect(sanitized.toLowerCase()).not.toContain("moon bound");
     expect(sanitized).toContain("Needs confirmation");
   });
+
+  it("rewrites trade-signal vocabulary into research-safe wording", () => {
+    const sanitized = sanitizeSocialEditorialText(
+      "TokenRadar signal: strong buy with an entry price and price prediction.",
+    );
+
+    expect(sanitized).not.toMatch(/\b(?:signal|strong buy|entry price|price prediction)\b/i);
+    expect(sanitized).toContain("TokenRadar research read");
+    expect(sanitized).toContain("research read");
+  });
 });

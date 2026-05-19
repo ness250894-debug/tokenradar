@@ -1,4 +1,11 @@
 const SOCIAL_EDITORIAL_REPLACEMENTS: Array<[RegExp, string]> = [
+  [/\btokenradar\s+signal\b/gi, "TokenRadar research read"],
+  [/\bstrong\s+buy\b/gi, "positive data read"],
+  [/\bbuy\s+signal\b/gi, "market data read"],
+  [/\btrade\s+signal\b/gi, "market data read"],
+  [/\bsignal\b/gi, "research read"],
+  [/\bprice\s+prediction\b/gi, "scenario read"],
+  [/\bprice\s+target\b/gi, "scenario level"],
   [/\bbuy\s+now(?:\s+before)?\b/gi, "Review the data"],
   [/\binvest\s+now\b/gi, "Review the data"],
   [/\byou\s+should\s+(?:buy|invest)\b/gi, "review the data"],

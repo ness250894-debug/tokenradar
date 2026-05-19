@@ -122,7 +122,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     ),
     verdict: (
       <VerdictBadge
-        verdict={verdict || "BUY"}
+        verdict={verdict || "POSITIVE DATA"}
         kicker={videoFormat.verdictKicker}
         labelOverride={videoFormat.signalLabel}
         visualRecipe={visualRecipe}

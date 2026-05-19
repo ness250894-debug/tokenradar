@@ -512,7 +512,7 @@ function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: Marke
   return [
     `${tokenName} crypto market update`,
     `${change} in 24h | Price: ${price} | Market cap: ${marketCap}`,
-    "Watch liquidity and follow-through before treating this as a real signal.",
+    "Watch liquidity and follow-through before treating this as a valid market read.",
     `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar #Altcoins`,
   ].join("\n\n");
 }
@@ -618,11 +618,11 @@ function fallbackTelegramSummary(
   maxChars: number,
 ): string {
   const summary = [
-    `<b>Radar Signal: $${symbol.toUpperCase()} (${tokenName})</b>`,
+    `<b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>`,
     `Setup: ${formatSocialChange(metrics.priceChange24h)} over 24h, price <b>${formatSocialPrice(metrics.price)}</b>, market cap <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
     `Why it matters: selection reason is ${metrics.selectionReason || "market spotlight"} with risk score <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
     `Risk / invalidation: skip blind entries; wait for liquidity and trend confirmation.`,
-    `<tg-spoiler>TokenRadar read: data is interesting, but this is a watchlist signal, not a trade command.</tg-spoiler>`,
+    `<tg-spoiler>TokenRadar read: data is interesting, but this is watchlist research, not a trade command.</tg-spoiler>`,
   ].join("\n");
 
   return ensureHtmlTagsClosed(truncateTextAtBoundary(summary, maxChars), ["b", "tg-spoiler"]);
@@ -802,16 +802,16 @@ export async function generateUnifiedCaptions(
 TELEGRAM RULES:
 - Return "telegramSummary" only for Telegram.
 - Maximum ${options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS} characters.
-- Write like a premium crypto research desk signal, not a generic social update.
+- Write like a premium crypto research desk read, not a generic social update.
 - Today's Telegram angle: ${platformVariants.telegram?.label} - ${platformVariants.telegram?.angle}.
 - Use this exact compact structure:
-  <b>Radar Signal: $${symbol.toUpperCase()} (${tokenName})</b>
+  <b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>
   Setup: [one concise setup line using concrete market data]
   Why it matters: [one concise catalyst/context line]
   Risk / invalidation: [one concise condition that would weaken the setup]
   <tg-spoiler>TokenRadar read: [one balanced verdict]</tg-spoiler>
 - Use <b> tags only for specific numbers and key metrics.
-- Do not say buy, sell, long, short, entry, take-profit, guaranteed, or financial advice.
+- Do not say buy, sell, long, short, signal, entry, take-profit, guaranteed, or financial advice.
 - No URLs, external links, markdown, numbered lists, or unsupported HTML tags.`,
     x: `
 X RULES:
@@ -864,7 +864,7 @@ TIKTOK RULES:
 - Mention @tokenradarco once.
 - End with exactly 3-5 relevant hashtags. Use a focused mix of token, narrative/category, crypto, and TokenRadar tags.
 - Do not use generic reach tags such as #FYP, #ForYou, #ForYouPage, #viral, or #trending.
-- Do not say buy, sell, long, short, entry, take-profit, guaranteed, financial advice, or price prediction.
+- Do not say buy, sell, long, short, signal, entry, take-profit, guaranteed, financial advice, or price prediction.
 - No URLs, markdown, HTML, unsupported symbols, AI disclaimers, or rocket emojis.`,
   };
 

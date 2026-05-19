@@ -106,22 +106,33 @@ const SHOT_SEGMENTS: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSecon
   { segmentId: "closing", fromSeconds: 20, toSeconds: 30 },
 ];
 
+const HUMAN_STOCK_QUERY_HINTS = [
+  "person checking phone finance",
+  "trader looking at laptop charts",
+  "person desk financial charts",
+  "hands using phone trading",
+  "office worker market chart laptop",
+  "person sitting at desk trading monitors",
+  "woman checking stock market app",
+  "man using laptop financial charts",
+];
+
 const VIDEO_FORMAT_QUERY_HINTS: Partial<Record<VideoFormatKey, string[]>> = {
-  breakout_watch: ["crypto candlestick breakout", "market momentum chart"],
-  risk_alert: ["risk management dashboard", "red financial chart"],
-  volume_spike_check: ["vertical crypto trading chart", "financial market data dashboard"],
-  sector_rotation: ["digital finance network", "market sector dashboard"],
-  token_vs_sector: ["financial comparison dashboard", "stock market screen"],
-  momentum_cooling: ["cooling market chart", "trading screen close up"],
-  catalyst_explainer: ["blockchain technology abstract", "financial news dashboard"],
-  liquidity_stress_test: ["liquidity trading screen", "order book market data"],
-  data_vs_hype: ["financial analytics dashboard", "data visualization screen"],
-  risk_score_breakdown: ["risk analytics dashboard", "financial warning chart"],
-  watchlist_battle: ["trading watchlist dashboard", "market monitor screens"],
-  weekly_recap: ["financial market recap", "trading desk screens"],
-  new_listing_radar: ["crypto market discovery", "digital asset dashboard"],
-  narrative_heatmap: ["financial heatmap dashboard", "market data heatmap"],
-  contrarian_signal: ["contrarian market chart", "trading data tension"],
+  breakout_watch: ["person checking phone finance", "crypto candlestick breakout", "market momentum chart"],
+  risk_alert: ["person desk financial charts", "risk management dashboard", "red financial chart"],
+  volume_spike_check: ["hands using phone trading", "vertical crypto trading chart", "financial market data dashboard"],
+  sector_rotation: ["office worker market chart laptop", "digital finance network", "market sector dashboard"],
+  token_vs_sector: ["trader looking at laptop charts", "financial comparison dashboard", "stock market screen"],
+  momentum_cooling: ["person sitting at desk trading monitors", "cooling market chart", "trading screen close up"],
+  catalyst_explainer: ["person checking phone finance", "blockchain technology abstract", "financial news dashboard"],
+  liquidity_stress_test: ["trader looking at laptop charts", "liquidity trading screen", "order book market data"],
+  data_vs_hype: ["person desk financial charts", "financial analytics dashboard", "data visualization screen"],
+  risk_score_breakdown: ["woman checking stock market app", "risk analytics dashboard", "financial warning chart"],
+  watchlist_battle: ["person sitting at desk trading monitors", "trading watchlist dashboard", "market monitor screens"],
+  weekly_recap: ["office worker market chart laptop", "financial market recap", "trading desk screens"],
+  new_listing_radar: ["person checking phone finance", "crypto market discovery", "digital asset dashboard"],
+  narrative_heatmap: ["man using laptop financial charts", "financial heatmap dashboard", "market data heatmap"],
+  contrarian_signal: ["trader looking at laptop charts", "contrarian market chart", "trading data tension"],
 };
 
 const BACKGROUND_QUERY_HINTS: Partial<Record<VideoVisualRecipe["backgroundSystem"], string[]>> = {
@@ -215,6 +226,13 @@ function isStockLikeAsset(asset: VideoAssetLayer): boolean {
   return !isGeneratedAsset(asset) && asset.kind === "video";
 }
 
+function isHumanMarketAsset(asset: VideoAssetLayer): boolean {
+  const tags = new Set(asset.tags || []);
+  return ["human", "person", "people", "trader", "phone", "hands", "laptop", "desk", "monitor"].some((tag) =>
+    tags.has(tag)
+  );
+}
+
 function normalizeLayer(input: VideoAssetLayer): VideoAssetLayer | null {
   if (!input || typeof input !== "object") return null;
   if (!input.id || !input.src || !SUPPORTED_KINDS.has(input.kind) || !SUPPORTED_SOURCES.has(input.source)) return null;
@@ -283,12 +301,13 @@ export function buildStockAssetQueries(options: BuildStockAssetQueriesOptions): 
     : [];
   const reason = (options.selectionReason || "").toLowerCase();
   const reasonHints = [
-    reason.includes("volume") ? "vertical crypto trading chart" : "",
-    reason.includes("risk") ? "risk management dashboard" : "",
-    reason.includes("listing") ? "digital asset dashboard" : "",
+    reason.includes("volume") ? "hands using phone trading" : "",
+    reason.includes("risk") ? "person desk financial charts" : "",
+    reason.includes("listing") ? "person checking phone finance" : "",
   ];
 
   return unique([
+    ...HUMAN_STOCK_QUERY_HINTS,
     ...reasonHints,
     ...formatHints,
     ...backgroundHints,
@@ -314,7 +333,8 @@ function assetScore(asset: VideoAssetLayer, options: SelectVideoAssetLayersOptio
   if (asset.role === "background") score += 12;
   if (options.visualRecipe?.backgroundSystem && tags.has(options.visualRecipe.backgroundSystem)) score += 18;
   if (options.videoFormatKey && tags.has(options.videoFormatKey)) score += 18;
-  if (tags.has("market") || tags.has("chart") || tags.has("signal")) score += 8;
+  if (tags.has("market") || tags.has("chart") || tags.has("data")) score += 8;
+  if (isHumanMarketAsset(asset)) score += 18;
 
   return score;
 }
@@ -333,6 +353,7 @@ function primaryStageScore(asset: VideoAssetLayer): number {
 
   if (asset.role === "background") score += 16;
   if (isStockLikeAsset(asset)) score += 24;
+  if (isHumanMarketAsset(asset)) score += 72;
 
   return score;
 }
@@ -412,9 +433,9 @@ function isAssetInCooldown(
 }
 
 function getShotSegmentTags(segmentId: VideoAssetSegmentId): Set<string> {
-  if (segmentId === "hook") return new Set(["phone", "screen", "terminal", "market", "trader"]);
-  if (segmentId === "evidence") return new Set(["chart", "data", "dashboard", "market", "liquidity"]);
-  return new Set(["signal", "blender", "generated", "network", "radar_grid"]);
+  if (segmentId === "hook") return new Set(["human", "person", "phone", "hands", "trader", "market"]);
+  if (segmentId === "evidence") return new Set(["human", "desk", "laptop", "monitor", "chart", "data", "dashboard", "market", "liquidity"]);
+  return new Set(["human", "desk", "phone", "blender", "generated", "network", "radar_grid"]);
 }
 
 function shotSegmentScore(
@@ -432,6 +453,12 @@ function shotSegmentScore(
     if (tags.has(tag)) score += 16;
   }
 
+  if (segmentId === "hook" && (tags.has("human") || tags.has("person")) && (tags.has("phone") || tags.has("hands"))) {
+    score += 72;
+  }
+  if (segmentId === "evidence" && (tags.has("laptop") || tags.has("desk") || tags.has("monitor"))) {
+    score += 36;
+  }
   if (segmentId === "closing" && isGeneratedAsset(asset)) score += 20;
   if (segmentId !== "closing" && isStockLikeAsset(asset)) score += 8;
   if (selectedIds.has(asset.id)) score -= 240;
@@ -576,16 +603,16 @@ function selectPrimaryStageLayers(
 
   const backgroundAssets = manifest.assets.filter((asset) => asset.role === "background");
   const stockAssets = backgroundAssets.filter(isStockLikeAsset);
+  const humanStockAssets = stockAssets.filter(isHumanMarketAsset);
   const generatedAssets = backgroundAssets.filter(isGeneratedAsset);
-  const preferGenerated = stockAssets.length > 0 &&
-    generatedAssets.length > 0 &&
-    stableHash(`${seed}:${options.platform}:stage-provider`) % 3 === 0;
-  const preferredPool = preferGenerated
-    ? generatedAssets
+  const preferredPool = humanStockAssets.length > 0
+    ? humanStockAssets
     : stockAssets.length > 0
       ? stockAssets
+      : generatedAssets.length > 0
+        ? generatedAssets
       : backgroundAssets;
-  const primary = selectSeededAsset(preferredPool, seed, preferGenerated ? "primary-generated" : "primary-stock") ||
+  const primary = selectSeededAsset(preferredPool, seed, humanStockAssets.length > 0 ? "primary-human-stock" : "primary-stock") ||
     selectSeededAsset(backgroundAssets, seed, "primary-fallback");
 
   return primary ? [withStageTreatment(primary, "primary")] : [];

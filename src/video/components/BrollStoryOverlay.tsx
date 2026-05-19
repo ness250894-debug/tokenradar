@@ -43,9 +43,9 @@ function firstSentence(value: string | undefined): string {
 
 function getWatchLabel(verdict: Verdict | undefined, fallback: string): string {
   if (fallback) return fallback;
-  if (verdict === "CAUTION") return "RISK ELEVATED";
-  if (verdict === "HOLD") return "NEUTRAL WATCH";
-  if (verdict === "BUY" || verdict === "STRONG BUY") return "POSITIVE DATA SETUP";
+  if (verdict === "RISK ELEVATED") return "RISK ELEVATED";
+  if (verdict === "NEUTRAL") return "NEUTRAL WATCH";
+  if (verdict === "POSITIVE DATA" || verdict === "CONSTRUCTIVE") return "POSITIVE DATA SETUP";
   return "DATA WATCH";
 }
 
@@ -248,7 +248,7 @@ export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
   const rankLabel = marketCapRank ? `Rank #${marketCapRank}` : "Rank N/A";
   const riskLabel = riskLevel ? `${riskLevel.toUpperCase()} risk ${riskScore.toFixed(1)}/10` : `Risk ${riskScore.toFixed(1)}/10`;
   const growthLabel = growthPotentialIndex === undefined ? "Growth N/A" : `Growth ${Math.round(growthPotentialIndex)}/100`;
-  const signalLabel = getWatchLabel(verdict, videoFormat.signalLabel);
+  const researchLabel = getWatchLabel(verdict, videoFormat.signalLabel);
 
   const beatsByScene: Record<VideoSceneId, StoryBeat> = {
     hook: {
@@ -291,7 +291,7 @@ export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
     verdict: {
       sceneId: "verdict",
       eyebrow: videoFormat.verdictKicker,
-      headline: <Highlight color={theme.accent}>{signalLabel}</Highlight>,
+      headline: <Highlight color={theme.accent}>{researchLabel}</Highlight>,
       supporting: "Not financial advice. Use this as a watchlist filter.",
       align: "center",
     },

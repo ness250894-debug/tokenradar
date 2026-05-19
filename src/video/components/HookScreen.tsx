@@ -9,7 +9,7 @@ export const HookScreen: React.FC<{
   eyebrow?: string;
   subline?: string;
   visualRecipe?: VideoVisualRecipe;
-}> = ({ text, eyebrow = "Educational Market Data Only", subline = "No Buy Or Sell Instructions | Risk Varies By Token", visualRecipe }) => {
+}> = ({ text, eyebrow = "Educational Market Data Only", subline = "Educational Research Only | Risk Varies By Token", visualRecipe }) => {
   const frame = useCurrentFrame();
   const recipe = resolveVideoVisualRecipe(visualRecipe);
   const theme = getVideoTheme(recipe);
@@ -55,7 +55,7 @@ export const HookScreen: React.FC<{
             textTransform: "uppercase",
           }}
         >
-          TokenRadar Market Signal / Data First / Educational Only
+          TokenRadar Market Read / Data First / Educational Only
         </div>
       )}
       <div
