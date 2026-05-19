@@ -323,7 +323,7 @@ export default async function AboutPage() {
             TokenRadar monitors RSS and source feeds from{" "}
             <strong>Airdrop Alert</strong>, <strong>ICO Watch List</strong>,{" "}
             <strong>CoinTelegraph</strong>, <strong>Decrypt</strong>, and{" "}
-            <strong>The Block</strong> to identify possible token launches,
+            <strong>CoinDesk</strong> to identify possible token launches,
             token sales, airdrops, exchange listings, migrations, and graduation
             events.
           </p>

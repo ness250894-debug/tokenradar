@@ -45,6 +45,8 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.
 6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.
 
+TGE discovery uses free RSS sources that are reachable by the project runner: Airdrop Alert, ICO Watch List, CoinTelegraph, Decrypt, and CoinDesk.
+
 ## Homepage Data Surfaces
 
 The homepage market panels render generated snapshot data from the latest refresh/build cycle, with interactive browser controls layered on top for watchlists, polls, tabs, and comparisons. Copy on these preview surfaces should stay data-led and avoid visible freshness claims such as `today`, `now`, or `Last updated`; the data itself carries the signal without implying a live tick feed.

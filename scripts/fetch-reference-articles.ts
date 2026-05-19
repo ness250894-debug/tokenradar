@@ -6,7 +6,6 @@
  *
  * Sources:
  * - CoinDesk RSS
- * - The Block RSS
  * - Decrypt RSS
  * - CoinTelegraph RSS
  *
