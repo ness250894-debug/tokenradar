@@ -46,4 +46,29 @@ describe("BrollStoryOverlay", () => {
     expect(markup).not.toContain("+0.00%");
     expect(markup.toLowerCase()).toContain("fresh catalyst");
   });
+
+  it("uses editorial story beats instead of raw dashboard rows on primary b-roll", () => {
+    const markup = renderToStaticMarkup(
+      React.createElement(BrollStoryOverlay, {
+        tokenName: "Solana",
+        symbol: "SOL",
+        price: 184.22,
+        priceChange24h: 6.42,
+        riskScore: 4.8,
+        riskLevel: "medium",
+        marketCap: 89_000_000_000,
+        marketCapRank: 5,
+        volume24h: 3_890_000_000,
+        growthPotentialIndex: 67,
+        hookText: "WHY SOL IS BACK",
+        videoFormatKey: "volume_spike_check",
+        videoThesis: "Solana is getting fresh ecosystem attention, but confirmation still matters more than the first move.",
+      }),
+    );
+
+    expect(markup).not.toMatch(/Volume:/i);
+    expect(markup).not.toMatch(/\bRisk\s+\d/i);
+    expect(markup).not.toMatch(/\|\s*(MEDIUM|LOW|HIGH)?\s*Risk/i);
+    expect(markup).toMatch(/attention|confirmation|story/i);
+  });
 });

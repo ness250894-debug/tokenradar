@@ -51,6 +51,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     growthPotentialIndex,
     audioFile,
     audioStartSeconds = 0,
+    voiceoverFile,
     hookText,
     verdict,
     contextText,
@@ -161,8 +162,19 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
           startFrom={audioStartSeconds * fps}
           loop
           volume={(f) => {
-            if (f < fadeFrames) return f / fadeFrames;
-            if (f > fadeOutStart) return Math.max(0, (durationInFrames - f) / fadeFrames);
+            const voiceoverDucking = voiceoverFile ? 0.22 : 1;
+            if (f < fadeFrames) return (f / fadeFrames) * voiceoverDucking;
+            if (f > fadeOutStart) return Math.max(0, (durationInFrames - f) / fadeFrames) * voiceoverDucking;
+            return voiceoverDucking;
+          }}
+        />
+      )}
+      {voiceoverFile && (
+        <Audio
+          src={staticFile(`voiceover/${voiceoverFile}`)}
+          volume={(f) => {
+            if (f < 10) return f / 10;
+            if (f > durationInFrames - 18) return Math.max(0, (durationInFrames - f) / 18);
             return 1;
           }}
         />
