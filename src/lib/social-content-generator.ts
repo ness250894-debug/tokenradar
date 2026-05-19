@@ -144,7 +144,7 @@ export async function generateVideoVoiceoverScript(
   
   if (useDynamic) {
     try {
-      console.log(`Generating fully dynamic AI voiceover script for ${tokenName}...`);
+      console.info(`Generating fully dynamic AI voiceover script for ${tokenName}...`);
       return await generateDynamicVoiceoverScript(tokenName, symbol, context, format);
     } catch (e) {
       console.warn("Failed to generate dynamic AI voiceover script, falling back to template:", e);

@@ -115,13 +115,13 @@ export async function generateKokoroVoiceover({
       const day = new Date(dateSeed).getDate();
       if (!isNaN(day)) {
         selectedVoice = ROTATING_VOICES[day % ROTATING_VOICES.length];
-        console.log(`[Kokoro] Date seed '${dateSeed}' mapped to rotating voice '${selectedVoice}'`);
+        console.info(`[Kokoro] Date seed '${dateSeed}' mapped to rotating voice '${selectedVoice}'`);
       }
     } else {
       // Fallback if no seed is provided but rotation is enabled
       const day = new Date().getDate();
       selectedVoice = ROTATING_VOICES[day % ROTATING_VOICES.length];
-      console.log(`[Kokoro] No date seed provided; defaulting to rotating voice '${selectedVoice}'`);
+      console.info(`[Kokoro] No date seed provided; defaulting to rotating voice '${selectedVoice}'`);
     }
   }
 
