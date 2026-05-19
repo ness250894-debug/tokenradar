@@ -1,7 +1,7 @@
 /**
  * TokenRadar Instagram Daily Movers carousel.
  *
- * Renders a 1080x1350 carousel from live mover data, stages the PNG slides
+ * Renders a 1080x1350 carousel from live mover data, stages JPEG slides
  * under an R2 prefix, publishes the Instagram carousel, then deletes only the
  * keys uploaded by this run.
  *
@@ -19,6 +19,7 @@ import {
   type DailyMoverCarouselToken,
 } from "../src/lib/daily-movers-carousel-generator";
 import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
+import { prepareInstagramCarouselImage } from "../src/lib/instagram-carousel-media";
 import { publishInstagramCarousel } from "../src/lib/meta-client";
 import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
@@ -208,16 +209,19 @@ async function main() {
     });
 
     console.log(`Rendering Instagram carousel slides (${variant.label})...`);
-    const slides = await generateDailyMoversCarousel(movers, { variant });
+    const renderedSlides = await generateDailyMoversCarousel(movers, { variant });
+    const slides = await Promise.all(
+      renderedSlides.map((slide, index) => prepareInstagramCarouselImage(slide, index + 1)),
+    );
     const caption = buildCaption(movers, variant);
-    console.log(`  Rendered ${slides.length} PNG slides.`);
+    console.log(`  Rendered ${slides.length} JPEG slides.`);
     console.log(`  Caption length: ${caption.length}/${SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT}`);
 
     if (dryRun) {
       console.log();
       console.log("=== DRY RUN MODE ===");
       slides.forEach((slide, index) => {
-        console.log(`  Slide ${index + 1}: ${(slide.length / 1024).toFixed(1)} KB`);
+        console.log(`  Slide ${index + 1}: ${(slide.body.length / 1024).toFixed(1)} KB`);
       });
       console.log();
       console.log("--- INSTAGRAM CAPTION ---");
@@ -232,9 +236,9 @@ async function main() {
     console.log(`Cleaning stale carousel objects under R2 prefix ${prefix}...`);
     await cleanPrefix(prefix);
 
-    for (const [index, slide] of slides.entries()) {
-      const key = `${prefix}slide-${String(index + 1).padStart(2, "0")}.png`;
-      const url = await uploadBuffer(slide, key, "image/png");
+    for (const slide of slides) {
+      const key = `${prefix}${slide.keySuffix}`;
+      const url = await uploadBuffer(slide.body, key, slide.contentType);
       uploadedKeys.push(key);
       imageUrls.push(url);
     }
