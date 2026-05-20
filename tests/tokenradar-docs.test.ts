@@ -43,16 +43,16 @@ const PUBLIC_HTML_JSON_ARTIFACTS = [
 ] as const;
 
 function gitCheckIgnore(filePath: string) {
-  return spawnSync("git", ["-c", "safe.directory=D:/tokenradar", "check-ignore", filePath], {
+  return spawnSync("git", ["-c", "safe.directory=D:/tokenradar", "check-ignore", "--no-index", filePath], {
     cwd: process.cwd(),
     encoding: "utf-8",
   });
 }
 
 describe("tokenradar project docs", () => {
-  it("keeps the project-level tokenradar artifact pair visible to git", () => {
-    expect(gitCheckIgnore("docs/tokenradar/tokenradar.html").status).not.toBe(0);
-    expect(gitCheckIgnore("docs/tokenradar/tokenradar.json").status).not.toBe(0);
+  it("keeps the docs folder ignored by git", () => {
+    expect(gitCheckIgnore("docs/tokenradar/tokenradar.html").status).toBe(0);
+    expect(gitCheckIgnore("docs/tokenradar/tokenradar.json").status).toBe(0);
   });
 
   it("lists maintained docs and public HTML/JSON artifacts in docs/tokenradar", () => {

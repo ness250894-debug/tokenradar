@@ -86,6 +86,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-coingecko-data-
 
+      - name: Cache Hugging Face Models
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/huggingface
+          key: ${{ runner.os }}-huggingface-kokoro-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-huggingface-kokoro-
+
       - name: Restore social tracking state
         uses: actions/cache/restore@v5
         with:

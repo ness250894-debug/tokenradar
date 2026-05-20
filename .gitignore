@@ -67,13 +67,8 @@ audit-artifacts/
 # CAUTION: This file contains rotating secrets. Ensure repo stays PRIVATE.
 data/x-oauth-state.json
 
-# temp
-/tmp/
-/docs/*
-!/docs/**/
-!/docs/**/*.html
-!/docs/**/*.json
-/docs/video-production-flow/
+# documentation
+/docs/
 
 # diagnostic logs and cache
 data/logs/
@@ -96,19 +91,5 @@ public/og/token/*.png
 /tools/blender/
 
 # Internal Specifications
-TOKENRADAR.md
-DESIGN.md
-PROMPTS.md
-DATA_SCHEMA.md
-EDITORIAL.md
-AUTOMATIONS.md
-INTEGRATIONS.md
-SEO.md
-DEPLOYMENT.md
-PIPELINE.md
-TESTING.md 
-STRATEGIC_UPDATE_PLAN.md
-TIKTOK_REVIEW_PACKAGE.md
-
 tiktok-logo.png
 admin.html

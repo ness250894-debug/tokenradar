@@ -11,14 +11,14 @@ import { auditSeoHtml } from "../src/lib/seo-render-audit";
 import { resolveHtmlPathForUrl } from "../scripts/seo-qa-check";
 
 describe("SEO flow contract implementation", () => {
-  it("keeps the SEO artifact source of record visible to git", () => {
+  it("keeps the SEO artifact source of record successfully ignored by git", () => {
     const result = spawnSync(
       "git",
-      ["-c", "safe.directory=D:/tokenradar", "check-ignore", "docs/seo/seo.json"],
+      ["-c", "safe.directory=D:/tokenradar", "check-ignore", "--no-index", "docs/seo/seo.json"],
       { cwd: process.cwd(), encoding: "utf-8" },
     );
 
-    expect(result.status).not.toBe(0);
+    expect(result.status).toBe(0);
   });
 
   it("can regenerate markdown document artifacts from raw markdown", () => {
