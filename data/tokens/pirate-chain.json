@@ -1,0 +1,52 @@
+{
+  "id": "pirate-chain",
+  "symbol": "arrr",
+  "name": "Pirate Chain",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/6905/large/Pirate_Chain.png?1696507223",
+  "description": "Pirate Chain (ARRR) is a 100% private send cryptocurrency. It uses a privacy protocol that cannot be compromised by other users’ activity on the network. Most privacy coins are riddled with holes created by optional privacy. Pirate Chain uses zk-SNARKs to shield 100% of the peer-to-peer transactions on the blockchain making for highly anonymous and private transactions.",
+  "categories": [
+    "Smart Contract Platform",
+    "Privacy Coins",
+    "Zero Knowledge (ZK)",
+    "Proof of Work (PoW)",
+    "Privacy"
+  ],
+  "genesisDate": "2018-08-29",
+  "links": {
+    "website": "https://piratechain.com/",
+    "github": "https://github.com/PirateNetwork/pirate",
+    "reddit": "https://www.reddit.com/r/piratechain",
+    "explorer": "https://explorer.piratechain.com/"
+  },
+  "market": {
+    "price": 0.268965,
+    "marketCap": 53673436,
+    "marketCapRank": 473,
+    "volume24h": 410591,
+    "high24h": 0.280811,
+    "low24h": 0.227444,
+    "priceChange24h": 14.94459,
+    "priceChange7d": 31.80481,
+    "priceChange30d": 41.55503,
+    "priceChange1y": 89.43887,
+    "ath": 16.76,
+    "athChangePercentage": -98.35868,
+    "athDate": "2021-04-23T18:13:27.423Z",
+    "atl": 0.00797788,
+    "atlDate": "2020-11-26T02:10:52.806Z",
+    "circulatingSupply": 196213797.97055,
+    "totalSupply": 200000000,
+    "maxSupply": null,
+    "fdv": 54709135
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 95,
+    "githubForks": 28,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-20T19:55:39.515Z"
+}

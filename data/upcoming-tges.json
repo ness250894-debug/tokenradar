@@ -1486,5 +1486,137 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-19T19:30:21.427Z",
     "discoveredAt": "2026-05-19T19:30:21.427Z"
+  },
+  {
+    "id": "bitgo",
+    "name": "BitGo",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "IPO Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/videos/interviews/MqZOhomP/crypto-rebounds-after-trump-tacos-on-tariffs-bitgo-21b-ipo-solanas-skr-token-soars-250-fdv",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "IEO/IPO",
+        "sourceType": "news_snippet",
+        "url": "https://decrypt.co/videos/interviews/MqZOhomP/crypto-rebounds-after-trump-tacos-on-tariffs-bitgo-21b-ipo-solanas-skr-token-soars-250-fdv",
+        "title": "Crypto rebounds after Trump TACO’s on Tariffs! BitGo $2.1B IPO! Solana’s SKR token soars 250% FDV!  ",
+        "observedAt": "2024-06-14T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-20T19:56:36.202Z",
+    "discoveredAt": "2026-05-20T19:56:36.202Z"
+  },
+  {
+    "id": "ledger",
+    "name": "Ledger",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "IPO Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/videos/interviews/VpBdSuOE/trump-sues-jpmorgan-for-5b-ledger-prepares-for-4b-ipo-crypto-adoption-is-no-longer-reversible-says-pwc",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "IEO/IPO",
+        "sourceType": "news_snippet",
+        "url": "https://decrypt.co/videos/interviews/VpBdSuOE/trump-sues-jpmorgan-for-5b-ledger-prepares-for-4b-ipo-crypto-adoption-is-no-longer-reversible-says-pwc",
+        "title": "Trump sues JPMorgan for $5B! Ledger prepares for $4B IPO! “Crypto Adoption is no longer reversible” says PWC! ",
+        "observedAt": "2024-06-14T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-20T19:56:36.202Z",
+    "discoveredAt": "2026-05-20T19:56:36.202Z"
+  },
+  {
+    "id": "trove",
+    "name": "Trove",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Recently Launched",
+    "narrativeStrength": 55,
+    "dataSource": "https://decrypt.co/videos/interviews/lokwS0bc/crypto-sells-off-amidst-trump-tariff-turmoil-trove-falls-90-in-awful-tge-pump-fund-announced",
+    "lifecycleStatus": "graduated",
+    "confidence": 80,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "news_snippet",
+        "url": "https://decrypt.co/videos/interviews/lokwS0bc/crypto-sells-off-amidst-trump-tariff-turmoil-trove-falls-90-in-awful-tge-pump-fund-announced",
+        "title": "Crypto sells off amidst Trump Tariff Turmoil! $Trove falls 90% in awful TGE! Pump Fund announced! ",
+        "observedAt": "2024-06-14T00:00:00Z"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-05-20T19:58:31.851Z",
+    "discoveredAt": "2026-05-20T19:56:36.203Z",
+    "graduatedAt": "2026-05-20T19:58:31.851Z",
+    "coingeckoRank": 9806,
+    "graduationEvidence": {
+      "coingeckoId": "trove",
+      "coingeckoRank": 9806,
+      "rank": 9806,
+      "priceUsd": 0.00001417,
+      "volume24h": 5.08,
+      "matchedBy": "id",
+      "verifiedAt": "2026-05-20T19:58:31.851Z"
+    }
+  },
+  {
+    "id": "infinex",
+    "name": "Infinex",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/videos/interviews/EmmJkWJn/crypto-is-green-up-6-9-memes-outperform-pepe-up-67-infinex-founder-interview",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Founder Interview",
+        "sourceType": "news",
+        "url": "https://decrypt.co/videos/interviews/EmmJkWJn/crypto-is-green-up-6-9-memes-outperform-pepe-67-infinex-founder-interview",
+        "title": "Crypto is Green! Up 6-9%! Memes outperform! Pepe up 67%! Infinex Founder Interview!",
+        "observedAt": "2024-07-30T00:00:00Z"
+      },
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://decrypt.co/videos/interviews/EmmJkWJn/crypto-is-green-up-6-9-memes-outperform-pepe-up-67-infinex-founder-interview",
+        "observedAt": "2026-05-20T19:56:27.763Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-20T19:56:36.204Z",
+    "discoveredAt": "2026-05-20T19:56:36.204Z"
+  },
+  {
+    "id": "allunity-sekau",
+    "name": "AllUnity",
+    "symbol": "SEKAU",
+    "category": "Stablecoin/DeFi",
+    "expectedTge": "June 2026",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/05/20/germany-s-allunity-plans-swedish-krona-stablecoin-pushes-into-ai-agentic-payments",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "official_announcement",
+        "url": "https://www.coindesk.com/business/2026/05/20/germany-s-allunity-plans-swedish-krona-stablecoin-pushes-into-ai-agentic-payments",
+        "title": "Germany's AllUnity plans Swedish krona stablecoin, pushes into AI agentic payments",
+        "observedAt": "2026-05-20"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-20T19:56:36.204Z",
+    "discoveredAt": "2026-05-20T19:56:36.204Z"
   }
 ]

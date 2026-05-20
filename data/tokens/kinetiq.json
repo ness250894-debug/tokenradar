@@ -1,0 +1,51 @@
+{
+  "id": "kinetiq",
+  "symbol": "kntq",
+  "name": "Kinetiq",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70252/large/kntq.png?1761279547",
+  "description": "Kinetiq is a liquid staking protocol built natively on Hyperliquid, enabling users to stake the native token of the Hyperliquid blockchain (HYPE) and receive Kinetiq Staked HYPE (kHYPE) in return.\n\nkHYPE enables staking participation while retaining full liquidity and capital efficiency — earning staking rewards while staying active across DeFi.\n\nBehind the scenes, all staked HYPE is automatically delegated to the top-performing Hyperliquid validators, selected by StakeHub— Kinetiq’s autonomous validator scoring and delegation system.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Liquid Staking Governance Tokens",
+    "Liquid Staking",
+    "HyperEVM Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://kinetiq.xyz/",
+    "github": "https://github.com/kinetiq-research",
+    "reddit": null,
+    "explorer": "https://hyperevmscan.io/token/0x000000000000780555bD0BCA3791f89f9542c2d6"
+  },
+  "market": {
+    "price": 0.187747,
+    "marketCap": 52599407,
+    "marketCapRank": 480,
+    "volume24h": 2707978,
+    "high24h": 0.18885,
+    "low24h": 0.162192,
+    "priceChange24h": 12.23098,
+    "priceChange7d": 34.45952,
+    "priceChange30d": 74.41795,
+    "priceChange1y": 0,
+    "ath": 0.301997,
+    "athChangePercentage": -37.95044,
+    "athDate": "2026-01-28T04:25:38.973Z",
+    "atl": 0.03578417,
+    "atlDate": "2025-12-18T03:22:13.922Z",
+    "circulatingSupply": 280000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 187855026
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-05-20T19:55:45.803Z"
+}
