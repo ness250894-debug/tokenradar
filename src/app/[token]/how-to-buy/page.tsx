@@ -13,7 +13,7 @@ import {
   getCategoryIds,
   getPrimaryTokenCategory,
 } from "@/lib/content-loader";
-import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
+import { filterIndexableArticleTokenIds, isArticleIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
@@ -91,6 +91,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
   const metrics = await getTokenMetrics(tokenId);
   const article = await getArticle(tokenId, "how-to-buy");
   if (!isArticleIndexable(article)) notFound();
+  const faqs = parseFaqsFromMarkdown(article.content);
   const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
   const relatedTokens = await getRelatedTokens(tokenId, 1);
   const technical = getTokenTechnical(tokenId);
@@ -352,6 +353,23 @@ export default async function HowToBuyPage({ params }: PageProps) {
           ],
         }}
       />
+      {faqs.length > 0 && (
+        <JsonLd
+          id={`${detail.id}-how-to-buy-faq-jsonld`}
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer,
+              },
+            })),
+          }}
+        />
+      )}
       <JsonLd
         id={`${detail.id}-how-to-buy-rate-jsonld`}
         data={{

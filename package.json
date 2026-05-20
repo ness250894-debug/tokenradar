@@ -28,6 +28,7 @@
     "docs:seo": "tsx scripts/generate-doc-artifacts.ts --doc seo",
     "docs:testing": "tsx scripts/generate-doc-artifacts.ts --doc testing",
     "seo:verify": "tsx scripts/verify-seo-contract.ts",
+    "seo:ping": "tsx scripts/ping-indexnow.ts",
     "seo:qa": "tsx scripts/seo-qa-check.ts out",
     "cf:usage-snapshot": "tsx scripts/snapshot-cloudflare-usage.ts",
     "audit:prod": "npm audit --omit=dev --audit-level=high",

@@ -22,6 +22,7 @@ const SITE_URL = getSiteUrl();
 interface SitemapEntry {
   url: string;
   lastmod: string;
+  images?: { loc: string; title: string; }[];
 }
 
 interface GlossaryItem {
@@ -107,16 +108,39 @@ async function getGlossaryItemsLocal(): Promise<GlossaryItem[]> {
   }
 }
 
+function escapeXml(unsafe: string): string {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case "<": return "&lt;";
+      case ">": return "&gt;";
+      case "&": return "&amp;";
+      case "'": return "&apos;";
+      case "\"": return "&quot;";
+      default: return c;
+    }
+  });
+}
+
 function generateXml(entries: SitemapEntry[]): string {
   const urls = entries
-    .map((e) => `  <url>
+    .map((e) => {
+      let imageTags = "";
+      if (e.images && e.images.length > 0) {
+        imageTags = "\n" + e.images.map((img) => `    <image:image>
+      <image:loc>${img.loc}</image:loc>
+      <image:title>${escapeXml(img.title)}</image:title>
+    </image:image>`).join("\n");
+      }
+      return `  <url>
     <loc>${SITE_URL}${e.url}</loc>
-    <lastmod>${e.lastmod}</lastmod>
-  </url>`)
+    <lastmod>${e.lastmod}</lastmod>${imageTags}
+  </url>`;
+    })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
 </urlset>`;
 }
@@ -198,7 +222,20 @@ async function main() {
     const overview = await getArticle(id, "overview");
     if (isTokenOverviewIndexable(detail, overview)) {
       const overviewDate = toDateOnly(overview.generatedAt, tokenDate);
-      tokenEntries.push({ url: `/${id}`, lastmod: overviewDate });
+      const images: { loc: string; title: string; }[] = [];
+      const cgImage = detail.imageUrl;
+      if (cgImage) {
+        const isAbsolute = cgImage.startsWith("http://") || cgImage.startsWith("https://");
+        images.push({
+          loc: isAbsolute ? cgImage : `${SITE_URL}${cgImage.startsWith("/") ? "" : "/"}${cgImage}`,
+          title: `${detail.name} Logo`,
+        });
+      }
+      images.push({
+        loc: `${SITE_URL}/og/token/${id}.png`,
+        title: `${detail.name} Price Analysis and Risk Chart`,
+      });
+      tokenEntries.push({ url: `/${id}`, lastmod: overviewDate, images });
     }
 
     const types = ["price-prediction", "how-to-buy"];
@@ -206,7 +243,13 @@ async function main() {
       const art = await getArticle(id, type);
       if (isArticleIndexable(art)) {
         const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
-        tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate });
+        const artImages = [
+          {
+            loc: `${SITE_URL}/og/token/${id}.png`,
+            title: `${detail.name} ${type === "price-prediction" ? "Price Prediction" : "How to Buy"} Chart`,
+          }
+        ];
+        tokenEntries.push({ url: `/${id}/${type}`, lastmod: artDate, images: artImages });
       }
     }
 
