@@ -21,7 +21,7 @@ import {
 import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
-import { isArticleIndexable, isTokenOverviewIndexable } from "@/lib/seo";
+import { isArticleIndexable, isTokenOverviewIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
@@ -132,6 +132,7 @@ export default async function TokenPage({ params }: PageProps) {
   const article = await getArticle(tokenId, "overview");
   const articleQuality = article ? evaluateArticleQuality(article) : null;
   const shouldRenderArticle = Boolean(article && articleQuality?.passed);
+  const faqs = shouldRenderArticle && article ? parseFaqsFromMarkdown(article.content) : [];
 
   const categoryIds = await getCategoryIds();
   const relatedTokensList = await getRelatedTokens(tokenId, 3);
@@ -603,6 +604,23 @@ export default async function TokenPage({ params }: PageProps) {
             },
             datePublished: article?.generatedAt || detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
+          }}
+        />
+      )}
+      {faqs.length > 0 && (
+        <JsonLd
+          id={`${detail.id}-overview-faq-jsonld`}
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer,
+              },
+            })),
           }}
         />
       )}

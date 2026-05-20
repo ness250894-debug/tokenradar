@@ -16,7 +16,7 @@ import {
   getTokenSearchIntent,
   getTokenSearchIntentTrend,
 } from "@/lib/content-loader";
-import { filterIndexableArticleTokenIds, isArticleIndexable } from "@/lib/seo";
+import { filterIndexableArticleTokenIds, isArticleIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
@@ -101,6 +101,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
   const priceHistory = await getPriceHistory(tokenId);
   const article = await getArticle(tokenId, "price-prediction");
   if (!isArticleIndexable(article)) notFound();
+  const faqs = parseFaqsFromMarkdown(article.content);
 
   const tradingView = getPartner("tradingview");
   const technical = getTokenTechnical(tokenId);
@@ -388,6 +389,23 @@ export default async function PricePredictionPage({ params }: PageProps) {
           dateModified: article?.generatedAt || detail.fetchedAt,
         }}
       />
+      {faqs.length > 0 && (
+        <JsonLd
+          id={`${detail.id}-price-prediction-faq-jsonld`}
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer,
+              },
+            })),
+          }}
+        />
+      )}
       <JsonLd
         id={`${detail.id}-price-prediction-breadcrumb-jsonld`}
         data={{

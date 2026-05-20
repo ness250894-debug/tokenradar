@@ -27,6 +27,8 @@ export function isTokenOverviewIndexable(detail: TokenDetail, overview?: Article
   return quality.passed && wordCount >= TOKEN_OVERVIEW_MIN_WORDS;
 }
 
+
+
 export function isArticleIndexable(article?: Article | null): article is Article {
   if (!article) return false;
   const quality = evaluateArticleQuality(article);
@@ -47,4 +49,46 @@ export async function filterIndexableArticleTokenIds(
   }
 
   return result;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function parseFaqsFromMarkdown(content: string | undefined): FAQItem[] {
+  if (!content) return [];
+
+  const faqMatch = content.match(/(?:^|\n)##\s+FAQ\b([\s\S]*?)(?=\n---\s*\n\s*\*Disclaimer:|\n##\s+|$)/i);
+  if (!faqMatch) return [];
+
+  const faqBody = faqMatch[1];
+  const regex = /\*\*([^*\n?]+\?)\*\*/g;
+  const faqs: FAQItem[] = [];
+
+  let match;
+  let lastIndex = 0;
+  let currentQuestion = "";
+
+  while ((match = regex.exec(faqBody)) !== null) {
+    if (currentQuestion) {
+      const answer = faqBody.slice(lastIndex, match.index).trim();
+      faqs.push({
+        question: currentQuestion,
+        answer: answer.replace(/\s+/g, " ").trim(),
+      });
+    }
+    currentQuestion = match[1].trim();
+    lastIndex = regex.lastIndex;
+  }
+
+  if (currentQuestion) {
+    const answer = faqBody.slice(lastIndex).trim();
+    faqs.push({
+      question: currentQuestion,
+      answer: answer.replace(/\s+/g, " ").trim(),
+    });
+  }
+
+  return faqs;
 }
