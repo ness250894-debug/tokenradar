@@ -1618,5 +1618,51 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-20T19:56:36.204Z",
     "discoveredAt": "2026-05-20T19:56:36.204Z"
+  },
+  {
+    "id": "american-fortress",
+    "name": "AmericanFortress",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Testnet / Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/tech/2026/05/21/satoshi-s-1-1m-bitcoin-stash-can-be-saved-from-quantum-attack-says-americanfortress",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch (Soft Fork)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/05/21/satoshi-s-1-1m-bitcoin-stash-can-be-saved-from-quantum-attack-says-americanfortress",
+        "title": "Satoshi’s 1.1M bitcoin and millions more can be saved from quantum attack, says expert",
+        "observedAt": "2026-05-21"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-21T19:30:54.931Z",
+    "discoveredAt": "2026-05-21T19:30:54.931Z"
+  },
+  {
+    "id": "variational",
+    "name": "Variational",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/05/21/peer-to-peer-trading-startup-variational-raises-usd50-million-for-real-world-perps-in-funding-round-led-by-dragonfly",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/05/21/peer-to-peer-trading-startup-variational-raises-usd50-million-for-real-world-perps-in-funding-round-led-by-dragonfly",
+        "title": "Peer-to-peer trading startup Variational raises $50 million for real-world perps in funding round led by Dragonfly",
+        "observedAt": "2026-05-21"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-21T19:30:54.932Z",
+    "discoveredAt": "2026-05-21T19:30:54.932Z"
   }
 ]
