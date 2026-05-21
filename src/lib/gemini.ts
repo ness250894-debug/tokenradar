@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
@@ -21,7 +22,19 @@ export type AIResult = {
   model: string;
   cost: number;
   finishReason?: string;
+  cacheCreationTokens?: number;
+  cacheReadTokens?: number;
 };
+
+export interface PromptCacheOptions {
+  namespace?: string;
+  cacheableUserPrefix?: string;
+  ttlSeconds?: number;
+}
+
+export interface AICallOptions {
+  promptCache?: PromptCacheOptions;
+}
 
 const aiMutex = new Mutex();
 let lastGeminiRequestTime = 0;
@@ -32,12 +45,194 @@ const DEFAULT_MAX_OUTPUT_TOKENS = 4000;
 const DEFAULT_AI_RETRIES = 3;
 const AI_RETRY_DELAY_MS = 2000;
 const GEMINI_MIN_REQUEST_INTERVAL_MS = 4100;
-const GEMINI_INPUT_COST_PER_MILLION = 0.10;
-const GEMINI_OUTPUT_COST_PER_MILLION = 0.40;
+const GEMINI_INPUT_COST_PER_MILLION = 0.30;
+const GEMINI_CACHED_INPUT_COST_PER_MILLION = 0.03;
+const GEMINI_OUTPUT_COST_PER_MILLION = 2.50;
+const GEMINI_CACHE_STORAGE_COST_PER_MILLION_TOKEN_HOUR = 1.00;
 const CLAUDE_INPUT_COST_PER_MILLION = 0.80;
+const CLAUDE_CACHE_WRITE_COST_PER_MILLION = CLAUDE_INPUT_COST_PER_MILLION * 1.25;
+const CLAUDE_CACHE_READ_COST_PER_MILLION = CLAUDE_INPUT_COST_PER_MILLION * 0.10;
 const CLAUDE_OUTPUT_COST_PER_MILLION = 4.00;
 const DEFAULT_GEMINI_THINKING_BUDGET = 0;
 const GEMINI_MAX_TOKEN_RETRY_CAP = 8192;
+const DEFAULT_PROMPT_CACHE_TTL_SECONDS = 300;
+const GEMINI_PROMPT_CACHE_MIN_TOKENS = 1024;
+const CLAUDE_HAIKU_4_5_PROMPT_CACHE_MIN_TOKENS = 4096;
+
+interface GeminiPromptCacheEntry {
+  name: string;
+  createdInputTokens: number;
+  expiresAtMs: number;
+  storageCostAccounted?: boolean;
+}
+
+const geminiPromptCaches = new Map<string, Promise<GeminiPromptCacheEntry | null>>();
+
+function getPromptCacheTtlSeconds(options?: PromptCacheOptions): number {
+  const ttl = options?.ttlSeconds ?? DEFAULT_PROMPT_CACHE_TTL_SECONDS;
+  return Number.isFinite(ttl) && ttl > 0 ? Math.floor(ttl) : DEFAULT_PROMPT_CACHE_TTL_SECONDS;
+}
+
+function isPromptCachingDisabled(): boolean {
+  const disabled = process.env.AI_PROMPT_CACHE_DISABLED?.trim().toLowerCase();
+  const enabled = process.env.AI_PROMPT_CACHE_ENABLED?.trim().toLowerCase();
+  return disabled === "1" || disabled === "true" || enabled === "0" || enabled === "false";
+}
+
+function approximateTokenCount(text: string): number {
+  return Math.ceil(text.length / 4);
+}
+
+function getCacheableUserPrefix(options?: AICallOptions): string | undefined {
+  const prefix = options?.promptCache?.cacheableUserPrefix;
+  return prefix && prefix.trim() ? prefix : undefined;
+}
+
+function buildUserPromptWithCachePrefix(userPrompt: string, options?: AICallOptions): string {
+  const prefix = getCacheableUserPrefix(options);
+  return prefix ? `${prefix}\n\n${userPrompt}` : userPrompt;
+}
+
+function buildLegacyGeminiUserPrompt(systemPrompt: string, userPrompt: string): string {
+  return systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${userPrompt}` : userPrompt;
+}
+
+function buildGeminiContent(text: string): { role: "user"; parts: { text: string }[] } {
+  return {
+    role: "user",
+    parts: [{ text }],
+  };
+}
+
+function buildGeminiSystemInstruction(systemPrompt: string): { parts: { text: string }[] } | undefined {
+  return systemPrompt.trim() ? { parts: [{ text: systemPrompt }] } : undefined;
+}
+
+function getGeminiPromptCacheKey(
+  model: string,
+  systemPrompt: string,
+  cacheableUserPrefix: string,
+  promptCache?: PromptCacheOptions,
+): string {
+  const hash = createHash("sha256")
+    .update(model)
+    .update("\0")
+    .update(systemPrompt)
+    .update("\0")
+    .update(cacheableUserPrefix)
+    .digest("hex");
+  return `${promptCache?.namespace || "prompt"}:${hash}`;
+}
+
+function buildGeminiPromptCacheDisplayName(cacheKey: string): string {
+  const [namespace, hash] = cacheKey.split(":");
+  return `${namespace || "prompt"}-${hash?.slice(0, 12) || "cache"}`
+    .replace(/[^a-zA-Z0-9_-]/g, "-")
+    .slice(0, 128);
+}
+
+function shouldUseGeminiPromptCache(
+  systemPrompt: string,
+  cacheableUserPrefix: string | undefined,
+): cacheableUserPrefix is string {
+  if (isPromptCachingDisabled()) return false;
+  if (!cacheableUserPrefix) return false;
+  return approximateTokenCount(`${systemPrompt}\n${cacheableUserPrefix}`) >= GEMINI_PROMPT_CACHE_MIN_TOKENS;
+}
+
+function shouldUseClaudePromptCache(
+  model: string,
+  systemPrompt: string,
+  cacheableUserPrefix: string | undefined,
+): cacheableUserPrefix is string {
+  if (isPromptCachingDisabled()) return false;
+  if (!cacheableUserPrefix) return false;
+
+  const minTokens = model.includes("haiku-4-5")
+    ? CLAUDE_HAIKU_4_5_PROMPT_CACHE_MIN_TOKENS
+    : 1024;
+  return approximateTokenCount(`${systemPrompt}\n${cacheableUserPrefix}`) >= minTokens;
+}
+
+async function createGeminiPromptCache(
+  apiKey: string,
+  model: string,
+  systemPrompt: string,
+  cacheableUserPrefix: string,
+  promptCache?: PromptCacheOptions,
+): Promise<GeminiPromptCacheEntry | null> {
+  const ttlSeconds = getPromptCacheTtlSeconds(promptCache);
+  const cacheKey = getGeminiPromptCacheKey(model, systemPrompt, cacheableUserPrefix, promptCache);
+  const url = `https://generativelanguage.googleapis.com/v1beta/cachedContents?key=${apiKey}`;
+  const body: Record<string, unknown> = {
+    model: `models/${model}`,
+    displayName: buildGeminiPromptCacheDisplayName(cacheKey),
+    ttl: `${ttlSeconds}s`,
+    contents: [buildGeminiContent(cacheableUserPrefix)],
+  };
+
+  const systemInstruction = buildGeminiSystemInstruction(systemPrompt);
+  if (systemInstruction) body.systemInstruction = systemInstruction;
+
+  try {
+    const response = await fetchWithRetry(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      throwOnHttpError: false,
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn(`  [prompt-cache] Gemini cache create skipped: HTTP ${response.status}: ${errorText.substring(0, 240)}`);
+      return null;
+    }
+
+    const data = await response.json() as {
+      name?: string;
+      usageMetadata?: {
+        totalTokenCount?: number;
+      };
+    };
+
+    if (!data.name) return null;
+
+    return {
+      name: data.name,
+      createdInputTokens: data.usageMetadata?.totalTokenCount || approximateTokenCount(`${systemPrompt}\n${cacheableUserPrefix}`),
+      expiresAtMs: Date.now() + ttlSeconds * 1000,
+    };
+  } catch (error) {
+    console.warn(`  [prompt-cache] Gemini cache create failed: ${formatErrorForLog(error)}`);
+    return null;
+  }
+}
+
+async function getGeminiPromptCache(
+  apiKey: string,
+  model: string,
+  systemPrompt: string,
+  cacheableUserPrefix: string,
+  promptCache?: PromptCacheOptions,
+): Promise<GeminiPromptCacheEntry | null> {
+  const cacheKey = getGeminiPromptCacheKey(model, systemPrompt, cacheableUserPrefix, promptCache);
+  const existing = geminiPromptCaches.get(cacheKey);
+  if (existing) {
+    const entry = await existing;
+    if (entry && entry.expiresAtMs - Date.now() > 30_000) return entry;
+    geminiPromptCaches.delete(cacheKey);
+  }
+
+  const pending = createGeminiPromptCache(apiKey, model, systemPrompt, cacheableUserPrefix, promptCache);
+  geminiPromptCaches.set(cacheKey, pending);
+  return pending;
+}
+
+function calculateGeminiCacheStorageCost(tokens: number, ttlSeconds: number): number {
+  return (tokens / 1_000_000) *
+    GEMINI_CACHE_STORAGE_COST_PER_MILLION_TOKEN_HOUR *
+    (ttlSeconds / 3600);
+}
 
 function getGeminiThinkingBudget(): number {
   const rawBudget = process.env.GEMINI_THINKING_BUDGET?.trim();
@@ -81,7 +276,8 @@ async function callGeminiAPI(
   userPrompt: string,
   maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
   retries: number = DEFAULT_AI_RETRIES,
-  jsonSchema?: object
+  jsonSchema?: object,
+  options?: AICallOptions,
 ): Promise<AIResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set. Add it to .env.local");
@@ -106,14 +302,35 @@ async function callGeminiAPI(
 
         lastGeminiRequestTime = Date.now();
 
-        const body = JSON.stringify({
-            contents: [{ 
-              parts: [{ 
-                text: systemPrompt ? `SYSTEM: ${systemPrompt}\n\nUSER: ${userPrompt}` : userPrompt 
-              }] 
-            }],
-            generationConfig: buildGeminiGenerationConfig(model, maxTokens, jsonSchema),
-          });
+        const cacheableUserPrefix = getCacheableUserPrefix(options);
+        const cacheEntry = shouldUseGeminiPromptCache(systemPrompt, cacheableUserPrefix)
+          ? await getGeminiPromptCache(apiKey, model, systemPrompt, cacheableUserPrefix, options?.promptCache)
+          : null;
+        const contents = cacheEntry || cacheableUserPrefix
+          ? [
+              buildGeminiContent(
+                cacheEntry
+                  ? userPrompt
+                  : buildUserPromptWithCachePrefix(userPrompt, options),
+              ),
+            ]
+          : [
+              {
+                parts: [{ text: buildLegacyGeminiUserPrompt(systemPrompt, userPrompt) }],
+              },
+            ];
+        const requestBody: Record<string, unknown> = {
+          contents,
+          generationConfig: buildGeminiGenerationConfig(model, maxTokens, jsonSchema),
+        };
+        const systemInstruction = buildGeminiSystemInstruction(systemPrompt);
+        if (cacheEntry) {
+          requestBody.cachedContent = cacheEntry.name;
+        } else if (cacheableUserPrefix && systemInstruction) {
+          requestBody.systemInstruction = systemInstruction;
+        }
+
+        const body = JSON.stringify(requestBody);
         const response = await fetchWithRetry(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -134,16 +351,33 @@ async function callGeminiAPI(
         const candidate = data.candidates[0];
         const text = candidate.content?.parts?.map((p: { text?: string }) => p.text || "").join("") || "";
         const promptTokens = data.usageMetadata?.promptTokenCount || 0;
+        const cacheReadTokens = data.usageMetadata?.cachedContentTokenCount || 0;
+        const cacheCreationTokens = cacheEntry && !cacheEntry.storageCostAccounted ? cacheEntry.createdInputTokens : 0;
+        if (cacheEntry) cacheEntry.storageCostAccounted = true;
         const completionTokens = data.usageMetadata?.candidatesTokenCount || 0;
         const thoughtsTokens = data.usageMetadata?.thoughtsTokenCount || 0;
         const finishReason = candidate.finishReason;
 
 
+        const uncachedPromptTokens = Math.max(0, promptTokens - cacheReadTokens);
         const cost =
-          (promptTokens / 1_000_000) * GEMINI_INPUT_COST_PER_MILLION +
+          (uncachedPromptTokens / 1_000_000) * GEMINI_INPUT_COST_PER_MILLION +
+          (cacheReadTokens / 1_000_000) * GEMINI_CACHED_INPUT_COST_PER_MILLION +
+          calculateGeminiCacheStorageCost(cacheCreationTokens, getPromptCacheTtlSeconds(options?.promptCache)) +
           ((completionTokens + thoughtsTokens) / 1_000_000) * GEMINI_OUTPUT_COST_PER_MILLION;
 
-        return { content: text.trim(), promptTokens, completionTokens, thoughtsTokens, provider: "gemini", model, cost, finishReason };
+        return {
+          content: text.trim(),
+          promptTokens,
+          completionTokens,
+          thoughtsTokens,
+          provider: "gemini",
+          model,
+          cost,
+          finishReason,
+          cacheCreationTokens: cacheCreationTokens || undefined,
+          cacheReadTokens: cacheReadTokens || undefined,
+        };
       });
 
       return result;
@@ -160,7 +394,8 @@ async function callClaudeAPI(
   userPrompt: string,
   maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
   retries: number = DEFAULT_AI_RETRIES,
-  jsonSchema?: object
+  jsonSchema?: object,
+  options?: AICallOptions,
 ): Promise<AIResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set. Claude fallback unavailable.");
@@ -174,7 +409,24 @@ async function callClaudeAPI(
         await sleep(AI_RETRY_DELAY_MS);
       }
 
-      const messages = [{ role: "user", content: userPrompt }];
+      const cacheableUserPrefix = getCacheableUserPrefix(options);
+      const usePromptCache = shouldUseClaudePromptCache(model, systemPrompt, cacheableUserPrefix);
+      const messages = [{
+        role: "user",
+        content: usePromptCache
+          ? [
+              {
+                type: "text",
+                text: cacheableUserPrefix,
+                cache_control: { type: "ephemeral" },
+              },
+              {
+                type: "text",
+                text: userPrompt,
+              },
+            ]
+          : buildUserPromptWithCachePrefix(userPrompt, options),
+      }];
 
       const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -221,7 +473,12 @@ async function callClaudeAPI(
 
       interface ClaudeResponse {
         content: ClaudeContentBlock[];
-        usage?: { input_tokens?: number; output_tokens?: number };
+        usage?: {
+          input_tokens?: number;
+          output_tokens?: number;
+          cache_creation_input_tokens?: number;
+          cache_read_input_tokens?: number;
+        };
       }
 
       const data = await response.json() as ClaudeResponse;
@@ -238,14 +495,29 @@ async function callClaudeAPI(
         text = data.content[0]?.text || "";
       }
 
-      const promptTokens = data.usage?.input_tokens || 0;
+      const uncachedPromptTokens = data.usage?.input_tokens || 0;
+      const cacheCreationTokens = data.usage?.cache_creation_input_tokens || 0;
+      const cacheReadTokens = data.usage?.cache_read_input_tokens || 0;
+      const promptTokens = uncachedPromptTokens + cacheCreationTokens + cacheReadTokens;
       const completionTokens = data.usage?.output_tokens || 0;
 
       const cost =
-        (promptTokens / 1_000_000) * CLAUDE_INPUT_COST_PER_MILLION +
+        (uncachedPromptTokens / 1_000_000) * CLAUDE_INPUT_COST_PER_MILLION +
+        (cacheCreationTokens / 1_000_000) * CLAUDE_CACHE_WRITE_COST_PER_MILLION +
+        (cacheReadTokens / 1_000_000) * CLAUDE_CACHE_READ_COST_PER_MILLION +
         (completionTokens / 1_000_000) * CLAUDE_OUTPUT_COST_PER_MILLION;
 
-      return { content: text.trim(), promptTokens, completionTokens, provider: "claude", model, cost, finishReason: "STOP" };
+      return {
+        content: text.trim(),
+        promptTokens,
+        completionTokens,
+        provider: "claude",
+        model,
+        cost,
+        finishReason: "STOP",
+        cacheCreationTokens: cacheCreationTokens || undefined,
+        cacheReadTokens: cacheReadTokens || undefined,
+      };
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (i < retries) console.info(`  ⚠ Claude failed (${lastError.message}), retrying...`);
@@ -288,11 +560,12 @@ export async function callAIWithFallback(
   systemPrompt: string,
   userPrompt: string,
   maxTokens: number = DEFAULT_MAX_OUTPUT_TOKENS,
-  jsonSchema?: object
+  jsonSchema?: object,
+  options?: AICallOptions,
 ): Promise<AIResult> {
   try {
     // Try Gemini first (primary — lower cost)
-    let result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
+    let result = await callGeminiAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema, options);
     if (isTechnicalRefusal(result.content)) {
       console.warn(`  ⚠ Gemini returned a technical refusal. Falling back to Claude...`);
       throw new Error("AI Technical Refusal");
@@ -303,7 +576,7 @@ export async function callAIWithFallback(
         console.warn(
           `  ⚠ Gemini finished with reason: ${formatGeminiFinishReason(result)}. Retrying with ${retryMaxTokens} max output tokens...`,
         );
-        result = await callGeminiAPI(systemPrompt, userPrompt, retryMaxTokens, 1, jsonSchema);
+        result = await callGeminiAPI(systemPrompt, userPrompt, retryMaxTokens, 1, jsonSchema, options);
         if (!isTechnicalRefusal(result.content) && (!result.finishReason || result.finishReason === "STOP")) {
           return result;
         }
@@ -320,7 +593,7 @@ export async function callAIWithFallback(
     return result;
   } catch (error) {
     console.warn(`  ⚠ Gemini primary failed or refused. Falling back to Claude... Gemini error: ${formatErrorForLog(error)}`);
-    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema);
+    const result = await callClaudeAPI(systemPrompt, userPrompt, maxTokens, DEFAULT_AI_RETRIES, jsonSchema, options);
     return result;
   }
 }

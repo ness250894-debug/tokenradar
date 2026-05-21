@@ -49,6 +49,10 @@ function gitCheckIgnore(filePath: string) {
   });
 }
 
+function normalizeLineEndings(text: string | undefined): string | undefined {
+  return text?.replace(/\r\n/g, "\n");
+}
+
 describe("tokenradar project docs", () => {
   it("keeps the docs folder ignored by git", () => {
     expect(gitCheckIgnore("docs/tokenradar/tokenradar.html").status).toBe(0);
@@ -83,7 +87,7 @@ describe("tokenradar project docs", () => {
     };
 
     expect(artifact.sourcePath).toBe("README.md");
-    expect(artifact.rawMarkdown).toBe(rootReadme);
+    expect(normalizeLineEndings(artifact.rawMarkdown)).toBe(normalizeLineEndings(rootReadme));
   });
 
   it("does not depend on the retired root TOKENRADAR.md source file", () => {
