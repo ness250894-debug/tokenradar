@@ -179,6 +179,31 @@ STRICT RULES:
 13. NO MASSIVE BOLD: Do not bold entire paragraphs. Only bold short phrases (max 5-7 words) for emphasis.
 14. MARKDOWN LINKS: Do not create Markdown links. TokenRadar injects internal links after generation.`;
 
+const ARTICLE_PROMPT_CACHE_PREFIX = `
+You are generating TokenRadar article content from a dynamic article request that follows this reusable instruction block.
+
+Stable execution rules:
+- Treat all token-specific facts, metrics, reference snippets, market context, article type, and target title as dynamic input that appears after this block.
+- Follow the system prompt's compliance rules exactly. Never recommend buying or selling, never guarantee returns, and never invent unsupported live market data.
+- Use only markdown heading level ## for sections. Do not use ### or deeper headings.
+- Use the provided live-data placeholders exactly when the system prompt requires them.
+- Keep the tone analytical, evidence-first, and suitable for a data-driven crypto research site.
+- Prefer specific facts from the dynamic context over generic crypto commentary.
+- If evidence is missing, say that the data is unavailable or unverified instead of filling gaps.
+- Use concise paragraphs, useful bullets, and a compact summary table early in the article.
+- Include a ## FAQ section with 3-5 useful questions and answers.
+- End with the exact disclaimer required by the system prompt.
+
+Output format rules:
+Return the article exactly in this plain-text structure, with no JSON and no code fences:
+
+---TITLE---
+<the article title>
+---CONTENT---
+<the full markdown article content>
+---END---
+`;
+
 function getTargetLengthLabel(articleType: string): string {
   switch (articleType) {
     case "overview":
@@ -1004,7 +1029,7 @@ async function main() {
         process.stdout.write(`    ⏳ Generating ${config.type}...`);
         
         const contentPrompt = `
-You are an expert crypto analyst and technical writer. 
+Dynamic article request:
 Generate a comprehensive report for ${tokenData.name} (${tokenData.symbol?.toUpperCase()}).
 
 === SECTION: ${config.type} ===
@@ -1015,15 +1040,7 @@ ${config.prompt}
 TARGET LENGTH: ${getTargetLengthLabel(config.type)} words.
 DO NOT shorten or summarize.
 MANDATORY: MUST include an introductory paragraph, a Markdown summary table, several ## sections, a "## FAQ" section with 3-5 Q&As, and the disclaimer at the end.
-
-=== OUTPUT FORMAT ===
-Output EXACTLY in this format (no JSON, no code blocks):
-
----TITLE---
-<the article title>
----CONTENT---
-<the full markdown article content>
----END---
+Use the exact output format defined in the reusable instructions.
 `;
 
         let result: AIResult | null = null;
@@ -1035,7 +1052,18 @@ Output EXACTLY in this format (no JSON, no code blocks):
         while (attempts < maxAttempts) {
           attempts++;
           qualityCheckPassed = true;
-          result = await callAIWithFallback(config.type === "tge-preview" ? TGE_SYSTEM_PROMPT : SYSTEM_PROMPT, contentPrompt, 8192);
+          result = await callAIWithFallback(
+            config.type === "tge-preview" ? TGE_SYSTEM_PROMPT : SYSTEM_PROMPT,
+            contentPrompt,
+            8192,
+            undefined,
+            {
+              promptCache: {
+                namespace: config.type === "tge-preview" ? "article-tge" : "article-standard",
+                cacheableUserPrefix: ARTICLE_PROMPT_CACHE_PREFIX,
+              },
+            },
+          );
           
           currentCost += result.cost;
 
