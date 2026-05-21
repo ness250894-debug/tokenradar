@@ -99,4 +99,20 @@ describe("article prompt contract", () => {
     expect(activeIsStaleSource).not.toContain("priceChange24h");
     expect(activeIsStaleSource).not.toContain("VOLATILITY TRIGGER");
   });
+
+  it("keeps daily drip active queue limited to TGE previews and graduations", () => {
+    const dripSource = extractSourceBetween(
+      generateContentSource,
+      "if (dripMode) {",
+      "// Standard logic (Bulk or Single Token)",
+    );
+    const activeDripSource = stripSourceComments(dripSource);
+
+    expect(dripSource).toContain("Disabled non-launch drip tiers");
+    expect(activeDripSource).toContain("tgeTokensToProcess.push");
+    expect(activeDripSource).toContain("graduatedToProcess.push");
+    expect(activeDripSource).not.toContain("incompleteTokens");
+    expect(activeDripSource).not.toContain("refreshCandidates");
+    expect(activeDripSource).not.toContain("[INCOMPLETE]");
+  });
 });

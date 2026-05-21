@@ -53,7 +53,7 @@ The homepage market panels render generated snapshot data from the latest refres
 
 ## Content Generation Queue
 
-Daily content generation uses Smart Drip article selection. The tracked-token refresh budget now goes to newly released TGE graduates first, then incomplete content hubs, then stale published articles. Large 24h price-swing moves do not trigger article refreshes while that parked feature is disabled.
+Daily content generation uses launch-only Smart Drip article selection for now: new TGE preview candidates and newly released TGE graduates. Incomplete content hubs, stale refreshes, and large 24h price-swing moves are parked and disabled.
 
 ## Maintained Docs
 

@@ -555,9 +555,32 @@ async function main() {
     }
 
     // ── Smart Drip: Priority Queue ──────────────────────────
-    // Priority 1: Empty/incomplete tokens (missing overview, price-prediction, or how-to-buy)
-    // Priority 2: Oldest articles (stale refresh)
+    // Smart Drip: launch-only queue.
+    // Active daily drip now keeps only new TGE previews and graduated TGE tokens.
+    const budget = maxRefresh;
+    const smartQueue: string[] = [];
 
+    // Graduated tokens remain the only tracked-token article candidates.
+    for (const id of graduatedToProcess) {
+      if (smartQueue.length >= budget) break;
+      smartQueue.push(id);
+    }
+
+    tokensToProcess = [...smartQueue];
+
+    const graduatedSelected = graduatedToProcess.filter(id => smartQueue.includes(id)).length;
+
+    console.log(`  ✦ Launch-only Smart Queue (budget: ${budget}):`);
+    console.log(`    🎓 Graduated:  ${graduatedSelected} / ${graduatedToProcess.length} found`);
+    console.log(`    📊 Total:      ${tokensToProcess.length} tokens`);
+
+    /*
+     * Disabled non-launch drip tiers for now. Parked tiers for future restore:
+     * - incomplete content hubs missing overview, price-prediction, or how-to-buy
+     * - stale published article refreshes after the age threshold
+     * Re-enable by rebuilding those candidate lists and appending them after graduations.
+     *
+     * Previous implementation:
     const incompleteTokens: string[] = [];
     const refreshCandidates: { id: string; lastGen: number }[] = [];
 
@@ -659,6 +682,7 @@ async function main() {
     console.log(`    📝 Incomplete: ${incompleteSelected} / ${incompleteTokens.length} found (cap: ${incompleteBudget})`);
     console.log(`    🔄 Refreshes:  ${refreshSelected} (leftover slots)`);
     console.log(`    📊 Total:      ${tokensToProcess.length} tokens`);
+    */
   } else {
     // Standard logic (Bulk or Single Token)
     for (const f of tokenFiles) {
