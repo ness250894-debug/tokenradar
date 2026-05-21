@@ -550,12 +550,10 @@ async function main() {
       if (graduatedToProcess.length >= maxRefresh) break;
     }
 
-    // ── Smart Drip: 3-Tier Priority Queue ──────────────────────────
-    // Priority 1: Volatile tokens (>15% 24h price change)
-    // Priority 2: Empty/incomplete tokens (missing overview, price-prediction, or how-to-buy)
-    // Priority 3: Oldest articles (stale refresh)
+    // ── Smart Drip: Priority Queue ──────────────────────────
+    // Priority 1: Empty/incomplete tokens (missing overview, price-prediction, or how-to-buy)
+    // Priority 2: Oldest articles (stale refresh)
 
-    const volatileTokens: string[] = [];
     const incompleteTokens: string[] = [];
     const refreshCandidates: { id: string; lastGen: number }[] = [];
 
@@ -575,27 +573,7 @@ async function main() {
         }
       } catch (_e) {}
 
-      // Priority 1: Volatile (>15% 24h move) with 24h cooldown
-      const change24h = tokenMarketData?.market?.priceChange24h ?? 0;
-      if (Math.abs(change24h) >= 15) {
-        // Cooldown: don't re-generate if content was already updated in last 24h
-        const recentFile = resolveContentFile(id, "overview");
-        if (recentFile) {
-          const recentData = safeReadJson<any>(recentFile, null);
-          if (recentData?.generatedAt) {
-            const hoursSince = (Date.now() - new Date(recentData.generatedAt).getTime()) / (1000 * 60 * 60);
-            if (hoursSince < 24) {
-              // Already regenerated recently for this volatile move — skip
-              continue;
-            }
-          }
-        }
-        volatileTokens.push(id);
-        console.log(`  ⚡ [VOLATILE] ${tokenMarketData?.name || id}: ${change24h >= 0 ? "+" : ""}${change24h.toFixed(1)}% 24h change`);
-        continue;
-      }
-
-      // Priority 2: Empty or incomplete content hub
+      // Priority 1: Empty or incomplete content hub
       // Check BOTH queue and published dirs — queue is ephemeral (deleted after publish)
       const hasOverview = existsInEitherDir(id, "overview");
       const hasPrice = existsInEitherDir(id, "price-prediction");
@@ -611,7 +589,7 @@ async function main() {
         continue;
       }
 
-      // Priority 3: Refresh candidate — enforce 30-day minimum age from PUBLISHED content
+      // Priority 2: Refresh candidate — enforce 30-day minimum age from PUBLISHED content
       // Read from published dir (not queue — queue is ephemeral)
       const publishedOverviewPath = resolveContentFile(id, "overview");
       if (publishedOverviewPath) {
@@ -637,8 +615,8 @@ async function main() {
     // ── Hybrid Smart Queue ──────────────────────────────────────
     // Strategy: Time-sensitive items first, then balanced distribution.
     //   P0: ALL graduated tokens (no cap — too valuable to delay)
-    //   P1/P2: Split remaining budget evenly between Volatile & Incomplete
-    //   P3: Fill any leftover slots with Stale Refreshes
+    //   P1: Incomplete content hubs
+    //   P2: Fill any leftover slots with stale refreshes
     const budget = maxRefresh;
     const smartQueue: string[] = [];
 
@@ -648,24 +626,9 @@ async function main() {
       smartQueue.push(id);
     }
 
-    // Calculate remaining budget after graduations
-    const remainingAfterGrad = Math.max(0, budget - smartQueue.length);
-    // Split remaining evenly between Volatile (P1) and Incomplete (P2)
-    const perTierBudget = Math.floor(remainingAfterGrad / 2);
-    // If odd remainder, give the extra slot to Volatile (more time-sensitive)
-    const volatileBudget = perTierBudget + (remainingAfterGrad % 2);
-    const incompleteBudget = perTierBudget;
+    const incompleteBudget = Math.max(0, budget - smartQueue.length);
 
-    // P1: Volatile tokens (market-moving events)
-    let volatileAdded = 0;
-    for (const id of volatileTokens) {
-      if (volatileAdded >= volatileBudget) break;
-      if (smartQueue.includes(id)) continue;
-      smartQueue.push(id);
-      volatileAdded++;
-    }
-
-    // P2: Incomplete tokens (missing articles — SEO coverage gaps)
+    // P1: Incomplete tokens (missing articles — SEO coverage gaps)
     let incompleteAdded = 0;
     for (const id of incompleteTokens) {
       if (incompleteAdded >= incompleteBudget) break;
@@ -674,7 +637,7 @@ async function main() {
       incompleteAdded++;
     }
 
-    // P3: Stale refreshes (fill any remaining slots)
+    // P2: Stale refreshes (fill any remaining slots)
     for (const { id } of refreshCandidates) {
       if (smartQueue.length >= budget) break;
       if (smartQueue.includes(id)) continue;
@@ -684,13 +647,11 @@ async function main() {
     tokensToProcess = [...smartQueue];
 
     const graduatedSelected = graduatedToProcess.filter(id => smartQueue.includes(id)).length;
-    const volatileSelected = volatileTokens.filter(id => smartQueue.includes(id) && !graduatedToProcess.includes(id)).length;
     const incompleteSelected = incompleteTokens.filter(id => smartQueue.includes(id)).length;
-    const refreshSelected = refreshCandidates.filter(c => smartQueue.includes(c.id) && !graduatedToProcess.includes(c.id) && !volatileTokens.includes(c.id) && !incompleteTokens.includes(c.id)).length;
+    const refreshSelected = refreshCandidates.filter(c => smartQueue.includes(c.id) && !graduatedToProcess.includes(c.id) && !incompleteTokens.includes(c.id)).length;
 
     console.log(`  ✦ Hybrid Smart Queue (budget: ${budget}):`);
     console.log(`    🎓 Graduated:  ${graduatedSelected} / ${graduatedToProcess.length} found (uncapped)`);
-    console.log(`    ⚡ Volatile:   ${volatileSelected} / ${volatileTokens.length} found (cap: ${volatileBudget})`);
     console.log(`    📝 Incomplete: ${incompleteSelected} / ${incompleteTokens.length} found (cap: ${incompleteBudget})`);
     console.log(`    🔄 Refreshes:  ${refreshSelected} (leftover slots)`);
     console.log(`    📊 Total:      ${tokensToProcess.length} tokens`);

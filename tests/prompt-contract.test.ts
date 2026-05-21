@@ -62,4 +62,11 @@ describe("article prompt contract", () => {
     expect(generateContentSource).toContain('case "tge-preview":');
     expect(generateContentSource).toContain('return "800-1000";');
   });
+
+  it("keeps daily drip generation free of the removed price-swing queue label", () => {
+    const removedQueueLabel = ["V", "olatile"].join("");
+
+    expect(generateContentSource).not.toContain(removedQueueLabel);
+    expect(generateContentSource).not.toContain(`[${removedQueueLabel.toUpperCase()}]`);
+  });
 });
