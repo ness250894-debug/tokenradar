@@ -18,6 +18,23 @@ function extractTemplate(name: string): string {
   return match?.[1] || "";
 }
 
+function extractSourceBetween(source: string, start: string, end: string): string {
+  const startIndex = source.indexOf(start);
+  const endIndex = source.indexOf(end, startIndex);
+
+  if (startIndex === -1 || endIndex === -1) {
+    return "";
+  }
+
+  return source.slice(startIndex, endIndex);
+}
+
+function stripSourceComments(source: string): string {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/^\s*\/\/.*$/gm, "");
+}
+
 describe("article prompt contract", () => {
   it("keeps standard article grounding availability-aware", () => {
     const prompt = extractTemplate("SYSTEM_PROMPT");
@@ -68,5 +85,18 @@ describe("article prompt contract", () => {
 
     expect(generateContentSource).not.toContain(removedQueueLabel);
     expect(generateContentSource).not.toContain(`[${removedQueueLabel.toUpperCase()}]`);
+  });
+
+  it("keeps the price-move stale refresh trigger disabled in active code", () => {
+    const isStaleSource = extractSourceBetween(
+      generateContentSource,
+      "async function isStale",
+      "async function needsArticleGeneration",
+    );
+    const activeIsStaleSource = stripSourceComments(isStaleSource);
+
+    expect(isStaleSource).toContain("Disabled price-move refresh trigger");
+    expect(activeIsStaleSource).not.toContain("priceChange24h");
+    expect(activeIsStaleSource).not.toContain("VOLATILITY TRIGGER");
   });
 });

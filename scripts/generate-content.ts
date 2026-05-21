@@ -365,13 +365,17 @@ function ensureContentDir(tokenId: string, isQueue = false): string {
   return dir;
 }
 
-async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial<TokenDetail> & { market?: { priceChange24h?: number } }): Promise<boolean> {
-  if (tokenData?.market?.priceChange24h) {
-    if (Math.abs(tokenData.market.priceChange24h) >= 15) {
-      console.log(`  [VOLATILITY TRIGGER] >15% move detected. Forcing update.`);
-      return true; 
-    }
-  }
+async function isStale(filePath: string, maxAgeDays: number, _tokenData?: unknown): Promise<boolean> {
+  void _tokenData;
+
+  // Disabled price-move refresh trigger for now. Keep the previous behavior
+  // parked here so it can be restored intentionally later.
+  // if (tokenData?.market?.priceChange24h) {
+  //   if (Math.abs(tokenData.market.priceChange24h) >= 15) {
+  //     console.log(`  [VOLATILITY TRIGGER] >15% move detected. Forcing update.`);
+  //     return true;
+  //   }
+  // }
 
   const data = safeReadJson<any>(filePath, null);
   if (!data || !data.generatedAt) return true;
@@ -391,10 +395,10 @@ async function isStale(filePath: string, maxAgeDays: number, tokenData?: Partial
 async function needsArticleGeneration(
   filePath: string,
   maxAgeDays: number,
-  tokenData: Partial<TokenDetail> & { market?: { priceChange24h?: number } } | null | undefined,
+  tokenData: unknown,
   refreshFailed: boolean,
 ): Promise<boolean> {
-  if (await isStale(filePath, maxAgeDays, tokenData || undefined)) return true;
+  if (await isStale(filePath, maxAgeDays, tokenData)) return true;
   if (!refreshFailed) return false;
 
   const article = safeReadJson<GeneratedArticle>(filePath, null as unknown as GeneratedArticle);
