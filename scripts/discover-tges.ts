@@ -18,6 +18,11 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { logError } from "../src/lib/reporter";
 import { sleep } from "../src/lib/shared-utils";
 import {
+  createTgeRssReportError,
+  formatTgeRssErrorSource,
+  isSkippableTgeRssFetchError,
+} from "../src/lib/tge-rss-errors";
+import {
   hasVerifiedMarketEvidence,
   inferTgeSignalType,
   inferTgeSourceType,
@@ -27,7 +32,7 @@ import {
   type UpcomingTge,
 } from "../src/lib/tge";
 import { TGE_RSS_FEEDS } from "../src/lib/tge-rss-feeds";
-import { loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 
 // Load environment
 loadEnv();
@@ -307,8 +312,13 @@ async function main() {
         console.log(`  → No new projects from ${feed.name}. Trying next source...`);
       }
     } catch (e) {
-      console.warn(`  ⚠ Failed to fetch ${feed.name}: ${e instanceof Error ? e.message : String(e)}`);
-      await logError("discover-tges-rss", e, false);
+      console.warn(`  ⚠ Failed to fetch ${feed.name} (${feed.url}): ${formatErrorForLog(e)}`);
+      if (isSkippableTgeRssFetchError(e)) {
+        console.warn("  -> RSS feed returned a definitive client block/unavailable status; skipping system warning.");
+        continue;
+      }
+
+      await logError(formatTgeRssErrorSource(feed), createTgeRssReportError(feed, e), false);
     }
   }
 
