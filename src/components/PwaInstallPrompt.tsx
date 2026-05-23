@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Download, X } from "lucide-react";
+import { getBrowserStorageItem, setBrowserStorageItem } from "@/lib/browser-storage";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -20,20 +21,12 @@ function isStandaloneDisplay(): boolean {
 }
 
 function wasRecentlyDismissed(): boolean {
-  try {
-    const dismissedAt = Number(window.localStorage.getItem(DISMISS_KEY) || 0);
-    return dismissedAt > 0 && Date.now() - dismissedAt < DISMISS_WINDOW_MS;
-  } catch {
-    return false;
-  }
+  const dismissedAt = Number(getBrowserStorageItem(DISMISS_KEY) || 0);
+  return dismissedAt > 0 && Date.now() - dismissedAt < DISMISS_WINDOW_MS;
 }
 
 function rememberDismissal() {
-  try {
-    window.localStorage.setItem(DISMISS_KEY, String(Date.now()));
-  } catch {
-    // Ignore storage failures; dismissal is a convenience only.
-  }
+  setBrowserStorageItem(DISMISS_KEY, String(Date.now()));
 }
 
 export function PwaInstallPrompt() {

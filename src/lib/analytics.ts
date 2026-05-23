@@ -1,3 +1,5 @@
+import { getBrowserStorageItem, removeBrowserStorageItem, setBrowserStorageItem } from "./browser-storage";
+
 type AnalyticsValue = string | number | boolean | undefined;
 type AnalyticsParams = Record<string, AnalyticsValue>;
 export interface LocalAnalyticsEvent {
@@ -29,7 +31,7 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}): voi
 
   if (shouldStoreLocalAnalytics()) {
     try {
-      const existing = JSON.parse(window.localStorage.getItem(LOCAL_ANALYTICS_KEY) || "[]") as LocalAnalyticsEvent[];
+      const existing = JSON.parse(getBrowserStorageItem(LOCAL_ANALYTICS_KEY) || "[]") as LocalAnalyticsEvent[];
       const next = [
         {
           eventName,
@@ -39,7 +41,7 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}): voi
         },
         ...existing,
       ].slice(0, MAX_LOCAL_ANALYTICS_EVENTS);
-      window.localStorage.setItem(LOCAL_ANALYTICS_KEY, JSON.stringify(next));
+      setBrowserStorageItem(LOCAL_ANALYTICS_KEY, JSON.stringify(next));
     } catch {
       // Analytics must never block the UI.
     }
@@ -74,17 +76,13 @@ function shouldStoreLocalAnalytics(): boolean {
   if (typeof window === "undefined") return false;
   if (isLocalPreviewHost(window.location.hostname)) return true;
 
-  try {
-    return window.localStorage.getItem(ANALYTICS_CONSENT_KEY) === ANALYTICS_CONSENT_ACCEPTED;
-  } catch {
-    return false;
-  }
+  return getBrowserStorageItem(ANALYTICS_CONSENT_KEY) === ANALYTICS_CONSENT_ACCEPTED;
 }
 
 export function getLocalAnalyticsEvents(): LocalAnalyticsEvent[] {
   if (typeof window === "undefined") return [];
   try {
-    return JSON.parse(window.localStorage.getItem(LOCAL_ANALYTICS_KEY) || "[]") as LocalAnalyticsEvent[];
+    return JSON.parse(getBrowserStorageItem(LOCAL_ANALYTICS_KEY) || "[]") as LocalAnalyticsEvent[];
   } catch {
     return [];
   }
@@ -93,7 +91,7 @@ export function getLocalAnalyticsEvents(): LocalAnalyticsEvent[] {
 export function clearLocalAnalyticsEvents(): void {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.removeItem(LOCAL_ANALYTICS_KEY);
+    removeBrowserStorageItem(LOCAL_ANALYTICS_KEY);
     window.dispatchEvent(new CustomEvent("tokenradar:analytics", {
       detail: { eventName: "local_analytics_clear", params: {} },
     }));

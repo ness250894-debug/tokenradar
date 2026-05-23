@@ -1,3 +1,5 @@
+import { getBrowserStorageItem, setBrowserStorageItem } from "./browser-storage";
+
 export const WATCHLIST_STORAGE_KEY = "tokenradar.watchlist.v1";
 export const WATCHLIST_UPDATED_EVENT = "tokenradar-watchlist-updated";
 
@@ -6,10 +8,6 @@ export interface WatchlistExport {
   version: 1;
   exportedAt: string;
   tokenIds: string[];
-}
-
-function canUseLocalStorage(): boolean {
-  return typeof window !== "undefined" && "localStorage" in window;
 }
 
 export function normalizeWatchlistId(value: unknown): string | null {
@@ -50,16 +48,18 @@ export function parseWatchlistIds(raw: string | null): string[] {
 }
 
 export function getWatchlistIds(): string[] {
-  if (!canUseLocalStorage()) return [];
-  return parseWatchlistIds(window.localStorage.getItem(WATCHLIST_STORAGE_KEY));
+  return parseWatchlistIds(getBrowserStorageItem(WATCHLIST_STORAGE_KEY));
 }
 
 export function setWatchlistIds(ids: string[]): string[] {
   const normalized = normalizeWatchlistIds(ids);
 
-  if (canUseLocalStorage()) {
-    window.localStorage.setItem(WATCHLIST_STORAGE_KEY, JSON.stringify(normalized));
-    window.dispatchEvent(new CustomEvent(WATCHLIST_UPDATED_EVENT, { detail: { tokenIds: normalized } }));
+  if (setBrowserStorageItem(WATCHLIST_STORAGE_KEY, JSON.stringify(normalized))) {
+    try {
+      window.dispatchEvent(new CustomEvent(WATCHLIST_UPDATED_EVENT, { detail: { tokenIds: normalized } }));
+    } catch {
+      // Cross-tab refresh is a convenience; callers still get the normalized result.
+    }
   }
 
   return normalized;

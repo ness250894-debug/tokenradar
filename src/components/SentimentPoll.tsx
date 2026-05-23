@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown, Users } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { getBrowserStorageItem, setBrowserStorageItem } from "@/lib/browser-storage";
 
 interface SentimentPollProps {
   tokenId: string;
@@ -40,7 +41,7 @@ export function SentimentPoll({
      setBullVotes(bullBaseline);
      setBearVotes(100 - bullBaseline);
      
-     const saved = localStorage.getItem(`sentiment_${tokenId}`);
+     const saved = getBrowserStorageItem(`sentiment_${tokenId}`);
      if (saved === 'bullish' || saved === 'bearish') {
        setVote(saved);
        if (saved === 'bullish') setBullVotes(v => v + 1);
@@ -55,7 +56,7 @@ export function SentimentPoll({
   const handleVote = (choice: 'bullish' | 'bearish') => {
     if (vote) return; // already voted
     setVote(choice);
-    localStorage.setItem(`sentiment_${tokenId}`, choice);
+    setBrowserStorageItem(`sentiment_${tokenId}`, choice);
     if (choice === 'bullish') setBullVotes(v => v + 1);
     if (choice === 'bearish') setBearVotes(v => v + 1);
     trackEvent("sentiment_vote", {
