@@ -1415,10 +1415,7 @@ export async function main(args = process.argv.slice(2)) {
     const hookText = existingPlatformTracker?.hookText ||
       await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
     const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
-      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat, {
-        targetDurationSeconds: SHARED_VIDEO_DURATION_SECONDS,
-        style: "standard",
-      });
+      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat);
     const voiceoverHash = crypto
       .createHash("sha1")
       .update(`${today}:shared:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
