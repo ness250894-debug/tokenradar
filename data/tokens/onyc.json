@@ -1,7 +1,7 @@
 {
   "id": "onyc",
   "symbol": "onyc",
-  "name": "Onchain Yield Coin",
+  "name": "OnRe Tokenized Reinsurance",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/67072/large/ONyc_Logo_PNG_200px.png?1768587229",
   "description": "Licensed to deploy digital assets as insurance collateral, OnRe provides a new class of investors with direct access consistent real-world returns. Through structured products designed to generate yield in both rising and falling markets, OnRe offers a return profile not achievable in traditional finance. With an emphasis on transparency, scalability, and capital efficiency, OnRe is redefining how capital supports reinsurance, creating access to an industry that has historically remained out of reach.\n\nThe first product, ONyc, is a multi-collateral, yield-bearing asset backed by stablecoins and used to underwrite real world private placements and accrue yield from reinsurance premiums. ONyc targets a base yield exceeding 16%, driven by reinsurance performance that remains uncorrelated across market cycles. Alongside this base return, the collateral assets themselves contribute additional yield, resulting in a compound, multi-source return designed to deliver steady performance and capture upside as markets evolve.\n\nCurrently collateralized in sUSDe, ONyc combines uncorrelated real-world yield with crypto-native yield opportunities. Through this approach, OnRe aims to connect digital asset allocators to the $750 billion reinsurance market.",
   "categories": [
@@ -18,24 +18,24 @@
   },
   "market": {
     "price": 1.1,
-    "marketCap": 182675267,
-    "marketCapRank": 202,
-    "volume24h": 2723986,
+    "marketCap": 182784404,
+    "marketCapRank": 200,
+    "volume24h": 692156,
     "high24h": 1.1,
     "low24h": 1.1,
-    "priceChange24h": 0.05343,
-    "priceChange7d": 0.22585420092223807,
-    "priceChange30d": 0.8336876234898517,
+    "priceChange24h": -0.05547,
+    "priceChange7d": 0.181428548289964,
+    "priceChange30d": 0.7776012584973293,
     "priceChange1y": 0,
     "ath": 1.1,
-    "athChangePercentage": -0.02947,
-    "athDate": "2026-05-22T18:50:25.826Z",
+    "athChangePercentage": -0.10058,
+    "athDate": "2026-05-23T07:55:24.752Z",
     "atl": 1.005,
     "atlDate": "2025-07-24T14:15:46.070Z",
-    "circulatingSupply": 165471357.7916814,
-    "totalSupply": 165471357.7916814,
+    "circulatingSupply": 165647580.8758518,
+    "totalSupply": 165661604.7494901,
     "maxSupply": null,
-    "fdv": 182675267
+    "fdv": 182799879
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:23:29.818Z",
-  "lastMarketUpdate": "2026-05-22T19:18:13.623Z"
+  "lastMarketUpdate": "2026-05-23T18:44:33.869Z"
 }

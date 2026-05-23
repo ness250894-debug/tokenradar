@@ -18,14 +18,14 @@
   "market": {
     "price": 0.9996,
     "marketCap": 100229634,
-    "marketCapRank": 292,
+    "marketCapRank": 289,
     "volume24h": 143829,
-    "high24h": 1,
-    "low24h": 0.9986,
-    "priceChange24h": 0.06006,
-    "priceChange7d": -0.020005000800101733,
-    "priceChange30d": -0.11991106275600946,
-    "priceChange1y": -0.1534180775814091,
+    "high24h": 0.9996,
+    "low24h": 0.9996,
+    "priceChange24h": 0,
+    "priceChange7d": -0.030001000700087772,
+    "priceChange30d": -0.049993001699696706,
+    "priceChange1y": 0.24660980506925317,
     "ath": 1.045,
     "athChangePercentage": -4.38538,
     "athDate": "2024-08-08T23:11:28.286Z",
@@ -46,5 +46,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:19:44.396Z",
-  "lastMarketUpdate": "2026-05-22T19:18:13.642Z"
+  "lastMarketUpdate": "2026-05-23T18:44:33.888Z"
 }
