@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { getBrowserStorageItem, setBrowserStorageItem } from "@/lib/browser-storage";
 
 const CONSENT_KEY = "tokenradar-analytics-consent";
 const ACCEPTED = "accepted";
@@ -46,7 +47,7 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
   useEffect(() => {
     if (!measurementId) return;
 
-    const savedConsent = window.localStorage.getItem(CONSENT_KEY);
+    const savedConsent = getBrowserStorageItem(CONSENT_KEY);
     if (savedConsent === ACCEPTED) {
       loadGoogleAnalytics(measurementId);
       return;
@@ -59,13 +60,13 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
   }, [measurementId]);
 
   const acceptAnalytics = useCallback(() => {
-    window.localStorage.setItem(CONSENT_KEY, ACCEPTED);
+    setBrowserStorageItem(CONSENT_KEY, ACCEPTED);
     loadGoogleAnalytics(measurementId);
     setVisible(false);
   }, [measurementId]);
 
   const rejectAnalytics = useCallback(() => {
-    window.localStorage.setItem(CONSENT_KEY, REJECTED);
+    setBrowserStorageItem(CONSENT_KEY, REJECTED);
     setVisible(false);
   }, []);
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { setBrowserStorageItem } from "@/lib/browser-storage";
 import { ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED } from "./CookieConsent";
 
 export function CookiePreferencesButton() {
@@ -14,7 +15,7 @@ export function CookiePreferencesButton() {
       win[`ga-disable-${measurementId}`] = true;
     }
 
-    window.localStorage.setItem(ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED);
+    setBrowserStorageItem(ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED);
     setStatus("Analytics cookies rejected for future visits and events. Browser controls can delete existing cookies.");
   };
 
