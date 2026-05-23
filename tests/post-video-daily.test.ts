@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   ensureTikTokResearchContextNote,
   parseVideoDailyCliOptions,
+  resolveSharedVideoRenderPlatform,
   resolveVideoDailyPlatformFlags,
   resolveVideoDailyPlatformPlan,
   type VideoDailyCredentialState,
@@ -71,6 +72,11 @@ describe("post-video-daily CLI planning", () => {
     expect(plan.shouldRunTikTokDirect).toBe(true);
     expect(plan.shouldRunTikTokInbox).toBe(false);
     expect(plan.shouldRunTikTokManual).toBe(false);
+  });
+
+  it("chooses one canonical render source for a multi-platform short-form run", () => {
+    expect(resolveSharedVideoRenderPlatform(["youtube", "instagram", "threads", "tiktok"])).toBe("youtube");
+    expect(resolveSharedVideoRenderPlatform(["instagram", "threads", "tiktok"])).toBe("instagram");
   });
 
   it("adds TikTok context copy without reintroducing trade-signal wording", () => {
