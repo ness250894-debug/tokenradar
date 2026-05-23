@@ -269,3 +269,27 @@ export function getVideoTheme(recipe: VideoVisualRecipe | undefined | null): Vid
 export function getVideoSceneDurations(recipe: VideoVisualRecipe | undefined | null): Record<VideoSceneId, number> {
   return VIDEO_PACING_PROFILES[resolveVideoVisualRecipe(recipe).pacingProfile];
 }
+
+export function getVideoSceneDurationsForTotalFrames(
+  recipe: VideoVisualRecipe | undefined | null,
+  totalFrames: number,
+): Record<VideoSceneId, number> {
+  const baseDurations = getVideoSceneDurations(recipe);
+  const safeTotalFrames = Math.max(1, Math.round(totalFrames));
+  const baseTotal = Object.values(baseDurations).reduce((total, value) => total + value, 0);
+
+  if (safeTotalFrames === baseTotal) return baseDurations;
+
+  const scale = safeTotalFrames / baseTotal;
+  const scaled: Record<VideoSceneId, number> = {
+    hook: Math.max(1, Math.round(baseDurations.hook * scale)),
+    reveal: Math.max(1, Math.round(baseDurations.reveal * scale)),
+    metrics: Math.max(1, Math.round(baseDurations.metrics * scale)),
+    context: Math.max(1, Math.round(baseDurations.context * scale)),
+    verdict: Math.max(1, Math.round(baseDurations.verdict * scale)),
+  };
+  const scaledTotal = Object.values(scaled).reduce((total, value) => total + value, 0);
+  scaled.verdict = Math.max(1, scaled.verdict + safeTotalFrames - scaledTotal);
+
+  return scaled;
+}

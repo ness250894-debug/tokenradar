@@ -16,6 +16,14 @@ export interface VideoHookFormatContext {
 }
 
 const UNSAFE_VIDEO_WORD_RE = /\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/gi;
+const TIKTOK_NATIVE_MAX_WORDS = 96;
+
+export type VideoVoiceoverStyle = "standard" | "tiktok_native";
+
+export interface VideoVoiceoverOptions {
+  targetDurationSeconds?: number;
+  style?: VideoVoiceoverStyle;
+}
 
 function normalizeNarrationText(value: string): string {
   return value
@@ -67,6 +75,37 @@ function getVoiceoverLens(format: VideoHookFormatContext | undefined): string {
   }
 }
 
+function trimToWordLimit(script: string, maxWords: number): string {
+  const words = script.split(/\s+/).filter(Boolean);
+  return words.length > maxWords ? `${words.slice(0, maxWords - 1).join(" ")}.` : script;
+}
+
+function buildTikTokNativeVideoVoiceoverScript(
+  tokenName: string,
+  symbol: string,
+  context: MarketContext = {},
+  format?: VideoHookFormatContext,
+): string {
+  const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
+  const cleanSymbol = symbol.toUpperCase();
+  void format;
+  const opening = `Someone asked if ${cleanSymbol} is actually worth watching. I would not start with the candle.`;
+  const move = `${cleanTokenName} is getting attention, but that is only the headline.`;
+  const depth = "First check: did real activity show up, or was it just a thin spike that fades when attention moves on?";
+  const risk = (context.riskScore ?? 5) >= 7
+    ? "Second check: what breaks the story? Risk is already elevated, so invalidation matters more than hype."
+    : "Second check: what breaks the story? That risk lens matters because cleaner reads can fail when volume fades.";
+  const close = "This is market context only. Comment one ticker for the next two-check read.";
+
+  return trimToWordLimit(normalizeNarrationText([
+    opening,
+    move,
+    depth,
+    risk,
+    close,
+  ].join(" ... ")), TIKTOK_NATIVE_MAX_WORDS);
+}
+
 /**
  * Build the narration Kokoro reads over the video.
  *
@@ -78,7 +117,12 @@ export function buildVideoVoiceoverScript(
   symbol: string,
   context: MarketContext = {},
   format?: VideoHookFormatContext,
+  options: VideoVoiceoverOptions = {},
 ): string {
+  if (options.style === "tiktok_native") {
+    return buildTikTokNativeVideoVoiceoverScript(tokenName, symbol, context, format);
+  }
+
   const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
   const opening = getVoiceoverOpening(cleanTokenName, context);
   const lens = getVoiceoverLens(format);
@@ -98,28 +142,44 @@ export async function generateDynamicVoiceoverScript(
   symbol: string,
   context: MarketContext = {},
   format?: VideoHookFormatContext,
+  options: VideoVoiceoverOptions = {},
 ): Promise<string> {
+  const isTikTokNative = options.style === "tiktok_native";
+  const targetSeconds = isTikTokNative ? Math.min(38, Math.max(30, (options.targetDurationSeconds ?? 42) - 4)) : 25;
+  const maxWords = isTikTokNative ? TIKTOK_NATIVE_MAX_WORDS : 72;
   const formatBrief = format
     ? `
     VIDEO FORMAT:
     ${format.label}: ${format.angle}
     `
     : "";
-  const prompt = `
-    Write a highly human-like, conversational 25-second narration voiceover script for a short-form video about ${tokenName} ($${symbol.toUpperCase()}).
+  const tokenReference = isTikTokNative
+    ? `${tokenName} (${symbol.toUpperCase()})`
+    : `${tokenName} ($${symbol.toUpperCase()})`;
+  const marketBrief = isTikTokNative
+    ? `
+    Selection reason: ${context.selectionReason || "notable market attention"}
+    TikTok-native direction: avoid reading exact percentage moves, dollar values, ranks, or dashboard labels aloud. Frame the story as attention, activity, confirmation, and invalidation checks.
+    `
+    : `
     Selection reason: ${context.selectionReason || "significant market movement"}
     Risk Score: ${context.riskScore ?? "N/A"}/10
     Price Change (24h): ${formatChange(context.priceChange24h)}
+    `;
+  const prompt = `
+    Write a highly human-like, conversational ${targetSeconds}-second narration voiceover script for a short-form video about ${tokenReference}.
+    ${marketBrief}
     ${formatBrief}
 
     RULES for Conversational Pacing & Engagement:
     1. Write exactly like a natural, casual human speaker.
     2. Incorporate natural hesitation pauses using ellipses (...) and commas (e.g. "Wait...", "Look...", "But here is the catch...").
     3. Use exclamation marks and question marks to guide pitch and dynamic intonation.
-    4. Keep it strictly under 72 words total so it comfortably fits a 30-second video at natural reading speed.
+    4. Keep it strictly under ${maxWords} words total so it comfortably fits the render at natural reading speed.
     5. Do NOT mention specific dry metrics like "Growth Potential Index is 67" or raw JSON numbers unless highly relevant. Focus on the core narrative.
     6. Strict safety: Do NOT use the words: buy, sell, hold, long, short, moon, 100x, entry, target, guaranteed, rich, or price prediction. Substitute with "context", "research", "watchlist", or "risk check".
     7. End with a call to action asking viewers to comment their next ticker for a risk check.
+    8. ${isTikTokNative ? "Make it sound like TikTok-native creator commentary, not a dashboard export or a formal report. Do not say exact percentages, exact dollar values, market cap, rank, or reported volume." : "Keep it focused and natural."}
 
     Respond with ONLY the narration script. No introductory text. No quotes.
   `;
@@ -129,7 +189,7 @@ export async function generateDynamicVoiceoverScript(
     prompt,
     1024,
   );
-  return normalizeNarrationText(result.content.trim().replace(/^["']|["']$/g, ""));
+  return trimToWordLimit(normalizeNarrationText(result.content.trim().replace(/^["']|["']$/g, "")), maxWords);
 }
 
 // Unified async voiceover script generator
@@ -138,6 +198,7 @@ export async function generateVideoVoiceoverScript(
   symbol: string,
   context: MarketContext = {},
   format?: VideoHookFormatContext,
+  options: VideoVoiceoverOptions = {},
 ): Promise<string> {
   const useDynamic = process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "1" || 
                      process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "true";
@@ -145,13 +206,13 @@ export async function generateVideoVoiceoverScript(
   if (useDynamic) {
     try {
       console.info(`Generating fully dynamic AI voiceover script for ${tokenName}...`);
-      return await generateDynamicVoiceoverScript(tokenName, symbol, context, format);
+      return await generateDynamicVoiceoverScript(tokenName, symbol, context, format, options);
     } catch (e) {
       console.warn("Failed to generate dynamic AI voiceover script, falling back to template:", e);
     }
   }
   
-  return buildVideoVoiceoverScript(tokenName, symbol, context, format);
+  return buildVideoVoiceoverScript(tokenName, symbol, context, format, options);
 }
 
 /**

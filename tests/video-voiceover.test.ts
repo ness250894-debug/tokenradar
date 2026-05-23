@@ -28,4 +28,32 @@ describe("video voiceover script", () => {
     expect(script).not.toMatch(/\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/i);
     expect(script.split(/\s+/).length).toBeLessThanOrEqual(72);
   });
+
+  it("builds TikTok-native narration without stretching into monetization filler", () => {
+    const script = buildVideoVoiceoverScript(
+      "Solana",
+      "SOL",
+      {
+        priceChange24h: 6.42,
+        marketCap: 89_000_000_000,
+        marketCapRank: 5,
+        volume24h: 4_200_000_000,
+        riskScore: 4.8,
+        growthPotentialIndex: 67,
+        selectionReason: "top-gainer",
+      },
+      getVideoFormat("volume_spike_check"),
+      { targetDurationSeconds: 42, style: "tiktok_native" },
+    );
+
+    const words = script.split(/\s+/).filter(Boolean);
+    expect(words.length).toBeGreaterThan(55);
+    expect(words.length).toBeLessThanOrEqual(96);
+    expect(script).toMatch(/risk|confirmation|liquidity/i);
+    expect(script).toMatch(/comment one ticker/i);
+    expect(script).toMatch(/two-check read/i);
+    expect(script).not.toMatch(/TokenRadar|risk check/i);
+    expect(script).not.toMatch(/\+\d+(?:\.\d+)?%|\$\d|reported volume/i);
+    expect(script).not.toMatch(/\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/i);
+  });
 });

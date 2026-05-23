@@ -8,7 +8,7 @@ export type VideoAssetFit = "cover" | "contain" | "fill";
 export type VideoAssetRole = "background" | "overlay";
 export type VideoAssetPlatform = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 export type VideoMediaStage = "ambient" | "primary";
-export type VideoAssetSegmentId = "hook" | "evidence" | "closing";
+export type VideoAssetSegmentId = "hook" | "evidence" | "context" | "data" | "risk" | "closing";
 export type VideoAssetFallbackLevel = "fresh" | "relaxed-cooldown" | "generated-only";
 
 export interface VideoAssetLayer {
@@ -104,6 +104,14 @@ const SHOT_SEGMENTS: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSecon
   { segmentId: "hook", fromSeconds: 0, toSeconds: 8 },
   { segmentId: "evidence", fromSeconds: 8, toSeconds: 20 },
   { segmentId: "closing", fromSeconds: 20, toSeconds: 30 },
+];
+
+const TIKTOK_NATIVE_SHOT_SEGMENTS: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> = [
+  { segmentId: "hook", fromSeconds: 0, toSeconds: 5 },
+  { segmentId: "evidence", fromSeconds: 5, toSeconds: 14 },
+  { segmentId: "context", fromSeconds: 14, toSeconds: 23 },
+  { segmentId: "risk", fromSeconds: 23, toSeconds: 32 },
+  { segmentId: "closing", fromSeconds: 32, toSeconds: 42 },
 ];
 
 const HUMAN_STOCK_QUERY_HINTS = [
@@ -435,8 +443,18 @@ function isAssetInCooldown(
 function getShotSegmentTags(segmentId: VideoAssetSegmentId): Set<string> {
   if (segmentId === "hook") return new Set(["human", "person", "phone", "hands", "trader", "market"]);
   if (segmentId === "evidence") return new Set(["human", "desk", "laptop", "monitor", "chart", "data", "dashboard", "market", "liquidity"]);
+  if (segmentId === "context") return new Set(["human", "desk", "news", "laptop", "network", "market", "research"]);
+  if (segmentId === "data") return new Set(["data", "dashboard", "chart", "heatmap", "terminal", "market"]);
+  if (segmentId === "risk") return new Set(["risk", "warning", "red", "liquidity", "market", "dashboard"]);
   return new Set(["human", "desk", "phone", "blender", "generated", "network", "radar_grid"]);
 }
+
+function getShotSegmentTemplate(
+  durationSeconds: number,
+): Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> {
+  return durationSeconds > 30 ? TIKTOK_NATIVE_SHOT_SEGMENTS : SHOT_SEGMENTS;
+}
+
 
 function shotSegmentScore(
   asset: VideoAssetLayer,
@@ -457,6 +475,12 @@ function shotSegmentScore(
     score += 72;
   }
   if (segmentId === "evidence" && (tags.has("laptop") || tags.has("desk") || tags.has("monitor"))) {
+    score += 36;
+  }
+  if (segmentId === "data" && (tags.has("data") || tags.has("dashboard") || tags.has("chart"))) {
+    score += 36;
+  }
+  if (segmentId === "risk" && (tags.has("risk") || tags.has("warning") || tags.has("liquidity"))) {
     score += 36;
   }
   if (segmentId === "closing" && isGeneratedAsset(asset)) score += 20;
@@ -522,7 +546,8 @@ function buildShotSegments(
   durationSeconds: number,
 ): VideoAssetStageSegment[] {
   const selectedIds = new Set<string>();
-  const segments = SHOT_SEGMENTS
+  const segmentTemplate = getShotSegmentTemplate(durationSeconds);
+  const segments = segmentTemplate
     .filter((segment) => segment.fromSeconds < durationSeconds)
     .map((segment) => ({
       ...segment,
@@ -574,7 +599,7 @@ export function selectVideoAssetShotList(options: SelectVideoAssetShotListOption
   const freshAssets = backgroundAssets.filter((asset) =>
     !isAssetInCooldown(asset, options.usageRecords, now, cooldownDays)
   );
-  const requiredSegments = Math.min(SHOT_SEGMENTS.length, backgroundAssets.length);
+  const requiredSegments = Math.min(getShotSegmentTemplate(durationSeconds).length, backgroundAssets.length);
   const fallbackLevel: VideoAssetFallbackLevel = freshAssets.length >= requiredSegments
     ? "fresh"
     : "relaxed-cooldown";

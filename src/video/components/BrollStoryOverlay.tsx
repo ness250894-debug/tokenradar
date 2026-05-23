@@ -4,7 +4,7 @@ import type { TopGainerProps } from "../Root";
 import { COLORS, FONTS, SAFE_ZONES, type Verdict } from "../styles";
 import { getVideoFormat } from "../../lib/video-formats";
 import {
-  getVideoSceneDurations,
+  getVideoSceneDurationsForTotalFrames,
   getVideoTheme,
   resolveVideoVisualRecipe,
   type VideoSceneId,
@@ -342,7 +342,7 @@ export const BrollStoryOverlay: React.FC<TopGainerProps> = ({
   const { durationInFrames } = useVideoConfig();
   const videoFormat = getVideoFormat(videoFormatKey);
   const visualRecipe = resolveVideoVisualRecipe(inputVisualRecipe);
-  const sceneDurations = getVideoSceneDurations(visualRecipe);
+  const sceneDurations = getVideoSceneDurationsForTotalFrames(visualRecipe, durationInFrames);
   const theme = getVideoTheme(visualRecipe);
   const moveLabel = formatMoveLabel(priceChange24h);
   const nearFlatRevealCopy = moveLabel ? null : getNearFlatRevealCopy(videoFormat.key, symbol);
