@@ -4,6 +4,7 @@ import {
   VIDEO_LAYOUT_PACKS,
   VIDEO_PACING_PROFILES,
   VIDEO_SCENE_ORDERS,
+  getVideoSceneDurationsForTotalFrames,
   getVideoSceneDurations,
   resolveVideoVisualRecipe,
   selectVideoVisualRecipe,
@@ -38,6 +39,24 @@ describe("video visual recipes", () => {
     expect(recipe.sceneOrder[0]).toBe("hook");
     expect(recipe.sceneOrder[recipe.sceneOrder.length - 1]).toBe("verdict");
     expect(Object.values(durations).reduce((total, value) => total + value, 0)).toBe(900);
+  });
+
+  it("scales scene pacing to a TikTok-native render without leaving dead air", () => {
+    const recipe = resolveVideoVisualRecipe({
+      key: "tiktok-long",
+      sceneOrder: ["hook", "reveal", "context", "metrics", "verdict"],
+      layoutPack: "split_report",
+      chartPack: "signal_radar",
+      motionPack: "slide_cut",
+      backgroundSystem: "terminal_scan",
+      colorTheme: "cyan_depth",
+      pacingProfile: "fast_reveal",
+    });
+    const durations = getVideoSceneDurationsForTotalFrames(recipe, 1260);
+
+    expect(Object.values(durations).reduce((total, value) => total + value, 0)).toBe(1260);
+    expect(durations.hook).toBeGreaterThan(75);
+    expect(durations.verdict).toBeGreaterThan(150);
   });
 
   it("normalizes malformed recipe input to a safe default", () => {

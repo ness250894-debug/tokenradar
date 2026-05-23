@@ -139,6 +139,16 @@ function scoreCandidate(candidate: ProviderCandidate): number {
   return score;
 }
 
+function isPublishableStockCandidate(candidate: ProviderCandidate): boolean {
+  if (!candidate.width || !candidate.height) return false;
+  if (!candidate.durationSeconds || candidate.durationSeconds < 8) return false;
+  if (candidate.width < 720 || candidate.height < 1280) return false;
+
+  // Downloaded stock clips do not carry crop-safe metadata, so keep the
+  // automated library to native vertical assets that pass R2 publish rules.
+  return candidate.height >= candidate.width;
+}
+
 function pickPexelsVideoFile(video: PexelsVideoItem): { link: string; width?: number; height?: number } | null {
   const files = Array.isArray(video.video_files) ? video.video_files : [];
   const mp4Files = files
@@ -270,6 +280,7 @@ async function main() {
   }
 
   const selected = candidates
+    .filter(isPublishableStockCandidate)
     .sort((left, right) => scoreCandidate(right) - scoreCandidate(left) || left.provider.localeCompare(right.provider))
     .slice(0, max);
   if (dryRun) {

@@ -17,7 +17,7 @@ import { VideoBackground } from "./components/VideoBackground";
 import { BrollStoryOverlay } from "./components/BrollStoryOverlay";
 import { getVideoFormat } from "../lib/video-formats";
 import {
-  getVideoSceneDurations,
+  getVideoSceneDurationsForTotalFrames,
   resolveVideoVisualRecipe,
   type VideoSceneId,
 } from "../lib/video-recipes";
@@ -65,7 +65,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
   const { durationInFrames, fps } = useVideoConfig();
   const videoFormat = getVideoFormat(videoFormatKey);
   const visualRecipe = resolveVideoVisualRecipe(inputVisualRecipe);
-  const sceneDurations = getVideoSceneDurations(visualRecipe);
+  const sceneDurations = getVideoSceneDurationsForTotalFrames(visualRecipe, durationInFrames);
   const premountFrames = 15;
   const fadeFrames = 30;
   const fadeOutStart = durationInFrames - fadeFrames;

@@ -1,10 +1,17 @@
 
 import { Composition } from "remotion";
 import { TopGainerUpdate } from "./TopGainerUpdate";
+import { TikTokNativeStory } from "./TikTokNativeStory";
 import type { Verdict } from "./styles";
 import type { VideoAssetLayer, VideoAssetStageSegment, VideoMediaStage } from "../lib/video-assets";
 import type { VideoFormatKey } from "../lib/video-formats";
+import type { TikTokScenePlan } from "../lib/tiktok-scene-planner";
 import type { VideoVisualRecipe } from "../lib/video-recipes";
+import {
+  STANDARD_VIDEO_DURATION_SECONDS,
+  TIKTOK_FOR_YOU_DURATION_SECONDS,
+  VIDEO_FPS,
+} from "../lib/video-render-profile";
 
 // Define the schema for the props we'll pass dynamically
 export type TopGainerProps = {
@@ -44,6 +51,8 @@ export type TopGainerProps = {
   mediaSegments?: VideoAssetStageSegment[];
   /** How aggressively selected media should drive the visual stage. */
   mediaStage?: VideoMediaStage;
+  /** Optional local InVideo-style scene plan for TikTok-native renders. */
+  tiktokScenePlan?: TikTokScenePlan;
 };
 
 // Default props for the Studio preview
@@ -88,8 +97,17 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="TopGainerUpdate"
         component={TopGainerUpdate}
-        durationInFrames={900} // 30 seconds at 30fps
-        fps={30}
+        durationInFrames={STANDARD_VIDEO_DURATION_SECONDS * VIDEO_FPS}
+        fps={VIDEO_FPS}
+        width={1080}
+        height={1920}
+        defaultProps={defaultProps}
+      />
+      <Composition
+        id="TopGainerUpdateTikTok"
+        component={TikTokNativeStory}
+        durationInFrames={TIKTOK_FOR_YOU_DURATION_SECONDS * VIDEO_FPS}
+        fps={VIDEO_FPS}
         width={1080}
         height={1920}
         defaultProps={defaultProps}

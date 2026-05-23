@@ -74,9 +74,10 @@ describe("post-video-daily CLI planning", () => {
     expect(plan.shouldRunTikTokManual).toBe(false);
   });
 
-  it("chooses one canonical render source for a multi-platform short-form run", () => {
-    expect(resolveSharedVideoRenderPlatform(["youtube", "instagram", "threads", "tiktok"])).toBe("youtube");
-    expect(resolveSharedVideoRenderPlatform(["instagram", "threads", "tiktok"])).toBe("instagram");
+  it("lets TikTok own the shared render when it is part of a short-form run", () => {
+    expect(resolveSharedVideoRenderPlatform(["youtube", "instagram", "threads", "tiktok"])).toBe("tiktok");
+    expect(resolveSharedVideoRenderPlatform(["instagram", "threads", "tiktok"])).toBe("tiktok");
+    expect(resolveSharedVideoRenderPlatform(["youtube", "instagram", "threads"])).toBe("youtube");
   });
 
   it("adds TikTok context copy without reintroducing trade-signal wording", () => {

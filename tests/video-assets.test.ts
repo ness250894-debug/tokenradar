@@ -378,6 +378,98 @@ describe("video asset pipeline", () => {
     expect(new Set(shotList.segments.map((segment) => segment.asset.id)).size).toBe(3);
   });
 
+  it("expands the primary shot list across a TikTok-native For You render", () => {
+    const manifest = normalizeVideoAssetManifest({
+      assets: [
+        {
+          id: "human-phone",
+          kind: "video",
+          source: "local",
+          src: "broll/human-phone.mp4",
+          provider: "pexels",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["human", "person", "phone", "hands", "market"],
+        },
+        {
+          id: "desk-laptop",
+          kind: "video",
+          source: "local",
+          src: "broll/desk-laptop.mp4",
+          provider: "pexels",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["human", "desk", "laptop", "chart", "market"],
+        },
+        {
+          id: "data-dashboard",
+          kind: "video",
+          source: "local",
+          src: "broll/data-dashboard.mp4",
+          provider: "pixabay",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["data", "dashboard", "chart", "market"],
+        },
+        {
+          id: "risk-screen",
+          kind: "video",
+          source: "local",
+          src: "broll/risk-screen.mp4",
+          provider: "pixabay",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["risk", "warning", "market"],
+        },
+        {
+          id: "network-map",
+          kind: "video",
+          source: "local",
+          src: "broll/network-map.mp4",
+          provider: "generated",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["network", "radar_grid", "generated"],
+        },
+        {
+          id: "closing-chart",
+          kind: "video",
+          source: "local",
+          src: "broll/closing-chart.mp4",
+          provider: "manual",
+          orientation: "vertical",
+          role: "background",
+          durationSeconds: 18,
+          tags: ["chart", "market"],
+        },
+      ],
+    });
+
+    const shotList = selectVideoAssetShotList({
+      manifest,
+      platform: "tiktok",
+      seedParts: ["2026-05-22", "tiktok", "solana"],
+      now: new Date("2026-05-22T12:00:00.000Z"),
+      durationSeconds: 42,
+    });
+
+    expect(shotList.segments.map((segment) => segment.segmentId)).toEqual([
+      "hook",
+      "evidence",
+      "context",
+      "risk",
+      "closing",
+    ]);
+    expect(shotList.segments[0].fromSeconds).toBe(0);
+    expect(shotList.segments.at(-1)?.toSeconds).toBe(42);
+    expect(new Set(shotList.segments.map((segment) => segment.asset.id)).size).toBeGreaterThanOrEqual(5);
+  });
+
   it("uses human phone footage for the hook segment when available", () => {
     const manifest = normalizeVideoAssetManifest({
       assets: [

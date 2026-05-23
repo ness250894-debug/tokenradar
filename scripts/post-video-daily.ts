@@ -82,6 +82,11 @@ import {
   type VideoVisualRecipe,
 } from "../src/lib/video-recipes";
 import {
+  buildTikTokInVideoScenePlan,
+  type TikTokScenePlan,
+} from "../src/lib/tiktok-scene-planner";
+import { getVideoRenderProfile } from "../src/lib/video-render-profile";
+import {
   buildGeneratedFallbackAssetId,
   buildVideoIdempotencyKey,
   buildVideoProductionAlert,
@@ -106,8 +111,6 @@ import { getRecentPlatformTexts } from "./lib/social-history";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
-const SHARED_VIDEO_DURATION_SECONDS = 30;
-const SHARED_VIDEO_COMPOSITION_ID = "TopGainerUpdate";
 
 export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 export type PlatformRoute = PlatformName | "all" | "shorts";
@@ -194,6 +197,7 @@ interface PlatformTracker {
   mediaFallbackLevel?: string;
   mediaFallbackWarnings?: string[];
   mediaStage?: VideoMediaStage;
+  tiktokScenePlan?: TikTokScenePlan;
   reportVideoMessageId?: number;
   reportSummaryMessageId?: number;
   reportCaptionMessageIds?: number[];
@@ -239,6 +243,7 @@ interface VideoTracker {
   mediaFallbackLevel?: string;
   mediaFallbackWarnings?: string[];
   mediaStage?: VideoMediaStage;
+  tiktokScenePlan?: TikTokScenePlan;
   platforms: Partial<Record<PlatformName, PlatformTracker>>;
 }
 
@@ -267,6 +272,7 @@ interface PlatformVideoAsset {
   mediaFallbackLevel: string;
   mediaFallbackWarnings: string[];
   mediaStage: VideoMediaStage;
+  tiktokScenePlan?: TikTokScenePlan;
 }
 
 interface RenderProbe {
@@ -419,6 +425,8 @@ function getRemotionCliPath(): string {
 }
 
 function validateRenderedVideoOutput(filePath: string, platform: PlatformName): void {
+  const renderProfile = getVideoRenderProfile(platform);
+
   if (!fs.existsSync(filePath)) {
     throw new Error(`${platform}: rendered video file does not exist: ${filePath}`);
   }
@@ -446,7 +454,11 @@ function validateRenderedVideoOutput(filePath: string, platform: PlatformName): 
   if (videoStream.width !== 1080 || videoStream.height !== 1920) {
     throw new Error(`${platform}: rendered video has wrong dimensions ${videoStream.width}x${videoStream.height}`);
   }
-  if (!Number.isFinite(duration) || duration < 29 || duration > 31) {
+  if (
+    !Number.isFinite(duration) ||
+    duration < renderProfile.minDurationSeconds ||
+    duration > renderProfile.maxDurationSeconds
+  ) {
     throw new Error(`${platform}: rendered video duration is outside tolerance (${duration}s)`);
   }
 }
@@ -787,6 +799,7 @@ function getPlatformTrackerFields(
   | "mediaFallbackLevel"
   | "mediaFallbackWarnings"
   | "mediaStage"
+  | "tiktokScenePlan"
 > {
   const mediaAssetIds = asset.mediaAssets.length > 0
     ? asset.mediaAssets.map((mediaAsset) => mediaAsset.id)
@@ -829,6 +842,7 @@ function getPlatformTrackerFields(
     mediaFallbackLevel: asset.mediaFallbackLevel,
     mediaFallbackWarnings: asset.mediaFallbackWarnings,
     mediaStage: asset.mediaStage,
+    tiktokScenePlan: asset.tiktokScenePlan,
   };
 }
 
@@ -847,8 +861,11 @@ function buildPlatformFormatPrompt(
       const visualSummary = asset
         ? `Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}.`
         : "";
+      const sceneSummary = asset?.tiktokScenePlan
+        ? `TikTok scene plan: ${asset.tiktokScenePlan.scenes.map((scene) => scene.intent).join(" > ")}.`
+        : "";
       return asset
-        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} ${visualSummary} Media stage: ${asset.mediaStage}. Media: ${mediaSummary || "generated motion graphics only"}.`
+        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} ${visualSummary} ${sceneSummary} Media stage: ${asset.mediaStage}. Media: ${mediaSummary || "generated motion graphics only"}.`
         : "";
     })
     .filter(Boolean)
@@ -874,10 +891,10 @@ function getRequestedPlatforms(
 }
 
 const SHARED_VIDEO_RENDER_PLATFORM_PRIORITY: readonly PlatformName[] = [
+  "tiktok",
   "youtube",
   "instagram",
   "threads",
-  "tiktok",
   "telegram",
   "x",
 ];
@@ -1400,6 +1417,7 @@ export async function main(args = process.argv.slice(2)) {
   try {
     const platform = sharedRenderPlatform;
     const existingPlatformTracker = existingSharedRenderTracker;
+    const renderProfile = getVideoRenderProfile(platform);
     const usedVideoFormatKeys = getUsedFormatKeysForPlatform(platform);
 
     const videoFormat = existingPlatformTracker?.formatKey
@@ -1415,7 +1433,10 @@ export async function main(args = process.argv.slice(2)) {
     const hookText = existingPlatformTracker?.hookText ||
       await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
     const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
-      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat);
+      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat, {
+        targetDurationSeconds: renderProfile.durationSeconds,
+        style: platform === "tiktok" ? "tiktok_native" : "standard",
+      });
     const voiceoverHash = crypto
       .createHash("sha1")
       .update(`${today}:shared:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
@@ -1452,7 +1473,7 @@ export async function main(args = process.argv.slice(2)) {
         usageRecords: mediaUsageRecords,
         now: new Date(),
         cooldownDays: VIDEO_FORMAT_COOLDOWN_DAYS,
-        durationSeconds: SHARED_VIDEO_DURATION_SECONDS,
+        durationSeconds: renderProfile.durationSeconds,
       });
     let mediaSegments = shotList.segments;
     let mediaFallbackLevel = shotList.fallbackLevel;
@@ -1478,6 +1499,20 @@ export async function main(args = process.argv.slice(2)) {
       });
     }
     const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "primary";
+    const tiktokScenePlan = existingPlatformTracker?.tiktokScenePlan ||
+      (platform === "tiktok"
+        ? buildTikTokInVideoScenePlan({
+          tokenName: targetToken.name,
+          symbol: targetToken.symbol,
+          priceChange24h: targetToken.market.priceChange24h,
+          riskScore: targetMetric?.riskScore || 5.0,
+          volume24h: targetToken.market.volume24h,
+          contextText: context.trendingContext,
+          videoThesis,
+          durationSeconds: renderProfile.durationSeconds,
+          seedParts: [today, platform, targetToken.id, videoFormat.key, visualRecipe.key, reason],
+        })
+        : undefined);
     const outputPath = path.join(outputDir, `tokenradar-${today}-shared.mp4`);
     const propsFile = path.join(outputDir, "remotion-props-shared.json");
 
@@ -1531,6 +1566,7 @@ export async function main(args = process.argv.slice(2)) {
       mediaAssets,
       mediaSegments,
       mediaStage,
+      tiktokScenePlan,
       verdict,
     };
 
@@ -1542,7 +1578,7 @@ export async function main(args = process.argv.slice(2)) {
           getRemotionCliPath(),
           "render",
           "src/video/index.tsx",
-          SHARED_VIDEO_COMPOSITION_ID,
+          renderProfile.compositionId,
           outputPath,
           `--props=${propsFile}`,
         ],
@@ -1573,6 +1609,7 @@ export async function main(args = process.argv.slice(2)) {
       mediaFallbackLevel,
       mediaFallbackWarnings,
       mediaStage,
+      tiktokScenePlan,
     };
 
     for (const publishPlatform of requestedPlatforms) {

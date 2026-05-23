@@ -614,6 +614,7 @@ export interface MarketContext {
   priceChange24h?: number;
   marketCap?: number;
   marketCapRank?: number;
+  volume24h?: number;
   /** Optional context about WHY this token was selected (trending, news, etc.) */
   trendingContext?: string;
   /** Global market context (e.g., "$2.4T cap, +1.2% 24h") */
