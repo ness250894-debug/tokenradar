@@ -106,6 +106,8 @@ import { getRecentPlatformTexts } from "./lib/social-history";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
+const SHARED_VIDEO_DURATION_SECONDS = 30;
+const SHARED_VIDEO_COMPOSITION_ID = "TopGainerUpdate";
 
 export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 export type PlatformRoute = PlatformName | "all" | "shorts";
@@ -753,6 +755,13 @@ function getPlatformVideoAsset(
   return asset;
 }
 
+function cloneVideoAssetForPlatform(asset: PlatformVideoAsset, platform: PlatformName): PlatformVideoAsset {
+  return {
+    ...asset,
+    platform,
+  };
+}
+
 function getPlatformTrackerFields(
   asset: PlatformVideoAsset,
   context: { date: string; tokenId: string; forceId?: string },
@@ -835,8 +844,11 @@ function buildPlatformFormatPrompt(
           .map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`)
           .join(", ")
         : asset?.mediaAssets.map((mediaAsset) => mediaAsset.id).join(", ");
+      const visualSummary = asset
+        ? `Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}.`
+        : "";
       return asset
-        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} Visual recipe: ${asset.visualRecipe.layoutPack}, ${asset.visualRecipe.chartPack}, ${asset.visualRecipe.backgroundSystem}. Media stage: ${asset.mediaStage}. Media: ${mediaSummary || "generated motion graphics only"}.`
+        ? `${platform}: ${formatVideoFormatPromptLine(asset.format)} ${visualSummary} Media stage: ${asset.mediaStage}. Media: ${mediaSummary || "generated motion graphics only"}.`
         : "";
     })
     .filter(Boolean)
@@ -859,6 +871,22 @@ function getRequestedPlatforms(
   if (runThreads) requested.push("threads");
   if (runTikTok) requested.push("tiktok");
   return requested;
+}
+
+const SHARED_VIDEO_RENDER_PLATFORM_PRIORITY: readonly PlatformName[] = [
+  "youtube",
+  "instagram",
+  "threads",
+  "tiktok",
+  "telegram",
+  "x",
+];
+
+export function resolveSharedVideoRenderPlatform(requestedPlatforms: readonly PlatformName[]): PlatformName {
+  for (const platform of SHARED_VIDEO_RENDER_PLATFORM_PRIORITY) {
+    if (requestedPlatforms.includes(platform)) return platform;
+  }
+  throw new Error("Cannot choose a shared video render platform without requested platforms.");
 }
 
 export function resolveVideoDailyPlatformFlags(targetPlatform: PlatformRoute): VideoDailyPlatformFlags {
@@ -1329,15 +1357,18 @@ export async function main(args = process.argv.slice(2)) {
   console.log();
   console.log("Step 3: Rendering video with Remotion...");
   const platformVideos = new Map<PlatformName, PlatformVideoAsset>();
+  const sharedRenderPlatform = resolveSharedVideoRenderPlatform(requestedPlatforms);
+  const existingSharedRenderTracker =
+    existingTracker?.platforms?.[sharedRenderPlatform] ||
+    requestedPlatforms
+      .map((platform) => existingTracker?.platforms?.[platform])
+      .find((platformTracker): platformTracker is PlatformTracker => Boolean(platformTracker));
   const { getVerdict } = await import("../src/video/styles");
   const verdict = getVerdict(targetMetric?.riskScore || 5.0, targetToken.market.priceChange24h);
   const fixedFormatKeys = new Set(
     requestedPlatforms
       .map((platform) => existingTracker?.platforms?.[platform]?.formatKey)
       .filter((key): key is VideoFormatKey => Boolean(key)),
-  );
-  const platformsNeedingFormats = requestedPlatforms.filter(
-    (platform) => !existingTracker?.platforms?.[platform]?.formatKey,
   );
   const getUsedFormatKeysForPlatform = (platform: PlatformName): Set<string> => {
     const used = force
@@ -1346,10 +1377,13 @@ export async function main(args = process.argv.slice(2)) {
     for (const key of fixedFormatKeys) used.add(key);
     return used;
   };
-  const generatedFormats = selectVideoFormatsForSlots(platformsNeedingFormats, {
-    getUsedFormatKeys: getUsedFormatKeysForPlatform,
-    getSeedParts: (platform) => [today, platform, targetToken.id, reason],
-  });
+  const generatedFormats = selectVideoFormatsForSlots(
+    existingSharedRenderTracker?.formatKey ? [] : [sharedRenderPlatform],
+    {
+      getUsedFormatKeys: getUsedFormatKeysForPlatform,
+      getSeedParts: (platform) => [today, platform, targetToken.id, reason],
+    },
+  );
   const fixedRecipeKeys = new Set(
     requestedPlatforms
       .map((platform) =>
@@ -1364,184 +1398,190 @@ export async function main(args = process.argv.slice(2)) {
     : getRecentVideoAssetUsageRecords(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today);
 
   try {
-    for (const platform of requestedPlatforms) {
-      const existingPlatformTracker = existingTracker?.platforms?.[platform];
-      const usedVideoFormatKeys = getUsedFormatKeysForPlatform(platform);
+    const platform = sharedRenderPlatform;
+    const existingPlatformTracker = existingSharedRenderTracker;
+    const usedVideoFormatKeys = getUsedFormatKeysForPlatform(platform);
 
-      const videoFormat = existingPlatformTracker?.formatKey
-        ? getVideoFormat(existingPlatformTracker.formatKey)
-        : generatedFormats.get(platform) || getVideoFormat(undefined);
+    const videoFormat = existingPlatformTracker?.formatKey
+      ? getVideoFormat(existingPlatformTracker.formatKey)
+      : generatedFormats.get(platform) || getVideoFormat(undefined);
 
-      const videoThesis = existingPlatformTracker?.videoThesis ||
-        buildVideoThesis(videoFormat, targetToken, targetMetric, context.trendingContext);
-      const audioTrack = selectAudioTrackForRender(
-        `${today}:${platform}:${videoFormat.key}:${targetToken.id}`,
-        existingPlatformTracker,
-      );
-      const hookText = existingPlatformTracker?.hookText ||
-        await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
-      const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
-        await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat);
-      const voiceoverHash = crypto
-        .createHash("sha1")
-        .update(`${today}:${platform}:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
-        .digest("hex")
-        .slice(0, 10);
-      const voiceoverResult = await generateKokoroVoiceover({
-        script: voiceoverScript,
-        outputDir: path.join(VIDEO_ASSET_ROOT, "voiceover"),
-        fileName: `${today}-${platform}-${targetToken.id}-${voiceoverHash}.wav`,
-        dateSeed: today,
+    const videoThesis = existingPlatformTracker?.videoThesis ||
+      buildVideoThesis(videoFormat, targetToken, targetMetric, context.trendingContext);
+    const audioTrack = selectAudioTrackForRender(
+      `${today}:shared:${videoFormat.key}:${targetToken.id}`,
+      existingPlatformTracker,
+    );
+    const hookText = existingPlatformTracker?.hookText ||
+      await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
+    const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
+      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat, {
+        targetDurationSeconds: SHARED_VIDEO_DURATION_SECONDS,
+        style: "standard",
       });
-      const usedVideoRecipeKeys = force
-        ? new Set<string>()
-        : getRecentVideoRecipeKeys(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today, platform);
-      for (const key of fixedRecipeKeys) usedVideoRecipeKeys.add(key);
-      for (const key of selectedRecipeKeys) usedVideoRecipeKeys.add(key);
-      const visualRecipe = existingPlatformTracker?.visualRecipe ||
-        selectVideoVisualRecipe({
-          usedRecipeKeys: usedVideoRecipeKeys,
-          seedParts: [today, platform, targetToken.id, videoFormat.key, reason],
-        });
-      selectedRecipeKeys.add(visualRecipe.key);
-      const persistedMediaSegments = normalizePersistedMediaSegments(existingPlatformTracker?.mediaSegments);
-      const shotList = persistedMediaSegments.length > 0
-        ? {
-          segments: persistedMediaSegments,
-          fallbackLevel: existingPlatformTracker?.mediaFallbackLevel || "fresh",
-          warnings: existingPlatformTracker?.mediaFallbackWarnings || [],
-        }
-        : selectVideoAssetShotList({
-          manifest: mediaManifest,
-          platform,
-          seedParts: [today, platform, targetToken.id, videoFormat.key, visualRecipe.key],
-          usageRecords: mediaUsageRecords,
-          now: new Date(),
-          cooldownDays: VIDEO_FORMAT_COOLDOWN_DAYS,
-          durationSeconds: 30,
-        });
-      let mediaSegments = shotList.segments;
-      let mediaFallbackLevel = shotList.fallbackLevel;
-      const mediaFallbackWarnings = [...shotList.warnings];
-      const hydration = await hydrateMediaSegmentsForRender(platform, mediaSegments);
-      mediaSegments = hydration.segments;
-      mediaFallbackWarnings.push(...hydration.warnings);
-      if (shotList.segments.length > 0 && mediaSegments.length === 0) {
-        mediaFallbackWarnings.push("fallback-reached-generated-only-stage");
-        mediaFallbackLevel = "generated-only";
+    const voiceoverHash = crypto
+      .createHash("sha1")
+      .update(`${today}:shared:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
+      .digest("hex")
+      .slice(0, 10);
+    const voiceoverResult = await generateKokoroVoiceover({
+      script: voiceoverScript,
+      outputDir: path.join(VIDEO_ASSET_ROOT, "voiceover"),
+      fileName: `${today}-shared-${targetToken.id}-${voiceoverHash}.wav`,
+      dateSeed: today,
+    });
+    const usedVideoRecipeKeys = force
+      ? new Set<string>()
+      : getRecentVideoRecipeKeys(DATA_DIR, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), today, platform);
+    for (const key of fixedRecipeKeys) usedVideoRecipeKeys.add(key);
+    for (const key of selectedRecipeKeys) usedVideoRecipeKeys.add(key);
+    const visualRecipe = existingPlatformTracker?.visualRecipe ||
+      selectVideoVisualRecipe({
+        usedRecipeKeys: usedVideoRecipeKeys,
+        seedParts: [today, "shared", targetToken.id, videoFormat.key, reason],
+      });
+    selectedRecipeKeys.add(visualRecipe.key);
+    const persistedMediaSegments = normalizePersistedMediaSegments(existingPlatformTracker?.mediaSegments);
+    const shotList = persistedMediaSegments.length > 0
+      ? {
+        segments: persistedMediaSegments,
+        fallbackLevel: existingPlatformTracker?.mediaFallbackLevel || "fresh",
+        warnings: existingPlatformTracker?.mediaFallbackWarnings || [],
       }
-      const mediaAssets = mediaSegments.length > 0
-        ? mediaSegments.map((segment) => segment.asset)
-        : normalizeVideoAssetManifest({ assets: existingPlatformTracker?.mediaAssets || [] }).assets
-          .filter(isLocalVideoAssetAvailable);
-      const mediaSelectedAt = new Date().toISOString();
-      for (const segment of mediaSegments) {
-        mediaUsageRecords.push({
-          assetId: segment.asset.id,
-          platform,
-          usedAt: mediaSelectedAt,
-          segmentId: segment.segmentId,
-        });
-      }
-      const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "primary";
-      const outputPath = path.join(outputDir, `tokenradar-${today}-${platform}.mp4`);
-      const propsFile = path.join(outputDir, `remotion-props-${platform}.json`);
-
-      console.log(`  ${platform}: ${videoFormat.label} (${videoFormat.key})`);
-      if (!force && usedVideoFormatKeys.has(videoFormat.key) && !existingPlatformTracker?.formatKey) {
-        console.warn(`  ${platform}: format cooldown pool was exhausted; selected from the full format library.`);
-      }
-      if (!force && usedVideoRecipeKeys.has(visualRecipe.key) && !existingPlatformTracker?.visualRecipe) {
-        console.warn(`  ${platform}: visual recipe cooldown pool was exhausted; selected from the full recipe library.`);
-      }
-      console.log(`  ${platform}: recipe ${visualRecipe.key}`);
-      console.log(`  ${platform}: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
-      if (voiceoverResult.status === "generated") {
-        console.log(`  ${platform}: Kokoro voiceover ${voiceoverResult.fileName}`);
-      } else if (voiceoverResult.status === "failed") {
-        console.warn(`  ${platform}: Kokoro voiceover skipped after failure: ${voiceoverResult.error}`);
-      } else {
-        console.warn(`  ${platform}: Kokoro voiceover disabled or empty.`);
-      }
-      if (mediaSegments.length > 0) {
-        console.log(
-          `  ${platform}: media ${mediaSegments.map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`).join(", ")}`,
-        );
-      } else if (mediaAssets.length > 0) {
-        console.log(`  ${platform}: media ${mediaAssets.map((asset) => asset.id).join(", ")}`);
-      }
-      for (const warning of mediaFallbackWarnings) {
-        console.warn(`  ${platform}: media fallback ${warning}`);
-      }
-
-      const videoProps = {
-        tokenName: targetToken.name,
-        symbol: targetToken.symbol.toUpperCase(),
-        price: targetToken.market.price,
-        priceChange24h: targetToken.market.priceChange24h,
-        riskScore: targetMetric?.riskScore || 5.0,
-        riskLevel: targetMetric?.riskLevel,
-        marketCap: targetToken.market.marketCap,
-        marketCapRank: targetToken.market.marketCapRank,
-        volume24h: targetToken.market.volume24h,
-        growthPotentialIndex: targetMetric?.growthPotentialIndex,
-        audioFile: audioTrack.file,
-        audioStartSeconds: audioTrack.startSeconds,
-        voiceoverFile: voiceoverResult.fileName,
-        voiceoverScript,
-        hookText,
-        contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
-        videoFormatKey: videoFormat.key,
-        videoThesis,
-        visualRecipe,
-        mediaAssets,
-        mediaSegments,
-        mediaStage,
-        verdict,
-      };
-
-      fs.writeFileSync(propsFile, JSON.stringify(videoProps));
-      try {
-        execFileSync(
-          process.execPath,
-          [
-            getRemotionCliPath(),
-            "render",
-            "src/video/index.tsx",
-            "TopGainerUpdate",
-            outputPath,
-            `--props=${propsFile}`,
-          ],
-          { stdio: "inherit" },
-        );
-      } finally {
-        cleanupFile(propsFile);
-      }
-      validateRenderedVideoOutput(outputPath, platform);
-
-      platformVideos.set(platform, {
+      : selectVideoAssetShotList({
+        manifest: mediaManifest,
         platform,
-        outputPath,
-        buffer: fs.readFileSync(outputPath),
-        format: videoFormat,
-        videoThesis,
-        hookText,
-        audioTrack,
-        voiceoverScript,
-        voiceoverFile: voiceoverResult.fileName,
-        voiceoverOutputPath: voiceoverResult.outputPath,
-        voiceoverProvider: voiceoverResult.provider,
-        voiceoverStatus: voiceoverResult.status,
-        voiceoverError: voiceoverResult.error,
-        visualRecipe,
-        mediaAssets,
-        mediaSegments,
-        mediaFallbackLevel,
-        mediaFallbackWarnings,
-        mediaStage,
+        seedParts: [today, "shared", targetToken.id, videoFormat.key, visualRecipe.key],
+        usageRecords: mediaUsageRecords,
+        now: new Date(),
+        cooldownDays: VIDEO_FORMAT_COOLDOWN_DAYS,
+        durationSeconds: SHARED_VIDEO_DURATION_SECONDS,
       });
-      console.log(`  ${platform}: rendered ${outputPath}`);
+    let mediaSegments = shotList.segments;
+    let mediaFallbackLevel = shotList.fallbackLevel;
+    const mediaFallbackWarnings = [...shotList.warnings];
+    const hydration = await hydrateMediaSegmentsForRender(platform, mediaSegments);
+    mediaSegments = hydration.segments;
+    mediaFallbackWarnings.push(...hydration.warnings);
+    if (shotList.segments.length > 0 && mediaSegments.length === 0) {
+      mediaFallbackWarnings.push("fallback-reached-generated-only-stage");
+      mediaFallbackLevel = "generated-only";
     }
+    const mediaAssets = mediaSegments.length > 0
+      ? mediaSegments.map((segment) => segment.asset)
+      : normalizeVideoAssetManifest({ assets: existingPlatformTracker?.mediaAssets || [] }).assets
+        .filter(isLocalVideoAssetAvailable);
+    const mediaSelectedAt = new Date().toISOString();
+    for (const segment of mediaSegments) {
+      mediaUsageRecords.push({
+        assetId: segment.asset.id,
+        platform,
+        usedAt: mediaSelectedAt,
+        segmentId: segment.segmentId,
+      });
+    }
+    const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "primary";
+    const outputPath = path.join(outputDir, `tokenradar-${today}-shared.mp4`);
+    const propsFile = path.join(outputDir, "remotion-props-shared.json");
+
+    console.log(`  shared render (${platform}) for ${requestedPlatforms.join(", ")}: ${videoFormat.label} (${videoFormat.key})`);
+    if (!force && usedVideoFormatKeys.has(videoFormat.key) && !existingPlatformTracker?.formatKey) {
+      console.warn(`  shared render: format cooldown pool was exhausted; selected from the full format library.`);
+    }
+    if (!force && usedVideoRecipeKeys.has(visualRecipe.key) && !existingPlatformTracker?.visualRecipe) {
+      console.warn(`  shared render: visual recipe cooldown pool was exhausted; selected from the full recipe library.`);
+    }
+    console.log(`  shared render: recipe ${visualRecipe.key}`);
+    console.log(`  shared render: ${audioTrack.file} (start: ${audioTrack.startSeconds}s)`);
+    if (voiceoverResult.status === "generated") {
+      console.log(`  shared render: Kokoro voiceover ${voiceoverResult.fileName}`);
+    } else if (voiceoverResult.status === "failed") {
+      console.warn(`  shared render: Kokoro voiceover skipped after failure: ${voiceoverResult.error}`);
+    } else {
+      console.warn(`  shared render: Kokoro voiceover disabled or empty.`);
+    }
+    if (mediaSegments.length > 0) {
+      console.log(
+        `  shared render: media ${mediaSegments.map((segment) => `${segment.segmentId}:${segment.asset.id}@${segment.startOffsetSeconds}s`).join(", ")}`,
+      );
+    } else if (mediaAssets.length > 0) {
+      console.log(`  shared render: media ${mediaAssets.map((asset) => asset.id).join(", ")}`);
+    }
+    for (const warning of mediaFallbackWarnings) {
+      console.warn(`  shared render: media fallback ${warning}`);
+    }
+
+    const videoProps = {
+      tokenName: targetToken.name,
+      symbol: targetToken.symbol.toUpperCase(),
+      price: targetToken.market.price,
+      priceChange24h: targetToken.market.priceChange24h,
+      riskScore: targetMetric?.riskScore || 5.0,
+      riskLevel: targetMetric?.riskLevel,
+      marketCap: targetToken.market.marketCap,
+      marketCapRank: targetToken.market.marketCapRank,
+      volume24h: targetToken.market.volume24h,
+      growthPotentialIndex: targetMetric?.growthPotentialIndex,
+      audioFile: audioTrack.file,
+      audioStartSeconds: audioTrack.startSeconds,
+      voiceoverFile: voiceoverResult.fileName,
+      voiceoverScript,
+      hookText,
+      contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
+      videoFormatKey: videoFormat.key,
+      videoThesis,
+      visualRecipe,
+      mediaAssets,
+      mediaSegments,
+      mediaStage,
+      verdict,
+    };
+
+    fs.writeFileSync(propsFile, JSON.stringify(videoProps));
+    try {
+      execFileSync(
+        process.execPath,
+        [
+          getRemotionCliPath(),
+          "render",
+          "src/video/index.tsx",
+          SHARED_VIDEO_COMPOSITION_ID,
+          outputPath,
+          `--props=${propsFile}`,
+        ],
+        { stdio: "inherit" },
+      );
+    } finally {
+      cleanupFile(propsFile);
+    }
+    validateRenderedVideoOutput(outputPath, platform);
+
+    const sharedVideoAsset: PlatformVideoAsset = {
+      platform,
+      outputPath,
+      buffer: fs.readFileSync(outputPath),
+      format: videoFormat,
+      videoThesis,
+      hookText,
+      audioTrack,
+      voiceoverScript,
+      voiceoverFile: voiceoverResult.fileName,
+      voiceoverOutputPath: voiceoverResult.outputPath,
+      voiceoverProvider: voiceoverResult.provider,
+      voiceoverStatus: voiceoverResult.status,
+      voiceoverError: voiceoverResult.error,
+      visualRecipe,
+      mediaAssets,
+      mediaSegments,
+      mediaFallbackLevel,
+      mediaFallbackWarnings,
+      mediaStage,
+    };
+
+    for (const publishPlatform of requestedPlatforms) {
+      platformVideos.set(publishPlatform, cloneVideoAssetForPlatform(sharedVideoAsset, publishPlatform));
+    }
+    console.log(`  shared render: rendered ${outputPath}`);
   } catch (error) {
     console.error(`  Video rendering failed: ${formatErrorForLog(error)}`);
     process.exit(1);

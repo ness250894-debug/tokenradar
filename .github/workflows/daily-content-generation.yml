@@ -3,7 +3,7 @@
 # 1. Generate new/updated articles via Smart Drip priority queue
 #    (volatile tokens → incomplete hubs → oldest stale content)
 # 2. Publish from queue with live market data injection
-# Budget: ~20 tracked token folders + 5 TGEs = up to ~65 articles/day.
+# Budget: ~8 tracked token folders + 2 TGEs = up to ~26 articles/day.
 # Market-data refreshes stay separate in daily-refresh; this cap is only for AI/editorial generation.
 
 name: Daily Content Generation
@@ -19,8 +19,8 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
-  CONTENT_MAX_REFRESH: "20"
-  CONTENT_MAX_TGE: "5"
+  CONTENT_MAX_REFRESH: "8"
+  CONTENT_MAX_TGE: "2"
   CONTENT_PUBLISH_MAX: "25"
 
 jobs:
