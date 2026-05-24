@@ -1664,5 +1664,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-21T19:30:54.932Z",
     "discoveredAt": "2026-05-21T19:30:54.932Z"
+  },
+  {
+    "id": "blockchain-com-ipo",
+    "name": "Blockchain.com",
+    "symbol": "TBD",
+    "category": "Exchange",
+    "expectedTge": "IPO Filing Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/368608/crypto-exchange-blockchain-com-files-ipo-us",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "IPO Filing",
+        "sourceType": "news",
+        "url": "https://decrypt.co/368608/crypto-exchange-blockchain-com-files-ipo-us",
+        "title": "Crypto Exchange Blockchain.com Files for IPO in the US",
+        "observedAt": "2024-05-24"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-24T18:50:56.960Z",
+    "discoveredAt": "2026-05-24T18:50:56.960Z"
   }
 ]
