@@ -88,16 +88,15 @@ const MAX_X_RETRIES = 3;
  * Handles transient errors like 503 Service Unavailable.
  */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let lastError: any;
+  let lastError: unknown;
   for (let attempt = 1; attempt <= MAX_X_RETRIES; attempt++) {
     try {
       return await fn();
     } catch (error: unknown) {
       lastError = error;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const status = (error as any)?.status || (error as any)?.response?.status;
-      const message = error instanceof Error ? error.message : String((error as any)?.message || error);
+      const err = error as { status?: number; response?: { status?: number }; message?: string } | null | undefined;
+      const status = err?.status || err?.response?.status;
+      const message = error instanceof Error ? error.message : String(err?.message || error);
 
       // XDK body-double-read bug: when the X API returns a non-JSON error
       // response, the XDK tries response.json() then response.text() in its
