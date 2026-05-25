@@ -97,7 +97,18 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       lastError = error;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const status = (error as any)?.status || (error as any)?.response?.status;
-      
+      const message = error instanceof Error ? error.message : String((error as any)?.message || error);
+
+      // XDK body-double-read bug: when the X API returns a non-JSON error
+      // response, the XDK tries response.json() then response.text() in its
+      // catch block, causing "Body is unusable: Body has already been read".
+      // This is NOT a transient network error — retrying won't help.
+      const isBodyConsumedBug = message.includes("Body is unusable") || message.includes("already been read");
+      if (isBodyConsumedBug) {
+        console.warn(`  ⚠ X API [${label}] hit XDK response body bug (non-retryable): ${message.slice(0, 200)}`);
+        throw error;
+      }
+
       // Retry on 503 (Service Unavailable) or 500 (Internal Error), or networking errors
       const shouldRetry = status === 503 || status === 500 || !status;
       
@@ -116,6 +127,7 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
 let _cachedClient: Client | null = null;
 let xTrendsClient: Client | null = null;
 let _tokenExpiresAt: number = 0;
+let _cachedAccessToken: string = "";
 
 /**
  * Read the latest refresh token directly from .env.local
@@ -263,6 +275,7 @@ export async function getXClient(): Promise<Client> {
   };
 
   _cachedClient = new Client(config);
+  _cachedAccessToken = tokens.access_token;
   _tokenExpiresAt = now + (tokens.expires_in ?? 7200) * 1000;
 
   return _cachedClient;
@@ -590,15 +603,39 @@ export async function postTweetWithMedia(
       if (!uploadMediaId) throw new Error("No media_id returned from INIT");
 
       // Step 2: APPEND — send the binary payload in chunks (≤5 MB each)
+      // Uses direct fetch instead of the XDK's appendUpload to avoid a body
+      // double-read bug in the XDK's error handler (response.json() → response.text()
+      // when the server returns non-JSON error responses).
       const CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
       let segmentIndex = 0;
       for (let offset = 0; offset < mediaBuffer.length; offset += CHUNK_SIZE) {
         const chunk = mediaBuffer.subarray(offset, offset + CHUNK_SIZE);
         const chunkBase64 = chunk.toString("base64");
         await withRetry(
-          () => client.media.appendUpload(uploadMediaId, {
-            body: { media: chunkBase64, segmentIndex },
-          }),
+          async () => {
+            const appendUrl = `https://api.x.com/2/media/upload/${encodeURIComponent(uploadMediaId)}/append`;
+            const appendBody = JSON.stringify({ media: chunkBase64, segment_index: segmentIndex });
+            const appendResp = await fetch(appendUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${_cachedAccessToken}`,
+              },
+              body: appendBody,
+            });
+            if (!appendResp.ok) {
+              let errorDetail: string;
+              try {
+                errorDetail = await appendResp.text();
+              } catch {
+                errorDetail = `HTTP ${appendResp.status}`;
+              }
+              const err = new Error(`APPEND seg${segmentIndex} failed: HTTP ${appendResp.status} — ${errorDetail.slice(0, 400)}`);
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (err as any).status = appendResp.status;
+              throw err;
+            }
+          },
           `mediaAppend_seg${segmentIndex}`
         );
         segmentIndex++;
