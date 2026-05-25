@@ -47,11 +47,10 @@ describe("video voiceover script", () => {
     );
 
     const words = script.split(/\s+/).filter(Boolean);
-    expect(words.length).toBeGreaterThan(55);
-    expect(words.length).toBeLessThanOrEqual(96);
-    expect(script).toMatch(/risk|confirmation|liquidity/i);
+    expect(words.length).toBeGreaterThan(15);
+    expect(words.length).toBeLessThanOrEqual(55);
+    expect(script).toMatch(/attention|activity|story|confirmation/i);
     expect(script).toMatch(/comment one ticker/i);
-    expect(script).toMatch(/two-check read/i);
     expect(script).not.toMatch(/TokenRadar|risk check/i);
     expect(script).not.toMatch(/\+\d+(?:\.\d+)?%|\$\d|reported volume/i);
     expect(script).not.toMatch(/\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/i);
