@@ -21,9 +21,9 @@ describe("video render profiles", () => {
 
     expect(profile.compositionId).toBe("TopGainerUpdateTikTok");
     expect(profile.durationSeconds).toBe(TIKTOK_FOR_YOU_DURATION_SECONDS);
-    expect(profile.durationInFrames).toBe(1260);
+    expect(profile.durationInFrames).toBe(630);
     expect(profile.forYouOptimized).toBe(true);
-    expect(profile.minDurationSeconds).toBe(40);
-    expect(profile.maxDurationSeconds).toBe(44);
+    expect(profile.minDurationSeconds).toBe(19);
+    expect(profile.maxDurationSeconds).toBe(23);
   });
 });
