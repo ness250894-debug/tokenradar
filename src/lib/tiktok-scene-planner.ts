@@ -40,11 +40,11 @@ export interface BuildTikTokInVideoScenePlanOptions {
   seedParts?: Array<string | number | undefined | null>;
 }
 
-const DEFAULT_DURATION_SECONDS = 42;
-const MIN_DURATION_SECONDS = 40;
-const MAX_DURATION_SECONDS = 44;
-const FORTY_TWO_SECOND_TIMINGS = [0, 6, 14, 23, 33, 42] as const;
-const TIMING_RATIOS = FORTY_TWO_SECOND_TIMINGS.map((value) => value / DEFAULT_DURATION_SECONDS);
+const DEFAULT_DURATION_SECONDS = 21;
+const MIN_DURATION_SECONDS = 19;
+const MAX_DURATION_SECONDS = 23;
+const TWENTY_ONE_SECOND_TIMINGS = [0, 4, 14, 21] as const;
+const TIMING_RATIOS = TWENTY_ONE_SECOND_TIMINGS.map((value) => value / DEFAULT_DURATION_SECONDS);
 
 const VISUAL_QUERIES: Record<TikTokSceneIntent, string[]> = {
   comment_reply: [
@@ -96,9 +96,9 @@ const SUBTITLES: Record<TikTokSceneIntent, string[]> = {
     "The risk question matters before the reaction gets loud.",
   ],
   watch_next: [
-    "Comment one ticker for the next two-check read.",
-    "Drop one ticker and I will run the same two-check read.",
-    "Send one ticker for the next quick two-check read.",
+    "Comment one ticker for the next read.",
+    "Drop a ticker, I will check it next.",
+    "Send one ticker for the next quick read.",
   ],
 };
 
@@ -171,9 +171,9 @@ function getContextNote(options: BuildTikTokInVideoScenePlanOptions): string {
 
 function buildTimings(durationSeconds: number): Array<[number, number]> {
   if (durationSeconds === DEFAULT_DURATION_SECONDS) {
-    return FORTY_TWO_SECOND_TIMINGS.slice(0, -1).map((fromSeconds, index) => [
+    return TWENTY_ONE_SECOND_TIMINGS.slice(0, -1).map((fromSeconds, index) => [
       fromSeconds,
-      FORTY_TWO_SECOND_TIMINGS[index + 1],
+      TWENTY_ONE_SECOND_TIMINGS[index + 1],
     ]);
   }
 
@@ -215,25 +215,11 @@ export function buildTikTokInVideoScenePlan(options: BuildTikTokInVideoScenePlan
       transition: "cut",
     },
     {
-      intent: "pattern_interrupt",
-      prompt: "what changed?",
-      note: "headline only",
-      tone: "green",
-      transition: "push",
-    },
-    {
       intent: "proof_check",
-      prompt: "first check",
-      note: getActivityNote(options.volume24h),
-      tone: "amber",
-      transition: "flash",
-    },
-    {
-      intent: "breakpoint",
-      prompt: "second check",
-      note: risk.note,
+      prompt: "the two checks",
+      note: `${getActivityNote(options.volume24h)} / ${risk.note}`,
       tone: risk.tone,
-      transition: "wipe",
+      transition: "flash",
     },
     {
       intent: "watch_next",

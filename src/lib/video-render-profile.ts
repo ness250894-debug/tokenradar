@@ -17,10 +17,10 @@ export interface VideoRenderProfile {
 
 export const VIDEO_FPS = 30;
 export const STANDARD_VIDEO_DURATION_SECONDS = 30;
-// TikTok's recommendation problem here is not monetization eligibility. Use a
-// distinct native-feeling render long enough for a real story, but short enough
-// to avoid adding dead air that can hurt completion rate.
-export const TIKTOK_FOR_YOU_DURATION_SECONDS = 42;
+// TikTok's #1 algorithm signal is completion rate. 21 seconds is the sweet spot
+// for data-driven crypto content: long enough for a 3-beat story, short enough
+// that viewers consistently watch to the end.
+export const TIKTOK_FOR_YOU_DURATION_SECONDS = 21;
 
 const STANDARD_VIDEO_PROFILE = {
   compositionId: "TopGainerUpdate",
@@ -41,8 +41,8 @@ const TIKTOK_FOR_YOU_VIDEO_PROFILE = {
   height: 1920,
   durationSeconds: TIKTOK_FOR_YOU_DURATION_SECONDS,
   durationInFrames: TIKTOK_FOR_YOU_DURATION_SECONDS * VIDEO_FPS,
-  minDurationSeconds: 40,
-  maxDurationSeconds: 44,
+  minDurationSeconds: 19,
+  maxDurationSeconds: 23,
   forYouOptimized: true,
 } as const;
 

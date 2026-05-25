@@ -16,7 +16,7 @@ export interface VideoHookFormatContext {
 }
 
 const UNSAFE_VIDEO_WORD_RE = /\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/gi;
-const TIKTOK_NATIVE_MAX_WORDS = 96;
+const TIKTOK_NATIVE_MAX_WORDS = 55;
 
 export type VideoVoiceoverStyle = "standard" | "tiktok_native";
 
@@ -89,19 +89,15 @@ function buildTikTokNativeVideoVoiceoverScript(
   const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
   const cleanSymbol = symbol.toUpperCase();
   void format;
-  const opening = `Someone asked if ${cleanSymbol} is actually worth watching. I would not start with the candle.`;
-  const move = `${cleanTokenName} is getting attention, but that is only the headline.`;
-  const depth = "First check: did real activity show up, or was it just a thin spike that fades when attention moves on?";
-  const risk = (context.riskScore ?? 5) >= 7
-    ? "Second check: what breaks the story? Risk is already elevated, so invalidation matters more than hype."
-    : "Second check: what breaks the story? That risk lens matters because cleaner reads can fail when volume fades.";
-  const close = "This is market context only. Comment one ticker for the next two-check read.";
+  const opening = `Someone asked about ${cleanSymbol}. I would not start with the candle.`;
+  const story = (context.riskScore ?? 5) >= 7
+    ? `${cleanTokenName} got attention, but risk is already elevated. Activity has to prove the move is real before the story holds up.`
+    : `${cleanTokenName} got attention. Activity check first, then ask what breaks the story.`;
+  const close = "Comment one ticker for the next read.";
 
   return trimToWordLimit(normalizeNarrationText([
     opening,
-    move,
-    depth,
-    risk,
+    story,
     close,
   ].join(" ... ")), TIKTOK_NATIVE_MAX_WORDS);
 }
@@ -145,7 +141,7 @@ export async function generateDynamicVoiceoverScript(
   options: VideoVoiceoverOptions = {},
 ): Promise<string> {
   const isTikTokNative = options.style === "tiktok_native";
-  const targetSeconds = isTikTokNative ? Math.min(38, Math.max(30, (options.targetDurationSeconds ?? 42) - 4)) : 25;
+  const targetSeconds = isTikTokNative ? Math.min(18, Math.max(14, (options.targetDurationSeconds ?? 21) - 3)) : 25;
   const maxWords = isTikTokNative ? TIKTOK_NATIVE_MAX_WORDS : 72;
   const formatBrief = format
     ? `

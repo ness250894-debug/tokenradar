@@ -120,7 +120,7 @@ const GeneratedVerticalBackdrop: React.FC<{ accent: string }> = ({ accent }) => 
           <div
             key={index}
             style={{
-              height: 92 + ((index * 31 + frame) % 210),
+              height: 92 + ((index * 31 + frame + index * 7) % 210),
               alignSelf: "end",
               borderRadius: 6,
               background: index % 5 === 0 ? COLORS.negative : index % 3 === 0 ? COLORS.warning : accent,
@@ -340,28 +340,7 @@ export const TikTokNativeStory: React.FC<TopGainerProps> = (props) => {
           </Sequence>
         );
       })}
-      <div
-        style={{
-          position: "absolute",
-          left: 68,
-          right: 68,
-          bottom: 70,
-          height: 68,
-          borderRadius: 999,
-          display: "flex",
-          alignItems: "center",
-          padding: "0 28px",
-          background: "rgba(0,0,0,0.48)",
-          border: "1px solid rgba(255,255,255,0.22)",
-          color: "rgba(255,255,255,0.84)",
-          fontFamily: FONTS.primary,
-          fontSize: 23,
-          fontWeight: 850,
-          textShadow: "0 3px 12px rgba(0,0,0,0.8)",
-        }}
-      >
-        market context only - no trade instructions
-      </div>
+
 
       {audioFile && (
         <Audio
