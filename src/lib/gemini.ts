@@ -779,15 +779,15 @@ function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): stri
 }
 
 function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
-  const change = formatSocialChange(metrics.priceChange24h);
-  const price = formatSocialPrice(metrics.price);
-  const marketCap = formatSocialMarketCap(metrics.marketCap);
+  const direction = (metrics.priceChange24h ?? 0) >= 0 ? "picked up" : "pulled back";
+  const riskNote = (metrics.riskScore ?? 5) >= 7
+    ? "Risk is elevated, so confirmation matters more here."
+    : "Worth watching, but always check the risk side first.";
 
   return [
-    `${tokenName} crypto market update`,
-    `${change} in 24h | Price: ${price} | Market cap: ${marketCap}`,
-    "Watch liquidity and follow-through before treating this as a valid market read.",
-    `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar #Altcoins`,
+    `someone asked about ${tokenName}. attention ${direction} but that is only the headline.`,
+    riskNote,
+    `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar`,
   ].join("\n\n");
 }
 
@@ -1129,14 +1129,16 @@ TIKTOK RULES:
 - Maximum ${options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT} characters.
 - Today's TikTok angle: ${platformVariants.tiktok?.label} - ${platformVariants.tiktok?.angle}.
 - Treat tiktokCaption as the TikTok video description/caption.
-- Aim for 140-300 characters even though the hard platform cap is higher.
-- Use this search-first structure:
-  Line 1: a short hook under 80 characters that includes ${tokenName} or $${symbol.toUpperCase()} plus a searchable phrase like "crypto market update", "altcoin watchlist", or the token's narrative.
-  Line 2: 2-3 concrete market data points, written naturally.
-  Line 3: one risk or confirmation filter. Do not give trading advice.
+- Aim for 100-180 characters. Shorter is better on TikTok.
+- CRITICAL: Do NOT include dollar amounts, exact percentages, market cap numbers, or any raw financial metrics. TikTok suppresses this content.
+- Write in casual, lowercase, creator-native TikTok voice. Think "talking to a friend about crypto", not reading a financial report.
+- Structure:
+  Line 1: a casual hook about ${tokenName} that creates curiosity (e.g. "someone asked about ${symbol.toUpperCase()}" or "this one got my attention").
+  Line 2: one qualitative observation about direction or risk, no numbers.
+  Line 3: a question or CTA to drive comments (e.g. "agree?" or "what's your read?").
   Final line: @tokenradarco plus hashtags.
 - Mention @tokenradarco once.
-- End with exactly 3-5 relevant hashtags. Use a focused mix of token, narrative/category, crypto, and TokenRadar tags.
+- End with exactly 3 hashtags. Use the token symbol, #Crypto, and #TokenRadar.
 - Do not use generic reach tags such as #FYP, #ForYou, #ForYouPage, #viral, or #trending.
 - Do not say buy, sell, long, short, signal, entry, take-profit, guaranteed, financial advice, or price prediction.
 - No URLs, markdown, HTML, unsupported symbols, AI disclaimers, or rocket emojis.`,
