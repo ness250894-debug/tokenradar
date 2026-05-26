@@ -59,19 +59,30 @@ function removeDanglingTelegramTag(html: string): string {
 function closeAllowedTelegramTags(sanitized: string): string {
   const stack: string[] = [];
   const finalTagRegex = /<\/?(b|i|a|code|pre|tg-spoiler)(\s[^>]*)?\s*>/gi;
+  let result = "";
+  let lastIndex = 0;
   let match;
   while ((match = finalTagRegex.exec(sanitized)) !== null) {
     const isClosing = match[0].startsWith("</");
     const tagName = match[1].toLowerCase();
+    result += sanitized.slice(lastIndex, match.index);
+
     if (isClosing) {
-      const idx = stack.lastIndexOf(tagName);
-      if (idx !== -1) stack.splice(idx, 1);
+      const matchingIndex = stack.lastIndexOf(tagName);
+      if (matchingIndex !== -1) {
+        while (stack.length > matchingIndex) {
+          result += `</${stack.pop()}>`;
+        }
+      }
     } else {
       stack.push(tagName);
+      result += match[0];
     }
+
+    lastIndex = finalTagRegex.lastIndex;
   }
 
-  let result = sanitized;
+  result += sanitized.slice(lastIndex);
   while (stack.length > 0) {
     const tagName = stack.pop();
     result += `</${tagName}>`;

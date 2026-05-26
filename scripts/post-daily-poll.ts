@@ -15,12 +15,11 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { callAIWithFallback } from "../src/lib/gemini";
-import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
-import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
 import { sendTelegramPoll } from "../src/lib/telegram";
 import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { buildTelegramPollPayload } from "./lib/telegram-poll";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
 
@@ -135,49 +134,6 @@ RULES:
 Return ONLY the JSON.`;
 }
 
-const FALLBACK_POLL_OPTIONS = [
-  "Momentum quality",
-  "Liquidity depth",
-  "Risk profile",
-  "Need more data",
-];
-
-function sanitizePollField(value: unknown, maxLength: number): string {
-  return sanitizeSocialEditorialText(sanitizePostTextLinks(String(value || "")))
-    .slice(0, maxLength)
-    .trim();
-}
-
-function normalizeTelegramPollPayload(
-  payload: { question?: unknown; options?: unknown },
-  theme: PollTheme,
-): { question: string; options: string[] } {
-  const question =
-    sanitizePollField(payload.question, 300) ||
-    `Community Pulse: ${theme.example}`;
-
-  const options = Array.isArray(payload.options)
-    ? payload.options
-        .map((option) => sanitizePollField(option, 100))
-        .filter(Boolean)
-    : [];
-  const uniqueOptions = Array.from(
-    new Map(options.map((option) => [option.toLowerCase(), option])).values(),
-  );
-
-  for (const fallback of FALLBACK_POLL_OPTIONS) {
-    if (uniqueOptions.length >= 4) break;
-    if (!uniqueOptions.some((option) => option.toLowerCase() === fallback.toLowerCase())) {
-      uniqueOptions.push(fallback);
-    }
-  }
-
-  return {
-    question,
-    options: uniqueOptions.slice(0, 4),
-  };
-}
-
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
   const force = process.argv.includes("--force");
@@ -227,16 +183,15 @@ async function main() {
       throw new Error("AI output was not parseable as JSON.");
     }
 
-    const payload = JSON.parse(jsonMatch[0]) as { question: string; options: string[] };
-
-    if (!payload.question || typeof payload.question !== "string") {
-      throw new Error("AI returned invalid question.");
-    }
-    if (!Array.isArray(payload.options) || payload.options.length !== 4) {
-      throw new Error(`AI returned ${payload.options?.length ?? 0} options, expected 4.`);
+    const payload = JSON.parse(jsonMatch[0]) as unknown;
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      throw new Error("AI output was not a valid poll payload.");
     }
 
-    const { question, options } = normalizeTelegramPollPayload(payload, theme);
+    const { question, options } = buildTelegramPollPayload(
+      payload as { question?: unknown; options?: unknown },
+      `Community Pulse: ${theme.example}`,
+    );
 
     console.log(`  Question: ${question}`);
     console.log(`  Options: ${options.join(" | ")}`);

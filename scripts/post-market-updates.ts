@@ -48,6 +48,14 @@ import { listSocialPostContentKeys, recordSocialPost } from "../src/lib/ops-ledg
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
 import { getRecentPlatformTexts, getRecentSocialVariantKeys } from "./lib/social-history";
+import {
+  buildTelegramMarketPost,
+  getTelegramMarketVariantSurface,
+  parseTelegramMarketFormat,
+  type TelegramMarketFormat,
+  type TelegramMarketPostDraft,
+} from "../src/lib/telegram-market-formats";
+import { renderTelegramMarketImage } from "../src/lib/telegram-market-image";
 
 import {
   type MetricData,
@@ -64,6 +72,98 @@ loadEnv();
 const DATA_DIR = path.resolve(__dirname, "../data");
 
 type MarketPostPlatform = "telegram" | "x";
+
+function getArgValue(args: string[], name: string): string | undefined {
+  const index = args.indexOf(name);
+  return index !== -1 ? args[index + 1] : undefined;
+}
+
+function getTelegramFormatLabel(format: TelegramMarketFormat): string {
+  switch (format) {
+    case "market-pulse":
+      return "Market Pulse";
+    case "watchlist-check":
+      return "Watchlist Check";
+    default:
+      return "Market Brief";
+  }
+}
+
+function escapePreviewHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+async function writeTelegramPreview(options: {
+  previewDir: string;
+  format: TelegramMarketFormat;
+  caption: string;
+  image: Buffer | null;
+}): Promise<void> {
+  ensureDirSync(options.previewDir);
+
+  const baseName = `telegram-${options.format}`;
+  const textPath = path.join(options.previewDir, `${baseName}.txt`);
+  const htmlPath = path.join(options.previewDir, `${baseName}.html`);
+  const jsonPath = path.join(options.previewDir, `${baseName}.json`);
+  const imagePath = options.image ? path.join(options.previewDir, `${baseName}.png`) : null;
+
+  if (imagePath && options.image) {
+    await fs.promises.writeFile(imagePath, options.image);
+  }
+
+  await fs.promises.writeFile(textPath, options.caption, "utf-8");
+  await fs.promises.writeFile(
+    jsonPath,
+    JSON.stringify(
+      {
+        format: options.format,
+        caption: options.caption,
+        imagePath,
+      },
+      null,
+      2,
+    ),
+    "utf-8",
+  );
+
+  const imageTag = imagePath
+    ? `<img src="${escapePreviewHtml(path.basename(imagePath))}" alt="${escapePreviewHtml(getTelegramFormatLabel(options.format))}" />`
+    : "";
+  const captionHtml = options.caption.replace(/\n/g, "<br />");
+  await fs.promises.writeFile(
+    htmlPath,
+    `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapePreviewHtml(getTelegramFormatLabel(options.format))}</title>
+  <style>
+    body { margin: 0; background: #0f172a; color: #e5e7eb; font: 16px/1.45 Arial, sans-serif; padding: 32px; }
+    .post { width: min(560px, 100%); margin: 0 auto; background: #17212b; border-radius: 8px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.35); }
+    img { display: block; width: 100%; height: auto; }
+    .caption { padding: 18px 20px 22px; white-space: normal; }
+    a { color: #8ab4f8; }
+  </style>
+</head>
+<body>
+  <main class="post">
+    ${imageTag}
+    <div class="caption">${captionHtml}</div>
+  </main>
+</body>
+</html>
+`,
+    "utf-8",
+  );
+
+  console.log(`  Local Telegram preview written: ${htmlPath}`);
+}
 
 function parseMarketUpdateTokenId(contentKey: string): string | null {
   const parts = contentKey.split(":");
@@ -94,6 +194,15 @@ async function main() {
   const dryRun = args.includes("--dry-run");
   const includeLinkReply = args.includes("--link-reply");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
+  const previewDirArg = getArgValue(args, "--preview-dir") || getArgValue(args, "--local-preview-dir");
+  const previewDir = previewDirArg ? path.resolve(process.cwd(), previewDirArg) : undefined;
+  let telegramFormat: TelegramMarketFormat;
+  try {
+    telegramFormat = parseTelegramMarketFormat(getArgValue(args, "--format") || getArgValue(args, "--telegram-format"));
+  } catch (error) {
+    console.error(`  ✗ ${error instanceof Error ? error.message : String(error)}`);
+    process.exit(1);
+  }
   
   const platformIdx = args.indexOf("--platform");
   const targetPlatform = platformIdx !== -1 ? args[platformIdx + 1] : "all"; // x, telegram, all
@@ -112,13 +221,20 @@ async function main() {
   console.log(`  Target Range: #${startRank} — #${endRank}`);
   console.log(`  Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log(`  Platform: ${targetPlatform}`);
+  if (targetPlatform === "all" || targetPlatform === "telegram") {
+    console.log(`  Telegram Format: ${telegramFormat}`);
+  }
+  if (previewDir) {
+    console.log(`  Preview Dir: ${previewDir}`);
+  }
   console.log();
 
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
-  cleanupExpiredCooldownFolders(DATA_DIR);
-  
-  ensureDirSync(POSTED_DIR);
+  if (!dryRun) {
+    cleanupExpiredCooldownFolders(DATA_DIR);
+    ensureDirSync(POSTED_DIR);
+  }
 
   const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
   const runX = targetPlatform === "all" || targetPlatform === "x";
@@ -256,6 +372,7 @@ async function main() {
   let tgMessage = "";
   let xMessage = "";
   let xReplyMessage = "";
+  let telegramDraft: TelegramMarketPostDraft | null = null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 
@@ -264,21 +381,52 @@ async function main() {
   const captionOptions: UnifiedCaptionOptions = {};
   const contentVariants: Partial<Record<PlatformTarget, SocialContentVariant>> = {};
   if (runTelegram) {
-    console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
-    captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
-    captionPlatforms.push("telegram");
-    contentVariants.telegram = selectSocialContentVariant({
-      platform: "telegram",
-      usedVariantKeys: getRecentSocialVariantKeys(
-        DATA_DIR,
-        "telegram",
-        MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
-        new Date(),
-        "market-update",
-      ),
-      seedParts: [TODAY, "telegram", targetToken.id, reason, "market-update"],
-    });
-    console.log(`  Telegram variant: ${contentVariants.telegram.label} (${contentVariants.telegram.key})`);
+    if (telegramFormat === "market-brief") {
+      console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
+      captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
+      captionPlatforms.push("telegram");
+      contentVariants.telegram = selectSocialContentVariant({
+        platform: "telegram",
+        usedVariantKeys: getRecentSocialVariantKeys(
+          DATA_DIR,
+          "telegram",
+          MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
+          new Date(),
+          "market-update",
+        ),
+        seedParts: [TODAY, "telegram", targetToken.id, reason, "market-update"],
+      });
+      console.log(`  Telegram variant: ${contentVariants.telegram.label} (${contentVariants.telegram.key})`);
+    } else {
+      telegramDraft = buildTelegramMarketPost({
+        format: telegramFormat,
+        token: {
+          id: targetToken.id,
+          name: targetToken.name,
+          symbol: targetToken.symbol,
+          price: targetToken.market.price || 0,
+          priceChange24h: targetToken.market.priceChange24h || 0,
+          marketCap: targetToken.market.marketCap || 0,
+          volume24h: targetToken.market.volume24h || 0,
+          marketCapRank: targetToken.market.marketCapRank || 0,
+          riskScore: context.riskScore || 5,
+          selectionReason: reason,
+        },
+        context: {
+          globalStats: globalStatsStr,
+          sectorPerformance: sectorPerformanceStr,
+          generatedAt: new Date(),
+        },
+      });
+      tgMessage = telegramDraft.captionBody;
+      contentVariants.telegram = {
+        key: telegramDraft.variantKey,
+        label: telegramDraft.variantLabel,
+        angle: "deterministic image-backed Telegram market format",
+        promptInstruction: "Local formatter; no AI prompt required.",
+      };
+      console.log(`▶ Step 3/TG: Built Telegram ${telegramDraft.variantLabel} format.`);
+    }
   }
 
   if (runX) {
@@ -318,7 +466,7 @@ async function main() {
       captionOptions,
     );
 
-    if (runTelegram) tgMessage = captions.telegramSummary || "";
+    if (runTelegram && telegramFormat === "market-brief") tgMessage = captions.telegramSummary || "";
     if (runX) xMessage = captions.xTweet || "";
   }
 
@@ -341,21 +489,40 @@ async function main() {
     console.log(`Reason: ${selection.reason} | Time: ${timeOfDay} | Tone: ${tone}`);
   }
 
-  // ── Fetch OG image (shared between TG and X) ──
+  // ── Fetch/render image assets ──
+  let telegramImage: Buffer | null = null;
   let tokenImage: Buffer | null = null;
-  console.log(`▶ Fetching OG image for ${targetToken.id}...`);
-  tokenImage = await fetchTokenImage(targetToken.id, {
-    symbol: targetToken.symbol.toUpperCase(),
-    name: targetToken.name,
-    marketCap: targetToken.market.marketCap || 0,
-    volume24h: targetToken.market.volume24h || 0,
-    rank: targetToken.market.marketCapRank || 0,
-    risk: context.riskScore || 5,
-  });
-  if (tokenImage) {
-    console.log(`  ✓ OG image fetched (${(tokenImage.length / 1024).toFixed(1)} KB)`);
-  } else {
-    console.warn(`  ⚠ No OG image available, will post text-only.`);
+
+  if (telegramDraft?.image.kind === "market-pulse") {
+    console.log("▶ Rendering Telegram market pulse image...");
+    telegramImage = await renderTelegramMarketImage(telegramDraft.image.data);
+    console.log(`  ✓ Telegram market image rendered (${(telegramImage.length / 1024).toFixed(1)} KB)`);
+  }
+
+  const needsTokenImage = runX || !telegramImage;
+  if (needsTokenImage) {
+    const tokenCard = telegramDraft?.image.kind === "token-card"
+      ? telegramDraft.image.data
+      : {
+          symbol: targetToken.symbol.toUpperCase(),
+          name: targetToken.name,
+          marketCap: targetToken.market.marketCap || 0,
+          volume24h: targetToken.market.volume24h || 0,
+          rank: targetToken.market.marketCapRank || 0,
+          risk: context.riskScore || 5,
+        };
+
+    console.log(`▶ Fetching OG image for ${targetToken.id}...`);
+    tokenImage = await fetchTokenImage(targetToken.id, tokenCard);
+    if (tokenImage) {
+      console.log(`  ✓ OG image fetched (${(tokenImage.length / 1024).toFixed(1)} KB)`);
+    } else {
+      console.warn(`  ⚠ No OG image available, will post text-only.`);
+    }
+  }
+
+  if (!telegramImage) {
+    telegramImage = tokenImage;
   }
 
   const successfulPlatforms = new Set<"telegram" | "x">();
@@ -366,7 +533,7 @@ async function main() {
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
       const tokenLink = `${siteUrl}/${targetToken.id}`;
 
-      if (tokenImage) {
+      if (telegramImage) {
         // ── Photo mode: short caption (1024 char limit) ──
         const caption = buildTelegramMediaCaption(tgMessage, tgFooter, {
           maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
@@ -380,7 +547,7 @@ async function main() {
 
         if (!dryRun) {
           const api = getApi();
-          const msg = await api.sendPhoto(channelId as string, new InputFile(tokenImage), {
+          const msg = await api.sendPhoto(channelId as string, new InputFile(telegramImage), {
             caption,
             parse_mode: "HTML",
             reply_markup: keyboard,
@@ -391,6 +558,14 @@ async function main() {
         } else {
           console.log(`✅ [DRY RUN] Would have posted photo to Telegram with caption length: ${caption.length}`);
           console.log(`DEBUG CAPTION:\n${caption}`);
+          if (previewDir) {
+            await writeTelegramPreview({
+              previewDir,
+              format: telegramFormat,
+              caption,
+              image: telegramImage,
+            });
+          }
         }
       } else {
         // ── Text-only fallback ──
@@ -432,6 +607,14 @@ async function main() {
         } else {
           console.log(`✅ [DRY RUN] Would have posted text to Telegram with length: ${finalTgMessage.length}`);
           console.log(`DEBUG MESSAGE:\n${finalTgMessage}`);
+          if (previewDir) {
+            await writeTelegramPreview({
+              previewDir,
+              format: telegramFormat,
+              caption: finalTgMessage,
+              image: null,
+            });
+          }
         }
       }
     } catch (error) {
@@ -488,6 +671,9 @@ async function main() {
   // Only mark platforms that actually posted successfully.
   if (!dryRun && successfulPlatforms.size > 0) {
     for (const platform of successfulPlatforms) {
+      const variantSurface = platform === "telegram"
+        ? telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat)
+        : "market-update";
       const tf = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
       if (!fs.existsSync(tf)) {
         fs.writeFileSync(tf, JSON.stringify({ 
@@ -498,7 +684,7 @@ async function main() {
           variantKey: contentVariants[platform]?.key,
           variantLabel: contentVariants[platform]?.label,
           variantPlatform: platform,
-          variantSurface: "market-update",
+          variantSurface,
           ...(platform === "x" ? { xText: xMessage } : {}),
           ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
         }, null, 2));
@@ -515,7 +701,7 @@ async function main() {
           tone,
           variantKey: contentVariants[platform]?.key,
           variantLabel: contentVariants[platform]?.label,
-          variantSurface: "market-update",
+          variantSurface,
           ...(platform === "x" ? { xText: xMessage } : {}),
           ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
         },
@@ -535,6 +721,7 @@ async function main() {
 
   if (dryRun) {
     console.log("✅ Dry run completed without posting or writing tracker files.");
+    if (previewDir) console.log("  Local preview files were written for review.");
     return;
   }
 
