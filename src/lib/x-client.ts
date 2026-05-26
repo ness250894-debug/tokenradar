@@ -609,15 +609,16 @@ export async function postTweetWithMedia(
       let segmentIndex = 0;
       for (let offset = 0; offset < mediaBuffer.length; offset += CHUNK_SIZE) {
         const chunk = mediaBuffer.subarray(offset, offset + CHUNK_SIZE);
-        const chunkBase64 = chunk.toString("base64");
         await withRetry(
           async () => {
             const appendUrl = `https://api.x.com/2/media/upload/${encodeURIComponent(uploadMediaId)}/append`;
-            const appendBody = JSON.stringify({ media: chunkBase64, segment_index: segmentIndex });
+            const mediaChunk = Uint8Array.from(chunk);
+            const appendBody = new FormData();
+            appendBody.set("media", new Blob([mediaChunk], { type: mimeType }), `segment-${segmentIndex}.mp4`);
+            appendBody.set("segment_index", String(segmentIndex));
             const appendResp = await fetch(appendUrl, {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${_cachedAccessToken}`,
               },
               body: appendBody,
@@ -701,7 +702,12 @@ export async function postTweetWithMedia(
     }
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
-    console.warn(`  ⚠ Media upload failed, falling back to text-only: ${redactSensitiveText(String(e?.data || e?.message || e))}`);
+    const mediaError = redactSensitiveText(String(e?.data || e?.message || e));
+    if (isVideo) {
+      console.warn(`  ⚠ Video upload failed; not publishing a text-only video tweet: ${mediaError}`);
+      throw _e;
+    }
+    console.warn(`  ⚠ Media upload failed, falling back to text-only: ${mediaError}`);
     // Add unique timestamp footprint to bypass X's 403 Duplicate Content filter
     cleanText = truncateForX(cleanText, 250) + `\n\n[🔄 ${Date.now().toString().slice(-4)}]`;
   }
