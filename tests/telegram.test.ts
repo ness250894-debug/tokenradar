@@ -32,6 +32,13 @@ describe("sanitizeHtmlForTelegram", () => {
     expect(result).toBe("<b><i><tg-spoiler>Risk note</tg-spoiler></i></b>");
   });
 
+  it("repairs crossed allowed tags into valid Telegram HTML nesting", () => {
+    const html = "<b><i>Crossed</b> tags</i>";
+    const result = sanitizeHtmlForTelegram(html);
+
+    expect(result).toBe("<b><i>Crossed</i></b> tags");
+  });
+
   it("preserves the premium Telegram signal footer", () => {
     const footer = getTelegramFooter("river");
     const result = sanitizeHtmlForTelegram(footer);

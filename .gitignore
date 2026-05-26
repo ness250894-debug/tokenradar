@@ -51,6 +51,7 @@ next-env.d.ts
 /src/data/cache/
 
 # dev scratch files
+/tmp/
 test-*.ts
 scripts/test-*.ts
 !tests/**
