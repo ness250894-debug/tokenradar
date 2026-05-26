@@ -1687,5 +1687,62 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-24T18:50:56.960Z",
     "discoveredAt": "2026-05-24T18:50:56.960Z"
+  },
+  {
+    "id": "luffa-ai",
+    "name": "Luffa AI",
+    "symbol": "TBD",
+    "category": "AI/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/press-releases/luffa-secures-strategic-investment-from-gofintech-quantum-at-us220-million-valuation-pioneering-ai-fintech-frontier",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/press-releases/luffa-secures-strategic-investment-from-gofintech-quantum-at-us220-million-valuation-pioneering-ai-fintech-frontier",
+        "title": "Luffa secures strategic investment from GoFintech Quantum at US$220 million valuation, pioneering AI + fintech frontier",
+        "observedAt": "2024-05-25"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-26T19:48:04.172Z",
+    "discoveredAt": "2026-05-26T19:48:04.172Z"
+  },
+  {
+    "id": "liquid",
+    "name": "Liquid",
+    "symbol": "TBD",
+    "category": "DeFi/AI",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/liquid-launches-chatgpt-and-claude-trading-app-with-live-market-execution",
+    "lifecycleStatus": "graduated",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/liquid-launches-chatgpt-and-claude-trading-app-with-live-market-execution",
+        "title": "Liquid launches ChatGPT and Claude trading app with live market execution",
+        "observedAt": "2024-05-25"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-05-26T19:50:14.003Z",
+    "discoveredAt": "2026-05-26T19:48:04.172Z",
+    "graduatedAt": "2026-05-26T19:50:14.003Z",
+    "coingeckoRank": 11473,
+    "graduationEvidence": {
+      "coingeckoId": "liquid",
+      "coingeckoRank": 11473,
+      "rank": 11473,
+      "priceUsd": 0.00000516,
+      "volume24h": 19.22,
+      "matchedBy": "id",
+      "verifiedAt": "2026-05-26T19:50:14.003Z"
+    }
   }
 ]
