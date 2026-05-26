@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-05-24T18:53:05.255Z",
-    "tokenCount": 526,
+    "tokenCount": 524,
     "topIntents": [
       {
         "intent": "risk",
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 86,
+        "tokenCount": 84,
         "avgScore": 86
       },
       {
@@ -13763,83 +13763,6 @@
       ],
       "computedAt": "2026-05-24T18:53:05.255Z"
     },
-    "gensyn": {
-      "tokenId": "gensyn",
-      "tokenName": "Gensyn",
-      "symbol": "ai",
-      "attentionScore": 69,
-      "attentionLabel": "Rising",
-      "hypeScore": 62,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Gensyn token unlock",
-            "Gensyn circulating supply",
-            "Gensyn tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 80,
-          "queries": [
-            "Gensyn AI crypto",
-            "Gensyn AI agent",
-            "AI AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 78,
-          "queries": [
-            "Gensyn risks",
-            "is Gensyn safe",
-            "Gensyn scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 49,
-          "queries": [
-            "how to buy Gensyn",
-            "where to buy Gensyn",
-            "AI crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 112.7% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Gensyn token unlock",
-        "Gensyn circulating supply",
-        "Gensyn tokenomics",
-        "Gensyn AI crypto",
-        "Gensyn AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-05-24T18:53:05.255Z"
-    },
     "geodnet": {
       "tokenId": "geodnet",
       "tokenName": "Geodnet",
@@ -14440,85 +14363,6 @@
         "GRASS AI token",
         "how to buy Grass",
         "where to buy Grass"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-05-24T18:53:05.255Z"
-    },
-    "greyhunt": {
-      "tokenId": "greyhunt",
-      "tokenName": "Greyhunt",
-      "symbol": "hunt",
-      "attentionScore": 53,
-      "attentionLabel": "Watch",
-      "hypeScore": 61,
-      "fundamentalsScore": 26,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Greyhunt token unlock",
-            "Greyhunt circulating supply",
-            "Greyhunt tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 81,
-          "queries": [
-            "Greyhunt AI crypto",
-            "Greyhunt AI agent",
-            "HUNT AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "Greyhunt risks",
-            "is Greyhunt safe",
-            "Greyhunt scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 70,
-          "queries": [
-            "Greyhunt meme coin",
-            "Greyhunt price prediction",
-            "is Greyhunt worth buying"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 19.2% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Greyhunt token unlock",
-        "Greyhunt circulating supply",
-        "Greyhunt tokenomics",
-        "Greyhunt AI crypto",
-        "Greyhunt AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
