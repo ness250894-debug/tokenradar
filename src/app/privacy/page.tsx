@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CookiePreferencesButton } from "@/components/CookiePreferencesButton";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
-const lastUpdated = "May 13, 2026";
+const lastUpdated = "May 26, 2026";
 const description =
   "Token Radar privacy policy - how the public TokenRadar website collects, uses, shares, and protects data.";
 
@@ -108,9 +108,13 @@ export default function PrivacyPage() {
           <h2>Cookies and Analytics Choices</h2>
           <p>
             TokenRadar does not require account cookies for site access.
-            Non-essential Google Analytics tags are loaded only after you accept
-            analytics cookies through our site banner. You may reject analytics
-            cookies and continue using the site.
+            Google Analytics loads in Consent Mode with analytics storage denied
+            by default. Before you accept analytics cookies, the tag may send
+            cookieless consent-mode pings, but it is configured not to store
+            analytics cookies. If you accept analytics cookies through our site
+            banner, Google Analytics may store analytics cookies and receive
+            page and interaction events. You may reject analytics cookies and
+            continue using the site.
           </p>
           <p>
             If Google AdSense or other ads are enabled, Google and other ad
@@ -128,8 +132,9 @@ export default function PrivacyPage() {
           <p>We may share limited information with these categories of recipients:</p>
           <ul>
             <li>
-              <strong>Analytics providers:</strong> Google Analytics, when
-              enabled with user consent.
+              <strong>Analytics providers:</strong> Google Analytics, using
+              Consent Mode defaults and analytics cookies only after user
+              consent.
             </li>
             <li>
               <strong>Form processors:</strong> Formspree, for contact-form
