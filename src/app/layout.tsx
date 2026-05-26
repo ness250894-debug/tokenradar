@@ -15,6 +15,10 @@ import { PwaServiceWorker } from "@/components/PwaServiceWorker";
 import { WatchlistOfflineSync } from "@/components/WatchlistOfflineSync";
 import { getSiteUrl } from "@/lib/seo";
 import { CONTACT_EMAIL, SOCIAL } from "@/lib/config";
+import {
+  getGoogleAnalyticsBootstrapScript,
+  sanitizeGoogleAnalyticsMeasurementId,
+} from "@/lib/google-analytics";
 
 const siteUrl = getSiteUrl();
 
@@ -107,7 +111,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaMeasurementId = (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "").replace(/[^A-Z0-9-]/gi, "");
+  const gaMeasurementId = sanitizeGoogleAnalyticsMeasurementId(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
+  const googleAnalyticsBootstrapScript = getGoogleAnalyticsBootstrapScript(gaMeasurementId);
   const cloudflareWebAnalyticsToken = (process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN || "").trim();
 
   return (
@@ -175,6 +180,11 @@ export default function RootLayout({
             ],
           }}
         />
+        {googleAnalyticsBootstrapScript ? (
+          <Script id="google-analytics-bootstrap" strategy="beforeInteractive">
+            {googleAnalyticsBootstrapScript}
+          </Script>
+        ) : null}
       </head>
       <body className={`${outfit.variable} ${jetbrainsMono.variable}`}>
         <ProgressBarProvider>

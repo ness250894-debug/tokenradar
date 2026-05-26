@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { setBrowserStorageItem } from "@/lib/browser-storage";
-import { ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED } from "./CookieConsent";
+import {
+  ANALYTICS_CONSENT_KEY,
+  ANALYTICS_CONSENT_REJECTED,
+  denyGoogleAnalyticsConsent,
+} from "@/lib/google-analytics";
 
 export function CookiePreferencesButton() {
   const [status, setStatus] = useState<string | null>(null);
@@ -11,8 +15,7 @@ export function CookiePreferencesButton() {
     const analyticsScript = document.querySelector<HTMLScriptElement>("script[data-tokenradar-ga]");
     const measurementId = analyticsScript?.dataset.tokenradarGa;
     if (measurementId) {
-      const win = window as typeof window & Record<`ga-disable-${string}`, boolean>;
-      win[`ga-disable-${measurementId}`] = true;
+      denyGoogleAnalyticsConsent(measurementId);
     }
 
     setBrowserStorageItem(ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED);

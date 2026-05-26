@@ -3,43 +3,13 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getBrowserStorageItem, setBrowserStorageItem } from "@/lib/browser-storage";
-
-const CONSENT_KEY = "tokenradar-analytics-consent";
-const ACCEPTED = "accepted";
-const REJECTED = "rejected";
-
-function isValidMeasurementId(value: string): boolean {
-  return /^[A-Z0-9-]+$/i.test(value);
-}
-
-function loadGoogleAnalytics(measurementId: string): void {
-  if (!measurementId || !isValidMeasurementId(measurementId)) return;
-
-  const win = window as typeof window & {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  };
-
-  if (document.querySelector(`script[data-tokenradar-ga="${measurementId}"]`)) {
-    return;
-  }
-
-  win.dataLayer = win.dataLayer || [];
-  win.gtag = win.gtag || function gtag(...args: unknown[]) {
-    win.dataLayer?.push(args);
-  };
-  win.gtag("js", new Date());
-  win.gtag("config", measurementId, {
-    anonymize_ip: true,
-    send_page_view: true,
-  });
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-  script.dataset.tokenradarGa = measurementId;
-  document.head.appendChild(script);
-}
+import {
+  ANALYTICS_CONSENT_ACCEPTED,
+  ANALYTICS_CONSENT_KEY,
+  ANALYTICS_CONSENT_REJECTED,
+  denyGoogleAnalyticsConsent,
+  grantGoogleAnalyticsConsent,
+} from "@/lib/google-analytics";
 
 export function CookieConsent({ measurementId }: { measurementId: string }) {
   const [visible, setVisible] = useState(false);
@@ -47,28 +17,32 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
   useEffect(() => {
     if (!measurementId) return;
 
-    const savedConsent = getBrowserStorageItem(CONSENT_KEY);
-    if (savedConsent === ACCEPTED) {
-      loadGoogleAnalytics(measurementId);
+    const savedConsent = getBrowserStorageItem(ANALYTICS_CONSENT_KEY);
+    if (savedConsent === ANALYTICS_CONSENT_ACCEPTED) {
+      grantGoogleAnalyticsConsent(measurementId);
       return;
     }
 
-    if (savedConsent !== REJECTED) {
-      const timer = window.setTimeout(() => setVisible(true), 1200);
-      return () => window.clearTimeout(timer);
+    if (savedConsent === ANALYTICS_CONSENT_REJECTED) {
+      denyGoogleAnalyticsConsent(measurementId);
+      return;
     }
+
+    const timer = window.setTimeout(() => setVisible(true), 1200);
+    return () => window.clearTimeout(timer);
   }, [measurementId]);
 
   const acceptAnalytics = useCallback(() => {
-    setBrowserStorageItem(CONSENT_KEY, ACCEPTED);
-    loadGoogleAnalytics(measurementId);
+    setBrowserStorageItem(ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_ACCEPTED);
+    grantGoogleAnalyticsConsent(measurementId);
     setVisible(false);
   }, [measurementId]);
 
   const rejectAnalytics = useCallback(() => {
-    setBrowserStorageItem(CONSENT_KEY, REJECTED);
+    setBrowserStorageItem(ANALYTICS_CONSENT_KEY, ANALYTICS_CONSENT_REJECTED);
+    denyGoogleAnalyticsConsent(measurementId);
     setVisible(false);
-  }, []);
+  }, [measurementId]);
 
   if (!measurementId || !visible) return null;
 
@@ -93,6 +67,3 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
     </div>
   );
 }
-
-export const ANALYTICS_CONSENT_KEY = CONSENT_KEY;
-export const ANALYTICS_CONSENT_REJECTED = REJECTED;

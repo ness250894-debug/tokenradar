@@ -1,4 +1,9 @@
 import { getBrowserStorageItem, removeBrowserStorageItem, setBrowserStorageItem } from "./browser-storage";
+import {
+  ANALYTICS_CONSENT_ACCEPTED,
+  ANALYTICS_CONSENT_KEY,
+  hasAcceptedGoogleAnalyticsConsent,
+} from "./google-analytics";
 
 type AnalyticsValue = string | number | boolean | undefined;
 type AnalyticsParams = Record<string, AnalyticsValue>;
@@ -11,12 +16,9 @@ export interface LocalAnalyticsEvent {
 
 const LOCAL_ANALYTICS_KEY = "tokenradar.analytics.events";
 const MAX_LOCAL_ANALYTICS_EVENTS = 100;
-const ANALYTICS_CONSENT_KEY = "tokenradar-analytics-consent";
-const ANALYTICS_CONSENT_ACCEPTED = "accepted";
-
 declare global {
   interface Window {
-    gtag?: (command: "event", eventName: string, params?: AnalyticsParams) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -25,7 +27,7 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}): voi
 
   const cleanedParams = cleanAnalyticsParams(params);
 
-  if (typeof window.gtag === "function") {
+  if (hasAcceptedGoogleAnalyticsConsent() && typeof window.gtag === "function") {
     window.gtag("event", eventName, cleanedParams);
   }
 
