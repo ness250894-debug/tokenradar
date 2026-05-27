@@ -12,6 +12,8 @@ const SPECIAL_POSTED_FILES = new Set([
   "daily-telegram-movers.json",
   "daily-telegram-poll.json",
   "daily-threads-text.json",
+  "weekly-telegram-recap.json",
+  "weekly-threads-recap.json",
   "interactive-daily.json",
 ]);
 
@@ -146,6 +148,20 @@ function collectPostedRecords(dataDir: string): SocialPostRecord[] {
       if (fileName === "daily-threads-text.json") {
         records.push(record(dateDir, "threads", `${dateDir}:threads-text`, payload, {
           tokenId: stringField(payload, "tokenId") || null,
+        }));
+        continue;
+      }
+
+      if (fileName === "weekly-threads-recap.json") {
+        records.push(record(dateDir, "threads", `${dateDir}:threads-weekly-recap`, payload, {
+          tokenIds: Array.isArray(payload.tokenIds) ? payload.tokenIds : null,
+        }));
+        continue;
+      }
+
+      if (fileName === "weekly-telegram-recap.json") {
+        records.push(record(dateDir, "telegram", `${dateDir}:telegram-weekly-recap`, payload, {
+          tokenIds: Array.isArray(payload.tokenIds) ? payload.tokenIds : null,
         }));
         continue;
       }

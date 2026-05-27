@@ -8,6 +8,7 @@
  *   npx tsx scripts/post-threads-daily.ts
  *   npx tsx scripts/post-threads-daily.ts --dry-run
  *   npx tsx scripts/post-threads-daily.ts --force
+ *   npx tsx scripts/post-threads-daily.ts --format weekly-recap
  */
 
 import * as fs from "fs";
@@ -22,6 +23,7 @@ import { logError } from "../src/lib/reporter";
 import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { buildWeeklyThreadsRecap, selectWeeklyRecapTokens, type WeeklyThreadsRecap } from "./lib/threads-recap";
 import {
   type MetricData,
   cleanupExpiredCooldownFolders,
@@ -34,7 +36,10 @@ import {
 loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
-const TRACKER_FILE_NAME = "daily-threads-text.json";
+const TEXT_TRACKER_FILE_NAME = "daily-threads-text.json";
+const WEEKLY_RECAP_TRACKER_FILE_NAME = "weekly-threads-recap.json";
+
+type ThreadsPostMode = "text" | "weekly-recap";
 
 interface ThreadsTextTracker {
   postedAt: string;
@@ -47,6 +52,50 @@ interface ThreadsTextTracker {
   variantKey?: string;
   variantLabel?: string;
   variantSurface?: string;
+}
+
+interface ThreadsWeeklyRecapTracker {
+  platform: "threads";
+  postedAt: string;
+  postId: string;
+  tokenIds: string[];
+  threadsText: string;
+  topicTag: string;
+  leaders: Array<{ id: string; symbol: string; name: string; priceChange7d: number | null }>;
+  pullback?: { id: string; symbol: string; name: string; priceChange7d: number | null };
+  volumeLeader?: { id: string; symbol: string; name: string; volume24h: number | null };
+  variantSurface: "threads-weekly-recap";
+}
+
+function getThreadsPostMode(args: string[] = process.argv): ThreadsPostMode {
+  const formatIndex = args.indexOf("--format");
+  const format = formatIndex >= 0 ? args[formatIndex + 1]?.trim().toLowerCase() : "";
+  if (args.includes("--weekly-recap") || format === "weekly-recap" || format === "recap") {
+    return "weekly-recap";
+  }
+  return "text";
+}
+
+function weeklyTrackerToken(token: WeeklyThreadsRecap["leaders"][number]) {
+  return {
+    id: token.id,
+    symbol: token.symbol,
+    name: token.name,
+    priceChange7d: typeof token.market.priceChange7d === "number" && Number.isFinite(token.market.priceChange7d)
+      ? token.market.priceChange7d
+      : null,
+  };
+}
+
+function weeklyTrackerVolumeToken(token: NonNullable<WeeklyThreadsRecap["volumeLeader"]>) {
+  return {
+    id: token.id,
+    symbol: token.symbol,
+    name: token.name,
+    volume24h: typeof token.market.volume24h === "number" && Number.isFinite(token.market.volume24h)
+      ? token.market.volume24h
+      : null,
+  };
 }
 
 function sanitizeThreadsTopicTag(topicTag: string | undefined): string {
@@ -112,10 +161,13 @@ function buildThreadsContent(
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
   const force = process.argv.includes("--force");
+  const mode = getThreadsPostMode();
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
-  const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
-  const socialPostKey = `${today}:threads-text`;
+  const trackerFileName = mode === "weekly-recap" ? WEEKLY_RECAP_TRACKER_FILE_NAME : TEXT_TRACKER_FILE_NAME;
+  const trackerFile = path.join(postedDir, trackerFileName);
+  const socialPostKey = `${today}:${mode === "weekly-recap" ? "threads-weekly-recap" : "threads-text"}`;
+  const postLabel = mode === "weekly-recap" ? "Threads weekly recap" : "Threads text signal";
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -126,20 +178,74 @@ async function main() {
 
   if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("threads", socialPostKey))) {
     const existing = safeReadJson<ThreadsTextTracker | null>(trackerFile, null);
-    console.log(`Threads text signal already posted today (${existing?.postedAt || "D1 ledger"}). Exiting.`);
+    console.log(`${postLabel} already posted today (${existing?.postedAt || "D1 ledger"}). Exiting.`);
     return;
   }
 
   fs.mkdirSync(postedDir, { recursive: true });
 
   try {
-    console.log("Loading token candidates for Threads text signal...");
+    console.log(`Loading token candidates for ${postLabel.toLowerCase()}...`);
     const metricsDir = path.join(DATA_DIR, "metrics");
     const {
       candidates,
       allRegistry,
       onWebsiteIds,
     } = await loadCandidateTokens(DATA_DIR, 1, 250);
+
+    if (mode === "weekly-recap") {
+      const recap = buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
+
+      console.log();
+      console.log("Threads weekly recap preview:");
+      console.log(recap.caption);
+      console.log(`Topic: ${recap.topicTag}`);
+      console.log(`Tokens: ${recap.tokenIds.join(", ")}`);
+
+      if (dryRun) {
+        console.log("Dry run - Threads weekly recap not posted.");
+        return;
+      }
+
+      const result = await publishThreadsText(recap.caption, {
+        topicTag: recap.topicTag,
+      });
+      const postedAt = new Date().toISOString();
+
+      fs.writeFileSync(
+        trackerFile,
+        JSON.stringify(
+          {
+            platform: "threads",
+            postedAt,
+            postId: result.id,
+            tokenIds: recap.tokenIds,
+            threadsText: recap.caption,
+            topicTag: recap.topicTag,
+            leaders: recap.leaders.map(weeklyTrackerToken),
+            pullback: recap.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
+            volumeLeader: recap.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
+            variantSurface: "threads-weekly-recap",
+          } satisfies ThreadsWeeklyRecapTracker,
+          null,
+          2,
+        ),
+      );
+      await recordSocialPost({
+        platform: "threads",
+        contentKey: socialPostKey,
+        externalId: result.id,
+        postedAt,
+        details: {
+          tokenIds: recap.tokenIds,
+          topicTag: recap.topicTag,
+          variantSurface: "threads-weekly-recap",
+        },
+      });
+
+      console.log(`Threads weekly recap posted successfully (Post ID: ${result.id})`);
+      return;
+    }
 
     const todayPosted = force ? new Set<string>() : getTodayPostedTokens(DATA_DIR, today, "all");
     const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR, "all");
@@ -270,7 +376,7 @@ async function main() {
     if (!dryRun) {
       await logError("post-threads-daily", error);
     }
-    console.error(`Threads text signal failed: ${formatErrorForLog(error)}`);
+    console.error(`${postLabel} failed: ${formatErrorForLog(error)}`);
     process.exit(1);
   }
 }

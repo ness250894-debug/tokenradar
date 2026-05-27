@@ -47,6 +47,7 @@ export interface TokenData {
   market: {
     price: number;
     priceChange24h: number;
+    priceChange7d?: number | null;
     marketCap: number;
     marketCapRank: number;
     volume24h: number;
@@ -133,6 +134,10 @@ function hasNewlyPublishedSocialActivity(token: TokenData): boolean {
 
   return Math.abs(token.market.priceChange24h) >= MIN_NEWLY_PUBLISHED_ABS_CHANGE_24H ||
     volumeToMarketCapRatio(token) >= MIN_NEWLY_PUBLISHED_VOLUME_TO_CAP_RATIO;
+}
+
+function finiteNumber(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }
 
 function dateKey(date: Date): string {
@@ -443,6 +448,8 @@ export async function loadCandidateTokens(
       : undefined;
     const localFetchedAt = typeof local.fetchedAt === "string" ? local.fetchedAt : undefined;
     const localLastMarketUpdate = typeof local.lastMarketUpdate === "string" ? local.lastMarketUpdate : localFetchedAt;
+    const freshPriceChange7d = finiteNumber(freshRecord?.price_change_percentage_7d_in_currency);
+    const localPriceChange7d = finiteNumber(local.market?.priceChange7d);
 
     return {
       id: local.id,
@@ -467,6 +474,7 @@ export async function loadCandidateTokens(
         // can be wildly outdated (e.g., 588,000% from a one-time pump)
         // and permanently dominate the top-gainer selection.
         priceChange24h: fresh?.price_change_percentage_24h ?? 0,
+        priceChange7d: freshPriceChange7d ?? localPriceChange7d ?? null,
         marketCap: fresh?.market_cap || local.market?.marketCap || 0,
         marketCapRank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
         volume24h: fresh?.total_volume || local.market?.volume24h || 0,
