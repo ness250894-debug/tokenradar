@@ -24,7 +24,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import { logError } from "../src/lib/reporter";
-import { postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
+import { getMissingXCredentialNames, postPoll, postTweet, type PollOptions } from "../src/lib/x-client";
 import {
   POLL_DURATION_MINUTES,
   INTERACTIVE_POST_NARRATIVES,
@@ -210,7 +210,7 @@ async function main() {
 
   // ── Credential check ──
   if (!dryRun) {
-    if (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN) {
+    if (getMissingXCredentialNames().length > 0) {
       console.error("  ✗ Missing X (Twitter) OAuth 2.0 credentials.");
       process.exit(1);
     }

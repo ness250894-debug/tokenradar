@@ -35,7 +35,7 @@ import { sanitizePostTextLinks } from "./social-link-policy";
  */
 export function sanitizeCashtags(text: string): string {
   let foundFirst = false;
-  return text.replace(/\$([A-Z]{1,})\b/g, (_match, symbol: string) => {
+  return text.replace(/\$([A-Z]{1,6}(?:[._][A-Z]{1,2})?)\b/gi, (_match, symbol: string) => {
     if (!foundFirst) {
       foundFirst = true;
       return `$${symbol}`; // keep the first one
@@ -52,18 +52,31 @@ interface OAuth2Credentials {
   refreshToken: string;
 }
 
+type XCredentialEnv = Record<string, string | undefined>;
+
+export function getMissingXCredentialNames(
+  env: XCredentialEnv = process.env,
+  options: { requireClientSecret?: boolean } = {},
+): string[] {
+  const missing: string[] = [];
+  if (!env.X_OAUTH2_CLIENT_ID) missing.push("X_OAUTH2_CLIENT_ID");
+  if (options.requireClientSecret && !env.X_OAUTH2_CLIENT_SECRET) {
+    missing.push("X_OAUTH2_CLIENT_SECRET");
+  }
+  if (!env.X_OAUTH2_REFRESH_TOKEN) missing.push("X_OAUTH2_REFRESH_TOKEN");
+  return missing;
+}
+
 /**
  * Ensures required X OAuth 2.0 and API credentials exist.
- * Includes clientSecret for Confidential Client authentication.
+ * Client secret is optional for PKCE public-client authentication.
  */
 export function validateXCredentials(): OAuth2Credentials {
   const clientId = process.env.X_OAUTH2_CLIENT_ID;
   const clientSecret = process.env.X_OAUTH2_CLIENT_SECRET;
   const refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
 
-  const missing: string[] = [];
-  if (!clientId) missing.push("X_OAUTH2_CLIENT_ID");
-  if (!refreshToken) missing.push("X_OAUTH2_REFRESH_TOKEN");
+  const missing = getMissingXCredentialNames();
 
   if (missing.length > 0) {
     throw new Error(
@@ -677,6 +690,11 @@ export async function postTweetWithMedia(
           state = pi?.state ?? "succeeded";
           checkAfterSecs = (pi?.check_after_secs ?? pi?.checkAfterSecs ?? 5) as number;
         }
+        if (state !== "succeeded") {
+          throw new Error(
+            `Video processing did not complete after ${MAX_POLLS} polls (last state: ${state})`
+          );
+        }
       }
 
       mediaId = uploadMediaId;
@@ -721,7 +739,10 @@ export async function postTweetWithMedia(
       tweetBody.reply = { in_reply_to_tweet_id: replyToTweetId };
     }
 
-    const response = await client.posts.create(tweetBody);
+    const response = await withRetry(
+      () => client.posts.create(tweetBody),
+      "postTweetWithMedia"
+    );
     const tweetId = response?.data?.id;
     if (!tweetId) throw new Error("No tweet ID in response");
     return tweetId;
@@ -745,6 +766,27 @@ export interface PollOptions {
   durationMinutes?: number;
 }
 
+const X_POLL_MIN_OPTIONS = 2;
+const X_POLL_MAX_OPTIONS = 4;
+const X_POLL_MAX_OPTION_LENGTH = 25;
+
+function normalizePollOptions(options: string[]): string[] {
+  const normalized = options
+    .map((option) => {
+      const cleanOption = sanitizePostTextLinks(stripHtmlForX(String(option))).trim();
+      return truncateForX(cleanOption, X_POLL_MAX_OPTION_LENGTH);
+    })
+    .map((option) => option.trim())
+    .filter((option) => option.length > 0)
+    .slice(0, X_POLL_MAX_OPTIONS);
+
+  if (normalized.length < X_POLL_MIN_OPTIONS) {
+    throw new Error(`X polls require at least ${X_POLL_MIN_OPTIONS} non-empty options.`);
+  }
+
+  return normalized;
+}
+
 /**
  * Post a poll tweet using the XDK.
  *
@@ -760,7 +802,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
 
   // Sanitize the question text
   const cleanText = truncateForX(sanitizeCashtags(sanitizePostTextLinks(stripHtmlForX(poll.text))));
-  const cleanPollOptions = poll.options.map((option) => sanitizePostTextLinks(option));
+  const cleanPollOptions = normalizePollOptions(poll.options);
 
   // ── Attempt 1: Native poll ──
   try {
@@ -787,7 +829,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
 
   // ── Attempt 2: Text-based fallback ──
   // Strip $ from options to avoid violating the one-cashtag rule
-  const cleanOptions = cleanPollOptions.map((opt) => opt.replace(/\$([A-Z]+)\b/g, "$1"));
+  const cleanOptions = cleanPollOptions.map((opt) => opt.replace(/\$([A-Za-z][A-Za-z0-9_]*)\b/g, "$1"));
 
   const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣"];
   const fallbackLines = [
@@ -812,9 +854,8 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
     console.info("  ✓ Text-based fallback poll posted successfully");
     return { tweetId, native: false };
   } catch (_e2: unknown) {
-    const e2 = _e2 as Record<string, unknown>;
-    console.error("  ✗ Fallback tweet also failed. Full error details:", JSON.stringify(e2, null, 2));
-    throw e2;
+    console.error(`  ✗ Fallback tweet also failed: ${redactSensitiveText(formatErrorForLog(_e2))}`);
+    throw _e2;
   }
 }
 

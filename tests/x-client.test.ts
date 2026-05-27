@@ -2,8 +2,10 @@ import { describe, it, expect } from "vitest";
 import {
   calculateXPostSimilarity,
   diversifyXPostText,
+  getMissingXCredentialNames,
   isTooSimilarForXPost,
   normalizeForXSimilarity,
+  sanitizeCashtags,
   stripHtmlForX,
   truncateForX,
 } from "../src/lib/x-client";
@@ -120,5 +122,24 @@ describe("X post similarity helpers", () => {
     expect(diversified).not.toBe(candidate);
     expect(diversified.length).toBeLessThanOrEqual(260);
     expect((diversified.match(/\$[A-Z]+/g) || []).length).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("sanitizeCashtags", () => {
+  it("keeps only the first valid X cashtag and leaves invalid digit symbols alone", () => {
+    expect(sanitizeCashtags("$btc and $Sol.US and $PEPE2 are moving")).toBe(
+      "$btc and Sol.US and $PEPE2 are moving",
+    );
+  });
+});
+
+describe("X credential requirements", () => {
+  it("does not require a client secret for PKCE public-client posting flows", () => {
+    expect(
+      getMissingXCredentialNames({
+        X_OAUTH2_CLIENT_ID: "client-id",
+        X_OAUTH2_REFRESH_TOKEN: "refresh-token",
+      }),
+    ).toEqual([]);
   });
 });

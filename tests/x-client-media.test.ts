@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 const xdkMocks = vi.hoisted(() => {
   const refreshToken = vi.fn();
+  const uploadMedia = vi.fn();
   const initializeUpload = vi.fn();
   const finalizeUpload = vi.fn();
   const getUploadStatus = vi.fn();
@@ -9,6 +10,7 @@ const xdkMocks = vi.hoisted(() => {
 
   return {
     refreshToken,
+    uploadMedia,
     initializeUpload,
     finalizeUpload,
     getUploadStatus,
@@ -17,6 +19,9 @@ const xdkMocks = vi.hoisted(() => {
       refreshToken.mockReset().mockResolvedValue({
         access_token: "access-token",
         expires_in: 7200,
+      });
+      uploadMedia.mockReset().mockResolvedValue({
+        data: { id: "image-123" },
       });
       initializeUpload.mockReset().mockResolvedValue({
         data: { id: "media-123" },
@@ -38,6 +43,7 @@ vi.mock("@xdevplatform/xdk", () => ({
   },
   Client: class {
     media = {
+      upload: xdkMocks.uploadMedia,
       initializeUpload: xdkMocks.initializeUpload,
       finalizeUpload: xdkMocks.finalizeUpload,
       getUploadStatus: xdkMocks.getUploadStatus,
@@ -110,5 +116,96 @@ describe("postTweetWithMedia video upload", () => {
     expect(warnSpy).toHaveBeenCalledWith(
       expect.stringContaining("not publishing a text-only video tweet"),
     );
+  });
+
+  it("retries final media tweet creation after a transient X API failure", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.createPost
+      .mockRejectedValueOnce(Object.assign(new Error("temporary outage"), { status: 503 }))
+      .mockResolvedValueOnce({ data: { id: "tweet-retry" } });
+
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+
+    await expect(
+      postTweetWithMedia("Ethereum chart", Buffer.alloc(1024, 1), "image/png"),
+    ).resolves.toBe("tweet-retry");
+
+    expect(xdkMocks.createPost).toHaveBeenCalledTimes(2);
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("X API [postTweetWithMedia] failed"),
+    );
+  });
+
+  it("does not publish a video tweet when processing never completes", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.finalizeUpload.mockResolvedValueOnce({
+      data: { processingInfo: { state: "pending", checkAfterSecs: 0 } },
+    });
+    xdkMocks.getUploadStatus.mockResolvedValue({
+      data: { processingInfo: { state: "in_progress", checkAfterSecs: 0 } },
+    });
+
+    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+
+    await expect(
+      postTweetWithMedia("Ethereum video", Buffer.alloc(1024, 1), "video/mp4"),
+    ).rejects.toThrow("Video processing did not complete");
+
+    expect(xdkMocks.createPost).not.toHaveBeenCalled();
+  });
+
+  it("normalizes poll options before creating a native poll", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+
+    const { postPoll } = await import("../src/lib/x-client");
+
+    await postPoll({
+      text: "Which setup looks strongest?",
+      options: [
+        "  Alpha momentum with a very long label  ",
+        "",
+        "$ETH rotation",
+        "Gamma retest",
+        "Delta squeeze",
+        "Unused fifth option",
+      ],
+    });
+
+    expect(xdkMocks.createPost).toHaveBeenCalledWith({
+      text: "Which setup looks strongest?",
+      poll: {
+        options: [
+          "Alpha momentum with...",
+          "$ETH rotation",
+          "Gamma retest",
+          "Delta squeeze",
+        ],
+        duration_minutes: 1440,
+      },
+    });
+  });
+
+  it("rejects polls with fewer than two non-empty options", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+
+    const { postPoll } = await import("../src/lib/x-client");
+
+    await expect(
+      postPoll({
+        text: "Pick one",
+        options: ["", "   "],
+      }),
+    ).rejects.toThrow("at least 2");
+
+    expect(xdkMocks.createPost).not.toHaveBeenCalled();
   });
 });

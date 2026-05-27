@@ -68,11 +68,12 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("data/search-intent-history.json");
   });
 
-  it("keeps the added Telegram image posts on existing market slots without changing video distribution", () => {
+  it("keeps Telegram image slots and the all-platform video route wired", () => {
     const workflow = readWorkflow("social-automations.yml");
 
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse");
+    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)");
     expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform all");
   });
 });
