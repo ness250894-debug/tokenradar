@@ -1744,5 +1744,143 @@
       "matchedBy": "id",
       "verifiedAt": "2026-05-26T19:50:14.003Z"
     }
+  },
+  {
+    "id": "xbit-dex",
+    "name": "XBIT DEX",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Whitelist Live / Pre-launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/press-releases/prediction-markets-enter-the-derivatives-era-xbit-dex-opens-whitelist-for-prediction-leverage-launching-a-35000-usdc-campaign",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "TGE_Announced",
+        "sourceType": "Press Release",
+        "url": "https://cointelegraph.com/press-releases/prediction-markets-enter-the-derivatives-era-xbit-dex-opens-whitelist-for-prediction-leverage-launching-a-35000-usdc-campaign",
+        "title": "Prediction markets enter the derivatives era: XBIT DEX opens whitelist for prediction leverage, launching a 35,000 USDC campaign",
+        "observedAt": "2024-05-27T00:00:00Z"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.551Z",
+    "discoveredAt": "2026-05-27T19:51:14.551Z"
+  },
+  {
+    "id": "united-texas-bank",
+    "name": "United Texas Bank",
+    "symbol": "TBD",
+    "category": "CeFi/Payments",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/policy/2026/05/27/wall-street-gets-new-crypto-rival-after-texas-bank-completes-regulatory-pivot",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/policy/2026/05/27/wall-street-gets-new-crypto-rival-after-texas-bank-completes-regulatory-pivot",
+        "title": "Wall Street gets new crypto rival after Texas bank completes regulatory pivot",
+        "observedAt": "2026-05-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.551Z",
+    "discoveredAt": "2026-05-27T19:51:14.551Z"
+  },
+  {
+    "id": "cash-app-stablecoin",
+    "name": "Cash App Stablecoin",
+    "symbol": "TBD",
+    "category": "Payments/Stablecoin",
+    "expectedTge": "Rollout in progress",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/05/27/block-kicks-off-cash-app-s-phased-stablecoin-roll-out-to-its-nearly-60-million-users",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/05/27/block-kicks-off-cash-app-s-phased-stablecoin-roll-out-to-its-nearly-60-million-users",
+        "title": "Block kicks off Cash App’s phased stablecoin roll out to its nearly 60 million users",
+        "observedAt": "2026-05-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.552Z",
+    "discoveredAt": "2026-05-27T19:51:14.552Z"
+  },
+  {
+    "id": "dtcc-stellar-tokenization",
+    "name": "DTCC Tokenized Assets on Stellar",
+    "symbol": "TBD",
+    "category": "RWA/Infrastructure",
+    "expectedTge": "H1 2027",
+    "narrativeStrength": 80,
+    "dataSource": "https://www.coindesk.com/business/2026/05/27/dtcc-plans-to-bring-tokenized-assets-to-stellar-in-latest-wall-street-blockchain-push",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/05/27/dtcc-plans-to-bring-tokenized-assets-to-stellar-in-latest-wall-street-blockchain-push",
+        "title": "DTCC plans to bring tokenized assets to Stellar in latest Wall Street blockchain push",
+        "observedAt": "2026-05-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.552Z",
+    "discoveredAt": "2026-05-27T19:51:14.552Z"
+  },
+  {
+    "id": "mastercard-stablecoin-infra",
+    "name": "Mastercard Stablecoin & Digital Payments Infrastructure",
+    "symbol": "TBD",
+    "category": "Payments/Infrastructure",
+    "expectedTge": "Ongoing Development",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/05/27/mastercard-secures-new-york-bitlicense-to-support-stablecoin-and-digital-payment-infrastructure",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/05/27/mastercard-secures-new-york-bitlicense-to-support-stablecoin-and-digital-payment-infrastructure",
+        "title": "Mastercard secures New York BitLicense to support stablecoin and digital payment infrastructure",
+        "observedAt": "2026-05-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.552Z",
+    "discoveredAt": "2026-05-27T19:51:14.552Z"
+  },
+  {
+    "id": "orca-rwa-marketplace",
+    "name": "Orca RWA Marketplace",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Launched",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/05/27/solana-dex-orca-launches-new-marketplace-for-tokenized-real-world-assets",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/05/27/solana-dex-orca-launches-new-marketplace-for-tokenized-real-world-assets",
+        "title": "Solana DEX Orca launches new marketplace for tokenized real-world assets",
+        "observedAt": "2026-05-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-27T19:51:14.552Z",
+    "discoveredAt": "2026-05-27T19:51:14.552Z"
   }
 ]
