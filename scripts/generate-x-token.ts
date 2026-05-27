@@ -8,7 +8,7 @@
  *   npx tsx scripts/generate-x-token.ts
  *
  * Prerequisites:
- *   1. Set X_OAUTH2_CLIENT_ID and X_OAUTH2_CLIENT_SECRET in .env.local
+ *   1. Set X_OAUTH2_CLIENT_ID in .env.local; X_OAUTH2_CLIENT_SECRET is optional
  *   2. Configure Redirect URI as http://127.0.0.1:3000 in the X Developer Portal
  *
  * After completing the flow, add the printed REFRESH_TOKEN to your .env.local

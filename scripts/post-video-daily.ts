@@ -24,7 +24,7 @@ import {
 } from "../src/lib/gemini";
 import { uploadToYouTubeShorts } from "../src/lib/youtube";
 import { buildTelegramMediaCaption, sendTelegramVideo } from "../src/lib/telegram";
-import { diversifyXPostText, postTweetWithMedia, postTweet } from "../src/lib/x-client";
+import { diversifyXPostText, getMissingXCredentialNames, postTweetWithMedia, postTweet } from "../src/lib/x-client";
 import {
   SOCIAL,
   SOCIAL_PLATFORM_LIMITS,
@@ -1128,9 +1128,7 @@ export async function main(args = process.argv.slice(2)) {
     }
     if (
       runX &&
-      (!process.env.X_OAUTH2_CLIENT_ID ||
-        !process.env.X_OAUTH2_CLIENT_SECRET ||
-        !process.env.X_OAUTH2_REFRESH_TOKEN)
+      getMissingXCredentialNames().length > 0
     ) {
       console.error("  Missing X OAuth 2.0 credentials.");
       process.exit(1);

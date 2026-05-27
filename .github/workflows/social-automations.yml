@@ -3,7 +3,7 @@
 #
 # Platform cadence:
 # - Telegram: 5 posts/day max (market brief, watchlist check, market pulse, poll, movers)
-# - X: 4 primary posts/day max, with a single daily link reply on the poll
+# - X: 4 primary market/poll posts/day max, plus all-platform video on Mon/Wed/Fri
 # - Instagram: max 1 post/day, alternating carousel and Reel days
 # - Threads: text-native signal 2x/week plus short-form video 3x/week
 # - YouTube/TikTok: short-form video 3x/week
@@ -332,7 +332,7 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
-      # Short-form Video Breakout (Mon/Wed/Fri; IG/Threads/YT/TikTok only)
+      # Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)
       - name: Install FFmpeg
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg

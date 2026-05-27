@@ -151,7 +151,7 @@ Safe dry-run commands:
 npx tsx scripts/post-market-updates.ts --dry-run --platform all
 npx tsx scripts/post-threads-daily.ts --dry-run --force
 npx tsx scripts/post-video-daily.ts --dry-run --platform x --force
-npx tsx scripts/post-video-daily.ts --dry-run --platform shorts --force --output-dir tmp/video-previews
+npx tsx scripts/post-video-daily.ts --dry-run --platform all --force --output-dir tmp/video-previews
 npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force
 npx tsx scripts/generate-tiktok-token.ts --env sandbox
 npx tsx scripts/generate-tiktok-token.ts --env production
@@ -171,7 +171,7 @@ Copy `.env.example` to `.env.local` for local work. The full list is documented 
 | D1 ops ledger | `D1_DATABASE_ID`, `D1_OPS_LEDGER_DISABLED`, `D1_MEDIA_STAGING_TTL_HOURS` |
 | R2 media staging | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL` |
 | Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `TELEGRAM_REPORT_BOT_TOKEN`, `TELEGRAM_REPORT_CHAT_ID` |
-| X | `X_OAUTH2_CLIENT_ID`, `X_OAUTH2_CLIENT_SECRET`, `X_OAUTH2_REFRESH_TOKEN`, `X_BEARER_TOKEN` |
+| X | Required: `X_OAUTH2_CLIENT_ID`, `X_OAUTH2_REFRESH_TOKEN`; optional: `X_OAUTH2_CLIENT_SECRET`, `X_BEARER_TOKEN` |
 | Meta | `META_APP_ID`, `META_APP_SECRET`, `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID` |
 | YouTube | `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` |
 | TikTok | `TIKTOK_ENV`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, `TIKTOK_REDIRECT_URI`, `TIKTOK_REFRESH_TOKEN`, `TIKTOK_ACCESS_TOKEN` |

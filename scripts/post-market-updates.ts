@@ -35,7 +35,7 @@ import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { generateUnifiedCaptions, type PlatformTarget, type UnifiedCaptionOptions } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
-import { diversifyXPostText, postTweet, postTweetWithMedia } from "../src/lib/x-client";
+import { diversifyXPostText, getMissingXCredentialNames, postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import {
   MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
@@ -246,10 +246,7 @@ async function main() {
       process.exit(1);
     }
     if (runX) {
-      const missingX = [];
-      if (!process.env.X_OAUTH2_CLIENT_ID) missingX.push("X_OAUTH2_CLIENT_ID");
-      if (!process.env.X_OAUTH2_CLIENT_SECRET) missingX.push("X_OAUTH2_CLIENT_SECRET");
-      if (!process.env.X_OAUTH2_REFRESH_TOKEN) missingX.push("X_OAUTH2_REFRESH_TOKEN");
+      const missingX = getMissingXCredentialNames();
 
       if (missingX.length > 0) {
         console.error(`  ✗ Missing X (Twitter) credentials: ${missingX.join(", ")}`);
