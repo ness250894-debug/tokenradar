@@ -924,6 +924,14 @@ function fallbackYoutubeMetadata(
   return { title, description };
 }
 
+function normalizeTelegramSummarySections(text: string): string {
+  return text
+    .replace(/<\/b>[ \t]*(Setup:)/i, "</b>\n$1")
+    .replace(/([.!?])[ \t]*(Why it matters:)/i, "$1\n$2")
+    .replace(/([.!?])[ \t]*(Risk\s*\/\s*invalidation:)/i, "$1\n$2")
+    .replace(/([.!?])[ \t]*(<tg-spoiler>)/i, "$1\n$2");
+}
+
 function enforceUnifiedCaptionLimits(
   captions: UnifiedSocialCaptions,
   options: UnifiedCaptionOptions,
@@ -932,7 +940,9 @@ function enforceUnifiedCaptionLimits(
   const next: UnifiedSocialCaptions = { ...captions };
 
   if (next.telegramSummary) {
-    next.telegramSummary = sanitizeSocialEditorialText(sanitizeTelegramPostLinks(next.telegramSummary));
+    next.telegramSummary = normalizeTelegramSummarySections(
+      sanitizeSocialEditorialText(sanitizeTelegramPostLinks(next.telegramSummary)),
+    );
   }
   if (next.telegramSummary && options.telegramMaxChars) {
     next.telegramSummary = ensureHtmlTagsClosed(

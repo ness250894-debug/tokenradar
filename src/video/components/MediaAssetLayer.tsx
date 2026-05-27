@@ -2,8 +2,8 @@ import React from "react";
 import {
   AbsoluteFill,
   AnimatedImage,
-  Html5Video,
   Img,
+  OffthreadVideo,
   Sequence,
   interpolate,
   staticFile,
@@ -78,11 +78,10 @@ export const MediaAssetLayer: React.FC<{
 
     if (asset.kind === "video") {
       return (
-        <Html5Video
+        <OffthreadVideo
           key={key}
           src={src}
           muted
-          loop
           playbackRate={asset.playbackRate ?? 1}
           startFrom={Math.round((asset.startOffsetSeconds ?? 0) * fps)}
           style={style}

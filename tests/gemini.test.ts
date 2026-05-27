@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { callAIWithFallback } from "../src/lib/gemini";
+import { callAIWithFallback, generateUnifiedCaptions } from "../src/lib/gemini";
 
 describe("Gemini request config", () => {
   const originalGeminiKey = process.env.GEMINI_API_KEY;
@@ -200,5 +200,59 @@ describe("Gemini request config", () => {
         ],
       },
     ]);
+  });
+
+  it("restores Telegram section breaks when AI returns compacted market-brief copy", async () => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [
+            {
+              content: {
+                parts: [
+                  {
+                    text: JSON.stringify({
+                      telegramSummary:
+                        "<b>Radar Read: $ACRDX (Anemoy Tokenized Apollo Diversified Credit Fund)</b>Setup: $ACRDX is flat.Why it matters: RWA coverage is fresh.Risk / invalidation: volume is thin.<tg-spoiler>TokenRadar read: wait for confirmation.</tg-spoiler>",
+                    }),
+                  },
+                ],
+              },
+              finishReason: "STOP",
+            },
+          ],
+          usageMetadata: {
+            promptTokenCount: 100,
+            candidatesTokenCount: 20,
+            totalTokenCount: 120,
+          },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+
+    const captions = await generateUnifiedCaptions(
+      "Anemoy Tokenized Apollo Diversified Credit Fund",
+      "ACRDX",
+      "",
+      {
+        price: 1.02,
+        priceChange24h: 0.05,
+        marketCap: 50_000_000,
+        marketCapRank: 486,
+        riskScore: 5,
+        selectionReason: "newly-published",
+      },
+      ["telegram"],
+      { telegramMaxChars: 800 },
+    );
+
+    expect(captions.telegramSummary).toContain("</b>\nSetup:");
+    expect(captions.telegramSummary).toContain(".\nWhy it matters:");
+    expect(captions.telegramSummary).toContain(".\nRisk / invalidation:");
+    expect(captions.telegramSummary).toContain(".\n<tg-spoiler>");
   });
 });
