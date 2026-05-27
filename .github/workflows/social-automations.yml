@@ -2,10 +2,10 @@
 # Unified heartbeat for all social interactions on TokenRadar
 #
 # Platform cadence:
-# - Telegram: 5 posts/day max (market brief, watchlist check, market pulse, poll, movers)
+# - Telegram: 5 posts/day max, plus weekly recap on Friday
 # - X: 4 primary market/poll posts/day max, plus all-platform video on Mon/Wed/Fri
 # - Instagram: max 1 post/day, alternating carousel and Reel days
-# - Threads: text-native signal 2x/week plus short-form video 3x/week
+# - Threads: text-native signal 2x/week, weekly recap 1x/week, plus short-form video 3x/week
 # - YouTube/TikTok: short-form video 3x/week
 
 name: Social Automations
@@ -19,6 +19,7 @@ on:
     - cron: "00 12 * * *" # Telegram market pulse + X interactive poll + daily link reply
     - cron: "00 15 * * *" # Telegram poll + X market update
     - cron: "00 16 * * 2,4" # Threads text-native signal (Tue/Thu)
+    - cron: "00 16 * * 5" # Threads weekly recap (Fri)
     - cron: "00 18 * * 1,3,5" # Short-form video (Mon/Wed/Fri)
     - cron: "00 21 * * *" # Telegram movers card + X market update
     
@@ -35,10 +36,12 @@ on:
           - telegram-pulse
           - telegram-poll
           - telegram-movers
+          - telegram-recap
           - x-market
           - x-poll
           - instagram-carousel
           - threads-text
+          - threads-recap
           - video
           - d1-smoke
           - all
@@ -56,7 +59,9 @@ env:
   IS_X_POLL_RUN: ${{ github.event.schedule == '00 12 * * *' || github.event.inputs.run == 'x-poll' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '00 15 * * *' || github.event.inputs.run == 'telegram-poll' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '00 21 * * *' || github.event.inputs.run == 'telegram-movers' || github.event.inputs.run == 'all' }}
+  IS_TELEGRAM_RECAP_RUN: ${{ github.event.schedule == '00 16 * * 5' || github.event.inputs.run == 'telegram-recap' || github.event.inputs.run == 'all' }}
   IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '00 16 * * 2,4' || github.event.inputs.run == 'threads-text' || github.event.inputs.run == 'all' }}
+  IS_THREADS_RECAP_RUN: ${{ github.event.schedule == '00 16 * * 5' || github.event.inputs.run == 'threads-recap' || github.event.inputs.run == 'all' }}
   IS_VIDEO_RUN: ${{ github.event.schedule == '00 18 * * 1,3,5' || github.event.inputs.run == 'video' || github.event.inputs.run == 'all' }}
   IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '05 00 * * 0,2,4' || github.event.inputs.run == 'instagram-carousel' || github.event.inputs.run == 'all' }}
   IS_D1_SMOKE_RUN: ${{ github.event.inputs.run == 'd1-smoke' }}
@@ -315,10 +320,40 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
 
+      # Telegram Weekly Recap (Fri; image-backed market recap)
+      - name: Telegram Weekly Recap
+        if: env.IS_TELEGRAM_RECAP_RUN == 'true'
+        run: npx tsx scripts/post-telegram-weekly-recap.ts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
       # Threads Text Signal (Tue/Thu; text-native, no video recycle)
       - name: Threads Text Signal
         if: env.IS_THREADS_TEXT_RUN == 'true'
         run: npx tsx scripts/post-threads-daily.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+
+      # Threads Weekly Recap (Fri; text-native market recap)
+      - name: Threads Weekly Recap
+        if: env.IS_THREADS_RECAP_RUN == 'true'
+        run: npx tsx scripts/post-threads-daily.ts --format weekly-recap
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

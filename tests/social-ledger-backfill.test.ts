@@ -46,6 +46,16 @@ describe("social ledger backfill", () => {
       messageId: 42,
       theme: "Market Mood",
     });
+    writeJson(path.join(dataDir, "posted", "2026-05-16", "weekly-threads-recap.json"), {
+      postedAt: "2026-05-16T16:00:00.000Z",
+      postId: "threads-recap-1",
+      tokenIds: ["one", "two", "three"],
+    });
+    writeJson(path.join(dataDir, "posted", "2026-05-16", "weekly-telegram-recap.json"), {
+      postedAt: "2026-05-16T16:01:00.000Z",
+      messageId: 84,
+      tokenIds: ["one", "two", "three"],
+    });
     writeJson(path.join(dataDir, "posted_video", "2026-05-16", "daily-video.json"), {
       tokenId: "avalanche-2",
       platforms: {
@@ -72,6 +82,16 @@ describe("social ledger backfill", () => {
         platform: "telegram",
         contentKey: "2026-05-16:telegram-poll",
         externalId: 42,
+      }),
+      expect.objectContaining({
+        platform: "threads",
+        contentKey: "2026-05-16:threads-weekly-recap",
+        externalId: "threads-recap-1",
+      }),
+      expect.objectContaining({
+        platform: "telegram",
+        contentKey: "2026-05-16:telegram-weekly-recap",
+        externalId: 84,
       }),
       expect.objectContaining({
         platform: "tiktok",
