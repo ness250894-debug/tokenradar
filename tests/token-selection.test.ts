@@ -1,7 +1,17 @@
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+vi.mock("../src/lib/coingecko", () => ({
+  fetchTokensByRank: vi.fn(async () => []),
+  fetchTrendingCoins: vi.fn(async () => []),
+}));
+
+vi.mock("../src/lib/x-client", () => ({
+  fetchXTrends: vi.fn(async () => []),
+  matchTrendsToTokens: vi.fn(() => []),
+}));
 
 import {
   cleanupExpiredCooldownFolders,
@@ -9,6 +19,8 @@ import {
   getTodayPostedTokens,
   getTokensPostedWithinDays,
   hasSocialImageSafeText,
+  selectToken,
+  type TokenData,
 } from "../scripts/lib/token-selection";
 
 const tempDirs: string[] = [];
@@ -134,5 +146,78 @@ describe("social posted token tracking", () => {
     expect(fs.existsSync(path.join(dataDir, "posted", "2026-04-04"))).toBe(true);
     expect(fs.existsSync(path.join(dataDir, "posted_video", "2026-04-26"))).toBe(false);
     expect(fs.existsSync(path.join(dataDir, "posted_video", "2026-04-27"))).toBe(true);
+  });
+});
+
+describe("social token selection quality", () => {
+  function token(overrides: Partial<TokenData> & Pick<TokenData, "id" | "symbol" | "name">): TokenData {
+    const { market: marketOverrides, ...rest } = overrides;
+    return {
+      rank: 100,
+      description: "",
+      ...rest,
+      market: {
+        price: 1,
+        priceChange24h: 0,
+        marketCap: 10_000_000,
+        marketCapRank: 100,
+        volume24h: 100_000,
+        ...marketOverrides,
+      },
+    };
+  }
+
+  it("skips newly published tokens with inert market data before posting", async () => {
+    const rootDir = makeDataDir();
+    const dataDir = path.join(rootDir, "data");
+    const metricsDir = path.join(dataDir, "metrics");
+    const contentDir = path.join(rootDir, "content", "tokens");
+    fs.mkdirSync(metricsDir, { recursive: true });
+
+    writeJson(path.join(contentDir, "thin-rwa", "overview.json"), {});
+    writeJson(path.join(contentDir, "active-launch", "overview.json"), {});
+
+    const weakNewlyPublished = token({
+      id: "thin-rwa",
+      name: "Thin RWA",
+      symbol: "trwa",
+      market: {
+        price: 1.02,
+        priceChange24h: 0.05,
+        marketCap: 50_000_000,
+        marketCapRank: 486,
+        volume24h: 0,
+      },
+    });
+    const activeNewlyPublished = token({
+      id: "active-launch",
+      name: "Active Launch",
+      symbol: "act",
+      market: {
+        price: 2.5,
+        priceChange24h: 3.2,
+        marketCap: 25_000_000,
+        marketCapRank: 220,
+        volume24h: 750_000,
+      },
+    });
+
+    const selection = await selectToken(
+      [weakNewlyPublished, activeNewlyPublished],
+      new Set(),
+      new Set(),
+      metricsDir,
+      [
+        { id: "thin-rwa", name: "Thin RWA", symbol: "trwa" },
+        { id: "active-launch", name: "Active Launch", symbol: "act" },
+      ],
+      new Set(["thin-rwa", "active-launch"]),
+      "all",
+    );
+
+    expect(selection).toMatchObject({
+      reason: "newly-published",
+      token: { id: "active-launch" },
+    });
   });
 });

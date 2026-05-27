@@ -84,6 +84,10 @@ export interface CleanupResult {
 
 const DATE_DIR_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SOCIAL_IMAGE_TEXT_RE = /^[\x20-\x7E]+$/;
+const MIN_SOCIAL_VOLUME_24H = 50_000;
+const MIN_SOCIAL_VOLUME_TO_CAP_RATIO = 0.001;
+const MIN_NEWLY_PUBLISHED_ABS_CHANGE_24H = 1;
+const MIN_NEWLY_PUBLISHED_VOLUME_TO_CAP_RATIO = 0.005;
 const TRACKER_PLATFORMS = new Set<TrackerPlatform>([
   "telegram",
   "x",
@@ -106,6 +110,29 @@ export function hasSocialImageSafeText(token: { symbol?: string; name?: string }
     SOCIAL_IMAGE_TEXT_RE.test(token.symbol) &&
     SOCIAL_IMAGE_TEXT_RE.test(token.name),
   );
+}
+
+function volumeToMarketCapRatio(token: TokenData): number {
+  const { volume24h, marketCap } = token.market;
+  if (!Number.isFinite(volume24h) || !Number.isFinite(marketCap) || marketCap <= 0) return 0;
+  return volume24h / marketCap;
+}
+
+function hasUsableSocialMarketData(token: TokenData): boolean {
+  const market = token.market;
+  if (!Number.isFinite(market.price) || market.price <= 0) return false;
+  if (!Number.isFinite(market.marketCap) || market.marketCap <= 0) return false;
+  if (!Number.isFinite(market.volume24h) || market.volume24h <= 0) return false;
+
+  return market.volume24h >= MIN_SOCIAL_VOLUME_24H ||
+    volumeToMarketCapRatio(token) >= MIN_SOCIAL_VOLUME_TO_CAP_RATIO;
+}
+
+function hasNewlyPublishedSocialActivity(token: TokenData): boolean {
+  if (!hasUsableSocialMarketData(token)) return false;
+
+  return Math.abs(token.market.priceChange24h) >= MIN_NEWLY_PUBLISHED_ABS_CHANGE_24H ||
+    volumeToMarketCapRatio(token) >= MIN_NEWLY_PUBLISHED_VOLUME_TO_CAP_RATIO;
 }
 
 function dateKey(date: Date): string {
@@ -588,7 +615,7 @@ export async function selectToken(
   // ── Priority 3: Newly Published Articles ──
   console.log("  ▸ Priority 3: Checking newly published articles...");
   const contentDir = path.resolve(metricsDir, "..", "..", "content", "tokens");
-  const newlyPublished: TokenData[] = [];
+  const newlyPublished: Array<{ token: TokenData; publishedAtMs: number }> = [];
   const FORTY_EIGHT_HOURS_MS = 48 * 60 * 60 * 1000;
 
   for (const tokenId of onWebsiteIds) {
@@ -601,15 +628,23 @@ export async function selectToken(
         const age = Date.now() - stats.mtimeMs;
         if (age < FORTY_EIGHT_HOURS_MS) {
           const token = candidateTokens.find(t => t.id === tokenId);
-          if (token) newlyPublished.push(token);
+          if (!token) continue;
+          if (hasNewlyPublishedSocialActivity(token)) {
+            newlyPublished.push({ token, publishedAtMs: stats.mtimeMs });
+          } else {
+            console.log(`    - Skipping ${token.name}: newly published but market activity is too thin for a social post.`);
+          }
         }
       }
     } catch (_e) { /* ignore */ }
   }
 
   if (newlyPublished.length > 0) {
-    // Pick the most recent one
-    const target = newlyPublished[0]; 
+    const target = newlyPublished
+      .sort((a, b) =>
+        b.publishedAtMs - a.publishedAtMs ||
+        Math.abs(b.token.market.priceChange24h) - Math.abs(a.token.market.priceChange24h)
+      )[0].token;
     console.log(`    ✓ Selected: ${target.name} (newly published article)`);
     return { token: target, reason: "newly-published" };
   }
@@ -618,7 +653,12 @@ export async function selectToken(
   // ── Priority 4: Top Gainer ──
   console.log("  ▸ Priority 4: Checking top gainers...");
   const gainers = candidateTokens
-    .filter((t) => !todayPosted.has(t.id) && !recentlyPosted.has(t.id) && t.market.priceChange24h > 2)
+    .filter((t) =>
+      !todayPosted.has(t.id) &&
+      !recentlyPosted.has(t.id) &&
+      t.market.priceChange24h > 2 &&
+      hasUsableSocialMarketData(t)
+    )
     .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
 
   if (gainers.length > 0) {
@@ -639,7 +679,7 @@ export async function selectToken(
     const tokenId = mf.replace(".json", "");
     if (todayPosted.has(tokenId) || recentlyPosted.has(tokenId)) continue;
     const token = candidateTokens.find((t) => t.id === tokenId);
-    if (token) safePlays.push(token);
+    if (token && hasUsableSocialMarketData(token)) safePlays.push(token);
   }
 
   if (safePlays.length > 0) {
@@ -651,7 +691,11 @@ export async function selectToken(
 
   // ── Priority 6: Spotlight (fallback) ──
   console.log("  ▸ Priority 6: Fallback to random spotlight...");
-  const available = candidateTokens.filter((t) => !todayPosted.has(t.id) && !recentlyPosted.has(t.id));
+  const available = candidateTokens.filter((t) =>
+    !todayPosted.has(t.id) &&
+    !recentlyPosted.has(t.id) &&
+    hasUsableSocialMarketData(t)
+  );
   if (available.length > 0) {
     const target = available[Math.floor(Math.random() * available.length)];
     console.log(`    ✓ Selected: ${target.name} (spotlight)`);
