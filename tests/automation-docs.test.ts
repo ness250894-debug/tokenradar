@@ -76,4 +76,29 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)");
     expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform all");
   });
+
+  it("keeps social cron slots away from high-risk hour-boundary minutes", () => {
+    const workflow = readWorkflow("social-automations.yml");
+    const crons = [...workflow.matchAll(/- cron: "([^"]+)"/g)].map((match) => match[1]);
+
+    expect(crons.length).toBeGreaterThan(0);
+
+    for (const cron of crons) {
+      const minute = cron.split(" ")[0];
+
+      expect(minute, `${cron} should avoid minute 00/05`).not.toMatch(/^(00|05)$/);
+    }
+  });
+
+  it("keeps social schedule routes aligned with declared cron slots", () => {
+    const workflow = readWorkflow("social-automations.yml");
+    const crons = new Set([...workflow.matchAll(/- cron: "([^"]+)"/g)].map((match) => match[1]));
+    const directScheduleRoutes = [...workflow.matchAll(/github\.event\.schedule == '([^']+)'/g)].map((match) => match[1]);
+    const arrayScheduleRoutes = [...workflow.matchAll(/fromJson\('(\[[^']+\])'\)/g)].flatMap((match) =>
+      JSON.parse(match[1]) as string[],
+    );
+    const scheduleRoutes = new Set([...directScheduleRoutes, ...arrayScheduleRoutes]);
+
+    expect([...scheduleRoutes].sort()).toEqual([...crons].sort());
+  });
 });
