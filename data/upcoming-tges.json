@@ -1882,5 +1882,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-27T19:51:14.552Z",
     "discoveredAt": "2026-05-27T19:51:14.552Z"
+  },
+  {
+    "id": "sofi-sofiusd",
+    "name": "SoFi SoFiUSD",
+    "symbol": "SOFIUSD",
+    "category": "Stablecoin",
+    "expectedTge": "Launched",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/369187/sofi-launches-sofiusd-stablecoin-ethereum-solana",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 100,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "official_announcement",
+        "url": "https://decrypt.co/369187/sofi-launches-sofiusd-stablecoin-ethereum-solana",
+        "title": "SoFi Launches SoFiUSD Stablecoin Across Ethereum and Solana",
+        "observedAt": "2024-07-26"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-28T19:58:03.744Z",
+    "discoveredAt": "2026-05-28T19:58:03.744Z"
   }
 ]
