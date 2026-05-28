@@ -72,7 +72,7 @@ describe("postTweetWithMedia video upload", () => {
     delete process.env.X_OAUTH2_REFRESH_TOKEN;
   });
 
-  it("sends video append chunks as multipart raw media", async () => {
+  it("uses conservative 1 MB video append chunks for X multipart uploads", async () => {
     configureXEnv();
     xdkMocks.reset();
 
@@ -81,17 +81,26 @@ describe("postTweetWithMedia video upload", () => {
 
     const { postTweetWithMedia } = await import("../src/lib/x-client");
 
-    await postTweetWithMedia("Ethereum video", Buffer.alloc(5 * 1024 * 1024, 1), "video/mp4");
+    await postTweetWithMedia("Ethereum video", Buffer.alloc(1_000_001, 1), "video/mp4");
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-    expect(init.method).toBe("POST");
-    expect(init.body).toBeInstanceOf(FormData);
-    expect(init.headers).toEqual({ Authorization: "Bearer access-token" });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const [, firstAppend] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    const [, secondAppend] = fetchMock.mock.calls[1] as unknown as [string, RequestInit];
+    expect(firstAppend.method).toBe("POST");
+    expect(firstAppend.body).toBeInstanceOf(FormData);
+    expect(firstAppend.headers).toEqual({ Authorization: "Bearer access-token" });
 
-    const form = init.body as FormData;
-    expect(form.get("segment_index")).toBe("0");
-    expect(form.get("media")).toBeInstanceOf(Blob);
+    const firstForm = firstAppend.body as FormData;
+    const firstMedia = firstForm.get("media");
+    expect(firstForm.get("segment_index")).toBe("0");
+    expect(firstMedia).toBeInstanceOf(Blob);
+    expect((firstMedia as Blob).size).toBe(1_000_000);
+
+    const secondForm = secondAppend.body as FormData;
+    const secondMedia = secondForm.get("media");
+    expect(secondForm.get("segment_index")).toBe("1");
+    expect(secondMedia).toBeInstanceOf(Blob);
+    expect((secondMedia as Blob).size).toBe(1);
     expect(xdkMocks.createPost).toHaveBeenCalledWith({
       text: "Ethereum video",
       media: { media_ids: ["media-123"] },
@@ -116,6 +125,31 @@ describe("postTweetWithMedia video upload", () => {
     expect(warnSpy).toHaveBeenCalledWith(
       expect.stringContaining("not publishing a text-only video tweet"),
     );
+  });
+
+  it("prefers X string media IDs when INIT returns both numeric and string IDs", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.initializeUpload.mockResolvedValueOnce({
+      data: {
+        id: 123,
+        media_id_string: "1880028106020515840",
+      },
+    });
+
+    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+
+    await postTweetWithMedia("Ethereum video", Buffer.alloc(1024, 1), "video/mp4");
+
+    expect(String(fetchMock.mock.calls[0]?.[0])).toContain("/1880028106020515840/append");
+    expect(xdkMocks.finalizeUpload).toHaveBeenCalledWith("1880028106020515840");
+    expect(xdkMocks.createPost).toHaveBeenCalledWith({
+      text: "Ethereum video",
+      media: { media_ids: ["1880028106020515840"] },
+    });
   });
 
   it("retries final media tweet creation after a transient X API failure", async () => {
