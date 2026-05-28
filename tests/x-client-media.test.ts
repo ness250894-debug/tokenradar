@@ -76,7 +76,7 @@ describe("postTweetWithMedia video upload", () => {
     configureXEnv();
     xdkMocks.reset();
 
-    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    const fetchMock = vi.fn(async (..._args: Parameters<typeof fetch>) => new Response("{}", { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
 
     const { postTweetWithMedia } = await import("../src/lib/x-client");
@@ -137,7 +137,7 @@ describe("postTweetWithMedia video upload", () => {
       },
     });
 
-    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    const fetchMock = vi.fn(async (..._args: Parameters<typeof fetch>) => new Response("{}", { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
 
     const { postTweetWithMedia } = await import("../src/lib/x-client");
