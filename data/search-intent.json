@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-05-27T19:53:37.604Z",
-    "tokenCount": 526,
+    "tokenCount": 525,
     "topIntents": [
       {
         "intent": "risk",
@@ -35019,82 +35019,6 @@
         "TronBank tokenomics",
         "TronBank risks",
         "is TronBank safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-05-27T19:53:37.604Z"
-    },
-    "trove": {
-      "tokenId": "trove",
-      "tokenName": "Trove",
-      "symbol": "trove",
-      "attentionScore": 27,
-      "attentionLabel": "Quiet",
-      "hypeScore": 27,
-      "fundamentalsScore": 38,
-      "supplyRiskScore": 45,
-      "classification": "Quiet Watch",
-      "primaryIntent": "airdrop",
-      "intentMix": [
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 85,
-          "queries": [
-            "Trove airdrop",
-            "Trove TGE",
-            "Trove listing date"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 78,
-          "queries": [
-            "Trove risks",
-            "is Trove safe",
-            "Trove scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "Trove staking rewards",
-            "Trove yield",
-            "TROVE APY"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 50,
-          "queries": [
-            "Trove token unlock",
-            "Trove circulating supply",
-            "Trove tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "No strong free-data catalyst is visible yet."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Trove airdrop",
-        "Trove TGE",
-        "Trove listing date",
-        "Trove risks",
-        "is Trove safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
