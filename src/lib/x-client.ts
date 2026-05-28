@@ -95,6 +95,7 @@ export function validateXCredentials(): OAuth2Credentials {
 // ── Client Singleton ──────────────────────────────────────────
 
 const MAX_X_RETRIES = 3;
+const X_VIDEO_APPEND_CHUNK_SIZE_BYTES = 1_000_000;
 
 /**
  * Executes an X API call with exponential backoff retries.
@@ -611,14 +612,15 @@ export async function postTweetWithMedia(
       );
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const initData = initResponse?.data as Record<string, any> | undefined;
-      const uploadMediaId = String(initData?.id ?? initData?.media_id_string ?? "");
+      const uploadMediaId = String(initData?.media_id_string ?? initData?.mediaIdString ?? initData?.id ?? "");
       if (!uploadMediaId) throw new Error("No media_id returned from INIT");
 
-      // Step 2: APPEND — send the binary payload in chunks (≤5 MB each)
+      // Step 2: APPEND — send binary chunks well under X's 5 MB media cap,
+      // leaving room for multipart/form-data overhead.
       // Uses direct fetch instead of the XDK's appendUpload to avoid a body
       // double-read bug in the XDK's error handler (response.json() → response.text()
       // when the server returns non-JSON error responses).
-      const CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
+      const CHUNK_SIZE = X_VIDEO_APPEND_CHUNK_SIZE_BYTES;
       let segmentIndex = 0;
       for (let offset = 0; offset < mediaBuffer.length; offset += CHUNK_SIZE) {
         const chunk = mediaBuffer.subarray(offset, offset + CHUNK_SIZE);
