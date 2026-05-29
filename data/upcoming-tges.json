@@ -1905,5 +1905,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-28T19:58:03.744Z",
     "discoveredAt": "2026-05-28T19:58:03.744Z"
+  },
+  {
+    "id": "paxos-clearing-agency",
+    "name": "Paxos",
+    "symbol": "PAX",
+    "category": "Infrastructure",
+    "expectedTge": "Existing Token/Regulatory Milestone",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/369440/paxos-secures-sec-registration-as-clearing-agency",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Regulatory Approval",
+        "sourceType": "News Article",
+        "url": "https://decrypt.co/369440/paxos-secures-sec-registration-as-clearing-agency",
+        "title": "Paxos Secures SEC Registration as Clearing Agency",
+        "observedAt": "2024-06-01"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-05-29T19:59:02.611Z",
+    "discoveredAt": "2026-05-29T19:59:02.611Z"
   }
 ]
