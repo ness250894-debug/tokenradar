@@ -3,6 +3,13 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "XRP Ledger's new proposal blocks the flash loan attacks costing DeFi hundreds of millions",
+      "link": "https://www.coindesk.com/tech/2026/05/29/xrp-ledger-s-new-proposal-blocks-the-flash-loan-attacks-costing-defi-hundreds-of-millions",
+      "pubDate": "Sun, 31 May 2026 02:30:00 +0000",
+      "source": "CoinDesk",
+      "snippet": "A draft XRPL amendment notes that flash loan attacks are \"structurally impossible\" on the network because of how its transactions are built, an architectural quirk that has spared the chain from the exploit class that has cost Ethereum DeFi billions."
+    },
+    {
       "title": "Wall Street’s trillion-dollar dilemma: Why AI-powered hackers are keeping big banks off the blockchain",
       "link": "https://www.coindesk.com/business/2026/05/28/defi-vulnerabilities-are-tradfi-biggest-blocker-as-protocols-hit-by-near-daily-exploits-certik",
       "pubDate": "Sat, 30 May 2026 15:00:00 +0000",
@@ -24,19 +31,12 @@
       "snippet": "For years, one of the most significant crypto asset markets has existed entirely outside the United States. Today, that changes, explains CFTC Chairman Selig."
     },
     {
-      "title": "‘Extraordinarily unusual’ for CFTC to reverse Gemini settlement deal: Ex-chair",
-      "link": "https://cointelegraph.com/news/cftc-reverse-settlement-gemini-unusual-former-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 29 May 2026 22:28:10 +0000",
+      "title": "Cosmos-based Gravity Bridge halts bridge after reported $5.4M exploit",
+      "link": "https://cointelegraph.com/news/cosmos-based-gravity-bridge-halts-bridge-after-reported-54m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Sun, 31 May 2026 08:57:25 +0000",
       "source": "CoinTelegraph",
-      "snippet": "As the CFTC and Gemini work together to seek a court's reversal of a 2025 settlement, one of the agency’s former chairs said the public “deserves a better explanation.”"
-    },
-    {
-      "title": "DxSale drained for $7.3M in BNB Chain liquidity exploit",
-      "link": "https://cointelegraph.com/news/memecoin-platform-dxsale-drained-73m-1400-lps?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 29 May 2026 10:42:38 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "DxSale was drained for about $7.3 million from BNB Chain liquidity providers, raising fresh concerns over old DeFi locker contracts."
+      "snippet": "Gravity Bridge was drained of roughly $5.4 million in a suspected signing key compromise, prompting validators to halt the bridge while an investigation is underway."
     }
   ],
-  "fetchedAt": "2026-05-30T18:52:19.001Z"
+  "fetchedAt": "2026-05-31T18:57:09.621Z"
 }
