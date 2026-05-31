@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { spawnSync } from "child_process";
 import { describe, expect, it } from "vitest";
 
 const WORKFLOW_DIR = path.join(process.cwd(), ".github", "workflows");
@@ -16,6 +17,16 @@ const AUTOMATION_WORKFLOWS = [
 
 function readWorkflow(name: string): string {
   return fs.readFileSync(path.join(WORKFLOW_DIR, name), "utf-8");
+}
+
+function gitLsFiles(pathspec: string): string[] {
+  const result = spawnSync("git", ["-c", "safe.directory=D:/tokenradar", "ls-files", pathspec], {
+    cwd: process.cwd(),
+    encoding: "utf-8",
+  });
+
+  expect(result.status).toBe(0);
+  return result.stdout.split(/\r?\n/).filter(Boolean);
 }
 
 describe("automation runbook contract", () => {
@@ -58,6 +69,19 @@ describe("automation runbook contract", () => {
     ]) {
       expect(workflow, `daily-content-generation.yml should stage ${artifact}`).toContain(artifact);
     }
+  });
+
+  it("keeps token OG images as deploy-only generated artifacts", () => {
+    const packageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8")) as {
+      scripts?: Record<string, string>;
+    };
+    const gitignore = fs.readFileSync(path.join(process.cwd(), ".gitignore"), "utf-8");
+
+    expect(packageJson.scripts?.prebuild).toContain("tsx scripts/generate-og-images.tsx");
+    expect(gitignore).toContain("public/og/token/*.png");
+    expect(gitLsFiles("public/og/token")).toEqual([]);
+    expect(readWorkflow("daily-content-generation.yml")).not.toContain("public/og/token");
+    expect(readWorkflow("daily-refresh.yml")).not.toContain("public/og/token");
   });
 
   it("refreshes search-intent artifacts before the daily refresh commit", () => {
