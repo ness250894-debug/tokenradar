@@ -18,25 +18,25 @@
     "explorer": "https://bscscan.com/token/0x61a10e8556bed032ea176330e7f17d6a12a10000"
   },
   "market": {
-    "price": 0.998247,
-    "marketCap": 99821207,
-    "marketCapRank": 286,
-    "volume24h": 2779944,
-    "high24h": 1.002,
-    "low24h": 0.995235,
-    "priceChange24h": -0.09606,
-    "priceChange7d": -0.042766423611854114,
-    "priceChange30d": -0.18968944452779846,
+    "price": 1,
+    "marketCap": 99807472,
+    "marketCapRank": 287,
+    "volume24h": 3343723,
+    "high24h": 1.003,
+    "low24h": 0.983084,
+    "priceChange24h": 0.17284,
+    "priceChange7d": 0.09990393547175261,
+    "priceChange30d": 0.02210630689103453,
     "priceChange1y": 0,
     "ath": 1.023,
-    "athChangePercentage": -2.38625,
+    "athChangePercentage": -2.27694,
     "athDate": "2026-03-23T11:10:02.298Z",
-    "atl": 0.989845,
-    "atlDate": "2026-04-12T01:45:42.437Z",
+    "atl": 0.983084,
+    "atlDate": "2026-06-01T01:45:50.555Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": 100000000,
-    "fdv": 99821207
+    "fdv": 99807472
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:41:43.692Z",
-  "lastMarketUpdate": "2026-05-31T18:53:50.586Z"
+  "lastMarketUpdate": "2026-06-01T21:17:55.124Z"
 }
