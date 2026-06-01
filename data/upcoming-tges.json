@@ -1928,5 +1928,28 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-05-29T19:59:02.611Z",
     "discoveredAt": "2026-05-29T19:59:02.611Z"
+  },
+  {
+    "id": "binance-bstocks",
+    "name": "Binance bStocks",
+    "symbol": "BSTOCKS",
+    "category": "DeFi/RWA",
+    "expectedTge": "Upcoming (Prepares Rollout)",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/369603/binance-opens-access-to-7000-us-stocks-prepares-tokenized-bstocks-rollout",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Tokenized Asset Rollout",
+        "sourceType": "news",
+        "url": "https://decrypt.co/369603/binance-opens-access-to-7000-us-stocks-prepares-tokenized-bstocks-rollout",
+        "title": "Binance Opens Access to 7,000 US Stocks, Prepares Tokenized 'bStocks' Rollout",
+        "observedAt": "2024-05-31"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-01T21:18:39.527Z",
+    "discoveredAt": "2026-06-01T21:18:39.527Z"
   }
 ]

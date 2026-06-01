@@ -3,40 +3,40 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "XRP Ledger's new proposal blocks the flash loan attacks costing DeFi hundreds of millions",
-      "link": "https://www.coindesk.com/tech/2026/05/29/xrp-ledger-s-new-proposal-blocks-the-flash-loan-attacks-costing-defi-hundreds-of-millions",
-      "pubDate": "Sun, 31 May 2026 02:30:00 +0000",
+      "title": "Aave overhauls listing standards after $230 million rsETH exploit exposed bridge risks",
+      "link": "https://www.coindesk.com/markets/2026/06/01/aave-overhauls-listing-standards-after-usd230-million-rseth-exploit-exposed-bridge-risks",
+      "pubDate": "Mon, 01 Jun 2026 05:04:17 +0000",
       "source": "CoinDesk",
-      "snippet": "A draft XRPL amendment notes that flash loan attacks are \"structurally impossible\" on the network because of how its transactions are built, an architectural quirk that has spared the chain from the exploit class that has cost Ethereum DeFi billions."
+      "snippet": "An official postmortem traced the exploit to a LayerZero bridge verification failure and outlined a sweeping overhaul of Aave's asset-listing standards as DeFi risks shift beyond smart contract bugs."
     },
     {
-      "title": "Wall Street’s trillion-dollar dilemma: Why AI-powered hackers are keeping big banks off the blockchain",
-      "link": "https://www.coindesk.com/business/2026/05/28/defi-vulnerabilities-are-tradfi-biggest-blocker-as-protocols-hit-by-near-daily-exploits-certik",
-      "pubDate": "Sat, 30 May 2026 15:00:00 +0000",
-      "source": "CoinDesk",
-      "snippet": "CertiK CEO and co-founder Ronghui Gu says April was the worst month for DeFi in four years with exploits on 27 out of 30 days."
-    },
-    {
-      "title": "U.S. regulator says 24/7 trading is great for crypto, may not be fit for other sectors",
-      "link": "https://www.coindesk.com/policy/2026/05/29/u-s-regulator-says-24-7-trading-is-great-for-crypto-may-not-be-fit-for-other-sectors",
-      "pubDate": "Fri, 29 May 2026 16:29:42 +0000",
-      "source": "CoinDesk",
-      "snippet": "As the CFTC issued landmark approvals for crypto perpetual futures contracts, it explained in a related advisory that round-the-clock activity isn't right for all."
-    },
-    {
-      "title": "What American crypto asset perpetuals mean for the future of crypto",
-      "link": "https://www.coindesk.com/opinion/2026/05/29/what-american-crypto-asset-perpetuals-mean-for-the-future-of-crypto",
-      "pubDate": "Fri, 29 May 2026 14:00:00 +0000",
-      "source": "CoinDesk",
-      "snippet": "For years, one of the most significant crypto asset markets has existed entirely outside the United States. Today, that changes, explains CFTC Chairman Selig."
-    },
-    {
-      "title": "Cosmos-based Gravity Bridge halts bridge after reported $5.4M exploit",
-      "link": "https://cointelegraph.com/news/cosmos-based-gravity-bridge-halts-bridge-after-reported-54m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Sun, 31 May 2026 08:57:25 +0000",
+      "title": "Recovery hopes fade as Kelp DAO hacker launders nearly all $220M in stolen funds",
+      "link": "https://cointelegraph.com/news/kelp-dao-recovery-hacker-launders-most-funds-293m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 01 Jun 2026 14:09:52 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Gravity Bridge was drained of roughly $5.4 million in a suspected signing key compromise, prompting validators to halt the bridge while an investigation is underway."
+      "snippet": "The Kelp DAO exploiter laundered about $220 million worth of remaining stolen funds in a bid to make them untraceable, excluding the $71 million frozen by Arbitrum’s Security Council."
+    },
+    {
+      "title": "Gnosis Pay exploit hits delay module as team pledges refunds",
+      "link": "https://cointelegraph.com/news/gnosis-hit-by-fresh-exploit-team-vows-to-fully-cover-user-losses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 01 Jun 2026 13:20:30 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Gnosis Pay faces an active exploit in its delay module as co‑founder Martin Köppelmann walks back a warning urging users to withdraw funds and vows to repay those affected."
+    },
+    {
+      "title": "Crypto exploit losses in May fall 90% over month to $68M: CertiK",
+      "link": "https://cointelegraph.com/news/crypto-exploit-losses-fall-by-90-in-may-to-68m-certik?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 01 Jun 2026 06:40:42 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "CertiK says May is the third month so far in 2026 to record crypto losses under $100 million."
+    },
+    {
+      "title": "White hat hacker recovers $2M from faulty 2016 ICO smart contract",
+      "link": "https://cointelegraph.com/news/whitehat-helps-recover-2m-from-2016-ico-smart-contract?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 01 Jun 2026 02:21:56 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A white-hat hacker has helped the creators of Hong Coin by showing them how to exploit a flawed admin function on a smart contract and ultimately refund investors after a decade."
     }
   ],
-  "fetchedAt": "2026-05-31T18:57:09.621Z"
+  "fetchedAt": "2026-06-01T21:21:07.951Z"
 }
