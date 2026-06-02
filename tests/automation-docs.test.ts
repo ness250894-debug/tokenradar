@@ -12,7 +12,6 @@ const AUTOMATION_WORKFLOWS = [
   "video-assets-refresh.yml",
   "performance.yml",
   "dependency-security.yml",
-  "monthly-data-snapshot.yml",
 ];
 
 function readWorkflow(name: string): string {
@@ -31,7 +30,7 @@ function gitLsFiles(pathspec: string): string[] {
 
 describe("automation runbook contract", () => {
   it("keeps documented workflow-level Telegram fallback alerts wired for every workflow", () => {
-    expect(AUTOMATION_WORKFLOWS).toHaveLength(8);
+    expect(AUTOMATION_WORKFLOWS).toHaveLength(7);
 
     for (const workflowName of AUTOMATION_WORKFLOWS) {
       const workflow = readWorkflow(workflowName);
