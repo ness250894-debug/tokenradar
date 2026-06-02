@@ -1951,5 +1951,165 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-01T21:18:39.527Z",
     "discoveredAt": "2026-06-01T21:18:39.527Z"
+  },
+  {
+    "id": "ton-gram-rebrand",
+    "name": "The Open Network (TON) / Gram",
+    "symbol": "GRAM",
+    "category": "L1",
+    "expectedTge": "Rebranding/Migration (Ongoing)",
+    "narrativeStrength": 85,
+    "dataSource": "https://cointelegraph.com/news/the-open-network-ton-native-currency-plans-to-rebrand-to-gram",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/the-open-network-ton-native-currency-plans-to-rebrand-to-gram",
+        "title": "TON jumps 15% as The Open Network plans rebrand to Gram",
+        "observedAt": "2024-05-31"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-02T20:31:46.256Z",
+    "discoveredAt": "2026-06-02T20:31:46.256Z"
+  },
+  {
+    "id": "ethena",
+    "name": "Ethena",
+    "symbol": "ENA",
+    "category": "DeFi",
+    "expectedTge": "Confirmed (Already Launched)",
+    "narrativeStrength": 85,
+    "dataSource": "https://www.coindesk.com/business/2026/06/02/coinbase-backs-ethena-ahead-of-savings-product-launch-for-exchange-s-100-million-users",
+    "lifecycleStatus": "graduated",
+    "confidence": 100,
+    "signals": [
+      {
+        "type": "Exchange Partnership/Integration",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/02/coinbase-backs-ethena-ahead-of-savings-product-launch-for-exchange-s-100-million-users",
+        "title": "Coinbase backs Ethena ahead of savings product launch for exchange's 100 million users",
+        "observedAt": "2026-06-02"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-06-02T20:34:14.338Z",
+    "discoveredAt": "2026-06-02T20:31:46.257Z",
+    "graduatedAt": "2026-06-02T20:34:14.338Z",
+    "coingeckoRank": 81,
+    "graduationEvidence": {
+      "coingeckoId": "ethena",
+      "coingeckoRank": 81,
+      "rank": 81,
+      "priceUsd": 0.090937,
+      "volume24h": 252872876,
+      "matchedBy": "id",
+      "verifiedAt": "2026-06-02T20:34:14.338Z"
+    }
+  },
+  {
+    "id": "titan-network",
+    "name": "Titan Network",
+    "symbol": "TBD",
+    "category": "Infrastructure/AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/tech/2026/06/02/here-s-how-one-decentralized-cloud-provider-says-private-citizens-can-make-money-from-ai",
+    "lifecycleStatus": "watchlist",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Launch/Partnership",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/06/02/here-s-how-one-decentralized-cloud-provider-says-private-citizens-can-make-money-from-ai",
+        "title": "Here's how one decentralized cloud provider says private citizens can make money from AI",
+        "observedAt": "2026-06-02"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-02T20:31:46.257Z",
+    "discoveredAt": "2026-06-02T20:31:46.257Z"
+  },
+  {
+    "id": "movement",
+    "name": "Movement",
+    "symbol": "TBD",
+    "category": "L2/Payments",
+    "expectedTge": "Product Launch/Strategy Pivot",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/tech/2026/06/02/movement-pivots-to-stablecoin-payments-as-the-layer-2-boom-loses-momentum",
+    "lifecycleStatus": "graduated",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Pivot/Strategy",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/06/02/movement-pivots-to-stablecoin-payments-as-the-layer-2-boom-loses-momentum",
+        "title": "Movement pivots to stablecoin payments as the layer-2 boom loses momentum",
+        "observedAt": "2026-06-02"
+      }
+    ],
+    "status": "released",
+    "lastVerifiedAt": "2026-06-02T20:34:16.439Z",
+    "discoveredAt": "2026-06-02T20:31:46.257Z",
+    "graduatedAt": "2026-06-02T20:34:16.439Z",
+    "coingeckoRank": 456,
+    "graduationEvidence": {
+      "coingeckoId": "movement",
+      "coingeckoRank": 456,
+      "rank": 456,
+      "priceUsd": 0.01392338,
+      "volume24h": 20246786,
+      "matchedBy": "id",
+      "verifiedAt": "2026-06-02T20:34:16.439Z"
+    }
+  },
+  {
+    "id": "symbiotic-liquid-lane",
+    "name": "Symbiotic Liquid Lane",
+    "symbol": "TBD",
+    "category": "DeFi/RWA/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/02/symbiotic-aims-to-make-tokenized-assets-easier-to-cash-out-with-new-liquidity-network",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Product/Network Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/02/symbiotic-aims-to-make-tokenized-assets-easier-to-cash-out-with-new-liquidity-network",
+        "title": "Symbiotic aims to make tokenized assets easier to cash out with new liquidity network",
+        "observedAt": "2026-06-02"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-02T20:31:46.258Z",
+    "discoveredAt": "2026-06-02T20:31:46.258Z"
+  },
+  {
+    "id": "moneygram-mgusd",
+    "name": "MoneyGram MGUSD",
+    "symbol": "MGUSD",
+    "category": "Stablecoin/Payments",
+    "expectedTge": "Launched",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/06/02/moneygram-launches-stablecoin-on-stellar-joining-rush-toward-digital-dollar-payments",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "Token Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/02/moneygram-launches-stablecoin-on-stellar-joining-rush-toward-digital-dollar-payments",
+        "title": "MoneyGram launches stablecoin on Stellar, joining rush toward digital dollar payments",
+        "observedAt": "2026-06-02"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-02T20:31:46.258Z",
+    "discoveredAt": "2026-06-02T20:31:46.258Z"
   }
 ]

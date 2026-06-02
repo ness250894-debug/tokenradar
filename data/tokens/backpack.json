@@ -1,0 +1,51 @@
+{
+  "id": "backpack",
+  "symbol": "bp",
+  "name": "Backpack",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102171961/large/image_%285%29.png?1774269858",
+  "description": "All-in-one crypto wallet and exchange.",
+  "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Solana Ecosystem",
+    "Wallets"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://backpack.exchange",
+    "github": "https://github.com/coral-xyz/backpack",
+    "reddit": "https://www.reddit.com/r/Backpack_official/",
+    "explorer": "https://solscan.io/token/BPxxfRCXkUVhig4HS1Lh7kZqV6SPJhzfEk4x6fVBjPCy"
+  },
+  "market": {
+    "price": 0.187651,
+    "marketCap": 46912915,
+    "marketCapRank": 496,
+    "volume24h": 3220827,
+    "high24h": 0.195371,
+    "low24h": 0.146137,
+    "priceChange24h": 27.60142,
+    "priceChange7d": 57.93279,
+    "priceChange30d": 18.3139,
+    "priceChange1y": 0,
+    "ath": 0.449859,
+    "athChangePercentage": -58.5532,
+    "athDate": "2026-03-23T12:04:39.190Z",
+    "atl": 0.117896,
+    "atlDate": "2026-05-25T19:05:43.473Z",
+    "circulatingSupply": 250000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 187651661
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-02T20:30:49.783Z"
+}
