@@ -1,0 +1,54 @@
+{
+  "id": "apriori",
+  "symbol": "apr",
+  "name": "aPriori",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70220/large/logo-icon-Gradient.png?1761118006",
+  "description": "aPriori is building the intelligent order flow coordination layer for high-performance blockchains.\n\nIts architecture comprises an Order Flow Segmentation Engine that classifies trades in real time and a flow-aware routing engine that directs benign orders into efficient liquidity pools while isolating riskier ones to resilient paths. The system integrates MEV capture with a redistribution mechanism, returning value to stakers and validators to better align incentives.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Liquid Staking",
+    "DeFAI",
+    "Binance Wallet IDO",
+    "Monad Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://apr.io",
+    "github": "https://github.com/apriori-network",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x5A9610919f5e81183823A2be4Bd1BeB2B4da2a20"
+  },
+  "market": {
+    "price": 0.23211,
+    "marketCap": 57343989,
+    "marketCapRank": 440,
+    "volume24h": 11147211,
+    "high24h": 0.237254,
+    "low24h": 0.172091,
+    "priceChange24h": 32.42618,
+    "priceChange7d": 30.66327,
+    "priceChange30d": 37.87672,
+    "priceChange1y": 0,
+    "ath": 0.73956,
+    "athChangePercentage": -68.73219,
+    "athDate": "2025-10-24T05:11:47.500Z",
+    "atl": 0.064576,
+    "atlDate": "2026-02-06T00:25:06.467Z",
+    "circulatingSupply": 246874998.97396782,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 232279452
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-02T20:30:37.195Z"
+}
