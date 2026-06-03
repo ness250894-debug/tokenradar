@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-02T20:34:23.957Z",
-    "tokenCount": 520,
+    "tokenCount": 519,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 159,
+        "tokenCount": 158,
         "avgScore": 72
       },
       {
@@ -18781,83 +18781,6 @@
         "Linea tokenomics",
         "Linea price prediction 2026",
         "Linea price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-02T20:34:23.957Z"
-    },
-    "liquid": {
-      "tokenId": "liquid",
-      "tokenName": "Liquid",
-      "symbol": "◯",
-      "attentionScore": 43,
-      "attentionLabel": "Watch",
-      "hypeScore": 51,
-      "fundamentalsScore": 47,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 80,
-          "queries": [
-            "Liquid risks",
-            "is Liquid safe",
-            "Liquid scam check"
-          ]
-        },
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 78,
-          "queries": [
-            "Liquid airdrop",
-            "Liquid TGE",
-            "Liquid listing date"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 64,
-          "queries": [
-            "Liquid meme coin",
-            "Liquid price prediction",
-            "is Liquid worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 50,
-          "queries": [
-            "Liquid price prediction 2026",
-            "Liquid price prediction today",
-            "◯ price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Liquid risks",
-        "is Liquid safe",
-        "Liquid scam check",
-        "Liquid airdrop",
-        "Liquid TGE"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
