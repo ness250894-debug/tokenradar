@@ -2778,48 +2778,48 @@ a.binance-mover-row:hover {
   position: relative;
 }
 
-.alpha-ticker-item {
-  position: absolute;
-  inset: 0;
+.alpha-ticker-track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 0;
-  max-width: 100%;
+  gap: var(--space-xl);
+  width: max-content;
+  min-width: 100%;
+  height: 100%;
+  animation: alpha-ticker-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+.alpha-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
   gap: 8px;
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   line-height: 1.4;
   color: var(--text-secondary);
   white-space: nowrap;
-  opacity: 0;
-  animation-name: ticker-item-fade;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+}
+
+.alpha-ticker-tag {
+  flex: 0 0 auto;
+  color: var(--accent-primary);
 }
 
 .alpha-ticker-text {
-  min-width: 0;
-  max-width: min(84vw, 44rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex: 0 0 auto;
 }
 
-.alpha-ticker:hover .alpha-ticker-item {
+.alpha-ticker:hover .alpha-ticker-track {
   animation-play-state: paused;
 }
 
-@keyframes ticker-item-fade {
-  0%,
-  100% {
-    opacity: 0;
+@keyframes alpha-ticker-scroll {
+  from {
+    transform: translateX(0);
   }
-  5%,
-  18% {
-    opacity: 1;
-  }
-  23% {
-    opacity: 0;
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -3168,8 +3168,9 @@ a.binance-mover-row:hover {
   }
 
   .hero h1 {
-    font-size: 1.85rem;
-    max-width: 21rem;
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
+    max-width: min(20rem, calc(100vw - (2 * var(--space-md))));
+    overflow-wrap: anywhere;
   }
 
   .hero-cta {
@@ -3197,34 +3198,25 @@ a.binance-mover-row:hover {
   }
 
   .hero-proof-strip {
-    display: flex;
+    display: grid;
     align-items: stretch;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-xs);
     width: calc(100vw - (2 * var(--space-md)));
     max-width: 20rem;
     margin-top: var(--space-md);
     margin-left: auto;
     margin-right: auto;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    padding-bottom: var(--space-xs);
-    scrollbar-width: none;
-  }
-
-  .hero-proof-strip::-webkit-scrollbar {
-    display: none;
+    overflow: visible;
+    padding-bottom: 0;
   }
 
   .hero-proof-item {
-    flex: 0 0 auto;
     justify-content: center;
     min-height: 32px;
     padding: 0 var(--space-sm);
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .hero-alpha-ticker {
@@ -3456,9 +3448,10 @@ a.binance-mover-row:hover {
     transform: none !important;
   }
 
-  .alpha-ticker-item {
+  .alpha-ticker-track {
     animation: none !important;
-    opacity: 1;
+    transform: none !important;
+    width: 100%;
   }
 
   .alpha-ticker-item:not(:first-child) {
@@ -3699,11 +3692,15 @@ a.binance-mover-row:hover {
   }
 
   .cookie-consent-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
   }
 
   .cookie-consent-actions .btn {
-    flex: 1;
+    min-width: 0;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
 }
 

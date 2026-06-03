@@ -13,7 +13,7 @@ import {
   recordTikTokManualCompletion,
   type TikTokManualCompletionTracker,
 } from "../src/lib/tiktok-manual-completion";
-import { loadEnv, safeReadJson } from "../src/lib/utils";
+import { loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 
 loadEnv();
 
@@ -56,7 +56,7 @@ async function main(): Promise<void> {
     tiktokUrl,
     postId,
   });
-  fs.writeFileSync(trackerFile, `${JSON.stringify(updated, null, 2)}\n`);
+  writeFileAtomicSync(trackerFile, `${JSON.stringify(updated, null, 2)}\n`);
 
   if (updated.tokenId) {
     const tiktok = updated.platforms.tiktok || {};

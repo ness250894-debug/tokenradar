@@ -18,7 +18,7 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
 import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
-import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { buildTelegramPollPayload } from "./lib/telegram-poll";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
@@ -203,7 +203,7 @@ async function main() {
 
     const msgId = await sendTelegramPoll(question, options, channelId!);
     const postedAt = new Date().toISOString();
-    fs.writeFileSync(
+    writeFileAtomicSync(
       trackerFile,
       JSON.stringify(
         {

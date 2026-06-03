@@ -1,5 +1,5 @@
 import { afterEach, describe, it, expect, vi } from "vitest";
-import { redactSensitiveText, safeReadJson } from "../src/lib/utils";
+import { redactSensitiveText, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
@@ -54,6 +54,24 @@ describe("safeReadJson", () => {
       expect(result).toBe("default");
     } finally {
       fs.unlinkSync(tmpFile);
+    }
+  });
+});
+
+describe("writeFileAtomicSync", () => {
+  it("writes complete JSON and removes the temporary write file", () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-atomic-"));
+    const targetFile = path.join(tmpDir, "tracker.json");
+
+    try {
+      writeFileAtomicSync(targetFile, JSON.stringify({ postedAt: "2026-06-03T00:00:00.000Z" }, null, 2));
+
+      expect(JSON.parse(fs.readFileSync(targetFile, "utf-8"))).toEqual({
+        postedAt: "2026-06-03T00:00:00.000Z",
+      });
+      expect(fs.readdirSync(tmpDir).filter((file) => file.endsWith(".tmp"))).toEqual([]);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
 });

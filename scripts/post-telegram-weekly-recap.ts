@@ -22,7 +22,7 @@ import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
 import { renderTelegramWeeklyRecapImage } from "../src/lib/telegram-weekly-recap-image";
-import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import {
   buildTelegramWeeklyRecap,
   selectWeeklyRecapTokens,
@@ -100,7 +100,7 @@ ${TELEGRAM_SIGNAL_NOTE}
     const messageId = await sendTelegramPhoto(photoBuffer, caption, channelId!);
     const postedAt = new Date().toISOString();
 
-    fs.writeFileSync(
+    writeFileAtomicSync(
       trackerFile,
       JSON.stringify(
         {
