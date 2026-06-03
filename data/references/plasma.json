@@ -3,19 +3,33 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Bitcoin faces an 'identity crisis' and DeFi devs need to stop acting like tech bros",
-      "link": "https://www.coindesk.com/business/2026/06/02/bitcoin-faces-identity-crisis-as-defi-quietly-builds-its-breakthrough-point",
-      "pubDate": "Tue, 02 Jun 2026 16:15:58 +0000",
+      "title": "Apparent Zcash outage was a block explorer problem, infrastructure provider says",
+      "link": "https://www.coindesk.com/tech/2026/06/03/privacy-focused-zcash-blockchain-has-not-produced-a-block-for-four-hours",
+      "pubDate": "Wed, 03 Jun 2026 10:22:36 +0000",
       "source": "CoinDesk",
-      "snippet": "Solstice Labs CEO Ben Nadareski says developers must act like financial managers to win back institutional trust amid ongoing security exploits."
+      "snippet": "One expert said the issue was mainly with block explorers tracking the onchain activity."
     },
     {
-      "title": "Hyperliquid predicted 80% of oil move before traditional exchanges opened, says expert report",
-      "link": "https://www.coindesk.com/markets/2026/06/02/hyperliquid-predicted-80-of-an-oil-market-move-before-traditional-exchanges-even-opened-says-td-securities",
-      "pubDate": "Tue, 02 Jun 2026 16:02:08 +0000",
+      "title": "Trezor says your crypto is safe after Ledger audit exposes a hardware flaw",
+      "link": "https://www.coindesk.com/tech/2026/06/02/dnp-trezor-says-users-crypto-is-safe-after-ledger-researchers-uncover-chip-flaw",
+      "pubDate": "Wed, 03 Jun 2026 10:04:32 +0000",
       "source": "CoinDesk",
-      "snippet": "TD Securities says \"perpetual futures\" are exploding beyond crypto as platforms like Hyperliquid outpace traditional Wall Street exchanges on everything from pre-IPO tech stocks to weekend oil trading."
+      "snippet": "The flaw affects only one of the wallet's multiple security layers and would require physical access, specialized equipment and advanced expertise to exploit."
+    },
+    {
+      "title": "Zcash fixes Orchard bug after emergency network upgrade",
+      "link": "https://cointelegraph.com/news/zcash-orchard-vulnerability-emergency-upgrade?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 03 Jun 2026 14:33:30 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Zcash Open Development Lab said the network briefly became unstable as miners upgraded, while the Zcash Foundation said there was no evidence of an exploit."
+    },
+    {
+      "title": "Zcash Completes &#39;Most Ambitious&#39; Network Upgrade as ZEC Resumes Recent Surge",
+      "link": "https://decrypt.co/369896/zcash-completes-most-ambitious-network-upgrade-zec-resumes-recent-surge",
+      "pubDate": "Wed, 03 Jun 2026 15:05:53 +0000",
+      "source": "Decrypt",
+      "snippet": "A Zcash vulnerability could have allowed double-spending within the network&#39;s flagship privacy pool, though no exploitation occurred."
     }
   ],
-  "fetchedAt": "2026-06-02T20:34:23.097Z"
+  "fetchedAt": "2026-06-03T20:46:05.985Z"
 }

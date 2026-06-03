@@ -2111,5 +2111,51 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-02T20:31:46.258Z",
     "discoveredAt": "2026-06-02T20:31:46.258Z"
+  },
+  {
+    "id": "kraken-tokenized-ipo",
+    "name": "Kraken Tokenized IPO Access",
+    "symbol": "TBD",
+    "category": "RWA/Fintech",
+    "expectedTge": "Coming weeks",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/kraken-payward-tokenized-ipo-access-retail-investors",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE / ICO / IDO / IEO",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/kraken-payward-tokenized-ipo-access-retail-investors",
+        "title": "Kraken parent Payward brings tokenized IPO access to retail investors",
+        "observedAt": "2024-06-27"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-03T20:43:24.789Z",
+    "discoveredAt": "2026-06-03T20:43:24.789Z"
+  },
+  {
+    "id": "kraken-tokenized-ipo-access",
+    "name": "Kraken Tokenized IPO Access",
+    "symbol": "TBD",
+    "category": "DeFi/RWA/Exchange",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/03/kraken-parent-payward-plans-to-offer-tokenized-ipo-access-as-investors-await-blockbuster-debuts",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch/Tokenization Plan",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/03/kraken-parent-payward-plans-to-offer-tokenized-ipo-access-as-investors-await-blockbuster-debuts",
+        "title": "Kraken parent Payward plans to offer tokenized IPO access as investors await blockbuster debuts",
+        "observedAt": "2026-06-03"
+      }
+    ],
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-03T20:43:24.790Z",
+    "discoveredAt": "2026-06-03T20:43:24.790Z"
   }
 ]
