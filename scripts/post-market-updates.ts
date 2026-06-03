@@ -45,7 +45,7 @@ import {
 } from "../src/lib/config";
 import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
 import { listSocialPostContentKeys, recordSocialPost } from "../src/lib/ops-ledger";
-import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog } from "../src/lib/utils";
+import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
 import { getRecentPlatformTexts, getRecentSocialVariantKeys } from "./lib/social-history";
 import {
@@ -673,8 +673,8 @@ async function main() {
         : "market-update";
       const tf = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
       if (!fs.existsSync(tf)) {
-        fs.writeFileSync(tf, JSON.stringify({ 
-          postedAt: new Date().toISOString(), 
+        writeFileAtomicSync(tf, JSON.stringify({
+          postedAt: new Date().toISOString(),
           platform,
           requestedPlatform: targetPlatform,
           reason,

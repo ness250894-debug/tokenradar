@@ -33,7 +33,7 @@ import {
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
-import { safeReadJson, formatErrorForLog } from "../src/lib/utils";
+import { safeReadJson, formatErrorForLog, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
@@ -320,7 +320,7 @@ async function main() {
     }
 
     // Save tracking
-    fs.writeFileSync(
+    writeFileAtomicSync(
       TRACKER_FILE,
       JSON.stringify(
         {

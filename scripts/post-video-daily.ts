@@ -33,7 +33,7 @@ import {
   getTelegramFooter,
   TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
-import { formatErrorForLog, safeReadJson, loadEnv } from "../src/lib/utils";
+import { formatErrorForLog, safeReadJson, loadEnv, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText, generateVideoVoiceoverScript } from "../src/lib/social-content-generator";
 import { generateKokoroVoiceover } from "../src/lib/kokoro-voiceover";
@@ -2286,7 +2286,7 @@ export async function main(args = process.argv.slice(2)) {
     const remainingPlatforms = requestedPlatforms.filter((platform) => !isPlatformCompleteForRun(trackerState.platforms[platform]));
     if (remainingPlatforms.length > 0) {
       trackerState.postedAt = new Date().toISOString();
-      fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
+      writeFileAtomicSync(trackerFile, JSON.stringify(trackerState, null, 2));
       await recordAutomationRun({
         id: videoAutomationRunId,
         workflow: "post-video-daily",
@@ -2304,7 +2304,7 @@ export async function main(args = process.argv.slice(2)) {
     }
 
     trackerState.postedAt = new Date().toISOString();
-    fs.writeFileSync(trackerFile, JSON.stringify(trackerState, null, 2));
+    writeFileAtomicSync(trackerFile, JSON.stringify(trackerState, null, 2));
     await recordAutomationRun({
       id: videoAutomationRunId,
       workflow: "post-video-daily",

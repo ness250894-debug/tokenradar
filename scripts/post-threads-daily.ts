@@ -20,7 +20,7 @@ import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
-import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import { buildWeeklyThreadsRecap, selectWeeklyRecapTokens, type WeeklyThreadsRecap } from "./lib/threads-recap";
@@ -212,7 +212,7 @@ async function main() {
       });
       const postedAt = new Date().toISOString();
 
-      fs.writeFileSync(
+      writeFileAtomicSync(
         trackerFile,
         JSON.stringify(
           {
@@ -336,7 +336,7 @@ async function main() {
     });
     const postedAt = new Date().toISOString();
 
-    fs.writeFileSync(
+    writeFileAtomicSync(
       trackerFile,
       JSON.stringify(
         {

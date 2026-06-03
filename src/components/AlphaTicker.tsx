@@ -8,11 +8,14 @@ const ALPHA_EVENTS = [
 ];
 
 export function AlphaTicker() {
-  const duration = ALPHA_EVENTS.length * 4;
+  const tickerEvents = [...ALPHA_EVENTS, ...ALPHA_EVENTS];
+  const tickerLabel = `TokenRadar system updates: ${ALPHA_EVENTS.join(". ")}`;
 
   return (
     <div
       className="alpha-ticker"
+      role="note"
+      aria-label={tickerLabel}
       style={{
         width: "100%",
         maxWidth: "100%",
@@ -26,19 +29,14 @@ export function AlphaTicker() {
         isolation: "isolate",
       }}
     >
-      {ALPHA_EVENTS.map((event, index) => (
-        <div
-          className="alpha-ticker-item"
-          key={event}
-          style={{
-            animationDelay: `${index * 4}s`,
-            animationDuration: `${duration}s`,
-          }}
-        >
-          <span style={{ color: "var(--accent-primary)", flex: "0 0 auto" }}>[SYS]</span>
-          <span className="alpha-ticker-text">{event}</span>
-        </div>
-      ))}
+      <div className="alpha-ticker-track" aria-hidden="true">
+        {tickerEvents.map((event, index) => (
+          <span className="alpha-ticker-item" key={`${event}-${index}`}>
+            <span className="alpha-ticker-tag">[SYS]</span>
+            <span className="alpha-ticker-text">{event}</span>
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

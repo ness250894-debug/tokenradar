@@ -15,7 +15,7 @@ import * as path from "path";
 
 import { callAIWithFallback } from "../src/lib/gemini";
 import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
-import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
@@ -211,7 +211,7 @@ ${TELEGRAM_SIGNAL_NOTE}
     // ── Post to Telegram (buffer goes directly, never saved) ──
     const msgId = await sendTelegramPhoto(photoBuffer, sanitizedCaption, channelId!);
     const postedAt = new Date().toISOString();
-    fs.writeFileSync(
+    writeFileAtomicSync(
       trackerFile,
       JSON.stringify(
         {

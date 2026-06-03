@@ -27,7 +27,7 @@ import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
 import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
-import { formatErrorForLog, loadEnv, safeReadJson } from "../src/lib/utils";
+import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   cleanupExpiredCooldownFolders,
@@ -249,7 +249,7 @@ async function main() {
     );
     const postedAt = new Date().toISOString();
 
-    fs.writeFileSync(
+    writeFileAtomicSync(
       trackerFile,
       JSON.stringify(
         {
