@@ -1254,7 +1254,7 @@
     "expectedTge": "June 4, 2024",
     "narrativeStrength": 85,
     "dataSource": "https://cointelegraph.com/press-releases/tea-protocol-announces-june-4-mainnet-launch-and-tge-on-aerodrome-to-secure-open-source-development-in-the-ai-era",
-    "lifecycleStatus": "confirmed_tge",
+    "lifecycleStatus": "graduated",
     "confidence": 95,
     "signals": [
       {
@@ -1265,9 +1265,20 @@
         "observedAt": "2024-05-13T00:00:00.000Z"
       }
     ],
-    "status": "upcoming",
-    "lastVerifiedAt": "2026-05-13T19:29:35.681Z",
-    "discoveredAt": "2026-05-13T19:29:35.681Z"
+    "status": "released",
+    "lastVerifiedAt": "2026-06-04T20:13:48.097Z",
+    "discoveredAt": "2026-05-13T19:29:35.681Z",
+    "graduatedAt": "2026-06-04T20:13:48.097Z",
+    "coingeckoRank": 2311,
+    "graduationEvidence": {
+      "coingeckoId": "tea-protocol",
+      "coingeckoRank": 2311,
+      "rank": 2311,
+      "priceUsd": 0.00009517,
+      "volume24h": 2677839,
+      "matchedBy": "id",
+      "verifiedAt": "2026-06-04T20:13:48.097Z"
+    }
   },
   {
     "id": "jpmorgan-tokenized-mm-fund",
@@ -2157,5 +2168,74 @@
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-03T20:43:24.790Z",
     "discoveredAt": "2026-06-03T20:43:24.790Z"
+  },
+  {
+    "id": "goldman-sachs-tokenized-real-estate-fund",
+    "name": "Goldman Sachs Tokenized Real Estate Fund",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/apex-group-tokenized-real-estate-fund-goldman-sachs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch/Integration",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/apex-group-tokenized-real-estate-fund-goldman-sachs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Apex, Archax join Goldman Sachs tokenized real estate fund project",
+        "observedAt": "2024-06-21T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-04T20:12:15.569Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-04T20:12:15.569Z"
+  },
+  {
+    "id": "coinbase-pre-ipo-markets",
+    "name": "Coinbase Pre-IPO Markets",
+    "symbol": "TBD",
+    "category": "DeFi/TradFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/coinbase-launches-pre-ipo-markets-amid-crypto-push-private-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "confidence": 65,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch/Integration",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/coinbase-launches-pre-ipo-markets-amid-crypto-push-private-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Coinbase launches pre-IPO markets, starting with Elon Musk’s SpaceX",
+        "observedAt": "2024-06-21T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-04T20:12:15.569Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-04T20:12:15.569Z"
+  },
+  {
+    "id": "coinbase-spacex-pre-ipo-perps",
+    "name": "Coinbase SpaceX Pre-IPO Perps",
+    "symbol": "TBD",
+    "category": "CeFi / Derivatives",
+    "expectedTge": "IPO completion",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/369991/coinbase-launches-pre-ipo-perps-starting-with-elon-musks-spacex",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://decrypt.co/369991/coinbase-launches-pre-ipo-perps-starting-with-elon-musks-spacex",
+        "title": "Coinbase Launches Pre-IPO Perps, Starting with Elon Musk's SpaceX",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-04T20:12:15.569Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-04T20:12:15.569Z"
   }
 ]
