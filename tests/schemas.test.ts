@@ -137,4 +137,29 @@ describe("data schema contracts", () => {
       }).success,
     ).toBe(true);
   });
+
+  it("rejects date-only strings for timestamp fields", () => {
+    expect(
+      UpcomingTgeSchema.safeParse({
+        id: "test-token",
+        name: "Test Token",
+        symbol: "TEST",
+        category: "AI",
+        expectedTge: "2026-Q2",
+        narrativeStrength: 80,
+        dataSource: "manual",
+        discoveredAt: "2026-05-17T18:48:03.565Z",
+        lifecycleStatus: "watchlist",
+        confidence: 75,
+        signals: [
+          {
+            type: "tge",
+            sourceType: "official",
+            url: "https://example.com",
+            observedAt: "2026-06-02",
+          },
+        ],
+      }).success,
+    ).toBe(false);
+  });
 });
