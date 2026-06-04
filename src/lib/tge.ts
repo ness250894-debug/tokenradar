@@ -222,9 +222,20 @@ export function inferTgeSignalType(input: {
   return "news";
 }
 
+function normalizeTgeTimestamp(value: string | null | undefined, fallback?: string | null): string {
+  const timestamp = value ? Date.parse(value) : NaN;
+  if (!Number.isNaN(timestamp)) return new Date(timestamp).toISOString();
+
+  const fallbackTimestamp = fallback ? Date.parse(fallback) : NaN;
+  if (!Number.isNaN(fallbackTimestamp)) return new Date(fallbackTimestamp).toISOString();
+
+  return new Date().toISOString();
+}
+
 export function normalizeTgeSignals(tge: UpcomingTge): TgeSignal[] {
   const seen = new Set<string>();
   const signals: TgeSignal[] = [];
+  const fallbackObservedAt = normalizeTgeTimestamp(tge.discoveredAt);
 
   for (const signal of tge.signals || []) {
     if (!signal?.url) continue;
@@ -236,7 +247,7 @@ export function normalizeTgeSignals(tge: UpcomingTge): TgeSignal[] {
       sourceType: signal.sourceType || inferTgeSourceType(signal.url),
       url: signal.url,
       title: signal.title,
-      observedAt: signal.observedAt || tge.discoveredAt || new Date().toISOString(),
+      observedAt: normalizeTgeTimestamp(signal.observedAt, fallbackObservedAt),
       confidence: signal.confidence,
     });
   }
@@ -250,7 +261,7 @@ export function normalizeTgeSignals(tge: UpcomingTge): TgeSignal[] {
       }),
       sourceType: inferTgeSourceType(tge.dataSource),
       url: tge.dataSource,
-      observedAt: tge.discoveredAt || new Date().toISOString(),
+      observedAt: fallbackObservedAt,
     });
   }
 
@@ -338,7 +349,9 @@ export function deriveTgeLifecycleStatus(tge: UpcomingTge): TgeLifecycleStatus {
 }
 
 export function normalizeTge(tge: UpcomingTge): UpcomingTge {
-  const signals = normalizeTgeSignals(tge);
+  const discoveredAt = normalizeTgeTimestamp(tge.discoveredAt);
+  const lastVerifiedAt = normalizeTgeTimestamp(tge.lastVerifiedAt, discoveredAt);
+  const signals = normalizeTgeSignals({ ...tge, discoveredAt });
   const confidence = tge.confidence ?? scoreTgeConfidence({ ...tge, signals });
   const lifecycleStatus = deriveTgeLifecycleStatus({ ...tge, signals, confidence });
   const status: LegacyTgeStatus = lifecycleStatus === "graduated" ? "released" : "upcoming";
@@ -347,11 +360,21 @@ export function normalizeTge(tge: UpcomingTge): UpcomingTge {
     ...tge,
     symbol: (tge.symbol || "TBD").toUpperCase(),
     narrativeStrength: clamp(Math.round(tge.narrativeStrength || 0), 0, 100),
+    discoveredAt,
     status,
     lifecycleStatus,
     confidence,
     signals,
-    lastVerifiedAt: tge.lastVerifiedAt || tge.discoveredAt,
+    lastVerifiedAt,
+    ...(tge.graduatedAt ? { graduatedAt: normalizeTgeTimestamp(tge.graduatedAt, discoveredAt) } : {}),
+    ...(tge.graduationEvidence?.verifiedAt
+      ? {
+          graduationEvidence: {
+            ...tge.graduationEvidence,
+            verifiedAt: normalizeTgeTimestamp(tge.graduationEvidence.verifiedAt, discoveredAt),
+          },
+        }
+      : {}),
   };
 }
 

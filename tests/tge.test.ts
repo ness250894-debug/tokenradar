@@ -53,4 +53,20 @@ describe("TGE lifecycle normalization", () => {
 
     expect(queries).toEqual(["0x0000000000000000000000000000000000000000"]);
   });
+
+  it("normalizes date-only signal observation dates into ISO timestamps", () => {
+    const tge = normalizeTge({
+      ...baseTge,
+      signals: [
+        {
+          type: "tge",
+          sourceType: "official",
+          url: "https://example.com/tge",
+          observedAt: "2026-06-02",
+        },
+      ],
+    });
+
+    expect(tge.signals?.[0]?.observedAt).toBe("2026-06-02T00:00:00.000Z");
+  });
 });

@@ -1,8 +1,14 @@
 import { z } from "zod";
 
-const IsoDateStringSchema = z.string().refine((value) => !Number.isNaN(Date.parse(value)), {
-  message: "Expected a valid ISO date string",
-});
+const IsoDateStringSchema = z.string().refine(
+  (value) => {
+    const timestamp = Date.parse(value);
+    return !Number.isNaN(timestamp) && new Date(timestamp).toISOString() === value;
+  },
+  {
+    message: "Expected a valid ISO date string",
+  },
+);
 
 const Score0To100Schema = z.number().min(0).max(100);
 
