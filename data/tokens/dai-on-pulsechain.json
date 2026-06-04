@@ -17,25 +17,25 @@
     "explorer": "https://scan.pulsechain.com/token/0x6b175474e89094c44da98b954eedeac495271d0f"
   },
   "market": {
-    "price": 0.00246652,
-    "marketCap": 109809670,
-    "marketCapRank": 266,
-    "volume24h": 1147419,
-    "high24h": 0.00279752,
-    "low24h": 0.00220751,
-    "priceChange24h": 5.97995,
-    "priceChange7d": 55.40349608940467,
-    "priceChange30d": 69.75029212816017,
-    "priceChange1y": 5.1085115337864115,
+    "price": 0.00224824,
+    "marketCap": 99453268,
+    "marketCapRank": 277,
+    "volume24h": 507761,
+    "high24h": 0.00249999,
+    "low24h": 0.00216062,
+    "priceChange24h": -9.15586,
+    "priceChange7d": 41.891304017023955,
+    "priceChange30d": 58.48534428399458,
+    "priceChange1y": -12.900463102825002,
     "ath": 0.03373531,
-    "athChangePercentage": -92.66143,
+    "athChangePercentage": -93.32552,
     "athDate": "2024-11-29T07:29:41.111Z",
     "atl": 1.02312e-13,
     "atlDate": "2024-06-11T21:34:57.858Z",
-    "circulatingSupply": 44359649323.50574,
-    "totalSupply": 44359649323.50574,
+    "circulatingSupply": 44359581214.42849,
+    "totalSupply": 44359581214.42849,
     "maxSupply": null,
-    "fdv": 109809670
+    "fdv": 99453268
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:30:29.531Z",
-  "lastMarketUpdate": "2026-06-03T20:42:36.273Z"
+  "lastMarketUpdate": "2026-06-04T20:11:11.547Z"
 }
