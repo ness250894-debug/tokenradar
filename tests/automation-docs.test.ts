@@ -97,7 +97,11 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse");
     expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)");
+    expect(workflow).toContain("Refresh Derived Metrics For Video");
     expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform all");
+    expect(workflow.indexOf("npx tsx scripts/compute-metrics.ts")).toBeLessThan(
+      workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform all"),
+    );
   });
 
   it("keeps social cron slots away from high-risk hour-boundary minutes", () => {

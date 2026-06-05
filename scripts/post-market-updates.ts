@@ -38,16 +38,19 @@ import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtml
 import { diversifyXPostText, getMissingXCredentialNames, postTweet, postTweetWithMedia } from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import {
-  MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
   SOCIAL,
   SOCIAL_PLATFORM_LIMITS,
   getTelegramFooter,
 } from "../src/lib/config";
-import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
+import type { SocialContentArchetype } from "../src/lib/social-archetypes";
+import type { SocialContentVariant } from "../src/lib/social-variety";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
+import { buildSocialUtmUrl } from "../src/lib/social-utm";
 import { listSocialPostContentKeys, recordSocialPost } from "../src/lib/ops-ledger";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
-import { getRecentPlatformTexts, getRecentSocialVariantKeys } from "./lib/social-history";
+import { getRecentPlatformTexts } from "./lib/social-history";
+import { buildMarketSocialPlan, type MarketSocialPlan } from "./lib/market-social-plan";
 import {
   buildTelegramMarketPost,
   getTelegramMarketVariantSurface,
@@ -231,6 +234,7 @@ async function main() {
 
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
+  const socialSlot = process.env.SOCIAL_SLOT || "market-update";
   if (!dryRun) {
     cleanupExpiredCooldownFolders(DATA_DIR);
     ensureDirSync(POSTED_DIR);
@@ -377,23 +381,25 @@ async function main() {
   const captionPlatforms: PlatformTarget[] = [];
   const captionOptions: UnifiedCaptionOptions = {};
   const contentVariants: Partial<Record<PlatformTarget, SocialContentVariant>> = {};
+  const contentArchetypes: Partial<Record<PlatformTarget, SocialContentArchetype>> = {};
+  const marketPlans: Partial<Record<MarketPostPlatform, MarketSocialPlan>> = {};
   if (runTelegram) {
+    marketPlans.telegram = buildMarketSocialPlan({
+      dataDir: DATA_DIR,
+      platform: "telegram",
+      today: TODAY,
+      tokenId: targetToken.id,
+      reason,
+      slot: socialSlot,
+    });
+    contentArchetypes.telegram = marketPlans.telegram.archetype;
     if (telegramFormat === "market-brief") {
       console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
       captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
       captionPlatforms.push("telegram");
-      contentVariants.telegram = selectSocialContentVariant({
-        platform: "telegram",
-        usedVariantKeys: getRecentSocialVariantKeys(
-          DATA_DIR,
-          "telegram",
-          MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
-          new Date(),
-          "market-update",
-        ),
-        seedParts: [TODAY, "telegram", targetToken.id, reason, "market-update"],
-      });
+      contentVariants.telegram = marketPlans.telegram.variant;
       console.log(`  Telegram variant: ${contentVariants.telegram.label} (${contentVariants.telegram.key})`);
+      console.log(`  Telegram archetype: ${marketPlans.telegram.archetype.label} (${marketPlans.telegram.archetype.key})`);
     } else {
       telegramDraft = buildTelegramMarketPost({
         format: telegramFormat,
@@ -423,6 +429,7 @@ async function main() {
         promptInstruction: "Local formatter; no AI prompt required.",
       };
       console.log(`▶ Step 3/TG: Built Telegram ${telegramDraft.variantLabel} format.`);
+      console.log(`  Telegram archetype: ${marketPlans.telegram.archetype.label} (${marketPlans.telegram.archetype.key})`);
     }
   }
 
@@ -431,29 +438,42 @@ async function main() {
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
     captionOptions.xMaxChars = 260;
     captionPlatforms.push("x");
-    contentVariants.x = selectSocialContentVariant({
+    marketPlans.x = buildMarketSocialPlan({
+      dataDir: DATA_DIR,
       platform: "x",
-      usedVariantKeys: getRecentSocialVariantKeys(
-        DATA_DIR,
-        "x",
-        MARKET_UPDATE_VARIANT_COOLDOWN_DAYS,
-        new Date(),
-        "market-update",
-      ),
-      seedParts: [TODAY, "x", targetToken.id, reason, "market-update"],
+      today: TODAY,
+      tokenId: targetToken.id,
+      reason,
+      slot: socialSlot,
     });
+    contentVariants.x = marketPlans.x.variant;
+    contentArchetypes.x = marketPlans.x.archetype;
     console.log(`  X variant: ${contentVariants.x.label} (${contentVariants.x.key})`);
+    console.log(`  X archetype: ${marketPlans.x.archetype.label} (${marketPlans.x.archetype.key})`);
 
     xReplyMessage = includeLinkReply
       ? isOnWebsite
-        ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
-        : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+        ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${buildSocialUtmUrl(`${siteUrl}/${targetToken.id}`, {
+            platform: "x",
+            date: TODAY,
+            surface: "market-update",
+            archetypeKey: marketPlans.x.archetype.key,
+            tokenId: targetToken.id,
+          })}`
+        : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${buildSocialUtmUrl(SOCIAL.ecosystemUrl, {
+            platform: "x",
+            date: TODAY,
+            surface: "market-update",
+            archetypeKey: marketPlans.x.archetype.key,
+            tokenId: targetToken.id,
+          })}`
       : "";
   }
 
   if (captionPlatforms.length > 0) {
     console.log(`Step 3: Generating unified captions for ${captionPlatforms.join(", ")}...`);
     captionOptions.contentVariants = contentVariants;
+    captionOptions.contentArchetypes = contentArchetypes;
     const captions = await generateUnifiedCaptions(
       targetToken.name,
       targetToken.symbol,
@@ -528,7 +548,13 @@ async function main() {
   if (runTelegram) {
     try {
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
-      const tokenLink = `${siteUrl}/${targetToken.id}`;
+      const tokenLink = buildSocialUtmUrl(`${siteUrl}/${targetToken.id}`, {
+        platform: "telegram",
+        date: TODAY,
+        surface: telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat),
+        archetypeKey: marketPlans.telegram?.archetype.key || "single_token_snapshot",
+        tokenId: targetToken.id,
+      });
 
       if (telegramImage) {
         // ── Photo mode: short caption (1024 char limit) ──
@@ -672,36 +698,48 @@ async function main() {
         ? telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat)
         : "market-update";
       const tf = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
+      const plan = marketPlans[platform];
+      const utmUrl = plan
+        ? buildSocialUtmUrl(onWebsiteIds.has(targetToken.id) ? `${siteUrl}/${targetToken.id}` : SOCIAL.ecosystemUrl, {
+            platform,
+            date: TODAY,
+            surface: variantSurface,
+            archetypeKey: plan.archetype.key,
+            tokenId: targetToken.id,
+          })
+        : undefined;
+      const trackerPayload = buildSocialTrackerPayload({
+        postedAt: new Date().toISOString(),
+        platform,
+        requestedPlatform: targetPlatform,
+        surface: variantSurface,
+        tokenId: targetToken.id,
+        tokenName: targetToken.name,
+        tokenSymbol: targetToken.symbol.toUpperCase(),
+        reason,
+        variantKey: contentVariants[platform]?.key,
+        variantLabel: contentVariants[platform]?.label,
+        archetypeKey: plan?.archetype.key,
+        archetypeLabel: plan?.archetype.label,
+        hookFamily: plan?.hookFamily,
+        ctaFamily: plan?.ctaFamily,
+        text: platform === "x" ? xMessage : tgMessage,
+        externalId: successfulExternalIds.get(platform),
+        utmUrl,
+        details: {
+          tone,
+          socialSlot,
+          telegramFormat: platform === "telegram" ? telegramFormat : undefined,
+        },
+      });
       if (!fs.existsSync(tf)) {
-        writeFileAtomicSync(tf, JSON.stringify({
-          postedAt: new Date().toISOString(),
-          platform,
-          requestedPlatform: targetPlatform,
-          reason,
-          variantKey: contentVariants[platform]?.key,
-          variantLabel: contentVariants[platform]?.label,
-          variantPlatform: platform,
-          variantSurface,
-          ...(platform === "x" ? { xText: xMessage } : {}),
-          ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
-        }, null, 2));
+        writeFileAtomicSync(tf, JSON.stringify(trackerPayload, null, 2));
       }
       await recordSocialPost({
         platform,
         contentKey: `${TODAY}:market-update:${targetToken.id}`,
         externalId: successfulExternalIds.get(platform),
-        details: {
-          tokenId: targetToken.id,
-          tokenName: targetToken.name,
-          requestedPlatform: targetPlatform,
-          reason,
-          tone,
-          variantKey: contentVariants[platform]?.key,
-          variantLabel: contentVariants[platform]?.label,
-          variantSurface,
-          ...(platform === "x" ? { xText: xMessage } : {}),
-          ...(platform === "telegram" ? { telegramText: tgMessage } : {}),
-        },
+        details: buildSocialPostDetails(trackerPayload),
       });
     }
 

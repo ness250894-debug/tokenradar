@@ -39,13 +39,14 @@ describe("sanitizeHtmlForTelegram", () => {
     expect(result).toBe("<b><i>Crossed</i></b> tags");
   });
 
-  it("preserves the premium Telegram signal footer", () => {
+  it("preserves the premium Telegram research footer", () => {
     const footer = getTelegramFooter("river");
     const result = sanitizeHtmlForTelegram(footer);
 
     expect(result).toContain('<a href="https://linktr.ee/tokenradarco">');
-    expect(result).toContain("TokenRadar Signal Desk</a>");
-    expect(result).toContain("Research signal, not financial advice.");
+    expect(result).toContain("TokenRadar Research Desk</a>");
+    expect(result).toContain("Research read, not financial advice.");
+    expect(result).toContain("Confirm liquidity, risk, and invalidation.");
     expect(result).not.toContain("Trade on top exchanges");
   });
 
@@ -61,8 +62,9 @@ describe("sanitizeHtmlForTelegram", () => {
     });
 
     expect(getTelegramHtmlTextLength(caption)).toBeLessThanOrEqual(SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT);
-    expect(caption).toContain("TokenRadar Signal Desk");
-    expect(caption).toContain("Research signal, not financial advice.");
+    expect(caption).toContain("TokenRadar Research Desk");
+    expect(caption).toContain("Research read, not financial advice.");
+    expect(caption).toContain("Confirm liquidity, risk, and invalidation.");
     expect(caption).toContain("#RIVER #Crypto");
     expect(caption).not.toContain("...");
   });

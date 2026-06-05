@@ -16,13 +16,15 @@ import * as path from "path";
 
 import { generateUnifiedCaptions } from "../src/lib/gemini";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
-import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { getRecentSocialArchetypeKeys, getRecentSocialVariantKeys } from "./lib/social-history";
 import { buildWeeklyThreadsRecap, selectWeeklyRecapTokens, type WeeklyThreadsRecap } from "./lib/threads-recap";
 import {
   type MetricData,
@@ -52,19 +54,10 @@ interface ThreadsTextTracker {
   variantKey?: string;
   variantLabel?: string;
   variantSurface?: string;
-}
-
-interface ThreadsWeeklyRecapTracker {
-  platform: "threads";
-  postedAt: string;
-  postId: string;
-  tokenIds: string[];
-  threadsText: string;
-  topicTag: string;
-  leaders: Array<{ id: string; symbol: string; name: string; priceChange7d: number | null }>;
-  pullback?: { id: string; symbol: string; name: string; priceChange7d: number | null };
-  volumeLeader?: { id: string; symbol: string; name: string; volume24h: number | null };
-  variantSurface: "threads-weekly-recap";
+  archetypeKey?: string;
+  archetypeLabel?: string;
+  hookFamily?: string;
+  ctaFamily?: string;
 }
 
 function getThreadsPostMode(args: string[] = process.argv): ThreadsPostMode {
@@ -195,12 +188,27 @@ async function main() {
 
     if (mode === "weekly-recap") {
       const recap = buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
+      const recapArchetype = selectSocialArchetype({
+        platform: "threads",
+        usedArchetypeKeys: force
+          ? []
+          : getRecentSocialArchetypeKeys(
+              DATA_DIR,
+              "threads",
+              SOCIAL_VARIANT_COOLDOWN_DAYS,
+              new Date(`${today}T00:00:00.000Z`),
+              "threads-weekly-recap",
+            ),
+        seedParts: [today, "threads", "weekly-recap", process.env.SOCIAL_SLOT],
+        date: new Date(`${today}T00:00:00.000Z`),
+      });
 
       console.log();
       console.log("Threads weekly recap preview:");
       console.log(recap.caption);
       console.log(`Topic: ${recap.topicTag}`);
       console.log(`Tokens: ${recap.tokenIds.join(", ")}`);
+      console.log(`Archetype: ${recapArchetype.label} (${recapArchetype.key})`);
 
       if (dryRun) {
         console.log("Dry run - Threads weekly recap not posted.");
@@ -211,36 +219,39 @@ async function main() {
         topicTag: recap.topicTag,
       });
       const postedAt = new Date().toISOString();
+      const trackerPayload = buildSocialTrackerPayload({
+        postedAt,
+        platform: "threads",
+        surface: "threads-weekly-recap",
+        reason: "weekly-recap",
+        variantKey: "weekly-recap",
+        variantLabel: "Weekly Recap",
+        archetypeKey: recapArchetype.key,
+        archetypeLabel: recapArchetype.label,
+        hookFamily: recapArchetype.hookFamily,
+        ctaFamily: recapArchetype.ctaFamily,
+        text: recap.caption,
+        externalId: result.id,
+        topicTag: recap.topicTag,
+        details: {
+          tokenIds: recap.tokenIds,
+          leaders: recap.leaders.map(weeklyTrackerToken),
+          pullback: recap.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
+          volumeLeader: recap.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
+          socialSlot: process.env.SOCIAL_SLOT,
+        },
+      });
 
       writeFileAtomicSync(
         trackerFile,
-        JSON.stringify(
-          {
-            platform: "threads",
-            postedAt,
-            postId: result.id,
-            tokenIds: recap.tokenIds,
-            threadsText: recap.caption,
-            topicTag: recap.topicTag,
-            leaders: recap.leaders.map(weeklyTrackerToken),
-            pullback: recap.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
-            volumeLeader: recap.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
-            variantSurface: "threads-weekly-recap",
-          } satisfies ThreadsWeeklyRecapTracker,
-          null,
-          2,
-        ),
+        JSON.stringify(trackerPayload, null, 2),
       );
       await recordSocialPost({
         platform: "threads",
         contentKey: socialPostKey,
         externalId: result.id,
         postedAt,
-        details: {
-          tokenIds: recap.tokenIds,
-          topicTag: recap.topicTag,
-          variantSurface: "threads-weekly-recap",
-        },
+        details: buildSocialPostDetails(trackerPayload),
       });
 
       console.log(`Threads weekly recap posted successfully (Post ID: ${result.id})`);
@@ -286,6 +297,21 @@ async function main() {
       date: new Date(`${today}T00:00:00.000Z`),
     });
     console.log(`Threads variant: ${contentVariant.label} (${contentVariant.key})`);
+    const contentArchetype = selectSocialArchetype({
+      platform: "threads",
+      usedArchetypeKeys: force
+        ? []
+        : getRecentSocialArchetypeKeys(
+            DATA_DIR,
+            "threads",
+            SOCIAL_VARIANT_COOLDOWN_DAYS,
+            new Date(`${today}T00:00:00.000Z`),
+            "threads-text",
+          ),
+      seedParts: [today, "threads", token.id, reason, "threads-text", process.env.SOCIAL_SLOT],
+      date: new Date(`${today}T00:00:00.000Z`),
+    });
+    console.log(`Threads archetype: ${contentArchetype.label} (${contentArchetype.key})`);
 
     const captions = await generateUnifiedCaptions(
       token.name,
@@ -309,6 +335,7 @@ async function main() {
       {
         threadsMaxChars: SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
         contentVariants: { threads: contentVariant },
+        contentArchetypes: { threads: contentArchetype },
       },
     );
 
@@ -335,40 +362,38 @@ async function main() {
       spoilerEntities: threadsContent.spoilerEntities,
     });
     const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "threads",
+      surface: "threads-text",
+      tokenId: token.id,
+      tokenName: token.name,
+      tokenSymbol: token.symbol.toUpperCase(),
+      reason,
+      variantKey: contentVariant.key,
+      variantLabel: contentVariant.label,
+      archetypeKey: contentArchetype.key,
+      archetypeLabel: contentArchetype.label,
+      hookFamily: contentArchetype.hookFamily,
+      ctaFamily: contentArchetype.ctaFamily,
+      text: threadsContent.caption,
+      externalId: result.id,
+      topicTag: threadsContent.topicTag,
+      details: {
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
 
     writeFileAtomicSync(
       trackerFile,
-      JSON.stringify(
-        {
-          postedAt,
-          postId: result.id,
-          tokenId: token.id,
-          tokenName: token.name,
-          reason,
-          threadsText: threadsContent.caption,
-          topicTag: threadsContent.topicTag,
-          variantKey: contentVariant.key,
-          variantLabel: contentVariant.label,
-          variantSurface: "threads-text",
-        } satisfies ThreadsTextTracker,
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "threads",
       contentKey: socialPostKey,
       externalId: result.id,
       postedAt,
-      details: {
-        tokenId: token.id,
-        tokenName: token.name,
-        reason,
-        topicTag: threadsContent.topicTag,
-        variantKey: contentVariant.key,
-        variantLabel: contentVariant.label,
-        variantSurface: "threads-text",
-      },
+      details: buildSocialPostDetails(trackerPayload),
     });
 
     console.log(`Threads text signal posted successfully (Post ID: ${result.id})`);

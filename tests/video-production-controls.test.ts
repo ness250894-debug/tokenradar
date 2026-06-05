@@ -6,7 +6,9 @@ import {
   buildVideoProductionAlert,
   classifyVideoPublishError,
   filterVideoCandidatesByFreshness,
+  formatVideoMarketFreshnessIssueCounts,
   reconcilePlatformPublishState,
+  shouldRefreshDerivedMetricsForVideo,
   validatePlatformCopyPackage,
   validateVideoMarketDataFreshness,
 } from "../src/lib/video-production-controls";
@@ -78,6 +80,13 @@ describe("video production market-data controls", () => {
     ];
 
     expect(filterVideoCandidatesByFreshness(candidates, { now }).map((token) => token.id)).toEqual(["fresh"]);
+  });
+
+  it("allows one metrics refresh only when stale derived metrics are the sole blocker", () => {
+    expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 3 }, 3)).toBe(true);
+    expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 2 }, 3)).toBe(false);
+    expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 3, "stale-market-data": 1 }, 3)).toBe(false);
+    expect(formatVideoMarketFreshnessIssueCounts({ "stale-derived-metrics": 3 })).toBe("stale-derived-metrics=3");
   });
 });
 

@@ -13,6 +13,7 @@ import {
   recordAutomationRun,
   recordQuotaSnapshot,
   recordSocialPost,
+  recordSocialPostMetrics,
 } from "../src/lib/ops-ledger";
 
 describe("ops-ledger social posts", () => {
@@ -88,6 +89,43 @@ describe("ops-ledger social posts", () => {
     await recordSocialPost({ platform: "x", contentKey: "missing" });
 
     expect(d1Mocks.executeD1Query).not.toHaveBeenCalled();
+  });
+
+  it("records native social post metrics with an upsert", async () => {
+    d1Mocks.executeD1Query.mockResolvedValueOnce([{ success: true }]);
+
+    await recordSocialPostMetrics({
+      platform: "x",
+      contentKey: "2026-06-05:market-update:bitcoin",
+      measuredAt: "2026-06-06T00:00:00.000Z",
+      impressions: 420,
+      likes: 4,
+      replies: 1,
+      linkClicks: 2,
+      details: { source: "manual-export" },
+    });
+
+    expect(d1Mocks.executeD1Query).toHaveBeenCalledWith(
+      expect.stringContaining("INSERT INTO social_post_metrics"),
+      [
+        "x",
+        "2026-06-05:market-update:bitcoin",
+        "2026-06-06T00:00:00.000Z",
+        420,
+        null,
+        4,
+        1,
+        null,
+        null,
+        null,
+        null,
+        2,
+        null,
+        null,
+        null,
+        JSON.stringify({ source: "manual-export" }),
+      ],
+    );
   });
 
   it("records automation run status with an upsert", async () => {

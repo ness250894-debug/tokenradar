@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
+import {
+  findUnsafeSocialPhrases,
+  sanitizeSocialEditorialText,
+} from "../src/lib/social-editorial";
 
 describe("social editorial policy", () => {
   it("removes advice, hype, and certainty phrases from generated social copy", () => {
@@ -43,5 +46,31 @@ describe("social editorial policy", () => {
     expect(sanitized).not.toMatch(/\b(?:signal|strong buy|entry price|price prediction)\b/i);
     expect(sanitized).toContain("TokenRadar research read");
     expect(sanitized).toContain("research read");
+  });
+
+  it("rewrites dip-buying language into confirmation language", () => {
+    const sanitized = sanitizeSocialEditorialText("Risk-on accumulation: buying dips.");
+
+    expect(sanitized.toLowerCase()).not.toContain("buying dips");
+    expect(sanitized).toContain("waiting for confirmation");
+  });
+
+  it("removes pump and trade-command phrasing from social copy", () => {
+    const input = "Buy now before the next 100x pump. Loading bags is a guaranteed signal.";
+    const sanitized = sanitizeSocialEditorialText(input);
+
+    expect(sanitized.toLowerCase()).not.toContain("buy now");
+    expect(sanitized.toLowerCase()).not.toContain("100x");
+    expect(sanitized.toLowerCase()).not.toContain("loading bags");
+    expect(sanitized.toLowerCase()).not.toContain("guaranteed signal");
+    expect(findUnsafeSocialPhrases(sanitized)).toEqual([]);
+  });
+
+  it("rewrites gem-coded hashtags into neutral market tags", () => {
+    const sanitized = sanitizeSocialEditorialText("Watch $BABY here. #MicroCapGems #AltcoinWatch");
+
+    expect(sanitized).not.toContain("#MicroCapGems");
+    expect(sanitized).toContain("#MarketRead");
+    expect(findUnsafeSocialPhrases(sanitized)).toEqual([]);
   });
 });

@@ -36,6 +36,8 @@ import {
 import { formatErrorForLog, safeReadJson, loadEnv, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText, generateVideoVoiceoverScript } from "../src/lib/social-content-generator";
+import { selectSocialArchetype, type SocialContentArchetype } from "../src/lib/social-archetypes";
+import { buildSocialUtmUrl } from "../src/lib/social-utm";
 import { generateKokoroVoiceover } from "../src/lib/kokoro-voiceover";
 import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
 import {
@@ -91,11 +93,13 @@ import {
   buildVideoIdempotencyKey,
   buildVideoProductionAlert,
   classifyVideoPublishError,
-  filterVideoCandidatesByFreshness,
+  formatVideoMarketFreshnessIssueCounts,
   isTerminalVideoPublishStatus,
   reconcilePlatformPublishState,
+  shouldRefreshDerivedMetricsForVideo,
   validatePlatformCopyPackage,
   validateVideoMarketDataFreshness,
+  type VideoMarketFreshnessIssue,
   type VideoPublishStatus,
 } from "../src/lib/video-production-controls";
 import {
@@ -107,7 +111,7 @@ import {
   loadCandidateTokens,
   selectToken,
 } from "./lib/token-selection";
-import { getRecentPlatformTexts } from "./lib/social-history";
+import { getRecentPlatformTexts, getRecentSocialArchetypeKeys } from "./lib/social-history";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
@@ -178,6 +182,10 @@ interface PlatformTracker {
   caption?: string;
   youtubeTitle?: string;
   youtubeDescription?: string;
+  archetypeKey?: string;
+  archetypeLabel?: string;
+  hookFamily?: string;
+  ctaFamily?: string;
   formatKey?: VideoFormatKey;
   formatLabel?: string;
   formatFamily?: string;
@@ -357,6 +365,57 @@ function failWithVideoAlert(
   console.error(`  ${alert.message}`);
   console.error(`  Runbook: ${alert.nextRunbookAction}`);
   throw new Error(message);
+}
+
+interface VideoCandidateFreshnessEvaluation {
+  candidates: TokenData[];
+  tokenFreshCandidates: TokenData[];
+  issueCounts: Partial<Record<VideoMarketFreshnessIssue, number>>;
+  tokenFreshIssueCounts: Partial<Record<VideoMarketFreshnessIssue, number>>;
+}
+
+function incrementFreshnessIssueCount(
+  issueCounts: Partial<Record<VideoMarketFreshnessIssue, number>>,
+  issues: VideoMarketFreshnessIssue[],
+): void {
+  for (const issue of issues) {
+    issueCounts[issue] = (issueCounts[issue] || 0) + 1;
+  }
+}
+
+function evaluateVideoCandidateFreshness(
+  candidates: TokenData[],
+  readMetric: (tokenId: string) => MetricData | undefined,
+  now: Date,
+): VideoCandidateFreshnessEvaluation {
+  const issueCounts: Partial<Record<VideoMarketFreshnessIssue, number>> = {};
+  const tokenFreshIssueCounts: Partial<Record<VideoMarketFreshnessIssue, number>> = {};
+  const tokenFreshCandidates: TokenData[] = [];
+  const freshWithMetrics: TokenData[] = [];
+
+  for (const token of candidates) {
+    const tokenOnlyResult = validateVideoMarketDataFreshness({ token, now, metric: undefined });
+    if (!tokenOnlyResult.ok) {
+      incrementFreshnessIssueCount(issueCounts, tokenOnlyResult.issues);
+      continue;
+    }
+
+    tokenFreshCandidates.push(token);
+    const result = validateVideoMarketDataFreshness({ token, metric: readMetric(token.id), now });
+    if (result.ok) {
+      freshWithMetrics.push(token);
+    } else {
+      incrementFreshnessIssueCount(issueCounts, result.issues);
+      incrementFreshnessIssueCount(tokenFreshIssueCounts, result.issues);
+    }
+  }
+
+  return {
+    candidates: freshWithMetrics,
+    tokenFreshCandidates,
+    issueCounts,
+    tokenFreshIssueCounts,
+  };
 }
 
 function cleanupFile(filePath: string): void {
@@ -1179,16 +1238,32 @@ export async function main(args = process.argv.slice(2)) {
     return metric;
   };
   const freshnessNow = new Date();
-  const candidateTokens = filterVideoCandidatesByFreshness(loadedCandidates.candidates, {
-    now: freshnessNow,
-    metric: undefined,
-  }).filter((token) => {
-    const metric = readMetric(token.id);
-    return validateVideoMarketDataFreshness({ token, metric, now: freshnessNow }).ok;
-  });
-  const rejectedForFreshness = loadedCandidates.candidates.length - candidateTokens.length;
+  let freshnessEvaluation = evaluateVideoCandidateFreshness(loadedCandidates.candidates, readMetric, freshnessNow);
+  let candidateTokens = freshnessEvaluation.candidates;
+  let rejectedForFreshness = loadedCandidates.candidates.length - candidateTokens.length;
   if (rejectedForFreshness > 0) {
     console.warn(`  Skipped ${rejectedForFreshness} token(s) with stale or invalid video market data.`);
+    console.warn(`  Freshness issues: ${formatVideoMarketFreshnessIssueCounts(freshnessEvaluation.issueCounts)}`);
+  }
+
+  if (
+    candidateTokens.length === 0 &&
+    shouldRefreshDerivedMetricsForVideo(
+      freshnessEvaluation.tokenFreshIssueCounts,
+      freshnessEvaluation.tokenFreshCandidates.length,
+    )
+  ) {
+    console.warn("  Derived metrics are stale for every fresh video candidate. Recomputing metrics once...");
+    const { main: computeMetrics } = await import("./compute-metrics");
+    await computeMetrics([]);
+    metricCache.clear();
+    freshnessEvaluation = evaluateVideoCandidateFreshness(loadedCandidates.candidates, readMetric, new Date());
+    candidateTokens = freshnessEvaluation.candidates;
+    rejectedForFreshness = loadedCandidates.candidates.length - candidateTokens.length;
+    if (rejectedForFreshness > 0) {
+      console.warn(`  Skipped ${rejectedForFreshness} token(s) after metrics refresh.`);
+      console.warn(`  Freshness issues: ${formatVideoMarketFreshnessIssueCounts(freshnessEvaluation.issueCounts)}`);
+    }
   }
 
   if (candidateTokens.length === 0) {
@@ -1196,7 +1271,9 @@ export async function main(args = process.argv.slice(2)) {
       "marketDataStale",
       today,
       targetPlatform,
-      "No tokens passed video market-data freshness checks.",
+      `No tokens passed video market-data freshness checks. Issues: ${
+        formatVideoMarketFreshnessIssueCounts(freshnessEvaluation.issueCounts)
+      }`,
     );
   }
 
@@ -1665,6 +1742,19 @@ export async function main(args = process.argv.slice(2)) {
     console.log("Step 4: Generating platform captions...");
 
     const captionPlatforms: PlatformTarget[] = [];
+    const videoArchetypes = new Map<PlatformName, SocialContentArchetype>();
+    for (const platform of requestedPlatforms) {
+      const archetype = selectSocialArchetype({
+        platform,
+        usedArchetypeKeys: force
+          ? []
+          : getRecentSocialArchetypeKeys(DATA_DIR, platform, VIDEO_FORMAT_COOLDOWN_DAYS, new Date(), "video"),
+        seedParts: [today, platform, targetToken.id, reason, "video", process.env.SOCIAL_SLOT],
+        date: new Date(`${today}T00:00:00.000Z`),
+      });
+      videoArchetypes.set(platform, archetype);
+      console.log(`  ${platform} video archetype: ${archetype.label} (${archetype.key})`);
+    }
     const captionOptions: UnifiedCaptionOptions = {
       editorialFormat: {
         label: "Platform-specific video formats",
@@ -1684,10 +1774,23 @@ export async function main(args = process.argv.slice(2)) {
       captionOptions.xMaxChars = 260;
       captionPlatforms.push("x");
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
+      const xVideoArchetype = videoArchetypes.get("x");
+      const xReplyUrl = buildSocialUtmUrl(
+        isOnWebsite
+          ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"}/${targetToken.id}`
+          : SOCIAL.ecosystemUrl,
+        {
+          platform: "x",
+          date: today,
+          surface: "video",
+          archetypeKey: xVideoArchetype?.key || "single_token_snapshot",
+          tokenId: targetToken.id,
+        },
+      );
       xReplyMessage = includeLinkReply
         ? isOnWebsite
-          ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${SOCIAL.ecosystemUrl}`
-          : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
+          ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${xReplyUrl}`
+          : `Discover 300+ tracked and upcoming tokens through TokenRadar links:\n\n${xReplyUrl}`
         : "";
     }
 
@@ -1711,6 +1814,9 @@ export async function main(args = process.argv.slice(2)) {
     }
 
     if (captionPlatforms.length > 0) {
+      captionOptions.contentArchetypes = Object.fromEntries(
+        captionPlatforms.map((platform) => [platform, videoArchetypes.get(platform as PlatformName)]),
+      ) as Partial<Record<PlatformTarget, SocialContentArchetype>>;
       const captions = await generateUnifiedCaptions(
         targetToken.name,
         targetToken.symbol,
@@ -1905,6 +2011,17 @@ export async function main(args = process.argv.slice(2)) {
       forceId: force ? process.env.GITHUB_RUN_ATTEMPT || process.env.GITHUB_RUN_ID || String(Date.now()) : undefined,
     };
     const trackerFields = (asset: PlatformVideoAsset) => getPlatformTrackerFields(asset, trackerContext);
+    const trackerArchetypeFields = (platform: PlatformName): Partial<PlatformTracker> => {
+      const archetype = videoArchetypes.get(platform);
+      return archetype
+        ? {
+            archetypeKey: archetype.key,
+            archetypeLabel: archetype.label,
+            hookFamily: archetype.hookFamily,
+            ctaFamily: archetype.ctaFamily,
+          }
+        : {};
+    };
     const failedTracker = (error: unknown, asset?: PlatformVideoAsset): PlatformTracker => {
       const classification = classifyVideoPublishError(error);
       return {
@@ -1914,6 +2031,7 @@ export async function main(args = process.argv.slice(2)) {
         publishFailureClass: classification.failureClass,
         publishRetryable: classification.retryable,
         ...(asset ? trackerFields(asset) : {}),
+        ...(asset ? trackerArchetypeFields(asset.platform) : {}),
       };
     };
 
@@ -1922,6 +2040,7 @@ export async function main(args = process.argv.slice(2)) {
         trackerState.platforms[platform] = {
           postedAt: existingTracker?.postedAt || new Date().toISOString(),
           status: "published",
+          ...trackerArchetypeFields(platform),
         };
       }
     }
@@ -1931,6 +2050,7 @@ export async function main(args = process.argv.slice(2)) {
           postedAt: new Date().toISOString(),
           status: "skipped_by_missing_credentials",
           publishError: "Platform credentials or required staging/reporting credentials were not configured.",
+          ...trackerArchetypeFields(platform),
         };
       }
     }
@@ -1958,6 +2078,7 @@ export async function main(args = process.argv.slice(2)) {
                 messageId: msgId,
                 caption,
                 ...trackerFields(telegramAsset),
+                ...trackerArchetypeFields("telegram"),
               },
             };
           } catch (error) {
@@ -1997,6 +2118,7 @@ export async function main(args = process.argv.slice(2)) {
                 replyId,
                 xText: xMessage,
                 ...trackerFields(xAsset),
+                ...trackerArchetypeFields("x"),
               },
             };
           } catch (error) {
@@ -2034,6 +2156,7 @@ export async function main(args = process.argv.slice(2)) {
                 youtubeTitle: ytMetadata.title,
                 youtubeDescription: ytMetadata.description,
                 ...trackerFields(youtubeAsset),
+                ...trackerArchetypeFields("youtube"),
               },
             };
           } catch (error) {
@@ -2063,6 +2186,7 @@ export async function main(args = process.argv.slice(2)) {
                 postId: result.id,
                 caption: igContent.caption,
                 ...trackerFields(instagramAsset),
+                ...trackerArchetypeFields("instagram"),
               },
             };
           } catch (error) {
@@ -2097,6 +2221,7 @@ export async function main(args = process.argv.slice(2)) {
                 postId: result.id,
                 caption: threadsContent.caption,
                 ...trackerFields(threadsAsset),
+                ...trackerArchetypeFields("threads"),
               },
             };
           } catch (error) {
@@ -2132,6 +2257,7 @@ export async function main(args = process.argv.slice(2)) {
                 tiktokCreatorUsername: result.creatorInfo?.creator_username,
                 deliveryMode: "content-posting-api-direct" as const,
                 ...trackerFields(tiktokAsset),
+                ...trackerArchetypeFields("tiktok"),
               },
             };
           } catch (error) {
@@ -2194,6 +2320,7 @@ export async function main(args = process.argv.slice(2)) {
                 reportCaptionMessageIds,
                 deliveryMode: "content-posting-api-inbox" as const,
                 ...trackerFields(tiktokAsset),
+                ...trackerArchetypeFields("tiktok"),
               },
             };
           } catch (error) {
@@ -2231,6 +2358,7 @@ export async function main(args = process.argv.slice(2)) {
                 tiktokCaption,
                 deliveryMode: "telegram-report-manual" as const,
                 ...trackerFields(tiktokAsset),
+                ...trackerArchetypeFields("tiktok"),
               },
             };
           } catch (error) {
@@ -2258,11 +2386,20 @@ export async function main(args = process.argv.slice(2)) {
               reason,
               requestedPlatform: targetPlatform,
               status: result.tracker.status,
+              archetypeKey: result.tracker.archetypeKey,
+              archetypeLabel: result.tracker.archetypeLabel,
+              hookFamily: result.tracker.hookFamily,
+              ctaFamily: result.tracker.ctaFamily,
               formatKey: result.tracker.formatKey,
               formatLabel: result.tracker.formatLabel,
               visualRecipeKey: result.tracker.visualRecipeKey,
               mediaAssetIds: result.tracker.mediaAssetIds,
               deliveryMode: result.tracker.deliveryMode,
+              xText: result.tracker.xText,
+              caption: result.tracker.caption,
+              youtubeTitle: result.tracker.youtubeTitle,
+              youtubeDescription: result.tracker.youtubeDescription,
+              tiktokCaption: result.tracker.tiktokCaption,
               variantSurface: "video",
             },
           });

@@ -35,6 +35,25 @@ export interface SocialPostRecord {
   details?: JsonRecord;
 }
 
+export interface SocialPostMetricsRecord {
+  platform: string;
+  contentKey: string;
+  measuredAt?: string;
+  impressions?: number;
+  views?: number;
+  likes?: number;
+  replies?: number;
+  comments?: number;
+  reposts?: number;
+  shares?: number;
+  saves?: number;
+  linkClicks?: number;
+  profileClicks?: number;
+  watchTimeSeconds?: number;
+  completionRate?: number;
+  details?: JsonRecord;
+}
+
 export interface AutomationRunRecord {
   id: string;
   workflow: string;
@@ -269,6 +288,57 @@ export async function recordAutomationRun(record: AutomationRunRecord): Promise<
         record.status,
         startedAt,
         finishedAt,
+        stringifyDetails(record.details),
+      ],
+    );
+  });
+}
+
+function metricValue(value: number | undefined): number | null {
+  return Number.isFinite(value) ? Number(value) : null;
+}
+
+export async function recordSocialPostMetrics(record: SocialPostMetricsRecord): Promise<void> {
+  await writeLedger(`record social post metrics ${record.platform}/${record.contentKey}`, async () => {
+    await executeD1Query(
+      `
+      INSERT INTO social_post_metrics (
+        platform, content_key, measured_at, impressions, views, likes, replies,
+        comments, reposts, shares, saves, link_clicks, profile_clicks,
+        watch_time_seconds, completion_rate, details_json
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(platform, content_key, measured_at) DO UPDATE SET
+        impressions = excluded.impressions,
+        views = excluded.views,
+        likes = excluded.likes,
+        replies = excluded.replies,
+        comments = excluded.comments,
+        reposts = excluded.reposts,
+        shares = excluded.shares,
+        saves = excluded.saves,
+        link_clicks = excluded.link_clicks,
+        profile_clicks = excluded.profile_clicks,
+        watch_time_seconds = excluded.watch_time_seconds,
+        completion_rate = excluded.completion_rate,
+        details_json = excluded.details_json
+      `,
+      [
+        record.platform,
+        record.contentKey,
+        record.measuredAt || toIsoDate(new Date()),
+        metricValue(record.impressions),
+        metricValue(record.views),
+        metricValue(record.likes),
+        metricValue(record.replies),
+        metricValue(record.comments),
+        metricValue(record.reposts),
+        metricValue(record.shares),
+        metricValue(record.saves),
+        metricValue(record.linkClicks),
+        metricValue(record.profileClicks),
+        metricValue(record.watchTimeSeconds),
+        metricValue(record.completionRate),
         stringifyDetails(record.details),
       ],
     );

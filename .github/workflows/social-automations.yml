@@ -192,6 +192,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-market-brief
 
       # Telegram image market posts on existing mixed-platform slots
       # Telegram Watchlist Check (daily @ 03:17 UTC, shares the existing X market slot)
@@ -211,6 +212,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-watchlist-check
 
       # Telegram Market Pulse (daily @ 12:23 UTC, shares the existing X poll slot)
       - name: Telegram Market Pulse
@@ -229,6 +231,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-market-pulse
 
       # Instagram Movers Carousel (Sun/Tue/Thu)
       - name: Instagram Daily Movers Carousel
@@ -252,6 +255,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          SOCIAL_SLOT: instagram-carousel
 
       # ─── 2. X Interactive Poll (daily link reply lives here) ───────────
       - name: X Daily Interactive Poll
@@ -271,6 +275,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: x-interactive-poll
 
       # ─── 3. Telegram Interactive Poll (1x/day) ────
       - name: Telegram Daily Interactive Poll
@@ -284,6 +289,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          SOCIAL_SLOT: telegram-poll
 
       # ─── 4. X Market Update (3x/day, no repeated link replies) ──────
       - name: X Periodic Update
@@ -303,6 +309,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: x-market-update
       # 5. Telegram Top Movers Image (1x/day @ 21:23 UTC)
       # Renders a Top 5 Gainers card in-memory using live CoinGecko data.
       # Image is never saved to disk - created, posted, and discarded.
@@ -319,6 +326,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-movers-card
 
       # Telegram Weekly Recap (Fri; image-backed market recap)
       - name: Telegram Weekly Recap
@@ -332,6 +340,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-weekly-recap
 
       # Threads Text Signal (Tue/Thu; text-native, no video recycle)
       - name: Threads Text Signal
@@ -349,6 +358,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: threads-text-signal
 
       # Threads Weekly Recap (Fri; text-native market recap)
       - name: Threads Weekly Recap
@@ -366,6 +376,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: threads-weekly-recap
 
       # Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)
       - name: Install FFmpeg
@@ -381,6 +392,13 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+
+      - name: Refresh Derived Metrics For Video
+        if: env.IS_VIDEO_RUN == 'true'
+        run: npx tsx scripts/compute-metrics.ts
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
       - name: Short-form Video Breakout
         if: env.IS_VIDEO_RUN == 'true'
@@ -424,6 +442,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          SOCIAL_SLOT: short-form-video
 
       # ─── Data State Synchronization ────────────────────────────
       - name: Prepare social tracking state

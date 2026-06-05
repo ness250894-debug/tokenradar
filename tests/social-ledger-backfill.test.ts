@@ -40,6 +40,10 @@ describe("social ledger backfill", () => {
       platform: "x",
       tweetId: "tweet-2",
       reason: "newly-published",
+      archetypeKey: "risk_lab",
+      hookFamily: "risk-first",
+      ctaFamily: "name-invalidation",
+      xText: "$BTC needs confirmation before the move matters.",
     });
     writeJson(path.join(dataDir, "posted", "2026-05-16", "daily-telegram-poll.json"), {
       postedAt: "2026-05-16T15:05:00.000Z",
@@ -77,6 +81,12 @@ describe("social ledger backfill", () => {
         platform: "x",
         contentKey: "2026-05-16:market-update:bitcoin",
         externalId: "tweet-2",
+        details: expect.objectContaining({
+          archetypeKey: "risk_lab",
+          hookFamily: "risk-first",
+          ctaFamily: "name-invalidation",
+          xText: "$BTC needs confirmation before the move matters.",
+        }),
       }),
       expect.objectContaining({
         platform: "telegram",

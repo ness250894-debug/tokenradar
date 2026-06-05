@@ -12,6 +12,7 @@ import {
   buildPredictionPoll,
   buildNarrativePoll,
   buildCommunityPoll,
+  selectNarrativeOptions,
   type PollType,
 } from "../scripts/post-interactive-daily";
 
@@ -59,7 +60,7 @@ beforeEach(() => {
 
 describe("getPollTypeForToday", () => {
   it("returns a valid poll type", () => {
-    const validTypes: PollType[] = ["sentiment", "prediction", "narrative", "community"];
+    const validTypes: PollType[] = ["sentiment", "prediction", "narrative", "community", "metric", "risk", "recap"];
     const result = getPollTypeForToday();
     expect(validTypes).toContain(result);
   });
@@ -122,12 +123,16 @@ describe("buildPredictionPoll", () => {
 // ── buildNarrativePoll ────────────────────────────────────────
 
 describe("buildNarrativePoll", () => {
-  it("includes all 4 narrative categories", async () => {
+  it("rotates exactly 4 narrative categories from the expanded pool", async () => {
     const poll = await buildNarrativePoll();
-    expect(poll.options).toContain("AI Tokens");
-    expect(poll.options).toContain("Layer 2s");
-    expect(poll.options).toContain("RWA");
-    expect(poll.options).toContain("DeFi");
+    expect(poll.options).toHaveLength(4);
+    expect(new Set(poll.options).size).toBe(4);
+  });
+
+  it("selects deterministic narrative options for the same date", () => {
+    const date = new Date("2026-06-05T00:00:00.000Z");
+    expect(selectNarrativeOptions(date)).toEqual(selectNarrativeOptions(date));
+    expect(selectNarrativeOptions(date)).toHaveLength(4);
   });
 
 
@@ -148,6 +153,17 @@ describe("buildNarrativePoll", () => {
     expect(lowerText).not.toContain("moonshot");
     expect(lowerText).not.toContain("100x");
     expect(lowerText).not.toContain("guaranteed returns");
+  });
+
+  it("removes stale past-year references from generated hook copy", async () => {
+    vi.mocked(generatePollHook).mockResolvedValueOnce(
+      "What's your top crypto pick for the rest of 2024?",
+    );
+
+    const poll = await buildNarrativePoll();
+
+    expect(poll.text).not.toContain("2024");
+    expect(poll.text).toContain("this cycle");
   });
 });
 
@@ -171,6 +187,6 @@ describe("buildCommunityPoll", () => {
   it("falls back to narrative poll when fewer than 2 candidates", async () => {
     const poll = await buildCommunityPoll([mockToken]);
     // Should fall back — check for narrative-style content
-    expect(poll.options).toContain("AI Tokens");
+    expect(poll.options).toHaveLength(4);
   });
 });

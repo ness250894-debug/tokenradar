@@ -50,6 +50,32 @@ function collectTextFields(payload: unknown, platform: SocialHistoryPlatform): s
   return texts;
 }
 
+function collectStringFieldsFromRecord(
+  record: Record<string, unknown> | undefined,
+  fields: string[],
+): string[] {
+  if (!record) return [];
+
+  const values: string[] = [];
+  for (const field of fields) {
+    addStringField(values, record[field]);
+  }
+  return values;
+}
+
+function collectNestedPlatformRecord(
+  payload: Record<string, unknown> | null,
+  platform: SocialHistoryPlatform,
+): Record<string, unknown> | undefined {
+  const platformTracker = payload?.platforms && typeof payload.platforms === "object"
+    ? (payload.platforms as Record<string, unknown>)[platform]
+    : undefined;
+
+  return platformTracker && typeof platformTracker === "object" && !Array.isArray(platformTracker)
+    ? platformTracker as Record<string, unknown>
+    : undefined;
+}
+
 function dateKeyDaysAgo(days: number, now: Date): string {
   const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   startOfToday.setUTCDate(startOfToday.getUTCDate() - days);
@@ -90,6 +116,15 @@ function inferVariantSurface(fileName: string, payload: Record<string, unknown> 
   return undefined;
 }
 
+function inferNestedVariantSurface(payload: Record<string, unknown> | undefined): string | undefined {
+  if (typeof payload?.variantSurface === "string") return payload.variantSurface;
+  if (typeof payload?.surface === "string") return payload.surface;
+  if (typeof payload?.formatKey === "string") return "video";
+  if (typeof payload?.visualRecipeKey === "string") return "video";
+  if (typeof payload?.deliveryMode === "string") return "video";
+  return undefined;
+}
+
 function collectVariantKeys(payload: Record<string, unknown> | null): string[] {
   if (!payload) return [];
 
@@ -100,6 +135,18 @@ function collectVariantKeys(payload: Record<string, unknown> | null): string[] {
   }
 
   return keys;
+}
+
+function collectArchetypeKeys(payload: Record<string, unknown> | null | undefined): string[] {
+  return collectStringFieldsFromRecord(payload || undefined, ["archetypeKey", "contentArchetypeKey"]);
+}
+
+function collectHookFamilies(payload: Record<string, unknown> | null | undefined): string[] {
+  return collectStringFieldsFromRecord(payload || undefined, ["hookFamily"]);
+}
+
+function collectCtaFamilies(payload: Record<string, unknown> | null | undefined): string[] {
+  return collectStringFieldsFromRecord(payload || undefined, ["ctaFamily"]);
 }
 
 export function getRecentPlatformTexts(
@@ -173,4 +220,112 @@ export function getRecentSocialVariantKeys(
   }
 
   return keys;
+}
+
+export function getRecentSocialArchetypeKeys(
+  dataDir: string,
+  platform: SocialVariantHistoryPlatform,
+  days: number,
+  now: Date = new Date(),
+  surface?: string,
+): Set<string> {
+  const keys = new Set<string>();
+  const cutoffKey = dateKeyDaysAgo(days, now);
+
+  for (const rootName of ["posted", "posted_video"]) {
+    const rootDir = path.join(dataDir, rootName);
+    if (!fs.existsSync(rootDir)) continue;
+
+    for (const dateDir of fs.readdirSync(rootDir).filter(isDateDir)) {
+      if (dateDir < cutoffKey) continue;
+
+      const fullDateDir = path.join(rootDir, dateDir);
+      if (!fs.statSync(fullDateDir).isDirectory()) continue;
+
+      for (const fileNameWithExt of fs.readdirSync(fullDateDir).filter((file) => file.endsWith(".json"))) {
+        const fileName = path.basename(fileNameWithExt, ".json");
+        const payload = safeReadJson<Record<string, unknown> | null>(
+          path.join(fullDateDir, fileNameWithExt),
+          null,
+        );
+
+        const trackerPlatform = inferVariantPlatform(fileName, payload);
+        const trackerSurface = inferVariantSurface(fileName, payload);
+        if (trackerPlatform === platform && (!surface || trackerSurface === surface)) {
+          for (const key of collectArchetypeKeys(payload)) keys.add(key);
+        }
+
+        if (typeof platform === "string") {
+          const nested = collectNestedPlatformRecord(payload, platform as SocialHistoryPlatform);
+          const nestedSurface = inferNestedVariantSurface(nested);
+          if (nested && (!surface || nestedSurface === surface)) {
+            for (const key of collectArchetypeKeys(nested)) keys.add(key);
+          }
+        }
+      }
+    }
+  }
+
+  return keys;
+}
+
+function collectRecentSocialMetadata(
+  dataDir: string,
+  platform: SocialHistoryPlatform,
+  days: number,
+  now: Date,
+  collect: (payload: Record<string, unknown> | null | undefined) => string[],
+): Set<string> {
+  const values = new Set<string>();
+  const cutoffKey = dateKeyDaysAgo(days, now);
+
+  for (const rootName of ["posted", "posted_video"]) {
+    const rootDir = path.join(dataDir, rootName);
+    if (!fs.existsSync(rootDir)) continue;
+
+    for (const dateDir of fs.readdirSync(rootDir).filter(isDateDir)) {
+      if (dateDir < cutoffKey) continue;
+
+      const fullDateDir = path.join(rootDir, dateDir);
+      if (!fs.statSync(fullDateDir).isDirectory()) continue;
+
+      for (const fileNameWithExt of fs.readdirSync(fullDateDir).filter((file) => file.endsWith(".json"))) {
+        const fileName = path.basename(fileNameWithExt, ".json");
+        const payload = safeReadJson<Record<string, unknown> | null>(
+          path.join(fullDateDir, fileNameWithExt),
+          null,
+        );
+
+        const trackerPlatform = inferVariantPlatform(fileName, payload);
+        if (trackerPlatform === platform) {
+          for (const value of collect(payload)) values.add(value);
+        }
+
+        const nested = collectNestedPlatformRecord(payload, platform);
+        if (nested) {
+          for (const value of collect(nested)) values.add(value);
+        }
+      }
+    }
+  }
+
+  return values;
+}
+
+export function getRecentSocialHookFamilies(
+  dataDir: string,
+  platform: SocialHistoryPlatform,
+  days: number,
+  now: Date = new Date(),
+): Set<string> {
+  return collectRecentSocialMetadata(dataDir, platform, days, now, collectHookFamilies);
+}
+
+export function getRecentSocialCtaFamilies(
+  dataDir: string,
+  platform: SocialHistoryPlatform,
+  days: number,
+  now: Date = new Date(),
+): Set<string> {
+  return collectRecentSocialMetadata(dataDir, platform, days, now, collectCtaFamilies);
 }

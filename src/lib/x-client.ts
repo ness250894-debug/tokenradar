@@ -503,6 +503,27 @@ export function diversifyXPostText(
     return cleanText;
   }
 
+  const cashtag = cleanText.match(/\$[A-Z][A-Z0-9]{0,9}\b/i)?.[0].toUpperCase();
+  const subject = cashtag || "This setup";
+  const rewriteFrames = [
+    `${subject} is not interesting because of one candle. Confirmation quality decides whether the read survives. What would invalidate it first? #Crypto`,
+    `The useful ${subject} read is risk-first: liquidity, follow-through, then narrative. If one filter fails, the setup gets noisier. #Crypto`,
+    `${subject} stays on the watchlist only if the data keeps improving after the first move. The next filter is follow-through. #Crypto`,
+    `For ${subject}, the better question is not upside. It is whether the current move has enough confirmation to avoid being noise. #Crypto`,
+    `Process note on ${subject}: headline moves get attention, but TokenRadar cares about risk score, liquidity, and confirmation. #Crypto`,
+  ];
+  const rewriteStartIndex = seed
+    ? Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % rewriteFrames.length
+    : 0;
+
+  for (let offset = 0; offset < rewriteFrames.length; offset++) {
+    const frame = rewriteFrames[(rewriteStartIndex + offset) % rewriteFrames.length];
+    const diversified = truncateForX(sanitizeCashtags(frame), maxLength);
+    if (!isTooSimilarForXPost(diversified, recentPosts)) {
+      return diversified;
+    }
+  }
+
   const diversityLines = [
     "Watch confirmation, not the first candle.",
     "The invalidation matters more than the headline move.",

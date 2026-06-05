@@ -15,11 +15,14 @@ import * as path from "path";
 
 import {
   SOCIAL_PLATFORM_LIMITS,
+  SOCIAL_VARIANT_COOLDOWN_DAYS,
   TELEGRAM_ECOSYSTEM_LINK_HTML,
   TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
 import { renderTelegramWeeklyRecapImage } from "../src/lib/telegram-weekly-recap-image";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
@@ -31,6 +34,7 @@ import {
   cleanupExpiredCooldownFolders,
   loadCandidateTokens,
 } from "./lib/token-selection";
+import { getRecentSocialArchetypeKeys } from "./lib/social-history";
 
 loadEnv();
 
@@ -65,11 +69,26 @@ async function main() {
     console.log("Loading token candidates for Telegram weekly recap...");
     const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 250);
     const recap = buildTelegramWeeklyRecap(selectWeeklyRecapTokens(candidates));
+    const archetype = selectSocialArchetype({
+      platform: "telegram",
+      usedArchetypeKeys: force
+        ? []
+        : getRecentSocialArchetypeKeys(
+            DATA_DIR,
+            "telegram",
+            SOCIAL_VARIANT_COOLDOWN_DAYS,
+            new Date(`${today}T00:00:00.000Z`),
+            "telegram-weekly-recap",
+          ),
+      seedParts: [today, "telegram", "weekly-recap", process.env.SOCIAL_SLOT],
+      date: new Date(`${today}T00:00:00.000Z`),
+    });
 
     console.log();
     console.log("Telegram weekly recap preview:");
     console.log(recap.captionBody);
     console.log(`Tokens: ${recap.tokenIds.join(", ")}`);
+    console.log(`Archetype: ${archetype.label} (${archetype.key})`);
 
     console.log("Rendering Telegram weekly recap card in-memory...");
     const photoBuffer = await renderTelegramWeeklyRecapImage(recap.image);
@@ -99,31 +118,35 @@ ${TELEGRAM_SIGNAL_NOTE}
 
     const messageId = await sendTelegramPhoto(photoBuffer, caption, channelId!);
     const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "telegram",
+      surface: "telegram-weekly-recap",
+      reason: "weekly-recap",
+      variantKey: "weekly-recap",
+      variantLabel: "Weekly Recap",
+      archetypeKey: archetype.key,
+      archetypeLabel: archetype.label,
+      hookFamily: archetype.hookFamily,
+      ctaFamily: archetype.ctaFamily,
+      text: caption,
+      externalId: messageId,
+      details: {
+        tokenIds: recap.tokenIds,
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
 
     writeFileAtomicSync(
       trackerFile,
-      JSON.stringify(
-        {
-          platform: "telegram",
-          postedAt,
-          messageId,
-          tokenIds: recap.tokenIds,
-          caption: recap.captionBody,
-          variantSurface: "telegram-weekly-recap",
-        },
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "telegram",
       contentKey: socialPostKey,
       externalId: messageId,
       postedAt,
-      details: {
-        tokenIds: recap.tokenIds,
-        variantSurface: "telegram-weekly-recap",
-      },
+      details: buildSocialPostDetails(trackerPayload),
     });
 
     console.log(`Telegram weekly recap sent successfully (msg_id: ${messageId})`);
