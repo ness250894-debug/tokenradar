@@ -1,0 +1,53 @@
+{
+  "id": "gemini-dollar",
+  "symbol": "gusd",
+  "name": "Gemini Dollar",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5992/large/gemini-dollar-gusd.png?1696506408",
+  "description": "The Gemini dollar — the world’s first regulated stablecoin — combines the creditworthiness and price stability of the U.S. dollar with blockchain technology and the oversight of U.S. regulators.\n\nGet Gemini dollars 1-to-1 for U.S. dollars on Gemini.\nGemini dollars can be used on the Ethereum network.\n\nISSUER\nThe Gemini dollar is issued by Gemini Trust Company, LLC, a New York trust company.\n\nBANK\nU.S. dollars that correspond to the Gemini dollars issued and in circulation are held at a U.S. bank and eligible for FDIC “pass-through” deposit insurance, subject to applicable limitations.\n\nEXAMINATION\nThe U.S. dollar deposit balance is examined monthly by an independent registered public accounting firm to verify the 1:1 peg. All Independent Accountants’ Reports are published and available here.\n\nSECURITY AUDIT\nThe Gemini dollar is a cryptographic token built on the Ethereum Network according to the ERC20 standard for tokens. The code of the Gemini dollar smart contracts has been audited by Trail of Bits, Inc., an information security research &amp; development firm, whose report is publicly available here.\n\nGemini was founded four years ago with a mission: build a bridge to the future of money. Gemini dollar aims to combine creditworthiness and price stability of the U.S. dollar with blockchain and the oversight of U.S. regulators, the New York State Department of Financial Service.\n\nGemini dollar is a stable value coin that is:\n\n1. issued by Gemini, a New York trust company\n2. strictly pegged 1:1 to the U.S. dollar\n3. built on Ethereum network according to ERC20 token standards\n\nStarting 10th September 2018, you will be able to convert U.S. dollars in your Gemini account into Gemini dollars and withdraw them to an Ethereum address. You will also be able to automatically convert GUSD back as USD into your Gemini account. GUSD is expected to be listed on Bibox soon.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Near Protocol Ecosystem",
+    "Ethereum Ecosystem",
+    "Pantera Capital Portfolio",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://gemini.com/dollar/",
+    "github": "https://github.com/gemini/dollar",
+    "reddit": "https://www.reddit.com/r/Gemini",
+    "explorer": "https://etherscan.io/token/0x056fd409e1d7a124bd7017459dfea2f387b6d5cd"
+  },
+  "market": {
+    "price": 0.998876,
+    "marketCap": 39796692,
+    "marketCapRank": 493,
+    "volume24h": 273118,
+    "high24h": 0.99914,
+    "low24h": 0.998367,
+    "priceChange24h": 0.02677,
+    "priceChange7d": 0.04199,
+    "priceChange30d": -0.0496,
+    "priceChange1y": -0.03501,
+    "ath": 3.3,
+    "athChangePercentage": -69.76631,
+    "athDate": "2018-10-11T17:36:21.529Z",
+    "atl": 0.78261,
+    "atlDate": "2018-09-29T00:00:00.000Z",
+    "circulatingSupply": 39841048.5,
+    "totalSupply": 39841048.5,
+    "maxSupply": null,
+    "fdv": 39796692
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 104,
+    "githubForks": 36,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-05T19:24:50.209Z"
+}

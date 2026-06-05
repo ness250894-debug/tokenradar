@@ -2237,5 +2237,74 @@
     "discoveredAt": "2026-06-04T20:12:15.569Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-04T20:12:15.569Z"
+  },
+  {
+    "id": "clearing-house-tokenized-deposits",
+    "name": "The Clearing House Tokenized Deposit Network",
+    "symbol": "TBD",
+    "category": "DeFi/Infrastructure",
+    "expectedTge": "Early 2027",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/jpmorgan-citi-bank-of-america-launch-tokenized-deposit-system-2027",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE Announcement",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/jpmorgan-citi-bank-of-america-launch-tokenized-deposit-system-2027",
+        "title": "JPMorgan, Citi-backed Clearing House plans tokenized deposit network in 2027: WSJ",
+        "observedAt": "2024-05-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-05T19:25:33.949Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-05T19:25:33.949Z"
+  },
+  {
+    "id": "tether-tokenized-gold-visa",
+    "name": "Tether Tokenized Gold Stablecoin Visa Card",
+    "symbol": "XAUT",
+    "category": "DeFi/Stablecoin/Payments",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/369972/tether-tokenized-gold-visa-stablecoin-card-pays-crypto-rewards",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 85,
+    "signals": [
+      {
+        "type": "Product Launch (Tokenized Gold Visa Card)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/369972/tether-tokenized-gold-visa-stablecoin-card-pays-crypto-rewards",
+        "title": "Tether Debuts Tokenized Gold Stablecoin Visa Card That Pays Out Crypto Rewards",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-05T19:25:33.949Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-05T19:25:33.949Z"
+  },
+  {
+    "id": "jpmorgan-bank-of-america-citi-tokenized-network",
+    "name": "JPMorgan, Bank of America, Citi Shared Tokenized Network",
+    "symbol": "TBD",
+    "category": "DeFi/TradFi Tokenization",
+    "expectedTge": "Next Year (2027)",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/markets/2026/06/05/jpmorgan-bank-of-america-and-citi-are-going-on-the-blockchain-offensive-with-a-shared-tokenized-network",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Token Launch (Implied)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/06/05/jpmorgan-bank-of-america-and-citi-are-going-on-the-blockchain-offensive-with-a-shared-tokenized-network",
+        "title": "JPMorgan, Bank of America, Citi to start blockchain offensive with shared tokenized network",
+        "observedAt": "2026-06-05T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-05T19:25:33.949Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-05T19:25:33.949Z"
   }
 ]

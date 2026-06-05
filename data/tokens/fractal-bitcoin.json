@@ -19,25 +19,25 @@
     "explorer": "https://explorer.fractalbitcoin.io/"
   },
   "market": {
-    "price": 0.453956,
-    "marketCap": 46248858,
-    "marketCapRank": 532,
-    "volume24h": 3148935,
-    "high24h": 0.460071,
-    "low24h": 0.440585,
-    "priceChange24h": -1.32918,
-    "priceChange7d": 0.73147,
-    "priceChange30d": 3.87872,
-    "priceChange1y": -23.42081,
+    "price": 0.400198,
+    "marketCap": 41419883,
+    "marketCapRank": 486,
+    "volume24h": 3335554,
+    "high24h": 0.410764,
+    "low24h": 0.396032,
+    "priceChange24h": -1.87706,
+    "priceChange7d": -2.466464666373002,
+    "priceChange30d": -13.674338966291222,
+    "priceChange1y": -19.64481773315273,
     "ath": 38.8,
-    "athChangePercentage": -98.83379,
+    "athChangePercentage": -98.96903,
     "athDate": "2024-09-15T12:50:56.102Z",
     "atl": 0.334207,
     "atlDate": "2025-11-22T18:10:57.527Z",
-    "circulatingSupply": 101852274.9459796,
-    "totalSupply": 149101150,
+    "circulatingSupply": 103472524.9459796,
+    "totalSupply": 150721325,
     "maxSupply": 210000000,
-    "fdv": 67703524
+    "fdv": 60333501
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-14T07:07:41.366Z"
+  "fetchedAt": "2026-05-14T07:07:41.366Z",
+  "lastMarketUpdate": "2026-06-05T19:24:32.159Z"
 }
