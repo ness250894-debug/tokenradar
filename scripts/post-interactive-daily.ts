@@ -37,7 +37,13 @@ import { safeReadJson, formatErrorForLog, writeFileAtomicSync } from "../src/lib
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
-import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
+import { buildSocialUtmUrl } from "../src/lib/social-utm";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import {
+  getRecentSocialArchetypeKeys,
+  getRecentSocialVariantKeys,
+} from "./lib/social-history";
 import {
   type TokenData,
   type MetricData,
@@ -54,8 +60,8 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 
 // ── Poll Types ─────────────────────────────────────────────────
 
-export type PollType = "sentiment" | "prediction" | "narrative" | "community";
-const POLL_TYPES: PollType[] = ["sentiment", "prediction", "narrative", "community"];
+export type PollType = "sentiment" | "prediction" | "narrative" | "community" | "metric" | "risk" | "recap";
+const POLL_TYPES: PollType[] = ["sentiment", "prediction", "narrative", "community", "metric", "risk", "recap"];
 
 function utcDateKey(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -88,8 +94,19 @@ export function getPollTypeForToday(): PollType {
   return selectPollTypeForToday();
 }
 
+export function selectNarrativeOptions(date: Date = new Date(), count = 4): string[] {
+  const options = [...INTERACTIVE_POST_NARRATIVES];
+  const start = stableHash(`narrative-options:${utcDateKey(date)}`) % options.length;
+  return Array.from({ length: Math.min(count, options.length) }, (_, offset) =>
+    options[(start + offset) % options.length],
+  );
+}
+
 function cleanPollHook(hook: string, fallback: string): string {
-  return sanitizeSocialEditorialText(hook || fallback) || fallback;
+  const currentYear = new Date().getUTCFullYear();
+  const sanitized = sanitizeSocialEditorialText(hook || fallback)
+    .replace(/\b20\d{2}\b/g, (year) => Number(year) < currentYear ? "this cycle" : year);
+  return sanitized || fallback;
 }
 
 // ── Poll Generators ────────────────────────────────────────────
@@ -148,7 +165,7 @@ export async function buildNarrativePoll(): Promise<PollOptions> {
   );
   return {
     text: `${hook}\n\n#TokenRadarCo`,
-    options: [...INTERACTIVE_POST_NARRATIVES],
+    options: selectNarrativeOptions(),
     durationMinutes: POLL_DURATION_MINUTES,
   };
 }
@@ -174,6 +191,45 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
   return {
     text: `${hook}\n\n#TokenRadarCo`,
     options,
+    durationMinutes: POLL_DURATION_MINUTES,
+  };
+}
+
+export async function buildMetricPoll(): Promise<PollOptions> {
+  const hook = cleanPollHook(
+    await generatePollHook("metric lesson", getTimeOfDay()),
+    "Which TokenRadar metric should we explain with a live example next?",
+  );
+
+  return {
+    text: `${hook}\n\n#TokenRadarCo`,
+    options: ["Risk score", "Volume quality", "Market cap rank", "FDV / dilution"],
+    durationMinutes: POLL_DURATION_MINUTES,
+  };
+}
+
+export async function buildRiskPoll(): Promise<PollOptions> {
+  const hook = cleanPollHook(
+    await generatePollHook("risk filter", getTimeOfDay()),
+    "Which filter should matter most before a mover deserves a deeper review?",
+  );
+
+  return {
+    text: `${hook}\n\n#TokenRadarCo`,
+    options: ["Liquidity", "Follow-through", "Volatility", "Catalyst quality"],
+    durationMinutes: POLL_DURATION_MINUTES,
+  };
+}
+
+export async function buildRecapPoll(): Promise<PollOptions> {
+  const hook = cleanPollHook(
+    await generatePollHook("weekly recap", getTimeOfDay()),
+    "Which recap should TokenRadar publish next?",
+  );
+
+  return {
+    text: `${hook}\n\n#TokenRadarCo`,
+    options: ["Winners and fades", "Risk lessons", "Narrative rotation", "Community picks"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
 }
@@ -226,7 +282,20 @@ async function main() {
     "interactive-poll",
   );
   const pollType = forcedType || selectPollTypeForToday({ usedPollTypes, date: runDate });
+  const archetype = selectSocialArchetype({
+    platform: "x",
+    usedArchetypeKeys: getRecentSocialArchetypeKeys(
+      DATA_DIR,
+      "x",
+      SOCIAL_VARIANT_COOLDOWN_DAYS,
+      runDate,
+      "interactive-poll",
+    ),
+    seedParts: [TODAY, "x", pollType, "interactive-poll", process.env.SOCIAL_SLOT],
+    date: runDate,
+  });
   console.log(`  Poll Type: ${pollType}${forcedType ? " (forced)" : " (controlled variety)"}`);
+  console.log(`  Archetype: ${archetype.label} (${archetype.key})`);
   console.log(`  Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log();
 
@@ -254,6 +323,12 @@ async function main() {
     poll = await buildNarrativePoll();
   } else if (pollType === "community") {
     poll = await buildCommunityPoll(candidates);
+  } else if (pollType === "metric") {
+    poll = await buildMetricPoll();
+  } else if (pollType === "risk") {
+    poll = await buildRiskPoll();
+  } else if (pollType === "recap") {
+    poll = await buildRecapPoll();
   } else {
     // Sentiment & Prediction need a specific token
     const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY);
@@ -308,9 +383,21 @@ async function main() {
       try {
         const displaySym = selectedTokenSymbol || "";
         const isOnWebsite = selectedTokenId ? onWebsiteIds.has(selectedTokenId) : false;
-        const replyText = isOnWebsite 
-          ? `Vote above and find the $${displaySym} profile through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`
-          : `Vote above and follow what's driving crypto markets through TokenRadar links:\n\n${SOCIAL.ecosystemUrl}`;
+        const replyUrl = buildSocialUtmUrl(
+          isOnWebsite && selectedTokenId
+            ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"}/${selectedTokenId}`
+            : SOCIAL.ecosystemUrl,
+          {
+            platform: "x",
+            date: TODAY,
+            surface: "interactive-poll",
+            archetypeKey: archetype.key,
+            tokenId: selectedTokenId || pollType,
+          },
+        );
+        const replyText = isOnWebsite
+          ? `Vote above and find the $${displaySym} profile through TokenRadar links:\n\n${replyUrl}`
+          : `Vote above and follow what's driving crypto markets through TokenRadar links:\n\n${replyUrl}`;
         
         const replyId = await postTweet(replyText, result.tweetId);
         console.log(`✅ Posted self-reply link successfully (Tweet ID: ${replyId})`);
@@ -320,34 +407,37 @@ async function main() {
     }
 
     // Save tracking
+    const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "x",
+      surface: "interactive-poll",
+      tokenId: selectedTokenId || null,
+      reason: pollType,
+      variantKey: pollType,
+      variantLabel: pollType,
+      archetypeKey: archetype.key,
+      archetypeLabel: archetype.label,
+      hookFamily: archetype.hookFamily,
+      ctaFamily: archetype.ctaFamily,
+      text: poll.text,
+      externalId: result.tweetId,
+      nativePoll: result.native,
+      details: {
+        pollType,
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
     writeFileAtomicSync(
       TRACKER_FILE,
-      JSON.stringify(
-        {
-          postedAt: new Date().toISOString(),
-          pollType,
-          tweetId: result.tweetId,
-          nativePoll: result.native,
-          tokenId: selectedTokenId || null,
-          xText: poll.text,
-          variantKey: pollType,
-          variantLabel: pollType,
-          variantSurface: "interactive-poll",
-        },
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "x",
       contentKey: socialPostKey,
       externalId: result.tweetId,
-      details: {
-        pollType,
-        nativePoll: result.native,
-        tokenId: selectedTokenId || null,
-        variantSurface: "interactive-poll",
-      },
+      postedAt,
+      details: buildSocialPostDetails(trackerPayload),
     });
   } catch (error) {
     await logError("post-interactive-daily", error, false);

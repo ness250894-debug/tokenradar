@@ -11,6 +11,12 @@ import {
   resolveSocialContentVariant,
   type SocialContentVariant,
 } from "./social-variety";
+import {
+  formatArchetypePromptLine,
+  resolveSocialArchetype,
+  selectSocialArchetype,
+  type SocialContentArchetype,
+} from "./social-archetypes";
 import { sanitizeCashtags, truncateForX } from "./x-client";
 
 export type AIResult = {
@@ -665,6 +671,7 @@ export interface UnifiedCaptionOptions {
     captionInstruction?: string;
   };
   contentVariants?: Partial<Record<PlatformTarget, SocialContentVariant | string>>;
+  contentArchetypes?: Partial<Record<PlatformTarget, SocialContentArchetype | string>>;
 }
 
 type UnifiedCaptionField = keyof UnifiedSocialCaptions;
@@ -908,9 +915,19 @@ function fallbackXTweet(
   metrics: MarketContext,
   maxChars: number,
 ): string {
-  const price = formatSocialPrice(metrics.price).replace(/^\$/, "");
-  const marketCap = formatSocialMarketCap(metrics.marketCap).replace(/^\$/, "");
-  const tweet = `$${symbol.toUpperCase()} ${tokenName}: ${formatSocialChange(metrics.priceChange24h)} over 24h, price ${price}, market cap ${marketCap}. Does the data support more upside from here? #Crypto`;
+  const cashtag = `$${symbol.toUpperCase()}`;
+  const change = formatSocialChange(metrics.priceChange24h);
+  const risk = metrics.riskScore === undefined ? "risk model" : `risk ${metrics.riskScore}/10`;
+  const reason = metrics.selectionReason || "market watchlist";
+  const frames = [
+    `${cashtag} moved ${change}, but the useful read is confirmation quality. Volume and liquidity decide whether it stays on the watchlist. #Crypto`,
+    `The ${cashtag} setup is not just the 24h move. The better question is what would invalidate the read first. #Crypto`,
+    `${tokenName} is on the radar for ${reason}. For ${cashtag}, follow-through matters more than the headline candle. #Crypto`,
+    `${cashtag} needs a risk-first read today: ${risk}, liquidity, and confirmation before the move deserves more attention. #Crypto`,
+  ];
+  const seed = `${symbol}:${tokenName}:${reason}`.toLowerCase();
+  const index = Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % frames.length;
+  const tweet = frames[index];
   return truncateForX(tweet, maxChars);
 }
 
@@ -1070,6 +1087,25 @@ export async function generateUnifiedCaptions(
   const contentVariantBrief = uniquePlatforms
     .map((platform) => formatVariantPromptLine(platform, platformVariants[platform]!))
     .join("\n");
+  const platformArchetypes = uniquePlatforms.reduce((acc, platform) => {
+    const configuredArchetype = options.contentArchetypes?.[platform];
+    acc[platform] = configuredArchetype
+      ? resolveSocialArchetype(configuredArchetype, platform)
+      : selectSocialArchetype({
+          platform,
+          seedParts: [
+            symbol,
+            tokenName,
+            metrics.selectionReason,
+            metrics.timeOfDay,
+          ],
+        });
+    return acc;
+  }, {} as Partial<Record<PlatformTarget, SocialContentArchetype>>);
+
+  const contentArchetypeBrief = uniquePlatforms
+    .map((platform) => formatArchetypePromptLine(platform, platformArchetypes[platform]!))
+    .join("\n");
   const editorialFormatBrief = options.editorialFormat
     ? [
         `Format: ${options.editorialFormat.label}`,
@@ -1088,12 +1124,11 @@ TELEGRAM RULES:
 - Maximum ${options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS} characters.
 - Write like a premium crypto research desk read, not a generic social update.
 - Today's Telegram angle: ${platformVariants.telegram?.label} - ${platformVariants.telegram?.angle}.
-- Use this exact compact structure:
-  <b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>
-  Setup: [one concise setup line using concrete market data]
-  Why it matters: [one concise catalyst/context line]
-  Risk / invalidation: [one concise condition that would weaken the setup]
-  <tg-spoiler>TokenRadar read: [one balanced verdict]</tg-spoiler>
+- Today's Telegram archetype: ${platformArchetypes.telegram?.label} - ${platformArchetypes.telegram?.angle}.
+- Use one of these compact structures, selected to match the archetype:
+  1. <b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>; Setup: ...; Risk / invalidation: ...; <tg-spoiler>TokenRadar read: ...</tg-spoiler>
+  2. <b>Market Desk: $${symbol.toUpperCase()}</b>; What changed: ...; What confirms: ...; What breaks: ...
+  3. <b>Risk Lab: $${symbol.toUpperCase()}</b>; Why it is noisy: ...; What would make it cleaner: ...; Research note: ...
 - Use <b> tags only for specific numbers and key metrics.
 - Do not say buy, sell, long, short, signal, entry, take-profit, guaranteed, or financial advice.
 - No URLs, external links, markdown, numbered lists, or unsupported HTML tags.`,
@@ -1102,9 +1137,11 @@ X RULES:
 - Return "xTweet" only for X.
 - Maximum ${options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT} characters.
 - Today's X angle: ${platformVariants.x?.label} - ${platformVariants.x?.angle}.
+- Today's X archetype: ${platformArchetypes.x?.label} - ${platformArchetypes.x?.angle}.
+- Hook family: ${platformArchetypes.x?.hookFamily}. CTA family: ${platformArchetypes.x?.ctaFamily}.
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
 - Write prices as plain numbers, not dollar-prefixed prices.
-- End with a strong, data-driven question.
+- Use the selected archetype CTA. A question is allowed only when the CTA family is reply-oriented.
 - Include exactly 1 or 2 niche hashtags.
 - No URLs, external links, HTML, markdown, or AI disclaimers.`,
     youtube: `
@@ -1177,6 +1214,9 @@ PERSONA/TONE: ${metrics.tone || "Data-driven research platform"}
 
 CONTENT VARIETY BRIEF:
 ${contentVariantBrief}
+
+CONTENT ARCHETYPE BRIEF:
+${contentArchetypeBrief}
 
 EDITORIAL FORMAT BRIEF:
 ${editorialFormatBrief}

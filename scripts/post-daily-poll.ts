@@ -18,9 +18,12 @@ import { callAIWithFallback } from "../src/lib/gemini";
 import { sendTelegramPoll } from "../src/lib/telegram";
 import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
+import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { buildTelegramPollPayload } from "./lib/telegram-poll";
-import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { getRecentSocialArchetypeKeys, getRecentSocialVariantKeys } from "./lib/social-history";
 import { cleanupExpiredCooldownFolders } from "./lib/token-selection";
 
 // Load environment
@@ -51,8 +54,8 @@ const POLL_THEMES = [
   {
     key: "signal_follow_up",
     theme: "Signal Follow-up",
-    directive: "Ask how subscribers want prior watchlist signals reviewed: continuation, failed setup, or neutral follow-up.",
-    example: "Which prior signal should we review next?",
+    directive: "Ask how subscribers want prior watchlist reads reviewed: continuation, failed setup, or neutral follow-up.",
+    example: "Which prior watchlist read should we review next?",
   },
   {
     key: "watchlist_criteria",
@@ -115,7 +118,7 @@ function selectPollTheme(usedThemeKeys: Iterable<string> = [], date: Date = new 
  * Build the AI prompt with today's controlled-variety theme.
  */
 function buildPollPrompt(theme: PollTheme): string {
-  return `You are running the TokenRadar.co Telegram channel as a premium crypto signal desk.
+  return `You are running the TokenRadar.co Telegram channel as a premium crypto research desk.
 Today's poll theme: "${theme.theme}"
 Directive: ${theme.directive}
 
@@ -169,7 +172,16 @@ async function main() {
           "telegram-poll",
         );
     const theme = selectPollTheme(usedThemeKeys, runDate);
+    const archetype = selectSocialArchetype({
+      platform: "telegram",
+      usedArchetypeKeys: force
+        ? []
+        : getRecentSocialArchetypeKeys(DATA_DIR, "telegram", SOCIAL_VARIANT_COOLDOWN_DAYS, runDate, "telegram-poll"),
+      seedParts: [today, "telegram", theme.key, "telegram-poll", process.env.SOCIAL_SLOT],
+      date: runDate,
+    });
     console.log(`Today's poll theme: "${theme.theme}" (${theme.key})`);
+    console.log(`Today's poll archetype: "${archetype.label}" (${archetype.key})`);
     console.log("Generating poll via AI...");
 
     const prompt = buildPollPrompt(theme);
@@ -188,10 +200,12 @@ async function main() {
       throw new Error("AI output was not a valid poll payload.");
     }
 
-    const { question, options } = buildTelegramPollPayload(
+    const pollPayload = buildTelegramPollPayload(
       payload as { question?: unknown; options?: unknown },
       `Community Pulse: ${theme.example}`,
     );
+    const question = sanitizeSocialEditorialText(pollPayload.question);
+    const options = pollPayload.options.map((option) => sanitizeSocialEditorialText(option));
 
     console.log(`  Question: ${question}`);
     console.log(`  Options: ${options.join(" | ")}`);
@@ -203,34 +217,36 @@ async function main() {
 
     const msgId = await sendTelegramPoll(question, options, channelId!);
     const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "telegram",
+      surface: "telegram-poll",
+      reason: theme.key,
+      variantKey: theme.key,
+      variantLabel: theme.theme,
+      archetypeKey: archetype.key,
+      archetypeLabel: archetype.label,
+      hookFamily: archetype.hookFamily,
+      ctaFamily: archetype.ctaFamily,
+      text: question,
+      externalId: msgId,
+      details: {
+        theme: theme.theme,
+        themeKey: theme.key,
+        options: [...options],
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
     writeFileAtomicSync(
       trackerFile,
-      JSON.stringify(
-        {
-          postedAt,
-          question,
-          options,
-          messageId: msgId,
-          theme: theme.theme,
-          themeKey: theme.key,
-          variantKey: theme.key,
-          variantLabel: theme.theme,
-          variantSurface: "telegram-poll",
-        },
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "telegram",
       contentKey: socialPostKey,
       externalId: msgId,
       postedAt,
-      details: {
-        themeKey: theme.key,
-        theme: theme.theme,
-        variantSurface: "telegram-poll",
-      },
+      details: buildSocialPostDetails(trackerPayload),
     });
 
     console.log(`Telegram poll sent successfully (msg_id: ${msgId})`);

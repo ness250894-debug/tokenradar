@@ -58,6 +58,8 @@ export interface VideoMarketFreshnessResult {
   issues: VideoMarketFreshnessIssue[];
 }
 
+export type VideoMarketFreshnessIssueCounts = Partial<Record<VideoMarketFreshnessIssue, number>>;
+
 export interface PlatformCopyPackage {
   platform: VideoPlatform;
   title?: string;
@@ -290,6 +292,25 @@ export function filterVideoCandidatesByFreshness<T extends VideoMarketFreshnessI
   options: Omit<VideoMarketFreshnessInput, "token"> = {},
 ): T[] {
   return candidates.filter((token) => validateVideoMarketDataFreshness({ ...options, token }).ok);
+}
+
+export function formatVideoMarketFreshnessIssueCounts(issueCounts: VideoMarketFreshnessIssueCounts): string {
+  const parts = Object.entries(issueCounts)
+    .filter(([, count]) => Number(count) > 0)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([issue, count]) => `${issue}=${count}`);
+  return parts.length ? parts.join(", ") : "none";
+}
+
+export function shouldRefreshDerivedMetricsForVideo(
+  issueCounts: VideoMarketFreshnessIssueCounts,
+  checkedCandidates: number,
+): boolean {
+  if (checkedCandidates <= 0) return false;
+  const nonZeroIssues = Object.entries(issueCounts).filter(([, count]) => Number(count) > 0);
+  return nonZeroIssues.length === 1 &&
+    nonZeroIssues[0][0] === "stale-derived-metrics" &&
+    Number(nonZeroIssues[0][1]) >= checkedCandidates;
 }
 
 export function validatePlatformCopyPackage(input: PlatformCopyPackage): PlatformCopyValidationResult {

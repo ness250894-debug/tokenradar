@@ -19,6 +19,8 @@ import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from ".
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
@@ -32,7 +34,7 @@ import {
   TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
-import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { getRecentSocialArchetypeKeys, getRecentSocialVariantKeys } from "./lib/social-history";
 
 // Load environment
 loadEnv();
@@ -140,6 +142,21 @@ async function main() {
       date: new Date(`${today}T00:00:00.000Z`),
     });
     console.log(`Telegram movers variant: ${variant.label} (${variant.key})`);
+    const archetype = selectSocialArchetype({
+      platform: "telegram",
+      usedArchetypeKeys: force
+        ? []
+        : getRecentSocialArchetypeKeys(
+            DATA_DIR,
+            "telegram",
+            SOCIAL_VARIANT_COOLDOWN_DAYS,
+            new Date(`${today}T00:00:00.000Z`),
+            "telegram-movers",
+          ),
+      seedParts: [today, "telegram", "movers", process.env.SOCIAL_SLOT],
+      date: new Date(`${today}T00:00:00.000Z`),
+    });
+    console.log(`Telegram movers archetype: ${archetype.label} (${archetype.key})`);
 
     console.log("Rendering movers card in-memory...");
     const photoBuffer = await generateMoversImage(movers);
@@ -159,6 +176,8 @@ async function main() {
       Write a premium Telegram market-desk brief, maximum ${SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS} characters.
       Today's editorial angle: ${variant.label} - ${variant.angle}.
       Variant instruction: ${variant.promptInstruction}
+      Today's editorial archetype: ${archetype.label} - ${archetype.angle}.
+      Archetype instruction: ${archetype.promptInstruction}
 
       Use the following REAL data for today:
       ${dataContext}
@@ -211,32 +230,34 @@ ${TELEGRAM_SIGNAL_NOTE}
     // ── Post to Telegram (buffer goes directly, never saved) ──
     const msgId = await sendTelegramPhoto(photoBuffer, sanitizedCaption, channelId!);
     const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "telegram",
+      surface: "telegram-movers",
+      reason: "daily-movers",
+      variantKey: variant.key,
+      variantLabel: variant.label,
+      archetypeKey: archetype.key,
+      archetypeLabel: archetype.label,
+      hookFamily: archetype.hookFamily,
+      ctaFamily: archetype.ctaFamily,
+      text: sanitizedCaption,
+      externalId: msgId,
+      details: {
+        movers: movers.map((mover) => mover.id),
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
     writeFileAtomicSync(
       trackerFile,
-      JSON.stringify(
-        {
-          postedAt,
-          messageId: msgId,
-          movers: movers.map((mover) => mover.id),
-          variantKey: variant.key,
-          variantLabel: variant.label,
-          variantSurface: "telegram-movers",
-        },
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "telegram",
       contentKey: socialPostKey,
       externalId: msgId,
       postedAt,
-      details: {
-        movers: movers.map((mover) => mover.id),
-        variantKey: variant.key,
-        variantLabel: variant.label,
-        variantSurface: "telegram-movers",
-      },
+      details: buildSocialPostDetails(trackerPayload),
     });
     console.log(`✅ Telegram movers card sent successfully (msg_id: ${msgId})`);
   } catch (err) {

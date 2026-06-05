@@ -26,9 +26,11 @@ import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
+import { selectSocialArchetype, type SocialContentArchetype } from "../src/lib/social-archetypes";
+import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
-import { getRecentSocialVariantKeys } from "./lib/social-history";
+import { getRecentSocialArchetypeKeys, getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
@@ -51,6 +53,10 @@ interface InstagramMoversTracker {
   variantKey?: string;
   variantLabel?: string;
   variantSurface?: string;
+  archetypeKey?: string;
+  archetypeLabel?: string;
+  hookFamily?: string;
+  ctaFamily?: string;
   caption?: string;
 }
 
@@ -89,7 +95,11 @@ function selectMovers(
     }));
 }
 
-function buildCaption(movers: DailyMoverCarouselToken[], variant: SocialContentVariant): string {
+function buildCaption(
+  movers: DailyMoverCarouselToken[],
+  variant: SocialContentVariant,
+  archetype: SocialContentArchetype,
+): string {
   const leader = movers[0];
   const variantNotes: Record<string, { opener: string; qualityLine: string }> = {
     momentum_watchlist: {
@@ -110,6 +120,16 @@ function buildCaption(movers: DailyMoverCarouselToken[], variant: SocialContentV
     },
   };
   const variantNote = variantNotes[variant.key] || variantNotes.momentum_watchlist;
+  const archetypeOpeners: Record<string, string> = {
+    risk_lab: "Before chasing today's green candles, check the filter first.",
+    sector_rotation: "Today's useful read is where momentum is clustering.",
+    how_to_read_metric: "A 24h mover list is only useful when you know what to filter.",
+    watchlist_shortlist: "Here is the shortlist, not a call.",
+    data_quality_warning: "Big mover lists can hide noisy data; start with the quality check.",
+    two_token_comparison: "Compare the strongest moves before treating any single candle as the story.",
+  };
+  const opener = archetypeOpeners[archetype.key] ||
+    `${variant.captionIntro || "Daily Movers"}: ${leader.symbol.toUpperCase()} leads today's TokenRadar scan with a ${formatPercent(leader.change24h)} 24h move.`;
   const lines = movers.map((mover, index) =>
     `${index + 1}. ${mover.symbol.toUpperCase()} (${mover.name}): ${formatPercent(mover.change24h)} at ${formatPrice(mover.price)}`
   );
@@ -128,7 +148,7 @@ function buildCaption(movers: DailyMoverCarouselToken[], variant: SocialContentV
   ].slice(0, SOCIAL_PLATFORM_LIMITS.INSTAGRAM.HASHTAG_LIMIT);
 
   const caption = [
-    `${variant.captionIntro || "Daily Movers"}: ${leader.symbol.toUpperCase()} leads today's TokenRadar scan with a ${formatPercent(leader.change24h)} 24h move.`,
+    opener,
     variantNote.opener,
     lines.join("\n"),
     `Highest market cap in this set: ${formatCompact(Math.max(...movers.map((mover) => mover.marketCap)))}. ${variantNote.qualityLine}`,
@@ -162,6 +182,20 @@ async function main() {
           "instagram-carousel",
         ),
     seedParts: [today, "instagram-carousel"],
+    date: new Date(`${today}T00:00:00.000Z`),
+  });
+  const archetype = selectSocialArchetype({
+    platform: "instagram-carousel",
+    usedArchetypeKeys: force
+      ? []
+      : getRecentSocialArchetypeKeys(
+          DATA_DIR,
+          "instagram-carousel",
+          SOCIAL_VARIANT_COOLDOWN_DAYS,
+          new Date(`${today}T00:00:00.000Z`),
+          "instagram-carousel",
+        ),
+    seedParts: [today, "instagram-carousel", process.env.SOCIAL_SLOT],
     date: new Date(`${today}T00:00:00.000Z`),
   });
 
@@ -208,12 +242,12 @@ async function main() {
       );
     });
 
-    console.log(`Rendering Instagram carousel slides (${variant.label})...`);
+    console.log(`Rendering Instagram carousel slides (${variant.label}, ${archetype.label})...`);
     const renderedSlides = await generateDailyMoversCarousel(movers, { variant });
     const slides = await Promise.all(
       renderedSlides.map((slide, index) => prepareInstagramCarouselImage(slide, index + 1)),
     );
-    const caption = buildCaption(movers, variant);
+    const caption = buildCaption(movers, variant, archetype);
     console.log(`  Rendered ${slides.length} JPEG slides.`);
     console.log(`  Caption length: ${caption.length}/${SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT}`);
 
@@ -248,37 +282,37 @@ async function main() {
       caption,
     );
     const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform: "instagram",
+      surface: "instagram-carousel",
+      reason: "daily-movers",
+      variantKey: variant.key,
+      variantLabel: variant.label,
+      archetypeKey: archetype.key,
+      archetypeLabel: archetype.label,
+      hookFamily: archetype.hookFamily,
+      ctaFamily: archetype.ctaFamily,
+      text: caption,
+      externalId: result.id,
+      details: {
+        movers: movers.map((mover) => mover.id),
+        slideCount: slides.length,
+        variant: variant.key,
+        socialSlot: process.env.SOCIAL_SLOT,
+      },
+    });
 
     writeFileAtomicSync(
       trackerFile,
-      JSON.stringify(
-        {
-          postedAt,
-          postId: result.id,
-          movers: movers.map((mover) => mover.id),
-          slideCount: slides.length,
-          variant: variant.key,
-          variantKey: variant.key,
-          variantLabel: variant.label,
-          variantSurface: "instagram-carousel",
-          caption,
-        } satisfies InstagramMoversTracker,
-        null,
-        2,
-      ),
+      JSON.stringify(trackerPayload, null, 2),
     );
     await recordSocialPost({
       platform: "instagram",
       contentKey: socialPostKey,
       externalId: result.id,
       postedAt,
-      details: {
-        movers: movers.map((mover) => mover.id),
-        slideCount: slides.length,
-        variantKey: variant.key,
-        variantLabel: variant.label,
-        variantSurface: "instagram-carousel",
-      },
+      details: buildSocialPostDetails(trackerPayload),
     });
 
     try {

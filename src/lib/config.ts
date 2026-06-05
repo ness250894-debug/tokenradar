@@ -49,10 +49,10 @@ export const ICONS = {
 
 /** Social footer lines used in Telegram posts. */
 export const TELEGRAM_ECOSYSTEM_LINK_HTML =
-  `<a href="${SOCIAL.linkTreeUrl}">TokenRadar Signal Desk</a>`;
+  `<a href="${SOCIAL.linkTreeUrl}">TokenRadar Research Desk</a>`;
 
 export const TELEGRAM_SIGNAL_NOTE =
-  "Research signal, not financial advice. Confirm liquidity, risk, and invalidation.";
+  "Research read, not financial advice. Confirm liquidity, risk, and invalidation.";
 
 export const SOCIAL_FOOTER = [
   TELEGRAM_ECOSYSTEM_LINK_HTML,
@@ -213,10 +213,23 @@ export const VIDEO_FORMAT_COOLDOWN_DAYS = 14;
 export const SOCIAL_VARIANT_COOLDOWN_DAYS = 3;
 
 /**
- * High-frequency market updates can run multiple times per day, so they only
- * avoid repeating an editorial variant within the same UTC date.
+ * High-frequency market updates can run multiple times per day, but recent
+ * repeated structures make the feed stale. Keep variants separated across
+ * recent days while allowing fallback when the small pool is exhausted.
  */
-export const MARKET_UPDATE_VARIANT_COOLDOWN_DAYS = 0;
+export const MARKET_UPDATE_VARIANT_COOLDOWN_DAYS = 3;
+
+/**
+ * Minimum days before daily social archetypes should repeat. Archetypes are
+ * broader than variants, so their cooldown is longer to protect feed variety.
+ */
+export const SOCIAL_ARCHETYPE_COOLDOWN_DAYS = 7;
+
+/**
+ * Market updates run more frequently than daily social surfaces, so their
+ * archetype cooldown is shorter than the regular social archetype window.
+ */
+export const MARKET_UPDATE_ARCHETYPE_COOLDOWN_DAYS = 5;
 
 // ── Interactive Poll Config ────────────────────────────────────
 
@@ -229,6 +242,14 @@ export const INTERACTIVE_POST_NARRATIVES = [
   "Layer 2s",
   "RWA",
   "DeFi",
+  "DePIN",
+  "Gaming",
+  "Solana Ecosystem",
+  "Base Ecosystem",
+  "Bitcoin Layer 2s",
+  "Restaking",
+  "Privacy",
+  "Stablecoins",
 ] as const;
 
 /** Emoji prefixes for text-based fallback polls (when native poll fails). */

@@ -120,6 +120,8 @@ describe("X post similarity helpers", () => {
     const diversified = diversifyXPostText(candidate, [recent], "2026-05-11:ethereum");
 
     expect(diversified).not.toBe(candidate);
+    expect(diversified.startsWith("$ETH Ethereum:")).toBe(false);
+    expect(diversified).toMatch(/\$ETH|Ethereum/);
     expect(diversified.length).toBeLessThanOrEqual(260);
     expect((diversified.match(/\$[A-Z]+/g) || []).length).toBeLessThanOrEqual(1);
   });

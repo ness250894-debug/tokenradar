@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import type { SocialPostRecord } from "../../src/lib/ops-ledger";
+import { buildSocialPostDetails } from "../../src/lib/social-post-tracker";
 
 type TrackerPayload = Record<string, unknown>;
 
@@ -45,6 +46,7 @@ function postedAtFor(date: string, payload: TrackerPayload): string {
 
 function externalId(payload: TrackerPayload): string | number | undefined {
   for (const field of [
+    "externalId",
     "tweetId",
     "messageId",
     "postId",
@@ -76,6 +78,7 @@ function record(
     details: {
       backfilled: true,
       sourceTracker: true,
+      ...buildSocialPostDetails(payload),
       ...details,
     },
   };

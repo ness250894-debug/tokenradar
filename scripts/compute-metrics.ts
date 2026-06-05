@@ -226,7 +226,7 @@ export function buildMetricSummary(
 
 // ── Main ───────────────────────────────────────────────────────
 
-async function main() {
+export async function main(args = process.argv.slice(2)) {
   console.log("╔══════════════════════════════════════════╗");
   console.log("║  TokenRadar — Metrics Computation        ║");
   console.log("╚══════════════════════════════════════════╝");
@@ -234,7 +234,6 @@ async function main() {
 
   ensureDirSync(METRICS_DIR);
 
-  const args = process.argv.slice(2);
   const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;
 
   let tokenFiles = fs
