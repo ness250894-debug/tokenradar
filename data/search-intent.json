@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-05T19:28:26.626Z",
-    "tokenCount": 526,
+    "tokenCount": 525,
     "topIntents": [
       {
         "intent": "prediction",
@@ -14,8 +14,8 @@
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 98,
-        "avgScore": 77
+        "tokenCount": 97,
+        "avgScore": 76
       },
       {
         "intent": "stablecoin",
@@ -6517,83 +6517,6 @@
         "BUILDon scam check",
         "BUILDon price prediction 2026",
         "BUILDon price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-05T19:28:26.626Z"
-    },
-    "burnedfi": {
-      "tokenId": "burnedfi",
-      "tokenName": "BurnedFi",
-      "symbol": "burn",
-      "attentionScore": 51,
-      "attentionLabel": "Watch",
-      "hypeScore": 57,
-      "fundamentalsScore": 44,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 88,
-          "queries": [
-            "BurnedFi risks",
-            "is BurnedFi safe",
-            "BurnedFi scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 74,
-          "queries": [
-            "BurnedFi meme coin",
-            "BurnedFi price prediction",
-            "is BurnedFi worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 51,
-          "queries": [
-            "BurnedFi price prediction 2026",
-            "BurnedFi price prediction today",
-            "BURN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 31,
-          "queries": [
-            "how to buy BurnedFi",
-            "where to buy BurnedFi",
-            "BURN crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 23.6% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "BurnedFi risks",
-        "is BurnedFi safe",
-        "BurnedFi scam check",
-        "BurnedFi meme coin",
-        "BurnedFi price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
