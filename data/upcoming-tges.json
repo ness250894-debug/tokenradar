@@ -2306,5 +2306,74 @@
     "discoveredAt": "2026-06-05T19:25:33.949Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-05T19:25:33.949Z"
+  },
+  {
+    "id": "kraken-spacex-xstocks",
+    "name": "Kraken xStocks SpaceX Access",
+    "symbol": "TBD",
+    "category": "RWA/CeFi",
+    "expectedTge": "Pre-IPO Access",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/kraken-offers-spacex-ipo-access-through-xstocks",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news_article",
+        "url": "https://cointelegraph.com/news/kraken-offers-spacex-ipo-access-through-xstocks",
+        "title": "Kraken offers SpaceX IPO access through xStocks",
+        "observedAt": "2024-07-26T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-06T18:56:53.472Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-06T18:56:53.472Z"
+  },
+  {
+    "id": "coinbase-token-backed-mortgages",
+    "name": "Coinbase Token-Backed Mortgages",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Summer 2024",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/coinbase-token-backed-mortgages-fannie-mae-summer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 75,
+    "signals": [
+      {
+        "type": "Product Launch with Token Integration",
+        "sourceType": "news_article",
+        "url": "https://cointelegraph.com/news/coinbase-token-backed-mortgages-fannie-mae-summer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Coinbase to launch token-backed mortgage down payments this summer",
+        "observedAt": "2024-05-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-06T18:56:53.472Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-06T18:56:53.472Z"
+  },
+  {
+    "id": "the-clearing-house-tokenized-deposit-network",
+    "name": "The Clearing House Tokenized Deposit Network",
+    "symbol": "TBD",
+    "category": "DeFi/TradFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/06/06/america-s-largest-banks-are-building-a-new-digital-currency-network-to-stop-a-massive-deposit-drain",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch/Partnership",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/06/america-s-largest-banks-are-building-a-new-digital-currency-network-to-stop-a-massive-deposit-drain",
+        "title": "America’s largest banks are building a new digital currency network to stop a massive deposit drain",
+        "observedAt": "2026-06-06T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-06T18:56:53.473Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-06T18:56:53.473Z"
   }
 ]
