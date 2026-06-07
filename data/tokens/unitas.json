@@ -1,0 +1,53 @@
+{
+  "id": "unitas",
+  "symbol": "up",
+  "name": "Unitas",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71531/large/Logo_Mark_200.png?1772722048",
+  "description": "Unitas is Unipay’s on-chain “dollar + yield” stack, built first and foremost on a JLP delta-neutral (dn) arbitrage engine. All other collateral and hedging layers sit on top of this core strategy.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Stablecoin Issuer",
+    "Binance Wallet IDO"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://unitas.so/",
+    "github": "https://github.com/UnipayFI/",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x000008d2175f9aeaddb2430c26f8a6f73c5a0000"
+  },
+  "market": {
+    "price": 0.345012,
+    "marketCap": 43461747,
+    "marketCapRank": 486,
+    "volume24h": 3534698,
+    "high24h": 0.358693,
+    "low24h": 0.286775,
+    "priceChange24h": 19.91834,
+    "priceChange7d": 13.44816,
+    "priceChange30d": 133.85,
+    "priceChange1y": 0,
+    "ath": 0.401491,
+    "athChangePercentage": -13.69815,
+    "athDate": "2026-06-01T18:31:06.490Z",
+    "atl": 0.052858,
+    "atlDate": "2026-03-15T12:50:45.701Z",
+    "circulatingSupply": 125999961.3409171,
+    "totalSupply": 999999961.3409171,
+    "maxSupply": 1000000000,
+    "fdv": 344934593
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-07T18:58:34.387Z"
+}
