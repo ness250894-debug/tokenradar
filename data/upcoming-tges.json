@@ -2375,5 +2375,28 @@
     "discoveredAt": "2026-06-06T18:56:53.473Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-06T18:56:53.473Z"
+  },
+  {
+    "id": "abra-tokenized-products",
+    "name": "Abra Tokenized Products",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Post-Nasdaq Debut",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/07/abra-s-bill-barhydt-says-wall-street-s-next-crypto-bet-is-tokenization",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch / Strategy",
+        "sourceType": "news_article",
+        "url": "https://www.coindesk.com/business/2026/06/07/abra-s-bill-barhydt-says-wall-street-s-next-crypto-bet-is-tokenization",
+        "title": "Abra’s Bill Barhydt says Wall Street’s next crypto bet is tokenization",
+        "observedAt": "2026-06-07T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-07T18:59:34.416Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-07T18:59:34.416Z"
   }
 ]
