@@ -230,6 +230,18 @@ import type { TrendingGetResponse } from "@coingecko/coingecko-typescript/resour
 export type { CoinGetIDResponse as CoinDetail, MarketChartGetResponse as MarketChartData, GlobalGetResponse, CategoryGetResponse, TrendingGetResponse };
 export type CoinGeckoToken = MarketGetResponse[number];
 type CoinGeckoTrendingBaseCoin = NonNullable<TrendingGetResponse["coins"]>[number];
+type CoinGeckoTrendingSourceCoin = CoinGeckoTrendingBaseCoin & {
+  id?: string;
+  item?: {
+    id?: string;
+    name?: string;
+    score?: number;
+    symbol?: string;
+  };
+  name?: string;
+  score?: number;
+  symbol?: string;
+};
 export type CoinGeckoTrendingCoin = Omit<CoinGeckoTrendingBaseCoin, "id" | "name" | "score" | "symbol"> & {
   id: string;
   name: string;
@@ -492,17 +504,19 @@ export async function fetchTrendingCoins(): Promise<CoinGeckoTrendingCoin[]> {
       30 * 60 * 1000, 
       () => client.search.trending.get() as unknown as Promise<TrendingGetResponse>
     );
-    const coins = (raw.coins || []) as Array<CoinGeckoTrendingBaseCoin & { score?: number }>;
+    const coins = (raw.coins || []) as CoinGeckoTrendingSourceCoin[];
 
     return coins
       .flatMap((coin, index): CoinGeckoTrendingCoin[] => {
-        if (!coin.id) return [];
+        const source = coin.item || coin;
+        if (!source.id) return [];
         return [{
           ...coin,
-          id: coin.id,
-          name: coin.name || coin.id,
-          score: typeof coin.score === "number" ? coin.score : index,
-          symbol: coin.symbol || "",
+          ...coin.item,
+          id: source.id,
+          name: source.name || source.id,
+          score: typeof source.score === "number" ? source.score : index,
+          symbol: source.symbol || "",
         }];
       })
       .sort((a, b) => a.score - b.score);
