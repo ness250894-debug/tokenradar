@@ -229,6 +229,13 @@ import type { TrendingGetResponse } from "@coingecko/coingecko-typescript/resour
 
 export type { CoinGetIDResponse as CoinDetail, MarketChartGetResponse as MarketChartData, GlobalGetResponse, CategoryGetResponse, TrendingGetResponse };
 export type CoinGeckoToken = MarketGetResponse[number];
+type CoinGeckoTrendingBaseCoin = NonNullable<TrendingGetResponse["coins"]>[number];
+export type CoinGeckoTrendingCoin = Omit<CoinGeckoTrendingBaseCoin, "id" | "name" | "score" | "symbol"> & {
+  id: string;
+  name: string;
+  score: number;
+  symbol: string;
+};
 
 export interface CoinCategoryMarketData {
   id?: string;
@@ -473,14 +480,11 @@ export async function fetchTokensByRank(
 
 // ── Trending Coins ────────────────────────────────────────────
 
-// Raw response shape matches SDK TrendingResponse
-
 /**
  * Fetch the top trending coins from CoinGecko's search/trending endpoint.
  * This is a zero-cost endpoint based on user search volume.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function fetchTrendingCoins(): Promise<any[]> {
+export async function fetchTrendingCoins(): Promise<CoinGeckoTrendingCoin[]> {
   const client = getClient();
   try {
     const raw = await withCache(
@@ -488,9 +492,20 @@ export async function fetchTrendingCoins(): Promise<any[]> {
       30 * 60 * 1000, 
       () => client.search.trending.get() as unknown as Promise<TrendingGetResponse>
     );
+    const coins = (raw.coins || []) as Array<CoinGeckoTrendingBaseCoin & { score?: number }>;
 
-    return (raw.coins || [])
-      .sort((a, b) => (a.score || 0) - (b.score || 0));
+    return coins
+      .flatMap((coin, index): CoinGeckoTrendingCoin[] => {
+        if (!coin.id) return [];
+        return [{
+          ...coin,
+          id: coin.id,
+          name: coin.name || coin.id,
+          score: typeof coin.score === "number" ? coin.score : index,
+          symbol: coin.symbol || "",
+        }];
+      })
+      .sort((a, b) => a.score - b.score);
   } catch (error) {
     console.warn(`  ⚠ Failed to fetch trending coins: ${error instanceof Error ? error.message : String(error)}`);
     return [];
