@@ -2398,5 +2398,28 @@
     "discoveredAt": "2026-06-07T18:59:34.416Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-07T18:59:34.416Z"
+  },
+  {
+    "id": "bybit-spacex-xstocks",
+    "name": "Bybit SpaceX xStocks",
+    "symbol": "TBD",
+    "category": "RWA/Tokenization/Exchange",
+    "expectedTge": "Upcoming (IPO Access)",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/bybit-launches-tokenized-ipo-access-through-xstocks-with-spacex-debut",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE / ICO / IDO / IEO",
+        "sourceType": "Exchange Announcement",
+        "url": "https://cointelegraph.com/news/bybit-launches-tokenized-ipo-access-through-xstocks-with-spacex-debut",
+        "title": "Bybit to offer tokenized SpaceX IPO access through xStocks",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-08T19:55:25.009Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-08T19:55:25.009Z"
   }
 ]
