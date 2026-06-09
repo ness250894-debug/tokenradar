@@ -2421,5 +2421,62 @@
     "discoveredAt": "2026-06-08T19:55:25.009Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-08T19:55:25.009Z"
+  },
+  {
+    "id": "morpho",
+    "name": "Morpho",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/370522/crypto-lending-protocol-morpho-raises-175-million-wall-street-defi",
+    "lifecycleStatus": "graduated",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://decrypt.co/370522/crypto-lending-protocol-morpho-raises-175-million-wall-street-defi",
+        "title": "Crypto Lending Protocol Morpho Raises $175 Million to Aid Wall Street’s DeFi Push",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-09T19:50:51.184Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-06-09T19:53:50.794Z",
+    "graduatedAt": "2026-06-09T19:53:50.794Z",
+    "coingeckoRank": 62,
+    "graduationEvidence": {
+      "coingeckoId": "morpho",
+      "coingeckoRank": 62,
+      "rank": 62,
+      "priceUsd": 1.91,
+      "volume24h": 30955934,
+      "matchedBy": "id",
+      "verifiedAt": "2026-06-09T19:53:50.794Z"
+    }
+  },
+  {
+    "id": "trad-fi-w3",
+    "name": "Trad.Fi & W3 Onchain Private Credit",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/06/09/trad-fi-w3-target-usd650-million-in-onchain-private-credit-using-ai-evaluation",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/09/trad-fi-w3-target-usd650-million-in-onchain-private-credit-using-ai-evaluation",
+        "title": "Trad.Fi, W3 target $650 million in onchain private credit using AI evaluation",
+        "observedAt": "2026-06-09T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-09T19:50:51.185Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-09T19:50:51.185Z"
   }
 ]
