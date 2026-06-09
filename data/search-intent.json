@@ -3,25 +3,25 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-08T19:58:27.911Z",
-    "tokenCount": 532,
+    "tokenCount": 529,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 159,
+        "tokenCount": 158,
         "avgScore": 75
-      },
-      {
-        "intent": "supply",
-        "label": "Unlock / supply",
-        "tokenCount": 85,
-        "avgScore": 87
       },
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
         "tokenCount": 85,
         "avgScore": 83
+      },
+      {
+        "intent": "supply",
+        "label": "Unlock / supply",
+        "tokenCount": 84,
+        "avgScore": 86
       },
       {
         "intent": "prediction",
@@ -32,7 +32,7 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 54,
+        "tokenCount": 53,
         "avgScore": 82
       },
       {
@@ -25900,83 +25900,6 @@
       ],
       "computedAt": "2026-06-08T19:58:27.911Z"
     },
-    "playsout": {
-      "tokenId": "playsout",
-      "tokenName": "PlaysOut",
-      "symbol": "play",
-      "attentionScore": 91,
-      "attentionLabel": "Hot",
-      "hypeScore": 80,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "PlaysOut token unlock",
-            "PlaysOut circulating supply",
-            "PlaysOut tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 72,
-          "queries": [
-            "PlaysOut risks",
-            "is PlaysOut safe",
-            "PlaysOut scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 63,
-          "queries": [
-            "how to buy PlaysOut",
-            "where to buy PlaysOut",
-            "PLAY crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "PlaysOut price prediction 2026",
-            "PlaysOut price prediction today",
-            "PLAY price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 22.8% keeps medium-term forecasts relevant.",
-        "24h volume equals 28.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "PlaysOut token unlock",
-        "PlaysOut circulating supply",
-        "PlaysOut tokenomics",
-        "PlaysOut risks",
-        "is PlaysOut safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-08T19:58:27.911Z"
-    },
     "pleasing-gold": {
       "tokenId": "pleasing-gold",
       "tokenName": "Pleasing Gold",
@@ -28046,83 +27969,6 @@
       ],
       "computedAt": "2026-06-08T19:58:27.911Z"
     },
-    "rekt-4": {
-      "tokenId": "rekt-4",
-      "tokenName": "Rekt",
-      "symbol": "rekt",
-      "attentionScore": 64,
-      "attentionLabel": "Rising",
-      "hypeScore": 66,
-      "fundamentalsScore": 49,
-      "supplyRiskScore": 8,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 70,
-          "queries": [
-            "Rekt risks",
-            "is Rekt safe",
-            "Rekt scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "Rekt meme coin",
-            "Rekt price prediction",
-            "is Rekt worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 55,
-          "queries": [
-            "Rekt price prediction 2026",
-            "Rekt price prediction today",
-            "REKT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 23,
-          "queries": [
-            "how to buy Rekt",
-            "where to buy Rekt",
-            "REKT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -20.0% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Rekt risks",
-        "is Rekt safe",
-        "Rekt scam check",
-        "Rekt meme coin",
-        "Rekt price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-08T19:58:27.911Z"
-    },
     "render-token": {
       "tokenId": "render-token",
       "tokenName": "Render",
@@ -29486,82 +29332,6 @@
         "USDAT depeg risk",
         "Saturn Dollar risks",
         "is Saturn Dollar safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-08T19:58:27.911Z"
-    },
-    "score": {
-      "tokenId": "score",
-      "tokenName": "Score",
-      "symbol": "sn44",
-      "attentionScore": 75,
-      "attentionLabel": "Hot",
-      "hypeScore": 66,
-      "fundamentalsScore": 59,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 84,
-          "queries": [
-            "Score AI crypto",
-            "Score AI agent",
-            "SN44 AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 77,
-          "queries": [
-            "Score risks",
-            "is Score safe",
-            "Score scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 49,
-          "queries": [
-            "Score price prediction 2026",
-            "Score price prediction today",
-            "SN44 price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 43,
-          "queries": [
-            "how to buy Score",
-            "where to buy Score",
-            "SN44 crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "Score AI crypto",
-        "Score AI agent",
-        "SN44 AI token",
-        "Score risks",
-        "is Score safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
