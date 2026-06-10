@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-09T19:53:56.326Z",
-    "tokenCount": 532,
+    "tokenCount": 528,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 177,
+        "tokenCount": 176,
         "avgScore": 74
       },
       {
@@ -26,20 +26,20 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 62,
-        "avgScore": 76
-      },
-      {
-        "intent": "ai",
-        "label": "AI crypto",
-        "tokenCount": 46,
-        "avgScore": 79
+        "tokenCount": 61,
+        "avgScore": 77
       },
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
         "tokenCount": 46,
         "avgScore": 76
+      },
+      {
+        "intent": "ai",
+        "label": "AI crypto",
+        "tokenCount": 45,
+        "avgScore": 79
       }
     ],
     "hotTokens": [
@@ -686,83 +686,6 @@
         "ATH AI token",
         "Aethir token unlock",
         "Aethir circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-09T19:53:56.326Z"
-    },
-    "affine": {
-      "tokenId": "affine",
-      "tokenName": "affine",
-      "symbol": "sn120",
-      "attentionScore": 98,
-      "attentionLabel": "Hot",
-      "hypeScore": 68,
-      "fundamentalsScore": 70,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "affine AI crypto",
-            "affine AI agent",
-            "SN120 AI token"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 64,
-          "queries": [
-            "affine price prediction 2026",
-            "affine price prediction today",
-            "SN120 price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 61,
-          "queries": [
-            "affine risks",
-            "is affine safe",
-            "affine scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 37,
-          "queries": [
-            "affine news today",
-            "why is affine moving",
-            "SN120 crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -26.8% keeps medium-term forecasts relevant.",
-        "24h volume equals 5.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "affine AI crypto",
-        "affine AI agent",
-        "SN120 AI token",
-        "affine price prediction 2026",
-        "affine price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -21745,83 +21668,6 @@
       ],
       "computedAt": "2026-06-09T19:53:56.326Z"
     },
-    "moo-deng": {
-      "tokenId": "moo-deng",
-      "tokenName": "Moo Deng",
-      "symbol": "moodeng",
-      "attentionScore": 90,
-      "attentionLabel": "Hot",
-      "hypeScore": 75,
-      "fundamentalsScore": 75,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 65,
-          "queries": [
-            "Moo Deng price prediction 2026",
-            "Moo Deng price prediction today",
-            "MOODENG price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 61,
-          "queries": [
-            "Moo Deng risks",
-            "is Moo Deng safe",
-            "Moo Deng scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 58,
-          "queries": [
-            "Moo Deng meme coin",
-            "Moo Deng price prediction",
-            "is Moo Deng worth buying"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 46,
-          "queries": [
-            "Moo Deng news today",
-            "why is Moo Deng moving",
-            "MOODENG crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -21.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 25.5% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Moo Deng price prediction 2026",
-        "Moo Deng price prediction today",
-        "MOODENG price target",
-        "Moo Deng risks",
-        "is Moo Deng safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-09T19:53:56.326Z"
-    },
     "morpho": {
       "tokenId": "morpho",
       "tokenName": "Morpho",
@@ -30826,81 +30672,6 @@
       ],
       "computedAt": "2026-06-09T19:53:56.326Z"
     },
-    "spacex-republic-pre-ipo": {
-      "tokenId": "spacex-republic-pre-ipo",
-      "tokenName": "SpaceX (Republic Pre-IPO)",
-      "symbol": "prespax",
-      "attentionScore": 42,
-      "attentionLabel": "Watch",
-      "hypeScore": 31,
-      "fundamentalsScore": 52,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "airdrop",
-      "intentMix": [
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 83,
-          "queries": [
-            "SpaceX (Republic Pre-IPO) airdrop",
-            "SpaceX (Republic Pre-IPO) TGE",
-            "SpaceX (Republic Pre-IPO) listing date"
-          ]
-        },
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 72,
-          "queries": [
-            "SpaceX (Republic Pre-IPO) RWA crypto",
-            "SpaceX (Republic Pre-IPO) tokenized asset",
-            "SpaceX (Republic Pre-IPO) issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 60,
-          "queries": [
-            "SpaceX (Republic Pre-IPO) risks",
-            "is SpaceX (Republic Pre-IPO) safe",
-            "SpaceX (Republic Pre-IPO) scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 31,
-          "queries": [
-            "SpaceX (Republic Pre-IPO) price prediction 2026",
-            "SpaceX (Republic Pre-IPO) price prediction today",
-            "PRESPAX price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "SpaceX (Republic Pre-IPO) airdrop",
-        "SpaceX (Republic Pre-IPO) TGE",
-        "SpaceX (Republic Pre-IPO) listing date",
-        "SpaceX (Republic Pre-IPO) RWA crypto",
-        "SpaceX (Republic Pre-IPO) tokenized asset"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-09T19:53:56.326Z"
-    },
     "spark-2": {
       "tokenId": "spark-2",
       "tokenName": "Spark",
@@ -37055,80 +36826,6 @@
         "USDD depeg risk",
         "USDD risks",
         "is USDD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-09T19:53:56.326Z"
-    },
-    "usdgo": {
-      "tokenId": "usdgo",
-      "tokenName": "USDGO",
-      "symbol": "usdgo",
-      "attentionScore": 32,
-      "attentionLabel": "Quiet",
-      "hypeScore": 19,
-      "fundamentalsScore": 59,
-      "supplyRiskScore": 8,
-      "classification": "Quiet Watch",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 50,
-          "queries": [
-            "USDGO risks",
-            "is USDGO safe",
-            "USDGO scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 34,
-          "queries": [
-            "how to buy USDGO",
-            "where to buy USDGO",
-            "USDGO crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 28,
-          "queries": [
-            "USDGO price prediction 2026",
-            "USDGO price prediction today",
-            "USDGO price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 19,
-          "queries": [
-            "USDGO token unlock",
-            "USDGO circulating supply",
-            "USDGO tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "No strong free-data catalyst is visible yet."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "USDGO risks",
-        "is USDGO safe",
-        "USDGO scam check",
-        "how to buy USDGO",
-        "where to buy USDGO"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
