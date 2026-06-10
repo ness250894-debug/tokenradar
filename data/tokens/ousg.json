@@ -1,7 +1,7 @@
 {
   "id": "ousg",
   "symbol": "ousg",
-  "name": "OUSG",
+  "name": "Ondo Short-Term U.S. Government Bond Fund",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/29023/large/OUSG.png?1696527993",
   "description": "OUSG is a tokenized short-term US Treasury bills ETF, overseen and managed by Ondo Capital Management, a subsidiary of Ondo Finance. The significant majority of this portfolio is held in the iShares Short Treasury Bond ETF (NASDAQ: SHV). There is also a small portion of USDC and USD for liquidity purposes.\nOUSG brings exposure to the ‘risk-free’ US Treasury rate on-chain for the first time. OUSG is an investment option that delivers a stable and predictable return while offering deep liquidity. Ondo funds such as OUSG only ever invest into ETFs backed by secure, stable, and liquid securities; these are the same assets in which trillions of dollars are invested every day by the world's largest institutions.\nOUSG was developed alongside two other fund tokens, OSTB and OHYG, by Ondo Finance, a software development firm in DeFi. Ondo launched in August 2021. Its first product was Ondo Vaults, a structured finance protocol on Ethereum. Later that year, Ondo launched Liquidity-as-a-Service (LaaS), facilitating over $210M in total liquidity provided.\n\nAs DeFi yields compressed in 2022, the Ondo team decided to sunset Vaults and LaaS (together, \"Ondo V1\") to focus on next-generation protocols. Ondo V2, including Ondo’s tokenized funds, were announced by Nathan Allman in January 2023. Ondo funds subsequently opened to subscriptions soon after. \n\nWhat can OUSG be Used For?\nFor investors who pass KYC and AML screening and sign subscription documents, OUSG tokens represent ownership in the fund. Investors can transfer these tokens between each other to effect changes in fund ownership. Investors can also use smart contracts to facilitate their financial arrangements such as by engaging in lending and trading activities with each other. \n\nThe tokens themselves have transfer restrictions that will ensure they do not end up in the hands of anyone not appropriately qualified as an investor in the fund.",
   "categories": [
@@ -21,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x1b19c19393e2d034d8ff31ff34c81252fcbbee92"
   },
   "market": {
-    "price": 115.51,
-    "marketCap": 498867893,
-    "marketCapRank": 104,
+    "price": 115.52,
+    "marketCap": 498913800,
+    "marketCapRank": 103,
     "volume24h": 0,
-    "high24h": 115.51,
-    "low24h": 115.47,
-    "priceChange24h": 0.02765,
-    "priceChange7d": 0.06426290816844142,
-    "priceChange30d": 0.2864277382651816,
-    "priceChange1y": 3.738811464450166,
-    "ath": 115.51,
+    "high24h": 115.52,
+    "low24h": 115.51,
+    "priceChange24h": 0.0092,
+    "priceChange7d": 0.06426305888729587,
+    "priceChange30d": 0.29565619572317303,
+    "priceChange1y": 3.7261597232354435,
+    "ath": 115.52,
     "athChangePercentage": 0,
-    "athDate": "2026-06-08T21:45:23.481Z",
+    "athDate": "2026-06-09T21:00:08.210Z",
     "atl": 95.09,
     "atlDate": "2023-03-22T20:00:17.106Z",
     "circulatingSupply": 4318969.127455278,
     "totalSupply": 4318969.127455278,
     "maxSupply": null,
-    "fdv": 498867893
+    "fdv": 498913800
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:24:20.443Z",
-  "lastMarketUpdate": "2026-06-09T19:49:29.492Z"
+  "lastMarketUpdate": "2026-06-10T20:00:08.734Z"
 }

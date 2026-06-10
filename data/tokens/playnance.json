@@ -15,25 +15,25 @@
     "explorer": "https://explorer.playblock.io/token/0xC3B539972C522d883aaA904aAAdcfE69A2d9F26B"
   },
   "market": {
-    "price": 0.0023079,
-    "marketCap": 50191721,
-    "marketCapRank": 456,
-    "volume24h": 457302,
-    "high24h": 0.00230822,
-    "low24h": 0.00177107,
-    "priceChange24h": 29.87981,
-    "priceChange7d": 28.91914,
-    "priceChange30d": 390.41772,
+    "price": 0.00229737,
+    "marketCap": 49962764,
+    "marketCapRank": 447,
+    "volume24h": 427009,
+    "high24h": 0.00248962,
+    "low24h": 0.00226983,
+    "priceChange24h": -0.7738,
+    "priceChange7d": 27.718214860577,
+    "priceChange30d": 359.82532080519206,
     "priceChange1y": 0,
     "ath": 0.00298717,
-    "athChangePercentage": -22.73691,
+    "athChangePercentage": -23.10897,
     "athDate": "2026-05-14T06:20:21.053Z",
     "atl": 0.00010448,
     "atlDate": "2026-05-06T00:57:17.115Z",
     "circulatingSupply": 21747772186.0077,
     "totalSupply": 25026000000,
     "maxSupply": 77000000000,
-    "fdv": 57757549
+    "fdv": 57494079
   },
   "community": {
     "twitterFollowers": null,
@@ -44,5 +44,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-06-09T19:49:35.842Z"
+  "fetchedAt": "2026-06-09T19:49:35.842Z",
+  "lastMarketUpdate": "2026-06-10T20:00:08.805Z"
 }
