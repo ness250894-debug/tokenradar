@@ -2478,5 +2478,51 @@
     "discoveredAt": "2026-06-09T19:50:51.185Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-09T19:50:51.185Z"
+  },
+  {
+    "id": "japan-megabank-stablecoin",
+    "name": "Japan Megabank Stablecoin",
+    "symbol": "TBD",
+    "category": "Stablecoin",
+    "expectedTge": "March 2027 (Fiscal Year 2026)",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/370615/japans-largest-banks-plan-joint-stablecoin-launch-by-march-2027",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "sourceType": "news",
+        "url": "https://decrypt.co/370615/japans-largest-banks-plan-joint-stablecoin-launch-by-march-2027",
+        "title": "Japan's Largest Banks Plan Joint Stablecoin Launch by March 2027",
+        "observedAt": "2024-07-26T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-10T20:02:08.825Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-10T20:02:08.825Z"
+  },
+  {
+    "id": "humanity-protocol",
+    "name": "Humanity Protocol",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Post-compromise recovery/relaunch",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/370485/humanity-protocol-loses-36m-after-private-keys-compromised-token-crashes-73",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Token Crash/Re-launch Implied",
+        "sourceType": "news",
+        "url": "https://decrypt.co/370485/humanity-protocol-loses-36m-after-private-keys-compromised-token-crashes-73",
+        "title": "Humanity Protocol Loses $36M After Private Keys 'Compromised,' Token Crashes 73%",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-10T20:02:08.825Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-10T20:02:08.825Z"
   }
 ]
