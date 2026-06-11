@@ -129,7 +129,7 @@ const POLL_INTERVAL_MS = 5_000;
 const POLL_TIMEOUT_MS = 120_000;
 const META_API_MAX_ATTEMPTS = 3;
 const META_API_RETRY_BASE_DELAY_MS = 10_000;
-const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 2207026]);
+const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 9004, 2207026, 2207052]);
 const RETRYABLE_HTTP_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
 
 /**
@@ -148,6 +148,7 @@ export const META_ERROR_DESCRIPTIONS: Record<number, string> = {
   2207001: "Invalid media type or format. Check video codec (H.264 required).",
   2207026: "Media container still processing. Extend poll timeout.",
   2207050: "Publishing rate limit reached.",
+  2207052: "Media URL could not be fetched or is not recognized. Wait and retry.",
 };
 
 /**
@@ -275,6 +276,7 @@ function isRetryableMetaApiRequestError(error: unknown): boolean {
   if (error instanceof MetaApiRequestError) {
     return (
       RETRYABLE_META_ERROR_CODES.has(error.code) ||
+      (error.subcode !== undefined && RETRYABLE_META_ERROR_CODES.has(error.subcode)) ||
       RETRYABLE_HTTP_STATUS_CODES.has(error.code)
     );
   }
@@ -482,7 +484,7 @@ async function pollContainerStatus(
   const config = PLATFORM_CONFIG[platform];
 
   const startTime = Date.now();
-  const statusField = platform === "threads" ? "status" : "status_code";
+  const statusField = platform === "threads" ? "status" : "status_code,status";
 
   while (Date.now() - startTime < POLL_TIMEOUT_MS) {
     const result = await metaApiRequest<ContainerStatusResponse>(
