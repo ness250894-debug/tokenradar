@@ -2524,5 +2524,81 @@
     "discoveredAt": "2026-06-10T20:02:08.825Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-10T20:02:08.825Z"
+  },
+  {
+    "id": "neura",
+    "name": "NEURA",
+    "symbol": "TBD",
+    "category": "AI/Robotics/Payments",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/370691/tether-nvidia-amazon-back-neura-robotics-1-4-billion-funding-round",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://decrypt.co/370691/tether-nvidia-amazon-back-neura-robotics-1-4-billion-funding-round",
+        "title": "Tether, Nvidia and Amazon Back Humanoid Robotics Firm NEURA in $1.4 Billion Funding Round",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-11T20:04:11.302Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-11T20:04:11.302Z"
+  },
+  {
+    "id": "spacex-tokenized-solana",
+    "name": "SpaceX Stock Tokenization on Solana",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/Infrastructure",
+    "expectedTge": "Same day as Nasdaq listing (imminent)",
+    "narrativeStrength": 85,
+    "dataSource": "https://www.coindesk.com/tech/2026/06/10/spacex-stock-is-coming-to-solana-on-the-same-day-it-lists-on-nasdaq",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/06/10/spacex-stock-is-coming-to-solana-on-the-same-day-it-lists-on-nasdaq",
+        "title": "SpaceX stock is coming to Solana on the same day it lists on Nasdaq",
+        "observedAt": "2026-06-10T00:00:00.000Z"
+      },
+      {
+        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/daybook-us/2026/06/11/as-spacex-ipo-approaches-polymarket-ventuals-assign-usd2-trillion-valuation-onchain",
+        "title": "As SpaceX IPO approaches, Polymarket, Ventuals assign $2 trillion valuation onchain",
+        "observedAt": "2026-06-11T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-11T20:04:11.303Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-11T20:04:11.303Z"
+  },
+  {
+    "id": "citi-tokenized-private-markets",
+    "name": "Citi Tokenized Private Markets",
+    "symbol": "TBD",
+    "category": "RWA/TradFi/Infrastructure",
+    "expectedTge": "Product launch (imminent)",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/06/11/citi-opens-new-route-into-private-markets-with-tokenized-share-offering",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/11/citi-opens-new-route-into-private-markets-with-tokenized-share-offering",
+        "title": "Citi opens new route into private markets with tokenized share offering",
+        "observedAt": "2026-06-11T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-11T20:04:11.303Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-11T20:04:11.303Z"
   }
 ]
