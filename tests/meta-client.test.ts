@@ -196,3 +196,61 @@ describe("publishInstagramCarousel", () => {
     ).rejects.toThrow("2-10 items");
   });
 });
+
+describe("publishVideo for Instagram", () => {
+  beforeEach(() => {
+    process.env.IG_ACCESS_TOKEN = "ig-token";
+    process.env.IG_ACCOUNT_ID = "ig-user";
+    vi.spyOn(console, "info").mockImplementation(() => undefined);
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    delete process.env.IG_ACCESS_TOKEN;
+    delete process.env.IG_ACCOUNT_ID;
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
+  it("includes detailed status message on Instagram container error", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "container-ig" }))
+      .mockResolvedValueOnce(jsonResponse({
+        id: "container-ig",
+        status_code: "ERROR",
+        status: "Video aspect ratio is invalid."
+      }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(
+      publishVideo("instagram", "https://cdn.example/video.mp4", "Check this out")
+    ).rejects.toThrow("Container container-ig failed with status: ERROR. Video aspect ratio is invalid.");
+
+    const pollRequest = fetchMock.mock.calls[1][0] as string;
+    expect(pollRequest).toContain("fields=status_code%2Cstatus");
+  });
+
+  it("retries on media fetching error subcode 2207052", async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "Only photo or video can be accepted as media type.",
+          type: "OAuthException",
+          code: 9004,
+          error_subcode: 2207052,
+        }
+      }, 400))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-ig" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-ig", status_code: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "post-ig" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const resultPromise = publishVideo("instagram", "https://cdn.example/video.mp4", "Check this out");
+    await vi.runAllTimersAsync();
+
+    await expect(resultPromise).resolves.toEqual({ id: "post-ig", platform: "instagram" });
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("code 9004"));
+  });
+});
