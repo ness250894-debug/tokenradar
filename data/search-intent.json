@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-10T20:05:18.301Z",
-    "tokenCount": 530,
+    "tokenCount": 524,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 188,
+        "tokenCount": 186,
         "avgScore": 74
       },
       {
@@ -20,25 +20,25 @@
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 85,
+        "tokenCount": 84,
         "avgScore": 83
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 54,
+        "tokenCount": 53,
         "avgScore": 77
       },
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 44,
+        "tokenCount": 43,
         "avgScore": 76
       },
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 43,
+        "tokenCount": 42,
         "avgScore": 78
       }
     ],
@@ -6866,83 +6866,6 @@
         "Celestia scam check",
         "Celestia price prediction 2026",
         "Celestia price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
-    "celium": {
-      "tokenId": "celium",
-      "tokenName": "lium",
-      "symbol": "sn51",
-      "attentionScore": 80,
-      "attentionLabel": "Hot",
-      "hypeScore": 69,
-      "fundamentalsScore": 38,
-      "supplyRiskScore": 18,
-      "classification": "FOMO Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 97,
-          "queries": [
-            "lium risks",
-            "is lium safe",
-            "lium scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "lium AI crypto",
-            "lium AI agent",
-            "SN51 AI token"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 60,
-          "queries": [
-            "lium price prediction 2026",
-            "lium price prediction today",
-            "SN51 price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "lium token unlock",
-            "lium circulating supply",
-            "lium tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -32.6% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "lium risks",
-        "is lium safe",
-        "lium scam check",
-        "lium AI crypto",
-        "lium AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -15425,84 +15348,6 @@
       ],
       "computedAt": "2026-06-10T20:05:18.301Z"
     },
-    "holoworld": {
-      "tokenId": "holoworld",
-      "tokenName": "Holoworld",
-      "symbol": "holo",
-      "attentionScore": 69,
-      "attentionLabel": "Rising",
-      "hypeScore": 60,
-      "fundamentalsScore": 53,
-      "supplyRiskScore": 82,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 83,
-          "queries": [
-            "Holoworld AI crypto",
-            "Holoworld AI agent",
-            "HOLO AI token"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 82,
-          "queries": [
-            "Holoworld token unlock",
-            "Holoworld circulating supply",
-            "Holoworld tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 71,
-          "queries": [
-            "Holoworld risks",
-            "is Holoworld safe",
-            "Holoworld scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 54,
-          "queries": [
-            "Holoworld price prediction 2026",
-            "Holoworld price prediction today",
-            "HOLO price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 47.2% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Holoworld AI crypto",
-        "Holoworld AI agent",
-        "HOLO AI token",
-        "Holoworld token unlock",
-        "Holoworld circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
     "home": {
       "tokenId": "home",
       "tokenName": "HOME",
@@ -17252,83 +17097,6 @@
         "JUPUSD depeg risk",
         "JupUSD risks",
         "is JupUSD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
-    "jusd": {
-      "tokenId": "jusd",
-      "tokenName": "JUSD",
-      "symbol": "jusd",
-      "attentionScore": 36,
-      "attentionLabel": "Watch",
-      "hypeScore": 28,
-      "fundamentalsScore": 35,
-      "supplyRiskScore": 100,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 100,
-          "queries": [
-            "JUSD stablecoin risk",
-            "JUSD reserves",
-            "JUSD depeg risk"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "JUSD token unlock",
-            "JUSD circulating supply",
-            "JUSD tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "JUSD risks",
-            "is JUSD safe",
-            "JUSD scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 32,
-          "queries": [
-            "JUSD price prediction 2026",
-            "JUSD price prediction today",
-            "JUSD price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "JUSD stablecoin risk",
-        "JUSD reserves",
-        "JUSD depeg risk",
-        "JUSD token unlock",
-        "JUSD circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -22892,83 +22660,6 @@
       ],
       "computedAt": "2026-06-10T20:05:18.301Z"
     },
-    "notcoin": {
-      "tokenId": "notcoin",
-      "tokenName": "Notcoin",
-      "symbol": "not",
-      "attentionScore": 67,
-      "attentionLabel": "Rising",
-      "hypeScore": 71,
-      "fundamentalsScore": 64,
-      "supplyRiskScore": 4,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Notcoin risks",
-            "is Notcoin safe",
-            "Notcoin scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 74,
-          "queries": [
-            "Notcoin meme coin",
-            "Notcoin price prediction",
-            "is Notcoin worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 54,
-          "queries": [
-            "Notcoin price prediction 2026",
-            "Notcoin price prediction today",
-            "NOT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 52,
-          "queries": [
-            "how to buy Notcoin",
-            "where to buy Notcoin",
-            "NOT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 31.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Notcoin risks",
-        "is Notcoin safe",
-        "Notcoin scam check",
-        "Notcoin meme coin",
-        "Notcoin price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
     "numeraire": {
       "tokenId": "numeraire",
       "tokenName": "Numeraire",
@@ -27869,84 +27560,6 @@
       ],
       "computedAt": "2026-06-10T20:05:18.301Z"
     },
-    "redstone-oracles": {
-      "tokenId": "redstone-oracles",
-      "tokenName": "RedStone",
-      "symbol": "red",
-      "attentionScore": 69,
-      "attentionLabel": "Rising",
-      "hypeScore": 50,
-      "fundamentalsScore": 58,
-      "supplyRiskScore": 71,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 84,
-          "queries": [
-            "RedStone RWA crypto",
-            "RedStone tokenized asset",
-            "RedStone issuer risk"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 72,
-          "queries": [
-            "RedStone token unlock",
-            "RedStone circulating supply",
-            "RedStone tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 60,
-          "queries": [
-            "RedStone risks",
-            "is RedStone safe",
-            "RedStone scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 48,
-          "queries": [
-            "RedStone price prediction 2026",
-            "RedStone price prediction today",
-            "RED price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -19.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 14.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "RedStone RWA crypto",
-        "RedStone tokenized asset",
-        "RedStone issuer risk",
-        "RedStone token unlock",
-        "RedStone circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
     "render-token": {
       "tokenId": "render-token",
       "tokenName": "Render",
@@ -32215,84 +31828,6 @@
         "SuperVerse scam check",
         "SuperVerse price prediction 2026",
         "SuperVerse price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-10T20:05:18.301Z"
-    },
-    "superfortune": {
-      "tokenId": "superfortune",
-      "tokenName": "Superfortune",
-      "symbol": "gua",
-      "attentionScore": 94,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 44,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Superfortune price prediction 2026",
-            "Superfortune price prediction today",
-            "GUA price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Superfortune",
-            "where to buy Superfortune",
-            "GUA crypto exchange"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Superfortune token unlock",
-            "Superfortune circulating supply",
-            "Superfortune tokenomics"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 80,
-          "queries": [
-            "Superfortune news today",
-            "why is Superfortune moving",
-            "GUA crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 23.3% keeps medium-term forecasts relevant.",
-        "24h volume equals 7.1% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Superfortune price prediction 2026",
-        "Superfortune price prediction today",
-        "GUA price target",
-        "how to buy Superfortune",
-        "where to buy Superfortune"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
