@@ -63,7 +63,7 @@ export default async function UpcomingPage() {
             </p>
             <div className="hero-cta animate-in animate-delay-2" style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap", justifyContent: "flex-start" }}>
               <MagneticEffect>
-                <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <Link href="https://t.me/Token_Radar_Official" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <TelegramIcon size={18} /> Telegram Alerts
                 </Link>
               </MagneticEffect>
@@ -121,7 +121,7 @@ export default async function UpcomingPage() {
                 The discovery job has not produced a validated TGE watchlist yet.
               </p>
               <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-lg)" }}>
-                <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <Link href="https://t.me/Token_Radar_Official" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                   <Bell size={18} style={{ marginRight: "0.5rem" }} /> Get Alerts
                 </Link>
               </div>

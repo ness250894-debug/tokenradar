@@ -329,7 +329,7 @@ export default async function HomePage() {
               </div>
             </Link>
 
-            <Link href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
+            <Link href="https://t.me/Token_Radar_Official" target="_blank" rel="noopener noreferrer" className="card-link-wrapper" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
               <div className="card" style={{ height: "100%", transition: "all 0.3s", cursor: "pointer", position: "relative", overflow: "hidden" }}>
                 <div className="feature-icon-wrapper" style={{ background: "rgba(204, 255, 0, 0.1)" }}>
                   <Zap className="feature-icon" size={32} style={{ color: "var(--accent-primary)" }} />

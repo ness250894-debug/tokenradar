@@ -263,7 +263,7 @@ export default async function TokenPage({ params }: PageProps) {
             <div className="token-hero-actions">
               <WatchlistButton tokenId={detail.id} tokenName={detail.name} variant="button" />
               <MagneticEffect>
-                 <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
+                 <a href="https://t.me/Token_Radar_Official" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
                    <Bell size={16} /> Track Alerts
                  </a>
               </MagneticEffect>

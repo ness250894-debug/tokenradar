@@ -278,7 +278,7 @@ export default async function TgePage({ params }: TgePageProps) {
         <p style={{ margin: "var(--space-sm) 0 var(--space-md)", color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
           Track {tge.name} and other premium launches on Telegram.
         </p>
-        <a href="https://t.me/TokenRadarCo" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+        <a href="https://t.me/Token_Radar_Official" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
           Join Telegram Alert Hub
         </a>
       </div>

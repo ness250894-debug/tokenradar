@@ -62,7 +62,7 @@ const CONTACT_LINKS = [
   {
     label: "Telegram",
     href: SOCIAL.telegramUrl,
-    text: "@TokenRadarCo",
+    text: "@Token_Radar_Official",
     detail: "Fastest public channel for active readers.",
     Icon: TelegramIcon,
   },
