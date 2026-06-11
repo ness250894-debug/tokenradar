@@ -17,7 +17,7 @@ export const CONTACT_FORM_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOI
 /** Social media handles. */
 export const SOCIAL = {
   xUrl: "https://x.com/tokenradarco",
-  telegramUrl: "https://t.me/TokenRadarCo",
+  telegramUrl: "https://t.me/Token_Radar_Official",
   threadsUrl: "https://www.threads.com/@tokenradarco",
   instagramUrl: "https://www.instagram.com/tokenradarco/",
   tiktokUrl: "https://www.tiktok.com/@tokenradarco",

@@ -19,7 +19,7 @@ export function StickyConversionHeader({
   symbol,
   price,
   actionText = "Join Telegram",
-  actionUrl = "https://t.me/TokenRadarCo",
+  actionUrl = "https://t.me/Token_Radar_Official",
   threshold = 400
 }: StickyConversionHeaderProps) {
   const [isVisible, setIsVisible] = useState(false);

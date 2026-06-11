@@ -81,7 +81,7 @@ type OgSocialPlatform = keyof typeof SOCIAL_ICON_PATHS;
 
 const OG_SOCIAL_ITEMS: Array<{ platform: OgSocialPlatform; label: string }> = [
   { platform: "x", label: "@tokenradarco" },
-  { platform: "telegram", label: "TokenRadarCo" },
+  { platform: "telegram", label: "Token_Radar_Official" },
   { platform: "threads", label: "@tokenradarco" },
   { platform: "instagram", label: "@tokenradarco" },
 ];
