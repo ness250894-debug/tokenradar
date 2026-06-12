@@ -2600,5 +2600,97 @@
     "discoveredAt": "2026-06-11T20:04:11.303Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-11T20:04:11.303Z"
+  },
+  {
+    "id": "metaplanet-securities",
+    "name": "Metaplanet Securities",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/metaplanet-to-form-securities-arm-through-siiibo-acquisition",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/metaplanet-to-form-securities-arm-through-siiibo-acquisition",
+        "title": "Metaplanet to form securities arm through Siiibo acquisition",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-12T19:35:46.913Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-12T19:35:46.913Z"
+  },
+  {
+    "id": "lg-arbitrum-ad-blockchain",
+    "name": "LG/Arbitrum Ad Market Blockchain",
+    "symbol": "TBD",
+    "category": "Infrastructure/Advertising",
+    "expectedTge": "Testnet/Mainnet Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/lg-arbitrum-launch-blockchain-based-bid-for-679b-ad-market",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Testnet / Mainnet launches",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/lg-arbitrum-launch-blockchain-based-bid-for-679b-ad-market",
+        "title": "LG, Arbitrum launch blockchain-based bid in $679B ad market",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-12T19:35:46.913Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-12T19:35:46.913Z"
+  },
+  {
+    "id": "digital-asset",
+    "name": "Digital Asset",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/digital-asset-355m-16z-wall-street-blockchain-rails",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/digital-asset-355m-16z-wall-street-blockchain-rails",
+        "title": "Digital Asset lands $355M as a16z doubles down on Wall Street blockchain rails",
+        "observedAt": "2024-05-15T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-12T19:35:46.914Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-12T19:35:46.914Z"
+  },
+  {
+    "id": "metaplanet-siiibo-securities",
+    "name": "Metaplanet / Siiibo Securities Bitcoin Financial Ecosystem",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/Financial Services",
+    "expectedTge": "Funding Stage / Development",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/markets/2026/06/12/metaplanet-buys-siiibo-securities-to-accelerate-bitcoin-financial-ecosystem-plans",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Tokenized Product Development / Ecosystem Expansion",
+        "sourceType": "news_article",
+        "url": "https://www.coindesk.com/markets/2026/06/12/metaplanet-buys-siiibo-securities-to-accelerate-bitcoin-financial-ecosystem-plans",
+        "title": "Metaplanet buys Siiibo Securities to accelerate bitcoin financial ecosystem plans",
+        "observedAt": "2026-06-12T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-12T19:35:46.914Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-12T19:35:46.914Z"
   }
 ]
