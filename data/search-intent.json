@@ -3,19 +3,19 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-11T20:07:26.993Z",
-    "tokenCount": 526,
+    "tokenCount": 522,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 162,
+        "tokenCount": 160,
         "avgScore": 75
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 86,
-        "avgScore": 85
+        "tokenCount": 85,
+        "avgScore": 86
       },
       {
         "intent": "stablecoin",
@@ -26,7 +26,7 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 59,
+        "tokenCount": 58,
         "avgScore": 79
       },
       {
@@ -21242,83 +21242,6 @@
       ],
       "computedAt": "2026-06-11T20:07:26.993Z"
     },
-    "mocaverse": {
-      "tokenId": "mocaverse",
-      "tokenName": "Moca Network",
-      "symbol": "moca",
-      "attentionScore": 86,
-      "attentionLabel": "Hot",
-      "hypeScore": 62,
-      "fundamentalsScore": 60,
-      "supplyRiskScore": 63,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 67,
-          "queries": [
-            "Moca Network price prediction 2026",
-            "Moca Network price prediction today",
-            "MOCA price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 66,
-          "queries": [
-            "Moca Network token unlock",
-            "Moca Network circulating supply",
-            "Moca Network tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 59,
-          "queries": [
-            "Moca Network risks",
-            "is Moca Network safe",
-            "Moca Network scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 45,
-          "queries": [
-            "Moca Network news today",
-            "why is Moca Network moving",
-            "MOCA crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -23.0% keeps medium-term forecasts relevant.",
-        "24h volume equals 22.7% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Moca Network price prediction 2026",
-        "Moca Network price prediction today",
-        "MOCA price target",
-        "Moca Network token unlock",
-        "Moca Network circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-11T20:07:26.993Z"
-    },
     "mog-coin": {
       "tokenId": "mog-coin",
       "tokenName": "Mog Coin",
@@ -24356,82 +24279,6 @@
         "ORDI scam check",
         "ORDI meme coin",
         "ORDI price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-11T20:07:26.993Z"
-    },
-    "ore": {
-      "tokenId": "ore",
-      "tokenName": "ORE",
-      "symbol": "ore",
-      "attentionScore": 78,
-      "attentionLabel": "Hot",
-      "hypeScore": 64,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 0,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 90,
-          "queries": [
-            "ORE risks",
-            "is ORE safe",
-            "ORE scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 81,
-          "queries": [
-            "ORE price prediction 2026",
-            "ORE price prediction today",
-            "ORE price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 55,
-          "queries": [
-            "how to buy ORE",
-            "where to buy ORE",
-            "ORE crypto exchange"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "ORE staking rewards",
-            "ORE yield",
-            "ORE APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 58.4% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "ORE risks",
-        "is ORE safe",
-        "ORE scam check",
-        "ORE price prediction 2026",
-        "ORE price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -37866,82 +37713,6 @@
       ],
       "computedAt": "2026-06-11T20:07:26.993Z"
     },
-    "vethor-token": {
-      "tokenId": "vethor-token",
-      "tokenName": "VeThor",
-      "symbol": "vtho",
-      "attentionScore": 61,
-      "attentionLabel": "Rising",
-      "hypeScore": 44,
-      "fundamentalsScore": 65,
-      "supplyRiskScore": 0,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 63,
-          "queries": [
-            "VeThor risks",
-            "is VeThor safe",
-            "VeThor scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "VeThor price prediction 2026",
-            "VeThor price prediction today",
-            "VTHO price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 29,
-          "queries": [
-            "how to buy VeThor",
-            "where to buy VeThor",
-            "VTHO crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 24,
-          "queries": [
-            "VeThor news today",
-            "why is VeThor moving",
-            "VTHO crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -23.6% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "VeThor risks",
-        "is VeThor safe",
-        "VeThor scam check",
-        "VeThor price prediction 2026",
-        "VeThor price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-11T20:07:26.993Z"
-    },
     "vicicoin": {
       "tokenId": "vicicoin",
       "tokenName": "ViciCoin",
@@ -40145,83 +39916,6 @@
         "ZKsync tokenomics",
         "ZKsync price prediction 2026",
         "ZKsync price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-11T20:07:26.993Z"
-    },
-    "zora": {
-      "tokenId": "zora",
-      "tokenName": "Zora",
-      "symbol": "zora",
-      "attentionScore": 63,
-      "attentionLabel": "Rising",
-      "hypeScore": 45,
-      "fundamentalsScore": 60,
-      "supplyRiskScore": 66,
-      "classification": "Organic Interest",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 68,
-          "queries": [
-            "Zora token unlock",
-            "Zora circulating supply",
-            "Zora tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 60,
-          "queries": [
-            "Zora risks",
-            "is Zora safe",
-            "Zora scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 48,
-          "queries": [
-            "Zora price prediction 2026",
-            "Zora price prediction today",
-            "ZORA price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 42,
-          "queries": [
-            "how to buy Zora",
-            "where to buy Zora",
-            "ZORA crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -16.5% keeps medium-term forecasts relevant.",
-        "24h volume equals 51.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Zora token unlock",
-        "Zora circulating supply",
-        "Zora tokenomics",
-        "Zora risks",
-        "is Zora safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
