@@ -2692,5 +2692,28 @@
     "discoveredAt": "2026-06-12T19:35:46.914Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-12T19:35:46.914Z"
+  },
+  {
+    "id": "exodus-tokenized-stock-marketplace",
+    "name": "Exodus Tokenized Stock Marketplace",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Live (tokenized assets)",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/exodus-launches-tokenized-stock-marketplace-with-ondo-adds-200-onchain-equities",
+    "confidence": 80,
+    "lifecycleStatus": "confirmed_tge",
+    "signals": [
+      {
+        "type": "Product Launch (tokenized assets)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/exodus-launches-tokenized-stock-marketplace-with-ondo-adds-200-onchain-equities",
+        "title": "Exodus launches tokenized stock marketplace with Ondo, adds 200-plus onchain equities",
+        "observedAt": "2024-06-03T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-13T18:59:46.657Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-13T18:59:46.657Z"
   }
 ]
