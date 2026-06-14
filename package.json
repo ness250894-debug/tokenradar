@@ -75,7 +75,8 @@
       }
     },
     "postcss": "^8.5.15",
-    "ws": "8.20.1"
+    "ws": "8.20.1",
+    "esbuild": "0.28.1"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",

@@ -24,22 +24,34 @@ function isTrustedIconUrl(url: string): boolean {
   }
 }
 
-function inferImageMimeType(url: string, contentType: string | null): string | null {
-  const normalized = contentType?.split(";")[0]?.trim().toLowerCase();
-  if (normalized === "image/png" || normalized === "image/jpeg") {
-    return normalized;
+function getSupportedImageMimeType(bytes: Buffer): "image/png" | "image/jpeg" | "image/svg+xml" | null {
+  if (bytes.length < 4) return null;
+
+  // Check PNG signature: 89 50 4E 47
+  if (
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4E &&
+    bytes[3] === 0x47
+  ) {
+    return "image/png";
   }
 
-  const pathname = (() => {
-    try {
-      return new URL(url).pathname.toLowerCase();
-    } catch {
-      return url.toLowerCase();
-    }
-  })();
+  // Check JPEG signature: FF D8
+  if (bytes[0] === 0xFF && bytes[1] === 0xD8) {
+    return "image/jpeg";
+  }
 
-  if (pathname.endsWith(".png")) return "image/png";
-  if (pathname.endsWith(".jpg") || pathname.endsWith(".jpeg")) return "image/jpeg";
+  // Check SVG signature (must contain '<svg' or '<?xml' in first 1024 bytes)
+  try {
+    const text = bytes.subarray(0, Math.min(bytes.length, 1024)).toString("utf8").trim();
+    if (text.startsWith("<?xml") || text.includes("<svg") || text.includes("<SVG")) {
+      return "image/svg+xml";
+    }
+  } catch {
+    // Keep it safe if UTF-8 conversion fails
+  }
+
   return null;
 }
 
@@ -57,9 +69,6 @@ async function fetchIconUrlAsDataUrl(url: string): Promise<string | undefined> {
         const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) return undefined;
 
-        const mimeType = inferImageMimeType(url, response.headers.get("content-type"));
-        if (!mimeType) return undefined;
-
         const contentLength = Number(response.headers.get("content-length"));
         if (Number.isFinite(contentLength) && contentLength > MAX_ICON_BYTES) {
           return undefined;
@@ -67,6 +76,9 @@ async function fetchIconUrlAsDataUrl(url: string): Promise<string | undefined> {
 
         const bytes = Buffer.from(await response.arrayBuffer());
         if (bytes.length === 0 || bytes.length > MAX_ICON_BYTES) return undefined;
+
+        const mimeType = getSupportedImageMimeType(bytes);
+        if (!mimeType) return undefined;
 
         return `data:${mimeType};base64,${bytes.toString("base64")}`;
       } catch {
