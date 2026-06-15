@@ -1,0 +1,51 @@
+{
+  "id": "v-i-t-r-i-o-l-network",
+  "symbol": "vit",
+  "name": "V.I.T.R.I.O.L. Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173316/large/cg_200x200.png?1778950233",
+  "description": "V.I.T.R.I.O.L. Network is a blockchain-based financial protocol built on the Arbitrum One network. It combines algorithmic trading with on-chain asset management through a system of smart contracts designed to automate capital allocation, reserve management, and token supply adjustments. The protocol operates with a fixed maximum supply of 720,000,000 VIT tokens.\n\nThe core component of the ecosystem is the TradeCafe Engine, an autonomous algorithmic trading system that executes market strategies without manual intervention. When capital enters the protocol, the Splitter Contract automatically allocates 80% to TradeCafe for trading operations and 20% to a cold reserve wallet. This allocation is enforced at the smart contract level. The reserve forms the collateral base used to support the protocol’s floor price mechanism.\n\nWhen TradeCafe closes profitable trading positions, the Profit Distribution Contract automatically allocates realized gains according to predefined rules.\n\nAdditional protocol safeguards include transaction-level anti-whale parameters that limit oversized transfers and protocol-owned liquidity that is permanently locked. Financial flows, treasury balances, emission data, and contract activity are publicly verifiable via Arbiscan. Integration of Chainlink Proof of Reserves is planned to provide additional on-chain verification of collateral balances.\n\nV.I.T.R.I.O.L. Network is structured as an automated financial protocol in which trading activity, reserve backing, token supply adjustments, and profit allocation are executed through predefined smart contract logic on Arbitrum.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Arbitrum Ecosystem",
+    "AI Agents",
+    "DeFAI"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://vitriol.network",
+    "github": "https://github.com/vitrioltoken/vitriol",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0x43397505ecec36ea4188c34cf504ca3ac7da32d6"
+  },
+  "market": {
+    "price": 0.099482,
+    "marketCap": 43982811,
+    "marketCapRank": 499,
+    "volume24h": 7005.95,
+    "high24h": 0.09993,
+    "low24h": 0.080318,
+    "priceChange24h": 23.86009,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.09993,
+    "athChangePercentage": -0.44827,
+    "athDate": "2026-06-15T10:40:04.310Z",
+    "atl": 0.03940171,
+    "atlDate": "2026-06-10T22:13:49.322Z",
+    "circulatingSupply": 442120010,
+    "totalSupply": 720000000,
+    "maxSupply": 720000000,
+    "fdv": 71626759
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-15T20:41:03.437Z"
+}

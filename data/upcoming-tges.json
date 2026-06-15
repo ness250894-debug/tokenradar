@@ -2715,5 +2715,35 @@
     "discoveredAt": "2026-06-13T18:59:46.657Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-13T18:59:46.657Z"
+  },
+  {
+    "id": "spacex-tokenized-ipo-access",
+    "name": "SpaceX Tokenized IPO Access",
+    "symbol": "TBD",
+    "category": "RWA/TradFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://airdropalert.com/blogs/invest-in-the-spacex-ipo-with-crypto/",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://airdropalert.com/blogs/invest-in-the-spacex-ipo-with-crypto/",
+        "title": "How to Invest in the SpaceX IPO With Crypto Through Bybit (IPO Express Explained)",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      },
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://airdropalert.com/blogs/spacex-ipo-day/",
+        "title": "SpaceX IPO: Biggest Listing Ever, a 19% Pop, and an 18,712 Bitcoin Surprise",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-15T20:41:41.244Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-15T20:41:41.244Z"
   }
 ]

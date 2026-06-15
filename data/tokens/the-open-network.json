@@ -1,7 +1,7 @@
 {
   "id": "the-open-network",
-  "symbol": "ton",
-  "name": "Toncoin",
+  "symbol": "gram",
+  "name": "Gram (prev. Toncoin)",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/17980/large/photo_2024-09-10_17.09.00.jpeg?1725963446",
   "description": "TON (The Open Network) is a general-purpose&nbsp;blockchain that allows developers to build decentralized apps and tokens.",
   "categories": [
@@ -27,25 +27,25 @@
     "explorer": "https://tonviewer.com/EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   },
   "market": {
-    "price": 1.7,
-    "marketCap": 4542179283,
+    "price": 1.77,
+    "marketCap": 4748920533,
     "marketCapRank": 22,
-    "volume24h": 122139177,
-    "high24h": 1.76,
-    "low24h": 1.69,
-    "priceChange24h": -2.60223,
-    "priceChange7d": -1.6786047020098573,
-    "priceChange30d": -14.958833094591311,
-    "priceChange1y": -41.71324445716881,
+    "volume24h": 126528769,
+    "high24h": 1.82,
+    "low24h": 1.7,
+    "priceChange24h": 3.76795,
+    "priceChange7d": -0.8747036992740785,
+    "priceChange30d": -7.349225183503753,
+    "priceChange1y": -40.56267179797939,
     "ath": 8.25,
-    "athChangePercentage": -79.46297,
+    "athChangePercentage": -78.55312,
     "athDate": "2024-06-15T00:36:51.509Z",
     "atl": 0.519364,
     "atlDate": "2021-09-21T00:33:11.092Z",
-    "circulatingSupply": 2679457379.544769,
-    "totalSupply": 5197201970.523799,
+    "circulatingSupply": 2685058392.257692,
+    "totalSupply": 5197789190.34776,
     "maxSupply": null,
-    "fdv": 8810225272
+    "fdv": 9193054380
   },
   "community": {
     "twitterFollowers": null,
@@ -57,5 +57,5 @@
     "commits4Weeks": 44
   },
   "fetchedAt": "2026-05-14T07:37:49.733Z",
-  "lastMarketUpdate": "2026-06-14T19:00:47.962Z"
+  "lastMarketUpdate": "2026-06-15T20:40:51.022Z"
 }
