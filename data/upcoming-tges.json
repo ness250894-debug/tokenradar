@@ -2745,5 +2745,74 @@
     "discoveredAt": "2026-06-15T20:41:41.244Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-15T20:41:41.244Z"
+  },
+  {
+    "id": "coinbase-tokenized-stock-trading",
+    "name": "Coinbase Tokenized Stock Trading",
+    "symbol": "TBD",
+    "category": "CeFi/RWA",
+    "expectedTge": "Upcoming Feature",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/371293/coinbase-launch-tokenized-stock-trading-crypto-equities-options",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch (Tokenization)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/371293/coinbase-launch-tokenized-stock-trading-crypto-equities-options",
+        "title": "Coinbase Gears Up to Launch Tokenized Stock Trading, Crypto and Equities Options",
+        "observedAt": "2024-07-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-16T20:33:43.714Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-16T20:33:43.715Z"
+  },
+  {
+    "id": "cursor-ai",
+    "name": "Cursor AI",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Acquired by SpaceX (potential future tokenization)",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/371308/spacex-new-high-as-elon-musk-firm-agrees-acquire-ai-startup-cursor",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major Acquisition (potential for future tokenization)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/371308/spacex-new-high-as-elon-musk-firm-agrees-acquire-ai-startup-cursor",
+        "title": "SpaceX Shares Hit New High as Elon Musk's Firm Agrees to Acquire AI Startup Cursor for $60 Billion",
+        "observedAt": "2024-07-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-16T20:33:43.715Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-16T20:33:43.715Z"
+  },
+  {
+    "id": "y-combinator-locus-founder-ai",
+    "name": "Y Combinator Locus Founder AI",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/tech/2026/06/16/this-ai-builds-you-a-business-runs-it-and-settles-payments-in-usdc",
+    "confidence": 40,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/06/16/this-ai-builds-you-a-business-runs-it-and-settles-payments-in-usdc",
+        "title": "Y Combinator reveals a new AI agent that can build and run an entire business just from a text message",
+        "observedAt": "2026-06-16T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-16T20:33:43.715Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-16T20:33:43.715Z"
   }
 ]
