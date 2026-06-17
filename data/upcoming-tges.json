@@ -2814,5 +2814,51 @@
     "discoveredAt": "2026-06-16T20:33:43.715Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-16T20:33:43.715Z"
+  },
+  {
+    "id": "trace-finance",
+    "name": "Trace Finance",
+    "symbol": "TBD",
+    "category": "DeFi/Stablecoins",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/trace-finance-cross-border-stablecoin-settlement-expansion",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/trace-finance-cross-border-stablecoin-settlement-expansion",
+        "title": "Trace Finance raises $32M for cross-border stablecoin settlement expansion",
+        "observedAt": "2024-07-11T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-17T19:52:49.026Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-17T19:52:49.026Z"
+  },
+  {
+    "id": "arp-digital",
+    "name": "ARP Digital",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/17/heir-to-135-year-gulf-dynasty-is-moving-a-usd6-trillion-trade-market-onto-blockchain-rails",
+    "confidence": 50,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Project Development",
+        "sourceType": "News Article",
+        "url": "https://www.coindesk.com/business/2026/06/17/heir-to-135-year-gulf-dynasty-is-moving-a-usd6-trillion-trade-market-onto-blockchain-rails",
+        "title": "Fifth-generation Kanoo group member is moving a $6 trillion trade market onto blockchain rails",
+        "observedAt": "2026-06-17T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-17T19:52:49.027Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-17T19:52:49.027Z"
   }
 ]

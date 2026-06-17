@@ -1,0 +1,50 @@
+{
+  "id": "o1-exchange",
+  "symbol": "o",
+  "name": "o1.exchange",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173974/large/o1.png?1781654491",
+  "description": "",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Decentralized Finance (DeFi)",
+    "Base Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://o1.exchange/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/token/0x182fa643e5f29d5eca75e7b9cf9336a3fe4620b2"
+  },
+  "market": {
+    "price": 0.622227,
+    "marketCap": 99862572,
+    "marketCapRank": 275,
+    "volume24h": 9101744,
+    "high24h": 0.692598,
+    "low24h": 0.251614,
+    "priceChange24h": 147.14276,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.692598,
+    "athChangePercentage": -6.75128,
+    "athDate": "2026-06-17T17:31:02.838Z",
+    "atl": 0.251614,
+    "atlDate": "2026-06-17T14:10:29.233Z",
+    "circulatingSupply": 160000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 624141074
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-17T19:52:06.539Z"
+}
