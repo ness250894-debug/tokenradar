@@ -2860,5 +2860,28 @@
     "discoveredAt": "2026-06-17T19:52:49.027Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-17T19:52:49.027Z"
+  },
+  {
+    "id": "blockchain-com-tokenized-stocks",
+    "name": "Blockchain.com Tokenized Stocks & ETFs",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/Brokerage",
+    "expectedTge": "Ongoing Product Expansion",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/blockchaincom-adds-173-tokenized-stocks-and-etfs-through-ondo",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch/Expansion",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/blockchaincom-adds-173-tokenized-stocks-and-etfs-through-ondo",
+        "title": "Blockchain.com deepens onchain stock offerings as tokenized equities market grows",
+        "observedAt": "2024-05-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-18T19:58:33.928Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-18T19:58:33.928Z"
   }
 ]

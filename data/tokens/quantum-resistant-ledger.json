@@ -17,25 +17,25 @@
     "explorer": "https://explorer.theqrl.org/"
   },
   "market": {
-    "price": 1.001,
-    "marketCap": 78442309,
+    "price": 0.988773,
+    "marketCap": 77512840,
     "marketCapRank": 321,
-    "volume24h": 18482.13,
-    "high24h": 1.004,
-    "low24h": 0.975925,
-    "priceChange24h": 1.40847,
-    "priceChange7d": -0.5136519212291009,
-    "priceChange30d": -6.590640266696643,
-    "priceChange1y": 48.98799616070954,
+    "volume24h": 18960.64,
+    "high24h": 1.011,
+    "low24h": 0.988773,
+    "priceChange24h": -1.18438,
+    "priceChange7d": -3.195492873205196,
+    "priceChange30d": -13.232277320223226,
+    "priceChange1y": 59.47361462404426,
     "ath": 3.87,
-    "athChangePercentage": -74.11753,
+    "athChangePercentage": -74.32996,
     "athDate": "2018-01-09T00:00:00.000Z",
     "atl": 0.04116971,
     "atlDate": "2023-12-01T12:26:13.533Z",
     "circulatingSupply": 78392960,
     "totalSupply": 78392960,
     "maxSupply": 105000000,
-    "fdv": 78442309
+    "fdv": 77512840
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:28:14.386Z",
-  "lastMarketUpdate": "2026-06-17T19:52:00.553Z"
+  "lastMarketUpdate": "2026-06-18T19:57:38.411Z"
 }

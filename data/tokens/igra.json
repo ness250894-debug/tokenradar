@@ -1,0 +1,51 @@
+{
+  "id": "igra",
+  "symbol": "igra",
+  "name": "IGRA",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172350/large/Logo_Igra-250x250_2_3.png?1773040800",
+  "description": "Igra Network is an EVM-compatible Layer 2 blockchain built as a based rollup on Kaspa's BlockDAG architecture. Transaction sequencing is handled by Kaspa miners rather than a centralized sequencer, making transaction ordering permissionless and censorship-resistant by design. Igra executes EVM transactions on top of Kaspa's proof-of-work consensus, enabling Solidity-based smart contracts to operate within a decentralized settlement environment. The network uses two tokens: iKAS, a 1:1 KAS-wrapped gas token, and IGRA, used for attester staking and protocol governance. Igra Network v1 is deployed on mainnet as of early 2026 and smart contracts audited by Sigma Prime.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 2 (L2)",
+    "Governance",
+    "Igra Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://igralabs.com/",
+    "github": "https://github.com/igralabs/",
+    "reddit": null,
+    "explorer": "https://explorer.igralabs.com/"
+  },
+  "market": {
+    "price": 0.00574956,
+    "marketCap": 53829991,
+    "marketCapRank": 430,
+    "volume24h": 2651.34,
+    "high24h": 0.00652457,
+    "low24h": 0.00572498,
+    "priceChange24h": -9.73797,
+    "priceChange7d": -13.77172,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.00738953,
+    "athChangePercentage": -22.194,
+    "athDate": "2026-06-16T07:55:10.866Z",
+    "atl": 0.00572498,
+    "atlDate": "2026-06-18T18:20:21.859Z",
+    "circulatingSupply": 9362456051,
+    "totalSupply": 10000000000,
+    "maxSupply": 10000000000,
+    "fdv": 57495587
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-18T19:57:43.953Z"
+}

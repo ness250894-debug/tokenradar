@@ -1,0 +1,60 @@
+{
+  "id": "frankencoin",
+  "symbol": "zchf",
+  "name": "Frankencoin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/37150/large/Coin_Logo_Frankencoin_1024px.png?1728679791",
+  "description": "An oracle-free collateralized, decentralized Swiss Franc stablecoin backed by RWAs\n",
+  "categories": [
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Sonic Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Base Native",
+    "CHF Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.frankencoin.com",
+    "github": "https://github.com/Frankencoin-ZCHF/Frankencoin/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xb58e61c3098d85632df34eecfb899a1ed80921cb"
+  },
+  "market": {
+    "price": 1.24,
+    "marketCap": 46723812,
+    "marketCapRank": 478,
+    "volume24h": 4010954,
+    "high24h": 1.25,
+    "low24h": 1.24,
+    "priceChange24h": -0.95579,
+    "priceChange7d": -0.82563,
+    "priceChange30d": -1.92674,
+    "priceChange1y": 1.80904,
+    "ath": 1.33,
+    "athChangePercentage": -6.4492,
+    "athDate": "2026-02-04T04:36:40.511Z",
+    "atl": 0.981646,
+    "atlDate": "2025-02-03T02:12:08.670Z",
+    "circulatingSupply": 37594680.74559318,
+    "totalSupply": 37594680.74559318,
+    "maxSupply": null,
+    "fdv": 46723812
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 33,
+    "githubForks": 17,
+    "commits4Weeks": 21
+  },
+  "fetchedAt": "2026-06-18T19:57:50.277Z"
+}
