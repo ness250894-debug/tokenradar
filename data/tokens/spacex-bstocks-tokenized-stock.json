@@ -1,0 +1,52 @@
+{
+  "id": "spacex-bstocks-tokenized-stock",
+  "symbol": "spcxb",
+  "name": "SpaceX (bStocks Tokenized Stock)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173888/large/bstocks_spacex.png?1781280362",
+  "description": "",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Tokenized Stock",
+    "Real World Assets (RWA)",
+    "bStocks Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.binance.com/bstocks-landing",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1#transactions"
+  },
+  "market": {
+    "price": 188.93,
+    "marketCap": 43800119,
+    "marketCapRank": 499,
+    "volume24h": 48265445,
+    "high24h": 195.57,
+    "low24h": 172.68,
+    "priceChange24h": -1.38917,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 226.95,
+    "athChangePercentage": -18.01031,
+    "athDate": "2026-06-16T01:01:03.420Z",
+    "atl": 164.7,
+    "atlDate": "2026-06-13T03:21:22.318Z",
+    "circulatingSupply": 231888.05445403,
+    "totalSupply": 231918.21367946,
+    "maxSupply": null,
+    "fdv": 43805816
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-18T19:57:56.553Z"
+}
