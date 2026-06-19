@@ -3,6 +3,13 @@
   "tokenName": "Filecoin",
   "articles": [
     {
+      "title": "Microsoft found malware that hijacks crypto wallets and spreads through USB sticks",
+      "link": "https://www.coindesk.com/tech/2026/06/19/microsoft-found-malware-that-hijacks-crypto-wallets-and-spreads-through-usb-sticks",
+      "pubDate": "Fri, 19 Jun 2026 08:48:14 +0000",
+      "source": "CoinDesk",
+      "snippet": "The software intercepts shortcut files and directs them to install a worm that harvests private keys from the Windows clipboard and inserts its own destination wallet addresses when it detects a transfer."
+    },
+    {
       "title": "Ethereum Foundation loses another key leader as co-executive director Hsiao-Wei Wang resigns",
       "link": "https://www.coindesk.com/tech/2026/06/18/ethereum-foundation-loses-another-key-leader-as-co-executive-director-hsiao-wei-wang-resigns",
       "pubDate": "Thu, 18 Jun 2026 15:41:17 +0000",
@@ -10,19 +17,26 @@
       "snippet": "Wang's departure follows the resignation of fellow co-executive director Tomasz Stańczak and marks the latest in a string of high-profile exits at the EF."
     },
     {
-      "title": "G7 calls for joint action on North Korean crypto theft, cybercrime",
-      "link": "https://cointelegraph.com/news/g7-north-korea-crypto-theft-cybercrime-warning?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Thu, 18 Jun 2026 11:33:29 GMT",
+      "title": "Franklin Templeton files ETFs that turn stock dividends into Bitcoin exposure",
+      "link": "https://cointelegraph.com/news/franklin-templeton-bitcoin-drip-etfs-reinvest-stock-dividends-btc-exposure?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Fri, 19 Jun 2026 06:00:00 GMT",
       "source": "CoinTelegraph",
-      "snippet": "G7 leaders broadened their warning over North Korean crypto theft to include wider cybercrime as researchers link DPRK-affiliated actors to billions of dollars in stolen digital assets."
+      "snippet": "The proposed funds would allocate stock dividends to Bitcoin-linked investments, using a dividend reinvestment strategy to build crypto exposure over time."
     },
     {
-      "title": "CME to Sue CFTC Over Bitcoin Perpetual Futures Approval: CEO",
-      "link": "https://decrypt.co/371514/cme-to-sue-cftc-over-bitcoin-perpetual-futures-approval-ceo",
-      "pubDate": "Thu, 18 Jun 2026 11:20:05 +0000",
+      "title": "Amazon Won&#39;t Release Sam Altman Film &#39;Artificial&#39; Following $50 Billion OpenAI Investment",
+      "link": "https://decrypt.co/371682/amazon-wont-release-sam-altman-film-50-billion-openai-investment",
+      "pubDate": "Fri, 19 Jun 2026 15:06:59 +0000",
       "source": "Decrypt",
-      "snippet": "Outgoing CME chief Terry Duffy says perpetual futures are actually swaps under Dodd-Frank, and that the exchange will file suit Thursday."
+      "snippet": "Amazon is pulling out of &#34;Artificial,&#34; a film about Sam Altman&#39;s brief ouster from OpenAI, not long after investing $50 billion in the firm."
+    },
+    {
+      "title": "Franklin Templeton Files for ETFs That Funnel Stock Dividends Into Bitcoin",
+      "link": "https://decrypt.co/371656/franklin-templeton-files-for-etfs-that-funnel-stock-dividends-into-bitcoin",
+      "pubDate": "Fri, 19 Jun 2026 10:01:57 +0000",
+      "source": "Decrypt",
+      "snippet": "The asset manager&#39;s two proposed &#34;Bitcoin DRIP&#34; funds would hold U.S. stocks and reinvest dividends into Bitcoin, a novel ETF structure."
     }
   ],
-  "fetchedAt": "2026-06-18T20:02:14.549Z"
+  "fetchedAt": "2026-06-19T19:23:06.401Z"
 }
