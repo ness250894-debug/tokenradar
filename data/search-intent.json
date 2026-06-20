@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-19T19:23:07.098Z",
-    "tokenCount": 524,
+    "tokenCount": 520,
     "topIntents": [
       {
         "intent": "risk",
@@ -20,7 +20,7 @@
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 84,
+        "tokenCount": 83,
         "avgScore": 83
       },
       {
@@ -38,29 +38,27 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 21,
-        "avgScore": 91
+        "tokenCount": 19,
+        "avgScore": 90
       }
     ],
     "hotTokens": [
       "asteroid-shiba",
       "collector-crypt",
       "siren-2",
-      "yooldo-games",
       "zerebro",
-      "stargate-finance",
       "eigenlayer",
       "velvet",
       "lab",
-      "unibase"
+      "unibase",
+      "stellar",
+      "avalanche-2"
     ],
     "watchTokens": [
       "asteroid-shiba",
       "collector-crypt",
       "siren-2",
-      "yooldo-games",
       "zerebro",
-      "stargate-finance",
       "eigenlayer",
       "velvet",
       "lab",
@@ -74,7 +72,9 @@
       "aerodrome-finance",
       "megaeth",
       "spark-2",
-      "falcon-finance-ff"
+      "falcon-finance-ff",
+      "dexe",
+      "billions-network"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -21336,81 +21336,6 @@
       ],
       "computedAt": "2026-06-19T19:23:07.098Z"
     },
-    "mustang": {
-      "tokenId": "mustang",
-      "tokenName": "Mustang",
-      "symbol": "must",
-      "attentionScore": 26,
-      "attentionLabel": "Quiet",
-      "hypeScore": 21,
-      "fundamentalsScore": 44,
-      "supplyRiskScore": 18,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 87,
-          "queries": [
-            "Mustang stablecoin risk",
-            "Mustang reserves",
-            "MUST depeg risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 67,
-          "queries": [
-            "Mustang risks",
-            "is Mustang safe",
-            "Mustang scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 60,
-          "queries": [
-            "Mustang staking rewards",
-            "Mustang yield",
-            "MUST APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 37,
-          "queries": [
-            "Mustang price prediction 2026",
-            "Mustang price prediction today",
-            "MUST price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "Mustang stablecoin risk",
-        "Mustang reserves",
-        "MUST depeg risk",
-        "Mustang risks",
-        "is Mustang safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-19T19:23:07.098Z"
-    },
     "mx-token": {
       "tokenId": "mx-token",
       "tokenName": "MX",
@@ -30558,84 +30483,6 @@
       ],
       "computedAt": "2026-06-19T19:23:07.098Z"
     },
-    "stargate-finance": {
-      "tokenId": "stargate-finance",
-      "tokenName": "Stargate Finance",
-      "symbol": "stg",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 93,
-      "fundamentalsScore": 74,
-      "supplyRiskScore": 0,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Stargate Finance price prediction 2026",
-            "Stargate Finance price prediction today",
-            "STG price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Stargate Finance",
-            "where to buy Stargate Finance",
-            "STG crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "Stargate Finance risks",
-            "is Stargate Finance safe",
-            "Stargate Finance scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "Stargate Finance staking rewards",
-            "Stargate Finance yield",
-            "STG APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 181.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 197.8% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Stargate Finance price prediction 2026",
-        "Stargate Finance price prediction today",
-        "STG price target",
-        "how to buy Stargate Finance",
-        "where to buy Stargate Finance"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-19T19:23:07.098Z"
-    },
     "starknet": {
       "tokenId": "starknet",
       "tokenName": "Starknet",
@@ -33521,83 +33368,6 @@
         "THORChain scam check",
         "THORChain staking rewards",
         "THORChain yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-19T19:23:07.098Z"
-    },
-    "threshold-network-token": {
-      "tokenId": "threshold-network-token",
-      "tokenName": "Threshold Network",
-      "symbol": "t",
-      "attentionScore": 72,
-      "attentionLabel": "Rising",
-      "hypeScore": 61,
-      "fundamentalsScore": 78,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "yield",
-      "intentMix": [
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "Threshold Network staking rewards",
-            "Threshold Network yield",
-            "T APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "Threshold Network price prediction 2026",
-            "Threshold Network price prediction today",
-            "T price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 58,
-          "queries": [
-            "Threshold Network risks",
-            "is Threshold Network safe",
-            "Threshold Network scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 58,
-          "queries": [
-            "Threshold Network meme coin",
-            "Threshold Network price prediction",
-            "is Threshold Network worth buying"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -37.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 8.1% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Threshold Network staking rewards",
-        "Threshold Network yield",
-        "T APY",
-        "Threshold Network price prediction 2026",
-        "Threshold Network price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -39076,83 +38846,6 @@
         "YLDS depeg risk",
         "YLDS RWA crypto",
         "YLDS tokenized asset"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-19T19:23:07.098Z"
-    },
-    "yooldo-games": {
-      "tokenId": "yooldo-games",
-      "tokenName": "Yooldo Games",
-      "symbol": "esports",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Yooldo Games price prediction 2026",
-            "Yooldo Games price prediction today",
-            "ESPORTS price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Yooldo Games",
-            "where to buy Yooldo Games",
-            "ESPORTS crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "Yooldo Games news today",
-            "why is Yooldo Games moving",
-            "ESPORTS crypto news"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Yooldo Games token unlock",
-            "Yooldo Games circulating supply",
-            "Yooldo Games tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -49.5% keeps medium-term forecasts relevant.",
-        "24h volume equals 142.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Yooldo Games price prediction 2026",
-        "Yooldo Games price prediction today",
-        "ESPORTS price target",
-        "how to buy Yooldo Games",
-        "where to buy Yooldo Games"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
