@@ -2883,5 +2883,51 @@
     "discoveredAt": "2026-06-18T19:58:33.928Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-18T19:58:33.928Z"
+  },
+  {
+    "id": "charles-schwab-prediction-markets",
+    "name": "Charles Schwab S&P 500 Prediction Markets",
+    "symbol": "TBD",
+    "category": "Prediction Markets",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/371708/charles-schwab-planning-sp-500-prediction-markets-cboe",
+    "lifecycleStatus": "watchlist",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Product Launch (potential token)",
+        "sourceType": "News Article",
+        "url": "https://decrypt.co/371708/charles-schwab-planning-sp-500-prediction-markets-cboe",
+        "title": "Charles Schwab Planning to Roll Out S&#038;P 500 Prediction Markets With Cboe: WSJ",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-21T19:06:57.043Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-21T19:06:57.043Z"
+  },
+  {
+    "id": "gomining-gobtc-pay",
+    "name": "GoMining GoBTC Pay",
+    "symbol": "TBD",
+    "category": "Payments",
+    "expectedTge": "Product Launch Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/06/19/gomining-challenges-jack-dorsey-s-square-with-payments-system-designed-around-bitcoin",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/19/gomining-challenges-jack-dorsey-s-square-with-payments-system-designed-around-bitcoin",
+        "title": "GoMining challenges Jack Dorsey's Square with payments system designed around bitcoin",
+        "observedAt": "2026-06-19T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-21T19:06:57.043Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-21T19:06:57.043Z"
   }
 ]
