@@ -2929,5 +2929,97 @@
     "discoveredAt": "2026-06-21T19:06:57.043Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-21T19:06:57.043Z"
+  },
+  {
+    "id": "ice-okx-tokenized-securities-jv",
+    "name": "ICE/OKX Tokenized Securities Joint Venture",
+    "symbol": "TBD",
+    "category": "RWA/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/371789/new-york-stock-exchange-ice-okx-crypto-tokenized-securities",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Joint Venture / Partnership",
+        "sourceType": "news_article",
+        "url": "https://decrypt.co/371789/new-york-stock-exchange-ice-okx-crypto-tokenized-securities",
+        "title": "ICE and OKX Are Teaming Up to Bring Tokenized Securities to Wall Street",
+        "observedAt": "2024-10-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-22T20:23:54.082Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-22T20:23:54.082Z"
+  },
+  {
+    "id": "anchorage-tokenized-deposit-platform",
+    "name": "Anchorage Tokenized Deposit Platform",
+    "symbol": "TBD",
+    "category": "DeFi/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/19/anchorage-aims-to-bring-banks-onchain-with-new-tokenized-deposit-platform",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/19/anchorage-aims-to-bring-banks-onchain-with-new-tokenized-deposit-platform",
+        "title": "Anchorage aims to bring banks onchain with new tokenized deposit platform",
+        "observedAt": "2026-06-19T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-22T20:23:54.082Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-22T20:23:54.082Z"
+  },
+  {
+    "id": "okx-nyse-tokenized-equities-jv",
+    "name": "OKX/NYSE Tokenized Equities Joint Venture",
+    "symbol": "TBD",
+    "category": "TradFi/Exchange",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 80,
+    "dataSource": "https://www.coindesk.com/markets/2026/06/22/okx-and-nyse-partner-to-bridge-tradfi-and-crypto-markets-in-joint-venture-led-by-andrew-cuomo",
+    "lifecycleStatus": "candidate",
+    "confidence": 75,
+    "signals": [
+      {
+        "type": "Joint Venture Announcement",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/06/22/okx-and-nyse-partner-to-bridge-tradfi-and-crypto-markets-in-joint-venture-led-by-andrew-cuomo",
+        "title": "OKX and NYSE partner to bridge tradfi and crypto markets in joint venture led by Andrew Cuomo",
+        "observedAt": "2026-06-22T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-22T20:23:54.083Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-22T20:23:54.083Z"
+  },
+  {
+    "id": "baillie-gifford-tokenized-fund",
+    "name": "Baillie Gifford Enhanced Yield Fund (BAGEY)",
+    "symbol": "BAGEY",
+    "category": "TradFi/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/06/22/tradfi-fund-manager-baillie-gifford-introduces-solana-ethereum-tokenized-fund-with-bny",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/22/tradfi-fund-manager-baillie-gifford-introduces-solana-ethereum-tokenized-fund-with-bny",
+        "title": "TradFi fund manager Baillie Gifford introduces Solana, Ethereum tokenized fund with BNY",
+        "observedAt": "2026-06-22T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-22T20:23:54.083Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-22T20:23:54.083Z"
   }
 ]
