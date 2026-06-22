@@ -1,0 +1,54 @@
+{
+  "id": "cortex-2",
+  "symbol": "cx",
+  "name": "Cortex",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53285/large/CX_Round.png?1735994730",
+  "description": "Cortex is the protocol for decentralized on-chain agents. In the future AI agents will be the primary way to interact with blockchains and make up the majority of crypto activity. This will happen in two stages, first human directed agents and then autonomous agents with their own objective functions.\n\nCortex is made up of two main parts: \n1. The Cortex Agent, our generalised trading agent: Allowing users to research coins, trade, and deploy to blockchains through a LLM interface\n2. Cortex Agent Platform: a platform that allows developers to permissionlessly deploy task-specific agents with on-chain capabilities.\n\nNow Cortex is building Hypercall, on-chain options built on top of Hyperliquid. \n",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "AI Agents",
+    "DeFAI",
+    "Base Native"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://cortexprotocol.com/",
+    "github": "https://github.com/cortexprotocol",
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x000000000000012DeF132E61759048bE5b5C6033"
+  },
+  "market": {
+    "price": 0.050212,
+    "marketCap": 68231197,
+    "marketCapRank": 360,
+    "volume24h": 1926407,
+    "high24h": 0.053666,
+    "low24h": 0.01224337,
+    "priceChange24h": 65.77071,
+    "priceChange7d": 462.91019,
+    "priceChange30d": 448.08814,
+    "priceChange1y": 175.12748,
+    "ath": 0.085724,
+    "athChangePercentage": -41.42625,
+    "athDate": "2025-02-13T03:42:35.695Z",
+    "atl": 0.00270372,
+    "atlDate": "2025-12-31T18:58:23.476Z",
+    "circulatingSupply": 1360192927,
+    "totalSupply": 1646590000,
+    "maxSupply": 1646590000,
+    "fdv": 82597700
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-22T20:22:56.101Z"
+}

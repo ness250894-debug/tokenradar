@@ -3,6 +3,13 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "Taiko halts its Ethereum layer-2 network after a bridge exploit, token dives",
+      "link": "https://www.coindesk.com/tech/2026/06/22/taiko-halts-its-ethereum-layer-2-network-after-a-bridge-exploit-token-dives-10",
+      "pubDate": "Mon, 22 Jun 2026 09:23:02 +0000",
+      "source": "CoinDesk",
+      "snippet": "An attacker forged withdrawal proofs to drain about $1.7 million, the same type of flaw behind this year's biggest bridge hacks. Fast containment kept the damage small."
+    },
+    {
       "title": "Ethereum's biggest 'sandwich' bot drained of $7.5 million in ironic exploit",
       "link": "https://www.coindesk.com/tech/2026/06/21/ethereum-s-biggest-sandwich-bot-drained-of-usd7-5-million-in-ironic-exploit",
       "pubDate": "Sun, 21 Jun 2026 07:12:35 +0000",
@@ -10,19 +17,26 @@
       "snippet": "Blockaid said an attacker tricked Jaredfromsubway.eth into approving fake trading routes, then used those approvals to drain WETH, USDC and USDT."
     },
     {
+      "title": "Taiko urges users to withdraw as bridge exploit drains $1.7M",
+      "link": "https://cointelegraph.com/news/taiko-urges-users-to-withdraw-as-bridge-exploit-drains-17m?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Mon, 22 Jun 2026 05:31:18 GMT",
+      "source": "CoinTelegraph",
+      "snippet": "Taiko’s bridge and ERC20 Vault on Ethereum suffered a compromise in its chain state verification mechanism, allowing forged proofs and unauthorized withdrawals."
+    },
+    {
+      "title": "Secret Network bridge exploited for $4.7M with ‘infinite mint’ bug",
+      "link": "https://cointelegraph.com/news/secret-network-bridge-exploited-infinite-mint-bug?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Mon, 22 Jun 2026 03:49:49 GMT",
+      "source": "CoinTelegraph",
+      "snippet": "An exploit of the Secret Network went undiscovered for a week as the hacker moved the loot into Ethereum and then to exchanges."
+    },
+    {
       "title": "Notorious ‘sandwich attack’ bot Jaredfromsubway.eth exploited for $7.5M",
       "link": "https://cointelegraph.com/news/notorious-sandwich-attack-bot-jaredfromsubwayeth-exploited-for-75m?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
       "pubDate": "Sun, 21 Jun 2026 00:04:47 GMT",
       "source": "CoinTelegraph",
       "snippet": "Jaredfromsubway.eth was responsible for 70% of sandwich attacks on Ethereum between November 2024 and October 2025."
-    },
-    {
-      "title": "Kalshi in early IPO talks with investment banks: Report",
-      "link": "https://cointelegraph.com/news/kalshi-early-ipo-talks-investment-banks-report?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Fri, 19 Jun 2026 13:44:34 GMT",
-      "source": "CoinTelegraph",
-      "snippet": "The prediction market platform is reportedly exploring a public listing after surpassing $2 billion in annualized revenue as sports contracts face mounting legal scrutiny."
     }
   ],
-  "fetchedAt": "2026-06-21T19:10:41.264Z"
+  "fetchedAt": "2026-06-22T20:27:46.770Z"
 }
