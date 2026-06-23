@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-22T20:27:47.655Z",
-    "tokenCount": 523,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 210,
+        "tokenCount": 209,
         "avgScore": 73
       },
       {
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 84,
+        "tokenCount": 83,
         "avgScore": 86
       },
       {
@@ -9976,83 +9976,6 @@
         "Decred scam check",
         "Decred price prediction 2026",
         "Decred price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-22T20:27:47.655Z"
-    },
-    "deep": {
-      "tokenId": "deep",
-      "tokenName": "DeepBook",
-      "symbol": "deep",
-      "attentionScore": 81,
-      "attentionLabel": "Hot",
-      "hypeScore": 72,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 90,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 89,
-          "queries": [
-            "DeepBook token unlock",
-            "DeepBook circulating supply",
-            "DeepBook tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 69,
-          "queries": [
-            "DeepBook price prediction 2026",
-            "DeepBook price prediction today",
-            "DEEP price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 65,
-          "queries": [
-            "DeepBook risks",
-            "is DeepBook safe",
-            "DeepBook scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "DeepBook staking rewards",
-            "DeepBook yield",
-            "DEEP APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -45.6% keeps medium-term forecasts relevant.",
-        "24h volume equals 11.5% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "DeepBook token unlock",
-        "DeepBook circulating supply",
-        "DeepBook tokenomics",
-        "DeepBook price prediction 2026",
-        "DeepBook price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -22375,83 +22298,6 @@
         "Nockchain scam check",
         "Nockchain price prediction 2026",
         "Nockchain price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-22T20:27:47.655Z"
-    },
-    "notcoin": {
-      "tokenId": "notcoin",
-      "tokenName": "Notcoin",
-      "symbol": "not",
-      "attentionScore": 82,
-      "attentionLabel": "Hot",
-      "hypeScore": 76,
-      "fundamentalsScore": 64,
-      "supplyRiskScore": 4,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Notcoin risks",
-            "is Notcoin safe",
-            "Notcoin scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "Notcoin meme coin",
-            "Notcoin price prediction",
-            "is Notcoin worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 54,
-          "queries": [
-            "Notcoin price prediction 2026",
-            "Notcoin price prediction today",
-            "NOT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 42,
-          "queries": [
-            "how to buy Notcoin",
-            "where to buy Notcoin",
-            "NOT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 25.5% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Notcoin risks",
-        "is Notcoin safe",
-        "Notcoin scam check",
-        "Notcoin meme coin",
-        "Notcoin price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
