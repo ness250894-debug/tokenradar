@@ -3021,5 +3021,177 @@
     "discoveredAt": "2026-06-22T20:23:54.083Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-22T20:23:54.083Z"
+  },
+  {
+    "id": "ethlabs",
+    "name": "Ethlabs",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/bitmine-sharplink-and-joe-lubin-back-ethereum-rd-nonprofit",
+    "confidence": 30,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bitmine-sharplink-and-joe-lubin-back-ethereum-rd-nonprofit",
+        "title": "Bitmine, Sharplink and Joe Lubin back Ethereum R&D nonprofit",
+        "observedAt": "2024-07-24T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.342Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.342Z"
+  },
+  {
+    "id": "enso",
+    "name": "Enso",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/enso-launches-rwa-app-trading-500-tokenized-assets",
+    "confidence": 40,
+    "lifecycleStatus": "graduated",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/enso-launches-rwa-app-trading-500-tokenized-assets",
+        "title": "Enso launches RWA app and trading for over 500 tokenized assets",
+        "observedAt": "2024-07-24T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.342Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-06-23T19:37:03.536Z",
+    "graduatedAt": "2026-06-23T19:37:03.536Z",
+    "coingeckoRank": 997,
+    "graduationEvidence": {
+      "coingeckoId": "enso",
+      "coingeckoRank": 997,
+      "rank": 997,
+      "priceUsd": 0.630514,
+      "volume24h": 18975608,
+      "matchedBy": "id",
+      "verifiedAt": "2026-06-23T19:37:03.536Z"
+    }
+  },
+  {
+    "id": "fomo",
+    "name": "Fomo",
+    "symbol": "TBD",
+    "category": "Consumer Crypto",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/371851/morning-minute-fomos-75m-raise-shows-big-vcs-are-still-betting-on-consumer-crypto",
+    "lifecycleStatus": "candidate",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://decrypt.co/371851/morning-minute-fomos-75m-raise-shows-big-vcs-are-still-betting-on-consumer-crypto",
+        "title": "Morning Minute: Fomo's $75M Raise Shows Big VCs Are Still Betting on Consumer Crypto",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.343Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.343Z"
+  },
+  {
+    "id": "meta-arena",
+    "name": "Meta Arena",
+    "symbol": "TBD",
+    "category": "Gaming/Prediction Market",
+    "expectedTge": "Testnet / Product Launch Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/markets/2026/06/23/meta-is-developing-a-prediction-market-app-called-arena-as-sector-booms-nyt",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/06/23/meta-is-developing-a-prediction-market-app-called-arena-as-sector-booms-nyt",
+        "title": "Meta is developing a prediction market app called ‘Arena’ as sector booms: NYT",
+        "observedAt": "2026-06-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.344Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.344Z"
+  },
+  {
+    "id": "project-pangea",
+    "name": "Project Pangea (Chainlink)",
+    "symbol": "TBD",
+    "category": "DeFi/Cross-border Payments",
+    "expectedTge": "Development Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/markets/2026/06/23/chainlink-teams-up-with-47-south-korean-european-banks-to-speed-up-international-money-transfers",
+    "lifecycleStatus": "candidate",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Partnership / Alliance",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/06/23/chainlink-teams-up-with-47-south-korean-european-banks-to-speed-up-international-money-transfers",
+        "title": "Chainlink teams up with 47 South Korean, European banks to speed up international money transfers",
+        "observedAt": "2026-06-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.344Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.344Z"
+  },
+  {
+    "id": "agora-ausd",
+    "name": "Agora (AUSD Stablecoin)",
+    "symbol": "AUSD",
+    "category": "Stablecoin",
+    "expectedTge": "Post-launch / Scaling Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/06/23/former-robinhood-crypto-coo-tanya-denisova-joins-stablecoin-issuer-agora-as-head-of-operations",
+    "lifecycleStatus": "watchlist",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Leadership Appointment",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/23/former-robinhood-crypto-coo-tanya-denisova-joins-stablecoin-issuer-agora-as-head-of-operations",
+        "title": "Former Robinhood Crypto COO Tanya Denisova joins stablecoin issuer Agora as head of operations",
+        "observedAt": "2026-06-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.345Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.345Z"
+  },
+  {
+    "id": "ecb-digital-euro",
+    "name": "ECB Digital Euro",
+    "symbol": "TBD",
+    "category": "CBDC",
+    "expectedTge": "2029",
+    "narrativeStrength": 80,
+    "dataSource": "https://www.coindesk.com/policy/2026/06/23/european-parliament-clears-last-step-for-a-digital-euro-to-break-u-s-payment-grip",
+    "lifecycleStatus": "watchlist",
+    "confidence": 75,
+    "signals": [
+      {
+        "type": "Regulatory Approval / Development",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/policy/2026/06/23/european-parliament-clears-last-step-for-a-digital-euro-to-break-u-s-payment-grip",
+        "title": "The ECB digital euro takes step forward after winning key European Parliament vote",
+        "observedAt": "2026-06-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-23T19:33:10.345Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-23T19:33:10.345Z"
   }
 ]

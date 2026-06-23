@@ -3,40 +3,26 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Taiko halts its Ethereum layer-2 network after a bridge exploit, token dives",
-      "link": "https://www.coindesk.com/tech/2026/06/22/taiko-halts-its-ethereum-layer-2-network-after-a-bridge-exploit-token-dives-10",
-      "pubDate": "Mon, 22 Jun 2026 09:23:02 +0000",
+      "title": "BNY sees 'FOMO' driving asset managers into tokenized funds",
+      "link": "https://www.coindesk.com/markets/2026/06/23/bny-sees-fomo-driving-asset-managers-into-tokenized-funds",
+      "pubDate": "Tue, 23 Jun 2026 16:34:34 +0000",
       "source": "CoinDesk",
-      "snippet": "An attacker forged withdrawal proofs to drain about $1.7 million, the same type of flaw behind this year's biggest bridge hacks. Fast containment kept the damage small."
+      "snippet": "Fund issuers are exploring blockchain-based ETFs amid fears of missing an early foothold in tokenized finance."
     },
     {
-      "title": "Ethereum's biggest 'sandwich' bot drained of $7.5 million in ironic exploit",
-      "link": "https://www.coindesk.com/tech/2026/06/21/ethereum-s-biggest-sandwich-bot-drained-of-usd7-5-million-in-ironic-exploit",
-      "pubDate": "Sun, 21 Jun 2026 07:12:35 +0000",
-      "source": "CoinDesk",
-      "snippet": "Blockaid said an attacker tricked Jaredfromsubway.eth into approving fake trading routes, then used those approvals to drain WETH, USDC and USDT."
-    },
-    {
-      "title": "Taiko urges users to withdraw as bridge exploit drains $1.7M",
-      "link": "https://cointelegraph.com/news/taiko-urges-users-to-withdraw-as-bridge-exploit-drains-17m?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Mon, 22 Jun 2026 05:31:18 GMT",
+      "title": "THORChain resumes trading more than month after $10M exploit",
+      "link": "https://cointelegraph.com/news/thorchain-resumes-trading-month-10m-exploit?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Tue, 23 Jun 2026 10:00:24 GMT",
       "source": "CoinTelegraph",
-      "snippet": "Taiko’s bridge and ERC20 Vault on Ethereum suffered a compromise in its chain state verification mechanism, allowing forged proofs and unauthorized withdrawals."
+      "snippet": "THORChain resumed all network activity after implementing multiple security upgrades and a vault migration to fix the vulnerabilities that led to the $10.7 million exploit."
     },
     {
-      "title": "Secret Network bridge exploited for $4.7M with ‘infinite mint’ bug",
-      "link": "https://cointelegraph.com/news/secret-network-bridge-exploited-infinite-mint-bug?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Mon, 22 Jun 2026 03:49:49 GMT",
-      "source": "CoinTelegraph",
-      "snippet": "An exploit of the Secret Network went undiscovered for a week as the hacker moved the loot into Ethereum and then to exchanges."
-    },
-    {
-      "title": "Notorious ‘sandwich attack’ bot Jaredfromsubway.eth exploited for $7.5M",
-      "link": "https://cointelegraph.com/news/notorious-sandwich-attack-bot-jaredfromsubwayeth-exploited-for-75m?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Sun, 21 Jun 2026 00:04:47 GMT",
-      "source": "CoinTelegraph",
-      "snippet": "Jaredfromsubway.eth was responsible for 70% of sandwich attacks on Ethereum between November 2024 and October 2025."
+      "title": "Ethereum Layer-2 Taiko Warns Users to Withdraw Bridge Funds After Security Breach",
+      "link": "https://decrypt.co/371769/ethereum-layer-2-taiko-withdraw-bridge-funds-security-breach",
+      "pubDate": "Mon, 22 Jun 2026 15:31:03 +0000",
+      "source": "Decrypt",
+      "snippet": "Researchers estimate more than $1.7 million was stolen after attackers allegedly exploited Taiko&#39;s proof verification process."
     }
   ],
-  "fetchedAt": "2026-06-22T20:27:46.770Z"
+  "fetchedAt": "2026-06-23T19:37:17.502Z"
 }
