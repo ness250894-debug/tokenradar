@@ -3,26 +3,40 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "BNY sees 'FOMO' driving asset managers into tokenized funds",
-      "link": "https://www.coindesk.com/markets/2026/06/23/bny-sees-fomo-driving-asset-managers-into-tokenized-funds",
-      "pubDate": "Tue, 23 Jun 2026 16:34:34 +0000",
+      "title": "SecondFi loses $2.4 million in Cardano wallet exploit",
+      "link": "https://www.coindesk.com/business/2026/06/24/secondfi-loses-usd2-4-million-in-cardano-wallet-exploit-with-up-to-usd20-million-at-risk",
+      "pubDate": "Wed, 24 Jun 2026 15:45:42 +0000",
       "source": "CoinDesk",
-      "snippet": "Fund issuers are exploring blockchain-based ETFs amid fears of missing an early foothold in tokenized finance."
+      "snippet": "SecondFi was hit by three separate attacks exploiting a flaw in its wallet generation software. A further 129 million ADA was secured by the team before attackers could reach it."
     },
     {
-      "title": "THORChain resumes trading more than month after $10M exploit",
-      "link": "https://cointelegraph.com/news/thorchain-resumes-trading-month-10m-exploit?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
-      "pubDate": "Tue, 23 Jun 2026 10:00:24 GMT",
+      "title": "Ex-FCA policy insider explains the ‘great divide’ in the UK’s crypto ambition",
+      "link": "https://www.coindesk.com/policy/2026/06/24/ex-fca-policy-insider-explains-the-great-divide-in-the-uk-s-crypto-ambition",
+      "pubDate": "Wed, 24 Jun 2026 15:23:07 +0000",
+      "source": "CoinDesk",
+      "snippet": "Former FCA policymaker and Hedera Global Policy VP, Isadora Arredondo says there is a gap between the U.K.'s crypto ambitions and how policy is carried out in practice."
+    },
+    {
+      "title": "How memecoin marketing moved from online speculation to real-world risk",
+      "link": "https://cointelegraph.com/learn/pump-fun-go-bounty-memecoin-risks?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Wed, 24 Jun 2026 14:30:00 GMT",
       "source": "CoinTelegraph",
-      "snippet": "THORChain resumed all network activity after implementing multiple security upgrades and a vault migration to fix the vulnerabilities that led to the $10.7 million exploit."
+      "snippet": "From alcohol dares to head-shaving challenges, memecoin campaigns are turning engagement into exploitation."
     },
     {
-      "title": "Ethereum Layer-2 Taiko Warns Users to Withdraw Bridge Funds After Security Breach",
-      "link": "https://decrypt.co/371769/ethereum-layer-2-taiko-withdraw-bridge-funds-security-breach",
-      "pubDate": "Mon, 22 Jun 2026 15:31:03 +0000",
-      "source": "Decrypt",
-      "snippet": "Researchers estimate more than $1.7 million was stolen after attackers allegedly exploited Taiko&#39;s proof verification process."
+      "title": "DeFi TVL drops 39% in 2026 amid market downturn and record hack activity",
+      "link": "https://cointelegraph.com/news/defi-tvl-falls-39-2026-erases-45b-value?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Wed, 24 Jun 2026 14:14:39 GMT",
+      "source": "CoinTelegraph",
+      "snippet": "DeFi TVL fell 39% in 2026 as a broader market downturn and fallout from major exploits, including the Kelp DAO hack, weighed on the sector."
+    },
+    {
+      "title": "SecondFi traces Cardano wallet exploit to address-level issue",
+      "link": "https://cointelegraph.com/news/cardano-wallet-secondfi-flaw-16-million-ada-exploit?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss",
+      "pubDate": "Wed, 24 Jun 2026 12:38:43 GMT",
+      "source": "CoinTelegraph",
+      "snippet": "Cardano wallet SecondFi traced the incident to an address-level issue and secured 129 million ADA after attackers drained funds from 374 addresses."
     }
   ],
-  "fetchedAt": "2026-06-23T19:37:17.502Z"
+  "fetchedAt": "2026-06-24T19:24:40.258Z"
 }
