@@ -1,7 +1,7 @@
 {
   "id": "sealcoin",
   "symbol": "qait",
-  "name": "SEALCOIN",
+  "name": "QAIT",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102173522/large/sealcoin.jpg?1779950602",
   "description": "",
   "categories": [
@@ -17,25 +17,25 @@
     "explorer": "https://bscscan.com/token/0x4d41A5d412f4Ef44A35b9f53b06DB65edE249493"
   },
   "market": {
-    "price": 0.02110273,
-    "marketCap": 92875547,
-    "marketCapRank": 275,
-    "volume24h": 5168136,
-    "high24h": 0.02122254,
-    "low24h": 0.02064672,
-    "priceChange24h": 1.49146,
-    "priceChange7d": -9.263513215073377,
+    "price": 0.02017107,
+    "marketCap": 88904690,
+    "marketCapRank": 280,
+    "volume24h": 5375922,
+    "high24h": 0.02121516,
+    "low24h": 0.02018887,
+    "priceChange24h": -4.30767,
+    "priceChange7d": -10.46669078978131,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.189682,
-    "athChangePercentage": -88.87315,
+    "athChangePercentage": -89.25928,
     "athDate": "2026-05-28T13:20:45.488Z",
     "atl": 0.01268119,
     "atlDate": "2026-05-28T15:50:23.342Z",
     "circulatingSupply": 4400000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 211080790
+    "fdv": 202056114
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-28T19:57:18.909Z",
-  "lastMarketUpdate": "2026-06-23T19:32:17.008Z"
+  "lastMarketUpdate": "2026-06-24T19:19:31.129Z"
 }
