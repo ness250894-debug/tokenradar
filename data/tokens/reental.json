@@ -19,25 +19,25 @@
     "explorer": "https://polygonscan.com/token/0x27ab6e82f3458edbc0703db2756391b899ce6324"
   },
   "market": {
-    "price": 0.301542,
-    "marketCap": 40948198,
-    "marketCapRank": 495,
-    "volume24h": 7095.87,
-    "high24h": 0.303403,
-    "low24h": 0.298508,
-    "priceChange24h": 0.51813,
-    "priceChange7d": 2.28459,
-    "priceChange30d": 28.06028,
-    "priceChange1y": 43.8575,
+    "price": 0.300557,
+    "marketCap": 40816338,
+    "marketCapRank": 492,
+    "volume24h": 3662.9,
+    "high24h": 0.30155,
+    "low24h": 0.298543,
+    "priceChange24h": -0.32762,
+    "priceChange7d": 1.1221647084657482,
+    "priceChange30d": 26.02653105692761,
+    "priceChange1y": 45.52996979751565,
     "ath": 0.303403,
-    "athChangePercentage": -0.62178,
+    "athChangePercentage": -1.52955,
     "athDate": "2026-06-24T11:25:24.564Z",
     "atl": 0.01591959,
     "atlDate": "2025-06-13T05:04:28.430Z",
-    "circulatingSupply": 135795873.3068745,
+    "circulatingSupply": 135802164.1857526,
     "totalSupply": 200000000,
     "maxSupply": 200000000,
-    "fdv": 60308457
+    "fdv": 60111469
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-06-24T19:19:55.969Z"
+  "fetchedAt": "2026-06-24T19:19:55.969Z",
+  "lastMarketUpdate": "2026-06-25T19:31:36.890Z"
 }

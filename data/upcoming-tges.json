@@ -3193,5 +3193,74 @@
     "discoveredAt": "2026-06-23T19:33:10.345Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-23T19:33:10.345Z"
+  },
+  {
+    "id": "data-foundation",
+    "name": "DATA Foundation",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/story-protocol-pivots-to-ai-with-rebrand-to-data-foundation?utm_source=rss&utm_medium=rss&utm_campaign=rss",
+    "confidence": 50,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Token migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/story-protocol-pivots-to-ai-with-rebrand-to-data-foundation?utm_source=rss&utm_medium=rss&utm_campaign=rss",
+        "title": "Story Protocol rebrands to DATA Foundation in AI pivot",
+        "observedAt": "2024-07-02T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-25T19:32:24.385Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-25T19:32:24.385Z"
+  },
+  {
+    "id": "story-protocol-data-network",
+    "name": "Story Protocol",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Rebranding/Pivot Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/372107/story-protocol-rebrands-data-network-ai-training-pivot",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Token migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372107/story-protocol-rebrands-data-network-ai-training-pivot",
+        "title": "Story Protocol Rebrands as Data Network in AI Training Pivot After IP Token Falls 98%",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-25T19:32:24.385Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-25T19:32:24.385Z"
+  },
+  {
+    "id": "meta-prediction-market",
+    "name": "Meta Prediction Market",
+    "symbol": "TBD",
+    "category": "Prediction Market",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/371953/morning-minute-meta-is-building-a-prediction-market",
+    "lifecycleStatus": "watchlist",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/371953/morning-minute-meta-is-building-a-prediction-market",
+        "title": "Morning Minute: Meta Is Building a Prediction Market",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-25T19:32:24.385Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-25T19:32:24.385Z"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "id": "story-2",
-  "symbol": "ip",
-  "name": "Story",
+  "symbol": "data",
+  "name": "Data Network",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/54035/large/Transparent_bg.png?1738075331",
   "description": "Story is a purpose-built layer 1 blockchain designed specifically to onramp intellectual property (IP) to the blockchain and make it programmable.\n\nStory tokenizes any type of IP; whether that’s an idea, an image, a real world asset, a song, an AI model, an NFT or anything in-between. By embedding usage terms, attribution, and royalty agreements directly into the blockchain, Story provides a transparent, decentralized solution for IP management. This enables IP holders to protect their work, collaborate on IP seamlessly, and unlock revenue opportunities in an AI-powered economy.",
   "categories": [
@@ -21,25 +21,25 @@
     "explorer": "https://www.storyscan.xyz/"
   },
   "market": {
-    "price": 0.30604,
-    "marketCap": 109105452,
-    "marketCapRank": 245,
-    "volume24h": 46848430,
-    "high24h": 0.330389,
-    "low24h": 0.299948,
-    "priceChange24h": -1.68901,
-    "priceChange7d": -4.277021906746289,
-    "priceChange30d": -38.38858741600043,
-    "priceChange1y": -89.92436216059903,
+    "price": 0.353683,
+    "marketCap": 125950492,
+    "marketCapRank": 215,
+    "volume24h": 107167387,
+    "high24h": 0.354555,
+    "low24h": 0.305594,
+    "priceChange24h": 15.07834,
+    "priceChange7d": 23.080650809876765,
+    "priceChange30d": -27.26828101282333,
+    "priceChange1y": -88.18837797976826,
     "ath": 14.78,
-    "athChangePercentage": -97.93524,
+    "athChangePercentage": -97.62389,
     "athDate": "2025-09-21T21:07:34.521Z",
     "atl": 0.275211,
     "atlDate": "2026-06-10T21:15:04.421Z",
-    "circulatingSupply": 356138908.09,
-    "totalSupply": 1029665535.64,
+    "circulatingSupply": 356184180.39,
+    "totalSupply": 1029710935.56,
     "maxSupply": null,
-    "fdv": 315444679
+    "fdv": 364116673
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:34:33.722Z",
-  "lastMarketUpdate": "2026-06-24T19:19:31.122Z"
+  "lastMarketUpdate": "2026-06-25T19:31:36.831Z"
 }
