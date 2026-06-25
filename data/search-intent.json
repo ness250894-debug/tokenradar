@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-24T19:24:41.146Z",
-    "tokenCount": 528,
+    "tokenCount": 527,
     "topIntents": [
       {
         "intent": "risk",
@@ -26,8 +26,8 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 71,
-        "avgScore": 76
+        "tokenCount": 70,
+        "avgScore": 75
       },
       {
         "intent": "rwa",
@@ -29483,81 +29483,6 @@
         "Shiba Inu scam check",
         "Shiba Inu price prediction 2026",
         "Shiba Inu price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-24T19:24:41.146Z"
-    },
-    "show-2": {
-      "tokenId": "show-2",
-      "tokenName": "SHOW",
-      "symbol": "show",
-      "attentionScore": 74,
-      "attentionLabel": "Rising",
-      "hypeScore": 72,
-      "fundamentalsScore": 24,
-      "supplyRiskScore": 97,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "SHOW price prediction 2026",
-            "SHOW price prediction today",
-            "SHOW price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy SHOW",
-            "where to buy SHOW",
-            "SHOW crypto exchange"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "SHOW token unlock",
-            "SHOW circulating supply",
-            "SHOW tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "SHOW risks",
-            "is SHOW safe",
-            "SHOW scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 655.8% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "SHOW price prediction 2026",
-        "SHOW price prediction today",
-        "SHOW price target",
-        "how to buy SHOW",
-        "where to buy SHOW"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
