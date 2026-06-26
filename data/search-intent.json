@@ -3,25 +3,25 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-25T19:36:36.823Z",
-    "tokenCount": 532,
+    "tokenCount": 530,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 194,
+        "tokenCount": 193,
         "avgScore": 73
-      },
-      {
-        "intent": "supply",
-        "label": "Unlock / supply",
-        "tokenCount": 84,
-        "avgScore": 86
       },
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
         "tokenCount": 84,
         "avgScore": 82
+      },
+      {
+        "intent": "supply",
+        "label": "Unlock / supply",
+        "tokenCount": 83,
+        "avgScore": 86
       },
       {
         "intent": "ai",
@@ -5948,83 +5948,6 @@
         "BTW price target",
         "how to buy Bitway",
         "where to buy Bitway"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-25T19:36:36.823Z"
-    },
-    "bityuan": {
-      "tokenId": "bityuan",
-      "tokenName": "Bityuan",
-      "symbol": "bty",
-      "attentionScore": 64,
-      "attentionLabel": "Rising",
-      "hypeScore": 79,
-      "fundamentalsScore": 30,
-      "supplyRiskScore": 18,
-      "classification": "FOMO Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 100,
-          "queries": [
-            "Bityuan risks",
-            "is Bityuan safe",
-            "Bityuan scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 71,
-          "queries": [
-            "Bityuan price prediction 2026",
-            "Bityuan price prediction today",
-            "BTY price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 38,
-          "queries": [
-            "how to buy Bityuan",
-            "where to buy Bityuan",
-            "BTY crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 33,
-          "queries": [
-            "Bityuan news today",
-            "why is Bityuan moving",
-            "BTY crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -28.2% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 10/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Bityuan risks",
-        "is Bityuan safe",
-        "Bityuan scam check",
-        "Bityuan price prediction 2026",
-        "Bityuan price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -32347,82 +32270,6 @@
         "SuperVerse scam check",
         "SuperVerse price prediction 2026",
         "SuperVerse price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-25T19:36:36.823Z"
-    },
-    "superfortune": {
-      "tokenId": "superfortune",
-      "tokenName": "Superfortune",
-      "symbol": "gua",
-      "attentionScore": 83,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 25,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Superfortune token unlock",
-            "Superfortune circulating supply",
-            "Superfortune tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Superfortune risks",
-            "is Superfortune safe",
-            "Superfortune scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 69,
-          "queries": [
-            "Superfortune price prediction 2026",
-            "Superfortune price prediction today",
-            "GUA price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 54,
-          "queries": [
-            "how to buy Superfortune",
-            "where to buy Superfortune",
-            "GUA crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Superfortune token unlock",
-        "Superfortune circulating supply",
-        "Superfortune tokenomics",
-        "Superfortune risks",
-        "is Superfortune safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
