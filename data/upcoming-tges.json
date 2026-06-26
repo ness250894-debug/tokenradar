@@ -3262,5 +3262,51 @@
     "discoveredAt": "2026-06-25T19:32:24.385Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-25T19:32:24.385Z"
+  },
+  {
+    "id": "kraken-maple-warehouse-facility",
+    "name": "Kraken Maple Onchain Warehouse Facility",
+    "symbol": "TBD",
+    "category": "DeFi/Institutional",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/kraken-maple-launch-onchain-warehouse-facility-for-crypto-backed-institutional-loans",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "New Product/Service Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/kraken-maple-launch-onchain-warehouse-facility-for-crypto-backed-institutional-loans",
+        "title": "Kraken, Maple launch onchain warehouse facility for crypto-backed institutional loans",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-26T19:24:26.944Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-26T19:24:26.944Z"
+  },
+  {
+    "id": "invesco-tokenized-fund",
+    "name": "Invesco Tokenized Fund",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/25/asset-management-giant-invesco-files-for-tokenized-fund-targeting-stablecoin-reserve-market",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Tokenized Fund Filing",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/25/asset-management-giant-invesco-files-for-tokenized-fund-targeting-stablecoin-reserve-market",
+        "title": "Asset management giant Invesco files for tokenized fund targeting stablecoin reserve market",
+        "observedAt": "2026-06-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-26T19:24:26.945Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-26T19:24:26.945Z"
   }
 ]
