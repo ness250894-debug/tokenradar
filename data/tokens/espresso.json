@@ -1,0 +1,53 @@
+{
+  "id": "espresso",
+  "symbol": "esp",
+  "name": "Espresso",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67626/large/espresso.jpg?1753324525",
+  "description": "Espresso is a global confirmation layer that provides L2 chains with fast, reliable transaction confirmations backed by BFT consensus.\n\nEspresso confirmations can improve cross-chain composability, as they provide chains with near-instant access to reliable, credibly neutral information about what’s happening not just on their own chain, but on all chains plugged into the network. Espresso's confirmation layer can prevent sequencer equivocation, protect against reorgs, and reduce finality risk for solvers in intent-based systems. Its versatility means chains can also use it as a decentralized sequencer and low-cost data availability layer.",
+  "categories": [
+    "Infrastructure",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Rollups-as-a-Service (RaaS)",
+    "Binance Wallet IDO",
+    "Capital Launchpad (Kaito)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.espresso.foundation/",
+    "github": "https://github.com/EspressoSystems",
+    "reddit": null,
+    "explorer": "https://explorer.main.net.espresso.network/"
+  },
+  "market": {
+    "price": 0.067259,
+    "marketCap": 41735373,
+    "marketCapRank": 493,
+    "volume24h": 5295416,
+    "high24h": 0.070023,
+    "low24h": 0.064787,
+    "priceChange24h": 3.16313,
+    "priceChange7d": 8.09002,
+    "priceChange30d": 3.32639,
+    "priceChange1y": 0,
+    "ath": 0.217368,
+    "athChangePercentage": -68.99388,
+    "athDate": "2026-02-24T08:10:22.867Z",
+    "atl": 0.05223,
+    "atlDate": "2026-02-15T19:15:15.233Z",
+    "circulatingSupply": 620521794,
+    "totalSupply": 3601379682,
+    "maxSupply": null,
+    "fdv": 242223439
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-27T18:54:09.218Z"
+}
