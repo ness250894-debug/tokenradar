@@ -3308,5 +3308,51 @@
     "discoveredAt": "2026-06-26T19:24:26.945Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-26T19:24:26.945Z"
+  },
+  {
+    "id": "yuma-bittensor-fund",
+    "name": "Yuma Bittensor Fund",
+    "symbol": "TBD",
+    "category": "DeFi/AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/yuma-bittensor-fund-institutional-tao-decentralized-ai",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Funding Round (Indirect)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/yuma-bittensor-fund-institutional-tao-decentralized-ai",
+        "title": "DCG-backed Yuma launches fund offering institutional exposure to Bittensor",
+        "observedAt": "2024-07-06T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-28T18:53:22.174Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-28T18:53:22.174Z"
+  },
+  {
+    "id": "securitize-secz",
+    "name": "Securitize",
+    "symbol": "SECZ",
+    "category": "RWA/Tokenization/Infrastructure",
+    "expectedTge": "Next Week",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/372249/wall-street-next-tokenization-test-blackrock-backed-securitize-ipo",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372249/wall-street-next-tokenization-test-blackrock-backed-securitize-ipo",
+        "title": "Wall Street's Next Tokenization Test: BlackRock-Backed Securitize's Market Debut",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-28T18:53:22.175Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-28T18:53:22.175Z"
   }
 ]
