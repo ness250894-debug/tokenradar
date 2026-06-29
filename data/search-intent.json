@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-28T18:57:42.722Z",
-    "tokenCount": 531,
+    "tokenCount": 530,
     "topIntents": [
       {
         "intent": "risk",
@@ -14,7 +14,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 88,
+        "tokenCount": 87,
         "avgScore": 87
       },
       {
@@ -24158,83 +24158,6 @@
         "Opcode scam check",
         "Opcode price prediction 2026",
         "Opcode price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-28T18:57:42.722Z"
-    },
-    "openledger-2": {
-      "tokenId": "openledger-2",
-      "tokenName": "OpenLedger",
-      "symbol": "open",
-      "attentionScore": 66,
-      "attentionLabel": "Rising",
-      "hypeScore": 48,
-      "fundamentalsScore": 54,
-      "supplyRiskScore": 94,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 92,
-          "queries": [
-            "OpenLedger token unlock",
-            "OpenLedger circulating supply",
-            "OpenLedger tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 79,
-          "queries": [
-            "OpenLedger AI crypto",
-            "OpenLedger AI agent",
-            "OPEN AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 65,
-          "queries": [
-            "OpenLedger risks",
-            "is OpenLedger safe",
-            "OpenLedger scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 47,
-          "queries": [
-            "OpenLedger price prediction 2026",
-            "OpenLedger price prediction today",
-            "OPEN price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 15.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "OpenLedger token unlock",
-        "OpenLedger circulating supply",
-        "OpenLedger tokenomics",
-        "OpenLedger AI crypto",
-        "OpenLedger AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
