@@ -1,0 +1,50 @@
+{
+  "id": "safecoin",
+  "symbol": "safe",
+  "name": "SAFEbit",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67434/large/200x200_%281%29.png?1752777433",
+  "description": "SAFEbit (SAFE) is a digital asset developed on the Binance Smart Chain, specifically designed to enhance the user experience and engagement within the SAFEbit platform, a Turkey-based cryptocurrency exchange operating under the domain www.safebit.com.tr. SAFEcoin aims to provide real utility by offering access to platform features, incentivizing user interactions, and enabling participation in various benefits such as staking and VIP memberships. Users holding SAFEcoin may enjoy additional privileges, including priority access to certain features and discounted fees on specific transactions. Thanks to its integration with Binance Smart Chain, SAFEcoin benefits from low transaction fees and fast processing times, making it a practical and efficient solution for digital asset management within the SAFEbit ecosystem.",
+  "categories": [
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Centralized Exchange (CEX) Token"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.safebit.com.tr/projects/SAFE",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/address/0x5AC0C096549D9Df6bf2f709D8c169CEb92470267"
+  },
+  "market": {
+    "price": 0.104445,
+    "marketCap": 50207240,
+    "marketCapRank": 439,
+    "volume24h": 623652,
+    "high24h": 0.106357,
+    "low24h": 0.086483,
+    "priceChange24h": 16.82435,
+    "priceChange7d": 83.18639,
+    "priceChange30d": -6.9886,
+    "priceChange1y": 0,
+    "ath": 0.503782,
+    "athChangePercentage": -79.26778,
+    "athDate": "2025-10-03T12:47:22.558Z",
+    "atl": 0.04178524,
+    "atlDate": "2026-04-07T12:30:57.364Z",
+    "circulatingSupply": 480704166.6666667,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 104445195
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-29T19:26:53.475Z"
+}
