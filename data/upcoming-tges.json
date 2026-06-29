@@ -3354,5 +3354,28 @@
     "discoveredAt": "2026-06-28T18:53:22.175Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-28T18:53:22.175Z"
+  },
+  {
+    "id": "secondfi",
+    "name": "SecondFi",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Recovery Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/secondfi-two-week-recovery-cardano-wallet-exploit",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/secondfi-two-week-recovery-cardano-wallet-exploit",
+        "title": "SecondFi targets 2-week recovery after Cardano wallet exploit",
+        "observedAt": "2024-06-28T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-29T19:27:37.272Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-29T19:27:37.272Z"
   }
 ]
