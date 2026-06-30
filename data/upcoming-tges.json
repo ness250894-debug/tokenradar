@@ -3377,5 +3377,150 @@
     "discoveredAt": "2026-06-29T19:27:37.272Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-29T19:27:37.272Z"
+  },
+  {
+    "id": "metamask-money-account-musd",
+    "name": "MetaMask Money Account (mUSD)",
+    "symbol": "MUSD",
+    "category": "DeFi",
+    "expectedTge": "Live (Product Launch)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/metamask-money-account-musd-stablecoin-yield",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Product Launch / New Token Integration",
+        "sourceType": "news_article",
+        "url": "https://cointelegraph.com/news/metamask-money-account-musd-stablecoin-yield",
+        "title": "MetaMask launches stablecoin yield account with card spending",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.895Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.895Z"
+  },
+  {
+    "id": "okx-ai-marketplace",
+    "name": "OKX AI Marketplace",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Product Launch (Potential Future Token)",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/okx-ai-marketplace-autonomous-agent-economy",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Product Launch (Potential Token)",
+        "sourceType": "news_article",
+        "url": "https://cointelegraph.com/news/okx-ai-marketplace-autonomous-agent-economy",
+        "title": "OKX launches AI marketplace for autonomous agent economy",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.895Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.895Z"
+  },
+  {
+    "id": "open-usd-stablecoin",
+    "name": "Open USD Stablecoin",
+    "symbol": "TBD",
+    "category": "Stablecoin",
+    "expectedTge": "Upcoming",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/372429/circle-stock-dives-coinbase-blackrock-visa-open-usd-stablecoin",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372429/circle-stock-dives-coinbase-blackrock-visa-open-usd-stablecoin",
+        "title": "Circle Stock Dives as Coinbase, BlackRock and Visa Back Open USD Stablecoin",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.896Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.896Z"
+  },
+  {
+    "id": "xrp-ledger-lending-protocol",
+    "name": "XRP Ledger Lending Protocol",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Testnet / Upcoming",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/372314/xrp-ledger-missing-layer-draws-closer-lending-credit-features-ripple",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Testnet Launch / Feature Development",
+        "sourceType": "news_article",
+        "url": "https://decrypt.co/372314/xrp-ledger-missing-layer-draws-closer-lending-credit-features-ripple",
+        "title": "XRP Ledger's 'Missing Layer' Draws Closer as Developers Test Lending, Credit Features: Ripple",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.896Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.896Z"
+  },
+  {
+    "id": "open-standard-open-usd",
+    "name": "Open Standard's Open USD",
+    "symbol": "OPENUSD",
+    "category": "DeFi/Stablecoin",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/06/30/circle-slides-8-as-stripe-coinbase-and-blackrock-back-rival-stablecoin-network",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/30/circle-slides-8-as-stripe-coinbase-and-blackrock-back-rival-stablecoin-network",
+        "title": "Circle slides 13% as Stripe, Coinbase and BlackRock back rival stablecoin network",
+        "observedAt": "2026-06-30T00:00:00.000Z"
+      },
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/30/why-the-openusd-s-real-threat-that-tanked-circle-stock-still-faces-a-steep-uphill-battle-for-adoption",
+        "title": "Why OpenUSD's 'real threat' that tanked Circle stock still faces a steep uphill battle for adoption",
+        "observedAt": "2026-06-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.898Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.898Z"
+  },
+  {
+    "id": "centrifuge-high-yield-bond-fund",
+    "name": "New York Life / Centrifuge High-Yield Corporate Bond Fund",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/06/29/new-york-life-makes-tokenization-debut-with-onchain-high-yield-bond-fund-with-centrifuge",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/06/29/new-york-life-makes-tokenization-debut-with-onchain-high-yield-bond-fund-with-centrifuge",
+        "title": "New York Life's $800 billion asset manager makes tokenization debut with Centrifuge fund",
+        "observedAt": "2026-06-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-06-30T19:26:07.899Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-06-30T19:26:07.899Z"
   }
 ]
