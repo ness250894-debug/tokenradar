@@ -74,7 +74,7 @@
         "whatwg-url": "^16.0.1"
       }
     },
-    "postcss": "^8.5.15",
+    "postcss": "$postcss",
     "ws": "^8.20.2",
     "esbuild": "0.28.1",
     "protobufjs": "^7.6.3",
