@@ -1,0 +1,51 @@
+{
+  "id": "pearl-2",
+  "symbol": "prl",
+  "name": "Pearl",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
+  "description": "Pearl network — a Proof-of-Useful-Work L1 protocol, where mining is produced natively from AI computations. The heart of the protocol is a new and efficient implementation of the core GPU operation (matrix-multiplication), allowing GPUs to implement proof-of-work as a side-effect of AI training and inference workloads (2-for-1). As such, the Pearl protocol intertwines energy, data, and money into a single atomic digital asset. This document outlines the protocol design, key implementation choices, and various economic aspects of the system.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://pearlresearch.ai/",
+    "github": "https://github.com/pearl-research-labs/pearl",
+    "reddit": null,
+    "explorer": "https://explorer.pearlresearch.ai/"
+  },
+  "market": {
+    "price": 0.519001,
+    "marketCap": 120043297,
+    "marketCapRank": 225,
+    "volume24h": 818428,
+    "high24h": 0.598853,
+    "low24h": 0.449253,
+    "priceChange24h": -13.33405,
+    "priceChange7d": -18.80314,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.868837,
+    "athChangePercentage": -40.2648,
+    "athDate": "2026-06-01T22:19:03.739Z",
+    "atl": 0.369737,
+    "atlDate": "2026-06-14T10:29:43.542Z",
+    "circulatingSupply": 231296675.6853294,
+    "totalSupply": 2100000000,
+    "maxSupply": 2100000000,
+    "fdv": 1089902928
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 257,
+    "githubForks": 54,
+    "commits4Weeks": 22
+  },
+  "fetchedAt": "2026-06-30T19:25:09.566Z"
+}

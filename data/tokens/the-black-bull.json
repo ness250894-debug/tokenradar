@@ -1,0 +1,51 @@
+{
+  "id": "the-black-bull",
+  "symbol": "ansem",
+  "name": "The Black Bull",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174035/large/IMG_9497.jpeg?1782005339",
+  "description": "The Black Bull ($ANSEM) is a transparent, community-driven memecoin on Solana built around one creed: charge forward no matter what. The project is frontend-first and fully verifiable — its website reads live on-chain and market data directly from Solana, including price, liquidity, volume, market cap, and holder distribution, so anyone can audit the claims with no login and no user-data collection. Beyond the token, it offers an Ansem-call Radar, non-custodial community liquidity Pods on PumpSwap, and a browser-based meme terminal. $ANSEM is a standard Pump.fun SPL token (6 decimals) trading against SOL and USDC.",
+  "categories": [
+    "Solana Ecosystem",
+    "Meme",
+    "Solana Meme",
+    "Pump.fun Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://solscan.io/token/9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump"
+  },
+  "market": {
+    "price": 0.142719,
+    "marketCap": 58984999,
+    "marketCapRank": 379,
+    "volume24h": 70377351,
+    "high24h": 0.165111,
+    "low24h": 0.098211,
+    "priceChange24h": 44.93066,
+    "priceChange7d": 35218.19568,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.165111,
+    "athChangePercentage": -13.47059,
+    "athDate": "2026-06-30T14:40:23.017Z",
+    "atl": 0.0001441,
+    "atlDate": "2026-06-25T10:24:45.630Z",
+    "circulatingSupply": 413334493.849378,
+    "totalSupply": 999963193.970602,
+    "maxSupply": 1000000000,
+    "fdv": 142699990
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-06-30T19:25:15.866Z"
+}
