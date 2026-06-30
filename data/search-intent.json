@@ -3,18 +3,18 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-29T19:32:00.298Z",
-    "tokenCount": 534,
+    "tokenCount": 530,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 194,
+        "tokenCount": 192,
         "avgScore": 73
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 87,
+        "tokenCount": 86,
         "avgScore": 87
       },
       {
@@ -32,7 +32,7 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 47,
+        "tokenCount": 46,
         "avgScore": 79
       },
       {
@@ -3446,82 +3446,6 @@
       ],
       "computedAt": "2026-06-29T19:32:00.298Z"
     },
-    "aztec": {
-      "tokenId": "aztec",
-      "tokenName": "Aztec",
-      "symbol": "aztec",
-      "attentionScore": 60,
-      "attentionLabel": "Rising",
-      "hypeScore": 50,
-      "fundamentalsScore": 41,
-      "supplyRiskScore": 86,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 85,
-          "queries": [
-            "Aztec token unlock",
-            "Aztec circulating supply",
-            "Aztec tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 67,
-          "queries": [
-            "Aztec risks",
-            "is Aztec safe",
-            "Aztec scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 50,
-          "queries": [
-            "Aztec price prediction 2026",
-            "Aztec price prediction today",
-            "AZTEC price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 31,
-          "queries": [
-            "how to buy Aztec",
-            "where to buy Aztec",
-            "AZTEC crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -26.5% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Aztec token unlock",
-        "Aztec circulating supply",
-        "Aztec tokenomics",
-        "Aztec risks",
-        "is Aztec safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-29T19:32:00.298Z"
-    },
     "baby-doge-coin": {
       "tokenId": "baby-doge-coin",
       "tokenName": "Baby Doge Coin",
@@ -3822,82 +3746,6 @@
         "Banana For Scale scam check",
         "Banana For Scale meme coin",
         "Banana For Scale price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-29T19:32:00.298Z"
-    },
-    "bankercoin-2": {
-      "tokenId": "bankercoin-2",
-      "tokenName": "BankrCoin",
-      "symbol": "bnkr",
-      "attentionScore": 77,
-      "attentionLabel": "Hot",
-      "hypeScore": 74,
-      "fundamentalsScore": 57,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 81,
-          "queries": [
-            "BankrCoin risks",
-            "is BankrCoin safe",
-            "BankrCoin scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "BankrCoin AI crypto",
-            "BankrCoin AI agent",
-            "BNKR AI token"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "BankrCoin meme coin",
-            "BankrCoin price prediction",
-            "is BankrCoin worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 52,
-          "queries": [
-            "BankrCoin price prediction 2026",
-            "BankrCoin price prediction today",
-            "BNKR price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "BankrCoin risks",
-        "is BankrCoin safe",
-        "BankrCoin scam check",
-        "BankrCoin AI crypto",
-        "BankrCoin AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -32181,82 +32029,6 @@
       ],
       "computedAt": "2026-06-29T19:32:00.298Z"
     },
-    "subsquid": {
-      "tokenId": "subsquid",
-      "tokenName": "SQD",
-      "symbol": "sqd",
-      "attentionScore": 57,
-      "attentionLabel": "Rising",
-      "hypeScore": 37,
-      "fundamentalsScore": 72,
-      "supplyRiskScore": 22,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 78,
-          "queries": [
-            "SQD AI crypto",
-            "SQD AI agent",
-            "SQD AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 64,
-          "queries": [
-            "SQD risks",
-            "is SQD safe",
-            "SQD scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 46,
-          "queries": [
-            "how to buy SQD",
-            "where to buy SQD",
-            "SQD crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 45,
-          "queries": [
-            "SQD price prediction 2026",
-            "SQD price prediction today",
-            "SQD price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 15.4% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "SQD AI crypto",
-        "SQD AI agent",
-        "SQD AI token",
-        "SQD risks",
-        "is SQD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-29T19:32:00.298Z"
-    },
     "sui": {
       "tokenId": "sui",
       "tokenName": "Sui",
@@ -37869,83 +37641,6 @@
         "USX depeg risk",
         "USX risks",
         "is USX safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-29T19:32:00.298Z"
-    },
-    "v-i-t-r-i-o-l-network": {
-      "tokenId": "v-i-t-r-i-o-l-network",
-      "tokenName": "V.I.T.R.I.O.L. Network",
-      "symbol": "vit",
-      "attentionScore": 38,
-      "attentionLabel": "Watch",
-      "hypeScore": 38,
-      "fundamentalsScore": 27,
-      "supplyRiskScore": 64,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 96,
-          "queries": [
-            "V.I.T.R.I.O.L. Network risks",
-            "is V.I.T.R.I.O.L. Network safe",
-            "V.I.T.R.I.O.L. Network scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "V.I.T.R.I.O.L. Network AI crypto",
-            "V.I.T.R.I.O.L. Network AI agent",
-            "VIT AI token"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 66,
-          "queries": [
-            "V.I.T.R.I.O.L. Network token unlock",
-            "V.I.T.R.I.O.L. Network circulating supply",
-            "V.I.T.R.I.O.L. Network tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 32,
-          "queries": [
-            "V.I.T.R.I.O.L. Network price prediction 2026",
-            "V.I.T.R.I.O.L. Network price prediction today",
-            "VIT price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "V.I.T.R.I.O.L. Network risks",
-        "is V.I.T.R.I.O.L. Network safe",
-        "V.I.T.R.I.O.L. Network scam check",
-        "V.I.T.R.I.O.L. Network AI crypto",
-        "V.I.T.R.I.O.L. Network AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
