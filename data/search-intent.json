@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-06-30T19:30:43.247Z",
-    "tokenCount": 528,
+    "tokenCount": 527,
     "topIntents": [
       {
         "intent": "risk",
@@ -14,7 +14,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 89,
+        "tokenCount": 88,
         "avgScore": 87
       },
       {
@@ -11153,84 +11153,6 @@
         "Enjin Coin scam check",
         "Enjin Coin price prediction 2026",
         "Enjin Coin price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-06-30T19:30:43.247Z"
-    },
-    "enso": {
-      "tokenId": "enso",
-      "tokenName": "Enso",
-      "symbol": "enso",
-      "attentionScore": 71,
-      "attentionLabel": "Rising",
-      "hypeScore": 51,
-      "fundamentalsScore": 56,
-      "supplyRiskScore": 95,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 93,
-          "queries": [
-            "Enso token unlock",
-            "Enso circulating supply",
-            "Enso tokenomics"
-          ]
-        },
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 76,
-          "queries": [
-            "Enso airdrop",
-            "Enso TGE",
-            "Enso listing date"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 63,
-          "queries": [
-            "Enso price prediction 2026",
-            "Enso price prediction today",
-            "ENSO price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 63,
-          "queries": [
-            "Enso risks",
-            "is Enso safe",
-            "Enso scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -20.6% keeps medium-term forecasts relevant.",
-        "24h volume equals 99.1% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Enso token unlock",
-        "Enso circulating supply",
-        "Enso tokenomics",
-        "Enso airdrop",
-        "Enso TGE"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
