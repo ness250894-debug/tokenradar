@@ -3522,5 +3522,120 @@
     "discoveredAt": "2026-06-30T19:26:07.899Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-06-30T19:26:07.899Z"
+  },
+  {
+    "id": "credit-agricole-eurxt",
+    "name": "Crédit Agricole EURXT",
+    "symbol": "EURXT",
+    "category": "Stablecoin",
+    "expectedTge": "Live",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/credit-agricole-eurxt-euro-stablecoin-caceis",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 95,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/credit-agricole-eurxt-euro-stablecoin-caceis",
+        "title": "French banking giant Crédit Agricole launches EURXT euro stablecoin",
+        "observedAt": "2024-07-02T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-01T19:25:23.801Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-01T19:25:23.801Z"
+  },
+  {
+    "id": "usd-stablecoin-consortium",
+    "name": "USD Stablecoin Consortium (Unnamed)",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/financial-companies-us-dollar-payment-stablecoin",
+    "confidence": 60,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "New Project Announcement",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/financial-companies-us-dollar-payment-stablecoin",
+        "title": "Financial companies join forces for US dollar stablecoin, keeping reserve earnings",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-01T19:25:23.801Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-01T19:25:23.801Z"
+  },
+  {
+    "id": "new-york-life-centrifuge-tokenized-bond-fund",
+    "name": "New York Life / Centrifuge High-Yield Corporate Bond Fund",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Confirmed Launch",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/372457/new-york-life-investment-management-first-tokenized-bond-fund",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Tokenized Fund Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372457/new-york-life-investment-management-first-tokenized-bond-fund",
+        "title": "New York Life Investment Management Debuts First Tokenized Bond Fund",
+        "observedAt": "2024-05-09T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-01T19:25:23.802Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-01T19:25:23.802Z"
+  },
+  {
+    "id": "robinhood-public-blockchain",
+    "name": "Robinhood Public Blockchain",
+    "symbol": "TBD",
+    "category": "L1/Infrastructure",
+    "expectedTge": "TBD",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/01/robinhood-rolls-out-public-blockchain-as-it-expands-deeper-into-crypto",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Testnet / Mainnet launches",
+        "sourceType": "news_article",
+        "url": "https://www.coindesk.com/business/2026/07/01/robinhood-rolls-out-public-blockchain-as-it-expands-deeper-into-crypto",
+        "title": "Robinhood rolls out public blockchain as it expands deeper into crypto",
+        "observedAt": "2026-07-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-01T19:25:23.803Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-01T19:25:23.803Z"
+  },
+  {
+    "id": "world-solana",
+    "name": "World",
+    "symbol": "TBD",
+    "category": "Prediction Market",
+    "expectedTge": "Live (potential future token)",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/web3/2026/07/01/mysterious-solana-project-world-unveiled-as-fully-onchain-prediction-market",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/web3/2026/07/01/mysterious-solana-project-world-unveiled-as-fully-onchain-prediction-market",
+        "title": "Mysterious Solana project World unveiled as fully onchain prediction market",
+        "observedAt": "2026-07-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-01T19:25:23.803Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-01T19:25:23.803Z"
   }
 ]
