@@ -3637,5 +3637,115 @@
     "discoveredAt": "2026-07-01T19:25:23.803Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-01T19:25:23.803Z"
+  },
+  {
+    "id": "arcus",
+    "name": "Arcus",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Testnet / Mainnet Launch Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/robinhood-links-with-dydx-labs-to-launch-new-dex-arcus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Project Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/robinhood-links-with-dydx-labs-to-launch-new-dex-arcus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Robinhood links with dYdX Labs to launch new DEX Arcus",
+        "observedAt": "2024-07-02T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-02T18:20:49.864Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-02T18:20:49.864Z"
+  },
+  {
+    "id": "venice-ai",
+    "name": "Venice AI",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/venice-ai-becomes-a-unicorn-as-ai-privacy-concerns-grow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/venice-ai-becomes-a-unicorn-as-ai-privacy-concerns-grow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Venice AI becomes unicorn after $65M Series A as AI privacy concerns grow",
+        "observedAt": "2024-07-02T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-02T18:20:49.864Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-02T18:20:49.864Z"
+  },
+  {
+    "id": "robinhood-chain",
+    "name": "Robinhood Chain",
+    "symbol": "TBD",
+    "category": "L2",
+    "expectedTge": "Testnet / Mainnet Launch",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/372667/morning-minute-robinhood-debuts-robinhood-chain",
+    "confidence": 70,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Testnet / Mainnet Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372667/morning-minute-robinhood-debuts-robinhood-chain",
+        "title": "Morning Minute: Robinhood Debuts 'Robinhood Chain'",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      },
+      {
+        "type": "Testnet / Mainnet Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372614/robinhood-ai-native-ethereum-layer-2-network-tokenized-stock-trading",
+        "title": "Robinhood Launches 'AI-Native' Ethereum Layer-2 Network, Tokenized Stock Trading",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-02T18:20:49.865Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-02T18:20:49.865Z"
+  },
+  {
+    "id": "taiko",
+    "name": "Taiko",
+    "symbol": "TAIKO",
+    "category": "L2",
+    "expectedTge": "Confirmed TGE",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/markets/2026/07/02/taiko-s-bridge-is-back-online-after-usd1-7-million-hack-and-its-token-is-up-a-staggering-136",
+    "lifecycleStatus": "graduated",
+    "confidence": 100,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/07/02/taiko-s-bridge-is-back-online-after-usd1-7-million-hack-and-its-token-is-up-a-staggering-136",
+        "title": "Taiko fully restores cross-chain bridge just 10 days after a $1.7 million hack",
+        "observedAt": "2026-07-02T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-02T18:20:49.866Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-07-02T18:25:39.746Z",
+    "graduatedAt": "2026-07-02T18:25:39.747Z",
+    "coingeckoRank": 694,
+    "graduationEvidence": {
+      "coingeckoId": "taiko",
+      "coingeckoRank": 694,
+      "rank": 694,
+      "priceUsd": 0.131985,
+      "volume24h": 114904164,
+      "matchedBy": "id",
+      "verifiedAt": "2026-07-02T18:25:39.746Z"
+    }
   }
 ]
