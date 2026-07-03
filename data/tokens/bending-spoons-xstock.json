@@ -23,25 +23,25 @@
     "explorer": "https://explorer.solana.com/address/XsYMHtwJcWon5GkPHzdDbCCztKtKzEurJnbydxgjsqS"
   },
   "market": {
-    "price": 34.71,
-    "marketCap": 72028423,
-    "marketCapRank": 335,
-    "volume24h": 2340791,
-    "high24h": 44.99,
-    "low24h": 34.16,
-    "priceChange24h": -22.84074,
+    "price": 34.52,
+    "marketCap": 71631544,
+    "marketCapRank": 346,
+    "volume24h": 2039086,
+    "high24h": 36.57,
+    "low24h": 33.71,
+    "priceChange24h": -3.73963,
     "priceChange7d": 0,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 44.99,
-    "athChangePercentage": -23.26297,
+    "athChangePercentage": -23.26593,
     "athDate": "2026-07-02T01:30:23.114Z",
-    "atl": 34.16,
-    "atlDate": "2026-07-02T17:35:39.908Z",
+    "atl": 33.71,
+    "atlDate": "2026-07-02T20:00:51.676Z",
     "circulatingSupply": 2075073.634064288,
     "totalSupply": 2075073.634064288,
     "maxSupply": null,
-    "fdv": 72028423
+    "fdv": 71631544
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +52,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-07-02T18:20:02.108Z"
+  "fetchedAt": "2026-07-02T18:20:02.108Z",
+  "lastMarketUpdate": "2026-07-03T18:52:42.950Z"
 }
