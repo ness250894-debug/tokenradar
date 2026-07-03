@@ -1,0 +1,55 @@
+{
+  "id": "taiko",
+  "symbol": "taiko",
+  "name": "Taiko",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/38058/large/icon.png?1717626867",
+  "description": "Taiko is a fully open source, permissionless, Ethereum-equivalent ZK-Rollup. Using Taiko feels the same as using Ethereum. There are no centralized actors that operate the network; all operations are permissionlessly run by the community.",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Zero Knowledge (ZK)",
+    "Rollup",
+    "OKX Ventures Portfolio",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://taiko.xyz",
+    "github": "https://github.com/taikoxyz",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x10dea67478c5f8c5e2d90e5e9b26dbe60c54d800"
+  },
+  "market": {
+    "price": 0.117679,
+    "marketCap": 23491937,
+    "marketCapRank": 751,
+    "volume24h": 64785268,
+    "high24h": 0.172984,
+    "low24h": 0.116708,
+    "priceChange24h": -25.82475,
+    "priceChange7d": 87.95046,
+    "priceChange30d": 18.12086,
+    "priceChange1y": -69.47498,
+    "ath": 3.8,
+    "athChangePercentage": -96.91007,
+    "athDate": "2024-06-05T13:01:31.342Z",
+    "atl": 0.06036,
+    "atlDate": "2026-06-25T15:20:34.803Z",
+    "circulatingSupply": 199627623.5850112,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 117678790
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-03T09:28:12.308Z"
+}
