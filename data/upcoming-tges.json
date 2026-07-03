@@ -3747,5 +3747,28 @@
       "matchedBy": "id",
       "verifiedAt": "2026-07-02T18:25:39.746Z"
     }
+  },
+  {
+    "id": "extended",
+    "name": "Extended",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/02/etoro-invests-in-onchain-derivatives-platform-extended-as-brokers-race-into-defi",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/02/etoro-invests-in-onchain-derivatives-platform-extended-as-brokers-race-into-defi",
+        "title": "EToro invests in onchain derivatives platform Extended as brokers race into DeFi",
+        "observedAt": "2026-07-02T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-03T18:53:22.083Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-03T18:53:22.083Z"
   }
 ]
