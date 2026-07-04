@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-03T18:58:16.426Z",
-    "tokenCount": 526,
+    "tokenCount": 524,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 199,
+        "tokenCount": 198,
         "avgScore": 73
       },
       {
@@ -38,7 +38,7 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 26,
+        "tokenCount": 25,
         "avgScore": 89
       }
     ],
@@ -6469,83 +6469,6 @@
         "BUILDon scam check",
         "BUILDon meme coin",
         "BUILDon price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-03T18:58:16.426Z"
-    },
-    "burnedfi": {
-      "tokenId": "burnedfi",
-      "tokenName": "BurnedFi",
-      "symbol": "burn",
-      "attentionScore": 66,
-      "attentionLabel": "Rising",
-      "hypeScore": 69,
-      "fundamentalsScore": 43,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 88,
-          "queries": [
-            "BurnedFi risks",
-            "is BurnedFi safe",
-            "BurnedFi scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "BurnedFi meme coin",
-            "BurnedFi price prediction",
-            "is BurnedFi worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 47,
-          "queries": [
-            "BurnedFi price prediction 2026",
-            "BurnedFi price prediction today",
-            "BURN price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "BurnedFi token unlock",
-            "BurnedFi circulating supply",
-            "BurnedFi tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -15.8% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "BurnedFi risks",
-        "is BurnedFi safe",
-        "BurnedFi scam check",
-        "BurnedFi meme coin",
-        "BurnedFi price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -13327,83 +13250,6 @@
         "Flying Tulip tokenomics",
         "Flying Tulip risks",
         "is Flying Tulip safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-03T18:58:16.426Z"
-    },
-    "fogo": {
-      "tokenId": "fogo",
-      "tokenName": "Fogo",
-      "symbol": "fogo",
-      "attentionScore": 84,
-      "attentionLabel": "Hot",
-      "hypeScore": 61,
-      "fundamentalsScore": 56,
-      "supplyRiskScore": 74,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 81,
-          "queries": [
-            "Fogo price prediction 2026",
-            "Fogo price prediction today",
-            "FOGO price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 75,
-          "queries": [
-            "Fogo token unlock",
-            "Fogo circulating supply",
-            "Fogo tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 60,
-          "queries": [
-            "Fogo risks",
-            "is Fogo safe",
-            "Fogo scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 60,
-          "queries": [
-            "Fogo news today",
-            "why is Fogo moving",
-            "FOGO crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -23.1% keeps medium-term forecasts relevant.",
-        "24h volume equals 75.9% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Fogo price prediction 2026",
-        "Fogo price prediction today",
-        "FOGO price target",
-        "Fogo token unlock",
-        "Fogo circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
