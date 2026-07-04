@@ -1,0 +1,51 @@
+{
+  "id": "asset",
+  "symbol": "asset",
+  "name": "REAL",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172706/large/download.png?1774982021",
+  "description": "Real Finance Blockchain is an EVM compatible Layer 1 blockchain specifically designed for the tokenization, insurance, and trading of real world financial assets (RWAs). The protocol integrates traditional financial frameworks with blockchain infrastructure by embedding risk classification, compliance metadata, and disaster recovery directly at the network level.\n\nReal Finance Blockchain utilizes a dual validator model where specialized entities, including tokenization firms, risk assessors, and insurance providers, participate directly in network consensus. These business validators are required to stake the network's native token to enforce accountability and maintain the integrity of onboarded assets. This structure enables financial institutions to issue and manage tokenized assets, such as private credit, real estate, and bonds, transparently on-chain.\n\nThe $ASSET token functions as the core utility and governance token within the Real Finance Blockchain ecosystem. Its primary use cases include staking by business validators to secure the network, serving as a medium for transaction fees, and enabling token holders to participate in decentralized governance processes related to protocol upgrades and risk frameworks.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.real.finance/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x99E980265Bf36516C442be982df1772a6cCb3233"
+  },
+  "market": {
+    "price": 0.295666,
+    "marketCap": 44054378,
+    "marketCapRank": 496,
+    "volume24h": 707059,
+    "high24h": 0.298378,
+    "low24h": 0.280371,
+    "priceChange24h": 3.95194,
+    "priceChange7d": 17.82164,
+    "priceChange30d": 40.09622,
+    "priceChange1y": 0,
+    "ath": 0.298904,
+    "athChangePercentage": -1.08504,
+    "athDate": "2026-07-03T01:50:45.143Z",
+    "atl": 0.04307336,
+    "atlDate": "2026-04-30T17:10:17.763Z",
+    "circulatingSupply": 149003179,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 295660657
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-04T18:43:08.297Z"
+}
