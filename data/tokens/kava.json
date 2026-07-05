@@ -22,25 +22,25 @@
     "explorer": "https://www.mintscan.io/kava"
   },
   "market": {
-    "price": 0.0455483,
-    "marketCap": 49323885,
-    "marketCapRank": 453,
-    "volume24h": 8120750,
-    "high24h": 0.04572757,
-    "low24h": 0.04491702,
-    "priceChange24h": 0.30079,
-    "priceChange7d": 4.717138820126303,
-    "priceChange30d": -6.332032213687426,
-    "priceChange1y": -88.47927471486275,
+    "price": 0.04512563,
+    "marketCap": 48864157,
+    "marketCapRank": 458,
+    "volume24h": 7926134,
+    "high24h": 0.04553178,
+    "low24h": 0.04491618,
+    "priceChange24h": -0.70022,
+    "priceChange7d": 5.82953393304078,
+    "priceChange30d": 5.308522096954734,
+    "priceChange1y": -88.44661920921935,
     "ath": 9.12,
-    "athChangePercentage": -99.50053,
+    "athChangePercentage": -99.50515,
     "athDate": "2021-08-30T11:10:02.948Z",
     "atl": 0.03971159,
     "atlDate": "2026-06-06T05:05:46.804Z",
     "circulatingSupply": 1082847010,
     "totalSupply": 1082847010,
     "maxSupply": null,
-    "fdv": 49323885
+    "fdv": 48864157
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +52,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:14:20.001Z",
-  "lastMarketUpdate": "2026-07-04T18:42:56.005Z"
+  "lastMarketUpdate": "2026-07-05T18:47:33.702Z"
 }
