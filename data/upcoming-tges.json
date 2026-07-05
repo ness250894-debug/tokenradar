@@ -3770,5 +3770,28 @@
     "discoveredAt": "2026-07-03T18:53:22.083Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-03T18:53:22.083Z"
+  },
+  {
+    "id": "moonbeam-ai-agent-framework",
+    "name": "Moonbeam AI Agent Framework",
+    "symbol": "GLMR",
+    "category": "AI/L1/Infrastructure",
+    "expectedTge": "Q3 2024 (new platform launch)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/moonbeam-pivots-from-polkadot-to-base-unveils-ai-agent-framework",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 80,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/moonbeam-pivots-from-polkadot-to-base-unveils-ai-agent-framework",
+        "title": "Moonbeam to pivot from Polkadot to Base, unveils AI agent framework",
+        "observedAt": "2024-07-03T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-05T18:48:17.829Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-05T18:48:17.829Z"
   }
 ]
