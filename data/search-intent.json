@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-04T18:48:40.299Z",
-    "tokenCount": 528,
+    "tokenCount": 524,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 197,
+        "tokenCount": 194,
         "avgScore": 74
       },
       {
@@ -38,12 +38,11 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 26,
-        "avgScore": 91
+        "tokenCount": 25,
+        "avgScore": 90
       }
     ],
     "hotTokens": [
-      "asteroid-shiba",
       "ether-fi",
       "goplus-security",
       "humanity",
@@ -52,10 +51,10 @@
       "the-black-bull",
       "velvet",
       "zerebro",
-      "bonk"
+      "bonk",
+      "audiera"
     ],
     "watchTokens": [
-      "asteroid-shiba",
       "ether-fi",
       "goplus-security",
       "humanity",
@@ -74,7 +73,8 @@
       "venice-token",
       "fartcoin",
       "skyai",
-      "synapse-2"
+      "synapse-2",
+      "solstice"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -2962,83 +2962,6 @@
         "Aster tokenomics",
         "Aster staking rewards",
         "Aster yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-04T18:48:40.299Z"
-    },
-    "asteroid-shiba": {
-      "tokenId": "asteroid-shiba",
-      "tokenName": "Asteroid Shiba",
-      "symbol": "asteroid",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 68,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "Asteroid Shiba risks",
-            "is Asteroid Shiba safe",
-            "Asteroid Shiba scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 77,
-          "queries": [
-            "Asteroid Shiba meme coin",
-            "Asteroid Shiba price prediction",
-            "is Asteroid Shiba worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 70,
-          "queries": [
-            "Asteroid Shiba price prediction 2026",
-            "Asteroid Shiba price prediction today",
-            "ASTEROID price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 57,
-          "queries": [
-            "how to buy Asteroid Shiba",
-            "where to buy Asteroid Shiba",
-            "ASTEROID crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -39.3% keeps medium-term forecasts relevant.",
-        "24h volume equals 10.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "Asteroid Shiba risks",
-        "is Asteroid Shiba safe",
-        "Asteroid Shiba scam check",
-        "Asteroid Shiba meme coin",
-        "Asteroid Shiba price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -15978,80 +15901,6 @@
       ],
       "computedAt": "2026-07-04T18:48:40.299Z"
     },
-    "igra": {
-      "tokenId": "igra",
-      "tokenName": "IGRA",
-      "symbol": "igra",
-      "attentionScore": 33,
-      "attentionLabel": "Quiet",
-      "hypeScore": 25,
-      "fundamentalsScore": 49,
-      "supplyRiskScore": 22,
-      "classification": "Quiet Watch",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 73,
-          "queries": [
-            "IGRA risks",
-            "is IGRA safe",
-            "IGRA scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 35,
-          "queries": [
-            "IGRA price prediction 2026",
-            "IGRA price prediction today",
-            "IGRA price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 31,
-          "queries": [
-            "IGRA token unlock",
-            "IGRA circulating supply",
-            "IGRA tokenomics"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 20,
-          "queries": [
-            "how to buy IGRA",
-            "where to buy IGRA",
-            "IGRA crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "IGRA risks",
-        "is IGRA safe",
-        "IGRA scam check",
-        "IGRA price prediction 2026",
-        "IGRA price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-04T18:48:40.299Z"
-    },
     "immutable-x": {
       "tokenId": "immutable-x",
       "tokenName": "Immutable",
@@ -17950,83 +17799,6 @@
         "KTA depeg risk",
         "Keeta RWA crypto",
         "Keeta tokenized asset"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-04T18:48:40.299Z"
-    },
-    "kgen": {
-      "tokenId": "kgen",
-      "tokenName": "KGeN",
-      "symbol": "kgen",
-      "attentionScore": 99,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 54,
-      "supplyRiskScore": 96,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 99,
-          "queries": [
-            "KGeN price prediction 2026",
-            "KGeN price prediction today",
-            "KGEN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 97,
-          "queries": [
-            "how to buy KGeN",
-            "where to buy KGeN",
-            "KGEN crypto exchange"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "KGeN token unlock",
-            "KGeN circulating supply",
-            "KGeN tokenomics"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 73,
-          "queries": [
-            "KGeN news today",
-            "why is KGeN moving",
-            "KGEN crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 27.9% keeps medium-term forecasts relevant.",
-        "24h volume equals 10.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "KGeN price prediction 2026",
-        "KGeN price prediction today",
-        "KGEN price target",
-        "how to buy KGeN",
-        "where to buy KGeN"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -29047,82 +28819,6 @@
         "USDAT depeg risk",
         "Saturn Dollar risks",
         "is Saturn Dollar safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-04T18:48:40.299Z"
-    },
-    "score": {
-      "tokenId": "score",
-      "tokenName": "Score",
-      "symbol": "sn44",
-      "attentionScore": 50,
-      "attentionLabel": "Watch",
-      "hypeScore": 42,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 8,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 82,
-          "queries": [
-            "Score risks",
-            "is Score safe",
-            "Score scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "Score AI crypto",
-            "Score AI agent",
-            "SN44 AI token"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 47,
-          "queries": [
-            "Score price prediction 2026",
-            "Score price prediction today",
-            "SN44 price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 23,
-          "queries": [
-            "how to buy Score",
-            "where to buy Score",
-            "SN44 crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -24.5% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "Score risks",
-        "is Score safe",
-        "Score scam check",
-        "Score AI crypto",
-        "Score AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
