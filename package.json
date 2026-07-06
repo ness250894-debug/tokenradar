@@ -40,7 +40,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1063.0",
     "@coingecko/coingecko-typescript": "^6.0.0",
-    "@next/third-parties": "^16.2.9",
+    "@next/third-parties": "^16.2.10",
     "@remotion/cli": "^4.0.484",
     "@remotion/google-fonts": "^4.0.484",
     "@sentry/nextjs": "^10.59.0",
@@ -55,7 +55,7 @@
     "kokoro-js": "^1.2.1",
     "lucide-react": "^1.14.0",
     "marked": "^18.0.5",
-    "next": "^16.2.9",
+    "next": "^16.2.10",
     "next-nprogress-bar": "^2.4.7",
     "postcss": "^8.5.15",
     "react": "^19.2.7",
