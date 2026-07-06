@@ -3793,5 +3793,51 @@
     "discoveredAt": "2026-07-05T18:48:17.829Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-05T18:48:17.829Z"
+  },
+  {
+    "id": "russia-digital-ruble",
+    "name": "Russia Digital Ruble",
+    "symbol": "RUR",
+    "category": "CBDC",
+    "expectedTge": "September 2024",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/372698/russia-is-ready-for-widespread-use-of-digital-ruble-by-september-says-bank-governor",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE/Launch Announcement",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372698/russia-is-ready-for-widespread-use-of-digital-ruble-by-september-says-bank-governor",
+        "title": "Russia Is Ready for 'Widespread Use' of Digital Ruble by September, Says Bank Governor",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-06T19:25:10.100Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-06T19:25:10.100Z"
+  },
+  {
+    "id": "robinhood-ai-native-l2",
+    "name": "Robinhood AI-Native Ethereum Layer-2 Network",
+    "symbol": "TBD",
+    "category": "L2",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/372614/robinhood-ai-native-ethereum-layer-2-network-tokenized-stock-trading",
+    "confidence": 50,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/372614/robinhood-ai-native-ethereum-layer-2-network-tokenized-stock-trading",
+        "title": "Robinhood Launches 'AI-Native' Ethereum Layer-2 Network, Tokenized Stock Trading",
+        "observedAt": "2024-07-24T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-06T19:25:10.101Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-06T19:25:10.101Z"
   }
 ]
