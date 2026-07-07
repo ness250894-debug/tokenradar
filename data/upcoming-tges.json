@@ -3839,5 +3839,28 @@
     "discoveredAt": "2026-07-06T19:25:10.101Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-06T19:25:10.101Z"
+  },
+  {
+    "id": "nyse-tokenizing",
+    "name": "NYSE Tokenization Initiatives",
+    "symbol": "TBD",
+    "category": "RWA/TradFi",
+    "expectedTge": "TBD (Exploratory Stage)",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/videos/interviews/O1HZN4PH/trump-tariffs-3-return-of-the-bull-market-nyse-tokenising-what-that-means-for-hype-claude-meme-meta",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Tokenization Initiative Announcement",
+        "sourceType": "news_snippet",
+        "url": "https://decrypt.co/videos/interviews/O1HZN4PH/trump-tariffs-3-return-of-the-bull-market-nyse-tokenising-what-that-means-for-hype-claude-meme-meta",
+        "title": "Trump Tariffs 3: Return of the Bull Market! NYSE Tokenising, what that means for $Hype! Claude Meme Meta!",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-07T19:27:15.829Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-07T19:27:15.830Z"
   }
 ]
