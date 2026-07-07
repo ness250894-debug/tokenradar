@@ -3,6 +3,20 @@
   "tokenName": "Ethena",
   "articles": [
     {
+      "title": "Bitcoin Covenants part 3: SIGHASH_ANYPREVOUT",
+      "link": "https://cointelegraph.com/research/bitcoin-covenants-part-3-sighash-anyprevout?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 07 Jul 2026 15:00:00 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "APO lets a Bitcoin signature authorize any compatible UTXO rather than one fixed outpoint. It allows for rebindable pre-signed transactions for Lightning, vaults, and layer-2 protocols without new key management overhead."
+    },
+    {
+      "title": "Ripple secures full MiCA license for crypto services across Europe",
+      "link": "https://cointelegraph.com/news/ripple-secures-full-mica-license-for-crypto-services-across-europe?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 06 Jul 2026 19:29:13 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "The Luxembourg approval completes the company's MiCA licensing process, enabling it to provide regulated crypto-asset services across the European Economic Area."
+    },
+    {
       "title": "Senator Gillibrand Seeks to Ban Trump, Elected Officials From Launching Meme Coins",
       "link": "https://decrypt.co/372749/senator-gillibrand-ban-trump-elected-officials-launching-meme-coins",
       "pubDate": "Fri, 03 Jul 2026 21:03:33 +0000",
@@ -15,14 +29,7 @@
       "pubDate": "Thu, 02 Jul 2026 21:39:25 +0000",
       "source": "Decrypt",
       "snippet": "Sam Altman is pitching a 5% equity stake in OpenAI for the U.S. government—and reportedly wants every major AI company to do the same."
-    },
-    {
-      "title": "Scattered Spider Suspect Extradited to US Over $8M Crypto Ransom Demand",
-      "link": "https://decrypt.co/372665/scattered-spider-suspect-extradited-to-us-over-8m-crypto-ransom-demand",
-      "pubDate": "Thu, 02 Jul 2026 10:00:42 +0000",
-      "source": "Decrypt",
-      "snippet": "The teenager allegedly helped to breach a luxury jeweler and demand $8 million in crypto, as part of a crew tied to $100 million in ransoms."
     }
   ],
-  "fetchedAt": "2026-07-06T19:30:10.230Z"
+  "fetchedAt": "2026-07-07T19:32:17.669Z"
 }

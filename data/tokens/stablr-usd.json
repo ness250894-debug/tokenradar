@@ -1,0 +1,52 @@
+{
+  "id": "stablr-usd",
+  "symbol": "usdr",
+  "name": "StablR USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/53721/large/stablrusd-logo.png?1737126629",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Fiat-backed Stablecoin",
+    "MiCA-Compliant Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.stablr.com/usdr",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x7B43E3875440B44613DC3bC08E7763e6Da63C8f8"
+  },
+  "market": {
+    "price": 0.081054,
+    "marketCap": 96835060,
+    "marketCapRank": 279,
+    "volume24h": 103.78,
+    "high24h": 4.59,
+    "low24h": 0.02987063,
+    "priceChange24h": -65.76012,
+    "priceChange7d": -59.21897,
+    "priceChange30d": -86.56086,
+    "priceChange1y": -91.89368,
+    "ath": 4.59,
+    "athChangePercentage": -98.23596,
+    "athDate": "2026-07-07T12:40:13.096Z",
+    "atl": 0.00688,
+    "atlDate": "2026-06-04T18:05:35.343Z",
+    "circulatingSupply": 21076437.506944,
+    "totalSupply": 21076437.506944,
+    "maxSupply": null,
+    "fdv": 96835060
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-07T19:26:18.183Z"
+}

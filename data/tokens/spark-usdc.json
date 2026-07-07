@@ -1,0 +1,50 @@
+{
+  "id": "spark-usdc",
+  "symbol": "susdc",
+  "name": "Spark USDC",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173690/large/spUSDC_%281%29.png?1781003574",
+  "description": "Spark USDC Vault (sUSDC) is a yield-bearing savings vault for USDC built by Spark. Users deposit USDC and receive sUSDC tokens that automatically accrue yield through an increasing redemption rate. It is built on the ERC-4626 tokenized vault standard, making sUSDC transferable and composable with other DeFi protocols it continues earning yield wherever it's held.\n\nsUSDC is Spark's V1 USDC savings product, backed by the Sky Savings Rate. Yield is generated through Spark's integration with the Sky ecosystem, where Spark's position as Prime Agent gives it direct access to Sky liquidity. With over 4,300 holders and deployed since March 2025, it is one of Spark's most established savings products.",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Yield-Bearing Stablecoin",
+    "Yield-Bearing Tokens"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://spark.fi/",
+    "github": "https://github.com/sparkdotfi",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xBc65ad17c5C0a2A4D159fa5a503f4992c7B545FE"
+  },
+  "market": {
+    "price": 1.1,
+    "marketCap": 147405858,
+    "marketCapRank": 203,
+    "volume24h": 179.91,
+    "high24h": 1.1,
+    "low24h": 1.1,
+    "priceChange24h": -0.01953,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.1,
+    "athChangePercentage": -0.01956,
+    "athDate": "2026-07-07T13:15:43.398Z",
+    "atl": 1.1,
+    "atlDate": "2026-07-07T17:00:46.319Z",
+    "circulatingSupply": 133953813.6910097,
+    "totalSupply": 133953813.6910097,
+    "maxSupply": null,
+    "fdv": 147405858
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-07T19:26:11.876Z"
+}
