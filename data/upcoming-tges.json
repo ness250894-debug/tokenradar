@@ -3862,5 +3862,74 @@
     "discoveredAt": "2026-07-07T19:27:15.829Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-07T19:27:15.830Z"
+  },
+  {
+    "id": "korean-won-stablecoin-toss",
+    "name": "Korean Won Stablecoin (Toss/Optimism)",
+    "symbol": "KWS",
+    "category": "Stablecoin",
+    "expectedTge": "POC Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/south-korea-toss-partners-optimism-won-stablecoins",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Testnet / Mainnet launches",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/south-korea-toss-partners-optimism-won-stablecoins",
+        "title": "Mobile app Toss and blockchain Optimism to conduct Korean won stablecoin POC: report",
+        "observedAt": "2024-05-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-08T18:59:43.508Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-08T18:59:43.508Z"
+  },
+  {
+    "id": "berachain-wbera",
+    "name": "Berachain",
+    "symbol": "WBERA",
+    "category": "L1",
+    "expectedTge": "Post Hard Fork",
+    "narrativeStrength": 85,
+    "dataSource": "https://cointelegraph.com/news/berachain-hard-fork-single-token-economy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/berachain-hard-fork-single-token-economy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Berachain hard fork to replace dual-token model with WBERA rewards",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-08T18:59:43.508Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-08T18:59:43.508Z"
+  },
+  {
+    "id": "bnb-chain-ai-layer1",
+    "name": "BNB Chain AI Layer-1",
+    "symbol": "TBD",
+    "category": "L1/AI/Infrastructure",
+    "expectedTge": "2026",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/373042/bnb-chain-new-layer-1-ai-agents-high-speed-trading-quantum",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Layer-1 Announcement",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373042/bnb-chain-new-layer-1-ai-agents-high-speed-trading-quantum",
+        "title": "BNB Chain Plans New Layer-1 for AI Agents and Quantum Future",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-08T18:59:43.509Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-08T18:59:43.509Z"
   }
 ]
