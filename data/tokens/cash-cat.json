@@ -19,25 +19,25 @@
     "explorer": "https://robinhoodchain.blockscout.com/address/0x020bfc650a365f8bb26819deaabf3e21291018b4"
   },
   "market": {
-    "price": 0.113735,
-    "marketCap": 111148937,
-    "marketCapRank": 245,
-    "volume24h": 111901815,
-    "high24h": 0.145497,
-    "low24h": 1.81427e-7,
-    "priceChange24h": 58993656.80786,
-    "priceChange7d": 0,
+    "price": 0.111599,
+    "marketCap": 109783743,
+    "marketCapRank": 261,
+    "volume24h": 35647289,
+    "high24h": 0.124984,
+    "low24h": 0.085799,
+    "priceChange24h": 3.01954,
+    "priceChange7d": 92467987.80184431,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 0.145497,
-    "athChangePercentage": -16.79623,
+    "athChangePercentage": -28.3963,
     "athDate": "2026-07-08T17:05:41.347Z",
     "atl": 9.6874e-8,
     "atlDate": "2026-07-05T14:35:30.318Z",
-    "circulatingSupply": 991802534.8060828,
-    "totalSupply": 991802534.8060828,
+    "circulatingSupply": 991732260.0536228,
+    "totalSupply": 991732260.0536228,
     "maxSupply": 1000000000,
-    "fdv": 111148937
+    "fdv": 109783743
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-07-08T18:59:03.174Z"
+  "fetchedAt": "2026-07-08T18:59:03.174Z",
+  "lastMarketUpdate": "2026-07-09T19:13:50.574Z"
 }
