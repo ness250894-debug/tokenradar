@@ -1,0 +1,54 @@
+{
+  "id": "jpycoin",
+  "symbol": "jpyc",
+  "name": "JPY Coin",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70314/large/JPYC_400x400.jpg?1761556080",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Kaia Ecosystem",
+    "JPY Stablecoin",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://jpyc.co.jp/",
+    "github": "https://github.com/jcam1/sdks",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xE7C3D8C9a439feDe00D2600032D5dB0Be71C3c29"
+  },
+  "market": {
+    "price": 0.00614477,
+    "marketCap": 41818125,
+    "marketCapRank": 499,
+    "volume24h": 48836,
+    "high24h": 0.00614553,
+    "low24h": 0.00610091,
+    "priceChange24h": 0.52772,
+    "priceChange7d": -0.45399,
+    "priceChange30d": -1.7352,
+    "priceChange1y": 0,
+    "ath": 0.00671645,
+    "athChangePercentage": -8.50276,
+    "athDate": "2025-10-28T13:47:54.979Z",
+    "atl": 0.00610091,
+    "atlDate": "2026-07-09T01:41:13.600Z",
+    "circulatingSupply": 6805482436.954741,
+    "totalSupply": 6805482436.954741,
+    "maxSupply": null,
+    "fdv": 41818125
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-09T19:14:02.931Z"
+}
