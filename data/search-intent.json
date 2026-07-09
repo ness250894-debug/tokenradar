@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-08T19:04:54.929Z",
-    "tokenCount": 527,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
@@ -14,7 +14,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 95,
+        "tokenCount": 92,
         "avgScore": 86
       },
       {
@@ -26,7 +26,7 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 50,
+        "tokenCount": 48,
         "avgScore": 76
       },
       {
@@ -38,7 +38,7 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 22,
+        "tokenCount": 21,
         "avgScore": 87
       }
     ],
@@ -7073,82 +7073,6 @@
       ],
       "computedAt": "2026-07-08T19:04:54.929Z"
     },
-    "celo": {
-      "tokenId": "celo",
-      "tokenName": "Celo",
-      "symbol": "celo",
-      "attentionScore": 83,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 68,
-      "supplyRiskScore": 48,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 93,
-          "queries": [
-            "Celo price prediction 2026",
-            "Celo price prediction today",
-            "CELO price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 84,
-          "queries": [
-            "how to buy Celo",
-            "where to buy Celo",
-            "CELO crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 76,
-          "queries": [
-            "Celo news today",
-            "why is Celo moving",
-            "CELO crypto news"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 61,
-          "queries": [
-            "Celo risks",
-            "is Celo safe",
-            "Celo scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 2187.3% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Celo price prediction 2026",
-        "Celo price prediction today",
-        "CELO price target",
-        "how to buy Celo",
-        "where to buy Celo"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
     "centrifuge-2": {
       "tokenId": "centrifuge-2",
       "tokenName": "Centrifuge",
@@ -11265,81 +11189,6 @@
       ],
       "computedAt": "2026-07-08T19:04:54.929Z"
     },
-    "espresso": {
-      "tokenId": "espresso",
-      "tokenName": "Espresso",
-      "symbol": "esp",
-      "attentionScore": 78,
-      "attentionLabel": "Hot",
-      "hypeScore": 54,
-      "fundamentalsScore": 57,
-      "supplyRiskScore": 99,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 96,
-          "queries": [
-            "Espresso token unlock",
-            "Espresso circulating supply",
-            "Espresso tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 55,
-          "queries": [
-            "Espresso risks",
-            "is Espresso safe",
-            "Espresso scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 50,
-          "queries": [
-            "Espresso price prediction 2026",
-            "Espresso price prediction today",
-            "ESP price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 46,
-          "queries": [
-            "how to buy Espresso",
-            "where to buy Espresso",
-            "ESP crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 14.7% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Espresso token unlock",
-        "Espresso circulating supply",
-        "Espresso tokenomics",
-        "Espresso risks",
-        "is Espresso safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
     "ethena-usde": {
       "tokenId": "ethena-usde",
       "tokenName": "Ethena USDe",
@@ -13990,83 +13839,6 @@
         "Genius tokenomics",
         "Genius risks",
         "is Genius safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
-    "gensyn": {
-      "tokenId": "gensyn",
-      "tokenName": "Gensyn",
-      "symbol": "ai",
-      "attentionScore": 85,
-      "attentionLabel": "Hot",
-      "hypeScore": 73,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Gensyn token unlock",
-            "Gensyn circulating supply",
-            "Gensyn tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 83,
-          "queries": [
-            "Gensyn AI crypto",
-            "Gensyn AI agent",
-            "AI AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 78,
-          "queries": [
-            "Gensyn risks",
-            "is Gensyn safe",
-            "Gensyn scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 53,
-          "queries": [
-            "how to buy Gensyn",
-            "where to buy Gensyn",
-            "AI crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 93.8% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Gensyn token unlock",
-        "Gensyn circulating supply",
-        "Gensyn tokenomics",
-        "Gensyn AI crypto",
-        "Gensyn AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -19711,82 +19483,6 @@
       ],
       "computedAt": "2026-07-08T19:04:54.929Z"
     },
-    "mbg-by-multibank-group": {
-      "tokenId": "mbg-by-multibank-group",
-      "tokenName": "MBG By Multibank Group",
-      "symbol": "mbg",
-      "attentionScore": 49,
-      "attentionLabel": "Watch",
-      "hypeScore": 42,
-      "fundamentalsScore": 37,
-      "supplyRiskScore": 90,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 89,
-          "queries": [
-            "MBG By Multibank Group token unlock",
-            "MBG By Multibank Group circulating supply",
-            "MBG By Multibank Group tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 66,
-          "queries": [
-            "MBG By Multibank Group risks",
-            "is MBG By Multibank Group safe",
-            "MBG By Multibank Group scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 62,
-          "queries": [
-            "MBG By Multibank Group price prediction 2026",
-            "MBG By Multibank Group price prediction today",
-            "MBG price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 31,
-          "queries": [
-            "how to buy MBG By Multibank Group",
-            "where to buy MBG By Multibank Group",
-            "MBG crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -42.9% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "MBG By Multibank Group token unlock",
-        "MBG By Multibank Group circulating supply",
-        "MBG By Multibank Group tokenomics",
-        "MBG By Multibank Group risks",
-        "is MBG By Multibank Group safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
     "megaeth": {
       "tokenId": "megaeth",
       "tokenName": "MegaETH",
@@ -22727,81 +22423,6 @@
         "NUSD depeg risk",
         "Neutrl USD risks",
         "is Neutrl USD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
-    "nvidia-ondo-tokenized-stock": {
-      "tokenId": "nvidia-ondo-tokenized-stock",
-      "tokenName": "NVIDIA (Ondo Tokenized Stock)",
-      "symbol": "nvdaon",
-      "attentionScore": 47,
-      "attentionLabel": "Watch",
-      "hypeScore": 29,
-      "fundamentalsScore": 68,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 74,
-          "queries": [
-            "NVIDIA (Ondo Tokenized Stock) RWA crypto",
-            "NVIDIA (Ondo Tokenized Stock) tokenized asset",
-            "NVIDIA (Ondo Tokenized Stock) issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 54,
-          "queries": [
-            "NVIDIA (Ondo Tokenized Stock) risks",
-            "is NVIDIA (Ondo Tokenized Stock) safe",
-            "NVIDIA (Ondo Tokenized Stock) scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 39,
-          "queries": [
-            "NVIDIA (Ondo Tokenized Stock) price prediction 2026",
-            "NVIDIA (Ondo Tokenized Stock) price prediction today",
-            "NVDAON price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 28,
-          "queries": [
-            "how to buy NVIDIA (Ondo Tokenized Stock)",
-            "where to buy NVIDIA (Ondo Tokenized Stock)",
-            "NVDAON crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "NVIDIA (Ondo Tokenized Stock) RWA crypto",
-        "NVIDIA (Ondo Tokenized Stock) tokenized asset",
-        "NVIDIA (Ondo Tokenized Stock) issuer risk",
-        "NVIDIA (Ondo Tokenized Stock) risks",
-        "is NVIDIA (Ondo Tokenized Stock) safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -30491,81 +30112,6 @@
         "SUSDC depeg risk",
         "Spark USDC risks",
         "is Spark USDC safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-08T19:04:54.929Z"
-    },
-    "spdr-s-p-500-etf-ondo-tokenized-etf": {
-      "tokenId": "spdr-s-p-500-etf-ondo-tokenized-etf",
-      "tokenName": "SPDR S&P 500 ETF (Ondo Tokenized ETF)",
-      "symbol": "spyon",
-      "attentionScore": 42,
-      "attentionLabel": "Watch",
-      "hypeScore": 26,
-      "fundamentalsScore": 62,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 75,
-          "queries": [
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) RWA crypto",
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) tokenized asset",
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 50,
-          "queries": [
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) risks",
-            "is SPDR S&P 500 ETF (Ondo Tokenized ETF) safe",
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 34,
-          "queries": [
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) price prediction 2026",
-            "SPDR S&P 500 ETF (Ondo Tokenized ETF) price prediction today",
-            "SPYON price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 25,
-          "queries": [
-            "how to buy SPDR S&P 500 ETF (Ondo Tokenized ETF)",
-            "where to buy SPDR S&P 500 ETF (Ondo Tokenized ETF)",
-            "SPYON crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "SPDR S&P 500 ETF (Ondo Tokenized ETF) RWA crypto",
-        "SPDR S&P 500 ETF (Ondo Tokenized ETF) tokenized asset",
-        "SPDR S&P 500 ETF (Ondo Tokenized ETF) issuer risk",
-        "SPDR S&P 500 ETF (Ondo Tokenized ETF) risks",
-        "is SPDR S&P 500 ETF (Ondo Tokenized ETF) safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
