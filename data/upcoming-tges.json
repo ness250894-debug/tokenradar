@@ -3931,5 +3931,120 @@
     "discoveredAt": "2026-07-08T18:59:43.509Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-08T18:59:43.509Z"
+  },
+  {
+    "id": "backpack-tokenized-equities",
+    "name": "Backpack Tokenized Equities",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Near-term (Product Launch)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/backpack-launches-247-trading-for-tokenized-us-equities",
+    "confidence": 60,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "Product Launch (implies potential tokenization)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/backpack-launches-247-trading-for-tokenized-us-equities",
+        "title": "Backpack joins race for 24/7 stock markets with tokenized equities",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-10T19:10:05.874Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-10T19:10:05.874Z"
+  },
+  {
+    "id": "cryl-bitcoin-loans",
+    "name": "CRYL Bitcoin-Backed Loans",
+    "symbol": "TBD",
+    "category": "DeFi/Lending",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/japan-cryl-bitcoin-backed-loans-6-million",
+    "confidence": 50,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "Product Launch (implies potential tokenization/new financial product)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/japan-cryl-bitcoin-backed-loans-6-million",
+        "title": "Japanese lender launches Bitcoin-backed loans of up to $6.2M",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-10T19:10:05.874Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-10T19:10:05.874Z"
+  },
+  {
+    "id": "sony-bank-connectia-trust-stablecoin",
+    "name": "Sony Bank Connectia Trust Stablecoin",
+    "symbol": "TBD",
+    "category": "Stablecoin",
+    "expectedTge": "Post-OCC Final Conditions",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/373109/sony-bank-clears-occ-hurdle-for-dollar-stablecoin",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "TGE",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373109/sony-bank-clears-occ-hurdle-for-dollar-stablecoin",
+        "title": "Sony Bank Clears OCC Hurdle for Dollar Stablecoin",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-10T19:10:05.875Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-10T19:10:05.875Z"
+  },
+  {
+    "id": "genlayer-foundation",
+    "name": "Genlayer Foundation",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/10/okx-metamask-matter-labs-back-dispute-resolution-court-for-ai-agents",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/10/okx-metamask-matter-labs-back-dispute-resolution-court-for-ai-agents",
+        "title": "OKX, MetaMask, Matter Labs back dispute resolution court for AI agents",
+        "observedAt": "2026-07-10T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-10T19:10:05.875Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-10T19:10:05.875Z"
+  },
+  {
+    "id": "metaplanet-bitcoin-credit",
+    "name": "Metaplanet Bitcoin-Backed Digital Credit",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Development Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/markets/2026/07/10/metaplanet-explores-bringing-bitcoin-backed-digital-credit-to-japan",
+    "lifecycleStatus": "candidate",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "New product/service announcement (with potential tokenization)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/07/10/metaplanet-explores-bringing-bitcoin-backed-digital-credit-to-japan",
+        "title": "Metaplanet explores bringing bitcoin-backed digital credit to Japan",
+        "observedAt": "2026-07-10T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-10T19:10:05.876Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-10T19:10:05.876Z"
   }
 ]
