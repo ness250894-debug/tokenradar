@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-09T19:22:24.780Z",
-    "tokenCount": 525,
+    "tokenCount": 524,
     "topIntents": [
       {
         "intent": "risk",
@@ -72,9 +72,9 @@
       "kaito",
       "apecoin",
       "skyai",
-      "taiko",
       "ribbita-by-virtuals",
-      "venice-token"
+      "venice-token",
+      "dexe"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -32377,85 +32377,6 @@
         "TAG price target",
         "how to buy TAGGER",
         "where to buy TAGGER"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-09T19:22:24.780Z"
-    },
-    "taiko": {
-      "tokenId": "taiko",
-      "tokenName": "Taiko",
-      "symbol": "taiko",
-      "attentionScore": 96,
-      "attentionLabel": "Hot",
-      "hypeScore": 77,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 96,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Taiko price prediction 2026",
-            "Taiko price prediction today",
-            "TAIKO price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "Taiko token unlock",
-            "Taiko circulating supply",
-            "Taiko tokenomics"
-          ]
-        },
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 94,
-          "queries": [
-            "Taiko airdrop",
-            "Taiko TGE",
-            "Taiko listing date"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Taiko risks",
-            "is Taiko safe",
-            "Taiko scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 18.1% keeps medium-term forecasts relevant.",
-        "24h volume equals 275.8% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Taiko price prediction 2026",
-        "Taiko price prediction today",
-        "TAIKO price target",
-        "Taiko token unlock",
-        "Taiko circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
