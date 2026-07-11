@@ -4046,5 +4046,28 @@
     "discoveredAt": "2026-07-10T19:10:05.876Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-10T19:10:05.876Z"
+  },
+  {
+    "id": "zcash-ironwood",
+    "name": "Zcash Ironwood Network Upgrade",
+    "symbol": "ZEC",
+    "category": "Privacy / L1",
+    "expectedTge": "July 28, 2024 (Network Upgrade)",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/zcash-targets-july-28-launch-for-ironwood-network-upgrade",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Mainnet Launch",
+        "sourceType": "news_article",
+        "url": "https://cointelegraph.com/news/zcash-targets-july-28-launch-for-ironwood-network-upgrade",
+        "title": "Zcash targets July 28 launch for Ironwood network upgrade",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-11T18:38:34.302Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-11T18:38:34.302Z"
   }
 ]
