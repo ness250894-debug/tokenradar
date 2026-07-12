@@ -4069,5 +4069,51 @@
     "discoveredAt": "2026-07-11T18:38:34.302Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-11T18:38:34.302Z"
+  },
+  {
+    "id": "robinhood-ai-agent-feature",
+    "name": "Robinhood AI Agent Feature",
+    "symbol": "TBD",
+    "category": "AI/Fintech",
+    "expectedTge": "Watchlist - Product Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/robinhood-says-ai-agents-will-be-trading-for-crypto-users-soon",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "News Article",
+        "url": "https://cointelegraph.com/news/robinhood-says-ai-agents-will-be-trading-for-crypto-users-soon",
+        "title": "Robinhood says its AI agent feature will ‘soon’ be assisting crypto traders",
+        "observedAt": "2024-07-16T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-12T18:39:57.915Z",
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "lastVerifiedAt": "2026-07-12T18:39:57.915Z"
+  },
+  {
+    "id": "kraken-ai-investing-assistant",
+    "name": "Kraken AI Investing Assistant",
+    "symbol": "TBD",
+    "category": "AI/Fintech",
+    "expectedTge": "Watchlist - Product Launch",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/kraken-to-rebuild-app-around-ai-powered-trading-agents-report",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "News Article",
+        "url": "https://cointelegraph.com/news/kraken-to-rebuild-app-around-ai-powered-trading-agents-report",
+        "title": "Kraken to overhaul app with AI investing assistant",
+        "observedAt": "2024-07-16T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-12T18:39:57.916Z",
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "lastVerifiedAt": "2026-07-12T18:39:57.916Z"
   }
 ]

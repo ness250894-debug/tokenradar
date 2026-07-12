@@ -20,25 +20,25 @@
     "explorer": "https://xrpscan.com/token/524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De"
   },
   "market": {
-    "price": 1,
-    "marketCap": 1539401998,
+    "price": 0.999974,
+    "marketCap": 1539237434,
     "marketCapRank": 51,
-    "volume24h": 40091747,
+    "volume24h": 30410846,
     "high24h": 1,
-    "low24h": 0.999576,
-    "priceChange24h": 0.01115,
-    "priceChange7d": 0.030694675830185866,
-    "priceChange30d": 0.008819554365975025,
-    "priceChange1y": 0.01052525660524536,
+    "low24h": 0.999641,
+    "priceChange24h": -0.01097,
+    "priceChange7d": -0.00468118117461147,
+    "priceChange30d": 0.0033912167787880213,
+    "priceChange1y": 0.020191576978317645,
     "ath": 1.073,
-    "athChangePercentage": -6.7793,
+    "athChangePercentage": -6.80462,
     "athDate": "2024-12-26T10:45:52.337Z",
     "atl": 0.962292,
     "atlDate": "2024-12-18T04:40:40.880Z",
     "circulatingSupply": 1539280581.000363,
-    "totalSupply": 1539280581.000363,
+    "totalSupply": 1539280581.000362,
     "maxSupply": null,
-    "fdv": 1539401998
+    "fdv": 1539237434
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:30:14.473Z",
-  "lastMarketUpdate": "2026-07-11T18:37:53.337Z"
+  "lastMarketUpdate": "2026-07-12T18:39:18.534Z"
 }
