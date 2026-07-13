@@ -4115,5 +4115,28 @@
     "status": "upcoming",
     "lifecycleStatus": "candidate",
     "lastVerifiedAt": "2026-07-12T18:39:57.916Z"
+  },
+  {
+    "id": "sbi-solana-global",
+    "name": "SBI Solana Global",
+    "symbol": "TBD",
+    "category": "Infrastructure/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/13/sbi-holdings-blockchain-initiative-pivots-to-solana-for-tokenization-stablecoin-issuance",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Partnership/Joint Venture",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/13/sbi-holdings-blockchain-initiative-pivots-to-solana-for-tokenization-stablecoin-issuance",
+        "title": "SBI Holdings' blockchain initiative pivots to Solana for tokenization, stablecoin issuance",
+        "observedAt": "2026-07-13T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-13T19:05:59.830Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-13T19:05:59.830Z"
   }
 ]
