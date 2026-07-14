@@ -3,18 +3,18 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-13T19:11:27.619Z",
-    "tokenCount": 526,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 217,
+        "tokenCount": 214,
         "avgScore": 74
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 82,
+        "tokenCount": 81,
         "avgScore": 87
       },
       {
@@ -32,7 +32,7 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 40,
+        "tokenCount": 39,
         "avgScore": 79
       },
       {
@@ -2436,81 +2436,6 @@
         "Arbitrum scam check",
         "how to buy Arbitrum",
         "where to buy Arbitrum"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-13T19:11:27.619Z"
-    },
-    "arcium": {
-      "tokenId": "arcium",
-      "tokenName": "Arcium",
-      "symbol": "arx",
-      "attentionScore": 82,
-      "attentionLabel": "Hot",
-      "hypeScore": 56,
-      "fundamentalsScore": 56,
-      "supplyRiskScore": 95,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 93,
-          "queries": [
-            "Arcium token unlock",
-            "Arcium circulating supply",
-            "Arcium tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "Arcium price prediction 2026",
-            "Arcium price prediction today",
-            "ARX price target"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 52,
-          "queries": [
-            "Arcium news today",
-            "why is Arcium moving",
-            "ARX crypto news"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 44,
-          "queries": [
-            "Arcium risks",
-            "is Arcium safe",
-            "Arcium scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 97.9% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Arcium token unlock",
-        "Arcium circulating supply",
-        "Arcium tokenomics",
-        "Arcium price prediction 2026",
-        "Arcium price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -14625,80 +14550,6 @@
       ],
       "computedAt": "2026-07-13T19:11:27.619Z"
     },
-    "grove-2": {
-      "tokenId": "grove-2",
-      "tokenName": "Grove",
-      "symbol": "grove",
-      "attentionScore": 32,
-      "attentionLabel": "Quiet",
-      "hypeScore": 24,
-      "fundamentalsScore": 42,
-      "supplyRiskScore": 54,
-      "classification": "Quiet Watch",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Grove risks",
-            "is Grove safe",
-            "Grove scam check"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 58,
-          "queries": [
-            "Grove token unlock",
-            "Grove circulating supply",
-            "Grove tokenomics"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "Grove staking rewards",
-            "Grove yield",
-            "GROVE APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 28,
-          "queries": [
-            "Grove price prediction 2026",
-            "Grove price prediction today",
-            "GROVE price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "No strong free-data catalyst is visible yet."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Grove risks",
-        "is Grove safe",
-        "Grove scam check",
-        "Grove token unlock",
-        "Grove circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-13T19:11:27.619Z"
-    },
     "grx-chain": {
       "tokenId": "grx-chain",
       "tokenName": "GRX Chain",
@@ -15296,84 +15147,6 @@
         "LISUSD depeg risk",
         "Lista USD staking rewards",
         "Lista USD yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-13T19:11:27.619Z"
-    },
-    "helium": {
-      "tokenId": "helium",
-      "tokenName": "Helium",
-      "symbol": "hnt",
-      "attentionScore": 81,
-      "attentionLabel": "Hot",
-      "hypeScore": 73,
-      "fundamentalsScore": 63,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 71,
-          "queries": [
-            "Helium AI crypto",
-            "Helium AI agent",
-            "HNT AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 66,
-          "queries": [
-            "Helium risks",
-            "is Helium safe",
-            "Helium scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 60,
-          "queries": [
-            "Helium meme coin",
-            "Helium price prediction",
-            "is Helium worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "Helium price prediction 2026",
-            "Helium price prediction today",
-            "HNT price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -49.7% keeps medium-term forecasts relevant.",
-        "24h volume equals 6.1% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Helium AI crypto",
-        "Helium AI agent",
-        "HNT AI token",
-        "Helium risks",
-        "is Helium safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -29371,84 +29144,6 @@
       ],
       "computedAt": "2026-07-13T19:11:27.619Z"
     },
-    "skyai": {
-      "tokenId": "skyai",
-      "tokenName": "SkyAI",
-      "symbol": "skyai",
-      "attentionScore": 96,
-      "attentionLabel": "Hot",
-      "hypeScore": 77,
-      "fundamentalsScore": 65,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "SkyAI risks",
-            "is SkyAI safe",
-            "SkyAI scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 79,
-          "queries": [
-            "SkyAI AI crypto",
-            "SkyAI AI agent",
-            "SKYAI AI token"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 75,
-          "queries": [
-            "SkyAI price prediction 2026",
-            "SkyAI price prediction today",
-            "SKYAI price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 47,
-          "queries": [
-            "how to buy SkyAI",
-            "where to buy SkyAI",
-            "SKYAI crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -83.0% keeps medium-term forecasts relevant.",
-        "24h volume equals 49.5% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "SkyAI risks",
-        "is SkyAI safe",
-        "SkyAI scam check",
-        "SkyAI AI crypto",
-        "SkyAI AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-13T19:11:27.619Z"
-    },
     "smilek": {
       "tokenId": "smilek",
       "tokenName": "Smilek to the Bank",
@@ -32177,82 +31872,6 @@
         "Maple Finance issuer risk",
         "Maple Finance risks",
         "is Maple Finance safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-13T19:11:27.619Z"
-    },
-    "tac": {
-      "tokenId": "tac",
-      "tokenName": "TAC",
-      "symbol": "tac",
-      "attentionScore": 84,
-      "attentionLabel": "Hot",
-      "hypeScore": 80,
-      "fundamentalsScore": 31,
-      "supplyRiskScore": 67,
-      "classification": "FOMO Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 90,
-          "queries": [
-            "TAC risks",
-            "is TAC safe",
-            "TAC scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 72,
-          "queries": [
-            "TAC price prediction 2026",
-            "TAC price prediction today",
-            "TAC price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 69,
-          "queries": [
-            "TAC token unlock",
-            "TAC circulating supply",
-            "TAC tokenomics"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 65,
-          "queries": [
-            "how to buy TAC",
-            "where to buy TAC",
-            "TAC crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 74.9% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "TAC risks",
-        "is TAC safe",
-        "TAC scam check",
-        "TAC price prediction 2026",
-        "TAC price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
