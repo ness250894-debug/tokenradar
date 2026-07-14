@@ -16,25 +16,25 @@
     "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
   },
   "market": {
-    "price": 0.998774,
-    "marketCap": 109153525,
-    "marketCapRank": 247,
-    "volume24h": 2612.26,
+    "price": 1,
+    "marketCap": 108922920,
+    "marketCapRank": 249,
+    "volume24h": 3206.45,
     "high24h": 1.003,
-    "low24h": 0.994347,
-    "priceChange24h": -0.04023,
-    "priceChange7d": -0.008560488157127854,
-    "priceChange30d": -0.010735573951111122,
-    "priceChange1y": -0.15837934815972143,
+    "low24h": 0.994732,
+    "priceChange24h": 0.0591,
+    "priceChange7d": 0.04906663432601887,
+    "priceChange30d": 0.10513162837460627,
+    "priceChange1y": -0.08422529033644209,
     "ath": 1.061,
-    "athChangePercentage": -5.78803,
+    "athChangePercentage": -5.75864,
     "athDate": "2026-05-19T15:20:09.996Z",
     "atl": 0.951733,
     "atlDate": "2026-04-20T11:30:11.090Z",
-    "circulatingSupply": 109182014.7974298,
-    "totalSupply": 109182014.7974298,
+    "circulatingSupply": 108919095.4625319,
+    "totalSupply": 108919095.4625319,
     "maxSupply": null,
-    "fdv": 109153525
+    "fdv": 108922920
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:21:57.458Z",
-  "lastMarketUpdate": "2026-07-13T19:05:21.448Z"
+  "lastMarketUpdate": "2026-07-14T18:49:02.696Z"
 }

@@ -1,0 +1,49 @@
+{
+  "id": "up-2",
+  "symbol": "up",
+  "name": "up",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174542/large/tgeb6e7cyzun3qkeab3th5cj23qv.?1783957652",
+  "description": "up. is a decentralized exchange and liquidity marketplace on Robinhood Chain, an Arbitrum Nitro-based Ethereum Layer 2. The protocol implements a vote-escrow ve(3,3) model based on the Velodrome v2 and Slipstream architectures, and its contracts are immutable and verified on the Robinhood Chain block explorer. The exchange runs two pool designs side by side: v2-style pools for volatile and stable pairs, and concentrated-liquidity pools. A single router quotes both designs and routes each swap through the path with the best execution. UP is the liquid ERC-20 token paid out as emissions, and locking UP for up to four years, or permanently, mints veUP, an NFT position that carries voting power. Each seven-day epoch, veUP holders vote to direct UP emissions across liquidity-pool gauges. Voters receive 100% of protocol trading fees and any third-party incentives on the pools they support, while liquidity providers who stake in gauges earn the emissions.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Robinhood Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://up33.xyz",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/token/0x57c0e45cb534413d1c20a4240955d6bb250bb4f1"
+  },
+  "market": {
+    "price": 0.09799,
+    "marketCap": 48968632,
+    "marketCapRank": 447,
+    "volume24h": 398575,
+    "high24h": 0.099844,
+    "low24h": 0.057326,
+    "priceChange24h": 22.38357,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.097472,
+    "athChangePercentage": 0.0726,
+    "athDate": "2026-07-14T18:41:02.640Z",
+    "atl": 0.057326,
+    "atlDate": "2026-07-14T00:52:19.718Z",
+    "circulatingSupply": 500000000,
+    "totalSupply": 500000000,
+    "maxSupply": 500000000,
+    "fdv": 48968632
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-14T18:49:08.967Z"
+}

@@ -4138,5 +4138,28 @@
     "discoveredAt": "2026-07-13T19:05:59.830Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-13T19:05:59.830Z"
+  },
+  {
+    "id": "ethsystems",
+    "name": "EthSystems",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/tech/2026/07/14/ethereum-foundation-spinout-ethsystems-targets-banks-with-blockchain-privacy-technology",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "New Project Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/07/14/ethereum-foundation-spinout-ethsystems-targets-banks-with-blockchain-privacy-technology",
+        "title": "Ethereum Foundation spinout EthSystems targets banks with blockchain privacy technology",
+        "observedAt": "2026-07-14T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-14T18:49:49.698Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-14T18:49:49.698Z"
   }
 ]
