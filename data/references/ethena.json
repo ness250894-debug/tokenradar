@@ -3,33 +3,40 @@
   "tokenName": "Ethena",
   "articles": [
     {
-      "title": "Donald Trump invokes US senator’s death to push crypto bill",
+      "title": "OpenAI quietly adds Kalshi World Cup odds to ChatGPT: Report",
+      "link": "https://cointelegraph.com/news/openai-kalshi-prediction-markets-world-cup-chatgpt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 14 Jul 2026 13:30:06 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "OpenAI’s ChatGPT now displays Kalshi’s World Cup prediction market odds in search results, marking the AI firm’s first reported deal with a prediction market platform."
+    },
+    {
+      "title": "CLARITY Act gains second law enforcement endorsement before Senate push",
+      "link": "https://cointelegraph.com/news/clarity-act-gains-second-law-enforcement-endorsement-before-senate-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 14 Jul 2026 01:37:27 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "The Federal Law Enforcement Officers Association expressed support for the CLARITY Act but urged changes to the legislation’s language."
+    },
+    {
+      "title": "Bitcoin Covenants Part 4: OP_CHECKSIGFROMSTACK and OP_CAT",
+      "link": "https://cointelegraph.com/research/bitcoin-covenants-part-4-op-checksigfromstack-and-op-cat?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 13 Jul 2026 23:00:00 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "OP_CSFS authenticates signatures over arbitrary data. OP_CAT concatenates stack values into a single message. Together, they let Bitcoin scripts verify transaction structure at spend time, without pre-signed key management or new consensus rules beyond the two opcodes themselves."
+    },
+    {
+      "title": "President Trump invokes US senator’s death to push crypto bill",
       "link": "https://cointelegraph.com/news/us-senate-session-plans-clarity-act-vote?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Mon, 13 Jul 2026 16:27:43 +0000",
       "source": "CoinTelegraph",
       "snippet": "With the death of Senator Lindsey Graham and another senator hospitalized, Republicans’ current majority in the chamber has been reduced to 51-47, likely requiring more Democratic support to pass crypto market structure."
     },
     {
-      "title": "Apple Sues OpenAI, Claims Former Employees Stole Trade Secrets",
-      "link": "https://decrypt.co/373339/apple-sues-openai-claims-former-employees-stole-trade-secrets",
-      "pubDate": "Fri, 10 Jul 2026 21:50:30 +0000",
+      "title": "Stop Over-Prompting: OpenAI’s New GPT-5.6 Guidelines Change Everything",
+      "link": "https://decrypt.co/373439/openai-new-gpt-5-6-prompt-guide-chatgpt",
+      "pubDate": "Mon, 13 Jul 2026 22:46:04 +0000",
       "source": "Decrypt",
-      "snippet": "Apple alleges former employees took confidential designs, supplier information, and engineering files before joining OpenAI."
-    },
-    {
-      "title": "Democrats Call for Senate Hearings on Trump&#39;s Massive Crypto Profits",
-      "link": "https://decrypt.co/373289/democrats-senate-hearings-trump-massive-crypto-profits",
-      "pubDate": "Fri, 10 Jul 2026 20:35:44 +0000",
-      "source": "Decrypt",
-      "snippet": "Top Democrats on key Senate committees demanded inquiries into the more than $1.2 billion that President Trump made on crypto last year."
-    },
-    {
-      "title": "OpenAI Releases GPT-5.6 Sol: Here’s How It Stacks Up Against Other AI Models",
-      "link": "https://decrypt.co/373151/openai-gpt-5-6-sol-how-compares-ai-models",
-      "pubDate": "Thu, 09 Jul 2026 17:24:19 +0000",
-      "source": "Decrypt",
-      "snippet": "OpenAI&#39;s new flagship model is out, after spending two weeks locked behind a government-approved preview. It lands the same week Fable 5 leaves Anthropic&#39;s subscription plans."
+      "snippet": "Forget the XML blocks and persistence scripts. OpenAI’s new prompting guide says define the destination, set the stopping conditions, and get out of the way."
     }
   ],
-  "fetchedAt": "2026-07-13T19:11:26.713Z"
+  "fetchedAt": "2026-07-14T18:55:18.747Z"
 }
