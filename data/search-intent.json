@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-14T18:55:19.702Z",
-    "tokenCount": 524,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 212,
+        "tokenCount": 211,
         "avgScore": 73
       },
       {
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 79,
+        "tokenCount": 77,
         "avgScore": 87
       },
       {
@@ -15517,82 +15517,6 @@
       ],
       "computedAt": "2026-07-14T18:55:19.702Z"
     },
-    "huma-finance": {
-      "tokenId": "huma-finance",
-      "tokenName": "Huma Finance",
-      "symbol": "huma",
-      "attentionScore": 92,
-      "attentionLabel": "Hot",
-      "hypeScore": 99,
-      "fundamentalsScore": 53,
-      "supplyRiskScore": 99,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 96,
-          "queries": [
-            "Huma Finance token unlock",
-            "Huma Finance circulating supply",
-            "Huma Finance tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 75,
-          "queries": [
-            "Huma Finance price prediction 2026",
-            "Huma Finance price prediction today",
-            "HUMA price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 74,
-          "queries": [
-            "how to buy Huma Finance",
-            "where to buy Huma Finance",
-            "HUMA crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Huma Finance risks",
-            "is Huma Finance safe",
-            "Huma Finance scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 49.7% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Huma Finance token unlock",
-        "Huma Finance circulating supply",
-        "Huma Finance tokenomics",
-        "Huma Finance price prediction 2026",
-        "Huma Finance price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-14T18:55:19.702Z"
-    },
     "humanity": {
       "tokenId": "humanity",
       "tokenName": "Humanity",
@@ -20908,82 +20832,6 @@
         "MindWaveDAO scam check",
         "MindWaveDAO token unlock",
         "MindWaveDAO circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-14T18:55:19.702Z"
-    },
-    "mog-coin": {
-      "tokenId": "mog-coin",
-      "tokenName": "Mog Coin",
-      "symbol": "mog",
-      "attentionScore": 63,
-      "attentionLabel": "Rising",
-      "hypeScore": 54,
-      "fundamentalsScore": 78,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 60,
-          "queries": [
-            "Mog Coin risks",
-            "is Mog Coin safe",
-            "Mog Coin scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 60,
-          "queries": [
-            "Mog Coin meme coin",
-            "Mog Coin price prediction",
-            "is Mog Coin worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 50,
-          "queries": [
-            "Mog Coin price prediction 2026",
-            "Mog Coin price prediction today",
-            "MOG price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 44,
-          "queries": [
-            "how to buy Mog Coin",
-            "where to buy Mog Coin",
-            "MOG crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 21.2% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Mog Coin risks",
-        "is Mog Coin safe",
-        "Mog Coin scam check",
-        "Mog Coin meme coin",
-        "Mog Coin price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -34427,82 +34275,6 @@
         "Tradable Singapore Fintech SSL issuer risk",
         "Tradable Singapore Fintech SSL risks",
         "is Tradable Singapore Fintech SSL safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-14T18:55:19.702Z"
-    },
-    "tria": {
-      "tokenId": "tria",
-      "tokenName": "TRIA",
-      "symbol": "tria",
-      "attentionScore": 90,
-      "attentionLabel": "Hot",
-      "hypeScore": 67,
-      "fundamentalsScore": 50,
-      "supplyRiskScore": 94,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 92,
-          "queries": [
-            "TRIA token unlock",
-            "TRIA circulating supply",
-            "TRIA tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 69,
-          "queries": [
-            "TRIA risks",
-            "is TRIA safe",
-            "TRIA scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "TRIA staking rewards",
-            "TRIA yield",
-            "TRIA APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 57,
-          "queries": [
-            "TRIA price prediction 2026",
-            "TRIA price prediction today",
-            "TRIA price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 51.7% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "TRIA token unlock",
-        "TRIA circulating supply",
-        "TRIA tokenomics",
-        "TRIA risks",
-        "is TRIA safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
