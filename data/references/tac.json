@@ -3,19 +3,19 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Bitcoin Covenants Part 4: OP_CHECKSIGFROMSTACK and OP_CAT",
-      "link": "https://cointelegraph.com/research/bitcoin-covenants-part-4-op-checksigfromstack-and-op-cat?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 13 Jul 2026 23:00:00 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "OP_CSFS authenticates signatures over arbitrary data. OP_CAT concatenates stack values into a single message. Together, they let Bitcoin scripts verify transaction structure at spend time, without pre-signed key management or new consensus rules beyond the two opcodes themselves."
+      "title": "Ostium suffers $18 million exploit as oracle attack wave continues to hit DeFi",
+      "link": "https://www.coindesk.com/business/2026/07/15/ostium-suffers-usd18-million-exploit-as-oracle-attack-wave-continues-to-hit-defi",
+      "pubDate": "Wed, 15 Jul 2026 15:27:43 +0000",
+      "source": "CoinDesk",
+      "snippet": "A hacker used Ostium's own price-reporting infrastructure against the protocol, submitting falsified future-dated oracle data to manufacture fake trading profits and trigger an $18 million payout."
     },
     {
-      "title": "Strategy sells $467M in MSTR shares, leaves 843,775 BTC stack untouched",
-      "link": "https://cointelegraph.com/news/strategy-sells-467-million-mstr-keeps-843775-btc-stack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 13 Jul 2026 13:08:49 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Strategy boosted its US dollar reserve to $3 billion after selling $466.7 million in MSTR shares, while keeping its 843,775 Bitcoin holdings unchanged."
+      "title": "Another DeFi Exploit: Perp DEX Ostium Loses $18 Million in Oracle Attack",
+      "link": "https://decrypt.co/373566/defi-exploit-ostium-oracle-hack",
+      "pubDate": "Wed, 15 Jul 2026 17:01:25 +0000",
+      "source": "Decrypt",
+      "snippet": "Hackers manipulated Ostium&#39;s price feed by compromising an oracle signer key, allowing them to drain roughly $18 million from the Arbitrum-based perpetuals exchange."
     }
   ],
-  "fetchedAt": "2026-07-14T18:55:18.766Z"
+  "fetchedAt": "2026-07-15T18:54:00.527Z"
 }

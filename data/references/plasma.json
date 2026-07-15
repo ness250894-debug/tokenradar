@@ -3,11 +3,25 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Japan’s biggest card network taps Circle to bring stablecoins to 40 million merchants",
-      "link": "https://www.coindesk.com/business/2026/07/14/circle-signs-mou-with-japan-s-largest-card-network-to-explore-stablecoin-payments",
-      "pubDate": "Tue, 14 Jul 2026 12:01:50 +0000",
+      "title": "Ostium suffers $18 million exploit as oracle attack wave continues to hit DeFi",
+      "link": "https://www.coindesk.com/business/2026/07/15/ostium-suffers-usd18-million-exploit-as-oracle-attack-wave-continues-to-hit-defi",
+      "pubDate": "Wed, 15 Jul 2026 15:27:43 +0000",
       "source": "CoinDesk",
-      "snippet": "JCB and Circle will explore using USDC for cross-border payments and merchant transactions as Japan ramps up efforts to bring stablecoins into everyday commerce."
+      "snippet": "A hacker used Ostium's own price-reporting infrastructure against the protocol, submitting falsified future-dated oracle data to manufacture fake trading profits and trigger an $18 million payout."
+    },
+    {
+      "title": "South Korea to modify 76-year-old law to classify cryptocurrencies as national assets",
+      "link": "https://www.coindesk.com/policy/2026/07/15/south-korea-to-modify-76-year-old-law-to-classify-cryptocurrencies-as-national-assets",
+      "pubDate": "Wed, 15 Jul 2026 14:35:26 +0000",
+      "source": "CoinDesk",
+      "snippet": "The government also reaffirmed plans to pilot tokenized government bonds next year and explore tokenizing state-owned real estate."
+    },
+    {
+      "title": "Ostium pauses trading as security firms report multimillion-dollar oracle exploit",
+      "link": "https://cointelegraph.com/news/ostium-pauses-trading-as-security-firms-report-multimillion-dollar-oracle-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 15 Jul 2026 17:14:21 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Ostium halted trading and advised revoking contract approvals after blockchain security firms reported an apparent oracle-related exploit of its OLP liquidity vault, with estimated losses ranging from $18 million to $22 million."
     },
     {
       "title": "JCB signs Circle MOU to test stablecoin payments in Japan",
@@ -22,21 +36,7 @@
       "pubDate": "Tue, 14 Jul 2026 13:08:00 +0000",
       "source": "CoinTelegraph",
       "snippet": "Humanity Protocol’s founder said they will refocus on operational security, as malicious actors are switching from smart contract vulnerabilities to exploiting human behavior."
-    },
-    {
-      "title": "Morning Minute: Robinhood Chain Explodes Onto the Crypto Scene",
-      "link": "https://decrypt.co/373215/morning-minute-robinhood-chain-explodes-onto-the-crypto-scene",
-      "pubDate": "Fri, 10 Jul 2026 12:12:55 +0000",
-      "source": "Decrypt",
-      "snippet": "Plus, Circle wins a national bank charter and pops 10%. And the Clarity Act gets a new draft while the clock is ticking…"
-    },
-    {
-      "title": "AI Agents Could Be Turned Into Botnets Through Hallucinations, Researchers Warn",
-      "link": "https://decrypt.co/373196/ai-agents-botnets-hallucinations-researchers-warn",
-      "pubDate": "Thu, 09 Jul 2026 21:45:01 +0000",
-      "source": "Decrypt",
-      "snippet": "Researchers warn AI agents could be tricked into downloading malicious code by exploiting the same hallucinations that cause chatbots to make mistakes."
     }
   ],
-  "fetchedAt": "2026-07-14T18:55:18.759Z"
+  "fetchedAt": "2026-07-15T18:54:00.521Z"
 }

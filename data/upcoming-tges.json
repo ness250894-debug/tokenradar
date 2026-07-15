@@ -4161,5 +4161,120 @@
     "discoveredAt": "2026-07-14T18:49:49.698Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-14T18:49:49.698Z"
+  },
+  {
+    "id": "velocity",
+    "name": "Velocity",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/velocity-raises-38m-to-build-stablecoin-treasury-infrastructure-for-enterprises",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/velocity-raises-38m-to-build-stablecoin-treasury-infrastructure-for-enterprises",
+        "title": "Velocity raises $38M to build stablecoin treasury infrastructure for enterprises",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-15T18:48:20.855Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-15T18:48:20.855Z"
+  },
+  {
+    "id": "dtcc-tokenized-stocks-treasuries-pilot",
+    "name": "DTCC Tokenized Stocks and U.S. Treasuries Pilot",
+    "symbol": "TBD",
+    "category": "RWA/Infrastructure",
+    "expectedTge": "Future (Pilot Stage)",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/373571/blackrock-goldman-sachs-jp-morgan-dtcc-tokenized-stocks",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "News Article",
+        "url": "https://decrypt.co/373571/blackrock-goldman-sachs-jp-morgan-dtcc-tokenized-stocks",
+        "title": "BlackRock, Goldman, and JP Morgan Will Give Tokenized Stocks a Try",
+        "observedAt": "2024-07-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-15T18:48:20.856Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-15T18:48:20.856Z"
+  },
+  {
+    "id": "dtcc-tokenized-securities-live-trading",
+    "name": "DTCC Tokenized Securities Live Trading",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Live Trading (implies potential for broader tokenization initiatives)",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/15/dtcc-moves-tokenized-securities-into-live-trading-marking-a-milestone-for-wall-street-s-blockchain-push",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/15/dtcc-moves-tokenized-securities-into-live-trading-marking-a-milestone-for-wall-street-s-blockchain-push",
+        "title": "DTCC moves tokenized securities into live trading, marking a milestone for Wall Street's blockchain push",
+        "observedAt": "2026-07-15T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-15T18:48:20.857Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-15T18:48:20.857Z"
+  },
+  {
+    "id": "cantor-securitize-ipos",
+    "name": "Cantor Fitzgerald & Securitize Blockchain IPOs",
+    "symbol": "TBD",
+    "category": "RWA/CeFi",
+    "expectedTge": "Future IPOs (Pathway established)",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/07/15/cantor-and-securitize-collaborate-on-blockchain-based-ipos",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Partnership / Product Development",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/15/cantor-and-securitize-collaborate-on-blockchain-based-ipos",
+        "title": "Cantor and Securitize collaborate on blockchain-based IPOs",
+        "observedAt": "2026-07-15T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-15T18:48:20.857Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-15T18:48:20.857Z"
+  },
+  {
+    "id": "korea-tokenized-government-bonds",
+    "name": "South Korea Tokenized Government Bonds",
+    "symbol": "TBD",
+    "category": "RWA/Government",
+    "expectedTge": "Next Year (2027)",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/policy/2026/07/15/south-korea-to-modify-76-year-old-law-to-classify-cryptocurrencies-as-national-assets",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Announcement",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/policy/2026/07/15/south-korea-to-modify-76-year-old-law-to-classify-cryptocurrencies-as-national-assets",
+        "title": "South Korea to modify 76-year-old law to classify cryptocurrencies as national assets",
+        "observedAt": "2026-07-15T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-15T18:48:20.858Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-15T18:48:20.858Z"
   }
 ]
