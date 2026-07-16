@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-15T18:54:01.457Z",
-    "tokenCount": 522,
+    "tokenCount": 519,
     "topIntents": [
       {
         "intent": "risk",
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 78,
+        "tokenCount": 76,
         "avgScore": 87
       },
       {
@@ -17808,82 +17808,6 @@
       ],
       "computedAt": "2026-07-15T18:54:01.457Z"
     },
-    "kinetiq": {
-      "tokenId": "kinetiq",
-      "tokenName": "Kinetiq",
-      "symbol": "kntq",
-      "attentionScore": 66,
-      "attentionLabel": "Rising",
-      "hypeScore": 63,
-      "fundamentalsScore": 18,
-      "supplyRiskScore": 94,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 92,
-          "queries": [
-            "Kinetiq token unlock",
-            "Kinetiq circulating supply",
-            "Kinetiq tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 89,
-          "queries": [
-            "Kinetiq risks",
-            "is Kinetiq safe",
-            "Kinetiq scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 65,
-          "queries": [
-            "Kinetiq price prediction 2026",
-            "Kinetiq price prediction today",
-            "KNTQ price target"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "Kinetiq staking rewards",
-            "Kinetiq yield",
-            "KNTQ APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -39.2% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Kinetiq token unlock",
-        "Kinetiq circulating supply",
-        "Kinetiq tokenomics",
-        "Kinetiq risks",
-        "is Kinetiq safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-15T18:54:01.457Z"
-    },
     "kite-2": {
       "tokenId": "kite-2",
       "tokenName": "Kite",
@@ -29352,82 +29276,6 @@
       ],
       "computedAt": "2026-07-15T18:54:01.457Z"
     },
-    "solstice": {
-      "tokenId": "solstice",
-      "tokenName": "Solstice",
-      "symbol": "slx",
-      "attentionScore": 83,
-      "attentionLabel": "Hot",
-      "hypeScore": 69,
-      "fundamentalsScore": 60,
-      "supplyRiskScore": 91,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 89,
-          "queries": [
-            "Solstice token unlock",
-            "Solstice circulating supply",
-            "Solstice tokenomics"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "Solstice staking rewards",
-            "Solstice yield",
-            "SLX APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 53,
-          "queries": [
-            "Solstice price prediction 2026",
-            "Solstice price prediction today",
-            "SLX price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 53,
-          "queries": [
-            "how to buy Solstice",
-            "where to buy Solstice",
-            "SLX crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 157.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Solstice token unlock",
-        "Solstice circulating supply",
-        "Solstice tokenomics",
-        "Solstice staking rewards",
-        "Solstice yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-15T18:54:01.457Z"
-    },
     "sonic-3": {
       "tokenId": "sonic-3",
       "tokenName": "Sonic",
@@ -30334,84 +30182,6 @@
         "​​Stable tokenomics",
         "​​Stable risks",
         "is ​​Stable safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-15T18:54:01.457Z"
-    },
-    "stablr-usd": {
-      "tokenId": "stablr-usd",
-      "tokenName": "StablR USD",
-      "symbol": "usdr",
-      "attentionScore": 84,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 24,
-      "supplyRiskScore": 18,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "StablR USD price prediction 2026",
-            "StablR USD price prediction today",
-            "USDR price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy StablR USD",
-            "where to buy StablR USD",
-            "USDR crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 100,
-          "queries": [
-            "StablR USD risks",
-            "is StablR USD safe",
-            "StablR USD scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "StablR USD news today",
-            "why is StablR USD moving",
-            "USDR crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -74.9% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 10/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "StablR USD price prediction 2026",
-        "StablR USD price prediction today",
-        "USDR price target",
-        "how to buy StablR USD",
-        "where to buy StablR USD"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
