@@ -4276,5 +4276,85 @@
     "discoveredAt": "2026-07-15T18:48:20.858Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-15T18:48:20.858Z"
+  },
+  {
+    "id": "tradable-stellar",
+    "name": "Tradable",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/tradables-1b-stellar-deal-adds-to-institutional-tokenization-boom",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/tradables-1b-stellar-deal-adds-to-institutional-tokenization-boom",
+        "title": "Tradable’s $1B Stellar deal adds to institutional tokenization boom",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-16T18:49:21.036Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-16T18:49:21.036Z"
+  },
+  {
+    "id": "alpaca-finance",
+    "name": "Alpaca",
+    "symbol": "TBD",
+    "category": "DeFi/AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/alpaca-raises-135m-to-fund-tokenized-agent-first-infrastructure",
+    "lifecycleStatus": "graduated",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/alpaca-raises-135m-to-fund-tokenized-agent-first-infrastructure",
+        "title": "Alpaca raises $135M to fund tokenized agent-first infrastructure",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-16T18:49:21.037Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-07-16T18:55:01.396Z",
+    "graduatedAt": "2026-07-16T18:55:01.396Z",
+    "coingeckoRank": 6195,
+    "graduationEvidence": {
+      "coingeckoId": "alpaca-finance",
+      "coingeckoRank": 6195,
+      "rank": 6195,
+      "priceUsd": 0.00050779,
+      "volume24h": 2653.37,
+      "matchedBy": "id",
+      "verifiedAt": "2026-07-16T18:55:01.396Z"
+    }
+  },
+  {
+    "id": "visa-stablecoin-platform",
+    "name": "Visa Stablecoin Platform",
+    "symbol": "TBD",
+    "category": "Payments/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/373668/visa-stablecoin-platform-banks-fintech-open-usd",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Product/Platform Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373668/visa-stablecoin-platform-banks-fintech-open-usd",
+        "title": "Visa Unveils Stablecoin Platform for Banks and Fintech Companies",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-16T18:49:21.038Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-16T18:49:21.038Z"
   }
 ]
