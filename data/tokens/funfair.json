@@ -1,0 +1,51 @@
+{
+  "id": "funfair",
+  "symbol": "fun",
+  "name": "FUNToken",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/761/large/FUN.png?1696501914",
+  "description": "",
+  "categories": [
+    "Gambling (GambleFi)",
+    "Ethereum Ecosystem",
+    "Pantera Capital Portfolio",
+    "Energi Ecosystem"
+  ],
+  "genesisDate": "2017-06-23",
+  "links": {
+    "website": "https://funtoken.io/",
+    "github": "https://github.com/funtoken/funtoken.github.io",
+    "reddit": "https://www.reddit.com/r/FUN_Token",
+    "explorer": "https://etherscan.io/token/0x419d0d8bdd9af5e606ae2232ed285aff190e711b"
+  },
+  "market": {
+    "price": 0.00402336,
+    "marketCap": 42643093,
+    "marketCapRank": 484,
+    "volume24h": 14228773,
+    "high24h": 0.00405917,
+    "low24h": 0.00387669,
+    "priceChange24h": 3.70844,
+    "priceChange7d": 27.80016,
+    "priceChange30d": 65.01409,
+    "priceChange1y": -80.03886,
+    "ath": 0.191066,
+    "athChangePercentage": -97.88401,
+    "athDate": "2018-01-08T00:00:00.000Z",
+    "atl": 0.00031089,
+    "atlDate": "2026-04-23T11:44:59.959Z",
+    "circulatingSupply": 10598879189.265394,
+    "totalSupply": 10999873621,
+    "maxSupply": null,
+    "fdv": 44256437
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 2,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-17T18:42:22.733Z"
+}

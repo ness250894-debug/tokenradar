@@ -3,20 +3,6 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Ostium suffers $18 million exploit as oracle attack wave continues to hit DeFi",
-      "link": "https://www.coindesk.com/business/2026/07/15/ostium-suffers-usd18-million-exploit-as-oracle-attack-wave-continues-to-hit-defi",
-      "pubDate": "Wed, 15 Jul 2026 15:27:43 +0000",
-      "source": "CoinDesk",
-      "snippet": "A hacker used Ostium's own price-reporting infrastructure against the protocol, submitting falsified future-dated oracle data to manufacture fake trading profits and trigger an $18 million payout."
-    },
-    {
-      "title": "Ostium pauses trading as security firms report multimillion-dollar oracle exploit",
-      "link": "https://cointelegraph.com/news/ostium-pauses-trading-as-security-firms-report-multimillion-dollar-oracle-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 15 Jul 2026 17:14:21 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Ostium halted trading and advised revoking contract approvals after blockchain security firms reported an apparent oracle-related exploit of its OLP liquidity vault, with estimated losses ranging from $18 million to $22 million."
-    },
-    {
       "title": "Morning Minute: Base Hands Its App Over to Cobie",
       "link": "https://decrypt.co/373636/morning-minute-base-hands-its-app-over-to-cobie",
       "pubDate": "Thu, 16 Jul 2026 12:03:28 +0000",
@@ -31,5 +17,5 @@
       "snippet": "Hackers manipulated Ostium&#39;s price feed by compromising an oracle signer key, allowing them to drain roughly $18 million from the Arbitrum-based perpetuals exchange."
     }
   ],
-  "fetchedAt": "2026-07-16T18:55:07.309Z"
+  "fetchedAt": "2026-07-17T18:48:56.310Z"
 }
