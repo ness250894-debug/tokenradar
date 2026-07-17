@@ -1,0 +1,54 @@
+{
+  "id": "alpaca-finance",
+  "symbol": "alpaca",
+  "name": "Alpaca Finance",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14165/large/Logo200.png?1696513884",
+  "description": "Alpaca Finance is the first leveraged yield farming protocol on Binance Smart Chain. We are a fair launch project with no pre-sale, no investor, and no pre-mine. Our protocol will allow user to open a leveraged yield farming position by borrowing from our deposit vaults. ",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "BNB Chain Ecosystem",
+    "Yield Aggregator",
+    "Lending/Borrowing Protocols",
+    "Fantom Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.alpacafinance.org/",
+    "github": "https://github.com/alpaca-finance/alpaca-contract",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x8f0528ce5ef7b51152a59745befdd91d97091d2f"
+  },
+  "market": {
+    "price": 0.00051521,
+    "marketCap": 78141,
+    "marketCapRank": 6154,
+    "volume24h": 1322.87,
+    "high24h": 0.0005242,
+    "low24h": 0.00048359,
+    "priceChange24h": 3.93982,
+    "priceChange7d": 4.95693,
+    "priceChange30d": -24.5244,
+    "priceChange1y": -98.94723,
+    "ath": 8.78,
+    "athChangePercentage": -99.99413,
+    "athDate": "2021-03-06T00:42:02.012Z",
+    "atl": 0.00028278,
+    "atlDate": "2026-07-06T09:55:29.640Z",
+    "circulatingSupply": 151668641.49057245,
+    "totalSupply": 151668641.49057245,
+    "maxSupply": 188000000,
+    "fdv": 78141
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-17T08:22:00.608Z"
+}
