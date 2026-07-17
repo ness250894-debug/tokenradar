@@ -3,11 +3,18 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Ostium suffers $18 million exploit as oracle attack wave continues to hit DeFi",
-      "link": "https://www.coindesk.com/business/2026/07/15/ostium-suffers-usd18-million-exploit-as-oracle-attack-wave-continues-to-hit-defi",
-      "pubDate": "Wed, 15 Jul 2026 15:27:43 +0000",
+      "title": "Airbnb CEO says X account was hacked, attacker posted AI-slop on tokenization",
+      "link": "https://www.coindesk.com/web3/2026/07/17/airbnb-ceo-says-x-account-was-hacked-attacker-posted-ai-slop-thread-on-tokenization",
+      "pubDate": "Fri, 17 Jul 2026 08:50:22 +0000",
       "source": "CoinDesk",
-      "snippet": "A hacker used Ostium's own price-reporting infrastructure against the protocol, submitting falsified future-dated oracle data to manufacture fake trading profits and trigger an $18 million payout."
+      "snippet": "Brian Chesky regained control of his account and told any new crypto followers he would be a \"disappointing follow\"."
+    },
+    {
+      "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
+      "link": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
+      "pubDate": "Thu, 16 Jul 2026 19:00:32 +0000",
+      "source": "Decrypt",
+      "snippet": "Project Eleven says a new post-quantum cryptographic proof could help Bitcoin users recover wallets after Q-Day by verifying ownership."
     },
     {
       "title": "OpenAI Uses AI Red Team to Strengthen GPT-5.6 Against Prompt Injection Attacks",
@@ -24,5 +31,5 @@
       "snippet": "Hackers manipulated Ostium&#39;s price feed by compromising an oracle signer key, allowing them to drain roughly $18 million from the Arbitrum-based perpetuals exchange."
     }
   ],
-  "fetchedAt": "2026-07-16T18:55:07.316Z"
+  "fetchedAt": "2026-07-17T18:48:56.315Z"
 }

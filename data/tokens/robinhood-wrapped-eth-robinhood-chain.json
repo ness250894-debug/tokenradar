@@ -1,0 +1,49 @@
+{
+  "id": "robinhood-wrapped-eth-robinhood-chain",
+  "symbol": "weth",
+  "name": "Robinhood Wrapped ETH (Robinhood Chain)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174283/large/weth-robinhood.jpeg?1782924507",
+  "description": "",
+  "categories": [
+    "Wrapped-Tokens",
+    "Robinhood Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/address/0x0bd7d308f8e1639fab988df18a8011f41eacad73"
+  },
+  "market": {
+    "price": 1839.13,
+    "marketCap": 42039041,
+    "marketCapRank": 493,
+    "volume24h": 164866188,
+    "high24h": 1879.42,
+    "low24h": 1802.89,
+    "priceChange24h": -1.77483,
+    "priceChange7d": 2.19001,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 2063.07,
+    "athChangePercentage": -10.99587,
+    "athDate": "2026-07-08T08:21:50.869Z",
+    "atl": 1640.67,
+    "atlDate": "2026-07-08T03:25:47.823Z",
+    "circulatingSupply": 22879.60311920835,
+    "totalSupply": 23278.78790116574,
+    "maxSupply": null,
+    "fdv": 42772505
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-17T18:42:29.019Z"
+}

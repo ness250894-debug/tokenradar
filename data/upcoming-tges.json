@@ -4356,5 +4356,51 @@
     "discoveredAt": "2026-07-16T18:49:21.038Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-16T18:49:21.038Z"
+  },
+  {
+    "id": "inkling-ai",
+    "name": "Inkling AI",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/373671/mira-murati-inkling-ai-model-openai-open-source",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "New Project Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373671/mira-murati-inkling-ai-model-openai-open-source",
+        "title": "Mira Murati Drops Her First AI Model After Leaving OpenAI—And It's Fully Open Source",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-17T18:43:08.330Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-17T18:43:08.330Z"
+  },
+  {
+    "id": "crypto-com-tokenized-securities",
+    "name": "Crypto.com Tokenized Securities",
+    "symbol": "TBD",
+    "category": "CeFi/RWA/Exchange",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/16/citadel-securities-invests-usd400-million-in-crypto-com-valuing-exchange-at-usd20-billion",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Funding Round",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/16/citadel-securities-invests-usd400-million-in-crypto-com-valuing-exchange-at-usd20-billion",
+        "title": "Citadel Securities invests $400 million in Crypto.com, valuing exchange at $20 billion",
+        "observedAt": "2026-07-16T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-17T18:43:08.331Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-17T18:43:08.331Z"
   }
 ]
