@@ -1,0 +1,51 @@
+{
+  "id": "fgrs-figure-tokenized-stock",
+  "symbol": "fgrs",
+  "name": "FGRS (Figure Tokenized Stock)",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173639/large/figure.png?1780634640",
+  "description": "FGRS is the SEC-registered, blockchain-native common stock for Figure Technology Solutions.\n- Issued, traded, and settled directly on the Provenance Blockchain via Figure’s On-chain Public Equity Network (OPEN).\n- The first SEC–registered public equity to be natively issued and settled entirely on blockchain infrastructure, leveraging Figure’s Alternative Trading System for instantaneous trading.\n- Bypasses traditional clearinghouses, central securities depositories, and custodial institutions.\n- Token holders can use FGRS as collateral for peer-to-peer lending activities directly within Figure's ecosystem.",
+  "categories": [
+    "Tokenized Assets",
+    "Tokenized Stock",
+    "Real World Assets (RWA)",
+    "Provenance Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.figuremarkets.com/exchange/trade/fgrs-ylds",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://zonescan.io/provenance/assets/nfgrd"
+  },
+  "market": {
+    "price": 29.71,
+    "marketCap": 206250594,
+    "marketCapRank": 162,
+    "volume24h": 29308,
+    "high24h": 29.79,
+    "low24h": 29.06,
+    "priceChange24h": 0.62598,
+    "priceChange7d": -12.97805,
+    "priceChange30d": 6.74323,
+    "priceChange1y": 0,
+    "ath": 48.83,
+    "athChangePercentage": -39.1521,
+    "athDate": "2026-07-01T21:39:22.014Z",
+    "atl": 26.34,
+    "atlDate": "2026-06-26T14:57:29.869Z",
+    "circulatingSupply": 6941665,
+    "totalSupply": 6941665,
+    "maxSupply": 6941665,
+    "fdv": 206250594
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-18T18:38:37.246Z"
+}
