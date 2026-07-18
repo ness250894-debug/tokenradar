@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-17T18:48:57.288Z",
-    "tokenCount": 523,
+    "tokenCount": 522,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 212,
+        "tokenCount": 211,
         "avgScore": 72
       },
       {
@@ -987,83 +987,6 @@
         "AI Rig Complex listing date",
         "AI Rig Complex AI crypto",
         "AI Rig Complex AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-17T18:48:57.288Z"
-    },
-    "ai-xovia": {
-      "tokenId": "ai-xovia",
-      "tokenName": "AI XOVIA",
-      "symbol": "aix",
-      "attentionScore": 55,
-      "attentionLabel": "Rising",
-      "hypeScore": 66,
-      "fundamentalsScore": 39,
-      "supplyRiskScore": 8,
-      "classification": "FOMO Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 95,
-          "queries": [
-            "AI XOVIA risks",
-            "is AI XOVIA safe",
-            "AI XOVIA scam check"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 78,
-          "queries": [
-            "AI XOVIA AI crypto",
-            "AI XOVIA AI agent",
-            "AIX AI token"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 69,
-          "queries": [
-            "AI XOVIA meme coin",
-            "AI XOVIA price prediction",
-            "is AI XOVIA worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 45,
-          "queries": [
-            "AI XOVIA price prediction 2026",
-            "AI XOVIA price prediction today",
-            "AIX price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 10/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "AI XOVIA risks",
-        "is AI XOVIA safe",
-        "AI XOVIA scam check",
-        "AI XOVIA AI crypto",
-        "AI XOVIA AI agent"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
