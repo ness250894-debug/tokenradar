@@ -70,6 +70,12 @@ const walletRows = [
     tradeoff: "Safe 7 is newer, so independent field history is shorter",
   },
   {
+    name: "Tangem Wallet / Ring / Pay",
+    bestFor: "Card and wearable users who hate seed phrases",
+    strengths: "NFC card/ring form factor, EAL6+ Secure Element, multi-card physical backup, seedless setup option, Visa payments integration",
+    tradeoff: "Dependent on smartphone NFC; lacks on-device screen for address verification",
+  },
+  {
     name: "Coldcard / Blockstream Jade",
     bestFor: "Bitcoin-only storage",
     strengths: "Focused attack surface, strong Bitcoin workflows, air-gapped options",
@@ -158,6 +164,7 @@ export default function HardwareWalletsPage() {
   const ledger = getPartner("ledger");
   const trezorSafe3 = getPartner("trezor-safe-3");
   const trezorBitcoinOnly = getPartner("trezor-bitcoin-only");
+  const tangem = getPartner("tangem");
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -349,15 +356,18 @@ export default function HardwareWalletsPage() {
                   </table>
                 </div>
 
-                <h2>3. Ledger vs Trezor in Plain English</h2>
+                <h2>3. Ledger vs Trezor vs Tangem in Plain English</h2>
                 <p>
-                  Ledger and Trezor are both credible choices, but their philosophies differ. Ledger emphasizes a Secure Element, Ledger OS, a secure screen model, broad asset support, and newer secure touchscreen devices. Ledger says the Nano X uses an EAL5+ Secure Element, while Nano S Plus, Stax, and other newer devices use EAL6+ class chips.
+                  Ledger, Trezor, and Tangem are all credible choices, but their philosophies differ. Ledger emphasizes a Secure Element, Ledger OS, a secure screen model, broad asset support, and newer secure touchscreen devices. Ledger says the Nano X uses an EAL5+ Secure Element, while Nano S Plus, Stax, and other newer devices use EAL6+ class chips.
                 </p>
                 <p>
                   Trezor emphasizes open-source design and public review. Trezor Safe 3 and Safe 5 use an EAL6+ Secure Element for physical protection, while Trezor Safe 7 adds a second, open auditable Secure Element called TROPIC01. If you value transparency over closed secure hardware, this matters.
                 </p>
                 <p>
-                  A fair recommendation is not &quot;Ledger is safer&quot; or &quot;Trezor is safer.&quot; It is this: Ledger generally wins on mainstream asset coverage and mobile convenience; Trezor generally wins on open-source trust and privacy-oriented workflows. For Bitcoin-only custody, a dedicated Bitcoin wallet can beat both by reducing the asset and app surface.
+                  Tangem rejects the traditional USB/Bluetooth form factor and recovery seed cards entirely. It uses NFC-enabled cards (or rings) with an EAL6+ secure element. Instead of writing down a 12- or 24-word seed phrase, you back up the private key onto 2 or 3 physical cards (though optional seed generation is now supported). This reduces key exposure via paper theft but introduces reliance on NFC-enabled devices.
+                </p>
+                <p>
+                  A fair recommendation is not &quot;Ledger is safer,&quot; &quot;Trezor is safer,&quot; or &quot;Tangem is safer.&quot; It is this: Ledger generally wins on mainstream asset coverage and mobile convenience; Trezor generally wins on open-source trust and privacy-oriented workflows; Tangem wins on durability, physical backup ease, and ultra-portable wearables (Ring) or Visa spending integration (Pay). For Bitcoin-only custody, a dedicated Bitcoin wallet can beat all three by reducing the asset and app surface.
                 </p>
 
                 <figure
@@ -504,6 +514,41 @@ export default function HardwareWalletsPage() {
                       </a>
                     </div>
                   </div>
+
+                  {tangem && (
+                    <div style={{ background: "var(--surface-color)", padding: "var(--space-sm) var(--space-md)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)", marginTop: "var(--space-sm)" }}>
+                      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "var(--space-xs)", position: "relative", height: "112px", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
+                        <Image
+                          src="/images/tangem-og.jpg"
+                          alt="Tangem Wallet card and phone with NFC"
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="300px"
+                        />
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px", gap: "8px" }}>
+                        <span style={{ fontWeight: 700, fontSize: "var(--text-base)" }}>Tangem</span>
+                        <span className="badge badge-accent" style={{ background: "#0099FF", color: "#fff", fontSize: "9px", padding: "1px 5px", border: "none" }}>Paid link</span>
+                      </div>
+                      <ul style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", marginBottom: "var(--space-xs)", paddingLeft: "16px" }}>
+                        <li>EAL6+ card or ring</li>
+                        <li>Seedless backup option</li>
+                      </ul>
+                      <div style={{ background: "rgba(0, 153, 255, 0.1)", border: "1px dashed rgba(0, 153, 255, 0.4)", borderRadius: "var(--radius-sm)", padding: "6px 8px", marginBottom: "var(--space-sm)", textAlign: "center" }}>
+                        <span style={{ color: "#0099FF", fontWeight: 700, fontSize: "12px" }}>
+                          🏷️ 10% off with code <code style={{ background: "rgba(0, 153, 255, 0.15)", padding: "1px 4px", borderRadius: "3px" }}>TOKENRADAR</code>
+                        </span>
+                      </div>
+                      <a
+                        href={tangem.url}
+                        {...getPartnerLinkAttributes(tangem, "hardware-wallet-sidebar")}
+                        className="btn"
+                        style={{ width: "100%", textAlign: "center", background: "#0099FF", color: "#fff", border: "none", fontWeight: 700, padding: "8px", fontSize: "13px" }}
+                      >
+                        {tangem.cta}
+                      </a>
+                    </div>
+                  )}
 
                   <div style={{ marginTop: "var(--space-md)", padding: "var(--space-sm)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "var(--radius-md)", fontSize: "var(--text-xs)", color: "var(--text-secondary)", lineHeight: 1.5 }}>
                     <CheckCircle2 size={14} color="#10b981" style={{ display: "inline", marginRight: "6px", verticalAlign: "-2px" }} />
