@@ -1,27 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { X, ShieldCheck, Tag } from "lucide-react";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 
 const STORAGE_KEY = "tangem_promo_bar_dismissed_v1";
 
-export function PromoAnnouncementBar() {
-  const [dismissed, setDismissed] = useState(true); // default true to avoid flash before hydration
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
 
-  useEffect(() => {
-    try {
-      const isDismissed = localStorage.getItem(STORAGE_KEY) === "true";
-      setDismissed(isDismissed);
-    } catch {
-      setDismissed(false);
-    }
-  }, []);
+function getSnapshot() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function getServerSnapshot() {
+  return true;
+}
+
+export function PromoAnnouncementBar() {
+  const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const handleDismiss = () => {
-    setDismissed(true);
     try {
       localStorage.setItem(STORAGE_KEY, "true");
+      window.dispatchEvent(new Event("storage"));
     } catch (e) {
       console.error(e);
     }
