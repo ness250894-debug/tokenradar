@@ -3,6 +3,7 @@ import { Outfit, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
+import { PromoAnnouncementBar } from "@/components/PromoAnnouncementBar";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToOverviewToast } from "@/components/BackToOverviewToast";
@@ -188,6 +189,7 @@ export default function RootLayout({
       </head>
       <body className={`${outfit.variable} ${jetbrainsMono.variable}`}>
         <ProgressBarProvider>
+          <PromoAnnouncementBar />
           <Navigation />
           <main>{children}</main>
           <Footer />
