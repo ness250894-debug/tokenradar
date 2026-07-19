@@ -3,6 +3,13 @@
   "tokenName": "Quant",
   "articles": [
     {
+      "title": "Bitcoin’s quantum problem gets a recovery tool, but not for Satoshi’s 1.1 million coins",
+      "link": "https://www.coindesk.com/tech/2026/07/19/bitcoin-s-quantum-problem-gets-a-recovery-tool-but-not-for-satoshi-s-1-1-million-coin",
+      "pubDate": "Sun, 19 Jul 2026 10:00:00 +0000",
+      "source": "CoinDesk",
+      "snippet": "Project Eleven says it has funded a proof that lets a wallet's own key-derivation path stand in as ownership after quantum computers can forge its signatures. It runs in 243 milliseconds on a laptop."
+    },
+    {
       "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
       "link": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
       "pubDate": "Thu, 16 Jul 2026 19:00:32 +0000",
@@ -10,5 +17,5 @@
       "snippet": "Project Eleven says a new post-quantum cryptographic proof could help Bitcoin users recover wallets after Q-Day by verifying ownership."
     }
   ],
-  "fetchedAt": "2026-07-18T18:45:10.555Z"
+  "fetchedAt": "2026-07-19T18:47:05.523Z"
 }

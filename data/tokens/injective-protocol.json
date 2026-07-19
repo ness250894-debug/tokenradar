@@ -32,25 +32,25 @@
     "explorer": "https://explorer.injective.network/"
   },
   "market": {
-    "price": 5.14,
-    "marketCap": 513828465,
+    "price": 5.11,
+    "marketCap": 510850213,
     "marketCapRank": 101,
-    "volume24h": 80378746,
-    "high24h": 5.21,
+    "volume24h": 60406690,
+    "high24h": 5.19,
     "low24h": 5.03,
-    "priceChange24h": 1.53931,
-    "priceChange7d": 2.4113774925727074,
-    "priceChange30d": 0.3674888815422188,
-    "priceChange1y": -63.15904776513389,
+    "priceChange24h": -0.43753,
+    "priceChange7d": 4.813239263563571,
+    "priceChange30d": 0.20163306300592224,
+    "priceChange1y": -63.086751240113024,
     "ath": 52.62,
-    "athChangePercentage": -90.21154,
+    "athChangePercentage": -90.33165,
     "athDate": "2024-03-14T15:06:22.124Z",
     "atl": 0.657401,
     "atlDate": "2020-11-03T16:19:30.576Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 513828465
+    "fdv": 510850213
   },
   "community": {
     "twitterFollowers": null,
@@ -62,5 +62,5 @@
     "commits4Weeks": 1
   },
   "fetchedAt": "2026-05-14T07:12:07.272Z",
-  "lastMarketUpdate": "2026-07-18T18:38:30.990Z"
+  "lastMarketUpdate": "2026-07-19T18:40:32.534Z"
 }
