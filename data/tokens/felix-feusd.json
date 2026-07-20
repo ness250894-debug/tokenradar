@@ -19,25 +19,25 @@
     "explorer": "https://hyperevmscan.io/token/0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70"
   },
   "market": {
-    "price": 1,
-    "marketCap": 74974394,
-    "marketCapRank": 314,
-    "volume24h": 7433.78,
-    "high24h": 1.003,
-    "low24h": 0.99895,
-    "priceChange24h": 0.00028,
-    "priceChange7d": 0.32784552176970094,
-    "priceChange30d": 0.4361251043445239,
-    "priceChange1y": 0.445420496932578,
+    "price": 0.997943,
+    "marketCap": 74912862,
+    "marketCapRank": 317,
+    "volume24h": 49324,
+    "high24h": 1.006,
+    "low24h": 0.99831,
+    "priceChange24h": -0.18229,
+    "priceChange7d": -0.09282202043672666,
+    "priceChange30d": -0.10124352388263023,
+    "priceChange1y": 0.3785023032481049,
     "ath": 1.067,
-    "athChangePercentage": -6.33848,
+    "athChangePercentage": -6.36145,
     "athDate": "2025-04-02T15:35:18.907Z",
     "atl": 0.705908,
     "atlDate": "2025-10-10T21:28:16.651Z",
     "circulatingSupply": 75004069,
-    "totalSupply": 8900447640.594563,
+    "totalSupply": 8900438228.36833,
     "maxSupply": null,
-    "fdv": 8896926216
+    "fdv": 8889615033
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:06:19.064Z",
-  "lastMarketUpdate": "2026-07-19T18:40:32.577Z"
+  "lastMarketUpdate": "2026-07-20T19:17:43.805Z"
 }

@@ -4402,5 +4402,120 @@
     "discoveredAt": "2026-07-17T18:43:08.331Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-17T18:43:08.331Z"
+  },
+  {
+    "id": "south-korea-cbdc",
+    "name": "South Korea CBDC",
+    "symbol": "TBD",
+    "category": "CBDC",
+    "expectedTge": "Q3 2024 (Pilot Phase 2)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/south-korea-september-second-phase-cbdc-pilot?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Testnet / Mainnet launches",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/south-korea-september-second-phase-cbdc-pilot?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "South Korea eyes September launch for second phase of CBDC pilot: Report",
+        "observedAt": "2024-07-19T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-20T19:18:33.786Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-20T19:18:33.786Z"
+  },
+  {
+    "id": "project-eleven",
+    "name": "Project Eleven",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 55,
+    "dataSource": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
+    "lifecycleStatus": "candidate",
+    "confidence": 20,
+    "signals": [
+      {
+        "type": "New Project Announcement",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
+        "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-20T19:18:33.787Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-20T19:18:33.787Z"
+  },
+  {
+    "id": "prisml-bonsai",
+    "name": "PrismML Bonsai",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/373578/meet-bonsai-first-27b-ai-model-fits-phone",
+    "lifecycleStatus": "candidate",
+    "confidence": 20,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/373578/meet-bonsai-first-27b-ai-model-fits-phone",
+        "title": "Meet Bonsai: The First 27B AI Model That Fits on Your Phone",
+        "observedAt": "2024-07-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-20T19:18:33.788Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-20T19:18:33.788Z"
+  },
+  {
+    "id": "bank-of-korea-cbdc",
+    "name": "Bank of Korea CBDC",
+    "symbol": "TBD",
+    "category": "CBDC",
+    "expectedTge": "September 2026 (Live Transactions)",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/20/bank-of-korea-prepares-for-live-cbdc-transactions-with-nine-banks-in-september",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Mainnet Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/20/bank-of-korea-prepares-for-live-cbdc-transactions-with-nine-banks-in-september",
+        "title": "Bank of Korea prepares for live CBDC transactions with 9 banks in September",
+        "observedAt": "2026-07-20T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-20T19:18:33.789Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-20T19:18:33.789Z"
+  },
+  {
+    "id": "jpyc-stablecoin",
+    "name": "JPYC Stablecoin",
+    "symbol": "JPYC",
+    "category": "Stablecoin",
+    "expectedTge": "Live (Large-scale Corporate Rollout)",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/07/20/amazon-japan-supplier-az-com-maruwa-to-adopt-yen-stablecoin-jpyc-for-payments",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Launch / Adoption",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/20/amazon-japan-supplier-az-com-maruwa-to-adopt-yen-stablecoin-jpyc-for-payments",
+        "title": "Amazon Japan supplier AZ-Com Maruwa to adopt yen stablecoin JPYC for payments",
+        "observedAt": "2026-07-20T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-20T19:18:33.790Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-20T19:18:33.790Z"
   }
 ]

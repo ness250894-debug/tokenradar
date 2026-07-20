@@ -3,11 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Airbnb CEO says X account was hacked, attacker posted AI-slop on tokenization",
-      "link": "https://www.coindesk.com/web3/2026/07/17/airbnb-ceo-says-x-account-was-hacked-attacker-posted-ai-slop-thread-on-tokenization",
-      "pubDate": "Fri, 17 Jul 2026 08:50:22 +0000",
+      "title": "Exodus to cut 25% of global workforce in payments shift",
+      "link": "https://www.coindesk.com/business/2026/07/20/exodus-to-cut-25-of-global-workforce-in-payments-shift",
+      "pubDate": "Mon, 20 Jul 2026 13:53:08 +0000",
       "source": "CoinDesk",
-      "snippet": "Brian Chesky regained control of his account and told any new crypto followers he would be a \"disappointing follow\"."
+      "snippet": "This restructuring is part of a strategy to build a full-stack payments platform following the company's acquisitions of Monavate and Baanx."
+    },
+    {
+      "title": "Cross-chain protocol Allbridge halts after $1.65 million flash loan exploit",
+      "link": "https://www.coindesk.com/business/2026/07/20/cross-chain-protocol-allbridge-halts-after-usd1-65-million-flash-loan-exploit",
+      "pubDate": "Mon, 20 Jul 2026 09:31:22 +0000",
+      "source": "CoinDesk",
+      "snippet": "The attacker used a $1.12 million flash loan from Kamino to manipulate pool ratios, enabling them to withdraw assets at favorable rates before bridging funds."
+    },
+    {
+      "title": "Allbridge pauses cross-chain bridge after $1.65M exploit",
+      "link": "https://cointelegraph.com/news/allbridge-core-pauses-cross-chain-bridge-after-165m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 20 Jul 2026 02:23:36 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "The attacker allegedly used a flash loan and rapid swaps to manipulate the bridge’s stablecoin exchange rate."
     },
     {
       "title": "Kaspersky identifies malware framework targeting crypto investors",
@@ -17,26 +31,12 @@
       "snippet": "Cybersecurity company Kaspersky said a newly identified malware framework is targeting cryptocurrency investors through social engineering tactics and trojanized GitHub apps."
     },
     {
-      "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
-      "link": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
-      "pubDate": "Thu, 16 Jul 2026 19:00:32 +0000",
+      "title": "Allbridge Pauses Cross-Chain Protocol After $1.65M Flash Loan Attack",
+      "link": "https://decrypt.co/373831/allbridge-pauses-cross-chain-protocol-after-1-65m-flash-loan-attack",
+      "pubDate": "Mon, 20 Jul 2026 13:47:06 +0000",
       "source": "Decrypt",
-      "snippet": "Project Eleven says a new post-quantum cryptographic proof could help Bitcoin users recover wallets after Q-Day by verifying ownership."
-    },
-    {
-      "title": "OpenAI Uses AI Red Team to Strengthen GPT-5.6 Against Prompt Injection Attacks",
-      "link": "https://decrypt.co/373613/openai-ai-red-team-strengthen-gpt-5-6-prompt-injection-attacks",
-      "pubDate": "Wed, 15 Jul 2026 20:50:11 +0000",
-      "source": "Decrypt",
-      "snippet": "OpenAI said its new automated red-teaming model, GPT-Red, uncovered vulnerabilities that were used to make GPT-5.6 more resistant to prompt injection attacks."
-    },
-    {
-      "title": "Another DeFi Exploit: Perp DEX Ostium Loses $18 Million in Oracle Attack",
-      "link": "https://decrypt.co/373566/defi-exploit-ostium-oracle-hack",
-      "pubDate": "Wed, 15 Jul 2026 17:01:25 +0000",
-      "source": "Decrypt",
-      "snippet": "Hackers manipulated Ostium&#39;s price feed by compromising an oracle signer key, allowing them to drain roughly $18 million from the Arbitrum-based perpetuals exchange."
+      "snippet": "An attacker used a flash loan to distort the bridge&#39;s Solana stablecoin pools before moving the proceeds to Ethereum, security firms said."
     }
   ],
-  "fetchedAt": "2026-07-19T18:47:05.554Z"
+  "fetchedAt": "2026-07-20T19:24:32.232Z"
 }
