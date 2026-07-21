@@ -20,25 +20,25 @@
     "explorer": "https://explorer.cronos.org/address/0x4dda1bb6e378dcef97bff1057b6452615e86373c"
   },
   "market": {
-    "price": 9.98839e-7,
-    "marketCap": 43511567,
-    "marketCapRank": 483,
-    "volume24h": 32656,
+    "price": 0.00000101,
+    "marketCap": 44172554,
+    "marketCapRank": 479,
+    "volume24h": 33707,
     "high24h": 0.00000102,
-    "low24h": 9.95654e-7,
-    "priceChange24h": -2.14025,
-    "priceChange7d": 5.384018816802834,
-    "priceChange30d": -2.4046758922401796,
-    "priceChange1y": -63.78407270590236,
+    "low24h": 9.91791e-7,
+    "priceChange24h": 1.45936,
+    "priceChange7d": 4.8172234982482784,
+    "priceChange30d": -1.6453015674879061,
+    "priceChange1y": -62.85468580987782,
     "ath": 0.00033093,
-    "athChangePercentage": -99.69765,
+    "athChangePercentage": -99.69186,
     "athDate": "2021-11-15T10:53:45.925Z",
     "atl": 9.28738e-7,
     "atlDate": "2026-06-30T16:01:23.710Z",
     "circulatingSupply": 43550331272463,
     "totalSupply": 95109375659623,
     "maxSupply": 100000000000000,
-    "fdv": 95024718
+    "fdv": 96468246
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:44:59.731Z",
-  "lastMarketUpdate": "2026-07-20T19:17:43.837Z"
+  "lastMarketUpdate": "2026-07-21T18:57:28.200Z"
 }

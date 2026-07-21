@@ -3,11 +3,18 @@
   "tokenName": "Quant",
   "articles": [
     {
-      "title": "Bitcoin’s quantum problem gets a recovery tool, but not for Satoshi’s 1.1 million coins",
-      "link": "https://www.coindesk.com/tech/2026/07/19/bitcoin-s-quantum-problem-gets-a-recovery-tool-but-not-for-satoshi-s-1-1-million-coin",
-      "pubDate": "Sun, 19 Jul 2026 10:00:00 +0000",
+      "title": "Galaxy sets up $5 million fund to help shield Bitcoin against quantum computing threats",
+      "link": "https://www.coindesk.com/tech/2026/07/21/galaxy-sets-up-usd5-million-fund-to-help-shield-bitcoin-against-quantum-computing-threats",
+      "pubDate": "Tue, 21 Jul 2026 16:16:14 +0000",
       "source": "CoinDesk",
-      "snippet": "Project Eleven says it has funded a proof that lets a wallet's own key-derivation path stand in as ownership after quantum computers can forge its signatures. It runs in 243 milliseconds on a laptop."
+      "snippet": "The crypto financial services firm is funding developers to strengthen the blockchain's security before quantum computers become powerful enough to steal billions in crypto."
+    },
+    {
+      "title": "Galaxy Commits Up to $5 Million to Prepare Bitcoin for Quantum Threat",
+      "link": "https://decrypt.co/373908/galaxy-commits-5-million-prepare-bitcoin-quantum-threat",
+      "pubDate": "Tue, 21 Jul 2026 12:01:03 +0000",
+      "source": "Decrypt",
+      "snippet": "The crypto firm&#39;s initiative arrives as researchers, exchanges, and the U.S. government warn that &#34;Q-Day&#34; may land as soon as 2030."
     },
     {
       "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
@@ -17,5 +24,5 @@
       "snippet": "Project Eleven says a new post-quantum cryptographic proof could help Bitcoin users recover wallets after Q-Day by verifying ownership."
     }
   ],
-  "fetchedAt": "2026-07-20T19:24:32.210Z"
+  "fetchedAt": "2026-07-21T19:04:19.466Z"
 }
