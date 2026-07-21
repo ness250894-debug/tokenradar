@@ -4517,5 +4517,28 @@
     "discoveredAt": "2026-07-20T19:18:33.790Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-20T19:18:33.790Z"
+  },
+  {
+    "id": "base-tokenized-equities",
+    "name": "Base Tokenized Equities",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Imminent",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/bases-tokenized-equities-imminent-pollak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "watchlist",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Launch (Pre-token)",
+        "sourceType": "News Article",
+        "url": "https://cointelegraph.com/news/bases-tokenized-equities-imminent-pollak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Base’s 1:1-backed tokenized equities launch ‘imminent,’ Pollak says",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-21T18:58:18.053Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-21T18:58:18.053Z"
   }
 ]
