@@ -3,40 +3,40 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Cross-chain protocol Allbridge halts after $1.65 million flash loan exploit",
-      "link": "https://www.coindesk.com/business/2026/07/20/cross-chain-protocol-allbridge-halts-after-usd1-65-million-flash-loan-exploit",
-      "pubDate": "Mon, 20 Jul 2026 09:31:22 +0000",
+      "title": "Midnight token rebounds 19% after Wanchain bridge hack, Hoskinson calls for ZK revamp",
+      "link": "https://www.coindesk.com/business/2026/07/22/midnight-token-rebounds-after-wanchain-bridge-hack-hoskinson-calls-for-industry-overhaul",
+      "pubDate": "Wed, 22 Jul 2026 11:45:42 +0000",
       "source": "CoinDesk",
-      "snippet": "The attacker used a $1.12 million flash loan from Kamino to manipulate pool ratios, enabling them to withdraw assets at favorable rates before bridging funds."
+      "snippet": "Charles Hoskinson says the exploit, which briefly sent NIGHT to an all-time low, underscores why the industry needs to move beyond legacy bridge infrastructure."
     },
     {
-      "title": "Allbridge pauses cross-chain bridge after $1.65M exploit",
-      "link": "https://cointelegraph.com/news/allbridge-core-pauses-cross-chain-bridge-after-165m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 20 Jul 2026 02:23:36 +0000",
+      "title": "Balance stablecoin collapses 99% after $1 million exploit drains its bitcoin vaults",
+      "link": "https://www.coindesk.com/tech/2026/07/22/balance-stablecoin-collapses-99-after-usd1-million-exploit-drains-its-bitcoin-vaults",
+      "pubDate": "Wed, 22 Jul 2026 09:01:54 +0000",
+      "source": "CoinDesk",
+      "snippet": "An attacker fed the lending system a fake, abnormally low bitcoin price, liquidated vaults that should have been safe, and pocketed the difference in a single transaction."
+    },
+    {
+      "title": "AI models escaped OpenAI’s sandbox and hit Hugging Face. Crypto is where that gets dangerous",
+      "link": "https://www.coindesk.com/markets/2026/07/22/ai-models-escaped-openai-s-sandbox-and-hit-hugging-face-crypto-is-where-that-gets-dangerous",
+      "pubDate": "Wed, 22 Jul 2026 06:01:56 +0000",
+      "source": "CoinDesk",
+      "snippet": "OpenAI said the systems had their cyber guardrails lowered for an internal benchmark, but the incident shows how autonomous exploit chains could pose a deeper threat to smart contracts."
+    },
+    {
+      "title": "SecondFi to wind down after $2.6M ADA theft linked to wallet flaw",
+      "link": "https://cointelegraph.com/news/secondfi-shutdown-ada-theft-wallet-flaw?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 22 Jul 2026 09:42:00 +0000",
       "source": "CoinTelegraph",
-      "snippet": "The attacker allegedly used a flash loan and rapid swaps to manipulate the bridge’s stablecoin exchange rate."
+      "snippet": "SecondFi will wind down after a $2.6 million ADA theft, while users still await recovery tools that were initially expected within weeks of the exploit."
     },
     {
-      "title": "Upbit parent Dunamu faces South Korean regulator sanctions process: Report",
-      "link": "https://cointelegraph.com/news/south-korean-regulator-inspection-letter-upbit-36m-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Sun, 19 Jul 2026 10:23:00 +0000",
+      "title": "Balance Coin crashes 99% after reported $915K exploit",
+      "link": "https://cointelegraph.com/news/algorithmic-stablecoin-balance-coin-plummets-99-after-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 22 Jul 2026 03:12:48 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Korea’s Virtual Asset User Protection Act lacks explicit sanctions provisions for hacking and similar incidents, clouding the scope of penalties facing the Upbit operator Dunamu."
-    },
-    {
-      "title": "Morning Minute: Base Hands Its App Over to Cobie",
-      "link": "https://decrypt.co/373636/morning-minute-base-hands-its-app-over-to-cobie",
-      "pubDate": "Thu, 16 Jul 2026 12:03:28 +0000",
-      "source": "Decrypt",
-      "snippet": "Plus, Stripe makes a $53 billion move that could crown a stablecoin king. And Ostium gets drained of $18M in the latest DeFi exploit."
-    },
-    {
-      "title": "Another DeFi Exploit: Perp DEX Ostium Loses $18 Million in Oracle Attack",
-      "link": "https://decrypt.co/373566/defi-exploit-ostium-oracle-hack",
-      "pubDate": "Wed, 15 Jul 2026 17:01:25 +0000",
-      "source": "Decrypt",
-      "snippet": "Hackers manipulated Ostium&#39;s price feed by compromising an oracle signer key, allowing them to drain roughly $18 million from the Arbitrum-based perpetuals exchange."
+      "snippet": "The attack allowed the exploiter to liquidate multiple Bitcoin-backed vaults before swapping the assets for profit."
     }
   ],
-  "fetchedAt": "2026-07-20T19:24:32.227Z"
+  "fetchedAt": "2026-07-22T18:55:44.019Z"
 }
