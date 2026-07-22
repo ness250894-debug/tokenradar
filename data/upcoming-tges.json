@@ -4540,5 +4540,74 @@
     "discoveredAt": "2026-07-21T18:58:18.053Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-21T18:58:18.053Z"
+  },
+  {
+    "id": "bitgo-otc-markets",
+    "name": "BitGo OTC Markets Tokenized Securities",
+    "symbol": "TBD",
+    "category": "RWA/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/bitgo-otc-markets-tokenized-securities-broker-dealers",
+    "confidence": 50,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Partnership",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bitgo-otc-markets-tokenized-securities-broker-dealers",
+        "title": "BitGo, OTC Markets plan tokenized securities access for broker-dealers",
+        "observedAt": "2024-07-24T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-22T18:49:37.165Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-22T18:49:37.165Z"
+  },
+  {
+    "id": "buzz-nostr-ai-agents",
+    "name": "Buzz",
+    "symbol": "TBD",
+    "category": "Social/AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/374026/jack-dorseys-block-launches-buzz-a-nostr-based-slack-and-github-rival-for-ai-agents",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374026/jack-dorseys-block-launches-buzz-a-nostr-based-slack-and-github-rival-for-ai-agents",
+        "title": "Jack Dorsey's Block Launches Buzz, a Nostr-Based Slack and GitHub Rival for AI Agents",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-22T18:49:37.166Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-22T18:49:37.166Z"
+  },
+  {
+    "id": "kraken-xstocks-global",
+    "name": "Kraken xStocks",
+    "symbol": "TBD",
+    "category": "DeFi/RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/22/kraken-parent-expands-tokenized-stocks-to-hong-kong-uk-and-south-korea-equities",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Expansion (Tokenized Assets)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/22/kraken-parent-expands-tokenized-stocks-to-hong-kong-uk-and-south-korea-equities",
+        "title": "Kraken parent expands tokenized stocks to Hong Kong, UK and South Korea equities",
+        "observedAt": "2026-07-22T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-22T18:49:37.166Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-22T18:49:37.166Z"
   }
 ]
