@@ -3,40 +3,40 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Balance stablecoin collapses 99% after $1 million exploit drains its bitcoin vaults",
-      "link": "https://www.coindesk.com/tech/2026/07/22/balance-stablecoin-collapses-99-after-usd1-million-exploit-drains-its-bitcoin-vaults",
-      "pubDate": "Wed, 22 Jul 2026 09:01:54 +0000",
+      "title": "Bitcoin, Ethereum-linked protocols lose $35 million in multiple attacks hours apart",
+      "link": "https://www.coindesk.com/tech/2026/07/23/bitcoin-ethereum-linked-protocols-lose-usd35-million-in-multiple-attacks-hours-apart",
+      "pubDate": "Thu, 23 Jul 2026 06:38:18 +0000",
       "source": "CoinDesk",
-      "snippet": "An attacker fed the lending system a fake, abnormally low bitcoin price, liquidated vaults that should have been safe, and pocketed the difference in a single transaction."
+      "snippet": "The attacks hit Verus, B² Network and other cross-chain systems, showing how compromised keys, upgrade powers and validation checks can empty protocols without breaking the underlying cryptography."
     },
     {
-      "title": "Zilliqa Ledger app vulnerability lets attackers recover signer’s private keys",
-      "link": "https://cointelegraph.com/news/zilliqa-ledger-vulnerability-attackers-recover-private-keys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 22 Jul 2026 11:49:53 +0000",
+      "title": "Arbitrum-based AFX Trade drained of $24 million after bridge keys compromised",
+      "link": "https://www.coindesk.com/tech/2026/07/23/arbitrum-based-afx-trade-drained-of-usd24-million-after-bridge-keys-compromised",
+      "pubDate": "Thu, 23 Jul 2026 05:01:06 +0000",
+      "source": "CoinDesk",
+      "snippet": "Security firms said the attacker used enough hot-validator signatures to approve a 24.15 million USDC withdrawal, while Arbitrum said its native bridge was not affected."
+    },
+    {
+      "title": "Here’s why the CLARITY Act’s ethics deal may be so hard to reach",
+      "link": "https://cointelegraph.com/magazine/heres-why-the-clarity-acts-ethics-deal-may-be-so-hard-to-reach?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 23 Jul 2026 16:44:42 +0000",
       "source": "CoinTelegraph",
-      "snippet": "A security vulnerability in the Zilliqa Ledger app is enabling attackers to reconstruct private keys using publicly available onchain data."
+      "snippet": "Both parties say they want US crypto market structure legislation, but a dispute over ethics rules and who enforces them is becoming the bill’s biggest obstacle."
     },
     {
-      "title": "Balance Coin crashes 99% after reported $915K exploit",
-      "link": "https://cointelegraph.com/news/algorithmic-stablecoin-balance-coin-plummets-99-after-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 22 Jul 2026 03:12:48 +0000",
+      "title": "Home invasions became most common crypto wrench attack in H1 2026: CertiK",
+      "link": "https://cointelegraph.com/news/crypto-home-invasions-wrench-attacks-certik-h1-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 23 Jul 2026 08:29:24 +0000",
       "source": "CoinTelegraph",
-      "snippet": "The attack allowed the exploiter to liquidate multiple Bitcoin-backed vaults before swapping the assets for profit."
+      "snippet": "Crypto home invasions rose to 20 in H1 2026 from one a year earlier, while France accounted for 33 of 52 verified wrench attacks, according to CertiK."
     },
     {
-      "title": "Allbridge Pauses Cross-Chain Protocol After $1.65M Flash Loan Attack",
-      "link": "https://decrypt.co/373831/allbridge-pauses-cross-chain-protocol-after-1-65m-flash-loan-attack",
-      "pubDate": "Mon, 20 Jul 2026 13:47:06 +0000",
-      "source": "Decrypt",
-      "snippet": "An attacker used a flash loan to distort the bridge&#39;s Solana stablecoin pools before moving the proceeds to Ethereum, security firms said."
-    },
-    {
-      "title": "Crypto rebounds after Trump TACO’s on Tariffs! BitGo $2.1B IPO! Solana’s SKR token soars 250% FDV!",
-      "link": "https://decrypt.co/videos/interviews/MqZOhomP/crypto-rebounds-after-trump-tacos-on-tariffs-bitgo-21b-ipo-solanas-skr-token-soars-250-fdv",
-      "pubDate": "Thu, 22 Jan 2026 16:14:50 +0000",
-      "source": "Decrypt",
-      "snippet": "Crypto majors are green and rebounding after Trump pivoted on EU tariffs; BTC +2% at $89,900; ETH +2% at $2,995, SOL +2% at $130; XRP +3% to $1.94. CC (+15%), SKY (+11%) and SAND (+10%) led top movers. Crypto markets saw more than $1B in liquidations as Bitcoin rebounded sharply after President Trump signaled a retreat from proposed tariff measures. Vitalik Buterin proposed native DVT staking to strengthen Ethereum security and decentralization, signaling continued protocol-level experimentation. Bitgo announced its IPO at $18 per share, valuing it at ~$2B. The Senate Ag Committee confirmed that its version of the Clarity Act will move forward to markup next week despite lack of bipartisan support. Mortgage lender Newrez explored counting Bitcoin and Ethereum toward mortgage qualification, applying discounted valuations to account for crypto volatility. Hong Kong regulators moved to issue stablecoin licenses under a new framework that imposes strict compliance, reserve, and operational"
+      "title": "Hackers steal $31.6M in 2 crypto bridge attacks within 7 hours",
+      "link": "https://cointelegraph.com/news/afx-protocol-reportedly-loses-24m-in-bridge-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 23 Jul 2026 01:47:20 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "AFX, a decentralized perpetual exchange operating on Arbitrum, reportedly lost $24.15 million on Wednesday, while the Verus Ethereum bridge was attacked hours later."
     }
   ],
-  "fetchedAt": "2026-07-22T18:55:44.028Z"
+  "fetchedAt": "2026-07-23T18:58:05.135Z"
 }
