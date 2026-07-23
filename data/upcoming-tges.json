@@ -4609,5 +4609,108 @@
     "discoveredAt": "2026-07-22T18:49:37.166Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-22T18:49:37.166Z"
+  },
+  {
+    "id": "coinbase-canada-everything-exchange",
+    "name": "Coinbase Canada Everything Exchange",
+    "symbol": "TBD",
+    "category": "CeFi/Prediction Markets/Tokenized Assets",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/374110/coinbase-canada-stocks-crypto-prediction-markets",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Product Launch (potential tokenized products)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374110/coinbase-canada-stocks-crypto-prediction-markets",
+        "title": "Coinbase Wants to Be Canada's One-Stop Shop for Stocks, Crypto and Prediction Markets",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-23T18:51:51.575Z",
+    "status": "upcoming",
+    "lifecycleStatus": "watchlist",
+    "lastVerifiedAt": "2026-07-23T18:51:51.575Z"
+  },
+  {
+    "id": "worldcoin",
+    "name": "Worldcoin",
+    "symbol": "WLD",
+    "category": "Identity/AI/DeFi",
+    "expectedTge": "Already Launched",
+    "narrativeStrength": 85,
+    "dataSource": "https://decrypt.co/373913/worldcoins-wld-jumps-8-on-grayscale-etf-filing",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "exchange_listing_announcement",
+        "sourceType": "news_article",
+        "url": "https://decrypt.co/373913/worldcoins-wld-jumps-8-on-grayscale-etf-filing",
+        "title": "Worldcoin’s WLD Jumps 8% on Grayscale ETF Filing",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-23T18:51:51.575Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-23T18:51:51.575Z"
+  },
+  {
+    "id": "kaio",
+    "name": "KAIO",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/23/abu-dhabi-s-mubadala-capital-joins-tokenization-push-as-coinbase-takes-stake-in-onchain-fund",
+    "lifecycleStatus": "graduated",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Funding Round",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/23/abu-dhabi-s-mubadala-capital-joins-tokenization-push-as-coinbase-takes-stake-in-onchain-fund",
+        "title": "Abu Dhabi's Mubadala Capital joins tokenization push as Coinbase takes stake in onchain fund",
+        "observedAt": "2026-07-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-23T18:51:51.576Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-07-23T18:58:00.331Z",
+    "graduatedAt": "2026-07-23T18:58:00.331Z",
+    "coingeckoRank": 491,
+    "graduationEvidence": {
+      "coingeckoId": "kaio",
+      "coingeckoRank": 491,
+      "rank": 491,
+      "priceUsd": 0.074826,
+      "volume24h": 10166005,
+      "matchedBy": "id",
+      "verifiedAt": "2026-07-23T18:58:00.331Z"
+    }
+  },
+  {
+    "id": "superstate",
+    "name": "Superstate",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/07/22/uniswap-pushes-deeper-into-tokenized-assets-with-permissioned-trading-pools",
+    "lifecycleStatus": "candidate",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/22/uniswap-pushes-deeper-into-tokenized-assets-with-permissioned-trading-pools",
+        "title": "Uniswap pushes deeper into tokenized assets with permissioned trading pools",
+        "observedAt": "2026-07-22T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-23T18:51:51.576Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-23T18:51:51.576Z"
   }
 ]

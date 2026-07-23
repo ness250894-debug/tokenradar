@@ -25,25 +25,25 @@
     "explorer": "https://tzstats.com/"
   },
   "market": {
-    "price": 0.226337,
-    "marketCap": 246996091,
+    "price": 0.22658,
+    "marketCap": 247285243,
     "marketCapRank": 145,
-    "volume24h": 8826537,
-    "high24h": 0.230193,
-    "low24h": 0.224481,
-    "priceChange24h": -0.87311,
-    "priceChange7d": -0.2966369007578924,
-    "priceChange30d": -2.974775591692274,
-    "priceChange1y": -76.15022524878026,
+    "volume24h": 9247328,
+    "high24h": 0.2291,
+    "low24h": 0.224672,
+    "priceChange24h": -1,
+    "priceChange7d": -0.5,
+    "priceChange30d": 2.1,
+    "priceChange1y": -74.6,
     "ath": 9.12,
-    "athChangePercentage": -97.52106,
-    "athDate": "2021-10-04T00:41:18.025Z",
-    "atl": 0.200019,
-    "atlDate": "2026-07-01T01:20:17.874Z",
-    "circulatingSupply": 1091285336.316329,
-    "totalSupply": 1111270898.238452,
+    "athChangePercentage": -97.51449,
+    "athDate": "2021-10-03T16:41:18.000Z",
+    "atl": 0.200009,
+    "atlDate": "2026-06-25T13:59:50.000Z",
+    "circulatingSupply": 1091379621.284814,
+    "totalSupply": 1111365389.112144,
     "maxSupply": null,
-    "fdv": 251519523
+    "fdv": 251813531
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:37:37.121Z",
-  "lastMarketUpdate": "2026-07-22T18:48:50.761Z"
+  "lastMarketUpdate": "2026-07-23T18:51:09.779Z"
 }

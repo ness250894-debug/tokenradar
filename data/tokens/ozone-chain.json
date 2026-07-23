@@ -17,25 +17,25 @@
     "explorer": "https://ozonescan.io/"
   },
   "market": {
-    "price": 0.130386,
-    "marketCap": 125292156,
+    "price": 0.130249,
+    "marketCap": 125161036,
     "marketCapRank": 223,
-    "volume24h": 263857,
-    "high24h": 0.130753,
-    "low24h": 0.130073,
-    "priceChange24h": -0.04974,
-    "priceChange7d": 0.15025878224749475,
-    "priceChange30d": -0.05591681343116436,
-    "priceChange1y": -8.504940273647279,
+    "volume24h": 269306,
+    "high24h": 0.130883,
+    "low24h": 0.130131,
+    "priceChange24h": -0.2,
+    "priceChange7d": -0.1,
+    "priceChange30d": 0,
+    "priceChange1y": -5.9,
     "ath": 0.485077,
-    "athChangePercentage": -73.11153,
-    "athDate": "2024-04-29T09:02:20.045Z",
+    "athChangePercentage": -73.14872,
+    "athDate": "2024-04-29T01:02:20.000Z",
     "atl": 0.060046,
-    "atlDate": "2023-10-07T21:15:21.451Z",
+    "atlDate": "2023-10-07T13:15:21.000Z",
     "circulatingSupply": 960933314,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 130385901
+    "fdv": 130249450
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:24:26.728Z",
-  "lastMarketUpdate": "2026-07-22T18:48:50.779Z"
+  "lastMarketUpdate": "2026-07-23T18:51:09.797Z"
 }
