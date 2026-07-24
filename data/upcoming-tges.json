@@ -4712,5 +4712,74 @@
     "discoveredAt": "2026-07-23T18:51:51.576Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-23T18:51:51.576Z"
+  },
+  {
+    "id": "digital-x",
+    "name": "Digital X",
+    "symbol": "TBD",
+    "category": "CeFi/RWA/Stablecoins",
+    "expectedTge": "Future (Rebranding/Strategic Shift)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/korbit-rebrand-digital-x-mirae-asset?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Token Migration / Rebranding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/korbit-rebrand-digital-x-mirae-asset?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "South Korea’s Korbit to rebrand as Digital X under Mirae: Report",
+        "observedAt": "2024-07-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-24T19:06:28.540Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-24T19:06:28.540Z"
+  },
+  {
+    "id": "world-foundation",
+    "name": "World Foundation",
+    "symbol": "TBD",
+    "category": "Identity/AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 80,
+    "dataSource": "https://decrypt.co/374216/world-foundation-raises-52-5m-to-scale-sam-altmans-proof-of-human-id",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374216/world-foundation-raises-52-5m-to-scale-sam-altmans-proof-of-human-id",
+        "title": "World Foundation Raises $52.5M to Scale Sam Altman’s ‘Proof of Human’ ID",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-24T19:06:28.541Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-24T19:06:28.541Z"
+  },
+  {
+    "id": "world-network",
+    "name": "World Network",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/07/24/sam-altman-backed-world-network-secures-fresh-funding-to-fight-online-ai-deepfakes",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/24/sam-altman-backed-world-network-secures-fresh-funding-to-fight-online-ai-deepfakes",
+        "title": "Sam Altman-backed World Network secures $52.5 million in fresh funding to fight online AI deepfakes",
+        "observedAt": "2026-07-24T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-24T19:06:28.542Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-24T19:06:28.542Z"
   }
 ]

@@ -17,25 +17,25 @@
     "explorer": "https://era.zksync.network/address/0x2ab105a3ead22731082b790ca9a00d9a3a7627f9"
   },
   "market": {
-    "price": 11958.27,
-    "marketCap": 47805098,
-    "marketCapRank": 445,
+    "price": 11959.47,
+    "marketCap": 47809895,
+    "marketCapRank": 443,
     "volume24h": 0,
-    "high24h": 11958.27,
+    "high24h": 11959.47,
     "low24h": 11958.27,
-    "priceChange24h": 2,
-    "priceChange7d": 2,
-    "priceChange30d": 2,
-    "priceChange1y": 3.9,
-    "ath": 11958.27,
+    "priceChange24h": 0.01003,
+    "priceChange7d": 0.06995166139378486,
+    "priceChange30d": 0.29973842077940194,
+    "priceChange1y": 3.9228260614544688,
+    "ath": 11959.47,
     "athChangePercentage": 0,
-    "athDate": "2026-07-23T04:25:10.000Z",
+    "athDate": "2026-07-23T21:20:18.618Z",
     "atl": 11251.76,
-    "atlDate": "2025-01-21T00:25:04.000Z",
+    "atlDate": "2025-01-21T08:25:04.328Z",
     "circulatingSupply": 3997.66,
     "totalSupply": 3997.66,
     "maxSupply": null,
-    "fdv": 47805098
+    "fdv": 47809895
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:36:02.292Z",
-  "lastMarketUpdate": "2026-07-23T18:51:09.842Z"
+  "lastMarketUpdate": "2026-07-24T19:05:28.686Z"
 }
