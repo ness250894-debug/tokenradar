@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-23T18:58:06.081Z",
-    "tokenCount": 517,
+    "tokenCount": 516,
     "topIntents": [
       {
         "intent": "risk",
@@ -1450,82 +1450,6 @@
         "AUSDT depeg risk",
         "Alloy Tether risks",
         "is Alloy Tether safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-23T18:58:06.081Z"
-    },
-    "alpaca-finance": {
-      "tokenId": "alpaca-finance",
-      "tokenName": "Alpaca Finance",
-      "symbol": "alpaca",
-      "attentionScore": 59,
-      "attentionLabel": "Rising",
-      "hypeScore": 58,
-      "fundamentalsScore": 49,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "airdrop",
-      "intentMix": [
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 82,
-          "queries": [
-            "Alpaca Finance airdrop",
-            "Alpaca Finance TGE",
-            "Alpaca Finance listing date"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 80,
-          "queries": [
-            "Alpaca Finance risks",
-            "is Alpaca Finance safe",
-            "Alpaca Finance scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 65,
-          "queries": [
-            "Alpaca Finance price prediction 2026",
-            "Alpaca Finance price prediction today",
-            "ALPACA price target"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "Alpaca Finance staking rewards",
-            "Alpaca Finance yield",
-            "ALPACA APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -24.5% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Alpaca Finance airdrop",
-        "Alpaca Finance TGE",
-        "Alpaca Finance listing date",
-        "Alpaca Finance risks",
-        "is Alpaca Finance safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
