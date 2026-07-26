@@ -1,0 +1,62 @@
+{
+  "id": "euler",
+  "symbol": "eul",
+  "name": "Euler",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/26149/large/Coingecko_logo_%281%29.png?1706026067",
+  "description": "The ability to lend and borrow assets efficiently is a crucial feature of any financial system. In the world of traditional finance, this process is typically facilitated by trusted and permissioned third-parties such as banks, who connect people with a surplus of money to those who need access to it in the short term. In the world of decentralised finance (DeFi), trusted and permissioned third-parties are no longer needed; banks have been replaced by trustless and permissionless lending protocols running on the blockchain (1).\nAmong the first-generation of DeFi lending protocols are Compound (2) and Aave (3). These protocols provide users with access to lending and borrowing capabilities for a handful of the most liquid ERC20 tokens. However, these protocols were not designed to handle the risks associated with lending and borrowing illiquid or volatile assets and have therefore relied on a permissioned listing system to protect their users from the risks associated with such assets.\nConsequently, there remains significant unmet demand for lending and borrowing the long tail of crypto assets. On the lending side, users want to deposit tokens to earn yield and take leveraged long positions. On the borrowing side, users want to reduce their exposure to volatility and take leveraged short positions. Here, we present Euler: a permissionless lending protocol custom-built with an array of new features to help users lend and borrow more types of tokens than ever before.",
+  "categories": [
+    "BNB Chain Ecosystem",
+    "Lending/Borrowing Protocols",
+    "Avalanche Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Berachain Ecosystem",
+    "Paradigm Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Sonic Ecosystem",
+    "Swellchain Ecosystem",
+    "Unichain Ecosystem",
+    "TAC Ecosystem",
+    "Plasma Ecosystem",
+    "BOB Network Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.euler.finance/",
+    "github": "https://github.com/euler-xyz",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xd9fcd98c322942075a5c3860693e9f4f03aae07b"
+  },
+  "market": {
+    "price": 2.31,
+    "marketCap": 62830821,
+    "marketCapRank": 395,
+    "volume24h": 180990740,
+    "high24h": 2.69,
+    "low24h": 1.61,
+    "priceChange24h": 43.2416,
+    "priceChange7d": 144.36217,
+    "priceChange30d": 125.63004,
+    "priceChange1y": -81.80403,
+    "ath": 15.81,
+    "athChangePercentage": -85.3839,
+    "athDate": "2025-07-10T21:56:24.000Z",
+    "atl": 0.719702,
+    "atlDate": "2026-03-29T22:44:00.000Z",
+    "circulatingSupply": 24146317.188470602,
+    "totalSupply": 27182818.28459,
+    "maxSupply": 27182818,
+    "fdv": 62830821
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-26T18:44:21.366Z"
+}

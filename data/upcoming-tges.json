@@ -4781,5 +4781,120 @@
     "discoveredAt": "2026-07-24T19:06:28.542Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-24T19:06:28.542Z"
+  },
+  {
+    "id": "black-forest-labs",
+    "name": "Black Forest Labs",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/374189/black-forest-labs-flux-3-image-video-robot-hands",
+    "lifecycleStatus": "candidate",
+    "confidence": 20,
+    "signals": [
+      {
+        "type": "New Product/Tech Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374189/black-forest-labs-flux-3-image-video-robot-hands",
+        "title": "Black Forest Labs Unveils FLUX 3 AI: Ditches Stills for Video—And Robot Hands",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-26T18:45:17.482Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-26T18:45:17.482Z"
+  },
+  {
+    "id": "zhibao",
+    "name": "Zhibao",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/374178/nasdaq-listed-zhibao-bitcoin-treasury-220-million-stock-sale",
+    "lifecycleStatus": "candidate",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "Tokenization Initiative",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374178/nasdaq-listed-zhibao-bitcoin-treasury-220-million-stock-sale",
+        "title": "Nasdaq-Listed Zhibao Wants a Bitcoin Treasury, Plans to Sell $220M in Stock for BTC",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-26T18:45:17.483Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-26T18:45:17.483Z"
+  },
+  {
+    "id": "brazilian-cow-tokenization",
+    "name": "Brazilian Cow Tokenization",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Live (Pilot/Early Stage)",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/374148/brazilian-farmers-cows-blockchain-loans",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Tokenization Initiative",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374148/brazilian-farmers-cows-blockchain-loans",
+        "title": "Brazilian Farmers Are Tokenizing Cows to Get Farm Loans—And It's Working",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-26T18:45:17.484Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-26T18:45:17.484Z"
+  },
+  {
+    "id": "quantum-proof-bitcoin-consortium",
+    "name": "Quantum-Proof Bitcoin Consortium",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/374145/blackrock-coinbase-strategy-15m-quantum-proof-bitcoin",
+    "lifecycleStatus": "candidate",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "Major Funding Round",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374145/blackrock-coinbase-strategy-15m-quantum-proof-bitcoin",
+        "title": "BlackRock, Coinbase and Strategy Pledge $15M to Quantum-Proof Bitcoin",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-26T18:45:17.484Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-26T18:45:17.484Z"
+  },
+  {
+    "id": "alibaba-qwen-image-ai",
+    "name": "Alibaba Qwen Image 3 AI",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/374084/alibaba-qwen-image-3-ai-useful-not-just-pretty",
+    "lifecycleStatus": "candidate",
+    "confidence": 20,
+    "signals": [
+      {
+        "type": "New Product/Tech Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374084/alibaba-qwen-image-3-ai-useful-not-just-pretty",
+        "title": "Alibaba's New Qwen Image 3 AI Wants to Be Useful, Not Just Pretty",
+        "observedAt": "2024-09-23T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-26T18:45:17.485Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-26T18:45:17.485Z"
   }
 ]

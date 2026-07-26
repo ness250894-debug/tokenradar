@@ -16,25 +16,25 @@
     "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
   },
   "market": {
-    "price": 1.003,
-    "marketCap": 116013938,
-    "marketCapRank": 236,
-    "volume24h": 1824.98,
+    "price": 1,
+    "marketCap": 115758013,
+    "marketCapRank": 237,
+    "volume24h": 1361.94,
     "high24h": 1.005,
-    "low24h": 0.99432,
-    "priceChange24h": 0,
-    "priceChange7d": -0.2,
-    "priceChange30d": 3.2,
-    "priceChange1y": -0.4,
-    "ath": 1.059,
-    "athChangePercentage": -5.29055,
-    "athDate": "2025-10-10T13:48:29.000Z",
-    "atl": 0.924607,
-    "atlDate": "2026-06-19T19:10:00.000Z",
-    "circulatingSupply": 115726572.9068425,
-    "totalSupply": 115726572.9068425,
+    "low24h": 0.995159,
+    "priceChange24h": -0.31516,
+    "priceChange7d": -1.8386351552429296,
+    "priceChange30d": 0.31547917662131575,
+    "priceChange1y": 0.019290613394260938,
+    "ath": 1.061,
+    "athChangePercentage": -5.74962,
+    "athDate": "2026-05-19T15:20:09.996Z",
+    "atl": 0.951733,
+    "atlDate": "2026-04-20T11:30:11.090Z",
+    "circulatingSupply": 115726561.2771611,
+    "totalSupply": 115726561.2771611,
     "maxSupply": null,
-    "fdv": 116013938
+    "fdv": 115758013
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:21:57.458Z",
-  "lastMarketUpdate": "2026-07-25T18:41:19.062Z"
+  "lastMarketUpdate": "2026-07-26T18:44:14.764Z"
 }
