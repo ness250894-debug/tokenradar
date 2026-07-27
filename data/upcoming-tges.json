@@ -4896,5 +4896,120 @@
     "discoveredAt": "2026-07-26T18:45:17.485Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-26T18:45:17.485Z"
+  },
+  {
+    "id": "sberbank-crypto-trading",
+    "name": "Sberbank Crypto Trading Infrastructure",
+    "symbol": "TBD",
+    "category": "CeFi/Infrastructure",
+    "expectedTge": "Q4 2024",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/russias-sberbank-to-launch-crypto-trading-infrastructure-this-year",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/russias-sberbank-to-launch-crypto-trading-infrastructure-this-year",
+        "title": "Russia’s Sberbank to launch crypto trading infrastructure this year",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-27T19:03:18.882Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-27T19:03:18.882Z"
+  },
+  {
+    "id": "jpmorgan-kinexys-kb-kookmin",
+    "name": "JPMorgan Kinexys (KB Kookmin Bank Integration)",
+    "symbol": "TBD",
+    "category": "DeFi/Cross-border Payments",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/south-korea-bank-payment-jpmorgans-kinexys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Integration",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/south-korea-bank-payment-jpmorgans-kinexys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "South Korea’s largest bank to launch payment service on JPMorgan’s Kinexys",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-27T19:03:18.883Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-27T19:03:18.883Z"
+  },
+  {
+    "id": "robinhood-cryptocom-prediction-markets",
+    "name": "Robinhood/Crypto.com Prediction Markets",
+    "symbol": "TBD",
+    "category": "DeFi/Prediction Markets",
+    "expectedTge": "Discussion Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/robinhood-cryptocom-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Partnership Discussions",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/robinhood-cryptocom-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Robinhood in talks with Crypto.com over prediction markets: WSJ",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-27T19:03:18.884Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-27T19:03:18.884Z"
+  },
+  {
+    "id": "amina-bank",
+    "name": "AMINA Bank",
+    "symbol": "TBD",
+    "category": "DeFi/Banking",
+    "expectedTge": "IPO/Public Listing Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/27/cantor-is-advising-crypto-bank-amina-on-path-to-potential-public-listing",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Public Listing Exploration",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/27/cantor-is-advising-crypto-bank-amina-on-path-to-potential-public-listing",
+        "title": "Cantor is advising crypto bank AMINA on path to potential public listing",
+        "observedAt": "2026-07-27T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-27T19:03:18.885Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-27T19:03:18.885Z"
+  },
+  {
+    "id": "fanatics-prediction-markets",
+    "name": "Fanatics Prediction Markets",
+    "symbol": "TBD",
+    "category": "Gaming/Prediction Markets",
+    "expectedTge": "Acquisition/Integration Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/markets/2026/07/27/fanatics-buys-regulated-exchange-in-bid-to-grow-prediction-markets-business",
+    "lifecycleStatus": "watchlist",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "Acquisition for Prediction Market Infrastructure",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/07/27/fanatics-buys-regulated-exchange-in-bid-to-grow-prediction-markets-business",
+        "title": "Fanatics buys regulated exchange in bid to grow prediction markets business",
+        "observedAt": "2026-07-27T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-27T19:03:18.887Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-27T19:03:18.887Z"
   }
 ]
