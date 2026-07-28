@@ -1,0 +1,51 @@
+{
+  "id": "tori-trusd",
+  "symbol": "trusd",
+  "name": "Tori trUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174232/large/trUSD.png?1782647856",
+  "description": "Tori Finance is a DeFi protocol that brings delta-neutral trading strategies on-chain. Its core asset, trUSD, is a synthetic dollar collateralized by the protocol's trading positions and redeemable for USDC or USDT by eligible users, subject to protocol terms. Users can stake trUSD to mint strUSD, whose exchange rate to trUSD reflects the performance of the underlying strategies. The strategies are designed to be delta-neutral, with no directional view on crypto prices. Any returns are variable, performance-based, and not guaranteed. ",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Synthetic Dollar"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tori.finance/",
+    "github": "https://github.com/Tori-Finance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xd0580192E98eA6CEB9c7b6191Ed2E27560911697"
+  },
+  "market": {
+    "price": 1.001,
+    "marketCap": 50294055,
+    "marketCapRank": 417,
+    "volume24h": 1183658,
+    "high24h": 1.027,
+    "low24h": 0.999809,
+    "priceChange24h": 0.10383,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.027,
+    "athChangePercentage": -2.5081,
+    "athDate": "2026-07-27T19:50:43.329Z",
+    "atl": 0.99956,
+    "atlDate": "2026-07-27T16:05:47.626Z",
+    "circulatingSupply": 50226885.05486711,
+    "totalSupply": 50226885.05486711,
+    "maxSupply": null,
+    "fdv": 50294055
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-07-28T18:58:14.735Z"
+}

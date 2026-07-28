@@ -20,25 +20,25 @@
     "explorer": "https://xrpscan.com/token/524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De"
   },
   "market": {
-    "price": 1,
-    "marketCap": 1585870248,
-    "marketCapRank": 49,
-    "volume24h": 95312704,
-    "high24h": 1,
-    "low24h": 1,
-    "priceChange24h": 0,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 0.999904,
+    "marketCap": 1590668567,
+    "marketCapRank": 47,
+    "volume24h": 144685821,
+    "high24h": 1.001,
+    "low24h": 0.999366,
+    "priceChange24h": -0.01001,
+    "priceChange7d": -0.010837214657468544,
+    "priceChange30d": 0.02295832207620146,
+    "priceChange1y": 0.04507718299882854,
     "ath": 1.073,
-    "athChangePercentage": -6.77193,
-    "athDate": "2024-12-26T02:45:52.000Z",
+    "athChangePercentage": -6.77117,
+    "athDate": "2024-12-26T10:45:52.337Z",
     "atl": 0.962292,
-    "atlDate": "2024-12-17T20:40:40.000Z",
-    "circulatingSupply": 1585640914.750468,
-    "totalSupply": 1585640914.750468,
+    "atlDate": "2024-12-18T04:40:40.880Z",
+    "circulatingSupply": 1590820958.750467,
+    "totalSupply": 1590820958.750467,
     "maxSupply": null,
-    "fdv": 1585870248
+    "fdv": 1590668567
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:30:14.473Z",
-  "lastMarketUpdate": "2026-07-27T19:02:38.587Z"
+  "lastMarketUpdate": "2026-07-28T18:58:02.521Z"
 }
