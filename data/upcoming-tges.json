@@ -5011,5 +5011,28 @@
     "discoveredAt": "2026-07-27T19:03:18.887Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-27T19:03:18.887Z"
+  },
+  {
+    "id": "kraken-jersey-mikes-tokenized-ipo",
+    "name": "Kraken Jersey Mike's Tokenized IPO",
+    "symbol": "TBD",
+    "category": "RWA/Tokenized Securities",
+    "expectedTge": "Immediate (IPO access available)",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/kraken-opens-jersey-mikes-ipo-to-retail-investors-through-tokenized-shares-and-direct-allocations",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/kraken-opens-jersey-mikes-ipo-to-retail-investors-through-tokenized-shares-and-direct-allocations",
+        "title": "Kraken opens Jersey Mike’s IPO to retail investors through tokenized shares and direct allocations",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-28T18:59:01.593Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-28T18:59:01.593Z"
   }
 ]
