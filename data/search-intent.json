@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-07-27T19:10:00.385Z",
-    "tokenCount": 522,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 220,
+        "tokenCount": 219,
         "avgScore": 73
       },
       {
@@ -26001,84 +26001,6 @@
         "is Pump.fun worth buying",
         "how to buy Pump.fun",
         "where to buy Pump.fun"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-07-27T19:10:00.385Z"
-    },
-    "purr-2": {
-      "tokenId": "purr-2",
-      "tokenName": "Purr",
-      "symbol": "purr",
-      "attentionScore": 62,
-      "attentionLabel": "Rising",
-      "hypeScore": 71,
-      "fundamentalsScore": 42,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Purr risks",
-            "is Purr safe",
-            "Purr scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 67,
-          "queries": [
-            "Purr meme coin",
-            "Purr price prediction",
-            "is Purr worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 53,
-          "queries": [
-            "Purr price prediction 2026",
-            "Purr price prediction today",
-            "PURR price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Purr token unlock",
-            "Purr circulating supply",
-            "Purr tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -26.4% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Purr risks",
-        "is Purr safe",
-        "Purr scam check",
-        "Purr meme coin",
-        "Purr price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
