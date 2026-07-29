@@ -5034,5 +5034,74 @@
     "discoveredAt": "2026-07-28T18:59:01.593Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-28T18:59:01.593Z"
+  },
+  {
+    "id": "rl1-cooperative-blockchain",
+    "name": "RL1 Cooperative Blockchain Network",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage / Early Operations",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/markets/european-financial-institutions-launch-rl1-blockchain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/markets/european-financial-institutions-launch-rl1-blockchain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "European financial institutions launch RL1 cooperative blockchain network",
+        "observedAt": "2024-08-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-29T18:43:45.805Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-29T18:43:45.805Z"
+  },
+  {
+    "id": "brale-protocol",
+    "name": "Brale Protocol",
+    "symbol": "TBD",
+    "category": "Stablecoin Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/07/29/stablecoin-firm-brale-says-new-protocol-can-remove-a-major-hurdle-to-scaling-custom-tokens",
+    "confidence": 70,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "New Protocol Announcement",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/29/stablecoin-firm-brale-says-new-protocol-can-remove-a-major-hurdle-to-scaling-custom-tokens",
+        "title": "Stablecoin firm Brale says new protocol can remove a major hurdle to scaling custom tokens",
+        "observedAt": "2026-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-29T18:43:45.805Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-29T18:43:45.805Z"
+  },
+  {
+    "id": "bny-tokenized-funds",
+    "name": "BNY Tokenized Funds",
+    "symbol": "TBD",
+    "category": "RWA/TradFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/07/29/bny-targets-usd8-6-trillion-transfer-agency-market-on-blockchain-rails",
+    "confidence": 70,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Product Launch / Tokenization Initiative",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/07/29/bny-targets-usd8-6-trillion-transfer-agency-market-on-blockchain-rails",
+        "title": "BNY targets $8.6 trillion transfer agency market on blockchain rails",
+        "observedAt": "2026-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-29T18:43:45.806Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-29T18:43:45.806Z"
   }
 ]
