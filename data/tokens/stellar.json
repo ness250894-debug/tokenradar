@@ -21,25 +21,25 @@
     "explorer": "https://dashboard.stellar.org/"
   },
   "market": {
-    "price": 0.172551,
-    "marketCap": 5904054311,
+    "price": 0.172224,
+    "marketCap": 5894043428,
     "marketCapRank": 20,
-    "volume24h": 106286926,
-    "high24h": 0.175403,
-    "low24h": 0.171066,
-    "priceChange24h": 0,
-    "priceChange7d": -9.8,
-    "priceChange30d": -0.8,
-    "priceChange1y": -58.6,
+    "volume24h": 93064969,
+    "high24h": 0.173524,
+    "low24h": 0.16878,
+    "priceChange24h": -0.9,
+    "priceChange7d": -5,
+    "priceChange30d": -5.1,
+    "priceChange1y": -58.3,
     "ath": 0.875563,
-    "athChangePercentage": -80.29258,
+    "athChangePercentage": -80.32992,
     "athDate": "2018-01-02T16:00:00.000Z",
     "atl": 0.00047612,
     "atlDate": "2015-03-04T16:00:00.000Z",
-    "circulatingSupply": 34224940773.228413,
+    "circulatingSupply": 34226974368.945225,
     "totalSupply": 50001786839.91247,
     "maxSupply": null,
-    "fdv": 8625676436
+    "fdv": 8610539159
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 86
   },
   "fetchedAt": "2026-05-14T07:34:27.401Z",
-  "lastMarketUpdate": "2026-07-29T18:42:48.545Z"
+  "lastMarketUpdate": "2026-07-30T19:01:56.901Z"
 }
