@@ -22,25 +22,25 @@
     "explorer": "https://explorer.coti.io/"
   },
   "market": {
-    "price": 0.01609525,
-    "marketCap": 47642893,
-    "marketCapRank": 433,
-    "volume24h": 144519971,
-    "high24h": 0.01871158,
-    "low24h": 0.01022883,
-    "priceChange24h": 30.73705,
-    "priceChange7d": 108.6735,
-    "priceChange30d": 90.82994,
-    "priceChange1y": -71.48889,
+    "price": 0.01441464,
+    "marketCap": 42657211,
+    "marketCapRank": 466,
+    "volume24h": 106938498,
+    "high24h": 0.02031264,
+    "low24h": 0.01442694,
+    "priceChange24h": -12.1,
+    "priceChange7d": 95.9,
+    "priceChange30d": 75.9,
+    "priceChange1y": -74.6,
     "ath": 0.668634,
-    "athChangePercentage": -97.59282,
+    "athChangePercentage": -97.84417,
     "athDate": "2021-09-29T03:39:21.000Z",
     "atl": 0.00556342,
     "atlDate": "2019-11-07T02:29:26.000Z",
-    "circulatingSupply": 2958338813.15088,
-    "totalSupply": 2958676754.415021,
+    "circulatingSupply": 2960162483.9478393,
+    "totalSupply": 2960500709.645817,
     "maxSupply": 4910000000,
-    "fdv": 47643440
+    "fdv": 42662085
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 4,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-07-29T18:42:54.570Z"
+  "fetchedAt": "2026-07-29T18:42:54.570Z",
+  "lastMarketUpdate": "2026-07-30T19:01:56.985Z"
 }

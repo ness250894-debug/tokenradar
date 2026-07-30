@@ -20,25 +20,25 @@
     "explorer": "https://hydration.subscan.io"
   },
   "market": {
-    "price": 0.00701693,
-    "marketCap": 41527427,
-    "marketCapRank": 496,
-    "volume24h": 79634,
-    "high24h": 0.00703027,
-    "low24h": 0.00626205,
-    "priceChange24h": 12.1385,
-    "priceChange7d": 18.76476,
-    "priceChange30d": 85.36153,
-    "priceChange1y": -38.19362,
+    "price": 0.00755585,
+    "marketCap": 44716462,
+    "marketCapRank": 454,
+    "volume24h": 217557,
+    "high24h": 0.00737166,
+    "low24h": 0.00696431,
+    "priceChange24h": 6.3,
+    "priceChange7d": 29.4,
+    "priceChange30d": 98.5,
+    "priceChange1y": -25.3,
     "ath": 0.054409,
-    "athChangePercentage": -87.10341,
+    "athChangePercentage": -86.11292,
     "athDate": "2026-04-07T06:24:00.000Z",
     "atl": 0.00135872,
     "atlDate": "2026-05-29T23:36:00.000Z",
     "circulatingSupply": 5918174822,
     "totalSupply": 6422921278.131422,
     "maxSupply": 6500000000,
-    "fdv": 45069199
+    "fdv": 48530218
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-07-26T18:44:33.469Z"
+  "fetchedAt": "2026-07-26T18:44:33.469Z",
+  "lastMarketUpdate": "2026-07-30T19:01:56.983Z"
 }

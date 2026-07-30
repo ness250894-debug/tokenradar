@@ -3,11 +3,25 @@
   "tokenName": "Quant",
   "articles": [
     {
-      "title": "AmericanFortress proposes quantum-safe crypto wallet protection without fund migration",
-      "link": "https://cointelegraph.com/news/americanfortress-proposes-quantum-safe-crypto-wallet-protection-without-fund-migration?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 28 Jul 2026 18:47:26 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "The proposed cryptographic scheme aims to protect existing Bitcoin, Ethereum and Solana wallets from future quantum attacks without requiring users to move funds or change wallet addresses."
+      "title": "Bitcoin's quantum plan assumes some algorithms break. AI just weakened one in 60 hours",
+      "link": "https://www.coindesk.com/tech/2026/07/29/bitcoin-s-quantum-plan-assumes-some-algorithms-break-ai-just-weakened-one-in-60-hours",
+      "pubDate": "Thu, 30 Jul 2026 04:16:30 +0000",
+      "source": "CoinDesk",
+      "snippet": "The HAWK system isn't deployed anywhere, and Bitcoin doesn't use it. But is sitting in the same quantum race that Bitcoin developers are scrambling to finish."
+    },
+    {
+      "title": "Bitcoin Quantum Threat Inches Closer as IBM Claims &#39;Trusted Quantum Advantage&#39;",
+      "link": "https://decrypt.co/374753/bitcoin-quantum-threat-ibm-claims-trusted-quantum-advantage",
+      "pubDate": "Thu, 30 Jul 2026 17:36:03 +0000",
+      "source": "Decrypt",
+      "snippet": "The advance reflects IBM’s continued progress toward machines powerful enough to challenge today&#39;s cryptography."
+    },
+    {
+      "title": "There&#39;s a New Way to Protect Bitcoin From Future Quantum Attacks, Researchers Say",
+      "link": "https://decrypt.co/374651/new-research-bitcoin-wallet-quantum-attacks-safe",
+      "pubDate": "Wed, 29 Jul 2026 20:01:03 +0000",
+      "source": "Decrypt",
+      "snippet": "New research outlines a cryptographic approach that could allow Bitcoin and other blockchain wallets to remain compatible with existing addresses in a post-quantum future."
     },
     {
       "title": "Morning Minute: Claude Mythos Breaks Post-Quantum Cryptography",
@@ -24,5 +38,5 @@
       "snippet": "Anthropic’s locked model found a new attack on a post-quantum signature scheme headed for U.S. federal standardization."
     }
   ],
-  "fetchedAt": "2026-07-29T18:50:34.607Z"
+  "fetchedAt": "2026-07-30T19:10:01.953Z"
 }

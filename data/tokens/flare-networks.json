@@ -17,25 +17,25 @@
     "explorer": "https://flarescan.com/"
   },
   "market": {
-    "price": 0.00628442,
-    "marketCap": 546287338,
+    "price": 0.00628521,
+    "marketCap": 544843558,
     "marketCapRank": 95,
-    "volume24h": 2925081,
-    "high24h": 0.00632765,
-    "low24h": 0.00616257,
-    "priceChange24h": 0.5,
-    "priceChange7d": -6.5,
-    "priceChange30d": -4,
-    "priceChange1y": -74.2,
+    "volume24h": 2553190,
+    "high24h": 0.00635415,
+    "low24h": 0.00621781,
+    "priceChange24h": -0.4,
+    "priceChange7d": -2.5,
+    "priceChange30d": -3.1,
+    "priceChange1y": -74.1,
     "ath": 0.150073,
-    "athChangePercentage": -95.81242,
+    "athChangePercentage": -95.8119,
     "athDate": "2023-01-09T19:14:05.000Z",
     "atl": 0.00616257,
     "atlDate": "2026-07-28T20:42:10.000Z",
-    "circulatingSupply": 86958136191.8717,
-    "totalSupply": 106260106357.2542,
+    "circulatingSupply": 86693282352.74687,
+    "totalSupply": 106266835163.9135,
     "maxSupply": null,
-    "fdv": 667548401
+    "fdv": 667857987
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:07:03.440Z",
-  "lastMarketUpdate": "2026-07-29T18:42:48.561Z"
+  "lastMarketUpdate": "2026-07-30T19:01:56.916Z"
 }
