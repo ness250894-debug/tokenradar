@@ -5202,5 +5202,51 @@
     "status": "upcoming",
     "lifecycleStatus": "candidate",
     "lastVerifiedAt": "2026-07-30T19:03:04.517Z"
+  },
+  {
+    "id": "bybit-tokenized-stocks-collateral",
+    "name": "Bybit Tokenized Stocks as Collateral",
+    "symbol": "TBD",
+    "category": "CeFi/RWA",
+    "expectedTge": "Ongoing",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/bybit-tokenized-stocks-collateral-margin-loans",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch (Tokenized Asset Integration)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bybit-tokenized-stocks-collateral-margin-loans",
+        "title": "Bybit adds tokenized Nvidia, Apple, Tesla stocks as loan collateral",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-31T18:59:50.309Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-31T18:59:50.309Z"
+  },
+  {
+    "id": "bis-project-agora",
+    "name": "BIS Project Agorá",
+    "symbol": "TBD",
+    "category": "CBDC/Payments",
+    "expectedTge": "Trial Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://cointelegraph.com/news/bis-project-agor-tokenized-cross-border-payment-trials",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Testnet / Pilot Program",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bis-project-agor-tokenized-cross-border-payment-trials",
+        "title": "BIS Project Agorá settles $1 million in tokenized cross-border payment trials",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-07-31T18:59:50.310Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-07-31T18:59:50.310Z"
   }
 ]
