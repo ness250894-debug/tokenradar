@@ -5248,5 +5248,35 @@
     "discoveredAt": "2026-07-31T18:59:50.310Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-07-31T18:59:50.310Z"
+  },
+  {
+    "id": "robinhood-prediction-markets",
+    "name": "Robinhood Prediction Markets",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/374693/robinhood-earnings-best-quarter-ever-crypto",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch (potential future token)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374693/robinhood-earnings-best-quarter-ever-crypto",
+        "title": "Robinhood Posts Best Quarter Ever as Prediction Market and Robinhood Chain Take Off",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      },
+      {
+        "type": "Product Launch (potential future token)",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374702/morning-minute-robinhood-posts-its-best-quarter-ever",
+        "title": "Morning Minute: Robinhood Posts Its Best Quarter Ever",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-01T18:43:21.828Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-01T18:43:21.828Z"
   }
 ]
