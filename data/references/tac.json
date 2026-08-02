@@ -3,6 +3,13 @@
   "tokenName": "TAC",
   "articles": [
     {
+      "title": "Bitcoin cold-wallet attack spreads to 4,500 addresses as losses near $89 million",
+      "link": "https://www.coindesk.com/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million",
+      "pubDate": "Sat, 01 Aug 2026 20:10:54 +0000",
+      "source": "CoinDesk",
+      "snippet": "Galaxy Research flagged a third wave of sweeps tied to weak Coldcard-generated keys, with the attacker now targeting smaller balances and changing how funds are collected onchain."
+    },
+    {
       "title": "How bitcoin cold wallets lost $70 million in an attack that never touched the devices",
       "link": "https://www.coindesk.com/tech/2026/08/01/how-bitcoin-cold-wallets-lost-usd70-million-in-an-attack-that-never-touched-the-devices",
       "pubDate": "Sat, 01 Aug 2026 05:55:46 +0000",
@@ -10,26 +17,26 @@
       "snippet": "Galaxy Research said weak seed generation let an attacker recreate likely private keys offline, sweep more than 1,000 BTC from nearly 1,200 wallets and continue searching without ever accessing the devices."
     },
     {
+      "title": "Coldcard hack sparks biggest sub-1 BTC move since FTX: CryptoQuant",
+      "link": "https://cointelegraph.com/news/coldcard-biggest-sub-1-btc-transfer-ftx-cryptoquant?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Sun, 02 Aug 2026 08:07:00 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Bitcoin users moved 39,600 BTC in small transactions as the Coldcard hack continued, with researchers warning that the attack remained active."
+    },
+    {
+      "title": "Coldcard Bitcoin Exploit Balloons to $88 Million as Attackers Keep Draining Wallets",
+      "link": "https://decrypt.co/374817/coldcard-bitcoin-exploit-88-million-attackers-draining-wallets",
+      "pubDate": "Sun, 02 Aug 2026 17:18:51 +0000",
+      "source": "Decrypt",
+      "snippet": "Galaxy Research says a third wave of thefts from Coldcard Bitcoin wallets has pushed observed losses to roughly 1,367 BTC across 4,585 addresses."
+    },
+    {
       "title": "$38M in Bitcoin Drained by Coldcard Key Flaw Its Maker Thinks AI Found",
       "link": "https://decrypt.co/374766/38m-in-bitcoin-drained-by-coldcard-key-flaw-its-maker-thinks-ai-found",
       "pubDate": "Fri, 31 Jul 2026 09:02:01 +0000",
       "source": "Decrypt",
       "snippet": "Coinkite said it’s likely that an attacker used AI to review previous versions of its open source firmware to uncover a vulnerability."
-    },
-    {
-      "title": "Australia Sues Telegram for $38M Over ‘Pro-Terror’ Videos",
-      "link": "https://decrypt.co/374725/australia-sues-telegram-for-38m-over-pro-terror-videos",
-      "pubDate": "Thu, 30 Jul 2026 15:22:50 +0000",
-      "source": "Decrypt",
-      "snippet": "The eSafety Commissioner accused the social media platform of failing to detect material relating to the Christchurch and Buffalo attacks."
-    },
-    {
-      "title": "There&#39;s a New Way to Protect Bitcoin From Future Quantum Attacks, Researchers Say",
-      "link": "https://decrypt.co/374651/new-research-bitcoin-wallet-quantum-attacks-safe",
-      "pubDate": "Wed, 29 Jul 2026 20:01:03 +0000",
-      "source": "Decrypt",
-      "snippet": "New research outlines a cryptographic approach that could allow Bitcoin and other blockchain wallets to remain compatible with existing addresses in a post-quantum future."
     }
   ],
-  "fetchedAt": "2026-08-01T18:50:25.777Z"
+  "fetchedAt": "2026-08-02T18:51:22.383Z"
 }

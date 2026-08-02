@@ -5278,5 +5278,74 @@
     "discoveredAt": "2026-08-01T18:43:21.828Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-01T18:43:21.828Z"
+  },
+  {
+    "id": "amlbot-ai-tracer",
+    "name": "AMLBot AI Tracer",
+    "symbol": "TBD",
+    "category": "AI/Infrastructure",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/crypto-forensics-firm-launches-ai-tracing-service-track-your-stolen-coins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/crypto-forensics-firm-launches-ai-tracing-service-track-your-stolen-coins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "AMLBot launches AI Tracer for self-service blockchain investigations",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-02T18:44:12.550Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-02T18:44:12.550Z"
+  },
+  {
+    "id": "circle-new-york-trust-charter",
+    "name": "Circle New York Trust Charter",
+    "symbol": "TBD",
+    "category": "CeFi/Stablecoins",
+    "expectedTge": "Operational Milestone",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/circle-receives-new-york-trust-charter-for-subsidiary?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Regulatory Approval/Operational Milestone",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/circle-receives-new-york-trust-charter-for-subsidiary?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Circle receives New York trust charter for subsidiary",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-02T18:44:12.550Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-02T18:44:12.550Z"
+  },
+  {
+    "id": "coldcard-mk3-warning",
+    "name": "Coldcard Mk3 Warning",
+    "symbol": "N/A",
+    "category": "Hardware Wallet/Security",
+    "expectedTge": "N/A (security alert)",
+    "narrativeStrength": 50,
+    "dataSource": "https://cointelegraph.com/news/coldcard-mk3-warning-594-btc-sweep?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "Security Alert/Product Update",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/coldcard-mk3-warning-594-btc-sweep?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Coldcard issues Mk3 warning as experts examine $38M Bitcoin wallet drain",
+        "observedAt": "2024-07-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-02T18:44:12.551Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-02T18:44:12.551Z"
   }
 ]
