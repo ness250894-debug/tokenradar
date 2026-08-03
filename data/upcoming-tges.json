@@ -5347,5 +5347,51 @@
     "discoveredAt": "2026-08-02T18:44:12.551Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-02T18:44:12.551Z"
+  },
+  {
+    "id": "zilo",
+    "name": "Zilo",
+    "symbol": "TBD",
+    "category": "DeFi/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/ripple-invests-zilo-licuido-tokenized-capital-markets-push",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/ripple-invests-zilo-licuido-tokenized-capital-markets-push",
+        "title": "Ripple invests in Zilo and Licuido to assist tokenized capital markets push",
+        "observedAt": "2024-08-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-03T19:11:28.304Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-03T19:11:28.304Z"
+  },
+  {
+    "id": "blackrock-tokenized-mm-funds",
+    "name": "BlackRock Tokenized Money Market Funds",
+    "symbol": "TBD",
+    "category": "RWA/DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/08/03/blackrock-expands-tokenized-cash-with-new-blockchain-based-money-market-offerings",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Product Launch / Expansion",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/03/blackrock-expands-tokenized-cash-with-new-blockchain-based-money-market-offerings",
+        "title": "BlackRock expands tokenized cash with new blockchain-based money market offerings",
+        "observedAt": "2026-08-03T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-03T19:11:28.306Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-03T19:11:28.306Z"
   }
 ]
