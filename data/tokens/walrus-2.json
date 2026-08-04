@@ -18,25 +18,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL"
   },
   "market": {
-    "price": 0.02521455,
-    "marketCap": 63316693,
-    "marketCapRank": 351,
-    "volume24h": 2507353,
-    "high24h": 0.02542681,
-    "low24h": 0.0245446,
-    "priceChange24h": 0,
-    "priceChange7d": -8.6,
-    "priceChange30d": -26.3,
-    "priceChange1y": -93.3,
+    "price": 0.02487435,
+    "marketCap": 62525315,
+    "marketCapRank": 355,
+    "volume24h": 2570253,
+    "high24h": 0.02552635,
+    "low24h": 0.02443901,
+    "priceChange24h": -1.6,
+    "priceChange7d": -6.3,
+    "priceChange30d": -24.2,
+    "priceChange1y": -93.7,
     "ath": 0.759179,
-    "athChangePercentage": -96.67871,
+    "athChangePercentage": -96.72352,
     "athDate": "2025-05-14T00:10:39.000Z",
-    "atl": 0.0245446,
-    "atlDate": "2026-08-03T08:22:30.000Z",
+    "atl": 0.02443901,
+    "atlDate": "2026-08-04T15:38:20.000Z",
     "circulatingSupply": 2510208333,
     "totalSupply": 5000000000,
     "maxSupply": 5000000000,
-    "fdv": 126118403
+    "fdv": 124542084
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:45:06.048Z",
-  "lastMarketUpdate": "2026-08-03T19:10:43.619Z"
+  "lastMarketUpdate": "2026-08-04T19:12:08.171Z"
 }

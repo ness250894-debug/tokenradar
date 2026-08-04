@@ -1,0 +1,51 @@
+{
+  "id": "allunity-chf",
+  "symbol": "chfau",
+  "name": "AllUnity CHF",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172300/large/CHFAU_red.png?1782278502",
+  "description": "AllUnity CHF (CHFAU) is a fully regulated Swiss franc-denominated stablecoin issued under the European Union’s Markets in Crypto-Assets Regulation (MiCAR). Launched on 26/02/2026, CHFAU is designed to offer secure, programmable, and transparent Swiss franc liquidity for institutional and retail applications across public blockchain networks.\n\nAllUnity GmbH, the issuer of CHFAU, is a German company headquartered in Frankfurt and licensed as an electronic money institution (EMI) by the Federal Financial Supervisory Authority (BaFin). The company operates as a joint venture between DWS, Flow Traders, and Galaxy Digital. This structure provides a strong institutional foundation for long-term compliance, infrastructure resilience, and adoption across financial markets.\n\nCHFAU is fully backed 1:1 by Swiss franc-denominated reserves, held with authorized credit institutions within the European Economic Area. The reserves are safeguarded under strict prudential standards and are not used for lending or investment purposes. On-chain issuance and redemption follow a verified flow with wallet and account whitelisting, designed to align with AML, KYC, and regulatory expectations. Users are able to mint and redeem CHFAU through authorized partners and platforms, with an emphasis on transparency and auditability.\n\nCHFAU is deployed initially on Base, Ethereum, and Tempo, Polygon. More blockchains supported will be added over time, as part of AllUnity multicurrency, multichain focus. The smart contract architecture ensures upgradability through secure multisig control, subject to internal governance procedures. Minting and burning are controlled by permissioned wallets operated by partners to prevent unauthorized issuance and maintain supply integrity.\n\nThe token aims to serve multiple use cases, including digital asset trading, payments, treasury solutions, and on-chain finance (DeFi). CHFAU is designed to be accessible to exchanges, market makers, payment institutions, fintechs, and tokenized asset platforms looking to integrate Swiss franc liquidity in a compliant manner.\n\nAllUnity maintains active collaborations with infrastructure providers, custodians, and trading venues. Institutional and professional clients can access CHFAU through one of AllUnity's distribution partners (Rulematch, Bitcoin Suisse) or through the AllUnity Mint Platform.The stablecoin plays a foundational role in building a Swiss-franc-based financial ecosystem on public blockchain infrastructure, while staying fully aligned with European regulatory frameworks.\n\nThe project roadmap includes expanding interoperability across additional chains, supporting on/off ramps with banking partners, and enabling programmability for enterprise use cases.",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem",
+    "Fiat-backed Stablecoin",
+    "CHF Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://allunity.com/chfau/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xbd4dfc058eb95b8de5ceaf39966a1a70f5556f78"
+  },
+  "market": {
+    "price": 1.24,
+    "marketCap": 59752817,
+    "marketCapRank": 370,
+    "volume24h": 943.68,
+    "high24h": 1.24,
+    "low24h": 1.23,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.24,
+    "athChangePercentage": -0.00765,
+    "athDate": "2026-08-04T18:55:30.000Z",
+    "atl": 1.23,
+    "atlDate": "2026-08-04T12:44:10.000Z",
+    "circulatingSupply": 48280021.921656,
+    "totalSupply": 48280021.921656,
+    "maxSupply": null,
+    "fdv": 59752817
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-04T19:12:14.106Z"
+}
