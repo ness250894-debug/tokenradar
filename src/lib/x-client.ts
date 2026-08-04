@@ -574,7 +574,7 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
     const response = await withRetry(
       () => client.posts.create({
         text: cleanText,
-        ...(replyToTweetId ? { reply: { in_reply_to_tweet_id: replyToTweetId } } : {}),
+        ...(replyToTweetId ? { reply: { inReplyToTweetId: replyToTweetId } } : {}),
       }),
       "postTweet"
     );
@@ -622,12 +622,10 @@ export async function postTweetWithMedia(
       // Step 1: INIT — tell X about the file size and type
       const initResponse = await withRetry(
         () => client.media.initializeUpload({
-          body: {
-            mediaCategory: "tweet_video",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            mediaType: mimeType as any,
-            totalBytes: mediaBuffer.length,
-          },
+          mediaCategory: "tweet_video",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          mediaType: mimeType as any,
+          totalBytes: mediaBuffer.length,
         }),
         "mediaInitialize"
       );
@@ -727,16 +725,15 @@ export async function postTweetWithMedia(
       const mediaBase64 = mediaBuffer.toString("base64");
       const uploadResponse = await withRetry(
         () => client.media.upload({
-          body: {
-            media: mediaBase64,
-            mediaCategory: "tweet_image",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            ...(mimeType ? { mediaType: mimeType as any } : {}),
-          },
+          media: mediaBase64,
+          mediaCategory: "tweet_image",
         }),
         "mediaUpload"
       );
-      mediaId = String(uploadResponse?.data?.id ?? uploadResponse?.data?.media_id_string ?? "");
+      // Keep the legacy response fallback for older X deployments while using
+      // the v0.6 SDK's canonical `id` field.
+      const uploadData = uploadResponse?.data as Record<string, unknown> | undefined;
+      mediaId = String(uploadData?.id ?? uploadData?.media_id_string ?? "");
       if (mediaId) {
         console.info(`  ✓ Image uploaded (media_id: ${mediaId}, type: ${mimeType})`);
       }
@@ -756,10 +753,10 @@ export async function postTweetWithMedia(
   try {
     const tweetBody: Record<string, unknown> = { text: cleanText };
     if (mediaId) {
-      tweetBody.media = { media_ids: [mediaId] };
+      tweetBody.media = { mediaIds: [mediaId] };
     }
     if (replyToTweetId) {
-      tweetBody.reply = { in_reply_to_tweet_id: replyToTweetId };
+      tweetBody.reply = { inReplyToTweetId: replyToTweetId };
     }
 
     const response = await withRetry(
@@ -834,7 +831,7 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
         text: cleanText,
         poll: {
           options: cleanPollOptions,
-          duration_minutes: duration,
+          durationMinutes: duration,
         },
       }),
       "nativePoll"
