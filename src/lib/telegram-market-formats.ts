@@ -3,6 +3,7 @@ import { formatCompact, formatPercent, formatPrice, getRiskTier } from "./format
 export const TELEGRAM_MARKET_FORMATS = [
   "market-brief",
   "market-pulse",
+  "radar-divergence",
   "watchlist-check",
 ] as const;
 
@@ -63,6 +64,13 @@ export interface TelegramMarketPostDraft {
   variantKey: string;
   variantLabel: string;
   variantSurface: string;
+}
+
+export interface RadarDivergenceRead {
+  label: string;
+  implication: string;
+  invalidation: string;
+  volumeToMarketCapPercent: number | null;
 }
 
 const DEFAULT_GLOBAL_STATS = "Global market feed unavailable; using token-level context.";
@@ -135,6 +143,63 @@ function volumeToCapLabel(volume24h: number, marketCap: number): string {
   return `${(volume24h / marketCap * 100).toFixed(1)}% volume/market-cap`;
 }
 
+function volumeToCapPercent(volume24h: number, marketCap: number): number | null {
+  if (!Number.isFinite(volume24h) || !Number.isFinite(marketCap) || marketCap <= 0) {
+    return null;
+  }
+
+  return volume24h / marketCap * 100;
+}
+
+export function getRadarDivergenceRead(token: TelegramMarketToken): RadarDivergenceRead {
+  const move = Math.abs(Number.isFinite(token.priceChange24h) ? token.priceChange24h : 0);
+  const participation = volumeToCapPercent(token.volume24h, token.marketCap);
+  const risk = token.riskScore ?? 5;
+
+  if (risk >= 7) {
+    return {
+      label: "Risk leads the read",
+      implication: "The headline move carries less weight while the risk score stays elevated.",
+      invalidation: "The gap closes if risk falls and participation remains durable.",
+      volumeToMarketCapPercent: participation,
+    };
+  }
+
+  if (move >= 5 && participation !== null && participation < 6) {
+    return {
+      label: "Price leads participation",
+      implication: "Momentum is moving faster than turnover, so the evidence is still thin.",
+      invalidation: "The gap closes if turnover expands while price holds the move.",
+      volumeToMarketCapPercent: participation,
+    };
+  }
+
+  if (move < 3 && participation !== null && participation >= 12) {
+    return {
+      label: "Participation leads price",
+      implication: "Turnover is active before price has made a decisive move.",
+      invalidation: "The gap closes if activity fades without price follow-through.",
+      volumeToMarketCapPercent: participation,
+    };
+  }
+
+  if (move >= 3 && participation !== null && participation >= 8) {
+    return {
+      label: "Price and participation align",
+      implication: "The move has supporting turnover, but risk still defines its quality.",
+      invalidation: "The read weakens if turnover contracts while price stalls.",
+      volumeToMarketCapPercent: participation,
+    };
+  }
+
+  return {
+    label: "No clean confirmation",
+    implication: "Price, turnover, and risk are not giving one strong shared signal yet.",
+    invalidation: "The read changes when either participation or price direction becomes decisive.",
+    volumeToMarketCapPercent: participation,
+  };
+}
+
 function riskLabel(score: number): string {
   return `${getRiskTier(score)} (${score}/10)`;
 }
@@ -171,6 +236,52 @@ function marketPulseImageData(
       riskScore: token.riskScore ?? 5,
     },
   };
+}
+
+function radarDivergenceImageData(
+  token: TelegramMarketToken,
+  context: TelegramMarketContext,
+  read: RadarDivergenceRead,
+): TelegramMarketPulseImageData {
+  const participation = read.volumeToMarketCapPercent === null
+    ? "Turnover: unavailable"
+    : `Volume / market cap: ${read.volumeToMarketCapPercent.toFixed(1)}%`;
+
+  return {
+    title: "Radar Divergence",
+    subtitle: "Momentum vs participation vs risk",
+    generatedAtLabel: formatUtcDate(context.generatedAt ?? new Date()),
+    globalStats: `Read: ${read.label}`,
+    sectorLines: [
+      `24h move: ${formatPercent(token.priceChange24h)}`,
+      participation,
+      `Risk: ${riskLabel(token.riskScore ?? 5)}`,
+    ],
+    featuredToken: {
+      symbol: token.symbol.toUpperCase(),
+      name: token.name,
+      priceChange24h: token.priceChange24h || 0,
+      marketCapRank: token.marketCapRank || 0,
+      riskScore: token.riskScore ?? 5,
+    },
+  };
+}
+
+function buildRadarDivergenceCaption(token: TelegramMarketToken): string {
+  const symbol = token.symbol.toUpperCase();
+  const read = getRadarDivergenceRead(token);
+  const participation = read.volumeToMarketCapPercent === null
+    ? "unavailable"
+    : `${read.volumeToMarketCapPercent.toFixed(1)}% volume/market-cap`;
+
+  return [
+    `<b>Radar Divergence: $${symbol}</b>`,
+    `Price: ${formatPercent(token.priceChange24h)} over 24h | Participation: ${participation}.`,
+    `Risk: ${riskLabel(token.riskScore ?? 5)} | Rank #${token.marketCapRank || "N/A"}.`,
+    `Gap: <b>${read.label}</b>.`,
+    `Why it matters: ${read.implication}`,
+    `What changes the read: ${read.invalidation}`,
+  ].join("\n");
 }
 
 function buildMarketPulseCaption(token: TelegramMarketToken, context: TelegramMarketContext): string {
@@ -238,6 +349,18 @@ export function buildTelegramMarketPost(options: {
       image: tokenImageData(token),
       variantKey: "watchlist_check",
       variantLabel: "Watchlist Check",
+      variantSurface: getTelegramMarketVariantSurface(format),
+    };
+  }
+
+  if (format === "radar-divergence") {
+    const read = getRadarDivergenceRead(token);
+    return {
+      format,
+      captionBody: buildRadarDivergenceCaption(token),
+      image: { kind: "market-pulse", data: radarDivergenceImageData(token, context, read) },
+      variantKey: "radar_divergence",
+      variantLabel: "Radar Divergence",
       variantSurface: getTelegramMarketVariantSurface(format),
     };
   }

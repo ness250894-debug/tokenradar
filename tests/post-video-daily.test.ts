@@ -53,6 +53,20 @@ describe("post-video-daily CLI planning", () => {
     });
   });
 
+  it("limits the scheduled video route to Instagram and YouTube", () => {
+    expect(resolveVideoDailyPlatformFlags("instagram-youtube")).toEqual({
+      runTelegram: false,
+      runX: false,
+      runYouTube: true,
+      runInstagram: true,
+      runThreads: false,
+      runTikTok: false,
+    });
+
+    const plan = resolveVideoDailyPlatformPlan("instagram-youtube", true, noCredentials);
+    expect(plan.requestedPlatforms).toEqual(["youtube", "instagram"]);
+  });
+
   it("keeps dry-run short-form planning publishable without live credentials", () => {
     const plan = resolveVideoDailyPlatformPlan("shorts", true, noCredentials);
 

@@ -148,9 +148,11 @@ describe("publishInstagramCarousel", () => {
     process.env.IG_ACCESS_TOKEN = "ig-token";
     process.env.IG_ACCOUNT_ID = "ig-user";
     vi.spyOn(console, "info").mockImplementation(() => undefined);
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     delete process.env.IG_ACCESS_TOKEN;
     delete process.env.IG_ACCOUNT_ID;
     vi.unstubAllGlobals();
@@ -188,6 +190,43 @@ describe("publishInstagramCarousel", () => {
     expect(parentBody.get("media_type")).toBe("CAROUSEL");
     expect(parentBody.get("children")).toBe("child-1,child-2");
     expect(publishBody.get("creation_id")).toBe("carousel-1");
+  });
+
+  it("retries the final carousel publish with backoff when Meta says it is not ready", async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "child-1" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "child-1", status_code: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "child-2" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "child-2", status_code: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "carousel-1" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "carousel-1", status_code: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "Media ID is not available for publishing",
+          type: "OAuthException",
+          code: 9007,
+          error_subcode: 2207027,
+        },
+      }, 400))
+      .mockResolvedValueOnce(jsonResponse({ id: "post-ig-retry" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const resultPromise = publishInstagramCarousel(
+      [
+        { imageUrl: "https://media.example/slide-1.png" },
+        { imageUrl: "https://media.example/slide-2.png" },
+      ],
+      "Daily movers",
+    );
+    await vi.runAllTimersAsync();
+
+    await expect(resultPromise).resolves.toEqual({ id: "post-ig-retry", platform: "instagram" });
+    expect(fetchMock).toHaveBeenCalledTimes(8);
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("code 9007"));
+    const firstPublishBody = (fetchMock.mock.calls[6][1] as RequestInit).body;
+    const retryPublishBody = (fetchMock.mock.calls[7][1] as RequestInit).body;
+    expect(retryPublishBody).toBe(firstPublishBody);
   });
 
   it("rejects carousels outside Instagram's 2-10 item range", async () => {

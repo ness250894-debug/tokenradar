@@ -2,11 +2,11 @@
 # Unified heartbeat for all social interactions on TokenRadar
 #
 # Platform cadence:
-# - Telegram: 5 posts/day max, plus weekly recap on Friday
-# - X: 4 primary market/poll posts/day max, plus all-platform video on Mon/Wed/Fri
+# - Telegram: 5 daily slots, Radar Divergence Mon/Wed/Fri, plus weekly recap Friday
+# - X: 2 primary research/poll posts/day max
 # - Instagram: max 1 post/day, alternating carousel and Reel days
-# - Threads: text-native signal 2x/week, weekly recap 1x/week, plus short-form video 3x/week
-# - YouTube/TikTok: short-form video 3x/week
+# - Threads: text-native signal 2x/week plus weekly recap 1x/week
+# - YouTube: short-form video 3x/week; TikTok video posting is disabled
 
 name: Social Automations
 
@@ -18,11 +18,11 @@ on:
     - cron: "29 00 * * 0,2,4" # Instagram movers carousel (Sun/Tue/Thu)
     - cron: "17 03 * * *" # Telegram watchlist check + X market update
     - cron: "23 12 * * *" # Telegram market pulse + X interactive poll + daily link reply
-    - cron: "37 15 * * *" # Telegram poll + X market update
+    - cron: "37 15 * * *" # Telegram poll
     - cron: "17 16 * * 2,4" # Threads text-native signal (Tue/Thu)
     - cron: "29 16 * * 5" # Threads weekly recap (Fri)
-    - cron: "41 18 * * 1,3,5" # Short-form video (Mon/Wed/Fri)
-    - cron: "23 21 * * *" # Telegram movers card + X market update
+    - cron: "41 18 * * 1,3,5" # Telegram Radar Divergence + Instagram/YouTube video
+    - cron: "23 21 * * *" # Telegram movers card
     
   workflow_dispatch:
     inputs:
@@ -38,6 +38,7 @@ on:
           - telegram-poll
           - telegram-movers
           - telegram-recap
+          - telegram-divergence
           - x-market
           - x-poll
           - instagram-carousel
@@ -56,13 +57,14 @@ env:
   IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '17 00 * * *' || github.event.inputs.run == 'telegram-market' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_WATCHLIST_RUN: ${{ github.event.schedule == '17 03 * * *' || github.event.inputs.run == 'telegram-watchlist' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_PULSE_RUN: ${{ github.event.schedule == '23 12 * * *' || github.event.inputs.run == 'telegram-pulse' || github.event.inputs.run == 'all' }}
-  IS_X_MARKET_RUN: ${{ contains(fromJson('["17 03 * * *", "37 15 * * *", "23 21 * * *"]'), github.event.schedule) || github.event.inputs.run == 'x-market' || github.event.inputs.run == 'all' }}
+  IS_X_MARKET_RUN: ${{ github.event.schedule == '17 03 * * *' || github.event.inputs.run == 'x-market' || github.event.inputs.run == 'all' }}
   IS_X_POLL_RUN: ${{ github.event.schedule == '23 12 * * *' || github.event.inputs.run == 'x-poll' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_POLL_RUN: ${{ github.event.schedule == '37 15 * * *' || github.event.inputs.run == 'telegram-poll' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '23 21 * * *' || github.event.inputs.run == 'telegram-movers' || github.event.inputs.run == 'all' }}
   IS_TELEGRAM_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'telegram-recap' || github.event.inputs.run == 'all' }}
   IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '17 16 * * 2,4' || github.event.inputs.run == 'threads-text' || github.event.inputs.run == 'all' }}
   IS_THREADS_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'threads-recap' || github.event.inputs.run == 'all' }}
+  IS_TELEGRAM_DIVERGENCE_RUN: ${{ github.event.schedule == '41 18 * * 1,3,5' || github.event.inputs.run == 'telegram-divergence' || github.event.inputs.run == 'all' }}
   IS_VIDEO_RUN: ${{ github.event.schedule == '41 18 * * 1,3,5' || github.event.inputs.run == 'video' || github.event.inputs.run == 'all' }}
   IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '29 00 * * 0,2,4' || github.event.inputs.run == 'instagram-carousel' || github.event.inputs.run == 'all' }}
   IS_D1_SMOKE_RUN: ${{ github.event.inputs.run == 'd1-smoke' }}
@@ -291,7 +293,7 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           SOCIAL_SLOT: telegram-poll
 
-      # ─── 4. X Market Update (3x/day, no repeated link replies) ──────
+      # 4. X Market Update (1x/day; research note, no repeated link replies)
       - name: X Periodic Update
         if: env.IS_X_MARKET_RUN == 'true'
         run: npx tsx scripts/post-market-updates.ts --platform x
@@ -342,6 +344,23 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: telegram-weekly-recap
 
+      # Telegram Radar Divergence (Mon/Wed/Fri; replaces the former Telegram video)
+      - name: Telegram Radar Divergence
+        if: env.IS_TELEGRAM_DIVERGENCE_RUN == 'true'
+        run: npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
+          SOCIAL_SLOT: telegram-radar-divergence
+
       # Threads Text Signal (Tue/Thu; text-native, no video recycle)
       - name: Threads Text Signal
         if: env.IS_THREADS_TEXT_RUN == 'true'
@@ -378,7 +397,7 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: threads-weekly-recap
 
-      # Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)
+      # Short-form Video Breakout (Mon/Wed/Fri; Instagram + YouTube only)
       - name: Install FFmpeg
         if: env.IS_VIDEO_RUN == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
@@ -400,38 +419,22 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-      - name: Short-form Video Breakout
+      - name: Instagram and YouTube Video Breakout
         if: env.IS_VIDEO_RUN == 'true'
-        run: npx tsx scripts/post-video-daily.ts --platform all
+        run: npx tsx scripts/post-video-daily.ts --platform instagram-youtube
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          X_OAUTH2_CLIENT_ID: ${{ secrets.X_OAUTH2_CLIENT_ID }}
-          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
-          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-          # TikTok Content Posting API (sandbox/production)
-          TIKTOK_ENV: ${{ vars.TIKTOK_ENV || 'sandbox' }}
-          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
-          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
-          TIKTOK_REDIRECT_URI: ${{ secrets.TIKTOK_REDIRECT_URI || 'https://tokenradar.co/tiktok/callback' }}
-          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
-          TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
-          TIKTOK_PRIVACY_LEVEL: ${{ vars.TIKTOK_PRIVACY_LEVEL || 'PUBLIC_TO_EVERYONE' }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-          # Meta (Instagram + Threads)
+          # Meta (Instagram)
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
-          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}
           # Cloudflare R2 (Media Staging)
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -442,7 +445,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
-          SOCIAL_SLOT: short-form-video
+          SOCIAL_SLOT: instagram-youtube-video
 
       # ─── Data State Synchronization ────────────────────────────
       - name: Prepare social tracking state

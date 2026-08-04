@@ -141,6 +141,17 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 
 Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
 
+The production social cadence keeps video on Instagram and YouTube only. X publishes one research note and one interactive poll per day. Threads is text-native on Tuesday and Thursday with a Friday weekly recap. Telegram replaces its former Mon/Wed/Fri video with **Radar Divergence**, a visual comparison of price momentum, volume participation, and risk. TikTok video posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
+
+| Platform | Production schedule (UTC) | Format |
+|---|---|---|
+| Telegram | Daily at 00:17, 03:17, 12:23, 15:37, 21:23; Mon/Wed/Fri at 18:41; Fri at 16:29 | Brief, watchlist, pulse, poll, movers, Radar Divergence, weekly recap |
+| X | Daily at 03:17 and 12:23 | Research note; interactive poll with one contextual link reply |
+| Instagram | Sun/Tue/Thu at 00:29; Mon/Wed/Fri at 18:41 | Movers carousel; Reel |
+| Threads | Tue/Thu at 16:17; Fri at 16:29 | Research note; weekly recap |
+| YouTube | Mon/Wed/Fri at 18:41 | Short-form video |
+| TikTok | Disabled | No scheduled posts |
+
 Short-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.
 
 TikTok supports two modes through `TIKTOK_ENV`: `sandbox` uploads to the authorized creator inbox and sends a copy-ready caption to Telegram reporting; `production` uses direct `video.publish`. Missing TikTok credentials fall back to Telegram reporting with the generated video and caption.
@@ -149,9 +160,9 @@ Safe dry-run commands:
 
 ```bash
 npx tsx scripts/post-market-updates.ts --dry-run --platform all
+npx tsx scripts/post-market-updates.ts --dry-run --platform telegram --format radar-divergence
 npx tsx scripts/post-threads-daily.ts --dry-run --force
-npx tsx scripts/post-video-daily.ts --dry-run --platform x --force
-npx tsx scripts/post-video-daily.ts --dry-run --platform all --force --output-dir tmp/video-previews
+npx tsx scripts/post-video-daily.ts --dry-run --platform instagram-youtube --force --output-dir tmp/video-previews
 npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force
 npx tsx scripts/generate-tiktok-token.ts --env sandbox
 npx tsx scripts/generate-tiktok-token.ts --env production

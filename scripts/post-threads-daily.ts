@@ -16,7 +16,7 @@ import * as path from "path";
 
 import { generateUnifiedCaptions } from "../src/lib/gemini";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
-import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import { selectSocialArchetype, type SocialArchetypeKey } from "../src/lib/social-archetypes";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
@@ -40,6 +40,21 @@ loadEnv();
 const DATA_DIR = path.resolve(__dirname, "../data");
 const TEXT_TRACKER_FILE_NAME = "daily-threads-text.json";
 const WEEKLY_RECAP_TRACKER_FILE_NAME = "weekly-threads-recap.json";
+const THREADS_RESEARCH_NOTE_MAX_CHARS = 360;
+const THREADS_TEXT_ARCHETYPES = [
+  "single_token_snapshot",
+  "sector_rotation",
+  "risk_lab",
+  "myth_vs_data",
+  "data_quality_warning",
+  "how_to_read_metric",
+  "behind_the_radar",
+] satisfies readonly SocialArchetypeKey[];
+const THREADS_RECAP_ARCHETYPES = [
+  "weekly_scoreboard",
+  "risk_lab",
+  "behind_the_radar",
+] satisfies readonly SocialArchetypeKey[];
 
 type ThreadsPostMode = "text" | "weekly-recap";
 
@@ -105,38 +120,47 @@ function sanitizeThreadsTopicTag(topicTag: string | undefined): string {
   return sanitized;
 }
 
+function truncateThreadsAtBoundary(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  const candidate = text.slice(0, maxChars).trim();
+  const minBoundary = Math.floor(maxChars * 0.55);
+  const sentenceBoundary = Math.max(
+    candidate.lastIndexOf(". "),
+    candidate.lastIndexOf(".\n"),
+    candidate.lastIndexOf("! "),
+    candidate.lastIndexOf("? "),
+  );
+  if (sentenceBoundary >= minBoundary) return candidate.slice(0, sentenceBoundary + 1).trim();
+  const wordBoundary = candidate.lastIndexOf(" ");
+  return wordBoundary >= minBoundary ? candidate.slice(0, wordBoundary).trim() : candidate;
+}
+
 function buildThreadsContent(
   caption: string | undefined,
   topicTag: string | undefined,
   spoilerText: string | undefined,
   tokenName: string,
 ): { caption: string; topicTag: string; spoilerEntities: TextEntity[] } {
-  const maxChars = SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT;
-  let safeSpoilerText = (spoilerText || tokenName).trim();
-  if (!safeSpoilerText) safeSpoilerText = tokenName;
+  const maxChars = THREADS_RESEARCH_NOTE_MAX_CHARS;
+  let safeSpoilerText = (spoilerText || "").trim();
+  if (safeSpoilerText.length > Math.floor(maxChars / 2)) {
+    safeSpoilerText = truncateThreadsAtBoundary(safeSpoilerText, Math.floor(maxChars / 2));
+  }
 
-  let safeCaption = (caption || `What would invalidate this ${tokenName} setup first?`).trim();
-  if (!safeCaption.includes(safeSpoilerText)) {
-    const suffix = ` ${safeSpoilerText}`;
+  let safeCaption = (caption || `${tokenName} needs confirmation from participation, not just price.`).trim();
+  safeCaption = truncateThreadsAtBoundary(safeCaption, maxChars);
+
+  if (safeSpoilerText && !safeCaption.includes(safeSpoilerText)) {
+    const suffix = `\n\n${safeSpoilerText}`;
     const bodyBudget = maxChars - suffix.length;
     safeCaption = bodyBudget > 0
-      ? `${safeCaption.substring(0, bodyBudget).trim()}${suffix}`.trim()
-      : safeSpoilerText.substring(0, maxChars);
-  }
-
-  if (safeCaption.length > maxChars) {
-    safeCaption = `${safeCaption.substring(0, maxChars - 3).trim()}...`;
-  }
-
-  if (!safeCaption.includes(safeSpoilerText)) {
-    safeCaption = safeSpoilerText.length <= maxChars
-      ? safeSpoilerText
-      : safeSpoilerText.substring(0, maxChars);
+      ? `${truncateThreadsAtBoundary(safeCaption, bodyBudget)}${suffix}`.trim()
+      : safeSpoilerText.slice(0, maxChars);
   }
 
   const spoilerIndex = safeCaption.indexOf(safeSpoilerText);
   const textEncoder = new TextEncoder();
-  const spoilerEntities = spoilerIndex >= 0
+  const spoilerEntities = safeSpoilerText && spoilerIndex >= 0
     ? [{
         entity_type: "SPOILER" as const,
         offset: textEncoder.encode(safeCaption.substring(0, spoilerIndex)).length,
@@ -190,6 +214,7 @@ async function main() {
       const recap = buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
       const recapArchetype = selectSocialArchetype({
         platform: "threads",
+        allowedArchetypeKeys: THREADS_RECAP_ARCHETYPES,
         usedArchetypeKeys: force
           ? []
           : getRecentSocialArchetypeKeys(
@@ -299,6 +324,7 @@ async function main() {
     console.log(`Threads variant: ${contentVariant.label} (${contentVariant.key})`);
     const contentArchetype = selectSocialArchetype({
       platform: "threads",
+      allowedArchetypeKeys: THREADS_TEXT_ARCHETYPES,
       usedArchetypeKeys: force
         ? []
         : getRecentSocialArchetypeKeys(
@@ -333,7 +359,7 @@ async function main() {
       },
       ["threads"],
       {
-        threadsMaxChars: SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
+        threadsMaxChars: THREADS_RESEARCH_NOTE_MAX_CHARS,
         contentVariants: { threads: contentVariant },
         contentArchetypes: { threads: contentArchetype },
       },

@@ -91,16 +91,18 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("data/search-intent-history.json");
   });
 
-  it("keeps Telegram image slots and the all-platform video route wired", () => {
+  it("keeps Telegram image slots and the Instagram/YouTube video route wired", () => {
     const workflow = readWorkflow("social-automations.yml");
 
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse");
-    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Telegram/X/IG/Threads/YT/TikTok)");
+    expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence");
+    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Instagram + YouTube only)");
     expect(workflow).toContain("Refresh Derived Metrics For Video");
-    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform all");
+    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform instagram-youtube");
+    expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform all");
     expect(workflow.indexOf("npx tsx scripts/compute-metrics.ts")).toBeLessThan(
-      workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform all"),
+      workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform instagram-youtube"),
     );
   });
 
