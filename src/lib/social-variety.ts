@@ -53,31 +53,31 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
   x: [
     {
       key: "regime_question",
-      label: "Regime Question",
-      angle: "macro and sector context first, token second",
+      label: "Regime Check",
+      angle: "state how macro or sector context changes the token read",
       promptInstruction:
-        "Open with market regime or sector context, then connect it to the token. End with a question about whether the regime supports continuation.",
+        "Open with market regime or sector context, connect it to one token metric, and state the consequence. Do not add a generic question.",
     },
     {
       key: "risk_filter",
       label: "Risk Filter",
-      angle: "ask what would invalidate the move",
+      angle: "name what would invalidate the move",
       promptInstruction:
-        "Lead with risk, liquidity, or volatility quality. End with a question about what would invalidate the setup.",
+        "Lead with risk, liquidity, or volatility quality. State a specific invalidation condition instead of asking for engagement.",
     },
     {
       key: "mover_quality",
       label: "Mover Quality",
       angle: "judge whether the move is supported by data quality",
       promptInstruction:
-        "Focus on move quality: price change, market cap, volume context if available, and whether the move deserves attention.",
+        "Focus on move quality using one or two supplied metrics and a concrete confirmation filter.",
     },
     {
       key: "watchlist_signal",
       label: "Watchlist Read",
       angle: "frame the post as a watchlist note, not a call",
       promptInstruction:
-        "Write like a concise watchlist note. Make it clear the token is being monitored, not recommended.",
+        "Write like a concise analyst watchlist note: claim, evidence, and the condition that changes the read.",
     },
     {
       key: "contrarian_tension",
@@ -143,31 +143,31 @@ export const PLATFORM_VARIANTS: Record<SocialVariantPlatform, SocialContentVaria
   threads: [
     {
       key: "invalidation_prompt",
-      label: "Invalidation Prompt",
-      angle: "conversation starts with what would break the setup",
+      label: "What Changes The Read",
+      angle: "state the thesis and the condition that would break it",
       promptInstruction:
-        "Write as a text-native Threads post. Ask a specific invalidation question after the data point.",
+        "Write a text-native research note with a defensible thesis, one data point, and a specific invalidation condition.",
     },
     {
       key: "regime_prompt",
-      label: "Regime Prompt",
-      angle: "ask whether the broader market regime supports the setup",
+      label: "Regime Check",
+      angle: "show whether the broader market regime supports the setup",
       promptInstruction:
-        "Connect the token to broader market conditions and ask for a view on regime fit.",
+        "Connect the token to broader market conditions and explain how that context changes the read.",
     },
     {
       key: "contrarian_prompt",
-      label: "Contrarian Prompt",
+      label: "Data Tension",
       angle: "surface the tension in the data",
       promptInstruction:
-        "Lead with the strongest tension in the data, then invite replies about what matters most.",
+        "Lead with the strongest tension in the supplied data, then say which side would need confirmation.",
     },
     {
       key: "filter_prompt",
-      label: "Filter Prompt",
-      angle: "turn the post into a research filter discussion",
+      label: "Signal vs Noise",
+      angle: "separate the useful signal from the noisy headline",
       promptInstruction:
-        "Ask which filter should matter most before the token deserves more attention.",
+        "Name the research filter that matters most before the token deserves more attention.",
     },
   ],
   tiktok: [

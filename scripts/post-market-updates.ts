@@ -85,6 +85,8 @@ function getTelegramFormatLabel(format: TelegramMarketFormat): string {
   switch (format) {
     case "market-pulse":
       return "Market Pulse";
+    case "radar-divergence":
+      return "Radar Divergence";
     case "watchlist-check":
       return "Watchlist Check";
     default:
@@ -436,7 +438,7 @@ async function main() {
   if (runX) {
     console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
-    captionOptions.xMaxChars = 260;
+    captionOptions.xMaxChars = 230;
     captionPlatforms.push("x");
     marketPlans.x = buildMarketSocialPlan({
       dataDir: DATA_DIR,
@@ -493,7 +495,7 @@ async function main() {
       xMessage,
       recentXTexts,
       `${TODAY}:${targetToken.id}:${reason}`,
-      captionOptions.xMaxChars ?? 260,
+      captionOptions.xMaxChars ?? 230,
     );
     if (diversified !== xMessage) {
       console.log("  Adjusted X copy to avoid repeating recent post structure.");

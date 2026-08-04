@@ -129,7 +129,7 @@ const POLL_INTERVAL_MS = 5_000;
 const POLL_TIMEOUT_MS = 120_000;
 const META_API_MAX_ATTEMPTS = 3;
 const META_API_RETRY_BASE_DELAY_MS = 10_000;
-const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 9004, 2207026, 2207052]);
+const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 9004, 2207026, 2207027, 2207052]);
 const RETRYABLE_HTTP_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
 
 /**
@@ -145,8 +145,10 @@ export const META_ERROR_DESCRIPTIONS: Record<number, string> = {
   32: "Page-level rate limit reached. Retry in 1 hour.",
   190: "Access token expired or invalid. Run refresh-meta-tokens.ts.",
   200: "Missing required publish permission.",
+  9007: "Media container is not ready for final publishing. Wait and retry.",
   2207001: "Invalid media type or format. Check video codec (H.264 required).",
   2207026: "Media container still processing. Extend poll timeout.",
+  2207027: "Media container is not ready for final publishing. Wait and retry.",
   2207050: "Publishing rate limit reached.",
   2207052: "Media URL could not be fetched or is not recognized. Wait and retry.",
 };

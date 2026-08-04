@@ -188,10 +188,16 @@ export function selectSocialArchetype(options: {
   seedParts?: Array<string | number | undefined | null>;
   date?: Date;
   usedArchetypeKeys?: Iterable<string>;
+  allowedArchetypeKeys?: Iterable<SocialArchetypeKey>;
 }): SocialContentArchetype {
   const { platform, date = new Date() } = options;
   const used = new Set(options.usedArchetypeKeys || []);
-  const compatible = SOCIAL_ARCHETYPES.filter((archetype) => archetype.platforms.includes(platform));
+  const allowed = new Set(options.allowedArchetypeKeys || []);
+  const platformCompatible = SOCIAL_ARCHETYPES.filter((archetype) => archetype.platforms.includes(platform));
+  const restricted = allowed.size > 0
+    ? platformCompatible.filter((archetype) => allowed.has(archetype.key))
+    : platformCompatible;
+  const compatible = restricted.length > 0 ? restricted : platformCompatible;
   const candidates = compatible.filter((archetype) => !used.has(archetype.key));
   const eligible = candidates.length > 0 ? candidates : compatible;
   const seed = [

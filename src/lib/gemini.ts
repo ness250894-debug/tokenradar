@@ -17,7 +17,7 @@ import {
   selectSocialArchetype,
   type SocialContentArchetype,
 } from "./social-archetypes";
-import { sanitizeCashtags, truncateForX } from "./x-client";
+import { sanitizeCashtags } from "./x-client";
 
 export type AIResult = {
   content: string;
@@ -892,6 +892,22 @@ function truncateTextAtBoundary(text: string, maxChars: number): string {
   return wordBoundary >= minBoundary ? candidate.substring(0, wordBoundary).trim() : candidate;
 }
 
+function truncateXCaptionAtBoundary(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+
+  const hashtagMatch = text.match(/(?:\s+#[a-zA-Z0-9_]+){1,2}\s*$/);
+  const hashtags = hashtagMatch?.[0].trim() || "";
+  const body = hashtags ? text.slice(0, hashtagMatch?.index).trim() : text.trim();
+  const bodyBudget = Math.max(1, maxChars - (hashtags ? hashtags.length + 1 : 0));
+  let safeBody = truncateTextAtBoundary(body, bodyBudget);
+
+  if (safeBody && !/[.!?]$/.test(safeBody) && safeBody.length < bodyBudget) {
+    safeBody += ".";
+  }
+
+  return [safeBody, hashtags].filter(Boolean).join(" ").slice(0, maxChars).trim();
+}
+
 function fallbackTelegramSummary(
   tokenName: string,
   symbol: string,
@@ -928,7 +944,7 @@ function fallbackXTweet(
   const seed = `${symbol}:${tokenName}:${reason}`.toLowerCase();
   const index = Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % frames.length;
   const tweet = frames[index];
-  return truncateForX(tweet, maxChars);
+  return truncateXCaptionAtBoundary(tweet, maxChars);
 }
 
 function fallbackYoutubeMetadata(
@@ -970,7 +986,10 @@ function enforceUnifiedCaptionLimits(
   if (next.xTweet) {
     next.xTweet = sanitizeSocialEditorialText(sanitizePostTextLinks(next.xTweet));
     next.xTweet = sanitizeCashtags(next.xTweet);
-    next.xTweet = truncateForX(next.xTweet, options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT);
+    next.xTweet = truncateXCaptionAtBoundary(
+      next.xTweet,
+      options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT,
+    );
   }
   if (next.youtubeDescription) {
     next.youtubeDescription = sanitizeSocialEditorialText(sanitizePostTextLinks(next.youtubeDescription));
@@ -988,7 +1007,7 @@ function enforceUnifiedCaptionLimits(
   }
   if (next.threadsCaption) {
     next.threadsCaption = sanitizeSocialEditorialText(sanitizePostTextLinks(next.threadsCaption));
-    next.threadsCaption = truncateText(
+    next.threadsCaption = truncateTextAtBoundary(
       next.threadsCaption,
       options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
     );
@@ -1045,7 +1064,7 @@ async function fillMissingUnifiedCaptionFields(
   if (platforms.includes("threads")) {
     next.threadsCaption ||= fallbackThreadsCaption(tokenName, metrics);
     next.threadsTopicTag = sanitizeUnifiedTopicTag(next.threadsTopicTag);
-    next.threadsSpoilerText ||= tokenName;
+    next.threadsSpoilerText ||= "";
   }
 
   if (platforms.includes("tiktok") && !next.tiktokCaption) {
@@ -1139,10 +1158,15 @@ X RULES:
 - Today's X angle: ${platformVariants.x?.label} - ${platformVariants.x?.angle}.
 - Today's X archetype: ${platformArchetypes.x?.label} - ${platformArchetypes.x?.angle}.
 - Hook family: ${platformArchetypes.x?.hookFamily}. CTA family: ${platformArchetypes.x?.ctaFamily}.
+- Write one complete research note in this order: claim, supplied evidence, consequence or invalidation.
+- Include at least one concrete supplied metric and one tension, filter, or condition that changes the read.
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
 - Write prices as plain numbers, not dollar-prefixed prices.
-- Use the selected archetype CTA. A question is allowed only when the CTA family is reply-oriented.
-- Include exactly 1 or 2 niche hashtags.
+- A question is allowed only when it is specific and necessary to the selected archetype. Never use generic engagement bait.
+- Include exactly 1 niche hashtag.
+- Do not invent comparisons, audience results, tokens, events, or metrics that are not in the supplied context.
+- Do not use "GM", "fam", "on my radar", "thoughts?", or "what else should I watch?".
+- End with a complete sentence. Never end with an ellipsis or a cut-off thought.
 - No URLs, external links, HTML, markdown, or AI disclaimers.`,
     youtube: `
 YOUTUBE RULES:
@@ -1166,8 +1190,11 @@ THREADS RULES:
 - Return "threadsCaption", "threadsTopicTag", and "threadsSpoilerText".
 - Maximum ${options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT} characters for threadsCaption.
 - Today's Threads angle: ${platformVariants.threads?.label} - ${platformVariants.threads?.angle}.
-- threadsSpoilerText must be an exact substring of threadsCaption and should usually be "${tokenName}".
-- Build curiosity around the spoiler text without using marker syntax.
+- Write a text-native research note in no more than 2 short paragraphs.
+- Open with a defensible thesis or tension, support it with at least one supplied metric, and name what would change the read.
+- threadsSpoilerText must be an exact substring of threadsCaption and should hide the conclusion or invalidation phrase, not the token name.
+- Do not use generic prompts such as "thoughts?", "agree?", or "what do you think?".
+- Do not use hashtags, @mentions, recycled video language, or unsupported comparisons.
 - threadsTopicTag must be one single word, 1-50 characters, without #, dots, ampersands, or spaces.
 - Do not mention @tokenradarco.`,
     tiktok: `
@@ -1303,10 +1330,10 @@ export async function generatePollHook(
 
   const prompt = `
     Write a short hook (1 sentence) introducing a ${pollType} poll for TokenRadar's followers on X.
-    Time of day: ${timeOfDay} (e.g. use GM if Morning).
+    Time of day: ${timeOfDay}.
     ${tokenCtx}${priceCtx}${changeCtx}
     
-    Write like a human asking the community a question.
+    Write like a concise research desk asking one specific, answerable question.
     STRICT RULES:
     1. Maximum 120 characters to leave room for poll options and hashtags.
     2. Do not include the actual poll options in your text.
@@ -1315,6 +1342,8 @@ export async function generatePollHook(
     5. Do NOT use dollar signs for prices — write prices as plain numbers (e.g. '21.64' not '$21.64').
     6. EXTERNAL LINKS: NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
     7. Avoid buy/sell advice, hype, moon language, guaranteed outcomes, and urgency.
+    8. Do not use "GM", "fam", generic news questions, or engagement bait.
+    9. Anchor the hook in the supplied token metric or in the named research filter.
   `;
 
   try {

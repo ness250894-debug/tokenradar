@@ -117,11 +117,12 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
 
 export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
-export type PlatformRoute = PlatformName | "all" | "shorts";
+export type PlatformRoute = PlatformName | "all" | "shorts" | "instagram-youtube";
 
 const PLATFORM_ROUTES: readonly PlatformRoute[] = [
   "all",
   "shorts",
+  "instagram-youtube",
   "telegram",
   "x",
   "youtube",
@@ -969,8 +970,16 @@ export function resolveVideoDailyPlatformFlags(targetPlatform: PlatformRoute): V
   return {
     runTelegram: targetPlatform === "all" || targetPlatform === "telegram",
     runX: targetPlatform === "all" || targetPlatform === "x",
-    runYouTube: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "youtube",
-    runInstagram: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "instagram",
+    runYouTube:
+      targetPlatform === "all" ||
+      targetPlatform === "shorts" ||
+      targetPlatform === "instagram-youtube" ||
+      targetPlatform === "youtube",
+    runInstagram:
+      targetPlatform === "all" ||
+      targetPlatform === "shorts" ||
+      targetPlatform === "instagram-youtube" ||
+      targetPlatform === "instagram",
     runThreads: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "threads",
     runTikTok: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "tiktok",
   };

@@ -80,10 +80,13 @@ export function selectPollTypeForToday(options: {
   usedPollTypes?: Iterable<string>;
   date?: Date;
 } = {}): PollType {
-  const used = new Set(options.usedPollTypes || []);
-  const eligible = POLL_TYPES.filter((type) => !used.has(type));
-  const candidates = eligible.length > 0 ? eligible : POLL_TYPES;
   const date = options.date || new Date();
+  const used = new Set(options.usedPollTypes || []);
+  const dayEligible = date.getUTCDay() === 5
+    ? POLL_TYPES
+    : POLL_TYPES.filter((type) => type !== "recap");
+  const eligible = dayEligible.filter((type) => !used.has(type));
+  const candidates = eligible.length > 0 ? eligible : dayEligible;
   return candidates[stableHash(`interactive-poll:${utcDateKey(date)}`) % candidates.length];
 }
 
@@ -105,6 +108,7 @@ export function selectNarrativeOptions(date: Date = new Date(), count = 4): stri
 function cleanPollHook(hook: string, fallback: string): string {
   const currentYear = new Date().getUTCFullYear();
   const sanitized = sanitizeSocialEditorialText(hook || fallback)
+    .replace(/^\s*(?:gm|good morning|fam)\b[:,!\s-]*/i, "")
     .replace(/\b20\d{2}\b/g, (year) => Number(year) < currentYear ? "this cycle" : year);
   return sanitized || fallback;
 }
@@ -144,7 +148,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
   }), `Which ${sym} range looks most realistic today?`);
 
   return {
-    text: `${hook}\n\n$${sym} #PricePrediction #TokenRadarCo`,
+    text: `${hook}\n\n$${sym} #TokenRadarCo`,
     options: [
       `Below ${formatPrice(low)}`,
       `${formatPrice(low)}-${formatPrice(high)}`,

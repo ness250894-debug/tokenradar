@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { SOCIAL_PLATFORM_LIMITS, getTelegramFooter } from "../src/lib/config";
 import {
   buildTelegramMarketPost,
+  getRadarDivergenceRead,
   parseTelegramMarketFormat,
   type TelegramMarketContext,
   type TelegramMarketToken,
@@ -34,8 +35,31 @@ describe("Telegram market formats", () => {
     expect(parseTelegramMarketFormat(undefined)).toBe("market-brief");
     expect(parseTelegramMarketFormat("market-brief")).toBe("market-brief");
     expect(parseTelegramMarketFormat("market-pulse")).toBe("market-pulse");
+    expect(parseTelegramMarketFormat("radar-divergence")).toBe("radar-divergence");
     expect(parseTelegramMarketFormat("watchlist-check")).toBe("watchlist-check");
     expect(() => parseTelegramMarketFormat("daily-alpha")).toThrow("Invalid --format value");
+  });
+
+  it("builds a Radar Divergence read from price, participation, and risk", () => {
+    const token = {
+      ...sampleToken,
+      priceChange24h: 8.6,
+      volume24h: 18_000_000_000,
+      marketCap: 500_000_000_000,
+    };
+    const read = getRadarDivergenceRead(token);
+    const post = buildTelegramMarketPost({
+      format: "radar-divergence",
+      token,
+      context: sampleContext,
+    });
+
+    expect(read.label).toBe("Price leads participation");
+    expect(post.image.kind).toBe("market-pulse");
+    expect(post.captionBody).toContain("<b>Radar Divergence: $ETH</b>");
+    expect(post.captionBody).toContain("Price leads participation");
+    expect(post.captionBody).toContain("What changes the read:");
+    expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
 
   it("builds a useful market pulse with an image data card", () => {

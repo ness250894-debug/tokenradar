@@ -12,6 +12,7 @@ import {
   buildPredictionPoll,
   buildNarrativePoll,
   buildCommunityPoll,
+  selectPollTypeForToday,
   selectNarrativeOptions,
   type PollType,
 } from "../scripts/post-interactive-daily";
@@ -63,6 +64,16 @@ describe("getPollTypeForToday", () => {
     const validTypes: PollType[] = ["sentiment", "prediction", "narrative", "community", "metric", "risk", "recap"];
     const result = getPollTypeForToday();
     expect(validTypes).toContain(result);
+  });
+
+  it("reserves weekly recap polls for Friday", () => {
+    const nonRecapTypes: PollType[] = ["sentiment", "prediction", "narrative", "community", "metric", "risk"];
+    const result = selectPollTypeForToday({
+      date: new Date("2026-08-04T12:00:00.000Z"),
+      usedPollTypes: nonRecapTypes,
+    });
+
+    expect(result).not.toBe("recap");
   });
 });
 

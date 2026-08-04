@@ -39,6 +39,10 @@ describe("market social plan", () => {
     expect(plan.surface).toBe("market-update");
     expect(plan.variant.key).not.toBe("risk_filter");
     expect(plan.archetype.key).not.toBe("risk_lab");
+    expect(plan.archetype.key).not.toBe("two_token_comparison");
+    expect(plan.archetype.key).not.toBe("watchlist_shortlist");
+    expect(plan.archetype.key).not.toBe("poll_result_recap");
+    expect(plan.archetype.key).not.toBe("weekly_scoreboard");
     expect(plan.hookFamily).toBe(plan.archetype.hookFamily);
     expect(plan.ctaFamily).toBe(plan.archetype.ctaFamily);
   });
