@@ -16,25 +16,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x34d12f761847a05dfa33a1692440588f4b5f7f24be619334e29d74e083f5e64e::bce::BCE/"
   },
   "market": {
-    "price": 0.118048,
-    "marketCap": 47089785,
-    "marketCapRank": 431,
-    "volume24h": 73354,
-    "high24h": 0.121979,
-    "low24h": 0.109666,
-    "priceChange24h": -2.4,
-    "priceChange7d": -7,
-    "priceChange30d": -10.3,
+    "price": 0.118296,
+    "marketCap": 47327477,
+    "marketCapRank": 435,
+    "volume24h": 60055,
+    "high24h": 0.118341,
+    "low24h": 0.117245,
+    "priceChange24h": 0.5,
+    "priceChange7d": -5,
+    "priceChange30d": -8.9,
     "priceChange1y": 0,
     "ath": 0.208841,
-    "athChangePercentage": -43.47484,
+    "athChangePercentage": -43.35585,
     "athDate": "2026-04-17T16:22:00.000Z",
     "atl": 0.051889,
     "atlDate": "2025-11-03T07:42:08.000Z",
     "circulatingSupply": 400000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 117724464
+    "fdv": 118318692
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:24:22.885Z",
-  "lastMarketUpdate": "2026-08-03T19:10:43.627Z"
+  "lastMarketUpdate": "2026-08-04T19:12:08.185Z"
 }

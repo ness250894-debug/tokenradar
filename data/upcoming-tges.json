@@ -5393,5 +5393,143 @@
     "discoveredAt": "2026-08-03T19:11:28.306Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-03T19:11:28.306Z"
+  },
+  {
+    "id": "mastercard-bvnk-acquisition",
+    "name": "BVNK (via Mastercard acquisition)",
+    "symbol": "TBD",
+    "category": "Payments/Infrastructure",
+    "expectedTge": "Post-acquisition integration (potential new token or stablecoin expansion)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/mastercard-completes-bvnk-acquisition-stablecoin-push",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Acquisition for stablecoin push",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/mastercard-completes-bvnk-acquisition-stablecoin-push",
+        "title": "Mastercard completes $1.8B BVNK acquisition in stablecoin push",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.349Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.349Z"
+  },
+  {
+    "id": "kenya-avalanche-academic-credentials",
+    "name": "Kenya Academic Credentials on Avalanche",
+    "symbol": "TBD",
+    "category": "Government/Infrastructure",
+    "expectedTge": "Unspecified (potential for future tokenization of credentials or related services)",
+    "narrativeStrength": 55,
+    "dataSource": "https://cointelegraph.com/news/kenya-avalanche-blockchain-academic-credentials-verification",
+    "lifecycleStatus": "candidate",
+    "confidence": 40,
+    "signals": [
+      {
+        "type": "Mainnet launch (government use case)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/kenya-avalanche-blockchain-academic-credentials-verification",
+        "title": "Kenya moves 30 million academic credentials onto Avalanche blockchain",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.350Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.350Z"
+  },
+  {
+    "id": "blackrock-tokenized-mm-funds-solana",
+    "name": "BlackRock Tokenized Money Market Funds (Solana Integration)",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/TradFi",
+    "expectedTge": "Live (for professional investors), potential broader tokenization",
+    "narrativeStrength": 85,
+    "dataSource": "https://decrypt.co/374865/blackrock-tokenized-money-market-funds-solana-ethereum",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374865/blackrock-tokenized-money-market-funds-solana-ethereum",
+        "title": "BlackRock Launches Tokenized Money Market Funds on Solana, Ethereum",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.351Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.351Z"
+  },
+  {
+    "id": "wells-fargo-tokenized-deposits",
+    "name": "Wells Fargo Tokenized Deposits",
+    "symbol": "TBD",
+    "category": "TradFi/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/08/04/wells-fargo-to-offer-tokenized-deposits-for-24-7-corporate-payments",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch (Tokenized Deposits)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/04/wells-fargo-to-offer-tokenized-deposits-for-24-7-corporate-payments",
+        "title": "Wells Fargo joins JPMorgan and Citi in the race to tokenize Wall Street’s settlement rails",
+        "observedAt": "2026-08-04T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.351Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.351Z"
+  },
+  {
+    "id": "dinari-tokenized-us-stocks",
+    "name": "Dinari Tokenized U.S. Stocks",
+    "symbol": "TBD",
+    "category": "RWA/TradFi",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/08/04/dinari-brings-tokenized-u-s-stocks-to-american-investors-as-equity-race-heats-up",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch (Tokenized Stocks)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/04/dinari-brings-tokenized-u-s-stocks-to-american-investors-as-equity-race-heats-up",
+        "title": "Dinari brings tokenized U.S. stocks to American investors as equity race heats up",
+        "observedAt": "2026-08-04T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.352Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.352Z"
+  },
+  {
+    "id": "bny-crypto-staking",
+    "name": "BNY Mellon Crypto Staking",
+    "symbol": "TBD",
+    "category": "TradFi/Infrastructure",
+    "expectedTge": "Product Launch",
+    "narrativeStrength": 60,
+    "dataSource": "https://www.coindesk.com/business/2026/08/04/bny-to-add-crypto-staking-to-digital-asset-custody-platform",
+    "lifecycleStatus": "candidate",
+    "confidence": 55,
+    "signals": [
+      {
+        "type": "Product Launch (Crypto Staking)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/04/bny-to-add-crypto-staking-to-digital-asset-custody-platform",
+        "title": "BNY to add crypto staking to digital asset custody platform",
+        "observedAt": "2026-08-04T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-04T19:13:03.353Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-04T19:13:03.353Z"
   }
 ]
