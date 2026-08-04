@@ -72,6 +72,19 @@ describe("postTweetWithMedia video upload", () => {
     delete process.env.X_OAUTH2_REFRESH_TOKEN;
   });
 
+  it("uses the X SDK v0.6 camelCase reply contract", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+
+    const { postTweet } = await import("../src/lib/x-client");
+    await postTweet("Research follow-up", "tweet-parent");
+
+    expect(xdkMocks.createPost).toHaveBeenCalledWith({
+      text: "Research follow-up",
+      reply: { inReplyToTweetId: "tweet-parent" },
+    });
+  });
+
   it("uses conservative 1 MB video append chunks for X multipart uploads", async () => {
     configureXEnv();
     xdkMocks.reset();
@@ -103,7 +116,7 @@ describe("postTweetWithMedia video upload", () => {
     expect((secondMedia as Blob).size).toBe(1);
     expect(xdkMocks.createPost).toHaveBeenCalledWith({
       text: "Ethereum video",
-      media: { media_ids: ["media-123"] },
+      media: { mediaIds: ["media-123"] },
     });
   });
 
@@ -148,7 +161,7 @@ describe("postTweetWithMedia video upload", () => {
     expect(xdkMocks.finalizeUpload).toHaveBeenCalledWith("1880028106020515840");
     expect(xdkMocks.createPost).toHaveBeenCalledWith({
       text: "Ethereum video",
-      media: { media_ids: ["1880028106020515840"] },
+      media: { mediaIds: ["1880028106020515840"] },
     });
   });
 
@@ -222,7 +235,7 @@ describe("postTweetWithMedia video upload", () => {
           "Gamma retest",
           "Delta squeeze",
         ],
-        duration_minutes: 1440,
+        durationMinutes: 1440,
       },
     });
   });
