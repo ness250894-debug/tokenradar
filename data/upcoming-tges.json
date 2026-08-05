@@ -5531,5 +5531,120 @@
     "discoveredAt": "2026-08-04T19:13:03.353Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-04T19:13:03.353Z"
+  },
+  {
+    "id": "tokenet",
+    "name": "Tokenet",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/marex-digital-prime-tokenet-institutional-crypto-lending",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/marex-digital-prime-tokenet-institutional-crypto-lending",
+        "title": "Marex invests in Digital Prime to expand institutional crypto lending",
+        "observedAt": "2024-07-31T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-05T19:07:18.856Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-05T19:07:18.856Z"
+  },
+  {
+    "id": "western-union-stablecard",
+    "name": "Western Union Stablecard",
+    "symbol": "TBD",
+    "category": "Payments",
+    "expectedTge": "Live (Rollout)",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/western-union-stablecard-stablecoin-remittances-visa?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 70,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/western-union-stablecard-stablecoin-remittances-visa?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Western Union brings stablecoin remittances to Visa network with Stablecard",
+        "observedAt": "2024-07-31T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-05T19:07:18.857Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-05T19:07:18.857Z"
+  },
+  {
+    "id": "mastercard-crypto-credential",
+    "name": "Mastercard Crypto Credential Framework",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Development Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/mastercard-borderless-test-identity-checks-stablecoin-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Development/Partnership",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/mastercard-borderless-test-identity-checks-stablecoin-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Mastercard, Borderless test shared identity checks for stablecoin transfers",
+        "observedAt": "2024-07-31T12:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-05T19:07:18.858Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-05T19:07:18.858Z"
+  },
+  {
+    "id": "cloudflare-ai-wallets",
+    "name": "Cloudflare Wallets for AI Agents",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Future update (stablecoin payments)",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/cloudflare-wallets-ai-agents-stablecoin-payments-plan",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch (future token implications)",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/cloudflare-wallets-ai-agents-stablecoin-payments-plan",
+        "title": "Cloudflare introduces wallets for AI agents, plans stablecoin payments",
+        "observedAt": "2024-07-10T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-05T19:07:18.858Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-05T19:07:18.858Z"
+  },
+  {
+    "id": "zigchain",
+    "name": "ZIGChain",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/08/05/noumura-s-laser-digital-backs-zigchain-for-onchain-private-credit-push-in-uae",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/05/noumura-s-laser-digital-backs-zigchain-for-onchain-private-credit-push-in-uae",
+        "title": "Nomura’s Laser Digital backs ZIGChain for onchain private credit push in UAE",
+        "observedAt": "2026-08-05T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-05T19:07:18.859Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-05T19:07:18.859Z"
   }
 ]
