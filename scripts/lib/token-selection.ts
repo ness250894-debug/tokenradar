@@ -31,6 +31,7 @@ export interface TokenData {
   id: string;
   symbol: string;
   name: string;
+  categories?: string[];
   imageUrl?: string;
   fetchedAt?: string;
   lastMarketUpdate?: string;
@@ -455,6 +456,9 @@ export async function loadCandidateTokens(
       id: local.id,
       symbol: local.symbol,
       name: local.name,
+      categories: Array.isArray(local.categories)
+        ? local.categories.filter((category: unknown): category is string => typeof category === "string")
+        : [],
       imageUrl: fresh?.image || local.imageUrl || local.image?.large || local.image?.small || undefined,
       fetchedAt: freshMarketTimestamp || localFetchedAt,
       lastMarketUpdate: freshMarketTimestamp || localLastMarketUpdate,

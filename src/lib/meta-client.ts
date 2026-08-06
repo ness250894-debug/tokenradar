@@ -43,6 +43,12 @@ export interface PublishThreadsTextOptions {
   spoilerEntities?: TextEntity[];
 }
 
+/** Options for static image publishing. Threads supports the same decorations as text posts. */
+export interface PublishImageOptions extends PublishThreadsTextOptions {
+  /** Accessibility label describing the published image. */
+  altText?: string;
+}
+
 /** Image item for an Instagram carousel post. */
 export interface InstagramCarouselItem {
   imageUrl: string;
@@ -419,6 +425,66 @@ async function createThreadsTextContainer(
 }
 
 /**
+ * Create a static image container for Instagram or Threads.
+ */
+async function createImageContainer(
+  platform: MetaPlatform,
+  imageUrl: string,
+  caption: string,
+  options?: PublishImageOptions,
+): Promise<string> {
+  const { accessToken, userId } = getCredentials(platform);
+  const config = PLATFORM_CONFIG[platform];
+  const params: Record<string, string> = {
+    access_token: accessToken,
+    image_url: imageUrl,
+  };
+  if (options?.altText) params.alt_text = options.altText;
+
+  if (platform === "instagram") {
+    params.caption = caption;
+  } else {
+    params.media_type = "IMAGE";
+    params.text = caption;
+    if (options?.topicTag) params.topic_tag = options.topicTag;
+    if (options?.spoilerEntities?.length) {
+      params.text_entities = JSON.stringify(options.spoilerEntities);
+    }
+  }
+
+  const submit = async (requestParams: Record<string, string>): Promise<string> => {
+    const result = await metaApiRequest<{ id: string }>(
+      config.baseUrl,
+      config.containerEndpoint(userId),
+      "POST",
+      requestParams,
+      platform,
+    );
+    console.info(`  [meta:${platform}] Image container created: ${result.id}`);
+    return result.id;
+  };
+
+  try {
+    return await submit(params);
+  } catch (error) {
+    if (
+      platform === "threads" &&
+      isInvalidParameterError(error) &&
+      (params.topic_tag || params.text_entities)
+    ) {
+      const retryParams = { ...params };
+      delete retryParams.topic_tag;
+      delete retryParams.text_entities;
+      console.warn(
+        "  [meta:threads] Image container rejected optional topic/spoiler params; retrying without them.",
+      );
+      return submit(retryParams);
+    }
+    throw error;
+  }
+}
+
+/**
  * Create a child image container for an Instagram carousel.
  */
 async function createInstagramCarouselItem(imageUrl: string): Promise<string> {
@@ -613,6 +679,27 @@ export async function publishThreadsText(
   const postId = await publishContainer("threads", containerId);
 
   return { id: postId, platform: "threads" };
+}
+
+/**
+ * Full static-image publishing pipeline for Instagram feed posts and Threads images.
+ */
+export async function publishImage(
+  platform: MetaPlatform,
+  imageUrl: string,
+  caption: string,
+  options?: PublishImageOptions,
+): Promise<PublishResult> {
+  const safeCaption = sanitizePostTextLinks(caption);
+
+  console.info(`  [meta:${platform}] Starting image publish pipeline...`);
+  console.info(`  [meta:${platform}] Image URL: ${imageUrl}`);
+  console.info(`  [meta:${platform}] Caption length: ${safeCaption.length} chars`);
+
+  const containerId = await createImageContainer(platform, imageUrl, safeCaption, options);
+  await pollContainerStatus(platform, containerId);
+  const postId = await publishContainer(platform, containerId);
+  return { id: postId, platform };
 }
 
 /**

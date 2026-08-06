@@ -91,18 +91,24 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("data/search-intent-history.json");
   });
 
-  it("keeps Telegram image slots and the Instagram/YouTube video route wired", () => {
+  it("keeps comparison slots and the YouTube-only video route wired", () => {
     const workflow = readWorkflow("social-automations.yml");
 
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence");
-    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; Instagram + YouTube only)");
+    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform telegram");
+    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform x");
+    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform meta");
+    expect(workflow).not.toContain("npx tsx scripts/post-daily-poll.ts");
+    expect(workflow).not.toContain("npx tsx scripts/post-interactive-daily.ts");
+    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; YouTube only)");
     expect(workflow).toContain("Refresh Derived Metrics For Video");
-    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform instagram-youtube");
+    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform youtube");
+    expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform instagram-youtube");
     expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform all");
     expect(workflow.indexOf("npx tsx scripts/compute-metrics.ts")).toBeLessThan(
-      workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform instagram-youtube"),
+      workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform youtube"),
     );
   });
 

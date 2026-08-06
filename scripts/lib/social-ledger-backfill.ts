@@ -16,6 +16,10 @@ const SPECIAL_POSTED_FILES = new Set([
   "weekly-telegram-recap.json",
   "weekly-threads-recap.json",
   "interactive-daily.json",
+  "token-comparison-telegram.json",
+  "token-comparison-x.json",
+  "token-comparison-instagram.json",
+  "token-comparison-threads.json",
 ]);
 
 function readTracker(filePath: string): TrackerPayload | null {
@@ -164,6 +168,14 @@ function collectPostedRecords(dataDir: string): SocialPostRecord[] {
 
       if (fileName === "weekly-telegram-recap.json") {
         records.push(record(dateDir, "telegram", `${dateDir}:telegram-weekly-recap`, payload, {
+          tokenIds: Array.isArray(payload.tokenIds) ? payload.tokenIds : null,
+        }));
+        continue;
+      }
+
+      const comparisonMatch = fileName.match(/^token-comparison-(telegram|x|instagram|threads)\.json$/);
+      if (comparisonMatch) {
+        records.push(record(dateDir, comparisonMatch[1], `${dateDir}:token-comparison`, payload, {
           tokenIds: Array.isArray(payload.tokenIds) ? payload.tokenIds : null,
         }));
         continue;

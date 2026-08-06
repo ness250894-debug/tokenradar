@@ -50,6 +50,14 @@ describe("social ledger backfill", () => {
       messageId: 42,
       theme: "Market Mood",
     });
+    writeJson(path.join(dataDir, "posted", "2026-05-16", "token-comparison-x.json"), {
+      postedAt: "2026-05-16T15:30:00.000Z",
+      platform: "x",
+      tweetId: "comparison-1",
+      tokenIds: ["bitcoin", "ethereum"],
+      comparisonContext: "Layer 1 (L1)",
+      xText: "$BTC vs $ETH",
+    });
     writeJson(path.join(dataDir, "posted", "2026-05-16", "weekly-threads-recap.json"), {
       postedAt: "2026-05-16T16:00:00.000Z",
       postId: "threads-recap-1",
@@ -92,6 +100,16 @@ describe("social ledger backfill", () => {
         platform: "telegram",
         contentKey: "2026-05-16:telegram-poll",
         externalId: 42,
+      }),
+      expect.objectContaining({
+        platform: "x",
+        contentKey: "2026-05-16:token-comparison",
+        externalId: "comparison-1",
+        details: expect.objectContaining({
+          tokenIds: ["bitcoin", "ethereum"],
+          comparisonContext: "Layer 1 (L1)",
+          xText: "$BTC vs $ETH",
+        }),
       }),
       expect.objectContaining({
         platform: "threads",
