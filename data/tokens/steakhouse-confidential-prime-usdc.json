@@ -1,0 +1,50 @@
+{
+  "id": "steakhouse-confidential-prime-usdc",
+  "symbol": "steakcusdc",
+  "name": "Steakhouse Confidential Prime USDC",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174379/large/csteak.png?1783666538",
+  "description": "Steakhouse Confidential Prime USDC (steakcUSDC) is the share token of a Morpho Vault v2 on Ethereum curated by Steakhouse Financial. The vault generates yield by lending USDC against blue-chip collateral such as cbBTC, WBTC and wstETH through Morpho's lending infrastructure. Depositors deposit Confidential USDC (cUSDC, an ERC-7984 token whose balances are encrypted using fully homomorphic encryption) via app.zama.org, and ownership is represented through confidential vault shares. ",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Yield-Bearing Stablecoin",
+    "Yield-Bearing Tokens"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.zama.org/earn/ethereum/0xbEEF00A59B577423653A1526c7009bdE103F542B/steakhouse-confidential-prime-usdc",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0xbEEF00A59B577423653A1526c7009bdE103F542B"
+  },
+  "market": {
+    "price": 1.012,
+    "marketCap": 43003983,
+    "marketCapRank": 465,
+    "volume24h": 0,
+    "high24h": 1.014,
+    "low24h": 1.009,
+    "priceChange24h": 0.07902,
+    "priceChange7d": 0.11165,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.017,
+    "athChangePercentage": -0.4888,
+    "athDate": "2026-08-02T02:10:00.000Z",
+    "atl": 1.002,
+    "atlDate": "2026-07-31T14:09:50.000Z",
+    "circulatingSupply": 42496814.01539819,
+    "totalSupply": 42496814.01539819,
+    "maxSupply": null,
+    "fdv": 43003983
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-06T22:32:43.873Z"
+}

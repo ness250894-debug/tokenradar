@@ -5646,5 +5646,28 @@
     "discoveredAt": "2026-08-05T19:07:18.859Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-05T19:07:18.859Z"
+  },
+  {
+    "id": "metamask-agent-wallet",
+    "name": "MetaMask Agent Wallet",
+    "symbol": "TBD",
+    "category": "Infrastructure/AI/DeFi",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 70,
+    "dataSource": "https://decrypt.co/375044/metamask-self-custodial-ai-wallet-autonomous-crypto-trading",
+    "lifecycleStatus": "watchlist",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Product/Feature Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/375044/metamask-self-custodial-ai-wallet-autonomous-crypto-trading",
+        "title": "MetaMask Launches Self-Custodial AI Wallet for Autonomous Crypto Trading",
+        "observedAt": "2024-08-08T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-06T22:33:24.135Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-06T22:33:24.135Z"
   }
 ]
