@@ -130,6 +130,7 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 | `npx tsx scripts/post-daily-poll.ts` | Post the rotating Telegram poll |
 | `npx tsx scripts/post-daily-movers.ts` | Post the Telegram movers image |
 | `npx tsx scripts/post-interactive-daily.ts` | Post the X interactive poll |
+| `npx tsx scripts/post-token-comparison.ts` | Publish the shared two-token comparison card |
 | `npx tsx scripts/post-threads-daily.ts` | Post text-native Threads prompts |
 | `npx tsx scripts/post-video-daily.ts` | Render and publish platform-specific short-form video |
 | `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta access tokens |
@@ -141,14 +142,14 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 
 Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
 
-The production social cadence keeps video on Instagram and YouTube only. X publishes one research note and one interactive poll per day. Threads is text-native on Tuesday and Thursday with a Friday weekly recap. Telegram replaces its former Mon/Wed/Fri video with **Radar Divergence**, a visual comparison of price momentum, volume participation, and risk. TikTok video posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
+The production social cadence publishes a two-token comparison card to X and Telegram daily, replacing their former poll slots. The same comparison reaches Instagram and Threads on Monday, Wednesday, and Friday instead of video. YouTube keeps the Mon/Wed/Fri short-form video route. Telegram also publishes **Radar Divergence**, a visual comparison of price momentum, volume participation, and risk. TikTok video posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
 
 | Platform | Production schedule (UTC) | Format |
 |---|---|---|
-| Telegram | Daily at 00:17, 03:17, 12:23, 15:37, 21:23; Mon/Wed/Fri at 18:41; Fri at 16:29 | Brief, watchlist, pulse, poll, movers, Radar Divergence, weekly recap |
-| X | Daily at 03:17 and 12:23 | Research note; interactive poll with one contextual link reply |
-| Instagram | Sun/Tue/Thu at 00:29; Mon/Wed/Fri at 18:41 | Movers carousel; Reel |
-| Threads | Tue/Thu at 16:17; Fri at 16:29 | Research note; weekly recap |
+| Telegram | Daily at 00:17, 03:17, 12:23, 15:37, 21:23; Mon/Wed/Fri at 18:41; Fri at 16:29 | Brief, watchlist, pulse, token comparison, movers, Radar Divergence, weekly recap |
+| X | Daily at 03:17 and 12:23 | Research note; token comparison card |
+| Instagram | Sun/Tue/Thu at 00:29; Mon/Wed/Fri at 18:41 | Movers carousel; token comparison card |
+| Threads | Tue/Thu at 16:17; Mon/Wed/Fri at 18:41; Fri at 16:29 | Research note; token comparison card; weekly recap |
 | YouTube | Mon/Wed/Fri at 18:41 | Short-form video |
 | TikTok | Disabled | No scheduled posts |
 
@@ -161,8 +162,9 @@ Safe dry-run commands:
 ```bash
 npx tsx scripts/post-market-updates.ts --dry-run --platform all
 npx tsx scripts/post-market-updates.ts --dry-run --platform telegram --format radar-divergence
+npx tsx scripts/post-token-comparison.ts --dry-run --platform all --output-dir tmp/comparison-previews
 npx tsx scripts/post-threads-daily.ts --dry-run --force
-npx tsx scripts/post-video-daily.ts --dry-run --platform instagram-youtube --force --output-dir tmp/video-previews
+npx tsx scripts/post-video-daily.ts --dry-run --platform youtube --force --output-dir tmp/video-previews
 npx tsx scripts/post-video-daily.ts --dry-run --platform tiktok --force
 npx tsx scripts/generate-tiktok-token.ts --env sandbox
 npx tsx scripts/generate-tiktok-token.ts --env production

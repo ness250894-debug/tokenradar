@@ -133,6 +133,7 @@ export function buildSocialPostDetails(
     slideCount: payload.slideCount,
     variant: payload.variant,
     tokenIds: payload.tokenIds,
+    comparisonContext: payload.comparisonContext,
     leaders: payload.leaders,
     pullback: payload.pullback,
     volumeLeader: payload.volumeLeader,

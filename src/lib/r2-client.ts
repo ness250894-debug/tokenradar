@@ -88,6 +88,10 @@ function inferStagingMetadata(key: string, contentType: string): { platform: str
     return { platform: "instagram", kind: "carousel-image" };
   }
 
+  if (parts[0] === "comparison") {
+    return { platform: "meta", kind: "comparison-image" };
+  }
+
   if (parts[0] === "video") {
     return {
       platform: baseName || "unknown",
