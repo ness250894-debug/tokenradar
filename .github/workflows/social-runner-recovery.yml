@@ -1,0 +1,114 @@
+# Recovers scheduled social runs that GitHub failed before assigning a hosted runner.
+# Genuine posting failures are intentionally left alone to avoid duplicate posts.
+
+name: Social Runner Recovery
+
+on:
+  workflow_run:
+    workflows: ["Social Automations"]
+    types: [completed]
+  schedule:
+    # The completion trigger handles the normal case. This sweep is a fallback in
+    # case the recovery workflow itself could not acquire a runner at that moment.
+    - cron: "13,33,53 * * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: social-runner-recovery
+  cancel-in-progress: false
+
+env:
+  MAX_RUN_ATTEMPTS: "3"
+  RECOVERY_LOOKBACK_HOURS: "6"
+
+jobs:
+  recover-runner-acquisition-failures:
+    name: Recover Unassigned Social Run
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Re-run social jobs that never started
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRIGGERED_RUN_ID: ${{ github.event.workflow_run.id || '' }}
+        run: |
+          set -euo pipefail
+
+          repo="$GITHUB_REPOSITORY"
+          cutoff="$(date -u -d "-${RECOVERY_LOOKBACK_HOURS} hours" +%Y-%m-%dT%H:%M:%SZ)"
+
+          if [[ -n "$TRIGGERED_RUN_ID" ]]; then
+            run_ids=("$TRIGGERED_RUN_ID")
+          else
+            mapfile -t run_ids < <(
+              gh api "/repos/${repo}/actions/workflows/social-automations.yml/runs?event=schedule&status=completed&per_page=100" |
+                jq -r --arg cutoff "$cutoff" '
+                  .workflow_runs[]
+                  | select(.conclusion == "failure" and .created_at >= $cutoff)
+                  | .id
+                '
+            )
+          fi
+
+          if (( ${#run_ids[@]} == 0 )); then
+            echo "No recent failed Social Automations runs found."
+            exit 0
+          fi
+
+          recovered=0
+          for run_id in "${run_ids[@]}"; do
+            run_json="$(gh api "/repos/${repo}/actions/runs/${run_id}")"
+            event="$(jq -r '.event' <<<"$run_json")"
+            status="$(jq -r '.status' <<<"$run_json")"
+            conclusion="$(jq -r '.conclusion // ""' <<<"$run_json")"
+            attempt="$(jq -r '.run_attempt' <<<"$run_json")"
+
+            if [[ "$event" != "schedule" || "$status" != "completed" || "$conclusion" != "failure" ]]; then
+              echo "Run ${run_id} is not a completed, failed schedule run; skipping."
+              continue
+            fi
+
+            if (( attempt >= MAX_RUN_ATTEMPTS )); then
+              echo "::warning title=Social recovery exhausted::Run ${run_id} already reached ${attempt} attempts."
+              continue
+            fi
+
+            jobs_json="$(gh api "/repos/${repo}/actions/runs/${run_id}/jobs?filter=latest&per_page=100")"
+            job_count="$(jq '.jobs | length' <<<"$jobs_json")"
+            step_count="$(jq '[.jobs[].steps[]?] | length' <<<"$jobs_json")"
+            unassigned_job_count="$(
+              jq '[
+                .jobs[]
+                | select(
+                    .name == "Execute Network Routing"
+                    and .conclusion == "cancelled"
+                    and ((.steps // []) | length) == 0
+                  )
+              ] | length' <<<"$jobs_json"
+            )"
+
+            # This is deliberately strict. A run is retried only when its sole job
+            # was cancelled before any step began, matching GitHub's hosted-runner
+            # acquisition failure. Application/API failures are never auto-retried.
+            if [[ "$job_count" != "1" || "$step_count" != "0" || "$unassigned_job_count" != "1" ]]; then
+              echo "Run ${run_id} executed workflow steps or failed for another reason; not retrying."
+              continue
+            fi
+
+            echo "Re-running Social Automations run ${run_id} (attempt ${attempt}/${MAX_RUN_ATTEMPTS})."
+            if gh api --method POST "/repos/${repo}/actions/runs/${run_id}/rerun" >/dev/null; then
+              echo "::notice title=Social run recovered::Queued retry for run ${run_id} after hosted-runner acquisition failure."
+              recovered=$((recovered + 1))
+            else
+              echo "::warning title=Social recovery race::Could not queue retry for run ${run_id}; the next sweep will check it again."
+            fi
+          done
+
+          echo "Queued ${recovered} social run recovery attempt(s)."
