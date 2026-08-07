@@ -1,29 +1,29 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-07T07:28:14.390Z",
+  "generatedAt": "2026-08-07T18:41:58.678Z",
   "entries": [
     {
       "date": "2026-08-07",
-      "generatedAt": "2026-08-07T07:28:14.390Z",
-      "tokenCount": 503,
+      "generatedAt": "2026-08-07T18:41:58.678Z",
+      "tokenCount": 504,
       "topIntents": [
         {
           "intent": "risk",
           "label": "Risk check",
-          "tokenCount": 214,
+          "tokenCount": 213,
           "avgScore": 75
         },
         {
           "intent": "stablecoin",
           "label": "Stablecoin safety",
-          "tokenCount": 82,
+          "tokenCount": 83,
           "avgScore": 83
         },
         {
           "intent": "supply",
           "label": "Unlock / supply",
-          "tokenCount": 59,
-          "avgScore": 88
+          "tokenCount": 61,
+          "avgScore": 89
         },
         {
           "intent": "rwa",
@@ -34,14 +34,14 @@
         {
           "intent": "ai",
           "label": "AI crypto",
-          "tokenCount": 43,
-          "avgScore": 80
+          "tokenCount": 37,
+          "avgScore": 79
         },
         {
           "intent": "prediction",
           "label": "Price prediction",
-          "tokenCount": 25,
-          "avgScore": 92
+          "tokenCount": 26,
+          "avgScore": 94
         }
       ],
       "hotTokens": [
@@ -49,34 +49,34 @@
         "book-of-meme",
         "ethgas-2",
         "giggle-fund",
-        "plume",
         "skyai",
         "zerobase",
-        "janction",
-        "unibase",
-        "cap-4"
+        "spacex-bstocks-tokenized-stock",
+        "cash-cat",
+        "meet48",
+        "bonk"
       ],
       "watchTokens": [
         "agentfun-ai",
         "book-of-meme",
         "ethgas-2",
         "giggle-fund",
-        "plume",
         "skyai",
         "zerobase",
-        "janction",
-        "unibase",
-        "cap-4",
+        "spacex-bstocks-tokenized-stock",
         "cash-cat",
-        "pump-fun",
         "meet48",
-        "cysic",
+        "bonk",
+        "zama",
         "bless-2",
-        "cardano",
-        "audiera",
+        "unibase",
+        "kaito",
+        "wiki-cat",
         "bitway",
-        "kite-2",
-        "kaito"
+        "allora",
+        "humanity",
+        "cysic",
+        "talus"
       ],
       "tokens": {
         "agentfun-ai": {
@@ -111,14 +111,6 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "prediction"
         },
-        "plume": {
-          "tokenId": "plume",
-          "attentionScore": 100,
-          "hypeScore": 100,
-          "supplyRiskScore": 46,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
         "skyai": {
           "tokenId": "skyai",
           "attentionScore": 100,
@@ -135,45 +127,21 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "prediction"
         },
-        "janction": {
-          "tokenId": "janction",
+        "spacex-bstocks-tokenized-stock": {
+          "tokenId": "spacex-bstocks-tokenized-stock",
           "attentionScore": 100,
-          "hypeScore": 94,
-          "supplyRiskScore": 92,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "ai"
-        },
-        "unibase": {
-          "tokenId": "unibase",
-          "attentionScore": 100,
-          "hypeScore": 89,
-          "supplyRiskScore": 90,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "ai"
-        },
-        "cap-4": {
-          "tokenId": "cap-4",
-          "attentionScore": 100,
-          "hypeScore": 88,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+          "hypeScore": 97,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
         },
         "cash-cat": {
           "tokenId": "cash-cat",
           "attentionScore": 100,
-          "hypeScore": 85,
+          "hypeScore": 86,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
-          "primaryIntent": "prediction"
-        },
-        "pump-fun": {
-          "tokenId": "pump-fun",
-          "attentionScore": 100,
-          "hypeScore": 84,
-          "supplyRiskScore": 64,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
+          "primaryIntent": "airdrop"
         },
         "meet48": {
           "tokenId": "meet48",
@@ -183,13 +151,21 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "ai"
         },
-        "cysic": {
-          "tokenId": "cysic",
+        "bonk": {
+          "tokenId": "bonk",
+          "attentionScore": 100,
+          "hypeScore": 82,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "prediction"
+        },
+        "zama": {
+          "tokenId": "zama",
           "attentionScore": 100,
           "hypeScore": 81,
-          "supplyRiskScore": 100,
+          "supplyRiskScore": 96,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "prediction"
+          "primaryIntent": "airdrop"
         },
         "bless-2": {
           "tokenId": "bless-2",
@@ -199,133 +175,93 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "prediction"
         },
-        "cardano": {
-          "tokenId": "cardano",
+        "unibase": {
+          "tokenId": "unibase",
           "attentionScore": 100,
-          "hypeScore": 75,
-          "supplyRiskScore": 20,
-          "classification": "Organic Interest",
-          "primaryIntent": "buying"
-        },
-        "audiera": {
-          "tokenId": "audiera",
-          "attentionScore": 100,
-          "hypeScore": 71,
-          "supplyRiskScore": 83,
+          "hypeScore": 76,
+          "supplyRiskScore": 90,
           "classification": "Supply-Risk Spike",
+          "primaryIntent": "ai"
+        },
+        "kaito": {
+          "tokenId": "kaito",
+          "attentionScore": 100,
+          "hypeScore": 70,
+          "supplyRiskScore": 91,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "wiki-cat": {
+          "tokenId": "wiki-cat",
+          "attentionScore": 99,
+          "hypeScore": 100,
+          "supplyRiskScore": 28,
+          "classification": "FOMO Spike",
           "primaryIntent": "prediction"
         },
         "bitway": {
           "tokenId": "bitway",
           "attentionScore": 99,
-          "hypeScore": 100,
+          "hypeScore": 95,
           "supplyRiskScore": 94,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "prediction"
         },
-        "kite-2": {
-          "tokenId": "kite-2",
-          "attentionScore": 97,
-          "hypeScore": 88,
-          "supplyRiskScore": 91,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "kaito": {
-          "tokenId": "kaito",
-          "attentionScore": 97,
-          "hypeScore": 67,
-          "supplyRiskScore": 91,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "akedo": {
-          "tokenId": "akedo",
-          "attentionScore": 96,
-          "hypeScore": 98,
-          "supplyRiskScore": 93,
+        "allora": {
+          "tokenId": "allora",
+          "attentionScore": 98,
+          "hypeScore": 100,
+          "supplyRiskScore": 83,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "prediction"
         },
-        "tagger": {
-          "tokenId": "tagger",
-          "attentionScore": 95,
+        "humanity": {
+          "tokenId": "humanity",
+          "attentionScore": 98,
           "hypeScore": 100,
           "supplyRiskScore": 96,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "meme"
+          "primaryIntent": "supply"
         },
-        "the-black-bull": {
-          "tokenId": "the-black-bull",
-          "attentionScore": 95,
-          "hypeScore": 100,
-          "supplyRiskScore": 70,
+        "cysic": {
+          "tokenId": "cysic",
+          "attentionScore": 97,
+          "hypeScore": 73,
+          "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "risk"
-        },
-        "rif-token": {
-          "tokenId": "rif-token",
-          "attentionScore": 95,
-          "hypeScore": 87,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "bianrensheng": {
-          "tokenId": "bianrensheng",
-          "attentionScore": 94,
-          "hypeScore": 100,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
+          "primaryIntent": "prediction"
         },
         "talus": {
           "tokenId": "talus",
-          "attentionScore": 93,
-          "hypeScore": 82,
+          "attentionScore": 97,
+          "hypeScore": 72,
           "supplyRiskScore": 85,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "prediction"
         },
-        "canton-network": {
-          "tokenId": "canton-network",
-          "attentionScore": 93,
-          "hypeScore": 66,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "airdrop"
-        },
-        "river": {
-          "tokenId": "river",
-          "attentionScore": 92,
-          "hypeScore": 100,
-          "supplyRiskScore": 96,
+        "audiera": {
+          "tokenId": "audiera",
+          "attentionScore": 95,
+          "hypeScore": 72,
+          "supplyRiskScore": 80,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "prediction"
+          "primaryIntent": "supply"
         },
         "chainopera-ai": {
           "tokenId": "chainopera-ai",
-          "attentionScore": 92,
-          "hypeScore": 99,
+          "attentionScore": 94,
+          "hypeScore": 100,
           "supplyRiskScore": 97,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "allora": {
-          "tokenId": "allora",
-          "attentionScore": 91,
-          "hypeScore": 100,
-          "supplyRiskScore": 83,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "ai"
-        },
-        "layerzero": {
-          "tokenId": "layerzero",
-          "attentionScore": 91,
-          "hypeScore": 92,
-          "supplyRiskScore": 78,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+        "ondo-finance": {
+          "tokenId": "ondo-finance",
+          "attentionScore": 94,
+          "hypeScore": 72,
+          "supplyRiskScore": 62,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "airdrop"
         },
         "coti": {
           "tokenId": "coti",
@@ -343,21 +279,45 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "memecore": {
-          "tokenId": "memecore",
-          "attentionScore": 90,
-          "hypeScore": 92,
-          "supplyRiskScore": 100,
+        "orochi-network": {
+          "tokenId": "orochi-network",
+          "attentionScore": 91,
+          "hypeScore": 69,
+          "supplyRiskScore": 95,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "prediction"
+        },
+        "unifai-network": {
+          "tokenId": "unifai-network",
+          "attentionScore": 91,
+          "hypeScore": 68,
+          "supplyRiskScore": 91,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "perle": {
-          "tokenId": "perle",
-          "attentionScore": 90,
-          "hypeScore": 77,
-          "supplyRiskScore": 99,
+        "filecoin": {
+          "tokenId": "filecoin",
+          "attentionScore": 91,
+          "hypeScore": 67,
+          "supplyRiskScore": 70,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+          "primaryIntent": "ai"
+        },
+        "tagger": {
+          "tokenId": "tagger",
+          "attentionScore": 90,
+          "hypeScore": 91,
+          "supplyRiskScore": 96,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "prediction"
+        },
+        "cap-4": {
+          "tokenId": "cap-4",
+          "attentionScore": 90,
+          "hypeScore": 85,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "buying"
         },
         "glidr": {
           "tokenId": "glidr",
@@ -366,6 +326,22 @@
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "prediction"
+        },
+        "perle": {
+          "tokenId": "perle",
+          "attentionScore": 89,
+          "hypeScore": 71,
+          "supplyRiskScore": 99,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "openledger-2": {
+          "tokenId": "openledger-2",
+          "attentionScore": 89,
+          "hypeScore": 67,
+          "supplyRiskScore": 94,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
         },
         "basedhype": {
           "tokenId": "basedhype",
@@ -383,109 +359,141 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "prediction"
         },
-        "zama": {
-          "tokenId": "zama",
-          "attentionScore": 88,
-          "hypeScore": 78,
-          "supplyRiskScore": 96,
-          "classification": "Supply-Risk Spike",
+        "ethena": {
+          "tokenId": "ethena",
+          "attentionScore": 87,
+          "hypeScore": 60,
+          "supplyRiskScore": 41,
+          "classification": "Stablecoin Safety Check",
           "primaryIntent": "airdrop"
         },
-        "re": {
-          "tokenId": "re",
-          "attentionScore": 88,
-          "hypeScore": 77,
-          "supplyRiskScore": 100,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "supply"
-        },
-        "unifai-network": {
-          "tokenId": "unifai-network",
-          "attentionScore": 88,
-          "hypeScore": 71,
-          "supplyRiskScore": 91,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "openledger-2": {
-          "tokenId": "openledger-2",
-          "attentionScore": 88,
-          "hypeScore": 67,
-          "supplyRiskScore": 94,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "ai-rig-complex": {
-          "tokenId": "ai-rig-complex",
+        "canton-network": {
+          "tokenId": "canton-network",
           "attentionScore": 86,
-          "hypeScore": 77,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "fartcoin": {
-          "tokenId": "fartcoin",
-          "attentionScore": 86,
-          "hypeScore": 71,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
+          "hypeScore": 60,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "airdrop"
         },
         "anvil": {
           "tokenId": "anvil",
           "attentionScore": 85,
           "hypeScore": 100,
           "supplyRiskScore": 18,
+          "classification": "FOMO Spike",
+          "primaryIntent": "prediction"
+        },
+        "soon-2": {
+          "tokenId": "soon-2",
+          "attentionScore": 85,
+          "hypeScore": 75,
+          "supplyRiskScore": 79,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "pump-fun": {
+          "tokenId": "pump-fun",
+          "attentionScore": 85,
+          "hypeScore": 73,
+          "supplyRiskScore": 64,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
+        },
+        "dexe": {
+          "tokenId": "dexe",
+          "attentionScore": 85,
+          "hypeScore": 60,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "prediction"
+        },
+        "cardano": {
+          "tokenId": "cardano",
+          "attentionScore": 85,
+          "hypeScore": 53,
+          "supplyRiskScore": 20,
           "classification": "Organic Interest",
           "primaryIntent": "prediction"
         },
         "velvet": {
           "tokenId": "velvet",
-          "attentionScore": 85,
-          "hypeScore": 85,
+          "attentionScore": 84,
+          "hypeScore": 89,
           "supplyRiskScore": 77,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "ai"
         },
-        "jito-governance-token": {
-          "tokenId": "jito-governance-token",
-          "attentionScore": 85,
-          "hypeScore": 68,
-          "supplyRiskScore": 59,
-          "classification": "Organic Interest",
+        "akedo": {
+          "tokenId": "akedo",
+          "attentionScore": 84,
+          "hypeScore": 81,
+          "supplyRiskScore": 93,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "prediction"
+        },
+        "bianrensheng": {
+          "tokenId": "bianrensheng",
+          "attentionScore": 84,
+          "hypeScore": 80,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "affine": {
-          "tokenId": "affine",
-          "attentionScore": 85,
-          "hypeScore": 62,
+        "fartcoin": {
+          "tokenId": "fartcoin",
+          "attentionScore": 84,
+          "hypeScore": 70,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
-          "primaryIntent": "prediction"
+          "primaryIntent": "ai"
         },
-        "gmt-token": {
-          "tokenId": "gmt-token",
-          "attentionScore": 85,
-          "hypeScore": 54,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "prediction"
-        },
-        "pieverse": {
-          "tokenId": "pieverse",
+        "io": {
+          "tokenId": "io",
           "attentionScore": 84,
-          "hypeScore": 85,
-          "supplyRiskScore": 87,
+          "hypeScore": 63,
+          "supplyRiskScore": 63,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "janction": {
+          "tokenId": "janction",
+          "attentionScore": 84,
+          "hypeScore": 62,
+          "supplyRiskScore": 92,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "keeta": {
-          "tokenId": "keeta",
-          "attentionScore": 84,
-          "hypeScore": 69,
-          "supplyRiskScore": 58,
+        "apriori": {
+          "tokenId": "apriori",
+          "attentionScore": 82,
+          "hypeScore": 89,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "river": {
+          "tokenId": "river",
+          "attentionScore": 82,
+          "hypeScore": 68,
+          "supplyRiskScore": 96,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "re": {
+          "tokenId": "re",
+          "attentionScore": 82,
+          "hypeScore": 65,
+          "supplyRiskScore": 100,
           "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
+          "primaryIntent": "supply"
+        },
+        "near": {
+          "tokenId": "near",
+          "attentionScore": 82,
+          "hypeScore": 50,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
         },
         "impossible-cloud-network-token": {
           "tokenId": "impossible-cloud-network-token",
@@ -495,43 +503,11 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "pudgy-penguins": {
-          "tokenId": "pudgy-penguins",
+        "plume": {
+          "tokenId": "plume",
           "attentionScore": 81,
-          "hypeScore": 72,
-          "supplyRiskScore": 25,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "kinesis-gold": {
-          "tokenId": "kinesis-gold",
-          "attentionScore": 81,
-          "hypeScore": 63,
-          "supplyRiskScore": 30,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "orochi-network": {
-          "tokenId": "orochi-network",
-          "attentionScore": 81,
-          "hypeScore": 62,
-          "supplyRiskScore": 95,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "prediction"
-        },
-        "grass": {
-          "tokenId": "grass",
-          "attentionScore": 81,
-          "hypeScore": 60,
-          "supplyRiskScore": 41,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "spacex-bstocks-tokenized-stock": {
-          "tokenId": "spacex-bstocks-tokenized-stock",
-          "attentionScore": 81,
-          "hypeScore": 60,
-          "supplyRiskScore": 0,
+          "hypeScore": 56,
+          "supplyRiskScore": 46,
           "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
@@ -543,6 +519,22 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
+        "zilliqa": {
+          "tokenId": "zilliqa",
+          "attentionScore": 81,
+          "hypeScore": 54,
+          "supplyRiskScore": 6,
+          "classification": "Organic Interest",
+          "primaryIntent": "prediction"
+        },
+        "sandisk-bstocks-tokenized-stock": {
+          "tokenId": "sandisk-bstocks-tokenized-stock",
+          "attentionScore": 81,
+          "hypeScore": 51,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
         "precious-metals-usd": {
           "tokenId": "precious-metals-usd",
           "attentionScore": 80,
@@ -550,6 +542,14 @@
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
+        },
+        "pearl-2": {
+          "tokenId": "pearl-2",
+          "attentionScore": 80,
+          "hypeScore": 73,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "risk"
         },
         "unitas": {
           "tokenId": "unitas",
@@ -559,109 +559,77 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "supply"
         },
-        "sushi": {
-          "tokenId": "sushi",
+        "spark-2": {
+          "tokenId": "spark-2",
           "attentionScore": 80,
-          "hypeScore": 69,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "prediction"
-        },
-        "ethena": {
-          "tokenId": "ethena",
-          "attentionScore": 80,
-          "hypeScore": 53,
-          "supplyRiskScore": 41,
+          "hypeScore": 65,
+          "supplyRiskScore": 84,
           "classification": "Stablecoin Safety Check",
-          "primaryIntent": "airdrop"
+          "primaryIntent": "stablecoin"
         },
-        "marscoin-4": {
-          "tokenId": "marscoin-4",
+        "gmt-token": {
+          "tokenId": "gmt-token",
           "attentionScore": 79,
-          "hypeScore": 79,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
-        },
-        "ribbita-by-virtuals": {
-          "tokenId": "ribbita-by-virtuals",
-          "attentionScore": 79,
-          "hypeScore": 78,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "subsquid": {
-          "tokenId": "subsquid",
-          "attentionScore": 79,
-          "hypeScore": 73,
-          "supplyRiskScore": 6,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "soon-2": {
-          "tokenId": "soon-2",
-          "attentionScore": 79,
-          "hypeScore": 71,
-          "supplyRiskScore": 79,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "funfair": {
-          "tokenId": "funfair",
-          "attentionScore": 78,
-          "hypeScore": 92,
+          "hypeScore": 82,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
-          "primaryIntent": "prediction"
+          "primaryIntent": "buying"
         },
-        "lighter": {
-          "tokenId": "lighter",
-          "attentionScore": 78,
-          "hypeScore": 77,
-          "supplyRiskScore": 90,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "airdrop"
-        },
-        "bonk": {
-          "tokenId": "bonk",
-          "attentionScore": 78,
-          "hypeScore": 67,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "worldcoin-wld": {
-          "tokenId": "worldcoin-wld",
-          "attentionScore": 78,
-          "hypeScore": 53,
-          "supplyRiskScore": 77,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "airdrop"
-        },
-        "akash-network": {
-          "tokenId": "akash-network",
-          "attentionScore": 77,
-          "hypeScore": 68,
-          "supplyRiskScore": 8,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
+        "keeta": {
+          "tokenId": "keeta",
+          "attentionScore": 79,
+          "hypeScore": 66,
+          "supplyRiskScore": 58,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "kinesis-silver": {
           "tokenId": "kinesis-silver",
-          "attentionScore": 77,
-          "hypeScore": 64,
+          "attentionScore": 78,
+          "hypeScore": 100,
           "supplyRiskScore": 19,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
+          "classification": "Narrative Rotation",
+          "primaryIntent": "prediction"
         },
-        "injective-protocol": {
-          "tokenId": "injective-protocol",
+        "pudgy-penguins": {
+          "tokenId": "pudgy-penguins",
+          "attentionScore": 78,
+          "hypeScore": 69,
+          "supplyRiskScore": 25,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "babylon": {
+          "tokenId": "babylon",
           "attentionScore": 77,
-          "hypeScore": 53,
+          "hypeScore": 67,
+          "supplyRiskScore": 73,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "ai"
+        },
+        "dogwifcoin": {
+          "tokenId": "dogwifcoin",
+          "attentionScore": 77,
+          "hypeScore": 65,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
+        },
+        "baby-doge-coin": {
+          "tokenId": "baby-doge-coin",
+          "attentionScore": 76,
+          "hypeScore": 84,
+          "supplyRiskScore": 68,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
+        },
+        "ether-fi": {
+          "tokenId": "ether-fi",
+          "attentionScore": 76,
+          "hypeScore": 66,
+          "supplyRiskScore": 3,
+          "classification": "Organic Interest",
+          "primaryIntent": "buying"
         },
         "lab": {
           "tokenId": "lab",
@@ -671,125 +639,149 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "risk"
         },
-        "ondo-finance": {
-          "tokenId": "ondo-finance",
+        "rif-token": {
+          "tokenId": "rif-token",
           "attentionScore": 76,
-          "hypeScore": 60,
-          "supplyRiskScore": 62,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "airdrop"
-        },
-        "convex-finance": {
-          "tokenId": "convex-finance",
-          "attentionScore": 75,
-          "hypeScore": 63,
+          "hypeScore": 56,
           "supplyRiskScore": 0,
-          "classification": "Organic Interest",
+          "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
         "eigenlayer": {
           "tokenId": "eigenlayer",
-          "attentionScore": 75,
-          "hypeScore": 53,
+          "attentionScore": 76,
+          "hypeScore": 54,
           "supplyRiskScore": 71,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "ai"
         },
-        "filecoin": {
-          "tokenId": "filecoin",
+        "pieverse": {
+          "tokenId": "pieverse",
           "attentionScore": 75,
-          "hypeScore": 52,
-          "supplyRiskScore": 70,
+          "hypeScore": 83,
+          "supplyRiskScore": 95,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "ai"
+          "primaryIntent": "supply"
         },
-        "uniswap": {
-          "tokenId": "uniswap",
+        "espresso": {
+          "tokenId": "espresso",
           "attentionScore": 75,
-          "hypeScore": 47,
-          "supplyRiskScore": 36,
-          "classification": "Organic Interest",
-          "primaryIntent": "buying"
-        },
-        "sandisk-bstocks-tokenized-stock": {
-          "tokenId": "sandisk-bstocks-tokenized-stock",
-          "attentionScore": 75,
-          "hypeScore": 46,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "chip-2": {
-          "tokenId": "chip-2",
-          "attentionScore": 74,
-          "hypeScore": 72,
-          "supplyRiskScore": 96,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "telcoin": {
-          "tokenId": "telcoin",
-          "attentionScore": 74,
-          "hypeScore": 64,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "risk"
-        },
-        "babylon": {
-          "tokenId": "babylon",
-          "attentionScore": 74,
-          "hypeScore": 63,
-          "supplyRiskScore": 73,
+          "hypeScore": 73,
+          "supplyRiskScore": 99,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "ai"
+          "primaryIntent": "supply"
         },
         "turbo": {
           "tokenId": "turbo",
-          "attentionScore": 74,
-          "hypeScore": 63,
+          "attentionScore": 75,
+          "hypeScore": 64,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "ai-powered-finance": {
-          "tokenId": "ai-powered-finance",
-          "attentionScore": 74,
-          "hypeScore": 62,
-          "supplyRiskScore": 18,
+        "kite-2": {
+          "tokenId": "kite-2",
+          "attentionScore": 75,
+          "hypeScore": 60,
+          "supplyRiskScore": 91,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "ecash": {
+          "tokenId": "ecash",
+          "attentionScore": 75,
+          "hypeScore": 58,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "buying"
+        },
+        "injective-protocol": {
+          "tokenId": "injective-protocol",
+          "attentionScore": 75,
+          "hypeScore": 51,
+          "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "pepe": {
-          "tokenId": "pepe",
-          "attentionScore": 74,
-          "hypeScore": 56,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
+        "lido-dao": {
+          "tokenId": "lido-dao",
+          "attentionScore": 75,
+          "hypeScore": 50,
+          "supplyRiskScore": 20,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
-        "centrifuge-2": {
-          "tokenId": "centrifuge-2",
-          "attentionScore": 74,
-          "hypeScore": 53,
-          "supplyRiskScore": 53,
+        "tether-gold": {
+          "tokenId": "tether-gold",
+          "attentionScore": 75,
+          "hypeScore": 43,
+          "supplyRiskScore": 16,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "airdrop"
+        },
+        "pax-gold": {
+          "tokenId": "pax-gold",
+          "attentionScore": 75,
+          "hypeScore": 42,
+          "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
-        "quack-ai": {
-          "tokenId": "quack-ai",
-          "attentionScore": 73,
-          "hypeScore": 88,
-          "supplyRiskScore": 18,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
-        },
-        "backpack": {
-          "tokenId": "backpack",
-          "attentionScore": 73,
-          "hypeScore": 79,
-          "supplyRiskScore": 98,
+        "layerzero": {
+          "tokenId": "layerzero",
+          "attentionScore": 74,
+          "hypeScore": 72,
+          "supplyRiskScore": 78,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
+        },
+        "the-black-bull": {
+          "tokenId": "the-black-bull",
+          "attentionScore": 74,
+          "hypeScore": 72,
+          "supplyRiskScore": 70,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "risk"
+        },
+        "apecoin": {
+          "tokenId": "apecoin",
+          "attentionScore": 74,
+          "hypeScore": 69,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "beldex": {
+          "tokenId": "beldex",
+          "attentionScore": 74,
+          "hypeScore": 66,
+          "supplyRiskScore": 33,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "funfair": {
+          "tokenId": "funfair",
+          "attentionScore": 74,
+          "hypeScore": 62,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "zebec-network": {
+          "tokenId": "zebec-network",
+          "attentionScore": 74,
+          "hypeScore": 53,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "kinesis-gold": {
+          "tokenId": "kinesis-gold",
+          "attentionScore": 73,
+          "hypeScore": 100,
+          "supplyRiskScore": 40,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "prediction"
         },
         "unit-pump": {
           "tokenId": "unit-pump",
@@ -799,101 +791,69 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "humanity": {
-          "tokenId": "humanity",
+        "centrifuge-2": {
+          "tokenId": "centrifuge-2",
           "attentionScore": 73,
-          "hypeScore": 76,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+          "hypeScore": 52,
+          "supplyRiskScore": 53,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "virtual-protocol": {
+          "tokenId": "virtual-protocol",
+          "attentionScore": 73,
+          "hypeScore": 52,
+          "supplyRiskScore": 41,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "celium": {
+          "tokenId": "celium",
+          "attentionScore": 72,
+          "hypeScore": 64,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
         },
         "chainlink": {
           "tokenId": "chainlink",
-          "attentionScore": 73,
-          "hypeScore": 63,
+          "attentionScore": 72,
+          "hypeScore": 62,
           "supplyRiskScore": 38,
           "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
-        "dexe": {
-          "tokenId": "dexe",
-          "attentionScore": 73,
-          "hypeScore": 49,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "prediction"
-        },
-        "floki": {
-          "tokenId": "floki",
-          "attentionScore": 72,
-          "hypeScore": 72,
-          "supplyRiskScore": 28,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "wormhole": {
-          "tokenId": "wormhole",
-          "attentionScore": 72,
-          "hypeScore": 67,
-          "supplyRiskScore": 45,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
-        },
-        "jupiter-exchange-solana": {
-          "tokenId": "jupiter-exchange-solana",
-          "attentionScore": 72,
-          "hypeScore": 63,
-          "supplyRiskScore": 70,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "risk"
-        },
-        "axie-infinity": {
-          "tokenId": "axie-infinity",
+        "digibyte": {
+          "tokenId": "digibyte",
           "attentionScore": 72,
           "hypeScore": 56,
-          "supplyRiskScore": 42,
+          "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "genius-3": {
-          "tokenId": "genius-3",
-          "attentionScore": 72,
-          "hypeScore": 52,
-          "supplyRiskScore": 78,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "io": {
-          "tokenId": "io",
+        "berachain-bera": {
+          "tokenId": "berachain-bera",
           "attentionScore": 71,
-          "hypeScore": 55,
-          "supplyRiskScore": 63,
+          "hypeScore": 49,
+          "supplyRiskScore": 52,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "espresso": {
-          "tokenId": "espresso",
-          "attentionScore": 71,
-          "hypeScore": 53,
-          "supplyRiskScore": 99,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "near": {
-          "tokenId": "near",
+        "circle-internet-group-bstock": {
+          "tokenId": "circle-internet-group-bstock",
           "attentionScore": 71,
           "hypeScore": 46,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
+          "primaryIntent": "rwa"
         },
-        "aave": {
-          "tokenId": "aave",
-          "attentionScore": 71,
-          "hypeScore": 40,
-          "supplyRiskScore": 4,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "airdrop"
+        "bc-token": {
+          "tokenId": "bc-token",
+          "attentionScore": 70,
+          "hypeScore": 59,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "buying"
         },
         "megaeth": {
           "tokenId": "megaeth",
@@ -903,237 +863,293 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "stellar": {
-          "tokenId": "stellar",
+        "ai-powered-finance": {
+          "tokenId": "ai-powered-finance",
           "attentionScore": 70,
-          "hypeScore": 47,
-          "supplyRiskScore": 46,
+          "hypeScore": 56,
+          "supplyRiskScore": 18,
           "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "circle-xstock": {
+          "tokenId": "circle-xstock",
+          "attentionScore": 70,
+          "hypeScore": 56,
+          "supplyRiskScore": 89,
+          "classification": "Supply-Risk Spike",
           "primaryIntent": "rwa"
         },
-        "the-graph": {
-          "tokenId": "the-graph",
+        "lighter": {
+          "tokenId": "lighter",
           "attentionScore": 70,
-          "hypeScore": 44,
+          "hypeScore": 53,
+          "supplyRiskScore": 90,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "airdrop"
+        },
+        "kamino": {
+          "tokenId": "kamino",
+          "attentionScore": 69,
+          "hypeScore": 62,
+          "supplyRiskScore": 57,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "ai-rig-complex": {
+          "tokenId": "ai-rig-complex",
+          "attentionScore": 69,
+          "hypeScore": 50,
           "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "airdrop"
+        },
+        "aave": {
+          "tokenId": "aave",
+          "attentionScore": 69,
+          "hypeScore": 40,
+          "supplyRiskScore": 4,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "airdrop"
+        },
+        "world-liberty-financial": {
+          "tokenId": "world-liberty-financial",
+          "attentionScore": 68,
+          "hypeScore": 57,
+          "supplyRiskScore": 90,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "pepe": {
+          "tokenId": "pepe",
+          "attentionScore": 68,
+          "hypeScore": 55,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
+        },
+        "plasma": {
+          "tokenId": "plasma",
+          "attentionScore": 68,
+          "hypeScore": 55,
+          "supplyRiskScore": 88,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "jasmycoin": {
+          "tokenId": "jasmycoin",
+          "attentionScore": 68,
+          "hypeScore": 54,
+          "supplyRiskScore": 9,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "convex-finance": {
+          "tokenId": "convex-finance",
+          "attentionScore": 68,
+          "hypeScore": 51,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "render-token": {
+          "tokenId": "render-token",
+          "attentionScore": 68,
+          "hypeScore": 51,
+          "supplyRiskScore": 11,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "apecoin": {
-          "tokenId": "apecoin",
-          "attentionScore": 69,
-          "hypeScore": 66,
+        "uniswap": {
+          "tokenId": "uniswap",
+          "attentionScore": 68,
+          "hypeScore": 43,
+          "supplyRiskScore": 36,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "ordinals": {
+          "tokenId": "ordinals",
+          "attentionScore": 67,
+          "hypeScore": 61,
           "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "wormhole": {
+          "tokenId": "wormhole",
+          "attentionScore": 67,
+          "hypeScore": 61,
+          "supplyRiskScore": 44,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
         "zetachain": {
           "tokenId": "zetachain",
-          "attentionScore": 69,
-          "hypeScore": 64,
+          "attentionScore": 67,
+          "hypeScore": 59,
           "supplyRiskScore": 31,
           "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
+          "primaryIntent": "risk"
         },
-        "bc-token": {
-          "tokenId": "bc-token",
-          "attentionScore": 69,
-          "hypeScore": 59,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "buying"
-        },
-        "dogwifcoin": {
-          "tokenId": "dogwifcoin",
-          "attentionScore": 69,
-          "hypeScore": 59,
+        "akash-network": {
+          "tokenId": "akash-network",
+          "attentionScore": 67,
+          "hypeScore": 56,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "arkham": {
-          "tokenId": "arkham",
-          "attentionScore": 69,
-          "hypeScore": 58,
-          "supplyRiskScore": 39,
+        "subsquid": {
+          "tokenId": "subsquid",
+          "attentionScore": 67,
+          "hypeScore": 56,
+          "supplyRiskScore": 6,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "velo": {
-          "tokenId": "velo",
-          "attentionScore": 69,
-          "hypeScore": 57,
-          "supplyRiskScore": 40,
+        "chip-2": {
+          "tokenId": "chip-2",
+          "attentionScore": 67,
+          "hypeScore": 56,
+          "supplyRiskScore": 96,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "grass": {
+          "tokenId": "grass",
+          "attentionScore": 67,
+          "hypeScore": 51,
+          "supplyRiskScore": 41,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "tesla-xstock": {
+          "tokenId": "tesla-xstock",
+          "attentionScore": 67,
+          "hypeScore": 51,
+          "supplyRiskScore": 76,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "rwa"
+        },
+        "elrond-erd-2": {
+          "tokenId": "elrond-erd-2",
+          "attentionScore": 67,
+          "hypeScore": 48,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "micron-technology-ondo-tokenized-stock": {
+          "tokenId": "micron-technology-ondo-tokenized-stock",
+          "attentionScore": 67,
+          "hypeScore": 44,
+          "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
-        "plasma": {
-          "tokenId": "plasma",
-          "attentionScore": 69,
-          "hypeScore": 53,
-          "supplyRiskScore": 88,
+        "the-graph": {
+          "tokenId": "the-graph",
+          "attentionScore": 67,
+          "hypeScore": 41,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "livepeer": {
+          "tokenId": "livepeer",
+          "attentionScore": 67,
+          "hypeScore": 40,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "trust-wallet-token": {
+          "tokenId": "trust-wallet-token",
+          "attentionScore": 66,
+          "hypeScore": 59,
+          "supplyRiskScore": 70,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "seeker": {
-          "tokenId": "seeker",
-          "attentionScore": 69,
-          "hypeScore": 53,
-          "supplyRiskScore": 42,
-          "classification": "Organic Interest",
-          "primaryIntent": "prediction"
+        "floki": {
+          "tokenId": "floki",
+          "attentionScore": 66,
+          "hypeScore": 58,
+          "supplyRiskScore": 28,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
         },
-        "meta-2-2": {
-          "tokenId": "meta-2-2",
-          "attentionScore": 68,
-          "hypeScore": 56,
+        "okb": {
+          "tokenId": "okb",
+          "attentionScore": 66,
+          "hypeScore": 53,
           "supplyRiskScore": 8,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "cross-2": {
-          "tokenId": "cross-2",
-          "attentionScore": 68,
-          "hypeScore": 55,
-          "supplyRiskScore": 62,
+        "starknet": {
+          "tokenId": "starknet",
+          "attentionScore": 66,
+          "hypeScore": 53,
+          "supplyRiskScore": 38,
           "classification": "Organic Interest",
-          "primaryIntent": "supply"
+          "primaryIntent": "risk"
         },
-        "zebec-network": {
-          "tokenId": "zebec-network",
-          "attentionScore": 68,
+        "affine": {
+          "tokenId": "affine",
+          "attentionScore": 66,
+          "hypeScore": 52,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "prediction"
+        },
+        "cosmos": {
+          "tokenId": "cosmos",
+          "attentionScore": 66,
+          "hypeScore": 51,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "algorand": {
+          "tokenId": "algorand",
+          "attentionScore": 66,
           "hypeScore": 49,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "lido-dao": {
-          "tokenId": "lido-dao",
-          "attentionScore": 68,
-          "hypeScore": 45,
-          "supplyRiskScore": 20,
-          "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "edgex": {
-          "tokenId": "edgex",
-          "attentionScore": 67,
-          "hypeScore": 75,
-          "supplyRiskScore": 86,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "midnight-3": {
-          "tokenId": "midnight-3",
-          "attentionScore": 67,
-          "hypeScore": 59,
-          "supplyRiskScore": 37,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "aethir": {
-          "tokenId": "aethir",
-          "attentionScore": 67,
-          "hypeScore": 57,
-          "supplyRiskScore": 62,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "curve-dao-token": {
-          "tokenId": "curve-dao-token",
-          "attentionScore": 67,
-          "hypeScore": 54,
-          "supplyRiskScore": 43,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "pendle": {
-          "tokenId": "pendle",
-          "attentionScore": 67,
-          "hypeScore": 53,
-          "supplyRiskScore": 47,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "berachain-bera": {
-          "tokenId": "berachain-bera",
-          "attentionScore": 67,
-          "hypeScore": 46,
-          "supplyRiskScore": 52,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "venice-token": {
-          "tokenId": "venice-token",
+        "micron-technology-bstock": {
+          "tokenId": "micron-technology-bstock",
           "attentionScore": 66,
-          "hypeScore": 74,
-          "supplyRiskScore": 67,
+          "hypeScore": 37,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "quack-ai": {
+          "tokenId": "quack-ai",
+          "attentionScore": 65,
+          "hypeScore": 72,
+          "supplyRiskScore": 18,
           "classification": "FOMO Spike",
           "primaryIntent": "risk"
         },
-        "build-on": {
-          "tokenId": "build-on",
-          "attentionScore": 66,
-          "hypeScore": 70,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "official-trump": {
-          "tokenId": "official-trump",
-          "attentionScore": 66,
-          "hypeScore": 63,
-          "supplyRiskScore": 90,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "shiba-inu": {
-          "tokenId": "shiba-inu",
-          "attentionScore": 66,
-          "hypeScore": 62,
-          "supplyRiskScore": 31,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "dai-on-pulsechain": {
-          "tokenId": "dai-on-pulsechain",
-          "attentionScore": 66,
+        "telcoin": {
+          "tokenId": "telcoin",
+          "attentionScore": 65,
           "hypeScore": 58,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "risk"
         },
-        "render-token": {
-          "tokenId": "render-token",
-          "attentionScore": 66,
-          "hypeScore": 49,
-          "supplyRiskScore": 3,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "bending-spoons-xstock": {
-          "tokenId": "bending-spoons-xstock",
-          "attentionScore": 66,
-          "hypeScore": 48,
-          "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "polkadot": {
-          "tokenId": "polkadot",
-          "attentionScore": 66,
-          "hypeScore": 41,
-          "supplyRiskScore": 0,
+        "jito-governance-token": {
+          "tokenId": "jito-governance-token",
+          "attentionScore": 65,
+          "hypeScore": 57,
+          "supplyRiskScore": 59,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
-        },
-        "usda-3": {
-          "tokenId": "usda-3",
-          "attentionScore": 65,
-          "hypeScore": 75,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
         },
         "popcat": {
           "tokenId": "popcat",
@@ -1143,37 +1159,61 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "oasis-network": {
-          "tokenId": "oasis-network",
+        "meta-2-2": {
+          "tokenId": "meta-2-2",
           "attentionScore": 65,
-          "hypeScore": 55,
-          "supplyRiskScore": 25,
+          "hypeScore": 53,
+          "supplyRiskScore": 8,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "billions-network": {
-          "tokenId": "billions-network",
+        "cross-2": {
+          "tokenId": "cross-2",
+          "attentionScore": 65,
+          "hypeScore": 52,
+          "supplyRiskScore": 62,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "zcash": {
+          "tokenId": "zcash",
           "attentionScore": 65,
           "hypeScore": 51,
-          "supplyRiskScore": 91,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+          "supplyRiskScore": 9,
+          "classification": "Organic Interest",
+          "primaryIntent": "airdrop"
         },
-        "digibyte": {
-          "tokenId": "digibyte",
+        "axie-infinity": {
+          "tokenId": "axie-infinity",
           "attentionScore": 65,
-          "hypeScore": 51,
-          "supplyRiskScore": 0,
+          "hypeScore": 46,
+          "supplyRiskScore": 42,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "cow-protocol": {
-          "tokenId": "cow-protocol",
+        "bending-spoons-xstock": {
+          "tokenId": "bending-spoons-xstock",
           "attentionScore": 65,
-          "hypeScore": 50,
-          "supplyRiskScore": 51,
+          "hypeScore": 45,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "optimism": {
+          "tokenId": "optimism",
+          "attentionScore": 65,
+          "hypeScore": 45,
+          "supplyRiskScore": 56,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
+        },
+        "curve-dao-token": {
+          "tokenId": "curve-dao-token",
+          "attentionScore": 65,
+          "hypeScore": 44,
+          "supplyRiskScore": 43,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "concordium": {
           "tokenId": "concordium",
@@ -1183,125 +1223,93 @@
           "classification": "FOMO Spike",
           "primaryIntent": "risk"
         },
-        "pi-network": {
-          "tokenId": "pi-network",
+        "official-trump": {
+          "tokenId": "official-trump",
           "attentionScore": 64,
-          "hypeScore": 61,
-          "supplyRiskScore": 50,
+          "hypeScore": 60,
+          "supplyRiskScore": 90,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "pendle": {
+          "tokenId": "pendle",
+          "attentionScore": 64,
+          "hypeScore": 51,
+          "supplyRiskScore": 47,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "beldex": {
-          "tokenId": "beldex",
+        "arkham": {
+          "tokenId": "arkham",
           "attentionScore": 64,
-          "hypeScore": 54,
-          "supplyRiskScore": 33,
+          "hypeScore": 47,
+          "supplyRiskScore": 39,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "flow": {
-          "tokenId": "flow",
+        "polkadot": {
+          "tokenId": "polkadot",
           "attentionScore": 64,
-          "hypeScore": 54,
+          "hypeScore": 43,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "spark-2": {
-          "tokenId": "spark-2",
+        "stellar": {
+          "tokenId": "stellar",
           "attentionScore": 64,
-          "hypeScore": 53,
-          "supplyRiskScore": 84,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "bio-protocol": {
-          "tokenId": "bio-protocol",
-          "attentionScore": 64,
-          "hypeScore": 50,
-          "supplyRiskScore": 42,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "dogecoin": {
-          "tokenId": "dogecoin",
-          "attentionScore": 64,
-          "hypeScore": 50,
-          "supplyRiskScore": 11,
+          "hypeScore": 43,
+          "supplyRiskScore": 46,
           "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "bittensor": {
-          "tokenId": "bittensor",
-          "attentionScore": 64,
-          "hypeScore": 46,
-          "supplyRiskScore": 65,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "ether-fi": {
-          "tokenId": "ether-fi",
-          "attentionScore": 64,
-          "hypeScore": 45,
-          "supplyRiskScore": 3,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "optimism": {
-          "tokenId": "optimism",
-          "attentionScore": 64,
-          "hypeScore": 44,
-          "supplyRiskScore": 56,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "avalanche-2": {
-          "tokenId": "avalanche-2",
-          "attentionScore": 64,
-          "hypeScore": 37,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "yield"
-        },
-        "falcon-finance-ff": {
-          "tokenId": "falcon-finance-ff",
-          "attentionScore": 63,
-          "hypeScore": 60,
-          "supplyRiskScore": 84,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "hydradx": {
-          "tokenId": "hydradx",
-          "attentionScore": 63,
-          "hypeScore": 59,
-          "supplyRiskScore": 27,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
-        },
-        "circle-xstock": {
-          "tokenId": "circle-xstock",
-          "attentionScore": 63,
-          "hypeScore": 52,
-          "supplyRiskScore": 88,
-          "classification": "Supply-Risk Spike",
           "primaryIntent": "rwa"
         },
-        "sentient": {
-          "tokenId": "sentient",
-          "attentionScore": 63,
-          "hypeScore": 49,
-          "supplyRiskScore": 95,
+        "worldcoin-wld": {
+          "tokenId": "worldcoin-wld",
+          "attentionScore": 64,
+          "hypeScore": 43,
+          "supplyRiskScore": 77,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "airdrop"
+        },
+        "hyperliquid": {
+          "tokenId": "hyperliquid",
+          "attentionScore": 64,
+          "hypeScore": 38,
+          "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "virtual-protocol": {
-          "tokenId": "virtual-protocol",
+        "jupiter-exchange-solana": {
+          "tokenId": "jupiter-exchange-solana",
           "attentionScore": 63,
-          "hypeScore": 43,
-          "supplyRiskScore": 41,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
+          "hypeScore": 55,
+          "supplyRiskScore": 62,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "billions-network": {
+          "tokenId": "billions-network",
+          "attentionScore": 63,
+          "hypeScore": 49,
+          "supplyRiskScore": 91,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "midnight-3": {
+          "tokenId": "midnight-3",
+          "attentionScore": 63,
+          "hypeScore": 47,
+          "supplyRiskScore": 37,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "thorchain": {
+          "tokenId": "thorchain",
+          "attentionScore": 63,
+          "hypeScore": 47,
+          "supplyRiskScore": 5,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "ripple": {
           "tokenId": "ripple",
@@ -1310,14 +1318,6 @@
           "supplyRiskScore": 53,
           "classification": "Organic Interest",
           "primaryIntent": "supply"
-        },
-        "tether-gold": {
-          "tokenId": "tether-gold",
-          "attentionScore": 63,
-          "hypeScore": 30,
-          "supplyRiskScore": 16,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "airdrop"
         },
         "tether": {
           "tokenId": "tether",
@@ -1335,212 +1335,212 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "rekt-4": {
-          "tokenId": "rekt-4",
+        "venice-token": {
+          "tokenId": "venice-token",
           "attentionScore": 62,
-          "hypeScore": 65,
+          "hypeScore": 71,
+          "supplyRiskScore": 67,
+          "classification": "FOMO Spike",
+          "primaryIntent": "risk"
+        },
+        "build-on": {
+          "tokenId": "build-on",
+          "attentionScore": 62,
+          "hypeScore": 67,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "ribbita-by-virtuals": {
+          "tokenId": "ribbita-by-virtuals",
+          "attentionScore": 62,
+          "hypeScore": 66,
           "supplyRiskScore": 18,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "degen-base": {
-          "tokenId": "degen-base",
+        "shiba-inu": {
+          "tokenId": "shiba-inu",
           "attentionScore": 62,
-          "hypeScore": 60,
-          "supplyRiskScore": 0,
+          "hypeScore": 59,
+          "supplyRiskScore": 31,
           "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
+          "primaryIntent": "meme"
         },
-        "melania-meme": {
-          "tokenId": "melania-meme",
+        "goplus-security": {
+          "tokenId": "goplus-security",
           "attentionScore": 62,
           "hypeScore": 56,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
-          "primaryIntent": "meme"
-        },
-        "algorand": {
-          "tokenId": "algorand",
-          "attentionScore": 62,
-          "hypeScore": 47,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "syrup": {
-          "tokenId": "syrup",
-          "attentionScore": 62,
-          "hypeScore": 47,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "gala": {
-          "tokenId": "gala",
-          "attentionScore": 62,
-          "hypeScore": 44,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "1inch": {
-          "tokenId": "1inch",
-          "attentionScore": 62,
-          "hypeScore": 41,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "yield"
-        },
-        "circle-internet-group-bstock": {
-          "tokenId": "circle-internet-group-bstock",
-          "attentionScore": 62,
-          "hypeScore": 40,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "pax-gold": {
-          "tokenId": "pax-gold",
-          "attentionScore": 62,
-          "hypeScore": 32,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "ecomi": {
-          "tokenId": "ecomi",
-          "attentionScore": 61,
-          "hypeScore": 61,
-          "supplyRiskScore": 23,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "pearl-2": {
-          "tokenId": "pearl-2",
-          "attentionScore": 61,
-          "hypeScore": 59,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "risk"
-        },
-        "ordinals": {
-          "tokenId": "ordinals",
-          "attentionScore": 61,
-          "hypeScore": 58,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "story-2": {
-          "tokenId": "story-2",
-          "attentionScore": 61,
-          "hypeScore": 50,
-          "supplyRiskScore": 78,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "arweave": {
-          "tokenId": "arweave",
-          "attentionScore": 61,
-          "hypeScore": 48,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "ecash": {
-          "tokenId": "ecash",
-          "attentionScore": 61,
-          "hypeScore": 44,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
+        "dai-on-pulsechain": {
+          "tokenId": "dai-on-pulsechain",
+          "attentionScore": 62,
+          "hypeScore": 55,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
           "primaryIntent": "risk"
         },
-        "arbitrum": {
-          "tokenId": "arbitrum",
-          "attentionScore": 61,
-          "hypeScore": 43,
-          "supplyRiskScore": 41,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "livepeer": {
-          "tokenId": "livepeer",
-          "attentionScore": 61,
-          "hypeScore": 39,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "ravedao": {
-          "tokenId": "ravedao",
-          "attentionScore": 60,
-          "hypeScore": 63,
-          "supplyRiskScore": 90,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "risk"
-        },
-        "aerodrome-finance": {
-          "tokenId": "aerodrome-finance",
-          "attentionScore": 60,
-          "hypeScore": 53,
-          "supplyRiskScore": 60,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "starknet": {
-          "tokenId": "starknet",
-          "attentionScore": 60,
+        "compound-governance-token": {
+          "tokenId": "compound-governance-token",
+          "attentionScore": 62,
           "hypeScore": 52,
-          "supplyRiskScore": 38,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "blockstack": {
+          "tokenId": "blockstack",
+          "attentionScore": 62,
+          "hypeScore": 50,
+          "supplyRiskScore": 8,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "zksync": {
           "tokenId": "zksync",
-          "attentionScore": 60,
-          "hypeScore": 48,
+          "attentionScore": 62,
+          "hypeScore": 47,
           "supplyRiskScore": 62,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
+        "iota": {
+          "tokenId": "iota",
+          "attentionScore": 62,
+          "hypeScore": 46,
+          "supplyRiskScore": 9,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "sei-network": {
+          "tokenId": "sei-network",
+          "attentionScore": 62,
+          "hypeScore": 45,
+          "supplyRiskScore": 39,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "seeker": {
+          "tokenId": "seeker",
+          "attentionScore": 62,
+          "hypeScore": 43,
+          "supplyRiskScore": 42,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "gala": {
+          "tokenId": "gala",
+          "attentionScore": 62,
+          "hypeScore": 40,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "debridge": {
+          "tokenId": "debridge",
+          "attentionScore": 61,
+          "hypeScore": 72,
+          "supplyRiskScore": 57,
+          "classification": "FOMO Spike",
+          "primaryIntent": "meme"
+        },
+        "ravedao": {
+          "tokenId": "ravedao",
+          "attentionScore": 61,
+          "hypeScore": 61,
+          "supplyRiskScore": 90,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "risk"
+        },
+        "bio-protocol": {
+          "tokenId": "bio-protocol",
+          "attentionScore": 61,
+          "hypeScore": 50,
+          "supplyRiskScore": 42,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "bittensor": {
+          "tokenId": "bittensor",
+          "attentionScore": 61,
+          "hypeScore": 44,
+          "supplyRiskScore": 65,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "1inch": {
+          "tokenId": "1inch",
+          "attentionScore": 61,
+          "hypeScore": 40,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "yield"
+        },
+        "chiliz": {
+          "tokenId": "chiliz",
+          "attentionScore": 61,
+          "hypeScore": 40,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "magma-finance": {
+          "tokenId": "magma-finance",
+          "attentionScore": 60,
+          "hypeScore": 55,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "the-open-network": {
+          "tokenId": "the-open-network",
+          "attentionScore": 60,
+          "hypeScore": 52,
+          "supplyRiskScore": 75,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "risk"
+        },
+        "marscoin-4": {
+          "tokenId": "marscoin-4",
+          "attentionScore": 60,
+          "hypeScore": 46,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
+        },
         "zignaly": {
           "tokenId": "zignaly",
           "attentionScore": 60,
-          "hypeScore": 44,
+          "hypeScore": 42,
           "supplyRiskScore": 33,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "solana": {
-          "tokenId": "solana",
+        "celestia": {
+          "tokenId": "celestia",
           "attentionScore": 60,
-          "hypeScore": 29,
-          "supplyRiskScore": 10,
+          "hypeScore": 41,
+          "supplyRiskScore": 23,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "loaded-lions": {
-          "tokenId": "loaded-lions",
-          "attentionScore": 59,
-          "hypeScore": 67,
-          "supplyRiskScore": 18,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
-        },
-        "spx6900": {
-          "tokenId": "spx6900",
-          "attentionScore": 59,
-          "hypeScore": 65,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "banana-for-scale-2": {
-          "tokenId": "banana-for-scale-2",
+        "axelar": {
+          "tokenId": "axelar",
           "attentionScore": 59,
           "hypeScore": 60,
-          "supplyRiskScore": 0,
+          "supplyRiskScore": 3,
           "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "qubic-network": {
+          "tokenId": "qubic-network",
+          "attentionScore": 59,
+          "hypeScore": 60,
+          "supplyRiskScore": 31,
+          "classification": "FOMO Spike",
           "primaryIntent": "risk"
         },
         "collector-crypt": {
@@ -1551,6 +1551,22 @@
           "classification": "Low-Quality Attention",
           "primaryIntent": "risk"
         },
+        "circle-internet-group-ondo-tokenized-stock": {
+          "tokenId": "circle-internet-group-ondo-tokenized-stock",
+          "attentionScore": 59,
+          "hypeScore": 54,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "melania-meme": {
+          "tokenId": "melania-meme",
+          "attentionScore": 59,
+          "hypeScore": 53,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
+        },
         "mimblewimblecoin": {
           "tokenId": "mimblewimblecoin",
           "attentionScore": 59,
@@ -1559,162 +1575,114 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "safecoin": {
-          "tokenId": "safecoin",
-          "attentionScore": 59,
-          "hypeScore": 53,
-          "supplyRiskScore": 61,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "ultima": {
-          "tokenId": "ultima",
-          "attentionScore": 59,
-          "hypeScore": 53,
-          "supplyRiskScore": 26,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "the-open-network": {
-          "tokenId": "the-open-network",
+        "story-2": {
+          "tokenId": "story-2",
           "attentionScore": 59,
           "hypeScore": 52,
-          "supplyRiskScore": 75,
+          "supplyRiskScore": 78,
           "classification": "Supply-Risk Spike",
-          "primaryIntent": "risk"
+          "primaryIntent": "supply"
         },
-        "chain-2": {
-          "tokenId": "chain-2",
+        "arweave": {
+          "tokenId": "arweave",
           "attentionScore": 59,
-          "hypeScore": 50,
-          "supplyRiskScore": 49,
-          "classification": "Organic Interest",
+          "hypeScore": 51,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
         "theta-token": {
           "tokenId": "theta-token",
           "attentionScore": 59,
-          "hypeScore": 49,
+          "hypeScore": 47,
           "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "zcash": {
-          "tokenId": "zcash",
+        "aethir": {
+          "tokenId": "aethir",
           "attentionScore": 59,
-          "hypeScore": 44,
-          "supplyRiskScore": 9,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "hypeScore": 46,
+          "supplyRiskScore": 62,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
         },
-        "cosmos": {
-          "tokenId": "cosmos",
+        "syrup": {
+          "tokenId": "syrup",
           "attentionScore": 59,
-          "hypeScore": 43,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "celestia": {
-          "tokenId": "celestia",
-          "attentionScore": 59,
-          "hypeScore": 42,
-          "supplyRiskScore": 23,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "kava": {
-          "tokenId": "kava",
-          "attentionScore": 59,
-          "hypeScore": 41,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "tesla-xstock": {
-          "tokenId": "tesla-xstock",
-          "attentionScore": 59,
-          "hypeScore": 41,
-          "supplyRiskScore": 76,
-          "classification": "Supply-Risk Spike",
+          "hypeScore": 45,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
-        "would": {
-          "tokenId": "would",
-          "attentionScore": 58,
-          "hypeScore": 62,
+        "nvidia-ondo-tokenized-stock": {
+          "tokenId": "nvidia-ondo-tokenized-stock",
+          "attentionScore": 59,
+          "hypeScore": 40,
           "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
+          "primaryIntent": "rwa"
         },
-        "geodnet": {
-          "tokenId": "geodnet",
-          "attentionScore": 58,
-          "hypeScore": 51,
-          "supplyRiskScore": 81,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "world-liberty-financial": {
-          "tokenId": "world-liberty-financial",
-          "attentionScore": 58,
-          "hypeScore": 50,
-          "supplyRiskScore": 90,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "celium": {
-          "tokenId": "celium",
-          "attentionScore": 58,
-          "hypeScore": 47,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "blockstack": {
-          "tokenId": "blockstack",
-          "attentionScore": 58,
-          "hypeScore": 47,
-          "supplyRiskScore": 8,
+        "havven": {
+          "tokenId": "havven",
+          "attentionScore": 59,
+          "hypeScore": 37,
+          "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "monad": {
-          "tokenId": "monad",
+        "memecore": {
+          "tokenId": "memecore",
           "attentionScore": 58,
-          "hypeScore": 46,
+          "hypeScore": 72,
           "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "tezos": {
-          "tokenId": "tezos",
+        "derive": {
+          "tokenId": "derive",
           "attentionScore": 58,
-          "hypeScore": 46,
-          "supplyRiskScore": 2,
-          "classification": "Organic Interest",
+          "hypeScore": 49,
+          "supplyRiskScore": 58,
+          "classification": "Narrative Rotation",
           "primaryIntent": "risk"
+        },
+        "nexpace": {
+          "tokenId": "nexpace",
+          "attentionScore": 58,
+          "hypeScore": 47,
+          "supplyRiskScore": 84,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "dogecoin": {
+          "tokenId": "dogecoin",
+          "attentionScore": 58,
+          "hypeScore": 45,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "meme"
         },
         "zano": {
           "tokenId": "zano",
           "attentionScore": 58,
           "hypeScore": 45,
-          "supplyRiskScore": 18,
+          "supplyRiskScore": 8,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "sui": {
-          "tokenId": "sui",
+        "genius-3": {
+          "tokenId": "genius-3",
           "attentionScore": 58,
-          "hypeScore": 42,
-          "supplyRiskScore": 71,
+          "hypeScore": 44,
+          "supplyRiskScore": 78,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "chiliz": {
-          "tokenId": "chiliz",
+        "sushi": {
+          "tokenId": "sushi",
           "attentionScore": 58,
-          "hypeScore": 38,
+          "hypeScore": 36,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
@@ -1722,82 +1690,130 @@
         "sp500-xstock": {
           "tokenId": "sp500-xstock",
           "attentionScore": 58,
-          "hypeScore": 33,
+          "hypeScore": 34,
           "supplyRiskScore": 92,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "rwa"
         },
-        "micron-technology-bstock": {
-          "tokenId": "micron-technology-bstock",
-          "attentionScore": 58,
-          "hypeScore": 31,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "non-playable-coin": {
-          "tokenId": "non-playable-coin",
-          "attentionScore": 57,
-          "hypeScore": 61,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "conflux-token": {
-          "tokenId": "conflux-token",
-          "attentionScore": 57,
-          "hypeScore": 57,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "ape-and-pepe": {
-          "tokenId": "ape-and-pepe",
-          "attentionScore": 57,
-          "hypeScore": 55,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "nvidia-ondo-tokenized-stock": {
-          "tokenId": "nvidia-ondo-tokenized-stock",
-          "attentionScore": 57,
-          "hypeScore": 37,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "hyperliquid": {
-          "tokenId": "hyperliquid",
-          "attentionScore": 57,
-          "hypeScore": 33,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
         "united-stables": {
           "tokenId": "united-stables",
-          "attentionScore": 57,
+          "attentionScore": 58,
           "hypeScore": 25,
           "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "peaq-2": {
-          "tokenId": "peaq-2",
+        "spx6900": {
+          "tokenId": "spx6900",
+          "attentionScore": 57,
+          "hypeScore": 64,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "fgrs-figure-tokenized-stock": {
+          "tokenId": "fgrs-figure-tokenized-stock",
+          "attentionScore": 57,
+          "hypeScore": 49,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "pyth-network": {
+          "tokenId": "pyth-network",
+          "attentionScore": 57,
+          "hypeScore": 46,
+          "supplyRiskScore": 26,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "aioz-network": {
+          "tokenId": "aioz-network",
+          "attentionScore": 57,
+          "hypeScore": 44,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "orca": {
+          "tokenId": "orca",
+          "attentionScore": 57,
+          "hypeScore": 44,
+          "supplyRiskScore": 23,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "aptos": {
+          "tokenId": "aptos",
+          "attentionScore": 57,
+          "hypeScore": 41,
+          "supplyRiskScore": 36,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "linea": {
+          "tokenId": "linea",
+          "attentionScore": 57,
+          "hypeScore": 41,
+          "supplyRiskScore": 79,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "dog-go-to-the-moon-rune": {
+          "tokenId": "dog-go-to-the-moon-rune",
           "attentionScore": 56,
-          "hypeScore": 59,
-          "supplyRiskScore": 63,
-          "classification": "FOMO Spike",
+          "hypeScore": 70,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "banana-for-scale-2": {
+          "tokenId": "banana-for-scale-2",
+          "attentionScore": 56,
+          "hypeScore": 60,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "degen-base": {
+          "tokenId": "degen-base",
+          "attentionScore": 56,
+          "hypeScore": 58,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
         "toshi": {
           "tokenId": "toshi",
           "attentionScore": 56,
-          "hypeScore": 56,
+          "hypeScore": 54,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
+        },
+        "chutes": {
+          "tokenId": "chutes",
+          "attentionScore": 56,
+          "hypeScore": 51,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "safecoin": {
+          "tokenId": "safecoin",
+          "attentionScore": 56,
+          "hypeScore": 51,
+          "supplyRiskScore": 61,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "falcon-finance-ff": {
+          "tokenId": "falcon-finance-ff",
+          "attentionScore": 56,
+          "hypeScore": 49,
+          "supplyRiskScore": 84,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
         },
         "aztec": {
           "tokenId": "aztec",
@@ -1807,53 +1823,29 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "sosovalue": {
-          "tokenId": "sosovalue",
+        "sentient": {
+          "tokenId": "sentient",
           "attentionScore": 56,
-          "hypeScore": 46,
-          "supplyRiskScore": 79,
+          "hypeScore": 42,
+          "supplyRiskScore": 95,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "nexpace": {
-          "tokenId": "nexpace",
+        "sky": {
+          "tokenId": "sky",
           "attentionScore": 56,
-          "hypeScore": 45,
-          "supplyRiskScore": 84,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "orca": {
-          "tokenId": "orca",
-          "attentionScore": 56,
-          "hypeScore": 44,
-          "supplyRiskScore": 23,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "enjincoin": {
-          "tokenId": "enjincoin",
-          "attentionScore": 56,
-          "hypeScore": 41,
-          "supplyRiskScore": 1,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "thorchain": {
-          "tokenId": "thorchain",
-          "attentionScore": 56,
-          "hypeScore": 39,
-          "supplyRiskScore": 5,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "figure-heloc": {
-          "tokenId": "figure-heloc",
-          "attentionScore": 56,
-          "hypeScore": 28,
+          "hypeScore": 42,
           "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "sui": {
+          "tokenId": "sui",
+          "attentionScore": 56,
+          "hypeScore": 40,
+          "supplyRiskScore": 71,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
         },
         "first-digital-usd": {
           "tokenId": "first-digital-usd",
@@ -1863,37 +1855,13 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "xphere": {
-          "tokenId": "xphere",
-          "attentionScore": 55,
-          "hypeScore": 64,
-          "supplyRiskScore": 8,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
-        },
-        "cheems-token": {
-          "tokenId": "cheems-token",
-          "attentionScore": 55,
-          "hypeScore": 61,
-          "supplyRiskScore": 18,
-          "classification": "FOMO Spike",
-          "primaryIntent": "risk"
-        },
-        "pirate-chain": {
-          "tokenId": "pirate-chain",
+        "pi-network": {
+          "tokenId": "pi-network",
           "attentionScore": 55,
           "hypeScore": 48,
-          "supplyRiskScore": 20,
+          "supplyRiskScore": 60,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
-        },
-        "iota": {
-          "tokenId": "iota",
-          "attentionScore": 55,
-          "hypeScore": 47,
-          "supplyRiskScore": 9,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
         },
         "redstone-oracles": {
           "tokenId": "redstone-oracles",
@@ -1903,147 +1871,107 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "rwa"
         },
-        "reserve-rights-token": {
-          "tokenId": "reserve-rights-token",
+        "internet-computer": {
+          "tokenId": "internet-computer",
           "attentionScore": 55,
-          "hypeScore": 44,
-          "supplyRiskScore": 45,
+          "hypeScore": 43,
+          "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
+          "primaryIntent": "risk"
         },
         "vaulta": {
           "tokenId": "vaulta",
           "attentionScore": 55,
-          "hypeScore": 44,
+          "hypeScore": 42,
           "supplyRiskScore": 25,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "aioz-network": {
-          "tokenId": "aioz-network",
+        "arbitrum": {
+          "tokenId": "arbitrum",
           "attentionScore": 55,
-          "hypeScore": 43,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "aptos": {
-          "tokenId": "aptos",
-          "attentionScore": 55,
-          "hypeScore": 39,
-          "supplyRiskScore": 36,
+          "hypeScore": 40,
+          "supplyRiskScore": 41,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "micron-technology-ondo-tokenized-stock": {
-          "tokenId": "micron-technology-ondo-tokenized-stock",
+        "avalanche-2": {
+          "tokenId": "avalanche-2",
           "attentionScore": 55,
-          "hypeScore": 39,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "the-sandbox": {
-          "tokenId": "the-sandbox",
-          "attentionScore": 55,
-          "hypeScore": 35,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "axelar": {
-          "tokenId": "axelar",
-          "attentionScore": 54,
-          "hypeScore": 61,
-          "supplyRiskScore": 3,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "comedian": {
-          "tokenId": "comedian",
-          "attentionScore": 54,
-          "hypeScore": 53,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "dydx-chain": {
-          "tokenId": "dydx-chain",
-          "attentionScore": 54,
-          "hypeScore": 52,
-          "supplyRiskScore": 14,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "goplus-security": {
-          "tokenId": "goplus-security",
-          "attentionScore": 54,
-          "hypeScore": 48,
-          "supplyRiskScore": 0,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "derive": {
-          "tokenId": "derive",
-          "attentionScore": 54,
-          "hypeScore": 46,
-          "supplyRiskScore": 58,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "chutes": {
-          "tokenId": "chutes",
-          "attentionScore": 54,
-          "hypeScore": 45,
+          "hypeScore": 32,
           "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "decred": {
-          "tokenId": "decred",
-          "attentionScore": 54,
-          "hypeScore": 44,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "beam-2": {
-          "tokenId": "beam-2",
-          "attentionScore": 54,
-          "hypeScore": 39,
-          "supplyRiskScore": 15,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "havven": {
-          "tokenId": "havven",
-          "attentionScore": 54,
-          "hypeScore": 38,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "0x": {
-          "tokenId": "0x",
-          "attentionScore": 54,
-          "hypeScore": 37,
-          "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "yield"
         },
-        "dash": {
-          "tokenId": "dash",
-          "attentionScore": 54,
-          "hypeScore": 36,
+        "dai": {
+          "tokenId": "dai",
+          "attentionScore": 55,
+          "hypeScore": 29,
           "supplyRiskScore": 0,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "figure-heloc": {
+          "tokenId": "figure-heloc",
+          "attentionScore": 55,
+          "hypeScore": 24,
+          "supplyRiskScore": 8,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "coco-2": {
+          "tokenId": "coco-2",
+          "attentionScore": 54,
+          "hypeScore": 64,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "hash-2": {
+          "tokenId": "hash-2",
+          "attentionScore": 54,
+          "hypeScore": 56,
+          "supplyRiskScore": 67,
+          "classification": "Low-Quality Attention",
+          "primaryIntent": "risk"
+        },
+        "hydradx": {
+          "tokenId": "hydradx",
+          "attentionScore": 54,
+          "hypeScore": 53,
+          "supplyRiskScore": 27,
+          "classification": "Low-Quality Attention",
+          "primaryIntent": "risk"
+        },
+        "ultima": {
+          "tokenId": "ultima",
+          "attentionScore": 54,
+          "hypeScore": 48,
+          "supplyRiskScore": 26,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "dai": {
-          "tokenId": "dai",
+        "matrixdock-gold": {
+          "tokenId": "matrixdock-gold",
           "attentionScore": 54,
-          "hypeScore": 29,
-          "supplyRiskScore": 8,
+          "hypeScore": 44,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "oasis-network": {
+          "tokenId": "oasis-network",
+          "attentionScore": 54,
+          "hypeScore": 40,
+          "supplyRiskScore": 25,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "euro-coin": {
+          "tokenId": "euro-coin",
+          "attentionScore": 54,
+          "hypeScore": 28,
+          "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
@@ -2055,6 +1983,14 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
+        "rekt-4": {
+          "tokenId": "rekt-4",
+          "attentionScore": 53,
+          "hypeScore": 59,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
         "apes-2-2": {
           "tokenId": "apes-2-2",
           "attentionScore": 53,
@@ -2063,325 +1999,357 @@
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "magma-finance": {
-          "tokenId": "magma-finance",
-          "attentionScore": 53,
-          "hypeScore": 53,
-          "supplyRiskScore": 100,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
         "origintrail": {
           "tokenId": "origintrail",
           "attentionScore": 53,
-          "hypeScore": 45,
+          "hypeScore": 46,
           "supplyRiskScore": 31,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "wemix-token": {
-          "tokenId": "wemix-token",
+        "mantle": {
+          "tokenId": "mantle",
           "attentionScore": 53,
           "hypeScore": 45,
-          "supplyRiskScore": 31,
+          "supplyRiskScore": 64,
           "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "primaryIntent": "supply"
         },
-        "kaspa": {
-          "tokenId": "kaspa",
+        "microstrategy-xstock": {
+          "tokenId": "microstrategy-xstock",
           "attentionScore": 53,
-          "hypeScore": 43,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "hypeScore": 45,
+          "supplyRiskScore": 78,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "rwa"
         },
-        "sei-network": {
-          "tokenId": "sei-network",
+        "strategy-pp-variable-xstock": {
+          "tokenId": "strategy-pp-variable-xstock",
+          "attentionScore": 53,
+          "hypeScore": 45,
+          "supplyRiskScore": 73,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "rwa"
+        },
+        "morpho": {
+          "tokenId": "morpho",
+          "attentionScore": 53,
+          "hypeScore": 42,
+          "supplyRiskScore": 59,
+          "classification": "Organic Interest",
+          "primaryIntent": "airdrop"
+        },
+        "reserve-rights-token": {
+          "tokenId": "reserve-rights-token",
+          "attentionScore": 53,
+          "hypeScore": 40,
+          "supplyRiskScore": 45,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "beam-2": {
+          "tokenId": "beam-2",
           "attentionScore": 53,
           "hypeScore": 39,
-          "supplyRiskScore": 39,
+          "supplyRiskScore": 15,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "golem": {
           "tokenId": "golem",
           "attentionScore": 53,
-          "hypeScore": 38,
+          "hypeScore": 39,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
+        },
+        "monero": {
+          "tokenId": "monero",
+          "attentionScore": 53,
+          "hypeScore": 37,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "holotoken": {
           "tokenId": "holotoken",
           "attentionScore": 53,
-          "hypeScore": 33,
+          "hypeScore": 34,
           "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
         },
-        "yearn-finance": {
-          "tokenId": "yearn-finance",
+        "kava": {
+          "tokenId": "kava",
           "attentionScore": 53,
-          "hypeScore": 32,
-          "supplyRiskScore": 2,
+          "hypeScore": 34,
+          "supplyRiskScore": 0,
           "classification": "Organic Interest",
-          "primaryIntent": "yield"
+          "primaryIntent": "risk"
         },
-        "quant-network": {
-          "tokenId": "quant-network",
+        "the-sandbox": {
+          "tokenId": "the-sandbox",
+          "attentionScore": 53,
+          "hypeScore": 34,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "loaded-lions": {
+          "tokenId": "loaded-lions",
           "attentionScore": 52,
-          "hypeScore": 43,
-          "supplyRiskScore": 19,
+          "hypeScore": 62,
+          "supplyRiskScore": 18,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "internet-computer": {
-          "tokenId": "internet-computer",
+        "non-playable-coin": {
+          "tokenId": "non-playable-coin",
           "attentionScore": 52,
-          "hypeScore": 41,
+          "hypeScore": 57,
           "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "linea": {
-          "tokenId": "linea",
+        "safe": {
+          "tokenId": "safe",
           "attentionScore": 52,
-          "hypeScore": 37,
-          "supplyRiskScore": 79,
+          "hypeScore": 49,
+          "supplyRiskScore": 36,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "geodnet": {
+          "tokenId": "geodnet",
+          "attentionScore": 52,
+          "hypeScore": 46,
+          "supplyRiskScore": 81,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
+        },
+        "velo": {
+          "tokenId": "velo",
+          "attentionScore": 52,
+          "hypeScore": 46,
+          "supplyRiskScore": 40,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "tezos": {
+          "tokenId": "tezos",
+          "attentionScore": 52,
+          "hypeScore": 38,
+          "supplyRiskScore": 2,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "dash": {
+          "tokenId": "dash",
+          "attentionScore": 52,
+          "hypeScore": 36,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "numeraire": {
+          "tokenId": "numeraire",
+          "attentionScore": 52,
+          "hypeScore": 36,
+          "supplyRiskScore": 41,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "polygon-ecosystem-token": {
           "tokenId": "polygon-ecosystem-token",
           "attentionScore": 52,
-          "hypeScore": 37,
+          "hypeScore": 36,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "superfarm": {
-          "tokenId": "superfarm",
+        "0x": {
+          "tokenId": "0x",
           "attentionScore": 52,
-          "hypeScore": 36,
-          "supplyRiskScore": 43,
+          "hypeScore": 33,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "yield"
+        },
+        "solana": {
+          "tokenId": "solana",
+          "attentionScore": 52,
+          "hypeScore": 23,
+          "supplyRiskScore": 9,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "dog-go-to-the-moon-rune": {
-          "tokenId": "dog-go-to-the-moon-rune",
+        "ape-and-pepe": {
+          "tokenId": "ape-and-pepe",
           "attentionScore": 51,
-          "hypeScore": 65,
-          "supplyRiskScore": 8,
+          "hypeScore": 52,
+          "supplyRiskScore": 0,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "baby-doge-coin": {
-          "tokenId": "baby-doge-coin",
-          "attentionScore": 51,
-          "hypeScore": 59,
-          "supplyRiskScore": 68,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "debridge": {
-          "tokenId": "debridge",
-          "attentionScore": 51,
-          "hypeScore": 58,
-          "supplyRiskScore": 57,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "qubic-network": {
-          "tokenId": "qubic-network",
+        "kaspa": {
+          "tokenId": "kaspa",
           "attentionScore": 51,
           "hypeScore": 47,
-          "supplyRiskScore": 31,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "targon": {
-          "tokenId": "targon",
-          "attentionScore": 51,
-          "hypeScore": 44,
-          "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "kaia": {
-          "tokenId": "kaia",
-          "attentionScore": 51,
-          "hypeScore": 43,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "aster-2": {
-          "tokenId": "aster-2",
-          "attentionScore": 51,
-          "hypeScore": 39,
-          "supplyRiskScore": 87,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "bitcoin-cash": {
-          "tokenId": "bitcoin-cash",
-          "attentionScore": 51,
-          "hypeScore": 37,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "compound-governance-token": {
-          "tokenId": "compound-governance-token",
-          "attentionScore": 51,
-          "hypeScore": 36,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "pancakeswap-token": {
-          "tokenId": "pancakeswap-token",
-          "attentionScore": 51,
-          "hypeScore": 36,
-          "supplyRiskScore": 4,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "monero": {
-          "tokenId": "monero",
-          "attentionScore": 51,
-          "hypeScore": 33,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "rain": {
-          "tokenId": "rain",
-          "attentionScore": 51,
-          "hypeScore": 32,
-          "supplyRiskScore": 63,
-          "classification": "Organic Interest",
-          "primaryIntent": "airdrop"
-        },
-        "true-usd": {
-          "tokenId": "true-usd",
-          "attentionScore": 51,
-          "hypeScore": 29,
-          "supplyRiskScore": 0,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "ethena-usde": {
-          "tokenId": "ethena-usde",
-          "attentionScore": 51,
-          "hypeScore": 27,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "olympus": {
-          "tokenId": "olympus",
-          "attentionScore": 50,
-          "hypeScore": 61,
-          "supplyRiskScore": 48,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "coco-2": {
-          "tokenId": "coco-2",
-          "attentionScore": 50,
-          "hypeScore": 59,
-          "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "bitcoin-cash-sv": {
-          "tokenId": "bitcoin-cash-sv",
-          "attentionScore": 50,
-          "hypeScore": 49,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "rollbit-coin": {
-          "tokenId": "rollbit-coin",
-          "attentionScore": 50,
-          "hypeScore": 48,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "trust-wallet-token": {
-          "tokenId": "trust-wallet-token",
-          "attentionScore": 50,
+        "dydx-chain": {
+          "tokenId": "dydx-chain",
+          "attentionScore": 51,
           "hypeScore": 45,
-          "supplyRiskScore": 78,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "btse-token": {
-          "tokenId": "btse-token",
-          "attentionScore": 50,
-          "hypeScore": 44,
-          "supplyRiskScore": 23,
+          "supplyRiskScore": 22,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "raydium": {
-          "tokenId": "raydium",
-          "attentionScore": 50,
+        "cow-protocol": {
+          "tokenId": "cow-protocol",
+          "attentionScore": 51,
           "hypeScore": 44,
-          "supplyRiskScore": 62,
+          "supplyRiskScore": 59,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "stable-2": {
-          "tokenId": "stable-2",
-          "attentionScore": 50,
+        "wemix-token": {
+          "tokenId": "wemix-token",
+          "attentionScore": 51,
           "hypeScore": 44,
-          "supplyRiskScore": 98,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
+          "supplyRiskScore": 31,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
-        "circle-internet-group-ondo-tokenized-stock": {
-          "tokenId": "circle-internet-group-ondo-tokenized-stock",
-          "attentionScore": 50,
-          "hypeScore": 43,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "jasmycoin": {
-          "tokenId": "jasmycoin",
-          "attentionScore": 50,
+        "immutable-x": {
+          "tokenId": "immutable-x",
+          "attentionScore": 51,
           "hypeScore": 42,
-          "supplyRiskScore": 9,
-          "classification": "Narrative Rotation",
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "sky": {
-          "tokenId": "sky",
-          "attentionScore": 50,
-          "hypeScore": 38,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "just": {
-          "tokenId": "just",
-          "attentionScore": 50,
-          "hypeScore": 37,
-          "supplyRiskScore": 8,
+        "meteora": {
+          "tokenId": "meteora",
+          "attentionScore": 51,
+          "hypeScore": 36,
+          "supplyRiskScore": 55,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "adi-token": {
           "tokenId": "adi-token",
-          "attentionScore": 50,
-          "hypeScore": 36,
+          "attentionScore": 51,
+          "hypeScore": 33,
           "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
+        },
+        "yearn-finance": {
+          "tokenId": "yearn-finance",
+          "attentionScore": 51,
+          "hypeScore": 31,
+          "supplyRiskScore": 2,
+          "classification": "Organic Interest",
+          "primaryIntent": "yield"
+        },
+        "ethereum": {
+          "tokenId": "ethereum",
+          "attentionScore": 51,
+          "hypeScore": 23,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "comedian": {
+          "tokenId": "comedian",
+          "attentionScore": 50,
+          "hypeScore": 51,
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "conflux-token": {
+          "tokenId": "conflux-token",
+          "attentionScore": 50,
+          "hypeScore": 46,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "stp-network": {
+          "tokenId": "stp-network",
+          "attentionScore": 50,
+          "hypeScore": 45,
+          "supplyRiskScore": 10,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "ai"
+        },
+        "shuffle-2": {
+          "tokenId": "shuffle-2",
+          "attentionScore": 50,
+          "hypeScore": 45,
+          "supplyRiskScore": 83,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "aerodrome-finance": {
+          "tokenId": "aerodrome-finance",
+          "attentionScore": 50,
+          "hypeScore": 44,
+          "supplyRiskScore": 60,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "xdce-crowd-sale": {
+          "tokenId": "xdce-crowd-sale",
+          "attentionScore": 50,
+          "hypeScore": 44,
+          "supplyRiskScore": 65,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "stable-2": {
+          "tokenId": "stable-2",
+          "attentionScore": 50,
+          "hypeScore": 43,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "sosovalue": {
+          "tokenId": "sosovalue",
+          "attentionScore": 50,
+          "hypeScore": 42,
+          "supplyRiskScore": 79,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "monad": {
+          "tokenId": "monad",
+          "attentionScore": 50,
+          "hypeScore": 41,
+          "supplyRiskScore": 100,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "reallink": {
+          "tokenId": "reallink",
+          "attentionScore": 50,
+          "hypeScore": 40,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "decentraland": {
+          "tokenId": "decentraland",
+          "attentionScore": 50,
+          "hypeScore": 36,
+          "supplyRiskScore": 13,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "sonic-3": {
           "tokenId": "sonic-3",
@@ -2391,29 +2359,37 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "antfun": {
-          "tokenId": "antfun",
+        "basic-attention-token": {
+          "tokenId": "basic-attention-token",
+          "attentionScore": 50,
+          "hypeScore": 31,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "spdr-s-p-500-etf-ondo-tokenized-etf": {
+          "tokenId": "spdr-s-p-500-etf-ondo-tokenized-etf",
           "attentionScore": 50,
           "hypeScore": 27,
-          "supplyRiskScore": 11,
-          "classification": "Organic Interest",
-          "primaryIntent": "buying"
+          "supplyRiskScore": 0,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
         },
-        "euro-coin": {
-          "tokenId": "euro-coin",
+        "ethena-usde": {
+          "tokenId": "ethena-usde",
           "attentionScore": 50,
           "hypeScore": 26,
-          "supplyRiskScore": 0,
+          "supplyRiskScore": 8,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "global-dollar": {
-          "tokenId": "global-dollar",
-          "attentionScore": 50,
-          "hypeScore": 20,
-          "supplyRiskScore": 0,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
+        "olympus": {
+          "tokenId": "olympus",
+          "attentionScore": 49,
+          "hypeScore": 60,
+          "supplyRiskScore": 48,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
         },
         "bedrock-token": {
           "tokenId": "bedrock-token",
@@ -2423,98 +2399,66 @@
           "classification": "Supply-Risk Spike",
           "primaryIntent": "risk"
         },
+        "backpack": {
+          "tokenId": "backpack",
+          "attentionScore": 49,
+          "hypeScore": 45,
+          "supplyRiskScore": 98,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
         "walrus-2": {
           "tokenId": "walrus-2",
           "attentionScore": 49,
-          "hypeScore": 49,
+          "hypeScore": 44,
           "supplyRiskScore": 60,
-          "classification": "Low-Quality Attention",
-          "primaryIntent": "risk"
-        },
-        "hash-2": {
-          "tokenId": "hash-2",
-          "attentionScore": 49,
-          "hypeScore": 48,
-          "supplyRiskScore": 67,
-          "classification": "Low-Quality Attention",
-          "primaryIntent": "risk"
-        },
-        "bnb48-club-token": {
-          "tokenId": "bnb48-club-token",
-          "attentionScore": 49,
-          "hypeScore": 46,
-          "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "nexus-4": {
-          "tokenId": "nexus-4",
-          "attentionScore": 49,
-          "hypeScore": 46,
-          "supplyRiskScore": 66,
-          "classification": "Low-Quality Attention",
-          "primaryIntent": "risk"
-        },
-        "terra-luna": {
-          "tokenId": "terra-luna",
+        "pirate-chain": {
+          "tokenId": "pirate-chain",
           "attentionScore": 49,
           "hypeScore": 43,
-          "supplyRiskScore": 17,
+          "supplyRiskScore": 20,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "stp-network": {
-          "tokenId": "stp-network",
+        "quant-network": {
+          "tokenId": "quant-network",
           "attentionScore": 49,
           "hypeScore": 41,
-          "supplyRiskScore": 10,
+          "supplyRiskScore": 19,
           "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
-        },
-        "safepal": {
-          "tokenId": "safepal",
-          "attentionScore": 49,
-          "hypeScore": 41,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "nano": {
-          "tokenId": "nano",
+        "gmx": {
+          "tokenId": "gmx",
           "attentionScore": 49,
-          "hypeScore": 40,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "strategy-pp-variable-xstock": {
-          "tokenId": "strategy-pp-variable-xstock",
-          "attentionScore": 49,
-          "hypeScore": 40,
-          "supplyRiskScore": 73,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "rwa"
-        },
-        "mina-protocol": {
-          "tokenId": "mina-protocol",
-          "attentionScore": 49,
-          "hypeScore": 36,
+          "hypeScore": 39,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "decentraland": {
-          "tokenId": "decentraland",
+        "superfarm": {
+          "tokenId": "superfarm",
           "attentionScore": 49,
-          "hypeScore": 35,
-          "supplyRiskScore": 13,
+          "hypeScore": 37,
+          "supplyRiskScore": 43,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "ylds": {
-          "tokenId": "ylds",
+        "rain": {
+          "tokenId": "rain",
           "attentionScore": 49,
-          "hypeScore": 32,
+          "hypeScore": 33,
+          "supplyRiskScore": 63,
+          "classification": "Organic Interest",
+          "primaryIntent": "airdrop"
+        },
+        "eutbl": {
+          "tokenId": "eutbl",
+          "attentionScore": 49,
+          "hypeScore": 33,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
@@ -2522,8 +2466,24 @@
         "spiko-amundi-overnight-swap-fund-eur": {
           "tokenId": "spiko-amundi-overnight-swap-fund-eur",
           "attentionScore": 49,
-          "hypeScore": 31,
+          "hypeScore": 32,
           "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "true-usd": {
+          "tokenId": "true-usd",
+          "attentionScore": 49,
+          "hypeScore": 32,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "usdd": {
+          "tokenId": "usdd",
+          "attentionScore": 49,
+          "hypeScore": 28,
+          "supplyRiskScore": 9,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
@@ -2543,93 +2503,101 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "bas": {
-          "tokenId": "bas",
+        "antfun": {
+          "tokenId": "antfun",
+          "attentionScore": 49,
+          "hypeScore": 21,
+          "supplyRiskScore": 11,
+          "classification": "Organic Interest",
+          "primaryIntent": "buying"
+        },
+        "law-blocks": {
+          "tokenId": "law-blocks",
           "attentionScore": 48,
-          "hypeScore": 49,
-          "supplyRiskScore": 98,
+          "hypeScore": 52,
+          "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "holoworld": {
-          "tokenId": "holoworld",
-          "attentionScore": 48,
-          "hypeScore": 47,
-          "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "apriori": {
-          "tokenId": "apriori",
+        "pleasing-gold": {
+          "tokenId": "pleasing-gold",
           "attentionScore": 48,
           "hypeScore": 45,
           "supplyRiskScore": 18,
           "classification": "Narrative Rotation",
           "primaryIntent": "risk"
         },
-        "xdce-crowd-sale": {
-          "tokenId": "xdce-crowd-sale",
+        "proton": {
+          "tokenId": "proton",
           "attentionScore": 48,
           "hypeScore": 43,
-          "supplyRiskScore": 75,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "rwa"
+          "supplyRiskScore": 62,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
-        "flare-networks": {
-          "tokenId": "flare-networks",
+        "chain-2": {
+          "tokenId": "chain-2",
           "attentionScore": 48,
           "hypeScore": 42,
-          "supplyRiskScore": 40,
+          "supplyRiskScore": 49,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "mantle": {
-          "tokenId": "mantle",
+        "usda-3": {
+          "tokenId": "usda-3",
+          "attentionScore": 48,
+          "hypeScore": 40,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "decred": {
+          "tokenId": "decred",
           "attentionScore": 48,
           "hypeScore": 39,
-          "supplyRiskScore": 64,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
-        },
-        "pyth-network": {
-          "tokenId": "pyth-network",
-          "attentionScore": 48,
-          "hypeScore": 39,
-          "supplyRiskScore": 26,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "four": {
-          "tokenId": "four",
-          "attentionScore": 48,
-          "hypeScore": 37,
-          "supplyRiskScore": 40,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "temple": {
-          "tokenId": "temple",
-          "attentionScore": 48,
-          "hypeScore": 37,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "eutbl": {
-          "tokenId": "eutbl",
+        "quantixai": {
+          "tokenId": "quantixai",
+          "attentionScore": 48,
+          "hypeScore": 38,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "btse-token": {
+          "tokenId": "btse-token",
+          "attentionScore": 48,
+          "hypeScore": 37,
+          "supplyRiskScore": 23,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "kusama": {
+          "tokenId": "kusama",
+          "attentionScore": 48,
+          "hypeScore": 34,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "pancakeswap-token": {
+          "tokenId": "pancakeswap-token",
+          "attentionScore": 48,
+          "hypeScore": 33,
+          "supplyRiskScore": 4,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "ylds": {
+          "tokenId": "ylds",
           "attentionScore": 48,
           "hypeScore": 31,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
-        },
-        "kusama": {
-          "tokenId": "kusama",
-          "attentionScore": 48,
-          "hypeScore": 30,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
         },
         "ondo-us-dollar-yield": {
           "tokenId": "ondo-us-dollar-yield",
@@ -2639,37 +2607,53 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "binancecoin": {
-          "tokenId": "binancecoin",
+        "litecoin": {
+          "tokenId": "litecoin",
           "attentionScore": 48,
-          "hypeScore": 24,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "ethereum": {
-          "tokenId": "ethereum",
-          "attentionScore": 48,
-          "hypeScore": 21,
+          "hypeScore": 28,
           "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "law-blocks": {
-          "tokenId": "law-blocks",
+        "peaq-2": {
+          "tokenId": "peaq-2",
           "attentionScore": 47,
-          "hypeScore": 51,
-          "supplyRiskScore": 100,
+          "hypeScore": 48,
+          "supplyRiskScore": 63,
+          "classification": "Low-Quality Attention",
+          "primaryIntent": "risk"
+        },
+        "raydium": {
+          "tokenId": "raydium",
+          "attentionScore": 47,
+          "hypeScore": 42,
+          "supplyRiskScore": 62,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "aster-2": {
+          "tokenId": "aster-2",
+          "attentionScore": 47,
+          "hypeScore": 36,
+          "supplyRiskScore": 87,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "xdai": {
-          "tokenId": "xdai",
+        "just": {
+          "tokenId": "just",
           "attentionScore": 47,
-          "hypeScore": 39,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
+          "hypeScore": 36,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "bitcoin-cash": {
+          "tokenId": "bitcoin-cash",
+          "attentionScore": 47,
+          "hypeScore": 34,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "bittorrent": {
           "tokenId": "bittorrent",
@@ -2678,22 +2662,6 @@
           "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
           "primaryIntent": "ai"
-        },
-        "ethereum-classic": {
-          "tokenId": "ethereum-classic",
-          "attentionScore": 47,
-          "hypeScore": 33,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "numeraire": {
-          "tokenId": "numeraire",
-          "attentionScore": 47,
-          "hypeScore": 33,
-          "supplyRiskScore": 40,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
         },
         "superstate-short-duration-us-government-securities-fund-ustb": {
           "tokenId": "superstate-short-duration-us-government-securities-fund-ustb",
@@ -2711,64 +2679,72 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "crvusd": {
-          "tokenId": "crvusd",
+        "binancecoin": {
+          "tokenId": "binancecoin",
           "attentionScore": 47,
-          "hypeScore": 29,
+          "hypeScore": 23,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "global-dollar": {
+          "tokenId": "global-dollar",
+          "attentionScore": 47,
+          "hypeScore": 22,
           "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
-          "primaryIntent": "yield"
+          "primaryIntent": "stablecoin"
         },
-        "litecoin": {
-          "tokenId": "litecoin",
-          "attentionScore": 47,
-          "hypeScore": 29,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "basic-attention-token": {
-          "tokenId": "basic-attention-token",
-          "attentionScore": 47,
-          "hypeScore": 28,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "diem": {
-          "tokenId": "diem",
+        "bnb48-club-token": {
+          "tokenId": "bnb48-club-token",
           "attentionScore": 46,
-          "hypeScore": 40,
+          "hypeScore": 46,
           "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "risk"
-        },
-        "proton": {
-          "tokenId": "proton",
-          "attentionScore": 46,
-          "hypeScore": 40,
-          "supplyRiskScore": 62,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "zencash": {
-          "tokenId": "zencash",
+        "terra-luna": {
+          "tokenId": "terra-luna",
           "attentionScore": 46,
-          "hypeScore": 39,
-          "supplyRiskScore": 16,
+          "hypeScore": 45,
+          "supplyRiskScore": 25,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "elrond-erd-2": {
-          "tokenId": "elrond-erd-2",
+        "holoworld": {
+          "tokenId": "holoworld",
           "attentionScore": 46,
-          "hypeScore": 38,
+          "hypeScore": 42,
           "supplyRiskScore": 8,
           "classification": "Narrative Rotation",
-          "primaryIntent": "ai"
+          "primaryIntent": "risk"
         },
-        "reallink": {
-          "tokenId": "reallink",
+        "ecomi": {
+          "tokenId": "ecomi",
+          "attentionScore": 46,
+          "hypeScore": 40,
+          "supplyRiskScore": 23,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "kaia": {
+          "tokenId": "kaia",
+          "attentionScore": 46,
+          "hypeScore": 39,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "crypto-com-chain": {
+          "tokenId": "crypto-com-chain",
+          "attentionScore": 46,
+          "hypeScore": 37,
+          "supplyRiskScore": 81,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "ethereum-classic": {
+          "tokenId": "ethereum-classic",
           "attentionScore": 46,
           "hypeScore": 37,
           "supplyRiskScore": 8,
@@ -2783,29 +2759,29 @@
           "classification": "Organic Interest",
           "primaryIntent": "prediction"
         },
-        "okb": {
-          "tokenId": "okb",
+        "apenft": {
+          "tokenId": "apenft",
+          "attentionScore": 46,
+          "hypeScore": 35,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "hedera-hashgraph": {
+          "tokenId": "hedera-hashgraph",
           "attentionScore": 46,
           "hypeScore": 34,
-          "supplyRiskScore": 18,
+          "supplyRiskScore": 23,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "zilliqa": {
-          "tokenId": "zilliqa",
-          "attentionScore": 46,
-          "hypeScore": 33,
-          "supplyRiskScore": 6,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "janus-henderson-anemoy-aaa-clo-fund": {
-          "tokenId": "janus-henderson-anemoy-aaa-clo-fund",
+        "flow": {
+          "tokenId": "flow",
           "attentionScore": 46,
           "hypeScore": 29,
-          "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
         "onyc": {
           "tokenId": "onyc",
@@ -2815,69 +2791,69 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "spdr-s-p-500-etf-ondo-tokenized-etf": {
-          "tokenId": "spdr-s-p-500-etf-ondo-tokenized-etf",
+        "bitcoin": {
+          "tokenId": "bitcoin",
           "attentionScore": 46,
-          "hypeScore": 29,
+          "hypeScore": 21,
           "supplyRiskScore": 8,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
-        "frax-usd": {
-          "tokenId": "frax-usd",
-          "attentionScore": 46,
-          "hypeScore": 28,
-          "supplyRiskScore": 0,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "usdd": {
-          "tokenId": "usdd",
-          "attentionScore": 46,
-          "hypeScore": 28,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "safe": {
-          "tokenId": "safe",
-          "attentionScore": 45,
-          "hypeScore": 41,
-          "supplyRiskScore": 36,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "fgrs-figure-tokenized-stock": {
-          "tokenId": "fgrs-figure-tokenized-stock",
+        "cheems-token": {
+          "tokenId": "cheems-token",
           "attentionScore": 45,
-          "hypeScore": 40,
+          "hypeScore": 55,
           "supplyRiskScore": 18,
           "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "diem": {
+          "tokenId": "diem",
+          "attentionScore": 45,
+          "hypeScore": 43,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "risk"
+        },
+        "edgex": {
+          "tokenId": "edgex",
+          "attentionScore": 45,
+          "hypeScore": 43,
+          "supplyRiskScore": 86,
+          "classification": "Supply-Risk Spike",
+          "primaryIntent": "supply"
+        },
+        "flare-networks": {
+          "tokenId": "flare-networks",
+          "attentionScore": 45,
+          "hypeScore": 39,
+          "supplyRiskScore": 40,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "enjincoin": {
+          "tokenId": "enjincoin",
+          "attentionScore": 45,
+          "hypeScore": 35,
+          "supplyRiskScore": 1,
+          "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "o1-exchange": {
           "tokenId": "o1-exchange",
           "attentionScore": 45,
-          "hypeScore": 37,
+          "hypeScore": 34,
           "supplyRiskScore": 100,
           "classification": "Supply-Risk Spike",
           "primaryIntent": "supply"
         },
-        "crypto-com-chain": {
-          "tokenId": "crypto-com-chain",
+        "apxusd": {
+          "tokenId": "apxusd",
           "attentionScore": 45,
-          "hypeScore": 36,
-          "supplyRiskScore": 81,
-          "classification": "Supply-Risk Spike",
-          "primaryIntent": "supply"
-        },
-        "morpho": {
-          "tokenId": "morpho",
-          "attentionScore": 45,
-          "hypeScore": 36,
-          "supplyRiskScore": 59,
-          "classification": "Organic Interest",
-          "primaryIntent": "airdrop"
+          "hypeScore": 31,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "usual-usd": {
           "tokenId": "usual-usd",
@@ -2887,14 +2863,6 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "ishares-core-s-p-500-etf-ondo-tokenized-etf": {
-          "tokenId": "ishares-core-s-p-500-etf-ondo-tokenized-etf",
-          "attentionScore": 45,
-          "hypeScore": 30,
-          "supplyRiskScore": 18,
-          "classification": "Narrative Rotation",
-          "primaryIntent": "rwa"
-        },
         "vaneck-treasury-fund": {
           "tokenId": "vaneck-treasury-fund",
           "attentionScore": 45,
@@ -2903,13 +2871,37 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "agora-dollar": {
-          "tokenId": "agora-dollar",
+        "janus-henderson-anemoy-aaa-clo-fund": {
+          "tokenId": "janus-henderson-anemoy-aaa-clo-fund",
+          "attentionScore": 45,
+          "hypeScore": 29,
+          "supplyRiskScore": 18,
+          "classification": "Narrative Rotation",
+          "primaryIntent": "rwa"
+        },
+        "usa": {
+          "tokenId": "usa",
+          "attentionScore": 45,
+          "hypeScore": 29,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "crvusd": {
+          "tokenId": "crvusd",
           "attentionScore": 45,
           "hypeScore": 28,
           "supplyRiskScore": 8,
           "classification": "Stablecoin Safety Check",
-          "primaryIntent": "airdrop"
+          "primaryIntent": "stablecoin"
+        },
+        "falcon-finance": {
+          "tokenId": "falcon-finance",
+          "attentionScore": 45,
+          "hypeScore": 28,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "gho": {
           "tokenId": "gho",
@@ -2919,117 +2911,101 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "htx-dao": {
-          "tokenId": "htx-dao",
+        "paypal-usd": {
+          "tokenId": "paypal-usd",
           "attentionScore": 45,
-          "hypeScore": 28,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "cash-4": {
-          "tokenId": "cash-4",
-          "attentionScore": 45,
-          "hypeScore": 20,
+          "hypeScore": 19,
           "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "gatechain-token": {
-          "tokenId": "gatechain-token",
+        "doublezero": {
+          "tokenId": "doublezero",
           "attentionScore": 44,
-          "hypeScore": 42,
-          "supplyRiskScore": 61,
+          "hypeScore": 47,
+          "supplyRiskScore": 86,
           "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "primaryIntent": "supply"
         },
-        "pleasing-gold": {
-          "tokenId": "pleasing-gold",
+        "bas": {
+          "tokenId": "bas",
+          "attentionScore": 44,
+          "hypeScore": 46,
+          "supplyRiskScore": 98,
+          "classification": "Organic Interest",
+          "primaryIntent": "supply"
+        },
+        "apyusd": {
+          "tokenId": "apyusd",
           "attentionScore": 44,
           "hypeScore": 41,
           "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "nexus-4": {
+          "tokenId": "nexus-4",
+          "attentionScore": 44,
+          "hypeScore": 39,
+          "supplyRiskScore": 66,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "theta-fuel": {
           "tokenId": "theta-fuel",
           "attentionScore": 44,
-          "hypeScore": 40,
+          "hypeScore": 38,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "vision-3": {
-          "tokenId": "vision-3",
-          "attentionScore": 44,
-          "hypeScore": 40,
-          "supplyRiskScore": 31,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "venus": {
-          "tokenId": "venus",
-          "attentionScore": 44,
-          "hypeScore": 39,
-          "supplyRiskScore": 60,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "ethereum-name-service": {
-          "tokenId": "ethereum-name-service",
-          "attentionScore": 44,
-          "hypeScore": 37,
-          "supplyRiskScore": 71,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
-        },
-        "immutable-x": {
-          "tokenId": "immutable-x",
-          "attentionScore": 44,
-          "hypeScore": 37,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "hedera-hashgraph": {
-          "tokenId": "hedera-hashgraph",
+        "xdai": {
+          "tokenId": "xdai",
           "attentionScore": 44,
           "hypeScore": 33,
-          "supplyRiskScore": 23,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "apenft": {
-          "tokenId": "apenft",
-          "attentionScore": 44,
-          "hypeScore": 32,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "usa": {
-          "tokenId": "usa",
-          "attentionScore": 44,
-          "hypeScore": 30,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "falcon-finance": {
-          "tokenId": "falcon-finance",
+        "mina-protocol": {
+          "tokenId": "mina-protocol",
           "attentionScore": 44,
-          "hypeScore": 27,
-          "supplyRiskScore": 18,
+          "hypeScore": 30,
+          "supplyRiskScore": 0,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "frax-usd": {
+          "tokenId": "frax-usd",
+          "attentionScore": 44,
+          "hypeScore": 28,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "societe-generale-forge-eurcv": {
+          "tokenId": "societe-generale-forge-eurcv",
+          "attentionScore": 44,
+          "hypeScore": 24,
+          "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
         "ripple-usd": {
           "tokenId": "ripple-usd",
           "attentionScore": 44,
-          "hypeScore": 21,
+          "hypeScore": 22,
           "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "airdrop"
+        },
+        "cash-4": {
+          "tokenId": "cash-4",
+          "attentionScore": 44,
+          "hypeScore": 20,
+          "supplyRiskScore": 0,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "osk": {
           "tokenId": "osk",
@@ -3039,45 +3015,37 @@
           "classification": "Organic Interest",
           "primaryIntent": "supply"
         },
-        "pharos-network": {
-          "tokenId": "pharos-network",
+        "bitcoin-cash-sv": {
+          "tokenId": "bitcoin-cash-sv",
           "attentionScore": 43,
-          "hypeScore": 43,
-          "supplyRiskScore": 100,
+          "hypeScore": 39,
+          "supplyRiskScore": 8,
           "classification": "Organic Interest",
-          "primaryIntent": "supply"
+          "primaryIntent": "risk"
         },
-        "microstrategy-xstock": {
-          "tokenId": "microstrategy-xstock",
+        "venus": {
+          "tokenId": "venus",
           "attentionScore": 43,
-          "hypeScore": 41,
-          "supplyRiskScore": 86,
+          "hypeScore": 39,
+          "supplyRiskScore": 60,
           "classification": "Organic Interest",
-          "primaryIntent": "rwa"
+          "primaryIntent": "risk"
         },
-        "shuffle-2": {
-          "tokenId": "shuffle-2",
-          "attentionScore": 43,
-          "hypeScore": 40,
-          "supplyRiskScore": 83,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
-        },
-        "brz": {
-          "tokenId": "brz",
+        "rollbit-coin": {
+          "tokenId": "rollbit-coin",
           "attentionScore": 43,
           "hypeScore": 38,
           "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
         },
-        "ravencoin": {
-          "tokenId": "ravencoin",
+        "safepal": {
+          "tokenId": "safepal",
           "attentionScore": 43,
-          "hypeScore": 38,
+          "hypeScore": 37,
           "supplyRiskScore": 8,
           "classification": "Organic Interest",
-          "primaryIntent": "rwa"
+          "primaryIntent": "risk"
         },
         "polymesh": {
           "tokenId": "polymesh",
@@ -3087,11 +3055,27 @@
           "classification": "Organic Interest",
           "primaryIntent": "rwa"
         },
-        "meteora": {
-          "tokenId": "meteora",
+        "ravencoin": {
+          "tokenId": "ravencoin",
           "attentionScore": 43,
-          "hypeScore": 35,
-          "supplyRiskScore": 55,
+          "hypeScore": 36,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "rwa"
+        },
+        "vechain": {
+          "tokenId": "vechain",
+          "attentionScore": 43,
+          "hypeScore": 36,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "htx-dao": {
+          "tokenId": "htx-dao",
+          "attentionScore": 43,
+          "hypeScore": 32,
+          "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3102,6 +3086,14 @@
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
+        },
+        "frax": {
+          "tokenId": "frax",
+          "attentionScore": 43,
+          "hypeScore": 30,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "spiko-us-t-bills-money-market-fund": {
           "tokenId": "spiko-us-t-bills-money-market-fund",
@@ -3127,61 +3119,45 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "societe-generale-forge-eurcv": {
-          "tokenId": "societe-generale-forge-eurcv",
-          "attentionScore": 43,
-          "hypeScore": 23,
-          "supplyRiskScore": 0,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "bitcoin": {
-          "tokenId": "bitcoin",
-          "attentionScore": 43,
-          "hypeScore": 18,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "doublezero": {
-          "tokenId": "doublezero",
+        "pharos-network": {
+          "tokenId": "pharos-network",
           "attentionScore": 42,
-          "hypeScore": 46,
-          "supplyRiskScore": 86,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
-        },
-        "stronghold-token": {
-          "tokenId": "stronghold-token",
-          "attentionScore": 42,
-          "hypeScore": 43,
+          "hypeScore": 44,
           "supplyRiskScore": 100,
           "classification": "Organic Interest",
           "primaryIntent": "supply"
         },
-        "ishares-bitcoin-trust-ondo-tokenized": {
-          "tokenId": "ishares-bitcoin-trust-ondo-tokenized",
+        "instadapp": {
+          "tokenId": "instadapp",
           "attentionScore": 42,
-          "hypeScore": 37,
-          "supplyRiskScore": 18,
+          "hypeScore": 41,
+          "supplyRiskScore": 28,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "stau": {
-          "tokenId": "stau",
+        "brz": {
+          "tokenId": "brz",
           "attentionScore": 42,
           "hypeScore": 37,
           "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
-        "matrixdock-gold": {
-          "tokenId": "matrixdock-gold",
+        "ishares-core-s-p-500-etf-ondo-tokenized-etf": {
+          "tokenId": "ishares-core-s-p-500-etf-ondo-tokenized-etf",
           "attentionScore": 42,
-          "hypeScore": 31,
+          "hypeScore": 28,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "rwa"
+        },
+        "agora-dollar": {
+          "tokenId": "agora-dollar",
+          "attentionScore": 42,
+          "hypeScore": 27,
+          "supplyRiskScore": 8,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "airdrop"
         },
         "straitsx-xusd": {
           "tokenId": "straitsx-xusd",
@@ -3191,13 +3167,13 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "tron": {
-          "tokenId": "tron",
+        "f-x-protocol-fxusd": {
+          "tokenId": "f-x-protocol-fxusd",
           "attentionScore": 42,
-          "hypeScore": 19,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "airdrop"
+          "hypeScore": 17,
+          "supplyRiskScore": 0,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "jupusd": {
           "tokenId": "jupusd",
@@ -3207,61 +3183,69 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "tori-trusd": {
-          "tokenId": "tori-trusd",
+        "usds": {
+          "tokenId": "usds",
           "attentionScore": 42,
-          "hypeScore": 17,
-          "supplyRiskScore": 0,
+          "hypeScore": 15,
+          "supplyRiskScore": 8,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "kamino": {
-          "tokenId": "kamino",
+        "meme-horse": {
+          "tokenId": "meme-horse",
           "attentionScore": 41,
-          "hypeScore": 42,
-          "supplyRiskScore": 65,
+          "hypeScore": 54,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "railgun": {
+          "tokenId": "railgun",
+          "attentionScore": 41,
+          "hypeScore": 46,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "four": {
+          "tokenId": "four",
+          "attentionScore": 41,
+          "hypeScore": 37,
+          "supplyRiskScore": 48,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "targon": {
+          "tokenId": "targon",
+          "attentionScore": 41,
+          "hypeScore": 37,
+          "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
         "aelf": {
           "tokenId": "aelf",
           "attentionScore": 41,
-          "hypeScore": 39,
+          "hypeScore": 36,
           "supplyRiskScore": 29,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "swissborg": {
-          "tokenId": "swissborg",
+        "stau": {
+          "tokenId": "stau",
           "attentionScore": 41,
-          "hypeScore": 38,
+          "hypeScore": 36,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "vechain": {
-          "tokenId": "vechain",
-          "attentionScore": 41,
-          "hypeScore": 34,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "astar": {
-          "tokenId": "astar",
+        "ishares-bitcoin-trust-ondo-tokenized": {
+          "tokenId": "ishares-bitcoin-trust-ondo-tokenized",
           "attentionScore": 41,
           "hypeScore": 33,
-          "supplyRiskScore": 0,
+          "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
-        },
-        "frax": {
-          "tokenId": "frax",
-          "attentionScore": 41,
-          "hypeScore": 30,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
         },
         "astherus-usdf": {
           "tokenId": "astherus-usdf",
@@ -3271,35 +3255,51 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "usds": {
-          "tokenId": "usds",
+        "whitebit": {
+          "tokenId": "whitebit",
           "attentionScore": 41,
-          "hypeScore": 18,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
+          "hypeScore": 27,
+          "supplyRiskScore": 91,
+          "classification": "Organic Interest",
+          "primaryIntent": "supply"
         },
-        "meme-horse": {
-          "tokenId": "meme-horse",
+        "tron": {
+          "tokenId": "tron",
+          "attentionScore": 41,
+          "hypeScore": 19,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "airdrop"
+        },
+        "would": {
+          "tokenId": "would",
           "attentionScore": 40,
-          "hypeScore": 53,
+          "hypeScore": 50,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "flying-tulip": {
-          "tokenId": "flying-tulip",
+        "stronghold-token": {
+          "tokenId": "stronghold-token",
           "attentionScore": 40,
-          "hypeScore": 39,
-          "supplyRiskScore": 83,
+          "hypeScore": 42,
+          "supplyRiskScore": 100,
+          "classification": "Organic Interest",
+          "primaryIntent": "supply"
+        },
+        "vision-3": {
+          "tokenId": "vision-3",
+          "attentionScore": 40,
+          "hypeScore": 36,
+          "supplyRiskScore": 31,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "bitget-token": {
-          "tokenId": "bitget-token",
+        "gnosis": {
+          "tokenId": "gnosis",
           "attentionScore": 40,
           "hypeScore": 35,
-          "supplyRiskScore": 46,
+          "supplyRiskScore": 32,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3311,16 +3311,16 @@
           "classification": "Organic Interest",
           "primaryIntent": "supply"
         },
-        "sun-token": {
-          "tokenId": "sun-token",
-          "attentionScore": 40,
-          "hypeScore": 29,
-          "supplyRiskScore": 4,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
         "apollo-diversified-credit-securitize-fund": {
           "tokenId": "apollo-diversified-credit-securitize-fund",
+          "attentionScore": 40,
+          "hypeScore": 27,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "rwa"
+        },
+        "securitize-tokenized-aaa-clo-fund": {
+          "tokenId": "securitize-tokenized-aaa-clo-fund",
           "attentionScore": 40,
           "hypeScore": 27,
           "supplyRiskScore": 18,
@@ -3334,14 +3334,6 @@
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
-        },
-        "whitebit": {
-          "tokenId": "whitebit",
-          "attentionScore": 40,
-          "hypeScore": 26,
-          "supplyRiskScore": 91,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
         },
         "smilek": {
           "tokenId": "smilek",
@@ -3359,19 +3351,35 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "apyusd": {
-          "tokenId": "apyusd",
-          "attentionScore": 39,
-          "hypeScore": 36,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
         "tradable-na-rent-financing-platform-sstn": {
           "tokenId": "tradable-na-rent-financing-platform-sstn",
           "attentionScore": 39,
           "hypeScore": 35,
           "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "ethereum-name-service": {
+          "tokenId": "ethereum-name-service",
+          "attentionScore": 39,
+          "hypeScore": 33,
+          "supplyRiskScore": 71,
+          "classification": "Organic Interest",
+          "primaryIntent": "supply"
+        },
+        "zencash": {
+          "tokenId": "zencash",
+          "attentionScore": 39,
+          "hypeScore": 33,
+          "supplyRiskScore": 16,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "sun-token": {
+          "tokenId": "sun-token",
+          "attentionScore": 39,
+          "hypeScore": 32,
+          "supplyRiskScore": 12,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3382,14 +3390,6 @@
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "rwa"
-        },
-        "apxusd": {
-          "tokenId": "apxusd",
-          "attentionScore": 39,
-          "hypeScore": 26,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
         },
         "safo": {
           "tokenId": "safo",
@@ -3439,43 +3439,11 @@
           "classification": "Organic Interest",
           "primaryIntent": "rwa"
         },
-        "re-protocol-reusd": {
-          "tokenId": "re-protocol-reusd",
-          "attentionScore": 39,
-          "hypeScore": 25,
-          "supplyRiskScore": 8,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "frankencoin": {
-          "tokenId": "frankencoin",
-          "attentionScore": 39,
-          "hypeScore": 24,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "paypal-usd": {
-          "tokenId": "paypal-usd",
-          "attentionScore": 39,
-          "hypeScore": 20,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "yzy": {
-          "tokenId": "yzy",
+        "flying-tulip": {
+          "tokenId": "flying-tulip",
           "attentionScore": 38,
-          "hypeScore": 48,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "instadapp": {
-          "tokenId": "instadapp",
-          "attentionScore": 38,
-          "hypeScore": 35,
-          "supplyRiskScore": 34,
+          "hypeScore": 40,
+          "supplyRiskScore": 83,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3487,19 +3455,27 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "gmx": {
-          "tokenId": "gmx",
+        "gatechain-token": {
+          "tokenId": "gatechain-token",
           "attentionScore": 38,
-          "hypeScore": 34,
-          "supplyRiskScore": 8,
+          "hypeScore": 33,
+          "supplyRiskScore": 61,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "gnosis": {
-          "tokenId": "gnosis",
+        "nexo": {
+          "tokenId": "nexo",
           "attentionScore": 38,
-          "hypeScore": 33,
-          "supplyRiskScore": 32,
+          "hypeScore": 31,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "astar": {
+          "tokenId": "astar",
+          "attentionScore": 38,
+          "hypeScore": 30,
+          "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3511,19 +3487,35 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "jelly-my-jelly": {
-          "tokenId": "jelly-my-jelly",
+        "jpycoin": {
+          "tokenId": "jpycoin",
           "attentionScore": 38,
-          "hypeScore": 28,
-          "supplyRiskScore": 0,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
+          "hypeScore": 25,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "midas-mtbill": {
           "tokenId": "midas-mtbill",
           "attentionScore": 38,
           "hypeScore": 25,
           "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "re-protocol-reusd": {
+          "tokenId": "re-protocol-reusd",
+          "attentionScore": 38,
+          "hypeScore": 25,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "unity-usd": {
+          "tokenId": "unity-usd",
+          "attentionScore": 38,
+          "hypeScore": 24,
+          "supplyRiskScore": 8,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
@@ -3535,6 +3527,14 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
+        "yzy": {
+          "tokenId": "yzy",
+          "attentionScore": 37,
+          "hypeScore": 53,
+          "supplyRiskScore": 100,
+          "classification": "Organic Interest",
+          "primaryIntent": "supply"
+        },
         "lido-earn-eth": {
           "tokenId": "lido-earn-eth",
           "attentionScore": 37,
@@ -3543,18 +3543,10 @@
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
-        "railgun": {
-          "tokenId": "railgun",
-          "attentionScore": 37,
-          "hypeScore": 38,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
         "mx-token": {
           "tokenId": "mx-token",
           "attentionScore": 37,
-          "hypeScore": 37,
+          "hypeScore": 38,
           "supplyRiskScore": 100,
           "classification": "Organic Interest",
           "primaryIntent": "supply"
@@ -3567,37 +3559,21 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "quantixai": {
-          "tokenId": "quantixai",
-          "attentionScore": 37,
-          "hypeScore": 30,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
         "dola-usd": {
           "tokenId": "dola-usd",
           "attentionScore": 37,
-          "hypeScore": 29,
-          "supplyRiskScore": 71,
+          "hypeScore": 30,
+          "supplyRiskScore": 81,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "nexo": {
-          "tokenId": "nexo",
+        "temple": {
+          "tokenId": "temple",
           "attentionScore": 37,
-          "hypeScore": 29,
+          "hypeScore": 28,
           "supplyRiskScore": 18,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
-        },
-        "unity-usd": {
-          "tokenId": "unity-usd",
-          "attentionScore": 37,
-          "hypeScore": 27,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
         },
         "usdai": {
           "tokenId": "usdai",
@@ -3607,18 +3583,50 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "jpycoin": {
-          "tokenId": "jpycoin",
+        "frankencoin": {
+          "tokenId": "frankencoin",
           "attentionScore": 37,
-          "hypeScore": 24,
+          "hypeScore": 23,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "bfusd": {
-          "tokenId": "bfusd",
+        "xphere": {
+          "tokenId": "xphere",
           "attentionScore": 36,
-          "hypeScore": 23,
+          "hypeScore": 38,
+          "supplyRiskScore": 8,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "bitget-token": {
+          "tokenId": "bitget-token",
+          "attentionScore": 36,
+          "hypeScore": 33,
+          "supplyRiskScore": 46,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "newton-project": {
+          "tokenId": "newton-project",
+          "attentionScore": 36,
+          "hypeScore": 32,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "vicicoin": {
+          "tokenId": "vicicoin",
+          "attentionScore": 36,
+          "hypeScore": 27,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "usdu": {
+          "tokenId": "usdu",
+          "attentionScore": 36,
+          "hypeScore": 24,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
@@ -3631,35 +3639,35 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "f-x-protocol-fxusd": {
-          "tokenId": "f-x-protocol-fxusd",
-          "attentionScore": 36,
-          "hypeScore": 18,
-          "supplyRiskScore": 0,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "bitkub-coin": {
-          "tokenId": "bitkub-coin",
-          "attentionScore": 35,
-          "hypeScore": 36,
-          "supplyRiskScore": 63,
-          "classification": "Organic Interest",
-          "primaryIntent": "risk"
-        },
-        "bitcastle-token": {
-          "tokenId": "bitcastle-token",
-          "attentionScore": 35,
-          "hypeScore": 34,
-          "supplyRiskScore": 90,
-          "classification": "Organic Interest",
-          "primaryIntent": "supply"
-        },
-        "newton-project": {
-          "tokenId": "newton-project",
+        "escoin-token": {
+          "tokenId": "escoin-token",
           "attentionScore": 35,
           "hypeScore": 32,
           "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "nano": {
+          "tokenId": "nano",
+          "attentionScore": 35,
+          "hypeScore": 31,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "nxm": {
+          "tokenId": "nxm",
+          "attentionScore": 35,
+          "hypeScore": 30,
+          "supplyRiskScore": 18,
+          "classification": "Organic Interest",
+          "primaryIntent": "risk"
+        },
+        "jelly-my-jelly": {
+          "tokenId": "jelly-my-jelly",
+          "attentionScore": 35,
+          "hypeScore": 26,
+          "supplyRiskScore": 0,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
         },
@@ -3671,14 +3679,6 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "securitize-tokenized-aaa-clo-fund": {
-          "tokenId": "securitize-tokenized-aaa-clo-fund",
-          "attentionScore": 35,
-          "hypeScore": 24,
-          "supplyRiskScore": 18,
-          "classification": "Organic Interest",
-          "primaryIntent": "rwa"
-        },
         "nest-blackopal-liquidstone-ii-vault": {
           "tokenId": "nest-blackopal-liquidstone-ii-vault",
           "attentionScore": 35,
@@ -3687,18 +3687,18 @@
           "classification": "Organic Interest",
           "primaryIntent": "rwa"
         },
-        "usdu": {
-          "tokenId": "usdu",
+        "usx": {
+          "tokenId": "usx",
           "attentionScore": 35,
           "hypeScore": 23,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "usx": {
-          "tokenId": "usx",
+        "bfusd": {
+          "tokenId": "bfusd",
           "attentionScore": 35,
-          "hypeScore": 23,
+          "hypeScore": 22,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
@@ -3710,6 +3710,14 @@
           "supplyRiskScore": 8,
           "classification": "Organic Interest",
           "primaryIntent": "risk"
+        },
+        "saturn-dollar": {
+          "tokenId": "saturn-dollar",
+          "attentionScore": 35,
+          "hypeScore": 18,
+          "supplyRiskScore": 0,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "tronbank": {
           "tokenId": "tronbank",
@@ -3730,15 +3738,15 @@
         "gas": {
           "tokenId": "gas",
           "attentionScore": 34,
-          "hypeScore": 31,
+          "hypeScore": 30,
           "supplyRiskScore": 8,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "vicicoin": {
-          "tokenId": "vicicoin",
+        "mag7-ssi": {
+          "tokenId": "mag7-ssi",
           "attentionScore": 34,
-          "hypeScore": 25,
+          "hypeScore": 30,
           "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
@@ -3823,18 +3831,18 @@
           "classification": "Quiet Watch",
           "primaryIntent": "rwa"
         },
-        "qtum": {
-          "tokenId": "qtum",
+        "tori-trusd": {
+          "tokenId": "tori-trusd",
+          "attentionScore": 34,
+          "hypeScore": 17,
+          "supplyRiskScore": 0,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "swissborg": {
+          "tokenId": "swissborg",
           "attentionScore": 33,
           "hypeScore": 32,
-          "supplyRiskScore": 10,
-          "classification": "Quiet Watch",
-          "primaryIntent": "risk"
-        },
-        "escoin-token": {
-          "tokenId": "escoin-token",
-          "attentionScore": 33,
-          "hypeScore": 31,
           "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
@@ -3847,19 +3855,27 @@
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "nxm": {
-          "tokenId": "nxm",
-          "attentionScore": 32,
-          "hypeScore": 27,
-          "supplyRiskScore": 18,
+        "ozone-chain": {
+          "tokenId": "ozone-chain",
+          "attentionScore": 33,
+          "hypeScore": 28,
+          "supplyRiskScore": 23,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "ozone-chain": {
-          "tokenId": "ozone-chain",
+        "usdtb": {
+          "tokenId": "usdtb",
+          "attentionScore": 33,
+          "hypeScore": 22,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
+        "quantum-resistant-ledger": {
+          "tokenId": "quantum-resistant-ledger",
           "attentionScore": 32,
-          "hypeScore": 27,
-          "supplyRiskScore": 23,
+          "hypeScore": 35,
+          "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
@@ -3879,69 +3895,77 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "usdtb": {
-          "tokenId": "usdtb",
+        "fidelity-digital-dollar": {
+          "tokenId": "fidelity-digital-dollar",
           "attentionScore": 32,
-          "hypeScore": 21,
-          "supplyRiskScore": 18,
+          "hypeScore": 16,
+          "supplyRiskScore": 0,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "mag7-ssi": {
-          "tokenId": "mag7-ssi",
+        "qtum": {
+          "tokenId": "qtum",
           "attentionScore": 31,
-          "hypeScore": 26,
-          "supplyRiskScore": 18,
+          "hypeScore": 29,
+          "supplyRiskScore": 10,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "fidelity-digital-dollar": {
-          "tokenId": "fidelity-digital-dollar",
-          "attentionScore": 31,
-          "hypeScore": 19,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "nusd-2": {
-          "tokenId": "nusd-2",
-          "attentionScore": 31,
-          "hypeScore": 19,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "saturn-dollar": {
-          "tokenId": "saturn-dollar",
-          "attentionScore": 30,
-          "hypeScore": 19,
-          "supplyRiskScore": 8,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
         "exod": {
           "tokenId": "exod",
-          "attentionScore": 29,
+          "attentionScore": 31,
           "hypeScore": 27,
           "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
+        "metal-blockchain": {
+          "tokenId": "metal-blockchain",
+          "attentionScore": 30,
+          "hypeScore": 33,
+          "supplyRiskScore": 37,
+          "classification": "Quiet Watch",
+          "primaryIntent": "risk"
+        },
         "bot": {
           "tokenId": "bot",
-          "attentionScore": 29,
-          "hypeScore": 24,
+          "attentionScore": 30,
+          "hypeScore": 26,
           "supplyRiskScore": 100,
           "classification": "Quiet Watch",
           "primaryIntent": "supply"
         },
-        "prize-protocol": {
-          "tokenId": "prize-protocol",
-          "attentionScore": 28,
-          "hypeScore": 28,
-          "supplyRiskScore": 77,
+        "wrappedm-by-m0": {
+          "tokenId": "wrappedm-by-m0",
+          "attentionScore": 30,
+          "hypeScore": 23,
+          "supplyRiskScore": 0,
+          "classification": "Quiet Watch",
+          "primaryIntent": "risk"
+        },
+        "bitkub-coin": {
+          "tokenId": "bitkub-coin",
+          "attentionScore": 29,
+          "hypeScore": 31,
+          "supplyRiskScore": 63,
+          "classification": "Quiet Watch",
+          "primaryIntent": "risk"
+        },
+        "bitcastle-token": {
+          "tokenId": "bitcastle-token",
+          "attentionScore": 29,
+          "hypeScore": 30,
+          "supplyRiskScore": 90,
           "classification": "Quiet Watch",
           "primaryIntent": "supply"
+        },
+        "crown-brlv": {
+          "tokenId": "crown-brlv",
+          "attentionScore": 29,
+          "hypeScore": 21,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "grx-chain": {
           "tokenId": "grx-chain",
@@ -3951,10 +3975,10 @@
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "crown-brlv": {
-          "tokenId": "crown-brlv",
+        "nusd-2": {
+          "tokenId": "nusd-2",
           "attentionScore": 28,
-          "hypeScore": 20,
+          "hypeScore": 19,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
@@ -3964,14 +3988,6 @@
           "attentionScore": 27,
           "hypeScore": 36,
           "supplyRiskScore": 100,
-          "classification": "Quiet Watch",
-          "primaryIntent": "risk"
-        },
-        "metal-blockchain": {
-          "tokenId": "metal-blockchain",
-          "attentionScore": 27,
-          "hypeScore": 29,
-          "supplyRiskScore": 47,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
@@ -3991,21 +4007,21 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "swop-2": {
-          "tokenId": "swop-2",
+        "bitget-wrapped-btc": {
+          "tokenId": "bitget-wrapped-btc",
           "attentionScore": 27,
-          "hypeScore": 24,
+          "hypeScore": 22,
           "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"
         },
-        "wrappedm-by-m0": {
-          "tokenId": "wrappedm-by-m0",
+        "infinifi-usd": {
+          "tokenId": "infinifi-usd",
           "attentionScore": 27,
           "hypeScore": 22,
-          "supplyRiskScore": 8,
-          "classification": "Quiet Watch",
-          "primaryIntent": "risk"
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
         },
         "allunity-chf": {
           "tokenId": "allunity-chf",
@@ -4023,34 +4039,10 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "usda-2": {
-          "tokenId": "usda-2",
-          "attentionScore": 27,
-          "hypeScore": 19,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
         "alloy-tether": {
           "tokenId": "alloy-tether",
           "attentionScore": 27,
           "hypeScore": 18,
-          "supplyRiskScore": 18,
-          "classification": "Stablecoin Safety Check",
-          "primaryIntent": "stablecoin"
-        },
-        "quantum-resistant-ledger": {
-          "tokenId": "quantum-resistant-ledger",
-          "attentionScore": 26,
-          "hypeScore": 30,
-          "supplyRiskScore": 18,
-          "classification": "Quiet Watch",
-          "primaryIntent": "risk"
-        },
-        "infinifi-usd": {
-          "tokenId": "infinifi-usd",
-          "attentionScore": 26,
-          "hypeScore": 21,
           "supplyRiskScore": 18,
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
@@ -4071,6 +4063,14 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
+        "usda-2": {
+          "tokenId": "usda-2",
+          "attentionScore": 26,
+          "hypeScore": 18,
+          "supplyRiskScore": 18,
+          "classification": "Stablecoin Safety Check",
+          "primaryIntent": "stablecoin"
+        },
         "usdkg": {
           "tokenId": "usdkg",
           "attentionScore": 26,
@@ -4079,10 +4079,18 @@
           "classification": "Stablecoin Safety Check",
           "primaryIntent": "stablecoin"
         },
-        "bitget-wrapped-btc": {
-          "tokenId": "bitget-wrapped-btc",
-          "attentionScore": 25,
-          "hypeScore": 21,
+        "prize-protocol": {
+          "tokenId": "prize-protocol",
+          "attentionScore": 24,
+          "hypeScore": 23,
+          "supplyRiskScore": 77,
+          "classification": "Quiet Watch",
+          "primaryIntent": "supply"
+        },
+        "swop-2": {
+          "tokenId": "swop-2",
+          "attentionScore": 24,
+          "hypeScore": 22,
           "supplyRiskScore": 18,
           "classification": "Quiet Watch",
           "primaryIntent": "risk"

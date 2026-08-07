@@ -19,25 +19,25 @@
     "explorer": "https://hyperevmscan.io/token/0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70"
   },
   "market": {
-    "price": 0.999279,
-    "marketCap": 74948760,
-    "marketCapRank": 308,
-    "volume24h": 87492,
-    "high24h": 1.004,
+    "price": 1.001,
+    "marketCap": 75093104,
+    "marketCapRank": 304,
+    "volume24h": 91834,
+    "high24h": 1.001,
     "low24h": 0.997429,
-    "priceChange24h": -0.1,
-    "priceChange7d": -0.5,
-    "priceChange30d": 0,
-    "priceChange1y": -0.2,
+    "priceChange24h": 0,
+    "priceChange7d": 0.1,
+    "priceChange30d": 0.2,
+    "priceChange1y": 0.2,
     "ath": 1.067,
-    "athChangePercentage": -6.35133,
+    "athChangePercentage": -6.17375,
     "athDate": "2025-04-02T07:35:18.000Z",
     "atl": 0.705908,
     "atlDate": "2025-10-10T13:28:16.000Z",
     "circulatingSupply": 75004069,
-    "totalSupply": 8900154290.39773,
+    "totalSupply": 8900136395.470493,
     "maxSupply": null,
-    "fdv": 8893591182
+    "fdv": 8910701500
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:06:19.064Z",
-  "lastMarketUpdate": "2026-08-06T22:32:31.642Z"
+  "lastMarketUpdate": "2026-08-07T18:31:31.975Z"
 }

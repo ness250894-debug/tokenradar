@@ -5669,5 +5669,85 @@
     "discoveredAt": "2026-08-06T22:33:24.135Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-06T22:33:24.135Z"
+  },
+  {
+    "id": "pools-trade",
+    "name": "Pools.trade",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Q3 2026",
+    "narrativeStrength": 75,
+    "dataSource": "https://airdropalert.com/blogs/pools-trade-uniswap-launchpad-guide/",
+    "lifecycleStatus": "graduated",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "ICO/IDO/IEO",
+        "sourceType": "news_article",
+        "url": "https://airdropalert.com/blogs/pools-trade-uniswap-launchpad-guide/",
+        "title": "What Is Pools.trade? Uniswap’s Launchpad and Its Backlash",
+        "observedAt": "2026-08-05T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-07T18:32:18.749Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-07T18:40:31.367Z",
+    "graduatedAt": "2026-08-07T18:40:31.367Z",
+    "coingeckoRank": 2650,
+    "graduationEvidence": {
+      "coingeckoId": "pools-trade",
+      "coingeckoRank": 2650,
+      "rank": 2650,
+      "priceUsd": 0.00123407,
+      "volume24h": 2181364,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-07T18:40:31.367Z"
+    }
+  },
+  {
+    "id": "cashcat",
+    "name": "Cashcat",
+    "symbol": "CASHCAT",
+    "category": "Meme",
+    "expectedTge": "Q3 2026",
+    "narrativeStrength": 55,
+    "dataSource": "https://airdropalert.com/blogs/what-is-cashcat/",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Exchange listing announcements",
+        "sourceType": "news_article",
+        "url": "https://airdropalert.com/blogs/what-is-cashcat/",
+        "title": "What is Cashcat? The First Meme Coin Listed on Robinhood",
+        "observedAt": "2026-08-06T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-07T18:32:18.750Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-07T18:32:18.750Z"
+  },
+  {
+    "id": "cloudflare-os",
+    "name": "Cloudflare OS",
+    "symbol": "TBD",
+    "category": "Infrastructure/AI",
+    "expectedTge": "Future",
+    "narrativeStrength": 60,
+    "dataSource": "https://decrypt.co/374997/cloudflare-os-inside-open-source-ai-agent-platform",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://decrypt.co/374997/cloudflare-os-inside-open-source-ai-agent-platform",
+        "title": "Cloudflare OS: Here’s What’s Inside the Open-Source AI Agent Platform",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-07T18:32:18.751Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-07T18:32:18.751Z"
   }
 ]
