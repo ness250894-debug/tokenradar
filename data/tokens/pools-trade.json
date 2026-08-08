@@ -1,0 +1,49 @@
+{
+  "id": "pools-trade",
+  "symbol": "pools",
+  "name": "pools.trade",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102175260/large/pools.png?1786007584",
+  "description": "A cryptocurrency token known as pools.trade (POOLS). It is tracked on CoinGecko with the ID \"pools-trade\".",
+  "categories": [
+    "Robinhood Ecosystem",
+    "Pools Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://pools.trade/t/0x385b36Ff682Ab4C76E7c37A66b96aABC466471d5",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/token/0x385b36Ff682Ab4C76E7c37A66b96aABC466471d5"
+  },
+  "market": {
+    "price": 0.00112139,
+    "marketCap": 1121388,
+    "marketCapRank": 2731,
+    "volume24h": 1635286,
+    "high24h": 0.00141241,
+    "low24h": 0.00089678,
+    "priceChange24h": 15.28005,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.0026123,
+    "athChangePercentage": -57.07266,
+    "athDate": "2026-08-06T17:12:50.000Z",
+    "atl": 0.00089678,
+    "atlDate": "2026-08-07T21:39:30.000Z",
+    "circulatingSupply": 1000000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 1121388
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-08T07:04:53.614Z"
+}
