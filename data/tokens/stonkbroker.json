@@ -1,0 +1,48 @@
+{
+  "id": "stonkbroker",
+  "symbol": "stonkbroker",
+  "name": "StonkBroker",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174654/large/9gwu14e3hpizobkefg65k66l70wu.?1784445702",
+  "description": "",
+  "categories": [
+    "Robinhood Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.stonkbrokers.cash/marketplace",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/token/0xe934e36a439c94017b64a3fece66af12099abf50"
+  },
+  "market": {
+    "price": 0.03005458,
+    "marketCap": 46821864,
+    "marketCapRank": 439,
+    "volume24h": 7338827,
+    "high24h": 0.03165796,
+    "low24h": 0.02251345,
+    "priceChange24h": 34.91832,
+    "priceChange7d": 125.25376,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.03165796,
+    "athChangePercentage": -5.06472,
+    "athDate": "2026-08-08T11:51:30.000Z",
+    "atl": 0.00161591,
+    "atlDate": "2026-07-19T08:20:20.000Z",
+    "circulatingSupply": 1557215544,
+    "totalSupply": 2716547718,
+    "maxSupply": 2716547718,
+    "fdv": 81645344
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-08T18:13:26.703Z"
+}
