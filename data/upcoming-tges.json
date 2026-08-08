@@ -5749,5 +5749,62 @@
     "discoveredAt": "2026-08-07T18:32:18.751Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-07T18:32:18.751Z"
+  },
+  {
+    "id": "pons",
+    "name": "Pons",
+    "symbol": "PONS",
+    "category": "Launchpad",
+    "expectedTge": "Live (post-launch drama)",
+    "narrativeStrength": 65,
+    "dataSource": "https://airdropalert.com/blogs/pons-crypto-launchpad/",
+    "lifecycleStatus": "graduated",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "TGE/ICO/IDO/IEO",
+        "sourceType": "article",
+        "url": "https://airdropalert.com/blogs/pons-crypto-launchpad/",
+        "title": "What Is Pons Crypto? Robinhood Chain’s Launchpad at War",
+        "observedAt": "2026-08-07T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-08T18:14:05.393Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-08T18:21:47.577Z",
+    "graduatedAt": "2026-08-08T18:21:47.577Z",
+    "coingeckoRank": 766,
+    "graduationEvidence": {
+      "coingeckoId": "pons",
+      "coingeckoRank": 766,
+      "rank": 766,
+      "priceUsd": 0.02950065,
+      "volume24h": 8953587,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-08T18:21:47.577Z"
+    }
+  },
+  {
+    "id": "american-bitcoin",
+    "name": "American Bitcoin",
+    "symbol": "ABTC",
+    "category": "Infrastructure",
+    "expectedTge": "Publicly traded stock (existing)",
+    "narrativeStrength": 55,
+    "dataSource": "https://www.coindesk.com/business/2026/08/07/trump-backed-american-bitcoin-director-justin-mateen-buys-nearly-usd2-million-of-abtc-stock",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Funding Round (Stock Purchase)",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/07/trump-backed-american-bitcoin-director-justin-mateen-buys-nearly-usd2-million-of-abtc-stock",
+        "title": "Trump-Backed American Bitcoin director Justin Mateen buys nearly $2 million of ABTC stock",
+        "observedAt": "2026-08-07T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-08T18:14:05.394Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-08T18:14:05.394Z"
   }
 ]

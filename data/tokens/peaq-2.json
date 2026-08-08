@@ -22,25 +22,25 @@
     "explorer": "https://peaq.subscan.io/system_token_detail?unique_id=PEAQ"
   },
   "market": {
-    "price": 0.01791641,
-    "marketCap": 43070849,
-    "marketCapRank": 463,
-    "volume24h": 796610,
-    "high24h": 0.01826137,
-    "low24h": 0.01757178,
-    "priceChange24h": 1.2,
-    "priceChange7d": 2.6,
-    "priceChange30d": -7.2,
-    "priceChange1y": -71.4,
+    "price": 0.0178668,
+    "marketCap": 42994353,
+    "marketCapRank": 472,
+    "volume24h": 433810,
+    "high24h": 0.01819295,
+    "low24h": 0.01762616,
+    "priceChange24h": -0.2,
+    "priceChange7d": 3.3,
+    "priceChange30d": -9.7,
+    "priceChange1y": -73.1,
     "ath": 0.750473,
-    "athChangePercentage": -97.61265,
+    "athChangePercentage": -97.61926,
     "athDate": "2024-12-10T00:55:30.000Z",
     "atl": 0.01224257,
     "atlDate": "2026-03-14T08:10:36.000Z",
-    "circulatingSupply": 2403886583.1758895,
-    "totalSupply": 4431347277.575883,
+    "circulatingSupply": 2406381911.544774,
+    "totalSupply": 4431613402.638192,
     "maxSupply": 5667620228.64,
-    "fdv": 79396997
+    "fdv": 79178784
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +52,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-15T19:09:12.878Z",
-  "lastMarketUpdate": "2026-08-07T18:31:32.047Z"
+  "lastMarketUpdate": "2026-08-08T18:13:14.660Z"
 }
