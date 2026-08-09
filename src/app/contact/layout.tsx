@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
-const PAGE_TITLE = "Contact TokenRadar - Support, data corrections & partnerships";
+const PAGE_TITLE = "Contact TokenRadar: Support & Corrections";
 const PAGE_DESCRIPTION =
   "Contact TokenRadar for data corrections, bug reports, product feedback, support, and partnership or advertising inquiries.";
 

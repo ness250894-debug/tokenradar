@@ -16,7 +16,13 @@ import {
   getTokenSearchIntent,
   getTokenSearchIntentTrend,
 } from "@/lib/content-loader";
-import { filterIndexableArticleTokenIds, isArticleIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
+import {
+  buildEntitySeoTitle,
+  buildSeoDescription,
+  filterIndexableArticleTokenIds,
+  isArticleIndexable,
+  parseFaqsFromMarkdown,
+} from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { PriceChart } from "@/components/PriceChart";
 import TradingViewWidget from "@/components/TradingViewWidget";
@@ -27,10 +33,12 @@ import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
+import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -53,8 +61,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const article = await getArticle(tokenId, "price-prediction");
   const year = new Date().getFullYear();
-  const title = `${detail.name} (${detail.symbol.toUpperCase()}) Price Prediction ${year}-${year + 1}`;
-  const description = `Data-driven price analysis for ${detail.name}. Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}, Risk Score and growth scenarios.`;
+  const title = buildEntitySeoTitle({
+    name: detail.name,
+    symbol: detail.symbol,
+    after: ` Price Prediction ${year}`,
+  });
+  const description = buildSeoDescription(`Scenario-based price analysis for ${detail.name} (${detail.symbol.toUpperCase()}), using a ${formatPrice(detail.market.price)} data snapshot, ${formatPrice(detail.market.ath)} all-time high, risk metrics, and bull/base/bear assumptions.`);
 
   const ogImage = `/og/token/${detail.id}.png`;
 
@@ -297,6 +309,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
             />
             <div className="article-layout-row">
               <div className="article-main-col">
+                <ResearchFreshnessNotice contentUpdatedAt={article.generatedAt} marketDataAt={detail.fetchedAt} />
                 <div className="article-content" dangerouslySetInnerHTML={{
                   __html: await markdownToHtml(article.content, {
                     name: detail.name,
@@ -376,15 +389,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
           headline: `${detail.name} Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
           description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
           image: "https://tokenradar.co/og-image.png",
-          author: { "@type": "Organization", name: "TokenRadar", url: "https://tokenradar.co" },
-          publisher: {
-            "@type": "Organization",
-            name: "TokenRadar",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://tokenradar.co/icon.png",
-            },
-          },
+          author: buildAuthorPersonSchema(),
+          publisher: buildPublisherSchema(),
           datePublished: article?.generatedAt || detail.fetchedAt,
           dateModified: article?.generatedAt || detail.fetchedAt,
         }}

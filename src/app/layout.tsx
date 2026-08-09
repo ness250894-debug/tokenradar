@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
@@ -16,24 +15,13 @@ import { PwaServiceWorker } from "@/components/PwaServiceWorker";
 import { WatchlistOfflineSync } from "@/components/WatchlistOfflineSync";
 import { getSiteUrl } from "@/lib/seo";
 import { CONTACT_EMAIL, SOCIAL } from "@/lib/config";
+import { buildAuthorPersonSchema } from "@/lib/schema-entities";
 import {
   getGoogleAnalyticsBootstrapScript,
   sanitizeGoogleAnalyticsMeasurementId,
 } from "@/lib/google-analytics";
 
 const siteUrl = getSiteUrl();
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   applicationName: "TokenRadar",
@@ -42,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | TokenRadar",
   },
   description:
-    "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens. Proprietary Risk Score, Growth Index, and AI-powered research updated daily.",
+    "Unbiased, data-driven analysis for hundreds of tracked and upcoming crypto tokens. Compare risk scores, market data, launch evidence, and research workflows.",
   keywords: [
     "crypto analysis",
     "token research",
@@ -77,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "TokenRadar",
     title: "TokenRadar - Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
+      "Unbiased crypto analysis across hundreds of tracked and upcoming tokens with risk scores and launch evidence.",
     images: [
       {
         url: "/og-image.png",
@@ -91,7 +79,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TokenRadar - Data-Driven Crypto Analysis",
     description:
-      "Unbiased, data-driven analysis for 300+ tracked and upcoming crypto tokens with proprietary metrics.",
+      "Unbiased crypto analysis across hundreds of tracked and upcoming tokens with risk scores and launch evidence.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -124,9 +112,12 @@ export default function RootLayout({
           data={{
             "@context": "https://schema.org",
             "@type": "WebSite",
+            "@id": `${siteUrl}/#website`,
             name: "TokenRadar",
+            alternateName: ["TokenRadar Crypto Research", "TokenRadar.co"],
             url: siteUrl,
-            description: "Unbiased, data-driven crypto analysis for 300+ tracked and upcoming tokens",
+            description: "Unbiased, data-driven crypto analysis for hundreds of tracked and upcoming tokens",
+            publisher: { "@id": `${siteUrl}/#organization` },
           }}
         />
         <JsonLd
@@ -134,7 +125,9 @@ export default function RootLayout({
           data={{
             "@context": "https://schema.org",
             "@type": "Organization",
+            "@id": `${siteUrl}/#organization`,
             name: "TokenRadar",
+            alternateName: "TokenRadar Crypto Research",
             url: siteUrl,
             logo: `${siteUrl}/icon.png`,
             contactPoint: [
@@ -170,16 +163,7 @@ export default function RootLayout({
         />
         <JsonLd
           id="person-jsonld"
-          data={{
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Pavlo Nakonechnyi",
-            jobTitle: "Founder & Lead Researcher",
-            url: siteUrl,
-            sameAs: [
-              "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/",
-            ],
-          }}
+          data={{ "@context": "https://schema.org", ...buildAuthorPersonSchema(siteUrl) }}
         />
         {googleAnalyticsBootstrapScript ? (
           <Script id="google-analytics-bootstrap" strategy="beforeInteractive">
@@ -187,7 +171,7 @@ export default function RootLayout({
           </Script>
         ) : null}
       </head>
-      <body className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+      <body>
         <ProgressBarProvider>
           <PromoAnnouncementBar />
           <Navigation />

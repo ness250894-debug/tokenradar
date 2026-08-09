@@ -14,7 +14,7 @@ import {
   getRelatedLearnItems,
   learnMarkdownToHtml,
 } from "@/lib/learn";
-import { canonicalUrl } from "@/lib/seo";
+import { buildSeoDescription, buildSeoTitle, canonicalUrl } from "@/lib/seo";
 
 interface PageParams {
   slug: string;
@@ -36,15 +36,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const item = await getLearnItem(slug);
   if (!item) return { title: "Learn Guide Not Found" };
 
+  const title = buildSeoTitle(item.title);
+  const description = buildSeoDescription(item.description);
+
   return {
-    title: `${item.title} | Learn`,
-    description: item.description,
+    title,
+    description,
     alternates: {
       canonical: `/learn/${item.slug}`,
     },
     openGraph: {
-      title: `${item.title} | TokenRadar Learn`,
-      description: item.description,
+      title,
+      description,
       url: `/learn/${item.slug}`,
       type: "article",
       publishedTime: item.updatedAt,
@@ -63,8 +66,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${item.title} | TokenRadar Learn`,
-      description: item.description,
+      title,
+      description,
       images: ["/og-image.png"],
     },
   };

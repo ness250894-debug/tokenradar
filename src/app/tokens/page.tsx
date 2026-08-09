@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Activity, DollarSign, TrendingUp } from "lucide-react";
 
+import Link from "next/link";
+
 import { TokenGrid } from "@/components/TokenGrid";
-import { type TokenCardData } from "@/components/TokenCard";
-import { formatCompact, getAllTokens, getCategoryIds, getPrimaryTokenCategory, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
-import { buildSearchIntentCardFields } from "@/lib/search-intent";
+import { formatCompact } from "@/lib/content-loader";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+import { getIndexableTokenProfiles, getTokenDirectoryData } from "@/lib/token-directory-data";
 
 const PAGE_TITLE = "Crypto Token Directory";
 const PAGE_DESCRIPTION =
@@ -22,40 +23,19 @@ export const metadata: Metadata = {
 };
 
 export default async function TokensPage() {
-  const tokens = await getAllTokens();
-  const categoryIds = await getCategoryIds();
-  const searchIntentDataset = await getSearchIntentDataset();
-  const searchIntentTrendMap = await getSearchIntentTrendMap();
+  const { tokens, cards: tokenCards } = await getTokenDirectoryData();
   const totalMarketCap = tokens.reduce((sum, token) => sum + (token.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, token) => sum + (token.volume24h || 0), 0);
-  const tokenCards: TokenCardData[] = await Promise.all(tokens.map(async (token) => {
-    const metrics = await getTokenMetrics(token.id);
-    const category = getPrimaryTokenCategory(token.categories, categoryIds);
-    const searchIntent = searchIntentDataset?.tokens[token.id];
-    const searchIntentTrend = searchIntentTrendMap[token.id];
-    return {
-      id: token.id,
-      name: token.name,
-      symbol: token.symbol,
-      imageUrl: token.imageUrl || token.image,
-      price: token.price,
-      priceChange24h: token.priceChange24h,
-      marketCap: token.marketCap,
-      riskScore: metrics?.riskScore || 5,
-      category: category.name,
-      categoryHref: category.href,
-      ...buildSearchIntentCardFields(searchIntent, searchIntentTrend),
-    };
-  }));
+  const indexableProfiles = await getIndexableTokenProfiles(tokens);
 
   return (
     <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>
       <section className="section">
         <div className="section-header">
-          <h1>
-            Crypto <span className="gradient-text">Token Directory</span>
-          </h1>
-          <p>Every live TokenRadar profile, exposed as crawlable links for fast research and discovery.</p>
+          <h1>Crypto Token Directory</h1>
+          <p style={{ fontSize: "var(--text-sm)" }}>
+            Market data and risk research for {tokens.length} tokens.
+          </p>
         </div>
 
         <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--space-md)", marginBottom: "var(--space-3xl)" }}>
@@ -83,10 +63,18 @@ export default async function TokensPage() {
         </div>
 
         <TokenGrid
-          tokens={tokenCards}
-          initialVisibleCount={12}
+          tokens={tokenCards.slice(0, 6)}
+          totalTokenCount={tokenCards.length}
+          deferredDataUrl="/data/token-directory.json"
+          initialVisibleCount={6}
           searchPlaceholder="Search the token directory by name or symbol..."
         />
+
+        <div style={{ marginTop: "var(--space-2xl)", textAlign: "center" }}>
+          <Link href="/tokens/all" className="btn btn-secondary">
+            Browse all {indexableProfiles.length} published token profiles A-Z
+          </Link>
+        </div>
       </section>
     </main>
   );

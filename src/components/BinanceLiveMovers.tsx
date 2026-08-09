@@ -14,7 +14,7 @@ import {
 import { formatCompact, formatPercent, formatPrice } from "@/lib/formatters";
 
 interface BinanceLiveMoversProps {
-  tokens: readonly BinanceTokenReference[];
+  tokens?: readonly BinanceTokenReference[];
 }
 
 type StreamStatus = "connecting" | "live" | "reconnecting" | "error";
@@ -24,7 +24,10 @@ const STREAM_URLS = [
   "wss://stream.binance.com:9443/ws/!miniTicker@arr",
 ];
 const RECONNECT_DELAY_MS = 5000;
+const INITIAL_CONNECT_DELAY_MS = 5000;
+const TOKEN_REFERENCE_LOAD_DELAY_MS = 4000;
 const MIN_QUOTE_VOLUME_USD = 100_000;
+const EMPTY_TOKEN_REFERENCES: readonly BinanceTokenReference[] = [];
 
 function isMiniTicker(value: unknown): value is BinanceMiniTicker {
   if (!value || typeof value !== "object") return false;
@@ -105,7 +108,9 @@ function StatusDot({ isLive }: { isLive: boolean }) {
   );
 }
 
-export function BinanceLiveMovers({ tokens }: BinanceLiveMoversProps) {
+export function BinanceLiveMovers({ tokens = EMPTY_TOKEN_REFERENCES }: BinanceLiveMoversProps) {
+  const [fetchedTokenReferences, setFetchedTokenReferences] = useState<readonly BinanceTokenReference[]>(EMPTY_TOKEN_REFERENCES);
+  const tokenReferences = tokens.length > 0 ? tokens : fetchedTokenReferences;
   const [tickerMap, setTickerMap] = useState<Map<string, BinanceMiniTicker>>(() => new Map());
   const [status, setStatus] = useState<StreamStatus>("connecting");
   const socketRef = useRef<WebSocket | null>(null);
@@ -114,6 +119,7 @@ export function BinanceLiveMovers({ tokens }: BinanceLiveMoversProps) {
 
   useEffect(() => {
     let stopped = false;
+    let initialConnectTimer: ReturnType<typeof setTimeout> | null = null;
 
     const clearReconnectTimer = () => {
       if (!reconnectTimerRef.current) return;
@@ -161,20 +167,49 @@ export function BinanceLiveMovers({ tokens }: BinanceLiveMoversProps) {
       };
     };
 
-    connect();
+    const scheduleInitialConnect = () => {
+      initialConnectTimer = setTimeout(connect, INITIAL_CONNECT_DELAY_MS);
+    };
+
+    if (document.readyState === "complete") {
+      scheduleInitialConnect();
+    } else {
+      window.addEventListener("load", scheduleInitialConnect, { once: true });
+    }
 
     return () => {
       stopped = true;
+      window.removeEventListener("load", scheduleInitialConnect);
+      if (initialConnectTimer) clearTimeout(initialConnectTimer);
       clearReconnectTimer();
       socketRef.current?.close();
       socketRef.current = null;
     };
   }, []);
 
+  useEffect(() => {
+    if (tokens.length > 0) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => {
+      void fetch("/data/home-market-lab.json", { signal: controller.signal, cache: "force-cache" })
+        .then((response) => response.ok ? response.json() as Promise<BinanceTokenReference[]> : [])
+        .then((references) => setFetchedTokenReferences(Array.isArray(references) ? references : []))
+        .catch((error: unknown) => {
+          if (!(error instanceof DOMException && error.name === "AbortError")) setFetchedTokenReferences([]);
+        });
+    }, TOKEN_REFERENCE_LOAD_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [tokens]);
+
   const tickers = useMemo(() => Array.from(tickerMap.values()), [tickerMap]);
   const movers = useMemo(
-    () => selectBinanceLiveMovers(tickers, tokens, { minQuoteVolume: MIN_QUOTE_VOLUME_USD }),
-    [tickers, tokens],
+    () => selectBinanceLiveMovers(tickers, tokenReferences, { minQuoteVolume: MIN_QUOTE_VOLUME_USD }),
+    [tickers, tokenReferences],
   );
   const hasRows = movers.gainers.length > 0 || movers.losers.length > 0;
   const isLive = status === "live";

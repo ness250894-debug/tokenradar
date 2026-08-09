@@ -19,9 +19,9 @@ const HOME_SHARE_DESCRIPTION =
   "A daily crypto research dashboard for token risk scores, launch evidence, and market intelligence.";
 
 export const metadata: Metadata = {
-  title: "Crypto Token Risk Scores, Launch Signals & Research",
+  title: "Crypto Risk Scores, Launch Signals & Research",
   description:
-    "Track crypto token risk scores, market data, launch watchlists, and AI-assisted research across hundreds of assets. Informational research, not financial advice.",
+    "Track crypto risk scores, market data, launch watchlists, and AI-assisted research across hundreds of assets. Informational research, not financial advice.",
   openGraph: buildOpenGraphMetadata({
     title: HOME_SHARE_TITLE,
     description: HOME_SHARE_DESCRIPTION,
@@ -79,15 +79,27 @@ function buildNarrativeInsights(tokens: TokenCardData[]): NarrativeInsight[] {
       marketCap: group.marketCap,
     }))
     .sort((a, b) => Math.abs(b.avgChange24h) - Math.abs(a.avgChange24h) || b.marketCap - a.marketCap)
-    .slice(0, 7);
+    .slice(0, 4);
 }
 
 export default async function HomePage() {
-  const allTokensList = await getAllTokens();
-  const categoryIds = await getCategoryIds();
-  const upcomingTges = await getUpcomingTGEs();
-  const searchIntentDataset = await getSearchIntentDataset();
-  const searchIntentTrendMap = await getSearchIntentTrendMap();
+  const [
+    allTokensList,
+    categoryIds,
+    upcomingTges,
+    searchIntentDataset,
+    searchIntentTrendMap,
+    totalArticles,
+    searchIntentHighlights,
+  ] = await Promise.all([
+    getAllTokens(),
+    getCategoryIds(),
+    getUpcomingTGEs(),
+    getSearchIntentDataset(),
+    getSearchIntentTrendMap(),
+    getTotalArticleCount(),
+    getTopSearchIntentTokens(3),
+  ]);
 
   const tokenRows = await Promise.all(
     allTokensList.map(async (token) => {
@@ -115,10 +127,29 @@ export default async function HomePage() {
   );
 
   const allTokens: TokenCardData[] = tokenRows.map((row) => row.token);
-  const totalArticles = await getTotalArticleCount();
-  const searchIntentHighlights = await getTopSearchIntentTokens(6);
-  const featuredTokens = allTokens.slice(0, 12);
-  const featuredTges = upcomingTges.slice(0, 9);
+  const highlightedTokenIds = new Set(searchIntentHighlights.map((intent) => intent.tokenId));
+  const searchIntentTokenImages = allTokens
+    .filter((token) => highlightedTokenIds.has(token.id))
+    .map((token) => ({ id: token.id, imageUrl: token.imageUrl }));
+  const searchIntentTrends = Object.fromEntries(
+    searchIntentHighlights
+      .map((intent) => [intent.tokenId, searchIntentTrendMap[intent.tokenId]] as const)
+      .filter((entry) => Boolean(entry[1])),
+  );
+  const marketLabTokens: TokenCardData[] = allTokens.slice(0, 8).map((token) => ({
+    id: token.id,
+    name: token.name,
+    symbol: token.symbol,
+    imageUrl: token.imageUrl,
+    price: token.price,
+    priceChange24h: token.priceChange24h,
+    marketCap: token.marketCap,
+    riskScore: token.riskScore,
+    category: token.category,
+    categoryHref: token.categoryHref,
+  }));
+  const featuredTokens = allTokens.slice(0, 6);
+  const featuredTges = upcomingTges.slice(0, 6);
   const narrativeInsights = buildNarrativeInsights(allTokens);
   const scoredTokens = tokenRows
     .filter((row) => row.hasMetrics)
@@ -151,10 +182,9 @@ export default async function HomePage() {
     <>
       <section className="hero" id="hero">
         <div className="radar-sweep" />
-        <BinanceLiveMovers tokens={allTokensList} />
         <div className="container">
-          <h1 className="animate-in">
-            Crypto Token <span className="gradient-text animated">Risk Scores</span>, Launch Signals, and Market Research
+          <h1>
+            Crypto Token <span className="gradient-text">Risk Scores</span>, Launch Signals, and Market Research
           </h1>
           <p className="hero-subtitle animate-in animate-delay-1">
             TokenRadar turns market data, launch evidence, and AI-assisted research into a daily dashboard for
@@ -165,7 +195,7 @@ export default async function HomePage() {
             <a href="#tokens" className="btn btn-primary">
               Open Market Dashboard
             </a>
-            <Link href="/about" className="btn btn-secondary">
+            <Link href="/about" prefetch={false} className="btn btn-secondary">
               Our Methodology
             </Link>
           </div>
@@ -184,6 +214,8 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+
+        <BinanceLiveMovers />
 
         <div className="hero-alpha-ticker animate-in animate-delay-3">
           <AlphaTicker />
@@ -240,12 +272,12 @@ export default async function HomePage() {
         marketChange24h={marketChange24h}
       />
 
-      <HomeSearchIntentRadar intents={searchIntentHighlights} tokens={allTokens} trends={searchIntentTrendMap} />
+      <HomeSearchIntentRadar intents={searchIntentHighlights} tokens={searchIntentTokenImages} trends={searchIntentTrends} />
 
       <HomeMarketLab
-        tokens={allTokens}
+        tokens={marketLabTokens}
         narratives={narrativeInsights}
-        launchTimeline={upcomingTges.slice(0, 5)}
+        launchTimeline={upcomingTges.slice(0, 3)}
       />
 
       <section className="section" id="tokens">
@@ -257,7 +289,7 @@ export default async function HomePage() {
         />
       </section>
 
-      <section className="section" id="how-it-works">
+      <section className="section home-deferred-section" id="how-it-works">
         <div className="container">
           <div className="section-header">
             <h2>How <span className="gradient-text">TokenRadar</span> Works</h2>
@@ -295,7 +327,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section" id="toolkit" style={{ background: "rgba(204, 255, 0, 0.015)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)" }}>
+      <section className="section home-deferred-section" id="toolkit" style={{ background: "rgba(204, 255, 0, 0.015)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)" }}>
         <div className="container">
           <div className="section-header">
             <h2>Essential <span className="gradient-text">Crypto Toolkit</span></h2>
@@ -355,7 +387,7 @@ export default async function HomePage() {
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "itemListElement": allTokens.slice(0, 50).map((token, idx) => ({
+          "itemListElement": allTokens.slice(0, 20).map((token, idx) => ({
             "@type": "ListItem",
             "position": idx + 1,
             "url": `https://tokenradar.co/${token.id}`,

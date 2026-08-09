@@ -49,6 +49,18 @@ function resolveRawMarkdown(existing: MarkdownDocumentArtifact): string {
   return fs.readFileSync(path.resolve(process.cwd(), sourcePath), "utf-8").replace(/^\uFEFF/, "");
 }
 
+function synchronizeDynamicInventory(doc: string, rawMarkdown: string): string {
+  if (doc !== "testing") return rawMarkdown;
+  const testsDir = path.resolve(process.cwd(), "tests");
+  const testFileCount = fs.readdirSync(testsDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".test.ts"))
+    .length;
+  return rawMarkdown.replace(
+    /The repository currently has \d+ Vitest files/g,
+    `The repository currently has ${testFileCount} Vitest files`,
+  );
+}
+
 export function generateDocArtifacts(doc: string): { jsonPath: string; htmlPath: string; json: string; html: string } {
   const existing = readExistingArtifact(doc);
   const docDir = path.resolve(process.cwd(), "docs", doc);
@@ -57,7 +69,7 @@ export function generateDocArtifacts(doc: string): { jsonPath: string; htmlPath:
   const artifact = buildMarkdownDocumentArtifact({
     name: existing.name,
     title: existing.title,
-    rawMarkdown: resolveRawMarkdown(existing),
+    rawMarkdown: synchronizeDynamicInventory(doc, resolveRawMarkdown(existing)),
     sourcePath: existing.sourcePath,
     sourceStatus: existing.sourceStatus,
     htmlArtifact: existing.htmlArtifact,

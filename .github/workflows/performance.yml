@@ -57,6 +57,9 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Audit rendered SEO inventory
+        run: npm run seo:qa
+
       - name: Run Lighthouse CI
         run: npm run lighthouse:ci
 

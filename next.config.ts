@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+const sentryBuildOptions = {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
@@ -58,4 +58,8 @@ export default withSentryConfig(nextConfig, {
       excludeReplayCompressionWorker: true,
     },
   },
-});
+} as const;
+
+export default hasSentrySourceMapUploadConfig
+  ? withSentryConfig(nextConfig, sentryBuildOptions)
+  : nextConfig;

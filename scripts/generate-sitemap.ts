@@ -9,11 +9,18 @@ import { execFileSync } from "child_process";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { SEARCH_INTENT_LABELS, type SearchIntentType } from "../src/lib/search-intent";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
-import { getSiteUrl, isArticleIndexable, isTokenOverviewIndexable } from "../src/lib/seo";
+import {
+  choosePreferredTgeId,
+  getSiteUrl,
+  getTgeDuplicateKey,
+  getTgeIndexDecision,
+  isArticleIndexable,
+  isTokenOverviewIndexable,
+  type TgeRouteCandidate,
+} from "../src/lib/seo";
 import { writeFileAtomicSync } from "../src/lib/utils";
 
 const DATA_DIR = path.resolve(__dirname, "../data");
-const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 const PUBLIC_DIR = path.resolve(__dirname, "../public");
 const TGE_FILE = path.join(DATA_DIR, "upcoming-tges.json");
 const GLOSSARY_FILE = path.join(DATA_DIR, "glossary.json");
@@ -169,12 +176,14 @@ async function main() {
   const mainEntries: SitemapEntry[] = [
     { url: "/", lastmod: getSourceDate("src/app/page.tsx", fallbackDate) },
     { url: "/tokens", lastmod: registryDate },
+    { url: "/tokens/all", lastmod: registryDate },
     { url: "/search-intent", lastmod: getSourceDate("data/search-intent.json", registryDate) },
     { url: "/upcoming", lastmod: upcomingDate },
     { url: "/learn", lastmod: glossaryDate },
     { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", fallbackDate) },
     { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx", fallbackDate) },
     { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx", fallbackDate) },
+    { url: "/authors/pavlo-nakonechnyi", lastmod: getSourceDate("src/app/authors/pavlo-nakonechnyi/page.tsx", fallbackDate) },
     { url: "/contact", lastmod: getSourceDate("src/app/contact/page.tsx", fallbackDate) },
     { url: "/privacy", lastmod: getSourceDate("src/app/privacy/page.tsx", fallbackDate) },
     { url: "/terms", lastmod: getSourceDate("src/app/terms/page.tsx", fallbackDate) },
@@ -191,14 +200,27 @@ async function main() {
   });
 
   const tges = await getUpcomingTGEsLocal();
-  for (const tge of tges) {
-    const date = toDateOnly(tge.discoveredAt, upcomingDate);
-    if (!fs.existsSync(path.join(CONTENT_DIR, tge.id, "tge-preview.json"))) continue;
+  const tgeCandidates: TgeRouteCandidate[] = await Promise.all(tges.map(async (tge) => ({
+    tge,
+    article: await getArticle(tge.id, "tge-preview"),
+    hasLiveToken: tge.status === "released" && Boolean(await getTokenDetail(tge.id)),
+  })));
+  const tgeGroups = new Map<string, TgeRouteCandidate[]>();
+  for (const candidate of tgeCandidates) {
+    const duplicateKey = getTgeDuplicateKey(candidate.tge);
+    const group = tgeGroups.get(duplicateKey) || [];
+    group.push(candidate);
+    tgeGroups.set(duplicateKey, group);
+  }
 
-    const liveDetail = tge.status === "released" ? await getTokenDetail(tge.id) : null;
-    if (liveDetail) continue;
+  for (const candidate of tgeCandidates) {
+    const duplicateKey = getTgeDuplicateKey(candidate.tge);
+    const preferredTgeId = choosePreferredTgeId(tgeGroups.get(duplicateKey) || [candidate]) || candidate.tge.id;
+    const decision = getTgeIndexDecision(candidate, preferredTgeId);
+    if (!decision.indexable) continue;
 
-    mainEntries.push({ url: `/upcoming/${tge.id}`, lastmod: date });
+    const date = toDateOnly(candidate.tge.lastVerifiedAt || candidate.tge.discoveredAt, upcomingDate);
+    mainEntries.push({ url: `/upcoming/${candidate.tge.id}`, lastmod: date });
   }
 
   const glossaryItems = await getGlossaryItemsLocal();

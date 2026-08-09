@@ -127,7 +127,12 @@ export default async function SearchIntentPage() {
 
         <div className="search-intent-topic-grid">
           {intentRows.map((intent) => (
-            <Link href={`/search-intent/${intent.intent}`} className="card search-intent-topic-card" key={intent.intent}>
+            <Link
+              href={`/search-intent/${intent.intent}`}
+              prefetch={false}
+              className="card search-intent-topic-card"
+              key={intent.intent}
+            >
               <div>
                 <span className="eyebrow-text">{formatInteger(intent.tokenCount)} tokens</span>
                 <h2>{intent.label}</h2>

@@ -28,7 +28,7 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
       return;
     }
 
-    const timer = window.setTimeout(() => setVisible(true), 1200);
+    const timer = window.setTimeout(() => setVisible(true), 5000);
     return () => window.clearTimeout(timer);
   }, [measurementId]);
 
@@ -54,7 +54,7 @@ export function CookieConsent({ measurementId }: { measurementId: string }) {
           Optional analytics help improve research paths. Rejecting analytics
           does not limit site access.
         </p>
-        <Link href="/privacy">Privacy Policy</Link>
+        <Link href="/privacy" prefetch={false}>Privacy Policy</Link>
       </div>
       <div className="cookie-consent-actions">
         <button type="button" className="btn btn-secondary" onClick={rejectAnalytics}>

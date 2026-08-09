@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import * as path from "path";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -98,5 +100,13 @@ describe("partner registry", () => {
     expect(getWrappedPartnerIndex(6, 6)).toBe(0);
     expect(getWrappedPartnerIndex(-1, 6)).toBe(5);
     expect(getWrappedPartnerIndex(4, 0)).toBe(0);
+  });
+
+  it("keeps homepage advertisements out of search-result snippets", () => {
+    const announcement = fs.readFileSync(path.join(process.cwd(), "src/components/PromoAnnouncementBar.tsx"), "utf-8");
+    const carousel = fs.readFileSync(path.join(process.cwd(), "src/components/HomePartnerPromoCarousel.tsx"), "utf-8");
+
+    expect(announcement).toContain("data-nosnippet");
+    expect(carousel).toContain("data-nosnippet");
   });
 });

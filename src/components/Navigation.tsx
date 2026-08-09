@@ -40,8 +40,8 @@ export function Navigation() {
   return (
     <nav className="nav" id="main-nav">
       <div className="container nav-inner">
-        <Link href="/" className="nav-logo" aria-label="TokenRadar Home" style={{ flexShrink: 0 }} onClick={() => setIsOpen(false)}>
-          <Image src="/icon.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" />
+        <Link href="/" prefetch={false} className="nav-logo" style={{ flexShrink: 0 }} onClick={() => setIsOpen(false)}>
+          <Image src="/icon-32.png" alt="TokenRadar Logo" width={32} height={32} className="nav-logo-img" priority />
           <span>
             <span style={{ color: "var(--accent-primary)" }}>[</span>
             <HackerText text="TokenRadar" />
@@ -68,6 +68,7 @@ export function Navigation() {
               <li key={link.href} className="nav-link-item">
                 <Link
                   href={link.href}
+                  prefetch={false}
                   onClick={() => setIsOpen(false)}
                   className={isActive ? "active" : ""}
                   aria-current={isActive ? "page" : undefined}

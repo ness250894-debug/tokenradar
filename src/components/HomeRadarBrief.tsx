@@ -162,7 +162,7 @@ export function HomeRadarBrief({
                     <Link
                       href={`/${token.id}`}
                       className="home-radar-watch-token"
-                      aria-label={`Open ${token.name} research profile`}
+                      aria-label={`${token.symbol.toUpperCase()}: open ${token.name} research profile`}
                       title={token.name}
                     >
                       <TokenIcon

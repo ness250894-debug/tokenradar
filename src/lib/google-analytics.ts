@@ -82,7 +82,7 @@ export function getGoogleAnalyticsBootstrapScript(measurementId: string): string
     wait_for_update: 500
   });
 
-  if (savedConsent === rejected) {
+  if (savedConsent !== accepted) {
     window["ga-disable-" + measurementId] = true;
     return;
   }

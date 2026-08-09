@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Offline",
   description: "TokenRadar offline fallback.",
+  alternates: {
+    canonical: "/offline",
+  },
   robots: {
     index: false,
     follow: false,

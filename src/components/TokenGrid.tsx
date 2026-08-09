@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpDown, Filter, RotateCcw, Search } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { trackEvent } from "@/lib/analytics";
 import { trackDirectoryFilter } from "@/lib/engagement-analytics";
@@ -17,6 +16,8 @@ import {
 
 interface TokenGridProps {
   tokens: TokenCardData[];
+  totalTokenCount?: number;
+  deferredDataUrl?: string;
   initialVisibleCount?: number;
   searchPlaceholder?: string;
 }
@@ -25,6 +26,8 @@ const DEFAULT_TOKENS_PER_PAGE = 6;
 
 export function TokenGrid({
   tokens,
+  totalTokenCount,
+  deferredDataUrl,
   initialVisibleCount = DEFAULT_TOKENS_PER_PAGE,
   searchPlaceholder = "Search tokens by name or symbol (e.g., BTC, Injective)...",
 }: TokenGridProps) {
@@ -35,6 +38,42 @@ export function TokenGrid({
   const [attentionFilter, setAttentionFilter] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.attentionFilter);
   const [sortBy, setSortBy] = useState(DEFAULT_TOKEN_DIRECTORY_STATE.sortBy);
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+  const [availableTokens, setAvailableTokens] = useState(tokens);
+  const [deferredLoadState, setDeferredLoadState] = useState<"idle" | "loading" | "loaded" | "error">("idle");
+  const deferredRequestRef = useRef<Promise<TokenCardData[]> | null>(null);
+
+  const resolvedTokens = deferredDataUrl ? availableTokens : tokens;
+  const knownTotalTokenCount = Math.max(totalTokenCount ?? resolvedTokens.length, resolvedTokens.length);
+  const hasCompleteDirectory = resolvedTokens.length >= knownTotalTokenCount;
+
+  const loadDeferredTokens = useCallback(async (): Promise<TokenCardData[]> => {
+    if (!deferredDataUrl || hasCompleteDirectory) return resolvedTokens;
+    if (deferredRequestRef.current) return deferredRequestRef.current;
+
+    setDeferredLoadState("loading");
+    const request = fetch(deferredDataUrl)
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Token directory request failed (${response.status})`);
+        const payload: unknown = await response.json();
+        if (!Array.isArray(payload)) throw new Error("Token directory response was not an array");
+        return payload as TokenCardData[];
+      })
+      .then((loadedTokens) => {
+        setAvailableTokens(loadedTokens);
+        setDeferredLoadState("loaded");
+        return loadedTokens;
+      })
+      .catch(() => {
+        setDeferredLoadState("error");
+        return resolvedTokens;
+      })
+      .finally(() => {
+        deferredRequestRef.current = null;
+      });
+
+    deferredRequestRef.current = request;
+    return request;
+  }, [deferredDataUrl, hasCompleteDirectory, resolvedTokens]);
 
   const directoryState: TokenDirectoryState = useMemo(() => ({
     searchQuery,
@@ -46,24 +85,31 @@ export function TokenGrid({
   }), [attentionFilter, categoryFilter, intentFilter, riskFilter, searchQuery, sortBy]);
 
   const categories = useMemo(() => {
-    return Array.from(new Set(tokens.map((token) => token.category).filter(Boolean))).sort((a, b) =>
+    return Array.from(new Set(resolvedTokens.map((token) => token.category).filter(Boolean))).sort((a, b) =>
       a.localeCompare(b),
     );
-  }, [tokens]);
+  }, [resolvedTokens]);
 
   const searchIntentOptions = useMemo(() => {
     const intents = new Set<SearchIntentType>();
-    tokens.forEach((token) => {
+    resolvedTokens.forEach((token) => {
       if (token.searchIntentPrimaryIntent) intents.add(token.searchIntentPrimaryIntent);
     });
     return Array.from(intents).sort((a, b) => SEARCH_INTENT_LABELS[a].localeCompare(SEARCH_INTENT_LABELS[b]));
-  }, [tokens]);
+  }, [resolvedTokens]);
 
-  const filteredTokens = useMemo(() => filterAndSortTokens(tokens, directoryState), [directoryState, tokens]);
+  const filteredTokens = useMemo(
+    () => filterAndSortTokens(resolvedTokens, directoryState),
+    [directoryState, resolvedTokens],
+  );
+  const hasActiveFilters = hasActiveTokenFilters(directoryState);
+  const reportedResultCount = !hasActiveFilters && !hasCompleteDirectory
+    ? knownTotalTokenCount
+    : filteredTokens.length;
 
   useEffect(() => {
     const term = searchQuery.trim();
-    if (term.length < 2) return;
+    if (term.length < 2 || !hasCompleteDirectory) return;
 
     const timer = window.setTimeout(() => {
       trackEvent("site_search", {
@@ -75,23 +121,28 @@ export function TokenGrid({
     }, 600);
 
     return () => window.clearTimeout(timer);
-  }, [filteredTokens.length, searchQuery]);
+  }, [filteredTokens.length, hasCompleteDirectory, searchQuery]);
 
   useEffect(() => {
+    if (hasActiveFilters && !hasCompleteDirectory) return;
     trackDirectoryFilter(
       "tokens",
       "combined",
       `category:${categoryFilter}|risk:${riskFilter}|intent:${intentFilter}|attention:${attentionFilter}|sort:${sortBy}`,
       filteredTokens.length,
     );
-  }, [attentionFilter, categoryFilter, filteredTokens.length, intentFilter, riskFilter, sortBy]);
+  }, [attentionFilter, categoryFilter, filteredTokens.length, hasActiveFilters, hasCompleteDirectory, intentFilter, riskFilter, sortBy]);
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + initialVisibleCount);
+  const handleLoadMore = async () => {
+    const loadedTokens = await loadDeferredTokens();
+    const loadedFilteredTokens = filterAndSortTokens(loadedTokens, directoryState);
+    const nextVisibleCount = Math.min(visibleCount + initialVisibleCount, loadedFilteredTokens.length);
+
+    setVisibleCount((previousCount) => previousCount + initialVisibleCount);
     trackEvent("load_more", {
       list_name: "tokens",
-      visible_count: Math.min(visibleCount + initialVisibleCount, filteredTokens.length),
-      total_count: filteredTokens.length,
+      visible_count: nextVisibleCount,
+      total_count: loadedFilteredTokens.length,
       page_path: window.location.pathname,
     });
   };
@@ -122,14 +173,18 @@ export function TokenGrid({
   };
 
   const visibleTokens = filteredTokens.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredTokens.length;
-  const hasActiveFilters = hasActiveTokenFilters(directoryState);
+  const hasMore = !hasCompleteDirectory || visibleCount < filteredTokens.length;
   const emptyStateMessage = describeTokenFilters(directoryState);
 
   return (
     <div className="token-grid-container">
       {/* Search & Filters */}
-      <div className="directory-filter-panel animate-in">
+      <div
+        className="directory-filter-panel animate-in"
+        onFocusCapture={() => void loadDeferredTokens()}
+        onPointerEnter={() => void loadDeferredTokens()}
+        aria-busy={deferredLoadState === "loading"}
+      >
         <div className="search-input-wrapper">
           <Search className="search-icon" size={20} />
           <input
@@ -195,7 +250,9 @@ export function TokenGrid({
         </div>
         <div className="directory-filter-meta" role="status" aria-live="polite">
           <span>
-            {filteredTokens.length} result{filteredTokens.length === 1 ? "" : "s"} match the current directory view.
+            {deferredLoadState === "loading"
+              ? `Loading all ${knownTotalTokenCount} directory entries...`
+              : `${reportedResultCount} result${reportedResultCount === 1 ? "" : "s"} match the current directory view.`}
           </span>
           {hasActiveFilters && (
             <button type="button" className="btn btn-secondary btn-sm" onClick={handleResetFilters}>
@@ -206,24 +263,18 @@ export function TokenGrid({
       </div>
 
       {/* Grid */}
-      <AnimatePresence mode="popLayout">
-        {visibleTokens.length > 0 ? (
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"
-            style={{ marginTop: "var(--space-2xl)" }}
-          >
+      {visibleTokens.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" style={{ marginTop: "var(--space-2xl)" }}>
             {visibleTokens.map((token) => (
               <TokenCard key={token.id} token={token} />
             ))}
-          </motion.div>
+          </div>
+        ) : deferredLoadState === "loading" ? (
+          <div className="no-results" role="status" style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
+            <p style={{ color: "var(--text-secondary)" }}>Loading the complete token directory...</p>
+          </div>
         ) : (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="no-results" 
-            style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}
-          >
+          <div className="no-results" style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
             <div style={{ fontSize: "var(--text-4xl)", marginBottom: "var(--space-md)" }}>🔍</div>
             <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 600 }}>No tokens found</h3>
             <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>
@@ -234,20 +285,28 @@ export function TokenGrid({
                 <RotateCcw size={16} aria-hidden="true" /> Reset filters
               </button>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* Load More & Status */}
-      {filteredTokens.length > 0 && (
+      {(filteredTokens.length > 0 || !hasCompleteDirectory) && (
         <div style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>
           <p style={{ color: "var(--text-secondary)", marginBottom: "var(--space-md)", fontSize: "var(--text-sm)" }}>
-            Showing {visibleTokens.length} of {filteredTokens.length} tracked tokens
+            Showing {visibleTokens.length} of {reportedResultCount} tracked tokens
           </p>
 
           {hasMore && (
-            <button onClick={handleLoadMore} className="btn btn-secondary">
-              Load More Tokens
+            <button
+              type="button"
+              onClick={() => void handleLoadMore()}
+              className="btn btn-secondary"
+              disabled={deferredLoadState === "loading"}
+            >
+              {deferredLoadState === "loading"
+                ? "Loading Directory..."
+                : deferredLoadState === "error"
+                  ? "Retry Loading Tokens"
+                  : "Load More Tokens"}
             </button>
           )}
         </div>

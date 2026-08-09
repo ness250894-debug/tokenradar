@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
+import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 import { getSiteUrl } from "@/lib/seo";
 
 const LAST_UPDATED = "2026-05-11T00:00:00.000Z";
@@ -87,7 +88,7 @@ const recordChecklist = [
 ];
 
 export const metadata: Metadata = {
-  title: "Crypto Tax Guide 2026: US, UK, AU, DeFi, Airdrops, 1099-DA",
+  title: "Crypto Tax Guide 2026: US, UK, AU & DeFi",
   description:
     "A source-backed 2026 crypto tax guide covering taxable events, IRS Form 1099-DA, staking, airdrops, DeFi, bridging, recordkeeping, and tax software workflows.",
   alternates: {
@@ -160,19 +161,8 @@ export default function CryptoTaxGuidePage() {
     image: `${siteUrl}/og-image.png`,
     datePublished: LAST_UPDATED,
     dateModified: LAST_UPDATED,
-    author: {
-      "@type": "Person",
-      name: "Pavlo Nakonechnyi",
-      url: siteUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "TokenRadar",
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteUrl}/icon.png`,
-      },
-    },
+    author: buildAuthorPersonSchema(siteUrl),
+    publisher: buildPublisherSchema(siteUrl),
     mainEntityOfPage: pageUrl,
   };
 

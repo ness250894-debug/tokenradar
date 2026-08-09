@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
+import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 import { getSiteUrl } from "@/lib/seo";
 
 const LAST_UPDATED = "2026-05-11T00:00:00.000Z";
@@ -99,9 +100,9 @@ const checklist = [
 ];
 
 export const metadata: Metadata = {
-  title: "Best Crypto Hardware Wallets 2026: Ledger, Trezor, Coldcard, Jade",
+  title: "Best Hardware Wallets 2026: Ledger vs Trezor",
   description:
-    "A source-backed 2026 hardware wallet guide comparing Ledger, Trezor, Bitcoin-only wallets, custody risks, setup steps, affiliate disclosures, and security tradeoffs.",
+    "Compare Ledger, Trezor, Tangem, and Bitcoin-only hardware wallets by security model, signing clarity, backup design, custody risks, and disclosures.",
   alternates: {
     canonical: PAGE_PATH,
   },
@@ -174,19 +175,8 @@ export default function HardwareWalletsPage() {
     image: `${siteUrl}/images/hardware-wallet-guide.png`,
     datePublished: LAST_UPDATED,
     dateModified: LAST_UPDATED,
-    author: {
-      "@type": "Person",
-      name: "Pavlo Nakonechnyi",
-      url: siteUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "TokenRadar",
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteUrl}/icon.png`,
-      },
-    },
+    author: buildAuthorPersonSchema(siteUrl),
+    publisher: buildPublisherSchema(siteUrl),
     mainEntityOfPage: pageUrl,
   };
 
@@ -381,7 +371,7 @@ export default function HardwareWalletsPage() {
                 >
                   <div style={{ position: "relative", width: "100%", height: "360px" }}>
                     <Image
-                      src="/images/hardware-wallet-guide.png"
+                      src="/images/hardware-wallet-guide.webp"
                       alt="Hardware wallet transaction approval screen"
                       fill
                       style={{ objectFit: "cover" }}
