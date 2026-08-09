@@ -26,6 +26,15 @@ export interface Partner {
 
 export const PARTNER_REL = "sponsored noopener noreferrer" as const;
 
+export const HOMEPAGE_PROMO_PARTNER_IDS = [
+  "tangem",
+  "koinly",
+  "ledger",
+  "coinledger",
+  "trezor-safe-3",
+  "trezor-bitcoin-only",
+] as const;
+
 export const PARTNERS: Partner[] = [
   {
     id: "okx",
@@ -160,7 +169,7 @@ export const PARTNERS: Partner[] = [
     id: "tangem",
     name: "Tangem",
     category: "hardware-wallet",
-    url: "https://tangem.com/?promocode=TOKENRADAR&utm_source=Tokenradar&utm_medium=article&utm_campaign=crypto-wallets",
+    url: "https://tangem.com/?promocode=TOKENRADAR&utm_source=Tokenradar&utm_medium=affiliate&utm_campaign=crypto-wallets",
     cta: "Get 10% Off at Tangem",
     shortCta: "Tangem",
     description: "Card and ring hardware wallets for offline private-key storage.",
@@ -169,6 +178,8 @@ export const PARTNERS: Partner[] = [
       label: "Official store",
       note: "Buy hardware wallets only from official manufacturer channels and verify current shipping availability.",
     },
+    offer: "10% discount",
+    coupon: "TOKENRADAR",
     color: "#0099FF",
     textColor: "#ffffff",
     priority: 40,
@@ -268,4 +279,24 @@ export function getPartnerLinkAttributes(partner: Partner, placement: string) {
     "data-partner-category": partner.category,
     "data-partner-placement": placement,
   } as const;
+}
+
+export function getHomepagePromoPartners(): Partner[] {
+  return HOMEPAGE_PROMO_PARTNER_IDS
+    .map((id) => getPartner(id))
+    .filter((partner): partner is Partner => Boolean(partner));
+}
+
+export function getPartnerPlacementUrl(partner: Partner, placement: string): string {
+  const url = new URL(partner.url);
+  url.searchParams.set("utm_source", "tokenradar");
+  url.searchParams.set("utm_medium", "affiliate");
+  if (!url.searchParams.has("utm_campaign")) {
+    url.searchParams.set(
+      "utm_campaign",
+      partner.category === "tax" ? "crypto-tax" : "crypto-wallets",
+    );
+  }
+  url.searchParams.set("utm_content", placement);
+  return url.toString();
 }

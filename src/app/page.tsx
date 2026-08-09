@@ -6,7 +6,7 @@ import { HomeTabs } from "@/components/HomeTabs";
 import { HomeRadarBrief } from "@/components/HomeRadarBrief";
 import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
 import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
-import { HomeTangemPromoCard } from "@/components/HomeTangemPromoCard";
+import { HomePartnerPromoCarousel } from "@/components/HomePartnerPromoCarousel";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { BinanceLiveMovers } from "@/components/BinanceLiveMovers";
 import { JsonLd } from "@/components/JsonLd";
@@ -230,7 +230,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <HomeTangemPromoCard />
+      <HomePartnerPromoCarousel />
 
       <HomeRadarBrief
         tokens={allTokens}
