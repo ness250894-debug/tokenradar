@@ -1,10 +1,36 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useSyncExternalStore } from "react";
-import { X, ShieldCheck, Tag } from "lucide-react";
-import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Tag,
+  X,
+} from "lucide-react";
+import {
+  getHomepagePromoPartners,
+  getPartnerLinkAttributes,
+  getPartnerPlacementUrl,
+} from "@/lib/partners";
+import { usePartnerRotation } from "@/components/usePartnerRotation";
 
-const STORAGE_KEY = "tangem_promo_bar_dismissed_v1";
+const STORAGE_KEY = "partner_promo_bar_dismissed_v1";
+const PROMO_PARTNERS = getHomepagePromoPartners();
+
+const SMALL_CONTROL_STYLE: CSSProperties = {
+  width: "28px",
+  height: "28px",
+  borderRadius: "6px",
+  border: "1px solid rgba(255, 255, 255, 0.14)",
+  background: "rgba(10, 14, 26, 0.62)",
+  color: "var(--text-secondary, #e2e8f0)",
+  cursor: "pointer",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
 
 function subscribe(callback: () => void) {
   window.addEventListener("storage", callback);
@@ -25,29 +51,39 @@ function getServerSnapshot() {
 
 export function PromoAnnouncementBar() {
   const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const {
+    activeIndex,
+    goNext,
+    goPrevious,
+    isPlaying,
+  } = usePartnerRotation(dismissed ? 0 : PROMO_PARTNERS.length);
 
   const handleDismiss = () => {
     try {
       localStorage.setItem(STORAGE_KEY, "true");
       window.dispatchEvent(new Event("storage"));
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   if (dismissed) return null;
 
-  const tangem = getPartner("tangem");
-  if (!tangem) return null;
+  const partner = PROMO_PARTNERS[activeIndex];
+  if (!partner) return null;
 
-  const linkAttrs = getPartnerLinkAttributes(tangem, "top-announcement-bar");
+  const placement = "top-announcement-carousel";
+  const partnerUrl = getPartnerPlacementUrl(partner, placement);
+  const linkAttrs = getPartnerLinkAttributes(partner, placement);
+  const categoryLabel = partner.category === "tax" ? "Tax" : "Wallet";
+  const accentColor = partner.color || "#0099FF";
 
   return (
     <aside
-      aria-label="Partner promotion"
+      aria-label="Partner promotion carousel"
       style={{
-        background: "linear-gradient(90deg, rgba(0, 153, 255, 0.15) 0%, rgba(16, 24, 40, 0.95) 50%, rgba(0, 153, 255, 0.15) 100%)",
-        borderBottom: "1px solid rgba(0, 153, 255, 0.3)",
+        background: `linear-gradient(90deg, color-mix(in srgb, ${accentColor} 14%, #101828) 0%, rgba(16, 24, 40, 0.97) 50%, color-mix(in srgb, ${accentColor} 14%, #101828) 100%)`,
+        borderBottom: `1px solid color-mix(in srgb, ${accentColor} 32%, transparent)`,
         color: "var(--text-primary, #ffffff)",
         fontSize: "13px",
         padding: "8px 16px",
@@ -66,11 +102,15 @@ export function PromoAnnouncementBar() {
           flexWrap: "wrap",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "1 1 auto", flexWrap: "wrap" }}>
+        <div
+          aria-live={isPlaying ? "off" : "polite"}
+          aria-atomic="true"
+          style={{ display: "flex", alignItems: "center", gap: "8px", flex: "1 1 460px", minWidth: 0, flexWrap: "wrap" }}
+        >
           <span
             style={{
-              background: "#0099FF",
-              color: "#ffffff",
+              background: accentColor,
+              color: partner.textColor || "#ffffff",
               fontSize: "10px",
               fontWeight: 800,
               padding: "2px 6px",
@@ -82,33 +122,52 @@ export function PromoAnnouncementBar() {
               gap: "4px",
             }}
           >
-            <Tag size={10} /> 10% OFF
+            <Tag size={10} /> {partner.offer || categoryLabel}
           </span>
+
           <span style={{ fontWeight: 500, color: "var(--text-secondary, #e2e8f0)" }}>
-            Exclusive discount on <strong>Tangem Wallet & Ring</strong> with code{" "}
+            <strong>{partner.name}</strong>: {partner.description}
+          </span>
+
+          {partner.coupon ? (
             <code
               style={{
-                background: "rgba(0, 153, 255, 0.2)",
-                color: "#60a5fa",
+                background: `color-mix(in srgb, ${accentColor} 18%, transparent)`,
+                color: accentColor,
                 padding: "1px 5px",
                 borderRadius: "3px",
                 fontFamily: "var(--font-jetbrains, monospace)",
                 fontWeight: 700,
-                border: "1px solid rgba(0, 153, 255, 0.4)",
+                border: `1px solid color-mix(in srgb, ${accentColor} 40%, transparent)`,
               }}
             >
-              TOKENRADAR
+              {partner.coupon}
             </code>
+          ) : null}
+
+          <span style={{ fontSize: "11px", color: "var(--text-muted, #94a3b8)" }}>
+            {partner.disclosure}
           </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0, flexWrap: "wrap" }}>
+          <span style={{ color: "var(--text-muted)", fontSize: "11px", minWidth: "30px", textAlign: "center" }}>
+            {activeIndex + 1}/{PROMO_PARTNERS.length}
+          </span>
+          <button type="button" onClick={goPrevious} aria-label="Previous partner promotion" style={SMALL_CONTROL_STYLE}>
+            <ChevronLeft size={15} />
+          </button>
+          <button type="button" onClick={goNext} aria-label="Next partner promotion" style={SMALL_CONTROL_STYLE}>
+            <ChevronRight size={15} />
+          </button>
+
           <a
-            href={tangem.url}
+            href={partnerUrl}
             {...linkAttrs}
+            aria-label={`${partner.cta} — paid link`}
             style={{
-              background: "#0099FF",
-              color: "#ffffff",
+              background: accentColor,
+              color: partner.textColor || "#ffffff",
               fontWeight: 700,
               padding: "4px 12px",
               borderRadius: "6px",
@@ -117,30 +176,14 @@ export function PromoAnnouncementBar() {
               display: "inline-flex",
               alignItems: "center",
               gap: "4px",
-              boxShadow: "0 0 12px rgba(0, 153, 255, 0.3)",
-              transition: "transform 0.15s ease, background 0.15s ease",
+              boxShadow: `0 0 12px color-mix(in srgb, ${accentColor} 30%, transparent)`,
             }}
           >
-            <ShieldCheck size={14} />
-            Claim 10% Off &rarr;
+            <ExternalLink size={14} />
+            {`View ${partner.shortCta} →`}
           </a>
 
-          <button
-            onClick={handleDismiss}
-            aria-label="Dismiss promotion banner"
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "var(--text-muted, #94a3b8)",
-              cursor: "pointer",
-              padding: "4px",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "4px",
-              transition: "color 0.15s ease",
-            }}
-          >
+          <button type="button" onClick={handleDismiss} aria-label="Dismiss partner promotion banner" style={SMALL_CONTROL_STYLE}>
             <X size={16} />
           </button>
         </div>

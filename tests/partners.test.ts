@@ -1,15 +1,19 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  HOMEPAGE_PROMO_PARTNER_IDS,
   PARTNER_REL,
   PARTNERS,
   getExchangePartners,
   getExchangeReferralRecords,
+  getHomepagePromoPartners,
   getPartner,
   getPartnerLinkAttributes,
+  getPartnerPlacementUrl,
   getPartnersByCategory,
   isRestrictedForUsAudience,
 } from "../src/lib/partners";
+import { getWrappedPartnerIndex } from "../src/components/usePartnerRotation";
 
 describe("partner registry", () => {
   it("keeps partner ids unique and affiliate links explicit", () => {
@@ -58,5 +62,41 @@ describe("partner registry", () => {
     expect(attributes["data-partner-id"]).toBe("koinly");
     expect(attributes["data-partner-category"]).toBe("tax");
     expect(attributes["data-partner-placement"]).toBe("tax-guide-sidebar");
+  });
+
+  it("adds placement attribution to affiliate partner URLs", () => {
+    const tangem = getPartner("tangem")!;
+    const bannerUrl = new URL(getPartnerPlacementUrl(tangem, "top-announcement-carousel"));
+    const inlineUrl = new URL(getPartnerPlacementUrl(tangem, "homepage-inline-carousel"));
+
+    expect(bannerUrl.searchParams.get("promocode")).toBe("TOKENRADAR");
+    expect(bannerUrl.searchParams.get("utm_source")).toBe("tokenradar");
+    expect(bannerUrl.searchParams.get("utm_medium")).toBe("affiliate");
+    expect(bannerUrl.searchParams.get("utm_content")).toBe("top-announcement-carousel");
+    expect(inlineUrl.searchParams.get("utm_content")).toBe("homepage-inline-carousel");
+  });
+
+  it("rotates every enabled wallet and tax partner on the homepage", () => {
+    const partners = getHomepagePromoPartners();
+
+    expect(partners.map((partner) => partner.id)).toEqual(HOMEPAGE_PROMO_PARTNER_IDS);
+    expect(new Set(partners.map((partner) => partner.category))).toEqual(
+      new Set(["hardware-wallet", "tax"]),
+    );
+    expect(partners).toHaveLength(6);
+
+    for (const partner of partners) {
+      const promoUrl = new URL(getPartnerPlacementUrl(partner, "homepage-inline-carousel"));
+      expect(promoUrl.searchParams.get("utm_source")).toBe("tokenradar");
+      expect(promoUrl.searchParams.get("utm_medium")).toBe("affiliate");
+      expect(promoUrl.searchParams.get("utm_content")).toBe("homepage-inline-carousel");
+    }
+  });
+
+  it("wraps manual and automatic rotation through the available partners", () => {
+    expect(getWrappedPartnerIndex(0, 6)).toBe(0);
+    expect(getWrappedPartnerIndex(6, 6)).toBe(0);
+    expect(getWrappedPartnerIndex(-1, 6)).toBe(5);
+    expect(getWrappedPartnerIndex(4, 0)).toBe(0);
   });
 });
