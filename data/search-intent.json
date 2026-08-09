@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-08T18:21:53.673Z",
+  "generatedAt": "2026-08-09T07:09:02.876Z",
   "version": 1,
   "summary": {
-    "generatedAt": "2026-08-08T18:21:53.673Z",
+    "generatedAt": "2026-08-09T07:09:02.876Z",
     "tokenCount": 506,
     "topIntents": [
       {
@@ -38,12 +38,11 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 22,
+        "tokenCount": 21,
         "avgScore": 94
       }
     ],
     "hotTokens": [
-      "agentfun-ai",
       "audiera",
       "cash-cat",
       "tutorial",
@@ -52,10 +51,10 @@
       "meet48",
       "unibase",
       "zama",
-      "skyai"
+      "skyai",
+      "ethgas-2"
     ],
     "watchTokens": [
-      "agentfun-ai",
       "audiera",
       "cash-cat",
       "tutorial",
@@ -74,7 +73,8 @@
       "kinesis-gold",
       "pieverse",
       "ravedao",
-      "pump-fun"
+      "pump-fun",
+      "wiki-cat"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -157,7 +157,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "1inch": {
       "tokenId": "1inch",
@@ -234,7 +234,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "a7a5": {
       "tokenId": "a7a5",
@@ -311,7 +311,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aave": {
       "tokenId": "aave",
@@ -387,7 +387,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "adi-token": {
       "tokenId": "adi-token",
@@ -462,7 +462,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aelf": {
       "tokenId": "aelf",
@@ -538,7 +538,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aerodrome-finance": {
       "tokenId": "aerodrome-finance",
@@ -614,7 +614,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aethir": {
       "tokenId": "aethir",
@@ -691,7 +691,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "affine": {
       "tokenId": "affine",
@@ -767,86 +767,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
-    },
-    "agentfun-ai": {
-      "tokenId": "agentfun-ai",
-      "tokenName": "AgentFun.AI",
-      "symbol": "agentfun",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 48,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "AgentFun.AI price prediction 2026",
-            "AgentFun.AI price prediction today",
-            "AGENTFUN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy AgentFun.AI",
-            "where to buy AgentFun.AI",
-            "AGENTFUN crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "AgentFun.AI news today",
-            "why is AgentFun.AI moving",
-            "AGENTFUN crypto news"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 100,
-          "queries": [
-            "AgentFun.AI AI crypto",
-            "AgentFun.AI AI agent",
-            "AGENTFUN AI token"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 577.0% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "AgentFun.AI price prediction 2026",
-        "AgentFun.AI price prediction today",
-        "AGENTFUN price target",
-        "how to buy AgentFun.AI",
-        "where to buy AgentFun.AI"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "agora-dollar": {
       "tokenId": "agora-dollar",
@@ -920,7 +841,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ai-powered-finance": {
       "tokenId": "ai-powered-finance",
@@ -996,7 +917,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ai-rig-complex": {
       "tokenId": "ai-rig-complex",
@@ -1073,7 +994,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aioz-network": {
       "tokenId": "aioz-network",
@@ -1149,7 +1070,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "akash-network": {
       "tokenId": "akash-network",
@@ -1225,7 +1146,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "akedo": {
       "tokenId": "akedo",
@@ -1303,7 +1224,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "algorand": {
       "tokenId": "algorand",
@@ -1379,7 +1300,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "allora": {
       "tokenId": "allora",
@@ -1458,7 +1379,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "alloy-tether": {
       "tokenId": "alloy-tether",
@@ -1533,7 +1454,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "allunity-chf": {
       "tokenId": "allunity-chf",
@@ -1608,7 +1529,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "alpha-bulgaria-warrants": {
       "tokenId": "alpha-bulgaria-warrants",
@@ -1683,7 +1604,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "anemoy-tokenized-apollo-diversified-credit-fund": {
       "tokenId": "anemoy-tokenized-apollo-diversified-credit-fund",
@@ -1758,7 +1679,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "antfun": {
       "tokenId": "antfun",
@@ -1833,7 +1754,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "anvil": {
       "tokenId": "anvil",
@@ -1910,7 +1831,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ape-and-pepe": {
       "tokenId": "ape-and-pepe",
@@ -1987,7 +1908,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apecoin": {
       "tokenId": "apecoin",
@@ -2065,7 +1986,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apenft": {
       "tokenId": "apenft",
@@ -2140,7 +2061,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apes-2-2": {
       "tokenId": "apes-2-2",
@@ -2216,7 +2137,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apollo-diversified-credit-securitize-fund": {
       "tokenId": "apollo-diversified-credit-securitize-fund",
@@ -2291,7 +2212,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apriori": {
       "tokenId": "apriori",
@@ -2366,7 +2287,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aptos": {
       "tokenId": "aptos",
@@ -2441,7 +2362,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apxusd": {
       "tokenId": "apxusd",
@@ -2516,7 +2437,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "apyusd": {
       "tokenId": "apyusd",
@@ -2593,7 +2514,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "arbitrum": {
       "tokenId": "arbitrum",
@@ -2668,7 +2589,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "arkham": {
       "tokenId": "arkham",
@@ -2745,7 +2666,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "arweave": {
       "tokenId": "arweave",
@@ -2821,7 +2742,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "astar": {
       "tokenId": "astar",
@@ -2896,7 +2817,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aster-2": {
       "tokenId": "aster-2",
@@ -2971,7 +2892,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "astherus-usdf": {
       "tokenId": "astherus-usdf",
@@ -3047,7 +2968,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "audiera": {
       "tokenId": "audiera",
@@ -3125,7 +3046,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "avalanche-2": {
       "tokenId": "avalanche-2",
@@ -3199,7 +3120,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "avant-usd": {
       "tokenId": "avant-usd",
@@ -3274,7 +3195,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "axelar": {
       "tokenId": "axelar",
@@ -3350,7 +3271,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "axie-infinity": {
       "tokenId": "axie-infinity",
@@ -3426,7 +3347,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "aztec": {
       "tokenId": "aztec",
@@ -3501,7 +3422,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "baby-doge-coin": {
       "tokenId": "baby-doge-coin",
@@ -3578,7 +3499,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "babylon": {
       "tokenId": "babylon",
@@ -3656,7 +3577,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "backpack": {
       "tokenId": "backpack",
@@ -3732,7 +3653,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "banana-for-scale-2": {
       "tokenId": "banana-for-scale-2",
@@ -3809,7 +3730,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bas": {
       "tokenId": "bas",
@@ -3885,7 +3806,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "basedhype": {
       "tokenId": "basedhype",
@@ -3963,7 +3884,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "basic-attention-token": {
       "tokenId": "basic-attention-token",
@@ -4038,7 +3959,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bc-token": {
       "tokenId": "bc-token",
@@ -4112,7 +4033,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "beam-2": {
       "tokenId": "beam-2",
@@ -4187,7 +4108,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bedrock-token": {
       "tokenId": "bedrock-token",
@@ -4262,7 +4183,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "beldex": {
       "tokenId": "beldex",
@@ -4337,7 +4258,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bending-spoons-xstock": {
       "tokenId": "bending-spoons-xstock",
@@ -4413,7 +4334,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "berachain-bera": {
       "tokenId": "berachain-bera",
@@ -4490,7 +4411,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bfusd": {
       "tokenId": "bfusd",
@@ -4565,7 +4486,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bianrensheng": {
       "tokenId": "bianrensheng",
@@ -4641,7 +4562,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "biconomy": {
       "tokenId": "biconomy",
@@ -4717,7 +4638,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "billions-network": {
       "tokenId": "billions-network",
@@ -4795,7 +4716,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "binancecoin": {
       "tokenId": "binancecoin",
@@ -4869,7 +4790,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bio-protocol": {
       "tokenId": "bio-protocol",
@@ -4945,7 +4866,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitcastle-token": {
       "tokenId": "bitcastle-token",
@@ -5021,7 +4942,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitcoin-cash-sv": {
       "tokenId": "bitcoin-cash-sv",
@@ -5096,7 +5017,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitcoin-cash": {
       "tokenId": "bitcoin-cash",
@@ -5171,7 +5092,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitcoin": {
       "tokenId": "bitcoin",
@@ -5245,7 +5166,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitget-token": {
       "tokenId": "bitget-token",
@@ -5323,7 +5244,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitget-wrapped-btc": {
       "tokenId": "bitget-wrapped-btc",
@@ -5397,7 +5318,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitkub-coin": {
       "tokenId": "bitkub-coin",
@@ -5474,7 +5395,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bittensor": {
       "tokenId": "bittensor",
@@ -5550,7 +5471,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bittorrent": {
       "tokenId": "bittorrent",
@@ -5626,7 +5547,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bitway": {
       "tokenId": "bitway",
@@ -5701,7 +5622,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "blackrock-usd-institutional-digital-liquidity-fund": {
       "tokenId": "blackrock-usd-institutional-digital-liquidity-fund",
@@ -5778,7 +5699,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bless-2": {
       "tokenId": "bless-2",
@@ -5857,7 +5778,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "blockchain-capital": {
       "tokenId": "blockchain-capital",
@@ -5932,7 +5853,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "blockstack": {
       "tokenId": "blockstack",
@@ -6008,7 +5929,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bnb48-club-token": {
       "tokenId": "bnb48-club-token",
@@ -6083,7 +6004,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bonk": {
       "tokenId": "bonk",
@@ -6160,7 +6081,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "book-of-meme": {
       "tokenId": "book-of-meme",
@@ -6238,7 +6159,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "bot": {
       "tokenId": "bot",
@@ -6313,7 +6234,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "brz": {
       "tokenId": "brz",
@@ -6392,7 +6313,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "btse-token": {
       "tokenId": "btse-token",
@@ -6467,7 +6388,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "build-on": {
       "tokenId": "build-on",
@@ -6543,7 +6464,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "canton-network": {
       "tokenId": "canton-network",
@@ -6618,7 +6539,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cap-4": {
       "tokenId": "cap-4",
@@ -6694,7 +6615,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cap-usd": {
       "tokenId": "cap-usd",
@@ -6769,7 +6690,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cardano": {
       "tokenId": "cardano",
@@ -6843,7 +6764,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cash-4": {
       "tokenId": "cash-4",
@@ -6918,7 +6839,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cash-cat": {
       "tokenId": "cash-cat",
@@ -6995,7 +6916,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "celestia": {
       "tokenId": "celestia",
@@ -7071,7 +6992,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "celium": {
       "tokenId": "celium",
@@ -7147,7 +7068,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "centrifuge-2": {
       "tokenId": "centrifuge-2",
@@ -7223,7 +7144,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chain-2": {
       "tokenId": "chain-2",
@@ -7299,7 +7220,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chainlink": {
       "tokenId": "chainlink",
@@ -7376,7 +7297,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chainopera-ai": {
       "tokenId": "chainopera-ai",
@@ -7455,7 +7376,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cheems-token": {
       "tokenId": "cheems-token",
@@ -7532,7 +7453,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chiliz": {
       "tokenId": "chiliz",
@@ -7608,7 +7529,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chip-2": {
       "tokenId": "chip-2",
@@ -7688,7 +7609,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "chutes": {
       "tokenId": "chutes",
@@ -7766,7 +7687,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "circle-internet-group-bstock": {
       "tokenId": "circle-internet-group-bstock",
@@ -7841,7 +7762,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "circle-internet-group-ondo-tokenized-stock": {
       "tokenId": "circle-internet-group-ondo-tokenized-stock",
@@ -7917,7 +7838,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "circle-xstock": {
       "tokenId": "circle-xstock",
@@ -7993,7 +7914,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "coco-2": {
       "tokenId": "coco-2",
@@ -8069,7 +7990,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "collector-crypt": {
       "tokenId": "collector-crypt",
@@ -8145,7 +8066,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "comedian": {
       "tokenId": "comedian",
@@ -8222,7 +8143,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "compound-governance-token": {
       "tokenId": "compound-governance-token",
@@ -8297,7 +8218,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "concordium": {
       "tokenId": "concordium",
@@ -8375,7 +8296,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "conflux-token": {
       "tokenId": "conflux-token",
@@ -8450,7 +8371,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "convex-finance": {
       "tokenId": "convex-finance",
@@ -8525,7 +8446,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cosmos": {
       "tokenId": "cosmos",
@@ -8600,7 +8521,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "coti": {
       "tokenId": "coti",
@@ -8678,7 +8599,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cow-protocol": {
       "tokenId": "cow-protocol",
@@ -8755,7 +8676,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cross-2": {
       "tokenId": "cross-2",
@@ -8831,7 +8752,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "crown-brlv": {
       "tokenId": "crown-brlv",
@@ -8906,7 +8827,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "crvusd": {
       "tokenId": "crvusd",
@@ -8981,7 +8902,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "crypto-com-chain": {
       "tokenId": "crypto-com-chain",
@@ -9057,7 +8978,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "curve-dao-token": {
       "tokenId": "curve-dao-token",
@@ -9134,7 +9055,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cyberdex": {
       "tokenId": "cyberdex",
@@ -9210,7 +9131,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cygnus-finance-global-usd": {
       "tokenId": "cygnus-finance-global-usd",
@@ -9285,7 +9206,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "cysic": {
       "tokenId": "cysic",
@@ -9362,7 +9283,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dai-on-pulsechain": {
       "tokenId": "dai-on-pulsechain",
@@ -9441,7 +9362,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dai": {
       "tokenId": "dai",
@@ -9516,7 +9437,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dash": {
       "tokenId": "dash",
@@ -9591,7 +9512,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "debridge": {
       "tokenId": "debridge",
@@ -9667,7 +9588,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "decentraland": {
       "tokenId": "decentraland",
@@ -9742,7 +9663,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "decred": {
       "tokenId": "decred",
@@ -9819,7 +9740,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "degen-base": {
       "tokenId": "degen-base",
@@ -9897,7 +9818,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "derive": {
       "tokenId": "derive",
@@ -9974,7 +9895,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dexe": {
       "tokenId": "dexe",
@@ -10050,7 +9971,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "diem": {
       "tokenId": "diem",
@@ -10126,7 +10047,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "digibyte": {
       "tokenId": "digibyte",
@@ -10201,7 +10122,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dog-go-to-the-moon-rune": {
       "tokenId": "dog-go-to-the-moon-rune",
@@ -10278,7 +10199,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dogecoin": {
       "tokenId": "dogecoin",
@@ -10353,7 +10274,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dogwifcoin": {
       "tokenId": "dogwifcoin",
@@ -10429,7 +10350,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dola-usd": {
       "tokenId": "dola-usd",
@@ -10506,7 +10427,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "doublezero": {
       "tokenId": "doublezero",
@@ -10583,7 +10504,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "dydx-chain": {
       "tokenId": "dydx-chain",
@@ -10658,7 +10579,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ecash": {
       "tokenId": "ecash",
@@ -10733,7 +10654,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ecomi": {
       "tokenId": "ecomi",
@@ -10808,7 +10729,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "edgex": {
       "tokenId": "edgex",
@@ -10884,7 +10805,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "eigenlayer": {
       "tokenId": "eigenlayer",
@@ -10963,7 +10884,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "elrond-erd-2": {
       "tokenId": "elrond-erd-2",
@@ -11039,7 +10960,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "enjincoin": {
       "tokenId": "enjincoin",
@@ -11114,7 +11035,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "escoin-token": {
       "tokenId": "escoin-token",
@@ -11190,7 +11111,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "espresso": {
       "tokenId": "espresso",
@@ -11266,7 +11187,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethena-usde": {
       "tokenId": "ethena-usde",
@@ -11342,7 +11263,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethena": {
       "tokenId": "ethena",
@@ -11419,7 +11340,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ether-fi": {
       "tokenId": "ether-fi",
@@ -11494,7 +11415,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethereum-classic": {
       "tokenId": "ethereum-classic",
@@ -11569,7 +11490,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethereum-name-service": {
       "tokenId": "ethereum-name-service",
@@ -11645,7 +11566,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethereum": {
       "tokenId": "ethereum",
@@ -11719,7 +11640,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ethgas-2": {
       "tokenId": "ethgas-2",
@@ -11798,7 +11719,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "euro-coin": {
       "tokenId": "euro-coin",
@@ -11873,7 +11794,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "eutbl": {
       "tokenId": "eutbl",
@@ -11950,7 +11871,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "exod": {
       "tokenId": "exod",
@@ -12025,7 +11946,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "f-x-protocol-fxusd": {
       "tokenId": "f-x-protocol-fxusd",
@@ -12100,7 +12021,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "falcon-finance-ff": {
       "tokenId": "falcon-finance-ff",
@@ -12177,7 +12098,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "falcon-finance": {
       "tokenId": "falcon-finance",
@@ -12255,7 +12176,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fartcoin": {
       "tokenId": "fartcoin",
@@ -12332,7 +12253,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "felix-feusd": {
       "tokenId": "felix-feusd",
@@ -12408,7 +12329,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fetch-ai": {
       "tokenId": "fetch-ai",
@@ -12484,7 +12405,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fgrs-figure-tokenized-stock": {
       "tokenId": "fgrs-figure-tokenized-stock",
@@ -12562,7 +12483,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fidelity-digital-dollar": {
       "tokenId": "fidelity-digital-dollar",
@@ -12636,7 +12557,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fidelity-digital-interest-token": {
       "tokenId": "fidelity-digital-interest-token",
@@ -12711,7 +12632,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fidelity-usd-digital-liquidity-fund-acc": {
       "tokenId": "fidelity-usd-digital-liquidity-fund-acc",
@@ -12786,7 +12707,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "figure-heloc": {
       "tokenId": "figure-heloc",
@@ -12861,7 +12782,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "filecoin": {
       "tokenId": "filecoin",
@@ -12939,7 +12860,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "first-digital-usd": {
       "tokenId": "first-digital-usd",
@@ -13015,7 +12936,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "flare-networks": {
       "tokenId": "flare-networks",
@@ -13091,7 +13012,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "floki": {
       "tokenId": "floki",
@@ -13167,7 +13088,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "flow": {
       "tokenId": "flow",
@@ -13242,7 +13163,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "flying-tulip": {
       "tokenId": "flying-tulip",
@@ -13318,7 +13239,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fonq": {
       "tokenId": "fonq",
@@ -13392,7 +13313,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "four": {
       "tokenId": "four",
@@ -13469,7 +13390,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "frankencoin": {
       "tokenId": "frankencoin",
@@ -13545,7 +13466,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "frax-usd": {
       "tokenId": "frax-usd",
@@ -13620,7 +13541,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "frax": {
       "tokenId": "frax",
@@ -13696,7 +13617,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "funfair": {
       "tokenId": "funfair",
@@ -13772,7 +13693,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "fx-usd-saving": {
       "tokenId": "fx-usd-saving",
@@ -13848,7 +13769,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gala": {
       "tokenId": "gala",
@@ -13923,7 +13844,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gas": {
       "tokenId": "gas",
@@ -13999,7 +13920,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gatechain-token": {
       "tokenId": "gatechain-token",
@@ -14075,7 +13996,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "genius-3": {
       "tokenId": "genius-3",
@@ -14150,7 +14071,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "geodnet": {
       "tokenId": "geodnet",
@@ -14227,7 +14148,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gho": {
       "tokenId": "gho",
@@ -14303,7 +14224,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "glidr": {
       "tokenId": "glidr",
@@ -14380,7 +14301,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "global-dollar": {
       "tokenId": "global-dollar",
@@ -14456,7 +14377,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gmt-token": {
       "tokenId": "gmt-token",
@@ -14531,7 +14452,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gmx": {
       "tokenId": "gmx",
@@ -14606,7 +14527,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gnosis": {
       "tokenId": "gnosis",
@@ -14682,7 +14603,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "golem": {
       "tokenId": "golem",
@@ -14758,7 +14679,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "goplus-security": {
       "tokenId": "goplus-security",
@@ -14834,7 +14755,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "grass": {
       "tokenId": "grass",
@@ -14911,7 +14832,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "grx-chain": {
       "tokenId": "grx-chain",
@@ -14986,7 +14907,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "gusd": {
       "tokenId": "gusd",
@@ -15062,7 +14983,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "hash-2": {
       "tokenId": "hash-2",
@@ -15140,7 +15061,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "hashnote-usyc": {
       "tokenId": "hashnote-usyc",
@@ -15217,7 +15138,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "havven": {
       "tokenId": "havven",
@@ -15292,7 +15213,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "hedera-hashgraph": {
       "tokenId": "hedera-hashgraph",
@@ -15367,7 +15288,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "helio-protocol-hay": {
       "tokenId": "helio-protocol-hay",
@@ -15443,7 +15364,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "holotoken": {
       "tokenId": "holotoken",
@@ -15519,7 +15440,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "holoworld": {
       "tokenId": "holoworld",
@@ -15595,7 +15516,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "htx-dao": {
       "tokenId": "htx-dao",
@@ -15671,7 +15592,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "humanity": {
       "tokenId": "humanity",
@@ -15748,7 +15669,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "hydradx": {
       "tokenId": "hydradx",
@@ -15825,7 +15746,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "hyperliquid": {
       "tokenId": "hyperliquid",
@@ -15899,7 +15820,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "immutable-x": {
       "tokenId": "immutable-x",
@@ -15975,7 +15896,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "impossible-cloud-network-token": {
       "tokenId": "impossible-cloud-network-token",
@@ -16052,7 +15973,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "infinifi-usd": {
       "tokenId": "infinifi-usd",
@@ -16127,7 +16048,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "injective-protocol": {
       "tokenId": "injective-protocol",
@@ -16204,7 +16125,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "instadapp": {
       "tokenId": "instadapp",
@@ -16279,7 +16200,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "internet-computer": {
       "tokenId": "internet-computer",
@@ -16356,7 +16277,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "io": {
       "tokenId": "io",
@@ -16435,7 +16356,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "iota": {
       "tokenId": "iota",
@@ -16512,7 +16433,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ishares-bitcoin-trust-ondo-tokenized": {
       "tokenId": "ishares-bitcoin-trust-ondo-tokenized",
@@ -16588,7 +16509,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ishares-core-s-p-500-etf-ondo-tokenized-etf": {
       "tokenId": "ishares-core-s-p-500-etf-ondo-tokenized-etf",
@@ -16663,7 +16584,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "janction": {
       "tokenId": "janction",
@@ -16740,7 +16661,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "janus-henderson-anemoy-aaa-clo-fund": {
       "tokenId": "janus-henderson-anemoy-aaa-clo-fund",
@@ -16815,7 +16736,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "janus-henderson-anemoy-treasury-fund": {
       "tokenId": "janus-henderson-anemoy-treasury-fund",
@@ -16892,7 +16813,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jasmycoin": {
       "tokenId": "jasmycoin",
@@ -16968,7 +16889,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jelly-my-jelly": {
       "tokenId": "jelly-my-jelly",
@@ -17043,7 +16964,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jito-governance-token": {
       "tokenId": "jito-governance-token",
@@ -17120,7 +17041,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jpycoin": {
       "tokenId": "jpycoin",
@@ -17196,7 +17117,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jupiter-exchange-solana": {
       "tokenId": "jupiter-exchange-solana",
@@ -17272,7 +17193,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "jupusd": {
       "tokenId": "jupusd",
@@ -17347,7 +17268,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "just": {
       "tokenId": "just",
@@ -17421,7 +17342,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kaia": {
       "tokenId": "kaia",
@@ -17496,7 +17417,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kaito": {
       "tokenId": "kaito",
@@ -17573,7 +17494,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kamino": {
       "tokenId": "kamino",
@@ -17649,7 +17570,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kaspa": {
       "tokenId": "kaspa",
@@ -17725,7 +17646,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kava": {
       "tokenId": "kava",
@@ -17800,7 +17721,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "keeta": {
       "tokenId": "keeta",
@@ -17880,7 +17801,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kinesis-gold": {
       "tokenId": "kinesis-gold",
@@ -17958,7 +17879,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kinesis-silver": {
       "tokenId": "kinesis-silver",
@@ -18035,7 +17956,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kite-2": {
       "tokenId": "kite-2",
@@ -18112,7 +18033,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kucoin-shares": {
       "tokenId": "kucoin-shares",
@@ -18187,7 +18108,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "kusama": {
       "tokenId": "kusama",
@@ -18262,7 +18183,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "lab": {
       "tokenId": "lab",
@@ -18340,7 +18261,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "law-blocks": {
       "tokenId": "law-blocks",
@@ -18417,7 +18338,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "layerzero": {
       "tokenId": "layerzero",
@@ -18494,7 +18415,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "leo-token": {
       "tokenId": "leo-token",
@@ -18568,7 +18489,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "lido-dao": {
       "tokenId": "lido-dao",
@@ -18642,7 +18563,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "lido-earn-eth": {
       "tokenId": "lido-earn-eth",
@@ -18717,7 +18638,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "lighter": {
       "tokenId": "lighter",
@@ -18792,7 +18713,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "linea": {
       "tokenId": "linea",
@@ -18868,7 +18789,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "litecoin": {
       "tokenId": "litecoin",
@@ -18942,7 +18863,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "livepeer": {
       "tokenId": "livepeer",
@@ -19019,7 +18940,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "loaded-lions": {
       "tokenId": "loaded-lions",
@@ -19097,7 +19018,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mag7-ssi": {
       "tokenId": "mag7-ssi",
@@ -19172,7 +19093,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "magma-finance": {
       "tokenId": "magma-finance",
@@ -19248,7 +19169,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mantle": {
       "tokenId": "mantle",
@@ -19324,7 +19245,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "marscoin-4": {
       "tokenId": "marscoin-4",
@@ -19400,7 +19321,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "matrixdock-gold": {
       "tokenId": "matrixdock-gold",
@@ -19475,7 +19396,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "meet48": {
       "tokenId": "meet48",
@@ -19552,7 +19473,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "megaeth": {
       "tokenId": "megaeth",
@@ -19630,7 +19551,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "melania-meme": {
       "tokenId": "melania-meme",
@@ -19706,7 +19627,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "meme-horse": {
       "tokenId": "meme-horse",
@@ -19782,7 +19703,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "memecore": {
       "tokenId": "memecore",
@@ -19859,7 +19780,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "meta-2-2": {
       "tokenId": "meta-2-2",
@@ -19934,7 +19855,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "metal-blockchain": {
       "tokenId": "metal-blockchain",
@@ -20010,7 +19931,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "meteora": {
       "tokenId": "meteora",
@@ -20084,7 +20005,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "micron-technology-bstock": {
       "tokenId": "micron-technology-bstock",
@@ -20160,7 +20081,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "micron-technology-ondo-tokenized-stock": {
       "tokenId": "micron-technology-ondo-tokenized-stock",
@@ -20236,7 +20157,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "microstrategy-xstock": {
       "tokenId": "microstrategy-xstock",
@@ -20312,7 +20233,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "midas-fasanara-global": {
       "tokenId": "midas-fasanara-global",
@@ -20386,7 +20307,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "midas-mf-one": {
       "tokenId": "midas-mf-one",
@@ -20460,7 +20381,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "midas-mtbill": {
       "tokenId": "midas-mtbill",
@@ -20537,7 +20458,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "midnight-3": {
       "tokenId": "midnight-3",
@@ -20613,7 +20534,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mimblewimblecoin": {
       "tokenId": "mimblewimblecoin",
@@ -20688,7 +20609,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mina-protocol": {
       "tokenId": "mina-protocol",
@@ -20763,7 +20684,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mindwavedao": {
       "tokenId": "mindwavedao",
@@ -20838,7 +20759,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "monad": {
       "tokenId": "monad",
@@ -20912,7 +20833,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "monero": {
       "tokenId": "monero",
@@ -20986,7 +20907,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "morpho": {
       "tokenId": "morpho",
@@ -21062,7 +20983,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "mx-token": {
       "tokenId": "mx-token",
@@ -21137,7 +21058,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "na-post-settlement-legal-financing-receivables": {
       "tokenId": "na-post-settlement-legal-financing-receivables",
@@ -21212,7 +21133,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nano": {
       "tokenId": "nano",
@@ -21287,7 +21208,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "near": {
       "tokenId": "near",
@@ -21364,7 +21285,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "neo": {
       "tokenId": "neo",
@@ -21439,7 +21360,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nest-blackopal-liquidstone-ii-vault": {
       "tokenId": "nest-blackopal-liquidstone-ii-vault",
@@ -21514,7 +21435,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "newton-project": {
       "tokenId": "newton-project",
@@ -21590,7 +21511,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nexo": {
       "tokenId": "nexo",
@@ -21666,7 +21587,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nexpace": {
       "tokenId": "nexpace",
@@ -21743,7 +21664,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nexus-4": {
       "tokenId": "nexus-4",
@@ -21819,7 +21740,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "non-playable-coin": {
       "tokenId": "non-playable-coin",
@@ -21895,7 +21816,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "numeraire": {
       "tokenId": "numeraire",
@@ -21970,7 +21891,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nusd-2": {
       "tokenId": "nusd-2",
@@ -22045,7 +21966,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nvidia-ondo-tokenized-stock": {
       "tokenId": "nvidia-ondo-tokenized-stock",
@@ -22120,7 +22041,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "nxm": {
       "tokenId": "nxm",
@@ -22195,7 +22116,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "o1-exchange": {
       "tokenId": "o1-exchange",
@@ -22269,7 +22190,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "oasis-network": {
       "tokenId": "oasis-network",
@@ -22344,7 +22265,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "official-trump": {
       "tokenId": "official-trump",
@@ -22421,7 +22342,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "okb": {
       "tokenId": "okb",
@@ -22496,7 +22417,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "olympus": {
       "tokenId": "olympus",
@@ -22573,7 +22494,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ondo-finance": {
       "tokenId": "ondo-finance",
@@ -22650,7 +22571,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ondo-u-s-dollar-token": {
       "tokenId": "ondo-u-s-dollar-token",
@@ -22727,7 +22648,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ondo-us-dollar-yield": {
       "tokenId": "ondo-us-dollar-yield",
@@ -22804,7 +22725,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "onyc": {
       "tokenId": "onyc",
@@ -22881,7 +22802,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "openledger-2": {
       "tokenId": "openledger-2",
@@ -22959,7 +22880,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "optimism": {
       "tokenId": "optimism",
@@ -23035,7 +22956,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "orca": {
       "tokenId": "orca",
@@ -23110,7 +23031,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ordinals": {
       "tokenId": "ordinals",
@@ -23187,7 +23108,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "origintrail": {
       "tokenId": "origintrail",
@@ -23265,7 +23186,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "orochi-network": {
       "tokenId": "orochi-network",
@@ -23340,7 +23261,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "osk": {
       "tokenId": "osk",
@@ -23418,7 +23339,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ousg": {
       "tokenId": "ousg",
@@ -23495,7 +23416,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ozone-chain": {
       "tokenId": "ozone-chain",
@@ -23570,7 +23491,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pancakeswap-token": {
       "tokenId": "pancakeswap-token",
@@ -23645,7 +23566,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pax-gold": {
       "tokenId": "pax-gold",
@@ -23720,7 +23641,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "paypal-usd": {
       "tokenId": "paypal-usd",
@@ -23794,7 +23715,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "peanut-2-2": {
       "tokenId": "peanut-2-2",
@@ -23871,7 +23792,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "peaq-2": {
       "tokenId": "peaq-2",
@@ -23948,7 +23869,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pearl-2": {
       "tokenId": "pearl-2",
@@ -24026,7 +23947,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pendle": {
       "tokenId": "pendle",
@@ -24102,7 +24023,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pepe": {
       "tokenId": "pepe",
@@ -24180,7 +24101,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "perle": {
       "tokenId": "perle",
@@ -24257,7 +24178,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pharos-network": {
       "tokenId": "pharos-network",
@@ -24332,7 +24253,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pi-network": {
       "tokenId": "pi-network",
@@ -24409,7 +24330,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pieverse": {
       "tokenId": "pieverse",
@@ -24487,7 +24408,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pirate-chain": {
       "tokenId": "pirate-chain",
@@ -24563,7 +24484,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "plasma": {
       "tokenId": "plasma",
@@ -24642,7 +24563,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pleasing-gold": {
       "tokenId": "pleasing-gold",
@@ -24718,7 +24639,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "plume": {
       "tokenId": "plume",
@@ -24795,7 +24716,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "polkadot": {
       "tokenId": "polkadot",
@@ -24870,7 +24791,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "polygon-ecosystem-token": {
       "tokenId": "polygon-ecosystem-token",
@@ -24945,7 +24866,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "polymesh": {
       "tokenId": "polymesh",
@@ -25021,7 +24942,82 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
+    },
+    "pons": {
+      "tokenId": "pons",
+      "tokenName": "Pons",
+      "symbol": "pons",
+      "attentionScore": 70,
+      "attentionLabel": "Rising",
+      "hypeScore": 47,
+      "fundamentalsScore": 64,
+      "supplyRiskScore": 14,
+      "classification": "Organic Interest",
+      "primaryIntent": "airdrop",
+      "intentMix": [
+        {
+          "intent": "airdrop",
+          "label": "Airdrop / launch",
+          "score": 90,
+          "queries": [
+            "Pons airdrop",
+            "Pons TGE",
+            "Pons listing date"
+          ]
+        },
+        {
+          "intent": "risk",
+          "label": "Risk check",
+          "score": 50,
+          "queries": [
+            "Pons risks",
+            "is Pons safe",
+            "Pons scam check"
+          ]
+        },
+        {
+          "intent": "news",
+          "label": "News catalyst",
+          "score": 44,
+          "queries": [
+            "Pons news today",
+            "why is Pons moving",
+            "PONS crypto news"
+          ]
+        },
+        {
+          "intent": "prediction",
+          "label": "Price prediction",
+          "score": 42,
+          "queries": [
+            "Pons price prediction 2026",
+            "Pons price prediction today",
+            "PONS price target"
+          ]
+        }
+      ],
+      "drivers": [
+        "Negative 24h move is large enough to trigger prediction and news searches.",
+        "24h volume equals 19.6% of market cap, so liquidity is visible."
+      ],
+      "cautions": [
+        "No major free-data caution dominated the search-intent score."
+      ],
+      "queryExamples": [
+        "Pons airdrop",
+        "Pons TGE",
+        "Pons listing date",
+        "Pons risks",
+        "is Pons safe"
+      ],
+      "sourceSignals": [
+        "TokenRadar keyword templates",
+        "Cached CoinGecko market and supply data",
+        "TokenRadar risk and narrative metrics",
+        "Local TGE records when available"
+      ],
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pools-trade": {
       "tokenId": "pools-trade",
@@ -25096,7 +25092,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "popcat": {
       "tokenId": "popcat",
@@ -25172,7 +25168,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "precious-metals-usd": {
       "tokenId": "precious-metals-usd",
@@ -25251,7 +25247,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "prize-protocol": {
       "tokenId": "prize-protocol",
@@ -25326,7 +25322,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "proton": {
       "tokenId": "proton",
@@ -25403,7 +25399,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pudgy-penguins": {
       "tokenId": "pudgy-penguins",
@@ -25481,7 +25477,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pump-fun": {
       "tokenId": "pump-fun",
@@ -25559,7 +25555,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "pyth-network": {
       "tokenId": "pyth-network",
@@ -25634,7 +25630,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "qtum": {
       "tokenId": "qtum",
@@ -25709,7 +25705,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "quack-ai": {
       "tokenId": "quack-ai",
@@ -25786,7 +25782,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "quant-network": {
       "tokenId": "quant-network",
@@ -25863,7 +25859,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "quantixai": {
       "tokenId": "quantixai",
@@ -25938,7 +25934,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "quantum-resistant-ledger": {
       "tokenId": "quantum-resistant-ledger",
@@ -26013,7 +26009,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "qubic-network": {
       "tokenId": "qubic-network",
@@ -26090,7 +26086,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "railgun": {
       "tokenId": "railgun",
@@ -26165,7 +26161,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "rain": {
       "tokenId": "rain",
@@ -26240,7 +26236,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ravedao": {
       "tokenId": "ravedao",
@@ -26319,7 +26315,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ravencoin": {
       "tokenId": "ravencoin",
@@ -26395,7 +26391,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "raydium": {
       "tokenId": "raydium",
@@ -26471,7 +26467,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "re-protocol-reusd": {
       "tokenId": "re-protocol-reusd",
@@ -26545,7 +26541,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "re": {
       "tokenId": "re",
@@ -26624,7 +26620,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "reallink": {
       "tokenId": "reallink",
@@ -26700,7 +26696,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "rekt-4": {
       "tokenId": "rekt-4",
@@ -26778,7 +26774,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "render-token": {
       "tokenId": "render-token",
@@ -26854,7 +26850,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "reserve-rights-token": {
       "tokenId": "reserve-rights-token",
@@ -26931,7 +26927,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ribbita-by-virtuals": {
       "tokenId": "ribbita-by-virtuals",
@@ -27008,7 +27004,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "rif-token": {
       "tokenId": "rif-token",
@@ -27085,7 +27081,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ripple-usd": {
       "tokenId": "ripple-usd",
@@ -27159,7 +27155,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ripple": {
       "tokenId": "ripple",
@@ -27233,7 +27229,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "river": {
       "tokenId": "river",
@@ -27311,7 +27307,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "rollbit-coin": {
       "tokenId": "rollbit-coin",
@@ -27386,7 +27382,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "safe": {
       "tokenId": "safe",
@@ -27461,7 +27457,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "safecoin": {
       "tokenId": "safecoin",
@@ -27537,7 +27533,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "safepal": {
       "tokenId": "safepal",
@@ -27612,7 +27608,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "safo": {
       "tokenId": "safo",
@@ -27687,7 +27683,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sandisk-bstocks-tokenized-stock": {
       "tokenId": "sandisk-bstocks-tokenized-stock",
@@ -27764,7 +27760,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "saturn-dollar": {
       "tokenId": "saturn-dollar",
@@ -27839,7 +27835,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "securitize-tokenized-aaa-clo-fund": {
       "tokenId": "securitize-tokenized-aaa-clo-fund",
@@ -27914,7 +27910,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "seeker": {
       "tokenId": "seeker",
@@ -27990,7 +27986,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sei-network": {
       "tokenId": "sei-network",
@@ -28065,7 +28061,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sentient": {
       "tokenId": "sentient",
@@ -28142,7 +28138,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "shiba-inu": {
       "tokenId": "shiba-inu",
@@ -28218,7 +28214,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "shuffle-2": {
       "tokenId": "shuffle-2",
@@ -28294,7 +28290,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sky": {
       "tokenId": "sky",
@@ -28370,7 +28366,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "skyai": {
       "tokenId": "skyai",
@@ -28448,7 +28444,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "smilek": {
       "tokenId": "smilek",
@@ -28523,7 +28519,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "societe-generale-forge-eurcv": {
       "tokenId": "societe-generale-forge-eurcv",
@@ -28597,7 +28593,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "solana": {
       "tokenId": "solana",
@@ -28671,7 +28667,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sonic-3": {
       "tokenId": "sonic-3",
@@ -28746,7 +28742,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "soon-2": {
       "tokenId": "soon-2",
@@ -28824,7 +28820,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sosovalue": {
       "tokenId": "sosovalue",
@@ -28899,7 +28895,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sp500-xstock": {
       "tokenId": "sp500-xstock",
@@ -28975,7 +28971,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spacex-bstocks-tokenized-stock": {
       "tokenId": "spacex-bstocks-tokenized-stock",
@@ -29052,7 +29048,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spark-2": {
       "tokenId": "spark-2",
@@ -29132,7 +29128,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spdr-s-p-500-etf-ondo-tokenized-etf": {
       "tokenId": "spdr-s-p-500-etf-ondo-tokenized-etf",
@@ -29207,7 +29203,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spiko-amundi-overnight-swap-fund-eur": {
       "tokenId": "spiko-amundi-overnight-swap-fund-eur",
@@ -29284,7 +29280,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spiko-us-t-bills-money-market-fund": {
       "tokenId": "spiko-us-t-bills-money-market-fund",
@@ -29361,7 +29357,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "spx6900": {
       "tokenId": "spx6900",
@@ -29438,7 +29434,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stable-2": {
       "tokenId": "stable-2",
@@ -29513,7 +29509,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "standx-dusd": {
       "tokenId": "standx-dusd",
@@ -29589,7 +29585,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "starknet": {
       "tokenId": "starknet",
@@ -29666,7 +29662,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stau": {
       "tokenId": "stau",
@@ -29743,7 +29739,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "steakhouse-confidential-prime-usdc": {
       "tokenId": "steakhouse-confidential-prime-usdc",
@@ -29818,7 +29814,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stellar": {
       "tokenId": "stellar",
@@ -29893,7 +29889,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stonkbroker": {
       "tokenId": "stonkbroker",
@@ -29968,7 +29964,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "story-2": {
       "tokenId": "story-2",
@@ -30046,7 +30042,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stp-network": {
       "tokenId": "stp-network",
@@ -30121,7 +30117,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "straitsx-xusd": {
       "tokenId": "straitsx-xusd",
@@ -30195,7 +30191,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "strategy-pp-variable-xstock": {
       "tokenId": "strategy-pp-variable-xstock",
@@ -30271,7 +30267,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "stronghold-token": {
       "tokenId": "stronghold-token",
@@ -30348,7 +30344,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "subsquid": {
       "tokenId": "subsquid",
@@ -30424,7 +30420,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sui": {
       "tokenId": "sui",
@@ -30500,7 +30496,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sun-token": {
       "tokenId": "sun-token",
@@ -30575,7 +30571,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "superfarm": {
       "tokenId": "superfarm",
@@ -30650,7 +30646,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "superstate-short-duration-us-government-securities-fund-ustb": {
       "tokenId": "superstate-short-duration-us-government-securities-fund-ustb",
@@ -30727,7 +30723,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sushi": {
       "tokenId": "sushi",
@@ -30802,7 +30798,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "swissborg": {
       "tokenId": "swissborg",
@@ -30878,7 +30874,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "swop-2": {
       "tokenId": "swop-2",
@@ -30953,7 +30949,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "sygnum-fiusd-liquidity-fund": {
       "tokenId": "sygnum-fiusd-liquidity-fund",
@@ -31028,7 +31024,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "syrup": {
       "tokenId": "syrup",
@@ -31103,7 +31099,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tagger": {
       "tokenId": "tagger",
@@ -31181,7 +31177,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "talus": {
       "tokenId": "talus",
@@ -31259,7 +31255,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "targon": {
       "tokenId": "targon",
@@ -31335,7 +31331,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "telcoin": {
       "tokenId": "telcoin",
@@ -31413,7 +31409,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "temple": {
       "tokenId": "temple",
@@ -31487,7 +31483,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "terra-luna": {
       "tokenId": "terra-luna",
@@ -31562,7 +31558,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tesla-xstock": {
       "tokenId": "tesla-xstock",
@@ -31638,7 +31634,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tether-gold": {
       "tokenId": "tether-gold",
@@ -31713,7 +31709,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tether": {
       "tokenId": "tether",
@@ -31789,7 +31785,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tezos": {
       "tokenId": "tezos",
@@ -31864,7 +31860,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "the-black-bull": {
       "tokenId": "the-black-bull",
@@ -31942,7 +31938,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "the-graph": {
       "tokenId": "the-graph",
@@ -32020,7 +32016,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "the-open-network": {
       "tokenId": "the-open-network",
@@ -32098,7 +32094,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "the-sandbox": {
       "tokenId": "the-sandbox",
@@ -32173,7 +32169,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "theo-short-duration-us-treasury-fund": {
       "tokenId": "theo-short-duration-us-treasury-fund",
@@ -32250,7 +32246,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "theta-fuel": {
       "tokenId": "theta-fuel",
@@ -32327,7 +32323,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "theta-token": {
       "tokenId": "theta-token",
@@ -32403,7 +32399,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "thorchain": {
       "tokenId": "thorchain",
@@ -32478,7 +32474,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tokenize-xchange": {
       "tokenId": "tokenize-xchange",
@@ -32554,7 +32550,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tori-trusd": {
       "tokenId": "tori-trusd",
@@ -32628,7 +32624,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "toshi": {
       "tokenId": "toshi",
@@ -32704,7 +32700,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-apac-diversified-finance-provider-sstn": {
       "tokenId": "tradable-apac-diversified-finance-provider-sstn",
@@ -32779,7 +32775,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-eu-latam-pos-financing-sstl": {
       "tokenId": "tradable-eu-latam-pos-financing-sstl",
@@ -32854,7 +32850,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-latam-fintech-sstn": {
       "tokenId": "tradable-latam-fintech-sstn",
@@ -32929,7 +32925,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-latam-middle-market-lender-sstl": {
       "tokenId": "tradable-latam-middle-market-lender-sstl",
@@ -33004,7 +33000,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-na-legal-receivables-ssl": {
       "tokenId": "tradable-na-legal-receivables-ssl",
@@ -33079,7 +33075,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-na-neobank-sstl": {
       "tokenId": "tradable-na-neobank-sstl",
@@ -33154,7 +33150,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-na-rent-financing-platform-sstn": {
       "tokenId": "tradable-na-rent-financing-platform-sstn",
@@ -33231,7 +33227,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-na-third-party-online-merchant-sstn": {
       "tokenId": "tradable-na-third-party-online-merchant-sstn",
@@ -33306,7 +33302,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-north-america-pos-lender-sstn": {
       "tokenId": "tradable-north-america-pos-lender-sstn",
@@ -33381,7 +33377,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-singapore-fintech-ssl-2": {
       "tokenId": "tradable-singapore-fintech-ssl-2",
@@ -33456,7 +33452,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tradable-singapore-fintech-ssl": {
       "tokenId": "tradable-singapore-fintech-ssl",
@@ -33531,7 +33527,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tron": {
       "tokenId": "tron",
@@ -33605,7 +33601,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tronbank": {
       "tokenId": "tronbank",
@@ -33681,7 +33677,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "true-usd": {
       "tokenId": "true-usd",
@@ -33756,7 +33752,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "trust-wallet-token": {
       "tokenId": "trust-wallet-token",
@@ -33833,7 +33829,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "turbo": {
       "tokenId": "turbo",
@@ -33910,7 +33906,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "tutorial": {
       "tokenId": "tutorial",
@@ -33987,7 +33983,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ultima": {
       "tokenId": "ultima",
@@ -34062,7 +34058,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "unibase": {
       "tokenId": "unibase",
@@ -34140,7 +34136,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "unifai-network": {
       "tokenId": "unifai-network",
@@ -34217,7 +34213,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "uniswap": {
       "tokenId": "uniswap",
@@ -34293,7 +34289,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "unit-pump": {
       "tokenId": "unit-pump",
@@ -34370,7 +34366,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "unitas": {
       "tokenId": "unitas",
@@ -34446,7 +34442,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "united-stables": {
       "tokenId": "united-stables",
@@ -34521,7 +34517,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "unity-usd": {
       "tokenId": "unity-usd",
@@ -34596,7 +34592,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usa": {
       "tokenId": "usa",
@@ -34673,7 +34669,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usd-coin": {
       "tokenId": "usd-coin",
@@ -34749,7 +34745,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usd1-wlfi": {
       "tokenId": "usd1-wlfi",
@@ -34824,7 +34820,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usda-2": {
       "tokenId": "usda-2",
@@ -34899,7 +34895,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usda-3": {
       "tokenId": "usda-3",
@@ -34975,7 +34971,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdai": {
       "tokenId": "usdai",
@@ -35051,7 +35047,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdd": {
       "tokenId": "usdd",
@@ -35127,7 +35123,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdgo": {
       "tokenId": "usdgo",
@@ -35201,7 +35197,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdkg": {
       "tokenId": "usdkg",
@@ -35276,7 +35272,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usds": {
       "tokenId": "usds",
@@ -35350,7 +35346,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdtb": {
       "tokenId": "usdtb",
@@ -35425,7 +35421,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdu": {
       "tokenId": "usdu",
@@ -35501,7 +35497,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usdx": {
       "tokenId": "usdx",
@@ -35578,7 +35574,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "useless-3": {
       "tokenId": "useless-3",
@@ -35656,7 +35652,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usual-usd": {
       "tokenId": "usual-usd",
@@ -35732,7 +35728,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "usx": {
       "tokenId": "usx",
@@ -35807,7 +35803,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "vaneck-treasury-fund": {
       "tokenId": "vaneck-treasury-fund",
@@ -35884,7 +35880,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "vaulta": {
       "tokenId": "vaulta",
@@ -35959,7 +35955,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "vechain": {
       "tokenId": "vechain",
@@ -36035,7 +36031,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "velo": {
       "tokenId": "velo",
@@ -36111,7 +36107,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "velvet": {
       "tokenId": "velvet",
@@ -36188,7 +36184,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "venice-token": {
       "tokenId": "venice-token",
@@ -36266,7 +36262,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "venus": {
       "tokenId": "venus",
@@ -36342,7 +36338,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "vicicoin": {
       "tokenId": "vicicoin",
@@ -36416,7 +36412,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "virtual-protocol": {
       "tokenId": "virtual-protocol",
@@ -36493,7 +36489,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "vision-3": {
       "tokenId": "vision-3",
@@ -36569,7 +36565,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "walrus-2": {
       "tokenId": "walrus-2",
@@ -36645,7 +36641,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "wefi": {
       "tokenId": "wefi",
@@ -36720,7 +36716,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "wemix-token": {
       "tokenId": "wemix-token",
@@ -36797,7 +36793,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "whitebit": {
       "tokenId": "whitebit",
@@ -36872,7 +36868,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "wiki-cat": {
       "tokenId": "wiki-cat",
@@ -36950,7 +36946,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "world-liberty-financial": {
       "tokenId": "world-liberty-financial",
@@ -37028,7 +37024,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "worldcoin-wld": {
       "tokenId": "worldcoin-wld",
@@ -37106,7 +37102,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "wormhole": {
       "tokenId": "wormhole",
@@ -37182,7 +37178,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "would": {
       "tokenId": "would",
@@ -37259,7 +37255,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "wrappedm-by-m0": {
       "tokenId": "wrappedm-by-m0",
@@ -37334,7 +37330,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "xdai": {
       "tokenId": "xdai",
@@ -37413,7 +37409,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "xdce-crowd-sale": {
       "tokenId": "xdce-crowd-sale",
@@ -37491,7 +37487,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "xphere": {
       "tokenId": "xphere",
@@ -37565,7 +37561,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "yearn-finance": {
       "tokenId": "yearn-finance",
@@ -37640,7 +37636,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "ylds": {
       "tokenId": "ylds",
@@ -37717,7 +37713,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "yzy": {
       "tokenId": "yzy",
@@ -37795,7 +37791,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zama": {
       "tokenId": "zama",
@@ -37872,7 +37868,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zano": {
       "tokenId": "zano",
@@ -37946,7 +37942,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zcash": {
       "tokenId": "zcash",
@@ -38021,7 +38017,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zebec-network": {
       "tokenId": "zebec-network",
@@ -38098,7 +38094,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zencash": {
       "tokenId": "zencash",
@@ -38173,7 +38169,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zerobase": {
       "tokenId": "zerobase",
@@ -38252,7 +38248,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zetachain": {
       "tokenId": "zetachain",
@@ -38329,7 +38325,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zignaly": {
       "tokenId": "zignaly",
@@ -38405,7 +38401,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zilliqa": {
       "tokenId": "zilliqa",
@@ -38481,7 +38477,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     },
     "zksync": {
       "tokenId": "zksync",
@@ -38558,7 +38554,7 @@
         "TokenRadar risk and narrative metrics",
         "Local TGE records when available"
       ],
-      "computedAt": "2026-08-08T18:21:53.673Z"
+      "computedAt": "2026-08-09T07:09:02.876Z"
     }
   }
 }
