@@ -21,7 +21,13 @@ import {
 import { evaluateArticleQuality } from "@/lib/content-quality";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { markdownToHtml } from "@/lib/markdown";
-import { isArticleIndexable, isTokenOverviewIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
+import {
+  buildEntitySeoTitle,
+  buildSeoDescription,
+  isArticleIndexable,
+  isTokenOverviewIndexable,
+  parseFaqsFromMarkdown,
+} from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { PriceChart } from "@/components/PriceChart";
 import { LastUpdated } from "@/components/LastUpdated";
@@ -41,9 +47,11 @@ import { HardwareWalletCTA } from "@/components/HardwareWalletCTA";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
+import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 import {
   Globe, 
   BarChart2, 
@@ -76,8 +84,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = await getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
-  const title = `${detail.name} (${detail.symbol.toUpperCase()}) — Price, Analysis & Risk Score`;
-  const description = `Data-driven analysis of ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, Market Cap: ${formatCompact(detail.market.marketCap)}, Risk Score and proprietary metrics.`;
+  const title = buildEntitySeoTitle({
+    name: detail.name,
+    symbol: detail.symbol,
+    after: " Price & Risk Score",
+  });
+  const description = buildSeoDescription(`Data snapshot and risk analysis for ${detail.name} (${detail.symbol.toUpperCase()}): price ${formatPrice(detail.market.price)}, market cap ${formatCompact(detail.market.marketCap)}, liquidity context, and proprietary metrics.`);
 
   const article = await getArticle(tokenId, "overview");
   const isIndexable = isTokenOverviewIndexable(detail, article);
@@ -512,6 +524,7 @@ export default async function TokenPage({ params }: PageProps) {
             <div className="article-layout-row">
               {/* Main Content */}
               <div className="article-main-col">
+                <ResearchFreshnessNotice contentUpdatedAt={article.generatedAt} marketDataAt={detail.fetchedAt} />
                 <div className="article-content" dangerouslySetInnerHTML={{ 
                   __html: await markdownToHtml(article.content, {
                     name: detail.name,
@@ -589,19 +602,8 @@ export default async function TokenPage({ params }: PageProps) {
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
             image: `https://tokenradar.co/og/token/${detail.id}.png`,
-            author: {
-              "@type": "Person",
-              name: "Pavlo Nakonechnyi",
-              url: "https://www.linkedin.com/in/pavlo-nakonechnyi-633966402/",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "TokenRadar",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://tokenradar.co/icon.png",
-              },
-            },
+            author: buildAuthorPersonSchema(),
+            publisher: buildPublisherSchema(),
             datePublished: article?.generatedAt || detail.genesisDate || detail.fetchedAt,
             dateModified: detail.fetchedAt,
           }}

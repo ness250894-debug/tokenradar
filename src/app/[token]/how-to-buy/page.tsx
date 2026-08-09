@@ -13,7 +13,13 @@ import {
   getCategoryIds,
   getPrimaryTokenCategory,
 } from "@/lib/content-loader";
-import { filterIndexableArticleTokenIds, isArticleIndexable, parseFaqsFromMarkdown } from "@/lib/seo";
+import {
+  buildEntitySeoTitle,
+  buildSeoDescription,
+  filterIndexableArticleTokenIds,
+  isArticleIndexable,
+  parseFaqsFromMarkdown,
+} from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
 import { ExchangeReferralPanel } from "@/components/ExchangeReferralPanel";
@@ -23,6 +29,7 @@ import { UnifiedTOC } from "@/components/UnifiedTOC";
 import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker";
 import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
+import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 
@@ -46,8 +53,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!detail) return { title: "Token Not Found" };
 
   const article = await getArticle(tokenId, "how-to-buy");
-  const title = `How to Buy ${detail.name} (${detail.symbol.toUpperCase()}) - Where to Buy, Fees & Wallets`;
-  const description = `Learn where and how to buy ${detail.name} (${detail.symbol.toUpperCase()}), compare venue checks, fees, payment methods, custody, and key risks before investing.`;
+  const title = buildEntitySeoTitle({
+    name: detail.name,
+    symbol: detail.symbol,
+    before: "How to Buy ",
+  });
+  const description = buildSeoDescription(`Learn how to buy ${detail.name} (${detail.symbol.toUpperCase()}), compare venue availability, fees, payment methods, custody choices, wallet setup, and key risks.`);
 
   const ogImage = `/og/token/${detail.id}.png`;
 
@@ -239,6 +250,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
             />
             <div className="article-layout-row">
               <div className="article-main-col">
+                <ResearchFreshnessNotice contentUpdatedAt={article.generatedAt} marketDataAt={detail.fetchedAt} />
                 <div className="article-content" dangerouslySetInnerHTML={{
                   __html: await markdownToHtml(article.content, {
                     name: detail.name,

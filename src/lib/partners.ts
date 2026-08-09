@@ -181,7 +181,7 @@ export const PARTNERS: Partner[] = [
     offer: "10% discount",
     coupon: "TOKENRADAR",
     color: "#0099FF",
-    textColor: "#ffffff",
+    textColor: "#06111f",
     priority: 40,
     enabled: true,
   },

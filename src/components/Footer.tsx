@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { HackerText } from "./HackerText";
@@ -17,6 +15,7 @@ const PLATFORM_LINKS = [
 const RESOURCE_LINKS = [
   { href: "/learn", label: "Learning Hub / Glossary" },
   { href: "/about", label: "About / Methodology" },
+  { href: "/authors/pavlo-nakonechnyi", label: "Founder / Lead Researcher" },
   { href: "/contact", label: "Contact Us" },
 ] as const;
 
@@ -44,7 +43,7 @@ export function Footer() {
           <div className="footer-brand">
             <Link href="/" className="footer-brand-logo">
               <Image
-                src="/icon.png"
+                src="/icon-32.png"
                 alt="Logo"
                 width={24}
                 height={24}
@@ -77,7 +76,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-col-title">Platform</h4>
+            <h2 className="footer-col-title">Platform</h2>
             <ul className="footer-col-links">
               {PLATFORM_LINKS.map(({ href, label }) => (
                 <li key={href}>
@@ -88,7 +87,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-col-title">Resources</h4>
+            <h2 className="footer-col-title">Resources</h2>
             <ul className="footer-col-links">
               {RESOURCE_LINKS.map(({ href, label }) => (
                 <li key={href}>
@@ -99,7 +98,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-col-title">Legal</h4>
+            <h2 className="footer-col-title">Legal</h2>
             <ul className="footer-col-links">
               {LEGAL_LINKS.map(({ href, label }) => (
                 <li key={href}>

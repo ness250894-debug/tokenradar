@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { List, ChevronRight, Hash } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { buildEngagementParams } from "@/lib/engagement-analytics";
@@ -158,10 +157,7 @@ export function UnifiedTOC({
                   }}
                 >
                   {isActive && (
-                    <motion.div 
-                      layoutId="toc-indicator"
-                      className="absolute left-0 w-1 h-4 bg-accent-primary rounded-full"
-                    />
+                    <div className="absolute left-0 w-1 h-4 bg-accent-primary rounded-full" />
                   )}
                   <span className={`${isActive ? "translate-x-1" : "group-hover:text-white transition-colors group-hover:translate-x-0.5"} transition-transform duration-200 line-clamp-2`}>
                     {section.label}
@@ -175,13 +171,9 @@ export function UnifiedTOC({
 
       {/* Mobile Floating Menu (visible below LG) */}
       {showMobile && <div className="lg:hidden fixed bottom-40 right-4 z-[110]">
-        <AnimatePresence>
           {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.9 }}
-              className="mb-4 p-4 shadow-2xl w-64 rounded-2xl border border-zinc-800"
+            <div
+              className="mb-4 p-4 shadow-2xl w-64 rounded-2xl border border-zinc-800 animate-in"
               style={{ 
                 background: "rgba(10, 11, 15, 0.95)", 
                 backdropFilter: "blur(20px)",
@@ -207,9 +199,8 @@ export function UnifiedTOC({
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
         
         <button
           onClick={() => setIsOpen(!isOpen)}

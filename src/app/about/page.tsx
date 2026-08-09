@@ -5,12 +5,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { getAllTokens, getUpcomingTGEs } from "@/lib/content-loader";
 import { getSiteUrl } from "@/lib/seo";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 
-const METHODOLOGY_VERSION = "v1.3";
-const METHODOLOGY_LAST_REVIEWED = "2026-05-11";
+const METHODOLOGY_VERSION = "v1.4";
+const METHODOLOGY_LAST_REVIEWED = "2026-08-09";
 const PAGE_TITLE = "TokenRadar Methodology & Data Sources";
 const PAGE_DESCRIPTION =
-  "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, TGE source evidence, AI-assisted research, and affiliate disclosures.";
+  "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, launch evidence, AI-assisted research, and disclosure rules.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -109,16 +110,8 @@ export default async function AboutPage() {
             name: "TokenRadar",
             url: siteUrl,
           },
-          publisher: {
-            "@type": "Organization",
-            name: "TokenRadar",
-            url: siteUrl,
-          },
-          author: {
-            "@type": "Person",
-            name: "Pavlo Nakonechnyi",
-            jobTitle: "Founder & Lead Researcher",
-          },
+          publisher: buildPublisherSchema(siteUrl),
+          author: buildAuthorPersonSchema(siteUrl),
           about: [
             "Crypto token risk methodology",
             "Cryptocurrency market data sources",

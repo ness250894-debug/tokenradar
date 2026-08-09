@@ -17,8 +17,8 @@ import { trackEvent } from "@/lib/analytics";
 import { formatCompact, formatPercent, formatPrice } from "@/lib/formatters";
 import { getTgeEvidenceCount, getTgeStatusLabel, type UpcomingTge } from "@/lib/tge";
 import { TokenIcon } from "@/components/TokenIcon";
-import { type TokenCardData } from "@/components/TokenCard";
 import { WatchlistButton } from "@/components/WatchlistButton";
+import type { HomeMarketToken } from "@/lib/home-market-data";
 
 export interface NarrativeInsight {
   category: string;
@@ -30,7 +30,7 @@ export interface NarrativeInsight {
 }
 
 interface HomeMarketLabProps {
-  tokens: TokenCardData[];
+  tokens: HomeMarketToken[];
   narratives: NarrativeInsight[];
   launchTimeline: UpcomingTge[];
 }
@@ -56,6 +56,8 @@ function getHeatWidth(change: number, tokenCount: number): string {
 }
 
 export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarketLabProps) {
+  const [availableTokens, setAvailableTokens] = useState<HomeMarketToken[]>(tokens);
+  const [isLoadingTokens, setIsLoadingTokens] = useState(false);
   const initialIds = tokens.slice(0, 3).map((token) => token.id);
   const [selectedIds, setSelectedIds] = useState<string[]>(initialIds);
   const [activeSlot, setActiveSlot] = useState(0);
@@ -63,14 +65,14 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
   const [assetSearch, setAssetSearch] = useState("");
   const assetPickerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const tokenMap = useMemo(() => new Map(tokens.map((token) => [token.id, token])), [tokens]);
+  const tokenMap = useMemo(() => new Map(availableTokens.map((token) => [token.id, token])), [availableTokens]);
   const selectedTokens = selectedIds
     .map((id) => tokenMap.get(id))
-    .filter((token): token is TokenCardData => Boolean(token));
+    .filter((token): token is HomeMarketToken => Boolean(token));
   const assetOptions = useMemo(() => {
     const query = assetSearch.trim().toLowerCase();
     const selectedInOtherSlots = new Set(selectedIds.filter((_, index) => index !== activeSlot));
-    const matches = tokens.filter((token) => {
+    const matches = availableTokens.filter((token) => {
       if (selectedInOtherSlots.has(token.id)) return false;
       if (!query) return true;
       return (
@@ -82,7 +84,19 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
     });
 
     return matches.slice(0, 15);
-  }, [activeSlot, assetSearch, selectedIds, tokens]);
+  }, [activeSlot, assetSearch, availableTokens, selectedIds]);
+
+  const loadAllTokens = () => {
+    if (availableTokens.length > tokens.length || isLoadingTokens) return;
+    setIsLoadingTokens(true);
+    void fetch("/data/home-market-lab.json", { cache: "force-cache" })
+      .then((response) => response.ok ? response.json() as Promise<HomeMarketToken[]> : [])
+      .then((items) => {
+        if (Array.isArray(items) && items.length > 0) setAvailableTokens(items);
+      })
+      .catch(() => undefined)
+      .finally(() => setIsLoadingTokens(false));
+  };
 
   const handleSelect = (slotIndex: number, tokenId: string) => {
     const nextIds = [...selectedIds];
@@ -171,6 +185,7 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
                         setActiveSlot(slotIndex);
                         setOpenSlot(isOpen ? null : slotIndex);
                         setAssetSearch("");
+                        if (!isOpen) loadAllTokens();
                       }}
                       aria-expanded={isOpen}
                       aria-haspopup="listbox"
@@ -198,12 +213,13 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
                         <input
                           type="search"
                           className="search-input home-asset-picker-search"
-                          placeholder={`Search ${tokens.length.toLocaleString("en-US")} assets`}
+                          placeholder={`Search ${availableTokens.length.toLocaleString("en-US")} assets`}
                           value={assetSearch}
                           onChange={(event) => setAssetSearch(event.target.value)}
                           autoFocus
                         />
                         <div className="home-asset-picker-options" role="listbox">
+                          {isLoadingTokens ? <p style={{ padding: "var(--space-sm)" }}>Loading full directory…</p> : null}
                           {assetOptions.map((token) => {
                             const isSelected = selectedIds[slotIndex] === token.id;
 
@@ -264,7 +280,7 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
               <div className="home-compare-matrix-row" role="row">
                 <span className="home-compare-metric-label" role="rowheader">Price</span>
                 {selectedTokens.map((token) => (
-                  <strong key={token.id} className="home-compare-matrix-cell">{formatPrice(token.price)}</strong>
+                  <strong key={token.id} className="home-compare-matrix-cell" role="cell">{formatPrice(token.price)}</strong>
                 ))}
               </div>
 
@@ -273,7 +289,7 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
                 {selectedTokens.map((token) => {
                   const changeIsPositive = token.priceChange24h >= 0;
                   return (
-                    <strong key={token.id} className={`home-compare-matrix-cell ${changeIsPositive ? "price-up" : "price-down"}`}>
+                    <strong key={token.id} className={`home-compare-matrix-cell ${changeIsPositive ? "price-up" : "price-down"}`} role="cell">
                       {changeIsPositive ? <TrendingUp size={13} /> : <TrendingDown size={13} />}
                       {formatPercent(token.priceChange24h || 0)}
                     </strong>
@@ -284,7 +300,7 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
               <div className="home-compare-matrix-row" role="row">
                 <span className="home-compare-metric-label" role="rowheader">Risk</span>
                 {selectedTokens.map((token) => (
-                  <strong key={token.id} className={`badge badge-${riskTone(token.riskScore)} home-compare-risk-cell`}>
+                  <strong key={token.id} className={`badge badge-${riskTone(token.riskScore)} home-compare-risk-cell`} role="cell">
                     <ShieldAlert size={12} />
                     {token.riskScore}/10
                   </strong>
@@ -294,7 +310,7 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
               <div className="home-compare-matrix-row" role="row">
                 <span className="home-compare-metric-label" role="rowheader">Market Cap</span>
                 {selectedTokens.map((token) => (
-                  <strong key={token.id} className="home-compare-matrix-cell">{formatCompact(token.marketCap)}</strong>
+                  <strong key={token.id} className="home-compare-matrix-cell" role="cell">{formatCompact(token.marketCap)}</strong>
                 ))}
               </div>
 
@@ -302,11 +318,13 @@ export function HomeMarketLab({ tokens, narratives, launchTimeline }: HomeMarket
                 <span className="home-compare-metric-label" role="rowheader">Category</span>
                 {selectedTokens.map((token) => (
                   token.categoryHref ? (
-                    <Link key={token.id} href={token.categoryHref} className="home-compare-category-cell">
-                      {token.category}
-                    </Link>
+                    <span key={token.id} className="home-compare-category-cell" role="cell">
+                      <Link href={token.categoryHref} className="home-compare-category-link">
+                        {token.category}
+                      </Link>
+                    </span>
                   ) : (
-                    <span key={token.id} className="home-compare-category-cell">{token.category}</span>
+                    <span key={token.id} className="home-compare-category-cell" role="cell">{token.category}</span>
                   )
                 ))}
               </div>

@@ -57,6 +57,7 @@ export function HomePartnerPromoCarousel() {
     <section
       className="section"
       aria-label="Partner promotions"
+      data-nosnippet
       style={{ padding: "var(--space-md) 0" }}
     >
       <div className="container">
@@ -271,15 +272,29 @@ export function HomePartnerPromoCarousel() {
                   aria-pressed={index === activeIndex}
                   title={item.name}
                   style={{
-                    width: index === activeIndex ? "24px" : "9px",
-                    height: "9px",
+                    width: "32px",
+                    height: "32px",
                     borderRadius: "999px",
                     border: "none",
-                    background: index === activeIndex ? accentColor : "rgba(255, 255, 255, 0.25)",
+                    background: "transparent",
                     cursor: "pointer",
-                    transition: "width 180ms ease, background 180ms ease",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 0,
                   }}
-                />
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: index === activeIndex ? "24px" : "9px",
+                      height: "9px",
+                      borderRadius: "999px",
+                      background: index === activeIndex ? accentColor : "rgba(255, 255, 255, 0.25)",
+                      transition: "width 180ms ease, background 180ms ease",
+                    }}
+                  />
+                </button>
               ))}
             </div>
 

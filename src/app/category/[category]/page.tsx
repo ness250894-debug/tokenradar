@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllCategories, getTokensByCategory, formatCompact, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
-import { TokenCard, type TokenCardData } from "@/components/TokenCard";
+import type { TokenCardData } from "@/components/TokenCard";
+import { TokenGrid } from "@/components/TokenGrid";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
+import { buildSeoDescription, buildSeoTitle } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -14,8 +16,10 @@ export const dynamicParams = false;
 
 function formatCategorySeoTitle(categoryName: string): string {
   const cleaned = categoryName.replace(/\s*\([^)]*\)/g, "").trim();
-  const title = `${cleaned} Crypto Tokens`;
-  return title.length <= 54 ? title : `${cleaned.slice(0, 44).trim()} Tokens`;
+  const abbreviation = /\(([^)]+)\)/.exec(categoryName)?.[1]?.trim();
+  return buildSeoTitle(abbreviation
+    ? `${cleaned} (${abbreviation}) Tokens`
+    : `${cleaned} Crypto Tokens`);
 }
 
 export async function generateStaticParams() {
@@ -29,8 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cat = categories.find(c => c.id === category);
   if (!cat) return { title: "Category Not Found" };
 
+  const tokens = await getTokensByCategory(cat.id);
   const title = formatCategorySeoTitle(cat.name);
-  const description = `Track ${cat.name} crypto tokens by price, market cap, volume, and TokenRadar risk metrics.`;
+  const description = buildSeoDescription(`Compare ${tokens.length} ${cat.name} crypto tokens by price, market cap, trading volume, 24-hour movement, and TokenRadar risk metrics.`);
 
   return {
     title,
@@ -52,9 +57,11 @@ export default async function CategoryPage({ params }: PageProps) {
   
   if (!cat) notFound();
 
-  const tokens = await getTokensByCategory(cat.id);
-  const searchIntentDataset = await getSearchIntentDataset();
-  const searchIntentTrendMap = await getSearchIntentTrendMap();
+  const [tokens, searchIntentDataset, searchIntentTrendMap] = await Promise.all([
+    getTokensByCategory(cat.id),
+    getSearchIntentDataset(),
+    getSearchIntentTrendMap(),
+  ]);
   const totalMarketCap = tokens.reduce((sum, t) => sum + (t.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, t) => sum + (t.volume24h || 0), 0);
   
@@ -117,11 +124,11 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="stats-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "var(--space-lg)" }}>
-        {tokenCards.map(token => (
-          <TokenCard key={token.id} token={token} />
-        ))}
-      </div>
+      <TokenGrid
+        tokens={tokenCards}
+        initialVisibleCount={12}
+        searchPlaceholder={`Search ${cat.name} tokens by name or symbol...`}
+      />
       
       {/* Category SEO Content / Footer */}
       <section style={{ marginTop: "var(--space-4xl)", borderTop: "1px solid var(--border-color)", paddingTop: "var(--space-2xl)" }}>

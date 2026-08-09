@@ -8,7 +8,7 @@ import { buildMarkdownDocumentArtifact, renderDocumentHtml } from "../src/lib/do
 import { collectIndexNowUrlsFromPublicDir } from "../src/lib/indexnow";
 import { buildRobotsText } from "../src/lib/robots-policy";
 import { auditSeoHtml } from "../src/lib/seo-render-audit";
-import { resolveHtmlPathForUrl } from "../scripts/seo-qa-check";
+import { collectRenderedHtmlPages, resolveHtmlPathForUrl } from "../scripts/seo-qa-check";
 
 describe("SEO flow contract implementation", () => {
   it("keeps the SEO artifact source of record successfully ignored by git", () => {
@@ -121,14 +121,30 @@ describe("SEO flow contract implementation", () => {
     }
   });
 
+  it("discovers rendered routes outside the sitemap inventory", () => {
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-seo-routes-"));
+
+    try {
+      fs.writeFileSync(path.join(tmpRoot, "index.html"), "<!doctype html>");
+      fs.mkdirSync(path.join(tmpRoot, "tiktok", "callback"), { recursive: true });
+      fs.writeFileSync(path.join(tmpRoot, "tiktok", "callback", "index.html"), "<!doctype html>");
+      fs.writeFileSync(path.join(tmpRoot, "404.html"), "<!doctype html>");
+
+      const pages = collectRenderedHtmlPages(tmpRoot);
+      expect(Array.from(pages.keys()).sort()).toEqual(["/", "/tiktok/callback"]);
+    } finally {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+    }
+  });
+
   it("audits rendered HTML for SEO checklist fields", () => {
     const html = [
       "<!doctype html><html><head>",
       "<title>Bitcoin Analysis | TokenRadar</title>",
-      '<meta name="description" content="Data-driven Bitcoin analysis." />',
+      '<meta name="description" content="Data-driven Bitcoin analysis with market context, liquidity checks, risk metrics, and source-aware research notes." />',
       '<link rel="canonical" href="https://tokenradar.co/bitcoin" />',
       '<meta property="og:title" content="Bitcoin Analysis" />',
-      '<meta property="og:description" content="Data-driven Bitcoin analysis." />',
+      '<meta property="og:description" content="Data-driven Bitcoin analysis with market context and risk metrics." />',
       '<meta property="og:image" content="https://tokenradar.co/og/token/bitcoin.png" />',
       '<meta name="twitter:card" content="summary_large_image" />',
       '<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article"}</script>',
@@ -156,5 +172,16 @@ describe("SEO flow contract implementation", () => {
     expect(missingCanonical.checks).toContainEqual(
       expect.objectContaining({ id: "canonical", passed: false }),
     );
+
+    const noindexHtml = html
+      .replace('<link rel="canonical" href="https://tokenradar.co/bitcoin" />', '<link rel="canonical" href="https://tokenradar.co/ethereum" />')
+      .replace("</head>", '<meta name="robots" content="noindex, follow" /></head>');
+    const noindexResult = auditSeoHtml({
+      html: noindexHtml,
+      url: "https://tokenradar.co/upcoming/ethereum",
+      sitemapUrls: new Set(["https://tokenradar.co/bitcoin"]),
+      expectedIndexable: false,
+    });
+    expect(noindexResult.passed).toBe(true);
   });
 });

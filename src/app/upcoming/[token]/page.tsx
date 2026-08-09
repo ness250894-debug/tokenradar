@@ -6,7 +6,14 @@ import type { Metadata } from "next";
 import { LastUpdated } from "@/components/LastUpdated";
 import { StickyConversionHeader } from "@/components/StickyConversionHeader";
 import { CountUp } from "@/components/CountUp";
-import { canonicalPath } from "@/lib/seo";
+import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
+import {
+  buildEntitySeoTitle,
+  buildSeoDescription,
+  choosePreferredTgeId,
+  getTgeDuplicateKey,
+  getTgeIndexDecision,
+} from "@/lib/seo";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { getTgeEvidenceCount, getTgeSourceHost, getTgeStatusLabel } from "@/lib/tge";
 
@@ -37,22 +44,39 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
   if (!tge) return { title: "Upcoming TGE" };
 
   const isReleased = tge.status === "released";
-  const title = isReleased
-    ? `${tge.name} (${tge.symbol}) Launch Recap & Analysis | TokenRadar`
-    : `${tge.name} (${tge.symbol}) TGE Watchlist & Launch Evidence | TokenRadar`;
-  const description = isReleased
+  const title = buildEntitySeoTitle({
+    name: tge.name,
+    symbol: tge.symbol,
+    after: isReleased ? " Launch Recap" : " TGE Watchlist",
+  });
+  const description = buildSeoDescription(isReleased
     ? `${tge.name} has launched and is now trading. Read our launch recap and analysis of this ${tge.category} project.`
-    : `Evidence-based launch watchlist for ${tge.name}, including TGE status, confidence, source signals, and graduation criteria.`;
+    : `Evidence-based launch watchlist for ${tge.name}, including TGE status, confidence, source signals, and graduation criteria.`);
 
-  // If token has graduated and has a main tracked page, set canonical to it
-  const tokenDetail = isReleased ? await getTokenDetail(tge.id) : null;
-  const canonical = tokenDetail ? canonicalPath(`/${tge.id}`) : canonicalPath(`/upcoming/${tge.id}`);
+  const duplicateKey = getTgeDuplicateKey(tge);
+  const duplicates = tges.filter((item) => getTgeDuplicateKey(item) === duplicateKey);
+  const candidates = await Promise.all(duplicates.map(async (item) => ({
+    tge: item,
+    article: await getArticle(item.id, "tge-preview"),
+    hasLiveToken: item.status === "released" && Boolean(await getTokenDetail(item.id)),
+  })));
+  const preferredTgeId = choosePreferredTgeId(candidates) || tge.id;
+  const currentCandidate = candidates.find((candidate) => candidate.tge.id === tge.id) || {
+    tge,
+    article: null,
+    hasLiveToken: false,
+  };
+  const decision = getTgeIndexDecision(currentCandidate, preferredTgeId);
 
   return {
     title,
     description,
+    robots: {
+      index: decision.indexable,
+      follow: true,
+    },
     alternates: {
-      canonical,
+      canonical: decision.canonical,
     },
     openGraph: buildOpenGraphMetadata({ title, description, type: "article" }),
     twitter: buildTwitterMetadata({ title, description }),
@@ -225,6 +249,11 @@ export default async function TgePage({ params }: TgePageProps) {
       <div className="article-content" style={{ position: "relative" }}>
         {article ? (
           <div>
+            <ResearchFreshnessNotice
+              contentUpdatedAt={article.generatedAt}
+              marketDataAt={detail?.fetchedAt}
+              evidenceCheckedAt={tge.lastVerifiedAt}
+            />
             <div dangerouslySetInnerHTML={{ __html: await markdownToHtml(article.content, tokenData) }} />
             
             <div style={{ marginTop: "var(--space-lg)" }}>

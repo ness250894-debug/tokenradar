@@ -5,11 +5,16 @@ import { describe, expect, it } from "vitest";
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
 import { type Article, type TokenDetail, type UpcomingTge } from "../src/lib/content-loader";
 import {
+  buildEntitySeoTitle,
+  buildSeoDescription,
+  choosePreferredTgeId,
   canonicalPath,
   canonicalUrl,
   filterIndexableArticleTokenIds,
+  getTgeIndexDecision,
   isArticleIndexable,
   isTokenOverviewIndexable,
+  isTokenOverviewIndexableFromVolume,
 } from "../src/lib/seo";
 
 function makeTokenDetail(volume24h: number): TokenDetail {
@@ -120,6 +125,29 @@ function loadTokenDetails(): Record<string, TokenDetail> {
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as Record<string, TokenDetail>;
 }
 
+function makeTge(overrides: Partial<UpcomingTge> = {}): UpcomingTge {
+  return {
+    id: "test-launch",
+    name: "Test Launch",
+    symbol: "TST",
+    category: "Infrastructure",
+    expectedTge: "Q4 2026",
+    narrativeStrength: 70,
+    dataSource: "https://example.com/launch",
+    discoveredAt: "2026-07-01T00:00:00.000Z",
+    lastVerifiedAt: "2026-08-01T00:00:00.000Z",
+    lifecycleStatus: "watchlist",
+    confidence: 70,
+    signals: [{
+      type: "tge",
+      sourceType: "official",
+      url: "https://example.com/launch",
+      observedAt: "2026-08-01T00:00:00.000Z",
+    }],
+    ...overrides,
+  };
+}
+
 function loadUpcomingTges(): UpcomingTge[] {
   const filePath = path.join(process.cwd(), "data/upcoming-tges.json");
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as UpcomingTge[];
@@ -152,6 +180,7 @@ describe("SEO helpers", () => {
     expect(isTokenOverviewIndexable(makeTokenDetail(5_000), makeArticle(900))).toBe(false);
     expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(100))).toBe(false);
     expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(900))).toBe(true);
+    expect(isTokenOverviewIndexableFromVolume(100_001, makeArticle(900))).toBe(true);
   });
 
   it("uses the shared article quality rule for secondary article indexability", () => {
@@ -197,6 +226,49 @@ describe("generated sitemaps", () => {
       const overview = loadOverviewArticle(tokenId);
       expect(isTokenOverviewIndexable(detail, overview), `${tokenId} should be indexable if it is in sitemap-tokens.xml`).toBe(true);
     }
+  });
+
+  it("keeps rendered dynamic titles and descriptions inside shared SERP budgets", () => {
+    const title = buildEntitySeoTitle({
+      name: "An Extremely Long Institutional Tokenized Treasury Product Name",
+      symbol: "LONG",
+      before: "How to Buy ",
+    });
+    const description = buildSeoDescription("market context ".repeat(30));
+
+    expect(`${title} | TokenRadar`.length).toBeLessThanOrEqual(60);
+    expect(description.length).toBeLessThanOrEqual(160);
+    expect(title).toContain("(LONG)");
+  });
+
+  it("uses one launch indexability decision for quality, duplicates, and graduated routes", () => {
+    const article = makeArticle(900);
+    const tge = makeTge();
+    expect(getTgeIndexDecision({ tge, article })).toEqual({
+      indexable: true,
+      canonical: "/upcoming/test-launch",
+      reason: "indexable",
+    });
+
+    expect(getTgeIndexDecision({ tge: makeTge({ lifecycleStatus: "candidate" }), article }).reason)
+      .toBe("unpublishable-status");
+    expect(getTgeIndexDecision({ tge, article: null }).reason)
+      .toBe("missing-or-low-quality-preview");
+    expect(getTgeIndexDecision({ tge, article, hasLiveToken: true })).toEqual({
+      indexable: false,
+      canonical: "/test-launch",
+      reason: "graduated-to-token",
+    });
+    expect(getTgeIndexDecision({ tge, article }, "preferred-launch")).toEqual({
+      indexable: false,
+      canonical: "/upcoming/preferred-launch",
+      reason: "duplicate-record",
+    });
+
+    expect(choosePreferredTgeId([
+      { tge: makeTge({ id: "thin-launch" }), article: null },
+      { tge: makeTge({ id: "quality-launch" }), article },
+    ])).toBe("quality-launch");
   });
 
   it("does not list graduated upcoming pages that canonicalize to live token profiles", () => {

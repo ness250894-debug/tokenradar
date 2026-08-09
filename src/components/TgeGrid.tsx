@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpDown, Calendar, CheckCircle2, ExternalLink, Filter, RotateCcw, Search, ShieldCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { trackDirectoryFilter } from "@/lib/engagement-analytics";
@@ -197,9 +196,8 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
         </div>
       </div>
 
-      <AnimatePresence mode="popLayout">
-        {visibleTges.length > 0 ? (
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      {visibleTges.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {visibleTges.map((tge) => {
               const confidence = tge.confidence ?? 0;
               const tone = confidenceTone(confidence);
@@ -209,12 +207,9 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
               const sourceHost = getTgeSourceHost(tge.dataSource);
 
               return (
-                <motion.article
+                <article
                   key={tge.id}
                   className="card h-full flex flex-col"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ y: -4 }}
                   style={{ minHeight: 280, opacity: isGraduated ? 0.82 : 1 }}
                 >
                   <Link href={`/upcoming/${tge.id}`} className="block h-full no-underline" style={{ color: "inherit" }}>
@@ -257,12 +252,12 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                       </div>
                     </div>
                   </Link>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
         ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card" style={{ textAlign: "center", padding: "var(--space-2xl)" }}>
+          <div className="card" style={{ textAlign: "center", padding: "var(--space-2xl)" }}>
             <h3 style={{ fontSize: "var(--text-xl)", fontWeight: 700 }}>No launches match these filters</h3>
             <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-sm)" }}>{emptyStateMessage}</p>
             {hasActiveFilters && (
@@ -270,9 +265,8 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
                 <RotateCcw size={16} aria-hidden="true" /> Reset filters
               </button>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {filteredTges.length > 0 && (
         <div style={{ textAlign: "center", marginTop: "var(--space-2xl)" }}>

@@ -14,6 +14,13 @@ interface TokenIconProps {
   style?: React.CSSProperties;
 }
 
+function getDisplayIconUrl(url: string, size: number): string {
+  if (!url.includes("coin-images.coingecko.com")) return url;
+  if (size <= 24) return url.replace("/large/", "/thumb/").replace("/small/", "/thumb/");
+  if (size <= 48) return url.replace("/large/", "/small/");
+  return url;
+}
+
 /**
  * Smart Token Icon component that falls back to a Letter Avatar if the image hits a 404.
  * Guarantees a clean, premium look regardless of asset availability.
@@ -35,6 +42,7 @@ export function TokenIcon({
   const [failedCandidate, setFailedCandidate] = useState({ key: "", index: 0 });
   const candidateIndex = failedCandidate.key === candidateKey ? failedCandidate.index : 0;
   const iconUrl = iconCandidates[candidateIndex];
+  const displayIconUrl = iconUrl ? getDisplayIconUrl(iconUrl, size) : undefined;
   const isAvatar = !iconUrl;
 
   const containerStyle: React.CSSProperties = {
@@ -63,7 +71,7 @@ export function TokenIcon({
   return (
     <div className={`token-icon-container ${className}`} style={containerStyle}>
       <Image
-        src={iconUrl}
+        src={displayIconUrl || iconUrl}
         alt={`${name} (${symbol.toUpperCase()}) icon`}
         width={size}
         height={size}

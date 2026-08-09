@@ -33,7 +33,7 @@ export const LEARN_AUTHOR = {
 
 export const LEARN_REVIEWER = {
   name: "Pavlo Nakonechnyi",
-  url: "/about",
+  url: "/authors/pavlo-nakonechnyi",
 };
 
 const REVIEWED_AT = "2026-05-11";

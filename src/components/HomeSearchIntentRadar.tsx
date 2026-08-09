@@ -1,16 +1,17 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, Radar, SearchCheck, ShieldAlert } from "lucide-react";
 
 import { TokenIcon } from "@/components/TokenIcon";
-import type { TokenCardData } from "@/components/TokenCard";
 import type { TokenSearchIntentSnapshot, TokenSearchIntentTrend } from "@/lib/search-intent";
-import { trackEvent } from "@/lib/analytics";
+
+interface SearchIntentTokenReference {
+  id: string;
+  imageUrl?: string;
+}
 
 interface HomeSearchIntentRadarProps {
   intents: TokenSearchIntentSnapshot[];
-  tokens: TokenCardData[];
+  tokens: SearchIntentTokenReference[];
   trends?: Record<string, TokenSearchIntentTrend>;
 }
 
@@ -54,23 +55,14 @@ export function HomeSearchIntentRadar({ intents, tokens, trends = {} }: HomeSear
             const tone = scoreTone(intent.attentionScore);
             const trend = trends[intent.tokenId];
             const attentionDelta = formatDelta(trend?.attentionDelta);
-            const handleClick = () => {
-              trackEvent("search_intent_card_click", {
-                token_id: intent.tokenId,
-                primary_intent: intent.primaryIntent,
-                classification: intent.classification,
-                attention_score: intent.attentionScore,
-                source_section: "home_search_intent",
-                page_path: window.location.pathname,
-              });
-            };
 
             return (
               <Link
                 href={`/${intent.tokenId}#search-intent-radar`}
                 className={`home-search-intent-card home-search-intent-${tone}`}
                 key={intent.tokenId}
-                onClick={handleClick}
+                data-analytics-id={`home-search-intent-${intent.tokenId}`}
+                data-analytics-label={`${intent.symbol.toUpperCase()} ${intent.classification}`}
               >
                 <div className="home-search-intent-top">
                   <div className="home-search-intent-token">

@@ -1,9 +1,7 @@
 "use client";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { DollarSign, Radar, SearchCheck, ShieldAlert, TrendingDown, TrendingUp } from "lucide-react";
 import { TokenTickerPill } from "./TokenTickerPill";
-import { CardGlare } from "./CardGlare";
 import { WatchlistButton } from "./WatchlistButton";
 import { trackEvent } from "@/lib/analytics";
 import type { AttentionLabel, HypeClassification, SearchIntentType } from "@/lib/search-intent";
@@ -79,13 +77,8 @@ export function TokenCard({ token }: TokenCardProps) {
   };
 
   return (
-    <CardGlare style={{ height: "100%" }}>
-      <motion.article
-        className="card token-card h-full flex flex-col relative"
-        whileHover={{ y: -5, transition: { duration: 0.2 } }}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+    <div style={{ height: "100%" }}>
+      <article className="card token-card h-full flex flex-col relative">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-start gap-2">
             <Link
@@ -174,7 +167,7 @@ export function TokenCard({ token }: TokenCardProps) {
             <div className="stat-value text-lg">{formatCompact(token.marketCap)}</div>
           </div>
         </Link>
-      </motion.article>
-    </CardGlare>
+      </article>
+    </div>
   );
 }

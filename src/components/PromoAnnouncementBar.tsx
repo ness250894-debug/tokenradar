@@ -46,7 +46,7 @@ function getSnapshot() {
 }
 
 function getServerSnapshot() {
-  return true;
+  return false;
 }
 
 export function PromoAnnouncementBar() {
@@ -80,32 +80,26 @@ export function PromoAnnouncementBar() {
 
   return (
     <aside
+      className="promo-announcement"
       aria-label="Partner promotion carousel"
+      data-nosnippet
       style={{
         background: `linear-gradient(90deg, color-mix(in srgb, ${accentColor} 14%, #101828) 0%, rgba(16, 24, 40, 0.97) 50%, color-mix(in srgb, ${accentColor} 14%, #101828) 100%)`,
         borderBottom: `1px solid color-mix(in srgb, ${accentColor} 32%, transparent)`,
         color: "var(--text-primary, #ffffff)",
         fontSize: "13px",
-        padding: "8px 16px",
         position: "relative",
         zIndex: 101,
         backdropFilter: "blur(8px)",
       }}
     >
       <div
-        className="container"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "12px",
-          flexWrap: "wrap",
-        }}
+        className="container promo-announcement-inner"
       >
         <div
+          className="promo-announcement-content"
           aria-live={isPlaying ? "off" : "polite"}
           aria-atomic="true"
-          style={{ display: "flex", alignItems: "center", gap: "8px", flex: "1 1 460px", minWidth: 0, flexWrap: "wrap" }}
         >
           <span
             style={{
@@ -125,12 +119,13 @@ export function PromoAnnouncementBar() {
             <Tag size={10} /> {partner.offer || categoryLabel}
           </span>
 
-          <span style={{ fontWeight: 500, color: "var(--text-secondary, #e2e8f0)" }}>
-            <strong>{partner.name}</strong>: {partner.description}
+          <span className="promo-announcement-copy" style={{ fontWeight: 500, color: "var(--text-secondary, #e2e8f0)" }}>
+            <strong>{partner.name}</strong><span className="promo-announcement-copy-detail">: {partner.description}</span>
           </span>
 
           {partner.coupon ? (
             <code
+              className="promo-announcement-coupon"
               style={{
                 background: `color-mix(in srgb, ${accentColor} 18%, transparent)`,
                 color: accentColor,
@@ -145,13 +140,16 @@ export function PromoAnnouncementBar() {
             </code>
           ) : null}
 
-          <span style={{ fontSize: "11px", color: "var(--text-muted, #94a3b8)" }}>
+          <span className="promo-announcement-disclosure-long" style={{ fontSize: "11px", color: "var(--text-muted, #94a3b8)" }}>
             {partner.disclosure}
+          </span>
+          <span className="promo-announcement-disclosure-short" style={{ fontSize: "11px", color: "var(--text-muted, #94a3b8)" }}>
+            Paid link
           </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0, flexWrap: "wrap" }}>
-          <span style={{ color: "var(--text-muted)", fontSize: "11px", minWidth: "30px", textAlign: "center" }}>
+        <div className="promo-announcement-actions">
+          <span className="promo-announcement-counter" style={{ color: "var(--text-muted)", fontSize: "11px", minWidth: "30px", textAlign: "center" }}>
             {activeIndex + 1}/{PROMO_PARTNERS.length}
           </span>
           <button type="button" onClick={goPrevious} aria-label="Previous partner promotion" style={SMALL_CONTROL_STYLE}>
@@ -164,7 +162,7 @@ export function PromoAnnouncementBar() {
           <a
             href={partnerUrl}
             {...linkAttrs}
-            aria-label={`${partner.cta} — paid link`}
+            aria-label={`View ${partner.shortCta}: ${partner.cta} — paid link`}
             style={{
               background: accentColor,
               color: partner.textColor || "#ffffff",

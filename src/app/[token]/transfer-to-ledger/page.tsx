@@ -4,7 +4,7 @@ import { getTokenDetail, getAllTokens } from '@/lib/content-loader';
 import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data';
 import { JsonLd } from '@/components/JsonLd';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
-import { canonicalPath } from '@/lib/seo';
+import { buildEntitySeoTitle, buildSeoDescription, canonicalPath } from '@/lib/seo';
 
 export const dynamic = "force-static";
 
@@ -34,17 +34,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const name = token.name;
 
   const ogImage = `/og/token/${token.id}.png`;
+  const title = buildEntitySeoTitle({
+    name,
+    symbol,
+    before: "Move ",
+    after: " to Ledger",
+  });
+  const description = buildSeoDescription(`TokenRadar checklist for transferring ${name} (${symbol}) to a Ledger hardware wallet. Verify the ${technical.network} network, address, test amount, and custody steps before withdrawing.`);
 
   return {
-    title: `How to Transfer ${name} (${symbol}) to Ledger: 2026 Security Guide`,
-    description: `TokenRadar checklist for transferring ${name} (${symbol}) to a Ledger hardware wallet. Review ${technical.network} network details before withdrawing.`,
+    title,
+    description,
     keywords: [`transfer ${name} to ledger`, `store ${symbol} on ledger`, `${name} ledger wallet`, `secure ${symbol} offline`],
     alternates: {
       canonical: canonicalPath(`/${tokenId}/transfer-to-ledger`),
     },
     openGraph: {
-      title: `Secure ${name} (${symbol}) on Ledger`,
-      description: `TokenRadar transfer checklist for moving ${name} via the ${technical.network} network.`,
+      title,
+      description,
       images: [
         {
           url: ogImage,
@@ -56,8 +63,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `Secure ${name} (${symbol}) on Ledger`,
-      description: `TokenRadar transfer checklist for moving ${name} via the ${technical.network} network.`,
+      title,
+      description,
       images: [ogImage],
     },
   };
