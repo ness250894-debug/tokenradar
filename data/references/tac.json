@@ -3,11 +3,18 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Another Bitcoin infrastructure exploit hits, this time draining Lightning payment servers",
-      "link": "https://www.coindesk.com/tech/2026/08/08/another-bitcoin-infrastructure-exploit-hits-this-time-draining-merchant-lightning-nodes",
-      "pubDate": "Sat, 08 Aug 2026 07:46:04 +0000",
+      "title": "Crypto exchange Coinsbuy loses $8 million in coordinated two-blockchain attack",
+      "link": "https://www.coindesk.com/business/2026/08/10/crypto-exchange-coinsbuy-loses-usd8-million-in-coordinated-two-blockchain-attack",
+      "pubDate": "Mon, 10 Aug 2026 11:39:44 +0000",
       "source": "CoinDesk",
-      "snippet": "BTCPay told users running LND to update immediately or take servers offline after attackers stole credentials that can control Lightning wallets and move funds."
+      "snippet": "Onchain forensics tie a single actor to an $8 million coordinated drain across TRON and Ethereum, with most funds routed through FixedFloat and the attack vector still unknown."
+    },
+    {
+      "title": "Crypto’s first quantum attack will look like unexplained breach: Quantus founder",
+      "link": "https://cointelegraph.com/news/cryptos-first-quantum-attack-look-like-ordinary-key-theft-quantus-founder?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 10 Aug 2026 03:34:53 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Bad actors with access to a cryptography-breaking quantum computer probably won’t try to announce it to the world by hacking Satoshi Nakamoto’s high-profile Bitcoin wallets, crypto executives say."
     },
     {
       "title": "BTCPay restricts remote Lightning access after attackers steal funds",
@@ -17,19 +24,19 @@
       "snippet": "Foundation and Citadel21 reported drained Lightning nodes, but the total amount stolen and number of affected operators remain unknown."
     },
     {
+      "title": "Hackers Drain $8 Million From Crypto Exchange Across Two Blockchains",
+      "link": "https://decrypt.co/375213/hackers-drain-8-million-from-crypto-platform-coinsbuy",
+      "pubDate": "Mon, 10 Aug 2026 15:56:30 +0000",
+      "source": "Decrypt",
+      "snippet": "The attacker moved funds across Tron and Ethereum before routing millions through crypto exchanges, while later wallet activity offers clues about how the breach occurred."
+    },
+    {
       "title": "Bitcoin Payment Service BTCPay Warns Critical Flaw Is Under Active Attack",
       "link": "https://decrypt.co/375159/bitcoin-payment-service-btcpay-critical-flaw-active-attack",
       "pubDate": "Fri, 07 Aug 2026 20:00:34 +0000",
       "source": "Decrypt",
       "snippet": "Bitcoin company BTCPay Server told users to install the latest version of the server and replace credentials that may have been exposed."
-    },
-    {
-      "title": "Crypto Wrench Attacks on Pace for Record Year as $30M Stolen in 2026: Chainalysis",
-      "link": "https://decrypt.co/375014/crypto-wrench-attacks-30m-stolen-2026-chainalysis",
-      "pubDate": "Thu, 06 Aug 2026 12:01:04 +0000",
-      "source": "Decrypt",
-      "snippet": "The blockchain analytics firm says home invasions are becoming more common, France has emerged as the leading hotspot, and some attackers are using increasingly sophisticated laundering techniques."
     }
   ],
-  "fetchedAt": "2026-08-09T18:23:52.025Z"
+  "fetchedAt": "2026-08-10T18:44:24.527Z"
 }

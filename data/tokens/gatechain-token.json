@@ -21,25 +21,25 @@
     "explorer": "https://www.gatescan.org/gatelayer"
   },
   "market": {
-    "price": 6.77,
-    "marketCap": 721935969,
+    "price": 6.68,
+    "marketCap": 713270816,
     "marketCapRank": 83,
-    "volume24h": 1339515,
+    "volume24h": 954526,
     "high24h": 6.8,
-    "low24h": 6.7,
-    "priceChange24h": 0.6,
-    "priceChange7d": 4.5,
-    "priceChange30d": 0.9,
-    "priceChange1y": -60.1,
+    "low24h": 6.66,
+    "priceChange24h": -1,
+    "priceChange7d": 3.4,
+    "priceChange30d": -0.2,
+    "priceChange1y": -60,
     "ath": 25.38,
-    "athChangePercentage": -73.32506,
+    "athChangePercentage": -73.69277,
     "athDate": "2025-01-25T16:00:00.000Z",
     "atl": 0.25754,
     "atlDate": "2020-03-12T18:18:02.000Z",
-    "circulatingSupply": 106586832.03464101,
-    "totalSupply": 118838064.14168622,
+    "circulatingSupply": 106587975.84611481,
+    "totalSupply": 118839251.94830902,
     "maxSupply": 142622844,
-    "fdv": 2091470295
+    "fdv": 2066352567
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:08:19.735Z",
-  "lastMarketUpdate": "2026-08-09T18:15:12.764Z"
+  "lastMarketUpdate": "2026-08-10T18:35:34.605Z"
 }
