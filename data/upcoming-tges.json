@@ -5806,5 +5806,51 @@
     "discoveredAt": "2026-08-08T18:14:05.394Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-08T18:14:05.394Z"
+  },
+  {
+    "id": "robinhood-uk-crypto-ai-app",
+    "name": "Robinhood UK Crypto & AI App",
+    "symbol": "TBD",
+    "category": "Fintech/AI/Exchange",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/08/07/robinhood-introduces-no-fee-crypto-trading-in-the-uk-with-ai-assistance",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "New Product/Feature Launch",
+        "sourceType": "news_article",
+        "url": "https://www.coindesk.com/business/2026/08/07/robinhood-introduces-no-fee-crypto-trading-in-the-uk-with-ai-assistance",
+        "title": "Robinhood brings crypto trading to UK in AI-powered all-in-one app",
+        "observedAt": "2026-08-10T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-10T18:36:26.018Z",
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "lastVerifiedAt": "2026-08-10T18:36:26.018Z"
+  },
+  {
+    "id": "uk-fca-tokenized-gold-regulation",
+    "name": "UK FCA Tokenized Gold Regulation",
+    "symbol": "TBD",
+    "category": "RWA/Regulation",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/08/10/why-the-uk-financial-watchdog-is-drafting-new-rules-for-tokenized-gold",
+    "confidence": 35,
+    "signals": [
+      {
+        "type": "Regulatory Initiative",
+        "sourceType": "news_article",
+        "url": "https://www.coindesk.com/business/2026/08/10/why-the-uk-financial-watchdog-is-drafting-new-rules-for-tokenized-gold",
+        "title": "UK’s FCA to regulate tokenized gold to preserve London’s place as the top hub for bullion",
+        "observedAt": "2026-08-10T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-10T18:36:26.019Z",
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "lastVerifiedAt": "2026-08-10T18:36:26.019Z"
   }
 ]
