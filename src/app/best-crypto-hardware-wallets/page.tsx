@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 import { getSiteUrl } from "@/lib/seo";
@@ -549,6 +550,9 @@ export default function HardwareWalletsPage() {
             </aside>
           </div>
         </section>
+      </div>
+      <div className="container">
+        <TopicClusterLinks current="wallets" />
       </div>
     </>
   );

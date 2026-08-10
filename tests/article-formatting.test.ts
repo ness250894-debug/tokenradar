@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
+import { hydrateLiveMarketSummaryFields, normalizeArticleMarkdown } from "../src/lib/article-formatting";
 import { getArticleFaqs } from "../src/lib/content-loader";
 
 describe("normalizeArticleMarkdown", () => {
@@ -102,5 +102,29 @@ describe("getArticleFaqs", () => {
     expect(faqs[0]?.question).toBe("Why does it matter?");
     expect(faqs[0]?.answer).toContain("It matters.");
     expect(faqs[1]?.question).toBe("What next?");
+  });
+});
+
+describe("hydrateLiveMarketSummaryFields", () => {
+  it("replaces only standard summary-table market fields", () => {
+    const content = [
+      "Data snapshot date: May 13, 2026.",
+      "",
+      "| Metric | Value |",
+      "| :--- | :--- |",
+      "| Price | $1.23 |",
+      "| Market [Cap](/cap-4) | $50M |",
+      "| 24h Change | +4.50% |",
+      "| Market Rank | #42 |",
+      "| ATH Distance | -60% |",
+    ].join("\n");
+
+    const result = hydrateLiveMarketSummaryFields(content);
+    expect(result).toContain("Article evidence snapshot: May 13, 2026.");
+    expect(result).toContain("| Price | {{LIVE_PRICE}} |");
+    expect(result).toContain("| Market [Cap](/cap-4) | {{LIVE_MARKET_CAP}} |");
+    expect(result).toContain("| 24h Change | {{LIVE_24H_CHANGE}} |");
+    expect(result).toContain("| Market Rank | {{LIVE_RANK}} |");
+    expect(result).toContain("| ATH Distance | -60% |");
   });
 });

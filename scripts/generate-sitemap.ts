@@ -180,6 +180,7 @@ async function main() {
     { url: "/search-intent", lastmod: getSourceDate("data/search-intent.json", registryDate) },
     { url: "/upcoming", lastmod: upcomingDate },
     { url: "/learn", lastmod: glossaryDate },
+    { url: "/research", lastmod: getSourceDate("data/_metrics_blob.json", registryDate) },
     { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", fallbackDate) },
     { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx", fallbackDate) },
     { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx", fallbackDate) },

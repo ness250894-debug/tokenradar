@@ -4,7 +4,7 @@
  */
 
 import { slugify } from "@/lib/shared-utils";
-import { normalizeArticleMarkdown } from "@/lib/article-formatting";
+import { hydrateLiveMarketSummaryFields, normalizeArticleMarkdown } from "@/lib/article-formatting";
 import type { ArticleQualitySnapshot } from "@/lib/content-quality";
 import { getMarketDataQualityIssues } from "@/lib/market-data-quality";
 import {
@@ -944,7 +944,7 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
   const article = await loadBlob<Article>(file, relPath);
   if (!article) return null;
 
-  const normalizedContent = normalizeArticleMarkdown(article.content || "");
+  const normalizedContent = hydrateLiveMarketSummaryFields(normalizeArticleMarkdown(article.content || ""));
   const wordCount = normalizedContent.split(/\s+/).filter(Boolean).length;
 
   return {

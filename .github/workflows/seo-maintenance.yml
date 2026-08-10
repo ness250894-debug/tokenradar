@@ -1,0 +1,65 @@
+name: Zero-AI SEO Maintenance
+
+on:
+  schedule:
+    - cron: "15 4 * * 0" # Weekly, Sunday at 04:15 UTC
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  audit:
+    name: Search and Index Evidence Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export Search Console and GA4 evidence
+        run: npm run analytics:baseline
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GOOGLE_AUTH_MODE: oauth
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+
+      - name: Export sitemap URL index status
+        run: npm run seo:index-status -- --max 1800
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GOOGLE_AUTH_MODE: oauth
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+
+      - name: Generate deterministic SEO work queue
+        run: npm run seo:opportunities
+
+      - name: Upload SEO evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: zero-ai-seo-evidence-${{ github.run_id }}
+          path: |
+            data/analytics/engagement-baseline-*.json
+            data/analytics/index-status-*.json
+            data/analytics/seo-opportunities-*.json
+            data/analytics/seo-opportunities-*.md
+          if-no-files-found: error
+          retention-days: 14

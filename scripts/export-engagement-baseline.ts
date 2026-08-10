@@ -21,6 +21,7 @@ import * as dotenv from "dotenv";
 import * as fs from "fs";
 import * as http from "http";
 import * as path from "path";
+import { pathToFileURL } from "url";
 import { google } from "googleapis";
 
 const DATE_RANGES = [28, 90];
@@ -250,7 +251,7 @@ async function readOAuthCredentials(oauth2Client: OAuth2Client, redirectUri: str
   ].join("\n"));
 }
 
-async function buildAuth() {
+export async function buildGoogleAuth() {
   const authMode = process.env.GOOGLE_AUTH_MODE?.trim().toLowerCase();
   const oauthConfig = readOAuthClientConfig();
 
@@ -424,7 +425,7 @@ async function main() {
     throw new Error("GSC_SITE_URL or NEXT_PUBLIC_SITE_URL is required to export the engagement baseline.");
   }
 
-  const auth = await buildAuth();
+  const auth = await buildGoogleAuth();
   const analyticsData = google.analyticsdata({ version: "v1beta", auth });
   const searchConsole = google.searchconsole({ version: "v1", auth });
   const property = normalizePropertyId(ga4PropertyId);
@@ -476,7 +477,10 @@ async function main() {
   }, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : String(error));
-  process.exit(1);
-});
+const isDirectExecution = Boolean(process.argv[1]) && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (isDirectExecution) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  });
+}

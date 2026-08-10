@@ -9,6 +9,7 @@ const PLATFORM_LINKS = [
   { href: "/search-intent", label: "Search Intent Radar" },
   { href: "/watchlist", label: "Local Watchlist" },
   { href: "/upcoming", label: "Upcoming Launches" },
+  { href: "/research", label: "Market Risk Research" },
   { href: "/about#methodology", label: "Methodology" },
 ] as const;
 

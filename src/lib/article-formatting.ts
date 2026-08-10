@@ -185,6 +185,45 @@ function normalizeWhitespace(content: string): string {
     .trim();
 }
 
+const LIVE_MARKET_TABLE_FIELDS = new Map([
+  ["price", "{{LIVE_PRICE}}"],
+  ["market cap", "{{LIVE_MARKET_CAP}}"],
+  ["24h change", "{{LIVE_24H_CHANGE}}"],
+  ["market rank", "{{LIVE_RANK}}"],
+]);
+
+function normalizeTableLabel(value: string): string {
+  return value
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+/**
+ * Converts the standard article summary table to render-time market fields.
+ * The prose review date remains intact, while prices/rank in the table are
+ * injected from the latest local token snapshot by markdownToHtml.
+ */
+export function hydrateLiveMarketSummaryFields(content: string): string {
+  const withFreshnessScope = content.replace(
+    /\bData snapshot date:\s*((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\./gi,
+    "Article evidence snapshot: $1. Live values in the summary table and page metrics use the latest local market snapshot.",
+  );
+
+  return withFreshnessScope
+    .split("\n")
+    .map((line) => {
+      if (!isMarkdownTableRow(line) || isMarkdownSeparatorRow(line)) return line;
+      const cells = line.split("|").slice(1, -1).map((cell) => cell.trim());
+      if (cells.length !== 2) return line;
+      const placeholder = LIVE_MARKET_TABLE_FIELDS.get(normalizeTableLabel(cells[0]));
+      return placeholder ? `| ${cells[0]} | ${placeholder} |` : line;
+    })
+    .join("\n");
+}
+
 export function normalizeArticleMarkdown(content: string): string {
   let normalized = normalizeWhitespace(content);
 

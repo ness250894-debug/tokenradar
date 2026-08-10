@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, CalendarClock, Radar, SearchCheck, ShieldAlert } from "lucide-react";
 
 import { TokenGrid } from "@/components/TokenGrid";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import type { TokenCardData } from "@/components/TokenCard";
 import {
   getAllTokens,
@@ -168,6 +169,7 @@ export default async function SearchIntentPage() {
           searchPlaceholder="Search high-attention tokens by name, symbol, category, or intent..."
         />
       </section>
+      <TopicClusterLinks current="intent" />
     </main>
   );
 }
