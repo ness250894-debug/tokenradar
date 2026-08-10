@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-09T18:23:52.952Z",
-    "tokenCount": 513,
+    "tokenCount": 510,
     "topIntents": [
       {
         "intent": "risk",
@@ -32,14 +32,14 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 38,
-        "avgScore": 80
+        "tokenCount": 36,
+        "avgScore": 79
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 22,
-        "avgScore": 96
+        "tokenCount": 21,
+        "avgScore": 98
       }
     ],
     "hotTokens": [
@@ -67,14 +67,14 @@
       "bitway",
       "build-on",
       "momentum-3",
-      "meet48",
       "cap-4",
       "bless-2",
       "ethgas-2",
       "talus",
       "skyai",
       "score",
-      "affine"
+      "affine",
+      "orochi-network"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -16225,83 +16225,6 @@
       ],
       "computedAt": "2026-08-09T18:23:52.952Z"
     },
-    "impossible-cloud-network-token": {
-      "tokenId": "impossible-cloud-network-token",
-      "tokenName": "Impossible Cloud Network Token",
-      "symbol": "icnt",
-      "attentionScore": 81,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 52,
-      "supplyRiskScore": 8,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 95,
-          "queries": [
-            "Impossible Cloud Network Token AI crypto",
-            "Impossible Cloud Network Token AI agent",
-            "ICNT AI token"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 90,
-          "queries": [
-            "Impossible Cloud Network Token price prediction 2026",
-            "Impossible Cloud Network Token price prediction today",
-            "ICNT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 68,
-          "queries": [
-            "how to buy Impossible Cloud Network Token",
-            "where to buy Impossible Cloud Network Token",
-            "ICNT crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 66,
-          "queries": [
-            "Impossible Cloud Network Token risks",
-            "is Impossible Cloud Network Token safe",
-            "Impossible Cloud Network Token scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -20.7% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "Impossible Cloud Network Token AI crypto",
-        "Impossible Cloud Network Token AI agent",
-        "ICNT AI token",
-        "Impossible Cloud Network Token price prediction 2026",
-        "Impossible Cloud Network Token price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-09T18:23:52.952Z"
-    },
     "infinifi-usd": {
       "tokenId": "infinifi-usd",
       "tokenName": "InfiniFi USD",
@@ -19715,83 +19638,6 @@
         "Matrixdock Gold issuer risk",
         "Matrixdock Gold risks",
         "is Matrixdock Gold safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-09T18:23:52.952Z"
-    },
-    "meet48": {
-      "tokenId": "meet48",
-      "tokenName": "MEET48",
-      "symbol": "idol",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 83,
-      "fundamentalsScore": 64,
-      "supplyRiskScore": 71,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 88,
-          "queries": [
-            "MEET48 AI crypto",
-            "MEET48 AI agent",
-            "IDOL AI token"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 78,
-          "queries": [
-            "MEET48 meme coin",
-            "MEET48 price prediction",
-            "is MEET48 worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 74,
-          "queries": [
-            "MEET48 price prediction 2026",
-            "MEET48 price prediction today",
-            "IDOL price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 72,
-          "queries": [
-            "MEET48 token unlock",
-            "MEET48 circulating supply",
-            "MEET48 tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 44.1% keeps medium-term forecasts relevant.",
-        "24h volume equals 33.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "MEET48 AI crypto",
-        "MEET48 AI agent",
-        "IDOL AI token",
-        "MEET48 meme coin",
-        "MEET48 price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -24194,83 +24040,6 @@
         "PYUSD depeg risk",
         "PayPal USD risks",
         "is PayPal USD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-09T18:23:52.952Z"
-    },
-    "peanut-2-2": {
-      "tokenId": "peanut-2-2",
-      "tokenName": "Peanut",
-      "symbol": "peanut",
-      "attentionScore": 88,
-      "attentionLabel": "Hot",
-      "hypeScore": 79,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 67,
-          "queries": [
-            "Peanut price prediction 2026",
-            "Peanut price prediction today",
-            "PEANUT price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 67,
-          "queries": [
-            "Peanut risks",
-            "is Peanut safe",
-            "Peanut scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 58,
-          "queries": [
-            "Peanut meme coin",
-            "Peanut price prediction",
-            "is Peanut worth buying"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 44,
-          "queries": [
-            "Peanut news today",
-            "why is Peanut moving",
-            "PEANUT crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -17.3% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Peanut price prediction 2026",
-        "Peanut price prediction today",
-        "PEANUT price target",
-        "Peanut risks",
-        "is Peanut safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
