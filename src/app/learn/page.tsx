@@ -4,6 +4,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Compass, ShieldCheck } from "lucide
 
 import { JsonLd } from "@/components/JsonLd";
 import { LearnExplorer } from "@/components/LearnExplorer";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { canonicalUrl } from "@/lib/seo";
 import { getLearnItems, type LearnItem } from "@/lib/learn";
 
@@ -237,6 +238,7 @@ export default async function LearnPage() {
           </Link>
         </div>
       </section>
+      <TopicClusterLinks current="risk" />
     </div>
   );
 }

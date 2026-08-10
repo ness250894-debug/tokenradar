@@ -7,6 +7,7 @@ import { HomeRadarBrief } from "@/components/HomeRadarBrief";
 import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
 import { HomeMarketLab, type NarrativeInsight } from "@/components/HomeMarketLab";
 import { HomePartnerPromoCarousel } from "@/components/HomePartnerPromoCarousel";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { AlphaTicker } from "@/components/AlphaTicker";
 import { BinanceLiveMovers } from "@/components/BinanceLiveMovers";
 import { JsonLd } from "@/components/JsonLd";
@@ -381,6 +382,10 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="container">
+        <TopicClusterLinks />
+      </div>
 
       <JsonLd
         id="home-token-itemlist-jsonld"

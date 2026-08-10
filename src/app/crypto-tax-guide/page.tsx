@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 import { getSiteUrl } from "@/lib/seo";
@@ -271,7 +272,7 @@ export default function CryptoTaxGuidePage() {
                   The major 2026 US change is Form 1099-DA. IRS instructions say that for 2026 and beyond, brokers must report gross proceeds for digital asset sales, and basis information is mandatory for covered securities. That does not mean your exchange forms will be complete for every wallet, bridge, or DeFi transaction.
                 </p>
 
-                <h2>2. Taxable Event Matrix</h2>
+                <h2 id="taxable-events">2. Taxable Event Matrix</h2>
                 <p>
                   The table below is a practical starting point for US taxpayers. Other countries can treat the same event differently, especially around airdrops, pooling, wrapping, and DeFi beneficial ownership.
                 </p>
@@ -335,7 +336,7 @@ export default function CryptoTaxGuidePage() {
                   <li><strong>Failed transactions and gas:</strong> fees can still matter even when no intended swap completed.</li>
                 </ul>
 
-                <h2>5. Recordkeeping Checklist</h2>
+                <h2 id="recordkeeping">5. Recordkeeping Checklist</h2>
                 <p>
                   Tax software can organize data, but it cannot invent missing wallet history. Build a year-end folder before you file.
                 </p>
@@ -345,7 +346,7 @@ export default function CryptoTaxGuidePage() {
                   ))}
                 </ol>
 
-                <h2>6. Choosing Crypto Tax Software</h2>
+                <h2 id="tax-software">6. Choosing Crypto Tax Software</h2>
                 <p>
                   Choose software based on your activity pattern, not only the cheapest plan. A centralized-exchange-only investor needs different tooling than someone who used wallets, NFT marketplaces, perps, Solana, Base, and Ethereum DeFi.
                 </p>
@@ -460,6 +461,9 @@ export default function CryptoTaxGuidePage() {
             </aside>
           </div>
         </section>
+      </div>
+      <div className="container">
+        <TopicClusterLinks current="taxes" />
       </div>
     </>
   );

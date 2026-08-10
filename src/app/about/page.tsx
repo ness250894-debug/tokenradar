@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { JsonLd } from "@/components/JsonLd";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { getAllTokens, getUpcomingTGEs } from "@/lib/content-loader";
 import { getSiteUrl } from "@/lib/seo";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
 
-const METHODOLOGY_VERSION = "v1.4";
-const METHODOLOGY_LAST_REVIEWED = "2026-08-09";
+const METHODOLOGY_VERSION = "v1.5";
+const METHODOLOGY_LAST_REVIEWED = "2026-08-10";
 const PAGE_TITLE = "TokenRadar Methodology & Data Sources";
 const PAGE_DESCRIPTION =
   "How TokenRadar scores 500+ crypto assets using CoinGecko market data, documented risk formulas, launch evidence, AI-assisted research, and disclosure rules.";
@@ -385,6 +386,29 @@ export default async function AboutPage() {
             </li>
           </ul>
 
+          <h2>Original Research & Reproducibility</h2>
+          <p>
+            The <Link href="/research">TokenRadar Market Risk Index</Link> is a
+            deterministic research product. It aggregates local token and metric
+            records with documented arithmetic and does not call Gemini, Claude,
+            or another text-generation model.
+          </p>
+          <ul>
+            <li>
+              <strong>Equal-weighted index:</strong> the mean 1–10 Risk Score is
+              multiplied by 10 to produce a 0–100 market snapshot.
+            </li>
+            <li>
+              <strong>Published evidence:</strong> category aggregates are
+              available as JSON and CSV with sample sizes and timestamps.
+            </li>
+            <li>
+              <strong>Known limitations:</strong> categories can overlap, market
+              data changes continuously, and the score does not cover every
+              contract, governance, legal, or counterparty risk.
+            </li>
+          </ul>
+
           <h2>Corrections & Data Issues</h2>
           <p>
             Crypto data changes quickly and third-party APIs can contain stale or
@@ -424,6 +448,15 @@ export default async function AboutPage() {
                   <td>{METHODOLOGY_VERSION}</td>
                   <td>{reviewedLabel}</td>
                   <td>
+                    Added reproducible Market Risk Index evidence, machine-readable
+                    category aggregates, zero-AI SEO maintenance, and stronger
+                    research topic connections.
+                  </td>
+                </tr>
+                <tr>
+                  <td>v1.4</td>
+                  <td>August 9, 2026</td>
+                  <td>
                     Updated coverage snapshot, clarified score limitations, added
                     AI/editorial process detail, corrected TGE sources, and added
                     commercial relationship disclosure.
@@ -441,6 +474,7 @@ export default async function AboutPage() {
           </p>
         </div>
       </section>
+      <TopicClusterLinks current="risk" />
     </div>
   );
 }

@@ -4,9 +4,10 @@ import Link from "next/link";
 import { getAllCategories, getTokensByCategory, formatCompact, getSearchIntentDataset, getSearchIntentTrendMap, getTokenMetrics } from "@/lib/content-loader";
 import type { TokenCardData } from "@/components/TokenCard";
 import { TokenGrid } from "@/components/TokenGrid";
+import { JsonLd } from "@/components/JsonLd";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
-import { buildSeoDescription, buildSeoTitle } from "@/lib/seo";
+import { buildSeoDescription, buildSeoTitle, canonicalUrl } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -84,9 +85,35 @@ export default async function CategoryPage({ params }: PageProps) {
       ...buildSearchIntentCardFields(searchIntent, searchIntentTrend),
     };
   }));
+  const averageRisk = tokenCards.length > 0
+    ? tokenCards.reduce((sum, token) => sum + token.riskScore, 0) / tokenCards.length
+    : 0;
+  const positiveMoverCount = tokens.filter((token) => token.priceChange24h > 0).length;
+  const topByMarketCap = tokens.toSorted((a, b) => b.marketCap - a.marketCap).slice(0, 3);
+  const highestVolume = tokens.toSorted((a, b) => b.volume24h - a.volume24h)[0];
 
   return (
     <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>
+      <JsonLd
+        id={`category-${cat.id}-jsonld`}
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `${cat.name} Crypto Tokens`,
+          description: `Compare ${tokens.length} ${cat.name} crypto tokens using market cap, volume, price movement, and TokenRadar risk metrics.`,
+          url: canonicalUrl(`/category/${cat.id}`),
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: tokens.length,
+            itemListElement: tokens.slice(0, 20).map((token, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: `${token.name} (${token.symbol.toUpperCase()})`,
+              url: canonicalUrl(`/${token.id}`),
+            })),
+          },
+        }}
+      />
       {/* Header section */}
       <div style={{ marginBottom: "var(--space-3xl)", borderBottom: "1px solid var(--border-color)", paddingBottom: "var(--space-xl)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-lg)" }}>
@@ -104,7 +131,7 @@ export default async function CategoryPage({ params }: PageProps) {
         </h1>
         
         <p style={{ fontSize: "var(--text-lg)", color: "var(--text-secondary)", marginBottom: "var(--space-xl)", maxWidth: "800px", lineHeight: 1.6 }}>
-          Track the top tokens in the {cat.name} sector. View deep data analytics, price predictions, and risk scores to make informed decisions.
+          Compare {tokens.length} tracked {cat.name} assets by market capitalization, trading volume, 24-hour movement, and TokenRadar risk score. Data updates with the market pipeline; scores are screening signals, not recommendations.
         </p>
 
         {/* Aggregate Stats */}
@@ -121,6 +148,10 @@ export default async function CategoryPage({ params }: PageProps) {
             <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>24h Volume</div>
             <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{formatCompact(totalVolume)}</div>
           </div>
+          <div className="card" style={{ padding: "var(--space-md)" }}>
+            <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", marginBottom: "var(--space-xs)", textTransform: "uppercase" }}>Average Risk Score</div>
+            <div style={{ fontSize: "var(--text-xl)", fontWeight: 800, color: "var(--text-primary)" }}>{averageRisk.toFixed(1)}/10</div>
+          </div>
         </div>
       </div>
 
@@ -132,13 +163,20 @@ export default async function CategoryPage({ params }: PageProps) {
       
       {/* Category SEO Content / Footer */}
       <section style={{ marginTop: "var(--space-4xl)", borderTop: "1px solid var(--border-color)", paddingTop: "var(--space-2xl)" }}>
-        <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>Why monitor the {cat.name} ecosystem?</h2>
+        <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 800, marginBottom: "var(--space-md)" }}>Compare {cat.name} tokens by market cap, liquidity, and risk</h2>
         <div style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "var(--text-md)" }}>
           <p style={{ marginBottom: "var(--space-md)" }}>
-            The cryptocurrency landscape is vast, but paying attention to specific sectors like <strong>{cat.name}</strong> helps investors identify trends before they go mainstream. By tracking the collective market capitalization and daily trading volume of these projects, you can gauge overall sentiment and capital flow within the sector.
+            This snapshot covers <strong>{tokens.length} {cat.name} assets</strong> with {positiveMoverCount} showing a positive 24-hour move.
+            {topByMarketCap.length > 0 ? ` The largest tracked names by market cap are ${topByMarketCap.map((token) => token.name).join(", ")}.` : ""}
+            {highestVolume ? ` ${highestVolume.name} currently has the highest reported 24-hour volume in this category.` : ""}
+          </p>
+          <p style={{ marginBottom: "var(--space-md)" }}>
+            Market cap describes current network valuation, while volume provides a rough activity and liquidity signal. TokenRadar&apos;s risk score adds recent volatility, market size, volume-to-cap, and all-time-high drawdown. Read the{" "}
+            <Link href="/about#methodology">documented scoring methodology</Link> before comparing scores across assets.
           </p>
           <p>
-            TokenRadar provides proprietary Risk Scores and Growth Potential tracking for all major {cat.name} tokens, separating fundamentally strong projects from market noise. Click into any token above to read our data-driven breakdown and review current price action.
+            Continue with the <Link href="/learn/liquidity-depth">liquidity-depth guide</Link>, review the{" "}
+            <Link href="/research#category-comparison">cross-category risk research</Link>, or open an asset above for its current market snapshot and source context.
           </p>
         </div>
       </section>

@@ -5,6 +5,7 @@ import { AlphaTicker } from "@/components/AlphaTicker";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { TelegramIcon, XIcon } from "@/components/SocialIcons";
 import { TgeGrid } from "@/components/TgeGrid";
+import { TopicClusterLinks } from "@/components/TopicClusterLinks";
 import { getUpcomingTGEs } from "@/lib/content-loader";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { getTgeEvidenceCount, type TgeLifecycleStatus, type UpcomingTge } from "@/lib/tge";
@@ -182,6 +183,7 @@ export default async function UpcomingPage() {
             </div>
           </div>
         </section>
+        <TopicClusterLinks current="launches" />
       </main>
     </div>
   );
