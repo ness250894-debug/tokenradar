@@ -19,25 +19,25 @@
     "explorer": "https://viewblock.io/zilliqa"
   },
   "market": {
-    "price": 0.002399,
-    "marketCap": 46790970,
-    "marketCapRank": 441,
-    "volume24h": 2638092,
-    "high24h": 0.00244784,
-    "low24h": 0.00232952,
-    "priceChange24h": 0.2,
-    "priceChange7d": -5.7,
-    "priceChange30d": -22.3,
-    "priceChange1y": -79.9,
+    "price": 0.00232501,
+    "marketCap": 45355014,
+    "marketCapRank": 445,
+    "volume24h": 1979599,
+    "high24h": 0.00240717,
+    "low24h": 0.00231003,
+    "priceChange24h": -3.8,
+    "priceChange7d": -10.6,
+    "priceChange30d": -22.4,
+    "priceChange1y": -80,
     "ath": 0.255376,
-    "athChangePercentage": -99.0606,
+    "athChangePercentage": -99.08957,
     "athDate": "2021-05-06T09:33:45.000Z",
     "atl": 0.00226978,
     "atlDate": "2026-07-27T14:45:50.000Z",
     "circulatingSupply": 19513551525,
-    "totalSupply": 20543665115.90603,
+    "totalSupply": 20544560462.67743,
     "maxSupply": 21000000000,
-    "fdv": 49260933
+    "fdv": 47751286
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 12
   },
   "fetchedAt": "2026-05-14T07:47:50.492Z",
-  "lastMarketUpdate": "2026-08-10T18:35:34.683Z"
+  "lastMarketUpdate": "2026-08-11T18:38:04.929Z"
 }

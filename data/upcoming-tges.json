@@ -5852,5 +5852,57 @@
     "status": "upcoming",
     "lifecycleStatus": "candidate",
     "lastVerifiedAt": "2026-08-10T18:36:26.019Z"
+  },
+  {
+    "id": "ecx-airdrop",
+    "name": "ECX",
+    "symbol": "ECX",
+    "category": "Infrastructure",
+    "expectedTge": "Upcoming Airdrop",
+    "narrativeStrength": 65,
+    "dataSource": "https://airdropalert.com/blogs/ecx-airdrop-bitcoin-hard-fork/",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 80,
+    "signals": [
+      {
+        "type": "Airdrop Announcement",
+        "sourceType": "Blog Post",
+        "url": "https://airdropalert.com/blogs/ecx-airdrop-bitcoin-hard-fork/",
+        "title": "ECX Airdrop: Bitcoin’s Hard Fork Free Money Is Back",
+        "observedAt": "2024-07-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-11T18:38:55.485Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-11T18:38:55.485Z"
+  },
+  {
+    "id": "adi-chain-shipfinex",
+    "name": "ADI Chain & Shipfinex",
+    "symbol": "TBD",
+    "category": "RWA/DeFi/Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/markets/2026/08/11/emb-7-00-utc-a-usd2-trillion-asset-class-is-getting-a-new-blockchain-rail",
+    "lifecycleStatus": "candidate",
+    "confidence": 50,
+    "signals": [
+      {
+        "type": "Partnership for Tokenization",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/08/11/emb-7-00-utc-a-usd2-2-trillion-asset-class-is-getting-a-new-blockchain-rail",
+        "title": "A $2 trillion asset class is getting a new blockchain rail",
+        "observedAt": "2026-08-11T00:00:00.000Z"
+      },
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/markets/2026/08/11/emb-7-00-utc-a-usd2-trillion-asset-class-is-getting-a-new-blockchain-rail",
+        "observedAt": "2026-08-11T18:38:55.483Z"
+      }
+    ],
+    "discoveredAt": "2026-08-11T18:38:55.486Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-11T18:38:55.486Z"
   }
 ]

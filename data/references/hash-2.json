@@ -3,19 +3,19 @@
   "tokenName": "Provenance Blockchain",
   "articles": [
     {
-      "title": "Controversial Bitcoin fork BIP-110 mines two blocks, then stops",
-      "link": "https://www.coindesk.com/tech/2026/08/09/controversial-bitcoin-fork-bip-110-mines-two-blocks-then-stops",
-      "pubDate": "Sun, 09 Aug 2026 05:08:20 +0000",
+      "title": "Ravencoin, a blockchain built from Bitcoin’s code, could roll back four days of transactions",
+      "link": "https://www.coindesk.com/tech/2026/08/11/ravencoin-could-roll-back-four-days-of-transactions-after-critical-block-flaw",
+      "pubDate": "Tue, 11 Aug 2026 11:24:56 +0000",
       "source": "CoinDesk",
-      "snippet": "The breakaway chain inherited bitcoin’s mining difficulty with only a tiny share of hashpower, leaving blocks hours apart while both chains still accept the same transactions."
+      "snippet": "Two mining pools controlling most of Ravencoin’s hashpower are building a replacement chain from before Friday’s first invalid block, putting deposits, withdrawals and payments made since then at risk of reversal."
     },
     {
-      "title": "BIP-110 Bitcoin branch stalls after two blocks as gap widens",
-      "link": "https://cointelegraph.com/news/bitcoin-bip-110-branch-stalls-miner-support?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Sun, 09 Aug 2026 11:00:53 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "The enforcing fork remains stuck at Bitcoin’s full mining difficulty as mandatory signaling proceeds with little hashpower support."
+      "title": "Ravencoin Crashes 20% as Critical Exploit Threatens to Rollback Network",
+      "link": "https://decrypt.co/375330/ravencoin-crashes-critical-exploit-threatens-rollback",
+      "pubDate": "Tue, 11 Aug 2026 17:02:36 +0000",
+      "source": "Decrypt",
+      "snippet": "Two mining pools controlling most of Ravencoin&#39;s hash power are already rebuilding the chain from before Friday&#39;s first bad block—here&#39;s what a forced rollback would undo."
     }
   ],
-  "fetchedAt": "2026-08-10T18:44:24.513Z"
+  "fetchedAt": "2026-08-11T18:47:15.285Z"
 }
