@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-10T18:44:25.430Z",
-    "tokenCount": 514,
+    "tokenCount": 510,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 222,
+        "tokenCount": 220,
         "avgScore": 74
       },
       {
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 64,
+        "tokenCount": 63,
         "avgScore": 89
       },
       {
@@ -38,7 +38,7 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 28,
+        "tokenCount": 27,
         "avgScore": 94
       }
     ],
@@ -13709,80 +13709,6 @@
       ],
       "computedAt": "2026-08-10T18:44:25.430Z"
     },
-    "fonq": {
-      "tokenId": "fonq",
-      "tokenName": "FONQ",
-      "symbol": "fonq",
-      "attentionScore": 46,
-      "attentionLabel": "Watch",
-      "hypeScore": 36,
-      "fundamentalsScore": 43,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 91,
-          "queries": [
-            "FONQ price prediction 2026",
-            "FONQ price prediction today",
-            "FONQ price target"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 71,
-          "queries": [
-            "FONQ news today",
-            "why is FONQ moving",
-            "FONQ crypto news"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 69,
-          "queries": [
-            "FONQ risks",
-            "is FONQ safe",
-            "FONQ scam check"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "FONQ token unlock",
-            "FONQ circulating supply",
-            "FONQ tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "FONQ price prediction 2026",
-        "FONQ price prediction today",
-        "FONQ price target",
-        "FONQ news today",
-        "why is FONQ moving"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-10T18:44:25.430Z"
-    },
     "four": {
       "tokenId": "four",
       "tokenName": "Four",
@@ -19866,84 +19792,6 @@
       ],
       "computedAt": "2026-08-10T18:44:25.430Z"
     },
-    "megaeth": {
-      "tokenId": "megaeth",
-      "tokenName": "MegaETH",
-      "symbol": "mega",
-      "attentionScore": 70,
-      "attentionLabel": "Rising",
-      "hypeScore": 59,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "MegaETH token unlock",
-            "MegaETH circulating supply",
-            "MegaETH tokenomics"
-          ]
-        },
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 91,
-          "queries": [
-            "MegaETH airdrop",
-            "MegaETH TGE",
-            "MegaETH listing date"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 74,
-          "queries": [
-            "MegaETH risks",
-            "is MegaETH safe",
-            "MegaETH scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 56,
-          "queries": [
-            "MegaETH price prediction 2026",
-            "MegaETH price prediction today",
-            "MEGA price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -31.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 19.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "MegaETH token unlock",
-        "MegaETH circulating supply",
-        "MegaETH tokenomics",
-        "MegaETH airdrop",
-        "MegaETH TGE"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-10T18:44:25.430Z"
-    },
     "melania-meme": {
       "tokenId": "melania-meme",
       "tokenName": "Melania Meme",
@@ -20922,81 +20770,6 @@
         "Midnight scam check",
         "Midnight price prediction 2026",
         "Midnight price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-10T18:44:25.430Z"
-    },
-    "mimblewimblecoin": {
-      "tokenId": "mimblewimblecoin",
-      "tokenName": "MimbleWimbleCoin",
-      "symbol": "mwc",
-      "attentionScore": 59,
-      "attentionLabel": "Rising",
-      "hypeScore": 53,
-      "fundamentalsScore": 39,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 83,
-          "queries": [
-            "MimbleWimbleCoin risks",
-            "is MimbleWimbleCoin safe",
-            "MimbleWimbleCoin scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 59,
-          "queries": [
-            "MimbleWimbleCoin price prediction 2026",
-            "MimbleWimbleCoin price prediction today",
-            "MWC price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 43,
-          "queries": [
-            "how to buy MimbleWimbleCoin",
-            "where to buy MimbleWimbleCoin",
-            "MWC crypto exchange"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "MimbleWimbleCoin token unlock",
-            "MimbleWimbleCoin circulating supply",
-            "MimbleWimbleCoin tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 45.8% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "MimbleWimbleCoin risks",
-        "is MimbleWimbleCoin safe",
-        "MimbleWimbleCoin scam check",
-        "MimbleWimbleCoin price prediction 2026",
-        "MimbleWimbleCoin price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -33092,82 +32865,6 @@
         "THORChain scam check",
         "THORChain staking rewards",
         "THORChain yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-10T18:44:25.430Z"
-    },
-    "tokenize-xchange": {
-      "tokenId": "tokenize-xchange",
-      "tokenName": "Tokenize Xchange",
-      "symbol": "tkx",
-      "attentionScore": 34,
-      "attentionLabel": "Quiet",
-      "hypeScore": 33,
-      "fundamentalsScore": 38,
-      "supplyRiskScore": 42,
-      "classification": "Quiet Watch",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "Tokenize Xchange risks",
-            "is Tokenize Xchange safe",
-            "Tokenize Xchange scam check"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 48,
-          "queries": [
-            "Tokenize Xchange token unlock",
-            "Tokenize Xchange circulating supply",
-            "Tokenize Xchange tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 42,
-          "queries": [
-            "Tokenize Xchange price prediction 2026",
-            "Tokenize Xchange price prediction today",
-            "TKX price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 21,
-          "queries": [
-            "how to buy Tokenize Xchange",
-            "where to buy Tokenize Xchange",
-            "TKX crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Tokenize Xchange risks",
-        "is Tokenize Xchange safe",
-        "Tokenize Xchange scam check",
-        "Tokenize Xchange token unlock",
-        "Tokenize Xchange circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
