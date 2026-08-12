@@ -1,0 +1,50 @@
+{
+  "id": "tradable-latam-bnpl-sstn",
+  "symbol": "pc0000027",
+  "name": "Tradable LatAm BNPL SSTN",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/66793/large/tradable.jpg?1750576283",
+  "description": "This project, facilitated by Tradable.xyz on ZKsync Era, tokenizes bnpl platform allowing customers to access financing both via its mobile app and through various e-commerce checkout paywalls. The notes are issued by Victory Park Capital Advisors under the \"LatAm BNPL Senior Secured Term Notes\" deal, giving on-chain exposure to the underlying cash flows. Tradable integrates traditional and decentralized finance, employing smart contracts for AML/KYC compliance to ensure regulatory standards. The platform enhances liquidity and investor access to the multi‑trillion‑dollar private credit market, streamlining asset management and due diligence via a user‑friendly interface. By leveraging ZKsync Era's scalable and secure infrastructure, the project connects existing financial systems to blockchain rails while preserving data privacy and reducing settlement costs.",
+  "categories": [
+    "ZkSync Ecosystem",
+    "Real World Assets (RWA)",
+    "Tradable Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.tradable.xyz/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://era.zksync.network/address/0xc629d9e3d1a4325dbfaff85d5a61da956cc5e32b"
+  },
+  "market": {
+    "price": 1,
+    "marketCap": 47000000,
+    "marketCapRank": 443,
+    "volume24h": 0,
+    "high24h": 1,
+    "low24h": 1,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1,
+    "athChangePercentage": 0,
+    "athDate": "2025-07-03T02:25:01.000Z",
+    "atl": 1,
+    "atlDate": "2026-07-23T07:25:00.000Z",
+    "circulatingSupply": 47000000,
+    "totalSupply": 47000000,
+    "maxSupply": 100000000,
+    "fdv": 47000000
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-12T18:38:37.001Z"
+}

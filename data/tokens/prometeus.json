@@ -1,0 +1,51 @@
+{
+  "id": "prometeus",
+  "symbol": "prom",
+  "name": "Prom",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/8825/large/Ticker.png?1696508978",
+  "description": "Prom is a modular ZkEVM Layer 2 that enables interoperability across various chains, including both EVM and non-EVM compatible networks. Prom submits its proof of transaction to the additional chains on top of the chosen Settlement chain, building the bridge between ecosystems.\n",
+  "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://prom.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xfc82bb4ba86045af6f327323a46e80412b91b27d"
+  },
+  "market": {
+    "price": 2.61,
+    "marketCap": 47548064,
+    "marketCapRank": 441,
+    "volume24h": 112866645,
+    "high24h": 3.59,
+    "low24h": 1.83,
+    "priceChange24h": 34.73987,
+    "priceChange7d": 34.37094,
+    "priceChange30d": 112.32817,
+    "priceChange1y": -73.58251,
+    "ath": 105.94,
+    "athChangePercentage": -97.5403,
+    "athDate": "2021-04-29T17:09:49.000Z",
+    "atl": 0.088747,
+    "atlDate": "2019-11-08T05:37:42.000Z",
+    "circulatingSupply": 18250000,
+    "totalSupply": 19250000,
+    "maxSupply": 19250000,
+    "fdv": 50153438
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-12T18:38:30.714Z"
+}

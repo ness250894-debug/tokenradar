@@ -21,25 +21,25 @@
     "explorer": "https://gnosisscan.io"
   },
   "market": {
-    "price": 0.993314,
-    "marketCap": 57115442,
-    "marketCapRank": 384,
-    "volume24h": 239642,
-    "high24h": 1.006,
-    "low24h": 0.985077,
-    "priceChange24h": -1.1,
-    "priceChange7d": -1,
-    "priceChange30d": -1.1,
-    "priceChange1y": -1,
+    "price": 1.002,
+    "marketCap": 57531125,
+    "marketCapRank": 388,
+    "volume24h": 6473.28,
+    "high24h": 1.007,
+    "low24h": 0.987339,
+    "priceChange24h": 1.3,
+    "priceChange7d": -0.6,
+    "priceChange30d": -0.2,
+    "priceChange1y": 0.3,
     "ath": 9.92,
-    "athChangePercentage": -89.98458,
+    "athChangePercentage": -89.89631,
     "athDate": "2023-01-29T08:11:18.000Z",
     "atl": 0.17845,
     "atlDate": "2022-09-08T22:52:09.000Z",
-    "circulatingSupply": 57501403.42845578,
-    "totalSupply": 57501352.36308063,
+    "circulatingSupply": 57411358.58396411,
+    "totalSupply": 57372464.86045448,
     "maxSupply": null,
-    "fdv": 57115442
+    "fdv": 57490609
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 70
   },
   "fetchedAt": "2026-05-14T07:46:09.305Z",
-  "lastMarketUpdate": "2026-08-11T18:38:04.917Z"
+  "lastMarketUpdate": "2026-08-12T18:38:11.881Z"
 }
