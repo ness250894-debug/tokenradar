@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-11T18:47:16.236Z",
-    "tokenCount": 514,
+    "tokenCount": 510,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 218,
+        "tokenCount": 217,
         "avgScore": 74
       },
       {
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 61,
+        "tokenCount": 58,
         "avgScore": 89
       },
       {
@@ -19195,81 +19195,6 @@
       ],
       "computedAt": "2026-08-11T18:47:16.236Z"
     },
-    "lido-earn-eth": {
-      "tokenId": "lido-earn-eth",
-      "tokenName": "Lido Earn ETH",
-      "symbol": "earneth",
-      "attentionScore": 37,
-      "attentionLabel": "Watch",
-      "hypeScore": 39,
-      "fundamentalsScore": 33,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 100,
-          "queries": [
-            "Lido Earn ETH risks",
-            "is Lido Earn ETH safe",
-            "Lido Earn ETH scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "Lido Earn ETH staking rewards",
-            "Lido Earn ETH yield",
-            "EARNETH APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 38,
-          "queries": [
-            "Lido Earn ETH price prediction 2026",
-            "Lido Earn ETH price prediction today",
-            "EARNETH price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Lido Earn ETH token unlock",
-            "Lido Earn ETH circulating supply",
-            "Lido Earn ETH tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Market rank and baseline token searches keep this asset on the watchlist."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Lido Earn ETH risks",
-        "is Lido Earn ETH safe",
-        "Lido Earn ETH scam check",
-        "Lido Earn ETH staking rewards",
-        "Lido Earn ETH yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-11T18:47:16.236Z"
-    },
     "lighter": {
       "tokenId": "lighter",
       "tokenName": "Lighter",
@@ -23808,84 +23733,6 @@
         "ON price target",
         "how to buy Orochi Network",
         "where to buy Orochi Network"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-11T18:47:16.236Z"
-    },
-    "osk": {
-      "tokenId": "osk",
-      "tokenName": "OSK",
-      "symbol": "osk",
-      "attentionScore": 43,
-      "attentionLabel": "Watch",
-      "hypeScore": 61,
-      "fundamentalsScore": 15,
-      "supplyRiskScore": 100,
-      "classification": "Organic Interest",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "OSK token unlock",
-            "OSK circulating supply",
-            "OSK tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 91,
-          "queries": [
-            "OSK risks",
-            "is OSK safe",
-            "OSK scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 64,
-          "queries": [
-            "OSK meme coin",
-            "OSK price prediction",
-            "is OSK worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 45,
-          "queries": [
-            "OSK price prediction 2026",
-            "OSK price prediction today",
-            "OSK price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "OSK token unlock",
-        "OSK circulating supply",
-        "OSK tokenomics",
-        "OSK risks",
-        "is OSK safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -34237,82 +34084,6 @@
       ],
       "computedAt": "2026-08-11T18:47:16.236Z"
     },
-    "tronbank": {
-      "tokenId": "tronbank",
-      "tokenName": "TronBank",
-      "symbol": "tbk",
-      "attentionScore": 34,
-      "attentionLabel": "Quiet",
-      "hypeScore": 35,
-      "fundamentalsScore": 24,
-      "supplyRiskScore": 100,
-      "classification": "Quiet Watch",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "TronBank token unlock",
-            "TronBank circulating supply",
-            "TronBank tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 74,
-          "queries": [
-            "TronBank risks",
-            "is TronBank safe",
-            "TronBank scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "TronBank staking rewards",
-            "TronBank yield",
-            "TBK APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 40,
-          "queries": [
-            "TronBank price prediction 2026",
-            "TronBank price prediction today",
-            "TBK price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "No strong free-data catalyst is visible yet."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "TronBank token unlock",
-        "TronBank circulating supply",
-        "TronBank tokenomics",
-        "TronBank risks",
-        "is TronBank safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-11T18:47:16.236Z"
-    },
     "true-usd": {
       "tokenId": "true-usd",
       "tokenName": "TrueUSD",
@@ -34915,83 +34686,6 @@
         "Uniswap scam check",
         "Uniswap staking rewards",
         "Uniswap yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-11T18:47:16.236Z"
-    },
-    "unit-pump": {
-      "tokenId": "unit-pump",
-      "tokenName": "Unit Pump",
-      "symbol": "upump",
-      "attentionScore": 73,
-      "attentionLabel": "Rising",
-      "hypeScore": 78,
-      "fundamentalsScore": 16,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Unit Pump token unlock",
-            "Unit Pump circulating supply",
-            "Unit Pump tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Unit Pump risks",
-            "is Unit Pump safe",
-            "Unit Pump scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 69,
-          "queries": [
-            "Unit Pump price prediction 2026",
-            "Unit Pump price prediction today",
-            "UPUMP price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 52,
-          "queries": [
-            "how to buy Unit Pump",
-            "where to buy Unit Pump",
-            "UPUMP crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 45.2% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Unit Pump token unlock",
-        "Unit Pump circulating supply",
-        "Unit Pump tokenomics",
-        "Unit Pump risks",
-        "is Unit Pump safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
