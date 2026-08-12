@@ -5904,5 +5904,154 @@
     "discoveredAt": "2026-08-11T18:38:55.486Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-11T18:38:55.486Z"
+  },
+  {
+    "id": "stonkbroker",
+    "name": "StonkBroker",
+    "symbol": "STONKBROKER",
+    "category": "NFT/DeFi",
+    "expectedTge": "Post-NFT Collection (Implied)",
+    "narrativeStrength": 65,
+    "dataSource": "https://airdropalert.com/blogs/what-is-stonkbroker-token/",
+    "lifecycleStatus": "graduated",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "New Token Announcement/Discussion",
+        "sourceType": "Blog Post",
+        "url": "https://airdropalert.com/blogs/what-is-stonkbroker-token/",
+        "title": "What Is the StonkBroker Token? $STONKBROKER Explained",
+        "observedAt": "2024-07-26T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.917Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-12T18:47:06.371Z",
+    "graduatedAt": "2026-08-12T18:47:06.371Z",
+    "coingeckoRank": 450,
+    "graduationEvidence": {
+      "coingeckoId": "stonkbroker",
+      "coingeckoRank": 450,
+      "rank": 450,
+      "priceUsd": 0.02910601,
+      "volume24h": 9733156,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-12T18:47:06.371Z"
+    }
+  },
+  {
+    "id": "flowdesk",
+    "name": "Flowdesk",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/flowdesk-dubai-vara-broker-dealer-license",
+    "confidence": 30,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/flowdesk-dubai-vara-broker-dealer-license",
+        "title": "Coinbase-backed Flowdesk secures full broker-dealer license in Dubai",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.917Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-12T18:39:14.917Z"
+  },
+  {
+    "id": "openassets",
+    "name": "OpenAssets",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Testnet",
+    "narrativeStrength": 60,
+    "dataSource": "https://cointelegraph.com/news/ita-joins-brazil-tokenization-pilot-with-openassets-brief",
+    "confidence": 30,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Testnet / Mainnet launches",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/ita-joins-brazil-tokenization-pilot-with-openassets-brief",
+        "title": "Itaú joins Brazil tokenization pilot with OpenAssets",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.919Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-12T18:39:14.919Z"
+  },
+  {
+    "id": "level-markets",
+    "name": "LeveL Markets",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/nasdaq-to-acquire-level-markets-in-push-toward-always-on-markets",
+    "confidence": 30,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "Major funding rounds",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/nasdaq-to-acquire-level-markets-in-push-toward-always-on-markets",
+        "title": "Nasdaq to acquire LeveL Markets in push toward ‘always-on’ markets",
+        "observedAt": "2024-07-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.919Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-12T18:39:14.919Z"
+  },
+  {
+    "id": "miden-usdcx",
+    "name": "Miden USDCx",
+    "symbol": "USDCX",
+    "category": "DeFi/Privacy/Stablecoin",
+    "expectedTge": "Post-launch (USDCx introduced)",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/tech/2026/08/12/miden-bets-on-privacy-stablecoins-with-introduction-of-usdcx",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "Product Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/08/12/miden-bets-on-privacy-stablecoins-with-introduction-of-usdcx",
+        "title": "Miden bets on privacy stablecoins with introduction of USDCx",
+        "observedAt": "2026-08-12T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.920Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-12T18:39:14.920Z"
+  },
+  {
+    "id": "anchorpoint-hkdap",
+    "name": "Anchorpoint Hong Kong Dollar Stablecoin",
+    "symbol": "HKDAP",
+    "category": "Stablecoin",
+    "expectedTge": "Launched",
+    "narrativeStrength": 70,
+    "dataSource": "https://www.coindesk.com/business/2026/08/12/standard-chartered-led-anchorpoint-launches-hong-kong-dollar-stablecoin",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "Token Launch",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/12/standard-chartered-led-anchorpoint-launches-hong-kong-dollar-stablecoin",
+        "title": "Standard Chartered-led Anchorpoint launches Hong Kong dollar stablecoin",
+        "observedAt": "2026-08-12T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-12T18:39:14.921Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-12T18:39:14.921Z"
   }
 ]

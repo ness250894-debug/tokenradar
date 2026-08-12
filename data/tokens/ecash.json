@@ -18,25 +18,25 @@
     "explorer": "https://ecash.coin.dance/"
   },
   "market": {
-    "price": 0.00000657,
-    "marketCap": 131738107,
-    "marketCapRank": 210,
-    "volume24h": 4676862,
-    "high24h": 0.00000681,
+    "price": 0.00000652,
+    "marketCap": 130783893,
+    "marketCapRank": 213,
+    "volume24h": 3882597,
+    "high24h": 0.00000671,
     "low24h": 0.00000647,
-    "priceChange24h": -2.9,
-    "priceChange7d": 0.2,
-    "priceChange30d": 27.1,
-    "priceChange1y": -70.1,
+    "priceChange24h": -0.2,
+    "priceChange7d": 3.1,
+    "priceChange30d": 0.3,
+    "priceChange1y": -70,
     "ath": 0.00038001,
-    "athChangePercentage": -98.27151,
+    "athChangePercentage": -98.28425,
     "athDate": "2021-09-04T09:09:31.000Z",
     "atl": 0.00000479,
     "atlDate": "2026-07-01T01:13:50.000Z",
-    "circulatingSupply": 20068370297580,
-    "totalSupply": 20068395297580,
+    "circulatingSupply": 20068670297580,
+    "totalSupply": 20068810922580,
     "maxSupply": 21000000000000,
-    "fdv": 131738107
+    "fdv": 130784707
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:32:38.041Z",
-  "lastMarketUpdate": "2026-08-11T18:38:04.882Z"
+  "lastMarketUpdate": "2026-08-12T18:38:11.850Z"
 }
