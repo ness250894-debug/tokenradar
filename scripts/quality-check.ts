@@ -24,7 +24,12 @@ import * as fs from "fs";
 import * as path from "path";
 import { logError, logActivity } from "../src/lib/reporter";
 import { ensureDirSync, loadEnv, safeReadJson } from "../src/lib/utils";
-import { evaluateArticleQuality, getArticleQualityThresholds, PROHIBITED_FINANCIAL_PHRASES } from "../src/lib/content-quality";
+import {
+  countArticleDataPoints,
+  evaluateArticleQuality,
+  getArticleQualityThresholds,
+  PROHIBITED_FINANCIAL_PHRASES,
+} from "../src/lib/content-quality";
 import { validateArticleOutboundUrls, validateGeneratedArticleIntegrity } from "./validate-content";
 
 // Load environment
@@ -209,10 +214,8 @@ async function checkArticle(
     }
   }
 
-  // Data points (numbers with $, %, or common patterns)
-  const dataPointRegex = /\$[\d,.]+|\d+(\.\d+)?%|\d{1,3}(,\d{3})+/g;
-  const dataPoints = content.match(dataPointRegex) || [];
-  const dataPointCount = dataPoints.length;
+  // Keep this count identical to the shared generation-time quality gate.
+  const dataPointCount = countArticleDataPoints(content);
   if (dataPointCount < thresholds.minDataPoints) {
     issues.push(`Too few data points: ${dataPointCount} (min ${thresholds.minDataPoints})`);
   }
@@ -336,7 +339,7 @@ async function main() {
   console.log();
 
   if (autoFix && (process.env.GEMINI_API_KEY || process.env.ANTHROPIC_API_KEY)) {
-    console.log("  Mode: --fix with AI rewrite (Gemini 2.5 Flash → Claude Haiku 4.5 fallback)");
+    console.log("  Mode: --fix with AI rewrite (Gemini 3.5 Flash Lite → Claude Haiku 4.5 fallback)");
   } else if (autoFix) {
     console.log("  Mode: --fix (disclaimer only, no AI API key for rewrite)");
   }

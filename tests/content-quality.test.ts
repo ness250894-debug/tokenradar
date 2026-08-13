@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { evaluateArticleQuality, getArticleQualityThresholds } from "../src/lib/content-quality";
+import {
+  countArticleDataPoints,
+  evaluateArticleQuality,
+  getArticleQualityThresholds,
+} from "../src/lib/content-quality";
 
 function makeQualityArticle(type: string, targetWords: number): { type: string; content: string } {
   const requiredBlocks = [
@@ -24,6 +28,10 @@ function makeQualityArticle(type: string, targetWords: number): { type: string; 
 }
 
 describe("content quality thresholds", () => {
+  it("uses one shared data-point definition for scores and ISO dates", () => {
+    expect(countArticleDataPoints("Confidence 68 / 100, checked 2026-08-13, market move 2.5%.")).toBe(3);
+  });
+
   it("requires stronger how-to-buy depth than launch previews", () => {
     expect(getArticleQualityThresholds("how-to-buy").minFailWords).toBe(700);
     expect(getArticleQualityThresholds("tge-preview").minFailWords).toBe(500);
@@ -47,7 +55,6 @@ describe("content quality thresholds", () => {
 
     expect(result.passed).toBe(true);
     expect(result.warnings).toContain("Unsupported heading depth found: use ## section headings only");
-    expect(result.warnings).toContain("Live market placeholders remain in article content");
     expect(result.warnings).toContain("Hardcoded live-date phrasing found; use live market date placeholders instead");
   });
 
@@ -73,6 +80,20 @@ describe("content quality thresholds", () => {
     expect(result.passed).toBe(false);
     expect(result.issues).toContain("Malformed Markdown table block found");
     expect(result.stats.hasMalformedTable).toBe(true);
+  });
+
+  it("allows publication-time live placeholders in regular articles but not TGE previews", () => {
+    const regular = evaluateArticleQuality({
+      ...makeQualityArticle("overview", 900),
+      content: `${makeQualityArticle("overview", 900).content}\n\nCurrent price: {{LIVE_PRICE}}.`,
+    });
+    const tge = evaluateArticleQuality({
+      ...makeQualityArticle("tge-preview", 700),
+      content: `${makeQualityArticle("tge-preview", 700).content}\n\nCurrent price: {{LIVE_PRICE}}.`,
+    });
+
+    expect(regular.warnings).not.toContain("TGE preview contains unsupported live market placeholders");
+    expect(tge.warnings).toContain("TGE preview contains unsupported live market placeholders");
   });
 
   it("fails generated articles that do not expose an early summary table", () => {

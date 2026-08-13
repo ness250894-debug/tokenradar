@@ -45,7 +45,7 @@ export interface AICallOptions {
 const aiMutex = new Mutex();
 let lastGeminiRequestTime = 0;
 
-export const PRIMARY_MODEL = "gemini-2.5-flash";
+export const PRIMARY_MODEL = "gemini-3.5-flash-lite";
 export const FALLBACK_MODEL = "claude-haiku-4-5-20251001";
 const DEFAULT_MAX_OUTPUT_TOKENS = 4000;
 const DEFAULT_AI_RETRIES = 3;
@@ -73,6 +73,7 @@ interface GeminiPromptCacheEntry {
 }
 
 const geminiPromptCaches = new Map<string, Promise<GeminiPromptCacheEntry | null>>();
+const geminiPromptCacheUnavailableModels = new Set<string>();
 
 function getPromptCacheTtlSeconds(options?: PromptCacheOptions): number {
   const ttl = options?.ttlSeconds ?? DEFAULT_PROMPT_CACHE_TTL_SECONDS;
@@ -138,10 +139,12 @@ function buildGeminiPromptCacheDisplayName(cacheKey: string): string {
 }
 
 function shouldUseGeminiPromptCache(
+  model: string,
   systemPrompt: string,
   cacheableUserPrefix: string | undefined,
 ): cacheableUserPrefix is string {
   if (isPromptCachingDisabled()) return false;
+  if (geminiPromptCacheUnavailableModels.has(model)) return false;
   if (!cacheableUserPrefix) return false;
   return approximateTokenCount(`${systemPrompt}\n${cacheableUserPrefix}`) >= GEMINI_PROMPT_CACHE_MIN_TOKENS;
 }
@@ -185,11 +188,19 @@ async function createGeminiPromptCache(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+      retries: 1,
       throwOnHttpError: false,
     });
 
     if (!response.ok) {
       const errorText = await response.text();
+      if (
+        response.status === 429 &&
+        errorText.includes("TotalCachedContentStorageTokensPerModelFreeTier") &&
+        errorText.includes("limit=0")
+      ) {
+        geminiPromptCacheUnavailableModels.add(model);
+      }
       console.warn(`  [prompt-cache] Gemini cache create skipped: HTTP ${response.status}: ${errorText.substring(0, 240)}`);
       return null;
     }
@@ -267,7 +278,7 @@ function buildGeminiGenerationConfig(
   const thinkingConfig = getGeminiThinkingConfig(model);
 
   return {
-    temperature: 0.7,
+    ...(model.startsWith("gemini-2.5") ? { temperature: 0.7 } : {}),
     maxOutputTokens: maxTokens,
     ...(thinkingConfig ? { thinkingConfig } : {}),
     ...(jsonSchema ? {
@@ -309,7 +320,7 @@ async function callGeminiAPI(
         lastGeminiRequestTime = Date.now();
 
         const cacheableUserPrefix = getCacheableUserPrefix(options);
-        const cacheEntry = shouldUseGeminiPromptCache(systemPrompt, cacheableUserPrefix)
+        const cacheEntry = shouldUseGeminiPromptCache(model, systemPrompt, cacheableUserPrefix)
           ? await getGeminiPromptCache(apiKey, model, systemPrompt, cacheableUserPrefix, options?.promptCache)
           : null;
         const contents = cacheEntry || cacheableUserPrefix

@@ -191,6 +191,18 @@ export function getArticleQualityThresholds(articleType?: string): ArticleQualit
   };
 }
 
+export function countArticleDataPoints(content: string): number {
+  const standardDataPoints = (
+    content.match(/\$[\d,.]+|\d+(\.\d+)?%|\b\d{1,3}\s*\/\s*100\b|#\d+|\d{1,3}(,\d{3})+|\b20\d{2}-\d{2}-\d{2}\b/g) ||
+    []
+  ).length;
+  const evidenceCounts = (
+    content.match(/^\|\s*(?:Source Count|Evidence Count)\s*\|\s*\d+\s*\|\s*$/gim) ||
+    []
+  ).length;
+  return standardDataPoints + evidenceCounts;
+}
+
 export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQualityResult {
   const content = article.content || "";
   const contentLower = content.toLowerCase();
@@ -243,10 +255,7 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
     contentLower.includes("disclaimer");
   if (!hasDisclaimer) issues.push("Missing disclaimer");
 
-  const dataPoints =
-    content.match(/\$[\d,.]+|\d+(\.\d+)?%|\b\d{1,3}\/100\b|#\d+|\d{1,3}(,\d{3})+|\b20\d{2}-\d{2}-\d{2}\b/g) ||
-    [];
-  const dataPointCount = dataPoints.length;
+  const dataPointCount = countArticleDataPoints(content);
   if (dataPointCount < thresholds.minDataPoints) {
     issues.push(`Too few data points: ${dataPointCount} (min ${thresholds.minDataPoints})`);
   }
@@ -295,8 +304,8 @@ export function evaluateArticleQuality(article: ArticleQualityInput): ArticleQua
     warnings.push("Generic filler term repetition is high");
   }
 
-  if (LIVE_MARKET_PLACEHOLDER_PATTERN.test(content)) {
-    warnings.push("Live market placeholders remain in article content");
+  if (articleType === "tge-preview" && LIVE_MARKET_PLACEHOLDER_PATTERN.test(content)) {
+    warnings.push("TGE preview contains unsupported live market placeholders");
   }
 
   if (articleType !== "tge-preview" && HARD_CODED_AS_OF_DATE_PATTERN.test(content)) {

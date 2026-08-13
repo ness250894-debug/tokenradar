@@ -139,6 +139,33 @@ const PUBLISHABLE_STATUSES = new Set<TgeLifecycleStatus>([
   "graduated",
 ]);
 
+const VALID_TGE_SIGNAL_TYPES = new Set<TgeSignalType>([
+  "tge",
+  "token_sale",
+  "airdrop",
+  "exchange_listing",
+  "dex_pool",
+  "aggregator_listing",
+  "mainnet",
+  "testnet",
+  "migration",
+  "funding",
+  "product",
+  "news",
+  "other",
+]);
+
+const VALID_TGE_SOURCE_TYPES = new Set<TgeSourceType>([
+  "official",
+  "news",
+  "funding_db",
+  "exchange",
+  "dex",
+  "aggregator",
+  "community",
+  "other",
+]);
+
 const NEWS_HOSTS = [
   "airdropalert.com",
   "cointelegraph.com",
@@ -242,9 +269,16 @@ export function normalizeTgeSignals(tge: UpcomingTge): TgeSignal[] {
     const key = signal.url.trim();
     if (seen.has(key)) continue;
     seen.add(key);
+    const inferredType = inferTgeSignalType({
+      title: signal.title,
+      expectedTge: tge.expectedTge,
+      category: tge.category,
+      url: signal.url,
+    });
+    const inferredSourceType = inferTgeSourceType(signal.url);
     signals.push({
-      type: signal.type || inferTgeSignalType({ title: signal.title, expectedTge: tge.expectedTge, category: tge.category, url: signal.url }),
-      sourceType: signal.sourceType || inferTgeSourceType(signal.url),
+      type: VALID_TGE_SIGNAL_TYPES.has(signal.type) ? signal.type : inferredType,
+      sourceType: VALID_TGE_SOURCE_TYPES.has(signal.sourceType) ? signal.sourceType : inferredSourceType,
       url: signal.url,
       title: signal.title,
       observedAt: normalizeTgeTimestamp(signal.observedAt, fallbackObservedAt),
@@ -284,6 +318,16 @@ export function isLikelyStaleExpectedTge(expectedTge: string | null | undefined,
   const quarter = Number(quarterMatch[1]);
   const currentQuarter = Math.floor(now.getUTCMonth() / 3) + 1;
   return quarter < currentQuarter;
+}
+
+export function isTgeVerificationStale(
+  tge: UpcomingTge,
+  now = new Date(),
+  maxAgeDays = 60,
+): boolean {
+  const lastVerified = Date.parse(tge.lastVerifiedAt || tge.discoveredAt || "");
+  if (Number.isNaN(lastVerified)) return true;
+  return now.getTime() - lastVerified > maxAgeDays * 24 * 60 * 60 * 1000;
 }
 
 export function scoreTgeConfidence(tge: UpcomingTge): number {
@@ -382,10 +426,46 @@ export function getTgeSortWeight(tge: UpcomingTge): number {
   return STATUS_SORT_WEIGHT[deriveTgeLifecycleStatus(tge)];
 }
 
-export function shouldPublishTgePreview(tge: UpcomingTge): boolean {
+export function shouldPublishTgePreview(tge: UpcomingTge, now = new Date()): boolean {
   const normalized = normalizeTge(tge);
   if (normalized.lifecycleStatus === "rejected") return false;
   if (normalized.lifecycleStatus === "stale") return false;
+  if (
+    !["trading_on_dex", "listed_on_aggregator", "graduated"].includes(normalized.lifecycleStatus || "") &&
+    isTgeVerificationStale(normalized, now)
+  ) {
+    return false;
+  }
+  const signals = normalizeTgeSignals(normalized);
+  const hasContractOrMarketEvidence =
+    (normalized.contracts?.length || 0) > 0 ||
+    Boolean(normalized.graduationEvidence?.coingeckoId || normalized.graduationEvidence?.dexId);
+  if (isGenericTgeSymbol(normalized.symbol) && !hasContractOrMarketEvidence) return false;
+
+  const hasUnverifiedAlreadyTradingClaim = signals.some((signal) => {
+    const title = signal.title || "";
+    return (
+      /\b(listed on|now trading|trading (?:is )?live|available on)\b/i.test(title) &&
+      !/\b(will be listed|plans? to list|scheduled to list|upcoming listing)\b/i.test(title)
+    );
+  });
+  if (hasUnverifiedAlreadyTradingClaim && !hasContractOrMarketEvidence) return false;
+
+  const hasExplicitLaunchEvidence =
+    hasContractOrMarketEvidence ||
+    signals.some((signal) => [
+      "tge",
+      "token_sale",
+      "airdrop",
+      "exchange_listing",
+      "dex_pool",
+      "aggregator_listing",
+      "migration",
+    ].includes(signal.type)) ||
+    /\b(tge|token generation|ico|ido|ieo|token sale|airdrop|exchange listing)\b/i.test(
+      normalized.expectedTge || "",
+    );
+  if (!hasExplicitLaunchEvidence) return false;
   return Boolean(normalized.lifecycleStatus && PUBLISHABLE_STATUSES.has(normalized.lifecycleStatus));
 }
 
