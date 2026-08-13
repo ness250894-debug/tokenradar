@@ -1132,7 +1132,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Funding Round/Product Launch (Conditional OCC Approval)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/augustus-wins-conditional-occ-approval-for-ai-powered-stablecoin-clearing-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Augustus gets conditional OCC approval for AI and stablecoin bank",
@@ -1155,7 +1155,7 @@
     "lifecycleStatus": "graduated",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/company-canton-network-raises-300m-2-billion-valuation",
         "title": "Canton Network creator targets $300M in capital raise: Report",
@@ -1189,7 +1189,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "ICO/IDO/IEO",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.theblock.co/post/400791/galaxy-backed-boundary-to-launch-verifiable-institutional-stablecoin-usbd?utm_source=rss&utm_medium=rss",
         "title": "Galaxy-backed Boundary to launch ‘verifiable’ institutional stablecoin USBD",
@@ -1212,7 +1212,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.theblock.co/post/400948/sky-ecosystem-stablewatch-stablecoin-yield-startup-osero-funding",
         "title": "Sky Ecosystem leads $13.5 million round for Stablewatch-incubated stablecoin yield startup Osero",
@@ -1235,7 +1235,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Token migration / Rebranding",
+        "type": "migration",
         "sourceType": "news",
         "url": "https://www.theblock.co/post/400900/former-bitcoin-miner-bitfarms-reports-145-million-q1-net-loss-amid-keel-rebrand-ai-transition",
         "title": "Former bitcoin miner Bitfarms reports $145 million Q1 net loss amid Keel rebrand, AI transition",
@@ -1258,8 +1258,8 @@
     "confidence": 95,
     "signals": [
       {
-        "type": "Upcoming TGE",
-        "sourceType": "press_release",
+        "type": "tge",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/press-releases/tea-protocol-announces-june-4-mainnet-launch-and-tge-on-aerodrome-to-secure-open-source-development-in-the-ai-era",
         "title": "Tea Protocol announces June 4 mainnet launch and TGE on Aerodrome to secure open-source development in the AI era",
         "observedAt": "2024-05-13T00:00:00.000Z"
@@ -1292,7 +1292,7 @@
     "lifecycleStatus": "watchlist",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/jpmorgan-files-second-tokenized-money-market-fund-ethereum",
         "title": "JPMorgan to launch tokenized money market fund for stablecoin issuers",
@@ -1315,8 +1315,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE",
-        "sourceType": "interview",
+        "type": "tge",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/9g4stfJX/massive-coinbase-news-bitcoin-rips-to-96-750-footballfun-tge-interview-with-founder",
         "title": "Massive Coinbase News! Bitcoin Rips to $96,750! Football.Fun TGE Interview with Founder!",
         "observedAt": "2024-07-30T00:00:00.000Z"
@@ -1349,8 +1349,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "CEO Interview",
-        "sourceType": "news_article",
+        "type": "funding",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/mefbKZgQ/psyopanime-meme-up-30x-are-memes-back-monero-ath-interview-w-joseph-chalom-ceo-of-sharplink",
         "title": "PsyopAnime Meme up 30X! Are Memes back? Monero ATH! Interview W/ Joseph Chalom, CEO of Sharplink",
         "observedAt": "2024-07-30T00:00:00.000Z"
@@ -1372,7 +1372,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Token Launch Announcement",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.theblock.co/post/401075/japan-yen-stablecoin-ejpy?utm_source=rss&utm_medium=rss",
         "title": "Japan’s enterprise-led blockchain to issue yen stablecoin for B2B settlements",
@@ -1395,7 +1395,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "testnet",
         "sourceType": "news",
         "url": "https://decrypt.co/367581/myriad-adopts-chainlink-as-official-oracle-platform-to-power-new-crypto-prediction-markets",
         "title": "Myriad Adopts Chainlink as Official Oracle Platform to Power New Crypto Prediction Markets",
@@ -1418,8 +1418,8 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "ICO/IDO/IEO",
-        "sourceType": "press_release",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/press-releases/deploi-launches-direct-issuance-infrastructure-for-private-credit-on-polygon-secures-isin-allocations-from-nasdaq-csd",
         "title": "Deploi Launches Direct Issuance Infrastructure for Private Credit on Polygon, Secures ISIN Allocations from Nasdaq CSD",
         "observedAt": "2024-05-18T00:00:00.000Z"
@@ -1441,8 +1441,8 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Mainnet Launch",
-        "sourceType": "press_release",
+        "type": "mainnet",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/press-releases/afx-launches-sovereign-layer-1-providing-an-optimized-execution-environment-for-on-chain-perp-dexes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "AFX launches sovereign Layer 1, providing an optimized execution environment for on-chain perp DEXes",
         "observedAt": "2024-05-20T00:00:00.000Z"
@@ -1464,7 +1464,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.theblock.co/post/401601/aeon-raises-8-million-yzi-labs",
         "title": "AEON raises $8 million led by YZi Labs to build settlement layer for AI agents",
@@ -1487,7 +1487,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/news-analysis/2026/05/19/former-bny-exec-launches-nuva-bets-tokenization-will-remake-wall-street",
         "title": "Former BNY exec launches NUVA, bets tokenization will remake Wall Street",
@@ -1510,8 +1510,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "IEO/IPO",
-        "sourceType": "news_snippet",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/MqZOhomP/crypto-rebounds-after-trump-tacos-on-tariffs-bitgo-21b-ipo-solanas-skr-token-soars-250-fdv",
         "title": "Crypto rebounds after Trump TACO’s on Tariffs! BitGo $2.1B IPO! Solana’s SKR token soars 250% FDV!  ",
         "observedAt": "2024-06-14T00:00:00.000Z"
@@ -1533,8 +1533,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "IEO/IPO",
-        "sourceType": "news_snippet",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/VpBdSuOE/trump-sues-jpmorgan-for-5b-ledger-prepares-for-4b-ipo-crypto-adoption-is-no-longer-reversible-says-pwc",
         "title": "Trump sues JPMorgan for $5B! Ledger prepares for $4B IPO! “Crypto Adoption is no longer reversible” says PWC! ",
         "observedAt": "2024-06-14T00:00:00.000Z"
@@ -1556,8 +1556,8 @@
     "confidence": 80,
     "signals": [
       {
-        "type": "TGE",
-        "sourceType": "news_snippet",
+        "type": "tge",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/lokwS0bc/crypto-sells-off-amidst-trump-tariff-turmoil-trove-falls-90-in-awful-tge-pump-fund-announced",
         "title": "Crypto sells off amidst Trump Tariff Turmoil! $Trove falls 90% in awful TGE! Pump Fund announced! ",
         "observedAt": "2024-06-14T00:00:00.000Z"
@@ -1590,7 +1590,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Founder Interview",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/EmmJkWJn/crypto-is-green-up-6-9-memes-outperform-pepe-67-infinex-founder-interview",
         "title": "Crypto is Green! Up 6-9%! Memes outperform! Pepe up 67%! Infinex Founder Interview!",
@@ -1619,8 +1619,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE",
-        "sourceType": "official_announcement",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/20/germany-s-allunity-plans-swedish-krona-stablecoin-pushes-into-ai-agentic-payments",
         "title": "Germany's AllUnity plans Swedish krona stablecoin, pushes into AI agentic payments",
         "observedAt": "2026-05-20T00:00:00.000Z"
@@ -1642,7 +1642,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch (Soft Fork)",
+        "type": "testnet",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/05/21/satoshi-s-1-1m-bitcoin-stash-can-be-saved-from-quantum-attack-says-americanfortress",
         "title": "Satoshi’s 1.1M bitcoin and millions more can be saved from quantum attack, says expert",
@@ -1665,7 +1665,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/21/peer-to-peer-trading-startup-variational-raises-usd50-million-for-real-world-perps-in-funding-round-led-by-dragonfly",
         "title": "Peer-to-peer trading startup Variational raises $50 million for real-world perps in funding round led by Dragonfly",
@@ -1688,7 +1688,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "IPO Filing",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/368608/crypto-exchange-blockchain-com-files-ipo-us",
         "title": "Crypto Exchange Blockchain.com Files for IPO in the US",
@@ -1711,7 +1711,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/press-releases/luffa-secures-strategic-investment-from-gofintech-quantum-at-us220-million-valuation-pioneering-ai-fintech-frontier",
         "title": "Luffa secures strategic investment from GoFintech Quantum at US$220 million valuation, pioneering AI + fintech frontier",
@@ -1734,7 +1734,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/liquid-launches-chatgpt-and-claude-trading-app-with-live-market-execution",
         "title": "Liquid launches ChatGPT and Claude trading app with live market execution",
@@ -1768,8 +1768,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "TGE_Announced",
-        "sourceType": "Press Release",
+        "type": "dex_pool",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/press-releases/prediction-markets-enter-the-derivatives-era-xbit-dex-opens-whitelist-for-prediction-leverage-launching-a-35000-usdc-campaign",
         "title": "Prediction markets enter the derivatives era: XBIT DEX opens whitelist for prediction leverage, launching a 35,000 USDC campaign",
         "observedAt": "2024-05-27T00:00:00.000Z"
@@ -1791,7 +1791,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/policy/2026/05/27/wall-street-gets-new-crypto-rival-after-texas-bank-completes-regulatory-pivot",
         "title": "Wall Street gets new crypto rival after Texas bank completes regulatory pivot",
@@ -1814,7 +1814,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/27/block-kicks-off-cash-app-s-phased-stablecoin-roll-out-to-its-nearly-60-million-users",
         "title": "Block kicks off Cash App’s phased stablecoin roll out to its nearly 60 million users",
@@ -1837,7 +1837,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/27/dtcc-plans-to-bring-tokenized-assets-to-stellar-in-latest-wall-street-blockchain-push",
         "title": "DTCC plans to bring tokenized assets to Stellar in latest Wall Street blockchain push",
@@ -1860,7 +1860,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/27/mastercard-secures-new-york-bitlicense-to-support-stablecoin-and-digital-payment-infrastructure",
         "title": "Mastercard secures New York BitLicense to support stablecoin and digital payment infrastructure",
@@ -1883,7 +1883,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "dex_pool",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/05/27/solana-dex-orca-launches-new-marketplace-for-tokenized-real-world-assets",
         "title": "Solana DEX Orca launches new marketplace for tokenized real-world assets",
@@ -1906,8 +1906,8 @@
     "confidence": 100,
     "signals": [
       {
-        "type": "TGE",
-        "sourceType": "official_announcement",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://decrypt.co/369187/sofi-launches-sofiusd-stablecoin-ethereum-solana",
         "title": "SoFi Launches SoFiUSD Stablecoin Across Ethereum and Solana",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -1929,8 +1929,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Regulatory Approval",
-        "sourceType": "News Article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://decrypt.co/369440/paxos-secures-sec-registration-as-clearing-agency",
         "title": "Paxos Secures SEC Registration as Clearing Agency",
         "observedAt": "2024-06-01T00:00:00.000Z"
@@ -1952,7 +1952,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Tokenized Asset Rollout",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/369603/binance-opens-access-to-7000-us-stocks-prepares-tokenized-bstocks-rollout",
         "title": "Binance Opens Access to 7,000 US Stocks, Prepares Tokenized 'bStocks' Rollout",
@@ -1975,7 +1975,7 @@
     "confidence": 95,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "migration",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/the-open-network-ton-native-currency-plans-to-rebrand-to-gram",
         "title": "TON jumps 15% as The Open Network plans rebrand to Gram",
@@ -1998,7 +1998,7 @@
     "confidence": 100,
     "signals": [
       {
-        "type": "Exchange Partnership/Integration",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/02/coinbase-backs-ethena-ahead-of-savings-product-launch-for-exchange-s-100-million-users",
         "title": "Coinbase backs Ethena ahead of savings product launch for exchange's 100 million users",
@@ -2032,7 +2032,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Launch/Partnership",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/06/02/here-s-how-one-decentralized-cloud-provider-says-private-citizens-can-make-money-from-ai",
         "title": "Here's how one decentralized cloud provider says private citizens can make money from AI",
@@ -2055,7 +2055,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Pivot/Strategy",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/06/02/movement-pivots-to-stablecoin-payments-as-the-layer-2-boom-loses-momentum",
         "title": "Movement pivots to stablecoin payments as the layer-2 boom loses momentum",
@@ -2089,7 +2089,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Product/Network Launch",
+        "type": "dex_pool",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/02/symbiotic-aims-to-make-tokenized-assets-easier-to-cash-out-with-new-liquidity-network",
         "title": "Symbiotic aims to make tokenized assets easier to cash out with new liquidity network",
@@ -2112,7 +2112,7 @@
     "confidence": 95,
     "signals": [
       {
-        "type": "Token Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/02/moneygram-launches-stablecoin-on-stellar-joining-rush-toward-digital-dollar-payments",
         "title": "MoneyGram launches stablecoin on Stellar, joining rush toward digital dollar payments",
@@ -2135,7 +2135,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE / ICO / IDO / IEO",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/kraken-payward-tokenized-ipo-access-retail-investors",
         "title": "Kraken parent Payward brings tokenized IPO access to retail investors",
@@ -2158,7 +2158,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch/Tokenization Plan",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/03/kraken-parent-payward-plans-to-offer-tokenized-ipo-access-as-investors-await-blockbuster-debuts",
         "title": "Kraken parent Payward plans to offer tokenized IPO access as investors await blockbuster debuts",
@@ -2181,7 +2181,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch/Integration",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/apex-group-tokenized-real-estate-fund-goldman-sachs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Apex, Archax join Goldman Sachs tokenized real estate fund project",
@@ -2204,7 +2204,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch/Integration",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/coinbase-launches-pre-ipo-markets-amid-crypto-push-private-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Coinbase launches pre-IPO markets, starting with Elon Musk’s SpaceX",
@@ -2227,7 +2227,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Exchange listing announcements",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/369991/coinbase-launches-pre-ipo-perps-starting-with-elon-musks-spacex",
         "title": "Coinbase Launches Pre-IPO Perps, Starting with Elon Musk's SpaceX",
@@ -2250,7 +2250,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE Announcement",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/jpmorgan-citi-bank-of-america-launch-tokenized-deposit-system-2027",
         "title": "JPMorgan, Citi-backed Clearing House plans tokenized deposit network in 2027: WSJ",
@@ -2273,7 +2273,7 @@
     "confidence": 85,
     "signals": [
       {
-        "type": "Product Launch (Tokenized Gold Visa Card)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/369972/tether-tokenized-gold-visa-stablecoin-card-pays-crypto-rewards",
         "title": "Tether Debuts Tokenized Gold Stablecoin Visa Card That Pays Out Crypto Rewards",
@@ -2296,7 +2296,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Token Launch (Implied)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/06/05/jpmorgan-bank-of-america-and-citi-are-going-on-the-blockchain-offensive-with-a-shared-tokenized-network",
         "title": "JPMorgan, Bank of America, Citi to start blockchain offensive with shared tokenized network",
@@ -2319,8 +2319,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Exchange listing announcements",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/kraken-offers-spacex-ipo-access-through-xstocks",
         "title": "Kraken offers SpaceX IPO access through xStocks",
         "observedAt": "2024-07-26T12:00:00.000Z"
@@ -2342,8 +2342,8 @@
     "confidence": 75,
     "signals": [
       {
-        "type": "Product Launch with Token Integration",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/coinbase-token-backed-mortgages-fannie-mae-summer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Coinbase to launch token-backed mortgage down payments this summer",
         "observedAt": "2024-05-23T00:00:00.000Z"
@@ -2365,7 +2365,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch/Partnership",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/06/america-s-largest-banks-are-building-a-new-digital-currency-network-to-stop-a-massive-deposit-drain",
         "title": "America’s largest banks are building a new digital currency network to stop a massive deposit drain",
@@ -2388,8 +2388,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch / Strategy",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/07/abra-s-bill-barhydt-says-wall-street-s-next-crypto-bet-is-tokenization",
         "title": "Abra’s Bill Barhydt says Wall Street’s next crypto bet is tokenization",
         "observedAt": "2026-06-07T00:00:00.000Z"
@@ -2411,8 +2411,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE / ICO / IDO / IEO",
-        "sourceType": "Exchange Announcement",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/bybit-launches-tokenized-ipo-access-through-xstocks-with-spacex-debut",
         "title": "Bybit to offer tokenized SpaceX IPO access through xStocks",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -2434,7 +2434,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/370522/crypto-lending-protocol-morpho-raises-175-million-wall-street-defi",
         "title": "Crypto Lending Protocol Morpho Raises $175 Million to Aid Wall Street’s DeFi Push",
@@ -2468,7 +2468,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/09/trad-fi-w3-target-usd650-million-in-onchain-private-credit-using-ai-evaluation",
         "title": "Trad.Fi, W3 target $650 million in onchain private credit using AI evaluation",
@@ -2491,7 +2491,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/370615/japans-largest-banks-plan-joint-stablecoin-launch-by-march-2027",
         "title": "Japan's Largest Banks Plan Joint Stablecoin Launch by March 2027",
@@ -2514,7 +2514,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Token Crash/Re-launch Implied",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/370485/humanity-protocol-loses-36m-after-private-keys-compromised-token-crashes-73",
         "title": "Humanity Protocol Loses $36M After Private Keys 'Compromised,' Token Crashes 73%",
@@ -2537,7 +2537,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/370691/tether-nvidia-amazon-back-neura-robotics-1-4-billion-funding-round",
         "title": "Tether, Nvidia and Amazon Back Humanoid Robotics Firm NEURA in $1.4 Billion Funding Round",
@@ -2560,14 +2560,14 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Exchange listing announcements",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/06/10/spacex-stock-is-coming-to-solana-on-the-same-day-it-lists-on-nasdaq",
         "title": "SpaceX stock is coming to Solana on the same day it lists on Nasdaq",
         "observedAt": "2026-06-10T00:00:00.000Z"
       },
       {
-        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/daybook-us/2026/06/11/as-spacex-ipo-approaches-polymarket-ventuals-assign-usd2-trillion-valuation-onchain",
         "title": "As SpaceX IPO approaches, Polymarket, Ventuals assign $2 trillion valuation onchain",
@@ -2590,7 +2590,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/11/citi-opens-new-route-into-private-markets-with-tokenized-share-offering",
         "title": "Citi opens new route into private markets with tokenized share offering",
@@ -2613,7 +2613,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/metaplanet-to-form-securities-arm-through-siiibo-acquisition",
         "title": "Metaplanet to form securities arm through Siiibo acquisition",
@@ -2636,7 +2636,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Testnet / Mainnet launches",
+        "type": "mainnet",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/lg-arbitrum-launch-blockchain-based-bid-for-679b-ad-market",
         "title": "LG, Arbitrum launch blockchain-based bid in $679B ad market",
@@ -2659,7 +2659,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/digital-asset-355m-16z-wall-street-blockchain-rails",
         "title": "Digital Asset lands $355M as a16z doubles down on Wall Street blockchain rails",
@@ -2682,8 +2682,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Tokenized Product Development / Ecosystem Expansion",
-        "sourceType": "news_article",
+        "type": "funding",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/06/12/metaplanet-buys-siiibo-securities-to-accelerate-bitcoin-financial-ecosystem-plans",
         "title": "Metaplanet buys Siiibo Securities to accelerate bitcoin financial ecosystem plans",
         "observedAt": "2026-06-12T00:00:00.000Z"
@@ -2705,7 +2705,7 @@
     "lifecycleStatus": "confirmed_tge",
     "signals": [
       {
-        "type": "Product Launch (tokenized assets)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/exodus-launches-tokenized-stock-marketplace-with-ondo-adds-200-onchain-equities",
         "title": "Exodus launches tokenized stock marketplace with Ondo, adds 200-plus onchain equities",
@@ -2728,14 +2728,14 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Exchange listing announcements",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://airdropalert.com/blogs/invest-in-the-spacex-ipo-with-crypto/",
         "title": "How to Invest in the SpaceX IPO With Crypto Through Bybit (IPO Express Explained)",
         "observedAt": "2024-07-30T00:00:00.000Z"
       },
       {
-        "type": "Exchange listing announcements",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://airdropalert.com/blogs/spacex-ipo-day/",
         "title": "SpaceX IPO: Biggest Listing Ever, a 19% Pop, and an 18,712 Bitcoin Surprise",
@@ -2758,7 +2758,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch (Tokenization)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/371293/coinbase-launch-tokenized-stock-trading-crypto-equities-options",
         "title": "Coinbase Gears Up to Launch Tokenized Stock Trading, Crypto and Equities Options",
@@ -2781,7 +2781,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major Acquisition (potential for future tokenization)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/371308/spacex-new-high-as-elon-musk-firm-agrees-acquire-ai-startup-cursor",
         "title": "SpaceX Shares Hit New High as Elon Musk's Firm Agrees to Acquire AI Startup Cursor for $60 Billion",
@@ -2804,7 +2804,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/06/16/this-ai-builds-you-a-business-runs-it-and-settles-payments-in-usdc",
         "title": "Y Combinator reveals a new AI agent that can build and run an entire business just from a text message",
@@ -2827,7 +2827,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/trace-finance-cross-border-stablecoin-settlement-expansion",
         "title": "Trace Finance raises $32M for cross-border stablecoin settlement expansion",
@@ -2850,8 +2850,8 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Project Development",
-        "sourceType": "News Article",
+        "type": "funding",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/17/heir-to-135-year-gulf-dynasty-is-moving-a-usd6-trillion-trade-market-onto-blockchain-rails",
         "title": "Fifth-generation Kanoo group member is moving a $6 trillion trade market onto blockchain rails",
         "observedAt": "2026-06-17T00:00:00.000Z"
@@ -2873,7 +2873,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch/Expansion",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/blockchaincom-adds-173-tokenized-stocks-and-etfs-through-ondo",
         "title": "Blockchain.com deepens onchain stock offerings as tokenized equities market grows",
@@ -2896,8 +2896,8 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Product Launch (potential token)",
-        "sourceType": "News Article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://decrypt.co/371708/charles-schwab-planning-sp-500-prediction-markets-cboe",
         "title": "Charles Schwab Planning to Roll Out S&#038;P 500 Prediction Markets With Cboe: WSJ",
         "observedAt": "2024-07-29T00:00:00.000Z"
@@ -2919,7 +2919,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/19/gomining-challenges-jack-dorsey-s-square-with-payments-system-designed-around-bitcoin",
         "title": "GoMining challenges Jack Dorsey's Square with payments system designed around bitcoin",
@@ -2942,8 +2942,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Joint Venture / Partnership",
-        "sourceType": "news_article",
+        "type": "funding",
+        "sourceType": "news",
         "url": "https://decrypt.co/371789/new-york-stock-exchange-ice-okx-crypto-tokenized-securities",
         "title": "ICE and OKX Are Teaming Up to Bring Tokenized Securities to Wall Street",
         "observedAt": "2024-10-26T00:00:00.000Z"
@@ -2965,7 +2965,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/19/anchorage-aims-to-bring-banks-onchain-with-new-tokenized-deposit-platform",
         "title": "Anchorage aims to bring banks onchain with new tokenized deposit platform",
@@ -2988,7 +2988,7 @@
     "confidence": 75,
     "signals": [
       {
-        "type": "Joint Venture Announcement",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/06/22/okx-and-nyse-partner-to-bridge-tradfi-and-crypto-markets-in-joint-venture-led-by-andrew-cuomo",
         "title": "OKX and NYSE partner to bridge tradfi and crypto markets in joint venture led by Andrew Cuomo",
@@ -3011,7 +3011,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/22/tradfi-fund-manager-baillie-gifford-introduces-solana-ethereum-tokenized-fund-with-bny",
         "title": "TradFi fund manager Baillie Gifford introduces Solana, Ethereum tokenized fund with BNY",
@@ -3034,7 +3034,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/bitmine-sharplink-and-joe-lubin-back-ethereum-rd-nonprofit",
         "title": "Bitmine, Sharplink and Joe Lubin back Ethereum R&D nonprofit",
@@ -3057,7 +3057,7 @@
     "lifecycleStatus": "graduated",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/enso-launches-rwa-app-trading-500-tokenized-assets",
         "title": "Enso launches RWA app and trading for over 500 tokenized assets",
@@ -3091,7 +3091,7 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/371851/morning-minute-fomos-75m-raise-shows-big-vcs-are-still-betting-on-consumer-crypto",
         "title": "Morning Minute: Fomo's $75M Raise Shows Big VCs Are Still Betting on Consumer Crypto",
@@ -3114,7 +3114,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "testnet",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/06/23/meta-is-developing-a-prediction-market-app-called-arena-as-sector-booms-nyt",
         "title": "Meta is developing a prediction market app called ‘Arena’ as sector booms: NYT",
@@ -3137,7 +3137,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Partnership / Alliance",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/06/23/chainlink-teams-up-with-47-south-korean-european-banks-to-speed-up-international-money-transfers",
         "title": "Chainlink teams up with 47 South Korean, European banks to speed up international money transfers",
@@ -3160,7 +3160,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Leadership Appointment",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/23/former-robinhood-crypto-coo-tanya-denisova-joins-stablecoin-issuer-agora-as-head-of-operations",
         "title": "Former Robinhood Crypto COO Tanya Denisova joins stablecoin issuer Agora as head of operations",
@@ -3183,7 +3183,7 @@
     "confidence": 75,
     "signals": [
       {
-        "type": "Regulatory Approval / Development",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/policy/2026/06/23/european-parliament-clears-last-step-for-a-digital-euro-to-break-u-s-payment-grip",
         "title": "The ECB digital euro takes step forward after winning key European Parliament vote",
@@ -3206,7 +3206,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Token migration / Rebranding",
+        "type": "migration",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/story-protocol-pivots-to-ai-with-rebrand-to-data-foundation?utm_source=rss&utm_medium=rss&utm_campaign=rss",
         "title": "Story Protocol rebrands to DATA Foundation in AI pivot",
@@ -3229,7 +3229,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Token migration / Rebranding",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/372107/story-protocol-rebrands-data-network-ai-training-pivot",
         "title": "Story Protocol Rebrands as Data Network in AI Training Pivot After IP Token Falls 98%",
@@ -3252,7 +3252,7 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/371953/morning-minute-meta-is-building-a-prediction-market",
         "title": "Morning Minute: Meta Is Building a Prediction Market",
@@ -3275,7 +3275,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "New Product/Service Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/kraken-maple-launch-onchain-warehouse-facility-for-crypto-backed-institutional-loans",
         "title": "Kraken, Maple launch onchain warehouse facility for crypto-backed institutional loans",
@@ -3298,7 +3298,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Tokenized Fund Filing",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/25/asset-management-giant-invesco-files-for-tokenized-fund-targeting-stablecoin-reserve-market",
         "title": "Asset management giant Invesco files for tokenized fund targeting stablecoin reserve market",
@@ -3321,7 +3321,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Funding Round (Indirect)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/yuma-bittensor-fund-institutional-tao-decentralized-ai",
         "title": "DCG-backed Yuma launches fund offering institutional exposure to Bittensor",
@@ -3344,7 +3344,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Exchange listing announcements",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/372249/wall-street-next-tokenization-test-blackrock-backed-securitize-ipo",
         "title": "Wall Street's Next Tokenization Test: BlackRock-Backed Securitize's Market Debut",
@@ -3367,7 +3367,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/secondfi-two-week-recovery-cardano-wallet-exploit",
         "title": "SecondFi targets 2-week recovery after Cardano wallet exploit",
@@ -3390,8 +3390,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Product Launch / New Token Integration",
-        "sourceType": "news_article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/metamask-money-account-musd-stablecoin-yield",
         "title": "MetaMask launches stablecoin yield account with card spending",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -3413,8 +3413,8 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Product Launch (Potential Token)",
-        "sourceType": "news_article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/okx-ai-marketplace-autonomous-agent-economy",
         "title": "OKX launches AI marketplace for autonomous agent economy",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -3436,7 +3436,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Upcoming TGE / ICO / IDO / IEO",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/372429/circle-stock-dives-coinbase-blackrock-visa-open-usd-stablecoin",
         "title": "Circle Stock Dives as Coinbase, BlackRock and Visa Back Open USD Stablecoin",
@@ -3459,8 +3459,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Testnet Launch / Feature Development",
-        "sourceType": "news_article",
+        "type": "testnet",
+        "sourceType": "news",
         "url": "https://decrypt.co/372314/xrp-ledger-missing-layer-draws-closer-lending-credit-features-ripple",
         "title": "XRP Ledger's 'Missing Layer' Draws Closer as Developers Test Lending, Credit Features: Ripple",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -3482,14 +3482,14 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/30/circle-slides-8-as-stripe-coinbase-and-blackrock-back-rival-stablecoin-network",
         "title": "Circle slides 13% as Stripe, Coinbase and BlackRock back rival stablecoin network",
         "observedAt": "2026-06-30T00:00:00.000Z"
       },
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/30/why-the-openusd-s-real-threat-that-tanked-circle-stock-still-faces-a-steep-uphill-battle-for-adoption",
         "title": "Why OpenUSD's 'real threat' that tanked Circle stock still faces a steep uphill battle for adoption",
@@ -3512,7 +3512,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/06/29/new-york-life-makes-tokenization-debut-with-onchain-high-yield-bond-fund-with-centrifuge",
         "title": "New York Life's $800 billion asset manager makes tokenization debut with Centrifuge fund",
@@ -3535,7 +3535,7 @@
     "confidence": 95,
     "signals": [
       {
-        "type": "TGE",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/credit-agricole-eurxt-euro-stablecoin-caceis",
         "title": "French banking giant Crédit Agricole launches EURXT euro stablecoin",
@@ -3558,7 +3558,7 @@
     "lifecycleStatus": "watchlist",
     "signals": [
       {
-        "type": "New Project Announcement",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/financial-companies-us-dollar-payment-stablecoin",
         "title": "Financial companies join forces for US dollar stablecoin, keeping reserve earnings",
@@ -3581,7 +3581,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Tokenized Fund Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/372457/new-york-life-investment-management-first-tokenized-bond-fund",
         "title": "New York Life Investment Management Debuts First Tokenized Bond Fund",
@@ -3604,8 +3604,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Testnet / Mainnet launches",
-        "sourceType": "news_article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/01/robinhood-rolls-out-public-blockchain-as-it-expands-deeper-into-crypto",
         "title": "Robinhood rolls out public blockchain as it expands deeper into crypto",
         "observedAt": "2026-07-01T00:00:00.000Z"
@@ -3627,7 +3627,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/web3/2026/07/01/mysterious-solana-project-world-unveiled-as-fully-onchain-prediction-market",
         "title": "Mysterious Solana project World unveiled as fully onchain prediction market",
@@ -3650,7 +3650,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Project Launch",
+        "type": "dex_pool",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/robinhood-links-with-dydx-labs-to-launch-new-dex-arcus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Robinhood links with dYdX Labs to launch new DEX Arcus",
@@ -3673,7 +3673,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/venice-ai-becomes-a-unicorn-as-ai-privacy-concerns-grow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Venice AI becomes unicorn after $65M Series A as AI privacy concerns grow",
@@ -3696,14 +3696,14 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Testnet / Mainnet Launch",
+        "type": "mainnet",
         "sourceType": "news",
         "url": "https://decrypt.co/372667/morning-minute-robinhood-debuts-robinhood-chain",
         "title": "Morning Minute: Robinhood Debuts 'Robinhood Chain'",
         "observedAt": "2024-07-25T00:00:00.000Z"
       },
       {
-        "type": "Testnet / Mainnet Launch",
+        "type": "mainnet",
         "sourceType": "news",
         "url": "https://decrypt.co/372614/robinhood-ai-native-ethereum-layer-2-network-tokenized-stock-trading",
         "title": "Robinhood Launches 'AI-Native' Ethereum Layer-2 Network, Tokenized Stock Trading",
@@ -3726,7 +3726,7 @@
     "confidence": 100,
     "signals": [
       {
-        "type": "TGE",
+        "type": "tge",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/07/02/taiko-s-bridge-is-back-online-after-usd1-7-million-hack-and-its-token-is-up-a-staggering-136",
         "title": "Taiko fully restores cross-chain bridge just 10 days after a $1.7 million hack",
@@ -3760,7 +3760,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/02/etoro-invests-in-onchain-derivatives-platform-extended-as-brokers-race-into-defi",
         "title": "EToro invests in onchain derivatives platform Extended as brokers race into DeFi",
@@ -3783,7 +3783,7 @@
     "confidence": 80,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/moonbeam-pivots-from-polkadot-to-base-unveils-ai-agent-framework",
         "title": "Moonbeam to pivot from Polkadot to Base, unveils AI agent framework",
@@ -3806,7 +3806,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE/Launch Announcement",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/372698/russia-is-ready-for-widespread-use-of-digital-ruble-by-september-says-bank-governor",
         "title": "Russia Is Ready for 'Widespread Use' of Digital Ruble by September, Says Bank Governor",
@@ -3829,7 +3829,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/372614/robinhood-ai-native-ethereum-layer-2-network-tokenized-stock-trading",
         "title": "Robinhood Launches 'AI-Native' Ethereum Layer-2 Network, Tokenized Stock Trading",
@@ -3852,8 +3852,8 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Tokenization Initiative Announcement",
-        "sourceType": "news_snippet",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://decrypt.co/videos/interviews/O1HZN4PH/trump-tariffs-3-return-of-the-bull-market-nyse-tokenising-what-that-means-for-hype-claude-meme-meta",
         "title": "Trump Tariffs 3: Return of the Bull Market! NYSE Tokenising, what that means for $Hype! Claude Meme Meta!",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -3875,7 +3875,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Testnet / Mainnet launches",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/south-korea-toss-partners-optimism-won-stablecoins",
         "title": "Mobile app Toss and blockchain Optimism to conduct Korean won stablecoin POC: report",
@@ -3898,7 +3898,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/berachain-hard-fork-single-token-economy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Berachain hard fork to replace dual-token model with WBERA rewards",
@@ -3921,7 +3921,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Layer-1 Announcement",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/373042/bnb-chain-new-layer-1-ai-agents-high-speed-trading-quantum",
         "title": "BNB Chain Plans New Layer-1 for AI Agents and Quantum Future",
@@ -3944,7 +3944,7 @@
     "lifecycleStatus": "watchlist",
     "signals": [
       {
-        "type": "Product Launch (implies potential tokenization)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/backpack-launches-247-trading-for-tokenized-us-equities",
         "title": "Backpack joins race for 24/7 stock markets with tokenized equities",
@@ -3967,7 +3967,7 @@
     "lifecycleStatus": "watchlist",
     "signals": [
       {
-        "type": "Product Launch (implies potential tokenization/new financial product)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/japan-cryl-bitcoin-backed-loans-6-million",
         "title": "Japanese lender launches Bitcoin-backed loans of up to $6.2M",
@@ -3990,7 +3990,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "TGE",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/373109/sony-bank-clears-occ-hurdle-for-dollar-stablecoin",
         "title": "Sony Bank Clears OCC Hurdle for Dollar Stablecoin",
@@ -4013,7 +4013,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/10/okx-metamask-matter-labs-back-dispute-resolution-court-for-ai-agents",
         "title": "OKX, MetaMask, Matter Labs back dispute resolution court for AI agents",
@@ -4036,7 +4036,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "New product/service announcement (with potential tokenization)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/07/10/metaplanet-explores-bringing-bitcoin-backed-digital-credit-to-japan",
         "title": "Metaplanet explores bringing bitcoin-backed digital credit to Japan",
@@ -4059,8 +4059,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Mainnet Launch",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/zcash-targets-july-28-launch-for-ironwood-network-upgrade",
         "title": "Zcash targets July 28 launch for Ironwood network upgrade",
         "observedAt": "2024-07-25T00:00:00.000Z"
@@ -4081,8 +4081,8 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Product Launch",
-        "sourceType": "News Article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/robinhood-says-ai-agents-will-be-trading-for-crypto-users-soon",
         "title": "Robinhood says its AI agent feature will ‘soon’ be assisting crypto traders",
         "observedAt": "2024-07-16T00:00:00.000Z"
@@ -4104,8 +4104,8 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Product Launch",
-        "sourceType": "News Article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/kraken-to-rebuild-app-around-ai-powered-trading-agents-report",
         "title": "Kraken to overhaul app with AI investing assistant",
         "observedAt": "2024-07-16T00:00:00.000Z"
@@ -4128,7 +4128,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Partnership/Joint Venture",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/13/sbi-holdings-blockchain-initiative-pivots-to-solana-for-tokenization-stablecoin-issuance",
         "title": "SBI Holdings' blockchain initiative pivots to Solana for tokenization, stablecoin issuance",
@@ -4151,7 +4151,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "New Project Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/07/14/ethereum-foundation-spinout-ethsystems-targets-banks-with-blockchain-privacy-technology",
         "title": "Ethereum Foundation spinout EthSystems targets banks with blockchain privacy technology",
@@ -4174,7 +4174,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/velocity-raises-38m-to-build-stablecoin-treasury-infrastructure-for-enterprises",
         "title": "Velocity raises $38M to build stablecoin treasury infrastructure for enterprises",
@@ -4197,8 +4197,8 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
-        "sourceType": "News Article",
+        "type": "product",
+        "sourceType": "news",
         "url": "https://decrypt.co/373571/blackrock-goldman-sachs-jp-morgan-dtcc-tokenized-stocks",
         "title": "BlackRock, Goldman, and JP Morgan Will Give Tokenized Stocks a Try",
         "observedAt": "2024-07-23T00:00:00.000Z"
@@ -4220,7 +4220,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/15/dtcc-moves-tokenized-securities-into-live-trading-marking-a-milestone-for-wall-street-s-blockchain-push",
         "title": "DTCC moves tokenized securities into live trading, marking a milestone for Wall Street's blockchain push",
@@ -4243,7 +4243,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Partnership / Product Development",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/15/cantor-and-securitize-collaborate-on-blockchain-based-ipos",
         "title": "Cantor and Securitize collaborate on blockchain-based IPOs",
@@ -4266,7 +4266,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Announcement",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/policy/2026/07/15/south-korea-to-modify-76-year-old-law-to-classify-cryptocurrencies-as-national-assets",
         "title": "South Korea to modify 76-year-old law to classify cryptocurrencies as national assets",
@@ -4289,7 +4289,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/tradables-1b-stellar-deal-adds-to-institutional-tokenization-boom",
         "title": "Tradable’s $1B Stellar deal adds to institutional tokenization boom",
@@ -4312,7 +4312,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/alpaca-raises-135m-to-fund-tokenized-agent-first-infrastructure",
         "title": "Alpaca raises $135M to fund tokenized agent-first infrastructure",
@@ -4346,7 +4346,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Product/Platform Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/373668/visa-stablecoin-platform-banks-fintech-open-usd",
         "title": "Visa Unveils Stablecoin Platform for Banks and Fintech Companies",
@@ -4369,7 +4369,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "New Project Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/373671/mira-murati-inkling-ai-model-openai-open-source",
         "title": "Mira Murati Drops Her First AI Model After Leaving OpenAI—And It's Fully Open Source",
@@ -4392,7 +4392,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Funding Round",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/16/citadel-securities-invests-usd400-million-in-crypto-com-valuing-exchange-at-usd20-billion",
         "title": "Citadel Securities invests $400 million in Crypto.com, valuing exchange at $20 billion",
@@ -4415,7 +4415,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Testnet / Mainnet launches",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/south-korea-september-second-phase-cbdc-pilot?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "South Korea eyes September launch for second phase of CBDC pilot: Report",
@@ -4438,7 +4438,7 @@
     "confidence": 20,
     "signals": [
       {
-        "type": "New Project Announcement",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/373666/bitcoin-q-day-recovery-proposal-prove-ownership-quantum-attack",
         "title": "Bitcoin Q-Day Recovery Proposal Aims to Let Users Prove Ownership After Quantum Attack",
@@ -4461,7 +4461,7 @@
     "confidence": 20,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/373578/meet-bonsai-first-27b-ai-model-fits-phone",
         "title": "Meet Bonsai: The First 27B AI Model That Fits on Your Phone",
@@ -4484,7 +4484,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Mainnet Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/20/bank-of-korea-prepares-for-live-cbdc-transactions-with-nine-banks-in-september",
         "title": "Bank of Korea prepares for live CBDC transactions with 9 banks in September",
@@ -4507,7 +4507,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Launch / Adoption",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/20/amazon-japan-supplier-az-com-maruwa-to-adopt-yen-stablecoin-jpyc-for-payments",
         "title": "Amazon Japan supplier AZ-Com Maruwa to adopt yen stablecoin JPYC for payments",
@@ -4530,8 +4530,8 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Launch (Pre-token)",
-        "sourceType": "News Article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://cointelegraph.com/news/bases-tokenized-equities-imminent-pollak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Base’s 1:1-backed tokenized equities launch ‘imminent,’ Pollak says",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -4553,7 +4553,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Partnership",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/bitgo-otc-markets-tokenized-securities-broker-dealers",
         "title": "BitGo, OTC Markets plan tokenized securities access for broker-dealers",
@@ -4576,7 +4576,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374026/jack-dorseys-block-launches-buzz-a-nostr-based-slack-and-github-rival-for-ai-agents",
         "title": "Jack Dorsey's Block Launches Buzz, a Nostr-Based Slack and GitHub Rival for AI Agents",
@@ -4599,7 +4599,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Expansion (Tokenized Assets)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/22/kraken-parent-expands-tokenized-stocks-to-hong-kong-uk-and-south-korea-equities",
         "title": "Kraken parent expands tokenized stocks to Hong Kong, UK and South Korea equities",
@@ -4621,7 +4621,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Product Launch (potential tokenized products)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/374110/coinbase-canada-stocks-crypto-prediction-markets",
         "title": "Coinbase Wants to Be Canada's One-Stop Shop for Stocks, Crypto and Prediction Markets",
@@ -4645,8 +4645,8 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "exchange_listing_announcement",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://decrypt.co/373913/worldcoins-wld-jumps-8-on-grayscale-etf-filing",
         "title": "Worldcoin’s WLD Jumps 8% on Grayscale ETF Filing",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -4668,7 +4668,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Funding Round",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/23/abu-dhabi-s-mubadala-capital-joins-tokenization-push-as-coinbase-takes-stake-in-onchain-fund",
         "title": "Abu Dhabi's Mubadala Capital joins tokenization push as Coinbase takes stake in onchain fund",
@@ -4702,7 +4702,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/22/uniswap-pushes-deeper-into-tokenized-assets-with-permissioned-trading-pools",
         "title": "Uniswap pushes deeper into tokenized assets with permissioned trading pools",
@@ -4725,7 +4725,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Token Migration / Rebranding",
+        "type": "migration",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/korbit-rebrand-digital-x-mirae-asset?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "South Korea’s Korbit to rebrand as Digital X under Mirae: Report",
@@ -4748,7 +4748,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374216/world-foundation-raises-52-5m-to-scale-sam-altmans-proof-of-human-id",
         "title": "World Foundation Raises $52.5M to Scale Sam Altman’s ‘Proof of Human’ ID",
@@ -4771,7 +4771,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/24/sam-altman-backed-world-network-secures-fresh-funding-to-fight-online-ai-deepfakes",
         "title": "Sam Altman-backed World Network secures $52.5 million in fresh funding to fight online AI deepfakes",
@@ -4794,7 +4794,7 @@
     "confidence": 20,
     "signals": [
       {
-        "type": "New Product/Tech Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374189/black-forest-labs-flux-3-image-video-robot-hands",
         "title": "Black Forest Labs Unveils FLUX 3 AI: Ditches Stills for Video—And Robot Hands",
@@ -4817,7 +4817,7 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "Tokenization Initiative",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374178/nasdaq-listed-zhibao-bitcoin-treasury-220-million-stock-sale",
         "title": "Nasdaq-Listed Zhibao Wants a Bitcoin Treasury, Plans to Sell $220M in Stock for BTC",
@@ -4840,7 +4840,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Tokenization Initiative",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/374148/brazilian-farmers-cows-blockchain-loans",
         "title": "Brazilian Farmers Are Tokenizing Cows to Get Farm Loans—And It's Working",
@@ -4863,7 +4863,7 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "Major Funding Round",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374145/blackrock-coinbase-strategy-15m-quantum-proof-bitcoin",
         "title": "BlackRock, Coinbase and Strategy Pledge $15M to Quantum-Proof Bitcoin",
@@ -4886,7 +4886,7 @@
     "confidence": 20,
     "signals": [
       {
-        "type": "New Product/Tech Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/374084/alibaba-qwen-image-3-ai-useful-not-just-pretty",
         "title": "Alibaba's New Qwen Image 3 AI Wants to Be Useful, Not Just Pretty",
@@ -4909,7 +4909,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/russias-sberbank-to-launch-crypto-trading-infrastructure-this-year",
         "title": "Russia’s Sberbank to launch crypto trading infrastructure this year",
@@ -4932,7 +4932,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Integration",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/south-korea-bank-payment-jpmorgans-kinexys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "South Korea’s largest bank to launch payment service on JPMorgan’s Kinexys",
@@ -4955,7 +4955,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Partnership Discussions",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/robinhood-cryptocom-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Robinhood in talks with Crypto.com over prediction markets: WSJ",
@@ -4978,7 +4978,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Public Listing Exploration",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/27/cantor-is-advising-crypto-bank-amina-on-path-to-potential-public-listing",
         "title": "Cantor is advising crypto bank AMINA on path to potential public listing",
@@ -5001,7 +5001,7 @@
     "confidence": 65,
     "signals": [
       {
-        "type": "Acquisition for Prediction Market Infrastructure",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/07/27/fanatics-buys-regulated-exchange-in-bid-to-grow-prediction-markets-business",
         "title": "Fanatics buys regulated exchange in bid to grow prediction markets business",
@@ -5024,7 +5024,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Exchange listing announcements",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/kraken-opens-jersey-mikes-ipo-to-retail-investors-through-tokenized-shares-and-direct-allocations",
         "title": "Kraken opens Jersey Mike’s IPO to retail investors through tokenized shares and direct allocations",
@@ -5047,7 +5047,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/markets/european-financial-institutions-launch-rl1-blockchain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "European financial institutions launch RL1 cooperative blockchain network",
@@ -5070,7 +5070,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "New Protocol Announcement",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/29/stablecoin-firm-brale-says-new-protocol-can-remove-a-major-hurdle-to-scaling-custom-tokens",
         "title": "Stablecoin firm Brale says new protocol can remove a major hurdle to scaling custom tokens",
@@ -5093,7 +5093,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Product Launch / Tokenization Initiative",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/07/29/bny-targets-usd8-6-trillion-transfer-agency-market-on-blockchain-rails",
         "title": "BNY targets $8.6 trillion transfer agency market on blockchain rails",
@@ -5116,8 +5116,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Airdrop Announcement",
-        "sourceType": "news_article",
+        "type": "airdrop",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/moonpay-paybox-airdrop-how-to-claim-the-usdc/",
         "title": "MoonPay PayBox Airdrop: How to Claim the USDC Drop With Claude or ChatGPT",
         "observedAt": "2026-07-29T00:00:00.000Z"
@@ -5139,7 +5139,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/aviva-investors-tokenized-fund-central-bank-ireland-xrp-ledger?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Aviva Investors launches tokenized fund after Central Bank of Ireland approval",
@@ -5162,7 +5162,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Token Generation (Discussion)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/samsung-sds-stablecoin-infrastructure-dunamu?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Samsung unit explores stablecoin infrastructure with Upbit’s operator",
@@ -5184,14 +5184,14 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Airdrop Announcement",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/374702/morning-minute-robinhood-posts-its-best-quarter-ever",
         "title": "Morning Minute: Robinhood Posts Its Best Quarter Ever",
         "observedAt": "2024-07-25T00:00:00.000Z"
       },
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/374687/moonpays-paybox-crypto-wallet-claude-chatgpt",
         "title": "MoonPay's PayBox Puts a Crypto Wallet Inside Claude and ChatGPT—And Lets It Pay for Things",
@@ -5215,7 +5215,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch (Tokenized Asset Integration)",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/bybit-tokenized-stocks-collateral-margin-loans",
         "title": "Bybit adds tokenized Nvidia, Apple, Tesla stocks as loan collateral",
@@ -5238,7 +5238,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Testnet / Pilot Program",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/bis-project-agor-tokenized-cross-border-payment-trials",
         "title": "BIS Project Agorá settles $1 million in tokenized cross-border payment trials",
@@ -5261,14 +5261,14 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch (potential future token)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374693/robinhood-earnings-best-quarter-ever-crypto",
         "title": "Robinhood Posts Best Quarter Ever as Prediction Market and Robinhood Chain Take Off",
         "observedAt": "2024-07-26T00:00:00.000Z"
       },
       {
-        "type": "Product Launch (potential future token)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://decrypt.co/374702/morning-minute-robinhood-posts-its-best-quarter-ever",
         "title": "Morning Minute: Robinhood Posts Its Best Quarter Ever",
@@ -5291,7 +5291,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/crypto-forensics-firm-launches-ai-tracing-service-track-your-stolen-coins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "AMLBot launches AI Tracer for self-service blockchain investigations",
@@ -5314,7 +5314,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Regulatory Approval/Operational Milestone",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/circle-receives-new-york-trust-charter-for-subsidiary?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Circle receives New York trust charter for subsidiary",
@@ -5337,7 +5337,7 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "Security Alert/Product Update",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/coldcard-mk3-warning-594-btc-sweep?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Coldcard issues Mk3 warning as experts examine $38M Bitcoin wallet drain",
@@ -5360,7 +5360,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/ripple-invests-zilo-licuido-tokenized-capital-markets-push",
         "title": "Ripple invests in Zilo and Licuido to assist tokenized capital markets push",
@@ -5383,7 +5383,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Product Launch / Expansion",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/03/blackrock-expands-tokenized-cash-with-new-blockchain-based-money-market-offerings",
         "title": "BlackRock expands tokenized cash with new blockchain-based money market offerings",
@@ -5406,7 +5406,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Acquisition for stablecoin push",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/mastercard-completes-bvnk-acquisition-stablecoin-push",
         "title": "Mastercard completes $1.8B BVNK acquisition in stablecoin push",
@@ -5429,7 +5429,7 @@
     "confidence": 40,
     "signals": [
       {
-        "type": "Mainnet launch (government use case)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/kenya-avalanche-blockchain-academic-credentials-verification",
         "title": "Kenya moves 30 million academic credentials onto Avalanche blockchain",
@@ -5452,7 +5452,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://decrypt.co/374865/blackrock-tokenized-money-market-funds-solana-ethereum",
         "title": "BlackRock Launches Tokenized Money Market Funds on Solana, Ethereum",
@@ -5475,7 +5475,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch (Tokenized Deposits)",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/04/wells-fargo-to-offer-tokenized-deposits-for-24-7-corporate-payments",
         "title": "Wells Fargo joins JPMorgan and Citi in the race to tokenize Wall Street’s settlement rails",
@@ -5498,7 +5498,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch (Tokenized Stocks)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/04/dinari-brings-tokenized-u-s-stocks-to-american-investors-as-equity-race-heats-up",
         "title": "Dinari brings tokenized U.S. stocks to American investors as equity race heats up",
@@ -5521,7 +5521,7 @@
     "confidence": 55,
     "signals": [
       {
-        "type": "Product Launch (Crypto Staking)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/04/bny-to-add-crypto-staking-to-digital-asset-custody-platform",
         "title": "BNY to add crypto staking to digital asset custody platform",
@@ -5544,7 +5544,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/marex-digital-prime-tokenet-institutional-crypto-lending",
         "title": "Marex invests in Digital Prime to expand institutional crypto lending",
@@ -5567,7 +5567,7 @@
     "confidence": 70,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/western-union-stablecard-stablecoin-remittances-visa?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Western Union brings stablecoin remittances to Visa network with Stablecard",
@@ -5590,7 +5590,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Development/Partnership",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/mastercard-borderless-test-identity-checks-stablecoin-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "title": "Mastercard, Borderless test shared identity checks for stablecoin transfers",
@@ -5613,7 +5613,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch (future token implications)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/cloudflare-wallets-ai-agents-stablecoin-payments-plan",
         "title": "Cloudflare introduces wallets for AI agents, plans stablecoin payments",
@@ -5636,7 +5636,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/05/noumura-s-laser-digital-backs-zigchain-for-onchain-private-credit-push-in-uae",
         "title": "Nomura’s Laser Digital backs ZIGChain for onchain private credit push in UAE",
@@ -5659,7 +5659,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Product/Feature Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/375044/metamask-self-custodial-ai-wallet-autonomous-crypto-trading",
         "title": "MetaMask Launches Self-Custodial AI Wallet for Autonomous Crypto Trading",
@@ -5682,8 +5682,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "ICO/IDO/IEO",
-        "sourceType": "news_article",
+        "type": "token_sale",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/pools-trade-uniswap-launchpad-guide/",
         "title": "What Is Pools.trade? Uniswap’s Launchpad and Its Backlash",
         "observedAt": "2026-08-05T00:00:00.000Z"
@@ -5716,8 +5716,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Exchange listing announcements",
-        "sourceType": "news_article",
+        "type": "exchange_listing",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/what-is-cashcat/",
         "title": "What is Cashcat? The First Meme Coin Listed on Robinhood",
         "observedAt": "2026-08-06T00:00:00.000Z"
@@ -5739,7 +5739,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "product",
         "sourceType": "news",
         "url": "https://decrypt.co/374997/cloudflare-os-inside-open-source-ai-agent-platform",
         "title": "Cloudflare OS: Here’s What’s Inside the Open-Source AI Agent Platform",
@@ -5762,8 +5762,8 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "TGE/ICO/IDO/IEO",
-        "sourceType": "article",
+        "type": "token_sale",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/pons-crypto-launchpad/",
         "title": "What Is Pons Crypto? Robinhood Chain’s Launchpad at War",
         "observedAt": "2026-08-07T00:00:00.000Z"
@@ -5796,7 +5796,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Funding Round (Stock Purchase)",
+        "type": "product",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/07/trump-backed-american-bitcoin-director-justin-mateen-buys-nearly-usd2-million-of-abtc-stock",
         "title": "Trump-Backed American Bitcoin director Justin Mateen buys nearly $2 million of ABTC stock",
@@ -5818,8 +5818,8 @@
     "confidence": 30,
     "signals": [
       {
-        "type": "New Product/Feature Launch",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/07/robinhood-introduces-no-fee-crypto-trading-in-the-uk-with-ai-assistance",
         "title": "Robinhood brings crypto trading to UK in AI-powered all-in-one app",
         "observedAt": "2026-08-10T00:00:00.000Z"
@@ -5841,8 +5841,8 @@
     "confidence": 35,
     "signals": [
       {
-        "type": "Regulatory Initiative",
-        "sourceType": "news_article",
+        "type": "news",
+        "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/10/why-the-uk-financial-watchdog-is-drafting-new-rules-for-tokenized-gold",
         "title": "UK’s FCA to regulate tokenized gold to preserve London’s place as the top hub for bullion",
         "observedAt": "2026-08-10T00:00:00.000Z"
@@ -5865,8 +5865,8 @@
     "confidence": 80,
     "signals": [
       {
-        "type": "Airdrop Announcement",
-        "sourceType": "Blog Post",
+        "type": "airdrop",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/ecx-airdrop-bitcoin-hard-fork/",
         "title": "ECX Airdrop: Bitcoin’s Hard Fork Free Money Is Back",
         "observedAt": "2024-07-31T00:00:00.000Z"
@@ -5888,7 +5888,7 @@
     "confidence": 50,
     "signals": [
       {
-        "type": "Partnership for Tokenization",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://www.coindesk.com/markets/2026/08/11/emb-7-00-utc-a-usd2-2-trillion-asset-class-is-getting-a-new-blockchain-rail",
         "title": "A $2 trillion asset class is getting a new blockchain rail",
@@ -5917,8 +5917,8 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "New Token Announcement/Discussion",
-        "sourceType": "Blog Post",
+        "type": "news",
+        "sourceType": "community",
         "url": "https://airdropalert.com/blogs/what-is-stonkbroker-token/",
         "title": "What Is the StonkBroker Token? $STONKBROKER Explained",
         "observedAt": "2024-07-26T00:00:00.000Z"
@@ -5951,7 +5951,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/flowdesk-dubai-vara-broker-dealer-license",
         "title": "Coinbase-backed Flowdesk secures full broker-dealer license in Dubai",
@@ -5974,7 +5974,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Testnet / Mainnet launches",
+        "type": "testnet",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/ita-joins-brazil-tokenization-pilot-with-openassets-brief",
         "title": "Itaú joins Brazil tokenization pilot with OpenAssets",
@@ -5997,7 +5997,7 @@
     "lifecycleStatus": "candidate",
     "signals": [
       {
-        "type": "Major funding rounds",
+        "type": "funding",
         "sourceType": "news",
         "url": "https://cointelegraph.com/news/nasdaq-to-acquire-level-markets-in-push-toward-always-on-markets",
         "title": "Nasdaq to acquire LeveL Markets in push toward ‘always-on’ markets",
@@ -6020,7 +6020,7 @@
     "confidence": 60,
     "signals": [
       {
-        "type": "Product Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/tech/2026/08/12/miden-bets-on-privacy-stablecoins-with-introduction-of-usdcx",
         "title": "Miden bets on privacy stablecoins with introduction of USDCx",
@@ -6043,7 +6043,7 @@
     "confidence": 90,
     "signals": [
       {
-        "type": "Token Launch",
+        "type": "news",
         "sourceType": "news",
         "url": "https://www.coindesk.com/business/2026/08/12/standard-chartered-led-anchorpoint-launches-hong-kong-dollar-stablecoin",
         "title": "Standard Chartered-led Anchorpoint launches Hong Kong dollar stablecoin",
