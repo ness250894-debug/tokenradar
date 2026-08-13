@@ -25,7 +25,7 @@ describe("Gemini request config", () => {
     }
   });
 
-  it("disables Gemini 2.5 thinking by default for bounded publishing calls", async () => {
+  it("uses the Gemini 3.5 Flash Lite generation config for bounded publishing calls", async () => {
     process.env.GEMINI_API_KEY = "test-key";
     delete process.env.GEMINI_THINKING_BUDGET;
 
@@ -53,10 +53,7 @@ describe("Gemini request config", () => {
     expect(result.content).toBe("ok");
     const request = fetchMock.mock.calls[0]?.[1] as RequestInit;
     const body = JSON.parse(String(request.body));
-    expect(body.generationConfig).toMatchObject({
-      maxOutputTokens: 64,
-      thinkingConfig: { thinkingBudget: 0 },
-    });
+    expect(body.generationConfig).toEqual({ maxOutputTokens: 64 });
     expect(body.contents).toEqual([
       {
         parts: [{ text: "Write a short hook." }],
@@ -119,7 +116,7 @@ describe("Gemini request config", () => {
     expect(String(cacheRequest?.[0])).toContain("/cachedContents?key=test-key");
     const cacheBody = JSON.parse(String((cacheRequest?.[1] as RequestInit).body));
     expect(cacheBody).toMatchObject({
-      model: "models/gemini-2.5-flash",
+      model: "models/gemini-3.5-flash-lite",
       ttl: "300s",
       systemInstruction: {
         parts: [{ text: "Stable system instructions." }],
@@ -145,6 +142,42 @@ describe("Gemini request config", () => {
     });
     expect(generateBody.systemInstruction).toBeUndefined();
   });
+
+  it("stops retrying prompt-cache creation after the free tier reports zero cache quota", async () => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+
+    const cacheablePrefix = "Free-tier cache probe instruction. ".repeat(220);
+    const successResponse = () => new Response(
+      JSON.stringify({
+        candidates: [{ content: { parts: [{ text: "ok" }] }, finishReason: "STOP" }],
+        usageMetadata: { promptTokenCount: 20, candidatesTokenCount: 1 },
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } },
+    );
+    const fetchMock = vi.spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            error: {
+              code: 429,
+              message: "TotalCachedContentStorageTokensPerModelFreeTier limit exceeded for model gemini-3.5-flash-lite: limit=0, requested=1032",
+            },
+          }),
+          { status: 429, headers: { "Content-Type": "application/json" } },
+        ),
+      )
+      .mockResolvedValueOnce(successResponse())
+      .mockResolvedValueOnce(successResponse());
+
+    const options = { promptCache: { namespace: "free-tier-probe", cacheableUserPrefix: cacheablePrefix } };
+    await callAIWithFallback("Stable system instructions.", "First request.", 64, undefined, options);
+    await callAIWithFallback("Stable system instructions.", "Second request.", 64, undefined, options);
+
+    const urls = fetchMock.mock.calls.map(([url]) => String(url));
+    expect(urls.filter((url) => url.includes("/cachedContents?key="))).toHaveLength(1);
+    expect(urls.filter((url) => url.includes(":generateContent?key="))).toHaveLength(2);
+  }, 15_000);
 
   it("marks a large Claude reusable prompt prefix with cache_control", async () => {
     delete process.env.GEMINI_API_KEY;

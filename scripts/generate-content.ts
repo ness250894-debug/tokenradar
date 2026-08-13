@@ -1,7 +1,7 @@
 /**
  * AI Content Generator — Phase 3
  *
- * Generates SEO-optimized articles using Gemini 2.5 Flash (primary) with Claude Haiku 4.5 as fallback.
+ * Generates SEO-optimized articles using Gemini 3.5 Flash Lite (primary) with Claude Haiku 4.5 as fallback.
  * Each article uses:
  * - Real CoinGecko data
  * - Computed proprietary metrics (Risk Score, Growth Index, etc.)
@@ -26,6 +26,11 @@ import { getRelatedTokens, type UpcomingTge, type TokenDetail } from "../src/lib
 import { getTgeContractQueries, normalizeTge, shouldPublishTgePreview } from "../src/lib/tge";
 import { loadEnv, safeReadJson, ensureDirSync } from "../src/lib/utils";
 import { buildArticleQualitySnapshot, evaluateArticleQuality, type ArticleQualitySnapshot } from "../src/lib/content-quality";
+import {
+  buildGenerationRetryFeedback,
+  normalizeGeneratedArticleMarkdown,
+  type TgeEvidenceSummary,
+} from "../src/lib/generated-article-normalization";
 import type { CoinCategoryMarketData, DEXPoolData } from "../src/lib/coingecko";
 import { fetchGlobalMarketData, fetchTrendingCategories, fetchFullTokenData, searchGeckoTerminalPools } from "../src/lib/coingecko";
 
@@ -215,6 +220,10 @@ function getTargetLengthLabel(articleType: string): string {
     default:
       return "800-1000";
   }
+}
+
+function getTargetMinimumWords(articleType: string): number {
+  return articleType === "overview" || articleType === "price-prediction" ? 1000 : 800;
 }
 
 /**
@@ -1032,18 +1041,30 @@ MANDATORY: MUST include an introductory paragraph, a Markdown summary table, sev
 Use the exact output format defined in the reusable instructions.
 `;
 
-        let result: AIResult | null = null;
-        let attempts = 0;
-        const maxAttempts = 3;
-        let parsedSection: { title?: string, content?: string } | null = null;
+      let result: AIResult | null = null;
+      let attempts = 0;
+      const maxAttempts = 3;
+      let parsedSection: { title?: string, content?: string } | null = null;
+      let retryFeedback = "";
+      const tgeEvidence: TgeEvidenceSummary | undefined = matchingTgeEntry
+        ? {
+            status: matchingTgeEntry.status || "upcoming",
+            lifecycleStatus: matchingTgeEntry.lifecycleStatus || "candidate",
+            confidence: matchingTgeEntry.confidence ?? "N/A",
+            sourceCount: (matchingTgeEntry.signals?.length || 0) + (matchingTgeEntry.contracts?.length || 0),
+            expectedLaunchWindow: matchingTgeEntry.expectedTge || "TBD",
+            category: matchingTgeEntry.category || tokenData.category || "General",
+            lastChecked: (matchingTgeEntry.lastVerifiedAt || matchingTgeEntry.discoveredAt || "Unknown").slice(0, 10),
+          }
+        : undefined;
 
-        let qualityCheckPassed = true;
-        while (attempts < maxAttempts) {
+      let qualityCheckPassed = true;
+      while (attempts < maxAttempts) {
           attempts++;
           qualityCheckPassed = true;
           result = await callAIWithFallback(
             config.type === "tge-preview" ? TGE_SYSTEM_PROMPT : SYSTEM_PROMPT,
-            contentPrompt,
+            `${contentPrompt}${retryFeedback}`,
             8192,
             undefined,
             {
@@ -1079,16 +1100,28 @@ Use the exact output format defined in the reusable instructions.
             }
 
             if (parsedSection && parsedSection.content && parsedSection.title) {
+              parsedSection.content = normalizeGeneratedArticleMarkdown(parsedSection.content, {
+                articleType: config.type,
+                tgeEvidence,
+              });
               const quality = evaluateArticleQuality({
                 type: config.type,
                 slug: config.slug,
                 title: parsedSection.title,
                 content: parsedSection.content,
               });
+              const generationIssues = [...quality.issues];
+              const requestedMinWords = getTargetMinimumWords(config.type);
+              if (quality.stats.wordCount < requestedMinWords) {
+                generationIssues.push(
+                  `Word count below requested range: ${quality.stats.wordCount} (min ${requestedMinWords})`,
+                );
+              }
 
-              if (!quality.passed) {
-                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} quality failed: ${quality.issues.join("; ")}`);
+              if (generationIssues.length > 0) {
+                console.log(`\n      ⚠ Attempt ${attempts}: ${config.type} quality failed: ${generationIssues.join("; ")}`);
                 qualityCheckPassed = false;
+                retryFeedback = buildGenerationRetryFeedback(config.type, generationIssues);
               }
 
               if (config.type === "tge-preview" && /\{\{[A-Z0-9_]+\}\}/.test(`${parsedSection.title}\n${parsedSection.content}`)) {
@@ -1102,10 +1135,14 @@ Use the exact output format defined in the reusable instructions.
             } else {
                console.log(`      ⚠ Attempt ${attempts} missing title/content in output.`);
                qualityCheckPassed = false;
+               retryFeedback = buildGenerationRetryFeedback(config.type, ["Missing title or article content"]);
             }
           } catch (e: any) {
             console.log(`      ⚠ Attempt ${attempts} failed to parse output: ${e.message}`);
             qualityCheckPassed = false;
+            retryFeedback = buildGenerationRetryFeedback(config.type, [
+              `Output could not be parsed: ${e instanceof Error ? e.message : String(e)}`,
+            ]);
           }
           parsedSection = null; // Reset on failure
           if (attempts < maxAttempts) {
