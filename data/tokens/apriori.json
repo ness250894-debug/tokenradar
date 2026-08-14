@@ -1,7 +1,7 @@
 {
   "id": "apriori",
   "symbol": "apr",
-  "name": "aPriori",
+  "name": "Capricorn",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/70220/large/logo-icon-Gradient.png?1761118006",
   "description": "aPriori is building the intelligent order flow coordination layer for high-performance blockchains.\n\nIts architecture comprises an Order Flow Segmentation Engine that classifies trades in real time and a flow-aware routing engine that directs benign orders into efficient liquidity pools while isolating riskier ones to resilient paths. The system integrates MEV capture with a redistribution mechanism, returning value to stakers and validators to better align incentives.",
   "categories": [
@@ -21,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x5A9610919f5e81183823A2be4Bd1BeB2B4da2a20"
   },
   "market": {
-    "price": 0.503207,
-    "marketCap": 139906510,
-    "marketCapRank": 204,
-    "volume24h": 72310669,
-    "high24h": 0.621237,
-    "low24h": 0.412129,
-    "priceChange24h": 17.2,
-    "priceChange7d": 150.9,
-    "priceChange30d": 121.9,
+    "price": 0.533091,
+    "marketCap": 148099392,
+    "marketCapRank": 196,
+    "volume24h": 30503916,
+    "high24h": 0.551652,
+    "low24h": 0.426779,
+    "priceChange24h": 8.1,
+    "priceChange7d": 160.2,
+    "priceChange30d": 149,
     "priceChange1y": 0,
     "ath": 0.73956,
-    "athChangePercentage": -31.95865,
+    "athChangePercentage": -27.91783,
     "athDate": "2025-10-23T21:11:47.000Z",
     "atl": 0.064576,
     "atlDate": "2026-02-05T16:25:06.000Z",
     "circulatingSupply": 277812500,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 503600486
+    "fdv": 533091174
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-06-02T20:30:37.195Z",
-  "lastMarketUpdate": "2026-08-13T18:39:03.746Z"
+  "lastMarketUpdate": "2026-08-14T18:35:14.518Z"
 }
