@@ -1,0 +1,49 @@
+{
+  "id": "resupply-usd",
+  "symbol": "reusd",
+  "name": "Resupply USD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54836/large/reusd-icon-black-200px.png?1741970002",
+  "description": "A decentralized stablecoin backed by Collateralized Debt Positions (CDP), leveraging the liquidity and stability of lending markets.\n\nThe Resupply stablecoin is backed by other stablecoins that are earning interest on other lending markets.\n\nDesigned to maximize yield returns by having the borrow rate always be half the lending rate being earned, half the risk-free rate, or two percent, whichever is greater.\n\nEmissions are designed for long-term sustainability by directing at three groups: the insurance pool, voting incentives, and directly at borrowers.\n\nThe revenue that borrowers generate will directly correlate with the emissions directed towards them. The more revenue a borrower generates for Resupply, the greater the share of emissions it will receive.\n\nTargeted platforms for launch are Curve Lend and Fraxlend.",
+  "categories": [
+    "Stablecoins",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://resupply.fi/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x57aB1E0003F623289CD798B1824Be09a793e4Bec"
+  },
+  "market": {
+    "price": 0.986347,
+    "marketCap": 40935592,
+    "marketCapRank": 483,
+    "volume24h": 630862,
+    "high24h": 0.989395,
+    "low24h": 0.985969,
+    "priceChange24h": -0.20861,
+    "priceChange7d": -0.36391,
+    "priceChange30d": -0.94153,
+    "priceChange1y": -0.49893,
+    "ath": 1.18,
+    "athChangePercentage": -16.76031,
+    "athDate": "2025-09-14T17:51:30.000Z",
+    "atl": 0.888468,
+    "atlDate": "2026-06-22T05:17:30.000Z",
+    "circulatingSupply": 41502224.62294038,
+    "totalSupply": 41508524.62067077,
+    "maxSupply": null,
+    "fdv": 40935592
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-14T18:35:26.342Z"
+}
