@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-13T18:48:13.617Z",
-    "tokenCount": 515,
+    "tokenCount": 509,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 218,
+        "tokenCount": 216,
         "avgScore": 74
       },
       {
@@ -26,7 +26,7 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 49,
+        "tokenCount": 48,
         "avgScore": 76
       },
       {
@@ -38,8 +38,8 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 27,
-        "avgScore": 93
+        "tokenCount": 24,
+        "avgScore": 92
       }
     ],
     "hotTokens": [
@@ -49,10 +49,10 @@
       "apriori",
       "bedrock-token",
       "velvet",
-      "zerobase",
       "bitway",
       "bonk",
-      "pump-fun"
+      "pump-fun",
+      "tutorial"
     ],
     "watchTokens": [
       "acurast",
@@ -61,12 +61,10 @@
       "apriori",
       "bedrock-token",
       "velvet",
-      "zerobase",
       "bitway",
       "bonk",
       "pump-fun",
       "tutorial",
-      "bless-2",
       "talus",
       "kaito",
       "nexpace",
@@ -74,7 +72,9 @@
       "audiera",
       "cysic",
       "prometeus",
-      "humanity"
+      "humanity",
+      "sandisk-bstocks-tokenized-stock",
+      "pipedog"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -6097,85 +6097,6 @@
       ],
       "computedAt": "2026-08-13T18:48:13.617Z"
     },
-    "bless-2": {
-      "tokenId": "bless-2",
-      "tokenName": "Bless",
-      "symbol": "bless",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 77,
-      "fundamentalsScore": 50,
-      "supplyRiskScore": 98,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Bless price prediction 2026",
-            "Bless price prediction today",
-            "BLESS price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Bless",
-            "where to buy Bless",
-            "BLESS crypto exchange"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 100,
-          "queries": [
-            "Bless AI crypto",
-            "Bless AI agent",
-            "BLESS AI token"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 95,
-          "queries": [
-            "Bless token unlock",
-            "Bless circulating supply",
-            "Bless tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 202.7% keeps medium-term forecasts relevant.",
-        "24h volume equals 54.3% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Bless price prediction 2026",
-        "Bless price prediction today",
-        "BLESS price target",
-        "how to buy Bless",
-        "where to buy Bless"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
     "blockchain-capital": {
       "tokenId": "blockchain-capital",
       "tokenName": "Blockchain Capital",
@@ -8992,84 +8913,6 @@
         "Cosmos Hub scam check",
         "Cosmos Hub price prediction 2026",
         "Cosmos Hub price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
-    "coti": {
-      "tokenId": "coti",
-      "tokenName": "COTI",
-      "symbol": "coti",
-      "attentionScore": 91,
-      "attentionLabel": "Hot",
-      "hypeScore": 90,
-      "fundamentalsScore": 76,
-      "supplyRiskScore": 0,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "COTI price prediction 2026",
-            "COTI price prediction today",
-            "COTI price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy COTI",
-            "where to buy COTI",
-            "COTI crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "COTI risks",
-            "is COTI safe",
-            "COTI scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 57,
-          "queries": [
-            "COTI news today",
-            "why is COTI moving",
-            "COTI crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 74.8% keeps medium-term forecasts relevant.",
-        "24h volume equals 89.2% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "COTI price prediction 2026",
-        "COTI price prediction today",
-        "COTI price target",
-        "how to buy COTI",
-        "where to buy COTI"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -18826,84 +18669,6 @@
       ],
       "computedAt": "2026-08-13T18:48:13.617Z"
     },
-    "lab": {
-      "tokenId": "lab",
-      "tokenName": "LAB",
-      "symbol": "lab",
-      "attentionScore": 76,
-      "attentionLabel": "Hot",
-      "hypeScore": 63,
-      "fundamentalsScore": 47,
-      "supplyRiskScore": 81,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "LAB risks",
-            "is LAB safe",
-            "LAB scam check"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 81,
-          "queries": [
-            "LAB token unlock",
-            "LAB circulating supply",
-            "LAB tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 79,
-          "queries": [
-            "LAB price prediction 2026",
-            "LAB price prediction today",
-            "LAB price target"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "LAB staking rewards",
-            "LAB yield",
-            "LAB APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -97.8% keeps medium-term forecasts relevant.",
-        "24h volume equals 47.3% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "LAB risks",
-        "is LAB safe",
-        "LAB scam check",
-        "LAB token unlock",
-        "LAB circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
     "law-blocks": {
       "tokenId": "law-blocks",
       "tokenName": "Law Blocks AI",
@@ -25435,82 +25200,6 @@
         "POL (ex-MATIC) scam check",
         "POL (ex-MATIC) price prediction 2026",
         "POL (ex-MATIC) price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
-    "polymesh": {
-      "tokenId": "polymesh",
-      "tokenName": "Polymesh",
-      "symbol": "polyx",
-      "attentionScore": 43,
-      "attentionLabel": "Watch",
-      "hypeScore": 36,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 72,
-          "queries": [
-            "Polymesh RWA crypto",
-            "Polymesh tokenized asset",
-            "Polymesh issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 70,
-          "queries": [
-            "Polymesh risks",
-            "is Polymesh safe",
-            "Polymesh scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 48,
-          "queries": [
-            "Polymesh price prediction 2026",
-            "Polymesh price prediction today",
-            "POLYX price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 24,
-          "queries": [
-            "how to buy Polymesh",
-            "where to buy Polymesh",
-            "POLYX crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Polymesh RWA crypto",
-        "Polymesh tokenized asset",
-        "Polymesh issuer risk",
-        "Polymesh risks",
-        "is Polymesh safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -36307,84 +35996,6 @@
       ],
       "computedAt": "2026-08-13T18:48:13.617Z"
     },
-    "useless-3": {
-      "tokenId": "useless-3",
-      "tokenName": "Useless Coin",
-      "symbol": "useless",
-      "attentionScore": 91,
-      "attentionLabel": "Hot",
-      "hypeScore": 82,
-      "fundamentalsScore": 66,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Useless Coin risks",
-            "is Useless Coin safe",
-            "Useless Coin scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 65,
-          "queries": [
-            "Useless Coin price prediction 2026",
-            "Useless Coin price prediction today",
-            "USELESS price target"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "Useless Coin meme coin",
-            "Useless Coin price prediction",
-            "is Useless Coin worth buying"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 42,
-          "queries": [
-            "how to buy Useless Coin",
-            "where to buy Useless Coin",
-            "USELESS crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -50.9% keeps medium-term forecasts relevant.",
-        "24h volume equals 11.1% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Useless Coin risks",
-        "is Useless Coin safe",
-        "Useless Coin scam check",
-        "Useless Coin price prediction 2026",
-        "Useless Coin price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
     "usual-usd": {
       "tokenId": "usual-usd",
       "tokenName": "Usual USD",
@@ -38896,85 +38507,6 @@
         "Horizen scam check",
         "Horizen price prediction 2026",
         "Horizen price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-13T18:48:13.617Z"
-    },
-    "zerobase": {
-      "tokenId": "zerobase",
-      "tokenName": "ZEROBASE",
-      "symbol": "zbt",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 53,
-      "supplyRiskScore": 85,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "ZEROBASE price prediction 2026",
-            "ZEROBASE price prediction today",
-            "ZBT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy ZEROBASE",
-            "where to buy ZEROBASE",
-            "ZBT crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "ZEROBASE news today",
-            "why is ZEROBASE moving",
-            "ZBT crypto news"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 100,
-          "queries": [
-            "ZEROBASE AI crypto",
-            "ZEROBASE AI agent",
-            "ZBT AI token"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 49.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 308.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "ZEROBASE price prediction 2026",
-        "ZEROBASE price prediction today",
-        "ZBT price target",
-        "how to buy ZEROBASE",
-        "where to buy ZEROBASE"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
