@@ -18,10 +18,10 @@
   "market": {
     "price": 0.967102,
     "marketCap": 94542304,
-    "marketCapRank": 263,
+    "marketCapRank": 265,
     "volume24h": 10.67,
-    "high24h": 0.968014,
-    "low24h": 0.966978,
+    "high24h": 0,
+    "low24h": 0,
     "priceChange24h": 0.6,
     "priceChange7d": -1.9,
     "priceChange30d": -1.6,
@@ -32,7 +32,7 @@
     "atl": 0.359131,
     "atlDate": "2026-08-10T09:30:10.000Z",
     "circulatingSupply": 97758337.66345324,
-    "totalSupply": 97758337.66345324,
+    "totalSupply": 97758337.62345324,
     "maxSupply": null,
     "fdv": 94542304
   },
@@ -46,5 +46,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:42:15.321Z",
-  "lastMarketUpdate": "2026-08-14T18:35:14.770Z"
+  "lastMarketUpdate": "2026-08-15T17:58:46.819Z"
 }

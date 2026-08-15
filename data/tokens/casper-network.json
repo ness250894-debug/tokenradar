@@ -1,0 +1,55 @@
+{
+  "id": "casper-network",
+  "symbol": "cspr",
+  "name": "Casper Network",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/15279/large/Casper_Monogram_Favicon_White_on_Red_Circle_RGB_200px.png?1749832573",
+  "description": "Casper is a Proof-of-Stake Layer-1 blockchain designed to bring real-world assets on-chain. Launched on mainnet in March 2021, Casper provides infrastructure for tokenized assets, featuring upgradable smart contracts, protocol-level access control, and native support for multiple virtual machines (VMs).\n\nThe network runs on Zug Consensus, a deterministic protocol offering instant finality that is crucial for financial transactions, regulated assets, and enterprise workflows. Casper is also among the first Layer-1 networks to support multiple VMs running in parallel, allowing applications with different technical needs to operate natively on the same chain without relying on rollups or Layer-2 solutions.\n\nOffering a familiar and modern development environment, Casper prioritizes developer accessibility. Supporting Rust, WebAssembly (WASM), and SDKs in mainstream languages like JavaScript, Python, and Go, Casper enables millions of developers, not just Web3 specialists, to build production-grade blockchain applications without learning obscure or domain-specific tools.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)",
+    "Proof of Stake (PoS)",
+    "GMCI Layer 1 Index",
+    "GMCI Index",
+    "Made in USA",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://casper.network/",
+    "github": "https://github.com/casper-ecosystem",
+    "reddit": null,
+    "explorer": "https://cspr.live"
+  },
+  "market": {
+    "price": 0.00269647,
+    "marketCap": 44982149,
+    "marketCapRank": 456,
+    "volume24h": 2504989,
+    "high24h": 0.00267128,
+    "low24h": 0.00240472,
+    "priceChange24h": 11.22974,
+    "priceChange7d": 38.7734,
+    "priceChange30d": 42.40797,
+    "priceChange1y": -74.58978,
+    "ath": 1.33,
+    "athChangePercentage": -99.79656,
+    "athDate": "2021-05-11T16:00:00.000Z",
+    "atl": 0.00146007,
+    "atlDate": "2026-07-21T11:41:00.000Z",
+    "circulatingSupply": 16686548626,
+    "totalSupply": 19811212135,
+    "maxSupply": null,
+    "fdv": 53405346
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-15T17:58:53.230Z"
+}

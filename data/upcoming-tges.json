@@ -6053,5 +6053,28 @@
     "discoveredAt": "2026-08-12T18:39:14.921Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-12T18:39:14.921Z"
+  },
+  {
+    "id": "flap-launchpad",
+    "name": "Flap",
+    "symbol": "FLAP",
+    "category": "DeFi / Launchpad",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "dataSource": "https://airdropalert.com/blogs/what-is-flap-launchpad/",
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "token_sale",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/what-is-flap-launchpad/",
+        "title": "What Is Flap? Stock Dividends for Meme Coin Holders",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-15T17:59:29.397Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-15T17:59:29.397Z"
   }
 ]
