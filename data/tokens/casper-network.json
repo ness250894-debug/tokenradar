@@ -22,25 +22,25 @@
     "explorer": "https://cspr.live"
   },
   "market": {
-    "price": 0.00269647,
-    "marketCap": 44982149,
-    "marketCapRank": 456,
-    "volume24h": 2504989,
-    "high24h": 0.00267128,
-    "low24h": 0.00240472,
-    "priceChange24h": 11.22974,
-    "priceChange7d": 38.7734,
-    "priceChange30d": 42.40797,
-    "priceChange1y": -74.58978,
+    "price": 0.00269385,
+    "marketCap": 44960484,
+    "marketCapRank": 454,
+    "volume24h": 5250287,
+    "high24h": 0.00317968,
+    "low24h": 0.00250083,
+    "priceChange24h": 5.6,
+    "priceChange7d": 41.1,
+    "priceChange30d": 44.2,
+    "priceChange1y": -74.9,
     "ath": 1.33,
-    "athChangePercentage": -99.79656,
+    "athChangePercentage": -99.79676,
     "athDate": "2021-05-11T16:00:00.000Z",
     "atl": 0.00146007,
     "atlDate": "2026-07-21T11:41:00.000Z",
-    "circulatingSupply": 16686548626,
-    "totalSupply": 19811212135,
+    "circulatingSupply": 16690048867,
+    "totalSupply": 19815367658,
     "maxSupply": null,
-    "fdv": 53405346
+    "fdv": 53379624
   },
   "community": {
     "twitterFollowers": null,
@@ -51,5 +51,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-08-15T17:58:53.230Z"
+  "fetchedAt": "2026-08-15T17:58:53.230Z",
+  "lastMarketUpdate": "2026-08-16T17:57:33.700Z"
 }
