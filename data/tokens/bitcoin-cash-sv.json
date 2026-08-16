@@ -17,25 +17,25 @@
     "explorer": "http://whatsonchain.com"
   },
   "market": {
-    "price": 15.46,
-    "marketCap": 310487745,
-    "marketCapRank": 122,
-    "volume24h": 4658657,
-    "high24h": 15.67,
-    "low24h": 15.04,
-    "priceChange24h": 3.8,
-    "priceChange7d": 10.6,
-    "priceChange30d": 18,
-    "priceChange1y": -42.3,
+    "price": 15.25,
+    "marketCap": 305711591,
+    "marketCapRank": 121,
+    "volume24h": 4657403,
+    "high24h": 15.71,
+    "low24h": 15.08,
+    "priceChange24h": -0.7,
+    "priceChange7d": 2.9,
+    "priceChange30d": 16.6,
+    "priceChange1y": -44.7,
     "ath": 489.75,
-    "athChangePercentage": -96.84228,
+    "athChangePercentage": -96.88663,
     "athDate": "2021-04-16T09:09:04.000Z",
     "atl": 10.49,
     "atlDate": "2026-06-25T13:59:20.000Z",
-    "circulatingSupply": 20070168.75,
-    "totalSupply": 20070168.75,
+    "circulatingSupply": 20070553.125,
+    "totalSupply": 20070631.25,
     "maxSupply": 21000000,
-    "fdv": 310487745
+    "fdv": 305712591
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-13T18:24:41.825Z",
-  "lastMarketUpdate": "2026-08-15T17:58:46.799Z"
+  "lastMarketUpdate": "2026-08-16T17:57:33.630Z"
 }

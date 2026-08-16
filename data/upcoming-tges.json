@@ -6076,5 +6076,39 @@
     "discoveredAt": "2026-08-15T17:59:29.397Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-15T17:59:29.397Z"
+  },
+  {
+    "id": "plume",
+    "name": "Plume",
+    "symbol": "PLUME",
+    "category": "RWA/L2",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/shinhan-partners-plume-tokenized-fund-experiment",
+    "confidence": 60,
+    "lifecycleStatus": "graduated",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/shinhan-partners-plume-tokenized-fund-experiment",
+        "title": "Shinhan Asset Management partners with Plume on tokenized fund pilot",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-16T17:58:09.145Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-16T18:06:27.727Z",
+    "graduatedAt": "2026-08-16T18:06:27.727Z",
+    "coingeckoRank": 287,
+    "graduationEvidence": {
+      "coingeckoId": "plume",
+      "coingeckoRank": 287,
+      "rank": 287,
+      "priceUsd": 0.01333385,
+      "volume24h": 138228875,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-16T18:06:27.727Z"
+    }
   }
 ]
