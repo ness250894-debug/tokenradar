@@ -3,24 +3,24 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-15T18:07:53.150Z",
-    "tokenCount": 510,
+    "tokenCount": 506,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 211,
+        "tokenCount": 210,
         "avgScore": 75
       },
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 85,
+        "tokenCount": 84,
         "avgScore": 84
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 61,
+        "tokenCount": 60,
         "avgScore": 88
       },
       {
@@ -38,8 +38,8 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 30,
-        "avgScore": 96
+        "tokenCount": 29,
+        "avgScore": 95
       }
     ],
     "hotTokens": [
@@ -3057,81 +3057,6 @@
       ],
       "computedAt": "2026-08-15T18:07:53.150Z"
     },
-    "astar": {
-      "tokenId": "astar",
-      "tokenName": "Astar",
-      "symbol": "astr",
-      "attentionScore": 40,
-      "attentionLabel": "Watch",
-      "hypeScore": 38,
-      "fundamentalsScore": 52,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 72,
-          "queries": [
-            "Astar risks",
-            "is Astar safe",
-            "Astar scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 48,
-          "queries": [
-            "Astar price prediction 2026",
-            "Astar price prediction today",
-            "ASTR price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 27,
-          "queries": [
-            "how to buy Astar",
-            "where to buy Astar",
-            "ASTR crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 20,
-          "queries": [
-            "Astar news today",
-            "why is Astar moving",
-            "ASTR crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Astar risks",
-        "is Astar safe",
-        "Astar scam check",
-        "Astar price prediction 2026",
-        "Astar price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-15T18:07:53.150Z"
-    },
     "aster-2": {
       "tokenId": "aster-2",
       "tokenName": "Aster",
@@ -4872,82 +4797,6 @@
         "币安人生 (BinanceLife) scam check",
         "币安人生 (BinanceLife) meme coin",
         "币安人生 (BinanceLife) price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-15T18:07:53.150Z"
-    },
-    "biconomy": {
-      "tokenId": "biconomy",
-      "tokenName": "Biconomy",
-      "symbol": "bico",
-      "attentionScore": 81,
-      "attentionLabel": "Hot",
-      "hypeScore": 65,
-      "fundamentalsScore": 63,
-      "supplyRiskScore": 0,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Biconomy price prediction 2026",
-            "Biconomy price prediction today",
-            "BICO price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Biconomy",
-            "where to buy Biconomy",
-            "BICO crypto exchange"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "Biconomy risks",
-            "is Biconomy safe",
-            "Biconomy scam check"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 34,
-          "queries": [
-            "Biconomy news today",
-            "why is Biconomy moving",
-            "BICO crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 310.6% keeps medium-term forecasts relevant.",
-        "24h volume equals 348.3% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Biconomy price prediction 2026",
-        "Biconomy price prediction today",
-        "BICO price target",
-        "how to buy Biconomy",
-        "where to buy Biconomy"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -19272,82 +19121,6 @@
       ],
       "computedAt": "2026-08-15T18:07:53.150Z"
     },
-    "magma-finance": {
-      "tokenId": "magma-finance",
-      "tokenName": "Magma Finance",
-      "symbol": "magma",
-      "attentionScore": 87,
-      "attentionLabel": "Hot",
-      "hypeScore": 75,
-      "fundamentalsScore": 27,
-      "supplyRiskScore": 97,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "Magma Finance token unlock",
-            "Magma Finance circulating supply",
-            "Magma Finance tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 78,
-          "queries": [
-            "Magma Finance risks",
-            "is Magma Finance safe",
-            "Magma Finance scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 71,
-          "queries": [
-            "Magma Finance price prediction 2026",
-            "Magma Finance price prediction today",
-            "MAGMA price target"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 55,
-          "queries": [
-            "Magma Finance staking rewards",
-            "Magma Finance yield",
-            "MAGMA APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -42.6% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Magma Finance token unlock",
-        "Magma Finance circulating supply",
-        "Magma Finance tokenomics",
-        "Magma Finance risks",
-        "is Magma Finance safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-15T18:07:53.150Z"
-    },
     "mantle": {
       "tokenId": "mantle",
       "tokenName": "Mantle",
@@ -30288,81 +30061,6 @@
         "STAU scam check",
         "STAU RWA crypto",
         "STAU tokenized asset"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-15T18:07:53.150Z"
-    },
-    "steakhouse-confidential-prime-usdc": {
-      "tokenId": "steakhouse-confidential-prime-usdc",
-      "tokenName": "Steakhouse Confidential Prime USDC",
-      "symbol": "steakcusdc",
-      "attentionScore": 26,
-      "attentionLabel": "Quiet",
-      "hypeScore": 18,
-      "fundamentalsScore": 47,
-      "supplyRiskScore": 18,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 87,
-          "queries": [
-            "Steakhouse Confidential Prime USDC stablecoin risk",
-            "Steakhouse Confidential Prime USDC reserves",
-            "STEAKCUSDC depeg risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Steakhouse Confidential Prime USDC risks",
-            "is Steakhouse Confidential Prime USDC safe",
-            "Steakhouse Confidential Prime USDC scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 60,
-          "queries": [
-            "Steakhouse Confidential Prime USDC staking rewards",
-            "Steakhouse Confidential Prime USDC yield",
-            "STEAKCUSDC APY"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 32,
-          "queries": [
-            "Steakhouse Confidential Prime USDC price prediction 2026",
-            "Steakhouse Confidential Prime USDC price prediction today",
-            "STEAKCUSDC price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "Steakhouse Confidential Prime USDC stablecoin risk",
-        "Steakhouse Confidential Prime USDC reserves",
-        "STEAKCUSDC depeg risk",
-        "Steakhouse Confidential Prime USDC risks",
-        "is Steakhouse Confidential Prime USDC safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
