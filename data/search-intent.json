@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-16T18:06:32.345Z",
-    "tokenCount": 510,
+    "tokenCount": 508,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 214,
+        "tokenCount": 213,
         "avgScore": 76
       },
       {
@@ -38,12 +38,11 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 22,
-        "avgScore": 92
+        "tokenCount": 21,
+        "avgScore": 91
       }
     ],
     "hotTokens": [
-      "anoma",
       "perle",
       "quack-ai",
       "chip-2",
@@ -52,10 +51,10 @@
       "skyai",
       "ribbita-by-virtuals",
       "akedo",
-      "tutorial"
+      "tutorial",
+      "acurast"
     ],
     "watchTokens": [
-      "anoma",
       "perle",
       "quack-ai",
       "chip-2",
@@ -74,7 +73,8 @@
       "audiera",
       "prometeus",
       "bitway",
-      "useless-3"
+      "useless-3",
+      "dexe"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -1825,85 +1825,6 @@
         "Anemoy Tokenized Apollo Diversified Credit Fund issuer risk",
         "Anemoy Tokenized Apollo Diversified Credit Fund risks",
         "is Anemoy Tokenized Apollo Diversified Credit Fund safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-16T18:06:32.345Z"
-    },
-    "anoma": {
-      "tokenId": "anoma",
-      "tokenName": "Anoma",
-      "symbol": "xan",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 60,
-      "supplyRiskScore": 90,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Anoma price prediction 2026",
-            "Anoma price prediction today",
-            "XAN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Anoma",
-            "where to buy Anoma",
-            "XAN crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 96,
-          "queries": [
-            "Anoma news today",
-            "why is Anoma moving",
-            "XAN crypto news"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 89,
-          "queries": [
-            "Anoma token unlock",
-            "Anoma circulating supply",
-            "Anoma tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 79.9% keeps medium-term forecasts relevant.",
-        "24h volume equals 38.5% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Anoma price prediction 2026",
-        "Anoma price prediction today",
-        "XAN price target",
-        "how to buy Anoma",
-        "where to buy Anoma"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -3960,84 +3881,6 @@
         "BNB Attestation Service tokenomics",
         "BNB Attestation Service risks",
         "is BNB Attestation Service safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-16T18:06:32.345Z"
-    },
-    "based-brett": {
-      "tokenId": "based-brett",
-      "tokenName": "Brett",
-      "symbol": "brett",
-      "attentionScore": 80,
-      "attentionLabel": "Hot",
-      "hypeScore": 75,
-      "fundamentalsScore": 72,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 73,
-          "queries": [
-            "Brett risks",
-            "is Brett safe",
-            "Brett scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 65,
-          "queries": [
-            "Brett meme coin",
-            "Brett price prediction",
-            "is Brett worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 53,
-          "queries": [
-            "Brett price prediction 2026",
-            "Brett price prediction today",
-            "BRETT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 47,
-          "queries": [
-            "how to buy Brett",
-            "where to buy Brett",
-            "BRETT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of -17.8% keeps medium-term forecasts relevant.",
-        "24h volume equals 12.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Brett risks",
-        "is Brett safe",
-        "Brett scam check",
-        "Brett meme coin",
-        "Brett price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
