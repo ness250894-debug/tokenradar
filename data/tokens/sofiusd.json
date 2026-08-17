@@ -1,0 +1,51 @@
+{
+  "id": "sofiusd",
+  "symbol": "sofid",
+  "name": "SoFiUSD",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/71688/large/CRY25-3266080_StableCoinLogo.png?1768922282",
+  "description": "SoFiUSD is a fully reserved U.S. dollar stablecoin issued by SoFi Bank, N.A., making SoFi the first national bank to launch a stablecoin on a public, permissionless blockchain.  It is backed 1:1 by cash with reserves held in the bank’s federal account, enabling immediate redemption while minimizing liquidity and credit risk.\n\nSoFi is opening access to its stablecoin infrastructure so banks, fintechs, and enterprises can integrate SoFiUSD into settlement flows or issue white‑label stablecoins using SoFi’s regulatory, operational, and reserve framework.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.sofi.com/crypto/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x0CB6d03B0aC88A463F67B7Ad99f9f3ec4678092E"
+  },
+  "market": {
+    "price": 0.998887,
+    "marketCap": 310283746,
+    "marketCapRank": 117,
+    "volume24h": 413195,
+    "high24h": 0.999947,
+    "low24h": 0.998499,
+    "priceChange24h": -0.05087,
+    "priceChange7d": -0.0114,
+    "priceChange30d": -0.01031,
+    "priceChange1y": 0,
+    "ath": 1.002,
+    "athChangePercentage": -0.277,
+    "athDate": "2026-08-07T03:23:20.000Z",
+    "atl": 0.991073,
+    "atlDate": "2026-08-04T13:24:30.000Z",
+    "circulatingSupply": 310620653.13,
+    "totalSupply": 310620653.13,
+    "maxSupply": null,
+    "fdv": 310283746
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-17T18:04:57.451Z"
+}

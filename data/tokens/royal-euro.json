@@ -1,0 +1,53 @@
+{
+  "id": "royal-euro",
+  "symbol": "reur",
+  "name": "Royal Euro",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172401/large/REUR_logo_200x200_px.png?1773503207",
+  "description": "Royal Euro Token (REUR) is a EUR-referenced stable-value token (crypto-asset) designed to target a 1:1 value with the Euro (EUR), subject to reserve sufficiency, redemption terms, and market conditions. REUR is issued by The RIB Digital Holdings Limited, Hong Kong (the \"Issuer\") and is engineered for fast, transparent settlement across multiple public blockchains.\nThe design objective is to provide a bank-grade settlement instrument for payments, treasury operations, OTC trading, and exchange liquidity, while maintaining robust transparency around reserves and circulating supply.",
+  "categories": [
+    "Stablecoins",
+    "EUR Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.rcoins.digital/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x3ed0b3C4c0168a560d34E361B8130DCCA4677736"
+  },
+  "market": {
+    "price": 4.13,
+    "marketCap": 62008637,
+    "marketCapRank": 348,
+    "volume24h": 19804868,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 4.13,
+    "athChangePercentage": -0.00868,
+    "athDate": "2026-06-29T19:51:40.000Z",
+    "atl": 0.348874,
+    "atlDate": "2026-06-23T12:49:00.000Z",
+    "circulatingSupply": 15000000,
+    "totalSupply": 5000000000,
+    "maxSupply": null,
+    "fdv": 20669545573
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-17T18:05:36.477Z"
+}
