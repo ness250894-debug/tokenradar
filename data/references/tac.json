@@ -3,6 +3,27 @@
   "tokenName": "TAC",
   "articles": [
     {
+      "title": "Israel’s largest crypto broker Bits of Gold hit by data breach affecting 200,000 customers",
+      "link": "https://www.coindesk.com/tech/2026/08/17/israel-s-largest-crypto-broker-bits-of-gold-hit-by-data-breach-affecting-200-000-customers",
+      "pubDate": "Mon, 17 Aug 2026 11:59:23 +0000",
+      "source": "CoinDesk",
+      "snippet": "Funds and digital assets were not touched, but names, bank account details, and national ID numbers may have been exposed in what the company says was a wider global attack."
+    },
+    {
+      "title": "Hackers Are Abusing a macOS Screen Sharing Flaw to Secretly Mine Monero",
+      "link": "https://decrypt.co/375749/hackers-macos-screen-sharing-secretly-mine-monero",
+      "pubDate": "Mon, 17 Aug 2026 13:31:04 +0000",
+      "source": "Decrypt",
+      "snippet": "The Dutch cyber agency says attackers exploited an authentication flaw in macOS Screen Sharing to gain root access and plant Monero miners, with public proof-of-concept code now circulating."
+    },
+    {
+      "title": "SafePal Bitcoin Wallet Data Breach Stokes Fears of Physical Attacks",
+      "link": "https://decrypt.co/375743/safepal-bitcoin-wallet-data-breach",
+      "pubDate": "Mon, 17 Aug 2026 09:31:04 +0000",
+      "source": "Decrypt",
+      "snippet": "A flaw in an order-tracking plug-in of bitcoin wallet provider SafePal exposed names, addresses and phone numbers of nearly 40,000 customers."
+    },
+    {
       "title": "France Tax Data Leak Could Fuel Scams, Attacks Targeting Bitcoin Holders",
       "link": "https://decrypt.co/375715/france-tax-data-leak-wrench-attacks-bitcoin",
       "pubDate": "Fri, 14 Aug 2026 21:03:35 +0000",
@@ -15,14 +36,7 @@
       "pubDate": "Fri, 14 Aug 2026 17:14:02 +0000",
       "source": "Decrypt",
       "snippet": "Bank Leumi&#39;s 2022 attempt died at the Bank of Israel. A softer regulatory line and Galaxy&#39;s custody stack now give it another shot in early 2027."
-    },
-    {
-      "title": "Trezor Customer Data Exposed in Shipping Partner Breach",
-      "link": "https://decrypt.co/375556/trezor-customer-data-exposed-in-shipping-partner-breach",
-      "pubDate": "Thu, 13 Aug 2026 13:10:43 +0000",
-      "source": "Decrypt",
-      "snippet": "The hardware wallet manufacturer says its devices and backups are untouched, but the leak hands attackers valuable customer data."
     }
   ],
-  "fetchedAt": "2026-08-16T18:06:31.446Z"
+  "fetchedAt": "2026-08-17T18:14:51.192Z"
 }

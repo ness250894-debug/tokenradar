@@ -1,0 +1,51 @@
+{
+  "id": "usdsui",
+  "symbol": "usdsui",
+  "name": "USDsui",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70675/large/usdsui.png?1772769756",
+  "description": "",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Sui Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://sui.io/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://suiscan.xyz/mainnet/coin/0x44f838219cf67b058f3b37907b655f226153c18e33dfcd0da559a844fea9b1c1::usdsui::USDSUI/txs"
+  },
+  "market": {
+    "price": 1.001,
+    "marketCap": 73046992,
+    "marketCapRank": 304,
+    "volume24h": 2550036,
+    "high24h": 1.001,
+    "low24h": 0.999282,
+    "priceChange24h": 0.04802,
+    "priceChange7d": 0.03885,
+    "priceChange30d": 0.10766,
+    "priceChange1y": 0,
+    "ath": 1.021,
+    "athChangePercentage": -1.97781,
+    "athDate": "2026-04-20T14:19:00.000Z",
+    "atl": 0.989579,
+    "atlDate": "2026-05-07T19:52:00.000Z",
+    "circulatingSupply": 73008728.59,
+    "totalSupply": 73008728.59,
+    "maxSupply": null,
+    "fdv": 73046992
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-17T18:05:30.216Z"
+}
