@@ -18,25 +18,25 @@
     "explorer": "https://app.hyperliquid.xyz/explorer/token/0xc1fb593aeffbeb02f85e0308e9956a90"
   },
   "market": {
-    "price": 0.072602,
-    "marketCap": 43210110,
-    "marketCapRank": 459,
-    "volume24h": 837948,
-    "high24h": 0.074737,
-    "low24h": 0.067507,
-    "priceChange24h": 7,
-    "priceChange7d": 14.4,
-    "priceChange30d": 1.9,
-    "priceChange1y": -59.3,
+    "price": 0.07183,
+    "marketCap": 42742214,
+    "marketCapRank": 461,
+    "volume24h": 519334,
+    "high24h": 0.074644,
+    "low24h": 0.071323,
+    "priceChange24h": -3,
+    "priceChange7d": 12.6,
+    "priceChange30d": -0.7,
+    "priceChange1y": -56.6,
     "ath": 0.690036,
-    "athChangePercentage": -89.47852,
+    "athChangePercentage": -89.59034,
     "athDate": "2024-12-16T14:15:23.000Z",
     "atl": 0.04236339,
     "atlDate": "2025-12-18T12:07:22.000Z",
-    "circulatingSupply": 595147419.37311,
-    "totalSupply": 595147313.87303,
+    "circulatingSupply": 595145904.34539,
+    "totalSupply": 595145886.43998,
     "maxSupply": 1000000000,
-    "fdv": 43210110
+    "fdv": 42742213
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-19T19:29:41.964Z",
-  "lastMarketUpdate": "2026-08-17T18:04:51.540Z"
+  "lastMarketUpdate": "2026-08-18T18:03:53.850Z"
 }
