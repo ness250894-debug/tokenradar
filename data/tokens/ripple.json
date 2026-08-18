@@ -25,25 +25,25 @@
     "explorer": "https://xrpscan.com/"
   },
   "market": {
-    "price": 1,
-    "marketCap": 62683200148,
+    "price": 0.999985,
+    "marketCap": 62675337840,
     "marketCapRank": 6,
-    "volume24h": 855429049,
-    "high24h": 1.007,
-    "low24h": 0.988683,
-    "priceChange24h": -0.1,
-    "priceChange7d": -1.6,
-    "priceChange30d": -8.1,
-    "priceChange1y": -67.9,
+    "volume24h": 819252171,
+    "high24h": 1.005,
+    "low24h": 0.988818,
+    "priceChange24h": -0.2,
+    "priceChange7d": -1,
+    "priceChange30d": -8.6,
+    "priceChange1y": -66.8,
     "ath": 3.65,
-    "athChangePercentage": -72.57263,
+    "athChangePercentage": -72.57594,
     "athDate": "2025-07-17T19:40:53.000Z",
     "atl": 0.00268621,
     "atlDate": "2014-05-21T16:00:00.000Z",
     "circulatingSupply": 62676938832,
     "totalSupply": 99985629672,
     "maxSupply": 100000000000,
-    "fdv": 99995618060
+    "fdv": 99983075683
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,5 @@
     "commits4Weeks": 4
   },
   "fetchedAt": "2026-05-14T07:30:08.183Z",
-  "lastMarketUpdate": "2026-08-17T18:04:51.436Z"
+  "lastMarketUpdate": "2026-08-18T18:03:53.751Z"
 }

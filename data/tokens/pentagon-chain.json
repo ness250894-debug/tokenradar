@@ -16,25 +16,25 @@
     "explorer": "https://explorer.pentagon.games/"
   },
   "market": {
-    "price": 41.75,
-    "marketCap": 41051266,
-    "marketCapRank": 477,
-    "volume24h": 2112.55,
-    "high24h": 41.93,
-    "low24h": 41.37,
-    "priceChange24h": 0.61571,
-    "priceChange7d": 0.01865,
-    "priceChange30d": -10.32401,
-    "priceChange1y": 0,
+    "price": 41.57,
+    "marketCap": 40875760,
+    "marketCapRank": 480,
+    "volume24h": 1064.07,
+    "high24h": 42.23,
+    "low24h": 41.24,
+    "priceChange24h": -0.4,
+    "priceChange7d": 0.2,
+    "priceChange30d": -11.3,
+    "priceChange1y": 104.6,
     "ath": 58.59,
-    "athChangePercentage": -28.74097,
+    "athChangePercentage": -29.04413,
     "athDate": "2026-05-18T22:15:00.000Z",
     "atl": 11.68,
     "atlDate": "2025-06-16T14:54:20.000Z",
     "circulatingSupply": 983265.3215980448,
     "totalSupply": 1000000,
     "maxSupply": null,
-    "fdv": 41749938
+    "fdv": 41571445
   },
   "community": {
     "twitterFollowers": null,
@@ -45,5 +45,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-08-17T18:06:07.998Z"
+  "fetchedAt": "2026-08-17T18:06:07.998Z",
+  "lastMarketUpdate": "2026-08-18T18:03:53.854Z"
 }

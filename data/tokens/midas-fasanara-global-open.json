@@ -1,0 +1,52 @@
+{
+  "id": "midas-fasanara-global-open",
+  "symbol": "mglo",
+  "name": "Midas Fasanara Global Open",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174031/large/mglobal-Cm4yjVTI.png?1781967852",
+  "description": "Midas Fasanara Global Open (mGLO) is a tokenized exposure to Fasanara's\nGlobal Open strategy, issued by Midas on Base. mGLO is an ERC-20\nyield-bearing token: holders receive the strategy's performance directly\nthrough the token price (NAV), with no rebases and no separate reward\nclaim. Mint and redeem are permissioned and routed through Midas's\nDepositVault and RedemptionVault contracts. The NAV is published on-chain\nby the Midas Oracle Admin and consumed by every vault interaction. Fasanara is the\nunderlying asset manager.\n",
+  "categories": [
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Midas Liquid Yield Tokens",
+    "Robinhood Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://midas.app/mglo",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x1dd91a111606382b77a917633ed90feaf25e0f76"
+  },
+  "market": {
+    "price": 1,
+    "marketCap": 40282613,
+    "marketCapRank": 485,
+    "volume24h": 0,
+    "high24h": 1,
+    "low24h": 1,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1,
+    "athChangePercentage": 0,
+    "athDate": "2026-07-23T04:25:10.000Z",
+    "atl": 1,
+    "atlDate": "2026-07-23T07:25:00.000Z",
+    "circulatingSupply": 40282613.40699026,
+    "totalSupply": 40282613.40699026,
+    "maxSupply": null,
+    "fdv": 40282613
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-18T18:04:00.033Z"
+}
