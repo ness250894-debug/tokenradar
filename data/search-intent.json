@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-17T18:14:52.126Z",
-    "tokenCount": 522,
+    "tokenCount": 521,
     "topIntents": [
       {
         "intent": "risk",
@@ -14,7 +14,7 @@
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 86,
+        "tokenCount": 85,
         "avgScore": 83
       },
       {
@@ -36871,81 +36871,6 @@
         "USD0 depeg risk",
         "Usual USD risks",
         "is Usual USD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-17T18:14:52.126Z"
-    },
-    "usx": {
-      "tokenId": "usx",
-      "tokenName": "USX",
-      "symbol": "usx",
-      "attentionScore": 36,
-      "attentionLabel": "Watch",
-      "hypeScore": 23,
-      "fundamentalsScore": 55,
-      "supplyRiskScore": 18,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 87,
-          "queries": [
-            "USX stablecoin risk",
-            "USX reserves",
-            "USX depeg risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "USX risks",
-            "is USX safe",
-            "USX scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 30,
-          "queries": [
-            "USX price prediction 2026",
-            "USX price prediction today",
-            "USX price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 29,
-          "queries": [
-            "how to buy USX",
-            "where to buy USX",
-            "USX crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "USX stablecoin risk",
-        "USX reserves",
-        "USX depeg risk",
-        "USX risks",
-        "is USX safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
