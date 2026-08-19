@@ -3,32 +3,25 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "Maya Protocol exploit drains bitcoin and other assets as pool value drops by $11 million",
+      "link": "https://www.coindesk.com/markets/2026/08/19/maya-protocol-exploit-drains-bitcoin-and-other-assets-as-pool-value-drops-usd11-million",
+      "pubDate": "Wed, 19 Aug 2026 06:36:11 +0000",
+      "source": "CoinDesk",
+      "snippet": "A chain of six flaws caused the cross-chain trading network to credit a pool with nearly 50 million tokens that were never properly funded, letting an attacker drain real assets."
+    },
+    {
+      "title": "MAYAChain halts network after estimated $1.7M exploit",
+      "link": "https://cointelegraph.com/news/maya-protocol-1-7m-exploit-network-halt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 19 Aug 2026 05:13:54 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A preliminary analysis says six chained bugs let a 23-message transaction drain 48.87 million CACAO, sending the token down nearly 89%."
+    },
+    {
       "title": "Federal prosecutors blast ex-Celsius CEO’s motion to vacate as ‘without merit’",
       "link": "https://cointelegraph.com/news/us-prosecutors-celsius-ceo-alex-mashinsky-motion-vacate-deny?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Tue, 18 Aug 2026 16:49:58 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Despite already serving a 12-year sentence in federal prison, Alex Mashinsky continues to explore legal avenues to vacate his conviction related to activities at Celsius."
-    },
-    {
-      "title": "BitBox patches ‘severe’ wallet flaws that could put funds at risk",
-      "link": "https://cointelegraph.com/news/bitbox-patches-severe-wallet-firmware-flaws?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 18 Aug 2026 08:07:04 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "BitBox recommended all users update to firmware version 9.26.5 and said it had received no reports of exploitation or fund losses."
-    },
-    {
-      "title": "Harmony plans rollback, wiping 109,000 transactions after ONE exploit",
-      "link": "https://cointelegraph.com/news/harmony-plans-rollback-transactions-one-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 17 Aug 2026 12:31:36 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Harmony said selectively restoring transactions could create inconsistent chain state, as Ravencoin faces a separate rollback dispute after an exploit."
-    },
-    {
-      "title": "BitMart account demands founder explain funds status, Xia calls claims ‘fabricated’",
-      "link": "https://cointelegraph.com/news/bitmart-account-founder-explain-repayment-plan?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 17 Aug 2026 08:30:00 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "BitMart’s Chinese-language X account demanded an Aug. 19 repayment plan, while Sheldon Xia called its claims of blocked withdrawals and non-payment of salaries “fabricated rumors.”"
+      "snippet": "Currently serving a 12-year sentence in federal prison, Alex Mashinsky continues to explore legal avenues to vacate his conviction related to activities at Celsius."
     },
     {
       "title": "Hackers Are Abusing a macOS Screen Sharing Flaw to Secretly Mine Monero",
@@ -38,5 +31,5 @@
       "snippet": "The Dutch cyber agency says attackers exploited an authentication flaw in macOS Screen Sharing to gain root access and plant Monero miners, with public proof-of-concept code now circulating."
     }
   ],
-  "fetchedAt": "2026-08-18T18:12:48.865Z"
+  "fetchedAt": "2026-08-19T18:09:29.144Z"
 }

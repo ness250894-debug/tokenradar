@@ -6110,5 +6110,28 @@
       "matchedBy": "id",
       "verifiedAt": "2026-08-16T18:06:27.727Z"
     }
+  },
+  {
+    "id": "flop-labs",
+    "name": "Flop Labs",
+    "symbol": "TBD",
+    "category": "AI",
+    "expectedTge": "Q4 2026",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/arthur-hayes-ceo-role-flop-labs-q4-airdrop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "airdrop",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/arthur-hayes-ceo-role-flop-labs-q4-airdrop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Arthur Hayes takes CEO role at Flop Labs ahead of Q4 airdrop",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-19T18:01:20.118Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-19T18:01:20.118Z"
   }
 ]
