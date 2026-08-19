@@ -1,0 +1,51 @@
+{
+  "id": "interfold",
+  "symbol": "fold",
+  "name": "The Interfold",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174402/large/fold.jpg?1783586823",
+  "description": "The Interfold is an open-source protocol and distributed network for confidential coordination. It allows multiple independent parties to contribute private inputs to a shared computation without exposing the underlying data or transferring control to a single operator. Computations take place within Encrypted Execution Environments, or E3s, and produce outcomes that can be verified without revealing the private inputs that generated them. Applications include secret ballots, sealed-bid auctions, confidential analytics, and other multiparty processes involving sensitive information.",
+  "categories": [
+    "Infrastructure",
+    "Ethereum Ecosystem",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.theinterfold.com/",
+    "github": "https://github.com/theinterfold/interfold",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0xe172e9b6cfbeeb5593bdce3f077356fdb33af904"
+  },
+  "market": {
+    "price": 0.04288052,
+    "marketCap": 50913352,
+    "marketCapRank": 414,
+    "volume24h": 13985732,
+    "high24h": 0.066658,
+    "low24h": 0.03466761,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.066658,
+    "athChangePercentage": -35.67083,
+    "athDate": "2026-08-19T15:35:20.000Z",
+    "atl": 0.03466761,
+    "atlDate": "2026-08-19T16:50:40.000Z",
+    "circulatingSupply": 1200000000,
+    "totalSupply": 1200000000,
+    "maxSupply": 1200000000,
+    "fdv": 50913352
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 70,
+    "githubForks": 28,
+    "commits4Weeks": 56
+  },
+  "fetchedAt": "2026-08-19T18:00:37.854Z"
+}
