@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-18T18:12:49.795Z",
-    "tokenCount": 526,
+    "tokenCount": 523,
     "topIntents": [
       {
         "intent": "risk",
@@ -20,7 +20,7 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 66,
+        "tokenCount": 65,
         "avgScore": 88
       },
       {
@@ -8598,84 +8598,6 @@
         "Conflux scam check",
         "Conflux price prediction 2026",
         "Conflux price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-18T18:12:49.795Z"
-    },
-    "constitutiondao": {
-      "tokenId": "constitutiondao",
-      "tokenName": "ConstitutionDAO",
-      "symbol": "people",
-      "attentionScore": 89,
-      "attentionLabel": "Hot",
-      "hypeScore": 77,
-      "fundamentalsScore": 72,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "meme",
-      "intentMix": [
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 88,
-          "queries": [
-            "ConstitutionDAO meme coin",
-            "ConstitutionDAO price prediction",
-            "is ConstitutionDAO worth buying"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 75,
-          "queries": [
-            "ConstitutionDAO risks",
-            "is ConstitutionDAO safe",
-            "ConstitutionDAO scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 67,
-          "queries": [
-            "ConstitutionDAO price prediction 2026",
-            "ConstitutionDAO price prediction today",
-            "PEOPLE price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 67,
-          "queries": [
-            "how to buy ConstitutionDAO",
-            "where to buy ConstitutionDAO",
-            "PEOPLE crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 55.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 26.0% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "ConstitutionDAO meme coin",
-        "ConstitutionDAO price prediction",
-        "is ConstitutionDAO worth buying",
-        "ConstitutionDAO risks",
-        "is ConstitutionDAO safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -21165,85 +21087,6 @@
       ],
       "computedAt": "2026-08-18T18:12:49.795Z"
     },
-    "momentum-3": {
-      "tokenId": "momentum-3",
-      "tokenName": "Momentum",
-      "symbol": "mmt",
-      "attentionScore": 95,
-      "attentionLabel": "Hot",
-      "hypeScore": 73,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 96,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "Momentum token unlock",
-            "Momentum circulating supply",
-            "Momentum tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 82,
-          "queries": [
-            "Momentum AI crypto",
-            "Momentum AI agent",
-            "MMT AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 71,
-          "queries": [
-            "Momentum risks",
-            "is Momentum safe",
-            "Momentum scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 65,
-          "queries": [
-            "Momentum price prediction 2026",
-            "Momentum price prediction today",
-            "MMT price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 21.2% keeps medium-term forecasts relevant.",
-        "24h volume equals 196.3% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Momentum token unlock",
-        "Momentum circulating supply",
-        "Momentum tokenomics",
-        "Momentum AI crypto",
-        "Momentum AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-18T18:12:49.795Z"
-    },
     "monad": {
       "tokenId": "monad",
       "tokenName": "Monad",
@@ -25266,83 +25109,6 @@
         "PIEVERSE AI token",
         "Pieverse token unlock",
         "Pieverse circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-18T18:12:49.795Z"
-    },
-    "pipedog": {
-      "tokenId": "pipedog",
-      "tokenName": "pipedog",
-      "symbol": "pipedog",
-      "attentionScore": 97,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 89,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "meme",
-      "intentMix": [
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 92,
-          "queries": [
-            "pipedog meme coin",
-            "pipedog price prediction",
-            "is pipedog worth buying"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 78,
-          "queries": [
-            "how to buy pipedog",
-            "where to buy pipedog",
-            "PIPEDOG crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 73,
-          "queries": [
-            "pipedog price prediction 2026",
-            "pipedog price prediction today",
-            "PIPEDOG price target"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 70,
-          "queries": [
-            "pipedog news today",
-            "why is pipedog moving",
-            "PIPEDOG crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "24h volume equals 16.8% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "pipedog meme coin",
-        "pipedog price prediction",
-        "is pipedog worth buying",
-        "how to buy pipedog",
-        "where to buy pipedog"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
