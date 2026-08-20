@@ -3,24 +3,24 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-19T18:09:29.973Z",
-    "tokenCount": 526,
+    "tokenCount": 520,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 195,
-        "avgScore": 75
+        "tokenCount": 194,
+        "avgScore": 74
       },
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 86,
+        "tokenCount": 85,
         "avgScore": 83
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 62,
+        "tokenCount": 60,
         "avgScore": 87
       },
       {
@@ -32,13 +32,13 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 49,
+        "tokenCount": 48,
         "avgScore": 81
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 27,
+        "tokenCount": 26,
         "avgScore": 95
       }
     ],
@@ -70,11 +70,11 @@
       "circle-internet-group-ondo-tokenized-stock",
       "xpin-network",
       "chainlink",
-      "tutorial",
       "audiera",
       "casper-network",
       "goplus-security",
-      "keeta"
+      "keeta",
+      "talus"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -9994,83 +9994,6 @@
       ],
       "computedAt": "2026-08-19T18:09:29.973Z"
     },
-    "degen-base": {
-      "tokenId": "degen-base",
-      "tokenName": "Degen",
-      "symbol": "degen",
-      "attentionScore": 62,
-      "attentionLabel": "Rising",
-      "hypeScore": 61,
-      "fundamentalsScore": 64,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 83,
-          "queries": [
-            "Degen risks",
-            "is Degen safe",
-            "Degen scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 62,
-          "queries": [
-            "Degen meme coin",
-            "Degen price prediction",
-            "is Degen worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 49,
-          "queries": [
-            "Degen price prediction 2026",
-            "Degen price prediction today",
-            "DEGEN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 40,
-          "queries": [
-            "how to buy Degen",
-            "where to buy Degen",
-            "DEGEN crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 7.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Degen risks",
-        "is Degen safe",
-        "Degen scam check",
-        "Degen meme coin",
-        "Degen price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
     "derive": {
       "tokenId": "derive",
       "tokenName": "Derive",
@@ -17149,83 +17072,6 @@
       ],
       "computedAt": "2026-08-19T18:09:29.973Z"
     },
-    "janction": {
-      "tokenId": "janction",
-      "tokenName": "Janction",
-      "symbol": "jct",
-      "attentionScore": 78,
-      "attentionLabel": "Hot",
-      "hypeScore": 79,
-      "fundamentalsScore": 34,
-      "supplyRiskScore": 92,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 90,
-          "queries": [
-            "Janction token unlock",
-            "Janction circulating supply",
-            "Janction tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 83,
-          "queries": [
-            "Janction AI crypto",
-            "Janction AI agent",
-            "JCT AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "Janction risks",
-            "is Janction safe",
-            "Janction scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 55,
-          "queries": [
-            "Janction price prediction 2026",
-            "Janction price prediction today",
-            "JCT price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Janction token unlock",
-        "Janction circulating supply",
-        "Janction tokenomics",
-        "Janction AI crypto",
-        "Janction AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
     "janus-henderson-anemoy-aaa-clo-fund": {
       "tokenId": "janus-henderson-anemoy-aaa-clo-fund",
       "tokenName": "Janus Henderson Anemoy AAA CLO Fund",
@@ -23441,84 +23287,6 @@
       ],
       "computedAt": "2026-08-19T18:09:29.973Z"
     },
-    "openledger-2": {
-      "tokenId": "openledger-2",
-      "tokenName": "OpenLedger",
-      "symbol": "open",
-      "attentionScore": 69,
-      "attentionLabel": "Rising",
-      "hypeScore": 50,
-      "fundamentalsScore": 56,
-      "supplyRiskScore": 94,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 92,
-          "queries": [
-            "OpenLedger token unlock",
-            "OpenLedger circulating supply",
-            "OpenLedger tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 86,
-          "queries": [
-            "OpenLedger AI crypto",
-            "OpenLedger AI agent",
-            "OPEN AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 65,
-          "queries": [
-            "OpenLedger risks",
-            "is OpenLedger safe",
-            "OpenLedger scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 60,
-          "queries": [
-            "how to buy OpenLedger",
-            "where to buy OpenLedger",
-            "OPEN crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 39.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 34.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "OpenLedger token unlock",
-        "OpenLedger circulating supply",
-        "OpenLedger tokenomics",
-        "OpenLedger AI crypto",
-        "OpenLedger AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
     "optimism": {
       "tokenId": "optimism",
       "tokenName": "Optimism",
@@ -28839,82 +28607,6 @@
         "SanDisk (bStocks Tokenized Stock) issuer risk",
         "SanDisk (bStocks Tokenized Stock) risks",
         "is SanDisk (bStocks Tokenized Stock) safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
-    "sapien-2": {
-      "tokenId": "sapien-2",
-      "tokenName": "Sapien",
-      "symbol": "sapien",
-      "attentionScore": 49,
-      "attentionLabel": "Watch",
-      "hypeScore": 37,
-      "fundamentalsScore": 55,
-      "supplyRiskScore": 9,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "Sapien AI crypto",
-            "Sapien AI agent",
-            "SAPIEN AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 64,
-          "queries": [
-            "Sapien risks",
-            "is Sapien safe",
-            "Sapien scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 41,
-          "queries": [
-            "Sapien price prediction 2026",
-            "Sapien price prediction today",
-            "SAPIEN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 26,
-          "queries": [
-            "how to buy Sapien",
-            "where to buy Sapien",
-            "SAPIEN crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Sapien AI crypto",
-        "Sapien AI agent",
-        "SAPIEN AI token",
-        "Sapien risks",
-        "is Sapien safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -35303,83 +34995,6 @@
       ],
       "computedAt": "2026-08-19T18:09:29.973Z"
     },
-    "tutorial": {
-      "tokenId": "tutorial",
-      "tokenName": "Tutorial",
-      "symbol": "tut",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 85,
-      "fundamentalsScore": 72,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Tutorial price prediction 2026",
-            "Tutorial price prediction today",
-            "TUT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Tutorial",
-            "where to buy Tutorial",
-            "TUT crypto exchange"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 100,
-          "queries": [
-            "Tutorial AI crypto",
-            "Tutorial AI agent",
-            "TUT AI token"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 100,
-          "queries": [
-            "Tutorial meme coin",
-            "Tutorial price prediction",
-            "is Tutorial worth buying"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 491.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 177.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative."
-      ],
-      "queryExamples": [
-        "Tutorial price prediction 2026",
-        "Tutorial price prediction today",
-        "TUT price target",
-        "how to buy Tutorial",
-        "where to buy Tutorial"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
     "ultima": {
       "tokenId": "ultima",
       "tokenName": "Ultima",
@@ -36957,83 +36572,6 @@
         "USDU depeg risk",
         "USDu staking rewards",
         "USDu yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-19T18:09:29.973Z"
-    },
-    "usdx": {
-      "tokenId": "usdx",
-      "tokenName": "USDX",
-      "symbol": "usdx",
-      "attentionScore": 39,
-      "attentionLabel": "Watch",
-      "hypeScore": 37,
-      "fundamentalsScore": 35,
-      "supplyRiskScore": 18,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 87,
-          "queries": [
-            "USDX stablecoin risk",
-            "USDX reserves",
-            "USDX depeg risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 81,
-          "queries": [
-            "USDX risks",
-            "is USDX safe",
-            "USDX scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 46,
-          "queries": [
-            "USDX price prediction 2026",
-            "USDX price prediction today",
-            "USDX price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "USDX token unlock",
-            "USDX circulating supply",
-            "USDX tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "USDX stablecoin risk",
-        "USDX reserves",
-        "USDX depeg risk",
-        "USDX risks",
-        "is USDX safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
