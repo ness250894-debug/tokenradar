@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-20T18:13:46.272Z",
-    "tokenCount": 529,
+    "tokenCount": 528,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 161,
+        "tokenCount": 160,
         "avgScore": 75
       },
       {
@@ -38123,80 +38123,6 @@
         "Venus scam check",
         "Venus staking rewards",
         "Venus yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-20T18:13:46.272Z"
-    },
-    "vicicoin": {
-      "tokenId": "vicicoin",
-      "tokenName": "ViciCoin",
-      "symbol": "vcnt",
-      "attentionScore": 37,
-      "attentionLabel": "Watch",
-      "hypeScore": 27,
-      "fundamentalsScore": 50,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 69,
-          "queries": [
-            "ViciCoin risks",
-            "is ViciCoin safe",
-            "ViciCoin scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 37,
-          "queries": [
-            "ViciCoin price prediction 2026",
-            "ViciCoin price prediction today",
-            "VCNT price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "ViciCoin token unlock",
-            "ViciCoin circulating supply",
-            "ViciCoin tokenomics"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 24,
-          "queries": [
-            "how to buy ViciCoin",
-            "where to buy ViciCoin",
-            "VCNT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "ViciCoin risks",
-        "is ViciCoin safe",
-        "ViciCoin scam check",
-        "ViciCoin price prediction 2026",
-        "ViciCoin price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
