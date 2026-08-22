@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-21T18:13:54.457Z",
-    "tokenCount": 535,
+    "tokenCount": 532,
     "topIntents": [
       {
         "intent": "risk",
@@ -26,13 +26,13 @@
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 58,
-        "avgScore": 88
+        "tokenCount": 56,
+        "avgScore": 89
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 57,
+        "tokenCount": 56,
         "avgScore": 85
       },
       {
@@ -2977,81 +2977,6 @@
         "AR AI token",
         "Arweave risks",
         "is Arweave safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-21T18:13:54.457Z"
-    },
-    "asset": {
-      "tokenId": "asset",
-      "tokenName": "REAL",
-      "symbol": "asset",
-      "attentionScore": 46,
-      "attentionLabel": "Watch",
-      "hypeScore": 41,
-      "fundamentalsScore": 33,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "REAL token unlock",
-            "REAL circulating supply",
-            "REAL tokenomics"
-          ]
-        },
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 90,
-          "queries": [
-            "REAL RWA crypto",
-            "REAL tokenized asset",
-            "REAL issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "REAL risks",
-            "is REAL safe",
-            "REAL scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 39,
-          "queries": [
-            "REAL price prediction 2026",
-            "REAL price prediction today",
-            "ASSET price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "REAL token unlock",
-        "REAL circulating supply",
-        "REAL tokenomics",
-        "REAL RWA crypto",
-        "REAL tokenized asset"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -14972,83 +14897,6 @@
       ],
       "computedAt": "2026-08-21T18:13:54.457Z"
     },
-    "glidr": {
-      "tokenId": "glidr",
-      "tokenName": "Glidr",
-      "symbol": "glidr",
-      "attentionScore": 89,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 31,
-      "supplyRiskScore": 95,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Glidr price prediction 2026",
-            "Glidr price prediction today",
-            "GLIDR price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Glidr",
-            "where to buy Glidr",
-            "GLIDR crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "Glidr news today",
-            "why is Glidr moving",
-            "GLIDR crypto news"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 93,
-          "queries": [
-            "Glidr token unlock",
-            "Glidr circulating supply",
-            "Glidr tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 110.0% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Glidr price prediction 2026",
-        "Glidr price prediction today",
-        "GLIDR price target",
-        "how to buy Glidr",
-        "where to buy Glidr"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-21T18:13:54.457Z"
-    },
     "global-dollar": {
       "tokenId": "global-dollar",
       "tokenName": "Global Dollar",
@@ -16337,84 +16185,6 @@
         "HOLO AI token",
         "Holoworld token unlock",
         "Holoworld circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-21T18:13:54.457Z"
-    },
-    "home": {
-      "tokenId": "home",
-      "tokenName": "HOME",
-      "symbol": "home",
-      "attentionScore": 91,
-      "attentionLabel": "Hot",
-      "hypeScore": 65,
-      "fundamentalsScore": 61,
-      "supplyRiskScore": 68,
-      "classification": "Organic Interest",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 70,
-          "queries": [
-            "HOME token unlock",
-            "HOME circulating supply",
-            "HOME tokenomics"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 67,
-          "queries": [
-            "HOME price prediction 2026",
-            "HOME price prediction today",
-            "HOME price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 64,
-          "queries": [
-            "HOME risks",
-            "is HOME safe",
-            "HOME scam check"
-          ]
-        },
-        {
-          "intent": "yield",
-          "label": "Yield / staking",
-          "score": 61,
-          "queries": [
-            "HOME staking rewards",
-            "HOME yield",
-            "HOME APY"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -30.5% keeps medium-term forecasts relevant.",
-        "24h volume equals 98.7% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "HOME token unlock",
-        "HOME circulating supply",
-        "HOME tokenomics",
-        "HOME price prediction 2026",
-        "HOME price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
