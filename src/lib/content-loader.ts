@@ -6,7 +6,8 @@
 import { slugify } from "@/lib/shared-utils";
 import { hydrateLiveMarketSummaryFields, normalizeArticleMarkdown } from "@/lib/article-formatting";
 import type { ArticleQualitySnapshot } from "@/lib/content-quality";
-import { getMarketDataQualityIssues } from "@/lib/market-data-quality";
+import { getMarketDataQualityIssues, getMarketDataTimestamp } from "@/lib/market-data-quality";
+import { isTokenOverviewIndexableFromVolume } from "@/lib/seo";
 import {
   PriceHistorySchema,
   SearchIntentDatasetSchema,
@@ -251,6 +252,7 @@ export interface Article {
   content: string;
   wordCount: number;
   generatedAt: string;
+  model?: string;
   quality?: ArticleQualitySnapshot;
 }
 
@@ -266,6 +268,7 @@ let _tokenIdsCache: string[] | null = null;
 let _categoriesCache: CategorySummary[] | null = null;
 let _categoryIdsCache: Set<string> | null = null;
 const _relatedTokensCache = new Map<string, TokenSummary[]>();
+let _indexableRelatedTokenPoolPromise: Promise<TokenSummary[]> | null = null;
 const DEFAULT_STATIC_CATEGORY_MIN_TOKENS = 10;
 
 // Raw blobs (lazy loaded)
@@ -641,6 +644,13 @@ export async function getTokenDetail(tokenId: string): Promise<TokenDetail | nul
   return null;
 }
 
+export function resolveTokenMarketTimestamp(r: {
+  lastMarketUpdate?: unknown;
+  fetchedAt?: unknown;
+}): string | null {
+  return getMarketDataTimestamp(r);
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRawToTokenDetail(r: any): TokenDetail | null {
   if (!r || !r.id) {
@@ -701,7 +711,7 @@ function mapRawToTokenDetail(r: any): TokenDetail | null {
       githubForks: r.developer?.githubForks ?? null,
       commits4Weeks: r.developer?.commits4Weeks ?? null,
     },
-    fetchedAt: (r.fetchedAt as string) || (r.lastMarketUpdate as string) || new Date().toISOString(),
+    fetchedAt: resolveTokenMarketTimestamp(r) || new Date().toISOString(),
   };
 }
 
@@ -880,6 +890,13 @@ export async function getSearchIntentTokensByIntent(
   return typeof limit === "number" ? matching.slice(0, limit) : matching;
 }
 
+export function normalizeMetricSummary(summary: string): string {
+  return summary
+    .replace(/\bhigh growth potential\b/gi, "high recovery-room signal")
+    .replace(/\blimited upside\b/gi, "limited recovery-room signal")
+    .replace(/\bgrowth potential\b/gi, "recovery-room signal");
+}
+
 function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null {
   const result = TokenMetricsSchema.safeParse(r);
   if (!result.success) {
@@ -898,7 +915,7 @@ function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null 
     valueVsAth: metric.valueVsAth,
     volatilityIndex: metric.volatilityIndex,
     holderConcentrationEstimate: metric.holderConcentrationEstimate,
-    summary: metric.summary,
+    summary: normalizeMetricSummary(metric.summary),
     computedAt: metric.computedAt,
   };
 }
@@ -944,8 +961,11 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
   const article = await loadBlob<Article>(file, relPath);
   if (!article) return null;
 
-  const normalizedContent = hydrateLiveMarketSummaryFields(normalizeArticleMarkdown(article.content || ""));
-  const wordCount = normalizedContent.split(/\s+/).filter(Boolean).length;
+  const authoredContent = normalizeArticleMarkdown(article.content || "");
+  const normalizedContent = hydrateLiveMarketSummaryFields(authoredContent);
+  // Keep the quality word count tied to authored copy. Render-time freshness
+  // notices are useful context, but must not make a thin page indexable.
+  const wordCount = authoredContent.split(/\s+/).filter(Boolean).length;
 
   return {
     ...article,
@@ -1082,6 +1102,23 @@ export function getArticleFaqs(content: string): FAQ[] {
   return faqs;
 }
 
+const RELATED_TOKEN_INDEXABILITY_BATCH_SIZE = 16;
+
+async function loadIndexableRelatedTokenPool(allTokens: TokenSummary[]): Promise<TokenSummary[]> {
+  const result: TokenSummary[] = [];
+
+  for (let start = 0; start < allTokens.length; start += RELATED_TOKEN_INDEXABILITY_BATCH_SIZE) {
+    const batch = allTokens.slice(start, start + RELATED_TOKEN_INDEXABILITY_BATCH_SIZE);
+    const evaluated = await Promise.all(batch.map(async (token) => {
+      const overview = await getArticle(token.id, "overview");
+      return isTokenOverviewIndexableFromVolume(token.volume24h, overview) ? token : null;
+    }));
+    result.push(...evaluated.filter((token): token is TokenSummary => Boolean(token)));
+  }
+
+  return result;
+}
+
 /** Get related tokens based on shared categories and semantic similarity. */
 export async function getRelatedTokens(tokenId: string, limit: number = 3): Promise<TokenSummary[]> {
   const cacheKey = `${tokenId}:${limit}`;
@@ -1093,24 +1130,26 @@ export async function getRelatedTokens(tokenId: string, limit: number = 3): Prom
 
   const allTokens = await getAllTokens();
   const targetToken = allTokens.find((t) => t.id === tokenId);
+
+  if (!_indexableRelatedTokenPoolPromise) {
+    _indexableRelatedTokenPoolPromise = loadIndexableRelatedTokenPool(allTokens);
+  }
+  const relatedTokenPool = await _indexableRelatedTokenPoolPromise;
   
   // Basic fallback
-  const index = allTokens.findIndex((t) => t.id === tokenId);
   if (!targetToken || !targetToken.categories || targetToken.categories.length === 0) {
-    if (index === -1) {
-      const result = allTokens.slice(0, limit);
-      _relatedTokensCache.set(cacheKey, result);
-      return result;
-    }
-    const startIndex = Math.max(0, index - limit);
-    const result = allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId).slice(0, limit);
+    const targetRank = targetToken?.rank ?? 0;
+    const result = relatedTokenPool
+      .filter((token) => token.id !== tokenId)
+      .sort((a, b) => Math.abs(a.rank - targetRank) - Math.abs(b.rank - targetRank))
+      .slice(0, limit);
     _relatedTokensCache.set(cacheKey, result);
     return result;
   }
 
   // Semantic category matching
   const targetCategories = new Set(targetToken.categories);
-  const candidates = allTokens
+  const candidates = relatedTokenPool
     .filter(t => t.id !== tokenId)
     .map(t => {
        let sharedScore = 0;
@@ -1132,8 +1171,9 @@ export async function getRelatedTokens(tokenId: string, limit: number = 3): Prom
   }
 
   // Fill up with nearby ranked tokens if not enough semantic matches
-  const startIndex = Math.max(0, index - limit);
-  const fallback = allTokens.slice(startIndex, index + limit + 1).filter((t) => t.id !== tokenId && !candidates.some(c => c.token.id === t.id));
+  const fallback = relatedTokenPool
+    .filter((token) => token.id !== tokenId && !candidates.some((candidate) => candidate.token.id === token.id))
+    .sort((a, b) => Math.abs(a.rank - targetToken.rank) - Math.abs(b.rank - targetToken.rank));
   
   const result = [...candidates.map(c => c.token), ...fallback].slice(0, limit);
   _relatedTokensCache.set(cacheKey, result);

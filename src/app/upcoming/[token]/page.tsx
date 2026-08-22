@@ -78,7 +78,12 @@ export async function generateMetadata({ params }: TgePageProps): Promise<Metada
     alternates: {
       canonical: decision.canonical,
     },
-    openGraph: buildOpenGraphMetadata({ title, description, type: "article" }),
+    openGraph: buildOpenGraphMetadata({
+      title,
+      description,
+      url: decision.canonical,
+      type: "article",
+    }),
     twitter: buildTwitterMetadata({ title, description }),
   };
 }

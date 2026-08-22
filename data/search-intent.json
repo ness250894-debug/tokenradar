@@ -80,7 +80,7 @@
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
       "Attention blends price movement, volume-to-market-cap, market rank, and narrative category strength.",
       "Fundamentals blend risk score, liquidity, market cap, developer activity, growth potential, and supply pressure.",
-      "Intent labels are research prompts, not trading signals or financial advice."
+      "Intent labels are inferred research proxies, not observed search volume, live query data, trading signals, or financial advice."
     ]
   },
   "tokens": {

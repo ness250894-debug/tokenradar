@@ -6,6 +6,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { execFileSync } from "child_process";
+import { pathToFileURL } from "url";
 import { type UpcomingTge, getAllCategories, getTokenDetail, getArticle, getTokenIds } from "../src/lib/content-loader";
 import { SEARCH_INTENT_LABELS, type SearchIntentType } from "../src/lib/search-intent";
 import { getPilotTokenIds } from "../src/lib/token-technical-data";
@@ -14,7 +15,7 @@ import {
   getSiteUrl,
   getTgeDuplicateKey,
   getTgeIndexDecision,
-  isArticleIndexable,
+  isTokenChildArticleIndexable,
   isTokenOverviewIndexable,
   type TgeRouteCandidate,
 } from "../src/lib/seo";
@@ -115,7 +116,7 @@ async function getGlossaryItemsLocal(): Promise<GlossaryItem[]> {
   }
 }
 
-function escapeXml(unsafe: string): string {
+export function escapeXml(unsafe: string): string {
   return unsafe.replace(/[<>&'"]/g, (c) => {
     switch (c) {
       case "<": return "&lt;";
@@ -128,18 +129,18 @@ function escapeXml(unsafe: string): string {
   });
 }
 
-function generateXml(entries: SitemapEntry[]): string {
+export function generateXml(entries: SitemapEntry[]): string {
   const urls = entries
     .map((e) => {
       let imageTags = "";
       if (e.images && e.images.length > 0) {
         imageTags = "\n" + e.images.map((img) => `    <image:image>
-      <image:loc>${img.loc}</image:loc>
+      <image:loc>${escapeXml(img.loc)}</image:loc>
       <image:title>${escapeXml(img.title)}</image:title>
     </image:image>`).join("\n");
       }
       return `  <url>
-    <loc>${SITE_URL}${e.url}</loc>
+    <loc>${escapeXml(`${SITE_URL}${e.url}`)}</loc>
     <lastmod>${e.lastmod}</lastmod>${imageTags}
   </url>`;
     })
@@ -264,7 +265,7 @@ async function main() {
     const types = ["price-prediction", "how-to-buy"];
     for (const type of types) {
       const art = await getArticle(id, type);
-      if (isArticleIndexable(art)) {
+      if (isTokenChildArticleIndexable(detail, overview, art)) {
         const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
         const artImages = [
           {
@@ -302,7 +303,14 @@ ${sitemaps.map(s => `  <sitemap>
   console.log(`\n🏁 Sitemap Index generated: sitemap.xml (points to ${sitemaps.length} chunks)`);
 }
 
-main().catch(err => {
-  console.error("❌ Sitemap generation failed:", err);
-  process.exit(1);
-});
+function isDirectExecution(): boolean {
+  const entrypoint = process.argv[1];
+  return Boolean(entrypoint) && import.meta.url === pathToFileURL(path.resolve(entrypoint)).href;
+}
+
+if (isDirectExecution()) {
+  main().catch(err => {
+    console.error("❌ Sitemap generation failed:", err);
+    process.exit(1);
+  });
+}

@@ -38,11 +38,11 @@ export function HomeSearchIntentRadar({ intents, tokens, trends = {} }: HomeSear
       <div className="container">
         <div className="home-radar-heading">
           <div>
-            <p className="eyebrow-text">Search Intent Radar</p>
+            <p className="eyebrow-text">Research Intent Proxy</p>
             <h2>
-              Search intent <span className="gradient-text">mapped to market data</span>
+              Research themes <span className="gradient-text">mapped to market data</span>
             </h2>
-            <p>Free-data attention signals mapped to price movement, risk, supply pressure, and narratives.</p>
+            <p>Inferred attention signals from price movement, risk, supply pressure, and narratives—not measured search demand.</p>
           </div>
           <Link href="/tokens" className="home-preview-link">
             Open token directory <ArrowRight size={15} />
@@ -88,7 +88,7 @@ export function HomeSearchIntentRadar({ intents, tokens, trends = {} }: HomeSear
                     <SearchCheck size={14} />
                     {intent.classification}
                   </span>
-                  <strong>{intent.intentMix[0]?.label || "Search interest"}</strong>
+                  <strong>{intent.intentMix[0]?.label || "Research theme"}</strong>
                   <p>{intent.drivers[0]}</p>
                 </div>
                 <div className="home-search-intent-foot">
@@ -105,7 +105,7 @@ export function HomeSearchIntentRadar({ intents, tokens, trends = {} }: HomeSear
 
         <div className="home-search-intent-footer">
           <Link href="/search-intent" className="btn btn-secondary">
-            Open Search Intent Radar <ArrowRight size={16} />
+            Open Research Intent Proxy <ArrowRight size={16} />
           </Link>
         </div>
       </div>

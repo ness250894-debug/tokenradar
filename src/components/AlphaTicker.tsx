@@ -14,6 +14,7 @@ export function AlphaTicker() {
   return (
     <div
       className="alpha-ticker"
+      data-nosnippet
       role="note"
       aria-label={tickerLabel}
       style={{

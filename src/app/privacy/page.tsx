@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy",
   },
-  openGraph: buildOpenGraphMetadata({ title: "Privacy Policy", description }),
+  openGraph: buildOpenGraphMetadata({ title: "Privacy Policy", description, url: "/privacy" }),
   twitter: buildTwitterMetadata({ title: "Privacy Policy", description }),
 };
 

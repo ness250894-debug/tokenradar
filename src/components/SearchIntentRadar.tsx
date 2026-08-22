@@ -91,7 +91,7 @@ export function SearchIntentRadar({ intent, variant = "full", trend, links }: Se
     links?.categoryHref && links.categoryName
       ? { href: links.categoryHref, label: `${links.categoryName} peers`, icon: <Radar size={14} /> }
       : null,
-    { href: "/search-intent", label: "Market intent dashboard", icon: <ArrowRight size={14} /> },
+    { href: "/search-intent", label: "Research intent proxy", icon: <ArrowRight size={14} /> },
   ];
   const actionLinks = maybeActionLinks.filter((link): link is SearchIntentActionLink => Boolean(link));
 
@@ -99,13 +99,13 @@ export function SearchIntentRadar({ intent, variant = "full", trend, links }: Se
     <section className={`card search-intent-card search-intent-card-${tone}`} id="search-intent-radar">
       <div className="search-intent-header">
         <div className="search-intent-title-block">
-          <p className="eyebrow-text">Search Intent Radar</p>
+          <p className="eyebrow-text">Research Intent Proxy</p>
           <h2>
-            Why traders may be searching <span className="gradient-text">{intent.symbol.toUpperCase()}</span>
+            Market signals associated with <span className="gradient-text">{intent.symbol.toUpperCase()}</span> research
           </h2>
           {!compact && (
             <p>
-              Free-data readout from TokenRadar keyword templates, cached market data, supply context, and risk metrics.
+              Inferred from keyword templates, cached market data, supply context, and risk metrics; this is not observed query volume.
             </p>
           )}
         </div>
@@ -141,7 +141,7 @@ export function SearchIntentRadar({ intent, variant = "full", trend, links }: Se
 
       <div className="search-intent-layout">
         <div className="search-intent-panel">
-          <h3>Top Search Intents</h3>
+          <h3>Top Research Intents</h3>
           <div className="search-intent-bars">
             {intent.intentMix.map((item) => (
               <div className="search-intent-bar-row" key={item.intent}>

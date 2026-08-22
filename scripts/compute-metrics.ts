@@ -213,8 +213,8 @@ export function buildMetricSummary(
   const summaryParts: string[] = [];
   if (riskLevel === "high") summaryParts.push("high-risk");
   else if (riskLevel === "low") summaryParts.push("lower-risk");
-  if (growthPotential >= 70) summaryParts.push("high growth potential");
-  else if (growthPotential <= 30) summaryParts.push("limited upside");
+  if (growthPotential >= 70) summaryParts.push("high recovery-room signal");
+  else if (growthPotential <= 30) summaryParts.push("limited recovery-room signal");
   if (narrativeStrength >= 75) summaryParts.push("strong narrative");
   if (valueVsAth >= 80) summaryParts.push("near ATH");
   else if (valueVsAth <= 20) summaryParts.push("deeply discounted vs ATH");

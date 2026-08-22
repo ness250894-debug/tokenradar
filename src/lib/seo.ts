@@ -9,6 +9,7 @@ import {
 
 export const TOKEN_OVERVIEW_MIN_VOLUME_USD = 100_000;
 export const TOKEN_OVERVIEW_MIN_WORDS = 800;
+export const TOKEN_CHILD_MIN_WORDS = 1_000;
 export const SEO_TITLE_MAX_LENGTH = 60;
 export const SEO_DESCRIPTION_MAX_LENGTH = 160;
 export const SITE_NAME = "TokenRadar";
@@ -66,17 +67,33 @@ export function buildEntitySeoTitle(input: {
 
   const reservedLength = before.length + symbolPart.length + after.length;
   const nameBudget = Math.max(8, SEO_TITLE_SEGMENT_MAX_LENGTH - reservedLength);
-  const words = input.name.replace(/\s+/g, " ").trim().split(" ");
-  const lastWord = words.length > 1 ? words.at(-1) || "" : "";
-  const prefixBudget = nameBudget - lastWord.length - 1;
-  const compactName = lastWord && prefixBudget >= 4
-    ? `${input.name.slice(0, prefixBudget - 1).trimEnd().replace(/[\s,:;\-–—]+$/g, "")}…${lastWord}`
-    : truncateAtWord(input.name, nameBudget);
-  return buildSeoTitle(`${before}${compactName}${symbolPart}${after}`);
+  const normalizedName = input.name.replace(/\s+/g, " ").trim();
+  const words = normalizedName.split(" ");
+  let compactName = "";
+
+  for (const word of words) {
+    const candidate = compactName ? `${compactName} ${word}` : word;
+    if (`${candidate}…`.length > nameBudget) break;
+    compactName = candidate;
+  }
+
+  if (compactName) {
+    return buildSeoTitle(`${before}${compactName}…${symbolPart}${after}`);
+  }
+
+  const fallbackEntity = symbol || words[0] || "Token";
+  return buildSeoTitle(`${before}${fallbackEntity}${after}`);
 }
 
 export function buildSeoDescription(value: string): string {
-  return truncateAtWord(value, SEO_DESCRIPTION_MAX_LENGTH);
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= SEO_DESCRIPTION_MAX_LENGTH) return normalized;
+
+  const sliced = normalized.slice(0, SEO_DESCRIPTION_MAX_LENGTH - 1).trimEnd();
+  const wordBoundary = sliced.lastIndexOf(" ");
+  const truncated = (wordBoundary > 0 ? sliced.slice(0, wordBoundary) : sliced)
+    .replace(/[\s,:;\-–—.!?]+$/g, "");
+  return `${truncated}.`;
 }
 
 export function isTokenOverviewIndexable(detail: TokenDetail, overview?: Article | null): overview is Article {
@@ -90,7 +107,9 @@ export function isTokenOverviewIndexableFromVolume(
   if (volume24h <= TOKEN_OVERVIEW_MIN_VOLUME_USD || !overview) return false;
 
   const quality = evaluateArticleQuality(overview);
-  const wordCount = quality.stats.wordCount || overview.wordCount || 0;
+  const renderedWordCount = quality.stats.wordCount || 0;
+  const authoredWordCount = overview.wordCount || renderedWordCount;
+  const wordCount = Math.min(renderedWordCount, authoredWordCount);
 
   return quality.passed && wordCount >= TOKEN_OVERVIEW_MIN_WORDS;
 }
@@ -101,6 +120,22 @@ export function isArticleIndexable(article?: Article | null): article is Article
   if (!article) return false;
   const quality = evaluateArticleQuality(article);
   return quality.passed;
+}
+
+export function isTokenChildArticleIndexable(
+  detail: TokenDetail,
+  overview?: Article | null,
+  article?: Article | null,
+): article is Article {
+  if (!isTokenOverviewIndexable(detail, overview) || !isArticleIndexable(article)) return false;
+
+  const quality = evaluateArticleQuality(article);
+  const renderedWordCount = quality.stats.wordCount || 0;
+  const authoredWordCount = article.wordCount || renderedWordCount;
+  const wordCount = Math.min(renderedWordCount, authoredWordCount);
+  const model = article.model?.trim().toLowerCase();
+
+  return wordCount >= TOKEN_CHILD_MIN_WORDS && model !== "local-template";
 }
 
 export interface TgeRouteCandidate {
@@ -185,7 +220,7 @@ export function getTgeIndexDecision(
   return { indexable: true, canonical: selfCanonical, reason: "indexable" };
 }
 
-export async function filterIndexableArticleTokenIds(
+export async function filterRenderableArticleTokenIds(
   tokenIds: string[],
   loadArticle: (tokenId: string) => Promise<Article | null>,
 ): Promise<string[]> {
@@ -201,9 +236,26 @@ export async function filterIndexableArticleTokenIds(
   return result;
 }
 
+/** @deprecated Use filterRenderableArticleTokenIds when building static route inventories. */
+export const filterIndexableArticleTokenIds = filterRenderableArticleTokenIds;
+
 export interface FAQItem {
   question: string;
   answer: string;
+}
+
+function markdownInlineToPlainText(value: string): string {
+  return value
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?;:]|$)/g, "$1$2")
+    .replace(/(^|\s)_([^_\n]+)_(?=\s|[.,!?;:]|$)/g, "$1$2")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/~~([^~]+)~~/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function parseFaqsFromMarkdown(content: string | undefined): FAQItem[] {
@@ -224,8 +276,8 @@ export function parseFaqsFromMarkdown(content: string | undefined): FAQItem[] {
     if (currentQuestion) {
       const answer = faqBody.slice(lastIndex, match.index).trim();
       faqs.push({
-        question: currentQuestion,
-        answer: answer.replace(/\s+/g, " ").trim(),
+        question: markdownInlineToPlainText(currentQuestion),
+        answer: markdownInlineToPlainText(answer),
       });
     }
     currentQuestion = match[1].trim();
@@ -235,8 +287,8 @@ export function parseFaqsFromMarkdown(content: string | undefined): FAQItem[] {
   if (currentQuestion) {
     const answer = faqBody.slice(lastIndex).trim();
     faqs.push({
-      question: currentQuestion,
-      answer: answer.replace(/\s+/g, " ").trim(),
+      question: markdownInlineToPlainText(currentQuestion),
+      answer: markdownInlineToPlainText(answer),
     });
   }
 

@@ -7,12 +7,19 @@ export const DEFAULT_SHARE_IMAGE = {
   alt: "TokenRadar - Data-Driven Crypto Analysis & Token Research",
 };
 
+export const OPEN_GRAPH_SITE_NAME = "TokenRadar";
+export const OPEN_GRAPH_LOCALE = "en_US";
+
 interface ShareMetadataInput {
   title: string;
   description: string;
-  type?: "website" | "article";
   imageAlt?: string;
   imageUrl?: string;
+}
+
+interface OpenGraphMetadataInput extends ShareMetadataInput {
+  url: string;
+  type?: "website" | "article";
 }
 
 function buildShareImage(input: ShareMetadataInput) {
@@ -23,10 +30,13 @@ function buildShareImage(input: ShareMetadataInput) {
   };
 }
 
-export function buildOpenGraphMetadata(input: ShareMetadataInput): NonNullable<Metadata["openGraph"]> {
+export function buildOpenGraphMetadata(input: OpenGraphMetadataInput): NonNullable<Metadata["openGraph"]> {
   return {
     title: input.title,
     description: input.description,
+    url: input.url,
+    siteName: OPEN_GRAPH_SITE_NAME,
+    locale: OPEN_GRAPH_LOCALE,
     type: input.type || "website",
     images: [buildShareImage(input)],
   };

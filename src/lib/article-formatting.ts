@@ -185,6 +185,13 @@ function normalizeWhitespace(content: string): string {
     .trim();
 }
 
+function neutralizeForecastLikeMetricLabels(content: string): string {
+  return content
+    .replace(/\bhigh growth potential\b/gi, "high recovery-room signal")
+    .replace(/\blimited upside\b/gi, "limited recovery-room signal")
+    .replace(/\bgrowth potential index\b/gi, "recovery-room signal");
+}
+
 const LIVE_MARKET_TABLE_FIELDS = new Map([
   ["price", "{{LIVE_PRICE}}"],
   ["market cap", "{{LIVE_MARKET_CAP}}"],
@@ -209,7 +216,7 @@ function normalizeTableLabel(value: string): string {
 export function hydrateLiveMarketSummaryFields(content: string): string {
   const withFreshnessScope = content.replace(
     /\bData snapshot date:\s*((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\./gi,
-    "Article evidence snapshot: $1. Live values in the summary table and page metrics use the latest local market snapshot.",
+    "Article evidence snapshot: $1. Narrative figures and statements below refer to that evidence date unless explicitly labeled live. Values in the summary table and page metrics use the latest local market snapshot.",
   );
 
   return withFreshnessScope
@@ -227,6 +234,7 @@ export function hydrateLiveMarketSummaryFields(content: string): string {
 export function normalizeArticleMarkdown(content: string): string {
   let normalized = normalizeWhitespace(content);
 
+  normalized = neutralizeForecastLikeMetricLabels(normalized);
   normalized = splitInlineFaq(normalized);
   normalized = dedupeFaqHeadings(normalized);
   normalized = joinSplitDates(normalized);

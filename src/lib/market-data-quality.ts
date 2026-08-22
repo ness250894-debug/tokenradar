@@ -31,12 +31,10 @@ function toFiniteNumber(value: unknown): number | null {
 }
 
 export function getMarketDataTimestamp(token: TokenMarketDataInput): string | null {
-  if (typeof token.lastMarketUpdate === "string" && token.lastMarketUpdate.trim()) {
-    return token.lastMarketUpdate;
-  }
-
-  if (typeof token.fetchedAt === "string" && token.fetchedAt.trim()) {
-    return token.fetchedAt;
+  for (const value of [token.lastMarketUpdate, token.fetchedAt]) {
+    if (typeof value !== "string") continue;
+    const candidate = value.trim();
+    if (candidate && Number.isFinite(Date.parse(candidate))) return candidate;
   }
 
   return null;

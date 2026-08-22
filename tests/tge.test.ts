@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { describe, expect, it } from "vitest";
 import {
   getTgeContractQueries,
@@ -20,6 +22,20 @@ const baseTge: UpcomingTge = {
 };
 
 describe("TGE lifecycle normalization", () => {
+  it("uses external market evidence for the graduated Doge Strategy record", () => {
+    const records = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "data/upcoming-tges.json"), "utf-8"),
+    ) as UpcomingTge[];
+    const dogeStrategy = records.find((record) => record.id === "doge-strategy");
+
+    expect(dogeStrategy?.dataSource).toBe("https://www.coingecko.com/en/coins/doge-strategy");
+    expect(dogeStrategy?.signals).toContainEqual(expect.objectContaining({
+      type: "aggregator_listing",
+      sourceType: "aggregator",
+      url: "https://www.coingecko.com/en/coins/doge-strategy",
+    }));
+  });
+
   it("keeps funding-only news as a non-publishable candidate", () => {
     const tge = normalizeTge(baseTge);
 

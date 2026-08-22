@@ -240,7 +240,7 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
     `${left.name} ($${leftSymbol}) vs ${right.name} ($${rightSymbol})`,
     `${context} - a side-by-side market snapshot.`,
     compactMetrics.join("\n"),
-    "No single metric decides the matchup. Momentum needs participation; growth potential still has to be weighed against risk and liquidity.",
+    "No single metric decides the matchup. Momentum needs participation; recovery room still has to be weighed against risk and liquidity.",
     "Data snapshot only. Not financial advice.",
     "TokenRadar.co",
     `#Crypto #TokenComparison #TokenRadar #${leftSymbol.replace(/[^A-Z0-9_]/g, "")} #${rightSymbol.replace(/[^A-Z0-9_]/g, "")} #CryptoResearch`,

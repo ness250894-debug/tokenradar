@@ -100,6 +100,8 @@ export const metadata: Metadata = {
     description:
       "Understand crypto taxable events, DeFi recordkeeping, staking, airdrops, and new reporting rules.",
     url: PAGE_PATH,
+    siteName: "TokenRadar",
+    locale: "en_US",
     type: "article",
     images: [
       {
@@ -160,6 +162,7 @@ export default function CryptoTaxGuidePage() {
     headline: "Crypto Tax Guide 2026",
     description: metadata.description,
     image: `${siteUrl}/og-image.png`,
+    url: pageUrl,
     datePublished: LAST_UPDATED,
     dateModified: LAST_UPDATED,
     author: buildAuthorPersonSchema(siteUrl),

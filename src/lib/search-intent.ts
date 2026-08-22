@@ -122,17 +122,17 @@ export const SEARCH_INTENT_LABELS: Record<SearchIntentType, string> = {
 };
 
 export const SEARCH_INTENT_DESCRIPTIONS: Record<SearchIntentType, string> = {
-  prediction: "Users looking for forward scenarios, price targets, and market structure after recent moves.",
-  buying: "Users trying to find access routes, exchange availability, and basic purchase workflow checks.",
-  risk: "Users checking safety, scam risk, liquidity, volatility, and whether attention is low quality.",
-  supply: "Users researching unlocks, circulating supply, FDV gaps, and tokenomics pressure.",
-  airdrop: "Users searching for launch, listing, TGE, and eligibility signals around upcoming assets.",
-  stablecoin: "Users checking peg stability, reserves, issuer trust, yield, and depeg risk.",
-  rwa: "Users tracking tokenized assets, treasuries, private credit, and issuer or redemption risk.",
-  ai: "Users looking for AI-token narratives, agent exposure, compute demand, and category rotation.",
-  meme: "Users chasing retail momentum, meme attention, and whether a spike has any staying power.",
-  yield: "Users comparing staking rewards, APY, protocol revenue, and yield sustainability.",
-  news: "Users reacting to fresh catalysts, sharp moves, listings, ecosystem updates, or market rumors.",
+  prediction: "Inferred prediction-research proxy based on forward scenarios, price context, and recent market structure.",
+  buying: "Inferred access-research proxy based on venue checks, availability context, and purchase workflows.",
+  risk: "Inferred risk-research proxy based on safety topics, liquidity, volatility, and low-quality attention signals.",
+  supply: "Inferred supply-research proxy based on unlocks, circulating supply, FDV gaps, and tokenomics pressure.",
+  airdrop: "Inferred launch-research proxy based on listing, TGE, eligibility, and airdrop-related signals.",
+  stablecoin: "Inferred stablecoin-research proxy based on peg stability, reserves, issuer trust, yield, and depeg risk.",
+  rwa: "Inferred RWA-research proxy based on tokenized assets, treasuries, credit, issuers, and redemption risk.",
+  ai: "Inferred AI-token research proxy based on agent exposure, compute, category rotation, and narrative signals.",
+  meme: "Inferred meme-attention proxy based on retail momentum, hype pressure, and market staying-power signals.",
+  yield: "Inferred yield-research proxy based on staking rewards, APY, protocol revenue, and sustainability signals.",
+  news: "Inferred catalyst-research proxy based on sharp moves, listings, ecosystem updates, and market narratives.",
 };
 
 export function clampScore(value: number): number {

@@ -9,6 +9,7 @@ import { google } from "googleapis";
 import { collectIndexNowUrlsFromPublicDir } from "../src/lib/indexnow";
 import { writeFileAtomicSync } from "../src/lib/utils";
 import { buildGoogleAuth } from "./export-engagement-baseline";
+import { acquireProcessLock } from "./process-lock";
 
 interface IndexStatusRecord {
   url: string;
@@ -78,28 +79,6 @@ function writeExport(
     records: records.toSorted((a, b) => a.url.localeCompare(b.url)),
   };
   writeFileAtomicSync(outputPath, `${JSON.stringify(payload, null, 2)}\n`);
-}
-
-function acquireLock(lockPath: string): () => void {
-  if (fs.existsSync(lockPath)) {
-    const existingPid = Number(fs.readFileSync(lockPath, "utf-8").trim());
-    let processIsRunning = false;
-    if (Number.isInteger(existingPid) && existingPid > 0) {
-      try {
-        process.kill(existingPid, 0);
-        processIsRunning = true;
-      } catch {
-        processIsRunning = false;
-      }
-    }
-    if (processIsRunning) {
-      throw new Error(`Another index-status export is already running with PID ${existingPid}.`);
-    }
-    fs.rmSync(lockPath, { force: true });
-  }
-
-  fs.writeFileSync(lockPath, `${process.pid}\n`, { flag: "wx" });
-  return () => fs.rmSync(lockPath, { force: true });
 }
 
 async function main(): Promise<void> {
@@ -189,15 +168,20 @@ async function main(): Promise<void> {
   }, null, 2));
 }
 
-const lockPath = path.resolve(process.cwd(), "data/analytics/index-status.lock");
-fs.mkdirSync(path.dirname(lockPath), { recursive: true });
-let releaseLock: (() => void) | undefined;
-try {
-  releaseLock = acquireLock(lockPath);
-  await main();
-} catch (error) {
-  console.error(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
-} finally {
-  releaseLock?.();
+async function run(): Promise<void> {
+  const lockPath = path.resolve(process.cwd(), "data/analytics/index-status.lock");
+  fs.mkdirSync(path.dirname(lockPath), { recursive: true });
+  let releaseLock: (() => void) | undefined;
+
+  try {
+    releaseLock = acquireProcessLock(lockPath);
+    await main();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  } finally {
+    releaseLock?.();
+  }
 }
+
+void run();

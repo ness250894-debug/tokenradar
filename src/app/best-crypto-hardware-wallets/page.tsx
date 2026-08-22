@@ -112,6 +112,8 @@ export const metadata: Metadata = {
     description:
       "Compare Ledger, Trezor, and Bitcoin-only hardware wallets with practical custody and setup guidance.",
     url: PAGE_PATH,
+    siteName: "TokenRadar",
+    locale: "en_US",
     type: "article",
     images: [
       {
@@ -174,6 +176,7 @@ export default function HardwareWalletsPage() {
     headline: "Best Crypto Hardware Wallets 2026",
     description: metadata.description,
     image: `${siteUrl}/images/hardware-wallet-guide.png`,
+    url: pageUrl,
     datePublished: LAST_UPDATED,
     dateModified: LAST_UPDATED,
     author: buildAuthorPersonSchema(siteUrl),

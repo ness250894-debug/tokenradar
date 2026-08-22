@@ -4,7 +4,7 @@ import { Activity, DollarSign, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 import { TokenGrid } from "@/components/TokenGrid";
-import { formatCompact } from "@/lib/content-loader";
+import { formatCompact, getAllCategories } from "@/lib/content-loader";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 import { getIndexableTokenProfiles, getTokenDirectoryData } from "@/lib/token-directory-data";
 
@@ -18,12 +18,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/tokens",
   },
-  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION, url: "/tokens" }),
   twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
 export default async function TokensPage() {
-  const { tokens, cards: tokenCards } = await getTokenDirectoryData();
+  const [{ tokens, cards: tokenCards }, categories] = await Promise.all([
+    getTokenDirectoryData(),
+    getAllCategories(),
+  ]);
   const totalMarketCap = tokens.reduce((sum, token) => sum + (token.marketCap || 0), 0);
   const totalVolume = tokens.reduce((sum, token) => sum + (token.volume24h || 0), 0);
   const indexableProfiles = await getIndexableTokenProfiles(tokens);
@@ -75,6 +78,30 @@ export default async function TokensPage() {
             Browse all {indexableProfiles.length} published token profiles A-Z
           </Link>
         </div>
+
+        <section style={{ marginTop: "var(--space-4xl)" }} aria-labelledby="token-category-directory">
+          <div className="section-header">
+            <h2 id="token-category-directory">Browse Token Categories</h2>
+            <p>Open a crawlable market comparison for every published category.</p>
+          </div>
+          <nav
+            className="card"
+            aria-label="Token category directory"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
+              gap: "var(--space-sm) var(--space-lg)",
+              padding: "var(--space-lg)",
+              fontSize: "var(--text-sm)",
+            }}
+          >
+            {categories.map((category) => (
+              <Link href={`/category/${category.id}`} key={category.id}>
+                {category.name} <span style={{ color: "var(--text-muted)" }}>({category.count})</span>
+              </Link>
+            ))}
+          </nav>
+        </section>
       </section>
     </main>
   );

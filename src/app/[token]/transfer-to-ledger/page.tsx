@@ -5,6 +5,7 @@ import { getTokenTechnical, getPilotTokenIds } from '@/lib/token-technical-data'
 import { JsonLd } from '@/components/JsonLd';
 import { TransferGuideTemplate } from '@/components/TransferGuideTemplate';
 import { buildEntitySeoTitle, buildSeoDescription, canonicalPath } from '@/lib/seo';
+import { buildOpenGraphMetadata } from '@/lib/share-metadata';
 
 export const dynamic = "force-static";
 
@@ -49,18 +50,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: canonicalPath(`/${tokenId}/transfer-to-ledger`),
     },
-    openGraph: {
+    openGraph: buildOpenGraphMetadata({
       title,
       description,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: `How to Transfer ${name} (${symbol}) to Ledger`,
-        },
-      ],
-    },
+      url: canonicalPath(`/${tokenId}/transfer-to-ledger`),
+      type: "article",
+      imageUrl: ogImage,
+      imageAlt: `How to Transfer ${name} (${symbol}) to Ledger`,
+    }),
     twitter: {
       card: "summary_large_image",
       title,

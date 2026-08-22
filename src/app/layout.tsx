@@ -63,6 +63,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "TokenRadar",
+    url: "/",
     title: "TokenRadar - Data-Driven Crypto Analysis",
     description:
       "Unbiased crypto analysis across hundreds of tracked and upcoming tokens with risk scores and launch evidence.",
@@ -81,10 +82,6 @@ export const metadata: Metadata = {
     description:
       "Unbiased crypto analysis across hundreds of tracked and upcoming tokens with risk scores and launch evidence.",
     images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 

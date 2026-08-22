@@ -7,7 +7,11 @@ import {
   computeSupplyRiskScore,
   mergeSearchIntentHistory,
 } from "../scripts/compute-search-intent";
-import { SEARCH_INTENT_LABELS, type SearchIntentDataset } from "../src/lib/search-intent";
+import {
+  SEARCH_INTENT_DESCRIPTIONS,
+  SEARCH_INTENT_LABELS,
+  type SearchIntentDataset,
+} from "../src/lib/search-intent";
 
 const baseToken = {
   id: "test-token",
@@ -34,6 +38,15 @@ const baseToken = {
 };
 
 describe("search intent scoring", () => {
+  it("describes inferred proxies without claiming measured user search demand", () => {
+    for (const description of Object.values(SEARCH_INTENT_DESCRIPTIONS)) {
+      expect(description).toMatch(/inferred/i);
+      expect(description).toMatch(/proxy/i);
+      expect(description).not.toMatch(/users? (?:are )?(?:searching|looking|checking|researching|tracking|chasing|comparing|reacting)/i);
+      expect(description).not.toMatch(/search demand/i);
+    }
+  });
+
   it("raises supply risk when FDV and circulating supply diverge", () => {
     const lowRisk = computeSupplyRiskScore(baseToken);
     const highRisk = computeSupplyRiskScore({

@@ -19,8 +19,10 @@ import {
 import {
   buildEntitySeoTitle,
   buildSeoDescription,
-  filterIndexableArticleTokenIds,
+  canonicalUrl,
+  filterRenderableArticleTokenIds,
   isArticleIndexable,
+  isTokenChildArticleIndexable,
   parseFaqsFromMarkdown,
 } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
@@ -35,10 +37,12 @@ import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
+import { TokenSources } from "@/components/TokenSources";
 import { getPartner, getPartnerLinkAttributes } from "@/lib/partners";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
 import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
+import { buildOpenGraphMetadata } from "@/lib/share-metadata";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -48,10 +52,10 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tokenIds = await getTokenIdsWithArticle("price-prediction");
-  const indexableTokenIds = await filterIndexableArticleTokenIds(tokenIds, (tokenId) =>
+  const renderableTokenIds = await filterRenderableArticleTokenIds(tokenIds, (tokenId) =>
     getArticle(tokenId, "price-prediction"),
   );
-  return indexableTokenIds.map((token) => ({ token }));
+  return renderableTokenIds.map((token) => ({ token }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -59,7 +63,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = await getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
-  const article = await getArticle(tokenId, "price-prediction");
+  const [overview, article] = await Promise.all([
+    getArticle(tokenId, "overview"),
+    getArticle(tokenId, "price-prediction"),
+  ]);
   const year = new Date().getFullYear();
   const title = buildEntitySeoTitle({
     name: detail.name,
@@ -74,25 +81,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: isArticleIndexable(article),
+      index: isTokenChildArticleIndexable(detail, overview, article),
       follow: true,
     },
     alternates: {
       canonical: `/${detail.id}/price-prediction`,
     },
-    openGraph: {
+    openGraph: buildOpenGraphMetadata({
       title,
       description,
+      url: `/${detail.id}/price-prediction`,
       type: "article",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+      imageUrl: ogImage,
+      imageAlt: title,
+    }),
     twitter: {
       card: "summary_large_image",
       title,
@@ -117,7 +119,9 @@ export default async function PricePredictionPage({ params }: PageProps) {
 
   const tradingView = getPartner("tradingview");
   const technical = getTokenTechnical(tokenId);
+  const overview = await getArticle(tokenId, "overview");
   const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
+  const hasHowToBuy = isTokenChildArticleIndexable(detail, overview, howToBuyArticle);
   const relatedTokens = await getRelatedTokens(tokenId, 1);
 
   const isPositive = detail.market.priceChange30d >= 0;
@@ -132,7 +136,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
     category: primaryCategory.name,
     categoryHref: primaryCategory.href,
     hasPricePrediction: true,
-    hasHowToBuy: isArticleIndexable(howToBuyArticle),
+    hasHowToBuy,
     hasLedgerGuide: Boolean(technical),
   });
   const completionActions = buildArticleCompletionActions(
@@ -143,7 +147,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
       category: primaryCategory.name,
       categoryHref: primaryCategory.href,
       hasPricePrediction: true,
-      hasHowToBuy: isArticleIndexable(howToBuyArticle),
+      hasHowToBuy,
       hasLedgerGuide: Boolean(technical),
       relatedToken: relatedTokens[0],
     },
@@ -230,7 +234,7 @@ export default async function PricePredictionPage({ params }: PageProps) {
           trend={searchIntentTrend}
           links={{
             hasPricePrediction: true,
-            hasHowToBuy: isArticleIndexable(howToBuyArticle),
+            hasHowToBuy,
             hasLedgerGuide: Boolean(technical),
             categoryHref: primaryCategory.href,
             categoryName: primaryCategory.name,
@@ -373,6 +377,8 @@ export default async function PricePredictionPage({ params }: PageProps) {
           </div>
         )}
 
+        <TokenSources tokenId={detail.id} links={detail.links} fetchedAt={detail.fetchedAt} />
+
         {/* Disclaimer */}
         <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
           <strong>Disclaimer:</strong> This analysis is for informational purposes only and does not constitute financial advice.
@@ -388,11 +394,13 @@ export default async function PricePredictionPage({ params }: PageProps) {
           "@type": "Article",
           headline: `${detail.name} Price Prediction ${new Date().getFullYear()}-${new Date().getFullYear() + 1}`,
           description: `Data-driven price analysis for ${detail.name} (${detail.symbol.toUpperCase()}). Current price: ${formatPrice(detail.market.price)}, ATH: ${formatPrice(detail.market.ath)}.`,
-          image: "https://tokenradar.co/og-image.png",
+          image: canonicalUrl(`/og/token/${detail.id}.png`),
+          url: canonicalUrl(`/${detail.id}/price-prediction`),
+          mainEntityOfPage: canonicalUrl(`/${detail.id}/price-prediction`),
           author: buildAuthorPersonSchema(),
           publisher: buildPublisherSchema(),
-          datePublished: article?.generatedAt || detail.fetchedAt,
-          dateModified: article?.generatedAt || detail.fetchedAt,
+          datePublished: article.generatedAt,
+          dateModified: article.generatedAt,
         }}
       />
       {faqs.length > 0 && (
