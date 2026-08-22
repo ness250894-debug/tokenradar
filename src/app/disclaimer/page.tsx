@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/disclaimer",
   },
-  openGraph: buildOpenGraphMetadata({ title: "Financial Disclaimer", description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: "Financial Disclaimer", description: PAGE_DESCRIPTION, url: "/disclaimer" }),
   twitter: buildTwitterMetadata({ title: "Financial Disclaimer", description: PAGE_DESCRIPTION }),
 };
 
@@ -90,7 +90,7 @@ export default function DisclaimerPage() {
           <p>
             These affiliate relationships do not influence our analysis,
             metrics, or editorial content. Our proprietary metrics (Risk Score,
-            Growth Potential Index, etc.) are computed algorithmically from
+            Recovery Room Index, etc.) are computed algorithmically from
             market data and are never altered based on affiliate partnerships.
           </p>
           <p>

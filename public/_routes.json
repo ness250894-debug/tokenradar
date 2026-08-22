@@ -1,5 +1,20 @@
 {
   "version": 1,
-  "include": ["/compare", "/compare/*"],
-  "exclude": []
+  "include": ["/*"],
+  "exclude": [
+    "/.well-known/*",
+    "/_next/static/*",
+    "/audio/*",
+    "/data/*",
+    "/icons/*",
+    "/images/*",
+    "/og/*",
+    "/video-assets/*",
+    "/icon-32.png",
+    "/icon.png",
+    "/manifest.webmanifest",
+    "/og-image.png",
+    "/sw.js",
+    "/tiktok-logo.png"
+  ]
 }

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/terms",
   },
-  openGraph: buildOpenGraphMetadata({ title: "Terms of Service", description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: "Terms of Service", description: PAGE_DESCRIPTION, url: "/terms" }),
   twitter: buildTwitterMetadata({ title: "Terms of Service", description: PAGE_DESCRIPTION }),
 };
 

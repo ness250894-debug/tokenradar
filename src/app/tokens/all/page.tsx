@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/tokens/all",
   },
-  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION, url: "/tokens/all" }),
   twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 

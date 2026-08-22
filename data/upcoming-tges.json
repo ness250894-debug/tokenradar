@@ -857,7 +857,7 @@
     "category": "Meme",
     "expectedTge": "Active",
     "narrativeStrength": 75,
-    "dataSource": "https://tokenradar.co/doge-strategy",
+    "dataSource": "https://www.coingecko.com/en/coins/doge-strategy",
     "discoveredAt": "2026-04-23T12:30:00.000Z",
     "status": "released",
     "graduatedAt": "2026-05-10T20:00:46.817Z",
@@ -866,9 +866,9 @@
     "confidence": 95,
     "signals": [
       {
-        "type": "news",
-        "sourceType": "official",
-        "url": "https://tokenradar.co/doge-strategy",
+        "type": "aggregator_listing",
+        "sourceType": "aggregator",
+        "url": "https://www.coingecko.com/en/coins/doge-strategy",
         "observedAt": "2026-04-23T12:30:00.000Z"
       }
     ],

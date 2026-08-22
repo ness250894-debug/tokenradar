@@ -49,6 +49,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       url: `/learn/${item.slug}`,
+      siteName: "TokenRadar",
+      locale: "en_US",
       type: "article",
       publishedTime: item.updatedAt,
       modifiedTime: item.updatedAt,
@@ -92,6 +94,7 @@ export default async function GlossaryDetailPage({ params }: PageProps) {
           headline: item.title,
           description: item.description,
           image: [canonicalUrl("/og-image.png")],
+          url: articleUrl,
           datePublished: item.updatedAt,
           dateModified: item.updatedAt,
           author: {

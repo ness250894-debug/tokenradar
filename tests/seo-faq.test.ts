@@ -80,6 +80,23 @@ Yes, but always DYOR.
     expect(parseFaqsFromMarkdown(markdown)).toEqual(expected);
   });
 
+  it("converts Markdown links and inline emphasis to plain JSON-LD answer text", () => {
+    const markdown = `
+## FAQ
+
+**How can I verify the token?**
+
+Review the [official documentation](https://example.com/docs), **confirm** the *network*, and compare the \`contract address\`.
+`;
+
+    expect(parseFaqsFromMarkdown(markdown)).toEqual([
+      {
+        question: "How can I verify the token?",
+        answer: "Review the official documentation, confirm the network, and compare the contract address.",
+      },
+    ]);
+  });
+
   it("stops parsing at Disclaimer or next header", () => {
     const markdown = `
 ## FAQ

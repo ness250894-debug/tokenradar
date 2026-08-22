@@ -217,7 +217,7 @@ export function TokenGrid({
           <label>
             <span><Filter size={13} /> Intent</span>
             <select className="search-input themed-select" value={intentFilter} onChange={handleFilterChange(setIntentFilter)}>
-              <option value="all">All Search Intents</option>
+              <option value="all">All Research Intents</option>
               {searchIntentOptions.map((intent) => (
                 <option key={intent} value={intent}>{SEARCH_INTENT_LABELS[intent]}</option>
               ))}

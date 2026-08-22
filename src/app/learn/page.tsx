@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     url: "/learn",
+    siteName: "TokenRadar",
+    locale: "en_US",
     type: "website",
     images: [
       {

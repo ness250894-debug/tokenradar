@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/about",
   },
-  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION, url: "/about" }),
   twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
@@ -65,10 +65,10 @@ const metricTableRows = [
     interpretation: "Higher score means higher observed market risk.",
   },
   {
-    metric: "Growth Potential Index",
+    metric: "Recovery Room Index",
     scale: "0-100",
     inputs: "ATH drawdown, category-relative market cap, 30-day momentum",
-    interpretation: "Higher score means more recovery or peer-relative upside potential.",
+    interpretation: "Higher scores reflect deeper drawdown and peer-relative room; they do not predict future upside.",
   },
   {
     metric: "Narrative Strength",
@@ -240,9 +240,9 @@ export default async function AboutPage() {
             depth, or expected slippage for a specific trade size.
           </p>
 
-          <h2>Growth Potential Index</h2>
+          <h2>Recovery Room Index</h2>
           <p>
-            Growth Potential is a 0-100 score designed to show recovery room and
+            Recovery Room is a 0-100 descriptive score for historical drawdown and
             peer-relative room, not a forecast. It combines three factors:
           </p>
           <ul>
@@ -254,7 +254,7 @@ export default async function AboutPage() {
             <li>
               <strong>Market cap vs category median, up to 40 points:</strong>{" "}
               tokens below their category median market cap receive more
-              relative-upside credit.
+              peer-relative-room credit.
             </li>
             <li>
               <strong>30-day momentum, up to 20 points:</strong> positive
@@ -427,7 +427,7 @@ export default async function AboutPage() {
             cost to the user.
           </p>
           <p>
-            Affiliate relationships do not alter Risk Score, Growth Potential,
+            Affiliate relationships do not alter Risk Score, Recovery Room,
             Narrative Strength, Volatility Index, Value vs ATH, TGE confidence,
             or whether a token is included in coverage. See the full{" "}
             <Link href="/disclaimer">financial and affiliate disclosure</Link>.

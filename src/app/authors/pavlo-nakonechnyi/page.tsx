@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Pavlo Nakonechnyi, Founder & Researcher",
   description: PAGE_DESCRIPTION,
   alternates: { canonical: TOKENRADAR_AUTHOR_PATH },
-  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION, url: TOKENRADAR_AUTHOR_PATH }),
   twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
@@ -50,14 +50,13 @@ export default function PavloNakonechnyiAuthorPage() {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-            { "@type": "ListItem", position: 2, name: "Authors", item: pageUrl },
-            { "@type": "ListItem", position: 3, name: "Pavlo Nakonechnyi", item: pageUrl },
+            { "@type": "ListItem", position: 2, name: "Pavlo Nakonechnyi", item: pageUrl },
           ],
         }}
       />
 
       <nav aria-label="Breadcrumb" style={{ marginTop: "var(--space-xl)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-        <Link href="/">Home</Link> / <span>Authors</span> / Pavlo Nakonechnyi
+        <Link href="/">Home</Link> / Pavlo Nakonechnyi
       </nav>
 
       <header style={{ maxWidth: 880, margin: "var(--space-3xl) auto" }}>

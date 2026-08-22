@@ -172,7 +172,7 @@ export async function generateDynamicVoiceoverScript(
     2. Incorporate natural hesitation pauses using ellipses (...) and commas (e.g. "Wait...", "Look...", "But here is the catch...").
     3. Use exclamation marks and question marks to guide pitch and dynamic intonation.
     4. Keep it strictly under ${maxWords} words total so it comfortably fits the render at natural reading speed.
-    5. Do NOT mention specific dry metrics like "Growth Potential Index is 67" or raw JSON numbers unless highly relevant. Focus on the core narrative.
+    5. Do NOT mention specific dry metrics like "Recovery Room Index is 67" or raw JSON numbers unless highly relevant. Focus on the core narrative.
     6. Strict safety: Do NOT use the words: buy, sell, hold, long, short, moon, 100x, entry, target, guaranteed, rich, or price prediction. Substitute with "context", "research", "watchlist", or "risk check".
     7. End with a call to action asking viewers to comment their next ticker for a risk check.
     8. ${isTikTokNative ? "Make it sound like TikTok-native creator commentary, not a dashboard export or a formal report. Do not say exact percentages, exact dollar values, market cap, rank, or reported volume." : "Keep it focused and natural."}

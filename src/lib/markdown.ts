@@ -2,11 +2,15 @@ import * as fs from "fs";
 import * as path from "path";
 import { marked, Renderer, type Tokens } from "marked";
 import { formatPrice, formatCompact, getTokenIconCandidates } from "./formatters";
-import { getAllCategories, getAllTokens, getArticle, getTokenIds, getTokenIdsWithArticle } from "./content-loader";
+import { getAllCategories, getAllTokens, getArticle, getTokenDetail, getTokenIds, getTokenIdsWithArticle } from "./content-loader";
 import { normalizeArticleMarkdown } from "./article-formatting";
 import { getPilotTokenIds } from "./token-technical-data";
 import { isLinkableTokenName, shouldUnwrapAmbiguousTokenLink } from "./internal-link-policy";
-import { filterIndexableArticleTokenIds } from "./seo";
+import {
+  isTokenChildArticleIndexable,
+  isTokenOverviewIndexable,
+  isTokenOverviewIndexableFromVolume,
+} from "./seo";
 
 /**
  * Robust markdown → HTML converter for article content.
@@ -37,19 +41,26 @@ interface GlossaryLinkSource {
 const STATIC_INTERNAL_PATHS = [
   "/",
   "/about",
+  "/authors/pavlo-nakonechnyi",
   "/best-crypto-hardware-wallets",
   "/contact",
   "/crypto-tax-guide",
   "/disclaimer",
   "/learn",
   "/privacy",
+  "/research",
+  "/search-intent",
   "/terms",
+  "/tokens",
+  "/tokens/all",
   "/upcoming",
 ];
 
 const RISK_PILL_PLACEHOLDER = "TOKENRADAR_RISK_PILL_9B65D6E7";
+const MAX_AUTO_LINKS_PER_ARTICLE = 3;
 
 let linkableTokensPromise: Promise<LinkableToken[]> | null = null;
+let indexableOverviewTokensPromise: Promise<LinkableToken[]> | null = null;
 let validInternalPathsPromise: Promise<Set<string>> | null = null;
 
 function escapeHtmlText(value: string): string {
@@ -176,24 +187,19 @@ async function getValidInternalPaths(): Promise<Set<string>> {
       const paths = new Set(STATIC_INTERNAL_PATHS);
 
       try {
-        const [tokenIds, howToBuyTokenIds, pricePredictionTokenIds] = await Promise.all([
-          getTokenIds(),
+        const [overviewTokens, howToBuyTokenIds, pricePredictionTokenIds] = await Promise.all([
+          getIndexableOverviewTokens(),
           getTokenIdsWithArticle("how-to-buy").then((tokenIdsWithArticle) =>
-            filterIndexableArticleTokenIds(tokenIdsWithArticle, (tokenId) => getArticle(tokenId, "how-to-buy")),
+            getIndexableTokenChildIds(tokenIdsWithArticle, "how-to-buy"),
           ),
           getTokenIdsWithArticle("price-prediction").then((tokenIdsWithArticle) =>
-            filterIndexableArticleTokenIds(tokenIdsWithArticle, (tokenId) => getArticle(tokenId, "price-prediction")),
+            getIndexableTokenChildIds(tokenIdsWithArticle, "price-prediction"),
           ),
         ]);
-        const howToBuyRoutes = new Set(howToBuyTokenIds);
-        const pricePredictionRoutes = new Set(pricePredictionTokenIds);
-        const pilotIds = new Set(getPilotTokenIds());
-        for (const id of tokenIds) {
-          paths.add(`/${id}`);
-          if (howToBuyRoutes.has(id)) paths.add(`/${id}/how-to-buy`);
-          if (pricePredictionRoutes.has(id)) paths.add(`/${id}/price-prediction`);
-          if (pilotIds.has(id)) paths.add(`/${id}/transfer-to-ledger`);
-        }
+        for (const token of overviewTokens) paths.add(`/${token.id}`);
+        for (const id of howToBuyTokenIds) paths.add(`/${id}/how-to-buy`);
+        for (const id of pricePredictionTokenIds) paths.add(`/${id}/price-prediction`);
+        for (const id of getPilotTokenIds()) paths.add(`/${id}/transfer-to-ledger`);
       } catch (error) {
         console.warn("Failed to load token routes for internal-link validation.", error);
       }
@@ -218,6 +224,25 @@ async function getValidInternalPaths(): Promise<Set<string>> {
   return validInternalPathsPromise;
 }
 
+async function getIndexableTokenChildIds(
+  tokenIds: string[],
+  articleSlug: "how-to-buy" | "price-prediction",
+): Promise<string[]> {
+  const evaluatedIds = await Promise.all(tokenIds.map(async (tokenId) => {
+    const [detail, overview, article] = await Promise.all([
+      getTokenDetail(tokenId),
+      getArticle(tokenId, "overview"),
+      getArticle(tokenId, articleSlug),
+    ]);
+
+    return detail && isTokenChildArticleIndexable(detail, overview, article)
+      ? tokenId
+      : null;
+  }));
+
+  return evaluatedIds.filter((tokenId): tokenId is string => tokenId !== null);
+}
+
 async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
   const validInternalPaths = await getValidInternalPaths();
 
@@ -236,13 +261,45 @@ async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
   });
 }
 
+async function getIndexableOverviewTokens(): Promise<LinkableToken[]> {
+  if (!indexableOverviewTokensPromise) {
+    indexableOverviewTokensPromise = Promise.all([getTokenIds(), getAllTokens()]).then(async ([tokenIds, summaries]) => {
+      const summariesById = new Map(summaries.map((token) => [token.id, token]));
+      const evaluatedTokens = await Promise.all(tokenIds.map(async (tokenId) => {
+        const overview = await getArticle(tokenId, "overview");
+        const summary = summariesById.get(tokenId);
+        if (summary) {
+          return {
+            id: summary.id,
+            name: summary.name,
+            isIndexable: isTokenOverviewIndexableFromVolume(summary.volume24h, overview),
+          };
+        }
+
+        const detail = await getTokenDetail(tokenId);
+
+        return {
+          id: detail?.id || tokenId,
+          name: detail?.name || "",
+          isIndexable: Boolean(detail && isTokenOverviewIndexable(detail, overview)),
+        };
+      }));
+
+      return evaluatedTokens.flatMap(({ id, name, isIndexable }) => {
+        if (!name || !isIndexable) return [];
+        return [{ id, name, nameLower: name.toLowerCase() }];
+      });
+    });
+  }
+
+  return indexableOverviewTokensPromise;
+}
 
 async function getLinkableTokens(excludedName?: string): Promise<LinkableToken[]> {
   if (!linkableTokensPromise) {
-    linkableTokensPromise = getAllTokens().then((tokens) =>
+    linkableTokensPromise = getIndexableOverviewTokens().then((tokens) =>
       tokens
         .filter((t) => isLinkableTokenName(t.name))
-        .map((t) => ({ id: t.id, name: t.name, nameLower: t.name.toLowerCase() }))
         .sort((a, b) => b.name.length - a.name.length),
     );
   }
@@ -251,6 +308,80 @@ async function getLinkableTokens(excludedName?: string): Promise<LinkableToken[]
   return (await linkableTokensPromise)
     .filter((t) => t.nameLower !== excludedNameLower)
     .slice(0, 250);
+}
+
+interface HtmlSegment {
+  value: string;
+  eligibleForAutoLink: boolean;
+}
+
+function autoLinkTokenMentionsInHtml(html: string, linkableTokens: LinkableToken[]): string {
+  const linkedInternalPaths = new Set<string>();
+  for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)) {
+    const internalPath = normalizeInternalHref(match[1]);
+    if (internalPath) linkedInternalPaths.add(internalPath);
+  }
+
+  const excludedTags = new Set(["a", "code", "pre"]);
+  const segments: HtmlSegment[] = [];
+  let excludedDepth = 0;
+
+  for (const value of html.split(/(<[^>]+>)/g)) {
+    if (!value) continue;
+
+    if (value.startsWith("<")) {
+      segments.push({ value, eligibleForAutoLink: false });
+      const closingTag = value.match(/^<\s*\/\s*([a-z0-9-]+)\b/i);
+      const openingTag = value.match(/^<\s*([a-z0-9-]+)\b/i);
+      if (closingTag && excludedTags.has(closingTag[1].toLowerCase())) {
+        excludedDepth = Math.max(0, excludedDepth - 1);
+      } else if (
+        openingTag
+        && excludedTags.has(openingTag[1].toLowerCase())
+        && !/\/\s*>$/.test(value)
+      ) {
+        excludedDepth += 1;
+      }
+      continue;
+    }
+
+    segments.push({ value, eligibleForAutoLink: excludedDepth === 0 });
+  }
+
+  let autoLinkCount = 0;
+  for (const token of linkableTokens) {
+    if (autoLinkCount >= MAX_AUTO_LINKS_PER_ARTICLE) break;
+
+    const targetPath = `/${token.id}`;
+    if (linkedInternalPaths.has(targetPath)) continue;
+
+    const escapedName = escapeHtmlText(token.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const tokenPattern = new RegExp(`\\b(${escapedName})\\b`, "i");
+
+    for (let index = 0; index < segments.length; index += 1) {
+      const segment = segments[index];
+      if (!segment.eligibleForAutoLink) continue;
+
+      const match = tokenPattern.exec(segment.value);
+      if (!match || match.index === undefined) continue;
+
+      const before = segment.value.slice(0, match.index);
+      const after = segment.value.slice(match.index + match[0].length);
+      const replacement: HtmlSegment[] = [];
+      if (before) replacement.push({ value: before, eligibleForAutoLink: true });
+      replacement.push({
+        value: `<a href="${escapeHtmlAttribute(targetPath)}">${match[0]}</a>`,
+        eligibleForAutoLink: false,
+      });
+      if (after) replacement.push({ value: after, eligibleForAutoLink: true });
+      segments.splice(index, 1, ...replacement);
+      linkedInternalPaths.add(targetPath);
+      autoLinkCount += 1;
+      break;
+    }
+  }
+
+  return segments.map((segment) => segment.value).join("");
 }
 
 /**
@@ -319,41 +450,23 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
 
   processedMd = await unwrapUnsafeInternalMarkdownLinks(processedMd);
 
-  // Programmatic Internal Linking
-  try {
-    const maskedLinks: string[] = [];
-    processedMd = processedMd.replace(/!?\[([^\]]*)\]\(([^)]+)\)/g, (match) => {
-      maskedLinks.push(match);
-      return `__MASKED_LINK_${maskedLinks.length - 1}__`;
-    });
-
-    const linkableTokens = await getLinkableTokens(tokenData?.name);
-
-    for (const t of linkableTokens) {
-      const safeName = t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      // Added 'g' flag to replace all occurrences, not just the first one
-      const regex = new RegExp(`\\b(${safeName})\\b`, 'ig');
-      processedMd = processedMd.replace(regex, (match) => {
-        // Immediately mask the new link to prevent nested links matching later
-        maskedLinks.push(`[${match}](/${t.id})`);
-        return `__MASKED_LINK_${maskedLinks.length - 1}__`;
-      });
-    }
-
-    processedMd = processedMd.replace(/__MASKED_LINK_(\d+)__/g, (match, idx) => {
-      const restored = maskedLinks[Number(idx)];
-      return restored ?? match;
-    });
-  } catch (e) {
-    console.warn("Auto-linking failed, falling back to raw md.", e);
-  }
-
   // Parse markdown with a renderer that drops raw HTML and validates URLs.
-  const rawHtml = await marked.parse(stripDangerousHtmlBlocks(processedMd), {
+  let rawHtml = await marked.parse(stripDangerousHtmlBlocks(processedMd), {
     renderer: createSafeMarkdownRenderer(),
     gfm: true,
     breaks: true,
   });
+
+  // Link only rendered prose text. Existing anchors, bare URLs, inline code,
+  // fenced code, and HTML attributes are separate ineligible segments.
+  try {
+    rawHtml = autoLinkTokenMentionsInHtml(
+      rawHtml,
+      await getLinkableTokens(tokenData?.name),
+    );
+  } catch (error) {
+    console.warn("Auto-linking failed, falling back to rendered Markdown.", error);
+  }
   
   // Inject ID into h2 and h3 tags for the Table of Contents feature
   const htmlWithIds = rawHtml.replace(/<h([23])>(.*?)<\/h\1>/gi, (_match, level, innerHtml) => {

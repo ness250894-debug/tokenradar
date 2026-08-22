@@ -16,8 +16,9 @@ import {
 import {
   buildEntitySeoTitle,
   buildSeoDescription,
-  filterIndexableArticleTokenIds,
+  filterRenderableArticleTokenIds,
   isArticleIndexable,
+  isTokenChildArticleIndexable,
   parseFaqsFromMarkdown,
 } from "@/lib/seo";
 import { markdownToHtml } from "@/lib/markdown";
@@ -30,8 +31,10 @@ import { ArticleEngagementTracker } from "@/components/ArticleEngagementTracker"
 import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
+import { TokenSources } from "@/components/TokenSources";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { getTokenTechnical } from "@/lib/token-technical-data";
+import { buildOpenGraphMetadata } from "@/lib/share-metadata";
 
 interface PageProps {
   params: Promise<{ token: string }>;
@@ -41,10 +44,10 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tokenIds = await getTokenIdsWithArticle("how-to-buy");
-  const indexableTokenIds = await filterIndexableArticleTokenIds(tokenIds, (tokenId) =>
+  const renderableTokenIds = await filterRenderableArticleTokenIds(tokenIds, (tokenId) =>
     getArticle(tokenId, "how-to-buy"),
   );
-  return indexableTokenIds.map((token) => ({ token }));
+  return renderableTokenIds.map((token) => ({ token }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -52,7 +55,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const detail = await getTokenDetail(tokenId);
   if (!detail) return { title: "Token Not Found" };
 
-  const article = await getArticle(tokenId, "how-to-buy");
+  const [overview, article] = await Promise.all([
+    getArticle(tokenId, "overview"),
+    getArticle(tokenId, "how-to-buy"),
+  ]);
   const title = buildEntitySeoTitle({
     name: detail.name,
     symbol: detail.symbol,
@@ -66,25 +72,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     robots: {
-      index: isArticleIndexable(article),
+      index: isTokenChildArticleIndexable(detail, overview, article),
       follow: true,
     },
     alternates: {
       canonical: `/${detail.id}/how-to-buy`,
     },
-    openGraph: {
+    openGraph: buildOpenGraphMetadata({
       title,
       description,
+      url: `/${detail.id}/how-to-buy`,
       type: "article",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+      imageUrl: ogImage,
+      imageAlt: title,
+    }),
     twitter: {
       card: "summary_large_image",
       title,
@@ -103,7 +104,9 @@ export default async function HowToBuyPage({ params }: PageProps) {
   const article = await getArticle(tokenId, "how-to-buy");
   if (!isArticleIndexable(article)) notFound();
   const faqs = parseFaqsFromMarkdown(article.content);
+  const overview = await getArticle(tokenId, "overview");
   const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
+  const hasPricePrediction = isTokenChildArticleIndexable(detail, overview, pricePredictionArticle);
   const relatedTokens = await getRelatedTokens(tokenId, 1);
   const technical = getTokenTechnical(tokenId);
   const categoryIds = await getCategoryIds();
@@ -114,7 +117,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
     symbol: detail.symbol,
     category: primaryCategory.name,
     categoryHref: primaryCategory.href,
-    hasPricePrediction: isArticleIndexable(pricePredictionArticle),
+    hasPricePrediction,
     hasHowToBuy: true,
     hasLedgerGuide: Boolean(technical),
   });
@@ -125,7 +128,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
       symbol: detail.symbol,
       category: primaryCategory.name,
       categoryHref: primaryCategory.href,
-      hasPricePrediction: isArticleIndexable(pricePredictionArticle),
+      hasPricePrediction,
       hasHowToBuy: true,
       hasLedgerGuide: Boolean(technical),
       relatedToken: relatedTokens[0],
@@ -313,6 +316,8 @@ export default async function HowToBuyPage({ params }: PageProps) {
             </p>
           </div>
         )}
+
+        <TokenSources tokenId={detail.id} links={detail.links} fetchedAt={detail.fetchedAt} />
 
         {/* Disclaimer */}
         <div style={{ marginTop: "var(--space-2xl)", padding: "var(--space-lg)", background: "var(--bg-card)", borderRadius: "var(--radius-lg)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>

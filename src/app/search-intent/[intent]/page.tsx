@@ -30,48 +30,48 @@ const SEARCH_INTENTS = Object.keys(SEARCH_INTENT_LABELS) as SearchIntentType[];
 
 const INTENT_SEO_COPY: Record<SearchIntentType, { title: string; description: string }> = {
   prediction: {
-    title: "Crypto Price Prediction Search Intent",
-    description: "Find crypto tokens where users are searching for forecasts, price targets, market scenarios, and trend confirmation.",
+    title: "Crypto Price Prediction Research Proxy",
+    description: "An inferred prediction-research proxy built from market scenarios, price context, and trend signals—not observed search volume.",
   },
   buying: {
-    title: "Crypto Buying Access Search Intent",
-    description: "Rank tokens by buying-intent demand, exchange-access research, purchase workflow checks, and user onboarding signals.",
+    title: "Crypto Buying Access Research Proxy",
+    description: "An inferred buying-access proxy built from venue, availability, workflow, and onboarding signals—not observed query demand.",
   },
   risk: {
-    title: "Crypto Risk Check Search Intent",
-    description: "Track tokens where users are checking scam risk, volatility, liquidity, safety, and low-quality attention signals.",
+    title: "Crypto Risk Check Research Proxy",
+    description: "An inferred risk-research proxy built from volatility, liquidity, safety topics, and low-quality attention signals.",
   },
   supply: {
-    title: "Crypto Unlock and Supply Search Intent",
-    description: "Monitor tokens where search demand points to unlock schedules, FDV pressure, circulating supply, and tokenomics risk.",
+    title: "Crypto Unlock and Supply Research Proxy",
+    description: "An inferred supply-research proxy built from unlock topics, FDV pressure, circulating supply, and tokenomics risk.",
   },
   airdrop: {
-    title: "Crypto Airdrop and Launch Search Intent",
-    description: "Rank launch, listing, TGE, eligibility, and airdrop-focused crypto search demand using TokenRadar free-data signals.",
+    title: "Crypto Airdrop and Launch Research Proxy",
+    description: "An inferred launch-research proxy built from listing, TGE, eligibility, and airdrop-related free-data signals.",
   },
   stablecoin: {
-    title: "Stablecoin Safety Search Intent",
-    description: "Track stablecoins where users are researching peg stability, reserves, issuer trust, depeg risk, and yield safety.",
+    title: "Stablecoin Safety Research Proxy",
+    description: "An inferred stablecoin-research proxy built from peg, reserves, issuer, depeg-risk, and yield-safety signals.",
   },
   rwa: {
-    title: "RWA Crypto Search Intent",
-    description: "Find tokenized-asset and RWA crypto tokens with search demand around treasuries, credit, issuers, and redemption risk.",
+    title: "RWA Crypto Research Proxy",
+    description: "An inferred RWA-research proxy built from tokenized-asset, treasury, credit, issuer, and redemption-risk signals.",
   },
   ai: {
-    title: "AI Crypto Search Intent",
-    description: "Rank AI crypto tokens by search demand around agents, compute, infrastructure, category rotation, and narrative strength.",
+    title: "AI Crypto Research Proxy",
+    description: "An inferred AI-token research proxy built from agent, compute, infrastructure, category, and narrative signals.",
   },
   meme: {
-    title: "Meme Coin Search Intent",
-    description: "Track meme-token attention spikes, retail momentum, hype pressure, and whether current search demand looks sustainable.",
+    title: "Meme Coin Research Proxy",
+    description: "An inferred meme-attention proxy built from retail momentum, hype pressure, and market staying-power signals.",
   },
   yield: {
-    title: "Crypto Yield and Staking Search Intent",
-    description: "Compare tokens where users are searching staking rewards, APY, protocol revenue, yield sustainability, and risk.",
+    title: "Crypto Yield and Staking Research Proxy",
+    description: "An inferred yield-research proxy built from staking, APY, protocol-revenue, sustainability, and risk signals.",
   },
   news: {
-    title: "Crypto News Catalyst Search Intent",
-    description: "Rank tokens with search demand tied to fresh catalysts, listings, ecosystem updates, sharp moves, and market rumors.",
+    title: "Crypto News Catalyst Research Proxy",
+    description: "An inferred catalyst-research proxy built from listings, ecosystem updates, sharp moves, and market narratives.",
   },
 };
 
@@ -118,7 +118,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { intent } = await params;
-  if (!isSearchIntentType(intent)) return { title: "Search Intent Not Found" };
+  if (!isSearchIntentType(intent)) return { title: "Research Intent Not Found" };
 
   const copy = INTENT_SEO_COPY[intent];
 
@@ -128,7 +128,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `/search-intent/${intent}`,
     },
-    openGraph: buildOpenGraphMetadata({ title: copy.title, description: copy.description }),
+    openGraph: buildOpenGraphMetadata({
+      title: copy.title,
+      description: copy.description,
+      url: `/search-intent/${intent}`,
+    }),
     twitter: buildTwitterMetadata({ title: copy.title, description: copy.description }),
   };
 }
@@ -153,16 +157,17 @@ export default async function SearchIntentTopicPage({ params }: PageProps) {
         <nav className="search-intent-breadcrumb">
           <Link href="/search-intent">
             <ArrowLeft size={14} />
-            Search Intent Radar
+            Research Intent Proxy
           </Link>
         </nav>
 
         <div className="section-header">
-          <p className="eyebrow-text">Search Intent Radar</p>
+          <p className="eyebrow-text">Research Intent Proxy</p>
           <h1>
-            {SEARCH_INTENT_LABELS[intent]} <span className="gradient-text">Crypto Tokens</span>
+            {SEARCH_INTENT_LABELS[intent]} <span className="gradient-text">Research Proxy</span>
           </h1>
           <p>{SEARCH_INTENT_DESCRIPTIONS[intent]}</p>
+          <p>This classification is inferred from TokenRadar data and templates; it does not measure live queries or search volume.</p>
         </div>
 
         <div className="stats-grid search-intent-overview-stats">

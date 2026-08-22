@@ -74,6 +74,17 @@ describe("normalizeArticleMarkdown", () => {
     expect(normalized.match(/repeated local template paragraph/g)?.length).toBe(1);
     expect(normalized).toContain("A final unique paragraph stays in place.");
   });
+
+  it("uses neutral recovery-room language instead of forecast-like upside claims", () => {
+    const normalized = normalizeArticleMarkdown(
+      "The growth potential index is 80/100. This is a high growth potential asset, while another has limited upside.",
+    );
+
+    expect(normalized).toContain("recovery-room signal is 80/100");
+    expect(normalized).toContain("high recovery-room signal asset");
+    expect(normalized).toContain("limited recovery-room signal");
+    expect(normalized).not.toMatch(/growth potential|limited upside/i);
+  });
 });
 
 describe("getArticleFaqs", () => {
@@ -121,6 +132,9 @@ describe("hydrateLiveMarketSummaryFields", () => {
 
     const result = hydrateLiveMarketSummaryFields(content);
     expect(result).toContain("Article evidence snapshot: May 13, 2026.");
+    expect(result).toContain(
+      "Narrative figures and statements below refer to that evidence date unless explicitly labeled live.",
+    );
     expect(result).toContain("| Price | {{LIVE_PRICE}} |");
     expect(result).toContain("| Market [Cap](/cap-4) | {{LIVE_MARKET_CAP}} |");
     expect(result).toContain("| 24h Change | {{LIVE_24H_CHANGE}} |");

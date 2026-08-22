@@ -22,9 +22,9 @@ import {
 } from "@/lib/search-intent";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
 
-const PAGE_TITLE = "Crypto Search Intent Radar";
+const PAGE_TITLE = "Crypto Research Intent Proxy";
 const PAGE_DESCRIPTION =
-  "Browse free-data crypto search intent signals by attention, hype pressure, supply risk, and user research intent.";
+  "Browse inferred crypto research themes by attention, hype pressure, supply risk, and market context; no observed query-volume data is used.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/search-intent",
   },
-  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
+  openGraph: buildOpenGraphMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION, url: "/search-intent" }),
   twitter: buildTwitterMetadata({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
 };
 
@@ -94,12 +94,12 @@ export default async function SearchIntentPage() {
     <main className="container" style={{ padding: "var(--space-xl) var(--space-md)" }}>
       <section className="section">
         <div className="section-header">
-          <p className="eyebrow-text">Search Intent Radar</p>
+          <p className="eyebrow-text">Research Intent Proxy</p>
           <h1 className="search-intent-page-title">
-            Crypto <span className="gradient-text">Search Intent</span>{" "}
+            Crypto <span className="gradient-text">Research Intent</span>{" "}
             <span className="search-intent-title-tail">Dashboard</span>
           </h1>
-          <p>Free-data attention signals grouped by what users are likely researching across tracked tokens.</p>
+          <p>Inferred research themes derived from cached market, supply, developer, category, and risk signals—not observed query volume.</p>
         </div>
 
         <div className="stats-grid search-intent-overview-stats">
@@ -149,6 +149,7 @@ export default async function SearchIntentPage() {
 
         <div className="search-intent-method-card card">
           <h2>Methodology</h2>
+          <p>This proxy does not use Google search-volume data or live user queries.</p>
           <ul className="search-intent-list">
             {(dataset?.summary.methodology || []).map((item) => (
               <li key={item}>{item}</li>

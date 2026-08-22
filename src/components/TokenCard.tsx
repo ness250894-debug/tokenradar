@@ -129,10 +129,10 @@ export function TokenCard({ token }: TokenCardProps) {
                 href={`/${token.id}#search-intent-radar`}
                 onClick={handleSearchIntentClick}
                 className={`badge badge-${attentionTone} token-card-intent-badge`}
-                aria-label={`Open ${token.name} Search Intent Radar`}
+                aria-label={`Open ${token.name} Research Intent Proxy`}
               >
                 <Radar size={12} />
-                Intent {token.searchIntentAttentionScore}/100
+                Research {token.searchIntentAttentionScore}/100
               </Link>
               {attentionDelta && (
                 <span className={`token-card-intent-delta ${token.searchIntentAttentionDelta && token.searchIntentAttentionDelta > 0 ? "price-up" : token.searchIntentAttentionDelta && token.searchIntentAttentionDelta < 0 ? "price-down" : ""}`}>

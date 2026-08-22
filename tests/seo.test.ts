@@ -3,16 +3,24 @@ import * as path from "path";
 import { describe, expect, it } from "vitest";
 
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
-import { type Article, type TokenDetail, type UpcomingTge } from "../src/lib/content-loader";
+import {
+  getArticle,
+  getRelatedTokens,
+  getTokenDetail,
+  type Article,
+  type TokenDetail,
+  type UpcomingTge,
+} from "../src/lib/content-loader";
 import {
   buildEntitySeoTitle,
   buildSeoDescription,
   choosePreferredTgeId,
   canonicalPath,
   canonicalUrl,
-  filterIndexableArticleTokenIds,
+  filterRenderableArticleTokenIds,
   getTgeIndexDecision,
   isArticleIndexable,
+  isTokenChildArticleIndexable,
   isTokenOverviewIndexable,
   isTokenOverviewIndexableFromVolume,
 } from "../src/lib/seo";
@@ -181,15 +189,19 @@ describe("SEO helpers", () => {
     expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(100))).toBe(false);
     expect(isTokenOverviewIndexable(makeTokenDetail(100_001), makeArticle(900))).toBe(true);
     expect(isTokenOverviewIndexableFromVolume(100_001, makeArticle(900))).toBe(true);
+    expect(isTokenOverviewIndexable(
+      makeTokenDetail(100_001),
+      { ...makeArticle(900), wordCount: 799 },
+    )).toBe(false);
   });
 
-  it("uses the shared article quality rule for secondary article indexability", () => {
+  it("uses the shared article quality rule for article renderability", () => {
     expect(isArticleIndexable(makeArticle(900))).toBe(true);
     expect(isArticleIndexable(makeArticle(100))).toBe(false);
     expect(isArticleIndexable({ ...makeArticle(900), content: "analysis ".repeat(900) })).toBe(false);
   });
 
-  it("filters static article routes to quality-passing articles", async () => {
+  it("keeps quality-passing static child routes renderable even when indexing has a stronger gate", async () => {
     const tokenIds = ["good", "thin", "missing"];
     const articles: Record<string, Article | null> = {
       good: makeArticle(900),
@@ -197,9 +209,38 @@ describe("SEO helpers", () => {
       missing: null,
     };
 
-    await expect(filterIndexableArticleTokenIds(tokenIds, async (tokenId) => articles[tokenId])).resolves.toEqual([
+    await expect(filterRenderableArticleTokenIds(tokenIds, async (tokenId) => articles[tokenId])).resolves.toEqual([
       "good",
     ]);
+  });
+
+  it("requires an indexable parent, sufficient depth, and non-template child content", () => {
+    const overview = makeArticle(900);
+    const uniqueChild = {
+      ...makeArticle(1_100),
+      type: "how-to-buy",
+      slug: "how-to-buy",
+      model: "gemini-2.5-flash",
+    };
+
+    expect(isTokenChildArticleIndexable(makeTokenDetail(100_001), overview, uniqueChild)).toBe(true);
+    expect(isTokenChildArticleIndexable(makeTokenDetail(100_000), overview, uniqueChild)).toBe(false);
+    expect(isTokenChildArticleIndexable(makeTokenDetail(100_001), makeArticle(100), uniqueChild)).toBe(false);
+    expect(isTokenChildArticleIndexable(
+      makeTokenDetail(100_001),
+      overview,
+      { ...uniqueChild, model: "local-template" },
+    )).toBe(false);
+    expect(isTokenChildArticleIndexable(
+      makeTokenDetail(100_001),
+      overview,
+      { ...makeArticle(900), type: "how-to-buy", slug: "how-to-buy", model: "gemini-2.5-flash" },
+    )).toBe(false);
+    expect(isTokenChildArticleIndexable(
+      makeTokenDetail(100_001),
+      overview,
+      { ...uniqueChild, wordCount: 999 },
+    )).toBe(false);
   });
 });
 
@@ -239,6 +280,9 @@ describe("generated sitemaps", () => {
     expect(`${title} | TokenRadar`.length).toBeLessThanOrEqual(60);
     expect(description.length).toBeLessThanOrEqual(160);
     expect(title).toContain("(LONG)");
+    expect(title).not.toMatch(/…[\p{L}\p{N}]/u);
+    expect(description).toMatch(/\.$/);
+    expect(description).not.toContain("…");
   });
 
   it("uses one launch indexability decision for quality, duplicates, and graduated routes", () => {
@@ -281,6 +325,20 @@ describe("generated sitemaps", () => {
 
     for (const tokenId of graduatedWithLiveProfiles) {
       expect(locs.has(`https://tokenradar.co/upcoming/${tokenId}`), `${tokenId} should not be duplicated in sitemap-main.xml`).toBe(false);
+    }
+  });
+
+  it("uses only indexable overview pages for related-token recommendations", async () => {
+    const relatedTokens = await getRelatedTokens("memecore", 3);
+    expect(relatedTokens).toHaveLength(3);
+
+    for (const related of relatedTokens) {
+      const [detail, overview] = await Promise.all([
+        getTokenDetail(related.id),
+        getArticle(related.id, "overview"),
+      ]);
+      expect(detail).not.toBeNull();
+      expect(detail && isTokenOverviewIndexable(detail, overview)).toBe(true);
     }
   });
 });

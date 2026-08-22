@@ -6,7 +6,7 @@ import { SOCIAL } from "../lib/config";
 
 const PLATFORM_LINKS = [
   { href: "/tokens", label: "Token Directory" },
-  { href: "/search-intent", label: "Search Intent Radar" },
+  { href: "/search-intent", label: "Research Intent Proxy" },
   { href: "/watchlist", label: "Local Watchlist" },
   { href: "/upcoming", label: "Upcoming Launches" },
   { href: "/research", label: "Market Risk Research" },

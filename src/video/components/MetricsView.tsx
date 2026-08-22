@@ -99,7 +99,7 @@ export const MetricsView: React.FC<{
       label: "GROWTH INDEX",
       numericValue: growthPotentialIndex,
       formatValue: (value: number) => `${Math.round(value)}/100`,
-      sub: "TokenRadar growth potential",
+      sub: "TokenRadar recovery-room signal",
       color: COLORS.warning,
     },
   ];

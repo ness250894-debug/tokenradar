@@ -6,6 +6,7 @@
 import * as dotenv from "dotenv";
 import * as path from "path";
 import * as fs from "fs";
+import { isProductionCanonicalSiteUrl, PRODUCTION_SITE_ORIGIN } from "../src/lib/canonical-origin";
 
 // Load environment variables from .env and .env.local
 const envFiles = [".env", ".env.local"];
@@ -37,15 +38,8 @@ const FUNCTIONAL_REQUIRED = [
 
 const FORMAT_RULES: Record<string, { test: (value: string) => boolean; message: string; fatal?: boolean }> = {
   NEXT_PUBLIC_SITE_URL: {
-    test: (value) => {
-      try {
-        const url = new URL(value);
-        return url.protocol === "https:" || url.protocol === "http:";
-      } catch {
-        return false;
-      }
-    },
-    message: "must be a valid http(s) URL",
+    test: isProductionCanonicalSiteUrl,
+    message: `must be the production canonical origin ${PRODUCTION_SITE_ORIGIN} with no path, query, or fragment`,
     fatal: true,
   },
   COINGECKO_API_KEY: {

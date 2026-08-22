@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type TokenCardData } from "@/components/TokenCard";
-import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTotalArticleCount, getTopSearchIntentTokens, getSearchIntentDataset, getSearchIntentTrendMap } from "@/lib/content-loader";
+import { getAllTokens, getCategoryIds, getPrimaryTokenCategory, getTokenMetrics, getUpcomingTGEs, getTopSearchIntentTokens, getSearchIntentDataset, getSearchIntentTrendMap } from "@/lib/content-loader";
 import { HomeTabs } from "@/components/HomeTabs";
 import { HomeRadarBrief } from "@/components/HomeRadarBrief";
 import { HomeSearchIntentRadar } from "@/components/HomeSearchIntentRadar";
@@ -20,12 +20,13 @@ const HOME_SHARE_DESCRIPTION =
   "A daily crypto research dashboard for token risk scores, launch evidence, and market intelligence.";
 
 export const metadata: Metadata = {
-  title: "Crypto Risk Scores, Launch Signals & Research",
+  title: { absolute: HOME_SHARE_TITLE },
   description:
     "Track crypto risk scores, market data, launch watchlists, and AI-assisted research across hundreds of assets. Informational research, not financial advice.",
   openGraph: buildOpenGraphMetadata({
     title: HOME_SHARE_TITLE,
     description: HOME_SHARE_DESCRIPTION,
+    url: "/",
   }),
   twitter: buildTwitterMetadata({
     title: HOME_SHARE_TITLE,
@@ -90,7 +91,6 @@ export default async function HomePage() {
     upcomingTges,
     searchIntentDataset,
     searchIntentTrendMap,
-    totalArticles,
     searchIntentHighlights,
   ] = await Promise.all([
     getAllTokens(),
@@ -98,7 +98,6 @@ export default async function HomePage() {
     getUpcomingTGEs(),
     getSearchIntentDataset(),
     getSearchIntentTrendMap(),
-    getTotalArticleCount(),
     getTopSearchIntentTokens(3),
   ]);
 
@@ -236,10 +235,10 @@ export default async function HomePage() {
 
             <div className="stat-card-premium home-stat-card">
               <FileText className="stat-watermark" />
-              <div className="stat-label">Published Research</div>
-              <div className="stat-value gradient-text">{formatInteger(totalArticles)}</div>
-              <div className="stat-change">Token briefings and educational guides</div>
-              <div className="stat-footnote">Generated with validation checks</div>
+              <div className="stat-label">Research Process</div>
+              <div className="stat-value gradient-text">Open Method</div>
+              <div className="stat-change">Documented scoring rules</div>
+              <div className="stat-footnote">Inputs, limits, and safeguards</div>
             </div>
 
             <div className="stat-card-premium home-stat-card">

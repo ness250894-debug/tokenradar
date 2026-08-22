@@ -24,7 +24,8 @@ import { markdownToHtml } from "@/lib/markdown";
 import {
   buildEntitySeoTitle,
   buildSeoDescription,
-  isArticleIndexable,
+  canonicalUrl,
+  isTokenChildArticleIndexable,
   isTokenOverviewIndexable,
   parseFaqsFromMarkdown,
 } from "@/lib/seo";
@@ -49,9 +50,11 @@ import { JsonLd } from "@/components/JsonLd";
 import { ResearchRecirculation } from "@/components/ResearchRecirculation";
 import { ResearchFreshnessNotice } from "@/components/ResearchFreshnessNotice";
 import { SearchIntentRadar } from "@/components/SearchIntentRadar";
+import { TokenSources } from "@/components/TokenSources";
 import { buildArticleCompletionActions, buildTokenResearchActions } from "@/lib/research-actions";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
 import { buildAuthorPersonSchema, buildPublisherSchema } from "@/lib/schema-entities";
+import { buildOpenGraphMetadata } from "@/lib/share-metadata";
 import {
   Globe, 
   BarChart2, 
@@ -103,19 +106,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `/${detail.id}`,
     },
-    openGraph: {
+    openGraph: buildOpenGraphMetadata({
       title,
       description,
+      url: `/${detail.id}`,
       type: "article",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+      imageUrl: ogImage,
+      imageAlt: title,
+    }),
     twitter: {
       card: "summary_large_image",
       title,
@@ -171,8 +169,8 @@ export default async function TokenPage({ params }: PageProps) {
   const isPositive = detail.market.priceChange24h >= 0;
   const pricePredictionArticle = await getArticle(tokenId, "price-prediction");
   const howToBuyArticle = await getArticle(tokenId, "how-to-buy");
-  const hasPricePrediction = isArticleIndexable(pricePredictionArticle);
-  const hasHowToBuy = isArticleIndexable(howToBuyArticle);
+  const hasPricePrediction = isTokenChildArticleIndexable(detail, article, pricePredictionArticle);
+  const hasHowToBuy = isTokenChildArticleIndexable(detail, article, howToBuyArticle);
   const primaryCategory = getPrimaryTokenCategory(detail.categories, categoryIds, "");
   const visibleCategories = detail.categories.slice(0, 3).map((category) => ({
     name: category,
@@ -260,7 +258,7 @@ export default async function TokenPage({ params }: PageProps) {
             {searchIntent && (
               <Link href="#search-intent-radar" className="token-hero-intent-shortcut">
                 <Radar size={14} />
-                <span>Search Intent {searchIntent.attentionScore}/100</span>
+                <span>Research Proxy {searchIntent.attentionScore}/100</span>
                 {heroSearchIntentDelta && <em>{heroSearchIntentDelta}</em>}
               </Link>
             )}
@@ -389,6 +387,8 @@ export default async function TokenPage({ params }: PageProps) {
           </div>
         </div>
 
+        <TokenSources tokenId={detail.id} links={detail.links} fetchedAt={detail.fetchedAt} />
+
         {/* Price Chart */}
         {priceHistory && priceHistory.chart30d.length > 0 && (
           <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }} id="price-chart">
@@ -409,7 +409,7 @@ export default async function TokenPage({ params }: PageProps) {
             </h2>
             <div className="stats-grid">
               <div className="stat-card-premium">
-                <div className="stat-label">Growth Potential</div>
+                <div className="stat-label">Recovery Room</div>
                 <div className="stat-value gradient-text">{metrics.growthPotentialIndex}/100</div>
               </div>
               <div className="stat-card-premium">
@@ -602,10 +602,12 @@ export default async function TokenPage({ params }: PageProps) {
             headline: `${detail.name} (${detail.symbol.toUpperCase()}) — Analysis & Risk Score`,
             description: detail.description,
             image: `https://tokenradar.co/og/token/${detail.id}.png`,
+            url: canonicalUrl(`/${detail.id}`),
+            mainEntityOfPage: canonicalUrl(`/${detail.id}`),
             author: buildAuthorPersonSchema(),
             publisher: buildPublisherSchema(),
-            datePublished: article?.generatedAt || detail.genesisDate || detail.fetchedAt,
-            dateModified: detail.fetchedAt,
+            datePublished: article.generatedAt,
+            dateModified: article.generatedAt,
           }}
         />
       )}

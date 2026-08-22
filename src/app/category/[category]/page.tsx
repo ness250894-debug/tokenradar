@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: `/category/${cat.id}`,
     },
     openGraph: {
-      ...buildOpenGraphMetadata({ title, description }),
+      ...buildOpenGraphMetadata({ title, description, url: `/category/${cat.id}` }),
     },
     twitter: buildTwitterMetadata({ title, description }),
   };

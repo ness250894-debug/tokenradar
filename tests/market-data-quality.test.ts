@@ -31,6 +31,29 @@ describe("market data quality", () => {
     })).toBe("2026-05-14T00:00:00.000Z");
   });
 
+  it("falls back to a valid ingestion timestamp when the provider timestamp is malformed", () => {
+    expect(getMarketDataTimestamp({
+      fetchedAt: "2026-05-13T00:00:00.000Z",
+      lastMarketUpdate: "not-a-timestamp",
+    })).toBe("2026-05-13T00:00:00.000Z");
+  });
+
+  it("rejects market data when every available timestamp is malformed", () => {
+    const token = {
+      market: {
+        price: 1.25,
+        marketCap: 500_000,
+        volume24h: 25_000,
+        priceChange24h: 12.5,
+      },
+      fetchedAt: "also-invalid",
+      lastMarketUpdate: "not-a-timestamp",
+    };
+
+    expect(getMarketDataTimestamp(token)).toBeNull();
+    expect(getMarketDataQualityIssues(token, now)).toEqual(["missing-market-timestamp"]);
+  });
+
   it("flags missing, empty, stale, invalid, and extreme market data", () => {
     expect(getMarketDataQualityIssues({}, now)).toEqual(["missing-market"]);
 

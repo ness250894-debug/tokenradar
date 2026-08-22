@@ -60,9 +60,9 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
   },
   {
     id: "intent",
-    title: "Search intent",
+    title: "Research intent proxy",
     description: "Explore deterministic attention, fundamentals, hype, supply-risk, and launch signals.",
-    hub: { href: "/search-intent", label: "Search Intent Radar" },
+    hub: { href: "/search-intent", label: "Research Intent Proxy" },
     supportingLinks: [
       { href: "/search-intent/risk", label: "Risk intent" },
       { href: "/search-intent/supply", label: "Supply-risk intent" },

@@ -23,7 +23,7 @@ export default function LocalAnalyticsPage() {
           <h1>
             Local <span className="gradient-text">Analytics</span> Buffer
           </h1>
-          <p>Recent click and Search Intent events stored in this browser.</p>
+          <p>Recent click and Research Intent events stored in this browser.</p>
         </div>
 
         <LocalAnalyticsInspector />
