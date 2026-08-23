@@ -26,6 +26,12 @@ describe("secret exposure guard", () => {
     expect(workflow).not.toMatch(
       /^\s*path:\s*(?:\|\s*\r?\n\s*)?\.next\/cache\s*$/m,
     );
+
+    const buildStep = workflow.match(
+      /- name: Build static export([\s\S]*?)- name: Audit rendered SEO inventory/,
+    )?.[1];
+    expect(buildStep).toBeDefined();
+    expect(buildStep).not.toContain("secrets.");
   });
 
   it("classifies private and public environment names", () => {
