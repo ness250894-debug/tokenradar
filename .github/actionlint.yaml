@@ -1,0 +1,10 @@
+paths:
+  .github/workflows/daily-content-generation.yml:
+    ignore:
+      - 'unexpected key "queue" for "concurrency" section'
+  .github/workflows/daily-refresh.yml:
+    ignore:
+      - 'unexpected key "queue" for "concurrency" section'
+  .github/workflows/social-automations.yml:
+    ignore:
+      - 'unexpected key "queue" for "concurrency" section'

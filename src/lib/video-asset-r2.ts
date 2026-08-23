@@ -7,6 +7,7 @@ import {
 export interface VideoAssetManifestValidationResult {
   valid: boolean;
   errors: string[];
+  normalizedManifest: VideoAssetManifest;
 }
 
 function normalizeLocalAssetSource(src: string): string {
@@ -80,11 +81,30 @@ function validateAssetMetadata(asset: VideoAssetLayer, errors: string[]): void {
 }
 
 export function validateVideoAssetManifestForPublish(
-  manifest: VideoAssetManifest | undefined | null,
+  manifest: unknown,
 ): VideoAssetManifestValidationResult {
-  const normalized = normalizeVideoAssetManifest(manifest);
   const errors: string[] = [];
   const seenIds = new Set<string>();
+  let normalized: VideoAssetManifest = { assets: [] };
+  const rawAssets = manifest && typeof manifest === "object" && !Array.isArray(manifest)
+    ? (manifest as { assets?: unknown }).assets
+    : undefined;
+
+  if (!Array.isArray(rawAssets)) {
+    errors.push("manifest assets must be an array");
+  } else {
+    try {
+      normalized = normalizeVideoAssetManifest(manifest as VideoAssetManifest);
+      if (normalized.assets.length !== rawAssets.length) {
+        const invalidCount = rawAssets.length - normalized.assets.length;
+        errors.push(
+          `manifest contains ${invalidCount} invalid asset ${invalidCount === 1 ? "entry" : "entries"}`,
+        );
+      }
+    } catch {
+      errors.push("manifest contains an asset that could not be normalized");
+    }
+  }
 
   if (normalized.assets.length === 0) {
     errors.push("manifest has no valid assets");
@@ -102,5 +122,6 @@ export function validateVideoAssetManifestForPublish(
   return {
     valid: errors.length === 0,
     errors,
+    normalizedManifest: normalized,
   };
 }

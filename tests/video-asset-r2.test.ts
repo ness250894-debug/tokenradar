@@ -36,6 +36,44 @@ describe("video asset R2 sync contract", () => {
     expect(result.errors).toContain("pexels-a: missing sha256");
   });
 
+  it("rejects a manifest whose assets field is not an array", () => {
+    const result = validateVideoAssetManifestForPublish({ assets: {} });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain("manifest assets must be an array");
+  });
+
+  it("rejects a raw manifest when normalization would silently drop an asset", () => {
+    const validAsset = {
+      id: "generated-valid",
+      kind: "video",
+      source: "local",
+      src: "broll/generated-valid.mp4",
+      provider: "generated",
+      durationSeconds: 8,
+      width: 1080,
+      height: 1920,
+      fileSizeBytes: 1_000_000,
+      sha256: "a".repeat(64),
+    };
+    const result = validateVideoAssetManifestForPublish({
+      assets: [validAsset, { ...validAsset, id: "", src: "broll/dropped.mp4" }],
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain("manifest contains 1 invalid asset entry");
+    expect(result.normalizedManifest.assets.map((asset) => asset.id)).toEqual(["generated-valid"]);
+  });
+
+  it("rejects malformed asset types without throwing during normalization", () => {
+    const result = validateVideoAssetManifestForPublish({
+      assets: [{ id: 123, kind: "video", source: "local", src: "broll/malformed.mp4" }],
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain("manifest contains an asset that could not be normalized");
+  });
+
   it("enforces stock asset governance, quality, and takedown blocks before publish", () => {
     const result = validateVideoAssetManifestForPublish({
       assets: [

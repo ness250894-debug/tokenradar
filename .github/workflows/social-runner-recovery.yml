@@ -7,15 +7,10 @@ on:
   workflow_run:
     workflows: ["Social Automations"]
     types: [completed]
-  schedule:
-    # The completion trigger handles the normal case. This sweep is a fallback in
-    # case the recovery workflow itself could not acquire a runner at that moment.
-    - cron: "13,33,53 * * * *"
   workflow_dispatch:
 
 permissions:
   actions: write
-  contents: read
 
 concurrency:
   group: social-runner-recovery
@@ -28,7 +23,11 @@ env:
 jobs:
   recover-runner-acquisition-failures:
     name: Recover Unassigned Social Run
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'cancelled'
+    if: >-
+      github.ref_name == 'main' &&
+      (github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'failure' ||
+      github.event.workflow_run.conclusion == 'cancelled')
     runs-on: ubuntu-latest
     timeout-minutes: 5
 

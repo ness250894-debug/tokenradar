@@ -33,17 +33,18 @@ env:
 jobs:
   lighthouse-static-export:
     name: Lighthouse CI static export
+    if: github.event_name == 'pull_request' || github.ref_name == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -65,48 +66,27 @@ jobs:
 
       - name: Upload Lighthouse reports
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: lighthouse-static-export-${{ github.run_id }}-${{ github.run_attempt }}
           path: .lighthouseci/
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Notify on Failure
-        if: failure()
-        continue-on-error: true
-        timeout-minutes: 3
-        run: |
-          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
-            echo "Telegram report secrets are not configured; skipping failure notification."
-            exit 0
-          fi
-          payload="$(jq -n \
-            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
-            --arg text "Performance Failed\nWorkflow: ${{ github.workflow }}\nJob: Lighthouse CI static export\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
-          curl --fail --show-error --silent --max-time 10 \
-            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
-            -H "Content-Type: application/json" \
-            --data "$payload"
-        env:
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-
   pagespeed-live:
     name: PageSpeed Insights live snapshot
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref_name == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -130,17 +110,29 @@ jobs:
 
       - name: Upload PageSpeed diagnostics
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: pagespeed-live-${{ github.run_id }}-${{ github.run_attempt }}
           path: pagespeed/
           if-no-files-found: ignore
           retention-days: 14
 
+  notify-failure:
+    name: Notify performance failure
+    needs: [lighthouse-static-export, pagespeed-live]
+    if: >-
+      always() &&
+      github.event_name != 'pull_request' &&
+      (needs.lighthouse-static-export.result == 'failure' || needs.pagespeed-live.result == 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+    steps:
       - name: Notify on Failure
-        if: failure()
         continue-on-error: true
-        timeout-minutes: 3
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
         run: |
           if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
             echo "Telegram report secrets are not configured; skipping failure notification."
@@ -148,12 +140,9 @@ jobs:
           fi
           payload="$(jq -n \
             --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
-            --arg text "Performance Failed\nWorkflow: ${{ github.workflow }}\nJob: PageSpeed Insights live snapshot\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg text "Performance Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
-          curl --fail --show-error --silent --max-time 10 \
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
             -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
             -H "Content-Type: application/json" \
             --data "$payload"
-        env:
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}

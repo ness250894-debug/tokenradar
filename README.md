@@ -18,7 +18,7 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 - Computes proprietary signals such as risk score, growth potential, ATH gap, category strength, and search-intent indicators.
 - Produces article JSON under `content/tokens/` and static pages with Next.js export.
 - Runs quality gates for content validation, SEO metadata, sitemap coverage, security headers, and static export size.
-- Publishes social output to Telegram, X, Instagram, Threads, YouTube Shorts, and TikTok.
+- Publishes scheduled social output to Telegram, X, Instagram, Threads, and YouTube Shorts; TikTok remains available through manual CLI testing.
 - Renders platform-specific Remotion videos with rotating formats, hooks, music, b-roll, and visual recipes.
 - Uses Cloudflare Pages for hosting, Cloudflare D1 for the ops ledger, and Cloudflare R2 for media staging.
 
@@ -32,18 +32,20 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 | AI | Gemini 2.5 Flash primary, Claude Haiku 4.5 fallback |
 | Video | Remotion, generated b-roll manifests, optional Blender loops |
 | Social | X API v2, Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API |
-| Storage | Git-tracked content/data, GitHub Actions cache/artifacts, monthly GitHub Release snapshots, Cloudflare D1, Cloudflare R2 |
+| Storage | Git-tracked content/data, GitHub Actions cache/artifacts, Cloudflare D1, Cloudflare R2 |
 | Hosting | Cloudflare Pages via GitHub Actions |
-| Quality | Vitest, ESLint, TypeScript, content validation, Lighthouse CI, PageSpeed Insights, production npm audit |
+| Quality | Pull-request CI, Vitest, ESLint, TypeScript, content validation, Lighthouse CI, PageSpeed Insights, full-lockfile npm audit |
 
 ## Production Flow
 
-1. `daily-refresh.yml` refreshes market data, TGE inputs, reference snippets, metrics, token metadata, OG images, and sitemaps.
-2. `daily-content-generation.yml` generates queued articles, runs quality checks, publishes approved content, repairs formatting, validates content, builds, and dispatches deploy.
-3. `deploy.yml` validates env, builds the static export, checks output size, deploys to Cloudflare Pages, and reports deployment status.
-4. `social-automations.yml` runs market updates, Telegram polls, daily movers, X polls, Threads text prompts, short-form video publishing, D1 maintenance, R2 cleanup, and ops reporting.
-5. `video-assets-refresh.yml` maintains the b-roll manifest and Cloudflare R2 media assets.
-6. `performance.yml`, `dependency-security.yml`, and Dependabot provide scheduled quality and dependency gates.
+1. `ci.yml` is the pull-request and merge-queue check: typecheck, lint, tests, deterministic build, and rendered SEO QA.
+2. `daily-refresh.yml` refreshes market data, TGE inputs, reference snippets, metrics, token metadata, OG images, sitemaps, analytics, and operational reporting.
+3. `daily-content-generation.yml` runs **Daily Launch Content** for new TGE previews and newly graduated launch guides. It quality-gates the queue and becomes a successful no-op when no launch content is published; build, commit, and deploy run only for changed token folders.
+4. `deploy.yml` revalidates the selected current-main revision, builds the static export, checks output size, deploys to Cloudflare Pages, and reports deployment status.
+5. `social-automations.yml` publishes the configured Telegram, X, Instagram, Threads, and YouTube routes and records authoritative delivery and measurement state in Cloudflare D1.
+6. `social-runner-recovery.yml` reacts to failed or cancelled Social Automations completions and can be dispatched manually; it retries only jobs that never acquired a runner.
+7. `video-assets-refresh.yml` is manually dispatched to maintain the verified b-roll manifest and Cloudflare R2 media library; it no longer performs unattended deletion on a weekly schedule.
+8. `performance.yml`, `dependency-security.yml`, and Dependabot provide performance monitoring, full-lockfile vulnerability auditing, and dependency updates.
 
 TGE discovery uses free RSS sources that are reachable by the project runner: Airdrop Alert, ICO Watch List, CoinTelegraph, Decrypt, and CoinDesk.
 
@@ -53,11 +55,11 @@ The homepage market panels render generated snapshot data from the latest refres
 
 ## Content Generation Queue
 
-Daily content generation uses launch-only Smart Drip article selection for now: new TGE preview candidates and newly released TGE graduates. Incomplete content hubs, stale refreshes, and large 24h price-swing moves are parked and disabled.
+Daily Launch Content uses launch-only Smart Drip article selection: new TGE preview candidates and newly released TGE graduates. Incomplete content hubs, stale refreshes, and large 24h price-swing moves are parked and disabled. A day with no changed launch token folders is an expected successful no-op and does not build, commit, or deploy.
 
 ## Maintained Docs
 
-Tracked docs live under `docs/` as paired HTML and JSON artifacts. The top-level registry in `docs/tokenradar` should mention every maintained pair and the public runtime HTML/JSON artifacts.
+Locally generated docs live under `docs/` as paired HTML and JSON artifacts. The directory is intentionally ignored by Git; regenerate the pairs in a workspace that includes their JSON sources. The top-level registry in `docs/tokenradar` should mention every maintained pair and the public runtime HTML/JSON artifacts.
 
 | Docs | Covers |
 |---|---|
@@ -88,9 +90,9 @@ scripts/           Data, content, docs, deploy, social, video, and reporting aut
 content/tokens/    Generated article JSON by token and article type
 data/              Token data, metrics, prices, references, queues, logs, and ledgers
 public/            Static runtime assets, admin page, routes file, OG images, video assets
-docs/              Tracked project documentation artifacts
+docs/              Locally generated documentation artifacts (Git-ignored)
 tests/             Vitest unit and contract tests
-.github/workflows/ CI, deploy, refresh, social, video asset, snapshot, and quality workflows
+.github/workflows/ CI, deploy, refresh, social, video asset, and quality workflows
 ```
 
 ## Getting Started
@@ -142,15 +144,15 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 
 Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
 
-The production social cadence publishes a two-token comparison card to X and Telegram daily, replacing their former poll slots. The same comparison reaches Instagram and Threads on Monday, Wednesday, and Friday instead of video. YouTube keeps the Mon/Wed/Fri short-form video route. Telegram also publishes **Radar Divergence**, a visual comparison of price momentum, volume participation, and risk. TikTok video posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
+The production social cadence uses platform-specific routes rather than recycled poll/video slots. X publishes a daily research note plus comparisons on Monday, Wednesday, and Friday. Telegram publishes a daily brief, scheduled comparisons and recaps, a Sunday movers card, and **Radar Divergence** on Monday and Wednesday. Instagram receives a Sunday movers carousel and Monday/Wednesday comparison cards; Threads receives Tuesday/Thursday text explainers and a Friday recap. YouTube keeps the Mon/Wed/Fri short-form video route. TikTok posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
 
 | Platform | Production schedule (UTC) | Format |
 |---|---|---|
-| Telegram | Daily at 00:17, 03:17, 12:23, 15:37, 21:23; Mon/Wed/Fri at 18:41; Fri at 16:29 | Brief, watchlist, pulse, token comparison, movers, Radar Divergence, weekly recap |
-| X | Daily at 03:17 and 12:23 | Research note; token comparison card |
-| Instagram | Sun/Tue/Thu at 00:29; Mon/Wed/Fri at 18:41 | Movers carousel; token comparison card |
-| Threads | Tue/Thu at 16:17; Mon/Wed/Fri at 18:41; Fri at 16:29 | Research note; token comparison card; weekly recap |
-| YouTube | Mon/Wed/Fri at 18:41 | Short-form video |
+| Telegram | Daily at 00:17; Tue/Thu at 15:37; Fri at 16:29; Mon/Wed at 18:41; Sun at 21:23 | Brief, token comparison, weekly recap, Radar Divergence, movers card |
+| X | Daily at 03:17; Mon/Wed/Fri at 12:23 | Research note; token comparison card |
+| Instagram | Sun at 00:29; Mon/Wed at 18:41 | Movers carousel; token comparison card |
+| Threads | Tue/Thu at 16:17; Fri at 16:29 | Text explainer; weekly recap |
+| YouTube | Mon/Wed/Fri at 18:47 | Short-form video |
 | TikTok | Disabled | No scheduled posts |
 
 Short-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.
@@ -193,20 +195,20 @@ Copy `.env.example` to `.env.local` for local work. The full list is documented 
 
 ## GitHub Storage Strategy
 
-- Source code, docs artifacts, curated content, and selected JSON contracts are tracked in Git.
+- Source code, curated content, and selected JSON contracts are tracked in Git; generated docs artifacts remain local and ignored.
 - High-volume generated families are documented by pattern in `docs/tokenradar` instead of listing every token-level file.
 - GitHub Actions cache stores npm packages, CoinGecko cache files, and social cooldown state.
 - Failure diagnostics are uploaded as short-retention Actions artifacts.
-- Monthly data/content/media snapshots are archived as GitHub Releases.
-- Cloudflare D1 stores best-effort ops ledger state for automation and R2 media staging.
+- Cloudflare D1 is authoritative for social delivery and measurement state and also stores automation, attribution, quota, and R2 staging records.
 - Social tracking state is not pushed to `main` after every social run.
 
 ## Quality Gates
 
 - `prebuild` validates env, computes search intent, consolidates data, validates content, generates OG images, and regenerates sitemaps.
+- `ci.yml` provides the `CI / Required checks` pull-request and merge-queue gate: typecheck, lint, tests, build, and rendered SEO QA. Repository rules should require that check after the workflow lands on `main`.
 - `deploy.yml` runs typecheck, lint, tests, build, static output verification, Cloudflare Pages deploy, and deployment reporting.
 - `performance.yml` runs Lighthouse CI against static export and PageSpeed Insights against production when `PAGESPEED_API_KEY` is configured.
-- `dependency-security.yml` runs production dependency audit gates.
+- `dependency-security.yml` audits the full lockfile, including development and build tooling, at high severity without installing packages or running dependency lifecycle scripts.
 - `tests/setup/no-network.ts` blocks accidental live network calls in Vitest.
 - `tests/tokenradar-docs.test.ts` keeps the docs registry, README docs pair, public artifacts, and retired `TOKENRADAR.md` behavior under contract.
 
@@ -226,7 +228,7 @@ npx tsx scripts/generate-doc-artifacts.ts --doc tokenradar
 npx tsx scripts/generate-doc-artifacts.ts --doc tokenradar --check
 ```
 
-Keep `docs/tokenradar` synchronized when adding tracked HTML/JSON docs, public HTML/JSON runtime artifacts, major workflows, integrations, or generated data families.
+Keep `docs/tokenradar` synchronized when adding maintained HTML/JSON docs, public HTML/JSON runtime artifacts, major workflows, integrations, or generated data families.
 
 ## Deployment
 

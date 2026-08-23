@@ -18,6 +18,12 @@ const CONTENT_DIR = path.resolve(__dirname, "../content/tokens");
 
 const MAX_TOKEN_LINKS = 3;
 const MAX_LEARN_LINKS = 2;
+
+function getArgValue(args: string[], name: string): string | null {
+  const index = args.indexOf(name);
+  return index === -1 ? null : args[index + 1] || null;
+}
+
 interface LinkMapping {
   name: string;
   slug: string;
@@ -107,6 +113,9 @@ function injectLinks(content: string, mappings: LinkMapping[], currentSlug: stri
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  const targetToken = getArgValue(args, "--token");
+
   console.log("╔══════════════════════════════════════════╗");
   console.log("║    Semantic Linking Engine — Scaled      ║");
   console.log("╚══════════════════════════════════════════╝");
@@ -116,12 +125,17 @@ async function main() {
 
   if (mappings.length === 0) return;
 
-  const tokens = await fs.readdir(CONTENT_DIR);
+  const tokens = targetToken ? [targetToken] : await fs.readdir(CONTENT_DIR);
   let updatedFiles = 0;
 
   for (const tokenId of tokens) {
     const tokenDir = path.join(CONTENT_DIR, tokenId);
-    if (!(await fs.stat(tokenDir)).isDirectory()) continue;
+    try {
+      if (!(await fs.stat(tokenDir)).isDirectory()) continue;
+    } catch {
+      console.warn(`  ⚠ Content directory not found for ${tokenId}; skipping.`);
+      continue;
+    }
 
     const articles = await fs.readdir(tokenDir);
     for (const file of articles) {

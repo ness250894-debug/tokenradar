@@ -8,9 +8,7 @@ import {
   validateVideoAssetManifestForPublish,
 } from "../src/lib/video-asset-r2";
 import {
-  normalizeVideoAssetManifest,
   type VideoAssetLayer,
-  type VideoAssetManifest,
 } from "../src/lib/video-assets";
 import { loadEnv } from "../src/lib/utils";
 
@@ -44,13 +42,12 @@ async function main() {
     throw new Error(`Missing local b-roll manifest: ${MANIFEST_PATH}`);
   }
 
-  const manifest = normalizeVideoAssetManifest(
-    JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf-8")) as VideoAssetManifest,
-  );
-  const validation = validateVideoAssetManifestForPublish(manifest);
+  const rawManifest: unknown = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf-8"));
+  const validation = validateVideoAssetManifestForPublish(rawManifest);
   if (!validation.valid) {
     throw new Error(`Video asset manifest is not publishable:\n${validation.errors.join("\n")}`);
   }
+  const manifest = validation.normalizedManifest;
 
   for (const asset of manifest.assets) {
     const localPath = getLocalAssetPath(asset);
