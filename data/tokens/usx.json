@@ -17,25 +17,25 @@
     "explorer": "https://solscan.io/token/6FrrzDk5mQARGc1TDYoyVnSyRdds1t4PbtohCD6p3tgG"
   },
   "market": {
-    "price": 0.999571,
-    "marketCap": 404374520,
+    "price": 0.999536,
+    "marketCap": 404341521,
     "marketCapRank": 116,
-    "volume24h": 1361692,
-    "high24h": 0.999785,
-    "low24h": 0.999272,
+    "volume24h": 632410,
+    "high24h": 0.999767,
+    "low24h": 0.99943,
     "priceChange24h": 0,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "priceChange7d": 0.1,
+    "priceChange30d": 0.1,
     "priceChange1y": 0,
     "ath": 1.21,
-    "athChangePercentage": -17.38177,
+    "athChangePercentage": -17.38465,
     "athDate": "2026-07-14T11:48:30.000Z",
     "atl": 0.828472,
     "atlDate": "2025-12-25T20:30:55.000Z",
-    "circulatingSupply": 404545772.797137,
-    "totalSupply": 404545772.797137,
+    "circulatingSupply": 404545772.787236,
+    "totalSupply": 404545772.778915,
     "maxSupply": null,
-    "fdv": 404374520
+    "fdv": 404341521
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:43:31.204Z",
-  "lastMarketUpdate": "2026-08-22T17:59:17.047Z"
+  "lastMarketUpdate": "2026-08-23T17:56:30.000Z"
 }
