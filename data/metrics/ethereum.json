@@ -2,13 +2,17 @@
   "tokenId": "ethereum",
   "tokenName": "Ethereum",
   "symbol": "eth",
-  "riskScore": 2,
+  "riskScore": 3,
   "riskLevel": "low",
-  "growthPotentialIndex": 35,
+  "growthPotentialIndex": 37,
   "narrativeStrength": 60,
   "valueVsAth": 49,
   "volatilityIndex": 9,
   "holderConcentrationEstimate": "unknown",
   "summary": "Ethereum is a lower-risk token.",
-  "computedAt": "2026-08-22T18:08:21.347Z"
+  "marketDataAsOf": "2026-08-23T17:56:30.000Z",
+  "priceHistoryAsOf": "2026-05-14T07:04:25.000Z",
+  "categoryDataAsOf": "2026-08-22T17:59:17.126Z",
+  "inputDataAsOf": "2026-05-14T07:04:25.000Z",
+  "computedAt": "2026-08-23T18:07:17.204Z"
 }

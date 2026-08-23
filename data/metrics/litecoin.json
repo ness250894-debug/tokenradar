@@ -2,7 +2,7 @@
   "tokenId": "litecoin",
   "tokenName": "Litecoin",
   "symbol": "ltc",
-  "riskScore": 4,
+  "riskScore": 5,
   "riskLevel": "medium",
   "growthPotentialIndex": 43,
   "narrativeStrength": 60,
@@ -10,5 +10,9 @@
   "volatilityIndex": 12,
   "holderConcentrationEstimate": "unknown",
   "summary": "Litecoin is a deeply discounted vs ATH token.",
-  "computedAt": "2026-08-22T18:08:21.392Z"
+  "marketDataAsOf": "2026-08-23T17:56:30.000Z",
+  "priceHistoryAsOf": "2026-05-14T07:15:41.000Z",
+  "categoryDataAsOf": "2026-08-23T17:56:30.000Z",
+  "inputDataAsOf": "2026-05-14T07:15:41.000Z",
+  "computedAt": "2026-08-23T18:07:17.243Z"
 }

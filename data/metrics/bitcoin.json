@@ -2,13 +2,17 @@
   "tokenId": "bitcoin",
   "tokenName": "Bitcoin",
   "symbol": "btc",
-  "riskScore": 3,
-  "riskLevel": "low",
-  "growthPotentialIndex": 26,
+  "riskScore": 4,
+  "riskLevel": "medium",
+  "growthPotentialIndex": 27,
   "narrativeStrength": 60,
   "valueVsAth": 61,
   "volatilityIndex": 15,
   "holderConcentrationEstimate": "unknown",
-  "summary": "Bitcoin is a lower-risk, limited recovery-room signal token.",
-  "computedAt": "2026-08-22T18:08:21.310Z"
+  "summary": "Bitcoin is a limited recovery-room signal token.",
+  "marketDataAsOf": "2026-08-23T17:56:30.000Z",
+  "priceHistoryAsOf": "2026-05-13T18:24:07.000Z",
+  "categoryDataAsOf": "2026-08-22T17:59:17.126Z",
+  "inputDataAsOf": "2026-05-13T18:24:07.000Z",
+  "computedAt": "2026-08-23T18:07:17.167Z"
 }
