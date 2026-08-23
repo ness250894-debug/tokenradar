@@ -193,6 +193,23 @@ async function generateTokenOgImages(force: boolean): Promise<number> {
 
 async function generateMoversOgImage(force: boolean): Promise<number> {
   const moversPath = path.join(PUBLIC_DIR, "og", "movers.png");
+
+  // Static builds must be reproducible and must not depend on a live market API.
+  // Daily Refresh owns regeneration and calls this script with --force after it
+  // has refreshed the underlying market data. All other builds consume the
+  // committed artifact produced by that workflow.
+  if (!force) {
+    if (fs.existsSync(moversPath)) {
+      console.info("Using committed Daily Movers static image (live refresh not requested).");
+      return 0;
+    }
+
+    console.error(
+      "Missing public/og/movers.png. Run `npx tsx scripts/generate-og-images.tsx --force` in a credentialed refresh job and commit the result.",
+    );
+    return 1;
+  }
+
   if (!shouldRegenerateOutput(moversPath, getMoversSourcePaths(), force)) {
     console.info("Daily Movers static image is up to date.");
     return 0;

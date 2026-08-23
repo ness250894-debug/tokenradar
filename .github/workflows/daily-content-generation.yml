@@ -1,24 +1,17 @@
-# Daily Content Generation & Publication (Smart Drip)
-# The sole content generation workflow. Runs daily to:
-# 1. Generate new/updated articles via Smart Drip priority queue
-#    (volatile tokens → incomplete hubs → oldest stale content)
-# 2. Publish from queue with live market data injection
-# Budget: ~8 tracked token folders + 2 TGEs = up to ~26 articles/day.
-# Market-data refreshes stay separate in daily-refresh; this cap is only for AI/editorial generation.
+# Daily Launch Content Generation & Publication
+# Generates new TGE previews and full guides for newly graduated launches, then
+# publishes only the resulting queue entries. Non-launch refresh tiers remain
+# intentionally disabled in scripts/generate-content.ts.
 
-name: Daily Content Generation
+name: Daily Launch Content
 
 on:
   schedule:
     - cron: "0 6 * * *" # 1x/day (06:00 UTC)
   workflow_dispatch:
 
-concurrency:
-  group: git-push-main
-  cancel-in-progress: false
-
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22"
   CONTENT_MAX_REFRESH: "8"
   CONTENT_MAX_TGE: "2"
   CONTENT_PUBLISH_MAX: "25"
@@ -26,8 +19,14 @@ env:
 jobs:
   publish:
     name: Inject Data & Publish
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    concurrency:
+      group: coingecko-api-counter
+      cancel-in-progress: false
+      # Supported by GitHub Actions since 2026-05-07; actionlint v1.7.12 predates this schema field.
+      queue: max
     outputs:
       has_changes: ${{ steps.commit.outputs.has_changes }}
       commit_sha: ${{ steps.commit.outputs.commit_sha }}
@@ -36,31 +35,35 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
-      - name: Validate workflow ref
-        if: github.ref_name != 'main'
-        run: |
-          echo "::error::Daily content generation must run from main because it publishes directly to main."
-          exit 1
-
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: package-lock.json
 
       - name: Cache data/cache
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
-          path: data/cache
+          path: |
+            data/cache
+            !data/cache/api-counter.json
           key: ${{ runner.os }}-coingecko-data-content-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-coingecko-data-content-
             ${{ runner.os }}-coingecko-data-
+
+      - name: Restore CoinGecko monthly quota counter
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: data/cache/api-counter.json
+          key: ${{ runner.os }}-coingecko-api-counter-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ${{ runner.os }}-coingecko-api-counter-
 
       - name: Install dependencies
         timeout-minutes: 10
@@ -89,19 +92,50 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
+      - name: Identify published token changes
+        id: published
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p data/logs
+          manifest="data/logs/published-token-ids.txt"
+          : > "$manifest"
+          mapfile -t token_ids < <(
+            git status --porcelain=v1 --untracked-files=all -- content/tokens \
+              | sed -E 's/^.. //' \
+              | tr '\\' '/' \
+              | awk -F/ 'NF >= 3 { print $3 }' \
+              | sort -u
+          )
+          if (( ${#token_ids[@]} > 0 )); then
+            printf '%s\n' "${token_ids[@]}" > "$manifest"
+          fi
+          echo "count=${#token_ids[@]}" >> "$GITHUB_OUTPUT"
+          echo "Published token folders changed: ${#token_ids[@]}"
+
       - name: Inject Semantic Internal Links
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 5
-        run: npx tsx scripts/inject-internal-links.ts
+        run: |
+          while IFS= read -r token_id; do
+            [ -n "$token_id" ] && npx tsx scripts/inject-internal-links.ts --token "$token_id"
+          done < data/logs/published-token-ids.txt
 
       - name: Repair Published Article Formatting
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 10
-        run: npx tsx scripts/repair-article-content.ts
+        run: |
+          while IFS= read -r token_id; do
+            [ -n "$token_id" ] && npx tsx scripts/repair-article-content.ts --token "$token_id"
+          done < data/logs/published-token-ids.txt
 
       - name: Validate Published Content
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 10
         run: npx tsx scripts/validate-content.ts
 
       - name: Build Gate Before Publish
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 25
         run: npm run build
         env:
@@ -111,18 +145,26 @@ jobs:
           NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
 
       - name: Audit Rendered SEO Inventory
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 5
         run: npm run seo:qa
 
       - name: Commit published articles
         id: commit
+        if: steps.published.outputs.count != '0'
         timeout-minutes: 5
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          cleanup_auth() {
+            git config --local --unset-all http.https://github.com/.extraheader 2>/dev/null || true
+          }
+          trap cleanup_auth EXIT
+          auth_header="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ${auth_header}"
+          unset auth_header
           for dir in content/tokens data/tokens data/prices; do
             if [ -d "$dir" ]; then
               git add "$dir"
@@ -174,9 +216,28 @@ jobs:
             exit 1
           fi
 
+      - name: Check CoinGecko monthly quota counter
+        id: coingecko-quota-counter
+        if: always()
+        shell: bash
+        run: |
+          if [ -s data/cache/api-counter.json ] &&
+            jq -e '(.month | type == "string") and (.count | type == "number" and . >= 0)' data/cache/api-counter.json >/dev/null; then
+            echo "has_counter=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_counter=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Save CoinGecko monthly quota counter
+        if: always() && steps.coingecko-quota-counter.outputs.has_counter == 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: data/cache/api-counter.json
+          key: ${{ runner.os }}-coingecko-api-counter-${{ github.run_id }}-${{ github.run_attempt }}
+
       - name: Upload publication diagnostics
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: daily-content-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
@@ -201,7 +262,7 @@ jobs:
             --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
             --arg text "Daily Publication Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
-          curl --fail --show-error --silent --max-time 10 \
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
             -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
             -H "Content-Type: application/json" \
             --data "$payload"
@@ -215,7 +276,6 @@ jobs:
     if: needs.publish.outputs.has_changes == 'true'
     permissions:
       contents: read
-      deployments: write
     uses: ./.github/workflows/deploy.yml
     with:
       ref: ${{ needs.publish.outputs.commit_sha }}

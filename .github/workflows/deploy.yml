@@ -10,13 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: 'Commit SHA, branch or tag to deploy'
+        description: 'Production ref (main only for manual deploys)'
         required: false
         default: 'main'
   workflow_call:
     inputs:
       ref:
-        description: 'Commit SHA, branch or tag to deploy'
+        description: 'Production ref (main or an exact main commit SHA)'
         required: false
         type: string
         default: 'main'
@@ -42,24 +42,35 @@ on:
 env:
   NODE_VERSION: "22"
 
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: Build & Deploy
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: production
     permissions:
       contents: read
-      deployments: write
 
     steps:
       - name: Validate deploy ref
         if: github.event_name != 'push'
+        shell: bash
+        env:
+          DEPLOY_REF: ${{ inputs.ref || 'main' }}
+          ALLOW_SHA_REF: ${{ inputs.allow_sha_ref || false }}
         run: |
-          ref="${{ inputs.ref || 'main' }}"
+          set -euo pipefail
+          ref="$DEPLOY_REF"
           case "$ref" in
             main|refs/heads/main)
               ;;
             [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f])
-              if [ "${{ inputs.allow_sha_ref || false }}" != "true" ]; then
+              if [ "$ALLOW_SHA_REF" != "true" ]; then
                 echo "::error::Manual deploys may only target the protected main branch."
                 exit 1
               fi
@@ -71,13 +82,13 @@ jobs:
           esac
 
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -87,7 +98,7 @@ jobs:
         run: npm ci
 
       - name: Cache Next.js build
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: .next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
@@ -128,6 +139,24 @@ jobs:
           echo "📊 Total files in out/: $FILE_COUNT"
           echo "✅ Static export verified ($FILE_COUNT files)."
 
+      - name: Verify deployment is current main
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          checked_out_sha="$(git rev-parse HEAD)"
+          current_main_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+          if [ -z "$current_main_sha" ]; then
+            echo "::error::Unable to resolve the current main branch SHA."
+            exit 1
+          fi
+          if [ "$checked_out_sha" != "$current_main_sha" ]; then
+            echo "::error::Refusing to deploy stale commit $checked_out_sha; current main is $current_main_sha."
+            exit 1
+          fi
+          echo "Verified current main commit: $checked_out_sha"
+
       - name: Deploy to Cloudflare Pages
         run: |
           # Static asset upload with the scoped /compare Pages Function from public/_worker.js.
@@ -148,11 +177,10 @@ jobs:
 
       - name: Upload deploy diagnostics
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: deploy-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            out/
             .next/trace
             .next/diagnostics/
             data/_*_blob.json
@@ -176,7 +204,7 @@ jobs:
             --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
             --arg text "Deploy Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
-          curl --fail --show-error --silent --max-time 10 \
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
             -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
             -H "Content-Type: application/json" \
             --data "$payload"

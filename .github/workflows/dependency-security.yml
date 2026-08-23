@@ -17,32 +17,29 @@ permissions:
 
 jobs:
   npm-audit:
-    name: npm audit production dependencies
+    name: npm audit full lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: "22"
-          cache: npm
-          cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Audit production dependencies
-        run: npm run audit:prod
+      # Audit the lockfile directly. This covers build/dev tooling too and avoids
+      # executing package lifecycle scripts supplied by a pull request.
+      - name: Audit all locked dependencies
+        run: npm audit --package-lock-only --audit-level=high
 
       - name: Upload dependency diagnostics
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: dependency-security-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
@@ -52,10 +49,19 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  notify-failure:
+    name: Notify dependency audit failure
+    needs: npm-audit
+    if: always() && needs.npm-audit.result == 'failure' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+    steps:
       - name: Notify on Failure
-        if: failure()
         continue-on-error: true
-        timeout-minutes: 3
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
         run: |
           if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
             echo "Telegram report secrets are not configured; skipping failure notification."
@@ -65,10 +71,7 @@ jobs:
             --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
             --arg text "Dependency Security Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
-          curl --fail --show-error --silent --max-time 10 \
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
             -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
             -H "Content-Type: application/json" \
             --data "$payload"
-        env:
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}

@@ -70,6 +70,38 @@ describe("automation runbook contract", () => {
     }
   });
 
+  it("limits publication repair work to token folders changed by the queue publisher", () => {
+    const workflow = readWorkflow("daily-content-generation.yml");
+
+    expect(workflow).toContain("Identify published token changes");
+    expect(workflow).toContain("data/logs/published-token-ids.txt");
+    expect(workflow).toContain('inject-internal-links.ts --token "$token_id"');
+    expect(workflow).toContain('repair-article-content.ts --token "$token_id"');
+    expect(workflow).toContain("if: steps.published.outputs.count != '0'");
+  });
+
+  it("persists the CoinGecko monthly quota counter without restoring broad cache state in social runs", () => {
+    const counterWorkflows = [
+      readWorkflow("daily-content-generation.yml"),
+      readWorkflow("daily-refresh.yml"),
+      readWorkflow("social-automations.yml"),
+    ];
+
+    for (const workflow of counterWorkflows) {
+      expect(workflow).toContain("actions/cache/restore@");
+      expect(workflow).toContain("actions/cache/save@");
+      expect(workflow).toContain("data/cache/api-counter.json");
+      expect(workflow).toContain("coingecko-api-counter-");
+      expect(workflow).toContain("group: coingecko-api-counter");
+      expect(workflow).toContain("cancel-in-progress: false");
+      expect(workflow).toContain("queue: max");
+    }
+
+    expect(readWorkflow("daily-content-generation.yml")).toContain("!data/cache/api-counter.json");
+    expect(readWorkflow("daily-refresh.yml")).toContain("!data/cache/api-counter.json");
+    expect(readWorkflow("social-automations.yml")).not.toContain("name: Cache data/cache");
+  });
+
   it("keeps token OG images as deploy-only generated artifacts", () => {
     const packageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8")) as {
       scripts?: Record<string, string>;
@@ -81,6 +113,55 @@ describe("automation runbook contract", () => {
     expect(gitLsFiles("public/og/token")).toEqual([]);
     expect(readWorkflow("daily-content-generation.yml")).not.toContain("public/og/token");
     expect(readWorkflow("daily-refresh.yml")).not.toContain("public/og/token");
+  });
+
+  it("runs comprehensive checks for pull requests and merge queues", () => {
+    const workflow = readWorkflow("ci.yml");
+
+    expect(workflow).toContain("pull_request:");
+    expect(workflow).toContain("npx tsc --noEmit");
+    expect(workflow).toContain("npm run lint");
+    expect(workflow).toContain("npm run test");
+    expect(workflow).toContain("npm run build");
+    expect(workflow).toContain("npm run seo:qa");
+  });
+
+  it("does not publish YouTube fallback video after strict R2 hydration fails", () => {
+    const workflow = readWorkflow("social-automations.yml");
+    const youtubeStart = workflow.indexOf("- name: YouTube Video Breakout");
+    const youtubeEnd = workflow.indexOf("\n      - name:", youtubeStart + 1);
+    const youtubeBlock = workflow.slice(youtubeStart, youtubeEnd);
+
+    expect(youtubeStart).toBeGreaterThan(-1);
+    expect(youtubeBlock).toContain("steps.hydrate-video-assets.outcome == 'success'");
+    for (const variable of [
+      "R2_ACCOUNT_ID",
+      "R2_ACCESS_KEY_ID",
+      "R2_SECRET_ACCESS_KEY",
+      "R2_BUCKET_NAME",
+      "R2_PUBLIC_URL",
+    ]) {
+      expect(youtubeBlock, `YouTube should receive ${variable} for selected-asset hydration`).toContain(variable);
+    }
+  });
+
+  it("allows an R2 deletion preview without weakening confirmed deletion authorization", () => {
+    const script = fs.readFileSync(path.join(process.cwd(), "scripts", "prune-video-assets.ts"), "utf-8");
+    const deleteFunctionStart = script.indexOf("async function deleteUnreferencedR2Assets");
+    const authorizationStart = script.indexOf("  if (!dryRun) {", deleteFunctionStart);
+    const listingStart = script.indexOf('  const objectKeys = await listObjectKeys("video-assets/broll/");');
+    const authorizationBlock = script.slice(authorizationStart, listingStart);
+    const deleteCallStart = script.indexOf("const deleted = await deleteObjects(unreferencedKeys);", listingStart);
+    const deleteFunctionEnd = script.indexOf("\n}\n\nasync function main", deleteCallStart);
+    const confirmedDeleteBlock = script.slice(deleteCallStart, deleteFunctionEnd);
+
+    expect(deleteFunctionStart).toBeGreaterThan(-1);
+    expect(authorizationStart).toBeGreaterThan(deleteFunctionStart);
+    expect(listingStart).toBeGreaterThan(authorizationStart);
+    expect(authorizationBlock).toContain("if (!confirmed)");
+    expect(authorizationBlock).toContain("readFreshHydrationGuard(args);");
+    expect(deleteCallStart).toBeGreaterThan(listingStart);
+    expect(confirmedDeleteBlock).toContain("fs.rmSync(HYDRATION_GUARD_FILE, { force: true });");
   });
 
   it("refreshes search-intent artifacts before the daily refresh commit", () => {

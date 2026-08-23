@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  assessR2VideoAssetDeletionSafety,
   buildUnreferencedR2VideoAssetKeys,
   buildVideoAssetPrunePlan,
+  validateVideoAssetHydrationGuard,
 } from "../src/lib/video-asset-pruning";
 import type { VideoAssetManifest } from "../src/lib/video-assets";
 
@@ -153,5 +155,56 @@ describe("video asset pruning", () => {
     );
 
     expect(keys).toEqual(["video-assets/broll/stale.mp4", "video-assets/broll/stale.webp"]);
+  });
+
+  it("accepts only a fresh full hydration guard from the expected run", () => {
+    const nowMs = Date.parse("2026-08-23T12:00:00.000Z");
+    const guard = {
+      version: 1,
+      mode: "full",
+      runId: "gha-123-1",
+      hydratedAt: "2026-08-23T11:55:00.000Z",
+      manifestSha256: SHA_A,
+      assetCount: 10,
+    };
+
+    expect(validateVideoAssetHydrationGuard(guard, {
+      expectedRunId: "gha-123-1",
+      maxAgeMs: 10 * 60 * 1000,
+      nowMs,
+    })).toEqual({ safe: true });
+    expect(validateVideoAssetHydrationGuard(guard, {
+      expectedRunId: "gha-456-1",
+      maxAgeMs: 10 * 60 * 1000,
+      nowMs,
+    })).toEqual({ safe: false, reason: "the hydration guard belongs to a different run" });
+    expect(validateVideoAssetHydrationGuard(guard, {
+      expectedRunId: "gha-123-1",
+      maxAgeMs: 4 * 60 * 1000,
+      nowMs,
+    })).toEqual({ safe: false, reason: "the hydration guard is stale" });
+  });
+
+  it("blocks R2 deletion when either the count or ratio boundary is exceeded", () => {
+    expect(assessR2VideoAssetDeletionSafety({
+      candidateCount: 2,
+      totalMediaCount: 10,
+      maxDeleteCount: 2,
+      maxDeleteRatio: 0.25,
+    })).toEqual({ safe: true });
+
+    expect(assessR2VideoAssetDeletionSafety({
+      candidateCount: 3,
+      totalMediaCount: 20,
+      maxDeleteCount: 2,
+      maxDeleteRatio: 0.25,
+    })).toEqual({ safe: false, reason: "3 candidates exceed the deletion limit of 2" });
+
+    expect(assessR2VideoAssetDeletionSafety({
+      candidateCount: 1,
+      totalMediaCount: 3,
+      maxDeleteCount: 2,
+      maxDeleteRatio: 0.25,
+    })).toEqual({ safe: false, reason: "1/3 candidates exceed the deletion ratio limit of 0.25" });
   });
 });
