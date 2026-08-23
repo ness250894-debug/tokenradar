@@ -97,14 +97,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache Next.js build
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
+      # Keep the build secret-free and do not persist .next/cache: framework
+      # caches can retain resolved environment values.
       - name: Run Typecheck
         run: npx tsc --noEmit
 
@@ -122,7 +116,6 @@ jobs:
           NEXT_PUBLIC_SITE_NAME: ${{ vars.SITE_NAME || 'TokenRadar' }}
           NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
           NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 
       - name: Audit rendered SEO inventory
         run: npm run seo:qa
