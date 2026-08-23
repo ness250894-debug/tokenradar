@@ -17,6 +17,17 @@ afterEach(() => {
 });
 
 describe("secret exposure guard", () => {
+  it("does not persist the framework build cache from secret-bearing builds", () => {
+    const workflow = fs.readFileSync(
+      path.resolve(process.cwd(), ".github/workflows/deploy.yml"),
+      "utf8",
+    );
+
+    expect(workflow).not.toMatch(
+      /^\s*path:\s*(?:\|\s*\r?\n\s*)?\.next\/cache\s*$/m,
+    );
+  });
+
   it("classifies private and public environment names", () => {
     expect(isSensitiveEnvironmentName("ANTHROPIC_API_KEY")).toBe(true);
     expect(isSensitiveEnvironmentName("X_OAUTH2_REFRESH_TOKEN")).toBe(true);
