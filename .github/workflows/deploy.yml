@@ -139,6 +139,11 @@ jobs:
           echo "📊 Total files in out/: $FILE_COUNT"
           echo "✅ Static export verified ($FILE_COUNT files)."
 
+      - name: Scan deployment output for resolved secrets
+        run: npm run security:secrets:build
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
       - name: Verify deployment is current main
         shell: bash
         env:

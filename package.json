@@ -33,6 +33,8 @@
     "d1:report": "tsx scripts/report-ops-ledger.ts",
     "d1:smoke": "tsx scripts/d1-smoke.ts",
     "deploy:check-files": "tsx scripts/check-pages-file-budget.ts out",
+    "security:secrets": "tsx scripts/check-secret-exposure.ts --tracked",
+    "security:secrets:build": "tsx scripts/check-secret-exposure.ts --tracked --path out",
     "docs:seo": "tsx scripts/generate-doc-artifacts.ts --doc seo",
     "docs:testing": "tsx scripts/generate-doc-artifacts.ts --doc testing",
     "docs:automations": "tsx scripts/generate-doc-artifacts.ts --doc automations",
