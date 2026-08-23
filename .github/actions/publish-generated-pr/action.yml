@@ -1,0 +1,48 @@
+name: Publish generated change
+description: Open, validate, test, and squash-merge a generated-content pull request.
+
+inputs:
+  token:
+    description: Ephemeral GITHUB_TOKEN for this integration job.
+    required: true
+  branch:
+    description: Unique automation branch containing one generated commit.
+    required: true
+  base-sha:
+    description: Main revision used to generate the change.
+    required: true
+  head-sha:
+    description: Exact generated commit to validate and merge.
+    required: true
+  title:
+    description: Pull request title.
+    required: true
+  body:
+    description: Pull request body.
+    required: true
+
+outputs:
+  merge-sha:
+    description: Exact squash-merge commit now at main.
+    value: ${{ steps.publish.outputs.merge_sha }}
+  pr-number:
+    description: Pull request number used for the generated change.
+    value: ${{ steps.publish.outputs.pr_number }}
+  ci-run-id:
+    description: Exact workflow_dispatch CI run that approved the head commit.
+    value: ${{ steps.publish.outputs.ci_run_id }}
+
+runs:
+  using: composite
+  steps:
+    - name: Validate, test, and merge generated change
+      id: publish
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        AUTOMATION_BRANCH: ${{ inputs.branch }}
+        BASE_SHA: ${{ inputs.base-sha }}
+        HEAD_SHA: ${{ inputs.head-sha }}
+        PR_TITLE: ${{ inputs.title }}
+        PR_BODY: ${{ inputs.body }}
+      run: bash "$GITHUB_ACTION_PATH/publish.sh"
