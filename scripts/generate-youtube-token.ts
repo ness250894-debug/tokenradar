@@ -34,6 +34,9 @@ const REDIRECT_URI = "http://localhost:3000";
 
 const SCOPES = [
   "https://www.googleapis.com/auth/youtube.upload",
+  "https://www.googleapis.com/auth/youtube.force-ssl",
+  "https://www.googleapis.com/auth/youtube.readonly",
+  "https://www.googleapis.com/auth/yt-analytics.readonly",
 ];
 
 function escapeHtml(value: string): string {

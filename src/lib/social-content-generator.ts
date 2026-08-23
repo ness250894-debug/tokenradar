@@ -4,7 +4,7 @@
  * Publish-time captions are generated through generateUnifiedCaptions in gemini.ts.
  */
 
-import { callAIWithFallback, type MarketContext } from "./gemini";
+import { callAIWithFallback, type AICallOptions, type MarketContext } from "./gemini";
 import { sanitizeSocialEditorialText } from "./social-editorial";
 
 export interface VideoHookFormatContext {
@@ -23,6 +23,7 @@ export type VideoVoiceoverStyle = "standard" | "tiktok_native";
 export interface VideoVoiceoverOptions {
   targetDurationSeconds?: number;
   style?: VideoVoiceoverStyle;
+  usageActivity?: AICallOptions["usageActivity"];
 }
 
 function normalizeNarrationText(value: string): string {
@@ -184,6 +185,8 @@ export async function generateDynamicVoiceoverScript(
     "You write highly engaging, natural short-form video narration scripts.",
     prompt,
     1024,
+    undefined,
+    { usageActivity: options.usageActivity },
   );
   return trimToWordLimit(normalizeNarrationText(result.content.trim().replace(/^["']|["']$/g, "")), maxWords);
 }
@@ -224,6 +227,7 @@ export async function generateHookText(
   symbol: string,
   context: MarketContext = {},
   format?: VideoHookFormatContext,
+  usageActivity?: AICallOptions["usageActivity"],
 ): Promise<string> {
   const maxChars = 40;
   const formatBrief = format
@@ -260,6 +264,8 @@ export async function generateHookText(
     "You write high-converting short-form video hooks.",
     prompt,
     1024,
+    undefined,
+    { usageActivity },
   );
 
   const hook = sanitizeSocialEditorialText(result.content).trim().replace(/^["']|["']$/g, "").toUpperCase();

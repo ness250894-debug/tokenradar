@@ -50,7 +50,7 @@ describe("BrollStoryOverlay", () => {
     );
 
     expect(markup).not.toContain("+0.00%");
-    expect(markup.toLowerCase()).toContain("fresh catalyst");
+    expect(markup.toLowerCase()).toContain("fresh article catalyst");
   });
 
   it("uses editorial story beats instead of raw dashboard rows on primary b-roll", () => {

@@ -20,25 +20,16 @@ export const FONTS = {
   primary: "Inter, sans-serif",
 };
 
-export type Verdict = "CONSTRUCTIVE" | "POSITIVE DATA" | "NEUTRAL" | "RISK ELEVATED";
+export type Verdict = "DATA SNAPSHOT";
 
-export function getVerdict(riskScore: number, priceChange24h: number): Verdict {
-  if (riskScore < 2.5 && priceChange24h > 0) return "CONSTRUCTIVE";
-  if (riskScore < 4.0) return "POSITIVE DATA";
-  if (riskScore < 6.0) return "NEUTRAL";
-  return "RISK ELEVATED";
+export function getVerdict(_riskScore: number, _priceChange24h: number): Verdict {
+  return "DATA SNAPSHOT";
 }
 
 export function getVerdictColor(verdict: Verdict): string {
   switch (verdict) {
-    case "CONSTRUCTIVE":
-      return COLORS.positive;
-    case "POSITIVE DATA":
-      return "#34D399"; // Lighter green
-    case "NEUTRAL":
-      return COLORS.warning;
-    case "RISK ELEVATED":
-      return COLORS.negative;
+    case "DATA SNAPSHOT":
+      return COLORS.accent;
     default:
       return COLORS.text;
   }

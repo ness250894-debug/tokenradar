@@ -46,6 +46,10 @@ export const TokenMetricsSchema = z.object({
   valueVsAth: Score0To100Schema,
   volatilityIndex: Score0To100Schema,
   summary: z.string(),
+  marketDataAsOf: IsoDateStringSchema.optional(),
+  priceHistoryAsOf: IsoDateStringSchema.optional(),
+  categoryDataAsOf: IsoDateStringSchema.optional(),
+  inputDataAsOf: IsoDateStringSchema.optional(),
   computedAt: IsoDateStringSchema,
   holderConcentrationEstimate: z.enum(["low", "medium", "high", "unknown"]).optional(),
 });

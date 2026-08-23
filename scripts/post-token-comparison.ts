@@ -15,14 +15,25 @@ import * as fs from "fs";
 import * as path from "path";
 import sharp from "sharp";
 
-import { SOCIAL_PLATFORM_LIMITS, TELEGRAM_ECOSYSTEM_LINK_HTML, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
-import { publishImage, hasMetaCredentials } from "../src/lib/meta-client";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import { getTelegramResearchLinkHtml, SITE_URL, SOCIAL_PLATFORM_LIMITS, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
+import {
+  hasMetaCredentials,
+  isMetaPublishOutcomeUnknownError,
+  publishImage,
+} from "../src/lib/meta-client";
+import {
+  hasSocialPost,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+  type SocialDeliveryStatus,
+} from "../src/lib/ops-ledger";
 import { deleteObjects, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
 import { logError } from "../src/lib/reporter";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
-import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
+import { buildSocialUtmUrl } from "../src/lib/social-utm";
+import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramPhoto } from "../src/lib/telegram";
 import {
   buildComparisonCaptions,
   generateTokenComparisonImage,
@@ -31,12 +42,18 @@ import {
   type TokenComparisonPair,
   type TokenComparisonToken,
 } from "../src/lib/token-comparison";
-import { getMissingXCredentialNames, postTweetWithMedia } from "../src/lib/x-client";
+import {
+  getMissingXCredentialNames,
+  isXCreateOutcomeUnknownError,
+  postTweetWithMedia,
+} from "../src/lib/x-client";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
+  isMetricDataFreshForMarket,
   loadCandidateTokens,
+  type MetricData,
   type TokenData,
 } from "./lib/token-selection";
 
@@ -75,14 +92,16 @@ function getArgValue(flag: string): string | undefined {
   return index >= 0 ? process.argv[index + 1] : undefined;
 }
 
-function loadMetrics(tokenId: string): TokenComparisonMetrics | null {
+function loadMetrics(tokenId: string, marketAsOf: string | undefined): TokenComparisonMetrics | null {
   const metricsFile = path.join(DATA_DIR, "metrics", `${tokenId}.json`);
-  const metrics = safeReadJson<Partial<TokenComparisonMetrics> | null>(metricsFile, null);
+  const metrics = safeReadJson<Partial<TokenComparisonMetrics & MetricData> | null>(metricsFile, null);
   if (
     !metrics ||
     !Number.isFinite(metrics.riskScore) ||
-    !Number.isFinite(metrics.growthPotentialIndex)
+    !Number.isFinite(metrics.growthPotentialIndex) ||
+    !isMetricDataFreshForMarket(metrics as MetricData, marketAsOf)
   ) {
+    console.warn(`Skipping ${tokenId}: Risk/Growth inputs are missing, stale, or do not match the live market snapshot.`);
     return null;
   }
 
@@ -95,6 +114,11 @@ function loadMetrics(tokenId: string): TokenComparisonMetrics | null {
     volatilityIndex: Number.isFinite(metrics.volatilityIndex)
       ? Number(metrics.volatilityIndex)
       : undefined,
+    marketDataAsOf: metrics.marketDataAsOf,
+    computedAt: metrics.computedAt,
+    priceHistoryAsOf: metrics.priceHistoryAsOf,
+    categoryDataAsOf: metrics.categoryDataAsOf,
+    inputDataAsOf: metrics.inputDataAsOf,
   };
 }
 
@@ -111,6 +135,8 @@ export function toComparisonToken(token: TokenData, metrics: TokenComparisonMetr
     marketCap: token.market.marketCap,
     volume24h: token.market.volume24h,
     rank: token.market.marketCapRank || token.rank,
+    marketDataSource: token.marketDataSource,
+    marketDataAsOf: token.lastMarketUpdate || token.fetchedAt,
     metrics,
   };
 }
@@ -143,6 +169,19 @@ function trackerPath(postedDir: string, platform: ComparisonPlatform): string {
   return path.join(postedDir, `token-comparison-${platform}.json`);
 }
 
+function comparisonDeliveryFailureStatus(
+  platform: ComparisonPlatform,
+  error: unknown,
+): SocialDeliveryStatus {
+  if (platform === "x" && isXCreateOutcomeUnknownError(error)) return "outcome_unknown";
+  if ((platform === "instagram" || platform === "threads") && isMetaPublishOutcomeUnknownError(error)) {
+    return "outcome_unknown";
+  }
+  return platform === "telegram" && isTelegramCreateOutcomeUnknownError(error)
+    ? "outcome_unknown"
+    : "failed";
+}
+
 async function alreadyPosted(
   postedDir: string,
   platform: ComparisonPlatform,
@@ -161,8 +200,9 @@ async function recordComparisonPost(options: {
   pair: TokenComparisonPair;
   text: string;
   externalId: string | number;
+  trackedUrl?: string;
 }): Promise<void> {
-  const { postedDir, today, platform, pair, text, externalId } = options;
+  const { postedDir, today, platform, pair, text, externalId, trackedUrl } = options;
   const postedAt = new Date().toISOString();
   const trackerPayload = buildSocialTrackerPayload({
     postedAt,
@@ -172,15 +212,22 @@ async function recordComparisonPost(options: {
     tokenName: `${pair.left.name} vs ${pair.right.name}`,
     tokenSymbol: `${pair.left.symbol.toUpperCase()}-${pair.right.symbol.toUpperCase()}`,
     reason: "token-comparison",
+    archetypeKey: "two_token_comparison",
+    archetypeLabel: "Two-token comparison",
     text,
     externalId,
+    plannedUrl: trackedUrl,
+    publishedUrl: trackedUrl,
     formatKey: "two-token-comparison",
     visualRecipeKey: "comparison-card",
     topicTag: platform === "threads" ? "CryptoResearch" : undefined,
-    details: {
-      tokenIds: [pair.left.id, pair.right.id],
-      comparisonContext: pair.context,
-      socialSlot: process.env.SOCIAL_SLOT,
+      details: {
+        tokenIds: [pair.left.id, pair.right.id],
+        comparisonContext: pair.context,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: [pair.left.marketDataAsOf, pair.right.marketDataAsOf].filter(Boolean).sort()[0],
+        metricsAsOf: [pair.left.metrics.inputDataAsOf, pair.right.metrics.inputDataAsOf].filter(Boolean).sort()[0],
+        socialSlot: process.env.SOCIAL_SLOT,
     },
   });
 
@@ -225,11 +272,11 @@ export async function main(): Promise<void> {
   console.log("Loading live comparison candidates...");
   const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 250);
   const comparisonCandidates = candidates.flatMap((token) => {
-    const metrics = loadMetrics(token.id);
+    const metrics = loadMetrics(token.id, token.lastMarketUpdate || token.fetchedAt);
     return metrics ? [toComparisonToken(token, metrics)] : [];
   });
 
-  let pair = !force ? resolveStoredPair(pairTrackerFile, comparisonCandidates) : null;
+  let pair = resolveStoredPair(pairTrackerFile, comparisonCandidates);
   if (!pair) {
     pair = selectTokenComparisonPair(comparisonCandidates, {
       recentlyPosted: force ? [] : getRecentlyPostedTokens(DATA_DIR),
@@ -252,7 +299,14 @@ export async function main(): Promise<void> {
   );
   const imagePng = await generateTokenComparisonImage(pair);
   const captions = buildComparisonCaptions(pair);
-  const telegramFooter = `${TELEGRAM_ECOSYSTEM_LINK_HTML}\n\n${TELEGRAM_SIGNAL_NOTE}\n#TokenComparison #Crypto #TokenRadar`;
+  const telegramTrackedUrl = buildSocialUtmUrl(SITE_URL, {
+    platform: "telegram",
+    date: today,
+    surface: "token-comparison",
+    archetypeKey: "two_token_comparison",
+    tokenId: `${pair.left.id}-vs-${pair.right.id}`,
+  });
+  const telegramFooter = `${getTelegramResearchLinkHtml(telegramTrackedUrl)}\n\n${TELEGRAM_SIGNAL_NOTE}\n#TokenComparison #Crypto #TokenRadar`;
   const platformText: Record<ComparisonPlatform, string> = {
     telegram: buildTelegramMediaCaption(captions.telegram, telegramFooter, {
       maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
@@ -285,32 +339,104 @@ export async function main(): Promise<void> {
     return;
   }
 
+  const reservedTargets = new Set<ComparisonPlatform>();
+  const reserveTarget = async (platform: ComparisonPlatform): Promise<boolean> => {
+    const reservation = await reserveSocialDelivery({
+      platform,
+      contentKey: `${today}:token-comparison`,
+      details: {
+        surface: "token-comparison",
+        tokenIds: [pair.left.id, pair.right.id],
+        comparisonContext: pair.context,
+      },
+    });
+    if (reservation.acquired) {
+      reservedTargets.add(platform);
+      return true;
+    }
+    if (reservation.state === "published") {
+      console.log(`${platform} comparison delivery is already published; treating this run as an idempotent no-op.`);
+      return false;
+    }
+    throw new Error(`${platform} comparison delivery is ${reservation.state}; reconcile it before retrying.`);
+  };
+
   const failures: Array<{ platform: ComparisonPlatform; error: unknown }> = [];
 
+  const recordFailure = async (
+    platform: ComparisonPlatform,
+    error: unknown,
+    publishedExternalId?: string | number,
+  ): Promise<void> => {
+    failures.push({ platform, error });
+    if (!reservedTargets.has(platform)) return;
+    try {
+      await markSocialDeliveryStatus({
+        platform,
+        contentKey: `${today}:token-comparison`,
+        status: publishedExternalId !== undefined
+          ? "published"
+          : comparisonDeliveryFailureStatus(platform, error),
+        externalId: publishedExternalId,
+        error: formatErrorForLog(error),
+        details: {
+          surface: "token-comparison",
+          tokenIds: [pair.left.id, pair.right.id],
+        },
+      });
+    } catch (ledgerError) {
+      console.error(`Failed to persist ${platform} comparison delivery outcome: ${formatErrorForLog(ledgerError)}`);
+    }
+  };
+
   if (pendingTargets.includes("telegram")) {
+    let messageId: number | undefined;
     try {
       const channelId = process.env.TELEGRAM_CHANNEL_ID;
       if (!channelId || !process.env.TELEGRAM_BOT_TOKEN) {
         throw new Error("Missing Telegram credentials. Required: TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID.");
       }
-      const messageId = await sendTelegramPhoto(imagePng, platformText.telegram, channelId);
-      await recordComparisonPost({ postedDir, today, platform: "telegram", pair, text: platformText.telegram, externalId: messageId });
+      if (!(await reserveTarget("telegram"))) {
+        // Already published.
+      } else {
+      messageId = await sendTelegramPhoto(imagePng, platformText.telegram, channelId);
+      await recordComparisonPost({
+        postedDir,
+        today,
+        platform: "telegram",
+        pair,
+        text: platformText.telegram,
+        externalId: messageId,
+        trackedUrl: telegramTrackedUrl,
+      });
       console.log(`Telegram comparison posted (message ${messageId}).`);
+      }
     } catch (error) {
-      failures.push({ platform: "telegram", error });
+      await recordFailure("telegram", error, messageId);
       await logError("post-token-comparison-telegram", error, false);
     }
   }
 
   if (pendingTargets.includes("x")) {
+    let tweetId: string | undefined;
     try {
       const missing = getMissingXCredentialNames();
       if (missing.length > 0) throw new Error(`Missing X credentials: ${missing.join(", ")}.`);
-      const tweetId = await postTweetWithMedia(platformText.x, imagePng);
+      if (!(await reserveTarget("x"))) {
+        // Already published.
+      } else {
+      tweetId = await postTweetWithMedia(
+        platformText.x,
+        imagePng,
+        "image/png",
+        undefined,
+        `TokenRadar comparison of ${pair.left.name} and ${pair.right.name}, showing 24-hour and 7-day price changes, market cap, trading volume relative to market cap, Risk Score, and Growth Index.`,
+      );
       await recordComparisonPost({ postedDir, today, platform: "x", pair, text: platformText.x, externalId: tweetId });
       console.log(`X comparison posted (tweet ${tweetId}).`);
+      }
     } catch (error) {
-      failures.push({ platform: "x", error });
+      await recordFailure("x", error, tweetId);
       await logError("post-token-comparison-x", error, false);
     }
   }
@@ -318,6 +444,7 @@ export async function main(): Promise<void> {
   const metaTargets = pendingTargets.filter(
     (platform): platform is "instagram" | "threads" => platform === "instagram" || platform === "threads",
   );
+  const handledMetaTargets = new Set<"instagram" | "threads">();
   let uploadedKey = "";
   if (metaTargets.length > 0) {
     try {
@@ -330,14 +457,20 @@ export async function main(): Promise<void> {
       const imageUrl = await uploadBuffer(imageJpeg, uploadedKey, "image/jpeg");
 
       for (const platform of metaTargets) {
+        let publishedExternalId: string | undefined;
         try {
           if (!hasMetaCredentials(platform)) {
             throw new Error(`Missing ${platform} credentials.`);
+          }
+          if (!(await reserveTarget(platform))) {
+            handledMetaTargets.add(platform);
+            continue;
           }
           const result = await publishImage(platform, imageUrl, platformText[platform], {
             topicTag: platform === "threads" ? "CryptoResearch" : undefined,
             altText: `TokenRadar comparison of ${pair.left.name} and ${pair.right.name}, covering price, 24-hour and 7-day performance, market cap, volume participation, risk, and growth metrics.`,
           });
+          publishedExternalId = result.id;
           await recordComparisonPost({
             postedDir,
             today,
@@ -347,13 +480,17 @@ export async function main(): Promise<void> {
             externalId: result.id,
           });
           console.log(`${platform} comparison posted (${result.id}).`);
+          handledMetaTargets.add(platform);
         } catch (error) {
-          failures.push({ platform, error });
+          await recordFailure(platform, error, publishedExternalId);
           await logError(`post-token-comparison-${platform}`, error, false);
+          handledMetaTargets.add(platform);
         }
       }
     } catch (error) {
-      for (const platform of metaTargets) failures.push({ platform, error });
+      for (const platform of metaTargets) {
+        if (!handledMetaTargets.has(platform)) await recordFailure(platform, error);
+      }
       await logError("post-token-comparison-meta-staging", error, false);
     }
   }

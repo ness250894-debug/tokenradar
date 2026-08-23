@@ -31,11 +31,23 @@
 import { InputFile } from "grammy";
 import * as fs from "fs";
 import * as path from "path";
+import { pathToFileURL } from "url";
 
 import { logError, logActivity } from "../src/lib/reporter";
-import { generateUnifiedCaptions, type PlatformTarget, type UnifiedCaptionOptions } from "../src/lib/gemini";
-import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, sanitizeHtmlForTelegram } from "../src/lib/telegram";
-import { diversifyXPostText, getMissingXCredentialNames, postTweet, postTweetWithMedia } from "../src/lib/x-client";
+import {
+  buildSocialContentFacts,
+  generateUnifiedCaptions,
+  type PlatformTarget,
+  type UnifiedCaptionOptions,
+} from "../src/lib/gemini";
+import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, isTelegramCreateOutcomeUnknownError, requireTelegramMessageId, sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import {
+  diversifyXPostText,
+  getMissingXCredentialNames,
+  isXCreateOutcomeUnknownError,
+  postTweet,
+  postTweetWithMedia,
+} from "../src/lib/x-client";
 import { fetchTokenImage } from "../src/lib/og-fetcher";
 import {
   SOCIAL,
@@ -44,9 +56,23 @@ import {
 } from "../src/lib/config";
 import type { SocialContentArchetype } from "../src/lib/social-archetypes";
 import type { SocialContentVariant } from "../src/lib/social-variety";
-import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
+import {
+  attachPublishedUrlToSocialTrackerPayload,
+  buildSocialPostDetails,
+  buildSocialTrackerPayload,
+} from "../src/lib/social-post-tracker";
 import { buildSocialUtmUrl } from "../src/lib/social-utm";
-import { listSocialPostContentKeys, recordSocialPost } from "../src/lib/ops-ledger";
+import { formatMarketDataAttribution, formatMarketDataSourceLabel, validateSocialContent } from "../src/lib/social-content-validator";
+import { resolveProviderMarketTimestamp } from "../src/lib/market-data-quality";
+import {
+  hasSocialPost,
+  listSocialPostEvidence,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+  updateSocialPostDetails,
+  type SocialPostEvidence,
+} from "../src/lib/ops-ledger";
 import { safeReadJson, loadEnv, ensureDirSync, formatErrorForLog, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone, ensureHtmlTagsClosed } from "../src/lib/shared-utils";
 import { getRecentPlatformTexts } from "./lib/social-history";
@@ -66,15 +92,94 @@ import {
   getTodayPostedTokens,
   getRecentlyPostedTokens,
   loadCandidateTokens,
+  isMetricDataFreshForMarket,
   selectToken,
 } from "./lib/token-selection";
-import { fetchGlobalMarketData, fetchTrendingCategories } from "../src/lib/coingecko";
 // Load environment
 loadEnv();
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 
 type MarketPostPlatform = "telegram" | "x";
+
+type LegacyEvidenceClassification = "exact" | "other" | "unlabeled";
+
+function stringDetail(row: SocialPostEvidence, key: string): string | undefined {
+  const value = row.details?.[key];
+  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+}
+
+function classifyLegacyMarketEvidence(
+  platform: MarketPostPlatform,
+  row: SocialPostEvidence,
+  slot: string,
+  telegramFormat: TelegramMarketFormat,
+): LegacyEvidenceClassification {
+  const socialSlot = stringDetail(row, "socialSlot");
+  if (socialSlot) return socialSlot === slot ? "exact" : "other";
+
+  if (platform === "telegram") {
+    const labels = [stringDetail(row, "telegramFormat"), stringDetail(row, "format")]
+      .filter((value): value is string => Boolean(value));
+    if (labels.length === 0) return "unlabeled";
+    return labels.includes(telegramFormat) ? "exact" : "other";
+  }
+
+  const labels = [stringDetail(row, "format"), stringDetail(row, "variantSurface")]
+    .filter((value): value is string => Boolean(value));
+  if (labels.length === 0) return "unlabeled";
+  return labels.includes("market-update") ? "exact" : "other";
+}
+
+export function selectLegacyMarketEvidence(
+  platform: MarketPostPlatform,
+  rows: SocialPostEvidence[],
+  slot: string,
+  telegramFormat: TelegramMarketFormat,
+): SocialPostEvidence | null {
+  const classified = rows.map((row) => ({
+    row,
+    classification: classifyLegacyMarketEvidence(platform, row, slot, telegramFormat),
+  }));
+  const exact = classified.filter((item) => item.classification === "exact").map((item) => item.row);
+  const exactWithPublicId = exact.filter((row) => Boolean(row.externalId?.trim()));
+
+  if (exactWithPublicId.length === 1) return exactWithPublicId[0];
+  if (exactWithPublicId.length > 1 || exact.length > 1) {
+    throw new Error(
+      `Multiple legacy ${platform} deliveries match ${slot}; reconcile them before publishing.`,
+    );
+  }
+  if (exact.length === 1) return exact[0];
+
+  const unlabeled = classified
+    .filter((item) => item.classification === "unlabeled")
+    .map((item) => item.row);
+  if (unlabeled.length === 0) return null;
+  if (platform === "x" && unlabeled.length === 1) return unlabeled[0];
+
+  throw new Error(
+    `Legacy ${platform} delivery evidence for ${slot} is ambiguous; reconcile it before publishing.`,
+  );
+}
+
+export function requireLegacyMarketExternalId(
+  platform: MarketPostPlatform,
+  row: SocialPostEvidence,
+): string {
+  const externalId = row.externalId?.trim();
+  if (!externalId) {
+    throw new Error(
+      `Legacy ${platform} delivery ${row.contentKey} has no external ID; reconcile it before publishing.`,
+    );
+  }
+  return externalId;
+}
+
+function isAmbiguousMarketCreateError(platform: MarketPostPlatform, error: unknown): boolean {
+  if (platform === "x") return isXCreateOutcomeUnknownError(error);
+  return isTelegramCreateOutcomeUnknownError(error);
+}
 
 function getArgValue(args: string[], name: string): string | undefined {
   const index = args.indexOf(name);
@@ -170,24 +275,23 @@ async function writeTelegramPreview(options: {
   console.log(`  Local Telegram preview written: ${htmlPath}`);
 }
 
-function parseMarketUpdateTokenId(contentKey: string): string | null {
-  const parts = contentKey.split(":");
-  return parts.length >= 3 && parts[1] === "market-update" ? parts[2] || null : null;
+function normalizeDeliveryKeyPart(value: string, fallback: string): string {
+  const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return normalized || fallback;
 }
 
-async function getD1PostedMarketUpdateTokens(
-  today: string,
-  platforms: MarketPostPlatform[],
-): Promise<Set<string>> {
-  const posted = new Set<string>();
-  for (const platform of platforms) {
-    const keys = await listSocialPostContentKeys(platform, `${today}:market-update:`);
-    for (const key of keys) {
-      const tokenId = parseMarketUpdateTokenId(key);
-      if (tokenId) posted.add(tokenId);
-    }
-  }
-  return posted;
+function getMarketDeliveryContentKey(
+  date: string,
+  platform: MarketPostPlatform,
+  socialSlot: string,
+  telegramFormat: TelegramMarketFormat,
+): string {
+  const slot = normalizeDeliveryKeyPart(
+    socialSlot,
+    platform === "telegram" ? `telegram-${telegramFormat}` : "x-market-update",
+  );
+  const format = platform === "telegram" ? telegramFormat : "market-update";
+  return `${date}:slot:${slot}:${platform}:${normalizeDeliveryKeyPart(format, "market-update")}`;
 }
 
 
@@ -236,14 +340,21 @@ async function main() {
 
   const TODAY = new Date().toISOString().split('T')[0];
   const POSTED_DIR = path.join(DATA_DIR, "posted", TODAY);
-  const socialSlot = process.env.SOCIAL_SLOT || "market-update";
+  const configuredSocialSlot = process.env.SOCIAL_SLOT?.trim();
+  const socialSlotFor = (platform: MarketPostPlatform): string => configuredSocialSlot || (
+    platform === "x"
+      ? "x-market-update"
+      : telegramFormat === "market-brief"
+        ? "telegram-market-brief"
+        : `telegram-${telegramFormat}`
+  );
   if (!dryRun) {
     cleanupExpiredCooldownFolders(DATA_DIR);
     ensureDirSync(POSTED_DIR);
   }
 
-  const runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
-  const runX = targetPlatform === "all" || targetPlatform === "x";
+  let runTelegram = targetPlatform === "all" || targetPlatform === "telegram";
+  let runX = targetPlatform === "all" || targetPlatform === "x";
   if (runX) console.log(`  X Link Reply: ${includeLinkReply ? "enabled" : "disabled"}`);
 
   if (!dryRun) {
@@ -260,6 +371,51 @@ async function main() {
         process.exit(1);
       }
     }
+
+    // One-release compatibility bridge: promote confirmed token-scoped rows
+    // only when they unambiguously belong to this production slot.
+    for (const platform of [
+      ...(runTelegram ? ["telegram" as const] : []),
+      ...(runX ? ["x" as const] : []),
+    ]) {
+      const slot = socialSlotFor(platform);
+      const stableContentKey = getMarketDeliveryContentKey(TODAY, platform, slot, telegramFormat);
+      if (await hasSocialPost(platform, stableContentKey)) continue;
+      const legacyRows = await listSocialPostEvidence(platform, `${TODAY}:market-update:`);
+      if (legacyRows.length === 0) continue;
+      const matchingLegacy = selectLegacyMarketEvidence(platform, legacyRows, slot, telegramFormat);
+      if (!matchingLegacy) {
+        continue;
+      }
+      const legacyExternalId = requireLegacyMarketExternalId(platform, matchingLegacy);
+      await recordSocialPost({
+        platform,
+        contentKey: stableContentKey,
+        externalId: legacyExternalId,
+        postedAt: matchingLegacy.postedAt,
+        details: {
+          migratedFromLegacyContentKey: matchingLegacy.contentKey,
+          socialSlot: slot,
+          format: platform === "telegram" ? telegramFormat : "market-update",
+        },
+      });
+    }
+
+    if (runTelegram && await hasSocialPost(
+      "telegram",
+      getMarketDeliveryContentKey(TODAY, "telegram", socialSlotFor("telegram"), telegramFormat),
+    )) {
+      console.log("Telegram market slot is already published; skipping generation and external work for it.");
+      runTelegram = false;
+    }
+    if (runX && await hasSocialPost(
+      "x",
+      getMarketDeliveryContentKey(TODAY, "x", socialSlotFor("x"), telegramFormat),
+    )) {
+      console.log("X market slot is already published; skipping generation and external work for it.");
+      runX = false;
+    }
+    if (!runTelegram && !runX) return;
   }
 
   // 1. Load candidate tokens (fetches fresh data + merges with local)
@@ -281,50 +437,14 @@ async function main() {
   // 2. Load dedup state
   const todayPosted = getTodayPostedTokens(DATA_DIR, TODAY, targetPlatform as any);
   const recentlyPosted = getRecentlyPostedTokens(DATA_DIR, targetPlatform as any);
-  if (!dryRun) {
-    const d1TodayPosted = await getD1PostedMarketUpdateTokens(
-      TODAY,
-      [
-        ...(runTelegram ? ["telegram" as const] : []),
-        ...(runX ? ["x" as const] : []),
-      ],
-    );
-    for (const tokenId of d1TodayPosted) todayPosted.add(tokenId);
-  }
   console.log(`  Already posted today: ${todayPosted.size} tokens`);
   console.log(`  Posted in last 30 days: ${recentlyPosted.size} tokens`);
 
-  // 3. Fetch Macro-Market Context (Global & Sector trends)
-  console.log(`\n▶ Step 2a: Fetching Macro Market Context...`);
-  let globalStatsStr = "";
-  let sectorPerformanceStr = "";
-
-  try {
-    const globalData = await fetchGlobalMarketData();
-    if (globalData) {
-      const mcapUSD = globalData.total_market_cap?.usd || 0;
-      const mcapChange = globalData.market_cap_change_percentage_24h_usd || 0;
-      const btcDom = globalData.market_cap_percentage?.btc || 0;
-      
-      const mcapStr = mcapUSD >= 1e12 
-        ? `$${(mcapUSD / 1e12).toFixed(2)}T` 
-        : `$${(mcapUSD / 1e9).toFixed(0)}B`;
-        
-      globalStatsStr = `${mcapStr} Total Cap (${mcapChange >= 0 ? "+" : ""}${mcapChange.toFixed(1)}% 24h), BTC Dominance: ${btcDom.toFixed(1)}%`;
-    }
-
-    const sectors = await fetchTrendingCategories(3);
-    if (sectors.length > 0) {
-      sectorPerformanceStr = sectors
-        .map(s => `${s.name} (${s.market_cap_change_24h && s.market_cap_change_24h >= 0 ? "+" : ""}${s.market_cap_change_24h?.toFixed(1)}%)`)
-        .join(", ");
-    }
-    
-    if (globalStatsStr) console.log(`  ✦ Global: ${globalStatsStr}`);
-    if (sectorPerformanceStr) console.log(`  ✦ Sectors: ${sectorPerformanceStr}`);
-  } catch (err) {
-    console.warn("  ⚠ Failed to fetch macro context, skipping...");
-  }
+  // Global/category endpoints use independent caches. Do not merge their
+  // numbers into copy attributed to the fresher token snapshot until those
+  // auxiliary timestamps are carried end-to-end.
+  const globalStatsStr = "";
+  const sectorPerformanceStr = "";
 
   // 3. Select token using priority-based strategy
   console.log(`\n▶ Step 2: Selecting token (priority-based)...`);
@@ -345,6 +465,14 @@ async function main() {
   if (fs.existsSync(metricsFile)) {
     targetMetric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
   }
+  const targetMarketAsOf = resolveProviderMarketTimestamp(targetToken.lastMarketUpdate);
+  if (!targetMarketAsOf) {
+    throw new Error(`Selected token ${targetToken.id} has no valid market snapshot timestamp.`);
+  }
+  if (targetMetric && !isMetricDataFreshForMarket(targetMetric, targetMarketAsOf)) {
+    console.warn("  Derived Risk/Growth metrics do not match the fresh market snapshot; omitting them from copy.");
+    targetMetric = undefined;
+  }
 
   const timeOfDay = getTimeOfDay();
   const tone = getRandomTone();
@@ -358,10 +486,14 @@ async function main() {
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
     marketCapRank: targetToken.market.marketCapRank,
-    // Add Community & Developer Stats
-    twitterFollowers: targetToken.community?.twitterFollowers || 0,
-    redditSubscribers: targetToken.community?.redditSubscribers || 0,
-    githubCommits4Weeks: targetToken.developer?.commits4Weeks || 0,
+    volume24h: targetToken.market.volume24h,
+    marketDataSource: targetToken.marketDataSource,
+    marketDataAsOf: targetMarketAsOf,
+    // Community/developer fields are omitted until their own freshness
+    // timestamps are carried independently from the market snapshot.
+    twitterFollowers: undefined,
+    redditSubscribers: undefined,
+    githubCommits4Weeks: undefined,
     socialContext,
     sentimentScore,
     trendingContext,
@@ -371,6 +503,7 @@ async function main() {
     tone,
     selectionReason: reason
   };
+  const socialFacts = buildSocialContentFacts(targetToken.name, targetToken.symbol, context);
 
   let tgMessage = "";
   let xMessage = "";
@@ -379,7 +512,6 @@ async function main() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 
-  const tgFooter = getTelegramFooter(targetToken.symbol);
   const captionPlatforms: PlatformTarget[] = [];
   const captionOptions: UnifiedCaptionOptions = {};
   const contentVariants: Partial<Record<PlatformTarget, SocialContentVariant>> = {};
@@ -392,7 +524,7 @@ async function main() {
       today: TODAY,
       tokenId: targetToken.id,
       reason,
-      slot: socialSlot,
+      slot: socialSlotFor("telegram"),
     });
     contentArchetypes.telegram = marketPlans.telegram.archetype;
     if (telegramFormat === "market-brief") {
@@ -414,16 +546,19 @@ async function main() {
           marketCap: targetToken.market.marketCap || 0,
           volume24h: targetToken.market.volume24h || 0,
           marketCapRank: targetToken.market.marketCapRank || 0,
-          riskScore: context.riskScore || 5,
+          riskScore: context.riskScore,
           selectionReason: reason,
         },
         context: {
           globalStats: globalStatsStr,
           sectorPerformance: sectorPerformanceStr,
-          generatedAt: new Date(),
+          generatedAt: new Date(targetMarketAsOf),
+          sourceLabel: `${formatMarketDataSourceLabel(targetToken.marketDataSource) || "CoinGecko"} snapshot`,
         },
       });
-      tgMessage = telegramDraft.captionBody;
+      tgMessage = [telegramDraft.captionBody, formatMarketDataAttribution(socialFacts)]
+        .filter(Boolean)
+        .join("\n");
       contentVariants.telegram = {
         key: telegramDraft.variantKey,
         label: telegramDraft.variantLabel,
@@ -446,7 +581,7 @@ async function main() {
       today: TODAY,
       tokenId: targetToken.id,
       reason,
-      slot: socialSlot,
+      slot: socialSlotFor("x"),
     });
     contentVariants.x = marketPlans.x.variant;
     contentArchetypes.x = marketPlans.x.archetype;
@@ -501,6 +636,16 @@ async function main() {
       console.log("  Adjusted X copy to avoid repeating recent post structure.");
       xMessage = diversified;
     }
+    const finalValidation = validateSocialContent(
+      xMessage,
+      socialFacts,
+    );
+    if (!finalValidation.ok) {
+      throw new Error(
+        `Final X copy failed the publishing gate after diversification: ${finalValidation.issues.map((issue) => issue.code).join(", ")}`,
+      );
+    }
+
   }
 
   if (dryRun) {
@@ -528,7 +673,7 @@ async function main() {
           marketCap: targetToken.market.marketCap || 0,
           volume24h: targetToken.market.volume24h || 0,
           rank: targetToken.market.marketCapRank || 0,
-          risk: context.riskScore || 5,
+          risk: context.riskScore,
         };
 
     console.log(`▶ Fetching OG image for ${targetToken.id}...`);
@@ -545,25 +690,169 @@ async function main() {
   }
 
   const successfulPlatforms = new Set<"telegram" | "x">();
-  const successfulExternalIds = new Map<"telegram" | "x", string | number>();
+  const alreadyPublishedPlatforms = new Set<"telegram" | "x">();
+  const successfulTrackerPayloads = new Map<MarketPostPlatform, Record<string, unknown>>();
+  const marketContentKey = (platform: MarketPostPlatform): string =>
+    getMarketDeliveryContentKey(TODAY, platform, socialSlotFor(platform), telegramFormat);
+  const deliveryAttemptId = (platform: MarketPostPlatform): string =>
+    `${process.env.GITHUB_RUN_ID || "local"}:${process.env.GITHUB_RUN_ATTEMPT || "1"}:${platform}:${marketContentKey(platform)}`;
+  const deliveryDetails = (platform: MarketPostPlatform) => ({
+    requestedPlatform: targetPlatform,
+    tokenId: targetToken.id,
+    socialSlot: socialSlotFor(platform),
+    format: platform === "telegram" ? telegramFormat : "market-update",
+  });
+  const persistSuccessfulPlatform = async (
+    platform: MarketPostPlatform,
+    externalId: string | number,
+    publishedUrl?: string,
+  ): Promise<void> => {
+    const variantSurface = platform === "telegram"
+      ? telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat)
+      : "market-update";
+    const plan = marketPlans[platform];
+    const plannedUrl = plan
+      ? buildSocialUtmUrl(onWebsiteIds.has(targetToken.id) ? `${siteUrl}/${targetToken.id}` : SOCIAL.ecosystemUrl, {
+          platform,
+          date: TODAY,
+          surface: variantSurface,
+          archetypeKey: plan.archetype.key,
+          tokenId: targetToken.id,
+        })
+      : undefined;
+    const postedAt = new Date().toISOString();
+    const trackerPayload = buildSocialTrackerPayload({
+      postedAt,
+      platform,
+      requestedPlatform: targetPlatform,
+      surface: variantSurface,
+      tokenId: targetToken.id,
+      tokenName: targetToken.name,
+      tokenSymbol: targetToken.symbol.toUpperCase(),
+      reason,
+      variantKey: contentVariants[platform]?.key,
+      variantLabel: contentVariants[platform]?.label,
+      archetypeKey: plan?.archetype.key,
+      archetypeLabel: plan?.archetype.label,
+      hookFamily: plan?.hookFamily,
+      ctaFamily: plan?.ctaFamily,
+      text: platform === "x" ? xMessage : tgMessage,
+      externalId,
+      plannedUrl,
+      publishedUrl,
+      details: {
+        tone,
+        socialSlot: socialSlotFor(platform),
+        telegramFormat: platform === "telegram" ? telegramFormat : undefined,
+        marketDataSource: targetToken.marketDataSource,
+        marketDataAsOf: targetMarketAsOf,
+        metricsAsOf: targetMetric?.inputDataAsOf,
+      },
+    });
+    const trackerFile = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
+    writeFileAtomicSync(trackerFile, JSON.stringify(trackerPayload, null, 2));
+    successfulTrackerPayloads.set(platform, trackerPayload);
+    await recordSocialPost({
+      platform,
+      contentKey: marketContentKey(platform),
+      externalId,
+      postedAt,
+      details: buildSocialPostDetails(trackerPayload),
+    });
+  };
+  const attachPublishedUrl = async (
+    platform: MarketPostPlatform,
+    publishedUrl: string,
+  ): Promise<void> => {
+    const existingPayload = successfulTrackerPayloads.get(platform);
+    if (!existingPayload) {
+      throw new Error(`Cannot attach a published URL before ${platform} post evidence exists.`);
+    }
+    const updatedPayload = attachPublishedUrlToSocialTrackerPayload(existingPayload, publishedUrl);
+    await updateSocialPostDetails({
+      platform,
+      contentKey: marketContentKey(platform),
+      details: buildSocialPostDetails(updatedPayload),
+    });
+    const trackerFile = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
+    writeFileAtomicSync(trackerFile, JSON.stringify(updatedPayload, null, 2));
+    successfulTrackerPayloads.set(platform, updatedPayload);
+  };
+  const reservePlatform = async (platform: MarketPostPlatform): Promise<boolean> => {
+    const reservation = await reserveSocialDelivery({
+      platform,
+      contentKey: marketContentKey(platform),
+      attemptId: deliveryAttemptId(platform),
+      details: deliveryDetails(platform),
+    });
+    if (reservation.acquired) return true;
+    if (reservation.state === "published") {
+      console.log(`${platform}/${marketContentKey(platform)} is already published; treating this run as an idempotent no-op.`);
+      alreadyPublishedPlatforms.add(platform);
+      return false;
+    }
+    throw new Error(`Publishing blocked for ${platform}/${marketContentKey(platform)}: delivery is ${reservation.state}.`);
+  };
+  const markPlatformFailure = async (
+    platform: MarketPostPlatform,
+    error: unknown,
+  ): Promise<void> => {
+    await markSocialDeliveryStatus({
+      platform,
+      contentKey: marketContentKey(platform),
+      attemptId: deliveryAttemptId(platform),
+      status: isAmbiguousMarketCreateError(platform, error)
+        ? "outcome_unknown"
+        : "failed",
+      error: formatErrorForLog(error),
+      details: deliveryDetails(platform),
+    });
+  };
+  const markPlatformPublished = async (
+    platform: MarketPostPlatform,
+    externalId: string | number,
+  ): Promise<void> => {
+    await markSocialDeliveryStatus({
+      platform,
+      contentKey: marketContentKey(platform),
+      attemptId: deliveryAttemptId(platform),
+      status: "published",
+      externalId,
+      details: deliveryDetails(platform),
+    });
+  };
 
   if (runTelegram) {
+    let reserved = false;
+    let publishedExternalId: string | number | undefined;
     try {
       const isOnWebsite = onWebsiteIds.has(targetToken.id);
-      const tokenLink = buildSocialUtmUrl(`${siteUrl}/${targetToken.id}`, {
+      const tokenLink = buildSocialUtmUrl(isOnWebsite ? `${siteUrl}/${targetToken.id}` : SOCIAL.ecosystemUrl, {
         platform: "telegram",
         date: TODAY,
         surface: telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat),
         archetypeKey: marketPlans.telegram?.archetype.key || "single_token_snapshot",
         tokenId: targetToken.id,
       });
+      const telegramFooter = getTelegramFooter(targetToken.symbol, tokenLink);
+      if (!dryRun) {
+        reserved = await reservePlatform("telegram");
+      }
 
-      if (telegramImage) {
+      if (!dryRun && !reserved) {
+        // The durable ledger already has this post; no external write is needed.
+      } else if (telegramImage) {
         // ── Photo mode: short caption (1024 char limit) ──
-        const caption = buildTelegramMediaCaption(tgMessage, tgFooter, {
+        const caption = buildTelegramMediaCaption(tgMessage, telegramFooter, {
           maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
           bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS,
         });
+        const finalValidation = validateSocialContent(caption, socialFacts);
+        if (!finalValidation.ok) {
+          throw new Error(
+            `Final Telegram photo caption failed the publishing gate: ${finalValidation.issues.map((issue) => issue.code).join(", ")}`,
+          );
+        }
         
         // Use Inline Keyboard for the main CTA if available
         const keyboard = isOnWebsite 
@@ -577,9 +866,11 @@ async function main() {
             parse_mode: "HTML",
             reply_markup: keyboard,
           });
-          console.log(`✅ Posted photo to Telegram (Message ID: ${msg.message_id})`);
+          const messageId = requireTelegramMessageId(msg, "sendPhoto");
+          console.log(`✅ Posted photo to Telegram (Message ID: ${messageId})`);
+          publishedExternalId = messageId;
+          await persistSuccessfulPlatform("telegram", messageId, tokenLink);
           successfulPlatforms.add("telegram");
-          successfulExternalIds.set("telegram", msg.message_id);
         } else {
           console.log(`✅ [DRY RUN] Would have posted photo to Telegram with caption length: ${caption.length}`);
           console.log(`DEBUG CAPTION:\n${caption}`);
@@ -594,14 +885,14 @@ async function main() {
         }
       } else {
         // ── Text-only fallback ──
-        let finalTgMessage = tgMessage.trim() + "\n" + tgFooter.trim();
+        let finalTgMessage = tgMessage.trim() + "\n" + telegramFooter.trim();
         const keyboard = isOnWebsite 
           ? createTelegramKeyboard([{ text: "Open TokenRadar Analytics", url: tokenLink }])
           : undefined;
 
         if (finalTgMessage.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT) {
           console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT}), trimming body...`);
-          const footerWithPadding = "\n" + tgFooter.trim();
+          const footerWithPadding = "\n" + telegramFooter.trim();
           const maxBody = SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT - footerWithPadding.length - 3;
           let body = tgMessage.substring(0, maxBody);
           
@@ -619,6 +910,12 @@ async function main() {
         }
         
         finalTgMessage = sanitizeHtmlForTelegram(finalTgMessage, SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT);
+        const finalValidation = validateSocialContent(finalTgMessage, socialFacts);
+        if (!finalValidation.ok) {
+          throw new Error(
+            `Final Telegram text failed the publishing gate: ${finalValidation.issues.map((issue) => issue.code).join(", ")}`,
+          );
+        }
 
         if (!dryRun) {
           const api = getApi();
@@ -627,8 +924,10 @@ async function main() {
             reply_markup: keyboard,
           });
           console.log(`✅ Posted text to Telegram (Message ID: ${msg.message_id})`);
+          const messageId = requireTelegramMessageId(msg, "sendMessage");
+          publishedExternalId = messageId;
+          await persistSuccessfulPlatform("telegram", messageId, tokenLink);
           successfulPlatforms.add("telegram");
-          successfulExternalIds.set("telegram", msg.message_id);
         } else {
           console.log(`✅ [DRY RUN] Would have posted text to Telegram with length: ${finalTgMessage.length}`);
           console.log(`DEBUG MESSAGE:\n${finalTgMessage}`);
@@ -643,35 +942,77 @@ async function main() {
         }
       }
     } catch (error) {
+      if (reserved && !successfulPlatforms.has("telegram")) {
+        try {
+          if (publishedExternalId !== undefined) {
+            await markPlatformPublished("telegram", publishedExternalId);
+            successfulPlatforms.add("telegram");
+          } else {
+            await markPlatformFailure("telegram", error);
+          }
+        } catch (ledgerError) {
+          console.error(`❌ Failed to record Telegram delivery failure: ${formatErrorForLog(ledgerError)}`);
+        }
+      }
       await logError("post-market-updates-telegram", error, false);
       console.error(`❌ Failed to post Telegram message: ${formatErrorForLog(error)}`);
     }
   }
 
   if (runX) {
+    let reserved = false;
+    let publishedExternalId: string | number | undefined;
     try {
       if (!dryRun) {
-        let tweetId: string;
-        if (tokenImage) {
-          tweetId = await postTweetWithMedia(xMessage, tokenImage);
-          console.log(`✅ Posted tweet with image to X (Tweet ID: ${tweetId})`);
-        } else {
-          tweetId = await postTweet(xMessage);
-          console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
-        }
-        successfulPlatforms.add("x");
-        successfulExternalIds.set("x", tweetId);
+        reserved = await reservePlatform("x");
+        if (reserved) {
+          let tweetId: string;
+          if (tokenImage) {
+            const altText = `TokenRadar research card for ${targetToken.name} (${targetToken.symbol.toUpperCase()}) with market cap, volume, rank, and risk snapshot.`;
+            tweetId = await postTweetWithMedia(xMessage, tokenImage, "image/png", undefined, altText);
+            console.log(`✅ Posted tweet with image to X (Tweet ID: ${tweetId})`);
+          } else {
+            tweetId = await postTweet(xMessage);
+            console.log(`✅ Posted text tweet to X (Tweet ID: ${tweetId})`);
+          }
+          publishedExternalId = tweetId;
+          await persistSuccessfulPlatform("x", tweetId);
+          successfulPlatforms.add("x");
 
-        if (xReplyMessage) {
-          try {
-            const replyId = await postTweet(xReplyMessage, tweetId);
-            console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
-          } catch (replyError) {
-            await logError("post-market-updates-x-reply", replyError, false);
-            console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+          if (xReplyMessage) {
+            let replyId: string;
+            try {
+              replyId = await postTweet(xReplyMessage, tweetId);
+              console.log(`✅ Posted reply to X (Reply ID: ${replyId})`);
+            } catch (replyError) {
+              await logError("post-market-updates-x-reply", replyError, false);
+              console.warn(`⚠ Main tweet succeeded, but the follow-up reply failed: ${formatErrorForLog(replyError)}`);
+              replyId = "";
+            }
+            if (replyId) {
+              const xPlan = marketPlans.x;
+              const publishedUrl = xPlan
+                ? buildSocialUtmUrl(onWebsiteIds.has(targetToken.id) ? `${siteUrl}/${targetToken.id}` : SOCIAL.ecosystemUrl, {
+                    platform: "x",
+                    date: TODAY,
+                    surface: "market-update",
+                    archetypeKey: xPlan.archetype.key,
+                    tokenId: targetToken.id,
+                  })
+                : undefined;
+              if (publishedUrl) {
+                try {
+                  await attachPublishedUrl("x", publishedUrl);
+                } catch (trackingError) {
+                  await logError("post-market-updates-x-reply-attribution", trackingError, false);
+                  console.warn(
+                    `⚠ X reply succeeded, but its attribution evidence could not be updated: ${formatErrorForLog(trackingError)}`,
+                  );
+                }
+              }
+            }
           }
         }
-
       } else {
         console.log(`✅ [DRY RUN] Would have posted to X:`);
         console.log("\n" + "=".repeat(50));
@@ -688,63 +1029,25 @@ async function main() {
 
       }
     } catch (error) {
+      if (reserved && !successfulPlatforms.has("x")) {
+        try {
+          if (publishedExternalId !== undefined) {
+            await markPlatformPublished("x", publishedExternalId);
+            successfulPlatforms.add("x");
+          } else {
+            await markPlatformFailure("x", error);
+          }
+        } catch (ledgerError) {
+          console.error(`❌ Failed to record X delivery failure: ${formatErrorForLog(ledgerError)}`);
+        }
+      }
       await logError("post-market-updates-x", error, false);
       console.error(`❌ Failed to post to X: ${formatErrorForLog(error)}`);
     }
   }
 
-  // Only mark platforms that actually posted successfully.
+  // Successful platform writes were persisted immediately after each external create.
   if (!dryRun && successfulPlatforms.size > 0) {
-    for (const platform of successfulPlatforms) {
-      const variantSurface = platform === "telegram"
-        ? telegramDraft?.variantSurface ?? getTelegramMarketVariantSurface(telegramFormat)
-        : "market-update";
-      const tf = path.join(POSTED_DIR, `${targetToken.id}-${platform}.json`);
-      const plan = marketPlans[platform];
-      const utmUrl = plan
-        ? buildSocialUtmUrl(onWebsiteIds.has(targetToken.id) ? `${siteUrl}/${targetToken.id}` : SOCIAL.ecosystemUrl, {
-            platform,
-            date: TODAY,
-            surface: variantSurface,
-            archetypeKey: plan.archetype.key,
-            tokenId: targetToken.id,
-          })
-        : undefined;
-      const trackerPayload = buildSocialTrackerPayload({
-        postedAt: new Date().toISOString(),
-        platform,
-        requestedPlatform: targetPlatform,
-        surface: variantSurface,
-        tokenId: targetToken.id,
-        tokenName: targetToken.name,
-        tokenSymbol: targetToken.symbol.toUpperCase(),
-        reason,
-        variantKey: contentVariants[platform]?.key,
-        variantLabel: contentVariants[platform]?.label,
-        archetypeKey: plan?.archetype.key,
-        archetypeLabel: plan?.archetype.label,
-        hookFamily: plan?.hookFamily,
-        ctaFamily: plan?.ctaFamily,
-        text: platform === "x" ? xMessage : tgMessage,
-        externalId: successfulExternalIds.get(platform),
-        utmUrl,
-        details: {
-          tone,
-          socialSlot,
-          telegramFormat: platform === "telegram" ? telegramFormat : undefined,
-        },
-      });
-      if (!fs.existsSync(tf)) {
-        writeFileAtomicSync(tf, JSON.stringify(trackerPayload, null, 2));
-      }
-      await recordSocialPost({
-        platform,
-        contentKey: `${TODAY}:market-update:${targetToken.id}`,
-        externalId: successfulExternalIds.get(platform),
-        details: buildSocialPostDetails(trackerPayload),
-      });
-    }
-
     // Log success for the Daily Report
     logActivity("social-post", {
       tokenId: targetToken.id,
@@ -762,13 +1065,23 @@ async function main() {
     return;
   }
 
-  if (successfulPlatforms.size === 0) {
-    console.error("❌ Failed to post on all target platforms.");
-    process.exit(1);
+  const requestedPlatforms: MarketPostPlatform[] = [
+    ...(runTelegram ? ["telegram" as const] : []),
+    ...(runX ? ["x" as const] : []),
+  ];
+  const failedPlatforms = requestedPlatforms.filter(
+    (platform) => !successfulPlatforms.has(platform) && !alreadyPublishedPlatforms.has(platform),
+  );
+  if (failedPlatforms.length > 0) {
+    throw new Error(`Requested market post failed for: ${failedPlatforms.join(", ")}. Successful platforms remain recorded.`);
   }
 }
 
-main().catch(async (error) => {
-  await logError("post-market-updates", error);
-  process.exit(1);
-});
+const isDirectExecution = Boolean(process.argv[1])
+  && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (isDirectExecution) {
+  main().catch(async (error) => {
+    await logError("post-market-updates", error);
+    process.exit(1);
+  });
+}

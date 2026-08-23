@@ -2,8 +2,50 @@ import { describe, expect, it } from "vitest";
 import {
   buildTelegramMediaCaption,
   getTelegramHtmlTextLength,
+  isTelegramCreateOutcomeUnknownError,
+  requireTelegramMessageId,
   sanitizeHtmlForTelegram,
 } from "../src/lib/telegram";
+
+describe("isTelegramCreateOutcomeUnknownError", () => {
+  it("recognizes a grammY-shaped 502 response as ambiguous", () => {
+    expect(isTelegramCreateOutcomeUnknownError(Object.assign(
+      new Error("Call to sendPhoto failed! (502: Bad Gateway)"),
+      { error_code: 502 },
+    ))).toBe(true);
+  });
+
+  it("treats a successful-looking create without a usable message ID as ambiguous", () => {
+    expect(() => requireTelegramMessageId({ message_id: undefined }, "sendPhoto"))
+      .toThrowError(expect.objectContaining({ name: "TelegramCreateOutcomeUnknownError" }));
+    expect(() => requireTelegramMessageId({ message_id: 0 }, "sendMessage"))
+      .toThrowError(expect.objectContaining({ name: "TelegramCreateOutcomeUnknownError" }));
+  });
+
+  it("does not classify a definitive 400 rejection as ambiguous", () => {
+    expect(isTelegramCreateOutcomeUnknownError(Object.assign(
+      new Error("400: Bad Request: caption too long"),
+      { error_code: 400 },
+    ))).toBe(false);
+  });
+
+  it("recognizes grammY HttpError-shaped transport failures as ambiguous", () => {
+    const error = Object.assign(new Error("Network request for 'sendPhoto' failed!"), {
+      name: "HttpError",
+      error: new TypeError("fetch failed"),
+    });
+    expect(isTelegramCreateOutcomeUnknownError(error)).toBe(true);
+  });
+
+  it("does not treat ordinary nested errors or unrelated 5xx-looking numbers as ambiguous", () => {
+    expect(isTelegramCreateOutcomeUnknownError({
+      error_code: 400,
+      error: new Error("validation failed"),
+    })).toBe(false);
+    expect(isTelegramCreateOutcomeUnknownError(new Error("Caption supports up to 512 characters.")))
+      .toBe(false);
+  });
+});
 import { getTelegramFooter, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
 
 describe("sanitizeHtmlForTelegram", () => {
@@ -43,11 +85,22 @@ describe("sanitizeHtmlForTelegram", () => {
     const footer = getTelegramFooter("river");
     const result = sanitizeHtmlForTelegram(footer);
 
-    expect(result).toContain('<a href="https://linktr.ee/tokenradarco">');
+    expect(result).toContain('<a href="https://tokenradar.co">');
+    expect(result).not.toContain("linktr.ee");
     expect(result).toContain("TokenRadar Research Desk</a>");
     expect(result).toContain("Research read, not financial advice.");
     expect(result).toContain("Confirm liquidity, risk, and invalidation.");
     expect(result).not.toContain("Trade on top exchanges");
+  });
+
+  it("accepts a tracked first-party deep link in the footer", () => {
+    const footer = getTelegramFooter(
+      "btc",
+      "https://tokenradar.co/bitcoin?utm_source=telegram&utm_medium=social&utm_content=btc-brief",
+    );
+
+    expect(footer).toContain("utm_content=btc-brief");
+    expect(footer).toContain("TokenRadar Research Desk");
   });
 
   it("keeps media captions within Telegram's parsed text limit with the footer intact", () => {

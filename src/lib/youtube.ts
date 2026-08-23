@@ -1,5 +1,7 @@
 import { google } from 'googleapis';
 import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 import { sanitizePostTextLinks } from './social-link-policy';
 
 type GoogleApiError = Error & {
@@ -14,8 +16,63 @@ type GoogleApiError = Error & {
   };
 };
 
+export class YouTubeUploadOutcomeUnknownError extends Error {
+  override readonly cause: unknown;
+
+  constructor(cause: unknown) {
+    super('YouTube upload outcome is unknown; reconcile the channel before retrying.');
+    this.name = 'YouTubeUploadOutcomeUnknownError';
+    this.cause = cause;
+  }
+}
+
+export function isYouTubeUploadOutcomeUnknownError(error: unknown): error is YouTubeUploadOutcomeUnknownError {
+  return error instanceof YouTubeUploadOutcomeUnknownError;
+}
+
 function toGoogleApiError(error: unknown): GoogleApiError {
   return error instanceof Error ? error as GoogleApiError : new Error(String(error)) as GoogleApiError;
+}
+
+export interface YouTubeCaptionTrack {
+  text: string;
+  durationSeconds: number;
+  language?: string;
+  name?: string;
+}
+
+function formatVttTimestamp(totalSeconds: number): string {
+  const totalMilliseconds = Math.round(Math.max(0, totalSeconds) * 1000);
+  const hours = Math.floor(totalMilliseconds / 3_600_000);
+  const minutes = Math.floor((totalMilliseconds % 3_600_000) / 60_000);
+  const seconds = Math.floor((totalMilliseconds % 60_000) / 1000);
+  const milliseconds = totalMilliseconds % 1000;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+}
+
+/** Build a readable, deterministically timed caption track from narration text. */
+export function buildWebVttCaptionTrack(text: string, durationSeconds: number): string {
+  const cleanText = text
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/-->/g, '→')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!cleanText) return 'WEBVTT\n';
+
+  const words = cleanText.split(' ');
+  const chunks: string[] = [];
+  for (let index = 0; index < words.length; index += 7) {
+    chunks.push(words.slice(index, index + 7).join(' '));
+  }
+
+  const safeDuration = Math.max(durationSeconds, chunks.length * 0.8);
+  const cueDuration = safeDuration / chunks.length;
+  const cues = chunks.map((chunk, index) => {
+    const start = index * cueDuration;
+    const end = Math.min(safeDuration, (index + 1) * cueDuration);
+    return `${index + 1}\n${formatVttTimestamp(start)} --> ${formatVttTimestamp(end)}\n${chunk}`;
+  });
+  return `WEBVTT\n\n${cues.join('\n\n')}\n`;
 }
 
 /**
@@ -33,7 +90,8 @@ export async function uploadToYouTubeShorts(
   title: string,
   description: string,
   privacyStatus: 'public' | 'unlisted' | 'private' = 'public',
-  publishAt?: Date
+  publishAt?: Date,
+  captionTrack?: YouTubeCaptionTrack,
 ): Promise<string> {
   const clientId = process.env.YOUTUBE_CLIENT_ID;
   const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
@@ -54,42 +112,97 @@ export async function uploadToYouTubeShorts(
   const fileSize = fs.statSync(videoPath).size;
 
   try {
+    // Resolve/refresh OAuth before entering the non-idempotent insert call so
+    // an authentication outage cannot be mistaken for an accepted upload.
+    await oauth2Client.getAccessToken();
     const safeTitle = sanitizePostTextLinks(title) || 'TokenRadar Market Update';
     const safeDescription = sanitizePostTextLinks(description);
 
     console.info(`  ▸ Starting YouTube upload (${(fileSize / 1024 / 1024).toFixed(2)} MB)...`);
-    const res = await youtube.videos.insert({
-      part: ['snippet', 'status'],
-      requestBody: {
-        snippet: {
-          title: safeTitle,
-          description: safeDescription,
-          categoryId: '22', // People & Blogs
+    let res;
+    try {
+      res = await youtube.videos.insert({
+        part: ['snippet', 'status'],
+        requestBody: {
+          snippet: {
+            title: safeTitle,
+            description: safeDescription,
+            categoryId: '22', // People & Blogs
+          },
+          status: {
+            privacyStatus: publishAt ? 'private' : privacyStatus,
+            publishAt: publishAt ? publishAt.toISOString() : undefined,
+            selfDeclaredMadeForKids: false,
+          },
         },
-        status: {
-          privacyStatus: publishAt ? 'private' : privacyStatus,
-          publishAt: publishAt ? publishAt.toISOString() : undefined,
-          selfDeclaredMadeForKids: false,
+        media: {
+          body: fs.createReadStream(videoPath),
         },
-      },
-      media: {
-        body: fs.createReadStream(videoPath),
-      },
-    }, {
-      // Use the media upload endpoint for large files
-      onUploadProgress: evt => {
-        const progress = (evt.bytesRead / fileSize) * 100;
-        process.stdout.write(`\r  [YouTube] Uploading... ${Math.round(progress)}%`);
-      },
-    });
+      }, {
+        // Use the media upload endpoint for large files
+        onUploadProgress: evt => {
+          const progress = (evt.bytesRead / fileSize) * 100;
+          process.stdout.write(`\r  [YouTube] Uploading... ${Math.round(progress)}%`);
+        },
+      });
+    } catch (insertError) {
+      const apiError = toGoogleApiError(insertError);
+      const status = apiError.response?.status;
+      if (status === 408 || (status !== undefined && status >= 500) || /(?:timeout|timed out|econnreset|fetch failed|network error|socket hang up)/i.test(apiError.message)) {
+        throw new YouTubeUploadOutcomeUnknownError(insertError);
+      }
+      throw insertError;
+    }
 
     console.info();
     if (res.data && res.data.id) {
-      console.info(`  ✓ YouTube upload complete! Video ID: ${res.data.id}`);
-      return res.data.id;
+      const videoId = res.data.id;
+      console.info(`  ✓ YouTube upload complete! Video ID: ${videoId}`);
+
+      if (captionTrack?.text.trim()) {
+        const captionPath = path.join(os.tmpdir(), `tokenradar-${videoId}-${Date.now()}.vtt`);
+        try {
+          fs.writeFileSync(
+            captionPath,
+            buildWebVttCaptionTrack(captionTrack.text, captionTrack.durationSeconds),
+            'utf8',
+          );
+          await youtube.captions.insert({
+            part: ['snippet'],
+            requestBody: {
+              snippet: {
+                videoId,
+                language: captionTrack.language || 'en',
+                name: captionTrack.name || 'English',
+                isDraft: false,
+              },
+            },
+            media: {
+              mimeType: 'text/vtt',
+              body: fs.createReadStream(captionPath),
+            },
+          });
+          console.info(`  ✓ YouTube caption track uploaded for ${videoId}.`);
+        } catch (captionError) {
+          // The video already exists at this point. Do not throw and trigger a
+          // duplicate video upload; retain the ID and surface the accessibility gap.
+          console.warn(`  ⚠ YouTube caption upload failed for ${videoId}: ${toGoogleApiError(captionError).message}`);
+        } finally {
+          try {
+            fs.rmSync(captionPath, { force: true });
+          } catch {
+            // Best-effort cleanup of a non-sensitive temporary caption file.
+          }
+        }
+      }
+
+      return videoId;
     }
-    throw new Error('Upload succeeded but no video ID was returned.');
+    throw new YouTubeUploadOutcomeUnknownError(
+      new Error('Upload succeeded but no video ID was returned.'),
+    );
   } catch (_error: unknown) {
+    if (_error instanceof YouTubeUploadOutcomeUnknownError) throw _error;
     console.info();
     const error = toGoogleApiError(_error);
     const errorMsg = error.response?.data?.error?.message || error.message || String(error);

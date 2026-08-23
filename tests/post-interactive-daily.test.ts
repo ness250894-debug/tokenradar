@@ -152,18 +152,12 @@ describe("buildNarrativePoll", () => {
     expect(poll.text).toContain("#TokenRadarCo");
   });
 
-  it("sanitizes generated hook copy before composing the post", async () => {
+  it("fails closed when generated hook copy contains advice or hype", async () => {
     vi.mocked(generatePollHook).mockResolvedValueOnce(
       "Buy now before this moonshot goes 100x. Guaranteed returns.",
     );
 
-    const poll = await buildNarrativePoll();
-    const lowerText = poll.text.toLowerCase();
-
-    expect(lowerText).not.toContain("buy now");
-    expect(lowerText).not.toContain("moonshot");
-    expect(lowerText).not.toContain("100x");
-    expect(lowerText).not.toContain("guaranteed returns");
+    await expect(buildNarrativePoll()).rejects.toThrow("Unsafe social editorial content");
   });
 
   it("removes stale past-year references from generated hook copy", async () => {

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  attachPublishedUrlToSocialTrackerPayload,
   buildSocialPostDetails,
   buildSocialTrackerPayload,
 } from "../src/lib/social-post-tracker";
@@ -24,7 +25,8 @@ describe("social post tracker schema", () => {
       ctaFamily: "name-invalidation",
       text: "$BTC needs confirmation before the move matters.",
       externalId: "tweet-1",
-      utmUrl: "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_campaign=social_rotation&utm_content=20260605-x-risk_lab-bitcoin",
+      plannedUrl: "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_campaign=social_rotation&utm_content=20260605-x-risk_lab-bitcoin",
+      publishedUrl: "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_campaign=social_rotation&utm_content=20260605-x-risk_lab-bitcoin",
     });
 
     expect(payload).toMatchObject({
@@ -35,6 +37,9 @@ describe("social post tracker schema", () => {
       ctaFamily: "name-invalidation",
       xText: "$BTC needs confirmation before the move matters.",
       tweetId: "tweet-1",
+      utmContent: "20260605-x-risk_lab-bitcoin",
+      plannedUrl: expect.stringContaining("utm_content=20260605-x-risk_lab-bitcoin"),
+      publishedUrl: expect.stringContaining("utm_content=20260605-x-risk_lab-bitcoin"),
     });
 
     expect(buildSocialPostDetails(payload)).toMatchObject({
@@ -44,6 +49,43 @@ describe("social post tracker schema", () => {
       hookFamily: "risk-first",
       ctaFamily: "name-invalidation",
       xText: "$BTC needs confirmation before the move matters.",
+      publishedUrl: expect.stringContaining("utm_content=20260605-x-risk_lab-bitcoin"),
     });
+  });
+
+  it("does not claim that a planned link was published", () => {
+    const payload = buildSocialTrackerPayload({
+      postedAt: "2026-06-05T12:00:00.000Z",
+      platform: "x",
+      surface: "market-update",
+      plannedUrl: "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_content=planned-only",
+    });
+
+    expect(payload.plannedUrl).toContain("planned-only");
+    expect(payload.publishedUrl).toBeUndefined();
+    expect(payload.utmContent).toBe("planned-only");
+  });
+
+  it("attaches the delivered URL without moving original post evidence", () => {
+    const payload = buildSocialTrackerPayload({
+      postedAt: "2026-06-05T12:00:00.000Z",
+      platform: "x",
+      surface: "market-update",
+      externalId: "tweet-1",
+      plannedUrl: "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_content=planned",
+    });
+    const updated = attachPublishedUrlToSocialTrackerPayload(
+      payload,
+      "https://tokenradar.co/bitcoin?utm_source=x&utm_medium=social&utm_campaign=social_rotation&utm_content=published",
+    );
+
+    expect(updated).toMatchObject({
+      postedAt: "2026-06-05T12:00:00.000Z",
+      externalId: "tweet-1",
+      tweetId: "tweet-1",
+      publishedUrl: expect.stringContaining("utm_content=published"),
+      utmContent: "published",
+    });
+    expect(updated.plannedUrl).toBe(payload.plannedUrl);
   });
 });

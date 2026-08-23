@@ -18,13 +18,22 @@ import { fileURLToPath } from "url";
 
 import { logError } from "../src/lib/reporter";
 import {
+  buildSocialContentFacts,
   generateUnifiedCaptions,
   type PlatformTarget,
   type UnifiedCaptionOptions,
 } from "../src/lib/gemini";
-import { uploadToYouTubeShorts } from "../src/lib/youtube";
-import { buildTelegramMediaCaption, sendTelegramVideo } from "../src/lib/telegram";
-import { diversifyXPostText, getMissingXCredentialNames, postTweetWithMedia, postTweet } from "../src/lib/x-client";
+import { validateSocialContent } from "../src/lib/social-content-validator";
+import { persistNeedsReviewRecord } from "../src/lib/social-review-queue";
+import { isYouTubeUploadOutcomeUnknownError, uploadToYouTubeShorts } from "../src/lib/youtube";
+import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramVideo } from "../src/lib/telegram";
+import {
+  diversifyXPostText,
+  getMissingXCredentialNames,
+  isXCreateOutcomeUnknownError,
+  postTweetWithMedia,
+  postTweet,
+} from "../src/lib/x-client";
 import {
   SOCIAL,
   SOCIAL_PLATFORM_LIMITS,
@@ -37,9 +46,14 @@ import { formatErrorForLog, safeReadJson, loadEnv, writeFileAtomicSync } from ".
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
 import { generateHookText, generateVideoVoiceoverScript } from "../src/lib/social-content-generator";
 import { selectSocialArchetype, type SocialContentArchetype } from "../src/lib/social-archetypes";
-import { buildSocialUtmUrl } from "../src/lib/social-utm";
+import { buildSocialUtmUrl, readSocialUtmAttribution } from "../src/lib/social-utm";
 import { generateKokoroVoiceover } from "../src/lib/kokoro-voiceover";
-import { publishVideo as publishMetaVideo, hasMetaCredentials, type TextEntity } from "../src/lib/meta-client";
+import {
+  hasMetaCredentials,
+  isMetaPublishOutcomeUnknownError,
+  publishVideo as publishMetaVideo,
+  type TextEntity,
+} from "../src/lib/meta-client";
 import {
   cleanPrefix,
   deleteObjects,
@@ -48,7 +62,15 @@ import {
   hasR2Credentials,
 } from "../src/lib/r2-client";
 import { buildR2VideoAssetKey } from "../src/lib/video-asset-r2";
-import { hasSocialPost, recordAutomationRun, recordSocialPost } from "../src/lib/ops-ledger";
+import {
+  getSocialPostLookup,
+  isOpsLedgerEnabled,
+  listSocialPostEvidence,
+  markSocialDeliveryStatus,
+  recordAutomationRun,
+  recordSocialPost,
+  reserveSocialDelivery,
+} from "../src/lib/ops-ledger";
 import {
   hasTikTokManualReportCredentials,
   sendTikTokInboxUploadReport,
@@ -57,6 +79,7 @@ import {
 import {
   getTikTokCredentialMode,
   hasTikTokApiCredentials,
+  isTikTokPublishOutcomeUnknownError,
   normalizeTikTokCaption,
   publishVideoDirectlyToTikTok,
   uploadVideoToTikTokInbox,
@@ -119,6 +142,31 @@ const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
 export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 export type PlatformRoute = PlatformName | "all" | "shorts" | "instagram-youtube";
 
+class VideoCreateOutcomeUnknownError extends Error {
+  override readonly cause: unknown;
+  readonly platform: PlatformName;
+
+  constructor(platform: PlatformName, cause: unknown) {
+    super(`${platform} publish outcome is unknown; reconcile the platform before retrying.`);
+    this.name = "VideoCreateOutcomeUnknownError";
+    this.platform = platform;
+    this.cause = cause;
+  }
+}
+
+function isAmbiguousVideoCreateError(platform: PlatformName, error: unknown): boolean {
+  if (error instanceof VideoCreateOutcomeUnknownError) return true;
+  if (platform === "x" && isXCreateOutcomeUnknownError(error)) return true;
+  if ((platform === "instagram" || platform === "threads") && isMetaPublishOutcomeUnknownError(error)) {
+    return true;
+  }
+  if (platform === "youtube" && isYouTubeUploadOutcomeUnknownError(error)) return true;
+  if (platform === "tiktok" && isTikTokPublishOutcomeUnknownError(error)) return true;
+  // Telegram's callback is a single create request. For multi-stage clients,
+  // ambiguity must be raised by a typed error at the final create boundary.
+  return platform === "telegram" && isTelegramCreateOutcomeUnknownError(error);
+}
+
 const PLATFORM_ROUTES: readonly PlatformRoute[] = [
   "all",
   "shorts",
@@ -173,6 +221,7 @@ export interface VideoDailyPlatformPlan extends VideoDailyPlatformFlags {
 
 interface PlatformTracker {
   postedAt: string;
+  uploadedAt?: string;
   status?: VideoPublishStatus;
   messageId?: number;
   tweetId?: string;
@@ -183,6 +232,9 @@ interface PlatformTracker {
   caption?: string;
   youtubeTitle?: string;
   youtubeDescription?: string;
+  plannedUrl?: string;
+  publishedUrl?: string;
+  utmContent?: string;
   archetypeKey?: string;
   archetypeLabel?: string;
   hookFamily?: string;
@@ -232,6 +284,8 @@ interface VideoTracker {
   tokenName: string;
   reason: string;
   platform: string;
+  socialSlot?: string;
+  socialSlots?: Partial<Record<PlatformName, string>>;
   // Legacy single-render fields kept so old tracker files can still seed cooldown reads.
   formatKey?: VideoFormatKey;
   formatLabel?: string;
@@ -296,11 +350,22 @@ interface RenderProbe {
   };
 }
 
-function getVideoSocialPostKey(today: string, tokenId: string, platform: PlatformName): string {
-  return `${today}:video:${tokenId}:${platform}`;
+function normalizeDeliveryKeyPart(value: string, fallback: string): string {
+  const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return normalized || fallback;
 }
 
-function getPlatformTrackerExternalId(tracker: PlatformTracker): string | number | undefined {
+function getVideoSocialPostKey(today: string, platform: PlatformName, socialSlot: string): string {
+  return `${today}:slot:${normalizeDeliveryKeyPart(socialSlot, "video")}:${platform}:video`;
+}
+
+function getPlatformTrackerExternalId(
+  platform: PlatformName,
+  tracker: PlatformTracker,
+): string | number | undefined {
+  if (platform === "tiktok" && tracker.status !== "published" && tracker.status !== "manual_published") {
+    return undefined;
+  }
   return tracker.messageId ??
     tracker.tweetId ??
     tracker.videoId ??
@@ -312,13 +377,21 @@ function getPlatformTrackerExternalId(tracker: PlatformTracker): string | number
 
 function shouldRecordPublishedSocialPost(tracker: PlatformTracker): boolean {
   return tracker.status === "published" ||
-    tracker.status === "manual_handoff_sent" ||
     tracker.status === "manual_published";
 }
 
-function isPlatformCompleteForRun(tracker: PlatformTracker | undefined): boolean {
+function isPlatformCompleteForRun(platform: PlatformName, tracker: PlatformTracker | undefined): boolean {
   if (!tracker) return false;
-  return tracker.status ? isTerminalVideoPublishStatus(tracker.status) : Boolean(getPlatformTrackerExternalId(tracker));
+  return tracker.status ? isTerminalVideoPublishStatus(tracker.status) : Boolean(
+    getPlatformTrackerExternalId(platform, tracker),
+  );
+}
+
+export function shouldAttemptVideoPlatformPublish(
+  tracker: Pick<PlatformTracker, "status" | "messageId" | "tweetId" | "videoId" | "postId" | "publishId"> | undefined,
+  platform: PlatformName = "youtube",
+): boolean {
+  return !isPlatformCompleteForRun(platform, tracker as PlatformTracker | undefined);
 }
 
 function ensureRiskDisclaimer(text: string): string {
@@ -395,14 +468,25 @@ function evaluateVideoCandidateFreshness(
   const freshWithMetrics: TokenData[] = [];
 
   for (const token of candidates) {
-    const tokenOnlyResult = validateVideoMarketDataFreshness({ token, now, metric: undefined });
+    const tokenOnlyResult = validateVideoMarketDataFreshness({
+      token,
+      now,
+      metric: undefined,
+      requireDerivedMetrics: false,
+    });
     if (!tokenOnlyResult.ok) {
       incrementFreshnessIssueCount(issueCounts, tokenOnlyResult.issues);
       continue;
     }
 
     tokenFreshCandidates.push(token);
-    const result = validateVideoMarketDataFreshness({ token, metric: readMetric(token.id), now });
+    const metric = readMetric(token.id);
+    if (!metric) {
+      incrementFreshnessIssueCount(issueCounts, ["missing-derived-metrics"]);
+      incrementFreshnessIssueCount(tokenFreshIssueCounts, ["missing-derived-metrics"]);
+      continue;
+    }
+    const result = validateVideoMarketDataFreshness({ token, metric, now });
     if (result.ok) {
       freshWithMetrics.push(token);
     } else {
@@ -456,7 +540,9 @@ export function parseVideoDailyCliOptions(args: string[]): VideoDailyCliOptions 
   const outputDirArg = getArgValue(args, "--output-dir");
   const keepOutput = args.includes("--keep-output") || Boolean(outputDirArg);
   const platformIdx = args.indexOf("--platform");
-  const targetPlatform = platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "all";
+  // The no-argument command mirrors the only active production video route.
+  // Broad multi-platform runs must be requested explicitly.
+  const targetPlatform = platformIdx !== -1 && platformIdx + 1 < args.length ? args[platformIdx + 1] : "youtube";
 
   if (!isPlatformRoute(targetPlatform)) {
     throw new Error(
@@ -783,37 +869,56 @@ async function hydrateMediaSegmentsForRender(
 }
 
 function buildVideoThesis(
-  format: VideoFormat,
+  _format: VideoFormat,
   token: TokenData,
-  metric: MetricData | undefined,
-  contextText: string | undefined,
+  _metric: MetricData | undefined,
+  _contextText: string | undefined,
 ): string {
-  const context = contextText?.trim();
-  const riskTone = metric?.riskScore !== undefined && metric.riskScore >= 7
-    ? "elevated risk keeps confirmation more important than attention"
-    : "risk and liquidity still need confirmation";
+  return `${token.name} gets a descriptive TokenRadar snapshot without a forecast.`;
+}
 
-  const thesisByFormat: Partial<Record<VideoFormatKey, string>> = {
-    breakout_watch: `${token.name} is being checked as a breakout story; the test is whether attention turns into follow-through.`,
-    risk_alert: `${token.name} needs a risk-first read because ${riskTone}.`,
-    volume_spike_check: `${token.name} is on move-quality watch because fast activity can be useful or noisy.`,
-    sector_rotation: `${token.name} is being read as a possible rotation story; the question is whether the move fits the broader market setup.`,
-    token_vs_sector: `${token.name} is being compared against the broader tape so the setup is not judged in isolation.`,
-    momentum_cooling: `${token.name} is being checked for fade risk because strong attention can still cool fast.`,
-    catalyst_explainer: `${token.name} is the focus because the selection reason needs a why-now explanation, not just a price snapshot.`,
-    liquidity_stress_test: `${token.name} is going through a liquidity stress test where activity, depth, and risk have to agree.`,
-    data_vs_hype: `${token.name} gets a data-versus-hype read because attention is only useful when the evidence holds up.`,
-    risk_score_breakdown: `${token.name} is being judged through TokenRadar's risk lens first, with confirmation doing the heavy lifting.`,
-    watchlist_battle: `${token.name} has to earn a watchlist slot with a cleaner story than simple attention.`,
-    weekly_recap: `${token.name} is the standout name in this scan, but the market read still needs context.`,
-    new_listing_radar: `${token.name} is treated as a fresh radar candidate; the first filters are risk, liquidity, and proof.`,
-    narrative_heatmap: `${token.name} is being checked for narrative heat and whether the story is bigger than one fast move.`,
-    contrarian_signal: `${token.name} has a tension setup: attention is visible, but confirmation still has to arrive.`,
+function validateVideoNarrativeFields(input: {
+  tokenName: string;
+  symbol: string;
+  videoThesis: string;
+  hookText: string;
+  voiceoverScript: string;
+}): Pick<PlatformVideoAsset, "videoThesis" | "hookText" | "voiceoverScript"> {
+  const facts = { tokenName: input.tokenName, symbol: input.symbol };
+  const fields = ["videoThesis", "hookText", "voiceoverScript"] as const;
+  const failures = fields
+    .map((field) => ({ field, validation: validateSocialContent(input[field], facts) }))
+    .filter(({ validation }) => !validation.ok);
+
+  if (failures.length === 0) {
+    return {
+      videoThesis: input.videoThesis,
+      hookText: input.hookText,
+      voiceoverScript: input.voiceoverScript,
+    };
+  }
+
+  persistNeedsReviewRecord({
+    tokenName: input.tokenName,
+    symbol: input.symbol,
+    platforms: ["video"],
+    generationAttempt: 1,
+    facts,
+    issues: failures.map(({ field, validation }) => ({ field, issues: validation.issues })),
+  });
+
+  const fallback = {
+    videoThesis: `${input.tokenName} gets a descriptive TokenRadar snapshot without a forecast.`,
+    hookText: `${input.symbol.toUpperCase()} DATA SNAPSHOT`,
+    voiceoverScript: `Here is a descriptive TokenRadar snapshot for ${input.tokenName}. It presents supplied market fields without a forecast. Comment a ticker for a future research snapshot.`,
   };
-
-  return [thesisByFormat[format.key as VideoFormatKey] || `${format.label}: ${token.name} is being analyzed through market data quality filters.`, context]
-    .filter(Boolean)
-    .join(" ");
+  for (const field of fields) {
+    const validation = validateSocialContent(fallback[field], facts);
+    if (!validation.ok) {
+      throw new Error(`Deterministic ${field} fallback failed social content validation.`);
+    }
+  }
+  return fallback;
 }
 
 function getPlatformVideoAsset(
@@ -1043,7 +1148,7 @@ export function resolveVideoDailyPlatformPlan(
 
 function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: PlatformName[]): boolean {
   if (!tracker) return false;
-  return requestedPlatforms.every((platform) => isPlatformCompleteForRun(tracker.platforms?.[platform]));
+  return requestedPlatforms.every((platform) => isPlatformCompleteForRun(platform, tracker.platforms?.[platform]));
 }
 
 function extractInstagramContent(caption: string | undefined): { caption: string; hashtags: string[] } {
@@ -1138,6 +1243,8 @@ export async function main(args = process.argv.slice(2)) {
   }
 
   const today = new Date().toISOString().split("T")[0];
+  const configuredSocialSlot = process.env.SOCIAL_SLOT?.trim();
+  const socialSlotFor = (platform: PlatformName): string => configuredSocialSlot || `${platform}-video`;
   const postedDir = path.join(DATA_DIR, "posted_video", today);
   const trackerFile = path.join(postedDir, "daily-video.json");
   cleanupExpiredCooldownFolders(DATA_DIR, {
@@ -1185,7 +1292,7 @@ export async function main(args = process.argv.slice(2)) {
   } = platformFlags;
 
   const existingTracker =
-    !force && fs.existsSync(trackerFile)
+    fs.existsSync(trackerFile)
       ? safeReadJson<VideoTracker | null>(trackerFile, null)
       : null;
 
@@ -1343,8 +1450,77 @@ export async function main(args = process.argv.slice(2)) {
   const d1AlreadyPublished = new Set<PlatformName>();
   if (!dryRun && !force) {
     for (const platform of requestedPlatforms) {
-      if (await hasSocialPost(platform, getVideoSocialPostKey(today, targetToken.id, platform))) {
+      const contentKey = getVideoSocialPostKey(today, platform, socialSlotFor(platform));
+      const lookup = await getSocialPostLookup(platform, contentKey);
+      if (lookup.state === "published") {
         d1AlreadyPublished.add(platform);
+        continue;
+      }
+
+      const legacyRows = (await listSocialPostEvidence(platform, `${today}:video:`))
+        .filter((row) => row.contentKey.endsWith(`:${platform}`));
+      if (legacyRows.length > 0) {
+        const legacy = legacyRows[0];
+        if (!legacy.externalId) {
+          throw new Error(`Legacy ${platform} video delivery ${legacy.contentKey} has no external ID; reconcile it before publishing.`);
+        }
+        await recordSocialPost({
+          platform,
+          contentKey,
+          externalId: legacy.externalId,
+          postedAt: legacy.postedAt,
+          details: {
+            migratedFromLegacyContentKey: legacy.contentKey,
+            socialSlot: socialSlotFor(platform),
+            variantSurface: "video",
+          },
+        });
+        d1AlreadyPublished.add(platform);
+        continue;
+      }
+
+      const tracker = existingTracker?.platforms?.[platform];
+      const trackerHasEvidence = Boolean(tracker && getPlatformTrackerExternalId(platform, tracker));
+      if (
+        lookup.blocksPublish &&
+        lookup.state !== "unavailable" &&
+        trackerHasEvidence &&
+        tracker &&
+        isPlatformCompleteForRun(platform, tracker)
+      ) {
+        await recordSocialPost({
+          platform,
+          contentKey,
+          externalId: getPlatformTrackerExternalId(platform, tracker),
+          postedAt: tracker.postedAt || existingTracker?.postedAt || new Date().toISOString(),
+          details: {
+            tokenId: targetToken.id,
+            tokenName: targetToken.name,
+            reason,
+            requestedPlatform: targetPlatform,
+            status: tracker.status || "published",
+            reconciledFromTracker: true,
+            reconciledDeliveryState: lookup.state,
+            variantSurface: "video",
+            marketDataSource: targetToken.marketDataSource,
+            marketDataAsOf: targetToken.lastMarketUpdate || targetToken.fetchedAt,
+            metricsAsOf: readMetric(targetToken.id)?.inputDataAsOf,
+          },
+        });
+        d1AlreadyPublished.add(platform);
+        continue;
+      }
+
+      if (lookup.blocksPublish && lookup.state !== "unavailable") {
+        throw new Error(
+          `${platform} video delivery is ${lookup.state}; reconcile the platform feed before retrying ${contentKey}.`,
+        );
+      }
+
+      if (lookup.state === "unavailable" && isOpsLedgerEnabled() && !trackerHasEvidence) {
+        throw new Error(
+          `${platform} video delivery ledger is unavailable and no confirmed tracker evidence exists; refusing to publish.`,
+        );
       }
     }
 
@@ -1358,8 +1534,8 @@ export async function main(args = process.argv.slice(2)) {
       if (reconciliation.shouldBackfillD1 && platformTracker) {
         await recordSocialPost({
           platform,
-          contentKey: getVideoSocialPostKey(today, targetToken.id, platform),
-          externalId: getPlatformTrackerExternalId(platformTracker),
+          contentKey: getVideoSocialPostKey(today, platform, socialSlotFor(platform)),
+          externalId: getPlatformTrackerExternalId(platform, platformTracker),
           postedAt: platformTracker.postedAt || existingTracker?.postedAt || new Date().toISOString(),
           details: {
             tokenId: targetToken.id,
@@ -1369,6 +1545,9 @@ export async function main(args = process.argv.slice(2)) {
             status: platformTracker.status || "published",
             reconciledFromTracker: true,
             variantSurface: "video",
+            marketDataSource: targetToken.marketDataSource,
+            marketDataAsOf: targetToken.lastMarketUpdate || targetToken.fetchedAt,
+            metricsAsOf: readMetric(targetToken.id)?.inputDataAsOf,
           },
         });
         d1AlreadyPublished.add(platform);
@@ -1404,6 +1583,15 @@ export async function main(args = process.argv.slice(2)) {
       `Selected token ${targetToken.id} failed video market-data freshness checks: ${targetFreshness.issues.join(", ")}`,
     );
   }
+  if (!targetMetric || typeof targetMetric.riskScore !== "number" || !Number.isFinite(targetMetric.riskScore)) {
+    failWithVideoAlert(
+      "marketDataStale",
+      today,
+      targetPlatform,
+      `Selected token ${targetToken.id} has no publishable Risk Score; video publication is blocked rather than fabricating one.`,
+    );
+  }
+  const publishedRiskScore = targetMetric.riskScore;
   console.log(`  Market data as of: ${targetFreshness.asOf || "unknown"}`);
   const videoAutomationRunId = [
     "post-video-daily",
@@ -1411,6 +1599,7 @@ export async function main(args = process.argv.slice(2)) {
     targetPlatform,
     targetToken.id,
     process.env.GITHUB_RUN_ID || process.env.TOKENRADAR_RUN_ID || process.pid,
+    process.env.GITHUB_RUN_ATTEMPT || "1",
   ].join(":");
   if (!dryRun) {
     await recordAutomationRun({
@@ -1422,16 +1611,18 @@ export async function main(args = process.argv.slice(2)) {
         tokenId: targetToken.id,
         tokenName: targetToken.name,
         requestedPlatforms,
+        marketDataSource: targetToken.marketDataSource,
         marketDataAsOf: targetFreshness.asOf,
-        metricsAsOf: targetFreshness.metricAsOf,
+        metricsAsOf: targetMetric.inputDataAsOf,
       },
     });
   }
 
   const context = {
     ...targetMetric,
-    marketDataAsOf: targetFreshness.asOf,
-    metricsAsOf: targetFreshness.metricAsOf,
+    marketDataSource: targetToken.marketDataSource,
+    marketDataAsOf: targetFreshness.asOf || undefined,
+    metricsAsOf: targetMetric.inputDataAsOf,
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
@@ -1465,7 +1656,7 @@ export async function main(args = process.argv.slice(2)) {
       .map((platform) => existingTracker?.platforms?.[platform])
       .find((platformTracker): platformTracker is PlatformTracker => Boolean(platformTracker));
   const { getVerdict } = await import("../src/video/styles");
-  const verdict = getVerdict(targetMetric?.riskScore || 5.0, targetToken.market.priceChange24h);
+  const verdict = getVerdict(publishedRiskScore, targetToken.market.priceChange24h);
   const fixedFormatKeys = new Set(
     requestedPlatforms
       .map((platform) => existingTracker?.platforms?.[platform]?.formatKey)
@@ -1508,19 +1699,41 @@ export async function main(args = process.argv.slice(2)) {
       ? getVideoFormat(existingPlatformTracker.formatKey)
       : generatedFormats.get(platform) || getVideoFormat(undefined);
 
-    const videoThesis = existingPlatformTracker?.videoThesis ||
+    const generatedVideoThesis = existingPlatformTracker?.videoThesis ||
       buildVideoThesis(videoFormat, targetToken, targetMetric, context.trendingContext);
     const audioTrack = selectAudioTrackForRender(
       `${today}:shared:${videoFormat.key}:${targetToken.id}`,
       existingPlatformTracker,
     );
-    const hookText = existingPlatformTracker?.hookText ||
-      await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat);
-    const voiceoverScript = existingPlatformTracker?.voiceoverScript ||
+    const generatedHookText = existingPlatformTracker?.hookText ||
+      await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat, {
+        workflow: "post-video-daily",
+        contentKey: `${today}:shared-video:${targetToken.id}`,
+        operation: "video-hook",
+        attempt: Number(process.env.GITHUB_RUN_ATTEMPT || "1"),
+      });
+    const generatedVoiceoverScript = existingPlatformTracker?.voiceoverScript ||
       await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat, {
         targetDurationSeconds: renderProfile.durationSeconds,
         style: platform === "tiktok" ? "tiktok_native" : "standard",
+        usageActivity: {
+          workflow: "post-video-daily",
+          contentKey: `${today}:shared-video:${targetToken.id}`,
+          operation: "video-narration",
+          attempt: Number(process.env.GITHUB_RUN_ATTEMPT || "1"),
+        },
       });
+    const {
+      videoThesis,
+      hookText,
+      voiceoverScript,
+    } = validateVideoNarrativeFields({
+      tokenName: targetToken.name,
+      symbol: targetToken.symbol,
+      videoThesis: generatedVideoThesis,
+      hookText: generatedHookText,
+      voiceoverScript: generatedVoiceoverScript,
+    });
     const voiceoverHash = crypto
       .createHash("sha1")
       .update(`${today}:shared:${targetToken.id}:${videoFormat.key}:${voiceoverScript}`)
@@ -1589,7 +1802,7 @@ export async function main(args = process.argv.slice(2)) {
           tokenName: targetToken.name,
           symbol: targetToken.symbol,
           priceChange24h: targetToken.market.priceChange24h,
-          riskScore: targetMetric?.riskScore || 5.0,
+          riskScore: publishedRiskScore,
           volume24h: targetToken.market.volume24h,
           contextText: context.trendingContext,
           videoThesis,
@@ -1632,8 +1845,8 @@ export async function main(args = process.argv.slice(2)) {
       symbol: targetToken.symbol.toUpperCase(),
       price: targetToken.market.price,
       priceChange24h: targetToken.market.priceChange24h,
-      riskScore: targetMetric?.riskScore || 5.0,
-      riskLevel: targetMetric?.riskLevel,
+      riskScore: publishedRiskScore,
+      riskLevel: undefined,
       marketCap: targetToken.market.marketCap,
       marketCapRank: targetToken.market.marketCapRank,
       volume24h: targetToken.market.volume24h,
@@ -1643,7 +1856,7 @@ export async function main(args = process.argv.slice(2)) {
       voiceoverFile: voiceoverResult.fileName,
       voiceoverScript,
       hookText,
-      contextText: context.trendingContext || "Strong social sentiment and increasing volume are driving this breakout.",
+      contextText: `${targetToken.name} point-in-time data snapshot.`,
       videoFormatKey: videoFormat.key,
       videoThesis,
       visualRecipe,
@@ -1742,6 +1955,8 @@ export async function main(args = process.argv.slice(2)) {
     let tgMessage = "";
     let xMessage = "";
     let xReplyMessage = "";
+    let xTrackedUrl = "";
+    let youtubeTrackedUrl = "";
     let ytMetadata = { title: "", description: "" };
     let igContent = { caption: "", hashtags: [] as string[] };
     let threadsContent = { caption: "", topicTag: "crypto", spoilerText: "", spoilerOffset: 0, spoilerLength: 0 };
@@ -1796,6 +2011,7 @@ export async function main(args = process.argv.slice(2)) {
           tokenId: targetToken.id,
         },
       );
+      xTrackedUrl = xReplyUrl;
       xReplyMessage = includeLinkReply
         ? isOnWebsite
           ? `Read the $${targetToken.symbol.toUpperCase()} deep-dive and find all TokenRadar links here:\n\n${xReplyUrl}`
@@ -1804,6 +2020,19 @@ export async function main(args = process.argv.slice(2)) {
     }
 
     if (shouldRunYouTube) {
+      const youtubeArchetype = videoArchetypes.get("youtube");
+      youtubeTrackedUrl = buildSocialUtmUrl(
+        onWebsiteIds.has(targetToken.id)
+          ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co"}/${targetToken.id}`
+          : SOCIAL.ecosystemUrl,
+        {
+          platform: "youtube",
+          date: today,
+          surface: "video",
+          archetypeKey: youtubeArchetype?.key || "single_token_snapshot",
+          tokenId: targetToken.id,
+        },
+      );
       captionPlatforms.push("youtube");
     }
 
@@ -1871,16 +2100,36 @@ export async function main(args = process.argv.slice(2)) {
         console.log("Adjusted X video copy to avoid repeating recent post structure.");
         xMessage = diversified;
       }
+      const finalValidation = validateSocialContent(
+        xMessage,
+        buildSocialContentFacts(targetToken.name, targetToken.symbol, context),
+      );
+      if (!finalValidation.ok) {
+        throw new Error(
+          `Final X video copy failed the publishing gate after diversification: ${finalValidation.issues.map((issue) => issue.code).join(", ")}`,
+        );
+      }
     }
 
     if (shouldRunYouTube && ytMetadata.description) {
       ytMetadata = {
         ...ytMetadata,
-        description: ensureRiskDisclaimer(ytMetadata.description),
+        description: `${ensureRiskDisclaimer(ytMetadata.description)}\n\nResearch: ${youtubeTrackedUrl}`,
       };
     }
     if (shouldRunTikTok && tiktokCaption) {
       tiktokCaption = normalizeTikTokCaption(ensureTikTokResearchContextNote(tiktokCaption));
+    }
+    if (shouldRunThreads && threadsVideoUrl) {
+      const finalThreadsValidation = validateSocialContent(
+        threadsContent.caption,
+        buildSocialContentFacts(targetToken.name, targetToken.symbol, context),
+      );
+      if (!finalThreadsValidation.ok) {
+        throw new Error(
+          `Final assembled Threads video copy failed the publishing gate: ${finalThreadsValidation.issues.map((issue) => issue.code).join(", ")}`,
+        );
+      }
     }
 
     const copyValidation = [
@@ -2006,12 +2255,33 @@ export async function main(args = process.argv.slice(2)) {
       throw new Error("No rendered video assets were available for publishing.");
     }
 
+    const publicationFreshness = validateVideoMarketDataFreshness({
+      token: targetToken,
+      metric: targetMetric,
+      now: new Date(),
+    });
+    if (!publicationFreshness.ok) {
+      failWithVideoAlert(
+        "marketDataStale",
+        today,
+        targetPlatform,
+        `Video data aged beyond the publication SLA during rendering: ${publicationFreshness.issues.join(", ")}`,
+      );
+    }
+
     const trackerState: VideoTracker = {
       postedAt: existingTracker?.postedAt || new Date().toISOString(),
       tokenId: targetToken.id,
       tokenName: targetToken.name,
       reason,
       platform: targetPlatform,
+      socialSlot: requestedPlatforms.length === 1
+        ? socialSlotFor(requestedPlatforms[0])
+        : existingTracker?.socialSlot || configuredSocialSlot,
+      socialSlots: {
+        ...(existingTracker?.socialSlots || {}),
+        ...Object.fromEntries(requestedPlatforms.map((platform) => [platform, socialSlotFor(platform)])),
+      },
       platforms: { ...(existingTracker?.platforms || {}) },
     };
     const trackerContext = {
@@ -2032,16 +2302,127 @@ export async function main(args = process.argv.slice(2)) {
         : {};
     };
     const failedTracker = (error: unknown, asset?: PlatformVideoAsset): PlatformTracker => {
+      const outcomeUnknown = Boolean(asset && isAmbiguousVideoCreateError(asset.platform, error));
       const classification = classifyVideoPublishError(error);
       return {
         postedAt: new Date().toISOString(),
-        status: classification.status,
+        status: outcomeUnknown ? "outcome_unknown" : classification.status,
         publishError: classification.diagnostic,
-        publishFailureClass: classification.failureClass,
-        publishRetryable: classification.retryable,
+        publishFailureClass: outcomeUnknown ? "publish_outcome_unknown" : classification.failureClass,
+        publishRetryable: outcomeUnknown ? false : classification.retryable,
         ...(asset ? trackerFields(asset) : {}),
         ...(asset ? trackerArchetypeFields(asset.platform) : {}),
       };
+    };
+
+    const runTrackedPlatformPublish = async <T>(
+      platform: PlatformName,
+      publish: () => Promise<T>,
+      options: { finalizePublished?: boolean; publishedAt?: string } = {},
+    ): Promise<T> => {
+      const contentKey = getVideoSocialPostKey(today, platform, socialSlotFor(platform));
+      const attemptId = [videoAutomationRunId, platform].join(":");
+      const reservation = await reserveSocialDelivery({
+        platform,
+        contentKey,
+        attemptId,
+        details: {
+          tokenId: targetToken.id,
+          tokenName: targetToken.name,
+          reason,
+          requestedPlatform: targetPlatform,
+          variantSurface: "video",
+          marketDataSource: targetToken.marketDataSource,
+          marketDataAsOf: targetFreshness.asOf,
+          metricsAsOf: targetMetric.inputDataAsOf,
+        },
+      });
+      if (!reservation.acquired) {
+        throw new Error(
+          `${platform} video delivery reservation is ${reservation.state}; reconcile it before retrying.`,
+        );
+      }
+
+      let result: T;
+      try {
+        result = await publish();
+      } catch (error) {
+        const outcomeUnknown = isAmbiguousVideoCreateError(platform, error);
+        try {
+          await markSocialDeliveryStatus({
+            platform,
+            contentKey,
+            attemptId,
+            status: outcomeUnknown ? "outcome_unknown" : "failed",
+            error: formatErrorForLog(error),
+            details: {
+              tokenId: targetToken.id,
+              tokenName: targetToken.name,
+              reason,
+              requestedPlatform: targetPlatform,
+              variantSurface: "video",
+              marketDataSource: targetToken.marketDataSource,
+              marketDataAsOf: targetFreshness.asOf,
+              metricsAsOf: targetMetric.inputDataAsOf,
+            },
+          });
+        } catch (ledgerError) {
+          console.error(`Failed to persist ${platform} delivery outcome: ${formatErrorForLog(ledgerError)}`);
+        }
+        throw outcomeUnknown ? new VideoCreateOutcomeUnknownError(platform, error) : error;
+      }
+
+      if (options.finalizePublished !== false) {
+        const resultRecord = result && typeof result === "object" ? result as Record<string, unknown> : undefined;
+        const externalId = typeof result === "string" || typeof result === "number"
+          ? result
+          : resultRecord?.id ?? resultRecord?.publicPostId ?? resultRecord?.publishId ?? resultRecord?.videoMessageId;
+        try {
+          await markSocialDeliveryStatus({
+            platform,
+            contentKey,
+            attemptId,
+            status: "published",
+            externalId: typeof externalId === "string" || typeof externalId === "number" ? externalId : undefined,
+            postedAt: options.publishedAt,
+            details: {
+              tokenId: targetToken.id,
+              tokenName: targetToken.name,
+              reason,
+              requestedPlatform: targetPlatform,
+              variantSurface: "video",
+              marketDataSource: targetToken.marketDataSource,
+              marketDataAsOf: targetFreshness.asOf,
+              metricsAsOf: targetMetric.inputDataAsOf,
+            },
+          });
+        } catch (ledgerError) {
+          // The external write is confirmed. Callers still persist its ID in
+          // the local tracker before retrying the durable ledger write below.
+          console.error(`Failed to finalize ${platform} delivery immediately: ${formatErrorForLog(ledgerError)}`);
+        }
+      } else {
+        try {
+          await markSocialDeliveryStatus({
+            platform,
+            contentKey,
+            attemptId,
+            status: "failed",
+            error: "Non-public upload or manual handoff completed; public publication evidence is still required.",
+            details: {
+              tokenId: targetToken.id,
+              tokenName: targetToken.name,
+              reason,
+              requestedPlatform: targetPlatform,
+              variantSurface: "video",
+              nonPublicHandoff: true,
+            },
+          });
+        } catch (ledgerError) {
+          console.error(`Failed to release ${platform} non-public handoff reservation: ${formatErrorForLog(ledgerError)}`);
+        }
+      }
+      return result;
     };
 
     for (const platform of d1AlreadyPublished) {
@@ -2066,7 +2447,7 @@ export async function main(args = process.argv.slice(2)) {
 
     const publishTasks: Array<Promise<{ platform: PlatformName; tracker: PlatformTracker | null }>> = [];
 
-    if (runTelegram && !trackerState.platforms.telegram) {
+    if (runTelegram && shouldAttemptVideoPlatformPublish(trackerState.platforms.telegram, "telegram")) {
       publishTasks.push(
         (async () => {
           try {
@@ -2077,7 +2458,10 @@ export async function main(args = process.argv.slice(2)) {
               bodyMaxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.VIDEO_AI_SUMMARY_CHARS,
             });
 
-            const msgId = await sendTelegramVideo(telegramAsset.buffer, caption, channelId as string);
+            const msgId = await runTrackedPlatformPublish(
+              "telegram",
+              () => sendTelegramVideo(telegramAsset.buffer, caption, channelId as string),
+            );
             console.log(`Posted video to Telegram (Message ID: ${msgId})`);
             return {
               platform: "telegram" as const,
@@ -2099,12 +2483,15 @@ export async function main(args = process.argv.slice(2)) {
       );
     }
 
-    if (runX && !trackerState.platforms.x) {
+    if (runX && shouldAttemptVideoPlatformPublish(trackerState.platforms.x, "x")) {
       publishTasks.push(
         (async () => {
           try {
             const xAsset = getPlatformVideoAsset(platformVideos, "x");
-            const tweetId = await postTweetWithMedia(xMessage, xAsset.buffer, "video/mp4");
+            const tweetId = await runTrackedPlatformPublish(
+              "x",
+              () => postTweetWithMedia(xMessage, xAsset.buffer, "video/mp4"),
+            );
             console.log(`Posted tweet with video to X (Tweet ID: ${tweetId})`);
 
             let replyId: string | undefined;
@@ -2126,6 +2513,9 @@ export async function main(args = process.argv.slice(2)) {
                 tweetId,
                 replyId,
                 xText: xMessage,
+                plannedUrl: xTrackedUrl || undefined,
+                publishedUrl: replyId ? xTrackedUrl : undefined,
+                utmContent: readSocialUtmAttribution(xTrackedUrl).content,
                 ...trackerFields(xAsset),
                 ...trackerArchetypeFields("x"),
               },
@@ -2139,7 +2529,7 @@ export async function main(args = process.argv.slice(2)) {
       );
     }
 
-    if (shouldRunYouTube && !trackerState.platforms.youtube) {
+    if (shouldRunYouTube && shouldAttemptVideoPlatformPublish(trackerState.platforms.youtube, "youtube")) {
       publishTasks.push(
         (async () => {
           try {
@@ -2148,22 +2538,34 @@ export async function main(args = process.argv.slice(2)) {
             publishAt.setMinutes(publishAt.getMinutes() + 15);
             
             console.log(`Starting YouTube upload (scheduled for ${publishAt.toISOString()})...`);
-            const videoId = await uploadToYouTubeShorts(
-              youtubeAsset.outputPath,
-              ytMetadata.title,
-              ytMetadata.description,
-              "private",
-              publishAt
+            const videoId = await runTrackedPlatformPublish(
+              "youtube",
+              () => uploadToYouTubeShorts(
+                youtubeAsset.outputPath,
+                ytMetadata.title,
+                ytMetadata.description,
+                "private",
+                publishAt,
+                {
+                  text: youtubeAsset.voiceoverScript,
+                  durationSeconds: getVideoRenderProfile("youtube").durationSeconds,
+                },
+              ),
+              { publishedAt: publishAt.toISOString() },
             );
             console.log(`Posted video to YouTube Shorts (Video ID: ${videoId})`);
             return {
               platform: "youtube" as const,
               tracker: {
-                postedAt: new Date().toISOString(),
+                postedAt: publishAt.toISOString(),
+                uploadedAt: new Date().toISOString(),
                 status: "published",
                 videoId,
                 youtubeTitle: ytMetadata.title,
                 youtubeDescription: ytMetadata.description,
+                plannedUrl: youtubeTrackedUrl,
+                publishedUrl: youtubeTrackedUrl,
+                utmContent: readSocialUtmAttribution(youtubeTrackedUrl).content,
                 ...trackerFields(youtubeAsset),
                 ...trackerArchetypeFields("youtube"),
               },
@@ -2178,14 +2580,21 @@ export async function main(args = process.argv.slice(2)) {
     }
 
     // ── Instagram Reel ──
-    if (shouldRunInstagram && igVideoUrl && !trackerState.platforms.instagram) {
+    if (
+      shouldRunInstagram &&
+      igVideoUrl &&
+      shouldAttemptVideoPlatformPublish(trackerState.platforms.instagram, "instagram")
+    ) {
       publishTasks.push(
         (async () => {
           try {
             const instagramAsset = getPlatformVideoAsset(platformVideos, "instagram");
-            const result = await publishMetaVideo("instagram", igVideoUrl, igContent.caption, {
-              thumbOffset: 3000,
-            });
+            const result = await runTrackedPlatformPublish(
+              "instagram",
+              () => publishMetaVideo("instagram", igVideoUrl, igContent.caption, {
+                thumbOffset: 3000,
+              }),
+            );
             console.log(`Posted Reel to Instagram (Post ID: ${result.id})`);
             return {
               platform: "instagram" as const,
@@ -2208,7 +2617,11 @@ export async function main(args = process.argv.slice(2)) {
     }
 
     // ── Threads Post ──
-    if (shouldRunThreads && threadsVideoUrl && !trackerState.platforms.threads) {
+    if (
+      shouldRunThreads &&
+      threadsVideoUrl &&
+      shouldAttemptVideoPlatformPublish(trackerState.platforms.threads, "threads")
+    ) {
       publishTasks.push(
         (async () => {
           try {
@@ -2217,10 +2630,13 @@ export async function main(args = process.argv.slice(2)) {
               ? [{ entity_type: "SPOILER", offset: threadsContent.spoilerOffset, length: threadsContent.spoilerLength }]
               : [];
 
-            const result = await publishMetaVideo("threads", threadsVideoUrl, threadsContent.caption, {
-              topicTag: threadsContent.topicTag,
-              spoilerEntities,
-            });
+            const result = await runTrackedPlatformPublish(
+              "threads",
+              () => publishMetaVideo("threads", threadsVideoUrl, threadsContent.caption, {
+                topicTag: threadsContent.topicTag,
+                spoilerEntities,
+              }),
+            );
             console.log(`Posted video to Threads (Post ID: ${result.id})`);
             return {
               platform: "threads" as const,
@@ -2242,22 +2658,26 @@ export async function main(args = process.argv.slice(2)) {
       );
     }
 
-    if (shouldRunTikTokDirect && !trackerState.platforms.tiktok) {
+    if (shouldRunTikTokDirect && shouldAttemptVideoPlatformPublish(trackerState.platforms.tiktok, "tiktok")) {
       publishTasks.push(
         (async () => {
           try {
             const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
             const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
-            const result = await publishVideoDirectlyToTikTok({
-              videoPath: tiktokAsset.outputPath,
-              caption: safeTikTokCaption,
-            });
-            console.log(`Posted video directly to TikTok (Publish ID: ${result.publishId})`);
+            const result = await runTrackedPlatformPublish(
+              "tiktok",
+              () => publishVideoDirectlyToTikTok({
+                videoPath: tiktokAsset.outputPath,
+                caption: safeTikTokCaption,
+              }),
+            );
+            console.log(`Posted video directly to TikTok (Post ID: ${result.publicPostId})`);
             return {
               platform: "tiktok" as const,
               tracker: {
                 postedAt: new Date().toISOString(),
                 status: "published",
+                postId: result.publicPostId,
                 publishId: result.publishId,
                 tiktokStatus: result.status?.status,
                 tiktokFailReason: result.status?.fail_reason,
@@ -2278,15 +2698,19 @@ export async function main(args = process.argv.slice(2)) {
       );
     }
 
-    if (shouldRunTikTokInbox && !trackerState.platforms.tiktok) {
+    if (shouldRunTikTokInbox && shouldAttemptVideoPlatformPublish(trackerState.platforms.tiktok, "tiktok")) {
       publishTasks.push(
         (async () => {
           try {
             const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
             const safeTikTokCaption = normalizeTikTokCaption(tiktokCaption);
-            const result = await uploadVideoToTikTokInbox({
-              videoPath: tiktokAsset.outputPath,
-            });
+            const result = await runTrackedPlatformPublish(
+              "tiktok",
+              () => uploadVideoToTikTokInbox({
+                videoPath: tiktokAsset.outputPath,
+              }),
+              { finalizePublished: false },
+            );
             console.log(`Uploaded video to TikTok inbox (Publish ID: ${result.publishId})`);
 
             let reportSummaryMessageId: number | undefined;
@@ -2341,19 +2765,23 @@ export async function main(args = process.argv.slice(2)) {
       );
     }
 
-    if (shouldRunTikTokManual && !trackerState.platforms.tiktok) {
+    if (shouldRunTikTokManual && shouldAttemptVideoPlatformPublish(trackerState.platforms.tiktok, "tiktok")) {
       publishTasks.push(
         (async () => {
           try {
             const tiktokAsset = getPlatformVideoAsset(platformVideos, "tiktok");
-            const result = await sendTikTokManualPostReport({
-              videoBuffer: tiktokAsset.buffer,
-              caption: tiktokCaption,
-              tokenName: targetToken.name,
-              symbol: targetToken.symbol,
-              reason,
-              generatedAt: new Date().toISOString(),
-            });
+            const result = await runTrackedPlatformPublish(
+              "tiktok",
+              () => sendTikTokManualPostReport({
+                videoBuffer: tiktokAsset.buffer,
+                caption: tiktokCaption,
+                tokenName: targetToken.name,
+                symbol: targetToken.symbol,
+                reason,
+                generatedAt: new Date().toISOString(),
+              }),
+              { finalizePublished: false },
+            );
             console.log(
               `Sent TikTok manual package to reporting dialog (Video Message ID: ${result.videoMessageId})`,
             );
@@ -2383,37 +2811,61 @@ export async function main(args = process.argv.slice(2)) {
     for (const result of results) {
       if (result.tracker) {
         trackerState.platforms[result.platform] = result.tracker;
-        if (shouldRecordPublishedSocialPost(result.tracker)) {
-          await recordSocialPost({
-            platform: result.platform,
-            contentKey: getVideoSocialPostKey(today, targetToken.id, result.platform),
-            externalId: getPlatformTrackerExternalId(result.tracker),
-            postedAt: result.tracker.postedAt,
-            details: {
-              tokenId: targetToken.id,
-              tokenName: targetToken.name,
-              reason,
-              requestedPlatform: targetPlatform,
-              status: result.tracker.status,
-              archetypeKey: result.tracker.archetypeKey,
-              archetypeLabel: result.tracker.archetypeLabel,
-              hookFamily: result.tracker.hookFamily,
-              ctaFamily: result.tracker.ctaFamily,
-              formatKey: result.tracker.formatKey,
-              formatLabel: result.tracker.formatLabel,
-              visualRecipeKey: result.tracker.visualRecipeKey,
-              mediaAssetIds: result.tracker.mediaAssetIds,
-              deliveryMode: result.tracker.deliveryMode,
-              xText: result.tracker.xText,
-              caption: result.tracker.caption,
-              youtubeTitle: result.tracker.youtubeTitle,
-              youtubeDescription: result.tracker.youtubeDescription,
-              tiktokCaption: result.tracker.tiktokCaption,
-              variantSurface: "video",
-            },
-          });
-        }
       }
+    }
+
+    // Persist external IDs locally before the durable ledger write. If D1 is
+    // temporarily unavailable after a platform accepted the post, the next run
+    // can reconcile this evidence instead of creating a duplicate.
+    trackerState.postedAt = new Date().toISOString();
+    writeFileAtomicSync(trackerFile, JSON.stringify(trackerState, null, 2));
+
+    for (const result of results) {
+      if (result.tracker && shouldRecordPublishedSocialPost(result.tracker)) {
+        await recordSocialPost({
+          platform: result.platform,
+          contentKey: getVideoSocialPostKey(today, result.platform, socialSlotFor(result.platform)),
+          externalId: getPlatformTrackerExternalId(result.platform, result.tracker),
+          postedAt: result.tracker.postedAt,
+          details: {
+            tokenId: targetToken.id,
+            tokenName: targetToken.name,
+            reason,
+            requestedPlatform: targetPlatform,
+            status: result.tracker.status,
+            archetypeKey: result.tracker.archetypeKey,
+            archetypeLabel: result.tracker.archetypeLabel,
+            hookFamily: result.tracker.hookFamily,
+            ctaFamily: result.tracker.ctaFamily,
+            formatKey: result.tracker.formatKey,
+            formatLabel: result.tracker.formatLabel,
+            visualRecipeKey: result.tracker.visualRecipeKey,
+            mediaAssetIds: result.tracker.mediaAssetIds,
+            deliveryMode: result.tracker.deliveryMode,
+            xText: result.tracker.xText,
+            caption: result.tracker.caption,
+            youtubeTitle: result.tracker.youtubeTitle,
+            youtubeDescription: result.tracker.youtubeDescription,
+            tiktokCaption: result.tracker.tiktokCaption,
+            plannedUrl: result.tracker.plannedUrl,
+            publishedUrl: result.tracker.publishedUrl,
+            utmContent: result.tracker.utmContent,
+            variantSurface: "video",
+            marketDataSource: targetToken.marketDataSource,
+            marketDataAsOf: targetFreshness.asOf,
+            metricsAsOf: targetMetric.inputDataAsOf,
+          },
+        });
+      }
+    }
+
+    const ambiguousPlatforms = requestedPlatforms.filter(
+      (platform) => trackerState.platforms[platform]?.status === "outcome_unknown",
+    );
+    if (ambiguousPlatforms.length > 0) {
+      throw new Error(
+        `Publish outcome is unknown for ${ambiguousPlatforms.join(", ")}; reconcile those platform feeds before retrying.`,
+      );
     }
 
     const stagedKeysToDelete = [
@@ -2429,7 +2881,7 @@ export async function main(args = process.argv.slice(2)) {
       }
     }
 
-    const remainingPlatforms = requestedPlatforms.filter((platform) => !isPlatformCompleteForRun(trackerState.platforms[platform]));
+    const remainingPlatforms = requestedPlatforms.filter((platform) => !isPlatformCompleteForRun(platform, trackerState.platforms[platform]));
     if (remainingPlatforms.length > 0) {
       trackerState.postedAt = new Date().toISOString();
       writeFileAtomicSync(trackerFile, JSON.stringify(trackerState, null, 2));

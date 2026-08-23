@@ -10,13 +10,17 @@ import * as path from "path";
 import { fetchTokensByRank, CoinGeckoToken, fetchTrendingCoins } from "../../src/lib/coingecko";
 import { fetchXTrends, matchTrendsToTokens } from "../../src/lib/x-client";
 import {
-  STABLECOIN_IDS,
   TRENDING_COOLDOWN_DAYS,
   GENERAL_COOLDOWN_DAYS,
   VIDEO_COOLDOWN_DAYS,
   VIDEO_FORMAT_COOLDOWN_DAYS,
 } from "../../src/lib/config";
 import { safeReadJson } from "../../src/lib/utils";
+import { getPeggedAssetReason } from "../../src/lib/asset-classification";
+import {
+  CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS,
+  resolveProviderMarketTimestamp,
+} from "../../src/lib/market-data-quality";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -25,6 +29,38 @@ export interface MetricData {
   riskLevel: string;
   growthPotentialIndex: number;
   computedAt?: string;
+  marketDataAsOf?: string;
+  priceHistoryAsOf?: string;
+  categoryDataAsOf?: string;
+  inputDataAsOf?: string;
+}
+
+export function isMetricDataFreshForMarket(
+  metric: MetricData | undefined,
+  marketAsOf: string | undefined,
+  now: Date = new Date(),
+  maxInputSkewMinutes = 30,
+  maxComputedAgeHours = 6,
+  maxPriceHistoryAgeDays = 8,
+  maxCategoryInputAgeHours = CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS / (60 * 60 * 1000),
+): metric is MetricData {
+  if (!metric?.computedAt || !metric.marketDataAsOf || !metric.priceHistoryAsOf ||
+      !metric.categoryDataAsOf || !metric.inputDataAsOf || !marketAsOf) return false;
+  const computedAtMs = Date.parse(metric.computedAt);
+  const metricInputMs = Date.parse(metric.marketDataAsOf);
+  const priceHistoryMs = Date.parse(metric.priceHistoryAsOf);
+  const categoryInputMs = Date.parse(metric.categoryDataAsOf);
+  const oldestInputMs = Date.parse(metric.inputDataAsOf);
+  const marketMs = Date.parse(marketAsOf);
+  if (![computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs, marketMs].every(Number.isFinite)) return false;
+  const futureToleranceMs = 2 * 60 * 1000;
+  if ([computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs]
+    .some((timestamp) => timestamp > now.getTime() + futureToleranceMs)) return false;
+  if (now.getTime() - computedAtMs > maxComputedAgeHours * 60 * 60 * 1000) return false;
+  if (now.getTime() - priceHistoryMs > maxPriceHistoryAgeDays * 24 * 60 * 60 * 1000) return false;
+  if (now.getTime() - categoryInputMs >= maxCategoryInputAgeHours * 60 * 60 * 1000) return false;
+  if (oldestInputMs !== Math.min(metricInputMs, priceHistoryMs, categoryInputMs)) return false;
+  return Math.abs(metricInputMs - marketMs) <= maxInputSkewMinutes * 60 * 1000;
 }
 
 export interface TokenData {
@@ -90,6 +126,8 @@ const MIN_SOCIAL_VOLUME_24H = 50_000;
 const MIN_SOCIAL_VOLUME_TO_CAP_RATIO = 0.001;
 const MIN_NEWLY_PUBLISHED_ABS_CHANGE_24H = 1;
 const MIN_NEWLY_PUBLISHED_VOLUME_TO_CAP_RATIO = 0.005;
+export const DEFAULT_SOCIAL_MARKET_DATA_MAX_AGE_MS = 15 * 60 * 1000;
+export const SOCIAL_MARKET_DATA_CLOCK_SKEW_MS = 2 * 60 * 1000;
 const TRACKER_PLATFORMS = new Set<TrackerPlatform>([
   "telegram",
   "x",
@@ -118,6 +156,20 @@ function volumeToMarketCapRatio(token: TokenData): number {
   const { volume24h, marketCap } = token.market;
   if (!Number.isFinite(volume24h) || !Number.isFinite(marketCap) || marketCap <= 0) return 0;
   return volume24h / marketCap;
+}
+
+export function isFreshSocialMarketData(
+  token: Pick<TokenData, "marketDataSource" | "lastMarketUpdate" | "fetchedAt">,
+  now: Date = new Date(),
+  maxAgeMs: number = DEFAULT_SOCIAL_MARKET_DATA_MAX_AGE_MS,
+): boolean {
+  if (token.marketDataSource !== "coingecko-live") return false;
+  const timestamp = token.lastMarketUpdate || token.fetchedAt;
+  if (!timestamp) return false;
+  const updatedAt = Date.parse(timestamp);
+  if (!Number.isFinite(updatedAt)) return false;
+  const ageMs = now.getTime() - updatedAt;
+  return ageMs >= -SOCIAL_MARKET_DATA_CLOCK_SKEW_MS && ageMs <= maxAgeMs;
 }
 
 function hasUsableSocialMarketData(token: TokenData): boolean {
@@ -402,11 +454,20 @@ export async function loadCandidateTokens(
   dataDir: string,
   startRank: number = 1,
   endRank: number = 250,
+  options: {
+    requireFreshMarketData?: boolean;
+    now?: Date;
+    maxMarketDataAgeMs?: number;
+  } = {},
 ): Promise<{ 
   candidates: TokenData[]; 
   allRegistry: { id: string; name: string; symbol: string }[];
   onWebsiteIds: Set<string>;
 }> {
+  const requireFreshMarketData = options.requireFreshMarketData !== false;
+  const now = options.now || new Date();
+  const maxMarketDataAgeMs = options.maxMarketDataAgeMs || DEFAULT_SOCIAL_MARKET_DATA_MAX_AGE_MS;
+
   // Only tokens with an overview page should deep-link back into the site.
   const contentDir = path.resolve(dataDir, "..", "content", "tokens");
   const onWebsiteIds = new Set<string>();
@@ -422,7 +483,12 @@ export async function loadCandidateTokens(
   // Fetch fresh market data
   let freshMarkets: CoinGeckoToken[] = [];
   try {
-    freshMarkets = await fetchTokensByRank(startRank, endRank);
+    freshMarkets = await fetchTokensByRank(startRank, endRank, {
+      // The cache used by generic data jobs is intentionally longer. Social
+      // publishing uses a cache horizon below its freshness SLA so an old
+      // cache entry cannot create a two-hour rejection loop.
+      cacheTtlMs: Math.min(maxMarketDataAgeMs, 10 * 60 * 1000),
+    });
     console.log(` ✓ Received ${freshMarkets.length} tokens from CoinGecko`);
   } catch (e) {
     console.warn(`  ⚠ Failed to fetch live data: ${e instanceof Error ? e.message : String(e)}`);
@@ -440,17 +506,29 @@ export async function loadCandidateTokens(
   const tokens: TokenData[] = tokenFiles.map((f) => {
     const local: any = safeReadJson(path.join(tokensDir, f), null);
     if (!local || !local.id) return null;
-    const fresh = freshMarkets.find((t) => t.id === local.id);
-    const freshRecord = fresh as Record<string, unknown> | undefined;
-    const freshMarketTimestamp = fresh
-      ? typeof freshRecord?.last_updated === "string" && freshRecord.last_updated
-        ? freshRecord.last_updated
-        : new Date().toISOString()
-      : undefined;
+    const freshCandidate = freshMarkets.find((t) => t.id === local.id);
+    const hasCompleteFreshMarket = Boolean(
+      freshCandidate &&
+      finiteNumber(freshCandidate.current_price) !== undefined &&
+      finiteNumber(freshCandidate.price_change_percentage_24h) !== undefined &&
+      finiteNumber(freshCandidate.market_cap) !== undefined &&
+      finiteNumber(freshCandidate.market_cap_rank) !== undefined &&
+      finiteNumber(freshCandidate.total_volume) !== undefined &&
+      Number(freshCandidate.current_price) > 0 &&
+      Number(freshCandidate.market_cap) > 0 &&
+      Number(freshCandidate.market_cap_rank) > 0
+    );
+    const completeFresh = hasCompleteFreshMarket ? freshCandidate : undefined;
+    const completeFreshRecord = completeFresh as Record<string, unknown> | undefined;
     const localFetchedAt = typeof local.fetchedAt === "string" ? local.fetchedAt : undefined;
-    const localLastMarketUpdate = typeof local.lastMarketUpdate === "string" ? local.lastMarketUpdate : localFetchedAt;
+    const localProviderMarketUpdate = typeof local.lastMarketUpdate === "string" ? local.lastMarketUpdate : undefined;
+    const localLastMarketUpdate = localProviderMarketUpdate || localFetchedAt;
+    const freshMarketTimestamp = completeFresh
+      ? resolveProviderMarketTimestamp(completeFreshRecord?.last_updated)
+      : undefined;
+    const fresh = completeFresh && freshMarketTimestamp ? completeFresh : undefined;
+    const freshRecord = fresh as Record<string, unknown> | undefined;
     const freshPriceChange7d = finiteNumber(freshRecord?.price_change_percentage_7d_in_currency);
-    const localPriceChange7d = finiteNumber(local.market?.priceChange7d);
 
     return {
       id: local.id,
@@ -473,23 +551,44 @@ export async function loadCandidateTokens(
         commits4Weeks: local.developer?.commits4Weeks ?? null,
       },
       market: {
-        price: fresh?.current_price || local.market?.price || 0,
-        // Only trust priceChange24h from live API — stale local values
-        // can be wildly outdated (e.g., 588,000% from a one-time pump)
-        // and permanently dominate the top-gainer selection.
-        priceChange24h: fresh?.price_change_percentage_24h ?? 0,
-        priceChange7d: freshPriceChange7d ?? localPriceChange7d ?? null,
-        marketCap: fresh?.market_cap || local.market?.marketCap || 0,
-        marketCapRank: fresh?.market_cap_rank || local.market?.marketCapRank || 999,
-        volume24h: fresh?.total_volume || local.market?.volume24h || 0,
+        price: fresh?.current_price ?? local.market?.price ?? 0,
+        priceChange24h: fresh?.price_change_percentage_24h ?? local.market?.priceChange24h ?? 0,
+        priceChange7d: fresh ? freshPriceChange7d ?? null : finiteNumber(local.market?.priceChange7d) ?? null,
+        marketCap: fresh?.market_cap ?? local.market?.marketCap ?? 0,
+        marketCapRank: fresh?.market_cap_rank ?? local.market?.marketCapRank ?? 999,
+        volume24h: fresh?.total_volume ?? local.market?.volume24h ?? 0,
       },
     };
   }).filter(Boolean) as TokenData[];
 
-  // Filter by rank + exclude stablecoins
-  const candidates = tokens.filter(
-    (t) => t.rank >= startRank && t.rank <= endRank && !STABLECOIN_IDS.has(t.id),
-  );
+  // Price-sensitive social posts must use a current live snapshot. Local cache
+  // remains available to non-social tooling through requireFreshMarketData=false.
+  const candidates = tokens.filter((token) => {
+    if (token.rank < startRank || token.rank > endRank) return false;
+
+    const peggedReason = getPeggedAssetReason({
+      id: token.id,
+      symbol: token.symbol,
+      name: token.name,
+      categories: token.categories,
+      description: token.description,
+      price: token.market.price,
+      change24h: token.market.priceChange24h,
+      change7d: token.market.priceChange7d,
+    });
+    if (peggedReason) {
+      console.info(`  Excluding pegged asset ${token.name} (${token.symbol}): ${peggedReason}.`);
+      return false;
+    }
+
+    return !requireFreshMarketData || isFreshSocialMarketData(token, now, maxMarketDataAgeMs);
+  });
+
+  if (requireFreshMarketData && candidates.length === 0) {
+    throw new Error(
+      `No fresh CoinGecko market candidates were available within ${Math.round(maxMarketDataAgeMs / 60_000)} minutes; refusing to publish price-sensitive social content.`,
+    );
+  }
 
   const allRegistry = tokens.map((t) => ({ id: t.id, name: t.name, symbol: t.symbol }));
 

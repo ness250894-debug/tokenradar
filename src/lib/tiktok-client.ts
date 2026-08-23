@@ -10,6 +10,8 @@ const MIN_VIDEO_CHUNK_SIZE = 5 * 1024 * 1024;
 const MAX_VIDEO_CHUNK_SIZE = 64 * 1024 * 1024;
 const TIKTOK_FETCH_RETRIES = 3;
 const TIKTOK_FETCH_RETRY_DELAY_MS = 1_000;
+const DEFAULT_DIRECT_POST_POLL_INTERVAL_MS = 5_000;
+const DEFAULT_DIRECT_POST_POLL_TIMEOUT_MS = 120_000;
 
 export const TIKTOK_UPLOAD_SCOPE = "video.upload";
 export const TIKTOK_PUBLISH_SCOPE = "video.publish";
@@ -100,6 +102,9 @@ export interface TikTokUploadVideoResult {
 export interface TikTokDirectPostVideoOptions extends TikTokUploadVideoOptions {
   caption: string;
   privacyLevel?: TikTokPrivacyLevel;
+  /** Primarily exposed so deterministic tests do not wait between status reads. */
+  pollIntervalMs?: number;
+  pollTimeoutMs?: number;
 }
 
 export interface TikTokCreatorInfo {
@@ -124,12 +129,44 @@ interface TikTokCreatorInfoResponse {
 export interface TikTokDirectPostVideoResult extends TikTokUploadVideoResult {
   creatorInfo?: TikTokCreatorInfo;
   privacyLevel: TikTokPrivacyLevel;
+  /** Public post evidence; the upload operation's publishId is not a post ID. */
+  publicPostId: string;
+}
+
+export class TikTokPublishOutcomeUnknownError extends Error {
+  override readonly cause: unknown;
+  readonly publishId: string;
+
+  constructor(publishId: string, cause: unknown) {
+    super(`TikTok publish ${publishId} did not reach a verifiable public terminal state.`);
+    this.name = "TikTokPublishOutcomeUnknownError";
+    this.publishId = publishId;
+    this.cause = cause;
+  }
+}
+
+export function isTikTokPublishOutcomeUnknownError(
+  error: unknown,
+): error is TikTokPublishOutcomeUnknownError {
+  return error instanceof TikTokPublishOutcomeUnknownError;
 }
 
 interface TikTokChunkPlan {
   videoSize: number;
   chunkSize: number;
   totalChunkCount: number;
+}
+
+class TikTokChunkUploadError extends Error {
+  override readonly cause: unknown;
+  readonly finalChunkOutcomeMayBeUnknown: boolean;
+
+  constructor(message: string, cause: unknown, finalChunkOutcomeMayBeUnknown: boolean) {
+    super(message);
+    this.name = "TikTokChunkUploadError";
+    this.cause = cause;
+    this.finalChunkOutcomeMayBeUnknown = finalChunkOutcomeMayBeUnknown;
+  }
 }
 
 function getTikTokApiBaseUrl(): string {
@@ -455,21 +492,32 @@ async function uploadChunks(uploadUrl: string, videoPath: string, plan: TikTokCh
       const buffer = Buffer.alloc(chunkLength);
       await handle.read(buffer, 0, chunkLength, start);
 
-      const response = await fetchTikTok(uploadUrl, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "video/mp4",
-          "Content-Length": String(chunkLength),
-          "Content-Range": `bytes ${start}-${end}/${plan.videoSize}`,
-        },
-        body: buffer,
-      });
+      let response: Response;
+      try {
+        response = await fetchTikTok(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "video/mp4",
+            "Content-Length": String(chunkLength),
+            "Content-Range": `bytes ${start}-${end}/${plan.videoSize}`,
+          },
+          body: buffer,
+        });
+      } catch (error) {
+        throw new TikTokChunkUploadError(
+          `TikTok chunk upload transport failed at chunk ${chunkIndex + 1}/${plan.totalChunkCount}.`,
+          error,
+          isFinalChunk,
+        );
+      }
 
       if (!response.ok) {
         const responseText = await response.text().catch(() => "");
-        throw new Error(
+        throw new TikTokChunkUploadError(
           `TikTok chunk upload failed at chunk ${chunkIndex + 1}/${plan.totalChunkCount}: ` +
             `${response.status} ${response.statusText} ${responseText}`.trim(),
+          new Error(`HTTP ${response.status}`),
+          isFinalChunk && (response.status === 408 || response.status >= 500),
         );
       }
     }
@@ -526,14 +574,81 @@ export async function publishVideoDirectlyToTikTok(
     privacyLevel,
   );
 
-  await uploadChunks(uploadUrl, options.videoPath, plan);
-
-  let status: TikTokPostStatus | undefined;
   try {
-    status = await getTikTokPostStatus(publishId, accessToken);
-  } catch {
-    status = undefined;
+    await uploadChunks(uploadUrl, options.videoPath, plan);
+  } catch (error) {
+    if (!(error instanceof TikTokChunkUploadError) || !error.finalChunkOutcomeMayBeUnknown) {
+      throw error;
+    }
+    let reconciledStatus: TikTokPostStatus;
+    try {
+      reconciledStatus = await getTikTokPostStatus(publishId, accessToken);
+    } catch (statusError) {
+      throw new TikTokPublishOutcomeUnknownError(publishId, statusError);
+    }
+    const state = reconciledStatus.status?.trim().toUpperCase();
+    if (state === "PUBLISH_COMPLETE") {
+      const publicPostId = reconciledStatus.publicaly_available_post_id
+        ?.find((value) => typeof value === "string" && value.trim())
+        ?.trim();
+      if (publicPostId) {
+        return {
+          publishId,
+          publicPostId,
+          status: reconciledStatus,
+          creatorInfo,
+          privacyLevel,
+        };
+      }
+    }
+    if (state && /(?:FAIL|ERROR)/.test(state)) {
+      throw new Error(
+        `TikTok direct post ${publishId} failed with status ${state}: ${reconciledStatus.fail_reason || "unknown reason"}`,
+      );
+    }
+    throw new TikTokPublishOutcomeUnknownError(publishId, error);
   }
 
-  return { publishId, status, creatorInfo, privacyLevel };
+  const pollIntervalMs = Math.max(0, options.pollIntervalMs ?? DEFAULT_DIRECT_POST_POLL_INTERVAL_MS);
+  const pollTimeoutMs = Math.max(1, options.pollTimeoutMs ?? DEFAULT_DIRECT_POST_POLL_TIMEOUT_MS);
+  const deadline = Date.now() + pollTimeoutMs;
+  let status: TikTokPostStatus | undefined;
+  let lastStatusError: unknown;
+
+  while (Date.now() <= deadline) {
+    try {
+      status = await getTikTokPostStatus(publishId, accessToken);
+      lastStatusError = undefined;
+    } catch (error) {
+      lastStatusError = error;
+    }
+
+    const state = status?.status?.trim().toUpperCase();
+    if (state === "PUBLISH_COMPLETE") {
+      const publicPostId = status?.publicaly_available_post_id
+        ?.find((value) => typeof value === "string" && value.trim())
+        ?.trim();
+      if (!publicPostId) {
+        throw new TikTokPublishOutcomeUnknownError(
+          publishId,
+          new Error("TikTok reported PUBLISH_COMPLETE without a public post ID."),
+        );
+      }
+      return { publishId, publicPostId, status, creatorInfo, privacyLevel };
+    }
+    if (state && /(?:FAIL|ERROR)/.test(state)) {
+      throw new Error(
+        `TikTok direct post ${publishId} failed with status ${state}: ${status?.fail_reason || "unknown reason"}`,
+      );
+    }
+    if (Date.now() >= deadline) break;
+    if (pollIntervalMs > 0) {
+      await new Promise<void>((resolve) => setTimeout(resolve, pollIntervalMs));
+    }
+  }
+
+  throw new TikTokPublishOutcomeUnknownError(
+    publishId,
+    lastStatusError || new Error(`Last TikTok status: ${status?.status || "unavailable"}`),
+  );
 }

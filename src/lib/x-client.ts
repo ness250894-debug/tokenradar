@@ -97,11 +97,38 @@ export function validateXCredentials(): OAuth2Credentials {
 const MAX_X_RETRIES = 3;
 const X_VIDEO_APPEND_CHUNK_SIZE_BYTES = 1_000_000;
 
+export class XCreateOutcomeUnknownError extends Error {
+  readonly status?: number;
+  override readonly cause: unknown;
+
+  constructor(label: string, cause: unknown, status?: number) {
+    super(
+      `X API [${label}] returned an ambiguous create outcome. The request will not be retried automatically; reconcile the account feed before retrying.`,
+    );
+    this.name = "XCreateOutcomeUnknownError";
+    this.status = status;
+    this.cause = cause;
+  }
+}
+
+export function isXCreateOutcomeUnknownError(error: unknown): error is XCreateOutcomeUnknownError {
+  return error instanceof XCreateOutcomeUnknownError ||
+    (error instanceof Error && error.name === "XCreateOutcomeUnknownError");
+}
+
+interface XRetryOptions {
+  nonIdempotentCreate?: boolean;
+}
+
 /**
  * Executes an X API call with exponential backoff retries.
  * Handles transient errors like 503 Service Unavailable.
  */
-async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  label: string,
+  options: XRetryOptions = {},
+): Promise<T> {
   let lastError: unknown;
   for (let attempt = 1; attempt <= MAX_X_RETRIES; attempt++) {
     try {
@@ -119,11 +146,22 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       const isBodyConsumedBug = message.includes("Body is unusable") || message.includes("already been read");
       if (isBodyConsumedBug) {
         console.warn(`  ⚠ X API [${label}] hit XDK response body bug (non-retryable): ${message.slice(0, 200)}`);
+        if (options.nonIdempotentCreate) {
+          throw new XCreateOutcomeUnknownError(label, error, status);
+        }
         throw error;
       }
 
-      // Retry on 503 (Service Unavailable) or 500 (Internal Error), or networking errors
-      const shouldRetry = status === 503 || status === 500 || !status;
+      // These statuses and transport failures may arrive after a create was
+      // accepted, so non-idempotent calls must be reconciled rather than retried.
+      const shouldRetry = [408, 500, 502, 503, 504].includes(status || 0) || !status;
+
+      if (shouldRetry && options.nonIdempotentCreate) {
+        console.warn(
+          `  ⚠ X API [${label}] create outcome is ambiguous (HTTP ${status || "Network"}); not retrying automatically.`,
+        );
+        throw new XCreateOutcomeUnknownError(label, error, status);
+      }
       
       if (shouldRetry && attempt < MAX_X_RETRIES) {
         const delay = 1000 * Math.pow(2, attempt - 1);
@@ -503,47 +541,26 @@ export function diversifyXPostText(
     return cleanText;
   }
 
-  const cashtag = cleanText.match(/\$[A-Z][A-Z0-9]{0,9}\b/i)?.[0].toUpperCase();
-  const subject = cashtag || "This setup";
-  const rewriteFrames = [
-    `${subject} is not interesting because of one candle. Confirmation quality decides whether the read survives. What would invalidate it first? #Crypto`,
-    `The useful ${subject} read is risk-first: liquidity, follow-through, then narrative. If one filter fails, the setup gets noisier. #Crypto`,
-    `${subject} stays on the watchlist only if the data keeps improving after the first move. The next filter is follow-through. #Crypto`,
-    `For ${subject}, the better question is not upside. It is whether the current move has enough confirmation to avoid being noise. #Crypto`,
-    `Process note on ${subject}: headline moves get attention, but TokenRadar cares about risk score, liquidity, and confirmation. #Crypto`,
-  ];
-  const rewriteStartIndex = seed
-    ? Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % rewriteFrames.length
-    : 0;
-
-  for (let offset = 0; offset < rewriteFrames.length; offset++) {
-    const frame = rewriteFrames[(rewriteStartIndex + offset) % rewriteFrames.length];
-    const diversified = truncateForX(sanitizeCashtags(frame), maxLength);
-    if (!isTooSimilarForXPost(diversified, recentPosts)) {
-      return diversified;
-    }
+  // Preserve every generated fact and its source/as-of attribution. Adding a
+  // stock market claim here would bypass the generated-copy validation gate.
+  // Structural punctuation and neutral labels provide a small variation only
+  // when they fit without truncating the already-validated text.
+  const structuralRewrite = cleanText.replace(
+    /^(\$[A-Z][A-Z0-9]{0,9}\s+[^:\n]{1,60}):\s*/i,
+    "$1 — ",
+  );
+  if (structuralRewrite !== cleanText && structuralRewrite.length <= maxLength) {
+    return structuralRewrite;
   }
 
-  const diversityLines = [
-    "Watch confirmation, not the first candle.",
-    "The invalidation matters more than the headline move.",
-    "Liquidity and follow-through are the next filters.",
-    "A clean retest would matter more than another green candle.",
-    "Volume quality decides whether this signal survives.",
-  ];
+  const neutralLabels = ["Snapshot check", "Research note", "Data check"];
   const startIndex = seed
-    ? Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % diversityLines.length
+    ? Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % neutralLabels.length
     : 0;
-
-  for (let offset = 0; offset < diversityLines.length; offset++) {
-    const line = diversityLines[(startIndex + offset) % diversityLines.length];
-    const suffix = `\n\n${line}`;
-    const bodyBudget = maxLength - suffix.length;
-    if (bodyBudget < 40) continue;
-
-    const body = truncateForX(cleanText, bodyBudget).replace(/\.\.\.$/, "").trim();
-    const diversified = sanitizeCashtags(`${body}${suffix}`);
-    if (!isTooSimilarForXPost(diversified, recentPosts)) {
+  for (let offset = 0; offset < neutralLabels.length; offset++) {
+    const label = neutralLabels[(startIndex + offset) % neutralLabels.length];
+    const diversified = `${label}: ${cleanText}`;
+    if (diversified.length <= maxLength && !isTooSimilarForXPost(diversified, recentPosts)) {
       return diversified;
     }
   }
@@ -576,10 +593,13 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
         text: cleanText,
         ...(replyToTweetId ? { reply: { inReplyToTweetId: replyToTweetId } } : {}),
       }),
-      "postTweet"
+      "postTweet",
+      { nonIdempotentCreate: true },
     );
     const tweetId = response?.data?.id;
-    if (!tweetId) throw new Error("No tweet ID in response");
+    if (!tweetId) {
+      throw new XCreateOutcomeUnknownError("postTweet", new Error("No tweet ID in response"));
+    }
     return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
@@ -598,13 +618,15 @@ export async function postTweet(text: string, replyToTweetId?: string): Promise<
  * @param mediaBuffer - File as a Buffer
  * @param mimeType - Optional mime type (default: image/png, use video/mp4 for videos)
  * @param replyToTweetId - Optional ID of a tweet to reply to (creating a thread)
+ * @param altText - Optional image description attached before the post is created
  * @returns Tweet ID
  */
 export async function postTweetWithMedia(
   text: string,
   mediaBuffer: Buffer,
   mimeType: string = "image/png",
-  replyToTweetId?: string
+  replyToTweetId?: string,
+  altText?: string,
 ): Promise<string> {
   const client = await getXClient();
 
@@ -736,6 +758,24 @@ export async function postTweetWithMedia(
       mediaId = String(uploadData?.id ?? uploadData?.media_id_string ?? "");
       if (mediaId) {
         console.info(`  ✓ Image uploaded (media_id: ${mediaId}, type: ${mimeType})`);
+        const normalizedAltText = altText?.replace(/\s+/g, " ").trim().slice(0, 1000);
+        if (normalizedAltText) {
+          try {
+            await withRetry(
+              () => client.media.createMetadata({
+                id: mediaId as string,
+                metadata: { altText: { text: normalizedAltText } },
+              }),
+              "mediaAltText",
+            );
+          } catch (error) {
+            // Accessibility metadata is part of the requested media publish.
+            // Do not silently publish that image after metadata attachment fails.
+            mediaId = undefined;
+            throw error;
+          }
+          console.info("  ✓ Image alt text attached");
+        }
       }
     }
   } catch (_e: unknown) {
@@ -746,8 +786,6 @@ export async function postTweetWithMedia(
       throw _e;
     }
     console.warn(`  ⚠ Media upload failed, falling back to text-only: ${mediaError}`);
-    // Add unique timestamp footprint to bypass X's 403 Duplicate Content filter
-    cleanText = truncateForX(cleanText, 250) + `\n\n[🔄 ${Date.now().toString().slice(-4)}]`;
   }
 
   try {
@@ -761,10 +799,13 @@ export async function postTweetWithMedia(
 
     const response = await withRetry(
       () => client.posts.create(tweetBody),
-      "postTweetWithMedia"
+      "postTweetWithMedia",
+      { nonIdempotentCreate: true },
     );
     const tweetId = response?.data?.id;
-    if (!tweetId) throw new Error("No tweet ID in response");
+    if (!tweetId) {
+      throw new XCreateOutcomeUnknownError("postTweetWithMedia", new Error("No tweet ID in response"));
+    }
     return tweetId;
   } catch (_e: unknown) {
     const e = _e as Record<string, unknown>;
@@ -834,13 +875,17 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
           durationMinutes: duration,
         },
       }),
-      "nativePoll"
+      "nativePoll",
+      { nonIdempotentCreate: true },
     );
     const tweetId = response?.data?.id;
-    if (!tweetId) throw new Error("No tweet ID in response");
+    if (!tweetId) {
+      throw new XCreateOutcomeUnknownError("nativePoll", new Error("No tweet ID in response"));
+    }
     console.info("  ✓ Native poll created successfully");
     return { tweetId, native: true };
   } catch (_e: unknown) {
+    if (isXCreateOutcomeUnknownError(_e)) throw _e;
     const e = _e as Record<string, unknown>;
     const errorMsg = redactSensitiveText(String(e?.message || e?.data || e));
     console.warn(`  ⚠ Native poll failed: ${errorMsg}`);
@@ -867,10 +912,13 @@ export async function postPoll(poll: PollOptions): Promise<{ tweetId: string; na
   try {
     const response = await withRetry(
       () => client.posts.create({ text: fallbackText }),
-      "fallbackPoll"
+      "fallbackPoll",
+      { nonIdempotentCreate: true },
     );
     const tweetId = response?.data?.id;
-    if (!tweetId) throw new Error("No tweet ID in response");
+    if (!tweetId) {
+      throw new XCreateOutcomeUnknownError("fallbackPoll", new Error("No tweet ID in response"));
+    }
     console.info("  ✓ Text-based fallback poll posted successfully");
     return { tweetId, native: false };
   } catch (_e2: unknown) {

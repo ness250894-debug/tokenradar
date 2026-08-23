@@ -6,6 +6,7 @@ import {
   resolveSharedVideoRenderPlatform,
   resolveVideoDailyPlatformFlags,
   resolveVideoDailyPlatformPlan,
+  shouldAttemptVideoPlatformPublish,
   type VideoDailyCredentialState,
 } from "../scripts/post-video-daily";
 
@@ -19,6 +20,10 @@ const noCredentials: VideoDailyCredentialState = {
 };
 
 describe("post-video-daily CLI planning", () => {
+  it("defaults the documented no-argument command to the production YouTube route", () => {
+    expect(parseVideoDailyCliOptions([]).targetPlatform).toBe("youtube");
+  });
+
   it("parses dry-run route and output options without executing the poster", () => {
     expect(parseVideoDailyCliOptions([
       "--platform",
@@ -100,5 +105,17 @@ describe("post-video-daily CLI planning", () => {
     expect(caption).toContain("Educational market context.");
     expect(caption).toContain("Confirm liquidity, risk, and invalidation.");
     expect(caption).not.toMatch(/\b(?:signal|strong buy|entry|target|price prediction)\b/i);
+  });
+
+  it("retries only non-terminal platform trackers after a mixed-result run", () => {
+    expect(shouldAttemptVideoPlatformPublish({
+      status: "published",
+      videoId: "youtube-1",
+    })).toBe(false);
+    expect(shouldAttemptVideoPlatformPublish({
+      status: "failed",
+    })).toBe(true);
+    expect(shouldAttemptVideoPlatformPublish(undefined)).toBe(true);
+    expect(shouldAttemptVideoPlatformPublish({ publishId: "inbox-operation" }, "tiktok")).toBe(true);
   });
 });

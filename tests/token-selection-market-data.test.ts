@@ -18,7 +18,11 @@ vi.mock("../src/lib/x-client", () => ({
   matchTrendsToTokens: vi.fn().mockReturnValue([]),
 }));
 
-import { loadCandidateTokens } from "../scripts/lib/token-selection";
+import {
+  isFreshSocialMarketData,
+  isMetricDataFreshForMarket,
+  loadCandidateTokens,
+} from "../scripts/lib/token-selection";
 
 const tempDirs: string[] = [];
 
@@ -38,6 +42,33 @@ afterEach(() => {
     fs.rmSync(dir, { recursive: true, force: true });
   }
   vi.clearAllMocks();
+});
+
+describe("derived metric category freshness", () => {
+  const now = new Date("2026-08-23T12:00:00.000Z");
+  const metricAtCategoryTime = (categoryDataAsOf: string) => ({
+    riskScore: 4,
+    riskLevel: "medium",
+    growthPotentialIndex: 50,
+    computedAt: "2026-08-23T11:59:00.000Z",
+    marketDataAsOf: "2026-08-23T11:55:00.000Z",
+    priceHistoryAsOf: "2026-08-22T12:00:00.000Z",
+    categoryDataAsOf,
+    inputDataAsOf: categoryDataAsOf,
+  });
+
+  it("accepts category provenance below 36 hours and rejects the exact boundary", () => {
+    expect(isMetricDataFreshForMarket(
+      metricAtCategoryTime("2026-08-22T00:01:00.000Z"),
+      "2026-08-23T11:55:00.000Z",
+      now,
+    )).toBe(true);
+    expect(isMetricDataFreshForMarket(
+      metricAtCategoryTime("2026-08-22T00:00:00.000Z"),
+      "2026-08-23T11:55:00.000Z",
+      now,
+    )).toBe(false);
+  });
 });
 
 describe("loadCandidateTokens market timestamps", () => {
@@ -86,7 +117,13 @@ describe("loadCandidateTokens market timestamps", () => {
       },
     ]);
 
-    const { candidates } = await loadCandidateTokens(dataDir, 1, 50);
+    const { candidates } = await loadCandidateTokens(dataDir, 1, 50, {
+      requireFreshMarketData: false,
+    });
+
+    expect(coingeckoMocks.fetchTokensByRank).toHaveBeenCalledWith(1, 50, {
+      cacheTtlMs: 10 * 60 * 1000,
+    });
 
     expect(candidates.find((token) => token.id === "fresh-token")).toMatchObject({
       marketDataSource: "coingecko-live",
@@ -102,5 +139,92 @@ describe("loadCandidateTokens market timestamps", () => {
       fetchedAt: "2026-05-16T00:00:00.000Z",
       lastMarketUpdate: "2026-05-16T12:00:00.000Z",
     });
+  });
+
+  it("ignores an undated CoinGecko market snapshot instead of mixing its values with local provenance", async () => {
+    const dataDir = makeDataDir();
+    writeToken(dataDir, {
+      id: "undated-token",
+      symbol: "old",
+      name: "Undated Token",
+      market: {
+        price: 1,
+        priceChange24h: 0,
+        marketCap: 1_000_000,
+        marketCapRank: 10,
+        volume24h: 100_000,
+      },
+      fetchedAt: "2026-05-17T00:00:00.000Z",
+      lastMarketUpdate: "2026-05-17T12:00:00.000Z",
+    });
+    coingeckoMocks.fetchTokensByRank.mockResolvedValueOnce([{
+      id: "undated-token",
+      symbol: "old",
+      name: "Undated Token",
+      current_price: 1.5,
+      price_change_percentage_24h: 2,
+      market_cap: 1_500_000,
+      market_cap_rank: 10,
+      total_volume: 150_000,
+    }]);
+
+    const { candidates } = await loadCandidateTokens(dataDir, 1, 50, {
+      requireFreshMarketData: false,
+    });
+
+    expect(candidates[0]).toMatchObject({
+      marketDataSource: "local-cache",
+      lastMarketUpdate: "2026-05-17T12:00:00.000Z",
+      market: { price: 1, priceChange24h: 0 },
+    });
+  });
+
+  it("fails closed when only stale or local-cache market data is available", async () => {
+    const dataDir = makeDataDir();
+    writeToken(dataDir, {
+      id: "local-token",
+      symbol: "local",
+      name: "Local Token",
+      market: {
+        price: 2,
+        priceChange24h: 1,
+        marketCap: 2_000_000,
+        marketCapRank: 20,
+        volume24h: 200_000,
+      },
+      lastMarketUpdate: "2026-08-23T09:00:00.000Z",
+    });
+    coingeckoMocks.fetchTokensByRank.mockRejectedValueOnce(new Error("API unavailable"));
+
+    await expect(loadCandidateTokens(dataDir, 1, 50, {
+      now: new Date("2026-08-23T12:00:00.000Z"),
+    })).rejects.toThrow("No fresh CoinGecko market candidates");
+  });
+
+  it("accepts only a recent live CoinGecko timestamp", () => {
+    expect(isFreshSocialMarketData({
+      marketDataSource: "coingecko-live",
+      lastMarketUpdate: "2026-08-23T11:50:00.000Z",
+    }, new Date("2026-08-23T12:00:00.000Z"))).toBe(true);
+
+    expect(isFreshSocialMarketData({
+      marketDataSource: "coingecko-live",
+      lastMarketUpdate: "2026-08-23T11:30:00.000Z",
+    }, new Date("2026-08-23T12:00:00.000Z"))).toBe(false);
+
+    expect(isFreshSocialMarketData({
+      marketDataSource: "local-cache",
+      lastMarketUpdate: "2026-08-23T11:59:00.000Z",
+    }, new Date("2026-08-23T12:00:00.000Z"))).toBe(false);
+
+    expect(isFreshSocialMarketData({
+      marketDataSource: "coingecko-live",
+      lastMarketUpdate: "2026-08-23T12:01:00.000Z",
+    }, new Date("2026-08-23T12:00:00.000Z"))).toBe(true);
+
+    expect(isFreshSocialMarketData({
+      marketDataSource: "coingecko-live",
+      lastMarketUpdate: "2026-08-23T12:03:00.000Z",
+    }, new Date("2026-08-23T12:00:00.000Z"))).toBe(false);
   });
 });

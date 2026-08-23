@@ -44,6 +44,7 @@ describe("social ledger backfill", () => {
       hookFamily: "risk-first",
       ctaFamily: "name-invalidation",
       xText: "$BTC needs confirmation before the move matters.",
+      socialSlot: "x-market-update",
     });
     writeJson(path.join(dataDir, "posted", "2026-05-16", "daily-telegram-poll.json"), {
       postedAt: "2026-05-16T15:05:00.000Z",
@@ -70,11 +71,27 @@ describe("social ledger backfill", () => {
     });
     writeJson(path.join(dataDir, "posted_video", "2026-05-16", "daily-video.json"), {
       tokenId: "avalanche-2",
+      socialSlot: "youtube-video",
       platforms: {
         tiktok: {
           postedAt: "2026-05-16T18:00:00.000Z",
+          status: "published",
           publishId: "publish-1",
           deliveryMode: "content-posting-api-inbox",
+        },
+        youtube: {
+          postedAt: "2026-05-16T18:00:00.000Z",
+          status: "failed",
+          publishError: "upload failed",
+        },
+        instagram: {
+          postedAt: "2026-05-16T18:00:00.000Z",
+          status: "skipped_by_missing_credentials",
+        },
+        threads: {
+          postedAt: "2026-05-16T18:00:00.000Z",
+          status: "failed",
+          postId: "ambiguous-post-id",
         },
       },
     });
@@ -87,7 +104,7 @@ describe("social ledger backfill", () => {
       }),
       expect.objectContaining({
         platform: "x",
-        contentKey: "2026-05-16:market-update:bitcoin",
+        contentKey: "2026-05-16:slot:x-market-update:x:market-update",
         externalId: "tweet-2",
         details: expect.objectContaining({
           archetypeKey: "risk_lab",
@@ -121,11 +138,12 @@ describe("social ledger backfill", () => {
         contentKey: "2026-05-16:telegram-weekly-recap",
         externalId: 84,
       }),
-      expect.objectContaining({
-        platform: "tiktok",
-        contentKey: "2026-05-16:video:avalanche-2:tiktok",
-        externalId: "publish-1",
-      }),
     ]);
+    const records = collectBackfillSocialPosts(dataDir);
+    const platforms = records.map((item) => item.platform);
+    for (const excluded of ["youtube", "instagram", "tiktok"]) {
+      expect(platforms, `${excluded} must be excluded`).not.toContain(excluded);
+    }
+    expect(records).not.toContainEqual(expect.objectContaining({ externalId: "ambiguous-post-id" }));
   });
 });

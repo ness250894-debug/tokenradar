@@ -18,6 +18,12 @@ import * as path from "path";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
 import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
+import {
+  mergeTokenRecordWithNewestMarketSnapshot,
+  newestValidObservationTimestamp,
+  normalizeObservedPricePoints,
+  resolveProviderMarketTimestamp,
+} from "../src/lib/market-data-quality";
 
 // Load environment
 loadEnv();
@@ -57,6 +63,11 @@ function priceHistoryAgeMs(tokenId: string): number {
 async function writeFullTokenData(tokenId: string): Promise<void> {
   const fullData = await fetchFullTokenData(tokenId);
   const { chart30d, chart1y, ...detailOnly } = fullData;
+  const tokenFile = path.join(TOKENS_DIR, `${tokenId}.json`);
+  const existing = safeReadJson<Record<string, unknown>>(tokenFile, {});
+  const mergedDetail = mergeTokenRecordWithNewestMarketSnapshot(existing, detailOnly);
+  const normalizedChart30d = normalizeObservedPricePoints(chart30d?.prices);
+  const normalizedChart1y = normalizeObservedPricePoints(chart1y?.prices);
 
   ensureDirSync(PRICES_DIR);
 
@@ -65,13 +76,16 @@ async function writeFullTokenData(tokenId: string): Promise<void> {
     JSON.stringify({
       id: detailOnly.id,
       name: detailOnly.name,
-      chart30d: chart30d?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
-      chart1y: chart1y?.prices?.map(p => ({ date: new Date(p[0]).toISOString(), price: p[1] })) || [],
+      chart30d: normalizedChart30d,
+      chart1y: normalizedChart1y,
+      priceHistoryAsOf: newestValidObservationTimestamp(
+        normalizedChart30d.map((point) => point.date),
+      ),
       fetchedAt: new Date().toISOString()
     }, null, 2)
   );
 
-  fs.writeFileSync(path.join(TOKENS_DIR, `${tokenId}.json`), JSON.stringify(detailOnly, null, 2));
+  fs.writeFileSync(tokenFile, JSON.stringify(mergedDetail, null, 2));
 }
 
 async function main() {
@@ -80,6 +94,8 @@ async function main() {
   const end = getNumericArg(args, "--end", 100);
   const tokenArg = args.indexOf("--token") !== -1 ? args[args.indexOf("--token") + 1] : null;
   const lite = args.includes("--lite");
+  const bypassCache = args.includes("--bypass-cache");
+  const cacheTtlMinutes = getNumericArg(args, "--cache-ttl-minutes", 120);
   const fullRefreshLimit = getNumericArg(args, "--full-refresh-limit", 0);
   const fullRefreshMaxAgeDays = getNumericArg(args, "--full-refresh-max-age-days", 7);
 
@@ -102,7 +118,10 @@ async function main() {
     liteTokens = [{ id: tokenArg, symbol: "", name: "", market_cap_rank: 0 } as any];
   } else {
     // 1. Fetch top tokens by rank (Lite data for all)
-    liteTokens = await fetchTokensByRank(start, end);
+    liteTokens = await fetchTokensByRank(start, end, {
+      bypassCache,
+      cacheTtlMs: Math.max(0, cacheTtlMinutes) * 60 * 1000,
+    });
     console.log(` ✓ Found ${liteTokens.length} tokens in range.`);
   }
 
@@ -121,8 +140,8 @@ async function main() {
         const marketToken = t as LiteMarketToken;
         const existingMarket = existing.market || {};
 
-        const liteData = {
-          ...existing, // Keep everything else (description, charts, links if they exist)
+        const providerSnapshotAt = resolveProviderMarketTimestamp(t.last_updated);
+        const liteData = mergeTokenRecordWithNewestMarketSnapshot(existing, {
           id: t.id,
           symbol: t.symbol,
           name: t.name,
@@ -149,8 +168,10 @@ async function main() {
             maxSupply: t.max_supply ?? existingMarket.maxSupply ?? null,
             fdv: marketToken.fully_diluted_valuation ?? existingMarket.fdv ?? null,
           },
-          lastMarketUpdate: new Date().toISOString(),
-        };
+          // Preserve the provider's observation time. A cached response must
+          // never be relabeled as if its market values were fetched just now.
+          lastMarketUpdate: providerSnapshotAt,
+        });
 
         fs.writeFileSync(tokenFile, JSON.stringify(liteData, null, 2));
         console.log("✓ Updated");

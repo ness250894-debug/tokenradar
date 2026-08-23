@@ -39,56 +39,21 @@ function firstSentence(value: string | undefined): string {
 
 function getWatchLabel(verdict: Verdict | undefined, fallback: string): string {
   if (fallback) return fallback;
-  if (verdict === "RISK ELEVATED") return "RISK ELEVATED";
-  if (verdict === "NEUTRAL") return "NEUTRAL WATCH";
-  if (verdict === "POSITIVE DATA" || verdict === "CONSTRUCTIVE") return "POSITIVE DATA SETUP";
-  return "DATA WATCH";
+  return verdict || "DATA SNAPSHOT";
 }
 
 function getStoryReveal(symbol: string, tokenName: string, formatKey: string): {
   headline: React.ReactNode;
   supporting: string;
 } {
-  if (formatKey === "new_listing_radar") {
-    return {
-      headline: (
-        <>
-          {symbol} is <Highlight color="#10B981">new on radar</Highlight>
-        </>
-      ),
-      supporting: `${tokenName} needs context before conviction.`,
-    };
-  }
-
-  if (formatKey === "catalyst_explainer") {
-    return {
-      headline: (
-        <>
-          {symbol} has a <Highlight color="#10B981">why-now story</Highlight>
-        </>
-      ),
-      supporting: "Catalyst first. Metrics stay backstage.",
-    };
-  }
-
-  if (formatKey === "risk_alert" || formatKey === "risk_score_breakdown") {
-    return {
-      headline: (
-        <>
-          {symbol} needs a <Highlight color="#F59E0B">risk check</Highlight>
-        </>
-      ),
-      supporting: "Attention is useful only after confirmation.",
-    };
-  }
-
+  void formatKey;
   return {
     headline: (
       <>
-        {symbol} is <Highlight color="#10B981">back on radar</Highlight>
+        {symbol} <Highlight color="#10B981">data snapshot</Highlight>
       </>
     ),
-    supporting: `${tokenName} is the story. The dashboard stays backstage.`,
+    supporting: `${tokenName} shown through supplied point-in-time fields.`,
   };
 }
 
@@ -96,57 +61,14 @@ function getStoryFilter(formatKey: string): {
   headline: React.ReactNode;
   supporting: string;
 } {
-  if (formatKey === "volume_spike_check" || formatKey === "liquidity_stress_test") {
-    return {
-      headline: (
-        <>
-          Attention needs <Highlight color="#10B981">proof</Highlight>
-        </>
-      ),
-      supporting: "Fast activity matters only if it survives the first wave.",
-    };
-  }
-
-  if (formatKey === "narrative_heatmap" || formatKey === "sector_rotation") {
-    return {
-      headline: (
-        <>
-          Narrative heat <Highlight color="#10B981">is loud</Highlight>
-        </>
-      ),
-      supporting: "The question is whether the story spreads beyond one token.",
-    };
-  }
-
-  if (formatKey === "momentum_cooling" || formatKey === "contrarian_signal") {
-    return {
-      headline: (
-        <>
-          The move still <Highlight color="#F59E0B">needs follow-through</Highlight>
-        </>
-      ),
-      supporting: "A green candle can fade when attention cools.",
-    };
-  }
-
-  if (formatKey === "risk_alert" || formatKey === "risk_score_breakdown") {
-    return {
-      headline: (
-        <>
-          The catch is <Highlight color="#F59E0B">risk</Highlight>
-        </>
-      ),
-      supporting: "Good stories still need liquidity and confirmation.",
-    };
-  }
-
+  void formatKey;
   return {
     headline: (
       <>
-        The story needs <Highlight color="#10B981">confirmation</Highlight>
+        Supplied <Highlight color="#10B981">market fields</Highlight>
       </>
     ),
-    supporting: "Attention is not the same thing as proof.",
+    supporting: "Descriptive context only. No forecast or recommendation.",
   };
 }
 
@@ -170,46 +92,14 @@ function getNearFlatRevealCopy(formatKey: string | undefined, symbol: string): {
   headline: React.ReactNode;
   supporting: string;
 } {
-  if (formatKey === "catalyst_explainer") {
-    return {
-      headline: (
-        <>
-          {symbol} has a <Highlight color="#10B981">fresh catalyst</Highlight>
-        </>
-      ),
-      supporting: "Price action is flat; catalyst and volume confirmation matter next.",
-    };
-  }
-
-  if (formatKey === "new_listing_radar") {
-    return {
-      headline: (
-        <>
-          {symbol} is on <Highlight color="#10B981">new radar</Highlight>
-        </>
-      ),
-      supporting: "Fresh attention needs liquidity and risk filters before it becomes useful.",
-    };
-  }
-
-  if (formatKey === "risk_alert" || formatKey === "risk_score_breakdown") {
-    return {
-      headline: (
-        <>
-          {symbol} needs a <Highlight color="#F59E0B">risk check</Highlight>
-        </>
-      ),
-      supporting: "Flat price action still needs risk, liquidity, and confirmation checks.",
-    };
-  }
-
+  void formatKey;
   return {
     headline: (
       <>
-        {symbol} is <Highlight color="#10B981">back on radar</Highlight>
+        {symbol} <Highlight color="#10B981">data snapshot</Highlight>
       </>
     ),
-    supporting: "The move is muted; watch whether volume creates confirmation.",
+    supporting: "The supplied 24-hour change is displayed as point-in-time context.",
   };
 }
 

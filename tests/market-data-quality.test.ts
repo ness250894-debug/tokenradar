@@ -1,14 +1,26 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  CATEGORY_INPUT_BUILD_HEADROOM_MS,
+  CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS,
+  CATEGORY_INPUT_SELECTION_MAX_AGE_MS,
   getMarketDataQualityIssues,
   getMarketDataTimestamp,
   isTrustedTokenMarketData,
+  mergeTokenRecordWithNewestMarketSnapshot,
+  newestValidObservationTimestamp,
+  normalizeObservedPricePoints,
+  resolveProviderMarketTimestamp,
 } from "../src/lib/market-data-quality";
 
 const now = new Date("2026-05-15T00:00:00.000Z");
 
 describe("market data quality", () => {
+  it("reserves one hour of category-input headroom for publishing", () => {
+    expect(CATEGORY_INPUT_SELECTION_MAX_AGE_MS + CATEGORY_INPUT_BUILD_HEADROOM_MS)
+      .toBe(CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS);
+  });
+
   it("accepts finite, fresh market data", () => {
     const token = {
       market: {
@@ -36,6 +48,78 @@ describe("market data quality", () => {
       fetchedAt: "2026-05-13T00:00:00.000Z",
       lastMarketUpdate: "not-a-timestamp",
     })).toBe("2026-05-13T00:00:00.000Z");
+  });
+
+  it("preserves provider observation time without synthesizing a current timestamp", () => {
+    expect(resolveProviderMarketTimestamp(
+      "2026-05-15T11:00:00Z",
+      "2026-05-14T10:00:00Z",
+    )).toBe("2026-05-15T11:00:00.000Z");
+    expect(resolveProviderMarketTimestamp(
+      "not-a-timestamp",
+      "2026-05-14T10:00:00Z",
+    )).toBe("2026-05-14T10:00:00.000Z");
+    expect(resolveProviderMarketTimestamp(undefined, "also-invalid")).toBeUndefined();
+  });
+
+  it("keeps a newer lite market snapshot when cached full metadata arrives afterward", () => {
+    const merged = mergeTokenRecordWithNewestMarketSnapshot({
+      name: "Old metadata",
+      market: { price: 2, volume24h: 200 },
+      lastMarketUpdate: "2026-08-23T12:00:00Z",
+      fetchedAt: "2026-08-23T12:01:00Z",
+    }, {
+      name: "Fresh metadata",
+      market: { price: 1, volume24h: 100 },
+      lastMarketUpdate: "2026-08-21T12:00:00Z",
+      fetchedAt: "2026-08-23T12:02:00Z",
+    });
+
+    expect(merged).toMatchObject({
+      name: "Fresh metadata",
+      market: { price: 2, volume24h: 200 },
+      lastMarketUpdate: "2026-08-23T12:00:00.000Z",
+      fetchedAt: "2026-08-23T12:02:00Z",
+    });
+
+    expect(mergeTokenRecordWithNewestMarketSnapshot(merged, {
+      market: { price: 99, volume24h: 999 },
+      lastMarketUpdate: undefined,
+    })).toMatchObject({
+      market: { price: 2, volume24h: 200 },
+      lastMarketUpdate: "2026-08-23T12:00:00.000Z",
+    });
+  });
+
+  it("derives observation time from the newest valid chart point", () => {
+    expect(newestValidObservationTimestamp([
+      "invalid",
+      Date.parse("2026-08-22T00:00:00Z"),
+      "2026-08-23T00:00:00Z",
+    ])).toBe("2026-08-23T00:00:00.000Z");
+  });
+
+  it("ignores finite timestamps outside JavaScript's representable date range", () => {
+    expect(newestValidObservationTimestamp([
+      "2026-08-23T00:00:00Z",
+      8_640_000_000_000_001,
+    ])).toBe("2026-08-23T00:00:00.000Z");
+    expect(newestValidObservationTimestamp([
+      Number.MAX_VALUE,
+      -Number.MAX_VALUE,
+    ])).toBeUndefined();
+  });
+
+  it("drops malformed provider price observations before serialization", () => {
+    expect(normalizeObservedPricePoints([
+      [Date.parse("2026-08-23T00:00:00Z"), 1.25],
+      [8_640_000_000_000_001, 9],
+      [Date.parse("2026-08-23T01:00:00Z"), Number.NaN],
+      ["invalid"],
+    ])).toEqual([{
+      date: "2026-08-23T00:00:00.000Z",
+      price: 1.25,
+    }]);
   });
 
   it("rejects market data when every available timestamp is malformed", () => {

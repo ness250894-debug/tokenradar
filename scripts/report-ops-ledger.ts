@@ -15,6 +15,7 @@ interface SocialMetricRow {
   platform: string;
   content_key: string;
   measured_at: string;
+  window_hours: number | null;
   impressions: number | null;
   views: number | null;
   likes: number | null;
@@ -45,6 +46,17 @@ interface MediaStagingCountRow {
   count: number;
 }
 
+interface SocialDeliveryAttemptRow {
+  platform: string;
+  content_key: string;
+  status: string;
+  attempt_id: string | null;
+  attempt_count: number;
+  external_id: string | null;
+  last_error: string | null;
+  updated_at: string;
+}
+
 async function main(): Promise<void> {
   const socialPosts = await executeD1Query<SocialPostRow>(
     `
@@ -63,6 +75,18 @@ async function main(): Promise<void> {
     FROM automation_runs
     ORDER BY started_at DESC
     LIMIT 10
+    `,
+    [],
+    { required: true },
+  );
+
+  const socialDeliveryAttempts = await executeD1Query<SocialDeliveryAttemptRow>(
+    `
+    SELECT platform, content_key, status, attempt_id, attempt_count, external_id, last_error, updated_at
+    FROM social_delivery_attempts
+    WHERE status IN ('publishing', 'outcome_unknown', 'failed')
+    ORDER BY updated_at DESC
+    LIMIT 30
     `,
     [],
     { required: true },
@@ -94,7 +118,7 @@ async function main(): Promise<void> {
   try {
     const metricRows = await executeD1Query<SocialMetricRow>(
       `
-      SELECT platform, content_key, measured_at, impressions, views, likes, replies, comments, shares, link_clicks
+      SELECT platform, content_key, measured_at, window_hours, impressions, views, likes, replies, comments, shares, link_clicks
       FROM social_post_metrics
       WHERE (platform, content_key, measured_at) IN (
         SELECT platform, content_key, MAX(measured_at)
@@ -124,6 +148,7 @@ async function main(): Promise<void> {
     automationRuns: automationRuns[0]?.results || [],
     mediaStaging: mediaStaging[0]?.results || [],
     quotaSnapshots: quotaSnapshots[0]?.results || [],
+    socialDeliveryAttempts: socialDeliveryAttempts[0]?.results || [],
     socialPosts: socialPostsWithMetrics,
   }, null, 2));
 }

@@ -28,8 +28,9 @@ function dateKey(date: Date): string {
   return date.toISOString().split("T")[0];
 }
 
-function getVideoSocialPostKey(today: string, tokenId: string, platform: string): string {
-  return `${today}:video:${tokenId}:${platform}`;
+function getVideoSocialPostKey(today: string, platform: string, socialSlot: string): string {
+  const normalizedSlot = socialSlot.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "video";
+  return `${today}:slot:${normalizedSlot}:${platform}:video`;
 }
 
 async function main(): Promise<void> {
@@ -62,7 +63,11 @@ async function main(): Promise<void> {
     const tiktok = updated.platforms.tiktok || {};
     await recordSocialPost({
       platform: "tiktok",
-      contentKey: getVideoSocialPostKey(date, updated.tokenId, "tiktok"),
+      contentKey: getVideoSocialPostKey(
+        date,
+        "tiktok",
+        updated.socialSlots?.tiktok || updated.socialSlot || "tiktok-video",
+      ),
       externalId: typeof tiktok.postId === "string" ? tiktok.postId : typeof tiktok.tiktokUrl === "string" ? tiktok.tiktokUrl : undefined,
       postedAt: typeof tiktok.manualPublishedAt === "string" ? tiktok.manualPublishedAt : publishedAt,
       details: {

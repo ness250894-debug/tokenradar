@@ -3,7 +3,17 @@ import { sleep, Mutex, ensureHtmlTagsClosed } from "./shared-utils";
 import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
-import { sanitizeSocialEditorialText } from "./social-editorial";
+import {
+  sanitizeSocialEditorialText,
+  type SocialEditorialOptions,
+} from "./social-editorial";
+import {
+  formatMarketDataAttribution,
+  validateSocialContent,
+  type SocialContentFacts,
+  type SocialContentValidationIssue,
+} from "./social-content-validator";
+import { persistNeedsReviewRecord } from "./social-review-queue";
 import { sanitizePostTextLinks, sanitizeTelegramPostLinks } from "./social-link-policy";
 import {
   formatVariantPromptLine,
@@ -40,6 +50,13 @@ export interface PromptCacheOptions {
 
 export interface AICallOptions {
   promptCache?: PromptCacheOptions;
+  /** Attach usage accounting to every completed provider response for this call. */
+  usageActivity?: {
+    workflow?: string;
+    contentKey?: string;
+    operation?: string;
+    attempt?: number;
+  };
 }
 
 const aiMutex = new Mutex();
@@ -55,10 +72,16 @@ const GEMINI_INPUT_COST_PER_MILLION = 0.30;
 const GEMINI_CACHED_INPUT_COST_PER_MILLION = 0.03;
 const GEMINI_OUTPUT_COST_PER_MILLION = 2.50;
 const GEMINI_CACHE_STORAGE_COST_PER_MILLION_TOKEN_HOUR = 1.00;
-const CLAUDE_INPUT_COST_PER_MILLION = 0.80;
-const CLAUDE_CACHE_WRITE_COST_PER_MILLION = CLAUDE_INPUT_COST_PER_MILLION * 1.25;
-const CLAUDE_CACHE_READ_COST_PER_MILLION = CLAUDE_INPUT_COST_PER_MILLION * 0.10;
-const CLAUDE_OUTPUT_COST_PER_MILLION = 4.00;
+export const CLAUDE_HAIKU_4_5_PRICING = Object.freeze({
+  inputPerMillion: 1.00,
+  cacheWritePerMillion: 1.25,
+  cacheReadPerMillion: 0.10,
+  outputPerMillion: 5.00,
+});
+const CLAUDE_INPUT_COST_PER_MILLION = CLAUDE_HAIKU_4_5_PRICING.inputPerMillion;
+const CLAUDE_CACHE_WRITE_COST_PER_MILLION = CLAUDE_HAIKU_4_5_PRICING.cacheWritePerMillion;
+const CLAUDE_CACHE_READ_COST_PER_MILLION = CLAUDE_HAIKU_4_5_PRICING.cacheReadPerMillion;
+const CLAUDE_OUTPUT_COST_PER_MILLION = CLAUDE_HAIKU_4_5_PRICING.outputPerMillion;
 const DEFAULT_GEMINI_THINKING_BUDGET = 0;
 const GEMINI_MAX_TOKEN_RETRY_CAP = 8192;
 const DEFAULT_PROMPT_CACHE_TTL_SECONDS = 300;
@@ -397,6 +420,7 @@ async function callGeminiAPI(
         };
       });
 
+      await logAiUsage(result, options);
       return result;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
@@ -524,7 +548,7 @@ async function callClaudeAPI(
         (cacheReadTokens / 1_000_000) * CLAUDE_CACHE_READ_COST_PER_MILLION +
         (completionTokens / 1_000_000) * CLAUDE_OUTPUT_COST_PER_MILLION;
 
-      return {
+      const result: AIResult = {
         content: text.trim(),
         promptTokens,
         completionTokens,
@@ -535,6 +559,8 @@ async function callClaudeAPI(
         cacheCreationTokens: cacheCreationTokens || undefined,
         cacheReadTokens: cacheReadTokens || undefined,
       };
+      await logAiUsage(result, options);
+      return result;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (i < retries) console.info(`  ⚠ Claude failed (${lastError.message}), retrying...`);
@@ -647,7 +673,11 @@ export interface MarketContext {
   // Social & Developer Stats
   twitterFollowers?: number;
   redditSubscribers?: number;
-  githubCommits4Weeks?: number;
+  githubCommits4Weeks?: number | null;
+  /** Provider/source for the public market snapshot, for example `coingecko-live`. */
+  marketDataSource?: string;
+  /** ISO timestamp (or display-ready UTC timestamp) for the public market snapshot. */
+  marketDataAsOf?: string;
   /** Real-time social buzz/tweets found via X Search */
   socialContext?: string;
   /** Calculated sentiment score 0-1 (0 = bearish/scam, 1 = bullish/legit) */
@@ -683,9 +713,51 @@ export interface UnifiedCaptionOptions {
   };
   contentVariants?: Partial<Record<PlatformTarget, SocialContentVariant | string>>;
   contentArchetypes?: Partial<Record<PlatformTarget, SocialContentArchetype | string>>;
+  /** Number of clean regeneration attempts after the first candidate fails validation. */
+  validationRegenerationAttempts?: number;
+  /** Optional audit hook. Rejected AI output itself is intentionally not exposed. */
+  onValidationFailure?: (event: SocialCaptionValidationFailure) => void;
+  /** Override used by tests or self-hosted runners; defaults to the cached social-state tree. */
+  reviewQueueRootDir?: string;
 }
 
-type UnifiedCaptionField = keyof UnifiedSocialCaptions;
+async function logAiUsage(result: AIResult, options?: AICallOptions): Promise<void> {
+  const activity = options?.usageActivity;
+  if (!activity) return;
+  try {
+    const { recordAiUsageEvent } = await import("./ops-ledger");
+    await recordAiUsageEvent({
+      workflow: activity.workflow || process.env.SOCIAL_SLOT || process.env.GITHUB_WORKFLOW || "social",
+      contentKey: activity.contentKey,
+      operation: activity.operation,
+      attempt: activity.attempt,
+      provider: result.provider,
+      model: result.model,
+      promptTokens: result.promptTokens,
+      completionTokens: result.completionTokens,
+      thoughtsTokens: result.thoughtsTokens,
+      cacheCreationTokens: result.cacheCreationTokens,
+      cacheReadTokens: result.cacheReadTokens,
+      cost: result.cost,
+      details: { finishReason: result.finishReason || null },
+    });
+  } catch (error) {
+    console.warn(`  AI usage accounting failed: ${formatErrorForLog(error)}`);
+  }
+}
+
+export interface SocialCaptionValidationFailure {
+  tokenName: string;
+  symbol: string;
+  attempt: number;
+  platforms: PlatformTarget[];
+  fields: Array<{
+    field: UnifiedCaptionField;
+    issues: SocialContentValidationIssue[];
+  }>;
+}
+
+export type UnifiedCaptionField = keyof UnifiedSocialCaptions;
 
 const PLATFORM_FIELDS: Record<PlatformTarget, UnifiedCaptionField[]> = {
   telegram: ["telegramSummary"],
@@ -708,6 +780,55 @@ const UNIFIED_FIELD_DESCRIPTIONS: Record<UnifiedCaptionField, string> = {
   tiktokCaption: "TikTok video caption with hashtags and optional @tokenradarco mention.",
 };
 
+function editorialOptionsForToken(
+  tokenName: string,
+  symbol: string,
+  unsafeBehavior: SocialEditorialOptions["unsafeBehavior"] = "preserve",
+): SocialEditorialOptions {
+  return {
+    unsafeBehavior,
+    protectedEntities: [
+      ...(tokenName.trim()
+        ? [{ value: tokenName, caseSensitive: !/[\s.-]/.test(tokenName) }]
+        : []),
+      { value: `$${symbol.toUpperCase()}`, caseSensitive: false },
+      { value: symbol.toUpperCase(), caseSensitive: true },
+    ],
+  };
+}
+
+export function buildSocialContentFacts(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+): SocialContentFacts {
+  const identityText = `${tokenName} ${symbol}`;
+  if (tokenName.length < 1 || tokenName.length > 80
+    || !/^[\p{L}\p{N}][\p{L}\p{N} .,'’()&+/_-]*$/u.test(tokenName)
+    || symbol.length < 1 || symbol.length > 15
+    || !/^[A-Za-z0-9][A-Za-z0-9._+-]*$/.test(symbol)
+    || /\b(?:ignore|disregard|override)\b.{0,40}\b(?:instructions?|prompt|system|developer)\b/i.test(identityText)) {
+    throw new Error("Token identity is not safe for publish-time social generation.");
+  }
+  return {
+    tokenName,
+    symbol,
+    price: metrics.price,
+    priceChange24h: metrics.priceChange24h,
+    marketCap: metrics.marketCap,
+    marketCapRank: metrics.marketCapRank,
+    volume24h: metrics.volume24h,
+    riskScore: metrics.riskScore,
+    growthPotentialIndex: metrics.growthPotentialIndex,
+    twitterFollowers: metrics.twitterFollowers,
+    redditSubscribers: metrics.redditSubscribers,
+    githubCommits4Weeks: metrics.githubCommits4Weeks,
+    marketDataSource: metrics.marketDataSource,
+    marketDataAsOf: metrics.marketDataAsOf,
+    suppliedContext: [],
+  };
+}
+
 function formatSocialPrice(price: number | undefined): string {
   if (price === undefined) return "N/A";
   return price >= 1 ? `$${price.toFixed(2)}` : `$${price.toFixed(6)}`;
@@ -723,6 +844,13 @@ function formatSocialMarketCap(marketCap: number | undefined): string {
   return marketCap >= 1e9
     ? `$${(marketCap / 1e9).toFixed(2)}B`
     : `$${(marketCap / 1e6).toFixed(0)}M`;
+}
+
+function marketDataAttribution(metrics: MarketContext): string | undefined {
+  return formatMarketDataAttribution({
+    marketDataSource: metrics.marketDataSource,
+    marketDataAsOf: metrics.marketDataAsOf,
+  });
 }
 
 function buildUnifiedCaptionSchema(platforms: PlatformTarget[]): object {
@@ -786,25 +914,26 @@ function fallbackInstagramCaption(tokenName: string, symbol: string, metrics: Ma
   return [
     `Market spotlight: ${tokenName} is moving ${change}.`,
     `Price: ${price}. Market cap: ${marketCap}.`,
+    marketDataAttribution(metrics),
     "Follow @tokenradarco for daily crypto data.",
     `#${symbol.toUpperCase()} #Crypto #Altcoins #TokenRadar #CryptoMarket`,
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): string {
   const change = formatSocialChange(metrics.priceChange24h);
-  return `This setup is moving ${change}. Watch the data behind ${tokenName}.`;
+  return [
+    `This setup is moving ${change}. Watch the data behind ${tokenName}.`,
+    marketDataAttribution(metrics),
+  ].filter(Boolean).join("\n");
 }
 
 function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
-  const direction = (metrics.priceChange24h ?? 0) >= 0 ? "picked up" : "pulled back";
-  const riskNote = (metrics.riskScore ?? 5) >= 7
-    ? "Risk is elevated, so confirmation matters more here."
-    : "Worth watching, but always check the risk side first.";
+  void metrics;
 
   return [
-    `someone asked about ${tokenName}. attention ${direction} but that is only the headline.`,
-    riskNote,
+    `someone asked about ${tokenName}. here is the supplied point-in-time market snapshot.`,
+    "Compare the listed price, volume, market cap, and risk score as separate inputs.",
     `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar`,
   ].join("\n\n");
 }
@@ -847,8 +976,11 @@ export function prepareTikTokCaptionForPublishing(
   caption: string,
   symbol: string,
   maxChars: number = SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
+  editorialOptions: SocialEditorialOptions = editorialOptionsForToken("", symbol, "throw"),
 ): string {
-  const cleaned = compactTikTokBody(sanitizeSocialEditorialText(sanitizePostTextLinks(caption)));
+  const cleaned = compactTikTokBody(
+    sanitizeSocialEditorialText(sanitizePostTextLinks(caption), editorialOptions),
+  );
   const rawTags = cleaned.match(/#[a-zA-Z0-9_]+/g) || [];
   const body = compactTikTokBody(cleaned.replace(/#[a-zA-Z0-9_]+/g, ""));
 
@@ -929,9 +1061,10 @@ function fallbackTelegramSummary(
     `<b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>`,
     `Setup: ${formatSocialChange(metrics.priceChange24h)} over 24h, price <b>${formatSocialPrice(metrics.price)}</b>, market cap <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
     `Why it matters: selection reason is ${metrics.selectionReason || "market spotlight"} with risk score <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
-    `Risk / invalidation: skip blind entries; wait for liquidity and trend confirmation.`,
-    `<tg-spoiler>TokenRadar read: data is interesting, but this is watchlist research, not a trade command.</tg-spoiler>`,
-  ].join("\n");
+    marketDataAttribution(metrics),
+    `Risk / invalidation: treat the snapshot as inconclusive until liquidity and trend confirmation align.`,
+    `<tg-spoiler>TokenRadar read: this remains watchlist research.</tg-spoiler>`,
+  ].filter(Boolean).join("\n");
 
   return ensureHtmlTagsClosed(truncateTextAtBoundary(summary, maxChars), ["b", "tg-spoiler"]);
 }
@@ -955,7 +1088,11 @@ function fallbackXTweet(
   const seed = `${symbol}:${tokenName}:${reason}`.toLowerCase();
   const index = Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % frames.length;
   const tweet = frames[index];
-  return truncateXCaptionAtBoundary(tweet, maxChars);
+  const attribution = marketDataAttribution(metrics);
+  if (!attribution) return truncateXCaptionAtBoundary(tweet, maxChars);
+
+  const bodyBudget = Math.max(1, maxChars - attribution.length - 1);
+  return `${truncateXCaptionAtBoundary(tweet, bodyBudget)}\n${attribution}`.slice(0, maxChars).trim();
 }
 
 function fallbackYoutubeMetadata(
@@ -964,7 +1101,12 @@ function fallbackYoutubeMetadata(
   metrics: MarketContext,
 ): { title: string; description: string } {
   const title = truncateText(`${tokenName} ($${symbol.toUpperCase()}) 24h Market Update`, 60);
-  const description = `${tokenName} is moving ${formatSocialChange(metrics.priceChange24h)} over 24h, with price near ${formatSocialPrice(metrics.price)} and market cap around ${formatSocialMarketCap(metrics.marketCap)}.\nFull data report & analytics: ${SOCIAL.ecosystemUrl}\n#Shorts #${symbol.toUpperCase()} #Crypto`;
+  const description = [
+    `${tokenName} is moving ${formatSocialChange(metrics.priceChange24h)} over 24h, with price near ${formatSocialPrice(metrics.price)} and market cap around ${formatSocialMarketCap(metrics.marketCap)}.`,
+    marketDataAttribution(metrics),
+    `Full data report & analytics: ${SOCIAL.ecosystemUrl}`,
+    `#Shorts #${symbol.toUpperCase()} #Crypto`,
+  ].filter(Boolean).join("\n");
   return { title, description };
 }
 
@@ -979,13 +1121,15 @@ function normalizeTelegramSummarySections(text: string): string {
 function enforceUnifiedCaptionLimits(
   captions: UnifiedSocialCaptions,
   options: UnifiedCaptionOptions,
+  tokenName: string,
   symbol: string,
 ): UnifiedSocialCaptions {
   const next: UnifiedSocialCaptions = { ...captions };
+  const editorialOptions = editorialOptionsForToken(tokenName, symbol, "preserve");
 
   if (next.telegramSummary) {
     next.telegramSummary = normalizeTelegramSummarySections(
-      sanitizeSocialEditorialText(sanitizeTelegramPostLinks(next.telegramSummary)),
+      sanitizeSocialEditorialText(sanitizeTelegramPostLinks(next.telegramSummary), editorialOptions),
     );
   }
   if (next.telegramSummary && options.telegramMaxChars) {
@@ -995,7 +1139,7 @@ function enforceUnifiedCaptionLimits(
     );
   }
   if (next.xTweet) {
-    next.xTweet = sanitizeSocialEditorialText(sanitizePostTextLinks(next.xTweet));
+    next.xTweet = sanitizeSocialEditorialText(sanitizePostTextLinks(next.xTweet), editorialOptions);
     next.xTweet = sanitizeCashtags(next.xTweet);
     next.xTweet = truncateXCaptionAtBoundary(
       next.xTweet,
@@ -1003,21 +1147,33 @@ function enforceUnifiedCaptionLimits(
     );
   }
   if (next.youtubeDescription) {
-    next.youtubeDescription = sanitizeSocialEditorialText(sanitizePostTextLinks(next.youtubeDescription));
+    next.youtubeDescription = sanitizeSocialEditorialText(
+      sanitizePostTextLinks(next.youtubeDescription),
+      editorialOptions,
+    );
   }
   if (next.youtubeTitle) {
-    next.youtubeTitle = sanitizeSocialEditorialText(sanitizePostTextLinks(next.youtubeTitle));
+    next.youtubeTitle = sanitizeSocialEditorialText(
+      sanitizePostTextLinks(next.youtubeTitle),
+      editorialOptions,
+    );
     next.youtubeTitle = truncateText(next.youtubeTitle, options.youtubeTitleMaxChars ?? 60);
   }
   if (next.instagramCaption) {
-    next.instagramCaption = sanitizeSocialEditorialText(sanitizePostTextLinks(next.instagramCaption));
+    next.instagramCaption = sanitizeSocialEditorialText(
+      sanitizePostTextLinks(next.instagramCaption),
+      editorialOptions,
+    );
     next.instagramCaption = truncateText(
       next.instagramCaption,
       options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
     );
   }
   if (next.threadsCaption) {
-    next.threadsCaption = sanitizeSocialEditorialText(sanitizePostTextLinks(next.threadsCaption));
+    next.threadsCaption = sanitizeSocialEditorialText(
+      sanitizePostTextLinks(next.threadsCaption),
+      editorialOptions,
+    );
     next.threadsCaption = truncateTextAtBoundary(
       next.threadsCaption,
       options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
@@ -1028,6 +1184,7 @@ function enforceUnifiedCaptionLimits(
       next.tiktokCaption,
       symbol,
       options.tiktokMaxChars ?? SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT,
+      editorialOptions,
     );
   }
 
@@ -1082,7 +1239,111 @@ async function fillMissingUnifiedCaptionFields(
     next.tiktokCaption = fallbackTikTokCaption(tokenName, symbol, metrics);
   }
 
-  return enforceUnifiedCaptionLimits(next, options, symbol);
+  return enforceUnifiedCaptionLimits(next, options, tokenName, symbol);
+}
+
+function validateUnifiedCaptionsForPublishing(
+  captions: UnifiedSocialCaptions,
+  facts: SocialContentFacts,
+  platforms: PlatformTarget[],
+): SocialCaptionValidationFailure["fields"] {
+  const surfaces: Partial<Record<PlatformTarget, { field: UnifiedCaptionField; text: string }>> = {
+    telegram: captions.telegramSummary
+      ? { field: "telegramSummary", text: captions.telegramSummary }
+      : undefined,
+    x: captions.xTweet
+      ? { field: "xTweet", text: captions.xTweet }
+      : undefined,
+    youtube: captions.youtubeTitle || captions.youtubeDescription
+      ? {
+          field: "youtubeDescription",
+          text: [captions.youtubeTitle, captions.youtubeDescription].filter(Boolean).join("\n"),
+        }
+      : undefined,
+    instagram: captions.instagramCaption
+      ? { field: "instagramCaption", text: captions.instagramCaption }
+      : undefined,
+    threads: captions.threadsCaption
+      ? { field: "threadsCaption", text: captions.threadsCaption }
+      : undefined,
+    tiktok: captions.tiktokCaption
+      ? { field: "tiktokCaption", text: captions.tiktokCaption }
+      : undefined,
+  };
+
+  const failures: SocialCaptionValidationFailure["fields"] = [];
+  for (const platform of platforms) {
+    const surface = surfaces[platform];
+    if (!surface) continue;
+    const validation = validateSocialContent(surface.text, facts);
+    if (!validation.ok) failures.push({ field: surface.field, issues: validation.issues });
+  }
+  return failures;
+}
+
+async function reportCaptionValidationFailure(
+  failure: SocialCaptionValidationFailure,
+  facts: SocialContentFacts,
+  options: UnifiedCaptionOptions,
+): Promise<void> {
+  const summary = failure.fields
+    .flatMap(({ field, issues }) => issues.map((issue) => `${field}:${issue.code}`))
+    .join(", ");
+  console.warn(
+    `  [social-content-quarantine] Rejected generated captions for ${failure.tokenName} ($${failure.symbol.toUpperCase()}), attempt ${failure.attempt}: ${summary}`,
+  );
+
+  const persisted = persistNeedsReviewRecord({
+    tokenName: failure.tokenName,
+    symbol: failure.symbol,
+    platforms: failure.platforms,
+    generationAttempt: failure.attempt,
+    facts,
+    issues: failure.fields,
+  }, {
+    rootDir: options.reviewQueueRootDir,
+  });
+  console.warn(`  [social-content-quarantine] Review metadata saved to ${persisted.path}`);
+
+  try {
+    options.onValidationFailure?.(failure);
+  } catch (error) {
+    console.warn(`  Social validation audit hook failed: ${formatErrorForLog(error)}`);
+  }
+}
+
+export class SocialCaptionQuarantinedError extends Error {
+  readonly fields: SocialCaptionValidationFailure["fields"];
+
+  constructor(tokenName: string, fields: SocialCaptionValidationFailure["fields"]) {
+    super(`No publishable social caption could be produced for ${tokenName}.`);
+    this.name = "SocialCaptionQuarantinedError";
+    this.fields = fields;
+  }
+}
+
+async function buildValidatedUnifiedFallback(
+  tokenName: string,
+  symbol: string,
+  metrics: MarketContext,
+  platforms: PlatformTarget[],
+  options: UnifiedCaptionOptions,
+): Promise<UnifiedSocialCaptions> {
+  const fallback = await fillMissingUnifiedCaptionFields(
+    {},
+    tokenName,
+    symbol,
+    metrics,
+    platforms,
+    options,
+  );
+  const failures = validateUnifiedCaptionsForPublishing(
+    fallback,
+    buildSocialContentFacts(tokenName, symbol, metrics),
+    platforms,
+  );
+  if (failures.length > 0) throw new SocialCaptionQuarantinedError(tokenName, failures);
+  return fallback;
 }
 
 /**
@@ -1119,7 +1380,7 @@ export async function generateUnifiedCaptions(
     .join("\n");
   const platformArchetypes = uniquePlatforms.reduce((acc, platform) => {
     const configuredArchetype = options.contentArchetypes?.[platform];
-    acc[platform] = configuredArchetype
+    const selected = configuredArchetype
       ? resolveSocialArchetype(configuredArchetype, platform)
       : selectSocialArchetype({
           platform,
@@ -1130,6 +1391,12 @@ export async function generateUnifiedCaptions(
             metrics.timeOfDay,
           ],
         });
+    // Metric methodology is not part of MarketContext. Until exact structured
+    // definitions are supplied, education about how a proprietary score works
+    // must use a deterministic editorial format rather than free-form AI copy.
+    acc[platform] = selected.key === "how_to_read_metric"
+      ? resolveSocialArchetype("single_token_snapshot", platform)
+      : selected;
     return acc;
   }, {} as Partial<Record<PlatformTarget, SocialContentArchetype>>);
 
@@ -1146,6 +1413,10 @@ export async function generateUnifiedCaptions(
           : "",
       ].filter(Boolean).join("\n")
     : "No extra editorial format.";
+  const requiredMarketAttribution = marketDataAttribution(metrics);
+  const marketAttributionRule = requiredMarketAttribution
+    ? `For Telegram, X, YouTube, Instagram, and Threads, any price/change/market-cap/volume/rank claim must include this exact source line: "${requiredMarketAttribution}". TikTok must omit numeric market claims instead.`
+    : "No complete public market source/as-of pair was supplied. Do not call the snapshot live, real-time, or current.";
 
   const platformRuleBlocks: Partial<Record<PlatformTarget, string>> = {
     telegram: `
@@ -1172,7 +1443,7 @@ X RULES:
 - Write one complete research note in this order: claim, supplied evidence, consequence or invalidation.
 - Include at least one concrete supplied metric and one tension, filter, or condition that changes the read.
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
-- Write prices as plain numbers, not dollar-prefixed prices.
+- Write prices with a currency prefix (for example, $1.23) so each number is unambiguous.
 - A question is allowed only when it is specific and necessary to the selected archetype. Never use generic engagement bait.
 - Include exactly 1 niche hashtag.
 - Do not invent comparisons, audience results, tokens, events, or metrics that are not in the supplied context.
@@ -1233,12 +1504,14 @@ TIKTOK RULES:
   const changeStr = formatSocialChange(metrics.priceChange24h);
   const marketCapStr = formatSocialMarketCap(metrics.marketCap);
   const riskGauge = getRiskGauge(metrics.riskScore);
-  const socialContextSection = metrics.socialContext
-    ? `\nREAL-TIME SOCIAL BUZZ:\n${metrics.socialContext.substring(0, 1000)}\n`
-    : "";
-  const descriptionSection = description
-    ? description.substring(0, 1500)
-    : `${tokenName} is a cryptocurrency token tracked under the symbol ${symbol.toUpperCase()}.`;
+  // Free-form third-party context is excluded from the instruction body. Only
+  // typed numeric fields and controlled enum-like selection metadata are used.
+  const socialContextSection = "";
+  // Project descriptions are third-party, project-controlled text. They are
+  // deliberately excluded from publish-time prompts so they cannot inject
+  // instructions or be mistaken for verified facts.
+  void description;
+  const descriptionSection = `${tokenName} is tracked under the symbol ${symbol.toUpperCase()}. No project-supplied description is provided as a factual source.`;
 
   const prompt = `
 You are an expert crypto social media manager for TokenRadar.co.
@@ -1264,65 +1537,117 @@ Token: ${tokenName} (${symbol.toUpperCase()})
 Price: ${priceStr}
 24h Change: ${changeStr}
 Market Cap: ${marketCapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
+24h Volume: ${formatSocialMarketCap(metrics.volume24h)}
+Market Data Source: ${metrics.marketDataSource || "N/A"}
+Market Data As Of: ${metrics.marketDataAsOf || "N/A"}
 Risk Profile: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
 Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
 Selection Reason: ${metrics.selectionReason || "market spotlight"}
-Trending Context: ${metrics.trendingContext || "N/A"}
-Global Market: ${metrics.globalStats || "N/A"}
-Sector Performance: ${metrics.sectorPerformance || "N/A"}
-Community: ${metrics.twitterFollowers ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers` : "N/A"}${metrics.redditSubscribers ? `, ${metrics.redditSubscribers.toLocaleString()} Reddit subscribers` : ""}
-Developer: ${metrics.githubCommits4Weeks ? `${metrics.githubCommits4Weeks} GitHub commits in 4 weeks` : "No recent activity"}
+Trending Context: N/A (free-form third-party text excluded)
+Global Market: N/A (free-form third-party text excluded)
+Sector Performance: N/A (free-form third-party text excluded)
+Community: ${metrics.twitterFollowers !== undefined ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers` : "N/A"}${metrics.redditSubscribers !== undefined ? `, ${metrics.redditSubscribers.toLocaleString()} Reddit subscribers` : ""}
+Developer: ${metrics.githubCommits4Weeks === undefined || metrics.githubCommits4Weeks === null ? "N/A (no developer data supplied)" : `${metrics.githubCommits4Weeks} GitHub commits in 4 weeks`}
 ${socialContextSection}
 BACKGROUND CONTEXT:
 ${descriptionSection}
+
+FACTUALITY AND SAFETY GATE:
+- Use only the explicit fields above. Do not infer hidden flows, institutional or whale activity, order-book state, derivatives positioning, holders, buy/sell ratios, wallets, support/resistance levels, catalysts, or causation.
+- An absolute 24h volume number does not support claims that volume is flat, surging, rising, falling, spiking, drying up, or above/below average. No spread/depth data is supplied, so do not describe liquidity as thin, deep, high, low, rising, or falling.
+- Quote Risk Profile and Growth Index only as scores. Their methodology is not supplied here, so do not say what either score measures, uses, or proves.
+- Developer data marked N/A must be omitted or called N/A; never convert missing data into "no activity". A supplied zero means exactly 0 GitHub commits in 4 weeks, not general inactivity.
+- Do not direct the reader to buy, sell, invest, accumulate, enter, commit capital, make a move, open a position, or execute a trade. Do not soften those instructions with euphemisms.
+- Every percentage, currency amount, score, rank, follower/subscriber count, or commit count must exactly match a supplied fact.
+- ${marketAttributionRule}
 
 STRICT PLATFORM RULES:
 ${uniquePlatforms.map((platform) => platformRuleBlocks[platform]).join("\n")}
 `;
 
-  try {
-    const result = await callAIWithFallback(
-      "",
-      prompt,
-      getUnifiedCaptionMaxTokens(uniquePlatforms),
-      buildUnifiedCaptionSchema(uniquePlatforms),
-    );
-    const payload = JSON.parse(stripJsonFence(result.content));
-    const captions: UnifiedSocialCaptions = {};
+  const facts = buildSocialContentFacts(tokenName, symbol, metrics);
+  const regenerationAttempts = Math.min(
+    2,
+    Math.max(0, Math.floor(options.validationRegenerationAttempts ?? 1)),
+  );
+  let validationFeedback = "";
+  let lastGenerationError: unknown;
 
-    for (const platform of uniquePlatforms) {
-      for (const field of PLATFORM_FIELDS[platform]) {
-        const value = readStringField(payload, field);
-        if (value) captions[field] = value;
+  for (let attemptIndex = 0; attemptIndex <= regenerationAttempts; attemptIndex += 1) {
+    try {
+      const repairPrompt = validationFeedback
+        ? `${prompt}\n\nREGENERATION REQUIREMENT:\nThe previous candidate was quarantined by deterministic validation. Produce completely new copy and fix every issue below. Do not repeat or euphemistically rephrase a blocked claim.\n${validationFeedback}`
+        : prompt;
+      const result = await callAIWithFallback(
+        "",
+        repairPrompt,
+        getUnifiedCaptionMaxTokens(uniquePlatforms),
+        buildUnifiedCaptionSchema(uniquePlatforms),
+        {
+          usageActivity: {
+            contentKey: `${symbol.toUpperCase()}:${uniquePlatforms.join(",")}`,
+            operation: "unified-social-captions",
+            attempt: attemptIndex + 1,
+          },
+        },
+      );
+      const payload = JSON.parse(stripJsonFence(result.content));
+      const captions: UnifiedSocialCaptions = {};
+
+      for (const platform of uniquePlatforms) {
+        for (const field of PLATFORM_FIELDS[platform]) {
+          const value = readStringField(payload, field);
+          if (value) captions[field] = value;
+        }
       }
-    }
 
-    if (captions.telegramSummary) {
-      captions.telegramSummary = ensureHtmlTagsClosed(captions.telegramSummary, ["b", "tg-spoiler"]);
-    }
-    if (captions.threadsTopicTag) {
-      captions.threadsTopicTag = sanitizeUnifiedTopicTag(captions.threadsTopicTag);
-    }
+      if (captions.telegramSummary) {
+        captions.telegramSummary = ensureHtmlTagsClosed(captions.telegramSummary, ["b", "tg-spoiler"]);
+      }
+      if (captions.threadsTopicTag) {
+        captions.threadsTopicTag = sanitizeUnifiedTopicTag(captions.threadsTopicTag);
+      }
 
-    return fillMissingUnifiedCaptionFields(
-      captions,
-      tokenName,
-      symbol,
-      metrics,
-      uniquePlatforms,
-      options,
-    );
-  } catch (error) {
-    console.warn(`  Failed to generate unified captions for ${tokenName}. Falling back per platform: ${formatErrorForLog(error)}`);
-    return fillMissingUnifiedCaptionFields(
-      {},
-      tokenName,
-      symbol,
-      metrics,
-      uniquePlatforms,
-      options,
-    );
+      const candidate = await fillMissingUnifiedCaptionFields(
+        captions,
+        tokenName,
+        symbol,
+        metrics,
+        uniquePlatforms,
+        options,
+      );
+      const failures = validateUnifiedCaptionsForPublishing(candidate, facts, uniquePlatforms);
+      if (failures.length === 0) return candidate;
+
+      const failure: SocialCaptionValidationFailure = {
+        tokenName,
+        symbol,
+        attempt: attemptIndex + 1,
+        platforms: uniquePlatforms,
+        fields: failures,
+      };
+      await reportCaptionValidationFailure(failure, facts, options);
+      validationFeedback = failures
+        .flatMap(({ field, issues }) => issues.map((issue) => `- ${field}: ${issue.message}`))
+        .join("\n");
+    } catch (error) {
+      lastGenerationError = error;
+      console.warn(
+        `  Failed unified-caption generation attempt ${attemptIndex + 1} for ${tokenName}: ${formatErrorForLog(error)}`,
+      );
+    }
   }
+
+  console.warn(
+    `  Generated captions for ${tokenName} remained unavailable or quarantined. Using validated deterministic fallbacks.${lastGenerationError ? ` Last error: ${formatErrorForLog(lastGenerationError)}` : ""}`,
+  );
+  return buildValidatedUnifiedFallback(
+    tokenName,
+    symbol,
+    metrics,
+    uniquePlatforms,
+    options,
+  );
 }
 
 /**
@@ -1359,9 +1684,36 @@ export async function generatePollHook(
 
   try {
     const result = await callAIWithFallback("", prompt, 512);
-    return sanitizeSocialEditorialText(sanitizePostTextLinks(result.content || ""));
-  } catch (_error) {
-    console.warn(`  ⚠ AI poll hook generation failed.`);
+    const resolvedTokenName = tokenName || "Crypto market";
+    const resolvedSymbol = symbol || "CRYPTO";
+    const cleaned = sanitizeSocialEditorialText(
+      sanitizePostTextLinks(result.content || ""),
+      editorialOptionsForToken(resolvedTokenName, resolvedSymbol, "preserve"),
+    );
+    const facts: SocialContentFacts = {
+      ...buildSocialContentFacts(resolvedTokenName, resolvedSymbol, metrics || {}),
+      // A 120-character poll hook cannot carry the full public attribution;
+      // numeric values are already prohibited by the prompt.
+      marketDataSource: undefined,
+      marketDataAsOf: undefined,
+    };
+    const validation = validateSocialContent(cleaned, facts);
+    if (!validation.ok) {
+      persistNeedsReviewRecord({
+        tokenName: resolvedTokenName,
+        symbol: resolvedSymbol,
+        platforms: ["x"],
+        generationAttempt: 1,
+        facts,
+        issues: [{ field: "xTweet", issues: validation.issues }],
+      });
+      throw new SocialCaptionQuarantinedError(resolvedTokenName, [
+        { field: "xTweet", issues: validation.issues },
+      ]);
+    }
+    return cleaned;
+  } catch (error) {
+    console.warn(`  ⚠ AI poll hook generation failed or was quarantined: ${formatErrorForLog(error)}`);
     // Fallback template
     return symbol
       ? `How are you reading ${symbol.toUpperCase()} today?`

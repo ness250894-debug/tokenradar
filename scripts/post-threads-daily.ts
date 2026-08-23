@@ -14,13 +14,28 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { generateUnifiedCaptions } from "../src/lib/gemini";
+import { buildSocialContentFacts, generateUnifiedCaptions } from "../src/lib/gemini";
+import { validateSocialContent } from "../src/lib/social-content-validator";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
-import { selectSocialArchetype, type SocialArchetypeKey } from "../src/lib/social-archetypes";
+import {
+  getSocialArchetypeByKey,
+  selectSocialArchetype,
+  type SocialArchetypeKey,
+} from "../src/lib/social-archetypes";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
-import { hasMetaCredentials, publishThreadsText, type TextEntity } from "../src/lib/meta-client";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import {
+  hasMetaCredentials,
+  isMetaPublishOutcomeUnknownError,
+  publishThreadsText,
+  type TextEntity,
+} from "../src/lib/meta-client";
+import {
+  hasSocialPost,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+} from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
@@ -31,6 +46,7 @@ import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
   getTodayPostedTokens,
+  isMetricDataFreshForMarket,
   loadCandidateTokens,
   selectToken,
 } from "./lib/token-selection";
@@ -43,19 +59,11 @@ const WEEKLY_RECAP_TRACKER_FILE_NAME = "weekly-threads-recap.json";
 const THREADS_RESEARCH_NOTE_MAX_CHARS = 360;
 const THREADS_TEXT_ARCHETYPES = [
   "single_token_snapshot",
-  "sector_rotation",
   "risk_lab",
   "myth_vs_data",
   "data_quality_warning",
-  "how_to_read_metric",
   "behind_the_radar",
 ] satisfies readonly SocialArchetypeKey[];
-const THREADS_RECAP_ARCHETYPES = [
-  "weekly_scoreboard",
-  "risk_lab",
-  "behind_the_radar",
-] satisfies readonly SocialArchetypeKey[];
-
 type ThreadsPostMode = "text" | "weekly-recap";
 
 interface ThreadsTextTracker {
@@ -185,6 +193,8 @@ async function main() {
   const trackerFile = path.join(postedDir, trackerFileName);
   const socialPostKey = `${today}:${mode === "weekly-recap" ? "threads-weekly-recap" : "threads-text"}`;
   const postLabel = mode === "weekly-recap" ? "Threads weekly recap" : "Threads text signal";
+  let deliveryReserved = false;
+  let publishedExternalId: string | undefined;
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -212,25 +222,24 @@ async function main() {
 
     if (mode === "weekly-recap") {
       const recap = buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
-      const recapArchetype = selectSocialArchetype({
-        platform: "threads",
-        allowedArchetypeKeys: THREADS_RECAP_ARCHETYPES,
-        usedArchetypeKeys: force
-          ? []
-          : getRecentSocialArchetypeKeys(
-              DATA_DIR,
-              "threads",
-              SOCIAL_VARIANT_COOLDOWN_DAYS,
-              new Date(`${today}T00:00:00.000Z`),
-              "threads-weekly-recap",
-            ),
-        seedParts: [today, "threads", "weekly-recap", process.env.SOCIAL_SLOT],
-        date: new Date(`${today}T00:00:00.000Z`),
-      });
+      const recapArchetype = getSocialArchetypeByKey("weekly_scoreboard");
+      if (!recapArchetype) throw new Error("Missing weekly_scoreboard social archetype.");
+      const recapSnapshotTimes = recap.tokenIds
+        .map((tokenId) => candidates.find((candidate) => candidate.id === tokenId))
+        .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""))
+        .filter(Number.isFinite);
+      if (recapSnapshotTimes.length !== recap.tokenIds.length) {
+        throw new Error("Every Threads recap token must have a valid CoinGecko snapshot timestamp.");
+      }
+      const marketDataAsOf = new Date(Math.min(...recapSnapshotTimes));
+      const recapCaption = truncateThreadsAtBoundary(
+        `${recap.caption}\n\nCoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
+        SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
+      );
 
       console.log();
       console.log("Threads weekly recap preview:");
-      console.log(recap.caption);
+      console.log(recapCaption);
       console.log(`Topic: ${recap.topicTag}`);
       console.log(`Tokens: ${recap.tokenIds.join(", ")}`);
       console.log(`Archetype: ${recapArchetype.label} (${recapArchetype.key})`);
@@ -240,9 +249,29 @@ async function main() {
         return;
       }
 
-      const result = await publishThreadsText(recap.caption, {
+      const reservation = await reserveSocialDelivery({
+        platform: "threads",
+        contentKey: socialPostKey,
+        details: {
+          surface: "threads-weekly-recap",
+          tokenIds: recap.tokenIds,
+          marketDataSource: "coingecko-live",
+          marketDataAsOf: marketDataAsOf.toISOString(),
+        },
+      });
+      if (!reservation.acquired) {
+        if (reservation.state === "published") {
+          console.log("Threads weekly recap delivery is already published; treating this run as an idempotent no-op.");
+          return;
+        }
+        throw new Error(`Threads weekly recap delivery is ${reservation.state}; reconcile it before retrying.`);
+      }
+      deliveryReserved = true;
+
+      const result = await publishThreadsText(recapCaption, {
         topicTag: recap.topicTag,
       });
+      publishedExternalId = result.id;
       const postedAt = new Date().toISOString();
       const trackerPayload = buildSocialTrackerPayload({
         postedAt,
@@ -255,7 +284,7 @@ async function main() {
         archetypeLabel: recapArchetype.label,
         hookFamily: recapArchetype.hookFamily,
         ctaFamily: recapArchetype.ctaFamily,
-        text: recap.caption,
+        text: recapCaption,
         externalId: result.id,
         topicTag: recap.topicTag,
         details: {
@@ -263,6 +292,8 @@ async function main() {
           leaders: recap.leaders.map(weeklyTrackerToken),
           pullback: recap.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
           volumeLeader: recap.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
+          marketDataSource: "coingecko-live",
+          marketDataAsOf: marketDataAsOf.toISOString(),
           socialSlot: process.env.SOCIAL_SLOT,
         },
       });
@@ -306,6 +337,11 @@ async function main() {
     if (fs.existsSync(metricsFile)) {
       metric = safeReadJson<MetricData>(metricsFile, undefined as unknown as MetricData) || undefined;
     }
+    const tokenMarketAsOf = token.lastMarketUpdate || token.fetchedAt;
+    if (metric && !isMetricDataFreshForMarket(metric, tokenMarketAsOf)) {
+      console.warn("Derived Risk/Growth metrics do not match the fresh Threads market snapshot; omitting them.");
+      metric = undefined;
+    }
 
     const contentVariant = selectSocialContentVariant({
       platform: "threads",
@@ -339,24 +375,28 @@ async function main() {
     });
     console.log(`Threads archetype: ${contentArchetype.label} (${contentArchetype.key})`);
 
+    const publishingContext = {
+      ...metric,
+      price: token.market.price,
+      priceChange24h: token.market.priceChange24h,
+      marketCap: token.market.marketCap,
+      marketCapRank: token.market.marketCapRank,
+      volume24h: token.market.volume24h,
+      twitterFollowers: undefined,
+      redditSubscribers: undefined,
+      githubCommits4Weeks: undefined,
+      marketDataSource: token.marketDataSource,
+      marketDataAsOf: token.lastMarketUpdate || token.fetchedAt,
+      trendingContext,
+      timeOfDay: getTimeOfDay(),
+      tone: getRandomTone(),
+      selectionReason: reason,
+    };
     const captions = await generateUnifiedCaptions(
       token.name,
       token.symbol,
       token.description || "",
-      {
-        ...metric,
-        price: token.market.price,
-        priceChange24h: token.market.priceChange24h,
-        marketCap: token.market.marketCap,
-        marketCapRank: token.market.marketCapRank,
-        twitterFollowers: token.community?.twitterFollowers || 0,
-        redditSubscribers: token.community?.redditSubscribers || 0,
-        githubCommits4Weeks: token.developer?.commits4Weeks || 0,
-        trendingContext,
-        timeOfDay: getTimeOfDay(),
-        tone: getRandomTone(),
-        selectionReason: reason,
-      },
+      publishingContext,
       ["threads"],
       {
         threadsMaxChars: THREADS_RESEARCH_NOTE_MAX_CHARS,
@@ -371,6 +411,15 @@ async function main() {
       captions.threadsSpoilerText,
       token.name,
     );
+    const finalValidation = validateSocialContent(
+      threadsContent.caption,
+      buildSocialContentFacts(token.name, token.symbol, publishingContext),
+    );
+    if (!finalValidation.ok) {
+      throw new Error(
+        `Final assembled Threads copy failed the publishing gate: ${finalValidation.issues.map((issue) => issue.code).join(", ")}`,
+      );
+    }
 
     console.log();
     console.log("Threads text preview:");
@@ -383,10 +432,30 @@ async function main() {
       return;
     }
 
+    const reservation = await reserveSocialDelivery({
+      platform: "threads",
+      contentKey: socialPostKey,
+      details: {
+        surface: "threads-text",
+        tokenId: token.id,
+        marketDataSource: token.marketDataSource,
+        marketDataAsOf: token.lastMarketUpdate || token.fetchedAt,
+      },
+    });
+    if (!reservation.acquired) {
+      if (reservation.state === "published") {
+        console.log("Threads text delivery is already published; treating this run as an idempotent no-op.");
+        return;
+      }
+      throw new Error(`Threads text delivery is ${reservation.state}; reconcile it before retrying.`);
+    }
+    deliveryReserved = true;
+
     const result = await publishThreadsText(threadsContent.caption, {
       topicTag: threadsContent.topicTag,
       spoilerEntities: threadsContent.spoilerEntities,
     });
+    publishedExternalId = result.id;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({
       postedAt,
@@ -406,6 +475,9 @@ async function main() {
       externalId: result.id,
       topicTag: threadsContent.topicTag,
       details: {
+        marketDataSource: token.marketDataSource,
+        marketDataAsOf: token.lastMarketUpdate || token.fetchedAt,
+        metricsAsOf: metric?.inputDataAsOf,
         socialSlot: process.env.SOCIAL_SLOT,
       },
     });
@@ -424,6 +496,21 @@ async function main() {
 
     console.log(`Threads text signal posted successfully (Post ID: ${result.id})`);
   } catch (error) {
+    if (deliveryReserved) {
+      const errorText = formatErrorForLog(error);
+      await markSocialDeliveryStatus({
+        platform: "threads",
+        contentKey: socialPostKey,
+        status: publishedExternalId
+          ? "published"
+          : isMetaPublishOutcomeUnknownError(error)
+            ? "outcome_unknown"
+            : "failed",
+        externalId: publishedExternalId,
+        error: errorText,
+        details: { surface: mode === "weekly-recap" ? "threads-weekly-recap" : "threads-text" },
+      });
+    }
     if (!dryRun) {
       await logError("post-threads-daily", error);
     }

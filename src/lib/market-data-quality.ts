@@ -1,5 +1,9 @@
 export const MAX_MARKET_DATA_AGE_DAYS = 7;
 export const MAX_TRUSTED_24H_CHANGE_PERCENT = 1000;
+export const CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS = 36 * 60 * 60 * 1000;
+export const CATEGORY_INPUT_BUILD_HEADROOM_MS = 60 * 60 * 1000;
+export const CATEGORY_INPUT_SELECTION_MAX_AGE_MS =
+  CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS - CATEGORY_INPUT_BUILD_HEADROOM_MS;
 
 const MAX_MARKET_DATA_AGE_MS = MAX_MARKET_DATA_AGE_DAYS * 24 * 60 * 60 * 1000;
 
@@ -28,6 +32,80 @@ export type TokenMarketDataInput = {
 function toFiniteNumber(value: unknown): number | null {
   if (typeof value !== "number" || !Number.isFinite(value)) return null;
   return value;
+}
+
+/** Preserve provider observation provenance without inventing a fetch-time timestamp. */
+export function resolveProviderMarketTimestamp(
+  providerTimestamp: unknown,
+  previousProviderTimestamp?: unknown,
+): string | undefined {
+  for (const value of [providerTimestamp, previousProviderTimestamp]) {
+    if (typeof value !== "string" || !value.trim()) continue;
+    const parsed = Date.parse(value);
+    if (Number.isFinite(parsed)) return new Date(parsed).toISOString();
+  }
+  return undefined;
+}
+
+type TimestampedMarketRecord = Record<string, unknown> & {
+  market?: unknown;
+  lastMarketUpdate?: unknown;
+};
+
+/** Merge refreshed metadata without replacing a newer provider-observed market snapshot. */
+export function mergeTokenRecordWithNewestMarketSnapshot<
+  TExisting extends TimestampedMarketRecord,
+  TIncoming extends TimestampedMarketRecord,
+>(existing: TExisting, incoming: TIncoming): TExisting & TIncoming {
+  const existingTimestamp = resolveProviderMarketTimestamp(existing.lastMarketUpdate);
+  const incomingTimestamp = resolveProviderMarketTimestamp(incoming.lastMarketUpdate);
+  const existingHasMarket = existing.market !== undefined && existing.market !== null;
+  const incomingHasMarket = incoming.market !== undefined && incoming.market !== null;
+  const keepExistingMarket = existingHasMarket && (
+    !incomingHasMarket
+    || !incomingTimestamp
+    || Boolean(existingTimestamp && Date.parse(existingTimestamp) >= Date.parse(incomingTimestamp))
+  );
+  const merged: TimestampedMarketRecord = { ...existing, ...incoming };
+
+  if (keepExistingMarket) {
+    merged.market = existing.market;
+    merged.lastMarketUpdate = existingTimestamp;
+  } else if (incomingTimestamp) {
+    merged.lastMarketUpdate = incomingTimestamp;
+  } else {
+    delete merged.lastMarketUpdate;
+  }
+
+  return merged as TExisting & TIncoming;
+}
+
+/** Return the newest valid observation timestamp without substituting ingestion time. */
+export function newestValidObservationTimestamp(values: unknown[]): string | undefined {
+  let newest = Number.NEGATIVE_INFINITY;
+  for (const value of values) {
+    const parsed = typeof value === "number" && Number.isFinite(value)
+      ? value
+      : typeof value === "string"
+        ? Date.parse(value)
+        : NaN;
+    const timestamp = Number.isFinite(parsed) ? new Date(parsed).getTime() : NaN;
+    if (Number.isFinite(timestamp) && timestamp > newest) newest = timestamp;
+  }
+  return Number.isFinite(newest) ? new Date(newest).toISOString() : undefined;
+}
+
+export function normalizeObservedPricePoints(value: unknown): Array<{ date: string; price: number }> {
+  if (!Array.isArray(value)) return [];
+  const normalized: Array<{ date: string; price: number }> = [];
+  for (const point of value) {
+    if (!Array.isArray(point) || point.length < 2) continue;
+    const date = newestValidObservationTimestamp([point[0]]);
+    const price = point[1];
+    if (!date || typeof price !== "number" || !Number.isFinite(price)) continue;
+    normalized.push({ date, price });
+  }
+  return normalized;
 }
 
 export function getMarketDataTimestamp(token: TokenMarketDataInput): string | null {

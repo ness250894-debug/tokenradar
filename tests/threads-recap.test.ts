@@ -55,8 +55,8 @@ describe("Threads weekly recap", () => {
     expect(recap.caption).toContain("TokenRadar weekly recap");
     expect(recap.caption).toContain("$ONE +22.4%");
     expect(recap.caption).toContain("Pullback watch: $RED -11.2%");
-    expect(recap.caption).toContain("Liquidity tell: $LIQ");
-    expect(recap.caption).toContain("What mattered more this week");
+    expect(recap.caption).toContain("Reported-volume context: $LIQ");
+    expect(recap.caption).toContain("Which supplied field was most useful this week");
     expect(recap.caption.length).toBeLessThanOrEqual(500);
   });
 

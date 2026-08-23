@@ -91,25 +91,101 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("data/search-intent-history.json");
   });
 
-  it("keeps comparison slots and the YouTube-only video route wired", () => {
+  it("gives the system report durable AI-cost ledger access without leaking it into unrelated steps", () => {
+    const workflow = readWorkflow("daily-refresh.yml");
+    const workflowEnvBlock = workflow.slice(0, workflow.indexOf("\njobs:"));
+    const reportStart = workflow.indexOf("- name: Dispatch System Report & Cleanup");
+    const reportEnd = workflow.indexOf("\n      - name:", reportStart + 1);
+    const reportBlock = workflow.slice(reportStart, reportEnd);
+    const exportStart = workflow.indexOf("- name: Export engagement analytics baseline");
+    const exportEnd = workflow.indexOf("\n      - name:", exportStart + 1);
+    const exportBlock = workflow.slice(exportStart, exportEnd);
+    const referenceStart = workflow.indexOf("- name: Fetch reference articles");
+    const referenceEnd = workflow.indexOf("\n      - name:", referenceStart + 1);
+    const referenceBlock = workflow.slice(referenceStart, referenceEnd);
+
+    expect(reportStart).toBeGreaterThan(-1);
+    expect(reportBlock).toContain("CLOUDFLARE_API_TOKEN");
+    expect(reportBlock).toContain("CLOUDFLARE_ACCOUNT_ID");
+    expect(workflowEnvBlock).toContain(
+      "D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID || secrets.D1_DATABASE_ID }}",
+    );
+    expect(exportBlock).toContain('SOCIAL_ATTRIBUTION_LEDGER_REQUIRED: "true"');
+    expect(referenceBlock).not.toContain("D1_DATABASE_ID");
+    expect(workflow).not.toContain("92ac6df2-40b4-4c5a-ad56-68142eefcf36");
+    expect(readWorkflow("social-automations.yml"))
+      .not.toContain("92ac6df2-40b4-4c5a-ad56-68142eefcf36");
+  });
+
+  it("keeps the reduced publishing cadence and measurement routes wired", () => {
     const workflow = readWorkflow("social-automations.yml");
 
-    expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check");
-    expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse");
+    expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram");
+    expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform x");
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence");
     expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform telegram");
     expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform x");
-    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform meta");
+    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform instagram");
+    expect(workflow).not.toContain("--format watchlist-check");
+    expect(workflow).not.toContain("--format market-pulse");
+    expect(workflow).not.toContain("npx tsx scripts/post-token-comparison.ts --platform meta");
     expect(workflow).not.toContain("npx tsx scripts/post-daily-poll.ts");
     expect(workflow).not.toContain("npx tsx scripts/post-interactive-daily.ts");
     expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; YouTube only)");
-    expect(workflow).toContain("Refresh Derived Metrics For Video");
+    expect(workflow).toContain("Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes");
     expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform youtube");
     expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform instagram-youtube");
     expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform all");
+    expect(workflow).toContain("npm run social:metrics:collect");
+    expect(workflow).toContain("npm run social:metrics:report:file");
+    expect(workflow).toContain("github.event.schedule != '53 * * * *'");
+    expect(workflow).toContain("github.event.schedule != '31 08 * * 1'");
+    expect(workflow).toContain("name: Collect Native Social Metrics");
+    expect(workflow).toContain("name: Build Weekly Social Performance Report");
     expect(workflow.indexOf("npx tsx scripts/compute-metrics.ts")).toBeLessThan(
       workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform youtube"),
     );
+  });
+
+  it("keeps social routes failure-isolated, time-bounded, and freshness-gated", () => {
+    const workflow = readWorkflow("social-automations.yml");
+
+    expect(workflow).toContain("timeout-minutes: 120");
+    expect(workflow).not.toContain("github.event.inputs.run == 'all'");
+    expect(workflow).toContain("id: refresh-social-metrics");
+    expect(workflow).toContain("Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes");
+    expect(workflow).toContain("steps.refresh-social-metrics.outcome == 'success'");
+    expect(workflow).toContain("id: aggregate-publishing-routes");
+    expect(workflow).toContain("Aggregate publishing route outcomes");
+    expect(workflow).toContain("telegram-market=${{ steps.telegram-market.outcome }}");
+    expect(workflow).toContain("x-market=${{ steps.x-market.outcome }}");
+    expect(workflow).toContain("instagram-comparison=${{ steps.instagram-comparison.outcome }}");
+    expect(workflow).toContain("youtube-video=${{ steps.youtube-video.outcome }}");
+
+    const routeIds = [
+      "telegram-market",
+      "instagram-carousel",
+      "x-comparison",
+      "telegram-comparison",
+      "x-market",
+      "telegram-movers",
+      "telegram-recap",
+      "telegram-divergence",
+      "threads-text",
+      "threads-recap",
+      "instagram-comparison",
+      "youtube-video",
+    ];
+    for (const routeId of routeIds) {
+      const routeStart = workflow.indexOf(`id: ${routeId}`);
+      expect(routeStart, `${routeId} should have a step id`).toBeGreaterThan(-1);
+      const routeBlock = workflow.slice(routeStart, routeStart + 300);
+      expect(routeBlock, `${routeId} should run after sibling failures`).toContain("if: always()");
+      expect(routeBlock, `${routeId} should report its real outcome to the aggregator`).toContain(
+        "continue-on-error: true",
+      );
+      expect(routeBlock, `${routeId} should have a route timeout`).toMatch(/timeout-minutes: \d+/);
+    }
   });
 
   it("keeps social cron slots away from high-risk hour-boundary minutes", () => {
@@ -123,6 +199,15 @@ describe("automation runbook contract", () => {
 
       expect(minute, `${cron} should avoid minute 00/05`).not.toMatch(/^(00|05)$/);
     }
+  });
+
+  it("keeps runner recovery strict when measurement jobs are skipped", () => {
+    const workflow = readWorkflow("social-runner-recovery.yml");
+
+    expect(workflow).toContain('select(.conclusion != "skipped")');
+    expect(workflow).toContain('.name == "Execute Network Routing"');
+    expect(workflow).toContain('"$active_job_count" != "1"');
+    expect(workflow).toContain('"$step_count" != "0"');
   });
 
   it("keeps social schedule routes aligned with declared cron slots", () => {

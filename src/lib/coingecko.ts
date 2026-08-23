@@ -19,6 +19,7 @@ import { sleep, Mutex } from "./shared-utils";
 
 import { Coingecko } from "@coingecko/coingecko-typescript";
 import { fetchWithRetry } from "./fetch-with-retry";
+import { resolveProviderMarketTimestamp } from "./market-data-quality";
 import { MONTHLY_LIMIT } from "./reporter";
 import { formatErrorForLog, writeFileAtomic } from "./utils";
 
@@ -343,6 +344,7 @@ export interface TokenDetailData {
   };
   chart30d?: MarketChartGetResponse;
   chart1y?: MarketChartGetResponse;
+  lastMarketUpdate?: string;
   fetchedAt: string;
 }
 
@@ -435,6 +437,7 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
     },
     chart30d,
     chart1y,
+    lastMarketUpdate: resolveProviderMarketTimestamp(detail.last_updated),
     fetchedAt: new Date().toISOString(),
   };
 }
@@ -456,7 +459,8 @@ function truncateDescription(text: string, maxChars: number = 3000): string {
  */
 export async function fetchTokensByRank(
   startRank: number = 50,
-  endRank: number = 200
+  endRank: number = 200,
+  options: { cacheTtlMs?: number; bypassCache?: boolean } = {},
 ): Promise<CoinGeckoToken[]> {
   const perPage = 250;
   const startPage = Math.ceil(startRank / perPage);
@@ -467,8 +471,8 @@ export async function fetchTokensByRank(
 
   for (let page = startPage; page <= endPage; page++) {
     const tokens = await withCache(
-      `tokens-page-${page}`,
-      2 * 60 * 60 * 1000, // 2 hours for fresh prices/movers
+      options.bypassCache ? undefined : `tokens-page-${page}`,
+      options.cacheTtlMs ?? 2 * 60 * 60 * 1000,
       () => client.coins.markets.get({
         vs_currency: "usd",
         order: "market_cap_desc",

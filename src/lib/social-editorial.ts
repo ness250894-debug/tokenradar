@@ -1,76 +1,115 @@
-const SOCIAL_EDITORIAL_REPLACEMENTS: Array<[RegExp, string]> = [
-  [/\btokenradar\s+signal\b/gi, "TokenRadar research read"],
-  [/\bstrong\s+buy\b/gi, "positive data read"],
-  [/\bbuy\s+signal\b/gi, "market data read"],
-  [/\btrade\s+signal\b/gi, "market data read"],
-  [/\bsignal\b/gi, "research read"],
-  [/\bprice\s+prediction\b/gi, "scenario read"],
-  [/\bprice\s+target\b/gi, "scenario level"],
-  [/\bbuy\s+now(?:\s+before)?\b/gi, "Review the data"],
-  [/\bbuying\s+dips\b/gi, "waiting for confirmation"],
-  [/\bbuying\b/gi, "accumulation"],
-  [/\binvest\s+now\b/gi, "Review the data"],
-  [/\byou\s+should\s+(?:buy|invest)\b/gi, "review the data"],
-  [/\b(?:moonshot|to the moon)\b/gi, "high-volatility move"],
-  [/\bmoon\s+bound\b/gi, "Needs confirmation"],
-  [/\b(?:1000x|100x|10x)\b/gi, "large upside claim"],
-  [/\bguaranteed\s+(?:returns|gains|profit)\b/gi, "unverified return claim"],
-  [/\bguaranteed\b/gi, "automatic"],
-  [/\b(?:sure thing|cannot lose|can't lose|risk-free investment)\b/gi, "risk claim"],
-  [/\bfinancial advice\b/gi, "research context"],
-  [/\b(?:go|going|went)\s+(?:long|short)\b/gi, "review the setup"],
-  [/\b(?:long|short)\s+(?:position|trade|setup|signal)\b/gi, "directional setup"],
-  [/\bentry\s+(?:price|point|setup|zone)\b/gi, "watch area"],
-  [/\btake-profit\b/gi, "risk-management"],
-  [/\bloading\s+bags\b/gi, "reviewing the data"],
-  [/\bload\s+bags\b/gi, "review the data"],
-  [/\bape\s+in\b/gi, "review the setup"],
-  [/\bpump(?:ing|ed|s)?\b/gi, "high-volatility move"],
-  [/\bexplosive\s+gains\b/gi, "large move"],
-  [/\bnext\s+(?:1000x|100x|10x)\b/gi, "large upside claim"],
-  [/\balpha\s+call\b/gi, "research note"],
-  [/#\w*gems?\w*/gi, "#MarketRead"],
-  [/\bgems?\b/gi, "tokens"],
-  [/\bguaranteed\s+signal\b/gi, "unverified research read"],
-  [/\bdon't\s+miss\b/gi, "review carefully"],
-  [/\bsend\s+it\b/gi, "wait for confirmation"],
-  [/\uD83D\uDE80/g, ""],
-];
+export interface ProtectedSocialEntity {
+  value: string;
+  /** Symbols should normally be case-sensitive so a ticker such as PUMP does not exempt generic "pump" hype. */
+  caseSensitive?: boolean;
+}
+
+export interface SocialEditorialOptions {
+  protectedEntities?: Array<string | ProtectedSocialEntity>;
+  /**
+   * Generated candidates use "preserve" so the validator can report every
+   * problem and request a clean regeneration. All other callers fail closed.
+   */
+  unsafeBehavior?: "throw" | "preserve";
+}
 
 const UNSAFE_SOCIAL_PATTERNS: Array<[RegExp, string]> = [
-  [/\bbuy\s+now\b/i, "buy now"],
-  [/\bloading\s+bags\b/i, "loading bags"],
-  [/\bload\s+bags\b/i, "load bags"],
+  [/\b(?:buy|buying|sell|selling|invest|investing)\b/i, "investment instruction"],
+  [/\baccumulat(?:e|es|ed|ing|ion)\b/i, "accumulation instruction"],
+  [/\b(?:entry|entries)(?:\s+(?:price|point|setup|zone|level))?\b/i, "entry instruction"],
+  [/\b(?:commit|committing|deploy|deploying)\s+(?:your\s+)?capital\b/i, "capital instruction"],
+  [/\bbefore\s+(?:making\s+)?(?:a\s+)?moves?\b/i, "action instruction"],
+  [/\b(?:go|going|went)\s+(?:long|short)\b/i, "directional trade"],
+  [/\b(?:long|short)\s+(?:position|trade|setup|signal)\b/i, "directional trade"],
+  [/\b(?:trade|trading)\s+(?:command|call|position|setup|signal)\b/i, "trade instruction"],
+  [/\b(?:take[ -]?profit|stop[ -]?loss)\b/i, "trade level"],
+  [/\b(?:load|loading)\s+bags\b/i, "loading bags"],
   [/\bape\s+in\b/i, "ape in"],
-  [/\bpump(?:ing|ed|s)?\b/i, "pump"],
-  [/\bexplosive\s+gains\b/i, "explosive gains"],
+  [/\b(?:strong\s+buy|buy\s+now|invest\s+now)\b/i, "direct investment instruction"],
+  [/\b(?:tokenradar|buy|sell|trade|entry)\s+signals?\b|\bsignals?\s+to\s+(?:buy|sell|trade|enter)\b/i, "trade signal language"],
+  [/\b(?:price\s+prediction|price\s+target)\b/i, "price prediction"],
+  [/\bpump(?:ing|ed|s)?\b/i, "pump hype"],
+  [/\b(?:moonshot|to\s+the\s+moon|moon\s+bound)\b/i, "moon hype"],
   [/\b(?:1000x|100x|10x)\b/i, "multiple-x claim"],
+  [/\bexplosive\s+gains\b/i, "explosive gains"],
   [/\balpha\s+call\b/i, "alpha call"],
   [/#\w*gems?\w*/i, "gem hashtag"],
-  [/\bguaranteed\s+(?:signal|returns|gains|profit)\b/i, "guaranteed claim"],
-  [/\bguaranteed\b/i, "guaranteed"],
-  [/\bdon't\s+miss\b/i, "don't miss"],
+  [/\bgems?\b/i, "gem language"],
+  [/\bguaranteed(?:\s+(?:signal|returns|gains|profit))?\b/i, "guaranteed claim"],
+  [/\b(?:sure\s+thing|cannot\s+lose|can't\s+lose|risk[ -]?free\s+investment)\b/i, "certainty claim"],
+  [/\b(?:this|that|it)\s+is\s+(?:financial|investment)\s+advice\b/i, "affirmative advice claim"],
+  [/\bdon't\s+miss\b/i, "urgency language"],
   [/\bsend\s+it\b/i, "send it"],
   [/\uD83D\uDE80/u, "rocket emoji"],
 ];
 
-export function sanitizeSocialEditorialText(text: string): string {
-  let next = text;
-  for (const [pattern, replacement] of SOCIAL_EDITORIAL_REPLACEMENTS) {
-    next = next.replace(pattern, replacement);
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function maskProtectedSocialEntities(text: string, options: SocialEditorialOptions = {}): string {
+  let masked = text;
+  let placeholderIndex = 0;
+  const entities: ProtectedSocialEntity[] = [
+    // Only caller-supplied, verified entities are masked. Automatically
+    // treating arbitrary cashtags or dotted words as entities lets unsafe
+    // phrases evade review (for example, "Setup.Guaranteed returns").
+    ...(options.protectedEntities || []).map((entity) =>
+      typeof entity === "string" ? { value: entity, caseSensitive: false } : entity,
+    ),
+  ];
+
+  for (const entity of entities.sort((left, right) => right.value.length - left.value.length)) {
+    if (!entity.value.trim()) continue;
+    const flags = entity.caseSensitive ? "g" : "gi";
+    masked = masked.replace(new RegExp(escapeRegExp(entity.value), flags), () => {
+      placeholderIndex += 1;
+      return `\uE000ENTITY${placeholderIndex}\uE001`;
+    });
   }
 
-  return next
+  return masked;
+}
+
+export class UnsafeSocialEditorialError extends Error {
+  readonly issues: string[];
+
+  constructor(issues: string[]) {
+    super(`Unsafe social editorial content: ${issues.join(", ")}`);
+    this.name = "UnsafeSocialEditorialError";
+    this.issues = issues;
+  }
+}
+
+export function findUnsafeSocialPhrases(
+  text: string,
+  options: SocialEditorialOptions = {},
+): string[] {
+  const searchableText = maskProtectedSocialEntities(text, options);
+  const matches = new Set<string>();
+  for (const [pattern, label] of UNSAFE_SOCIAL_PATTERNS) {
+    if (pattern.test(searchableText)) matches.add(label);
+  }
+  return Array.from(matches);
+}
+
+/**
+ * Performs typography-only cleanup. It intentionally does not convert an
+ * unsafe instruction into a softer-sounding synonym: unsafe meaning either
+ * remains visible to a downstream validator or fails closed here.
+ */
+export function sanitizeSocialEditorialText(
+  text: string,
+  options: SocialEditorialOptions = {},
+): string {
+  const issues = findUnsafeSocialPhrases(text, options);
+  if (issues.length > 0 && options.unsafeBehavior !== "preserve") {
+    throw new UnsafeSocialEditorialError(issues);
+  }
+
+  return text
     .replace(/\s+([.,!?;:])/g, "$1")
     .replace(/[ \t]{2,}/g, " ")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-}
-
-export function findUnsafeSocialPhrases(text: string): string[] {
-  const matches = new Set<string>();
-  for (const [pattern, label] of UNSAFE_SOCIAL_PATTERNS) {
-    if (pattern.test(text)) matches.add(label);
-  }
-  return Array.from(matches);
 }

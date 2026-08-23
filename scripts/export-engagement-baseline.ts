@@ -23,6 +23,8 @@ import * as http from "http";
 import * as path from "path";
 import { pathToFileURL } from "url";
 import { google } from "googleapis";
+import { executeD1Query, hasD1Config, type D1Param } from "../src/lib/d1-client";
+import { summarizeSocialCampaigns } from "./summarize-engagement-baseline";
 
 const DATE_RANGES = [28, 90];
 const OUTPUT_DIR = path.resolve(__dirname, "../data/analytics");
@@ -67,6 +69,66 @@ interface BaselineExport {
   ga4PropertyId: string;
   gscSiteUrl: string;
   ranges: BaselineRange[];
+}
+
+const SOCIAL_ATTRIBUTION_COLUMN_COUNT = 13;
+const D1_MAX_BOUND_PARAMETERS = 100;
+const SOCIAL_ATTRIBUTION_BATCH_SIZE = Math.floor(
+  D1_MAX_BOUND_PARAMETERS / SOCIAL_ATTRIBUTION_COLUMN_COUNT,
+);
+
+export async function persistSocialAttributionMetrics(
+  payload: BaselineExport,
+  options: { required?: boolean } = {},
+): Promise<number> {
+  if (!hasD1Config()) {
+    if (options.required) {
+      throw new Error("D1 configuration is required to persist social attribution metrics.");
+    }
+    return 0;
+  }
+
+  const rows: D1Param[][] = [];
+  for (const range of payload.ranges) {
+    for (const campaign of summarizeSocialCampaigns(range.ga4.landingPages)) {
+      rows.push([
+        campaign.utmContent, range.days, range.startDate, range.endDate, payload.exportedAt,
+        campaign.source, campaign.medium, campaign.campaign, campaign.sessions,
+        campaign.engagedSessions, campaign.screenPageViews, campaign.userEngagementDuration,
+        campaign.eventCount,
+      ]);
+    }
+  }
+
+  for (let index = 0; index < rows.length; index += SOCIAL_ATTRIBUTION_BATCH_SIZE) {
+    const batch = rows.slice(index, index + SOCIAL_ATTRIBUTION_BATCH_SIZE);
+    const placeholders = batch
+      .map(() => `(${Array.from({ length: SOCIAL_ATTRIBUTION_COLUMN_COUNT }, () => "?").join(", ")})`)
+      .join(",\n          ");
+    await executeD1Query(
+      `
+        INSERT INTO social_attribution_metrics (
+          utm_content, window_days, range_start, range_end, exported_at,
+          source, medium, campaign, sessions, engaged_sessions,
+          screen_page_views, user_engagement_duration, event_count
+        ) VALUES ${placeholders}
+        ON CONFLICT(utm_content, window_days, range_end) DO UPDATE SET
+          exported_at = excluded.exported_at,
+          source = excluded.source,
+          medium = excluded.medium,
+          campaign = excluded.campaign,
+          sessions = excluded.sessions,
+          engaged_sessions = excluded.engaged_sessions,
+          screen_page_views = excluded.screen_page_views,
+          user_engagement_duration = excluded.user_engagement_duration,
+          event_count = excluded.event_count
+      `,
+      batch.flat(),
+      { required: true },
+    );
+  }
+
+  return rows.length;
 }
 
 type GoogleAuthOptions = NonNullable<ConstructorParameters<typeof google.auth.GoogleAuth>[0]>;
@@ -347,6 +409,10 @@ async function fetchGa4LandingPages(
         { name: "landingPagePlusQueryString" },
         { name: "deviceCategory" },
         { name: "sessionDefaultChannelGroup" },
+        { name: "sessionManualSource" },
+        { name: "sessionManualMedium" },
+        { name: "sessionManualCampaignName" },
+        { name: "sessionManualAdContent" },
       ],
       metrics: [
         { name: "sessions" },
@@ -465,9 +531,13 @@ async function main() {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   const outputPath = path.join(OUTPUT_DIR, `engagement-baseline-${formatDate(new Date())}.json`);
   fs.writeFileSync(outputPath, `${JSON.stringify(payload, null, 2)}\n`);
+  const persistedAttributionRows = await persistSocialAttributionMetrics(payload, {
+    required: process.env.SOCIAL_ATTRIBUTION_LEDGER_REQUIRED?.trim().toLowerCase() === "true",
+  });
 
   console.log(JSON.stringify({
     outputPath: path.relative(process.cwd(), outputPath),
+    persistedAttributionRows,
     ranges: payload.ranges.map((range) => ({
       days: range.days,
       ga4LandingRows: range.ga4.landingPages.length,
