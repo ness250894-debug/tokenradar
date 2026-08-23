@@ -1,6 +1,7 @@
 import { Api, InputFile } from "grammy";
 import type { RawApi } from "grammy";
 import { SOCIAL_PLATFORM_LIMITS } from "./config";
+import { requireTelegramMessageId } from "./telegram";
 
 const TELEGRAM_MESSAGE_LIMIT = 4096;
 const TELEGRAM_VIDEO_CAPTION_LIMIT = 1024;
@@ -112,17 +113,18 @@ export async function sendTikTokInboxUploadReport(
   const summaryMessage = await api.sendMessage(chatId, buildTikTokInboxUploadSummary(pkg), {
     link_preview_options: { is_disabled: true },
   });
+  const summaryMessageId = requireTelegramMessageId(summaryMessage, "sendMessage TikTok inbox summary");
 
   const captionMessageIds: number[] = [];
   for (const chunk of chunkTikTokManualCaption(pkg.caption)) {
     const message = await api.sendMessage(chatId, chunk, {
       link_preview_options: { is_disabled: true },
     });
-    captionMessageIds.push(message.message_id);
+    captionMessageIds.push(requireTelegramMessageId(message, "sendMessage TikTok inbox caption"));
   }
 
   return {
-    summaryMessageId: summaryMessage.message_id,
+    summaryMessageId,
     captionMessageIds,
   };
 }
@@ -134,17 +136,18 @@ export async function sendTikTokManualPostReport(pkg: TikTokManualPostPackage): 
   const videoMessage = await api.sendVideo(chatId, new InputFile(pkg.videoBuffer, fileName), {
     caption: buildTikTokManualVideoCaption(pkg),
   });
+  const videoMessageId = requireTelegramMessageId(videoMessage, "sendVideo TikTok manual package");
 
   const captionMessageIds: number[] = [];
   for (const chunk of chunkTikTokManualCaption(pkg.caption)) {
     const message = await api.sendMessage(chatId, chunk, {
       link_preview_options: { is_disabled: true },
     });
-    captionMessageIds.push(message.message_id);
+    captionMessageIds.push(requireTelegramMessageId(message, "sendMessage TikTok manual caption"));
   }
 
   return {
-    videoMessageId: videoMessage.message_id,
+    videoMessageId,
     captionMessageIds,
   };
 }

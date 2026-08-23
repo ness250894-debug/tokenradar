@@ -22,6 +22,11 @@ const SPECIAL_POSTED_FILES = new Set([
   "token-comparison-threads.json",
 ]);
 
+function normalizeDeliveryKeyPart(value: string, fallback: string): string {
+  const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return normalized || fallback;
+}
+
 function readTracker(filePath: string): TrackerPayload | null {
   try {
     const raw = fs.readFileSync(filePath, "utf-8");
@@ -185,7 +190,14 @@ function collectPostedRecords(dataDir: string): SocialPostRecord[] {
       const platform = inferMarketPlatform(fileName, payload);
       if (!marketTracker || !marketTracker.tokenId || !platform) continue;
 
-      records.push(record(dateDir, platform, `${dateDir}:market-update:${marketTracker.tokenId}`, payload, {
+      const socialSlot = stringField(payload, "socialSlot");
+      const format = platform === "telegram"
+        ? stringField(payload, "telegramFormat") || "market-brief"
+        : "market-update";
+      const contentKey = socialSlot
+        ? `${dateDir}:slot:${normalizeDeliveryKeyPart(socialSlot, "market-update")}:${platform}:${normalizeDeliveryKeyPart(format, "market-update")}`
+        : `${dateDir}:market-update:${marketTracker.tokenId}`;
+      records.push(record(dateDir, platform, contentKey, payload, {
         tokenId: marketTracker.tokenId,
         reason: stringField(payload, "reason") || null,
       }));
@@ -208,16 +220,40 @@ function collectPostedVideoRecords(dataDir: string): SocialPostRecord[] {
 
     const payload = readTracker(trackerPath);
     const tokenId = payload ? stringField(payload, "tokenId") : undefined;
+    const socialSlot = payload ? stringField(payload, "socialSlot") : undefined;
+    const socialSlots = payload?.socialSlots && typeof payload.socialSlots === "object" && !Array.isArray(payload.socialSlots)
+      ? payload.socialSlots as Record<string, unknown>
+      : undefined;
     const platforms = payload?.platforms;
     if (!payload || !tokenId || !platforms || typeof platforms !== "object" || Array.isArray(platforms)) continue;
 
     for (const [platform, platformPayload] of Object.entries(platforms as Record<string, unknown>)) {
       if (!platformPayload || typeof platformPayload !== "object" || Array.isArray(platformPayload)) continue;
       const tracker = platformPayload as TrackerPayload;
-      records.push(record(dateDir, platform, `${dateDir}:video:${tokenId}:${platform}`, tracker, {
+      const status = stringField(tracker, "status");
+      const deliveryMode = stringField(tracker, "deliveryMode");
+      const trackerExternalId = platform === "tiktok"
+        ? numberOrStringField(tracker, "postId") || numberOrStringField(tracker, "externalId")
+        : externalId(tracker);
+      // Every backfill needs both an explicit public-success state and external
+      // evidence. Failed, skipped, processing, uploaded, ambiguous, legacy,
+      // or manual-handoff states must never be promoted to published.
+      if (trackerExternalId === undefined || !status || !["published", "manual_published"].includes(status)) {
+        continue;
+      }
+      if (platform === "tiktok" && deliveryMode === "content-posting-api-inbox" && status !== "manual_published") {
+        continue;
+      }
+      const platformSocialSlot = typeof socialSlots?.[platform] === "string"
+        ? String(socialSlots[platform])
+        : socialSlot;
+      const contentKey = platformSocialSlot
+        ? `${dateDir}:slot:${normalizeDeliveryKeyPart(platformSocialSlot, "video")}:${platform}:video`
+        : `${dateDir}:video:${tokenId}:${platform}`;
+      records.push(record(dateDir, platform, contentKey, { ...tracker, externalId: trackerExternalId }, {
         tokenId,
         source: "posted_video",
-        deliveryMode: stringField(tracker, "deliveryMode") || null,
+        deliveryMode: deliveryMode || null,
       }));
     }
   }
@@ -229,6 +265,9 @@ export function collectBackfillSocialPosts(dataDir: string): SocialPostRecord[] 
   const byKey = new Map<string, SocialPostRecord>();
 
   for (const item of [...collectPostedRecords(dataDir), ...collectPostedVideoRecords(dataDir)]) {
+    if (item.externalId === undefined || item.externalId === null || String(item.externalId).trim() === "") {
+      continue;
+    }
     byKey.set(`${item.platform}\n${item.contentKey}`, item);
   }
 

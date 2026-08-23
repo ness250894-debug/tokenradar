@@ -26,16 +26,20 @@ describe("video production market-data controls", () => {
           marketCap: 80_000_000_000,
           volume24h: 4_000_000_000,
         },
-        lastMarketUpdate: "2026-05-18T16:45:00.000Z",
+        lastMarketUpdate: "2026-05-18T17:50:00.000Z",
       },
       metric: {
-        computedAt: "2026-05-18T04:00:00.000Z",
+        computedAt: "2026-05-18T17:55:00.000Z",
+        marketDataAsOf: "2026-05-18T17:45:00.000Z",
+        priceHistoryAsOf: "2026-05-18T17:40:00.000Z",
+        categoryDataAsOf: "2026-05-18T17:35:00.000Z",
+        inputDataAsOf: "2026-05-18T17:35:00.000Z",
       },
       now,
     });
 
     expect(result.ok).toBe(true);
-    expect(result.asOf).toBe("2026-05-18T16:45:00.000Z");
+    expect(result.asOf).toBe("2026-05-18T17:50:00.000Z");
     expect(result.issues).toEqual([]);
   });
 
@@ -53,6 +57,10 @@ describe("video production market-data controls", () => {
       },
       metric: {
         computedAt: "2026-05-16T00:00:00.000Z",
+        marketDataAsOf: "2026-05-16T00:00:00.000Z",
+        priceHistoryAsOf: "2026-05-16T00:00:00.000Z",
+        categoryDataAsOf: "2026-05-16T00:00:00.000Z",
+        inputDataAsOf: "2026-05-16T00:00:00.000Z",
       },
       now,
     });
@@ -63,6 +71,71 @@ describe("video production market-data controls", () => {
       "stale-market-data",
       "stale-derived-metrics",
     ]);
+  });
+
+  it("rejects freshly recomputed metrics whose underlying market inputs are stale", () => {
+    const result = validateVideoMarketDataFreshness({
+      token: {
+        id: "fresh-price-stale-metric-input",
+        market: { price: 1, priceChange24h: 1, marketCap: 1_000_000, volume24h: 100_000 },
+        lastMarketUpdate: "2026-05-18T17:30:00.000Z",
+      },
+      metric: {
+        computedAt: "2026-05-18T17:55:00.000Z",
+        marketDataAsOf: "2026-05-16T00:00:00.000Z",
+        priceHistoryAsOf: "2026-05-16T00:00:00.000Z",
+        categoryDataAsOf: "2026-05-16T00:00:00.000Z",
+        inputDataAsOf: "2026-05-16T00:00:00.000Z",
+      },
+      now,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.metricAsOf).toBe("2026-05-16T00:00:00.000Z");
+    expect(result.issues).toContain("stale-derived-metrics");
+  });
+
+  it("requires derived metrics by default but supports an explicit token-only first pass", () => {
+    const input = {
+      token: {
+        id: "fresh-without-metrics",
+        market: { price: 1, priceChange24h: 1, marketCap: 1_000_000, volume24h: 100_000 },
+        lastMarketUpdate: "2026-05-18T17:30:00.000Z",
+      },
+      now,
+    };
+
+    expect(validateVideoMarketDataFreshness(input)).toMatchObject({
+      ok: false,
+      metricAsOf: null,
+      issues: ["missing-derived-metrics"],
+    });
+    expect(validateVideoMarketDataFreshness({
+      ...input,
+      requireDerivedMetrics: false,
+    }).ok).toBe(true);
+  });
+
+  it("allows category freshness headroom below 36 hours and rejects the exact limit", () => {
+    const validateCategoryAge = (categoryDataAsOf: string) => validateVideoMarketDataFreshness({
+      token: {
+        id: "category-boundary",
+        market: { price: 1, priceChange24h: 1, marketCap: 1_000_000, volume24h: 100_000 },
+        lastMarketUpdate: "2026-05-18T17:30:00.000Z",
+      },
+      metric: {
+        computedAt: "2026-05-18T17:55:00.000Z",
+        marketDataAsOf: "2026-05-18T17:30:00.000Z",
+        priceHistoryAsOf: "2026-05-18T17:20:00.000Z",
+        categoryDataAsOf,
+        inputDataAsOf: categoryDataAsOf,
+      },
+      now,
+    });
+
+    expect(validateCategoryAge("2026-05-17T06:01:00.000Z").ok).toBe(true);
+    expect(validateCategoryAge("2026-05-17T06:00:00.000Z").issues)
+      .toContain("stale-derived-metrics");
   });
 
   it("filters candidates to the tokens safe for automated video publication", () => {
@@ -84,6 +157,12 @@ describe("video production market-data controls", () => {
 
   it("allows one metrics refresh only when stale derived metrics are the sole blocker", () => {
     expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 3 }, 3)).toBe(true);
+    expect(shouldRefreshDerivedMetricsForVideo({ "missing-derived-metrics": 3 }, 3)).toBe(true);
+    expect(shouldRefreshDerivedMetricsForVideo({
+      "missing-derived-metrics": 1,
+      "missing-derived-metrics-timestamp": 1,
+      "stale-derived-metrics": 1,
+    }, 3)).toBe(true);
     expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 2 }, 3)).toBe(false);
     expect(shouldRefreshDerivedMetricsForVideo({ "stale-derived-metrics": 3, "stale-market-data": 1 }, 3)).toBe(false);
     expect(formatVideoMarketFreshnessIssueCounts({ "stale-derived-metrics": 3 })).toBe("stale-derived-metrics=3");
@@ -184,6 +263,30 @@ describe("video production state controls", () => {
         },
       }),
     ).toMatchObject({ shouldPublish: true, reason: "tracker-non-terminal" });
+
+    expect(reconcilePlatformPublishState({
+      platform: "tiktok",
+      d1HasPublishedState: false,
+      tracker: { status: "manual_published", tiktokUrl: "https://www.tiktok.com/@tokenradar/video/1" },
+    })).toMatchObject({
+      shouldPublish: false,
+      shouldBackfillD1: true,
+      reason: "tracker-terminal-with-evidence",
+    });
+    expect(reconcilePlatformPublishState({
+      platform: "tiktok",
+      d1HasPublishedState: false,
+      tracker: { tiktokUrl: "https://www.tiktok.com/@tokenradar/video/1" },
+    })).toMatchObject({
+      shouldPublish: false,
+      shouldBackfillD1: false,
+      reason: "tracker-outcome-unknown",
+    });
+    expect(reconcilePlatformPublishState({
+      platform: "tiktok",
+      d1HasPublishedState: false,
+      tracker: {},
+    })).toMatchObject({ shouldPublish: true, reason: "tracker-non-terminal" });
   });
 
   it("builds severity-tagged alerts with runbook actions", () => {

@@ -54,11 +54,11 @@ describe("Telegram market formats", () => {
       context: sampleContext,
     });
 
-    expect(read.label).toBe("Price leads participation");
+    expect(read.label).toBe("Point-in-time field comparison");
     expect(post.image.kind).toBe("market-pulse");
     expect(post.captionBody).toContain("<b>Radar Divergence: $ETH</b>");
-    expect(post.captionBody).toContain("Price leads participation");
-    expect(post.captionBody).toContain("What changes the read:");
+    expect(post.captionBody).toContain("Point-in-time field comparison");
+    expect(post.captionBody).toContain("Reported 24h volume:");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
 
@@ -75,9 +75,13 @@ describe("Telegram market formats", () => {
 
     expect(post.image.kind).toBe("market-pulse");
     expect(post.captionBody).toContain("<b>Market Pulse</b>");
-    expect(post.captionBody).toContain("Total Cap");
-    expect(post.captionBody).toContain("AI Agents");
+    expect(post.captionBody).not.toContain("Total Cap");
+    expect(post.captionBody).not.toContain("AI Agents");
     expect(post.captionBody).toContain("$ETH");
+    if (post.image.kind === "market-pulse") {
+      expect(post.image.data.globalStats).toContain("Total Cap");
+      expect(post.image.data.sectorLines.join(" ")).toContain("AI Agents");
+    }
     expect(getTelegramHtmlTextLength(finalCaption)).toBeLessThanOrEqual(SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT);
   });
 
@@ -90,8 +94,8 @@ describe("Telegram market formats", () => {
 
     expect(post.image.kind).toBe("token-card");
     expect(post.captionBody).toContain("<b>Watchlist Check</b>");
-    expect(post.captionBody).toContain("Risk:");
-    expect(post.captionBody).toContain("Invalidation:");
+    expect(post.captionBody).toContain("Risk score: 3/10");
+    expect(post.captionBody).toContain("Reported 24h volume:");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
 

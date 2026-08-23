@@ -5,6 +5,7 @@ import {
   REFERRAL_LINKS_HTML,
   SOCIAL_FOOTER,
   X_COST_PER_POST,
+  X_API_UNIT_COSTS,
 } from "../src/lib/config";
 
 describe("config exports", () => {
@@ -29,12 +30,19 @@ describe("config exports", () => {
 
   it("exports social footer as non-empty array", () => {
     expect(SOCIAL_FOOTER.length).toBeGreaterThan(0);
-    expect(SOCIAL_FOOTER.join("")).toContain(`<a href="${SOCIAL.linkTreeUrl}">`);
+    expect(SOCIAL_FOOTER.join("")).toContain(`<a href="${SITE_URL}">`);
+    expect(SOCIAL_FOOTER.join("")).not.toContain(SOCIAL.linkTreeUrl);
     expect(SOCIAL_FOOTER.join("")).toContain("TokenRadar Research Desk");
     expect(SOCIAL_FOOTER.join("")).toContain("Research read, not financial advice.");
   });
 
-  it("exports X_COST_PER_POST as $0.01", () => {
-    expect(X_COST_PER_POST).toBe(0.01);
+  it("exports current X pay-per-use unit costs", () => {
+    expect(X_COST_PER_POST).toBe(0.015);
+    expect(X_API_UNIT_COSTS).toEqual({
+      CONTENT_CREATE: 0.015,
+      CONTENT_CREATE_WITH_URL: 0.2,
+      ANALYTICS_READ: 0.005,
+      OWNED_READ: 0.001,
+    });
   });
 });

@@ -31,7 +31,7 @@ export async function fetchTokenImage(
     marketCap: number;
     volume24h: number;
     rank: number;
-    risk: number;
+    risk?: number;
   }
 ): Promise<Buffer | null> {
   // Strategy 1: Render in-memory with live data (preferred)

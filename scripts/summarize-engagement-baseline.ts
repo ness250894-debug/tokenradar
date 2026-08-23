@@ -71,6 +71,13 @@ export interface EventSummary {
   totalUsers: number;
 }
 
+export interface SocialCampaignSummary extends EngagementMetricSummary {
+  utmContent: string;
+  source: string;
+  medium: string;
+  campaign: string;
+}
+
 export interface RangeSummary {
   days: number;
   startDate: string;
@@ -83,6 +90,7 @@ export interface RangeSummary {
   weakLandingPages: EngagementGroupSummary[];
   weakMobileSocialLandingPages: EngagementGroupSummary[];
   searchOpportunities: SearchGroupSummary[];
+  socialCampaigns: SocialCampaignSummary[];
   trackedEvents: EventSummary[];
   missingEngagementEvents: string[];
 }
@@ -144,6 +152,50 @@ export function normalizePagePath(value: string): string {
     const withoutQuery = trimmed.split(/[?#]/)[0] || trimmed;
     return withoutQuery.length > 1 ? withoutQuery.replace(/\/$/g, "") : withoutQuery;
   }
+}
+
+function queryParameter(value: string, name: string): string | undefined {
+  if (!value || value === "(not set)") return undefined;
+  try {
+    return new URL(value, "https://tokenradar.co").searchParams.get(name)?.trim() || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function dimensionValue(row: FlatRow, key: string): string | undefined {
+  const value = row.dimensions[key]?.trim();
+  return value && value !== "(not set)" ? value : undefined;
+}
+
+export function summarizeSocialCampaigns(rows: FlatRow[]): SocialCampaignSummary[] {
+  const grouped = new Map<string, { attribution: Omit<SocialCampaignSummary, keyof EngagementMetricSummary>; rows: FlatRow[] }>();
+
+  for (const row of rows) {
+    const landingPage = row.dimensions.landingPagePlusQueryString || "";
+    const utmContent = dimensionValue(row, "sessionManualAdContent") || queryParameter(landingPage, "utm_content");
+    const source = dimensionValue(row, "sessionManualSource") || queryParameter(landingPage, "utm_source");
+    const medium = dimensionValue(row, "sessionManualMedium") || queryParameter(landingPage, "utm_medium");
+    const campaign = dimensionValue(row, "sessionManualCampaignName") || queryParameter(landingPage, "utm_campaign");
+    if (!utmContent || medium !== "social") continue;
+
+    const key = [source || "unknown", medium, campaign || "unknown", utmContent].join("\n");
+    const existing = grouped.get(key) || {
+      attribution: {
+        utmContent,
+        source: source || "unknown",
+        medium,
+        campaign: campaign || "unknown",
+      },
+      rows: [],
+    };
+    existing.rows.push(row);
+    grouped.set(key, existing);
+  }
+
+  return [...grouped.values()]
+    .map((group) => ({ ...group.attribution, ...sumEngagementRows(group.rows) }))
+    .sort((left, right) => right.sessions - left.sessions || right.engagedSessions - left.engagedSessions);
 }
 
 function groupEngagementRows(rows: FlatRow[], keyForRow: (row: FlatRow) => string): EngagementGroupSummary[] {
@@ -271,6 +323,7 @@ export function summarizeBaselineExport(baseline: BaselineExport): EngagementBas
         weakLandingPages: getWeakLandingPages(pageGroups),
         weakMobileSocialLandingPages: getWeakLandingPages(mobileSocialPageGroups),
         searchOpportunities: getSearchOpportunities(searchPageGroups),
+        socialCampaigns: summarizeSocialCampaigns(range.ga4.landingPages),
         trackedEvents: trackedEvents.slice(0, 10),
         missingEngagementEvents: EXPECTED_ENGAGEMENT_EVENTS.filter((eventName) => !eventNames.has(eventName)),
       };
@@ -350,6 +403,12 @@ export function renderSummaryMarkdown(summary: EngagementBaselineSummary, source
       ...(range.searchOpportunities.length
         ? range.searchOpportunities.map((page) => `- ${formatSearch(page)}`)
         : ["- None above the minimum impression threshold"]),
+      "",
+      "Social creative attribution:",
+      ...(range.socialCampaigns.length
+        ? range.socialCampaigns.slice(0, 12).map((campaign) =>
+            `- ${campaign.utmContent} (${campaign.source}/${campaign.campaign}): ${campaign.sessions} sessions, ${formatPercent(campaign.engagementRate)}`)
+        : ["- No social sessions with preserved utm_content"]),
       "",
       "Tracked events:",
       ...(range.trackedEvents.length

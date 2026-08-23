@@ -11,6 +11,8 @@ export interface TikTokManualCompletionTracker {
   tokenName?: string;
   reason?: string;
   platform?: string;
+  socialSlot?: string;
+  socialSlots?: Record<string, string | undefined>;
   platforms: {
     tiktok?: Record<string, unknown>;
     [platform: string]: Record<string, unknown> | undefined;
@@ -20,11 +22,28 @@ export interface TikTokManualCompletionTracker {
 export type TikTokManualCompletionIssue =
   | "operator-required"
   | "tiktok-url-or-post-id-required"
+  | "tiktok-url-invalid"
   | "published-at-invalid";
 
 function isValidIsoDate(value: string | undefined): boolean {
   if (!value) return true;
   return !Number.isNaN(Date.parse(value));
+}
+
+function isValidTikTokPublicUrl(value: string | undefined): boolean {
+  if (!value?.trim()) return true;
+  try {
+    const url = new URL(value.trim());
+    if (url.protocol !== "https:") return false;
+    const hostname = url.hostname.toLowerCase();
+    if (hostname === "vm.tiktok.com" || hostname === "vt.tiktok.com") {
+      return url.pathname.length > 1;
+    }
+    return (hostname === "tiktok.com" || hostname.endsWith(".tiktok.com"))
+      && (url.pathname.includes("/video/") || url.pathname.startsWith("/t/"));
+  } catch {
+    return false;
+  }
 }
 
 export function validateTikTokManualCompletionInput(
@@ -33,6 +52,7 @@ export function validateTikTokManualCompletionInput(
   const issues: TikTokManualCompletionIssue[] = [];
   if (!input.operator.trim()) issues.push("operator-required");
   if (!input.tiktokUrl?.trim() && !input.postId?.trim()) issues.push("tiktok-url-or-post-id-required");
+  if (!isValidTikTokPublicUrl(input.tiktokUrl)) issues.push("tiktok-url-invalid");
   if (!isValidIsoDate(input.publishedAt)) issues.push("published-at-invalid");
   return issues;
 }

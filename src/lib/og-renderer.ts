@@ -22,7 +22,7 @@ export interface OgRenderData {
   marketCap: number;
   volume24h: number;
   rank: number;
-  risk: number;
+  risk?: number;
 }
 
 // ── Font Loading (cached) ────────────────────────────────────
@@ -128,8 +128,9 @@ function renderOgSocialItem({ platform, label }: { platform: OgSocialPlatform; l
  */
 export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
   const font = await loadFont();
-  const riskColor = getRiskColor(data.risk);
-  const riskLabel = getRiskTier(data.risk);
+  const hasRiskScore = typeof data.risk === "number" && Number.isFinite(data.risk);
+  const riskColor = hasRiskScore ? getRiskColor(data.risk as number) : "#8B919D";
+  const riskLabel = hasRiskScore ? getRiskTier(data.risk as number) : "N/A";
   const nameFontSize = getNameFontSize(data.name);
 
   const svg = await satori(
@@ -359,7 +360,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                             marginTop: 8,
                           },
                           children: [
-                            String(data.risk),
+                            hasRiskScore ? String(data.risk) : "N/A",
                             {
                               type: "span",
                               props: {
@@ -369,7 +370,7 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
                                   color: "#4A4A4A",
                                   marginLeft: 6,
                                 },
-                                children: "/10",
+                                children: hasRiskScore ? "/10" : "",
                               },
                             },
                           ],

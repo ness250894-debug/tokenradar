@@ -49,7 +49,7 @@ export const ICONS = {
 
 /** Social footer lines used in Telegram posts. */
 export const TELEGRAM_ECOSYSTEM_LINK_HTML =
-  `<a href="${SOCIAL.linkTreeUrl}">TokenRadar Research Desk</a>`;
+  getTelegramResearchLinkHtml(SITE_URL);
 
 export const TELEGRAM_SIGNAL_NOTE =
   "Research read, not financial advice. Confirm liquidity, risk, and invalidation.";
@@ -59,12 +59,21 @@ export const SOCIAL_FOOTER = [
   TELEGRAM_SIGNAL_NOTE,
 ];
 
+function escapeTelegramHref(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+/** Build the first-party Telegram research link, safely escaped for HTML parse mode. */
+export function getTelegramResearchLinkHtml(researchUrl: string = SITE_URL): string {
+  return `<a href="${escapeTelegramHref(researchUrl)}">TokenRadar Research Desk</a>`;
+}
+
 /**
  * Generate the standard Telegram footer with connected TokenRadar links.
  */
-export function getTelegramFooter(symbol: string): string {
+export function getTelegramFooter(symbol: string, researchUrl: string = SITE_URL): string {
   return `
-${TELEGRAM_ECOSYSTEM_LINK_HTML}
+${getTelegramResearchLinkHtml(researchUrl)}
 
 ${TELEGRAM_SIGNAL_NOTE}
 #${symbol.toUpperCase()} #Crypto
@@ -100,8 +109,16 @@ export const SOCIAL_PLATFORM_LIMITS = {
   },
 } as const;
 
-/** X API pay-per-use cost per post create (as of Feb 2026). */
-export const X_COST_PER_POST = 0.01;
+/** X API pay-per-use unit costs documented in August 2026. */
+export const X_API_UNIT_COSTS = {
+  CONTENT_CREATE: 0.015,
+  CONTENT_CREATE_WITH_URL: 0.2,
+  ANALYTICS_READ: 0.005,
+  OWNED_READ: 0.001,
+} as const;
+
+/** Backward-compatible base cost for a post create without a URL. */
+export const X_COST_PER_POST = X_API_UNIT_COSTS.CONTENT_CREATE;
 
 /**
  * CoinGecko IDs of stablecoins and pegged assets to exclude from market update posts.

@@ -12,6 +12,21 @@ interface MigrationRow {
   id: string;
 }
 
+interface TableInfoRow {
+  name: string;
+}
+
+const WINDOW_HOURS_ALTER_RE = /ALTER TABLE social_post_metrics ADD COLUMN window_hours INTEGER;\s*/i;
+
+async function socialMetricsHasWindowHours(): Promise<boolean> {
+  const tableInfo = await executeD1Query<TableInfoRow>(
+    "PRAGMA table_info(social_post_metrics)",
+    [],
+    { required: true },
+  );
+  return (tableInfo[0]?.results || []).some((column) => column.name === "window_hours");
+}
+
 async function ensureMigrationTable(): Promise<void> {
   await executeD1Query(
     `
@@ -36,13 +51,35 @@ async function getAppliedMigrationIds(): Promise<Set<string>> {
 
 async function applyMigration(fileName: string): Promise<void> {
   const filePath = path.join(MIGRATIONS_DIR, fileName);
-  const sql = fs.readFileSync(filePath, "utf-8").trim();
+  let sql = fs.readFileSync(filePath, "utf-8").trim();
   if (!sql) return;
 
+  // 0004 may have completed its ALTER before a later statement or migration
+  // marker failed. SQLite has no portable ADD COLUMN IF NOT EXISTS, so make
+  // that bridge explicitly resumable.
+  if (fileName === "0004_social_metric_windows.sql") {
+    if (await socialMetricsHasWindowHours()) {
+      sql = sql.replace(WINDOW_HOURS_ALTER_RE, "").trim();
+    }
+  }
+
   console.log(`Applying D1 migration ${fileName}...`);
-  await executeD1Query(sql, [], { required: true });
+  if (sql) {
+    try {
+      await executeD1Query(sql, [], { required: true });
+    } catch (error) {
+      // Another workflow may win the first-run ALTER race between our schema
+      // check and execution. Verify that exact outcome, then execute the
+      // remaining idempotent indexes instead of failing the migration.
+      if (fileName !== "0004_social_metric_windows.sql" || !(await socialMetricsHasWindowHours())) {
+        throw error;
+      }
+      const remainder = sql.replace(WINDOW_HOURS_ALTER_RE, "").trim();
+      if (remainder) await executeD1Query(remainder, [], { required: true });
+    }
+  }
   await executeD1Query(
-    "INSERT INTO ops_schema_migrations (id, applied_at) VALUES (?, ?)",
+    "INSERT OR IGNORE INTO ops_schema_migrations (id, applied_at) VALUES (?, ?)",
     [fileName, new Date().toISOString()],
     { required: true },
   );

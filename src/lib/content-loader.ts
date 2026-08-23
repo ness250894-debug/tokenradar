@@ -227,6 +227,7 @@ export interface TokenMetrics {
   volatilityIndex: number;
   holderConcentrationEstimate?: "low" | "medium" | "high" | "unknown";
   summary: string;
+  marketDataAsOf?: string;
   computedAt: string;
 }
 
@@ -916,6 +917,7 @@ function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null 
     volatilityIndex: metric.volatilityIndex,
     holderConcentrationEstimate: metric.holderConcentrationEstimate,
     summary: normalizeMetricSummary(metric.summary),
+    marketDataAsOf: metric.marketDataAsOf,
     computedAt: metric.computedAt,
   };
 }

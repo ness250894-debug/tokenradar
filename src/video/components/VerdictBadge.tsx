@@ -37,10 +37,7 @@ export const VerdictBadge: React.FC<{
 
   const color = recipe.colorTheme === "electric_indigo" ? getVerdictColor(verdict) : theme.accent;
   const researchLabel: Record<Verdict, string> = {
-    CONSTRUCTIVE: "LOW-RISK MOMENTUM",
-    "POSITIVE DATA": "POSITIVE DATA SETUP",
-    NEUTRAL: "NEUTRAL WATCH",
-    "RISK ELEVATED": "RISK ELEVATED",
+    "DATA SNAPSHOT": "DATA SNAPSHOT",
   };
   const label = labelOverride || researchLabel[verdict] || verdict;
 

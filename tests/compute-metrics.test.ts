@@ -6,6 +6,10 @@ import {
   computeNarrativeStrength,
   computeValueVsAth,
   buildMetricSummary,
+  isCategoryInputEligibleForMetrics,
+  resolveCategoryMetricContext,
+  resolveMetricMarketDataAsOf,
+  resolvePriceHistoryAsOf,
 } from "../scripts/compute-metrics";
 
 // ── computeVolatility ─────────────────────────────────────────
@@ -33,6 +37,53 @@ describe("computeVolatility", () => {
 
   it("returns 0 if mean price is 0", () => {
     expect(computeVolatility([{ price: 0 }, { price: 0 }])).toBe(0);
+  });
+});
+
+describe("price-history provenance", () => {
+  it("uses chart observation time rather than a newer ingestion timestamp", () => {
+    expect(resolvePriceHistoryAsOf({
+      chart30d: [
+        { date: "2026-08-21T00:00:00Z" },
+        { date: "2026-08-22T00:00:00Z" },
+      ],
+      chart1y: [{ date: "2026-08-23T00:00:00Z" }],
+      priceHistoryAsOf: "2026-08-22T00:00:00Z",
+      fetchedAt: "2026-08-23T12:00:00Z",
+    } as Parameters<typeof resolvePriceHistoryAsOf>[0])).toBe("2026-08-22T00:00:00.000Z");
+  });
+
+  it("does not substitute ingestion time for missing market observation time", () => {
+    expect(resolveMetricMarketDataAsOf({
+      fetchedAt: "2026-08-23T12:00:00Z",
+    })).toBeUndefined();
+    expect(resolveMetricMarketDataAsOf({
+      lastMarketUpdate: "not-a-date",
+      fetchedAt: "2026-08-23T12:00:00Z",
+    })).toBeUndefined();
+    expect(resolveMetricMarketDataAsOf({
+      lastMarketUpdate: "2026-08-23T11:59:00Z",
+      fetchedAt: "2026-08-23T12:00:00Z",
+    })).toBe("2026-08-23T11:59:00.000Z");
+  });
+
+  it("keeps category inputs below 35 hours so publication has freshness headroom", () => {
+    const now = new Date("2026-08-23T12:00:00.000Z");
+    expect(isCategoryInputEligibleForMetrics("2026-08-22T01:01:00.000Z", now)).toBe(true);
+    expect(isCategoryInputEligibleForMetrics("2026-08-22T01:00:00.000Z", now)).toBe(false);
+    expect(isCategoryInputEligibleForMetrics("not-a-date", now)).toBe(false);
+  });
+
+  it("preserves a present zero category median and its observation provenance", () => {
+    expect(resolveCategoryMetricContext(
+      ["Zero Category"],
+      { "zero category": 0 },
+      { "zero category": [Date.parse("2026-08-23T10:00:00Z")] },
+    )).toEqual({
+      medianCap: 0,
+      dataAsOf: "2026-08-23T10:00:00.000Z",
+    });
+    expect(resolveCategoryMetricContext(["Missing"], {}, {})).toBeUndefined();
   });
 });
 

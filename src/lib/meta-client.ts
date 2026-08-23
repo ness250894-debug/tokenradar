@@ -52,6 +52,8 @@ export interface PublishImageOptions extends PublishThreadsTextOptions {
 /** Image item for an Instagram carousel post. */
 export interface InstagramCarouselItem {
   imageUrl: string;
+  /** Accessibility description for this individual carousel slide. */
+  altText?: string;
 }
 
 /** Result of a successful publish. */
@@ -101,6 +103,27 @@ class MetaApiRequestError extends Error {
   }
 }
 
+/** The final non-idempotent publish may have succeeded even though its response was lost. */
+export class MetaPublishOutcomeUnknownError extends Error {
+  override readonly cause: unknown;
+  readonly platform: MetaPlatform;
+  readonly containerId: string;
+
+  constructor(platform: MetaPlatform, containerId: string, cause: unknown) {
+    super(
+      `Meta ${platform} publish outcome is unknown for container ${containerId}; reconcile the account feed before retrying.`,
+    );
+    this.name = "MetaPublishOutcomeUnknownError";
+    this.platform = platform;
+    this.containerId = containerId;
+    this.cause = cause;
+  }
+}
+
+export function isMetaPublishOutcomeUnknownError(error: unknown): error is MetaPublishOutcomeUnknownError {
+  return error instanceof MetaPublishOutcomeUnknownError;
+}
+
 /** Container polling status. */
 type ContainerStatus = "IN_PROGRESS" | "FINISHED" | "ERROR" | "EXPIRED";
 
@@ -137,6 +160,8 @@ const META_API_MAX_ATTEMPTS = 3;
 const META_API_RETRY_BASE_DELAY_MS = 10_000;
 const RETRYABLE_META_ERROR_CODES = new Set([1, 2, 4, 17, 9004, 2207026, 2207027, 2207052]);
 const RETRYABLE_HTTP_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
+const SAFE_UNPUBLISHED_CONTAINER_CODES = new Set([9007, 2207026, 2207027]);
+const DEFINITIVE_RATE_LIMIT_CODES = new Set([4, 17, 32, 429, 2207050]);
 
 /**
  * Human-readable descriptions of common Meta API error codes.
@@ -290,6 +315,20 @@ function isRetryableMetaApiRequestError(error: unknown): boolean {
   }
 
   return error instanceof TypeError || error instanceof DOMException;
+}
+
+function isSafeUnpublishedContainerError(error: unknown): error is MetaApiRequestError {
+  return error instanceof MetaApiRequestError && (
+    SAFE_UNPUBLISHED_CONTAINER_CODES.has(error.code) ||
+    (error.subcode !== undefined && SAFE_UNPUBLISHED_CONTAINER_CODES.has(error.subcode))
+  );
+}
+
+function isDefinitiveRateLimitError(error: unknown): boolean {
+  return error instanceof MetaApiRequestError && (
+    DEFINITIVE_RATE_LIMIT_CODES.has(error.code) ||
+    (error.subcode !== undefined && DEFINITIVE_RATE_LIMIT_CODES.has(error.subcode))
+  );
 }
 
 function isInvalidParameterError(error: unknown): boolean {
@@ -487,19 +526,22 @@ async function createImageContainer(
 /**
  * Create a child image container for an Instagram carousel.
  */
-async function createInstagramCarouselItem(imageUrl: string): Promise<string> {
+async function createInstagramCarouselItem(item: InstagramCarouselItem): Promise<string> {
   const { accessToken, userId } = getCredentials("instagram");
   const config = PLATFORM_CONFIG.instagram;
+
+  const params: Record<string, string> = {
+    access_token: accessToken,
+    image_url: item.imageUrl,
+    is_carousel_item: "true",
+  };
+  if (item.altText?.trim()) params.alt_text = item.altText.trim();
 
   const result = await metaApiRequest<{ id: string }>(
     config.baseUrl,
     config.containerEndpoint(userId),
     "POST",
-    {
-      access_token: accessToken,
-      image_url: imageUrl,
-      is_carousel_item: "true",
-    },
+    params,
     "instagram",
   );
 
@@ -601,19 +643,52 @@ async function publishContainer(
   const { accessToken, userId } = getCredentials(platform);
   const config = PLATFORM_CONFIG[platform];
 
-  const result = await metaApiRequest<{ id: string }>(
-    config.baseUrl,
-    config.publishEndpoint(userId),
-    "POST",
-    {
-      access_token: accessToken,
-      [config.publishIdField]: containerId,
-    },
-    platform,
-  );
+  const params = {
+    access_token: accessToken,
+    [config.publishIdField]: containerId,
+  };
 
-  console.info(`  [meta:${platform}] Published successfully. Post ID: ${result.id}`);
-  return result.id;
+  for (let attempt = 1; attempt <= META_API_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const result = await metaApiRequestOnce<{ id: string }>(
+        config.baseUrl,
+        config.publishEndpoint(userId),
+        "POST",
+        params,
+        platform,
+      );
+      if (typeof result.id !== "string" || !result.id.trim()) {
+        throw new MetaPublishOutcomeUnknownError(
+          platform,
+          containerId,
+          new Error("Meta returned a successful final-publish response without a post ID."),
+        );
+      }
+      console.info(`  [meta:${platform}] Published successfully. Post ID: ${result.id}`);
+      return result.id;
+    } catch (error) {
+      if (error instanceof MetaPublishOutcomeUnknownError) throw error;
+      if (isSafeUnpublishedContainerError(error)) {
+        if (attempt < META_API_MAX_ATTEMPTS) {
+          const delay = META_API_RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
+          console.warn(
+            `  [meta:${platform}] Container is explicitly not published yet (code ${error.code}); retrying final publish in ${delay / 1000}s... (Attempt ${attempt}/${META_API_MAX_ATTEMPTS})`,
+          );
+          await sleep(delay);
+          continue;
+        }
+        throw error;
+      }
+      if (isDefinitiveRateLimitError(error)) throw error;
+
+      if (!(error instanceof MetaApiRequestError) || isRetryableMetaApiRequestError(error)) {
+        throw new MetaPublishOutcomeUnknownError(platform, containerId, error);
+      }
+      throw error;
+    }
+  }
+
+  throw new Error("Meta final publish retry loop exhausted unexpectedly.");
 }
 
 /**
@@ -722,7 +797,7 @@ export async function publishInstagramCarousel(
 
   const childContainerIds: string[] = [];
   for (const item of items) {
-    const childId = await createInstagramCarouselItem(item.imageUrl);
+    const childId = await createInstagramCarouselItem(item);
     await pollContainerStatus("instagram", childId);
     childContainerIds.push(childId);
   }

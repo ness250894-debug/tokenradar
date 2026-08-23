@@ -1,3 +1,5 @@
+import { readSocialUtmAttribution } from "./social-utm";
+
 export type SocialPublishPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
 
 type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
@@ -20,6 +22,11 @@ export interface SocialTrackerInput {
   ctaFamily?: string;
   text?: string;
   externalId?: string | number;
+  /** Intended destination generated for this creative, whether or not it was delivered. */
+  plannedUrl?: string;
+  /** Destination that was actually included in a successfully published post or follow-up. */
+  publishedUrl?: string;
+  /** @deprecated Use plannedUrl and publishedUrl so delivery is not overstated. */
   utmUrl?: string;
   formatKey?: string;
   visualRecipeKey?: string;
@@ -56,6 +63,9 @@ function compactRecord(record: JsonRecord): Record<string, JsonValue> {
 export function buildSocialTrackerPayload(input: SocialTrackerInput): Record<string, JsonValue> {
   const platformTextField = PLATFORM_TEXT_FIELD[input.platform];
   const externalIdField = PLATFORM_EXTERNAL_ID_FIELD[input.platform];
+  const plannedUrl = input.plannedUrl || input.utmUrl;
+  const publishedUrl = input.publishedUrl;
+  const attribution = readSocialUtmAttribution(publishedUrl || plannedUrl);
   const payload = compactRecord({
     postedAt: input.postedAt,
     platform: input.platform,
@@ -76,7 +86,13 @@ export function buildSocialTrackerPayload(input: SocialTrackerInput): Record<str
     [platformTextField]: input.text,
     externalId: input.externalId,
     ...(externalIdField ? { [externalIdField]: input.externalId } : {}),
-    utmUrl: input.utmUrl,
+    plannedUrl,
+    publishedUrl,
+    utmUrl: plannedUrl,
+    utmSource: attribution.source,
+    utmMedium: attribution.medium,
+    utmCampaign: attribution.campaign,
+    utmContent: attribution.content,
     formatKey: input.formatKey,
     visualRecipeKey: input.visualRecipeKey,
     deliveryMode: input.deliveryMode,
@@ -86,6 +102,25 @@ export function buildSocialTrackerPayload(input: SocialTrackerInput): Record<str
   });
 
   return payload;
+}
+
+export function attachPublishedUrlToSocialTrackerPayload(
+  payload: Record<string, unknown>,
+  publishedUrl: string,
+): Record<string, unknown> {
+  const attribution = readSocialUtmAttribution(publishedUrl);
+  const updated: Record<string, unknown> = { ...payload, publishedUrl };
+  const attributionFields: Array<[string, string | undefined]> = [
+    ["utmSource", attribution.source],
+    ["utmMedium", attribution.medium],
+    ["utmCampaign", attribution.campaign],
+    ["utmContent", attribution.content],
+  ];
+  for (const [field, value] of attributionFields) {
+    if (value === undefined) delete updated[field];
+    else updated[field] = value;
+  }
+  return updated;
 }
 
 function compactUnknownRecord(record: Record<string, unknown>): Record<string, unknown> {
@@ -117,13 +152,22 @@ export function buildSocialPostDetails(
     threadsText: payload.threadsText,
     youtubeDescription: payload.youtubeDescription,
     tiktokCaption: payload.tiktokCaption,
+    plannedUrl: payload.plannedUrl,
+    publishedUrl: payload.publishedUrl,
     utmUrl: payload.utmUrl,
+    utmSource: payload.utmSource,
+    utmMedium: payload.utmMedium,
+    utmCampaign: payload.utmCampaign,
+    utmContent: payload.utmContent,
     formatKey: payload.formatKey,
     visualRecipeKey: payload.visualRecipeKey,
     deliveryMode: payload.deliveryMode,
     topicTag: payload.topicTag,
     nativePoll: payload.nativePoll,
     socialSlot: payload.socialSlot,
+    marketDataSource: payload.marketDataSource,
+    marketDataAsOf: payload.marketDataAsOf,
+    metricsAsOf: payload.metricsAsOf,
     telegramFormat: payload.telegramFormat,
     pollType: payload.pollType,
     theme: payload.theme,

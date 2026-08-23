@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  PUBLISHABLE_VIDEO_FORMAT_KEYS,
   VIDEO_FORMATS,
   formatVideoFormatPromptLine,
   getVideoFormat,
@@ -8,19 +9,21 @@ import {
 } from "../src/lib/video-formats";
 
 describe("video formats", () => {
-  it("defines enough formats for a 14-day cooldown at 3 video posts per week", () => {
+  it("keeps a unique design catalog and an explicit grounded publishing subset", () => {
     expect(VIDEO_FORMATS).toHaveLength(15);
     expect(new Set(VIDEO_FORMATS.map((format) => format.key)).size).toBe(VIDEO_FORMATS.length);
+    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS.length).toBeGreaterThanOrEqual(7);
+    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS.every((key) => VIDEO_FORMATS.some((format) => format.key === key))).toBe(true);
   });
 
   it("does not select a recently used format when eligible formats remain", () => {
-    const used = new Set(VIDEO_FORMATS.slice(0, 14).map((format) => format.key));
+    const used = new Set(PUBLISHABLE_VIDEO_FORMAT_KEYS.slice(0, -1));
     const selected = selectVideoFormat({
       usedFormatKeys: used,
       seedParts: ["2026-05-15", "avalanche-2", "shorts"],
     });
 
-    expect(selected.key).toBe(VIDEO_FORMATS[14].key);
+    expect(selected.key).toBe(PUBLISHABLE_VIDEO_FORMAT_KEYS.at(-1));
   });
 
   it("falls back to a valid format when the cooldown pool is exhausted", () => {
@@ -54,7 +57,7 @@ describe("video formats", () => {
     const format = getVideoFormat("risk_alert");
     const line = formatVideoFormatPromptLine(format);
 
-    expect(line).toContain("Risk Alert");
+    expect(line).toContain("Risk Score Snapshot");
     expect(line.length).toBeGreaterThan(80);
   });
 

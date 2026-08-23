@@ -8,6 +8,7 @@ import {
   type SearchGroupSummary,
 } from "./summarize-engagement-baseline";
 import { MONTHLY_LIMIT, getApiQuota, sendTelegramAlert } from "../src/lib/reporter";
+import { executeD1Query, hasD1Config } from "../src/lib/d1-client";
 import { loadEnv } from "../src/lib/utils";
 
 loadEnv();
@@ -357,6 +358,22 @@ function collectLogSummaries(activityFiles: string[], errorFiles: string[]) {
   };
 }
 
+async function getDurableSocialAiCost(): Promise<number> {
+  if (!hasD1Config()) return 0;
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  try {
+    const results = await executeD1Query<{ total_cost: number | string | null }>(
+      "SELECT COALESCE(SUM(cost_usd), 0) AS total_cost FROM ai_usage_events WHERE recorded_at >= ?",
+      [since],
+    );
+    const value = Number(results[0]?.results?.[0]?.total_cost || 0);
+    return Number.isFinite(value) ? value : 0;
+  } catch (error) {
+    console.warn(`Unable to read durable social AI usage: ${error instanceof Error ? error.message : String(error)}`);
+    return 0;
+  }
+}
+
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
   const keepLogs = process.argv.includes("--keep-logs");
@@ -368,6 +385,7 @@ async function main() {
     : [];
 
   const logSummary = collectLogSummaries(activityFiles, errorFiles);
+  const durableSocialAiCost = await getDurableSocialAiCost();
   const dataHealth = summarizeDataHealth();
   const quota = getQuotaSummary();
   const fatalErrorCount = Object.values(logSummary.errors).reduce((sum, entry) => sum + entry.fatal, 0);
@@ -452,7 +470,10 @@ async function main() {
   message += `- Projected month-end: \`${quota.projectedMonthly}\`\n`;
   message += `- Remaining budget: \`${quota.remaining}\` total, about \`${quota.dailyBudgetRemaining}\`/day\n`;
   if (logSummary.totalCost > 0) {
-    message += `- Estimated AI cost: \`$${logSummary.totalCost.toFixed(4)}\`\n`;
+    message += `- AI generation cost (this refresh): \`$${logSummary.totalCost.toFixed(4)}\`\n`;
+  }
+  if (durableSocialAiCost > 0) {
+    message += `- AI API cost (trailing 24h): \`$${durableSocialAiCost.toFixed(4)}\`\n`;
   }
   message += "\n";
 

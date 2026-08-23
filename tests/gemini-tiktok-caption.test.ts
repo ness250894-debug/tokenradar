@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { prepareTikTokCaptionForPublishing } from "../src/lib/gemini";
+import { UnsafeSocialEditorialError } from "../src/lib/social-editorial";
 
 describe("TikTok caption preparation", () => {
   it("removes generic reach tags and keeps a focused hashtag set", () => {
@@ -28,27 +29,17 @@ describe("TikTok caption preparation", () => {
     expect(prepared).not.toMatch(/#[A-Za-z0-9_]*\.\.\./);
   });
 
-  it("sanitizes advice and hype language before publishing", () => {
-    const prepared = prepareTikTokCaptionForPublishing(
+  it("blocks advice and hype language instead of rewriting it", () => {
+    expect(() => prepareTikTokCaptionForPublishing(
       "Buy now before this moonshot goes 100x. Guaranteed returns. #Crypto",
       "sol",
-    );
-
-    expect(prepared.toLowerCase()).not.toContain("buy now");
-    expect(prepared.toLowerCase()).not.toContain("moonshot");
-    expect(prepared.toLowerCase()).not.toContain("100x");
-    expect(prepared.toLowerCase()).not.toContain("guaranteed returns");
-    expect(prepared).toContain("Review the data");
+    )).toThrow(UnsafeSocialEditorialError);
   });
 
-  it("rewrites trade-signal wording in TikTok captions", () => {
-    const prepared = prepareTikTokCaptionForPublishing(
+  it("blocks trade-signal wording instead of publishing euphemisms", () => {
+    expect(() => prepareTikTokCaptionForPublishing(
       "TokenRadar signal: STRONG BUY setup with an entry price and price prediction. #Crypto",
       "eth",
-    );
-
-    expect(prepared).not.toMatch(/\b(?:signal|strong buy|entry price|price prediction)\b/i);
-    expect(prepared).toContain("TokenRadar research read");
-    expect(prepared).toContain("#ETH #Crypto #TokenRadar");
+    )).toThrow(UnsafeSocialEditorialError);
   });
 });

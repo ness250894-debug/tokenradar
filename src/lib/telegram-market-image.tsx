@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import type { ReactElement } from "react";
 
-import { formatPercent, getRiskColor, getRiskTier } from "./formatters";
+import { formatPercent, getRiskColor } from "./formatters";
 import type { TelegramMarketPulseImageData } from "./telegram-market-formats";
 
 const WIDTH = 1200;
@@ -165,7 +165,8 @@ function sectorList(sectors: string[]) {
 }
 
 function tokenPanel(token: TelegramMarketPulseImageData["featuredToken"]) {
-  const riskColor = getRiskColor(token.riskScore);
+  const hasRiskScore = typeof token.riskScore === "number" && Number.isFinite(token.riskScore);
+  const riskColor = hasRiskScore ? getRiskColor(token.riskScore as number) : "#94A3B8";
 
   return (
     <div
@@ -208,7 +209,7 @@ function tokenPanel(token: TelegramMarketPulseImageData["featuredToken"]) {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
           <div style={{ display: "flex", color: "#94A3B8", fontSize: 18 }}>Risk</div>
           <div style={{ display: "flex", color: riskColor, fontSize: 26, fontWeight: 900 }}>
-            {getRiskTier(token.riskScore)} {token.riskScore}/10
+            {hasRiskScore ? `${token.riskScore}/10` : "N/A"}
           </div>
         </div>
       </div>
@@ -237,7 +238,10 @@ function renderCard(data: TelegramMarketPulseImageData): ReactElement {
       <div style={{ display: "flex", flexDirection: "column", position: "relative", height: "100%" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           {brandMark()}
-          <div style={{ display: "flex", color: "#94A3B8", fontSize: 23 }}>{data.generatedAtLabel}</div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", color: "#94A3B8", fontSize: 21 }}>
+            <div style={{ display: "flex" }}>{data.sourceLabel}</div>
+            <div style={{ display: "flex", marginTop: 4 }}>As of {data.generatedAtLabel}</div>
+          </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", marginTop: 26 }}>

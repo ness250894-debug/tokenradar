@@ -1,4 +1,5 @@
 import { SOCIAL_PLATFORM_LIMITS } from "./config";
+import { CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS } from "./market-data-quality";
 
 export type VideoPlatform = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
 
@@ -11,13 +12,14 @@ export type VideoPublishStatus =
   | "published"
   | "manual_handoff_sent"
   | "manual_published"
+  | "outcome_unknown"
   | "failed"
   | "skipped_by_missing_credentials"
   | "skipped_by_platform_quota";
 
 export type VideoTerminalPublishStatus = Extract<
   VideoPublishStatus,
-  "published" | "manual_handoff_sent" | "manual_published" | "skipped_by_missing_credentials" | "skipped_by_platform_quota"
+  "published" | "manual_handoff_sent" | "manual_published" | "outcome_unknown"
 >;
 
 export type VideoMarketFreshnessIssue =
@@ -27,6 +29,7 @@ export type VideoMarketFreshnessIssue =
   | "missing-market-timestamp"
   | "future-market-timestamp"
   | "stale-market-data"
+  | "missing-derived-metrics"
   | "missing-derived-metrics-timestamp"
   | "stale-derived-metrics";
 
@@ -45,10 +48,16 @@ export interface VideoMarketFreshnessInput {
   };
   metric?: {
     computedAt?: unknown;
+    marketDataAsOf?: unknown;
+    priceHistoryAsOf?: unknown;
+    categoryDataAsOf?: unknown;
+    inputDataAsOf?: unknown;
   } | null;
   now?: Date;
   marketDataMaxAgeMinutes?: number;
   derivedMetricsMaxAgeHours?: number;
+  /** False only for the intentional token-market first pass. */
+  requireDerivedMetrics?: boolean;
 }
 
 export interface VideoMarketFreshnessResult {
@@ -109,6 +118,7 @@ export interface ReconcilePlatformStateResult {
     | "force-mode"
     | "d1-terminal-state"
     | "tracker-terminal-with-evidence"
+    | "tracker-outcome-unknown"
     | "tracker-non-terminal"
     | "no-terminal-state";
 }
@@ -162,7 +172,7 @@ export interface VideoProductionAlert {
   platform?: VideoPlatform;
 }
 
-const DEFAULT_MARKET_DATA_MAX_AGE_MINUTES = 180;
+const DEFAULT_MARKET_DATA_MAX_AGE_MINUTES = 45;
 const DEFAULT_DERIVED_METRICS_MAX_AGE_HOURS = 36;
 const VALID_TIKTOK_PRIVACY_LEVELS = new Set([
   "PUBLIC_TO_EVERYONE",
@@ -174,8 +184,7 @@ const TERMINAL_STATUSES = new Set<VideoPublishStatus>([
   "published",
   "manual_handoff_sent",
   "manual_published",
-  "skipped_by_missing_credentials",
-  "skipped_by_platform_quota",
+  "outcome_unknown",
 ]);
 
 function finiteNumber(value: unknown): number | null {
@@ -202,7 +211,13 @@ function countHashtags(text: string | undefined): number {
   return (text || "").match(/#[a-z0-9_]+/gi)?.length || 0;
 }
 
-function getTrackerEvidenceId(tracker: PlatformTrackerEvidence | null | undefined): string | number | undefined {
+function getTrackerEvidenceId(
+  platform: VideoPlatform,
+  tracker: PlatformTrackerEvidence | null | undefined,
+): string | number | undefined {
+  if (platform === "tiktok" && tracker?.status !== "published" && tracker?.status !== "manual_published") {
+    return undefined;
+  }
   return tracker?.messageId ??
     tracker?.tweetId ??
     tracker?.replyId ??
@@ -270,12 +285,44 @@ export function validateVideoMarketDataFreshness(
   }
 
   let metricAsOf: string | null = null;
-  if (options.metric) {
-    metricAsOf = parseTimestamp(options.metric.computedAt);
-    if (!metricAsOf) {
+  if (!options.metric) {
+    if (options.requireDerivedMetrics !== false) issues.push("missing-derived-metrics");
+  } else {
+    const metricComputedAt = parseTimestamp(options.metric.computedAt);
+    metricAsOf = parseTimestamp(options.metric.marketDataAsOf);
+    const priceHistoryAsOf = parseTimestamp(options.metric.priceHistoryAsOf);
+    const categoryDataAsOf = parseTimestamp(options.metric.categoryDataAsOf);
+    const inputDataAsOf = parseTimestamp(options.metric.inputDataAsOf);
+    if (!metricComputedAt || !metricAsOf || !priceHistoryAsOf || !categoryDataAsOf || !inputDataAsOf) {
       issues.push("missing-derived-metrics-timestamp");
-    } else if (now.getTime() - Date.parse(metricAsOf) > derivedMetricsMaxAgeMs) {
-      issues.push("stale-derived-metrics");
+    } else {
+      const computedAgeMs = now.getTime() - Date.parse(metricComputedAt);
+      const inputAgeMs = now.getTime() - Date.parse(metricAsOf);
+      const priceHistoryAgeMs = now.getTime() - Date.parse(priceHistoryAsOf);
+      const categoryInputAgeMs = now.getTime() - Date.parse(categoryDataAsOf);
+      const oldestExpectedMs = Math.min(
+        Date.parse(metricAsOf),
+        Date.parse(priceHistoryAsOf),
+        Date.parse(categoryDataAsOf),
+      );
+      if (
+        computedAgeMs < -60_000 ||
+        inputAgeMs < -60_000 ||
+        priceHistoryAgeMs < -60_000 ||
+        categoryInputAgeMs < -60_000 ||
+        computedAgeMs > derivedMetricsMaxAgeMs ||
+        inputAgeMs > derivedMetricsMaxAgeMs ||
+        priceHistoryAgeMs > 8 * 24 * 60 * 60 * 1000 ||
+        categoryInputAgeMs >= CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS ||
+        Date.parse(inputDataAsOf) !== oldestExpectedMs
+      ) {
+        issues.push("stale-derived-metrics");
+      }
+      if (asOf
+        && Math.abs(Date.parse(metricAsOf) - Date.parse(asOf)) > 30 * 60 * 1000
+        && !issues.includes("stale-derived-metrics")) {
+        issues.push("stale-derived-metrics");
+      }
     }
   }
 
@@ -291,7 +338,11 @@ export function filterVideoCandidatesByFreshness<T extends VideoMarketFreshnessI
   candidates: T[],
   options: Omit<VideoMarketFreshnessInput, "token"> = {},
 ): T[] {
-  return candidates.filter((token) => validateVideoMarketDataFreshness({ ...options, token }).ok);
+  return candidates.filter((token) => validateVideoMarketDataFreshness({
+    ...options,
+    token,
+    requireDerivedMetrics: options.requireDerivedMetrics ?? false,
+  }).ok);
 }
 
 export function formatVideoMarketFreshnessIssueCounts(issueCounts: VideoMarketFreshnessIssueCounts): string {
@@ -308,9 +359,14 @@ export function shouldRefreshDerivedMetricsForVideo(
 ): boolean {
   if (checkedCandidates <= 0) return false;
   const nonZeroIssues = Object.entries(issueCounts).filter(([, count]) => Number(count) > 0);
-  return nonZeroIssues.length === 1 &&
-    nonZeroIssues[0][0] === "stale-derived-metrics" &&
-    Number(nonZeroIssues[0][1]) >= checkedCandidates;
+  const refreshableIssues = new Set<VideoMarketFreshnessIssue>([
+    "missing-derived-metrics",
+    "missing-derived-metrics-timestamp",
+    "stale-derived-metrics",
+  ]);
+  return nonZeroIssues.length > 0
+    && nonZeroIssues.every(([issue]) => refreshableIssues.has(issue as VideoMarketFreshnessIssue))
+    && nonZeroIssues.reduce((total, [, count]) => total + Number(count), 0) >= checkedCandidates;
 }
 
 export function validatePlatformCopyPackage(input: PlatformCopyPackage): PlatformCopyValidationResult {
@@ -444,8 +500,29 @@ export function reconcilePlatformPublishState(
     return { shouldPublish: true, shouldBackfillD1: false, reason: "no-terminal-state" };
   }
 
-  const evidenceId = getTrackerEvidenceId(tracker);
+  if (
+    options.platform === "tiktok"
+    && !tracker.status
+    && typeof tracker.tiktokUrl === "string"
+    && tracker.tiktokUrl.trim()
+  ) {
+    return {
+      shouldPublish: false,
+      shouldBackfillD1: false,
+      reason: "tracker-outcome-unknown",
+    };
+  }
+
+  const evidenceId = getTrackerEvidenceId(options.platform, tracker);
   const status = tracker.status || (evidenceId ? "published" : "not_started");
+
+  if (status === "outcome_unknown") {
+    return {
+      shouldPublish: false,
+      shouldBackfillD1: false,
+      reason: "tracker-outcome-unknown",
+    };
+  }
 
   if (TERMINAL_STATUSES.has(status) && evidenceId) {
     return {

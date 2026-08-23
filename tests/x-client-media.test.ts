@@ -6,6 +6,7 @@ const xdkMocks = vi.hoisted(() => {
   const initializeUpload = vi.fn();
   const finalizeUpload = vi.fn();
   const getUploadStatus = vi.fn();
+  const createMetadata = vi.fn();
   const createPost = vi.fn();
 
   return {
@@ -14,6 +15,7 @@ const xdkMocks = vi.hoisted(() => {
     initializeUpload,
     finalizeUpload,
     getUploadStatus,
+    createMetadata,
     createPost,
     reset() {
       refreshToken.mockReset().mockResolvedValue({
@@ -30,6 +32,7 @@ const xdkMocks = vi.hoisted(() => {
         data: { processingInfo: { state: "succeeded" } },
       });
       getUploadStatus.mockReset();
+      createMetadata.mockReset().mockResolvedValue({ data: { id: "image-123" } });
       createPost.mockReset().mockResolvedValue({
         data: { id: "tweet-123" },
       });
@@ -47,6 +50,7 @@ vi.mock("@xdevplatform/xdk", () => ({
       initializeUpload: xdkMocks.initializeUpload,
       finalizeUpload: xdkMocks.finalizeUpload,
       getUploadStatus: xdkMocks.getUploadStatus,
+      createMetadata: xdkMocks.createMetadata,
     };
 
     posts = {
@@ -165,12 +169,11 @@ describe("postTweetWithMedia video upload", () => {
     });
   });
 
-  it("retries final media tweet creation after a transient X API failure", async () => {
+  it("does not retry final media tweet creation after an ambiguous X API failure", async () => {
     configureXEnv();
     xdkMocks.reset();
     xdkMocks.createPost
-      .mockRejectedValueOnce(Object.assign(new Error("temporary outage"), { status: 503 }))
-      .mockResolvedValueOnce({ data: { id: "tweet-retry" } });
+      .mockRejectedValueOnce(Object.assign(new Error("temporary outage"), { status: 503 }));
 
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
@@ -178,12 +181,94 @@ describe("postTweetWithMedia video upload", () => {
 
     await expect(
       postTweetWithMedia("Ethereum chart", Buffer.alloc(1024, 1), "image/png"),
-    ).resolves.toBe("tweet-retry");
+    ).rejects.toMatchObject({ name: "XCreateOutcomeUnknownError", status: 503 });
 
-    expect(xdkMocks.createPost).toHaveBeenCalledTimes(2);
+    expect(xdkMocks.createPost).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("X API [postTweetWithMedia] failed"),
+      expect.stringContaining("not retrying automatically"),
     );
+  });
+
+  it.each([502, 504])("treats final media tweet HTTP %s as an ambiguous create", async (status) => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.createPost.mockRejectedValueOnce(Object.assign(new Error("gateway failure"), { status }));
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+
+    await expect(
+      postTweetWithMedia("Ethereum chart", Buffer.alloc(1024, 1), "image/png"),
+    ).rejects.toMatchObject({ name: "XCreateOutcomeUnknownError", status });
+    expect(xdkMocks.createPost).toHaveBeenCalledTimes(1);
+  });
+
+  it("attaches normalized alt text before publishing an image", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+
+    await postTweetWithMedia(
+      "Ethereum comparison",
+      Buffer.alloc(1024, 1),
+      "image/png",
+      undefined,
+      "  Ethereum   and Solana risk comparison  ",
+    );
+
+    expect(xdkMocks.createMetadata).toHaveBeenCalledWith({
+      id: "image-123",
+      metadata: { altText: { text: "Ethereum and Solana risk comparison" } },
+    });
+    expect(xdkMocks.createMetadata.mock.invocationCallOrder[0]).toBeLessThan(
+      xdkMocks.createPost.mock.invocationCallOrder[0],
+    );
+  });
+
+  it("falls back to text-only when required image alt text cannot be attached", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.createMetadata.mockRejectedValue(new Error("metadata unavailable"));
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+    await postTweetWithMedia(
+      "Ethereum comparison",
+      Buffer.alloc(1024, 1),
+      "image/png",
+      undefined,
+      "Ethereum comparison chart",
+    );
+
+    expect(xdkMocks.createPost).toHaveBeenCalledWith({ text: "Ethereum comparison" });
+  });
+
+  it("keeps text unchanged when image upload falls back to text-only", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.uploadMedia.mockRejectedValueOnce(Object.assign(new Error("bad image"), { status: 400 }));
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    const { postTweetWithMedia } = await import("../src/lib/x-client");
+    await postTweetWithMedia("Ethereum comparison", Buffer.alloc(1024, 1), "image/png");
+
+    expect(xdkMocks.createPost).toHaveBeenCalledWith({ text: "Ethereum comparison" });
+  });
+
+  it("does not post a fallback poll after an ambiguous native-poll outcome", async () => {
+    configureXEnv();
+    xdkMocks.reset();
+    xdkMocks.createPost.mockRejectedValueOnce(new Error("socket closed"));
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    const { postPoll } = await import("../src/lib/x-client");
+
+    await expect(postPoll({
+      text: "Which setup?",
+      options: ["Alpha", "Beta"],
+    })).rejects.toMatchObject({ name: "XCreateOutcomeUnknownError" });
+    expect(xdkMocks.createPost).toHaveBeenCalledTimes(1);
   });
 
   it("does not publish a video tweet when processing never completes", async () => {

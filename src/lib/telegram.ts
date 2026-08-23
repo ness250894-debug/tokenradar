@@ -2,6 +2,51 @@ import { Api, InlineKeyboard, InputFile } from "grammy";
 import type { RawApi } from "grammy";
 import { isAllowedPostUrl, sanitizeTelegramPostLinks } from "./social-link-policy";
 
+export class TelegramCreateOutcomeUnknownError extends Error {
+  readonly cause?: unknown;
+
+  constructor(operation: string, cause?: unknown) {
+    super(`Telegram ${operation} returned without a valid message ID; the create outcome is unknown.`);
+    this.name = "TelegramCreateOutcomeUnknownError";
+    this.cause = cause;
+  }
+}
+
+export function requireTelegramMessageId(
+  message: { message_id?: unknown } | null | undefined,
+  operation: string,
+): number {
+  const messageId = message?.message_id;
+  if (typeof messageId !== "number" || !Number.isSafeInteger(messageId) || messageId <= 0) {
+    throw new TelegramCreateOutcomeUnknownError(operation, message);
+  }
+  return messageId;
+}
+
+/** A single Bot API create may have succeeded when its response was lost. */
+export function isTelegramCreateOutcomeUnknownError(error: unknown): boolean {
+  if (error instanceof TelegramCreateOutcomeUnknownError) return true;
+  const candidate = error as {
+    name?: string;
+    error?: unknown;
+    error_code?: number;
+    status?: number;
+    response?: { status?: number; error_code?: number };
+    message?: string;
+  } | null | undefined;
+  const status = candidate?.error_code
+    ?? candidate?.status
+    ?? candidate?.response?.error_code
+    ?? candidate?.response?.status;
+  if (status === 408 || (typeof status === "number" && status >= 500 && status <= 599)) return true;
+  if (typeof status === "number") return false;
+  if (candidate?.name === "HttpError") return true;
+  const outerMessage = error instanceof Error ? error.message : String(candidate?.message || error);
+  const nestedMessage = candidate?.error instanceof Error ? candidate.error.message : "";
+  const message = `${outerMessage} ${nestedMessage}`;
+  return /(?:timeout|timed out|socket hang up|connection reset|econnreset|fetch failed|network error|bad gateway|gateway timeout|service unavailable|internal server error|(?:HTTP|status(?:\s+code)?)\s*[:=]?\s*(?:408|5\d{2})\b)/i.test(message);
+}
+
 
 /**
  * Shared Api instance (lazy loaded)
@@ -270,7 +315,7 @@ export async function sendTelegramMessage(
     reply_markup: options?.replyMarkup,
   });
 
-  return message.message_id;
+  return requireTelegramMessageId(message, "sendMessage");
 }
 
 /**
@@ -288,7 +333,7 @@ export async function sendTelegramPoll(
     is_anonymous: true,
   });
 
-  return poll.message_id;
+  return requireTelegramMessageId(poll, "sendPoll");
 }
 
 /**
@@ -307,7 +352,7 @@ export async function sendTelegramPhoto(
     parse_mode: "HTML",
   });
 
-  return message.message_id;
+  return requireTelegramMessageId(message, "sendPhoto");
 }
 
 /**
@@ -326,7 +371,7 @@ export async function sendTelegramVideo(
     parse_mode: "HTML",
   });
 
-  return message.message_id;
+  return requireTelegramMessageId(message, "sendVideo");
 }
 
 /**

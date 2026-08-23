@@ -2,10 +2,10 @@
 # Unified heartbeat for all social interactions on TokenRadar
 #
 # Platform cadence:
-# - Telegram: 5 daily slots, including a token comparison instead of the poll
-# - X: one research note plus one token comparison/day max
-# - Instagram: max 1 post/day, alternating movers and comparison-card days
-# - Threads: text-native signals plus comparison posts and a weekly recap
+# - Telegram: one daily brief plus one scheduled depth post/recap
+# - X: one daily research note plus comparisons Mon/Wed/Fri
+# - Instagram: Sunday movers plus comparison cards Mon/Wed
+# - Threads: text-native explainers Tue/Thu plus a Friday recap
 # - YouTube: short-form video 3x/week; TikTok video posting is disabled
 
 name: Social Automations
@@ -15,14 +15,17 @@ on:
     # --- Platform-aware cadence ---
     # Avoid minute 0/5: GitHub scheduled events can be delayed or dropped during top-of-hour load.
     - cron: "17 00 * * *" # Telegram market brief
-    - cron: "29 00 * * 0,2,4" # Instagram movers carousel (Sun/Tue/Thu)
-    - cron: "17 03 * * *" # Telegram watchlist check + X market update
-    - cron: "23 12 * * *" # Telegram market pulse + X token comparison
-    - cron: "37 15 * * *" # Telegram token comparison
+    - cron: "29 00 * * 0" # Instagram movers carousel (Sun)
+    - cron: "17 03 * * *" # X market update
+    - cron: "23 12 * * 1,3,5" # X token comparison (Mon/Wed/Fri)
+    - cron: "37 15 * * 2,4" # Telegram token comparison (Tue/Thu)
     - cron: "17 16 * * 2,4" # Threads text-native signal (Tue/Thu)
-    - cron: "29 16 * * 5" # Threads weekly recap (Fri)
-    - cron: "41 18 * * 1,3,5" # Telegram Radar Divergence + Meta comparison + YouTube video
-    - cron: "23 21 * * *" # Telegram movers card
+    - cron: "29 16 * * 5" # Telegram + Threads weekly recap (Fri)
+    - cron: "41 18 * * 1,3" # Telegram Radar Divergence + Instagram comparison
+    - cron: "47 18 * * 1,3,5" # YouTube video
+    - cron: "23 21 * * 0" # Telegram movers card (Sun)
+    - cron: "53 * * * *" # Native social metrics collection (hourly window sampler)
+    - cron: "31 08 * * 1" # Weekly social performance report
     
   workflow_dispatch:
     inputs:
@@ -33,8 +36,6 @@ on:
         type: choice
         options:
           - telegram-market
-          - telegram-watchlist
-          - telegram-pulse
           - telegram-comparison
           - telegram-movers
           - telegram-recap
@@ -44,38 +45,44 @@ on:
           - instagram-carousel
           - threads-text
           - threads-recap
-          - meta-comparison
+          - instagram-comparison
           - video
+          - metrics
+          - metrics-report
           - d1-smoke
-          - all
-
-concurrency:
-  group: social-automations
-  cancel-in-progress: false
 
 env:
   NODE_VERSION: "20"
-  IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '17 00 * * *' || github.event.inputs.run == 'telegram-market' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_WATCHLIST_RUN: ${{ github.event.schedule == '17 03 * * *' || github.event.inputs.run == 'telegram-watchlist' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_PULSE_RUN: ${{ github.event.schedule == '23 12 * * *' || github.event.inputs.run == 'telegram-pulse' || github.event.inputs.run == 'all' }}
-  IS_X_MARKET_RUN: ${{ github.event.schedule == '17 03 * * *' || github.event.inputs.run == 'x-market' || github.event.inputs.run == 'all' }}
-  IS_X_COMPARISON_RUN: ${{ github.event.schedule == '23 12 * * *' || github.event.inputs.run == 'x-comparison' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_COMPARISON_RUN: ${{ github.event.schedule == '37 15 * * *' || github.event.inputs.run == 'telegram-comparison' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '23 21 * * *' || github.event.inputs.run == 'telegram-movers' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'telegram-recap' || github.event.inputs.run == 'all' }}
-  IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '17 16 * * 2,4' || github.event.inputs.run == 'threads-text' || github.event.inputs.run == 'all' }}
-  IS_THREADS_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'threads-recap' || github.event.inputs.run == 'all' }}
-  IS_TELEGRAM_DIVERGENCE_RUN: ${{ github.event.schedule == '41 18 * * 1,3,5' || github.event.inputs.run == 'telegram-divergence' || github.event.inputs.run == 'all' }}
-  IS_META_COMPARISON_RUN: ${{ github.event.schedule == '41 18 * * 1,3,5' || github.event.inputs.run == 'meta-comparison' || github.event.inputs.run == 'all' }}
-  IS_VIDEO_RUN: ${{ github.event.schedule == '41 18 * * 1,3,5' || github.event.inputs.run == 'video' || github.event.inputs.run == 'all' }}
-  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '29 00 * * 0,2,4' || github.event.inputs.run == 'instagram-carousel' || github.event.inputs.run == 'all' }}
+  # Scheduled publishing must never silently fall back to local-only dedupe.
+  SOCIAL_DELIVERY_LEDGER_REQUIRED: "true"
+  IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '17 00 * * *' || github.event.inputs.run == 'telegram-market' }}
+  IS_X_MARKET_RUN: ${{ github.event.schedule == '17 03 * * *' || github.event.inputs.run == 'x-market' }}
+  IS_X_COMPARISON_RUN: ${{ github.event.schedule == '23 12 * * 1,3,5' || github.event.inputs.run == 'x-comparison' }}
+  IS_TELEGRAM_COMPARISON_RUN: ${{ github.event.schedule == '37 15 * * 2,4' || github.event.inputs.run == 'telegram-comparison' }}
+  IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '23 21 * * 0' || github.event.inputs.run == 'telegram-movers' }}
+  IS_TELEGRAM_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'telegram-recap' }}
+  IS_THREADS_TEXT_RUN: ${{ github.event.schedule == '17 16 * * 2,4' || github.event.inputs.run == 'threads-text' }}
+  IS_THREADS_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'threads-recap' }}
+  IS_TELEGRAM_DIVERGENCE_RUN: ${{ github.event.schedule == '41 18 * * 1,3' || github.event.inputs.run == 'telegram-divergence' }}
+  IS_INSTAGRAM_COMPARISON_RUN: ${{ github.event.schedule == '41 18 * * 1,3' || github.event.inputs.run == 'instagram-comparison' }}
+  IS_VIDEO_RUN: ${{ github.event.schedule == '47 18 * * 1,3,5' || github.event.inputs.run == 'video' }}
+  IS_INSTAGRAM_CAROUSEL_RUN: ${{ github.event.schedule == '29 00 * * 0' || github.event.inputs.run == 'instagram-carousel' }}
   IS_D1_SMOKE_RUN: ${{ github.event.inputs.run == 'd1-smoke' }}
-  D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID || secrets.D1_DATABASE_ID || '92ac6df2-40b4-4c5a-ad56-68142eefcf36' }}
+  D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID || secrets.D1_DATABASE_ID }}
 
 jobs:
   post-social:
     name: Execute Network Routing
+    if: >-
+      github.event.schedule != '53 * * * *' &&
+      github.event.schedule != '31 08 * * 1' &&
+      github.event.inputs.run != 'metrics' &&
+      github.event.inputs.run != 'metrics-report'
     runs-on: ubuntu-latest
+    timeout-minutes: 120
+    concurrency:
+      group: social-publishing
+      cancel-in-progress: false
     permissions:
       contents: read
 
@@ -171,8 +178,27 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
 
+      # All price-sensitive routes consume one freshly computed Risk/Growth
+      # snapshot. Route steps are gated on this outcome so a failed refresh
+      # cannot silently publish mixed-timestamp metrics.
+      - name: Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes
+        id: refresh-social-metrics
+        if: always() && env.IS_D1_SMOKE_RUN != 'true'
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          npx tsx scripts/fetch-crypto-data.ts --start 1 --end 500 --lite --bypass-cache
+          npx tsx scripts/compute-metrics.ts
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+
       - name: D1 Smoke Test
-        if: env.IS_D1_SMOKE_RUN == 'true'
+        id: d1-smoke
+        if: always() && env.IS_D1_SMOKE_RUN == 'true'
+        continue-on-error: true
+        timeout-minutes: 5
         run: npx tsx scripts/d1-smoke.ts
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -181,7 +207,10 @@ jobs:
 
       # ─── 1. Telegram Market Update (1x/day) ──
       - name: Telegram Periodic Update
-        if: env.IS_TELEGRAM_MARKET_RUN == 'true'
+        id: telegram-market
+        if: always() && env.IS_TELEGRAM_MARKET_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-market-updates.ts --platform telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -198,48 +227,12 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: telegram-market-brief
 
-      # Telegram image market posts on existing mixed-platform slots
-      # Telegram Watchlist Check (daily @ 03:17 UTC, shares the existing X market slot)
-      - name: Telegram Watchlist Check
-        if: env.IS_TELEGRAM_WATCHLIST_RUN == 'true'
-        run: npx tsx scripts/post-market-updates.ts --platform telegram --format watchlist-check
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
-          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
-          SOCIAL_SLOT: telegram-watchlist-check
-
-      # Telegram Market Pulse (daily @ 12:23 UTC, shares the existing X poll slot)
-      - name: Telegram Market Pulse
-        if: env.IS_TELEGRAM_PULSE_RUN == 'true'
-        run: npx tsx scripts/post-market-updates.ts --platform telegram --format market-pulse
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
-          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
-          SOCIAL_SLOT: telegram-market-pulse
-
-      # Instagram Movers Carousel (Sun/Tue/Thu)
+      # Instagram Movers Carousel (Sun)
       - name: Instagram Daily Movers Carousel
-        if: env.IS_INSTAGRAM_CAROUSEL_RUN == 'true'
+        id: instagram-carousel
+        if: always() && env.IS_INSTAGRAM_CAROUSEL_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 35
         run: npx tsx scripts/post-instagram-daily-movers.ts
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
@@ -261,9 +254,12 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           SOCIAL_SLOT: instagram-carousel
 
-      # 2. X Token Comparison (daily; replaces the interactive poll)
-      - name: X Daily Token Comparison
-        if: env.IS_X_COMPARISON_RUN == 'true'
+      # X Token Comparison (Mon/Wed/Fri)
+      - name: X Token Comparison
+        id: x-comparison
+        if: always() && env.IS_X_COMPARISON_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-token-comparison.ts --platform x
         env:
           X_OAUTH2_CLIENT_ID: ${{ secrets.X_OAUTH2_CLIENT_ID }}
@@ -279,9 +275,12 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: x-token-comparison
 
-      # 3. Telegram Token Comparison (daily; replaces the poll)
-      - name: Telegram Daily Token Comparison
-        if: env.IS_TELEGRAM_COMPARISON_RUN == 'true'
+      # Telegram Token Comparison (Tue/Thu)
+      - name: Telegram Token Comparison
+        id: telegram-comparison
+        if: always() && env.IS_TELEGRAM_COMPARISON_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-token-comparison.ts --platform telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -295,7 +294,10 @@ jobs:
 
       # 4. X Market Update (1x/day; research note, no repeated link replies)
       - name: X Periodic Update
-        if: env.IS_X_MARKET_RUN == 'true'
+        id: x-market
+        if: always() && env.IS_X_MARKET_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-market-updates.ts --platform x
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -316,7 +318,10 @@ jobs:
       # Renders a Top 5 Gainers card in-memory using live CoinGecko data.
       # Image is never saved to disk - created, posted, and discarded.
       - name: Telegram Top Movers Card
-        if: env.IS_TELEGRAM_MOVERS_RUN == 'true'
+        id: telegram-movers
+        if: always() && env.IS_TELEGRAM_MOVERS_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-daily-movers.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -332,7 +337,10 @@ jobs:
 
       # Telegram Weekly Recap (Fri; image-backed market recap)
       - name: Telegram Weekly Recap
-        if: env.IS_TELEGRAM_RECAP_RUN == 'true'
+        id: telegram-recap
+        if: always() && env.IS_TELEGRAM_RECAP_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-telegram-weekly-recap.ts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -346,7 +354,10 @@ jobs:
 
       # Telegram Radar Divergence (Mon/Wed/Fri; replaces the former Telegram video)
       - name: Telegram Radar Divergence
-        if: env.IS_TELEGRAM_DIVERGENCE_RUN == 'true'
+        id: telegram-divergence
+        if: always() && env.IS_TELEGRAM_DIVERGENCE_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -363,7 +374,10 @@ jobs:
 
       # Threads Text Signal (Tue/Thu; text-native, no video recycle)
       - name: Threads Text Signal
-        if: env.IS_THREADS_TEXT_RUN == 'true'
+        id: threads-text
+        if: always() && env.IS_THREADS_TEXT_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-threads-daily.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -381,7 +395,10 @@ jobs:
 
       # Threads Weekly Recap (Fri; text-native market recap)
       - name: Threads Weekly Recap
-        if: env.IS_THREADS_RECAP_RUN == 'true'
+        id: threads-recap
+        if: always() && env.IS_THREADS_RECAP_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 15
         run: npx tsx scripts/post-threads-daily.ts --format weekly-recap
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -397,16 +414,17 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: threads-weekly-recap
 
-      # Instagram + Threads Token Comparison (Mon/Wed/Fri; replaces their video slot)
-      - name: Instagram and Threads Token Comparison
-        if: env.IS_META_COMPARISON_RUN == 'true'
-        run: npx tsx scripts/post-token-comparison.ts --platform meta
+      # Instagram Token Comparison (Mon/Wed)
+      - name: Instagram Token Comparison
+        id: instagram-comparison
+        if: always() && env.IS_INSTAGRAM_COMPARISON_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 20
+        run: npx tsx scripts/post-token-comparison.ts --platform instagram
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
-          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -418,15 +436,21 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
-          SOCIAL_SLOT: instagram-threads-token-comparison
+          SOCIAL_SLOT: instagram-token-comparison
 
       # Short-form Video Breakout (Mon/Wed/Fri; YouTube only)
       - name: Install FFmpeg
-        if: env.IS_VIDEO_RUN == 'true'
+        id: install-ffmpeg
+        if: always() && env.IS_VIDEO_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 8
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Hydrate Video B-roll Manifest
-        if: env.IS_VIDEO_RUN == 'true'
+        id: hydrate-video-assets
+        if: always() && env.IS_VIDEO_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 10
         run: npx tsx scripts/sync-video-assets-from-r2.ts --manifest-only
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
@@ -435,15 +459,11 @@ jobs:
           R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
-      - name: Refresh Derived Metrics For Video
-        if: env.IS_VIDEO_RUN == 'true'
-        run: npx tsx scripts/compute-metrics.ts
-        env:
-          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
-          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
-
       - name: YouTube Video Breakout
-        if: env.IS_VIDEO_RUN == 'true'
+        id: youtube-video
+        if: always() && env.IS_VIDEO_RUN == 'true' && steps.refresh-social-metrics.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 35
         run: npx tsx scripts/post-video-daily.ts --platform youtube
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -460,6 +480,46 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           SOCIAL_SLOT: youtube-video
+
+      # Each route is allowed to finish even when a sibling route fails. This
+      # aggregation step restores the correct workflow conclusion afterward.
+      - name: Aggregate publishing route outcomes
+        id: aggregate-publishing-routes
+        if: always()
+        shell: bash
+        env:
+          ROUTE_OUTCOMES: |
+            refresh-social-metrics=${{ steps.refresh-social-metrics.outcome }}
+            d1-smoke=${{ steps.d1-smoke.outcome }}
+            telegram-market=${{ steps.telegram-market.outcome }}
+            instagram-carousel=${{ steps.instagram-carousel.outcome }}
+            x-comparison=${{ steps.x-comparison.outcome }}
+            telegram-comparison=${{ steps.telegram-comparison.outcome }}
+            x-market=${{ steps.x-market.outcome }}
+            telegram-movers=${{ steps.telegram-movers.outcome }}
+            telegram-recap=${{ steps.telegram-recap.outcome }}
+            telegram-divergence=${{ steps.telegram-divergence.outcome }}
+            threads-text=${{ steps.threads-text.outcome }}
+            threads-recap=${{ steps.threads-recap.outcome }}
+            instagram-comparison=${{ steps.instagram-comparison.outcome }}
+            install-ffmpeg=${{ steps.install-ffmpeg.outcome }}
+            hydrate-video-assets=${{ steps.hydrate-video-assets.outcome }}
+            youtube-video=${{ steps.youtube-video.outcome }}
+        run: |
+          failures=()
+          while IFS='=' read -r route outcome; do
+            if [[ "$outcome" == "failure" || "$outcome" == "cancelled" ]]; then
+              failures+=("$route")
+            fi
+          done <<< "$ROUTE_OUTCOMES"
+
+          if (( ${#failures[@]} > 0 )); then
+            joined="$(IFS=', '; echo "${failures[*]}")"
+            echo "::error title=Social publishing routes failed::${joined}"
+            exit 1
+          fi
+
+          echo "All enabled social publishing routes completed successfully."
 
       # ─── Data State Synchronization ────────────────────────────
       - name: Prepare social tracking state
@@ -548,3 +608,135 @@ jobs:
         env:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+
+  collect-social-metrics:
+    name: Collect Native Social Metrics
+    if: github.event.schedule == '53 * * * *' || github.event.inputs.run == 'metrics'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: social-metrics-collect
+      cancel-in-progress: false
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply D1 Ops Ledger Migrations
+        run: npx tsx scripts/d1-migrate.ts
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+
+      - name: Collect 24-hour and 7-day metrics
+        timeout-minutes: 10
+        run: npm run social:metrics:collect
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+
+  report-social-metrics:
+    name: Build Weekly Social Performance Report
+    if: github.event.schedule == '31 08 * * 1' || github.event.inputs.run == 'metrics-report'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: social-metrics-report
+      cancel-in-progress: false
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply D1 Ops Ledger Migrations
+        run: npx tsx scripts/d1-migrate.ts
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+
+      - name: Build normalized performance report
+        timeout-minutes: 5
+        run: npm run social:metrics:report:file
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+
+      - name: Upload social performance report
+        uses: actions/upload-artifact@v7
+        with:
+          name: social-performance-${{ github.run_id }}
+          path: data/analytics/social-performance-latest.md
+          if-no-files-found: error
+          retention-days: 30
+
+  notify-measurement-failure:
+    name: Notify Measurement Failure
+    needs: [collect-social-metrics, report-social-metrics]
+    if: >-
+      ${{ always() && (
+        needs.collect-social-metrics.result == 'failure' ||
+        needs.collect-social-metrics.result == 'cancelled' ||
+        needs.report-social-metrics.result == 'failure' ||
+        needs.report-social-metrics.result == 'cancelled'
+      ) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Notify Telegram reporting chat
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+          COLLECT_RESULT: ${{ needs.collect-social-metrics.result }}
+          REPORT_RESULT: ${{ needs.report-social-metrics.result }}
+        run: |
+          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
+            echo "Telegram report secrets are not configured; measurement failure remains visible in Actions."
+            exit 0
+          fi
+          payload="$(jq -n \
+            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
+            --arg text "Social measurement failed\nCollector: $COLLECT_RESULT\nReport: $REPORT_RESULT\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{chat_id: $chat_id, text: $text}')"
+          curl --fail --show-error --silent --max-time 10 \
+            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
+            -H "Content-Type: application/json" \
+            --data "$payload"

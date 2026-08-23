@@ -20,9 +20,14 @@ import {
 } from "../src/lib/daily-movers-carousel-generator";
 import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
 import { prepareInstagramCarouselImage } from "../src/lib/instagram-carousel-media";
-import { publishInstagramCarousel } from "../src/lib/meta-client";
+import { isMetaPublishOutcomeUnknownError, publishInstagramCarousel } from "../src/lib/meta-client";
 import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import {
+  hasSocialPost,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+} from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
@@ -99,12 +104,13 @@ function buildCaption(
   movers: DailyMoverCarouselToken[],
   variant: SocialContentVariant,
   archetype: SocialContentArchetype,
+  marketDataAsOf: Date,
 ): string {
   const leader = movers[0];
   const variantNotes: Record<string, { opener: string; qualityLine: string }> = {
     momentum_watchlist: {
       opener: "Ranked by daily momentum, then filtered for basic market data quality.",
-      qualityLine: "Use this as a momentum scan, not a buy signal.",
+      qualityLine: "Use this as a momentum scan, not a recommendation.",
     },
     volatility_filter: {
       opener: "Big candles are only useful when confirmation and liquidity hold.",
@@ -116,7 +122,7 @@ function buildCaption(
     },
     quality_movers: {
       opener: "Percent gain alone is not enough; market cap and volume give the move context.",
-      qualityLine: "Use the scan to separate cleaner momentum from noisy pumps.",
+      qualityLine: "Use the scan to separate cleaner momentum from noisy price spikes.",
     },
   };
   const variantNote = variantNotes[variant.key] || variantNotes.momentum_watchlist;
@@ -153,6 +159,7 @@ function buildCaption(
     lines.join("\n"),
     `Highest market cap in this set: ${formatCompact(Math.max(...movers.map((mover) => mover.marketCap)))}. ${variantNote.qualityLine}`,
     "Data snapshot only. Not financial advice. Always verify liquidity, volatility, and catalyst quality.",
+    `Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
     "TokenRadar.co",
     hashtags.join(" "),
   ].join("\n\n");
@@ -170,6 +177,8 @@ async function main() {
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
   const socialPostKey = `${today}:instagram-carousel`;
+  let deliveryReserved = false;
+  let publishedExternalId: string | undefined;
   const variant = selectSocialContentVariant({
     platform: "instagram-carousel",
     usedVariantKeys: force
@@ -197,6 +206,14 @@ async function main() {
         ),
     seedParts: [today, "instagram-carousel", process.env.SOCIAL_SLOT],
     date: new Date(`${today}T00:00:00.000Z`),
+    allowedArchetypeKeys: [
+      "risk_lab",
+      "sector_rotation",
+      "how_to_read_metric",
+      "watchlist_shortlist",
+      "data_quality_warning",
+      "two_token_comparison",
+    ],
   });
 
   cleanupExpiredCooldownFolders(DATA_DIR);
@@ -235,6 +252,15 @@ async function main() {
       console.warn("  Not enough fresh Instagram movers after cooldown filtering; filled remaining slots with recent movers.");
     }
 
+    const snapshotTimes = movers
+      .map((mover) => candidates.find((candidate) => candidate.id === mover.id))
+      .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""))
+      .filter(Number.isFinite);
+    if (snapshotTimes.length !== movers.length) {
+      throw new Error("Every Instagram mover must have a valid CoinGecko snapshot timestamp.");
+    }
+    const marketDataAsOf = new Date(Math.min(...snapshotTimes));
+
     console.log("Top 5 Instagram Movers:");
     movers.forEach((mover, index) => {
       console.log(
@@ -243,11 +269,14 @@ async function main() {
     });
 
     console.log(`Rendering Instagram carousel slides (${variant.label}, ${archetype.label})...`);
-    const renderedSlides = await generateDailyMoversCarousel(movers, { variant });
+    const renderedSlides = await generateDailyMoversCarousel(movers, {
+      variant,
+      generatedAt: marketDataAsOf,
+    });
     const slides = await Promise.all(
       renderedSlides.map((slide, index) => prepareInstagramCarouselImage(slide, index + 1)),
     );
-    const caption = buildCaption(movers, variant, archetype);
+    const caption = buildCaption(movers, variant, archetype, marketDataAsOf);
     console.log(`  Rendered ${slides.length} JPEG slides.`);
     console.log(`  Caption length: ${caption.length}/${SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT}`);
 
@@ -262,6 +291,25 @@ async function main() {
       console.log(caption);
       return;
     }
+
+    const reservation = await reserveSocialDelivery({
+      platform: "instagram",
+      contentKey: socialPostKey,
+      details: {
+        surface: "instagram-carousel",
+        movers: movers.map((mover) => mover.id),
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: marketDataAsOf.toISOString(),
+      },
+    });
+    if (!reservation.acquired) {
+      if (reservation.state === "published") {
+        console.log("Instagram movers delivery is already published; treating this run as an idempotent no-op.");
+        return;
+      }
+      throw new Error(`Instagram movers delivery is ${reservation.state}; reconcile it before retrying.`);
+    }
+    deliveryReserved = true;
 
     const prefix = `ig-carousel/${today}/`;
     const uploadedKeys: string[] = [];
@@ -278,9 +326,20 @@ async function main() {
     }
 
     const result = await publishInstagramCarousel(
-      imageUrls.map((imageUrl) => ({ imageUrl })),
+      imageUrls.map((imageUrl, index) => {
+        const mover = index >= 2 && index <= 6 ? movers[index - 2] : undefined;
+        const altText = index === 0
+          ? `TokenRadar daily movers cover showing ${movers.map((item) => item.symbol.toUpperCase()).join(", ")}.`
+          : index === 1
+            ? `Ranked daily movers board: ${movers.map((item, rank) => `${rank + 1}. ${item.name} ${formatPercent(item.change24h)}`).join("; ")}.`
+            : mover
+              ? `${mover.name} (${mover.symbol.toUpperCase()}) market snapshot: price ${formatPrice(mover.price)}, 24-hour change ${formatPercent(mover.change24h)}, market cap ${formatCompact(mover.marketCap)}, and volume ${formatCompact(mover.volume24h)}.`
+              : "TokenRadar risk reminder explaining that large daily gains need liquidity and follow-through confirmation.";
+        return { imageUrl, altText };
+      }),
       caption,
     );
+    publishedExternalId = result.id;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({
       postedAt,
@@ -299,6 +358,8 @@ async function main() {
         movers: movers.map((mover) => mover.id),
         slideCount: slides.length,
         variant: variant.key,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: marketDataAsOf.toISOString(),
         socialSlot: process.env.SOCIAL_SLOT,
       },
     });
@@ -323,6 +384,21 @@ async function main() {
 
     console.log(`Instagram movers carousel posted successfully (Post ID: ${result.id})`);
   } catch (error) {
+    if (deliveryReserved) {
+      const errorText = formatErrorForLog(error);
+      await markSocialDeliveryStatus({
+        platform: "instagram",
+        contentKey: socialPostKey,
+        status: publishedExternalId
+          ? "published"
+          : isMetaPublishOutcomeUnknownError(error)
+            ? "outcome_unknown"
+            : "failed",
+        externalId: publishedExternalId,
+        error: errorText,
+        details: { surface: "instagram-carousel" },
+      });
+    }
     if (!dryRun) {
       await logError("post-instagram-daily-movers", error);
     }

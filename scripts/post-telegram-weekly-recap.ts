@@ -15,15 +15,21 @@ import * as path from "path";
 
 import {
   SOCIAL_PLATFORM_LIMITS,
-  SOCIAL_VARIANT_COOLDOWN_DAYS,
-  TELEGRAM_ECOSYSTEM_LINK_HTML,
+  getTelegramResearchLinkHtml,
+  SITE_URL,
   TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
-import { selectSocialArchetype } from "../src/lib/social-archetypes";
+import {
+  hasSocialPost,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+} from "../src/lib/ops-ledger";
+import { getSocialArchetypeByKey } from "../src/lib/social-archetypes";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
-import { buildTelegramMediaCaption, sendTelegramPhoto } from "../src/lib/telegram";
+import { buildSocialUtmUrl } from "../src/lib/social-utm";
+import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramPhoto } from "../src/lib/telegram";
 import { renderTelegramWeeklyRecapImage } from "../src/lib/telegram-weekly-recap-image";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import {
@@ -34,7 +40,6 @@ import {
   cleanupExpiredCooldownFolders,
   loadCandidateTokens,
 } from "./lib/token-selection";
-import { getRecentSocialArchetypeKeys } from "./lib/social-history";
 
 loadEnv();
 
@@ -49,6 +54,8 @@ async function main() {
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, TRACKER_FILE_NAME);
   const socialPostKey = `${today}:telegram-weekly-recap`;
+  let deliveryReserved = false;
+  let publishedExternalId: number | undefined;
 
   cleanupExpiredCooldownFolders(DATA_DIR);
 
@@ -68,20 +75,29 @@ async function main() {
   try {
     console.log("Loading token candidates for Telegram weekly recap...");
     const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 250);
-    const recap = buildTelegramWeeklyRecap(selectWeeklyRecapTokens(candidates));
-    const archetype = selectSocialArchetype({
+    const recapSelection = selectWeeklyRecapTokens(candidates);
+    const recapTokenIds = Array.from(new Set([
+      ...recapSelection.leaders.map((token) => token.id),
+      recapSelection.pullback?.id,
+      recapSelection.volumeLeader?.id,
+    ].filter((tokenId): tokenId is string => Boolean(tokenId))));
+    const archetype = getSocialArchetypeByKey("weekly_scoreboard");
+    if (!archetype) throw new Error("Missing weekly_scoreboard social archetype.");
+    const recapSnapshotTimes = recapTokenIds
+      .map((tokenId) => candidates.find((candidate) => candidate.id === tokenId))
+      .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""))
+      .filter(Number.isFinite);
+    if (recapSnapshotTimes.length !== recapTokenIds.length) {
+      throw new Error("Every Telegram recap token must have a valid CoinGecko snapshot timestamp.");
+    }
+    const marketDataAsOf = new Date(Math.min(...recapSnapshotTimes));
+    const recap = buildTelegramWeeklyRecap(recapSelection, marketDataAsOf);
+    const trackedUrl = buildSocialUtmUrl(SITE_URL, {
       platform: "telegram",
-      usedArchetypeKeys: force
-        ? []
-        : getRecentSocialArchetypeKeys(
-            DATA_DIR,
-            "telegram",
-            SOCIAL_VARIANT_COOLDOWN_DAYS,
-            new Date(`${today}T00:00:00.000Z`),
-            "telegram-weekly-recap",
-          ),
-      seedParts: [today, "telegram", "weekly-recap", process.env.SOCIAL_SLOT],
-      date: new Date(`${today}T00:00:00.000Z`),
+      date: today,
+      surface: "telegram-weekly-recap",
+      archetypeKey: archetype.key,
+      tokenId: recap.tokenIds.join("-"),
     });
 
     console.log();
@@ -95,7 +111,9 @@ async function main() {
     console.log(`  Rendered ${(photoBuffer.length / 1024).toFixed(1)} KB PNG`);
 
     const tgFooter = `
-${TELEGRAM_ECOSYSTEM_LINK_HTML}
+Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.
+
+${getTelegramResearchLinkHtml(trackedUrl)}
 
 ${TELEGRAM_SIGNAL_NOTE}
 #Crypto #TokenRadar #WeeklyRecap
@@ -116,7 +134,27 @@ ${TELEGRAM_SIGNAL_NOTE}
       return;
     }
 
+    const reservation = await reserveSocialDelivery({
+      platform: "telegram",
+      contentKey: socialPostKey,
+      details: {
+        surface: "telegram-weekly-recap",
+        tokenIds: recap.tokenIds,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: marketDataAsOf.toISOString(),
+      },
+    });
+    if (!reservation.acquired) {
+      if (reservation.state === "published") {
+        console.log("Telegram weekly recap delivery is already published; treating this run as an idempotent no-op.");
+        return;
+      }
+      throw new Error(`Telegram weekly recap delivery is ${reservation.state}; reconcile it before retrying.`);
+    }
+    deliveryReserved = true;
+
     const messageId = await sendTelegramPhoto(photoBuffer, caption, channelId!);
+    publishedExternalId = messageId;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({
       postedAt,
@@ -131,8 +169,12 @@ ${TELEGRAM_SIGNAL_NOTE}
       ctaFamily: archetype.ctaFamily,
       text: caption,
       externalId: messageId,
+      plannedUrl: trackedUrl,
+      publishedUrl: trackedUrl,
       details: {
         tokenIds: recap.tokenIds,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: marketDataAsOf.toISOString(),
         socialSlot: process.env.SOCIAL_SLOT,
       },
     });
@@ -151,6 +193,21 @@ ${TELEGRAM_SIGNAL_NOTE}
 
     console.log(`Telegram weekly recap sent successfully (msg_id: ${messageId})`);
   } catch (error) {
+    if (deliveryReserved) {
+      const errorText = formatErrorForLog(error);
+      await markSocialDeliveryStatus({
+        platform: "telegram",
+        contentKey: socialPostKey,
+        status: publishedExternalId !== undefined
+          ? "published"
+          : isTelegramCreateOutcomeUnknownError(error)
+            ? "outcome_unknown"
+            : "failed",
+        externalId: publishedExternalId,
+        error: errorText,
+        details: { surface: "telegram-weekly-recap" },
+      });
+    }
     console.error(`Telegram weekly recap failed: ${formatErrorForLog(error)}`);
     process.exit(1);
   }

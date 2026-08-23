@@ -6,6 +6,13 @@ export interface SocialUtmContext {
   surface: string;
 }
 
+export interface SocialUtmAttribution {
+  source?: string;
+  medium?: string;
+  campaign?: string;
+  content?: string;
+}
+
 function slugPart(value: string | undefined | null): string {
   return (value || "general")
     .toLowerCase()
@@ -33,4 +40,20 @@ export function buildSocialUtmUrl(baseUrl: string, context: SocialUtmContext): s
   url.searchParams.set("utm_content", content);
 
   return url.toString();
+}
+
+export function readSocialUtmAttribution(value: string | undefined | null): SocialUtmAttribution {
+  if (!value?.trim()) return {};
+  try {
+    const url = new URL(value, "https://tokenradar.co");
+    const parameter = (name: string): string | undefined => url.searchParams.get(name)?.trim() || undefined;
+    return {
+      source: parameter("utm_source"),
+      medium: parameter("utm_medium"),
+      campaign: parameter("utm_campaign"),
+      content: parameter("utm_content"),
+    };
+  } catch {
+    return {};
+  }
 }

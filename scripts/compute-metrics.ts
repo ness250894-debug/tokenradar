@@ -20,6 +20,11 @@
 import * as fs from "fs";
 import * as path from "path";
 import { pathToFileURL } from "url";
+import {
+  CATEGORY_INPUT_SELECTION_MAX_AGE_MS,
+  newestValidObservationTimestamp,
+  resolveProviderMarketTimestamp,
+} from "../src/lib/market-data-quality";
 import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import type { TokenDetail } from "../src/lib/content-loader";
@@ -46,7 +51,62 @@ export interface TokenMetrics {
   volatilityIndex: number; // 0–100
   holderConcentrationEstimate: "low" | "medium" | "high" | "unknown";
   summary: string; // One-line human-readable summary
+  /** Snapshot time of the cached market inputs used by this computation. */
+  marketDataAsOf: string;
+  /** Newest underlying price observation used for volatility. */
+  priceHistoryAsOf?: string;
+  /** Oldest market snapshot used in the selected category median. */
+  categoryDataAsOf?: string;
+  /** Oldest timestamp across every required metric input. */
+  inputDataAsOf?: string;
   computedAt: string;
+}
+
+export function resolvePriceHistoryAsOf(priceData: {
+  priceHistoryAsOf?: unknown;
+  chart30d?: Array<{ date?: unknown }>;
+  chart1y?: Array<{ date?: unknown }>;
+}): string | undefined {
+  const chartTimestamp = newestValidObservationTimestamp(
+    (priceData.chart30d || []).map((point) => point.date),
+  );
+  return chartTimestamp || resolveProviderMarketTimestamp(priceData.priceHistoryAsOf);
+}
+
+export function resolveMetricMarketDataAsOf(token: {
+  lastMarketUpdate?: unknown;
+  fetchedAt?: unknown;
+}): string | undefined {
+  return resolveProviderMarketTimestamp(token.lastMarketUpdate);
+}
+
+export function isCategoryInputEligibleForMetrics(
+  marketDataAsOf: unknown,
+  now: Date = new Date(),
+): boolean {
+  const timestamp = resolveProviderMarketTimestamp(marketDataAsOf);
+  if (!timestamp) return false;
+  const ageMs = now.getTime() - Date.parse(timestamp);
+  return ageMs >= -60_000 && ageMs < CATEGORY_INPUT_SELECTION_MAX_AGE_MS;
+}
+
+export function resolveCategoryMetricContext(
+  categories: string[],
+  medians: Readonly<Record<string, number>>,
+  observationTimes: Readonly<Record<string, number[]>>,
+): { medianCap: number; dataAsOf?: string } | undefined {
+  for (const category of categories) {
+    const key = category.toLowerCase();
+    if (!Object.prototype.hasOwnProperty.call(medians, key)) continue;
+    const oldestInput = Math.min(...(observationTimes[key] || []));
+    return {
+      medianCap: medians[key],
+      dataAsOf: Number.isFinite(oldestInput)
+        ? new Date(oldestInput).toISOString()
+        : undefined,
+    };
+  }
+  return undefined;
 }
 
 // ── Metric Calculations ────────────────────────────────────────
@@ -272,6 +332,7 @@ export async function main(args = process.argv.slice(2)) {
       volume24h: number;
       priceChange30d: number;
     };
+    marketDataAsOf?: string;
   }[] = [];
 
   for (const file of tokenFiles) {
@@ -283,6 +344,9 @@ export async function main(args = process.argv.slice(2)) {
       symbol: raw.symbol,
       marketCap: raw.market?.marketCap || 0,
       categories: raw.categories || [],
+      marketDataAsOf: resolveMetricMarketDataAsOf(
+        raw as TokenDetail & { lastMarketUpdate?: unknown },
+      ),
       market: {
         athChangePercentage: raw.market?.athChangePercentage || 0,
         volume24h: raw.market?.volume24h || 0,
@@ -293,11 +357,17 @@ export async function main(args = process.argv.slice(2)) {
 
   // Category median computation
   const categoryMarketCaps: Record<string, number[]> = {};
+  const categoryMarketTimes: Record<string, number[]> = {};
+  const categoryFreshnessNow = new Date();
   for (const token of allTokenData) {
+    const marketTimestamp = Date.parse(token.marketDataAsOf || "");
+    if (!isCategoryInputEligibleForMetrics(token.marketDataAsOf, categoryFreshnessNow)) continue;
     for (const cat of token.categories) {
       const key = cat.toLowerCase();
       if (!categoryMarketCaps[key]) categoryMarketCaps[key] = [];
+      if (!categoryMarketTimes[key]) categoryMarketTimes[key] = [];
       categoryMarketCaps[key].push(token.marketCap);
+      categoryMarketTimes[key].push(marketTimestamp);
     }
   }
 
@@ -312,25 +382,30 @@ export async function main(args = process.argv.slice(2)) {
   let tokensProcessed = 0;
 
   for (const token of allTokenData) {
+    if (!token.marketDataAsOf) {
+      console.warn(`  Skipping ${token.name}: no provider-observed market timestamp.`);
+      continue;
+    }
     // Load price history for volatility
     let volatility = 10; // default
+    let priceHistoryAsOf: string | undefined;
     const priceFile = path.join(PRICES_DIR, `${token.id}.json`);
     if (fs.existsSync(priceFile)) {
       const priceData = safeReadJson<any>(priceFile, {});
       if (priceData.chart30d?.length > 0) {
         volatility = computeVolatility(priceData.chart30d);
+        priceHistoryAsOf = resolvePriceHistoryAsOf(priceData);
       }
     }
 
     // Get category median
-    let categoryMedianCap = 1e9; // default $1B
-    for (const cat of token.categories) {
-      const key = cat.toLowerCase();
-      if (categoryMedians[key]) {
-        categoryMedianCap = categoryMedians[key];
-        break;
-      }
-    }
+    const categoryContext = resolveCategoryMetricContext(
+      token.categories,
+      categoryMedians,
+      categoryMarketTimes,
+    );
+    const categoryMedianCap = categoryContext?.medianCap ?? 1e9; // default $1B
+    const categoryDataAsOf = categoryContext?.dataAsOf;
 
     const riskScore = computeRiskScore(
       volatility,
@@ -360,6 +435,10 @@ export async function main(args = process.argv.slice(2)) {
       valueVsAth
     );
 
+    const inputTimestamps = [token.marketDataAsOf, priceHistoryAsOf, categoryDataAsOf]
+      .map((value) => Date.parse(value || ""))
+      .filter(Number.isFinite);
+    const hasAllRequiredInputTimestamps = Boolean(priceHistoryAsOf && categoryDataAsOf);
     const metrics: TokenMetrics = {
       tokenId: token.id,
       tokenName: token.name,
@@ -372,6 +451,12 @@ export async function main(args = process.argv.slice(2)) {
       volatilityIndex: Math.round(Math.min(100, volatility * 5)),
       holderConcentrationEstimate: "unknown", // requires on-chain data
       summary,
+      marketDataAsOf: token.marketDataAsOf,
+      priceHistoryAsOf,
+      categoryDataAsOf,
+      inputDataAsOf: hasAllRequiredInputTimestamps
+        ? new Date(Math.min(...inputTimestamps)).toISOString()
+        : undefined,
       computedAt: new Date().toISOString(),
     };
 

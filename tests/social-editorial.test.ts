@@ -3,74 +3,88 @@ import { describe, expect, it } from "vitest";
 import {
   findUnsafeSocialPhrases,
   sanitizeSocialEditorialText,
+  UnsafeSocialEditorialError,
 } from "../src/lib/social-editorial";
 
 describe("social editorial policy", () => {
-  it("removes advice, hype, and certainty phrases from generated social copy", () => {
-    const sanitized = sanitizeSocialEditorialText(
-      "Buy now before this moonshot goes 100x. Guaranteed returns. This is financial advice.",
-    );
-
-    expect(sanitized.toLowerCase()).not.toContain("buy now");
-    expect(sanitized.toLowerCase()).not.toContain("moonshot");
-    expect(sanitized.toLowerCase()).not.toContain("100x");
-    expect(sanitized.toLowerCase()).not.toContain("guaranteed returns");
-    expect(sanitized.toLowerCase()).not.toContain("financial advice");
-    expect(sanitized).toContain("Review the data");
-  });
-
   it("preserves neutral data-led social copy", () => {
     const text = "$BTC is +2.40% over 24h. Watch liquidity and risk score before treating the move as durable.";
 
     expect(sanitizeSocialEditorialText(text)).toBe(text);
   });
 
-  it("does not rewrite neutral long-term or short-form wording", () => {
-    const text = "Long-term context matters more than one short-form clip about a volatile move.";
+  it("cleans typography without changing editorial meaning", () => {
+    expect(sanitizeSocialEditorialText("Price moved +2.40%  ,  with confirmation.\n\n\nRisk remains."))
+      .toBe("Price moved +2.40%, with confirmation.\n\nRisk remains.");
+  });
+
+  it("fails closed instead of euphemistically rewriting investment instructions", () => {
+    const text = "Buy now before entry, then accumulate and commit capital.";
+
+    expect(() => sanitizeSocialEditorialText(text)).toThrow(UnsafeSocialEditorialError);
+    expect(sanitizeSocialEditorialText(text, { unsafeBehavior: "preserve" })).toBe(text);
+    expect(findUnsafeSocialPhrases(text)).toEqual(expect.arrayContaining([
+      "investment instruction",
+      "entry instruction",
+      "accumulation instruction",
+      "capital instruction",
+    ]));
+  });
+
+  it("does not turn missing safety into softer investment vocabulary", () => {
+    const text = "Risk-on buying becomes accumulation before making a move.";
+
+    expect(() => sanitizeSocialEditorialText(text)).toThrow(UnsafeSocialEditorialError);
+    expect(sanitizeSocialEditorialText(text, { unsafeBehavior: "preserve" }))
+      .toBe("Risk-on buying becomes accumulation before making a move.");
+  });
+
+  it("preserves PUMP and Pump.fun entity names exactly", () => {
+    const text = "$PUMP (Pump.fun) Explained: Is This 17% Move Real?";
+
+    expect(sanitizeSocialEditorialText(text, {
+      protectedEntities: [
+        { value: "PUMP", caseSensitive: true },
+        { value: "Pump.fun", caseSensitive: false },
+      ],
+    })).toBe(text);
+    expect(findUnsafeSocialPhrases(text, {
+      protectedEntities: [
+        { value: "PUMP", caseSensitive: true },
+        { value: "Pump.fun", caseSensitive: false },
+      ],
+    })).toEqual([]);
+  });
+
+  it("does not auto-mask dotted text that contains an unsafe claim", () => {
+    expect(findUnsafeSocialPhrases("Setup.Guaranteed returns")).toContain("guaranteed claim");
+    expect(() => sanitizeSocialEditorialText("Setup.Guaranteed returns"))
+      .toThrow(UnsafeSocialEditorialError);
+  });
+
+  it("still blocks lowercase pump hype beside a protected PUMP ticker", () => {
+    const text = "$PUMP could pump after this candle.";
+
+    expect(findUnsafeSocialPhrases(text, {
+      protectedEntities: [{ value: "PUMP", caseSensitive: true }],
+    })).toContain("pump hype");
+    expect(() => sanitizeSocialEditorialText(text, {
+      protectedEntities: [{ value: "PUMP", caseSensitive: true }],
+    })).toThrow(UnsafeSocialEditorialError);
+  });
+
+  it("preserves neutral signal grammar instead of rewriting the word globally", () => {
+    const text = "Speculative tokens signal broad retail FOMO.";
+    const sanitized = sanitizeSocialEditorialText(text);
+
+    expect(sanitized).toBe(text);
+    expect(sanitized).not.toContain("research read");
+  });
+
+  it("permits a negative educational disclaimer", () => {
+    const text = "Educational research only. Not financial advice.";
 
     expect(sanitizeSocialEditorialText(text)).toBe(text);
-  });
-
-  it("rewrites moon-bound wording used by short social surfaces", () => {
-    const sanitized = sanitizeSocialEditorialText("Moon bound if volume keeps building.");
-
-    expect(sanitized.toLowerCase()).not.toContain("moon bound");
-    expect(sanitized).toContain("Needs confirmation");
-  });
-
-  it("rewrites trade-signal vocabulary into research-safe wording", () => {
-    const sanitized = sanitizeSocialEditorialText(
-      "TokenRadar signal: strong buy with an entry price and price prediction.",
-    );
-
-    expect(sanitized).not.toMatch(/\b(?:signal|strong buy|entry price|price prediction)\b/i);
-    expect(sanitized).toContain("TokenRadar research read");
-    expect(sanitized).toContain("research read");
-  });
-
-  it("rewrites dip-buying language into confirmation language", () => {
-    const sanitized = sanitizeSocialEditorialText("Risk-on accumulation: buying dips.");
-
-    expect(sanitized.toLowerCase()).not.toContain("buying dips");
-    expect(sanitized).toContain("waiting for confirmation");
-  });
-
-  it("removes pump and trade-command phrasing from social copy", () => {
-    const input = "Buy now before the next 100x pump. Loading bags is a guaranteed signal.";
-    const sanitized = sanitizeSocialEditorialText(input);
-
-    expect(sanitized.toLowerCase()).not.toContain("buy now");
-    expect(sanitized.toLowerCase()).not.toContain("100x");
-    expect(sanitized.toLowerCase()).not.toContain("loading bags");
-    expect(sanitized.toLowerCase()).not.toContain("guaranteed signal");
-    expect(findUnsafeSocialPhrases(sanitized)).toEqual([]);
-  });
-
-  it("rewrites gem-coded hashtags into neutral market tags", () => {
-    const sanitized = sanitizeSocialEditorialText("Watch $BABY here. #MicroCapGems #AltcoinWatch");
-
-    expect(sanitized).not.toContain("#MicroCapGems");
-    expect(sanitized).toContain("#MarketRead");
-    expect(findUnsafeSocialPhrases(sanitized)).toEqual([]);
+    expect(findUnsafeSocialPhrases(text)).toEqual([]);
   });
 });

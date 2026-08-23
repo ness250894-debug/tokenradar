@@ -230,7 +230,10 @@ describe("TikTok client helpers", () => {
       new Response("", { status: 200 }),
     ).mockResolvedValueOnce(
       new Response(JSON.stringify({
-        data: { status: "PROCESSING_UPLOAD" },
+        data: {
+          status: "PUBLISH_COMPLETE",
+          publicaly_available_post_id: ["public-tiktok-1"],
+        },
         error: { code: "ok" },
       }), { status: 200 }),
     );
@@ -240,9 +243,12 @@ describe("TikTok client helpers", () => {
         videoPath,
         caption: "TokenRadar test caption #Crypto",
         accessToken: "access-token",
+        pollIntervalMs: 0,
+        pollTimeoutMs: 1_000,
       });
 
       expect(result.publishId).toBe("publish-direct-1");
+      expect(result.publicPostId).toBe("public-tiktok-1");
       expect(result.privacyLevel).toBe("PUBLIC_TO_EVERYONE");
       expect(result.creatorInfo?.creator_username).toBe("tokenradarco");
 

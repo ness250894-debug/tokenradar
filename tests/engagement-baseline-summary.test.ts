@@ -28,9 +28,13 @@ describe("engagement baseline summary", () => {
             landingPages: [
               {
                 dimensions: {
-                  landingPagePlusQueryString: "/foo?fbclid=1",
+                  landingPagePlusQueryString: "/foo?utm_source=x&utm_medium=social&utm_campaign=social_rotation&utm_content=20260513-x-market-risk-lab-bitcoin",
                   deviceCategory: "mobile",
                   sessionDefaultChannelGroup: "Organic Social",
+                  sessionManualSource: "x",
+                  sessionManualMedium: "social",
+                  sessionManualCampaignName: "social_rotation",
+                  sessionManualAdContent: "20260513-x-market-risk-lab-bitcoin",
                 },
                 metrics: {
                   sessions: 2,
@@ -130,8 +134,14 @@ describe("engagement baseline summary", () => {
       clicks: 0,
       averagePosition: 10,
     });
+    expect(range.socialCampaigns[0]).toMatchObject({
+      utmContent: "20260513-x-market-risk-lab-bitcoin",
+      source: "x",
+      sessions: 2,
+    });
     expect(range.missingEngagementEvents).toContain("next_action_click");
     expect(renderSummaryMarkdown(summarizeBaselineExport(baseline))).toContain("Weak landing pages:");
     expect(renderSummaryMarkdown(summarizeBaselineExport(baseline))).toContain("Weak mobile/social landing pages:");
+    expect(renderSummaryMarkdown(summarizeBaselineExport(baseline))).toContain("Social creative attribution:");
   });
 });

@@ -1,5 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { publishImage, publishInstagramCarousel, publishThreadsText, publishVideo } from "../src/lib/meta-client";
+import {
+  isMetaPublishOutcomeUnknownError,
+  publishImage,
+  publishInstagramCarousel,
+  publishThreadsText,
+  publishVideo,
+} from "../src/lib/meta-client";
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -75,8 +81,7 @@ describe("publishVideo for Threads", () => {
     expect(retryCreateBody.has("text_entities")).toBe(false);
   });
 
-  it("retries transient Threads publish errors before returning success", async () => {
-    vi.useFakeTimers();
+  it("does not retry an ambiguous Threads publish response", async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(jsonResponse({ id: "container-3" }))
       .mockResolvedValueOnce(jsonResponse({ id: "container-3", status: "FINISHED" }))
@@ -91,13 +96,74 @@ describe("publishVideo for Threads", () => {
       .mockResolvedValueOnce(jsonResponse({ id: "post-3" }));
     vi.stubGlobal("fetch", fetchMock);
 
+    const error = await publishVideo("threads", "https://cdn.example/video.mp4", "Alpha is moving")
+      .catch((caught) => caught as unknown);
+
+    expect(isMetaPublishOutcomeUnknownError(error)).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it("treats a successful final-publish response without an ID as outcome unknown", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "container-missing-id" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-missing-id", status: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({}));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const error = await publishVideo("threads", "https://cdn.example/video.mp4", "Alpha is moving")
+      .catch((caught) => caught as unknown);
+
+    expect(isMetaPublishOutcomeUnknownError(error)).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it("keeps an explicitly unpublished container retryable after final retry exhaustion", async () => {
+    vi.useFakeTimers();
+    const notReady = () => jsonResponse({
+      error: {
+        message: "Media ID is not available for publishing",
+        type: "OAuthException",
+        code: 9007,
+        error_subcode: 2207027,
+      },
+    }, 400);
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "container-still-not-ready" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-still-not-ready", status: "FINISHED" }))
+      .mockResolvedValueOnce(notReady())
+      .mockResolvedValueOnce(notReady())
+      .mockResolvedValueOnce(notReady());
+    vi.stubGlobal("fetch", fetchMock);
+
     const resultPromise = publishVideo("threads", "https://cdn.example/video.mp4", "Alpha is moving");
-
+    const errorPromise = resultPromise.catch((caught) => caught as unknown);
     await vi.runAllTimersAsync();
+    const error = await errorPromise;
 
-    await expect(resultPromise).resolves.toEqual({ id: "post-3", platform: "threads" });
-    expect(fetchMock).toHaveBeenCalledTimes(4);
-    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("code 2"));
+    expect(isMetaPublishOutcomeUnknownError(error)).toBe(false);
+    expect(error).toBeInstanceOf(Error);
+    expect(fetchMock).toHaveBeenCalledTimes(5);
+  });
+
+  it("treats an explicit final-publish rate limit as a definitive rejection", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({ id: "container-rate-limited" }))
+      .mockResolvedValueOnce(jsonResponse({ id: "container-rate-limited", status: "FINISHED" }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "Application request limit reached",
+          type: "OAuthException",
+          code: 4,
+        },
+      }, 429));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const error = await publishVideo("threads", "https://cdn.example/video.mp4", "Alpha is moving")
+      .catch((caught) => caught as unknown);
+
+    expect(isMetaPublishOutcomeUnknownError(error)).toBe(false);
+    expect(error).toBeInstanceOf(Error);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 });
 
@@ -237,8 +303,8 @@ describe("publishInstagramCarousel", () => {
 
     const result = await publishInstagramCarousel(
       [
-        { imageUrl: "https://media.example/slide-1.png" },
-        { imageUrl: "https://media.example/slide-2.png" },
+        { imageUrl: "https://media.example/slide-1.png", altText: "Market movers cover" },
+        { imageUrl: "https://media.example/slide-2.png", altText: "Ranked movers board" },
       ],
       "Daily movers https://tokenradar.co",
     );
@@ -251,7 +317,9 @@ describe("publishInstagramCarousel", () => {
     expect(result).toEqual({ id: "post-ig-1", platform: "instagram" });
     expect(firstChildBody.get("image_url")).toBe("https://media.example/slide-1.png");
     expect(firstChildBody.get("is_carousel_item")).toBe("true");
+    expect(firstChildBody.get("alt_text")).toBe("Market movers cover");
     expect(secondChildBody.get("image_url")).toBe("https://media.example/slide-2.png");
+    expect(secondChildBody.get("alt_text")).toBe("Ranked movers board");
     expect(parentBody.get("media_type")).toBe("CAROUSEL");
     expect(parentBody.get("children")).toBe("child-1,child-2");
     expect(publishBody.get("creation_id")).toBe("carousel-1");

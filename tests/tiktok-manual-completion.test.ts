@@ -11,6 +11,10 @@ describe("TikTok manual completion tracking", () => {
       "operator-required",
       "tiktok-url-or-post-id-required",
     ]);
+    expect(validateTikTokManualCompletionInput({
+      operator: "Pavlo",
+      tiktokUrl: "https://example.com/not-a-tiktok-post",
+    })).toContain("tiktok-url-invalid");
   });
 
   it("marks a manual handoff as manually published without disturbing other platforms", () => {

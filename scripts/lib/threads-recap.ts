@@ -136,9 +136,7 @@ export function selectWeeklyRecapTokens(tokens: WeeklyRecapToken[]): WeeklyRecap
     .filter((token) => weeklyChange(token) < 0 && !leaderIds.has(token.id))
     .sort((a, b) => weeklyChange(a) - weeklyChange(b))[0];
 
-  const usedIds = new Set([...leaderIds, pullback?.id].filter(Boolean));
   const volumeLeader = eligible
-    .filter((token) => !usedIds.has(token.id))
     .sort((a, b) => volume24h(b) - volume24h(a))[0];
 
   return { leaders, pullback, volumeLeader };
@@ -149,26 +147,26 @@ export function buildWeeklyThreadsRecap(selection: WeeklyRecapSelection): Weekly
     throw new Error("Cannot build Threads weekly recap without at least one weekly leader.");
   }
 
-  const leaderLine = `Momentum: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
+  const leaderLine = `Tracked 7d change leaders: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
   const lines = [
     "TokenRadar weekly recap:",
     "",
     leaderLine,
     selection.pullback ? `Pullback watch: ${formatTokenMove(selection.pullback)}.` : "",
-    selection.volumeLeader ? `Liquidity tell: $${selection.volumeLeader.symbol.toUpperCase()} led tracked volume.` : "",
+    selection.volumeLeader ? `Reported-volume context: $${selection.volumeLeader.symbol.toUpperCase()} led tracked 24h volume.` : "",
     "",
-    "What mattered more this week: momentum, liquidity, or follow-through?",
+    "Which supplied field was most useful this week: 7d change or reported 24h volume?",
   ].filter((line) => line !== "");
 
   let caption = lines.join("\n");
   if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT && selection.volumeLeader) {
     caption = lines
-      .filter((line) => !line.startsWith("Liquidity tell:"))
+      .filter((line) => !line.startsWith("Reported-volume context:"))
       .join("\n");
   }
   if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT && selection.pullback) {
     caption = lines
-      .filter((line) => !line.startsWith("Pullback watch:") && !line.startsWith("Liquidity tell:"))
+      .filter((line) => !line.startsWith("Pullback watch:") && !line.startsWith("Reported-volume context:"))
       .join("\n");
   }
   if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT) {
@@ -199,12 +197,12 @@ export function buildTelegramWeeklyRecap(
     throw new Error("Cannot build Telegram weekly recap without at least one weekly leader.");
   }
 
-  const leaderLine = `Momentum: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
+  const leaderLine = `Tracked 7d change leaders: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
   const pullbackLine = selection.pullback
     ? `Pullback watch: <b>${formatTokenMove(selection.pullback)}</b>.`
     : "";
   const volumeLine = selection.volumeLeader
-    ? `Liquidity tell: <b>$${selection.volumeLeader.symbol.toUpperCase()}</b> led tracked volume at ${formatCompactNumber(volume24h(selection.volumeLeader))}.`
+    ? `Reported-volume context: <b>$${selection.volumeLeader.symbol.toUpperCase()}</b> led tracked 24h volume at ${formatCompactNumber(volume24h(selection.volumeLeader))}.`
     : "";
 
   const captionBody = [
@@ -212,8 +210,8 @@ export function buildTelegramWeeklyRecap(
     leaderLine,
     pullbackLine,
     volumeLine,
-    "Use it: compare weekly momentum with liquidity and follow-through before trusting the next move.",
-    "<tg-spoiler>TokenRadar read: useful weekly market map, not a trade command.</tg-spoiler>",
+    "Research context: compare the supplied 7d changes and reported 24h volume without treating them as a forecast.",
+    "<tg-spoiler>TokenRadar read: this is a descriptive weekly market map; it does not establish future direction.</tg-spoiler>",
   ].filter(Boolean).join("\n");
 
   const recapTokens = uniqueTokens([
@@ -226,7 +224,7 @@ export function buildTelegramWeeklyRecap(
     captionBody,
     image: {
       title: "Weekly Radar Recap",
-      subtitle: "Momentum, pullback, and liquidity context",
+      subtitle: "7d change and reported-volume context",
       generatedAtLabel: formatUtcDate(generatedAt),
       leaders: selection.leaders.map((token) => ({
         symbol: token.symbol.toUpperCase(),

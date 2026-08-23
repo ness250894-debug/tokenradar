@@ -73,7 +73,7 @@ const defaultProps: TopGainerProps = {
   voiceoverScript: "Ethereum is back in the conversation, but the useful question is whether attention turns into confirmation. Treat this as market context, not a dashboard headline.",
   hookText: "WHY ETHEREUM NEEDS A DATA CHECK",
   contextText: "Ethereum is moving through a market read where volume, liquidity, and risk confirmation matter most.",
-  verdict: "CONSTRUCTIVE",
+  verdict: "DATA SNAPSHOT",
   videoFormatKey: "breakout_watch",
   videoThesis: "Ethereum is being checked as a breakout candidate because momentum needs volume confirmation.",
   mediaAssets: [],

@@ -3,12 +3,19 @@ import { Resvg } from "@resvg/resvg-js";
 
 import { formatCompact, formatPercent, formatPrice, getRiskColor } from "./formatters";
 import { fetchTokenIconDataUrl } from "./token-icon-data";
+import { isPeggedAsset } from "./asset-classification";
 
 export interface TokenComparisonMetrics {
   riskScore: number;
   growthPotentialIndex: number;
   narrativeStrength?: number;
   volatilityIndex?: number;
+  /** Timestamp of the market inputs used to derive the metric values. */
+  marketDataAsOf?: string;
+  computedAt?: string;
+  priceHistoryAsOf?: string;
+  categoryDataAsOf?: string;
+  inputDataAsOf?: string;
 }
 
 export interface TokenComparisonToken {
@@ -23,6 +30,8 @@ export interface TokenComparisonToken {
   marketCap: number;
   volume24h: number;
   rank: number;
+  marketDataSource?: "coingecko-live" | "local-cache";
+  marketDataAsOf?: string;
   metrics: TokenComparisonMetrics;
 }
 
@@ -88,7 +97,16 @@ function isEligibleToken(token: TokenComparisonToken): boolean {
     Math.abs(token.change24h) <= MAX_ABS_CHANGE_24H &&
     Number.isFinite(token.change7d) &&
     Number.isFinite(token.metrics.riskScore) &&
-    Number.isFinite(token.metrics.growthPotentialIndex)
+    Number.isFinite(token.metrics.growthPotentialIndex) &&
+    !isPeggedAsset({
+      id: token.id,
+      symbol: token.symbol,
+      name: token.name,
+      categories: token.categories,
+      price: token.price,
+      change24h: token.change24h,
+      change7d: token.change7d,
+    })
   );
 }
 
@@ -203,6 +221,43 @@ function comparisonPercent(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value) ? formatPercent(value) : "N/A";
 }
 
+function oldestValidTimestamp(values: Array<string | undefined>): Date | null {
+  const timestamps = values
+    .map((value) => value ? Date.parse(value) : Number.NaN)
+    .filter(Number.isFinite);
+  return timestamps.length > 0 ? new Date(Math.min(...timestamps)) : null;
+}
+
+function comparisonSourceLine(pair: TokenComparisonPair, compact = false): string {
+  const marketSources = new Set(
+    [pair.left.marketDataSource, pair.right.marketDataSource].filter(Boolean),
+  );
+  const marketSourceLabel = marketSources.size === 1 && marketSources.has("coingecko-live")
+    ? "CoinGecko"
+    : marketSources.size === 1 && marketSources.has("local-cache")
+      ? "local cache"
+      : marketSources.size > 1
+        ? "mixed-source market data"
+        : "market data";
+  const marketAsOf = oldestValidTimestamp([
+    pair.left.marketDataAsOf,
+    pair.right.marketDataAsOf,
+  ]);
+  const metricsAsOf = oldestValidTimestamp([
+    pair.left.metrics.inputDataAsOf,
+    pair.right.metrics.inputDataAsOf,
+  ]);
+  const marketLabel = marketAsOf
+    ? `${marketAsOf.toISOString().slice(11, 16)} UTC`
+    : "live snapshot";
+  const metricsLabel = metricsAsOf
+    ? `${metricsAsOf.toISOString().slice(0, 10)} oldest inputs`
+    : "methodology snapshot";
+  return compact
+    ? `Data: ${marketSourceLabel} ${marketLabel} · Metrics ${metricsLabel}`
+    : `Source: ${marketSourceLabel} snapshot, ${marketLabel}; TokenRadar Risk/Growth metrics as of ${metricsLabel}.`;
+}
+
 export function buildComparisonCaptions(pair: TokenComparisonPair): {
   telegram: string;
   x: string;
@@ -213,6 +268,7 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
   const leftSymbol = left.symbol.toUpperCase();
   const rightSymbol = right.symbol.toUpperCase();
   const headline = `${leftSymbol} vs ${rightSymbol}`;
+  const sourceLine = comparisonSourceLine(pair);
   const compactMetrics = [
     `24h: ${formatPercent(left.change24h)} vs ${formatPercent(right.change24h)}`,
     `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)}`,
@@ -226,22 +282,25 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
     `<b>${headline} - Token Comparison</b>`,
     `<i>${context}</i>`,
     compactMetrics.join("\n"),
-    "<b>Radar read:</b> the stronger candle is not automatically the stronger setup. Compare participation, risk, and follow-through together.",
+    "<b>Radar read:</b> compare the displayed price change, volume-to-cap ratio, and supplied risk score together.",
+    sourceLine,
   ].join("\n\n");
 
   const x = [
     `$${leftSymbol} vs $${rightSymbol} - TokenRadar comparison`,
-    compactMetrics.slice(0, 4).join("\n"),
+    compactMetrics.slice(0, 2).join("\n"),
+    `Volume/cap: ${compactRatio(volumeToMarketCap(left))} vs ${compactRatio(volumeToMarketCap(right))}`,
     `Risk: ${left.metrics.riskScore} vs ${right.metrics.riskScore} | Growth: ${left.metrics.growthPotentialIndex} vs ${right.metrics.growthPotentialIndex}`,
-    "Compare the setup, not just the candle. tokenradar.co",
+    comparisonSourceLine(pair, true),
   ].join("\n");
 
   const instagram = [
     `${left.name} ($${leftSymbol}) vs ${right.name} ($${rightSymbol})`,
     `${context} - a side-by-side market snapshot.`,
     compactMetrics.join("\n"),
-    "No single metric decides the matchup. Momentum needs participation; recovery room still has to be weighed against risk and liquidity.",
+    "No single displayed field decides the matchup. Compare price change, the volume-to-cap ratio, and the supplied risk score.",
     "Data snapshot only. Not financial advice.",
+    sourceLine,
     "TokenRadar.co",
     `#Crypto #TokenComparison #TokenRadar #${leftSymbol.replace(/[^A-Z0-9_]/g, "")} #${rightSymbol.replace(/[^A-Z0-9_]/g, "")} #CryptoResearch`,
   ].join("\n\n");
@@ -249,7 +308,8 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
   const threads = [
     `${headline} - ${context}`,
     compactMetrics.join("\n"),
-    "Which setup is better supported by participation and risk - not just price momentum? Data snapshot, not financial advice.",
+    "Which point-in-time snapshot would you research next: price change, volume-to-cap ratio, or supplied risk score? Not financial advice.",
+    sourceLine,
   ].join("\n\n");
 
   return { telegram, x, instagram, threads };
@@ -424,7 +484,7 @@ export async function generateTokenComparisonImage(pair: TokenComparisonPair): P
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", marginTop: 28, zIndex: 1 }}>
-        <span style={{ color: "#8B919D", fontSize: 18 }}>Compare momentum, participation, valuation, and risk together.</span>
+        <span style={{ color: "#8B919D", fontSize: 18 }}>Compare price change, volume-to-cap ratio, market cap, and supplied risk score.</span>
         <span style={{ color: "#CCFF00", fontSize: 18, fontWeight: 700 }}>TOKENRADAR.CO</span>
       </div>
     </div>

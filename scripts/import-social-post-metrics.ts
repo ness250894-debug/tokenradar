@@ -1,7 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { recordSocialPostMetrics, type SocialPostMetricsRecord } from "../src/lib/ops-ledger";
+import {
+  recordSocialPostMetrics,
+  validateSocialPostMetricsRecord,
+  type SocialPostMetricsRecord,
+} from "../src/lib/ops-ledger";
 import { formatErrorForLog, loadEnv } from "../src/lib/utils";
 
 loadEnv();
@@ -85,13 +89,25 @@ function normalizeRecord(record: RawMetricsRecord): SocialPostMetricsRecord {
     platform,
     contentKey,
     measuredAt: stringValue(record.measuredAt) || stringValue(record.measured_at),
+    horizonHours: parseNumber(record.horizonHours) ?? parseNumber(record.horizon_hours) ?? parseNumber(record.window_hours),
     details: {},
   };
 
+  if (normalized.horizonHours === undefined) {
+    throw new Error(`Metrics record ${platform}/${contentKey} requires horizonHours/window_hours.`);
+  }
+  if (!normalized.measuredAt) {
+    throw new Error(`Metrics record ${platform}/${contentKey} requires measuredAt/measured_at.`);
+  }
+
   for (const field of NUMBER_FIELDS) {
     const snakeField = field.replace(/[A-Z]/g, (char) => `_${char.toLowerCase()}`);
-    (normalized as unknown as Record<string, unknown>)[field] =
-      parseNumber(record[field]) ?? parseNumber(record[snakeField]);
+    const rawValue = record[field] ?? record[snakeField];
+    const parsedValue = parseNumber(rawValue);
+    if (rawValue !== undefined && rawValue !== null && String(rawValue).trim() && parsedValue === undefined) {
+      throw new Error(`Metrics record ${platform}/${contentKey} has an invalid ${field} value.`);
+    }
+    (normalized as unknown as Record<string, unknown>)[field] = parsedValue;
   }
 
   normalized.details = Object.fromEntries(
@@ -101,12 +117,19 @@ function normalizeRecord(record: RawMetricsRecord): SocialPostMetricsRecord {
       "content_key",
       "measuredAt",
       "measured_at",
+      "horizonHours",
+      "horizon_hours",
+      "window_hours",
       ...NUMBER_FIELDS,
       ...NUMBER_FIELDS.map((field) => field.replace(/[A-Z]/g, (char) => `_${char.toLowerCase()}`)),
     ].includes(key)),
   );
 
-  if (Object.keys(normalized.details).length === 0) normalized.details = undefined;
+  normalized.details = {
+    ...(normalized.details || {}),
+    collector: "manual-import",
+  };
+  validateSocialPostMetricsRecord(normalized);
   return normalized;
 }
 

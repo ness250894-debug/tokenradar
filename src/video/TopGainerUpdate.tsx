@@ -109,7 +109,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     ),
     context: (
       <ContextView
-        contextText={videoThesis || contextText || "Strong social sentiment and increasing volume are driving this breakout."}
+        contextText={videoThesis || contextText || `${tokenName} point-in-time data snapshot.`}
         title={videoFormat.contextTitle}
         formatLead={videoFormat.contextLead}
         priceChange24h={priceChange24h}
@@ -123,7 +123,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     ),
     verdict: (
       <VerdictBadge
-        verdict={verdict || "POSITIVE DATA"}
+        verdict={verdict || "DATA SNAPSHOT"}
         kicker={videoFormat.verdictKicker}
         labelOverride={videoFormat.signalLabel}
         visualRecipe={visualRecipe}
