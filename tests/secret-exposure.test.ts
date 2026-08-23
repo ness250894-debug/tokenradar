@@ -18,13 +18,21 @@ afterEach(() => {
 
 describe("secret exposure guard", () => {
   it("does not persist the framework build cache from secret-bearing builds", () => {
-    const workflow = fs.readFileSync(
-      path.resolve(process.cwd(), ".github/workflows/deploy.yml"),
-      "utf8",
-    );
+    const workflowDirectory = path.resolve(process.cwd(), ".github/workflows");
+    const workflowFiles = fs
+      .readdirSync(workflowDirectory)
+      .filter((fileName) => /\.ya?ml$/i.test(fileName));
 
-    expect(workflow).not.toMatch(
-      /^\s*path:\s*(?:\|\s*\r?\n\s*)?\.next\/cache\s*$/m,
+    for (const fileName of workflowFiles) {
+      const content = fs.readFileSync(path.join(workflowDirectory, fileName), "utf8");
+      expect(content, fileName).not.toMatch(
+        /^\s*path:\s*(?:\|\s*\r?\n\s*)?\.next\/cache\s*$/m,
+      );
+    }
+
+    const workflow = fs.readFileSync(
+      path.join(workflowDirectory, "deploy.yml"),
+      "utf8",
     );
 
     const buildStep = workflow.match(
