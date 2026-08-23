@@ -13,6 +13,11 @@ env:
   NODE_VERSION: "22"
   D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID || secrets.D1_DATABASE_ID }}
 
+concurrency:
+  group: generated-main-publication
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   refresh:
     name: Fetch Data & Refresh
@@ -26,7 +31,9 @@ jobs:
       queue: max
     outputs:
       has_changes: ${{ steps.commit.outputs.has_changes }}
-      commit_sha: ${{ steps.commit.outputs.commit_sha }}
+      base_sha: ${{ steps.commit.outputs.base_sha }}
+      head_sha: ${{ steps.commit.outputs.head_sha }}
+      branch: ${{ steps.commit.outputs.branch }}
     permissions:
       contents: write
 
@@ -115,8 +122,8 @@ jobs:
           npx tsx scripts/validate-content.ts
           npx tsx scripts/generate-sitemap.ts
 
-      # Note: [skip ci] prevents the `on: push` trigger in deploy.yml.
-      # The explicit `deploy` job below is the ONLY deploy trigger for this workflow.
+      # Note: [skip ci] prevents the automation-branch push from starting unrelated workflows.
+      # The trusted integration job explicitly dispatches CI before merging.
       - name: Commit updated data
         id: commit
         env:
@@ -163,12 +170,15 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            echo "base_sha=" >> "$GITHUB_OUTPUT"
+            echo "head_sha=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          branch="automation/daily-refresh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           base_sha="$(git rev-parse HEAD)"
           git commit -m "chore: daily data refresh [skip ci]"
-          commit_sha="$(git rev-parse HEAD)"
+          head_sha="$(git rev-parse HEAD)"
           pushed=false
           for i in 1 2 3; do
             remote_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
@@ -180,7 +190,7 @@ jobs:
               echo "::error::Remote main changed from $base_sha to $remote_sha while daily refresh was running. Aborting instead of auto-merging generated data."
               exit 1
             fi
-            if git push origin HEAD:main; then
+            if git push origin "HEAD:refs/heads/${branch}"; then
               pushed=true
               break
             fi
@@ -188,11 +198,13 @@ jobs:
             sleep 5
           done
           if [ "$pushed" != "true" ]; then
-            echo "Failed to push daily refresh changes after 3 attempts"
+            echo "Failed to push daily refresh branch after 3 attempts"
             exit 1
           fi
           echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          echo "commit_sha=$commit_sha" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Check CoinGecko monthly quota counter
         id: coingecko-quota-counter
@@ -270,10 +282,10 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout refreshed commit
+      - name: Checkout trusted reporting code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: ${{ needs.refresh.outputs.commit_sha || github.sha }}
+          ref: ${{ github.sha }}
           persist-credentials: false
 
       - name: Setup Node.js
@@ -368,15 +380,79 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-  deploy:
-    name: Redeploy Site
+  integrate:
+    name: Validate PR & Merge
     needs: refresh
     if: needs.refresh.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    outputs:
+      merge_sha: ${{ steps.publish-generated-pr.outputs.merge-sha }}
+      pr_number: ${{ steps.publish-generated-pr.outputs.pr-number }}
+      ci_run_id: ${{ steps.publish-generated-pr.outputs.ci-run-id }}
+
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.refresh.outputs.base_sha }}
+          persist-credentials: false
+
+      - name: Publish generated refresh PR
+        id: publish-generated-pr
+        uses: ./.github/actions/publish-generated-pr
+        with:
+          token: ${{ github.token }}
+          branch: ${{ needs.refresh.outputs.branch }}
+          base-sha: ${{ needs.refresh.outputs.base_sha }}
+          head-sha: ${{ needs.refresh.outputs.head_sha }}
+          title: "chore: publish daily data refresh"
+          body: |
+            Automated data publication from the Daily Refresh workflow.
+
+            Source run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  notify-integration-failure:
+    name: Notify PR Integration Failure
+    needs: integrate
+    if: always() && needs.integrate.result == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+
+    steps:
+      - name: Notify on Failure
+        continue-on-error: true
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+        run: |
+          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
+            echo "Telegram report secrets are not configured; skipping failure notification."
+            exit 0
+          fi
+          payload="$(jq -n \
+            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
+            --arg text "Daily Refresh PR Integration Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
+            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
+            -H "Content-Type: application/json" \
+            --data "$payload"
+
+  deploy:
+    name: Redeploy Site
+    needs: integrate
+    if: needs.integrate.outputs.merge_sha != ''
     permissions:
       contents: read
     uses: ./.github/workflows/deploy.yml
     with:
-      ref: ${{ needs.refresh.outputs.commit_sha }}
+      ref: ${{ needs.integrate.outputs.merge_sha }}
       allow_sha_ref: true
     secrets:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

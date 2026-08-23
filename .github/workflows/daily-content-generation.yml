@@ -16,6 +16,11 @@ env:
   CONTENT_MAX_TGE: "2"
   CONTENT_PUBLISH_MAX: "25"
 
+concurrency:
+  group: generated-main-publication
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   publish:
     name: Inject Data & Publish
@@ -29,7 +34,9 @@ jobs:
       queue: max
     outputs:
       has_changes: ${{ steps.commit.outputs.has_changes }}
-      commit_sha: ${{ steps.commit.outputs.commit_sha }}
+      base_sha: ${{ steps.commit.outputs.base_sha }}
+      head_sha: ${{ steps.commit.outputs.head_sha }}
+      branch: ${{ steps.commit.outputs.branch }}
     permissions:
       contents: write
 
@@ -156,6 +163,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           cleanup_auth() {
@@ -183,14 +191,15 @@ jobs:
             public/sitemap-tokens.xml
           if git diff --staged --quiet; then
             echo "No new articles published from queue"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "commit_sha=" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "base_sha=" >> "$GITHUB_OUTPUT"
+            echo "head_sha=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          echo "has_changes=true" >> $GITHUB_OUTPUT
+          branch="automation/daily-launch-content-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git commit -m "chore: publish articles from queue [skip ci]"
-          commit_sha="$(git rev-parse HEAD)"
-          echo "commit_sha=$commit_sha" >> $GITHUB_OUTPUT
+          head_sha="$(git rev-parse HEAD)"
           base_sha="$(git rev-parse HEAD^1)"
           pushed=false
           for i in 1 2 3; do
@@ -204,7 +213,7 @@ jobs:
               echo "::error::origin/main changed while content was being generated. Rerun this workflow to regenerate on the latest main."
               exit 1
             fi
-            if git push origin HEAD:main; then
+            if git push origin "HEAD:refs/heads/${branch}"; then
               pushed=true
               break
             fi
@@ -212,9 +221,13 @@ jobs:
             sleep 5
           done
           if [ "$pushed" != "true" ]; then
-            echo "Failed to push daily content changes after 3 attempts"
+            echo "Failed to push daily content branch after 3 attempts"
             exit 1
           fi
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Check CoinGecko monthly quota counter
         id: coingecko-quota-counter
@@ -270,15 +283,79 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
-  deploy:
-    name: Redeploy Site
+  integrate:
+    name: Validate PR & Merge
     needs: publish
     if: needs.publish.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    outputs:
+      merge_sha: ${{ steps.publish-generated-pr.outputs.merge-sha }}
+      pr_number: ${{ steps.publish-generated-pr.outputs.pr-number }}
+      ci_run_id: ${{ steps.publish-generated-pr.outputs.ci-run-id }}
+
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.publish.outputs.base_sha }}
+          persist-credentials: false
+
+      - name: Publish generated content PR
+        id: publish-generated-pr
+        uses: ./.github/actions/publish-generated-pr
+        with:
+          token: ${{ github.token }}
+          branch: ${{ needs.publish.outputs.branch }}
+          base-sha: ${{ needs.publish.outputs.base_sha }}
+          head-sha: ${{ needs.publish.outputs.head_sha }}
+          title: "chore: publish daily launch content"
+          body: |
+            Automated launch-content publication from the Daily Launch Content workflow.
+
+            Source run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  notify-integration-failure:
+    name: Notify PR Integration Failure
+    needs: integrate
+    if: always() && needs.integrate.result == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+
+    steps:
+      - name: Notify on Failure
+        continue-on-error: true
+        env:
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+        run: |
+          if [ -z "$TELEGRAM_REPORT_BOT_TOKEN" ] || [ -z "$TELEGRAM_REPORT_CHAT_ID" ]; then
+            echo "Telegram report secrets are not configured; skipping failure notification."
+            exit 0
+          fi
+          payload="$(jq -n \
+            --arg chat_id "$TELEGRAM_REPORT_CHAT_ID" \
+            --arg text "Daily Publication PR Integration Failed\nWorkflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "Markdown"}')"
+          curl --fail --show-error --silent --output /dev/null --max-time 10 \
+            -X POST "https://api.telegram.org/bot$TELEGRAM_REPORT_BOT_TOKEN/sendMessage" \
+            -H "Content-Type: application/json" \
+            --data "$payload"
+
+  deploy:
+    name: Redeploy Site
+    needs: integrate
+    if: needs.integrate.outputs.merge_sha != ''
     permissions:
       contents: read
     uses: ./.github/workflows/deploy.yml
     with:
-      ref: ${{ needs.publish.outputs.commit_sha }}
+      ref: ${{ needs.integrate.outputs.merge_sha }}
       allow_sha_ref: true
     secrets:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

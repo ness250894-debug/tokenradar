@@ -3,8 +3,12 @@ name: CI
 on:
   pull_request:
     branches: [main]
-  merge_group:
   workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact commit SHA expected for this CI run
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -25,6 +29,23 @@ jobs:
     timeout-minutes: 45
 
     steps:
+      - name: Validate expected commit SHA
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$EXPECTED_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::expected_sha must be exactly 40 lowercase hexadecimal characters."
+            exit 1
+          fi
+          if [[ "$EXPECTED_SHA" != "$GITHUB_SHA" ]]; then
+            echo "::error::expected_sha $EXPECTED_SHA does not match the dispatched workflow commit $GITHUB_SHA."
+            exit 1
+          fi
+          echo "Validated dispatched commit SHA: $GITHUB_SHA"
+
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:

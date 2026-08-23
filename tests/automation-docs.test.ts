@@ -4,6 +4,12 @@ import { spawnSync } from "child_process";
 import { describe, expect, it } from "vitest";
 
 const WORKFLOW_DIR = path.join(process.cwd(), ".github", "workflows");
+const GENERATED_PR_ACTION_DIR = path.join(
+  process.cwd(),
+  ".github",
+  "actions",
+  "publish-generated-pr",
+);
 const AUTOMATION_WORKFLOWS = [
   "social-automations.yml",
   "daily-content-generation.yml",
@@ -16,6 +22,24 @@ const AUTOMATION_WORKFLOWS = [
 
 function readWorkflow(name: string): string {
   return fs.readFileSync(path.join(WORKFLOW_DIR, name), "utf-8");
+}
+
+function readYaml(filePath: string): unknown {
+  const result = spawnSync(
+    process.execPath,
+    [
+      "-e",
+      "const fs=require('fs');const yaml=require('js-yaml');process.stdout.write(JSON.stringify(yaml.load(fs.readFileSync(process.argv[1],'utf8'))));",
+      filePath,
+    ],
+    {
+      cwd: process.cwd(),
+      encoding: "utf-8",
+    },
+  );
+
+  expect(result.status, result.stderr).toBe(0);
+  return JSON.parse(result.stdout) as unknown;
 }
 
 function gitLsFiles(pathspec: string): string[] {
@@ -115,7 +139,7 @@ describe("automation runbook contract", () => {
     expect(readWorkflow("daily-refresh.yml")).not.toContain("public/og/token");
   });
 
-  it("runs comprehensive checks for pull requests and merge queues", () => {
+  it("runs comprehensive checks for pull requests", () => {
     const workflow = readWorkflow("ci.yml");
 
     expect(workflow).toContain("pull_request:");
@@ -124,6 +148,202 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("npm run test");
     expect(workflow).toContain("npm run build");
     expect(workflow).toContain("npm run seo:qa");
+  });
+
+  it("routes generated publications through an exact-SHA CI-gated pull request", () => {
+    const ciWorkflow = readWorkflow("ci.yml");
+    const parsedCi = readYaml(path.join(WORKFLOW_DIR, "ci.yml")) as {
+      on: {
+        pull_request: {
+          branches: string[];
+        };
+        workflow_dispatch: {
+          inputs: Record<string, { required: boolean; type: string }>;
+        };
+      };
+      jobs: Record<
+        string,
+        {
+          name: string;
+          steps: Array<{
+            name?: string;
+            if?: string;
+            uses?: string;
+            env?: Record<string, string>;
+            run?: string;
+            with?: Record<string, unknown>;
+          }>;
+        }
+      >;
+    };
+    const actionMetadata = readYaml(
+      path.join(GENERATED_PR_ACTION_DIR, "action.yml"),
+    ) as {
+      inputs: Record<string, { required: boolean }>;
+      outputs: Record<string, { value: string }>;
+      runs: {
+        using: string;
+        steps: Array<{
+          id?: string;
+          env?: Record<string, string>;
+          run?: string;
+        }>;
+      };
+    };
+    const publisherAction = fs.readFileSync(
+      path.join(GENERATED_PR_ACTION_DIR, "publish.sh"),
+      "utf-8",
+    );
+
+    expect(ciWorkflow).toContain("expected_sha:");
+    expect(ciWorkflow).toContain('"$EXPECTED_SHA" != "$GITHUB_SHA"');
+    expect(parsedCi.on.workflow_dispatch.inputs.expected_sha).toEqual({
+      description: "Exact commit SHA expected for this CI run",
+      required: true,
+      type: "string",
+    });
+    expect(parsedCi.on.pull_request.branches).toEqual(["main"]);
+    expect(parsedCi.on).not.toHaveProperty("merge_group");
+    const ciJob = parsedCi.jobs["required-checks"];
+    expect(ciJob.name).toBe("Required checks");
+    const expectedShaStep = ciJob.steps.find((step) => step.name === "Validate expected commit SHA");
+    const checkoutStep = ciJob.steps.find((step) => step.name === "Checkout code");
+    expect(expectedShaStep?.if).toBe("github.event_name == 'workflow_dispatch'");
+    expect(expectedShaStep?.env?.EXPECTED_SHA).toBe("${{ inputs.expected_sha }}");
+    expect(expectedShaStep?.run).toContain("^[0-9a-f]{40}$");
+    expect(expectedShaStep?.run).toContain('"$EXPECTED_SHA" != "$GITHUB_SHA"');
+    expect(checkoutStep?.uses).toMatch(/^actions\/checkout@[0-9a-f]{40}$/);
+    expect(checkoutStep?.with?.ref).toBeUndefined();
+    expect(checkoutStep?.with?.["persist-credentials"]).toBe(false);
+    expect(ciJob.steps.indexOf(expectedShaStep!)).toBeLessThan(ciJob.steps.indexOf(checkoutStep!));
+
+    expect(Object.keys(actionMetadata.inputs).sort()).toEqual(
+      ["base-sha", "body", "branch", "head-sha", "title", "token"].sort(),
+    );
+    for (const input of Object.values(actionMetadata.inputs)) {
+      expect(input.required).toBe(true);
+    }
+    expect(actionMetadata.outputs["merge-sha"].value).toBe(
+      "${{ steps.publish.outputs.merge_sha }}",
+    );
+    expect(actionMetadata.outputs["pr-number"].value).toBe(
+      "${{ steps.publish.outputs.pr_number }}",
+    );
+    expect(actionMetadata.outputs["ci-run-id"].value).toBe(
+      "${{ steps.publish.outputs.ci_run_id }}",
+    );
+    expect(actionMetadata.runs.using).toBe("composite");
+    const publishStep = actionMetadata.runs.steps.find((step) => step.id === "publish");
+    expect(publishStep?.env).toMatchObject({
+      GH_TOKEN: "${{ inputs.token }}",
+      AUTOMATION_BRANCH: "${{ inputs.branch }}",
+      BASE_SHA: "${{ inputs.base-sha }}",
+      HEAD_SHA: "${{ inputs.head-sha }}",
+      PR_TITLE: "${{ inputs.title }}",
+      PR_BODY: "${{ inputs.body }}",
+    });
+    expect(publishStep?.run).toBe('bash "$GITHUB_ACTION_PATH/publish.sh"');
+
+    for (const workflowName of ["daily-content-generation.yml", "daily-refresh.yml"]) {
+      const workflow = readWorkflow(workflowName);
+      const parsedWorkflow = readYaml(path.join(WORKFLOW_DIR, workflowName)) as {
+        concurrency: {
+          group: string;
+          "cancel-in-progress": boolean;
+          queue: string;
+        };
+        jobs: Record<
+          string,
+          {
+            if?: string;
+            permissions?: Record<string, string>;
+            outputs?: Record<string, string>;
+            steps?: Array<{
+              name?: string;
+              id?: string;
+              uses?: string;
+              with?: Record<string, unknown>;
+            }>;
+            with?: Record<string, unknown>;
+          }
+        >;
+      };
+
+      expect(workflow).not.toMatch(
+        /git push[^\n]*\borigin\s+["']?HEAD:(?:refs\/heads\/)?main["']?/,
+      );
+      expect(workflow).toContain('git push origin "HEAD:refs/heads/${branch}"');
+      expect(workflow).toContain("uses: ./.github/actions/publish-generated-pr");
+      expect(workflow).toContain("actions: write");
+      expect(workflow).toContain("pull-requests: write");
+      expect(workflow).toContain("base-sha:");
+      expect(workflow).toContain("head-sha:");
+      expect(workflow).toContain("needs.integrate.outputs.merge_sha");
+
+      expect(parsedWorkflow.concurrency).toEqual({
+        group: "generated-main-publication",
+        "cancel-in-progress": false,
+        queue: "max",
+      });
+
+      expect(parsedWorkflow.jobs.integrate.outputs).toEqual({
+        merge_sha: "${{ steps.publish-generated-pr.outputs.merge-sha }}",
+        pr_number: "${{ steps.publish-generated-pr.outputs.pr-number }}",
+        ci_run_id: "${{ steps.publish-generated-pr.outputs.ci-run-id }}",
+      });
+      expect(parsedWorkflow.jobs.integrate.permissions).toEqual({
+        actions: "write",
+        contents: "write",
+        "pull-requests": "write",
+      });
+      const trustedCheckout = parsedWorkflow.jobs.integrate.steps?.find(
+        (step) => step.name === "Checkout trusted main",
+      );
+      expect(trustedCheckout?.uses).toMatch(/^actions\/checkout@[0-9a-f]{40}$/);
+      const generatorJobName = workflowName === "daily-refresh.yml" ? "refresh" : "publish";
+      expect(trustedCheckout?.with).toEqual({
+        ref: `\${{ needs.${generatorJobName}.outputs.base_sha }}`,
+        "persist-credentials": false,
+      });
+      const integrateStep = parsedWorkflow.jobs.integrate.steps?.find(
+        (step) => step.id === "publish-generated-pr",
+      );
+      expect(integrateStep?.uses).toBe("./.github/actions/publish-generated-pr");
+      expect(integrateStep?.with).toMatchObject({
+        token: "${{ github.token }}",
+        branch: `\${{ needs.${generatorJobName}.outputs.branch }}`,
+        "base-sha": `\${{ needs.${generatorJobName}.outputs.base_sha }}`,
+        "head-sha": `\${{ needs.${generatorJobName}.outputs.head_sha }}`,
+      });
+      expect(integrateStep?.with?.title).toMatch(/^chore: publish daily /);
+      expect(integrateStep?.with?.body).toContain("Source run:");
+      expect(parsedWorkflow.jobs.deploy.if).toBe("needs.integrate.outputs.merge_sha != ''");
+      expect(parsedWorkflow.jobs.deploy.with?.ref).toBe(
+        "${{ needs.integrate.outputs.merge_sha }}",
+      );
+      expect(parsedWorkflow.jobs.deploy.with?.allow_sha_ref).toBe(true);
+    }
+
+    expect(publisherAction).toContain("is_allowed_path");
+    expect(publisherAction).toContain("git diff --name-only --no-renames -z");
+    expect(publisherAction).toContain("Generated automation may not delete tracked files");
+    expect(publisherAction).toContain("require_main_ruleset");
+    const rulesetGateIndex = publisherAction.indexOf("\nrequire_main_ruleset\n");
+    expect(rulesetGateIndex).toBeGreaterThan(publisherAction.indexOf("repo_owner="));
+    expect(rulesetGateIndex).toBeLessThan(publisherAction.indexOf("pulls_json="));
+    expect(publisherAction).toContain('all(.[]; .type != "merge_queue")');
+    expect(publisherAction).toContain('.context == "Required checks" and .integration_id == 15368');
+    expect(publisherAction).toContain("actions/workflows/ci.yml/dispatches");
+    expect(publisherAction).toContain("actions/workflows/ci.yml/runs");
+    expect(publisherAction).not.toContain("/check-runs");
+    expect(publisherAction).toContain("workflow_run_id");
+    expect(publisherAction).toContain('gh run watch "$ci_run_id"');
+    expect(publisherAction).toContain('ci_run_id="$(find_successful_ci_run)"');
+    expect(publisherAction).toContain('(.head_sha == $head)');
+    expect(publisherAction).toContain('merge_method: "squash"');
+    expect(publisherAction).toContain('[[ "$current_main" == "$merge_sha" ]]');
+    expect(publisherAction).toContain('verify_merge_parent "$existing_merge_sha"');
+    expect(publisherAction).toContain('verify_merge_parent "$merge_sha"');
   });
 
   it("does not publish YouTube fallback video after strict R2 hydration fails", () => {
