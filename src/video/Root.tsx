@@ -33,6 +33,10 @@ export type TopGainerProps = {
   voiceoverFile?: string;
   /** Narration text used to generate the voiceover. */
   voiceoverScript?: string;
+  /** Market-data provider displayed in the rendered source badge. */
+  marketDataSource?: string;
+  /** ISO timestamp displayed in the rendered source badge. */
+  marketDataAsOf?: string;
   /** Generated hook text for Act 1 */
   hookText?: string;
   /** Why it's moving / Context for Act 4 */
@@ -70,8 +74,10 @@ const defaultProps: TopGainerProps = {
   audioFile: "Midnight_Pursuit.mp3",
   audioStartSeconds: 0,
   voiceoverFile: undefined,
-  voiceoverScript: "Ethereum is back in the conversation, but the useful question is whether attention turns into confirmation. Treat this as market context, not a dashboard headline.",
-  hookText: "WHY ETHEREUM NEEDS A DATA CHECK",
+  voiceoverScript: "ETH moved +5.2% over 24 hours. Reported volume was 4.3% of market cap. TokenRadar's supplied risk score is 2.1/10. This is a snapshot, not a forecast. Which field should we break down next?",
+  marketDataSource: "CoinGecko",
+  marketDataAsOf: "2026-08-24T18:00:00.000Z",
+  hookText: "ETH +5.2%: WHAT'S THE CATCH?",
   contextText: "Ethereum is moving through a market read where volume, liquidity, and risk confirmation matter most.",
   verdict: "DATA SNAPSHOT",
   videoFormatKey: "breakout_watch",

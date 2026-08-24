@@ -1,4 +1,6 @@
-export type NativeMetricsPlatform = "x" | "instagram" | "threads" | "youtube";
+import { SOCIAL } from "./config";
+
+export type NativeMetricsPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
 
 export interface NativeMetricsTarget {
   platform: string;
@@ -34,6 +36,8 @@ export type NativeMetricCollectionResult =
 export interface NativeMetricCollectorDependencies {
   fetch?: typeof fetch;
   env?: SocialMetricsEnv;
+  /** Shared per-run cache so a batch refreshes TikTok OAuth at most once. */
+  tiktokAccessTokenCache?: Map<string, Promise<string | null>>;
 }
 
 export type SocialMetricsEnv = Record<string, string | undefined>;
@@ -43,6 +47,71 @@ const UNAVAILABLE_OWNED_METRICS = ["linkClicks", "profileClicks", "watchTimeSeco
 function finiteNumber(value: unknown): number | undefined {
   const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value) : Number.NaN;
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : undefined;
+}
+
+function compactPublicCount(value: string): number | undefined {
+  const normalized = value.trim().replace(/,/g, "").toUpperCase();
+  const match = normalized.match(/^(\d+(?:\.\d+)?)([KMB])?$/);
+  if (!match) return undefined;
+  const multiplier = match[2] === "K" ? 1_000 : match[2] === "M" ? 1_000_000 : match[2] === "B" ? 1_000_000_000 : 1;
+  return finiteNumber(Number(match[1]) * multiplier);
+}
+
+function telegramPublicUsername(env: SocialMetricsEnv): string | null {
+  const explicit = env.TELEGRAM_CHANNEL_USERNAME?.trim().replace(/^@/, "");
+  if (explicit) return explicit;
+  try {
+    const pathname = new URL(SOCIAL.telegramUrl).pathname.replace(/^\/+/, "");
+    return pathname || null;
+  } catch {
+    return null;
+  }
+}
+
+async function collectTelegramMetrics(
+  target: NativeMetricsTarget,
+  fetchImpl: typeof fetch,
+  env: SocialMetricsEnv,
+): Promise<NativeMetricCollectionResult> {
+  const username = telegramPublicUsername(env);
+  if (!username) return { status: "skipped", reason: "Telegram public channel username is not configured" };
+  if (!/^\d+$/.test(target.externalId.trim())) {
+    return { status: "skipped", reason: "Telegram external ID is not a numeric message ID" };
+  }
+
+  const publicUrl = `https://t.me/s/${encodeURIComponent(username)}/${encodeURIComponent(target.externalId)}`;
+  const response = await fetchImpl(publicUrl, {
+    headers: { "User-Agent": "TokenRadar social metrics collector/1.0" },
+  });
+  if (!response.ok) throw new Error(`Telegram public preview failed (${response.status}).`);
+  const html = await response.text();
+  const marker = `data-post="${username}/${target.externalId}"`;
+  const start = html.toLowerCase().indexOf(marker.toLowerCase());
+  if (start < 0) throw new Error(`Telegram public preview did not contain ${username}/${target.externalId}.`);
+  const nextMessage = html.indexOf("tgme_widget_message_wrap js-widget_message_wrap", start + marker.length);
+  const block = html.slice(start, nextMessage > start ? nextMessage : html.length);
+  const viewsText = block.match(/class="tgme_widget_message_views"[^>]*>([^<]+)</)?.[1] || "";
+  const views = compactPublicCount(viewsText);
+  if (views === undefined) throw new Error(`Telegram public preview did not expose views for ${target.externalId}.`);
+
+  return {
+    status: "collected",
+    snapshot: {
+      views,
+      source: "telegram-public-preview",
+      unavailableMetrics: [
+        "impressions",
+        "likes",
+        "replies",
+        "comments",
+        "reposts",
+        "shares",
+        "saves",
+        ...UNAVAILABLE_OWNED_METRICS,
+      ],
+      raw: { publicUrl },
+    },
+  };
 }
 
 async function readJson(response: Response, label: string): Promise<Record<string, unknown>> {
@@ -201,6 +270,107 @@ async function collectThreadsMetrics(
   };
 }
 
+function assertTikTokApiOk(payload: Record<string, unknown>, label: string): void {
+  const error = payload.error;
+  if (!error || typeof error !== "object") return;
+  const code = String((error as { code?: unknown }).code ?? "ok");
+  if (code === "ok" || code === "0") return;
+  const message = String((error as { message?: unknown }).message || "unknown TikTok API error");
+  throw new Error(`${label} failed (${code}: ${message}).`);
+}
+
+async function getTikTokMetricsAccessToken(
+  fetchImpl: typeof fetch,
+  env: SocialMetricsEnv,
+  cache?: Map<string, Promise<string | null>>,
+): Promise<string | null> {
+  const refreshToken = env.TIKTOK_REFRESH_TOKEN?.trim();
+  const clientKey = env.TIKTOK_CLIENT_KEY?.trim();
+  const clientSecret = env.TIKTOK_CLIENT_SECRET?.trim();
+  if (refreshToken && clientKey && clientSecret) {
+    const cacheKey = "tiktok-display-api-refresh";
+    const existing = cache?.get(cacheKey);
+    if (existing) return existing;
+
+    const refreshPromise = (async (): Promise<string> => {
+      const payload = await readJson(await fetchImpl("https://open.tiktokapis.com/v2/oauth/token/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_key: clientKey,
+          client_secret: clientSecret,
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        }),
+      }), "TikTok token refresh");
+      assertTikTokApiOk(payload, "TikTok token refresh");
+      const token = typeof payload.access_token === "string"
+        ? payload.access_token
+        : payload.data && typeof payload.data === "object" && typeof (payload.data as { access_token?: unknown }).access_token === "string"
+          ? String((payload.data as { access_token: string }).access_token)
+          : "";
+      if (!token) throw new Error("TikTok token refresh did not return an access token.");
+      return token;
+    })();
+    cache?.set(cacheKey, refreshPromise);
+    return refreshPromise;
+  }
+
+  return env.TIKTOK_ACCESS_TOKEN?.trim() || null;
+}
+
+async function collectTikTokMetrics(
+  target: NativeMetricsTarget,
+  fetchImpl: typeof fetch,
+  env: SocialMetricsEnv,
+  accessTokenCache?: Map<string, Promise<string | null>>,
+): Promise<NativeMetricCollectionResult> {
+  const accessToken = await getTikTokMetricsAccessToken(fetchImpl, env, accessTokenCache);
+  if (!accessToken) {
+    return {
+      status: "skipped",
+      reason: "TikTok video.list credentials are not configured",
+    };
+  }
+
+  const url = new URL("https://open.tiktokapis.com/v2/video/query/");
+  url.searchParams.set("fields", "id,view_count,like_count,comment_count,share_count");
+  const payload = await readJson(await fetchImpl(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ filters: { video_ids: [target.externalId] } }),
+  }), "TikTok video query");
+  assertTikTokApiOk(payload, "TikTok video query");
+  const data = payload.data && typeof payload.data === "object" ? payload.data as { videos?: unknown } : {};
+  const videos = Array.isArray(data.videos) ? data.videos : [];
+  const video = videos.find(
+    (item) => item && typeof item === "object" && String((item as { id?: unknown }).id) === target.externalId,
+  ) as Record<string, unknown> | undefined;
+  if (!video) throw new Error(`TikTok video query did not return ${target.externalId}.`);
+
+  return {
+    status: "collected",
+    snapshot: {
+      views: finiteNumber(video.view_count),
+      likes: finiteNumber(video.like_count),
+      comments: finiteNumber(video.comment_count),
+      shares: finiteNumber(video.share_count),
+      source: "tiktok-display-api-v2",
+      unavailableMetrics: [
+        "impressions",
+        "replies",
+        "reposts",
+        "saves",
+        ...UNAVAILABLE_OWNED_METRICS,
+      ],
+      raw: { video },
+    },
+  };
+}
+
 async function getYouTubeAccessToken(fetchImpl: typeof fetch, env: SocialMetricsEnv): Promise<string | null> {
   const clientId = env.YOUTUBE_CLIENT_ID?.trim();
   const clientSecret = env.YOUTUBE_CLIENT_SECRET?.trim();
@@ -335,7 +505,7 @@ async function collectYouTubeMetrics(
 }
 
 export function isNativeMetricsPlatformSupported(platform: string): platform is NativeMetricsPlatform {
-  return ["x", "instagram", "threads", "youtube"].includes(platform);
+  return ["telegram", "x", "instagram", "threads", "youtube", "tiktok"].includes(platform);
 }
 
 export async function collectNativeSocialMetrics(
@@ -344,17 +514,14 @@ export async function collectNativeSocialMetrics(
 ): Promise<NativeMetricCollectionResult> {
   if (!target.externalId.trim()) return { status: "skipped", reason: "published post has no external ID" };
   if (!isNativeMetricsPlatformSupported(target.platform)) {
-    const reason = target.platform === "telegram"
-      ? "Telegram Bot API does not expose per-channel-post view metrics"
-      : target.platform === "tiktok"
-        ? "TikTok scheduled publishing and collection are paused"
-        : `no native collector is configured for ${target.platform}`;
-    return { status: "skipped", reason };
+    return { status: "skipped", reason: `no native collector is configured for ${target.platform}` };
   }
 
   const fetchImpl = dependencies.fetch || fetch;
   const env = dependencies.env || process.env;
   switch (target.platform) {
+    case "telegram":
+      return collectTelegramMetrics(target, fetchImpl, env);
     case "x":
       return collectXMetrics(target, fetchImpl, env);
     case "instagram":
@@ -363,5 +530,7 @@ export async function collectNativeSocialMetrics(
       return collectThreadsMetrics(target, fetchImpl, env);
     case "youtube":
       return collectYouTubeMetrics(target, fetchImpl, env);
+    case "tiktok":
+      return collectTikTokMetrics(target, fetchImpl, env, dependencies.tiktokAccessTokenCache);
   }
 }

@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildTikTokAuthUrl,
   buildTikTokChunkPlan,
+  classifyTikTokPostStatus,
   getTikTokCredentialMode,
   hasTikTokApiCredentials,
   normalizeTikTokCaption,
@@ -98,6 +99,26 @@ describe("TikTok client helpers", () => {
 
     expect(normalizeTikTokCaption(longCaption)).toHaveLength(SOCIAL_PLATFORM_LIMITS.TIKTOK.CAPTION_LIMIT);
     expect(normalizeTikTokCaption("   ")).toContain("#TokenRadar");
+  });
+
+  it("classifies TikTok statuses without treating processing as retry-safe", () => {
+    expect(classifyTikTokPostStatus({
+      status: "PUBLISH_COMPLETE",
+      publicaly_available_post_id: ["post-1"],
+    })).toMatchObject({ state: "published", publicPostId: "post-1", retrySafe: false });
+    expect(classifyTikTokPostStatus({ status: "PROCESSING_UPLOAD" })).toMatchObject({
+      state: "processing",
+      retrySafe: false,
+    });
+    expect(classifyTikTokPostStatus({ status: "FAILED", fail_reason: "moderation" })).toMatchObject({
+      state: "failed",
+      failReason: "moderation",
+      retrySafe: true,
+    });
+    expect(classifyTikTokPostStatus({ status: "PUBLISH_COMPLETE" })).toMatchObject({
+      state: "unknown",
+      retrySafe: false,
+    });
   });
 
   it("initializes, uploads, and checks status for a TikTok inbox upload", async () => {
@@ -239,18 +260,27 @@ describe("TikTok client helpers", () => {
     );
 
     try {
+      const onPublishInitialized = vi.fn(() => {
+        expect(fetchMock).toHaveBeenCalledTimes(2);
+      });
       const result = await publishVideoDirectlyToTikTok({
         videoPath,
         caption: "TokenRadar test caption #Crypto",
         accessToken: "access-token",
         pollIntervalMs: 0,
         pollTimeoutMs: 1_000,
+        onPublishInitialized,
       });
 
       expect(result.publishId).toBe("publish-direct-1");
       expect(result.publicPostId).toBe("public-tiktok-1");
       expect(result.privacyLevel).toBe("PUBLIC_TO_EVERYONE");
       expect(result.creatorInfo?.creator_username).toBe("tokenradarco");
+      expect(onPublishInitialized).toHaveBeenCalledWith({
+        publishId: "publish-direct-1",
+        privacyLevel: "PUBLIC_TO_EVERYONE",
+        creatorInfo: expect.objectContaining({ creator_username: "tokenradarco" }),
+      });
 
       expect(fetchMock.mock.calls[0][0]).toBe("https://open.tiktokapis.com/v2/post/publish/creator_info/query/");
       expect(fetchMock.mock.calls[1][0]).toBe("https://open.tiktokapis.com/v2/post/publish/video/init/");
@@ -264,7 +294,7 @@ describe("TikTok client helpers", () => {
         disable_stitch: false,
         brand_content_toggle: false,
         brand_organic_toggle: false,
-        is_aigc: false,
+        is_aigc: true,
       });
       expect(initBody.source_info).toMatchObject({
         source: "FILE_UPLOAD",

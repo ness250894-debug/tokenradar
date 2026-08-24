@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   buildTelegramMediaCaption,
+  buildTelegramResearchFooter,
+  createTelegramResearchKeyboard,
   getTelegramHtmlTextLength,
+  getTelegramResearchCtaText,
   isTelegramCreateOutcomeUnknownError,
   requireTelegramMessageId,
   sanitizeHtmlForTelegram,
@@ -101,6 +104,45 @@ describe("sanitizeHtmlForTelegram", () => {
 
     expect(footer).toContain("utm_content=btc-brief");
     expect(footer).toContain("TokenRadar Research Desk");
+
+    const sanitized = sanitizeHtmlForTelegram(footer);
+    expect(sanitized).toContain(
+      "utm_source=telegram&amp;utm_medium=social&amp;utm_content=btc-brief",
+    );
+    expect(sanitized).not.toContain("&amp;amp;");
+  });
+
+  it("normalizes legacy nested href entities before the final Telegram encoding pass", () => {
+    const result = sanitizeHtmlForTelegram(
+      '<a href="https://tokenradar.co/bitcoin?utm_source=telegram&amp;amp;utm_medium=social">Research</a>',
+    );
+
+    expect(result).toBe(
+      '<a href="https://tokenradar.co/bitcoin?utm_source=telegram&amp;utm_medium=social">Research</a>',
+    );
+  });
+
+  it("builds direct, benefit-led research footers and keyboards", () => {
+    const trackedUrl = "https://tokenradar.co/bitcoin?utm_source=telegram&utm_medium=social";
+    const options = {
+      url: trackedUrl,
+      surface: "token" as const,
+      symbol: "btc",
+      hasTokenPage: true,
+      hashtags: ["#BTC", "not-a-hashtag"],
+    };
+    const footer = sanitizeHtmlForTelegram(buildTelegramResearchFooter(options));
+    const keyboard = createTelegramResearchKeyboard(options);
+
+    expect(getTelegramResearchCtaText(options)).toBe("Review $BTC research data");
+    expect(footer).toContain("Review $BTC research data</a>");
+    expect(footer).toContain("Point-in-time research.");
+    expect(footer).toContain("#BTC");
+    expect(footer).not.toContain("not-a-hashtag");
+    expect(footer).not.toContain("&amp;amp;");
+    expect(keyboard.inline_keyboard).toEqual([[
+      { text: "Review $BTC research data", url: trackedUrl },
+    ]]);
   });
 
   it("keeps media captions within Telegram's parsed text limit with the footer intact", () => {

@@ -353,6 +353,7 @@ describe("automation runbook contract", () => {
     const youtubeBlock = workflow.slice(youtubeStart, youtubeEnd);
 
     expect(youtubeStart).toBeGreaterThan(-1);
+    expect(youtubeBlock).toContain("steps.install-ffmpeg.outcome == 'success'");
     expect(youtubeBlock).toContain("steps.hydrate-video-assets.outcome == 'success'");
     for (const variable of [
       "R2_ACCOUNT_ID",
@@ -367,7 +368,7 @@ describe("automation runbook contract", () => {
 
   it("scopes the optional R2 account metrics token to the usage snapshot step", () => {
     const workflow = readWorkflow("social-automations.yml");
-    const snapshotStart = workflow.indexOf("- name: Record Daily Cloudflare Usage Snapshot");
+    const snapshotStart = workflow.indexOf("- name: Record Weekly Cloudflare Usage Snapshot");
     const snapshotEnd = workflow.indexOf("\n      - name:", snapshotStart + 1);
     const snapshotBlock = workflow.slice(snapshotStart, snapshotEnd);
     const tokenMapping = "CLOUDFLARE_R2_METRICS_API_TOKEN: ${{ secrets.CLOUDFLARE_R2_METRICS_API_TOKEN }}";
@@ -438,15 +439,19 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence");
     expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform telegram");
     expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform x");
-    expect(workflow).toContain("npx tsx scripts/post-token-comparison.ts --platform instagram");
+    expect(workflow).not.toContain("npx tsx scripts/post-token-comparison.ts --platform instagram");
     expect(workflow).not.toContain("--format watchlist-check");
     expect(workflow).not.toContain("--format market-pulse");
     expect(workflow).not.toContain("npx tsx scripts/post-token-comparison.ts --platform meta");
-    expect(workflow).not.toContain("npx tsx scripts/post-daily-poll.ts");
+    expect(workflow).toContain("npx tsx scripts/post-daily-poll.ts");
     expect(workflow).not.toContain("npx tsx scripts/post-interactive-daily.ts");
-    expect(workflow).toContain("Short-form Video Breakout (Mon/Wed/Fri; YouTube only)");
     expect(workflow).toContain("Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes");
+    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform x");
+    expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform instagram");
     expect(workflow).toContain("npx tsx scripts/post-video-daily.ts --platform youtube");
+    expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform tiktok");
+    expect(workflow).toContain("github.event.schedule == '43 18 * * 3'");
+    expect(workflow).toContain("github.event.schedule == '57 18 * * 1,3,5'");
     expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform instagram-youtube");
     expect(workflow).not.toContain("npx tsx scripts/post-video-daily.ts --platform all");
     expect(workflow).toContain("npm run social:metrics:collect");
@@ -458,6 +463,12 @@ describe("automation runbook contract", () => {
     expect(workflow.indexOf("npx tsx scripts/compute-metrics.ts")).toBeLessThan(
       workflow.indexOf("npx tsx scripts/post-video-daily.ts --platform youtube"),
     );
+
+    const pollStart = workflow.indexOf("id: telegram-poll");
+    const pollEnd = workflow.indexOf("\n      - name:", pollStart);
+    const pollBlock = workflow.slice(pollStart, pollEnd);
+    expect(pollBlock).not.toContain("steps.refresh-social-metrics.outcome");
+    expect(workflow).toContain("env.IS_TELEGRAM_POLL_RUN != 'true'");
   });
 
   it("keeps social routes failure-isolated, time-bounded, and freshness-gated", () => {
@@ -472,7 +483,9 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("Aggregate publishing route outcomes");
     expect(workflow).toContain("telegram-market=${{ steps.telegram-market.outcome }}");
     expect(workflow).toContain("x-market=${{ steps.x-market.outcome }}");
-    expect(workflow).toContain("instagram-comparison=${{ steps.instagram-comparison.outcome }}");
+    expect(workflow).toContain("telegram-poll=${{ steps.telegram-poll.outcome }}");
+    expect(workflow).toContain("x-video=${{ steps.x-video.outcome }}");
+    expect(workflow).toContain("instagram-reel=${{ steps.instagram-reel.outcome }}");
     expect(workflow).toContain("youtube-video=${{ steps.youtube-video.outcome }}");
 
     const routeIds = [
@@ -480,13 +493,15 @@ describe("automation runbook contract", () => {
       "instagram-carousel",
       "x-comparison",
       "telegram-comparison",
+      "telegram-poll",
       "x-market",
       "telegram-movers",
       "telegram-recap",
       "telegram-divergence",
       "threads-text",
       "threads-recap",
-      "instagram-comparison",
+      "x-video",
+      "instagram-reel",
       "youtube-video",
     ];
     for (const routeId of routeIds) {

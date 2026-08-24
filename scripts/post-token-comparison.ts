@@ -15,7 +15,7 @@ import * as fs from "fs";
 import * as path from "path";
 import sharp from "sharp";
 
-import { getTelegramResearchLinkHtml, SITE_URL, SOCIAL_PLATFORM_LIMITS, TELEGRAM_SIGNAL_NOTE } from "../src/lib/config";
+import { SITE_URL, SOCIAL_PLATFORM_LIMITS } from "../src/lib/config";
 import {
   hasMetaCredentials,
   isMetaPublishOutcomeUnknownError,
@@ -33,10 +33,18 @@ import { logError } from "../src/lib/reporter";
 import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { buildSocialUtmUrl } from "../src/lib/social-utm";
-import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramPhoto } from "../src/lib/telegram";
+import {
+  buildTelegramMediaCaption,
+  buildTelegramResearchFooter,
+  createTelegramResearchKeyboard,
+  isTelegramCreateOutcomeUnknownError,
+  sendTelegramPhoto,
+} from "../src/lib/telegram";
 import {
   buildComparisonCaptions,
+  findSharedComparisonCategory,
   generateTokenComparisonImage,
+  isEligibleToken,
   selectTokenComparisonPair,
   type TokenComparisonMetrics,
   type TokenComparisonPair,
@@ -141,7 +149,7 @@ export function toComparisonToken(token: TokenData, metrics: TokenComparisonMetr
   };
 }
 
-function resolveStoredPair(
+export function resolveStoredPair(
   trackerFile: string,
   candidates: TokenComparisonToken[],
 ): TokenComparisonPair | null {
@@ -150,11 +158,14 @@ function resolveStoredPair(
 
   const [left, right] = tracker.tokenIds.map((id) => candidates.find((token) => token.id === id));
   if (!left || !right) return null;
+  if (left.id === right.id || !isEligibleToken(left) || !isEligibleToken(right)) return null;
+  const capRatio = Math.max(left.marketCap, right.marketCap) / Math.min(left.marketCap, right.marketCap);
+  if (!Number.isFinite(capRatio) || capRatio > 5) return null;
 
   return {
     left,
     right,
-    context: tracker.context || "Market matchup",
+    context: findSharedComparisonCategory(left, right) || "Market matchup",
   };
 }
 
@@ -306,7 +317,12 @@ export async function main(): Promise<void> {
     archetypeKey: "two_token_comparison",
     tokenId: `${pair.left.id}-vs-${pair.right.id}`,
   });
-  const telegramFooter = `${getTelegramResearchLinkHtml(telegramTrackedUrl)}\n\n${TELEGRAM_SIGNAL_NOTE}\n#TokenComparison #Crypto #TokenRadar`;
+  const telegramCta = {
+    url: telegramTrackedUrl,
+    surface: "comparison" as const,
+    hashtags: ["#TokenComparison"],
+  };
+  const telegramFooter = buildTelegramResearchFooter(telegramCta);
   const platformText: Record<ComparisonPlatform, string> = {
     telegram: buildTelegramMediaCaption(captions.telegram, telegramFooter, {
       maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
@@ -399,7 +415,9 @@ export async function main(): Promise<void> {
       if (!(await reserveTarget("telegram"))) {
         // Already published.
       } else {
-      messageId = await sendTelegramPhoto(imagePng, platformText.telegram, channelId);
+      messageId = await sendTelegramPhoto(imagePng, platformText.telegram, channelId, {
+        replyMarkup: createTelegramResearchKeyboard(telegramCta),
+      });
       await recordComparisonPost({
         postedDir,
         today,
@@ -430,7 +448,7 @@ export async function main(): Promise<void> {
         imagePng,
         "image/png",
         undefined,
-        `TokenRadar comparison of ${pair.left.name} and ${pair.right.name}, showing 24-hour and 7-day price changes, market cap, trading volume relative to market cap, Risk Score, and Growth Index.`,
+        `TokenRadar comparison of ${pair.left.name} and ${pair.right.name}, showing 24-hour and 7-day price changes, reported volume relative to market cap, supplied Risk scores, and the evidence-led verdict.`,
       );
       await recordComparisonPost({ postedDir, today, platform: "x", pair, text: platformText.x, externalId: tweetId });
       console.log(`X comparison posted (tweet ${tweetId}).`);

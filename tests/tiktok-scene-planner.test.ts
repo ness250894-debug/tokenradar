@@ -15,7 +15,7 @@ vi.mock("remotion", async () => {
     staticFile: (src: string) => src,
     useCurrentFrame: () => 0,
     useVideoConfig: () => ({
-      durationInFrames: 630,
+      durationInFrames: 540,
       fps: 30,
       width: 1080,
       height: 1920,
@@ -36,6 +36,8 @@ const baseProps = {
   marketCap: 89_000_000_000,
   marketCapRank: 5,
   volume24h: 3_890_000_000,
+  marketDataSource: "CoinGecko",
+  marketDataAsOf: "2026-08-24T18:00:00.000Z",
   growthPotentialIndex: 67,
   hookText: "THIS MOVE NEEDS PROOF",
   videoFormatKey: "volume_spike_check" as const,
@@ -48,31 +50,36 @@ describe("TikTok InVideo-style scene planner", () => {
     const plan = buildTikTokInVideoScenePlan({
       ...baseProps,
       contextText: "Solana is moving through a liquidity check.",
-      durationSeconds: 21,
+      marketCap: baseProps.marketCap,
+      durationSeconds: 18,
       seedParts: ["2026-05-23", "tiktok", "solana"],
     });
 
     expect(plan.style).toBe("invideo_local");
-    expect(plan.totalDurationSeconds).toBe(21);
+    expect(plan.version).toBe(2);
+    expect(plan.totalDurationSeconds).toBe(18);
     expect(plan.scenes).toHaveLength(3);
 
     // Verify scene boundaries cover the full duration without gaps
     expect(plan.scenes[0].fromSeconds).toBe(0);
-    expect(plan.scenes[plan.scenes.length - 1].toSeconds).toBe(21);
+    expect(plan.scenes[plan.scenes.length - 1].toSeconds).toBe(18);
     for (let i = 1; i < plan.scenes.length; i++) {
       expect(plan.scenes[i].fromSeconds).toBe(plan.scenes[i - 1].toSeconds);
     }
 
     expect(plan.scenes.map((scene) => scene.intent)).toEqual([
-      "comment_reply",
+      "data_check",
       "proof_check",
       "watch_next",
     ]);
     expect(new Set(plan.scenes.map((scene) => scene.visualQuery)).size).toBe(3);
 
     const planText = JSON.stringify(plan);
-    expect(planText).toMatch(/viewer asked|two-check/i);
-    expect(planText).not.toMatch(/\+\d+(?:\.\d+)?%|\$\d|Volume:/);
+    expect(planText).toMatch(/reported turnover|vol\/cap/i);
+    expect(planText).toContain("+6.4% / 24h");
+    expect(planText).toContain("4.4% reported vol/cap");
+    expect(planText).toContain("TokenRadar risk 4.8/10");
+    expect(planText).not.toMatch(/replying\s+to\s+comment|comment\s+reply|phone\s+comments?/i);
   });
 
   it("clamps out-of-range durations to the valid window", () => {
@@ -83,9 +90,9 @@ describe("TikTok InVideo-style scene planner", () => {
       seedParts: ["2026-05-23", "tiktok", "solana"],
     });
 
-    // 42 is above MAX_DURATION_SECONDS (23), so it gets clamped
-    expect(plan.totalDurationSeconds).toBeGreaterThanOrEqual(19);
-    expect(plan.totalDurationSeconds).toBeLessThanOrEqual(23);
+    // 42 is above MAX_DURATION_SECONDS (19), so it gets clamped.
+    expect(plan.totalDurationSeconds).toBeGreaterThanOrEqual(17);
+    expect(plan.totalDurationSeconds).toBeLessThanOrEqual(19);
     expect(plan.scenes).toHaveLength(3);
   });
 
@@ -93,7 +100,8 @@ describe("TikTok InVideo-style scene planner", () => {
     const tiktokScenePlan = buildTikTokInVideoScenePlan({
       ...baseProps,
       contextText: "Solana is moving through a liquidity check.",
-      durationSeconds: 21,
+      marketCap: baseProps.marketCap,
+      durationSeconds: 18,
       seedParts: ["2026-05-23", "tiktok", "solana"],
     });
 
@@ -108,6 +116,10 @@ describe("TikTok InVideo-style scene planner", () => {
     expect(markup).toContain(tiktokScenePlan.scenes[1].subtitle);
     expect(markup).toContain(tiktokScenePlan.scenes[2].subtitle);
     expect(markup).not.toMatch(/Growth Potential|Market Cap Rank|Volume:/i);
-    expect(markup).not.toMatch(/\+\d+(?:\.\d+)?%|\$\d/);
+    expect(markup).toContain("SOL moved +6.4% / 24h");
+    expect(markup).toContain("4.4% reported vol/cap");
+    expect(markup).toContain("Source: CoinGecko");
+    expect(markup).toContain("right:220px");
+    expect(markup).toContain("bottom:470px");
   });
 });

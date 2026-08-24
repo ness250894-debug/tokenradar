@@ -5,7 +5,7 @@
  *   npx tsx scripts/check-tiktok-post-status.ts --publish-id <publish_id>
  */
 
-import { getTikTokPostStatus } from "../src/lib/tiktok-client";
+import { classifyTikTokPostStatus, getTikTokPostStatus } from "../src/lib/tiktok-client";
 import { formatErrorForLog, loadEnv } from "../src/lib/utils";
 
 loadEnv();
@@ -22,11 +22,16 @@ async function main(): Promise<void> {
   }
 
   const status = await getTikTokPostStatus(publishId);
-  console.log(JSON.stringify({ publishId, status }, null, 2));
+  const reconciliation = classifyTikTokPostStatus(status);
+  const nextAction = reconciliation.state === "published"
+    ? "Record the public post ID and mark the delivery published."
+    : reconciliation.state === "failed" && reconciliation.retrySafe
+      ? "Record the failure, then retry only after the failed publish ID is preserved."
+      : "Do not create another post. Poll this publish ID again or reconcile it in TikTok Studio.";
+  console.log(JSON.stringify({ publishId, status, reconciliation, nextAction }, null, 2));
 }
 
 main().catch((error) => {
   console.error(`TikTok status check failed: ${formatErrorForLog(error)}`);
   process.exit(1);
 });
-

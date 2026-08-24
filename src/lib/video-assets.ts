@@ -100,20 +100,6 @@ const SUPPORTED_ORIENTATIONS = new Set<VideoAssetOrientation>(["vertical", "hori
 const SUPPORTED_FITS = new Set<VideoAssetFit>(["cover", "contain", "fill"]);
 const SUPPORTED_ROLES = new Set<VideoAssetRole>(["background", "overlay"]);
 
-const SHOT_SEGMENTS: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> = [
-  { segmentId: "hook", fromSeconds: 0, toSeconds: 8 },
-  { segmentId: "evidence", fromSeconds: 8, toSeconds: 20 },
-  { segmentId: "closing", fromSeconds: 20, toSeconds: 30 },
-];
-
-const TIKTOK_NATIVE_SHOT_SEGMENTS: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> = [
-  { segmentId: "hook", fromSeconds: 0, toSeconds: 5 },
-  { segmentId: "evidence", fromSeconds: 5, toSeconds: 14 },
-  { segmentId: "context", fromSeconds: 14, toSeconds: 23 },
-  { segmentId: "risk", fromSeconds: 23, toSeconds: 32 },
-  { segmentId: "closing", fromSeconds: 32, toSeconds: 42 },
-];
-
 const HUMAN_STOCK_QUERY_HINTS = [
   "person checking phone finance",
   "trader looking at laptop charts",
@@ -452,7 +438,15 @@ function getShotSegmentTags(segmentId: VideoAssetSegmentId): Set<string> {
 function getShotSegmentTemplate(
   durationSeconds: number,
 ): Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> {
-  return durationSeconds > 30 ? TIKTOK_NATIVE_SHOT_SEGMENTS : SHOT_SEGMENTS;
+  const safeDuration = Math.max(1, durationSeconds);
+  const hookEnd = Math.min(safeDuration, Math.max(3, Math.round(safeDuration * 0.18)));
+  const evidenceEnd = Math.min(safeDuration, Math.max(hookEnd + 1, Math.round(safeDuration * 0.62)));
+  const segments: Array<Pick<VideoAssetStageSegment, "segmentId" | "fromSeconds" | "toSeconds">> = [
+    { segmentId: "hook", fromSeconds: 0, toSeconds: hookEnd },
+    { segmentId: "evidence", fromSeconds: hookEnd, toSeconds: evidenceEnd },
+    { segmentId: "closing", fromSeconds: evidenceEnd, toSeconds: safeDuration },
+  ];
+  return segments.filter((segment) => segment.toSeconds > segment.fromSeconds);
 }
 
 
@@ -506,8 +500,16 @@ function pickShotAsset(
 ): VideoAssetLayer | undefined {
   if (candidates.length === 0) return undefined;
 
-  const withoutDuplicates = candidates.filter((asset) => !selectedIds.has(asset.id));
-  const pool = withoutDuplicates.length > 0 ? withoutDuplicates : candidates;
+  const generatedCandidates = candidates.filter(isGeneratedAsset);
+  const humanCandidates = candidates.filter(isHumanMarketAsset);
+  const segmentCandidates = segmentId === "hook" && humanCandidates.length > 0
+    ? humanCandidates
+    : segmentId !== "hook" && generatedCandidates.length > 0
+      ? generatedCandidates
+      : candidates;
+
+  const withoutDuplicates = segmentCandidates.filter((asset) => !selectedIds.has(asset.id));
+  const pool = withoutDuplicates.length > 0 ? withoutDuplicates : segmentCandidates;
 
   return [...pool]
     .map((asset) => ({

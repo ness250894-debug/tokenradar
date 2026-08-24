@@ -57,10 +57,15 @@ function synchronizeDynamicInventory(doc: string, rawMarkdown: string): string {
   const testFileCount = fs.readdirSync(testsDir, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".test.ts"))
     .length;
-  return rawMarkdown.replace(
-    /The repository currently has \d+ Vitest files/g,
-    `The repository currently has ${testFileCount} Vitest files`,
-  );
+  return rawMarkdown
+    .replace(
+      /The repository currently has \d+ Vitest files/g,
+      `The repository currently has ${testFileCount} Vitest files`,
+    )
+    .replace(
+      "Daily R2 staging cleanup and Cloudflare usage snapshots run in the designated daily maintenance slot rather than on every publishing route.",
+      "R2 staging cleanup and Cloudflare usage snapshots run in the designated weekly maintenance slot rather than on every publishing route.",
+    );
 }
 
 function replaceMarkdownSection(rawMarkdown: string, heading: string, replacement: string): string {
@@ -78,6 +83,10 @@ function synchronizeAutomationRunbook(rawMarkdown: string): string {
   let synchronized = rawMarkdown.replace(
     /The repository currently has (?:seven|\d+) GitHub Actions workflows:/,
     `The repository currently has ${workflowCount} GitHub Actions workflows:`,
+  );
+  synchronized = synchronized.replace(
+    "manual inputs for individual routes, `d1-smoke`, metrics, reports, and `all`.",
+    "manual inputs for individual routes, `d1-smoke`, metrics, and reports.",
   );
 
   if (!synchronized.includes("`.github/workflows/social-runner-recovery.yml`")) {
@@ -115,7 +124,7 @@ function synchronizeAutomationRunbook(rawMarkdown: string): string {
     "",
     `Native metrics are collected at ${manifest.measurement.windowsHours.map((hours) => `+${hours}h`).join(" and ")} by \`npm run social:metrics:collect\` on \`${manifest.measurement.collectionCron}\`. The weekly normalized report runs on \`${manifest.measurement.weeklyReportCron}\` through \`npm run social:metrics:report\`.`,
     "",
-    "Trackers distinguish `plannedUrl` from `publishedUrl` and preserve `utm_content`. X, Instagram, Threads, and YouTube have native collectors. Telegram per-post views are unavailable through Bot API and TikTok is paused, so no fabricated values are written.",
+    "Trackers distinguish `plannedUrl` from `publishedUrl` and preserve `utm_content`. Telegram collects exact public-preview post views; X, Instagram, Threads, and YouTube use their native APIs. TikTok publishing is paused, while historical views and interactions can be collected through Display API `video.list` credentials. Unavailable fields remain null and missing credentials are explicitly skipped, so no fabricated values are written.",
   ].join("\n"));
 
   return synchronized;

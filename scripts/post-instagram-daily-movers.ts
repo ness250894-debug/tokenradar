@@ -15,10 +15,18 @@ import * as fs from "fs";
 import * as path from "path";
 
 import {
+  DAILY_MOVERS_CAROUSEL_SLIDE_COUNT,
   generateDailyMoversCarousel,
-  type DailyMoverCarouselToken,
 } from "../src/lib/daily-movers-carousel-generator";
-import { formatCompact, formatPercent, formatPrice } from "../src/lib/formatters";
+import { formatPercent, formatPrice } from "../src/lib/formatters";
+import {
+  buildInstagramCarouselAltTexts,
+  buildInstagramCarouselCta,
+  buildInstagramMoversCaption,
+  getInstagramMoverRejectionReasons,
+  INSTAGRAM_MOVER_POLICY,
+  selectInstagramMovers,
+} from "../src/lib/instagram-daily-movers";
 import { prepareInstagramCarouselImage } from "../src/lib/instagram-carousel-media";
 import { isMetaPublishOutcomeUnknownError, publishInstagramCarousel } from "../src/lib/meta-client";
 import { deleteObjects, cleanPrefix, hasR2Credentials, uploadBuffer } from "../src/lib/r2-client";
@@ -30,23 +38,20 @@ import {
 } from "../src/lib/ops-ledger";
 import { logError } from "../src/lib/reporter";
 import { SOCIAL_PLATFORM_LIMITS, SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
-import { sanitizePostTextLinks } from "../src/lib/social-link-policy";
-import { selectSocialArchetype, type SocialContentArchetype } from "../src/lib/social-archetypes";
+import { selectSocialArchetype } from "../src/lib/social-archetypes";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
-import { selectSocialContentVariant, type SocialContentVariant } from "../src/lib/social-variety";
+import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { getRecentSocialArchetypeKeys, getRecentSocialVariantKeys } from "./lib/social-history";
 import {
   cleanupExpiredCooldownFolders,
   getRecentlyPostedTokens,
-  hasSocialImageSafeText,
   loadCandidateTokens,
 } from "./lib/token-selection";
 
 loadEnv();
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
-const MAX_CHANGE_THRESHOLD = 500;
 const TRACKER_FILE_NAME = "daily-instagram-movers.json";
 
 interface InstagramMoversTracker {
@@ -63,111 +68,6 @@ interface InstagramMoversTracker {
   hookFamily?: string;
   ctaFamily?: string;
   caption?: string;
-}
-
-function selectMovers(
-  candidates: Awaited<ReturnType<typeof loadCandidateTokens>>["candidates"],
-  recentlyPosted: Set<string> = new Set(),
-): DailyMoverCarouselToken[] {
-  const eligibleMovers = candidates
-    .filter((token) =>
-      token.market.priceChange24h > 0 &&
-      token.market.priceChange24h <= MAX_CHANGE_THRESHOLD &&
-      token.market.price > 0 &&
-      token.market.marketCap > 0 &&
-      token.market.volume24h > 0 &&
-      hasSocialImageSafeText(token)
-    )
-    .sort((a, b) => b.market.priceChange24h - a.market.priceChange24h);
-  const freshMovers = eligibleMovers.filter((token) => !recentlyPosted.has(token.id));
-  const cooldownFillers = eligibleMovers.filter((token) => recentlyPosted.has(token.id));
-
-  return [
-    ...freshMovers.slice(0, 5),
-    ...cooldownFillers.slice(0, Math.max(0, 5 - freshMovers.length)),
-  ]
-    .slice(0, 5)
-    .map((token) => ({
-      id: token.id,
-      symbol: token.symbol,
-      name: token.name,
-      imageUrl: token.imageUrl,
-      price: token.market.price,
-      change24h: token.market.priceChange24h,
-      marketCap: token.market.marketCap,
-      volume24h: token.market.volume24h,
-      rank: token.market.marketCapRank,
-    }));
-}
-
-function buildCaption(
-  movers: DailyMoverCarouselToken[],
-  variant: SocialContentVariant,
-  archetype: SocialContentArchetype,
-  marketDataAsOf: Date,
-): string {
-  const leader = movers[0];
-  const variantNotes: Record<string, { opener: string; qualityLine: string }> = {
-    momentum_watchlist: {
-      opener: "Ranked by daily momentum, then filtered for basic market data quality.",
-      qualityLine: "Use this as a momentum scan, not a recommendation.",
-    },
-    volatility_filter: {
-      opener: "Big candles are only useful when confirmation and liquidity hold.",
-      qualityLine: "Treat every large 24h move as a volatility event until follow-through confirms it.",
-    },
-    rotation_radar: {
-      opener: "Use the list as a rotation map: where momentum is concentrating, not where certainty exists.",
-      qualityLine: "Compare the names against sector strength before trusting the rotation.",
-    },
-    quality_movers: {
-      opener: "Percent gain alone is not enough; market cap and volume give the move context.",
-      qualityLine: "Use the scan to separate cleaner momentum from noisy price spikes.",
-    },
-  };
-  const variantNote = variantNotes[variant.key] || variantNotes.momentum_watchlist;
-  const archetypeOpeners: Record<string, string> = {
-    risk_lab: "Before chasing today's green candles, check the filter first.",
-    sector_rotation: "Today's useful read is where momentum is clustering.",
-    how_to_read_metric: "A 24h mover list is only useful when you know what to filter.",
-    watchlist_shortlist: "Here is the shortlist, not a call.",
-    data_quality_warning: "Big mover lists can hide noisy data; start with the quality check.",
-    two_token_comparison: "Compare the strongest moves before treating any single candle as the story.",
-  };
-  const opener = archetypeOpeners[archetype.key] ||
-    `${variant.captionIntro || "Daily Movers"}: ${leader.symbol.toUpperCase()} leads today's TokenRadar scan with a ${formatPercent(leader.change24h)} 24h move.`;
-  const lines = movers.map((mover, index) =>
-    `${index + 1}. ${mover.symbol.toUpperCase()} (${mover.name}): ${formatPercent(mover.change24h)} at ${formatPrice(mover.price)}`
-  );
-  const symbolTags = movers
-    .map((mover) => mover.symbol.replace(/[^a-zA-Z0-9_]/g, ""))
-    .filter(Boolean)
-    .map((symbol) => `#${symbol.toUpperCase()}`);
-  const hashtags = [
-    "#Crypto",
-    "#TokenRadar",
-    "#MarketMovers",
-    "#Altcoins",
-    variant.key === "rotation_radar" ? "#CryptoNarratives" : "#CryptoResearch",
-    variant.key === "volatility_filter" ? "#RiskManagement" : "#MarketScan",
-    ...symbolTags,
-  ].slice(0, SOCIAL_PLATFORM_LIMITS.INSTAGRAM.HASHTAG_LIMIT);
-
-  const caption = [
-    opener,
-    variantNote.opener,
-    lines.join("\n"),
-    `Highest market cap in this set: ${formatCompact(Math.max(...movers.map((mover) => mover.marketCap)))}. ${variantNote.qualityLine}`,
-    "Data snapshot only. Not financial advice. Always verify liquidity, volatility, and catalyst quality.",
-    `Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
-    "TokenRadar.co",
-    hashtags.join(" "),
-  ].join("\n\n");
-
-  const sanitized = sanitizePostTextLinks(caption);
-  return sanitized.length > SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT
-    ? sanitized.slice(0, SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT - 3).trimEnd() + "..."
-    : sanitized;
 }
 
 async function main() {
@@ -216,7 +116,9 @@ async function main() {
     ],
   });
 
-  cleanupExpiredCooldownFolders(DATA_DIR);
+  if (!dryRun) {
+    cleanupExpiredCooldownFolders(DATA_DIR);
+  }
 
   if (!dryRun && (!process.env.IG_ACCESS_TOKEN || !process.env.IG_ACCOUNT_ID)) {
     console.error("Missing Instagram credentials. Required: IG_ACCESS_TOKEN, IG_ACCOUNT_ID.");
@@ -243,13 +145,29 @@ async function main() {
     if (!force) {
       console.log(`  Instagram movers cooldown pool: ${recentlyPosted.size} tokens from recent Instagram movers.`);
     }
-    const movers = selectMovers(candidates, recentlyPosted);
+    const rejectionCounts = candidates.reduce<Record<string, number>>((counts, candidate) => {
+      for (const reason of getInstagramMoverRejectionReasons(candidate)) {
+        counts[reason] = (counts[reason] || 0) + 1;
+      }
+      return counts;
+    }, {});
+    const movers = selectInstagramMovers(candidates, recentlyPosted);
 
-    if (movers.length < 5) {
-      throw new Error(`Need 5 eligible movers for the Instagram carousel; found ${movers.length}.`);
+    if (Object.keys(rejectionCounts).length > 0) {
+      console.log(
+        `  Instagram quality filter rejections: ${Object.entries(rejectionCounts)
+          .map(([reason, count]) => `${reason}=${count}`)
+          .join(", ")}.`,
+      );
     }
-    if (!force && movers.some((mover) => recentlyPosted.has(mover.id))) {
-      console.warn("  Not enough fresh Instagram movers after cooldown filtering; filled remaining slots with recent movers.");
+    if (movers.length < INSTAGRAM_MOVER_POLICY.requiredMoverCount) {
+      throw new Error(
+        `Need ${INSTAGRAM_MOVER_POLICY.requiredMoverCount} fresh, qualified movers; found ${movers.length}. ` +
+        `Policy: market cap >= ${INSTAGRAM_MOVER_POLICY.minimumMarketCap}, ` +
+        `24h volume >= ${INSTAGRAM_MOVER_POLICY.minimumVolume24h}, ` +
+        `24h move ${INSTAGRAM_MOVER_POLICY.minimumPriceChange24h}-${INSTAGRAM_MOVER_POLICY.maximumPriceChange24h}%, ` +
+        `turnover ${INSTAGRAM_MOVER_POLICY.minimumVolumeToMarketCap}-${INSTAGRAM_MOVER_POLICY.maximumVolumeToMarketCap}.`,
+      );
     }
 
     const snapshotTimes = movers
@@ -261,7 +179,7 @@ async function main() {
     }
     const marketDataAsOf = new Date(Math.min(...snapshotTimes));
 
-    console.log("Top 5 Instagram Movers:");
+    console.log("Top 5 qualified Instagram Movers:");
     movers.forEach((mover, index) => {
       console.log(
         `  ${index + 1}. ${mover.symbol.toUpperCase()} (${mover.name}): ${formatPrice(mover.price)} ${formatPercent(mover.change24h)}`,
@@ -269,14 +187,23 @@ async function main() {
     });
 
     console.log(`Rendering Instagram carousel slides (${variant.label}, ${archetype.label})...`);
+    const cta = buildInstagramCarouselCta(archetype, movers[0].symbol);
     const renderedSlides = await generateDailyMoversCarousel(movers, {
       variant,
       generatedAt: marketDataAsOf,
+      cta,
+      ctaLabel: archetype.label,
     });
+    if (renderedSlides.length !== DAILY_MOVERS_CAROUSEL_SLIDE_COUNT) {
+      throw new Error(
+        `Instagram carousel contract requires ${DAILY_MOVERS_CAROUSEL_SLIDE_COUNT} slides; rendered ${renderedSlides.length}.`,
+      );
+    }
     const slides = await Promise.all(
       renderedSlides.map((slide, index) => prepareInstagramCarouselImage(slide, index + 1)),
     );
-    const caption = buildCaption(movers, variant, archetype, marketDataAsOf);
+    const caption = buildInstagramMoversCaption(movers, variant, archetype, marketDataAsOf);
+    const altTexts = buildInstagramCarouselAltTexts(movers);
     console.log(`  Rendered ${slides.length} JPEG slides.`);
     console.log(`  Caption length: ${caption.length}/${SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT}`);
 
@@ -327,15 +254,7 @@ async function main() {
 
     const result = await publishInstagramCarousel(
       imageUrls.map((imageUrl, index) => {
-        const mover = index >= 2 && index <= 6 ? movers[index - 2] : undefined;
-        const altText = index === 0
-          ? `TokenRadar daily movers cover showing ${movers.map((item) => item.symbol.toUpperCase()).join(", ")}.`
-          : index === 1
-            ? `Ranked daily movers board: ${movers.map((item, rank) => `${rank + 1}. ${item.name} ${formatPercent(item.change24h)}`).join("; ")}.`
-            : mover
-              ? `${mover.name} (${mover.symbol.toUpperCase()}) market snapshot: price ${formatPrice(mover.price)}, 24-hour change ${formatPercent(mover.change24h)}, market cap ${formatCompact(mover.marketCap)}, and volume ${formatCompact(mover.volume24h)}.`
-              : "TokenRadar risk reminder explaining that large daily gains need liquidity and follow-through confirmation.";
-        return { imageUrl, altText };
+        return { imageUrl, altText: altTexts[index] };
       }),
       caption,
     );
@@ -358,6 +277,8 @@ async function main() {
         movers: movers.map((mover) => mover.id),
         slideCount: slides.length,
         variant: variant.key,
+        cta,
+        eligibilityPolicy: INSTAGRAM_MOVER_POLICY,
         marketDataSource: "coingecko-live",
         marketDataAsOf: marketDataAsOf.toISOString(),
         socialSlot: process.env.SOCIAL_SLOT,

@@ -9,10 +9,11 @@ import {
   requireLegacyMarketExternalId,
   selectLegacyMarketEvidence,
 } from "../scripts/post-market-updates";
-import { resolveComparisonPlatforms } from "../scripts/post-token-comparison";
+import { resolveComparisonPlatforms, resolveStoredPair } from "../scripts/post-token-comparison";
 import type { SocialPostEvidence } from "../src/lib/ops-ledger";
 import {
   buildComparisonCaptions,
+  buildComparisonVisualVerdict,
   findSharedComparisonCategory,
   selectTokenComparisonPair,
   type TokenComparisonPair,
@@ -217,7 +218,8 @@ describe("token comparison social plan", () => {
     expect(captions.x.length).toBeLessThanOrEqual(280);
     expect(captions.instagram.length).toBeLessThanOrEqual(2200);
     expect(captions.threads.length).toBeLessThanOrEqual(500);
-    expect(captions.x).toContain("Risk:");
+    expect(captions.x).toContain("supplied Risk");
+    expect(captions.x).not.toContain("#");
     expect(captions.x).toContain("CoinGecko 12:23 UTC");
     expect(captions.telegram).toContain("Risk/Growth metrics as of 2026-08-23");
     expect(captions.threads).toContain("Volume/cap:");
@@ -225,6 +227,63 @@ describe("token comparison social plan", () => {
     expect(resolveComparisonPlatforms("meta")).toEqual(["instagram", "threads"]);
     expect(resolveComparisonPlatforms("all")).toEqual(["telegram", "x", "instagram", "threads"]);
     expect(() => resolveComparisonPlatforms("youtube")).toThrow("Invalid --platform");
+  });
+
+  it("keeps visual tie verdicts honest and preserves the full X attribution line", () => {
+    const tiePair: TokenComparisonPair = {
+      left: comparisonToken({ id: "alpha", symbol: "fartcoin", name: "Fartcoin", change7d: 5 }),
+      right: comparisonToken({ id: "beta", symbol: "virtual", name: "Virtuals Protocol", change7d: 5 }),
+      context: "Artificial Intelligence Applications and Decentralized Compute Infrastructure",
+    };
+
+    expect(buildComparisonVisualVerdict(tiePair)).toBe(
+      "7D change is effectively tied · supplied Risk is tied at 5/10",
+    );
+    const xCaption = buildComparisonCaptions(tiePair).x;
+    expect(xCaption.length).toBeLessThanOrEqual(280);
+    expect(xCaption).toMatch(/Data: CoinGecko 12:23 UTC · Metrics 2026-08-23 oldest inputs$/);
+    expect(xCaption).not.toMatch(/\.\.\.$/);
+  });
+
+  it("does not declare a 7D leader when either refreshed value is unavailable", () => {
+    const unavailablePair: TokenComparisonPair = {
+      left: comparisonToken({ id: "alpha", symbol: "alp", name: "Alpha", change7d: null }),
+      right: comparisonToken({ id: "beta", symbol: "bet", name: "Beta", change7d: 5 }),
+      context: "Layer 1 (L1)",
+    };
+
+    expect(buildComparisonVisualVerdict(unavailablePair)).toBe(
+      "7D data unavailable for one or both tokens · supplied Risk is tied at 5/10",
+    );
+    for (const caption of Object.values(buildComparisonCaptions(unavailablePair))) {
+      expect(caption).toContain("7D data unavailable for one or both tokens");
+      expect(caption).not.toMatch(/(?:ALP|BET) leads 7D change/i);
+    }
+  });
+
+  it("rejects stored comparison pairs that no longer pass refreshed guardrails", () => {
+    const dataDir = makeDataDir();
+    const trackerFile = path.join(dataDir, "pair.json");
+    writeJson(trackerFile, { tokenIds: ["alpha", "beta"], context: "Stale context" });
+
+    const alphaWithoutSevenDay = comparisonToken({ id: "alpha", symbol: "alp", name: "Alpha", change7d: null });
+    const regularBeta = comparisonToken({ id: "beta", symbol: "bet", name: "Beta" });
+    expect(resolveStoredPair(trackerFile, [alphaWithoutSevenDay, regularBeta])).toBeNull();
+
+    const validAlpha = comparisonToken({ id: "alpha", symbol: "alp", name: "Alpha" });
+    const validBeta = comparisonToken({ id: "beta", symbol: "bet", name: "Beta" });
+    const incomparableBeta = comparisonToken({
+      id: "beta",
+      symbol: "bet",
+      name: "Beta",
+      marketCap: 10_000_000_000,
+    });
+    expect(resolveStoredPair(trackerFile, [validAlpha, incomparableBeta])).toBeNull();
+    expect(resolveStoredPair(trackerFile, [validAlpha, validBeta])).toMatchObject({
+      left: { id: "alpha" },
+      right: { id: "beta" },
+      context: "Layer 1 (L1)",
+    });
   });
 
   it("labels mixed market-data sources instead of claiming CoinGecko-only data", () => {

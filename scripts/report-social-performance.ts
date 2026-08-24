@@ -38,6 +38,8 @@ export interface SocialPerformanceRow {
   webEngagedSessions?: number;
   webAttributionExportedAt?: string;
   webAttributionStale?: boolean;
+  actualAgeHours?: number;
+  latenessHours?: number;
 }
 
 export interface D1PerformanceRow {
@@ -69,17 +71,20 @@ export interface D1PerformanceRow {
 export interface SocialPerformanceGroup {
   key: string;
   posts: number;
+  interactionPosts: number;
+  rateEligiblePosts: number;
   exposure: number;
-  interactions: number;
+  interactions?: number;
   linkClicks?: number;
   profileClicks?: number;
-  engagementPerThousand: number;
+  engagementPerThousand?: number;
   clickThroughRate?: number;
   profileVisitRate?: number;
   averageWatchTimeSeconds?: number;
   averageViewPercentage?: number;
   webSessions?: number;
   webEngagedSessions?: number;
+  averageActualAgeHours?: number;
 }
 
 export interface SocialPerformanceReport {
@@ -183,6 +188,12 @@ export function normalizePerformanceRows(
     webEngagedSessions: webAttributionFresh ? optionalNumber(row.web_engaged_sessions) : undefined,
     webAttributionExportedAt,
     webAttributionStale: hasWebAttribution && !webAttributionFresh,
+    actualAgeHours: optionalNumber(
+      typeof metricDetails.actualAgeHours === "number" ? metricDetails.actualAgeHours : null,
+    ),
+    latenessHours: optionalNumber(
+      typeof metricDetails.latenessHours === "number" ? metricDetails.latenessHours : null,
+    ),
   };
   });
 }
@@ -194,6 +205,11 @@ function exposure(row: SocialPerformanceRow): number {
 function interactions(row: SocialPerformanceRow): number {
   return [row.likes, row.replies, row.comments, row.reposts, row.shares, row.saves]
     .reduce<number>((total, value) => total + (value || 0), 0);
+}
+
+function hasInteractionMetrics(row: SocialPerformanceRow): boolean {
+  return [row.likes, row.replies, row.comments, row.reposts, row.shares, row.saves]
+    .some((value) => value !== undefined);
 }
 
 function round(value: number, digits = 2): number {
@@ -219,7 +235,12 @@ function groupRows(rows: SocialPerformanceRow[], keyFor: (row: SocialPerformance
 
   return [...grouped.entries()].map(([key, group]) => {
     const totalExposure = group.reduce((total, row) => total + exposure(row), 0);
-    const totalInteractions = group.reduce((total, row) => total + interactions(row), 0);
+    const interactionRows = group.filter(hasInteractionMetrics);
+    const rateEligibleRows = interactionRows.filter((row) => exposure(row) > 0);
+    const interactionExposure = rateEligibleRows.reduce((total, row) => total + exposure(row), 0);
+    const totalInteractions = rateEligibleRows.length > 0
+      ? rateEligibleRows.reduce((total, row) => total + interactions(row), 0)
+      : undefined;
     const rowsWithLinkClicks = group.filter((row) => row.linkClicks !== undefined);
     const rowsWithProfileClicks = group.filter((row) => row.profileClicks !== undefined);
     const linkClicks = rowsWithLinkClicks.length > 0
@@ -233,14 +254,19 @@ function groupRows(rows: SocialPerformanceRow[], keyFor: (row: SocialPerformance
     const watchRows = group.filter((row) => row.watchTimeSeconds !== undefined);
     const viewedRows = group.filter((row) => row.averageViewPercentage !== undefined);
     const webRows = group.filter((row) => row.webSessions !== undefined);
+    const agedRows = group.filter((row) => row.actualAgeHours !== undefined);
     return {
       key,
       posts: group.length,
+      interactionPosts: interactionRows.length,
+      rateEligiblePosts: rateEligibleRows.length,
       exposure: totalExposure,
       interactions: totalInteractions,
       linkClicks,
       profileClicks,
-      engagementPerThousand: totalExposure ? round(totalInteractions * 1000 / totalExposure) : 0,
+      engagementPerThousand: totalInteractions !== undefined && interactionExposure
+        ? round(totalInteractions * 1000 / interactionExposure)
+        : undefined,
       clickThroughRate: linkClicks !== undefined && linkExposure ? round(linkClicks / linkExposure, 4) : undefined,
       profileVisitRate: profileClicks !== undefined && profileExposure ? round(profileClicks / profileExposure, 4) : undefined,
       webSessions: webRows.length > 0
@@ -255,8 +281,13 @@ function groupRows(rows: SocialPerformanceRow[], keyFor: (row: SocialPerformance
       averageViewPercentage: viewedRows.length > 0
         ? round(viewedRows.reduce((total, row) => total + (row.averageViewPercentage || 0), 0) / viewedRows.length, 1)
         : undefined,
+      averageActualAgeHours: agedRows.length > 0
+        ? round(agedRows.reduce((total, row) => total + (row.actualAgeHours || 0), 0) / agedRows.length, 1)
+        : undefined,
     };
-  }).sort((left, right) => right.engagementPerThousand - left.engagementPerThousand || right.exposure - left.exposure);
+  }).sort((left, right) =>
+    (right.engagementPerThousand ?? -1) - (left.engagementPerThousand ?? -1) || right.exposure - left.exposure,
+  );
 }
 
 function median(values: number[]): number {
@@ -271,7 +302,7 @@ function buildRecommendations(rows: SocialPerformanceRow[], archetypes: SocialPe
   const platformMedians = new Map<string, number>();
   for (const platform of new Set(rows.map((row) => row.platform))) {
     platformMedians.set(platform, median(
-      rows.filter((row) => row.platform === platform && exposure(row) > 0)
+      rows.filter((row) => row.platform === platform && exposure(row) > 0 && hasInteractionMetrics(row))
         .map((row) => interactions(row) * 1000 / exposure(row)),
     ));
   }
@@ -279,8 +310,15 @@ function buildRecommendations(rows: SocialPerformanceRow[], archetypes: SocialPe
   for (const archetype of archetypes) {
     const platform = archetype.key.split(" / ")[0];
     const platformMedian = platformMedians.get(platform) || 0;
-    if (archetype.posts < 5) {
-      recommendations.push(`${archetype.key}: keep testing (${archetype.posts}/5 measured posts).`);
+    if (archetype.interactionPosts === 0) {
+      recommendations.push(`${archetype.key}: exposure is measured, but interaction metrics are unavailable; do not rank this format on engagement.`);
+    } else if (archetype.engagementPerThousand === undefined) {
+      recommendations.push(`${archetype.key}: interaction metrics are measured, but exposure is unavailable or zero; do not rank this format on engagement.`);
+    } else if (archetype.rateEligiblePosts < 5) {
+      recommendations.push(
+        `${archetype.key}: keep testing (${archetype.rateEligiblePosts}/5 rate-eligible posts; ` +
+        `${archetype.interactionPosts} interaction-measured).`,
+      );
     } else if (archetype.engagementPerThousand > platformMedian) {
       recommendations.push(`${archetype.key}: scale cautiously; ${archetype.engagementPerThousand} interactions/1k beats the ${round(platformMedian)} platform median.`);
     } else {
@@ -308,7 +346,7 @@ export function buildSocialPerformanceReport(
     `${row.platform} / ${stringDetail(row, "variantSurface", "surface")}`,
   );
   const topPosts = [...rows]
-    .filter((row) => exposure(row) > 0)
+    .filter((row) => exposure(row) > 0 && hasInteractionMetrics(row))
     .sort((left, right) => {
       const leftRate = interactions(left) * 1000 / exposure(left);
       const rightRate = interactions(right) * 1000 / exposure(right);
@@ -348,12 +386,12 @@ function renderGroups(title: string, groups: SocialPerformanceGroup[]): string[]
   return [
     `## ${title}`,
     "",
-    "| Segment | Posts | Impressions/views | Interactions/1k | Link CTR | Profile visit rate | GA4 sessions / engaged |",
-    "|---|---:|---:|---:|---:|---:|---:|",
+    "| Segment | Posts (interaction measured / rate eligible) | Impressions/views | Interactions/1k | Avg sample age | Link CTR | Profile visit rate | GA4 sessions / engaged |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|",
     ...(groups.length > 0
       ? groups.map((group) =>
-          `| ${group.key} | ${group.posts} | ${group.exposure} | ${group.engagementPerThousand} | ${percent(group.clickThroughRate)} | ${percent(group.profileVisitRate)} | ${group.webSessions === undefined ? "N/A" : `${group.webSessions} / ${group.webEngagedSessions || 0}`} |`)
-      : ["| No measured posts | 0 | 0 | 0 | N/A | N/A | N/A |"]),
+          `| ${group.key} | ${group.posts} (${group.interactionPosts} / ${group.rateEligiblePosts}) | ${group.exposure} | ${group.engagementPerThousand ?? "N/A"} | ${group.averageActualAgeHours === undefined ? "N/A" : `+${group.averageActualAgeHours}h`} | ${percent(group.clickThroughRate)} | ${percent(group.profileVisitRate)} | ${group.webSessions === undefined ? "N/A" : `${group.webSessions} / ${group.webEngagedSessions || 0}`} |`)
+      : ["| No measured posts | 0 (0 / 0) | 0 | N/A | N/A | N/A | N/A | N/A |"]),
     "",
   ];
 }
@@ -367,6 +405,7 @@ export function renderSocialPerformanceMarkdown(report: SocialPerformanceReport)
     `Measured posts: ${report.postsMeasured}`,
     `Missed collection windows (excluded from decisions): ${report.missedWindows}`,
     `Comparison horizon: +${report.horizonHours}h`,
+    "Actual sample ages are shown in the summary tables; scheduled collection may arrive after the nominal horizon.",
     report.webAttribution.latestExportedAt
       ? `GA4 attribution freshness: latest export ${report.webAttribution.latestExportedAt}; ${report.webAttribution.freshRows} fresh matched rows; ${report.webAttribution.staleRows} stale matched rows excluded (max age ${report.webAttribution.maxAgeHours}h).`
       : `GA4 attribution freshness: unavailable; no dated attribution export was joined.`,
@@ -391,7 +430,10 @@ export function renderSocialPerformanceMarkdown(report: SocialPerformanceReport)
       ? report.topPosts.map((row) => {
           const rate = exposure(row) ? round(interactions(row) * 1000 / exposure(row)) : 0;
           const publishedUrl = stringDetail(row, "publishedUrl");
-          return `- ${row.platform} / ${row.contentKey}: ${rate} interactions/1k at +${row.horizonHours}h [${row.metricSource}]${publishedUrl !== "unknown" ? ` — ${publishedUrl}` : ""}`;
+          const sampleAge = row.actualAgeHours === undefined
+            ? `nominal +${row.horizonHours}h`
+            : `sampled at +${row.actualAgeHours}h (nominal +${row.horizonHours}h)`;
+          return `- ${row.platform} / ${row.contentKey}: ${rate} interactions/1k, ${sampleAge} [${row.metricSource}]${publishedUrl !== "unknown" ? ` — ${publishedUrl}` : ""}`;
         })
       : ["- No posts have native metric snapshots in the selected window."]),
     "",

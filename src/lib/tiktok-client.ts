@@ -105,6 +105,12 @@ export interface TikTokDirectPostVideoOptions extends TikTokUploadVideoOptions {
   /** Primarily exposed so deterministic tests do not wait between status reads. */
   pollIntervalMs?: number;
   pollTimeoutMs?: number;
+  /** Persist publish_id before the non-idempotent upload can become public. */
+  onPublishInitialized?: (input: {
+    publishId: string;
+    privacyLevel: TikTokPrivacyLevel;
+    creatorInfo: TikTokCreatorInfo;
+  }) => void | Promise<void>;
 }
 
 export interface TikTokCreatorInfo {
@@ -131,6 +137,42 @@ export interface TikTokDirectPostVideoResult extends TikTokUploadVideoResult {
   privacyLevel: TikTokPrivacyLevel;
   /** Public post evidence; the upload operation's publishId is not a post ID. */
   publicPostId: string;
+}
+
+export type TikTokPostReconciliationState = "published" | "failed" | "processing" | "unknown";
+
+export interface TikTokPostStatusClassification {
+  state: TikTokPostReconciliationState;
+  normalizedStatus?: string;
+  publicPostId?: string;
+  failReason?: string;
+  retrySafe: boolean;
+}
+
+export function classifyTikTokPostStatus(status: TikTokPostStatus | undefined): TikTokPostStatusClassification {
+  const normalizedStatus = status?.status?.trim().toUpperCase() || undefined;
+  const publicPostId = status?.publicaly_available_post_id
+    ?.find((value) => typeof value === "string" && value.trim())
+    ?.trim();
+
+  if (normalizedStatus === "PUBLISH_COMPLETE" && publicPostId) {
+    return { state: "published", normalizedStatus, publicPostId, retrySafe: false };
+  }
+  if (normalizedStatus === "PUBLISH_COMPLETE") {
+    return { state: "unknown", normalizedStatus, retrySafe: false };
+  }
+  if (normalizedStatus && /(?:FAIL|ERROR)/.test(normalizedStatus)) {
+    return {
+      state: "failed",
+      normalizedStatus,
+      failReason: status?.fail_reason?.trim() || undefined,
+      retrySafe: true,
+    };
+  }
+  if (normalizedStatus && /(?:PROCESS|UPLOAD|SEND|MODERAT|REVIEW|PUBLISHING)/.test(normalizedStatus)) {
+    return { state: "processing", normalizedStatus, retrySafe: false };
+  }
+  return { state: "unknown", normalizedStatus, retrySafe: false };
 }
 
 export class TikTokPublishOutcomeUnknownError extends Error {
@@ -461,7 +503,10 @@ async function initializeDirectPost(
         disable_stitch: getBooleanEnv("TIKTOK_DISABLE_STITCH", false),
         brand_content_toggle: getBooleanEnv("TIKTOK_BRAND_CONTENT_TOGGLE", false),
         brand_organic_toggle: getBooleanEnv("TIKTOK_BRAND_ORGANIC_TOGGLE", false),
-        is_aigc: getBooleanEnv("TIKTOK_IS_AIGC", false),
+        // TokenRadar videos can include generated narration and composited
+        // visuals, so disclosure defaults on unless an operator explicitly
+        // verifies that a specific production is not AIGC.
+        is_aigc: getBooleanEnv("TIKTOK_IS_AIGC", true),
       },
       source_info: {
         source: "FILE_UPLOAD",
@@ -573,6 +618,7 @@ export async function publishVideoDirectlyToTikTok(
     options.caption,
     privacyLevel,
   );
+  await options.onPublishInitialized?.({ publishId, privacyLevel, creatorInfo });
 
   try {
     await uploadChunks(uploadUrl, options.videoPath, plan);
@@ -586,24 +632,19 @@ export async function publishVideoDirectlyToTikTok(
     } catch (statusError) {
       throw new TikTokPublishOutcomeUnknownError(publishId, statusError);
     }
-    const state = reconciledStatus.status?.trim().toUpperCase();
-    if (state === "PUBLISH_COMPLETE") {
-      const publicPostId = reconciledStatus.publicaly_available_post_id
-        ?.find((value) => typeof value === "string" && value.trim())
-        ?.trim();
-      if (publicPostId) {
-        return {
-          publishId,
-          publicPostId,
-          status: reconciledStatus,
-          creatorInfo,
-          privacyLevel,
-        };
-      }
+    const classification = classifyTikTokPostStatus(reconciledStatus);
+    if (classification.state === "published" && classification.publicPostId) {
+      return {
+        publishId,
+        publicPostId: classification.publicPostId,
+        status: reconciledStatus,
+        creatorInfo,
+        privacyLevel,
+      };
     }
-    if (state && /(?:FAIL|ERROR)/.test(state)) {
+    if (classification.state === "failed") {
       throw new Error(
-        `TikTok direct post ${publishId} failed with status ${state}: ${reconciledStatus.fail_reason || "unknown reason"}`,
+        `TikTok direct post ${publishId} failed with status ${classification.normalizedStatus}: ${classification.failReason || "unknown reason"}`,
       );
     }
     throw new TikTokPublishOutcomeUnknownError(publishId, error);
@@ -623,22 +664,19 @@ export async function publishVideoDirectlyToTikTok(
       lastStatusError = error;
     }
 
-    const state = status?.status?.trim().toUpperCase();
-    if (state === "PUBLISH_COMPLETE") {
-      const publicPostId = status?.publicaly_available_post_id
-        ?.find((value) => typeof value === "string" && value.trim())
-        ?.trim();
-      if (!publicPostId) {
-        throw new TikTokPublishOutcomeUnknownError(
-          publishId,
-          new Error("TikTok reported PUBLISH_COMPLETE without a public post ID."),
-        );
-      }
-      return { publishId, publicPostId, status, creatorInfo, privacyLevel };
+    const classification = classifyTikTokPostStatus(status);
+    if (classification.state === "published" && classification.publicPostId) {
+      return { publishId, publicPostId: classification.publicPostId, status, creatorInfo, privacyLevel };
     }
-    if (state && /(?:FAIL|ERROR)/.test(state)) {
+    if (classification.normalizedStatus === "PUBLISH_COMPLETE") {
+      throw new TikTokPublishOutcomeUnknownError(
+        publishId,
+        new Error("TikTok reported PUBLISH_COMPLETE without a public post ID."),
+      );
+    }
+    if (classification.state === "failed") {
       throw new Error(
-        `TikTok direct post ${publishId} failed with status ${state}: ${status?.fail_reason || "unknown reason"}`,
+        `TikTok direct post ${publishId} failed with status ${classification.normalizedStatus}: ${classification.failReason || "unknown reason"}`,
       );
     }
     if (Date.now() >= deadline) break;

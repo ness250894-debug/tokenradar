@@ -66,20 +66,31 @@ function escapeHtmlAttribute(value: string): string {
 }
 
 function decodeTelegramHtmlEntities(value: string): string {
-  return value
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, "\"")
-    .replace(/&#39;/g, "'")
-    .replace(/&#(\d+);/g, (_match, code: string) => {
-      const parsed = Number(code);
-      return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
-    })
-    .replace(/&#x([0-9a-f]+);/gi, (_match, code: string) => {
-      const parsed = Number.parseInt(code, 16);
-      return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
-    });
+  let decoded = value;
+
+  // Footer builders historically supplied an already escaped href. Normalize a
+  // few nested layers so the final sanitizer owns the one and only encoding
+  // pass. The cap avoids pathological entity expansion from untrusted copy.
+  for (let pass = 0; pass < 4; pass += 1) {
+    const next = decoded
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, "\"")
+      .replace(/&#39;/g, "'")
+      .replace(/&#(\d+);/g, (_match, code: string) => {
+        const parsed = Number(code);
+        return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
+      })
+      .replace(/&#x([0-9a-f]+);/gi, (_match, code: string) => {
+        const parsed = Number.parseInt(code, 16);
+        return Number.isInteger(parsed) && parsed >= 0 && parsed <= 0x10ffff ? String.fromCodePoint(parsed) : "";
+      });
+    if (next === decoded) break;
+    decoded = next;
+  }
+
+  return decoded;
 }
 
 function stripTelegramHtmlForLength(html: string): string {
@@ -215,6 +226,77 @@ export function buildTelegramMediaCaption(
   return `${sanitizedBody}${separator}${sanitizedFooter}`;
 }
 
+export type TelegramResearchSurface =
+  | "token"
+  | "market"
+  | "movers"
+  | "comparison"
+  | "recap"
+  | "video";
+
+export interface TelegramResearchCtaOptions {
+  url: string;
+  surface: TelegramResearchSurface;
+  symbol?: string;
+  hasTokenPage?: boolean;
+  hashtags?: string[];
+}
+
+const TELEGRAM_RESEARCH_NOTES: Record<TelegramResearchSurface, string> = {
+  token: "Point-in-time research. Recheck the source timestamp and liquidity before relying on it.",
+  market: "Market snapshot, not a recommendation. Refresh the data before using the read later.",
+  movers: "A fast move is not proof of quality. Check market depth, source time, and risk first.",
+  comparison: "Use the same source window for both assets; refresh the comparison as conditions change.",
+  recap: "Weekly context only. Recheck current market data before drawing a fresh conclusion.",
+  video: "Research context only. Verify the current data and invalidation before acting on the clip.",
+};
+
+function cleanTelegramSymbol(symbol: string | undefined): string {
+  return (symbol || "")
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "")
+    .slice(0, 16);
+}
+
+export function getTelegramResearchCtaText(options: TelegramResearchCtaOptions): string {
+  const symbol = cleanTelegramSymbol(options.symbol);
+  if (options.hasTokenPage && symbol) return `Review $${symbol} research data`;
+
+  switch (options.surface) {
+    case "movers":
+      return "Explore the full market research hub";
+    case "comparison":
+      return "Research both assets on TokenRadar";
+    case "recap":
+      return "Explore TokenRadar's research archive";
+    case "video":
+      return "Open the data behind this video";
+    default:
+      return "Explore TokenRadar market research";
+  }
+}
+
+/**
+ * Build a surface-specific research footer. The href is HTML-escaped here for
+ * standalone validity and normalized by sanitizeHtmlForTelegram before send.
+ */
+export function buildTelegramResearchFooter(options: TelegramResearchCtaOptions): string {
+  const lines: string[] = [];
+  if (isSafeTelegramHref(options.url)) {
+    lines.push(
+      `<a href="${escapeHtmlAttribute(options.url)}">${getTelegramResearchCtaText(options)}</a>`,
+    );
+  }
+  lines.push(TELEGRAM_RESEARCH_NOTES[options.surface]);
+
+  const hashtags = (options.hashtags || [])
+    .map((tag) => tag.trim())
+    .filter((tag) => /^#[A-Za-z0-9_]{1,40}$/.test(tag))
+    .slice(0, 3);
+  if (hashtags.length > 0) lines.push(hashtags.join(" "));
+  return lines.join("\n\n");
+}
+
 export function getApi(botToken?: string): Api<RawApi> {
   const token = botToken || process.env.TELEGRAM_BOT_TOKEN;
   
@@ -268,8 +350,11 @@ export function sanitizeHtmlForTelegram(html: string, maxLength: number = 4096):
         }
         if (attrs) {
           const hrefMatch = attrs.match(/\bhref\s*=\s*(["'])(.*?)\1/i);
-          if (hrefMatch && isSafeTelegramHref(hrefMatch[2])) {
-            placeholders.push(`<a href="${escapeHtmlAttribute(hrefMatch[2])}">`);
+          const normalizedHref = hrefMatch
+            ? decodeTelegramHtmlEntities(hrefMatch[2]).trim()
+            : "";
+          if (normalizedHref && isSafeTelegramHref(normalizedHref)) {
+            placeholders.push(`<a href="${escapeHtmlAttribute(normalizedHref)}">`);
             return `\x00TAG${placeholders.length - 1}\x00`;
           }
         }
@@ -343,13 +428,20 @@ export async function sendTelegramPhoto(
   photoBuffer: Buffer,
   caption: string,
   chatId: string,
-  botToken?: string
+  botTokenOrOptions?: string | {
+    botToken?: string;
+    replyMarkup?: InlineKeyboard;
+  },
 ): Promise<number> {
-  const api = getApi(botToken);
+  const options = typeof botTokenOrOptions === "string"
+    ? { botToken: botTokenOrOptions }
+    : botTokenOrOptions;
+  const api = getApi(options?.botToken);
   
   const message = await api.sendPhoto(chatId, new InputFile(photoBuffer), {
     caption,
     parse_mode: "HTML",
+    reply_markup: options?.replyMarkup,
   });
 
   return requireTelegramMessageId(message, "sendPhoto");
@@ -379,10 +471,21 @@ export async function sendTelegramVideo(
  */
 export function createTelegramKeyboard(buttons: { text: string, url: string }[]): InlineKeyboard {
   const keyboard = new InlineKeyboard();
+  let hasButton = false;
   buttons.forEach(btn => {
     if (isAllowedPostUrl(btn.url)) {
-      keyboard.url(btn.text, btn.url).row();
+      if (hasButton) keyboard.row();
+      keyboard.url(btn.text, btn.url);
+      hasButton = true;
     }
   });
   return keyboard;
+}
+
+/** A one-button, benefit-led first-party CTA for Telegram research posts. */
+export function createTelegramResearchKeyboard(options: TelegramResearchCtaOptions): InlineKeyboard {
+  return createTelegramKeyboard([{
+    text: getTelegramResearchCtaText(options),
+    url: options.url,
+  }]);
 }

@@ -15,6 +15,8 @@ import { ContextView } from "./components/ContextView";
 import { VerdictBadge } from "./components/VerdictBadge";
 import { VideoBackground } from "./components/VideoBackground";
 import { BrollStoryOverlay } from "./components/BrollStoryOverlay";
+import { TimedNarrationCaptions } from "./components/TimedNarrationCaptions";
+import { VideoSourceBadge } from "./components/VideoSourceBadge";
 import { getVideoFormat } from "../lib/video-formats";
 import {
   getVideoSceneDurationsForTotalFrames,
@@ -52,6 +54,9 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     audioFile,
     audioStartSeconds = 0,
     voiceoverFile,
+    voiceoverScript,
+    marketDataSource,
+    marketDataAsOf,
     hookText,
     verdict,
     contextText,
@@ -155,6 +160,13 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
         mediaStage={mediaStage}
       />
       {isPrimaryMediaStory ? <BrollStoryOverlay {...props} mediaStage={mediaStage} /> : orderedSequences}
+      <TimedNarrationCaptions text={voiceoverScript} />
+      <VideoSourceBadge
+        tokenName={tokenName}
+        symbol={symbol}
+        marketDataSource={marketDataSource}
+        marketDataAsOf={marketDataAsOf}
+      />
 
       {audioFile && (
         <Audio

@@ -61,6 +61,8 @@ describe("scheduled social metric collection", () => {
       likes: 10,
       details: {
         source: "x-v2-public-metrics",
+        actualAgeHours: 24.72,
+        latenessHours: 0.72,
         plannedUrl: expect.stringContaining("utm_content=planned"),
         publishedUrl: expect.stringContaining("utm_content=published"),
         utmContent: "published",
@@ -95,7 +97,7 @@ describe("scheduled social metric collection", () => {
     const summary = await collectDueSocialMetrics(
       { windows: [24], limit: 10, dryRun: false, strict: true },
       {
-        now: new Date("2026-08-21T06:30:00.000Z"),
+        now: new Date("2026-08-21T16:30:00.000Z"),
         listDueTargets: async () => [due],
         collect,
         record: async (record) => { records.push(record); },
@@ -104,6 +106,6 @@ describe("scheduled social metric collection", () => {
 
     expect(summary).toMatchObject({ collected: 0, skipped: 1, failed: 0 });
     expect(collect).not.toHaveBeenCalled();
-    expect(records[0].details).toMatchObject({ status: "missed-window", maxLatenessHours: 2 });
+    expect(records[0].details).toMatchObject({ status: "missed-window", maxLatenessHours: 12 });
   });
 });

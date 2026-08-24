@@ -40,7 +40,15 @@ import {
   type PlatformTarget,
   type UnifiedCaptionOptions,
 } from "../src/lib/gemini";
-import { buildTelegramMediaCaption, createTelegramKeyboard, getApi, isTelegramCreateOutcomeUnknownError, requireTelegramMessageId, sanitizeHtmlForTelegram } from "../src/lib/telegram";
+import {
+  buildTelegramMediaCaption,
+  buildTelegramResearchFooter,
+  createTelegramResearchKeyboard,
+  getApi,
+  isTelegramCreateOutcomeUnknownError,
+  requireTelegramMessageId,
+  sanitizeHtmlForTelegram,
+} from "../src/lib/telegram";
 import {
   diversifyXPostText,
   getMissingXCredentialNames,
@@ -52,7 +60,6 @@ import { fetchTokenImage } from "../src/lib/og-fetcher";
 import {
   SOCIAL,
   SOCIAL_PLATFORM_LIMITS,
-  getTelegramFooter,
 } from "../src/lib/config";
 import type { SocialContentArchetype } from "../src/lib/social-archetypes";
 import type { SocialContentVariant } from "../src/lib/social-variety";
@@ -81,6 +88,7 @@ import {
   buildTelegramMarketPost,
   getTelegramMarketVariantSurface,
   parseTelegramMarketFormat,
+  resolveTelegramMarketBriefCaption,
   type TelegramMarketFormat,
   type TelegramMarketPostDraft,
 } from "../src/lib/telegram-market-formats";
@@ -509,6 +517,11 @@ async function main() {
   let xMessage = "";
   let xReplyMessage = "";
   let telegramDraft: TelegramMarketPostDraft | null = null;
+  let deterministicTelegramMessage = "";
+  let telegramGeneratedCaptionQuarantined = false;
+  let telegramCaptionMode = telegramFormat === "market-brief"
+    ? "generated"
+    : "deterministic-format";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tokenradar.co";
 
 
@@ -527,38 +540,45 @@ async function main() {
       slot: socialSlotFor("telegram"),
     });
     contentArchetypes.telegram = marketPlans.telegram.archetype;
+    telegramDraft = buildTelegramMarketPost({
+      format: telegramFormat,
+      token: {
+        id: targetToken.id,
+        name: targetToken.name,
+        symbol: targetToken.symbol,
+        price: targetToken.market.price || 0,
+        priceChange24h: targetToken.market.priceChange24h || 0,
+        marketCap: targetToken.market.marketCap || 0,
+        volume24h: targetToken.market.volume24h || 0,
+        marketCapRank: targetToken.market.marketCapRank || 0,
+        riskScore: context.riskScore,
+        selectionReason: reason,
+      },
+      context: {
+        globalStats: globalStatsStr,
+        sectorPerformance: sectorPerformanceStr,
+        generatedAt: new Date(targetMarketAsOf),
+        sourceLabel: `${formatMarketDataSourceLabel(targetToken.marketDataSource) || "CoinGecko"} snapshot`,
+      },
+    });
+    deterministicTelegramMessage = [telegramDraft.captionBody, formatMarketDataAttribution(socialFacts)]
+      .filter(Boolean)
+      .join("\n");
+
     if (telegramFormat === "market-brief") {
       console.log(`▶ Step 3/TG: Generating Telegram Post in "${tone}" tone...`);
       captionOptions.telegramMaxChars = SOCIAL_PLATFORM_LIMITS.TELEGRAM.PHOTO_AI_SUMMARY_CHARS;
+      captionOptions.onValidationFailure = (event) => {
+        if (event.fields.some(({ field }) => field === "telegramSummary")) {
+          telegramGeneratedCaptionQuarantined = true;
+        }
+      };
       captionPlatforms.push("telegram");
       contentVariants.telegram = marketPlans.telegram.variant;
       console.log(`  Telegram variant: ${contentVariants.telegram.label} (${contentVariants.telegram.key})`);
       console.log(`  Telegram archetype: ${marketPlans.telegram.archetype.label} (${marketPlans.telegram.archetype.key})`);
     } else {
-      telegramDraft = buildTelegramMarketPost({
-        format: telegramFormat,
-        token: {
-          id: targetToken.id,
-          name: targetToken.name,
-          symbol: targetToken.symbol,
-          price: targetToken.market.price || 0,
-          priceChange24h: targetToken.market.priceChange24h || 0,
-          marketCap: targetToken.market.marketCap || 0,
-          volume24h: targetToken.market.volume24h || 0,
-          marketCapRank: targetToken.market.marketCapRank || 0,
-          riskScore: context.riskScore,
-          selectionReason: reason,
-        },
-        context: {
-          globalStats: globalStatsStr,
-          sectorPerformance: sectorPerformanceStr,
-          generatedAt: new Date(targetMarketAsOf),
-          sourceLabel: `${formatMarketDataSourceLabel(targetToken.marketDataSource) || "CoinGecko"} snapshot`,
-        },
-      });
-      tgMessage = [telegramDraft.captionBody, formatMarketDataAttribution(socialFacts)]
-        .filter(Boolean)
-        .join("\n");
+      tgMessage = deterministicTelegramMessage;
       contentVariants.telegram = {
         key: telegramDraft.variantKey,
         label: telegramDraft.variantLabel,
@@ -620,7 +640,28 @@ async function main() {
       captionOptions,
     );
 
-    if (runTelegram && telegramFormat === "market-brief") tgMessage = captions.telegramSummary || "";
+    if (runTelegram && telegramFormat === "market-brief") {
+      const generatedCaptionUnavailable = !captions.telegramSummary?.trim();
+      tgMessage = resolveTelegramMarketBriefCaption({
+        generatedCaption: captions.telegramSummary,
+        deterministicCaption: deterministicTelegramMessage,
+        generatedCaptionQuarantined: telegramGeneratedCaptionQuarantined,
+      });
+      if (telegramGeneratedCaptionQuarantined || generatedCaptionUnavailable) {
+        telegramCaptionMode = telegramGeneratedCaptionQuarantined
+          ? "deterministic-quarantine-fallback"
+          : "deterministic-unavailable-fallback";
+        contentVariants.telegram = {
+          key: "market_brief_fallback",
+          label: "Deterministic Market Brief",
+          angle: "same-source factual snapshot used after generated copy was unavailable",
+          promptInstruction: "Local formatter; no generated claims are published.",
+        };
+      }
+      if (telegramGeneratedCaptionQuarantined) {
+        console.warn("  Telegram AI candidate was quarantined; using the local deterministic market brief.");
+      }
+    }
     if (runX) xMessage = captions.xTweet || "";
   }
 
@@ -744,6 +785,7 @@ async function main() {
         tone,
         socialSlot: socialSlotFor(platform),
         telegramFormat: platform === "telegram" ? telegramFormat : undefined,
+        telegramCaptionMode: platform === "telegram" ? telegramCaptionMode : undefined,
         marketDataSource: targetToken.marketDataSource,
         marketDataAsOf: targetMarketAsOf,
         metricsAsOf: targetMetric?.inputDataAsOf,
@@ -834,7 +876,14 @@ async function main() {
         archetypeKey: marketPlans.telegram?.archetype.key || "single_token_snapshot",
         tokenId: targetToken.id,
       });
-      const telegramFooter = getTelegramFooter(targetToken.symbol, tokenLink);
+      const telegramCta = {
+        url: tokenLink,
+        surface: isOnWebsite ? "token" as const : "market" as const,
+        symbol: targetToken.symbol,
+        hasTokenPage: isOnWebsite,
+        hashtags: [`#${targetToken.symbol.toUpperCase().replace(/[^A-Z0-9]/g, "")}`],
+      };
+      const telegramFooter = buildTelegramResearchFooter(telegramCta);
       if (!dryRun) {
         reserved = await reservePlatform("telegram");
       }
@@ -855,9 +904,7 @@ async function main() {
         }
         
         // Use Inline Keyboard for the main CTA if available
-        const keyboard = isOnWebsite 
-          ? createTelegramKeyboard([{ text: "Open TokenRadar Analytics", url: tokenLink }])
-          : undefined;
+        const keyboard = createTelegramResearchKeyboard(telegramCta);
 
         if (!dryRun) {
           const api = getApi();
@@ -886,9 +933,7 @@ async function main() {
       } else {
         // ── Text-only fallback ──
         let finalTgMessage = tgMessage.trim() + "\n" + telegramFooter.trim();
-        const keyboard = isOnWebsite 
-          ? createTelegramKeyboard([{ text: "Open TokenRadar Analytics", url: tokenLink }])
-          : undefined;
+        const keyboard = createTelegramResearchKeyboard(telegramCta);
 
         if (finalTgMessage.length > SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT) {
           console.warn(`  ⚠ Message too long (${finalTgMessage.length}/${SOCIAL_PLATFORM_LIMITS.TELEGRAM.TEXT_LIMIT}), trimming body...`);

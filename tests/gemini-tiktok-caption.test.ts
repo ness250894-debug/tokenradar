@@ -3,7 +3,7 @@ import { prepareTikTokCaptionForPublishing } from "../src/lib/gemini";
 import { UnsafeSocialEditorialError } from "../src/lib/social-editorial";
 
 describe("TikTok caption preparation", () => {
-  it("removes generic reach tags and keeps a focused hashtag set", () => {
+  it("removes generic reach tags and enforces the three-tag publishing policy", () => {
     const caption = [
       "Solana crypto market update",
       "",
@@ -16,8 +16,7 @@ describe("TikTok caption preparation", () => {
     const hashtags = prepared.match(/#[a-zA-Z0-9_]+/g) || [];
 
     expect(prepared).not.toMatch(/#FYP|#Viral/i);
-    expect(hashtags.length).toBeLessThanOrEqual(5);
-    expect(hashtags).toEqual(["#SOL", "#Crypto", "#TokenRadar", "#DeFi", "#Altcoins"]);
+    expect(hashtags).toEqual(["#SOL", "#Crypto", "#TokenRadar"]);
   });
 
   it("preserves complete hashtags when truncating", () => {

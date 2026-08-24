@@ -1,7 +1,7 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
-import { formatCompact, formatPercent, formatPrice, getRiskColor } from "./formatters";
+import { formatCompact, formatPercent, getRiskColor } from "./formatters";
 import { fetchTokenIconDataUrl } from "./token-icon-data";
 import { isPeggedAsset } from "./asset-classification";
 
@@ -221,6 +221,23 @@ function comparisonPercent(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value) ? formatPercent(value) : "N/A";
 }
 
+function hasFiniteSevenDayChange(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function comparisonSevenDayRead(
+  left: TokenComparisonToken,
+  right: TokenComparisonToken,
+): string {
+  if (!hasFiniteSevenDayChange(left.change7d) || !hasFiniteSevenDayChange(right.change7d)) {
+    return "7D data unavailable for one or both tokens";
+  }
+  if (Math.abs(left.change7d - right.change7d) < 0.05) {
+    return "7D change is effectively tied";
+  }
+  return `${left.change7d > right.change7d ? left.symbol.toUpperCase() : right.symbol.toUpperCase()} leads 7D change`;
+}
+
 function oldestValidTimestamp(values: Array<string | undefined>): Date | null {
   const timestamps = values
     .map((value) => value ? Date.parse(value) : Number.NaN)
@@ -258,6 +275,14 @@ function comparisonSourceLine(pair: TokenComparisonPair, compact = false): strin
     : `Source: ${marketSourceLabel} snapshot, ${marketLabel}; TokenRadar Risk/Growth metrics as of ${metricsLabel}.`;
 }
 
+function truncateComparisonXBody(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  const candidate = text.slice(0, Math.max(1, maxChars)).trim();
+  const boundary = Math.max(candidate.lastIndexOf(". "), candidate.lastIndexOf("; "), candidate.lastIndexOf(" "));
+  const safe = boundary >= Math.floor(maxChars * 0.6) ? candidate.slice(0, boundary).trim() : candidate;
+  return safe.replace(/[,:;|-]+$/, "").trim();
+}
+
 export function buildComparisonCaptions(pair: TokenComparisonPair): {
   telegram: string;
   x: string;
@@ -269,6 +294,16 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
   const rightSymbol = right.symbol.toUpperCase();
   const headline = `${leftSymbol} vs ${rightSymbol}`;
   const sourceLine = comparisonSourceLine(pair);
+  const leftTurnover = volumeToMarketCap(left);
+  const rightTurnover = volumeToMarketCap(right);
+  const sevenDayLead = comparisonSevenDayRead(left, right);
+  const turnoverLead = Math.abs(leftTurnover - rightTurnover) <= Math.max(leftTurnover, rightTurnover) * 0.1
+    ? "reported volume/cap is nearly tied"
+    : `${leftTurnover > rightTurnover ? leftSymbol : rightSymbol} leads reported volume/cap`;
+  const riskRead = left.metrics.riskScore === right.metrics.riskScore
+    ? `supplied Risk is tied at ${left.metrics.riskScore}/10`
+    : `${left.metrics.riskScore < right.metrics.riskScore ? leftSymbol : rightSymbol} has the lower supplied Risk score (${Math.min(left.metrics.riskScore, right.metrics.riskScore)}/10)`;
+  const pointInTimeRead = `${sevenDayLead}; ${turnoverLead}; ${riskRead}.`;
   const compactMetrics = [
     `24h: ${formatPercent(left.change24h)} vs ${formatPercent(right.change24h)}`,
     `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)}`,
@@ -279,36 +314,49 @@ export function buildComparisonCaptions(pair: TokenComparisonPair): {
   ];
 
   const telegram = [
-    `<b>${headline} - Token Comparison</b>`,
-    `<i>${context}</i>`,
-    compactMetrics.join("\n"),
-    "<b>Radar read:</b> compare the displayed price change, volume-to-cap ratio, and supplied risk score together.",
+    `<b>${headline} - ${context}</b>`,
+    compactMetrics.slice(0, 2).join("\n"),
+    `Volume/cap: ${compactRatio(leftTurnover)} vs ${compactRatio(rightTurnover)}`,
+    `Risk: ${left.metrics.riskScore}/10 vs ${right.metrics.riskScore}/10`,
+    `<b>Point-in-time read:</b> ${pointInTimeRead}`,
+    "Recheck the same fields after the next daily close; this snapshot does not establish persistence.",
     sourceLine,
   ].join("\n\n");
 
-  const x = [
-    `$${leftSymbol} vs $${rightSymbol} - TokenRadar comparison`,
-    compactMetrics.slice(0, 2).join("\n"),
-    `Volume/cap: ${compactRatio(volumeToMarketCap(left))} vs ${compactRatio(volumeToMarketCap(right))}`,
-    `Risk: ${left.metrics.riskScore} vs ${right.metrics.riskScore} | Growth: ${left.metrics.growthPotentialIndex} vs ${right.metrics.growthPotentialIndex}`,
-    comparisonSourceLine(pair, true),
-  ].join("\n");
+  const xSourceLine = comparisonSourceLine(pair, true);
+  const xBodyBudget = 280 - xSourceLine.length - 1;
+  const xBodyCandidates = [
+    [
+      `$${leftSymbol} vs $${rightSymbol} - ${context}`,
+      `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)} | Volume/cap: ${compactRatio(leftTurnover)} vs ${compactRatio(rightTurnover)}`,
+      `Read: ${pointInTimeRead}`,
+    ].join("\n"),
+    [
+      `$${leftSymbol} vs $${rightSymbol} - ${context}`,
+      `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)} | Vol/cap: ${compactRatio(leftTurnover)} vs ${compactRatio(rightTurnover)}`,
+      `Read: ${sevenDayLead}; ${riskRead}.`,
+    ].join("\n"),
+    `$${leftSymbol} vs $${rightSymbol}: ${sevenDayLead}; ${riskRead}.`,
+  ];
+  const xBody = xBodyCandidates.find((candidate) => candidate.length <= xBodyBudget)
+    || truncateComparisonXBody(xBodyCandidates.at(-1) || headline, xBodyBudget);
+  const x = `${xBody}\n${xSourceLine}`;
 
   const instagram = [
-    `${left.name} ($${leftSymbol}) vs ${right.name} ($${rightSymbol})`,
-    `${context} - a side-by-side market snapshot.`,
-    compactMetrics.join("\n"),
-    "No single displayed field decides the matchup. Compare price change, the volume-to-cap ratio, and the supplied risk score.",
-    "Data snapshot only. Not financial advice.",
+    `${sevenDayLead}. The more useful story is the trade-off.`,
+    `${left.name} ($${leftSymbol}) vs ${right.name} ($${rightSymbol}) · ${context}`,
+    `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)}`,
+    `Reported volume/cap: ${compactRatio(leftTurnover)} vs ${compactRatio(rightTurnover)}`,
+    `Supplied Risk: ${left.metrics.riskScore}/10 vs ${right.metrics.riskScore}/10`,
+    `Point-in-time read: ${pointInTimeRead}`,
+    "Save this snapshot and compare the same fields after the next daily close. @tokenradarco",
     sourceLine,
-    "TokenRadar.co",
-    `#Crypto #TokenComparison #TokenRadar #${leftSymbol.replace(/[^A-Z0-9_]/g, "")} #${rightSymbol.replace(/[^A-Z0-9_]/g, "")} #CryptoResearch`,
+    `#TokenComparison #CryptoResearch #MarketStructure #RiskManagement #TokenRadar`,
   ].join("\n\n");
 
   const threads = [
-    `${headline} - ${context}`,
-    compactMetrics.join("\n"),
-    "Which point-in-time snapshot would you research next: price change, volume-to-cap ratio, or supplied risk score? Not financial advice.",
+    `${headline} is a trade-off, not a leaderboard: ${pointInTimeRead}`,
+    `7d: ${comparisonPercent(left.change7d)} vs ${comparisonPercent(right.change7d)}. Volume/cap: ${compactRatio(leftTurnover)} vs ${compactRatio(rightTurnover)}. Recheck persistence before treating the gap as durable.`,
     sourceLine,
   ].join("\n\n");
 
@@ -405,6 +453,9 @@ function metricCell(label: string, value: string, valueColor = "#F5F7FA") {
 
 function tokenColumn(token: RenderableComparisonToken, accent: string) {
   const changeColor = token.change24h >= 0 ? "#00FFA3" : "#FF5470";
+  const sevenDayColor = hasFiniteSevenDayChange(token.change7d)
+    ? token.change7d >= 0 ? "#00FFA3" : "#FF5470"
+    : "#9CA3AF";
   return (
     <div
       style={{
@@ -420,22 +471,27 @@ function tokenColumn(token: RenderableComparisonToken, accent: string) {
     >
       {tokenHeader(token, accent)}
       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 8 }}>
-        {metricCell("PRICE", formatPrice(token.price))}
         <div style={{ display: "flex", gap: 10 }}>
           <div style={{ width: "50%", display: "flex" }}>{metricCell("24H", formatPercent(token.change24h), changeColor)}</div>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("7D", comparisonPercent(token.change7d), (token.change7d || 0) >= 0 ? "#00FFA3" : "#FF5470")}</div>
+          <div style={{ width: "50%", display: "flex" }}>{metricCell("7D", comparisonPercent(token.change7d), sevenDayColor)}</div>
         </div>
         <div style={{ display: "flex", gap: 10 }}>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("MARKET CAP", formatCompact(token.marketCap))}</div>
           <div style={{ width: "50%", display: "flex" }}>{metricCell("VOL / CAP", compactRatio(volumeToMarketCap(token)))}</div>
-        </div>
-        <div style={{ display: "flex", gap: 10 }}>
           <div style={{ width: "50%", display: "flex" }}>{metricCell("RISK", `${token.metrics.riskScore}/10`, getRiskColor(token.metrics.riskScore))}</div>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("GROWTH", `${token.metrics.growthPotentialIndex}/100`, accent)}</div>
         </div>
       </div>
     </div>
   );
+}
+
+export function buildComparisonVisualVerdict(pair: TokenComparisonPair): string {
+  const leftSymbol = pair.left.symbol.toUpperCase();
+  const rightSymbol = pair.right.symbol.toUpperCase();
+  const sevenDayRead = comparisonSevenDayRead(pair.left, pair.right);
+  const riskRead = pair.left.metrics.riskScore === pair.right.metrics.riskScore
+    ? `supplied Risk is tied at ${pair.left.metrics.riskScore}/10`
+    : `${pair.left.metrics.riskScore < pair.right.metrics.riskScore ? leftSymbol : rightSymbol} shows lower supplied Risk`;
+  return `${sevenDayRead} · ${riskRead}`;
 }
 
 export async function generateTokenComparisonImage(pair: TokenComparisonPair): Promise<Buffer> {
@@ -468,7 +524,7 @@ export async function generateTokenComparisonImage(pair: TokenComparisonPair): P
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", width: "100%", zIndex: 1 }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ color: "#CCFF00", fontSize: 21, fontWeight: 700, letterSpacing: "0.15em" }}>TOKEN COMPARISON</span>
-          <span style={{ color: "#F5F7FA", fontSize: 46, fontWeight: 700, marginTop: 8 }}>Side-by-Side Market Read</span>
+          <span style={{ color: "#F5F7FA", fontSize: 46, fontWeight: 700, marginTop: 8 }}>Momentum vs Supplied Risk</span>
           <span style={{ color: "#7E8491", fontSize: 20, marginTop: 8 }}>{pair.context} | Market data + TokenRadar metrics</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -484,7 +540,7 @@ export async function generateTokenComparisonImage(pair: TokenComparisonPair): P
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", marginTop: 28, zIndex: 1 }}>
-        <span style={{ color: "#8B919D", fontSize: 18 }}>Compare price change, volume-to-cap ratio, market cap, and supplied risk score.</span>
+        <span style={{ color: "#F5F7FA", fontSize: 20, fontWeight: 700 }}>{buildComparisonVisualVerdict(pair)}</span>
         <span style={{ color: "#CCFF00", fontSize: 18, fontWeight: 700 }}>TOKENRADAR.CO</span>
       </div>
     </div>
