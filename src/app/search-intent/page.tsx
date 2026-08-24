@@ -44,7 +44,7 @@ function formatDate(value: string | undefined): string {
   if (!value) return "Not captured";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "Not captured";
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 }
 
 async function buildTokenCards(

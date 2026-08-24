@@ -514,7 +514,7 @@ function pickShotAsset(
       asset,
       score: shotSegmentScore(asset, segmentId, seed, selectedIds, usageRecords),
     }))
-    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id))[0]?.asset;
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id, "en-US"))[0]?.asset;
 }
 
 function pickStartOffsetSeconds(

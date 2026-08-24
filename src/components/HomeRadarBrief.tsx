@@ -68,7 +68,7 @@ function formatLaunchWindow(tge: UpcomingTge): string {
   if (tge.graduatedAt) {
     const date = new Date(tge.graduatedAt);
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
     }
   }
 

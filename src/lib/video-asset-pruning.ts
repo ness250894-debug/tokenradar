@@ -169,7 +169,7 @@ function comparePruneCandidates(left: VideoAssetLayer, right: VideoAssetLayer): 
   const leftSize = left.fileSizeBytes || 0;
   if (leftSize !== rightSize) return rightSize - leftSize;
 
-  return left.id.localeCompare(right.id);
+  return left.id.localeCompare(right.id, "en-US");
 }
 
 function localPruneReason(asset: VideoAssetLayer, localState?: LocalVideoAssetState): VideoAssetPruneReason | null {

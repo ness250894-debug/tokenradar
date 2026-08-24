@@ -348,7 +348,7 @@ export function filterVideoCandidatesByFreshness<T extends VideoMarketFreshnessI
 export function formatVideoMarketFreshnessIssueCounts(issueCounts: VideoMarketFreshnessIssueCounts): string {
   const parts = Object.entries(issueCounts)
     .filter(([, count]) => Number(count) > 0)
-    .sort(([a], [b]) => a.localeCompare(b))
+    .sort(([a], [b]) => a.localeCompare(b, "en-US"))
     .map(([issue, count]) => `${issue}=${count}`);
   return parts.length ? parts.join(", ") : "none";
 }

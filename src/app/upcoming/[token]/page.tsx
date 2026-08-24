@@ -25,7 +25,7 @@ function formatDate(value: string | undefined): string {
   if (!value) return "Not checked";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "Not checked";
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 }
 
 export async function generateStaticParams() {
@@ -133,8 +133,8 @@ export default async function TgePage({ params }: TgePageProps) {
           </span>
           <span className="last-updated">
             {isReleased && tge.graduatedAt
-              ? `Launched: ${new Date(tge.graduatedAt).toLocaleDateString()}`
-              : `Discovered: ${new Date(tge.discoveredAt).toLocaleDateString()}`}
+              ? `Launched: ${new Date(tge.graduatedAt).toLocaleDateString("en-US", { timeZone: "UTC" })}`
+              : `Discovered: ${new Date(tge.discoveredAt).toLocaleDateString("en-US", { timeZone: "UTC" })}`}
           </span>
         </div>
         <h1 style={{ fontSize: "var(--text-4xl)", fontWeight: 800 }}>{tge.name} ({tge.symbol.toUpperCase()})</h1>
@@ -174,7 +174,7 @@ export default async function TgePage({ params }: TgePageProps) {
           <div className="stat-label">{isReleased ? "Launched" : "Expected TGE"}</div>
           <div className="stat-value">
             {isReleased && tge.graduatedAt
-              ? new Date(tge.graduatedAt).toLocaleDateString()
+              ? new Date(tge.graduatedAt).toLocaleDateString("en-US", { timeZone: "UTC" })
               : tge.expectedTge}
           </div>
           <div className="stat-change" style={{ color: "var(--text-muted)" }}>

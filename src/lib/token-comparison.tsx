@@ -197,7 +197,7 @@ export function selectTokenComparisonPair(
   }
 
   if (!bestPair) {
-    const ranked = [...pool].sort((left, right) => left.rank - right.rank || left.id.localeCompare(right.id));
+    const ranked = [...pool].sort((left, right) => left.rank - right.rank || left.id.localeCompare(right.id, "en-US"));
     bestPair = [ranked[0], ranked[1]];
   }
 

@@ -141,7 +141,7 @@ export function filterAndSortTokens<T extends TokenDirectoryItem>(
   });
 
   return [...filtered].sort((a, b) => {
-    if (state.sortBy === "name-asc") return a.name.localeCompare(b.name);
+    if (state.sortBy === "name-asc") return a.name.localeCompare(b.name, "en-US");
     if (state.sortBy === "change-desc") return (b.priceChange24h || 0) - (a.priceChange24h || 0);
     if (state.sortBy === "change-asc") return (a.priceChange24h || 0) - (b.priceChange24h || 0);
     if (state.sortBy === "risk-asc") return a.riskScore - b.riskScore;
@@ -203,7 +203,7 @@ export function filterAndSortTges<T extends TgeDirectoryItem>(
   });
 
   return [...filtered].sort((a, b) => {
-    if (state.sortBy === "name-asc") return a.name.localeCompare(b.name);
+    if (state.sortBy === "name-asc") return a.name.localeCompare(b.name, "en-US");
     if (state.sortBy === "verified-desc") {
       return (
         new Date(b.lastVerifiedAt || b.discoveredAt).getTime() -

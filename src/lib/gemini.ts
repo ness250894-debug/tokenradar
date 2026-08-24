@@ -1557,7 +1557,7 @@ Selection Reason: ${metrics.selectionReason || "market spotlight"}
 Trending Context: N/A (free-form third-party text excluded)
 Global Market: N/A (free-form third-party text excluded)
 Sector Performance: N/A (free-form third-party text excluded)
-Community: ${metrics.twitterFollowers !== undefined ? `${metrics.twitterFollowers.toLocaleString()} Twitter followers` : "N/A"}${metrics.redditSubscribers !== undefined ? `, ${metrics.redditSubscribers.toLocaleString()} Reddit subscribers` : ""}
+Community: ${metrics.twitterFollowers !== undefined ? `${metrics.twitterFollowers.toLocaleString("en-US")} Twitter followers` : "N/A"}${metrics.redditSubscribers !== undefined ? `, ${metrics.redditSubscribers.toLocaleString("en-US")} Reddit subscribers` : ""}
 Developer: ${metrics.githubCommits4Weeks === undefined || metrics.githubCommits4Weeks === null ? "N/A (no developer data supplied)" : `${metrics.githubCommits4Weeks} GitHub commits in 4 weeks`}
 ${socialContextSection}
 BACKGROUND CONTEXT:

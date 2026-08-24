@@ -17,6 +17,8 @@ function formatTimestamp(value: string): string {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "UTC",
+    timeZoneName: "short",
   });
 }
 
@@ -48,7 +50,7 @@ export function LocalAnalyticsInspector() {
     const counts = new Map<string, number>();
     events.forEach((event) => counts.set(event.eventName, (counts.get(event.eventName) || 0) + 1));
     return Array.from(counts.entries())
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "en-US"))
       .slice(0, 6);
   }, [events]);
 
