@@ -54,5 +54,5 @@ export async function getIndexableTokenProfiles(tokens?: DirectoryToken[]) {
 
   return candidates
     .filter((token): token is DirectoryToken => Boolean(token))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => a.name.localeCompare(b.name, "en-US"));
 }

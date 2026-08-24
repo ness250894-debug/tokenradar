@@ -35,7 +35,7 @@ function newestVerification(tges: UpcomingTge[]): string {
     .sort((a, b) => b - a)[0];
 
   if (!latest) return "Pending";
-  return new Date(latest).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return new Date(latest).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 }
 
 export default async function UpcomingPage() {

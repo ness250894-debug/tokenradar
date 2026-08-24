@@ -818,7 +818,7 @@ export async function getSearchIntentTrendMap(): Promise<Record<string, TokenSea
   if (_searchIntentTrendMap) return _searchIntentTrendMap;
 
   const history = await getSearchIntentHistoryDataset();
-  const entries = [...(history?.entries || [])].sort((a, b) => b.date.localeCompare(a.date));
+  const entries = [...(history?.entries || [])].sort((a, b) => b.date.localeCompare(a.date, "en-US"));
 
   if (entries.length < 2) {
     _searchIntentTrendMap = {};
@@ -868,7 +868,7 @@ export async function getTopSearchIntentTokens(limit: number = 6): Promise<Token
   if (!dataset?.tokens) return [];
 
   return Object.values(dataset.tokens)
-    .sort((a, b) => b.attentionScore - a.attentionScore || b.hypeScore - a.hypeScore || a.tokenName.localeCompare(b.tokenName))
+    .sort((a, b) => b.attentionScore - a.attentionScore || b.hypeScore - a.hypeScore || a.tokenName.localeCompare(b.tokenName, "en-US"))
     .slice(0, limit);
 }
 
@@ -885,7 +885,7 @@ export async function getSearchIntentTokensByIntent(
     .sort((a, b) => {
       const aIntentScore = a.intentMix.find((item) => item.intent === intent)?.score || 0;
       const bIntentScore = b.intentMix.find((item) => item.intent === intent)?.score || 0;
-      return bIntentScore - aIntentScore || b.attentionScore - a.attentionScore || a.tokenName.localeCompare(b.tokenName);
+      return bIntentScore - aIntentScore || b.attentionScore - a.attentionScore || a.tokenName.localeCompare(b.tokenName, "en-US");
     });
 
   return typeof limit === "number" ? matching.slice(0, limit) : matching;

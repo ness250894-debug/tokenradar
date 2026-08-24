@@ -62,7 +62,7 @@ export function ProfitCalculator({
         <div style={{ marginBottom: "var(--space-xl)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-xs)" }}>
             <label htmlFor={investmentId} style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>Investment Amount</label>
-            <span style={{ fontWeight: 600, fontFamily: "var(--font-mono)" }}>${investment.toLocaleString()}</span>
+            <span style={{ fontWeight: 600, fontFamily: "var(--font-mono)" }}>${investment.toLocaleString("en-US")}</span>
           </div>
           <input 
             id={investmentId}
@@ -71,7 +71,7 @@ export function ProfitCalculator({
             max="100000"
             step="100"
             value={investment}
-            aria-valuetext={`$${investment.toLocaleString()} investment`}
+            aria-valuetext={`$${investment.toLocaleString("en-US")} investment`}
             onChange={(e) => {
               const nextValue = Number(e.target.value);
               setInvestment(nextValue);

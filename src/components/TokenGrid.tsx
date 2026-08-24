@@ -86,7 +86,7 @@ export function TokenGrid({
 
   const categories = useMemo(() => {
     return Array.from(new Set(resolvedTokens.map((token) => token.category).filter(Boolean))).sort((a, b) =>
-      a.localeCompare(b),
+      a.localeCompare(b, "en-US"),
     );
   }, [resolvedTokens]);
 
@@ -95,7 +95,7 @@ export function TokenGrid({
     resolvedTokens.forEach((token) => {
       if (token.searchIntentPrimaryIntent) intents.add(token.searchIntentPrimaryIntent);
     });
-    return Array.from(intents).sort((a, b) => SEARCH_INTENT_LABELS[a].localeCompare(SEARCH_INTENT_LABELS[b]));
+    return Array.from(intents).sort((a, b) => SEARCH_INTENT_LABELS[a].localeCompare(SEARCH_INTENT_LABELS[b], "en-US"));
   }, [resolvedTokens]);
 
   const filteredTokens = useMemo(

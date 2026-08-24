@@ -61,6 +61,7 @@ export function PriceChart({
     label: new Date(d.date).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
+      timeZone: "UTC",
     }),
   }));
 

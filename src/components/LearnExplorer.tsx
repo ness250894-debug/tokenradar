@@ -145,7 +145,7 @@ export function LearnExplorer({ items, categories }: LearnExplorerProps) {
               </span>
               <span>
                 <BookOpen size={14} aria-hidden="true" />
-                {item.wordCount.toLocaleString()} words
+                {item.wordCount.toLocaleString("en-US")} words
               </span>
               <span>
                 <Tag size={14} aria-hidden="true" />

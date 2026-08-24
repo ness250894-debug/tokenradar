@@ -604,7 +604,7 @@ export function getRelatedLearnItems(items: LearnItem[], current: LearnItem, lim
         (item.category === current.category ? 3 : 0) +
         item.tags.filter((tag) => current.tags.includes(tag)).length,
     }))
-    .sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title))
+    .sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title, "en-US"))
     .slice(0, limit)
     .map(({ item }) => item);
 }

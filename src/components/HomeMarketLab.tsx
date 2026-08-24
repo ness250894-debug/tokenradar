@@ -44,7 +44,7 @@ function riskTone(score: number): "green" | "yellow" | "red" {
 function formatLaunchWindow(tge: UpcomingTge): string {
   if (tge.graduatedAt) {
     const date = new Date(tge.graduatedAt);
-    if (!Number.isNaN(date.getTime())) return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    if (!Number.isNaN(date.getTime())) return date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
   }
 
   return tge.expectedTge || "Window pending";

@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import deterministicLocaleFormatting from "./eslint-rules/deterministic-locale-formatting.mjs";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -20,6 +21,19 @@ const eslintConfig = defineConfig([
       "no-console": ["warn", { allow: ["warn", "error", "info"] }],
       "prefer-const": "error",
       "no-var": "error",
+    },
+  },
+  {
+    files: ["src/**/*.{js,jsx,ts,tsx}"],
+    plugins: {
+      tokenradar: {
+        rules: {
+          "deterministic-locale-formatting": deterministicLocaleFormatting,
+        },
+      },
+    },
+    rules: {
+      "tokenradar/deterministic-locale-formatting": "error",
     },
   },
   // Relax rules for scripts and scratch files

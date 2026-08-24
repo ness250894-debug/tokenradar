@@ -197,7 +197,7 @@ export default async function LearnPage() {
           </div>
           <div>
             <ShieldCheck size={22} aria-hidden="true" />
-            <span>{totalWords.toLocaleString()}</span>
+            <span>{totalWords.toLocaleString("en-US")}</span>
             <p>Words of reviewed education</p>
           </div>
           <div>

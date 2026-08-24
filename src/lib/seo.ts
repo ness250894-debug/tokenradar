@@ -184,7 +184,7 @@ export function choosePreferredTgeId(candidates: readonly TgeRouteCandidate[]): 
     .sort((a, b) => {
       const scoreDifference = getTgeCandidateScore(b) - getTgeCandidateScore(a);
       if (scoreDifference !== 0) return scoreDifference;
-      return a.tge.id.localeCompare(b.tge.id);
+      return a.tge.id.localeCompare(b.tge.id, "en-US");
     })[0]?.tge.id || null;
 }
 

@@ -376,7 +376,7 @@ export default async function TokenPage({ params }: PageProps) {
           <div style={{ display: "grid", gap: "var(--space-sm)" }}>
             <div style={{ padding: "var(--space-md)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-sm)" }}>
               <div className="stat-label">Market Data Updated</div>
-              <div style={{ fontWeight: 700 }}>{new Date(detail.fetchedAt).toLocaleDateString()}</div>
+              <div style={{ fontWeight: 700 }}>{new Date(detail.fetchedAt).toLocaleDateString("en-US", { timeZone: "UTC" })}</div>
             </div>
             <div style={{ padding: "var(--space-md)", border: "1px solid var(--border-color)", borderRadius: "var(--radius-sm)" }}>
               <div className="stat-label">Article Quality Gate</div>

@@ -397,7 +397,7 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
   if (tokenData) {
     // 1. Placeholder Substitutions (used by AI templates)
     const now = new Date();
-    const dateStr = now.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+    const dateStr = now.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
     
     const replacements: Record<string, string> = {
       "{{LIVE_PRICE}}": formatPrice(tokenData.price),

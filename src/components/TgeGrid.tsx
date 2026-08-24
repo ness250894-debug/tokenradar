@@ -41,7 +41,7 @@ function formatDate(value: string | undefined): string {
   if (!value) return "Not checked";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "Not checked";
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 }
 
 export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
@@ -61,7 +61,7 @@ export function TgeGrid({ tges }: { tges: UpcomingTge[] }) {
   }), [categoryFilter, searchQuery, sortBy, statusFilter]);
 
   const categories = useMemo(() => {
-    return Array.from(new Set(tges.map((tge) => tge.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+    return Array.from(new Set(tges.map((tge) => tge.category).filter(Boolean))).sort((a, b) => a.localeCompare(b, "en-US"));
   }, [tges]);
 
   const filteredTges = useMemo(() => filterAndSortTges(tges, directoryState), [directoryState, tges]);
