@@ -846,6 +846,12 @@ function formatSocialMarketCap(marketCap: number | undefined): string {
     : `$${(marketCap / 1e6).toFixed(0)}M`;
 }
 
+function formatOptionalScore(score: number | undefined, maximum: number): string {
+  return typeof score === "number" && Number.isFinite(score)
+    ? `${score}/${maximum}`
+    : "N/A";
+}
+
 function marketDataAttribution(metrics: MarketContext): string | undefined {
   return formatMarketDataAttribution({
     marketDataSource: metrics.marketDataSource,
@@ -1057,10 +1063,11 @@ function fallbackTelegramSummary(
   metrics: MarketContext,
   maxChars: number,
 ): string {
+  const riskScore = formatOptionalScore(metrics.riskScore, 10);
   const summary = [
     `<b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>`,
     `Setup: ${formatSocialChange(metrics.priceChange24h)} over 24h, price <b>${formatSocialPrice(metrics.price)}</b>, market cap <b>${formatSocialMarketCap(metrics.marketCap)}</b>.`,
-    `Why it matters: selection reason is ${metrics.selectionReason || "market spotlight"} with risk score <b>${metrics.riskScore ?? "N/A"}/10</b>.`,
+    `Why it matters: selection reason is ${metrics.selectionReason || "market spotlight"} with risk score <b>${riskScore}</b>.`,
     marketDataAttribution(metrics),
     `Risk / invalidation: treat the snapshot as inconclusive until liquidity and trend confirmation align.`,
     `<tg-spoiler>TokenRadar read: this remains watchlist research.</tg-spoiler>`,
@@ -1503,7 +1510,11 @@ TIKTOK RULES:
   const priceStr = formatSocialPrice(metrics.price);
   const changeStr = formatSocialChange(metrics.priceChange24h);
   const marketCapStr = formatSocialMarketCap(metrics.marketCap);
-  const riskGauge = getRiskGauge(metrics.riskScore);
+  const riskScore = formatOptionalScore(metrics.riskScore, 10);
+  const growthScore = formatOptionalScore(metrics.growthPotentialIndex, 100);
+  const riskProfile = riskScore === "N/A"
+    ? "N/A"
+    : `${getRiskGauge(metrics.riskScore)} (Score: ${riskScore})`;
   // Free-form third-party context is excluded from the instruction body. Only
   // typed numeric fields and controlled enum-like selection metadata are used.
   const socialContextSection = "";
@@ -1540,8 +1551,8 @@ Market Cap: ${marketCapStr} (Rank: #${metrics.marketCapRank ?? "N/A"})
 24h Volume: ${formatSocialMarketCap(metrics.volume24h)}
 Market Data Source: ${metrics.marketDataSource || "N/A"}
 Market Data As Of: ${metrics.marketDataAsOf || "N/A"}
-Risk Profile: ${riskGauge} (Score: ${metrics.riskScore ?? "N/A"}/10)
-Growth Index: ${metrics.growthPotentialIndex ?? "N/A"}/100
+Risk Profile: ${riskProfile}
+Growth Index: ${growthScore}
 Selection Reason: ${metrics.selectionReason || "market spotlight"}
 Trending Context: N/A (free-form third-party text excluded)
 Global Market: N/A (free-form third-party text excluded)

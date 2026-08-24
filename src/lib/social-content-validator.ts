@@ -401,6 +401,10 @@ const FLAT_DIRECTION_PATTERN = /\b(?:flat|unchanged|steady|no\s+change)\b/i;
 
 function hasNon24hTimeframe(text: string): boolean {
   const withoutAllowedDailyWindow = text
+    // Scaled currency suffixes are amounts, not timeframe units. Without this
+    // mask, values such as "$49M" are interpreted as "49 minutes" by the
+    // case-insensitive shorthand matcher below.
+    .replace(/[$€£]\s*\d[\d,]*(?:\.\d+)?\s*[kmbt]?\b/gi, " ")
     .replace(/\b(?:24\s*h|24[ -]hours?|1d|one[ -]day|daily)\b/gi, " ");
   return /\b(?:\d+\s*(?:m|min(?:ute)?s?|h|hours?|d|days?|w|weeks?|mo|months?|y|years?)|(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|thirty|sixty|ninety|hundred|three\s+hundred|three\s+hundred\s+sixty[ -]five)\s+(?:minutes?|hours?|days?|weeks?|months?|years?)|week(?:ly)?|month(?:ly)?|year(?:ly)?|ytd|year[ -]to[ -]date|q[1-4]|quarter(?:ly)?|this\s+(?:week|month|quarter|year)|since\s+(?:launch|inception|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|all[ -]time)\b/i.test(withoutAllowedDailyWindow);
 }
