@@ -365,6 +365,18 @@ describe("automation runbook contract", () => {
     }
   });
 
+  it("scopes the optional R2 account metrics token to the usage snapshot step", () => {
+    const workflow = readWorkflow("social-automations.yml");
+    const snapshotStart = workflow.indexOf("- name: Record Daily Cloudflare Usage Snapshot");
+    const snapshotEnd = workflow.indexOf("\n      - name:", snapshotStart + 1);
+    const snapshotBlock = workflow.slice(snapshotStart, snapshotEnd);
+    const tokenMapping = "CLOUDFLARE_R2_METRICS_API_TOKEN: ${{ secrets.CLOUDFLARE_R2_METRICS_API_TOKEN }}";
+
+    expect(snapshotStart).toBeGreaterThan(-1);
+    expect(snapshotBlock).toContain(tokenMapping);
+    expect(workflow.replace(snapshotBlock, "")).not.toContain("CLOUDFLARE_R2_METRICS_API_TOKEN");
+  });
+
   it("allows an R2 deletion preview without weakening confirmed deletion authorization", () => {
     const script = fs.readFileSync(path.join(process.cwd(), "scripts", "prune-video-assets.ts"), "utf-8");
     const deleteFunctionStart = script.indexOf("async function deleteUnreferencedR2Assets");

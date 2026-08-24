@@ -1,10 +1,10 @@
 import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
+import path from "path";
+import { pathToFileURL } from "url";
 
 import { executeD1Query, loadD1Config } from "../src/lib/d1-client";
 import { isOpsLedgerEnabled, recordQuotaSnapshot } from "../src/lib/ops-ledger";
 import { formatErrorForLog, loadEnv } from "../src/lib/utils";
-
-loadEnv();
 
 type JsonRecord = Record<string, unknown>;
 
@@ -34,7 +34,19 @@ interface R2Config {
   bucketName: string;
 }
 
+interface CloudflareApiConfig {
+  apiToken: string;
+  apiBaseUrl: string;
+}
+
+export interface R2MetricsConfig extends CloudflareApiConfig {
+  accountId: string;
+}
+
+type SnapshotStatus = "recorded" | "disabled" | "skipped" | "failed";
+
 const PERIOD = new Date().toISOString().slice(0, 10);
+const DEFAULT_CLOUDFLARE_API_BASE_URL = "https://api.cloudflare.com/client/v4";
 
 function requiredD1Config() {
   const config = loadD1Config({ required: true });
@@ -42,10 +54,13 @@ function requiredD1Config() {
   return config;
 }
 
-async function cloudflareGet<T>(path: string): Promise<CloudflareResponse<T>> {
-  const config = requiredD1Config();
-  const url = `${config.apiBaseUrl.replace(/\/$/, "")}${path}`;
-  const response = await fetch(url, {
+async function cloudflareGet<T>(
+  endpointPath: string,
+  config: CloudflareApiConfig = requiredD1Config(),
+  fetchImpl: typeof fetch = fetch,
+): Promise<CloudflareResponse<T>> {
+  const url = `${config.apiBaseUrl.replace(/\/$/, "")}${endpointPath}`;
+  const response = await fetchImpl(url, {
     headers: {
       Authorization: `Bearer ${config.apiToken}`,
       "Content-Type": "application/json",
@@ -59,6 +74,75 @@ async function cloudflareGet<T>(path: string): Promise<CloudflareResponse<T>> {
   }
 
   return payload;
+}
+
+export function loadR2MetricsConfig(): R2MetricsConfig | null {
+  const apiToken = process.env.CLOUDFLARE_R2_METRICS_API_TOKEN?.trim();
+  if (!apiToken) return null;
+
+  const accountId = process.env.R2_ACCOUNT_ID?.trim();
+  if (!accountId) {
+    throw new Error(
+      "CLOUDFLARE_R2_METRICS_API_TOKEN is configured, but R2_ACCOUNT_ID is missing.",
+    );
+  }
+
+  return {
+    accountId,
+    apiToken,
+    apiBaseUrl: process.env.CLOUDFLARE_API_BASE_URL?.trim() || DEFAULT_CLOUDFLARE_API_BASE_URL,
+  };
+}
+
+export async function fetchR2AccountMetrics(
+  config: R2MetricsConfig,
+  fetchImpl: typeof fetch = fetch,
+): Promise<JsonRecord> {
+  const metrics = await cloudflareGet<JsonRecord>(
+    `/accounts/${config.accountId}/r2/metrics`,
+    config,
+    fetchImpl,
+  );
+  if (!metrics.result || typeof metrics.result !== "object" || Array.isArray(metrics.result)) {
+    throw new Error("Cloudflare R2 metrics response is missing a valid result object.");
+  }
+  return metrics.result;
+}
+
+export function formatR2AccountMetricsFailure(error: unknown): string {
+  return [
+    `R2 account metrics snapshot failed: ${formatErrorForLog(error)}.`,
+    "Verify that CLOUDFLARE_R2_METRICS_API_TOKEN has account-scoped Workers R2 Storage Read permission",
+    "and that R2_ACCOUNT_ID belongs to the same account.",
+    "Bucket-level S3 metrics are handled separately.",
+  ].join(" ");
+}
+
+function escapeWorkflowCommandValue(value: string): string {
+  return value.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+}
+
+function reportWorkflowWarning(title: string, message: string): void {
+  if (process.env.GITHUB_ACTIONS === "true") {
+    console.warn(`::warning title=${title}::${escapeWorkflowCommandValue(message)}`);
+  } else {
+    console.warn(`  [warn] ${message}`);
+  }
+}
+
+function reportR2AccountMetricsFailure(error: unknown): string {
+  const message = formatR2AccountMetricsFailure(error);
+  reportWorkflowWarning("R2 account metrics snapshot failed", message);
+  return message;
+}
+
+function reportR2BucketSnapshotFailure(error: unknown): string {
+  const message = [
+    `R2 bucket snapshot failed: ${formatErrorForLog(error)}.`,
+    "Account-level metrics will still be attempted independently.",
+  ].join(" ");
+  reportWorkflowWarning("R2 bucket snapshot failed", message);
+  return message;
 }
 
 function numberField(value: unknown): number {
@@ -137,39 +221,42 @@ async function recordD1Snapshots(): Promise<void> {
   }
 }
 
-async function recordR2Snapshots(): Promise<void> {
-  const config = requiredD1Config();
-
-  try {
-    const metrics = await cloudflareGet<JsonRecord>(`/accounts/${config.accountId}/r2/metrics`);
-    const result = metrics.result || {};
-    const payloadSize = sumR2Metric(result, "payloadSize");
-    const metadataSize = sumR2Metric(result, "metadataSize");
-    const objects = sumR2Metric(result, "objects");
-
-    await recordQuotaSnapshot({
-      source: "r2_storage_bytes",
-      period: PERIOD,
-      count: payloadSize + metadataSize,
-      details: { payloadSize, metadataSize },
-    });
-
-    await recordQuotaSnapshot({
-      source: "r2_object_count",
-      period: PERIOD,
-      count: objects,
-      details: { accountLevelMetrics: true },
-    });
-  } catch (error) {
-    console.warn(`  [warn] R2 metrics snapshot skipped: ${formatErrorForLog(error)}`);
+async function recordR2Snapshots(): Promise<SnapshotStatus> {
+  const config = loadR2MetricsConfig();
+  if (!config) {
+    console.log(
+      "R2 account metrics disabled (CLOUDFLARE_R2_METRICS_API_TOKEN is not configured); "
+      + "bucket-level metrics will still be recorded when S3 credentials are available.",
+    );
+    return "disabled";
   }
+
+  const result = await fetchR2AccountMetrics(config);
+  const payloadSize = sumR2Metric(result, "payloadSize");
+  const metadataSize = sumR2Metric(result, "metadataSize");
+  const objects = sumR2Metric(result, "objects");
+
+  await recordQuotaSnapshot({
+    source: "r2_storage_bytes",
+    period: PERIOD,
+    count: payloadSize + metadataSize,
+    details: { payloadSize, metadataSize },
+  });
+
+  await recordQuotaSnapshot({
+    source: "r2_object_count",
+    period: PERIOD,
+    count: objects,
+    details: { accountLevelMetrics: true },
+  });
+  return "recorded";
 }
 
-async function recordR2BucketSnapshot(): Promise<void> {
+async function recordR2BucketSnapshot(): Promise<SnapshotStatus> {
   const config = loadR2Config();
   if (!config) {
     console.log("R2 S3 credentials are not configured; skipping bucket-level R2 usage snapshot.");
-    return;
+    return "skipped";
   }
 
   const client = new S3Client({
@@ -218,6 +305,7 @@ async function recordR2BucketSnapshot(): Promise<void> {
       method: "s3-list-objects",
     },
   });
+  return "recorded";
 }
 
 async function main(): Promise<void> {
@@ -227,12 +315,40 @@ async function main(): Promise<void> {
   }
 
   await recordD1Snapshots();
-  await recordR2Snapshots();
-  await recordR2BucketSnapshot();
-  console.log(`Cloudflare usage snapshot recorded for ${PERIOD}.`);
+  let bucketStatus: SnapshotStatus = "skipped";
+  let accountStatus: SnapshotStatus = "disabled";
+  const componentFailures: string[] = [];
+  try {
+    bucketStatus = await recordR2BucketSnapshot();
+  } catch (error) {
+    bucketStatus = "failed";
+    componentFailures.push(reportR2BucketSnapshotFailure(error));
+  }
+  try {
+    accountStatus = await recordR2Snapshots();
+  } catch (error) {
+    accountStatus = "failed";
+    componentFailures.push(reportR2AccountMetricsFailure(error));
+  }
+
+  console.log(
+    `Cloudflare usage snapshot for ${PERIOD}: D1=recorded; `
+    + `R2 bucket=${bucketStatus}; R2 account=${accountStatus}.`,
+  );
+  if (componentFailures.length > 0) {
+    throw new Error(`Cloudflare usage snapshot component failure(s): ${componentFailures.join(" | ")}`);
+  }
 }
 
-main().catch((error) => {
-  console.error(`Cloudflare usage snapshot failed: ${formatErrorForLog(error)}`);
-  process.exit(1);
-});
+function isDirectExecution(): boolean {
+  const entrypoint = process.argv[1];
+  return Boolean(entrypoint) && import.meta.url === pathToFileURL(path.resolve(entrypoint)).href;
+}
+
+if (isDirectExecution()) {
+  loadEnv();
+  main().catch((error) => {
+    console.error(`Cloudflare usage snapshot failed: ${formatErrorForLog(error)}`);
+    process.exit(1);
+  });
+}

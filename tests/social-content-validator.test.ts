@@ -256,6 +256,52 @@ describe("social content validator", () => {
     }
   });
 
+  it("does not interpret scaled currency amounts as non-24h timeframes", () => {
+    const ponsFacts: SocialContentFacts = {
+      tokenName: "Pons",
+      symbol: "PONS",
+      price: 0.069268,
+      priceChange24h: 61.4,
+      marketCap: 49_476_249,
+      marketCapRank: 454,
+      volume24h: 15_970_073,
+      marketDataSource: "coingecko-live",
+      marketDataAsOf: "2026-08-24T01:55:20.000Z",
+    };
+    const attribution = "CoinGecko snapshot, 2026-08-24 01:55 UTC";
+    const valid = validateSocialContent(
+      `Setup: +61.40% over 24h, price $0.069268, market cap $49M. ${attribution}`,
+      ponsFacts,
+    );
+    expect(valid).toEqual({ ok: true, issues: [] });
+
+    for (const marketCap of ["$49m", "€49M", "£49M"]) {
+      const result = validateSocialContent(
+        `Pons gained +61.40% over 24h at a ${marketCap} market cap. ${attribution}`,
+        ponsFacts,
+      );
+      expect(result.issues).not.toContainEqual(expect.objectContaining({
+        code: "unsupported-number",
+        value: "+61.40%",
+      }));
+    }
+
+    for (const claim of [
+      "Pons gained +61.40% over 7d at a $49M market cap.",
+      "Pons gained +61.40% this week at a $49M market cap.",
+      "Pons gained +61.40% YTD at a $49M market cap.",
+      "Pons gained +61.40% since Monday at a $49M market cap.",
+      "Pons gained +61.40%, over 7d, at a $49M market cap.",
+      "Pons gained +61.40%; over 7d at a $49M market cap.",
+    ]) {
+      const invalid = validateSocialContent(`${claim} ${attribution}`, ponsFacts);
+      expect(invalid.issues).toContainEqual(expect.objectContaining({
+        code: "unsupported-number",
+        value: "+61.40%",
+      }));
+    }
+  });
+
   it("rejects unsupported word-number and multiplier claims", () => {
     for (const text of [
       "Pump.fun has ten million users.",

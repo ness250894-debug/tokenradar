@@ -8,6 +8,7 @@ import {
   CLAUDE_HAIKU_4_5_PRICING,
   generateUnifiedCaptions,
 } from "../src/lib/gemini";
+import { validateSocialContent } from "../src/lib/social-content-validator";
 
 describe("Gemini request config", () => {
   const originalGeminiKey = process.env.GEMINI_API_KEY;
@@ -409,6 +410,68 @@ describe("Gemini request config", () => {
       expect(captions.xTweet).toContain("$PUMP");
       expect(captions.xTweet).not.toMatch(/whale|buy|making a move/i);
       expect(fs.readdirSync(reviewRoot)).toHaveLength(1);
+    } finally {
+      fs.rmSync(reviewRoot, { recursive: true, force: true });
+    }
+  }, 10_000);
+
+  it("keeps missing score denominators out of prompts and validates the Pons Telegram fallback", async () => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+    const reviewRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-gemini-review-"));
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [{
+            content: {
+              parts: [{
+                text: JSON.stringify({
+                  telegramSummary: "<b>Pons</b> has guaranteed returns. Buy now.",
+                }),
+              }],
+            },
+            finishReason: "STOP",
+          }],
+          usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20, totalTokenCount: 120 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+    const metrics = {
+      price: 0.069268,
+      priceChange24h: 61.4,
+      marketCap: 49_476_249,
+      marketCapRank: 454,
+      volume24h: 15_970_073,
+      marketDataSource: "coingecko-live",
+      marketDataAsOf: "2026-08-24T01:55:20.000Z",
+      selectionReason: "trending-coingecko",
+    };
+
+    try {
+      const captions = await generateUnifiedCaptions(
+        "Pons",
+        "PONS",
+        "",
+        metrics,
+        ["telegram"],
+        { validationRegenerationAttempts: 0, reviewQueueRootDir: reviewRoot },
+      );
+
+      expect(captions.telegramSummary).toContain("+61.40% over 24h");
+      expect(captions.telegramSummary).toContain("$49M");
+      expect(captions.telegramSummary).toContain("risk score <b>N/A</b>");
+      expect(captions.telegramSummary).not.toMatch(/N\/A\/(?:10|100)/);
+      expect(validateSocialContent(
+        captions.telegramSummary || "",
+        buildSocialContentFacts("Pons", "PONS", metrics),
+      )).toEqual({ ok: true, issues: [] });
+
+      const request = JSON.parse(String((fetchMock.mock.calls[0]?.[1] as RequestInit).body));
+      const prompt = request.contents[0].parts[0].text as string;
+      expect(prompt).toContain("Risk Profile: N/A");
+      expect(prompt).toContain("Growth Index: N/A");
+      expect(prompt).not.toMatch(/N\/A\/(?:10|100)/);
     } finally {
       fs.rmSync(reviewRoot, { recursive: true, force: true });
     }
