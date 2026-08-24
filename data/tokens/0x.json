@@ -5,16 +5,16 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/863/large/0x.png?1696501996",
   "description": "",
   "categories": [
+    "Decentralized Exchange (DEX)",
     "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
     "Coinbase Ventures Portfolio",
     "Pantera Capital Portfolio",
-    "Decentralized Exchange (DEX)",
+    "GMCI DeFi Index",
     "Blockchain Capital Portfolio",
     "GMCI Index",
-    "GMCI DeFi Index",
-    "Decentralized Finance (DeFi)",
     "Made in USA",
-    "Ethereum Ecosystem",
     "Governance"
   ],
   "genesisDate": "2017-08-11",
@@ -25,25 +25,25 @@
     "explorer": "https://etherscan.io/token/0xe41d2489571d322189246dafa5ebde1f4699f498"
   },
   "market": {
-    "price": 0.100573,
-    "marketCap": 85324520,
-    "marketCapRank": 291,
-    "volume24h": 19345806,
-    "high24h": 0.101096,
-    "low24h": 0.092373,
-    "priceChange24h": 4.6,
-    "priceChange7d": 30.9,
-    "priceChange30d": 19.9,
-    "priceChange1y": -61.5,
+    "price": 0.098258,
+    "marketCap": 83364480,
+    "marketCapRank": 299,
+    "volume24h": 18776280,
+    "high24h": 0.103981,
+    "low24h": 0.096811,
+    "priceChange24h": -2.52511,
+    "priceChange7d": 30.14294,
+    "priceChange30d": 16.96722,
+    "priceChange1y": -61.68692,
     "ath": 2.5,
-    "athChangePercentage": -95.97215,
+    "athChangePercentage": -96.06484,
     "athDate": "2018-01-12T16:00:00.000Z",
     "atl": 0.073101,
     "atlDate": "2026-08-18T04:04:50.000Z",
     "circulatingSupply": 848396562.906836,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 100571506
+    "fdv": 98261219
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +54,6 @@
     "githubForks": 507,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:17:38.304Z",
-  "lastMarketUpdate": "2026-08-23T17:56:30.000Z"
+  "fetchedAt": "2026-08-24T18:14:00.566Z",
+  "lastMarketUpdate": "2026-08-24T18:11:40.000Z"
 }

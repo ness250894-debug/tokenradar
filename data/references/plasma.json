@@ -3,25 +3,18 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Web3 gaming network Sandbox stops Base and BNB chain bridging after exploit",
-      "link": "https://www.coindesk.com/web3/2026/08/22/web3-gaming-network-sandbox-stops-base-and-bnb-chain-bridging-after-exploit",
-      "pubDate": "Sat, 22 Aug 2026 14:10:17 +0000",
+      "title": "Ethereum lending app Term Finance loses $8.5 million after attacker buys voting power",
+      "link": "https://www.coindesk.com/markets/2026/08/24/ethereum-lending-app-term-finance-loses-usd8-5-million-after-attacker-buys-voting-power",
+      "pubDate": "Mon, 24 Aug 2026 06:27:33 +0000",
       "source": "CoinDesk",
-      "snippet": "The Sandbox disabled bridging on affected networks to isolate tokens and warned users not to trade SAND on Base and BNB, citing an impact of under 0.01% of supply."
+      "snippet": "The exploit shows how lightly held voting tokens can become a means of attack when control of a protocol is cheaper than the assets it governs."
     },
     {
-      "title": "MANTRA token plunges 18% to record low as blockchain halts after exploit",
-      "link": "https://www.coindesk.com/tech/2026/08/21/mantra-token-plunges-18-to-record-low-as-blockchain-halts-after-exploit",
-      "pubDate": "Fri, 21 Aug 2026 05:52:27 +0000",
-      "source": "CoinDesk",
-      "snippet": "The token touched $0.004126 minutes before the network stopped producing blocks, while MANTRA later said an attacker exploited a vulnerability in software used by the chain."
-    },
-    {
-      "title": "CFTC chair says agency will move forward on crypto regulation if CLARITY fails",
-      "link": "https://cointelegraph.com/news/cftc-chair-crypto-regulation-without-clarity-act-congress?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Thu, 20 Aug 2026 20:56:23 +0000",
+      "title": "Term Finance loses estimated $8.5M in vault governance exploit",
+      "link": "https://cointelegraph.com/news/term-finance-8-5m-vault-governance-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 24 Aug 2026 03:59:29 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Michael Selig said at a meeting of the Innovation Advisory Committee that he had directed CFTC staff to explore developer protections and other crypto-related policies."
+      "snippet": "Term permanently closed its Meta Vaults after an attack reportedly removed nearly all of their Ethereum deposits."
     },
     {
       "title": "Microsoft Fixes &#39;Perfect 10&#39; Exploit That Could Have Let Hackers Run Code Remotely",
@@ -36,7 +29,14 @@
       "pubDate": "Fri, 21 Aug 2026 21:31:05 +0000",
       "source": "Decrypt",
       "snippet": "Coinkite&#39;s latest firmware requires users to add their own randomness when generating wallet seeds and fixes additional security issues uncovered during a three-week review."
+    },
+    {
+      "title": "CFTC Chair Readies Crypto Rules If Congress Fails to Pass Clarity Act",
+      "link": "https://decrypt.co/376151/cftc-chair-crypto-rules-if-congress-fails-clarity-act",
+      "pubDate": "Thu, 20 Aug 2026 18:44:08 +0000",
+      "source": "Decrypt",
+      "snippet": "The CFTC chair said staff is already exploring a crypto market structure framework and could move quickly to propose rules if Congress fails to act."
     }
   ],
-  "fetchedAt": "2026-08-23T18:07:16.574Z"
+  "fetchedAt": "2026-08-24T18:25:16.281Z"
 }
