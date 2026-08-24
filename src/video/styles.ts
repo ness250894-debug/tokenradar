@@ -12,8 +12,11 @@ export const COLORS = {
 
 export const SAFE_ZONES = {
   top: 260, // Keep critical text below top platform chrome.
-  bottom: 620, // Keep critical text above captions, CTAs, and action buttons.
-  horizontal: 80, // Prevent text from hitting the very edges
+  bottom: 520, // Keep critical text above platform captions and playback controls.
+  horizontal: 80, // Prevent text from hitting the very edges.
+  actionRail: 220, // Reserve the right edge used by TikTok/Shorts action buttons.
+  narrationBottom: 580,
+  sourceBottom: 470,
 };
 
 export const FONTS = {

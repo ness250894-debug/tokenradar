@@ -14,7 +14,9 @@ export interface SocialScheduleRoute {
 export interface SocialPlatformCadence {
   status: "active" | "paused";
   cadence: string;
+  communityCadence: string;
   maximumPostsPerDay: number;
+  maximumPostsPerWeek: number;
 }
 
 export interface SocialPublishingManifest {
@@ -57,6 +59,13 @@ function isSupportedCronExpression(cron: string): boolean {
       return value >= minimum && value <= maximum;
     });
   });
+}
+
+function routeWeekdays(cron: string): number[] {
+  const dayOfWeek = cron.trim().split(/\s+/)[4];
+  if (!dayOfWeek) return [];
+  if (dayOfWeek === "*") return [0, 1, 2, 3, 4, 5, 6];
+  return [...new Set(dayOfWeek.split(",").map(Number).filter((value) => Number.isInteger(value) && value >= 0 && value <= 6))];
 }
 
 export function validateSocialPublishingManifest(manifest: SocialPublishingManifest): string[] {
@@ -112,6 +121,33 @@ export function validateSocialPublishingManifest(manifest: SocialPublishingManif
     }
   }
 
+  for (const [platformName, platform] of Object.entries(manifest.platforms)) {
+    if (!platform.cadence.trim()) errors.push(`${platformName}.cadence is required`);
+    if (!platform.communityCadence.trim()) errors.push(`${platformName}.communityCadence is required`);
+    if (!Number.isInteger(platform.maximumPostsPerDay) || platform.maximumPostsPerDay < 0) {
+      errors.push(`${platformName}.maximumPostsPerDay must be a non-negative integer`);
+    }
+    if (!Number.isInteger(platform.maximumPostsPerWeek) || platform.maximumPostsPerWeek < 0) {
+      errors.push(`${platformName}.maximumPostsPerWeek must be a non-negative integer`);
+    }
+
+    const platformRoutes = manifest.routes.filter((route) => route.platform === platformName);
+    const weeklyPosts = platformRoutes.reduce((total, route) => total + routeWeekdays(route.cron).length, 0);
+    if (weeklyPosts > platform.maximumPostsPerWeek) {
+      errors.push(
+        `${platformName} schedules ${weeklyPosts} posts/week, above maximumPostsPerWeek ${platform.maximumPostsPerWeek}`,
+      );
+    }
+    for (let weekday = 0; weekday < 7; weekday += 1) {
+      const postsOnDay = platformRoutes.filter((route) => routeWeekdays(route.cron).includes(weekday)).length;
+      if (postsOnDay > platform.maximumPostsPerDay) {
+        errors.push(
+          `${platformName} schedules ${postsOnDay} posts on weekday ${weekday}, above maximumPostsPerDay ${platform.maximumPostsPerDay}`,
+        );
+      }
+    }
+  }
+
   return errors;
 }
 
@@ -144,7 +180,7 @@ export function renderSocialRotationCalendar(manifest = getSocialPublishingManif
     "",
     manifest.profile.accountSideUpdateRequired
       ? "Applying this copy to public profiles is an account-side action and is not performed by repository automation."
-      : "Profile copy is managed by repository automation.",
+      : "The approved copy matched the audited public profiles on 2026-08-24; future profile edits still require an authorized account owner.",
     "",
     "## Publishing Routes",
     "",
@@ -156,10 +192,10 @@ export function renderSocialRotationCalendar(manifest = getSocialPublishingManif
     "",
     "## Platform Guardrails",
     "",
-    "| Platform | Status | Daily maximum | Cadence |",
-    "|---|---|---:|---|",
+    "| Platform | Status | Daily maximum | Weekly maximum | Publishing cadence | Community routine |",
+    "|---|---|---:|---:|---|---|",
     ...Object.entries(manifest.platforms).map(([platform, config]) =>
-      `| ${formatPlatform(platform)} | ${config.status} | ${config.maximumPostsPerDay} | ${config.cadence} |`,
+      `| ${formatPlatform(platform)} | ${config.status} | ${config.maximumPostsPerDay} | ${config.maximumPostsPerWeek} | ${config.cadence} | ${config.communityCadence} |`,
     ),
     "",
     "## Measurement Loop",
@@ -184,9 +220,19 @@ export function renderSocialPublishingRunbook(manifest = getSocialPublishingMani
     "",
     `Canonical public bio: “${manifest.profile.canonicalBio}”`,
     "",
-    "The live account bios must be updated by an authorized account owner. Repository automation stores the approved source copy but does not mutate social profiles.",
+    manifest.profile.accountSideUpdateRequired
+      ? "The live account bios must be updated by an authorized account owner. Repository automation stores the approved source copy but does not mutate social profiles."
+      : "The approved source copy matched the audited public profiles on 2026-08-24. Repository automation still does not mutate social profiles.",
     "",
-    "Publishing is intentionally lower-volume: Telegram is capped at two scheduled posts per day, X has one daily research note plus three weekly comparisons, Instagram publishes three times weekly, Threads three times weekly, YouTube publishes three Shorts weekly, and TikTok remains paused.",
+    `Publishing is intentionally lower-volume: ${Object.entries(manifest.platforms)
+      .map(([platform, config]) => `${formatPlatform(platform)} ${config.status === "paused" ? "is paused" : `is capped at ${config.maximumPostsPerWeek} originals/week`}`)
+      .join(", ")}.`,
+    "",
+    "## Community Routine",
+    "",
+    ...Object.entries(manifest.platforms).map(([platform, config]) =>
+      `- ${formatPlatform(platform)}: ${config.communityCadence}`,
+    ),
     "",
     "## Route Commands",
     "",
@@ -203,7 +249,7 @@ export function renderSocialPublishingRunbook(manifest = getSocialPublishingMani
     "- Weekly Markdown report: `npm run social:metrics:report:file`",
     "- Machine-readable report: `npm run social:metrics:report:json`",
     "",
-    "The collector reads published post IDs from D1 and writes cumulative snapshots to `social_post_metrics`. X uses the existing bearer token. Instagram's Facebook Login flow requires `instagram_basic`, `instagram_content_publish`, `pages_read_engagement`, and `instagram_manage_insights`; `pages_show_list` is only needed for account discovery because `IG_ACCOUNT_ID` is configured directly. Threads requires `threads_basic`, `threads_content_publish`, and `threads_manage_insights`. YouTube uses an API key for public statistics and OAuth for Analytics retention data. Re-run `scripts/generate-youtube-token.ts` once if the refresh token predates the `youtube.force-ssl`, `youtube.readonly`, and `yt-analytics.readonly` scopes. Telegram Bot API does not expose channel-post views and TikTok is paused, so those rows are explicitly skipped instead of fabricated.",
+    "The collector reads published post IDs from D1 and writes cumulative snapshots to `social_post_metrics`. Telegram reads the exact post's public channel-preview view count using `TELEGRAM_CHANNEL_USERNAME`; unavailable interaction fields remain null. X uses the existing bearer token. Instagram's Facebook Login flow requires `instagram_basic`, `instagram_content_publish`, `pages_read_engagement`, and `instagram_manage_insights`; `pages_show_list` is only needed for account discovery because `IG_ACCOUNT_ID` is configured directly. Threads requires `threads_basic`, `threads_content_publish`, and `threads_manage_insights`. YouTube uses an API key for public statistics and OAuth for Analytics retention data. Re-run `scripts/generate-youtube-token.ts` once if the refresh token predates the `youtube.force-ssl`, `youtube.readonly`, and `yt-analytics.readonly` scopes. TikTok publishing remains paused, but historical post metrics can be collected through Display API `video.list` credentials; missing credentials produce an explicit skip instead of fabricated values.",
     "",
     "GA4 exports retain `sessionManualAdContent` and parse `utm_content` from landing URLs as a fallback. The daily export persists campaign aggregates to D1 `social_attribution_metrics`; its workflow is marked failed when that export breaks. The weekly report joins the latest 28-day row back to each post, labels attribution freshness, and excludes totals older than 72 hours. Trackers store `plannedUrl` separately from `publishedUrl`; a URL counts as published only after the post or follow-up containing it succeeds.",
     "",

@@ -18,6 +18,8 @@ export interface SocialContentArchetype {
   key: SocialArchetypeKey;
   label: string;
   platforms: SocialVariantPlatform[];
+  /** Context-gated archetypes are excluded from automatic selection until a verified payload path exists. */
+  requiresVerifiedContext?: "poll-result";
   angle: string;
   hookFamily: string;
   ctaFamily: string;
@@ -89,6 +91,7 @@ export const SOCIAL_ARCHETYPES: SocialContentArchetype[] = [
     key: "poll_result_recap",
     label: "Poll Result Recap",
     platforms: ["telegram", "x", "threads", "instagram"],
+    requiresVerifiedContext: "poll-result",
     angle: "turn a previous community vote into a follow-up insight",
     hookFamily: "community-recap",
     ctaFamily: "next-vote",
@@ -165,6 +168,13 @@ export function getSocialArchetypeByKey(key: string | undefined | null): SocialC
   return SOCIAL_ARCHETYPES.find((archetype) => archetype.key === key);
 }
 
+export function isSocialArchetypeEligibleForAutomation(
+  archetype: SocialContentArchetype,
+  platform: SocialVariantPlatform,
+): boolean {
+  return archetype.platforms.includes(platform) && archetype.requiresVerifiedContext === undefined;
+}
+
 export function resolveSocialArchetype(
   archetype: SocialContentArchetype | string | undefined | null,
   platform?: SocialVariantPlatform,
@@ -175,7 +185,11 @@ export function resolveSocialArchetype(
       ? getSocialArchetypeByKey(archetype.key) || archetype
       : undefined;
 
-  if (resolved && (!platform || resolved.platforms.includes(platform))) return resolved;
+  if (
+    resolved &&
+    resolved.requiresVerifiedContext === undefined &&
+    (!platform || resolved.platforms.includes(platform))
+  ) return resolved;
 
   return selectSocialArchetype({
     platform: platform || "x",
@@ -193,7 +207,9 @@ export function selectSocialArchetype(options: {
   const { platform, date = new Date() } = options;
   const used = new Set(options.usedArchetypeKeys || []);
   const allowed = new Set(options.allowedArchetypeKeys || []);
-  const platformCompatible = SOCIAL_ARCHETYPES.filter((archetype) => archetype.platforms.includes(platform));
+  const platformCompatible = SOCIAL_ARCHETYPES.filter(
+    (archetype) => isSocialArchetypeEligibleForAutomation(archetype, platform),
+  );
   const restricted = allowed.size > 0
     ? platformCompatible.filter((archetype) => allowed.has(archetype.key))
     : platformCompatible;

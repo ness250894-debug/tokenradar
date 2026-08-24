@@ -918,30 +918,33 @@ function fallbackInstagramCaption(tokenName: string, symbol: string, metrics: Ma
   const marketCap = formatSocialMarketCap(metrics.marketCap);
 
   return [
-    `Market spotlight: ${tokenName} is moving ${change}.`,
-    `Price: ${price}. Market cap: ${marketCap}.`,
+    `${tokenName} moved ${change}, but the candle is only the first filter.`,
+    `Price: ${price}. Reported market cap: ${marketCap}. Recheck the same fields after the next daily close before calling the move durable.`,
     marketDataAttribution(metrics),
-    "Follow @tokenradarco for daily crypto data.",
-    `#${symbol.toUpperCase()} #Crypto #Altcoins #TokenRadar #CryptoMarket`,
+    "Save the snapshot for the follow-up. @tokenradarco",
+    `#${symbol.toUpperCase()} #CryptoResearch #MarketStructure #RiskManagement #TokenRadar`,
   ].filter(Boolean).join("\n\n");
 }
 
 function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): string {
   const change = formatSocialChange(metrics.priceChange24h);
+  const turnover = typeof metrics.volume24h === "number" && Number.isFinite(metrics.volume24h)
+    && typeof metrics.marketCap === "number" && Number.isFinite(metrics.marketCap) && metrics.marketCap > 0
+    ? ` Reported volume/cap is ${((metrics.volume24h / metrics.marketCap) * 100).toFixed(2)}%.`
+    : "";
   return [
-    `This setup is moving ${change}. Watch the data behind ${tokenName}.`,
+    `${tokenName} moved ${change} over 24h.${turnover} That is a movement snapshot, not evidence of persistence; the useful follow-up is whether the same relationship survives the next daily close.`,
     marketDataAttribution(metrics),
   ].filter(Boolean).join("\n");
 }
 
 function fallbackTikTokCaption(tokenName: string, symbol: string, metrics: MarketContext): string {
-  void metrics;
-
   return [
-    `someone asked about ${tokenName}. here is the supplied point-in-time market snapshot.`,
-    "Compare the listed price, volume, market cap, and risk score as separate inputs.",
+    `${tokenName} moved ${formatSocialChange(metrics.priceChange24h)}. The useful tension is whether reported turnover confirms the attention.`,
+    marketDataAttribution(metrics),
+    "save this and compare the next daily close.",
     `@tokenradarco #${symbol.toUpperCase()} #Crypto #TokenRadar`,
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 function truncateText(text: string, maxChars: number): string {
@@ -960,6 +963,14 @@ const TIKTOK_GENERIC_HASHTAGS = new Set([
   "#xyzbca",
 ]);
 
+const INSTAGRAM_GENERIC_HASHTAGS = new Set([
+  ...TIKTOK_GENERIC_HASHTAGS,
+  "#instagood",
+  "#reels",
+  "#reelsinstagram",
+  "#explorepage",
+]);
+
 function normalizeHashtag(tag: string): string {
   return tag.replace(/[^#a-zA-Z0-9_]/g, "").trim();
 }
@@ -976,6 +987,40 @@ function compactTikTokBody(text: string): string {
     .replace(/[ \t]{2,}/g, " ")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+}
+
+export function prepareInstagramCaptionForPublishing(
+  caption: string,
+  symbol: string,
+  maxChars: number = SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
+): string {
+  const cleaned = compactTikTokBody(caption);
+  const rawTags = cleaned.match(/#[a-zA-Z0-9_]+/g) || [];
+  const body = compactTikTokBody(cleaned.replace(/#[a-zA-Z0-9_]+/g, ""));
+  const fallbackTags = [
+    symbolToHashtag(symbol),
+    "#CryptoResearch",
+    "#MarketStructure",
+    "#TokenRadar",
+  ].filter((tag): tag is string => Boolean(tag));
+  const seen = new Set<string>();
+  const tags = [...rawTags, ...fallbackTags]
+    .map(normalizeHashtag)
+    .filter(Boolean)
+    .filter((tag) => !INSTAGRAM_GENERIC_HASHTAGS.has(tag.toLowerCase()))
+    .filter((tag) => {
+      const key = tag.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 5);
+  const hashtagLine = tags.join(" ");
+  const bodyBudget = maxChars - (hashtagLine ? hashtagLine.length + 2 : 0);
+  const safeBody = bodyBudget > 0
+    ? truncateText(body || "TokenRadar market research snapshot.", bodyBudget)
+    : "";
+  return compactTikTokBody([safeBody, hashtagLine].filter(Boolean).join("\n\n"));
 }
 
 export function prepareTikTokCaptionForPublishing(
@@ -1007,7 +1052,7 @@ export function prepareTikTokCaptionForPublishing(
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  }).slice(0, 5);
+  }).slice(0, 3);
 
   const hashtagLine = tags.join(" ");
   const bodyBudget = maxChars - (hashtagLine ? hashtagLine.length + 2 : 0);
@@ -1057,6 +1102,15 @@ function truncateXCaptionAtBoundary(text: string, maxChars: number): string {
   return [safeBody, hashtags].filter(Boolean).join(" ").slice(0, maxChars).trim();
 }
 
+function removeXHashtags(text: string): string {
+  return text
+    .replace(/(^|\s)#[a-zA-Z0-9_]+/g, "$1")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function fallbackTelegramSummary(
   tokenName: string,
   symbol: string,
@@ -1084,15 +1138,18 @@ function fallbackXTweet(
 ): string {
   const cashtag = `$${symbol.toUpperCase()}`;
   const change = formatSocialChange(metrics.priceChange24h);
-  const risk = metrics.riskScore === undefined ? "risk model" : `risk ${metrics.riskScore}/10`;
-  const reason = metrics.selectionReason || "market watchlist";
+  const risk = metrics.riskScore === undefined ? "" : ` Supplied Risk: ${metrics.riskScore}/10.`;
+  const turnover = typeof metrics.volume24h === "number" && Number.isFinite(metrics.volume24h)
+    && typeof metrics.marketCap === "number" && Number.isFinite(metrics.marketCap) && metrics.marketCap > 0
+    ? ` Reported volume/cap: ${((metrics.volume24h / metrics.marketCap) * 100).toFixed(2)}%.`
+    : "";
   const frames = [
-    `${cashtag} moved ${change}, but the useful read is confirmation quality. Volume and liquidity decide whether it stays on the watchlist. #Crypto`,
-    `The ${cashtag} setup is not just the 24h move. The better question is what would invalidate the read first. #Crypto`,
-    `${tokenName} is on the radar for ${reason}. For ${cashtag}, follow-through matters more than the headline candle. #Crypto`,
-    `${cashtag} needs a risk-first read today: ${risk}, liquidity, and confirmation before the move deserves more attention. #Crypto`,
+    `${cashtag} moved ${change} over 24h.${turnover} The snapshot shows movement and reported turnover, not durability.`,
+    `${cashtag}: ${change} over 24h.${risk} Price direction and the supplied score answer different questions.`,
+    `${tokenName} snapshot: ${cashtag} is ${change} over 24h.${turnover} Next check: whether the same relationship persists.`,
+    `${cashtag} is ${change} over 24h.${risk}${turnover} One snapshot is a starting point, not a trend.`,
   ];
-  const seed = `${symbol}:${tokenName}:${reason}`.toLowerCase();
+  const seed = `${symbol}:${tokenName}:${metrics.selectionReason || "market-watchlist"}`.toLowerCase();
   const index = Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % frames.length;
   const tweet = frames[index];
   const attribution = marketDataAttribution(metrics);
@@ -1148,6 +1205,7 @@ function enforceUnifiedCaptionLimits(
   if (next.xTweet) {
     next.xTweet = sanitizeSocialEditorialText(sanitizePostTextLinks(next.xTweet), editorialOptions);
     next.xTweet = sanitizeCashtags(next.xTweet);
+    next.xTweet = removeXHashtags(next.xTweet);
     next.xTweet = truncateXCaptionAtBoundary(
       next.xTweet,
       options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT,
@@ -1171,8 +1229,9 @@ function enforceUnifiedCaptionLimits(
       sanitizePostTextLinks(next.instagramCaption),
       editorialOptions,
     );
-    next.instagramCaption = truncateText(
+    next.instagramCaption = prepareInstagramCaptionForPublishing(
       next.instagramCaption,
+      symbol,
       options.instagramMaxChars ?? SOCIAL_PLATFORM_LIMITS.INSTAGRAM.CAPTION_LIMIT,
     );
   }
@@ -1422,7 +1481,7 @@ export async function generateUnifiedCaptions(
     : "No extra editorial format.";
   const requiredMarketAttribution = marketDataAttribution(metrics);
   const marketAttributionRule = requiredMarketAttribution
-    ? `For Telegram, X, YouTube, Instagram, and Threads, any price/change/market-cap/volume/rank claim must include this exact source line: "${requiredMarketAttribution}". TikTok must omit numeric market claims instead.`
+    ? `For every requested platform, any price/change/market-cap/volume/rank claim must include this exact source line: "${requiredMarketAttribution}".`
     : "No complete public market source/as-of pair was supplied. Do not call the snapshot live, real-time, or current.";
 
   const platformRuleBlocks: Partial<Record<PlatformTarget, string>> = {
@@ -1452,7 +1511,7 @@ X RULES:
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
 - Write prices with a currency prefix (for example, $1.23) so each number is unambiguous.
 - A question is allowed only when it is specific and necessary to the selected archetype. Never use generic engagement bait.
-- Include exactly 1 niche hashtag.
+- Do not include hashtags. The cashtag supplies the discovery context.
 - Do not invent comparisons, audience results, tokens, events, or metrics that are not in the supplied context.
 - Do not use "GM", "fam", "on my radar", "thoughts?", or "what else should I watch?".
 - End with a complete sentence. Never end with an ellipsis or a cut-off thought.
@@ -1472,7 +1531,8 @@ INSTAGRAM RULES:
 - Today's Instagram angle: ${platformVariants.instagram?.label} - ${platformVariants.instagram?.angle}.
 - Start with a platform-native hook that matches today's angle, then include 2-3 market data points naturally.
 - Mention @tokenradarco once.
-- Include 8-12 relevant hashtags at the end.
+- State one conclusion or tension and one concrete follow-up or invalidation condition.
+- Include 3-5 targeted hashtags at the end. Never add generic reach tags.
 - Use emojis sparingly and do not use rocket emojis.`,
     threads: `
 THREADS RULES:
@@ -1493,12 +1553,12 @@ TIKTOK RULES:
 - Today's TikTok angle: ${platformVariants.tiktok?.label} - ${platformVariants.tiktok?.angle}.
 - Treat tiktokCaption as the TikTok video description/caption.
 - Aim for 100-180 characters. Shorter is better on TikTok.
-- CRITICAL: Do NOT include dollar amounts, exact percentages, market cap numbers, or any raw financial metrics. TikTok suppresses this content.
-- Write in casual, lowercase, creator-native TikTok voice. Think "talking to a friend about crypto", not reading a financial report.
+- Use at most two supplied numeric facts and show their source/as-of line. Never imply that numbers themselves cause suppression.
+- Write in concise, creator-native language without pretending that a viewer requested the token.
 - Structure:
-  Line 1: a casual hook about ${tokenName} that creates curiosity (e.g. "someone asked about ${symbol.toUpperCase()}" or "this one got my attention").
-  Line 2: one qualitative observation about direction or risk, no numbers.
-  Line 3: a question or CTA to drive comments (e.g. "agree?" or "what's your read?").
+  Line 1: a data-led hook about ${tokenName} that creates curiosity without inventing a viewer request.
+  Line 2: one supplied fact and the tension it creates.
+  Line 3: a useful follow-up action such as saving the snapshot or choosing the next evidence check; no generic engagement bait.
   Final line: @tokenradarco plus hashtags.
 - Mention @tokenradarco once.
 - End with exactly 3 hashtags. Use the token symbol, #Crypto, and #TokenRadar.

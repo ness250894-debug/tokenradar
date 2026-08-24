@@ -148,14 +148,20 @@ export function buildWeeklyThreadsRecap(selection: WeeklyRecapSelection): Weekly
   }
 
   const leaderLine = `Tracked 7d change leaders: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
+  const leadToken = selection.leaders[0];
+  const recapRead = selection.volumeLeader
+    ? selection.volumeLeader.id === leadToken.id
+      ? `$${leadToken.symbol.toUpperCase()} led both tracked 7d change and reported 24h volume. That alignment is worth rechecking; one snapshot still does not establish persistence.`
+      : `$${leadToken.symbol.toUpperCase()} led tracked 7d change while $${selection.volumeLeader.symbol.toUpperCase()} led reported 24h volume. Price leadership and reported activity pointed to different tokens.`
+    : `${formatTokenMove(leadToken)} led the tracked 7d list. The next useful check is whether that lead persists.`;
   const lines = [
-    "TokenRadar weekly recap:",
+    "This week's loudest move was not automatically the strongest research lead.",
     "",
     leaderLine,
     selection.pullback ? `Pullback watch: ${formatTokenMove(selection.pullback)}.` : "",
     selection.volumeLeader ? `Reported-volume context: $${selection.volumeLeader.symbol.toUpperCase()} led tracked 24h volume.` : "",
     "",
-    "Which supplied field was most useful this week: 7d change or reported 24h volume?",
+    recapRead,
   ].filter((line) => line !== "");
 
   let caption = lines.join("\n");

@@ -67,7 +67,7 @@ export const MetricsView: React.FC<{
       label: "24H MOVE",
       numericValue: priceChange24h,
       formatValue: (value: number) => `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`,
-      sub: priceChange24h >= 0 ? "Momentum is positive today" : "Momentum is cooling today",
+      sub: "Reported point-in-time price change",
       color: changeColor,
     },
     {
@@ -91,7 +91,7 @@ export const MetricsView: React.FC<{
       label: "RISK SCORE",
       numericValue: riskScore,
       formatValue: (value: number) => `${value.toFixed(1)}/10`,
-      sub: riskLevel ? `${riskLevel.toUpperCase()} risk profile` : "Risk profile",
+      sub: riskLevel ? `${riskLevel.toUpperCase()} supplied risk label` : "TokenRadar supplied score",
       color: riskColor,
     },
     {
@@ -99,7 +99,7 @@ export const MetricsView: React.FC<{
       label: "GROWTH INDEX",
       numericValue: growthPotentialIndex,
       formatValue: (value: number) => `${Math.round(value)}/100`,
-      sub: "TokenRadar recovery-room signal",
+      sub: "TokenRadar supplied index",
       color: COLORS.warning,
     },
   ];
@@ -114,8 +114,8 @@ export const MetricsView: React.FC<{
   const metrics = orderedMetrics.filter((metric) => {
     if (seenMetricIds.has(metric.id)) return false;
     seenMetricIds.add(metric.id);
-    return true;
-  });
+    return metric.numericValue !== undefined && ["priceMove", "volume", "risk"].includes(metric.id);
+  }).slice(0, 3);
   const metricCount = metrics.length;
   const summaryStartFrame = beatFrames * metricCount;
   const isSummary = frame >= summaryStartFrame;
@@ -262,7 +262,7 @@ export const MetricsView: React.FC<{
               {summaryTitle}
             </RevealText>
             <RevealText localFrame={summaryFrame} delay={8} style={{ fontSize: 42, color: COLORS.text, fontWeight: 850, lineHeight: 1.22 }}>
-              {summaryLead || "Previous slides show a liquid momentum setup."} <span style={{ color: changeColor }}>{moveLabel}</span> over 24h with {formatCompact(volume24h)} volume and {formatCompact(marketCap)} market cap.
+              {summaryLead || "Three supplied fields define this point-in-time snapshot."} <span style={{ color: changeColor }}>{moveLabel}</span> over 24h with {formatCompact(volume24h)} reported volume and {formatCompact(marketCap)} market cap.
             </RevealText>
             <RevealText localFrame={summaryFrame} delay={14} style={{ fontSize: 32, color: COLORS.textMuted, fontWeight: 800, lineHeight: 1.32, marginTop: 28 }}>
               {rankLabel} | {riskLabel} | {growthLabel}

@@ -3,7 +3,7 @@ import { Resvg } from "@resvg/resvg-js";
 import * as fs from "fs";
 import * as path from "path";
 import { Fragment, isValidElement, type ReactElement, type ReactNode } from "react";
-import { formatCompact, formatPercent, formatPrice } from "./formatters";
+import { formatPercent } from "./formatters";
 import { fetchTokenIconDataUrl } from "./token-icon-data";
 import type { SocialContentVariant } from "./social-variety";
 
@@ -22,10 +22,20 @@ export interface DailyMoverCarouselToken {
 export interface DailyMoversCarouselOptions {
   generatedAt?: Date;
   variant?: SocialContentVariant;
+  cta?: string;
+  ctaLabel?: string;
 }
 
 const SLIDE_WIDTH = 1080;
 const SLIDE_HEIGHT = 1350;
+export const DAILY_MOVERS_CAROUSEL_SLIDE_ROLES = [
+  "verdict",
+  "evidence-board",
+  "evidence-context",
+  "risk",
+  "cta",
+] as const;
+export const DAILY_MOVERS_CAROUSEL_SLIDE_COUNT = DAILY_MOVERS_CAROUSEL_SLIDE_ROLES.length;
 
 let geistFontBuffer: ArrayBuffer | null = null;
 
@@ -362,13 +372,13 @@ function tokenIcon(mover: RenderableDailyMover, size = 118) {
 
 function renderCover(movers: RenderableDailyMover[], generatedAt: Date, variant?: SocialContentVariant) {
   const leader = movers[0];
-  const titleLines = splitTitleLines(variant?.carouselTitle || "Top 5 Crypto Gainers");
-  const subtitle = variant?.carouselSubtitle || "Market snapshot";
+  const titleLines = splitTitleLines(`${leader.symbol.toUpperCase()} leads the scan`);
+  const subtitle = variant?.carouselTitle || "Qualified Daily Movers";
 
   return slideShell(
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel(variant?.captionIntro || "Daily Movers")}
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+        {sectionLabel("Verdict")}
         {brandMark()}
       </div>
 
@@ -406,7 +416,7 @@ function renderCover(movers: RenderableDailyMover[], generatedAt: Date, variant?
       >
         {tokenIcon(leader, 110)}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", color: "#94A3B8", fontSize: 24 }}>Leading move</div>
+          <div style={{ display: "flex", color: "#94A3B8", fontSize: 24 }}>Strongest qualifying 24h move</div>
           <div style={{ display: "flex", color: "#F8FAFC", fontSize: 44, fontWeight: 900 }}>
             {leader.symbol.toUpperCase()} / {leader.name}
           </div>
@@ -417,7 +427,7 @@ function renderCover(movers: RenderableDailyMover[], generatedAt: Date, variant?
       </div>
 
       <div style={{ display: "flex", marginTop: "auto", color: "#64748B", fontSize: 25 }}>
-        Data-driven market intelligence. Not financial advice.
+        Filtered result, not a forecast or entry signal.
       </div>
     </>,
   );
@@ -426,16 +436,25 @@ function renderCover(movers: RenderableDailyMover[], generatedAt: Date, variant?
 function renderBoard(movers: RenderableDailyMover[], variant?: SocialContentVariant) {
   return slideShell(
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel("Research Board")}
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+        {sectionLabel("Evidence")}
         {brandMark()}
       </div>
 
-      <div style={{ display: "flex", color: "#F8FAFC", fontSize: 58, fontWeight: 900, marginTop: 52 }}>
+      <div
+        style={{
+          display: "flex",
+          color: "#F8FAFC",
+          fontSize: 50,
+          lineHeight: 1.04,
+          fontWeight: 900,
+          marginTop: 38,
+        }}
+      >
         {variant?.carouselSubtitle || "Top gainers by 24h move"}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 46 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 32 }}>
         {movers.map((mover, index) => (
           <div
             key={mover.id}
@@ -446,70 +465,65 @@ function renderBoard(movers: RenderableDailyMover[], variant?: SocialContentVari
               border: "1px solid rgba(248,250,252,0.12)",
               background: index === 0 ? "rgba(204,255,0,0.12)" : "rgba(15,23,42,0.78)",
               borderRadius: 8,
-              padding: "24px 28px",
+              padding: "19px 24px",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
               <div style={{ display: "flex", color: "#64748B", width: 42, fontSize: 30, fontWeight: 900 }}>
                 {index + 1}
               </div>
-              {tokenIcon(mover, 76)}
+              {tokenIcon(mover, 68)}
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <div style={{ display: "flex", color: "#F8FAFC", fontSize: 34, fontWeight: 900 }}>
+                <div style={{ display: "flex", color: "#F8FAFC", fontSize: 31, fontWeight: 900 }}>
                   {mover.symbol.toUpperCase()}
                 </div>
-                <div style={{ display: "flex", color: "#94A3B8", fontSize: 23 }}>{mover.name}</div>
+                <div style={{ display: "flex", color: "#94A3B8", fontSize: 21 }}>{mover.name}</div>
               </div>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-              <div style={{ display: "flex", color: "#00FFA3", fontSize: 38, fontWeight: 900 }}>
+              <div style={{ display: "flex", color: "#00FFA3", fontSize: 34, fontWeight: 900 }}>
                 {formatPercent(mover.change24h)}
               </div>
-              <div style={{ display: "flex", color: "#94A3B8", fontSize: 22 }}>{formatPrice(mover.price)}</div>
+              <div style={{ display: "flex", color: "#94A3B8", fontSize: 20 }}>
+                {(mover.volume24h / mover.marketCap * 100).toFixed(1)}% turnover
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ display: "flex", marginTop: "auto", color: "#64748B", fontSize: 25 }}>
-        Filtered to exclude stablecoins, invalid prices, and extreme data spikes.
+      <div style={{ display: "flex", marginTop: "auto", color: "#64748B", fontSize: 22 }}>
+        Every name cleared the market-cap, volume, turnover, and data-noise filters.
       </div>
     </>,
   );
 }
 
-function renderTokenSlide(mover: RenderableDailyMover, index: number) {
+function renderEvidenceSlide(movers: RenderableDailyMover[]) {
+  const leader = movers[0];
+  const runnerUp = movers[1];
+  const leaderTurnover = leader.volume24h / leader.marketCap * 100;
+  const runnerUpTurnover = runnerUp.volume24h / runnerUp.marketCap * 100;
+
   return slideShell(
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel(`Mover ${index + 1} / 5`, "#00C2FF")}
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+        {sectionLabel("Evidence", "#00C2FF")}
         {brandMark()}
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 30, marginTop: 74 }}>
-        {tokenIcon(mover, 142)}
+        {tokenIcon(leader, 142)}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", color: "#F8FAFC", fontSize: 72, fontWeight: 900 }}>
-            {mover.symbol.toUpperCase()}
+          <div style={{ display: "flex", color: "#F8FAFC", fontSize: 64, fontWeight: 900 }}>
+            Why {leader.symbol.toUpperCase()} leads
           </div>
-          <div style={{ display: "flex", color: "#94A3B8", fontSize: 34 }}>{mover.name}</div>
+          <div style={{ display: "flex", color: "#94A3B8", fontSize: 31 }}>
+            Price change wins the rank; turnover adds context.
+          </div>
         </div>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          color: "#00FFA3",
-          fontSize: 114,
-          fontWeight: 900,
-          marginTop: 72,
-          lineHeight: 1,
-        }}
-      >
-        {formatPercent(mover.change24h)}
-      </div>
-      <div style={{ display: "flex", color: "#94A3B8", fontSize: 30, marginTop: 14 }}>24-hour price change</div>
 
       <div
         style={{
@@ -520,17 +534,42 @@ function renderTokenSlide(mover: RenderableDailyMover, index: number) {
         }}
       >
         <div style={{ display: "flex", gap: 18 }}>
-          <div style={{ display: "flex", flex: 1 }}>{metricBox("Price", formatPrice(mover.price))}</div>
-          <div style={{ display: "flex", flex: 1 }}>{metricBox("Market Cap", formatCompact(mover.marketCap))}</div>
+          <div style={{ display: "flex", flex: 1 }}>
+            {metricBox(`${leader.symbol.toUpperCase()} 24h move`, formatPercent(leader.change24h), "#00FFA3")}
+          </div>
+          <div style={{ display: "flex", flex: 1 }}>
+            {metricBox(`${runnerUp.symbol.toUpperCase()} 24h move`, formatPercent(runnerUp.change24h))}
+          </div>
         </div>
         <div style={{ display: "flex", gap: 18 }}>
-          <div style={{ display: "flex", flex: 1 }}>{metricBox("24h Volume", formatCompact(mover.volume24h), "#00C2FF")}</div>
-          <div style={{ display: "flex", flex: 1 }}>{metricBox("Market Rank", mover.rank > 0 ? `#${mover.rank}` : "N/A", "#FFB800")}</div>
+          <div style={{ display: "flex", flex: 1 }}>
+            {metricBox(`${leader.symbol.toUpperCase()} turnover`, `${leaderTurnover.toFixed(1)}%`, "#00C2FF")}
+          </div>
+          <div style={{ display: "flex", flex: 1 }}>
+            {metricBox(`${runnerUp.symbol.toUpperCase()} turnover`, `${runnerUpTurnover.toFixed(1)}%`)}
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          border: "1px solid rgba(204,255,0,0.22)",
+          background: "rgba(204,255,0,0.08)",
+          borderRadius: 8,
+          padding: "28px 30px",
+          marginTop: 34,
+        }}
+      >
+        <div style={{ display: "flex", color: "#CCFF00", fontSize: 25, fontWeight: 800 }}>WHAT THE DATA SUPPORTS</div>
+        <div style={{ display: "flex", color: "#F8FAFC", fontSize: 31, lineHeight: 1.3, marginTop: 10 }}>
+          {`${leader.symbol.toUpperCase()} ranks first on the measured 24h move after every candidate cleared the same publication floor.`}
         </div>
       </div>
 
       <div style={{ display: "flex", marginTop: "auto", color: "#64748B", fontSize: 25 }}>
-        Momentum snapshot. Verify liquidity and volatility before drawing conclusions.
+        Turnover is reported 24h volume divided by market cap. It is context, not proof of demand quality.
       </div>
     </>,
   );
@@ -549,10 +588,10 @@ function renderRiskSlide(movers: RenderableDailyMover[], variant?: SocialContent
 
   return slideShell(
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        {sectionLabel(variant?.riskSlideTitle || "Risk Lens", "#FFB800")}
-        {brandMark()}
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+        {sectionLabel("Risk", "#FFB800")}
       </div>
+      <div style={{ display: "flex", position: "absolute", top: 0, right: 0 }}>{brandMark()}</div>
 
       <div style={{ display: "flex", color: "#F8FAFC", fontSize: 70, fontWeight: 900, marginTop: 72 }}>
         {variant?.riskSlideTitle || "Before chasing green"}
@@ -582,6 +621,67 @@ function renderRiskSlide(movers: RenderableDailyMover[], variant?: SocialContent
         <div style={{ display: "flex", color: "#F8FAFC", fontSize: 44, fontWeight: 900 }}>TokenRadar.co</div>
         <div style={{ display: "flex", color: "#64748B", fontSize: 25 }}>
           Daily crypto data, rankings, and risk context.
+        </div>
+      </div>
+    </>,
+  );
+}
+
+function renderCtaSlide(
+  movers: RenderableDailyMover[],
+  cta: string,
+  generatedAt: Date,
+  ctaLabel?: string,
+) {
+  const leader = movers[0];
+  return slideShell(
+    <>
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+        {sectionLabel("Next Step")}
+        {brandMark()}
+      </div>
+
+      <div style={{ display: "flex", color: "#94A3B8", fontSize: 29, marginTop: 100 }}>
+        {ctaLabel || "Choose the next research check"}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          color: "#F8FAFC",
+          fontSize: 72,
+          fontWeight: 900,
+          lineHeight: 1.12,
+          marginTop: 34,
+        }}
+      >
+        {cta}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 28,
+          border: "1px solid rgba(204,255,0,0.24)",
+          background: "rgba(15,23,42,0.80)",
+          borderRadius: 8,
+          padding: 32,
+          marginTop: 90,
+        }}
+      >
+        {tokenIcon(leader, 92)}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", color: "#94A3B8", fontSize: 23 }}>Today&apos;s evidence anchor</div>
+          <div style={{ display: "flex", color: "#F8FAFC", fontSize: 39, fontWeight: 900 }}>
+            {leader.symbol.toUpperCase()} · {formatPercent(leader.change24h)}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", color: "#F8FAFC", fontSize: 44, fontWeight: 900 }}>Save · Comment · Research</div>
+        <div style={{ display: "flex", color: "#64748B", fontSize: 25 }}>
+          {`CoinGecko snapshot · ${formatDate(generatedAt)} · TokenRadar.co`}
         </div>
       </div>
     </>,
@@ -625,11 +725,13 @@ export async function generateDailyMoversCarousel(
   const topFive = await prepareMovers(movers.slice(0, 5));
   const generatedAt = options.generatedAt ?? new Date();
   const variant = options.variant;
+  const cta = options.cta?.trim() || "Save this scan and comment which evidence check should come next.";
   const slides = [
     renderCover(topFive, generatedAt, variant),
     renderBoard(topFive, variant),
-    ...topFive.map((mover, index) => renderTokenSlide(mover, index)),
+    renderEvidenceSlide(topFive),
     renderRiskSlide(topFive, variant),
+    renderCtaSlide(topFive, cta, generatedAt, options.ctaLabel),
   ];
 
   return Promise.all(slides.map((slide) => renderPng(slide)));

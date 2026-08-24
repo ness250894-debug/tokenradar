@@ -1,15 +1,15 @@
 {
-  "version": 3,
-  "updatedAt": "2026-08-23",
+  "version": 4,
+  "updatedAt": "2026-08-24",
   "timezone": "UTC",
   "profile": {
     "canonicalBio": "Independent crypto market research. Live market snapshots with transparent Risk and Growth methodology. Educational only.",
-    "accountSideUpdateRequired": true
+    "accountSideUpdateRequired": false
   },
   "measurement": {
     "collectionCron": "53 * * * *",
     "windowsHours": [24, 168],
-    "maxLatenessHours": 2,
+    "maxLatenessHours": 12,
     "reportingHorizonHours": 24,
     "weeklyReportCron": "31 08 * * 1",
     "lookbackDays": 35
@@ -17,59 +17,79 @@
   "platforms": {
     "telegram": {
       "status": "active",
-      "cadence": "One daily brief plus at most one scheduled depth post; Friday recap replaces the depth post.",
-      "maximumPostsPerDay": 2
+      "cadence": "Six useful posts per week: market map, comparison, community poll, independent divergence snapshot, scorecard, and movers shortlist.",
+      "communityCadence": "One native poll weekly; moderators review the result as editorial input. Automated follow-up is not claimed.",
+      "maximumPostsPerDay": 1,
+      "maximumPostsPerWeek": 6
     },
     "x": {
       "status": "active",
-      "cadence": "One daily research note plus comparisons on Monday, Wednesday, and Friday.",
-      "maximumPostsPerDay": 2
+      "cadence": "Five strong originals per week: one justified comparison, three sourced research notes, and one native short video.",
+      "communityCadence": "Add 12-20 thoughtful manual replies per week and exclude solicitation spam from engagement reporting.",
+      "maximumPostsPerDay": 1,
+      "maximumPostsPerWeek": 5
     },
     "instagram": {
       "status": "active",
-      "cadence": "One movers carousel and two comparison cards per week.",
-      "maximumPostsPerDay": 1
+      "cadence": "Two original Reels and two five-slide evidence carousels per week; no dense standalone comparison cards.",
+      "communityCadence": "Use interactive Stories on 3-5 days per week and answer every substantive comment.",
+      "maximumPostsPerDay": 1,
+      "maximumPostsPerWeek": 4
     },
     "threads": {
       "status": "active",
       "cadence": "Two text-native explainers and one weekly recap.",
-      "maximumPostsPerDay": 1
+      "communityCadence": "Add 12-20 substantive manual replies per week in relevant conversations; never automate unsolicited replies.",
+      "maximumPostsPerDay": 1,
+      "maximumPostsPerWeek": 3
     },
     "youtube": {
       "status": "active",
       "cadence": "Three Shorts per week when the topic and hook pass creative cooldowns.",
-      "maximumPostsPerDay": 1
+      "communityCadence": "Reply to substantive comments and turn recurring viewer questions into future Shorts.",
+      "maximumPostsPerDay": 1,
+      "maximumPostsPerWeek": 3
     },
     "tiktok": {
       "status": "paused",
       "cadence": "No scheduled publishing until direct-post controls, reconciliation, accessibility, and measurement are ready.",
-      "maximumPostsPerDay": 0
+      "communityCadence": "No automated engagement. Resume only after account recommendation checks and a human-approved relaunch test.",
+      "maximumPostsPerDay": 0,
+      "maximumPostsPerWeek": 0
     }
   },
   "routes": [
     {
       "id": "telegram-market-brief",
       "platform": "telegram",
-      "cron": "17 00 * * *",
+      "cron": "17 08 * * 1",
       "command": "npx tsx scripts/post-market-updates.ts --platform telegram",
-      "purpose": "Daily sourced market brief",
+      "purpose": "Monday market map with one sourced checkpoint",
       "format": "market-brief"
     },
     {
       "id": "telegram-radar-divergence",
       "platform": "telegram",
-      "cron": "41 18 * * 1,3",
+      "cron": "41 18 * * 4",
       "command": "npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence",
-      "purpose": "Monday/Wednesday calculated divergence",
+      "purpose": "Thursday independent divergence snapshot; not a poll-result post",
       "format": "radar-divergence"
     },
     {
       "id": "telegram-token-comparison",
       "platform": "telegram",
-      "cron": "37 15 * * 2,4",
+      "cron": "37 15 * * 2",
       "command": "npx tsx scripts/post-token-comparison.ts --platform telegram",
-      "purpose": "Tuesday/Thursday comparable-asset research",
+      "purpose": "Tuesday comparable-asset research with an explicit verdict",
       "format": "token-comparison"
+    },
+    {
+      "id": "telegram-community-poll",
+      "platform": "telegram",
+      "cron": "13 17 * * 3",
+      "command": "npx tsx scripts/post-daily-poll.ts",
+      "purpose": "Wednesday audience-directed research poll",
+      "format": "community-poll"
     },
     {
       "id": "telegram-weekly-recap",
@@ -90,34 +110,42 @@
     {
       "id": "x-market-update",
       "platform": "x",
-      "cron": "17 03 * * *",
+      "cron": "17 15 * * 2,4,5",
       "command": "npx tsx scripts/post-market-updates.ts --platform x",
-      "purpose": "Daily sourced research note",
+      "purpose": "Tuesday/Thursday/Friday sourced research note",
       "format": "market-update"
     },
     {
       "id": "x-token-comparison",
       "platform": "x",
-      "cron": "23 12 * * 1,3,5",
+      "cron": "23 12 * * 1",
       "command": "npx tsx scripts/post-token-comparison.ts --platform x",
-      "purpose": "Monday/Wednesday/Friday comparison",
+      "purpose": "Monday justified comparable-asset verdict",
       "format": "token-comparison"
+    },
+    {
+      "id": "x-native-video",
+      "platform": "x",
+      "cron": "43 18 * * 3",
+      "command": "npx tsx scripts/post-video-daily.ts --platform x",
+      "purpose": "Wednesday captioned native research video",
+      "format": "short-video"
     },
     {
       "id": "instagram-movers-carousel",
       "platform": "instagram",
-      "cron": "29 00 * * 0",
+      "cron": "29 18 * * 0,3",
       "command": "npx tsx scripts/post-instagram-daily-movers.ts",
-      "purpose": "Sunday educational movers carousel",
+      "purpose": "Wednesday/Sunday five-slide evidence carousel",
       "format": "movers-carousel"
     },
     {
-      "id": "instagram-token-comparison",
+      "id": "instagram-reel",
       "platform": "instagram",
-      "cron": "41 18 * * 1,3",
-      "command": "npx tsx scripts/post-token-comparison.ts --platform instagram",
-      "purpose": "Monday/Wednesday comparison card",
-      "format": "token-comparison"
+      "cron": "47 18 * * 1,5",
+      "command": "npx tsx scripts/post-video-daily.ts --platform instagram",
+      "purpose": "Monday/Friday original evidence-led Reel",
+      "format": "short-video"
     },
     {
       "id": "threads-text-signal",
@@ -138,7 +166,7 @@
     {
       "id": "youtube-short",
       "platform": "youtube",
-      "cron": "47 18 * * 1,3,5",
+      "cron": "57 18 * * 1,3,5",
       "command": "npx tsx scripts/post-video-daily.ts --platform youtube",
       "purpose": "Monday/Wednesday/Friday distinct Short",
       "format": "short-video"

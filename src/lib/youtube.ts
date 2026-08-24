@@ -3,6 +3,13 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { sanitizePostTextLinks } from './social-link-policy';
+import { buildVideoCaptionCues } from './video-captioning';
+import {
+  buildVideoEvidenceSummary,
+  formatVideoAsOf,
+  formatVideoMarketSource,
+  type VideoEvidenceInput,
+} from './video-evidence';
 
 type GoogleApiError = Error & {
   response?: {
@@ -41,6 +48,26 @@ export interface YouTubeCaptionTrack {
   name?: string;
 }
 
+export interface YouTubeShortsMetadataInput extends VideoEvidenceInput {
+  generatedTitle?: string;
+  generatedDescription?: string;
+  researchUrl?: string;
+  formatLabel?: string;
+}
+
+export interface YouTubeShortsMetadata {
+  title: string;
+  description: string;
+  tags: string[];
+  categoryId: string;
+}
+
+export interface YouTubeShortsUploadMetadata {
+  tags?: string[];
+  categoryId?: string;
+  defaultLanguage?: string;
+}
+
 function formatVttTimestamp(totalSeconds: number): string {
   const totalMilliseconds = Math.round(Math.max(0, totalSeconds) * 1000);
   const hours = Math.floor(totalMilliseconds / 3_600_000);
@@ -52,27 +79,77 @@ function formatVttTimestamp(totalSeconds: number): string {
 
 /** Build a readable, deterministically timed caption track from narration text. */
 export function buildWebVttCaptionTrack(text: string, durationSeconds: number): string {
-  const cleanText = text
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/-->/g, '→')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (!cleanText) return 'WEBVTT\n';
+  const cues = buildVideoCaptionCues(text, durationSeconds, 7);
+  if (cues.length === 0) return 'WEBVTT\n';
+  const renderedCues = cues.map((cue) =>
+    `${cue.index}\n${formatVttTimestamp(cue.startSeconds)} --> ${formatVttTimestamp(cue.endSeconds)}\n${cue.text}`,
+  );
+  return `WEBVTT\n\n${renderedCues.join('\n\n')}\n`;
+}
 
-  const words = cleanText.split(' ');
-  const chunks: string[] = [];
-  for (let index = 0; index < words.length; index += 7) {
-    chunks.push(words.slice(index, index + 7).join(' '));
+function uniqueYouTubeTags(values: Array<string | undefined>): string[] {
+  const seen = new Set<string>();
+  const output: string[] = [];
+  for (const value of values) {
+    const clean = value?.replace(/^#+/, '').replace(/[^a-z0-9 ._+-]/gi, '').trim();
+    if (!clean) continue;
+    const key = clean.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    output.push(clean.slice(0, 30));
   }
+  return output.slice(0, 8);
+}
 
-  const safeDuration = Math.max(durationSeconds, chunks.length * 0.8);
-  const cueDuration = safeDuration / chunks.length;
-  const cues = chunks.map((chunk, index) => {
-    const start = index * cueDuration;
-    const end = Math.min(safeDuration, (index + 1) * cueDuration);
-    return `${index + 1}\n${formatVttTimestamp(start)} --> ${formatVttTimestamp(end)}\n${chunk}`;
-  });
-  return `WEBVTT\n\n${cues.join('\n\n')}\n`;
+/** Build grounded, searchable Shorts packaging without relying on a generic AI title. */
+export function buildYouTubeShortsMetadata(input: YouTubeShortsMetadataInput): YouTubeShortsMetadata {
+  const evidence = buildVideoEvidenceSummary(input);
+  const tokenName = input.tokenName.trim();
+  const move = evidence.moveLabel?.replace(' / 24H', '');
+  const titleBase = move
+    ? `${tokenName} (${evidence.tokenLabel}) ${move}: Risk Check`
+    : `${tokenName} (${evidence.tokenLabel}): Market Data Check`;
+  const title = titleBase.length <= 60
+    ? titleBase
+    : `${evidence.tokenLabel}${move ? ` ${move}` : ''}: Market Data Check`.slice(0, 60).trim();
+
+  const evidenceParts = [
+    evidence.moveLabel ? `${evidence.tokenLabel} ${evidence.moveLabel.replace(' / 24H', '')} over 24h` : undefined,
+    evidence.turnoverLabel ? `reported turnover ${evidence.turnoverLabel.replace(' VOL/CAP', ' of market cap')}` : undefined,
+    evidence.riskLabel ? `TokenRadar risk score ${evidence.riskLabel.replace(' RISK', '')}` : undefined,
+  ].filter((value): value is string => Boolean(value));
+  const source = formatVideoMarketSource(input.marketDataSource);
+  const asOf = formatVideoAsOf(input.marketDataAsOf);
+  const sourceLine = source && asOf
+    ? `Source: ${source} · Data as of ${asOf}`
+    : source
+      ? `Source: ${source}`
+      : asOf
+        ? `Data as of ${asOf}`
+        : undefined;
+  const researchLine = input.researchUrl?.trim() ? `Research: ${input.researchUrl.trim()}` : undefined;
+  const description = [
+    evidenceParts.length > 0 ? `${evidenceParts.join(' · ')}.` : input.generatedDescription?.trim(),
+    sourceLine,
+    'Educational market context. Point-in-time data, not financial advice.',
+    researchLine,
+    `#Shorts #Crypto #${evidence.tokenLabel.replace(/[^A-Z0-9_]/g, '') || 'TokenRadar'}`,
+  ].filter(Boolean).join('\n\n');
+
+  return {
+    title: sanitizePostTextLinks(title),
+    description: sanitizePostTextLinks(description),
+    tags: uniqueYouTubeTags([
+      tokenName,
+      evidence.tokenLabel,
+      `${evidence.tokenLabel} crypto`,
+      'crypto market data',
+      'TokenRadar',
+      input.formatLabel,
+      'YouTube Shorts',
+    ]),
+    categoryId: '28',
+  };
 }
 
 /**
@@ -92,6 +169,7 @@ export async function uploadToYouTubeShorts(
   privacyStatus: 'public' | 'unlisted' | 'private' = 'public',
   publishAt?: Date,
   captionTrack?: YouTubeCaptionTrack,
+  uploadMetadata?: YouTubeShortsUploadMetadata,
 ): Promise<string> {
   const clientId = process.env.YOUTUBE_CLIENT_ID;
   const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
@@ -127,7 +205,10 @@ export async function uploadToYouTubeShorts(
           snippet: {
             title: safeTitle,
             description: safeDescription,
-            categoryId: '22', // People & Blogs
+            categoryId: uploadMetadata?.categoryId || '28',
+            tags: uploadMetadata?.tags?.length ? uploadMetadata.tags : undefined,
+            defaultLanguage: uploadMetadata?.defaultLanguage || 'en',
+            defaultAudioLanguage: captionTrack?.language || uploadMetadata?.defaultLanguage || 'en',
           },
           status: {
             privacyStatus: publishAt ? 'private' : privacyStatus,

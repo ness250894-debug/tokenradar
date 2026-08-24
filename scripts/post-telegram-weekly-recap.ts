@@ -15,9 +15,7 @@ import * as path from "path";
 
 import {
   SOCIAL_PLATFORM_LIMITS,
-  getTelegramResearchLinkHtml,
   SITE_URL,
-  TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import {
   hasSocialPost,
@@ -29,7 +27,13 @@ import { getSocialArchetypeByKey } from "../src/lib/social-archetypes";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { buildSocialUtmUrl } from "../src/lib/social-utm";
-import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramPhoto } from "../src/lib/telegram";
+import {
+  buildTelegramMediaCaption,
+  buildTelegramResearchFooter,
+  createTelegramResearchKeyboard,
+  isTelegramCreateOutcomeUnknownError,
+  sendTelegramPhoto,
+} from "../src/lib/telegram";
 import { renderTelegramWeeklyRecapImage } from "../src/lib/telegram-weekly-recap-image";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import {
@@ -110,14 +114,15 @@ async function main() {
     const photoBuffer = await renderTelegramWeeklyRecapImage(recap.image);
     console.log(`  Rendered ${(photoBuffer.length / 1024).toFixed(1)} KB PNG`);
 
-    const tgFooter = `
-Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.
-
-${getTelegramResearchLinkHtml(trackedUrl)}
-
-${TELEGRAM_SIGNAL_NOTE}
-#Crypto #TokenRadar #WeeklyRecap
-`;
+    const telegramCta = {
+      url: trackedUrl,
+      surface: "recap" as const,
+      hashtags: ["#WeeklyRecap"],
+    };
+    const tgFooter = [
+      `Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
+      buildTelegramResearchFooter(telegramCta),
+    ].join("\n\n");
 
     const caption = buildTelegramMediaCaption(
       sanitizeSocialEditorialText(recap.captionBody),
@@ -153,7 +158,9 @@ ${TELEGRAM_SIGNAL_NOTE}
     }
     deliveryReserved = true;
 
-    const messageId = await sendTelegramPhoto(photoBuffer, caption, channelId!);
+    const messageId = await sendTelegramPhoto(photoBuffer, caption, channelId!, {
+      replyMarkup: createTelegramResearchKeyboard(telegramCta),
+    });
     publishedExternalId = messageId;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({

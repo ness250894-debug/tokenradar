@@ -71,10 +71,91 @@ describe("native social metrics collectors", () => {
     expect(String(fetchMock.mock.calls[0]?.[0])).toContain("key=youtube-test-key");
   });
 
-  it("explicitly skips Telegram instead of fabricating channel-post views", async () => {
-    await expect(collectNativeSocialMetrics({ ...target, platform: "telegram" })).resolves.toEqual({
-      status: "skipped",
-      reason: "Telegram Bot API does not expose per-channel-post view metrics",
+  it("collects the exact Telegram message view count from the public channel preview", async () => {
+    const fetchMock = vi.fn(async (_input: string | URL | Request) => new Response(`
+      <div class="tgme_widget_message_wrap js-widget_message_wrap" data-post="Token_Radar_Official/407">
+        <span class="tgme_widget_message_views">1.2K</span><span class="copyonly"> views</span>
+      </div>
+    `, { status: 200, headers: { "Content-Type": "text/html" } }));
+
+    const result = await collectNativeSocialMetrics({ ...target, platform: "telegram", externalId: "407" }, {
+      fetch: fetchMock as unknown as typeof fetch,
+      env: { TELEGRAM_CHANNEL_USERNAME: "token_radar_official" },
     });
+
+    expect(result).toMatchObject({
+      status: "collected",
+      snapshot: { views: 1200, source: "telegram-public-preview" },
+    });
+    expect(String(fetchMock.mock.calls[0]?.[0])).toContain("t.me/s/token_radar_official/407");
+  });
+
+  it("collects TikTok Display API counts when video.list credentials are available", async () => {
+    const fetchMock = vi.fn(async (_input: string | URL | Request, _init?: RequestInit) => jsonResponse({
+      data: {
+        videos: [{ id: "video-1", view_count: 900, like_count: 12, comment_count: 3, share_count: 4 }],
+      },
+      error: { code: "ok", message: "" },
+    }));
+
+    const result = await collectNativeSocialMetrics({ ...target, platform: "tiktok", externalId: "video-1" }, {
+      fetch: fetchMock as unknown as typeof fetch,
+      env: { TIKTOK_ACCESS_TOKEN: "tiktok-test-token" },
+    });
+
+    expect(result).toMatchObject({
+      status: "collected",
+      snapshot: { views: 900, likes: 12, comments: 3, shares: 4 },
+    });
+    expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({
+      method: "POST",
+      headers: {
+        Authorization: "Bearer tiktok-test-token",
+        "Content-Type": "application/json",
+      },
+    });
+    expect(String(fetchMock.mock.calls[0]?.[1]?.body)).toContain("video-1");
+  });
+
+  it("prefers one cached TikTok refresh over a stale access-token secret for a metric batch", async () => {
+    const fetchMock = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
+      if (String(input).includes("/oauth/token/")) {
+        return jsonResponse({ access_token: "fresh-batch-token", expires_in: 86_400 });
+      }
+      const requestedId = JSON.parse(String(init?.body)) as { filters: { video_ids: string[] } };
+      return jsonResponse({
+        data: {
+          videos: requestedId.filters.video_ids.map((id) => ({
+            id,
+            view_count: 10,
+            like_count: 1,
+            comment_count: 0,
+            share_count: 0,
+          })),
+        },
+        error: { code: "ok", message: "" },
+      });
+    });
+    const dependencies = {
+      fetch: fetchMock as unknown as typeof fetch,
+      env: {
+        TIKTOK_ACCESS_TOKEN: "stale-token",
+        TIKTOK_REFRESH_TOKEN: "refresh-token",
+        TIKTOK_CLIENT_KEY: "client-key",
+        TIKTOK_CLIENT_SECRET: "client-secret",
+      },
+      tiktokAccessTokenCache: new Map<string, Promise<string | null>>(),
+    };
+
+    await collectNativeSocialMetrics({ ...target, platform: "tiktok", externalId: "video-1" }, dependencies);
+    await collectNativeSocialMetrics({ ...target, platform: "tiktok", externalId: "video-2" }, dependencies);
+
+    const tokenCalls = fetchMock.mock.calls.filter(([input]) => String(input).includes("/oauth/token/"));
+    const queryCalls = fetchMock.mock.calls.filter(([input]) => String(input).includes("/video/query/"));
+    expect(tokenCalls).toHaveLength(1);
+    expect(queryCalls).toHaveLength(2);
+    for (const [, init] of queryCalls) {
+      expect(init?.headers).toMatchObject({ Authorization: "Bearer fresh-batch-token" });
+    }
   });
 });

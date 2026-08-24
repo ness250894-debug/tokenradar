@@ -16,11 +16,10 @@ export interface VideoRenderProfile {
 }
 
 export const VIDEO_FPS = 30;
-export const STANDARD_VIDEO_DURATION_SECONDS = 30;
-// TikTok's #1 algorithm signal is completion rate. 21 seconds is the sweet spot
-// for data-driven crypto content: long enough for a 3-beat story, short enough
-// that viewers consistently watch to the end.
-export const TIKTOK_FOR_YOU_DURATION_SECONDS = 21;
+// One evidence-led point, one risk check, and one CTA fit comfortably in 20s.
+export const STANDARD_VIDEO_DURATION_SECONDS = 20;
+// Keep the dormant TikTok creative shorter and creator-native for manual tests.
+export const TIKTOK_FOR_YOU_DURATION_SECONDS = 18;
 
 const STANDARD_VIDEO_PROFILE = {
   compositionId: "TopGainerUpdate",
@@ -29,8 +28,8 @@ const STANDARD_VIDEO_PROFILE = {
   height: 1920,
   durationSeconds: STANDARD_VIDEO_DURATION_SECONDS,
   durationInFrames: STANDARD_VIDEO_DURATION_SECONDS * VIDEO_FPS,
-  minDurationSeconds: 29,
-  maxDurationSeconds: 31,
+  minDurationSeconds: 19,
+  maxDurationSeconds: 21,
   forYouOptimized: false,
 } as const;
 
@@ -41,8 +40,8 @@ const TIKTOK_FOR_YOU_VIDEO_PROFILE = {
   height: 1920,
   durationSeconds: TIKTOK_FOR_YOU_DURATION_SECONDS,
   durationInFrames: TIKTOK_FOR_YOU_DURATION_SECONDS * VIDEO_FPS,
-  minDurationSeconds: 19,
-  maxDurationSeconds: 23,
+  minDurationSeconds: 17,
+  maxDurationSeconds: 19,
   forYouOptimized: true,
 } as const;
 

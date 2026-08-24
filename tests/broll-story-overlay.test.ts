@@ -18,7 +18,7 @@ vi.mock("remotion", async () => {
     staticFile: (src: string) => src,
     useCurrentFrame: () => 0,
     useVideoConfig: () => ({
-      durationInFrames: 1260,
+      durationInFrames: 540,
       fps: 30,
       width: 1080,
       height: 1920,
@@ -78,7 +78,7 @@ describe("BrollStoryOverlay", () => {
     expect(markup).toMatch(/attention|confirmation|story/i);
   });
 
-  it("renders the TikTok path as a comment-reply story instead of a metric dashboard", () => {
+  it("renders the TikTok path as an explicit data-check story instead of a metric dashboard", () => {
     const markup = renderToStaticMarkup(
       React.createElement(TikTokNativeStory, {
         tokenName: "Solana",
@@ -97,11 +97,13 @@ describe("BrollStoryOverlay", () => {
       }),
     );
 
-    expect(markup).toMatch(/replying to comment|short answer|first check/i);
-    expect(markup).toMatch(/comment one ticker|two-check read/i);
+    expect(markup).toMatch(/TokenRadar data check/i);
+    expect(markup).not.toMatch(/replying\s+to\s+comment|viewer\s+(?:comment|request)/i);
+    expect(markup).toContain("SOL moved +6.4% / 24h");
+    expect(markup).toContain("4.4% reported vol/cap");
+    expect(markup).toMatch(/turnover or risk/i);
     expect(markup).not.toMatch(/@tokenradar|scroll stop|receipt/i);
-    expect(markup).not.toMatch(/SOL moved|ETH moved|Growth Potential|Market Cap Rank|Volume:/i);
-    expect(markup).not.toMatch(/\+\d+(?:\.\d+)?%|\$\d/);
+    expect(markup).not.toMatch(/Growth Potential|Market Cap Rank|Volume:/i);
     expect(markup).not.toMatch(/Educational data only|risk check/i);
   });
 });

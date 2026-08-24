@@ -52,11 +52,11 @@ describe("Threads weekly recap", () => {
     });
 
     expect(recap.topicTag).toBe("Crypto");
-    expect(recap.caption).toContain("TokenRadar weekly recap");
+    expect(recap.caption).toContain("loudest move was not automatically");
     expect(recap.caption).toContain("$ONE +22.4%");
     expect(recap.caption).toContain("Pullback watch: $RED -11.2%");
     expect(recap.caption).toContain("Reported-volume context: $LIQ");
-    expect(recap.caption).toContain("Which supplied field was most useful this week");
+    expect(recap.caption).toContain("Price leadership and reported activity pointed to different tokens");
     expect(recap.caption.length).toBeLessThanOrEqual(500);
   });
 

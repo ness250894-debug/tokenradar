@@ -370,15 +370,15 @@ describe("video asset pipeline", () => {
 
     expect(shotList.fallbackLevel).toBe("fresh");
     expect(shotList.segments.map((segment) => [segment.segmentId, segment.fromSeconds, segment.toSeconds])).toEqual([
-      ["hook", 0, 8],
-      ["evidence", 8, 20],
-      ["closing", 20, 30],
+      ["hook", 0, 5],
+      ["evidence", 5, 19],
+      ["closing", 19, 30],
     ]);
     expect(shotList.segments.map((segment) => segment.asset.id)).not.toContain("recent-phone");
-    expect(new Set(shotList.segments.map((segment) => segment.asset.id)).size).toBe(3);
+    expect(shotList.segments.slice(1).every((segment) => segment.asset.id === "blender-radar")).toBe(true);
   });
 
-  it("expands the primary shot list across a TikTok-native For You render", () => {
+  it("limits a concise TikTok render to one human hook plus generated evidence", () => {
     const manifest = normalizeVideoAssetManifest({
       assets: [
         {
@@ -455,19 +455,18 @@ describe("video asset pipeline", () => {
       platform: "tiktok",
       seedParts: ["2026-05-22", "tiktok", "solana"],
       now: new Date("2026-05-22T12:00:00.000Z"),
-      durationSeconds: 42,
+      durationSeconds: 18,
     });
 
     expect(shotList.segments.map((segment) => segment.segmentId)).toEqual([
       "hook",
       "evidence",
-      "context",
-      "risk",
       "closing",
     ]);
     expect(shotList.segments[0].fromSeconds).toBe(0);
-    expect(shotList.segments.at(-1)?.toSeconds).toBe(42);
-    expect(new Set(shotList.segments.map((segment) => segment.asset.id)).size).toBeGreaterThanOrEqual(5);
+    expect(shotList.segments.at(-1)?.toSeconds).toBe(18);
+    expect(shotList.segments[0].asset.id).toBe("human-phone");
+    expect(shotList.segments.slice(1).every((segment) => segment.asset.id === "network-map")).toBe(true);
   });
 
   it("uses human phone footage for the hook segment when available", () => {

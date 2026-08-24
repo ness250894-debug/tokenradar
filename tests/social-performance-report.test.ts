@@ -84,6 +84,8 @@ describe("weekly social performance report", () => {
     expect(report.postsMeasured).toBe(3);
     expect(report.platformSummary.find((group) => group.key === "x")).toMatchObject({
       posts: 2,
+      interactionPosts: 2,
+      rateEligiblePosts: 2,
       exposure: 1_500,
       interactions: 16,
     });
@@ -99,6 +101,100 @@ describe("weekly social performance report", () => {
 
     expect(report.platformSummary[0].clickThroughRate).toBeUndefined();
     expect(renderSocialPerformanceMarkdown(report)).toContain("| N/A | N/A |");
+  });
+
+  it("keeps Telegram view-only samples out of interaction rankings and shows actual sample age", () => {
+    const report = buildSocialPerformanceReport([row({
+      platform: "telegram",
+      contentKey: "telegram-post-1",
+      impressions: undefined,
+      views: 1_200,
+      likes: undefined,
+      replies: undefined,
+      comments: undefined,
+      reposts: undefined,
+      shares: undefined,
+      saves: undefined,
+      actualAgeHours: 31.4,
+      postDetails: { archetypeKey: "market_brief", variantSurface: "market-update" },
+    })], {
+      generatedAt: "2026-08-23T00:00:00.000Z",
+      lookbackDays: 35,
+    });
+
+    expect(report.platformSummary[0]).toMatchObject({
+      posts: 1,
+      interactionPosts: 0,
+      exposure: 1_200,
+      interactions: undefined,
+      engagementPerThousand: undefined,
+      averageActualAgeHours: 31.4,
+    });
+    expect(report.topPosts).toEqual([]);
+    expect(report.recommendations).toContainEqual(expect.stringContaining("interaction metrics are unavailable"));
+    expect(report.recommendations.join(" ")).not.toMatch(/rewrite or pause/i);
+    const markdown = renderSocialPerformanceMarkdown(report);
+    expect(markdown).toContain("| N/A | +31.4h |");
+  });
+
+  it("distinguishes measured interactions with no exposure denominator", () => {
+    const report = buildSocialPerformanceReport([row({
+      impressions: undefined,
+      views: undefined,
+      reach: undefined,
+    })], {
+      generatedAt: "2026-08-23T00:00:00.000Z",
+      lookbackDays: 35,
+    });
+
+    expect(report.archetypeSummary[0]).toMatchObject({
+      interactionPosts: 1,
+      rateEligiblePosts: 0,
+      exposure: 0,
+      interactions: undefined,
+      engagementPerThousand: undefined,
+    });
+    expect(report.recommendations).toContainEqual(
+      expect.stringContaining("exposure is unavailable or zero"),
+    );
+    expect(report.recommendations.join(" ")).not.toContain("interaction metrics are unavailable");
+  });
+
+  it("excludes no-exposure interactions from the normalized engagement numerator and sample", () => {
+    const report = buildSocialPerformanceReport([
+      row({
+        contentKey: "with-exposure",
+        impressions: 100,
+        likes: 10,
+        replies: 0,
+        reposts: 0,
+      }),
+      row({
+        contentKey: "without-exposure",
+        impressions: undefined,
+        views: undefined,
+        reach: undefined,
+        likes: 90,
+        replies: 0,
+        reposts: 0,
+      }),
+    ], {
+      generatedAt: "2026-08-23T00:00:00.000Z",
+      lookbackDays: 35,
+    });
+
+    expect(report.platformSummary[0]).toMatchObject({
+      posts: 2,
+      interactionPosts: 2,
+      rateEligiblePosts: 1,
+      exposure: 100,
+      interactions: 10,
+      engagementPerThousand: 100,
+    });
+    expect(report.recommendations).toContainEqual(
+      expect.stringContaining("1/5 rate-eligible posts; 2 interaction-measured"),
+    );
+    expect(renderSocialPerformanceMarkdown(report)).toContain("2 (2 / 1)");
   });
 
   it("reports persisted GA4 sessions separately from native link clicks", () => {

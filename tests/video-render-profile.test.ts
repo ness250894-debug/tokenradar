@@ -12,7 +12,9 @@ describe("video render profiles", () => {
 
     expect(profile.compositionId).toBe("TopGainerUpdate");
     expect(profile.durationSeconds).toBe(STANDARD_VIDEO_DURATION_SECONDS);
-    expect(profile.durationInFrames).toBe(900);
+    expect(profile.durationInFrames).toBe(600);
+    expect(profile.minDurationSeconds).toBe(19);
+    expect(profile.maxDurationSeconds).toBe(21);
     expect(profile.forYouOptimized).toBe(false);
   });
 
@@ -21,9 +23,9 @@ describe("video render profiles", () => {
 
     expect(profile.compositionId).toBe("TopGainerUpdateTikTok");
     expect(profile.durationSeconds).toBe(TIKTOK_FOR_YOU_DURATION_SECONDS);
-    expect(profile.durationInFrames).toBe(630);
+    expect(profile.durationInFrames).toBe(540);
     expect(profile.forYouOptimized).toBe(true);
-    expect(profile.minDurationSeconds).toBe(19);
-    expect(profile.maxDurationSeconds).toBe(23);
+    expect(profile.minDurationSeconds).toBe(17);
+    expect(profile.maxDurationSeconds).toBe(19);
   });
 });

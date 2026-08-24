@@ -9,7 +9,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { TopGainerProps } from "./Root";
-import { COLORS, FONTS } from "./styles";
+import { COLORS, FONTS, SAFE_ZONES } from "./styles";
 import { MediaAssetLayer } from "./components/MediaAssetLayer";
 import {
   buildTikTokInVideoScenePlan,
@@ -17,6 +17,8 @@ import {
   type TikTokSceneTone,
 } from "../lib/tiktok-scene-planner";
 import { resolveVideoVisualRecipe } from "../lib/video-recipes";
+import { TimedNarrationCaptions } from "./components/TimedNarrationCaptions";
+import { VideoSourceBadge } from "./components/VideoSourceBadge";
 
 if (typeof document !== "undefined" && !document.getElementById("tokenradar-tiktok-fonts")) {
   const style = document.createElement("style");
@@ -55,6 +57,9 @@ function buildNativeBeats(props: TopGainerProps, durationSeconds: number): Nativ
     priceChange24h: props.priceChange24h,
     riskScore: props.riskScore,
     volume24h: props.volume24h,
+    marketCap: props.marketCap,
+    marketDataSource: props.marketDataSource,
+    marketDataAsOf: props.marketDataAsOf,
     contextText: props.contextText,
     videoThesis: props.videoThesis,
     durationSeconds,
@@ -152,13 +157,14 @@ function getNoteStyle(tone: NativeBeat["noteTone"], accent: string): React.CSSPr
   return { background: "#F8FAFC", color: "#111827", borderColor: `${accent}55` };
 }
 
-const CommentCard: React.FC<{ prompt: string; accent: string }> = ({ prompt, accent }) => (
+const EvidenceCard: React.FC<{ prompt: string; accent: string }> = ({ prompt, accent }) => (
   <div
+    aria-label={`TokenRadar data check: ${prompt}`}
     style={{
       position: "absolute",
-      left: 62,
-      right: 62,
-      top: 92,
+      left: SAFE_ZONES.horizontal,
+      right: SAFE_ZONES.actionRail,
+      top: SAFE_ZONES.top,
       minHeight: 134,
       borderRadius: 30,
       padding: "22px 28px",
@@ -174,7 +180,7 @@ const CommentCard: React.FC<{ prompt: string; accent: string }> = ({ prompt, acc
       style={{
         width: 58,
         height: 58,
-        borderRadius: "50%",
+        borderRadius: 16,
         display: "grid",
         placeItems: "center",
         background: accent,
@@ -183,7 +189,7 @@ const CommentCard: React.FC<{ prompt: string; accent: string }> = ({ prompt, acc
         fontWeight: 950,
       }}
     >
-      ?
+      TR
     </div>
     <div style={{ flex: 1 }}>
       <div
@@ -195,7 +201,7 @@ const CommentCard: React.FC<{ prompt: string; accent: string }> = ({ prompt, acc
           marginBottom: 10,
         }}
       >
-        replying to comment
+        TokenRadar data check
       </div>
       <div
         style={{
@@ -237,13 +243,13 @@ const NativeBeatCaption: React.FC<{ beat: NativeBeat; durationInFrames: number }
 
   return (
     <AbsoluteFill style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }}>
-      <CommentCard prompt={beat.prompt} accent={beat.accent} />
+      <EvidenceCard prompt={beat.prompt} accent={beat.accent} />
       <div
         style={{
           position: "absolute",
-          left: isClosing ? 92 : 68,
-          right: isClosing ? 92 : 210,
-          bottom: isClosing ? 250 : 286,
+          left: SAFE_ZONES.horizontal,
+          right: SAFE_ZONES.actionRail,
+          bottom: 850,
           fontFamily: FONTS.primary,
           color: COLORS.text,
         }}
@@ -270,9 +276,9 @@ const NativeBeatCaption: React.FC<{ beat: NativeBeat; durationInFrames: number }
         <div
           style={{
             position: "absolute",
-            right: isClosing ? 20 : -118,
-            top: isClosing ? -170 : -112,
-            maxWidth: isClosing ? 560 : 330,
+            right: 12,
+            top: isClosing ? -156 : -122,
+            maxWidth: isClosing ? 520 : 330,
             borderRadius: 10,
             padding: "18px 20px",
             background: noteStyle.background,
@@ -299,6 +305,9 @@ export const TikTokNativeStory: React.FC<TopGainerProps> = (props) => {
     audioFile,
     audioStartSeconds = 0,
     voiceoverFile,
+    voiceoverScript,
+    marketDataSource,
+    marketDataAsOf,
     mediaAssets,
     mediaSegments,
     visualRecipe: inputVisualRecipe,
@@ -341,6 +350,14 @@ export const TikTokNativeStory: React.FC<TopGainerProps> = (props) => {
         );
       })}
 
+      <TimedNarrationCaptions text={voiceoverScript} reserveActionRail />
+      <VideoSourceBadge
+        tokenName={props.tokenName}
+        symbol={props.symbol}
+        marketDataSource={marketDataSource}
+        marketDataAsOf={marketDataAsOf}
+        reserveActionRail
+      />
 
       {audioFile && (
         <Audio

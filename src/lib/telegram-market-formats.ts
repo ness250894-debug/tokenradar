@@ -159,6 +159,14 @@ function riskLabel(score: number | undefined): string {
   return score === undefined ? "N/A" : `${score}/10`;
 }
 
+function participationLine(token: TelegramMarketToken): string {
+  return [
+    "Participation snapshot:",
+    `24h volume (reported): ${formatCompact(token.volume24h)}.`,
+    `Market cap: ${formatCompact(token.marketCap)}.`,
+  ].join("\n");
+}
+
 function tokenImageData(token: TelegramMarketToken): Extract<TelegramMarketPostImage, { kind: "token-card" }> {
   return {
     kind: "token-card",
@@ -228,11 +236,11 @@ function buildRadarDivergenceCaption(token: TelegramMarketToken): string {
   const symbol = token.symbol.toUpperCase();
   const read = getRadarDivergenceRead(token);
   return [
-    `<b>Radar Divergence: $${symbol}</b>`,
+    `<b>$${symbol}: price move vs reported participation</b>`,
     `24h change: ${formatPercent(token.priceChange24h)} | Rank #${token.marketCapRank || "N/A"}.`,
-    `Reported 24h volume: ${formatCompact(token.volume24h)} | Market cap: ${formatCompact(token.marketCap)}.`,
+    participationLine(token),
     `Risk score: ${riskLabel(token.riskScore)}.`,
-    `<b>${read.label}</b>. ${read.implication}`,
+    `<b>What this proves:</b> ${read.implication}`,
   ].join("\n");
 }
 
@@ -241,22 +249,21 @@ function buildMarketPulseCaption(token: TelegramMarketToken, context: TelegramMa
   const symbol = token.symbol.toUpperCase();
 
   return [
-    "<b>Market Pulse</b>",
-    `Watch item: <b>$${symbol}</b> | 24h change: ${formatPercent(token.priceChange24h)} | Rank #${token.marketCapRank || "N/A"}.`,
-    `Reported 24h volume: ${formatCompact(token.volume24h)} | Market cap: ${formatCompact(token.marketCap)}.`,
-    `Risk score: ${riskLabel(token.riskScore)}.`,
+    `<b>$${symbol} in one screen</b>`,
+    `Price move: ${formatPercent(token.priceChange24h)} over 24h | Rank #${token.marketCapRank || "N/A"}.`,
+    participationLine(token),
+    `Risk score: ${riskLabel(token.riskScore)}. Next check: refresh all fields from the same source window.`,
   ].join("\n");
 }
 
 function buildWatchlistCheckCaption(token: TelegramMarketToken): string {
   const symbol = token.symbol.toUpperCase();
   return [
-    "<b>Watchlist Check</b>",
-    `<b>$${symbol} ${token.name}</b>`,
-    `Why now: ${reasonLabel(token.selectionReason)}.`,
+    `<b>Why $${symbol} made today's watchlist</b>`,
+    `${token.name} appeared through ${reasonLabel(token.selectionReason)}.`,
     `Move: ${formatPercent(token.priceChange24h)} in 24h | Price: ${formatPrice(token.price)} | Rank #${token.marketCapRank || "N/A"}.`,
-    `Risk score: ${riskLabel(token.riskScore)} | Reported 24h volume: ${formatCompact(token.volume24h)}.`,
-    `Market cap: ${formatCompact(token.marketCap)}.`,
+    participationLine(token),
+    `Risk score: ${riskLabel(token.riskScore)}. This is a reason to inspect the snapshot, not a quality conclusion.`,
   ].join("\n");
 }
 
@@ -265,11 +272,23 @@ function buildMarketBriefCaption(token: TelegramMarketToken, context: TelegramMa
   void context;
 
   return [
-    `<b>Radar Read: $${symbol}</b>`,
-    `${token.name} is on radar for ${reasonLabel(token.selectionReason)}.`,
-    `Snapshot: ${formatPercent(token.priceChange24h)} 24h change, ${formatCompact(token.marketCap)} market cap, ${formatCompact(token.volume24h)} reported 24h volume.`,
-    `Risk score: ${riskLabel(token.riskScore)} | Rank #${token.marketCapRank || "N/A"}.`,
+    `<b>$${symbol}: the move and the participation field</b>`,
+    `${token.name} entered today's brief through ${reasonLabel(token.selectionReason)}.`,
+    `Price move: ${formatPercent(token.priceChange24h)} over 24h | Rank #${token.marketCapRank || "N/A"}.`,
+    participationLine(token),
+    `Risk score: ${riskLabel(token.riskScore)}. Recheck the next same-source snapshot before extending the read.`,
   ].join("\n");
+}
+
+export function resolveTelegramMarketBriefCaption(options: {
+  generatedCaption?: string;
+  deterministicCaption: string;
+  generatedCaptionQuarantined?: boolean;
+}): string {
+  const deterministic = options.deterministicCaption.trim();
+  const generated = options.generatedCaption?.trim() || "";
+  if (options.generatedCaptionQuarantined || !generated) return deterministic;
+  return generated;
 }
 
 export function buildTelegramMarketPost(options: {

@@ -20,12 +20,17 @@ import { logError } from "../src/lib/reporter";
 import {
   buildSocialContentFacts,
   generateUnifiedCaptions,
+  prepareInstagramCaptionForPublishing,
   type PlatformTarget,
   type UnifiedCaptionOptions,
 } from "../src/lib/gemini";
 import { validateSocialContent } from "../src/lib/social-content-validator";
 import { persistNeedsReviewRecord } from "../src/lib/social-review-queue";
-import { isYouTubeUploadOutcomeUnknownError, uploadToYouTubeShorts } from "../src/lib/youtube";
+import {
+  buildYouTubeShortsMetadata,
+  isYouTubeUploadOutcomeUnknownError,
+  uploadToYouTubeShorts,
+} from "../src/lib/youtube";
 import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramVideo } from "../src/lib/telegram";
 import {
   diversifyXPostText,
@@ -40,7 +45,6 @@ import {
   VIDEO_COOLDOWN_DAYS,
   VIDEO_FORMAT_COOLDOWN_DAYS,
   getTelegramFooter,
-  TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import { formatErrorForLog, safeReadJson, loadEnv, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay, getRandomTone } from "../src/lib/shared-utils";
@@ -111,6 +115,7 @@ import {
   type TikTokScenePlan,
 } from "../src/lib/tiktok-scene-planner";
 import { getVideoRenderProfile } from "../src/lib/video-render-profile";
+import { buildEvidenceLedVideoHook, buildEvidenceLedVoiceover } from "../src/lib/video-evidence";
 import {
   buildGeneratedFallbackAssetId,
   buildVideoIdempotencyKey,
@@ -140,6 +145,15 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const VIDEO_ASSET_ROOT = path.resolve(process.cwd(), "public", "video-assets");
 
 export type PlatformName = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
+
+export function selectAutomatedVideoArchetype(options: {
+  platform: PlatformName;
+  usedArchetypeKeys?: Iterable<string>;
+  seedParts?: Array<string | number | undefined | null>;
+  date?: Date;
+}): SocialContentArchetype {
+  return selectSocialArchetype(options);
+}
 export type PlatformRoute = PlatformName | "all" | "shorts" | "instagram-youtube";
 
 class VideoCreateOutcomeUnknownError extends Error {
@@ -392,19 +406,6 @@ export function shouldAttemptVideoPlatformPublish(
   platform: PlatformName = "youtube",
 ): boolean {
   return !isPlatformCompleteForRun(platform, tracker as PlatformTracker | undefined);
-}
-
-function ensureRiskDisclaimer(text: string): string {
-  const normalized = text.toLowerCase();
-  if (
-    normalized.includes("not financial advice") ||
-    normalized.includes("research signal") ||
-    normalized.includes("confirm liquidity")
-  ) {
-    return text;
-  }
-
-  return [text.trim(), TELEGRAM_SIGNAL_NOTE].filter(Boolean).join("\n\n");
 }
 
 const TIKTOK_RESEARCH_CONTEXT_NOTE = "Educational market context. Confirm liquidity, risk, and invalidation.";
@@ -883,8 +884,25 @@ function validateVideoNarrativeFields(input: {
   videoThesis: string;
   hookText: string;
   voiceoverScript: string;
+  facts: ReturnType<typeof buildSocialContentFacts>;
+  platform: "youtube" | "tiktok" | "standard";
 }): Pick<PlatformVideoAsset, "videoThesis" | "hookText" | "voiceoverScript"> {
-  const facts = { tokenName: input.tokenName, symbol: input.symbol };
+  // Attribution is burned into the render as a persistent source badge, so
+  // narrative fields are validated against the supplied metrics without
+  // requiring the full source line in every spoken sentence.
+  const turnoverContext = typeof input.facts.volume24h === "number" &&
+    Number.isFinite(input.facts.volume24h) &&
+    typeof input.facts.marketCap === "number" &&
+    Number.isFinite(input.facts.marketCap) &&
+    input.facts.marketCap > 0
+    ? `Reported volume was ${((input.facts.volume24h / input.facts.marketCap) * 100).toFixed(1)} percent of market cap.`
+    : undefined;
+  const facts = {
+    ...input.facts,
+    marketDataSource: undefined,
+    marketDataAsOf: undefined,
+    suppliedContext: [...(input.facts.suppliedContext || []), turnoverContext],
+  };
   const fields = ["videoThesis", "hookText", "voiceoverScript"] as const;
   const failures = fields
     .map((field) => ({ field, validation: validateSocialContent(input[field], facts) }))
@@ -909,8 +927,8 @@ function validateVideoNarrativeFields(input: {
 
   const fallback = {
     videoThesis: `${input.tokenName} gets a descriptive TokenRadar snapshot without a forecast.`,
-    hookText: `${input.symbol.toUpperCase()} DATA SNAPSHOT`,
-    voiceoverScript: `Here is a descriptive TokenRadar snapshot for ${input.tokenName}. It presents supplied market fields without a forecast. Comment a ticker for a future research snapshot.`,
+    hookText: buildEvidenceLedVideoHook(facts),
+    voiceoverScript: buildEvidenceLedVoiceover(facts, input.platform),
   };
   for (const field of fields) {
     const validation = validateSocialContent(fallback[field], facts);
@@ -1086,7 +1104,9 @@ export function resolveVideoDailyPlatformFlags(targetPlatform: PlatformRoute): V
       targetPlatform === "instagram-youtube" ||
       targetPlatform === "instagram",
     runThreads: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "threads",
-    runTikTok: targetPlatform === "all" || targetPlatform === "shorts" || targetPlatform === "tiktok",
+    // TikTok remains paused. Only the explicit TikTok route may prepare or
+    // publish a TikTok package; broad/all short-form routes cannot activate it.
+    runTikTok: targetPlatform === "tiktok",
   };
 }
 
@@ -1151,8 +1171,8 @@ function isTrackerComplete(tracker: VideoTracker | null, requestedPlatforms: Pla
   return requestedPlatforms.every((platform) => isPlatformCompleteForRun(platform, tracker.platforms?.[platform]));
 }
 
-function extractInstagramContent(caption: string | undefined): { caption: string; hashtags: string[] } {
-  const safeCaption = (caption || "").trim();
+function extractInstagramContent(caption: string | undefined, symbol: string): { caption: string; hashtags: string[] } {
+  const safeCaption = prepareInstagramCaptionForPublishing((caption || "").trim(), symbol);
   const hashtags = (safeCaption.match(/#[a-zA-Z0-9_]+/g) || []).map((tag) => tag.slice(1));
   return { caption: safeCaption, hashtags };
 }
@@ -1733,6 +1753,8 @@ export async function main(args = process.argv.slice(2)) {
       videoThesis: generatedVideoThesis,
       hookText: generatedHookText,
       voiceoverScript: generatedVoiceoverScript,
+      facts: buildSocialContentFacts(targetToken.name, targetToken.symbol, context),
+      platform: platform === "tiktok" ? "tiktok" : platform === "youtube" ? "youtube" : "standard",
     });
     const voiceoverHash = crypto
       .createHash("sha1")
@@ -1795,7 +1817,9 @@ export async function main(args = process.argv.slice(2)) {
         segmentId: segment.segmentId,
       });
     }
-    const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "primary";
+    // Keep supplied market evidence in the foreground. Stock/generated media is
+    // supporting texture, not the story itself.
+    const mediaStage: VideoMediaStage = existingPlatformTracker?.mediaStage || "ambient";
     const tiktokScenePlan = existingPlatformTracker?.tiktokScenePlan ||
       (platform === "tiktok"
         ? buildTikTokInVideoScenePlan({
@@ -1804,6 +1828,9 @@ export async function main(args = process.argv.slice(2)) {
           priceChange24h: targetToken.market.priceChange24h,
           riskScore: publishedRiskScore,
           volume24h: targetToken.market.volume24h,
+          marketCap: targetToken.market.marketCap,
+          marketDataSource: targetToken.marketDataSource,
+          marketDataAsOf: targetFreshness.asOf || undefined,
           contextText: context.trendingContext,
           videoThesis,
           durationSeconds: renderProfile.durationSeconds,
@@ -1855,6 +1882,8 @@ export async function main(args = process.argv.slice(2)) {
       audioStartSeconds: audioTrack.startSeconds,
       voiceoverFile: voiceoverResult.fileName,
       voiceoverScript,
+      marketDataSource: targetToken.marketDataSource,
+      marketDataAsOf: targetFreshness.asOf || undefined,
       hookText,
       contextText: `${targetToken.name} point-in-time data snapshot.`,
       videoFormatKey: videoFormat.key,
@@ -1957,7 +1986,7 @@ export async function main(args = process.argv.slice(2)) {
     let xReplyMessage = "";
     let xTrackedUrl = "";
     let youtubeTrackedUrl = "";
-    let ytMetadata = { title: "", description: "" };
+    let ytMetadata = { title: "", description: "", tags: [] as string[], categoryId: "28" };
     let igContent = { caption: "", hashtags: [] as string[] };
     let threadsContent = { caption: "", topicTag: "crypto", spoilerText: "", spoilerOffset: 0, spoilerLength: 0 };
     let tiktokCaption = "";
@@ -1968,7 +1997,7 @@ export async function main(args = process.argv.slice(2)) {
     const captionPlatforms: PlatformTarget[] = [];
     const videoArchetypes = new Map<PlatformName, SocialContentArchetype>();
     for (const platform of requestedPlatforms) {
-      const archetype = selectSocialArchetype({
+      const archetype = selectAutomatedVideoArchetype({
         platform,
         usedArchetypeKeys: force
           ? []
@@ -2068,12 +2097,13 @@ export async function main(args = process.argv.slice(2)) {
       if (runX) xMessage = captions.xTweet || "";
       if (shouldRunYouTube) {
         ytMetadata = {
+          ...ytMetadata,
           title: captions.youtubeTitle || "",
           description: captions.youtubeDescription || "",
         };
       }
       if (shouldRunInstagram && igVideoUrl) {
-        igContent = extractInstagramContent(captions.instagramCaption);
+        igContent = extractInstagramContent(captions.instagramCaption, targetToken.symbol);
       }
       if (shouldRunThreads && threadsVideoUrl) {
         threadsContent = buildThreadsContent(
@@ -2111,11 +2141,21 @@ export async function main(args = process.argv.slice(2)) {
       }
     }
 
-    if (shouldRunYouTube && ytMetadata.description) {
-      ytMetadata = {
-        ...ytMetadata,
-        description: `${ensureRiskDisclaimer(ytMetadata.description)}\n\nResearch: ${youtubeTrackedUrl}`,
-      };
+    if (shouldRunYouTube) {
+      ytMetadata = buildYouTubeShortsMetadata({
+        tokenName: targetToken.name,
+        symbol: targetToken.symbol,
+        priceChange24h: targetToken.market.priceChange24h,
+        volume24h: targetToken.market.volume24h,
+        marketCap: targetToken.market.marketCap,
+        riskScore: publishedRiskScore,
+        marketDataSource: targetToken.marketDataSource,
+        marketDataAsOf: targetFreshness.asOf || undefined,
+        generatedTitle: ytMetadata.title,
+        generatedDescription: ytMetadata.description,
+        researchUrl: youtubeTrackedUrl,
+        formatLabel: platformVideos.get("youtube")?.format.label,
+      });
     }
     if (shouldRunTikTok && tiktokCaption) {
       tiktokCaption = normalizeTikTokCaption(ensureTikTokResearchContextNote(tiktokCaption));
@@ -2310,6 +2350,7 @@ export async function main(args = process.argv.slice(2)) {
         publishError: classification.diagnostic,
         publishFailureClass: outcomeUnknown ? "publish_outcome_unknown" : classification.failureClass,
         publishRetryable: outcomeUnknown ? false : classification.retryable,
+        ...(isTikTokPublishOutcomeUnknownError(error) ? { publishId: error.publishId } : {}),
         ...(asset ? trackerFields(asset) : {}),
         ...(asset ? trackerArchetypeFields(asset.platform) : {}),
       };
@@ -2550,6 +2591,11 @@ export async function main(args = process.argv.slice(2)) {
                   text: youtubeAsset.voiceoverScript,
                   durationSeconds: getVideoRenderProfile("youtube").durationSeconds,
                 },
+                {
+                  tags: ytMetadata.tags,
+                  categoryId: ytMetadata.categoryId,
+                  defaultLanguage: "en",
+                },
               ),
               { publishedAt: publishAt.toISOString() },
             );
@@ -2669,6 +2715,24 @@ export async function main(args = process.argv.slice(2)) {
               () => publishVideoDirectlyToTikTok({
                 videoPath: tiktokAsset.outputPath,
                 caption: safeTikTokCaption,
+                onPublishInitialized: ({ publishId, privacyLevel, creatorInfo }) => {
+                  const initializedAt = new Date().toISOString();
+                  trackerState.platforms.tiktok = {
+                    postedAt: initializedAt,
+                    status: "outcome_unknown",
+                    publishId,
+                    tiktokCaption: safeTikTokCaption,
+                    tiktokPrivacyLevel: privacyLevel,
+                    tiktokCreatorUsername: creatorInfo.creator_username,
+                    deliveryMode: "content-posting-api-direct",
+                    publishFailureClass: "publish_initialized_pending_reconciliation",
+                    publishRetryable: false,
+                    ...trackerFields(tiktokAsset),
+                    ...trackerArchetypeFields("tiktok"),
+                  };
+                  trackerState.postedAt = initializedAt;
+                  writeFileAtomicSync(trackerFile, JSON.stringify(trackerState, null, 2));
+                },
               }),
             );
             console.log(`Posted video directly to TikTok (Post ID: ${result.publicPostId})`);

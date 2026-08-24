@@ -6,6 +6,7 @@ import {
   resolveSharedVideoRenderPlatform,
   resolveVideoDailyPlatformFlags,
   resolveVideoDailyPlatformPlan,
+  selectAutomatedVideoArchetype,
   shouldAttemptVideoPlatformPublish,
   type VideoDailyCredentialState,
 } from "../scripts/post-video-daily";
@@ -47,14 +48,14 @@ describe("post-video-daily CLI planning", () => {
     expect(() => parseVideoDailyCliOptions(["--platform", "linkedin"])).toThrow("Invalid --platform value");
   });
 
-  it("expands shorts into every short-form video destination", () => {
+  it("keeps the paused TikTok route out of broad short-form publishing", () => {
     expect(resolveVideoDailyPlatformFlags("shorts")).toEqual({
       runTelegram: false,
       runX: false,
       runYouTube: true,
       runInstagram: true,
       runThreads: true,
-      runTikTok: true,
+      runTikTok: false,
     });
   });
 
@@ -75,9 +76,28 @@ describe("post-video-daily CLI planning", () => {
   it("keeps dry-run short-form planning publishable without live credentials", () => {
     const plan = resolveVideoDailyPlatformPlan("shorts", true, noCredentials);
 
-    expect(plan.requestedPlatforms).toEqual(["youtube", "instagram", "threads", "tiktok"]);
+    expect(plan.requestedPlatforms).toEqual(["youtube", "instagram", "threads"]);
     expect(plan.skippedByMissingCredentials).toEqual([]);
-    expect(plan.shouldRunTikTokManual).toBe(true);
+    expect(plan.shouldRunTikTokManual).toBe(false);
+  });
+
+  it("never selects an unverified poll-result recap for scheduled video", () => {
+    const platforms = ["telegram", "x", "youtube", "instagram", "threads", "tiktok"] as const;
+    for (const platform of platforms) {
+      for (let day = 1; day <= 31; day += 1) {
+        const dateKey = `2026-08-${String(day).padStart(2, "0")}`;
+        expect(selectAutomatedVideoArchetype({
+          platform,
+          seedParts: [dateKey, "scheduled-video"],
+          date: new Date(`${dateKey}T00:00:00.000Z`),
+        }).key).not.toBe("poll_result_recap");
+      }
+    }
+  });
+
+  it("requires the explicit TikTok route even when all platforms are requested", () => {
+    expect(resolveVideoDailyPlatformFlags("all").runTikTok).toBe(false);
+    expect(resolveVideoDailyPlatformFlags("tiktok").runTikTok).toBe(true);
   });
 
   it("uses TikTok direct publishing only for production API credentials", () => {

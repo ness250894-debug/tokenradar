@@ -1,5 +1,5 @@
 export type TikTokSceneIntent =
-  | "comment_reply"
+  | "data_check"
   | "pattern_interrupt"
   | "proof_check"
   | "breakpoint"
@@ -23,7 +23,7 @@ export interface TikTokScenePlanItem {
 
 export interface TikTokScenePlan {
   style: "invideo_local";
-  version: 1;
+  version: 1 | 2;
   totalDurationSeconds: number;
   scenes: TikTokScenePlanItem[];
 }
@@ -34,23 +34,26 @@ export interface BuildTikTokInVideoScenePlanOptions {
   priceChange24h?: number;
   riskScore?: number;
   volume24h?: number;
+  marketCap?: number;
+  marketDataSource?: string;
+  marketDataAsOf?: string;
   contextText?: string;
   videoThesis?: string;
   durationSeconds?: number;
   seedParts?: Array<string | number | undefined | null>;
 }
 
-const DEFAULT_DURATION_SECONDS = 21;
-const MIN_DURATION_SECONDS = 19;
-const MAX_DURATION_SECONDS = 23;
-const TWENTY_ONE_SECOND_TIMINGS = [0, 4, 14, 21] as const;
-const TIMING_RATIOS = TWENTY_ONE_SECOND_TIMINGS.map((value) => value / DEFAULT_DURATION_SECONDS);
+const DEFAULT_DURATION_SECONDS = 18;
+const MIN_DURATION_SECONDS = 17;
+const MAX_DURATION_SECONDS = 19;
+const EIGHTEEN_SECOND_TIMINGS = [0, 3, 11, 18] as const;
+const TIMING_RATIOS = EIGHTEEN_SECOND_TIMINGS.map((value) => value / DEFAULT_DURATION_SECONDS);
 
 const VISUAL_QUERIES: Record<TikTokSceneIntent, string[]> = {
-  comment_reply: [
-    "vertical creator replying to phone comment natural desk light",
-    "handheld phone comment reply finance creator vertical b-roll",
-    "person checking phone notification casual creator setup",
+  data_check: [
+    "vertical creator reviewing market data natural desk light",
+    "handheld finance research workflow creator vertical b-roll",
+    "person checking market data on phone casual creator setup",
   ],
   pattern_interrupt: [
     "vertical handheld office phone finance b-roll quick movement",
@@ -68,38 +71,26 @@ const VISUAL_QUERIES: Record<TikTokSceneIntent, string[]> = {
     "close-up notebook laptop phone research check vertical",
   ],
   watch_next: [
-    "phone comment box creator call to action finance vertical",
-    "creator looking at phone comments casual finance b-roll",
-    "hands typing ticker comment on phone vertical creator",
+    "phone research notes creator call to action finance vertical",
+    "creator reviewing market notes casual finance b-roll",
+    "hands typing ticker research note on phone vertical creator",
   ],
 };
 
 const SUBTITLES: Record<TikTokSceneIntent, string[]> = {
-  comment_reply: [
-    "I would not start with the candle.",
-    "The chart is not the first question.",
-    "I would slow this read down first.",
-  ],
+  data_check: ["The move is the hook. The evidence is the story."],
   pattern_interrupt: [
     "The move is just the opening line.",
     "The headline is only the first layer.",
     "The first reaction is not the full story.",
   ],
-  proof_check: [
-    "Did real activity show up, or was it a thin spike?",
-    "First check: did attention turn into activity?",
-    "The useful read starts with whether activity followed.",
-  ],
+  proof_check: ["Check reported turnover before reacting to the candle."],
   breakpoint: [
     "Ask what would break the story before the crowd reacts.",
     "Second check: what makes this read fall apart?",
     "The risk question matters before the reaction gets loud.",
   ],
-  watch_next: [
-    "Comment one ticker for the next read.",
-    "Drop a ticker, I will check it next.",
-    "Send one ticker for the next quick read.",
-  ],
+  watch_next: ["Which matters more here: turnover or risk?"],
 };
 
 function hashSeed(seedParts: Array<string | number | undefined | null>): number {
@@ -164,6 +155,26 @@ function getActivityNote(volume24h: number | undefined): string {
     : "activity still needs proof";
 }
 
+function formatMove(priceChange24h: number | undefined): string | undefined {
+  return typeof priceChange24h === "number" && Number.isFinite(priceChange24h)
+    ? `${priceChange24h >= 0 ? "+" : ""}${priceChange24h.toFixed(1)}% / 24h`
+    : undefined;
+}
+
+function formatTurnover(volume24h: number | undefined, marketCap: number | undefined): string | undefined {
+  if (
+    typeof volume24h !== "number" || !Number.isFinite(volume24h) || volume24h < 0 ||
+    typeof marketCap !== "number" || !Number.isFinite(marketCap) || marketCap <= 0
+  ) return undefined;
+  return `${((volume24h / marketCap) * 100).toFixed(1)}% reported vol/cap`;
+}
+
+function formatRiskScore(riskScore: number | undefined): string | undefined {
+  return typeof riskScore === "number" && Number.isFinite(riskScore)
+    ? `TokenRadar risk ${riskScore.toFixed(1)}/10`
+    : undefined;
+}
+
 function getContextNote(options: BuildTikTokInVideoScenePlanOptions): string {
   return firstUsefulSentence(options.videoThesis || options.contextText) ||
     "Context first, reaction second.";
@@ -171,9 +182,9 @@ function getContextNote(options: BuildTikTokInVideoScenePlanOptions): string {
 
 function buildTimings(durationSeconds: number): Array<[number, number]> {
   if (durationSeconds === DEFAULT_DURATION_SECONDS) {
-    return TWENTY_ONE_SECOND_TIMINGS.slice(0, -1).map((fromSeconds, index) => [
+    return EIGHTEEN_SECOND_TIMINGS.slice(0, -1).map((fromSeconds, index) => [
       fromSeconds,
-      TWENTY_ONE_SECOND_TIMINGS[index + 1],
+      EIGHTEEN_SECOND_TIMINGS[index + 1],
     ]);
   }
 
@@ -200,6 +211,9 @@ export function buildTikTokInVideoScenePlan(options: BuildTikTokInVideoScenePlan
   ]);
   const timings = buildTimings(totalDurationSeconds);
   const risk = getRiskNote(options.riskScore);
+  const move = formatMove(options.priceChange24h);
+  const turnover = formatTurnover(options.volume24h, options.marketCap);
+  const riskScore = formatRiskScore(options.riskScore);
   const sceneMeta: Array<{
     intent: TikTokSceneIntent;
     prompt: string;
@@ -208,23 +222,23 @@ export function buildTikTokInVideoScenePlan(options: BuildTikTokInVideoScenePlan
     transition: TikTokSceneTransition;
   }> = [
     {
-      intent: "comment_reply",
-      prompt: `viewer asked: is ${symbol} actually worth watching?`,
-      note: "quick reply",
+      intent: "data_check",
+      prompt: move ? `${symbol} moved ${move}` : `${symbol}: the 18-second check`,
+      note: "evidence first",
       tone: "paper",
       transition: "cut",
     },
     {
       intent: "proof_check",
-      prompt: "the two checks",
-      note: `${getActivityNote(options.volume24h)} / ${risk.note}`,
+      prompt: "reported turnover",
+      note: turnover || getActivityNote(options.volume24h),
       tone: risk.tone,
       transition: "flash",
     },
     {
       intent: "watch_next",
-      prompt: "your turn",
-      note: getContextNote(options),
+      prompt: "risk + next check",
+      note: riskScore || getContextNote(options),
       tone: "blue",
       transition: "cut",
     },
@@ -232,7 +246,7 @@ export function buildTikTokInVideoScenePlan(options: BuildTikTokInVideoScenePlan
 
   return {
     style: "invideo_local",
-    version: 1,
+    version: 2,
     totalDurationSeconds,
     scenes: sceneMeta.map((scene, index) => {
       const [fromSeconds, toSeconds] = timings[index];

@@ -145,7 +145,7 @@ async function main() {
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-poll.json");
   const socialPostKey = `${today}:telegram-poll`;
-  cleanupExpiredCooldownFolders(DATA_DIR);
+  if (!dryRun) cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
     console.error("Missing TELEGRAM_CHANNEL_ID in env.");

@@ -117,7 +117,7 @@ export async function listDueSocialMetricTargets(
     `
     SELECT p.platform, p.content_key, p.external_id, p.posted_at, p.details_json
     FROM social_posts p
-    WHERE p.platform IN ('x', 'instagram', 'threads', 'youtube')
+    WHERE p.platform IN ('telegram', 'x', 'instagram', 'threads', 'youtube', 'tiktok')
       AND p.external_id IS NOT NULL
       AND p.external_id != ''
       AND p.posted_at <= ?
@@ -159,7 +159,8 @@ export async function collectDueSocialMetrics(
 ): Promise<SocialMetricCollectionSummary> {
   const now = dependencies.now || new Date();
   const listDue = dependencies.listDueTargets || listDueSocialMetricTargets;
-  const collect = dependencies.collect || ((target) => collectNativeSocialMetrics(target));
+  const nativeCollectorDependencies = { tiktokAccessTokenCache: new Map<string, Promise<string | null>>() };
+  const collect = dependencies.collect || ((target) => collectNativeSocialMetrics(target, nativeCollectorDependencies));
   const record = dependencies.record || recordSocialPostMetrics;
   const uniqueWindows = [...new Set(options.windows)];
   const targets = (await Promise.all(
@@ -244,6 +245,8 @@ export async function collectDueSocialMetrics(
             horizonHours: target.horizonHours,
             targetDueAt: dueAt.toISOString(),
             collectedAt,
+            actualAgeHours: Math.round(((now.getTime() - new Date(target.postedAt).getTime()) / (60 * 60 * 1000)) * 100) / 100,
+            latenessHours: Math.round(latenessHours * 100) / 100,
             externalId: target.externalId,
             unavailableMetrics: snapshot.unavailableMetrics,
             plannedUrl: target.details.plannedUrl,

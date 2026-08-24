@@ -5,11 +5,13 @@ import {
   buildTelegramMarketPost,
   getRadarDivergenceRead,
   parseTelegramMarketFormat,
+  resolveTelegramMarketBriefCaption,
   type TelegramMarketContext,
   type TelegramMarketToken,
 } from "../src/lib/telegram-market-formats";
 import { renderTelegramMarketImage } from "../src/lib/telegram-market-image";
 import { buildTelegramMediaCaption, getTelegramHtmlTextLength } from "../src/lib/telegram";
+import { validateSocialContent } from "../src/lib/social-content-validator";
 
 const sampleToken: TelegramMarketToken = {
   id: "ethereum",
@@ -56,9 +58,9 @@ describe("Telegram market formats", () => {
 
     expect(read.label).toBe("Point-in-time field comparison");
     expect(post.image.kind).toBe("market-pulse");
-    expect(post.captionBody).toContain("<b>Radar Divergence: $ETH</b>");
-    expect(post.captionBody).toContain("Point-in-time field comparison");
-    expect(post.captionBody).toContain("Reported 24h volume:");
+    expect(post.captionBody).toContain("<b>$ETH: price move vs reported participation</b>");
+    expect(post.captionBody).toContain("What this proves:");
+    expect(post.captionBody).toContain("24h volume (reported): $18.00B");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
 
@@ -74,7 +76,7 @@ describe("Telegram market formats", () => {
     });
 
     expect(post.image.kind).toBe("market-pulse");
-    expect(post.captionBody).toContain("<b>Market Pulse</b>");
+    expect(post.captionBody).toContain("<b>$ETH in one screen</b>");
     expect(post.captionBody).not.toContain("Total Cap");
     expect(post.captionBody).not.toContain("AI Agents");
     expect(post.captionBody).toContain("$ETH");
@@ -93,10 +95,50 @@ describe("Telegram market formats", () => {
     });
 
     expect(post.image.kind).toBe("token-card");
-    expect(post.captionBody).toContain("<b>Watchlist Check</b>");
+    expect(post.captionBody).toContain("<b>Why $ETH made today's watchlist</b>");
     expect(post.captionBody).toContain("Risk score: 3/10");
-    expect(post.captionBody).toContain("Reported 24h volume:");
+    expect(post.captionBody).toContain("Market cap: $461.00B");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
+  });
+
+  it("uses the local factual market brief when generated copy was quarantined or missing", () => {
+    const deterministic = buildTelegramMarketPost({
+      format: "market-brief",
+      token: sampleToken,
+      context: sampleContext,
+    }).captionBody;
+
+    expect(deterministic).toContain("<b>$ETH: the move and the participation field</b>");
+    expect(deterministic).toContain("CoinGecko trending list");
+    expect(deterministic).toContain("24h volume (reported): $18.40B");
+    expect(validateSocialContent(
+      `${deterministic}\nCoinGecko snapshot, 2026-05-26 12:00 UTC`,
+      {
+        tokenName: sampleToken.name,
+        symbol: sampleToken.symbol,
+        price: sampleToken.price,
+        priceChange24h: sampleToken.priceChange24h,
+        marketCap: sampleToken.marketCap,
+        marketCapRank: sampleToken.marketCapRank,
+        volume24h: sampleToken.volume24h,
+        riskScore: sampleToken.riskScore,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: "2026-05-26T12:00:00.000Z",
+      },
+    ).ok).toBe(true);
+    expect(resolveTelegramMarketBriefCaption({
+      generatedCaption: "<b>Unsupported AI copy</b>",
+      deterministicCaption: deterministic,
+      generatedCaptionQuarantined: true,
+    })).toBe(deterministic);
+    expect(resolveTelegramMarketBriefCaption({
+      generatedCaption: "   ",
+      deterministicCaption: deterministic,
+    })).toBe(deterministic);
+    expect(resolveTelegramMarketBriefCaption({
+      generatedCaption: " <b>Validated generated copy</b> ",
+      deterministicCaption: deterministic,
+    })).toBe("<b>Validated generated copy</b>");
   });
 
   it("renders the market pulse image locally as a PNG", async () => {

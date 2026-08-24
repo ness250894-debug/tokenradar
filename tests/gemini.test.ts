@@ -7,6 +7,8 @@ import {
   callAIWithFallback,
   CLAUDE_HAIKU_4_5_PRICING,
   generateUnifiedCaptions,
+  prepareInstagramCaptionForPublishing,
+  prepareTikTokCaptionForPublishing,
 } from "../src/lib/gemini";
 import { validateSocialContent } from "../src/lib/social-content-validator";
 
@@ -32,6 +34,23 @@ describe("Gemini request config", () => {
     } else {
       process.env.GEMINI_THINKING_BUDGET = originalThinkingBudget;
     }
+  });
+
+  it("enforces Instagram and TikTok hashtag limits after model generation", () => {
+    const instagram = prepareInstagramCaptionForPublishing(
+      "Evidence-led caption. #FYP #viral #ALP #CryptoResearch #MarketStructure #RiskManagement #TokenRadar #Extra",
+      "ALP",
+    );
+    const instagramTags = instagram.match(/#[a-zA-Z0-9_]+/g) || [];
+    expect(instagramTags.length).toBeGreaterThanOrEqual(3);
+    expect(instagramTags.length).toBeLessThanOrEqual(5);
+    expect(instagram).not.toMatch(/#FYP|#viral/i);
+
+    const tiktok = prepareTikTokCaptionForPublishing(
+      "Evidence-led caption. #FYP #ALP #Crypto #TokenRadar #MarketStructure #Extra",
+      "ALP",
+    );
+    expect(tiktok.match(/#[a-zA-Z0-9_]+/g)).toEqual(["#ALP", "#Crypto", "#TokenRadar"]);
   });
 
   it("uses the Gemini 3.5 Flash Lite generation config for bounded publishing calls", async () => {
@@ -346,7 +365,8 @@ describe("Gemini request config", () => {
         { reviewQueueRootDir: reviewRoot, onValidationFailure },
       );
 
-      expect(captions.xTweet).toBe("$PUMP moved +17.00% over 24h. Confirmation quality matters. #Crypto");
+      expect(captions.xTweet).toBe("$PUMP moved +17.00% over 24h. Confirmation quality matters.");
+      expect(captions.xTweet).not.toContain("#");
       expect(captions.xTweet).not.toMatch(/institutional|accumulation|entry/i);
       expect(fetchMock).toHaveBeenCalledTimes(2);
       expect(onValidationFailure).toHaveBeenCalledTimes(1);

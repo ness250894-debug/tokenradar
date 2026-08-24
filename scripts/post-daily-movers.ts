@@ -13,7 +13,13 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { buildTelegramMediaCaption, isTelegramCreateOutcomeUnknownError, sendTelegramPhoto } from "../src/lib/telegram";
+import {
+  buildTelegramMediaCaption,
+  buildTelegramResearchFooter,
+  createTelegramResearchKeyboard,
+  isTelegramCreateOutcomeUnknownError,
+  sendTelegramPhoto,
+} from "../src/lib/telegram";
 import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from "../src/lib/utils";
 import { generateMoversImage, type MoverToken } from "../src/lib/movers-generator";
 import {
@@ -33,9 +39,7 @@ import {
 import {
   SOCIAL_PLATFORM_LIMITS,
   SOCIAL_VARIANT_COOLDOWN_DAYS,
-  getTelegramResearchLinkHtml,
   SITE_URL,
-  TELEGRAM_SIGNAL_NOTE,
 } from "../src/lib/config";
 import { selectSocialContentVariant } from "../src/lib/social-variety";
 import { buildSocialUtmUrl } from "../src/lib/social-utm";
@@ -172,12 +176,12 @@ async function main() {
       tokenId: movers.map((mover) => mover.id).join("-"),
     });
 
-    const tgFooter = `
-${getTelegramResearchLinkHtml(trackedUrl)}
-
-${TELEGRAM_SIGNAL_NOTE}
-#Crypto #TokenRadar #MarketMovers
-`;
+    const telegramCta = {
+      url: trackedUrl,
+      surface: "movers" as const,
+      hashtags: ["#MarketMovers"],
+    };
+    const tgFooter = buildTelegramResearchFooter(telegramCta);
 
     const sanitizedCaption = buildTelegramMediaCaption(caption, tgFooter, {
       maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,
@@ -210,7 +214,9 @@ ${TELEGRAM_SIGNAL_NOTE}
     deliveryReserved = true;
 
     // ── Post to Telegram (buffer goes directly, never saved) ──
-    const msgId = await sendTelegramPhoto(photoBuffer, sanitizedCaption, channelId!);
+    const msgId = await sendTelegramPhoto(photoBuffer, sanitizedCaption, channelId!, {
+      replyMarkup: createTelegramResearchKeyboard(telegramCta),
+    });
     publishedExternalId = msgId;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({
