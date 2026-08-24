@@ -15,13 +15,17 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { pathToFileURL } from "url";
 import { fetchTokensByRank, fetchFullTokenData, CoinGeckoToken } from "../src/lib/coingecko";
+import { getPeggedAssetReason } from "../src/lib/asset-classification";
 import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import {
+  getPriceHistoryObservationAgeMs,
   mergeTokenRecordWithNewestMarketSnapshot,
   newestValidObservationTimestamp,
   normalizeObservedPricePoints,
+  type PriceHistoryObservationInput,
   resolveProviderMarketTimestamp,
 } from "../src/lib/market-data-quality";
 
@@ -41,6 +45,12 @@ type LiteMarketToken = CoinGeckoToken & {
   low_24h?: number | null;
 };
 
+type PriceHistoryRecord = PriceHistoryObservationInput & {
+  fetchedAt?: unknown;
+};
+
+type FullRefreshOrder = "age" | "rank" | "social-rank";
+
 // Ensure directories exist
 ensureDirSync(TOKENS_DIR);
 
@@ -51,13 +61,75 @@ function getNumericArg(args: string[], name: string, fallback: number): number {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-function priceHistoryAgeMs(tokenId: string): number {
-  const priceFile = path.join(PRICES_DIR, `${tokenId}.json`);
-  try {
-    return Date.now() - fs.statSync(priceFile).mtimeMs;
-  } catch {
-    return Number.POSITIVE_INFINITY;
+function getStringArg(args: string[], name: string, fallback: string): string {
+  const index = args.indexOf(name);
+  return index === -1 ? fallback : args[index + 1] || fallback;
+}
+
+function readPriceHistoryRecord(
+  tokenId: string,
+  pricesDir: string = PRICES_DIR,
+): PriceHistoryRecord | null {
+  const priceFile = path.join(pricesDir, `${tokenId}.json`);
+  return safeReadJson<PriceHistoryRecord | null>(priceFile, null);
+}
+
+export function priceHistoryAgeMs(
+  tokenId: string,
+  now: Date = new Date(),
+  pricesDir: string = PRICES_DIR,
+): number {
+  const priceData = readPriceHistoryRecord(tokenId, pricesDir);
+  return priceData
+    ? getPriceHistoryObservationAgeMs(priceData, now)
+    : Number.POSITIVE_INFINITY;
+}
+
+function priceHistoryRefreshAttemptAgeMs(tokenId: string, now: Date = new Date()): number {
+  const priceData = readPriceHistoryRecord(tokenId);
+  const fetchedAtMs = typeof priceData?.fetchedAt === "string"
+    ? Date.parse(priceData.fetchedAt)
+    : Number.NaN;
+  return Number.isFinite(fetchedAtMs)
+    ? Math.max(0, now.getTime() - fetchedAtMs)
+    : Number.POSITIVE_INFINITY;
+}
+
+function isSocialFullRefreshCandidate(token: CoinGeckoToken, rankLimit: number): boolean {
+  const live = token as LiteMarketToken;
+  const local = safeReadJson<Record<string, any>>(
+    path.join(TOKENS_DIR, `${token.id}.json`),
+    {},
+  );
+  const categories = Array.isArray(local.categories)
+    ? local.categories.filter((category: unknown): category is string => typeof category === "string")
+    : [];
+  const rank = Number(token.market_cap_rank);
+  const price = Number(token.current_price);
+  const marketCap = Number(token.market_cap);
+  const volume24h = Number(token.total_volume);
+  const change24h = Number(token.price_change_percentage_24h);
+  const change7d = Number(live.price_change_percentage_7d_in_currency);
+  const hasUsableVolume = volume24h >= 50_000 || (marketCap > 0 && volume24h / marketCap >= 0.001);
+
+  if (!token.id || !token.symbol || !token.name || categories.length === 0) return false;
+  if (!/^[\x20-\x7E]+$/.test(token.symbol) || !/^[\x20-\x7E]+$/.test(token.name)) return false;
+  if (!Number.isFinite(rank) || rank <= 0 || rank > rankLimit) return false;
+  if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(marketCap) || marketCap <= 0) return false;
+  if (!Number.isFinite(volume24h) || !hasUsableVolume || !Number.isFinite(change24h) || !Number.isFinite(change7d)) {
+    return false;
   }
+
+  return !getPeggedAssetReason({
+    id: token.id,
+    symbol: token.symbol,
+    name: token.name,
+    categories,
+    description: typeof local.description === "string" ? local.description : undefined,
+    price,
+    change24h,
+    change7d,
+  });
 }
 
 async function writeFullTokenData(tokenId: string): Promise<void> {
@@ -98,6 +170,12 @@ async function main() {
   const cacheTtlMinutes = getNumericArg(args, "--cache-ttl-minutes", 120);
   const fullRefreshLimit = getNumericArg(args, "--full-refresh-limit", 0);
   const fullRefreshMaxAgeDays = getNumericArg(args, "--full-refresh-max-age-days", 7);
+  const fullRefreshMinSuccess = Math.max(0, getNumericArg(args, "--full-refresh-min-success", 0));
+  const fullRefreshRankLimit = Math.max(1, getNumericArg(args, "--full-refresh-rank-limit", end));
+  const fullRefreshOrder = getStringArg(args, "--full-refresh-order", "age") as FullRefreshOrder;
+  if (!new Set<FullRefreshOrder>(["age", "rank", "social-rank"]).has(fullRefreshOrder)) {
+    throw new Error("Invalid --full-refresh-order. Expected age, rank, or social-rank.");
+  }
 
   console.log(`╔══════════════════════════════════════════╗`);
   console.log(`║  TokenRadar — Detailed Data Fetcher      ║`);
@@ -192,27 +270,62 @@ async function main() {
 
   if (lite && fullRefreshLimit > 0) {
     const maxAgeMs = fullRefreshMaxAgeDays * 24 * 60 * 60 * 1000;
+    const refreshSelectionNow = new Date();
     const stalePriceTokens = liteTokens
+      .filter((token) => fullRefreshOrder !== "social-rank" ||
+        isSocialFullRefreshCandidate(token, fullRefreshRankLimit))
       .filter((token): token is CoinGeckoToken & { id: string } =>
         typeof token.id === "string" &&
         token.id.length > 0 &&
-        priceHistoryAgeMs(token.id) > maxAgeMs
+        priceHistoryAgeMs(token.id, refreshSelectionNow) > maxAgeMs
       )
-      .sort((a, b) => priceHistoryAgeMs(b.id) - priceHistoryAgeMs(a.id))
+      .sort((a, b) => {
+        if (fullRefreshOrder === "rank" || fullRefreshOrder === "social-rank") {
+          return Number(a.market_cap_rank || Number.MAX_SAFE_INTEGER) -
+            Number(b.market_cap_rank || Number.MAX_SAFE_INTEGER);
+        }
+        const attemptAgeDifference =
+          priceHistoryRefreshAttemptAgeMs(b.id, refreshSelectionNow) -
+          priceHistoryRefreshAttemptAgeMs(a.id, refreshSelectionNow);
+        return attemptAgeDifference ||
+          priceHistoryAgeMs(b.id, refreshSelectionNow) - priceHistoryAgeMs(a.id, refreshSelectionNow) ||
+          Number(a.market_cap_rank || Number.MAX_SAFE_INTEGER) -
+            Number(b.market_cap_rank || Number.MAX_SAFE_INTEGER);
+      })
       .slice(0, fullRefreshLimit);
 
     console.log();
-    console.log(`  Rolling full refresh: ${stalePriceTokens.length}/${fullRefreshLimit} stale price histories`);
+    console.log(
+      `  Rolling full refresh: ${stalePriceTokens.length}/${fullRefreshLimit} stale price histories ` +
+      `(order=${fullRefreshOrder}, provider timestamps)`,
+    );
 
+    let successfulFullRefreshes = 0;
     for (const token of stalePriceTokens) {
       process.stdout.write(`  [FULL] #${token.market_cap_rank} ${token.name} (${token.id})... `);
       try {
         await writeFullTokenData(token.id);
+        if (priceHistoryAgeMs(token.id) > maxAgeMs) {
+          throw new Error("provider returned no current 30-day price observation");
+        }
+        successfulFullRefreshes += 1;
         console.log("Saved (incl. prices)");
       } catch (error) {
         console.log(`Failed: ${error instanceof Error ? error.message : String(error)}`);
         await logError("fetch-crypto-data-full-refresh", error, false);
       }
+    }
+
+    const requiredFullRefreshes = Math.min(fullRefreshMinSuccess, stalePriceTokens.length);
+    console.log(
+      `  Full refresh result: ${successfulFullRefreshes}/${stalePriceTokens.length} current histories ` +
+      `(required ${requiredFullRefreshes})`,
+    );
+    if (successfulFullRefreshes < requiredFullRefreshes) {
+      throw new Error(
+        `Only ${successfulFullRefreshes}/${stalePriceTokens.length} stale price histories refreshed; ` +
+        `${requiredFullRefreshes} required.`,
+      );
     }
   }
 
@@ -243,7 +356,14 @@ async function main() {
   console.log(`╚══════════════════════════════════════════╝`);
 }
 
-main().catch(async (error) => {
-  await logError("fetch-crypto-data", error);
-  process.exit(1);
-});
+function isDirectExecution(): boolean {
+  const entrypoint = process.argv[1];
+  return Boolean(entrypoint) && import.meta.url === pathToFileURL(path.resolve(entrypoint)).href;
+}
+
+if (isDirectExecution()) {
+  main().catch(async (error) => {
+    await logError("fetch-crypto-data", error);
+    process.exit(1);
+  });
+}

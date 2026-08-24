@@ -174,8 +174,16 @@ describe("social token selection quality", () => {
     const contentDir = path.join(rootDir, "content", "tokens");
     fs.mkdirSync(metricsDir, { recursive: true });
 
-    writeJson(path.join(contentDir, "thin-rwa", "overview.json"), {});
-    writeJson(path.join(contentDir, "active-launch", "overview.json"), {});
+    writeJson(path.join(contentDir, "thin-rwa", "overview.json"), {
+      generatedAt: new Date().toISOString(),
+    });
+    writeJson(path.join(contentDir, "active-launch", "overview.json"), {
+      generatedAt: new Date().toISOString(),
+    });
+    const oldOverviewPath = path.join(contentDir, "old-hype", "overview.json");
+    writeJson(oldOverviewPath, { generatedAt: "2026-05-13T18:24:07.000Z" });
+    const misleadingCheckoutTime = new Date(Date.now() + 60_000);
+    fs.utimesSync(oldOverviewPath, misleadingCheckoutTime, misleadingCheckoutTime);
 
     const weakNewlyPublished = token({
       id: "thin-rwa",
@@ -201,17 +209,30 @@ describe("social token selection quality", () => {
         volume24h: 750_000,
       },
     });
+    const oldArticle = token({
+      id: "old-hype",
+      name: "Old Hype",
+      symbol: "old",
+      market: {
+        price: 3,
+        priceChange24h: 20,
+        marketCap: 30_000_000,
+        marketCapRank: 200,
+        volume24h: 1_000_000,
+      },
+    });
 
     const selection = await selectToken(
-      [weakNewlyPublished, activeNewlyPublished],
+      [weakNewlyPublished, activeNewlyPublished, oldArticle],
       new Set(),
       new Set(),
       metricsDir,
       [
         { id: "thin-rwa", name: "Thin RWA", symbol: "trwa" },
         { id: "active-launch", name: "Active Launch", symbol: "act" },
+        { id: "old-hype", name: "Old Hype", symbol: "old" },
       ],
-      new Set(["thin-rwa", "active-launch"]),
+      new Set(["thin-rwa", "active-launch", "old-hype"]),
       "all",
     );
 

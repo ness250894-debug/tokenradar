@@ -4,11 +4,13 @@ import * as path from "path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const coingeckoMocks = vi.hoisted(() => ({
+  fetchFullTokenData: vi.fn(),
   fetchTokensByRank: vi.fn(),
   fetchTrendingCoins: vi.fn(),
 }));
 
 vi.mock("../src/lib/coingecko", () => ({
+  fetchFullTokenData: coingeckoMocks.fetchFullTokenData,
   fetchTokensByRank: coingeckoMocks.fetchTokensByRank,
   fetchTrendingCoins: coingeckoMocks.fetchTrendingCoins,
 }));
@@ -23,6 +25,12 @@ import {
   isMetricDataFreshForMarket,
   loadCandidateTokens,
 } from "../scripts/lib/token-selection";
+import type { MetricData, TokenData } from "../scripts/lib/token-selection";
+import {
+  evaluateComparisonReadiness,
+  evaluateVideoReadiness,
+} from "../scripts/validate-social-market-readiness";
+import { priceHistoryAgeMs } from "../scripts/fetch-crypto-data";
 
 const tempDirs: string[] = [];
 
@@ -42,6 +50,28 @@ afterEach(() => {
     fs.rmSync(dir, { recursive: true, force: true });
   }
   vi.clearAllMocks();
+});
+
+describe("price-history refresh selection", () => {
+  it("ignores a fresh checkout mtime when the provider observation is stale", () => {
+    const dataDir = makeDataDir();
+    const pricesDir = path.join(dataDir, "prices");
+    fs.mkdirSync(pricesDir, { recursive: true });
+    const priceFile = path.join(pricesDir, "bitcoin.json");
+    fs.writeFileSync(priceFile, JSON.stringify({
+      chart30d: [{ date: "2026-05-13T18:24:07.000Z", price: 100_000 }],
+      priceHistoryAsOf: "2026-05-13T18:24:07.000Z",
+    }));
+
+    const checkoutTime = new Date("2026-08-24T13:18:47.000Z");
+    fs.utimesSync(priceFile, checkoutTime, checkoutTime);
+
+    expect(fs.statSync(priceFile).mtimeMs).toBe(checkoutTime.getTime());
+    expect(priceHistoryAgeMs("bitcoin", checkoutTime, pricesDir))
+      .toBe(checkoutTime.getTime() - Date.parse("2026-05-13T18:24:07.000Z"));
+    expect(priceHistoryAgeMs("bitcoin", checkoutTime, pricesDir))
+      .toBeGreaterThan(7 * 24 * 60 * 60 * 1000);
+  });
 });
 
 describe("derived metric category freshness", () => {
@@ -226,5 +256,87 @@ describe("loadCandidateTokens market timestamps", () => {
       marketDataSource: "coingecko-live",
       lastMarketUpdate: "2026-08-23T12:03:00.000Z",
     }, new Date("2026-08-23T12:00:00.000Z"))).toBe(false);
+  });
+});
+
+const strictReadinessNow = new Date("2026-08-24T13:18:47.000Z");
+
+function readinessToken(id: string, rank: number): TokenData {
+  return {
+    id,
+    symbol: id.slice(0, 3).toUpperCase(),
+    name: id[0].toUpperCase() + id.slice(1),
+    categories: ["Layer 1"],
+    rank,
+    marketDataSource: "coingecko-live",
+    lastMarketUpdate: "2026-08-24T13:17:00.000Z",
+    market: {
+      price: 10 + rank,
+      priceChange24h: rank,
+      priceChange7d: rank + 1,
+      marketCap: 1_000_000_000 - rank * 10_000_000,
+      marketCapRank: rank,
+      volume24h: 25_000_000,
+    },
+  };
+}
+
+function readinessMetric(overrides: Partial<MetricData> = {}): MetricData {
+  return {
+    riskScore: 4,
+    riskLevel: "medium",
+    growthPotentialIndex: 65,
+    computedAt: "2026-08-24T13:18:00.000Z",
+    marketDataAsOf: "2026-08-24T13:17:00.000Z",
+    priceHistoryAsOf: "2026-08-24T00:00:00.000Z",
+    categoryDataAsOf: "2026-08-24T13:17:00.000Z",
+    inputDataAsOf: "2026-08-24T00:00:00.000Z",
+    ...overrides,
+  };
+}
+
+describe("strict social market readiness", () => {
+  it("requires two exact comparison candidates with fresh derived inputs", () => {
+    const candidates = [readinessToken("alpha", 10), readinessToken("beta", 11)];
+    const metrics = new Map(candidates.map((candidate) => [candidate.id, readinessMetric()]));
+    const result = evaluateComparisonReadiness(
+      candidates,
+      (id) => metrics.get(id),
+      strictReadinessNow,
+    );
+
+    expect(result.eligibleCandidates).toBe(2);
+    expect(result.pair).toBeDefined();
+    expect([result.pair?.left.id, result.pair?.right.id].sort()).toEqual(["alpha", "beta"]);
+  });
+
+  it("reports stale price history before a comparison reaches a platform API", () => {
+    const candidates = [readinessToken("alpha", 10), readinessToken("beta", 11)];
+    const staleMetric = readinessMetric({
+      priceHistoryAsOf: "2026-05-13T18:24:07.000Z",
+      inputDataAsOf: "2026-05-13T18:24:07.000Z",
+    });
+    const result = evaluateComparisonReadiness(candidates, () => staleMetric, strictReadinessNow);
+
+    expect(result.eligibleCandidates).toBe(0);
+    expect(result.pair).toBeUndefined();
+    expect(result.metricIssueCounts["stale-price-history"]).toBe(2);
+  });
+
+  it("requires at least one fully fresh video candidate", () => {
+    const candidate = readinessToken("alpha", 10);
+    expect(evaluateVideoReadiness(
+      [candidate],
+      () => readinessMetric(),
+      strictReadinessNow,
+    ).readyCandidates).toBe(1);
+
+    const stale = readinessMetric({
+      priceHistoryAsOf: "2026-05-13T18:24:07.000Z",
+      inputDataAsOf: "2026-05-13T18:24:07.000Z",
+    });
+    const rejected = evaluateVideoReadiness([candidate], () => stale, strictReadinessNow);
+    expect(rejected.readyCandidates).toBe(0);
+    expect(rejected.issueCounts["stale-derived-metrics"]).toBe(1);
   });
 });

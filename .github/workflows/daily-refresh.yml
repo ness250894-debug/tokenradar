@@ -73,7 +73,12 @@ jobs:
         run: npm ci
 
       - name: Fetch token data from CoinGecko
-        run: npx tsx scripts/fetch-crypto-data.ts --start 1 --end 500 --lite --full-refresh-limit 25 --full-refresh-max-age-days 7
+        # The script evaluates embedded provider observation timestamps, not
+        # checkout mtimes, and fails if a stale batch cannot refresh at all.
+        run: >-
+          npx tsx scripts/fetch-crypto-data.ts --start 1 --end 500 --lite
+          --full-refresh-limit 25 --full-refresh-max-age-days 7
+          --full-refresh-min-success 1
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}

@@ -35,6 +35,65 @@ export interface MetricData {
   inputDataAsOf?: string;
 }
 
+export type MetricDataFreshnessIssue =
+  | "missing-metric"
+  | "missing-provenance"
+  | "invalid-timestamp"
+  | "future-timestamp"
+  | "stale-computation"
+  | "stale-price-history"
+  | "stale-category-input"
+  | "input-provenance-mismatch"
+  | "market-snapshot-mismatch";
+
+export function getMetricDataFreshnessIssues(
+  metric: MetricData | undefined,
+  marketAsOf: string | undefined,
+  now: Date = new Date(),
+  maxInputSkewMinutes = 30,
+  maxComputedAgeHours = 6,
+  maxPriceHistoryAgeDays = 8,
+  maxCategoryInputAgeHours = CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS / (60 * 60 * 1000),
+): MetricDataFreshnessIssue[] {
+  if (!metric) return ["missing-metric"];
+  if (!metric.computedAt || !metric.marketDataAsOf || !metric.priceHistoryAsOf ||
+      !metric.categoryDataAsOf || !metric.inputDataAsOf || !marketAsOf) {
+    return ["missing-provenance"];
+  }
+
+  const computedAtMs = Date.parse(metric.computedAt);
+  const metricInputMs = Date.parse(metric.marketDataAsOf);
+  const priceHistoryMs = Date.parse(metric.priceHistoryAsOf);
+  const categoryInputMs = Date.parse(metric.categoryDataAsOf);
+  const oldestInputMs = Date.parse(metric.inputDataAsOf);
+  const marketMs = Date.parse(marketAsOf);
+  const timestamps = [computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs, marketMs];
+  if (!timestamps.every(Number.isFinite)) return ["invalid-timestamp"];
+
+  const issues: MetricDataFreshnessIssue[] = [];
+  const futureToleranceMs = 2 * 60 * 1000;
+  if ([computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs]
+    .some((timestamp) => timestamp > now.getTime() + futureToleranceMs)) {
+    issues.push("future-timestamp");
+  }
+  if (now.getTime() - computedAtMs > maxComputedAgeHours * 60 * 60 * 1000) {
+    issues.push("stale-computation");
+  }
+  if (now.getTime() - priceHistoryMs > maxPriceHistoryAgeDays * 24 * 60 * 60 * 1000) {
+    issues.push("stale-price-history");
+  }
+  if (now.getTime() - categoryInputMs >= maxCategoryInputAgeHours * 60 * 60 * 1000) {
+    issues.push("stale-category-input");
+  }
+  if (oldestInputMs !== Math.min(metricInputMs, priceHistoryMs, categoryInputMs)) {
+    issues.push("input-provenance-mismatch");
+  }
+  if (Math.abs(metricInputMs - marketMs) > maxInputSkewMinutes * 60 * 1000) {
+    issues.push("market-snapshot-mismatch");
+  }
+  return issues;
+}
+
 export function isMetricDataFreshForMarket(
   metric: MetricData | undefined,
   marketAsOf: string | undefined,
@@ -44,23 +103,15 @@ export function isMetricDataFreshForMarket(
   maxPriceHistoryAgeDays = 8,
   maxCategoryInputAgeHours = CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS / (60 * 60 * 1000),
 ): metric is MetricData {
-  if (!metric?.computedAt || !metric.marketDataAsOf || !metric.priceHistoryAsOf ||
-      !metric.categoryDataAsOf || !metric.inputDataAsOf || !marketAsOf) return false;
-  const computedAtMs = Date.parse(metric.computedAt);
-  const metricInputMs = Date.parse(metric.marketDataAsOf);
-  const priceHistoryMs = Date.parse(metric.priceHistoryAsOf);
-  const categoryInputMs = Date.parse(metric.categoryDataAsOf);
-  const oldestInputMs = Date.parse(metric.inputDataAsOf);
-  const marketMs = Date.parse(marketAsOf);
-  if (![computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs, marketMs].every(Number.isFinite)) return false;
-  const futureToleranceMs = 2 * 60 * 1000;
-  if ([computedAtMs, metricInputMs, priceHistoryMs, categoryInputMs, oldestInputMs]
-    .some((timestamp) => timestamp > now.getTime() + futureToleranceMs)) return false;
-  if (now.getTime() - computedAtMs > maxComputedAgeHours * 60 * 60 * 1000) return false;
-  if (now.getTime() - priceHistoryMs > maxPriceHistoryAgeDays * 24 * 60 * 60 * 1000) return false;
-  if (now.getTime() - categoryInputMs >= maxCategoryInputAgeHours * 60 * 60 * 1000) return false;
-  if (oldestInputMs !== Math.min(metricInputMs, priceHistoryMs, categoryInputMs)) return false;
-  return Math.abs(metricInputMs - marketMs) <= maxInputSkewMinutes * 60 * 1000;
+  return getMetricDataFreshnessIssues(
+    metric,
+    marketAsOf,
+    now,
+    maxInputSkewMinutes,
+    maxComputedAgeHours,
+    maxPriceHistoryAgeDays,
+    maxCategoryInputAgeHours,
+  ).length === 0;
 }
 
 export interface TokenData {
@@ -735,13 +786,16 @@ export async function selectToken(
     try {
       const overviewPath = path.join(contentDir, tokenId, "overview.json");
       if (fs.existsSync(overviewPath)) {
-        const stats = fs.statSync(overviewPath);
-        const age = Date.now() - stats.mtimeMs;
-        if (age < FORTY_EIGHT_HOURS_MS) {
+        const article = safeReadJson<{ generatedAt?: unknown } | null>(overviewPath, null);
+        const publishedAtMs = typeof article?.generatedAt === "string"
+          ? Date.parse(article.generatedAt)
+          : Number.NaN;
+        const age = Date.now() - publishedAtMs;
+        if (Number.isFinite(publishedAtMs) && age >= 0 && age < FORTY_EIGHT_HOURS_MS) {
           const token = candidateTokens.find(t => t.id === tokenId);
           if (!token) continue;
           if (hasNewlyPublishedSocialActivity(token)) {
-            newlyPublished.push({ token, publishedAtMs: stats.mtimeMs });
+            newlyPublished.push({ token, publishedAtMs });
           } else {
             console.log(`    - Skipping ${token.name}: newly published but market activity is too thin for a social post.`);
           }

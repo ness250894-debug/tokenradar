@@ -22,7 +22,7 @@ import * as path from "path";
 import { pathToFileURL } from "url";
 import {
   CATEGORY_INPUT_SELECTION_MAX_AGE_MS,
-  newestValidObservationTimestamp,
+  resolvePriceHistoryObservationTimestamp,
   resolveProviderMarketTimestamp,
 } from "../src/lib/market-data-quality";
 import { logError, logActivity } from "../src/lib/reporter";
@@ -67,10 +67,7 @@ export function resolvePriceHistoryAsOf(priceData: {
   chart30d?: Array<{ date?: unknown }>;
   chart1y?: Array<{ date?: unknown }>;
 }): string | undefined {
-  const chartTimestamp = newestValidObservationTimestamp(
-    (priceData.chart30d || []).map((point) => point.date),
-  );
-  return chartTimestamp || resolveProviderMarketTimestamp(priceData.priceHistoryAsOf);
+  return resolvePriceHistoryObservationTimestamp(priceData);
 }
 
 export function resolveMetricMarketDataAsOf(token: {
