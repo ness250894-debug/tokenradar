@@ -739,11 +739,13 @@ async function main() {
       if (refreshMacro && !needsGeneration) {
         const metadataPath = path.join(CONTENT_BASE_DIR, id, "overview.json");
         if (fs.existsSync(metadataPath)) {
-          const stats = fs.statSync(metadataPath);
-          const lastGen = new Date(stats.mtime);
+          const metadata = safeReadJson<{ generatedAt?: unknown } | null>(metadataPath, null);
+          const generatedAtMs = typeof metadata?.generatedAt === "string"
+            ? Date.parse(metadata.generatedAt)
+            : Number.NaN;
           const todayAtMidnight = new Date();
           todayAtMidnight.setHours(0, 0, 0, 0);
-          if (lastGen < todayAtMidnight) {
+          if (!Number.isFinite(generatedAtMs) || generatedAtMs < todayAtMidnight.getTime()) {
             needsGeneration = true;
           }
         }

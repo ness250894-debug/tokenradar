@@ -4,12 +4,14 @@ import {
   CATEGORY_INPUT_BUILD_HEADROOM_MS,
   CATEGORY_INPUT_PUBLICATION_MAX_AGE_MS,
   CATEGORY_INPUT_SELECTION_MAX_AGE_MS,
+  getPriceHistoryObservationAgeMs,
   getMarketDataQualityIssues,
   getMarketDataTimestamp,
   isTrustedTokenMarketData,
   mergeTokenRecordWithNewestMarketSnapshot,
   newestValidObservationTimestamp,
   normalizeObservedPricePoints,
+  resolvePriceHistoryObservationTimestamp,
   resolveProviderMarketTimestamp,
 } from "../src/lib/market-data-quality";
 
@@ -97,6 +99,32 @@ describe("market data quality", () => {
       Date.parse("2026-08-22T00:00:00Z"),
       "2026-08-23T00:00:00Z",
     ])).toBe("2026-08-23T00:00:00.000Z");
+  });
+
+  it("does not let a fresh checkout or ingestion time relabel stale price history", () => {
+    const priceData = {
+      chart30d: [{ date: "2026-05-13T18:24:07Z" }],
+      priceHistoryAsOf: "2026-05-13T18:24:07Z",
+      // This field mirrors a freshly written/restored file but is not provider provenance.
+      fetchedAt: "2026-08-24T13:18:47Z",
+    };
+    const refreshRunTime = new Date("2026-08-24T13:18:47Z");
+
+    expect(resolvePriceHistoryObservationTimestamp(priceData)).toBe("2026-05-13T18:24:07.000Z");
+    expect(getPriceHistoryObservationAgeMs(priceData, refreshRunTime))
+      .toBe(refreshRunTime.getTime() - Date.parse("2026-05-13T18:24:07Z"));
+    expect(getPriceHistoryObservationAgeMs(priceData, refreshRunTime))
+      .toBeGreaterThan(7 * 24 * 60 * 60 * 1000);
+  });
+
+  it("treats missing or materially future price observations as repair candidates", () => {
+    const refreshRunTime = new Date("2026-08-24T13:18:47Z");
+    expect(getPriceHistoryObservationAgeMs({}, refreshRunTime)).toBe(Number.POSITIVE_INFINITY);
+    expect(getPriceHistoryObservationAgeMs({ chart30d: {} }, refreshRunTime))
+      .toBe(Number.POSITIVE_INFINITY);
+    expect(getPriceHistoryObservationAgeMs({
+      priceHistoryAsOf: "2026-08-24T14:18:47Z",
+    }, refreshRunTime)).toBe(Number.POSITIVE_INFINITY);
   });
 
   it("ignores finite timestamps outside JavaScript's representable date range", () => {

@@ -336,8 +336,8 @@ export function findLatestBaselineExport(dir = DEFAULT_BASELINE_DIR): string | n
 
   const files = fs.readdirSync(dir)
     .filter((file) => /^engagement-baseline-\d{4}-\d{2}-\d{2}\.json$/.test(file))
-    .map((file) => path.join(dir, file))
-    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+    .sort((left, right) => right.localeCompare(left))
+    .map((file) => path.join(dir, file));
 
   return files[0] || null;
 }

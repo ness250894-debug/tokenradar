@@ -1,13 +1,33 @@
+import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
 import { describe, expect, it } from "vitest";
 
 import {
   type BaselineExport,
+  findLatestBaselineExport,
   normalizePagePath,
   renderSummaryMarkdown,
   summarizeBaselineExport,
 } from "../scripts/summarize-engagement-baseline";
 
 describe("engagement baseline summary", () => {
+  it("selects the newest dated export instead of the newest checkout mtime", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-baseline-order-"));
+    try {
+      const older = path.join(dir, "engagement-baseline-2026-08-10.json");
+      const newer = path.join(dir, "engagement-baseline-2026-08-22.json");
+      fs.writeFileSync(older, "{}");
+      fs.writeFileSync(newer, "{}");
+      fs.utimesSync(older, new Date("2026-08-24T12:00:00.000Z"), new Date("2026-08-24T12:00:00.000Z"));
+      fs.utimesSync(newer, new Date("2026-08-23T12:00:00.000Z"), new Date("2026-08-23T12:00:00.000Z"));
+
+      expect(findLatestBaselineExport(dir)).toBe(newer);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
   it("normalizes paths across GA4 and GSC exports", () => {
     expect(normalizePagePath("/?fbclid=abc")).toBe("/");
     expect(normalizePagePath("https://tokenradar.co/iota/how-to-buy?utm_source=x")).toBe("/iota/how-to-buy");

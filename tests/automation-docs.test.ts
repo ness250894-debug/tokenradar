@@ -501,6 +501,46 @@ describe("automation runbook contract", () => {
     }
   });
 
+  it("repairs and verifies provider-dated inputs before strict social routes publish", () => {
+    const socialWorkflow = readWorkflow("social-automations.yml");
+    const dailyWorkflow = readWorkflow("daily-refresh.yml");
+    const fetcher = fs.readFileSync(path.join(process.cwd(), "scripts", "fetch-crypto-data.ts"), "utf-8");
+    const reporter = fs.readFileSync(path.join(process.cwd(), "scripts", "send-system-report.ts"), "utf-8");
+    const tokenSelection = fs.readFileSync(
+      path.join(process.cwd(), "scripts", "lib", "token-selection.ts"),
+      "utf-8",
+    );
+    const seoWorkflow = readWorkflow("seo-maintenance.yml");
+    const seoOpportunities = fs.readFileSync(
+      path.join(process.cwd(), "scripts", "generate-seo-opportunities.ts"),
+      "utf-8",
+    );
+    const contentGenerator = fs.readFileSync(
+      path.join(process.cwd(), "scripts", "generate-content.ts"),
+      "utf-8",
+    );
+
+    expect(socialWorkflow).toContain("--full-refresh-order social-rank");
+    expect(socialWorkflow).toContain("--full-refresh-min-success 4");
+    expect(socialWorkflow).toContain("--full-refresh-rank-limit 250");
+    expect(socialWorkflow).toContain("--full-refresh-rank-limit 50");
+    expect(socialWorkflow).toContain('readiness_mode="comparison"');
+    expect(socialWorkflow).toContain('readiness_mode="video"');
+    expect(socialWorkflow).toContain(
+      'npx tsx scripts/validate-social-market-readiness.ts --mode "$readiness_mode"',
+    );
+    expect(dailyWorkflow).toContain("--full-refresh-min-success 1");
+    expect(fetcher).toContain("getPriceHistoryObservationAgeMs");
+    expect(fetcher).not.toContain("fs.statSync(priceFile).mtimeMs");
+    expect(reporter).toContain("getPriceHistoryObservationAgeMs");
+    expect(reporter).not.toContain("mtimeMs");
+    expect(tokenSelection).not.toContain("fs.statSync(overviewPath)");
+    expect(seoWorkflow).toContain("fetch-depth: 0");
+    expect(seoOpportunities).toContain("gitCommitDate(staticPath)");
+    expect(seoOpportunities).not.toContain("statSync(staticPath).mtime");
+    expect(contentGenerator).not.toContain("stats.mtime");
+  });
+
   it("keeps social cron slots away from high-risk hour-boundary minutes", () => {
     const workflow = readWorkflow("social-automations.yml");
     const crons = [...workflow.matchAll(/- cron: "([^"]+)"/g)].map((match) => match[1]);

@@ -189,9 +189,39 @@ jobs:
         if: always() && env.IS_D1_SMOKE_RUN != 'true'
         continue-on-error: true
         timeout-minutes: 20
+        shell: bash
         run: |
-          npx tsx scripts/fetch-crypto-data.ts --start 1 --end 500 --lite --bypass-cache
+          full_refresh_args=()
+          readiness_mode=""
+          if [[ "$IS_X_COMPARISON_RUN" == "true" ||
+                "$IS_TELEGRAM_COMPARISON_RUN" == "true" ||
+                "$IS_INSTAGRAM_COMPARISON_RUN" == "true" ]]; then
+            full_refresh_args=(
+              --full-refresh-limit 8
+              --full-refresh-max-age-days 7
+              --full-refresh-min-success 4
+              --full-refresh-order social-rank
+              --full-refresh-rank-limit 250
+            )
+            readiness_mode="comparison"
+          elif [[ "$IS_VIDEO_RUN" == "true" ]]; then
+            full_refresh_args=(
+              --full-refresh-limit 8
+              --full-refresh-max-age-days 7
+              --full-refresh-min-success 4
+              --full-refresh-order social-rank
+              --full-refresh-rank-limit 50
+            )
+            readiness_mode="video"
+          fi
+
+          npx tsx scripts/fetch-crypto-data.ts \
+            --start 1 --end 500 --lite --bypass-cache \
+            "${full_refresh_args[@]}"
           npx tsx scripts/compute-metrics.ts
+          if [[ -n "$readiness_mode" ]]; then
+            npx tsx scripts/validate-social-market-readiness.ts --mode "$readiness_mode"
+          fi
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}

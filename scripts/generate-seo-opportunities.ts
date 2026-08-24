@@ -5,6 +5,7 @@
  */
 import * as fs from "fs";
 import * as path from "path";
+import { execFileSync } from "child_process";
 
 import { evaluateArticleQuality } from "../src/lib/content-quality";
 import { collectIndexNowUrlsFromPublicDir } from "../src/lib/indexnow";
@@ -100,8 +101,23 @@ function latestMatchingFile(pattern: RegExp): string | null {
   if (!fs.existsSync(ANALYTICS_DIR)) return null;
   return fs.readdirSync(ANALYTICS_DIR)
     .filter((file) => pattern.test(file))
-    .map((file) => path.join(ANALYTICS_DIR, file))
-    .toSorted((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0] || null;
+    .toSorted((left, right) => right.localeCompare(left))
+    .map((file) => path.join(ANALYTICS_DIR, file))[0] || null;
+}
+
+function gitCommitDate(filePath: string): string | null {
+  const relativePath = path.relative(process.cwd(), filePath);
+  if (!relativePath || relativePath.startsWith("..") || path.isAbsolute(relativePath)) return null;
+  try {
+    const value = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", relativePath.replace(/\\/g, "/")],
+      { cwd: process.cwd(), encoding: "utf-8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim();
+    return parseDate(value);
+  } catch {
+    return null;
+  }
 }
 
 function aggregateRows(rows: FlatRow[], keyForRow: (row: FlatRow) => string): SearchGroup[] {
@@ -202,7 +218,8 @@ function sourceInfoForPage(page: string): SourceInfo {
   const jsonDate = /"(?:generatedAt|updatedAt|computedAt|fetchedAt)"\s*:\s*"([^"]+)"/.exec(text)?.[1];
   return {
     sourcePath: path.relative(process.cwd(), staticPath),
-    contentUpdatedAt: parseDate(embeddedDate || jsonDate) || fs.statSync(staticPath).mtime.toISOString(),
+    // Checkout timestamps are ingestion metadata, not content provenance.
+    contentUpdatedAt: parseDate(embeddedDate || jsonDate) || gitCommitDate(staticPath),
     wordCount: null,
     qualityPassed: null,
     qualityWarnings: [],

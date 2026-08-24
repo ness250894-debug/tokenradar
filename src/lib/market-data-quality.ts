@@ -95,6 +95,43 @@ export function newestValidObservationTimestamp(values: unknown[]): string | und
   return Number.isFinite(newest) ? new Date(newest).toISOString() : undefined;
 }
 
+export type PriceHistoryObservationInput = {
+  priceHistoryAsOf?: unknown;
+  chart30d?: unknown;
+};
+
+/**
+ * Resolve the provider observation time for the 30-day history used by derived
+ * metrics. Ingestion time and filesystem metadata are deliberately excluded:
+ * a checkout or cache restore must never make old observations look fresh.
+ */
+export function resolvePriceHistoryObservationTimestamp(
+  priceData: PriceHistoryObservationInput,
+): string | undefined {
+  const chart30d = Array.isArray(priceData.chart30d) ? priceData.chart30d : [];
+  const chartTimestamp = newestValidObservationTimestamp(
+    chart30d.map((point) =>
+      point && typeof point === "object"
+        ? (point as { date?: unknown }).date
+        : undefined
+    ),
+  );
+  return chartTimestamp || resolveProviderMarketTimestamp(priceData.priceHistoryAsOf);
+}
+
+export function getPriceHistoryObservationAgeMs(
+  priceData: PriceHistoryObservationInput,
+  now: Date = new Date(),
+): number {
+  const timestamp = resolvePriceHistoryObservationTimestamp(priceData);
+  if (!timestamp) return Number.POSITIVE_INFINITY;
+  const ageMs = now.getTime() - Date.parse(timestamp);
+  // Small provider/runner clock differences are harmless. A materially future
+  // observation is invalid and should be repaired rather than trusted forever.
+  if (ageMs < -2 * 60 * 1000) return Number.POSITIVE_INFINITY;
+  return Math.max(0, ageMs);
+}
+
 export function normalizeObservedPricePoints(value: unknown): Array<{ date: string; price: number }> {
   if (!Array.isArray(value)) return [];
   const normalized: Array<{ date: string; price: number }> = [];

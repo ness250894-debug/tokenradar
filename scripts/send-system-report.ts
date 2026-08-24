@@ -9,6 +9,10 @@ import {
 } from "./summarize-engagement-baseline";
 import { MONTHLY_LIMIT, getApiQuota, sendTelegramAlert } from "../src/lib/reporter";
 import { executeD1Query, hasD1Config } from "../src/lib/d1-client";
+import {
+  getPriceHistoryObservationAgeMs,
+  type PriceHistoryObservationInput,
+} from "../src/lib/market-data-quality";
 import { loadEnv } from "../src/lib/utils";
 
 loadEnv();
@@ -187,14 +191,12 @@ function summarizeDataHealth() {
     return timestamp === null || timestamp < marketCutoff;
   }).length;
 
-  const priceCutoff = Date.now() - PRICE_HISTORY_STALE_DAYS * 24 * 60 * 60 * 1000;
+  const priceHistoryMaxAgeMs = PRICE_HISTORY_STALE_DAYS * 24 * 60 * 60 * 1000;
+  const healthCheckTime = new Date();
   let stalePriceHistories = 0;
   for (const file of listJsonFiles(PRICES_DIR)) {
-    try {
-      if (fs.statSync(file).mtimeMs < priceCutoff) {
-        stalePriceHistories++;
-      }
-    } catch {
+    const priceData = safeReadJson<PriceHistoryObservationInput>(file);
+    if (!priceData || getPriceHistoryObservationAgeMs(priceData, healthCheckTime) > priceHistoryMaxAgeMs) {
       stalePriceHistories++;
     }
   }

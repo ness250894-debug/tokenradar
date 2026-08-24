@@ -79,7 +79,7 @@ function stableHash(input: string): number {
   return hash >>> 0;
 }
 
-function isEligibleToken(token: TokenComparisonToken): boolean {
+export function isEligibleToken(token: TokenComparisonToken): boolean {
   return Boolean(
     token.id &&
     token.symbol &&
