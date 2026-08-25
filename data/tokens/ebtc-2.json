@@ -1,0 +1,51 @@
+{
+  "id": "ebtc-2",
+  "symbol": "ebtc",
+  "name": "eBTC",
+  "market": {
+    "price": 80280,
+    "marketCap": 44513911,
+    "marketCapRank": 495,
+    "volume24h": 34.3,
+    "high24h": 80967,
+    "low24h": 78555,
+    "priceChange24h": 0,
+    "priceChange7d": 25.4,
+    "priceChange30d": 24.7,
+    "priceChange1y": 0,
+    "ath": 133309,
+    "athChangePercentage": -39.77923,
+    "athDate": "2026-04-03T13:06:00.000Z",
+    "atl": 57837,
+    "atlDate": "2026-07-01T01:13:50.000Z",
+    "circulatingSupply": 554.4866296852,
+    "totalSupply": 554.4866296852,
+    "maxSupply": null,
+    "fdv": 44518571
+  },
+  "lastMarketUpdate": "2026-08-25T04:20:20.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172176/large/eBTC.png?1772034448",
+  "description": "Echo is a Bitcoin liquidity aggregation and yield infrastructure layer designed to address the fragmentation of BTC liquidity across various forms (such as native BTC, BTC LSTs, and wrapped BTC). It simplifies BTC integration into DeFi while maximizing yield through innovative yield solutions.  \nEcho's liquidity and aggregation solution enables users to deposit BTC of different standards, receive Echo's unified BTC and can interact with DeFi applications without relying on conventional Bitcoin staking protocols. Echo is seamlessly integrates with all native BTC Layer 2 solutions (Babylon, BSquared, Bitlayer) and supports various BTC liquid staking tokens (PumpBTC, LBTC) and wrapped BTC tokens (wBTC, fBTC). Echo also relies on Proof-of-Reserve to ensure that the BTC assets that are being accepted on Echo's aggregation layer are safe, secure and transparent.",
+  "categories": [
+    "Crypto-Backed Tokens",
+    "Starknet Ecosystem",
+    "Monad Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.echo-protocol.xyz/",
+    "github": "https://github.com/echo-proto",
+    "reddit": null,
+    "explorer": "https://monadvision.com/token/0xd691b0aFed67F96CEC28Ab6308Cbe5b2C103b7e9"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 0,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-25T19:17:11.566Z"
+}
