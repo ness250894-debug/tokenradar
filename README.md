@@ -41,7 +41,7 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 1. `ci.yml` is the required pull-request check: typecheck, lint, tests, deterministic build, and rendered SEO QA. Automation can also dispatch it with an explicit `expected_sha`, which must exactly match the workflow's event SHA.
 2. `daily-refresh.yml` refreshes market data, TGE inputs, reference snippets, metrics, token metadata, OG images, sitemaps, analytics, and operational reporting.
 3. `daily-content-generation.yml` runs **Daily Launch Content** for new TGE previews and newly graduated launch guides. It quality-gates the queue and becomes a successful no-op when no launch content is published; publication runs only for changed token folders.
-4. Scheduled generated changes from the refresh and launch-content workflows use unique bot pull requests. Each workflow dispatches CI for the exact bot-branch head SHA, squash-merges only after `Required checks` succeeds, and dispatches deployment for the exact merged SHA.
+4. Scheduled generated changes from the refresh and launch-content workflows use unique bot pull requests. Each workflow dispatches CI for the exact bot-branch head SHA, and the trusted publisher records `Required checks` on that SHA only after verifying the successful run. It then squash-merges and dispatches deployment for the exact merged SHA.
 5. `deploy.yml` revalidates the selected current-main revision, builds the static export, checks output size, deploys to Cloudflare Pages, and reports deployment status.
 6. `social-automations.yml` publishes the configured Telegram, X, Instagram, Threads, and YouTube routes and records authoritative delivery and measurement state in Cloudflare D1.
 7. `social-runner-recovery.yml` reacts to failed or cancelled Social Automations completions and can be dispatched manually; it retries only jobs that never acquired a runner.
@@ -208,7 +208,7 @@ Copy `.env.example` to `.env.local` for local work. The full list is documented 
 ## Quality Gates
 
 - `prebuild` validates env, computes search intent, consolidates data, validates content, generates OG images, and regenerates sitemaps.
-- `ci.yml` provides the `CI / Required checks` pull-request gate: typecheck, lint, tests, build, and rendered SEO QA. Bot publication workflows explicitly dispatch the same gate for their exact head SHA before squash-merging. The `main` ruleset requires `Required checks` and intentionally does not use a merge queue because the publisher performs an exact-head squash merge.
+- `ci.yml` provides the `CI / Required checks` pull-request gate: typecheck, lint, tests, build, and rendered SEO QA. Bot publication workflows dispatch the same gate for their exact head SHA; after independently verifying the successful run, the trusted integration job publishes its `Required checks` status to that SHA before squash-merging. The `main` ruleset requires this GitHub Actions status and intentionally does not use a merge queue because the publisher performs an exact-head squash merge.
 - `deploy.yml` runs typecheck, lint, tests, build, static output verification, Cloudflare Pages deploy, and deployment reporting.
 - `performance.yml` runs Lighthouse CI against static export and PageSpeed Insights against production when `PAGESPEED_API_KEY` is configured.
 - `dependency-security.yml` audits the full lockfile, including development and build tooling, at high severity without installing packages or running dependency lifecycle scripts.

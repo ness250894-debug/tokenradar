@@ -115,6 +115,18 @@ describe("social content validator", () => {
     }));
   });
 
+  it("rejects a derived volume-to-market-cap percentage that was not supplied", () => {
+    const result = validateSocialContent(
+      "Pump.fun reported volume/cap is 8.00%. CoinGecko snapshot, 2026-08-23 09:30 UTC",
+      groundedFacts,
+    );
+
+    expect(result.issues).toContainEqual(expect.objectContaining({
+      code: "unsupported-number",
+      value: "8.00%",
+    }));
+  });
+
   it("permits a comparative-volume phrase only when it is explicitly supplied", () => {
     const text = "24h volume is surging versus the seven-day average.";
     const result = validateSocialContent(text, {

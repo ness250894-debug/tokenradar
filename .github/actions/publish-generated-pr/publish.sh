@@ -123,7 +123,7 @@ verify_ci_run() {
     <<< "$ci_run_json" >/dev/null
 }
 
-find_successful_ci_run() {
+find_successful_attested_ci_run() {
   local runs_json
   local candidate_run_id
 
@@ -137,13 +137,102 @@ find_successful_ci_run() {
     -f head_sha="$HEAD_SHA" \
     -F per_page=100)"
   while IFS= read -r candidate_run_id; do
-    if verify_ci_run "$candidate_run_id"; then
+    if verify_ci_run "$candidate_run_id" && verify_required_status "$candidate_run_id"; then
       echo "$candidate_run_id"
       return 0
     fi
   done < <(jq -r '.workflow_runs[] | .id' <<< "$runs_json")
 
   return 1
+}
+
+required_status_target_url() {
+  local run_id="$1"
+
+  echo "https://github.com/${GITHUB_REPOSITORY}/actions/runs/${run_id}"
+}
+
+verify_required_status() {
+  local run_id="$1"
+  local target_url
+  local combined_status_json
+  local statuses_json
+
+  target_url="$(required_status_target_url "$run_id")"
+  combined_status_json="$(gh api \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "repos/${GITHUB_REPOSITORY}/commits/${HEAD_SHA}/status")"
+  jq -e \
+    --arg head "$HEAD_SHA" \
+    --arg target "$target_url" \
+    '(.sha == $head) and
+     any(
+       .statuses[]?;
+       (.context == "Required checks") and
+       (.state == "success") and
+       (.target_url == $target)
+     )' \
+    <<< "$combined_status_json" >/dev/null || return 1
+
+  # Combined-status entries omit creator metadata. Read the exact commit's
+  # status list as well so the attestation must come from GitHub Actions.
+  statuses_json="$(gh api --method GET \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "repos/${GITHUB_REPOSITORY}/commits/${HEAD_SHA}/statuses" \
+    -F per_page=100)"
+  jq -e \
+    --arg target "$target_url" \
+    'any(
+      .[]?;
+      (.context == "Required checks") and
+      (.state == "success") and
+      (.target_url == $target) and
+      (.creator.login == "github-actions[bot]") and
+      (.creator.type == "Bot")
+    )' \
+    <<< "$statuses_json" >/dev/null
+}
+
+publish_required_status() {
+  local run_id="$1"
+  local attempt
+  local target_url
+  local status_payload
+  local status_json
+
+  target_url="$(required_status_target_url "$run_id")"
+  status_payload="$(jq -nc \
+    --arg target_url "$target_url" \
+    --arg description "Exact-head CI run ${run_id} succeeded" \
+    '{
+      state: "success",
+      context: "Required checks",
+      description: $description,
+      target_url: $target_url
+    }')"
+  status_json="$(gh api --method POST \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "repos/${GITHUB_REPOSITORY}/statuses/${HEAD_SHA}" \
+    --input - <<< "$status_payload")"
+  jq -e \
+    --arg target "$target_url" \
+    '(.context == "Required checks") and
+     (.state == "success") and
+     (.target_url == $target) and
+     (.creator.login == "github-actions[bot]") and
+     (.creator.type == "Bot")' \
+    <<< "$status_json" >/dev/null || \
+    fail "GitHub did not return the expected Required checks status for ${HEAD_SHA}."
+  for attempt in $(seq 1 12); do
+    if verify_required_status "$run_id"; then
+      return 0
+    fi
+    sleep 2
+  done
+  fail "Required checks status was not readable on exact head ${HEAD_SHA}."
 }
 
 verify_merge_parent() {
@@ -275,8 +364,10 @@ done < <(git diff --name-only --no-renames -z "$BASE_SHA" "$HEAD_SHA")
 
 if [[ "$pr_merged" == "true" ]]; then
   verify_merge_parent "$existing_merge_sha"
-  ci_run_id="$(find_successful_ci_run)" || \
-    fail "Merged PR #${pr_number} has no successful exact-head workflow_dispatch CI run."
+  ci_run_id="$(find_successful_attested_ci_run)" || \
+    fail "Merged PR #${pr_number} has no successful, attested exact-head workflow_dispatch CI run."
+  verify_required_status "$ci_run_id" || \
+    fail "Merged PR #${pr_number} has no trusted Required checks status for its exact generated head."
   write_outputs "$existing_merge_sha" "$pr_number" "$ci_run_id"
   {
     echo "### Generated change already merged"
@@ -357,6 +448,11 @@ jq -e \
    (.base.ref == "main") and
    (.base.sha == $base)' \
   <<< "$fresh_pr_json" >/dev/null || fail "PR #${pr_number} changed while CI was running."
+
+# workflow_dispatch checks validate the exact generated branch but are not
+# surfaced as the PR's required status. Bridge only the already-verified result
+# onto the exact head, from this trusted job, before asking GitHub to merge.
+publish_required_status "$ci_run_id"
 
 merge_payload="$(jq -nc --arg sha "$HEAD_SHA" \
   '{sha: $sha, merge_method: "squash"}')"

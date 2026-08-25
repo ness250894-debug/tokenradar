@@ -275,7 +275,9 @@ describe("automation runbook contract", () => {
       expect(workflow).toContain('git push origin "HEAD:refs/heads/${branch}"');
       expect(workflow).toContain("uses: ./.github/actions/publish-generated-pr");
       expect(workflow).toContain("actions: write");
+      expect(workflow).toContain("[skip ci]");
       expect(workflow).toContain("pull-requests: write");
+      expect(workflow.match(/statuses: write/g)).toHaveLength(1);
       expect(workflow).toContain("base-sha:");
       expect(workflow).toContain("head-sha:");
       expect(workflow).toContain("needs.integrate.outputs.merge_sha");
@@ -295,6 +297,7 @@ describe("automation runbook contract", () => {
         actions: "write",
         contents: "write",
         "pull-requests": "write",
+        statuses: "write",
       });
       const trustedCheckout = parsedWorkflow.jobs.integrate.steps?.find(
         (step) => step.name === "Checkout trusted main",
@@ -333,13 +336,36 @@ describe("automation runbook contract", () => {
     expect(rulesetGateIndex).toBeLessThan(publisherAction.indexOf("pulls_json="));
     expect(publisherAction).toContain('all(.[]; .type != "merge_queue")');
     expect(publisherAction).toContain('.context == "Required checks" and .integration_id == 15368');
-    expect(publisherAction).toContain("actions/workflows/ci.yml/dispatches");
     expect(publisherAction).toContain("actions/workflows/ci.yml/runs");
+    expect(publisherAction).toContain("actions/workflows/ci.yml/dispatches");
     expect(publisherAction).not.toContain("/check-runs");
     expect(publisherAction).toContain("workflow_run_id");
     expect(publisherAction).toContain('gh run watch "$ci_run_id"');
-    expect(publisherAction).toContain('ci_run_id="$(find_successful_ci_run)"');
+    expect(publisherAction).toContain('ci_run_id="$(find_successful_attested_ci_run)"');
+    expect(publisherAction).toContain(
+      'verify_ci_run "$candidate_run_id" && verify_required_status "$candidate_run_id"',
+    );
     expect(publisherAction).toContain('(.head_sha == $head)');
+    expect(publisherAction).toContain('"repos/${GITHUB_REPOSITORY}/statuses/${HEAD_SHA}"');
+    expect(publisherAction).toContain('"repos/${GITHUB_REPOSITORY}/commits/${HEAD_SHA}/statuses"');
+    expect(publisherAction).toContain('state: "success"');
+    expect(publisherAction).toContain('context: "Required checks"');
+    expect(publisherAction).toContain('(.creator.login == "github-actions[bot]")');
+    const watchIndex = publisherAction.indexOf('gh run watch "$ci_run_id"');
+    const verifiedRunIndex = publisherAction.indexOf('verify_ci_run "$ci_run_id"', watchIndex);
+    const refreshedMainIndex = publisherAction.indexOf('current_main="$(gh api', verifiedRunIndex);
+    const refreshedPrIndex = publisherAction.indexOf('fresh_pr_json="$(gh api', refreshedMainIndex);
+    const publishStatusIndex = publisherAction.indexOf(
+      '\npublish_required_status "$ci_run_id"\n',
+      refreshedPrIndex,
+    );
+    const mergePayloadIndex = publisherAction.indexOf('merge_payload="$(jq', publishStatusIndex);
+    expect(watchIndex).toBeGreaterThan(-1);
+    expect(verifiedRunIndex).toBeGreaterThan(watchIndex);
+    expect(refreshedMainIndex).toBeGreaterThan(verifiedRunIndex);
+    expect(refreshedPrIndex).toBeGreaterThan(refreshedMainIndex);
+    expect(publishStatusIndex).toBeGreaterThan(refreshedPrIndex);
+    expect(mergePayloadIndex).toBeGreaterThan(publishStatusIndex);
     expect(publisherAction).toContain('merge_method: "squash"');
     expect(publisherAction).toContain('[[ "$current_main" == "$merge_sha" ]]');
     expect(publisherAction).toContain('verify_merge_parent "$existing_merge_sha"');

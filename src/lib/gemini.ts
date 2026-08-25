@@ -928,12 +928,8 @@ function fallbackInstagramCaption(tokenName: string, symbol: string, metrics: Ma
 
 function fallbackThreadsCaption(tokenName: string, metrics: MarketContext): string {
   const change = formatSocialChange(metrics.priceChange24h);
-  const turnover = typeof metrics.volume24h === "number" && Number.isFinite(metrics.volume24h)
-    && typeof metrics.marketCap === "number" && Number.isFinite(metrics.marketCap) && metrics.marketCap > 0
-    ? ` Reported volume/cap is ${((metrics.volume24h / metrics.marketCap) * 100).toFixed(2)}%.`
-    : "";
   return [
-    `${tokenName} moved ${change} over 24h.${turnover} That is a movement snapshot, not evidence of persistence; the useful follow-up is whether the same relationship survives the next daily close.`,
+    `${tokenName} moved ${change} over 24h. That is a movement snapshot, not evidence of persistence; the useful follow-up is whether the same direction survives the next daily close.`,
     marketDataAttribution(metrics),
   ].filter(Boolean).join("\n");
 }
@@ -1139,15 +1135,11 @@ function fallbackXTweet(
   const cashtag = `$${symbol.toUpperCase()}`;
   const change = formatSocialChange(metrics.priceChange24h);
   const risk = metrics.riskScore === undefined ? "" : ` Supplied Risk: ${metrics.riskScore}/10.`;
-  const turnover = typeof metrics.volume24h === "number" && Number.isFinite(metrics.volume24h)
-    && typeof metrics.marketCap === "number" && Number.isFinite(metrics.marketCap) && metrics.marketCap > 0
-    ? ` Reported volume/cap: ${((metrics.volume24h / metrics.marketCap) * 100).toFixed(2)}%.`
-    : "";
   const frames = [
-    `${cashtag} moved ${change} over 24h.${turnover} The snapshot shows movement and reported turnover, not durability.`,
+    `${cashtag} moved ${change} over 24h. The snapshot shows movement, not durability.`,
     `${cashtag}: ${change} over 24h.${risk} Price direction and the supplied score answer different questions.`,
-    `${tokenName} snapshot: ${cashtag} is ${change} over 24h.${turnover} Next check: whether the same relationship persists.`,
-    `${cashtag} is ${change} over 24h.${risk}${turnover} One snapshot is a starting point, not a trend.`,
+    `${tokenName} snapshot: ${cashtag} is ${change} over 24h. Next check: whether the same direction persists.`,
+    `${cashtag} is ${change} over 24h.${risk} One snapshot is a starting point, not a trend.`,
   ];
   const seed = `${symbol}:${tokenName}:${metrics.selectionReason || "market-watchlist"}`.toLowerCase();
   const index = Math.abs(seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % frames.length;
