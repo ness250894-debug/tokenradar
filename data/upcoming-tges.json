@@ -6156,5 +6156,39 @@
     "discoveredAt": "2026-08-20T18:05:34.434Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-20T18:05:34.434Z"
+  },
+  {
+    "id": "monad",
+    "name": "Monad",
+    "symbol": "MON",
+    "category": "L1",
+    "expectedTge": "Testnet / Upcoming",
+    "narrativeStrength": 95,
+    "dataSource": "https://www.coindesk.com/tech/2026/08/25/monad-proposes-wallet-upgrade-that-could-survive-lost-keys-and-quantum-attacks",
+    "lifecycleStatus": "graduated",
+    "confidence": 85,
+    "signals": [
+      {
+        "type": "testnet",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/tech/2026/08/25/monad-proposes-wallet-upgrade-that-could-survive-lost-keys-and-quantum-attacks",
+        "title": "Monad proposes wallet upgrade that could survive lost keys and quantum attacks",
+        "observedAt": "2026-08-25T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-25T18:15:23.959Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-25T18:23:32.299Z",
+    "graduatedAt": "2026-08-25T18:23:32.299Z",
+    "coingeckoRank": 123,
+    "graduationEvidence": {
+      "coingeckoId": "monad",
+      "coingeckoRank": 123,
+      "rank": 123,
+      "priceUsd": 0.02926753,
+      "volume24h": 78415658,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-25T18:23:32.299Z"
+    }
   }
 ]

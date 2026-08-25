@@ -6,6 +6,7 @@
   "description": "ADI Chain is an Ethereum Layer 2 developed by the ADI Foundation to support government, enterprise, and institutional digital infrastructure. It is built on zkSync’s zkStack and powered by the Airbender prover, which delivers GPU accelerated zero knowledge proofs for fast, low cost, and secure transactions. The chain includes modular Layer 3 capabilities that let nations and enterprises deploy compliant, region specific systems for payments, e invoicing, land registries, and stablecoins. ADI Chain aims to bridge traditional systems with modern blockchain architecture and onboard one billion people by 2030.",
   "categories": [
     "Infrastructure",
+    "Smart Contract Platform",
     "Layer 2 (L2)"
   ],
   "genesisDate": null,
@@ -17,24 +18,24 @@
   },
   "market": {
     "price": 6.79,
-    "marketCap": 63720360,
-    "marketCapRank": 372,
-    "volume24h": 4058685,
+    "marketCap": 63700360,
+    "marketCapRank": 374,
+    "volume24h": 4003131,
     "high24h": 6.84,
     "low24h": 6.79,
-    "priceChange24h": -0.4,
-    "priceChange7d": -1.3,
-    "priceChange30d": -8.2,
+    "priceChange24h": -0.4633,
+    "priceChange7d": -0.9,
+    "priceChange30d": -6.9,
     "priceChange1y": 0,
     "ath": 8.72,
-    "athChangePercentage": -22.09626,
+    "athChangePercentage": -22.12343,
     "athDate": "2026-06-29T15:14:40.000Z",
     "atl": 0.975425,
     "atlDate": "2025-12-10T01:46:25.000Z",
     "circulatingSupply": 9380452.631864548,
     "totalSupply": 999999999,
     "maxSupply": 999999999,
-    "fdv": 6792887594
+    "fdv": 6790755431
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:17:57.268Z",
-  "lastMarketUpdate": "2026-08-23T17:56:30.000Z"
+  "fetchedAt": "2026-08-25T18:14:38.583Z",
+  "lastMarketUpdate": "2026-08-25T18:12:20.000Z"
 }
