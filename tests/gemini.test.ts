@@ -435,6 +435,66 @@ describe("Gemini request config", () => {
     }
   }, 10_000);
 
+  it("keeps Cash Cat fallbacks grounded when AI invents numeric facts", async () => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+    const reviewRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-gemini-review-"));
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [{
+            content: {
+              parts: [{
+                text: JSON.stringify({
+                  threadsCaption: "Cash Cat moved +99.00% while volume/cap reached 88.00%.",
+                  threadsTopicTag: "Crypto",
+                  threadsSpoilerText: "volume/cap reached 88.00%",
+                  xTweet: "$CASHCAT moved +99.00% while volume/cap reached 88.00%.",
+                }),
+              }],
+            },
+            finishReason: "STOP",
+          }],
+          usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20, totalTokenCount: 120 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+    const metrics = {
+      price: 0.116531,
+      priceChange24h: 1.1,
+      marketCap: 115_178_584,
+      marketCapRank: 233,
+      volume24h: 15_970_370,
+      riskScore: 6,
+      growthPotentialIndex: 41,
+      marketDataSource: "coingecko-live",
+      marketDataAsOf: "2026-08-23T17:56:30.000Z",
+      selectionReason: "trending-coingecko",
+    };
+
+    try {
+      const captions = await generateUnifiedCaptions(
+        "Cash Cat",
+        "CASHCAT",
+        "",
+        metrics,
+        ["threads", "x"],
+        { validationRegenerationAttempts: 0, reviewQueueRootDir: reviewRoot },
+      );
+      const facts = buildSocialContentFacts("Cash Cat", "CASHCAT", metrics);
+
+      expect(captions.threadsCaption).toContain("+1.10% over 24h");
+      expect(captions.xTweet).toContain("+1.10% over 24h");
+      expect(`${captions.threadsCaption}\n${captions.xTweet}`).not.toMatch(/volume\s*\/\s*cap|13\.87%|88\.00%|99\.00%/i);
+      expect(validateSocialContent(captions.threadsCaption || "", facts)).toEqual({ ok: true, issues: [] });
+      expect(validateSocialContent(captions.xTweet || "", facts)).toEqual({ ok: true, issues: [] });
+      expect(fs.readdirSync(reviewRoot)).toHaveLength(1);
+    } finally {
+      fs.rmSync(reviewRoot, { recursive: true, force: true });
+    }
+  }, 10_000);
+
   it("keeps missing score denominators out of prompts and validates the Pons Telegram fallback", async () => {
     process.env.GEMINI_API_KEY = "test-key";
     delete process.env.ANTHROPIC_API_KEY;

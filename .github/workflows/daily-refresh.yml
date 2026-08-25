@@ -384,6 +384,7 @@ jobs:
       actions: write
       contents: write
       pull-requests: write
+      statuses: write
     outputs:
       merge_sha: ${{ steps.publish-generated-pr.outputs.merge-sha }}
       pr_number: ${{ steps.publish-generated-pr.outputs.pr-number }}
