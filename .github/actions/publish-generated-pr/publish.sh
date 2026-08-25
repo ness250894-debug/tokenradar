@@ -249,6 +249,33 @@ verify_merge_parent() {
     fail "Squash merge ${merge_sha} was not created directly on recorded base ${BASE_SHA}."
 }
 
+wait_for_merged_pr_state() {
+  local merge_sha="$1"
+  local attempt merged_pr_json
+
+  # The merge endpoint can return before the pull-request resource exposes the
+  # new merge_commit_sha. Retry that read, while still requiring the exact SHA
+  # returned by the authenticated merge request.
+  for attempt in $(seq 1 12); do
+    if merged_pr_json="$(gh api \
+      -H "Accept: application/vnd.github+json" \
+      -H "X-GitHub-Api-Version: 2026-03-10" \
+      "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}")" && \
+      jq -e --arg merge "$merge_sha" \
+        '(.merged == true) and (.state == "closed") and (.merge_commit_sha == $merge)' \
+        <<< "$merged_pr_json" >/dev/null; then
+      return 0
+    fi
+
+    if (( attempt < 12 )); then
+      echo "PR #${pr_number} merge state has not propagated; retrying verification in 2s."
+      sleep 2
+    fi
+  done
+
+  return 1
+}
+
 [[ -n "${GH_TOKEN:-}" ]] || fail "The integration job did not receive GITHUB_TOKEN."
 [[ "${BASE_SHA:-}" =~ ^[0-9a-f]{40}$ ]] || fail "base-sha must be 40 lowercase hexadecimal characters."
 [[ "${HEAD_SHA:-}" =~ ^[0-9a-f]{40}$ ]] || fail "head-sha must be 40 lowercase hexadecimal characters."
@@ -288,10 +315,32 @@ if (( matching_pr_count == 1 )); then
     '[.[] | select(.head.ref == $branch and .head.sha == $head and .base.ref == "main")][0]' \
     <<< "$pulls_json")"
   pr_number="$(jq -r '.number' <<< "$pr_json")"
-  pr_state="$(jq -r '.state' <<< "$pr_json")"
-  merged_at="$(jq -r '.merged_at // empty' <<< "$pr_json")"
 
-  if [[ -n "$merged_at" ]]; then
+  # Collection responses can lag behind the canonical pull-request resource.
+  # Use the collection only for discovery, then reload the PR before deciding
+  # whether this is an open change, a closed change, or an idempotent rerun.
+  pr_json="$(gh api \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}")"
+  jq -e \
+    --argjson number "$pr_number" \
+    --arg branch "$AUTOMATION_BRANCH" \
+    --arg head "$HEAD_SHA" \
+    --arg base "$BASE_SHA" \
+    '(.number == $number) and
+     ((.state == "open") or (.state == "closed")) and
+     ((.merged == true) or (.merged == false)) and
+     (.head.ref == $branch) and
+     (.head.sha == $head) and
+     (.base.ref == "main") and
+     (.base.sha == $base)' \
+    <<< "$pr_json" >/dev/null || \
+    fail "PR #${pr_number} no longer matches the generated change."
+  pr_state="$(jq -r '.state' <<< "$pr_json")"
+
+  if [[ "$(jq -r '.merged' <<< "$pr_json")" == "true" ]]; then
+    [[ "$pr_state" == "closed" ]] || fail "Merged PR #${pr_number} is not closed."
     pr_merged=true
     existing_merge_sha="$(jq -r '.merge_commit_sha // empty' <<< "$pr_json")"
     [[ "$existing_merge_sha" =~ ^[0-9a-f]{40}$ ]] || \
@@ -490,13 +539,8 @@ for attempt in $(seq 1 12); do
 done
 
 [[ "$merge_sha" =~ ^[0-9a-f]{40}$ ]] || fail "Merge API returned an invalid commit SHA."
-merged_pr_json="$(gh api \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2026-03-10" \
-  "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}")"
-jq -e --arg merge "$merge_sha" \
-  '(.merged == true) and (.state == "closed") and (.merge_commit_sha == $merge)' \
-  <<< "$merged_pr_json" >/dev/null || fail "PR merge state does not match returned commit ${merge_sha}."
+wait_for_merged_pr_state "$merge_sha" || \
+  fail "PR merge state does not match returned commit ${merge_sha}."
 
 current_main="$(gh api \
   -H "Accept: application/vnd.github+json" \
