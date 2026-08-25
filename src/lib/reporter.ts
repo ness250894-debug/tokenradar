@@ -15,6 +15,10 @@ import { formatErrorForLog, redactSensitiveText, writeFileAtomic } from "./utils
 
 export const MONTHLY_LIMIT = 9000;
 
+export interface TelegramAlertOptions {
+  parseMode?: "markdown" | "plain";
+}
+
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const LOGS_DIR = path.join(DATA_DIR, "logs");
 const ERRORS_DIR = path.join(LOGS_DIR, "errors");
@@ -68,7 +72,10 @@ function postTelegramMessage(url: string, body: Record<string, unknown>): Promis
  * Sends a notification to Telegram.
  * Returns true only when delivery succeeded.
  */
-export async function sendTelegramAlert(message: string): Promise<boolean> {
+export async function sendTelegramAlert(
+  message: string,
+  options: TelegramAlertOptions = {},
+): Promise<boolean> {
   const token = process.env.TELEGRAM_REPORT_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_REPORT_CHAT_ID;
 
@@ -93,16 +100,23 @@ export async function sendTelegramAlert(message: string): Promise<boolean> {
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   const safeMessage = truncateTelegramMessage(redactSensitiveText(message));
+  const useMarkdown = options.parseMode !== "plain";
 
   try {
     const response = await postTelegramMessage(url, {
       chat_id: chatId,
       text: safeMessage,
-      parse_mode: "Markdown",
+      ...(useMarkdown ? { parse_mode: "Markdown" } : {}),
+      ...(!useMarkdown ? { link_preview_options: { is_disabled: true } } : {}),
     });
 
     if (response.ok) {
       return true;
+    }
+
+    if (!useMarkdown) {
+      console.error(`  [reporter] Failed to send Telegram alert: ${await describeTelegramFailure(response)}`);
+      return false;
     }
 
     console.error(`  [reporter] Failed to send Telegram alert with Markdown: ${await describeTelegramFailure(response)}`);

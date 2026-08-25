@@ -37,15 +37,14 @@ interface TokenRefreshResult {
   error?: string;
 }
 
-function escapeMarkdown(value: string): string {
+function formatTelegramText(value: string): string {
   return value
     .trim()
-    .replace(/\s+/g, " ")
-    .replace(/([_*[\]()`])/g, "\\$1");
+    .replace(/\s+/g, " ");
 }
 
 async function reportToTelegram(results: TokenRefreshResult[]): Promise<void> {
-  const lines = ["🔑 *Meta Token Maintenance Report*", ""];
+  const lines = ["🔑 Meta Token Maintenance Report", ""];
 
   for (const result of results) {
     const emoji = result.status === "failed"
@@ -53,16 +52,16 @@ async function reportToTelegram(results: TokenRefreshResult[]): Promise<void> {
       : result.status === "skipped"
         ? "⏭"
         : "✅";
-    let line = `${emoji} *${result.platform}*: ${result.status}`;
+    let line = `${emoji} ${result.platform}: ${result.status}`;
     if (result.expiresIn !== undefined) {
       line += ` (expires in ${Math.floor(result.expiresIn / 86_400)} days)`;
     }
-    if (result.detail) line += `\n   _${escapeMarkdown(result.detail)}_`;
-    if (result.error) line += `\n   _${escapeMarkdown(result.error)}_`;
+    if (result.detail) line += `\n   ${formatTelegramText(result.detail)}`;
+    if (result.error) line += `\n   ${formatTelegramText(result.error)}`;
     lines.push(line);
   }
 
-  const delivered = await sendTelegramAlert(lines.join("\n"));
+  const delivered = await sendTelegramAlert(lines.join("\n"), { parseMode: "plain" });
   if (!delivered) console.warn("  [meta-refresh] Telegram report was not delivered.");
 }
 

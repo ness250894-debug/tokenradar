@@ -44,4 +44,23 @@ describe("sendTelegramAlert", () => {
     expect(secondBody.parse_mode).toBeUndefined();
     expect(secondBody.link_preview_options).toEqual({ is_disabled: true });
   });
+
+  it("sends diagnostics as plain text without a speculative Markdown request", async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, result: {} }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { sendTelegramAlert } = await import("../src/lib/reporter");
+    await expect(sendTelegramAlert(
+      "stack_with_markdown_sensitive_text",
+      { parseMode: "plain" },
+    )).resolves.toBe(true);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const options = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    const body = JSON.parse(String(options.body));
+    expect(body.parse_mode).toBeUndefined();
+    expect(body.link_preview_options).toEqual({ is_disabled: true });
+  });
 });
