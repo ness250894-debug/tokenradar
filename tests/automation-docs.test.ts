@@ -482,8 +482,8 @@ describe("automation runbook contract", () => {
     expect(socialWorkflow).toContain("npx tsx scripts/refresh-meta-tokens.ts");
     expect(socialWorkflow).toContain("IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}");
     expect(socialWorkflow).toContain("THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}");
-    expect(socialWorkflow).toContain("THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}");
-    expect(socialWorkflow).toContain("THREADS_APP_SECRET: ${{ secrets.THREADS_APP_SECRET }}");
+    expect(socialWorkflow).not.toContain("THREADS_APP_ID");
+    expect(socialWorkflow).not.toContain("THREADS_APP_SECRET");
     expect(socialWorkflow).not.toContain("name: Update Meta OAuth Secrets");
     expect(dailyWorkflow).not.toContain("scripts/refresh-meta-tokens.ts");
   });

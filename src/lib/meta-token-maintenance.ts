@@ -27,8 +27,6 @@ const THREADS_SCOPES = [
 export type MetaTokenEnvironment = InstagramAuthEnvironment & {
   IG_ACCOUNT_ID?: string;
   THREADS_ACCOUNT_ID?: string;
-  THREADS_APP_ID?: string;
-  THREADS_APP_SECRET?: string;
   META_APP_ID?: string;
   META_APP_SECRET?: string;
 };
@@ -53,11 +51,6 @@ interface RefreshPayload extends MetaErrorPayload {
   access_token?: string;
   token_type?: string;
   expires_in?: number;
-}
-
-interface AppAccessTokenPayload extends MetaErrorPayload {
-  access_token?: string;
-  token_type?: string;
 }
 
 interface DebugTokenPayload extends MetaErrorPayload {
@@ -282,65 +275,29 @@ async function inspectMetaToken(
   return payload.data;
 }
 
-function threadsAppCredentials(env: MetaTokenEnvironment): {
-  appId: string;
-  appSecret: string;
-} {
-  const specificAppId = env.THREADS_APP_ID?.trim();
-  const specificAppSecret = env.THREADS_APP_SECRET?.trim();
-  if (Boolean(specificAppId) !== Boolean(specificAppSecret)) {
-    throw new Error("THREADS_APP_ID and THREADS_APP_SECRET must be configured together.");
-  }
-
-  const appId = specificAppId || env.META_APP_ID?.trim();
-  const appSecret = specificAppSecret || env.META_APP_SECRET?.trim();
-  if (!appId || !appSecret) {
-    throw new Error(
-      "THREADS_APP_ID and THREADS_APP_SECRET (or the shared META_APP_ID and META_APP_SECRET) are required to verify Threads permissions.",
-    );
-  }
-  return { appId, appSecret };
-}
-
-async function getThreadsAppAccessToken(
-  env: MetaTokenEnvironment,
-  fetchImpl: typeof fetch,
-): Promise<{ appId: string; accessToken: string }> {
-  const { appId, appSecret } = threadsAppCredentials(env);
-  const url = new URL(`${THREADS_GRAPH_BASE_URL}/oauth/access_token`);
-  url.searchParams.set("grant_type", "client_credentials");
-  url.searchParams.set("client_id", appId);
-  url.searchParams.set("client_secret", appSecret);
-  const payload = await fetchMetaJson<AppAccessTokenPayload>(
-    url,
-    "Threads app access token",
-    fetchImpl,
-  );
-  const accessToken = payload.access_token?.trim();
-  if (!accessToken) {
-    throw new Error("Threads app access token request did not return access_token.");
-  }
-  return { appId, accessToken };
-}
-
 async function inspectThreadsToken(
   accessToken: string,
-  app: { appId: string; accessToken: string },
   fetchImpl: typeof fetch,
   label: string,
+  expectedAppId?: string,
 ): Promise<NonNullable<DebugTokenPayload["data"]>> {
+  // Threads supports OAuth self-inspection, so no app secret or client-
+  // credentials token is needed (and no Facebook app credentials are reused).
   const url = new URL(`${THREADS_GRAPH_BASE_URL}/debug_token`);
   url.searchParams.set("input_token", accessToken);
-  url.searchParams.set("access_token", app.accessToken);
   const payload = await fetchMetaJson<DebugTokenPayload>(
     url,
     `${label} inspection`,
     fetchImpl,
+    { headers: { Authorization: `Bearer ${accessToken}` } },
   );
   if (payload.data?.is_valid !== true) throw new Error(`${label} is invalid or expired.`);
-  if (payload.data.app_id && String(payload.data.app_id) !== app.appId) {
+  if (!payload.data.app_id) {
+    throw new Error(`${label} inspection did not return app_id.`);
+  }
+  if (expectedAppId && String(payload.data.app_id) !== expectedAppId) {
     throw new Error(
-      `${label} belongs to app ${payload.data.app_id}, not configured Threads app ${app.appId}.`,
+      `${label} belongs to app ${payload.data.app_id}, not the current token app ${expectedAppId}.`,
     );
   }
   return payload.data;
@@ -617,6 +574,8 @@ export async function maintainInstagramAccessToken(
       [...FACEBOOK_INSTAGRAM_SCOPES, "pages_show_list"],
       "Facebook User token",
     );
+    await validateFacebookInstagramToken(currentToken, accountId, fetchImpl);
+    await validateFacebookInstagramCapabilities(currentToken, accountId, fetchImpl);
     return convertFacebookUserTokenToPageToken(
       currentToken,
       accountId,
@@ -653,7 +612,6 @@ export async function maintainThreadsAccessToken(
   if (!accountId) {
     throw new Error("THREADS_ACCOUNT_ID is required for Threads token maintenance.");
   }
-  const app = await getThreadsAppAccessToken(env, fetchImpl);
 
   const validateThreadsToken = async (accessToken: string): Promise<void> => {
     const validationUrl = new URL(`${THREADS_GRAPH_BASE_URL}/v1.0/me`);
@@ -677,11 +635,11 @@ export async function maintainThreadsAccessToken(
 
   const currentTokenInfo = await inspectThreadsToken(
     currentToken,
-    app,
     fetchImpl,
     "Threads token",
   );
   requireTokenScopes(currentTokenInfo, THREADS_SCOPES, "Threads token");
+  const currentAppId = String(currentTokenInfo.app_id);
   await validateThreadsToken(currentToken);
 
   const refreshUrl = new URL(`${THREADS_GRAPH_BASE_URL}/refresh_access_token`);
@@ -707,9 +665,9 @@ export async function maintainThreadsAccessToken(
   const renewed = requireRenewedToken(payload, "Threads token refresh");
   const renewedTokenInfo = await inspectThreadsToken(
     renewed.accessToken,
-    app,
     fetchImpl,
     "Renewed Threads token",
+    currentAppId,
   );
   requireTokenScopes(renewedTokenInfo, THREADS_SCOPES, "Renewed Threads token");
   await validateThreadsToken(renewed.accessToken);

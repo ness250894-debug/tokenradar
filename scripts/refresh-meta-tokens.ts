@@ -38,7 +38,10 @@ interface TokenRefreshResult {
 }
 
 function escapeMarkdown(value: string): string {
-  return value.replace(/([_*[\]()`])/g, "\\$1");
+  return value
+    .trim()
+    .replace(/\s+/g, " ")
+    .replace(/([_*[\]()`])/g, "\\$1");
 }
 
 async function reportToTelegram(results: TokenRefreshResult[]): Promise<void> {
