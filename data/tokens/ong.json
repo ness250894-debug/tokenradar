@@ -1,0 +1,50 @@
+{
+  "id": "ong",
+  "symbol": "ong",
+  "name": "Ontology Gas",
+  "market": {
+    "price": 0.098871,
+    "marketCap": 47311666,
+    "marketCapRank": 472,
+    "volume24h": 95457227,
+    "high24h": 0.106876,
+    "low24h": 0.075413,
+    "priceChange24h": 30.29054,
+    "priceChange7d": 80.2,
+    "priceChange30d": 118.6,
+    "priceChange1y": -50.3,
+    "ath": 4.39,
+    "athChangePercentage": -97.74656,
+    "athDate": "2018-09-28T02:22:27.000Z",
+    "atl": 0.0402394,
+    "atlDate": "2026-08-12T22:02:10.000Z",
+    "circulatingSupply": 478583189,
+    "totalSupply": 800000000,
+    "maxSupply": 1000000000,
+    "fdv": 79086214
+  },
+  "lastMarketUpdate": "2026-08-25T18:24:20.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/5716/large/ONG_logo.png?1696506172",
+  "description": "Since the Ontology MainNet went live on June 30th, 2018, MainNet ONT has started to release ONG periodically.\n\nOntology uses a dual token (ONT and ONG) model. ONT is the coin and can be used for staking in consensus, whereas ONG is the utility token used for on-chain services.\n\nOntology is a new high-performance public blockchain project &amp; a distributed trust collaboration platform.\n\nOntology provides new high-performance public blockchains that include a series of complete distributed ledgers and smart contract systems.\n\nOntology blockchain framework supports public blockchain systems and is able to customize different public blockchains for different applications. Ontology supports collaboration amongst chain networks with its various protocol groups.\n\nOntology will constantly provide common modules on the underlying infrastructure for different kinds of distributed scenarios, such as those for the distributed digital identity framework, distributed data exchange protocol, and so on. Based on specific scenario requirements, Ontology will continue to develop new common modules.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)"
+  ],
+  "genesisDate": "2018-06-30",
+  "links": {
+    "website": "https://ont.io/",
+    "github": "https://github.com/ontio/ontology-compiler",
+    "reddit": "https://www.reddit.com/r/OntologyNetwork/",
+    "explorer": "https://explorer.ont.io/"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": 0
+  },
+  "developer": {
+    "githubStars": 0,
+    "githubForks": 2,
+    "commits4Weeks": 0
+  },
+  "fetchedAt": "2026-08-25T19:17:11.564Z"
+}
