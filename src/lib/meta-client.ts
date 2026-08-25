@@ -14,6 +14,7 @@
 
 import { sleep } from "./shared-utils";
 import { sanitizePostTextLinks } from "./social-link-policy";
+import { getInstagramGraphBaseUrl } from "./instagram-auth";
 
 /** Supported Meta platforms. */
 export type MetaPlatform = "instagram" | "threads";
@@ -136,7 +137,7 @@ interface ContainerStatusResponse {
 /** Platform-specific API configuration. */
 const PLATFORM_CONFIG = {
   instagram: {
-    baseUrl: "https://graph.facebook.com/v25.0",
+    baseUrl: () => getInstagramGraphBaseUrl(),
     containerEndpoint: (userId: string) => `/${userId}/media`,
     publishEndpoint: (userId: string) => `/${userId}/media_publish`,
     publishIdField: "creation_id",
@@ -144,7 +145,7 @@ const PLATFORM_CONFIG = {
     envAccountKey: "IG_ACCOUNT_ID",
   },
   threads: {
-    baseUrl: "https://graph.threads.net/v1.0",
+    baseUrl: () => "https://graph.threads.net/v1.0",
     containerEndpoint: (userId: string) => `/${userId}/threads`,
     publishEndpoint: (userId: string) => `/${userId}/threads_publish`,
     publishIdField: "creation_id",
@@ -378,7 +379,7 @@ async function createContainer(
 
   const submit = async (requestParams: Record<string, string>): Promise<string> => {
     const result = await metaApiRequest<{ id: string }>(
-      config.baseUrl,
+      config.baseUrl(),
       config.containerEndpoint(userId),
       "POST",
       requestParams,
@@ -435,7 +436,7 @@ async function createThreadsTextContainer(
 
   const submit = async (requestParams: Record<string, string>): Promise<string> => {
     const result = await metaApiRequest<{ id: string }>(
-      config.baseUrl,
+      config.baseUrl(),
       config.containerEndpoint(userId),
       "POST",
       requestParams,
@@ -493,7 +494,7 @@ async function createImageContainer(
 
   const submit = async (requestParams: Record<string, string>): Promise<string> => {
     const result = await metaApiRequest<{ id: string }>(
-      config.baseUrl,
+      config.baseUrl(),
       config.containerEndpoint(userId),
       "POST",
       requestParams,
@@ -538,7 +539,7 @@ async function createInstagramCarouselItem(item: InstagramCarouselItem): Promise
   if (item.altText?.trim()) params.alt_text = item.altText.trim();
 
   const result = await metaApiRequest<{ id: string }>(
-    config.baseUrl,
+    config.baseUrl(),
     config.containerEndpoint(userId),
     "POST",
     params,
@@ -566,7 +567,7 @@ async function createInstagramCarouselContainer(
   const config = PLATFORM_CONFIG.instagram;
 
   const result = await metaApiRequest<{ id: string }>(
-    config.baseUrl,
+    config.baseUrl(),
     config.containerEndpoint(userId),
     "POST",
     {
@@ -598,7 +599,7 @@ async function pollContainerStatus(
 
   while (Date.now() - startTime < POLL_TIMEOUT_MS) {
     const result = await metaApiRequest<ContainerStatusResponse>(
-      config.baseUrl,
+      config.baseUrl(),
       `/${containerId}`,
       "GET",
       {
@@ -651,7 +652,7 @@ async function publishContainer(
   for (let attempt = 1; attempt <= META_API_MAX_ATTEMPTS; attempt += 1) {
     try {
       const result = await metaApiRequestOnce<{ id: string }>(
-        config.baseUrl,
+        config.baseUrl(),
         config.publishEndpoint(userId),
         "POST",
         params,
@@ -817,16 +818,16 @@ export async function publishInstagramCarousel(
 export async function validateToken(
   platform: MetaPlatform,
 ): Promise<{ id: string; username?: string }> {
-  const { accessToken } = getCredentials(platform);
+  const { accessToken, userId } = getCredentials(platform);
   const config = PLATFORM_CONFIG[platform];
 
   return metaApiRequest<{ id: string; username?: string }>(
-    config.baseUrl,
-    "/me",
+    config.baseUrl(),
+    platform === "instagram" ? `/${userId}` : "/me",
     "GET",
     {
       access_token: accessToken,
-      fields: platform === "threads" ? "id,username" : "id",
+      fields: "id,username",
     },
     platform,
   );
