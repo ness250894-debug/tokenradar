@@ -136,7 +136,7 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 | `npx tsx scripts/post-token-comparison.ts` | Publish the shared two-token comparison card |
 | `npx tsx scripts/post-threads-daily.ts` | Post text-native Threads prompts |
 | `npx tsx scripts/post-video-daily.ts` | Render and publish platform-specific short-form video |
-| `npx tsx scripts/refresh-meta-tokens.ts` | Rotate Meta access tokens |
+| `npx tsx scripts/refresh-meta-tokens.ts` | Validate and maintain Instagram/Threads access tokens |
 | `npx tsx scripts/generate-doc-artifacts.ts --doc readme` | Regenerate the README HTML/JSON docs pair |
 | `npx tsx scripts/generate-doc-artifacts.ts --doc tokenradar` | Regenerate the top-level project docs pair |
 | `npx tsx scripts/send-system-report.ts` | Send operational usage and cost reports |
@@ -159,6 +159,8 @@ The production social cadence uses platform-specific routes rather than recycled
 Short-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.
 
 TikTok supports two modes through `TIKTOK_ENV`: `sandbox` uploads to the authorized creator inbox and sends a copy-ready caption to Telegram reporting; `production` uses direct `video.publish`. Missing TikTok credentials fall back to Telegram reporting with the generated video and caption.
+
+Instagram authentication is explicit. `IG_AUTH_MODE=facebook_login` keeps the Page-linked Graph API flow and the weekly maintenance job converts an eligible Facebook User token to its non-expiring Page token. `IG_AUTH_MODE=instagram_login` routes publishing and metrics through `graph.instagram.com` and renews an unexpired long-lived Instagram User token with `ig_refresh_token`. Change the mode only when `IG_ACCESS_TOKEN` and `IG_ACCOUNT_ID` have been replaced and validated for the same flow.
 
 Safe dry-run commands:
 
@@ -188,7 +190,7 @@ Copy `.env.example` to `.env.local` for local work. The full list is documented 
 | R2 media staging | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL`; optional account telemetry: `CLOUDFLARE_R2_METRICS_API_TOKEN` (Workers R2 Storage Read) |
 | Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `TELEGRAM_REPORT_BOT_TOKEN`, `TELEGRAM_REPORT_CHAT_ID` |
 | X | Required: `X_OAUTH2_CLIENT_ID`, `X_OAUTH2_REFRESH_TOKEN`; optional: `X_OAUTH2_CLIENT_SECRET`, `X_BEARER_TOKEN` |
-| Meta | `META_APP_ID`, `META_APP_SECRET`, `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID` |
+| Meta | `IG_AUTH_MODE`, `META_APP_ID`, `META_APP_SECRET`, `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_ACCOUNT_ID`; optional separate Threads app: `THREADS_APP_ID`, `THREADS_APP_SECRET` |
 | YouTube | `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` |
 | TikTok | `TIKTOK_ENV`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, `TIKTOK_REDIRECT_URI`, `TIKTOK_REFRESH_TOKEN`, `TIKTOK_ACCESS_TOKEN` |
 | Analytics | `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `GA4_PROPERTY_ID`, `GSC_SITE_URL`, `PAGESPEED_API_KEY`, `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` |

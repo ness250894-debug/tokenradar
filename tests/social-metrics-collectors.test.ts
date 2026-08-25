@@ -90,6 +90,35 @@ describe("native social metrics collectors", () => {
     expect(String(fetchMock.mock.calls[0]?.[0])).toContain("t.me/s/token_radar_official/407");
   });
 
+  it("routes Instagram Login metrics through graph.instagram.com", async () => {
+    const fetchMock = vi.fn(async (input: string | URL | Request) => {
+      const url = String(input);
+      return url.endsWith("/insights?metric=views%2Creach%2Csaved%2Cshares%2Ctotal_interactions&access_token=ig-token")
+        ? jsonResponse({ data: [{ name: "views", values: [{ value: 321 }] }] })
+        : jsonResponse({ like_count: 9, comments_count: 2 });
+    });
+
+    const result = await collectNativeSocialMetrics(
+      { ...target, platform: "instagram", externalId: "ig-media-1" },
+      {
+        fetch: fetchMock as unknown as typeof fetch,
+        env: {
+          IG_ACCESS_TOKEN: "ig-token",
+          IG_AUTH_MODE: "instagram_login",
+        },
+      },
+    );
+
+    expect(result).toMatchObject({
+      status: "collected",
+      snapshot: { views: 321, likes: 9, comments: 2 },
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    for (const [input] of fetchMock.mock.calls) {
+      expect(String(input)).toMatch(/^https:\/\/graph\.instagram\.com\/v25\.0\/ig-media-1/);
+    }
+  });
+
   it("collects TikTok Display API counts when video.list credentials are available", async () => {
     const fetchMock = vi.fn(async (_input: string | URL | Request, _init?: RequestInit) => jsonResponse({
       data: {

@@ -471,6 +471,23 @@ describe("automation runbook contract", () => {
     expect(workflow).toContain("env.IS_TELEGRAM_POLL_RUN != 'true'");
   });
 
+  it("isolates weekly Meta token maintenance and wires the explicit Instagram auth mode", () => {
+    const socialWorkflow = readWorkflow("social-automations.yml");
+    const dailyWorkflow = readWorkflow("daily-refresh.yml");
+
+    expect(socialWorkflow).toContain("IG_AUTH_MODE: ${{ vars.IG_AUTH_MODE || 'facebook_login' }}");
+    expect(socialWorkflow).toContain("- meta-token-refresh");
+    expect(socialWorkflow).toContain("name: Maintain Meta Access Tokens");
+    expect(socialWorkflow).toContain("github.event.inputs.run == 'meta-token-refresh'");
+    expect(socialWorkflow).toContain("npx tsx scripts/refresh-meta-tokens.ts");
+    expect(socialWorkflow).toContain("IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}");
+    expect(socialWorkflow).toContain("THREADS_ACCOUNT_ID: ${{ secrets.THREADS_ACCOUNT_ID }}");
+    expect(socialWorkflow).toContain("THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}");
+    expect(socialWorkflow).toContain("THREADS_APP_SECRET: ${{ secrets.THREADS_APP_SECRET }}");
+    expect(socialWorkflow).not.toContain("name: Update Meta OAuth Secrets");
+    expect(dailyWorkflow).not.toContain("scripts/refresh-meta-tokens.ts");
+  });
+
   it("keeps social routes failure-isolated, time-bounded, and freshness-gated", () => {
     const workflow = readWorkflow("social-automations.yml");
 

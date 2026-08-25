@@ -213,6 +213,7 @@ describe("publishImage", () => {
   beforeEach(() => {
     process.env.IG_ACCESS_TOKEN = "ig-token";
     process.env.IG_ACCOUNT_ID = "ig-user";
+    process.env.IG_AUTH_MODE = "instagram_login";
     process.env.THREADS_ACCESS_TOKEN = "threads-token";
     process.env.THREADS_ACCOUNT_ID = "threads-user";
     vi.spyOn(console, "info").mockImplementation(() => undefined);
@@ -222,6 +223,7 @@ describe("publishImage", () => {
   afterEach(() => {
     delete process.env.IG_ACCESS_TOKEN;
     delete process.env.IG_ACCOUNT_ID;
+    delete process.env.IG_AUTH_MODE;
     delete process.env.THREADS_ACCESS_TOKEN;
     delete process.env.THREADS_ACCOUNT_ID;
     vi.unstubAllGlobals();
@@ -243,6 +245,9 @@ describe("publishImage", () => {
     );
 
     const createBody = new URLSearchParams((fetchMock.mock.calls[0][1] as RequestInit).body as string);
+    expect(String(fetchMock.mock.calls[0][0])).toBe(
+      "https://graph.instagram.com/v25.0/ig-user/media",
+    );
     expect(result).toEqual({ id: "ig-image-post", platform: "instagram" });
     expect(createBody.get("image_url")).toBe("https://media.example/comparison.jpg");
     expect(createBody.get("caption")).toBe("ALP vs BET");
@@ -315,6 +320,9 @@ describe("publishInstagramCarousel", () => {
     const publishBody = new URLSearchParams((fetchMock.mock.calls[6][1] as RequestInit).body as string);
 
     expect(result).toEqual({ id: "post-ig-1", platform: "instagram" });
+    expect(String(fetchMock.mock.calls[0][0])).toBe(
+      "https://graph.facebook.com/v25.0/ig-user/media",
+    );
     expect(firstChildBody.get("image_url")).toBe("https://media.example/slide-1.png");
     expect(firstChildBody.get("is_carousel_item")).toBe("true");
     expect(firstChildBody.get("alt_text")).toBe("Market movers cover");

@@ -65,6 +65,10 @@ function synchronizeDynamicInventory(doc: string, rawMarkdown: string): string {
     .replace(
       "Daily R2 staging cleanup and Cloudflare usage snapshots run in the designated daily maintenance slot rather than on every publishing route.",
       "R2 staging cleanup and Cloudflare usage snapshots run in the designated weekly maintenance slot rather than on every publishing route.",
+    )
+    .replace(
+      "Daily Refresh validates refreshed artifacts by consolidating data, validating content, and regenerating sitemaps after CoinGecko, TGE, reference article, metrics, Meta token, and OG image updates.",
+      "Daily Refresh validates refreshed artifacts by consolidating data, validating content, and regenerating sitemaps after CoinGecko, TGE, reference article, metrics, and OG image updates. Meta token maintenance runs separately in Social Automations.",
     );
 }
 
@@ -87,6 +91,10 @@ function synchronizeAutomationRunbook(rawMarkdown: string): string {
   synchronized = synchronized.replace(
     "manual inputs for individual routes, `d1-smoke`, metrics, reports, and `all`.",
     "manual inputs for individual routes, `d1-smoke`, metrics, and reports.",
+  );
+  synchronized = synchronized.replace(
+    "Schedule: platform-aware publishing slots, hourly native metrics collection, weekly reporting, and manual inputs for individual routes, `d1-smoke`, metrics, and reports.",
+    "Schedule: platform-aware publishing slots, hourly native metrics collection, a shared weekly reporting/Meta-token maintenance slot, and manual inputs for individual routes, `d1-smoke`, metrics, reports, and Meta token maintenance.",
   );
 
   if (!synchronized.includes("`.github/workflows/social-runner-recovery.yml`")) {
@@ -125,6 +133,45 @@ function synchronizeAutomationRunbook(rawMarkdown: string): string {
     `Native metrics are collected at ${manifest.measurement.windowsHours.map((hours) => `+${hours}h`).join(" and ")} by \`npm run social:metrics:collect\` on \`${manifest.measurement.collectionCron}\`. The weekly normalized report runs on \`${manifest.measurement.weeklyReportCron}\` through \`npm run social:metrics:report\`.`,
     "",
     "Trackers distinguish `plannedUrl` from `publishedUrl` and preserve `utm_content`. Telegram collects exact public-preview post views; X, Instagram, Threads, and YouTube use their native APIs. TikTok publishing is paused, while historical views and interactions can be collected through Display API `video.list` credentials. Unavailable fields remain null and missing credentials are explicitly skipped, so no fabricated values are written.",
+  ].join("\n"));
+
+  synchronized = replaceMarkdownSection(synchronized, "Content and Refresh Workflows", [
+    "## Content and Refresh Workflows",
+    "",
+    "There are two authored content/data workflows that can push generated artifacts back to `main`:",
+    "",
+    "- `.github/workflows/daily-refresh.yml`",
+    "  Flow: fetch token data, discover upcoming TGEs, fetch reference articles, compute metrics, regenerate OG images, consolidate data, validate content, generate sitemaps, commit changed data artifacts with `[skip ci]`, export the engagement analytics baseline, send the system report, and call deploy when data changed.",
+    "- `.github/workflows/daily-content-generation.yml` (workflow name **Daily Launch Content**)",
+    "  Flow: require `main`, generate only new TGE previews and newly graduated launch guides, quality-gate the queue, publish a bounded batch, identify changed token folders, and scope internal-link injection and formatting repair to those folders. Content validation, build, rendered SEO QA, commit, and deploy run only when at least one launch token folder changed. No changed launch folders is a successful no-op.",
+    "",
+    "Both workflows share the `git-push-main` concurrency group and compare the remote `main` SHA before pushing. If `main` changes during generation, they abort instead of auto-merging generated output.",
+  ].join("\n"));
+
+  synchronized = replaceMarkdownSection(synchronized, "Credential and Token Rotation", [
+    "## Credential and Token Rotation",
+    "",
+    "X posting uses OAuth 2.0 refresh tokens with rotation:",
+    "",
+    "- active scripts refresh the access token at runtime",
+    "- when X returns a new refresh token, `src/lib/x-client.ts` writes it to `GITHUB_ENV`",
+    "- the social workflow persists that rotated token back into the `X_OAUTH2_REFRESH_TOKEN` GitHub secret with `GH_PAT`",
+    "",
+    "Because X refresh tokens are single-use, X posting is treated as a serialized concern inside the social workflow/job path.",
+    "",
+    "Meta token maintenance runs in the existing Social Automations workflow on the weekly report slot and through the `meta-token-refresh` manual route:",
+    "",
+    "- `IG_AUTH_MODE=facebook_login` validates a Page/System User token and converts a Facebook User token once to the linked non-expiring Page token",
+    "- `IG_AUTH_MODE=instagram_login` renews an unexpired long-lived Instagram User token with `ig_refresh_token`; the token must be at least 24 hours old",
+    "- Threads continues to use `th_refresh_token`; current and renewed tokens must match `THREADS_ACCOUNT_ID` and carry the basic, publishing, and insights scopes",
+    "- Threads permission checks use `THREADS_APP_ID` and `THREADS_APP_SECRET` when configured, otherwise the shared `META_APP_ID` and `META_APP_SECRET`",
+    "- every returned token is validated before `scripts/refresh-meta-tokens.ts` writes it to GitHub Actions secrets; a persistence failure fails the job",
+    "",
+    "An expired, revoked, account-mismatched, or security-invalidated Meta token still requires manual authorization. For Instagram Login, switch `IG_ACCESS_TOKEN`, `IG_ACCOUNT_ID`, and the `IG_AUTH_MODE` repository variable together.",
+    "",
+    "YouTube Shorts uses `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN`. If the refresh token becomes invalid, regenerate it with `scripts/generate-youtube-token.ts`.",
+    "",
+    "TikTok uses `TIKTOK_ENV` to select delivery mode. TikTok automation is currently paused; retained credentials are not exercised by scheduled publishing.",
   ].join("\n"));
 
   return synchronized;

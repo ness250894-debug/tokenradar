@@ -1,4 +1,5 @@
 import { SOCIAL } from "./config";
+import { getInstagramGraphBaseUrl } from "./instagram-auth";
 
 export type NativeMetricsPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
 
@@ -199,10 +200,11 @@ async function collectInstagramMetrics(
   const accessToken = env.IG_ACCESS_TOKEN?.trim();
   if (!accessToken) return { status: "skipped", reason: "IG_ACCESS_TOKEN is not configured" };
 
-  const mediaUrl = new URL(`https://graph.facebook.com/v25.0/${encodeURIComponent(target.externalId)}`);
+  const baseUrl = getInstagramGraphBaseUrl(env);
+  const mediaUrl = new URL(`${baseUrl}/${encodeURIComponent(target.externalId)}`);
   mediaUrl.searchParams.set("fields", "like_count,comments_count");
   mediaUrl.searchParams.set("access_token", accessToken);
-  const insightUrl = new URL(`https://graph.facebook.com/v25.0/${encodeURIComponent(target.externalId)}/insights`);
+  const insightUrl = new URL(`${baseUrl}/${encodeURIComponent(target.externalId)}/insights`);
   insightUrl.searchParams.set("metric", "views,reach,saved,shares,total_interactions");
   insightUrl.searchParams.set("access_token", accessToken);
 
