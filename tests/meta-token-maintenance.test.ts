@@ -81,8 +81,6 @@ function threadsEnvironment(
 ): MetaTokenEnvironment & { THREADS_ACCOUNT_ID?: string } {
   return {
     THREADS_ACCOUNT_ID: "threads-user",
-    THREADS_APP_ID: "threads-app-id",
-    THREADS_APP_SECRET: "threads-app-secret",
     ...overrides,
   };
 }
@@ -372,6 +370,12 @@ describe("Facebook Login token maintenance", () => {
           },
         }))
         .mockResolvedValueOnce(jsonResponse({
+          id: "178414000000001",
+          username: "tokenradar",
+        }))
+        .mockResolvedValueOnce(jsonResponse({ data: [{ quota_usage: 1 }] }))
+        .mockResolvedValueOnce(jsonResponse({ data: [{ name: "reach", values: [] }] }))
+        .mockResolvedValueOnce(jsonResponse({
           access_token: "long-lived-user-token",
           expires_in: SIXTY_DAYS_SECONDS,
         }))
@@ -390,9 +394,42 @@ describe("Facebook Login token maintenance", () => {
         facebookLoginEnvironment(),
         fetchMock,
       )).rejects.toThrow(missingTask);
-      expect(fetchMock).toHaveBeenCalledTimes(3);
+      expect(fetchMock).toHaveBeenCalledTimes(6);
     },
   );
+
+  it("refuses to exchange a Facebook USER token that fails its current capability probe", async () => {
+    const fetchMock = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(jsonResponse({
+        data: {
+          app_id: "meta-app-id",
+          type: "USER",
+          is_valid: true,
+          expires_at: 1_800_000_000,
+          scopes: [...FACEBOOK_LOGIN_SCOPES, "pages_show_list"],
+        },
+      }))
+      .mockResolvedValueOnce(jsonResponse({
+        id: "178414000000001",
+        username: "tokenradar",
+      }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "Current token cannot read the content-publishing limit",
+          type: "OAuthException",
+          code: 200,
+        },
+      }, 403));
+
+    await expect(maintainInstagramAccessToken(
+      "facebook-user-without-publishing-capability",
+      facebookLoginEnvironment(),
+      fetchMock,
+    )).rejects.toThrow("Instagram content-publishing capability check failed");
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(fetchMock.mock.calls.map((_, index) => requestUrl(fetchMock, index).pathname))
+      .not.toContain("/v25.0/oauth/access_token");
+  });
 
   it("converts a Facebook USER token to its linked non-expiring PAGE token", async () => {
     const fetchMock = vi.fn<typeof fetch>()
@@ -405,6 +442,12 @@ describe("Facebook Login token maintenance", () => {
           scopes: [...FACEBOOK_LOGIN_SCOPES, "pages_show_list"],
         },
       }))
+      .mockResolvedValueOnce(jsonResponse({
+        id: "178414000000001",
+        username: "tokenradar",
+      }))
+      .mockResolvedValueOnce(jsonResponse({ data: [{ quota_usage: 1 }] }))
+      .mockResolvedValueOnce(jsonResponse({ data: [{ name: "reach", values: [] }] }))
       .mockResolvedValueOnce(jsonResponse({
         access_token: "long-lived-user-token",
         token_type: "bearer",
@@ -454,7 +497,7 @@ describe("Facebook Login token maintenance", () => {
       accessToken: "durable-page-token",
       detail: "Converted the Facebook User token to the non-expiring Page token for TokenRadar.",
     });
-    expect(fetchMock).toHaveBeenCalledTimes(7);
+    expect(fetchMock).toHaveBeenCalledTimes(10);
 
     const initialInspection = requestUrl(fetchMock, 0);
     expect(initialInspection.pathname).toBe("/v25.0/debug_token");
@@ -463,12 +506,26 @@ describe("Facebook Login token maintenance", () => {
       "meta-app-id|meta-app-secret",
     );
 
-    const exchange = requestUrl(fetchMock, 1);
+    const currentAccountValidation = requestUrl(fetchMock, 1);
+    expect(currentAccountValidation.pathname).toBe("/v25.0/178414000000001");
+    expect(currentAccountValidation.searchParams.get("access_token")).toBe(
+      "facebook-user-token",
+    );
+    expect(requestUrl(fetchMock, 2).pathname).toContain("content_publishing_limit");
+    expect(requestUrl(fetchMock, 2).searchParams.get("access_token")).toBe(
+      "facebook-user-token",
+    );
+    expect(requestUrl(fetchMock, 3).pathname).toContain("insights");
+    expect(requestUrl(fetchMock, 3).searchParams.get("access_token")).toBe(
+      "facebook-user-token",
+    );
+
+    const exchange = requestUrl(fetchMock, 4);
     expect(exchange.pathname).toBe("/v25.0/oauth/access_token");
     expect(exchange.searchParams.get("grant_type")).toBe("fb_exchange_token");
     expect(exchange.searchParams.get("fb_exchange_token")).toBe("facebook-user-token");
 
-    const pageDiscovery = requestUrl(fetchMock, 2);
+    const pageDiscovery = requestUrl(fetchMock, 5);
     expect(pageDiscovery.pathname).toBe("/v25.0/me/accounts");
     expect(pageDiscovery.searchParams.get("access_token")).toBe("long-lived-user-token");
     expect(pageDiscovery.searchParams.get("fields")).toContain(
@@ -476,24 +533,24 @@ describe("Facebook Login token maintenance", () => {
     );
     expect(pageDiscovery.searchParams.get("fields")).toContain("tasks");
 
-    const accountValidation = requestUrl(fetchMock, 3);
+    const accountValidation = requestUrl(fetchMock, 6);
     expect(accountValidation.pathname).toBe("/v25.0/178414000000001");
     expect(accountValidation.searchParams.get("access_token")).toBe("durable-page-token");
 
-    const publishingProbe = requestUrl(fetchMock, 4);
+    const publishingProbe = requestUrl(fetchMock, 7);
     expect(publishingProbe.pathname).toBe(
       "/v25.0/178414000000001/content_publishing_limit",
     );
     expect(publishingProbe.searchParams.get("fields")).toBe("quota_usage,config");
     expect(publishingProbe.searchParams.get("access_token")).toBe("durable-page-token");
 
-    const insightsProbe = requestUrl(fetchMock, 5);
+    const insightsProbe = requestUrl(fetchMock, 8);
     expect(insightsProbe.pathname).toBe("/v25.0/178414000000001/insights");
     expect(insightsProbe.searchParams.get("metric")).toBe("reach,profile_views");
     expect(insightsProbe.searchParams.get("period")).toBe("day");
     expect(insightsProbe.searchParams.get("access_token")).toBe("durable-page-token");
 
-    const pageInspection = requestUrl(fetchMock, 6);
+    const pageInspection = requestUrl(fetchMock, 9);
     expect(pageInspection.searchParams.get("input_token")).toBe("durable-page-token");
   });
 
@@ -510,6 +567,12 @@ describe("Facebook Login token maintenance", () => {
           scopes: [...FACEBOOK_LOGIN_SCOPES, "pages_show_list"],
         },
       }))
+      .mockResolvedValueOnce(jsonResponse({
+        id: "178414000000001",
+        username: "tokenradar",
+      }))
+      .mockResolvedValueOnce(jsonResponse({ data: [{ quota_usage: 1 }] }))
+      .mockResolvedValueOnce(jsonResponse({ data: [{ name: "reach", values: [] }] }))
       .mockResolvedValueOnce(jsonResponse({
         access_token: "long-lived-user-token",
         expires_in: SIXTY_DAYS_SECONDS,
@@ -559,14 +622,19 @@ describe("Facebook Login token maintenance", () => {
       detail: "Converted the Facebook User token to the non-expiring Page token for TokenRadar.",
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(8);
-    expect(requestUrl(fetchMock, 2).pathname).toBe("/v25.0/me/accounts");
-    expect(requestUrl(fetchMock, 3).href).toBe(secondPageUrl);
-    expect(requestUrl(fetchMock, 4).searchParams.get("access_token")).toBe(
+    expect(fetchMock).toHaveBeenCalledTimes(11);
+    expect(requestUrl(fetchMock, 1).searchParams.get("access_token")).toBe(
+      "facebook-user-token",
+    );
+    expect(requestUrl(fetchMock, 2).pathname).toContain("content_publishing_limit");
+    expect(requestUrl(fetchMock, 3).pathname).toContain("insights");
+    expect(requestUrl(fetchMock, 5).pathname).toBe("/v25.0/me/accounts");
+    expect(requestUrl(fetchMock, 6).href).toBe(secondPageUrl);
+    expect(requestUrl(fetchMock, 7).searchParams.get("access_token")).toBe(
       "page-2-durable-token",
     );
-    expect(requestUrl(fetchMock, 5).pathname).toContain("content_publishing_limit");
-    expect(requestUrl(fetchMock, 6).pathname).toContain("insights");
+    expect(requestUrl(fetchMock, 8).pathname).toContain("content_publishing_limit");
+    expect(requestUrl(fetchMock, 9).pathname).toContain("insights");
   });
 
   it("keeps a valid non-expiring PAGE token without rewriting it", async () => {
@@ -823,12 +891,24 @@ describe("Threads token maintenance", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("rejects a current Threads token when introspection omits app_id", async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValueOnce(jsonResponse({
+      data: {
+        is_valid: true,
+        scopes: THREADS_SCOPES,
+      },
+    }));
+
+    await expect(maintainThreadsAccessToken(
+      "threads-token-without-app-id",
+      threadsEnvironment(),
+      fetchMock,
+    )).rejects.toThrow("inspection did not return app_id");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it("rejects the current token when it belongs to another Threads account", async () => {
     const fetchMock = vi.fn<typeof fetch>()
-      .mockResolvedValueOnce(jsonResponse({
-        access_token: "threads-app-access-token",
-        token_type: "bearer",
-      }))
       .mockResolvedValueOnce(jsonResponse({
         data: {
           app_id: "threads-app-id",
@@ -846,15 +926,11 @@ describe("Threads token maintenance", () => {
       threadsEnvironment(),
       fetchMock,
     )).rejects.toThrow("THREADS_ACCOUNT_ID threads-user");
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it("rejects a Threads token missing an operational scope", async () => {
     const fetchMock = vi.fn<typeof fetch>()
-      .mockResolvedValueOnce(jsonResponse({
-        access_token: "threads-app-access-token",
-        token_type: "bearer",
-      }))
       .mockResolvedValueOnce(jsonResponse({
         data: {
           app_id: "threads-app-id",
@@ -868,19 +944,15 @@ describe("Threads token maintenance", () => {
       threadsEnvironment(),
       fetchMock,
     )).rejects.toThrow("threads_manage_insights");
-    expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(requestUrl(fetchMock, 1).pathname).toBe("/debug_token");
-    expect(requestUrl(fetchMock, 1).searchParams.get("input_token")).toBe(
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(requestUrl(fetchMock, 0).pathname).toBe("/debug_token");
+    expect(requestUrl(fetchMock, 0).searchParams.get("input_token")).toBe(
       "threads-token-without-insights",
     );
   });
 
   it("rejects a renewed token when its identity changes", async () => {
     const fetchMock = vi.fn<typeof fetch>()
-      .mockResolvedValueOnce(jsonResponse({
-        access_token: "threads-app-access-token",
-        token_type: "bearer",
-      }))
       .mockResolvedValueOnce(jsonResponse({
         data: {
           app_id: "threads-app-id",
@@ -911,18 +983,14 @@ describe("Threads token maintenance", () => {
       threadsEnvironment(),
       fetchMock,
     )).rejects.toThrow("THREADS_ACCOUNT_ID threads-user");
-    expect(fetchMock).toHaveBeenCalledTimes(6);
-    expect(requestUrl(fetchMock, 5).searchParams.get("access_token")).toBe(
+    expect(fetchMock).toHaveBeenCalledTimes(5);
+    expect(requestUrl(fetchMock, 4).searchParams.get("access_token")).toBe(
       "renewed-for-another-account",
     );
   });
 
   it("rejects a renewed Threads token that loses an operational scope", async () => {
     const fetchMock = vi.fn<typeof fetch>()
-      .mockResolvedValueOnce(jsonResponse({
-        access_token: "threads-app-access-token",
-        token_type: "bearer",
-      }))
       .mockResolvedValueOnce(jsonResponse({
         data: {
           app_id: "threads-app-id",
@@ -949,18 +1017,44 @@ describe("Threads token maintenance", () => {
       threadsEnvironment(),
       fetchMock,
     )).rejects.toThrow("threads_manage_insights");
-    expect(fetchMock).toHaveBeenCalledTimes(5);
-    expect(requestUrl(fetchMock, 4).searchParams.get("input_token")).toBe(
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(requestUrl(fetchMock, 3).searchParams.get("input_token")).toBe(
       "renewed-threads-token-without-insights",
     );
   });
 
-  it("gets an app token, verifies both token scopes, and refreshes Threads", async () => {
+  it("treats a less-than-24-hours Threads response as a valid skipped refresh", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({
-        access_token: "threads-app-access-token",
-        token_type: "bearer",
+        data: {
+          app_id: "threads-app-id",
+          is_valid: true,
+          scopes: THREADS_SCOPES,
+        },
       }))
+      .mockResolvedValueOnce(jsonResponse({ id: "threads-user", username: "tokenradar" }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "The Threads access token is less than 24 hours old.",
+          type: "OAuthException",
+          code: 100,
+        },
+      }, 400));
+
+    await expect(maintainThreadsAccessToken(
+      "brand-new-threads-token",
+      threadsEnvironment(),
+      fetchMock,
+    )).resolves.toEqual({
+      status: "skipped",
+      detail: "Threads token is valid but less than 24 hours old.",
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(requestUrl(fetchMock, 2).pathname).toBe("/refresh_access_token");
+  });
+
+  it("self-inspects both token scopes and refreshes Threads for the same app", async () => {
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({
         data: {
           app_id: "threads-app-id",
@@ -993,91 +1087,82 @@ describe("Threads token maintenance", () => {
       expiresIn: SIXTY_DAYS_SECONDS,
       detail: "Renewed the Threads token for 60 days.",
     });
-    expect(fetchMock).toHaveBeenCalledTimes(6);
+    expect(fetchMock).toHaveBeenCalledTimes(5);
 
-    const appTokenRequest = requestUrl(fetchMock, 0);
-    expect(`${appTokenRequest.origin}${appTokenRequest.pathname}`).toBe(
-      "https://graph.threads.net/oauth/access_token",
-    );
-    expect(appTokenRequest.searchParams.get("grant_type")).toBe("client_credentials");
-    expect(appTokenRequest.searchParams.get("client_id")).toBe("threads-app-id");
-    expect(appTokenRequest.searchParams.get("client_secret")).toBe("threads-app-secret");
-
-    const currentInspection = requestUrl(fetchMock, 1);
+    const currentInspection = requestUrl(fetchMock, 0);
     expect(currentInspection.pathname).toBe("/debug_token");
     expect(currentInspection.searchParams.get("input_token")).toBe("current-threads-token");
-    expect(currentInspection.searchParams.get("access_token")).toBe(
-      "threads-app-access-token",
+    expect(currentInspection.searchParams.has("access_token")).toBe(false);
+    expect(new Headers(
+      (fetchMock.mock.calls[0][1] as RequestInit).headers,
+    ).get("Authorization")).toBe(
+      "Bearer current-threads-token",
     );
 
-    const validation = requestUrl(fetchMock, 2);
+    const validation = requestUrl(fetchMock, 1);
     expect(`${validation.origin}${validation.pathname}`).toBe(
       "https://graph.threads.net/v1.0/me",
     );
     expect(validation.searchParams.get("access_token")).toBe("current-threads-token");
 
-    const refresh = requestUrl(fetchMock, 3);
+    const refresh = requestUrl(fetchMock, 2);
     expect(`${refresh.origin}${refresh.pathname}`).toBe(
       "https://graph.threads.net/refresh_access_token",
     );
     expect(refresh.searchParams.get("grant_type")).toBe("th_refresh_token");
     expect(refresh.searchParams.get("access_token")).toBe("current-threads-token");
 
-    const renewedInspection = requestUrl(fetchMock, 4);
+    const renewedInspection = requestUrl(fetchMock, 3);
     expect(renewedInspection.pathname).toBe("/debug_token");
     expect(renewedInspection.searchParams.get("input_token")).toBe(
       "renewed-threads-token",
     );
-    expect(renewedInspection.searchParams.get("access_token")).toBe(
-      "threads-app-access-token",
+    expect(renewedInspection.searchParams.has("access_token")).toBe(false);
+    expect(new Headers(
+      (fetchMock.mock.calls[3][1] as RequestInit).headers,
+    ).get("Authorization")).toBe(
+      "Bearer renewed-threads-token",
     );
 
-    const renewedValidation = requestUrl(fetchMock, 5);
+    const renewedValidation = requestUrl(fetchMock, 4);
     expect(renewedValidation.searchParams.get("access_token")).toBe(
       "renewed-threads-token",
     );
   });
 
-  it("falls back to META_APP credentials when Threads-specific credentials are absent", async () => {
+  it("rejects a renewed Threads token whose app_id changes", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({
-        access_token: "shared-app-access-token",
-        token_type: "bearer",
-      }))
-      .mockResolvedValueOnce(jsonResponse({
         data: {
-          app_id: "shared-meta-app-id",
+          app_id: "threads-app-id",
           is_valid: true,
           scopes: THREADS_SCOPES,
         },
       }))
       .mockResolvedValueOnce(jsonResponse({ id: "threads-user", username: "tokenradar" }))
       .mockResolvedValueOnce(jsonResponse({
-        error: {
-          message: "The Threads access token is less than 24 hours old.",
-          type: "OAuthException",
-          code: 100,
+        access_token: "renewed-token-for-another-app",
+        token_type: "bearer",
+        expires_in: SIXTY_DAYS_SECONDS,
+      }))
+      .mockResolvedValueOnce(jsonResponse({
+        data: {
+          app_id: "another-threads-app-id",
+          is_valid: true,
+          scopes: THREADS_SCOPES,
         },
-      }, 400));
+      }));
 
     await expect(maintainThreadsAccessToken(
-      "brand-new-threads-token",
-      threadsEnvironment({
-        THREADS_APP_ID: undefined,
-        THREADS_APP_SECRET: undefined,
-        META_APP_ID: "shared-meta-app-id",
-        META_APP_SECRET: "shared-meta-app-secret",
-      }),
+      "current-threads-token",
+      threadsEnvironment(),
       fetchMock,
-    )).resolves.toEqual({
-      status: "skipped",
-      detail: "Threads token is valid but less than 24 hours old.",
-    });
-
-    const appTokenRequest = requestUrl(fetchMock, 0);
-    expect(appTokenRequest.searchParams.get("client_id")).toBe("shared-meta-app-id");
-    expect(appTokenRequest.searchParams.get("client_secret")).toBe(
-      "shared-meta-app-secret",
+    )).rejects.toThrow(
+      "belongs to app another-threads-app-id, not the current token app threads-app-id",
     );
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(new Headers(
+      (fetchMock.mock.calls[3][1] as RequestInit).headers,
+    ).get("Authorization")).toBe("Bearer renewed-token-for-another-app");
   });
 });

@@ -61,7 +61,7 @@ describe("Meta token maintenance command output", () => {
       status: "refreshed",
       accessToken: renewedToken,
       expiresIn: 60 * 24 * 60 * 60,
-      detail: "Renewed _Instagram_ token [safely] (`60 days`).",
+      detail: "Renewed _Instagram_ token [safely]\n(`60 days`).",
     });
     const infoSpy = vi.spyOn(console, "info").mockImplementation(() => undefined);
 
