@@ -546,7 +546,7 @@ describe("Facebook Login token maintenance", () => {
 
     const insightsProbe = requestUrl(fetchMock, 8);
     expect(insightsProbe.pathname).toBe("/v25.0/178414000000001/insights");
-    expect(insightsProbe.searchParams.get("metric")).toBe("reach,profile_views");
+    expect(insightsProbe.searchParams.get("metric")).toBe("reach");
     expect(insightsProbe.searchParams.get("period")).toBe("day");
     expect(insightsProbe.searchParams.get("access_token")).toBe("durable-page-token");
 
@@ -891,20 +891,32 @@ describe("Threads token maintenance", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("rejects a current Threads token when introspection omits app_id", async () => {
-    const fetchMock = vi.fn<typeof fetch>().mockResolvedValueOnce(jsonResponse({
-      data: {
-        is_valid: true,
-        scopes: THREADS_SCOPES,
-      },
-    }));
+  it("accepts a scoped Threads introspection response without app_id", async () => {
+    const fetchMock = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(jsonResponse({
+        data: {
+          is_valid: true,
+          scopes: THREADS_SCOPES,
+        },
+      }))
+      .mockResolvedValueOnce(jsonResponse({ id: "threads-user", username: "tokenradar" }))
+      .mockResolvedValueOnce(jsonResponse({
+        error: {
+          message: "The Threads access token is less than 24 hours old.",
+          type: "OAuthException",
+          code: 100,
+        },
+      }, 400));
 
     await expect(maintainThreadsAccessToken(
-      "threads-token-without-app-id",
+      "valid-threads-token-without-app-id",
       threadsEnvironment(),
       fetchMock,
-    )).rejects.toThrow("inspection did not return app_id");
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    )).resolves.toEqual({
+      status: "skipped",
+      detail: "Threads token is valid but less than 24 hours old.",
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 
   it("rejects the current token when it belongs to another Threads account", async () => {
@@ -1053,11 +1065,10 @@ describe("Threads token maintenance", () => {
     expect(requestUrl(fetchMock, 2).pathname).toBe("/refresh_access_token");
   });
 
-  it("self-inspects both token scopes and refreshes Threads for the same app", async () => {
+  it("self-inspects both token scopes and identities without relying on app_id", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({
         data: {
-          app_id: "threads-app-id",
           is_valid: true,
           scopes: THREADS_SCOPES,
         },
@@ -1070,7 +1081,6 @@ describe("Threads token maintenance", () => {
       }))
       .mockResolvedValueOnce(jsonResponse({
         data: {
-          app_id: "threads-app-id",
           is_valid: true,
           scopes: THREADS_SCOPES,
         },
@@ -1130,7 +1140,7 @@ describe("Threads token maintenance", () => {
     );
   });
 
-  it("rejects a renewed Threads token whose app_id changes", async () => {
+  it("rejects a renewed Threads token whose reported app_id changes", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({
         data: {

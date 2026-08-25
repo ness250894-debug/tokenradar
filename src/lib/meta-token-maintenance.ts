@@ -234,7 +234,9 @@ async function validateFacebookInstagramCapabilities(
   const insightsUrl = new URL(
     `${FACEBOOK_GRAPH_BASE_URL}/${encodeURIComponent(accountId)}/insights`,
   );
-  insightsUrl.searchParams.set("metric", "reach,profile_views");
+  // A single stable metric is enough to prove insights access. Some metrics,
+  // including profile_views, now require metric_type=total_value.
+  insightsUrl.searchParams.set("metric", "reach");
   insightsUrl.searchParams.set("period", "day");
   insightsUrl.searchParams.set("access_token", accessToken);
   await fetchMetaJson<MetaErrorPayload>(
@@ -292,10 +294,11 @@ async function inspectThreadsToken(
     { headers: { Authorization: `Bearer ${accessToken}` } },
   );
   if (payload.data?.is_valid !== true) throw new Error(`${label} is invalid or expired.`);
-  if (!payload.data.app_id) {
-    throw new Error(`${label} inspection did not return app_id.`);
-  }
-  if (expectedAppId && String(payload.data.app_id) !== expectedAppId) {
+  if (
+    expectedAppId &&
+    payload.data.app_id !== undefined &&
+    String(payload.data.app_id) !== expectedAppId
+  ) {
     throw new Error(
       `${label} belongs to app ${payload.data.app_id}, not the current token app ${expectedAppId}.`,
     );
@@ -639,7 +642,9 @@ export async function maintainThreadsAccessToken(
     "Threads token",
   );
   requireTokenScopes(currentTokenInfo, THREADS_SCOPES, "Threads token");
-  const currentAppId = String(currentTokenInfo.app_id);
+  const currentAppId = currentTokenInfo.app_id === undefined
+    ? undefined
+    : String(currentTokenInfo.app_id);
   await validateThreadsToken(currentToken);
 
   const refreshUrl = new URL(`${THREADS_GRAPH_BASE_URL}/refresh_access_token`);

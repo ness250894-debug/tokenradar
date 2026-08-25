@@ -84,8 +84,9 @@ describe("Meta token maintenance command output", () => {
     expect(renderedOutput).not.toContain("::add-mask::");
     expect(dependencies.sendTelegramAlert).toHaveBeenCalledWith(
       expect.stringContaining(
-        "Renewed \\_Instagram\\_ token \\[safely\\] \\(\\`60 days\\`\\).",
+        "Renewed _Instagram_ token [safely] (`60 days`).",
       ),
+      { parseMode: "plain" },
     );
   });
 });
