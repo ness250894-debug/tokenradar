@@ -5,6 +5,8 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102172527/large/apyUSD.png?1773763322",
   "description": "apyUSD is a yield-bearing vault token issued by the Apyx protocol on Ethereum. It follows the ERC-4626 standard and wraps apxUSD, a USD-denominated stablecoin backed by preferred equity shares from Digital Asset Treasury companies and separately listed on CoinGecko. Users deposit apxUSD into the Apyx yield vault and receive apyUSD in return. The vault accumulates cash dividends paid by DAT preferred shares and distributes that income by increasing the apyUSD-to-apxUSD exchange rate over time. Holders earn yield passively without staking or manual claiming — the exchange rate appreciation mechanism works the same way as Maker's sDAI and Ethena's sUSDe. Both apxUSD and apyUSD are ERC-20 tokens on Ethereum. The protocol integrates with Pendle for yield tokenization and trading, and with Morpho for lending collateral. Custody for the underlying DAT preferred share collateral is provided by Anchorage Digital and BitGo.",
   "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Base Ecosystem",
     "Yield-Bearing Stablecoin",
@@ -19,24 +21,24 @@
   },
   "market": {
     "price": 1.36,
-    "marketCap": 186281512,
-    "marketCapRank": 179,
-    "volume24h": 1496757,
+    "marketCap": 185271006,
+    "marketCapRank": 178,
+    "volume24h": 1009292,
     "high24h": 1.37,
     "low24h": 1.35,
-    "priceChange24h": -0.09407,
-    "priceChange7d": 3.6,
-    "priceChange30d": 13.5,
+    "priceChange24h": 0.1818,
+    "priceChange7d": 2.23243,
+    "priceChange30d": 11.15336,
     "priceChange1y": 0,
     "ath": 4799.87,
-    "athChangePercentage": -99.97167,
+    "athChangePercentage": -99.97162,
     "athDate": "2026-04-16T06:11:00.000Z",
     "atl": 0.97356,
     "atlDate": "2026-06-26T13:36:00.000Z",
-    "circulatingSupply": 136981850.5554719,
-    "totalSupply": 136981850.5554719,
+    "circulatingSupply": 136011242.2029074,
+    "totalSupply": 136011242.2029074,
     "maxSupply": null,
-    "fdv": 186281512
+    "fdv": 185271006
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +49,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:20:47.913Z",
-  "lastMarketUpdate": "2026-08-25T18:24:20.000Z"
+  "fetchedAt": "2026-08-26T19:27:03.300Z",
+  "lastMarketUpdate": "2026-08-26T19:24:40.000Z"
 }

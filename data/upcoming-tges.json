@@ -6156,5 +6156,85 @@
     "discoveredAt": "2026-08-20T18:05:34.434Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-20T18:05:34.434Z"
+  },
+  {
+    "id": "dgrid-ai",
+    "name": "DGrid AI",
+    "symbol": "DGAI",
+    "category": "AI",
+    "expectedTge": "Completed / Live",
+    "narrativeStrength": 82,
+    "confidence": 95,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://cointelegraph.com/news/dgrid-ai-token-jumps-96-after-launch-as-decentralized-ai-network-goes-live",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/dgrid-ai-token-jumps-96-after-launch-as-decentralized-ai-network-goes-live",
+        "title": "DGrid AI token jumps 93% after launch as decentralized AI network goes live",
+        "observedAt": "2026-03-29T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-26T19:29:59.681Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-08-26T19:38:07.982Z",
+    "graduatedAt": "2026-08-26T19:38:07.982Z",
+    "coingeckoRank": 252,
+    "graduationEvidence": {
+      "coingeckoId": "dgrid-ai",
+      "coingeckoRank": 252,
+      "rank": 252,
+      "priceUsd": 0.707953,
+      "volume24h": 183557844,
+      "matchedBy": "id",
+      "verifiedAt": "2026-08-26T19:38:07.982Z"
+    }
+  },
+  {
+    "id": "revolut-eurr",
+    "name": "Revolut EURR Stablecoin",
+    "symbol": "EURR",
+    "category": "Stablecoin",
+    "expectedTge": "Live",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/376575/revolut-launches-euro-pegged-eurr-stablecoin",
+    "confidence": 85,
+    "lifecycleStatus": "confirmed_tge",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/376575/revolut-launches-euro-pegged-eurr-stablecoin",
+        "title": "Revolut Launches Euro-Pegged EURR Stablecoin",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-26T19:29:59.682Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-26T19:29:59.682Z"
+  },
+  {
+    "id": "bankchain-alliance",
+    "name": "BankChain Alliance",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "2027",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/376644/banks-build-blockchain-bankchain-alliance",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://decrypt.co/376644/banks-build-blockchain-bankchain-alliance",
+        "title": "US Banks Join Forces to Build a Blockchain of Their Own",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-26T19:29:59.683Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-26T19:29:59.683Z"
   }
 ]

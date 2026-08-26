@@ -12,6 +12,7 @@
     "Base Ecosystem",
     "Berachain Ecosystem",
     "BTCfi Protocol",
+    "Binance Alpha Spotlight",
     "Binance Wallet IDO"
   ],
   "genesisDate": null,
@@ -22,25 +23,25 @@
     "explorer": "https://bscscan.com/token/0xff7d6a96ae471bbcd7713af9cb1feeb16cf56b41"
   },
   "market": {
-    "price": 0.267498,
-    "marketCap": 77991304,
-    "marketCapRank": 313,
-    "volume24h": 3818456,
-    "high24h": 0.272863,
-    "low24h": 0.215369,
-    "priceChange24h": 21.62064,
-    "priceChange7d": 34.8,
-    "priceChange30d": 82,
-    "priceChange1y": 234.3,
-    "ath": 0.273767,
-    "athChangePercentage": -2.2899,
-    "athDate": "2026-08-14T03:10:30.000Z",
+    "price": 0.262547,
+    "marketCap": 76574680,
+    "marketCapRank": 311,
+    "volume24h": 4000505,
+    "high24h": 0.283067,
+    "low24h": 0.253336,
+    "priceChange24h": -0.70868,
+    "priceChange7d": 14.64848,
+    "priceChange30d": 76.69881,
+    "priceChange1y": 234.81411,
+    "ath": 0.283067,
+    "athChangePercentage": -7.24922,
+    "athDate": "2026-08-26T10:52:30.000Z",
     "atl": 0.03920767,
     "atlDate": "2025-04-18T12:21:08.000Z",
     "circulatingSupply": 291666666,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 267398757
+    "fdv": 262541761
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:23:32.282Z",
-  "lastMarketUpdate": "2026-08-25T18:24:20.000Z"
+  "fetchedAt": "2026-08-26T19:28:56.730Z",
+  "lastMarketUpdate": "2026-08-26T19:26:40.000Z"
 }
