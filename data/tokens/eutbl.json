@@ -26,24 +26,24 @@
   },
   "market": {
     "price": 1.23,
-    "marketCap": 902987506,
-    "marketCapRank": 74,
+    "marketCap": 907253545,
+    "marketCapRank": 73,
     "volume24h": 0,
-    "high24h": 1.23,
+    "high24h": 1.24,
     "low24h": 1.23,
-    "priceChange24h": 0.11327,
-    "priceChange7d": 0.8,
-    "priceChange30d": 2.8,
+    "priceChange24h": -0.21708,
+    "priceChange7d": 0,
+    "priceChange30d": 2.6,
     "priceChange1y": 2,
     "ath": 1.26,
-    "athChangePercentage": -2.09084,
+    "athChangePercentage": -2.26539,
     "athDate": "2026-01-27T13:00:08.000Z",
     "atl": 1.011,
     "atlDate": "2024-08-15T01:45:23.000Z",
-    "circulatingSupply": 731370393.97612,
-    "totalSupply": 731370393.97612,
+    "circulatingSupply": 736138029.02311,
+    "totalSupply": 736138029.02311,
     "maxSupply": null,
-    "fdv": 902987506
+    "fdv": 907253545
   },
   "community": {
     "twitterFollowers": null,
@@ -55,5 +55,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:05:32.725Z",
-  "lastMarketUpdate": "2026-08-25T18:24:20.000Z"
+  "lastMarketUpdate": "2026-08-26T19:24:20.000Z"
 }

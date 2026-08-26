@@ -19,25 +19,25 @@
     "explorer": "https://explorer.qubic.org/"
   },
   "market": {
-    "price": 4.20857e-7,
-    "marketCap": 59581052,
-    "marketCapRank": 391,
-    "volume24h": 749733,
-    "high24h": 4.28781e-7,
-    "low24h": 4.15857e-7,
-    "priceChange24h": 0.00702,
-    "priceChange7d": -4.5,
-    "priceChange30d": -1.9,
-    "priceChange1y": -83.2,
+    "price": 4.20704e-7,
+    "marketCap": 59725888,
+    "marketCapRank": 383,
+    "volume24h": 670851,
+    "high24h": 4.25229e-7,
+    "low24h": 4.13555e-7,
+    "priceChange24h": -0.71333,
+    "priceChange7d": -5.2,
+    "priceChange30d": -2,
+    "priceChange1y": -82.6,
     "ath": 0.00001256,
-    "athChangePercentage": -96.64967,
+    "athChangePercentage": -96.65088,
     "athDate": "2024-03-02T04:28:41.000Z",
     "atl": 3.6533e-7,
     "atlDate": "2026-06-26T03:51:30.000Z",
-    "circulatingSupply": 141559559857077,
-    "totalSupply": 176247940244884,
+    "circulatingSupply": 141972693410637,
+    "totalSupply": 176697706466489,
     "maxSupply": 200000000000000,
-    "fdv": 74181057
+    "fdv": 74334206
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:28:20.707Z",
-  "lastMarketUpdate": "2026-08-25T18:24:20.000Z"
+  "lastMarketUpdate": "2026-08-26T19:24:20.000Z"
 }

@@ -3,11 +3,18 @@
   "tokenName": "Quant",
   "articles": [
     {
-      "title": "Monad proposes wallet upgrade that could survive lost keys and quantum attacks",
-      "link": "https://www.coindesk.com/tech/2026/08/25/monad-proposes-wallet-upgrade-that-could-survive-lost-keys-and-quantum-attacks",
-      "pubDate": "Tue, 25 Aug 2026 07:01:49 +0000",
+      "title": "Ethereum developers propose first step to protect ETH staking from quantum attacks",
+      "link": "https://www.coindesk.com/tech/2026/08/26/ethereum-developers-propose-first-step-to-protect-eth-staking-from-quantum-attacks",
+      "pubDate": "Wed, 26 Aug 2026 13:30:00 +0000",
       "source": "CoinDesk",
-      "snippet": "The Ethereum-compatible blockchain wants users to be able to replace the keys controlling an account without changing its address, opening the door to passkeys, recovery tools and post-quantum security."
+      "snippet": "A draft proposal would allow validators to deposit with quantum-resistant keys, then permanently stop accepting the format the network runs on today."
+    },
+    {
+      "title": "XRP’s 44% rally brings leverage back, raising risk of sharper pullback",
+      "link": "https://www.coindesk.com/markets/2026/08/26/xrp-s-44-rally-brings-leverage-back-raising-risk-of-sharper-pullback",
+      "pubDate": "Wed, 26 Aug 2026 05:16:32 +0000",
+      "source": "CoinDesk",
+      "snippet": "CryptoQuant data show XRP’s estimated leverage ratio on Binance at its highest since January, with long accounts outnumbering shorts as futures volume runs more than five times spot trading."
     },
     {
       "title": "Bitcoin enters ‘initial phase’ of new bull market, but $83K remains key: CryptoQuant",
@@ -15,7 +22,14 @@
       "pubDate": "Tue, 25 Aug 2026 18:13:11 +0000",
       "source": "CoinTelegraph",
       "snippet": "CryptoQuant says Bitcoin’s 24% rally has flipped key market indicators bullish, though rising profit-taking could bring near-term turbulence."
+    },
+    {
+      "title": "Ethereum Devs Propose Deposit Contract Overhaul to Quantum-Proof Staking",
+      "link": "https://decrypt.co/376599/ethereum-devs-propose-deposit-contract-overhaul-to-quantum-proof-staking",
+      "pubDate": "Wed, 26 Aug 2026 15:04:58 +0000",
+      "source": "Decrypt",
+      "snippet": "The proposal would let validator keys grow to 8,192 bytes and adds a switch that permanently retires today&#39;s BLS signatures."
     }
   ],
-  "fetchedAt": "2026-08-25T19:25:53.170Z"
+  "fetchedAt": "2026-08-26T19:38:14.845Z"
 }

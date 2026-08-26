@@ -3,19 +3,12 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Monad proposes wallet upgrade that could survive lost keys and quantum attacks",
-      "link": "https://www.coindesk.com/tech/2026/08/25/monad-proposes-wallet-upgrade-that-could-survive-lost-keys-and-quantum-attacks",
-      "pubDate": "Tue, 25 Aug 2026 07:01:49 +0000",
+      "title": "Ethereum developers propose first step to protect ETH staking from quantum attacks",
+      "link": "https://www.coindesk.com/tech/2026/08/26/ethereum-developers-propose-first-step-to-protect-eth-staking-from-quantum-attacks",
+      "pubDate": "Wed, 26 Aug 2026 13:30:00 +0000",
       "source": "CoinDesk",
-      "snippet": "The Ethereum-compatible blockchain wants users to be able to replace the keys controlling an account without changing its address, opening the door to passkeys, recovery tools and post-quantum security."
-    },
-    {
-      "title": "AI Has Made Bitcoin Software a Target—This Group Is Fighting Back",
-      "link": "https://decrypt.co/376296/bitcoin-target-ai-red-team-group-fighting-back",
-      "pubDate": "Sat, 22 Aug 2026 15:31:04 +0000",
-      "source": "Decrypt",
-      "snippet": "A group of 20-odd developers is scanning the Bitcoin ecosystem for AI-discoverable flaws, warning that cheap, powerful models have handed attackers unprecedented reach."
+      "snippet": "A draft proposal would allow validators to deposit with quantum-resistant keys, then permanently stop accepting the format the network runs on today."
     }
   ],
-  "fetchedAt": "2026-08-25T19:25:53.190Z"
+  "fetchedAt": "2026-08-26T19:38:14.865Z"
 }
