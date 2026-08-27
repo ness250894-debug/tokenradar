@@ -452,6 +452,7 @@ if [[ "$pr_merged" == "true" ]]; then
     fail "Merged PR #${pr_number} has no successful, attested exact-head workflow_dispatch CI run."
   verify_required_status "$ci_run_id" || \
     fail "Merged PR #${pr_number} has no trusted Required checks status for its exact generated head."
+  delete_automation_branch
   write_outputs "$existing_merge_sha" "$pr_number" "$ci_run_id"
   {
     echo "### Generated change already merged"

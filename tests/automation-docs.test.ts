@@ -429,6 +429,23 @@ describe("automation runbook contract", () => {
     expect(publisherAction).toContain('(.tree.sha == $tree)');
     expect(publisherAction).toContain('verify_merge_commit "$existing_merge_sha"');
     expect(publisherAction).toContain('verify_merge_commit "$merge_sha"');
+    const idempotentMergeIndex = publisherAction.indexOf(
+      '\nif [[ "$pr_merged" == "true" ]]; then',
+      publisherAction.indexOf("(( changed_file_count > 0 ))"),
+    );
+    const idempotentMergeEnd = publisherAction.indexOf(
+      '\nif [[ -z "$pr_number" ]]',
+      idempotentMergeIndex,
+    );
+    const idempotentMergeBlock = publisherAction.slice(idempotentMergeIndex, idempotentMergeEnd);
+    expect(idempotentMergeIndex).toBeGreaterThan(-1);
+    expect(idempotentMergeEnd).toBeGreaterThan(idempotentMergeIndex);
+    expect(idempotentMergeBlock.indexOf("delete_automation_branch")).toBeGreaterThan(
+      idempotentMergeBlock.indexOf('verify_required_status "$ci_run_id"'),
+    );
+    expect(idempotentMergeBlock.indexOf('write_outputs "$existing_merge_sha"')).toBeGreaterThan(
+      idempotentMergeBlock.indexOf("delete_automation_branch"),
+    );
   });
 
   it("does not publish YouTube fallback video after strict R2 hydration fails", () => {

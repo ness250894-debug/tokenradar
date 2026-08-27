@@ -409,12 +409,35 @@ function hasNon24hTimeframe(text: string): boolean {
   return /\b(?:\d+\s*(?:m|min(?:ute)?s?|h|hours?|d|days?|w|weeks?|mo|months?|y|years?)|(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|thirty|sixty|ninety|hundred|three\s+hundred|three\s+hundred\s+sixty[ -]five)\s+(?:minutes?|hours?|days?|weeks?|months?|years?)|week(?:ly)?|month(?:ly)?|year(?:ly)?|ytd|year[ -]to[ -]date|q[1-4]|quarter(?:ly)?|this\s+(?:week|month|quarter|year)|since\s+(?:launch|inception|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|all[ -]time)\b/i.test(withoutAllowedDailyWindow);
 }
 
-function directedPercentValue(claim: NumericClaim, text: string): number | undefined {
+function directedPercentValue(
+  claim: NumericClaim,
+  text: string,
+  facts: SocialContentFacts,
+): number | undefined {
   const line = claimLine(text, claim);
   const lineStart = text.lastIndexOf("\n", claim.start - 1) + 1;
   const relativeStart = Math.max(0, claim.start - lineStart);
   const relativeEnd = Math.max(relativeStart, claim.end - lineStart);
-  const localContext = `${claimSubjectSegment(text, claim)} ${line.slice(relativeEnd, relativeEnd + 32)}`;
+  const tokenIdentities = [facts.symbol, facts.tokenName]
+    .filter((identity) => identity.trim().length > 0)
+    .sort((left, right) => right.length - left.length)
+    .map(escapeRegExp)
+    .join("|");
+  let subject = claimSubjectSegment(text, claim);
+  if (tokenIdentities) {
+    const leadingIdentity = new RegExp(
+      `^\\s*\\$?(?:${tokenIdentities})(?=\\s|[(:-]|$)`,
+      "i",
+    );
+    const parenthesizedIdentity = new RegExp(
+      `^\\s*\\(\\s*\\$?(?:${tokenIdentities})\\s*\\)`,
+      "i",
+    );
+    for (let identity = 0; identity < 2; identity += 1) {
+      subject = subject.replace(parenthesizedIdentity, " ").replace(leadingIdentity, " ");
+    }
+  }
+  const localContext = `${subject} ${line.slice(relativeEnd, relativeEnd + 32)}`;
   const hasPositiveDirection = POSITIVE_DIRECTION_PATTERN.test(localContext);
   const hasNegativeDirection = NEGATIVE_DIRECTION_PATTERN.test(localContext);
   const hasFlatDirection = FLAT_DIRECTION_PATTERN.test(localContext);
@@ -452,7 +475,7 @@ function isSupportedNumericClaim(claim: NumericClaim, facts: SocialContentFacts,
       if (tokenSpecific && hasNon24hTimeframe(line)) {
         return claimAppearsInSuppliedContext(claim, text, facts);
       }
-      const directedValue = directedPercentValue(claim, text);
+      const directedValue = directedPercentValue(claim, text, facts);
       const matchesTokenChange = facts.priceChange24h !== undefined
         && directedValue !== undefined
         && approximatelyEqual(directedValue, facts.priceChange24h);

@@ -1,8 +1,15 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { buildVideoVoiceoverScript, generateHookText } from "../src/lib/social-content-generator";
 import { validateSocialContent } from "../src/lib/social-content-validator";
-import { buildEvidenceLedVideoHook, buildEvidenceLedVoiceover } from "../src/lib/video-evidence";
+import {
+  buildEvidenceLedVideoHook,
+  buildEvidenceLedVoiceover,
+  formatVideoCompactCurrency,
+} from "../src/lib/video-evidence";
 import { getVideoFormat } from "../src/lib/video-formats";
 
 describe("video voiceover script", () => {
@@ -89,5 +96,54 @@ describe("video voiceover script", () => {
 
     expect(validateSocialContent(hook, context)).toEqual({ ok: true, issues: [] });
     expect(validateSocialContent(voiceover, context)).toEqual({ ok: true, issues: [] });
+  });
+
+  it.each([
+    { value: 2_063_369, expected: "$2.06M" },
+    { value: 1_376_653, expected: "$1.38M" },
+    { value: 1_740.33, expected: "$1.74K" },
+    { value: 1.4, expected: "$1.4" },
+  ])("adds compact-currency precision when $value would round out of tolerance", ({ value, expected }) => {
+    expect(formatVideoCompactCurrency(value)).toBe(expected);
+  });
+
+  it("keeps deterministic fallbacks grounded across the tracked token corpus", () => {
+    const tokens = JSON.parse(
+      readFileSync(path.join(process.cwd(), "data", "tokens.json"), "utf8"),
+    ) as Array<{
+      id: string;
+      name: string;
+      symbol: string;
+      market?: {
+        priceChange24h?: number;
+        volume24h?: number;
+        marketCap?: number;
+      };
+    }>;
+    const failures: Array<{ id: string; output: "hook" | "voiceover"; issues: unknown[] }> = [];
+
+    for (const token of tokens) {
+      const input = {
+        tokenName: token.name,
+        symbol: token.symbol,
+        priceChange24h: token.market?.priceChange24h,
+        volume24h: token.market?.volume24h,
+        marketCap: token.market?.marketCap,
+      };
+      const context = { ...input };
+      const outputs = {
+        hook: buildEvidenceLedVideoHook(input),
+        voiceover: buildEvidenceLedVoiceover(input, "youtube"),
+      };
+
+      for (const [output, content] of Object.entries(outputs) as Array<
+        ["hook" | "voiceover", string]
+      >) {
+        const result = validateSocialContent(content, context);
+        if (!result.ok) failures.push({ id: token.id, output, issues: result.issues });
+      }
+    }
+
+    expect(failures).toEqual([]);
   });
 });

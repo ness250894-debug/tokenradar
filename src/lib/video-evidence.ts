@@ -33,13 +33,32 @@ function formatGroundedPercent(value: number): string {
   return value.toFixed(6);
 }
 
+function formatGroundedCurrencyUnit(
+  value: number,
+  divisor: number,
+  suffix: string,
+  minimumDecimals: number,
+): string {
+  const tolerance = Math.max(Math.abs(value) * 0.01, 0.000001);
+  const scaled = value / divisor;
+
+  for (let decimals = minimumDecimals; decimals <= 6; decimals += 1) {
+    const rendered = scaled.toFixed(decimals);
+    if (Math.abs(Number(rendered) * divisor - value) <= tolerance) {
+      return `$${rendered}${suffix}`;
+    }
+  }
+
+  return `$${scaled.toFixed(6)}${suffix}`;
+}
+
 export function formatVideoCompactCurrency(value: number | undefined): string | undefined {
   if (!finite(value) || value < 0) return undefined;
-  if (value >= 1_000_000_000_000) return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
-  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(2)}B`;
-  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
-  if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}K`;
-  return `$${value.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+  if (value >= 1_000_000_000_000) return formatGroundedCurrencyUnit(value, 1_000_000_000_000, "T", 2);
+  if (value >= 1_000_000_000) return formatGroundedCurrencyUnit(value, 1_000_000_000, "B", 2);
+  if (value >= 1_000_000) return formatGroundedCurrencyUnit(value, 1_000_000, "M", 1);
+  if (value >= 1_000) return formatGroundedCurrencyUnit(value, 1_000, "K", 1);
+  return formatGroundedCurrencyUnit(value, 1, "", 0);
 }
 
 export function formatVideoMarketSource(source: string | undefined): string | undefined {
