@@ -47,6 +47,7 @@ on:
           - x-market
           - x-comparison
           - x-video
+          - x-token-refresh
           - instagram-carousel
           - instagram-reel
           - threads-text
@@ -67,6 +68,7 @@ env:
   IS_TELEGRAM_MARKET_RUN: ${{ github.event.schedule == '17 08 * * 1' || github.event.inputs.run == 'telegram-market' }}
   IS_X_MARKET_RUN: ${{ github.event.schedule == '17 15 * * 2,4,5' || github.event.inputs.run == 'x-market' }}
   IS_X_COMPARISON_RUN: ${{ github.event.schedule == '23 12 * * 1' || github.event.inputs.run == 'x-comparison' }}
+  IS_X_TOKEN_REFRESH_RUN: ${{ github.event.inputs.run == 'x-token-refresh' }}
   IS_TELEGRAM_COMPARISON_RUN: ${{ github.event.schedule == '37 15 * * 2' || github.event.inputs.run == 'telegram-comparison' }}
   IS_TELEGRAM_MOVERS_RUN: ${{ github.event.schedule == '23 21 * * 0' || github.event.inputs.run == 'telegram-movers' }}
   IS_TELEGRAM_RECAP_RUN: ${{ github.event.schedule == '29 16 * * 5' || github.event.inputs.run == 'telegram-recap' }}
@@ -93,6 +95,13 @@ jobs:
       github.event.inputs.run != 'metrics-report' &&
       github.event.inputs.run != 'meta-token-refresh'
     runs-on: ubuntu-latest
+    # Environment secrets are resolved when the serialized job starts, unlike
+    # repository secrets, which GitHub snapshots when the run is queued.
+    environment: social-automation
+    env:
+      # Opt in to durable X token rotation. Generic GitHub Actions test jobs do
+      # not set this flag and therefore cannot attempt production secret writes.
+      X_REFRESH_TOKEN_SECRET_ENVIRONMENT: social-automation
     timeout-minutes: 120
     concurrency:
       group: coingecko-api-counter
@@ -164,6 +173,21 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
 
+      - name: Refresh X OAuth Token Without Publishing
+        id: x-token-refresh
+        if: always() && env.IS_X_TOKEN_REFRESH_RUN == 'true'
+        continue-on-error: true
+        timeout-minutes: 5
+        run: npx tsx scripts/refresh-x-token.ts
+        env:
+          X_OAUTH2_CLIENT_ID: ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+          # Fine-grained, single-repository token with Environments: write.
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
+          TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
+
       - name: Run Weekly R2 Staging Cleanup
         if: github.event.schedule == '17 08 * * 1'
         continue-on-error: true
@@ -197,7 +221,7 @@ jobs:
       # cannot silently publish mixed-timestamp metrics.
       - name: Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes
         id: refresh-social-metrics
-        if: always() && env.IS_D1_SMOKE_RUN != 'true' && env.IS_TELEGRAM_POLL_RUN != 'true'
+        if: always() && env.IS_D1_SMOKE_RUN != 'true' && env.IS_TELEGRAM_POLL_RUN != 'true' && env.IS_X_TOKEN_REFRESH_RUN != 'true'
         continue-on-error: true
         timeout-minutes: 20
         shell: bash
@@ -309,6 +333,7 @@ jobs:
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
@@ -366,6 +391,7 @@ jobs:
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
@@ -374,6 +400,7 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://tokenradar.co' }}
           SOCIAL_SLOT: x-market-update
+
       # Telegram Top Movers Image (Sun @ 21:23 UTC)
       # Renders a Top 5 Gainers card in-memory using live CoinGecko data.
       # Image is never saved to disk - created, posted, and discarded.
@@ -509,6 +536,7 @@ jobs:
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -602,6 +630,7 @@ jobs:
         env:
           ROUTE_OUTCOMES: |
             refresh-social-metrics=${{ steps.refresh-social-metrics.outcome }}
+            x-token-refresh=${{ steps.x-token-refresh.outcome }}
             d1-smoke=${{ steps.d1-smoke.outcome }}
             telegram-market=${{ steps.telegram-market.outcome }}
             instagram-carousel=${{ steps.instagram-carousel.outcome }}
@@ -660,14 +689,6 @@ jobs:
             data/posted
             data/posted_video
           key: ${{ runner.os }}-social-state-${{ github.run_id }}-${{ github.run_attempt }}
-
-      - name: Update X OAuth Secret
-        # GH_PAT should be a fine-grained, single-repository token whose only
-        # elevated repository permission is Secrets: write.
-        if: always() && env.NEW_X_REFRESH_TOKEN != ''
-        run: gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_X_REFRESH_TOKEN"
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Upload social diagnostics
         if: failure()

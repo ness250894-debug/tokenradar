@@ -590,6 +590,39 @@ describe("automation runbook contract", () => {
     expect(dailyWorkflow).not.toContain("scripts/refresh-meta-tokens.ts");
   });
 
+  it("persists rotating X credentials immediately through an environment secret", () => {
+    const workflow = readWorkflow("social-automations.yml");
+    const xClient = fs.readFileSync(path.join(process.cwd(), "src", "lib", "x-client.ts"), "utf-8");
+    const postSocialEnd = workflow.indexOf("\n  refresh-meta-tokens:");
+    const postSocial = workflow.slice(0, postSocialEnd);
+
+    expect(workflow).toContain("- x-token-refresh");
+    expect(workflow).toContain("IS_X_TOKEN_REFRESH_RUN:");
+    expect(workflow).toContain("environment: social-automation");
+    expect(workflow).toContain("X_REFRESH_TOKEN_SECRET_ENVIRONMENT: social-automation");
+    expect(workflow).toContain("npx tsx scripts/refresh-x-token.ts");
+    expect(workflow).toContain("x-token-refresh=${{ steps.x-token-refresh.outcome }}");
+    expect(workflow).toContain("env.IS_X_TOKEN_REFRESH_RUN != 'true'");
+    expect(workflow).not.toContain("NEW_X_REFRESH_TOKEN");
+    expect(workflow).not.toContain("Update X OAuth Secret");
+    expect(xClient).not.toContain("GITHUB_ENV");
+    expect(xClient).not.toContain("::add-mask::");
+    expect(xClient).toContain("persistGitHubActionsSecret(");
+    expect(xClient).toContain("{ environment: githubSecretEnvironment }");
+
+    const xRouteIds = ["x-token-refresh", "x-comparison", "x-market", "x-video"];
+    for (const routeId of xRouteIds) {
+      const routeStart = postSocial.indexOf(`id: ${routeId}`);
+      const routeEnd = postSocial.indexOf("\n      - name:", routeStart);
+      const routeBlock = postSocial.slice(routeStart, routeEnd);
+      expect(routeBlock, `${routeId} must receive the secret-writer token`).toContain(
+        "GH_TOKEN: ${{ secrets.GH_PAT }}",
+      );
+    }
+
+    expect(postSocial.match(/GH_TOKEN: \$\{\{ secrets\.GH_PAT \}\}/g)).toHaveLength(xRouteIds.length);
+  });
+
   it("keeps social routes failure-isolated, time-bounded, and freshness-gated", () => {
     const workflow = readWorkflow("social-automations.yml");
 

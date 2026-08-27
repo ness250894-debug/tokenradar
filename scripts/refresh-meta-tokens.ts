@@ -122,11 +122,6 @@ export async function runMetaTokenMaintenance(): Promise<TokenRefreshResult[]> {
     try {
       const maintenance = await maintainPlatform(platform.name, currentToken);
       if (maintenance.accessToken) {
-        // GitHub interprets this workflow command, but a local terminal would
-        // print the secret verbatim. Emit it only inside GitHub Actions.
-        if (process.env.GITHUB_ACTIONS === "true") {
-          console.info(`::add-mask::${maintenance.accessToken}`);
-        }
         persistGitHubActionsSecret(
           platform.secretName,
           maintenance.accessToken,
