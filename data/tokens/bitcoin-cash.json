@@ -16,28 +16,28 @@
     "website": "https://bch.info/",
     "github": "https://github.com/bitcoincashorg/bitcoincash.org",
     "reddit": "https://www.reddit.com/r/btc",
-    "explorer": "https://bch.tokenview.io/"
+    "explorer": "https://explorer.bitcoin.com/bch"
   },
   "market": {
-    "price": 261.52,
-    "marketCap": 5250711378,
+    "price": 268.56,
+    "marketCap": 5392822533,
     "marketCapRank": 21,
-    "volume24h": 121876676,
-    "high24h": 270.64,
+    "volume24h": 120112286,
+    "high24h": 269.52,
     "low24h": 258.39,
-    "priceChange24h": -2.37117,
-    "priceChange7d": 26.9,
-    "priceChange30d": 21.6,
-    "priceChange1y": -51,
+    "priceChange24h": 0.79828,
+    "priceChange7d": 25.67307,
+    "priceChange30d": 26.08795,
+    "priceChange1y": -51.69716,
     "ath": 3785.82,
-    "athChangePercentage": -93.09209,
+    "athChangePercentage": -92.90617,
     "athDate": "2017-12-19T16:00:00.000Z",
     "atl": 76.93,
     "atlDate": "2018-12-15T16:00:00.000Z",
-    "circulatingSupply": 20080649.89665078,
-    "totalSupply": 20080924.89665078,
+    "circulatingSupply": 20081131.14665078,
+    "totalSupply": 20081131.14665078,
     "maxSupply": 21000000,
-    "fdv": 5250780834
+    "fdv": 5392822533
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +48,6 @@
     "githubForks": 0,
     "commits4Weeks": 0
   },
-  "fetchedAt": "2026-05-13T18:24:35.507Z",
-  "lastMarketUpdate": "2026-08-26T19:24:20.000Z"
+  "fetchedAt": "2026-08-27T07:25:09.941Z",
+  "lastMarketUpdate": "2026-08-27T07:22:40.000Z"
 }
