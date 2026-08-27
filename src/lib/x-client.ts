@@ -17,6 +17,7 @@ import {
   type OAuth2Token,
 } from "@xdevplatform/xdk";
 import { sleep } from "./shared-utils";
+import { persistGitHubActionsSecret } from "./github-secret";
 import { formatErrorForLog, redactSensitiveText, writeFileAtomic } from "./utils";
 import { sendTelegramAlert } from "./reporter";
 import { sanitizePostTextLinks } from "./social-link-policy";
@@ -96,6 +97,11 @@ export function validateXCredentials(): OAuth2Credentials {
 
 const MAX_X_RETRIES = 3;
 const X_VIDEO_APPEND_CHUNK_SIZE_BYTES = 1_000_000;
+
+function getXGitHubSecretEnvironment(): string | null {
+  if (process.env.GITHUB_ACTIONS !== "true") return null;
+  return process.env.X_REFRESH_TOKEN_SECRET_ENVIRONMENT?.trim() || null;
+}
 
 export class XCreateOutcomeUnknownError extends Error {
   readonly status?: number;
@@ -181,10 +187,16 @@ let _tokenExpiresAt: number = 0;
 let _cachedAccessToken: string = "";
 
 /**
- * Read the latest refresh token directly from .env.local
- * to prevent race conditions when multiple scripts run concurrently.
+ * Resolve the active refresh token. Actions always trusts its environment
+ * secret snapshot; local scripts may use the newer value in .env.local.
  */
-async function getLatestRefreshToken(envToken: string): Promise<string> {
+export async function getLatestXRefreshToken(envToken: string): Promise<string> {
+  // GitHub environment secrets are the serialized source of truth. Never let
+  // an accidentally checked-out local file override the job-start snapshot.
+  if (process.env.GITHUB_ACTIONS === "true") {
+    return envToken;
+  }
+
   const envPath = path.resolve(__dirname, "../../.env.local");
   try {
     const content = await fs.promises.readFile(envPath, "utf-8");
@@ -230,44 +242,53 @@ async function reportRefreshTokenPersistenceFailure(target: string, error: unkno
 }
 
 /**
- * Persist the new refresh token to both .env.local (local dev)
- * and GITHUB_ENV (CI/CD) for secure rotation.
+ * Persist the new refresh token before any X API write can run. GitHub Actions
+ * updates the serialized environment secret directly over stdin; local
+ * development keeps using the ignored .env.local file.
  */
-async function persistRefreshToken(newToken: string): Promise<void> {
-  // Always update in-process env
+export async function persistXRefreshToken(newToken: string): Promise<void> {
   process.env.X_OAUTH2_REFRESH_TOKEN = newToken;
-  const envPath = path.resolve(__dirname, "../../.env.local");
-  let githubEnvWritten = false;
-  let envLocalWritten = false;
+  const githubSecretEnvironment = getXGitHubSecretEnvironment();
 
-  // 1. Export to GITHUB_ENV if running in GitHub Actions
-  if (process.env.GITHUB_ENV) {
-    try {
-      // Mask the new token so it doesn't appear in logs
-      console.info(`::add-mask::${newToken}`);
-      await fs.promises.appendFile(process.env.GITHUB_ENV, `NEW_X_REFRESH_TOKEN=${newToken}\n`);
-      githubEnvWritten = true;
-      console.info("  ✓ Refresh token exported to GITHUB_ENV for secure secret rotation.");
-    } catch (err) {
-      await reportRefreshTokenPersistenceFailure("GITHUB_ENV", err);
+  if (githubSecretEnvironment) {
+    const formatPersistenceError = (error: unknown): string => formatErrorForLog(error)
+      .split(newToken)
+      .join("[REDACTED:X_REFRESH_TOKEN]");
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= MAX_X_RETRIES; attempt++) {
+      try {
+        persistGitHubActionsSecret(
+          "X_OAUTH2_REFRESH_TOKEN",
+          newToken,
+          process.env,
+          undefined,
+          { environment: githubSecretEnvironment },
+        );
+        console.info("  ✓ X refresh token persisted before use.");
+        return;
+      } catch (error) {
+        lastError = error;
+        if (attempt < MAX_X_RETRIES) {
+          console.warn(
+            `  ⚠ X refresh-token persistence attempt ${attempt}/${MAX_X_RETRIES} failed; retrying. ${formatPersistenceError(error)}`,
+          );
+          await sleep(1_000 * attempt);
+        }
+      }
     }
+
+    await reportRefreshTokenPersistenceFailure("GitHub Actions secrets", lastError);
+    throw new Error(
+      `Failed to persist the rotated X refresh token after ${MAX_X_RETRIES} attempts: ${formatPersistenceError(lastError)}`,
+    );
   }
 
-  // 2. Also update .env.local. In local dev this is the durable fallback;
-  // in CI it gives diagnostics if GITHUB_ENV export fails.
+  const envPath = path.resolve(__dirname, "../../.env.local");
   try {
     await upsertEnvLocalRefreshToken(envPath, newToken);
-    envLocalWritten = true;
-    console.info("  ✓ Refresh token also saved to .env.local");
+    console.info("  ✓ Rotated X refresh token saved to .env.local");
   } catch (err) {
     await reportRefreshTokenPersistenceFailure(".env.local", err);
-  }
-
-  if (process.env.GITHUB_ENV && !githubEnvWritten) {
-    throw new Error("Failed to export rotated X refresh token to GITHUB_ENV.");
-  }
-
-  if (!process.env.GITHUB_ENV && !envLocalWritten) {
     throw new Error("Failed to persist rotated X refresh token to .env.local.");
   }
 }
@@ -291,7 +312,15 @@ export async function getXClient(): Promise<Client> {
   const creds = validateXCredentials();
 
   // Prefer the state file token over the (potentially stale) env var
-  const activeRefreshToken = await getLatestRefreshToken(creds.refreshToken);
+  const activeRefreshToken = await getLatestXRefreshToken(creds.refreshToken);
+
+  // Prove that the environment secret is writable before consuming X's
+  // single-use refresh token. The replacement is persisted again immediately
+  // after the successful exchange and before any publishing client is exposed.
+  const githubSecretEnvironment = getXGitHubSecretEnvironment();
+  if (githubSecretEnvironment) {
+    await persistXRefreshToken(activeRefreshToken);
+  }
 
   const oauth2Config: OAuth2Config = {
     clientId: creds.clientId,
@@ -311,14 +340,20 @@ export async function getXClient(): Promise<Client> {
     throw new Error(
       "X OAuth 2.0 token refresh failed. Your refresh token may have expired. " +
       "Run 'npx tsx scripts/generate-x-token.ts' to re-authenticate. " +
-      "(Note: If this happens in CI, you must manually update the GitHub Secret after generating a new token.)"
+      "(In CI, store the replacement as X_OAUTH2_REFRESH_TOKEN in the " +
+      "social-automation GitHub Actions environment.)"
     );
   }
 
   // X OAuth 2.0 uses rotating refresh tokens — each is single-use.
   // We MUST persist the new one or the next run will fail.
+  if (githubSecretEnvironment && !tokens.refresh_token) {
+    throw new Error(
+      "X OAuth 2.0 token refresh returned no replacement refresh token; refusing to publish.",
+    );
+  }
   if (tokens.refresh_token && tokens.refresh_token !== activeRefreshToken) {
-    await persistRefreshToken(tokens.refresh_token);
+    await persistXRefreshToken(tokens.refresh_token);
   }
 
   const config: ClientConfig = {

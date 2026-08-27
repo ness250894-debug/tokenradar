@@ -38,7 +38,7 @@ describe("Meta token maintenance command output", () => {
     process.env.IG_ACCESS_TOKEN = "existing-instagram-token";
     process.env.IG_ACCOUNT_ID = "178414000000001";
     process.env.GH_TOKEN = "github-token";
-    delete process.env.GITHUB_ACTIONS;
+    process.env.GITHUB_ACTIONS = "true";
     delete process.env.THREADS_ACCESS_TOKEN;
     delete process.env.THREADS_ACCOUNT_ID;
   });
