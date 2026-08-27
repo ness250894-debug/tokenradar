@@ -3,6 +3,13 @@
   "tokenName": "Quant",
   "articles": [
     {
+      "title": "Bitcoin researchers propose quantum fix that would not crowd out transactions",
+      "link": "https://www.coindesk.com/tech/2026/08/27/bitcoin-researchers-propose-quantum-fix-that-would-not-crowd-out-transactions",
+      "pubDate": "Thu, 27 Aug 2026 07:15:57 +0000",
+      "source": "CoinDesk",
+      "snippet": "The SHRINCS proposal would let bitcoin transactions use larger, quantum-resistant approvals while preserving more network capacity than existing post-quantum signature designs."
+    },
+    {
       "title": "Ethereum developers propose first step to protect ETH staking from quantum attacks",
       "link": "https://www.coindesk.com/tech/2026/08/26/ethereum-developers-propose-first-step-to-protect-eth-staking-from-quantum-attacks",
       "pubDate": "Wed, 26 Aug 2026 13:30:00 +0000",
@@ -17,19 +24,19 @@
       "snippet": "CryptoQuant data show XRP’s estimated leverage ratio on Binance at its highest since January, with long accounts outnumbering shorts as futures volume runs more than five times spot trading."
     },
     {
-      "title": "Bitcoin enters ‘initial phase’ of new bull market, but $83K remains key: CryptoQuant",
-      "link": "https://cointelegraph.com/markets/bitcoin-enters-initial-phase-of-new-bull-market-but-83k-remains-key-cryptoquant?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 25 Aug 2026 18:13:11 +0000",
+      "title": "StarkWare tests quantum-resistant Bitcoin transaction on mainnet",
+      "link": "https://cointelegraph.com/news/starkware-quantum-resistant-bitcoin-transaction-mainnet?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 27 Aug 2026 04:14:48 +0000",
       "source": "CoinTelegraph",
-      "snippet": "CryptoQuant says Bitcoin’s 24% rally has flipped key market indicators bullish, though rising profit-taking could bring near-term turbulence."
+      "snippet": "StarkWare said the experimental transaction demonstrated quantum-resistant Bitcoin spending without a fork, but it cost up to $200 and required direct miner submission."
     },
     {
-      "title": "Ethereum Devs Propose Deposit Contract Overhaul to Quantum-Proof Staking",
-      "link": "https://decrypt.co/376599/ethereum-devs-propose-deposit-contract-overhaul-to-quantum-proof-staking",
-      "pubDate": "Wed, 26 Aug 2026 15:04:58 +0000",
-      "source": "Decrypt",
-      "snippet": "The proposal would let validator keys grow to 8,192 bytes and adds a switch that permanently retires today&#39;s BLS signatures."
+      "title": "SHRINCS BIP published: Quantum-secure Bitcoin comes with a catch",
+      "link": "https://cointelegraph.com/magazine/shrincs-bip-is-published-quantum-secure-bitcoin-comes-with-a-catch?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 27 Aug 2026 01:26:54 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A new Bitcoin Improvement Proposal for the SHRINCS signature scheme has just been published to upgrade Bitcoin to quantum secure. Here’s everything you need to know."
     }
   ],
-  "fetchedAt": "2026-08-26T19:38:14.845Z"
+  "fetchedAt": "2026-08-27T07:35:54.129Z"
 }
