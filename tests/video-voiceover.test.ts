@@ -1,6 +1,15 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { buildVideoVoiceoverScript, generateHookText } from "../src/lib/social-content-generator";
+import { validateSocialContent } from "../src/lib/social-content-validator";
+import {
+  buildEvidenceLedVideoHook,
+  buildEvidenceLedVoiceover,
+  formatVideoCompactCurrency,
+} from "../src/lib/video-evidence";
 import { getVideoFormat } from "../src/lib/video-formats";
 
 describe("video voiceover script", () => {
@@ -22,8 +31,8 @@ describe("video voiceover script", () => {
     );
 
     expect(script).toContain("SOL moved +6.4%");
-    expect(script).toContain("4.4% of market cap");
-    expect(script).toContain("risk score is 4.8/10");
+    expect(script).toContain("Reported daily volume was $3.89B");
+    expect(script).toContain("Risk score: 4.8/10");
     expect(script).toMatch(/snapshot, not a forecast/i);
     expect(script).not.toMatch(/\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/i);
     expect(script.split(/\s+/).length).toBeLessThanOrEqual(52);
@@ -50,8 +59,8 @@ describe("video voiceover script", () => {
     expect(words.length).toBeGreaterThan(15);
     expect(words.length).toBeLessThanOrEqual(45);
     expect(script).toContain("SOL moved +6.4%");
-    expect(script).toContain("Reported volume was 4.7% of market cap");
-    expect(script).toContain("risk score is 4.8/10");
+    expect(script).toContain("Reported daily volume was $4.20B");
+    expect(script).toContain("Risk score: 4.8/10");
     expect(script).toMatch(/turnover or risk/i);
     expect(script).not.toMatch(/\b(buy|sell|hold|entry|target|100x|moon|guaranteed|strong buy|signal)\b/i);
   });
@@ -61,5 +70,80 @@ describe("video voiceover script", () => {
 
     expect(hook).toBe("SOL +6.4%: WHAT'S THE CATCH?");
     expect(hook.length).toBeLessThanOrEqual(40);
+  });
+
+  it.each([
+    { priceChange24h: 0.51164, volume24h: 28_100_442_440, marketCap: 1_579_215_351_390 },
+    { priceChange24h: 0.50216, volume24h: 27_695_723_213, marketCap: 1_581_914_401_762 },
+  ])("keeps deterministic Bitcoin fallbacks grounded for %#", (facts) => {
+    const input = {
+      tokenName: "Bitcoin",
+      symbol: "BTC",
+      ...facts,
+      riskScore: 4,
+    };
+    const context = {
+      tokenName: input.tokenName,
+      symbol: input.symbol,
+      priceChange24h: input.priceChange24h,
+      volume24h: input.volume24h,
+      marketCap: input.marketCap,
+      riskScore: input.riskScore,
+    };
+
+    const hook = buildEvidenceLedVideoHook(input);
+    const voiceover = buildEvidenceLedVoiceover(input, "youtube");
+
+    expect(validateSocialContent(hook, context)).toEqual({ ok: true, issues: [] });
+    expect(validateSocialContent(voiceover, context)).toEqual({ ok: true, issues: [] });
+  });
+
+  it.each([
+    { value: 2_063_369, expected: "$2.06M" },
+    { value: 1_376_653, expected: "$1.38M" },
+    { value: 1_740.33, expected: "$1.74K" },
+    { value: 1.4, expected: "$1.4" },
+  ])("adds compact-currency precision when $value would round out of tolerance", ({ value, expected }) => {
+    expect(formatVideoCompactCurrency(value)).toBe(expected);
+  });
+
+  it("keeps deterministic fallbacks grounded across the tracked token corpus", () => {
+    const tokens = JSON.parse(
+      readFileSync(path.join(process.cwd(), "data", "tokens.json"), "utf8"),
+    ) as Array<{
+      id: string;
+      name: string;
+      symbol: string;
+      market?: {
+        priceChange24h?: number;
+        volume24h?: number;
+        marketCap?: number;
+      };
+    }>;
+    const failures: Array<{ id: string; output: "hook" | "voiceover"; issues: unknown[] }> = [];
+
+    for (const token of tokens) {
+      const input = {
+        tokenName: token.name,
+        symbol: token.symbol,
+        priceChange24h: token.market?.priceChange24h,
+        volume24h: token.market?.volume24h,
+        marketCap: token.market?.marketCap,
+      };
+      const context = { ...input };
+      const outputs = {
+        hook: buildEvidenceLedVideoHook(input),
+        voiceover: buildEvidenceLedVoiceover(input, "youtube"),
+      };
+
+      for (const [output, content] of Object.entries(outputs) as Array<
+        ["hook" | "voiceover", string]
+      >) {
+        const result = validateSocialContent(content, context);
+        if (!result.ok) failures.push({ id: token.id, output, issues: result.issues });
+      }
+    }
+
+    expect(failures).toEqual([]);
   });
 });

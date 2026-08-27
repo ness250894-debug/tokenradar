@@ -268,6 +268,22 @@ describe("social content validator", () => {
     }
   });
 
+  it("does not mistake a directional word used as the token symbol for price direction", () => {
+    const roseFacts = {
+      ...groundedFacts,
+      tokenName: "Oasis",
+      symbol: "ROSE",
+      priceChange24h: -0.95103,
+    };
+
+    for (const subject of ["ROSE", "Oasis (ROSE)"]) {
+      expect(validateSocialContent(
+        `${subject} moved -0.95% in the supplied daily snapshot. CoinGecko snapshot, 2026-08-23 09:30 UTC`,
+        roseFacts,
+      )).toEqual({ ok: true, issues: [] });
+    }
+  });
+
   it("does not interpret scaled currency amounts as non-24h timeframes", () => {
     const ponsFacts: SocialContentFacts = {
       tokenName: "Pons",
