@@ -354,16 +354,16 @@ describe("automation runbook contract", () => {
     const canonicalMergedPrReloadIndex = publisherAction.indexOf(
       "# Collection responses can lag behind the canonical pull-request resource.",
     );
-    const existingMergeAssignmentIndex = publisherAction.indexOf(
-      'existing_merge_sha="$(jq',
+    const canonicalMergedPrBlockEnd = publisherAction.indexOf(
+      '\ncurrent_main="$(gh api',
       canonicalMergedPrReloadIndex,
     );
     const canonicalMergedPrBlock = publisherAction.slice(
       canonicalMergedPrReloadIndex,
-      existingMergeAssignmentIndex,
+      canonicalMergedPrBlockEnd,
     );
     expect(canonicalMergedPrReloadIndex).toBeGreaterThan(-1);
-    expect(existingMergeAssignmentIndex).toBeGreaterThan(canonicalMergedPrReloadIndex);
+    expect(canonicalMergedPrBlockEnd).toBeGreaterThan(canonicalMergedPrReloadIndex);
     expect(canonicalMergedPrBlock).toContain(
       '"repos/${GITHUB_REPOSITORY}/pulls/${pr_number}"',
     );
@@ -374,6 +374,12 @@ describe("automation runbook contract", () => {
     expect(canonicalMergedPrBlock).toContain('(.head.sha == $head)');
     expect(canonicalMergedPrBlock).toContain('(.base.ref == "main")');
     expect(canonicalMergedPrBlock).toContain('(.base.sha == $base)');
+    expect(publisherAction).not.toContain(".merge_commit_sha");
+    expect(publisherAction).not.toContain("has no valid merge commit SHA");
+    expect(publisherAction).toContain("wait_for_main_after_recorded_base() {");
+    expect(publisherAction).toContain(
+      'existing_merge_sha="$(wait_for_main_after_recorded_base)"',
+    );
     const watchIndex = publisherAction.indexOf('gh run watch "$ci_run_id"');
     const verifiedRunIndex = publisherAction.indexOf('verify_ci_run "$ci_run_id"', watchIndex);
     const refreshedMainIndex = publisherAction.indexOf('current_main="$(gh api', verifiedRunIndex);
@@ -390,7 +396,7 @@ describe("automation runbook contract", () => {
     expect(publishStatusIndex).toBeGreaterThan(refreshedPrIndex);
     expect(mergePayloadIndex).toBeGreaterThan(publishStatusIndex);
     expect(publisherAction).toContain('merge_method: "squash"');
-    const mergeStateHelperIndex = publisherAction.indexOf("\nwait_for_merged_pr_state() {");
+    const mergeStateHelperIndex = publisherAction.indexOf("\nwait_for_main_at_merge() {");
     const mergeStateHelperEnd = publisherAction.indexOf(
       '\n[[ -n "${GH_TOKEN:-}" ]]',
       mergeStateHelperIndex,
@@ -398,30 +404,31 @@ describe("automation runbook contract", () => {
     const mergeStateHelper = publisherAction.slice(mergeStateHelperIndex, mergeStateHelperEnd);
     expect(mergeStateHelperIndex).toBeGreaterThan(-1);
     expect(mergeStateHelperEnd).toBeGreaterThan(mergeStateHelperIndex);
-    expect(mergeStateHelper).toContain("for attempt in $(seq 1 12)");
-    expect(mergeStateHelper).toContain('if merged_pr_json="$(gh api');
-    expect(mergeStateHelper).toContain('(.merged == true)');
-    expect(mergeStateHelper).toContain('(.state == "closed")');
-    expect(mergeStateHelper).toContain('(.merge_commit_sha == $merge)');
+    expect(mergeStateHelper).toContain("for attempt in $(seq 1 30)");
+    expect(mergeStateHelper).toContain('"repos/${GITHUB_REPOSITORY}/git/ref/heads/main"');
+    expect(mergeStateHelper).toContain('[[ "$current_main" == "$merge_sha" ]]');
+    expect(mergeStateHelper).toContain('[[ "$current_main" == "$BASE_SHA" ]]');
     expect(mergeStateHelper).toContain("sleep 2");
-    expect(mergeStateHelper).toContain("return 1");
+    expect(mergeStateHelper).toContain('fail "main did not advance from ${BASE_SHA}');
+    expect(mergeStateHelper).not.toContain("/pulls/${pr_number}");
     const mergeShaValidationIndex = publisherAction.indexOf(
       '[[ "$merge_sha" =~ ^[0-9a-f]{40}$ ]]',
       mergePayloadIndex,
     );
     const mergeStateInvocationIndex = publisherAction.indexOf(
-      '\nwait_for_merged_pr_state "$merge_sha"',
+      '\nwait_for_main_at_merge "$merge_sha"',
       mergeShaValidationIndex,
     );
-    const exactMainVerificationIndex = publisherAction.indexOf(
-      '[[ "$current_main" == "$merge_sha" ]]',
+    const exactCommitVerificationIndex = publisherAction.indexOf(
+      'verify_merge_commit "$merge_sha"',
       mergeStateInvocationIndex,
     );
     expect(mergeStateInvocationIndex).toBeGreaterThan(mergeShaValidationIndex);
-    expect(exactMainVerificationIndex).toBeGreaterThan(mergeStateInvocationIndex);
-    expect(publisherAction).toContain('[[ "$current_main" == "$merge_sha" ]]');
-    expect(publisherAction).toContain('verify_merge_parent "$existing_merge_sha"');
-    expect(publisherAction).toContain('verify_merge_parent "$merge_sha"');
+    expect(exactCommitVerificationIndex).toBeGreaterThan(mergeStateInvocationIndex);
+    expect(publisherAction).toContain('expected_tree="$(git rev-parse "${HEAD_SHA}^{tree}")"');
+    expect(publisherAction).toContain('(.tree.sha == $tree)');
+    expect(publisherAction).toContain('verify_merge_commit "$existing_merge_sha"');
+    expect(publisherAction).toContain('verify_merge_commit "$merge_sha"');
   });
 
   it("does not publish YouTube fallback video after strict R2 hydration fails", () => {
@@ -667,6 +674,9 @@ describe("automation runbook contract", () => {
   it("keeps runner recovery strict when measurement jobs are skipped", () => {
     const workflow = readWorkflow("social-runner-recovery.yml");
 
+    expect(workflow).toContain("group: social-runner-recovery");
+    expect(workflow).toContain("cancel-in-progress: false");
+    expect(workflow).toContain("queue: max");
     expect(workflow).toContain('select(.conclusion != "skipped")');
     expect(workflow).toContain('.name == "Execute Network Routing"');
     expect(workflow).toContain('"$active_job_count" != "1"');

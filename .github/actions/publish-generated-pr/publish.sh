@@ -235,45 +235,78 @@ publish_required_status() {
   fail "Required checks status was not readable on exact head ${HEAD_SHA}."
 }
 
-verify_merge_parent() {
+verify_merge_commit() {
   local merge_sha="$1"
-  local commit_json
+  local commit_json expected_tree
+
+  expected_tree="$(git rev-parse "${HEAD_SHA}^{tree}")"
+  [[ "$expected_tree" =~ ^[0-9a-f]{40}$ ]] || \
+    fail "Generated head ${HEAD_SHA} has no valid tree SHA."
 
   commit_json="$(gh api \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2026-03-10" \
     "repos/${GITHUB_REPOSITORY}/git/commits/${merge_sha}")"
-  jq -e --arg base "$BASE_SHA" \
-    '(.parents | length == 1) and (.parents[0].sha == $base)' \
+  jq -e --arg base "$BASE_SHA" --arg tree "$expected_tree" \
+    '(.parents | length == 1) and
+     (.parents[0].sha == $base) and
+     (.tree.sha == $tree)' \
     <<< "$commit_json" >/dev/null || \
-    fail "Squash merge ${merge_sha} was not created directly on recorded base ${BASE_SHA}."
+    fail "Squash merge ${merge_sha} does not exactly apply the generated tree to recorded base ${BASE_SHA}."
 }
 
-wait_for_merged_pr_state() {
+wait_for_main_at_merge() {
   local merge_sha="$1"
-  local attempt merged_pr_json
+  local attempt current_main
 
-  # The merge endpoint can return before the pull-request resource exposes the
-  # new merge_commit_sha. Retry that read, while still requiring the exact SHA
-  # returned by the authenticated merge request.
-  for attempt in $(seq 1 12); do
-    if merged_pr_json="$(gh api \
+  # The authenticated merge response is authoritative. The pull-request
+  # resource can lag behind a completed merge, so wait only for the exact
+  # returned commit to become the main ref.
+  for attempt in $(seq 1 30); do
+    current_main="$(gh api \
       -H "Accept: application/vnd.github+json" \
       -H "X-GitHub-Api-Version: 2026-03-10" \
-      "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}")" && \
-      jq -e --arg merge "$merge_sha" \
-        '(.merged == true) and (.state == "closed") and (.merge_commit_sha == $merge)' \
-        <<< "$merged_pr_json" >/dev/null; then
+      "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+    if [[ "$current_main" == "$merge_sha" ]]; then
       return 0
     fi
 
-    if (( attempt < 12 )); then
-      echo "PR #${pr_number} merge state has not propagated; retrying verification in 2s."
+    [[ "$current_main" == "$BASE_SHA" ]] || \
+      fail "main advanced to unexpected commit ${current_main} while waiting for merge ${merge_sha}."
+
+    if (( attempt < 30 )); then
+      echo "Merge ${merge_sha} is not the main ref yet; retrying verification in 2s."
       sleep 2
     fi
   done
 
-  return 1
+  fail "main did not advance from ${BASE_SHA} to authenticated merge ${merge_sha}."
+}
+
+wait_for_main_after_recorded_base() {
+  local attempt current_main
+
+  # A merged PR can temporarily omit merge_commit_sha. In that case, discover
+  # the candidate from main and authenticate it later by its exact parent and
+  # generated tree rather than trusting eventually consistent PR metadata.
+  for attempt in $(seq 1 30); do
+    current_main="$(gh api \
+      -H "Accept: application/vnd.github+json" \
+      -H "X-GitHub-Api-Version: 2026-03-10" \
+      "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+    [[ "$current_main" =~ ^[0-9a-f]{40}$ ]] || fail "main returned an invalid commit SHA."
+    if [[ "$current_main" != "$BASE_SHA" ]]; then
+      printf '%s\n' "$current_main"
+      return 0
+    fi
+
+    if (( attempt < 30 )); then
+      echo "Merged PR #${pr_number} is not visible on main yet; retrying verification in 2s." >&2
+      sleep 2
+    fi
+  done
+
+  fail "Merged PR #${pr_number} did not advance main from recorded base ${BASE_SHA}."
 }
 
 [[ -n "${GH_TOKEN:-}" ]] || fail "The integration job did not receive GITHUB_TOKEN."
@@ -342,9 +375,6 @@ if (( matching_pr_count == 1 )); then
   if [[ "$(jq -r '.merged' <<< "$pr_json")" == "true" ]]; then
     [[ "$pr_state" == "closed" ]] || fail "Merged PR #${pr_number} is not closed."
     pr_merged=true
-    existing_merge_sha="$(jq -r '.merge_commit_sha // empty' <<< "$pr_json")"
-    [[ "$existing_merge_sha" =~ ^[0-9a-f]{40}$ ]] || \
-      fail "Merged PR #${pr_number} has no valid merge commit SHA."
     fetch_ref="refs/pull/${pr_number}/head"
   fi
 fi
@@ -353,9 +383,14 @@ current_main="$(gh api \
   -H "Accept: application/vnd.github+json" \
   -H "X-GitHub-Api-Version: 2026-03-10" \
   "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+[[ "$current_main" =~ ^[0-9a-f]{40}$ ]] || fail "main returned an invalid commit SHA."
 if [[ "$pr_merged" == "true" ]]; then
-  [[ "$current_main" == "$existing_merge_sha" ]] || \
-    fail "PR #${pr_number} is already merged, but main advanced to ${current_main}; refusing a stale deploy."
+  if [[ "$current_main" == "$BASE_SHA" ]]; then
+    existing_merge_sha="$(wait_for_main_after_recorded_base)"
+  else
+    existing_merge_sha="$current_main"
+  fi
+  current_main="$existing_merge_sha"
 elif [[ "$current_main" != "$BASE_SHA" ]]; then
   close_stale_pr "$pr_number"
   fail "main changed from ${BASE_SHA} to ${current_main}; closed the stale generated change."
@@ -412,7 +447,7 @@ done < <(git diff --name-only --no-renames -z "$BASE_SHA" "$HEAD_SHA")
 (( changed_file_count > 0 )) || fail "Generated commit has no changed files."
 
 if [[ "$pr_merged" == "true" ]]; then
-  verify_merge_parent "$existing_merge_sha"
+  verify_merge_commit "$existing_merge_sha"
   ci_run_id="$(find_successful_attested_ci_run)" || \
     fail "Merged PR #${pr_number} has no successful, attested exact-head workflow_dispatch CI run."
   verify_required_status "$ci_run_id" || \
@@ -539,16 +574,8 @@ for attempt in $(seq 1 12); do
 done
 
 [[ "$merge_sha" =~ ^[0-9a-f]{40}$ ]] || fail "Merge API returned an invalid commit SHA."
-wait_for_merged_pr_state "$merge_sha" || \
-  fail "PR merge state does not match returned commit ${merge_sha}."
-
-current_main="$(gh api \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2026-03-10" \
-  "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
-[[ "$current_main" == "$merge_sha" ]] || \
-  fail "main is ${current_main}, expected freshly merged commit ${merge_sha}; refusing a stale deploy."
-verify_merge_parent "$merge_sha"
+wait_for_main_at_merge "$merge_sha"
+verify_merge_commit "$merge_sha"
 
 delete_automation_branch
 write_outputs "$merge_sha" "$pr_number" "$ci_run_id"

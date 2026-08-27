@@ -15,6 +15,8 @@ permissions:
 concurrency:
   group: social-runner-recovery
   cancel-in-progress: false
+  # Preserve every workflow_run event when several Social runs finish together.
+  queue: max
 
 env:
   MAX_RUN_ATTEMPTS: "3"
