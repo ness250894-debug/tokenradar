@@ -10,20 +10,6 @@
       "snippet": "The SHRINCS proposal would let bitcoin transactions use larger, quantum-resistant approvals while preserving more network capacity than existing post-quantum signature designs."
     },
     {
-      "title": "Ethereum developers propose first step to protect ETH staking from quantum attacks",
-      "link": "https://www.coindesk.com/tech/2026/08/26/ethereum-developers-propose-first-step-to-protect-eth-staking-from-quantum-attacks",
-      "pubDate": "Wed, 26 Aug 2026 13:30:00 +0000",
-      "source": "CoinDesk",
-      "snippet": "A draft proposal would allow validators to deposit with quantum-resistant keys, then permanently stop accepting the format the network runs on today."
-    },
-    {
-      "title": "XRP’s 44% rally brings leverage back, raising risk of sharper pullback",
-      "link": "https://www.coindesk.com/markets/2026/08/26/xrp-s-44-rally-brings-leverage-back-raising-risk-of-sharper-pullback",
-      "pubDate": "Wed, 26 Aug 2026 05:16:32 +0000",
-      "source": "CoinDesk",
-      "snippet": "CryptoQuant data show XRP’s estimated leverage ratio on Binance at its highest since January, with long accounts outnumbering shorts as futures volume runs more than five times spot trading."
-    },
-    {
       "title": "StarkWare tests quantum-resistant Bitcoin transaction on mainnet",
       "link": "https://cointelegraph.com/news/starkware-quantum-resistant-bitcoin-transaction-mainnet?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Thu, 27 Aug 2026 04:14:48 +0000",
@@ -36,7 +22,21 @@
       "pubDate": "Thu, 27 Aug 2026 01:26:54 +0000",
       "source": "CoinTelegraph",
       "snippet": "A new Bitcoin Improvement Proposal for the SHRINCS signature scheme has just been published to upgrade Bitcoin to quantum secure. Here’s everything you need to know."
+    },
+    {
+      "title": "Bitcoin Completes First Experimental Quantum-Safe Transaction, Starkware Says",
+      "link": "https://decrypt.co/376767/bitcoin-quantum-safe-transaction-starkware",
+      "pubDate": "Thu, 27 Aug 2026 22:36:04 +0000",
+      "source": "Decrypt",
+      "snippet": "The transaction used Bitcoin’s existing rules to protect funds from a future quantum attack without requiring a network upgrade."
+    },
+    {
+      "title": "Ethereum Devs Propose Deposit Contract Overhaul to Quantum-Proof Staking",
+      "link": "https://decrypt.co/376599/ethereum-devs-propose-deposit-contract-overhaul-to-quantum-proof-staking",
+      "pubDate": "Wed, 26 Aug 2026 15:04:58 +0000",
+      "source": "Decrypt",
+      "snippet": "The proposal would let validator keys grow to 8,192 bytes and adds a switch that permanently retires today&#39;s BLS signatures."
     }
   ],
-  "fetchedAt": "2026-08-27T07:35:54.129Z"
+  "fetchedAt": "2026-08-28T01:58:39.352Z"
 }
