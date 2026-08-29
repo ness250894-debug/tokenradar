@@ -2,8 +2,8 @@
   "id": "concordium",
   "symbol": "ccd",
   "name": "Concordium",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/23547/large/Concordium_Symbol_Black.png?1762090006",
-  "description": "Founded in 2018, Concordium is the Layer-1 blockchain built for a new era of digital trust.\n\nOur name comes from the Latin concordia—meaning harmony and agreement—a reflection of\nour mission to build infrastructure that embeds trust, privacy, and compliance into every\ninteraction.\n\nAt the heart of Concordium is Smart Money: programmable digital assets with identity, policy\ncontrols, and compliance embedded at the protocol level. Smart Money enables frictionless\ndigital interactions with security, automation, and regulatory certainty by design.\n\nConcordium was established by Lars Seier Christensen, founder of Saxo Bank, inspired by the\nrecognition that blockchain’s full potential can only be realized if it works with regulation, not\nagainst it. That insight led to a new model of trust—one where decentralization and\naccountability can coexist.\n\nBacked by world-class cryptographic research and a global team with expertise across\n\nblockchain, finance, and compliance, Concordium delivers protocol-native features like zero-\nknowledge verification, programmable compliance, and privacy-preserving controls—\n\nempowering a smarter, more connected financial future.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/23547/large/IMG_2359.JPG?1782811142",
+  "description": "Concordium is an AI infrastructure for the agentic economy powered by a purpose-built, regulatory-grade blockchain with identity and trust built into the protocol. When an AI agent acts autonomously, the counterparty needs assurance that a verified human authorised it. Concordium delivers that assurance at the infrastructure level. It is the only platform where verified humans and verified AI agents operate on the same identity layer. Every account on Concordium, whether a human wallet or an autonomous AI agent, is linked to a verified real-world identity through regulated identity providers. Privacy is preserved through zero-knowledge proofs, allowing users and agents to prove attributes without exposing personal data.\n",
   "categories": [
     "Artificial Intelligence (AI)",
     "Smart Contract Platform",
@@ -26,35 +26,35 @@
     "explorer": "https://ccdscan.io/"
   },
   "market": {
-    "price": 0.0035522,
-    "marketCap": 45073665,
-    "marketCapRank": 488,
-    "volume24h": 167333,
-    "high24h": 0.00394777,
-    "low24h": 0.00354886,
-    "priceChange24h": -1.67348,
-    "priceChange7d": 5.8,
-    "priceChange30d": 2,
-    "priceChange1y": -15.1,
+    "price": 0.0036301,
+    "marketCap": 46078673,
+    "marketCapRank": 484,
+    "volume24h": 186726,
+    "high24h": 0.00379451,
+    "low24h": 0.00353653,
+    "priceChange24h": 2.56318,
+    "priceChange7d": 4,
+    "priceChange30d": 3.4,
+    "priceChange1y": -11.9,
     "ath": 0.149407,
-    "athChangePercentage": -97.62247,
+    "athChangePercentage": -97.57034,
     "athDate": "2022-02-10T04:22:15.000Z",
     "atl": 0.00262306,
     "atlDate": "2024-07-15T17:52:20.000Z",
-    "circulatingSupply": 12693321796.2785,
-    "totalSupply": 14626159695.56887,
+    "circulatingSupply": 12695648724.120092,
+    "totalSupply": 14629303312.33074,
     "maxSupply": null,
-    "fdv": 51937123
+    "fdv": 53096844
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-13T18:29:01.000Z",
-  "lastMarketUpdate": "2026-08-26T19:24:20.000Z"
+  "fetchedAt": "2026-08-29T01:11:44.544Z",
+  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
 }

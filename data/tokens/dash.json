@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/19/large/dash-logo.png?1696501423",
   "description": "Dash (DASH) is digital cash designed to offer financial freedom to everyone. Payments are instant, easy and secure, with near-zero fees.\nBuilt to support real life use cases, Dash is the leading decentralized payment solution. Users can purchase goods at thousands of merchants and trade it at major exchanges and brokers around the globe.\nSince its creation in 2014, Dash has demonstrated leadership in innovation and pioneered groundbreaking features such as:\n-Two-tier network with incentivized nodes and decentralized project governance (Masternodes)\n-Instantly settled payments (InstantSend)\n-Instantly immutable blockchain (ChainLocks)\n-Optional privacy (PrivateSend)",
   "categories": [
+    "Smart Contract Platform",
     "Masternodes",
     "Payment Solutions",
     "Alleged SEC Securities",
@@ -21,35 +22,35 @@
     "explorer": "https://chainz.cryptoid.info/dash/"
   },
   "market": {
-    "price": 39.69,
-    "marketCap": 508691313,
-    "marketCapRank": 107,
-    "volume24h": 64817087,
-    "high24h": 40.57,
-    "low24h": 38.09,
-    "priceChange24h": 2.07293,
-    "priceChange7d": 21.1,
-    "priceChange30d": 26.2,
-    "priceChange1y": 68.4,
+    "price": 38.66,
+    "marketCap": 495932912,
+    "marketCapRank": 104,
+    "volume24h": 66936278,
+    "high24h": 39.33,
+    "low24h": 37.06,
+    "priceChange24h": -2.54602,
+    "priceChange7d": -2.34146,
+    "priceChange30d": 32.18918,
+    "priceChange1y": 64.86658,
     "ath": 1493.59,
-    "athChangePercentage": -97.34291,
+    "athChangePercentage": -97.41169,
     "athDate": "2017-12-19T16:00:00.000Z",
     "atl": 0.213899,
     "atlDate": "2014-02-13T16:00:00.000Z",
-    "circulatingSupply": 12818367.13741734,
-    "totalSupply": 12819007.35124709,
+    "circulatingSupply": 12819520.19191716,
+    "totalSupply": 12819939.09529036,
     "maxSupply": 18920000,
-    "fdv": 508706388
+    "fdv": 495948203
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 92,
-    "githubForks": 53,
-    "commits4Weeks": 270
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-13T18:30:35.855Z",
-  "lastMarketUpdate": "2026-08-28T01:44:20.000Z"
+  "fetchedAt": "2026-08-29T01:12:03.486Z",
+  "lastMarketUpdate": "2026-08-29T01:09:40.000Z"
 }
