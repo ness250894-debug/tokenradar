@@ -15,7 +15,9 @@
     "Optimism Ecosystem",
     "Layer 2 (L2)",
     "Base Ecosystem",
+    "Hyperliquid Ecosystem",
     "DeFAI",
+    "HyperEVM Ecosystem",
     "Base Native"
   ],
   "genesisDate": null,
@@ -26,35 +28,35 @@
     "explorer": "https://etherscan.io/token/0xB1D1eae60EEA9525032a6DCb4c1CE336a1dE71BE"
   },
   "market": {
-    "price": 0.168942,
-    "marketCap": 168857327,
+    "price": 0.168008,
+    "marketCap": 167834944,
     "marketCapRank": 189,
-    "volume24h": 12788018,
-    "high24h": 0.186223,
-    "low24h": 0.153067,
-    "priceChange24h": -1.83778,
-    "priceChange7d": 71.7,
-    "priceChange30d": 61.5,
-    "priceChange1y": 252.8,
+    "volume24h": 6573230,
+    "high24h": 0.171896,
+    "low24h": 0.160084,
+    "priceChange24h": 0.75817,
+    "priceChange7d": 42.25755,
+    "priceChange30d": 74.50613,
+    "priceChange1y": 259.65059,
     "ath": 0.228265,
-    "athChangePercentage": -25.98877,
+    "athChangePercentage": -26.39797,
     "athDate": "2025-01-14T19:52:14.000Z",
     "atl": 0.01243699,
     "atlDate": "2025-04-07T05:31:06.000Z",
-    "circulatingSupply": 999710488.5564909,
+    "circulatingSupply": 999710259.2604909,
     "totalSupply": 1500000000,
     "maxSupply": 1500000000,
-    "fdv": 253359341
+    "fdv": 251825380
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-13T18:31:07.471Z",
-  "lastMarketUpdate": "2026-08-28T01:44:20.000Z"
+  "fetchedAt": "2026-08-29T01:12:28.648Z",
+  "lastMarketUpdate": "2026-08-29T01:10:40.000Z"
 }
