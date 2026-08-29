@@ -22,38 +22,38 @@
     "website": "https://flow.com",
     "github": "https://github.com/onflow",
     "reddit": null,
-    "explorer": null
+    "explorer": "https://www.flowscan.io/"
   },
   "market": {
-    "price": 0.0284798,
-    "marketCap": 47992533,
-    "marketCapRank": 467,
-    "volume24h": 3824718,
-    "high24h": 0.02948976,
-    "low24h": 0.02786719,
-    "priceChange24h": -3.70024,
-    "priceChange7d": -9.9,
-    "priceChange30d": 2.3,
-    "priceChange1y": -93.5,
+    "price": 0.02849911,
+    "marketCap": 48045244,
+    "marketCapRank": 471,
+    "volume24h": 3314406,
+    "high24h": 0.02865347,
+    "low24h": 0.02818998,
+    "priceChange24h": 1.06262,
+    "priceChange7d": -6.27447,
+    "priceChange30d": 6.08367,
+    "priceChange1y": -92.79818,
     "ath": 42.4,
-    "athChangePercentage": -99.93283,
+    "athChangePercentage": -99.93278,
     "athDate": "2021-04-05T05:49:10.000Z",
     "atl": 0.02368276,
     "atlDate": "2026-07-28T01:09:20.000Z",
     "circulatingSupply": 1685415016.621036,
     "totalSupply": 1685415016.621036,
     "maxSupply": null,
-    "fdv": 47992533
+    "fdv": 48045244
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:07:16.228Z",
-  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
+  "fetchedAt": "2026-08-29T20:02:24.901Z",
+  "lastMarketUpdate": "2026-08-29T19:59:40.000Z"
 }

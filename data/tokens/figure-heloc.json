@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/68480/large/figure.png?1755863954",
   "description": "This project is building the foundational protocol layer for institutional debt markets on blockchain. Powered by Provenance Blockchain, Figure Connect and Figure Markets are transforming the way loan assets are originated, traded, and settled. Figure Connect functions as a primary market for credit—standardizing and tokenizing debt assets such as HELOCs and private credit into composable on-chain formats. Figure Markets acts as a secondary trading venue, enabling 24/7 settlement of these digital loan assets through decentralized custody, with support for both crypto and fiat on/off ramps. Together, they offer an integrated protocol for real-world asset finance, with deep roots in the lending ecosystem.",
   "categories": [
+    "Tokenized Assets",
     "Real World Assets (RWA)",
     "Made in USA",
     "Provenance Ecosystem",
@@ -18,35 +19,35 @@
     "explorer": "https://explorer.provenance.io/nft/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x"
   },
   "market": {
-    "price": 1.04,
-    "marketCap": 22634032420,
+    "price": 1.052,
+    "marketCap": 22958270329,
     "marketCapRank": 9,
-    "volume24h": 172623832,
+    "volume24h": 24387828,
     "high24h": 1.044,
-    "low24h": 1.012,
-    "priceChange24h": 2.09392,
-    "priceChange7d": 0.2,
-    "priceChange30d": 3.2,
-    "priceChange1y": 4,
+    "low24h": 1.039,
+    "priceChange24h": 1.45352,
+    "priceChange7d": 5.22386,
+    "priceChange30d": 4.23594,
+    "priceChange1y": 4.53479,
     "ath": 1.061,
-    "athChangePercentage": -1.95277,
+    "athChangePercentage": -0.76363,
     "athDate": "2026-08-03T14:19:20.000Z",
     "atl": 0.155357,
     "atlDate": "2025-10-31T06:27:24.000Z",
-    "circulatingSupply": 21767232811.158,
-    "totalSupply": 21767232811.158,
+    "circulatingSupply": 21814240550.448,
+    "totalSupply": 21814240550.448,
     "maxSupply": null,
-    "fdv": 22634032420
+    "fdv": 22958270329
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:06:44.365Z",
-  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
+  "fetchedAt": "2026-08-29T20:01:53.348Z",
+  "lastMarketUpdate": "2026-08-29T19:59:40.000Z"
 }

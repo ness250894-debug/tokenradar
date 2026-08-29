@@ -20,35 +20,35 @@
     "explorer": "https://etherscan.io/token/0x085780639cc2cacd35e474e71f4d000e2405d8f6"
   },
   "market": {
-    "price": 0.999772,
-    "marketCap": 70673682,
-    "marketCapRank": 341,
-    "volume24h": 401364,
+    "price": 0.999452,
+    "marketCap": 71086804,
+    "marketCapRank": 343,
+    "volume24h": 6696529,
     "high24h": 1,
-    "low24h": 0.999546,
-    "priceChange24h": 0.00307,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "low24h": 0.999366,
+    "priceChange24h": -0.02046,
+    "priceChange7d": -0.03169,
+    "priceChange30d": -0.06008,
+    "priceChange1y": 0.01114,
     "ath": 1.038,
-    "athChangePercentage": -3.68543,
+    "athChangePercentage": -3.71627,
     "athDate": "2026-02-05T16:40:29.000Z",
     "atl": 0.953062,
     "atlDate": "2024-12-05T07:45:54.000Z",
-    "circulatingSupply": 70689393.45119269,
-    "totalSupply": 70689393.45119269,
+    "circulatingSupply": 71124610.3521753,
+    "totalSupply": 71136090.36810866,
     "maxSupply": null,
-    "fdv": 70673682
+    "fdv": 71086804
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:05:51.692Z",
-  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
+  "fetchedAt": "2026-08-29T20:01:03.008Z",
+  "lastMarketUpdate": "2026-08-29T19:58:50.000Z"
 }

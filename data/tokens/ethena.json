@@ -7,6 +7,7 @@
   "categories": [
     "Decentralized Finance (DeFi)",
     "Binance Launchpool",
+    "Solana Ecosystem",
     "Avalanche Ecosystem",
     "Arbitrum Ecosystem",
     "Ethereum Ecosystem",
@@ -41,35 +42,35 @@
     "explorer": "https://etherscan.io/token/0x57e114b691db790c35207b2e685d4a43181e6061"
   },
   "market": {
-    "price": 0.161729,
-    "marketCap": 1588734237,
-    "marketCapRank": 52,
-    "volume24h": 1554262537,
-    "high24h": 0.188079,
-    "low24h": 0.157402,
-    "priceChange24h": -7.25513,
-    "priceChange7d": 14.7,
-    "priceChange30d": 108.9,
-    "priceChange1y": -75.9,
+    "price": 0.155883,
+    "marketCap": 1534786116,
+    "marketCapRank": 55,
+    "volume24h": 419637320,
+    "high24h": 0.166075,
+    "low24h": 0.154107,
+    "priceChange24h": -2.7209,
+    "priceChange7d": 2.08375,
+    "priceChange30d": 90.88151,
+    "priceChange1y": -75.31883,
     "ath": 1.52,
-    "athChangePercentage": -89.34385,
+    "athChangePercentage": -89.72901,
     "athDate": "2024-04-11T05:15:15.000Z",
     "atl": 0.070228,
     "atlDate": "2026-06-30T15:44:00.000Z",
     "circulatingSupply": 9828125000,
     "totalSupply": 15000000000,
     "maxSupply": 15000000000,
-    "fdv": 2424777214
+    "fdv": 2342439859
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:04:35.806Z",
-  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
+  "fetchedAt": "2026-08-29T19:59:59.992Z",
+  "lastMarketUpdate": "2026-08-29T19:57:50.000Z"
 }

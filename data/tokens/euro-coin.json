@@ -10,9 +10,12 @@
     "Solana Ecosystem",
     "Avalanche Ecosystem",
     "Ethereum Ecosystem",
+    "Cronos Ecosystem",
+    "Optimism Ecosystem",
     "Base Ecosystem",
     "Stellar Ecosystem",
     "World Chain Ecosystem",
+    "Plasma Ecosystem",
     "Base Native",
     "MiCA-Compliant Stablecoin"
   ],
@@ -25,34 +28,34 @@
   },
   "market": {
     "price": 1.16,
-    "marketCap": 460185091,
-    "marketCapRank": 114,
-    "volume24h": 57517406,
-    "high24h": 1.17,
+    "marketCap": 460236517,
+    "marketCapRank": 111,
+    "volume24h": 12155728,
+    "high24h": 1.16,
     "low24h": 1.16,
-    "priceChange24h": -0.53573,
-    "priceChange7d": -0.9,
-    "priceChange30d": 1.1,
-    "priceChange1y": -0.8,
+    "priceChange24h": -0.06972,
+    "priceChange7d": -1.12759,
+    "priceChange30d": 0.4495,
+    "priceChange1y": -0.94336,
     "ath": 1.35,
-    "athChangePercentage": -14.27435,
+    "athChangePercentage": -14.37858,
     "athDate": "2023-03-14T01:50:50.000Z",
     "atl": 0.052848,
     "atlDate": "2022-12-08T19:16:34.000Z",
-    "circulatingSupply": 397255122.4786681,
-    "totalSupply": 397255122.4786681,
+    "circulatingSupply": 397573924.3386681,
+    "totalSupply": 397573924.3386681,
     "maxSupply": null,
-    "fdv": 460185091
+    "fdv": 460236517
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:05:26.402Z",
-  "lastMarketUpdate": "2026-08-29T01:09:20.000Z"
+  "fetchedAt": "2026-08-29T20:00:44.106Z",
+  "lastMarketUpdate": "2026-08-29T19:58:50.000Z"
 }
