@@ -34,7 +34,8 @@
     "Unichain Ecosystem",
     "Plume Network Ecosystem",
     "Movement Ecosystem",
-    "Katana Ecosystem"
+    "Katana Ecosystem",
+    "Stable Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -44,35 +45,35 @@
     "explorer": "https://etherscan.io/token/0xcacd6fd266af91b8aed52accc382b4e165586e29"
   },
   "market": {
-    "price": 0.999889,
-    "marketCap": 114459005,
-    "marketCapRank": 238,
-    "volume24h": 2407568,
+    "price": 0.999881,
+    "marketCap": 113807421,
+    "marketCapRank": 245,
+    "volume24h": 1557058,
     "high24h": 1,
-    "low24h": 0.99946,
-    "priceChange24h": -0.02342,
-    "priceChange7d": 0,
-    "priceChange30d": 0.1,
-    "priceChange1y": 0,
+    "low24h": 0.999607,
+    "priceChange24h": -0.00854,
+    "priceChange7d": -0.01521,
+    "priceChange30d": 0.01845,
+    "priceChange1y": 0.01535,
     "ath": 1.088,
-    "athChangePercentage": -8.07643,
+    "athChangePercentage": -8.07719,
     "athDate": "2026-04-12T03:19:00.000Z",
     "atl": 0.97622,
     "atlDate": "2025-02-17T09:32:23.000Z",
-    "circulatingSupply": 114475193.77761008,
-    "totalSupply": 114475193.77761,
+    "circulatingSupply": 113821065.89910315,
+    "totalSupply": 113826450.9619465,
     "maxSupply": null,
-    "fdv": 114459320
+    "fdv": 113807965
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:07:54.297Z",
-  "lastMarketUpdate": "2026-08-29T19:57:20.000Z"
+  "fetchedAt": "2026-08-30T20:05:19.271Z",
+  "lastMarketUpdate": "2026-08-30T20:02:40.000Z"
 }
