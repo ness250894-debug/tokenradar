@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-08-29T20:11:21.605Z",
-    "tokenCount": 520,
+    "tokenCount": 519,
     "topIntents": [
       {
         "intent": "risk",
@@ -26,7 +26,7 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 53,
+        "tokenCount": 52,
         "avgScore": 77
       },
       {
@@ -17141,82 +17141,6 @@
         "IOTA AI token",
         "IOTA risks",
         "is IOTA safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-08-29T20:11:21.605Z"
-    },
-    "ishares-bitcoin-trust-ondo-tokenized": {
-      "tokenId": "ishares-bitcoin-trust-ondo-tokenized",
-      "tokenName": "iShares Bitcoin Trust (Ondo Tokenized)",
-      "symbol": "ibiton",
-      "attentionScore": 63,
-      "attentionLabel": "Rising",
-      "hypeScore": 46,
-      "fundamentalsScore": 52,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 77,
-          "queries": [
-            "iShares Bitcoin Trust (Ondo Tokenized) RWA crypto",
-            "iShares Bitcoin Trust (Ondo Tokenized) tokenized asset",
-            "iShares Bitcoin Trust (Ondo Tokenized) issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 74,
-          "queries": [
-            "iShares Bitcoin Trust (Ondo Tokenized) risks",
-            "is iShares Bitcoin Trust (Ondo Tokenized) safe",
-            "iShares Bitcoin Trust (Ondo Tokenized) scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 45,
-          "queries": [
-            "iShares Bitcoin Trust (Ondo Tokenized) price prediction 2026",
-            "iShares Bitcoin Trust (Ondo Tokenized) price prediction today",
-            "IBITON price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 30,
-          "queries": [
-            "how to buy iShares Bitcoin Trust (Ondo Tokenized)",
-            "where to buy iShares Bitcoin Trust (Ondo Tokenized)",
-            "IBITON crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 22.6% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "iShares Bitcoin Trust (Ondo Tokenized) RWA crypto",
-        "iShares Bitcoin Trust (Ondo Tokenized) tokenized asset",
-        "iShares Bitcoin Trust (Ondo Tokenized) issuer risk",
-        "iShares Bitcoin Trust (Ondo Tokenized) risks",
-        "is iShares Bitcoin Trust (Ondo Tokenized) safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
