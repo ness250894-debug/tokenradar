@@ -12,7 +12,8 @@
     "X Layer Ecosystem",
     "Fiat-backed Stablecoin",
     "Ink Ecosystem",
-    "Paxos Ecosystem"
+    "Paxos Ecosystem",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -23,34 +24,34 @@
   },
   "market": {
     "price": 1,
-    "marketCap": 3330462488,
+    "marketCap": 3325090768,
     "marketCapRank": 28,
-    "volume24h": 465509299,
+    "volume24h": 640093965,
     "high24h": 1,
-    "low24h": 0.99981,
-    "priceChange24h": 0.03289,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0.1,
+    "low24h": 0.999901,
+    "priceChange24h": 0.00944,
+    "priceChange7d": 0.02428,
+    "priceChange30d": 0.01776,
+    "priceChange1y": 0.05641,
     "ath": 1.65,
-    "athChangePercentage": -39.54636,
+    "athChangePercentage": -39.54396,
     "athDate": "2025-01-29T16:11:05.000Z",
     "atl": 0.907561,
     "atlDate": "2024-11-11T15:55:50.000Z",
-    "circulatingSupply": 3329849071.665728,
-    "totalSupply": 3329849071.665728,
+    "circulatingSupply": 3324244981.937095,
+    "totalSupply": 3323882421.951659,
     "maxSupply": null,
-    "fdv": 3330375718
+    "fdv": 3325140764
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 17,
-    "githubForks": 5,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:09:16.598Z",
-  "lastMarketUpdate": "2026-08-29T19:57:20.000Z"
+  "fetchedAt": "2026-08-30T20:06:09.739Z",
+  "lastMarketUpdate": "2026-08-30T20:03:40.000Z"
 }

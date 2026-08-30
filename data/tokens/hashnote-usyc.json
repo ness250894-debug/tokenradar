@@ -10,8 +10,7 @@
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bills (T-Bills)",
-    "Tokenized Treasury"
+    "Tokenized Treasuries"
   ],
   "genesisDate": null,
   "links": {
@@ -23,14 +22,14 @@
   "market": {
     "price": 1.14,
     "marketCap": 2777767194,
-    "marketCapRank": 37,
+    "marketCapRank": 36,
     "volume24h": 0,
     "high24h": 1.14,
     "low24h": 1.14,
     "priceChange24h": 0,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.5,
-    "priceChange1y": 3.5,
+    "priceChange7d": 0.06154,
+    "priceChange30d": 0.3377,
+    "priceChange1y": 3.44049,
     "ath": 1.14,
     "athChangePercentage": 0,
     "athDate": "2026-08-28T12:55:00.000Z",
@@ -43,13 +42,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:10:26.139Z",
-  "lastMarketUpdate": "2026-08-29T19:57:20.000Z"
+  "fetchedAt": "2026-08-30T20:07:06.410Z",
+  "lastMarketUpdate": "2026-08-30T20:04:40.000Z"
 }

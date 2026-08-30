@@ -3,6 +3,20 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "From Hawala to Swift: Inside the 1,000-year battle to move money safely",
+      "link": "https://www.coindesk.com/business/2026/08/30/from-hawala-to-swift-inside-the-1-000-year-battle-to-move-money-safely",
+      "pubDate": "Sun, 30 Aug 2026 15:00:00 +0000",
+      "source": "CoinDesk",
+      "snippet": "Finance has spent centuries decoupling wealth from physical transport, but constantly erasing friction creates vectors for increasingly high-tech exploits."
+    },
+    {
+      "title": "A $1.1 million crypto card hack crashed a neobank's token 49%",
+      "link": "https://www.coindesk.com/web3/2026/08/29/a-usd1-1-million-crypto-card-hack-crashed-a-neobank-s-token-49",
+      "pubDate": "Sat, 29 Aug 2026 23:49:17 +0000",
+      "source": "CoinDesk",
+      "snippet": "The exploit caused the neobank's AVICI token to drop 49% from a 24-hour high, hitting a record low before paring some of the losses."
+    },
+    {
       "title": "OneKey reproduces transaction replacement attack on outdated Ledger Ethereum app",
       "link": "https://cointelegraph.com/news/onekey-transaction-replacement-attack-old-version-ledger?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Fri, 28 Aug 2026 08:21:16 +0000",
@@ -22,14 +36,7 @@
       "pubDate": "Fri, 28 Aug 2026 05:40:48 +0000",
       "source": "CoinTelegraph",
       "snippet": "Eligible holders on Base and BNB Chain will receive Ethereum-based SAND from the project’s treasury, with claims expected to open within two weeks."
-    },
-    {
-      "title": "No, Ledger Wasn’t Hacked: Vulnerable Ethereum App Was Patched Before Exploit, Company Says",
-      "link": "https://decrypt.co/376750/no-ledger-wasnt-hacked-ethereum-app-exploit",
-      "pubDate": "Thu, 27 Aug 2026 18:16:03 +0000",
-      "source": "Decrypt",
-      "snippet": "OneKey demonstrated how an outdated Ethereum app could sign a transaction different from the one shown on a Ledger device, but the wallet maker says the vulnerability had already been fixed."
     }
   ],
-  "fetchedAt": "2026-08-29T20:11:20.816Z"
+  "fetchedAt": "2026-08-30T20:16:15.938Z"
 }

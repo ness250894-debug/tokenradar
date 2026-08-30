@@ -16,6 +16,7 @@
     "Fiat-backed Stablecoin",
     "Ink Ecosystem",
     "Plasma Ecosystem",
+    "Monad Ecosystem",
     "Base Native"
   ],
   "genesisDate": null,
@@ -26,35 +27,35 @@
     "explorer": "https://etherscan.io/token/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f"
   },
   "market": {
-    "price": 0.999429,
-    "marketCap": 698582538,
+    "price": 0.99923,
+    "marketCap": 698461667,
     "marketCapRank": 88,
-    "volume24h": 3513214,
-    "high24h": 0.999462,
-    "low24h": 0.999055,
-    "priceChange24h": 0.03617,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.1,
-    "priceChange1y": 0,
+    "volume24h": 808494,
+    "high24h": 0.999452,
+    "low24h": 0.999098,
+    "priceChange24h": -0.01987,
+    "priceChange7d": 0.03355,
+    "priceChange30d": 0.09251,
+    "priceChange1y": -0.0162,
     "ath": 1.03,
-    "athChangePercentage": -2.95326,
+    "athChangePercentage": -2.97253,
     "athDate": "2024-02-28T09:15:58.000Z",
     "atl": 0.917065,
     "atlDate": "2023-10-23T20:41:04.000Z",
     "circulatingSupply": 699000000,
     "totalSupply": 699000000,
     "maxSupply": null,
-    "fdv": 698582538
+    "fdv": 698461667
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 264,
-    "githubForks": 119,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:09:03.952Z",
-  "lastMarketUpdate": "2026-08-29T19:57:20.000Z"
+  "fetchedAt": "2026-08-30T20:06:03.386Z",
+  "lastMarketUpdate": "2026-08-30T20:03:40.000Z"
 }
