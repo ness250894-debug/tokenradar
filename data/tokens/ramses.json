@@ -1,0 +1,51 @@
+{
+  "id": "ramses",
+  "symbol": "ram",
+  "name": "Ramses",
+  "market": {
+    "price": 0.930565,
+    "marketCap": 64973774,
+    "marketCapRank": 376,
+    "volume24h": 57231642,
+    "high24h": 0.930688,
+    "low24h": 0.02479415,
+    "priceChange24h": 3381.29821,
+    "priceChange7d": 6340,
+    "priceChange30d": 6380.8,
+    "priceChange1y": 0,
+    "ath": 0.930688,
+    "athChangePercentage": -0.0132,
+    "athDate": "2026-08-31T20:57:10.000Z",
+    "atl": 0.00764825,
+    "atlDate": "2026-04-22T02:08:00.000Z",
+    "circulatingSupply": 69821517.97003704,
+    "totalSupply": 236865072.7982518,
+    "maxSupply": 1000000000,
+    "fdv": 220419409
+  },
+  "lastMarketUpdate": "2026-08-31T22:01:20.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/70707/large/ram_%281%29.png?1780632663",
+  "description": "Ramses is a concentrated liquidity layer and exchange built on HyperEVM, powered by x(3,3)—a more fluid and accessible version of the popular ve(3,3) model.\n\nRamses is built on HyperEVM, the blockchain for all finance. Ramses upgrades AMMs with dynamic fees, MEV capture, and real‑time cross‑venue arbitrage so capital works harder.\n\nRamses V3 is based on Uniswap V3, with several enhancements. These improvements include dynamic system and protocol fee mechanisms and x(3,3). Ramses V3 also introduces a new accounting system to track how much active liquidity each concentrated liquidity position provides.",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Decentralized Finance (DeFi)",
+    "HyperEVM Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ramses.xyz",
+    "github": "https://github.com/ramses-exchange",
+    "reddit": null,
+    "explorer": "https://hyperevmscan.io/address/0x555570a286f15ebdfe42b66ede2f724aa1ab5555"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-08-31T22:03:56.159Z"
+}

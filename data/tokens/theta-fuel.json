@@ -19,25 +19,25 @@
     "explorer": "https://explorer.thetatoken.org/"
   },
   "market": {
-    "price": 0.00918588,
-    "marketCap": 68340515,
-    "marketCapRank": 355,
-    "volume24h": 471865,
-    "high24h": 0.00922298,
-    "low24h": 0.00909194,
-    "priceChange24h": 0.23117,
-    "priceChange7d": 4.3,
-    "priceChange30d": 26.9,
-    "priceChange1y": -73.2,
+    "price": 0.00902559,
+    "marketCap": 67457753,
+    "marketCapRank": 360,
+    "volume24h": 632341,
+    "high24h": 0.00915073,
+    "low24h": 0.00866438,
+    "priceChange24h": -0.51355,
+    "priceChange7d": 3.7,
+    "priceChange30d": 25,
+    "priceChange1y": -74,
     "ath": 0.68159,
-    "athChangePercentage": -98.65229,
+    "athChangePercentage": -98.6758,
     "athDate": "2021-06-08T22:50:55.000Z",
     "atl": 0.00090804,
     "atlDate": "2020-03-12T18:30:37.000Z",
-    "circulatingSupply": 7450522467,
-    "totalSupply": 7450668602,
+    "circulatingSupply": 7451570666,
+    "totalSupply": 7451854320,
     "maxSupply": null,
-    "fdv": 68341225
+    "fdv": 67459854
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:38:15.030Z",
-  "lastMarketUpdate": "2026-08-30T20:02:20.000Z"
+  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
 }

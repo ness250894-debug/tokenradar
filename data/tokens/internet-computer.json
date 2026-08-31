@@ -3,7 +3,7 @@
   "symbol": "icp",
   "name": "Internet Computer",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180",
-  "description": "The Internet Computer is a decentralized cloud blockchain designed to run applications, websites, and backend systems fully on-chain. Its architecture provides robust security, resilience, and built-in multi-chain support.\n\nA key focus of the network is enabling a “self-writing cloud,” where AI tools allow users generate applications through natural-language instructions.\n\nDevelopers and users can experiment with the platform using AI app-generation tools like caffeine.ai or by writing serverless code directly through online IDEs such as icp.ninja.\n\nThe ICP token is used to pay for computation (through a burn-based model) and to participate in network governance through staking.\n",
+  "description": "Sovereign frontier cloud for AI that builds\n\nAI agents are starting to build and operate real software. Agentic organizations are starting to coordinate people, code, data, payments, and governance. Both need a cloud that is sovereign, tamperproof, and always on.\n\nThe Internet Computer is that cloud.\n\nBuilt on more than USD 500 million in R&amp;D, ICP uses advanced blockchain technology and cryptography to run entire software systems end-to-end on the network: websites, apps, services, data, payments, and governance. Code and data are protected by the protocol, replicated across independent nodes, and cannot be silently changed by a cloud provider, backend operator, or attacker.\n\nCloud engines make this infrastructure sovereign. They let organizations run ICP-powered compute across chosen providers, locations, and jurisdictions while keeping the same tamperproof and always-on guarantees of the network.\n\nThis is the real demand ICP serves: sovereign frontier cloud for AI agents and agentic organizations. Agents can build and update software. Organizations can run rules, assets, and governance as verifiable systems. The result is software that stays online, keeps its data, and remains under the control of its owners.\n\nDevelopers and AI agents can build on the Internet Computer with any AI assistant using the ICP skill library at skills.internetcomputer.org, or by creating apps through conversation with Caffeine AI.\n\nComputation on ICP is paid for by converting $ICP into cycles. $ICP is also used for staking and governance through the Network Nervous System.",
   "categories": [
     "Artificial Intelligence (AI)",
     "Infrastructure",
@@ -29,39 +29,39 @@
   "links": {
     "website": "https://internetcomputer.org/",
     "github": "https://github.com/dfinity/ic",
-    "reddit": "https://www.reddit.com/r/dfinity/",
+    "reddit": null,
     "explorer": "https://dashboard.internetcomputer.org/canister/ryjl3-tyaaa-aaaaa-aaaba-cai"
   },
   "market": {
-    "price": 2.45,
-    "marketCap": 1364767811,
+    "price": 2.41,
+    "marketCap": 1341048862,
     "marketCapRank": 60,
-    "volume24h": 29630529,
-    "high24h": 2.5,
-    "low24h": 2.41,
-    "priceChange24h": -2.31508,
-    "priceChange7d": 0.8,
-    "priceChange30d": 18.4,
-    "priceChange1y": -49.3,
+    "volume24h": 40392873,
+    "high24h": 2.43,
+    "low24h": 2.33,
+    "priceChange24h": -0.84638,
+    "priceChange7d": -0.75843,
+    "priceChange30d": 18.3997,
+    "priceChange1y": -50.33979,
     "ath": 700.65,
-    "athChangePercentage": -99.6498,
+    "athChangePercentage": -99.65593,
     "athDate": "2021-05-10T08:05:53.000Z",
     "atl": 2,
     "atlDate": "2026-08-01T20:31:10.000Z",
-    "circulatingSupply": 556175279.5241989,
-    "totalSupply": 556175463.708925,
+    "circulatingSupply": 556178564.1084349,
+    "totalSupply": 556178639.2690455,
     "maxSupply": null,
-    "fdv": 1364767811
+    "fdv": 1341048862
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 1399,
-    "githubForks": 280,
-    "commits4Weeks": 567
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:12:19.917Z",
-  "lastMarketUpdate": "2026-08-30T20:02:20.000Z"
+  "fetchedAt": "2026-08-31T22:05:11.738Z",
+  "lastMarketUpdate": "2026-08-31T22:02:50.000Z"
 }

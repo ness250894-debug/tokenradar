@@ -3,7 +3,7 @@
   "symbol": "iota",
   "name": "IOTA",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/692/large/IOTA_Thumbnail_%281%29.png?1743772896",
-  "description": "IOTA is a distributed ledger for the Internet of Things. The first ledger with microtransactions without fees as well as secure data transfer. Quantum proof. IOTA is a ground breaking new open-source distributed ledger that does not use a blockchain. Its innovative new quantum-proof protocol, known as the Tangle, gives rise to unique new features like zero fees, infinite scalability, fast transactions, secure data transfer and many others. IOTA is initially focused on serving as the backbone of the Internet-of-Things (IoT).\n\nIOTA is a cryptocurrency that has no transaction fees and requires no miners in order to process transactions. It does, however, require some computational power to submit a transaction, making it perfect for machines to use as a currency and distributed communication protocol for the Internet of Things “IoT”. The main purpose of IOTA is to solve some of the major problems with Blockchain technology, the main one being that the bigger the Blockchain (such as Bitcoin), the slower, more expensive, and also more restricting it is to actually transfer funds. Another issue with the Blockchain is size, as more and more Blocks are added, the longer the Blockchain gets, and therefore the less amount of computers are able to mine it. Right now BTC is over 150GB long, and so is ETH. If this size increased tenfold, very few computers would be able to mine it at all. Making them relatively centralized (the top 2 Bitcoin mining pools own about 56% of hashing power).\n",
+  "description": "IOTA is an open-source blockchain that serves as public digital infrastructure to connect global \neconomies onchain.\n\nBuilt on a Directed Acyclic Graph (DAG) architecture that integrates the Move VM, IOTA enables smart \ncontracts, digital assets, and digital identity to operate directly on a scalable, permissionless Layer 1. \nIts modular design supports parallel transaction processing, low transaction costs, and \napplication-level fee sponsorship, providing a streamlined pathway to market adoption. \n\nIOTA is already used in live, real-world environments, including a strategic focus on digital trade and \nsupply-chain infrastructure. Through collaborations with governments, global institutions, and industry \npartners, IOTA supports initiatives that range from digitalized trade documentation, digital product \npassports, business identity, and asset flows across borders. Flagship deployments such as the Trade \nWorldwide Information Network (TWIN) embed IOTA into national and cross-border trade systems, \nenabling shared, verifiable data and coordinated processes across complex networks of public and \nprivate actors.\n\nThe IOTA network is secured by a delegated proof-of-stake model and governed through onchain \nmechanisms aligned with long-term network sustainability. The $IOTA token is used for network \nparticipation, staking, and validator rewards, while onchain activity requires tokens to be paid and \nburned as fees. Additional mechanisms such as refundable storage deposits and sponsored \ntransactions allow applications to manage costs and abstract blockchain complexity from end users, \nsupporting adoption in regulated and institutional contexts.\n\nFounded in 2015, IOTA is one of the longest-running projects in the digital asset space and is guided \nby the non-profit IOTA Foundation, headquartered in Berlin, Germany. Developed as public digital \ninfrastructure, IOTA focuses on trust, interoperability, and deployment at scale across global economic \nsystems.",
   "categories": [
     "Infrastructure",
     "Smart Contract Platform",
@@ -25,35 +25,35 @@
     "explorer": "https://explorer.iota.org/"
   },
   "market": {
-    "price": 0.04077566,
-    "marketCap": 187997629,
-    "marketCapRank": 175,
-    "volume24h": 14609197,
-    "high24h": 0.04167958,
-    "low24h": 0.03909781,
-    "priceChange24h": 5.66452,
-    "priceChange7d": -10.9,
-    "priceChange30d": 28.2,
-    "priceChange1y": -78.7,
+    "price": 0.04031268,
+    "marketCap": 185928668,
+    "marketCapRank": 177,
+    "volume24h": 13868978,
+    "high24h": 0.04065443,
+    "low24h": 0.03878242,
+    "priceChange24h": -0.64331,
+    "priceChange7d": -10.54566,
+    "priceChange30d": 24.24767,
+    "priceChange1y": -79.13124,
     "ath": 5.25,
-    "athChangePercentage": -99.22314,
+    "athChangePercentage": -99.23196,
     "athDate": "2017-12-18T16:00:00.000Z",
     "atl": 0.03112513,
     "atlDate": "2026-07-31T14:11:00.000Z",
-    "circulatingSupply": 4610870625,
-    "totalSupply": 4969612545,
+    "circulatingSupply": 4611637615,
+    "totalSupply": 4970379535,
     "maxSupply": null,
-    "fdv": 202624505
+    "fdv": 200392165
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:12:32.549Z",
-  "lastMarketUpdate": "2026-08-30T20:02:20.000Z"
+  "fetchedAt": "2026-08-31T22:05:24.383Z",
+  "lastMarketUpdate": "2026-08-31T22:02:50.000Z"
 }
