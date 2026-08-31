@@ -18,25 +18,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL"
   },
   "market": {
-    "price": 0.02418013,
-    "marketCap": 60692197,
+    "price": 0.02415592,
+    "marketCap": 60641054,
     "marketCapRank": 390,
-    "volume24h": 2619376,
-    "high24h": 0.02417858,
-    "low24h": 0.02336657,
-    "priceChange24h": 3.09997,
-    "priceChange7d": 1.1,
-    "priceChange30d": -6.7,
+    "volume24h": 5548362,
+    "high24h": 0.0247409,
+    "low24h": 0.02267574,
+    "priceChange24h": 0.31003,
+    "priceChange7d": 4.5,
+    "priceChange30d": -4.5,
     "priceChange1y": -93.8,
     "ath": 0.759179,
-    "athChangePercentage": -96.81496,
+    "athChangePercentage": -96.81815,
     "athDate": "2025-05-14T00:10:39.000Z",
     "atl": 0.02004864,
     "atlDate": "2026-08-14T15:06:00.000Z",
     "circulatingSupply": 2510208333,
     "totalSupply": 5000000000,
     "maxSupply": 5000000000,
-    "fdv": 120890756
+    "fdv": 120788887
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:45:06.048Z",
-  "lastMarketUpdate": "2026-08-30T20:02:20.000Z"
+  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
 }

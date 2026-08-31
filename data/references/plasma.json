@@ -3,6 +3,13 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "Cronos halts blockchain after $75 million lending exploit hits lending app Tectonic",
+      "link": "https://www.coindesk.com/tech/2026/08/31/cronos-halts-blockchain-after-usd75-million-lending-exploit-hits-lending-app-tectonic",
+      "pubDate": "Mon, 31 Aug 2026 04:57:13 +0000",
+      "source": "CoinDesk",
+      "snippet": "An attacker allegedly pushed Tectonic’s thinly traded TONIC token up 100-fold, used it as collateral to borrow real assets and left most funds stranded when Cronos validators paused the network."
+    },
+    {
       "title": "From Hawala to Swift: Inside the 1,000-year battle to move money safely",
       "link": "https://www.coindesk.com/business/2026/08/30/from-hawala-to-swift-inside-the-1-000-year-battle-to-move-money-safely",
       "pubDate": "Sun, 30 Aug 2026 15:00:00 +0000",
@@ -17,26 +24,19 @@
       "snippet": "The exploit caused the neobank's AVICI token to drop 49% from a 24-hour high, hitting a record low before paring some of the losses."
     },
     {
-      "title": "OneKey reproduces transaction replacement attack on outdated Ledger Ethereum app",
-      "link": "https://cointelegraph.com/news/onekey-transaction-replacement-attack-old-version-ledger?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 28 Aug 2026 08:21:16 +0000",
+      "title": "Cronos halts network after Tectonic exploit involving estimated $75M",
+      "link": "https://cointelegraph.com/news/cronos-network-halt-tectonic-exploit-75-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 31 Aug 2026 03:25:48 +0000",
       "source": "CoinTelegraph",
-      "snippet": "OneKey said it reproduced an exploit against an older version of the Ledger app in its lab environment, which Ledger fixed in its Ethereum app 1.22.2, with no user funds lost."
+      "snippet": "Crypto.com CEO Kris Marszalek said the company’s app and exchange were unaffected by the Tectonic breach and continued operating normally."
     },
     {
-      "title": "Visa works with Upbit parent on stablecoin payments, AI commerce",
-      "link": "https://cointelegraph.com/news/visa-dunamu-stablecoin-payments-ai-commerce?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 28 Aug 2026 07:41:15 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Visa and Dunamu will explore stablecoin payments and remittances, with Open Standard’s proposed OUSD among several projects under review."
-    },
-    {
-      "title": "The Sandbox pledges 1:1 repayment after $700K bridge exploit",
-      "link": "https://cointelegraph.com/news/the-sandbox-compensation-sand-bridge-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 28 Aug 2026 05:40:48 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Eligible holders on Base and BNB Chain will receive Ethereum-based SAND from the project’s treasury, with claims expected to open within two weeks."
+      "title": "Crypto.com&#39;s Cronos Halts Entire Blockchain After $75M Tectonic Exploit",
+      "link": "https://decrypt.co/376913/crypto-coms-cronos-halts-entire-blockchain-after-75m-tectonic-exploit",
+      "pubDate": "Mon, 31 Aug 2026 09:41:27 +0000",
+      "source": "Decrypt",
+      "snippet": "Some $6 million reached Ethereum before validators froze the chain, stranding the rest on a network that still is not producing blocks."
     }
   ],
-  "fetchedAt": "2026-08-30T20:16:15.938Z"
+  "fetchedAt": "2026-08-31T22:15:18.928Z"
 }

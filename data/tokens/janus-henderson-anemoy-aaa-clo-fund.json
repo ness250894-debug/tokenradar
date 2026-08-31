@@ -5,11 +5,14 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/70446/large/jaaa.png?1762078666",
   "description": "Anemoy is a Web3 native asset manager powered by Centrifuge, offering investors seamless access to a diverse range of real world asset investment opportunities. Through its suite of tokenized funds, Anemoy bridges traditional finance and decentralized markets, enabling transparent, efficient, and secure exposure to institutional-grade assets.\n\t1.\tJanus Henderson Anemoy Treasury Fund\n\t2.\tJanus Henderson Anemoy AAA CLO Fund\n\t3.\tAnemoy Tokenized Apollo Diversified Credit Fund\n\t4.\tJanus Henderson Anemoy S&amp;P500® Fund",
   "categories": [
+    "Tokenized Assets",
     "BNB Chain Ecosystem",
+    "Solana Ecosystem",
     "Avalanche Ecosystem",
     "Real World Assets (RWA)",
     "Base Ecosystem",
-    "Monad Ecosystem"
+    "Monad Ecosystem",
+    "Tokenized Credit"
   ],
   "genesisDate": null,
   "links": {
@@ -20,34 +23,34 @@
   },
   "market": {
     "price": 1.047,
-    "marketCap": 707838016,
-    "marketCapRank": 86,
+    "marketCap": 708151022,
+    "marketCapRank": 89,
     "volume24h": 0,
     "high24h": 1.047,
     "low24h": 1.047,
-    "priceChange24h": 0,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.4,
+    "priceChange24h": 0.04422,
+    "priceChange7d": 0.10579,
+    "priceChange30d": 0.43848,
     "priceChange1y": 0,
     "ath": 1.047,
     "athChangePercentage": 0,
-    "athDate": "2026-08-28T07:50:00.000Z",
+    "athDate": "2026-08-31T11:30:20.000Z",
     "atl": 1.009,
     "atlDate": "2025-12-06T06:10:05.000Z",
-    "circulatingSupply": 676041099.12055,
-    "totalSupply": 676041099.12055,
+    "circulatingSupply": 676041098.12055,
+    "totalSupply": 676041098.12055,
     "maxSupply": null,
-    "fdv": 707838016
+    "fdv": 708151022
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:12:51.490Z",
-  "lastMarketUpdate": "2026-08-30T20:02:20.000Z"
+  "fetchedAt": "2026-08-31T22:05:30.663Z",
+  "lastMarketUpdate": "2026-08-31T22:03:40.000Z"
 }

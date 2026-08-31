@@ -6236,5 +6236,51 @@
     "discoveredAt": "2026-08-26T19:29:59.683Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-26T19:29:59.683Z"
+  },
+  {
+    "id": "rabby-wallet",
+    "name": "Rabby Wallet",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 65,
+    "confidence": 40,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://airdropalert.com/blogs/rabby-wallet-review/",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/rabby-wallet-review/",
+        "title": "Rabby Wallet Review 2026: Our Favorite Farmer Wallet",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-31T22:06:57.537Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-31T22:06:57.537Z"
+  },
+  {
+    "id": "usd-ai",
+    "name": "USD.AI",
+    "symbol": "USD.AI",
+    "category": "AI",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 75,
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/bullish-provides-usdai-100m-stablecoin-facility-gpu-backed-loans?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bullish-provides-usdai-100m-stablecoin-facility-gpu-backed-loans?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Bullish provides USD.AI $100M stablecoin facility for GPU-backed lending",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-08-31T22:06:57.537Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-08-31T22:06:57.537Z"
   }
 ]
