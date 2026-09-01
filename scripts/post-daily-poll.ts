@@ -13,11 +13,20 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { pathToFileURL } from "url";
 
 import { callAIWithFallback } from "../src/lib/gemini";
-import { sendTelegramPoll } from "../src/lib/telegram";
+import {
+  isTelegramCreateOutcomeUnknownError,
+  sendTelegramPoll,
+} from "../src/lib/telegram";
 import { SOCIAL_VARIANT_COOLDOWN_DAYS } from "../src/lib/config";
-import { hasSocialPost, recordSocialPost } from "../src/lib/ops-ledger";
+import {
+  hasSocialPost,
+  markSocialDeliveryStatus,
+  recordSocialPost,
+  reserveSocialDelivery,
+} from "../src/lib/ops-ledger";
 import { selectSocialArchetype } from "../src/lib/social-archetypes";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
@@ -137,19 +146,28 @@ RULES:
 Return ONLY the JSON.`;
 }
 
-async function main() {
-  const dryRun = process.argv.includes("--dry-run");
-  const force = process.argv.includes("--force");
+export function resolveTelegramPollFailureStatus(
+  publishedExternalId: number | undefined,
+  error: unknown,
+): "published" | "outcome_unknown" | "failed" {
+  if (publishedExternalId !== undefined) return "published";
+  return isTelegramCreateOutcomeUnknownError(error) ? "outcome_unknown" : "failed";
+}
+
+export async function main(args = process.argv.slice(2)): Promise<void> {
+  const dryRun = args.includes("--dry-run");
+  const force = args.includes("--force");
   const channelId = process.env.TELEGRAM_CHANNEL_ID;
   const today = new Date().toISOString().split("T")[0];
   const postedDir = path.join(DATA_DIR, "posted", today);
   const trackerFile = path.join(postedDir, "daily-telegram-poll.json");
   const socialPostKey = `${today}:telegram-poll`;
+  let deliveryReserved = false;
+  let publishedExternalId: number | undefined;
   if (!dryRun) cleanupExpiredCooldownFolders(DATA_DIR);
 
   if (!channelId && !dryRun) {
-    console.error("Missing TELEGRAM_CHANNEL_ID in env.");
-    process.exit(1);
+    throw new Error("Missing TELEGRAM_CHANNEL_ID in env.");
   }
 
   if (!dryRun && !force && (fs.existsSync(trackerFile) || await hasSocialPost("telegram", socialPostKey))) {
@@ -215,7 +233,25 @@ async function main() {
       return;
     }
 
+    const reservation = await reserveSocialDelivery({
+      platform: "telegram",
+      contentKey: socialPostKey,
+      details: {
+        surface: "telegram-poll",
+        theme: theme.key,
+      },
+    });
+    if (!reservation.acquired) {
+      if (reservation.state === "published") {
+        console.log("Telegram poll delivery is already published; treating this run as an idempotent no-op.");
+        return;
+      }
+      throw new Error(`Telegram poll delivery is ${reservation.state}; reconcile it before retrying.`);
+    }
+    deliveryReserved = true;
+
     const msgId = await sendTelegramPoll(question, options, channelId!);
+    publishedExternalId = msgId;
     const postedAt = new Date().toISOString();
     const trackerPayload = buildSocialTrackerPayload({
       postedAt,
@@ -251,9 +287,27 @@ async function main() {
 
     console.log(`Telegram poll sent successfully (msg_id: ${msgId})`);
   } catch (err) {
-    console.error(`Telegram poll failed: ${formatErrorForLog(err)}`);
-    process.exit(1);
+    if (deliveryReserved) {
+      await markSocialDeliveryStatus({
+        platform: "telegram",
+        contentKey: socialPostKey,
+        status: resolveTelegramPollFailureStatus(publishedExternalId, err),
+        externalId: publishedExternalId,
+        error: formatErrorForLog(err),
+        details: { surface: "telegram-poll" },
+      });
+    }
+    throw err;
   }
 }
 
-main();
+const isDirectExecution = process.argv[1]
+  ? import.meta.url === pathToFileURL(process.argv[1]).href
+  : false;
+
+if (isDirectExecution) {
+  main().catch((error) => {
+    console.error(`Telegram poll failed: ${formatErrorForLog(error)}`);
+    process.exitCode = 1;
+  });
+}

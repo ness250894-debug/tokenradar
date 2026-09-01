@@ -33,7 +33,10 @@ const UNSAFE_SOCIAL_PATTERNS: Array<[RegExp, string]> = [
   [/\b(?:1000x|100x|10x)\b/i, "multiple-x claim"],
   [/\bexplosive\s+gains\b/i, "explosive gains"],
   [/\balpha\s+call\b/i, "alpha call"],
-  [/#\w*gems?\w*/i, "gem hashtag"],
+  // Match promotional gem tags such as #Gem, #HiddenGem, or #CryptoGems.
+  // Requiring "gem" at the end avoids false positives for ordinary words
+  // that merely contain those letters, for example #RiskManagement.
+  [/#\w*gems?\b/i, "gem hashtag"],
   [/\bgems?\b/i, "gem language"],
   [/\bguaranteed(?:\s+(?:signal|returns|gains|profit))?\b/i, "guaranteed claim"],
   [/\b(?:sure\s+thing|cannot\s+lose|can't\s+lose|risk[ -]?free\s+investment)\b/i, "certainty claim"],

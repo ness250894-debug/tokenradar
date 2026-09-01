@@ -88,6 +88,13 @@ interface FacebookPagePayload extends MetaErrorPayload {
   };
 }
 
+type FacebookPage = NonNullable<FacebookPagePayload["data"]>[number];
+
+interface FacebookPageDiscoveryResult {
+  linkedPage?: FacebookPage;
+  managedPageCount: number;
+}
+
 export class MetaTokenRequestError extends Error {
   readonly status: number;
   readonly code?: number;
@@ -403,21 +410,24 @@ async function discoverLinkedFacebookPage(
   initialUrl: URL,
   accountId: string,
   fetchImpl: typeof fetch,
-): Promise<NonNullable<FacebookPagePayload["data"]>[number] | undefined> {
+): Promise<FacebookPageDiscoveryResult> {
   let nextUrl: URL | undefined = initialUrl;
+  let managedPageCount = 0;
   for (let pageNumber = 0; nextUrl && pageNumber < 20; pageNumber += 1) {
     const payload: FacebookPagePayload = await fetchMetaJson<FacebookPagePayload>(
       nextUrl,
       "Facebook Page token discovery",
       fetchImpl,
     );
-    const linkedPage = payload.data?.find(
+    const pages = Array.isArray(payload.data) ? payload.data : [];
+    managedPageCount += pages.length;
+    const linkedPage = pages.find(
       (page) => page.instagram_business_account?.id === accountId,
     );
-    if (linkedPage) return linkedPage;
+    if (linkedPage) return { linkedPage, managedPageCount };
 
     const next = payload.paging?.next?.trim();
-    if (!next) return undefined;
+    if (!next) return { managedPageCount };
     const parsedNext = new URL(next);
     if (parsedNext.origin !== "https://graph.facebook.com") {
       throw new Error("Facebook Page pagination returned an unexpected host.");
@@ -427,7 +437,7 @@ async function discoverLinkedFacebookPage(
   if (nextUrl) {
     throw new Error("Facebook Page discovery exceeded 20 pages; refusing an unbounded lookup.");
   }
-  return undefined;
+  return { managedPageCount };
 }
 
 async function convertFacebookUserTokenToPageToken(
@@ -469,15 +479,27 @@ async function convertFacebookUserTokenToPageToken(
   );
   pagesUrl.searchParams.set("limit", "100");
   pagesUrl.searchParams.set("access_token", longLivedUserToken);
-  const linkedPage = await discoverLinkedFacebookPage(
+  const discovery = await discoverLinkedFacebookPage(
     pagesUrl,
     accountId,
     fetchImpl,
   );
-  const pageAccessToken = linkedPage?.access_token?.trim();
-  if (!linkedPage || !pageAccessToken) {
+  const linkedPage = discovery.linkedPage;
+  if (!linkedPage) {
+    if (discovery.managedPageCount === 0) {
+      throw new Error(
+        "Facebook Page discovery returned no managed Pages even though pages_show_list is granted. Reauthorize the Facebook user token with granular access to the Page linked to the configured Instagram account, and confirm that the Facebook user manages that Page.",
+      );
+    }
+    const pageLabel = discovery.managedPageCount === 1 ? "Page" : "Pages";
     throw new Error(
-      `No managed Facebook Page returned a token for Instagram account ${accountId}. Check the Page link and pages_show_list permission.`,
+      `Facebook Page discovery returned ${discovery.managedPageCount} managed ${pageLabel}, but none is linked to the configured Instagram account. Confirm the Instagram Professional account's Facebook Page link and grant this token granular access to that Page.`,
+    );
+  }
+  const pageAccessToken = linkedPage.access_token?.trim();
+  if (!pageAccessToken) {
+    throw new Error(
+      "The Facebook Page linked to the configured Instagram account was returned without a Page access token. Reauthorize the Facebook user token with granular access to that Page and confirm that the user has content and insights Page tasks.",
     );
   }
   requirePageTasks(linkedPage.tasks, `Facebook Page ${linkedPage.name || linkedPage.id || accountId}`);

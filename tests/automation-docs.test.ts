@@ -724,13 +724,20 @@ describe("automation runbook contract", () => {
   it("keeps runner recovery strict when measurement jobs are skipped", () => {
     const workflow = readWorkflow("social-runner-recovery.yml");
 
+    expect(workflow).toContain('cron: "11,41 * * * *"');
     expect(workflow).toContain("group: social-runner-recovery");
     expect(workflow).toContain("cancel-in-progress: false");
     expect(workflow).toContain("queue: max");
     expect(workflow).toContain('select(.conclusion != "skipped")');
     expect(workflow).toContain('.name == "Execute Network Routing"');
+    expect(workflow).toContain('(.conclusion == "cancelled" or .conclusion == "failure")');
+    expect(workflow).toContain('((.steps // []) | length) == 0');
     expect(workflow).toContain('"$active_job_count" != "1"');
     expect(workflow).toContain('"$step_count" != "0"');
+    expect(workflow).toContain("recovery_errors=$((recovery_errors + 1))");
+    expect(workflow).toContain("if (( recovery_errors > 0 )); then");
+    expect(workflow).toContain("a scheduled sweep will re-evaluate it");
+    expect(workflow).not.toContain("the next sweep will check it again");
   });
 
   it("keeps social schedule routes aligned with declared cron slots", () => {

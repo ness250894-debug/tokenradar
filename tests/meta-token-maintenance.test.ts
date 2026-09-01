@@ -85,6 +85,38 @@ function threadsEnvironment(
   };
 }
 
+function facebookUserPageDiscoveryFetchMock(
+  pageDiscoveryPayload: unknown,
+): typeof fetch {
+  const fetchMock = vi.fn<typeof fetch>();
+  const payloads = [
+    {
+      data: {
+        app_id: "meta-app-id",
+        type: "USER",
+        is_valid: true,
+        expires_at: 1_800_000_000,
+        scopes: [...FACEBOOK_LOGIN_SCOPES, "pages_show_list"],
+      },
+    },
+    {
+      id: "178414000000001",
+      username: "tokenradar",
+    },
+    { data: [{ quota_usage: 1 }] },
+    { data: [{ name: "reach", values: [] }] },
+    {
+      access_token: "long-lived-user-token",
+      expires_in: SIXTY_DAYS_SECONDS,
+    },
+    pageDiscoveryPayload,
+  ];
+  for (const payload of payloads) {
+    fetchMock.mockResolvedValueOnce(jsonResponse(payload));
+  }
+  return fetchMock;
+}
+
 describe("Instagram Login token maintenance", () => {
   it("validates identity, uses ig_refresh_token, and validates the renewed token", async () => {
     const fetchMock = vi.fn<typeof fetch>(async (input) => {
@@ -351,6 +383,74 @@ describe("Facebook Login token maintenance", () => {
       fetchMock,
     )).rejects.toThrow("pages_show_list");
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("distinguishes an empty managed Page list from a missing pages_show_list scope", async () => {
+    const fetchMock = facebookUserPageDiscoveryFetchMock({ data: [] });
+
+    await expect(maintainInstagramAccessToken(
+      "facebook-user-token",
+      facebookLoginEnvironment(),
+      fetchMock,
+    )).rejects.toThrow(
+      "Facebook Page discovery returned no managed Pages even though pages_show_list is granted",
+    );
+    expect(fetchMock).toHaveBeenCalledTimes(6);
+  });
+
+  it("reports managed Pages that are unrelated to the configured Instagram account", async () => {
+    const fetchMock = facebookUserPageDiscoveryFetchMock({
+      data: [
+        {
+          id: "unrelated-page-1",
+          name: "Unrelated Page One",
+          access_token: "unrelated-page-token-1",
+          instagram_business_account: { id: "178414999999991" },
+        },
+        {
+          id: "unrelated-page-2",
+          name: "Unrelated Page Two",
+          access_token: "unrelated-page-token-2",
+          instagram_business_account: { id: "178414999999992" },
+        },
+      ],
+    });
+
+    const error = await maintainInstagramAccessToken(
+      "facebook-user-token",
+      facebookLoginEnvironment(),
+      fetchMock,
+    ).catch((caught: unknown) => caught);
+
+    expect(error).toBeInstanceOf(Error);
+    const message = (error as Error).message;
+    expect(message).toContain(
+      "returned 2 managed Pages, but none is linked to the configured Instagram account",
+    );
+    expect(message).toContain("granular access");
+    expect(message).not.toContain("unrelated-page-token");
+    expect(message).not.toContain("Unrelated Page");
+    expect(fetchMock).toHaveBeenCalledTimes(6);
+  });
+
+  it("distinguishes a linked Page that omits its Page access token", async () => {
+    const fetchMock = facebookUserPageDiscoveryFetchMock({
+      data: [{
+        id: "tokenradar-page",
+        name: "TokenRadar",
+        tasks: ["CREATE_CONTENT", "ANALYZE"],
+        instagram_business_account: { id: "178414000000001" },
+      }],
+    });
+
+    await expect(maintainInstagramAccessToken(
+      "facebook-user-token",
+      facebookLoginEnvironment(),
+      fetchMock,
+    )).rejects.toThrow(
+      "linked to the configured Instagram account was returned without a Page access token",
+    );
+    expect(fetchMock).toHaveBeenCalledTimes(6);
   });
 
   it.each(["CREATE_CONTENT", "ANALYZE"])(

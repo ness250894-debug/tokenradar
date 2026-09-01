@@ -7,6 +7,10 @@ on:
   workflow_run:
     workflows: ["Social Automations"]
     types: [completed]
+  schedule:
+    # Sweep twice an hour so a transient rerun-queue race is retried without
+    # broadening recovery to jobs that executed application steps.
+    - cron: "11,41 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -64,6 +68,7 @@ jobs:
           fi
 
           recovered=0
+          recovery_errors=0
           for run_id in "${run_ids[@]}"; do
             run_json="$(gh api "/repos/${repo}/actions/runs/${run_id}")"
             event="$(jq -r '.event' <<<"$run_json")"
@@ -95,7 +100,7 @@ jobs:
                 .jobs[]
                 | select(
                     .name == "Execute Network Routing"
-                    and .conclusion == "cancelled"
+                    and (.conclusion == "cancelled" or .conclusion == "failure")
                     and ((.steps // []) | length) == 0
                   )
               ] | length' <<<"$jobs_json"
@@ -103,8 +108,8 @@ jobs:
 
             # This is deliberately strict. Metrics/report jobs are normally
             # skipped during publishing schedules, so only non-skipped jobs count.
-            # A publishing run is retried only when its routing job was cancelled
-            # before any step began. Application/API failures are never retried.
+            # A publishing run is retried only when its routing job failed or was
+            # cancelled before any step began. Application/API failures are never retried.
             if [[ "$active_job_count" != "1" || "$step_count" != "0" || "$unassigned_job_count" != "1" ]]; then
               echo "Run ${run_id} executed workflow steps or failed for another reason; not retrying."
               continue
@@ -115,8 +120,13 @@ jobs:
               echo "::notice title=Social run recovered::Queued retry for run ${run_id} after hosted-runner acquisition failure."
               recovered=$((recovered + 1))
             else
-              echo "::warning title=Social recovery race::Could not queue retry for run ${run_id}; the next sweep will check it again."
+              echo "::error title=Social recovery queue failed::Could not queue retry for run ${run_id}; a scheduled sweep will re-evaluate it."
+              recovery_errors=$((recovery_errors + 1))
             fi
           done
 
           echo "Queued ${recovered} social run recovery attempt(s)."
+          if (( recovery_errors > 0 )); then
+            echo "::error::Failed to queue ${recovery_errors} eligible social recovery attempt(s)."
+            exit 1
+          fi
