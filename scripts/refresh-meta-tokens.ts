@@ -99,11 +99,12 @@ export async function runMetaTokenMaintenance(): Promise<TokenRefreshResult[]> {
   for (const platform of platforms) {
     const currentToken = process.env[platform.envTokenKey]?.trim();
     if (!currentToken) {
-      console.info(`  [${platform.name}] No token configured. Skipping.`);
+      const error = `${platform.envTokenKey} is required for Meta token maintenance.`;
+      console.error(`  [${platform.name}] ${error}`);
       results.push({
         platform: platform.name,
-        status: "skipped",
-        detail: "No token configured.",
+        status: "failed",
+        error,
       });
       continue;
     }
@@ -161,11 +162,13 @@ export async function runMetaTokenMaintenance(): Promise<TokenRefreshResult[]> {
   return results;
 }
 
-async function main(): Promise<void> {
+export async function runMetaTokenMaintenanceCommand(): Promise<number> {
   const results = await runMetaTokenMaintenance();
   if (results.some((result) => result.status === "failed")) {
-    throw new Error("One or more Meta tokens could not be maintained.");
+    console.error("Meta token maintenance completed with one or more failures.");
+    return 1;
   }
+  return 0;
 }
 
 const isDirectExecution = process.argv[1]
@@ -173,9 +176,13 @@ const isDirectExecution = process.argv[1]
   : false;
 
 if (isDirectExecution) {
-  main().catch(async (error) => {
-    await logError("refresh-meta-tokens", error);
-    console.error(`Meta token maintenance failed: ${formatErrorForLog(error)}`);
-    process.exitCode = 1;
-  });
+  runMetaTokenMaintenanceCommand()
+    .then((exitCode) => {
+      process.exitCode = exitCode;
+    })
+    .catch(async (error) => {
+      await logError("refresh-meta-tokens", error);
+      console.error(`Meta token maintenance failed: ${formatErrorForLog(error)}`);
+      process.exitCode = 1;
+    });
 }

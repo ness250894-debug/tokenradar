@@ -10,7 +10,8 @@ import type { SocialPostMetricsRecord } from "../src/lib/ops-ledger";
 
 describe("scheduled social metric collection", () => {
   it("uses the canonical +24h and +7d windows", () => {
-    expect(parseCollectorOptions([]).windows).toEqual([24, 168]);
+    expect(parseCollectorOptions([])).toMatchObject({ windows: [24, 168], strict: false });
+    expect(parseCollectorOptions(["--strict"])).toMatchObject({ windows: [24, 168], strict: true });
     expect(parseCollectorOptions(["--window", "24"]).windows).toEqual([24]);
     expect(parseCollectorOptions(["--window", "all"]).windows).toEqual([24, 168]);
     expect(() => parseCollectorOptions(["--window"])).toThrow("--window requires");

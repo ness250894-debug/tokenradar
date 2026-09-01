@@ -435,6 +435,98 @@ describe("Gemini request config", () => {
     }
   }, 10_000);
 
+  it.each([
+    {
+      tokenName: "Zcash",
+      symbol: "ZEC",
+      expectedChange: "-1.58%",
+      expectedPrice: "$849.16",
+      expectedMarketCap: "$14.36B",
+      metrics: {
+        price: 849.16,
+        priceChange24h: -1.57905,
+        marketCap: 14_356_535_496,
+        marketCapRank: 11,
+        volume24h: 744_967_833,
+        riskScore: 6,
+        growthPotentialIndex: 51,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: "2026-08-31T22:59:30Z",
+        selectionReason: "market spotlight",
+      },
+    },
+    {
+      tokenName: "Ethereum",
+      symbol: "ETH",
+      expectedChange: "-2.84%",
+      expectedPrice: "$2444.59",
+      expectedMarketCap: "$295.02B",
+      metrics: {
+        price: 2444.59,
+        priceChange24h: -2.84298,
+        marketCap: 295_015_781_881,
+        marketCapRank: 2,
+        volume24h: 14_437_540_977,
+        riskScore: 4,
+        growthPotentialIndex: 35,
+        marketDataSource: "coingecko-live",
+        marketDataAsOf: "2026-08-29T01:53:20Z",
+        selectionReason: "market spotlight",
+      },
+    },
+  ])("validates the $tokenName Instagram fallback after generated numbers are quarantined", async ({
+    tokenName,
+    symbol,
+    expectedChange,
+    expectedPrice,
+    expectedMarketCap,
+    metrics,
+  }) => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+    const reviewRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-gemini-review-"));
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [{
+            content: {
+              parts: [{
+                text: JSON.stringify({
+                  instagramCaption: `${tokenName} moved +99.00% with a $999B market cap. #Crypto`,
+                }),
+              }],
+            },
+            finishReason: "STOP",
+          }],
+          usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20, totalTokenCount: 120 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+
+    try {
+      const captions = await generateUnifiedCaptions(
+        tokenName,
+        symbol,
+        "",
+        metrics,
+        ["instagram"],
+        { validationRegenerationAttempts: 0, reviewQueueRootDir: reviewRoot },
+      );
+      const caption = captions.instagramCaption || "";
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(caption).toContain(`${tokenName} moved ${expectedChange}`);
+      expect(caption).toContain(`Price: ${expectedPrice}. Market cap: ${expectedMarketCap}.`);
+      expect(caption).toContain("#RiskManagement");
+      expect(caption).not.toMatch(/\+99\.00%|\$999B/);
+      expect(validateSocialContent(caption, buildSocialContentFacts(tokenName, symbol, metrics)))
+        .toEqual({ ok: true, issues: [] });
+    } finally {
+      fs.rmSync(reviewRoot, { recursive: true, force: true });
+    }
+  }, 10_000);
+
   it("keeps Cash Cat fallbacks grounded when AI invents numeric facts", async () => {
     process.env.GEMINI_API_KEY = "test-key";
     delete process.env.ANTHROPIC_API_KEY;

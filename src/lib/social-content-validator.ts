@@ -319,6 +319,21 @@ function claimMetricSegment(text: string, claim: NumericClaim): string {
   return line.slice(segmentStart, segmentEnd);
 }
 
+const METRIC_SUBJECT_QUALIFIERS = new Set([
+  "current",
+  "latest",
+  "observed",
+  "quoted",
+  "reported",
+  "supplied",
+]);
+
+function normalizeMetricSubjectCandidate(candidate: string): string {
+  const words = normalizeForExactMatch(candidate).split(/\s+/).filter(Boolean);
+  while (words.length > 0 && METRIC_SUBJECT_QUALIFIERS.has(words[0])) words.shift();
+  return words.join(" ");
+}
+
 function claimNamesAnotherAsset(text: string, claim: NumericClaim, facts: SocialContentFacts): boolean {
   const segment = claimMetricSegment(text, claim);
   const normalizedSegment = normalizeForExactMatch(segment);
@@ -333,7 +348,10 @@ function claimNamesAnotherAsset(text: string, claim: NumericClaim, facts: Social
   const namedMetricSubject = segment.match(
     /\b([A-Z][A-Za-z0-9._+-]*(?:\s+[A-Z][A-Za-z0-9._+-]*){0,2})\s+(?:[Pp]rice|[Mm]arket\s+[Cc]ap|[Mm][Cc]ap|(?:24h\s+)?[Vv]olume|[Rr]anks?|[Hh]as\s+(?:a\s+)?(?:[Rr]isk|[Gg]rowth)|[Rr]isk\s+(?:[Ss]core|[Ii]ndex|[Pp]rofile)|[Gg]rowth(?:\s+[Pp]otential)?\s+(?:[Ss]core|[Ii]ndex))\b/,
   )?.[1];
-  if (namedMetricSubject && !normalizeForExactMatch(facts.tokenName).includes(normalizeForExactMatch(namedMetricSubject))) {
+  const normalizedMetricSubject = namedMetricSubject
+    ? normalizeMetricSubjectCandidate(namedMetricSubject)
+    : "";
+  if (normalizedMetricSubject && !normalizeForExactMatch(facts.tokenName).includes(normalizedMetricSubject)) {
     return true;
   }
   const metricNamedObject = segment.match(

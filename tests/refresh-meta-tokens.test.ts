@@ -4,6 +4,7 @@ const dependencies = vi.hoisted(() => ({
   maintainInstagramAccessToken: vi.fn(),
   maintainThreadsAccessToken: vi.fn(),
   persistGitHubActionsSecret: vi.fn(),
+  logError: vi.fn(),
   sendTelegramAlert: vi.fn(),
 }));
 
@@ -22,25 +23,37 @@ vi.mock("../src/lib/utils", () => ({
 }));
 
 vi.mock("../src/lib/reporter", () => ({
-  logError: vi.fn(),
+  logError: dependencies.logError,
   sendTelegramAlert: dependencies.sendTelegramAlert,
 }));
 
-import { runMetaTokenMaintenance } from "../scripts/refresh-meta-tokens";
+import {
+  runMetaTokenMaintenance,
+  runMetaTokenMaintenanceCommand,
+} from "../scripts/refresh-meta-tokens";
 
 const originalArgv = [...process.argv];
 
 describe("Meta token maintenance command output", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.resetAllMocks();
     process.argv = originalArgv.filter((argument) => argument !== "--dry-run");
     process.env.IG_AUTH_MODE = "instagram_login";
     process.env.IG_ACCESS_TOKEN = "existing-instagram-token";
     process.env.IG_ACCOUNT_ID = "178414000000001";
+    process.env.THREADS_ACCESS_TOKEN = "existing-threads-token";
+    process.env.THREADS_ACCOUNT_ID = "threads-user";
     process.env.GH_TOKEN = "github-token";
     process.env.GITHUB_ACTIONS = "true";
-    delete process.env.THREADS_ACCESS_TOKEN;
-    delete process.env.THREADS_ACCOUNT_ID;
+    dependencies.maintainInstagramAccessToken.mockResolvedValue({
+      status: "healthy",
+      detail: "Instagram token is healthy.",
+    });
+    dependencies.maintainThreadsAccessToken.mockResolvedValue({
+      status: "healthy",
+      detail: "Threads token is healthy.",
+    });
+    dependencies.sendTelegramAlert.mockResolvedValue(true);
   });
 
   afterEach(() => {
@@ -88,5 +101,74 @@ describe("Meta token maintenance command output", () => {
       ),
       { parseMode: "plain" },
     );
+  });
+
+  it.each([
+    {
+      envTokenKey: "IG_ACCESS_TOKEN",
+      platform: "Instagram",
+      maintenance: dependencies.maintainInstagramAccessToken,
+    },
+    {
+      envTokenKey: "THREADS_ACCESS_TOKEN",
+      platform: "Threads",
+      maintenance: dependencies.maintainThreadsAccessToken,
+    },
+  ])("treats a missing $envTokenKey as a $platform failure", async ({
+    envTokenKey,
+    platform,
+    maintenance,
+  }) => {
+    delete process.env[envTokenKey];
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+    const results = await runMetaTokenMaintenance();
+
+    expect(results).toEqual(expect.arrayContaining([{
+      platform,
+      status: "failed",
+      error: `${envTokenKey} is required for Meta token maintenance.`,
+    }]));
+    expect(maintenance).not.toHaveBeenCalled();
+    expect(dependencies.sendTelegramAlert).toHaveBeenCalledOnce();
+    expect(dependencies.sendTelegramAlert).toHaveBeenCalledWith(
+      expect.stringContaining(`${platform}: failed`),
+      { parseMode: "plain" },
+    );
+  });
+
+  it("reports missing tokens as failures in dry-run mode", async () => {
+    process.argv = [...process.argv, "--dry-run"];
+    delete process.env.IG_ACCESS_TOKEN;
+    delete process.env.THREADS_ACCESS_TOKEN;
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+    const results = await runMetaTokenMaintenance();
+
+    expect(results).toEqual([
+      {
+        platform: "Instagram",
+        status: "failed",
+        error: "IG_ACCESS_TOKEN is required for Meta token maintenance.",
+      },
+      {
+        platform: "Threads",
+        status: "failed",
+        error: "THREADS_ACCESS_TOKEN is required for Meta token maintenance.",
+      },
+    ]);
+    expect(dependencies.maintainInstagramAccessToken).not.toHaveBeenCalled();
+    expect(dependencies.maintainThreadsAccessToken).not.toHaveBeenCalled();
+  });
+
+  it("returns a nonzero command status without sending a redundant fatal alert", async () => {
+    delete process.env.IG_ACCESS_TOKEN;
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+    const exitCode = await runMetaTokenMaintenanceCommand();
+
+    expect(exitCode).toBe(1);
+    expect(dependencies.sendTelegramAlert).toHaveBeenCalledOnce();
+    expect(dependencies.logError).not.toHaveBeenCalled();
   });
 });

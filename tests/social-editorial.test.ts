@@ -13,6 +13,14 @@ describe("social editorial policy", () => {
     expect(sanitizeSocialEditorialText(text)).toBe(text);
   });
 
+  it("allows risk-management tags while still blocking promotional gem tags", () => {
+    expect(findUnsafeSocialPhrases("#RiskManagement #MarketStructure")).toEqual([]);
+    expect(findUnsafeSocialPhrases("#HiddenGem #CryptoGems"))
+      .toContain("gem hashtag");
+    expect(findUnsafeSocialPhrases("This token is a hidden gem."))
+      .toContain("gem language");
+  });
+
   it("cleans typography without changing editorial meaning", () => {
     expect(sanitizeSocialEditorialText("Price moved +2.40%  ,  with confirmation.\n\n\nRisk remains."))
       .toBe("Price moved +2.40%, with confirmation.\n\nRisk remains.");

@@ -919,7 +919,7 @@ function fallbackInstagramCaption(tokenName: string, symbol: string, metrics: Ma
 
   return [
     `${tokenName} moved ${change}, but the candle is only the first filter.`,
-    `Price: ${price}. Reported market cap: ${marketCap}. Recheck the same fields after the next daily close before calling the move durable.`,
+    `Price: ${price}. Market cap: ${marketCap}. Recheck the same fields after the next daily close before calling the move durable.`,
     marketDataAttribution(metrics),
     "Save the snapshot for the follow-up. @tokenradarco",
     `#${symbol.toUpperCase()} #CryptoResearch #MarketStructure #RiskManagement #TokenRadar`,

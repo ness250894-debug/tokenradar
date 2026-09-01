@@ -492,6 +492,30 @@ describe("social content validator", () => {
     }
   });
 
+  it("treats leading metric qualifiers as labels without weakening cross-asset checks", () => {
+    const facts = {
+      ...groundedFacts,
+      price: 1,
+      marketCap: 1_000_000_000,
+      volume24h: 50_000_000,
+    };
+    const attribution = "CoinGecko snapshot, 2026-08-23 09:30 UTC";
+
+    for (const text of [
+      "Current price: $1.",
+      "Reported market cap: $1B.",
+      "Supplied 24h volume: $50M.",
+    ]) {
+      expect(validateSocialContent(`${text} ${attribution}`, facts))
+        .toEqual({ ok: true, issues: [] });
+    }
+
+    expect(validateSocialContent(
+      `Reported Ethereum market cap is $1B. ${attribution}`,
+      facts,
+    ).issues).toContainEqual(expect.objectContaining({ code: "unsupported-number" }));
+  });
+
   it("binds each currency amount to its nearest metric label", () => {
     const facts = { ...groundedFacts, price: 1, marketCap: 1_000_000_000, volume24h: 50_000_000 };
     for (const text of [
