@@ -12,7 +12,8 @@
     "GMCI 30 Index",
     "GMCI Index",
     "Made in USA",
-    "Coinbase 50 Index"
+    "Coinbase 50 Index",
+    "Privacy"
   ],
   "genesisDate": "2011-10-08",
   "links": {
@@ -22,35 +23,35 @@
     "explorer": "https://chainz.cryptoid.info/ltc/"
   },
   "market": {
-    "price": 48.67,
-    "marketCap": 3774545938,
-    "marketCapRank": 27,
-    "volume24h": 227144270,
-    "high24h": 49.01,
-    "low24h": 47.6,
-    "priceChange24h": -1.10155,
-    "priceChange7d": -6,
-    "priceChange30d": 10.5,
-    "priceChange1y": -55.9,
+    "price": 49.43,
+    "marketCap": 3833601313,
+    "marketCapRank": 26,
+    "volume24h": 260344020,
+    "high24h": 49.92,
+    "low24h": 48.3,
+    "priceChange24h": 1.13023,
+    "priceChange7d": -2.74577,
+    "priceChange30d": 9.85512,
+    "priceChange1y": -54.78108,
     "ath": 410.26,
-    "athChangePercentage": -88.13762,
+    "athChangePercentage": -87.95115,
     "athDate": "2021-05-09T19:13:07.000Z",
     "atl": 1.15,
     "atlDate": "2015-01-13T16:00:00.000Z",
-    "circulatingSupply": 77556648.00897355,
-    "totalSupply": 77559548.01627533,
+    "circulatingSupply": 77559516.76554458,
+    "totalSupply": 77562610.5246147,
     "maxSupply": 84000000,
-    "fdv": 3774547155
+    "fdv": 3833613052
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 4266,
-    "githubForks": 3059,
-    "commits4Weeks": 1
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:16:01.070Z",
-  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
+  "fetchedAt": "2026-09-01T20:11:54.401Z",
+  "lastMarketUpdate": "2026-09-01T20:09:40.000Z"
 }

@@ -14,6 +14,9 @@
     "Real World Assets (RWA)",
     "Tron Ecosystem",
     "Tokenized Commodities",
+    "Stellar Ecosystem",
+    "Hyperliquid Ecosystem",
+    "HyperEVM Ecosystem",
     "Plume Network Ecosystem",
     "HashKey Chain Ecosystem",
     "Matrixdock Ecosystem"
@@ -26,35 +29,35 @@
     "explorer": "https://etherscan.io/token/0x2103E845C5E135493Bb6c2A4f0B8651956eA8682"
   },
   "market": {
-    "price": 4440.03,
-    "marketCap": 72511288,
-    "marketCapRank": 338,
-    "volume24h": 312503,
-    "high24h": 4466.07,
-    "low24h": 4405.26,
-    "priceChange24h": -0.2306,
-    "priceChange7d": -3.8,
-    "priceChange30d": 10,
-    "priceChange1y": 28.4,
+    "price": 4332.76,
+    "marketCap": 70761375,
+    "marketCapRank": 343,
+    "volume24h": 453035,
+    "high24h": 4453.04,
+    "low24h": 4291.8,
+    "priceChange24h": -2.53398,
+    "priceChange7d": -6.72769,
+    "priceChange30d": 7.20248,
+    "priceChange1y": 23.52404,
     "ath": 5574.96,
-    "athChangePercentage": -20.35767,
+    "athChangePercentage": -22.28173,
     "athDate": "2026-01-29T05:21:03.000Z",
     "atl": 2563.55,
     "atlDate": "2024-12-19T14:00:45.000Z",
     "circulatingSupply": 16331.178746202,
     "totalSupply": 16331.178746202,
     "maxSupply": null,
-    "fdv": 72511288
+    "fdv": 70761375
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:17:38.042Z",
-  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
+  "fetchedAt": "2026-09-01T20:12:32.240Z",
+  "lastMarketUpdate": "2026-09-01T20:10:50.000Z"
 }

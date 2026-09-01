@@ -14,7 +14,6 @@
     "Optimism Ecosystem",
     "Base Ecosystem",
     "Multicoin Capital Portfolio",
-    "Layer 0 (L0)",
     "Cross-chain Communication",
     "Circle Ventures Portfolio",
     "Sequoia Capital Portfolio",
@@ -29,35 +28,35 @@
     "explorer": "https://etherscan.io/token/0x6985884c4392d348587b19cb9eaaf157f13271cd"
   },
   "market": {
-    "price": 1.037,
-    "marketCap": 366517967,
+    "price": 0.998965,
+    "marketCap": 352916064,
     "marketCapRank": 117,
-    "volume24h": 53816624,
-    "high24h": 1.084,
-    "low24h": 1.009,
-    "priceChange24h": -4.55933,
-    "priceChange7d": -5.9,
-    "priceChange30d": 44.3,
-    "priceChange1y": -45.8,
+    "volume24h": 47310378,
+    "high24h": 1.045,
+    "low24h": 0.984542,
+    "priceChange24h": -4.49903,
+    "priceChange7d": -18.55898,
+    "priceChange30d": 36.89774,
+    "priceChange1y": -45.61212,
     "ath": 7.47,
-    "athChangePercentage": -86.1234,
+    "athChangePercentage": -86.63511,
     "athDate": "2024-12-06T06:15:52.000Z",
     "atl": 0.707123,
     "atlDate": "2026-07-31T09:25:50.000Z",
     "circulatingSupply": 353313325.89,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 1037373743
+    "fdv": 998875611
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:15:23.194Z",
-  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
+  "fetchedAt": "2026-09-01T20:11:22.923Z",
+  "lastMarketUpdate": "2026-09-01T20:09:40.000Z"
 }
