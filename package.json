@@ -106,16 +106,16 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.4.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.1",
+    "eslint-config-next": "^16.3.3",
     "satori": "^0.26.0",
     "tsx": "^4.23.12",
     "typescript": "^6",
-    "vite": "6.4.3",
+    "vite": "8.2.2",
     "vitest": "^4.1.11",
     "wrangler": "^4.94.0"
   }
