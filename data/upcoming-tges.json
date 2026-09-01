@@ -6282,5 +6282,97 @@
     "discoveredAt": "2026-08-31T22:06:57.537Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-08-31T22:06:57.537Z"
+  },
+  {
+    "id": "g7-stablecoin-venture",
+    "name": "G7 Institutions Stablecoin Venture",
+    "symbol": "TBD",
+    "category": "Stablecoin",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 80,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/21-financial-institutions-g7-stablecoin-venture",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/21-financial-institutions-g7-stablecoin-venture",
+        "title": "BofA, Citi, Goldman Sachs among 21 institutions planning stablecoin launch",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-01T20:13:23.353Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-01T20:13:23.353Z"
+  },
+  {
+    "id": "kast",
+    "name": "Kast",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "candidate",
+    "narrativeStrength": 65,
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/kast-launches-stablecoin-business-platform-80m-raise",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/kast-launches-stablecoin-business-platform-80m-raise",
+        "title": "Kast launches stablecoin-powered business platform after $80M raise",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-01T20:13:23.354Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-01T20:13:23.354Z"
+  },
+  {
+    "id": "evernorth",
+    "name": "Evernorth",
+    "symbol": "XRP",
+    "category": "Infrastructure",
+    "expectedTge": "Q1/Q2 2026",
+    "narrativeStrength": 65,
+    "dataSource": "https://decrypt.co/376840/xrp-treasury-evernorths-clears-sec-nasdaq",
+    "lifecycleStatus": "candidate",
+    "confidence": 75,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://decrypt.co/376840/xrp-treasury-evernorths-clears-sec-nasdaq",
+        "title": "XRP Treasury Company Gets One Step Closer to Listing on Nasdaq",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-01T20:13:23.354Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-01T20:13:23.354Z"
+  },
+  {
+    "id": "firelight",
+    "name": "Firelight",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 55,
+    "confidence": 40,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://www.coindesk.com/business/2026/08/31/firelight-raises-usd8-million-expands-beyond-xrp-as-it-aims-to-make-defi-less-scary-for-fintechs",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/08/31/firelight-raises-usd8-million-expands-beyond-xrp-as-it-aims-to-make-defi-less-scary-for-fintechs",
+        "title": "Firelight raises $8 million, expands beyond XRP as it aims to make DeFi less scary for fintechs",
+        "observedAt": "2026-08-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-01T20:13:23.356Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-01T20:13:23.356Z"
   }
 ]

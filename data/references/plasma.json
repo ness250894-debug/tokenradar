@@ -3,32 +3,11 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Cronos halts blockchain after $75 million lending exploit hits lending app Tectonic",
-      "link": "https://www.coindesk.com/tech/2026/08/31/cronos-halts-blockchain-after-usd75-million-lending-exploit-hits-lending-app-tectonic",
-      "pubDate": "Mon, 31 Aug 2026 04:57:13 +0000",
-      "source": "CoinDesk",
-      "snippet": "An attacker allegedly pushed Tectonic’s thinly traded TONIC token up 100-fold, used it as collateral to borrow real assets and left most funds stranded when Cronos validators paused the network."
-    },
-    {
-      "title": "From Hawala to Swift: Inside the 1,000-year battle to move money safely",
-      "link": "https://www.coindesk.com/business/2026/08/30/from-hawala-to-swift-inside-the-1-000-year-battle-to-move-money-safely",
-      "pubDate": "Sun, 30 Aug 2026 15:00:00 +0000",
-      "source": "CoinDesk",
-      "snippet": "Finance has spent centuries decoupling wealth from physical transport, but constantly erasing friction creates vectors for increasingly high-tech exploits."
-    },
-    {
-      "title": "A $1.1 million crypto card hack crashed a neobank's token 49%",
-      "link": "https://www.coindesk.com/web3/2026/08/29/a-usd1-1-million-crypto-card-hack-crashed-a-neobank-s-token-49",
-      "pubDate": "Sat, 29 Aug 2026 23:49:17 +0000",
-      "source": "CoinDesk",
-      "snippet": "The exploit caused the neobank's AVICI token to drop 49% from a 24-hour high, hitting a record low before paring some of the losses."
-    },
-    {
-      "title": "Cronos halts network after Tectonic exploit involving estimated $75M",
-      "link": "https://cointelegraph.com/news/cronos-network-halt-tectonic-exploit-75-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 31 Aug 2026 03:25:48 +0000",
+      "title": "London Stock Exchange partners with Kraken parent for tokenized UK stocks: FT",
+      "link": "https://cointelegraph.com/news/london-stock-exchange-partners-kraken-for-tokenized-uk-stocks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 01 Sep 2026 10:56:41 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Crypto.com CEO Kris Marszalek said the company’s app and exchange were unaffected by the Tectonic breach and continued operating normally."
+      "snippet": "The London bourse operator is seeking to offer 24/5 exposure to UK-based tokenized equities, as more TradFi institutions explore tokenized equities offerings."
     },
     {
       "title": "Crypto.com&#39;s Cronos Halts Entire Blockchain After $75M Tectonic Exploit",
@@ -36,7 +15,14 @@
       "pubDate": "Mon, 31 Aug 2026 09:41:27 +0000",
       "source": "Decrypt",
       "snippet": "Some $6 million reached Ethereum before validators froze the chain, stranding the rest on a network that still is not producing blocks."
+    },
+    {
+      "title": "Polygon Quietly Patched Security Flaws in Two Hard Forks Before Disclosing Them",
+      "link": "https://decrypt.co/376911/polygon-quietly-patched-security-flaws",
+      "pubDate": "Sun, 30 Aug 2026 22:31:04 +0000",
+      "source": "Decrypt",
+      "snippet": "The Austin and Kyoto hard forks, deployed quietly on the Bor and Heimdall clients before public disclosure, closed denial-of-service and consensus-hardening flaws that Polygon says were never exploited."
     }
   ],
-  "fetchedAt": "2026-08-31T22:15:18.928Z"
+  "fetchedAt": "2026-09-01T20:21:51.368Z"
 }
