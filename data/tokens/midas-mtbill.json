@@ -8,14 +8,13 @@
     "Tokenized Assets",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bills (T-Bills)",
     "Rootstock Ecosystem",
     "Etherlink Ecosystem",
     "Yield-Bearing Stablecoin",
     "Plume Network Ecosystem",
     "Midas Liquid Yield Tokens",
     "Base Native",
-    "Tokenized Treasury"
+    "Tokenized Treasuries"
   ],
   "genesisDate": null,
   "links": {
@@ -26,34 +25,34 @@
   },
   "market": {
     "price": 1.071,
-    "marketCap": 73352321,
+    "marketCap": 73369704,
     "marketCapRank": 334,
     "volume24h": 0,
     "high24h": 1.071,
     "low24h": 1.071,
-    "priceChange24h": 0.01028,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.3,
-    "priceChange1y": 3.4,
+    "priceChange24h": 0.0266,
+    "priceChange7d": 0.06412,
+    "priceChange30d": 0.28397,
+    "priceChange1y": 3.43857,
     "ath": 1.18,
-    "athChangePercentage": -9.40403,
+    "athChangePercentage": -9.37993,
     "athDate": "2026-07-15T18:06:50.000Z",
     "atl": 0.808522,
     "atlDate": "2026-04-20T22:34:00.000Z",
-    "circulatingSupply": 68514117.36900683,
-    "totalSupply": 68514117.36900683,
+    "circulatingSupply": 68512130.52412018,
+    "totalSupply": 68512130.52412018,
     "maxSupply": null,
-    "fdv": 73352321
+    "fdv": 73369704
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:19:06.495Z",
-  "lastMarketUpdate": "2026-09-01T20:08:20.000Z"
+  "fetchedAt": "2026-09-02T20:08:25.853Z",
+  "lastMarketUpdate": "2026-09-02T20:06:40.000Z"
 }

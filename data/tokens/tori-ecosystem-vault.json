@@ -1,0 +1,50 @@
+{
+  "id": "tori-ecosystem-vault",
+  "symbol": "etrusd",
+  "name": "Tori Ecosystem Vault",
+  "market": {
+    "price": 1.009,
+    "marketCap": 44850246,
+    "marketCapRank": 479,
+    "volume24h": 0,
+    "high24h": 1.009,
+    "low24h": 1.009,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.009,
+    "athChangePercentage": 0,
+    "athDate": "2026-09-02T03:50:10.000Z",
+    "atl": 1.009,
+    "atlDate": "2026-09-02T10:00:30.000Z",
+    "circulatingSupply": 44431253.88604083,
+    "totalSupply": 44431253.88604083,
+    "maxSupply": null,
+    "fdv": 44850246
+  },
+  "lastMarketUpdate": "2026-09-02T20:05:50.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102175806/large/trUSD.png?1787661625",
+  "description": "Tori Ecosystem Vault (etrUSD) is the share token of a vault operated by Upshift on Ethereum. The vault accepts trUSD, the synthetic dollar issued by Tori Finance, and deploys it across DeFi venues including Curve liquidity, Pendle, Morpho and staking within Tori. etrUSD is an ERC-20 token representing a proportional claim on the vault's holdings. It is not a pegged stablecoin: its redemption value is determined by the vault's net asset value per share, which changes as the underlying positions accrue or lose value. Holders receive etrUSD on deposit and redeem it for trUSD.",
+  "categories": [
+    "Yield Aggregator",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://tori.finance",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x6f20ae2c98c2d34e6a57f3411f2c5af92e32592d"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-02T20:07:48.017Z"
+}

@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080",
   "description": "Midnight is a privacy-first blockchain that blends public verifiability with confidential data handling. You can use Midnight's selective disclosure and ZK proofs to build apps.",
   "categories": [
+    "Smart Contract Platform",
     "BNB Chain Ecosystem",
     "Layer 1 (L1)",
     "Cardano Ecosystem",
@@ -12,6 +13,7 @@
     "Privacy Blockchain",
     "Binance Alpha Spotlight",
     "Binance Wallet IDO",
+    "Privacy Infrastructure",
     "Privacy"
   ],
   "genesisDate": null,
@@ -22,35 +24,35 @@
     "explorer": "https://cardanoscan.io/token/0691b2fecca1ac4f53cb6dfb00b7013e561d1f34403b957cbb5af1fa4e49474854"
   },
   "market": {
-    "price": 0.01844566,
-    "marketCap": 306189160,
-    "marketCapRank": 132,
-    "volume24h": 3584649,
-    "high24h": 0.01898968,
-    "low24h": 0.01824457,
-    "priceChange24h": -0.13136,
-    "priceChange7d": -7.2,
-    "priceChange30d": -6,
+    "price": 0.0190537,
+    "marketCap": 316159541,
+    "marketCapRank": 129,
+    "volume24h": 3282814,
+    "high24h": 0.01917979,
+    "low24h": 0.01832774,
+    "priceChange24h": 3.35592,
+    "priceChange7d": -1.26535,
+    "priceChange30d": -0.18308,
     "priceChange1y": 0,
     "ath": 0.118529,
-    "athChangePercentage": -84.43786,
+    "athChangePercentage": -83.92487,
     "athDate": "2025-12-09T01:29:38.000Z",
     "atl": 0.0152398,
     "atlDate": "2026-07-20T20:40:30.000Z",
     "circulatingSupply": 16607399400.634954,
     "totalSupply": 24000000000,
     "maxSupply": 24000000000,
-    "fdv": 442485886
+    "fdv": 456894472
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:19:12.786Z",
-  "lastMarketUpdate": "2026-09-01T20:08:20.000Z"
+  "fetchedAt": "2026-09-02T20:08:32.154Z",
+  "lastMarketUpdate": "2026-09-02T20:06:40.000Z"
 }
