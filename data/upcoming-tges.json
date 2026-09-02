@@ -6374,5 +6374,28 @@
     "discoveredAt": "2026-09-01T20:13:23.356Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-01T20:13:23.356Z"
+  },
+  {
+    "id": "goldman-sachs-bofa-joint-stablecoin",
+    "name": "Goldman Sachs / BofA Bank Consortium Dollar Stablecoin",
+    "symbol": "TBD",
+    "category": "Stablecoin",
+    "expectedTge": "H1 2027",
+    "narrativeStrength": 75,
+    "confidence": 85,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://decrypt.co/377216/goldman-sachs-bofa-banks-stablecoin",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/377216/goldman-sachs-bofa-banks-stablecoin",
+        "title": "Goldman Sachs, BofA Among 21 Banks Planning Joint Dollar Stablecoin Launch",
+        "observedAt": "2025-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-02T20:10:53.399Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-02T20:10:53.399Z"
   }
 ]

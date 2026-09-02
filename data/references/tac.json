@@ -3,19 +3,40 @@
   "tokenName": "TAC",
   "articles": [
     {
+      "title": "CrowdStrike and federal authorities dismantle Russian malware that secretly stole crypto for 8 years",
+      "link": "https://www.coindesk.com/tech/2026/09/02/crowdstrike-and-federal-authorities-dismantle-russian-malware-that-secretly-stole-crypto-for-8-years",
+      "pubDate": "Wed, 02 Sep 2026 13:14:47 +0000",
+      "source": "CoinDesk",
+      "snippet": "Russia-based Sality watched for copied bitcoin and Ethereum addresses and quietly replaced them with the attacker’s. CrowdStrike and law enforcement have now isolated more than 15,000 infected machines."
+    },
+    {
+      "title": "OpenAI says its new 'Astra' AI can build attacks without human help",
+      "link": "https://www.coindesk.com/tech/2026/09/02/openai-says-its-new-astra-ai-can-build-attacks-without-human-help",
+      "pubDate": "Wed, 02 Sep 2026 05:28:51 +0000",
+      "source": "CoinDesk",
+      "snippet": "Astra is the first OpenAI model to reach its “Critical” cybersecurity threshold, meaning it can find previously unknown vulnerabilities and develop ways to exploit them across hardened systems."
+    },
+    {
+      "title": "Sui DeFi protocol Full Sail to wind down after Switchboard incident",
+      "link": "https://cointelegraph.com/news/full-sail-sui-wind-down-switchboard-incident?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 02 Sep 2026 13:40:03 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Full Sail is shutting down after an attacker removed about $91,000 from three vaults during a security incident linked to oracle provider Switchboard."
+    },
+    {
+      "title": "OpenClaw 2.0 Is Here: What Changed, Why It Took Two Months, and How It Stacks Up Against Hermes",
+      "link": "https://decrypt.co/377135/openclaw-2-0-is-here-whats-new",
+      "pubDate": "Tue, 01 Sep 2026 22:16:04 +0000",
+      "source": "Decrypt",
+      "snippet": "The open-source agent framework that started the &#34;autonomous AI&#34; hype cycle just shipped its biggest update ever, almost by accident, and it&#39;s coming for the enterprise now."
+    },
+    {
       "title": "Dropbox Security Breach: Hackers Access Accounts Through Authentication Flaw",
       "link": "https://decrypt.co/377099/dropbox-security-breach",
       "pubDate": "Tue, 01 Sep 2026 20:01:05 +0000",
       "source": "Decrypt",
       "snippet": "Attackers reportedly registered Lenovo IDs using victims’ email addresses, allowing them to sign into existing Dropbox accounts without their passwords."
-    },
-    {
-      "title": "After Their AI Models Hacked Real Companies, AI Labs Call for Stronger Cyber Defenses",
-      "link": "https://decrypt.co/376863/ai-models-hacked-companies-ai-labs-cyber-defenses",
-      "pubDate": "Sun, 30 Aug 2026 13:31:04 +0000",
-      "source": "Decrypt",
-      "snippet": "More than 100 AI, security, finance, and technology organizations want governments and industry to prepare for attacks powered by increasingly capable models."
     }
   ],
-  "fetchedAt": "2026-09-01T20:21:51.374Z"
+  "fetchedAt": "2026-09-02T20:19:23.164Z"
 }

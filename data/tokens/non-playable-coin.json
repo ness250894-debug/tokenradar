@@ -5,16 +5,17 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/31193/large/NPC_200x200.png?1696530021",
   "description": "What is the project about?\nNon-Playable Coin (NPC) is a meme coin and NFT-hybrid for all 8+ billion humans on Earth. \"I support the current coin\" is the motto, a homage to the meme that first gained in popularity in 2018.\n\nWhat makes your project unique?\nInspired by the non-playable character meme, NPC leans into the joke by creating an ERC20 token whose supply is the total human population as recorded on July 26, 2023. Each token is also convertible into an NFT at a rate of 1:1. Hence, it is a token with JPEG metadata that is designed to be traded both on decentralized exchanges like Uniswap (as an ERC20) and on NFT marketplaces (as an ERC1155). \n\nThis unique design—an NFT that can also be traded as an ERC20—is called a meme fungible token (MFT). An MFT like Non-Playable Coin (NPC) links two often-separated liquidity markets, while also allowing more people than ever to own a \"part of the culture\" as NFTs. \n\nOn the home page, users can switch between the two formats using the dApp. Users can \"respawn\" as an NFT or \"transform\" into a meme coin. The most liquid form for trading, however, is as an ERC20.\n\nHistory of your project.\nThe project started by playing with NFT AMMs like Sudoswap and realizing that ERC1155s were not being used to explore new avenues. We also felt that the 10k+ pfp NFT collection has hit a wall because it is limited both by exclusivity and gas cost. This project seeks to demonstrate that it is possible to scale communities to millions using the ERC1155 standard, and that it is possible to unlock liquidity for such tokens by making them fungible as an ERC20. \n\nWhat’s next for your project?\nUsers will soon be able to accessorize their NPCs using a built-in customization tool and export their creations to be used as profile photos. Additionally, we are constructing new supporting infrastructure to better link the liquidity of ERC20 tokens with ERC1155 tokens, with NPC as the main showcase.\n\nWhat can your token be used for?\nAt its core, it is purely a meme coin with no utility and is for entertainment purposes only. ",
   "categories": [
-    "Hybrid Token Standards",
+    "NFT",
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
-    "Base Native",
-    "Wojak-Themed",
-    "NFT",
-    "Base Ecosystem",
-    "4chan-Themed",
     "Meme",
-    "Ethereum Ecosystem"
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Hybrid Token Standards",
+    "Wojak-Themed",
+    "4chan-Themed",
+    "Base Native",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -24,35 +25,35 @@
     "explorer": "https://etherscan.io/token/0x8ed97a637a790be1feff5e888d43629dc05408f6"
   },
   "market": {
-    "price": 0.01667138,
-    "marketCap": 134215623,
-    "marketCapRank": 214,
-    "volume24h": 4314538,
-    "high24h": 0.0171541,
-    "low24h": 0.01621536,
-    "priceChange24h": -1.68511,
-    "priceChange7d": 22.8,
-    "priceChange30d": 232.8,
-    "priceChange1y": -15.9,
+    "price": 0.01672008,
+    "marketCap": 134509663,
+    "marketCapRank": 217,
+    "volume24h": 3414334,
+    "high24h": 0.01705258,
+    "low24h": 0.01615449,
+    "priceChange24h": 0.30623,
+    "priceChange7d": 11.2655,
+    "priceChange30d": 209.59829,
+    "priceChange1y": -15.50349,
     "ath": 0.066169,
-    "athChangePercentage": -74.80491,
+    "athChangePercentage": -74.73132,
     "athDate": "2024-11-18T00:46:10.000Z",
     "atl": 0.00004561,
     "atlDate": "2023-08-13T04:00:49.000Z",
     "circulatingSupply": 8050126520,
     "totalSupply": 8050126520,
     "maxSupply": 8050126520,
-    "fdv": 134215623
+    "fdv": 134509663
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:21:59.260Z",
-  "lastMarketUpdate": "2026-09-01T20:08:20.000Z"
+  "fetchedAt": "2026-09-02T20:10:08.878Z",
+  "lastMarketUpdate": "2026-09-02T20:07:50.000Z"
 }

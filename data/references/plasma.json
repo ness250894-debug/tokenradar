@@ -3,6 +3,13 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "OpenAI says its new 'Astra' AI can build attacks without human help",
+      "link": "https://www.coindesk.com/tech/2026/09/02/openai-says-its-new-astra-ai-can-build-attacks-without-human-help",
+      "pubDate": "Wed, 02 Sep 2026 05:28:51 +0000",
+      "source": "CoinDesk",
+      "snippet": "Astra is the first OpenAI model to reach its “Critical” cybersecurity threshold, meaning it can find previously unknown vulnerabilities and develop ways to exploit them across hardened systems."
+    },
+    {
       "title": "London Stock Exchange partners with Kraken parent for tokenized UK stocks: FT",
       "link": "https://cointelegraph.com/news/london-stock-exchange-partners-kraken-for-tokenized-uk-stocks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Tue, 01 Sep 2026 10:56:41 +0000",
@@ -10,19 +17,12 @@
       "snippet": "The London bourse operator is seeking to offer 24/5 exposure to UK-based tokenized equities, as more TradFi institutions explore tokenized equities offerings."
     },
     {
-      "title": "Crypto.com&#39;s Cronos Halts Entire Blockchain After $75M Tectonic Exploit",
-      "link": "https://decrypt.co/376913/crypto-coms-cronos-halts-entire-blockchain-after-75m-tectonic-exploit",
-      "pubDate": "Mon, 31 Aug 2026 09:41:27 +0000",
+      "title": "OpenAI&#39;s Astra Becomes Its First AI Model With &#39;Critical&#39; Hacking Abilities",
+      "link": "https://decrypt.co/377180/openai-astra-first-ai-model-critical-hacking",
+      "pubDate": "Wed, 02 Sep 2026 16:43:53 +0000",
       "source": "Decrypt",
-      "snippet": "Some $6 million reached Ethereum before validators froze the chain, stranding the rest on a network that still is not producing blocks."
-    },
-    {
-      "title": "Polygon Quietly Patched Security Flaws in Two Hard Forks Before Disclosing Them",
-      "link": "https://decrypt.co/376911/polygon-quietly-patched-security-flaws",
-      "pubDate": "Sun, 30 Aug 2026 22:31:04 +0000",
-      "source": "Decrypt",
-      "snippet": "The Austin and Kyoto hard forks, deployed quietly on the Bor and Heimdall clients before public disclosure, closed denial-of-service and consensus-hardening flaws that Polygon says were never exploited."
+      "snippet": "The unreleased model can find zero-day vulnerabilities and chain them into working exploits without a human walking it through each step, and access to that capability is starting with a small group of testers."
     }
   ],
-  "fetchedAt": "2026-09-01T20:21:51.368Z"
+  "fetchedAt": "2026-09-02T20:19:23.157Z"
 }
