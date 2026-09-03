@@ -1,0 +1,54 @@
+{
+  "id": "ssv-network",
+  "symbol": "ssv",
+  "name": "SSV Network",
+  "market": {
+    "price": 3.16,
+    "marketCap": 46339877,
+    "marketCapRank": 483,
+    "volume24h": 7905520,
+    "high24h": 3.17,
+    "low24h": 2.81,
+    "priceChange24h": 11.66613,
+    "priceChange7d": 18.02878,
+    "priceChange30d": 42.99247,
+    "priceChange1y": -65.77313,
+    "ath": 65.82,
+    "athChangePercentage": -95.20607,
+    "athDate": "2024-03-24T21:21:25.000Z",
+    "atl": 1.84,
+    "atlDate": "2026-06-06T05:04:15.000Z",
+    "circulatingSupply": 14699173.1,
+    "totalSupply": 14699173.1,
+    "maxSupply": null,
+    "fdv": 46339877
+  },
+  "lastMarketUpdate": "2026-09-03T20:06:50.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/19155/large/ssv.png?1696518606",
+  "description": "SSV promotes decentralization, security, and liveness across the Ethereum consensus layer and forms the foundation of SSV.network – a fully decentralized and robust ETH staking network. Using the network will be open and simple for anyone who wants to run an Ethereum validator; from DIY users all the way to staking pools and big institutional staking services. This applies to using the network both as a user or a service provider; regardless of staking configuration, as long as duties are properly executed, anyone is eligible to provide service and reap rewards for doing so. ",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Restaking",
+    "Coinbase Ventures Portfolio",
+    "OKX Ventures Portfolio",
+    "Liquid Staking"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ssv.network/",
+    "github": "https://github.com/bloxapp/ssv-web",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x9d65ff81a3c488d585bbfb0bfe3c7707c7917f54"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-03T20:09:17.771Z"
+}

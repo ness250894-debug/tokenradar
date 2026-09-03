@@ -10,8 +10,7 @@
     "Polygon Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bills (T-Bills)",
-    "Tokenized Treasury"
+    "Tokenized Treasuries"
   ],
   "genesisDate": null,
   "links": {
@@ -21,35 +20,35 @@
     "explorer": "https://etherscan.io/token/0x1b19c19393e2d034d8ff31ff34c81252fcbbee92"
   },
   "market": {
-    "price": 116.42,
-    "marketCap": 342533921,
-    "marketCapRank": 121,
+    "price": 116.43,
+    "marketCap": 342111218,
+    "marketCapRank": 124,
     "volume24h": 0,
-    "high24h": 116.42,
-    "low24h": 116.41,
-    "priceChange24h": 0.00979,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.3,
-    "priceChange1y": 3.6,
-    "ath": 116.42,
+    "high24h": 116.43,
+    "low24h": 116.42,
+    "priceChange24h": 0.00797,
+    "priceChange7d": 0.06566,
+    "priceChange30d": 0.2791,
+    "priceChange1y": 3.57178,
+    "ath": 116.43,
     "athChangePercentage": 0,
-    "athDate": "2026-09-02T00:55:00.000Z",
+    "athDate": "2026-09-02T22:10:10.000Z",
     "atl": 95.09,
     "atlDate": "2023-03-22T12:00:17.000Z",
-    "circulatingSupply": 2942159.805507628,
-    "totalSupply": 2942159.805507628,
+    "circulatingSupply": 2938294.857073996,
+    "totalSupply": 2938294.857073996,
     "maxSupply": null,
-    "fdv": 342533921
+    "fdv": 342111218
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:24:20.443Z",
-  "lastMarketUpdate": "2026-09-02T20:05:30.000Z"
+  "fetchedAt": "2026-09-03T20:11:04.886Z",
+  "lastMarketUpdate": "2026-09-03T20:08:40.000Z"
 }

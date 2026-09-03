@@ -1,0 +1,49 @@
+{
+  "id": "the-index",
+  "symbol": "index",
+  "name": "The Index",
+  "market": {
+    "price": 0.072814,
+    "marketCap": 71294965,
+    "marketCapRank": 357,
+    "volume24h": 15658318,
+    "high24h": 0.072106,
+    "low24h": 0.03710297,
+    "priceChange24h": 81.94046,
+    "priceChange7d": 186.27546,
+    "priceChange30d": 885.74147,
+    "priceChange1y": 0,
+    "ath": 0.072842,
+    "athChangePercentage": -0.03872,
+    "athDate": "2026-09-03T20:06:10.000Z",
+    "atl": 0.00434082,
+    "atlDate": "2026-08-18T15:24:00.000Z",
+    "circulatingSupply": 980539720.6785266,
+    "totalSupply": 980539720.6785266,
+    "maxSupply": 1000000000,
+    "fdv": 71294965
+  },
+  "lastMarketUpdate": "2026-09-03T20:06:50.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174740/large/qffiSdBd_400x400_%281%29.jpg?1784708104",
+  "description": "Hold the coin, get paid in stocks. The Index turns trading activity into real stock ownership. Every time $INDEX is traded, a 3% fee is collected in ETH and used to buy a basket of 18 tokenized stocks on Robinhood Chain. Those stocks are sent straight to holders' wallets — automatically, onchain, every 15 minutes. No claiming, no staking. The more the coin is traded, the more stocks the community owns.",
+  "categories": [
+    "Robinhood Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://theindex.finance",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/token/0x56910D4409F3a0C78C64DD8D0545FF0705389870"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-03T20:08:52.551Z"
+}

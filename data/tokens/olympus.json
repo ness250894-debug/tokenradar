@@ -5,18 +5,15 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/14483/large/token_OHM_%281%29.png?1696514169",
   "description": "Olympus is a decentralized financial (DeFi) protocol building programmable monetary infrastructure. At its core is OHM, a treasury-backed token held and managed on-chain.\n\nThe protocol is built for solvency, self-sustaining liquidity, and policy-driven equilibrium. This guides how value, liquidity, and credit are managed, through on-chain mechanisms including Protocol Owned Liquidity (POL), Cooler Loans, Convertible Deposits (CDs), the Yield Repurchase Facility (YRF), and Range Bound Stability (RBS).\n\nTogether, these components form a programmable central bank, without human bias.",
   "categories": [
-    "Cross-chain Communication",
-    "Solana Ecosystem",
-    "Base Native",
     "Crypto-Backed Tokens",
-    "Rebase Tokens",
-    "Yield Farming",
-    "Optimism Ecosystem",
     "Decentralized Finance (DeFi)",
-    "Berachain Ecosystem",
-    "Ethereum Ecosystem",
-    "Arbitrum Ecosystem",
     "Lending/Borrowing Protocols",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Berachain Ecosystem",
+    "Cross-chain Communication",
     "Governance"
   ],
   "genesisDate": null,
@@ -27,35 +24,35 @@
     "explorer": "https://etherscan.io/token/0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5"
   },
   "market": {
-    "price": 20.09,
-    "marketCap": 300070807,
-    "marketCapRank": 136,
-    "volume24h": 747840,
-    "high24h": 20.2,
-    "low24h": 19.45,
-    "priceChange24h": 1.87033,
-    "priceChange7d": 11,
-    "priceChange30d": 7.2,
-    "priceChange1y": -11.7,
+    "price": 20.3,
+    "marketCap": 303135327,
+    "marketCapRank": 139,
+    "volume24h": 215163,
+    "high24h": 20.39,
+    "low24h": 19.96,
+    "priceChange24h": 1.00101,
+    "priceChange7d": 13.02916,
+    "priceChange30d": 8.49465,
+    "priceChange1y": -11.37644,
     "ath": 1415.26,
-    "athChangePercentage": -98.58029,
+    "athChangePercentage": -98.56574,
     "athDate": "2021-04-24T16:00:00.000Z",
     "atl": 7.54,
     "atlDate": "2022-11-26T08:36:26.000Z",
-    "circulatingSupply": 14934514.124408176,
-    "totalSupply": 19824831.61598217,
+    "circulatingSupply": 14932839.411372414,
+    "totalSupply": 19824782.08554306,
     "maxSupply": null,
-    "fdv": 398329210
+    "fdv": 402441334
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:22:58.229Z",
-  "lastMarketUpdate": "2026-09-02T20:05:30.000Z"
+  "fetchedAt": "2026-09-03T20:10:02.638Z",
+  "lastMarketUpdate": "2026-09-03T20:07:50.000Z"
 }

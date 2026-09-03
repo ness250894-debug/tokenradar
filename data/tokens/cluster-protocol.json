@@ -1,0 +1,50 @@
+{
+  "id": "cluster-protocol",
+  "symbol": "cp",
+  "name": "CLUSTER PROTOCOL",
+  "market": {
+    "price": 0.03680407,
+    "marketCap": 50389003,
+    "marketCapRank": 454,
+    "volume24h": 218698376,
+    "high24h": 0.043614,
+    "low24h": 0.03533534,
+    "priceChange24h": -19.54056,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.04629476,
+    "athChangePercentage": -20.50058,
+    "athDate": "2026-09-02T19:58:40.000Z",
+    "atl": 0.03533534,
+    "atlDate": "2026-09-03T18:19:00.000Z",
+    "circulatingSupply": 1369092000.0800004,
+    "totalSupply": 5000000000,
+    "maxSupply": 5000000000,
+    "fdv": 184023437
+  },
+  "lastMarketUpdate": "2026-09-03T20:06:50.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176635/large/blue_%281%29_%281%29_%281%29-2.jpg?1788378721",
+  "description": "Cluster Protocol is an orchestration layer for autonomous AI workflows. It gives developers and AI agents one place to run serverless inference across 500+ models, access tokenized datasets, provision GPU compute, and settle each of those steps programmatically through x402 payment rails. The aim is to make AI infrastructure composable and machine-payable, so an agent can select a model, pull a dataset, rent compute, and pay per call without a human in the loop or a subscription in the way.\n\n$CP is the native token of the network, deployed on Base with a fixed supply of 5,000,000,000. It is used for payment and settlement across the protocol's inference, compute, and dataset services, and for staking.\n\nCluster Protocol is developed by Open Protocol Labs Ltd, a British Virgin Islands company. The project announced a funding round in April 2026 led by DAO5, with Paper Ventures, JPEG Trading, and Mapleblock Capital participating.",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Base Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.clusterprotocol.ai/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://basescan.org/address/0x001AAd84c21A5CD4d696C56d44866e9703c43F77"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-03T20:09:05.252Z"
+}
