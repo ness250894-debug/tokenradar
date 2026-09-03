@@ -22,25 +22,25 @@
     "explorer": "https://dcrdata.decred.org/"
   },
   "market": {
-    "price": 14.03,
-    "marketCap": 246737294,
-    "marketCapRank": 149,
-    "volume24h": 1313245,
-    "high24h": 14.51,
-    "low24h": 14.01,
-    "priceChange24h": -3.00416,
-    "priceChange7d": 1.7,
-    "priceChange30d": 5.9,
+    "price": 14.29,
+    "marketCap": 251266766,
+    "marketCapRank": 152,
+    "volume24h": 1608199,
+    "high24h": 14.31,
+    "low24h": 13.65,
+    "priceChange24h": 1.81015,
+    "priceChange7d": 4.1,
+    "priceChange30d": 7.3,
     "priceChange1y": -14,
     "ath": 247.35,
-    "athChangePercentage": -94.32688,
+    "athChangePercentage": -94.221,
     "athDate": "2021-04-16T16:41:14.000Z",
     "atl": 0.43154,
     "atlDate": "2016-12-25T16:00:00.000Z",
-    "circulatingSupply": 17584676.42603534,
-    "totalSupply": 17585704.73595074,
+    "circulatingSupply": 17587034.8166367,
+    "totalSupply": 17587761.67826197,
     "maxSupply": 21000000,
-    "fdv": 246751138
+    "fdv": 251275679
   },
   "community": {
     "twitterFollowers": null,
@@ -52,5 +52,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-08-29T01:12:22.353Z",
-  "lastMarketUpdate": "2026-09-02T20:05:30.000Z"
+  "lastMarketUpdate": "2026-09-03T20:05:20.000Z"
 }
