@@ -8,13 +8,17 @@
     "Stablecoins",
     "USD Stablecoin",
     "Solana Ecosystem",
+    "Polygon Ecosystem",
     "Arbitrum Ecosystem",
     "Ethereum Ecosystem",
     "Starknet Ecosystem",
     "Stellar Ecosystem",
+    "X Layer Ecosystem",
     "Fiat-backed Stablecoin",
+    "Ink Ecosystem",
     "Made in USA",
-    "Paxos Ecosystem"
+    "Paxos Ecosystem",
+    "GENIUS Act Compliant Stablecoin"
   ],
   "genesisDate": null,
   "links": {
@@ -24,35 +28,35 @@
     "explorer": "https://etherscan.io/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8"
   },
   "market": {
-    "price": 1,
-    "marketCap": 2857590749,
+    "price": 0.999983,
+    "marketCap": 2932107919,
     "marketCapRank": 34,
-    "volume24h": 117488350,
+    "volume24h": 101683819,
     "high24h": 1,
-    "low24h": 0.999822,
-    "priceChange24h": 0.02482,
-    "priceChange7d": 0,
-    "priceChange30d": 0.1,
-    "priceChange1y": 0,
+    "low24h": 0.999927,
+    "priceChange24h": -0.02311,
+    "priceChange7d": 0.0253,
+    "priceChange30d": 0.02446,
+    "priceChange1y": 0.04273,
     "ath": 1.021,
-    "athChangePercentage": -2.0204,
+    "athChangePercentage": -2.03331,
     "athDate": "2023-10-23T14:44:57.000Z",
     "atl": 0.959426,
     "atlDate": "2024-12-05T14:31:13.000Z",
-    "circulatingSupply": 2857258070.6823387,
-    "totalSupply": 2857258070.682338,
+    "circulatingSupply": 2932116874.8437066,
+    "totalSupply": 2876387572.463706,
     "maxSupply": null,
-    "fdv": 2857590749
+    "fdv": 3036249079
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:25:04.667Z",
-  "lastMarketUpdate": "2026-09-03T20:05:20.000Z"
+  "fetchedAt": "2026-09-04T19:56:01.257Z",
+  "lastMarketUpdate": "2026-09-04T19:53:40.000Z"
 }

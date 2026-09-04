@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576",
   "description": "Pi Network is a social cryptocurrency and developer platform designed to make digital currency mining accessible to everyday people through mobile devices. The project aims to build a widely distributed currency that facilitates transactions for real-world goods and services rather than purely speculative trading. Its main value proposition is a mobile-first mining system that allows users to earn rewards on their phones without requiring specialized hardware, draining battery life, or using excessive data.\n\nThe network operates on the Stellar Consensus Protocol and a Federated Byzantine Agreement, which allows computers to reach agreement by trusting specific groups of other peers. Security is maintained through a global trust graph built from individual user groups called security circles where members vouch for each other. Users participate in four primary roles as pioneers, contributors, ambassadors, or nodes to ensure the network remains decentralized. This meritocratic distribution model rewards consistent engagement and network growth rather than financial wealth or technical power.\n\nFounded by Dr. Nicolas Kokkalis and Dr. Chengdiao Fan, both of whom hold doctoral degrees from Stanford University, the project is managed by Social Chain Inc. The ecosystem includes a native wallet, a dedicated browser, and a platform for decentralized applications where the PI token is used for peer-to-peer exchange and transaction fees. Additionally, tokens can be used for purchasing goods in an internal marketplace, staking in a launchpad, or voluntary lockups that support market stability while boosting personal mining rates. The project has focused on organic community growth and does not list any external institutional investors in its documentation.",
   "categories": [
+    "Smart Contract Platform",
     "Layer 1 (L1)",
     "Made in USA",
     "Mobile Mining"
@@ -17,35 +18,35 @@
     "explorer": "https://blockexplorer.minepi.com/mainnet/"
   },
   "market": {
-    "price": 0.096151,
-    "marketCap": 1071126167,
-    "marketCapRank": 69,
-    "volume24h": 4991216,
-    "high24h": 0.096794,
-    "low24h": 0.093497,
-    "priceChange24h": 2.34508,
-    "priceChange7d": 5,
-    "priceChange30d": 15.2,
-    "priceChange1y": -72.7,
+    "price": 0.094201,
+    "marketCap": 1049390231,
+    "marketCapRank": 70,
+    "volume24h": 6598064,
+    "high24h": 0.096468,
+    "low24h": 0.093695,
+    "priceChange24h": -1.97068,
+    "priceChange7d": 4.76089,
+    "priceChange30d": 8.2066,
+    "priceChange1y": -72.45082,
     "ath": 2.99,
-    "athChangePercentage": -96.78167,
+    "athChangePercentage": -96.84693,
     "athDate": "2025-02-26T08:41:03.000Z",
     "atl": 0.070586,
     "atlDate": "2026-07-14T02:37:30.000Z",
     "circulatingSupply": 11141680597.248924,
     "totalSupply": 17141047072.69065,
     "maxSupply": 100000000000,
-    "fdv": 1647886410
+    "fdv": 1614446509
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 2022,
-    "githubForks": 542,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:25:42.684Z",
-  "lastMarketUpdate": "2026-09-03T20:05:20.000Z"
+  "fetchedAt": "2026-09-04T19:56:32.719Z",
+  "lastMarketUpdate": "2026-09-04T19:54:40.000Z"
 }
