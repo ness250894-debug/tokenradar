@@ -8,7 +8,9 @@
     "Smart Contract Platform",
     "Ethereum Ecosystem",
     "Layer 2 (L2)",
+    "Hyperliquid Ecosystem",
     "Privacy Blockchain",
+    "HyperEVM Ecosystem",
     "CoinList Launchpad"
   ],
   "genesisDate": null,
@@ -19,35 +21,35 @@
     "explorer": "https://etherscan.io/token/0xA27EC0006e59f245217Ff08CD52A7E8b169E62D2"
   },
   "market": {
-    "price": 0.01431151,
-    "marketCap": 42175749,
-    "marketCapRank": 472,
-    "volume24h": 2389069,
-    "high24h": 0.01439971,
-    "low24h": 0.01371366,
-    "priceChange24h": 3.3,
-    "priceChange7d": -3.6,
-    "priceChange30d": -2.7,
+    "price": 0.01519436,
+    "marketCap": 45729449,
+    "marketCapRank": 483,
+    "volume24h": 21761778,
+    "high24h": 0.01870176,
+    "low24h": 0.01382121,
+    "priceChange24h": 7.11358,
+    "priceChange7d": 13.98585,
+    "priceChange30d": 6.2449,
     "priceChange1y": 0,
     "ath": 0.03989623,
-    "athChangePercentage": -64.12816,
+    "athChangePercentage": -61.91531,
     "athDate": "2026-02-20T21:05:24.000Z",
-    "atl": 0.01228693,
-    "atlDate": "2026-06-30T13:04:00.000Z",
-    "circulatingSupply": 2947967528.47,
+    "atl": 0.01131373,
+    "atlDate": "2026-08-18T03:33:40.000Z",
+    "circulatingSupply": 3009282537.16,
     "totalSupply": 10350000000,
     "maxSupply": 10350000000,
-    "fdv": 148074562
+    "fdv": 157279947
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-13T18:22:22.730Z",
-  "lastMarketUpdate": "2026-08-05T19:06:25.337Z"
+  "fetchedAt": "2026-09-04T19:55:48.653Z",
+  "lastMarketUpdate": "2026-09-04T19:53:40.000Z"
 }

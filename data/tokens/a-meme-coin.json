@@ -1,0 +1,52 @@
+{
+  "id": "a-meme-coin",
+  "symbol": "amc",
+  "name": "A Meme Coin",
+  "market": {
+    "price": 0.04711398,
+    "marketCap": 47187076,
+    "marketCapRank": 474,
+    "volume24h": 200066313,
+    "high24h": 0.150932,
+    "low24h": 0.0386255,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.150932,
+    "athChangePercentage": -68.78469,
+    "athDate": "2026-09-04T07:10:00.000Z",
+    "atl": 0.00008571,
+    "atlDate": "2026-09-04T00:18:00.000Z",
+    "circulatingSupply": 1000000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 47187076
+  },
+  "lastMarketUpdate": "2026-09-04T19:53:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176700/large/amc.jpg?1788511294",
+  "description": "",
+  "categories": [
+    "Meme",
+    "Stock market-themed",
+    "Robinhood Ecosystem",
+    "Robinhood Chain Meme"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://robinhoodchain.blockscout.com/token/0x385F4f8ae47651ce5F58F5265395a669f8281e18"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-04T19:55:42.354Z"
+}

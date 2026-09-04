@@ -6397,5 +6397,28 @@
     "discoveredAt": "2026-09-02T20:10:53.399Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-02T20:10:53.399Z"
+  },
+  {
+    "id": "openreserve",
+    "name": "OpenReserve",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Banking Launch & Stablecoin Issuance",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/377458/openreserve-occ-approval-full-service-national-bank",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/377458/openreserve-occ-approval-full-service-national-bank",
+        "title": "A16z-Backed OpenReserve Gets Approval for Full-Service National Bank",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-04T19:58:38.144Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-04T19:58:38.144Z"
   }
 ]

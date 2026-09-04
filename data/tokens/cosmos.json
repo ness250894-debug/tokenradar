@@ -37,25 +37,25 @@
     "explorer": "https://www.mintscan.io/cosmos"
   },
   "market": {
-    "price": 1.52,
-    "marketCap": 804472897,
-    "marketCapRank": 85,
-    "volume24h": 30965841,
-    "high24h": 1.53,
-    "low24h": 1.44,
-    "priceChange24h": 4.03126,
-    "priceChange7d": -0.4,
-    "priceChange30d": 11.7,
-    "priceChange1y": -66.3,
+    "price": 1.5,
+    "marketCap": 794083857,
+    "marketCapRank": 84,
+    "volume24h": 28079874,
+    "high24h": 1.54,
+    "low24h": 1.47,
+    "priceChange24h": -1.35655,
+    "priceChange7d": 0.9,
+    "priceChange30d": 10.6,
+    "priceChange1y": -65.9,
     "ath": 43.84,
-    "athChangePercentage": -96.52957,
+    "athChangePercentage": -96.57548,
     "athDate": "2021-09-19T16:00:00.000Z",
     "atl": 1.16,
     "atlDate": "2020-03-12T18:27:44.000Z",
-    "circulatingSupply": 528683359.270869,
-    "totalSupply": 528697037.31014,
+    "circulatingSupply": 528875078.099928,
+    "totalSupply": 528881470.73378,
     "maxSupply": null,
-    "fdv": 804483710
+    "fdv": 794084185
   },
   "community": {
     "twitterFollowers": null,
@@ -67,5 +67,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-08-28T01:48:57.874Z",
-  "lastMarketUpdate": "2026-09-03T20:05:20.000Z"
+  "lastMarketUpdate": "2026-09-04T19:53:30.000Z"
 }
