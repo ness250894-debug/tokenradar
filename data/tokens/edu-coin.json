@@ -1,0 +1,54 @@
+{
+  "id": "edu-coin",
+  "symbol": "edu",
+  "name": "Open Campus",
+  "market": {
+    "price": 0.055585,
+    "marketCap": 45863557,
+    "marketCapRank": 482,
+    "volume24h": 28294829,
+    "high24h": 0.061614,
+    "low24h": 0.054599,
+    "priceChange24h": 1.23395,
+    "priceChange7d": 16.03784,
+    "priceChange30d": 63.0185,
+    "priceChange1y": -57.00086,
+    "ath": 1.67,
+    "athChangePercentage": -96.68027,
+    "athDate": "2023-04-29T00:05:57.000Z",
+    "atl": 0.02531909,
+    "atlDate": "2026-06-10T22:21:10.000Z",
+    "circulatingSupply": 826295139,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 55505054
+  },
+  "lastMarketUpdate": "2026-09-05T19:31:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/29948/large/EDU_Logo.png?1696528874",
+  "description": "Open Campus is a community-led protocol building the financial and credentialing rails for global education. We enable educators, learners, and institutions to issue verifiable credentials, access on-chain education finance (EduFi), and build consumer-facing education applications on a shared, open infrastructure.\n\nCore contributors to the Open Campus DAO include Animoca Brands, TinyTap, NewCampus, RiseIn, and HackQuest. Together, they are working with Open Campus to enhance the education system for teachers, learners, and institutions by using innovative blockchain protocols and funding initiatives.",
+  "categories": [
+    "Education",
+    "BNB Chain Ecosystem",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance Launchpad",
+    "YZi Labs (Prev. Binance Labs) Portfolio"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.opencampus.xyz/",
+    "github": "https://github.com/opencampus-xyz/",
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xbdeae1ca48894a1759a8374d63925f21f2ee2639"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-05T19:34:08.432Z"
+}

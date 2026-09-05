@@ -6,6 +6,7 @@
   "description": "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The USD share class allows investors to subscribe from as little as 1 USD. SAFO generates stable yields above the EFFR benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF.",
   "categories": [
     "Decentralized Finance (DeFi)",
+    "Tokenized Assets",
     "Polygon Ecosystem",
     "Arbitrum Ecosystem",
     "Ethereum Ecosystem",
@@ -23,13 +24,13 @@
   "market": {
     "price": 1.02,
     "marketCap": 164026482,
-    "marketCapRank": 197,
+    "marketCapRank": 200,
     "volume24h": 0,
     "high24h": 1.02,
-    "low24h": 1.019,
-    "priceChange24h": 0.04434,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.4,
+    "low24h": 1.02,
+    "priceChange24h": 0,
+    "priceChange7d": 0.08901,
+    "priceChange30d": 0.35382,
     "priceChange1y": 0,
     "ath": 1.02,
     "athChangePercentage": 0,
@@ -43,13 +44,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:31:11.351Z",
-  "lastMarketUpdate": "2026-09-04T19:53:30.000Z"
+  "fetchedAt": "2026-09-05T19:36:33.330Z",
+  "lastMarketUpdate": "2026-09-05T19:34:40.000Z"
 }
