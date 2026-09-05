@@ -6420,5 +6420,74 @@
     "discoveredAt": "2026-09-04T19:58:38.144Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-04T19:58:38.144Z"
+  },
+  {
+    "id": "long-xyz",
+    "name": "Long.xyz",
+    "symbol": "TBD",
+    "category": "Launchpad",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 65,
+    "confidence": 60,
+    "dataSource": "https://airdropalert.com/blogs/what-is-long-xyz/",
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "token_sale",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/what-is-long-xyz/",
+        "title": "What Is Long.xyz? The Launchpad Pairing Memecoins With Stocks",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-05T19:37:15.870Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-05T19:37:15.870Z"
+  },
+  {
+    "id": "qufi",
+    "name": "QuFi",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Testnet",
+    "narrativeStrength": 52,
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/qufi-launches-post-quantum-verification-platform-with-bitcoin-testnet-proof",
+    "signals": [
+      {
+        "type": "testnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/qufi-launches-post-quantum-verification-platform-with-bitcoin-testnet-proof",
+        "title": "QuFi launches post-quantum verification platform with Bitcoin testnet proof",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-05T19:37:15.870Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-05T19:37:15.870Z"
+  },
+  {
+    "id": "pineapple-financial",
+    "name": "Pineapple Financial",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Mainnet / RWA Integration",
+    "narrativeStrength": 55,
+    "confidence": 55,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/pineapple-financial-puts-1b-in-mortgage-records-on-injective",
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/pineapple-financial-puts-1b-in-mortgage-records-on-injective",
+        "title": "Pineapple Financial puts $1B in mortgage records on Injective",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-05T19:37:15.871Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-05T19:37:15.871Z"
   }
 ]
