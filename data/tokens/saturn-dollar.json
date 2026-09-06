@@ -7,7 +7,9 @@
   "categories": [
     "Stablecoins",
     "USD Stablecoin",
-    "Ethereum Ecosystem"
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Monad Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -17,35 +19,35 @@
     "explorer": "https://etherscan.io/address/0x23238f20b894f29041f48D88eE91131C395Aaa71"
   },
   "market": {
-    "price": 0.999633,
-    "marketCap": 67017353,
-    "marketCapRank": 372,
-    "volume24h": 1619793,
-    "high24h": 0.999659,
-    "low24h": 0.999232,
-    "priceChange24h": 0.02008,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
+    "price": 0.999239,
+    "marketCap": 65877100,
+    "marketCapRank": 380,
+    "volume24h": 2409238,
+    "high24h": 0.999687,
+    "low24h": 0.999196,
+    "priceChange24h": -0.03859,
+    "priceChange7d": 0.01183,
+    "priceChange30d": -0.01345,
     "priceChange1y": 0,
     "ath": 1.042,
-    "athChangePercentage": -4.1054,
+    "athChangePercentage": -4.14311,
     "athDate": "2026-04-08T13:58:00.000Z",
     "atl": 0.99684,
     "atlDate": "2026-08-31T11:30:00.000Z",
-    "circulatingSupply": 67043186.55623,
-    "totalSupply": 67043186.55623,
+    "circulatingSupply": 65929300.40889,
+    "totalSupply": 65929300.40889,
     "maxSupply": null,
-    "fdv": 67017353
+    "fdv": 65877100
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:31:30.315Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:34:25.162Z",
+  "lastMarketUpdate": "2026-09-06T19:31:50.000Z"
 }

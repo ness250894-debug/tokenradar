@@ -23,25 +23,25 @@
     "explorer": "https://www.arbiscan.io/token/0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0"
   },
   "market": {
-    "price": 356.78,
-    "marketCap": 70890581,
-    "marketCapRank": 354,
-    "volume24h": 3012675,
-    "high24h": 356.59,
-    "low24h": 352.85,
-    "priceChange24h": 0.68438,
-    "priceChange7d": 1.8,
-    "priceChange30d": 12,
-    "priceChange1y": 1.9,
+    "price": 355.89,
+    "marketCap": 70704165,
+    "marketCapRank": 361,
+    "volume24h": 2750585,
+    "high24h": 356.99,
+    "low24h": 354.82,
+    "priceChange24h": -0.25292,
+    "priceChange7d": 1.1,
+    "priceChange30d": 8.6,
+    "priceChange1y": 1.5,
     "ath": 496.55,
-    "athChangePercentage": -28.14914,
+    "athChangePercentage": -28.32854,
     "athDate": "2025-12-22T06:58:38.000Z",
     "atl": 292.26,
     "atlDate": "2025-07-07T06:00:30.000Z",
-    "circulatingSupply": 198699.5668172144,
-    "totalSupply": 537153.0491758047,
+    "circulatingSupply": 198699.55009428438,
+    "totalSupply": 537153.0324528747,
     "maxSupply": null,
-    "fdv": 191641544
+    "fdv": 191137608
   },
   "community": {
     "twitterFollowers": null,
@@ -53,5 +53,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-05-14T07:37:18.120Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
 }
