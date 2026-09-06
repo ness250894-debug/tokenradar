@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-09-05T19:45:58.692Z",
-    "tokenCount": 530,
+    "tokenCount": 529,
     "topIntents": [
       {
         "intent": "risk",
@@ -38,8 +38,8 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 49,
-        "avgScore": 92
+        "tokenCount": 48,
+        "avgScore": 91
       }
     ],
     "hotTokens": [
@@ -6019,83 +6019,6 @@
         "Bitget Wrapped BTC scam check",
         "Bitget Wrapped BTC price prediction 2026",
         "Bitget Wrapped BTC price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-05T19:45:58.692Z"
-    },
-    "bitlayer-bitvm": {
-      "tokenId": "bitlayer-bitvm",
-      "tokenName": "Bitlayer",
-      "symbol": "btr",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 94,
-      "fundamentalsScore": 56,
-      "supplyRiskScore": 89,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Bitlayer price prediction 2026",
-            "Bitlayer price prediction today",
-            "BTR price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy Bitlayer",
-            "where to buy Bitlayer",
-            "BTR crypto exchange"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 88,
-          "queries": [
-            "Bitlayer token unlock",
-            "Bitlayer circulating supply",
-            "Bitlayer tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 73,
-          "queries": [
-            "Bitlayer risks",
-            "is Bitlayer safe",
-            "Bitlayer scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 918.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 110.8% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Bitlayer price prediction 2026",
-        "Bitlayer price prediction today",
-        "BTR price target",
-        "how to buy Bitlayer",
-        "where to buy Bitlayer"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
