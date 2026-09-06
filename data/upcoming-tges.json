@@ -6489,5 +6489,28 @@
     "discoveredAt": "2026-09-05T19:37:15.871Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-05T19:37:15.871Z"
+  },
+  {
+    "id": "pencil-finance",
+    "name": "Pencil Finance",
+    "symbol": "TBD",
+    "category": "DeFi / RWA",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 55,
+    "confidence": 40,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://decrypt.co/377494/pencil-finance-1-million-student-loan",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/377494/pencil-finance-1-million-student-loan",
+        "title": "This Crypto Project Just Funded 1,000 Student Loans Entirely On-Chain",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-06T19:37:02.058Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-06T19:37:02.058Z"
   }
 ]

@@ -7,7 +7,9 @@
   "categories": [
     "Tokenized Assets",
     "Ethereum Ecosystem",
-    "Real World Assets (RWA)"
+    "Real World Assets (RWA)",
+    "Securitize Ecosystem",
+    "Tokenized Credit"
   ],
   "genesisDate": null,
   "links": {
@@ -17,35 +19,35 @@
     "explorer": "https://etherscan.io/token/0x51c2d74017390cbbd30550179a16a1c28f7210fc"
   },
   "market": {
-    "price": 1032.39,
-    "marketCap": 103443180,
-    "marketCapRank": 269,
+    "price": 1031.97,
+    "marketCap": 103400851,
+    "marketCapRank": 273,
     "volume24h": 0,
-    "high24h": 1033.17,
-    "low24h": 1030.08,
-    "priceChange24h": 0.04946,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.6,
+    "high24h": 1033.93,
+    "low24h": 1029.04,
+    "priceChange24h": -0.04092,
+    "priceChange7d": 0.17563,
+    "priceChange30d": 0.49757,
     "priceChange1y": 0,
     "ath": 1050.06,
-    "athChangePercentage": -1.68282,
+    "athChangePercentage": -1.72305,
     "athDate": "2026-08-19T15:30:00.000Z",
     "atl": 997.66,
     "atlDate": "2026-02-05T16:15:06.000Z",
     "circulatingSupply": 100198.000776,
     "totalSupply": 100198.000776,
     "maxSupply": null,
-    "fdv": 103443180
+    "fdv": 103400851
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:31:42.992Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:34:37.762Z",
+  "lastMarketUpdate": "2026-09-06T19:32:50.000Z"
 }

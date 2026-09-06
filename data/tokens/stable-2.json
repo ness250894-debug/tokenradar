@@ -10,6 +10,8 @@
     "BNB Chain Ecosystem",
     "Layer 1 (L1)",
     "Payment Solutions",
+    "Hyperliquid Ecosystem",
+    "HyperEVM Ecosystem",
     "Stable Ecosystem"
   ],
   "genesisDate": null,
@@ -20,35 +22,35 @@
     "explorer": "https://bscscan.com/token/0x011EBe7d75E2C9D1E0bD0be0bEf5C36f0A90075F"
   },
   "market": {
-    "price": 0.02890572,
-    "marketCap": 752849866,
+    "price": 0.02816039,
+    "marketCap": 734923889,
     "marketCapRank": 88,
-    "volume24h": 7789256,
-    "high24h": 0.02931973,
-    "low24h": 0.02856697,
-    "priceChange24h": -0.55778,
-    "priceChange7d": 10.2,
-    "priceChange30d": -11.8,
+    "volume24h": 8626791,
+    "high24h": 0.02885193,
+    "low24h": 0.0277946,
+    "priceChange24h": -2.49039,
+    "priceChange7d": 4.69745,
+    "priceChange30d": -13.46798,
     "priceChange1y": 0,
     "ath": 0.04323745,
-    "athChangePercentage": -33.14658,
+    "athChangePercentage": -34.87038,
     "athDate": "2026-05-14T23:31:00.000Z",
     "atl": 0.0092214,
     "atlDate": "2025-12-23T21:49:32.000Z",
-    "circulatingSupply": 26052962277,
+    "circulatingSupply": 26082706447,
     "totalSupply": 100000000000,
     "maxSupply": 100000000000,
-    "fdv": 2889690077
+    "fdv": 2817667296
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:33:49.435Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:36:24.892Z",
+  "lastMarketUpdate": "2026-09-06T19:34:50.000Z"
 }

@@ -12,7 +12,8 @@
     "Stellar Ecosystem",
     "XRP Ledger Ecosystem",
     "Fiat-backed Stablecoin",
-    "MiCA-Compliant Stablecoin"
+    "MiCA-Compliant Stablecoin",
+    "Bank-Issued Stablecoin"
   ],
   "genesisDate": null,
   "links": {
@@ -23,34 +24,34 @@
   },
   "market": {
     "price": 1.16,
-    "marketCap": 187144031,
-    "marketCapRank": 183,
-    "volume24h": 10384553,
+    "marketCap": 187166937,
+    "marketCapRank": 181,
+    "volume24h": 10202792,
     "high24h": 1.16,
     "low24h": 1.16,
-    "priceChange24h": -0.07211,
-    "priceChange7d": 0.2,
-    "priceChange30d": 0.7,
-    "priceChange1y": -1,
+    "priceChange24h": 0.00641,
+    "priceChange7d": 0.28208,
+    "priceChange30d": 0.43509,
+    "priceChange1y": -0.90308,
     "ath": 1.22,
-    "athChangePercentage": -4.75366,
+    "athChangePercentage": -4.74078,
     "athDate": "2026-01-26T21:25:46.000Z",
     "atl": 0.988513,
     "atlDate": "2025-02-04T14:15:33.000Z",
     "circulatingSupply": 161288989.91,
     "totalSupply": 161288989.91,
     "maxSupply": null,
-    "fdv": 187144031
+    "fdv": 187166937
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:32:52.511Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:35:28.196Z",
+  "lastMarketUpdate": "2026-09-06T19:33:50.000Z"
 }

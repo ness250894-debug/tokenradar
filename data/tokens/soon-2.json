@@ -11,7 +11,9 @@
     "Layer 2 (L2)",
     "Base Ecosystem",
     "Cross-chain Communication",
+    "Hyperliquid Ecosystem",
     "Binance Alpha Spotlight",
+    "HyperEVM Ecosystem",
     "Base Native"
   ],
   "genesisDate": null,
@@ -22,35 +24,35 @@
     "explorer": "https://explorer.soo.network/"
   },
   "market": {
-    "price": 0.189157,
-    "marketCap": 64286705,
-    "marketCapRank": 385,
-    "volume24h": 4022930,
-    "high24h": 0.190715,
-    "low24h": 0.186395,
-    "priceChange24h": 0.65658,
-    "priceChange7d": -5.5,
-    "priceChange30d": -16.5,
-    "priceChange1y": -32.7,
+    "price": 0.188331,
+    "marketCap": 63991497,
+    "marketCapRank": 392,
+    "volume24h": 4778835,
+    "high24h": 0.194386,
+    "low24h": 0.187682,
+    "priceChange24h": -0.41196,
+    "priceChange7d": -7.1854,
+    "priceChange30d": -10.40131,
+    "priceChange1y": -33.59683,
     "ath": 4.3,
-    "athChangePercentage": -95.60174,
+    "athChangePercentage": -95.62095,
     "athDate": "2025-11-14T12:10:58.000Z",
     "atl": 0.100892,
     "atlDate": "2026-04-10T01:07:00.000Z",
     "circulatingSupply": 339791742.36,
     "totalSupply": 11007627367.45998,
     "maxSupply": null,
-    "fdv": 2082581796
+    "fdv": 2073018470
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:33:11.505Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:35:47.091Z",
+  "lastMarketUpdate": "2026-09-06T19:33:50.000Z"
 }

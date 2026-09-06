@@ -12,9 +12,9 @@
     "Real World Assets (RWA)",
     "Base Ecosystem",
     "Starknet Ecosystem",
-    "Tokenized Treasury Bills (T-Bills)",
     "Etherlink Ecosystem",
-    "Tokenized Treasury"
+    "Tokenized Treasuries",
+    "Tokenized Money Market Fund (MMFs)"
   ],
   "genesisDate": null,
   "links": {
@@ -26,14 +26,14 @@
   "market": {
     "price": 1.095,
     "marketCap": 170292560,
-    "marketCapRank": 197,
+    "marketCapRank": 193,
     "volume24h": 0,
     "high24h": 1.095,
     "low24h": 1.095,
     "priceChange24h": 0,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.3,
-    "priceChange1y": 3.6,
+    "priceChange7d": 0.06771,
+    "priceChange30d": 0.27003,
+    "priceChange1y": 3.59936,
     "ath": 1.095,
     "athChangePercentage": 0,
     "athDate": "2026-09-04T13:15:00.000Z",
@@ -46,13 +46,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 13,
-    "githubForks": 2,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:33:36.789Z",
-  "lastMarketUpdate": "2026-09-05T19:31:30.000Z"
+  "fetchedAt": "2026-09-06T19:36:12.287Z",
+  "lastMarketUpdate": "2026-09-06T19:34:50.000Z"
 }
