@@ -5,9 +5,12 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/50749/large/FIUDS_200x200px_%281%29.png?1728956878",
   "description": "This project focuses on the tokenization of Fidelity International's Money Market Fund by Sygnum Bank, specifically the Fidelity Institutional Liquidity Fund (ILF) USD Fund Class G Acc. Sygnum Bank is the token issuer of the above mentioned.",
   "categories": [
+    "Tokenized Assets",
     "Arbitrum Ecosystem",
     "ZkSync Ecosystem",
-    "Real World Assets (RWA)"
+    "Real World Assets (RWA)",
+    "Tokenized Treasuries",
+    "Tokenized Money Market Fund (MMFs)"
   ],
   "genesisDate": null,
   "links": {
@@ -19,14 +22,14 @@
   "market": {
     "price": 12015.23,
     "marketCap": 48032804,
-    "marketCapRank": 472,
+    "marketCapRank": 473,
     "volume24h": 0,
     "high24h": 12015.23,
     "low24h": 12015.23,
     "priceChange24h": 0,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.3,
-    "priceChange1y": 3.8,
+    "priceChange7d": 0.07096,
+    "priceChange30d": 0.29424,
+    "priceChange1y": 3.84554,
     "ath": 12015.23,
     "athChangePercentage": 0,
     "athDate": "2026-09-04T21:30:00.000Z",
@@ -39,13 +42,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:36:02.292Z",
-  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
+  "fetchedAt": "2026-09-07T20:49:15.691Z",
+  "lastMarketUpdate": "2026-09-07T20:46:50.000Z"
 }

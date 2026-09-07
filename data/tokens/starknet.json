@@ -17,6 +17,7 @@
     "Rollup",
     "Multicoin Capital Portfolio",
     "Bitcoin Sidechains",
+    "SideChain",
     "Alameda Research Portfolio",
     "Pantera Capital Portfolio",
     "GMCI Layer 2 Index",
@@ -37,35 +38,35 @@
     "explorer": "https://starkscan.co/"
   },
   "market": {
-    "price": 0.03014238,
-    "marketCap": 216623651,
-    "marketCapRank": 169,
-    "volume24h": 46425924,
-    "high24h": 0.03209727,
-    "low24h": 0.02915026,
-    "priceChange24h": 4.69854,
-    "priceChange7d": 14.6,
-    "priceChange30d": 20.8,
-    "priceChange1y": -75.2,
+    "price": 0.03144932,
+    "marketCap": 226160287,
+    "marketCapRank": 164,
+    "volume24h": 29926327,
+    "high24h": 0.03246204,
+    "low24h": 0.03040716,
+    "priceChange24h": 1.7512,
+    "priceChange7d": 23.27583,
+    "priceChange30d": 24.54067,
+    "priceChange1y": -74.56835,
     "ath": 4.41,
-    "athChangePercentage": -99.31706,
+    "athChangePercentage": -99.28745,
     "athDate": "2024-02-20T04:05:13.000Z",
     "atl": 0.02221422,
     "atlDate": "2026-08-18T03:13:20.000Z",
     "circulatingSupply": 7181521515.171522,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 301640328
+    "fdv": 314919738
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 115,
-    "githubForks": 87,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:34:08.430Z",
-  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
+  "fetchedAt": "2026-09-07T20:47:53.793Z",
+  "lastMarketUpdate": "2026-09-07T20:45:40.000Z"
 }

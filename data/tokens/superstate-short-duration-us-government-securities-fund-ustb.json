@@ -2,55 +2,54 @@
   "id": "superstate-short-duration-us-government-securities-fund-ustb",
   "symbol": "ustb",
   "name": "Invesco Short Duration US Government Securities Fund",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/35012/large/ustb.jpeg?1707102680",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/35012/large/Invesco_icon_lg.png?1780816895",
   "description": "USTB’s innovative structure and partnership with established service providers breaks new ground in the private funds space.\n\nThe fund invests in short duration U.S. Treasury and U.S. Agency securities, targeting the federal funds rate, with a 0.15% management fee.1\n\nAccepted U.S. Qualified Purchasers are able to subscribe to and redeem from the Fund using USDC2 at a daily NAV which is calculated by NAV Consulting. USTB’s Ethereum-based Allowlist enables on-chain ownership, transfer, and compliance. Additionally in the future, it is likely that peer-to-peer transactions will be possible, subject to applicable restrictions.\n\nThe Fund’s flexibility carries through to custody; investors can self-custody USTB in the on-chain addresses of their choice, such as an EOA, multi-sig, or MPC wallet. Additionally, investors can choose to utilize Anchorage Digital Bank National Association, a custodian and federally chartered bank, or BitGo, a qualified custodian and New York state chartered trust.\n\nSuperstate, an Exempt Reporting Adviser, serves as the Fund’s investment manager, with Federated Hermes serving as the Fund’s sub-advisor. USTB is a series of a Delaware Trust, which is legally separate from Superstate. For more Fund details, please consult the USTB information page.\n\nUSTB marks the start of our mission to tokenize the world’s assets. We’re committed to developing regulated, modern investing products that enhance investment opportunities for institutions, and, ultimately, all investors.",
   "categories": [
     "Tokenized Assets",
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Tokenized Treasury Bills (T-Bills)",
     "Plume Network Ecosystem",
     "Superstate Ecosystem",
-    "Tokenized Treasury"
+    "Tokenized Treasuries"
   ],
   "genesisDate": null,
   "links": {
-    "website": "https://superstate.co/",
+    "website": "https://superstate.com/assets/ustb",
     "github": null,
     "reddit": null,
     "explorer": "https://etherscan.io/token/0x43415eb6ff9db7e26a15b704e7a3edce97d31c4e"
   },
   "market": {
     "price": 11.2,
-    "marketCap": 775166433,
+    "marketCap": 776956476,
     "marketCapRank": 87,
     "volume24h": 0,
     "high24h": 11.2,
     "low24h": 11.2,
     "priceChange24h": 0,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.3,
-    "priceChange1y": 3.6,
+    "priceChange7d": 0.05845,
+    "priceChange30d": 0.27022,
+    "priceChange1y": 3.60599,
     "ath": 11.2,
     "athChangePercentage": 0,
     "athDate": "2026-09-04T13:25:00.000Z",
     "atl": 10.29,
     "atlDate": "2025-02-26T01:55:09.000Z",
-    "circulatingSupply": 69208217.574843,
-    "totalSupply": 69208217.773886,
+    "circulatingSupply": 69368035.73766,
+    "totalSupply": 69368035.73766,
     "maxSupply": null,
-    "fdv": 775166436
+    "fdv": 776956476
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:35:37.045Z",
-  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
+  "fetchedAt": "2026-09-07T20:48:50.494Z",
+  "lastMarketUpdate": "2026-09-07T20:46:50.000Z"
 }
