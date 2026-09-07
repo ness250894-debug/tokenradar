@@ -6512,5 +6512,28 @@
     "discoveredAt": "2026-09-06T19:37:02.058Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-06T19:37:02.058Z"
+  },
+  {
+    "id": "laptop-token",
+    "name": "Laptop",
+    "symbol": "LAPTOP",
+    "category": "Meme/Governance",
+    "expectedTge": "Upcoming TGE",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/hunter-biden-laptop-memecoin-reimburse-trump-holders",
+    "confidence": 80,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/hunter-biden-laptop-memecoin-reimburse-trump-holders",
+        "title": "Joe Biden’s son to launch memecoin, will send to TRUMP holders: WSJ",
+        "observedAt": "2026-03-05T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-07T20:50:49.218Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-07T20:50:49.218Z"
   }
 ]

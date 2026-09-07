@@ -2,8 +2,8 @@
   "id": "story-2",
   "symbol": "data",
   "name": "Data Network",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/54035/large/Transparent_bg.png?1738075331",
-  "description": "Story is a purpose-built layer 1 blockchain designed specifically to onramp intellectual property (IP) to the blockchain and make it programmable.\n\nStory tokenizes any type of IP; whether that’s an idea, an image, a real world asset, a song, an AI model, an NFT or anything in-between. By embedding usage terms, attribution, and royalty agreements directly into the blockchain, Story provides a transparent, decentralized solution for IP management. This enables IP holders to protect their work, collaborate on IP seamlessly, and unlock revenue opportunities in an AI-powered economy.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/54035/large/CMC_%281%29.png?1782401376",
+  "description": "Data Network is a purpose-built layer 1 blockchain designed to facilitate registration of intellectual property (IP) of AI-related data to the blockchain and make it programmable.\n\nData Network tokenizes any type of IP; whether that’s an image, an AI model, a datapoint that trains a frontier model. By embedding usage terms, attribution, and royalty agreements directly into the blockchain, Story provides a transparent, decentralized solution for IP management for AI data. This enables AI data holders to protect their user's source contributions, collaborate with AI companies seamlessly, and unlock revenue opportunities in an AI-powered economy.",
   "categories": [
     "Artificial Intelligence (AI)",
     "Smart Contract Platform",
@@ -15,41 +15,41 @@
   ],
   "genesisDate": null,
   "links": {
-    "website": "https://www.story.foundation/",
-    "github": "https://github.com/storyprotocol",
+    "website": "https://datafdn.org",
+    "github": "https://github.com/piplabs/data-network",
     "reddit": null,
     "explorer": "https://www.storyscan.xyz/"
   },
   "market": {
-    "price": 0.19129,
-    "marketCap": 68561880,
-    "marketCapRank": 367,
-    "volume24h": 1316660,
-    "high24h": 0.197983,
-    "low24h": 0.189726,
-    "priceChange24h": 0.40417,
-    "priceChange7d": 2.9,
-    "priceChange30d": -8.3,
-    "priceChange1y": -97.6,
+    "price": 0.193051,
+    "marketCap": 69139621,
+    "marketCapRank": 365,
+    "volume24h": 1461336,
+    "high24h": 0.196756,
+    "low24h": 0.189954,
+    "priceChange24h": 0.86005,
+    "priceChange7d": 6.01189,
+    "priceChange30d": -8.20338,
+    "priceChange1y": -97.71872,
     "ath": 14.78,
-    "athChangePercentage": -98.70598,
+    "athChangePercentage": -98.69407,
     "athDate": "2025-09-21T13:07:34.000Z",
     "atl": 0.170065,
     "atlDate": "2026-08-18T14:08:00.000Z",
-    "circulatingSupply": 358415402,
-    "totalSupply": 1031943515,
+    "circulatingSupply": 358464817,
+    "totalSupply": 1031992365,
     "maxSupply": null,
-    "fdv": 197401701
+    "fdv": 199046996
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:34:33.722Z",
-  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
+  "fetchedAt": "2026-09-07T20:48:12.697Z",
+  "lastMarketUpdate": "2026-09-07T20:45:40.000Z"
 }

@@ -7,7 +7,7 @@
   "categories": [
     "Tokenized Assets",
     "Solana Ecosystem",
-    "Tokenized Stock",
+    "Tokenized Stocks",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
     "BackedFi xStocks Ecosystem"
@@ -20,35 +20,35 @@
     "explorer": "https://etherscan.io/token/0x1aad217b8f78dba5e6693460e8470f8b1a3977f3"
   },
   "market": {
-    "price": 103.4,
-    "marketCap": 150586330,
-    "marketCapRank": 207,
-    "volume24h": 69287,
-    "high24h": 106.54,
-    "low24h": 98.62,
-    "priceChange24h": -2.64092,
-    "priceChange7d": -2.8,
-    "priceChange30d": 1.6,
+    "price": 105.97,
+    "marketCap": 154374829,
+    "marketCapRank": 205,
+    "volume24h": 104333,
+    "high24h": 106.35,
+    "low24h": 99.34,
+    "priceChange24h": 3.75166,
+    "priceChange7d": 1.52041,
+    "priceChange30d": 8.7218,
     "priceChange1y": 0,
     "ath": 139.97,
-    "athChangePercentage": -26.12417,
+    "athChangePercentage": -24.29211,
     "athDate": "2026-06-02T22:11:00.000Z",
     "atl": 73,
     "atlDate": "2026-06-26T03:33:00.000Z",
-    "circulatingSupply": 1456833.4384832236,
-    "totalSupply": 2817125.412573648,
+    "circulatingSupply": 1456833.4384832107,
+    "totalSupply": 2817125.412573638,
     "maxSupply": null,
-    "fdv": 291193602
+    "fdv": 298519544
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:34:59.031Z",
-  "lastMarketUpdate": "2026-09-06T19:31:20.000Z"
+  "fetchedAt": "2026-09-07T20:48:25.284Z",
+  "lastMarketUpdate": "2026-09-07T20:46:50.000Z"
 }
