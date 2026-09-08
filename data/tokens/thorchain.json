@@ -2,7 +2,7 @@
   "id": "thorchain",
   "symbol": "rune",
   "name": "THORChain",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_Circle_Gradient__with_Lightning_Bolt_-_Square_Transparent_Background_200px.png?1768635632",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_RUNE_Token.png?1782452363",
   "description": "THORChain is the first decentralized exchange (DEX) to swap Bitcoin, and other UTXO chains, with Ethereum, and other EVM chains.  All without using wrapped tokens.\n\nTHORChain currently supports swapping between 10 different blockchains.  Assets available to swap on THORChain include the following:\n\nBitcoin (BTC)\nEthereum (ETH)\nTether (USDT)\nBNB (BNB)\nXRPL (XRP)\nUSDC (USDC)\nTron (TRX)\nDogecoin (DOGE)\nBitcoin Cash (BCH)\nWrapped Bitcoin (WBTC)\nChainlink (LINK)\nLitecoin (LTC)\nDai (DAI)\nAvalanche (AVAX)\nAave (AAVE)\nCosmos (ATOM)",
   "categories": [
     "Decentralized Exchange (DEX)",
@@ -24,35 +24,35 @@
     "explorer": "https://runescan.io/"
   },
   "market": {
-    "price": 0.489875,
-    "marketCap": 161012316,
-    "marketCapRank": 200,
-    "volume24h": 27538559,
-    "high24h": 0.493836,
-    "low24h": 0.472336,
-    "priceChange24h": 0.58133,
-    "priceChange7d": 1.5,
-    "priceChange30d": 9.6,
-    "priceChange1y": -59.4,
+    "price": 0.488577,
+    "marketCap": 160579706,
+    "marketCapRank": 204,
+    "volume24h": 85832986,
+    "high24h": 0.490885,
+    "low24h": 0.476692,
+    "priceChange24h": 0.54246,
+    "priceChange7d": 3.92985,
+    "priceChange30d": 12.09728,
+    "priceChange1y": -60.85162,
     "ath": 20.87,
-    "athChangePercentage": -97.65246,
+    "athChangePercentage": -97.65868,
     "athDate": "2021-05-18T16:30:09.000Z",
     "atl": 0.00851264,
     "atlDate": "2019-09-27T16:00:00.000Z",
-    "circulatingSupply": 328680767,
-    "totalSupply": 353990745,
-    "maxSupply": 353991694,
-    "fdv": 173411497
+    "circulatingSupply": 328672887,
+    "totalSupply": 353984008,
+    "maxSupply": 353984008,
+    "fdv": 172945957
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:38:33.968Z",
-  "lastMarketUpdate": "2026-09-07T20:45:30.000Z"
+  "fetchedAt": "2026-09-08T20:20:44.181Z",
+  "lastMarketUpdate": "2026-09-08T20:18:40.000Z"
 }
