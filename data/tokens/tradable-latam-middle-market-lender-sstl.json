@@ -5,9 +5,11 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/66877/large/tradable.jpg?1750921571",
   "description": "This project, facilitated by Tradable.xyz on ZKsync Era, tokenizes mexican private credit provider is seeking a credit facility to back lever existing portfolio and finance future investments. The notes are issued by Victory Park Capital Advisors under the \"LatAm Middle-Market Lender Senior Secured Term Loan\" deal, giving on-chain exposure to the underlying cash flows. Tradable integrates traditional and decentralized finance, employing smart contracts for AML/KYC compliance to ensure regulatory standards. The platform enhances liquidity and investor access to the multi‑trillion‑dollar private credit market, streamlining asset management and due diligence via a user‑friendly interface. By leveraging ZKsync Era's scalable and secure infrastructure, the project connects existing financial systems to blockchain rails while preserving data privacy and reducing settlement costs.",
   "categories": [
+    "Tokenized Assets",
     "ZkSync Ecosystem",
     "Real World Assets (RWA)",
-    "Tradable Ecosystem"
+    "Tradable Ecosystem",
+    "Tokenized Credit"
   ],
   "genesisDate": null,
   "links": {
@@ -19,7 +21,7 @@
   "market": {
     "price": 1,
     "marketCap": 100124199,
-    "marketCapRank": 276,
+    "marketCapRank": 278,
     "volume24h": 0,
     "high24h": 1,
     "low24h": 1,
@@ -39,13 +41,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:39:18.274Z",
-  "lastMarketUpdate": "2026-09-07T20:45:30.000Z"
+  "fetchedAt": "2026-09-08T20:21:22.031Z",
+  "lastMarketUpdate": "2026-09-08T20:19:40.000Z"
 }

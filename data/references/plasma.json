@@ -3,18 +3,25 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Bitcoin network used by exchanges hit by $320 million exploit. Hackers claim they're the 'good guys'",
-      "link": "https://www.coindesk.com/markets/2026/09/07/bitcoin-network-used-by-exchanges-hit-by-usd320-million-exploit-hackers-claim-they-re-the-good-guys",
-      "pubDate": "Mon, 07 Sep 2026 03:43:12 +0000",
+      "title": "Metaplanet CEO breaks silence but shareholders say the hard questions remain unanswered",
+      "link": "https://www.coindesk.com/markets/2026/09/08/metaplanet-ceo-breaks-silence-but-shareholders-say-the-hard-questions-remain-unanswered",
+      "pubDate": "Mon, 07 Sep 2026 23:01:00 +0000",
       "source": "CoinDesk",
-      "snippet": "Liquid Network, a settlement layer used by exchanges, halted all transactions after losing $320 million worth of bitcoin in a security exploit."
+      "snippet": "Simon Gerovich said Metaplanet had not adequately explained the structure, and denied involvement in MMXX Ventures’ trading decisions."
     },
     {
-      "title": "Harmony proposes shutting down layer 1, migrating ONE to Ethereum",
-      "link": "https://cointelegraph.com/news/harmony-proposes-shutting-down-layer-1-migrating-one-to-ethereum?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 07 Sep 2026 05:00:49 +0000",
+      "title": "Cronos confirms $9.2M slipped away before Tectonic exploit rollback",
+      "link": "https://cointelegraph.com/news/cronos-tectonic-rollback-111m-9m-escaped?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 08 Sep 2026 08:10:44 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Harmony proposed sunsetting its layer-1 blockchain and migrating ONE to Ethereum, weeks after an exploit led to plans to discard 109,000 transactions."
+      "snippet": "Cronos’s post-mortem put the Tectonic exploit’s affected borrowing at $120.4 million, with 7.6% transferred off-network before validators intervened."
+    },
+    {
+      "title": "Cronos Erased Two Hours of Transactions to Reverse $111 Million DeFi Exploit",
+      "link": "https://decrypt.co/377686/cronos-erased-two-hours-transactions-defi-exploit",
+      "pubDate": "Tue, 08 Sep 2026 17:10:51 +0000",
+      "source": "Decrypt",
+      "snippet": "The rollback reversed legitimate activity alongside the attack, while $9.19 million remains unrecovered, according to Cronos."
     },
     {
       "title": "Stablecoins Won&#39;t Scale Without Banks",
@@ -24,5 +31,5 @@
       "snippet": "With a growing number of institutions exploring stablecoins, the bottleneck is regulated infrastructure they can trust."
     }
   ],
-  "fetchedAt": "2026-09-07T20:59:31.359Z"
+  "fetchedAt": "2026-09-08T20:31:25.550Z"
 }

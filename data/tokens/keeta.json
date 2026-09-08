@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/54723/large/2025-03-05_22.53.06.jpg?1741234207",
   "description": "Keeta is a high-performance layer-1 blockchain designed to unify transactions across different blockchains and fiat payment systems, eliminating the need for costly intermediaries, reducing fees, and enabling near-instant settlements. With 400-millisecond transaction finality and the ability to process 10 million transactions per second, Keeta sets a new industry benchmark for speed and scalability.\n\nFounded in 2022 and backed by Eric Schmidt, the former CEO of Google, Keeta has been engineered to meet the stringent regulatory and operational requirements of financial institutions. Its advanced on-chain compliance protocols, including KYC and AML, ensure security and regulatory adherence. Keeta’s architecture natively supports asset tokenization and digital identity, making it an ideal platform for stablecoins and real-world asset transfers.\n\nBy facilitating cross-chain transactions and interoperability with existing payment systems, Keeta bridges the gap between cryptocurrencies and fiat, enabling a secure, efficient, and compliant global financial ecosystem.",
   "categories": [
+    "Smart Contract Platform",
     "Layer 1 (L1)",
     "Real World Assets (RWA)",
     "Payment Solutions",
@@ -20,35 +21,35 @@
     "explorer": "https://basescan.org/address/0xc0634090F2Fe6c6d75e61Be2b949464aBB498973"
   },
   "market": {
-    "price": 0.091032,
-    "marketCap": 53974811,
-    "marketCapRank": 419,
-    "volume24h": 1839834,
-    "high24h": 0.080323,
-    "low24h": 0.066804,
-    "priceChange24h": 28.89606,
-    "priceChange7d": 16.1,
-    "priceChange30d": -13.1,
-    "priceChange1y": -90.2,
+    "price": 0.077887,
+    "marketCap": 46666677,
+    "marketCapRank": 489,
+    "volume24h": 1268555,
+    "high24h": 0.078327,
+    "low24h": 0.073945,
+    "priceChange24h": 4.15779,
+    "priceChange7d": 5.8124,
+    "priceChange30d": -19.36783,
+    "priceChange1y": -92.4847,
     "ath": 1.68,
-    "athChangePercentage": -94.58703,
+    "athChangePercentage": -95.36863,
     "athDate": "2025-06-09T00:25:28.000Z",
     "atl": 0.0068199,
     "atlDate": "2025-03-08T07:56:27.000Z",
-    "circulatingSupply": 595520276.9648439,
+    "circulatingSupply": 599080827.9911076,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 90634715
+    "fdv": 77897129
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:14:32.636Z",
-  "lastMarketUpdate": "2026-08-31T22:01:20.000Z"
+  "fetchedAt": "2026-09-08T20:19:41.243Z",
+  "lastMarketUpdate": "2026-09-08T20:17:50.000Z"
 }
