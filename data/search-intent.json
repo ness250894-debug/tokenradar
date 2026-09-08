@@ -3,18 +3,18 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-09-07T20:59:32.190Z",
-    "tokenCount": 535,
+    "tokenCount": 528,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 183,
+        "tokenCount": 182,
         "avgScore": 76
       },
       {
         "intent": "stablecoin",
         "label": "Stablecoin safety",
-        "tokenCount": 76,
+        "tokenCount": 75,
         "avgScore": 83
       },
       {
@@ -32,18 +32,17 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 52,
-        "avgScore": 76
+        "tokenCount": 50,
+        "avgScore": 77
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 51,
-        "avgScore": 92
+        "tokenCount": 48,
+        "avgScore": 91
       }
     ],
     "hotTokens": [
-      "zero-gravity",
       "akedo",
       "injective-protocol",
       "peaq-2",
@@ -52,10 +51,10 @@
       "unifai-network",
       "venice-token",
       "ai-xovia",
-      "internet-computer"
+      "internet-computer",
+      "acurast"
     ],
     "watchTokens": [
-      "zero-gravity",
       "akedo",
       "injective-protocol",
       "peaq-2",
@@ -74,7 +73,8 @@
       "pendle",
       "artificial-inu-3",
       "cash-cat",
-      "lobster-2"
+      "lobster-2",
+      "hakimi"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -4582,82 +4582,6 @@
         "Brett scam check",
         "Brett meme coin",
         "Brett price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
-    "basedhype": {
-      "tokenId": "basedhype",
-      "tokenName": "BasedHype",
-      "symbol": "basedhype",
-      "attentionScore": 56,
-      "attentionLabel": "Rising",
-      "hypeScore": 65,
-      "fundamentalsScore": 36,
-      "supplyRiskScore": 18,
-      "classification": "FOMO Spike",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 100,
-          "queries": [
-            "BasedHype risks",
-            "is BasedHype safe",
-            "BasedHype scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 69,
-          "queries": [
-            "BasedHype meme coin",
-            "BasedHype price prediction",
-            "is BasedHype worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 46,
-          "queries": [
-            "BasedHype price prediction 2026",
-            "BasedHype price prediction today",
-            "BASEDHYPE price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "BasedHype token unlock",
-            "BasedHype circulating supply",
-            "BasedHype tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "BasedHype risks",
-        "is BasedHype safe",
-        "BasedHype scam check",
-        "BasedHype meme coin",
-        "BasedHype price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -13973,81 +13897,6 @@
       ],
       "computedAt": "2026-09-07T20:59:32.190Z"
     },
-    "fidelity-digital-interest-token": {
-      "tokenId": "fidelity-digital-interest-token",
-      "tokenName": "Fidelity Digital Interest Token",
-      "symbol": "fdit",
-      "attentionScore": 34,
-      "attentionLabel": "Quiet",
-      "hypeScore": 22,
-      "fundamentalsScore": 55,
-      "supplyRiskScore": 18,
-      "classification": "Quiet Watch",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 74,
-          "queries": [
-            "Fidelity Digital Interest Token RWA crypto",
-            "Fidelity Digital Interest Token tokenized asset",
-            "Fidelity Digital Interest Token issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Fidelity Digital Interest Token risks",
-            "is Fidelity Digital Interest Token safe",
-            "Fidelity Digital Interest Token scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 35,
-          "queries": [
-            "Fidelity Digital Interest Token price prediction 2026",
-            "Fidelity Digital Interest Token price prediction today",
-            "FDIT price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Fidelity Digital Interest Token token unlock",
-            "Fidelity Digital Interest Token circulating supply",
-            "Fidelity Digital Interest Token tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Fidelity Digital Interest Token RWA crypto",
-        "Fidelity Digital Interest Token tokenized asset",
-        "Fidelity Digital Interest Token issuer risk",
-        "Fidelity Digital Interest Token risks",
-        "is Fidelity Digital Interest Token safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
     "fidelity-usd-digital-liquidity-fund-acc": {
       "tokenId": "fidelity-usd-digital-liquidity-fund-acc",
       "tokenName": "Fidelity USD Digital Liquidity Fund-Acc",
@@ -19212,84 +19061,6 @@
         "KAVA price target",
         "how to buy Kava",
         "where to buy Kava"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
-    "keeta": {
-      "tokenId": "keeta",
-      "tokenName": "Keeta",
-      "symbol": "kta",
-      "attentionScore": 87,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 44,
-      "supplyRiskScore": 49,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Keeta price prediction 2026",
-            "Keeta price prediction today",
-            "KTA price target"
-          ]
-        },
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 84,
-          "queries": [
-            "Keeta stablecoin risk",
-            "Keeta reserves",
-            "KTA depeg risk"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 81,
-          "queries": [
-            "how to buy Keeta",
-            "where to buy Keeta",
-            "KTA crypto exchange"
-          ]
-        },
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 80,
-          "queries": [
-            "Keeta RWA crypto",
-            "Keeta tokenized asset",
-            "Keeta issuer risk"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality.",
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "Keeta price prediction 2026",
-        "Keeta price prediction today",
-        "KTA price target",
-        "Keeta stablecoin risk",
-        "Keeta reserves"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -29728,83 +29499,6 @@
       ],
       "computedAt": "2026-09-07T20:59:32.190Z"
     },
-    "sandisk-bstocks-tokenized-stock": {
-      "tokenId": "sandisk-bstocks-tokenized-stock",
-      "tokenName": "SanDisk (bStocks Tokenized Stock)",
-      "symbol": "sndkb",
-      "attentionScore": 79,
-      "attentionLabel": "Hot",
-      "hypeScore": 57,
-      "fundamentalsScore": 83,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 74,
-          "queries": [
-            "SanDisk (bStocks Tokenized Stock) RWA crypto",
-            "SanDisk (bStocks Tokenized Stock) tokenized asset",
-            "SanDisk (bStocks Tokenized Stock) issuer risk"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 63,
-          "queries": [
-            "how to buy SanDisk (bStocks Tokenized Stock)",
-            "where to buy SanDisk (bStocks Tokenized Stock)",
-            "SNDKB crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 61,
-          "queries": [
-            "SanDisk (bStocks Tokenized Stock) price prediction 2026",
-            "SanDisk (bStocks Tokenized Stock) price prediction today",
-            "SNDKB price target"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 58,
-          "queries": [
-            "SanDisk (bStocks Tokenized Stock) risks",
-            "is SanDisk (bStocks Tokenized Stock) safe",
-            "SanDisk (bStocks Tokenized Stock) scam check"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 29.3% keeps medium-term forecasts relevant.",
-        "24h volume equals 134.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "SanDisk (bStocks Tokenized Stock) RWA crypto",
-        "SanDisk (bStocks Tokenized Stock) tokenized asset",
-        "SanDisk (bStocks Tokenized Stock) issuer risk",
-        "how to buy SanDisk (bStocks Tokenized Stock)",
-        "where to buy SanDisk (bStocks Tokenized Stock)"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
     "saturn-dollar": {
       "tokenId": "saturn-dollar",
       "tokenName": "Saturn Dollar",
@@ -32167,82 +31861,6 @@
       ],
       "computedAt": "2026-09-07T20:59:32.190Z"
     },
-    "stonkbroker": {
-      "tokenId": "stonkbroker",
-      "tokenName": "StonkBroker",
-      "symbol": "stonkbroker",
-      "attentionScore": 96,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 57,
-      "supplyRiskScore": 52,
-      "classification": "Organic Interest",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "StonkBroker price prediction 2026",
-            "StonkBroker price prediction today",
-            "STONKBROKER price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy StonkBroker",
-            "where to buy StonkBroker",
-            "STONKBROKER crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 96,
-          "queries": [
-            "StonkBroker news today",
-            "why is StonkBroker moving",
-            "STONKBROKER crypto news"
-          ]
-        },
-        {
-          "intent": "airdrop",
-          "label": "Airdrop / launch",
-          "score": 82,
-          "queries": [
-            "StonkBroker airdrop",
-            "StonkBroker TGE",
-            "StonkBroker listing date"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 133.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 36.0% of market cap, so liquidity is visible."
-      ],
-      "cautions": [
-        "No major free-data caution dominated the search-intent score."
-      ],
-      "queryExamples": [
-        "StonkBroker price prediction 2026",
-        "StonkBroker price prediction today",
-        "STONKBROKER price target",
-        "how to buy StonkBroker",
-        "where to buy StonkBroker"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
     "story-2": {
       "tokenId": "story-2",
       "tokenName": "Data Network",
@@ -32387,81 +32005,6 @@
         "AWE Network scam check",
         "AWE Network AI crypto",
         "AWE Network AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
-    "straitsx-xusd": {
-      "tokenId": "straitsx-xusd",
-      "tokenName": "StraitsX XUSD",
-      "symbol": "xusd",
-      "attentionScore": 42,
-      "attentionLabel": "Watch",
-      "hypeScore": 20,
-      "fundamentalsScore": 80,
-      "supplyRiskScore": 0,
-      "classification": "Stablecoin Safety Check",
-      "primaryIntent": "stablecoin",
-      "intentMix": [
-        {
-          "intent": "stablecoin",
-          "label": "Stablecoin safety",
-          "score": 72,
-          "queries": [
-            "StraitsX XUSD stablecoin risk",
-            "StraitsX XUSD reserves",
-            "XUSD depeg risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 44,
-          "queries": [
-            "StraitsX XUSD risks",
-            "is StraitsX XUSD safe",
-            "StraitsX XUSD scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 42,
-          "queries": [
-            "how to buy StraitsX XUSD",
-            "where to buy StraitsX XUSD",
-            "XUSD crypto exchange"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 40,
-          "queries": [
-            "StraitsX XUSD price prediction 2026",
-            "StraitsX XUSD price prediction today",
-            "XUSD price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 10.3% of market cap, so liquidity is visible.",
-        "Stablecoin searches tend to focus on peg, reserves, and yield safety."
-      ],
-      "cautions": [
-        "Stablecoin and tokenized cash pages should focus on issuer, reserve, and depeg risk."
-      ],
-      "queryExamples": [
-        "StraitsX XUSD stablecoin risk",
-        "StraitsX XUSD reserves",
-        "XUSD depeg risk",
-        "StraitsX XUSD risks",
-        "is StraitsX XUSD safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -40446,84 +39989,6 @@
         "ZEN price target",
         "how to buy Horizen",
         "where to buy Horizen"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-09-07T20:59:32.190Z"
-    },
-    "zero-gravity": {
-      "tokenId": "zero-gravity",
-      "tokenName": "0G",
-      "symbol": "0g",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 58,
-      "supplyRiskScore": 94,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "0G price prediction 2026",
-            "0G price prediction today",
-            "0G price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 100,
-          "queries": [
-            "how to buy 0G",
-            "where to buy 0G",
-            "0G crypto exchange"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 100,
-          "queries": [
-            "0G AI crypto",
-            "0G AI agent",
-            "0G AI token"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 92,
-          "queries": [
-            "0G token unlock",
-            "0G circulating supply",
-            "0G tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 51.9% keeps medium-term forecasts relevant.",
-        "24h volume equals 413.9% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "0G price prediction 2026",
-        "0G price prediction today",
-        "0G price target",
-        "how to buy 0G",
-        "where to buy 0G"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
