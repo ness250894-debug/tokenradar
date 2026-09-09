@@ -1,0 +1,53 @@
+{
+  "id": "strategy-tokenized-bstocks",
+  "symbol": "mstrb",
+  "name": "Strategy (bStocks Tokenized Stock)",
+  "market": {
+    "price": 133,
+    "marketCap": 48580134,
+    "marketCapRank": 475,
+    "volume24h": 5369562,
+    "high24h": 141.56,
+    "low24h": 133.06,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 141.56,
+    "athChangePercentage": -6.0438,
+    "athDate": "2026-09-09T08:58:40.000Z",
+    "atl": 132.78,
+    "atlDate": "2026-09-09T19:59:30.000Z",
+    "circulatingSupply": 365333.003289,
+    "totalSupply": 365333.003289,
+    "maxSupply": null,
+    "fdv": 48580134
+  },
+  "lastMarketUpdate": "2026-09-09T20:00:30.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176875/large/mstrb.png?1788940298",
+  "description": "",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Tokenized Stocks",
+    "Real World Assets (RWA)",
+    "bStocks Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.bstocks.finance/en/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xE87afb3076AeB0f9B14E368DE8145ae6a2826A14"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-09T20:02:47.523Z"
+}

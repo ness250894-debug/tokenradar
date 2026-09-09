@@ -8,9 +8,11 @@
     "Stablecoins",
     "Tokenized Assets",
     "USD Stablecoin",
+    "Celo Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Fiat-backed Stablecoin"
+    "Fiat-backed Stablecoin",
+    "GENIUS Act Compliant Stablecoin"
   ],
   "genesisDate": null,
   "links": {
@@ -20,35 +22,35 @@
     "explorer": "https://etherscan.io/address/0x07041776f5007ACa2A54844F50503a18A72A8b68"
   },
   "market": {
-    "price": 0.999292,
-    "marketCap": 184187899,
-    "marketCapRank": 186,
-    "volume24h": 377695,
-    "high24h": 0.999581,
-    "low24h": 0.998628,
-    "priceChange24h": 0.00499,
-    "priceChange7d": 0,
-    "priceChange30d": 0.1,
+    "price": 0.999397,
+    "marketCap": 184206767,
+    "marketCapRank": 187,
+    "volume24h": 343537,
+    "high24h": 0.999656,
+    "low24h": 0.998921,
+    "priceChange24h": 0.00491,
+    "priceChange7d": 0.01186,
+    "priceChange30d": 0.12334,
     "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.3122,
+    "athChangePercentage": -0.30168,
     "athDate": "2026-03-30T13:45:00.000Z",
     "atl": 0.99608,
     "atlDate": "2026-03-08T05:50:20.000Z",
     "circulatingSupply": 184317598.5,
     "totalSupply": 184317598.5,
     "maxSupply": null,
-    "fdv": 184187899
+    "fdv": 184206767
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:41:56.343Z",
-  "lastMarketUpdate": "2026-09-08T20:17:20.000Z"
+  "fetchedAt": "2026-09-09T20:04:09.464Z",
+  "lastMarketUpdate": "2026-09-09T20:01:40.000Z"
 }
