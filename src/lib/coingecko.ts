@@ -284,6 +284,19 @@ export interface CommunityStats {
   telegram_channel_user_count?: number | null;
 }
 
+/** Developer stats structure for coins */
+export interface DeveloperStats {
+  stars?: number | null;
+  forks?: number | null;
+  commit_count_4_weeks?: number | null;
+}
+
+/** Raw coin metadata augmenting SDK types for deprecated or omitted fields */
+export interface RawCoinDetailMetadata {
+  community_data?: CommunityStats | null;
+  developer_data?: DeveloperStats | null;
+}
+
 /** Simplified DEX data structure from GeckoTerminal */
 export interface DEXPoolData {
   id: string;
@@ -391,6 +404,20 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
   );
 
   // 4. Transform into clean format
+  return transformCoinDetail(detail, tokenId, chart30d, chart1y);
+}
+
+/**
+ * Transforms a CoinGecko coin detail response into TokenRadar's TokenDetailData format.
+ */
+export function transformCoinDetail(
+  detail: CoinGetIDResponse,
+  tokenId: string,
+  chart30d?: MarketChartGetResponse,
+  chart1y?: MarketChartGetResponse
+): TokenDetailData {
+  const rawMetadata = detail as unknown as RawCoinDetailMetadata;
+
   return {
     id: detail.id || tokenId,
     symbol: detail.symbol || "",
@@ -427,13 +454,13 @@ export async function fetchFullTokenData(tokenId: string): Promise<TokenDetailDa
       fdv: detail.market_data?.fully_diluted_valuation?.usd ?? null,
     },
     community: {
-      twitterFollowers: (detail.community_data as unknown as CommunityStats)?.twitter_followers ?? null,
-      redditSubscribers: detail.community_data?.reddit_subscribers ?? null,
+      twitterFollowers: rawMetadata.community_data?.twitter_followers ?? null,
+      redditSubscribers: rawMetadata.community_data?.reddit_subscribers ?? null,
     },
     developer: {
-      githubStars: detail.developer_data?.stars ?? null,
-      githubForks: detail.developer_data?.forks ?? null,
-      commits4Weeks: detail.developer_data?.commit_count_4_weeks ?? null,
+      githubStars: rawMetadata.developer_data?.stars ?? null,
+      githubForks: rawMetadata.developer_data?.forks ?? null,
+      commits4Weeks: rawMetadata.developer_data?.commit_count_4_weeks ?? null,
     },
     chart30d,
     chart1y,
