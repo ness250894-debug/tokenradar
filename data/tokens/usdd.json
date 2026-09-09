@@ -11,7 +11,7 @@
     "Ethereum Ecosystem",
     "Tron Ecosystem",
     "Algorithmic Stablecoin",
-    "Fiat-backed Stablecoin",
+    "Crypto-backed Stablecoin",
     "Made in China"
   ],
   "genesisDate": null,
@@ -22,35 +22,35 @@
     "explorer": "https://tronscan.org/#/token20/TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz"
   },
   "market": {
-    "price": 0.999387,
-    "marketCap": 1461150606,
-    "marketCapRank": 60,
-    "volume24h": 4943995,
-    "high24h": 0.999854,
-    "low24h": 0.998747,
-    "priceChange24h": 0.00776,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "price": 0.999088,
+    "marketCap": 1513848402,
+    "marketCapRank": 57,
+    "volume24h": 4998227,
+    "high24h": 0.999947,
+    "low24h": 0.998008,
+    "priceChange24h": -0.02708,
+    "priceChange7d": -0.02839,
+    "priceChange30d": 0.00061,
+    "priceChange1y": -0.09324,
     "ath": 1.24,
-    "athChangePercentage": -19.54756,
+    "athChangePercentage": -19.57163,
     "athDate": "2026-07-09T09:35:10.000Z",
     "atl": 0.928067,
     "atlDate": "2022-06-19T08:15:11.000Z",
-    "circulatingSupply": 1461926159,
-    "totalSupply": 1491972111,
+    "circulatingSupply": 1515255349,
+    "totalSupply": 1515455504,
     "maxSupply": null,
-    "fdv": 1496085613
+    "fdv": 1513883145
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:42:34.347Z",
-  "lastMarketUpdate": "2026-09-08T20:17:20.000Z"
+  "fetchedAt": "2026-09-09T20:04:47.236Z",
+  "lastMarketUpdate": "2026-09-09T20:02:40.000Z"
 }
