@@ -54,9 +54,9 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1110.0",
-    "@coingecko/coingecko-typescript": "^6.0.0",
-    "@next/third-parties": "^16.3.3",
-    "@remotion/cli": "4.0.516",
+    "@coingecko/coingecko-typescript": "^8.0.0",
+    "@next/third-parties": "^16.3.4",
+    "@remotion/cli": "4.0.520",
     "@sentry/nextjs": "^10.73.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
@@ -65,20 +65,20 @@
     "dotenv": "^17.4.2",
     "framer-motion": "^13.0.0",
     "googleapis": "^176.0.0",
-    "grammy": "^1.45.1",
+    "grammy": "^1.46.0",
     "kokoro-js": "^1.2.1",
     "lucide-react": "^1.38.0",
     "marked": "^18.0.5",
-    "next": "^16.3.3",
+    "next": "^16.3.4",
     "next-nprogress-bar": "^2.4.7",
     "postcss": "^8.5.26",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-markdown": "^10.1.0",
     "recharts": "^3.10.1",
-    "remotion": "4.0.516",
+    "remotion": "4.0.520",
     "rss-parser": "^3.13.0",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.1",
     "zod": "4.4.3"
   },
@@ -88,7 +88,7 @@
         "whatwg-url": "^16.0.1"
       }
     },
-    "postcss": "$postcss",
+    "postcss": "^8.5.26",
     "ws": "^8.20.2",
     "esbuild": "0.28.1",
     "protobufjs": "^7.6.5",
@@ -103,23 +103,23 @@
     "glob": {
       "brace-expansion": "^5.0.9"
     },
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "@babel/core": "^7.29.6",
-    "js-yaml": "^4.3.1"
+    "js-yaml": "^4.3.2"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^26.4.0",
+    "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.3",
+    "eslint-config-next": "^16.3.4",
     "satori": "^0.26.0",
     "tsx": "^4.23.13",
     "typescript": "^6",
     "vite": "8.2.2",
-    "vitest": "^4.1.11",
+    "vitest": "^5.0.0",
     "wrangler": "^4.94.0"
   }
 }
