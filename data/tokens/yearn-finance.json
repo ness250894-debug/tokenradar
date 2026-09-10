@@ -5,28 +5,28 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/11849/large/yearn.jpg?1696511720",
   "description": "Yearn Finance is a suite of products in Decentralized Finance (DeFi) that provides lending aggregation, yield generation, and insurance on the Ethereum blockchain. The protocol is maintained by various independent developers and is governed by YFI holders.\n\nIt started out as a passion project by Andre Cronje to automate the process of switching capital between lending platforms in search of the best yield offered, as the lending yield is a floating rate rather than fixed rate. Funds are shifted between dYdX, AAVE, and Compound automatically as interest rates change between these protocols.&nbsp;\n\nThe service offered includes major USD tokens such as DAI, USDT, USDC, and TUSD. For example, if a user deposits DAI into yearn.finance, the user will receive yDAI token in return, which is a yield-bearing DAI token.&nbsp;\n\nLater on, it collaborated with Curve Finance to release a yield-bearing USD tokens pool that includes four y-tokens: yDAI, yUSDT, yUSDC and yTUSD, it is named as yUSD.&nbsp;\n\nYearn Finance debuted the vault feature after its token launch, igniting a frenzy on automated yield farming and is considered the initiator of the category of yield farming aggregator. Basically, the vault will help users to claim yield farming rewards and sell it for the underlying assets.&nbsp;\n\nVaults benefit users by socializing gas costs, automating the yield generation and rebalancing process, and automatically shifting capital as opportunities arise. End users also do not need to have proficient knowledge of the underlying protocols involved or DeFi, thus the Vaults represent a passive-investing strategy. It is akin to a crypto hedge fund where the aim is to increase the amount of assets that users deposited.\n\n\n\n",
   "categories": [
-    "Huobi ECO Chain Ecosystem",
-    "Avalanche Ecosystem",
-    "Base Native",
-    "Alameda Research Portfolio",
-    "Index Coop Defi Index",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
     "Yield Aggregator",
     "Yearn Ecosystem",
-    "Yield Farming",
+    "Avalanche Ecosystem",
     "Polygon Ecosystem",
-    "Optimism Ecosystem",
-    "Blockchain Capital Portfolio",
     "Near Protocol Ecosystem",
-    "Base Ecosystem",
     "Gnosis Chain Ecosystem",
-    "Decentralized Finance (DeFi)",
-    "Sora Ecosystem",
-    "Ethereum Ecosystem",
+    "Fantom Ecosystem",
     "Harmony Ecosystem",
     "Arbitrum Ecosystem",
-    "Fantom Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
+    "Index Coop Defi Index",
+    "Alameda Research Portfolio",
     "Energi Ecosystem",
-    "Governance"
+    "Sora Ecosystem",
+    "Huobi ECO Chain Ecosystem",
+    "Blockchain Capital Portfolio",
+    "Governance",
+    "Base Native"
   ],
   "genesisDate": null,
   "links": {
@@ -36,35 +36,35 @@
     "explorer": "https://etherscan.io/token/0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e"
   },
   "market": {
-    "price": 2245.71,
-    "marketCap": 81045701,
-    "marketCapRank": 320,
-    "volume24h": 12101702,
-    "high24h": 2294.46,
-    "low24h": 2240.15,
-    "priceChange24h": -0.25944,
-    "priceChange7d": 1.5,
-    "priceChange30d": 11,
-    "priceChange1y": -57.8,
+    "price": 2149.9,
+    "marketCap": 77582041,
+    "marketCapRank": 324,
+    "volume24h": 5172195,
+    "high24h": 2255.16,
+    "low24h": 2129.34,
+    "priceChange24h": -4.48131,
+    "priceChange7d": -6.60312,
+    "priceChange30d": 10.76886,
+    "priceChange1y": -60.05603,
     "ath": 90787,
-    "athChangePercentage": -97.5264,
+    "athChangePercentage": -97.63192,
     "athDate": "2021-05-11T16:29:37.000Z",
     "atl": 31.65,
     "atlDate": "2020-07-18T04:26:27.000Z",
     "circulatingSupply": 36075.94701468851,
     "totalSupply": 36666,
     "maxSupply": 36666,
-    "fdv": 82371272
+    "fdv": 78850961
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 52,
-    "githubForks": 100,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:46:34.842Z",
-  "lastMarketUpdate": "2026-09-09T19:59:20.000Z"
+  "fetchedAt": "2026-09-10T20:06:59.104Z",
+  "lastMarketUpdate": "2026-09-10T20:04:40.000Z"
 }

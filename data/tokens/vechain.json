@@ -3,7 +3,7 @@
   "symbol": "vet",
   "name": "VeChain",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/1167/large/VET.png?1742383283",
-  "description": "VeChain, founded in 2015, is a sustainability-focused blockchain driving mass adoption of Web3. Its energy-efficient VeChainThor chain delivers fast, low-cost transactions, making blockchain accessible to millions worldwide. With partnerships including UFC, BCG, and Walmart, and over 2 million active users on VeBetter-powered apps, VeChain is proving real-world impact at scale.\n\nIn 2024, the VeChain Renaissance upgrade was launched, introducing Ethereum compatibility, dPoS consensus, and dynamic gas fees. It cut VTHO inflation and introduced StarGate NFT staking, where users lock VET to mint transferable NFTs that earn VTHO, can be delegated to validators, and serve as governance instruments. The upgrade also added new eco node tiers, lowering entry barriers while keeping rewards across higher staking levels.\n\nBy combining adoption, upgraded tokenomics, and inclusive staking, VeChain is positioning itself as a leading blockchain where usage, growth, and rewards fuel long-term value creation.",
+  "description": "VeChain is a public Layer-1 blockchain designed for real-world applications. Founded in 2015, its VeChainThor network supports enterprise and consumer use cases involving supply chains, product provenance, sustainability, digital product passports, tokenized incentives and verifiable data.\n\nVeChainThor combines EVM-compatible smart contracts with a dual-token model, native fee delegation and multi-clause transactions. VET is the network’s native asset and staking collateral, while VTHO is used to pay transaction fees and execute smart contracts.\n\nVeChain’s ecosystem includes VeBetter, an app platform that rewards verified positive actions; StarGate, its NFT-based staking platform; VeWorld, its self-custody wallet; and VeWorld.ai, its AI-agent platform. In its April 2026 roadmap, VeChain reported that VeBetter had reached 5.3 million users, more than 50 live applications and over 50 million verified actions.\n\nVeChain has also worked with organizations including Walmart China, DNV, PwC, Boston Consulting Group and UFC across enterprise, sustainability and consumer initiatives.",
   "categories": [
     "Internet of Things (IOT)",
     "Smart Contract Platform",
@@ -19,35 +19,35 @@
     "explorer": "https://vechainstats.com/"
   },
   "market": {
-    "price": 0.00763032,
-    "marketCap": 656028903,
+    "price": 0.00786427,
+    "marketCap": 676275464,
     "marketCapRank": 94,
-    "volume24h": 18979122,
-    "high24h": 0.00815912,
-    "low24h": 0.00751146,
-    "priceChange24h": -3.90745,
-    "priceChange7d": 16,
-    "priceChange30d": 63.6,
-    "priceChange1y": -68.4,
+    "volume24h": 31394961,
+    "high24h": 0.00841606,
+    "low24h": 0.00740968,
+    "priceChange24h": 3.10023,
+    "priceChange7d": 15.63937,
+    "priceChange30d": 70.85226,
+    "priceChange1y": -67.54916,
     "ath": 0.280991,
-    "athChangePercentage": -97.2845,
+    "athChangePercentage": -97.20124,
     "athDate": "2021-04-18T17:08:21.000Z",
     "atl": 0.00191713,
     "atlDate": "2020-03-12T18:29:59.000Z",
     "circulatingSupply": 85985041177,
     "totalSupply": 85985041177,
     "maxSupply": 86712634466,
-    "fdv": 656028903
+    "fdv": 676275464
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 812,
-    "githubForks": 270,
-    "commits4Weeks": 1
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:44:02.839Z",
-  "lastMarketUpdate": "2026-09-09T19:59:20.000Z"
+  "fetchedAt": "2026-09-10T20:05:30.896Z",
+  "lastMarketUpdate": "2026-09-10T20:02:50.000Z"
 }

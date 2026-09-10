@@ -18,35 +18,35 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL"
   },
   "market": {
-    "price": 0.0280988,
-    "marketCap": 72136480,
-    "marketCapRank": 357,
-    "volume24h": 4087078,
-    "high24h": 0.02898888,
-    "low24h": 0.02696029,
-    "priceChange24h": 1.21221,
-    "priceChange7d": 11,
-    "priceChange30d": 12.7,
-    "priceChange1y": -93.3,
+    "price": 0.02556107,
+    "marketCap": 65536005,
+    "marketCapRank": 374,
+    "volume24h": 4193667,
+    "high24h": 0.02822586,
+    "low24h": 0.02534542,
+    "priceChange24h": -9.21861,
+    "priceChange7d": -1.56144,
+    "priceChange30d": 7.82102,
+    "priceChange1y": -94.19716,
     "ath": 0.759179,
-    "athChangePercentage": -96.29879,
+    "athChangePercentage": -96.63306,
     "athDate": "2025-05-14T00:10:39.000Z",
     "atl": 0.02004864,
     "atlDate": "2026-08-14T15:06:00.000Z",
     "circulatingSupply": 2563750000,
     "totalSupply": 5000000000,
     "maxSupply": 5000000000,
-    "fdv": 140685481
+    "fdv": 127812783
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 656,
-    "githubForks": 167,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:45:06.048Z",
-  "lastMarketUpdate": "2026-09-09T19:59:20.000Z"
+  "fetchedAt": "2026-09-10T20:06:08.689Z",
+  "lastMarketUpdate": "2026-09-10T20:03:40.000Z"
 }
