@@ -3,8 +3,9 @@
   "symbol": "vtho",
   "name": "VeThor",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/5230/large/VTHO_Circle_Crop__Reference_.png?1751980206",
-  "description": "VeChain is also a dual token system consisting of VeChain Token (VET) and VeThor Token (THOR). Network users are rewarded with the latter when they hold the former, which is also the case with NEO &amp; GAS. The VeChain Token can be used to deploy applications on the platform where as VeThor can be used to pay for applications and other transactions over the network. VeChain claims that this economic model is better suited for enterprises than the one in other blockchains, such as Ethereum and Bitcoin, where higher usage drives the cost of the utility token and subsequently the cost of deploying and operations in the protocol.\n\nIn an official blog post earlier this year, the foundation announced it’s “grand aspirations to make financial services sector one of the main focuses on our development plan”. They also announced their partnership with a property mortgage loan provider Fanghuwang.com, a subsidiary of Beijing Baisheng Technology Co., Ltd. They also reported partnerships with BMW, Groupe Renault, and DNV GL.\nUntil now, VeChain has existed in the form of an ERC-20 token on the Ethereum blockchain. In an announcement detailing the roadmap moving forward, the foundation stated that they would engage in negotiations with exchanges to perform the token swap to become an independent network. The roadmap also detailed plans to launch a mobile wallet and ledger integration.",
+  "description": "VeThor Token (VTHO) is the gas token of VeChainThor, a public Layer-1 blockchain designed for real-world enterprise and consumer applications.\n\nVeChainThor uses a dual-token economic model. VET is the network’s native asset and staking collateral, while VTHO is used to pay for transactions, smart-contract execution and other onchain operations. Separating these functions allows network-fee parameters to be managed independently from the market price of VET.\n\nFollowing the Hayabusa mainnet upgrade in December 2025, VTHO is no longer generated passively by simply holding VET. New VTHO is dynamically issued through block rewards to validators and delegators who actively stake VET and contribute to network security.\n\nVTHO does not have a fixed maximum supply. Its circulating supply changes through dynamic issuance and the burning of VTHO used as transaction base fees.",
   "categories": [
+    "Smart Contract Platform",
     "Layer 1 (L1)",
     "VeChain Ecosystem"
   ],
@@ -16,35 +17,35 @@
     "explorer": "https://vechainstats.com/token/vtho/"
   },
   "market": {
-    "price": 0.00044598,
-    "marketCap": 45001970,
-    "marketCapRank": 491,
-    "volume24h": 1709358,
-    "high24h": 0.0004659,
-    "low24h": 0.00043162,
-    "priceChange24h": -2.95708,
-    "priceChange7d": -6.787806465873166,
-    "priceChange30d": -23.642160868430967,
-    "priceChange1y": -79.231728540599,
+    "price": 0.00058902,
+    "marketCap": 60480679,
+    "marketCapRank": 399,
+    "volume24h": 68666091,
+    "high24h": 0.00075455,
+    "low24h": 0.00042672,
+    "priceChange24h": 35.42922,
+    "priceChange7d": 44.91822,
+    "priceChange30d": 80.1579,
+    "priceChange1y": -68.63906,
     "ath": 0.04671227,
-    "athChangePercentage": -99.03839,
-    "athDate": "2018-08-29T02:40:46.956Z",
+    "athChangePercentage": -98.73904,
+    "athDate": "2018-08-28T18:40:46.000Z",
     "atl": 0.00015238,
-    "atlDate": "2020-03-16T10:14:24.544Z",
-    "circulatingSupply": 100503365802,
-    "totalSupply": 100513227389,
+    "atlDate": "2020-03-16T02:14:24.000Z",
+    "circulatingSupply": 102896448693,
+    "totalSupply": 102907598526,
     "maxSupply": null,
-    "fdv": 45006386
+    "fdv": 60486538
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 812,
-    "githubForks": 270,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:44:34.432Z",
-  "lastMarketUpdate": "2026-06-04T20:11:11.587Z"
+  "fetchedAt": "2026-09-10T20:05:49.798Z",
+  "lastMarketUpdate": "2026-09-10T20:02:50.000Z"
 }

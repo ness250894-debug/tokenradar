@@ -1,0 +1,50 @@
+{
+  "id": "aria-chain",
+  "symbol": "ariax",
+  "name": "ARIA NETWORK",
+  "market": {
+    "price": 0.231613,
+    "marketCap": 46362892,
+    "marketCapRank": 476,
+    "volume24h": 1090062,
+    "high24h": 0.23302,
+    "low24h": 0.231404,
+    "priceChange24h": -0.44713,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.23357,
+    "athChangePercentage": -0.83787,
+    "athDate": "2026-09-09T08:38:50.000Z",
+    "atl": 0.231404,
+    "atlDate": "2026-09-10T16:35:40.000Z",
+    "circulatingSupply": 200000000,
+    "totalSupply": 200000000,
+    "maxSupply": 200000000,
+    "fdv": 46362892
+  },
+  "lastMarketUpdate": "2026-09-10T20:02:50.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176622/large/1000253256.png?1788349539",
+  "description": "ARIA Pay provides a single merchant integration (Credit Card | ARIA Pay at checkout) that routes through ARIA Connect to whichever exchange/wallet the customer already uses, settling via ARIA Chain/Ledger — removing the need for merchants to integrate exchange-by-exchange and for customers to learn crypto mechanics.\nA decentralized Proof-of-Stake network built on Substrate. Public, inspectable, and built to evolve without forks.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://ariachain.org/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://ariaexp.com/"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-10T20:04:28.587Z"
+}

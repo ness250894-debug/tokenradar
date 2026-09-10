@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/55616/large/Vaulta_CEX_Icon_Circle_-_cmc.png?1746859132",
   "description": "Vaulta is a Web3 banking network designed to power the next generation of decentralized financial services. Built on one of the most reliable Layer 1 infrastructures in the industry, Vaulta combines real-time performance with institutional-grade features to deliver secure, scalable, and composable applications—from consumer payments to Bitcoin-native yield and tokenized assets.\nWith one-second finality, advanced on-chain memory via RAM, and integrated Bitcoin infrastructure through exSat, Vaulta serves as a financial operating system for users, developers, and institutions looking to bridge traditional finance and Web3.\n",
   "categories": [
+    "Smart Contract Platform",
     "Layer 1 (L1)",
     "World Liberty Financial Portfolio"
   ],
@@ -16,35 +17,35 @@
     "explorer": "https://www.unicove.com"
   },
   "market": {
-    "price": 0.082399,
-    "marketCap": 137270935,
+    "price": 0.078635,
+    "marketCap": 131013323,
     "marketCapRank": 228,
-    "volume24h": 5759048,
-    "high24h": 0.085372,
-    "low24h": 0.080326,
-    "priceChange24h": 1.99762,
-    "priceChange7d": 6.5,
-    "priceChange30d": 28,
-    "priceChange1y": -82.1,
+    "volume24h": 4469450,
+    "high24h": 0.082444,
+    "low24h": 0.078152,
+    "priceChange24h": -4.53277,
+    "priceChange7d": -0.79644,
+    "priceChange30d": 24.67847,
+    "priceChange1y": -83.06379,
     "ath": 0.778734,
-    "athChangePercentage": -89.41882,
+    "athChangePercentage": -89.90225,
     "athDate": "2025-05-28T00:22:53.000Z",
     "atl": 0.057641,
     "atlDate": "2026-06-06T05:03:15.000Z",
-    "circulatingSupply": 1665916013.1624,
+    "circulatingSupply": 1666145173.2586,
     "totalSupply": 2100000000,
     "maxSupply": 2100000000,
-    "fdv": 173039314
+    "fdv": 165128454
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:43:56.504Z",
-  "lastMarketUpdate": "2026-09-09T19:59:20.000Z"
+  "fetchedAt": "2026-09-10T20:05:26.571Z",
+  "lastMarketUpdate": "2026-09-10T20:02:50.000Z"
 }
