@@ -24,7 +24,7 @@ import {
   reserveSocialDelivery,
 } from "../src/lib/ops-ledger";
 import { getSocialArchetypeByKey } from "../src/lib/social-archetypes";
-import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
+import { buildProtectedSocialEntitiesForToken, sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { buildSocialPostDetails, buildSocialTrackerPayload } from "../src/lib/social-post-tracker";
 import { buildSocialUtmUrl } from "../src/lib/social-utm";
 import {
@@ -124,8 +124,26 @@ async function main() {
       buildTelegramResearchFooter(telegramCta),
     ].join("\n\n");
 
+    const protectedEntities = [
+      ...recapSelection.leaders.flatMap((token) =>
+        buildProtectedSocialEntitiesForToken(token.name, token.symbol),
+      ),
+      ...(recapSelection.pullback
+        ? buildProtectedSocialEntitiesForToken(
+            recapSelection.pullback.name,
+            recapSelection.pullback.symbol,
+          )
+        : []),
+      ...(recapSelection.volumeLeader
+        ? buildProtectedSocialEntitiesForToken(
+            recapSelection.volumeLeader.name,
+            recapSelection.volumeLeader.symbol,
+          )
+        : []),
+    ];
+
     const caption = buildTelegramMediaCaption(
-      sanitizeSocialEditorialText(recap.captionBody),
+      sanitizeSocialEditorialText(recap.captionBody, { protectedEntities }),
       tgFooter,
       {
         maxLength: SOCIAL_PLATFORM_LIMITS.TELEGRAM.CAPTION_LIMIT,

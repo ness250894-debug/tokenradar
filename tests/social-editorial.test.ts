@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildEditorialOptionsForToken,
+  buildProtectedSocialEntitiesForToken,
   findUnsafeSocialPhrases,
   sanitizeSocialEditorialText,
   UnsafeSocialEditorialError,
@@ -94,5 +96,21 @@ describe("social editorial policy", () => {
 
     expect(sanitizeSocialEditorialText(text)).toBe(text);
     expect(findUnsafeSocialPhrases(text)).toEqual([]);
+  });
+
+  it("builds canonical protected entities and options for tokens like Pump.fun / PUMP", () => {
+    const entities = buildProtectedSocialEntitiesForToken("Pump.fun", "PUMP");
+    expect(entities).toEqual([
+      { value: "Pump.fun", caseSensitive: false },
+      { value: "$PUMP", caseSensitive: false },
+      { value: "PUMP", caseSensitive: true },
+    ]);
+
+    const options = buildEditorialOptionsForToken("Pump.fun", "PUMP");
+    expect(options.unsafeBehavior).toBe("throw");
+    expect(options.protectedEntities).toEqual(entities);
+
+    const hookText = "PUMP +15.5%: WHAT'S THE CATCH?";
+    expect(sanitizeSocialEditorialText(hookText, options)).toBe(hookText);
   });
 });

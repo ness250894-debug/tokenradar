@@ -5,7 +5,7 @@
  */
 
 import { callAIWithFallback, type AICallOptions, type MarketContext } from "./gemini";
-import { sanitizeSocialEditorialText } from "./social-editorial";
+import { buildEditorialOptionsForToken, sanitizeSocialEditorialText } from "./social-editorial";
 import { buildEvidenceLedVideoHook, buildEvidenceLedVoiceover } from "./video-evidence";
 
 export interface VideoHookFormatContext {
@@ -202,7 +202,10 @@ export async function generateHookText(
     marketDataSource: context.marketDataSource,
     marketDataAsOf: context.marketDataAsOf,
   });
-  return sanitizeSocialEditorialText(hook).toUpperCase();
+  return sanitizeSocialEditorialText(
+    hook,
+    buildEditorialOptionsForToken(tokenName, symbol),
+  ).toUpperCase();
 }
 
 function formatChange(change: number | undefined): string {

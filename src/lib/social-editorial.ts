@@ -13,6 +13,45 @@ export interface SocialEditorialOptions {
   unsafeBehavior?: "throw" | "preserve";
 }
 
+/**
+ * Builds the canonical list of protected entities for a token.
+ * Ticker symbols are case-sensitive so that words like "pump" in prose
+ * are not exempted, but the ticker itself (e.g. "PUMP" or "$PUMP") is protected.
+ */
+export function buildProtectedSocialEntitiesForToken(
+  tokenName: string,
+  symbol: string,
+): ProtectedSocialEntity[] {
+  const cleanName = tokenName.trim();
+  const cleanSymbol = symbol.trim();
+  return [
+    ...(cleanName
+      ? [{ value: cleanName, caseSensitive: !/[\s.-]/.test(cleanName) }]
+      : []),
+    ...(cleanSymbol
+      ? [
+          { value: `$${cleanSymbol.toUpperCase()}`, caseSensitive: false },
+          // Do not let a lowercase prose use of a ticker-word bypass policy.
+          { value: cleanSymbol.toUpperCase(), caseSensitive: true },
+        ]
+      : []),
+  ];
+}
+
+/**
+ * Builds standard social editorial options for a token.
+ */
+export function buildEditorialOptionsForToken(
+  tokenName: string,
+  symbol: string,
+  unsafeBehavior: SocialEditorialOptions["unsafeBehavior"] = "throw",
+): SocialEditorialOptions {
+  return {
+    unsafeBehavior,
+    protectedEntities: buildProtectedSocialEntitiesForToken(tokenName, symbol),
+  };
+}
+
 const UNSAFE_SOCIAL_PATTERNS: Array<[RegExp, string]> = [
   [/\b(?:buy|buying|sell|selling|invest|investing)\b/i, "investment instruction"],
   [/\baccumulat(?:e|es|ed|ing|ion)\b/i, "accumulation instruction"],

@@ -72,6 +72,13 @@ describe("video voiceover script", () => {
     expect(hook.length).toBeLessThanOrEqual(40);
   });
 
+  it("protects token tickers colliding with safety patterns in generateHookText (e.g. PUMP)", async () => {
+    const hook = await generateHookText("Pump.fun", "PUMP", { priceChange24h: 15.5 });
+
+    expect(hook).toBe("PUMP +15.5%: WHAT'S THE CATCH?");
+    expect(hook.length).toBeLessThanOrEqual(40);
+  });
+
   it.each([
     { priceChange24h: 0.51164, volume24h: 28_100_442_440, marketCap: 1_579_215_351_390 },
     { priceChange24h: 0.50216, volume24h: 27_695_723_213, marketCap: 1_581_914_401_762 },
