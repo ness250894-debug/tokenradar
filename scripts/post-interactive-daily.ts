@@ -32,7 +32,7 @@ import {
   SOCIAL,
 } from "../src/lib/config";
 import { generatePollHook } from "../src/lib/gemini";
-import { sanitizeSocialEditorialText } from "../src/lib/social-editorial";
+import { buildEditorialOptionsForToken, sanitizeSocialEditorialText } from "../src/lib/social-editorial";
 import { safeReadJson, formatErrorForLog, writeFileAtomicSync } from "../src/lib/utils";
 import { getTimeOfDay } from "../src/lib/shared-utils";
 import { formatPrice } from "../src/lib/content-loader";
@@ -105,9 +105,14 @@ export function selectNarrativeOptions(date: Date = new Date(), count = 4): stri
   );
 }
 
-function cleanPollHook(hook: string, fallback: string): string {
+function cleanPollHook(
+  hook: string,
+  fallback: string,
+  token?: { name: string; symbol: string },
+): string {
   const currentYear = new Date().getUTCFullYear();
-  const sanitized = sanitizeSocialEditorialText(hook || fallback)
+  const options = token ? buildEditorialOptionsForToken(token.name, token.symbol) : undefined;
+  const sanitized = sanitizeSocialEditorialText(hook || fallback, options)
     .replace(/^\s*(?:gm|good morning|fam)\b[:,!\s-]*/i, "")
     .replace(/\b20\d{2}\b/g, (year) => Number(year) < currentYear ? "this cycle" : year);
   return sanitized || fallback;
@@ -124,7 +129,7 @@ export async function buildSentimentPoll(token: TokenData, metric?: MetricData):
     price: token.market.price,
     priceChange24h: token.market.priceChange24h,
     ...metric
-  }), `How are you reading ${sym} today?`);
+  }), `How are you reading ${sym} today?`, token);
 
   return {
     text: `${hook}\n\n$${sym} #TokenRadarCo`,
@@ -145,7 +150,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
   const hook = cleanPollHook(await generatePollHook("prediction", getTimeOfDay(), token.name, token.symbol, {
     price: token.market.price,
     priceChange24h: token.market.priceChange24h
-  }), `Which ${sym} range looks most realistic today?`);
+  }), `Which ${sym} range looks most realistic today?`, token);
 
   return {
     text: `${hook}\n\n$${sym} #TokenRadarCo`,

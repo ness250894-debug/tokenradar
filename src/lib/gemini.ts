@@ -4,6 +4,7 @@ import { fetchWithRetry } from "./fetch-with-retry";
 import { formatErrorForLog } from "./utils";
 import { SOCIAL, SOCIAL_PLATFORM_LIMITS } from "./config";
 import {
+  buildEditorialOptionsForToken,
   sanitizeSocialEditorialText,
   type SocialEditorialOptions,
 } from "./social-editorial";
@@ -785,16 +786,7 @@ function editorialOptionsForToken(
   symbol: string,
   unsafeBehavior: SocialEditorialOptions["unsafeBehavior"] = "preserve",
 ): SocialEditorialOptions {
-  return {
-    unsafeBehavior,
-    protectedEntities: [
-      ...(tokenName.trim()
-        ? [{ value: tokenName, caseSensitive: !/[\s.-]/.test(tokenName) }]
-        : []),
-      { value: `$${symbol.toUpperCase()}`, caseSensitive: false },
-      { value: symbol.toUpperCase(), caseSensitive: true },
-    ],
-  };
+  return buildEditorialOptionsForToken(tokenName, symbol, unsafeBehavior);
 }
 
 export function buildSocialContentFacts(

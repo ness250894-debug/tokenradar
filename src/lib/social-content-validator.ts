@@ -1,4 +1,5 @@
 import {
+  buildProtectedSocialEntitiesForToken,
   findUnsafeSocialPhrases,
   maskProtectedSocialEntities,
   type ProtectedSocialEntity,
@@ -118,13 +119,7 @@ function escapeRegExp(value: string): string {
 }
 
 function protectedEntitiesForFacts(facts: SocialContentFacts): ProtectedSocialEntity[] {
-  const symbol = facts.symbol.trim();
-  return [
-    { value: facts.tokenName, caseSensitive: !/[\s.-]/.test(facts.tokenName) },
-    { value: `$${symbol.toUpperCase()}`, caseSensitive: false },
-    // Do not let a lowercase prose use of a ticker-word bypass policy.
-    { value: symbol.toUpperCase(), caseSensitive: true },
-  ].filter((entity) => Boolean(entity.value));
+  return buildProtectedSocialEntitiesForToken(facts.tokenName, facts.symbol);
 }
 
 function normalizeForExactMatch(value: string): string {
