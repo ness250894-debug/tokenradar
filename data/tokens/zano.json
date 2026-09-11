@@ -6,6 +6,7 @@
   "description": "What is Zano?\nZano is an open-source cryptocurrency (layer-1) and ecosystem with enterprise-grade\nprivacy, security, and scalability that operates as a robust platform for confidential\nassets and decentralized applications (dApps). \n\nConfidential Assets\nAnyone can easily issue user-creatable privacy tokens on the Zano chain; assets\nsecured by the same mechanisms that make Zano so much more secure than\nfirst-generation cryptocurrencies, namely because of hidden addresses and hidden\namounts. This unique technology can be used to create private stablecoins, shielded\nversions of existing assets, and much more, without the overhead of having to create,\nmanage, and secure your own blockchain. \n\nUntraceable Transactions with hidden amounts\nThe transactions between Zano network members are made untraceable with the help of several technologies, most importantly d/v-CLSAG Ring Signatures and Stealth Addresses. Also, the way transaction data is stored on the blockchain allows access by parties who authorized the transactions only, and none of the private data is ever publicly published. A secure scheme with a set of proofs allows for the concealment of the amount of coins\ntransferred. The Bulletproofs+ technology is used for these proofs, enabling the\ncreation of both performance-eective and size-eective proofs. \n\nBurning of all fees\nOn Zano, all network fees are being burned. With enough network usage, the daily fee\nburning could surpass the emission from block rewards, resulting in supply becoming\ndeflationary over time. This combination of small, minimalistic daily emissions, together with daily burns, results in little to no sell pressure on the exchanges.\n",
   "categories": [
     "Smart Contract Platform",
+    "Privacy Coins",
     "Layer 1 (L1)",
     "Proof of Stake (PoS)",
     "Proof of Work (PoW)",
@@ -22,35 +23,35 @@
     "explorer": "https://explorer.zano.org/"
   },
   "market": {
-    "price": 6.56,
-    "marketCap": 101345169,
-    "marketCapRank": 268,
-    "volume24h": 1764702,
-    "high24h": 6.75,
-    "low24h": 6.34,
-    "priceChange24h": 4.8653,
-    "priceChange7d": -3,
-    "priceChange30d": -22,
-    "priceChange1y": -58.4,
+    "price": 6.11,
+    "marketCap": 94461567,
+    "marketCapRank": 286,
+    "volume24h": 1201885,
+    "high24h": 6.53,
+    "low24h": 6.06,
+    "priceChange24h": -6.86117,
+    "priceChange7d": -11.12834,
+    "priceChange30d": -27.53705,
+    "priceChange1y": -60.37519,
     "ath": 17.81,
-    "athChangePercentage": -63.15265,
+    "athChangePercentage": -65.67432,
     "athDate": "2025-01-07T06:41:15.000Z",
     "atl": 0.146452,
     "atlDate": "2019-12-16T11:21:13.000Z",
-    "circulatingSupply": 15451120.89,
-    "totalSupply": 15451857.69,
+    "circulatingSupply": 15452122.3,
+    "totalSupply": 15453242.86,
     "maxSupply": null,
-    "fdv": 101349664
+    "fdv": 94468097
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:46:59.911Z",
-  "lastMarketUpdate": "2026-09-10T20:02:20.000Z"
+  "fetchedAt": "2026-09-11T20:03:52.616Z",
+  "lastMarketUpdate": "2026-09-11T20:01:30.000Z"
 }

@@ -19,25 +19,25 @@
     "explorer": "https://explorer.bitcoin.com/bch"
   },
   "market": {
-    "price": 226.83,
-    "marketCap": 4557189078,
+    "price": 228.65,
+    "marketCap": 4592615983,
     "marketCapRank": 22,
-    "volume24h": 336319359,
-    "high24h": 255.4,
-    "low24h": 223.34,
-    "priceChange24h": -10.92058,
-    "priceChange7d": -11.9,
-    "priceChange30d": 7.4,
-    "priceChange1y": -60.9,
+    "volume24h": 254068155,
+    "high24h": 237.75,
+    "low24h": 221.45,
+    "priceChange24h": 0.84869,
+    "priceChange7d": -9.4,
+    "priceChange30d": 7,
+    "priceChange1y": -61.2,
     "ath": 3785.82,
-    "athChangePercentage": -94.00846,
+    "athChangePercentage": -93.96044,
     "athDate": "2017-12-19T16:00:00.000Z",
     "atl": 76.93,
     "atlDate": "2018-12-15T16:00:00.000Z",
-    "circulatingSupply": 20087415.52165078,
-    "totalSupply": 20087418.64665078,
+    "circulatingSupply": 20087803.02165078,
+    "totalSupply": 20088084.27165078,
     "maxSupply": 21000000,
-    "fdv": 4557246504
+    "fdv": 4592678855
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-08-27T07:25:09.941Z",
-  "lastMarketUpdate": "2026-09-10T20:02:20.000Z"
+  "lastMarketUpdate": "2026-09-11T20:01:10.000Z"
 }

@@ -3,7 +3,7 @@
   "symbol": "fxsave",
   "name": "f(x) USD Saving",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/67384/large/fxsave.jpg?1752628124",
-  "description": "A cryptocurrency token known as f(x) USD Saving (FXSAVE). It is tracked on CoinGecko with the ID \"fx-usd-saving\".",
+  "description": "",
   "categories": [
     "Ethereum Ecosystem",
     "Yield-Bearing Stablecoin"
@@ -16,35 +16,35 @@
     "explorer": "https://etherscan.io/token/0x7743e50f534a7f9f1791dde7dcd89f7783eefc39"
   },
   "market": {
-    "price": 1.12,
-    "marketCap": 75916896,
+    "price": 1.11,
+    "marketCap": 76374013,
     "marketCapRank": 328,
-    "volume24h": 840.41,
+    "volume24h": 13961.48,
     "high24h": 1.12,
-    "low24h": 1.12,
-    "priceChange24h": -0.02074,
-    "priceChange7d": 0.1,
-    "priceChange30d": 0.4,
-    "priceChange1y": 6.4,
+    "low24h": 1.11,
+    "priceChange24h": -0.1001,
+    "priceChange7d": -0.06942,
+    "priceChange30d": 0.28291,
+    "priceChange1y": 6.27682,
     "ath": 4.68,
-    "athChangePercentage": -76.15977,
+    "athChangePercentage": -76.18345,
     "athDate": "2026-02-20T23:21:10.000Z",
     "atl": 0.985404,
     "atlDate": "2026-06-21T22:15:20.000Z",
-    "circulatingSupply": 68041214.48527744,
-    "totalSupply": 68041214.48527744,
+    "circulatingSupply": 68519689.63529795,
+    "totalSupply": 68532847.41528709,
     "maxSupply": null,
-    "fdv": 75916896
+    "fdv": 76374013
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-16T08:17:41.815Z",
-  "lastMarketUpdate": "2026-09-10T20:02:20.000Z"
+  "fetchedAt": "2026-09-11T20:05:26.844Z",
+  "lastMarketUpdate": "2026-09-11T20:02:30.000Z"
 }

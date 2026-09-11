@@ -6,8 +6,12 @@
   "description": "peaq is the economic system enabling robots and machines to do business on every chain. It provides a neutral, omnichain coordination layer that gives machines, including robots, vehicles, devices, sensors, and AI agents, everything they need to become autonomous economic actors. This includes verifiable identities, wallets, portable reputation, tokenization, and cross-chain settlement guarantees. \n\npeaq is structured in three layers. The Machine Layer (peaqOS) onboards any machine as a composable economic actor. The Trust Layer provides coordination, validation, and economically secured reputation scores backed by staked capital. The Service Layer connects machines to external service markets through a permissionless adapter framework for discovery, scoring, and orchestration. \n\npeaq is chain-neutral by design, operating as the shared trust and coordination layer for machines across existing blockchains. A machine onboarded through peaq exists across all supported chains simultaneously, and any application on any chain can discover, verify, and transact with it. peaq enables Robot Money, any medium of exchange, measure of value, or means of payment that robots and machines use across any chain.",
   "categories": [
     "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
     "Layer 1 (L1)",
+    "Ethereum Ecosystem",
     "DePIN",
+    "Base Ecosystem",
     "Outlier Ventures Portfolio",
     "Binance Alpha Spotlight",
     "Robotics",
@@ -22,35 +26,35 @@
     "explorer": "https://peaq.subscan.io/system_token_detail?unique_id=PEAQ"
   },
   "market": {
-    "price": 0.02560626,
-    "marketCap": 64516837,
-    "marketCapRank": 383,
-    "volume24h": 5501372,
-    "high24h": 0.02845199,
-    "low24h": 0.02478719,
-    "priceChange24h": -9.84017,
-    "priceChange7d": 12.8,
-    "priceChange30d": 50.9,
-    "priceChange1y": -61.4,
+    "price": 0.02552061,
+    "marketCap": 64291356,
+    "marketCapRank": 387,
+    "volume24h": 3653255,
+    "high24h": 0.02747702,
+    "low24h": 0.02495559,
+    "priceChange24h": -0.33933,
+    "priceChange7d": -1.27581,
+    "priceChange30d": 48.81083,
+    "priceChange1y": -66.49839,
     "ath": 0.750473,
-    "athChangePercentage": -96.58798,
+    "athChangePercentage": -96.5994,
     "athDate": "2024-12-10T00:55:30.000Z",
     "atl": 0.01224257,
     "atlDate": "2026-03-14T08:10:36.000Z",
-    "circulatingSupply": 2518779201.551052,
-    "totalSupply": 4442881968.8473,
+    "circulatingSupply": 2519206097.8202686,
+    "totalSupply": 4443183525.14649,
     "maxSupply": 5667620228.64,
-    "fdv": 113801060
+    "fdv": 113391627
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-15T19:09:12.878Z",
-  "lastMarketUpdate": "2026-09-10T20:02:20.000Z"
+  "fetchedAt": "2026-09-11T20:04:55.585Z",
+  "lastMarketUpdate": "2026-09-11T20:02:30.000Z"
 }

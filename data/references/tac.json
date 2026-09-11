@@ -3,11 +3,32 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Crypto researchers cut Bitcoin and Ethereum quantum attack estimate by 50%",
-      "link": "https://www.coindesk.com/tech/2026/09/10/crypto-researchers-cut-bitcoin-and-ethereum-quantum-attack-estimate-by-50",
-      "pubDate": "Thu, 10 Sep 2026 13:00:00 +0000",
-      "source": "CoinDesk",
-      "snippet": "A paper shared with CoinDesk shows humans and AI agents beating Google’s March result on a core calculation used by Shor’s algorithm, adding another variable to crypto’s quantum clock."
+      "title": "Anthropic says Claude used for cyberattacks and surveillance",
+      "link": "https://cointelegraph.com/news/claude-ai-cyberattacks-surveillance-weapons-anthropic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Fri, 11 Sep 2026 09:47:31 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A Russian-speaking operator targeted more than 20 organizations, while a Mali consultant used Claude to build a mass-surveillance platform."
+    },
+    {
+      "title": "Brevo login flaw enabled phishing email targeting 347K Trezor subscribers",
+      "link": "https://cointelegraph.com/news/brevo-login-flaw-trezor-bitbox-cointracking-phishing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Fri, 11 Sep 2026 04:21:14 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Trezor told Cointelegraph that the phishing email was sent to 347,000 subscribers and said it is treating every address as “known to the attacker and possibly reusable for phishing.”"
+    },
+    {
+      "title": "Morning Minute: AI Agents Cut BTC Quantum Attack Benchmark by 86%",
+      "link": "https://decrypt.co/377948/morning-minute-ai-agents-cut-btc-quantum-attack-benchmark-by-86",
+      "pubDate": "Fri, 11 Sep 2026 12:10:23 +0000",
+      "source": "Decrypt",
+      "snippet": "Crypto majors are shaky ahead of this morning’s CPI print, but onchain is heating up for another big potential weekend."
+    },
+    {
+      "title": "AI Agents Just Slashed the Cost of a Quantum Attack on Bitcoin",
+      "link": "https://decrypt.co/377925/ai-agents-slash-cost-quantum-attack-bitcoin",
+      "pubDate": "Thu, 10 Sep 2026 20:34:50 +0000",
+      "source": "Decrypt",
+      "snippet": "The ECDSA.Fail challenge cut a resource benchmark for one component of a potential quantum attack by 86%."
     },
     {
       "title": "Banks Have Minutes, Not Weeks, to Fix Flaws as AI Speeds Up Attacks: BIS",
@@ -15,21 +36,7 @@
       "pubDate": "Thu, 10 Sep 2026 18:13:13 +0000",
       "source": "Decrypt",
       "snippet": "The Bank for International Settlements says routine patching schedules are increasingly inadequate and cites guidance urging banks to accept planned downtime for urgent fixes."
-    },
-    {
-      "title": "Anthropic Discloses Fourth Claude Hacking Incident as Debate Around Regulation Grows",
-      "link": "https://decrypt.co/377889/anthropic-discloses-fourth-claude-hacking-incident-as-debate-around-regulation-grows",
-      "pubDate": "Thu, 10 Sep 2026 15:33:11 +0000",
-      "source": "Decrypt",
-      "snippet": "The company now says attacks during security tests exposed model behavior failures, after initially emphasizing errors in its testing infrastructure."
-    },
-    {
-      "title": "Cronos Erased Two Hours of Transactions to Reverse $111 Million DeFi Exploit",
-      "link": "https://decrypt.co/377686/cronos-erased-two-hours-transactions-defi-exploit",
-      "pubDate": "Tue, 08 Sep 2026 17:10:51 +0000",
-      "source": "Decrypt",
-      "snippet": "The rollback reversed legitimate activity alongside the attack, while $9.19 million remains unrecovered, according to Cronos."
     }
   ],
-  "fetchedAt": "2026-09-10T20:16:21.245Z"
+  "fetchedAt": "2026-09-11T20:15:41.148Z"
 }

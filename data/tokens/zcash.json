@@ -2,12 +2,12 @@
   "id": "zcash",
   "symbol": "zec",
   "name": "Zcash",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/486/large/circle-zcash-color.png?1696501740",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/486/large/Brandmark-Yellow_%281%29.png?1785810558",
   "description": "Zcash is a privacy-focused cryptocurrency that uses trustless zero-knowledge proofs to enable fully encrypted transactions while maintaining blockchain transparency and security. It was the first cryptocurrency to implement zero-knowledge encryption for private peer-to-peer payments, addressing the fundamental privacy gap in traditional cryptocurrencies that expose transaction details publicly. \n\nWith a fixed supply of 21 million ZEC and a halving schedule similar to Bitcoin, Zcash allows users to prove transactions are valid without revealing sensitive information like wallet balances, transaction amounts, or participant identities, making it suitable for everyday payments, long-term savings, and cross-border money transfers where financial confidentiality matters.\n\nThe protocol operates on its own blockchain currently using Proof-of-Work consensus, though it's evolving toward Proof-of-Stake through the planned \"Crosslink\" upgrade to enhance security, scalability, and energy efficiency. Zcash employs trustless zero-knowledge proofs (Halo) within its Orchard shielded pool to verify transactions without revealing sender, receiver, or amount information. \n\nUsers can choose between transparent public transactions and shielded private transactions through Unified Addresses, which work with both types. The network is faster and cheaper than Bitcoin, with new blocks mined every 75 seconds and transaction fees typically just a fraction of a cent. Privacy adoption has surged in 2025, with over 30% of total ZEC supply now held in fully shielded pools.\n\nZcash was created by a group of scientists in 2013 who initially proposed Zerocoin as a privacy extension to Bitcoin before building a standalone protocol. The ecosystem operates with a self-funded development model where block rewards support independent teams through the Zcash Community Grants Committee and a new Coinholder-Controlled Fund.",
   "categories": [
+    "Smart Contract Platform",
     "Privacy Coins",
     "Layer 1 (L1)",
-    "Near Protocol Ecosystem",
     "Zero Knowledge (ZK)",
     "Proof of Work (PoW)",
     "Pantera Capital Portfolio",
@@ -20,39 +20,39 @@
   "links": {
     "website": "https://z.cash/",
     "github": "https://github.com/zcash/zcash",
-    "reddit": "https://www.reddit.com/r/zec",
-    "explorer": "https://zecblockexplorer.com/"
+    "reddit": null,
+    "explorer": "https://cipherscan.app/"
   },
   "market": {
-    "price": 1126.13,
-    "marketCap": 19065978356,
+    "price": 1177.19,
+    "marketCap": 19902203853,
     "marketCapRank": 10,
-    "volume24h": 1513042962,
-    "high24h": 1252.78,
-    "low24h": 1114.17,
-    "priceChange24h": -9.81195,
-    "priceChange7d": 16.6,
-    "priceChange30d": 138.4,
-    "priceChange1y": 2242.6,
+    "volume24h": 1962637098,
+    "high24h": 1215.61,
+    "low24h": 1055.58,
+    "priceChange24h": 4.63016,
+    "priceChange7d": 13.16951,
+    "priceChange30d": 139.77041,
+    "priceChange1y": 2357.2923,
     "ath": 3191.93,
-    "athChangePercentage": -64.71935,
+    "athChangePercentage": -63.11966,
     "athDate": "2016-10-28T16:00:00.000Z",
     "atl": 16.08,
     "atlDate": "2024-07-04T20:22:29.000Z",
-    "circulatingSupply": 16921867.3530448,
-    "totalSupply": 16925347.0405448,
+    "circulatingSupply": 16925695.4780448,
+    "totalSupply": 16927148.6030448,
     "maxSupply": 21000000,
-    "fdv": 19069812679
+    "fdv": 19903809633
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 4811,
-    "githubForks": 2073,
-    "commits4Weeks": 34
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:47:06.221Z",
-  "lastMarketUpdate": "2026-09-10T20:02:20.000Z"
+  "fetchedAt": "2026-09-11T20:03:58.854Z",
+  "lastMarketUpdate": "2026-09-11T20:01:30.000Z"
 }
