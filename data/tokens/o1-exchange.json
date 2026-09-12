@@ -7,6 +7,7 @@
   "categories": [
     "Decentralized Exchange (DEX)",
     "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
     "Base Ecosystem"
   ],
   "genesisDate": null,
@@ -17,35 +18,35 @@
     "explorer": "https://basescan.org/token/0x182fa643e5f29d5eca75e7b9cf9336a3fe4620b2"
   },
   "market": {
-    "price": 0.547171,
-    "marketCap": 87529520,
-    "marketCapRank": 299,
-    "volume24h": 2784998,
-    "high24h": 0.546788,
-    "low24h": 0.529058,
-    "priceChange24h": 3.0956,
-    "priceChange7d": -0.7,
-    "priceChange30d": 22.6,
+    "price": 0.543339,
+    "marketCap": 86935712,
+    "marketCapRank": 302,
+    "volume24h": 1777038,
+    "high24h": 0.555715,
+    "low24h": 0.539657,
+    "priceChange24h": -0.22727,
+    "priceChange7d": 1.48625,
+    "priceChange30d": 21.84697,
     "priceChange1y": 0,
     "ath": 0.941511,
-    "athChangePercentage": -41.88377,
+    "athChangePercentage": -42.2907,
     "athDate": "2026-06-20T10:44:00.000Z",
     "atl": 0.334755,
     "atlDate": "2026-06-17T15:39:40.000Z",
     "circulatingSupply": 160000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 547059502
+    "fdv": 543348198
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-17T19:52:06.539Z",
-  "lastMarketUpdate": "2026-09-11T20:00:10.000Z"
+  "fetchedAt": "2026-09-12T19:40:30.502Z",
+  "lastMarketUpdate": "2026-09-12T19:38:40.000Z"
 }

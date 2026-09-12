@@ -6535,5 +6535,108 @@
     "discoveredAt": "2026-09-07T20:50:49.218Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-07T20:50:49.218Z"
+  },
+  {
+    "id": "pump-fun",
+    "name": "Pump.fun",
+    "symbol": "PUMP",
+    "category": "Launchpad",
+    "expectedTge": "Post-TGE / Holder Rewards Phase",
+    "narrativeStrength": 85,
+    "dataSource": "https://airdropalert.com/blogs/pump-fun-holder-rewards/",
+    "lifecycleStatus": "graduated",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/pump-fun-holder-rewards/",
+        "title": "Pump Fun Holder Rewards: Get Paid to Hold as Custom Pairs Go Live",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-12T19:42:29.156Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-09-12T19:51:08.907Z",
+    "graduatedAt": "2026-09-12T19:51:08.907Z",
+    "coingeckoRank": 52,
+    "graduationEvidence": {
+      "coingeckoId": "pump-fun",
+      "coingeckoRank": 52,
+      "rank": 52,
+      "priceUsd": 0.00387495,
+      "volume24h": 189947516,
+      "matchedBy": "id",
+      "verifiedAt": "2026-09-12T19:51:08.907Z"
+    }
+  },
+  {
+    "id": "zcat",
+    "name": "ZCAT",
+    "symbol": "ZCAT",
+    "category": "Memecoin / DeFi",
+    "expectedTge": "Live / Active Airdrop",
+    "narrativeStrength": 75,
+    "dataSource": "https://airdropalert.com/blogs/what-is-zcat/",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 85,
+    "signals": [
+      {
+        "type": "airdrop",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/what-is-zcat/",
+        "title": "ZCAT Memecoin Explained: The Anonymous Cat That Airdrops Zcash",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-12T19:42:29.158Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-12T19:42:29.158Z"
+  },
+  {
+    "id": "stonkfun",
+    "name": "StonkFun",
+    "symbol": "STONK",
+    "category": "Launchpad",
+    "expectedTge": "Active / Trading",
+    "narrativeStrength": 70,
+    "dataSource": "https://airdropalert.com/blogs/stonk-vs-pons/",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 80,
+    "signals": [
+      {
+        "type": "token_sale",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/stonk-vs-pons/",
+        "title": "STONK vs PONS: The Launchpad Buyback War Just Flipped",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-12T19:42:29.158Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-12T19:42:29.158Z"
+  },
+  {
+    "id": "frgmnt-fusd",
+    "name": "Frgmnt",
+    "symbol": "FUSD",
+    "category": "Stablecoin",
+    "expectedTge": "Active / Custody Integration Stage",
+    "narrativeStrength": 55,
+    "confidence": 60,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/anchorage-digital-adds-institutional-access-to-frgmnts-fusd-stablecoin",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/anchorage-digital-adds-institutional-access-to-frgmnts-fusd-stablecoin",
+        "title": "Anchorage Digital adds institutional access to Frgmnt’s fUSD stablecoin",
+        "observedAt": "2025-05-18T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-12T19:42:29.159Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-12T19:42:29.159Z"
   }
 ]

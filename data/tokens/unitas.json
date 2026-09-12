@@ -10,7 +10,8 @@
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Stablecoin Issuer",
-    "Binance Wallet IDO"
+    "Binance Wallet IDO",
+    "Unitas Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -20,35 +21,35 @@
     "explorer": "https://bscscan.com/token/0x000008d2175f9aeaddb2430c26f8a6f73c5a0000"
   },
   "market": {
-    "price": 0.398001,
-    "marketCap": 85929116,
-    "marketCapRank": 301,
-    "volume24h": 12205267,
-    "high24h": 0.416987,
-    "low24h": 0.392542,
-    "priceChange24h": -2.46912,
-    "priceChange7d": -15.8,
-    "priceChange30d": 3.1,
+    "price": 0.3358,
+    "marketCap": 72543111,
+    "marketCapRank": 346,
+    "volume24h": 10761391,
+    "high24h": 0.400559,
+    "low24h": 0.32765,
+    "priceChange24h": -15.06062,
+    "priceChange7d": -28.17999,
+    "priceChange30d": -14.753,
     "priceChange1y": 0,
     "ath": 0.522624,
-    "athChangePercentage": -23.84558,
+    "athChangePercentage": -35.74727,
     "athDate": "2026-08-31T23:29:20.000Z",
     "atl": 0.067618,
     "atlDate": "2026-03-14T04:06:10.000Z",
     "circulatingSupply": 215999885.54150105,
     "totalSupply": 999999885.541501,
     "maxSupply": 1000000000,
-    "fdv": 397820146
+    "fdv": 335847875
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-07T18:58:34.387Z",
-  "lastMarketUpdate": "2026-09-11T20:00:10.000Z"
+  "fetchedAt": "2026-09-12T19:40:11.596Z",
+  "lastMarketUpdate": "2026-09-12T19:37:40.000Z"
 }
