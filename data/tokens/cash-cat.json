@@ -7,8 +7,8 @@
   "categories": [
     "Meme",
     "Cat-Themed",
+    "4chan-Themed",
     "Robinhood Ecosystem",
-    "Yoink.fun Launchpad",
     "Robinhood Chain Meme"
   ],
   "genesisDate": null,
@@ -19,35 +19,35 @@
     "explorer": "https://robinhoodchain.blockscout.com/address/0x020bfc650a365f8bb26819deaabf3e21291018b4"
   },
   "market": {
-    "price": 0.181137,
-    "marketCap": 179012611,
-    "marketCapRank": 188,
-    "volume24h": 31006381,
-    "high24h": 0.193605,
-    "low24h": 0.156651,
-    "priceChange24h": 5.36329,
-    "priceChange7d": -27,
-    "priceChange30d": 12.9,
+    "price": 0.169984,
+    "marketCap": 168047568,
+    "marketCapRank": 193,
+    "volume24h": 13666623,
+    "high24h": 0.18795,
+    "low24h": 0.164038,
+    "priceChange24h": -6.49475,
+    "priceChange7d": -35.83786,
+    "priceChange30d": 11.83132,
     "priceChange1y": 0,
     "ath": 0.314297,
-    "athChangePercentage": -42.36764,
+    "athChangePercentage": -45.9162,
     "athDate": "2026-09-03T21:42:00.000Z",
     "atl": 0.00160429,
     "atlDate": "2026-07-01T18:44:30.000Z",
     "circulatingSupply": 988287275.6543044,
     "totalSupply": 988287275.6543044,
     "maxSupply": 1000000000,
-    "fdv": 179012611
+    "fdv": 168047568
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-07-08T18:59:03.174Z",
-  "lastMarketUpdate": "2026-09-11T20:01:10.000Z"
+  "fetchedAt": "2026-09-12T19:41:46.141Z",
+  "lastMarketUpdate": "2026-09-12T19:39:30.000Z"
 }

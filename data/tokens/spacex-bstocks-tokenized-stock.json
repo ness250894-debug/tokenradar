@@ -7,7 +7,7 @@
   "categories": [
     "Tokenized Assets",
     "BNB Chain Ecosystem",
-    "Tokenized Stock",
+    "Tokenized Stocks",
     "Real World Assets (RWA)",
     "bStocks Ecosystem"
   ],
@@ -19,35 +19,35 @@
     "explorer": "https://bscscan.com/token/0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1#transactions"
   },
   "market": {
-    "price": 151.04,
-    "marketCap": 71615364,
-    "marketCapRank": 347,
-    "volume24h": 32188887,
-    "high24h": 150.71,
-    "low24h": 146.2,
-    "priceChange24h": 2.10117,
-    "priceChange7d": 1.6,
-    "priceChange30d": 2.2,
+    "price": 149.98,
+    "marketCap": 68453856,
+    "marketCapRank": 363,
+    "volume24h": 16346368,
+    "high24h": 151.12,
+    "low24h": 149.86,
+    "priceChange24h": -0.73998,
+    "priceChange7d": -0.14441,
+    "priceChange30d": 4.6811,
     "priceChange1y": 0,
     "ath": 229.67,
-    "athChangePercentage": -34.2331,
+    "athChangePercentage": -34.69618,
     "athDate": "2026-06-16T01:00:20.000Z",
     "atl": 105.76,
     "atlDate": "2026-08-03T13:30:40.000Z",
-    "circulatingSupply": 474114.75643987,
-    "totalSupply": 474248.26234096,
+    "circulatingSupply": 456395.90464992,
+    "totalSupply": 456395.90464992,
     "maxSupply": null,
-    "fdv": 71615364
+    "fdv": 68453856
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-18T19:57:56.553Z",
-  "lastMarketUpdate": "2026-09-11T20:00:10.000Z"
+  "fetchedAt": "2026-09-12T19:40:36.788Z",
+  "lastMarketUpdate": "2026-09-12T19:38:40.000Z"
 }

@@ -2,8 +2,8 @@
   "id": "cross-2",
   "symbol": "one",
   "name": "ONEchain",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/67058/large/CROSS_200x200_%281%29.png?1753936811",
-  "description": "CROSS is a gaming-optimized Layer 1 blockchain with full EVM compatibility. It offers modular infrastructure for on-chain games, including SDKs, a DEX, bridge, and wallet. The $CROSS token powers gas, governance, and staking, with fixed supply and no future minting. The mainnet and wallet are already live, and CROSS is actively onboarding games. The project aims to scale Web3 gaming by bridging Web2-level performance with decentralized ownership.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/67058/large/ONE_logo_200x200.png?1787648216",
+  "description": "ONEchain is a gaming-optimized Layer 1 blockchain with full EVM compatibility, developed by NEXUS Co., Ltd. under the Open Game Foundation. The network provides modular infrastructure for on-chain games, including game SDKs, a gametoken DEX, a cross-chain bridge, and a non-custodial wallet. ONE is the network's native asset and is used for transaction fees, validator staking, and protocol governance. The chain and its native token were previously branded CROSS; following NEXUS's acquisition of ONE Store, Korea's national app marketplace, the blockchain, the token, and the distribution layer were consolidated under a single ONE identity, with the chain named ONEchain and the token ticker changing from CROSS to ONE effective 4 September 2026, 00:00 UTC. The rebrand involves no contract migration, no token swap, and no change to supply or token holder balances. Mainnet, wallet, and DEX are live, and game titles are onboarding to the network through ONE Store's existing distribution channel.",
   "categories": [
     "Smart Contract Platform",
     "Gaming (GameFi)",
@@ -15,40 +15,40 @@
   "genesisDate": null,
   "links": {
     "website": "https://www.ogfcorp.com/",
-    "github": null,
+    "github": "https://github.com/to-nexus/go-cross",
     "reddit": null,
     "explorer": "https://bscscan.com/token/0x6bf62ca91e397b5a7d1d6bce97d9092065d7a510"
   },
   "market": {
-    "price": 0.11775,
-    "marketCap": 59836256,
-    "marketCapRank": 405,
-    "volume24h": 2689093,
-    "high24h": 0.118012,
-    "low24h": 0.111095,
-    "priceChange24h": 2.16147,
-    "priceChange7d": 21,
-    "priceChange30d": 22.3,
-    "priceChange1y": -50.3,
+    "price": 0.115277,
+    "marketCap": 58681252,
+    "marketCapRank": 407,
+    "volume24h": 1952138,
+    "high24h": 0.118553,
+    "low24h": 0.112159,
+    "priceChange24h": -0.96776,
+    "priceChange7d": 16.1415,
+    "priceChange30d": 17.1092,
+    "priceChange1y": -52.6804,
     "ath": 0.438189,
-    "athChangePercentage": -73.12792,
+    "athChangePercentage": -73.6923,
     "athDate": "2025-07-17T18:41:59.000Z",
     "atl": 0.04660973,
     "atlDate": "2025-07-05T22:56:39.000Z",
-    "circulatingSupply": 508237507.9359066,
+    "circulatingSupply": 509048252.6580389,
     "totalSupply": 985222890,
     "maxSupply": 1000000000,
-    "fdv": 115993110
+    "fdv": 113572953
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-04T20:11:36.451Z",
-  "lastMarketUpdate": "2026-09-11T20:00:10.000Z"
+  "fetchedAt": "2026-09-12T19:40:05.319Z",
+  "lastMarketUpdate": "2026-09-12T19:37:40.000Z"
 }

@@ -21,34 +21,35 @@
     "explorer": "https://siascan.com/"
   },
   "market": {
-    "price": 0.00096408,
-    "marketCap": 47955060,
-    "marketCapRank": 521,
-    "volume24h": 3943583,
-    "high24h": 0.00100584,
-    "low24h": 0.00095595,
-    "priceChange24h": -4.13268,
-    "priceChange7d": 0.05326,
-    "priceChange30d": 0.27119,
-    "priceChange1y": -74.17494,
+    "price": 0.00096606,
+    "marketCap": 48066908,
+    "marketCapRank": 473,
+    "volume24h": 23171355,
+    "high24h": 0.0010513,
+    "low24h": 0.00084345,
+    "priceChange24h": 12.17182,
+    "priceChange7d": 30.73328,
+    "priceChange30d": 105.22538,
+    "priceChange1y": -68.22846,
     "ath": 0.092868,
-    "athChangePercentage": -98.96117,
-    "athDate": "2018-01-06T00:00:00.000Z",
+    "athChangePercentage": -98.95974,
+    "athDate": "2018-01-05T16:00:00.000Z",
     "atl": 0.00001262,
-    "atlDate": "2015-12-28T00:00:00.000Z",
+    "atlDate": "2015-12-27T16:00:00.000Z",
     "circulatingSupply": 49751295000.0225,
     "totalSupply": 49751295000.0225,
     "maxSupply": null,
-    "fdv": 47955060
+    "fdv": 48066908
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:32:20.927Z"
+  "fetchedAt": "2026-09-12T19:39:40.100Z",
+  "lastMarketUpdate": "2026-09-12T19:37:40.000Z"
 }
