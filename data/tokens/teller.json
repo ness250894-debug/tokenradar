@@ -1,0 +1,52 @@
+{
+  "id": "teller",
+  "symbol": "debit",
+  "name": "Teller",
+  "market": {
+    "price": 3.29,
+    "marketCap": 56693138,
+    "marketCapRank": 417,
+    "volume24h": 113244163,
+    "high24h": 3.3,
+    "low24h": 1.93,
+    "priceChange24h": 67.06793,
+    "priceChange7d": 110.7,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 3.3,
+    "athChangePercentage": -0.15176,
+    "athDate": "2026-09-13T18:47:50.000Z",
+    "atl": 1.096,
+    "atlDate": "2026-08-27T00:15:20.000Z",
+    "circulatingSupply": 17220000,
+    "totalSupply": 100000000,
+    "maxSupply": 100000000,
+    "fdv": 329228446
+  },
+  "lastMarketUpdate": "2026-09-13T19:49:20.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102175821/large/teller.png?1787703208",
+  "description": "",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Lending/Borrowing Protocols",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://debitai.xyz",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0x66661c7229901f568f16bd1551b3ba826f83ce49"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-13T19:51:27.275Z"
+}

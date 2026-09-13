@@ -17,25 +17,25 @@
     "explorer": "https://taostats.io/subnets/120/chart"
   },
   "market": {
-    "price": 11.96,
-    "marketCap": 48426593,
-    "marketCapRank": 465,
-    "volume24h": 138926,
-    "high24h": 12.14,
-    "low24h": 11.86,
-    "priceChange24h": -0.84831,
-    "priceChange7d": -3.5,
-    "priceChange30d": 2.1,
+    "price": 11.85,
+    "marketCap": 48025776,
+    "marketCapRank": 467,
+    "volume24h": 500499,
+    "high24h": 12.16,
+    "low24h": 11.74,
+    "priceChange24h": -0.85431,
+    "priceChange7d": -11.6,
+    "priceChange30d": 6.1,
     "priceChange1y": 0,
     "ath": 30.83,
-    "athChangePercentage": -61.19503,
+    "athChangePercentage": -61.5748,
     "athDate": "2025-10-14T11:46:12.000Z",
     "atl": 0.138582,
     "atlDate": "2026-04-03T09:59:00.000Z",
-    "circulatingSupply": 4048094.628519821,
-    "totalSupply": 4048094.628519821,
+    "circulatingSupply": 4056369.035919743,
+    "totalSupply": 4056369.035919743,
     "maxSupply": 21000000,
-    "fdv": 48426593
+    "fdv": 48025776
   },
   "community": {
     "twitterFollowers": null,
@@ -47,5 +47,5 @@
     "commits4Weeks": 0
   },
   "fetchedAt": "2026-08-25T19:17:11.588Z",
-  "lastMarketUpdate": "2026-09-12T19:36:10.000Z"
+  "lastMarketUpdate": "2026-09-13T19:49:20.000Z"
 }
