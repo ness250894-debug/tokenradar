@@ -3,7 +3,7 @@
   "symbol": "acu",
   "name": "Acurast",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/34367/large/Acurast-symbol-dark-bg.png?1728418440",
-  "description": "Acurast is a decentralized, verifiable compute network designed to provide infrastructure for AI agents and general secure applications. Instead of relying on traditional centralized data centers, the platform utilizes the unused processing power of global smartphone hardware. By leveraging the built-in hardware-secured enclaves found in modern mobile devices, Acurast enables developers to run distributed, confidential, and tamper-proof computing workloads.\n\nThe architecture focuses on scalability and data privacy, allowing applications to execute tasks securely across a decentralized footprint. ",
+  "description": "Acurast is redefining compute by utilizing billions of smartphones - no data centers required. This verifiable, scalable, and confidential compute network enables developers to run secure applications on decentralized infrastructure at scale, without compromising speed or privacy.\n\nAcurast has already onboarded 250,000+ compute units worldwide, making it the most decentralized verifiable compute network available today. This compute already powers mission-critical workloads with high-security and AI requirements - from REST APIs and webhooks to LLM inference and confidential data processing.\n\nThis isn't just another DePIN protocol - it's a fundamental rethink of how the world computes. Instead of relying on data centers or even servers, Acurast harnesses the world's most abundant, powerful, and secure form of compute: the smartphone.\n\nThe architecture focuses on scalability and data privacy, allowing applications to execute tasks securely across a decentralized footprint. ",
   "categories": [
     "Artificial Intelligence (AI)",
     "BNB Chain Ecosystem",
@@ -11,6 +11,7 @@
     "DePIN",
     "Base Ecosystem",
     "Binance Alpha Spotlight",
+    "Peaq Ecosystem",
     "x402 Ecosystem",
     "CoinList Launchpad",
     "Base Native"
@@ -20,38 +21,38 @@
     "website": "https://acurast.com/",
     "github": "https://github.com/Acurast",
     "reddit": null,
-    "explorer": "https://peaq.subscan.io/token/0x165bcb970836f83c15b22c3c1622279d97a20446"
+    "explorer": "https://acurastbot.com/explorer"
   },
   "market": {
-    "price": 0.128238,
-    "marketCap": 48604869,
-    "marketCapRank": 463,
-    "volume24h": 2025168,
-    "high24h": 0.130694,
-    "low24h": 0.121024,
-    "priceChange24h": 5.8402,
-    "priceChange7d": -3.9,
-    "priceChange30d": 2.1,
+    "price": 0.12211,
+    "marketCap": 46412174,
+    "marketCapRank": 482,
+    "volume24h": 1907266,
+    "high24h": 0.128587,
+    "low24h": 0.122319,
+    "priceChange24h": -4.62731,
+    "priceChange7d": -8.12637,
+    "priceChange30d": 1.95557,
     "priceChange1y": 0,
     "ath": 0.315928,
-    "athChangePercentage": -59.40893,
+    "athChangePercentage": -61.34862,
     "athDate": "2026-01-23T18:02:00.000Z",
     "atl": 0.065109,
     "atlDate": "2026-06-06T04:42:15.000Z",
-    "circulatingSupply": 378925145,
-    "totalSupply": 1028688636,
+    "circulatingSupply": 380022217,
+    "totalSupply": 1028813884,
     "maxSupply": null,
-    "fdv": 131950273
+    "fdv": 125648250
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-08-13T18:39:10.194Z",
-  "lastMarketUpdate": "2026-09-12T19:36:10.000Z"
+  "fetchedAt": "2026-09-13T19:53:58.484Z",
+  "lastMarketUpdate": "2026-09-13T19:50:40.000Z"
 }

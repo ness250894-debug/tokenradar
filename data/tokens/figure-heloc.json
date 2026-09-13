@@ -19,25 +19,25 @@
     "explorer": "https://explorer.provenance.io/nft/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x"
   },
   "market": {
-    "price": 1.003,
-    "marketCap": 22622109875,
+    "price": 1,
+    "marketCap": 22551817529,
     "marketCapRank": 9,
-    "volume24h": 5525570,
-    "high24h": 1.044,
-    "low24h": 1.003,
-    "priceChange24h": -2.62552,
-    "priceChange7d": -0.2,
-    "priceChange30d": -3.5,
-    "priceChange1y": -2.7,
+    "volume24h": 50043,
+    "high24h": 1.003,
+    "low24h": 1,
+    "priceChange24h": -0.30861,
+    "priceChange7d": -0.5,
+    "priceChange30d": -0.6,
+    "priceChange1y": -1.1,
     "ath": 1.061,
-    "athChangePercentage": -5.39525,
+    "athChangePercentage": -5.68841,
     "athDate": "2026-08-03T14:19:20.000Z",
     "atl": 0.155357,
     "atlDate": "2025-10-31T06:27:24.000Z",
     "circulatingSupply": 22547102017.768,
-    "totalSupply": 22547102017.768,
+    "totalSupply": 22552850918.668,
     "maxSupply": null,
-    "fdv": 22622109875
+    "fdv": 22551817529
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-08-29T20:01:53.348Z",
-  "lastMarketUpdate": "2026-09-12T19:36:10.000Z"
+  "lastMarketUpdate": "2026-09-13T01:20:10.000Z"
 }
