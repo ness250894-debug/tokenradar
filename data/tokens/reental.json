@@ -1,8 +1,8 @@
 {
   "id": "reental",
   "symbol": "rnt",
-  "name": "Reental",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/32508/large/IMG_5790.jpeg?1749836696",
+  "name": "Rnt",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/32508/large/LOGO_MARK_RNT_PROTOCOL.png?1788917195",
   "description": "Utility token to be used in Reental platforms",
   "categories": [
     "Tokenized Real Estate",
@@ -19,35 +19,35 @@
     "explorer": "https://polygonscan.com/token/0x27ab6e82f3458edbc0703db2756391b899ce6324"
   },
   "market": {
-    "price": 0.300557,
-    "marketCap": 40816338,
-    "marketCapRank": 492,
-    "volume24h": 3662.9,
-    "high24h": 0.30155,
-    "low24h": 0.298543,
-    "priceChange24h": -0.32762,
-    "priceChange7d": 1.1221647084657482,
-    "priceChange30d": 26.02653105692761,
-    "priceChange1y": 45.52996979751565,
-    "ath": 0.303403,
-    "athChangePercentage": -1.52955,
-    "athDate": "2026-06-24T11:25:24.564Z",
+    "price": 0.310834,
+    "marketCap": 43485537,
+    "marketCapRank": 485,
+    "volume24h": 13805.39,
+    "high24h": 0.314744,
+    "low24h": 0.31136,
+    "priceChange24h": -0.9451,
+    "priceChange7d": -0.16818,
+    "priceChange30d": 9.12737,
+    "priceChange1y": 71.62452,
+    "ath": 33.06,
+    "athChangePercentage": -99.05977,
+    "athDate": "2026-04-15T15:05:00.000Z",
     "atl": 0.01591959,
-    "atlDate": "2025-06-13T05:04:28.430Z",
-    "circulatingSupply": 135802164.1857526,
+    "atlDate": "2025-06-12T21:04:28.000Z",
+    "circulatingSupply": 139899124.3921497,
     "totalSupply": 200000000,
     "maxSupply": 200000000,
-    "fdv": 60111469
+    "fdv": 62166990
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-24T19:19:55.969Z",
-  "lastMarketUpdate": "2026-06-25T19:31:36.890Z"
+  "fetchedAt": "2026-09-15T20:29:18.459Z",
+  "lastMarketUpdate": "2026-09-15T20:27:40.000Z"
 }
