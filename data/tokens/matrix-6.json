@@ -1,0 +1,50 @@
+{
+  "id": "matrix-6",
+  "symbol": "mtx",
+  "name": "Matrix",
+  "market": {
+    "price": 45.42,
+    "marketCap": 45425147,
+    "marketCapRank": 472,
+    "volume24h": 22252,
+    "high24h": 45.72,
+    "low24h": 44.88,
+    "priceChange24h": 0.58117,
+    "priceChange7d": 7.68303,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 45.72,
+    "athChangePercentage": -0.65409,
+    "athDate": "2026-09-15T16:57:40.000Z",
+    "atl": 27.12,
+    "atlDate": "2026-08-23T14:34:50.000Z",
+    "circulatingSupply": 1000000,
+    "totalSupply": 1000000,
+    "maxSupply": 1000000,
+    "fdv": 45425147
+  },
+  "lastMarketUpdate": "2026-09-15T20:26:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102175774/large/Logo.png?1787488488",
+  "description": "Matrix is a comprehensive and novel financial ecosystem designed to manage a diverse array of financial and technological services in a fully decentralized manner. The platform integrates six core components:\n\nNon-Custodial Wallet: A user-friendly wallet (similar to Trust Wallet) designed to drive mass crypto adoption by completely covering network gas fees for users and replacing complex public addresses with simple crypto domains (usernames).\n\nGlobal Credit Score System: A modern, global decentralized banking structure built around user domains/usernames that assigns users an on-chain credit score utilized across the ecosystem.\n\nWeb3 Lending &amp; Borrowing: An asset-lending protocol (operating on a model similar to Aave) that allows users to supply assets to earn yield and borrow against their Web3 holdings.\n\nAuto-Reward Stablecoins: A decentralized mechanism where simply holding or utilizing native stablecoins automatically and instantaneously streams yield directly into the user's wallet.\n\nZero-Fee Derivatives DEX: A decentralized derivatives exchange that features zero trading fees and supports multi-asset trading across both cryptocurrency and forex markets.\n\nAll-in-One AI Aggregator: A unified dashboard providing access to all leading global AI models under a tokenized, pay-per-prompt model (users pay only for the exact prompts and compute they consume rather than recurring subscriptions).",
+  "categories": [
+    "Wallets",
+    "Ethereum Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://matrix.app/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x000025b3816630ad283267d4eB3a5FC8b0200000"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-15T20:28:59.575Z"
+}

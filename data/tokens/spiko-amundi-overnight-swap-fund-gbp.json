@@ -1,0 +1,57 @@
+{
+  "id": "spiko-amundi-overnight-swap-fund-gbp",
+  "symbol": "gbpsafo",
+  "name": "Spiko Amundi Overnight Swap Fund (GBP)",
+  "market": {
+    "price": 1.38,
+    "marketCap": 45628617,
+    "marketCapRank": 471,
+    "volume24h": 0,
+    "high24h": 1.38,
+    "low24h": 1.37,
+    "priceChange24h": -0.18061,
+    "priceChange7d": -0.42349,
+    "priceChange30d": -0.14703,
+    "priceChange1y": 0,
+    "ath": 1.39,
+    "athChangePercentage": -1.19122,
+    "athDate": "2026-08-21T09:15:10.000Z",
+    "atl": 1.35,
+    "atlDate": "2026-07-30T06:50:10.000Z",
+    "circulatingSupply": 33170363.82091,
+    "totalSupply": 33170363.82091,
+    "maxSupply": null,
+    "fdv": 45628617
+  },
+  "lastMarketUpdate": "2026-09-15T20:26:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172592/large/Fund_gbpSAFO.png?1774104818",
+  "description": "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The GBP share class (gbpSAFO) allows investors to subscribe from as little as 1 GBP. SAFO generates stable yields above the SONIA benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tokenized Assets",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Starknet Ecosystem",
+    "Etherlink Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.spiko.io/spiko-pound",
+    "github": "https://github.com/spiko-tech",
+    "reddit": null,
+    "explorer": "https://arbiscan.io/token/0xbe023308ac2ef7e1c3799f4e6a3003ee6d342635"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-15T20:28:53.252Z"
+}

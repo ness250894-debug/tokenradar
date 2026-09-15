@@ -3,11 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Revolut attackers threaten daily customer data leaks",
-      "link": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 14 Sep 2026 00:54:08 +0000",
+      "title": "A hacker turned 25 cents of bitcoin into 46 billion fake BTC tokens on a DeFi bridge",
+      "link": "https://www.coindesk.com/tech/2026/09/15/a-hacker-turned-25-cents-of-bitcoin-into-46-billion-fake-btc-tokens-on-a-defi-bridge",
+      "pubDate": "Tue, 15 Sep 2026 13:43:50 +0000",
+      "source": "CoinDesk",
+      "snippet": "Two software bugs allowed the attacker to create more than 2,000 times Bitcoin’s maximum supply in unbacked syBTC. Symbiosis puts preliminary losses at 9.97 BTC."
+    },
+    {
+      "title": "Nigel Farage-backed Stack BTC plans to acquire a gold dealer for $16 million to fund bitcoin buy",
+      "link": "https://www.coindesk.com/business/2026/09/15/nigel-farage-backed-stack-btc-eyes-usd16-million-gold-dealer-deal-to-fund-bitcoin-buy",
+      "pubDate": "Tue, 15 Sep 2026 10:06:40 +0000",
+      "source": "CoinDesk",
+      "snippet": "The proposed acquisition would use cash flow from precious metals sales to build bitcoin holdings."
+    },
+    {
+      "title": "ETH wallet exploit backfires as MEV bot captures $7.7M, Kelp freezes address",
+      "link": "https://cointelegraph.com/news/mev-bot-intercepts-77m-in-rseth-from-ethereum-wallet-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 15 Sep 2026 15:21:26 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Attackers reportedly published identity documents and selfies belonging to Revolut customers and threatened to release more data each day until the fintech pays."
+      "snippet": "An MEV bot known as “Yoink” front-ran an attacker attempting to exploit a custom Safe module, capturing the stolen rsETH before Kelp temporarily froze the receiving address."
     },
     {
       "title": "Trump Says He’s the Only ‘Guardrails’ AI Needs, Attacks Anthropic and Defends Data Centers",
@@ -22,21 +36,7 @@
       "pubDate": "Mon, 14 Sep 2026 15:41:46 +0000",
       "source": "Decrypt",
       "snippet": "The Bitcoin treasury firm slowed its preferred-stock buyback from last week&#39;s $176 million pace and left its 845,050 BTC untouched, per a Monday SEC filing."
-    },
-    {
-      "title": "Cyberattacks on Law Firms Nearly Double as Stolen Documents Hit the Dark Web",
-      "link": "https://decrypt.co/378094/cyberattacks-law-firms-stolen-documents-dark-web",
-      "pubDate": "Fri, 11 Sep 2026 21:45:05 +0000",
-      "source": "Decrypt",
-      "snippet": "Greenberg Traurig said documents were posted to the dark web, while BakerHostetler recorded a near-doubling of law-firm incidents in 2025."
-    },
-    {
-      "title": "Morning Minute: AI Agents Cut BTC Quantum Attack Benchmark by 86%",
-      "link": "https://decrypt.co/377948/morning-minute-ai-agents-cut-btc-quantum-attack-benchmark-by-86",
-      "pubDate": "Fri, 11 Sep 2026 12:10:23 +0000",
-      "source": "Decrypt",
-      "snippet": "Crypto majors are shaky ahead of this morning’s CPI print, but onchain is heating up for another big potential weekend."
     }
   ],
-  "fetchedAt": "2026-09-14T21:16:34.332Z"
+  "fetchedAt": "2026-09-15T20:40:49.704Z"
 }
