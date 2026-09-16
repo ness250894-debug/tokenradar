@@ -18,34 +18,35 @@
     "explorer": "https://explorer.haqq.network/"
   },
   "market": {
-    "price": 0.01177932,
-    "marketCap": 41858378,
-    "marketCapRank": 560,
-    "volume24h": 78545,
-    "high24h": 0.01214868,
-    "low24h": 0.01153434,
-    "priceChange24h": -2.71693,
-    "priceChange7d": 4.17648,
-    "priceChange30d": -1.38357,
-    "priceChange1y": -56.78309,
+    "price": 0.0102519,
+    "marketCap": 74390315,
+    "marketCapRank": 331,
+    "volume24h": 707.65,
+    "high24h": 0.01987735,
+    "low24h": 0.0040296,
+    "priceChange24h": -0.07573,
+    "priceChange7d": -0.88783,
+    "priceChange30d": 153.6858,
+    "priceChange1y": -48.31243,
     "ath": 0.303274,
-    "athChangePercentage": -96.13575,
-    "athDate": "2023-10-15T00:00:00.000Z",
-    "atl": 0.0059478,
-    "atlDate": "2025-12-23T14:44:17.935Z",
-    "circulatingSupply": 3571770987.640123,
-    "totalSupply": 18164212061.33696,
+    "athChangePercentage": -96.61959,
+    "athDate": "2023-10-14T16:00:00.000Z",
+    "atl": 0.00304397,
+    "atlDate": "2026-07-28T22:51:50.000Z",
+    "circulatingSupply": 3743055859.07864,
+    "totalSupply": 18162982098.42572,
     "maxSupply": 100000000000,
-    "fdv": 212870439
+    "fdv": 360975098
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:12:45.184Z"
+  "fetchedAt": "2026-09-16T20:27:01.584Z",
+  "lastMarketUpdate": "2026-09-16T20:24:40.000Z"
 }
