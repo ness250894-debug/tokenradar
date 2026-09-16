@@ -1,0 +1,55 @@
+{
+  "id": "canopy",
+  "symbol": "cnpy",
+  "name": "Canopy",
+  "market": {
+    "price": 0.412065,
+    "marketCap": 44319068,
+    "marketCapRank": 484,
+    "volume24h": 8877916,
+    "high24h": 0.418059,
+    "low24h": 0.339733,
+    "priceChange24h": 9.54228,
+    "priceChange7d": 115.16642,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.418059,
+    "athChangePercentage": -1.43356,
+    "athDate": "2026-09-16T00:02:10.000Z",
+    "atl": 0.156814,
+    "atlDate": "2026-09-08T14:51:30.000Z",
+    "circulatingSupply": 107189838.30907,
+    "totalSupply": 231601040,
+    "maxSupply": 560000000,
+    "fdv": 95754568
+  },
+  "lastMarketUpdate": "2026-09-16T20:24:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176782/large/Symbol_200_x_200_Color.png?1788710497",
+  "description": "Canopy (CNPY) is Web3 infrastructure built for an era in which AI is rapidly accelerating software development.\n\nIts central premise is straightforward: AI has transformed how quickly software can be created, but blockchain infrastructure has failed to evolve at the same pace.\nDevelopers can now prototype, iterate, and launch products faster than ever. In Web3, however, the underlying infrastructure continues to slow them down. Smart contracts are immutable and expensive to migrate. Rollups can restrict programming languages and shift value away from application teams. Legacy Layer 1 networks rely on codebases and development workflows created before modern AI tools, while every new blockchain must still bootstrap security, liquidity, and users from scratch.\nCanopy addresses these challenges with a full-stack platform for launching sovereign blockchains—essentially, the Replit of Web3.\n",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "AI Applications",
+    "Binance Alpha Spotlight"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://canopynetwork.org",
+    "github": "https://github.com/canopy-network/canopy",
+    "reddit": null,
+    "explorer": "https://app.canopynetwork.org/explorer"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-16T20:26:55.266Z"
+}
