@@ -7,7 +7,6 @@
   "categories": [
     "Tokenized Assets",
     "Ethereum Ecosystem",
-    "ZkSync Ecosystem",
     "Real World Assets (RWA)"
   ],
   "genesisDate": null,
@@ -25,9 +24,9 @@
     "high24h": 106.54,
     "low24h": 106.54,
     "priceChange24h": 0,
-    "priceChange7d": 0,
-    "priceChange30d": 0.4,
-    "priceChange1y": 313.1,
+    "priceChange7d": 0.04695,
+    "priceChange30d": 0.63285,
+    "priceChange1y": 299.62491,
     "ath": 106.54,
     "athChangePercentage": 0,
     "athDate": "2026-09-15T03:30:00.000Z",
@@ -40,13 +39,13 @@
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-08-27T07:25:54.046Z",
-  "lastMarketUpdate": "2026-09-16T20:24:20.000Z"
+  "fetchedAt": "2026-09-17T20:36:13.337Z",
+  "lastMarketUpdate": "2026-09-17T20:33:40.000Z"
 }

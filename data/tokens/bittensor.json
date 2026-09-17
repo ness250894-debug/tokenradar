@@ -11,7 +11,8 @@
     "DePIN",
     "Base Ecosystem",
     "Bittensor Ecosystem",
-    "Polychain Capital Portfolio"
+    "Polychain Capital Portfolio",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -21,35 +22,35 @@
     "explorer": "https://taostats.io/"
   },
   "market": {
-    "price": 220.85,
-    "marketCap": 2503688730,
-    "marketCapRank": 41,
-    "volume24h": 174635268,
-    "high24h": 220.35,
-    "low24h": 213.51,
-    "priceChange24h": 0.73022,
-    "priceChange7d": -16.5,
-    "priceChange30d": 10.9,
-    "priceChange1y": -36.5,
+    "price": 230.16,
+    "marketCap": 2609440184,
+    "marketCapRank": 40,
+    "volume24h": 160861766,
+    "high24h": 231.72,
+    "low24h": 217.91,
+    "priceChange24h": 3.98414,
+    "priceChange7d": -3.78824,
+    "priceChange30d": 20.27091,
+    "priceChange1y": -33.85457,
     "ath": 757.6,
-    "athChangePercentage": -70.84946,
+    "athChangePercentage": -69.6201,
     "athDate": "2024-03-07T10:45:36.000Z",
     "atl": 30.83,
     "atlDate": "2023-05-14T00:57:53.000Z",
     "circulatingSupply": 11339645.9251,
     "totalSupply": 21000000,
     "maxSupply": 21000000,
-    "fdv": 4636605383
+    "fdv": 4832447522
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 1467,
-    "githubForks": 475,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-08-27T07:25:28.807Z",
-  "lastMarketUpdate": "2026-09-16T20:24:20.000Z"
+  "fetchedAt": "2026-09-17T20:35:48.085Z",
+  "lastMarketUpdate": "2026-09-17T20:33:40.000Z"
 }
