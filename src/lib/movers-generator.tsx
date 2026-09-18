@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { fetchTokenIconDataUrl } from './token-icon-data';
@@ -16,16 +18,54 @@ type RenderableMoverToken = MoverToken & {
 };
 
 let robotoFontBuffer: ArrayBuffer | null = null;
+const ROBOTO_CACHE_FILE = path.resolve(process.cwd(), 'data', 'cache', 'roboto-medium.ttf');
 
-async function getFont() {
-  if (!robotoFontBuffer) {
-    const res = await fetch('https://raw.githubusercontent.com/googlefonts/roboto/main/src/hinted/Roboto-Medium.ttf');
-    if (!res.ok) {
-      throw new Error(`Failed to fetch Roboto font: HTTP ${res.status}`);
-    }
-    robotoFontBuffer = await res.arrayBuffer();
+function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
+  return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+}
+
+async function getFont(): Promise<ArrayBuffer> {
+  if (robotoFontBuffer) return robotoFontBuffer;
+
+  // 1. Check disk cache
+  try {
+    const cached = await fs.promises.readFile(ROBOTO_CACHE_FILE);
+    robotoFontBuffer = bufferToArrayBuffer(cached);
+    return robotoFontBuffer;
+  } catch {
+    // Cache miss
   }
-  return robotoFontBuffer;
+
+  // 2. Fetch with retry and timeout
+  const url = 'https://raw.githubusercontent.com/googlefonts/roboto/main/src/hinted/Roboto-Medium.ttf';
+  const maxRetries = 3;
+  let lastError: unknown = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      if (!res.ok) {
+        throw new Error(`Failed to fetch Roboto font: HTTP ${res.status}`);
+      }
+      robotoFontBuffer = await res.arrayBuffer();
+      try {
+        await fs.promises.mkdir(path.dirname(ROBOTO_CACHE_FILE), { recursive: true });
+        await fs.promises.writeFile(ROBOTO_CACHE_FILE, Buffer.from(robotoFontBuffer));
+      } catch (cacheError) {
+        const msg = cacheError instanceof Error ? cacheError.message : String(cacheError);
+        console.warn(`  [warn] Failed to cache Roboto font to disk: ${msg}`);
+      }
+      return robotoFontBuffer;
+    } catch (error) {
+      lastError = error;
+      if (attempt < maxRetries) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+      }
+    }
+  }
+
+  const errorMsg = lastError instanceof Error ? lastError.message : String(lastError);
+  throw new Error(`Failed to fetch Roboto font after ${maxRetries} attempts: ${errorMsg}`);
 }
 
 async function prepareTokens(tokens: MoverToken[]): Promise<RenderableMoverToken[]> {

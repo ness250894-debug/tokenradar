@@ -4,6 +4,7 @@ import * as path from "path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { shouldRegenerateOutput } from "../scripts/generate-og-images";
+import { preloadOgFont, renderOgImage } from "../src/lib/og-renderer";
 
 describe("OG image generation freshness", () => {
   const tmpRoots: string[] = [];
@@ -47,3 +48,34 @@ describe("OG image generation freshness", () => {
     expect(shouldRegenerateOutput(output, [source], false)).toBe(false);
   });
 });
+
+describe("OG image font loading and rendering", () => {
+  it("loads the bundled Inter font into memory", async () => {
+    const font = await preloadOgFont();
+    expect(font).toBeDefined();
+    expect(font.byteLength).toBeGreaterThan(100_000);
+
+    // Verify TrueType header signature: 0x00010000
+    const view = new DataView(font);
+    const magic = view.getUint32(0);
+    expect(magic).toBe(0x00010000);
+  });
+
+  it("renders a valid PNG buffer with token data", async () => {
+    const buffer = await renderOgImage({
+      name: "Bitcoin",
+      symbol: "BTC",
+      marketCap: 1_200_000_000_000,
+      volume24h: 30_000_000_000,
+      rank: 1,
+      risk: 2.5,
+    });
+
+    expect(buffer).toBeInstanceOf(Buffer);
+    expect(buffer.length).toBeGreaterThan(1000);
+
+    // Verify PNG magic bytes: \x89PNG\r\n\x1a\n (0x89504e47)
+    expect(buffer.subarray(0, 4).toString("hex")).toBe("89504e47");
+  });
+});
+

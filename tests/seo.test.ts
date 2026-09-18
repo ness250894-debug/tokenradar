@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { normalizeArticleMarkdown } from "../src/lib/article-formatting";
 import {
@@ -329,16 +329,29 @@ describe("generated sitemaps", () => {
   });
 
   it("uses only indexable overview pages for related-token recommendations", async () => {
-    const relatedTokens = await getRelatedTokens("memecore", 3);
-    expect(relatedTokens).toHaveLength(3);
+    vi.useFakeTimers();
+    try {
+      const rawTarget = JSON.parse(
+        fs.readFileSync(path.join(process.cwd(), "data/tokens/memecore.json"), "utf-8")
+      );
+      const anchorTime = rawTarget.lastMarketUpdate
+        ? new Date(rawTarget.lastMarketUpdate)
+        : new Date("2026-09-10T00:00:00Z");
+      vi.setSystemTime(anchorTime);
 
-    for (const related of relatedTokens) {
-      const [detail, overview] = await Promise.all([
-        getTokenDetail(related.id),
-        getArticle(related.id, "overview"),
-      ]);
-      expect(detail).not.toBeNull();
-      expect(detail && isTokenOverviewIndexable(detail, overview)).toBe(true);
+      const relatedTokens = await getRelatedTokens("memecore", 3);
+      expect(relatedTokens).toHaveLength(3);
+
+      for (const related of relatedTokens) {
+        const [detail, overview] = await Promise.all([
+          getTokenDetail(related.id),
+          getArticle(related.id, "overview"),
+        ]);
+        expect(detail).not.toBeNull();
+        expect(detail && isTokenOverviewIndexable(detail, overview)).toBe(true);
+      }
+    } finally {
+      vi.useRealTimers();
     }
   });
 });

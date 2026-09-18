@@ -28,6 +28,7 @@ export interface OgRenderData {
 // ── Font Loading (cached) ────────────────────────────────────
 
 let _fontCache: ArrayBuffer | null = null;
+const BUNDLED_FONT_FILE = path.resolve(process.cwd(), "src", "assets", "fonts", "og-inter.ttf");
 const FONT_CACHE_FILE = path.resolve(process.cwd(), "data", "cache", "og-inter.ttf");
 
 function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
@@ -35,36 +36,70 @@ function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
 }
 
 /**
- * Load Inter font from disk cache or Google Fonts CDN. Cached after first call.
+ * Preload the Inter font in-memory.
+ */
+export async function preloadOgFont(): Promise<ArrayBuffer> {
+  return loadFont();
+}
+
+/**
+ * Load Inter font from bundled repository asset, disk cache, or Google Fonts CDN with retries.
+ * Cached in-memory after first call.
  */
 async function loadFont(): Promise<ArrayBuffer> {
   if (_fontCache) return _fontCache;
 
+  // 1. Check bundled asset (guaranteed present in repository checkout)
+  try {
+    const bundledFont = await fs.promises.readFile(BUNDLED_FONT_FILE);
+    _fontCache = bufferToArrayBuffer(bundledFont);
+    return _fontCache;
+  } catch {
+    // Bundled font missing or unreadable; check local disk cache
+  }
+
+  // 2. Check local disk cache
   try {
     const cachedFont = await fs.promises.readFile(FONT_CACHE_FILE);
     _fontCache = bufferToArrayBuffer(cachedFont);
     return _fontCache;
   } catch {
-    // Cache miss: fetch and persist below.
+    // Cache miss: fetch from CDN below
   }
 
+  // 3. Fallback: Google Fonts CDN with retry & timeout
   const url =
     "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf";
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch Inter font: HTTP ${response.status}`);
+  const maxRetries = 3;
+  let lastError: unknown = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch Inter font: HTTP ${response.status}`);
+      }
+
+      _fontCache = await response.arrayBuffer();
+      try {
+        await fs.promises.mkdir(path.dirname(FONT_CACHE_FILE), { recursive: true });
+        await fs.promises.writeFile(FONT_CACHE_FILE, Buffer.from(_fontCache));
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        console.warn(`  [warn] Failed to cache OG font to disk: ${msg}`);
+      }
+      return _fontCache;
+    } catch (error) {
+      lastError = error;
+      if (attempt < maxRetries) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+      }
+    }
   }
 
-  _fontCache = await response.arrayBuffer();
-  try {
-    await fs.promises.mkdir(path.dirname(FONT_CACHE_FILE), { recursive: true });
-    await fs.promises.writeFile(FONT_CACHE_FILE, Buffer.from(_fontCache));
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    console.warn(`  [warn] Failed to cache OG font to disk: ${msg}`);
-  }
-  return _fontCache;
+  const msg = lastError instanceof Error ? lastError.message : String(lastError);
+  throw new Error(`Failed to fetch Inter font after ${maxRetries} attempts: ${msg}`);
 }
 
 // ── Name Font Scaling ─────────────────────────────────────────
