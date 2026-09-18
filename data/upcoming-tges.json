@@ -6638,5 +6638,51 @@
     "discoveredAt": "2026-09-12T19:42:29.159Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-12T19:42:29.159Z"
+  },
+  {
+    "id": "dtcpay",
+    "name": "dtcpay",
+    "symbol": "TBD",
+    "category": "Payments / Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "confidence": 40,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/dtcpay-25m-series-a-sbi-stablecoin-payments",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/dtcpay-25m-series-a-sbi-stablecoin-payments",
+        "title": "Stablecoin payments firm dtcpay closes $25M round with SBI backing",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-18T20:02:40.869Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-18T20:02:40.869Z"
+  },
+  {
+    "id": "fortitude",
+    "name": "Fortitude",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Nasdaq Listing",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/former-hut-8-ceo-jaime-leverton-to-lead-zcash-miner-fortitude-ahead-of-nasdaq-listing",
+    "signals": [
+      {
+        "type": "exchange_listing",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/former-hut-8-ceo-jaime-leverton-to-lead-zcash-miner-fortitude-ahead-of-nasdaq-listing",
+        "title": "Zcash miner Fortitude taps former Hut 8 CEO to lead ahead of public listing",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-18T20:02:40.870Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-18T20:02:40.870Z"
   }
 ]
