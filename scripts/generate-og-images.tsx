@@ -4,7 +4,7 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 
 import { generateMoversImage } from "../src/lib/movers-generator";
-import { renderOgImage } from "../src/lib/og-renderer";
+import { preloadOgFont, renderOgImage } from "../src/lib/og-renderer";
 import { loadEnv } from "../src/lib/utils";
 import { hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
 
@@ -263,6 +263,9 @@ export async function generateOGImages(options: { force?: boolean } = {}): Promi
     console.info("No tokens dir found.");
     return;
   }
+
+  // Preload font into memory before batch generation so any font issue is handled early
+  await preloadOgFont();
 
   const force = options.force ?? process.argv.includes("--force");
   const failureCount = (await generateTokenOgImages(force)) + (await generateMoversOgImage(force));
