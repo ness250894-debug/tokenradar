@@ -56,7 +56,7 @@
     "@aws-sdk/client-s3": "^3.1110.0",
     "@coingecko/coingecko-typescript": "^8.0.0",
     "@next/third-parties": "^16.3.4",
-    "@remotion/cli": "4.0.520",
+    "@remotion/cli": "4.0.523",
     "@sentry/nextjs": "^10.73.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
@@ -64,7 +64,7 @@
     "date-fns": "^4.4.0",
     "dotenv": "^17.4.2",
     "framer-motion": "^13.0.0",
-    "googleapis": "^176.0.0",
+    "googleapis": "^180.0.0",
     "grammy": "^1.46.0",
     "kokoro-js": "^1.2.1",
     "lucide-react": "^1.38.0",
@@ -72,15 +72,15 @@
     "next": "^16.3.4",
     "next-nprogress-bar": "^2.4.7",
     "postcss": "^8.5.26",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "react-markdown": "^10.1.0",
     "recharts": "^3.10.1",
-    "remotion": "4.0.520",
+    "remotion": "4.0.523",
     "rss-parser": "^3.13.0",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.1",
-    "zod": "4.4.3"
+    "zod": "4.5.4"
   },
   "overrides": {
     "grammy": {
@@ -109,8 +109,8 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^26.4.1",
-    "@types/react": "^19.2.18",
+    "@types/node": "^26.5.1",
+    "@types/react": "^19.3.0",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.5",
@@ -118,8 +118,8 @@
     "satori": "^0.26.0",
     "tsx": "^4.23.13",
     "typescript": "^6",
-    "vite": "8.2.2",
+    "vite": "8.3.0",
     "vitest": "^5.0.0",
-    "wrangler": "^4.94.0"
+    "wrangler": "^4.131.0"
   }
 }

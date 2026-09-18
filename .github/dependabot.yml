@@ -22,6 +22,7 @@ updates:
         patterns:
           - "remotion"
           - "@remotion/*"
+          - "zod"
       test-and-tooling:
         patterns:
           - "@types/*"
