@@ -6684,5 +6684,28 @@
     "discoveredAt": "2026-09-18T20:02:40.870Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-18T20:02:40.870Z"
+  },
+  {
+    "id": "bastion-platforms",
+    "name": "Bastion Platforms",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 70,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/bastion-wins-conditional-occ-approval-for-national-trust-bank-charter",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/bastion-wins-conditional-occ-approval-for-national-trust-bank-charter",
+        "title": "Bastion wins conditional OCC approval for national trust bank charter",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-19T19:40:11.575Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-19T19:40:11.575Z"
   }
 ]
