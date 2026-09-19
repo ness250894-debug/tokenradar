@@ -21,40 +21,40 @@
   "genesisDate": null,
   "links": {
     "website": "https://synapseprotocol.com",
-    "github": null,
+    "github": "https://github.com/synapsecns",
     "reddit": null,
     "explorer": "https://optimistic.etherscan.io/token/0x5a5fff6f753d7c11a56a52fe47a177a87e431655"
   },
   "market": {
-    "price": 0.196473,
-    "marketCap": 43040605,
-    "marketCapRank": 488,
-    "volume24h": 19389880,
-    "high24h": 0.228363,
-    "low24h": 0.189257,
-    "priceChange24h": -8.79294,
-    "priceChange7d": -25.82522819397281,
-    "priceChange30d": 26.887045268501335,
-    "priceChange1y": 45.96929706235678,
+    "price": 0.242659,
+    "marketCap": 53196964,
+    "marketCapRank": 454,
+    "volume24h": 105297865,
+    "high24h": 0.273918,
+    "low24h": 0.173761,
+    "priceChange24h": 38.07358,
+    "priceChange7d": 198.52007,
+    "priceChange30d": 124.07409,
+    "priceChange1y": 87.5561,
     "ath": 4.92,
-    "athChangePercentage": -95.98115,
-    "athDate": "2021-10-24T00:24:41.805Z",
-    "atl": 0.02738298,
-    "atlDate": "2026-06-11T02:30:31.818Z",
+    "athChangePercentage": -95.06331,
+    "athDate": "2021-10-23T16:24:41.000Z",
+    "atl": 0.02732577,
+    "atlDate": "2026-06-11T02:26:20.000Z",
     "circulatingSupply": 219066529,
     "totalSupply": 250000000,
     "maxSupply": 250000000,
-    "fdv": 49118190
+    "fdv": 60708686
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-22T20:23:08.696Z",
-  "lastMarketUpdate": "2026-07-21T18:57:28.202Z"
+  "fetchedAt": "2026-09-19T19:37:34.899Z",
+  "lastMarketUpdate": "2026-09-19T19:35:40.000Z"
 }
