@@ -6707,5 +6707,28 @@
     "discoveredAt": "2026-09-19T19:40:11.575Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-19T19:40:11.575Z"
+  },
+  {
+    "id": "rare-friends",
+    "name": "Rare Friends",
+    "symbol": "TBD",
+    "category": "Gaming/DeFi",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 55,
+    "confidence": 60,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://airdropalert.com/blogs/rare-friends-nft-doodles-robinhood/",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/rare-friends-nft-doodles-robinhood/",
+        "title": "What Are Rare Friends? Inside the Doodles Co-Founder’s NFT Game on Robinhood Chain",
+        "observedAt": "2026-09-19T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-20T19:50:51.041Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-20T19:50:51.041Z"
   }
 ]
