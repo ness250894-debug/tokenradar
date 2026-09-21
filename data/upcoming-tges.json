@@ -6730,5 +6730,51 @@
     "discoveredAt": "2026-09-20T19:50:51.041Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-20T19:50:51.041Z"
+  },
+  {
+    "id": "argus",
+    "name": "Argus",
+    "symbol": "ARGUS",
+    "category": "Infrastructure",
+    "expectedTge": "Mainnet / Launchpad",
+    "narrativeStrength": 75,
+    "dataSource": "https://airdropalert.com/blogs/what-is-argus/",
+    "lifecycleStatus": "confirmed_tge",
+    "confidence": 85,
+    "signals": [
+      {
+        "type": "token_sale",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/what-is-argus/",
+        "title": "What Is Argus? The Launchpad That Beat Arc Mainnet to Launch",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-21T21:18:43.580Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-21T21:18:43.580Z"
+  },
+  {
+    "id": "zetachain-solana-migration",
+    "name": "ZetaChain",
+    "symbol": "ZETA",
+    "category": "L1/L2",
+    "expectedTge": "Token migration (Cosmos L1 to Solana)",
+    "narrativeStrength": 75,
+    "confidence": 95,
+    "lifecycleStatus": "confirmed_tge",
+    "dataSource": "https://cointelegraph.com/news/zetachain-shutdown-zeta-solana-migration",
+    "signals": [
+      {
+        "type": "migration",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/zetachain-shutdown-zeta-solana-migration",
+        "title": "ZetaChain holders approve plan to wind down L1, move ZETA to Solana",
+        "observedAt": "2025-02-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-21T21:18:43.580Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-21T21:18:43.580Z"
   }
 ]

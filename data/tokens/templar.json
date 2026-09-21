@@ -17,34 +17,35 @@
     "explorer": "https://taostats.io/subnets/3/chart"
   },
   "market": {
-    "price": 8.65,
-    "marketCap": 38858571,
-    "marketCapRank": 603,
-    "volume24h": 7304346,
-    "high24h": 9.29,
-    "low24h": 8.6,
-    "priceChange24h": -5.90311,
-    "priceChange7d": -3.57046,
-    "priceChange30d": 16.07649,
-    "priceChange1y": 0,
+    "price": 9.67,
+    "marketCap": 53416459,
+    "marketCapRank": 464,
+    "volume24h": 2389203,
+    "high24h": 10.09,
+    "low24h": 8.21,
+    "priceChange24h": 17.62085,
+    "priceChange7d": 32.41652,
+    "priceChange30d": 55.42975,
+    "priceChange1y": -19.55169,
     "ath": 44.47,
-    "athChangePercentage": -80.54373,
-    "athDate": "2025-06-10T05:25:52.515Z",
-    "atl": 4.61,
-    "atlDate": "2026-04-27T20:00:04.541Z",
-    "circulatingSupply": 4490866.497421396,
-    "totalSupply": 4490866.497421396,
+    "athChangePercentage": -78.25784,
+    "athDate": "2025-06-09T21:25:52.000Z",
+    "atl": 0.050586,
+    "atlDate": "2026-04-22T18:16:00.000Z",
+    "circulatingSupply": 5524336.527901255,
+    "totalSupply": 5524336.527901255,
     "maxSupply": 21000000,
-    "fdv": 38858571
+    "fdv": 53416459
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:36:52.838Z"
+  "fetchedAt": "2026-09-21T21:15:48.186Z",
+  "lastMarketUpdate": "2026-09-21T21:13:40.000Z"
 }
