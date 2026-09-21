@@ -9,6 +9,7 @@
     "USD Stablecoin",
     "Solana Ecosystem",
     "Ethereum Ecosystem",
+    "Mantle Ecosystem",
     "X Layer Ecosystem",
     "Fiat-backed Stablecoin",
     "Ink Ecosystem",
@@ -23,25 +24,25 @@
     "explorer": "https://etherscan.io/token/0xe343167631d89B6Ffc58B88d6b7fB0228795491D"
   },
   "market": {
-    "price": 0.999952,
-    "marketCap": 3259291897,
-    "marketCapRank": 34,
-    "volume24h": 602427830,
+    "price": 1,
+    "marketCap": 3262370625,
+    "marketCapRank": 36,
+    "volume24h": 1150528242,
     "high24h": 1,
-    "low24h": 0.999688,
-    "priceChange24h": 0.00554,
-    "priceChange7d": 0,
-    "priceChange30d": 0,
-    "priceChange1y": 0,
+    "low24h": 0.99979,
+    "priceChange24h": 0.01044,
+    "priceChange7d": 0.01428,
+    "priceChange30d": 0.00967,
+    "priceChange1y": 0.01181,
     "ath": 1.65,
-    "athChangePercentage": -39.56229,
+    "athChangePercentage": -39.5544,
     "athDate": "2025-01-29T16:11:05.000Z",
     "atl": 0.907561,
     "atlDate": "2024-11-11T15:55:50.000Z",
-    "circulatingSupply": 3259523613.883399,
-    "totalSupply": 3259575067.123576,
+    "circulatingSupply": 3262142890.103568,
+    "totalSupply": 3262147890.103568,
     "maxSupply": null,
-    "fdv": 3259343347
+    "fdv": 3268376045
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-08-30T20:06:09.739Z",
-  "lastMarketUpdate": "2026-09-20T19:45:10.000Z"
+  "fetchedAt": "2026-09-21T21:17:35.262Z",
+  "lastMarketUpdate": "2026-09-21T21:14:40.000Z"
 }
