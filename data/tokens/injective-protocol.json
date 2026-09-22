@@ -9,6 +9,7 @@
     "Decentralized Finance (DeFi)",
     "BNB Chain Ecosystem",
     "Cosmos Ecosystem",
+    "Solana Ecosystem",
     "Layer 1 (L1)",
     "Terra Ecosystem",
     "Ethereum Ecosystem",
@@ -32,25 +33,25 @@
     "explorer": "https://explorer.injective.network/"
   },
   "market": {
-    "price": 7.7,
-    "marketCap": 770239704,
-    "marketCapRank": 91,
-    "volume24h": 187984732,
-    "high24h": 8.02,
-    "low24h": 7.58,
-    "priceChange24h": -0.04765,
-    "priceChange7d": 22.5452,
-    "priceChange30d": 56.1694,
-    "priceChange1y": -43.2863,
+    "price": 7.82,
+    "marketCap": 781209773,
+    "marketCapRank": 90,
+    "volume24h": 157568775,
+    "high24h": 7.99,
+    "low24h": 7.5,
+    "priceChange24h": 0.6564,
+    "priceChange7d": 41.94431,
+    "priceChange30d": 47.46415,
+    "priceChange1y": -35.55372,
     "ath": 52.62,
-    "athChangePercentage": -85.36353,
+    "athChangePercentage": -85.14375,
     "athDate": "2024-03-14T07:06:22.000Z",
     "atl": 0.657401,
     "atlDate": "2020-11-03T08:19:30.000Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 770239704
+    "fdv": 781209773
   },
   "community": {
     "twitterFollowers": null,
@@ -61,6 +62,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-08-31T22:04:59.187Z",
-  "lastMarketUpdate": "2026-09-21T21:13:10.000Z"
+  "fetchedAt": "2026-09-22T20:32:11.328Z",
+  "lastMarketUpdate": "2026-09-22T20:28:40.000Z"
 }
