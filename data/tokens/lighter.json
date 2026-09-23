@@ -10,7 +10,8 @@
     "Derivatives",
     "Perpetuals",
     "Ethereum Ecosystem",
-    "Made in USA"
+    "Made in USA",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2"
   },
   "market": {
-    "price": 4.85,
-    "marketCap": 1212017137,
-    "marketCapRank": 71,
-    "volume24h": 75811204,
-    "high24h": 4.93,
-    "low24h": 4.64,
-    "priceChange24h": 0.10165,
-    "priceChange7d": 13.1358,
-    "priceChange30d": 42.2436,
+    "price": 5.43,
+    "marketCap": 1358845931,
+    "marketCapRank": 70,
+    "volume24h": 152991655,
+    "high24h": 5.49,
+    "low24h": 4.86,
+    "priceChange24h": 11.99063,
+    "priceChange7d": 21.13394,
+    "priceChange30d": 58.95391,
     "priceChange1y": 0,
     "ath": 7.86,
-    "athChangePercentage": -38.31615,
+    "athChangePercentage": -30.97657,
     "athDate": "2025-12-30T01:05:21.000Z",
     "atl": 0.779399,
     "atlDate": "2026-03-31T09:55:00.000Z",
     "circulatingSupply": 250000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 4848068549
+    "fdv": 5435383722
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-01T20:11:41.843Z",
-  "lastMarketUpdate": "2026-09-22T20:27:10.000Z"
+  "fetchedAt": "2026-09-23T20:44:36.153Z",
+  "lastMarketUpdate": "2026-09-23T20:41:30.000Z"
 }
