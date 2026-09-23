@@ -17,29 +17,29 @@
   "links": {
     "website": "https://kusama.network/",
     "github": "https://github.com/paritytech/polkadot-sdk",
-    "reddit": null,
+    "reddit": "https://www.reddit.com/r/Kusama",
     "explorer": "https://assethub-kusama.subscan.io/"
   },
   "market": {
-    "price": 4.69,
-    "marketCap": 88389674,
-    "marketCapRank": 317,
-    "volume24h": 4236698,
-    "high24h": 4.75,
-    "low24h": 4.55,
-    "priceChange24h": 0.97349,
-    "priceChange7d": 25.8169,
-    "priceChange30d": 25.1436,
-    "priceChange1y": -66.665,
+    "price": 4.35,
+    "marketCap": 81938212,
+    "marketCapRank": 325,
+    "volume24h": 4643694,
+    "high24h": 4.77,
+    "low24h": 4.33,
+    "priceChange24h": -7.29421,
+    "priceChange7d": 15.82641,
+    "priceChange30d": 19.66256,
+    "priceChange1y": -69.29741,
     "ath": 621.71,
-    "athChangePercentage": -99.24605,
+    "athChangePercentage": -99.3011,
     "athDate": "2021-05-17T21:04:41.000Z",
     "atl": 0.876572,
     "atlDate": "2020-01-14T11:20:20.000Z",
-    "circulatingSupply": 18871023.16505344,
-    "totalSupply": 18871791.59468119,
+    "circulatingSupply": 18876193.19084791,
+    "totalSupply": 18877106.79978635,
     "maxSupply": null,
-    "fdv": 88391991
+    "fdv": 81938212
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-01T20:11:10.349Z",
-  "lastMarketUpdate": "2026-09-22T20:28:10.000Z"
+  "fetchedAt": "2026-09-23T20:44:10.947Z",
+  "lastMarketUpdate": "2026-09-23T20:41:30.000Z"
 }

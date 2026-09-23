@@ -1,0 +1,50 @@
+{
+  "id": "electroneum",
+  "symbol": "etn",
+  "name": "Electroneum",
+  "market": {
+    "price": 0.00271597,
+    "marketCap": 48832648,
+    "marketCapRank": 488,
+    "volume24h": 543694,
+    "high24h": 0.00250953,
+    "low24h": 0.00178692,
+    "priceChange24h": 51.70249,
+    "priceChange7d": 170.0968,
+    "priceChange30d": 268.13469,
+    "priceChange1y": -5.61301,
+    "ath": 0.207854,
+    "athChangePercentage": -98.69333,
+    "athDate": "2018-01-05T16:00:00.000Z",
+    "atl": 0.0007013,
+    "atlDate": "2026-08-14T20:01:10.000Z",
+    "circulatingSupply": 17979817604.56,
+    "totalSupply": 17979817604.56,
+    "maxSupply": 21000000000,
+    "fdv": 48832648
+  },
+  "lastMarketUpdate": "2026-09-23T20:40:30.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/1109/large/Electroneum2_profile_picture_transparent.png?1747736633",
+  "description": "Electroneum is a Layer 1 EVM-compatible blockchain, catering to 4+ million users worldwide. The network boasts transaction speeds of just 5 seconds with instant finality and potentially the lowest smart contract fees available. Powered by the IBFT consensus mechanism and supported by known validators (targeting universities and Web3 infrastructure companies), the network is incredibly fast, secure and energy efficient. ETN provides the backbone for AnyTask.com a successful freelance platform in the crypto space.",
+  "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)"
+  ],
+  "genesisDate": "2017-10-30",
+  "links": {
+    "website": "http://electroneum.com/",
+    "github": "https://github.com/electroneum/electroneum",
+    "reddit": "https://www.reddit.com/r/Electroneum",
+    "explorer": "https://blockexplorer.electroneum.com/"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-23T20:42:30.156Z"
+}

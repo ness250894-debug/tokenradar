@@ -1,0 +1,55 @@
+{
+  "id": "nillion",
+  "symbol": "nil",
+  "name": "Nillion",
+  "market": {
+    "price": 0.096919,
+    "marketCap": 48852523,
+    "marketCapRank": 483,
+    "volume24h": 97231421,
+    "high24h": 0.113556,
+    "low24h": 0.077328,
+    "priceChange24h": 24.17884,
+    "priceChange7d": 146.81909,
+    "priceChange30d": 119.66759,
+    "priceChange1y": -68.73123,
+    "ath": 0.897077,
+    "athChangePercentage": -89.19608,
+    "athDate": "2025-03-24T05:30:35.000Z",
+    "atl": 0.02739273,
+    "atlDate": "2026-08-01T18:32:30.000Z",
+    "circulatingSupply": 504052924.583456,
+    "totalSupply": 1010636954.663666,
+    "maxSupply": null,
+    "fdv": 97950360
+  },
+  "lastMarketUpdate": "2026-09-23T20:40:30.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/39082/large/nillion.jpg?1723033507",
+  "description": "Nillion is a decentralized network for Encrypted Markets. Instead of broadcasting an instruction before it executes, a user seals it to a condition and posts it onchain, where it stays unreadable, to other traders, to agents, and to the network itself, until that condition is met. At that moment a threshold of independent nodes unlocks it and it executes automatically. Covenants is the primitive that makes this possible, bringing privacy to the parts of a market that have always run in the open: the order, the strategy, and the logic behind them.\n\n$NIL is the native utility token of the network that is used for:\n\n* Protocol fees for creating and resolving Covenants\n* Staking to operate a node and secure the network\n* Rewards paid to nodes that monitor conditions and settle results\n\n\nCovenants is the protocol powering Encrypted Markets:\n\n* Condition-gated instructions sealed onchain, revealed and executed only when live data feeds meet the condition\n\n\n$NIL also enables access to Nillion's established privacy infrastructure:\n\n* nilDB: an encrypted database with data split across multiple nodes, where calculations can still be performed on data while in encrypted form\n* nilAI: AI-focused privacy technologies including AI Virtual Machine (AIVM), nada-AI, and nilTEE",
+  "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Binance Launchpool",
+    "Ethereum Ecosystem",
+    "CoinList Launchpad",
+    "Privacy Infrastructure",
+    "Privacy"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://nillion.com/",
+    "github": "https://github.com/NillionNetwork",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x7cf9a80db3b29ee8efe3710aadb7b95270572d47"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-23T20:42:23.851Z"
+}
