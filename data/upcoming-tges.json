@@ -6776,5 +6776,28 @@
     "discoveredAt": "2026-09-21T21:18:43.580Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-21T21:18:43.580Z"
+  },
+  {
+    "id": "hifi",
+    "name": "HIFI",
+    "symbol": "TBD",
+    "category": "Payments / RWA",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://cointelegraph.com/news/hifi-raises-37m-to-expand-stablecoin-payments-tokenized-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 60,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/hifi-raises-37m-to-expand-stablecoin-payments-tokenized-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "HIFI raises $37M to expand stablecoin payments, tokenized markets",
+        "observedAt": "2026-03-27T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-24T20:51:39.269Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-24T20:51:39.269Z"
   }
 ]

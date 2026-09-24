@@ -3,19 +3,33 @@
   "tokenName": "Quant",
   "articles": [
     {
-      "title": "EU watchdogs warn quantum computers could pick crypto’s locks",
-      "link": "https://cointelegraph.com/news/eu-watchdogs-quantum-computers-crypto-locks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 23 Sep 2026 12:22:56 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "EU supervisors warn quantum computing could weaken blockchain security as Bitcoin developers weigh a draft migration plan and Ethereum targets 2029."
+      "title": "EU financial watchdogs warn quantum computing poses imminent threat to blockchain encryption",
+      "link": "https://www.coindesk.com/tech/2026/09/24/eu-financial-watchdogs-warn-quantum-computing-poses-imminent-threat-to-blockchain-encryption",
+      "pubDate": "Thu, 24 Sep 2026 09:32:48 +0000",
+      "source": "CoinDesk",
+      "snippet": "The warning brings renewed urgency to the debate over how bitcoin should deal with legacy addresses whose public keys are already exposed onchain."
     },
     {
-      "title": "Inside Coinbase’s $250 Billion Playbook for Post-Quantum Bitcoin Custody",
-      "link": "https://decrypt.co/379000/coinbase-playbook-post-quantum-bitcoin-custody",
-      "pubDate": "Tue, 22 Sep 2026 20:01:03 +0000",
+      "title": "A week of AI coding cut a quantum-safe bitcoin transaction estimate from $320 to $66",
+      "link": "https://www.coindesk.com/tech/2026/09/24/a-week-of-ai-coding-cut-a-quantum-safe-bitcoin-transaction-estimate-from-usd320-to-usd66",
+      "pubDate": "Thu, 24 Sep 2026 05:24:56 +0000",
+      "source": "CoinDesk",
+      "snippet": "StarkWare, which conducted the research, says contest participants using AI tools made the computation about five times faster, though the $66 figure has not yet been demonstrated in another transaction mined on Bitcoin."
+    },
+    {
+      "title": "Bitcoin’s ‘last resort’ quantum-safe solution just got 79% cheaper: StarkWare",
+      "link": "https://cointelegraph.com/news/bitcoins-last-resort-quantum-safe-solution-just-got-79-cheaper-starkware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 24 Sep 2026 04:52:40 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A weeklong optimization challenge cut the estimated GPU cost of preparing an experimental quantum-resistant Bitcoin transaction to under $67, potentially making the “last-resort measure” a little easier on the wallet."
+    },
+    {
+      "title": "Q-Day Could Arrive Before Quantum Computers Are Commercially Useful, EU Warns",
+      "link": "https://decrypt.co/379167/q-day-could-arrive-before-quantum-computers-are-commercially-useful-eu-warns",
+      "pubDate": "Thu, 24 Sep 2026 11:05:19 +0000",
       "source": "Decrypt",
-      "snippet": "Head of cryptography Yehuda Lindell says the exchange is designing custody that can adapt to whatever post-quantum signing scheme Bitcoin adopts."
+      "snippet": "The threat could arrive before quantum computers are commercially useful, and member states have until the end of 2026 to plan for it."
     }
   ],
-  "fetchedAt": "2026-09-23T20:54:26.464Z"
+  "fetchedAt": "2026-09-24T21:00:42.677Z"
 }

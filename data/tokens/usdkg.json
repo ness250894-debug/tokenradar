@@ -18,25 +18,25 @@
     "explorer": "https://tronscan.org/#/token20/TXZo12qvnEVKvU2zbfuQeMXKusWyxonwEG"
   },
   "market": {
-    "price": 1.001,
-    "marketCap": 50026092,
-    "marketCapRank": 477,
-    "volume24h": 36003,
+    "price": 1,
+    "marketCap": 50002868,
+    "marketCapRank": 487,
+    "volume24h": 422.51,
     "high24h": 1.001,
-    "low24h": 0.999828,
-    "priceChange24h": 0.03505,
-    "priceChange7d": 0.1006,
-    "priceChange30d": 0.0061,
+    "low24h": 0.999631,
+    "priceChange24h": -0.04396,
+    "priceChange7d": 0.0317,
+    "priceChange30d": 0.0164,
     "priceChange1y": 0,
     "ath": 1.021,
-    "athChangePercentage": -2.01355,
+    "athChangePercentage": -2.05724,
     "athDate": "2026-01-23T01:26:20.000Z",
     "atl": 0.992226,
     "atlDate": "2026-02-24T04:02:01.000Z",
     "circulatingSupply": 50000000,
     "totalSupply": 50000000,
     "maxSupply": null,
-    "fdv": 50026092
+    "fdv": 50002868
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-09-09T20:04:59.840Z",
-  "lastMarketUpdate": "2026-09-23T20:38:50.000Z"
+  "lastMarketUpdate": "2026-09-24T20:46:20.000Z"
 }

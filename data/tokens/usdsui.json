@@ -18,25 +18,25 @@
     "explorer": "https://suiscan.xyz/mainnet/coin/0x44f838219cf67b058f3b37907b655f226153c18e33dfcd0da559a844fea9b1c1::usdsui::USDSUI/txs"
   },
   "market": {
-    "price": 1.002,
-    "marketCap": 75520840,
-    "marketCapRank": 353,
-    "volume24h": 4700415,
-    "high24h": 1.004,
-    "low24h": 0.994893,
-    "priceChange24h": -0.04878,
-    "priceChange7d": -0.2256,
-    "priceChange30d": -0.1206,
+    "price": 1.001,
+    "marketCap": 76220169,
+    "marketCapRank": 354,
+    "volume24h": 5856703,
+    "high24h": 1.003,
+    "low24h": 0.998937,
+    "priceChange24h": 0.15225,
+    "priceChange7d": 0.1772,
+    "priceChange30d": -0.05,
     "priceChange1y": 0,
     "ath": 1.021,
-    "athChangePercentage": -1.88082,
+    "athChangePercentage": -1.91942,
     "athDate": "2026-04-20T14:19:00.000Z",
     "atl": 0.966852,
     "atlDate": "2026-08-22T05:11:30.000Z",
-    "circulatingSupply": 75415463.2,
-    "totalSupply": 75415463.2,
+    "circulatingSupply": 76145463.2,
+    "totalSupply": 76145463.2,
     "maxSupply": null,
-    "fdv": 75520840
+    "fdv": 76220169
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-09-14T21:05:08.996Z",
-  "lastMarketUpdate": "2026-09-23T20:38:50.000Z"
+  "lastMarketUpdate": "2026-09-24T20:46:20.000Z"
 }
