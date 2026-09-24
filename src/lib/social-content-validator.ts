@@ -201,27 +201,27 @@ function extractNumericClaims(text: string): NumericClaim[] {
       kind: "currency" as const,
       value: parseScaledNumber(match[0]),
     })),
-    ...collectRegexClaims(normalizedText, /\brisk(?:\s+(?:score|index|profile))?\s*:?\s*(\d+(?:\.\d+)?)\s*\/\s*10\b/gi, (match) => ({
+    ...collectRegexClaims(normalizedText, /\brisk(?:\s+(?:score|index|profile))?\s*[:—–-]?\s*(\d+(?:\.\d+)?)\s*\/\s*10\b/gi, (match) => ({
       raw: match[0],
       kind: "risk-score" as const,
       value: Number(match[1]),
     })),
-    ...collectRegexClaims(normalizedText, /\bgrowth(?:\s+potential)?(?:\s+(?:index|score))?\s*:?\s*(\d+(?:\.\d+)?)\s*\/\s*100\b/gi, (match) => ({
+    ...collectRegexClaims(normalizedText, /\bgrowth(?:\s+potential)?(?:\s+(?:index|score))?\s*[:—–-]?\s*(\d+(?:\.\d+)?)\s*\/\s*100\b/gi, (match) => ({
       raw: match[0],
       kind: "growth-score" as const,
       value: Number(match[1]),
     })),
-    ...collectRegexClaims(normalizedText, /\brisk\s+(?:score|index|profile)\s*:?\s*(\d+(?:\.\d+)?)(?!\d|\s*\/)/gi, (match) => ({
+    ...collectRegexClaims(normalizedText, /\brisk\s+(?:score|index|profile)\s*[:—–-]?\s*(\d+(?:\.\d+)?)(?!\d|\s*\/)/gi, (match) => ({
       raw: match[0],
       kind: "risk-score" as const,
       value: Number(match[1]),
     })),
-    ...collectRegexClaims(normalizedText, /\b(?:growth(?:\s+potential)?\s+(?:index|score))\s*:?\s*(\d+(?:\.\d+)?)(?!\d|\s*\/)/gi, (match) => ({
+    ...collectRegexClaims(normalizedText, /\b(?:growth(?:\s+potential)?\s+(?:index|score))\s*[:—–-]?\s*(\d+(?:\.\d+)?)(?!\d|\s*\/)/gi, (match) => ({
       raw: match[0],
       kind: "growth-score" as const,
       value: Number(match[1]),
     })),
-    ...collectRegexClaims(normalizedText, /\brank\s*:?\s*#?\s*\d+\b/gi, (match) => ({
+    ...collectRegexClaims(normalizedText, /\brank\s*[:—–-]?\s*#?\s*\d+\b/gi, (match) => ({
       raw: match[0],
       kind: "rank" as const,
       value: Number(match[0].match(/\d+/)?.[0]),

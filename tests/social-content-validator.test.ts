@@ -527,4 +527,21 @@ describe("social content validator", () => {
         .toContainEqual(expect.objectContaining({ code: "unsupported-number" }));
     }
   });
+
+  it("recognizes risk, growth, and rank claims separated by colons, hyphens, or dashes", () => {
+    const attribution = "CoinGecko snapshot, 2026-08-23 09:30 UTC";
+    const variations = [
+      `$PUMP Risk: 6/10. Growth Index: 44/100. Rank: #486. ${attribution}`,
+      `$PUMP Risk — 6/10. Growth Index — 44/100. Rank — #486. ${attribution}`,
+      `$PUMP Risk - 6/10. Growth Index - 44/100. Rank - #486. ${attribution}`,
+      `$PUMP Supplied Risk — 6/10. One snapshot is a starting point. ${attribution}`,
+      `$PUMP Supplied Risk: 6/10. One snapshot is a starting point. ${attribution}`,
+    ];
+
+    for (const text of variations) {
+      const result = validateSocialContent(text, groundedFacts);
+      expect(result.issues.filter((i) => i.code === "unsupported-number")).toEqual([]);
+      expect(result.ok).toBe(true);
+    }
+  });
 });

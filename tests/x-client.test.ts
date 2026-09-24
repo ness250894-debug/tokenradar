@@ -125,6 +125,27 @@ describe("X post similarity helpers", () => {
     expect(diversified.length).toBeLessThanOrEqual(260);
     expect((diversified.match(/\$[A-Z]+/g) || []).length).toBeLessThanOrEqual(1);
   });
+
+  it("does not rewrite colons in subsequent clauses like Supplied Risk", () => {
+    const candidate = "$BTC is -2.05% over 24h. Supplied Risk: 3/10. One snapshot is a starting point, not a trend.";
+    const recent = [candidate];
+
+    const diversified = diversifyXPostText(candidate, recent, "2026-09-23:bitcoin:trending:video");
+
+    // Must NOT mutate "Supplied Risk: 3/10" to "Supplied Risk — 3/10"
+    expect(diversified).toContain("Supplied Risk: 3/10");
+    expect(diversified).not.toContain("Supplied Risk —");
+  });
+
+  it("rewrites header colons with or without token names before the first sentence", () => {
+    const candidateTickerOnly = "$BTC: +4.2% over 24h. The snapshot shows movement, not durability.";
+    const diversifiedTicker = diversifyXPostText(candidateTickerOnly, [candidateTickerOnly], "seed-1");
+    expect(diversifiedTicker.startsWith("$BTC — ")).toBe(true);
+
+    const candidateNamed = "$BTC Bitcoin: +4.2% over 24h. The snapshot shows movement, not durability.";
+    const diversifiedNamed = diversifyXPostText(candidateNamed, [candidateNamed], "seed-2");
+    expect(diversifiedNamed.startsWith("$BTC Bitcoin — ")).toBe(true);
+  });
 });
 
 describe("sanitizeCashtags", () => {
