@@ -581,7 +581,7 @@ export function diversifyXPostText(
   // Structural punctuation and neutral labels provide a small variation only
   // when they fit without truncating the already-validated text.
   const structuralRewrite = cleanText.replace(
-    /^(\$[A-Z][A-Z0-9]{0,9}\s+[^:\n]{1,60}):\s*/i,
+    /^(\$[A-Z][A-Z0-9]{0,9}(?:\s+[^.,;:!?%+\n]{1,40})?):\s*/i,
     "$1 — ",
   );
   if (structuralRewrite !== cleanText && structuralRewrite.length <= maxLength) {
