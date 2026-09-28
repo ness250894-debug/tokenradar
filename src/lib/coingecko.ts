@@ -91,6 +91,9 @@ interface ApiCounter {
 /** Read monthly API call counter. */
 async function readCounter(): Promise<ApiCounter> {
   await ensureCacheDir();
+  if (process.env.RESET_COINGECKO_COUNTER === "true") {
+    return { month: monthKey(), count: 0 };
+  }
   try {
     const raw = await fs.promises.readFile(COUNTER_FILE, "utf-8");
     const parsed = JSON.parse(raw) as ApiCounter;
@@ -193,7 +196,7 @@ export async function fetchCoinGecko<T>(
   params: Record<string, string | number> = {},
   cacheKey?: string,
   cacheTtlMs: number = 24 * 60 * 60 * 1000
-): Promise<T> {
+): Promise<T | null> {
   return withCache(cacheKey, cacheTtlMs, async () => {
     // Build URL for raw fetch
     const url = new URL(`https://api.coingecko.com/api/v3${endpoint}`);
@@ -214,6 +217,9 @@ export async function fetchCoinGecko<T>(
     const response = await fetchWithRetry(url.toString(), {
       headers,
     });
+    if (response.status === 404) {
+      return null as T;
+    }
     if (!response.ok) throw new Error(`API error: ${response.status} ${response.statusText}`);
     return (await response.json()) as T;
   });

@@ -61,6 +61,9 @@ jobs:
             ${{ runner.os }}-coingecko-data-refresh-
             ${{ runner.os }}-coingecko-data-
 
+      - name: Clean leaked counter before restore
+        run: rm -f data/cache/api-counter.json
+
       - name: Restore CoinGecko monthly quota counter
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
@@ -68,6 +71,21 @@ jobs:
           key: ${{ runner.os }}-coingecko-api-counter-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             ${{ runner.os }}-coingecko-api-counter-
+
+      - name: Validate restored CoinGecko monthly quota counter
+        shell: bash
+        run: |
+          current_month="$(date -u +%Y-%m)"
+          if [ -s data/cache/api-counter.json ]; then
+            counter_month="$(jq -r '.month // empty' data/cache/api-counter.json)"
+            counter_val="$(jq -r '.count // -1' data/cache/api-counter.json)"
+            if [ "$counter_month" != "$current_month" ] || [ "$counter_val" -ge 9000 ]; then
+              echo "Restored counter was invalid or exceeded ($counter_month, count: $counter_val). Resetting."
+              rm -f data/cache/api-counter.json
+            else
+              echo "Restored valid counter for $counter_month: $counter_val calls."
+            fi
+          fi
 
       - name: Install dependencies
         run: npm ci

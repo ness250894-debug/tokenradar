@@ -218,7 +218,9 @@ async function generateMoversOgImage(force: boolean): Promise<number> {
   console.info("Generating Daily Movers static image using live API data...");
 
   try {
-    const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 500);
+    const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 500, {
+      requireFreshMarketData: false,
+    });
     const maxChangeThreshold = 500;
 
     const movers = candidates
@@ -244,10 +246,16 @@ async function generateMoversOgImage(force: boolean): Promise<number> {
       const moversBuffer = await generateMoversImage(movers);
       fs.writeFileSync(moversPath, moversBuffer);
       console.info("Generated static movers image at public/og/movers.png.");
+    } else if (fs.existsSync(moversPath)) {
+      console.warn("No eligible movers found; retaining existing public/og/movers.png.");
     }
 
     return 0;
   } catch (error) {
+    if (fs.existsSync(moversPath)) {
+      console.warn("Failed to generate static movers image; keeping existing movers.png:", error);
+      return 0;
+    }
     console.error("Failed to generate static movers image:", error);
     return 1;
   }
