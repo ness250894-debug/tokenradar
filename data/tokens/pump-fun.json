@@ -18,30 +18,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://pump.fun/board",
-    "github": null,
+    "github": "https://github.com/pump-fun",
     "reddit": null,
     "explorer": "https://solscan.io/token/pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn"
   },
   "market": {
-    "price": 0.00477667,
-    "marketCap": 2224684260,
+    "price": 0.00486079,
+    "marketCap": 2261088953,
     "marketCapRank": 50,
-    "volume24h": 441289121,
-    "high24h": 0.00528063,
-    "low24h": 0.00444475,
-    "priceChange24h": 6.75658,
-    "priceChange7d": 7.3423,
-    "priceChange30d": 3.2538,
-    "priceChange1y": -6.9206,
+    "volume24h": 516537472,
+    "high24h": 0.00553383,
+    "low24h": 0.00475129,
+    "priceChange24h": -3.2338,
+    "priceChange7d": 14.0111,
+    "priceChange30d": 1.8693,
+    "priceChange1y": -15.9948,
     "ath": 0.00881908,
-    "athChangePercentage": -45.83706,
+    "athChangePercentage": -44.88333,
     "athDate": "2025-09-14T08:42:40.000Z",
     "atl": 0.00115473,
     "atlDate": "2026-06-25T17:04:20.000Z",
-    "circulatingSupply": 465739094195.9689,
-    "totalSupply": 831236463045.9688,
+    "circulatingSupply": 465613194844.3827,
+    "totalSupply": 831113211088.8768,
     "maxSupply": 1000000000000,
-    "fdv": 3970579015
+    "fdv": 4036070307
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +52,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-04T19:57:48.365Z",
-  "lastMarketUpdate": "2026-09-28T10:00:20.000Z"
+  "fetchedAt": "2026-09-28T22:39:30.579Z",
+  "lastMarketUpdate": "2026-09-28T22:37:10.000Z"
 }
