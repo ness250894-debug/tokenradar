@@ -6799,5 +6799,62 @@
     "discoveredAt": "2026-09-24T20:51:39.269Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-24T20:51:39.269Z"
+  },
+  {
+    "id": "axiom",
+    "name": "Axiom",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "confidence": 40,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://airdropalert.com/blogs/axiom-review/",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/axiom-review/",
+        "title": "Axiom Review 2026: The Fastest Terminal in the Trenches, With an Asterisk",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-28T10:06:48.643Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-09-28T10:15:50.578Z",
+    "graduatedAt": "2026-09-28T10:15:50.578Z",
+    "coingeckoRank": 6850,
+    "graduationEvidence": {
+      "coingeckoId": "axiom",
+      "coingeckoRank": 6850,
+      "rank": 6850,
+      "priceUsd": 5.63993e-7,
+      "volume24h": 78.52,
+      "matchedBy": "id",
+      "verifiedAt": "2026-09-28T10:15:50.578Z"
+    }
+  },
+  {
+    "id": "marscoin",
+    "name": "Marscoin",
+    "symbol": "MARSCOIN",
+    "category": "Meme/DeFi",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 60,
+    "confidence": 40,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://airdropalert.com/blogs/buy-marscoin-first-time/",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/buy-marscoin-first-time/",
+        "title": "How to Buy MARSCOIN for the First Time",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-28T10:06:48.644Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-28T10:06:48.644Z"
   }
 ]
