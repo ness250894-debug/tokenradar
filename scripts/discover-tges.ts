@@ -243,8 +243,15 @@ async function checkGraduation(tge: UpcomingTge): Promise<TgeMarketEvidence | nu
         sparkline: "false",
       },
       `tge-graduation-${tge.id}`,
-      6 * 60 * 60 * 1000
+      24 * 60 * 60 * 1000
     );
+
+    if (!data) {
+      // 404 is expected for unlaunched tokens
+      console.log(`  🕒 ${tge.name} not found on CoinGecko yet (still upcoming).`);
+      return null;
+    }
+
     const symbolMatches =
       isGenericTgeSymbol(tge.symbol) ||
       String(data?.symbol || "").toUpperCase() === String(tge.symbol || "").toUpperCase();
