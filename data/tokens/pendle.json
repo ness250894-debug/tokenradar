@@ -31,7 +31,8 @@
     "BTCfi Protocol",
     "HyperEVM Ecosystem",
     "Monad Ecosystem",
-    "Base Native"
+    "Base Native",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -41,25 +42,25 @@
     "explorer": "https://etherscan.io/token/0x808507121b80c02388fad14726482e061b8da827"
   },
   "market": {
-    "price": 2.62,
-    "marketCap": 455647370,
-    "marketCapRank": 121,
-    "volume24h": 61071997,
-    "high24h": 2.66,
-    "low24h": 2.52,
-    "priceChange24h": 2.78836,
-    "priceChange7d": 0.9414,
-    "priceChange30d": 49.4641,
-    "priceChange1y": -44.3869,
+    "price": 2.41,
+    "marketCap": 417621192,
+    "marketCapRank": 123,
+    "volume24h": 71106687,
+    "high24h": 2.69,
+    "low24h": 2.43,
+    "priceChange24h": -7.42209,
+    "priceChange7d": -11.78682,
+    "priceChange30d": 42.78604,
+    "priceChange1y": -47.42757,
     "ath": 7.5,
-    "athChangePercentage": -65.02298,
+    "athChangePercentage": -67.944,
     "athDate": "2024-04-11T00:25:36.000Z",
     "atl": 0.03377729,
     "atlDate": "2022-11-14T12:15:58.000Z",
-    "circulatingSupply": 173614878.0356087,
+    "circulatingSupply": 173621767.6773901,
     "totalSupply": 281527448.4585314,
     "maxSupply": null,
-    "fdv": 738860879
+    "fdv": 677172167
   },
   "community": {
     "twitterFollowers": null,
@@ -70,6 +71,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-04T19:56:13.850Z",
-  "lastMarketUpdate": "2026-09-27T10:29:30.000Z"
+  "fetchedAt": "2026-09-28T10:04:50.425Z",
+  "lastMarketUpdate": "2026-09-28T10:01:50.000Z"
 }
