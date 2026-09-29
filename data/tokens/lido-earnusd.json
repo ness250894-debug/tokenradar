@@ -1,0 +1,51 @@
+{
+  "id": "lido-earnusd",
+  "symbol": "earnusd",
+  "name": "Lido EarnUSD",
+  "market": {
+    "price": 1.033,
+    "marketCap": 51509892,
+    "marketCapRank": 469,
+    "volume24h": 0,
+    "high24h": 1.033,
+    "low24h": 1.033,
+    "priceChange24h": 0.01981,
+    "priceChange7d": 0.18138,
+    "priceChange30d": 0.48923,
+    "priceChange1y": 0,
+    "ath": 4.65,
+    "athChangePercentage": -77.76235,
+    "athDate": "2026-05-09T04:22:00.000Z",
+    "atl": 0.981191,
+    "atlDate": "2026-04-20T07:50:00.000Z",
+    "circulatingSupply": 49845997.74941426,
+    "totalSupply": 49848900.5264468,
+    "maxSupply": null,
+    "fdv": 51512891
+  },
+  "lastMarketUpdate": "2026-09-29T21:30:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172834/large/earnUSD.png?1776151948",
+  "description": "earnUSD is the share token of Lido EarnUSD vault. EarnUSD allocates assets across USD-denominated strategies on Ethereum, operating within defined asset selection criteria and transparent reporting standards.\n\nThe vault blends conservative third-party lending positions with selective exposure to performing strategies. Allocations adjust as market conditions shift and may include onchain lending markets, real-world asset integrations, and structured positions. \n\nEarnUSD accepts USDC and USDT. Depositors receive earnUSD, earning daily, auto-compounded USD rewards.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Yield-Bearing Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://stake.lido.fi/earn/usd/",
+    "github": "https://github.com/lidofinance",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x4Ce1ac8F43E0E5BD7A346A98aF777bF8fbeA1981"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-09-29T21:32:43.389Z"
+}
