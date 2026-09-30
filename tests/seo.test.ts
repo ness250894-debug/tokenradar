@@ -134,23 +134,24 @@ function loadTokenDetails(): Record<string, TokenDetail> {
 }
 
 function makeTge(overrides: Partial<UpcomingTge> = {}): UpcomingTge {
+  const recentDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   return {
     id: "test-launch",
     name: "Test Launch",
     symbol: "TST",
     category: "Infrastructure",
-    expectedTge: "Q4 2026",
+    expectedTge: `Q4 ${new Date().getUTCFullYear() + 1}`,
     narrativeStrength: 70,
     dataSource: "https://example.com/launch",
     discoveredAt: "2026-07-01T00:00:00.000Z",
-    lastVerifiedAt: "2026-08-01T00:00:00.000Z",
+    lastVerifiedAt: recentDate,
     lifecycleStatus: "watchlist",
     confidence: 70,
     signals: [{
       type: "tge",
       sourceType: "official",
       url: "https://example.com/launch",
-      observedAt: "2026-08-01T00:00:00.000Z",
+      observedAt: recentDate,
     }],
     ...overrides,
   };

@@ -191,6 +191,7 @@ export function choosePreferredTgeId(candidates: readonly TgeRouteCandidate[]): 
 export function getTgeIndexDecision(
   candidate: TgeRouteCandidate,
   preferredTgeId = candidate.tge.id,
+  now = new Date(),
 ): TgeIndexDecision {
   const selfCanonical = canonicalPath(`/upcoming/${candidate.tge.id}`);
   if (candidate.hasLiveToken) {
@@ -207,7 +208,7 @@ export function getTgeIndexDecision(
       reason: "duplicate-record",
     };
   }
-  if (!shouldPublishTgePreview(candidate.tge)) {
+  if (!shouldPublishTgePreview(candidate.tge, now)) {
     return { indexable: false, canonical: selfCanonical, reason: "unpublishable-status" };
   }
   if (!isArticleIndexable(candidate.article)) {
