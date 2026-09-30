@@ -6856,5 +6856,28 @@
     "discoveredAt": "2026-09-28T10:06:48.644Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-28T10:06:48.644Z"
+  },
+  {
+    "id": "aztec-zk-money",
+    "name": "Aztec",
+    "symbol": "AZTEC",
+    "category": "Infrastructure",
+    "expectedTge": "Testnet",
+    "narrativeStrength": 75,
+    "dataSource": "https://decrypt.co/379621/ethereum-privacy-aztec-brings-back-zk-money",
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "signals": [
+      {
+        "type": "testnet",
+        "sourceType": "news",
+        "url": "https://decrypt.co/379621/ethereum-privacy-aztec-brings-back-zk-money",
+        "title": "Ethereum Gets Another Privacy Boost as Aztec Brings Back zk.money",
+        "observedAt": "2025-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-09-30T21:36:22.275Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-09-30T21:36:22.275Z"
   }
 ]

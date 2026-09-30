@@ -7,7 +7,8 @@
   "categories": [
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
-    "Yield-Bearing Stablecoin"
+    "Yield-Bearing Stablecoin",
+    "Unitas Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -17,35 +18,35 @@
     "explorer": "https://solscan.io/token/9ckR7pPPvyPadACDTzLwK2ZAEeUJ3qGSnzPs8bVaHrSy"
   },
   "market": {
-    "price": 0.999299,
-    "marketCap": 44421423,
-    "marketCapRank": 481,
-    "volume24h": 5007.83,
-    "high24h": 0.999587,
-    "low24h": 0.999094,
-    "priceChange24h": -0.03165,
-    "priceChange7d": 0,
-    "priceChange30d": 0.2,
-    "priceChange1y": 0,
+    "price": 0.999243,
+    "marketCap": 51590184,
+    "marketCapRank": 467,
+    "volume24h": 908790,
+    "high24h": 0.999437,
+    "low24h": 0.997745,
+    "priceChange24h": 0.03593,
+    "priceChange7d": -0.08438,
+    "priceChange30d": -0.04272,
+    "priceChange1y": 0.00053,
     "ath": 1.018,
-    "athChangePercentage": -1.88119,
+    "athChangePercentage": -1.88671,
     "athDate": "2025-12-06T12:30:09.000Z",
     "atl": 0.957425,
     "atlDate": "2026-02-05T22:40:56.000Z",
-    "circulatingSupply": 44452611.71647715,
-    "totalSupply": 44452611.71647715,
+    "circulatingSupply": 51628281.93798321,
+    "totalSupply": 51628394.03872193,
     "maxSupply": null,
-    "fdv": 44421423
+    "fdv": 51590184
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:43:05.902Z",
-  "lastMarketUpdate": "2026-09-02T20:05:30.000Z"
+  "fetchedAt": "2026-09-30T21:33:33.226Z",
+  "lastMarketUpdate": "2026-09-30T21:31:30.000Z"
 }

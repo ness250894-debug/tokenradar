@@ -16,30 +16,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://t.me/notcoin_bot",
-    "github": null,
+    "github": "https://github.com/OpenBuilders",
     "reddit": null,
     "explorer": "https://tonscan.org/address/EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT"
   },
   "market": {
-    "price": 0.00048956,
-    "marketCap": 48666447,
-    "marketCapRank": 494,
-    "volume24h": 6307963,
-    "high24h": 0.00052679,
-    "low24h": 0.00048719,
-    "priceChange24h": -5.71185,
-    "priceChange7d": -3.1987,
-    "priceChange30d": 21.0486,
-    "priceChange1y": -68.8269,
+    "price": 0.00048924,
+    "marketCap": 48682201,
+    "marketCapRank": 491,
+    "volume24h": 4623338,
+    "high24h": 0.00050935,
+    "low24h": 0.00048469,
+    "priceChange24h": 0.71967,
+    "priceChange7d": 5.65152,
+    "priceChange30d": 3.86081,
+    "priceChange1y": -68.04321,
     "ath": 0.02836145,
-    "athChangePercentage": -98.27385,
+    "athChangePercentage": -98.27499,
     "athDate": "2024-06-02T10:00:38.000Z",
     "atl": 0.00032055,
     "atlDate": "2026-07-29T21:05:40.000Z",
-    "circulatingSupply": 99429405866.9074,
+    "circulatingSupply": 99429355866.90741,
     "totalSupply": 102452755868.5205,
     "maxSupply": 102456956842.91,
-    "fdv": 50146223
+    "fdv": 50162481
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-07T20:47:41.200Z",
-  "lastMarketUpdate": "2026-09-28T22:37:10.000Z"
+  "fetchedAt": "2026-09-30T21:33:52.083Z",
+  "lastMarketUpdate": "2026-09-30T21:31:30.000Z"
 }
