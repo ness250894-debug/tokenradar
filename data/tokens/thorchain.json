@@ -3,7 +3,7 @@
   "symbol": "rune",
   "name": "THORChain",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_RUNE_Token.png?1782452363",
-  "description": "THORChain is the first decentralized exchange (DEX) to swap Bitcoin, and other UTXO chains, with Ethereum, and other EVM chains.  All without using wrapped tokens.\n\nTHORChain currently supports swapping between 10 different blockchains.  Assets available to swap on THORChain include the following:\n\nBitcoin (BTC)\nEthereum (ETH)\nTether (USDT)\nBNB (BNB)\nXRPL (XRP)\nUSDC (USDC)\nTron (TRX)\nDogecoin (DOGE)\nBitcoin Cash (BCH)\nWrapped Bitcoin (WBTC)\nChainlink (LINK)\nLitecoin (LTC)\nDai (DAI)\nAvalanche (AVAX)\nAave (AAVE)\nCosmos (ATOM)",
+  "description": "THORChain is the first cross-chain decentralized exchange (DEX) to swap Bitcoin, without bridges or wrapped assets. THORChain is permissionless and no KYC is required.\n\nTHORChain currently supports swapping between 13 different blockchains. They are:\n\nBitcoin\nEthereum\nXRP Ledger\nBNB Smart Chain\nSolana\nTRON\nDogecoin\nBitcoin Cash\nLitecoin\nAvalanche\nCosmos\nBase\nTHORChain\n\nMore blockchains will be supported over time.",
   "categories": [
     "Decentralized Exchange (DEX)",
     "Infrastructure",
@@ -24,25 +24,25 @@
     "explorer": "https://runescan.io/"
   },
   "market": {
-    "price": 0.80142,
-    "marketCap": 263360449,
-    "marketCapRank": 162,
-    "volume24h": 65528749,
-    "high24h": 0.834499,
-    "low24h": 0.743729,
-    "priceChange24h": 6.07132,
-    "priceChange7d": 30.9299,
-    "priceChange30d": 66.3649,
-    "priceChange1y": -29.8773,
+    "price": 0.771563,
+    "marketCap": 253279790,
+    "marketCapRank": 165,
+    "volume24h": 49512996,
+    "high24h": 0.814711,
+    "low24h": 0.770767,
+    "priceChange24h": -3.86189,
+    "priceChange7d": 20.95093,
+    "priceChange30d": 64.32888,
+    "priceChange1y": -35.4916,
     "ath": 20.87,
-    "athChangePercentage": -96.15949,
+    "athChangePercentage": -96.30257,
     "athDate": "2021-05-18T16:30:09.000Z",
     "atl": 0.00851264,
     "atlDate": "2019-09-27T16:00:00.000Z",
-    "circulatingSupply": 328593651,
-    "totalSupply": 353909200,
-    "maxSupply": 353909200,
-    "fdv": 283650296
+    "circulatingSupply": 328592016,
+    "totalSupply": 353908639,
+    "maxSupply": 353908646,
+    "fdv": 272793947
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-08T20:20:44.181Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-10-01T22:02:55.924Z",
+  "lastMarketUpdate": "2026-10-01T22:00:40.000Z"
 }

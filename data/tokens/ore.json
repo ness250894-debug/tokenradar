@@ -3,7 +3,7 @@
   "symbol": "ore",
   "name": "ORE",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/36854/large/IMG_7340.png?1712633659",
-  "description": "",
+  "description": "ORE is future-proof electronic cash. ORE exists to advance the original vision for crypto, identified by Satoshi Nakamoto: creating digital money that cannot be debased or controlled by centralized authorities. \n\nBitcoin solved the double-spend problem. Solana solved scalability at the Layer 1 level. Modern wallets improved self-custody user experience. ORE solved the Proof-of-Work value leak.\n\nBuilt on Solana, ORE inherits the network's scalability, composability, and future upgrades, including privacy enhancements, without requiring the tradeoffs traditionally associated with securing blockchain consensus. For these reasons, we describe ORE (after Bitcoin: \"Peer-to-peer electronic cash\") as:\n- ORE, the asset, is a future-proof electronic cash system.\n- ORE, the protocol, is a future-proof electronic cash system on Solana.\n\nORE is named after Nicholas Oresme, the 14th-century philosopher and economist who argued that money should belong to the people who use it rather than rulers who debase it. That philosophy serves as the foundation for the protocol: in many ways, ORE is the continuation of a centuries-old idea — that monetary systems are strongest when they are governed by rules rather than rulers.",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Solana Ecosystem",
@@ -17,35 +17,35 @@
     "explorer": "https://solscan.io/token/oreoU2P8bN6jkk3jbaiVxYnG1dCXcYxwhwyK9jSybcp"
   },
   "market": {
-    "price": 93.19,
-    "marketCap": 44334559,
-    "marketCapRank": 481,
-    "volume24h": 778135,
-    "high24h": 95.79,
-    "low24h": 90.29,
-    "priceChange24h": 0.6476,
-    "priceChange7d": 3.375233485500459,
-    "priceChange30d": 34.260604060302654,
-    "priceChange1y": 732.6981096112105,
+    "price": 111.88,
+    "marketCap": 55851306,
+    "marketCapRank": 453,
+    "volume24h": 4503428,
+    "high24h": 141.59,
+    "low24h": 94.09,
+    "priceChange24h": 16.96901,
+    "priceChange7d": 55.258,
+    "priceChange30d": 59.95369,
+    "priceChange1y": 978.32292,
     "ath": 1451.62,
-    "athChangePercentage": -93.56945,
-    "athDate": "2024-07-30T05:07:18.933Z",
+    "athChangePercentage": -92.29303,
+    "athDate": "2024-07-29T21:07:18.000Z",
     "atl": 6.27,
-    "atlDate": "2025-09-25T13:56:13.711Z",
-    "circulatingSupply": 475731.8278386616,
-    "totalSupply": 475731.8278386616,
+    "atlDate": "2025-09-25T05:56:13.000Z",
+    "circulatingSupply": 499357.7328348097,
+    "totalSupply": 499423.0953442204,
     "maxSupply": 3000000,
-    "fdv": 44334559
+    "fdv": 55854243
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 813,
-    "githubForks": 290,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-26T19:47:27.901Z",
-  "lastMarketUpdate": "2026-07-12T18:39:18.618Z"
+  "fetchedAt": "2026-10-01T22:01:34.020Z",
+  "lastMarketUpdate": "2026-10-01T21:59:40.000Z"
 }

@@ -6879,5 +6879,28 @@
     "discoveredAt": "2026-09-30T21:36:22.275Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-09-30T21:36:22.275Z"
+  },
+  {
+    "id": "dogeos",
+    "name": "DogeOS",
+    "symbol": "DOGEOS",
+    "category": "Infrastructure",
+    "expectedTge": "Public Testnet",
+    "narrativeStrength": 65,
+    "confidence": 70,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://decrypt.co/379772/dogecoin-getting-apps-dogeos-public-testnet",
+    "signals": [
+      {
+        "type": "testnet",
+        "sourceType": "news",
+        "url": "https://decrypt.co/379772/dogecoin-getting-apps-dogeos-public-testnet",
+        "title": "Dogecoin Is Getting Apps as DogeOS Opens Its Public Testnet",
+        "observedAt": "2025-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-01T22:04:17.893Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-01T22:04:17.893Z"
   }
 ]
