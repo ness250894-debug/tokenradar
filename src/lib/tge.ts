@@ -330,7 +330,7 @@ export function isTgeVerificationStale(
   return now.getTime() - lastVerified > maxAgeDays * 24 * 60 * 60 * 1000;
 }
 
-export function scoreTgeConfidence(tge: UpcomingTge): number {
+export function scoreTgeConfidence(tge: UpcomingTge, now = new Date()): number {
   if (tge.lifecycleStatus === "graduated" || tge.status === "released") return 95;
   if (tge.lifecycleStatus === "rejected") return 0;
 
@@ -360,17 +360,17 @@ export function scoreTgeConfidence(tge: UpcomingTge): number {
   if (!isGenericTgeSymbol(tge.symbol)) score += 5;
   if (/\b(q[1-4]|20\d{2}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b/i.test(tge.expectedTge || "")) score += 6;
   if (/\b(speculative|development stage|funding stage|infrastructure development|growth phase)\b/.test(expected)) score -= 18;
-  if (isLikelyStaleExpectedTge(tge.expectedTge)) score -= 25;
+  if (isLikelyStaleExpectedTge(tge.expectedTge, now)) score -= 25;
 
   return clamp(Math.round(score), 0, 95);
 }
 
-export function deriveTgeLifecycleStatus(tge: UpcomingTge): TgeLifecycleStatus {
+export function deriveTgeLifecycleStatus(tge: UpcomingTge, now = new Date()): TgeLifecycleStatus {
   if (tge.lifecycleStatus) return tge.lifecycleStatus;
   if (tge.status === "released" || tge.graduatedAt || tge.coingeckoRank) return "graduated";
-  if (isLikelyStaleExpectedTge(tge.expectedTge)) return "stale";
+  if (isLikelyStaleExpectedTge(tge.expectedTge, now)) return "stale";
 
-  const confidence = tge.confidence ?? scoreTgeConfidence(tge);
+  const confidence = tge.confidence ?? scoreTgeConfidence(tge, now);
   const signals = normalizeTgeSignals(tge);
   const signalTypes = new Set(signals.map((signal) => signal.type));
   const sourceTypes = new Set(signals.map((signal) => signal.sourceType));
@@ -392,12 +392,25 @@ export function deriveTgeLifecycleStatus(tge: UpcomingTge): TgeLifecycleStatus {
   return "candidate";
 }
 
-export function normalizeTge(tge: UpcomingTge): UpcomingTge {
+export interface NormalizeTgeOptions {
+  now?: Date;
+}
+
+export function normalizeTge(
+  tge: UpcomingTge,
+  options?: Date | NormalizeTgeOptions | unknown,
+): UpcomingTge {
+  const now =
+    options instanceof Date
+      ? options
+      : typeof options === "object" && options !== null && "now" in options && (options as NormalizeTgeOptions).now instanceof Date
+        ? (options as NormalizeTgeOptions).now!
+        : new Date();
   const discoveredAt = normalizeTgeTimestamp(tge.discoveredAt);
   const lastVerifiedAt = normalizeTgeTimestamp(tge.lastVerifiedAt, discoveredAt);
   const signals = normalizeTgeSignals({ ...tge, discoveredAt });
-  const confidence = tge.confidence ?? scoreTgeConfidence({ ...tge, signals });
-  const lifecycleStatus = deriveTgeLifecycleStatus({ ...tge, signals, confidence });
+  const confidence = tge.confidence ?? scoreTgeConfidence({ ...tge, signals }, now);
+  const lifecycleStatus = deriveTgeLifecycleStatus({ ...tge, signals, confidence }, now);
   const status: LegacyTgeStatus = lifecycleStatus === "graduated" ? "released" : "upcoming";
 
   return {
@@ -422,12 +435,12 @@ export function normalizeTge(tge: UpcomingTge): UpcomingTge {
   };
 }
 
-export function getTgeSortWeight(tge: UpcomingTge): number {
-  return STATUS_SORT_WEIGHT[deriveTgeLifecycleStatus(tge)];
+export function getTgeSortWeight(tge: UpcomingTge, now = new Date()): number {
+  return STATUS_SORT_WEIGHT[deriveTgeLifecycleStatus(tge, now)];
 }
 
 export function shouldPublishTgePreview(tge: UpcomingTge, now = new Date()): boolean {
-  const normalized = normalizeTge(tge);
+  const normalized = normalizeTge(tge, now);
   if (normalized.lifecycleStatus === "rejected") return false;
   if (normalized.lifecycleStatus === "stale") return false;
   if (
@@ -469,8 +482,8 @@ export function shouldPublishTgePreview(tge: UpcomingTge, now = new Date()): boo
   return Boolean(normalized.lifecycleStatus && PUBLISHABLE_STATUSES.has(normalized.lifecycleStatus));
 }
 
-export function isTgeGraduated(tge: UpcomingTge): boolean {
-  const status = deriveTgeLifecycleStatus(tge);
+export function isTgeGraduated(tge: UpcomingTge, now = new Date()): boolean {
+  const status = deriveTgeLifecycleStatus(tge, now);
   return status === "graduated" || status === "listed_on_aggregator";
 }
 
@@ -490,8 +503,8 @@ export function getTgeContractQueries(tge: UpcomingTge): string[] {
     .filter((address): address is string => Boolean(address && /^0x[a-f0-9]{40}$/i.test(address)));
 }
 
-export function getTgeStatusLabel(tge: UpcomingTge): string {
-  return TGE_STATUS_LABELS[deriveTgeLifecycleStatus(tge)];
+export function getTgeStatusLabel(tge: UpcomingTge, now = new Date()): string {
+  return TGE_STATUS_LABELS[deriveTgeLifecycleStatus(tge, now)];
 }
 
 export function getTgeEvidenceCount(tge: UpcomingTge): number {
