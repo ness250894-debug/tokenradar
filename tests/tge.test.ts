@@ -45,15 +45,29 @@ describe("TGE lifecycle normalization", () => {
   });
 
   it("promotes explicit airdrop evidence into the publishable watchlist", () => {
+    const asOf = new Date("2026-05-15T00:00:00.000Z");
     const tge = normalizeTge({
       ...baseTge,
       symbol: "EXAMPLE",
       expectedTge: "Confirmed airdrop campaign in Q3 2026",
       dataSource: "https://airdropalert.com/blogs/example-airdrop-guide/",
-    });
+    }, asOf);
 
     expect(["watchlist", "confirmed_tge"]).toContain(tge.lifecycleStatus);
-    expect(shouldPublishTgePreview(tge, new Date("2026-05-15T00:00:00.000Z"))).toBe(true);
+    expect(shouldPublishTgePreview(tge, asOf)).toBe(true);
+  });
+
+  it("marks an expected quarter window as stale after that quarter ends", () => {
+    const afterQuarter = new Date("2026-10-01T00:00:00.000Z");
+    const tge = normalizeTge({
+      ...baseTge,
+      symbol: "EXAMPLE",
+      expectedTge: "Confirmed airdrop campaign in Q3 2026",
+      dataSource: "https://airdropalert.com/blogs/example-airdrop-guide/",
+    }, afterQuarter);
+
+    expect(tge.lifecycleStatus).toBe("stale");
+    expect(shouldPublishTgePreview(tge, afterQuarter)).toBe(false);
   });
 
   it("marks old quarter windows as stale", () => {
