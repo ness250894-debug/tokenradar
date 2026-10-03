@@ -7,6 +7,7 @@
   "categories": [
     "Stablecoins",
     "USD Stablecoin",
+    "BNB Chain Ecosystem",
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Aptos Ecosystem",
@@ -26,25 +27,25 @@
     "explorer": "https://bscscan.com/token/0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d"
   },
   "market": {
-    "price": 0.999456,
-    "marketCap": 4425113486,
-    "marketCapRank": 30,
-    "volume24h": 1223160655,
-    "high24h": 0.999685,
-    "low24h": 0.999299,
-    "priceChange24h": 0.00551,
-    "priceChange7d": -0.0072,
-    "priceChange30d": 0.0156,
-    "priceChange1y": -0.0572,
+    "price": 0.999538,
+    "marketCap": 4425543634,
+    "marketCapRank": 31,
+    "volume24h": 441733613,
+    "high24h": 0.999593,
+    "low24h": 0.999304,
+    "priceChange24h": 0.00647,
+    "priceChange7d": 0.00295,
+    "priceChange30d": -0.00522,
+    "priceChange1y": -0.02913,
     "ath": 1.048,
-    "athChangePercentage": -4.6259,
+    "athChangePercentage": -4.61806,
     "athDate": "2026-07-09T10:14:50.000Z",
     "atl": 0.988762,
     "atlDate": "2026-07-09T09:13:20.000Z",
-    "circulatingSupply": 4427501460.423231,
-    "totalSupply": 4427501461.423231,
+    "circulatingSupply": 4427501461.202404,
+    "totalSupply": 4427501461.160204,
     "maxSupply": null,
-    "fdv": 4425113487
+    "fdv": 4425543634
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +56,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-09T20:04:21.990Z",
-  "lastMarketUpdate": "2026-10-02T21:24:30.000Z"
+  "fetchedAt": "2026-10-03T20:15:58.984Z",
+  "lastMarketUpdate": "2026-10-03T20:12:40.000Z"
 }

@@ -45,6 +45,7 @@
     "Monad Ecosystem",
     "Base Native",
     "MiCA-Compliant Stablecoin",
+    "Arc Ecosystem",
     "GENIUS Act Compliant Stablecoin",
     "Pharos Ecosystem"
   ],
@@ -56,25 +57,25 @@
     "explorer": "https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
   },
   "market": {
-    "price": 0.999959,
-    "marketCap": 74059702396,
+    "price": 1,
+    "marketCap": 74104619159,
     "marketCapRank": 6,
-    "volume24h": 24311794534,
+    "volume24h": 7202346858,
     "high24h": 1,
-    "low24h": 0.999514,
-    "priceChange24h": 0.00584,
-    "priceChange7d": 0.0044,
-    "priceChange30d": 0.0193,
-    "priceChange1y": 0.0211,
+    "low24h": 0.999698,
+    "priceChange24h": 0.006,
+    "priceChange7d": 0.01487,
+    "priceChange30d": 0.00799,
+    "priceChange1y": 0.02872,
     "ath": 1.043,
-    "athChangePercentage": -4.16932,
+    "athChangePercentage": -4.16543,
     "athDate": "2018-11-14T16:00:00.000Z",
     "atl": 0.877647,
     "atlDate": "2023-03-11T00:02:13.000Z",
-    "circulatingSupply": 74062609312.05504,
-    "totalSupply": 74015484284.54285,
+    "circulatingSupply": 74103853364.9974,
+    "totalSupply": 74104017288.56186,
     "maxSupply": null,
-    "fdv": 74053586431
+    "fdv": 74119270418
   },
   "community": {
     "twitterFollowers": null,
@@ -85,6 +86,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-09T20:04:15.746Z",
-  "lastMarketUpdate": "2026-10-02T21:24:30.000Z"
+  "fetchedAt": "2026-10-03T20:15:52.611Z",
+  "lastMarketUpdate": "2026-10-03T20:13:40.000Z"
 }
