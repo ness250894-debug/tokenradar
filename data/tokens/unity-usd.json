@@ -8,7 +8,10 @@
     "Stablecoins",
     "Synthetic Asset",
     "BNB Chain Ecosystem",
-    "Synthetic Dollar"
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Synthetic Dollar",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -18,25 +21,25 @@
     "explorer": "https://bscscan.com/token/0x61a10e8556bed032ea176330e7f17d6a12a10000"
   },
   "market": {
-    "price": 0.999885,
-    "marketCap": 99988500,
+    "price": 0.999951,
+    "marketCap": 99995392,
     "marketCapRank": 293,
-    "volume24h": 1243515,
+    "volume24h": 2559481,
     "high24h": 1,
-    "low24h": 0.999202,
-    "priceChange24h": 0.01413,
-    "priceChange7d": 0.0188,
-    "priceChange30d": -0.0185,
+    "low24h": 0.999556,
+    "priceChange24h": 0.00459,
+    "priceChange7d": 0.0037,
+    "priceChange30d": 0.06349,
     "priceChange1y": 0,
     "ath": 1.26,
-    "athChangePercentage": -20.3837,
+    "athChangePercentage": -20.37846,
     "athDate": "2026-07-09T09:46:00.000Z",
     "atl": 0.840277,
     "atlDate": "2026-07-24T09:07:20.000Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 99988500
+    "fdv": 99995392
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-09T20:03:56.818Z",
-  "lastMarketUpdate": "2026-10-02T21:25:30.000Z"
+  "fetchedAt": "2026-10-03T20:15:33.755Z",
+  "lastMarketUpdate": "2026-10-03T20:13:40.000Z"
 }
