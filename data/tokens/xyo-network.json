@@ -3,7 +3,7 @@
   "symbol": "xyo",
   "name": "XYO Network",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/4519/large/XYO_Network-logo.png?1696505103",
-  "description": "XYO is the original and one of the largest Decentralized Physical Infrastructure Networks (DePIN), boasting over 10 million nodes and consistently leading DePIN in both scale and revenue generation. Launching its Mainnet ahead of any other DePIN, XYO specializes in collecting and validating real-world data, bridging it seamlessly to Web3 and Web2 companies across AI, geolocation, and other critical data sectors.\nAt the core of XYO are Proof of Location and Proof of Origin technologies, enabling accurate validation of real-world data for innovative use cases such as Real-World Asset (RWA) tracking, DePIN applications, real-world gaming, and treasure hunts. Recently, XYO expanded its ecosystem by launching the XYO Layer One blockchain, purpose-built to support the intensive data demands of DePIN, RWA, AI, and similar data-driven industries.\nXYO employs a unique dual-token model:\nXYO Token: An externally traded token supporting the DePIN ecosystem, rewards, staking, and governance, enhancing overall ecosystem value and scarcity.\n\n\nXL1 Token: Internal to the XYO Layer One blockchain, facilitating transactions, gas fees, and other blockchain-specific use cases.\nThe dual-token economics are strategically designed to increase scarcity and promote sustainable growth. The XYO token is available on major exchanges, including Coinbase. The XL1 token will launch publicly later in 2025.\nTo accelerate network adoption and growth, XYO created the popular COIN app. Beyond the XYO Foundation, the team founded the U.S.-based, for-profit entity XY Labs Inc., notable as the first U.S. crypto company qualified by the SEC for a Regulation A offering, permitting share sales to both accredited and non-accredited investors. XY Labs further stands out as one of the pioneering U.S. companies to tokenize and publicly list its shares. These tokenized shares trade as $XYLB on the tZERO ATS, positioning XY Labs prominently in the growing wave of Real-World Asset (RWA) tokenization.\n",
+  "description": "XYO is the cryptographic proof layer for the real world, collecting, validating, and delivering physical-world data to AI, robotics, Web3, and enterprise systems. XYO, the original Decentralized Physical Infrastructure Network (DePIN), has been operating since 2018 and now has more than 10 million nodes worldwide. \n\nAt the core of XYO is XYO Layer One, a scalable data blockchain built to support high-volume data industries such as AI, robotics, location intelligence, and real-world asset (RWA) systems. Designed for high throughput and low transaction costs, it gives these data-intensive applications the capacity to process and validate information across massive datasets. XYO Layer One anchors XYO's Proof of Location and Proof of Origin technologies, establishing a verified origin, precise timing, and trusted source behind every piece of data. This verified data directly feeds the XYO AI SDK, a product built by XYO to provide accessibility for developers to build AI-powered applications, autonomous agents, robotics integrations and more using real-world data.\n\nXYO employs a unique dual-token model:\n\nXYO Token: An externally traded token supporting the DePIN ecosystem, rewards, staking, and governance, enhancing overall ecosystem value and scarcity.\n\n\nXL1 Token: Internal to the XYO Layer One blockchain, facilitating transactions, gas fees, and other blockchain-specific use cases.\n\nThe dual-token economics are strategically designed to increase scarcity and promote sustainable growth. \n\nThe XYO token has been available on major exchanges since 2018. Major exchanges include Coinbase and Revolut. The XL1 token is now also available.",
   "categories": [
     "Internet of Things (IOT)",
     "Oracle",
@@ -22,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0x55296f69f40ea6d20e478533c15a6b08b654e758"
   },
   "market": {
-    "price": 0.00377642,
-    "marketCap": 52571519,
-    "marketCapRank": 466,
-    "volume24h": 1375053,
-    "high24h": 0.00379757,
-    "low24h": 0.00370468,
-    "priceChange24h": 0.476,
-    "priceChange7d": 0.4178,
-    "priceChange30d": 2.4995,
-    "priceChange1y": -60.034,
+    "price": 0.00378559,
+    "marketCap": 52957910,
+    "marketCapRank": 468,
+    "volume24h": 1612641,
+    "high24h": 0.00382562,
+    "low24h": 0.00374291,
+    "priceChange24h": 0.2088,
+    "priceChange7d": 4.48486,
+    "priceChange30d": 6.90565,
+    "priceChange1y": -58.22201,
     "ath": 0.081391,
-    "athChangePercentage": -95.36014,
+    "athChangePercentage": -95.34887,
     "athDate": "2021-11-05T20:44:55.000Z",
     "atl": 0.00009672,
     "atlDate": "2020-03-12T18:24:24.000Z",
     "circulatingSupply": 13930752875.479671,
     "totalSupply": 13930752875.47967,
     "maxSupply": null,
-    "fdv": 52571519
+    "fdv": 52957910
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-10T20:06:52.812Z",
-  "lastMarketUpdate": "2026-10-03T20:11:30.000Z"
+  "fetchedAt": "2026-10-04T20:31:35.803Z",
+  "lastMarketUpdate": "2026-10-04T20:29:40.000Z"
 }
