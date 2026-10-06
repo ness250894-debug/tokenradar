@@ -6925,5 +6925,39 @@
     "discoveredAt": "2026-10-02T21:27:59.080Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-02T21:27:59.080Z"
+  },
+  {
+    "id": "anvil",
+    "name": "Anvil",
+    "symbol": "ANVL",
+    "category": "DeFi",
+    "expectedTge": "Token Purchase / Active Token Launch",
+    "narrativeStrength": 75,
+    "dataSource": "https://www.coindesk.com/business/2026/10/06/peter-thiel-backed-founders-fund-leads-a-usd5-million-token-buy-in-crypto-collateral-protocol-anvil",
+    "lifecycleStatus": "graduated",
+    "confidence": 90,
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/10/06/peter-thiel-backed-founders-fund-leads-a-usd5-million-token-buy-in-crypto-collateral-protocol-anvil",
+        "title": "Peter Thiel-backed Founders Fund leads a $5 million token buy in crypto collateral protocol Anvil",
+        "observedAt": "2026-10-06T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-06T21:58:12.602Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-10-06T22:07:35.554Z",
+    "graduatedAt": "2026-10-06T22:07:35.554Z",
+    "coingeckoRank": 330,
+    "graduationEvidence": {
+      "coingeckoId": "anvil",
+      "coingeckoRank": 330,
+      "rank": 330,
+      "priceUsd": 0.00094951,
+      "volume24h": 284956,
+      "matchedBy": "id",
+      "verifiedAt": "2026-10-06T22:07:35.554Z"
+    }
   }
 ]
