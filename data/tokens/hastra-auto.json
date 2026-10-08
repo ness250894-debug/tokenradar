@@ -1,0 +1,52 @@
+{
+  "id": "hastra-auto",
+  "symbol": "auto",
+  "name": "Hastra AUTO",
+  "market": {
+    "price": 1.023,
+    "marketCap": 71570527,
+    "marketCapRank": 373,
+    "volume24h": 309159,
+    "high24h": 1.023,
+    "low24h": 1.022,
+    "priceChange24h": -0.00967,
+    "priceChange7d": 0.1679,
+    "priceChange30d": 0.6572,
+    "priceChange1y": 0,
+    "ath": 1.023,
+    "athChangePercentage": -0.01662,
+    "athDate": "2026-10-07T11:08:20.000Z",
+    "atl": 1.006,
+    "atlDate": "2026-07-24T13:03:40.000Z",
+    "circulatingSupply": 69988306.09296,
+    "totalSupply": 69988306.09296,
+    "maxSupply": null,
+    "fdv": 71570527
+  },
+  "lastMarketUpdate": "2026-10-07T22:12:30.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174221/large/AUTO_200x200_%281%29.png?1782569824",
+  "description": "AUTO is a liquid staking token representing the tokenized exposure to the yield generated in the Auto Pool on Figure's Democratized Prime, which consists of a pool of consumer auto loans originated by Agora Data and structured by Figure via Figure Forge. By holding AUTO, you earn the prevailing rate in the Auto Pool (minus the 50 bps Hastra Platform Fee) which derives its yield from real borrower interest payments on consumer auto loans.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Liquid Staking"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://hastra.io/auto",
+    "github": "https://github.com/provenance-io/hastra-sol-vault",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/GNE6oDS6jHrfaV3GQVVCCp37fDnT7PiPuewMKBj2bqNm"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-10-02T21:27:20.804Z"
+}

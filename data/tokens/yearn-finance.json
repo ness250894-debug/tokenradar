@@ -31,30 +31,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://yearn.fi/",
-    "github": "https://github.com/iearn-finance/ygov-finance",
+    "github": "https://github.com/yearn",
     "reddit": "https://www.reddit.com/r/yearn_finance/",
     "explorer": "https://etherscan.io/token/0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e"
   },
   "market": {
-    "price": 2433.07,
-    "marketCap": 87786672,
-    "marketCapRank": 317,
-    "volume24h": 5836305,
-    "high24h": 2500.05,
-    "low24h": 2379.75,
-    "priceChange24h": 1.13846,
-    "priceChange7d": 6.7991,
-    "priceChange30d": 9.01,
-    "priceChange1y": -54.8388,
+    "price": 2410.61,
+    "marketCap": 86979313,
+    "marketCapRank": 316,
+    "volume24h": 4973628,
+    "high24h": 2542.91,
+    "low24h": 2364.66,
+    "priceChange24h": -4.66089,
+    "priceChange7d": -1.5239,
+    "priceChange30d": 4.8285,
+    "priceChange1y": -55.7409,
     "ath": 90787,
-    "athChangePercentage": -97.32002,
+    "athChangePercentage": -97.34476,
     "athDate": "2021-05-11T16:29:37.000Z",
     "atl": 31.65,
     "atlDate": "2020-07-18T04:26:27.000Z",
-    "circulatingSupply": 36075.94701468851,
+    "circulatingSupply": 36075.93661379634,
     "totalSupply": 36666,
     "maxSupply": 36666,
-    "fdv": 89222498
+    "fdv": 88401960
   },
   "community": {
     "twitterFollowers": null,
@@ -65,6 +65,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-10T20:06:59.104Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-10-04T20:31:42.104Z",
+  "lastMarketUpdate": "2026-10-07T22:12:30.000Z"
 }

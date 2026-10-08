@@ -1,0 +1,55 @@
+{
+  "id": "open-usd",
+  "symbol": "ousd",
+  "name": "Open USD",
+  "market": {
+    "price": 1.004,
+    "marketCap": 732141632,
+    "marketCapRank": 91,
+    "volume24h": 353302,
+    "high24h": 1.005,
+    "low24h": 0.998164,
+    "priceChange24h": 0.32312,
+    "priceChange7d": 0.3074,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 1.005,
+    "athChangePercentage": -0.1122,
+    "athDate": "2026-10-07T08:10:20.000Z",
+    "atl": 0.998164,
+    "atlDate": "2026-10-07T20:21:30.000Z",
+    "circulatingSupply": 729622106.88,
+    "totalSupply": 729642146.82,
+    "maxSupply": null,
+    "fdv": 732161741
+  },
+  "lastMarketUpdate": "2026-10-07T22:12:30.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102174264/large/open_standard.png?1782864430",
+  "description": "Open USD (OUSD) is the first stablecoin designed as open infrastructure. OUSD gives businesses the economics, governance, and reliability they need to move money. It is built for scale and payments use cases with no artificial limits, and the platforms using it the most receive nearly all of the underlying earnings to continue to grow. OUSD is operated by Open Standard and governed by its partners.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Tempo Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://joinopenstandard.com/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x9f6F3991D525015a6F8CaF062C83b62fD3AC4436"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-10-02T21:27:14.464Z"
+}

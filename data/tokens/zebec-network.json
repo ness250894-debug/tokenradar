@@ -20,30 +20,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://zebec.io/",
-    "github": null,
+    "github": "https://github.com/Zebec-protocol",
     "reddit": null,
     "explorer": "https://solscan.io/token/ZBCNpuD7YMXzTHB2fhGkGi78MNsHGLRXUhRewNRm9RU"
   },
   "market": {
-    "price": 0.0026178,
-    "marketCap": 261782584,
-    "marketCapRank": 164,
-    "volume24h": 13879600,
-    "high24h": 0.00287127,
-    "low24h": 0.00241836,
-    "priceChange24h": 7.35867,
-    "priceChange7d": 27.9826,
-    "priceChange30d": 43.0566,
-    "priceChange1y": -34.9905,
+    "price": 0.00233576,
+    "marketCap": 233717247,
+    "marketCapRank": 170,
+    "volume24h": 8554704,
+    "high24h": 0.0025784,
+    "low24h": 0.00234345,
+    "priceChange24h": -8.88358,
+    "priceChange7d": -9.0819,
+    "priceChange30d": 31.1774,
+    "priceChange1y": -48.8634,
     "ath": 0.00700261,
-    "athChangePercentage": -62.61685,
+    "athChangePercentage": -66.6444,
     "athDate": "2025-05-29T19:20:44.000Z",
     "atl": 0.00069854,
     "atlDate": "2024-08-05T05:31:51.000Z",
-    "circulatingSupply": 99998768877.07826,
-    "totalSupply": 99998768877.07826,
+    "circulatingSupply": 99998768805.71053,
+    "totalSupply": 99998768805.71053,
     "maxSupply": 100000000000,
-    "fdv": 261782584
+    "fdv": 233717247
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +54,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-11T20:04:05.197Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-10-05T23:23:17.846Z",
+  "lastMarketUpdate": "2026-10-07T22:12:30.000Z"
 }

@@ -8,6 +8,7 @@
     "Tokenized Assets",
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
+    "Arbitrum Ecosystem",
     "Tokenized Stocks",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
@@ -21,25 +22,25 @@
     "explorer": "https://www.arbiscan.io/token/0xae2f842ef90c0d5213259ab82639d5bbf649b08e"
   },
   "market": {
-    "price": 153.36,
-    "marketCap": 105911789,
-    "marketCapRank": 279,
-    "volume24h": 2611970,
-    "high24h": 162.66,
-    "low24h": 152.11,
-    "priceChange24h": -1.1695,
-    "priceChange7d": -5.8332,
-    "priceChange30d": 15.2654,
-    "priceChange1y": -52.2737,
+    "price": 154.08,
+    "marketCap": 112634170,
+    "marketCapRank": 268,
+    "volume24h": 2375288,
+    "high24h": 164.83,
+    "low24h": 152.73,
+    "priceChange24h": -6.47571,
+    "priceChange7d": 0.47054,
+    "priceChange30d": 8.79659,
+    "priceChange1y": -53.96439,
     "ath": 462.34,
-    "athChangePercentage": -66.82893,
+    "athChangePercentage": -66.6733,
     "athDate": "2025-07-17T21:29:46.000Z",
     "atl": 80.66,
     "atlDate": "2026-06-29T00:39:20.000Z",
-    "circulatingSupply": 690527.0039511571,
-    "totalSupply": 1525983.266729023,
+    "circulatingSupply": 731032.8681362851,
+    "totalSupply": 1576233.107080162,
     "maxSupply": null,
-    "fdv": 234052567
+    "fdv": 242858721
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-13T19:52:30.285Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-10-07T22:18:19.572Z",
+  "lastMarketUpdate": "2026-10-07T22:14:00.000Z"
 }

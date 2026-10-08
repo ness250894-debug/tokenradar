@@ -2,12 +2,14 @@
   "id": "usdgo",
   "symbol": "usdgo",
   "name": "USDGO",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172077/large/USDGO_%287%29.png?1771437018",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102172077/large/USDGO_Primary_Icon.png?1789694084",
   "description": "USDGO is a regulated, enterprise-grade U.S. dollar stablecoin launched by OSL Group (a Hong Kong-based digital asset platform listed as 863.HK) in February 2026. It is designed primarily for institutional settlement, corporate payments, and cross-border transactions, particularly serving Asian enterprises and the real economy.\n\nKey features include:\n1:1 peg to the U.S. dollar, fully backed by high-quality liquid assets such as U.S. Treasuries.\nIssued by Anchorage Digital Bank N.A., the first federally chartered crypto bank in the United States, ensuring federal regulation and compliance (including under frameworks like the GENIUS Act). Subject to stringent third-party audits, strict AML/KYC requirements, and bank-grade treasury management. OSL Group serves as the branding operator and distributor. Initially minted in a $50 million batch on the Solana blockchain, with plans for expansion to additional chains. It aims to provide compliant, efficient, 24/7 on-chain liquidity and low-friction stablecoin-to-fiat settlement for global enterprises.\n\nOverall, USDGO positions itself as a compliant bridge between traditional finance and blockchain, emphasizing security, scalability, and real-world payment utility over speculative crypto use. For more details, see the official site at usdgo.com.",
   "categories": [
     "Stablecoins",
     "USD Stablecoin",
-    "Solana Ecosystem"
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Morph L2 Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -18,24 +20,24 @@
   },
   "market": {
     "price": 1,
-    "marketCap": 1186774842,
-    "marketCapRank": 72,
-    "volume24h": 35951377,
+    "marketCap": 1309630232,
+    "marketCapRank": 69,
+    "volume24h": 28135613,
     "high24h": 1,
-    "low24h": 0.999941,
-    "priceChange24h": -0.002,
-    "priceChange7d": 0.0256,
-    "priceChange30d": 0.0038,
+    "low24h": 0.999701,
+    "priceChange24h": 0.0139,
+    "priceChange7d": 0.0005,
+    "priceChange30d": -0.0077,
     "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.22932,
+    "athChangePercentage": -0.23307,
     "athDate": "2026-03-11T00:04:22.000Z",
     "atl": 0.998739,
     "atlDate": "2026-09-25T02:00:20.000Z",
-    "circulatingSupply": 1186633293.97,
-    "totalSupply": 1186633293.97,
+    "circulatingSupply": 1309623292.97,
+    "totalSupply": 1309623292.97,
     "maxSupply": null,
-    "fdv": 1186774842
+    "fdv": 1309630232
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +48,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-09T20:04:53.555Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-10-03T20:16:24.188Z",
+  "lastMarketUpdate": "2026-10-07T22:12:30.000Z"
 }
