@@ -1,0 +1,57 @@
+{
+  "id": "spacex-xstocks",
+  "symbol": "spcxx",
+  "name": "SpaceX xStock",
+  "market": {
+    "price": 165.19,
+    "marketCap": 47725385,
+    "marketCapRank": 487,
+    "volume24h": 15485700,
+    "high24h": 168.42,
+    "low24h": 160.34,
+    "priceChange24h": -1.70097,
+    "priceChange7d": 10.8704,
+    "priceChange30d": 7.5221,
+    "priceChange1y": 0,
+    "ath": 225.31,
+    "athChangePercentage": -26.681,
+    "athDate": "2026-06-16T01:00:00.000Z",
+    "atl": 105.26,
+    "atlDate": "2026-08-03T13:30:40.000Z",
+    "circulatingSupply": 288900.75825742725,
+    "totalSupply": 1584439.610514191,
+    "maxSupply": null,
+    "fdv": 261743829
+  },
+  "lastMarketUpdate": "2026-10-08T22:29:40.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102173688/large/SPCXx.png?1780961372",
+  "description": "xStocks - Tokenized Equities \nxStocks is a platform that brings publicly traded stocks onto blockchain networks through digital tokens backed by real-world equity exposure. By combining traditional financial assets with blockchain technology, xStocks enables more accessible, transparent, and programmable ownership and transfer of stock-linked instruments. The platform helps bridge traditional capital markets and decentralized finance, allowing equities to participate in the on-chain economy.",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Tokenized Stocks",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Mantle Ecosystem",
+    "BackedFi xStocks Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://xstocks.fi",
+    "github": "https://github.com/backed-fi",
+    "reddit": null,
+    "explorer": "https://etherscan.io/address/0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-10-08T22:30:36.487Z"
+}

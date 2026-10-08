@@ -20,30 +20,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://aioz.network",
-    "github": null,
+    "github": "https://github.com/AIOZNetwork",
     "reddit": null,
     "explorer": "https://explorer.aioz.network"
   },
   "market": {
-    "price": 0.113035,
-    "marketCap": 144985513,
-    "marketCapRank": 226,
-    "volume24h": 10275947,
-    "high24h": 0.117353,
-    "low24h": 0.106657,
-    "priceChange24h": 3.98487,
-    "priceChange7d": -0.1094,
-    "priceChange30d": 79.9782,
-    "priceChange1y": -60.4131,
+    "price": 0.108658,
+    "marketCap": 139302090,
+    "marketCapRank": 230,
+    "volume24h": 9209701,
+    "high24h": 0.117234,
+    "low24h": 0.099975,
+    "priceChange24h": -3.74995,
+    "priceChange7d": -2.30536,
+    "priceChange30d": 42.795,
+    "priceChange1y": -61.73836,
     "ath": 2.65,
-    "athChangePercentage": -95.73599,
+    "athChangePercentage": -95.90109,
     "athDate": "2021-04-03T03:55:34.000Z",
     "atl": 0.01099588,
     "atlDate": "2023-09-13T11:20:42.000Z",
-    "circulatingSupply": 1282820717.0323646,
-    "totalSupply": 1282869209.299135,
+    "circulatingSupply": 1282972807.464736,
+    "totalSupply": 1283060452.445014,
     "maxSupply": null,
-    "fdv": 144990084
+    "fdv": 139311607
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +54,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-15T20:29:56.265Z",
-  "lastMarketUpdate": "2026-10-07T22:12:30.000Z"
+  "fetchedAt": "2026-10-08T22:32:23.616Z",
+  "lastMarketUpdate": "2026-10-08T22:31:39.000Z"
 }

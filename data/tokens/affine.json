@@ -6,6 +6,7 @@
   "description": "",
   "categories": [
     "Artificial Intelligence (AI)",
+    "Base Ecosystem",
     "Bittensor Ecosystem",
     "Bittensor Subnets"
   ],
@@ -17,25 +18,25 @@
     "explorer": "https://taostats.io/subnets/120/chart"
   },
   "market": {
-    "price": 13.16,
-    "marketCap": 55855295,
-    "marketCapRank": 442,
-    "volume24h": 1086972,
-    "high24h": 14.26,
-    "low24h": 13.12,
-    "priceChange24h": -7.6272,
-    "priceChange7d": -5.1432,
-    "priceChange30d": -3.3804,
-    "priceChange1y": -43.3411,
+    "price": 12.17,
+    "marketCap": 51900947,
+    "marketCapRank": 457,
+    "volume24h": 344960,
+    "high24h": 13.42,
+    "low24h": 11.69,
+    "priceChange24h": -7.81046,
+    "priceChange7d": -14.52544,
+    "priceChange30d": -10.7033,
+    "priceChange1y": -47.39005,
     "ath": 30.83,
-    "athChangePercentage": -57.2998,
+    "athChangePercentage": -60.5223,
     "athDate": "2025-10-14T11:46:12.000Z",
     "atl": 0.138582,
     "atlDate": "2026-04-03T09:59:00.000Z",
-    "circulatingSupply": 4243066.651684623,
-    "totalSupply": 4243066.651684623,
+    "circulatingSupply": 4250399.147408681,
+    "totalSupply": 4250399.147408681,
     "maxSupply": 21000000,
-    "fdv": 55855295
+    "fdv": 51900947
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-15T20:29:37.356Z",
-  "lastMarketUpdate": "2026-10-07T22:12:30.000Z"
+  "fetchedAt": "2026-10-08T22:32:04.745Z",
+  "lastMarketUpdate": "2026-10-08T22:30:34.000Z"
 }
