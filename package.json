@@ -69,7 +69,7 @@
     "kokoro-js": "^1.2.1",
     "lucide-react": "^1.38.0",
     "marked": "^18.0.5",
-    "next": "^16.3.4",
+    "next": "^16.4.0",
     "next-nprogress-bar": "^2.4.7",
     "postcss": "^8.5.26",
     "react": "^19.3.0",
@@ -78,7 +78,7 @@
     "recharts": "^3.10.1",
     "remotion": "4.0.523",
     "rss-parser": "^3.13.0",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.1",
     "zod": "4.5.4"
   },
@@ -99,11 +99,11 @@
     "qs": "^6.16.0",
     "browserslist": "^4.28.8",
     "fflate": "^0.8.3",
-    "brace-expansion": "^1.1.18",
+    "brace-expansion": "^1.1.21",
     "glob": {
-      "brace-expansion": "^5.0.9"
+      "brace-expansion": "^5.0.12"
     },
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "@babel/core": "^7.29.6",
     "js-yaml": "^4.3.2"
   },
@@ -114,7 +114,7 @@
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.4",
+    "eslint-config-next": "^16.4.0",
     "satori": "^0.26.0",
     "tsx": "^4.23.13",
     "typescript": "^6",
