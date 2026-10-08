@@ -6959,5 +6959,51 @@
       "matchedBy": "id",
       "verifiedAt": "2026-10-06T22:07:35.554Z"
     }
+  },
+  {
+    "id": "aster",
+    "name": "Aster",
+    "symbol": "ASTER",
+    "category": "DeFi",
+    "expectedTge": "Confirmed Airdrop / Ongoing Airdrop Stages",
+    "narrativeStrength": 75,
+    "confidence": 85,
+    "lifecycleStatus": "confirmed_tge",
+    "dataSource": "https://airdropalert.com/blogs/aster-review/",
+    "signals": [
+      {
+        "type": "airdrop",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/aster-review/",
+        "title": "Aster Review: 1001x Leverage, Six Airdrop Stages, and an Asterisk",
+        "observedAt": "2025-09-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-08T22:33:37.972Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-08T22:33:37.972Z"
+  },
+  {
+    "id": "sui-hashi",
+    "name": "Hashi",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Mainnet Launch",
+    "narrativeStrength": 80,
+    "confidence": 60,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/sui-hashi-bitcoin-finance-commitments",
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/sui-hashi-bitcoin-finance-commitments",
+        "title": "Sui’s Hashi to launch with $500M in Bitcoin finance commitments",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-08T22:33:37.972Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-08T22:33:37.972Z"
   }
 ]
