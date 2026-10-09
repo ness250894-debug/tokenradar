@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-10-08T22:43:01.942Z",
-    "tokenCount": 517,
+    "tokenCount": 516,
     "topIntents": [
       {
         "intent": "risk",
@@ -2295,82 +2295,6 @@
         "AINFT scam check",
         "AINFT price prediction 2026",
         "AINFT price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-08T22:43:01.942Z"
-    },
-    "apes-2-2": {
-      "tokenId": "apes-2-2",
-      "tokenName": "APES",
-      "symbol": "apes",
-      "attentionScore": 60,
-      "attentionLabel": "Rising",
-      "hypeScore": 55,
-      "fundamentalsScore": 57,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "meme",
-      "intentMix": [
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 77,
-          "queries": [
-            "APES meme coin",
-            "APES price prediction",
-            "is APES worth buying"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "APES risks",
-            "is APES safe",
-            "APES scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 52,
-          "queries": [
-            "APES price prediction 2026",
-            "APES price prediction today",
-            "APES price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 39,
-          "queries": [
-            "how to buy APES",
-            "where to buy APES",
-            "APES crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 41.5% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "APES meme coin",
-        "APES price prediction",
-        "is APES worth buying",
-        "APES risks",
-        "is APES safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
