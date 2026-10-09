@@ -7005,5 +7005,51 @@
     "discoveredAt": "2026-10-08T22:33:37.972Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-08T22:33:37.972Z"
+  },
+  {
+    "id": "formation-defi",
+    "name": "Formation",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 65,
+    "confidence": 40,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://decrypt.co/380522/solana-defi-firms-orca-and-loopscale-merge-under-new-formation-brand",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/380522/solana-defi-firms-orca-and-loopscale-merge-under-new-formation-brand",
+        "title": "Solana DeFi Firms Orca and Loopscale Merge Under New Formation Brand",
+        "observedAt": "2026-10-06T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-09T21:56:57.281Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-09T21:56:57.281Z"
+  },
+  {
+    "id": "meanwhile",
+    "name": "Meanwhile",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "dataSource": "https://www.coindesk.com/business/2026/10/09/sam-altman-backed-bitcoin-insurer-meanwhile-secures-usd37-5-million-in-bain-capital-crypto-led-round",
+    "lifecycleStatus": "candidate",
+    "confidence": 30,
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/10/09/sam-altman-backed-bitcoin-insurer-meanwhile-secures-usd37-5-million-in-bain-capital-crypto-led-round",
+        "title": "Sam Altman-backed bitcoin insurer Meanwhile secures $37.5 million in Bain Capital Crypto-led round",
+        "observedAt": "2026-10-09T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-09T21:56:57.283Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-09T21:56:57.283Z"
   }
 ]
