@@ -3,7 +3,7 @@
   "symbol": "astr",
   "name": "Astar",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/22617/large/astr.png?1696521933",
-  "description": "Astar is a web3 collective building products that bring users onchain and generate long term value for ASTR. It operates as a multi chain ecosystem that coordinates products and contributors through a shared economic and governance framework. \n\nAt the center is Astar Network, which provides the foundation for governance, security, and economic alignment across the ecosystem. Astar supports a growing set of products and integrations designed to drive real onchain usage and sustainable economic activity. Product development is guided by the Astar Stack, a unified product stack that turns blockchain infrastructure and finance into secure and user friendly applications aligned with Astar’s economic goals. \n\nASTR acts as the ecosystem’s economic and governance token, aligning network activity, product growth, and long term value creation.",
+  "description": "Astar is a web3 collective building products that bring users onchain. It operates as a multichain ecosystem that coordinates products and contributors through a shared economic and governance framework.\n\nAstar Network, Astar's own blockchain, anchors the Collective's governance and runs dApp Staking, while its products launch wherever their users already are. Product development is guided by the Astar Stack, the suite of products Astar is building to bring real financial activity onchain.\n\nThe first product in the Astar Stack is Astar Fi (astarfi.com), an onchain personal finance manager incubated by Astar Collective. It brings your onchain net worth into one clear view, then lets you earn and invest from the same place. Astar Fi is multichain, starting with Ethereum and Base.\n\nASTR is the economic and governance token of the Astar ecosystem, used on Astar Network for staking and onchain governance.",
   "categories": [
     "Smart Contract Platform",
     "Polkadot Ecosystem",
@@ -22,25 +22,25 @@
     "explorer": "https://astar.subscan.io"
   },
   "market": {
-    "price": 0.00669874,
-    "marketCap": 58828600,
+    "price": 0.00685068,
+    "marketCap": 60198137,
     "marketCapRank": 420,
-    "volume24h": 1641153,
-    "high24h": 0.00703477,
-    "low24h": 0.00644181,
-    "priceChange24h": -3.75428,
-    "priceChange7d": -8.8932,
-    "priceChange30d": 9.4241,
-    "priceChange1y": -75.7494,
+    "volume24h": 809605,
+    "high24h": 0.00684758,
+    "low24h": 0.00664066,
+    "priceChange24h": 1.91251,
+    "priceChange7d": -5.3672,
+    "priceChange30d": 14.4674,
+    "priceChange1y": -73.15121,
     "ath": 0.421574,
-    "athChangePercentage": -98.41102,
+    "athChangePercentage": -98.37497,
     "athDate": "2022-01-17T05:34:36.000Z",
     "atl": 0.00438437,
     "atlDate": "2026-08-18T02:58:20.000Z",
-    "circulatingSupply": 8781569153,
-    "totalSupply": 8782348633,
+    "circulatingSupply": 8781886229,
+    "totalSupply": 8782662236,
     "maxSupply": 10000000000,
-    "fdv": 58833764
+    "fdv": 60203456
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-16T20:27:33.097Z",
-  "lastMarketUpdate": "2026-10-08T22:29:40.000Z"
+  "fetchedAt": "2026-10-09T21:55:16.336Z",
+  "lastMarketUpdate": "2026-10-09T21:53:56.000Z"
 }
