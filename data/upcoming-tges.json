@@ -7051,5 +7051,39 @@
     "discoveredAt": "2026-10-09T21:56:57.283Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-09T21:56:57.283Z"
+  },
+  {
+    "id": "papertrade",
+    "name": "PaperTrade",
+    "symbol": "PAPER",
+    "category": "DeFi",
+    "expectedTge": "Upcoming TGE / Token Launch",
+    "narrativeStrength": 75,
+    "confidence": 85,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://airdropalert.com/blogs/what-is-papertrade/",
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/what-is-papertrade/",
+        "title": "What Is PaperTrade? The Perp DEX That Pays You PAPER When You Lose",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-10T20:46:26.782Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-10-10T20:55:45.519Z",
+    "graduatedAt": "2026-10-10T20:55:45.519Z",
+    "coingeckoRank": 10654,
+    "graduationEvidence": {
+      "coingeckoId": "papertrade",
+      "coingeckoRank": 10654,
+      "rank": 10654,
+      "priceUsd": 0.00000314,
+      "volume24h": 3019.1,
+      "matchedBy": "id",
+      "verifiedAt": "2026-10-10T20:55:45.519Z"
+    }
   }
 ]

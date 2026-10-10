@@ -20,30 +20,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://blur.io/",
-    "github": null,
+    "github": "https://github.com/blur-io",
     "reddit": null,
     "explorer": "https://etherscan.io/token/0x5283d291dbcf85356a21ba090e6db59121208b44"
   },
   "market": {
-    "price": 0.01903312,
-    "marketCap": 55290761,
-    "marketCapRank": 447,
-    "volume24h": 5897463,
-    "high24h": 0.01915218,
-    "low24h": 0.01848524,
-    "priceChange24h": 2.47614,
-    "priceChange7d": -6.5578,
-    "priceChange30d": 5.9318,
-    "priceChange1y": -73.6205,
+    "price": 0.01900095,
+    "marketCap": 55233815,
+    "marketCapRank": 456,
+    "volume24h": 6759163,
+    "high24h": 0.01928498,
+    "low24h": 0.01824806,
+    "priceChange24h": 0.41598,
+    "priceChange7d": -12.12029,
+    "priceChange30d": 16.60521,
+    "priceChange1y": -71.93973,
     "ath": 5.02,
-    "athChangePercentage": -99.62057,
+    "athChangePercentage": -99.62121,
     "athDate": "2023-02-14T09:33:55.000Z",
     "atl": 0.01276741,
     "atlDate": "2026-08-18T03:33:20.000Z",
-    "circulatingSupply": 2906242151.2557073,
+    "circulatingSupply": 2906957189.497717,
     "totalSupply": 3000000000,
     "maxSupply": 3000000000,
-    "fdv": 57074488
+    "fdv": 57001681
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +54,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-18T04:58:06.648Z",
-  "lastMarketUpdate": "2026-10-09T21:52:51.000Z"
+  "fetchedAt": "2026-10-10T20:45:43.929Z",
+  "lastMarketUpdate": "2026-10-10T20:44:55.000Z"
 }
