@@ -22,30 +22,30 @@
   "genesisDate": "2017-07-08",
   "links": {
     "website": "https://www.binance.com?ref=37754157",
-    "github": "https://github.com/binance-exchange/binance-official-api-docs",
+    "github": "https://github.com/binance",
     "reddit": "https://www.reddit.com/r/binance",
     "explorer": "https://bscscan.com"
   },
   "market": {
-    "price": 741.87,
-    "marketCap": 98784908684,
+    "price": 750.53,
+    "marketCap": 99937638669,
     "marketCapRank": 4,
-    "volume24h": 746200804,
-    "high24h": 744.62,
-    "low24h": 732.88,
-    "priceChange24h": 1.18463,
-    "priceChange7d": -3.4052,
-    "priceChange30d": 0.4291,
-    "priceChange1y": -40.472,
+    "volume24h": 475339464,
+    "high24h": 752.9,
+    "low24h": 739.29,
+    "priceChange24h": 1.57973,
+    "priceChange7d": -4.9192,
+    "priceChange30d": 5.1698,
+    "priceChange1y": -38.6605,
     "ath": 1369.99,
-    "athChangePercentage": -45.84889,
+    "athChangePercentage": -45.21657,
     "athDate": "2025-10-13T00:41:24.000Z",
     "atl": 0.0398177,
     "atlDate": "2017-10-18T16:00:00.000Z",
-    "circulatingSupply": 133158790.42,
-    "totalSupply": 133158789.59,
+    "circulatingSupply": 133158753.5,
+    "totalSupply": 133158747.76,
     "maxSupply": 200000000,
-    "fdv": 98784908447
+    "fdv": 99937636718
   },
   "community": {
     "twitterFollowers": null,
@@ -56,6 +56,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-18T04:58:06.617Z",
-  "lastMarketUpdate": "2026-10-09T21:51:48.000Z"
+  "fetchedAt": "2026-10-10T20:44:27.300Z",
+  "lastMarketUpdate": "2026-10-10T20:42:58.000Z"
 }
