@@ -7085,5 +7085,27 @@
       "matchedBy": "id",
       "verifiedAt": "2026-10-10T20:55:45.519Z"
     }
+  },
+  {
+    "id": "edgex",
+    "name": "edgeX",
+    "symbol": "EDGEX",
+    "category": "DeFi",
+    "expectedTge": "Completed (March 2026)",
+    "narrativeStrength": 72,
+    "dataSource": "https://airdropalert.com/blogs/edgex-review/",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/edgex-review/",
+        "observedAt": "2026-10-11T21:07:41.900Z"
+      }
+    ],
+    "discoveredAt": "2026-10-11T21:08:16.554Z",
+    "status": "upcoming",
+    "lifecycleStatus": "watchlist",
+    "confidence": 47,
+    "lastVerifiedAt": "2026-10-11T21:08:16.554Z"
   }
 ]
