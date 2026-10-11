@@ -105,6 +105,7 @@
     "Base Native",
     "Privacy",
     "Tempo Ecosystem",
+    "Arc Ecosystem",
     "Robinhood Ecosystem",
     "Pharos Ecosystem",
     "ADI Chain Ecosystem"
@@ -117,25 +118,25 @@
     "explorer": "https://etherscan.io/token/0x514910771af9ca656af840dff83e8264ecf986ca"
   },
   "market": {
-    "price": 13.09,
-    "marketCap": 10041689244,
+    "price": 13.31,
+    "marketCap": 10208565318,
     "marketCapRank": 14,
-    "volume24h": 207145491,
-    "high24h": 13.23,
-    "low24h": 12.75,
-    "priceChange24h": 2.63984,
-    "priceChange7d": -6.0456,
-    "priceChange30d": 12.0042,
-    "priceChange1y": -37.6865,
+    "volume24h": 231390586,
+    "high24h": 13.46,
+    "low24h": 12.83,
+    "priceChange24h": 1.52344,
+    "priceChange7d": -6.01944,
+    "priceChange30d": 14.95134,
+    "priceChange1y": -21.23627,
     "ath": 52.7,
-    "athChangePercentage": -75.15116,
+    "athChangePercentage": -74.74279,
     "athDate": "2021-05-09T16:13:57.000Z",
     "atl": 0.148183,
     "atlDate": "2017-11-28T16:00:00.000Z",
     "circulatingSupply": 766849970.424884,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 13094724693
+    "fdv": 13312337108
   },
   "community": {
     "twitterFollowers": null,
@@ -146,6 +147,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-18T20:00:29.803Z",
-  "lastMarketUpdate": "2026-10-10T20:42:58.000Z"
+  "fetchedAt": "2026-10-11T21:06:30.009Z",
+  "lastMarketUpdate": "2026-10-11T21:05:53.000Z"
 }
