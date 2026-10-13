@@ -21,7 +21,7 @@
   "market": {
     "price": 1,
     "marketCap": 76722081,
-    "marketCapRank": 352,
+    "marketCapRank": 342,
     "volume24h": 0,
     "high24h": 1,
     "low24h": 1,
@@ -35,9 +35,9 @@
     "atl": 1,
     "atlDate": "2026-07-23T07:25:00.000Z",
     "circulatingSupply": 76722080.574195,
-    "totalSupply": 76722080.574195,
+    "totalSupply": 19689,
     "maxSupply": 100000000,
-    "fdv": 76722081
+    "fdv": 0.019689
   },
   "community": {
     "twitterFollowers": null,
@@ -49,5 +49,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-09-02T20:09:16.301Z",
-  "lastMarketUpdate": "2026-10-11T21:03:48.000Z"
+  "lastMarketUpdate": "2026-10-12T23:46:53.000Z"
 }
