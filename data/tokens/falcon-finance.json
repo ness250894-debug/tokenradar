@@ -8,6 +8,7 @@
     "Stablecoins",
     "USD Stablecoin",
     "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
     "XDC Ecosystem",
     "Crypto-backed Stablecoin",
     "Synthetic Dollar"
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2"
   },
   "market": {
-    "price": 0.994503,
-    "marketCap": 1816503324,
-    "marketCapRank": 55,
-    "volume24h": 308635,
-    "high24h": 0.996469,
-    "low24h": 0.987678,
-    "priceChange24h": -0.04596,
-    "priceChange7d": -0.138,
-    "priceChange30d": -0.2247,
-    "priceChange1y": -0.083,
+    "price": 0.994616,
+    "marketCap": 1806579354,
+    "marketCapRank": 56,
+    "volume24h": 511269,
+    "high24h": 0.996384,
+    "low24h": 0.994271,
+    "priceChange24h": 0.00417,
+    "priceChange7d": -0.13366,
+    "priceChange30d": -0.19524,
+    "priceChange1y": -0.43945,
     "ath": 1.075,
-    "athChangePercentage": -7.45209,
+    "athChangePercentage": -7.44158,
     "athDate": "2025-05-08T13:25:42.000Z",
     "atl": 0.943422,
     "atlDate": "2025-07-08T02:16:34.000Z",
-    "circulatingSupply": 1826552086.3173716,
-    "totalSupply": 1826552086.3173716,
+    "circulatingSupply": 1816362568.5533445,
+    "totalSupply": 1816362568.5533445,
     "maxSupply": null,
-    "fdv": 1816503324
+    "fdv": 1806579354
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-20T19:49:30.797Z",
-  "lastMarketUpdate": "2026-10-12T23:45:50.000Z"
+  "fetchedAt": "2026-10-13T22:01:31.648Z",
+  "lastMarketUpdate": "2026-10-13T22:00:58.000Z"
 }

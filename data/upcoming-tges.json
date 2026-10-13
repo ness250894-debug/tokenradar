@@ -7107,5 +7107,28 @@
     "lifecycleStatus": "watchlist",
     "confidence": 47,
     "lastVerifiedAt": "2026-10-11T21:08:16.554Z"
+  },
+  {
+    "id": "pacifica",
+    "name": "Pacifica",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Watchlist",
+    "narrativeStrength": 75,
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://airdropalert.com/blogs/pacifica-review/",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "community",
+        "url": "https://airdropalert.com/blogs/pacifica-review/",
+        "title": "Pacifica Review: Solana’s Self-Funded Shot at the Hyperliquid Playbook",
+        "observedAt": "2026-10-13T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-13T22:02:28.592Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-13T22:02:28.592Z"
   }
 ]

@@ -17,30 +17,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://falcon.finance/",
-    "github": null,
+    "github": "https://github.com/falconfinance",
     "reddit": null,
     "explorer": "https://etherscan.io/token/0xFA1C09fC8B491B6A4d3Ff53A10CAd29381b3F949"
   },
   "market": {
-    "price": 0.109444,
-    "marketCap": 365871618,
-    "marketCapRank": 129,
-    "volume24h": 5970354,
-    "high24h": 0.116401,
-    "low24h": 0.110559,
-    "priceChange24h": -5.24989,
-    "priceChange7d": -4.6466,
-    "priceChange30d": -25.51,
-    "priceChange1y": -15.8695,
+    "price": 0.112137,
+    "marketCap": 374839863,
+    "marketCapRank": 127,
+    "volume24h": 5302813,
+    "high24h": 0.115665,
+    "low24h": 0.107308,
+    "priceChange24h": 1.12173,
+    "priceChange7d": 1.10442,
+    "priceChange30d": -21.23392,
+    "priceChange1y": -37.78864,
     "ath": 0.770814,
-    "athChangePercentage": -85.80156,
+    "athChangePercentage": -85.4521,
     "athDate": "2025-09-29T05:02:33.000Z",
     "atl": 0.057089,
     "atlDate": "2026-07-11T06:59:00.000Z",
     "circulatingSupply": 3343055555,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 1094422786
+    "fdv": 1121249279
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-20T19:49:37.091Z",
-  "lastMarketUpdate": "2026-10-12T23:45:50.000Z"
+  "fetchedAt": "2026-10-13T22:01:37.938Z",
+  "lastMarketUpdate": "2026-10-13T22:00:58.000Z"
 }
