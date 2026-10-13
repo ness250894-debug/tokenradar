@@ -12,7 +12,8 @@
     "Base Ecosystem",
     "Fiat-backed Stablecoin",
     "CHF Stablecoin",
-    "Tempo Ecosystem"
+    "Tempo Ecosystem",
+    "Arc Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -23,24 +24,24 @@
   },
   "market": {
     "price": 1.2,
-    "marketCap": 50821159,
-    "marketCapRank": 472,
-    "volume24h": 6694.52,
-    "high24h": 1.21,
+    "marketCap": 46771283,
+    "marketCapRank": 486,
+    "volume24h": 1429.71,
+    "high24h": 1.2,
     "low24h": 1.2,
     "priceChange24h": -0.50579,
-    "priceChange7d": -0.8956,
-    "priceChange30d": -2.673,
+    "priceChange7d": -0.1106,
+    "priceChange30d": -2.0428,
     "priceChange1y": 0,
     "ath": 1.25,
-    "athChangePercentage": -3.97463,
+    "athChangePercentage": -4.2349,
     "athDate": "2026-08-20T14:49:00.000Z",
     "atl": 1.2,
-    "atlDate": "2026-09-28T06:34:30.000Z",
-    "circulatingSupply": 42222873.921656,
-    "totalSupply": 37722873.921656,
+    "atlDate": "2026-10-01T15:51:30.000Z",
+    "circulatingSupply": 38963792.921656,
+    "totalSupply": 38963792.921656,
     "maxSupply": null,
-    "fdv": 45404777
+    "fdv": 46771283
   },
   "community": {
     "twitterFollowers": null,
@@ -51,6 +52,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-13T19:53:14.363Z",
-  "lastMarketUpdate": "2026-09-28T10:00:20.000Z"
+  "fetchedAt": "2026-10-13T21:59:12.431Z",
+  "lastMarketUpdate": "2026-10-13T21:58:54.000Z"
 }
