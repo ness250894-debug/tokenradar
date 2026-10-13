@@ -837,7 +837,8 @@ async function main() {
     let tokenData: Partial<TokenDetail> & { id: string; symbol: string; name: string; category?: string } = { id: tokenId, symbol: tokenId.split("-")[0], name: tokenId };
     const matchingTgeEntry = isTge ? upcomingTges.find((t: UpcomingTge) => t.id === tokenId) : null;
     
-    if (fs.existsSync(tokenFilePath)) {
+    const hadLocalTokenFile = fs.existsSync(tokenFilePath);
+    if (hadLocalTokenFile) {
       tokenData = JSON.parse(await fs.promises.readFile(tokenFilePath, "utf-8"));
     }
 
@@ -884,6 +885,17 @@ async function main() {
         } else {
           console.log(`✗ Failed JIT Sync: ${e instanceof Error ? e.message : String(e)}`);
           await logError("generate-content JIT Sync", e, false);
+
+          // Without CoinGecko data AND without an existing (schema-valid) local file,
+          // we cannot persist a valid data/tokens entry, and publish-from-queue will
+          // refuse to publish non-TGE articles lacking live market data. Skip now so
+          // we don't write a stub that fails validate-content or waste AI spend.
+          // Typical case: a TGE marked "released" that CoinGecko doesn't list yet —
+          // it stays in the graduation queue and is retried on the next run.
+          if (!hadLocalTokenFile) {
+            console.log(`  ⏭  Skipping ${tokenId}: not resolvable on CoinGecko and no local token data. Will retry next run.`);
+            continue;
+          }
         }
       }
 
