@@ -16,30 +16,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://gatechain.io/gatelayer",
-    "github": null,
+    "github": "https://github.com/gatechain",
     "reddit": null,
     "explorer": "https://www.gatescan.org/gatelayer"
   },
   "market": {
-    "price": 10.7,
-    "marketCap": 1119621547,
-    "marketCapRank": 72,
-    "volume24h": 3552252,
-    "high24h": 10.88,
-    "low24h": 10.6,
-    "priceChange24h": -1.39331,
-    "priceChange7d": -4.8344,
-    "priceChange30d": 16.2323,
-    "priceChange1y": -35.1532,
+    "price": 10.41,
+    "marketCap": 1090367252,
+    "marketCapRank": 73,
+    "volume24h": 1076658,
+    "high24h": 10.77,
+    "low24h": 10.28,
+    "priceChange24h": -2.68979,
+    "priceChange7d": -4.31298,
+    "priceChange30d": 11.61057,
+    "priceChange1y": -35.47122,
     "ath": 25.38,
-    "athChangePercentage": -57.85832,
+    "athChangePercentage": -58.9729,
     "athDate": "2025-01-25T16:00:00.000Z",
     "atl": 0.25754,
     "atlDate": "2020-03-12T18:18:02.000Z",
-    "circulatingSupply": 104673962.44287518,
-    "totalSupply": 116925218.94569957,
+    "circulatingSupply": 104675053.39993218,
+    "totalSupply": 116926305.50473714,
     "maxSupply": 142622844,
-    "fdv": 1250664363
+    "fdv": 1217984708
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-21T21:17:03.772Z",
-  "lastMarketUpdate": "2026-10-13T21:58:54.000Z"
+  "fetchedAt": "2026-10-14T21:01:08.683Z",
+  "lastMarketUpdate": "2026-10-14T20:59:57.000Z"
 }

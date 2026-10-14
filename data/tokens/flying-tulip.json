@@ -10,6 +10,7 @@
     "Derivatives",
     "Perpetuals",
     "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
     "Base Ecosystem",
     "Sonic Ecosystem"
   ],
@@ -21,25 +22,25 @@
     "explorer": "https://etherscan.io/token/0x5DD1A7A369e8273371d2DBf9d83356057088082c"
   },
   "market": {
-    "price": 0.152965,
-    "marketCap": 74540410,
-    "marketCapRank": 351,
-    "volume24h": 109456,
-    "high24h": 0.162747,
-    "low24h": 0.150597,
-    "priceChange24h": -4.02686,
-    "priceChange7d": -2.0314,
-    "priceChange30d": 53.896,
+    "price": 0.147723,
+    "marketCap": 71974132,
+    "marketCapRank": 354,
+    "volume24h": 69638,
+    "high24h": 0.15354,
+    "low24h": 0.143743,
+    "priceChange24h": -3.42658,
+    "priceChange7d": 1.18839,
+    "priceChange30d": 48.46815,
     "priceChange1y": 0,
     "ath": 0.168686,
-    "athChangePercentage": -9.31968,
+    "athChangePercentage": -12.42725,
     "athDate": "2026-10-12T03:32:00.000Z",
     "atl": 0.067001,
     "atlDate": "2026-04-22T09:37:00.000Z",
-    "circulatingSupply": 487304630.1202411,
-    "totalSupply": 517444482.65237254,
-    "maxSupply": 517444482.6523725,
-    "fdv": 79150743
+    "circulatingSupply": 487225281.2509411,
+    "totalSupply": 517358679.1927256,
+    "maxSupply": 517358679.1927256,
+    "fdv": 76425513
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-21T21:16:25.998Z",
-  "lastMarketUpdate": "2026-10-13T21:58:54.000Z"
+  "fetchedAt": "2026-10-14T21:00:30.876Z",
+  "lastMarketUpdate": "2026-10-14T20:59:57.000Z"
 }
