@@ -7130,5 +7130,28 @@
     "discoveredAt": "2026-10-13T22:02:28.592Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-13T22:02:28.592Z"
+  },
+  {
+    "id": "easya",
+    "name": "EasyA",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "2027",
+    "narrativeStrength": 75,
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://www.coindesk.com/business/2026/10/14/easya-hits-usd1-1-billion-valuation-targets-2027-public-listing-and-tokenized-shares",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/10/14/easya-hits-usd1-1-billion-valuation-targets-2027-public-listing-and-tokenized-shares",
+        "title": "EasyA hits $1.1 billion valuation, targets 2027 public listing and tokenized shares",
+        "observedAt": "2026-10-14T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-14T21:02:24.327Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-14T21:02:24.327Z"
   }
 ]

@@ -4,26 +4,26 @@
   "name": "3Jane USD3",
   "market": {
     "price": 1.19,
-    "marketCap": 101906794,
-    "marketCapRank": 282,
-    "volume24h": 212557,
-    "high24h": 1.19,
+    "marketCap": 102340021,
+    "marketCapRank": 280,
+    "volume24h": 250698,
+    "high24h": 1.2,
     "low24h": 1.19,
-    "priceChange24h": -0.44766,
-    "priceChange7d": -0.1256,
-    "priceChange30d": 0.4832,
+    "priceChange24h": 0.34193,
+    "priceChange7d": 0.14431,
+    "priceChange30d": 0.44697,
     "priceChange1y": 0,
     "ath": 1.23,
-    "athChangePercentage": -3.55982,
+    "athChangePercentage": -3.12652,
     "athDate": "2026-09-17T18:18:50.000Z",
     "atl": 1.15,
     "atlDate": "2026-09-17T14:01:00.000Z",
-    "circulatingSupply": 85822166.74614,
-    "totalSupply": 85821675.899062,
+    "circulatingSupply": 85799130.335708,
+    "totalSupply": 85799130.335708,
     "maxSupply": null,
-    "fdv": 101906211
+    "fdv": 102340021
   },
-  "lastMarketUpdate": "2026-10-13T21:58:54.000Z",
+  "lastMarketUpdate": "2026-10-14T20:58:49.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102176550/large/20.png?1788098498",
   "description": "3Jane is a credit protocol that provides programmable, asset-backed financing to fintech lenders through warehouse facilities, participations, and forward-flow loan purchases. The facilities are funded through a pooled capital structure comprising USD3 and sUSD3. USD3 is a yield-bearing ERC-4626 token minted by depositing USDC and represents the senior tranche. sUSD3 is staked from USD3 and represents the junior tranche, receiving the junior share of pool yield while absorbing losses before USD3. 3Jane allocates capital across approved facilities, while the fintech lenders remain responsible for borrower acquisition, underwriting, origination, and servicing.",
   "categories": [
@@ -46,5 +46,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-21T21:16:19.666Z"
+  "fetchedAt": "2026-10-14T21:00:24.598Z"
 }
