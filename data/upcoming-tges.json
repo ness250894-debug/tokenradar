@@ -7153,5 +7153,28 @@
     "discoveredAt": "2026-10-14T21:02:24.327Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-14T21:02:24.327Z"
+  },
+  {
+    "id": "perpetuals-com",
+    "name": "Perpetuals.com",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "watchlist",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://www.coindesk.com/business/2026/10/14/former-ftx-europe-chief-targets-u-s-tokenized-stock-trading-with-new-sec-exemption",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/10/14/former-ftx-europe-chief-targets-u-s-tokenized-stock-trading-with-new-sec-exemption",
+        "title": "Former FTX Europe chief targets U.S. tokenized stock trading with new SEC exemption",
+        "observedAt": "2026-10-14T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-15T20:36:29.180Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-15T20:36:29.180Z"
   }
 ]
