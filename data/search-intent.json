@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-10-14T21:11:54.095Z",
-    "tokenCount": 517,
+    "tokenCount": 512,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 213,
+        "tokenCount": 212,
         "avgScore": 76
       },
       {
@@ -20,19 +20,19 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 54,
+        "tokenCount": 53,
         "avgScore": 76
       },
       {
         "intent": "supply",
         "label": "Unlock / supply",
-        "tokenCount": 48,
+        "tokenCount": 46,
         "avgScore": 90
       },
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 47,
+        "tokenCount": 46,
         "avgScore": 82
       },
       {
@@ -452,84 +452,6 @@
         "Aave listing date",
         "Aave staking rewards",
         "Aave yield"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-14T21:11:54.095Z"
-    },
-    "acurast": {
-      "tokenId": "acurast",
-      "tokenName": "Acurast",
-      "symbol": "acu",
-      "attentionScore": 72,
-      "attentionLabel": "Rising",
-      "hypeScore": 57,
-      "fundamentalsScore": 43,
-      "supplyRiskScore": 73,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "Acurast AI crypto",
-            "Acurast AI agent",
-            "ACU AI token"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 74,
-          "queries": [
-            "Acurast token unlock",
-            "Acurast circulating supply",
-            "Acurast tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 66,
-          "queries": [
-            "Acurast risks",
-            "is Acurast safe",
-            "Acurast scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 61,
-          "queries": [
-            "Acurast price prediction 2026",
-            "Acurast price prediction today",
-            "ACU price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -18.7% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Acurast AI crypto",
-        "Acurast AI agent",
-        "ACU AI token",
-        "Acurast token unlock",
-        "Acurast circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -16238,84 +16160,6 @@
       ],
       "computedAt": "2026-10-14T21:11:54.095Z"
     },
-    "holoworld": {
-      "tokenId": "holoworld",
-      "tokenName": "Holoworld",
-      "symbol": "holo",
-      "attentionScore": 65,
-      "attentionLabel": "Rising",
-      "hypeScore": 56,
-      "fundamentalsScore": 36,
-      "supplyRiskScore": 82,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 82,
-          "queries": [
-            "Holoworld token unlock",
-            "Holoworld circulating supply",
-            "Holoworld tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 77,
-          "queries": [
-            "Holoworld AI crypto",
-            "Holoworld AI agent",
-            "HOLO AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 71,
-          "queries": [
-            "Holoworld risks",
-            "is Holoworld safe",
-            "Holoworld scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 57,
-          "queries": [
-            "Holoworld price prediction 2026",
-            "Holoworld price prediction today",
-            "HOLO price target"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Holoworld token unlock",
-        "Holoworld circulating supply",
-        "Holoworld tokenomics",
-        "Holoworld AI crypto",
-        "Holoworld AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-14T21:11:54.095Z"
-    },
     "hood-sword-inu": {
       "tokenId": "hood-sword-inu",
       "tokenName": "Hood Sword Inu",
@@ -23921,82 +23765,6 @@
       ],
       "computedAt": "2026-10-14T21:11:54.095Z"
     },
-    "openeden": {
-      "tokenId": "openeden",
-      "tokenName": "OpenEden",
-      "symbol": "eden",
-      "attentionScore": 54,
-      "attentionLabel": "Watch",
-      "hypeScore": 42,
-      "fundamentalsScore": 57,
-      "supplyRiskScore": 16,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 77,
-          "queries": [
-            "OpenEden RWA crypto",
-            "OpenEden tokenized asset",
-            "OpenEden issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 75,
-          "queries": [
-            "OpenEden risks",
-            "is OpenEden safe",
-            "OpenEden scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 51,
-          "queries": [
-            "OpenEden price prediction 2026",
-            "OpenEden price prediction today",
-            "EDEN price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 38,
-          "queries": [
-            "how to buy OpenEden",
-            "where to buy OpenEden",
-            "EDEN crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "OpenEden RWA crypto",
-        "OpenEden tokenized asset",
-        "OpenEden issuer risk",
-        "OpenEden risks",
-        "is OpenEden safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-14T21:11:54.095Z"
-    },
     "openledger-2": {
       "tokenId": "openledger-2",
       "tokenName": "OpenLedger",
@@ -27581,84 +27349,6 @@
         "Rain scam check",
         "Rain airdrop",
         "Rain TGE"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-14T21:11:54.095Z"
-    },
-    "ravedao": {
-      "tokenId": "ravedao",
-      "tokenName": "RaveDAO",
-      "symbol": "rave",
-      "attentionScore": 80,
-      "attentionLabel": "Hot",
-      "hypeScore": 71,
-      "fundamentalsScore": 27,
-      "supplyRiskScore": 96,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "supply",
-      "intentMix": [
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 94,
-          "queries": [
-            "RaveDAO token unlock",
-            "RaveDAO circulating supply",
-            "RaveDAO tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 84,
-          "queries": [
-            "RaveDAO risks",
-            "is RaveDAO safe",
-            "RaveDAO scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 71,
-          "queries": [
-            "RaveDAO price prediction 2026",
-            "RaveDAO price prediction today",
-            "RAVE price target"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 32,
-          "queries": [
-            "RaveDAO news today",
-            "why is RaveDAO moving",
-            "RAVE crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -29.7% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "RaveDAO token unlock",
-        "RaveDAO circulating supply",
-        "RaveDAO tokenomics",
-        "RaveDAO risks",
-        "is RaveDAO safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -37395,81 +37085,6 @@
         "Venus scam check",
         "Venus token unlock",
         "Venus circulating supply"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-14T21:11:54.095Z"
-    },
-    "verge": {
-      "tokenId": "verge",
-      "tokenName": "Verge",
-      "symbol": "xvg",
-      "attentionScore": 51,
-      "attentionLabel": "Watch",
-      "hypeScore": 42,
-      "fundamentalsScore": 48,
-      "supplyRiskScore": 8,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 75,
-          "queries": [
-            "Verge risks",
-            "is Verge safe",
-            "Verge scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 55,
-          "queries": [
-            "Verge price prediction 2026",
-            "Verge price prediction today",
-            "XVG price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 28,
-          "queries": [
-            "how to buy Verge",
-            "where to buy Verge",
-            "XVG crypto exchange"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 26,
-          "queries": [
-            "Verge news today",
-            "why is Verge moving",
-            "XVG crypto news"
-          ]
-        }
-      ],
-      "drivers": [
-        "Market rank and baseline token searches keep this asset on the watchlist."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Verge risks",
-        "is Verge safe",
-        "Verge scam check",
-        "Verge price prediction 2026",
-        "Verge price prediction today"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
