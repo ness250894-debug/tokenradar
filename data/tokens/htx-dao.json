@@ -14,30 +14,30 @@
   "genesisDate": null,
   "links": {
     "website": "http://www.htxdao.com/en-us/",
-    "github": null,
+    "github": "https://github.com/HTX-DAO",
     "reddit": null,
     "explorer": "https://tronscan.org/#/token20/TUPM7K8REVzD2UdV4R5fe5M8XbnR2DdoJ6"
   },
   "market": {
-    "price": 0.00000167,
-    "marketCap": 1497186958,
+    "price": 0.00000166,
+    "marketCap": 1478385895,
     "marketCapRank": 65,
-    "volume24h": 74854364,
+    "volume24h": 60911938,
     "high24h": 0.00000167,
-    "low24h": 0.00000164,
-    "priceChange24h": 1.15518,
-    "priceChange7d": -1.886,
-    "priceChange30d": -2.3012,
-    "priceChange1y": -18.7451,
+    "low24h": 0.00000165,
+    "priceChange24h": 0.59965,
+    "priceChange7d": -1.3977,
+    "priceChange30d": -0.1264,
+    "priceChange1y": -16.6816,
     "ath": 0.00000375,
-    "athChangePercentage": -55.56936,
+    "athChangePercentage": -55.66428,
     "athDate": "2024-12-03T16:16:20.000Z",
     "atl": 8.00816e-7,
     "atlDate": "2024-08-05T05:31:33.000Z",
-    "circulatingSupply": 898232728634017.2,
-    "totalSupply": 898232728634017.2,
+    "circulatingSupply": 888846370538202,
+    "totalSupply": 888846370538202,
     "maxSupply": 999990000000000,
-    "fdv": 1497186958
+    "fdv": 1478385895
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +48,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-22T20:31:39.847Z",
-  "lastMarketUpdate": "2026-10-14T20:57:53.000Z"
+  "fetchedAt": "2026-10-17T19:44:23.093Z",
+  "lastMarketUpdate": "2026-10-17T19:42:54.000Z"
 }

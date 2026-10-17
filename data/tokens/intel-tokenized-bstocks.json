@@ -1,0 +1,53 @@
+{
+  "id": "intel-tokenized-bstocks",
+  "symbol": "intcb",
+  "name": "Intel (bStocks Tokenized Stock)",
+  "market": {
+    "price": 89.51,
+    "marketCap": 49596328,
+    "marketCapRank": 460,
+    "volume24h": 4480919,
+    "high24h": 90.14,
+    "low24h": 88.96,
+    "priceChange24h": -0.06188,
+    "priceChange7d": -14.6753,
+    "priceChange30d": -19.1895,
+    "priceChange1y": 0,
+    "ath": 130.12,
+    "athChangePercentage": -31.21231,
+    "athDate": "2026-09-25T08:30:40.000Z",
+    "atl": 88.96,
+    "atlDate": "2026-10-17T17:00:40.000Z",
+    "circulatingSupply": 554103.28946278,
+    "totalSupply": 554103.28946278,
+    "maxSupply": null,
+    "fdv": 49596328
+  },
+  "lastMarketUpdate": "2026-10-17T19:43:59.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102176876/large/intcb.png?1788940550",
+  "description": "",
+  "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Tokenized Stocks",
+    "Real World Assets (RWA)",
+    "bStocks Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": null,
+    "github": null,
+    "reddit": null,
+    "explorer": "https://bscscan.com/token/0xe614e2fc6c787035ff51f452e8e826bfd32d5283"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-10-17T19:44:10.441Z"
+}

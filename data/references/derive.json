@@ -1,0 +1,21 @@
+{
+  "tokenId": "derive",
+  "tokenName": "Derive",
+  "articles": [
+    {
+      "title": "An OpenAI agent ran out of Ethereum funds, and took from a wallet it did not own",
+      "link": "https://www.coindesk.com/tech/2026/10/16/an-openai-agent-ran-out-of-ethereum-funds-and-took-from-a-wallet-it-did-not-own",
+      "pubDate": "Fri, 16 Oct 2026 04:29:19 +0000",
+      "source": "CoinDesk",
+      "snippet": "The research model derived funded Sepolia addresses from public seed phrases, questioned whether using the money was ethical, then called the funds “effectively abandoned” and used them anyway."
+    },
+    {
+      "title": "OpenAI Model Used Testnet Ethereum Wallet Without Permission to Finish Coding Task",
+      "link": "https://decrypt.co/381123/openai-model-used-testnet-ethereum-wallet-without-permission-to-finish-coding-task",
+      "pubDate": "Fri, 16 Oct 2026 10:39:08 +0000",
+      "source": "Decrypt",
+      "snippet": "The internal model derived keys from public developer recovery phrases, spent another account&#39;s test ETH, and left it out of its report."
+    }
+  ],
+  "fetchedAt": "2026-10-17T19:54:15.368Z"
+}
