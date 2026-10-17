@@ -618,9 +618,21 @@ export async function getTokenIds(): Promise<string[]> {
   return result;
 }
 
+/**
+ * Normalize a route/token ID before it is used as a blob key or file name.
+ *
+ * CoinGecko IDs may contain underscores (e.g. `hive_dollar`), so `_` must be
+ * preserved; otherwise the lookup misses and `/[token]` renders a not-found
+ * page for an ID that `getTokenIds()` advertised. Dots and path separators are
+ * still stripped so the value can never escape `data/tokens/`.
+ */
+export function sanitizeTokenId(tokenId: string): string {
+  return tokenId.replace(/[^a-z0-9_-]/g, "");
+}
+
 /** Load detailed token data. */
 export async function getTokenDetail(tokenId: string): Promise<TokenDetail | null> {
-  const sanitized = tokenId.replace(/[^a-z0-9-]/g, "");
+  const sanitized = sanitizeTokenId(tokenId);
   
   // Try loading from blob first
   const relativePath = "data/_tokens_blob.json";
@@ -756,25 +768,26 @@ export async function getUpcomingTGEs(): Promise<UpcomingTge[]> {
 
 /** Load token metrics. */
 export async function getTokenMetrics(tokenId: string): Promise<TokenMetrics | null> {
+  const sanitized = sanitizeTokenId(tokenId);
   // Try loading from blob
   const relativePath = "data/_metrics_blob.json";
   const file = getFilePath("_metrics_blob.json");
   
   if (!_metricsBlob) _metricsBlob = await loadBlob<Record<string, unknown>>(file, relativePath);
-  const raw = _metricsBlob ? _metricsBlob[tokenId] : null;
+  const raw = _metricsBlob ? _metricsBlob[sanitized] : null;
 
   if (raw) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return mapRawToTokenMetrics(raw as any, tokenId);
+    return mapRawToTokenMetrics(raw as any, sanitized);
   }
 
   // Fallback
-  const fallbackFile = `${getDataDir()}/metrics/${tokenId}.json`;
-  const relPath = `data/metrics/${tokenId}.json`;
+  const fallbackFile = `${getDataDir()}/metrics/${sanitized}.json`;
+  const relPath = `data/metrics/${sanitized}.json`;
   const rawFile = await loadBlob<Record<string, unknown>>(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return mapRawToTokenMetrics(rawFile as any, tokenId);
+    return mapRawToTokenMetrics(rawFile as any, sanitized);
   }
   return null;
 }
@@ -924,25 +937,26 @@ function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null 
 
 /** Load price history for charts. */
 export async function getPriceHistory(tokenId: string): Promise<PriceHistory | null> {
+  const sanitized = sanitizeTokenId(tokenId);
   // Try loading from blob
   const relativePath = "data/_prices_blob.json";
   const file = getFilePath("_prices_blob.json");
   
   if (!_pricesBlob) _pricesBlob = await loadBlob<Record<string, unknown>>(file, relativePath);
-  const raw = _pricesBlob ? _pricesBlob[tokenId] : null;
+  const raw = _pricesBlob ? _pricesBlob[sanitized] : null;
 
   if (raw) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return mapRawToPriceHistory(raw as any, tokenId);
+    return mapRawToPriceHistory(raw as any, sanitized);
   }
 
   // Fallback
-  const fallbackFile = `${getDataDir()}/prices/${tokenId}.json`;
-  const relPath = `data/prices/${tokenId}.json`;
+  const fallbackFile = `${getDataDir()}/prices/${sanitized}.json`;
+  const relPath = `data/prices/${sanitized}.json`;
   const rawFile = await loadBlob<Record<string, unknown>>(fallbackFile, relPath);
   if (rawFile) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return mapRawToPriceHistory(rawFile as any, tokenId);
+    return mapRawToPriceHistory(rawFile as any, sanitized);
   }
   return null;
 }
@@ -958,8 +972,10 @@ function mapRawToPriceHistory(r: unknown, tokenId: string): PriceHistory | null 
 
 /** Load a generated article for a token. */
 export async function getArticle(tokenId: string, slug: string): Promise<Article | null> {
-  const file = `${getContentDir()}/${tokenId}/${slug}.json`;
-  const relPath = `content/tokens/${tokenId}/${slug}.json`;
+  const sanitized = sanitizeTokenId(tokenId);
+  const sanitizedSlug = slug.replace(/[^a-z0-9-]/g, "");
+  const file = `${getContentDir()}/${sanitized}/${sanitizedSlug}.json`;
+  const relPath = `content/tokens/${sanitized}/${sanitizedSlug}.json`;
   const article = await loadBlob<Article>(file, relPath);
   if (!article) return null;
 
@@ -1001,7 +1017,8 @@ export async function getTokenIdsWithArticle(slug: string): Promise<string[]> {
 
 /** Get all article slugs for a token. */
 export async function getArticleSlugs(tokenId: string): Promise<string[]> {
-  const dir = `${getContentDir()}/${tokenId}`;
+  const sanitized = sanitizeTokenId(tokenId);
+  const dir = `${getContentDir()}/${sanitized}`;
   if (typeof window === "undefined") {
     try {
       const files = await fs.promises.readdir(/* turbopackIgnore: true */ dir);

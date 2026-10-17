@@ -13,7 +13,7 @@ export interface WatchlistExport {
 export function normalizeWatchlistId(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const normalized = value.trim().toLowerCase();
-  if (!/^[a-z0-9-]{1,96}$/.test(normalized)) return null;
+  if (!/^[a-z0-9_-]{1,96}$/.test(normalized)) return null;
   return normalized;
 }
 

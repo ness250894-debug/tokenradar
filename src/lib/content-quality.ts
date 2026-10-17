@@ -78,7 +78,7 @@ const LIVE_MARKET_PLACEHOLDER_PATTERN = /\{\{LIVE_[A-Z0-9_]+\}\}/;
 const HARD_CODED_AS_OF_DATE_PATTERN =
   /\bAs of\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2}/i;
 const UNSUPPORTED_HEADING_PATTERN = /^#{3,}\s+/m;
-const INTERNAL_CONTINUATION_LINK_PATTERN = /\]\(\/(?:learn|[a-z0-9-]+)(?:\/[a-z0-9-]+)?\)/i;
+const INTERNAL_CONTINUATION_LINK_PATTERN = /\]\(\/(?:learn|[a-z0-9_-]+)(?:\/[a-z0-9_-]+)?\)/i;
 
 function findRepeatedParagraphs(content: string): string[] {
   const seen = new Set<string>();
