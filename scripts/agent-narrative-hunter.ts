@@ -47,7 +47,7 @@ const QUERIES = [
 ];
 
 function runTokenPipelineScript(scriptPath: string, tokenId: string): void {
-  if (!/^[a-z0-9-]{1,100}$/.test(tokenId)) {
+  if (!/^[a-z0-9_-]{1,100}$/.test(tokenId)) {
     throw new Error(`Unsafe token id from discovery pipeline: ${tokenId}`);
   }
 
