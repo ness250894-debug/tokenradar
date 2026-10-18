@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-10-17T19:54:16.259Z",
-    "tokenCount": 516,
+    "tokenCount": 513,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 220,
+        "tokenCount": 219,
         "avgScore": 77
       },
       {
@@ -32,14 +32,14 @@
       {
         "intent": "ai",
         "label": "AI crypto",
-        "tokenCount": 46,
+        "tokenCount": 45,
         "avgScore": 83
       },
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 27,
-        "avgScore": 92
+        "tokenCount": 26,
+        "avgScore": 91
       }
     ],
     "hotTokens": [
@@ -4571,82 +4571,6 @@
         "Beldex scam check",
         "Beldex AI crypto",
         "Beldex AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-17T19:54:16.259Z"
-    },
-    "bending-spoons-xstock": {
-      "tokenId": "bending-spoons-xstock",
-      "tokenName": "Bending Spoons xStock",
-      "symbol": "bspx",
-      "attentionScore": 56,
-      "attentionLabel": "Rising",
-      "hypeScore": 48,
-      "fundamentalsScore": 42,
-      "supplyRiskScore": 18,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 86,
-          "queries": [
-            "Bending Spoons xStock risks",
-            "is Bending Spoons xStock safe",
-            "Bending Spoons xStock scam check"
-          ]
-        },
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 77,
-          "queries": [
-            "Bending Spoons xStock RWA crypto",
-            "Bending Spoons xStock tokenized asset",
-            "Bending Spoons xStock issuer risk"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 40,
-          "queries": [
-            "Bending Spoons xStock price prediction 2026",
-            "Bending Spoons xStock price prediction today",
-            "BSPX price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Bending Spoons xStock token unlock",
-            "Bending Spoons xStock circulating supply",
-            "Bending Spoons xStock tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Bending Spoons xStock risks",
-        "is Bending Spoons xStock safe",
-        "Bending Spoons xStock scam check",
-        "Bending Spoons xStock RWA crypto",
-        "Bending Spoons xStock tokenized asset"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
@@ -29521,84 +29445,6 @@
       ],
       "computedAt": "2026-10-17T19:54:16.259Z"
     },
-    "siacoin": {
-      "tokenId": "siacoin",
-      "tokenName": "Siacoin",
-      "symbol": "sc",
-      "attentionScore": 65,
-      "attentionLabel": "Rising",
-      "hypeScore": 67,
-      "fundamentalsScore": 46,
-      "supplyRiskScore": 8,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "ai",
-      "intentMix": [
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 84,
-          "queries": [
-            "Siacoin AI crypto",
-            "Siacoin AI agent",
-            "SC AI token"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 81,
-          "queries": [
-            "Siacoin risks",
-            "is Siacoin safe",
-            "Siacoin scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 69,
-          "queries": [
-            "Siacoin price prediction 2026",
-            "Siacoin price prediction today",
-            "SC price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 46,
-          "queries": [
-            "how to buy Siacoin",
-            "where to buy Siacoin",
-            "SC crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 24.8% keeps medium-term forecasts relevant.",
-        "Category mapping points to an active crypto narrative.",
-        "AI-related categories match current AI crypto search behavior."
-      ],
-      "cautions": [
-        "Risk score is 9/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Siacoin AI crypto",
-        "Siacoin AI agent",
-        "SC AI token",
-        "Siacoin risks",
-        "is Siacoin safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-17T19:54:16.259Z"
-    },
     "sky": {
       "tokenId": "sky",
       "tokenName": "Sky",
@@ -32627,84 +32473,6 @@
         "TAGGER tokenomics",
         "TAGGER AI crypto",
         "TAGGER AI agent"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-17T19:54:16.259Z"
-    },
-    "talus": {
-      "tokenId": "talus",
-      "tokenName": "Talus",
-      "symbol": "us",
-      "attentionScore": 86,
-      "attentionLabel": "Hot",
-      "hypeScore": 66,
-      "fundamentalsScore": 51,
-      "supplyRiskScore": 85,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "Talus price prediction 2026",
-            "Talus price prediction today",
-            "US price target"
-          ]
-        },
-        {
-          "intent": "news",
-          "label": "News catalyst",
-          "score": 100,
-          "queries": [
-            "Talus news today",
-            "why is Talus moving",
-            "US crypto news"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 84,
-          "queries": [
-            "Talus token unlock",
-            "Talus circulating supply",
-            "Talus tokenomics"
-          ]
-        },
-        {
-          "intent": "ai",
-          "label": "AI crypto",
-          "score": 81,
-          "queries": [
-            "Talus AI crypto",
-            "Talus AI agent",
-            "US AI token"
-          ]
-        }
-      ],
-      "drivers": [
-        "Negative 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of 18.4% keeps medium-term forecasts relevant.",
-        "24h volume equals 36.4% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Talus price prediction 2026",
-        "Talus price prediction today",
-        "US price target",
-        "Talus news today",
-        "why is Talus moving"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
