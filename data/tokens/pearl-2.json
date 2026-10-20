@@ -1,6 +1,6 @@
 {
   "id": "pearl-2",
-  "symbol": "prl",
+  "symbol": "pearl",
   "name": "Pearl",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
   "description": "Pearl network — a Proof-of-Useful-Work L1 protocol, where mining is produced natively from AI computations. The heart of the protocol is a new and efficient implementation of the core GPU operation (matrix-multiplication), allowing GPUs to implement proof-of-work as a side-effect of AI training and inference workloads (2-for-1). As such, the Pearl protocol intertwines energy, data, and money into a single atomic digital asset. This document outlines the protocol design, key implementation choices, and various economic aspects of the system.",
@@ -18,25 +18,25 @@
     "explorer": "https://explorer.pearlresearch.ai/"
   },
   "market": {
-    "price": 2.02,
-    "marketCap": 708197727,
+    "price": 2.09,
+    "marketCap": 734349541,
     "marketCapRank": 91,
-    "volume24h": 644041,
-    "high24h": 2.05,
-    "low24h": 1.83,
-    "priceChange24h": 6.83273,
-    "priceChange7d": 23.4881,
-    "priceChange30d": 83.2497,
+    "volume24h": 1972086,
+    "high24h": 2.22,
+    "low24h": 1.92,
+    "priceChange24h": 2.54798,
+    "priceChange7d": 23.1601,
+    "priceChange30d": 129.7065,
     "priceChange1y": 0,
-    "ath": 2.1,
-    "athChangePercentage": -3.74606,
-    "athDate": "2026-10-14T11:24:00.000Z",
+    "ath": 2.22,
+    "athChangePercentage": -6.16192,
+    "athDate": "2026-10-20T17:12:20.000Z",
     "atl": 0.139936,
     "atlDate": "2026-07-23T01:44:40.000Z",
-    "circulatingSupply": 350820035.4326018,
+    "circulatingSupply": 351930721.14479864,
     "totalSupply": 2100000000,
     "maxSupply": 2100000000,
-    "fdv": 4239253967
+    "fdv": 4381925033
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-10-06T21:56:26.222Z",
-  "lastMarketUpdate": "2026-10-19T21:44:57.000Z"
+  "lastMarketUpdate": "2026-10-20T20:53:49.000Z"
 }

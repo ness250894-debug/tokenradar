@@ -7153,5 +7153,51 @@
     "discoveredAt": "2026-10-14T21:02:24.327Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-14T21:02:24.327Z"
+  },
+  {
+    "id": "krw1-stablecoin",
+    "name": "KRW1 Stablecoin (Injective & BDACS)",
+    "symbol": "KRW1",
+    "category": "Stablecoin / RWA",
+    "expectedTge": "Upcoming",
+    "narrativeStrength": 75,
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/injective-bdacs-korean-won-stablecoin-tokenized-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/injective-bdacs-korean-won-stablecoin-tokenized-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Injective, BDACS plan Korean won stablecoin settlement for tokenized assets",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-20T20:58:01.950Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-20T20:58:01.950Z"
+  },
+  {
+    "id": "ustx-stablecoin",
+    "name": "USTX Stablecoin (Brale / Tx)",
+    "symbol": "USTX",
+    "category": "Stablecoin / RWA",
+    "expectedTge": "Upcoming",
+    "narrativeStrength": 70,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/tx-ustx-stablecoin-rwa-liquidity-chain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "dex_pool",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/tx-ustx-stablecoin-rwa-liquidity-chain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Tx launches USTX stablecoin to pull RWA liquidity onto its chain",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-20T20:58:01.950Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-20T20:58:01.950Z"
   }
 ]
