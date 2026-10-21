@@ -7199,5 +7199,28 @@
     "discoveredAt": "2026-10-20T20:58:01.950Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-20T20:58:01.950Z"
+  },
+  {
+    "id": "mural",
+    "name": "Mural",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 55,
+    "confidence": 40,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://www.coindesk.com/business/2026/10/21/tether-leads-usd15-million-series-a-for-ai-focused-payment-startup-mural",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/10/21/tether-leads-usd15-million-series-a-for-ai-focused-payment-startup-mural",
+        "title": "Tether leads $15 million funding round for AI-focused payment startup Mural",
+        "observedAt": "2026-10-21T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-21T20:58:12.611Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-21T20:58:12.611Z"
   }
 ]
