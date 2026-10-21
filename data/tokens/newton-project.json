@@ -11,30 +11,30 @@
   "genesisDate": "2018-12-18",
   "links": {
     "website": "https://ab.org/",
-    "github": null,
+    "github": "https://github.com/newtonproject",
     "reddit": "https://www.reddit.com/r/Newton_project/",
     "explorer": "https://explorer.newtonproject.org/"
   },
   "market": {
-    "price": 0.00052371,
-    "marketCap": 51756991,
-    "marketCapRank": 450,
-    "volume24h": 395113,
-    "high24h": 0.00052821,
-    "low24h": 0.00052188,
-    "priceChange24h": -0.71046,
-    "priceChange7d": -8.6169,
-    "priceChange30d": -22.0571,
-    "priceChange1y": -93.1066,
+    "price": 0.00053239,
+    "marketCap": 52612858,
+    "marketCapRank": 431,
+    "volume24h": 344504,
+    "high24h": 0.00053557,
+    "low24h": 0.00052777,
+    "priceChange24h": -0.56946,
+    "priceChange7d": 0.7442,
+    "priceChange30d": -9.8338,
+    "priceChange1y": -92.4849,
     "ath": 0.01727373,
-    "athChangePercentage": -96.96816,
+    "athChangePercentage": -96.91791,
     "athDate": "2025-03-22T00:04:44.000Z",
     "atl": 0.0000038,
     "atlDate": "2022-10-10T18:32:18.000Z",
     "circulatingSupply": 98823661261.46,
     "totalSupply": 98823661261.46,
     "maxSupply": 100000000000,
-    "fdv": 51756991
+    "fdv": 52612858
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +45,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-02T20:09:47.783Z",
-  "lastMarketUpdate": "2026-10-14T20:57:53.000Z"
+  "fetchedAt": "2026-10-19T21:47:47.385Z",
+  "lastMarketUpdate": "2026-10-20T20:53:49.000Z"
 }

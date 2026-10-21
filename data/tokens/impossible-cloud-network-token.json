@@ -16,40 +16,40 @@
   "genesisDate": null,
   "links": {
     "website": "https://www.icn.global/",
-    "github": null,
+    "github": "https://github.com/ICN-Protocol",
     "reddit": null,
     "explorer": "https://etherscan.io/token/0xe5e0b73380181273abCfD88695F52C4D0C825661"
   },
   "market": {
-    "price": 0.15094,
-    "marketCap": 105741932,
-    "marketCapRank": 488,
-    "volume24h": 2631734,
-    "high24h": 0.150199,
-    "low24h": 0.117795,
-    "priceChange24h": 23.2,
-    "priceChange7d": -11.6,
-    "priceChange30d": -20.7,
-    "priceChange1y": -32.9,
+    "price": 0.199541,
+    "marketCap": 50485209,
+    "marketCapRank": 455,
+    "volume24h": 16428162,
+    "high24h": 0.211893,
+    "low24h": 0.153758,
+    "priceChange24h": 17.7796,
+    "priceChange7d": 86.2766,
+    "priceChange30d": 113.817,
+    "priceChange1y": -13.1118,
     "ath": 0.59106,
-    "athChangePercentage": -74.46281,
+    "athChangePercentage": -66.24008,
     "athDate": "2025-12-19T06:15:51.000Z",
-    "atl": 0.106944,
-    "atlDate": "2026-07-31T19:26:20.000Z",
-    "circulatingSupply": 700000000,
+    "atl": 0.080865,
+    "atlDate": "2026-09-16T17:40:20.000Z",
+    "circulatingSupply": 253006129,
     "totalSupply": 700000000,
     "maxSupply": 700000000,
-    "fdv": 105741932
+    "fdv": 139679014
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:11:48.331Z",
-  "lastMarketUpdate": "2026-08-02T18:43:29.904Z"
+  "fetchedAt": "2026-10-17T19:44:16.741Z",
+  "lastMarketUpdate": "2026-10-20T20:53:49.000Z"
 }

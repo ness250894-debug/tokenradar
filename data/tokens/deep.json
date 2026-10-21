@@ -15,30 +15,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://deepbook.tech/",
-    "github": null,
+    "github": "https://github.com/MystenLabs",
     "reddit": null,
     "explorer": "https://suiscan.xyz/mainnet/coin/0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP/txs"
   },
   "market": {
-    "price": 0.02410284,
-    "marketCap": 60258086,
-    "marketCapRank": 408,
-    "volume24h": 20551315,
-    "high24h": 0.02514989,
-    "low24h": 0.0209447,
-    "priceChange24h": 13.99592,
-    "priceChange7d": 13.9373,
-    "priceChange30d": 57.5466,
-    "priceChange1y": -76.2437,
+    "price": 0.01982931,
+    "marketCap": 49577087,
+    "marketCapRank": 463,
+    "volume24h": 3623320,
+    "high24h": 0.02013906,
+    "low24h": 0.01864665,
+    "priceChange24h": 4.14142,
+    "priceChange7d": -5.94331,
+    "priceChange30d": 11.99319,
+    "priceChange1y": -76.33039,
     "ath": 0.341085,
-    "athChangePercentage": -92.93347,
+    "athChangePercentage": -94.1864,
     "athDate": "2025-01-18T12:22:37.000Z",
     "atl": 0.01073218,
     "atlDate": "2024-10-14T05:34:58.000Z",
     "circulatingSupply": 2500000000,
     "totalSupply": 10000000000,
     "maxSupply": 10000000000,
-    "fdv": 241032346
+    "fdv": 198308350
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +49,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-27T10:32:05.991Z",
-  "lastMarketUpdate": "2026-10-14T20:57:53.000Z"
+  "fetchedAt": "2026-10-20T20:56:38.157Z",
+  "lastMarketUpdate": "2026-10-20T20:55:52.000Z"
 }

@@ -16,30 +16,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://linea.build/association",
-    "github": null,
+    "github": "https://github.com/Consensys",
     "reddit": null,
     "explorer": "https://etherscan.io/token/0x1789e0043623282d5dcc7f213d703c6d8bafbb04"
   },
   "market": {
-    "price": 0.00289557,
-    "marketCap": 71008188,
-    "marketCapRank": 360,
-    "volume24h": 10180755,
-    "high24h": 0.00304038,
-    "low24h": 0.00286069,
-    "priceChange24h": -4.71487,
-    "priceChange7d": 6.0507,
-    "priceChange30d": 10.2797,
-    "priceChange1y": -85.6024,
+    "price": 0.00279647,
+    "marketCap": 68589360,
+    "marketCapRank": 355,
+    "volume24h": 6417928,
+    "high24h": 0.00281782,
+    "low24h": 0.00267609,
+    "priceChange24h": 3.78994,
+    "priceChange7d": -8.4654,
+    "priceChange30d": 1.2583,
+    "priceChange1y": -83.5943,
     "ath": 0.04666898,
-    "athChangePercentage": -93.79553,
+    "athChangePercentage": -94.00786,
     "athDate": "2025-09-10T07:26:12.000Z",
     "atl": 0.00206952,
     "atlDate": "2026-08-19T06:14:40.000Z",
     "circulatingSupply": 24527101521.37352,
     "totalSupply": 71593816498,
     "maxSupply": 72009990000,
-    "fdv": 207270606
+    "fdv": 200210125
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-23T20:44:42.441Z",
-  "lastMarketUpdate": "2026-10-14T20:57:53.000Z"
+  "fetchedAt": "2026-10-19T21:46:44.382Z",
+  "lastMarketUpdate": "2026-10-20T20:53:49.000Z"
 }

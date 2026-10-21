@@ -15,30 +15,30 @@
   "genesisDate": null,
   "links": {
     "website": "https://msu.io/",
-    "github": null,
+    "github": "https://github.com/NEXPACE-Limited",
     "reddit": null,
     "explorer": "https://msu-explorer.xangle.io/"
   },
   "market": {
-    "price": 0.198591,
-    "marketCap": 62136681,
-    "marketCapRank": 399,
-    "volume24h": 3733531,
-    "high24h": 0.209061,
-    "low24h": 0.197927,
-    "priceChange24h": -4.04842,
-    "priceChange7d": -8.9918,
-    "priceChange30d": -7.7173,
-    "priceChange1y": -48.0684,
+    "price": 0.16305,
+    "marketCap": 50787259,
+    "marketCapRank": 450,
+    "volume24h": 9465139,
+    "high24h": 0.168008,
+    "low24h": 0.151455,
+    "priceChange24h": 7.55766,
+    "priceChange7d": -21.2643,
+    "priceChange30d": -27.1271,
+    "priceChange1y": -53.4415,
     "ath": 3.77,
-    "athChangePercentage": -94.7376,
+    "athChangePercentage": -95.67938,
     "athDate": "2025-05-15T01:15:14.000Z",
-    "atl": 0.17425,
-    "atlDate": "2026-08-14T03:48:50.000Z",
-    "circulatingSupply": 312891693.5175758,
+    "atl": 0.150732,
+    "atlDate": "2026-10-18T21:45:20.000Z",
+    "circulatingSupply": 311482052.9066873,
     "totalSupply": 994552574.1697733,
     "maxSupply": 1000000000,
-    "fdv": 197506669
+    "fdv": 162162148
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +49,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-02T20:10:04.399Z",
-  "lastMarketUpdate": "2026-10-14T20:57:53.000Z"
+  "fetchedAt": "2026-10-19T21:47:59.968Z",
+  "lastMarketUpdate": "2026-10-20T20:53:49.000Z"
 }
