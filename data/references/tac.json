@@ -3,26 +3,26 @@
   "tokenName": "TAC",
   "articles": [
     {
+      "title": "Nvidia Unveils Its Full-Stack Blueprint to Contain and Monitor AI Agents",
+      "link": "https://decrypt.co/381570/nvidia-ai-agent-containment-tools-full-stack-blueprint",
+      "pubDate": "Wed, 21 Oct 2026 20:16:02 +0000",
+      "source": "Decrypt",
+      "snippet": "Nvidia&#39;s OpenShell Reference Architecture pairs a software sandbox on Vera CPUs with Sentry monitoring on BlueField-4 chips, aiming to let companies run autonomous agents while enforcing limits agents cannot reach."
+    },
+    {
+      "title": "PHP Panic: Two Critical Bugs Put 70% of the Internet at Risk, and Everyone Is Freaking Out",
+      "link": "https://decrypt.co/381519/php-panic-critical-bugs-70-percent-internet-risk-everyone-freaking-out",
+      "pubDate": "Wed, 21 Oct 2026 15:35:16 +0000",
+      "source": "Decrypt",
+      "snippet": "Two critical bugs in PHP, the language running most of the web, let strangers take over servers without a password. The patch is out, attacks started early, and governments pulled the plug."
+    },
+    {
       "title": "Wallet Linked to Drift Exploit Sends $61 Million in Ethereum to Tornado Cash",
       "link": "https://decrypt.co/381450/wallet-drift-exploit-sends-61-million-ethereum-tornado-cash",
       "pubDate": "Tue, 20 Oct 2026 20:46:04 +0000",
       "source": "Decrypt",
       "snippet": "The North Korea-linked attacker behind April&#39;s $295 million Drift heist pushed 25,700 ETH through the mixer in two hours, and still controls roughly $198 million more."
-    },
-    {
-      "title": "Zcash Developer Zakura Proposes Fix to Stop Quantum Computers Linking Shielded Swaps",
-      "link": "https://decrypt.co/381257/zcash-developer-zakura-proposes-fix-to-stop-quantum-computers-linking-shielded-swaps",
-      "pubDate": "Mon, 19 Oct 2026 10:11:21 +0000",
-      "source": "Decrypt",
-      "snippet": "Zakura says a single published Zcash address could let a future quantum attacker link every payment a wallet has ever received."
-    },
-    {
-      "title": "Crypto Firms Launch Quantum Alliance as 6 Million Bitcoin Sit Exposed",
-      "link": "https://decrypt.co/381236/crypto-firms-launch-quantum-alliance-as-6-million-bitcoin-sit-exposed",
-      "pubDate": "Sat, 17 Oct 2026 16:01:03 +0000",
-      "source": "Decrypt",
-      "snippet": "The nine-member group, modeled on the Internet Engineering Task Force, aims to set open standards for testing quantum-resistance claims as forecasts place the first practical attack in the late 2020s."
     }
   ],
-  "fetchedAt": "2026-10-20T21:07:32.002Z"
+  "fetchedAt": "2026-10-21T21:08:01.396Z"
 }
