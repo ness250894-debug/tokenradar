@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-10-20T21:07:32.885Z",
-    "tokenCount": 512,
+    "tokenCount": 510,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 204,
+        "tokenCount": 203,
         "avgScore": 76
       },
       {
@@ -38,8 +38,8 @@
       {
         "intent": "prediction",
         "label": "Price prediction",
-        "tokenCount": 28,
-        "avgScore": 92
+        "tokenCount": 27,
+        "avgScore": 91
       }
     ],
     "hotTokens": [
@@ -68,13 +68,13 @@
       "useless-3",
       "worldcoin-wld",
       "niu-lai",
-      "lobster-2",
       "quack-ai",
       "chip-2",
       "altlayer",
       "nexpace",
       "plume",
-      "book-of-meme"
+      "book-of-meme",
+      "pha"
     ],
     "methodology": [
       "Scores are built from TokenRadar's cached market, liquidity, supply, category, developer, and risk signals.",
@@ -19486,84 +19486,6 @@
       ],
       "computedAt": "2026-10-20T21:07:32.885Z"
     },
-    "lobster-2": {
-      "tokenId": "lobster-2",
-      "tokenName": "龙虾 (Lobster)",
-      "symbol": "龙虾",
-      "attentionScore": 100,
-      "attentionLabel": "Hot",
-      "hypeScore": 100,
-      "fundamentalsScore": 73,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 100,
-          "queries": [
-            "龙虾 (Lobster) price prediction 2026",
-            "龙虾 (Lobster) price prediction today",
-            "龙虾 price target"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 98,
-          "queries": [
-            "龙虾 (Lobster) meme coin",
-            "龙虾 (Lobster) price prediction",
-            "is 龙虾 (Lobster) worth buying"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 79,
-          "queries": [
-            "龙虾 (Lobster) risks",
-            "is 龙虾 (Lobster) safe",
-            "龙虾 (Lobster) scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 76,
-          "queries": [
-            "how to buy 龙虾 (Lobster)",
-            "where to buy 龙虾 (Lobster)",
-            "龙虾 crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "Positive 24h move is large enough to trigger prediction and news searches.",
-        "30-day move of -69.0% keeps medium-term forecasts relevant.",
-        "24h volume equals 16.2% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative."
-      ],
-      "cautions": [
-        "Risk score is 7/10, so attention should be treated as speculative.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "龙虾 (Lobster) price prediction 2026",
-        "龙虾 (Lobster) price prediction today",
-        "龙虾 price target",
-        "龙虾 (Lobster) meme coin",
-        "龙虾 (Lobster) price prediction"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-20T21:07:32.885Z"
-    },
     "mag7-ssi": {
       "tokenId": "mag7-ssi",
       "tokenName": "MAG7.ssi",
@@ -25178,82 +25100,6 @@
         "PYUSD depeg risk",
         "PayPal USD risks",
         "is PayPal USD safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-20T21:07:32.885Z"
-    },
-    "peanut-the-squirrel": {
-      "tokenId": "peanut-the-squirrel",
-      "tokenName": "Peanut the Squirrel",
-      "symbol": "pnut",
-      "attentionScore": 66,
-      "attentionLabel": "Rising",
-      "hypeScore": 56,
-      "fundamentalsScore": 77,
-      "supplyRiskScore": 0,
-      "classification": "Narrative Rotation",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Peanut the Squirrel risks",
-            "is Peanut the Squirrel safe",
-            "Peanut the Squirrel scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 60,
-          "queries": [
-            "Peanut the Squirrel meme coin",
-            "Peanut the Squirrel price prediction",
-            "is Peanut the Squirrel worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 48,
-          "queries": [
-            "Peanut the Squirrel price prediction 2026",
-            "Peanut the Squirrel price prediction today",
-            "PNUT price target"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 44,
-          "queries": [
-            "how to buy Peanut the Squirrel",
-            "where to buy Peanut the Squirrel",
-            "PNUT crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "24h volume equals 16.6% of market cap, so liquidity is visible.",
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Peanut the Squirrel risks",
-        "is Peanut the Squirrel safe",
-        "Peanut the Squirrel scam check",
-        "Peanut the Squirrel meme coin",
-        "Peanut the Squirrel price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
