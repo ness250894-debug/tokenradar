@@ -3,27 +3,27 @@
   "symbol": "etn",
   "name": "Electroneum",
   "market": {
-    "price": 0.00310759,
-    "marketCap": 55871912,
-    "marketCapRank": 449,
-    "volume24h": 1297959,
-    "high24h": 0.00405836,
-    "low24h": 0.00244548,
-    "priceChange24h": 13.63748,
-    "priceChange7d": 222.1996,
-    "priceChange30d": 331.6112,
-    "priceChange1y": 17.2724,
+    "price": 0.00269323,
+    "marketCap": 48280052,
+    "marketCapRank": 462,
+    "volume24h": 533545,
+    "high24h": 0.00262024,
+    "low24h": 0.00203068,
+    "priceChange24h": 32.13594,
+    "priceChange7d": 25.47,
+    "priceChange30d": 46.1686,
+    "priceChange1y": 7.8183,
     "ath": 0.207854,
-    "athChangePercentage": -98.50492,
+    "athChangePercentage": -98.70427,
     "athDate": "2018-01-05T16:00:00.000Z",
     "atl": 0.0007013,
     "atlDate": "2026-08-14T20:01:10.000Z",
     "circulatingSupply": 17979817604.56,
     "totalSupply": 17979817604.56,
     "maxSupply": 21000000000,
-    "fdv": 55871912
+    "fdv": 48280052
   },
-  "lastMarketUpdate": "2026-09-24T20:46:20.000Z",
+  "lastMarketUpdate": "2026-10-22T20:49:51.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/1109/large/Electroneum2_profile_picture_transparent.png?1747736633",
   "description": "Electroneum is a Layer 1 EVM-compatible blockchain, catering to 4+ million users worldwide. The network boasts transaction speeds of just 5 seconds with instant finality and potentially the lowest smart contract fees available. Powered by the IBFT consensus mechanism and supported by known validators (targeting universities and Web3 infrastructure companies), the network is incredibly fast, secure and energy efficient. ETN provides the backbone for AnyTask.com a successful freelance platform in the crypto space.",
   "categories": [
@@ -46,5 +46,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-23T20:42:30.156Z"
+  "fetchedAt": "2026-10-22T20:51:07.363Z"
 }
