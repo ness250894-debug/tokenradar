@@ -1,4 +1,8 @@
-import { sanitizeSocialEditorialText } from "../../src/lib/social-editorial";
+import {
+  findUnsafeSocialPhrases,
+  sanitizeSocialEditorialText,
+  UnsafeSocialEditorialError,
+} from "../../src/lib/social-editorial";
 import { sanitizePostTextLinks } from "../../src/lib/social-link-policy";
 
 export interface TelegramPollPayload {
@@ -6,17 +10,35 @@ export interface TelegramPollPayload {
   options: string[];
 }
 
-const FALLBACK_POLL_OPTIONS = [
+export const FALLBACK_POLL_OPTIONS = [
   "Momentum quality",
   "Liquidity depth",
   "Risk profile",
   "Need more data",
 ];
 
-function sanitizePollField(value: unknown, maxLength: number): string {
-  return sanitizeSocialEditorialText(sanitizePostTextLinks(String(value || "")))
-    .slice(0, maxLength)
-    .trim();
+function sanitizePollField(value: unknown, maxLength: number, label?: string): string {
+  const text = sanitizePostTextLinks(String(value || ""));
+  const issues = findUnsafeSocialPhrases(text);
+  if (issues.length > 0) {
+    console.warn(
+      `[telegram-poll] Dropping unsafe editorial ${label || "field"} ("${text}"): ${issues.join(", ")}`,
+    );
+    return "";
+  }
+  try {
+    return sanitizeSocialEditorialText(text)
+      .slice(0, maxLength)
+      .trim();
+  } catch (err) {
+    if (err instanceof UnsafeSocialEditorialError) {
+      console.warn(
+        `[telegram-poll] Dropping unsafe editorial ${label || "field"} ("${text}"): ${err.issues.join(", ")}`,
+      );
+      return "";
+    }
+    throw err;
+  }
 }
 
 export function normalizeTelegramPollPayload(
@@ -24,12 +46,12 @@ export function normalizeTelegramPollPayload(
   fallbackQuestion: string,
 ): TelegramPollPayload {
   const question =
-    sanitizePollField(payload.question, 300) ||
-    sanitizePollField(fallbackQuestion, 300);
+    sanitizePollField(payload.question, 300, "question") ||
+    sanitizePollField(fallbackQuestion, 300, "fallback question");
 
   const options = Array.isArray(payload.options)
     ? payload.options
-        .map((option) => sanitizePollField(option, 100))
+        .map((option, idx) => sanitizePollField(option, 100, `option[${idx}]`))
         .filter(Boolean)
     : [];
   const uniqueOptions = Array.from(
