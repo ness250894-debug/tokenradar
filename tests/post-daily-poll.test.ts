@@ -105,6 +105,32 @@ describe("Telegram poll delivery idempotency", () => {
     expect(dependencies.markSocialDeliveryStatus).not.toHaveBeenCalled();
   });
 
+  it("replaces unsafe editorial options from AI without throwing or failing delivery", async () => {
+    dependencies.callAIWithFallback.mockResolvedValue({
+      content: JSON.stringify({
+        question: "Community Pulse: Which watchlist factor do you weigh most?",
+        options: [
+          "Accumulation volume",
+          "On-chain velocity",
+          "Liquidity depth",
+          "Developer activity",
+        ],
+      }),
+    });
+
+    await main([]);
+
+    expect(dependencies.sendTelegramPoll).toHaveBeenCalledWith(
+      "Community Pulse: Which watchlist factor do you weigh most?",
+      expect.arrayContaining(["On-chain velocity", "Liquidity depth", "Developer activity"]),
+      "@tokenradar-test",
+    );
+    const sentOptions = dependencies.sendTelegramPoll.mock.calls[0][1] as string[];
+    expect(sentOptions).toHaveLength(4);
+    expect(sentOptions).not.toContain("Accumulation volume");
+    expect(dependencies.recordSocialPost).toHaveBeenCalled();
+  });
+
   it("blocks a retry and records outcome_unknown when Telegram may have accepted the poll", async () => {
     const ambiguousError = Object.assign(
       new Error("Call to sendPoll failed! (502: Bad Gateway)"),

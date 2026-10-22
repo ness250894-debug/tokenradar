@@ -140,6 +140,7 @@ RULES:
 - Options should be meaningfully different, specific, and useful for a research audience.
 - Make it feel timely, but avoid hype, meme language, and entertainment-first wording.
 - Do not ask users to buy, sell, long, short, or chase a token.
+- STRICT EDITORIAL POLICY: Never use trading commands, directives, or speculative terms such as "accumulate", "accumulation", "buy", "sell", "entry", "take profit", "stop loss", "moon", or "pump".
 - DO NOT repeat this example: "${theme.example}"
 - NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
 
