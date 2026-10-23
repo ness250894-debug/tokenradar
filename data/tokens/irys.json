@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/70808/large/irys.png?1764757341",
   "description": "Irys is a Layer 1 datachain that unifies onchain data storage and smart contract execution into a single network. Traditional smart contract chains handle financial transactions but lack native primitives for working with data at scale. Traditional datachains handle storage but lack integration with smart contracts. Irys serves both. Irys bridges this gap by unifying storage and execution, making data programmable through IrysVM, its native EVM execution layer. The network offers flexible storage options: users can choose between term storage (temporary, duration-based) or permanent storage (one-time payment for perpetual retention). Both operate at at-cost pricing, made possible by Irys's multi-revenue model that combines storage fees, execution fees, and programmable data transactions. This design allows Irys to remain competitive on price while maintaining economic sustainability. Irys achieves instant data retrieval and infinite horizontal scaling. As demand grows, the network expands capacity by adding validators who prove continuous maintenance of their assigned data partitions. The network's native token, $IRYS, is used for all storage and execution fees, as well as validator staking.",
   "categories": [
+    "Smart Contract Platform",
     "BNB Chain Ecosystem",
     "Layer 1 (L1)",
     "Ethereum Ecosystem",
@@ -18,35 +19,35 @@
     "explorer": "https://explorer.irys.xyz/"
   },
   "market": {
-    "price": 0.02470149,
-    "marketCap": 49393283,
-    "marketCapRank": 492,
-    "volume24h": 11861738,
-    "high24h": 0.0249967,
-    "low24h": 0.02372156,
-    "priceChange24h": -1.1041,
-    "priceChange7d": -25.842589460598724,
-    "priceChange30d": -30.878210581533374,
+    "price": 0.085066,
+    "marketCap": 172517010,
+    "marketCapRank": 195,
+    "volume24h": 1377812018,
+    "high24h": 0.295913,
+    "low24h": 0.02036673,
+    "priceChange24h": 294.7388,
+    "priceChange7d": 558.11859,
+    "priceChange30d": 453.33163,
     "priceChange1y": 0,
-    "ath": 0.084374,
-    "athChangePercentage": -70.68683,
-    "athDate": "2026-05-15T12:00:31.570Z",
-    "atl": 0.01652714,
-    "atlDate": "2026-03-08T15:11:02.598Z",
+    "ath": 0.295913,
+    "athChangePercentage": -71.2531,
+    "athDate": "2026-10-23T19:24:00.000Z",
+    "atl": 0.01172202,
+    "atlDate": "2026-10-18T20:30:00.000Z",
     "circulatingSupply": 2000000000,
     "totalSupply": 10000000000,
     "maxSupply": null,
-    "fdv": 246966413
+    "fdv": 862585048
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-14T07:12:38.868Z",
-  "lastMarketUpdate": "2026-05-30T18:48:58.016Z"
+  "fetchedAt": "2026-10-23T20:40:32.799Z",
+  "lastMarketUpdate": "2026-10-23T20:39:52.000Z"
 }
