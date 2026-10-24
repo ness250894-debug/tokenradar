@@ -544,4 +544,19 @@ describe("social content validator", () => {
       expect(result.ok).toBe(true);
     }
   });
+
+  it("validates tokens whose upstream symbol starts with a literal cashtag", () => {
+    const facts = {
+      tokenName: "Infinity Gaming",
+      symbol: "$inf8",
+      priceChange24h: 9.54884,
+      volume24h: 189_215,
+      marketCap: 46_198_540,
+    };
+    const hook = "INF8 +9.5%: WHAT'S THE CATCH?";
+    const voiceover = "Infinity Gaming moved +9.5% in the supplied daily snapshot. Reported daily volume was $189.2K. This is a snapshot, not a forecast. Which field should we break down next?";
+
+    expect(validateSocialContent(hook, facts)).toEqual({ ok: true, issues: [] });
+    expect(validateSocialContent(voiceover, facts)).toEqual({ ok: true, issues: [] });
+  });
 });

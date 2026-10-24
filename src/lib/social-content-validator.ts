@@ -594,10 +594,23 @@ function findUnsupportedPlainNumbers(
     .filter(Boolean);
 }
 
+/**
+ * Strip a literal cashtag prefix from the supplied symbol.
+ *
+ * Some upstream symbols include "$" (e.g. "$inf8"). Content builders render
+ * the bare symbol, and every matcher here adds its own optional "$", so the
+ * raw value would never match the token's own name in rendered copy.
+ */
+function normalizeFactsSymbol(facts: SocialContentFacts): SocialContentFacts {
+  const symbol = facts.symbol.trim().replace(/^\$+/, "");
+  return symbol && symbol !== facts.symbol ? { ...facts, symbol } : facts;
+}
+
 export function validateSocialContent(
   text: string,
-  facts: SocialContentFacts,
+  suppliedFacts: SocialContentFacts,
 ): SocialContentValidationResult {
+  const facts = normalizeFactsSymbol(suppliedFacts);
   const issues: SocialContentValidationIssue[] = [];
   const renderedText = renderedSocialText(text);
   const protectedEntities = protectedEntitiesForFacts(facts);
