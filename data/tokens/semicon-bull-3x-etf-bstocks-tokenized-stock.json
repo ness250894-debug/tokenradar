@@ -1,7 +1,7 @@
 {
   "id": "semicon-bull-3x-etf-bstocks-tokenized-stock",
   "symbol": "soxlb",
-  "name": "Semicon Bull 3X ETF (bStocks Tokenized Stock)",
+  "name": "Semicon Bull 3X ETF (bStocks Tokenized ETF)",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102174369/large/soxlb-bstocks.png?1783453750",
   "description": "",
   "categories": [
@@ -20,34 +20,35 @@
     "explorer": "https://bscscan.com/token/0xd97d097a89113fa59b76c572e5b2eb647e8eefaf"
   },
   "market": {
-    "price": 113.51,
-    "marketCap": 43429946,
-    "marketCapRank": 461,
-    "volume24h": 44736413,
-    "high24h": 117.7,
-    "low24h": 85.91,
-    "priceChange24h": 4.86737,
-    "priceChange7d": -25.7716,
-    "priceChange30d": 0,
+    "price": 84.53,
+    "marketCap": 62471604,
+    "marketCapRank": 384,
+    "volume24h": 17896033,
+    "high24h": 84.81,
+    "low24h": 81.18,
+    "priceChange24h": 1.41483,
+    "priceChange7d": -9.5594,
+    "priceChange30d": -41.166,
     "priceChange1y": 0,
     "ath": 204.29,
-    "athChangePercentage": -44.43888,
+    "athChangePercentage": -58.62181,
     "athDate": "2026-07-09T13:56:20.000Z",
-    "atl": 85.91,
-    "atlDate": "2026-07-29T21:40:20.000Z",
-    "circulatingSupply": 382924.21593626,
-    "totalSupply": 382924.21593626,
+    "atl": 78.28,
+    "atlDate": "2026-10-23T00:10:30.000Z",
+    "circulatingSupply": 739177.59727709,
+    "totalSupply": 739177.59727709,
     "maxSupply": null,
-    "fdv": 43466497
+    "fdv": 62471604
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-07-30T19:02:21.806Z"
+  "fetchedAt": "2026-10-24T19:50:50.430Z",
+  "lastMarketUpdate": "2026-10-24T19:49:51.000Z"
 }
