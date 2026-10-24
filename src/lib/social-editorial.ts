@@ -23,7 +23,8 @@ export function buildProtectedSocialEntitiesForToken(
   symbol: string,
 ): ProtectedSocialEntity[] {
   const cleanName = tokenName.trim();
-  const cleanSymbol = symbol.trim();
+  const uncashtagged = symbol.trim().replace(/^\$+/, "");
+  const cleanSymbol = uncashtagged || symbol.trim();
   return [
     ...(cleanName
       ? [{ value: cleanName, caseSensitive: !/[\s.-]/.test(cleanName) }]

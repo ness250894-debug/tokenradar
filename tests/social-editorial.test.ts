@@ -113,4 +113,13 @@ describe("social editorial policy", () => {
     const hookText = "PUMP +15.5%: WHAT'S THE CATCH?";
     expect(sanitizeSocialEditorialText(hookText, options)).toBe(hookText);
   });
+
+  it("handles cashtagged symbols without double dollar signs or missed protections", () => {
+    const entities = buildProtectedSocialEntitiesForToken("Infinity Gaming", "$inf8");
+    expect(entities).toEqual([
+      { value: "Infinity Gaming", caseSensitive: false },
+      { value: "$INF8", caseSensitive: false },
+      { value: "INF8", caseSensitive: true },
+    ]);
+  });
 });
