@@ -3,11 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "PHP Foundation admits ‘structural failure’ delayed critical security fix",
-      "link": "https://cointelegraph.com/news/php-foundation-admits-structural-failure-delayed-critical-security-fix?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Thu, 22 Oct 2026 00:44:00 +0000",
+      "title": "Cysic dangles a 10% bounty, hacker pours loot into Tornado Cash",
+      "link": "https://cointelegraph.com/news/cysic-exploiter-eth-tornado-cash-white-hat-offer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Fri, 23 Oct 2026 10:13:06 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Government websites and online services were disrupted after concerns about a PHP bug that could allow attackers to take control of vulnerable servers."
+      "snippet": "The attacker moved $744,000 in ETH and BNB to Tornado Cash after exploiting Cysic’s bridge to mint 10 million tokens on BNB Smart Chain."
+    },
+    {
+      "title": "Bitcoin Core Rewrites Its Security Policy for a World Where AI Finds Bugs in One Prompt",
+      "link": "https://decrypt.co/381715/bitcoin-core-security-policy-ai-threats",
+      "pubDate": "Fri, 23 Oct 2026 17:16:03 +0000",
+      "source": "Decrypt",
+      "snippet": "Developers will now backport fixes and cut releases immediately for flaws flagged as “easily discoverable,” abandoning long embargoes for bugs an attacker can surface with a single AI prompt."
+    },
+    {
+      "title": "Is the Internet Safe Again After the PHP Nightmare? What You Need to Know",
+      "link": "https://decrypt.co/381662/internet-safe-again-after-php-nightmare-what-you-need-know",
+      "pubDate": "Thu, 22 Oct 2026 22:21:46 +0000",
+      "source": "Decrypt",
+      "snippet": "PHP shipped its fix, attackers launched millions of attempts, and governments say no one has broken in yet. Here&#39;s what that means for your passwords, your crypto, and your browsing."
     },
     {
       "title": "Nvidia Unveils Its Full-Stack Blueprint to Contain and Monitor AI Agents",
@@ -22,14 +36,7 @@
       "pubDate": "Wed, 21 Oct 2026 15:35:16 +0000",
       "source": "Decrypt",
       "snippet": "Two critical bugs in PHP, the language running most of the web, let strangers take over servers without a password. The patch is out, attacks started early, and governments pulled the plug."
-    },
-    {
-      "title": "Wallet Linked to Drift Exploit Sends $61 Million in Ethereum to Tornado Cash",
-      "link": "https://decrypt.co/381450/wallet-drift-exploit-sends-61-million-ethereum-tornado-cash",
-      "pubDate": "Tue, 20 Oct 2026 20:46:04 +0000",
-      "source": "Decrypt",
-      "snippet": "The North Korea-linked attacker behind April&#39;s $295 million Drift heist pushed 25,700 ETH through the mixer in two hours, and still controls roughly $198 million more."
     }
   ],
-  "fetchedAt": "2026-10-22T21:03:40.142Z"
+  "fetchedAt": "2026-10-24T20:01:05.870Z"
 }
