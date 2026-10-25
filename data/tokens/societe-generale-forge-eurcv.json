@@ -12,6 +12,7 @@
     "Stellar Ecosystem",
     "XRP Ledger Ecosystem",
     "Fiat-backed Stablecoin",
+    "Canton Ecosystem",
     "MiCA-Compliant Stablecoin",
     "Bank-Issued Stablecoin"
   ],
@@ -24,24 +25,24 @@
   },
   "market": {
     "price": 1.12,
-    "marketCap": 190879182,
+    "marketCap": 191132050,
     "marketCapRank": 182,
-    "volume24h": 11909662,
+    "volume24h": 9718472,
     "high24h": 1.12,
     "low24h": 1.12,
-    "priceChange24h": -0.01552,
-    "priceChange7d": -0.3295,
-    "priceChange30d": -1.5395,
-    "priceChange1y": -3.7297,
+    "priceChange24h": 0.12144,
+    "priceChange7d": -0.20947,
+    "priceChange30d": -1.64348,
+    "priceChange1y": -3.67227,
     "ath": 1.22,
-    "athChangePercentage": -8.13149,
+    "athChangePercentage": -8.00757,
     "athDate": "2026-01-26T21:25:46.000Z",
     "atl": 0.988513,
     "atlDate": "2025-02-04T14:15:33.000Z",
     "circulatingSupply": 170545078.68,
     "totalSupply": 170545078.68,
     "maxSupply": null,
-    "fdv": 190879182
+    "fdv": 191132050
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-29T21:34:17.851Z",
-  "lastMarketUpdate": "2026-10-24T19:49:51.000Z"
+  "fetchedAt": "2026-10-25T19:59:59.986Z",
+  "lastMarketUpdate": "2026-10-25T19:58:51.000Z"
 }
