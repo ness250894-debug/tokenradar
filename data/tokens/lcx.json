@@ -3,27 +3,27 @@
   "symbol": "lcx",
   "name": "LCX",
   "market": {
-    "price": 0.04902152,
-    "marketCap": 46840797,
-    "marketCapRank": 471,
-    "volume24h": 180440,
-    "high24h": 0.050921,
-    "low24h": 0.04803473,
-    "priceChange24h": -4.55358,
-    "priceChange7d": -7.6305,
-    "priceChange30d": 45.474,
-    "priceChange1y": -55.9493,
+    "price": 0.04912886,
+    "marketCap": 46946295,
+    "marketCapRank": 467,
+    "volume24h": 283215,
+    "high24h": 0.05265,
+    "low24h": 0.04819169,
+    "priceChange24h": 0.97779,
+    "priceChange7d": -6.47245,
+    "priceChange30d": 45.5043,
+    "priceChange1y": -56.24358,
     "ath": 0.563966,
-    "athChangePercentage": -91.30771,
+    "athChangePercentage": -91.28868,
     "athDate": "2021-11-03T12:35:37.000Z",
     "atl": 0.00007085,
     "atlDate": "2019-11-26T06:14:11.000Z",
-    "circulatingSupply": 955515947.2493119,
-    "totalSupply": 956053677.4029919,
+    "circulatingSupply": 955565805.7595931,
+    "totalSupply": 956103535.9132731,
     "maxSupply": 950000000,
-    "fdv": 46867158
+    "fdv": 46972713
   },
-  "lastMarketUpdate": "2026-10-24T19:49:51.000Z",
+  "lastMarketUpdate": "2026-10-25T20:00:57.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/9985/large/256_lcxlogo.png?1770805695",
   "description": "LCX.com is a platform that innovates capital markets by providing solutions for compliant digital\nassets and security tokens. It is a secure and compliant platform for buying, selling, transferring,\nand storing digital currency.",
   "categories": [
@@ -32,7 +32,8 @@
     "Centralized Exchange (CEX) Token",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
-    "Alleged SEC Securities"
+    "Alleged SEC Securities",
+    "Dex Aggregator"
   ],
   "genesisDate": null,
   "links": {
@@ -50,5 +51,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-30T21:33:26.901Z"
+  "fetchedAt": "2026-10-25T20:01:24.445Z"
 }
