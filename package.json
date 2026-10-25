@@ -50,6 +50,7 @@
     "lighthouse:ci": "npx --yes @lhci/cli@0.15.1 autorun",
     "pagespeed:snapshot": "tsx scripts/pagespeed-snapshot.ts",
     "r2:cleanup-ledger": "tsx scripts/cleanup-r2-staging.ts",
+    "remotion:validate": "tsx scripts/validate-remotion-alignment.ts",
     "studio": "remotion studio src/video/Root.tsx"
   },
   "dependencies": {

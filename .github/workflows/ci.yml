@@ -71,7 +71,7 @@ jobs:
         run: npm run test
 
       - name: Validate Remotion dependency alignment
-        run: npx remotion versions
+        run: npm run remotion:validate
 
       - name: Bundle Remotion compositions
         run: npx remotion bundle src/video/index.tsx
