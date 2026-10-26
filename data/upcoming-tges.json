@@ -7222,5 +7222,28 @@
     "discoveredAt": "2026-10-21T20:58:12.611Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-21T20:58:12.611Z"
+  },
+  {
+    "id": "anthropic-ipo",
+    "name": "Anthropic",
+    "symbol": "ANT",
+    "category": "AI / Stock Tokenization",
+    "expectedTge": "Q2 2026",
+    "narrativeStrength": 95,
+    "confidence": 95,
+    "dataSource": "https://decrypt.co/381818/anthropic-makes-ipo-filing-public-plans-nasdaq-listing-under-ant",
+    "lifecycleStatus": "confirmed_tge",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://decrypt.co/381818/anthropic-makes-ipo-filing-public-plans-nasdaq-listing-under-ant",
+        "title": "Anthropic Makes IPO Filing Public, Plans Nasdaq Listing Under ‘ANT’",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-26T21:58:00.116Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-26T21:58:00.116Z"
   }
 ]

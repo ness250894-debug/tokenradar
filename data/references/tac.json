@@ -3,11 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Cysic dangles a 10% bounty, hacker pours loot into Tornado Cash",
-      "link": "https://cointelegraph.com/news/cysic-exploiter-eth-tornado-cash-white-hat-offer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 23 Oct 2026 10:13:06 +0000",
+      "title": "Bitcoin wallet bug let rogue servers steal funds when users tried to speed up payments",
+      "link": "https://www.coindesk.com/tech/2026/10/26/bitcoin-wallet-bug-let-rogue-servers-steal-funds-when-users-tried-to-speed-up-payments",
+      "pubDate": "Mon, 26 Oct 2026 05:15:20 +0000",
+      "source": "CoinDesk",
+      "snippet": "Attackers replaced legitimate transactions with fake ones, then waited for users to approve higher fees. At least one person lost bitcoin before developers patched the flaw."
+    },
+    {
+      "title": "Keystone says website breach exposed hardware wallet buyers’ addresses",
+      "link": "https://cointelegraph.com/news/keystone-says-website-breach-exposed-hardware-wallet-buyers-addresses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 26 Oct 2026 02:24:04 +0000",
       "source": "CoinTelegraph",
-      "snippet": "The attacker moved $744,000 in ETH and BNB to Tornado Cash after exploiting Cysic’s bridge to mint 10 million tokens on BNB Smart Chain."
+      "snippet": "A security researcher warned that the leaked shipping details could expose crypto holders to targeted scams and physical attacks."
+    },
+    {
+      "title": "Bitcoin Wallet Fixes Critical Flaw That Redirected Funds to Attackers",
+      "link": "https://decrypt.co/381844/bitcoin-wallet-flaw-trick-users-paying-attackers",
+      "pubDate": "Mon, 26 Oct 2026 17:41:21 +0000",
+      "source": "Decrypt",
+      "snippet": "A confirmed exploit let rogue servers replace Electrum’s pending transactions, tricking users into redirecting Bitcoin to attacker addresses."
     },
     {
       "title": "Bitcoin Core Rewrites Its Security Policy for a World Where AI Finds Bugs in One Prompt",
@@ -22,14 +36,7 @@
       "pubDate": "Thu, 22 Oct 2026 22:21:46 +0000",
       "source": "Decrypt",
       "snippet": "PHP shipped its fix, attackers launched millions of attempts, and governments say no one has broken in yet. Here&#39;s what that means for your passwords, your crypto, and your browsing."
-    },
-    {
-      "title": "Nvidia Unveils Its Full-Stack Blueprint to Contain and Monitor AI Agents",
-      "link": "https://decrypt.co/381570/nvidia-ai-agent-containment-tools-full-stack-blueprint",
-      "pubDate": "Wed, 21 Oct 2026 20:16:02 +0000",
-      "source": "Decrypt",
-      "snippet": "Nvidia&#39;s OpenShell Reference Architecture pairs a software sandbox on Vera CPUs with Sentry monitoring on BlueField-4 chips, aiming to let companies run autonomous agents while enforcing limits agents cannot reach."
     }
   ],
-  "fetchedAt": "2026-10-25T20:06:36.286Z"
+  "fetchedAt": "2026-10-26T22:07:57.671Z"
 }

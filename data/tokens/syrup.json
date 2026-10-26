@@ -2,8 +2,8 @@
   "id": "syrup",
   "symbol": "syrup",
   "name": "Maple Finance",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/51232/large/_syrup_token_logo.png?1747292046",
-  "description": "- Maple is 'DeFi's Institutional Lender'. Maple Finance lending engine powers institutional yield for both Maple and Syrup; providing lenders with institutional quality yield overcollateralized by digital assets. The protocol combines the best of institutional lending and DeFi. Syrup is the team's newest product, offering permissionless access to Maple's lending engine whilst also integrated with the broader DeFi ecosystem including Balancer and Pendle Finance.",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/51232/large/_SYRUP.png?1790835983",
+  "description": "Maple is an onchain asset manager that activates capital through lending and trading. Lenders provide capital to underwritten strategies for yield opportunities, and institutional borrowers access capital from those strategies to fund and grow their businesses. The yield lenders receive comes from the interest those borrowers repay. Partners embed the same yield into their own products.\n\nThrough full market cycles since 2019, Maple has originated more than $25B in loans, manages $4.8B in assets, and has distributed more than $100M in yield back to lenders, with every position and transaction verifiable onchain.\n\nDiscover more at maple.finance. Onchain Capital. Activated.",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Yield Farming",
@@ -23,25 +23,25 @@
     "explorer": "https://etherscan.io/token/0x643C4E15d7d62Ad0aBeC4a9BD4b001aA3Ef52d66"
   },
   "market": {
-    "price": 0.173404,
-    "marketCap": 202381382,
-    "marketCapRank": 176,
-    "volume24h": 5699797,
-    "high24h": 0.178819,
-    "low24h": 0.17109,
-    "priceChange24h": -1.4957,
-    "priceChange7d": -8.9575,
-    "priceChange30d": -20.7767,
-    "priceChange1y": -54.8056,
+    "price": 0.176107,
+    "marketCap": 205462081,
+    "marketCapRank": 175,
+    "volume24h": 6942473,
+    "high24h": 0.17733,
+    "low24h": 0.170117,
+    "priceChange24h": 2.14112,
+    "priceChange7d": -7.23954,
+    "priceChange30d": -19.56775,
+    "priceChange1y": -55.40446,
     "ath": 0.653229,
-    "athChangePercentage": -73.45432,
+    "athChangePercentage": -73.04056,
     "athDate": "2025-06-25T06:15:45.000Z",
     "atl": 0.085229,
     "atlDate": "2025-04-06T23:46:35.000Z",
     "circulatingSupply": 1167271959.1810675,
     "totalSupply": 1267875000.0000002,
     "maxSupply": null,
-    "fdv": 219823917
+    "fdv": 223170131
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +52,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-30T21:35:20.300Z",
-  "lastMarketUpdate": "2026-10-25T19:57:52.000Z"
+  "fetchedAt": "2026-10-26T21:56:25.814Z",
+  "lastMarketUpdate": "2026-10-26T21:54:56.000Z"
 }
