@@ -4,26 +4,26 @@
   "name": "Hastra AUTO",
   "market": {
     "price": 1.028,
-    "marketCap": 107815796,
+    "marketCap": 108057501,
     "marketCapRank": 263,
-    "volume24h": 64251,
+    "volume24h": 28598,
     "high24h": 1.028,
     "low24h": 1.027,
-    "priceChange24h": 0.03107,
-    "priceChange7d": 0.114,
-    "priceChange30d": 0.6765,
+    "priceChange24h": 0.02175,
+    "priceChange7d": 0.17764,
+    "priceChange30d": 0.80969,
     "priceChange1y": 0,
     "ath": 1.053,
-    "athChangePercentage": -2.33835,
+    "athChangePercentage": -2.31494,
     "athDate": "2026-10-22T04:19:10.000Z",
     "atl": 1.006,
     "atlDate": "2026-07-24T13:03:40.000Z",
-    "circulatingSupply": 104869949.316976,
-    "totalSupply": 104869949.316976,
+    "circulatingSupply": 105082779.905778,
+    "totalSupply": 105082779.905778,
     "maxSupply": null,
-    "fdv": 107815796
+    "fdv": 108057501
   },
-  "lastMarketUpdate": "2026-10-25T19:57:52.000Z",
+  "lastMarketUpdate": "2026-10-26T21:55:59.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102174221/large/AUTO_200x200_%281%29.png?1782569824",
   "description": "AUTO is a liquid staking token representing the tokenized exposure to the yield generated in the Auto Pool on Figure's Democratized Prime, which consists of a pool of consumer auto loans originated by Agora Data and structured by Figure via Figure Forge. By holding AUTO, you earn the prevailing rate in the Auto Pool (minus the 50 bps Hastra Platform Fee) which derives its yield from real borrower interest payments on consumer auto loans.",
   "categories": [
@@ -48,5 +48,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-02T21:27:20.804Z"
+  "fetchedAt": "2026-10-26T21:57:09.899Z"
 }

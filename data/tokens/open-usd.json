@@ -3,27 +3,27 @@
   "symbol": "ousd",
   "name": "Open USD",
   "market": {
-    "price": 0.999382,
-    "marketCap": 837655484,
+    "price": 1.001,
+    "marketCap": 834876757,
     "marketCapRank": 82,
-    "volume24h": 76611,
+    "volume24h": 577624,
     "high24h": 1.001,
-    "low24h": 0.998955,
-    "priceChange24h": -0.00841,
-    "priceChange7d": -0.0106,
+    "low24h": 0.999005,
+    "priceChange24h": 0.151,
+    "priceChange7d": 0.12155,
     "priceChange30d": 0,
     "priceChange1y": 0,
     "ath": 1.013,
-    "athChangePercentage": -1.30673,
+    "athChangePercentage": -1.15553,
     "athDate": "2026-10-13T03:32:10.000Z",
     "atl": 0.990799,
     "atlDate": "2026-10-11T22:18:30.000Z",
-    "circulatingSupply": 838169828.00664,
-    "totalSupply": 838169828.00664,
+    "circulatingSupply": 834102850.82664,
+    "totalSupply": 834102850.82664,
     "maxSupply": null,
-    "fdv": 837655484
+    "fdv": 834876757
   },
-  "lastMarketUpdate": "2026-10-25T19:57:52.000Z",
+  "lastMarketUpdate": "2026-10-26T21:55:59.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102174264/large/open_standard.png?1782864430",
   "description": "Open USD (OUSD) is the first stablecoin designed as open infrastructure. OUSD gives businesses the economics, governance, and reliability they need to move money. It is built for scale and payments use cases with no artificial limits, and the platforms using it the most receive nearly all of the underlying earnings to continue to grow. OUSD is operated by Open Standard and governed by its partners.",
   "categories": [
@@ -51,5 +51,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-02T21:27:14.464Z"
+  "fetchedAt": "2026-10-26T21:56:57.298Z"
 }

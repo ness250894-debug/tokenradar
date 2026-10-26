@@ -3,27 +3,27 @@
   "symbol": "usdx",
   "name": "Axis USD",
   "market": {
-    "price": 0.999025,
-    "marketCap": 67065394,
-    "marketCapRank": 360,
-    "volume24h": 250603,
-    "high24h": 0.999305,
-    "low24h": 0.998743,
-    "priceChange24h": -0.00027,
-    "priceChange7d": -0.0097,
-    "priceChange30d": -0.0125,
+    "price": 0.998624,
+    "marketCap": 67036643,
+    "marketCapRank": 362,
+    "volume24h": 437030,
+    "high24h": 0.999082,
+    "low24h": 0.998492,
+    "priceChange24h": -0.04231,
+    "priceChange7d": -0.0602,
+    "priceChange30d": -0.04494,
     "priceChange1y": 0,
     "ath": 1.002,
-    "athChangePercentage": -0.25514,
+    "athChangePercentage": -0.29513,
     "athDate": "2026-09-04T13:49:10.000Z",
     "atl": 0.99614,
     "atlDate": "2026-09-15T13:46:20.000Z",
     "circulatingSupply": 67130557.17333646,
     "totalSupply": 67130557.17333646,
     "maxSupply": null,
-    "fdv": 67065394
+    "fdv": 67036643
   },
-  "lastMarketUpdate": "2026-10-25T19:57:52.000Z",
+  "lastMarketUpdate": "2026-10-26T21:55:59.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102172783/large/usdx-logo-transparent-200.png?1787893161",
   "description": "Axis is a quantitative yield protocol that issues USDx, a synthetic dollar backed by a market-neutral trading book. Returns come from closing price differences across venues, not from token emissions. sUSDx is the staked form that receives that yield. The operating company is Coordinate Labs Pte. Ltd. in Singapore.",
   "categories": [
@@ -47,5 +47,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-02T21:27:14.466Z"
+  "fetchedAt": "2026-10-26T21:57:03.602Z"
 }

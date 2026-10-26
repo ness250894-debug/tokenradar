@@ -3,6 +3,27 @@
   "tokenName": "Akedo",
   "articles": [
     {
+      "title": "AI giant Anthropic files for blockbuster IPO",
+      "link": "https://www.coindesk.com/business/2026/10/26/ai-giant-anthropic-files-for-blockbuster-ipo",
+      "pubDate": "Mon, 26 Oct 2026 13:22:09 +0000",
+      "source": "CoinDesk",
+      "snippet": "The maker of Claude reported $16.3 billion in first-half revenue and an $80.7 billion net loss as it aims to price its offering in mid-November."
+    },
+    {
+      "title": "Bitcoin wallet bug let rogue servers steal funds when users tried to speed up payments",
+      "link": "https://www.coindesk.com/tech/2026/10/26/bitcoin-wallet-bug-let-rogue-servers-steal-funds-when-users-tried-to-speed-up-payments",
+      "pubDate": "Mon, 26 Oct 2026 05:15:20 +0000",
+      "source": "CoinDesk",
+      "snippet": "Attackers replaced legitimate transactions with fake ones, then waited for users to approve higher fees. At least one person lost bitcoin before developers patched the flaw."
+    },
+    {
+      "title": "Elon Musk issues a warning for 'AI neoclouds' as SpaceX borrows $40 billion for chips",
+      "link": "https://www.coindesk.com/markets/2026/10/26/elon-musk-confirms-usd40-billion-spacex-debt-deal-for-ai-chips-warns-of-neocloud-shakeout",
+      "pubDate": "Mon, 26 Oct 2026 03:11:39 +0000",
+      "source": "CoinDesk",
+      "snippet": "SpaceX has raised $40 billion in debt to buy GPUs, while Musk predicts a major shakeout among smaller AI cloud providers."
+    },
+    {
       "title": "Crypto under weekend pressure, bitcoin slides below $80,000 on U.S. Middle East evacuations",
       "link": "https://www.coindesk.com/markets/2026/10/24/crypto-under-weekend-pressure-bitcoin-slides-below-usd80-000-on-u-s-middle-east-evacuations",
       "pubDate": "Sat, 24 Oct 2026 15:11:24 +0000",
@@ -15,21 +36,7 @@
       "pubDate": "Sat, 24 Oct 2026 15:00:00 +0000",
       "source": "CoinDesk",
       "snippet": "Some of the world's biggest companies objected to being listed on the first tokenized securities trading venue under the SEC's innovation exemption. But the early pushback may say more about issuer caution than about rejection of tokenization itself."
-    },
-    {
-      "title": "Bitcoin Core changes security rules as AI makes finding code bugs dangerously easy",
-      "link": "https://www.coindesk.com/tech/2026/10/23/bitcoin-will-now-stop-hiding-bugs-an-ai-can-find-in-one-prompt",
-      "pubDate": "Fri, 23 Oct 2026 12:03:53 +0000",
-      "source": "CoinDesk",
-      "snippet": "Developers merged a policy change that ends the months-long embargo for flaws a chatbot could rediscover, after a summer in which AI found hundreds of bitcoin bugs before the humans did."
-    },
-    {
-      "title": "Bitcoin Core changes security policy as AI makes bugs easier to find",
-      "link": "https://cointelegraph.com/news/bitcoin-core-changes-security-policy-as-ai-makes-bugs-easier-to-find?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Fri, 23 Oct 2026 04:34:14 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Bitcoin Core says keeping certain vulnerabilities secret no longer offers much protection in the wake of AI-assisted bug hunting."
     }
   ],
-  "fetchedAt": "2026-10-25T20:06:36.271Z"
+  "fetchedAt": "2026-10-26T22:07:57.654Z"
 }
