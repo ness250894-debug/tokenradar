@@ -3,18 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Bitcoin wallet bug let rogue servers steal funds when users tried to speed up payments",
-      "link": "https://www.coindesk.com/tech/2026/10/26/bitcoin-wallet-bug-let-rogue-servers-steal-funds-when-users-tried-to-speed-up-payments",
-      "pubDate": "Mon, 26 Oct 2026 05:15:20 +0000",
-      "source": "CoinDesk",
-      "snippet": "Attackers replaced legitimate transactions with fake ones, then waited for users to approve higher fees. At least one person lost bitcoin before developers patched the flaw."
+      "title": "Quantum fears already limiting Bitcoin’s growth, Stacks founder says",
+      "link": "https://cointelegraph.com/news/quantum-fears-already-limiting-bitcoins-growth-stacks-founder-says?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 27 Oct 2026 20:33:19 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Speaking on Cointelegraph’s Chain Reaction podcast, Muneeb Ali warned that uncertainty over Bitcoin’s quantum security could deter institutional investors."
     },
     {
-      "title": "Keystone says website breach exposed hardware wallet buyers’ addresses",
-      "link": "https://cointelegraph.com/news/keystone-says-website-breach-exposed-hardware-wallet-buyers-addresses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 26 Oct 2026 02:24:04 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "A security researcher warned that the leaked shipping details could expose crypto holders to targeted scams and physical attacks."
+      "title": "Bitcoin Wallet Maker Keystone Pulls Devices as Stolen Key Opens Door to Fakes",
+      "link": "https://decrypt.co/381983/bitcoin-wallet-keystone-devices-destroyed-stolen-key",
+      "pubDate": "Tue, 27 Oct 2026 18:16:02 +0000",
+      "source": "Decrypt",
+      "snippet": "Attackers obtained the factory key that proves Keystone&#39;s hardware wallets are genuine, and 25,964 buyer records were affected. The company says recovery phrases and private keys were not involved."
+    },
+    {
+      "title": "Morning Minute: Tokenized Stock Battle Looms Over Robinhood’s Earnings Call",
+      "link": "https://decrypt.co/381907/morning-minute-tokenized-stock-battle-looms-over-robinhoods-earnings-call",
+      "pubDate": "Tue, 27 Oct 2026 12:59:58 +0000",
+      "source": "Decrypt",
+      "snippet": "One of crypto’s primary growth sectors for this upcoming cycle is under attack. Will Vlad Tenev speak up on today’s Robinhood earnings call?"
     },
     {
       "title": "Bitcoin Wallet Fixes Critical Flaw That Redirected Funds to Attackers",
@@ -22,21 +29,7 @@
       "pubDate": "Mon, 26 Oct 2026 17:41:21 +0000",
       "source": "Decrypt",
       "snippet": "A confirmed exploit let rogue servers replace Electrum’s pending transactions, tricking users into redirecting Bitcoin to attacker addresses."
-    },
-    {
-      "title": "Bitcoin Core Rewrites Its Security Policy for a World Where AI Finds Bugs in One Prompt",
-      "link": "https://decrypt.co/381715/bitcoin-core-security-policy-ai-threats",
-      "pubDate": "Fri, 23 Oct 2026 17:16:03 +0000",
-      "source": "Decrypt",
-      "snippet": "Developers will now backport fixes and cut releases immediately for flaws flagged as “easily discoverable,” abandoning long embargoes for bugs an attacker can surface with a single AI prompt."
-    },
-    {
-      "title": "Is the Internet Safe Again After the PHP Nightmare? What You Need to Know",
-      "link": "https://decrypt.co/381662/internet-safe-again-after-php-nightmare-what-you-need-know",
-      "pubDate": "Thu, 22 Oct 2026 22:21:46 +0000",
-      "source": "Decrypt",
-      "snippet": "PHP shipped its fix, attackers launched millions of attempts, and governments say no one has broken in yet. Here&#39;s what that means for your passwords, your crypto, and your browsing."
     }
   ],
-  "fetchedAt": "2026-10-26T22:07:57.671Z"
+  "fetchedAt": "2026-10-27T21:42:22.929Z"
 }

@@ -1,0 +1,53 @@
+{
+  "id": "sovren",
+  "symbol": "sovr",
+  "name": "Sovren",
+  "market": {
+    "price": 0.091374,
+    "marketCap": 61634144,
+    "marketCapRank": 383,
+    "volume24h": 214481,
+    "high24h": 0.091507,
+    "low24h": 0.089998,
+    "priceChange24h": 0.83679,
+    "priceChange7d": -2.2426,
+    "priceChange30d": -5.7557,
+    "priceChange1y": 0,
+    "ath": 0.105485,
+    "athChangePercentage": -13.37707,
+    "athDate": "2026-09-21T18:59:40.000Z",
+    "atl": 0.074666,
+    "atlDate": "2026-09-28T03:09:20.000Z",
+    "circulatingSupply": 674655801.38,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 91356428
+  },
+  "lastMarketUpdate": "2026-10-27T21:28:53.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102178320/large/Sovrn.webp?1789314854",
+  "description": "Sovren is a sovereign digital infrastructure company. Its mission is to give businesses, creators and communities control over their own data, audience and revenue on infrastructure they own rather than rent. Sovren Technologies, Inc. builds and operates that infrastructure at two layers. The enterprise layer is Triton Cloud, a cloud provider offering compute, object storage and private networking with predictable pricing, serving paying business customers today and available as an on-premises deployment for organizations that want to run their own cloud. The application layer is a set of consumer and business products built on the same data system: Parler for social publishing, Play for video, Shop for commerce, Pay for wallets and payments, and Ads for advertisers. Underneath both sits the Sovren Network, a Cosmos SDK blockchain powered by community-operated nodes that store data, forward traffic and serve compute; SOVR is the network's native token, used to pay for and reward that work.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "DePIN",
+    "Osmosis Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.sovrentech.io/",
+    "github": "https://github.com/sovrn-tech/sovr-networks",
+    "reddit": null,
+    "explorer": "https://sovrscan.com/"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-10-27T21:29:38.884Z"
+}

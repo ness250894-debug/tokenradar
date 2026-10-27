@@ -7245,5 +7245,74 @@
     "discoveredAt": "2026-10-26T21:58:00.116Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-26T21:58:00.116Z"
+  },
+  {
+    "id": "janus-henderson-centrifuge-nasdaq-fund",
+    "name": "Janus Henderson / Centrifuge Tokenized Nasdaq-100 Fund",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Mainnet Launch / Tokenized Fund Launch",
+    "narrativeStrength": 65,
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://cointelegraph.com/news/janus-henderson-centrifuge-launch-tokenized-nasdaq-100-fund-on-stellar",
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/janus-henderson-centrifuge-launch-tokenized-nasdaq-100-fund-on-stellar",
+        "title": "Janus Henderson, Centrifuge launch tokenized Nasdaq-100 fund on Stellar",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-27T21:32:47.534Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-27T21:32:47.534Z"
+  },
+  {
+    "id": "luxor-ai-bitcoin",
+    "name": "Luxor",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 68,
+    "confidence": 70,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/luxor-raises-16m-ai-bitcoin-miner-convergence",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/luxor-raises-16m-ai-bitcoin-miner-convergence",
+        "title": "Luxor raises $16M from CMT Digital amid AI-Bitcoin miner convergence",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-27T21:32:47.535Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-27T21:32:47.535Z"
+  },
+  {
+    "id": "redotpay",
+    "name": "RedotPay",
+    "symbol": "TBD",
+    "category": "Payments / Fintech",
+    "expectedTge": "Year-end 2026",
+    "narrativeStrength": 75,
+    "dataSource": "https://cointelegraph.com/news/redotpay-weighs-confidential-us-ipo-filing-by-year-end-bloomberg?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "lifecycleStatus": "candidate",
+    "confidence": 65,
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/redotpay-weighs-confidential-us-ipo-filing-by-year-end-bloomberg?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "RedotPay weighs confidential US IPO filing by year-end: Bloomberg",
+        "observedAt": "2026-05-18T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-27T21:32:47.535Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-27T21:32:47.535Z"
   }
 ]
