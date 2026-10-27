@@ -3,27 +3,27 @@
   "symbol": "nil",
   "name": "Nillion",
   "market": {
-    "price": 0.109532,
-    "marketCap": 55695110,
-    "marketCapRank": 463,
-    "volume24h": 86621013,
-    "high24h": 0.116468,
-    "low24h": 0.088186,
-    "priceChange24h": 23.10228,
-    "priceChange7d": 27.5098,
-    "priceChange30d": 112.987,
-    "priceChange1y": -67.0329,
+    "price": 0.092428,
+    "marketCap": 47443942,
+    "marketCapRank": 472,
+    "volume24h": 124639636,
+    "high24h": 0.134475,
+    "low24h": 0.087598,
+    "priceChange24h": 4.60943,
+    "priceChange7d": 7.263,
+    "priceChange30d": -7.4272,
+    "priceChange1y": -68.0093,
     "ath": 0.897077,
-    "athChangePercentage": -87.79013,
+    "athChangePercentage": -89.69673,
     "athDate": "2025-03-24T05:30:35.000Z",
     "atl": 0.02739273,
     "atlDate": "2026-08-01T18:32:30.000Z",
-    "circulatingSupply": 507639841.498394,
-    "totalSupply": 1010733108.509819,
+    "circulatingSupply": 513145750.468908,
+    "totalSupply": 1011117723.894431,
     "maxSupply": null,
-    "fdv": 110891398
+    "fdv": 93484961
   },
-  "lastMarketUpdate": "2026-10-05T23:20:30.000Z",
+  "lastMarketUpdate": "2026-10-27T21:28:53.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/39082/large/nillion.jpg?1723033507",
   "description": "Nillion is a decentralized network for Encrypted Markets. Instead of broadcasting an instruction before it executes, a user seals it to a condition and posts it onchain, where it stays unreadable, to other traders, to agents, and to the network itself, until that condition is met. At that moment a threshold of independent nodes unlocks it and it executes automatically. Covenants is the primitive that makes this possible, bringing privacy to the parts of a market that have always run in the open: the order, the strategy, and the logic behind them.\n\n$NIL is the native utility token of the network that is used for:\n\n* Protocol fees for creating and resolving Covenants\n* Staking to operate a node and secure the network\n* Rewards paid to nodes that monitor conditions and settle results\n\n\nCovenants is the protocol powering Encrypted Markets:\n\n* Condition-gated instructions sealed onchain, revealed and executed only when live data feeds meet the condition\n\n\n$NIL also enables access to Nillion's established privacy infrastructure:\n\n* nilDB: an encrypted database with data split across multiple nodes, where calculations can still be performed on data while in encrypted form\n* nilAI: AI-focused privacy technologies including AI Virtual Machine (AIVM), nada-AI, and nilTEE",
   "categories": [
@@ -51,5 +51,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-23T20:42:23.851Z"
+  "fetchedAt": "2026-10-27T21:30:04.094Z"
 }
