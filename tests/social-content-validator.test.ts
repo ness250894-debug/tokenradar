@@ -559,4 +559,43 @@ describe("social content validator", () => {
     expect(validateSocialContent(hook, facts)).toEqual({ ok: true, issues: [] });
     expect(validateSocialContent(voiceover, facts)).toEqual({ ok: true, issues: [] });
   });
+
+  it("accepts grounded rounded percentages for small price changes", () => {
+    const facts: SocialContentFacts = {
+      tokenName: "Zcash",
+      symbol: "ZEC",
+      price: 1220.32,
+      priceChange24h: 0.14365,
+      marketCap: 20_750_270_920,
+      marketDataSource: "coingecko-live",
+      marketDataAsOf: "2026-10-26T22:52:50.000Z",
+    };
+    const attribution = "CoinGecko snapshot, 2026-10-26 22:52 UTC";
+    const text = [
+      "Zcash moved +0.14%, but the candle is only the first filter.",
+      "Price: $1220.32. Market cap: $20.75B.",
+      attribution,
+    ].join("\n\n");
+
+    const result = validateSocialContent(text, facts);
+    expect(result.ok).toBe(true);
+    expect(result.issues).toEqual([]);
+  });
+
+  it("accepts rounded integer currency amounts scaled with M/B suffix", () => {
+    const facts: SocialContentFacts = {
+      tokenName: "TestCoin",
+      symbol: "TEST",
+      marketCap: 5_400_000,
+      marketDataSource: "coingecko-live",
+      marketDataAsOf: "2026-10-26T22:52:50.000Z",
+    };
+    const attribution = "CoinGecko snapshot, 2026-10-26 22:52 UTC";
+    const text = `TestCoin market cap: $5M.\n\n${attribution}`;
+
+    const result = validateSocialContent(text, facts);
+    expect(result.ok).toBe(true);
+    expect(result.issues).toEqual([]);
+  });
 });
+
