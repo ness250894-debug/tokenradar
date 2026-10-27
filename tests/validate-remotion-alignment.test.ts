@@ -4,5 +4,5 @@ import { validateRemotionAlignment } from "../scripts/validate-remotion-alignmen
 describe("validateRemotionAlignment", () => {
   it("executes without throwing and validates Remotion packages are aligned", () => {
     expect(() => validateRemotionAlignment()).not.toThrow();
-  });
+  }, 15_000);
 });

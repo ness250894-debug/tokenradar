@@ -169,9 +169,44 @@ function parseScaledNumber(raw: string): number {
   return numeric * multiplier;
 }
 
-function approximatelyEqual(left: number, right: number): boolean {
+function numericClaimTolerance(claim: NumericClaim, expected: number): number {
+  const relativeTolerance = Math.abs(expected) * 0.015;
+  if (claim.kind === "percent") {
+    const match = claim.raw.match(/\.(\d+)/);
+    if (match) {
+      const decimals = match[1].length;
+      const roundingTolerance = 0.5 * Math.pow(10, -decimals) + 0.0001;
+      return Math.max(relativeTolerance, roundingTolerance);
+    }
+    return Math.max(relativeTolerance, 0.05);
+  }
+
+  if (claim.kind === "currency" || claim.kind === "followers" || claim.kind === "subscribers") {
+    const suffixMatch = claim.raw.match(/([kmbt])\b/i);
+    if (suffixMatch) {
+      const suffix = suffixMatch[1].toLowerCase();
+      const multiplier = suffix === "k" ? 1e3 : suffix === "m" ? 1e6 : suffix === "b" ? 1e9 : 1e12;
+      const decMatch = claim.raw.match(/\.(\d+)/);
+      const decimals = decMatch ? decMatch[1].length : 0;
+      const roundingTolerance = 0.5 * Math.pow(10, -decimals) * multiplier + 1;
+      return Math.max(relativeTolerance, roundingTolerance);
+    }
+    const decMatch = claim.raw.match(/\.(\d+)/);
+    if (decMatch) {
+      const decimals = decMatch[1].length;
+      const roundingTolerance = 0.5 * Math.pow(10, -decimals) + 0.000001;
+      return Math.max(relativeTolerance, roundingTolerance);
+    }
+  }
+
+  return Math.max(relativeTolerance, 0.000001);
+}
+
+function approximatelyEqual(left: number, right: number, customTolerance?: number): boolean {
   if (!Number.isFinite(left) || !Number.isFinite(right)) return false;
-  const tolerance = Math.max(Math.abs(right) * 0.015, 0.000001);
+  const tolerance = customTolerance !== undefined
+    ? customTolerance
+    : Math.max(Math.abs(right) * 0.015, 0.000001);
   return Math.abs(left - right) <= tolerance;
 }
 
@@ -378,7 +413,11 @@ function claimAppearsInSuppliedContext(
     if (!context) return false;
     const normalizedContext = normalizeForExactMatch(context);
     const sameNumber = extractNumericClaims(context).some((contextClaim) =>
-      contextClaim.kind === claim.kind && approximatelyEqual(contextClaim.value, claim.value),
+      contextClaim.kind === claim.kind && approximatelyEqual(
+        contextClaim.value,
+        claim.value,
+        numericClaimTolerance(claim, contextClaim.value),
+      ),
     );
     if (!sameNumber) return false;
     if (normalizedContext.includes(clause) || clause.includes(normalizedContext)) return true;
@@ -491,20 +530,23 @@ function isSupportedNumericClaim(claim: NumericClaim, facts: SocialContentFacts,
       const directedValue = directedPercentValue(claim, text, facts);
       const matchesTokenChange = facts.priceChange24h !== undefined
         && directedValue !== undefined
-        && approximatelyEqual(directedValue, facts.priceChange24h);
+        && approximatelyEqual(directedValue, facts.priceChange24h, numericClaimTolerance(claim, facts.priceChange24h));
       if (tokenSpecific) return matchesTokenChange;
       return claimAppearsInSuppliedContext(claim, text, facts);
     }
     case "currency": {
       const isGlobal = /\b(?:global|total)\b/.test(metricSegment);
       if (/\b(?:market\s+cap|mcap|valuation)\b/.test(metricSegment) && !isGlobal) {
-        return facts.marketCap !== undefined && approximatelyEqual(claim.value, facts.marketCap);
+        return facts.marketCap !== undefined
+          && approximatelyEqual(claim.value, facts.marketCap, numericClaimTolerance(claim, facts.marketCap));
       }
       if (/\b(?:24h\s+)?(?:trading\s+)?volume\b/.test(metricSegment) && !isGlobal) {
-        return facts.volume24h !== undefined && approximatelyEqual(claim.value, facts.volume24h);
+        return facts.volume24h !== undefined
+          && approximatelyEqual(claim.value, facts.volume24h, numericClaimTolerance(claim, facts.volume24h));
       }
       if (/\b(?:price|trading\s+at)\b/.test(metricSegment)) {
-        return facts.price !== undefined && approximatelyEqual(claim.value, facts.price);
+        return facts.price !== undefined
+          && approximatelyEqual(claim.value, facts.price, numericClaimTolerance(claim, facts.price));
       }
       if (isGlobal) return claimAppearsInSuppliedContext(claim, text, facts);
       return claimAppearsInSuppliedContext(claim, text, facts);
@@ -523,10 +565,10 @@ function isSupportedNumericClaim(claim: NumericClaim, facts: SocialContentFacts,
         && /\b(?:4\s*(?:weeks?|w)|four[ -]weeks?)\b/i.test(claimClause(text, claim));
     case "followers":
       return facts.twitterFollowers !== undefined
-        && approximatelyEqual(claim.value, facts.twitterFollowers);
+        && approximatelyEqual(claim.value, facts.twitterFollowers, numericClaimTolerance(claim, facts.twitterFollowers));
     case "subscribers":
       return facts.redditSubscribers !== undefined
-        && approximatelyEqual(claim.value, facts.redditSubscribers);
+        && approximatelyEqual(claim.value, facts.redditSubscribers, numericClaimTolerance(claim, facts.redditSubscribers));
   }
 }
 
