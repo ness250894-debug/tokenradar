@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-10-27T21:42:23.701Z",
-    "tokenCount": 513,
+    "tokenCount": 511,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 233,
+        "tokenCount": 232,
         "avgScore": 76
       },
       {
@@ -20,7 +20,7 @@
       {
         "intent": "rwa",
         "label": "RWA / tokenization",
-        "tokenCount": 58,
+        "tokenCount": 57,
         "avgScore": 77
       },
       {
@@ -34397,83 +34397,6 @@
       ],
       "computedAt": "2026-10-27T21:42:23.701Z"
     },
-    "tradable-na-rent-financing-platform-sstn": {
-      "tokenId": "tradable-na-rent-financing-platform-sstn",
-      "tokenName": "Tradable NA Rent Financing Platform SSTN",
-      "symbol": "pc0000031",
-      "attentionScore": 39,
-      "attentionLabel": "Watch",
-      "hypeScore": 35,
-      "fundamentalsScore": 42,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 78,
-          "queries": [
-            "Tradable NA Rent Financing Platform SSTN risks",
-            "is Tradable NA Rent Financing Platform SSTN safe",
-            "Tradable NA Rent Financing Platform SSTN scam check"
-          ]
-        },
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 74,
-          "queries": [
-            "Tradable NA Rent Financing Platform SSTN RWA crypto",
-            "Tradable NA Rent Financing Platform SSTN tokenized asset",
-            "Tradable NA Rent Financing Platform SSTN issuer risk"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 38,
-          "queries": [
-            "Tradable NA Rent Financing Platform SSTN price prediction 2026",
-            "Tradable NA Rent Financing Platform SSTN price prediction today",
-            "PC0000031 price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Tradable NA Rent Financing Platform SSTN token unlock",
-            "Tradable NA Rent Financing Platform SSTN circulating supply",
-            "Tradable NA Rent Financing Platform SSTN tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "Price remains deeply below all-time high, which can attract recovery searches without confirming trend quality."
-      ],
-      "queryExamples": [
-        "Tradable NA Rent Financing Platform SSTN risks",
-        "is Tradable NA Rent Financing Platform SSTN safe",
-        "Tradable NA Rent Financing Platform SSTN scam check",
-        "Tradable NA Rent Financing Platform SSTN RWA crypto",
-        "Tradable NA Rent Financing Platform SSTN tokenized asset"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-27T21:42:23.701Z"
-    },
     "tradable-na-third-party-online-merchant-sstn": {
       "tokenId": "tradable-na-third-party-online-merchant-sstn",
       "tokenName": "Tradable NA Third Party Online Merchant SSTN",
@@ -34540,81 +34463,6 @@
         "Tradable NA Third Party Online Merchant SSTN issuer risk",
         "Tradable NA Third Party Online Merchant SSTN risks",
         "is Tradable NA Third Party Online Merchant SSTN safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-10-27T21:42:23.701Z"
-    },
-    "tradable-north-america-pos-lender-sstn": {
-      "tokenId": "tradable-north-america-pos-lender-sstn",
-      "tokenName": "Tradable North America PoS Lender SSTN",
-      "symbol": "pc0000019",
-      "attentionScore": 34,
-      "attentionLabel": "Quiet",
-      "hypeScore": 23,
-      "fundamentalsScore": 52,
-      "supplyRiskScore": 18,
-      "classification": "Quiet Watch",
-      "primaryIntent": "rwa",
-      "intentMix": [
-        {
-          "intent": "rwa",
-          "label": "RWA / tokenization",
-          "score": 74,
-          "queries": [
-            "Tradable North America PoS Lender SSTN RWA crypto",
-            "Tradable North America PoS Lender SSTN tokenized asset",
-            "Tradable North America PoS Lender SSTN issuer risk"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 62,
-          "queries": [
-            "Tradable North America PoS Lender SSTN risks",
-            "is Tradable North America PoS Lender SSTN safe",
-            "Tradable North America PoS Lender SSTN scam check"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 30,
-          "queries": [
-            "Tradable North America PoS Lender SSTN price prediction 2026",
-            "Tradable North America PoS Lender SSTN price prediction today",
-            "PC0000019 price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "Tradable North America PoS Lender SSTN token unlock",
-            "Tradable North America PoS Lender SSTN circulating supply",
-            "Tradable North America PoS Lender SSTN tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "RWA/tokenization category matches current tokenized asset searches."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "Tradable North America PoS Lender SSTN RWA crypto",
-        "Tradable North America PoS Lender SSTN tokenized asset",
-        "Tradable North America PoS Lender SSTN issuer risk",
-        "Tradable North America PoS Lender SSTN risks",
-        "is Tradable North America PoS Lender SSTN safe"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
