@@ -7314,5 +7314,28 @@
     "discoveredAt": "2026-10-27T21:32:47.535Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-27T21:32:47.535Z"
+  },
+  {
+    "id": "birch-hill",
+    "name": "Birch Hill",
+    "symbol": "TBD",
+    "category": "DeFi",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 55,
+    "confidence": 60,
+    "lifecycleStatus": "candidate",
+    "dataSource": "https://decrypt.co/382007/goldman-blackrock-alumni-raise-4-million-loans-onchain",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://decrypt.co/382007/goldman-blackrock-alumni-raise-4-million-loans-onchain",
+        "title": "Goldman, BlackRock Alumni Raise $4 Million to Put Farm and Apartment Loans Onchain",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-28T21:58:23.652Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-28T21:58:23.652Z"
   }
 ]
