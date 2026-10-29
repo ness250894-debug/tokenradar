@@ -47,14 +47,20 @@ function buildTikTokNativeVideoVoiceoverScript(
   format?: VideoHookFormatContext,
 ): string {
   const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
-  void format;
   return trimToWordLimit(normalizeNarrationText(buildEvidenceLedVoiceover({
     tokenName: cleanTokenName,
     symbol,
+    price: context.price,
     priceChange24h: context.priceChange24h,
     volume24h: context.volume24h,
     marketCap: context.marketCap,
+    marketCapRank: context.marketCapRank,
     riskScore: context.riskScore,
+    growthPotentialIndex: context.growthPotentialIndex,
+    fdv: context.fdv,
+    athChangePercentage: context.athChangePercentage,
+    formatKey: format?.key,
+    allowDerivedContext: context.allowDerivedVideoContext,
     marketDataSource: context.marketDataSource,
     marketDataAsOf: context.marketDataAsOf,
   }, "tiktok")), TIKTOK_NATIVE_MAX_WORDS);
@@ -78,20 +84,29 @@ export function buildVideoVoiceoverScript(
   }
 
   const cleanTokenName = normalizeNarrationText(tokenName || symbol.toUpperCase());
-  void format;
   return trimToWordLimit(normalizeNarrationText(buildEvidenceLedVoiceover({
     tokenName: cleanTokenName,
     symbol,
+    price: context.price,
     priceChange24h: context.priceChange24h,
     volume24h: context.volume24h,
     marketCap: context.marketCap,
+    marketCapRank: context.marketCapRank,
     riskScore: context.riskScore,
+    growthPotentialIndex: context.growthPotentialIndex,
+    fdv: context.fdv,
+    athChangePercentage: context.athChangePercentage,
+    formatKey: format?.key,
+    allowDerivedContext: context.allowDerivedVideoContext,
     marketDataSource: context.marketDataSource,
     marketDataAsOf: context.marketDataAsOf,
   }, "youtube")), 52);
 }
 
-// Add support for fully dynamic AI-generated scripts using Gemini
+/**
+ * Generate a dynamic AI-assisted narration script when `TOKENRADAR_DYNAMIC_AI_NARRATION`
+ * is explicitly enabled.
+ */
 export async function generateDynamicVoiceoverScript(
   tokenName: string,
   symbol: string,
@@ -134,7 +149,7 @@ export async function generateDynamicVoiceoverScript(
     2. Incorporate natural hesitation pauses using ellipses (...) and commas (e.g. "Wait...", "Look...", "But here is the catch...").
     3. Use exclamation marks and question marks to guide pitch and dynamic intonation.
     4. Keep it strictly under ${maxWords} words total so it comfortably fits the render at natural reading speed.
-    5. Use the supplied 24h move, reported volume-to-market-cap ratio, and risk score as the three-beat story. Never invent a catalyst or trend.
+    5. Use the supplied 24h move, reported volume-to-market-cap ratio, and risk score as the core evidence. Never invent a catalyst or trend.
     6. Strict safety: Do NOT use the words: buy, sell, hold, long, short, moon, 100x, entry, target, guaranteed, rich, or price prediction. Substitute with "context", "research", "watchlist", or "risk check".
     7. End with one answerable question about the evidence, not a generic request for another ticker.
     8. ${isTikTokNative ? "Make it sound like a creator explaining one surprising data tension." : "Keep it focused, searchable, and natural."}
@@ -152,7 +167,10 @@ export async function generateDynamicVoiceoverScript(
   return trimToWordLimit(normalizeNarrationText(result.content.trim().replace(/^["']|["']$/g, "")), maxWords);
 }
 
-// Unified async voiceover script generator
+/**
+ * Unified async voiceover script generator defaulting to `$0` deterministic
+ * data-tension narration unless `TOKENRADAR_DYNAMIC_AI_NARRATION` is enabled.
+ */
 export async function generateVideoVoiceoverScript(
   tokenName: string,
   symbol: string,
@@ -160,9 +178,9 @@ export async function generateVideoVoiceoverScript(
   format?: VideoHookFormatContext,
   options: VideoVoiceoverOptions = {},
 ): Promise<string> {
-  const useDynamic = process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "1" || 
+  const useDynamic = process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "1" ||
                      process.env.TOKENRADAR_DYNAMIC_AI_NARRATION === "true";
-  
+
   if (useDynamic) {
     try {
       console.info(`Generating fully dynamic AI voiceover script for ${tokenName}...`);
@@ -171,7 +189,7 @@ export async function generateVideoVoiceoverScript(
       console.warn("Failed to generate dynamic AI voiceover script, falling back to template:", e);
     }
   }
-  
+
   return buildVideoVoiceoverScript(tokenName, symbol, context, format, options);
 }
 
@@ -181,6 +199,7 @@ export async function generateVideoVoiceoverScript(
  * @param tokenName - Full token name
  * @param symbol - Token symbol
  * @param context - Market data and selection context
+ * @param format - Optional editorial video format
  * @returns A short all-caps string capped at 40 characters
  */
 export async function generateHookText(
@@ -190,15 +209,21 @@ export async function generateHookText(
   format?: VideoHookFormatContext,
   usageActivity?: AICallOptions["usageActivity"],
 ): Promise<string> {
-  void format;
   void usageActivity;
   const hook = buildEvidenceLedVideoHook({
     tokenName,
     symbol,
+    price: context.price,
     priceChange24h: context.priceChange24h,
     volume24h: context.volume24h,
     marketCap: context.marketCap,
+    marketCapRank: context.marketCapRank,
     riskScore: context.riskScore,
+    growthPotentialIndex: context.growthPotentialIndex,
+    fdv: context.fdv,
+    athChangePercentage: context.athChangePercentage,
+    formatKey: format?.key,
+    allowDerivedContext: context.allowDerivedVideoContext,
     marketDataSource: context.marketDataSource,
     marketDataAsOf: context.marketDataAsOf,
   });

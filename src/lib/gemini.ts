@@ -683,6 +683,16 @@ export interface MarketContext {
   socialContext?: string;
   /** Calculated sentiment score 0-1 (0 = bearish/scam, 1 = bullish/legit) */
   sentimentScore?: number;
+  /** 24-hour reported high price from the market snapshot. */
+  high24h?: number;
+  /** 24-hour reported low price from the market snapshot. */
+  low24h?: number;
+  /** Fully diluted supply figure from the market snapshot. */
+  fdv?: number;
+  /** Percentage distance from all-time high (typically negative). */
+  athChangePercentage?: number;
+  /** Opt-in flag enabling derived tension ratios when suppliedContext is attached. */
+  allowDerivedVideoContext?: boolean;
 }
 
 export interface UnifiedSocialCaptions {

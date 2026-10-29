@@ -55,4 +55,43 @@ describe("YouTube caption tracks", () => {
     expect(metadata.tags).toContain("SOL crypto");
     expect(metadata.categoryId).toBe("28");
   });
+
+  it("rotates curiosity-gap Shorts titles across data tensions and video formats within 60 chars", () => {
+    const turnoverTitle = buildYouTubeShortsMetadata({
+      tokenName: "Pepe",
+      symbol: "pepe",
+      priceChange24h: 12.3,
+      volume24h: 1_100_000_000,
+      marketCap: 4_400_000_000,
+      riskScore: 5.5,
+      formatKey: "volume_spike_check",
+    }).title;
+    expect(turnoverTitle).toBe("Pepe (PEPE) +12.3%: 25.0% Cap Traded?!");
+    expect(turnoverTitle.length).toBeLessThanOrEqual(60);
+
+    const fdvTitle = buildYouTubeShortsMetadata({
+      tokenName: "Arbitrum",
+      symbol: "arb",
+      priceChange24h: 4.1,
+      volume24h: 150_000_000,
+      marketCap: 2_000_000_000,
+      fdv: 6_200_000_000,
+      riskScore: 4.2,
+      formatKey: "contrarian_signal",
+    }).title;
+    expect(fdvTitle).toBe("Arbitrum (ARB) +4.1%: FDV Dilution Catch?");
+    expect(fdvTitle.length).toBeLessThanOrEqual(60);
+
+    const formatTitle = buildYouTubeShortsMetadata({
+      tokenName: "Chainlink",
+      symbol: "link",
+      priceChange24h: 3.4,
+      volume24h: 400_000_000,
+      marketCap: 11_000_000_000,
+      riskScore: 3.6,
+      formatKey: "watchlist_battle",
+    }).title;
+    expect(formatTitle).toBe("Chainlink (LINK) +3.4%: Worth Watching?");
+    expect(formatTitle.length).toBeLessThanOrEqual(60);
+  });
 });

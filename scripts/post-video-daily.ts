@@ -42,6 +42,7 @@ import {
 import {
   SOCIAL,
   SOCIAL_PLATFORM_LIMITS,
+  VIDEO_CANDIDATE_MAX_RANK,
   VIDEO_COOLDOWN_DAYS,
   VIDEO_FORMAT_COOLDOWN_DAYS,
   getTelegramFooter,
@@ -114,8 +115,13 @@ import {
   buildTikTokInVideoScenePlan,
   type TikTokScenePlan,
 } from "../src/lib/tiktok-scene-planner";
-import { getVideoRenderProfile } from "../src/lib/video-render-profile";
-import { buildEvidenceLedVideoHook, buildEvidenceLedVoiceover } from "../src/lib/video-evidence";
+import type { VideoCaptionCue } from "../src/lib/video-captioning";
+import {
+  getVideoRenderProfile,
+  type VideoRenderProfileOptions,
+} from "../src/lib/video-render-profile";
+import { buildEvidenceLedVoiceover, selectVideoDataTension } from "../src/lib/video-evidence";
+import { fetchTokenIconDataUrl } from "../src/lib/token-icon-data";
 import {
   buildGeneratedFallbackAssetId,
   buildVideoIdempotencyKey,
@@ -132,10 +138,11 @@ import {
 } from "../src/lib/video-production-controls";
 import {
   type MetricData,
+  type SelectionResult,
   type TokenData,
   cleanupExpiredCooldownFolders,
-  getTodayPostedTokens,
-  getRecentlyPostedTokens,
+  filterActiveVideoCandidates,
+  getExactPlatformPostedTokensWithinDays,
   loadCandidateTokens,
   selectToken,
 } from "./lib/token-selection";
@@ -343,6 +350,8 @@ interface PlatformVideoAsset {
   voiceoverProvider?: "kokoro";
   voiceoverStatus?: "generated" | "skipped" | "failed";
   voiceoverError?: string;
+  durationSeconds?: number;
+  captionCues?: VideoCaptionCue[];
   visualRecipe: VideoVisualRecipe;
   mediaAssets: VideoAssetLayer[];
   mediaSegments: VideoAssetStageSegment[];
@@ -571,8 +580,12 @@ function getRemotionCliPath(): string {
   );
 }
 
-function validateRenderedVideoOutput(filePath: string, platform: PlatformName): void {
-  const renderProfile = getVideoRenderProfile(platform);
+function validateRenderedVideoOutput(
+  filePath: string,
+  platform: PlatformName,
+  options?: VideoRenderProfileOptions,
+): void {
+  const renderProfile = getVideoRenderProfile(platform, options);
 
   if (!fs.existsSync(filePath)) {
     throw new Error(`${platform}: rendered video file does not exist: ${filePath}`);
@@ -610,13 +623,36 @@ function validateRenderedVideoOutput(filePath: string, platform: PlatformName): 
   }
 }
 
-function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
+function hasConfirmedVideoTrackerActivity(tracker: VideoTracker | null | undefined): boolean {
+  if (!tracker || typeof tracker.tokenId !== "string" || !tracker.tokenId.trim()) {
+    return false;
+  }
+
+  if (tracker.platforms && typeof tracker.platforms === "object" && !Array.isArray(tracker.platforms)) {
+    const entries = Object.entries(tracker.platforms) as Array<[PlatformName, PlatformTracker | undefined]>;
+    if (entries.length === 0) {
+      return Boolean(tracker.postedAt);
+    }
+    return entries.some(([platform, platformTracker]) => isPlatformCompleteForRun(platform, platformTracker));
+  }
+
+  return true;
+}
+
+/**
+ * Return token IDs that had a confirmed short-form video within the last `days` UTC days.
+ */
+export function getVideoCooldownTokens(
+  dataDir: string,
+  days: number,
+  now: Date = new Date(),
+  excludeDateKey?: string,
+): Set<string> {
   const posted = new Set<string>();
   const parentDir = path.join(dataDir, "posted_video");
   if (!fs.existsSync(parentDir)) return posted;
 
-  const cutoff = new Date();
-  cutoff.setUTCHours(0, 0, 0, 0);
+  const cutoff = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   cutoff.setUTCDate(cutoff.getUTCDate() - days);
   const cutoffKey = cutoff.toISOString().split("T")[0];
 
@@ -631,13 +667,131 @@ function getVideoCooldownTokens(dataDir: string, days: number): Set<string> {
       if (fs.existsSync(trackerFile)) {
         try {
           const tracker = JSON.parse(fs.readFileSync(trackerFile, "utf-8"));
-          if (tracker.tokenId) posted.add(tracker.tokenId);
+          if (dateDir !== excludeDateKey && hasConfirmedVideoTrackerActivity(tracker)) {
+            posted.add(tracker.tokenId);
+          }
         } catch (_e) { /* ignore */ }
       }
     }
   }
 
   return posted;
+}
+
+export interface VideoTokenCooldownSets {
+  todayPosted: Set<string>;
+  recentlyPosted: Set<string>;
+  trendingCooldown: Set<string>;
+}
+
+/**
+ * Build surface-scoped cooldown sets for short-form video selection.
+ *
+ * Keeps video deduplication independent from multi-token text/carousel roundups
+ * on other platforms while respecting 7d/14d video cooldowns and same-platform
+ * single-token posts.
+ */
+export function resolveVideoTokenCooldowns(
+  dataDir: string,
+  requestedPlatforms: readonly PlatformName[],
+  options: {
+    force?: boolean;
+    now?: Date;
+    excludeDateKey?: string;
+  } = {},
+): VideoTokenCooldownSets {
+  if (options.force) {
+    return {
+      todayPosted: new Set<string>(),
+      recentlyPosted: new Set<string>(),
+      trendingCooldown: new Set<string>(),
+    };
+  }
+
+  const now = options.now ?? new Date();
+  const hardVideoCooldown = getVideoCooldownTokens(
+    dataDir,
+    VIDEO_COOLDOWN_DAYS,
+    now,
+    options.excludeDateKey,
+  );
+  const softVideoCooldown = getVideoCooldownTokens(
+    dataDir,
+    VIDEO_FORMAT_COOLDOWN_DAYS,
+    now,
+    options.excludeDateKey,
+  );
+
+  const todayPosted = new Set<string>(hardVideoCooldown);
+  const trendingCooldown = new Set<string>(hardVideoCooldown);
+  const recentlyPosted = new Set<string>(softVideoCooldown);
+
+  for (const platform of requestedPlatforms) {
+    for (const id of getExactPlatformPostedTokensWithinDays(dataDir, 0, platform, now)) {
+      todayPosted.add(id);
+      trendingCooldown.add(id);
+    }
+    for (const id of getExactPlatformPostedTokensWithinDays(dataDir, VIDEO_COOLDOWN_DAYS, platform, now)) {
+      recentlyPosted.add(id);
+    }
+  }
+
+  return {
+    todayPosted,
+    recentlyPosted,
+    trendingCooldown,
+  };
+}
+
+/**
+ * Select the highest-conviction breakout token for short-form video, preferring
+ * active movers (`|priceChange24h| >= 2.5%` or `volume/mcap >= 4%`) and falling
+ * back to the full fresh candidate pool only when all active movers are cooled down.
+ */
+export async function selectVideoTargetToken(options: {
+  candidateTokens: TokenData[];
+  cooldowns: VideoTokenCooldownSets;
+  metricsDir: string;
+  allTokensRegistry: { id: string; name: string; symbol: string }[];
+  onWebsiteIds: Set<string>;
+  selectionPlatform: "x" | "telegram" | "all";
+  force?: boolean;
+}): Promise<SelectionResult | null> {
+  const selectOptions = {
+    trendingCooldown: options.cooldowns.trendingCooldown,
+    includeHighMagnitudeMovers: true,
+  };
+
+  const activeCandidates = filterActiveVideoCandidates(options.candidateTokens);
+  if (activeCandidates.length > 0) {
+    const activeSelection = await selectToken(
+      activeCandidates,
+      options.cooldowns.todayPosted,
+      options.cooldowns.recentlyPosted,
+      options.metricsDir,
+      options.allTokensRegistry,
+      options.onWebsiteIds,
+      options.selectionPlatform,
+      options.force ?? false,
+      selectOptions,
+    );
+    if (activeSelection) {
+      return activeSelection;
+    }
+    console.log("  ▸ All active movers are on cooldown; widening to full fresh candidate pool...");
+  }
+
+  return selectToken(
+    options.candidateTokens,
+    options.cooldowns.todayPosted,
+    options.cooldowns.recentlyPosted,
+    options.metricsDir,
+    options.allTokensRegistry,
+    options.onWebsiteIds,
+    options.selectionPlatform,
+    options.force ?? false,
+    selectOptions,
+  );
 }
 
 function getRecentVideoFormatKeys(
@@ -870,15 +1024,29 @@ async function hydrateMediaSegmentsForRender(
 }
 
 function buildVideoThesis(
-  _format: VideoFormat,
+  format: VideoFormat,
   token: TokenData,
-  _metric: MetricData | undefined,
+  metric: MetricData | undefined,
   _contextText: string | undefined,
 ): string {
-  return `${token.name} gets a descriptive TokenRadar snapshot without a forecast.`;
+  return selectVideoDataTension({
+    tokenName: token.name,
+    symbol: token.symbol,
+    price: token.market.price,
+    priceChange24h: token.market.priceChange24h,
+    volume24h: token.market.volume24h,
+    marketCap: token.market.marketCap,
+    marketCapRank: token.market.marketCapRank,
+    riskScore: metric?.riskScore,
+    growthPotentialIndex: metric?.growthPotentialIndex,
+    fdv: token.market.fdv ?? undefined,
+    athChangePercentage: token.market.athChangePercentage ?? undefined,
+    formatKey: format.key,
+    allowDerivedContext: true,
+  }).thesis;
 }
 
-function validateVideoNarrativeFields(input: {
+export function validateVideoNarrativeFields(input: {
   tokenName: string;
   symbol: string;
   videoThesis: string;
@@ -886,11 +1054,29 @@ function validateVideoNarrativeFields(input: {
   voiceoverScript: string;
   facts: ReturnType<typeof buildSocialContentFacts>;
   platform: "youtube" | "tiktok" | "standard";
+  formatKey?: string;
+  fdv?: number;
+  athChangePercentage?: number;
 }): Pick<PlatformVideoAsset, "videoThesis" | "hookText" | "voiceoverScript"> {
   // Attribution is burned into the render as a persistent source badge, so
   // narrative fields are validated against the supplied metrics without
   // requiring the full source line in every spoken sentence.
-  const turnoverContext = typeof input.facts.volume24h === "number" &&
+  const tension = selectVideoDataTension({
+    tokenName: input.tokenName,
+    symbol: input.symbol,
+    price: input.facts.price,
+    priceChange24h: input.facts.priceChange24h,
+    volume24h: input.facts.volume24h,
+    marketCap: input.facts.marketCap,
+    marketCapRank: input.facts.marketCapRank,
+    riskScore: input.facts.riskScore,
+    growthPotentialIndex: input.facts.growthPotentialIndex,
+    fdv: input.fdv,
+    athChangePercentage: input.athChangePercentage,
+    formatKey: input.formatKey,
+    allowDerivedContext: true,
+  });
+  const legacyTurnoverContext = typeof input.facts.volume24h === "number" &&
     Number.isFinite(input.facts.volume24h) &&
     typeof input.facts.marketCap === "number" &&
     Number.isFinite(input.facts.marketCap) &&
@@ -901,7 +1087,11 @@ function validateVideoNarrativeFields(input: {
     ...input.facts,
     marketDataSource: undefined,
     marketDataAsOf: undefined,
-    suppliedContext: [...(input.facts.suppliedContext || []), turnoverContext],
+    suppliedContext: [
+      ...(input.facts.suppliedContext || []),
+      legacyTurnoverContext,
+      ...tension.suppliedContextLines,
+    ],
   };
   const fields = ["videoThesis", "hookText", "voiceoverScript"] as const;
   const failures = fields
@@ -926,9 +1116,26 @@ function validateVideoNarrativeFields(input: {
   });
 
   const fallback = {
-    videoThesis: `${input.tokenName} gets a descriptive TokenRadar snapshot without a forecast.`,
-    hookText: buildEvidenceLedVideoHook(facts),
-    voiceoverScript: buildEvidenceLedVoiceover(facts, input.platform),
+    videoThesis: tension.thesis,
+    hookText: tension.hookText,
+    voiceoverScript: buildEvidenceLedVoiceover(
+      {
+        tokenName: input.tokenName,
+        symbol: input.symbol,
+        price: input.facts.price,
+        priceChange24h: input.facts.priceChange24h,
+        volume24h: input.facts.volume24h,
+        marketCap: input.facts.marketCap,
+        marketCapRank: input.facts.marketCapRank,
+        riskScore: input.facts.riskScore,
+        growthPotentialIndex: input.facts.growthPotentialIndex,
+        fdv: input.fdv,
+        athChangePercentage: input.athChangePercentage,
+        formatKey: input.formatKey,
+        allowDerivedContext: true,
+      },
+      input.platform,
+    ),
   };
   for (const field of fields) {
     const validation = validateSocialContent(fallback[field], facts);
@@ -1360,7 +1567,7 @@ export async function main(args = process.argv.slice(2)) {
   }
   console.log("Step 1: Loading candidate tokens...");
   const metricsDir = path.join(DATA_DIR, "metrics");
-  const loadedCandidates = await loadCandidateTokens(DATA_DIR, 1, 50);
+  const loadedCandidates = await loadCandidateTokens(DATA_DIR, 1, VIDEO_CANDIDATE_MAX_RANK);
   const allTokensRegistry = loadedCandidates.allRegistry;
   const onWebsiteIds = loadedCandidates.onWebsiteIds;
   const metricCache = new Map<string, MetricData | undefined>();
@@ -1413,15 +1620,11 @@ export async function main(args = process.argv.slice(2)) {
     );
   }
 
-  const todayPosted = force ? new Set<string>() : getTodayPostedTokens(DATA_DIR, today);
-  const recentlyPosted = force ? new Set<string>() : getRecentlyPostedTokens(DATA_DIR);
-  
-  if (!force) {
-    const videoCooldown = getVideoCooldownTokens(DATA_DIR, VIDEO_COOLDOWN_DAYS);
-    for (const id of videoCooldown) {
-      todayPosted.add(id);
-    }
-  }
+  const cooldowns = resolveVideoTokenCooldowns(DATA_DIR, requestedPlatforms, {
+    force,
+    now: freshnessNow,
+    excludeDateKey: today,
+  });
 
   const selectionPlatform = runX ? "x" : runTelegram ? "telegram" : "all";
 
@@ -1440,16 +1643,15 @@ export async function main(args = process.argv.slice(2)) {
     }
     console.log(`  Resuming prior daily video token: ${targetToken.name} (${targetToken.symbol.toUpperCase()})`);
   } else {
-    const selection = await selectToken(
+    const selection = await selectVideoTargetToken({
       candidateTokens,
-      todayPosted,
-      recentlyPosted,
+      cooldowns,
       metricsDir,
       allTokensRegistry,
       onWebsiteIds,
       selectionPlatform,
       force,
-    );
+    });
 
     if (!selection) {
       console.error("  Could not select a target token.");
@@ -1648,6 +1850,10 @@ export async function main(args = process.argv.slice(2)) {
     marketCap: targetToken.market.marketCap,
     marketCapRank: targetToken.market.marketCapRank,
     volume24h: targetToken.market.volume24h,
+    high24h: targetToken.market.high24h ?? undefined,
+    low24h: targetToken.market.low24h ?? undefined,
+    fdv: targetToken.market.fdv ?? undefined,
+    athChangePercentage: targetToken.market.athChangePercentage ?? undefined,
     trendingContext,
     timeOfDay: getTimeOfDay(),
     tone: getRandomTone(),
@@ -1676,7 +1882,12 @@ export async function main(args = process.argv.slice(2)) {
       .map((platform) => existingTracker?.platforms?.[platform])
       .find((platformTracker): platformTracker is PlatformTracker => Boolean(platformTracker));
   const { getVerdict } = await import("../src/video/styles");
-  const verdict = getVerdict(publishedRiskScore, targetToken.market.priceChange24h);
+  const verdict = getVerdict(publishedRiskScore, targetToken.market.priceChange24h, {
+    volume24h: targetToken.market.volume24h,
+    marketCap: targetToken.market.marketCap,
+    fdv: targetToken.market.fdv ?? undefined,
+    athChangePercentage: targetToken.market.athChangePercentage ?? undefined,
+  });
   const fixedFormatKeys = new Set(
     requestedPlatforms
       .map((platform) => existingTracker?.platforms?.[platform]?.formatKey)
@@ -1712,7 +1923,7 @@ export async function main(args = process.argv.slice(2)) {
   try {
     const platform = sharedRenderPlatform;
     const existingPlatformTracker = existingSharedRenderTracker;
-    const renderProfile = getVideoRenderProfile(platform);
+    let renderProfile = getVideoRenderProfile(platform);
     const usedVideoFormatKeys = getUsedFormatKeysForPlatform(platform);
 
     const videoFormat = existingPlatformTracker?.formatKey
@@ -1726,14 +1937,14 @@ export async function main(args = process.argv.slice(2)) {
       existingPlatformTracker,
     );
     const generatedHookText = existingPlatformTracker?.hookText ||
-      await generateHookText(targetToken.name, targetToken.symbol, context, videoFormat, {
+      await generateHookText(targetToken.name, targetToken.symbol, { ...context, allowDerivedVideoContext: true }, videoFormat, {
         workflow: "post-video-daily",
         contentKey: `${today}:shared-video:${targetToken.id}`,
         operation: "video-hook",
         attempt: Number(process.env.GITHUB_RUN_ATTEMPT || "1"),
       });
     const generatedVoiceoverScript = existingPlatformTracker?.voiceoverScript ||
-      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, context, videoFormat, {
+      await generateVideoVoiceoverScript(targetToken.name, targetToken.symbol, { ...context, allowDerivedVideoContext: true }, videoFormat, {
         targetDurationSeconds: renderProfile.durationSeconds,
         style: platform === "tiktok" ? "tiktok_native" : "standard",
         usageActivity: {
@@ -1754,6 +1965,9 @@ export async function main(args = process.argv.slice(2)) {
       hookText: generatedHookText,
       voiceoverScript: generatedVoiceoverScript,
       facts: buildSocialContentFacts(targetToken.name, targetToken.symbol, context),
+      formatKey: videoFormat.key,
+      fdv: targetToken.market.fdv ?? undefined,
+      athChangePercentage: targetToken.market.athChangePercentage ?? undefined,
       platform: platform === "tiktok" ? "tiktok" : platform === "youtube" ? "youtube" : "standard",
     });
     const voiceoverHash = crypto
@@ -1766,6 +1980,9 @@ export async function main(args = process.argv.slice(2)) {
       outputDir: path.join(VIDEO_ASSET_ROOT, "voiceover"),
       fileName: `${today}-shared-${targetToken.id}-${voiceoverHash}.wav`,
       dateSeed: today,
+    });
+    renderProfile = getVideoRenderProfile(platform, {
+      voiceoverDurationSeconds: voiceoverResult.durationSeconds,
     });
     const usedVideoRecipeKeys = force
       ? new Set<string>()
@@ -1867,8 +2084,30 @@ export async function main(args = process.argv.slice(2)) {
       console.warn(`  shared render: media fallback ${warning}`);
     }
 
+    const tokenIconDataUrl = await fetchTokenIconDataUrl({
+      symbol: targetToken.symbol,
+      id: targetToken.id,
+      imageUrl: targetToken.imageUrl,
+    });
+    let sparklinePrices: number[] | undefined;
+    const priceFilePath = path.join(DATA_DIR, "prices", `${targetToken.id}.json`);
+    if (fs.existsSync(priceFilePath)) {
+      try {
+        const rawPriceData = JSON.parse(fs.readFileSync(priceFilePath, "utf8"));
+        if (Array.isArray(rawPriceData.chart30d) && rawPriceData.chart30d.length > 2) {
+          sparklinePrices = rawPriceData.chart30d
+            .map((pt: { price: number }) => pt.price)
+            .filter((p: number) => typeof p === "number" && Number.isFinite(p));
+        }
+      } catch {
+        // Fall back gracefully if price file cannot be read
+      }
+    }
+
     const videoProps = {
       tokenName: targetToken.name,
+      tokenIconDataUrl,
+      sparklinePrices,
       symbol: targetToken.symbol.toUpperCase(),
       price: targetToken.market.price,
       priceChange24h: targetToken.market.priceChange24h,
@@ -1878,8 +2117,14 @@ export async function main(args = process.argv.slice(2)) {
       marketCapRank: targetToken.market.marketCapRank,
       volume24h: targetToken.market.volume24h,
       growthPotentialIndex: targetMetric?.growthPotentialIndex,
+      high24h: targetToken.market.high24h ?? undefined,
+      low24h: targetToken.market.low24h ?? undefined,
+      fdv: targetToken.market.fdv ?? undefined,
+      athChangePercentage: targetToken.market.athChangePercentage ?? undefined,
       audioFile: audioTrack.file,
       audioStartSeconds: audioTrack.startSeconds,
+      voiceoverDurationSeconds: voiceoverResult.durationSeconds,
+      captionCues: voiceoverResult.cues,
       voiceoverFile: voiceoverResult.fileName,
       voiceoverScript,
       marketDataSource: targetToken.marketDataSource,
@@ -1913,7 +2158,9 @@ export async function main(args = process.argv.slice(2)) {
     } finally {
       cleanupFile(propsFile);
     }
-    validateRenderedVideoOutput(outputPath, platform);
+    validateRenderedVideoOutput(outputPath, platform, {
+      voiceoverDurationSeconds: voiceoverResult.durationSeconds,
+    });
 
     const sharedVideoAsset: PlatformVideoAsset = {
       platform,
@@ -1929,6 +2176,8 @@ export async function main(args = process.argv.slice(2)) {
       voiceoverProvider: voiceoverResult.provider,
       voiceoverStatus: voiceoverResult.status,
       voiceoverError: voiceoverResult.error,
+      durationSeconds: renderProfile.durationSeconds,
+      captionCues: voiceoverResult.cues,
       visualRecipe,
       mediaAssets,
       mediaSegments,
@@ -2155,6 +2404,10 @@ export async function main(args = process.argv.slice(2)) {
         generatedDescription: ytMetadata.description,
         researchUrl: youtubeTrackedUrl,
         formatLabel: platformVideos.get("youtube")?.format.label,
+        formatKey: platformVideos.get("youtube")?.format.key,
+        marketCapRank: targetToken.market.marketCapRank,
+        fdv: targetToken.market.fdv ?? undefined,
+        athChangePercentage: targetToken.market.athChangePercentage ?? undefined,
       });
     }
     if (shouldRunTikTok && tiktokCaption) {
@@ -2589,7 +2842,7 @@ export async function main(args = process.argv.slice(2)) {
                 publishAt,
                 {
                   text: youtubeAsset.voiceoverScript,
-                  durationSeconds: getVideoRenderProfile("youtube").durationSeconds,
+                  durationSeconds: youtubeAsset.durationSeconds ?? getVideoRenderProfile("youtube").durationSeconds,
                 },
                 {
                   tags: ytMetadata.tags,
@@ -2638,7 +2891,7 @@ export async function main(args = process.argv.slice(2)) {
             const result = await runTrackedPlatformPublish(
               "instagram",
               () => publishMetaVideo("instagram", igVideoUrl, igContent.caption, {
-                thumbOffset: 3000,
+                thumbOffset: 1000,
               }),
             );
             console.log(`Posted Reel to Instagram (Post ID: ${result.id})`);

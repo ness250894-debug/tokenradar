@@ -1,3 +1,4 @@
+import { selectBanditArm, type ArmPerformance } from "./retention-bandit";
 export type VideoMetricId = "priceMove" | "volume" | "marketCap" | "risk" | "growth";
 
 export interface VideoFormat {
@@ -217,7 +218,7 @@ export const VIDEO_FORMATS = [
     family: "comparison",
     angle: "frame the token as competing for watchlist attention",
     hookInstruction: "Open like a watchlist challenge, not a recommendation.",
-    captionInstruction: "Ask whether this setup deserves watchlist space versus stronger alternatives.",
+    captionInstruction: "Ask whether the supplied data fields justify watchlist attention without comparing against unnamed peers.",
     openingEyebrow: "WATCHLIST BATTLE",
     hookSubline: "Educational Market Data Only | Earn the watchlist slot",
     revealLabel: "Watchlist Contender",
@@ -293,7 +294,7 @@ export const VIDEO_FORMATS = [
     family: "comparison",
     angle: "surface the tension in the setup instead of only the obvious move",
     hookInstruction: "Open with the contradiction in the data.",
-    captionInstruction: "Make the post about the tension: what looks strong versus what still worries the model.",
+    captionInstruction: "Frame the tension between supplied price action, reported turnover, and the TokenRadar risk score.",
     openingEyebrow: "CONTRARIAN READ",
     hookSubline: "Educational Market Data Only | Tension creates the read",
     revealLabel: "Tension Setup",
@@ -318,20 +319,13 @@ export const PUBLISHABLE_VIDEO_FORMAT_KEYS = [
   "data_vs_hype",
   "risk_score_breakdown",
   "weekly_recap",
+  "watchlist_battle",
+  "contrarian_signal",
 ] as const satisfies readonly VideoFormatKey[];
 
 const publishableVideoFormatKeySet = new Set<string>(PUBLISHABLE_VIDEO_FORMAT_KEYS);
 
 const DEFAULT_VIDEO_FORMAT_KEY: VideoFormatKey = "breakout_watch";
-
-function stableHash(input: string): number {
-  let hash = 2166136261;
-  for (let i = 0; i < input.length; i++) {
-    hash ^= input.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
 
 export function isVideoFormatKey(value: string | undefined | null): value is VideoFormatKey {
   return VIDEO_FORMATS.some((format) => format.key === value);
@@ -346,6 +340,8 @@ export function getVideoFormat(key: string | undefined | null): VideoFormat {
 export function selectVideoFormat(options: {
   usedFormatKeys?: Iterable<string>;
   seedParts?: Array<string | number | undefined | null>;
+  banditStats?: Map<string, ArmPerformance>;
+  statsFilePath?: string;
 } = {}): VideoFormat {
   const used = new Set(options.usedFormatKeys || []);
   const publishableFormats = VIDEO_FORMATS.filter((format) => publishableVideoFormatKeySet.has(format.key));
@@ -355,8 +351,14 @@ export function selectVideoFormat(options: {
     .filter((part) => part !== undefined && part !== null)
     .join(":")
     .toLowerCase();
-  const index = stableHash(seed || "tokenradar-video-format") % candidates.length;
-  return candidates[index];
+
+  const banditResult = selectBanditArm(candidates, {
+    seed: seed || "tokenradar-video-format",
+    stats: options.banditStats,
+    statsFilePath: options.statsFilePath,
+  });
+
+  return banditResult.selected;
 }
 
 export function selectVideoFormatsForSlots<TSlot extends string>(

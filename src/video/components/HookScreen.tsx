@@ -21,6 +21,12 @@ export const HookScreen: React.FC<{
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+  const cleanSubline = subline
+    ? subline
+        .replace(/^Educational\s+(Market\s+Data|Research)\s+Only\s*(\|\s*)?/i, "")
+        .replace(/\|\s*Risk Varies By Token/i, "")
+        .trim()
+    : "";
   const accentGlow = interpolate(frame, [16, 28, 58, 80], [0, 0.52, 0.22, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -86,6 +92,32 @@ export const HookScreen: React.FC<{
             $ tokenradar scan --market --risk --volume
           </RevealText>
         )}
+        {eyebrow && (
+          <RevealText
+            delay={0}
+            style={{
+              position: "relative",
+              zIndex: 1,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "8px 22px",
+              borderRadius: 999,
+              background: "rgba(16, 16, 24, 0.88)",
+              border: `1.5px solid ${theme.accent}`,
+              boxShadow: `0 0 24px ${theme.accent}44`,
+              color: theme.accent,
+              fontSize: 22,
+              fontWeight: 900,
+              letterSpacing: 2.2,
+              textTransform: "uppercase",
+              marginBottom: 24,
+            }}
+          >
+            <span style={{ fontSize: 16 }}>●</span>
+            {eyebrow}
+          </RevealText>
+        )}
         <div style={{ position: "relative", zIndex: 1 }}>
           {words.map((word, index) => (
             <RevealText
@@ -111,30 +143,24 @@ export const HookScreen: React.FC<{
             boxShadow: `0 0 28px ${theme.accent}88`,
           }}
         />
-        <RevealText
-          delay={14}
-          style={{
-            position: "relative",
-            zIndex: 1,
-            margin: "42px auto 0",
-            width: isTerminal || isSplit ? 680 : 780,
-            maxWidth: "100%",
-            padding: "18px 24px",
-            border: `1px solid ${theme.accent}88`,
-            borderRadius: isTerminal ? 4 : 18,
-            background: "rgba(16, 16, 20, 0.72)",
-            boxShadow: `0 0 28px ${theme.accent}22`,
-            textTransform: "uppercase",
-            marginLeft: isTerminal || isSplit ? 0 : "auto",
-          }}
-        >
-          <div style={{ color: COLORS.text, fontSize: 26, fontWeight: 900, letterSpacing: 1 }}>
-            {eyebrow}
-          </div>
-          <div style={{ color: COLORS.textMuted, fontSize: 22, fontWeight: 850, marginTop: 6, letterSpacing: 0.6 }}>
-            {subline}
-          </div>
-        </RevealText>
+        {cleanSubline ? (
+          <RevealText
+            delay={14}
+            style={{
+              position: "relative",
+              zIndex: 1,
+              margin: "32px auto 0",
+              color: COLORS.textMuted,
+              fontSize: 24,
+              fontWeight: 850,
+              letterSpacing: 1.2,
+              textTransform: "uppercase",
+              textAlign: isTerminal || isSplit ? "left" : "center",
+            }}
+          >
+            {cleanSubline}
+          </RevealText>
+        ) : null}
       </div>
     </AbsoluteFill>
   );

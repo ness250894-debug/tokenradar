@@ -1,12 +1,25 @@
-import { describe, expect, it } from "vitest";
+import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
+vi.mock("../src/lib/coingecko", () => ({
+  fetchTokensByRank: vi.fn(async () => []),
+  fetchTrendingCoins: vi.fn(async () => []),
+}));
+
+import { VIDEO_CANDIDATE_MAX_RANK } from "../src/lib/config";
+import type { TokenData } from "../scripts/lib/token-selection";
 import {
   ensureTikTokResearchContextNote,
+  getVideoCooldownTokens,
   parseVideoDailyCliOptions,
   resolveSharedVideoRenderPlatform,
   resolveVideoDailyPlatformFlags,
   resolveVideoDailyPlatformPlan,
+  resolveVideoTokenCooldowns,
   selectAutomatedVideoArchetype,
+  selectVideoTargetToken,
   shouldAttemptVideoPlatformPublish,
   type VideoDailyCredentialState,
 } from "../scripts/post-video-daily";
@@ -19,6 +32,27 @@ const noCredentials: VideoDailyCredentialState = {
   tiktokCredentialMode: "sandbox",
   hasTikTokReportCredentials: false,
 };
+
+const tempDirs: string[] = [];
+
+function makeTempDataDir(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-video-daily-"));
+  tempDirs.push(dir);
+  fs.mkdirSync(path.join(dir, "metrics"), { recursive: true });
+  return dir;
+}
+
+function writeJson(filePath: string, value: unknown): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, JSON.stringify(value, null, 2));
+}
+
+afterEach(() => {
+  for (const dir of tempDirs.splice(0)) {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+  vi.clearAllMocks();
+});
 
 describe("post-video-daily CLI planning", () => {
   it("defaults the documented no-argument command to the production YouTube route", () => {
@@ -137,5 +171,161 @@ describe("post-video-daily CLI planning", () => {
     })).toBe(true);
     expect(shouldAttemptVideoPlatformPublish(undefined)).toBe(true);
     expect(shouldAttemptVideoPlatformPublish({ publishId: "inbox-operation" }, "tiktok")).toBe(true);
+  });
+});
+
+describe("post-video-daily token starvation & mid-cap breakout selection", () => {
+  it("expands video candidate window to ranks 1..200 within a single CoinGecko page", () => {
+    expect(VIDEO_CANDIDATE_MAX_RANK).toBe(200);
+  });
+
+  it("ignores failed-only video trackers while honoring confirmed and legacy video cooldowns", () => {
+    const dataDir = makeTempDataDir();
+    const now = new Date("2026-08-24T18:00:00.000Z");
+
+    writeJson(path.join(dataDir, "posted_video", "2026-08-22", "daily-video.json"), {
+      tokenId: "published-token",
+      platforms: {
+        youtube: {
+          postedAt: "2026-08-22T18:57:00.000Z",
+          status: "published",
+          videoId: "yt-123",
+        },
+      },
+    });
+    writeJson(path.join(dataDir, "posted_video", "2026-08-23", "daily-video.json"), {
+      tokenId: "failed-only-token",
+      platforms: {
+        youtube: {
+          postedAt: "2026-08-23T18:57:00.000Z",
+          status: "failed",
+        },
+      },
+    });
+    writeJson(path.join(dataDir, "posted_video", "2026-08-20", "daily-video.json"), {
+      tokenId: "legacy-token",
+    });
+
+    const cooldown = getVideoCooldownTokens(dataDir, 7, now);
+    expect(cooldown).toEqual(new Set(["published-token", "legacy-token"]));
+  });
+
+  it("scopes video cooldowns so text notes and 5-token movers carousels do not starve YouTube/Instagram videos", () => {
+    const dataDir = makeTempDataDir();
+    const now = new Date("2026-08-24T18:00:00.000Z");
+
+    writeJson(path.join(dataDir, "posted", "2026-08-24", "daily-telegram-movers.json"), {
+      postedAt: "2026-08-24T09:00:00.000Z",
+      movers: ["kaspa", "render-token", "pendle", "bittensor", "sui"],
+    });
+    writeJson(path.join(dataDir, "posted", "2026-08-23", "daily-instagram-movers.json"), {
+      postedAt: "2026-08-23T18:29:00.000Z",
+      movers: ["injective-protocol", "celestia", "sei-network", "jupiter-exchange-solana", "fetch-ai"],
+    });
+    writeJson(path.join(dataDir, "posted", "2026-08-24", "solana-x.json"), {
+      postedAt: "2026-08-24T14:00:00.000Z",
+      platform: "x",
+    });
+    writeJson(path.join(dataDir, "posted_video", "2026-08-21", "daily-video.json"), {
+      tokenId: "avalanche-2",
+      platforms: {
+        youtube: { postedAt: "2026-08-21T18:57:00.000Z", status: "published", videoId: "yt-avax" },
+      },
+    });
+    writeJson(path.join(dataDir, "posted_video", "2026-08-13", "daily-video.json"), {
+      tokenId: "chainlink",
+      platforms: {
+        instagram: { postedAt: "2026-08-13T18:47:00.000Z", status: "published", postId: "ig-link" },
+      },
+    });
+
+    const youtubeCooldowns = resolveVideoTokenCooldowns(dataDir, ["youtube", "instagram"], {
+      now,
+      excludeDateKey: "2026-08-24",
+    });
+
+    expect(youtubeCooldowns.todayPosted).toEqual(new Set(["avalanche-2"]));
+    expect(youtubeCooldowns.trendingCooldown).toEqual(new Set(["avalanche-2"]));
+    expect(youtubeCooldowns.recentlyPosted).toEqual(new Set(["avalanche-2", "chainlink"]));
+
+    const xCooldowns = resolveVideoTokenCooldowns(dataDir, ["x"], {
+      now,
+      excludeDateKey: "2026-08-24",
+    });
+    expect(xCooldowns.todayPosted).toEqual(new Set(["avalanche-2", "solana"]));
+    expect(xCooldowns.recentlyPosted).toEqual(new Set(["avalanche-2", "chainlink", "solana"]));
+  });
+
+  it("prioritizes active mid-cap breakouts (#51-#200) and widens gracefully when all active movers are cooled down", async () => {
+    const dataDir = makeTempDataDir();
+    const metricsDir = path.join(dataDir, "metrics");
+
+    const sleepyMegaCap: TokenData = {
+      id: "sleepy-megacap",
+      symbol: "SLPY",
+      name: "Sleepy MegaCap",
+      rank: 12,
+      market: {
+        price: 100,
+        priceChange24h: 0.4,
+        marketCap: 20_000_000_000,
+        marketCapRank: 12,
+        volume24h: 180_000_000,
+      },
+    };
+    const midCapBreakout: TokenData = {
+      id: "midcap-runner",
+      symbol: "MRUN",
+      name: "MidCap Runner",
+      rank: 144,
+      market: {
+        price: 2.4,
+        priceChange24h: 18.6,
+        marketCap: 380_000_000,
+        marketCapRank: 144,
+        volume24h: 92_000_000,
+      },
+    };
+
+    const registry = [
+      { id: sleepyMegaCap.id, name: sleepyMegaCap.name, symbol: sleepyMegaCap.symbol },
+      { id: midCapBreakout.id, name: midCapBreakout.name, symbol: midCapBreakout.symbol },
+    ];
+
+    const firstPick = await selectVideoTargetToken({
+      candidateTokens: [sleepyMegaCap, midCapBreakout],
+      cooldowns: {
+        todayPosted: new Set(),
+        recentlyPosted: new Set(),
+        trendingCooldown: new Set(),
+      },
+      metricsDir,
+      allTokensRegistry: registry,
+      onWebsiteIds: new Set(),
+      selectionPlatform: "all",
+    });
+
+    expect(firstPick).toMatchObject({
+      reason: "top-gainer",
+      token: { id: "midcap-runner" },
+    });
+
+    const fallbackPick = await selectVideoTargetToken({
+      candidateTokens: [sleepyMegaCap, midCapBreakout],
+      cooldowns: {
+        todayPosted: new Set(["midcap-runner"]),
+        recentlyPosted: new Set(["midcap-runner"]),
+        trendingCooldown: new Set(["midcap-runner"]),
+      },
+      metricsDir,
+      allTokensRegistry: registry,
+      onWebsiteIds: new Set(),
+      selectionPlatform: "all",
+    });
+
+    expect(fallbackPick).toMatchObject({
+      reason: "spotlight",
+      token: { id: "sleepy-megacap" },
+    });
   });
 });

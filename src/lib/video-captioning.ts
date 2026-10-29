@@ -1,3 +1,4 @@
+export { estimateVoiceoverDuration } from "./kokoro-voiceover";
 export interface VideoCaptionCue {
   index: number;
   startSeconds: number;
@@ -15,6 +16,18 @@ export function sanitizeVideoCaptionText(value: string): string {
     .replace(/\s+/g, " ")
     .replace(/\s+([,.!?])/g, "$1")
     .trim();
+}
+
+/**
+ * Split narrative text into natural spoken clauses along sentence and punctuation boundaries.
+ */
+export function splitScriptIntoClauses(script: string): string[] {
+  const clean = sanitizeVideoCaptionText(script);
+  if (!clean) return [];
+  return clean
+    .split(/(?<=[.!?])\s+|;\s+/g)
+    .map((clause) => clause.trim())
+    .filter(Boolean);
 }
 
 function splitCaptionWords(words: string[], wordsPerCue: number): string[] {

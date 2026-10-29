@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
@@ -9,6 +9,7 @@ import {
   buildEvidenceLedVideoHook,
   buildEvidenceLedVoiceover,
   formatVideoCompactCurrency,
+  selectVideoDataTension,
 } from "../src/lib/video-evidence";
 import { getVideoFormat } from "../src/lib/video-formats";
 
@@ -114,6 +115,47 @@ describe("video voiceover script", () => {
     expect(formatVideoCompactCurrency(value)).toBe(expected);
   });
 
+  it("ranks distinct data-tension angles and validates all derived narrative fields", () => {
+    const turnoverTension = selectVideoDataTension({
+      tokenName: "Pepe",
+      symbol: "PEPE",
+      priceChange24h: 11.4,
+      volume24h: 1_250_000_000,
+      marketCap: 4_500_000_000,
+      riskScore: 5.2,
+      allowDerivedContext: true,
+    });
+    expect(turnoverTension.kind).toBe("turnover_spike");
+    expect(turnoverTension.verdictLabel).toBe("27.8% VOL / CAP");
+    expect(turnoverTension.hookText.length).toBeLessThanOrEqual(40);
+
+    const fdvTension = selectVideoDataTension({
+      tokenName: "Arbitrum",
+      symbol: "ARB",
+      priceChange24h: 4.6,
+      volume24h: 180_000_000,
+      marketCap: 2_100_000_000,
+      fdv: 6_300_000_000,
+      riskScore: 4.4,
+      allowDerivedContext: true,
+    });
+    expect(fdvTension.kind).toBe("fdv_overhang");
+    expect(fdvTension.verdictLabel).toBe("33.3% FLOAT / FDV");
+
+    const riskTension = selectVideoDataTension({
+      tokenName: "Dogwifhat",
+      symbol: "WIF",
+      priceChange24h: 9.8,
+      volume24h: 190_000_000,
+      marketCap: 1_900_000_000,
+      riskScore: 7.4,
+      allowDerivedContext: true,
+    });
+    expect(riskTension.kind).toBe("move_vs_risk");
+    expect(riskTension.hookText).toBe("WIF +9.8%: RISK 7.4/10?");
+    expect(riskTension.verdictLabel).toBe("RISK 7.4/10");
+  });
+
   it("keeps deterministic fallbacks grounded across the tracked token corpus", () => {
     const tokens = JSON.parse(
       readFileSync(path.join(process.cwd(), "data", "tokens.json"), "utf8"),
@@ -148,6 +190,70 @@ describe("video voiceover script", () => {
       >) {
         const result = validateSocialContent(content, context);
         if (!result.ok) failures.push({ id: token.id, output, issues: result.issues });
+      }
+    }
+
+    expect(failures).toEqual([]);
+  });
+
+  it("keeps data-tension hooks, theses, and voiceovers grounded across detailed token files", { timeout: 30000 }, () => {
+
+    const tokensDir = path.join(process.cwd(), "data", "tokens");
+    const files = readdirSync(tokensDir).filter((file) => file.endsWith(".json"));
+    const failures: Array<{ id: string; output: string; issues: unknown[] }> = [];
+
+    for (const file of files) {
+      const token = JSON.parse(readFileSync(path.join(tokensDir, file), "utf8")) as {
+        id: string;
+        name: string;
+        symbol: string;
+        market?: {
+          price?: number;
+          priceChange24h?: number;
+          volume24h?: number;
+          marketCap?: number;
+          marketCapRank?: number;
+          fdv?: number | null;
+          athChangePercentage?: number | null;
+        };
+      };
+      const input = {
+        tokenName: token.name,
+        symbol: token.symbol,
+        price: token.market?.price,
+        priceChange24h: token.market?.priceChange24h,
+        volume24h: token.market?.volume24h,
+        marketCap: token.market?.marketCap,
+        marketCapRank: token.market?.marketCapRank,
+        riskScore: 6.8,
+        fdv: token.market?.fdv ?? undefined,
+        athChangePercentage: token.market?.athChangePercentage ?? undefined,
+        formatKey: "contrarian_signal",
+        allowDerivedContext: true,
+      };
+      const tension = selectVideoDataTension(input);
+      const facts = {
+        tokenName: token.name,
+        symbol: token.symbol,
+        price: token.market?.price,
+        priceChange24h: token.market?.priceChange24h,
+        volume24h: token.market?.volume24h,
+        marketCap: token.market?.marketCap,
+        marketCapRank: token.market?.marketCapRank,
+        riskScore: 6.8,
+        suppliedContext: tension.suppliedContextLines,
+      };
+      const outputs = {
+        hook: buildEvidenceLedVideoHook(input),
+        thesis: tension.thesis,
+        voiceover: buildEvidenceLedVoiceover(input, "youtube"),
+      };
+
+      for (const [output, content] of Object.entries(outputs)) {
+        const result = validateSocialContent(content, facts);
+        if (!result.ok) {
+          failures.push({ id: token.id, output, issues: result.issues });
+        }
       }
     }
 

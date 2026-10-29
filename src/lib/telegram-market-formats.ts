@@ -130,6 +130,8 @@ function reasonLabel(reason: string | undefined): string {
       return "fresh TokenRadar coverage";
     case "top-gainer":
       return "the highest eligible supplied 24h change";
+    case "volume-outlier":
+      return "an elevated 24h volume-to-market-cap turnover check";
     case "safe-play":
       return "the configured selection filter";
     default:
