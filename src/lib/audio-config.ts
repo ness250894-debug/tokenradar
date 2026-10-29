@@ -32,16 +32,16 @@ export interface AvailableAudioTrackSelection {
  * Each track is ~30 seconds long (~727 KB).
  */
 export const AUDIO_TRACKS: AudioTrack[] = [
-  { file: "Against_The_Boulevard.mp3", startSeconds: 0 },
-  { file: "Black_Asphalt.mp3", startSeconds: 0 },
-  { file: "Calculated_Motion.mp3", startSeconds: 0 },
-  { file: "Concrete_Gravity.mp3", startSeconds: 0 },
-  { file: "Concrete_Grip.mp3", startSeconds: 0 },
-  { file: "Gold_and_Granite.mp3", startSeconds: 0 },
-  { file: "Golden_Bastion.mp3", startSeconds: 0 },
-  { file: "Midnight_Pursuit.mp3", startSeconds: 0 },
-  { file: "The_Pendulum_Falls.mp3", startSeconds: 0 },
-  { file: "Velvet_and_Concrete.mp3", startSeconds: 0 },
+  { file: "Against_The_Boulevard.mp3", startSeconds: 6.0 },
+  { file: "Black_Asphalt.mp3", startSeconds: 3.0 },
+  { file: "Calculated_Motion.mp3", startSeconds: 4.0 },
+  { file: "Concrete_Gravity.mp3", startSeconds: 5.0 },
+  { file: "Concrete_Grip.mp3", startSeconds: 3.0 },
+  { file: "Gold_and_Granite.mp3", startSeconds: 4.0 },
+  { file: "Golden_Bastion.mp3", startSeconds: 5.0 },
+  { file: "Midnight_Pursuit.mp3", startSeconds: 0.0 },
+  { file: "The_Pendulum_Falls.mp3", startSeconds: 1.0 },
+  { file: "Velvet_and_Concrete.mp3", startSeconds: 3.0 },
 ];
 
 /**

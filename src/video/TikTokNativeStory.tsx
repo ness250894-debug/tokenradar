@@ -350,7 +350,7 @@ export const TikTokNativeStory: React.FC<TopGainerProps> = (props) => {
         );
       })}
 
-      <TimedNarrationCaptions text={voiceoverScript} reserveActionRail />
+      <TimedNarrationCaptions text={voiceoverScript} cues={props.captionCues} reserveActionRail />
       <VideoSourceBadge
         tokenName={props.tokenName}
         symbol={props.symbol}

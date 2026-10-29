@@ -12,7 +12,9 @@ describe("video formats", () => {
   it("keeps a unique design catalog and an explicit grounded publishing subset", () => {
     expect(VIDEO_FORMATS).toHaveLength(15);
     expect(new Set(VIDEO_FORMATS.map((format) => format.key)).size).toBe(VIDEO_FORMATS.length);
-    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS.length).toBeGreaterThanOrEqual(7);
+    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS.length).toBeGreaterThanOrEqual(9);
+    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS).toContain("contrarian_signal");
+    expect(PUBLISHABLE_VIDEO_FORMAT_KEYS).toContain("watchlist_battle");
     expect(PUBLISHABLE_VIDEO_FORMAT_KEYS.every((key) => VIDEO_FORMATS.some((format) => format.key === key))).toBe(true);
   });
 

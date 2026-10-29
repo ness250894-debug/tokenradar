@@ -14,6 +14,8 @@ import {
   GENERAL_COOLDOWN_DAYS,
   VIDEO_COOLDOWN_DAYS,
   VIDEO_FORMAT_COOLDOWN_DAYS,
+  VIDEO_MIN_ABS_PRICE_CHANGE_24H,
+  VIDEO_MIN_VOLUME_TO_CAP_RATIO,
 } from "../../src/lib/config";
 import { safeReadJson } from "../../src/lib/utils";
 import { getPeggedAssetReason } from "../../src/lib/asset-classification";
@@ -139,6 +141,10 @@ export interface TokenData {
     marketCap: number;
     marketCapRank: number;
     volume24h: number;
+    high24h?: number | null;
+    low24h?: number | null;
+    fdv?: number | null;
+    athChangePercentage?: number | null;
   };
 }
 
@@ -148,6 +154,7 @@ export type SelectionReason =
   | "trending-x"
   | "newly-published"
   | "top-gainer"
+  | "volume-outlier"
   | "safe-play"
   | "spotlight";
 
@@ -155,6 +162,25 @@ export interface SelectionResult {
   token: TokenData;
   reason: SelectionReason;
   trendingContext?: string;
+}
+
+export interface ActiveVideoCandidateOptions {
+  minAbsChange24h?: number;
+  minTurnoverRatio?: number;
+}
+
+export interface SelectTokenOptions extends ActiveVideoCandidateOptions {
+  /**
+   * Explicit trending cooldown set. When supplied, overrides the default
+   * `data/posted` 3-day scan so unrelated text/roundup surfaces do not starve
+   * short-form video trending breakouts.
+   */
+  trendingCooldown?: Set<string>;
+  /**
+   * Enable high-magnitude selloff / high-turnover mover selection when no >2%
+   * positive gainer is eligible, avoiding flat ~0% fallback coins in videos.
+   */
+  includeHighMagnitudeMovers?: boolean;
 }
 
 type TrackerPlatform = "telegram" | "x" | "instagram" | "threads" | "youtube" | "tiktok";
@@ -491,6 +517,85 @@ export function getTrendingCooldownTokens(dataDir: string, platform?: string): S
   return getTokensPostedWithinDays(dataDir, TRENDING_COOLDOWN_DAYS, platform);
 }
 
+const MULTI_TOKEN_ROUNDUP_TRACKERS = new Set([
+  "daily-telegram-movers",
+  "daily-instagram-movers",
+  "daily-telegram-poll",
+  "weekly-telegram-recap",
+  "weekly-threads-recap",
+]);
+
+/**
+ * Get single-token or comparison token IDs posted on one specific platform
+ * within the last N days, excluding multi-token roundup/poll digest trackers.
+ */
+export function getExactPlatformPostedTokensWithinDays(
+  dataDir: string,
+  days: number,
+  platform: TrackerPlatform,
+  now: Date = new Date(),
+): Set<string> {
+  const posted = new Set<string>();
+  const parentDir = path.join(dataDir, "posted");
+  if (!fs.existsSync(parentDir)) return posted;
+
+  const cutoffKey = dateKeyDaysAgo(days, now);
+  const dateDirs = fs.readdirSync(parentDir).filter((entry) => {
+    const fullPath = path.join(parentDir, entry);
+    return fs.statSync(fullPath).isDirectory() && isDateDirName(entry);
+  });
+
+  for (const dateDir of dateDirs) {
+    if (dateDir < cutoffKey) continue;
+    const dirPath = path.join(parentDir, dateDir);
+    for (const file of fs.readdirSync(dirPath)) {
+      if (!file.endsWith(".json")) continue;
+      const fileName = path.basename(file, ".json");
+      if (MULTI_TOKEN_ROUNDUP_TRACKERS.has(fileName)) continue;
+
+      const fullFilePath = path.join(dirPath, file);
+      const payload = safeReadJson<Record<string, unknown> | null>(fullFilePath, null);
+      const comparisonPlatformMatch = fileName.match(/^token-comparison-(telegram|x|instagram|threads)$/);
+      const trackerPlatform = comparisonPlatformMatch?.[1]
+        ? (comparisonPlatformMatch[1] as TrackerPlatform)
+        : getTrackerPlatform(fileName, payload);
+
+      if (trackerPlatform !== platform) continue;
+
+      const payloadTokenIds = getPayloadTokenIds(payload);
+      if (payloadTokenIds.length > 0) {
+        for (const id of payloadTokenIds) posted.add(id);
+        continue;
+      }
+
+      const fileTokenId = getFileTokenId(fileName, trackerPlatform);
+      if (fileTokenId) posted.add(fileTokenId);
+    }
+  }
+
+  return posted;
+}
+
+/**
+ * Filter candidate tokens to active movers suitable for short-form video
+ * (`|priceChange24h| >= minAbsChange24h` or `volume24h / marketCap >= minTurnoverRatio`).
+ */
+export function filterActiveVideoCandidates(
+  candidates: TokenData[],
+  options: ActiveVideoCandidateOptions = {},
+): TokenData[] {
+  const minAbsChange24h = options.minAbsChange24h ?? VIDEO_MIN_ABS_PRICE_CHANGE_24H;
+  const minTurnoverRatio = options.minTurnoverRatio ?? VIDEO_MIN_VOLUME_TO_CAP_RATIO;
+
+  return candidates.filter((token) =>
+    hasUsableSocialMarketData(token) &&
+    (
+      Math.abs(token.market.priceChange24h) >= minAbsChange24h ||
+      volumeToMarketCapRatio(token) >= minTurnoverRatio
+    ),
+  );
+}
+
 // ── Data Loading ───────────────────────────────────────────────
 
 /**
@@ -608,6 +713,10 @@ export async function loadCandidateTokens(
         marketCap: fresh?.market_cap ?? local.market?.marketCap ?? 0,
         marketCapRank: fresh?.market_cap_rank ?? local.market?.marketCapRank ?? 999,
         volume24h: fresh?.total_volume ?? local.market?.volume24h ?? 0,
+        high24h: finiteNumber(fresh?.high_24h) ?? finiteNumber(local.market?.high24h) ?? null,
+        low24h: finiteNumber(fresh?.low_24h) ?? finiteNumber(local.market?.low24h) ?? null,
+        fdv: finiteNumber(fresh?.fully_diluted_valuation) ?? finiteNumber(local.market?.fdv) ?? null,
+        athChangePercentage: finiteNumber(fresh?.ath_change_percentage) ?? finiteNumber(local.market?.athChangePercentage) ?? null,
       },
     };
   }).filter(Boolean) as TokenData[];
@@ -752,12 +861,17 @@ export async function selectToken(
   allTokens: { id: string; name: string; symbol: string }[],
   onWebsiteIds: Set<string> = new Set(),
   platform: "x" | "telegram" | "all" = "telegram",
-  force: boolean = false
+  force: boolean = false,
+  options: SelectTokenOptions = {},
 ): Promise<SelectionResult | null> {
 
   // Trending cooldown: tokens posted within TRENDING_COOLDOWN_DAYS are skipped
   // This is a superset of todayPosted (includes today + previous N days)
-  const trendingCooldown = force ? new Set<string>() : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."), platform)]);
+  const trendingCooldown = force
+    ? new Set<string>()
+    : options.trendingCooldown
+      ? new Set([...todayPosted, ...options.trendingCooldown])
+      : new Set([...todayPosted, ...getTrendingCooldownTokens(path.resolve(metricsDir, ".."), platform)]);
 
   // ── Trending priorities (platform-dependent) ──
   const trendSources = getAutomatedTrendSources(platform);
@@ -833,6 +947,39 @@ export async function selectToken(
     return { token: target, reason: "top-gainer" };
   }
   console.log("    No eligible gainers found.");
+
+  if (options.includeHighMagnitudeMovers) {
+    const minAbsChange24h = options.minAbsChange24h ?? VIDEO_MIN_ABS_PRICE_CHANGE_24H;
+    const minTurnoverRatio = options.minTurnoverRatio ?? VIDEO_MIN_VOLUME_TO_CAP_RATIO;
+    console.log("  ▸ Priority 4b: Checking high-magnitude movers & volume outliers...");
+    const activeMovers = candidateTokens
+      .filter((t) =>
+        !todayPosted.has(t.id) &&
+        !recentlyPosted.has(t.id) &&
+        hasUsableSocialMarketData(t) &&
+        (
+          Math.abs(t.market.priceChange24h) >= minAbsChange24h ||
+          volumeToMarketCapRatio(t) >= minTurnoverRatio
+        ),
+      )
+      .sort((a, b) => {
+        const scoreA = Math.abs(a.market.priceChange24h) + volumeToMarketCapRatio(a) * 25;
+        const scoreB = Math.abs(b.market.priceChange24h) + volumeToMarketCapRatio(b) * 25;
+        return scoreB - scoreA;
+      });
+
+    if (activeMovers.length > 0) {
+      const target = activeMovers[Math.floor(Math.random() * Math.min(3, activeMovers.length))];
+      const reason: SelectionReason = volumeToMarketCapRatio(target) >= minTurnoverRatio
+        ? "volume-outlier"
+        : "spotlight";
+      console.log(
+        `    ✓ Selected: ${target.name} (${target.market.priceChange24h.toFixed(2)}%, turnover ${(volumeToMarketCapRatio(target) * 100).toFixed(1)}%)`,
+      );
+      return { token: target, reason };
+    }
+    console.log("    No eligible high-magnitude movers found.");
+  }
 
   // ── Priority 5: Safe Play ──
   console.log("  ▸ Priority 5: Checking safe plays...");

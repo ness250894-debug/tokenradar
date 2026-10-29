@@ -28,4 +28,23 @@ describe("video render profiles", () => {
     expect(profile.minDurationSeconds).toBe(17);
     expect(profile.maxDurationSeconds).toBe(19);
   });
+
+  it("dynamically adjusts duration to eliminate dead air based on voiceover audio length", () => {
+    const profile = getVideoRenderProfile("youtube", { voiceoverDurationSeconds: 13.2 });
+
+    expect(profile.durationSeconds).toBe(14);
+    expect(profile.durationInFrames).toBe(420);
+    expect(profile.minDurationSeconds).toBe(13);
+    expect(profile.maxDurationSeconds).toBe(15);
+  });
+
+  it("clamps dynamic duration within safe short-form boundaries (12s to 21s)", () => {
+    const shortProfile = getVideoRenderProfile("tiktok", { voiceoverDurationSeconds: 6 });
+    expect(shortProfile.durationSeconds).toBe(12);
+    expect(shortProfile.durationInFrames).toBe(360);
+
+    const longProfile = getVideoRenderProfile("instagram", { voiceoverDurationSeconds: 24 });
+    expect(longProfile.durationSeconds).toBe(21);
+    expect(longProfile.durationInFrames).toBe(630);
+  });
 });

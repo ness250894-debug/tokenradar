@@ -216,6 +216,25 @@ export const GENERAL_COOLDOWN_DAYS = 30;
 export const VIDEO_COOLDOWN_DAYS = 7;
 
 /**
+ * Maximum CoinGecko market-cap rank considered for short-form video selection.
+ * Ranks 1..200 capture high-search mid-cap breakouts (#51-#200) while fitting
+ * inside a single CoinGecko `/coins/markets` page (`per_page=200`, $0 extra cost).
+ */
+export const VIDEO_CANDIDATE_MAX_RANK = 200;
+
+/**
+ * Minimum absolute 24h price change (%) preferred for short-form video candidates
+ * so videos prioritize active breakouts and sharp drawdowns over flat tokens.
+ */
+export const VIDEO_MIN_ABS_PRICE_CHANGE_24H = 2.5;
+
+/**
+ * Minimum 24h volume-to-market-cap turnover ratio preferred for short-form video
+ * candidates when absolute price movement is below `VIDEO_MIN_ABS_PRICE_CHANGE_24H`.
+ */
+export const VIDEO_MIN_VOLUME_TO_CAP_RATIO = 0.04;
+
+/**
  * Minimum days before the same short-form video editorial format can repeat.
  * This is intentionally longer than token cooldown because YouTube reviews
  * format repetition at the channel level, not only token repetition.

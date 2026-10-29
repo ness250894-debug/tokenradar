@@ -6,6 +6,8 @@ export interface VideoCaptionCue {
 }
 
 const DEFAULT_WORDS_PER_CUE = 6;
+export const DEFAULT_VOICEOVER_SPEED = 1.05;
+export const INTER_CLAUSE_PAUSE_SECONDS = 0.22;
 
 export function sanitizeVideoCaptionText(value: string): string {
   return value
@@ -15,6 +17,32 @@ export function sanitizeVideoCaptionText(value: string): string {
     .replace(/\s+/g, " ")
     .replace(/\s+([,.!?])/g, "$1")
     .trim();
+}
+
+/**
+ * Split narrative text into natural spoken clauses along sentence and punctuation boundaries.
+ */
+export function splitScriptIntoClauses(script: string): string[] {
+  const clean = sanitizeVideoCaptionText(script);
+  if (!clean) return [];
+  return clean
+    .split(/(?<=[.!?])\s+|;\s+/g)
+    .map((clause) => clause.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Estimate the spoken duration of a script in seconds at the target speed.
+ * Uses realistic speaking pace of ~150 words per minute at 1.0x with inter-clause pauses.
+ */
+export function estimateVoiceoverDuration(script: string, speed = DEFAULT_VOICEOVER_SPEED): number {
+  const words = script.trim().split(/\s+/).filter(Boolean).length;
+  if (words === 0) return 0;
+  const safeSpeed = Math.max(0.6, Math.min(2.0, speed));
+  const wordsPerSecond = (150 / 60) * safeSpeed;
+  const clauses = splitScriptIntoClauses(script).length;
+  const pauseSeconds = Math.max(0, clauses - 1) * INTER_CLAUSE_PAUSE_SECONDS;
+  return Number(((words / wordsPerSecond) + pauseSeconds).toFixed(2));
 }
 
 function splitCaptionWords(words: string[], wordsPerCue: number): string[] {

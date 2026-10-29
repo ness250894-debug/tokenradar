@@ -8,6 +8,7 @@ import {
   buildVideoEvidenceSummary,
   formatVideoAsOf,
   formatVideoMarketSource,
+  selectVideoDataTension,
   type VideoEvidenceInput,
 } from './video-evidence';
 
@@ -101,17 +102,61 @@ function uniqueYouTubeTags(values: Array<string | undefined>): string[] {
   return output.slice(0, 8);
 }
 
+function resolveYouTubeHookSuffix(input: YouTubeShortsMetadataInput, hasMove: boolean): string {
+  const tension = selectVideoDataTension(input);
+  const evidence = buildVideoEvidenceSummary(input);
+
+  if (tension.kind === 'turnover_spike' && evidence.turnoverLabel) {
+    return `${evidence.turnoverLabel.replace(' VOL/CAP', '')} Cap Traded?!`;
+  }
+  if (tension.kind === 'move_vs_risk' && evidence.riskLabel) {
+    return `${evidence.riskLabel.replace(' RISK', '')} Risk Catch?`;
+  }
+  if (tension.kind === 'fdv_overhang') {
+    return 'FDV Dilution Catch?';
+  }
+  if (tension.kind === 'ath_drawdown_bounce' && typeof input.athChangePercentage === 'number') {
+    return `Still ${Math.round(Math.abs(input.athChangePercentage))}% Off ATH?`;
+  }
+  if (tension.kind === 'rank_outlier' && typeof input.marketCapRank === 'number') {
+    return `Rank #${Math.trunc(input.marketCapRank)} Outlier?`;
+  }
+
+  switch (input.formatKey) {
+    case 'contrarian_signal':
+      return "What's the Catch?";
+    case 'watchlist_battle':
+      return 'Worth Watching?';
+    case 'volume_spike_check':
+      return 'Vol vs Cap Check';
+    case 'token_vs_sector':
+      return typeof input.marketCapRank === 'number'
+        ? `Rank #${Math.trunc(input.marketCapRank)} Check`
+        : 'Price & Rank Read';
+    case 'data_vs_hype':
+      return 'Data vs Hype?';
+    case 'weekly_recap':
+      return '24h Data Read';
+    default:
+      return hasMove ? 'Risk Check' : 'Market Data Check';
+  }
+}
+
 /** Build grounded, searchable Shorts packaging without relying on a generic AI title. */
 export function buildYouTubeShortsMetadata(input: YouTubeShortsMetadataInput): YouTubeShortsMetadata {
   const evidence = buildVideoEvidenceSummary(input);
   const tokenName = input.tokenName.trim();
   const move = evidence.moveLabel?.replace(' / 24H', '');
+  const suffix = resolveYouTubeHookSuffix(input, Boolean(move));
   const titleBase = move
-    ? `${tokenName} (${evidence.tokenLabel}) ${move}: Risk Check`
-    : `${tokenName} (${evidence.tokenLabel}): Market Data Check`;
+    ? `${tokenName} (${evidence.tokenLabel}) ${move}: ${suffix}`
+    : `${tokenName} (${evidence.tokenLabel}): ${suffix}`;
+  const compactFallback = `${evidence.tokenLabel}${move ? ` ${move}` : ''}: ${suffix}`;
   const title = titleBase.length <= 60
     ? titleBase
-    : `${evidence.tokenLabel}${move ? ` ${move}` : ''}: Market Data Check`.slice(0, 60).trim();
+    : compactFallback.length <= 60
+      ? compactFallback
+      : `${evidence.tokenLabel}${move ? ` ${move}` : ''}: Market Data Check`.slice(0, 60).trim();
 
   const evidenceParts = [
     evidence.moveLabel ? `${evidence.tokenLabel} ${evidence.moveLabel.replace(' / 24H', '')} over 24h` : undefined,

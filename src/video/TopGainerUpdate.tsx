@@ -7,7 +7,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { TopGainerProps } from "./Root";
-import { COLORS } from "./styles";
+import { COLORS, getVerdict } from "./styles";
 import { HookScreen } from "./components/HookScreen";
 import { DataCard } from "./components/DataCard";
 import { MetricsView } from "./components/MetricsView";
@@ -17,6 +17,7 @@ import { VideoBackground } from "./components/VideoBackground";
 import { BrollStoryOverlay } from "./components/BrollStoryOverlay";
 import { TimedNarrationCaptions } from "./components/TimedNarrationCaptions";
 import { VideoSourceBadge } from "./components/VideoSourceBadge";
+import { selectVideoDataTension } from "../lib/video-evidence";
 import { getVideoFormat } from "../lib/video-formats";
 import {
   getVideoSceneDurationsForTotalFrames,
@@ -51,6 +52,12 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     marketCapRank,
     volume24h,
     growthPotentialIndex,
+    fdv,
+    athChangePercentage,
+    high24h,
+    low24h,
+    tokenIconDataUrl,
+    sparklinePrices,
     audioFile,
     audioStartSeconds = 0,
     voiceoverFile,
@@ -71,6 +78,29 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
   const videoFormat = getVideoFormat(videoFormatKey);
   const visualRecipe = resolveVideoVisualRecipe(inputVisualRecipe);
   const sceneDurations = getVideoSceneDurationsForTotalFrames(visualRecipe, durationInFrames);
+  const dataTension = selectVideoDataTension({
+    tokenName,
+    symbol,
+    price,
+    priceChange24h,
+    volume24h,
+    marketCap,
+    marketCapRank,
+    riskScore,
+    growthPotentialIndex,
+    fdv,
+    athChangePercentage,
+    formatKey: videoFormat.key,
+    allowDerivedContext: true,
+    marketDataSource,
+    marketDataAsOf,
+  });
+  const resolvedVerdict = verdict || getVerdict(riskScore, priceChange24h, {
+    volume24h,
+    marketCap,
+    fdv,
+    athChangePercentage,
+  });
   const premountFrames = 15;
   const fadeFrames = 30;
   const fadeOutStart = durationInFrames - fadeFrames;
@@ -79,7 +109,7 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
   const scenes: Record<VideoSceneId, React.ReactNode> = {
     hook: (
       <HookScreen
-        text={hookText || "THIS TOKEN NEEDS PROOF"}
+        text={hookText || dataTension.hookText}
         eyebrow={videoFormat.openingEyebrow}
         subline={videoFormat.hookSubline}
         visualRecipe={visualRecipe}
@@ -93,6 +123,10 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
         priceChange24h={priceChange24h}
         marketCapRank={marketCapRank}
         volume24h={volume24h}
+        high24h={high24h}
+        low24h={low24h}
+        tokenIconDataUrl={tokenIconDataUrl}
+        sparklinePrices={sparklinePrices}
         sceneLabel={videoFormat.revealLabel}
         visualRecipe={visualRecipe}
       />
@@ -114,9 +148,11 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     ),
     context: (
       <ContextView
-        contextText={videoThesis || contextText || `${tokenName} point-in-time data snapshot.`}
+        contextText={videoThesis || contextText || dataTension.thesis}
         title={videoFormat.contextTitle}
         formatLead={videoFormat.contextLead}
+        tensionBullets={dataTension.bullets}
+        takeaway={dataTension.takeaway}
         priceChange24h={priceChange24h}
         marketCapRank={marketCapRank}
         volume24h={volume24h}
@@ -128,13 +164,30 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
     ),
     verdict: (
       <VerdictBadge
-        verdict={verdict || "DATA SNAPSHOT"}
-        kicker={videoFormat.verdictKicker}
-        labelOverride={videoFormat.signalLabel}
+        verdict={resolvedVerdict}
+        kicker={dataTension.verdictKicker || videoFormat.verdictKicker}
+        labelOverride={dataTension.verdictLabel || videoFormat.signalLabel}
+        subLabel={dataTension.verdictSubLabel}
         visualRecipe={visualRecipe}
       />
     ),
   };
+
+  const sfxSequences = visualRecipe.sceneOrder.map((sceneId, index) => {
+    if (index === 0) return null;
+    const from = visualRecipe.sceneOrder
+      .slice(0, index)
+      .reduce((total, priorScene) => total + sceneDurations[priorScene], 0);
+
+    const sfxFile = sceneId === "verdict" ? "reveal.wav" : sceneId === "metrics" ? "tick.wav" : "whoosh.wav";
+    const volume = sceneId === "verdict" ? 0.38 : sceneId === "metrics" ? 0.25 : 0.32;
+
+    return (
+      <Sequence key={`sfx-${sceneId}-${index}`} from={from} durationInFrames={20}>
+        <Audio src={staticFile(`sfx/${sfxFile}`)} volume={volume} />
+      </Sequence>
+    );
+  });
 
   const orderedSequences = visualRecipe.sceneOrder.map((sceneId, index) => {
     const from = visualRecipe.sceneOrder
@@ -153,14 +206,15 @@ export const TopGainerUpdate: React.FC<TopGainerProps> = (props) => {
       <VideoBackground
         priceChange24h={priceChange24h}
         riskScore={riskScore}
-        verdict={verdict}
+        verdict={resolvedVerdict}
         visualRecipe={visualRecipe}
         mediaAssets={mediaAssets}
         mediaSegments={mediaSegments}
         mediaStage={mediaStage}
       />
       {isPrimaryMediaStory ? <BrollStoryOverlay {...props} mediaStage={mediaStage} /> : orderedSequences}
-      <TimedNarrationCaptions text={voiceoverScript} />
+      {sfxSequences}
+      <TimedNarrationCaptions text={voiceoverScript} cues={props.captionCues} />
       <VideoSourceBadge
         tokenName={tokenName}
         symbol={symbol}

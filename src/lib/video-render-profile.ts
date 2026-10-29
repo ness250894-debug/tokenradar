@@ -16,10 +16,18 @@ export interface VideoRenderProfile {
 }
 
 export const VIDEO_FPS = 30;
-// One evidence-led point, one risk check, and one CTA fit comfortably in 20s.
+// Fallback durations when voiceover duration is unspecified
 export const STANDARD_VIDEO_DURATION_SECONDS = 20;
-// Keep the dormant TikTok creative shorter and creator-native for manual tests.
 export const TIKTOK_FOR_YOU_DURATION_SECONDS = 18;
+
+// Dynamic render duration boundaries to prevent dead air while staying within short-form limits
+export const MIN_DYNAMIC_VIDEO_DURATION_SECONDS = 12;
+export const MAX_DYNAMIC_VIDEO_DURATION_SECONDS = 21;
+export const DYNAMIC_OUTRO_BUFFER_SECONDS = 1.0;
+
+export interface VideoRenderProfileOptions {
+  voiceoverDurationSeconds?: number;
+}
 
 const STANDARD_VIDEO_PROFILE = {
   compositionId: "TopGainerUpdate",
@@ -45,16 +53,35 @@ const TIKTOK_FOR_YOU_VIDEO_PROFILE = {
   forYouOptimized: true,
 } as const;
 
-export function getVideoRenderProfile(platform: VideoPlatform): VideoRenderProfile {
-  if (platform === "tiktok") {
+export function getVideoRenderProfile(
+  platform: VideoPlatform,
+  options: VideoRenderProfileOptions = {},
+): VideoRenderProfile {
+  const baseProfile = platform === "tiktok" ? TIKTOK_FOR_YOU_VIDEO_PROFILE : STANDARD_VIDEO_PROFILE;
+
+  if (
+    typeof options.voiceoverDurationSeconds === "number" &&
+    Number.isFinite(options.voiceoverDurationSeconds) &&
+    options.voiceoverDurationSeconds > 0
+  ) {
+    const rawTarget = Math.round(options.voiceoverDurationSeconds + DYNAMIC_OUTRO_BUFFER_SECONDS);
+    const dynamicSeconds = Math.max(
+      MIN_DYNAMIC_VIDEO_DURATION_SECONDS,
+      Math.min(MAX_DYNAMIC_VIDEO_DURATION_SECONDS, rawTarget),
+    );
+
     return {
       platform,
-      ...TIKTOK_FOR_YOU_VIDEO_PROFILE,
+      ...baseProfile,
+      durationSeconds: dynamicSeconds,
+      durationInFrames: dynamicSeconds * VIDEO_FPS,
+      minDurationSeconds: Math.max(MIN_DYNAMIC_VIDEO_DURATION_SECONDS, dynamicSeconds - 1),
+      maxDurationSeconds: Math.min(MAX_DYNAMIC_VIDEO_DURATION_SECONDS, dynamicSeconds + 1),
     };
   }
 
   return {
     platform,
-    ...STANDARD_VIDEO_PROFILE,
+    ...baseProfile,
   };
 }

@@ -18,6 +18,7 @@ import {
   validateVideoMarketDataFreshness,
   type VideoMarketFreshnessIssueCounts,
 } from "../src/lib/video-production-controls";
+import { VIDEO_CANDIDATE_MAX_RANK } from "../src/lib/config";
 import { loadEnv, safeReadJson } from "../src/lib/utils";
 import {
   getMetricDataFreshnessIssues,
@@ -153,7 +154,7 @@ function readMode(args: string[]): SocialMarketReadinessMode {
 
 export async function main(args = process.argv.slice(2)): Promise<void> {
   const mode = readMode(args);
-  const endRank = mode === "comparison" ? 250 : 50;
+  const endRank = mode === "comparison" ? 250 : VIDEO_CANDIDATE_MAX_RANK;
   const { candidates } = await loadCandidateTokens(DATA_DIR, 1, endRank);
 
   if (mode === "comparison") {

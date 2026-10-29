@@ -11,7 +11,13 @@ export const VerdictBadge: React.FC<{
   labelOverride?: string;
   subLabel?: string;
   visualRecipe?: VideoVisualRecipe;
-}> = ({ verdict, kicker = "TOKENRADAR RESEARCH", labelOverride, subLabel = "EDUCATIONAL DATA ONLY", visualRecipe }) => {
+}> = ({
+  verdict,
+  kicker = "TOKENRADAR SCORECARD",
+  labelOverride,
+  subLabel = "EDUCATIONAL DATA ONLY",
+  visualRecipe,
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const recipe = resolveVideoVisualRecipe(visualRecipe);
@@ -35,11 +41,18 @@ export const VerdictBadge: React.FC<{
     extrapolateRight: "clamp",
   });
 
-  const color = recipe.colorTheme === "electric_indigo" ? getVerdictColor(verdict) : theme.accent;
-  const researchLabel: Record<Verdict, string> = {
-    "DATA SNAPSHOT": "DATA SNAPSHOT",
-  };
-  const label = labelOverride || researchLabel[verdict] || verdict;
+  const verdictColor = getVerdictColor(verdict);
+  const color = verdict !== "DATA SNAPSHOT"
+    ? verdictColor
+    : recipe.colorTheme === "electric_indigo"
+      ? verdictColor
+      : theme.accent;
+  const label = labelOverride || verdict;
+  const fontSize = label.length > 16
+    ? (isScoreboard ? 68 : 64)
+    : label.length > 12
+      ? (isScoreboard ? 84 : 78)
+      : (isScoreboard ? 108 : 98);
 
   return (
     <AbsoluteFill
@@ -56,23 +69,35 @@ export const VerdictBadge: React.FC<{
           textAlign: isTerminal ? "left" : "center",
           transform: `translateY(${motion.translateY}px) scale(${motion.scale})`,
           filter: `blur(${motion.blur}px)`,
-          width: isTerminal || isScoreboard ? 860 : "auto",
+          width: isTerminal || isScoreboard ? 880 : "auto",
+          maxWidth: 920,
         }}
       >
-        <RevealText delay={4} style={{ fontSize: 40, color: COLORS.textMuted, fontWeight: 700, marginBottom: 20, letterSpacing: 4 }}>
+        <RevealText
+          delay={4}
+          style={{
+            fontSize: 36,
+            color: COLORS.textMuted,
+            fontWeight: 800,
+            marginBottom: 20,
+            letterSpacing: 4,
+            textTransform: "uppercase",
+          }}
+        >
           {kicker}
         </RevealText>
         <div
           style={{
             position: "relative",
             overflow: "hidden",
-            fontSize: label.length > 14 ? (isScoreboard ? 86 : 78) : isScoreboard ? 126 : 112,
+            fontSize,
             color: COLORS.background,
             backgroundColor: color,
             fontWeight: 900,
-            padding: "40px 80px",
-            borderRadius: isTerminal ? 4 : isScoreboard ? 12 : 20,
+            padding: "38px 64px",
+            borderRadius: isTerminal ? 6 : isScoreboard ? 14 : 24,
             textTransform: "uppercase",
+            letterSpacing: 1,
             boxShadow: `0 20px 60px ${color}66`,
           }}
         >
@@ -90,7 +115,17 @@ export const VerdictBadge: React.FC<{
           />
           <span style={{ position: "relative", zIndex: 1 }}>{label}</span>
         </div>
-        <RevealText delay={12} style={{ fontSize: 28, color: COLORS.textMuted, fontWeight: 700, marginTop: 26, letterSpacing: 1 }}>
+        <RevealText
+          delay={12}
+          style={{
+            fontSize: 30,
+            color: COLORS.text,
+            fontWeight: 800,
+            marginTop: 26,
+            letterSpacing: 1.5,
+            textTransform: "uppercase",
+          }}
+        >
           {subLabel}
         </RevealText>
       </div>

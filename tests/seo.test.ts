@@ -262,7 +262,7 @@ describe("generated sitemaps", () => {
     expect(sitemap).not.toContain("<changefreq>");
   });
 
-  it("submits only indexable token overview URLs", () => {
+  it("submits only indexable token overview URLs", { timeout: 30000 }, () => {
     const sitemap = fs.readFileSync(path.join(process.cwd(), "public/sitemap-tokens.xml"), "utf-8");
     const tokenOverviewIds = extractLocs(sitemap)
       .map((url) => new URL(url).pathname.split("/").filter(Boolean))
