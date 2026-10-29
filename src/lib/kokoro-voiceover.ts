@@ -1,7 +1,14 @@
 import * as fs from "fs";
 import * as path from "path";
 import { createRequire } from "module";
-import { buildVideoCaptionCues, splitScriptIntoClauses, type VideoCaptionCue } from "./video-captioning";
+import {
+  buildVideoCaptionCues,
+  estimateVoiceoverDuration,
+  splitScriptIntoClauses,
+  type VideoCaptionCue,
+} from "./video-captioning";
+
+export { estimateVoiceoverDuration } from "./video-captioning";
 
 type KokoroDtype = "fp32" | "fp16" | "q8" | "q4" | "q4f16";
 type KokoroDevice = "wasm" | "webgpu" | "cpu";
@@ -101,19 +108,7 @@ export function shouldGenerateKokoroVoiceover(env: NodeJS.ProcessEnv = process.e
   return !isDisabled(env.TOKENRADAR_VIDEO_TTS) && !isDisabled(env.TOKENRADAR_VIDEO_TTS_PROVIDER);
 }
 
-/**
- * Estimate the spoken duration of a script in seconds at the target speed.
- * Uses realistic speaking pace of ~150 words per minute at 1.0x with inter-clause pauses.
- */
-export function estimateVoiceoverDuration(script: string, speed = KOKORO_DEFAULT_SPEED): number {
-  const words = script.trim().split(/\s+/).filter(Boolean).length;
-  if (words === 0) return 0;
-  const safeSpeed = Math.max(0.6, Math.min(2.0, speed));
-  const wordsPerSecond = (150 / 60) * safeSpeed;
-  const clauses = splitScriptIntoClauses(script).length;
-  const pauseSeconds = Math.max(0, clauses - 1) * INTER_CLAUSE_PAUSE_SECONDS;
-  return Number(((words / wordsPerSecond) + pauseSeconds).toFixed(2));
-}
+
 
 /**
  * Concatenate multiple audio segments into a single audio buffer with silent pauses.

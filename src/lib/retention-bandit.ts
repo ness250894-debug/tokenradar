@@ -1,6 +1,3 @@
-import * as fs from "fs";
-import * as path from "path";
-
 export interface ArmPerformance {
   armKey: string;
   impressions: number;
@@ -55,51 +52,6 @@ function stableHash(input: string): number {
 }
 
 /**
- * Load bandit arm statistics from local JSON storage
- */
-export function loadBanditArmStats(filePath?: string): Map<string, ArmPerformance> {
-  const map = new Map<string, ArmPerformance>();
-  if (!filePath || !fs.existsSync(filePath)) return map;
-
-  try {
-    const raw = fs.readFileSync(filePath, "utf8");
-    const data = JSON.parse(raw);
-    if (Array.isArray(data)) {
-      for (const item of data) {
-        if (item && typeof item.armKey === "string") {
-          map.set(item.armKey, {
-            armKey: item.armKey,
-            impressions: Number(item.impressions) || 0,
-            totalViews: Number(item.totalViews) || 0,
-            avgCompletionPercentage: Number(item.avgCompletionPercentage) || 0,
-            totalRewardScore: Number(item.totalRewardScore) || 0,
-            lastUpdated: item.lastUpdated,
-          });
-        }
-      }
-    }
-  } catch {
-    // Return empty map on read/parse error
-  }
-
-  return map;
-}
-
-/**
- * Save updated bandit arm statistics to local JSON storage
- */
-export function saveBanditArmStats(filePath: string, stats: Map<string, ArmPerformance>): void {
-  try {
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    const array = Array.from(stats.values());
-    fs.writeFileSync(filePath, JSON.stringify(array, null, 2), "utf8");
-  } catch {
-    // Non-fatal if local write fails
-  }
-}
-
-/**
  * Record feedback for an arm (impressions, views, retention completion)
  */
 export function recordArmFeedback(
@@ -148,7 +100,7 @@ export function selectBanditArm<T extends { key: string }>(
     return { selected: candidates[0], score: 1.0, strategy: "deterministic-fallback" };
   }
 
-  const statsMap = options.stats || loadBanditArmStats(options.statsFilePath);
+  const statsMap = options.stats ?? new Map<string, ArmPerformance>();
   const explorationC = options.explorationConstant ?? DEFAULT_EXPLORATION_CONSTANT;
 
   // Calculate total impressions across all active candidates
@@ -206,4 +158,3 @@ export function selectBanditArm<T extends { key: string }>(
     strategy,
   };
 }
-
