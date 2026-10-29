@@ -881,7 +881,7 @@
     "category": "Meme / Layer 2",
     "expectedTge": "Active",
     "narrativeStrength": 75,
-    "dataSource": "https://littlepepe.best",
+    "dataSource": "https://littlepepe.best/",
     "discoveredAt": "2026-04-23T12:30:00.000Z",
     "status": "released",
     "graduatedAt": "2026-05-10T20:00:47.817Z",
@@ -892,7 +892,7 @@
       {
         "type": "news",
         "sourceType": "official",
-        "url": "https://littlepepe.best",
+        "url": "https://littlepepe.best/",
         "observedAt": "2026-04-23T12:30:00.000Z"
       }
     ],
@@ -7337,5 +7337,28 @@
     "discoveredAt": "2026-10-28T21:58:23.652Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-28T21:58:23.652Z"
+  },
+  {
+    "id": "phase-blockchain",
+    "name": "Phase",
+    "symbol": "TBA",
+    "category": "Infrastructure",
+    "expectedTge": "Mainnet / Token Rewards",
+    "narrativeStrength": 72,
+    "confidence": 85,
+    "lifecycleStatus": "confirmed_tge",
+    "dataSource": "https://cointelegraph.com/news/unlimit-founder-phase-blockchain-mainnet-launches?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/unlimit-founder-phase-blockchain-mainnet-launches?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Unlimit founder backs Phase blockchain with $45M as mainnet launches",
+        "observedAt": "2026-10-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-10-29T22:05:06.012Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-10-29T22:05:06.012Z"
   }
 ]

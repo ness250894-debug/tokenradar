@@ -3,27 +3,27 @@
   "symbol": "ariax",
   "name": "ARIA NETWORK",
   "market": {
-    "price": 0.250988,
-    "marketCap": 50199024,
-    "marketCapRank": 453,
-    "volume24h": 662616,
-    "high24h": 0.253333,
-    "low24h": 0.24658,
-    "priceChange24h": -0.11631,
-    "priceChange7d": -4.8332,
-    "priceChange30d": -1.3445,
+    "price": 0.237886,
+    "marketCap": 47537375,
+    "marketCapRank": 466,
+    "volume24h": 625921,
+    "high24h": 0.253277,
+    "low24h": 0.237252,
+    "priceChange24h": -4.98887,
+    "priceChange7d": -6.24479,
+    "priceChange30d": -7.80256,
     "priceChange1y": 0,
     "ath": 0.283963,
-    "athChangePercentage": -11.61252,
+    "athChangePercentage": -16.22658,
     "athDate": "2026-10-06T15:02:50.000Z",
     "atl": 0.229885,
     "atlDate": "2026-10-13T00:09:20.000Z",
     "circulatingSupply": 200000000,
     "totalSupply": 200000000,
     "maxSupply": 200000000,
-    "fdv": 50199024
+    "fdv": 47537375
   },
-  "lastMarketUpdate": "2026-10-28T21:54:52.000Z",
+  "lastMarketUpdate": "2026-10-29T22:02:53.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102176622/large/1000253256.png?1788349539",
   "description": "ARIA Pay provides a single merchant integration (Credit Card | ARIA Pay at checkout) that routes through ARIA Connect to whichever exchange/wallet the customer already uses, settling via ARIA Chain/Ledger — removing the need for merchants to integrate exchange-by-exchange and for customers to learn crypto mechanics.\nA decentralized Proof-of-Stake network built on Substrate. Public, inspectable, and built to evolve without forks.",
   "categories": [
@@ -35,7 +35,7 @@
     "website": "https://ariachain.org/",
     "github": null,
     "reddit": null,
-    "explorer": "https://ariaexp.com/"
+    "explorer": null
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-04T20:29:24.725Z"
+  "fetchedAt": "2026-10-29T22:03:27.081Z"
 }
