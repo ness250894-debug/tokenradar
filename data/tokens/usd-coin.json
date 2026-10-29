@@ -22,7 +22,6 @@
     "ZkSync Ecosystem",
     "Sui Ecosystem",
     "Base Ecosystem",
-    "Tron Ecosystem",
     "Injective Ecosystem",
     "Starknet Ecosystem",
     "Hedera Ecosystem",
@@ -57,25 +56,25 @@
     "explorer": "https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
   },
   "market": {
-    "price": 0.999544,
-    "marketCap": 71289315348,
+    "price": 0.99927,
+    "marketCap": 71265560023,
     "marketCapRank": 6,
-    "volume24h": 12697125154,
-    "high24h": 0.999654,
-    "low24h": 0.998902,
-    "priceChange24h": 0.02251,
-    "priceChange7d": -0.0131,
-    "priceChange30d": -0.0347,
-    "priceChange1y": -0.028,
+    "volume24h": 17207743590,
+    "high24h": 1.001,
+    "low24h": 0.999182,
+    "priceChange24h": -0.03093,
+    "priceChange7d": -0.02343,
+    "priceChange30d": -0.06178,
+    "priceChange1y": -0.05515,
     "ath": 1.043,
-    "athChangePercentage": -4.20915,
+    "athChangePercentage": -4.23542,
     "athDate": "2018-11-14T16:00:00.000Z",
     "atl": 0.877647,
     "atlDate": "2023-03-11T00:02:13.000Z",
-    "circulatingSupply": 71319626418.21367,
-    "totalSupply": 71469510383.17734,
+    "circulatingSupply": 71316236665.10408,
+    "totalSupply": 71387291999.37488,
     "maxSupply": null,
-    "fdv": 71439135612
+    "fdv": 71336564866
   },
   "community": {
     "twitterFollowers": null,
@@ -86,6 +85,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-03T20:15:52.611Z",
-  "lastMarketUpdate": "2026-10-28T21:54:52.000Z"
+  "fetchedAt": "2026-10-29T22:02:30.376Z",
+  "lastMarketUpdate": "2026-10-29T22:01:49.000Z"
 }

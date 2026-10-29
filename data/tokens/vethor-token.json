@@ -3,7 +3,7 @@
   "symbol": "vtho",
   "name": "VeThor",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/5230/large/VTHO_Circle_Crop__Reference_.png?1751980206",
-  "description": "VeThor Token (VTHO) is the gas token of VeChainThor, a public Layer-1 blockchain designed for real-world enterprise and consumer applications.\n\nVeChainThor uses a dual-token economic model. VET is the network’s native asset and staking collateral, while VTHO is used to pay for transactions, smart-contract execution and other onchain operations. Separating these functions allows network-fee parameters to be managed independently from the market price of VET.\n\nFollowing the Hayabusa mainnet upgrade in December 2025, VTHO is no longer generated passively by simply holding VET. New VTHO is dynamically issued through block rewards to validators and delegators who actively stake VET and contribute to network security.\n\nVTHO does not have a fixed maximum supply. Its circulating supply changes through dynamic issuance and the burning of VTHO used as transaction base fees.",
+  "description": "VeThor Token (VTHO) is the gas token of VeChainThor, VeChain's EVM-compatible Layer-1 blockchain. It is used to pay for transactions, token transfers and smart-contract execution on the network. VTHO works alongside VET, the network's native staking asset, in a dual-token model that keeps the cost of using VeChainThor separate from VET's market price. Since the Hayabusa upgrade in December 2025, new VTHO is generated only through actively staked VET.",
   "categories": [
     "Smart Contract Platform",
     "Layer 1 (L1)",
@@ -17,25 +17,25 @@
     "explorer": "https://vechainstats.com/token/vtho/"
   },
   "market": {
-    "price": 0.00059069,
-    "marketCap": 61524436,
-    "marketCapRank": 395,
-    "volume24h": 2214649,
-    "high24h": 0.00059956,
-    "low24h": 0.00057647,
-    "priceChange24h": -1.07688,
-    "priceChange7d": -13.6946,
-    "priceChange30d": -16.7216,
-    "priceChange1y": -51.8184,
+    "price": 0.00055631,
+    "marketCap": 57930398,
+    "marketCapRank": 405,
+    "volume24h": 2599189,
+    "high24h": 0.00059684,
+    "low24h": 0.00055077,
+    "priceChange24h": -5.48697,
+    "priceChange7d": -9.73012,
+    "priceChange30d": -19.28203,
+    "priceChange1y": -53.87871,
     "ath": 0.04671227,
-    "athChangePercentage": -98.73547,
+    "athChangePercentage": -98.80907,
     "athDate": "2018-08-28T18:40:46.000Z",
     "atl": 0.00015238,
     "atlDate": "2020-03-16T02:14:24.000Z",
     "circulatingSupply": 104101315173,
-    "totalSupply": 104112070992,
+    "totalSupply": 104137456334,
     "maxSupply": null,
-    "fdv": 61530793
+    "fdv": 57950510
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +46,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-04T20:30:32.811Z",
-  "lastMarketUpdate": "2026-10-28T21:54:52.000Z"
+  "fetchedAt": "2026-10-29T22:04:23.793Z",
+  "lastMarketUpdate": "2026-10-29T22:03:53.000Z"
 }

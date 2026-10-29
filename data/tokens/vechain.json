@@ -3,7 +3,7 @@
   "symbol": "vet",
   "name": "VeChain",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/1167/large/VET.png?1742383283",
-  "description": "VeChain is a public Layer-1 blockchain designed for real-world applications. Founded in 2015, its VeChainThor network supports enterprise and consumer use cases involving supply chains, product provenance, sustainability, digital product passports, tokenized incentives and verifiable data.\n\nVeChainThor combines EVM-compatible smart contracts with a dual-token model, native fee delegation and multi-clause transactions. VET is the network’s native asset and staking collateral, while VTHO is used to pay transaction fees and execute smart contracts.\n\nVeChain’s ecosystem includes VeBetter, an app platform that rewards verified positive actions; StarGate, its NFT-based staking platform; VeWorld, its self-custody wallet; and VeWorld.ai, its AI-agent platform. In its April 2026 roadmap, VeChain reported that VeBetter had reached 5.3 million users, more than 50 live applications and over 50 million verified actions.\n\nVeChain has also worked with organizations including Walmart China, DNV, PwC, Boston Consulting Group and UFC across enterprise, sustainability and consumer initiatives.",
+  "description": "VeChain (VET) is the native token of VeChainThor, an EVM-compatible Layer-1 public blockchain built for real-world applications such as supply-chain tracking, product provenance, digital product passports, sustainability and tokenized rewards for verified actions. VeChainThor uses a dual-token model: VET is used for staking and network security, while VTHO is the gas token used to pay transaction fees. Since December 2025 the network has run on Delegated Proof of Stake, secured by validators and by VET holders who stake through StarGate.",
   "categories": [
     "Internet of Things (IOT)",
     "Smart Contract Platform",
@@ -19,25 +19,25 @@
     "explorer": "https://vechainstats.com/"
   },
   "market": {
-    "price": 0.00648878,
-    "marketCap": 557976029,
-    "marketCapRank": 102,
-    "volume24h": 6480832,
-    "high24h": 0.00656166,
-    "low24h": 0.00624606,
-    "priceChange24h": 0.13663,
-    "priceChange7d": -14.0244,
-    "priceChange30d": -25.3673,
-    "priceChange1y": -61.7628,
+    "price": 0.00583448,
+    "marketCap": 501473450,
+    "marketCapRank": 105,
+    "volume24h": 8904915,
+    "high24h": 0.00642467,
+    "low24h": 0.00572173,
+    "priceChange24h": -9.59711,
+    "priceChange7d": -18.39427,
+    "priceChange30d": -33.77761,
+    "priceChange1y": -66.00789,
     "ath": 0.280991,
-    "athChangePercentage": -97.69075,
+    "athChangePercentage": -97.92361,
     "athDate": "2021-04-18T17:08:21.000Z",
     "atl": 0.00191713,
     "atlDate": "2020-03-12T18:29:59.000Z",
     "circulatingSupply": 85985041177,
     "totalSupply": 85985041177,
     "maxSupply": 86712634466,
-    "fdv": 557976029
+    "fdv": 501473450
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +48,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-04T20:30:13.918Z",
-  "lastMarketUpdate": "2026-10-28T21:54:52.000Z"
+  "fetchedAt": "2026-10-29T22:04:04.837Z",
+  "lastMarketUpdate": "2026-10-29T22:02:53.000Z"
 }
