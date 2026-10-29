@@ -93,4 +93,8 @@ public/og/token/*.png
 
 # Internal Specifications
 tiktok-logo.png
-admin.html
+/admin.html
+
+# derived prebuild consolidation blobs (regenerated deterministically via npm run consolidate)
+data/_*_blob.json
+data/_registry.json

@@ -63,6 +63,11 @@ const eslintConfig = defineConfig([
     "skills/**",
     "test-*.ts",
     "scripts/test-*.ts",
+    "docs/**",
+    "data/**",
+    "content/**",
+    ".lighthouseci/**",
+    "test-output/**",
   ]),
 ]);
 

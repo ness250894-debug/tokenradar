@@ -1,5 +1,6 @@
 const CANONICAL_HOST = "tokenradar.co";
 const PUBLIC_TEXT_FILES = new Set(["/ads.txt", "/robots.txt"]);
+const NOINDEX_HTML_PATHS = new Set(["/admin", "/admin.html"]);
 const HTML_CACHE_CONTROL = "public, max-age=300, stale-while-revalidate=86400";
 
 export const GLOBAL_SECURITY_HEADERS = Object.freeze({
@@ -17,6 +18,10 @@ export function shouldNoIndexTextPayload(pathname) {
   if (PUBLIC_TEXT_FILES.has(pathname.toLowerCase())) return false;
   if (/^\/[a-f0-9]{32}\.txt$/i.test(pathname)) return false;
   return true;
+}
+
+export function shouldNoIndexDocument(pathname) {
+  return NOINDEX_HTML_PATHS.has(pathname.toLowerCase());
 }
 
 export function withManagedHeaders(response, pathname) {
@@ -65,7 +70,7 @@ const worker = {
     }
 
     const response = await env.ASSETS.fetch(request);
-    if (!shouldNoIndexTextPayload(url.pathname)) {
+    if (!shouldNoIndexTextPayload(url.pathname) && !shouldNoIndexDocument(url.pathname)) {
       return withManagedHeaders(response, url.pathname);
     }
 

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenRadar | Data &amp; Reporting Dashboard</title>
+    <meta name="description" content="Internal TokenRadar TikTok data distribution and reporting integration preview.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://tokenradar.co/admin.html">
+    <meta property="og:title" content="TokenRadar | Data &amp; Reporting Dashboard">
+    <meta property="og:description" content="Internal TokenRadar TikTok data distribution and reporting integration preview.">
+    <meta property="og:image" content="https://tokenradar.co/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"TokenRadar Data & Reporting Dashboard","url":"https://tokenradar.co/admin.html"}</script>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --bg: #0a0a0a;
+            --card: #151515;
+            --text: #ffffff;
+            --tiktok: #fe2c55;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: var(--card);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 1px solid #222;
+            max-width: 480px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        .logo span {
+            background: linear-gradient(45deg, #00ff88, #00bdff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p { color: #888; margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.5; }
+        
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        .btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 1.2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,255,136,0.2); }
+        .btn-tt { background: #000; color: #fff; border: 1px solid #333; }
+        .btn-tt:hover { background: #111; border-color: #fe2c55; }
+
+        .mock-auth {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: left;
+            border-top: 5px solid #fe2c55;
+        }
+        .mock-auth h2 { font-size: 1.1rem; margin-top: 0; font-weight: 800; }
+        .permission-list { list-style: none; padding: 0; font-size: 0.8rem; color: #444; }
+        .permission-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+
+        .status-msg { margin-top: 1.5rem; font-size: 0.85rem; font-weight: 600; color: var(--primary); }
+
+        .preview-card {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            border: 1px solid #333;
+        }
+        .preview-card label { font-size: 0.7rem; color: #555; text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 4px; }
+        .preview-card div { font-size: 0.9rem; color: #ccc; }
+        .home-link { display: inline-block; margin-top: 1.25rem; font-size: 0.75rem; color: #666; text-decoration: none; }
+        .home-link:hover { color: #aaa; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainBox">
+        <div class="logo">Token<span>Radar</span></div>
+        
+        <!-- STEP 1: AUTH -->
+        <div class="step active" id="step1">
+            <p>Automated Asset Intelligence &amp; Reporting.<br>Connect your platform to enable direct data distribution.</p>
+            <button class="btn btn-tt" onclick="goToStep(2)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.09-1.47-.88-.64-1.6-1.47-2.12-2.44v10.82c0 1.63-.4 3.29-1.35 4.58-1.06 1.41-2.63 2.39-4.37 2.71-1.77.31-3.64.03-5.23-.83-1.63-.88-2.82-2.44-3.21-4.24-.43-1.92-.17-4.01.91-5.66.95-1.48 2.41-2.57 4.08-2.91v4.04c-.67.07-1.35.34-1.85.8-.57.54-.84 1.34-.81 2.12.04 1.1.75 2.12 1.8 2.45.67.21 1.39.21 2.06.01 1.03-.3 1.86-1.2 2.03-2.23.05-.32.06-.65.06-.97V.02z"/></svg>
+                Authorize with TikTok
+            </button>
+        </div>
+
+        <!-- STEP 2: PERMISSIONS -->
+        <div class="step" id="step2">
+            <div class="mock-auth">
+                <h2>Authorize TokenRadar?</h2>
+                <p style="color:#666; font-size: 0.8rem; margin-bottom: 1.5rem;">TokenRadar would like to access your TikTok account to manage educational content:</p>
+                <ul class="permission-list">
+                    <li>✅ Access profile public information</li>
+                    <li>✅ Upload alternative asset reports to feed</li>
+                    <li>✅ Automate high-frequency data distribution</li>
+                </ul>
+                <button class="btn" style="padding: 0.8rem; background: #000; color: #fff;" onclick="goToStep(3)">Allow Access</button>
+                <p style="font-size: 0.65rem; margin-top: 12px; color: #999; text-align: center;">Authorized by TokenRadar Data Systems.</p>
+            </div>
+        </div>
+
+        <!-- STEP 3: DASHBOARD -->
+        <div class="step" id="step3">
+            <div class="preview-card">
+                <label>Active Content</label>
+                <div>Daily_Volatility_Report_08May.mp4</div>
+            </div>
+            <div class="preview-card">
+                <label>Target Channel</label>
+                <div>@TokenRadar_Intelligence</div>
+            </div>
+            <button class="btn" id="pubBtn" onclick="simulatePublish()">🚀 Distribute Volatility Report</button>
+            <div id="status" class="status-msg" style="display:none;">⌛ Analyzing market tokens...</div>
+        </div>
+
+        <a class="home-link" href="/">← Return to TokenRadar</a>
+    </div>
+
+    <script>
+        function goToStep(num) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + num).classList.add('active');
+            if(num === 2) { document.getElementById('mainBox').style.background = '#f5f5f5'; }
+            else { document.getElementById('mainBox').style.background = '#151515'; }
+        }
+
+        function simulatePublish() {
+            const btn = document.getElementById('pubBtn');
+            const status = document.getElementById('status');
+            btn.disabled = true;
+            btn.innerText = 'Publishing Data...';
+            status.style.display = 'block';
+
+            setTimeout(() => {
+                status.innerText = '📊 Processing Information Tokens...';
+                setTimeout(() => {
+                    status.innerHTML = '✅ Successfully distributed to TikTok!<br><span style="font-size:0.7rem; color:#888;">Publication ID: TR_REP_2026_001</span>';
+                    btn.innerText = 'Distribution Complete';
+                }, 2000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

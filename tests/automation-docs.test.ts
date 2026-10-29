@@ -80,12 +80,7 @@ describe("automation runbook contract", () => {
 
     for (const artifact of [
       "data/search-intent.json",
-      "data/search-intent-history.json",
-      "data/_tokens_blob.json",
-      "data/_metrics_blob.json",
-      "data/_prices_blob.json",
-      "data/_registry.json",
-      "public/og/movers.png",
+      "data/search-intent-history.json",      "public/og/movers.png",
       "public/sitemap.xml",
       "public/sitemap-main.xml",
       "public/sitemap-tokens.xml",

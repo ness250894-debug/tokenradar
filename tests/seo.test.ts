@@ -133,6 +133,16 @@ function loadTokenDetails(): Record<string, TokenDetail> {
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as Record<string, TokenDetail>;
 }
 
+function resolveTokenDetailForSitemapAudit(
+  tokenId: string,
+  detailsById: Record<string, TokenDetail>,
+): TokenDetail | undefined {
+  if (detailsById[tokenId]) return detailsById[tokenId];
+  const rawPath = path.join(process.cwd(), "data/tokens", `${tokenId}.json`);
+  if (!fs.existsSync(rawPath)) return undefined;
+  return JSON.parse(fs.readFileSync(rawPath, "utf-8")) as TokenDetail;
+}
+
 function makeTge(overrides: Partial<UpcomingTge> = {}): UpcomingTge {
   const recentDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   return {
@@ -261,7 +271,7 @@ describe("generated sitemaps", () => {
     const detailsById = loadTokenDetails();
 
     for (const tokenId of tokenOverviewIds) {
-      const detail = detailsById[tokenId];
+      const detail = resolveTokenDetailForSitemapAudit(tokenId, detailsById);
       expect(detail, `${tokenId} should resolve from token data`).toBeDefined();
       if (!detail) continue;
 

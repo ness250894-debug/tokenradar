@@ -50,8 +50,6 @@ is_allowed_path() {
       case "$path" in
         content/tokens/* | data/tokens/* | data/prices/* | \
           data/search-intent.json | data/search-intent-history.json | \
-          data/_tokens_blob.json | data/_metrics_blob.json | \
-          data/_prices_blob.json | data/_registry.json | \
           public/og/movers.png | public/sitemap.xml | \
           public/sitemap-main.xml | public/sitemap-tokens.xml)
           return 0
@@ -63,8 +61,6 @@ is_allowed_path() {
         data/tokens/* | data/metrics/* | data/prices/* | data/references/* | \
           data/tokens.json | data/upcoming-tges.json | \
           data/search-intent.json | data/search-intent-history.json | \
-          data/_tokens_blob.json | data/_metrics_blob.json | \
-          data/_prices_blob.json | data/_registry.json | \
           public/og/movers.png | public/sitemap.xml | \
           public/sitemap-main.xml | public/sitemap-tokens.xml)
           return 0

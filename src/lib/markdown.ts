@@ -26,6 +26,7 @@ export interface TokenMarketData {
   marketCapRank?: number;
   priceChange24h?: number;
   imageUrl?: string;
+  asOf?: string;
 }
 
 interface LinkableToken {
@@ -62,6 +63,7 @@ const MAX_AUTO_LINKS_PER_ARTICLE = 3;
 let linkableTokensPromise: Promise<LinkableToken[]> | null = null;
 let indexableOverviewTokensPromise: Promise<LinkableToken[]> | null = null;
 let validInternalPathsPromise: Promise<Set<string>> | null = null;
+const RENDER_FALLBACK_DATE = new Date();
 
 function escapeHtmlText(value: string): string {
   return value
@@ -244,6 +246,7 @@ async function getIndexableTokenChildIds(
 }
 
 async function unwrapUnsafeInternalMarkdownLinks(md: string): Promise<string> {
+  if (!/(^|[^!])\[[^\]]+\]\([^)\s]+/.test(md)) return md;
   const validInternalPaths = await getValidInternalPaths();
 
   return md.replace(/(^|[^!])\[([^\]]+)\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g, (match, prefix, label, href) => {
@@ -396,7 +399,8 @@ export async function markdownToHtml(md: string, tokenData?: TokenMarketData): P
 
   if (tokenData) {
     // 1. Placeholder Substitutions (used by AI templates)
-    const now = new Date();
+    const parsedAsOf = tokenData.asOf ? new Date(tokenData.asOf) : null;
+    const now = parsedAsOf && !Number.isNaN(parsedAsOf.getTime()) ? parsedAsOf : RENDER_FALLBACK_DATE;
     const dateStr = now.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
     
     const replacements: Record<string, string> = {

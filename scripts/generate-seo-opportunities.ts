@@ -173,14 +173,14 @@ function staticSourceForPage(page: string): string | null {
     "/best-crypto-hardware-wallets": "src/app/best-crypto-hardware-wallets/page.tsx",
     "/crypto-tax-guide": "src/app/crypto-tax-guide/page.tsx",
     "/learn": "data/glossary.json",
-    "/research": "data/_metrics_blob.json",
+    "/research": "data/tokens.json",
     "/search-intent": "data/search-intent.json",
-    "/tokens": "data/_registry.json",
-    "/tokens/all": "data/_registry.json",
+    "/tokens": "data/tokens.json",
+    "/tokens/all": "data/tokens.json",
     "/upcoming": "data/upcoming-tges.json",
   };
   if (known[page]) return path.resolve(process.cwd(), known[page]);
-  if (page.startsWith("/category/")) return path.resolve(process.cwd(), "data/_registry.json");
+  if (page.startsWith("/category/")) return path.resolve(process.cwd(), "data/tokens.json");
   if (page.startsWith("/search-intent/")) return path.resolve(process.cwd(), "data/search-intent.json");
   return null;
 }

@@ -121,6 +121,7 @@ export function safeReadJson<T>(filePath: string, fallback: T, schema?: ZodType<
  * Useful for scripts running from different subdirectories.
  */
 export function loadEnv(): boolean {
+  if (process.env.VITEST === "true") return false;
   const envPaths = [
     path.resolve(process.cwd(), ".env.local"),
     path.resolve(process.cwd(), "..", ".env.local"),

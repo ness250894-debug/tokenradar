@@ -5,7 +5,7 @@ import { writeFileAtomic } from "../src/lib/utils";
 
 /**
  * Consolidate individual token/metric/price files into single optimized blobs.
- * This script runs during prebuild to minimize disk I/O at runtime and during SSG.
+ * This script runs during prebuild/pretest to minimize disk I/O during SSG and tests.
  */
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -17,6 +17,19 @@ const OUTPUT_TOKENS_BLOB = path.join(DATA_DIR, "_tokens_blob.json");
 const OUTPUT_METRICS_BLOB = path.join(DATA_DIR, "_metrics_blob.json");
 const OUTPUT_PRICES_BLOB = path.join(DATA_DIR, "_prices_blob.json");
 const OUTPUT_REGISTRY = path.join(DATA_DIR, "_registry.json");
+
+const LEGACY_PUBLIC_DATA_BLOBS = [
+  "_tokens_blob.json",
+  "_metrics_blob.json",
+  "_prices_blob.json",
+  "_registry.json",
+  "upcoming-tges.json",
+  "glossary.json",
+  "keywords.json",
+  "search-intent.json",
+  "search-intent-history.json",
+  "tokens.json",
+];
 
 type TokenContent = {
   id?: string;
@@ -142,7 +155,7 @@ async function consolidate() {
   }
 
   // Sort registry by rank and ID for deterministic blob output.
-  registry.sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id));
+  registry.sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id, "en-US"));
 
   // 2. Consolidate metrics.
   console.log(`Processing ${metricFiles.length} metric files...`);
@@ -193,42 +206,24 @@ async function consolidate() {
   console.log(`  - Metrics: ${Object.keys(metricsBlob).length} / ${Object.keys(tokensBlob).length} coverage`);
   console.log(`  - Prices: ${Object.keys(pricesBlob).length}\n`);
 
-  // 5. Copy only essential data files to public for browser/runtime fallback fetches.
-  // Article content is consumed at build time from content/tokens and rendered into
-  // static pages, so copying it to public/content only bloats the deploy artifact.
-  console.log("Copying essential data files to public folder...");
+  // 5. Remove legacy build-only blobs from public/ so raw prebuild payloads are not
+  // deployed to the static CDN edge. Client views consume targeted Next.js route
+  // payloads (/data/home-market-lab.json, /data/token-directory.json) and research snapshots.
   const publicDataDir = path.join(process.cwd(), "public", "data");
   const publicContentDir = path.join(process.cwd(), "public", "content");
 
-  // Clean up old copies in case a previous build included stale files.
-  if (fs.existsSync(publicDataDir)) fs.rmSync(publicDataDir, { recursive: true, force: true });
-  if (fs.existsSync(publicContentDir)) fs.rmSync(publicContentDir, { recursive: true, force: true });
-
-  if (!fs.existsSync(path.join(process.cwd(), "public"))) {
-    fs.mkdirSync(path.join(process.cwd(), "public"));
+  if (fs.existsSync(publicContentDir)) {
+    fs.rmSync(publicContentDir, { recursive: true, force: true });
   }
 
-  fs.mkdirSync(publicDataDir, { recursive: true });
-  const essentialDataFiles = [
-    "_tokens_blob.json",
-    "_metrics_blob.json",
-    "_prices_blob.json",
-    "_registry.json",
-    "upcoming-tges.json",
-    "glossary.json",
-    "keywords.json",
-    "search-intent.json",
-    "search-intent-history.json",
-    "tokens.json",
-  ];
-  for (const file of essentialDataFiles) {
-    const src = path.join(DATA_DIR, file);
-    if (fs.existsSync(src)) {
-      fs.copyFileSync(src, path.join(publicDataDir, file));
+  if (fs.existsSync(publicDataDir)) {
+    for (const file of LEGACY_PUBLIC_DATA_BLOBS) {
+      const stalePath = path.join(publicDataDir, file);
+      if (fs.existsSync(stalePath)) {
+        fs.rmSync(stalePath, { force: true });
+      }
     }
   }
-
-  console.log(`Copied ${essentialDataFiles.length} essential data files to public/data.`);
 }
 
 consolidate().catch((error) => {

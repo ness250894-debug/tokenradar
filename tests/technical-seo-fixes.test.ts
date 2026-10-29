@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import worker, {
   GLOBAL_SECURITY_HEADERS,
+  shouldNoIndexDocument,
   shouldNoIndexTextPayload,
 } from "../public/_worker.js";
 import { generateXml } from "../scripts/generate-sitemap";
@@ -15,6 +16,7 @@ import {
   PRODUCTION_SITE_ORIGIN,
 } from "../src/lib/canonical-origin";
 import { buildOpenGraphMetadata } from "../src/lib/share-metadata";
+import { auditSeoHtml } from "../src/lib/seo-render-audit";
 
 const temporaryDirectories: string[] = [];
 
@@ -111,6 +113,9 @@ describe("technical SEO fixes", () => {
     expect(shouldNoIndexTextPayload("/bitcoin.txt")).toBe(true);
     expect(shouldNoIndexTextPayload("/bitcoin/how-to-buy.txt")).toBe(true);
     expect(shouldNoIndexTextPayload("/robots.txt")).toBe(false);
+    expect(shouldNoIndexDocument("/admin")).toBe(true);
+    expect(shouldNoIndexDocument("/admin.html")).toBe(true);
+    expect(shouldNoIndexDocument("/bitcoin")).toBe(false);
     expect(shouldNoIndexTextPayload("/c7a4b0d8e2f143a9b5c2d8f1e4a7b0d8.txt")).toBe(false);
 
     const assetFetch = vi.fn(async () => new Response("RSC payload", {
@@ -157,6 +162,38 @@ describe("technical SEO fixes", () => {
     expect(routes.exclude).toContain("/data/*");
     expect(routes.exclude).toContain("/.well-known/*");
     expect(routes.exclude).not.toContain("/*.txt");
+  });
+
+  it("keeps public/admin.html CSP-clean, noindex, and auditSeoHtml compliant", async () => {
+    const adminHtml = fs.readFileSync(path.join(process.cwd(), "public", "admin.html"), "utf-8");
+    expect(adminHtml).not.toContain("fonts.googleapis.com");
+    const seoAudit = auditSeoHtml({
+      html: adminHtml,
+      url: "https://tokenradar.co/admin.html",
+      expectedIndexable: false,
+      sitemapUrls: new Set(["https://tokenradar.co/"]),
+    });
+    expect(seoAudit.checks.filter((c) => !c.passed)).toEqual([]);
+
+    const assetFetch = vi.fn(async () => new Response(adminHtml, {
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    }));
+    const response = await worker.fetch(
+      new Request("https://tokenradar.co/admin.html"),
+      { ASSETS: { fetch: assetFetch } },
+    );
+    expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow, nosnippet");
+  });
+
+  it("keeps service worker free of raw build blobs and supports underscore token IDs", () => {
+    const swSource = fs.readFileSync(path.join(process.cwd(), "public", "sw.js"), "utf-8");
+    expect(swSource).not.toContain("_prices_blob.json");
+    expect(swSource).not.toContain("_tokens_blob.json");
+    expect(swSource).not.toContain("_metrics_blob.json");
+    expect(swSource).not.toContain("_registry.json");
+    expect(swSource).toContain("/data/token-directory.json");
+    expect(swSource).toContain("/^[a-z0-9_-]{1,96}$/");
+    expect(swSource).toContain("if (savedIds.length === 0) return;");
   });
 });
 

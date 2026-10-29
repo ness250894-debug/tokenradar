@@ -10,9 +10,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    void import("@sentry/nextjs").then((Sentry) => {
-      Sentry.captureException(error);
-    });
+    console.error("[GlobalError]", error);
   }, [error]);
 
   return (
@@ -51,7 +49,7 @@ export default function GlobalError({
               Something went wrong
             </h1>
             <p style={{ margin: "0 0 24px", color: "#c9c5d4", lineHeight: 1.6 }}>
-              The error has been recorded so it can be investigated.
+              An unexpected client error occurred while rendering this view.
             </p>
             <button
               type="button"

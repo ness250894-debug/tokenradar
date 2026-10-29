@@ -36,7 +36,7 @@ jobs:
       # pulled in by the eslint-config-next development toolchain. Keep the full
       # report visible while gating production dependencies on high findings.
       - name: Audit production dependencies
-        run: npm audit --package-lock-only --omit=dev --audit-level=high
+        run: npm audit --package-lock-only --audit-level=high
 
       - name: Report all locked dependency advisories
         continue-on-error: true
