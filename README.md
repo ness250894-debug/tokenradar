@@ -29,7 +29,7 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 | App | Next.js 16 App Router, React 19, TypeScript, static export |
 | Styling | Vanilla CSS plus project components |
 | Data | CoinGecko API, local JSON stores, generated metrics, reference snippets |
-| AI | Gemini 2.5 Flash primary, Claude Haiku 4.5 fallback |
+| AI | Gemini 3.5 Flash Lite primary, Claude Haiku 4.5 fallback |
 | Video | Remotion, generated b-roll manifests, optional Blender loops |
 | Social | X API v2, Telegram Bot API, Instagram Graph API, Threads API, YouTube Data API, TikTok Content Posting API |
 | Storage | Git-tracked content/data, GitHub Actions cache/artifacts, Cloudflare D1, Cloudflare R2 |
@@ -145,7 +145,7 @@ npx vitest run tests/tokenradar-docs.test.ts tests/testing-contract.test.ts test
 
 Market and video publishing use `generateUnifiedCaptions` in `src/lib/gemini.ts` to request publish-time captions in one structured AI call. The schema is limited to the requested platforms and supports Telegram, X, YouTube, Instagram, Threads, and TikTok.
 
-The production social cadence uses platform-specific routes rather than recycled poll/video slots. X publishes a daily research note plus comparisons on Monday, Wednesday, and Friday. Telegram publishes a daily brief, scheduled comparisons and recaps, a Sunday movers card, and **Radar Divergence** on Monday and Wednesday. Instagram receives a Sunday movers carousel and Monday/Wednesday comparison cards; Threads receives Tuesday/Thursday text explainers and a Friday recap. YouTube keeps the Mon/Wed/Fri short-form video route. TikTok posting is disabled in the scheduled workflow; its CLI integration remains available for manual testing.
+The authoritative production social cadence, platform caps, and weekly slots are declared in `config/social-publishing.json` (regenerated into `docs/editorial/social-rotation-calendar.md` and `docs/automations/social-publishing-runbook.md` via `npm run docs:social`). X publishes five weekly originals (sourced research notes, comparison, and native short video); Telegram publishes six weekly posts (market map, comparison, community poll, independent Radar Divergence snapshot, scorecard, and movers shortlist); Instagram publishes original Reels and five-slide evidence carousels; Threads publishes text-native explainers and a weekly recap; YouTube publishes three Shorts per week; and TikTok scheduled publishing remains paused while its CLI integration stays available for manual testing.
 
 | Platform | Production schedule (UTC) | Format |
 |---|---|---|

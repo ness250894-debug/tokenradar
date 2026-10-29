@@ -164,7 +164,7 @@ async function main() {
   const tokenIds = await getTokenIds();
   const pilotIds = new Set(getPilotTokenIds());
   const fallbackDate = getSourceDate("package-lock.json", FALLBACK_LASTMOD);
-  const registryDate = getSourceDate("data/_registry.json", fallbackDate);
+  const registryDate = getSourceDate("data/tokens.json", fallbackDate);
   const upcomingDate = getSourceDate("data/upcoming-tges.json", fallbackDate);
   const glossaryDate = getSourceDate("data/glossary.json", fallbackDate);
   const sitemaps: SitemapFile[] = [];
@@ -181,7 +181,7 @@ async function main() {
     { url: "/search-intent", lastmod: getSourceDate("data/search-intent.json", registryDate) },
     { url: "/upcoming", lastmod: upcomingDate },
     { url: "/learn", lastmod: glossaryDate },
-    { url: "/research", lastmod: getSourceDate("data/_metrics_blob.json", registryDate) },
+    { url: "/research", lastmod: getSourceDate("data/metrics", registryDate) },
     { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", fallbackDate) },
     { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx", fallbackDate) },
     { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx", fallbackDate) },

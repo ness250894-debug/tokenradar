@@ -3,6 +3,9 @@ import path from "path";
 import { describe, expect, it } from "vitest";
 import {
   getTgeContractQueries,
+  inferTgeSourceType,
+  normalizeSafeHttpUrl,
+  sanitizeTgeId,
   isLikelyStaleExpectedTge,
   isTgeVerificationStale,
   normalizeTge,
@@ -176,5 +179,34 @@ describe("TGE lifecycle normalization", () => {
     });
 
     expect(tge.signals?.[0]?.observedAt).toBe("2026-06-02T00:00:00.000Z");
+  });
+
+  it("rejects non-http(s) URL schemes and sanitizes untrusted TGE IDs", () => {
+    expect(normalizeSafeHttpUrl("javascript:alert(1)")).toBeNull();
+    expect(normalizeSafeHttpUrl("data:text/html,<script>alert(1)</script>")).toBeNull();
+    expect(normalizeSafeHttpUrl("https://example.org/announce")).toBe("https://example.org/announce");
+    expect(sanitizeTgeId("../Evil Token!!/")).toBe("evil-token");
+
+    const unsafe = normalizeTge({
+      ...baseTge,
+      id: "../unsafe-slug",
+      dataSource: "javascript:alert(1)",
+      signals: [{
+        type: "tge",
+        sourceType: "other",
+        url: "data:text/html,boom",
+        observedAt: "2026-06-02T00:00:00.000Z",
+      }],
+    });
+    expect(unsafe.id).toBe("unsafe-slug");
+    expect(unsafe.dataSource).toBe("");
+    expect(unsafe.signals).toEqual([]);
+  });
+
+  it("enforces dot-bounded domain matching and defaults unknown hosts to other instead of official", () => {
+    expect(inferTgeSourceType("https://binance.com/en/support/announcement/1")).toBe("exchange");
+    expect(inferTgeSourceType("https://evilbinance.com/launch")).toBe("other");
+    expect(inferTgeSourceType("https://random-blog.example/post")).toBe("other");
+    expect(inferTgeSourceType("https://docs.megaeth.systems/tge", ["megaeth.systems"])).toBe("official");
   });
 });

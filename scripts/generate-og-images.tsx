@@ -136,7 +136,7 @@ function listJsonFiles(dirPath: string): string[] {
 function getMoversSourcePaths(): string[] {
   return [
     path.join(DATA_DIR, "tokens.json"),
-    path.join(DATA_DIR, "_registry.json"),
+
     ...listJsonFiles(TOKENS_DIR),
     ...listJsonFiles(METRICS_DIR),
   ];

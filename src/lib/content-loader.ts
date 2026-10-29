@@ -281,6 +281,7 @@ let _searchIntentDataset: SearchIntentDataset | null = null;
 let _searchIntentHistoryDataset: SearchIntentHistoryDataset | null = null;
 let _searchIntentTrendMap: Record<string, TokenSearchIntentTrend> | null = null;
 const _loadBlobCache = new Map<string, unknown>();
+const _articleCache = new Map<string, Article | null>();
 const _untrustedTokenWarningCache = new Set<string>();
 const shouldLogLoaderInfo = process.env.DEBUG_CONTENT_LOADER === "true";
 
@@ -397,7 +398,7 @@ async function loadBlob<T = unknown>(filePath: string, relativePath: string): Pr
   }
 
   // 2. HTTP Fetch Fallback (for environments where FS is completely unavailable)
-  const data = await fetchAsset(relativePath);
+  const data = isNode ? null : await fetchAsset(relativePath);
 
   // CRITICAL: If we are in a production build and a critical asset fails to load,
   // we MUST throw an error to prevent a "broken" deployment (e.g. BTC 404s).
@@ -442,7 +443,8 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
         const detail: TokenDetail = JSON.parse(
           await fs.promises.readFile(/* turbopackIgnore: true */ tokenFilePath, "utf-8")
         );
-      
+        if (getMarketDataQualityIssues(detail).length > 0) continue;
+
       summaries.push({
         id: detail.id,
         name: detail.name,
@@ -466,6 +468,7 @@ export async function getAllTokens(): Promise<TokenSummary[]> {
         console.warn(`⚠️ Failed to parse token file: ${file}`, _e);
       }
     }
+      summaries.sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id, "en-US"));
       _allTokensCache = summaries;
       return summaries;
     } catch (_err) {
@@ -976,8 +979,12 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
   const sanitizedSlug = slug.replace(/[^a-z0-9-]/g, "");
   const file = `${getContentDir()}/${sanitized}/${sanitizedSlug}.json`;
   const relPath = `content/tokens/${sanitized}/${sanitizedSlug}.json`;
+  if (_articleCache.has(relPath)) return _articleCache.get(relPath) ?? null;
   const article = await loadBlob<Article>(file, relPath);
-  if (!article) return null;
+  if (!article) {
+    _articleCache.set(relPath, null);
+    return null;
+  }
 
   const authoredContent = normalizeArticleMarkdown(article.content || "");
   const normalizedContent = hydrateLiveMarketSummaryFields(authoredContent);
@@ -985,11 +992,13 @@ export async function getArticle(tokenId: string, slug: string): Promise<Article
   // notices are useful context, but must not make a thin page indexable.
   const wordCount = authoredContent.split(/\s+/).filter(Boolean).length;
 
-  return {
+  const normalizedArticle: Article = {
     ...article,
     content: normalizedContent,
     wordCount,
   };
+  _articleCache.set(relPath, normalizedArticle);
+  return normalizedArticle;
 }
 
 /** Get token IDs that have a published article for the given article slug. */

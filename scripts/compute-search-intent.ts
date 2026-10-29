@@ -610,7 +610,10 @@ async function updateHistory(output: SearchIntentDataset, capturedAt = new Date(
 
   const history = mergeSearchIntentHistory(output, existing, capturedAt);
   if (!sameHistoryDataset(existing, history)) {
-    await writeFileAtomic(HISTORY_OUTPUT_FILE, JSON.stringify(history, null, 2));
+    await writeFileAtomic(
+      HISTORY_OUTPUT_FILE,
+      `{\n  "version": ${JSON.stringify(history.version)},\n  "generatedAt": ${JSON.stringify(history.generatedAt)},\n  "entries": [\n${history.entries.map((entry) => `    ${JSON.stringify(entry)}`).join(",\n")}\n  ]\n}\n`,
+    );
   }
 
   return history;

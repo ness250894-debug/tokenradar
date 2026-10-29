@@ -22,9 +22,17 @@ function postWatchlistToServiceWorker(tokenIds: string[]) {
 
 export function WatchlistOfflineSync() {
   useEffect(() => {
-    const sync = () => postWatchlistToServiceWorker(getWatchlistIds());
-    sync();
-    return subscribeToWatchlist(sync);
+    const initialIds = getWatchlistIds();
+    if (initialIds.length > 0) {
+      postWatchlistToServiceWorker(initialIds);
+    }
+
+    return subscribeToWatchlist(() => {
+      const nextIds = getWatchlistIds();
+      if (nextIds.length > 0) {
+        postWatchlistToServiceWorker(nextIds);
+      }
+    });
   }, []);
 
   return null;

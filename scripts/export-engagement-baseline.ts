@@ -142,8 +142,10 @@ interface OAuthClientConfig {
   redirectUri: string;
 }
 
-dotenv.config({ path: path.resolve(process.cwd(), ".env") });
-dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
+if (process.env.VITEST !== "true" && process.env.NODE_ENV !== "test") {
+  dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+  dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
+}
 
 function formatDate(date: Date): string {
   return date.toISOString().slice(0, 10);

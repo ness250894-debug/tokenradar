@@ -1,24 +1,9 @@
-const VERSION = "tokenradar-pwa-v2";
+const VERSION = "tokenradar-pwa-v3";
 const STATIC_CACHE = `${VERSION}-static`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 const DATA_CACHE = `${VERSION}-data`;
 
 const APP_SHELL_URLS = [
-  "/",
-  "/tokens",
-  "/tokens.html",
-  "/watchlist",
-  "/watchlist.html",
-  "/upcoming",
-  "/upcoming.html",
-  "/learn",
-  "/learn.html",
-  "/about",
-  "/about.html",
-  "/privacy",
-  "/privacy.html",
-  "/terms",
-  "/terms.html",
   "/offline",
   "/offline.html",
   "/manifest.webmanifest",
@@ -137,8 +122,10 @@ async function cacheSavedTokenResearch(tokenIds) {
   const savedIds = Array.isArray(tokenIds)
     ? tokenIds
         .map((id) => (typeof id === "string" ? id.trim().toLowerCase() : ""))
-        .filter((id) => /^[a-z0-9-]{1,96}$/.test(id))
+        .filter((id) => /^[a-z0-9_-]{1,96}$/.test(id))
     : [];
+
+  if (savedIds.length === 0) return;
 
   const runtimeCache = await caches.open(RUNTIME_CACHE);
   const dataCache = await caches.open(DATA_CACHE);
@@ -146,13 +133,7 @@ async function cacheSavedTokenResearch(tokenIds) {
   const tokenUrls = savedIds.flatMap((id) => [`/${id}`, `/${id}.html`]);
   await Promise.all([
     cacheUrls(runtimeCache, ["/watchlist", "/watchlist.html", "/tokens", "/tokens.html", ...tokenUrls]),
-    cacheUrls(dataCache, [
-      "/data/_registry.json",
-      "/data/_tokens_blob.json",
-      "/data/_metrics_blob.json",
-      "/data/_prices_blob.json",
-      "/data/tokens.json"
-    ])
+    cacheUrls(dataCache, ["/data/token-directory.json"])
   ]);
 }
 
@@ -160,9 +141,9 @@ async function cacheUrls(cache, urls) {
   await Promise.all(
     urls.map(async (url) => {
       try {
-        const response = await fetch(new Request(url, { cache: "reload" }));
+        const response = await fetch(new Request(url, { cache: "no-cache" }));
         if (response.ok) {
-          await cache.put(url, response);
+          await cache.put(url, response.clone());
         }
       } catch {
         // Optional cache targets should not block install or watchlist updates.

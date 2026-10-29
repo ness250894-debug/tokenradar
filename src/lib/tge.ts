@@ -201,27 +201,89 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
+function matchesDomain(host: string, domain: string): boolean {
+  return host === domain || host.endsWith(`.${domain}`);
+}
+
+/**
+ * Normalize an external URL, permitting only valid http/https schemes.
+ * Returns null for javascript:, data:, relative, or malformed URLs.
+ */
+export function normalizeSafeHttpUrl(url: string | null | undefined): string | null {
+  if (typeof url !== "string") return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+    if (!parsed.hostname) return null;
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Sanitize an untrusted TGE identifier into a safe kebab/slug token ID.
+ */
+export function sanitizeTgeId(id: string | null | undefined): string {
+  if (typeof id !== "string") return "";
+  return id
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 96);
+}
+
 export function isGenericTgeSymbol(symbol: string | null | undefined): boolean {
   return GENERIC_TGE_SYMBOLS.has((symbol || "").trim().toUpperCase());
 }
 
 export function getTgeSourceHost(url: string | null | undefined): string {
-  if (!url) return "Source pending";
+  const safeUrl = normalizeSafeHttpUrl(url);
+  if (!safeUrl) return "Source pending";
   try {
-    return new URL(url).hostname.replace(/^www\./, "");
+    return new URL(safeUrl).hostname.replace(/^www\./, "");
   } catch {
-    return url;
+    return "Source pending";
   }
 }
 
-export function inferTgeSourceType(url: string | null | undefined): TgeSourceType {
-  const host = getTgeSourceHost(url).toLowerCase();
-  if (!url || host === "Source pending") return "other";
-  if (DEX_HOSTS.some((sourceHost) => host.endsWith(sourceHost))) return "dex";
-  if (AGGREGATOR_HOSTS.some((sourceHost) => host.endsWith(sourceHost))) return "aggregator";
-  if (EXCHANGE_HOSTS.some((sourceHost) => host.endsWith(sourceHost))) return "exchange";
-  if (NEWS_HOSTS.some((sourceHost) => host.endsWith(sourceHost))) return host.includes("airdrop") ? "community" : "news";
-  return "official";
+function extractOfficialDomains(officialLinks?: TgeOfficialLinks): string[] {
+  if (!officialLinks) return [];
+  const candidates = [officialLinks.website, officialLinks.docs, officialLinks.blog];
+  const domains: string[] = [];
+  for (const candidate of candidates) {
+    const safe = normalizeSafeHttpUrl(candidate);
+    if (!safe) continue;
+    const host = new URL(safe).hostname.replace(/^www\./, "").toLowerCase();
+    if (host) domains.push(host);
+  }
+  return domains;
+}
+
+export function inferTgeSourceType(
+  url: string | null | undefined,
+  officialDomains: Iterable<string> = [],
+): TgeSourceType {
+  const safeUrl = normalizeSafeHttpUrl(url);
+  if (!safeUrl) return "other";
+  const host = getTgeSourceHost(safeUrl).toLowerCase();
+  if (!host || host === "source pending") return "other";
+  if (DEX_HOSTS.some((sourceHost) => matchesDomain(host, sourceHost))) return "dex";
+  if (AGGREGATOR_HOSTS.some((sourceHost) => matchesDomain(host, sourceHost))) return "aggregator";
+  if (EXCHANGE_HOSTS.some((sourceHost) => matchesDomain(host, sourceHost))) return "exchange";
+  if (NEWS_HOSTS.some((sourceHost) => matchesDomain(host, sourceHost))) {
+    return host.includes("airdrop") ? "community" : "news";
+  }
+  for (const officialDomain of officialDomains) {
+    const normalizedOfficial = officialDomain.trim().toLowerCase().replace(/^www\./, "");
+    if (normalizedOfficial && matchesDomain(host, normalizedOfficial)) {
+      return "official";
+    }
+  }
+  return "other";
 }
 
 export function inferTgeSignalType(input: {
@@ -263,38 +325,40 @@ export function normalizeTgeSignals(tge: UpcomingTge): TgeSignal[] {
   const seen = new Set<string>();
   const signals: TgeSignal[] = [];
   const fallbackObservedAt = normalizeTgeTimestamp(tge.discoveredAt);
+  const officialDomains = extractOfficialDomains(tge.officialLinks);
 
   for (const signal of tge.signals || []) {
-    if (!signal?.url) continue;
-    const key = signal.url.trim();
-    if (seen.has(key)) continue;
-    seen.add(key);
+    const safeUrl = normalizeSafeHttpUrl(signal?.url);
+    if (!safeUrl) continue;
+    if (seen.has(safeUrl)) continue;
+    seen.add(safeUrl);
     const inferredType = inferTgeSignalType({
       title: signal.title,
       expectedTge: tge.expectedTge,
       category: tge.category,
-      url: signal.url,
+      url: safeUrl,
     });
-    const inferredSourceType = inferTgeSourceType(signal.url);
+    const inferredSourceType = inferTgeSourceType(safeUrl, officialDomains);
     signals.push({
       type: VALID_TGE_SIGNAL_TYPES.has(signal.type) ? signal.type : inferredType,
       sourceType: VALID_TGE_SOURCE_TYPES.has(signal.sourceType) ? signal.sourceType : inferredSourceType,
-      url: signal.url,
+      url: safeUrl,
       title: signal.title,
       observedAt: normalizeTgeTimestamp(signal.observedAt, fallbackObservedAt),
       confidence: signal.confidence,
     });
   }
 
-  if (tge.dataSource && !seen.has(tge.dataSource.trim())) {
+  const safeDataSource = normalizeSafeHttpUrl(tge.dataSource);
+  if (safeDataSource && !seen.has(safeDataSource)) {
     signals.push({
       type: inferTgeSignalType({
         expectedTge: tge.expectedTge,
         category: tge.category,
-        url: tge.dataSource,
+        url: safeDataSource,
       }),
-      sourceType: inferTgeSourceType(tge.dataSource),
-      url: tge.dataSource,
+      sourceType: inferTgeSourceType(safeDataSource, officialDomains),
+      url: safeDataSource,
       observedAt: fallbackObservedAt,
     });
   }
@@ -408,13 +472,20 @@ export function normalizeTge(
         : new Date();
   const discoveredAt = normalizeTgeTimestamp(tge.discoveredAt);
   const lastVerifiedAt = normalizeTgeTimestamp(tge.lastVerifiedAt, discoveredAt);
-  const signals = normalizeTgeSignals({ ...tge, discoveredAt });
-  const confidence = tge.confidence ?? scoreTgeConfidence({ ...tge, signals }, now);
-  const lifecycleStatus = deriveTgeLifecycleStatus({ ...tge, signals, confidence }, now);
+  const safeDataSource = normalizeSafeHttpUrl(tge.dataSource) || "";
+  const sanitizedInput: UpcomingTge = {
+    ...tge,
+    id: sanitizeTgeId(tge.id) || tge.id,
+    dataSource: safeDataSource,
+    discoveredAt,
+  };
+  const signals = normalizeTgeSignals(sanitizedInput);
+  const confidence = tge.confidence ?? scoreTgeConfidence({ ...sanitizedInput, signals }, now);
+  const lifecycleStatus = deriveTgeLifecycleStatus({ ...sanitizedInput, signals, confidence }, now);
   const status: LegacyTgeStatus = lifecycleStatus === "graduated" ? "released" : "upcoming";
 
   return {
-    ...tge,
+    ...sanitizedInput,
     symbol: (tge.symbol || "TBD").toUpperCase(),
     narrativeStrength: clamp(Math.round(tge.narrativeStrength || 0), 0, 100),
     discoveredAt,
@@ -508,5 +579,5 @@ export function getTgeStatusLabel(tge: UpcomingTge, now = new Date()): string {
 }
 
 export function getTgeEvidenceCount(tge: UpcomingTge): number {
-  return normalizeTgeSignals(tge).length + (tge.contracts?.length || 0) + (tge.officialLinks?.website ? 1 : 0);
+  return normalizeTgeSignals(tge).length + (tge.contracts?.length || 0) + (normalizeSafeHttpUrl(tge.officialLinks?.website) ? 1 : 0);
 }

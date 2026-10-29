@@ -54,7 +54,9 @@ import {
   selectToken,
 } from "./lib/token-selection";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+if (process.env.VITEST !== "true") {
+  dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
+}
 
 const DATA_DIR = path.resolve(__dirname, "../data");
 

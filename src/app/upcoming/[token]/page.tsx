@@ -15,7 +15,7 @@ import {
   getTgeIndexDecision,
 } from "@/lib/seo";
 import { buildOpenGraphMetadata, buildTwitterMetadata } from "@/lib/share-metadata";
-import { getTgeEvidenceCount, getTgeSourceHost, getTgeStatusLabel } from "@/lib/tge";
+import { getTgeEvidenceCount, getTgeSourceHost, getTgeStatusLabel, normalizeSafeHttpUrl } from "@/lib/tge";
 
 interface TgePageProps {
   params: Promise<{ token: string }>;
@@ -223,10 +223,10 @@ export default async function TgePage({ params }: TgePageProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {(tge.signals || []).map((signal) => (
+          {(tge.signals || []).filter((signal) => Boolean(normalizeSafeHttpUrl(signal.url))).map((signal) => (
             <a
               key={`${signal.type}-${signal.url}`}
-              href={signal.url}
+              href={normalizeSafeHttpUrl(signal.url)!}
               target="_blank"
               rel="noopener noreferrer"
               className="card"

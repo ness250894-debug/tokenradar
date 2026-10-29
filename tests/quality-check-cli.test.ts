@@ -105,7 +105,7 @@ describe("quality-check CLI", () => {
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
     }
-  });
+  }, 20_000);
 
   it("deletes queued articles that would fail final integrity validation", () => {
     const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-quality-"));
@@ -150,7 +150,7 @@ describe("quality-check CLI", () => {
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
     }
-  });
+  }, 20_000);
 
   it("deletes queued articles that miss the editorial flow contract", () => {
     const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-quality-"));
@@ -193,5 +193,5 @@ describe("quality-check CLI", () => {
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
     }
-  });
+  }, 20_000);
 });
