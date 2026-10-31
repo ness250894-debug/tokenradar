@@ -580,7 +580,7 @@ function getRemotionCliPath(): string {
   );
 }
 
-function validateRenderedVideoOutput(
+export function validateRenderedVideoOutput(
   filePath: string,
   platform: PlatformName,
   options?: VideoRenderProfileOptions,

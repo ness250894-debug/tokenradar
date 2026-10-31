@@ -75,8 +75,10 @@ export function getVideoRenderProfile(
       ...baseProfile,
       durationSeconds: dynamicSeconds,
       durationInFrames: dynamicSeconds * VIDEO_FPS,
-      minDurationSeconds: Math.max(MIN_DYNAMIC_VIDEO_DURATION_SECONDS, dynamicSeconds - 1),
-      maxDurationSeconds: Math.min(MAX_DYNAMIC_VIDEO_DURATION_SECONDS, dynamicSeconds + 1),
+      // Clamp the render target above, but keep validation tolerance at both
+      // boundaries: muxed audio can extend the container slightly past the video.
+      minDurationSeconds: dynamicSeconds - 1,
+      maxDurationSeconds: dynamicSeconds + 1,
     };
   }
 
