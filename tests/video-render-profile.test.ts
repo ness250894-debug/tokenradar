@@ -47,4 +47,20 @@ describe("video render profiles", () => {
     expect(longProfile.durationSeconds).toBe(21);
     expect(longProfile.durationInFrames).toBe(630);
   });
+
+  it.each(["instagram", "youtube", "tiktok"] as const)(
+    "keeps validation tolerance around clamped %s render targets",
+    (platform) => {
+      const shortProfile = getVideoRenderProfile(platform, { voiceoverDurationSeconds: 6 });
+      expect(shortProfile.durationSeconds).toBe(12);
+      expect(shortProfile.minDurationSeconds).toBe(11);
+      expect(shortProfile.maxDurationSeconds).toBe(13);
+
+      const longProfile = getVideoRenderProfile(platform, { voiceoverDurationSeconds: 24 });
+      expect(longProfile.durationSeconds).toBe(21);
+      expect(longProfile.durationInFrames).toBe(630);
+      expect(longProfile.minDurationSeconds).toBe(20);
+      expect(longProfile.maxDurationSeconds).toBe(22);
+    },
+  );
 });
