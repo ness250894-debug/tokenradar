@@ -3,11 +3,25 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "EU entity suspected of losing $106 million from crypto exchange accounts, ZachXBT says",
-      "link": "https://www.coindesk.com/tech/2026/11/02/eu-entity-suspected-of-losing-usd106-million-from-crypto-exchange-accounts-zachxbt-says",
-      "pubDate": "Mon, 02 Nov 2026 17:21:04 +0000",
+      "title": "South Korea's president says country needs a ‘cybersecurity czar’ following $6.3 billion Binance hack",
+      "link": "https://www.coindesk.com/tech/2026/11/03/south-korea-s-president-says-country-needs-a-cybersecurity-czar-following-usd6-3-billion-binance-hack",
+      "pubDate": "Tue, 03 Nov 2026 16:49:56 +0000",
       "source": "CoinDesk",
-      "snippet": "The unidentified attacker moved funds through ether, instant exchanges and Monero, but the victim and affected exchanges remain unknown."
+      "snippet": "Lee Jae Myung said he wants a government-wide agency to tackle cyberattacks as AI raises security concerns across financial institutions and critical infrastructure."
+    },
+    {
+      "title": "Binance's $6.3 billion hack began with a fake job interview, and a campaign 'built over many months'",
+      "link": "https://www.coindesk.com/business/2026/11/03/binance-s-usd6-3-billion-hack-began-with-a-fake-job-interview-exchange-says",
+      "pubDate": "Tue, 03 Nov 2026 14:53:19 +0000",
+      "source": "CoinDesk",
+      "snippet": "North Korea-linked attackers spent months compromising Binance employees and internal systems before exploiting its hot-wallet signing infrastructure through Ethereum's EIP-7702 mechanism."
+    },
+    {
+      "title": "UK warns AI ransomware attack on infrastructure ‘highly likely’ by 2028",
+      "link": "https://cointelegraph.com/news/uk-warns-ai-ransomware-attack-on-infrastructure-highly-likely-by-2028?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 03 Nov 2026 03:58:45 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "The warning comes as UK cyber officials also flag growing threats from state-backed hackers targeting government officials and politicians."
     },
     {
       "title": "North Korea denies role in $6.3B Binance hack, points finger at US",
@@ -17,26 +31,12 @@
       "snippet": "Pyongyang has pushed back against the FBI’s attribution of the Binance attack, with Kim Yo Jong calling the US allegations politically motivated."
     },
     {
-      "title": "Trezor lifts password ceiling after Coldcard’s $100M wallet thefts",
-      "link": "https://cointelegraph.com/news/trezor-wallet-passphrase-limit-128-characters-coldcard-attacks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 02 Nov 2026 10:46:59 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Trezor cited July’s Coldcard attacks, in which strong passphrases helped protect some users whose wallet recovery information was compromised."
-    },
-    {
-      "title": "BTCPay Server warns of hot wallet thefts running on outdated software",
-      "link": "https://cointelegraph.com/news/btcpay-server-hot-wallet-thefts-older-versions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 02 Nov 2026 05:34:02 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "BTCPay Server urged operators to shut down their servers after receiving reports of unauthorized attackers draining funds from hot wallets."
-    },
-    {
-      "title": "Claude-Built Linux Exploit Targets Bug That Ubuntu Still Hasn&#39;t Patched",
-      "link": "https://decrypt.co/382375/claude-built-linux-exploit-bug-ubuntu",
-      "pubDate": "Mon, 02 Nov 2026 20:36:03 +0000",
+      "title": "Crypto Docs Host GitBook Hit by AI Agent Security Breach, Urges Users to Rotate Keys",
+      "link": "https://decrypt.co/382465/crypto-docs-gitbook-ai-agent-security-breach",
+      "pubDate": "Tue, 03 Nov 2026 19:46:03 +0000",
       "source": "Decrypt",
-      "snippet": "Anthropic says Claude wrote an attack that can take over a Linux server with no password. Red Hat patched on Sunday, but Ubuntu still has no fix."
+      "snippet": "GitBook says attackers accessed infrastructure credentials in an AI-assisted breach, prompting a shutdown and emergency token resets."
     }
   ],
-  "fetchedAt": "2026-11-03T00:17:23.551Z"
+  "fetchedAt": "2026-11-03T22:46:57.128Z"
 }
