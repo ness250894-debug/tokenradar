@@ -3,27 +3,27 @@
   "symbol": "dgai",
   "name": "DGrid AI",
   "market": {
-    "price": 0.695894,
-    "marketCap": 104383214,
-    "marketCapRank": 268,
-    "volume24h": 18629949,
-    "high24h": 0.759805,
-    "low24h": 0.696081,
-    "priceChange24h": -9.04831,
-    "priceChange7d": -17.7345,
-    "priceChange30d": -22.6561,
+    "price": 0.674407,
+    "marketCap": 101161044,
+    "marketCapRank": 267,
+    "volume24h": 24863905,
+    "high24h": 0.705936,
+    "low24h": 0.66112,
+    "priceChange24h": -2.66511,
+    "priceChange7d": -21.67754,
+    "priceChange30d": -34.90602,
     "priceChange1y": 0,
     "ath": 1.14,
-    "athChangePercentage": -38.83113,
+    "athChangePercentage": -40.71985,
     "athDate": "2026-09-21T13:17:10.000Z",
     "atl": 0.364155,
     "atlDate": "2026-08-24T17:03:40.000Z",
     "circulatingSupply": 149999999.99900007,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 695888094
+    "fdv": 674406962
   },
-  "lastMarketUpdate": "2026-11-01T21:22:52.000Z",
+  "lastMarketUpdate": "2026-11-03T00:04:55.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102175792/large/dgrid.png?1787573447",
   "description": "DGrid AI is a decentralized AI infrastructure network that connects users, developers, model providers, and node operators through a unified gateway, marketplace, and scheduling layer. Its AI Gateway provides an OpenAI-compatible interface for accessing more than 200 AI models, while the network coordinates routing, service delivery, and settlement across participating providers. DGrid AI is designed to reduce integration costs and vendor lock-in and to make AI inference services transparent, verifiable, and accessible to both Web3 applications and conventional developers.",
   "categories": [
@@ -48,5 +48,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-08T22:31:01.706Z"
+  "fetchedAt": "2026-11-03T00:05:27.058Z"
 }

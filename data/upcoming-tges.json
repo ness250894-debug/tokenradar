@@ -7360,5 +7360,28 @@
     "discoveredAt": "2026-10-29T22:05:06.012Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-10-29T22:05:06.012Z"
+  },
+  {
+    "id": "tzero",
+    "name": "tZERO",
+    "symbol": "TZRO",
+    "category": "Infrastructure",
+    "expectedTge": "Early next year",
+    "narrativeStrength": 75,
+    "confidence": 95,
+    "lifecycleStatus": "confirmed_tge",
+    "dataSource": "https://www.coindesk.com/business/2026/11/01/tokenization-firm-tzero-plans-to-go-public-in-usd350-million-spac-deal",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/01/tokenization-firm-tzero-plans-to-go-public-in-usd350-million-spac-deal",
+        "title": "Tokenization firm tZERO plans to go public in $350 million SPAC deal",
+        "observedAt": "2026-11-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-03T00:07:31.970Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-03T00:07:31.970Z"
   }
 ]
