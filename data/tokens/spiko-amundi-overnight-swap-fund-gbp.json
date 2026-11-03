@@ -3,27 +3,27 @@
   "symbol": "gbpsafo",
   "name": "Spiko Amundi Overnight Swap Fund (GBP)",
   "market": {
-    "price": 1.37,
-    "marketCap": 57524536,
-    "marketCapRank": 404,
+    "price": 1.38,
+    "marketCap": 58044279,
+    "marketCapRank": 395,
     "volume24h": 0,
     "high24h": 1.38,
     "low24h": 1.37,
-    "priceChange24h": -0.05222,
-    "priceChange7d": 0.1842,
-    "priceChange30d": 1.4779,
+    "priceChange24h": 0.18309,
+    "priceChange7d": 0.56592,
+    "priceChange30d": 1.57751,
     "priceChange1y": 0,
     "ath": 1.39,
-    "athChangePercentage": -1.277,
+    "athChangePercentage": -1.13159,
     "athDate": "2026-08-21T09:15:10.000Z",
     "atl": 1.35,
     "atlDate": "2026-10-14T16:25:00.000Z",
-    "circulatingSupply": 41854601.74934,
-    "totalSupply": 41854601.74934,
+    "circulatingSupply": 42170652.34721,
+    "totalSupply": 42170652.34721,
     "maxSupply": null,
-    "fdv": 57524536
+    "fdv": 58044279
   },
-  "lastMarketUpdate": "2026-11-01T21:22:52.000Z",
+  "lastMarketUpdate": "2026-11-03T00:05:49.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102172592/large/Fund_gbpSAFO.png?1774104818",
   "description": "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The GBP share class (gbpSAFO) allows investors to subscribe from as little as 1 GBP. SAFO generates stable yields above the SONIA benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF.",
   "categories": [
@@ -53,5 +53,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-08T22:31:58.408Z"
+  "fetchedAt": "2026-11-03T00:06:23.761Z"
 }
