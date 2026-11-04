@@ -12,6 +12,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { loadResearchCohort, evaluateResearchCohort, buildResearchFollowUpText, getFollowUpEndpointTimes } from "./lib/social-follow-up";
 
 import {
   SOCIAL_PLATFORM_LIMITS,
@@ -39,6 +40,7 @@ import { formatErrorForLog, loadEnv, safeReadJson, writeFileAtomicSync } from ".
 import {
   buildTelegramWeeklyRecap,
   selectWeeklyRecapTokens,
+  type TelegramWeeklyRecap,
 } from "./lib/threads-recap";
 import {
   cleanupExpiredCooldownFolders,
@@ -79,24 +81,42 @@ async function main() {
   try {
     console.log("Loading token candidates for Telegram weekly recap...");
     const { candidates } = await loadCandidateTokens(DATA_DIR, 1, 250);
-    const recapSelection = selectWeeklyRecapTokens(candidates);
-    const recapTokenIds = Array.from(new Set([
-      ...recapSelection.leaders.map((token) => token.id),
-      recapSelection.pullback?.id,
-      recapSelection.volumeLeader?.id,
-    ].filter((tokenId): tokenId is string => Boolean(tokenId))));
     const archetype = getSocialArchetypeByKey("weekly_scoreboard");
     if (!archetype) throw new Error("Missing weekly_scoreboard social archetype.");
-    const recapSnapshotTimes = recapTokenIds
-      .map((tokenId) => candidates.find((candidate) => candidate.id === tokenId))
-      .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""))
-      .filter(Number.isFinite);
-    if (recapSnapshotTimes.length !== recapTokenIds.length) {
-      throw new Error("Every Telegram recap token must have a valid CoinGecko snapshot timestamp.");
+    const now = new Date();
+    const followUps = evaluateResearchCohort(await loadResearchCohort(DATA_DIR, "telegram", now), candidates, now);
+    let marketDataAsOf: string | undefined;
+    let recap: TelegramWeeklyRecap;
+    if (followUps.length) {
+      const { first, last } = getFollowUpEndpointTimes(followUps);
+      marketDataAsOf = first;
+      recap = {
+        captionBody: buildResearchFollowUpText(followUps, SOCIAL_PLATFORM_LIMITS.TELEGRAM.MOVERS_AI_SUMMARY_CHARS),
+        image: {
+          title: "Research follow-up",
+          subtitle: "Changes since the original recorded prices",
+          leaders: [],
+          followUps,
+          generatedAtLabel: first
+            ? `${first === last ? "Endpoint" : "Oldest endpoint"}: ${first.slice(0, 16).replace("T", " ")} UTC`
+            : "Fresh endpoint prices unavailable",
+        },
+        tokenIds: followUps.map((item) => item.snapshot.tokenId),
+        leaders: [],
+      };
+    } else {
+      const selection = selectWeeklyRecapTokens(candidates);
+      const recapSnapshotTimes = [ ...selection.leaders, selection.pullback, selection.volumeLeader ]
+        .flatMap((token) => token ? [candidates.find((candidate) => candidate.id === token.id)] : [])
+        .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""));
+      if (!recapSnapshotTimes.length || !recapSnapshotTimes.every(Number.isFinite)) {
+        throw new Error("Every Telegram recap token must have a valid CoinGecko snapshot timestamp.");
+      }
+      const observedAt = new Date(Math.min(...recapSnapshotTimes));
+      marketDataAsOf = observedAt.toISOString();
+      recap = buildTelegramWeeklyRecap(selection, observedAt);
     }
-    const marketDataAsOf = new Date(Math.min(...recapSnapshotTimes));
-    const recap = buildTelegramWeeklyRecap(recapSelection, marketDataAsOf);
-    const trackedUrl = buildSocialUtmUrl(SITE_URL, {
+    const trackedUrl = buildSocialUtmUrl(new URL("/research", SITE_URL).href, {
       platform: "telegram",
       date: today,
       surface: "telegram-weekly-recap",
@@ -120,26 +140,15 @@ async function main() {
       hashtags: ["#WeeklyRecap"],
     };
     const tgFooter = [
-      `Source: CoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
+      !followUps.length && marketDataAsOf ? `Source: CoinGecko snapshot, ${marketDataAsOf.slice(0, 16).replace("T", " ")} UTC.` : "",
       buildTelegramResearchFooter(telegramCta),
-    ].join("\n\n");
+    ].filter(Boolean).join("\n\n");
 
     const protectedEntities = [
-      ...recapSelection.leaders.flatMap((token) =>
-        buildProtectedSocialEntitiesForToken(token.name, token.symbol),
+      ...followUps.flatMap((item) => buildProtectedSocialEntitiesForToken(item.snapshot.name, item.snapshot.symbol)),
+      ...[...recap.leaders, recap.pullback, recap.volumeLeader].flatMap((token) =>
+        token ? buildProtectedSocialEntitiesForToken(token.name, token.symbol) : [],
       ),
-      ...(recapSelection.pullback
-        ? buildProtectedSocialEntitiesForToken(
-            recapSelection.pullback.name,
-            recapSelection.pullback.symbol,
-          )
-        : []),
-      ...(recapSelection.volumeLeader
-        ? buildProtectedSocialEntitiesForToken(
-            recapSelection.volumeLeader.name,
-            recapSelection.volumeLeader.symbol,
-          )
-        : []),
     ];
 
     const caption = buildTelegramMediaCaption(
@@ -164,7 +173,7 @@ async function main() {
         surface: "telegram-weekly-recap",
         tokenIds: recap.tokenIds,
         marketDataSource: "coingecko-live",
-        marketDataAsOf: marketDataAsOf.toISOString(),
+        marketDataAsOf,
       },
     });
     if (!reservation.acquired) {
@@ -199,8 +208,10 @@ async function main() {
       details: {
         tokenIds: recap.tokenIds,
         marketDataSource: "coingecko-live",
-        marketDataAsOf: marketDataAsOf.toISOString(),
+        marketDataAsOf,
         socialSlot: process.env.SOCIAL_SLOT,
+        editorialMode: followUps.length ? "research-follow-up" : "weekly-lesson",
+        followUpCohort: followUps.length ? followUps : undefined,
       },
     });
 

@@ -98,10 +98,10 @@ describe("Instagram daily mover copy", () => {
     );
     const hashtags = caption.match(/#[A-Za-z0-9_]+/g) || [];
 
-    expect(cta).toBe("Comment one ticker for the next evidence-first breakdown.");
+    expect(cta).toContain("spread or depth?");
     expect(caption).toContain(cta);
-    expect(caption).toContain("Verdict: this is a filtered momentum lead");
-    expect(caption).toContain("CoinGecko snapshot · 14:54 UTC");
+    expect(caption).toContain("Turnover compares reported trading volume with market cap");
+    expect(caption).toContain("CoinGecko snapshot · 2026-08-24 14:54 UTC");
     expect(hashtags).toEqual(buildInstagramMoverHashtags(movers, variant));
     expect(hashtags.length).toBeLessThanOrEqual(INSTAGRAM_MOVER_POLICY.maximumHashtags);
     expect(caption.split(/\s+/).length).toBeLessThan(130);
@@ -112,10 +112,10 @@ describe("Instagram daily mover copy", () => {
     const altTexts = buildInstagramCarouselAltTexts(movers);
 
     expect(altTexts).toHaveLength(DAILY_MOVERS_CAROUSEL_SLIDE_COUNT);
-    expect(altTexts[0]).toContain("Verdict slide");
-    expect(altTexts[2]).toContain("Evidence comparison");
-    expect(altTexts[3]).toContain("Risk slide");
-    expect(altTexts[4]).toContain("Call-to-action slide");
+    expect(altTexts[0]).toContain("Research question");
+    expect(altTexts[2]).toContain("Worked example");
+    expect(altTexts[3]).toContain("Missing evidence");
+    expect(altTexts[4]).toContain("Reusable research checklist");
   });
 });
 
@@ -132,11 +132,11 @@ describe("generateDailyMoversCarousel", () => {
     });
 
     expect(DAILY_MOVERS_CAROUSEL_SLIDE_ROLES).toEqual([
-      "verdict",
-      "evidence-board",
-      "evidence-context",
-      "risk",
-      "cta",
+      "question",
+      "comparison",
+      "explanation",
+      "missing-evidence",
+      "checklist",
     ]);
     expect(slides).toHaveLength(DAILY_MOVERS_CAROUSEL_SLIDE_COUNT);
 

@@ -22,6 +22,7 @@ import { formatPercent, formatPrice } from "../src/lib/formatters";
 import {
   buildInstagramCarouselAltTexts,
   buildInstagramCarouselCta,
+  buildInstagramMoverLesson,
   buildInstagramMoversCaption,
   getInstagramMoverRejectionReasons,
   INSTAGRAM_MOVER_POLICY,
@@ -107,12 +108,7 @@ async function main() {
     seedParts: [today, "instagram-carousel", process.env.SOCIAL_SLOT],
     date: new Date(`${today}T00:00:00.000Z`),
     allowedArchetypeKeys: [
-      "risk_lab",
-      "sector_rotation",
       "how_to_read_metric",
-      "watchlist_shortlist",
-      "data_quality_warning",
-      "two_token_comparison",
     ],
   });
 
@@ -282,6 +278,9 @@ async function main() {
         marketDataSource: "coingecko-live",
         marketDataAsOf: marketDataAsOf.toISOString(),
         socialSlot: process.env.SOCIAL_SLOT,
+        editorialMode: "carousel-lesson",
+        readerLessonKey: buildInstagramMoverLesson(movers).key,
+        captionGeneration: { mode: "deterministic", attempts: 0 },
       },
     });
 

@@ -10,7 +10,7 @@ export interface GroundedMoverFact {
 function formatSnapshotTime(value: string | Date): string {
   const date = value instanceof Date ? value : new Date(value);
   if (!Number.isFinite(date.getTime())) throw new Error("A valid market snapshot timestamp is required.");
-  return date.toISOString().slice(11, 16);
+  return date.toISOString().slice(0, 16).replace("T", " ");
 }
 
 /**
@@ -34,9 +34,9 @@ export function buildGroundedMoversCaption(
   return [
     "<b>Radar Movers Snapshot</b>",
     `Leader: ${leader.name} (${leader.symbol.toUpperCase()}) is ${formatPercent(leader.change24h)} over 24h at ${formatPrice(leader.price)}.`,
-    `Displayed shelf: ${shelf}.`,
-    "Data limit: this snapshot contains price movement only; it does not establish order-book depth, flows, or investor participation.",
-    "<tg-spoiler>Research read: compare the separate liquidity, market-cap, and risk data before interpreting the move.</tg-spoiler>",
+    `24h changes: ${shelf}.`,
+    "How to read it: each daily percentage uses that asset's earlier price as its baseline.",
+    "Next check: compare matching time windows, then review spreads and depth separately.",
     `Source: ${sourceLabel} snapshot, ${formatSnapshotTime(snapshotAt)} UTC.`,
   ].join("\n");
 }

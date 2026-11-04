@@ -87,14 +87,23 @@ export interface SocialPerformanceGroup {
   averageActualAgeHours?: number;
 }
 
+interface ReaderAction {
+  count?: number;
+  perThousand?: number;
+}
+
 export interface SocialPerformanceReport {
   generatedAt: string;
   lookbackDays: number;
   postsMeasured: number;
   horizonHours: number;
+  nonVideoOnly: boolean;
   platformSummary: SocialPerformanceGroup[];
   archetypeSummary: SocialPerformanceGroup[];
   surfaceSummary: SocialPerformanceGroup[];
+  readerLessonSummary: SocialPerformanceGroup[];
+  generationSummary: SocialPerformanceGroup[];
+  usefulActions: Array<{ platform: string; posts: number; replies: ReaderAction; saves: ReaderAction; shares: ReaderAction; engagedSessions?: number }>;
   topPosts: SocialPerformanceRow[];
   missedWindows: number;
   retentionSummary: SocialPerformanceGroup[];
@@ -200,6 +209,15 @@ export function normalizePerformanceRows(
 
 function exposure(row: SocialPerformanceRow): number {
   return row.impressions ?? row.reach ?? row.views ?? 0;
+}
+
+export function isNonVideoPost(row: Pick<SocialPerformanceRow, "platform" | "contentKey" | "postDetails">): boolean {
+  const { platform, contentKey, postDetails } = row;
+  const videoLabel = /(?:^|[-_:])(?:video|reels?)(?:$|[-_:])/i;
+  return platform !== "youtube" && platform !== "tiktok"
+    && !/^(?:\d{4}-\d{2}-\d{2}:)?(?:daily-video|shared-video|video|reels?):|:slot:[^:]+:[^:]+:video$/i.test(contentKey)
+    && ![postDetails.variantSurface, postDetails.surface, postDetails.socialSlot]
+      .some((label) => typeof label === "string" && videoLabel.test(label));
 }
 
 function interactions(row: SocialPerformanceRow): number {
@@ -319,6 +337,10 @@ function buildRecommendations(rows: SocialPerformanceRow[], archetypes: SocialPe
         `${archetype.key}: keep testing (${archetype.rateEligiblePosts}/5 rate-eligible posts; ` +
         `${archetype.interactionPosts} interaction-measured).`,
       );
+    } else if (archetype.exposure < 1_000) {
+      recommendations.push(`${archetype.key}: distribution is too limited (${archetype.exposure} exposures); gather more evidence before judging the creative.`);
+    } else if (archetype.engagementPerThousand > platformMedian && (archetype.interactions || 0) < 10) {
+      recommendations.push(`${archetype.key}: promising direction, but too few interactions to scale; extend the test.`);
     } else if (archetype.engagementPerThousand > platformMedian) {
       recommendations.push(`${archetype.key}: scale cautiously; ${archetype.engagementPerThousand} interactions/1k beats the ${round(platformMedian)} platform median.`);
     } else {
@@ -335,6 +357,7 @@ export function buildSocialPerformanceReport(
     lookbackDays: number;
     retentionRows?: SocialPerformanceRow[];
     missedWindows?: number;
+    nonVideoOnly?: boolean;
   },
 ): SocialPerformanceReport {
   const horizonHours = rows[0]?.horizonHours || getSocialPublishingManifest().measurement.reportingHorizonHours;
@@ -345,6 +368,27 @@ export function buildSocialPerformanceReport(
   const surfaceSummary = groupRows(rows, (row) =>
     `${row.platform} / ${stringDetail(row, "variantSurface", "surface")}`,
   );
+  const readerLessonSummary = groupRows(rows, (row) => `${row.platform} / ${stringDetail(row, "readerLessonKey", "editorialMode")}`);
+  const generationSummary = groupRows(rows, (row) => {
+    const generation = row.postDetails.captionGeneration as { mode?: string; reason?: string } | undefined;
+    return `${row.platform} / ${generation?.mode || "unrecorded"}${generation?.reason ? ` / ${generation.reason}` : ""}`;
+  });
+  const usefulActions = [...new Set(rows.map((row) => row.platform))].map((platform) => {
+    const platformRows = rows.filter((row) => row.platform === platform);
+    const summarize = (...fields: Array<"replies" | "comments" | "shares" | "reposts" | "saves" | "webEngagedSessions">): ReaderAction => {
+      const samples = platformRows.flatMap((row) => {
+        const measured = fields.map((field) => row[field]).filter((value): value is number => value !== undefined);
+        return measured.length ? [{ count: measured.reduce((sum, value) => sum + value, 0), exposure: exposure(row) }] : [];
+      });
+      const count = samples.length ? samples.reduce((sum, sample) => sum + sample.count, 0) : undefined;
+      const rateSamples = samples.filter((sample) => sample.exposure > 0);
+      const denominator = rateSamples.reduce((sum, sample) => sum + sample.exposure, 0);
+      const perThousand = denominator ? round(rateSamples.reduce((sum, sample) => sum + sample.count, 0) * 1000 / denominator) : undefined;
+      return { count, perThousand };
+    };
+    return { platform, posts: platformRows.length, replies: summarize("replies", "comments"), saves: summarize("saves"),
+      shares: summarize("shares", "reposts"), engagedSessions: summarize("webEngagedSessions").count };
+  });
   const topPosts = [...rows]
     .filter((row) => exposure(row) > 0 && hasInteractionMetrics(row))
     .sort((left, right) => {
@@ -362,9 +406,13 @@ export function buildSocialPerformanceReport(
     lookbackDays: options.lookbackDays,
     postsMeasured: rows.length,
     horizonHours,
+    nonVideoOnly: options.nonVideoOnly ?? false,
     platformSummary,
     archetypeSummary,
     surfaceSummary,
+    readerLessonSummary,
+    generationSummary,
+    usefulActions,
     topPosts,
     missedWindows: options.missedWindows || 0,
     retentionSummary: groupRows(options.retentionRows || [], (row) => row.platform),
@@ -397,8 +445,9 @@ function renderGroups(title: string, groups: SocialPerformanceGroup[]): string[]
 }
 
 export function renderSocialPerformanceMarkdown(report: SocialPerformanceReport): string {
+  const action = ({ count, perThousand }: ReaderAction) => `${count ?? "N/A"} / ${perThousand ?? "N/A"}`;
   const lines = [
-    "# Weekly Social Performance",
+    report.nonVideoOnly ? "# Weekly Non-Video Social Performance" : "# Weekly Social Performance",
     "",
     `Generated: ${report.generatedAt}`,
     `Lookback: ${report.lookbackDays} days`,
@@ -413,6 +462,17 @@ export function renderSocialPerformanceMarkdown(report: SocialPerformanceReport)
     ...renderGroups("Platform Summary", report.platformSummary),
     ...renderGroups("Archetype Summary", report.archetypeSummary),
     ...renderGroups("Surface Summary", report.surfaceSummary),
+    ...renderGroups("Reader Lesson / Editorial Mode", report.readerLessonSummary),
+    ...renderGroups("Caption Generation and Fallbacks", report.generationSummary),
+    "## Useful reader actions",
+    "",
+    "Reader actions show raw counts and actions per 1,000 exposures. Rates use only posts with both the action and positive exposure measured. Replies include native comments. Shares include reposts. N/A marks an unavailable measurement. Review replies for substance and exclude the account's own replies and solicitation spam before treating them as qualified interest.",
+    "",
+    "| Platform | Posts | Replies/comments (count / per 1k) | Saves (count / per 1k) | Shares/reposts (count / per 1k) | Attributed engaged sessions |",
+    "|---|---:|---:|---:|---:|---:|",
+    ...report.usefulActions.map((item) => `| ${item.platform} | ${item.posts} | ${action(item.replies)} | ${action(item.saves)} | ${action(item.shares)} | ${item.engagedSessions ?? "N/A"} |`),
+    "",
+    ...(!report.nonVideoOnly ? [
     "## Retention sample collected at +168h",
     "",
     "YouTube Analytics values cover only complete Pacific-time calendar days available at collection; the exact start/end range is retained in metric provenance and is not presented as a full seven-day window.",
@@ -424,6 +484,7 @@ export function renderSocialPerformanceMarkdown(report: SocialPerformanceReport)
           `| ${group.key} | ${group.posts} | ${group.averageWatchTimeSeconds === undefined ? "N/A" : `${group.averageWatchTimeSeconds}s`} | ${group.averageViewPercentage === undefined ? "N/A" : `${group.averageViewPercentage}%`} |`)
       : ["| No retention aggregates | 0 | N/A | N/A |"]),
     "",
+    ] : []),
     "## Top Posts by Normalized Engagement",
     "",
     ...(report.topPosts.length > 0
@@ -485,16 +546,19 @@ export async function readPerformanceRows(lookbackDays: number, horizonHours: nu
   );
 }
 
-async function readMissedWindowCount(lookbackDays: number): Promise<number> {
+async function readMissedWindowCount(lookbackDays: number, excludeVideo = false): Promise<number> {
   const since = new Date(Date.now() - lookbackDays * 24 * 60 * 60 * 1000).toISOString();
-  const results = await executeD1Query<{ missed: number | string }>(
-    `SELECT COUNT(*) AS missed
-     FROM social_post_metrics
-     WHERE measured_at >= ? AND json_extract(details_json, '$.status') = 'missed-window'`,
+  const results = await executeD1Query<{ platform: string; content_key: string; details_json: string | null }>(
+    `SELECT p.platform, p.content_key, p.details_json
+     FROM social_post_metrics m JOIN social_posts p ON p.platform = m.platform AND p.content_key = m.content_key
+     WHERE m.measured_at >= ? AND json_extract(m.details_json, '$.status') = 'missed-window'`,
     [since],
     { required: true },
   );
-  return Number(results[0]?.results?.[0]?.missed || 0);
+  const missed = results[0]?.results || [];
+  return excludeVideo ? missed.filter((row) => isNonVideoPost({
+    platform: row.platform, contentKey: row.content_key, postDetails: parseDetails(row.details_json),
+  })).length : missed.length;
 }
 
 function argValue(args: string[], name: string): string | undefined {
@@ -509,12 +573,15 @@ async function main(): Promise<void> {
   const rawDays = argValue(process.argv, "--days");
   const lookbackDays = rawDays ? Number(rawDays) : manifest.measurement.lookbackDays;
   if (!Number.isInteger(lookbackDays) || lookbackDays <= 0) throw new Error("--days must be a positive integer.");
+  const excludeVideo = process.argv.includes("--exclude-video");
   const [rows, retentionRows, missedWindows] = await Promise.all([
     readPerformanceRows(lookbackDays, manifest.measurement.reportingHorizonHours),
-    readPerformanceRows(lookbackDays, 168),
-    readMissedWindowCount(lookbackDays),
+    excludeVideo ? Promise.resolve([]) : readPerformanceRows(lookbackDays, 168),
+    readMissedWindowCount(lookbackDays, excludeVideo),
   ]);
-  const report = buildSocialPerformanceReport(rows, { lookbackDays, retentionRows, missedWindows });
+  const report = buildSocialPerformanceReport(excludeVideo ? rows.filter(isNonVideoPost) : rows, {
+    lookbackDays, retentionRows, missedWindows, nonVideoOnly: excludeVideo,
+  });
   const output = process.argv.includes("--json")
     ? `${JSON.stringify(report, null, 2)}\n`
     : renderSocialPerformanceMarkdown(report);

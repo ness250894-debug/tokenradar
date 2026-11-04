@@ -1,4 +1,5 @@
 import { formatCompact, formatPercent, formatPrice } from "./formatters";
+import { reportedTurnoverPercent, READER_LESSONS } from "./social-reader-value";
 
 export const TELEGRAM_MARKET_FORMATS = [
   "market-brief",
@@ -34,6 +35,8 @@ export interface TelegramMarketPulseImageData {
   subtitle: string;
   generatedAtLabel: string;
   sourceLabel: string;
+  summaryLabel?: string;
+  rowsLabel?: string;
   globalStats: string;
   sectorLines: string[];
   featuredToken: {
@@ -150,9 +153,9 @@ function volumeToCapPercent(volume24h: number, marketCap: number): number | null
 export function getRadarDivergenceRead(token: TelegramMarketToken): RadarDivergenceRead {
   const participation = volumeToCapPercent(token.volume24h, token.marketCap);
   return {
-    label: "Point-in-time field comparison",
-    implication: "This view compares the supplied 24h change, reported 24h volume, market cap, and risk score.",
-    invalidation: "Refresh the market snapshot before making a later comparison.",
+    label: "Reading reported turnover",
+    implication: `${READER_LESSONS.turnover} ${READER_LESSONS.liquidity}`,
+    invalidation: "Next check: compare spreads and depth across the main trading venues.",
     volumeToMarketCapPercent: participation,
   };
 }
@@ -214,11 +217,13 @@ function radarDivergenceImageData(
     : `Volume / market cap: ${read.volumeToMarketCapPercent.toFixed(1)}%`;
 
   return {
-    title: "Radar Divergence",
-    subtitle: "Momentum vs participation vs risk",
+    title: "What turnover tells us",
+    subtitle: "Price movement, reported activity, and the missing checks",
     generatedAtLabel: formatUtcDate(context.generatedAt ?? new Date()),
     sourceLabel: cleanText(context.sourceLabel, "Market snapshot"),
-    globalStats: `Read: ${read.label}`,
+    summaryLabel: "How to calculate turnover",
+    rowsLabel: `$${token.symbol.toUpperCase()} snapshot`,
+    globalStats: "Reported 24h volume ÷ market cap",
     sectorLines: [
       `24h move: ${formatPercent(token.priceChange24h)}`,
       participation,
@@ -238,11 +243,14 @@ function buildRadarDivergenceCaption(token: TelegramMarketToken): string {
   const symbol = token.symbol.toUpperCase();
   const read = getRadarDivergenceRead(token);
   return [
-    `<b>$${symbol}: price move vs reported participation</b>`,
+    `<b>$${symbol}: what does trading volume tell us?</b>`,
     `24h change: ${formatPercent(token.priceChange24h)} | Rank #${token.marketCapRank || "N/A"}.`,
     participationLine(token),
     `Risk score: ${riskLabel(token.riskScore)}.`,
-    `<b>What this proves:</b> ${read.implication}`,
+    reportedTurnoverPercent(token) !== undefined
+      ? `Reported 24h turnover: ${reportedTurnoverPercent(token)!.toFixed(1)}%.` : "",
+    `<b>How to read it:</b> ${read.implication}`,
+    "Which check should we explain next: spread or depth?",
   ].join("\n");
 }
 
@@ -254,7 +262,8 @@ function buildMarketPulseCaption(token: TelegramMarketToken, context: TelegramMa
     `<b>$${symbol} in one screen</b>`,
     `Price move: ${formatPercent(token.priceChange24h)} over 24h | Rank #${token.marketCapRank || "N/A"}.`,
     participationLine(token),
-    `Risk score: ${riskLabel(token.riskScore)}. Next check: refresh all fields from the same source window.`,
+    READER_LESSONS.rank,
+    "Which field is harder to interpret: market size or trading volume?",
   ].join("\n");
 }
 
@@ -265,7 +274,8 @@ function buildWatchlistCheckCaption(token: TelegramMarketToken): string {
     `${token.name} appeared through ${reasonLabel(token.selectionReason)}.`,
     `Move: ${formatPercent(token.priceChange24h)} in 24h | Price: ${formatPrice(token.price)} | Rank #${token.marketCapRank || "N/A"}.`,
     participationLine(token),
-    `Risk score: ${riskLabel(token.riskScore)}. This is a reason to inspect the snapshot, not a quality conclusion.`,
+    READER_LESSONS.market_cap,
+    "Next check: review the circulating supply behind the market cap.",
   ].join("\n");
 }
 
@@ -274,11 +284,12 @@ function buildMarketBriefCaption(token: TelegramMarketToken, context: TelegramMa
   void context;
 
   return [
-    `<b>$${symbol}: the move and the participation field</b>`,
+    `<b>$${symbol}: reading the daily move</b>`,
     `${token.name} entered today's brief through ${reasonLabel(token.selectionReason)}.`,
     `Price move: ${formatPercent(token.priceChange24h)} over 24h | Rank #${token.marketCapRank || "N/A"}.`,
     participationLine(token),
-    `Risk score: ${riskLabel(token.riskScore)}. Recheck the next same-source snapshot before extending the read.`,
+    READER_LESSONS.price_change,
+    "Next check: compare the same asset over a longer window.",
   ].join("\n");
 }
 

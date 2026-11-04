@@ -1,4 +1,4 @@
-import { SOCIAL_PLATFORM_LIMITS } from "../../src/lib/config";
+import type { ResearchFollowUp } from "./social-follow-up";
 
 export interface WeeklyRecapToken {
   id: string;
@@ -6,6 +6,7 @@ export interface WeeklyRecapToken {
   name: string;
   marketDataSource?: "coingecko-live" | "local-cache";
   market: {
+    price?: number | null;
     priceChange7d?: number | null;
     priceChange24h?: number | null;
     marketCap?: number | null;
@@ -30,6 +31,7 @@ export interface WeeklyThreadsRecap {
 }
 
 export interface TelegramWeeklyRecapImageData {
+  followUps?: ResearchFollowUp[];
   title: string;
   subtitle: string;
   generatedAtLabel: string;
@@ -127,7 +129,6 @@ function uniqueTokens(tokens: Array<WeeklyRecapToken | undefined>): WeeklyRecapT
 export function selectWeeklyRecapTokens(tokens: WeeklyRecapToken[]): WeeklyRecapSelection {
   const eligible = tokens.filter(isEligible);
   const leaders = eligible
-    .filter((token) => weeklyChange(token) > 0)
     .sort((a, b) => weeklyChange(b) - weeklyChange(a))
     .slice(0, MAX_LEADERS);
 
@@ -147,37 +148,18 @@ export function buildWeeklyThreadsRecap(selection: WeeklyRecapSelection): Weekly
     throw new Error("Cannot build Threads weekly recap without at least one weekly leader.");
   }
 
-  const leaderLine = `Tracked 7d change leaders: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
-  const leadToken = selection.leaders[0];
-  const recapRead = selection.volumeLeader
-    ? selection.volumeLeader.id === leadToken.id
-      ? `$${leadToken.symbol.toUpperCase()} led both tracked 7d change and reported 24h volume. That alignment is worth rechecking; one snapshot still does not establish persistence.`
-      : `$${leadToken.symbol.toUpperCase()} led tracked 7d change while $${selection.volumeLeader.symbol.toUpperCase()} led reported 24h volume. Price leadership and reported activity pointed to different tokens.`
-    : `${formatTokenMove(leadToken)} led the tracked 7d list. The next useful check is whether that lead persists.`;
+  const leaderLine = `Tracked 7d changes: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
   const lines = [
-    "This week's loudest move was not automatically the strongest research lead.",
-    "",
+    "Weekly research lesson: match the time windows.",
     leaderLine,
     selection.pullback ? `Pullback watch: ${formatTokenMove(selection.pullback)}.` : "",
-    selection.volumeLeader ? `Reported-volume context: $${selection.volumeLeader.symbol.toUpperCase()} led tracked 24h volume.` : "",
-    "",
-    recapRead,
-  ].filter((line) => line !== "");
-
+    "A 7d return and a 24h volume reading cover different periods.",
+    "Which should we unpack next: time windows or turnover?",
+  ].filter(Boolean);
   let caption = lines.join("\n");
-  if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT && selection.volumeLeader) {
-    caption = lines
-      .filter((line) => !line.startsWith("Reported-volume context:"))
-      .join("\n");
-  }
-  if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT && selection.pullback) {
-    caption = lines
-      .filter((line) => !line.startsWith("Pullback watch:") && !line.startsWith("Reported-volume context:"))
-      .join("\n");
-  }
-  if (caption.length > SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT) {
-    caption = caption.substring(0, SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT - 3).trim() + "...";
-  }
+  // Reserve room for the full source timestamp appended by the publisher.
+  if (caption.length > 420) caption = lines.filter((line) => !line.startsWith("Pullback watch:")).join("\n");
+  if (caption.length > 420) throw new Error("Weekly lesson exceeds the source-preserving text budget.");
 
   const recapTokens = uniqueTokens([
     ...selection.leaders,
@@ -203,7 +185,7 @@ export function buildTelegramWeeklyRecap(
     throw new Error("Cannot build Telegram weekly recap without at least one weekly leader.");
   }
 
-  const leaderLine = `Tracked 7d change leaders: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
+  const leaderLine = `Tracked 7d changes: ${selection.leaders.map(formatTokenMove).join(", ")}.`;
   const pullbackLine = selection.pullback
     ? `Pullback watch: <b>${formatTokenMove(selection.pullback)}</b>.`
     : "";
@@ -216,8 +198,8 @@ export function buildTelegramWeeklyRecap(
     leaderLine,
     pullbackLine,
     volumeLine,
-    "Research context: compare the supplied 7d changes and reported 24h volume without treating them as a forecast.",
-    "<tg-spoiler>TokenRadar read: this is a descriptive weekly market map; it does not establish future direction.</tg-spoiler>",
+    "Lesson: the return covers 7d; the reported volume covers 24h. Compare each metric over matching windows.",
+    "Which should we explain next: time windows or trading turnover?",
   ].filter(Boolean).join("\n");
 
   const recapTokens = uniqueTokens([
@@ -230,7 +212,7 @@ export function buildTelegramWeeklyRecap(
     captionBody,
     image: {
       title: "Weekly Radar Recap",
-      subtitle: "7d change and reported-volume context",
+      subtitle: "Match each measurement to its time window",
       generatedAtLabel: formatUtcDate(generatedAt),
       leaders: selection.leaders.map((token) => ({
         symbol: token.symbol.toUpperCase(),

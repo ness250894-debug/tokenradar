@@ -1,6 +1,6 @@
 {
-  "version": 4,
-  "updatedAt": "2026-08-24",
+  "version": 5,
+  "updatedAt": "2026-10-31",
   "timezone": "UTC",
   "profile": {
     "canonicalBio": "Independent crypto market research. Live market snapshots with transparent Risk and Growth methodology. Educational only.",
@@ -8,7 +8,10 @@
   },
   "measurement": {
     "collectionCron": "53 * * * *",
-    "windowsHours": [24, 168],
+    "windowsHours": [
+      24,
+      168
+    ],
     "maxLatenessHours": 12,
     "reportingHorizonHours": 24,
     "weeklyReportCron": "31 08 * * 1",
@@ -17,28 +20,28 @@
   "platforms": {
     "telegram": {
       "status": "active",
-      "cadence": "Six useful posts per week: market map, comparison, community poll, independent divergence snapshot, scorecard, and movers shortlist.",
+      "cadence": "Six useful posts per week: market lesson, justified comparison, short research-choice poll, turnover explanation, recorded follow-up or weekly lesson, and movers explanation.",
       "communityCadence": "One native poll weekly; moderators review the result as editorial input. Automated follow-up is not claimed.",
       "maximumPostsPerDay": 1,
       "maximumPostsPerWeek": 6
     },
     "x": {
       "status": "active",
-      "cadence": "Five strong originals per week: one justified comparison, three sourced research notes, and one native short video.",
+      "cadence": "Five originals per week: one justified comparison, two reader-focused metric notes, one recorded research follow-up, and one native short video.",
       "communityCadence": "Add 12-20 thoughtful manual replies per week and exclude solicitation spam from engagement reporting.",
       "maximumPostsPerDay": 1,
       "maximumPostsPerWeek": 5
     },
     "instagram": {
       "status": "active",
-      "cadence": "Two original Reels and two five-slide evidence carousels per week; no dense standalone comparison cards.",
+      "cadence": "Two original Reels and two five-slide learning carousels per week: question, comparison, calculation, missing evidence, and checklist.",
       "communityCadence": "Use interactive Stories on 3-5 days per week and answer every substantive comment.",
       "maximumPostsPerDay": 1,
       "maximumPostsPerWeek": 4
     },
     "threads": {
       "status": "active",
-      "cadence": "Two text-native explainers and one weekly recap.",
+      "cadence": "Two plain-English metric explainers with answerable questions and one recorded follow-up or weekly research lesson.",
       "communityCadence": "Add 12-20 substantive manual replies per week in relevant conversations; never automate unsolicited replies.",
       "maximumPostsPerDay": 1,
       "maximumPostsPerWeek": 3
@@ -72,7 +75,7 @@
       "platform": "telegram",
       "cron": "41 18 * * 4",
       "command": "npx tsx scripts/post-market-updates.ts --platform telegram --format radar-divergence",
-      "purpose": "Thursday independent divergence snapshot; not a poll-result post",
+      "purpose": "Thursday turnover explanation with explicit missing liquidity checks; not a poll-result post",
       "format": "radar-divergence"
     },
     {
@@ -88,7 +91,7 @@
       "platform": "telegram",
       "cron": "13 17 * * 3",
       "command": "npx tsx scripts/post-daily-poll.ts",
-      "purpose": "Wednesday audience-directed research poll",
+      "purpose": "Wednesday short, accessible research-choice poll",
       "format": "community-poll"
     },
     {
@@ -96,7 +99,7 @@
       "platform": "telegram",
       "cron": "29 16 * * 5",
       "command": "npx tsx scripts/post-telegram-weekly-recap.ts",
-      "purpose": "Friday weekly recap",
+      "purpose": "Friday recorded research follow-up or source-window lesson",
       "format": "weekly-recap"
     },
     {
@@ -112,7 +115,7 @@
       "platform": "x",
       "cron": "17 15 * * 2,4,5",
       "command": "npx tsx scripts/post-market-updates.ts --platform x",
-      "purpose": "Tuesday/Thursday/Friday sourced research note",
+      "purpose": "Tuesday/Thursday reader-focused metric notes; Friday recorded research follow-up when a baseline exists",
       "format": "market-update"
     },
     {
@@ -136,7 +139,7 @@
       "platform": "instagram",
       "cron": "29 18 * * 0,3",
       "command": "npx tsx scripts/post-instagram-daily-movers.ts",
-      "purpose": "Wednesday/Sunday five-slide evidence carousel",
+      "purpose": "Wednesday/Sunday five-slide market-data learning story",
       "format": "movers-carousel"
     },
     {
@@ -160,7 +163,7 @@
       "platform": "threads",
       "cron": "29 16 * * 5",
       "command": "npx tsx scripts/post-threads-daily.ts --format weekly-recap",
-      "purpose": "Friday weekly recap",
+      "purpose": "Friday recorded research follow-up or source-window lesson",
       "format": "weekly-recap"
     },
     {

@@ -29,6 +29,7 @@ import {
   type SocialContentArchetype,
 } from "./social-archetypes";
 import { sanitizeCashtags } from "./x-client";
+import { buildReaderMarketNote, identifyReaderLesson, reportedTurnoverPercent, READER_LESSONS } from "./social-reader-value";
 
 export type AIResult = {
   content: string;
@@ -693,7 +694,16 @@ export interface MarketContext {
   athChangePercentage?: number;
   /** Opt-in flag enabling derived tension ratios when suppliedContext is attached. */
   allowDerivedVideoContext?: boolean;
+  /** Enable grounded educational notes for non-video publishing only. */
+  readerValueRequired?: boolean;
 }
+
+export type CaptionGeneration = {
+  mode: "generated" | "deterministic";
+  reason?: "missing-field" | "validation-rejected" | "ai-unavailable";
+  attempts: number;
+  lessonKey?: string;
+};
 
 export interface UnifiedSocialCaptions {
   telegramSummary?: string;
@@ -705,6 +715,7 @@ export interface UnifiedSocialCaptions {
   threadsTopicTag?: string;
   threadsSpoilerText?: string;
   tiktokCaption?: string;
+  generation?: Partial<Record<PlatformTarget, CaptionGeneration>>;
 }
 
 export type PlatformTarget = "telegram" | "x" | "youtube" | "instagram" | "threads" | "tiktok";
@@ -768,7 +779,7 @@ export interface SocialCaptionValidationFailure {
   }>;
 }
 
-export type UnifiedCaptionField = keyof UnifiedSocialCaptions;
+export type UnifiedCaptionField = Exclude<keyof UnifiedSocialCaptions, "generation">;
 
 const PLATFORM_FIELDS: Record<PlatformTarget, UnifiedCaptionField[]> = {
   telegram: ["telegramSummary"],
@@ -828,6 +839,7 @@ export function buildSocialContentFacts(
     marketDataSource: metrics.marketDataSource,
     marketDataAsOf: metrics.marketDataAsOf,
     suppliedContext: [],
+    readerValueRequired: metrics.readerValueRequired,
   };
 }
 
@@ -1260,6 +1272,37 @@ async function fillMissingUnifiedCaptionFields(
   options: UnifiedCaptionOptions
 ): Promise<UnifiedSocialCaptions> {
   const next: UnifiedSocialCaptions = { ...captions };
+  const primaryFields: Record<PlatformTarget, UnifiedCaptionField> = {
+    telegram: "telegramSummary", x: "xTweet", threads: "threadsCaption",
+    instagram: "instagramCaption", youtube: "youtubeDescription", tiktok: "tiktokCaption",
+  };
+  if (metrics.readerValueRequired) {
+    for (const platform of platforms) {
+      if (platform !== "x" && platform !== "threads" && platform !== "telegram") continue;
+      const field = primaryFields[platform];
+      if (next[field]) continue;
+      const note = buildReaderMarketNote({
+        symbol,
+        facts: metrics,
+        platform,
+        attribution: marketDataAttribution(metrics),
+        maxChars: platform === "x" ? options.xMaxChars ?? SOCIAL_PLATFORM_LIMITS.X.CHAR_LIMIT
+          : platform === "threads" ? options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT
+            : options.telegramMaxChars ?? SOCIAL_PLATFORM_LIMITS.TELEGRAM.AI_SUMMARY_CHARS,
+        seed: `${symbol}:${metrics.marketDataAsOf}:${platform}`,
+      });
+      if (!note) {
+        const issues: SocialCaptionValidationFailure["fields"] = [{
+          field, issues: [{ code: "low-reader-value", message: "Insufficient evidence or space for a complete observation and explanation." }],
+        }];
+        persistNeedsReviewRecord({ tokenName, symbol, platforms: [platform], generationAttempt: 0,
+          facts: buildSocialContentFacts(tokenName, symbol, metrics), issues }, { rootDir: options.reviewQueueRootDir });
+        throw new SocialCaptionQuarantinedError(tokenName, issues);
+      }
+      next[field] = note.text;
+      next.generation = { ...next.generation, [platform]: { mode: "deterministic", reason: "missing-field", attempts: 0, lessonKey: note.lessonKey } };
+    }
+  }
 
   if (platforms.includes("telegram") && !next.telegramSummary) {
     next.telegramSummary = fallbackTelegramSummary(
@@ -1336,7 +1379,11 @@ function validateUnifiedCaptionsForPublishing(
     const surface = surfaces[platform];
     if (!surface) continue;
     const validation = validateSocialContent(surface.text, facts);
-    if (!validation.ok) failures.push({ field: surface.field, issues: validation.issues });
+    if (facts.readerValueRequired && platform === "threads"
+      && ((surface.text.match(/\?/g) || []).length !== 1 || !/\bor\b[^.!?\n]*\?/i.test(surface.text))) {
+      validation.issues.push({ code: "low-reader-value", message: "End the Threads note with one specific question giving the reader a choice." });
+    }
+    if (validation.issues.length) failures.push({ field: surface.field, issues: validation.issues });
   }
   return failures;
 }
@@ -1454,7 +1501,7 @@ export async function generateUnifiedCaptions(
     // Metric methodology is not part of MarketContext. Until exact structured
     // definitions are supplied, education about how a proprietary score works
     // must use a deterministic editorial format rather than free-form AI copy.
-    acc[platform] = selected.key === "how_to_read_metric"
+    acc[platform] = selected.key === "how_to_read_metric" && !metrics.readerValueRequired
       ? resolveSocialArchetype("single_token_snapshot", platform)
       : selected;
     return acc;
@@ -1486,10 +1533,10 @@ TELEGRAM RULES:
 - Write like a premium crypto research desk read, not a generic social update.
 - Today's Telegram angle: ${platformVariants.telegram?.label} - ${platformVariants.telegram?.angle}.
 - Today's Telegram archetype: ${platformArchetypes.telegram?.label} - ${platformArchetypes.telegram?.angle}.
-- Use one of these compact structures, selected to match the archetype:
+${metrics.readerValueRequired ? "- Open with the observation, teach one metric, and end with a useful next check. Keep the lesson visible." : `- Use one of these compact structures, selected to match the archetype:
   1. <b>Radar Read: $${symbol.toUpperCase()} (${tokenName})</b>; Setup: ...; Risk / invalidation: ...; <tg-spoiler>TokenRadar read: ...</tg-spoiler>
   2. <b>Market Desk: $${symbol.toUpperCase()}</b>; What changed: ...; What confirms: ...; What breaks: ...
-  3. <b>Risk Lab: $${symbol.toUpperCase()}</b>; Why it is noisy: ...; What would make it cleaner: ...; Research note: ...
+  3. <b>Risk Lab: $${symbol.toUpperCase()}</b>; Why it is noisy: ...; What would make it cleaner: ...; Research note: ...`}
 - Use <b> tags only for specific numbers and key metrics.
 - Do not say buy, sell, long, short, signal, entry, take-profit, guaranteed, or financial advice.
 - No URLs, external links, markdown, numbered lists, or unsupported HTML tags.`,
@@ -1500,8 +1547,8 @@ X RULES:
 - Today's X angle: ${platformVariants.x?.label} - ${platformVariants.x?.angle}.
 - Today's X archetype: ${platformArchetypes.x?.label} - ${platformArchetypes.x?.angle}.
 - Hook family: ${platformArchetypes.x?.hookFamily}. CTA family: ${platformArchetypes.x?.ctaFamily}.
-- Write one complete research note in this order: claim, supplied evidence, consequence or invalidation.
-- Include at least one concrete supplied metric and one tension, filter, or condition that changes the read.
+${metrics.readerValueRequired ? "- Write one concise observation, explain the metric, and give a concrete next check." : `- Write one complete research note in this order: claim, supplied evidence, consequence or invalidation.
+- Include at least one concrete supplied metric and one tension, filter, or condition that changes the read.`}
 - Use exactly one cashtag: $${symbol.toUpperCase()}.
 - Write prices with a currency prefix (for example, $1.23) so each number is unambiguous.
 - A question is allowed only when it is specific and necessary to the selected archetype. Never use generic engagement bait.
@@ -1534,8 +1581,8 @@ THREADS RULES:
 - Maximum ${options.threadsMaxChars ?? SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT} characters for threadsCaption.
 - Today's Threads angle: ${platformVariants.threads?.label} - ${platformVariants.threads?.angle}.
 - Write a text-native research note in no more than 2 short paragraphs.
-- Open with a defensible thesis or tension, support it with at least one supplied metric, and name what would change the read.
-- threadsSpoilerText must be an exact substring of threadsCaption and should hide the conclusion or invalidation phrase, not the token name.
+${metrics.readerValueRequired ? "- Open with one measured observation, explain it, and ask a simple question with concrete choices. Return an empty threadsSpoilerText." : `- Open with a defensible thesis or tension, support it with at least one supplied metric, and name what would change the read.
+- threadsSpoilerText must be an exact substring of threadsCaption and should hide the conclusion or invalidation phrase, not the token name.`}
 - Do not use generic prompts such as "thoughts?", "agree?", or "what do you think?".
 - Do not use hashtags, @mentions, recycled video language, or unsupported comparisons.
 - threadsTopicTag must be one single word, 1-50 characters, without #, dots, ampersands, or spaces.
@@ -1577,6 +1624,21 @@ TIKTOK RULES:
   // instructions or be mistaken for verified facts.
   void description;
   const descriptionSection = `${tokenName} is tracked under the symbol ${symbol.toUpperCase()}. No project-supplied description is provided as a factual source.`;
+
+  const turnover = reportedTurnoverPercent(metrics);
+  const readerBrief = metrics.readerValueRequired ? `
+READER VALUE REQUIREMENTS (NON-VIDEO):
+- Write for a curious reader learning crypto research. Use short sentences and familiar words.
+- Lead with a specific observation, explain what the metric means, then give one useful next check or one answerable question.
+- Do not merely restate the table or say that a snapshot needs confirmation.
+- Avoid internal labels such as supplied score, participation field, regime check, invalidation, and structural shift.
+- Use only these verified educational definitions, verbatim where useful:
+${Object.values(READER_LESSONS).map((lesson) => `  ${lesson}`).join("\n")}
+- Reported 24h turnover (volume divided by market cap): ${turnover === undefined ? "unavailable" : `${turnover.toFixed(1)}%`}.
+- A supplied turnover ratio may be quoted as a current ratio, never as a trend, net flow, or a count of participants.
+- For Threads, include one simple question with concrete choices. Return an empty threadsSpoilerText; do not hide the lesson or print spoiler markup.
+- Use one primary reader action. Do not promise a new product, audience result, or future research that is not supplied.
+` : "";
 
   const prompt = `
 You are an expert crypto social media manager for TokenRadar.co.
@@ -1628,6 +1690,7 @@ FACTUALITY AND SAFETY GATE:
 
 STRICT PLATFORM RULES:
 ${uniquePlatforms.map((platform) => platformRuleBlocks[platform]).join("\n")}
+${readerBrief}
 `;
 
   const facts = buildSocialContentFacts(tokenName, symbol, metrics);
@@ -1682,7 +1745,18 @@ ${uniquePlatforms.map((platform) => platformRuleBlocks[platform]).join("\n")}
         options,
       );
       const failures = validateUnifiedCaptionsForPublishing(candidate, facts, uniquePlatforms);
-      if (failures.length === 0) return candidate;
+      if (failures.length === 0) {
+        if (metrics.readerValueRequired) {
+          const readerCaptions = { x: candidate.xTweet, telegram: candidate.telegramSummary, threads: candidate.threadsCaption };
+          candidate.generation = Object.fromEntries(uniquePlatforms.map((platform) => [platform,
+            candidate.generation?.[platform]
+              ? { ...candidate.generation[platform], attempts: attemptIndex + 1 }
+              : { mode: "generated", attempts: attemptIndex + 1,
+                  lessonKey: platform in readerCaptions ? identifyReaderLesson(readerCaptions[platform as keyof typeof readerCaptions] || "") : undefined },
+          ]));
+        }
+        return candidate;
+      }
 
       const failure: SocialCaptionValidationFailure = {
         tokenName,
@@ -1706,13 +1780,22 @@ ${uniquePlatforms.map((platform) => platformRuleBlocks[platform]).join("\n")}
   console.warn(
     `  Generated captions for ${tokenName} remained unavailable or quarantined. Using validated deterministic fallbacks.${lastGenerationError ? ` Last error: ${formatErrorForLog(lastGenerationError)}` : ""}`,
   );
-  return buildValidatedUnifiedFallback(
+  const fallback = await buildValidatedUnifiedFallback(
     tokenName,
     symbol,
     metrics,
     uniquePlatforms,
     options,
   );
+  if (metrics.readerValueRequired) {
+    fallback.generation = Object.fromEntries(uniquePlatforms.map((platform) => [platform, {
+      ...fallback.generation?.[platform],
+      mode: "deterministic",
+      reason: validationFeedback ? "validation-rejected" : "ai-unavailable",
+      attempts: regenerationAttempts + 1,
+    }]));
+  }
+  return fallback;
 }
 
 /**

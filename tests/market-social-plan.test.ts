@@ -16,6 +16,7 @@ import {
   buildComparisonVisualVerdict,
   findSharedComparisonCategory,
   selectTokenComparisonPair,
+  NoComparablePairError,
   type TokenComparisonPair,
   type TokenComparisonToken,
 } from "../src/lib/token-comparison";
@@ -72,6 +73,18 @@ function comparisonToken(
 }
 
 describe("market social plan", () => {
+  it("holds a comparison when only a broad taxonomy or an unsuitable size match is available", () => {
+    const left = comparisonToken({ id: "tron", symbol: "trx", name: "TRON", categories: ["Smart Contract Platform"] });
+    const right = comparisonToken({ id: "zcash", symbol: "zec", name: "Zcash", categories: ["Smart Contract Platform"] });
+    expect(findSharedComparisonCategory(left, right)).toBeNull();
+    expect(() => selectTokenComparisonPair([left, right])).toThrow(NoComparablePairError);
+    const dexLeft = { ...left, categories: ["Decentralized Exchange (DEX)"] };
+    const dexRight = { ...right, categories: ["Decentralized Exchange (DEX)"], marketCap: left.marketCap * 6 };
+    expect(() => selectTokenComparisonPair([dexLeft, dexRight])).toThrow(NoComparablePairError);
+    const pair = selectTokenComparisonPair([dexLeft, { ...dexRight, marketCap: left.marketCap * 2 }]);
+    expect(buildComparisonCaptions(pair).telegram).toContain("Why compare:");
+    expect(buildComparisonCaptions(pair).x.length).toBeLessThanOrEqual(280);
+  });
   it("selects an archetype and variant that respect recent history", () => {
     const dataDir = makeDataDir();
     writeJson(path.join(dataDir, "posted", "2026-06-04", "bitcoin-x.json"), {
@@ -218,10 +231,11 @@ describe("token comparison social plan", () => {
     expect(captions.x.length).toBeLessThanOrEqual(280);
     expect(captions.instagram.length).toBeLessThanOrEqual(2200);
     expect(captions.threads.length).toBeLessThanOrEqual(500);
-    expect(captions.x).toContain("supplied Risk");
+    expect(captions.x).toContain("Model Risk");
+    expect(captions.x).toContain("caps within");
     expect(captions.x).not.toContain("#");
     expect(captions.x).toContain("CoinGecko 12:23 UTC");
-    expect(captions.telegram).toContain("Risk/Growth metrics as of 2026-08-23");
+    expect(captions.telegram).toContain("Risk computed 2026-08-23 12:00 UTC");
     expect(captions.threads).toContain("Volume/cap:");
     expect(resolveComparisonPlatforms("telegram")).toEqual(["telegram"]);
     expect(resolveComparisonPlatforms("meta")).toEqual(["instagram", "threads"]);
@@ -241,7 +255,7 @@ describe("token comparison social plan", () => {
     );
     const xCaption = buildComparisonCaptions(tiePair).x;
     expect(xCaption.length).toBeLessThanOrEqual(280);
-    expect(xCaption).toMatch(/Data: CoinGecko 12:23 UTC · Metrics 2026-08-23 oldest inputs$/);
+    expect(xCaption).toMatch(/Data: CoinGecko 12:23 UTC · Risk computed 2026-08-23 12:00 UTC$/);
     expect(xCaption).not.toMatch(/\.\.\.$/);
   });
 

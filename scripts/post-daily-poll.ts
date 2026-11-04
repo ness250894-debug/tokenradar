@@ -1,9 +1,8 @@
 /**
  * TokenRadar Telegram native Interactive Poll Generator
  *
- * Generates an automated Telegram poll to spike organic engagement.
- * Uses AI (Gemini primary, Claude fallback) to create varied, topical polls
- * that rotate through different themes and question styles.
+ * Publishes a short, accessible reader-choice poll.
+ * Rotates curated questions and coherent answer sets without inventing a product roadmap.
  *
  * Usage:
  *   npx tsx scripts/post-daily-poll.ts
@@ -15,7 +14,6 @@ import * as fs from "fs";
 import * as path from "path";
 import { pathToFileURL } from "url";
 
-import { callAIWithFallback } from "../src/lib/gemini";
 import {
   isTelegramCreateOutcomeUnknownError,
   sendTelegramPoll,
@@ -43,62 +41,48 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 /** Poll theme categories selected with deterministic controlled variety. */
 const POLL_THEMES = [
   {
-    key: "market_regime",
-    theme: "Market Regime",
-    directive: "Ask subscribers to classify the current market regime using risk-aware language.",
-    example: "Which market regime are we in right now?",
+    key: "research_basics",
+    theme: "Research Basics",
+    question: "Community Pulse: Which crypto term should we explain next?",
+    options: ["Trading turnover", "Market cap", "Circulating supply", "Token unlocks"],
   },
   {
-    key: "narrative_rotation",
-    theme: "Narrative Rotation",
-    directive: "Ask which crypto narrative deserves the next research focus based on momentum, liquidity, and catalyst quality.",
-    example: "Which narrative deserves the next TokenRadar scan?",
+    key: "liquidity_basics",
+    theme: "Liquidity Basics",
+    question: "Community Pulse: Which liquidity check needs a worked example?",
+    options: ["Bid-ask spread", "Order-book depth", "Trading venues", "Reported volume"],
   },
   {
-    key: "risk_discipline",
-    theme: "Risk Discipline",
-    directive: "Ask about invalidation, position sizing, cash levels, or confirmation rules without giving financial advice.",
-    example: "What invalidates a setup fastest for you?",
+    key: "data_pitfalls",
+    theme: "Data Pitfalls",
+    question: "Community Pulse: Which market-data pitfall should we explain?",
+    options: ["Missing data", "Stale scores", "Unusual volume", "Broad token categories"],
   },
   {
-    key: "signal_follow_up",
-    theme: "Signal Follow-up",
-    directive: "Ask how subscribers want prior watchlist reads reviewed: continuation, failed setup, or neutral follow-up.",
-    example: "Which prior watchlist read should we review next?",
+    key: "follow_up_format",
+    theme: "Research Follow-up",
+    question: "Community Pulse: What would help you understand a research follow-up?",
+    options: ["The original snapshot", "What changed", "What is still missing", "The comparison method"],
   },
   {
-    key: "watchlist_criteria",
-    theme: "Watchlist Criteria",
-    directive: "Ask which data point should carry the most weight in the next Radar Signal.",
-    example: "What matters most before a token enters the watchlist?",
+    key: "supply_basics",
+    theme: "Supply Basics",
+    question: "Community Pulse: Which supply question should we unpack?",
+    options: ["Circulating vs total supply", "Token unlock schedules", "Diluted valuation", "Supply data sources"],
   },
   {
-    key: "liquidity_quality",
-    theme: "Liquidity Quality",
-    directive: "Ask subscribers to rank liquidity, volume expansion, market depth, or volatility as a signal filter.",
-    example: "Which liquidity signal do you trust most?",
+    key: "comparison_basics",
+    theme: "Comparing Tokens",
+    question: "Community Pulse: Which comparison needs a plain-English example?",
+    options: ["Price vs market cap", "Volume vs trading depth", "Similar token categories", "Matching time windows"],
   },
   {
-    key: "catalyst_quality",
-    theme: "Catalyst Quality",
-    directive: "Ask which catalyst type deserves the highest confidence: product, listing, sector flow, developer activity, or on-chain adoption.",
-    example: "Which catalyst type should get the highest score?",
+    key: "source_checks",
+    theme: "Checking Sources",
+    question: "Community Pulse: Which source check would you like to learn?",
+    options: ["Finding the timestamp", "Checking a project claim", "Comparing data providers", "Spotting missing fields"],
   },
 ] as const;
-
-const POLL_SCHEMA = {
-  type: "object",
-  properties: {
-    question: { type: "string", description: "The poll question, 1-2 sentences, under 250 chars." },
-    options: { 
-      type: "array", 
-      items: { type: "string", description: "Answer option, under 80 chars." },
-      minItems: 4,
-      maxItems: 4
-    }
-  },
-  required: ["question", "options"]
-};
 
 type PollTheme = typeof POLL_THEMES[number];
 
@@ -121,30 +105,6 @@ function selectPollTheme(usedThemeKeys: Iterable<string> = [], date: Date = new 
   const candidates = eligible.length > 0 ? eligible : POLL_THEMES;
   const seed = `telegram-poll:${utcDateKey(date)}`;
   return candidates[stableHash(seed) % candidates.length];
-}
-
-/**
- * Build the AI prompt with today's controlled-variety theme.
- */
-function buildPollPrompt(theme: PollTheme): string {
-  return `You are running the TokenRadar.co Telegram channel as a premium crypto research desk.
-Today's poll theme: "${theme.theme}"
-Directive: ${theme.directive}
-
-Write ONE Telegram "Community Pulse" poll that helps guide future market intelligence.
-
-RULES:
-- The question must be sharp, professional, and 1-2 sentences max (under 250 chars).
-- Start the question with "Community Pulse:".
-- Provide exactly 4 distinct answer options (each under 80 chars).
-- Options should be meaningfully different, specific, and useful for a research audience.
-- Make it feel timely, but avoid hype, meme language, and entertainment-first wording.
-- Do not ask users to buy, sell, long, short, or chase a token.
-- STRICT EDITORIAL POLICY: Never use trading commands, directives, or speculative terms such as "accumulate", "accumulation", "buy", "sell", "entry", "take profit", "stop loss", "moon", or "pump".
-- DO NOT repeat this example: "${theme.example}"
-- NEVER include URLs, external links, third-party domains, or ads. The only permitted site is tokenradar.co.
-
-Return ONLY the JSON.`;
 }
 
 export function resolveTelegramPollFailureStatus(
@@ -201,27 +161,10 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
     });
     console.log(`Today's poll theme: "${theme.theme}" (${theme.key})`);
     console.log(`Today's poll archetype: "${archetype.label}" (${archetype.key})`);
-    console.log("Generating poll via AI...");
-
-    const prompt = buildPollPrompt(theme);
-    const result = await callAIWithFallback("", prompt, 1000, POLL_SCHEMA);
-
-    // Parse JSON from the AI response
-    // Using a more robust extraction that finds the outermost { }
-    const jsonMatch = result.content?.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.error("Raw AI Content:", result.content);
-      throw new Error("AI output was not parseable as JSON.");
-    }
-
-    const payload = JSON.parse(jsonMatch[0]) as unknown;
-    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
-      throw new Error("AI output was not a valid poll payload.");
-    }
-
+    console.log("Preparing a short reader-choice poll...");
     const pollPayload = buildTelegramPollPayload(
-      payload as { question?: unknown; options?: unknown },
-      `Community Pulse: ${theme.example}`,
+      { question: theme.question, options: [...theme.options] },
+      theme.question,
     );
     const question = sanitizeSocialEditorialText(pollPayload.question);
     const options = pollPayload.options.map((option) => sanitizeSocialEditorialText(option));
