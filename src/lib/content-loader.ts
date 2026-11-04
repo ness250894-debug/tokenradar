@@ -228,6 +228,7 @@ export interface TokenMetrics {
   holderConcentrationEstimate?: "low" | "medium" | "high" | "unknown";
   summary: string;
   marketDataAsOf?: string;
+  priceHistoryAsOf?: string;
   computedAt: string;
 }
 
@@ -253,6 +254,8 @@ export interface Article {
   content: string;
   wordCount: number;
   generatedAt: string;
+  /** Substantive editorial revision; generatedAt remains the original publication date. */
+  updatedAt?: string;
   model?: string;
   quality?: ArticleQualitySnapshot;
 }
@@ -934,6 +937,7 @@ function mapRawToTokenMetrics(r: unknown, tokenId: string): TokenMetrics | null 
     holderConcentrationEstimate: metric.holderConcentrationEstimate,
     summary: normalizeMetricSummary(metric.summary),
     marketDataAsOf: metric.marketDataAsOf,
+    priceHistoryAsOf: metric.priceHistoryAsOf,
     computedAt: metric.computedAt,
   };
 }

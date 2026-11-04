@@ -30,15 +30,14 @@ import {
   parseFaqsFromMarkdown,
 } from "@/lib/seo";
 import { RiskScoreCard } from "@/components/RiskScoreCard";
-import { PriceChart } from "@/components/PriceChart";
+import { DeferredPriceChart, DeferredTokenEngagement } from "@/components/DeferredTokenTools";
+import { TokenResearchComparison } from "@/components/TokenResearchComparison";
+import { getPilotComparisons, RESEARCH_PILOT_IDS } from "@/lib/token-research-pilot";
 import { LastUpdated } from "@/components/LastUpdated";
 import { TokenTickerPill } from "@/components/TokenTickerPill";
 import { TokenCard, type TokenCardData } from "@/components/TokenCard";
 import { WatchlistButton } from "@/components/WatchlistButton";
-import { ProfitCalculator } from "@/components/ProfitCalculator";
-import { SentimentPoll } from "@/components/SentimentPoll";
 import { ReadingProgress } from "@/components/ReadingProgress";
-import { CountUp } from "@/components/CountUp";
 import { MagneticEffect } from "@/components/MagneticEffect";
 import { CardGlare } from "@/components/CardGlare";
 import { UnifiedTOC } from "@/components/UnifiedTOC";
@@ -90,9 +89,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = buildEntitySeoTitle({
     name: detail.name,
     symbol: detail.symbol,
-    after: " Price & Risk Score",
+    after: tokenId === "bitcoin" ? " Drawdown & Risk vs Market"
+      : tokenId === "hyperliquid" ? " Risk vs Exchange Tokens" : " Price & Risk Score",
   });
-  const description = buildSeoDescription(`Data snapshot and risk analysis for ${detail.name} (${detail.symbol.toUpperCase()}): price ${formatPrice(detail.market.price)}, market cap ${formatCompact(detail.market.marketCap)}, liquidity context, and proprietary metrics.`);
+  const description = buildSeoDescription(tokenId === "bitcoin"
+    ? "Compare Bitcoin drawdown, trading activity and risk with other tracked assets. Dated peer comparisons, score contributions, primary sources and downloadable data."
+    : tokenId === "hyperliquid"
+      ? "Compare HYPE risk with other exchange tokens. See the score inputs, dated market evidence, protocol checks, primary sources and downloadable peer data."
+      : `Data snapshot and risk analysis for ${detail.name} (${detail.symbol.toUpperCase()}): price ${formatPrice(detail.market.price)}, market cap ${formatCompact(detail.market.marketCap)}, liquidity context, and proprietary metrics.`);
 
   const article = await getArticle(tokenId, "overview");
   const isIndexable = isTokenOverviewIndexable(detail, article);
@@ -142,6 +146,10 @@ export default async function TokenPage({ params }: PageProps) {
   const article = await getArticle(tokenId, "overview");
   const articleQuality = article ? evaluateArticleQuality(article) : null;
   const shouldRenderArticle = Boolean(article && articleQuality?.passed);
+  const isResearchPilot = RESEARCH_PILOT_IDS.some((id) => id === tokenId);
+  const comparison = isResearchPilot
+    ? (await getPilotComparisons()).find((item) => item?.asset.id === tokenId)
+    : null;
   const faqs = shouldRenderArticle && article ? parseFaqsFromMarkdown(article.content) : [];
 
   const categoryIds = await getCategoryIds();
@@ -234,7 +242,7 @@ export default async function TokenPage({ params }: PageProps) {
               {detail.name} ({detail.symbol.toUpperCase()}) <span className="gradient-text">Price & Risk Analysis</span>
             </h1>
             <p className="token-hero-subtitle">
-              Live {detail.symbol.toUpperCase()} price, TokenRadar risk score, market metrics, and research guides in one place.
+              {detail.symbol.toUpperCase()} price snapshot, TokenRadar risk score, market metrics, and research guides in one place.
             </p>
             {visibleCategories.length > 0 && (
               <div style={{ display: "flex", gap: "var(--space-sm)", marginTop: "var(--space-sm)", flexWrap: "wrap" }}>
@@ -306,6 +314,13 @@ export default async function TokenPage({ params }: PageProps) {
           </p>
         </div>
 
+        {comparison ? <TokenResearchComparison comparison={comparison} /> : isResearchPilot && (
+          <section className="card research-pilot" id="peer-comparison">
+            <h2>{detail.name} peer comparison</h2>
+            <p>There are too few matching market and price-history observations for a peer comparison in this snapshot.</p>
+          </section>
+        )}
+
         <SearchIntentRadar
           intent={searchIntent}
           trend={searchIntentTrend}
@@ -324,21 +339,21 @@ export default async function TokenPage({ params }: PageProps) {
             <Globe className="stat-watermark" />
             <div className="stat-label">Market Cap</div>
             <div className="stat-value">
-              <CountUp end={detail.market.marketCap} prefix="$" compact={true} />
+              {formatCompact(detail.market.marketCap)}
             </div>
           </div>
           <div className="stat-card">
             <BarChart2 className="stat-watermark" />
             <div className="stat-label">24h Volume</div>
             <div className="stat-value">
-              <CountUp end={detail.market.volume24h} prefix="$" compact={true} />
+              {formatCompact(detail.market.volume24h)}
             </div>
           </div>
           <div className="stat-card">
             <PieChart className="stat-watermark" />
             <div className="stat-label">Circulating Supply</div>
             <div className="stat-value">
-              <CountUp end={detail.market.circulatingSupply} compact={true} />
+              {formatSupply(detail.market.circulatingSupply)}
             </div>
             {detail.market.maxSupply && (
               <div className="stat-change" style={{ color: "var(--text-muted)" }}>
@@ -392,11 +407,9 @@ export default async function TokenPage({ params }: PageProps) {
         {/* Price Chart */}
         {priceHistory && priceHistory.chart30d.length > 0 && (
           <div className="card" style={{ marginTop: "var(--space-xl)", padding: "var(--space-xl)" }} id="price-chart">
-            <PriceChart
+            <DeferredPriceChart
               data={priceHistory.chart30d}
-              height={280}
               isPositive={isPositive}
-              label="30-Day Price History"
             />
           </div>
         )}
@@ -441,13 +454,8 @@ export default async function TokenPage({ params }: PageProps) {
         </div>
 
         {/* Interactive Engagement */}
-        <div style={{ marginTop: "var(--space-2xl)" }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-           <div style={{ height: "100%" }}>
-             <ProfitCalculator currentPrice={detail.market.price} atl={detail.market.atl} tokenId={detail.id} />
-           </div>
-           <CardGlare style={{ height: "100%" }}>
-             <SentimentPoll tokenId={detail.id} />
-           </CardGlare>
+        <div style={{ marginTop: "var(--space-2xl)" }}>
+          <DeferredTokenEngagement currentPrice={detail.market.price} atl={detail.market.atl} tokenId={detail.id} />
         </div>
 
 
@@ -524,7 +532,11 @@ export default async function TokenPage({ params }: PageProps) {
             <div className="article-layout-row">
               {/* Main Content */}
               <div className="article-main-col">
-                <ResearchFreshnessNotice contentUpdatedAt={article.generatedAt} marketDataAt={detail.fetchedAt} />
+                <ResearchFreshnessNotice
+                  publishedAt={article.updatedAt ? article.generatedAt : undefined}
+                  contentUpdatedAt={article.updatedAt || article.generatedAt}
+                  marketDataAt={detail.fetchedAt}
+                />
                 <div className="article-content" dangerouslySetInnerHTML={{ 
                   __html: await markdownToHtml(article.content, {
                     name: detail.name,
@@ -537,9 +549,11 @@ export default async function TokenPage({ params }: PageProps) {
                     imageUrl: detail.imageUrl
                   }) 
                 }} />
-                <div style={{ marginTop: "var(--space-lg)" }}>
-                  <LastUpdated date={article.generatedAt} />
-                </div>
+                {!article.updatedAt && (
+                  <div style={{ marginTop: "var(--space-lg)" }}>
+                    <LastUpdated date={article.generatedAt} />
+                  </div>
+                )}
                 <ResearchRecirculation
                   title={`Keep researching ${detail.symbol.toUpperCase()}`}
                   description="Open one more focused page while the market context is still fresh."
@@ -607,7 +621,7 @@ export default async function TokenPage({ params }: PageProps) {
             author: buildAuthorPersonSchema(),
             publisher: buildPublisherSchema(),
             datePublished: article.generatedAt,
-            dateModified: article.generatedAt,
+            dateModified: article.updatedAt || article.generatedAt,
           }}
         />
       )}

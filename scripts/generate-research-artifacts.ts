@@ -7,6 +7,7 @@ import * as path from "path";
 
 import { getAllTokens, getTokenMetrics } from "../src/lib/content-loader";
 import { buildMarketRiskSnapshot } from "../src/lib/research-snapshot";
+import { getPilotComparisons } from "../src/lib/token-research-pilot";
 import { writeFileAtomicSync } from "../src/lib/utils";
 
 function csvCell(value: string | number): string {
@@ -21,6 +22,7 @@ async function main(): Promise<void> {
   const snapshot = buildMarketRiskSnapshot(tokens, metricsByTokenId);
   const outputDir = path.resolve(process.cwd(), "public/data");
   fs.mkdirSync(outputDir, { recursive: true });
+  writeFileAtomicSync(path.join(outputDir, "tokenradar-editorial-pilots.json"), `${JSON.stringify(await getPilotComparisons(), null, 2)}\n`);
 
   const categoryCsv = [
     ["category", "token_count", "average_risk_1_to_10", "average_volatility_0_to_100", "average_change_24h_percent", "total_market_cap_usd"],
@@ -47,6 +49,7 @@ async function main(): Promise<void> {
     files: [
       "public/data/tokenradar-category-risk-snapshot.csv",
       "public/data/tokenradar-market-risk-snapshot.json",
+      "public/data/tokenradar-editorial-pilots.json",
     ],
     aiCalls: 0,
     networkRequests: 0,

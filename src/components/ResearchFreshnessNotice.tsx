@@ -2,6 +2,7 @@ import Link from "next/link";
 
 interface ResearchFreshnessNoticeProps {
   contentUpdatedAt: string;
+  publishedAt?: string;
   marketDataAt?: string | null;
   evidenceCheckedAt?: string | null;
 }
@@ -20,10 +21,12 @@ function formatDate(value: string | null | undefined): string | null {
 
 export function ResearchFreshnessNotice({
   contentUpdatedAt,
+  publishedAt,
   marketDataAt,
   evidenceCheckedAt,
 }: ResearchFreshnessNoticeProps) {
   const contentDate = formatDate(contentUpdatedAt);
+  const publicationDate = formatDate(publishedAt);
   const marketDate = formatDate(marketDataAt);
   const evidenceDate = formatDate(evidenceCheckedAt);
   if (!contentDate && !marketDate && !evidenceDate) return null;
@@ -44,7 +47,8 @@ export function ResearchFreshnessNotice({
       }}
     >
       <strong style={{ color: "var(--text-primary)" }}>Research snapshot.</strong>{" "}
-      {contentDate ? <>Article generated <time dateTime={contentUpdatedAt}>{contentDate}</time>. </> : null}
+      {publicationDate ? <>First published <time dateTime={publishedAt}>{publicationDate}</time>. </> : null}
+      {contentDate ? <>{publicationDate ? "Editorial revision" : "Article generated"} <time dateTime={contentUpdatedAt}>{contentDate}</time>. </> : null}
       {marketDate ? <>Market data updated <time dateTime={marketDataAt || undefined}>{marketDate}</time>. </> : null}
       {evidenceDate ? <>Launch evidence checked <time dateTime={evidenceCheckedAt || undefined}>{evidenceDate}</time>. </> : null}
       Prices, availability, and launch status can change; time-sensitive wording applies to these snapshot dates.

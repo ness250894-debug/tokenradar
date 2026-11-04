@@ -29,7 +29,7 @@ const SITE_URL = getSiteUrl();
 
 interface SitemapEntry {
   url: string;
-  lastmod: string;
+  lastmod?: string;
   images?: { loc: string; title: string; }[];
 }
 
@@ -38,62 +38,30 @@ interface GlossaryItem {
   updatedAt?: string;
 }
 
-interface SitemapFile {
-  filename: string;
-  lastmod: string;
+/** Choose the newest dated content rendered on a page, ignoring absent or invalid inputs. */
+export function latestContentDate(...values: (string | undefined | null)[]): string | undefined {
+  const dates = values.filter((value): value is string => !!value && Number.isFinite(Date.parse(value)))
+    .map((value) => new Date(value).toISOString().slice(0, 10));
+  return dates.sort().at(-1);
 }
 
-const FALLBACK_LASTMOD = "2026-01-01";
-
-function toDateOnly(value: string | undefined, fallback: string): string {
-  if (!value) return fallback;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? fallback : date.toISOString().split("T")[0];
-}
-
-function getGitSourceDate(relativePath: string): string | null {
-  const repoRoot = path.resolve(__dirname, "..");
+export function getSourceDate(relativePath: string, repoRoot = path.resolve(__dirname, "..")): string | undefined {
   try {
-    const output = execFileSync("git", [
+    const runGit = (...args: string[]) => execFileSync("git", [
       "-c",
       `safe.directory=${repoRoot.replace(/\\/g, "/")}`,
-      "log",
-      "-1",
-      "--format=%cs",
-      "--",
-      relativePath,
+      ...args,
     ], {
       cwd: repoRoot,
       encoding: "utf-8",
       stdio: ["ignore", "pipe", "ignore"],
     }).trim();
-    return /^\d{4}-\d{2}-\d{2}$/.test(output) ? output : null;
+    // At a shallow boundary Git attributes every file to the checkout commit.
+    if (runGit("rev-parse", "--is-shallow-repository") !== "false") return undefined;
+    return latestContentDate(runGit("log", "-1", "--format=%cs", "--", relativePath));
   } catch {
-    return null;
+    return undefined;
   }
-}
-
-function getSourceDate(relativePath: string, fallback: string): string {
-  const gitDate = getGitSourceDate(relativePath);
-  if (gitDate) return gitDate;
-
-  const filePath = path.resolve(__dirname, "..", relativePath);
-  try {
-    return fs.statSync(filePath).mtime.toISOString().split("T")[0];
-  } catch {
-    return fallback;
-  }
-}
-
-function getLatestLastmod(entries: SitemapEntry[], fallback: string): string {
-  return entries.reduce((latest, entry) => entry.lastmod > latest ? entry.lastmod : latest, fallback);
-}
-
-async function getTokenDate(tokenId: string): Promise<string | null> {
-  const detail = await getTokenDetail(tokenId);
-  if (!detail) return null;
-  const dateStr = detail.fetchedAt;
-  return dateStr ? new Date(dateStr).toISOString().split("T")[0] : null;
 }
 
 async function getUpcomingTGEsLocal(): Promise<UpcomingTge[]> {
@@ -139,9 +107,9 @@ export function generateXml(entries: SitemapEntry[]): string {
       <image:title>${escapeXml(img.title)}</image:title>
     </image:image>`).join("\n");
       }
+      const lastmod = latestContentDate(e.lastmod);
       return `  <url>
-    <loc>${escapeXml(`${SITE_URL}${e.url}`)}</loc>
-    <lastmod>${e.lastmod}</lastmod>${imageTags}
+    <loc>${escapeXml(`${SITE_URL}${e.url}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}${imageTags}
   </url>`;
     })
     .join("\n");
@@ -153,21 +121,21 @@ ${urls}
 </urlset>`;
 }
 
-function writeSitemap(filename: string, entries: SitemapEntry[]): SitemapFile {
+function writeSitemap(filename: string, entries: SitemapEntry[]): string {
   const outPath = path.join(PUBLIC_DIR, filename);
   writeFileAtomicSync(outPath, generateXml(entries));
   console.log(`  ✓ Written ${filename} (${entries.length} URLs)`);
-  return { filename, lastmod: getLatestLastmod(entries, FALLBACK_LASTMOD) };
+  return filename;
 }
 
 async function main() {
   const tokenIds = await getTokenIds();
   const pilotIds = new Set(getPilotTokenIds());
-  const fallbackDate = getSourceDate("package-lock.json", FALLBACK_LASTMOD);
-  const registryDate = getSourceDate("data/tokens.json", fallbackDate);
-  const upcomingDate = getSourceDate("data/upcoming-tges.json", fallbackDate);
-  const glossaryDate = getSourceDate("data/glossary.json", fallbackDate);
-  const sitemaps: SitemapFile[] = [];
+  const registryDate = getSourceDate("data/tokens.json");
+  const upcomingDate = getSourceDate("data/upcoming-tges.json");
+  const glossaryDate = getSourceDate("data/glossary.json");
+  const intentDate = getSourceDate("data/search-intent.json");
+  const sitemaps: string[] = [];
 
   console.log("╔══════════════════════════════════════════╗");
   console.log("║    Sitemap Index Engine — Scaling 30k+   ║");
@@ -175,21 +143,21 @@ async function main() {
 
   // 1. Sitemap: Main (Static + Categories + TGEs)
   const mainEntries: SitemapEntry[] = [
-    { url: "/", lastmod: getSourceDate("src/app/page.tsx", fallbackDate) },
+    { url: "/", lastmod: latestContentDate(getSourceDate("src/app/page.tsx"), registryDate, upcomingDate, intentDate) },
     { url: "/tokens", lastmod: registryDate },
     { url: "/tokens/all", lastmod: registryDate },
-    { url: "/search-intent", lastmod: getSourceDate("data/search-intent.json", registryDate) },
+    { url: "/search-intent", lastmod: intentDate },
     { url: "/upcoming", lastmod: upcomingDate },
     { url: "/learn", lastmod: glossaryDate },
-    { url: "/research", lastmod: getSourceDate("data/metrics", registryDate) },
-    { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx", fallbackDate) },
-    { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx", fallbackDate) },
-    { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx", fallbackDate) },
-    { url: "/authors/pavlo-nakonechnyi", lastmod: getSourceDate("src/app/authors/pavlo-nakonechnyi/page.tsx", fallbackDate) },
-    { url: "/contact", lastmod: getSourceDate("src/app/contact/page.tsx", fallbackDate) },
-    { url: "/privacy", lastmod: getSourceDate("src/app/privacy/page.tsx", fallbackDate) },
-    { url: "/terms", lastmod: getSourceDate("src/app/terms/page.tsx", fallbackDate) },
-    { url: "/disclaimer", lastmod: getSourceDate("src/app/disclaimer/page.tsx", fallbackDate) },
+    { url: "/research", lastmod: getSourceDate("data/metrics") },
+    { url: "/best-crypto-hardware-wallets", lastmod: getSourceDate("src/app/best-crypto-hardware-wallets/page.tsx") },
+    { url: "/crypto-tax-guide", lastmod: getSourceDate("src/app/crypto-tax-guide/page.tsx") },
+    { url: "/about", lastmod: getSourceDate("src/app/about/page.tsx") },
+    { url: "/authors/pavlo-nakonechnyi", lastmod: getSourceDate("src/app/authors/pavlo-nakonechnyi/page.tsx") },
+    { url: "/contact", lastmod: getSourceDate("src/app/contact/page.tsx") },
+    { url: "/privacy", lastmod: getSourceDate("src/app/privacy/page.tsx") },
+    { url: "/terms", lastmod: getSourceDate("src/app/terms/page.tsx") },
+    { url: "/disclaimer", lastmod: getSourceDate("src/app/disclaimer/page.tsx") },
   ];
 
   const categories = await getAllCategories();
@@ -198,7 +166,7 @@ async function main() {
   });
 
   (Object.keys(SEARCH_INTENT_LABELS) as SearchIntentType[]).forEach(intent => {
-    mainEntries.push({ url: `/search-intent/${intent}`, lastmod: getSourceDate("data/search-intent.json", registryDate) });
+    mainEntries.push({ url: `/search-intent/${intent}`, lastmod: intentDate });
   });
 
   const tges = await getUpcomingTGEsLocal();
@@ -221,7 +189,7 @@ async function main() {
     const decision = getTgeIndexDecision(candidate, preferredTgeId);
     if (!decision.indexable) continue;
 
-    const date = toDateOnly(candidate.tge.lastVerifiedAt || candidate.tge.discoveredAt, upcomingDate);
+    const date = latestContentDate(candidate.tge.lastVerifiedAt, candidate.tge.discoveredAt, candidate.article?.generatedAt);
     mainEntries.push({ url: `/upcoming/${candidate.tge.id}`, lastmod: date });
   }
 
@@ -229,7 +197,7 @@ async function main() {
   glossaryItems.forEach(item => {
     mainEntries.push({
       url: `/learn/${item.slug}`,
-      lastmod: toDateOnly(item.updatedAt, glossaryDate),
+      lastmod: latestContentDate(item.updatedAt),
     });
   });
 
@@ -238,14 +206,13 @@ async function main() {
   // 2. Sitemap: Tokens (Overview, Prediction, Buy, Ledger)
   const tokenEntries: SitemapEntry[] = [];
   for (const id of tokenIds) {
-    const tokenDate = (await getTokenDate(id)) || registryDate;
     const detail = await getTokenDetail(id);
     if (!detail) continue;
 
     // Filter thin content (SEO safety)
     const overview = await getArticle(id, "overview");
     if (isTokenOverviewIndexable(detail, overview)) {
-      const overviewDate = toDateOnly(overview.generatedAt, tokenDate);
+      const overviewDate = latestContentDate(overview.generatedAt, overview.updatedAt, detail.fetchedAt);
       const images: { loc: string; title: string; }[] = [];
       const cgImage = detail.imageUrl;
       if (cgImage) {
@@ -266,7 +233,7 @@ async function main() {
     for (const type of types) {
       const art = await getArticle(id, type);
       if (isTokenChildArticleIndexable(detail, overview, art)) {
-        const artDate = art.generatedAt ? new Date(art.generatedAt).toISOString().split("T")[0] : tokenDate;
+        const artDate = latestContentDate(art.generatedAt, art.updatedAt, detail.fetchedAt);
         const artImages = [
           {
             loc: `${SITE_URL}/og/token/${id}.png`,
@@ -279,7 +246,7 @@ async function main() {
 
     // Static Technical Guides (no .json artifact needed)
     if (pilotIds.has(id)) {
-      tokenEntries.push({ url: `/${id}/transfer-to-ledger`, lastmod: tokenDate });
+      tokenEntries.push({ url: `/${id}/transfer-to-ledger` });
     }
   }
 
@@ -289,9 +256,8 @@ async function main() {
   // 4. Generate Sitemap Index
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemaps.map(s => `  <sitemap>
-    <loc>${SITE_URL}/${s.filename}</loc>
-    <lastmod>${s.lastmod}</lastmod>
+${sitemaps.map(filename => `  <sitemap>
+    <loc>${SITE_URL}/${filename}</loc>
   </sitemap>`).join("\n")}
 </sitemapindex>`;
 

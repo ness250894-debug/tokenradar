@@ -42,6 +42,13 @@ describe("content outbound URL validation", () => {
     expect(errors).toContain("Generated article content is empty");
   });
 
+  it("rejects editorial revisions dated before original publication", () => {
+    const errors = validateGeneratedArticleIntegrity("content/tokens/test-token/overview.json", {
+      title: "Test overview", content: "", generatedAt: "2026-05-13T18:24:29.406Z", updatedAt: "2026-05-01T00:00:00.000Z",
+    });
+    expect(errors).toContain("Article updatedAt must be a valid date on or after its publication date");
+  });
+
   it("rejects generated article path mismatches", () => {
     const errors = validateGeneratedArticleIntegrity("content/tokens/test-token/how-to-buy.json", {
       tokenId: "other-token",

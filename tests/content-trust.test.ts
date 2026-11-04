@@ -37,6 +37,20 @@ describe("content trust labels and timestamps", () => {
     expect(markup).not.toContain("Market fields fetched");
   });
 
+  it("separates original publication, editorial revision and market observation dates", () => {
+    const markup = renderToStaticMarkup(createElement(ResearchFreshnessNotice, {
+      publishedAt: "2026-05-13T18:24:29.406Z",
+      contentUpdatedAt: "2026-11-04T00:00:00.000Z",
+      marketDataAt: "2026-11-03T22:31:58.000Z",
+    }));
+    expect(markup).toContain("First published");
+    expect(markup).toContain("Editorial revision");
+    expect(markup).toContain("Market data updated");
+    expect(markup).toContain("2026-05-13T18:24:29.406Z");
+    expect(markup).toContain("2026-11-04T00:00:00.000Z");
+    expect(markup).not.toContain("Article generated");
+  });
+
   it("neutralizes forecast-like metric summaries at render time", () => {
     expect(normalizeMetricSummary("high growth potential, limited upside"))
       .toBe("high recovery-room signal, limited recovery-room signal");

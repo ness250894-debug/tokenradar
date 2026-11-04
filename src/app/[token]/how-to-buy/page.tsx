@@ -392,7 +392,7 @@ export default async function HowToBuyPage({ params }: PageProps) {
         data={{
           "@context": "https://schema.org",
           "@type": "ExchangeRateSpecification",
-          currency: "USD",
+          currency: detail.symbol.toUpperCase(),
           currentExchangeRate: {
             "@type": "UnitPriceSpecification",
             price: detail.market.price,

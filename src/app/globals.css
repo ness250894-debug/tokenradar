@@ -5517,6 +5517,12 @@ select.search-input option {
   color: var(--accent-primary);
 }
 
+.topic-cluster-card li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 .topic-cluster-card p,
 .topic-cluster-card ul {
   color: var(--text-secondary);
@@ -5634,3 +5640,13 @@ select.search-input option {
   color: var(--text-secondary);
   line-height: 1.75;
 }
+.research-pilot { margin-top: var(--space-xl); padding: var(--space-xl); }
+.research-pilot h2 { font-size: var(--text-2xl); font-weight: 800; }
+.research-pilot p { color: var(--text-secondary); line-height: 1.75; margin-top: var(--space-md); }
+.research-pilot-table { overflow-x: auto; margin-top: var(--space-lg); }
+.research-pilot table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.research-pilot caption { text-align: left; color: var(--text-secondary); padding-bottom: var(--space-sm); }
+.research-pilot th, .research-pilot td { padding: var(--space-sm); text-align: left; border-bottom: 1px solid var(--border-color); }
+.research-pilot a { color: var(--accent-secondary); text-decoration: underline; }
+.token-tools-reserved { min-height: 800px; }
+@media (min-width: 1024px) { .token-tools-reserved { min-height: 480px; } }

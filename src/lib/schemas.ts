@@ -65,6 +65,7 @@ export const GeneratedArticleSchema = z.object({
   content: z.string(),
   wordCount: z.number().min(0),
   generatedAt: IsoDateStringSchema,
+  updatedAt: IsoDateStringSchema.optional(),
   model: z.string(),
   promptTokens: z.number().optional(),
   completionTokens: z.number().optional(),
