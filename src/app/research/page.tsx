@@ -149,7 +149,7 @@ export default async function ResearchPage() {
                 <span>{bucket.min}–{bucket.max} score</span>
               </div>
               <strong>{bucket.share}%</strong>
-              <div className="research-risk-track" aria-label={`${bucket.share}% of the scored sample`}>
+              <div className="research-risk-track" aria-hidden="true">
                 <span style={{ width: `${bucket.share}%` }} />
               </div>
               <p>{bucket.count.toLocaleString("en-US")} assets</p>

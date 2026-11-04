@@ -48,7 +48,12 @@ const BASE_ALLOWED_EXTERNAL_HOSTS = new Set([
   "solscan.io",
   "runescan.io",
   "taostats.io",
+  "coingecko.com",
 ]);
+const EDITORIAL_SOURCE_HOSTS: Record<string, string[]> = {
+  bitcoin: ["developer.bitcoin.org"],
+  hyperliquid: ["hyperliquid.gitbook.io"],
+};
 
 function normalizeHost(hostname: string): string {
   return hostname.toLowerCase().replace(/^www\./, "");
@@ -110,6 +115,7 @@ function getTokenIdForArticlePath(filePath: string): string | null {
 function getAllowedHostsForToken(tokenId: string | null): Set<string> {
   const hosts = new Set<string>([...BASE_ALLOWED_EXTERNAL_HOSTS, ...getConfiguredAllowedHosts()]);
   if (!tokenId) return hosts;
+  for (const host of EDITORIAL_SOURCE_HOSTS[tokenId] || []) hosts.add(host);
 
   const tokenPath = path.join(DATA_DIR, "tokens", `${tokenId}.json`);
   if (!fs.existsSync(tokenPath)) return hosts;
@@ -161,6 +167,7 @@ export function validateGeneratedArticleIntegrity(filePath: string, parsed: unkn
     content?: unknown;
     wordCount?: unknown;
     generatedAt?: unknown;
+    updatedAt?: unknown;
   };
   const errors: string[] = [];
 
@@ -204,6 +211,13 @@ export function validateGeneratedArticleIntegrity(filePath: string, parsed: unkn
     (typeof article.generatedAt !== "string" || Number.isNaN(Date.parse(article.generatedAt)))
   ) {
     errors.push("Generated article generatedAt must be a valid ISO date when present");
+  }
+
+  if (article.updatedAt !== undefined && (
+    typeof article.updatedAt !== "string" || Number.isNaN(Date.parse(article.updatedAt)) ||
+    (typeof article.generatedAt === "string" && Date.parse(article.updatedAt) < Date.parse(article.generatedAt))
+  )) {
+    errors.push("Article updatedAt must be a valid date on or after its publication date");
   }
 
   return errors;

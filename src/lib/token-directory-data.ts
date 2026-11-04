@@ -6,6 +6,7 @@ import {
   getPrimaryTokenCategory,
   getSearchIntentDataset,
   getSearchIntentTrendMap,
+  getTokenIds,
   getTokenMetrics,
 } from "@/lib/content-loader";
 import { buildSearchIntentCardFields } from "@/lib/search-intent";
@@ -13,9 +14,15 @@ import { isTokenOverviewIndexableFromVolume } from "@/lib/seo";
 
 type DirectoryToken = Awaited<ReturnType<typeof getAllTokens>>[number];
 
+async function getDirectoryTokens(source?: DirectoryToken[]): Promise<DirectoryToken[]> {
+  const [tokens, ids] = await Promise.all([source ?? getAllTokens(), getTokenIds()]);
+  const published = new Set(ids);
+  return tokens.filter((token) => published.has(token.id));
+}
+
 export async function getTokenDirectoryData() {
   const [tokens, categoryIds, searchIntentDataset, searchIntentTrendMap] = await Promise.all([
-    getAllTokens(),
+    getDirectoryTokens(),
     getCategoryIds(),
     getSearchIntentDataset(),
     getSearchIntentTrendMap(),
@@ -46,7 +53,7 @@ export async function getTokenDirectoryData() {
 }
 
 export async function getIndexableTokenProfiles(tokens?: DirectoryToken[]) {
-  const sourceTokens = tokens ?? await getAllTokens();
+  const sourceTokens = await getDirectoryTokens(tokens);
   const candidates = await Promise.all(sourceTokens.map(async (token) => {
     const overview = await getArticle(token.id, "overview");
     return isTokenOverviewIndexableFromVolume(token.volume24h, overview) ? token : null;

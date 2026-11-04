@@ -2,7 +2,11 @@ module.exports = {
   ci: {
     collect: {
       staticDistDir: "./out",
-      url: [
+      url: process.env.TOKENRADAR_LIGHTHOUSE_RESEARCH === "1" ? [
+        "http://localhost/bitcoin.html",
+        "http://localhost/research.html",
+        "http://localhost/learn/what-is-a-rug-pull.html",
+      ] : [
         "http://localhost/",
         "http://localhost/tokens.html",
         "http://localhost/search-intent.html",

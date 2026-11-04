@@ -29,6 +29,9 @@ import { logError, logActivity } from "../src/lib/reporter";
 import { safeReadJson, loadEnv, ensureDirSync } from "../src/lib/utils";
 import type { TokenDetail } from "../src/lib/content-loader";
 
+import { computeRiskScore, computeVolatility } from "../src/lib/risk-score";
+export { computeRiskScore, computeVolatility } from "../src/lib/risk-score";
+
 // Load environment
 loadEnv();
 
@@ -107,73 +110,6 @@ export function resolveCategoryMetricContext(
 }
 
 // ── Metric Calculations ────────────────────────────────────────
-
-/**
- * Compute 30-day price volatility (coefficient of variation).
- * CV = (std dev / mean) * 100
- */
-export function computeVolatility(prices: { price: number }[]): number {
-  if (prices.length < 2) return 0;
-
-  const values = prices.map((p) => p.price);
-  const mean = values.reduce((a, b) => a + b, 0) / values.length;
-  if (mean === 0) return 0;
-
-  const variance =
-    values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
-  const stdDev = Math.sqrt(variance);
-
-  return (stdDev / mean) * 100;
-}
-
-/**
- * Risk Score (1-10)
- *
- * Based on 4 factors:
- * 1. Volatility (30d CV) — higher = riskier
- * 2. Market cap — lower = riskier
- * 3. Trading volume ratio — lower volume-to-cap = riskier
- * 4. ATH drawdown — bigger drawdown = riskier
- *
- * Each factor contributes 0-2.5 points, clamped to 1-10.
- */
-export function computeRiskScore(
-  volatility: number,
-  marketCap: number,
-  volume24h: number,
-  athChangePercentage: number
-): number {
-  // Factor 1: Volatility (0-2.5)
-  // CV < 3 = low vol, CV > 20 = extreme vol
-  const volScore = Math.min(2.5, (volatility / 20) * 2.5);
-
-  // Factor 2: Market cap (0-2.5)
-  // > $10B = 0, < $500M = 2.5
-  const capScore =
-    marketCap >= 10e9
-      ? 0
-      : marketCap <= 500e6
-        ? 2.5
-        : 2.5 * (1 - (marketCap - 500e6) / (10e9 - 500e6));
-
-  // Factor 3: Volume ratio (0-2.5)
-  // volume/cap > 10% = liquid, < 1% = illiquid
-  const volumeRatio = marketCap > 0 ? (volume24h / marketCap) * 100 : 0;
-  const volumeScore =
-    volumeRatio >= 10
-      ? 0
-      : volumeRatio <= 1
-        ? 2.5
-        : 2.5 * (1 - (volumeRatio - 1) / 9);
-
-  // Factor 4: ATH drawdown (0-2.5)
-  // athChangePercentage is negative (e.g., -80 means 80% down from ATH)
-  const drawdown = Math.abs(athChangePercentage);
-  const athScore = Math.min(2.5, (drawdown / 90) * 2.5);
-
-  const raw = volScore + capScore + volumeScore + athScore;
-  return Math.max(1, Math.min(10, Math.round(raw)));
-}
 
 /**
  * Growth Potential Index (0-100)

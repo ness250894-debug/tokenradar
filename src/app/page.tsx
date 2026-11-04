@@ -248,7 +248,9 @@ export default async function HomePage() {
               <div className="stat-change" style={{ color: marketChange24h >= 0 ? "var(--green)" : "var(--red)" }}>
                 {marketMood}
               </div>
-              <div className="stat-footnote">Across {formatInteger(scoredTokenCount)} scored tokens</div>
+              <div className="stat-footnote">
+                <Link href="/research#risk-distribution">Risk distribution across {formatInteger(scoredTokenCount)} scored tokens</Link>
+              </div>
             </div>
 
             <div className="stat-card-premium home-stat-card">
