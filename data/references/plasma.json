@@ -3,27 +3,6 @@
   "tokenName": "Plasma",
   "articles": [
     {
-      "title": "Binance's $6.3 billion hack began with a fake job interview, and a campaign 'built over many months'",
-      "link": "https://www.coindesk.com/business/2026/11/03/binance-s-usd6-3-billion-hack-began-with-a-fake-job-interview-exchange-says",
-      "pubDate": "Tue, 03 Nov 2026 14:53:19 +0000",
-      "source": "CoinDesk",
-      "snippet": "North Korea-linked attackers spent months compromising Binance employees and internal systems before exploiting its hot-wallet signing infrastructure through Ethereum's EIP-7702 mechanism."
-    },
-    {
-      "title": "Liquid’s bitcoin IOUs are fully backed again after a $320 million exploit",
-      "link": "https://www.coindesk.com/markets/2026/11/03/liquid-s-bitcoin-ious-are-fully-backed-again-after-a-usd320-million-exploit",
-      "pubDate": "Tue, 03 Nov 2026 11:12:12 +0000",
-      "source": "CoinDesk",
-      "snippet": "A final 250 BTC transfer closed the hole left by September’s bug, but the federation behind the network still hasn’t said who paid to fill it."
-    },
-    {
-      "title": "North Korea denies role in $6.4 billion Binance hack after FBI points to TraderTraitor",
-      "link": "https://www.coindesk.com/business/2026/11/03/north-korea-denies-role-in-usd6-4-billion-binance-hack-after-fbi-points-to-tradertraitor",
-      "pubDate": "Tue, 03 Nov 2026 09:40:32 +0000",
-      "source": "CoinDesk",
-      "snippet": "The high-profile denial follows FBI alerts identifying North Korean-controlled wallet addresses tied to the largest cryptocurrency exploit in history."
-    },
-    {
       "title": "Binance traces $6.3B hack to fake job interviews, compromised AI tool",
       "link": "https://cointelegraph.com/news/binance-fake-job-interviews-compromised-ai-tool-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Tue, 03 Nov 2026 16:44:06 +0000",
@@ -31,12 +10,19 @@
       "snippet": "Hackers exploited compromised employee computers and stolen credentials to breach Binance’s wallet infrastructure, according to the exchange’s investigation."
     },
     {
-      "title": "AI poses greater threat to Bitcoin than quantum computing, Swan founder says",
-      "link": "https://cointelegraph.com/news/ai-hackers-threat-bitcoin-quantum-computing-swan?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 02 Nov 2026 21:54:41 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "The Swan Bitcoin founder warned that hackers are using large language models to exploit security flaws with just a few prompts."
+      "title": "Why Bitcoin&#39;s Next Soft Fork Could Feel Like a Practice Run",
+      "link": "https://decrypt.co/382568/why-bitcoin-next-soft-fork-could-feel-like-practice-run",
+      "pubDate": "Wed, 04 Nov 2026 22:46:03 +0000",
+      "source": "Decrypt",
+      "snippet": "Matt Corallo explains why patching four legacy bugs is about rebuilding muscle memory, just as much as it’s about Bitcoin maintenance."
+    },
+    {
+      "title": "Liquid Network Restores Full Bitcoin Backing Two Months After $320M Exploit",
+      "link": "https://decrypt.co/382397/liquid-network-restores-full-bitcoin-backing-two-months-after-320m-exploit",
+      "pubDate": "Tue, 03 Nov 2026 11:22:10 +0000",
+      "source": "Decrypt",
+      "snippet": "Blockstream CEO Adam Back said the sidechain&#39;s defenses have been hardened, and warned developers not to trust AI-suggested fixes blindly."
     }
   ],
-  "fetchedAt": "2026-11-03T22:46:57.120Z"
+  "fetchedAt": "2026-11-04T23:07:51.096Z"
 }
