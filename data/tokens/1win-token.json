@@ -1,0 +1,50 @@
+{
+  "id": "1win-token",
+  "symbol": "1win",
+  "name": "1win Token",
+  "market": {
+    "price": 0.04969395,
+    "marketCap": 49693442,
+    "marketCapRank": 459,
+    "volume24h": 2670632,
+    "high24h": 0.056406,
+    "low24h": 0.03974566,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": 0,
+    "priceChange1y": 0,
+    "ath": 0.056406,
+    "athChangePercentage": -11.90014,
+    "athDate": "2026-11-04T10:21:40.000Z",
+    "atl": 0.03974566,
+    "atlDate": "2026-11-04T20:13:40.000Z",
+    "circulatingSupply": 999999985.1333097,
+    "totalSupply": 999999985.1333097,
+    "maxSupply": 1000000000,
+    "fdv": 49693442
+  },
+  "lastMarketUpdate": "2026-11-04T22:53:58.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/102179706/large/1win_Token_Logo.png?1792656224",
+  "description": "1WIN is an iGaming platform founded in 2016, offering sports betting, casino, poker, slots, esports, and live dealer games to millions of users globally. In 2026, the project launched 1WIN Token (1WIN), a Solana SPL utility token integrated into the existing ecosystem.\n\nTotal supply is fixed at 1 billion tokens with no minting after TGE. A deflationary mechanism burns 10% of all 1WIN spent on platform products via smart contract, starting 30 days post-TGE. A buyback program uses gaming revenue to purchase tokens on the open market.\n\n1WIN serves as a gaming currency across all platform modes and powers a daily lottery and the Wager Rewards program for active crypto players. Prior to TGE, 80 million tokens (8%) were distributed through a Telegram Mini App campaign. The public sale offered 130 million tokens at $0.03 USDC through a two-week oversubscription model with a $10 minimum and no maximum.\n\nToken allocation: 25% game rewards, 20% liquidity, 18% Wager Rewards, 13% public sale, 10% treasury, 8% TMA airdrop, and 6% marketing. Sale and airdrop allocations unlock fully at TGE; other categories follow linear monthly vesting with cliffs up to nine months.\n\nSmart contracts were audited by CertiK and Halborn. The project maintains a public burn dashboard and supports WalletConnect with Trust Wallet, MetaMask, and Phantom. USDC on Solana was added in September 2026.\n\n1WIN connects platform activity with Solana DeFi through open-market buybacks and verifiable on-chain burns. It is a utility token within the 1win ecosystem and does not confer equity, ownership, voting rights, or profit claims. The token is not available to U.S. persons or residents of restricted jurisdictions.",
+  "categories": [
+    "Gambling (GambleFi)",
+    "Solana Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://1wtoken.com/",
+    "github": "https://github.com/1win-token/1win-token-solana-programs/",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/FjPKUGnF5zBpdEv18gT8FJCtxh3MKrFkoeYekgYr1win"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-04T22:54:55.189Z"
+}
