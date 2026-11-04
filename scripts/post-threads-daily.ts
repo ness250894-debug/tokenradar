@@ -13,6 +13,8 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { createResearchSnapshot } from "../src/lib/social-research-snapshot";
+import { loadResearchCohort, evaluateResearchCohort, buildResearchFollowUpText, getFollowUpEndpointTimes } from "./lib/social-follow-up";
 
 import { buildSocialContentFacts, generateUnifiedCaptions } from "../src/lib/gemini";
 import { validateSocialContent } from "../src/lib/social-content-validator";
@@ -59,10 +61,7 @@ const WEEKLY_RECAP_TRACKER_FILE_NAME = "weekly-threads-recap.json";
 const THREADS_RESEARCH_NOTE_MAX_CHARS = 360;
 const THREADS_TEXT_ARCHETYPES = [
   "single_token_snapshot",
-  "risk_lab",
-  "myth_vs_data",
-  "data_quality_warning",
-  "behind_the_radar",
+  "how_to_read_metric",
 ] satisfies readonly SocialArchetypeKey[];
 type ThreadsPostMode = "text" | "weekly-recap";
 
@@ -221,27 +220,36 @@ async function main() {
     } = await loadCandidateTokens(DATA_DIR, 1, 250);
 
     if (mode === "weekly-recap") {
-      const recap = buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
       const recapArchetype = getSocialArchetypeByKey("weekly_scoreboard");
       if (!recapArchetype) throw new Error("Missing weekly_scoreboard social archetype.");
-      const recapSnapshotTimes = recap.tokenIds
-        .map((tokenId) => candidates.find((candidate) => candidate.id === tokenId))
-        .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""))
-        .filter(Number.isFinite);
-      if (recapSnapshotTimes.length !== recap.tokenIds.length) {
-        throw new Error("Every Threads recap token must have a valid CoinGecko snapshot timestamp.");
+      const now = new Date();
+      const followUps = evaluateResearchCohort(await loadResearchCohort(DATA_DIR, "threads", now), candidates, now);
+      const recap = followUps.length ? undefined : buildWeeklyThreadsRecap(selectWeeklyRecapTokens(candidates));
+      const tokenIds = recap?.tokenIds ?? followUps.map((item) => item.snapshot.tokenId);
+      const topicTag = recap?.topicTag ?? "Crypto";
+      let marketDataAsOf = getFollowUpEndpointTimes(followUps).first;
+      let recapCaption: string;
+      if (recap) {
+        const recapSnapshotTimes = tokenIds
+          .map((tokenId) => candidates.find((candidate) => candidate.id === tokenId))
+          .map((candidate) => Date.parse(candidate?.lastMarketUpdate || candidate?.fetchedAt || ""));
+        if (!recapSnapshotTimes.every(Number.isFinite)) {
+          throw new Error("Every Threads recap token must have a valid CoinGecko snapshot timestamp.");
+        }
+        marketDataAsOf = new Date(Math.min(...recapSnapshotTimes)).toISOString();
+        recapCaption = truncateThreadsAtBoundary(
+          `${recap.caption}\n\nCoinGecko snapshot, ${marketDataAsOf.slice(11, 16)} UTC.`,
+          SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
+        );
+      } else {
+        recapCaption = buildResearchFollowUpText(followUps, SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT);
       }
-      const marketDataAsOf = new Date(Math.min(...recapSnapshotTimes));
-      const recapCaption = truncateThreadsAtBoundary(
-        `${recap.caption}\n\nCoinGecko snapshot, ${marketDataAsOf.toISOString().slice(11, 16)} UTC.`,
-        SOCIAL_PLATFORM_LIMITS.THREADS.TEXT_LIMIT,
-      );
 
       console.log();
       console.log("Threads weekly recap preview:");
       console.log(recapCaption);
-      console.log(`Topic: ${recap.topicTag}`);
-      console.log(`Tokens: ${recap.tokenIds.join(", ")}`);
+      console.log(`Topic: ${topicTag}`);
+      console.log(`Tokens: ${tokenIds.join(", ")}`);
       console.log(`Archetype: ${recapArchetype.label} (${recapArchetype.key})`);
 
       if (dryRun) {
@@ -254,9 +262,9 @@ async function main() {
         contentKey: socialPostKey,
         details: {
           surface: "threads-weekly-recap",
-          tokenIds: recap.tokenIds,
+          tokenIds,
           marketDataSource: "coingecko-live",
-          marketDataAsOf: marketDataAsOf.toISOString(),
+          marketDataAsOf,
         },
       });
       if (!reservation.acquired) {
@@ -269,7 +277,7 @@ async function main() {
       deliveryReserved = true;
 
       const result = await publishThreadsText(recapCaption, {
-        topicTag: recap.topicTag,
+        topicTag,
       });
       publishedExternalId = result.id;
       const postedAt = new Date().toISOString();
@@ -286,14 +294,16 @@ async function main() {
         ctaFamily: recapArchetype.ctaFamily,
         text: recapCaption,
         externalId: result.id,
-        topicTag: recap.topicTag,
+        topicTag,
         details: {
-          tokenIds: recap.tokenIds,
-          leaders: recap.leaders.map(weeklyTrackerToken),
-          pullback: recap.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
-          volumeLeader: recap.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
+          tokenIds,
+          leaders: recap?.leaders.map(weeklyTrackerToken),
+          editorialMode: followUps.length ? "research-follow-up" : "weekly-lesson",
+          followUpCohort: followUps.length ? followUps : undefined,
+          pullback: recap?.pullback ? weeklyTrackerToken(recap.pullback) : undefined,
+          volumeLeader: recap?.volumeLeader ? weeklyTrackerVolumeToken(recap.volumeLeader) : undefined,
           marketDataSource: "coingecko-live",
-          marketDataAsOf: marketDataAsOf.toISOString(),
+          marketDataAsOf,
           socialSlot: process.env.SOCIAL_SLOT,
         },
       });
@@ -376,6 +386,7 @@ async function main() {
     console.log(`Threads archetype: ${contentArchetype.label} (${contentArchetype.key})`);
 
     const publishingContext = {
+      readerValueRequired: true,
       ...metric,
       price: token.market.price,
       priceChange24h: token.market.priceChange24h,
@@ -408,7 +419,7 @@ async function main() {
     const threadsContent = buildThreadsContent(
       captions.threadsCaption,
       captions.threadsTopicTag,
-      captions.threadsSpoilerText,
+      undefined,
       token.name,
     );
     const finalValidation = validateSocialContent(
@@ -478,6 +489,10 @@ async function main() {
         marketDataSource: token.marketDataSource,
         marketDataAsOf: token.lastMarketUpdate || token.fetchedAt,
         metricsAsOf: metric?.inputDataAsOf,
+        captionGeneration: captions.generation?.threads,
+        readerLessonKey: captions.generation?.threads?.lessonKey,
+        editorialMode: "reader-note",
+        researchSnapshot: createResearchSnapshot(token),
         socialSlot: process.env.SOCIAL_SLOT,
       },
     });

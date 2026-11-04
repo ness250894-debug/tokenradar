@@ -11,6 +11,7 @@ import {
   buildSocialPerformanceReport,
   normalizePerformanceRows,
   readPerformanceRows,
+  isNonVideoPost,
   renderSocialPerformanceMarkdown,
   type D1PerformanceRow,
   type SocialPerformanceRow,
@@ -61,6 +62,27 @@ const d1Row = (overrides: Partial<D1PerformanceRow>): D1PerformanceRow => ({
 });
 
 describe("weekly social performance report", () => {
+  it("keeps comparison cards in the non-video view and reports fallback provenance and missing useful-action metrics", () => {
+    const comparison = row({ postDetails: { variantSurface: "token-comparison", formatKey: "two-token-comparison" } });
+    expect(isNonVideoPost(comparison)).toBe(true);
+    expect(isNonVideoPost(row({ postDetails: { variantSurface: "video" } }))).toBe(false);
+    expect(isNonVideoPost(row({ contentKey: "2026-10-20:slot:x-native-video:x:video" }))).toBe(false);
+    expect(isNonVideoPost(row({ postDetails: { socialSlot: "instagram-reel" } }))).toBe(false);
+    expect(isNonVideoPost(row({ contentKey: "2026-10-20:market-update:reelcoin:x" }))).toBe(true);
+    const report = buildSocialPerformanceReport([row({
+      impressions: 30, replies: 0, likes: 0, saves: undefined, reposts: undefined,
+      postDetails: { readerLessonKey: "turnover", captionGeneration: { mode: "deterministic", reason: "validation-rejected" } },
+    }), row({ contentKey: "post-2", impressions: 5_000, replies: undefined, saves: 1, reposts: undefined })], { lookbackDays: 30, nonVideoOnly: true });
+    expect(report.generationSummary.map((group) => group.key)).toContain("x / deterministic / validation-rejected");
+    expect(report.readerLessonSummary.map((group) => group.key)).toContain("x / turnover");
+    expect(report.usefulActions[0]).toMatchObject({
+      replies: { count: 0, perThousand: 0 },
+      saves: { count: 1, perThousand: 0.2 },
+      shares: { count: undefined, perThousand: undefined },
+    });
+    expect(renderSocialPerformanceMarkdown(report)).toContain("N/A marks an unavailable measurement");
+    expect(renderSocialPerformanceMarkdown(report)).not.toContain("Retention sample");
+  });
   beforeEach(() => {
     d1Mocks.executeD1Query.mockReset();
     d1Mocks.executeD1Query.mockResolvedValue([{ success: true, results: [] }]);

@@ -149,12 +149,18 @@ The authoritative production social cadence, platform caps, and weekly slots are
 
 | Platform | Production schedule (UTC) | Format |
 |---|---|---|
-| Telegram | Daily at 00:17; Tue/Thu at 15:37; Fri at 16:29; Mon/Wed at 18:41; Sun at 21:23 | Brief, token comparison, weekly recap, Radar Divergence, movers card |
-| X | Daily at 03:17; Mon/Wed/Fri at 12:23 | Research note; token comparison card |
-| Instagram | Sun at 00:29; Mon/Wed at 18:41 | Movers carousel; token comparison card |
-| Threads | Tue/Thu at 16:17; Fri at 16:29 | Text explainer; weekly recap |
-| YouTube | Mon/Wed/Fri at 18:47 | Short-form video |
+| Telegram | Mon 08:17; Tue 15:37; Wed 17:13; Thu 18:41; Fri 16:29; Sun 21:23 | Market lesson, comparison, poll, turnover explanation, follow-up/recap, movers |
+| X | Mon 12:23; Tue/Thu/Fri 15:17; Wed 18:43 | Comparison; metric notes/Friday follow-up; native video |
+| Instagram | Mon/Fri 18:47; Wed/Sun 18:29 | Reels; five-slide learning carousels |
+| Threads | Tue/Thu 16:17; Fri 16:29 | Metric explainers; recorded follow-up/weekly lesson |
+| YouTube | Mon/Wed/Fri 18:57 | Short-form video |
 | TikTok | Disabled | No scheduled posts |
+
+Non-video market notes require a supplied observation and a plain-English metric explanation. Generated copy passes factual and reader-value validation; deterministic educational fallbacks record their mode, reason, attempts, and lesson in D1. Instagram carousels teach one story through a question, comparison, calculation, missing checks, and reusable checklist. Polls use short curated questions; comparisons skip publication when only a broad category matches.
+
+Published market notes store structured price observations. Friday X notes and Telegram/Threads recaps revisit the earliest distinct assets recorded 7–14 days earlier, preserving declines and unavailable endpoints. Returns use the original and fresh same-source prices. Until baselines accumulate, those slots publish metric lessons. The weekly workflow uploads both the existing report and `non-video-social-performance-latest.md`, including lesson, fallback, and useful-action tables. Run the latter locally with `npx tsx scripts/report-social-performance.ts --exclude-video`.
+
+The generated social runbook includes the 30-day testing plan, a profile/pinned-post draft, and the account/community tasks that require an owner: reviewing Instagram recommendation eligibility, responding to substantive comments, and using actual poll results as editorial input.
 
 Short-form video uses `src/lib/video-formats.ts` for editorial rotation, `src/lib/video-recipes.ts` for seeded visual recipes, `src/lib/social-content-generator.ts` for pre-render hook text, and Remotion for platform-specific MP4 renders. Each platform can receive its own hook, thesis, music track, caption, layout, chart style, background system, motion pack, and pacing.
 

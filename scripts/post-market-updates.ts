@@ -31,6 +31,8 @@
 import { InputFile } from "grammy";
 import * as fs from "fs";
 import * as path from "path";
+import { createResearchSnapshot } from "../src/lib/social-research-snapshot";
+import { loadResearchCohort, evaluateResearchCohort, buildResearchFollowUpText, type ResearchFollowUp } from "./lib/social-follow-up";
 import { pathToFileURL } from "url";
 
 import { logError, logActivity } from "../src/lib/reporter";
@@ -456,7 +458,21 @@ async function main() {
 
   // 3. Select token using priority-based strategy
   console.log(`\n▶ Step 2: Selecting token (priority-based)...`);
-  const selection = await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, onWebsiteIds, targetPlatform as "x" | "telegram" | "all");
+  let xFollowUp: ResearchFollowUp | undefined;
+  if (runX && !runTelegram && (new Date().getUTCDay() === 5 || args.includes("--follow-up"))) {
+    const cohort = await loadResearchCohort(DATA_DIR, "x");
+    if (cohort.length) {
+      xFollowUp = evaluateResearchCohort([cohort[0]], candidateTokens, new Date())[0];
+      if (!xFollowUp.current) {
+        console.log("Holding X follow-up: the fixed original asset has no fresh same-source endpoint price.");
+        return;
+      }
+    }
+  }
+  const originalTarget = xFollowUp && candidateTokens.find((token) => token.id === xFollowUp.snapshot.tokenId);
+  const selection = originalTarget
+    ? { token: originalTarget, reason: "research-follow-up", trendingContext: undefined }
+    : await selectToken(candidateTokens, todayPosted, recentlyPosted, metricsDir, allTokensRegistry, onWebsiteIds, targetPlatform as "x" | "telegram" | "all");
 
   if (!selection) {
     console.error("  ✗ Could not select a target token.");
@@ -490,6 +506,7 @@ async function main() {
 
   const context = {
     ...targetMetric,
+    readerValueRequired: true,
     price: targetToken.market.price,
     priceChange24h: targetToken.market.priceChange24h,
     marketCap: targetToken.market.marketCap,
@@ -527,6 +544,7 @@ async function main() {
 
   const captionPlatforms: PlatformTarget[] = [];
   const captionOptions: UnifiedCaptionOptions = {};
+  let captionGeneration: Awaited<ReturnType<typeof generateUnifiedCaptions>>["generation"];
   const contentVariants: Partial<Record<PlatformTarget, SocialContentVariant>> = {};
   const contentArchetypes: Partial<Record<PlatformTarget, SocialContentArchetype>> = {};
   const marketPlans: Partial<Record<MarketPostPlatform, MarketSocialPlan>> = {};
@@ -579,6 +597,10 @@ async function main() {
       console.log(`  Telegram archetype: ${marketPlans.telegram.archetype.label} (${marketPlans.telegram.archetype.key})`);
     } else {
       tgMessage = deterministicTelegramMessage;
+      captionGeneration = { ...captionGeneration, telegram: {
+        mode: "deterministic", attempts: 0,
+        lessonKey: telegramFormat === "radar-divergence" ? "turnover" : telegramFormat === "market-pulse" ? "rank" : "market_cap",
+      } };
       contentVariants.telegram = {
         key: telegramDraft.variantKey,
         label: telegramDraft.variantLabel,
@@ -594,7 +616,7 @@ async function main() {
     console.log(`▶ Step 3/X: Generating Tweet in "${tone}" tone...`);
     const isOnWebsite = onWebsiteIds.has(targetToken.id);
     captionOptions.xMaxChars = 230;
-    captionPlatforms.push("x");
+    if (!xFollowUp) captionPlatforms.push("x");
     marketPlans.x = buildMarketSocialPlan({
       dataDir: DATA_DIR,
       platform: "x",
@@ -639,6 +661,7 @@ async function main() {
       captionPlatforms,
       captionOptions,
     );
+    captionGeneration = { ...captionGeneration, ...captions.generation };
 
     if (runTelegram && telegramFormat === "market-brief") {
       const generatedCaptionUnavailable = !captions.telegramSummary?.trim();
@@ -648,6 +671,10 @@ async function main() {
         generatedCaptionQuarantined: telegramGeneratedCaptionQuarantined,
       });
       if (telegramGeneratedCaptionQuarantined || generatedCaptionUnavailable) {
+        captionGeneration.telegram = {
+          mode: "deterministic", attempts: captions.generation?.telegram?.attempts || 0,
+          reason: telegramGeneratedCaptionQuarantined ? "validation-rejected" : "ai-unavailable", lessonKey: "price_change",
+        };
         telegramCaptionMode = telegramGeneratedCaptionQuarantined
           ? "deterministic-quarantine-fallback"
           : "deterministic-unavailable-fallback";
@@ -662,10 +689,15 @@ async function main() {
         console.warn("  Telegram AI candidate was quarantined; using the local deterministic market brief.");
       }
     }
-    if (runX) xMessage = captions.xTweet || "";
+    if (runX && !xFollowUp) xMessage = captions.xTweet || "";
   }
 
-  if (runX && xMessage) {
+  if (xFollowUp) {
+    xMessage = buildResearchFollowUpText([xFollowUp], captionOptions.xMaxChars ?? 230);
+    captionGeneration = { ...captionGeneration, x: { mode: "deterministic", attempts: 0, lessonKey: "research-follow-up" } };
+  }
+
+  if (runX && xMessage && !xFollowUp) {
     const recentXTexts = getRecentPlatformTexts(DATA_DIR, "x", 14);
     const diversified = diversifyXPostText(
       xMessage,
@@ -786,6 +818,11 @@ async function main() {
         socialSlot: socialSlotFor(platform),
         telegramFormat: platform === "telegram" ? telegramFormat : undefined,
         telegramCaptionMode: platform === "telegram" ? telegramCaptionMode : undefined,
+        captionGeneration: captionGeneration?.[platform],
+        readerLessonKey: captionGeneration?.[platform]?.lessonKey,
+        editorialMode: platform === "x" && xFollowUp ? "research-follow-up" : "reader-note",
+        followUpCohort: platform === "x" && xFollowUp ? [xFollowUp] : undefined,
+        researchSnapshot: platform === "x" && xFollowUp ? undefined : createResearchSnapshot(targetToken),
         marketDataSource: targetToken.marketDataSource,
         marketDataAsOf: targetMarketAsOf,
         metricsAsOf: targetMetric?.inputDataAsOf,

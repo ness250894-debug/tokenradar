@@ -5,11 +5,13 @@ import * as path from "path";
 import type { ReactElement } from "react";
 
 import { formatCompact, formatPercent } from "./formatters";
+import type { ResearchFollowUp } from "../../scripts/lib/social-follow-up";
 
 const WIDTH = 1200;
 const HEIGHT = 630;
 
 export interface TelegramWeeklyRecapImageData {
+  followUps?: ResearchFollowUp[];
   title: string;
   subtitle: string;
   generatedAtLabel: string;
@@ -177,8 +179,9 @@ function renderCard(data: TelegramWeeklyRecapImageData): ReactElement {
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
+        width: WIDTH,
+        height: HEIGHT,
+        boxSizing: "border-box",
         background: "#06070A",
         color: "#F8FAFC",
         display: "flex",
@@ -207,8 +210,24 @@ function renderCard(data: TelegramWeeklyRecapImageData): ReactElement {
         </div>
 
         <div style={{ display: "flex", gap: 22, marginTop: 30 }}>
+          {data.followUps?.length ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
+              {data.followUps.map((item) => (
+                <div key={item.snapshot.tokenId} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px", background: "#111A2C", borderRadius: 10 }}>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", fontSize: 30 }}>{item.snapshot.symbol}</div>
+                    <div style={{ display: "flex", color: "#AAB8CB", fontSize: 21 }}>Since {item.snapshot.marketDataAsOf.slice(0, 16).replace("T", " ")} UTC</div>
+                  </div>
+                  <div style={{ display: "flex", color: item.returnPercent === undefined ? "#AAB8CB" : item.returnPercent < 0 ? "#FF6688" : "#00FFA3", fontSize: 34 }}>
+                    {item.returnPercent === undefined ? "Price unavailable" : formatPercent(item.returnPercent, 2)}
+                  </div>
+                </div>
+              ))}
+              <div style={{ display: "flex", fontSize: 22, color: "#AAB8CB" }}>Original cohort retained, including declines and missing endpoint prices.</div>
+            </div>
+          ) : <div style={{ display: "flex", width: "100%", gap: 22 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 650 }}>
-            <div style={{ display: "flex", color: "#94A3B8", fontSize: 21 }}>Weekly momentum leaders</div>
+            <div style={{ display: "flex", color: "#94A3B8", fontSize: 21 }}>Tracked 7d changes</div>
             {data.leaders.slice(0, 3).map((item, index) => leaderRow(item, index))}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: 1, paddingTop: 33 }}>
@@ -223,7 +242,7 @@ function renderCard(data: TelegramWeeklyRecapImageData): ReactElement {
               : null}
             {data.volumeLeader
               ? sidePanel(
-                  "Liquidity tell",
+                  "Reported 24h volume",
                   data.volumeLeader.symbol,
                   formatCompact(data.volumeLeader.volume24h),
                   "#00C2FF",
@@ -231,6 +250,7 @@ function renderCard(data: TelegramWeeklyRecapImageData): ReactElement {
                 )
               : null}
           </div>
+          </div>}
         </div>
       </div>
     </div>

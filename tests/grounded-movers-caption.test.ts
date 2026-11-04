@@ -11,8 +11,8 @@ describe("grounded movers caption", () => {
 
     expect(caption).toContain("Alpha (ALP) is +12.50% over 24h at $1.25");
     expect(caption).toContain("ALP +12.50% · BET +7.25%");
-    expect(caption).toContain("does not establish order-book depth, flows, or investor participation");
-    expect(caption).toContain("CoinGecko snapshot, 12:23 UTC");
+    expect(caption).toContain("each daily percentage uses that asset's earlier price as its baseline");
+    expect(caption).toContain("CoinGecko snapshot, 2026-08-23 12:23 UTC");
     expect(caption).not.toMatch(/institutional interest|whales|support|resistance|entry|accumulation/i);
   });
 

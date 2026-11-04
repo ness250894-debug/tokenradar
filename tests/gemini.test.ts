@@ -527,6 +527,34 @@ describe("Gemini request config", () => {
     }
   }, 10_000);
 
+  it("records a reader-value fallback when generated copy only repeats a generic warning", async () => {
+    process.env.GEMINI_API_KEY = "test-key";
+    delete process.env.ANTHROPIC_API_KEY;
+    const reviewRoot = fs.mkdtempSync(path.join(os.tmpdir(), "tokenradar-reader-review-"));
+    const metrics = {
+      priceChange24h: -11.57, marketCap: 4_000_000_000, volume24h: 883_250_000,
+      marketCapRank: 26, readerValueRequired: true,
+      marketDataSource: "coingecko-live", marketDataAsOf: "2026-10-29T22:56:00Z",
+    };
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({
+      candidates: [{ content: { parts: [{ text: JSON.stringify({
+        xTweet: "$UNI moved -11.57% over 24h. The snapshot shows movement, not durability.\nCoinGecko snapshot, 2026-10-29 22:56 UTC",
+      }) }] }, finishReason: "STOP" }],
+      usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20, totalTokenCount: 120 },
+    }), { status: 200, headers: { "Content-Type": "application/json" } }));
+    try {
+      const captions = await generateUnifiedCaptions("Uniswap", "UNI", "", metrics, ["x"], {
+        xMaxChars: 230, validationRegenerationAttempts: 0, reviewQueueRootDir: reviewRoot,
+      });
+      expect(captions.generation?.x).toMatchObject({ mode: "deterministic", reason: "validation-rejected", attempts: 1 });
+      expect(captions.generation?.x?.lessonKey).toBeTruthy();
+      expect(captions.xTweet).not.toContain("snapshot shows movement");
+      expect(validateSocialContent(captions.xTweet!, buildSocialContentFacts("Uniswap", "UNI", metrics)).ok).toBe(true);
+    } finally {
+      fs.rmSync(reviewRoot, { recursive: true, force: true });
+    }
+  });
+
   it("keeps Cash Cat fallbacks grounded when AI invents numeric facts", async () => {
     process.env.GEMINI_API_KEY = "test-key";
     delete process.env.ANTHROPIC_API_KEY;

@@ -105,29 +105,14 @@ describe("Telegram poll delivery idempotency", () => {
     expect(dependencies.markSocialDeliveryStatus).not.toHaveBeenCalled();
   });
 
-  it("replaces unsafe editorial options from AI without throwing or failing delivery", async () => {
-    dependencies.callAIWithFallback.mockResolvedValue({
-      content: JSON.stringify({
-        question: "Community Pulse: Which watchlist factor do you weigh most?",
-        options: [
-          "Accumulation volume",
-          "On-chain velocity",
-          "Liquidity depth",
-          "Developer activity",
-        ],
-      }),
-    });
-
+  it("uses coherent short choices without requesting speculative AI copy", async () => {
     await main([]);
-
-    expect(dependencies.sendTelegramPoll).toHaveBeenCalledWith(
-      "Community Pulse: Which watchlist factor do you weigh most?",
-      expect.arrayContaining(["On-chain velocity", "Liquidity depth", "Developer activity"]),
-      "@tokenradar-test",
-    );
-    const sentOptions = dependencies.sendTelegramPoll.mock.calls[0][1] as string[];
-    expect(sentOptions).toHaveLength(4);
-    expect(sentOptions).not.toContain("Accumulation volume");
+    expect(dependencies.callAIWithFallback).not.toHaveBeenCalled();
+    const [question, options] = dependencies.sendTelegramPoll.mock.calls[0] as [string, string[]];
+    expect(question.length).toBeLessThan(140);
+    expect(question).not.toMatch(/valuation model|Radar Signal|regime|portfolio/i);
+    expect(options).toHaveLength(4);
+    expect(options.every((option) => option.length <= 32 && option.split(/\s+/).length <= 5)).toBe(true);
     expect(dependencies.recordSocialPost).toHaveBeenCalled();
   });
 

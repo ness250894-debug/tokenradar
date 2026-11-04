@@ -80,6 +80,8 @@ export function getInstagramMoverRejectionReasons(
   if (
     !candidate.symbol ||
     !candidate.name ||
+    candidate.symbol.length > 15 ||
+    candidate.name.length > 80 ||
     !DISPLAY_SAFE_TEXT_RE.test(candidate.symbol) ||
     !DISPLAY_SAFE_TEXT_RE.test(candidate.name)
   ) {
@@ -135,43 +137,41 @@ export function selectInstagramMovers(
     }));
 }
 
-const CTA_BY_FAMILY: Record<string, (leaderSymbol: string) => string> = {
-  "choose-the-filter": () => "Comment the filter you want compared next: turnover, market cap, or catalyst.",
-  "watch-the-rotation": () => "Save this rotation map, then comment the sector you want checked next.",
-  "pick-next-review": () => "Comment one ticker for the next evidence-first breakdown.",
-  "name-invalidation": (leaderSymbol) =>
-    `What would invalidate the ${leaderSymbol} move first? Comment the signal you watch.`,
-  "apply-the-framework": () => "Save this filter and apply it before trusting the next mover list.",
-  "check-the-source": () => "Save the source check, then comment the noisiest signal you usually reject.",
-};
+export interface InstagramMoverLesson {
+  key: "turnover_contrast" | "turnover_alignment" | "turnover_basics";
+  headline: string;
+  leader: InstagramMover;
+  peer: InstagramMover;
+  explanation: string;
+}
+
+export function buildInstagramMoverLesson(movers: InstagramMover[]): InstagramMoverLesson {
+  if (movers.length < 2) throw new Error("A carousel lesson requires at least two movers.");
+  const leader = movers[0];
+  const peer = [...movers.slice(1)].sort((left, right) => volumeToMarketCap(right) - volumeToMarketCap(left))[0];
+  const leaderTurnover = Number((volumeToMarketCap(leader) * 100).toFixed(1));
+  const peerTurnover = Number((volumeToMarketCap(peer) * 100).toFixed(1));
+  const contrast = peerTurnover > leaderTurnover && leader.change24h > peer.change24h;
+  const alignment = leaderTurnover > peerTurnover && leader.change24h > peer.change24h;
+  return {
+    key: contrast ? "turnover_contrast" : alignment ? "turnover_alignment" : "turnover_basics",
+    headline: contrast
+      ? `${leader.symbol.toUpperCase()} rose faster. ${peer.symbol.toUpperCase()} had higher turnover.`
+      : alignment ? `${leader.symbol.toUpperCase()} led price change and turnover. What does that mean?`
+        : `${leader.symbol.toUpperCase()} moved ${formatPercent(leader.change24h)}. Learn to read its turnover.`,
+    leader,
+    peer,
+    explanation: "Turnover compares reported trading volume with market cap. Assessing liquidity also needs spreads and depth.",
+  };
+}
 
 export function buildInstagramCarouselCta(
   archetype: Pick<SocialContentArchetype, "ctaFamily">,
-  leaderSymbol: string,
+  _leaderSymbol: string,
 ): string {
-  const cleanSymbol = leaderSymbol.replace(/[^a-zA-Z0-9]/g, "").toUpperCase() || "LEADER";
-  const buildCta = CTA_BY_FAMILY[archetype.ctaFamily];
-  return buildCta
-    ? buildCta(cleanSymbol)
-    : `Save this scan and comment which ${cleanSymbol} metric should be checked next.`;
-}
-
-function buildCaptionHook(
-  archetype: Pick<SocialContentArchetype, "hookFamily">,
-  leader: InstagramMover,
-): string {
-  const symbol = leader.symbol.toUpperCase();
-  const hooks: Record<string, string> = {
-    "risk-first": `${symbol} leads the qualified movers, but the biggest candle is not automatically the safest setup.`,
-    "map-the-market": `Today's filtered board shows where 24-hour momentum is concentrating, with ${symbol} in front.`,
-    "explain-the-metric": `${symbol} leads on price change; turnover shows whether the move also has reported participation.`,
-    "curated-list": `Five movers cleared the size, volume, and noise filters; ${symbol} leads the shortlist.`,
-    "warning-label": `The raw gainer table was noisier than the five names that survived the filter.`,
-    contrast: `${symbol} leads the price move, while volume-to-market-cap gives the more useful comparison.`,
-  };
-
-  return hooks[archetype.hookFamily] ||
-    `${symbol} has the strongest 24-hour move among today's five qualified candidates.`;
+  return archetype.ctaFamily === "choose-the-filter" || archetype.ctaFamily === "pick-next-review"
+    ? "Which check should we explain next: spread or depth?"
+    : "Save the four-field research checklist.";
 }
 
 function sanitizeHashtagSymbol(symbol: string): string | undefined {
@@ -210,16 +210,15 @@ export function buildInstagramMoversCaption(
     throw new Error("Instagram movers caption requires at least two qualified movers.");
   }
 
-  const leader = movers[0];
-  const runnerUp = movers[1];
-  const cta = buildInstagramCarouselCta(archetype, leader.symbol);
-  const turnoverPercent = volumeToMarketCap(leader) * 100;
+  const lesson = buildInstagramMoverLesson(movers);
+  const { leader, peer } = lesson;
   const caption = [
-    buildCaptionHook(archetype, leader),
-    `${leader.symbol.toUpperCase()} is ${formatPercent(leader.change24h)} over 24h on ${formatCompact(leader.volume24h)} reported volume versus a ${formatCompact(leader.marketCap)} market cap (${turnoverPercent.toFixed(1)}% turnover). ${runnerUp.symbol.toUpperCase()} ranks second at ${formatPercent(runnerUp.change24h)}.`,
-    "Verdict: this is a filtered momentum lead, not a forecast or entry signal.",
-    cta,
-    `CoinGecko snapshot · ${marketDataAsOf.toISOString().slice(11, 16)} UTC. Research only; verify liquidity and catalyst quality.`,
+    lesson.headline,
+    `${leader.name} (${leader.symbol.toUpperCase()}): ${formatPercent(leader.change24h)} over 24h; ${(volumeToMarketCap(leader) * 100).toFixed(1)}% reported turnover. ${peer.name} (${peer.symbol.toUpperCase()}): ${formatPercent(peer.change24h)}; ${(volumeToMarketCap(peer) * 100).toFixed(1)}% reported turnover.`,
+    `${formatCompact(leader.volume24h)} reported volume / ${formatCompact(leader.marketCap)} market cap = ${(volumeToMarketCap(leader) * 100).toFixed(1)}% turnover.`,
+    lesson.explanation,
+    buildInstagramCarouselCta(archetype, leader.symbol),
+    `CoinGecko snapshot · ${marketDataAsOf.toISOString().slice(0, 16).replace("T", " ")} UTC. Educational research.`,
     buildInstagramMoverHashtags(movers, variant).join(" "),
   ].join("\n\n");
 
@@ -234,13 +233,12 @@ export function buildInstagramCarouselAltTexts(movers: InstagramMover[]): string
     throw new Error(`Instagram carousel alt text requires ${INSTAGRAM_MOVER_POLICY.requiredMoverCount} movers.`);
   }
 
-  const leader = movers[0];
-  const runnerUp = movers[1];
+  const { leader, peer, headline } = buildInstagramMoverLesson(movers);
   return [
-    `Verdict slide: ${leader.name} (${leader.symbol.toUpperCase()}) leads the five qualified movers at ${formatPercent(leader.change24h)} over 24 hours.`,
-    `Evidence board ranking ${movers.map((mover, index) => `${index + 1}. ${mover.name} ${formatPercent(mover.change24h)}`).join("; ")}.`,
-    `Evidence comparison: ${leader.symbol.toUpperCase()} leads ${runnerUp.symbol.toUpperCase()} on 24-hour price change, with reported volume and market-cap turnover shown for context.`,
-    "Risk slide explaining that reported turnover, catalysts, liquidity, and follow-through must be verified before interpreting a large daily move.",
-    "Call-to-action slide inviting readers to save the research filter and choose the next evidence check.",
+    `Research question: ${headline}`,
+    `Price-change and turnover comparison: ${movers.map((mover) => `${mover.name} ${formatPercent(mover.change24h)} over 24 hours, ${(volumeToMarketCap(mover) * 100).toFixed(1)}% reported turnover`).join("; ")}.`,
+    `Worked example: ${leader.name} reported ${formatCompact(leader.volume24h)} in 24-hour volume divided by ${formatCompact(leader.marketCap)} in market cap, or ${(volumeToMarketCap(leader) * 100).toFixed(1)}% turnover. ${peer.name} provides the comparison.`,
+    "Missing evidence: spread is the gap between the best quoted prices; depth is available quoted size near the market price; venue mix shows where trading was reported. These checks are not provided in this snapshot.",
+    "Reusable research checklist: price change, reported turnover, spread, and depth. One reader action is shown below the checklist.",
   ];
 }

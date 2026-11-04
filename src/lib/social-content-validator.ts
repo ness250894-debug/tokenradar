@@ -4,6 +4,7 @@ import {
   maskProtectedSocialEntities,
   type ProtectedSocialEntity,
 } from "./social-editorial";
+import { hasReaderExplanation, reportedTurnoverPercent } from "./social-reader-value";
 
 export interface SocialContentFacts {
   tokenName: string;
@@ -22,6 +23,8 @@ export interface SocialContentFacts {
   marketDataSource?: string;
   marketDataAsOf?: string;
   suppliedContext?: Array<string | undefined>;
+  /** Opt-in for non-video reader notes; video validation retains its existing contract. */
+  readerValueRequired?: boolean;
 }
 
 export interface SocialContentValidationIssue {
@@ -32,6 +35,7 @@ export interface SocialContentValidationIssue {
     | "unsupported-developer-claim"
     | "unsupported-developer-interpretation"
     | "unsupported-number"
+    | "low-reader-value"
     | "missing-market-attribution";
   message: string;
   value?: string;
@@ -513,6 +517,13 @@ function isSupportedNumericClaim(claim: NumericClaim, facts: SocialContentFacts,
   if (claimNamesAnotherAsset(text, claim, facts)) return false;
   switch (claim.kind) {
     case "percent": {
+      if (facts.readerValueRequired && /\bturnover\b|\bvolume\s*(?:\/|to)\s*(?:market\s*)?cap\b/.test(metricSegment)) {
+        const expected = reportedTurnoverPercent(facts);
+        return expected !== undefined && claim.value >= 0
+          && !hasNon24hTimeframe(metricSegment)
+          && !/\b(?:rose|fell|grew|increased|decreased|next|forecast|will)\b/.test(metricSegment)
+          && approximatelyEqual(claim.value, expected, numericClaimTolerance(claim, expected));
+      }
       const macroSpecific = /\b(?:dominance|global|total\s+market|sector|category)\b/.test(clause);
       if (macroSpecific) return claimAppearsInSuppliedContext(claim, text, facts);
       // Use the whole line for entity binding because legitimate names such as
@@ -658,6 +669,16 @@ export function validateSocialContent(
   const protectedEntities = protectedEntitiesForFacts(facts);
   const unsafePhrases = findUnsafeSocialPhrases(renderedText, { protectedEntities });
   const semanticText = maskProtectedSocialEntities(renderedText, { protectedEntities });
+
+  if (facts.readerValueRequired) {
+    if (!hasReaderExplanation(renderedText)) {
+      issues.push({ code: "low-reader-value", message: "Explain a supplied metric or a specific missing research check in plain language." });
+    }
+    if (/\[\/?spoiler\]|\[spoiler\s*:|<\/?(?:tg-)?spoiler\b/i.test(text)
+      || /\b(?:structural shift|regime shift|macro correlation|directional pivot)\b/i.test(semanticText)) {
+      issues.push({ code: "unsupported-source-claim", message: "Remove literal spoiler markup and market-regime claims unsupported by this snapshot." });
+    }
+  }
 
   for (const phrase of unsafePhrases) {
     issues.push({

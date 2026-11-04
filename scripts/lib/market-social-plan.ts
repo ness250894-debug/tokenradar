@@ -38,12 +38,7 @@ export interface MarketSocialPlan {
 
 const SINGLE_TOKEN_MARKET_ARCHETYPES = [
   "single_token_snapshot",
-  "sector_rotation",
-  "risk_lab",
-  "myth_vs_data",
-  "data_quality_warning",
   "how_to_read_metric",
-  "behind_the_radar",
 ] satisfies readonly SocialArchetypeKey[];
 
 export function buildMarketSocialPlan(options: MarketSocialPlanOptions): MarketSocialPlan {

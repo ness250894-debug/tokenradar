@@ -237,6 +237,8 @@ async function main() {
         marketDataSource: "coingecko-live",
         marketDataAsOf: new Date(Math.min(...snapshotTimes)).toISOString(),
         socialSlot: process.env.SOCIAL_SLOT,
+        editorialMode: "movers-lesson",
+        readerLessonKey: "price_change",
       },
     });
     writeFileAtomicSync(

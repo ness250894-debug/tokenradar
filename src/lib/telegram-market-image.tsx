@@ -51,13 +51,6 @@ function brandMark() {
 function backdrop() {
   const verticalLines = [90, 210, 330, 450, 570, 690, 810, 930, 1050];
   const horizontalLines = [110, 220, 330, 440, 550];
-  const bars = [
-    { left: 740, top: 402, height: 86, color: "#00FFA3" },
-    { left: 806, top: 354, height: 134, color: "#CCFF00" },
-    { left: 872, top: 390, height: 98, color: "#FFB800" },
-    { left: 938, top: 326, height: 162, color: "#00C2FF" },
-    { left: 1004, top: 372, height: 116, color: "#00FFA3" },
-  ];
 
   return (
     <div style={{ display: "flex", position: "absolute", inset: 0 }}>
@@ -95,22 +88,6 @@ function backdrop() {
           }}
         />
       ))}
-      <div style={{ position: "absolute", left: 720, right: 80, top: 488, height: 2, background: "rgba(204,255,0,0.22)" }} />
-      {bars.map((bar) => (
-        <div
-          key={`${bar.left}-${bar.top}`}
-          style={{
-            position: "absolute",
-            left: bar.left,
-            top: bar.top,
-            width: 40,
-            height: bar.height,
-            borderRadius: 7,
-            background: bar.color,
-            opacity: 0.28,
-          }}
-        />
-      ))}
     </div>
   );
 }
@@ -126,6 +103,7 @@ function metricPanel(label: string, value: string, accent: string) {
         borderRadius: 8,
         padding: "16px 18px",
         width: "100%",
+        boxSizing: "border-box",
       }}
     >
       <div style={{ display: "flex", color: "#94A3B8", fontSize: 20, marginBottom: 10 }}>{label}</div>
@@ -221,8 +199,9 @@ function renderCard(data: TelegramMarketPulseImageData): ReactElement {
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
+        width: WIDTH,
+        height: HEIGHT,
+        boxSizing: "border-box",
         background: "#06070A",
         color: "#F8FAFC",
         display: "flex",
@@ -254,10 +233,10 @@ function renderCard(data: TelegramMarketPulseImageData): ReactElement {
         </div>
 
         <div style={{ display: "flex", gap: 18, marginTop: 30 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 690 }}>
-            {metricPanel("Global market", data.globalStats, "#F8FAFC")}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, minWidth: 0 }}>
+            {metricPanel(data.summaryLabel ?? "Global market", data.globalStats, "#F8FAFC")}
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", color: "#94A3B8", fontSize: 21, marginBottom: 9 }}>Sector leaders</div>
+              <div style={{ display: "flex", color: "#94A3B8", fontSize: 21, marginBottom: 9 }}>{data.rowsLabel ?? "Sector leaders"}</div>
               {sectorList(data.sectorLines)}
             </div>
           </div>

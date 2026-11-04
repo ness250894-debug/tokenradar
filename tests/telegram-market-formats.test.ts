@@ -56,10 +56,10 @@ describe("Telegram market formats", () => {
       context: sampleContext,
     });
 
-    expect(read.label).toBe("Point-in-time field comparison");
+    expect(read.label).toBe("Reading reported turnover");
     expect(post.image.kind).toBe("market-pulse");
-    expect(post.captionBody).toContain("<b>$ETH: price move vs reported participation</b>");
-    expect(post.captionBody).toContain("What this proves:");
+    expect(post.captionBody).toContain("<b>$ETH: what does trading volume tell us?</b>");
+    expect(post.captionBody).toContain("How to read it:");
     expect(post.captionBody).toContain("24h volume (reported): $18.00B");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
@@ -96,7 +96,7 @@ describe("Telegram market formats", () => {
 
     expect(post.image.kind).toBe("token-card");
     expect(post.captionBody).toContain("<b>Why $ETH made today's watchlist</b>");
-    expect(post.captionBody).toContain("Risk score: 3/10");
+    expect(post.captionBody).toContain("Market cap combines price with circulating supply");
     expect(post.captionBody).toContain("Market cap: $461.00B");
     expect(post.captionBody).not.toMatch(/\b(?:buy|sell|entry|target|price prediction)\b/i);
   });
@@ -108,7 +108,7 @@ describe("Telegram market formats", () => {
       context: sampleContext,
     }).captionBody;
 
-    expect(deterministic).toContain("<b>$ETH: the move and the participation field</b>");
+    expect(deterministic).toContain("<b>$ETH: reading the daily move</b>");
     expect(deterministic).toContain("CoinGecko trending list");
     expect(deterministic).toContain("24h volume (reported): $18.40B");
     expect(validateSocialContent(

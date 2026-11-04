@@ -45,6 +45,7 @@ import {
   findSharedComparisonCategory,
   generateTokenComparisonImage,
   isEligibleToken,
+  NoComparablePairError,
   selectTokenComparisonPair,
   type TokenComparisonMetrics,
   type TokenComparisonPair,
@@ -161,11 +162,13 @@ export function resolveStoredPair(
   if (left.id === right.id || !isEligibleToken(left) || !isEligibleToken(right)) return null;
   const capRatio = Math.max(left.marketCap, right.marketCap) / Math.min(left.marketCap, right.marketCap);
   if (!Number.isFinite(capRatio) || capRatio > 5) return null;
+  const context = findSharedComparisonCategory(left, right);
+  if (!context) return null;
 
   return {
     left,
     right,
-    context: findSharedComparisonCategory(left, right) || "Market matchup",
+    context,
   };
 }
 
@@ -235,6 +238,7 @@ async function recordComparisonPost(options: {
       details: {
         tokenIds: [pair.left.id, pair.right.id],
         comparisonContext: pair.context,
+        editorialMode: "justified-comparison",
         marketDataSource: "coingecko-live",
         marketDataAsOf: [pair.left.marketDataAsOf, pair.right.marketDataAsOf].filter(Boolean).sort()[0],
         metricsAsOf: [pair.left.metrics.inputDataAsOf, pair.right.metrics.inputDataAsOf].filter(Boolean).sort()[0],
@@ -289,10 +293,16 @@ export async function main(): Promise<void> {
 
   let pair = resolveStoredPair(pairTrackerFile, comparisonCandidates);
   if (!pair) {
-    pair = selectTokenComparisonPair(comparisonCandidates, {
-      recentlyPosted: force ? [] : getRecentlyPostedTokens(DATA_DIR),
-      dateKey: today,
-    });
+    try {
+      pair = selectTokenComparisonPair(comparisonCandidates, {
+        recentlyPosted: force ? [] : getRecentlyPostedTokens(DATA_DIR),
+        dateKey: today,
+      });
+    } catch (error) {
+      if (!(error instanceof NoComparablePairError)) throw error;
+      console.log(error.message);
+      return;
+    }
     if (!dryRun) {
       writeFileAtomicSync(
         pairTrackerFile,
@@ -310,7 +320,7 @@ export async function main(): Promise<void> {
   );
   const imagePng = await generateTokenComparisonImage(pair);
   const captions = buildComparisonCaptions(pair);
-  const telegramTrackedUrl = buildSocialUtmUrl(SITE_URL, {
+  const telegramTrackedUrl = buildSocialUtmUrl(new URL("/tokens", SITE_URL).href, {
     platform: "telegram",
     date: today,
     surface: "token-comparison",
