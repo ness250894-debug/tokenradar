@@ -97,6 +97,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache token OG images
+        uses: ./.github/actions/cache-og-images
+
       # Keep the build secret-free and do not persist .next/cache: framework
       # caches can retain resolved environment values.
       - name: Run Typecheck

@@ -161,8 +161,8 @@ function renderOgSocialItem({ platform, label }: { platform: OgSocialPlatform; l
  * @param data - Token data to render (market cap, volume, rank, risk)
  * @returns PNG Buffer (1200×630) ready for social posting
  */
-export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
-  const font = await loadFont();
+export async function renderOgImage(data: OgRenderData, resolvedFont?: ArrayBuffer): Promise<Buffer> {
+  const font = resolvedFont ?? await loadFont();
   const hasRiskScore = typeof data.risk === "number" && Number.isFinite(data.risk);
   const riskColor = hasRiskScore ? getRiskColor(data.risk as number) : "#8B919D";
   const riskLabel = hasRiskScore ? getRiskTier(data.risk as number) : "N/A";
@@ -469,6 +469,8 @@ export async function renderOgImage(data: OgRenderData): Promise<Buffer> {
 
   const resvg = new Resvg(svg, {
     fitTo: { mode: "width", value: 1200 },
+    // Satori has already embedded the text as paths; no system font lookup is needed.
+    font: { loadSystemFonts: false },
   });
 
   return Buffer.from(resvg.render().asPng());

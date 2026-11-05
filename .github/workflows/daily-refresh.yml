@@ -122,8 +122,11 @@ jobs:
           TELEGRAM_REPORT_BOT_TOKEN: ${{ secrets.TELEGRAM_REPORT_BOT_TOKEN }}
           TELEGRAM_REPORT_CHAT_ID: ${{ secrets.TELEGRAM_REPORT_CHAT_ID }}
 
+      - name: Cache token OG images
+        uses: ./.github/actions/cache-og-images
+
       - name: Regenerate OG images
-        run: npx tsx scripts/generate-og-images.tsx --force
+        run: npx tsx scripts/generate-og-images.tsx --force-movers
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 
