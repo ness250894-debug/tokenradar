@@ -3,12 +3,12 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-11-04T23:07:52.053Z",
-    "tokenCount": 511,
+    "tokenCount": 510,
     "topIntents": [
       {
         "intent": "risk",
         "label": "Risk check",
-        "tokenCount": 214,
+        "tokenCount": 213,
         "avgScore": 75
       },
       {
@@ -2520,81 +2520,6 @@
         "AINFT scam check",
         "AINFT price prediction 2026",
         "AINFT price prediction today"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-11-04T23:07:52.053Z"
-    },
-    "apes-2-2": {
-      "tokenId": "apes-2-2",
-      "tokenName": "APES",
-      "symbol": "apes",
-      "attentionScore": 44,
-      "attentionLabel": "Watch",
-      "hypeScore": 44,
-      "fundamentalsScore": 54,
-      "supplyRiskScore": 18,
-      "classification": "Organic Interest",
-      "primaryIntent": "risk",
-      "intentMix": [
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 63,
-          "queries": [
-            "APES risks",
-            "is APES safe",
-            "APES scam check"
-          ]
-        },
-        {
-          "intent": "meme",
-          "label": "Meme attention",
-          "score": 56,
-          "queries": [
-            "APES meme coin",
-            "APES price prediction",
-            "is APES worth buying"
-          ]
-        },
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 33,
-          "queries": [
-            "APES price prediction 2026",
-            "APES price prediction today",
-            "APES price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 27,
-          "queries": [
-            "APES token unlock",
-            "APES circulating supply",
-            "APES tokenomics"
-          ]
-        }
-      ],
-      "drivers": [
-        "Category mapping points to an active crypto narrative.",
-        "Meme-token category can amplify retail search spikes."
-      ],
-      "cautions": [
-        "24h volume is thin relative to market cap."
-      ],
-      "queryExamples": [
-        "APES risks",
-        "is APES safe",
-        "APES scam check",
-        "APES meme coin",
-        "APES price prediction"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
