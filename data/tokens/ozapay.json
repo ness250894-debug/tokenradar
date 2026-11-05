@@ -2,8 +2,8 @@
   "id": "ozapay",
   "symbol": "oza",
   "name": "Ozapay",
-  "imageUrl": "https://coin-images.coingecko.com/coins/images/69784/large/OZAPAY_TOKEN.png?1759652625",
-  "description": "OZAPAY is a hybrid payment application that bridges the fiat and crypto worlds through self-custody. It enables users to pay, receive, and exchange in euro, dollar, pound sterling, or cryptocurrencies via NFC or QR code, without the need for a payment terminal. The ecosystem includes both virtual and physical Mastercard cards, a cashback system in OZA tokens provided by merchants, and a partner network offering up to 70% discounts. The OZA token is at the core of the model, serving as both a reward mechanism and a transactional asset. The project’s purpose is to deliver a sovereign, simple alternative to traditional banking while complying with regulatory standards (KYC/KYB/AML).",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/69784/large/Jeton_Ozapay_circulaire_isol%C3%A9.png?1793890749",
+  "description": "Ozapay (OZA) is a utility and rewards token built on the Solana blockchain using the Token-2022 standard. It is part of Ozapay, a French-developed payment Super App combining a self-custodial cryptocurrency wallet, digital asset transactions, local business discovery, merchant offers, and loyalty rewards.\n\nOZA supports a unified rewards ecosystem designed to connect users and participating merchants. The token is intended for use in cashback programs, loyalty incentives, promotional campaigns, and rewards linked to eligible activities within the Ozapay ecosystem.\n\nThe Ozapay application enables users to manage digital assets, discover nearby businesses, access exclusive offers, and participate in reward programs through a single interface.\n\nFollowing a security incident involving an external token-locking service in October 2026, OZA migrated to a new Solana Token-2022 contract. The updated architecture is designed to support native token-locking mechanisms and improved token management.\n\nOZA has a fixed maximum supply of 1 billion tokens.",
   "categories": [
     "Solana Ecosystem",
     "Payment Solutions"
@@ -13,28 +13,28 @@
     "website": "https://www.ozapay.me",
     "github": null,
     "reddit": null,
-    "explorer": "https://solscan.io/token/67iVSrbgQKiPjttU9uXx9CXUoS1Si3XUhrXeiNAUUZSR"
+    "explorer": "https://solscan.io/token/BNpRagRShfkNd9hg3QRDWuJADH7j187jViNTnHMvhWL5"
   },
   "market": {
-    "price": 0.053033,
-    "marketCap": 48237460,
-    "marketCapRank": 457,
-    "volume24h": 2367.92,
-    "high24h": 0.053554,
-    "low24h": 0.04887967,
-    "priceChange24h": 1.26212,
-    "priceChange7d": 2.5775,
-    "priceChange30d": -9.0743,
-    "priceChange1y": 44.3884,
+    "price": 0.055491,
+    "marketCap": 50474397,
+    "marketCapRank": 433,
+    "volume24h": 5814.42,
+    "high24h": 0.055951,
+    "low24h": 0.0402082,
+    "priceChange24h": 0,
+    "priceChange7d": 0,
+    "priceChange30d": -2.40109,
+    "priceChange1y": 46.64318,
     "ath": 0.060303,
-    "athChangePercentage": -12.05495,
+    "athChangePercentage": -7.97887,
     "athDate": "2026-09-30T13:11:30.000Z",
     "atl": 0.01207693,
     "atlDate": "2026-05-18T07:13:00.000Z",
     "circulatingSupply": 909588286.52,
-    "totalSupply": 996888286.33,
+    "totalSupply": 1996246148.42,
     "maxSupply": 996889071.62,
-    "fdv": 52867170
+    "fdv": 110774645
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +45,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-07T22:20:08.590Z",
-  "lastMarketUpdate": "2026-10-26T21:53:55.000Z"
+  "fetchedAt": "2026-11-05T22:54:43.878Z",
+  "lastMarketUpdate": "2026-11-05T22:53:50.000Z"
 }

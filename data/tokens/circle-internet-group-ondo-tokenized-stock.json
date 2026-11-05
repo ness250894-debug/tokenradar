@@ -13,7 +13,8 @@
     "Real World Assets (RWA)",
     "Binance Alpha Spotlight",
     "HyperEVM Ecosystem",
-    "Ondo Tokenized Assets"
+    "Ondo Tokenized Assets",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -23,25 +24,25 @@
     "explorer": "https://etherscan.io/address/0x3632DEa96A953C11dac2f00b4A05a32CD1063fAE"
   },
   "market": {
-    "price": 76.7,
-    "marketCap": 90304278,
-    "marketCapRank": 291,
-    "volume24h": 1674048,
-    "high24h": 77.91,
-    "low24h": 71.79,
-    "priceChange24h": 1.47546,
-    "priceChange7d": -5.5773,
-    "priceChange30d": -8.872,
-    "priceChange1y": -31.3736,
+    "price": 68.01,
+    "marketCap": 80251316,
+    "marketCapRank": 304,
+    "volume24h": 1301386,
+    "high24h": 76.64,
+    "low24h": 65.02,
+    "priceChange24h": -11.33096,
+    "priceChange7d": -11.23797,
+    "priceChange30d": -19.54823,
+    "priceChange1y": -39.92601,
     "ath": 158.37,
-    "athChangePercentage": -51.5705,
+    "athChangePercentage": -57.05753,
     "athDate": "2025-10-10T05:49:47.000Z",
     "atl": 47.99,
     "atlDate": "2026-02-05T16:26:02.000Z",
-    "circulatingSupply": 1177202.0021517132,
-    "totalSupply": 1177202.0021517132,
+    "circulatingSupply": 1180015.0503154425,
+    "totalSupply": 1180015.0503154425,
     "maxSupply": null,
-    "fdv": 90304278
+    "fdv": 80251316
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-11T21:07:07.710Z",
-  "lastMarketUpdate": "2026-11-04T22:53:58.000Z"
+  "fetchedAt": "2026-11-05T22:56:37.243Z",
+  "lastMarketUpdate": "2026-11-05T22:55:48.000Z"
 }
