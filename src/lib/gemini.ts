@@ -1817,7 +1817,7 @@ export async function generatePollHook(
     Time of day: ${timeOfDay}.
     ${tokenCtx}${priceCtx}${changeCtx}
     
-    Write like a concise research desk asking one specific, answerable question.
+    Ask one short, standalone question about the reader's crypto interests, habits, or opinions.
     STRICT RULES:
     1. Maximum 120 characters to leave room for poll options and hashtags.
     2. Do not include the actual poll options in your text.
@@ -1828,6 +1828,7 @@ export async function generatePollHook(
     7. Avoid buy/sell advice, hype, moon language, guaranteed outcomes, and urgency.
     8. Do not use "GM", "fam", generic news questions, or engagement bait.
     9. Anchor the hook in the supplied token metric or in the named research filter.
+    10. Never ask what TokenRadar should explain, teach, unpack, cover, review, research, or publish next. Do not offer lessons, examples, or follow-up content.
   `;
 
   try {
@@ -1865,7 +1866,7 @@ export async function generatePollHook(
     // Fallback template
     return symbol
       ? `How are you reading ${symbol.toUpperCase()} today?`
-      : `Which crypto narrative deserves more research this week?`;
+      : `Which crypto narrative are you following most closely?`;
   }
 }
 

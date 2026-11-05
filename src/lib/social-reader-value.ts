@@ -56,8 +56,8 @@ export function buildReaderMarketNote(options: {
     rank: `${symbol} market-cap rank: #${facts.marketCapRank}.`,
   };
   const questions: Record<ReaderLessonKey, string> = {
-    turnover: "Which liquidity check should we explain: spread or depth?",
-    market_cap: "Which should we unpack: circulating supply or diluted value?",
+    turnover: "Which matters more to you: spread or depth?",
+    market_cap: "Which do you check first: supply or diluted value?",
     price_change: "Which baseline helps more: the earlier price or a longer history?",
     rank: "Which matters for your research: market size or trading depth?",
   };

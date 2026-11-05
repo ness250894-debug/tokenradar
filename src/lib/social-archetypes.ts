@@ -132,11 +132,11 @@ export const SOCIAL_ARCHETYPES: SocialContentArchetype[] = [
     key: "community_question",
     label: "Community Question",
     platforms: ["telegram", "x", "threads", "tiktok"],
-    angle: "ask the audience to choose the next research filter or deep dive",
+    angle: "ask about the audience's crypto interests, habits, or opinions",
     hookFamily: "open-question",
     ctaFamily: "reply-with-filter",
     promptInstruction:
-      "Ask a specific question that can be answered in replies or poll choices. Avoid vague engagement bait.",
+      "Ask a standalone question about crypto interests, habits, or opinions that can be answered in replies or poll choices. Do not ask the audience to choose future explanations or content. Avoid vague engagement bait.",
   },
   {
     key: "behind_the_radar",

@@ -35,7 +35,7 @@ describe("social publishing manifest", () => {
       .toBe("57 18 * * 1,3,5");
     expect(manifest.routes.some((route) => route.id === "telegram-community-poll")).toBe(true);
     expect(manifest.routes.some((route) => route.id === "telegram-radar-divergence")).toBe(true);
-    expect(manifest.platforms.telegram.communityCadence).toContain("Automated follow-up is not claimed");
+    expect(manifest.platforms.telegram.communityCadence).toContain("without offering explanations or follow-up content");
     expect(manifest.routes.find((route) => route.id === "telegram-radar-divergence")?.purpose)
       .toContain("not a poll-result post");
     expect(uniqueSocialPublishingCrons(manifest).length).toBeLessThanOrEqual(manifest.routes.length);

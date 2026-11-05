@@ -56,7 +56,7 @@ describe("Threads weekly recap", () => {
     expect(recap.caption).toContain("$ONE +22.4%");
     expect(recap.caption).toContain("Pullback watch: $RED -11.2%");
     expect(recap.caption).not.toContain("$LIQ");
-    expect(recap.caption).toContain("Which should we unpack next");
+    expect(recap.caption).toContain("Which do you check first");
     expect(recap.caption.length).toBeLessThanOrEqual(500);
   });
 

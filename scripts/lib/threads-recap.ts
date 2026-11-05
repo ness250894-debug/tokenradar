@@ -154,7 +154,7 @@ export function buildWeeklyThreadsRecap(selection: WeeklyRecapSelection): Weekly
     leaderLine,
     selection.pullback ? `Pullback watch: ${formatTokenMove(selection.pullback)}.` : "",
     "A 7d return and a 24h volume reading cover different periods.",
-    "Which should we unpack next: time windows or turnover?",
+    "Which do you check first: time window or turnover?",
   ].filter(Boolean);
   let caption = lines.join("\n");
   // Reserve room for the full source timestamp appended by the publisher.
@@ -199,7 +199,7 @@ export function buildTelegramWeeklyRecap(
     pullbackLine,
     volumeLine,
     "Lesson: the return covers 7d; the reported volume covers 24h. Compare each metric over matching windows.",
-    "Which should we explain next: time windows or trading turnover?",
+    "Which do you check first: time window or turnover?",
   ].filter(Boolean).join("\n");
 
   const recapTokens = uniqueTokens([
