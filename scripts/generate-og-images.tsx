@@ -4,9 +4,10 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 
 import { generateMoversImage } from "../src/lib/movers-generator";
-import { preloadOgFont, renderOgImage } from "../src/lib/og-renderer";
+import { preloadOgFont } from "../src/lib/og-renderer";
 import { loadEnv } from "../src/lib/utils";
 import { hasSocialImageSafeText, loadCandidateTokens } from "./lib/token-selection";
+import { generateTokenOgImages } from "./lib/token-og-images";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TOKENS_DIR = path.join(DATA_DIR, "tokens");
@@ -16,37 +17,10 @@ const OG_DIR = path.join(PUBLIC_DIR, "og", "token");
 const REPO_ROOT = path.resolve(process.cwd()).replace(/\\/g, "/");
 const MODIFIED_TIME_TOLERANCE_MS = 1000;
 
-type TokenOgData = {
-  symbol: string;
-  name?: string;
-  id: string;
-  market?: {
-    marketCap?: number;
-    volume24h?: number;
-    marketCapRank?: number;
-  };
-};
-
-type MetricsOgData = {
-  riskScore?: number;
-};
-
 function ensureOgDir(): void {
   if (!fs.existsSync(OG_DIR)) {
     fs.mkdirSync(OG_DIR, { recursive: true });
   }
-}
-
-function safeReadJson<T>(filePath: string, fallback: T): T {
-  try {
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, "utf-8");
-      return JSON.parse(content) as T;
-    }
-  } catch (error) {
-    console.error(`Error reading ${filePath}:`, error);
-  }
-  return fallback;
 }
 
 function readFileModifiedTime(filePath: string): number | undefined {
@@ -142,60 +116,11 @@ function getMoversSourcePaths(): string[] {
   ];
 }
 
-async function generateTokenOgImages(force: boolean): Promise<number> {
-  const tokenFiles = fs.readdirSync(TOKENS_DIR).filter((file) => file.endsWith(".json"));
-  let failureCount = 0;
-
-  for (const file of tokenFiles) {
-    const tokenId = file.replace(".json", "");
-    const outputPath = path.join(OG_DIR, `${tokenId}.png`);
-    const tokenPath = path.join(TOKENS_DIR, file);
-    const metricsPath = path.join(METRICS_DIR, file);
-
-    if (!shouldRegenerateOutput(outputPath, [tokenPath, metricsPath], force)) {
-      continue;
-    }
-
-    const tokenData = safeReadJson<TokenOgData | null>(tokenPath, null);
-    const metricsData = safeReadJson<MetricsOgData | null>(metricsPath, null);
-
-    if (!tokenData) {
-      continue;
-    }
-
-    const symbol = (tokenData.symbol || tokenId.split("-")[0]).toUpperCase();
-    const name = tokenData.name || tokenId;
-    const riskScore = metricsData?.riskScore || 5;
-    const marketCap = tokenData.market?.marketCap || 0;
-    const volume24h = tokenData.market?.volume24h || 0;
-    const rank = tokenData.market?.marketCapRank || 0;
-
-    try {
-      const pngBuffer = await renderOgImage({
-        name,
-        symbol,
-        marketCap,
-        volume24h,
-        rank,
-        risk: riskScore,
-      });
-
-      fs.writeFileSync(outputPath, pngBuffer);
-      console.info(`Generated OG image for ${tokenId}`);
-    } catch (error) {
-      failureCount += 1;
-      console.error(`Failed to generate OG image for ${tokenId}:`, error);
-    }
-  }
-
-  return failureCount;
-}
-
 async function generateMoversOgImage(force: boolean): Promise<number> {
   const moversPath = path.join(PUBLIC_DIR, "og", "movers.png");
 
   // Static builds must be reproducible and must not depend on a live market API.
-  // Daily Refresh owns regeneration and calls this script with --force after it
+  // Daily Refresh owns regeneration and calls this script with --force-movers after it
   // has refreshed the underlying market data. All other builds consume the
   // committed artifact produced by that workflow.
   if (!force) {
@@ -261,7 +186,7 @@ async function generateMoversOgImage(force: boolean): Promise<number> {
   }
 }
 
-export async function generateOGImages(options: { force?: boolean } = {}): Promise<void> {
+export async function generateOGImages(options: { force?: boolean; forceMovers?: boolean } = {}): Promise<void> {
   loadEnv();
   ensureOgDir();
 
@@ -273,10 +198,19 @@ export async function generateOGImages(options: { force?: boolean } = {}): Promi
   }
 
   // Preload font into memory before batch generation so any font issue is handled early
-  await preloadOgFont();
+  const font = await preloadOgFont();
 
   const force = options.force ?? process.argv.includes("--force");
-  const failureCount = (await generateTokenOgImages(force)) + (await generateMoversOgImage(force));
+  const forceMovers = force || (options.forceMovers ?? process.argv.includes("--force-movers"));
+  const tokens = await generateTokenOgImages({
+    tokensDir: TOKENS_DIR,
+    metricsDir: METRICS_DIR,
+    outputDir: OG_DIR,
+    cacheFile: path.join(DATA_DIR, "cache", "og-images.json"),
+    force,
+    font,
+  });
+  const failureCount = tokens.failed + (await generateMoversOgImage(forceMovers));
 
   if (failureCount > 0) {
     throw new Error(`Failed to generate ${failureCount} OG image${failureCount === 1 ? "" : "s"}.`);

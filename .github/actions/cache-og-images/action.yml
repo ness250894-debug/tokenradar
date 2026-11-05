@@ -1,0 +1,13 @@
+name: Cache token OG images
+description: Reuse token PNGs and their verified content manifest between builds.
+runs:
+  using: composite
+  steps:
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: |
+          public/og/token
+          data/cache/og-images.json
+        key: ${{ runner.os }}-token-og-v1-${{ hashFiles('src/lib/og-renderer.ts', 'src/lib/formatters.ts', 'src/lib/social-icons.ts', 'src/assets/fonts/og-inter.ttf', 'scripts/generate-og-images.tsx', 'scripts/lib/*og-image*', 'package-lock.json') }}-${{ hashFiles('data/tokens/*.json', 'data/metrics/*.json') }}
+        restore-keys: |
+          ${{ runner.os }}-token-og-v1-${{ hashFiles('src/lib/og-renderer.ts', 'src/lib/formatters.ts', 'src/lib/social-icons.ts', 'src/assets/fonts/og-inter.ttf', 'scripts/generate-og-images.tsx', 'scripts/lib/*og-image*', 'package-lock.json') }}-

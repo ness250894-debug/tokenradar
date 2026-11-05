@@ -50,6 +50,8 @@ TokenRadar is a live crypto programmatic SEO and social publishing platform. It 
 
 TGE discovery uses free RSS sources that are reachable by the project runner: Airdrop Alert, ICO Watch List, CoinTelegraph, Decrypt, and CoinDesk.
 
+Token OG images reuse verified PNGs when their rendered fields, renderer, font, and dependencies are unchanged. CI, performance, deployment, and daily refresh restore this image cache across runs. Cache misses render in up to four CPU workers; set `OG_IMAGE_CONCURRENCY=1` through `8` to override. Run `npx tsx scripts/generate-og-images.tsx --force` for a full rebuild, or `--force-movers` to refresh only the Movers card while preserving token cache reuse.
+
 ## Homepage Data Surfaces
 
 The homepage market panels render generated snapshot data from the latest refresh/build cycle, with interactive browser controls layered on top for watchlists, polls, tabs, and comparisons. Copy on these preview surfaces should stay data-led and avoid visible freshness claims such as `today`, `now`, or `Last updated`; the data itself carries the signal without implying a live tick feed.
