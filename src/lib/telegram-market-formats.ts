@@ -250,7 +250,7 @@ function buildRadarDivergenceCaption(token: TelegramMarketToken): string {
     reportedTurnoverPercent(token) !== undefined
       ? `Reported 24h turnover: ${reportedTurnoverPercent(token)!.toFixed(1)}%.` : "",
     `<b>How to read it:</b> ${read.implication}`,
-    "Which check should we explain next: spread or depth?",
+    "Which matters more to you: spread or depth?",
   ].join("\n");
 }
 

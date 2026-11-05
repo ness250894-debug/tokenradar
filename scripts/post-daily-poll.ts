@@ -1,8 +1,8 @@
 /**
  * TokenRadar Telegram native Interactive Poll Generator
  *
- * Publishes a short, accessible reader-choice poll.
- * Rotates curated questions and coherent answer sets without inventing a product roadmap.
+ * Publishes a short, accessible community poll.
+ * Rotates generic questions about crypto interests, habits, and opinions.
  *
  * Usage:
  *   npx tsx scripts/post-daily-poll.ts
@@ -41,46 +41,46 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 /** Poll theme categories selected with deterministic controlled variety. */
 const POLL_THEMES = [
   {
-    key: "research_basics",
-    theme: "Research Basics",
-    question: "Community Pulse: Which crypto term should we explain next?",
-    options: ["Trading turnover", "Market cap", "Circulating supply", "Token unlocks"],
+    key: "market_mood",
+    theme: "Market Mood",
+    question: "Community Pulse: How do you feel about the crypto market today?",
+    options: ["Optimistic", "Neutral", "Cautious", "Undecided"],
   },
   {
-    key: "liquidity_basics",
-    theme: "Liquidity Basics",
-    question: "Community Pulse: Which liquidity check needs a worked example?",
-    options: ["Bid-ask spread", "Order-book depth", "Trading venues", "Reported volume"],
+    key: "crypto_interests",
+    theme: "Crypto Interests",
+    question: "Community Pulse: Which part of crypto interests you most?",
+    options: ["Bitcoin", "Smart contracts", "Stablecoins", "DeFi"],
   },
   {
-    key: "data_pitfalls",
-    theme: "Data Pitfalls",
-    question: "Community Pulse: Which market-data pitfall should we explain?",
-    options: ["Missing data", "Stale scores", "Unusual volume", "Broad token categories"],
+    key: "market_habits",
+    theme: "Market Habits",
+    question: "Community Pulse: How often do you check the crypto market?",
+    options: ["Several times a day", "Once a day", "A few times a week", "Rarely"],
   },
   {
-    key: "follow_up_format",
-    theme: "Research Follow-up",
-    question: "Community Pulse: What would help you understand a research follow-up?",
-    options: ["The original snapshot", "What changed", "What is still missing", "The comparison method"],
+    key: "crypto_experience",
+    theme: "Crypto Experience",
+    question: "Community Pulse: How long have you been following crypto?",
+    options: ["Less than a year", "1-3 years", "More than 3 years", "Just getting started"],
   },
   {
-    key: "supply_basics",
-    theme: "Supply Basics",
-    question: "Community Pulse: Which supply question should we unpack?",
-    options: ["Circulating vs total supply", "Token unlock schedules", "Diluted valuation", "Supply data sources"],
+    key: "research_priorities",
+    theme: "Research Priorities",
+    question: "Community Pulse: What do you check first when researching a token?",
+    options: ["Market cap", "Trading volume", "Token supply", "Project activity"],
   },
   {
-    key: "comparison_basics",
-    theme: "Comparing Tokens",
-    question: "Community Pulse: Which comparison needs a plain-English example?",
-    options: ["Price vs market cap", "Volume vs trading depth", "Similar token categories", "Matching time windows"],
+    key: "news_sources",
+    theme: "News Sources",
+    question: "Community Pulse: Where do you usually follow crypto news?",
+    options: ["Social media", "News sites", "Project updates", "Community chats"],
   },
   {
-    key: "source_checks",
-    theme: "Checking Sources",
-    question: "Community Pulse: Which source check would you like to learn?",
-    options: ["Finding the timestamp", "Checking a project claim", "Comparing data providers", "Spotting missing fields"],
+    key: "crypto_usage",
+    theme: "Crypto Usage",
+    question: "Community Pulse: What do you mainly use crypto for?",
+    options: ["Long-term holding", "Payments", "DeFi apps", "Still exploring"],
   },
 ] as const;
 
@@ -161,7 +161,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
     });
     console.log(`Today's poll theme: "${theme.theme}" (${theme.key})`);
     console.log(`Today's poll archetype: "${archetype.label}" (${archetype.key})`);
-    console.log("Preparing a short reader-choice poll...");
+    console.log("Preparing a short community poll...");
     const pollPayload = buildTelegramPollPayload(
       { question: theme.question, options: [...theme.options] },
       theme.question,

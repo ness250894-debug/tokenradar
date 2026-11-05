@@ -2,11 +2,14 @@
  * TokenRadar — Interactive Daily Post for X
  *
  * Posts one interactive poll per day to X on its scheduled slot.
- * Selects from 4 poll types with deterministic controlled variety:
- *   0 = Sentiment  ("What's your move on $TOKEN?")
+ * Selects from 7 poll types with deterministic controlled variety:
+ *   0 = Sentiment  ("How are you reading $TOKEN today?")
  *   1 = Prediction  ("Where does $TOKEN close today?")
  *   2 = Narrative   ("Which narrative dominates this week?")
- *   3 = Community   ("Which token should TokenRadar deep-dive?")
+ *   3 = Community   ("Which token are you following most closely?")
+ *   4 = Metric      ("Which metric do you check first?")
+ *   5 = Risk        ("Which risk factor matters most to you?")
+ *   6 = Recap       ("What caught your attention in crypto this week?")
  *
  * Deduplication: Only one interactive post per day (tracked via
  * data/posted/YYYY-MM-DD/interactive-daily.json).
@@ -172,7 +175,7 @@ export async function buildPredictionPoll(token: TokenData): Promise<PollOptions
 export async function buildNarrativePoll(): Promise<PollOptions> {
   const hook = cleanPollHook(
     await generatePollHook("narrative", getTimeOfDay()),
-    "Which crypto narrative deserves more research this week?",
+    "Which crypto narrative are you following most closely?",
   );
   return {
     text: `${hook}\n\n#TokenRadarCo`,
@@ -195,8 +198,8 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
 
   const options = sorted.map((t) => `$${t.symbol.toUpperCase()}`);
   const hook = cleanPollHook(
-    await generatePollHook("community vote", getTimeOfDay()),
-    "Which token should get a deeper data review?",
+    await generatePollHook("community token interest", getTimeOfDay()),
+    "Which of these tokens are you following most closely?",
   );
 
   return {
@@ -208,8 +211,8 @@ export async function buildCommunityPoll(candidates: TokenData[]): Promise<PollO
 
 export async function buildMetricPoll(): Promise<PollOptions> {
   const hook = cleanPollHook(
-    await generatePollHook("metric lesson", getTimeOfDay()),
-    "Which TokenRadar metric should we explain with a live example next?",
+    await generatePollHook("research metric preference", getTimeOfDay()),
+    "Which metric do you check first when researching a token?",
   );
 
   return {
@@ -222,7 +225,7 @@ export async function buildMetricPoll(): Promise<PollOptions> {
 export async function buildRiskPoll(): Promise<PollOptions> {
   const hook = cleanPollHook(
     await generatePollHook("risk filter", getTimeOfDay()),
-    "Which filter should matter most before a mover deserves a deeper review?",
+    "Which risk factor matters most to you when researching a token?",
   );
 
   return {
@@ -234,13 +237,13 @@ export async function buildRiskPoll(): Promise<PollOptions> {
 
 export async function buildRecapPoll(): Promise<PollOptions> {
   const hook = cleanPollHook(
-    await generatePollHook("weekly recap", getTimeOfDay()),
-    "Which recap should TokenRadar publish next?",
+    await generatePollHook("weekly crypto highlights", getTimeOfDay()),
+    "What caught your attention most in crypto this week?",
   );
 
   return {
     text: `${hook}\n\n#TokenRadarCo`,
-    options: ["Winners and fades", "Risk lessons", "Narrative rotation", "Community picks"],
+    options: ["Market moves", "Network activity", "Project updates", "Crypto news"],
     durationMinutes: POLL_DURATION_MINUTES,
   };
 }

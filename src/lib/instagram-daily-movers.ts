@@ -170,7 +170,7 @@ export function buildInstagramCarouselCta(
   _leaderSymbol: string,
 ): string {
   return archetype.ctaFamily === "choose-the-filter" || archetype.ctaFamily === "pick-next-review"
-    ? "Which check should we explain next: spread or depth?"
+    ? "Which matters more to you: spread or depth?"
     : "Save the four-field research checklist.";
 }
 
