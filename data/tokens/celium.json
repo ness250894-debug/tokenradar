@@ -3,9 +3,10 @@
   "symbol": "sn51",
   "name": "lium",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/66328/large/lium_Icon_FullColor_500x500.png?1766792920",
-  "description": "",
+  "description": "Lium (lium.io) is an agent-first GPU cloud on Bittensor Subnet 51. It enables users to rent NVIDIA GPUs through the web interface, command-line interface, SDK, or API. GPU providers earn 95% of rental revenue plus bonuses. The project provides documentation at https://docs.lium.io and a provider portal at https://provider.lium.io. Its CLI and SDK are available at https://github.com/Datura-ai/lium. Official community and support channels are https://discord.gg/lium, https://x.com/lium_io, and support@lium.io.",
   "categories": [
     "Artificial Intelligence (AI)",
+    "DePIN",
     "Bittensor Ecosystem",
     "Bittensor Subnets"
   ],
@@ -17,25 +18,25 @@
     "explorer": "https://taostats.io/subnets/51/chart"
   },
   "market": {
-    "price": 27.76,
-    "marketCap": 140670998,
-    "marketCapRank": 221,
-    "volume24h": 1762460,
-    "high24h": 27.66,
-    "low24h": 25.47,
-    "priceChange24h": 4.94926,
-    "priceChange7d": -12.8846,
-    "priceChange30d": -4.7276,
-    "priceChange1y": 28.1752,
+    "price": 27.01,
+    "marketCap": 137068972,
+    "marketCapRank": 212,
+    "volume24h": 4821584,
+    "high24h": 28.17,
+    "low24h": 26.39,
+    "priceChange24h": -2.71659,
+    "priceChange7d": -10.65164,
+    "priceChange30d": -11.05398,
+    "priceChange1y": 27.09229,
     "ath": 37.11,
-    "athChangePercentage": -25.18559,
+    "athChangePercentage": -27.21841,
     "athDate": "2025-07-17T22:21:06.000Z",
     "atl": 0.164238,
     "atlDate": "2026-03-26T07:56:00.000Z",
-    "circulatingSupply": 5066680.600211432,
-    "totalSupply": 5066680.600211432,
+    "circulatingSupply": 5074857.195427784,
+    "totalSupply": 5074857.195427784,
     "maxSupply": 21000000,
-    "fdv": 140670998
+    "fdv": 137068972
   },
   "community": {
     "twitterFollowers": null,
@@ -46,6 +47,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-11T21:06:04.776Z",
-  "lastMarketUpdate": "2026-11-04T22:53:58.000Z"
+  "fetchedAt": "2026-11-05T22:55:53.141Z",
+  "lastMarketUpdate": "2026-11-05T22:54:51.000Z"
 }
