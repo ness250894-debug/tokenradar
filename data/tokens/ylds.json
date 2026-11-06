@@ -18,25 +18,25 @@
     "explorer": "https://explorer.provenance.io/asset/uylds.fcc"
   },
   "market": {
-    "price": 1,
-    "marketCap": 479112329,
-    "marketCapRank": 108,
-    "volume24h": 16503592,
+    "price": 0.999787,
+    "marketCap": 468259379,
+    "marketCapRank": 110,
+    "volume24h": 14486362,
     "high24h": 1,
-    "low24h": 0.999144,
-    "priceChange24h": 0.06805,
-    "priceChange7d": 0.118,
-    "priceChange30d": 0.0264,
+    "low24h": 0.999048,
+    "priceChange24h": -0.04552,
+    "priceChange7d": -0.0003,
+    "priceChange30d": 0.0023,
     "priceChange1y": 0,
     "ath": 1.001,
-    "athChangePercentage": -0.11166,
+    "athChangePercentage": -0.15654,
     "athDate": "2026-05-28T18:14:00.000Z",
     "atl": 0.998261,
     "atlDate": "2026-10-29T21:31:30.000Z",
-    "circulatingSupply": 478999152.57,
-    "totalSupply": 478999152.57,
+    "circulatingSupply": 468359788.66,
+    "totalSupply": 468359788.66,
     "maxSupply": null,
-    "fdv": 479112329
+    "fdv": 468259379
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-10-30T21:44:14.666Z",
-  "lastMarketUpdate": "2026-11-05T22:52:50.000Z"
+  "lastMarketUpdate": "2026-11-06T22:23:57.000Z"
 }
