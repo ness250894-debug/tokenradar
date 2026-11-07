@@ -21,28 +21,28 @@
     "website": "http://dogecoin.com/",
     "github": "https://github.com/dogecoin/dogecoin",
     "reddit": "https://www.reddit.com/r/dogecoin/",
-    "explorer": "https://doge.tokenview.io/"
+    "explorer": "https://blockchair.com/dogecoin"
   },
   "market": {
-    "price": 0.072631,
-    "marketCap": 11377582154,
+    "price": 0.071308,
+    "marketCap": 11167967741,
     "marketCapRank": 13,
-    "volume24h": 531216754,
-    "high24h": 0.073254,
-    "low24h": 0.070278,
-    "priceChange24h": 1.23164,
-    "priceChange7d": -3.5868,
-    "priceChange30d": -18.2054,
-    "priceChange1y": -54.6977,
+    "volume24h": 193788777,
+    "high24h": 0.072907,
+    "low24h": 0.071179,
+    "priceChange24h": -1.77587,
+    "priceChange7d": -5.81397,
+    "priceChange30d": -15.34007,
+    "priceChange1y": -60.41586,
     "ath": 0.731578,
-    "athChangePercentage": -90.07205,
+    "athChangePercentage": -90.25283,
     "athDate": "2021-05-07T21:08:23.000Z",
     "atl": 0.0000869,
     "atlDate": "2015-05-05T16:00:00.000Z",
-    "circulatingSupply": 156640022860.16907,
-    "totalSupply": 156640022860.16907,
+    "circulatingSupply": 156648462860.16907,
+    "totalSupply": 156653292860.16907,
     "maxSupply": null,
-    "fdv": 11377582154
+    "fdv": 11168312088
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-12T23:49:34.286Z",
-  "lastMarketUpdate": "2026-11-06T22:23:57.000Z"
+  "fetchedAt": "2026-11-07T21:05:38.002Z",
+  "lastMarketUpdate": "2026-11-07T21:03:54.000Z"
 }

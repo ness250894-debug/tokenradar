@@ -7383,5 +7383,39 @@
     "discoveredAt": "2026-11-03T00:07:31.970Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-11-03T00:07:31.970Z"
+  },
+  {
+    "id": "soter",
+    "name": "Soter",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://www.coindesk.com/business/2026/11/05/soter-raises-usd23-5m-plus-btc-and-eth-as-banks-demand-theft-protection",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/05/soter-raises-usd23-5m-plus-btc-and-eth-as-banks-demand-theft-protection",
+        "title": "Standard Chartered and SBI back crypto insurer Soter as funding reaches $23.5 million",
+        "observedAt": "2026-11-05T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-07T21:08:39.875Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-11-07T21:18:18.165Z",
+    "graduatedAt": "2026-11-07T21:18:18.165Z",
+    "coingeckoRank": 14259,
+    "graduationEvidence": {
+      "coingeckoId": "soter",
+      "coingeckoRank": 14259,
+      "rank": 14259,
+      "priceUsd": 0.00000394,
+      "volume24h": 0,
+      "matchedBy": "id",
+      "verifiedAt": "2026-11-07T21:18:18.165Z"
+    }
   }
 ]
