@@ -15,28 +15,28 @@
     "website": "https://e.cash/",
     "github": "https://github.com/bitcoin-abc",
     "reddit": "https://www.reddit.com/r/ecash/",
-    "explorer": "https://ecash.coin.dance/"
+    "explorer": "https://blockchair.com/ecash"
   },
   "market": {
-    "price": 0.00000587,
-    "marketCap": 118131656,
-    "marketCapRank": 237,
-    "volume24h": 2451387,
-    "high24h": 0.000006,
-    "low24h": 0.00000573,
-    "priceChange24h": 0.69262,
-    "priceChange7d": -7.2449,
-    "priceChange30d": -22.3456,
-    "priceChange1y": -55.1629,
+    "price": 0.00000584,
+    "marketCap": 116594329,
+    "marketCapRank": 236,
+    "volume24h": 1146240,
+    "high24h": 0.00000594,
+    "low24h": 0.00000579,
+    "priceChange24h": -0.63875,
+    "priceChange7d": -8.77273,
+    "priceChange30d": -19.30974,
+    "priceChange1y": -60.62313,
     "ath": 0.00038001,
-    "athChangePercentage": -98.45402,
+    "athChangePercentage": -98.46307,
     "athDate": "2021-09-04T09:09:31.000Z",
     "atl": 0.00000479,
     "atlDate": "2026-07-01T01:13:50.000Z",
-    "circulatingSupply": 20107376547580,
-    "totalSupply": 20107379672580,
+    "circulatingSupply": 20107651547580,
+    "totalSupply": 20107810922580,
     "maxSupply": 21000000000000,
-    "fdv": 118131674
+    "fdv": 116595253
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +47,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-13T21:59:43.972Z",
-  "lastMarketUpdate": "2026-11-06T22:23:57.000Z"
+  "fetchedAt": "2026-11-07T21:06:15.876Z",
+  "lastMarketUpdate": "2026-11-07T21:05:52.000Z"
 }

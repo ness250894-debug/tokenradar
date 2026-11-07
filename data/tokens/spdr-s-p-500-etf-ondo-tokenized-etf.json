@@ -13,7 +13,8 @@
     "HyperEVM Ecosystem",
     "Tokenized Exchange-Traded Funds (ETFs)",
     "Ondo Tokenized Assets",
-    "Tokenized Exchange-Traded Product (ETPs)"
+    "Tokenized Exchange-Traded Product (ETPs)",
+    "Robinhood Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -23,25 +24,25 @@
     "explorer": "https://etherscan.io/address/0xFeDC5f4a6c38211c1338aa411018DFAf26612c08"
   },
   "market": {
-    "price": 741.35,
-    "marketCap": 45491982,
+    "price": 741.38,
+    "marketCap": 45455164,
     "marketCapRank": 467,
-    "volume24h": 1472249,
-    "high24h": 749.73,
-    "low24h": 734.08,
-    "priceChange24h": 0.66004,
-    "priceChange7d": -2.7792,
-    "priceChange30d": -5.4686,
-    "priceChange1y": 10.4227,
+    "volume24h": 991062,
+    "high24h": 744.85,
+    "low24h": 740.59,
+    "priceChange24h": -0.0451,
+    "priceChange7d": -3.03885,
+    "priceChange30d": -5.17382,
+    "priceChange1y": 10.37039,
     "ath": 790.96,
-    "athChangePercentage": -6.27238,
+    "athChangePercentage": -6.26844,
     "athDate": "2026-08-13T14:39:00.000Z",
     "atl": 632.69,
     "atlDate": "2026-03-30T19:38:00.000Z",
-    "circulatingSupply": 61356.749290523025,
-    "totalSupply": 61356.749290523025,
+    "circulatingSupply": 61317.62474963511,
+    "totalSupply": 61317.62474963511,
     "maxSupply": null,
-    "fdv": 45491982
+    "fdv": 45455164
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-13T21:59:18.737Z",
-  "lastMarketUpdate": "2026-11-06T22:23:57.000Z"
+  "fetchedAt": "2026-11-07T21:05:56.935Z",
+  "lastMarketUpdate": "2026-11-07T21:04:52.000Z"
 }
