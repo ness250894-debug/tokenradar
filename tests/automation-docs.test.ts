@@ -335,7 +335,7 @@ describe("automation runbook contract", () => {
     expect(publisherAction).toContain("actions/workflows/ci.yml/dispatches");
     expect(publisherAction).not.toContain("/check-runs");
     expect(publisherAction).toContain("workflow_run_id");
-    expect(publisherAction).toContain('gh run watch "$ci_run_id"');
+    expect(publisherAction).toContain('wait_for_ci_run "$ci_run_id"');
     expect(publisherAction).toContain('ci_run_id="$(find_successful_attested_ci_run)"');
     expect(publisherAction).toContain(
       'verify_ci_run "$candidate_run_id" && verify_required_status "$candidate_run_id"',
@@ -375,7 +375,7 @@ describe("automation runbook contract", () => {
     expect(publisherAction).toContain(
       'existing_merge_sha="$(wait_for_main_after_recorded_base)"',
     );
-    const watchIndex = publisherAction.indexOf('gh run watch "$ci_run_id"');
+    const watchIndex = publisherAction.indexOf('wait_for_ci_run "$ci_run_id"');
     const verifiedRunIndex = publisherAction.indexOf('verify_ci_run "$ci_run_id"', watchIndex);
     const refreshedMainIndex = publisherAction.indexOf('current_main="$(gh api', verifiedRunIndex);
     const refreshedPrIndex = publisherAction.indexOf('fresh_pr_json="$(gh api', refreshedMainIndex);
