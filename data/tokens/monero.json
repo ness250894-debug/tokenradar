@@ -20,25 +20,25 @@
     "explorer": "https://monero.com/explorer"
   },
   "market": {
-    "price": 604.6,
-    "marketCap": 11382914256,
+    "price": 582.61,
+    "marketCap": 10970008940,
     "marketCapRank": 12,
-    "volume24h": 82117731,
-    "high24h": 608.37,
-    "low24h": 594.68,
-    "priceChange24h": 0.69162,
-    "priceChange7d": 2.5119,
-    "priceChange30d": 17.1409,
-    "priceChange1y": 66.6257,
+    "volume24h": 131625671,
+    "high24h": 603.97,
+    "low24h": 581.55,
+    "priceChange24h": -3.12224,
+    "priceChange7d": -3.6651,
+    "priceChange30d": 11.8539,
+    "priceChange1y": 35.5741,
     "ath": 797.73,
-    "athChangePercentage": -24.21052,
+    "athChangePercentage": -26.96636,
     "athDate": "2026-01-14T11:34:07.000Z",
     "atl": 0.216177,
     "atlDate": "2015-01-13T16:00:00.000Z",
-    "circulatingSupply": 18828443.11145141,
-    "totalSupply": 18828443.11145141,
+    "circulatingSupply": 18828924.82690971,
+    "totalSupply": 18828924.82690971,
     "maxSupply": null,
-    "fdv": 11382914256
+    "fdv": 10970008940
   },
   "community": {
     "twitterFollowers": null,
@@ -50,5 +50,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-10-19T21:47:03.224Z",
-  "lastMarketUpdate": "2026-11-08T21:21:54.000Z"
+  "lastMarketUpdate": "2026-11-10T00:51:51.000Z"
 }
