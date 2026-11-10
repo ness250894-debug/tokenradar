@@ -11,7 +11,6 @@
     "Cosmos Ecosystem",
     "Solana Ecosystem",
     "Layer 1 (L1)",
-    "Terra Ecosystem",
     "Ethereum Ecosystem",
     "Real World Assets (RWA)",
     "Binance Launchpad",
@@ -23,7 +22,8 @@
     "GMCI Index",
     "Privacy Blockchain",
     "Made in USA",
-    "Coinbase 50 Index"
+    "Coinbase 50 Index",
+    "Quantum-Resistant"
   ],
   "genesisDate": null,
   "links": {
@@ -34,24 +34,24 @@
   },
   "market": {
     "price": 8.04,
-    "marketCap": 804276641,
-    "marketCapRank": 81,
-    "volume24h": 103103479,
-    "high24h": 8.29,
-    "low24h": 7.82,
-    "priceChange24h": -1.51702,
-    "priceChange7d": 16.6985,
-    "priceChange30d": 6.7206,
-    "priceChange1y": 6.63,
+    "marketCap": 803653503,
+    "marketCapRank": 82,
+    "volume24h": 98094615,
+    "high24h": 8.23,
+    "low24h": 7.68,
+    "priceChange24h": -1.85575,
+    "priceChange7d": 11.0796,
+    "priceChange30d": 3.5478,
+    "priceChange1y": 0.1199,
     "ath": 52.62,
-    "athChangePercentage": -84.71558,
+    "athChangePercentage": -84.72824,
     "athDate": "2024-03-14T07:06:22.000Z",
     "atl": 0.657401,
     "atlDate": "2020-11-03T08:19:30.000Z",
     "circulatingSupply": 100000000,
     "totalSupply": 100000000,
     "maxSupply": null,
-    "fdv": 804276641
+    "fdv": 803653503
   },
   "community": {
     "twitterFollowers": null,
@@ -62,6 +62,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-18T19:42:55.641Z",
-  "lastMarketUpdate": "2026-11-10T00:51:51.000Z"
+  "fetchedAt": "2026-11-10T22:34:08.013Z",
+  "lastMarketUpdate": "2026-11-10T22:32:54.000Z"
 }
