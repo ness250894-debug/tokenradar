@@ -7417,5 +7417,28 @@
       "matchedBy": "id",
       "verifiedAt": "2026-11-07T21:18:18.165Z"
     }
+  },
+  {
+    "id": "nyse-tokenized-stocks-avalanche",
+    "name": "NYSE Tokenized Stock Market (Avalanche)",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Planned Launch",
+    "narrativeStrength": 85,
+    "confidence": 90,
+    "lifecycleStatus": "watchlist",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/09/nyse-picks-avalanche-to-settle-tokenized-stocks-amid-wall-street-s-blockchain-race",
+        "title": "NYSE picks Avalanche to settle tokenized stocks amid Wall Street's blockchain race",
+        "observedAt": "2026-11-09T00:00:00.000Z"
+      }
+    ],
+    "dataSource": "https://www.coindesk.com/business/2026/11/09/nyse-picks-avalanche-to-settle-tokenized-stocks-amid-wall-street-s-blockchain-race",
+    "discoveredAt": "2026-11-10T00:55:21.160Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-10T00:55:21.160Z"
   }
 ]

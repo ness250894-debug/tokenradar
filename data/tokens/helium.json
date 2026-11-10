@@ -23,28 +23,28 @@
     "website": "https://www.helium.com/",
     "github": "https://github.com/helium/erlang-hbbft",
     "reddit": "https://www.reddit.com/r/HeliumNetwork",
-    "explorer": "https://solscan.io/token/hntyvp6yfm1hg25tn9wglqm12b8tqmcknkrdu1oxwux"
+    "explorer": "https://explorer.helium.com/"
   },
   "market": {
-    "price": 0.296525,
-    "marketCap": 59665933,
-    "marketCapRank": 383,
-    "volume24h": 8718377,
-    "high24h": 0.344825,
-    "low24h": 0.270975,
-    "priceChange24h": 6.0627,
-    "priceChange7d": -15.5828,
-    "priceChange30d": -39.8072,
-    "priceChange1y": -87.5108,
+    "price": 0.259252,
+    "marketCap": 52128347,
+    "marketCapRank": 420,
+    "volume24h": 4433121,
+    "high24h": 0.286647,
+    "low24h": 0.260632,
+    "priceChange24h": -9.64205,
+    "priceChange7d": -23.06155,
+    "priceChange30d": -47.81843,
+    "priceChange1y": -89.28879,
     "ath": 54.88,
-    "athChangePercentage": -99.45966,
+    "athChangePercentage": -99.52758,
     "athDate": "2021-11-12T15:08:25.000Z",
     "atl": 0.113248,
     "atlDate": "2020-04-17T16:19:10.000Z",
-    "circulatingSupply": 200872844.61900148,
-    "totalSupply": 200872844.61900148,
+    "circulatingSupply": 201072419.78297335,
+    "totalSupply": 201072419.78297335,
     "maxSupply": 223000000,
-    "fdv": 59665933
+    "fdv": 52128347
   },
   "community": {
     "twitterFollowers": null,
@@ -55,6 +55,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-17T19:44:23.088Z",
-  "lastMarketUpdate": "2026-11-08T21:21:54.000Z"
+  "fetchedAt": "2026-11-10T00:54:25.446Z",
+  "lastMarketUpdate": "2026-11-10T00:52:52.000Z"
 }
