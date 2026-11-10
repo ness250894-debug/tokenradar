@@ -98,15 +98,56 @@ require_main_ruleset() {
     fail "main must have compatible PR, strict Required checks, linear-history, deletion, and force-push rules without a merge queue before automation can merge."
 }
 
+read_ci_run() {
+  local run_id="$1"
+  local attempt response
+  shift
+
+  # Only retry this read. Retrying dispatches or merges could repeat writes.
+  for attempt in $(seq 1 5); do
+    if response="$(gh api \
+      -H "Accept: application/vnd.github+json" \
+      -H "X-GitHub-Api-Version: 2026-03-10" \
+      "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}" "$@")"; then
+      printf '%s\n' "$response"
+      return 0
+    fi
+    if (( attempt < 5 )); then
+      echo "Could not read CI run ${run_id} (attempt ${attempt}/5); retrying in 15s." >&2
+      sleep 15
+    fi
+  done
+
+  fail "Unable to read CI run ${run_id} after 5 attempts."
+}
+
+wait_for_ci_run() {
+  local run_id="$1"
+  local deadline=$((SECONDS + 2700))
+  local run_state run_status conclusion
+
+  while (( SECONDS < deadline )); do
+    run_state="$(read_ci_run "$run_id" --jq '[.status, .conclusion] | @tsv')" || return 1
+    read -r run_status conclusion <<< "$run_state"
+    if [[ "$run_status" == "completed" ]]; then
+      [[ "$conclusion" == "success" ]] || \
+        fail "CI run ${run_id} completed with conclusion ${conclusion:-unknown}."
+      return 0
+    fi
+
+    echo "CI run ${run_id} is ${run_status}; checking again in 15s."
+    sleep 15
+  done
+
+  fail "CI run ${run_id} did not complete within 45 minutes."
+}
+
 verify_ci_run() {
   local run_id="$1"
   local ci_run_json
 
   [[ "$run_id" =~ ^[0-9]+$ ]] || return 1
-  ci_run_json="$(gh api \
-    -H "Accept: application/vnd.github+json" \
-    -H "X-GitHub-Api-Version: 2026-03-10" \
-    "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}")"
+  ci_run_json="$(read_ci_run "$run_id")" || return 1
   jq -e \
     --arg head "$HEAD_SHA" \
     --arg branch "$AUTOMATION_BRANCH" \
@@ -503,7 +544,7 @@ ci_run_id="$(jq -r '.workflow_run_id // empty' <<< "$dispatch_json")"
 echo "ci_run_id=$ci_run_id" >> "$GITHUB_OUTPUT"
 echo "Dispatched exact-head CI run ${ci_run_id} for ${HEAD_SHA}."
 
-gh run watch "$ci_run_id" --repo "$GITHUB_REPOSITORY" --exit-status --interval 15
+wait_for_ci_run "$ci_run_id"
 
 verify_ci_run "$ci_run_id" || fail "CI run identity or conclusion did not match the generated head."
 
