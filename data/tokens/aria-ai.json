@@ -18,34 +18,35 @@
     "explorer": "https://bscscan.com/token/0x5d3A12c42E5372B2CC3264AB3cdcF660a1555238"
   },
   "market": {
-    "price": 0.056701,
-    "marketCap": 10358528,
-    "marketCapRank": 1251,
-    "volume24h": 3392235,
-    "high24h": 0.060976,
-    "low24h": 0.054024,
-    "priceChange24h": -4.24544,
-    "priceChange7d": -3.49541,
-    "priceChange30d": -92.54001,
-    "priceChange1y": 0,
-    "ath": 1.18,
-    "athChangePercentage": -95.15227,
-    "athDate": "2026-04-13T06:50:47.750Z",
-    "atl": 0.03289452,
-    "atlDate": "2025-08-25T07:17:07.527Z",
+    "price": 0.225742,
+    "marketCap": 41310778,
+    "marketCapRank": 494,
+    "volume24h": 29545548,
+    "high24h": 0.317685,
+    "low24h": 0.212326,
+    "priceChange24h": 3.51825,
+    "priceChange7d": 78.8343,
+    "priceChange30d": 601.4066,
+    "priceChange1y": 70.8802,
+    "ath": 1.2,
+    "athChangePercentage": -81.21438,
+    "athDate": "2026-04-13T06:50:00.000Z",
+    "atl": 0.0220285,
+    "atlDate": "2026-07-08T19:12:10.000Z",
     "circulatingSupply": 183000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 56603978
+    "fdv": 225741958
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-05-13T18:21:00.556Z"
+  "fetchedAt": "2026-11-11T23:43:58.059Z",
+  "lastMarketUpdate": "2026-11-11T23:42:54.000Z"
 }

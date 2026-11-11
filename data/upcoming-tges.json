@@ -7486,5 +7486,61 @@
     "discoveredAt": "2026-11-10T22:36:27.081Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-11-10T22:36:27.081Z"
+  },
+  {
+    "id": "initia",
+    "name": "Initia",
+    "symbol": "INIT",
+    "category": "L1",
+    "expectedTge": "Mainnet / Upcoming TGE",
+    "narrativeStrength": 75,
+    "confidence": 85,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://cointelegraph.com/news/initia-second-crypto-exploit-three-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "tge",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/initia-second-crypto-exploit-three-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Initia confirms second exploit in 3 weeks, $3.27M stolen in latest attack",
+        "observedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-11T23:46:59.957Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-11-11T23:56:52.980Z",
+    "graduatedAt": "2026-11-11T23:56:52.980Z",
+    "coingeckoRank": 416,
+    "graduationEvidence": {
+      "coingeckoId": "initia",
+      "coingeckoRank": 416,
+      "rank": 416,
+      "priceUsd": 0.252767,
+      "volume24h": 125749740,
+      "matchedBy": "id",
+      "verifiedAt": "2026-11-11T23:56:52.980Z"
+    }
+  },
+  {
+    "id": "spiko",
+    "name": "Spiko",
+    "symbol": "TBD",
+    "category": "RWA",
+    "expectedTge": "Active / Expanding",
+    "narrativeStrength": 72,
+    "dataSource": "https://www.coindesk.com/business/2026/11/11/meet-spiko-the-largest-tokenized-fund-in-the-world-you-ve-probably-never-heard-about",
+    "signals": [
+      {
+        "type": "news",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/11/meet-spiko-the-largest-tokenized-fund-in-the-world-you-ve-probably-never-heard-about",
+        "observedAt": "2026-11-11T23:46:54.244Z"
+      }
+    ],
+    "discoveredAt": "2026-11-11T23:46:59.957Z",
+    "status": "upcoming",
+    "lifecycleStatus": "candidate",
+    "confidence": 38,
+    "lastVerifiedAt": "2026-11-11T23:46:59.957Z"
   }
 ]
