@@ -3,6 +3,13 @@
   "tokenName": "Compound",
   "articles": [
     {
+      "title": "Kraken's xStocks adds 200 UK and EU shares as its assets top $1.1 billion",
+      "link": "https://www.coindesk.com/business/2026/11/11/kraken-s-xstocks-adds-200-uk-and-eu-shares-as-its-assets-top-usd1-1-billion",
+      "pubDate": "Wed, 11 Nov 2026 10:51:34 +0000",
+      "source": "CoinDesk",
+      "snippet": "Payward says xStocks holds over $1.1 billion. Each token is backed by a share but gives no ownership of the underlying company."
+    },
+    {
       "title": "Former NYSE president says stock issuers hold the key to tokenization as Bullish builds its platform",
       "link": "https://www.coindesk.com/business/2026/11/10/former-nyse-president-says-stock-issuers-hold-the-key-to-tokenization-as-bullish-builds-its-platform",
       "pubDate": "Tue, 10 Nov 2026 20:15:08 +0000",
@@ -17,26 +24,19 @@
       "snippet": "A December rate hike appears completely assured, with Fed Governor Chris Waller suggesting even a 50-basis-point move could be appropriate."
     },
     {
-      "title": "Robinhood backs tokenization of its stock on OKX–ICE platform even as most companies opt out",
-      "link": "https://www.coindesk.com/business/2026/11/09/robinhood-backs-tokenization-of-its-stock-on-okx-ice-platform-even-as-most-companies-opt-out",
-      "pubDate": "Mon, 09 Nov 2026 19:36:15 +0000",
-      "source": "CoinDesk",
-      "snippet": "The brokerage firm said it would rather help build tokenized markets than sit on the sidelines, following a wave of early corporate pushback to the Intercontinental Exchange and OKX joint venture."
-    },
-    {
-      "title": "Google’s AI chip push adds more pressure on Nvidia",
-      "link": "https://www.coindesk.com/markets/2026/11/09/google-s-ai-chip-push-adds-more-pressure-on-nvidia",
-      "pubDate": "Mon, 09 Nov 2026 15:20:05 +0000",
-      "source": "CoinDesk",
-      "snippet": "Google’s specialised AI chips threaten greater competition as Nvidia faces a leadership investigation."
-    },
-    {
-      "title": "Can crypto trust firms compete with banks in US derivatives settlements?",
-      "link": "https://cointelegraph.com/news/crypto-trust-firms-compete-banks-us-derivatives-settlements?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 10 Nov 2026 21:34:40 +0000",
+      "title": "Deutsche Bank launches crypto custody for companies and institutions",
+      "link": "https://cointelegraph.com/news/deutsche-bank-debuts-digital-asset-custody-services-eu?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 11 Nov 2026 14:02:18 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Crypto custodians are moving into a market handling billions in daily settlements, but regulatory relief and a shift in congressional control leave questions over their long-term role."
+      "snippet": "Clients can store and transfer Bitcoin, Ether and select stablecoins through the bank, which manages their wallets and private keys."
+    },
+    {
+      "title": "Bitcoin Covenants Part 5: MATT and OP_CHECKCONTRACTVERIFY — How Bitcoin could carry state across transactions",
+      "link": "https://cointelegraph.com/research/bitcoin-covenants-part-5-matt-op-ccv?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 11 Nov 2026 13:26:18 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "OP_CCV embeds contract state directly into Taproot output keys and enforces valid state transitions onchain. This makes it possible to achieve stateful contracts and compact fraud proofs."
     }
   ],
-  "fetchedAt": "2026-11-10T22:46:12.011Z"
+  "fetchedAt": "2026-11-11T23:56:57.532Z"
 }
