@@ -7542,5 +7542,62 @@
     "lifecycleStatus": "candidate",
     "confidence": 38,
     "lastVerifiedAt": "2026-11-11T23:46:59.957Z"
+  },
+  {
+    "id": "griffin",
+    "name": "Griffin",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Funding Stage (Series B)",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://cointelegraph.com/news/digital-bank-griffin-100m-valuation-card-stablecoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "funding",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/digital-bank-griffin-100m-valuation-card-stablecoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Uber’s UK banking partner Griffin raises $20M for stablecoin services",
+        "observedAt": "2026-03-31T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-12T22:55:52.172Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-12T22:55:52.172Z"
+  },
+  {
+    "id": "usdgo",
+    "name": "USDGO",
+    "symbol": "USDGO",
+    "category": "DeFi",
+    "expectedTge": "Active",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "graduated",
+    "dataSource": "https://www.coindesk.com/business/2026/11/12/jupiter-adds-anchorage-backed-usdgo-to-its-usd1-billion-solana-lending-platform",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/12/jupiter-adds-anchorage-backed-usdgo-to-its-usd1-billion-solana-lending-platform",
+        "title": "Jupiter adds Anchorage-backed USDGO to its $1 billion Solana lending platform",
+        "observedAt": "2026-11-12T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-12T22:55:52.173Z",
+    "status": "released",
+    "lastVerifiedAt": "2026-11-12T23:05:42.776Z",
+    "graduatedAt": "2026-11-12T23:05:42.776Z",
+    "coingeckoRank": 70,
+    "graduationEvidence": {
+      "coingeckoId": "usdgo",
+      "coingeckoRank": 70,
+      "rank": 70,
+      "priceUsd": 1,
+      "volume24h": 48270164,
+      "matchedBy": "id",
+      "verifiedAt": "2026-11-12T23:05:42.776Z"
+    }
   }
 ]
