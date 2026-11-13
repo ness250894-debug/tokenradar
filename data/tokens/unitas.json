@@ -7,6 +7,7 @@
   "categories": [
     "Decentralized Finance (DeFi)",
     "Yield Farming",
+    "BNB Chain Ecosystem",
     "Solana Ecosystem",
     "Ethereum Ecosystem",
     "Stablecoin Issuer",
@@ -21,25 +22,25 @@
     "explorer": "https://bscscan.com/token/0x000008d2175f9aeaddb2430c26f8a6f73c5a0000"
   },
   "market": {
-    "price": 0.23058,
-    "marketCap": 49813723,
-    "marketCapRank": 483,
-    "volume24h": 10029536,
-    "high24h": 0.258085,
-    "low24h": 0.227479,
-    "priceChange24h": 0.24187,
-    "priceChange7d": -25.9002,
-    "priceChange30d": -53.2213,
+    "price": 0.200218,
+    "marketCap": 43271264,
+    "marketCapRank": 467,
+    "volume24h": 9721233,
+    "high24h": 0.203818,
+    "low24h": 0.129875,
+    "priceChange24h": 38.9961,
+    "priceChange7d": 96.7805,
+    "priceChange30d": 35.4841,
     "priceChange1y": 0,
     "ath": 0.522624,
-    "athChangePercentage": -55.88032,
+    "athChangePercentage": -61.68991,
     "athDate": "2026-08-31T23:29:20.000Z",
     "atl": 0.067618,
     "atlDate": "2026-03-14T04:06:10.000Z",
-    "circulatingSupply": 215999885.54150105,
-    "totalSupply": 999999885.541501,
+    "circulatingSupply": 215999885.53642154,
+    "totalSupply": 999999885.5364215,
     "maxSupply": 1000000000,
-    "fdv": 230619185
+    "fdv": 200330008
   },
   "community": {
     "twitterFollowers": null,
@@ -50,6 +51,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-09-12T19:40:11.596Z",
-  "lastMarketUpdate": "2026-09-30T21:31:20.000Z"
+  "fetchedAt": "2026-11-13T22:55:10.763Z",
+  "lastMarketUpdate": "2026-11-13T22:53:54.000Z"
 }
