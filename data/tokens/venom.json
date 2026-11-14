@@ -1,0 +1,52 @@
+{
+  "id": "venom",
+  "symbol": "venom",
+  "name": "Venom",
+  "market": {
+    "price": 0.02117901,
+    "marketCap": 38884666,
+    "marketCapRank": 476,
+    "volume24h": 0,
+    "high24h": 0,
+    "low24h": 0,
+    "priceChange24h": 0,
+    "priceChange7d": 43.245,
+    "priceChange30d": 128.7516,
+    "priceChange1y": 0,
+    "ath": 0.782403,
+    "athChangePercentage": -97.29308,
+    "athDate": "2024-03-25T03:36:14.000Z",
+    "atl": 0.00129889,
+    "atlDate": "2026-10-13T13:52:20.000Z",
+    "circulatingSupply": 1836000000,
+    "totalSupply": 7367646470.547814,
+    "maxSupply": 8000000000,
+    "fdv": 156039474
+  },
+  "lastMarketUpdate": "2026-10-25T15:41:42.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/28660/large/Venom_Icon.png?1696527645",
+  "description": "Venom is a layer-0 non-EVM blockchain with dynamic sharding algorithm and Mesh technology, which enhances blockchain interoperability by setting communication standards for TVM-compatible networks, ensuring faster transaction speeds, robust decentralization, and reliable message delivery for cross-chain transactions. Venom provides developers with a Threaded Virtual Machine (TVM) for asynchronous smart-contacts and a T-SOL, a Solidity-like programming language, allowing blockchain network throughput of 100,000+ TPS for building highly scalable Web3 applications across various domains:\n\n\nCBDC and Fiat-backed stablecoins\nAsset Tokenization \nTrade Finance\nProof of Reserve (PoR) mechanisms\nMicrotransactions\nDecentralised Identity\n\nVenom aims to build the blockchain infrastructure worldwide to bring simple, reliable and affordable payment methods to billions of non-crypto users and unbanked population.",
+  "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Venom Ecosystem"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://venom.foundation/",
+    "github": null,
+    "reddit": null,
+    "explorer": "https://venomscan.com/"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-14T21:41:37.064Z"
+}
