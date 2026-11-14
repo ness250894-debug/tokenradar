@@ -17,6 +17,7 @@
     "Fiat-backed Stablecoin",
     "Ink Ecosystem",
     "Made in USA",
+    "Stable Ecosystem",
     "Paxos Ecosystem",
     "GENIUS Act Compliant Stablecoin"
   ],
@@ -28,25 +29,25 @@
     "explorer": "https://etherscan.io/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8"
   },
   "market": {
-    "price": 0.999824,
-    "marketCap": 2561322213,
-    "marketCapRank": 36,
-    "volume24h": 19274328,
-    "high24h": 1.001,
-    "low24h": 0.99923,
-    "priceChange24h": -0.00301,
-    "priceChange7d": -0.0209,
-    "priceChange30d": -0.0049,
-    "priceChange1y": -0.0148,
+    "price": 0.999615,
+    "marketCap": 2627313031,
+    "marketCapRank": 34,
+    "volume24h": 58913683,
+    "high24h": 1,
+    "low24h": 0.998553,
+    "priceChange24h": -0.0193,
+    "priceChange7d": -0.06851,
+    "priceChange30d": -0.01947,
+    "priceChange1y": 0.00073,
     "ath": 1.021,
-    "athChangePercentage": -2.04881,
+    "athChangePercentage": -2.06928,
     "athDate": "2023-10-23T14:44:57.000Z",
     "atl": 0.959426,
     "atlDate": "2024-12-05T14:31:13.000Z",
-    "circulatingSupply": 2561715514.074696,
-    "totalSupply": 2561715514.074696,
+    "circulatingSupply": 2628323748.686202,
+    "totalSupply": 2628323748.686202,
     "maxSupply": null,
-    "fdv": 2561322213
+    "fdv": 2627313031
   },
   "community": {
     "twitterFollowers": null,
@@ -57,6 +58,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-21T20:57:23.321Z",
-  "lastMarketUpdate": "2026-11-13T22:53:54.000Z"
+  "fetchedAt": "2026-11-14T21:42:27.463Z",
+  "lastMarketUpdate": "2026-11-14T21:41:55.000Z"
 }
