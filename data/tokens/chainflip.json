@@ -1,0 +1,56 @@
+{
+  "id": "chainflip",
+  "symbol": "flip",
+  "name": "Chainflip",
+  "market": {
+    "price": 0.432007,
+    "marketCap": 37302486,
+    "marketCapRank": 500,
+    "volume24h": 108577,
+    "high24h": 0.432073,
+    "low24h": 0.411873,
+    "priceChange24h": 3.88398,
+    "priceChange7d": 21.2253,
+    "priceChange30d": 47.5872,
+    "priceChange1y": 19.6446,
+    "ath": 9.48,
+    "athChangePercentage": -95.4407,
+    "athDate": "2024-03-07T14:35:19.000Z",
+    "atl": 0.190927,
+    "atlDate": "2026-04-03T03:17:00.000Z",
+    "circulatingSupply": 86346993.14754567,
+    "totalSupply": 86404716.69841734,
+    "maxSupply": null,
+    "fdv": 37327423
+  },
+  "lastMarketUpdate": "2026-11-15T22:05:54.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/25576/large/kdt_AgmT_400x400.png?1696524709",
+  "description": "Chainflip is a decentralised, trustless protocol that allows users to easily exchange cryptocurrency assets across a range of networks and blockchains without losing custody of their assets in the process. The Chainflip protocol allows users to swap assets between major blockchains without any wrapped tokens, traditional bridging, and at extremely competitive pricing using a novel and unique ‘Just-inTime’ based Automated Market Maker, dubbed the JIT AMM. It is totally generalised, decentralised, and can be integrated with any chain using any transaction type. The protocol is secured by a set of 150 validators staking Chainflip’s native FLIP token. FLIP is primarily a utility token. Validators require FLIP in order to stake, and in turn are rewarded in FLIP. Value is returned indirectly to Validators through protocol fees. Additionally, every swap conducted on the platform results in the automatic buying and burning of FLIP tokens through the liquidity pool system, which puts deflationary pressure on the network as trading volume increases.",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Bridge Governance Tokens",
+    "Coinbase Ventures Portfolio",
+    "Pantera Capital Portfolio",
+    "Delphi Ventures Portfolio",
+    "Blockchain Capital Portfolio",
+    "CoinList Launchpad"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://chainflip.io/",
+    "github": "https://github.com/chainflip-io/",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x826180541412d574cf1336d22c0c0a287822678a"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-15T22:07:06.014Z"
+}
