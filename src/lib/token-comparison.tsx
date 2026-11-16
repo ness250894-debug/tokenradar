@@ -382,13 +382,14 @@ function tokenBadge(symbol: string) {
       style={{
         width: 92,
         height: 92,
+        flexShrink: 0,
         borderRadius: 24,
         background: "linear-gradient(135deg, #CCFF00 0%, #00C2FF 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         color: "#07080B",
-        fontSize: label.length > 4 ? 22 : 30,
+        fontSize: Math.min(30, 80 / Math.max(1, label.length)),
         fontWeight: 700,
       }}
     >
@@ -405,6 +406,7 @@ function tokenIcon(token: RenderableComparisonToken) {
       style={{
         width: 92,
         height: 92,
+        flexShrink: 0,
         borderRadius: 24,
         background: "#17191F",
         border: "1px solid rgba(255,255,255,0.10)",
@@ -427,17 +429,19 @@ function tokenIcon(token: RenderableComparisonToken) {
 }
 
 function tokenHeader(token: RenderableComparisonToken, accent: string) {
+  const ticker = `$${token.symbol.toUpperCase()}`;
+  const tickerSize = Math.max(15, Math.min(22, 244 / ticker.length));
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 20, width: "100%" }}>
       {tokenIcon(token)}
-      <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <span style={{ color: accent, fontSize: 22, fontWeight: 700, letterSpacing: "0.08em" }}>
-          ${token.symbol.toUpperCase()}
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0 }}>
+        <span style={{ color: accent, fontSize: tickerSize, fontWeight: 700, letterSpacing: "0.08em", wordBreak: "break-word" }}>
+          {ticker}
         </span>
-        <span style={{ color: "#F5F7FA", fontSize: 34, fontWeight: 700, lineHeight: 1.1 }}>
+        <span style={{ color: "#F5F7FA", fontSize: 34, fontWeight: 700, lineHeight: 1.1, wordBreak: "break-word" }}>
           {token.name.length > 22 ? `${token.name.slice(0, 21)}...` : token.name}
         </span>
-        <span style={{ color: "#7E8491", fontSize: 19, marginTop: 6 }}>Market rank #{token.rank}</span>
+        <span style={{ color: "#7E8491", fontSize: 19, marginTop: 6 }}>{`Market rank #${token.rank}`}</span>
       </div>
     </div>
   );
@@ -449,6 +453,8 @@ function metricCell(label: string, value: string, valueColor = "#F5F7FA") {
       style={{
         display: "flex",
         flexDirection: "column",
+        flex: 1,
+        minWidth: 0,
         padding: "18px 20px",
         borderRadius: 16,
         background: "rgba(255,255,255,0.035)",
@@ -471,7 +477,8 @@ function tokenColumn(token: RenderableComparisonToken, accent: string) {
   return (
     <div
       style={{
-        width: 458,
+        flex: 1,
+        minWidth: 0,
         display: "flex",
         flexDirection: "column",
         gap: 14,
@@ -484,12 +491,12 @@ function tokenColumn(token: RenderableComparisonToken, accent: string) {
       {tokenHeader(token, accent)}
       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 8 }}>
         <div style={{ display: "flex", gap: 10 }}>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("24H", formatPercent(token.change24h), changeColor)}</div>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("7D", comparisonPercent(token.change7d), sevenDayColor)}</div>
+          {metricCell("24H", formatPercent(token.change24h), changeColor)}
+          {metricCell("7D", comparisonPercent(token.change7d), sevenDayColor)}
         </div>
         <div style={{ display: "flex", gap: 10 }}>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("VOL / CAP", compactRatio(volumeToMarketCap(token)))}</div>
-          <div style={{ width: "50%", display: "flex" }}>{metricCell("RISK", `${token.metrics.riskScore}/10`, getRiskColor(token.metrics.riskScore))}</div>
+          {metricCell("VOL / CAP", compactRatio(volumeToMarketCap(token)))}
+          {metricCell("RISK", `${token.metrics.riskScore}/10`, getRiskColor(token.metrics.riskScore))}
         </div>
       </div>
     </div>
@@ -535,26 +542,26 @@ export async function generateTokenComparisonImage(pair: TokenComparisonPair): P
       <div style={{ position: "absolute", width: 760, height: 760, borderRadius: 380, bottom: -520, right: -260, background: "rgba(0,194,255,0.09)" }} />
 
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", width: "100%", zIndex: 1 }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
           <span style={{ color: "#CCFF00", fontSize: 21, fontWeight: 700, letterSpacing: "0.15em" }}>TOKEN COMPARISON</span>
           <span style={{ color: "#F5F7FA", fontSize: 46, fontWeight: 700, marginTop: 8 }}>Price, turnover, and risk</span>
-          <span style={{ color: "#7E8491", fontSize: 20, marginTop: 8 }}>{pair.context} | Market data + TokenRadar metrics</span>
+          <span style={{ color: "#7E8491", fontSize: 20, marginTop: 8, wordBreak: "break-word" }}>{`${pair.context} | Market data + TokenRadar metrics`}</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: 24, flexShrink: 0 }}>
           <div style={{ width: 30, height: 30, borderRadius: 8, background: "#CCFF00" }} />
           <span style={{ fontSize: 27, fontWeight: 700 }}>TOKEN<span style={{ color: "#CCFF00" }}>RADAR</span></span>
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", marginTop: 38, zIndex: 1 }}>
+      <div style={{ display: "flex", alignItems: "stretch", gap: 16, width: "100%", marginTop: 38, zIndex: 1 }}>
         {tokenColumn(left, "#CCFF00")}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 72, height: 72, borderRadius: 36, background: "#17191F", border: "1px solid rgba(255,255,255,0.12)", color: "#F5F7FA", fontSize: 25, fontWeight: 700 }}>VS</div>
+        <div style={{ display: "flex", alignSelf: "center", alignItems: "center", justifyContent: "center", width: 72, height: 72, flexShrink: 0, boxSizing: "border-box", borderRadius: 36, background: "#17191F", border: "1px solid rgba(255,255,255,0.12)", color: "#F5F7FA", fontSize: 25, fontWeight: 700 }}>VS</div>
         {tokenColumn(right, "#00C2FF")}
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", marginTop: 28, zIndex: 1 }}>
-        <span style={{ color: "#F5F7FA", fontSize: 20, fontWeight: 700 }}>{buildComparisonVisualVerdict(pair)}</span>
-        <span style={{ color: "#CCFF00", fontSize: 18, fontWeight: 700 }}>TOKENRADAR.CO</span>
+        <span style={{ color: "#F5F7FA", fontSize: 20, fontWeight: 700, wordBreak: "break-word", minWidth: 0 }}>{buildComparisonVisualVerdict(pair)}</span>
+        <span style={{ color: "#CCFF00", fontSize: 18, fontWeight: 700, marginLeft: 24, flexShrink: 0 }}>TOKENRADAR.CO</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 38, padding: "24px 28px", borderRadius: 20, border: "1px solid #303543", background: "#111319" }}>
         <span style={{ color: "#CCFF00", fontSize: 19, letterSpacing: "0.08em" }}>WHY COMPARE THEM?</span>

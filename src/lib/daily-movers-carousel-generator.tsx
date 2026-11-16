@@ -43,7 +43,7 @@ function getFont(): ArrayBuffer {
 }
 
 function heading(text: string, size = 70) {
-  return <div style={{ display: "flex", fontSize: size, lineHeight: 1.08, fontWeight: 800, marginTop: 48 }}>{text}</div>;
+  return <div style={{ display: "flex", fontSize: size, lineHeight: 1.08, fontWeight: 800, marginTop: 40, wordBreak: "break-word" }}>{text}</div>;
 }
 
 function paragraph(text: string, color = "#CBD5E1", size = 38) {
@@ -51,10 +51,10 @@ function paragraph(text: string, color = "#CBD5E1", size = 38) {
 }
 
 function panel(title: string, text: string, accent = "#CCFF00") {
-  return <div style={{ display: "flex", flexDirection: "column", padding: 32, borderRadius: 18,
+  return <div style={{ display: "flex", flexDirection: "column", padding: 26, borderRadius: 18,
     border: "1px solid #334155", background: "#111A2C", marginTop: 24 }}>
     <div style={{ display: "flex", fontSize: 38, color: accent, fontWeight: 800 }}>{title}</div>
-    {paragraph(text, "#F8FAFC", 36)}
+    <div style={{ display: "flex", color: "#F8FAFC", fontSize: 36, lineHeight: 1.3, marginTop: 16 }}>{text}</div>
   </div>;
 }
 
@@ -68,8 +68,8 @@ function shell(section: string, children: ReactNode, date: Date) {
       <div style={{ display: "flex", fontSize: 30, fontWeight: 800 }}>TOKEN<span style={{ color: "#CCFF00" }}>RADAR</span></div>
     </div>
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>{content}</div>
-    <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid #334155", paddingTop: 20, marginTop: 28, color: "#AAB8CB", fontSize: 26 }}>
-      <div style={{ display: "flex" }}>CoinGecko · {date.toISOString().slice(0, 16).replace("T", " ")} UTC</div>
+    <div style={{ display: "flex", flexDirection: "column", flexShrink: 0, borderTop: "1px solid #334155", paddingTop: 20, marginTop: 28, color: "#AAB8CB", fontSize: 26 }}>
+      <div style={{ display: "flex" }}>{`CoinGecko · ${date.toISOString().slice(0, 16).replace("T", " ")} UTC`}</div>
       <div style={{ display: "flex", marginTop: 8 }}>Point-in-time educational research · TokenRadar.co</div>
     </div>
   </div>;
@@ -78,18 +78,18 @@ function shell(section: string, children: ReactNode, date: Date) {
 function icon(mover: Mover) {
   return mover.iconDataUrl
     // eslint-disable-next-line @next/next/no-img-element -- Satori renders this static asset.
-    ? <img src={mover.iconDataUrl} alt={mover.name} width={54} height={54} style={{ borderRadius: 27 }} />
-    : <div style={{ display: "flex", width: 54, height: 54, borderRadius: 27, background: "#CCFF00", color: "#070B13", alignItems: "center", justifyContent: "center", fontSize: 24 }}>{mover.symbol.slice(0, 2).toUpperCase()}</div>;
+    ? <img src={mover.iconDataUrl} alt={mover.name} width={54} height={54} style={{ borderRadius: 27, flexShrink: 0 }} />
+    : <div style={{ display: "flex", width: 54, height: 54, flexShrink: 0, borderRadius: 27, background: "#CCFF00", color: "#070B13", alignItems: "center", justifyContent: "center", fontSize: 24 }}>{mover.symbol.slice(0, 2).toUpperCase()}</div>;
 }
 
 function renderCover(movers: Mover[], date: Date) {
   const lesson = buildInstagramMoverLesson(movers);
   return shell("The research question", <>
-    {heading(lesson.headline, 76)}
+    {heading(lesson.headline, 62)}
     {paragraph("Price change and trading activity answer different questions.")}
-    <div style={{ display: "flex", gap: 24, marginTop: 54 }}>
-      {[lesson.leader, lesson.peer].map((mover) => <div key={mover.id} style={{ display: "flex", flexDirection: "column", flex: 1, background: "#111A2C", border: "1px solid #334155", borderRadius: 18, padding: 28 }}>
-        <div style={{ display: "flex", color: "#F8FAFC", fontSize: 44 }}>{mover.symbol.toUpperCase()}</div>
+    <div style={{ display: "flex", gap: 24, marginTop: 40 }}>
+      {[lesson.leader, lesson.peer].map((mover) => <div key={mover.id} style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0, background: "#111A2C", border: "1px solid #334155", borderRadius: 18, padding: 28 }}>
+        <div style={{ display: "flex", color: "#F8FAFC", fontSize: Math.min(44, 400 / mover.symbol.length) }}>{mover.symbol.toUpperCase()}</div>
         {paragraph("24h price change", "#AAB8CB", 30)}
         <div style={{ display: "flex", color: "#00FFA3", fontSize: 54, marginTop: 12 }}>{formatPercent(mover.change24h)}</div>
         {paragraph("Reported turnover", "#AAB8CB", 30)}
@@ -104,13 +104,13 @@ function renderComparison(movers: Mover[], date: Date) {
   return shell("Compare the evidence", <>
     {heading("Same window. Two measurements.")}
     {paragraph("Five qualifying movers, ordered by 24h price change.", "#CBD5E1", 34)}
-    <div style={{ display: "flex", marginTop: 40, padding: "0 20px", color: "#AAB8CB", fontSize: 28 }}>
+    <div style={{ display: "flex", marginTop: 28, padding: "0 20px", color: "#AAB8CB", fontSize: 28 }}>
       <div style={{ display: "flex", flex: 1 }}>Asset</div>
       <div style={{ display: "flex", width: 210 }}>24h change</div>
       <div style={{ display: "flex", width: 210 }}>Turnover</div>
     </div>
-    {movers.map((mover) => <div key={mover.id} style={{ display: "flex", alignItems: "center", marginTop: 18, padding: "26px 20px", background: "#111A2C", borderRadius: 14, border: "1px solid #334155" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1 }}>{icon(mover)}<div style={{ display: "flex", fontSize: 36 }}>{mover.symbol.toUpperCase()}</div></div>
+    {movers.map((mover) => <div key={mover.id} style={{ display: "flex", alignItems: "center", marginTop: 14, padding: "16px 20px", background: "#111A2C", borderRadius: 14, border: "1px solid #334155" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1, minWidth: 0 }}>{icon(mover)}<div style={{ display: "flex", fontSize: Math.min(36, 410 / mover.symbol.length) }}>{mover.symbol.toUpperCase()}</div></div>
       <div style={{ display: "flex", width: 210, fontSize: 38, color: "#00FFA3" }}>{formatPercent(mover.change24h)}</div>
       <div style={{ display: "flex", width: 210, fontSize: 38, color: "#00C2FF" }}>{(volumeToMarketCap(mover) * 100).toFixed(1)}%</div>
     </div>)}
@@ -121,11 +121,11 @@ function renderComparison(movers: Mover[], date: Date) {
 function renderExplanation(movers: Mover[], date: Date) {
   const leader = movers[0];
   return shell("Understand the metric", <>
-    {heading(`How ${leader.symbol.toUpperCase()}'s turnover is calculated`)}
+    {heading(`How ${leader.symbol.toUpperCase()}'s turnover is calculated`, 60)}
     {panel("Reported 24h trading volume", formatCompact(leader.volume24h), "#00C2FF")}
     <div style={{ display: "flex", fontSize: 48, justifyContent: "center", marginTop: 20 }}>divided by</div>
     {panel("Market cap", formatCompact(leader.marketCap))}
-    <div style={{ display: "flex", fontSize: 86, color: "#00C2FF", marginTop: 32 }}>{(volumeToMarketCap(leader) * 100).toFixed(1)}% turnover</div>
+    <div style={{ display: "flex", fontSize: 74, color: "#00C2FF", marginTop: 28 }}>{`${(volumeToMarketCap(leader) * 100).toFixed(1)}% turnover`}</div>
     {paragraph("This compares reported activity with market size. Repeated trades can contribute to volume.")}
     {paragraph("The ratio cannot tell us how much quoted liquidity is available.", "#CCFF00", 36)}
   </>, date);
