@@ -145,6 +145,7 @@ function sectorList(sectors: string[]) {
 function tokenPanel(token: TelegramMarketPulseImageData["featuredToken"]) {
   const hasRiskScore = typeof token.riskScore === "number" && Number.isFinite(token.riskScore);
   const riskColor = hasRiskScore ? getRiskColor(token.riskScore as number) : "#94A3B8";
+  const symbolSize = Math.max(24, Math.min(52, 340 / Math.max(1, token.symbol.length)));
 
   return (
     <div
@@ -159,12 +160,12 @@ function tokenPanel(token: TelegramMarketPulseImageData["featuredToken"]) {
       }}
     >
       <div style={{ display: "flex", color: "#94A3B8", fontSize: 21, marginBottom: 8 }}>Watch item</div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-        <div style={{ display: "flex", color: "#F8FAFC", fontSize: 52, fontWeight: 900 }}>
+      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", columnGap: 14 }}>
+        <div style={{ display: "flex", color: "#F8FAFC", fontSize: symbolSize, fontWeight: 900, maxWidth: "100%", wordBreak: "break-word" }}>
           {token.symbol}
         </div>
         <div style={{ display: "flex", color: "#94A3B8", fontSize: 23 }}>
-          #{token.marketCapRank || "N/A"}
+          {`#${token.marketCapRank || "N/A"}`}
         </div>
       </div>
       <div style={{ display: "flex", color: "#CBD5E1", fontSize: 23, marginTop: 2 }}>

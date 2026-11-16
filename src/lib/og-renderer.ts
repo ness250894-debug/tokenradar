@@ -147,7 +147,7 @@ function renderOgSocialItem({ platform, label }: { platform: OgSocialPlatform; l
             },
           },
         },
-        label,
+        { type: "span", props: { children: label } },
       ],
     },
   };
@@ -177,6 +177,7 @@ export async function renderOgImage(data: OgRenderData, resolvedFont?: ArrayBuff
         style: {
           height: "100%",
           width: "100%",
+          boxSizing: "border-box",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -240,6 +241,7 @@ export async function renderOgImage(data: OgRenderData, resolvedFont?: ArrayBuff
                             display: "flex",
                             alignItems: "baseline",
                             flexWrap: "wrap",
+                            columnGap: 16,
                           },
                           children: [
                             {
@@ -249,7 +251,8 @@ export async function renderOgImage(data: OgRenderData, resolvedFont?: ArrayBuff
                                   fontSize: nameFontSize,
                                   fontWeight: 800,
                                   letterSpacing: "-0.03em",
-                                  marginRight: 16,
+                                  maxWidth: "100%",
+                                  wordBreak: "break-word",
                                 },
                                 children: data.name,
                               },
@@ -261,6 +264,8 @@ export async function renderOgImage(data: OgRenderData, resolvedFont?: ArrayBuff
                                   fontSize: 36,
                                   color: "#CCFF00",
                                   fontWeight: 700,
+                                  maxWidth: "100%",
+                                  wordBreak: "break-word",
                                 },
                                 children: data.symbol.toUpperCase(),
                               },
