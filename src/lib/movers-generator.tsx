@@ -125,6 +125,7 @@ export async function generateMoversImage(tokens: MoverToken[]): Promise<Buffer>
     <div
       style={{
         background: '#07080B',
+        boxSizing: 'border-box',
         width: '100%',
         height: '100%',
         display: 'flex',
