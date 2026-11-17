@@ -3,7 +3,7 @@
   "version": 1,
   "summary": {
     "generatedAt": "2026-11-17T01:19:04.646Z",
-    "tokenCount": 514,
+    "tokenCount": 513,
     "topIntents": [
       {
         "intent": "risk",
@@ -29159,82 +29159,6 @@
         "USDAT depeg risk",
         "Saturn Dollar risks",
         "is Saturn Dollar safe"
-      ],
-      "sourceSignals": [
-        "TokenRadar keyword templates",
-        "Cached CoinGecko market and supply data",
-        "TokenRadar risk and narrative metrics",
-        "Local TGE records when available"
-      ],
-      "computedAt": "2026-11-17T01:19:04.646Z"
-    },
-    "scandic-coin": {
-      "tokenId": "scandic-coin",
-      "tokenName": "Scandic Coin",
-      "symbol": "snc",
-      "attentionScore": 57,
-      "attentionLabel": "Rising",
-      "hypeScore": 55,
-      "fundamentalsScore": 14,
-      "supplyRiskScore": 100,
-      "classification": "Supply-Risk Spike",
-      "primaryIntent": "prediction",
-      "intentMix": [
-        {
-          "intent": "prediction",
-          "label": "Price prediction",
-          "score": 98,
-          "queries": [
-            "Scandic Coin price prediction 2026",
-            "Scandic Coin price prediction today",
-            "SNC price target"
-          ]
-        },
-        {
-          "intent": "supply",
-          "label": "Unlock / supply",
-          "score": 97,
-          "queries": [
-            "Scandic Coin token unlock",
-            "Scandic Coin circulating supply",
-            "Scandic Coin tokenomics"
-          ]
-        },
-        {
-          "intent": "risk",
-          "label": "Risk check",
-          "score": 96,
-          "queries": [
-            "Scandic Coin risks",
-            "is Scandic Coin safe",
-            "Scandic Coin scam check"
-          ]
-        },
-        {
-          "intent": "buying",
-          "label": "Buying access",
-          "score": 95,
-          "queries": [
-            "how to buy Scandic Coin",
-            "where to buy Scandic Coin",
-            "SNC crypto exchange"
-          ]
-        }
-      ],
-      "drivers": [
-        "30-day move of 166.2% keeps medium-term forecasts relevant."
-      ],
-      "cautions": [
-        "Risk score is 8/10, so attention should be treated as speculative.",
-        "24h volume is thin relative to market cap.",
-        "FDV or supply gap suggests unlock/sell-pressure checks matter."
-      ],
-      "queryExamples": [
-        "Scandic Coin price prediction 2026",
-        "Scandic Coin price prediction today",
-        "SNC price target",
-        "Scandic Coin token unlock",
-        "Scandic Coin circulating supply"
       ],
       "sourceSignals": [
         "TokenRadar keyword templates",
