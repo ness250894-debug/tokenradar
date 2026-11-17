@@ -7599,5 +7599,28 @@
       "matchedBy": "id",
       "verifiedAt": "2026-11-12T23:05:42.776Z"
     }
+  },
+  {
+    "id": "zelle-zelleusd",
+    "name": "Zelle USD",
+    "symbol": "ZELLEUSD",
+    "category": "Stablecoin",
+    "expectedTge": "Mainnet / Launch Stage",
+    "narrativeStrength": 85,
+    "confidence": 95,
+    "lifecycleStatus": "confirmed_tge",
+    "dataSource": "https://cointelegraph.com/news/zelle-solana-zelleusd-stablecoin-international-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "signals": [
+      {
+        "type": "mainnet",
+        "sourceType": "news",
+        "url": "https://cointelegraph.com/news/zelle-solana-zelleusd-stablecoin-international-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Zelle picks Solana for ZelleUSD stablecoin and international payments",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-17T01:09:01.436Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-17T01:09:01.436Z"
   }
 ]

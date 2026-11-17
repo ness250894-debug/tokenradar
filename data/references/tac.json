@@ -3,26 +3,33 @@
   "tokenName": "TAC",
   "articles": [
     {
-      "title": "Microsoft confirms global outage resolved, rules out cyberattack",
-      "link": "https://cointelegraph.com/news/microsoft-365-outage-resolved-cyberattack-ruled-out?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Sat, 14 Nov 2026 10:34:06 +0000",
+      "title": "Bitcoin miners were hijacked and their BTC rewards redirected to an attacker",
+      "link": "https://www.coindesk.com/tech/2026/11/16/bitcoin-miners-were-hijacked-and-their-btc-rewards-redirected-to-an-attacker",
+      "pubDate": "Mon, 16 Nov 2026 07:51:15 +0000",
+      "source": "CoinDesk",
+      "snippet": "Luxor said just over a dozen customers were affected and will be reimbursed after their machines were redirected to another mining pool."
+    },
+    {
+      "title": "Hackers inject credit card, crypto-stealing malware into 178 major websites",
+      "link": "https://cointelegraph.com/news/hackers-inject-malware-into-178-major-websites?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Tue, 17 Nov 2026 01:02:05 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Microsoft attributed the outage to a network capacity upgrade issue, confirming that the disruption was unrelated to cyberattacks or AI agents."
+      "snippet": "Researchers say attackers compromised scripts delivered through Optimizely, exposing visitors to malware designed to replace crypto wallet addresses and steal payment card details."
     },
     {
-      "title": "North Korea Stole $400 Million in Crypto Using Deepfake Video Calls, DOJ Says",
-      "link": "https://decrypt.co/383208/north-korea-stole-400-million-crypto-deepfake-video-calls",
-      "pubDate": "Thu, 12 Nov 2026 22:06:03 +0000",
-      "source": "Decrypt",
-      "snippet": "The FBI says the “FaceStealer” scheme uses prerecorded footage and AI deepfakes of trusted contacts to trick crypto workers into installing malware on video calls—as the DOJ also moves to seize $1.2 billion from the Binance hack."
+      "title": "Luxor CEO warns of AI ‘dark forest’ following Bitcoin miner hijack",
+      "link": "https://cointelegraph.com/news/luxor-ceo-warns-of-ai-dark-forest-after-bitcoin-miner-hijack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Mon, 16 Nov 2026 02:33:07 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Attackers redirected customers’ Bitcoin mining power through Luxor’s Commander platform over the weekend, prompting its CEO to issue a warning to crypto businesses."
     },
     {
-      "title": "SoFi Brings Its Bank-Issued Stablecoin to Polygon’s Payments Stack",
-      "link": "https://decrypt.co/383096/sofi-brings-bank-issued-stablecoin-polygon-payments-stack",
-      "pubDate": "Thu, 12 Nov 2026 14:01:02 +0000",
+      "title": "Hackers Redirected Bitcoin Miner Rewards via AI Attack, Luxor CEO Says",
+      "link": "https://decrypt.co/383392/hackers-redirected-bitcoin-miner-rewards-ai-attack-luxor",
+      "pubDate": "Mon, 16 Nov 2026 21:16:03 +0000",
       "source": "Decrypt",
-      "snippet": "SoFiUSD, the first stablecoin from a U.S. national bank, is now live on Polygon Open Money Stack alongside Ethereum and Solana."
+      "snippet": "Luxor said hackers redirected hashrate from just over a dozen client accounts through its Commander tool, and its CEO blamed a “sophisticated AI-enabled vector.”"
     }
   ],
-  "fetchedAt": "2026-11-15T22:20:06.994Z"
+  "fetchedAt": "2026-11-17T01:19:03.882Z"
 }
