@@ -18,25 +18,25 @@
     "explorer": "https://blockchair.com/ecash"
   },
   "market": {
-    "price": 0.00000524,
-    "marketCap": 105377390,
-    "marketCapRank": 236,
-    "volume24h": 8089080,
-    "high24h": 0.0000058,
-    "low24h": 0.00000487,
-    "priceChange24h": 7.25038,
-    "priceChange7d": -7.6886,
-    "priceChange30d": -19.6259,
-    "priceChange1y": -60.3119,
+    "price": 0.0000052,
+    "marketCap": 104622387,
+    "marketCapRank": 238,
+    "volume24h": 3627162,
+    "high24h": 0.00000527,
+    "low24h": 0.00000511,
+    "priceChange24h": -0.8811,
+    "priceChange7d": -7.9726,
+    "priceChange30d": -19.6242,
+    "priceChange1y": -59.2465,
     "ath": 0.00038001,
-    "athChangePercentage": -98.62063,
+    "athChangePercentage": -98.63109,
     "athDate": "2021-09-04T09:09:31.000Z",
     "atl": 0.00000479,
     "atlDate": "2026-07-01T01:13:50.000Z",
-    "circulatingSupply": 20111254672580,
-    "totalSupply": 20111289047580,
+    "circulatingSupply": 20111814047580,
+    "totalSupply": 20111829672580,
     "maxSupply": 21000000000000,
-    "fdv": 105377570
+    "fdv": 104622469
   },
   "community": {
     "twitterFollowers": null,
@@ -48,5 +48,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-11-07T21:06:15.876Z",
-  "lastMarketUpdate": "2026-11-15T22:05:54.000Z"
+  "lastMarketUpdate": "2026-11-17T01:04:52.000Z"
 }
