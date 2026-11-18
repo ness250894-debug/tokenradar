@@ -3,25 +3,32 @@
   "tokenName": "Ethena",
   "articles": [
     {
-      "title": "U.S. Senate Democrats tell CFTC to back off its demand prediction markets defy bans",
-      "link": "https://www.coindesk.com/policy/2026/11/16/u-s-senate-democrats-tell-cftc-to-back-off-its-demand-prediction-markets-defy-bans",
-      "pubDate": "Mon, 16 Nov 2026 18:54:19 +0000",
-      "source": "CoinDesk",
-      "snippet": "The Commodity Futures Trading Commission directed platforms such as Kalshi to defy state bans, but the Democrats want it to reverse course, citing court orders."
-    },
-    {
-      "title": "Trump administration to name Nvidia, OpenAI and several others as AI national champions",
-      "link": "https://www.coindesk.com/markets/2026/11/16/trump-administration-to-name-nvidia-openai-and-several-others-as-u-s-ai-national-champions",
-      "pubDate": "Mon, 16 Nov 2026 06:01:41 +0000",
-      "source": "CoinDesk",
-      "snippet": "The Wall Street Journal reported that the move aims to help the firms expand overseas and compete with global rivals, though nothing has been confirmed."
-    },
-    {
-      "title": "Safe wallet reportedly loses $6.5M as Zodiac suspects key compromise",
-      "link": "https://cointelegraph.com/news/safe-wallet-reportedly-loses-millions-after-key-compromise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Mon, 16 Nov 2026 17:49:13 +0000",
+      "title": "Bitcoin Covenants Part 6: FE Covenants — Enforcing covenants through cryptographically restricted signing keys",
+      "link": "https://cointelegraph.com/research/bitcoin-covenants-part-6-fe-covenants-enforcing-covenants-through-cryptographically-restricted-signing-keys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 18 Nov 2026 14:04:50 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Zodiac’s co-founder said a likely compromised key and overly permissive wallet settings enabled the theft, rather than a flaw in its smart contracts."
+      "snippet": "FE covenants encode spending constraints into the signing key, so only transactions that satisfy a predefined condition can be signed."
+    },
+    {
+      "title": "&#39;It Speaks in Tongues That Only 6.2 Astra Understands&#39;: Why Early Testers Hate OpenAI’s New Model",
+      "link": "https://decrypt.co/383539/speaks-tongues-only-6-2-astra-understands-why-early-testers-hate-openai-new-model",
+      "pubDate": "Wed, 18 Nov 2026 16:57:53 +0000",
+      "source": "Decrypt",
+      "snippet": "OpenAI&#39;s flagship AI model is dazzling developers with 3D creations, but early testers say it stalls during long projects, gives baffling explanations, and hides failures."
+    },
+    {
+      "title": "&#39;Doomed From the Start&#39;: President Trump&#39;s Meme Coin Hits New Lows After Midterms",
+      "link": "https://decrypt.co/383524/doomed-from-the-start-president-trumps-meme-coin-hits-new-lows-after-midterms",
+      "pubDate": "Wed, 18 Nov 2026 12:45:37 +0000",
+      "source": "Decrypt",
+      "snippet": "The TRUMP token has fallen almost 40% since election day, with analysts pointing to the Democrats’ subpoena plans, fading interest, and a heavy unlock schedule."
+    },
+    {
+      "title": "OpenAI&#39;s GPT 6.2 Astra Challenges Anthropic on Price, But Not Every Benchmark",
+      "link": "https://decrypt.co/383488/openai-gpt-6-2-astra-challenges-anthropic-price-but-not-every-benchmark",
+      "pubDate": "Tue, 17 Nov 2026 21:46:02 +0000",
+      "source": "Decrypt",
+      "snippet": "OpenAI&#39;s latest models promise better professional work for less money, as the company battles Anthropic and Google for AI supremacy and faces tougher questions about increasingly capable systems and safety."
     },
     {
       "title": "Hackers Redirected Bitcoin Miner Rewards via AI Attack, Luxor CEO Says",
@@ -29,14 +36,7 @@
       "pubDate": "Mon, 16 Nov 2026 21:16:03 +0000",
       "source": "Decrypt",
       "snippet": "Luxor said hackers redirected hashrate from just over a dozen client accounts through its Commander tool, and its CEO blamed a “sophisticated AI-enabled vector.”"
-    },
-    {
-      "title": "Fed Is Modeling AI &#39;Super Intelligence&#39; Scenarios, Including Job Losses and a Stock Market Slump",
-      "link": "https://decrypt.co/383354/fed-modeling-ai-super-intelligence-scenarios-job-losses-stock-market",
-      "pubDate": "Mon, 16 Nov 2026 18:36:44 +0000",
-      "source": "Decrypt",
-      "snippet": "Federal Reserve Chair Kevin Warsh says staff are studying three possible economic futures for AI, ranging from widespread productivity gains to higher unemployment and a painful correction in technology stocks."
     }
   ],
-  "fetchedAt": "2026-11-17T01:19:03.858Z"
+  "fetchedAt": "2026-11-18T23:49:44.940Z"
 }
