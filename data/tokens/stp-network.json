@@ -3,7 +3,7 @@
   "symbol": "awe",
   "name": "AWE Network",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/8713/large/awe-network.jpg?1747816016",
-  "description": "STP (Becoming AWE Network) is opening the portal to Autonomous Worlds where AI Agents collaborate, adapt and evolve. The Autonomous Worlds Engine (AWE) is a modular framework enabling the creation of self-sustaining worlds for scalable agent-agent and human-agent collaboration.\n\nAWE scales interactions between thousands of autonomous agents using parallel processing, dependency management and GPU-optimized workloads. World.Fun is an autonomous worlds launcher that supports 1,000 agent AI-driven Autonomous Worlds powered by AWE. Users can create and customize agents to be deployed into these autonomous worlds using STPT.\n\n",
+  "description": "AWE Network is building the infrastructure and asset layer for the agentic economy. Open rails for identity and payments — and the products that put them to work.\n\nAWE is the governance token for the AWE ecosystem.\n\nAWE started as the Autonomous World Engine — a multi-agent framework where up to a thousand agents could run in parallel inside persistent worlds. World.fun stress-tested the engine with live worlds and real users and was the foundation for the Agentic World Economy.",
   "categories": [
     "Artificial Intelligence (AI)",
     "Infrastructure",
@@ -24,25 +24,25 @@
     "explorer": "https://basescan.org/token/0x1B4617734C43F6159F3a70b7E06d883647512778"
   },
   "market": {
-    "price": 0.055268,
-    "marketCap": 107353286,
-    "marketCapRank": 233,
-    "volume24h": 1052863,
-    "high24h": 0.056237,
-    "low24h": 0.054409,
-    "priceChange24h": -0.01213,
-    "priceChange7d": -10.9893,
-    "priceChange30d": -10.8527,
-    "priceChange1y": -11.9377,
+    "price": 0.056435,
+    "marketCap": 109623430,
+    "marketCapRank": 232,
+    "volume24h": 1054628,
+    "high24h": 0.05728,
+    "low24h": 0.054487,
+    "priceChange24h": 2.08725,
+    "priceChange7d": -9.75294,
+    "priceChange30d": -14.21841,
+    "priceChange1y": 6.82893,
     "ath": 0.270085,
-    "athChangePercentage": -79.5369,
+    "athChangePercentage": -79.10482,
     "athDate": "2021-10-06T00:03:37.000Z",
     "atl": 0.00646736,
     "atlDate": "2019-09-30T16:00:00.000Z",
     "circulatingSupply": 1942420282.5203903,
     "totalSupply": 1942420282.5203903,
     "maxSupply": 2000000000,
-    "fdv": 107353286
+    "fdv": 109623430
   },
   "community": {
     "twitterFollowers": null,
@@ -53,6 +53,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-26T21:55:35.398Z",
-  "lastMarketUpdate": "2026-11-17T01:04:52.000Z"
+  "fetchedAt": "2026-11-18T23:37:18.043Z",
+  "lastMarketUpdate": "2026-11-18T23:36:58.000Z"
 }
