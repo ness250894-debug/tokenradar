@@ -1,0 +1,11 @@
+name: Install project dependencies
+description: Install locked npm packages on GitHub-hosted CPU runners.
+runs:
+  using: composite
+  steps:
+    - name: Install locked npm packages
+      shell: bash
+      env:
+        # Kokoro uses ONNX Runtime's bundled CPU provider in CI.
+        ONNXRUNTIME_NODE_INSTALL_CUDA: skip
+      run: npm ci

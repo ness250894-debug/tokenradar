@@ -170,7 +170,8 @@ jobs:
             ${{ runner.os }}-social-state-
 
       - name: Install dependencies
-        run: npm ci
+        id: install-dependencies
+        uses: ./.github/actions/install-dependencies
 
       - name: Apply D1 Ops Ledger Migrations
         continue-on-error: true
@@ -191,7 +192,7 @@ jobs:
 
       - name: Refresh X OAuth Token Without Publishing
         id: x-token-refresh
-        if: always() && env.IS_X_TOKEN_REFRESH_RUN == 'true'
+        if: env.IS_X_TOKEN_REFRESH_RUN == 'true'
         continue-on-error: true
         timeout-minutes: 5
         run: npx tsx scripts/refresh-x-token.ts
@@ -237,7 +238,7 @@ jobs:
       # cannot silently publish mixed-timestamp metrics.
       - name: Refresh Market Inputs and Derived Metrics For Price-Sensitive Routes
         id: refresh-social-metrics
-        if: always() && env.IS_D1_SMOKE_RUN != 'true' && env.IS_TELEGRAM_POLL_RUN != 'true' && env.IS_X_TOKEN_REFRESH_RUN != 'true'
+        if: env.IS_D1_SMOKE_RUN != 'true' && env.IS_TELEGRAM_POLL_RUN != 'true' && env.IS_X_TOKEN_REFRESH_RUN != 'true'
         continue-on-error: true
         timeout-minutes: 20
         shell: bash
@@ -279,7 +280,7 @@ jobs:
 
       - name: D1 Smoke Test
         id: d1-smoke
-        if: always() && env.IS_D1_SMOKE_RUN == 'true'
+        if: env.IS_D1_SMOKE_RUN == 'true'
         continue-on-error: true
         timeout-minutes: 5
         run: npx tsx scripts/d1-smoke.ts
@@ -379,7 +380,7 @@ jobs:
       # Telegram Community Poll (Wed; results are moderator-reviewed editorial input)
       - name: Telegram Community Poll
         id: telegram-poll
-        if: always() && env.IS_TELEGRAM_POLL_RUN == 'true'
+        if: env.IS_TELEGRAM_POLL_RUN == 'true'
         continue-on-error: true
         timeout-minutes: 15
         run: npx tsx scripts/post-daily-poll.ts
@@ -641,7 +642,7 @@ jobs:
       # aggregation step restores the correct workflow conclusion afterward.
       - name: Aggregate publishing route outcomes
         id: aggregate-publishing-routes
-        if: always()
+        if: always() && steps.install-dependencies.outcome == 'success'
         shell: bash
         env:
           ROUTE_OUTCOMES: |
@@ -721,7 +722,7 @@ jobs:
           retention-days: 14
 
       - name: Record Automation Run Finished
-        if: always()
+        if: always() && steps.install-dependencies.outcome == 'success'
         continue-on-error: true
         run: npx tsx scripts/record-automation-run.ts --status "${{ job.status }}"
         env:
@@ -731,7 +732,7 @@ jobs:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
 
       - name: Report Ops Ledger
-        if: always() && env.IS_D1_SMOKE_RUN == 'true'
+        if: always() && steps.install-dependencies.outcome == 'success' && env.IS_D1_SMOKE_RUN == 'true'
         continue-on-error: true
         run: npx tsx scripts/report-ops-ledger.ts
         env:
@@ -785,7 +786,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Validate, renew, and persist Meta tokens
         run: npx tsx scripts/refresh-meta-tokens.ts
@@ -825,7 +826,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Apply D1 Ops Ledger Migrations
         run: npx tsx scripts/d1-migrate.ts
@@ -879,7 +880,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Apply D1 Ops Ledger Migrations
         run: npx tsx scripts/d1-migrate.ts

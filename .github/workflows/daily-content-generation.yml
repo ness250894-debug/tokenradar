@@ -92,7 +92,7 @@ jobs:
 
       - name: Install dependencies
         timeout-minutes: 10
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Generate Drip Content (Smart Drip)
         timeout-minutes: 90

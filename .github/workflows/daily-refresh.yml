@@ -88,7 +88,7 @@ jobs:
           fi
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Fetch token data from CoinGecko
         # The script evaluates embedded provider observation timestamps, not
@@ -307,7 +307,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Download reporting inputs
         continue-on-error: true
@@ -317,7 +317,6 @@ jobs:
           path: data
 
       - name: Apply analytics ledger migrations
-        if: always()
         continue-on-error: true
         timeout-minutes: 3
         run: npx tsx scripts/d1-migrate.ts
@@ -327,7 +326,6 @@ jobs:
 
       - name: Export engagement analytics baseline
         id: export-engagement-analytics
-        if: always()
         continue-on-error: true
         timeout-minutes: 4
         run: npm run analytics:baseline
@@ -343,7 +341,6 @@ jobs:
           SOCIAL_ATTRIBUTION_LEDGER_REQUIRED: "true"
 
       - name: Dispatch System Report & Cleanup
-        if: always()
         continue-on-error: true
         timeout-minutes: 3
         run: npx tsx scripts/send-system-report.ts

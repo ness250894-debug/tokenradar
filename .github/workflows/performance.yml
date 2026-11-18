@@ -13,6 +13,7 @@ on:
       - "package-lock.json"
       - "next.config.ts"
       - "lighthouserc.cjs"
+      - ".github/actions/install-dependencies/**"
       - ".github/workflows/performance.yml"
   schedule:
     - cron: "40 8 * * 1"
@@ -51,7 +52,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Cache token OG images
         uses: ./.github/actions/cache-og-images
@@ -96,7 +97,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/install-dependencies
 
       - name: Run PageSpeed Insights
         run: |
