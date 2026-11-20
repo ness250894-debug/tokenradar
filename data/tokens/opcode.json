@@ -5,6 +5,7 @@
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102174227/large/opcode-pfp.png?1782576462",
   "description": "opcode is a trading application on Ethereum for buying tokenized stocks and ETFs, including individual equities and indices such as the S&amp;P 500. The shares are issued by Ondo, a regulated issuer, and are backed one-to-one by the underlying securities, so each position tracks the real share price. Purchases can be funded with any token or with cash, transactions are gasless, and users retain self-custody whether they sign in with Face ID via an embedded wallet (Privy) or connect their own wallet. Availability depends on the user's jurisdiction.",
   "categories": [
+    "Decentralized Finance (DeFi)",
     "Ethereum Ecosystem"
   ],
   "genesisDate": null,
@@ -15,35 +16,35 @@
     "explorer": "https://etherscan.io/token/0x000c0dee51a14997adc2c7491e4aef428d56d672"
   },
   "market": {
-    "price": 0.04430463,
-    "marketCap": 44304635,
+    "price": 0.03573117,
+    "marketCap": 35731169,
     "marketCapRank": 491,
-    "volume24h": 344.23,
-    "high24h": 0.04430469,
-    "low24h": 0.04341426,
-    "priceChange24h": 2.03809,
-    "priceChange7d": -0.43835027437001317,
-    "priceChange30d": 0,
+    "volume24h": 1.43,
+    "high24h": 0.03576521,
+    "low24h": 0.03573096,
+    "priceChange24h": -0.09311,
+    "priceChange7d": -0.0934,
+    "priceChange30d": -0.1155,
     "priceChange1y": 0,
-    "ath": 0.04592035,
-    "athChangePercentage": -3.52771,
-    "athDate": "2026-06-27T21:25:20.536Z",
-    "atl": 0.04341426,
-    "atlDate": "2026-07-05T09:56:24.774Z",
+    "ath": 0.04587377,
+    "athChangePercentage": -22.10981,
+    "athDate": "2026-06-27T21:39:20.000Z",
+    "atl": 0.03573096,
+    "atlDate": "2026-11-20T23:00:00.000Z",
     "circulatingSupply": 1000000000,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 44304635
+    "fdv": 35731169
   },
   "community": {
     "twitterFollowers": null,
-    "redditSubscribers": 0
+    "redditSubscribers": null
   },
   "developer": {
-    "githubStars": 0,
-    "githubForks": 0,
-    "commits4Weeks": 0
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
   },
-  "fetchedAt": "2026-06-28T18:52:40.980Z",
-  "lastMarketUpdate": "2026-07-05T18:47:33.707Z"
+  "fetchedAt": "2026-11-20T23:23:40.634Z",
+  "lastMarketUpdate": "2026-11-20T23:22:58.000Z"
 }
