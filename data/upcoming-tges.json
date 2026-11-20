@@ -7622,5 +7622,28 @@
     "discoveredAt": "2026-11-17T01:09:01.436Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-11-17T01:09:01.436Z"
+  },
+  {
+    "id": "fairmint",
+    "name": "Fairmint",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "Testnet",
+    "narrativeStrength": 65,
+    "confidence": 75,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://www.coindesk.com/business/2026/11/20/fairmint-plans-tokenized-stock-venue-on-canton-ethereum-under-sec-experiment",
+    "signals": [
+      {
+        "type": "testnet",
+        "sourceType": "news",
+        "url": "https://www.coindesk.com/business/2026/11/20/fairmint-plans-tokenized-stock-venue-on-canton-ethereum-under-sec-experiment",
+        "title": "Fairmint plans tokenized stock venue on Canton, Ethereum under SEC experiment",
+        "observedAt": "2026-11-20T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-20T23:26:30.874Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-20T23:26:30.874Z"
   }
 ]
