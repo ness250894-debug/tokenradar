@@ -1,0 +1,56 @@
+{
+  "id": "mango-markets",
+  "symbol": "mngo",
+  "name": "Mango",
+  "market": {
+    "price": 0.03105094,
+    "marketCap": 34698402,
+    "marketCapRank": 500,
+    "volume24h": 105.06,
+    "high24h": 0.03118931,
+    "low24h": 0.0309678,
+    "priceChange24h": -0.31199,
+    "priceChange7d": 9.2493,
+    "priceChange30d": 11.4266,
+    "priceChange1y": 101.6523,
+    "ath": 0.498845,
+    "athChangePercentage": -93.77544,
+    "athDate": "2021-09-09T10:12:55.000Z",
+    "atl": 0.00147576,
+    "atlDate": "2025-12-18T01:10:23.000Z",
+    "circulatingSupply": 1117466989,
+    "totalSupply": 5000000000,
+    "maxSupply": 5000000000,
+    "fdv": 155254706
+  },
+  "lastMarketUpdate": "2026-11-21T22:25:57.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/14773/large/token-mango.png?1696514442",
+  "description": "Mango Markets is a decentralized finance (DeFi) platform offering advanced trading features on the Solana blockchain. It supports margin trading with up to 10x leverage, spot, and perpetual markets, and provides deeply liquid markets due to its integration with multiple liquidity sources. Mango Markets uses innovative safety features to protect users’ funds and is governed by a DAO (Decentralized Autonomous Organization).",
+  "categories": [
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Solana Ecosystem",
+    "Alleged SEC Securities",
+    "FTX Holdings",
+    "Neon Ecosystem",
+    "Governance"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://mango.markets",
+    "github": "https://github.com/blockworks-foundation/mango",
+    "reddit": null,
+    "explorer": "https://solscan.io/token/MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-21T22:26:34.423Z"
+}

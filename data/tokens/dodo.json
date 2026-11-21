@@ -1,0 +1,67 @@
+{
+  "id": "dodo",
+  "symbol": "dodo",
+  "name": "DODO",
+  "market": {
+    "price": 0.03888897,
+    "marketCap": 38865425,
+    "marketCapRank": 463,
+    "volume24h": 51293544,
+    "high24h": 0.0435099,
+    "low24h": 0.03360267,
+    "priceChange24h": 15.59544,
+    "priceChange7d": 21.8655,
+    "priceChange30d": 72.1517,
+    "priceChange1y": 65.1983,
+    "ath": 8.38,
+    "athChangePercentage": -99.53577,
+    "athDate": "2021-02-20T01:19:28.000Z",
+    "atl": 0.0129848,
+    "atlDate": "2026-02-05T16:30:52.000Z",
+    "circulatingSupply": 1000000000,
+    "totalSupply": 1000000000,
+    "maxSupply": 1000000000,
+    "fdv": 38865425
+  },
+  "lastMarketUpdate": "2026-11-21T22:25:57.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/12651/large/dodo_logo.png?1696512458",
+  "description": "DODO is a Decentralized Exchange (DEX) running on Ethereum and Binance Smart Chain.&nbsp;\n\nDeveloped by the DODO team, Proactive Market Maker (PMM) is an oracle-aided algorithm with an advanced pricing formula that provides contract-fillable liquidity. Traders get lower slippage with PMM than Automated Market Maker (AMM).\n\nPMM leverages price oracles to retrieve accurate market prices of assets as input. It then aims to provide sufficient liquidity near the market price for every asset. The result is that liquidity decreases rapidly when far away from the market price. The following graphs compare the price curves of DODO (PMM) and Uniswap (AMM).",
+  "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Binance Launchpool",
+    "Polygon Ecosystem",
+    "Near Protocol Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "DWF Labs Portfolio",
+    "Coinbase Ventures Portfolio",
+    "Alameda Research Portfolio",
+    "DeFiance Capital Portfolio",
+    "Pantera Capital Portfolio",
+    "Aurora Ecosystem",
+    "Energi Ecosystem",
+    "YZi Labs (Prev. Binance Labs) Portfolio",
+    "Galaxy Digital Portfolio",
+    "Made in China"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://dodoex.io/",
+    "github": null,
+    "reddit": "https://www.reddit.com/r/DodoEx/",
+    "explorer": "https://etherscan.io/token/0x43dfc4159d86f3a37a5a4b3d4580b888ad7d4ddd"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-21T22:26:28.192Z"
+}

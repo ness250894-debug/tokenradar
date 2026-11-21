@@ -26,25 +26,25 @@
     "explorer": "https://explorer.nervos.org/"
   },
   "market": {
-    "price": 0.0007925,
-    "marketCap": 39577389,
+    "price": 0.00078533,
+    "marketCap": 39225922,
     "marketCapRank": 457,
-    "volume24h": 1627172,
-    "high24h": 0.00085283,
-    "low24h": 0.00077192,
-    "priceChange24h": -6.41082,
-    "priceChange7d": -14.0288,
-    "priceChange30d": -50.5671,
-    "priceChange1y": -70.7155,
+    "volume24h": 1835934,
+    "high24h": 0.00080888,
+    "low24h": 0.0007517,
+    "priceChange24h": -0.66885,
+    "priceChange7d": -2.316,
+    "priceChange30d": -46.9607,
+    "priceChange1y": -68.6642,
     "ath": 0.04370633,
-    "athChangePercentage": -98.18676,
+    "athChangePercentage": -98.20318,
     "athDate": "2021-03-31T09:08:59.000Z",
-    "atl": 0.00077192,
-    "atlDate": "2026-11-20T20:38:20.000Z",
-    "circulatingSupply": 49937691416.196594,
-    "totalSupply": 50791615126.95464,
+    "atl": 0.0007517,
+    "atlDate": "2026-11-21T06:16:20.000Z",
+    "circulatingSupply": 49943538623.73909,
+    "totalSupply": 50797901556.44893,
     "maxSupply": null,
-    "fdv": 40254154
+    "fdv": 39896943
   },
   "community": {
     "twitterFollowers": null,
@@ -56,5 +56,5 @@
     "commits4Weeks": null
   },
   "fetchedAt": "2026-11-11T23:46:10.287Z",
-  "lastMarketUpdate": "2026-11-20T23:22:58.000Z"
+  "lastMarketUpdate": "2026-11-21T22:25:57.000Z"
 }
