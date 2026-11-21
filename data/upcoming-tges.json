@@ -7645,5 +7645,28 @@
     "discoveredAt": "2026-11-20T23:26:30.874Z",
     "status": "upcoming",
     "lastVerifiedAt": "2026-11-20T23:26:30.874Z"
+  },
+  {
+    "id": "moonpay",
+    "name": "MoonPay",
+    "symbol": "TBD",
+    "category": "Infrastructure",
+    "expectedTge": "National Trust Bank Charter Filing",
+    "narrativeStrength": 75,
+    "confidence": 85,
+    "lifecycleStatus": "watchlist",
+    "dataSource": "https://decrypt.co/383688/moonpay-applies-for-national-trust-bank-charter-to-grow-custody-and-stablecoin-business",
+    "signals": [
+      {
+        "type": "product",
+        "sourceType": "news",
+        "url": "https://decrypt.co/383688/moonpay-applies-for-national-trust-bank-charter-to-grow-custody-and-stablecoin-business",
+        "title": "MoonPay Applies for National Trust Bank Charter to Grow Custody and Stablecoin Business",
+        "observedAt": "2026-03-30T00:00:00.000Z"
+      }
+    ],
+    "discoveredAt": "2026-11-21T22:29:36.840Z",
+    "status": "upcoming",
+    "lastVerifiedAt": "2026-11-21T22:29:36.840Z"
   }
 ]

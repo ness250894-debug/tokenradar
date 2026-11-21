@@ -3,27 +3,27 @@
   "symbol": "ariax",
   "name": "ARIA NETWORK",
   "market": {
-    "price": 0.189141,
-    "marketCap": 37828145,
-    "marketCapRank": 473,
-    "volume24h": 601593,
-    "high24h": 0.198605,
-    "low24h": 0.179708,
-    "priceChange24h": -3.70059,
-    "priceChange7d": -5.1959,
-    "priceChange30d": -29.3761,
+    "price": 0.196682,
+    "marketCap": 39336354,
+    "marketCapRank": 456,
+    "volume24h": 668003,
+    "high24h": 0.199633,
+    "low24h": 0.179629,
+    "priceChange24h": 5.07152,
+    "priceChange7d": 3.9496,
+    "priceChange30d": -21.972,
     "priceChange1y": 0,
     "ath": 0.283963,
-    "athChangePercentage": -33.39251,
+    "athChangePercentage": -30.73687,
     "athDate": "2026-10-06T15:02:50.000Z",
-    "atl": 0.179708,
-    "atlDate": "2026-11-20T19:14:00.000Z",
+    "atl": 0.179629,
+    "atlDate": "2026-11-21T04:11:40.000Z",
     "circulatingSupply": 200000000,
     "totalSupply": 200000000,
     "maxSupply": 200000000,
-    "fdv": 37828145
+    "fdv": 39336354
   },
-  "lastMarketUpdate": "2026-11-20T23:22:58.000Z",
+  "lastMarketUpdate": "2026-11-21T22:25:57.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102176622/large/1000253256.png?1788349539",
   "description": "ARIA Pay provides a single merchant integration (Credit Card | ARIA Pay at checkout) that routes through ARIA Connect to whichever exchange/wallet the customer already uses, settling via ARIA Chain/Ledger — removing the need for merchants to integrate exchange-by-exchange and for customers to learn crypto mechanics.\nA decentralized Proof-of-Stake network built on Substrate. Public, inspectable, and built to evolve without forks.",
   "categories": [
@@ -35,7 +35,7 @@
     "website": "https://ariachain.org/",
     "github": null,
     "reddit": null,
-    "explorer": null
+    "explorer": "https://ariaexp.com/"
   },
   "community": {
     "twitterFollowers": null,
@@ -46,5 +46,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-29T22:03:27.081Z"
+  "fetchedAt": "2026-11-21T22:27:05.906Z"
 }
