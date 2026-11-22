@@ -1,0 +1,52 @@
+{
+  "id": "binance-usd",
+  "symbol": "busd",
+  "name": "BUSD",
+  "market": {
+    "price": 0.99839,
+    "marketCap": 34360799,
+    "marketCapRank": 499,
+    "volume24h": 3208.04,
+    "high24h": 1.007,
+    "low24h": 0.992105,
+    "priceChange24h": 0.04295,
+    "priceChange7d": -0.0429,
+    "priceChange30d": 0.0703,
+    "priceChange1y": 0.1083,
+    "ath": 2.58,
+    "athChangePercentage": -61.30378,
+    "athDate": "2024-11-10T08:17:12.000Z",
+    "atl": 0.112189,
+    "atlDate": "2025-06-21T04:06:15.000Z",
+    "circulatingSupply": 34415903.50594552,
+    "totalSupply": 34415903.50594552,
+    "maxSupply": null,
+    "fdv": 34360799
+  },
+  "lastMarketUpdate": "2026-11-22T22:48:56.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/9576/large/busd.png?1785507511",
+  "description": "Binance USD (BUSD) is a stable coin pegged to USD that has received approval from the New York State Department of Financial Services (NYDFS). BUSD will be available for direct purchase and redemption at a rate of 1 BUSD = 1 USD. ",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://www.paxos.com/busd/",
+    "github": "https://github.com/paxosglobal/busd-contract",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x4fabb145d64652a948d72533023f6e7a623c7c53"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-22T22:49:24.929Z"
+}
