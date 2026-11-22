@@ -3,14 +3,16 @@
   "symbol": "zeta",
   "name": "ZetaChain",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/26718/large/Twitter_icon.png?1696525788",
-  "description": "What Is ZetaChain (ZETA)?\nZetaChain is a universal Layer 1 blockchain designed to help developers build applications that operate across both blockchains and AI models. Originally created to solve fragmentation in Web3 through universal apps, ZetaChain now extends that same interoperability thesis to AI with an AI interoperability stack that enables cross-model experiences with private, user-controlled context. ZetaChain provides native connectivity across major blockchain ecosystems and supports global execution, permissions, and settlement for applications and agents.\n\nWhat Makes ZetaChain Unique?\nZetaChain combines universal blockchain interoperability with an AI interoperability layer, allowing developers to build once and reach users across chains and models. ZetaChain introduces an AI Portal for routing and execution across multiple AI model providers without lock-in, and a Private Memory Layer designed to keep user context encrypted and permissioned while remaining portable across models and applications. Together, these components let developers ship privacy-first apps and agents with persistent memory, cross-chain execution, and global monetization without assembling complex backend infrastructure.",
+  "description": "ZetaChain builds ZetaLabs, a private AI app on Solana. It brings many AI models and live market data into one chat, and each user's chats, research and memory are encrypted by that user. ZETA is the token behind ZetaLabs: holders can lock it for access, pay with it at a discount and vote on what the product supports. ZetaChain launched in 2024 as a Layer 1 connecting Ethereum, Bitcoin, Solana and other chains, and in 2026 ZETA holders voted 99.4% to bring ZETA to Solana.",
   "categories": [
+    "Artificial Intelligence (AI)",
     "Smart Contract Platform",
     "BNB Chain Ecosystem",
     "Layer 1 (L1)",
     "Ethereum Ecosystem",
     "ZetaChain Ecosystem",
     "Cross-chain Communication",
+    "AI Applications",
     "Binance Alpha Spotlight",
     "Made in USA",
     "Chain Abstraction"
@@ -23,25 +25,25 @@
     "explorer": "https://explorer.zetachain.com/"
   },
   "market": {
-    "price": 0.02711098,
-    "marketCap": 46207920,
-    "marketCapRank": 405,
-    "volume24h": 3468449,
-    "high24h": 0.02775662,
-    "low24h": 0.02538471,
-    "priceChange24h": 0.0577,
-    "priceChange7d": -2.2839,
-    "priceChange30d": -33.0004,
-    "priceChange1y": -68.532,
+    "price": 0.02621825,
+    "marketCap": 44685190,
+    "marketCapRank": 415,
+    "volume24h": 2657648,
+    "high24h": 0.02717266,
+    "low24h": 0.02601883,
+    "priceChange24h": -3.08495,
+    "priceChange7d": -8.27636,
+    "priceChange30d": -36.67579,
+    "priceChange1y": -70.0743,
     "ath": 2.85,
-    "athChangePercentage": -99.0499,
+    "athChangePercentage": -99.08119,
     "athDate": "2024-02-15T12:45:12.000Z",
     "atl": 0.02538471,
     "atlDate": "2026-11-21T04:09:20.000Z",
     "circulatingSupply": 1704354167,
     "totalSupply": 2100000000,
     "maxSupply": 2100000000,
-    "fdv": 56934547
+    "fdv": 55058333
   },
   "community": {
     "twitterFollowers": null,
@@ -52,6 +54,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-30T21:44:52.451Z",
-  "lastMarketUpdate": "2026-11-21T22:25:57.000Z"
+  "fetchedAt": "2026-11-22T22:51:06.620Z",
+  "lastMarketUpdate": "2026-11-22T22:49:51.000Z"
 }

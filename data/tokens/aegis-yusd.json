@@ -1,0 +1,55 @@
+{
+  "id": "aegis-yusd",
+  "symbol": "yusd",
+  "name": "Aegis YUSD",
+  "market": {
+    "price": 0.997892,
+    "marketCap": 34529183,
+    "marketCapRank": 496,
+    "volume24h": 190925,
+    "high24h": 0.9991,
+    "low24h": 0.997595,
+    "priceChange24h": -0.09863,
+    "priceChange7d": -0.0227,
+    "priceChange30d": -0.0427,
+    "priceChange1y": -0.2342,
+    "ath": 1.17,
+    "athChangePercentage": -14.74337,
+    "athDate": "2025-12-16T08:55:43.000Z",
+    "atl": 0.87025,
+    "atlDate": "2026-02-01T08:22:26.000Z",
+    "circulatingSupply": 34602132.86618843,
+    "totalSupply": 34602132.86618843,
+    "maxSupply": null,
+    "fdv": 34529183
+  },
+  "lastMarketUpdate": "2026-11-22T22:48:56.000Z",
+  "imageUrl": "https://coin-images.coingecko.com/coins/images/55085/large/LOGO_YUSD_BLACK.png?1756548564",
+  "description": "Aegis YUSD is a decentralized, Bitcoin-backed stablecoin designed to maintain a 1:1 peg to the US dollar while generating yield for its holders. YUSD is backed 1:1 by Bitcoin reserves held in custodial vaults and secured through smart contracts. The Aegis protocol employs a delta-neutral hedging strategy, where Bitcoin-margined perpetual contracts counterbalance BTC price fluctuations. This ensures that the value of YUSD remains stable at $1, independent of market volatility.",
+  "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin"
+  ],
+  "genesisDate": null,
+  "links": {
+    "website": "https://app.aegis.im",
+    "github": "https://github.com/Aegis-im/aegis-contracts",
+    "reddit": null,
+    "explorer": "https://etherscan.io/token/0x4274cD7277C7bb0806Bd5FE84b9aDAE466a8DA0a"
+  },
+  "community": {
+    "twitterFollowers": null,
+    "redditSubscribers": null
+  },
+  "developer": {
+    "githubStars": null,
+    "githubForks": null,
+    "commits4Weeks": null
+  },
+  "fetchedAt": "2026-11-22T22:49:18.626Z"
+}
