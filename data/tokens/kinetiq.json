@@ -3,13 +3,15 @@
   "symbol": "kntq",
   "name": "Kinetiq",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/70252/large/kntq.png?1761279547",
-  "description": "Kinetiq is a liquid staking protocol built natively on Hyperliquid, enabling users to stake the native token of the Hyperliquid blockchain (HYPE) and receive Kinetiq Staked HYPE (kHYPE) in return.\n\nkHYPE enables staking participation while retaining full liquidity and capital efficiency — earning staking rewards while staying active across DeFi.\n\nBehind the scenes, all staked HYPE is automatically delegated to the top-performing Hyperliquid validators, selected by StakeHub— Kinetiq’s autonomous validator scoring and delegation system.",
+  "description": "The native token for Kinetiq. Creators of Elysium, the high-performance L2 for Hyperliquid; Markets.xyz, 24/7 perps on stocks, FX and commodities; and kHYPE liquid staking.",
   "categories": [
     "Decentralized Finance (DeFi)",
     "Liquid Staking Governance Tokens",
+    "Base Ecosystem",
     "Hyperliquid Ecosystem",
     "Liquid Staking",
-    "HyperEVM Ecosystem"
+    "HyperEVM Ecosystem",
+    "Elysium (Kinetiq) Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -19,25 +21,25 @@
     "explorer": "https://hyperevmscan.io/token/0x000000000000780555bD0BCA3791f89f9542c2d6"
   },
   "market": {
-    "price": 0.168299,
-    "marketCap": 54606793,
-    "marketCapRank": 366,
-    "volume24h": 4453843,
-    "high24h": 0.173317,
-    "low24h": 0.163862,
-    "priceChange24h": 2.22515,
-    "priceChange7d": -28.8653,
-    "priceChange30d": -58.6265,
+    "price": 0.17015,
+    "marketCap": 55232397,
+    "marketCapRank": 363,
+    "volume24h": 5698975,
+    "high24h": 0.173998,
+    "low24h": 0.160432,
+    "priceChange24h": 1.28308,
+    "priceChange7d": -23.50624,
+    "priceChange30d": -54.69182,
     "priceChange1y": 0,
     "ath": 0.596236,
-    "athChangePercentage": -71.77318,
+    "athChangePercentage": -71.4627,
     "athDate": "2026-10-30T11:41:00.000Z",
     "atl": 0.03578417,
     "atlDate": "2025-12-17T19:22:13.000Z",
     "circulatingSupply": 324523645.7698618,
     "totalSupply": 1000000000,
     "maxSupply": 1000000000,
-    "fdv": 168267533
+    "fdv": 170195293
   },
   "community": {
     "twitterFollowers": null,
@@ -48,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-10-31T20:43:36.794Z",
-  "lastMarketUpdate": "2026-11-22T22:48:56.000Z"
+  "fetchedAt": "2026-11-24T03:30:18.133Z",
+  "lastMarketUpdate": "2026-11-24T03:29:55.000Z"
 }
