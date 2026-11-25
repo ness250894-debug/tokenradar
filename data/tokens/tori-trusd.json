@@ -8,7 +8,8 @@
     "Stablecoins",
     "USD Stablecoin",
     "Ethereum Ecosystem",
-    "Synthetic Dollar"
+    "Synthetic Dollar",
+    "Monad Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -18,25 +19,25 @@
     "explorer": "https://etherscan.io/token/0xd0580192E98eA6CEB9c7b6191Ed2E27560911697"
   },
   "market": {
-    "price": 0.997851,
-    "marketCap": 74178038,
-    "marketCapRank": 296,
-    "volume24h": 62711,
-    "high24h": 0.998044,
-    "low24h": 0.99727,
-    "priceChange24h": 0.05564,
-    "priceChange7d": -0.1127,
-    "priceChange30d": -0.0723,
+    "price": 0.998052,
+    "marketCap": 74191197,
+    "marketCapRank": 290,
+    "volume24h": 931.53,
+    "high24h": 0.999148,
+    "low24h": 0.997616,
+    "priceChange24h": 0.0219,
+    "priceChange7d": -0.04536,
+    "priceChange30d": -0.03318,
     "priceChange1y": 0,
     "ath": 1.001,
-    "athChangePercentage": -0.31249,
+    "athChangePercentage": -0.29244,
     "athDate": "2026-07-28T22:52:00.000Z",
     "atl": 0.996193,
     "atlDate": "2026-10-02T17:13:50.000Z",
     "circulatingSupply": 74336008.81669618,
     "totalSupply": 74336008.81669618,
     "maxSupply": null,
-    "fdv": 74178038
+    "fdv": 74191197
   },
   "community": {
     "twitterFollowers": null,
@@ -47,6 +48,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-11-01T21:25:17.808Z",
-  "lastMarketUpdate": "2026-11-24T03:27:57.000Z"
+  "fetchedAt": "2026-11-25T01:38:37.653Z",
+  "lastMarketUpdate": "2026-11-25T01:37:57.000Z"
 }
