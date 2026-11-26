@@ -4,26 +4,26 @@
   "name": "Spiko Amundi Overnight Swap Fund (GBP)",
   "market": {
     "price": 1.35,
-    "marketCap": 61645171,
-    "marketCapRank": 333,
+    "marketCap": 61698134,
+    "marketCapRank": 337,
     "volume24h": 0,
     "high24h": 1.35,
     "low24h": 1.34,
-    "priceChange24h": 0.46201,
-    "priceChange7d": -0.6562,
-    "priceChange30d": -1.6444,
+    "priceChange24h": 0.04514,
+    "priceChange7d": -0.16922,
+    "priceChange30d": -1.35241,
     "priceChange1y": 0,
     "ath": 1.39,
-    "athChangePercentage": -3.10388,
+    "athChangePercentage": -3.01858,
     "athDate": "2026-08-21T09:15:10.000Z",
     "atl": 1.34,
     "atlDate": "2026-11-23T17:55:00.000Z",
-    "circulatingSupply": 45698415.74896,
-    "totalSupply": 45698415.74896,
+    "circulatingSupply": 45697446.16928,
+    "totalSupply": 45697446.16928,
     "maxSupply": null,
-    "fdv": 61645171
+    "fdv": 61698134
   },
-  "lastMarketUpdate": "2026-11-25T01:35:51.000Z",
+  "lastMarketUpdate": "2026-11-26T01:11:49.000Z",
   "imageUrl": "https://coin-images.coingecko.com/coins/images/102172592/large/Fund_gbpSAFO.png?1774104818",
   "description": "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The GBP share class (gbpSAFO) allows investors to subscribe from as little as 1 GBP. SAFO generates stable yields above the SONIA benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF.",
   "categories": [
@@ -53,5 +53,5 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-11-03T00:06:23.761Z"
+  "fetchedAt": "2026-11-26T01:12:42.743Z"
 }

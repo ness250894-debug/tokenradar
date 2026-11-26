@@ -3,6 +3,27 @@
   "tokenName": "Plasma",
   "articles": [
     {
+      "title": "Crypto Long & Short: Bitcoin investors can’t keep ignoring Japan",
+      "link": "https://www.coindesk.com/coindesk-indices/2026/11/25/crypto-long-and-short-bitcoin-investors-can-t-keep-ignoring-japan",
+      "pubDate": "Wed, 25 Nov 2026 15:59:44 +0000",
+      "source": "CoinDesk",
+      "snippet": "Yen-funded carry trades ran an estimated $250 billion before the August 2024 selloff, and the Bank of Japan's policy rate is now around 1.25%. Phillip Lord of Bitcoin Japan explains how yen funding conditions reach bitcoin, and the shareholder test Japanese companies' bitcoin treasury strategies should have to pass."
+    },
+    {
+      "title": "Braiins warns of Bitcoin mining attacks affecting over 1,000 sites",
+      "link": "https://cointelegraph.com/news/braiins-warns-bitcoin-mining-attacks-affecting-1000-sites?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 25 Nov 2026 21:22:19 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Bitcoin mining pool operator Braiins warned that attackers are exploiting unsecured connections to hijack miners’ computing power and potentially steal rewards."
+    },
+    {
+      "title": "Japan’s SBI, SMFG launch Solana venture for stablecoins, tokenization",
+      "link": "https://cointelegraph.com/news/sbi-smfg-solana-global-stablecoin-tokenization?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Wed, 25 Nov 2026 11:49:54 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "SBI Solana Global plans to develop stablecoin payment infrastructure, explore AI agent micropayments and tokenize financial assets."
+    },
+    {
       "title": "Coldcard reveals how Bitcoin wallet flaw went undetected for over 5 years",
       "link": "https://cointelegraph.com/news/coldcard-how-security-reviews-missed-bitcoin-wallet-flaw-years?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Tue, 24 Nov 2026 19:04:26 +0000",
@@ -10,26 +31,12 @@
       "snippet": "Coldcard maker Coinkite explained why years of security checks failed to catch the flaw and said it has yet to decide on compensation for affected customers."
     },
     {
-      "title": "USDT buyers face 22% VAT when Moscow Exchange opens crypto trading",
-      "link": "https://cointelegraph.com/news/russia-usdt-buyer-face-22-tax-december-launch?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 24 Nov 2026 14:10:23 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Buyers will pay VAT on top of the trade price in December because Russia’s tax code has no explicit exemption for foreign digital instruments."
-    },
-    {
-      "title": "Coldcard Bitcoin Exploit, Revisited: How a Hidden Flaw Survived Years of Audits",
-      "link": "https://decrypt.co/383930/coldcard-bitcoin-exploit-how-hidden-flaw-survived-years-audits",
-      "pubDate": "Tue, 24 Nov 2026 21:16:02 +0000",
+      "title": "Another Bitcoin Mining Firm Flags &#39;Hashrate Hijacking&#39; Attacks That Reroute Rewards",
+      "link": "https://decrypt.co/383999/another-bitcoin-mining-firm-hashrate-hijacking-attacks",
+      "pubDate": "Wed, 25 Nov 2026 20:36:03 +0000",
       "source": "Decrypt",
-      "snippet": "Coinkite’s postmortem reveals a software random-number generator shipped in place of the hardware one for over five years, slipping past at least 15 reviews."
-    },
-    {
-      "title": "What Is Pons? The Robinhood Chain Meme Coin Launchpad Explained",
-      "link": "https://decrypt.co/resources/what-is-pons-the-robinhood-chain-meme-coin-launchpad-explained",
-      "pubDate": "Tue, 24 Nov 2026 17:45:22 +0000",
-      "source": "Decrypt",
-      "snippet": "Pons lets anyone launch a fixed-supply token on Robinhood Chain in one transaction. Here&#39;s how it works, and what its PONS token does."
+      "snippet": "Braiins says an attacker exploited the unencrypted Stratum V1 protocol and internet route hijacking to impersonate mining pools, striking over 1,000 sites in a single second."
     }
   ],
-  "fetchedAt": "2026-11-25T01:45:48.226Z"
+  "fetchedAt": "2026-11-26T01:24:35.390Z"
 }
