@@ -3,6 +3,13 @@
   "tokenName": "Compound",
   "articles": [
     {
+      "title": "A tiny payment can expose the IP address behind a bitcoin wallet, developer finds",
+      "link": "https://www.coindesk.com/tech/2026/11/26/a-tiny-payment-can-expose-the-ip-address-behind-a-bitcoin-wallet-developer-finds",
+      "pubDate": "Thu, 26 Nov 2026 17:30:00 +0000",
+      "source": "CoinDesk",
+      "snippet": "A Bitcoin Core contributor found that the wallet's habit of resending stuck payments lets anyone link an address to the computer watching it, for under 35 cents."
+    },
+    {
       "title": "'This time actually seems different': Crypto veterans brace for more pain as bitcoin tumbles",
       "link": "https://www.coindesk.com/markets/2026/11/25/this-time-actually-seems-different-crypto-veterans-brace-for-more-pain-as-bitcoin-tumbles",
       "pubDate": "Wed, 25 Nov 2026 17:38:33 +0000",
@@ -17,26 +24,19 @@
       "snippet": "Yen-funded carry trades ran an estimated $250 billion before the August 2024 selloff, and the Bank of Japan's policy rate is now around 1.25%. Phillip Lord of Bitcoin Japan explains how yen funding conditions reach bitcoin, and the shareholder test Japanese companies' bitcoin treasury strategies should have to pass."
     },
     {
-      "title": "Solana developers move to stop validators finishing work on blocks that already lost",
-      "link": "https://www.coindesk.com/tech/2026/11/25/solana-developers-move-to-stop-validators-finishing-work-on-blocks-that-already-lost",
-      "pubDate": "Wed, 25 Nov 2026 06:33:10 +0000",
-      "source": "CoinDesk",
-      "snippet": "The fix would stop the computers that run Solana from wasting effort on transactions the network has already thrown out, freeing up power its recent speed upgrade didn't touch."
-    },
-    {
-      "title": "JPMorgan, HSBC and StoneX complete first digital gold trades in London",
-      "link": "https://www.coindesk.com/business/2026/11/24/jpmorgan-hsbc-and-stonex-complete-first-digital-gold-trades-in-london",
-      "pubDate": "Tue, 24 Nov 2026 12:04:39 +0000",
-      "source": "CoinDesk",
-      "snippet": "The banks tested a new way to trade fractions of physical gold bars and use the metal as collateral without moving it from vaults for the first time."
-    },
-    {
-      "title": "Braiins warns of Bitcoin mining attacks affecting over 1,000 sites",
-      "link": "https://cointelegraph.com/news/braiins-warns-bitcoin-mining-attacks-affecting-1000-sites?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 25 Nov 2026 21:22:19 +0000",
+      "title": "Binance completes withdrawal recovery four weeks after $6.3B hack",
+      "link": "https://cointelegraph.com/news/binance-completes-withdrawal-recovery-four-weeks-after-63b-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 26 Nov 2026 21:33:47 +0000",
       "source": "CoinTelegraph",
-      "snippet": "Bitcoin mining pool operator Braiins warned that attackers are exploiting unsecured connections to hijack miners’ computing power and potentially steal rewards."
+      "snippet": "The announcement concludes a phased withdrawal recovery that began on Nov. 1, when Binance restored Bitcoin withdrawals following the record crypto theft."
+    },
+    {
+      "title": "Spain moves to grant financial watchdog power to freeze crypto accounts",
+      "link": "https://cointelegraph.com/news/spain-moves-grant-financial-watchdog-power-freeze-crypto-accounts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 26 Nov 2026 18:26:31 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "A new decree would allow Spain’s financial intelligence unit to suspend crypto accounts, with firms facing fines for noncompliance."
     }
   ],
-  "fetchedAt": "2026-11-26T01:24:35.394Z"
+  "fetchedAt": "2026-11-27T01:22:49.827Z"
 }

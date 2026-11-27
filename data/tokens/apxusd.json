@@ -10,7 +10,8 @@
     "BNB Chain Ecosystem",
     "Solana Ecosystem",
     "Ethereum Ecosystem",
-    "Base Ecosystem"
+    "Base Ecosystem",
+    "Monad Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -20,25 +21,25 @@
     "explorer": "https://etherscan.io/token/0x98A878b1Cd98131B271883B390f68D2c90674665"
   },
   "market": {
-    "price": 0.977273,
-    "marketCap": 271825570,
-    "marketCapRank": 129,
-    "volume24h": 1456882,
-    "high24h": 0.977848,
-    "low24h": 0.957557,
-    "priceChange24h": 0.57071,
-    "priceChange7d": 1.1551,
-    "priceChange30d": -1.3467,
+    "price": 0.972412,
+    "marketCap": 270533549,
+    "marketCapRank": 132,
+    "volume24h": 746546,
+    "high24h": 0.977328,
+    "low24h": 0.972218,
+    "priceChange24h": -0.49598,
+    "priceChange7d": 2.19473,
+    "priceChange30d": -2.05689,
     "priceChange1y": 0,
     "ath": 1.012,
-    "athChangePercentage": -3.41007,
+    "athChangePercentage": -3.89046,
     "athDate": "2026-03-12T16:27:03.000Z",
     "atl": 0.717601,
     "atlDate": "2026-06-26T09:41:20.000Z",
-    "circulatingSupply": 278147158.659224,
-    "totalSupply": 278147158.659224,
+    "circulatingSupply": 278208755.992872,
+    "totalSupply": 278208755.992872,
     "maxSupply": null,
-    "fdv": 271825570
+    "fdv": 270533549
   },
   "community": {
     "twitterFollowers": null,
@@ -49,6 +50,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-11-03T22:35:08.250Z",
-  "lastMarketUpdate": "2026-11-26T01:09:48.000Z"
+  "fetchedAt": "2026-11-27T01:10:31.218Z",
+  "lastMarketUpdate": "2026-11-27T01:09:52.000Z"
 }
