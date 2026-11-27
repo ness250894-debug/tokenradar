@@ -3,40 +3,40 @@
   "tokenName": "TAC",
   "articles": [
     {
+      "title": "Standard Chartered's Zodia Custody suffers data breach, exposing client information",
+      "link": "https://www.coindesk.com/tech/2026/11/26/standard-chartered-s-zodia-custody-suffers-data-breach-exposing-client-information",
+      "pubDate": "Thu, 26 Nov 2026 12:38:51 +0000",
+      "source": "CoinDesk",
+      "snippet": "The breach exposed client and employee contact information at Standard Chartered's crypto custodian, which said no unauthorized transactions took place."
+    },
+    {
+      "title": "Zcash developers want to phase out older privacy system as a precaution against future attacks",
+      "link": "https://www.coindesk.com/tech/2026/11/26/zcash-developers-want-users-to-move-usd300-million-out-of-an-older-privacy-system",
+      "pubDate": "Thu, 26 Nov 2026 07:09:25 +0000",
+      "source": "CoinDesk",
+      "snippet": "Zakura is pushing to stop new payments into Sapling sooner, citing the possibility that AI-assisted discoveries could weaken the math protecting it."
+    },
+    {
+      "title": "Over 1,000 Bitcoin miners were tricked into working for a thief by a fake internet route",
+      "link": "https://www.coindesk.com/markets/2026/11/26/hackers-hijacked-1-000-plus-bitcoin-mines-in-one-second-by-faking-internet-routes",
+      "pubDate": "Thu, 26 Nov 2026 06:19:09 +0000",
+      "source": "CoinDesk",
+      "snippet": "An attacker steered up to 1.9 EH/s of mining power to an impostor pool earlier in November using a weakness most of the industry's largest pools still carry."
+    },
+    {
+      "title": "Vitalik Buterin calls for verifiable chips as hardware wallet threats evolve",
+      "link": "https://cointelegraph.com/news/vitalik-buterin-verifiable-chips-hardware-wallet-threats-evolve?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "pubDate": "Thu, 26 Nov 2026 12:13:59 +0000",
+      "source": "CoinTelegraph",
+      "snippet": "Buterin warned that future attacks could use lookalike chips with hidden malicious functions, making hardware tampering harder to detect."
+    },
+    {
       "title": "Braiins warns of Bitcoin mining attacks affecting over 1,000 sites",
       "link": "https://cointelegraph.com/news/braiins-warns-bitcoin-mining-attacks-affecting-1000-sites?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "pubDate": "Wed, 25 Nov 2026 21:22:19 +0000",
       "source": "CoinTelegraph",
       "snippet": "Bitcoin mining pool operator Braiins warned that attackers are exploiting unsecured connections to hijack miners’ computing power and potentially steal rewards."
-    },
-    {
-      "title": "Solana DEX Velocity halts trading over bug just months after relaunch",
-      "link": "https://cointelegraph.com/news/solana-dex-velocity-halts-transactions-over-bug-coming-2-months-after-relaunch?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Wed, 25 Nov 2026 05:32:55 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Velocity relaunched in September as a rebuilt version of Drift Protocol, which was attacked by North Korean hackers in April."
-    },
-    {
-      "title": "Hackers breach CIA intelligence network in latest US cyberattack",
-      "link": "https://cointelegraph.com/news/hackers-breach-cia-intelligence-network-in-latest-us-cyberattack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 24 Nov 2026 23:48:16 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "The reported breach follows cyber incidents involving the FBI, Department of Homeland Security and Department of Agriculture."
-    },
-    {
-      "title": "The 1Password Breach Didn’t Touch Your Vault. The Phishing Emails Might",
-      "link": "https://decrypt.co/384002/1password-breach-vaults-phishing-emails",
-      "pubDate": "Wed, 25 Nov 2026 21:16:02 +0000",
-      "source": "Decrypt",
-      "snippet": "An attacker compromised an employee’s GitHub account to reach 1Password’s backend and copy customer names and emails, but the company says vault contents, encryption keys and your Secret Key were never exposed."
-    },
-    {
-      "title": "Another Bitcoin Mining Firm Flags &#39;Hashrate Hijacking&#39; Attacks That Reroute Rewards",
-      "link": "https://decrypt.co/383999/another-bitcoin-mining-firm-hashrate-hijacking-attacks",
-      "pubDate": "Wed, 25 Nov 2026 20:36:03 +0000",
-      "source": "Decrypt",
-      "snippet": "Braiins says an attacker exploited the unencrypted Stratum V1 protocol and internet route hijacking to impersonate mining pools, striking over 1,000 sites in a single second."
     }
   ],
-  "fetchedAt": "2026-11-26T01:24:35.399Z"
+  "fetchedAt": "2026-11-27T01:22:49.833Z"
 }

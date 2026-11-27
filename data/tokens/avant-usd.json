@@ -6,7 +6,8 @@
   "description": "Avant is a DeFi platform established in June 2024 with the mission to create a more inclusive financial system through a DeFi-powered stable-value token. The platform introduces avUSD, a stable-value token, and savUSD, its staked, yield-bearing counterpart. \n\nMission and Vision\nAvant's mission is to provide a DeFi-backed stable-value token that aligns with the core principles of decentralization: being accessible 24/7, open to everyone, and offering equal financial opportunities regardless of investment size. Avant seeks to bridge the gap between DeFi and traditional finance (TradFi), becoming a global financial powerhouse that innovates how yield is generated and value is stored across financial markets.",
   "categories": [
     "Stablecoins",
-    "Avalanche Ecosystem"
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -16,25 +17,25 @@
     "explorer": "https://snowtrace.io/token/0x24dE8771bC5DdB3362Db529Fc3358F2df3A0E346?chainid=43114"
   },
   "market": {
-    "price": 0.998473,
-    "marketCap": 89293038,
-    "marketCapRank": 257,
-    "volume24h": 8521.67,
-    "high24h": 0.999437,
-    "low24h": 0.995281,
-    "priceChange24h": 0.04785,
-    "priceChange7d": 0.0298,
-    "priceChange30d": 0.0388,
-    "priceChange1y": -0.035,
+    "price": 0.999121,
+    "marketCap": 89220212,
+    "marketCapRank": 258,
+    "volume24h": 29807,
+    "high24h": 0.999414,
+    "low24h": 0.99686,
+    "priceChange24h": 0.06413,
+    "priceChange7d": 0.03507,
+    "priceChange30d": 0.12806,
+    "priceChange1y": -0.01095,
     "ath": 1.09,
-    "athChangePercentage": -8.41539,
+    "athChangePercentage": -8.35596,
     "athDate": "2026-07-28T02:28:40.000Z",
     "atl": 0.909093,
     "atlDate": "2026-10-01T04:04:10.000Z",
-    "circulatingSupply": 89429575.1780762,
-    "totalSupply": 89429575.1780762,
+    "circulatingSupply": 89298698.16871229,
+    "totalSupply": 89298698.16871229,
     "maxSupply": null,
-    "fdv": 89293038
+    "fdv": 89220212
   },
   "community": {
     "twitterFollowers": null,
@@ -45,6 +46,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-11-03T22:36:17.566Z",
-  "lastMarketUpdate": "2026-11-26T01:10:49.000Z"
+  "fetchedAt": "2026-11-27T01:11:34.289Z",
+  "lastMarketUpdate": "2026-11-27T01:10:53.000Z"
 }

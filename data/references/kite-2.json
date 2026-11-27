@@ -3,13 +3,6 @@
   "tokenName": "Kite",
   "articles": [
     {
-      "title": "Coldcard reveals how Bitcoin wallet flaw went undetected for over 5 years",
-      "link": "https://cointelegraph.com/news/coldcard-how-security-reviews-missed-bitcoin-wallet-flaw-years?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "pubDate": "Tue, 24 Nov 2026 19:04:26 +0000",
-      "source": "CoinTelegraph",
-      "snippet": "Coldcard maker Coinkite explained why years of security checks failed to catch the flaw and said it has yet to decide on compensation for affected customers."
-    },
-    {
       "title": "Coldcard Bitcoin Exploit, Revisited: How a Hidden Flaw Survived Years of Audits",
       "link": "https://decrypt.co/383930/coldcard-bitcoin-exploit-how-hidden-flaw-survived-years-audits",
       "pubDate": "Tue, 24 Nov 2026 21:16:02 +0000",
@@ -17,5 +10,5 @@
       "snippet": "Coinkite’s postmortem reveals a software random-number generator shipped in place of the hardware one for over five years, slipping past at least 15 reviews."
     }
   ],
-  "fetchedAt": "2026-11-26T01:24:35.388Z"
+  "fetchedAt": "2026-11-27T01:22:49.822Z"
 }
