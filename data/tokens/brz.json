@@ -11,11 +11,17 @@
     "Solana Ecosystem",
     "Avalanche Ecosystem",
     "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Celo Ecosystem",
     "Ethereum Ecosystem",
     "Algorand Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem",
     "Stellar Ecosystem",
+    "Chiliz Ecosystem",
     "Rootstock Ecosystem",
-    "Fiat-backed Stablecoin"
+    "Fiat-backed Stablecoin",
+    "Tempo Ecosystem"
   ],
   "genesisDate": null,
   "links": {
@@ -25,25 +31,25 @@
     "explorer": "https://etherscan.io/token/0x01d33fd36ec67c6ada32cf36b31e88ee190b1839"
   },
   "market": {
-    "price": 0.177373,
-    "marketCap": 49529450,
-    "marketCapRank": 391,
-    "volume24h": 120575,
-    "high24h": 0.177493,
-    "low24h": 0.170798,
-    "priceChange24h": 3.65144,
-    "priceChange7d": 6.4249,
-    "priceChange30d": -4.9427,
-    "priceChange1y": -4.9315,
+    "price": 0.177614,
+    "marketCap": 49221120,
+    "marketCapRank": 394,
+    "volume24h": 208669,
+    "high24h": 0.180676,
+    "low24h": 0.176475,
+    "priceChange24h": 0.21682,
+    "priceChange7d": 8.36161,
+    "priceChange30d": -4.64292,
+    "priceChange1y": -4.43572,
     "ath": 9.99,
-    "athChangePercentage": -98.22369,
+    "athChangePercentage": -98.22127,
     "athDate": "2023-10-29T15:35:00.000Z",
     "atl": 0.00196567,
     "atlDate": "2026-03-06T23:20:14.000Z",
-    "circulatingSupply": 279239605.2074867,
-    "totalSupply": 279239605.2074867,
+    "circulatingSupply": 277123530.0650963,
+    "totalSupply": 277123530.0650963,
     "maxSupply": null,
-    "fdv": 49529450
+    "fdv": 49221120
   },
   "community": {
     "twitterFollowers": null,
@@ -54,6 +60,6 @@
     "githubForks": null,
     "commits4Weeks": null
   },
-  "fetchedAt": "2026-11-05T22:55:03.318Z",
-  "lastMarketUpdate": "2026-11-27T01:08:59.000Z"
+  "fetchedAt": "2026-11-28T00:44:47.647Z",
+  "lastMarketUpdate": "2026-11-28T00:43:57.000Z"
 }
